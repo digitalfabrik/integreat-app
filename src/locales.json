@@ -407,7 +407,8 @@
     "en": {
       "settings": "Settings",
       "share": "Share",
-      "shareMessage": "Hey, check this out."
+      "shareMessage": "Hey, check this out.",
+      "shareFailDefaultMessage": "Something went wrong"
     },
     "de": {
       "settings": "Einstellungen"
@@ -422,7 +423,8 @@
       "settings": "تنظیمات"
     },
     "ru": {
-      "settings": "Настройки сброшены."
+      "settings": "Настройки сброшены.",
+      "shareFailMessage": "Произошла ошибка."
     }
   },
   "launchInquiry": {

@@ -802,10 +802,10 @@
   resolved "https://registry.yarnpkg.com/@integreat-app/eslint-config/-/eslint-config-0.2.1.tgz#0f82f1b7c9d22367b95134d92c4c21156c2b26c2"
   integrity sha1-D4Lxt8nSI2e5UTTZLEwhFWwrJsI=
 
-"@integreat-app/integreat-api-client@^4.0.0":
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/@integreat-app/integreat-api-client/-/integreat-api-client-4.0.0.tgz#486b769f9b7c32780b63f799d9a0bf5a875c9562"
-  integrity sha512-u7oRCbzqug1EdxqFN0kQE3LH4kkHEmRkYVq9NTnlSWAo/9YoEdHCHIyohvOtW+apdYBLZDx5SuxyNoE8jYXefQ==
+"@integreat-app/integreat-api-client@^4.1.0":
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/@integreat-app/integreat-api-client/-/integreat-api-client-4.1.0.tgz#62618170c9c1555088a480ec45bff16a4cf0ad90"
+  integrity sha512-MSrJd3kPVS7yoafh+cOWGGFQhJAxqSc+OG2BjvCd3+v47iXBGurva6Txhy4YHiJ8r5xEm+8VSsxHJTnVG41wqQ==
   dependencies:
     entities "^1.1"
     is-url "^1.2"
@@ -995,6 +995,11 @@
     node-fetch "^2.1.1"
     universal-user-agent "^2.0.0"
     url-template "^2.0.8"
+
+"@react-native-community/async-storage@^1.5.1":
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/@react-native-community/async-storage/-/async-storage-1.5.1.tgz#c496b4969eea5b91da1a5919a611046360b0c51f"
+  integrity sha512-Ssfx2uLYPnsuqIvDCuUOEZT6jh5AVy0U0mr2eHxNO2Syor1nfOrR/n4hTOFcBWc1wamDTGCqo+UHJpxURVXd2Q==
 
 "@react-native-community/cli@^1.2.1":
   version "1.9.11"
@@ -8481,6 +8486,11 @@ react-native-sentry@^0.42.0:
   dependencies:
     "@sentry/wizard" "^0.12.1"
     raven-js "^3.24.2"
+
+react-native-share@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/react-native-share/-/react-native-share-1.2.1.tgz#3756a3cf383c1489a6a0edf2b529ec025ee8f8f7"
+  integrity sha512-V9q1FM+LuYJ65qN3k6BLWs17mIbJCzGyMOhF3rb4MIQXdJfCUbtkDX9aaV86PzcsL1EudCA53HVTJBmWPDed0Q==
 
 react-native-svg-asset-plugin@^0.1.2:
   version "0.1.2"

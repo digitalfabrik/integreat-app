@@ -21,7 +21,7 @@ import type { NavigationScreenProp } from 'react-navigation'
 
 type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
 
-type StatePropsType = {| extra: ?ExtraModel |}
+type StatePropsType = {| extra: ?ExtraModel, language: string |}
 
 type PropsType = { ...OwnPropsType, ...StatePropsType }
 
@@ -29,6 +29,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   const extras: Array<ExtraModel> = ownProps.navigation.getParam('extras')
 
   return {
+    language: state.contentLanguage,
     extra: extras.find(extra => extra.alias === SPRUNGBRETT_EXTRA)
   }
 }
@@ -36,6 +37,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 type SprungbrettPropsType = {|
   navigation: NavigationScreenProp<*>,
   extra: ?ExtraModel,
+  language: string,
   theme: ThemeType,
   t: TFunction
 |}
@@ -78,7 +80,7 @@ class SprungbrettExtraContainer extends React.Component<SprungbrettPropsType, Sp
   }
 
   render () {
-    const { extra, t, theme } = this.props
+    const { extra, t, theme, language } = this.props
     const { jobs, error } = this.state
 
     if (error) {
@@ -89,7 +91,7 @@ class SprungbrettExtraContainer extends React.Component<SprungbrettPropsType, Sp
       return <ActivityIndicator size='large' color='#0000ff' />
     }
 
-    return <SprungbrettExtra sprungbrettExtra={extra} sprungbrettJobs={jobs} t={t} theme={theme} />
+    return <SprungbrettExtra sprungbrettExtra={extra} sprungbrettJobs={jobs} t={t} theme={theme} language={language} />
   }
 }
 

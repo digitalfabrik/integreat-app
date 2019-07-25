@@ -1,10 +1,14 @@
 // @flow
 
 import * as React from 'react'
+import Share from 'react-native-share'
 import styled, { type StyledComponent } from 'styled-components/native'
-import type { NavigationScene } from 'react-navigation'
+import type { NavigationScreenProp } from 'react-navigation'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import HeaderBackButton from 'react-navigation-stack/lib/module/views/Header/HeaderBackButton'
+import HeaderButtons, { HeaderButton, Item } from 'react-navigation-header-buttons'
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
+import type { TFunction } from 'react-i18next'
 
 const Horizontal = styled.View`
   flex:1;
@@ -29,29 +33,63 @@ const BoxShadow: StyledComponent<{}, ThemeType, *> = styled.View`
   height: ${props => props.theme.dimensions.modalHeaderHeight};
 `
 
-type PropsType = {
-  scene: NavigationScene,
-  scenes: Array<NavigationScene>,
-  theme: ThemeType
+type PropsType = {|
+  navigation: NavigationScreenProp<*>,
+  theme: ThemeType,
+  t: TFunction
+|}
+
+const MaterialHeaderButton = props => (
+  <HeaderButton {...props} IconComponent={MaterialIcon} iconSize={23} color='black' />
+)
+
+const MaterialHeaderButtons = props => {
+  return (
+    <HeaderButtons
+      HeaderButtonComponent={MaterialHeaderButton}
+      OverflowIcon={<MaterialIcon name='more-vert' size={23} color='black' />}
+      {...props}
+    />
+  )
 }
 
+export type ShareParamsType = {|
+  url: string,
+  pageTitle: string
+|}
+
 class TransparentHeader extends React.PureComponent<PropsType> {
-  getDescriptor (): { [key: string]: any } {
-    // $FlowFixMe
-    return this.props.scene.descriptor
+  goBack = () => {
+    this.props.navigation.goBack(null)
   }
 
-  goBack = () => {
-    this.getDescriptor().navigation.goBack(null)
+  onShare = async () => {
+    const { navigation, t } = this.props
+    const { url }: ShareParamsType = navigation.state.params
+
+    try {
+      await Share.open({
+        url,
+        failOnCancel: false
+      })
+    } catch (e) {
+      const errorMessage = e.hasOwnProperty('message') ? e.message : t('shareFailDefaultMessage')
+      alert(errorMessage)
+    }
   }
 
   render () {
+    const { t } = this.props
+
     return (
       <BoxShadow theme={this.props.theme}>
         <Horizontal>
           <HorizontalLeft>
             <HeaderBackButton onPress={this.goBack} />
           </HorizontalLeft>
+          <MaterialHeaderButtons>
+            <Item title={t('share')} show='never' onPress={this.onShare} />
+          </MaterialHeaderButtons>
         </Horizontal>
       </BoxShadow>
     )

@@ -4,12 +4,13 @@ import * as React from 'react'
 import { Text } from 'react-native'
 import styled, { type StyledComponent } from 'styled-components/native'
 import type { ThemeType } from '../../theme/constants/theme'
-import { getResourceCacheFilesDirPath, URL_PREFIX } from '../../platform/constants/webview'
+import { createHtmlSource, getResourceCacheFilesDirPath, URL_PREFIX } from '../../platform/constants/webview'
 import renderHtml from '../renderHtml'
 import { type DataDetectorTypes, WebView, type WebViewMessageEvent } from 'react-native-webview'
 import type { FileCacheStateType } from '../../app/StateType'
 import type { WebViewNavigation } from 'react-native-webview/js/WebViewTypes'
 import type { ViewLayoutEvent } from 'react-native/Libraries/Components/View/ViewPropTypes'
+import { RTL_LANGUAGES } from '../../i18n/components/I18nProvider'
 
 // see https://github.com/react-native-community/react-native-webview#common-issues
 const StyledView: StyledComponent<{}, {}, *> = styled.View`
@@ -26,6 +27,7 @@ type PropType = {|
   content: string,
   theme: ThemeType,
   files: FileCacheStateType,
+  language: string,
   cityCode: string,
   onLinkPress: string => void,
   onLoad: void => void
@@ -65,17 +67,15 @@ class RemoteContent extends React.Component<PropType, StateType> {
   }
 
   render () {
-    const { content, files, theme, cityCode } = this.props
+    const { content, files, theme, cityCode, language } = this.props
     const height = this.state.webViewHeight
     const width = this.state.webViewWidth
     const dataDetectorTypes: DataDetectorTypes = 'all'
     return <StyledView onLayout={this.onLayout}>
       {// $FlowFixMe dataDetectorTypes (correct types, but Flow doesn't try the right branch)
         <WebView
-          source={{
-            baseUrl: URL_PREFIX + getResourceCacheFilesDirPath(cityCode),
-            html: renderHtml(content, files, theme)
-          }}
+          source={createHtmlSource(renderHtml(content, files, theme, RTL_LANGUAGES.includes(language) ? 'rtl' : 'ltr'),
+            URL_PREFIX + getResourceCacheFilesDirPath(cityCode))}
           allowFileAccess // Needed by android to access file:// urls
           originWhitelist={['*']} // Needed by iOS to load the initial html
           useWebKit={false}

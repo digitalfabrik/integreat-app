@@ -5,6 +5,7 @@ import { WebView } from 'react-native-webview'
 import { Text } from 'react-native'
 import { stringify } from 'query-string'
 import { fromPairs } from 'lodash'
+import { createGetSource, createPostSource } from '../../../modules/platform/constants/webview'
 
 export type PropsType = {|
   url: string,
@@ -17,14 +18,7 @@ class ExternalExtra extends React.Component<PropsType> {
 
     const body = !postData ? '' : stringify(fromPairs([...postData.entries()]))
     return <WebView
-      source={{
-        uri: url,
-        method: postData ? 'POST' : 'GET',
-        body,
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        }
-      }}
+      source={postData ? createPostSource(url, body) : createGetSource(url, body)}
       useWebKit
       javaScriptEnabled
 

@@ -7,7 +7,7 @@ import type { MorphContentLanguageActionType } from '../../app/StoreActionType'
 import CategoriesMapModel from '@integreat-app/integreat-api-client/models/CategoriesMapModel'
 import forEachTreeNode from '../../common/forEachTreeNode'
 
-const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, newLanguage: string) =>
+const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, city: string, newLanguage: string) =>
   (route: CategoryRouteStateType): CategoryRouteStateType => {
     if (route.status !== 'ready') {
       console.warn('Route was not ready when translating. Will not translate this route.')
@@ -45,7 +45,8 @@ const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, newLangua
       depth,
       allAvailableLanguages,
       language: newLanguage,
-      status: 'ready'
+      status: 'ready',
+      city
     }
   }
 
@@ -96,11 +97,11 @@ const morphContentLanguage = (
   state: CityContentStateType, action: MorphContentLanguageActionType
 ): CityContentStateType => {
   const { newCategoriesMap, newResourceCache, newEvents, newLanguage } = action.params
-  const { categoriesRouteMapping, eventsRouteMapping } = state
+  const { categoriesRouteMapping, eventsRouteMapping, city } = state
 
   const translatedCategoriesRouteMapping = mapValues(
     categoriesRouteMapping,
-    categoryRouteTranslator(newCategoriesMap, newLanguage)
+    categoryRouteTranslator(newCategoriesMap, city, newLanguage)
   )
 
   const translatedEventsRouteMapping = mapValues(
