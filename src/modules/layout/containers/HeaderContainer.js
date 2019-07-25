@@ -11,7 +11,8 @@ import withTheme from '../../theme/hocs/withTheme'
 import type { StateType } from '../../app/StateType'
 import { type Dispatch } from 'redux'
 import type { ClearCityActionType, StoreActionType } from '../../app/StoreActionType'
-import { currentCityRouteSelector } from '../../common/selectors/currentCityRouteSelector'
+import { CityModel } from '@integreat-app/integreat-api-client'
+import isPeekingRoute from '../../endpoint/selectors/isPeekingRoute'
 
 type OwnPropsType = {|
   navigation: NavigationScreenProp<*>,
@@ -22,7 +23,9 @@ type OwnPropsType = {|
 
 type StatePropsType = {|
   language: string,
-  goToLanguageChange?: () => void
+  goToLanguageChange?: () => void,
+  peeking: boolean | 'unsure',
+  cityModel?: CityModel
 |}
 
 type DispatchPropsType = {|
@@ -33,21 +36,33 @@ type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const routeKey = ownProps.navigation.getParam('key')
-  if (state.cityContent && state.cityContent.languages) {
-    const languages = state.cityContent.languages
-    const route = routeKey && currentCityRouteSelector(state.cityContent, routeKey)
-    const currentLanguage = (route && route.language) || state.contentLanguage
-    const availableLanguages = (route && route.status === 'ready' && Array.from(route.allAvailableLanguages.keys())) ||
-      languages.map(lng => lng.code)
-    const goToLanguageChange = () => {
-      ownProps.navigation.navigate({
-        routeName: 'ChangeLanguageModal', params: { currentLanguage, languages, availableLanguages }
-      })
-    }
-    return { language: state.contentLanguage, goToLanguageChange }
+
+  const route = state.cityContent?.categoriesRouteMapping[routeKey]
+  const languages = state.cityContent?.languages
+
+  if (!route || route.status !== 'ready' || state.cities.errorMessage !== undefined ||
+    !state.cities.models || !state.cityContent || !languages) {
+    // Route does not exist yet. In this case it is not really defined whether we are peek or not because
+    // we do not yet know the city of the route.
+    return { language: state.contentLanguage, peeking: 'unsure' }
   }
 
-  return { language: state.contentLanguage }
+  const cities = state.cities.models
+  const cityCode = state.cityContent.city
+  const cityModel = cities.find(city => city.code === cityCode)
+  const goToLanguageChange = () => {
+    ownProps.navigation.navigate({
+      routeName: 'ChangeLanguageModal',
+      params: {
+        currentLanguage: route.language,
+        languages,
+        availableLanguages: route.allAvailableLanguages
+      }
+    })
+  }
+  const peeking = isPeekingRoute(state, { routeCity: route.city })
+
+  return { peeking, cityModel, language: route.language, goToLanguageChange }
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps: OwnPropsType): DispatchPropsType => ({

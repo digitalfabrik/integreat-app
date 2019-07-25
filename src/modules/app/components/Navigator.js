@@ -36,6 +36,7 @@ import FeedbackModalContainer from '../../../routes/feedback/containers/Feedback
 import { generateKey } from '../generateRouteKey'
 import AppSettings from '../../settings/AppSettings'
 import type { Dispatch } from 'redux'
+import type { StoreActionType } from '../StoreActionType'
 
 const LayoutedDashboardContainer = withLayout(DashboardContainer)
 const LayoutedCategoriesContainer = withLayout(CategoriesContainer)
@@ -102,7 +103,7 @@ type PropsType = {|
 class Navigator extends React.Component<PropsType> {
   appSettings: AppSettings
   navigator: {
-    current: null | { ...React$ElementRef<NavigationContainer<NavigationState, {}, {}>>, dispatch: Dispatch<*> }
+    current: null | { ...React$ElementRef<NavigationContainer<NavigationState, {}, {}>>, dispatch: Dispatch<StoreActionType> }
   }
 
   constructor (props: PropsType) {

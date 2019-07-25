@@ -62,13 +62,14 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   if (!state.cityContent) {
     return { status: 'routeNotInitialized' }
   }
-  const { resourceCache, categoriesRouteMapping, city, switchingLanguage } = state.cityContent
+  const { resourceCache, categoriesRouteMapping, switchingLanguage } = state.cityContent
   const route = categoriesRouteMapping[ownProps.navigation.getParam('key')]
 
   if (!route) {
     return { status: 'routeNotInitialized' }
   }
 
+  const city = route.city
   const refreshProps = { cityCode: city, language: route.language, path: route.root, navigation: ownProps.navigation }
 
   if (state.cities.errorMessage !== undefined ||

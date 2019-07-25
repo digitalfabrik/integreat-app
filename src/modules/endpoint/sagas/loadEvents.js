@@ -7,6 +7,7 @@ import request from '../request'
 import { baseUrl } from '../constants'
 import type { FetchMapType } from './fetchResourceCache'
 import type { DataContainer } from '../DataContainer'
+import DatabaseContext from '../DatabaseContext'
 
 function * fetchEvents (city: string, language: string): Saga<Array<EventModel>> {
   const params = { city, language }
@@ -18,7 +19,10 @@ function * fetchEvents (city: string, language: string): Saga<Array<EventModel>>
 function * loadEvents (
   city: string, language: string, dataContainer: DataContainer, shouldUpdate: boolean
 ): Saga<FetchMapType> {
-  if (!dataContainer.eventsAvailable() || shouldUpdate) {
+  const context = new DatabaseContext(city, language)
+  const eventsAvailable = yield call({ context: dataContainer, fn: dataContainer.eventsAvailable }, context)
+
+  if (!eventsAvailable || shouldUpdate) {
     // data is already loaded and should not be updated
 
     console.debug('Fetching events')
@@ -27,12 +31,12 @@ function * loadEvents (
 
     const events = yield call(fetchEvents, city, language)
 
-    yield call(dataContainer.setEvents, events)
+    yield call(dataContainer.setEvents, context, events)
     return events
   }
 
   console.debug('Using cached events')
-  return yield call(dataContainer.getEvents)
+  return yield call(dataContainer.getEvents, context)
 }
 
 export default loadEvents

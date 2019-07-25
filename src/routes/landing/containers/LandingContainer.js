@@ -76,7 +76,12 @@ class LandingContainer extends React.Component<ContainerPropsType> {
     return dispatch({
       type: 'FETCH_CATEGORY',
       params: {
-        city: cityCode, language, path, depth: 2, forceUpdate: false, shouldRefreshResources: true, key
+        city: cityCode,
+          language,
+          path,
+          depth: 2,
+          criterion: { forceUpdate: false, shouldRefreshResources: true },
+          key
       }
     })
   }

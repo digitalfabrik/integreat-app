@@ -15,7 +15,8 @@ export type PathType = string
 export type CategoryRouteConfigType = {|
   +root: string, // path of the root category
   +depth: number,
-  +language: string
+  +language: string,
+  +city: string
 |}
 
 export type CategoryRouteStateType = {|
