@@ -77,11 +77,11 @@ class LandingContainer extends React.Component<ContainerPropsType> {
       type: 'FETCH_CATEGORY',
       params: {
         city: cityCode,
-          language,
-          path,
-          depth: 2,
-          criterion: { forceUpdate: false, shouldRefreshResources: true },
-          key
+        language,
+        path,
+        depth: 2,
+        criterion: { forceUpdate: false, shouldRefreshResources: true },
+        key
       }
     })
   }
