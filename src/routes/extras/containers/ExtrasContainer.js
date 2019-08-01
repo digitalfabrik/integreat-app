@@ -16,26 +16,28 @@ import withTheme from '../../../modules/theme/hocs/withTheme'
 
 type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
 
-type StatePropsType = {| city: string, language: string |}
+type StatePropsType = {| city: string, language: string, cities: ?Array<CityModel> |}
 
 type PropsType = { ...OwnPropsType, ...StatePropsType }
 
-const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
-  const language = state.cityContent.language
-  if (!language) {
-    throw new Error('The state does not contain a language. Therefore it is not possible to open the extras!')
+const mapStateToProps = (state: StateType): StatePropsType => {
+  if (!state.cityContent) {
+    throw new Error('CityContent must not be null!')
   }
 
+  const cities: ?Array<CityModel> = state.cities.errorMessage !== undefined ? null : state.cities.models
+
   return {
-    city: ownProps.navigation.getParam('cityCode'),
-    language: language
+    city: state.cityContent.city,
+    language: state.contentLanguage,
+    cities
   }
 }
 
 type ExtrasPropsType = {|
   navigation: NavigationScreenProp<*>,
   city: string,
-  cities: Array<CityModel>,
+  cities: ?Array<CityModel>,
   language: string,
   navigateToExtra: (path: string, isExternalUrl: boolean) => void,
   theme: ThemeType,
@@ -50,7 +52,7 @@ type ExtrasStateType = {|
 class ExtrasContainer extends React.Component<ExtrasPropsType, ExtrasStateType> {
   constructor (props: ExtrasPropsType) {
     super(props)
-    this.state = {extras: null, error: null}
+    this.state = { extras: null, error: null }
   }
 
   componentWillMount () {
@@ -62,29 +64,29 @@ class ExtrasContainer extends React.Component<ExtrasPropsType, ExtrasStateType> 
       throw new Error('push is not defined on navigation')
     }
     if (isExternalUrl) {
-      this.props.navigation.push('ExternalExtra', {url: path, postData})
+      this.props.navigation.push('ExternalExtra', { url: path, postData })
     } else {
-      const params = {city: this.props.city, extras: this.state.extras, offerHash: null}
+      const params = { city: this.props.city, extras: this.state.extras, offerHash: null }
       this.props.navigation.push(path, params)
     }
   }
 
   async loadExtras () {
-    const {city, language} = this.props
-    const payload: Payload<Array<ExtraModel>> = await request(createExtrasEndpoint(baseUrl), {city, language})
+    const { city, language } = this.props
+    const payload: Payload<Array<ExtraModel>> = await request(createExtrasEndpoint(baseUrl), { city, language })
 
     if (payload.error) {
-      this.setState(() => ({error: payload.error, extras: null}))
+      this.setState(() => ({ error: payload.error, extras: null }))
     } else {
-      this.setState(() => ({error: null, extras: payload.data}))
+      this.setState(() => ({ error: null, extras: payload.data }))
     }
   }
 
   render () {
-    const {theme, t, cities, navigation, city} = this.props
-    const {extras, error} = this.state
+    const { theme, t, cities, navigation, city, language } = this.props
+    const { extras, error } = this.state
 
-    if (error) {
+    if (error || !cities) {
       return <Failure error={error} />
     }
 
@@ -93,7 +95,7 @@ class ExtrasContainer extends React.Component<ExtrasPropsType, ExtrasStateType> 
     }
 
     return <Extras extras={extras} navigateToExtra={this.navigateToExtra} theme={theme} t={t} cities={cities}
-                   navigation={navigation} cityCode={city} />
+                   navigation={navigation} cityCode={city} language={language} />
   }
 }
 

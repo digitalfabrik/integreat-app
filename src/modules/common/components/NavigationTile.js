@@ -2,11 +2,10 @@
 
 import * as React from 'react'
 import { View } from 'react-native'
-import styled from 'styled-components/native'
+import styled, { type StyledComponent } from 'styled-components/native'
 import TileModel from '../models/TileModel'
-import FastImage from 'react-native-fast-image'
 import type { ThemeType } from '../../theme/constants/theme'
-import getFastImageSource from '../getFastImageSource'
+import Image from './Image'
 
 const NEWS_DOT_RADIUS = 20
 const ICON_SIZE = 50
@@ -22,12 +21,17 @@ const Circle = styled(View)`
   border-radius: ${ICON_SIZE}px;
   height: ${ICON_SIZE};
   width: ${ICON_SIZE};
-  background-color: ${props => props.theme.colors.themeColor};
+  background-color: ${props => props.theme.colors.backgroundColor};
   align-items: center;
   justify-content: center;
+  elevation: 2;
+  shadow-color: #000;
+  shadow-offset: 0px 1px;
+  shadow-opacity: 0.2;
+  shadow-radius: 1.41px;
 `
 
-const Thumbnail = styled(FastImage)`
+const ThumbnailContainer = styled(Image)`
   height: ${ICON_SIZE / Math.sqrt(2)};
   width: ${ICON_SIZE / Math.sqrt(2)};
 `
@@ -39,7 +43,7 @@ const TileTitle = styled.Text`
   margin-bottom: 5px;
 `
 
-const TileTouchable = styled.TouchableOpacity`
+const TileTouchable: StyledComponent<{}, {}, *> = styled.TouchableOpacity`
   padding: 10px 0;
   flex: 1;
   align-items: center;
@@ -57,10 +61,10 @@ const NewsDot = styled.Text`
   background-color: #EE5353;
   color: #FFFFFF;
   elevation: 5;
-  shadow-color: #000000;
-  shadow-opacity: 0.4;
-  shadow-radius: 3px;
-  shadow-offset: 3px 3px;
+  shadow-color: #000;
+  shadow-offset: 0px 2px;
+  shadow-opacity: 0.25;
+  shadow-radius: 3.84px;
 `
 
 /**
@@ -77,11 +81,10 @@ class NavigationTile extends React.Component<PropsType> {
   }
 
   getTileContent (): React.Node {
-    const {tile, theme} = this.props
-    const imageSource = getFastImageSource(tile.thumbnail)
+    const { tile, theme } = this.props
     return <>
       <Circle theme={theme}>
-        <Thumbnail source={imageSource} resizeMode={FastImage.resizeMode.contain} />
+        <ThumbnailContainer source={tile.thumbnail} />
         {this.getNewsDot()}
       </Circle>
       <TileTitle theme={theme}>{tile.title}</TileTitle>
@@ -89,7 +92,7 @@ class NavigationTile extends React.Component<PropsType> {
   }
 
   render () {
-    const {tile, theme} = this.props
+    const { tile, theme } = this.props
     return (
       <TileTouchable theme={theme} onPress={tile.onTilePress}>
         {this.getTileContent()}

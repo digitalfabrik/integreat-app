@@ -29,7 +29,7 @@ pipeline {
                         stage("Install dependencies") {
                             steps {
                                 checkout scm
-                                sh 'yarn'
+                                sh 'yarn install --frozen-lockfile'
                             }
                         }
                         stage('Build Release for iOS') {
@@ -47,7 +47,7 @@ pipeline {
                                     sh 'cd ios && pod install'
                                     sh 'xcodebuild -workspace ios/Integreat.xcworkspace -scheme "Integreat" -configuration Release archive -archivePath output/Integreat.xcarchive ENABLE_BITCODE=NO'
                                 }
-                                sh 'xcodebuild -exportArchive -archivePath output/Integreat.xcarchive -exportOptionsPlist ios/export/development.plist -exportPath output/export'
+                                sh 'xcodebuild -exportArchive -archivePath output/Integreat.xcarchive -exportOptionsPlist ios/ExportOptions/AdHocExportOptions.plist -exportPath output/export'
                                 archiveArtifacts artifacts: 'output/export/**/*.*'
                             }
                         }
@@ -91,7 +91,7 @@ pipeline {
                         stage("Install dependencies") {
                             steps {
                                 checkout scm
-                                sh 'yarn'
+                                sh 'yarn install --frozen-lockfile'
                             }
                         }
                         stage("Build Debug Bundle") {

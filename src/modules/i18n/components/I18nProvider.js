@@ -8,21 +8,20 @@ import { forEach, reduce } from 'lodash/collection'
 import localesResources from '../../../locales.json'
 import LanguageDetector from '../LanguageDetector'
 import MomentContext, { createMomentFormatter } from '../context/MomentContext'
-import type { UiDirectionType } from '../actions/setUIDirection'
+import AppSettings from '../../settings/AppSettings'
 
-const RTL_LANGUAGES = ['ar', 'fa']
+export const RTL_LANGUAGES = ['ar', 'fa']
 const FALLBACK_LANGUAGES = ['en', 'de']
-const DEFAULT_LANGUAGE = 'en'
+export const DEFAULT_LANGUAGE = 'en'
 
 type PropsType = {|
   children?: React.Node,
-  setUiDirection: (direction: UiDirectionType) => void
+  setContentLanguage: (language: string) => void
 |}
 
-type StateType = {| language: string |}
-
-class I18nProvider extends React.Component<PropsType, StateType> {
+class I18nProvider extends React.Component<PropsType> {
   i18n: i18n
+  appSettings: AppSettings
 
   constructor () {
     super()
@@ -39,18 +38,18 @@ class I18nProvider extends React.Component<PropsType, StateType> {
         debug: __DEV__
       })
 
-    this.state = {language: DEFAULT_LANGUAGE}
+    this.appSettings = new AppSettings()
   }
 
   /**
    * Transform locale resources to the structure: languageCode -> namespace -> key:value
    * And not: namespace -> languageCode -> key:value
    * @param {object} resources
-   * @returns {object} transformed resources suplliable to i18next instance
+   * @returns {object} transformed resources that can be supplied to i18next instance
    */
   static transformResources (resources: {
     namespace: string,
-    language: { langauge: string, languageCode: string }
+    language: { language: string, languageCode: string }
   }): { key: string, value: string } {
     return reduce(
       resources,
@@ -75,18 +74,22 @@ class I18nProvider extends React.Component<PropsType, StateType> {
     }
   }
 
-  initLanguage () {
-    const targetLanguage = this.getI18nextLanguage()
+  async initContentLanguage () {
+    const { setContentLanguage } = this.props
+    const contentLanguage: ?string = await this.appSettings.loadContentLanguage()
+    const uiLanguage = this.getI18nextLanguage()
 
-    this.setState({language: targetLanguage})
-    this.props.setUiDirection(RTL_LANGUAGES.includes(targetLanguage) ? 'rtl' : 'ltr')
+    if (!contentLanguage) {
+      await this.appSettings.setContentLanguage(uiLanguage)
+      setContentLanguage(uiLanguage)
+    }
   }
 
   componentDidMount () {
-    this.initLanguage()
+    this.initContentLanguage()
   }
 
-  momentFormatter = createMomentFormatter(() => undefined, () => this.state.language)
+  momentFormatter = createMomentFormatter(() => undefined, () => DEFAULT_LANGUAGE)
 
   render () {
     return (

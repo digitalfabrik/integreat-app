@@ -16,9 +16,6 @@
     [
       "module-resolver",
       {
-        "root": [
-          "./src"
-        ],
         "extensions": [
           ".ios.js",
           ".android.js",

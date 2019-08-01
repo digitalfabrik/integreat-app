@@ -6,7 +6,7 @@ import type { SettingsType } from '../../modules/settings/AppSettings'
 
 export type ChangeSettingFunctionType = SettingsType => $Shape<SettingsType>
 
-export default ({setSetting, t, language}: {
+export default ({ setSetting, t, language }: {
                   setSetting: (changeSetting: ChangeSettingFunctionType) => Promise<void>,
                   t: TFunction,
                   language: string
@@ -29,13 +29,21 @@ export default ({setSetting, t, language}: {
       ]
     },
     {
+      title: null,
       data: [
         {
           title: t('troubleshooting'),
           description: t('troubleshootingDescription'),
           hasSwitch: true,
           getSettingValue: (settings: SettingsType) => settings.errorTracking,
-          onPress: () => { setSetting(settings => ({errorTracking: !settings.errorTracking})) }
+          onPress: () => { setSetting(settings => ({ errorTracking: !settings.errorTracking })) }
+        },
+        {
+          title: t('allowPushNotifications'),
+          description: t('allowPushNotificationsDescription'),
+          hasSwitch: true,
+          getSettingValue: (settings: SettingsType) => settings.allowPushNotifications,
+          onPress: () => { setSetting(settings => ({ allowPushNotifications: !settings.allowPushNotifications })) }
         },
         {
           title: t('about'),
@@ -58,7 +66,7 @@ export default ({setSetting, t, language}: {
           }
         },
         {
-          title: t('version', {version: '??'})
+          title: t('version', { version: '??' })
         },
         {
           title: t('openSourceLicenses'),

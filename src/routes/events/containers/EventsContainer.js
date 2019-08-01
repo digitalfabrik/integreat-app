@@ -42,7 +42,10 @@ type DispatchPropsType = {|
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
-  const {resourceCache, eventsRouteMapping, city} = state.cityContent
+  if (!state.cityContent || state.cityContent.switchingLanguage) {
+    return { error: false, languageNotAvailable: false }
+  }
+  const { resourceCache, eventsRouteMapping, city } = state.cityContent
 
   if (eventsRouteMapping.errorMessage !== undefined || state.cities.errorMessage !== undefined ||
     resourceCache.errorMessage !== undefined) {
@@ -53,7 +56,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 
   const route = eventsRouteMapping[ownProps.navigation.getParam('key')]
 
-  if (!route || !city) {
+  if (!route) {
     return { error: false, languageNotAvailable: false }
   }
 
@@ -81,7 +84,10 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps: OwnPr
   changeUnavailableLanguage: (city: string, newLanguage: string) => {
     dispatch({
       type: 'SWITCH_CONTENT_LANGUAGE',
-      params: {city, newLanguage}
+      params: {
+        city,
+        newLanguage
+      }
     })
   }
 })

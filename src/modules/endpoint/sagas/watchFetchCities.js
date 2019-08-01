@@ -22,7 +22,7 @@ function * fetchCities (dataContainer: DataContainer): Saga<void> {
 
     const insert: PushCitiesActionType = {
       type: `PUSH_CITIES`,
-      params: {cities: cities}
+      params: { cities: cities }
     }
     yield put(insert)
   } catch (e) {

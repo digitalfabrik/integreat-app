@@ -22,26 +22,28 @@ export type StatePropsType = {|
   languageNotAvailable: boolean,
   availableLanguages?: Array<LanguageModel>,
   currentCityCode?: string,
-  cities?: Array<CityModel>
+  cities?: Array<CityModel>,
+  language: string
 |}
 
 type DispatchPropsType = {|
   fetchCities: () => StoreActionType,
-  navigateToDashboard: (cityCode: string) => StoreActionType,
+  navigateToDashboard: (cityCode: string, language: string) => StoreActionType,
   changeUnavailableLanguage?: (city: string, newLanguage: string) => void
 |}
 
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
 const mapStateToProps = (state: StateType): StatePropsType => {
+  const language = state.contentLanguage
   if (state.cities.errorMessage !== undefined) {
-    return { error: true, languageNotAvailable: false }
+    return { error: true, languageNotAvailable: false, language }
   }
 
   if (!state.cities.models) {
-    return { error: false, languageNotAvailable: false }
+    return { error: false, languageNotAvailable: false, language }
   }
-  return { error: false, languageNotAvailable: false, cities: state.cities.models }
+  return { error: false, languageNotAvailable: false, cities: state.cities.models, language }
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps: OwnPropsType): DispatchPropsType => {
@@ -49,13 +51,7 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps: OwnPr
     fetchCities: () => dispatch({
       type: 'FETCH_CITIES'
     }),
-    navigateToDashboard: (cityCode: string) => {
-      const language = ownProps.i18n.language
-
-      if (!language) {
-        throw Error('Failed to get language from i18n prop.')
-      }
-
+    navigateToDashboard: (cityCode: string, language: string) => {
       const path = `/${cityCode}/${language}`
       const key: string = generateKey()
 
@@ -65,7 +61,7 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps: OwnPr
           cityCode,
           key,
           sharePath: path,
-          onRouteClose: () => dispatch({type: 'CLEAR_CATEGORY', params: {key}})
+          onRouteClose: () => dispatch({ type: 'CLEAR_CATEGORY', params: { key } })
         },
         newKey: key
       })
@@ -79,7 +75,12 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps: OwnPr
       return dispatch({
         type: 'FETCH_CATEGORY',
         params: {
-          city: cityCode, language, path, depth: 2, forceUpdate: false, shouldRefreshResources: true, key
+          city: cityCode,
+          language,
+          path,
+          depth: 2,
+          criterion: { forceUpdate: false, shouldRefreshResources: true },
+          key
         }
       })
     }

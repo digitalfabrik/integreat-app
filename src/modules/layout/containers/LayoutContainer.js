@@ -1,4 +1,5 @@
 // @flow
+
 import Layout from '../components/Layout'
 import withTheme from '../../theme/hocs/withTheme'
 

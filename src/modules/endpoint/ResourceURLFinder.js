@@ -18,7 +18,7 @@ export default class ResourceURLFinder {
   }
 
   init () {
-    this.parser = new Parser({onattribute: this._onAttributeTagFound}, {decodeEntities: true})
+    this.parser = new Parser({ onattribute: this._onAttributeTagFound }, { decodeEntities: true })
   }
 
   finalize () {

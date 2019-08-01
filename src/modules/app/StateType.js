@@ -1,7 +1,5 @@
 // @flow
 
-import type { StoreActionType } from './StoreActionType'
-import type { PersistState } from 'redux-persist/src/types'
 import {
   CategoriesMapModel,
   CategoryModel,
@@ -10,6 +8,7 @@ import {
   LanguageModel
 } from '@integreat-app/integreat-api-client'
 import Moment from 'moment'
+import { DEFAULT_LANGUAGE } from '../i18n/components/I18nProvider'
 
 export type PathType = string
 
@@ -21,7 +20,8 @@ export type CategoryRouteStateType = {|
                                                    in the state. This would be an optimization! */
   +children: { [path: PathType]: Array<PathType> },
   +allAvailableLanguages: Map<string, string>, // including the current content language
-  +language: string
+  +language: string,
+  +city: string
 |}
 
 export type EventRouteStateType = {|
@@ -67,41 +67,28 @@ export const defaultCitiesState: CitiesStateType = {
   models: null
 }
 
+export const defaultContentLanguageState = DEFAULT_LANGUAGE
+
 export type SearchRouteType = {|
-  +categoriesMap: CategoriesMapModel | null
+  +categoriesMap: CategoriesMapModel
 |}
 
 export type CityContentStateType = {|
-  +lastUpdate: Moment | null,
-  +language: string | null,
-  +city: string | null,
-  +languages: Array<LanguageModel> | null,
+  +city: string,
+  +switchingLanguage: boolean,
+  +languages: Array<LanguageModel>,
   +categoriesRouteMapping: CategoriesRouteMappingType,
   +eventsRouteMapping: EventsRouteMappingType,
   +resourceCache: LanguageResourceCacheStateType,
-  +searchRoute: SearchRouteType
+  +searchRoute: SearchRouteType | null
 |}
 
-export const defaultCityContentState: CityContentStateType = {
-  lastUpdate: null,
-  language: null,
-  city: null,
-  languages: null,
-  categoriesRouteMapping: {},
-  eventsRouteMapping: {},
-  resourceCache: {},
-  searchRoute: {categoriesMap: null}
-}
-
-export type DirectionStateType = 'ltr' | 'rtl'
+export const defaultCityContentState = null
 
 export type StateType = {|
-  +uiDirection: DirectionStateType,
   +darkMode: boolean,
 
-  +cityContent: CityContentStateType,
-  +cities: CitiesStateType,
-
-  +network: {| +isConnected: boolean, +actionQueue: Array<StoreActionType> |},
-  +_persist?: PersistState
+  +cityContent: CityContentStateType | null,
+  +contentLanguage: string,
+  +cities: CitiesStateType
 |}

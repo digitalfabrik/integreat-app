@@ -9,14 +9,15 @@ import type { ThemeType } from '../../../modules/theme/constants/theme'
 type PropsType = {|
   job: SprungbrettJobModel,
   openJobInBrowser: () => void,
-  theme: ThemeType
+  theme: ThemeType,
+  language: string
 |}
 
 class SprungbrettListItem extends React.PureComponent<PropsType> {
   render () {
-    const { job, openJobInBrowser, theme } = this.props
+    const { language, job, openJobInBrowser, theme } = this.props
     return (
-      <ListItem title={job.title} navigateTo={openJobInBrowser} theme={theme}>
+      <ListItem thumbnail={null} title={job.title} navigateTo={openJobInBrowser} theme={theme} language={language}>
         <Text>{job.location}</Text>
       </ListItem>
     )

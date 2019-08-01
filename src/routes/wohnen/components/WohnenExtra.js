@@ -16,6 +16,7 @@ type PropsType = {|
   offers: Array<WohnenOfferModel>,
   offerHash?: WohnenOfferModel,
   wohnenExtra: ExtraModel,
+  language: string,
   navigateToOffer: (offerHash: string) => void,
   t: TFunction,
   theme: ThemeType
@@ -27,6 +28,7 @@ class WohnenExtra extends React.Component<PropsType> {
     return (
       <OfferListItem key={hashedOffer}
                      offer={offer}
+                     language={this.props.language}
                      navigateToOffer={this.navigateToOffer(hashedOffer)}
                      theme={this.props.theme} />)
   }
@@ -36,7 +38,7 @@ class WohnenExtra extends React.Component<PropsType> {
   }
 
   render () {
-    const {offers, wohnenExtra, offerHash, t, theme} = this.props
+    const { offers, wohnenExtra, offerHash, t, theme } = this.props
 
     if (offerHash) {
       const offer = offers.find(_offer => hashWohnenOffer(_offer) === offerHash)

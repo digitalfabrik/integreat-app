@@ -16,6 +16,29 @@ class DatabaseContext {
   get languageCode (): string {
     return this._languageCode
   }
+
+  sameCityAs (anotherContext: ?DatabaseContext): boolean {
+    if (!anotherContext) {
+      return false
+    }
+    return anotherContext.cityCode === this.cityCode
+  }
+
+  sameLanguageAs (anotherContext: ?DatabaseContext): boolean {
+    if (!anotherContext) {
+      return false
+    }
+    return anotherContext.languageCode === this.languageCode
+  }
+
+  equals (anotherContext: ?DatabaseContext): boolean {
+    if (!anotherContext) {
+      return false
+    }
+
+    return this.sameCityAs(anotherContext) &&
+      this.sameLanguageAs(anotherContext)
+  }
 }
 
 export default DatabaseContext
