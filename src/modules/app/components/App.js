@@ -10,10 +10,10 @@ import AndroidStatusBarContainer from '../../platform/containers/AndroidStatusBa
 import type { Store } from 'redux'
 import type { StateType } from '../StateType'
 import type { StoreActionType } from '../StoreActionType'
-import Navigator from './Navigator'
 import DefaultDataContainer from '../../endpoint/DefaultDataContainer'
 import type { DataContainer } from '../../endpoint/DataContainer'
 import LaunchInquiry from './LaunchInquiry'
+import NavigatorContainer from '../containers/NavigatorContainer'
 
 type PropsType = {||}
 
@@ -33,19 +33,12 @@ class App extends React.Component<PropsType, AppStateType> {
 
     this.dataContainer = new DefaultDataContainer()
 
-    const storeConfig = createReduxStore(
-      this.dataContainer,
-      () => { this.setState({waitingForStore: false}) }
+    this.store = createReduxStore(
+      this.dataContainer
     )
-
-    this.store = storeConfig.store
   }
 
   render () {
-    if (this.state.waitingForStore) {
-      return null
-    }
-
     return (
       <Provider store={this.store}>
         <I18nProviderContainer>
@@ -53,7 +46,7 @@ class App extends React.Component<PropsType, AppStateType> {
             <>
               <AndroidStatusBarContainer />
               <IOSSafeAreaView>
-                <Navigator />
+                <NavigatorContainer />
               </IOSSafeAreaView>
             </>
           </LaunchInquiry>

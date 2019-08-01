@@ -1,13 +1,13 @@
 // @flow
 
-import type { CityContentStateType } from '../../app/StateType'
+import type { CategoryRouteStateType, CityContentStateType } from '../../app/StateType'
 import type { PushCategoryActionType } from '../../app/StoreActionType'
-import { CategoryModel, LanguageModel } from '@integreat-app/integreat-api-client'
+import { CategoryModel } from '@integreat-app/integreat-api-client'
 import forEachTreeNode from '../../common/forEachTreeNode'
 
-const getAllAvailableLanguages = (category: CategoryModel, language: string, city: string, languages: Array<LanguageModel>) => {
+const getAllAvailableLanguages = (category: CategoryModel, language: string, rootAvailableLanguage: Map<string, string>) => {
   if (category.isRoot()) {
-    return new Map<string, string>(languages.map(language => [language.code, `/${city}/${language.code}`]))
+    return rootAvailableLanguage
   }
   const allAvailableLanguages = new Map(category.availableLanguages)
   allAvailableLanguages.set(language, category.path)
@@ -15,7 +15,7 @@ const getAllAvailableLanguages = (category: CategoryModel, language: string, cit
 }
 
 const pushCategory = (state: CityContentStateType, action: PushCategoryActionType): CityContentStateType => {
-  const {categoriesMap, path, depth, key, language, city, resourceCache, languages} = action.params
+  const { categoriesMap, path, depth, key, language, city, resourceCache, rootAvailableLanguages } = action.params
 
   if (!depth) {
     throw new Error('You need to specify a depth!')
@@ -39,26 +39,27 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
 
   // If there is an error in the old resourceCache, we want to override it
   const newResourceCache =
-    state.resourceCache.errorMessage === undefined ? {...state.resourceCache, ...resourceCache} : resourceCache
+    state.resourceCache.errorMessage === undefined ? { ...state.resourceCache, ...resourceCache } : resourceCache
 
-  const route = {
+  const route: CategoryRouteStateType = {
     root: root.path,
     models: resultModels,
     children: resultChildren,
     depth: depth,
-    allAvailableLanguages: getAllAvailableLanguages(root, language, city, languages),
-    language
+    allAvailableLanguages: getAllAvailableLanguages(root, language, rootAvailableLanguages),
+    language,
+    city
   }
 
   const newCategoriesRouteMapping = state.categoriesRouteMapping.errorMessage === undefined
-    ? {...state.categoriesRouteMapping, [key]: route}
-    : {[key]: route}
+    ? { ...state.categoriesRouteMapping, [key]: route }
+    : { [key]: route }
 
   return {
     ...state,
     categoriesRouteMapping: newCategoriesRouteMapping,
     resourceCache: newResourceCache,
-    searchRoute: {categoriesMap}
+    searchRoute: { categoriesMap }
   }
 }
 

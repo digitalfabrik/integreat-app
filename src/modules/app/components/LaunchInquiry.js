@@ -34,11 +34,11 @@ class LaunchInquiry extends React.Component<PropsType, AppStateType> {
 
     this.appSettings = new AppSettings()
 
-    this.askForSentry()
+    this.askAlerts()
   }
 
-  async askForSentry () {
-    const {t} = this.props
+  async askAlerts () {
+    const { t } = this.props
 
     try {
       const settings = await this.appSettings.loadSettings()
@@ -48,20 +48,33 @@ class LaunchInquiry extends React.Component<PropsType, AppStateType> {
           t('troubleshooting'),
           t('troubleshootingDescription'),
           [
-            {text: t('no'), style: 'destructive', onPress: () => this.disableSentry()},
-            {text: t('askLater'), style: 'cancel', onPress: () => this.setState({waitingForSentry: false})},
-            {text: t('yes'), style: 'default', onPress: () => this.enableSentry(true)}
+            { text: t('no'), style: 'destructive', onPress: () => this.disableSentry() },
+            { text: t('askLater'), style: 'cancel', onPress: () => this.setState({ waitingForSentry: false }) },
+            { text: t('yes'), style: 'default', onPress: () => this.enableSentry(true) }
           ],
-          {cancelable: true}
+          { cancelable: true }
         )
       } else if (settings.errorTracking === true) {
         await this.enableSentry()
       } else {
-        this.setState({waitingForSentry: false})
+        this.setState({ waitingForSentry: false })
+      }
+
+      if (settings.allowPushNotifications === null) {
+        Alert.alert(
+          t('allowPushNotifications'),
+          t('allowPushNotificationsDescription'),
+          [
+            { text: t('no'), style: 'destructive', onPress: () => this.disablePushNotification() },
+            { text: t('askLater'), style: 'cancel' },
+            { text: t('yes'), style: 'default', onPress: () => this.enablePushNotification() }
+          ],
+          { cancelable: true }
+        )
       }
     } catch (e) {
       console.error('Failed to load settings.')
-      this.setState({waitingForSentry: false})
+      this.setState({ waitingForSentry: false })
     }
   }
 
@@ -70,18 +83,26 @@ class LaunchInquiry extends React.Component<PropsType, AppStateType> {
       const sentry = new SentryIntegration()
       await sentry.install()
       if (persist) {
-        await this.appSettings.setSettings({errorTracking: true})
+        await this.appSettings.setSettings({ errorTracking: true })
       }
     } catch (e) {
       console.error('Failed to enable sentry.')
     } finally {
-      this.setState({waitingForSentry: false})
+      this.setState({ waitingForSentry: false })
     }
   }
 
   async disableSentry () {
-    this.setState({waitingForSentry: false})
-    await this.appSettings.setSettings({errorTracking: false})
+    this.setState({ waitingForSentry: false })
+    await this.appSettings.setSettings({ errorTracking: false })
+  }
+
+  async enablePushNotification () {
+    await this.appSettings.setSettings({ allowPushNotifications: true })
+  }
+
+  async disablePushNotification () {
+    await this.appSettings.setSettings({ allowPushNotifications: false })
   }
 
   render () {

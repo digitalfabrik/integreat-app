@@ -4,22 +4,7 @@ import * as React from 'react'
 import styled from 'styled-components/native'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import HeaderBackButton from 'react-navigation-stack/lib/module/views/Header/HeaderBackButton'
-import { SearchBar } from 'react-native-elements'
-
-const ThemedSearchBar = styled(SearchBar).attrs(props => ({
-  containerStyle: {
-    flexGrow: 1,
-    backgroundColor: props.theme.colors.backgroundAccentColor,
-    borderTopColor: props.theme.colors.backgroundAccentColor,
-    borderBottomColor: props.theme.colors.backgroundAccentColor
-  },
-  inputContainerStyle: {
-    backgroundColor: props.theme.colors.backgroundColor
-  },
-  inputStyle: {
-    backgroundColor: props.theme.colors.backgroundColor
-  }
-}))``
+import ThemedSearchBar from './ThemedSearchBar'
 
 const HorizontalLeft = styled.View`
   flex:1;
@@ -29,6 +14,10 @@ const HorizontalLeft = styled.View`
 
 const BoxShadow = styled.View`
   elevation: 1;
+  shadow-color: #000;
+  shadow-offset: 0px 1px;
+  shadow-opacity: 0.18;
+  shadow-radius: 1.00px;
   background-color: ${props => props.theme.colors.backgroundAccentColor};
   height: ${props => props.theme.dimensions.headerHeight};
 `
@@ -42,7 +31,7 @@ type PropsType = {|
 
 class SearchHeader extends React.Component<PropsType> {
   render () {
-    const {theme, query, closeSearchBar, onSearchChanged} = this.props
+    const { theme, query, closeSearchBar, onSearchChanged } = this.props
 
     return (
       <>

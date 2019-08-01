@@ -1,11 +1,8 @@
 // @flow
 
-import { offlineActionTypes } from 'react-native-offline'
 import { CategoriesMapModel, CityModel, EventModel, LanguageModel } from '@integreat-app/integreat-api-client'
 import type { LanguageResourceCacheStateType } from './StateType'
-
-// This may be used to react-offline
-// type MetaType = {| retry?: boolean, dismiss?: string[] |}
+import type { ContentLoadCriterionType } from '../endpoint/ContentLoadCriterion'
 
 export type FetchCitiesActionType = {|
   type: 'FETCH_CITIES'
@@ -20,27 +17,24 @@ export type FetchCitiesFailedActionType = {|
 |}
 export type CitiesActionType = PushCitiesActionType | FetchCitiesActionType | FetchCitiesFailedActionType
 
-export type SetCityContentLocalizationType = {|
-  type: 'SET_CITY_CONTENT_LOCALIZATION',
-  params: {
-    city: string,
-    language: string
-  }
-|}
-
-export type PushLanguagesActionType = {|
-  type: 'PUSH_LANGUAGES',
+export type InitializeCityContentActionType = {|
+  type: 'INITIALIZE_CITY_CONTENT',
   params: {|
+    city: string,
+    language: string,
     languages: Array<LanguageModel>
   |}
 |}
-export type LanguagesActionType = PushLanguagesActionType
+
+export type SetContentLanguageActionType = {|
+  type: 'SET_CONTENT_LANGUAGE', params: {| contentLanguage: string |}
+|}
 
 export type FetchCategoryActionType = {|
   type: 'FETCH_CATEGORY', params: {|
     city: string, language: string,
     path: string, depth: number, key: string,
-    forceUpdate: boolean, shouldRefreshResources: boolean
+    criterion: ContentLoadCriterionType
   |}
 |}
 export type FetchCategoryFailedActionType = {|
@@ -53,7 +47,7 @@ export type PushCategoryActionType = {|
   type: 'PUSH_CATEGORY', params: {|
     categoriesMap: CategoriesMapModel,
     resourceCache: LanguageResourceCacheStateType,
-    languages: Array<LanguageModel>,
+    rootAvailableLanguages: Map<string, string>,
     city: string,
     language: string,
     path: string, depth: number, key: string
@@ -72,7 +66,7 @@ export type FetchEventActionType = {|
   type: 'FETCH_EVENT', params: {|
     city: string, language: string,
     path?: string, key: string,
-    forceUpdate: boolean, shouldRefreshResources: boolean
+    criterion: ContentLoadCriterionType
   |}
 |}
 export type ClearEventActionType = {|
@@ -84,7 +78,6 @@ export type PushEventActionType = {|
     path?: string, key: string,
     resourceCache: LanguageResourceCacheStateType,
     languages: Array<LanguageModel>,
-    city: string,
     language: string
   |}
 |}
@@ -121,8 +114,8 @@ export type MorphContentLanguageActionType = {|
   |}
 |}
 
-export type ClearCityContentActionType = {|
-  type: 'CLEAR_CITY_CONTENT'
+export type ClearCityActionType = {|
+  type: 'CLEAR_CITY'
 |}
 
 export type ResourcesFetchFailedActionType = {|
@@ -137,26 +130,16 @@ export type CityContentActionType =
   | EventsActionType
   | MorphContentLanguageActionType
   | SwitchContentLanguageActionType
-  | LanguagesActionType
-  | ClearCityContentActionType
-  | SetCityContentLocalizationType
+  | ClearCityActionType
+  | InitializeCityContentActionType
   | ResourcesFetchFailedActionType
 
-export type SetUiDirectionActionType = {
-  type: 'SET_UI_DIRECTION', payload: 'ltr' | 'rtl'
-}
-
-export type ToggleDarkModeActionType = {
+export type ToggleDarkModeActionType = {|
   type: 'TOGGLE_DARK_MODE'
-}
-
-export type ConnectionChangeActionType = {|
-  type: offlineActionTypes.CONNECTION_CHANGE, payload: boolean
 |}
 
 export type StoreActionType =
-  ConnectionChangeActionType
-  | SetUiDirectionActionType
-  | ToggleDarkModeActionType
+  ToggleDarkModeActionType
   | CitiesActionType
   | CityContentActionType
+  | SetContentLanguageActionType

@@ -1,8 +1,8 @@
 // @flow
 
-import styled from 'styled-components/native'
+import styled, { type StyledComponent } from 'styled-components/native'
 
-const SpaceBetween = styled.View`
+const SpaceBetween: StyledComponent<{}, {}, *> = styled.View`
   justify-content: space-between;
   flex: 1;
 `

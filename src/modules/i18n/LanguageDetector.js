@@ -1,3 +1,5 @@
+// @flow
+
 import { getLocale } from '../platform/constants/locale'
 
 export default {

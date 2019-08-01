@@ -7,9 +7,9 @@ import type { MorphContentLanguageActionType } from '../../app/StoreActionType'
 import CategoriesMapModel from '@integreat-app/integreat-api-client/models/CategoriesMapModel'
 import forEachTreeNode from '../../common/forEachTreeNode'
 
-const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, newLanguage: string) =>
+const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, city: string, newLanguage: string) =>
   (route: CategoryRouteStateType): CategoryRouteStateType => {
-    const {depth, root, allAvailableLanguages} = route
+    const { depth, root, allAvailableLanguages } = route
 
     const translatedRoot = allAvailableLanguages.get(newLanguage)
 
@@ -40,13 +40,14 @@ const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, newLangua
       children: resultChildren,
       depth,
       allAvailableLanguages,
-      language: newLanguage
+      language: newLanguage,
+      city
     }
   }
 
 const eventRouteTranslator = (newEvents: Array<EventModel>, newLanguage: string) =>
   (route: EventRouteStateType): EventRouteStateType => {
-    const {path, allAvailableLanguages} = route
+    const { path, allAvailableLanguages } = route
 
     if (!path) { // Route is a list of all events
       return {
@@ -84,20 +85,12 @@ const eventRouteTranslator = (newEvents: Array<EventModel>, newLanguage: string)
 const morphContentLanguage = (
   state: CityContentStateType, action: MorphContentLanguageActionType
 ): CityContentStateType => {
-  const {newCategoriesMap, newResourceCache, newEvents, newLanguage} = action.params
-  const {categoriesRouteMapping, eventsRouteMapping, city, language} = state
-
-  if (!city) {
-    throw new Error(`Current city needs to be set in order to change language!`)
-  }
-
-  if (language === newLanguage) {
-    return state
-  }
+  const { newCategoriesMap, newResourceCache, newEvents, newLanguage } = action.params
+  const { categoriesRouteMapping, eventsRouteMapping, city } = state
 
   const translatedCategoriesRouteMapping = categoriesRouteMapping.errorMessage === undefined ? mapValues(
     categoriesRouteMapping,
-    categoryRouteTranslator(newCategoriesMap, newLanguage)
+    categoryRouteTranslator(newCategoriesMap, city, newLanguage)
   ) : {}
 
   const translatedEventsRouteMapping = eventsRouteMapping.errorMessage === undefined ? mapValues(
@@ -107,11 +100,11 @@ const morphContentLanguage = (
 
   return {
     ...state,
-    language: newLanguage,
     resourceCache: newResourceCache,
-    searchRoute: {categoriesMap: newCategoriesMap},
+    searchRoute: { categoriesMap: newCategoriesMap },
     categoriesRouteMapping: translatedCategoriesRouteMapping,
-    eventsRouteMapping: translatedEventsRouteMapping
+    eventsRouteMapping: translatedEventsRouteMapping,
+    switchingLanguage: false
   }
 }
 

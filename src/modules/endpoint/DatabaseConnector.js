@@ -6,14 +6,15 @@ import {
   DateModel,
   EventModel,
   CityModel,
-  LanguageModel, LocationModel
+  LanguageModel,
+  LocationModel
 } from '@integreat-app/integreat-api-client'
 import RNFetchblob from 'rn-fetch-blob'
-import moment from 'moment-timezone'
 import type Moment from 'moment-timezone'
+import moment from 'moment-timezone'
 import type { CityResourceCacheStateType } from '../app/StateType'
 import DatabaseContext from './DatabaseContext'
-import { CONTENT_DIR_PATH, CACHE_DIR_PATH, getResourceCacheFilesPath } from '../platform/constants/webview'
+import { CACHE_DIR_PATH, CONTENT_DIR_PATH, RESOURCE_CACHE_DIR_PATH } from '../platform/constants/webview'
 
 type ContentCategoryJsonType = {|
   root: string,
@@ -91,12 +92,8 @@ class DatabaseConnector {
     return `${CONTENT_DIR_PATH}/${context.cityCode}/${context.languageCode}/${key}.json`
   }
 
-  getLanguagesPath (context: DatabaseContext): string {
-    return `${CONTENT_DIR_PATH}/${context.cityCode}/languages.json`
-  }
-
   getResourceCachePath (context: DatabaseContext): string {
-    return getResourceCacheFilesPath(context.cityCode)
+    return `${RESOURCE_CACHE_DIR_PATH}/${context.cityCode}/files.json`
   }
 
   getMetaCitiesPath (): string {
@@ -125,6 +122,7 @@ class DatabaseConnector {
     const path = this.getMetaCitiesPath()
 
     const fileExists: boolean = await RNFetchblob.fs.exists(path)
+
     if (!fileExists) {
       return null
     }
@@ -154,12 +152,12 @@ class DatabaseConnector {
     await this.writeFile(this.getContentPath('categories', context), JSON.stringify(jsonModels))
   }
 
-  async loadCategories (context: DatabaseContext): Promise<CategoriesMapModel | null> {
+  async loadCategories (context: DatabaseContext): Promise<CategoriesMapModel> {
     const path = this.getContentPath('categories', context)
     const fileExists: boolean = await RNFetchblob.fs.exists(path)
 
     if (!fileExists) {
-      return null
+      throw Error(`File ${path} does not exist`)
     }
 
     const json = JSON.parse(await this.readFile(path))
@@ -180,12 +178,12 @@ class DatabaseConnector {
     }))
   }
 
-  async loadLanguages (context: DatabaseContext): Promise<Array<LanguageModel> | null> {
+  async loadLanguages (context: DatabaseContext): Promise<Array<LanguageModel>> {
     const path = this.getContentPath('languages', context)
     const fileExists: boolean = await RNFetchblob.fs.exists(path)
 
     if (!fileExists) {
-      return null
+      throw Error(`File ${path} does not exist`)
     }
 
     const languages = JSON.parse(await this.readFile(path))
@@ -193,7 +191,7 @@ class DatabaseConnector {
   }
 
   async storeLanguages (languages: Array<LanguageModel>, context: DatabaseContext) {
-    const path = this.getLanguagesPath(context)
+    const path = this.getContentPath('languages', context)
     await this.writeFile(path, JSON.stringify(languages))
   }
 
@@ -258,12 +256,12 @@ class DatabaseConnector {
     await this.writeFile(this.getContentPath('events', context), JSON.stringify(jsonModels))
   }
 
-  async loadEvents (context: DatabaseContext): Promise<Array<EventModel> | null> {
+  async loadEvents (context: DatabaseContext): Promise<Array<EventModel>> {
     const path = this.getContentPath('events', context)
     const fileExists: boolean = await RNFetchblob.fs.exists(path)
 
     if (!fileExists) {
-      return null
+      throw Error(`File ${path} does not exist`)
     }
 
     const json = JSON.parse(await this.readFile(path))
@@ -296,12 +294,12 @@ class DatabaseConnector {
     })
   }
 
-  async loadResourceCache (context: DatabaseContext): Promise<CityResourceCacheStateType | null> {
+  async loadResourceCache (context: DatabaseContext): Promise<CityResourceCacheStateType> {
     const path = this.getResourceCachePath(context)
     const fileExists: boolean = await RNFetchblob.fs.exists(path)
 
     if (!fileExists) {
-      return null
+      return {}
     }
 
     return JSON.parse(await this.readFile(path))
@@ -309,10 +307,26 @@ class DatabaseConnector {
 
   async storeResourceCache (resourceCache: CityResourceCacheStateType, context: DatabaseContext) {
     const path = this.getResourceCachePath(context)
-    // todo: use ResourceCacheJsonType
+    // todo: NATIVE-330 Use ResourceCacheJsonType
 
     const json: ResourceCacheJsonType = resourceCache
     await this.writeFile(path, JSON.stringify(json))
+  }
+
+  isCategoriesPersisted (context: DatabaseContext): Promise<boolean> {
+    return this.isPersisted(this.getContentPath('categories', context))
+  }
+
+  isLanguagesPersisted (context: DatabaseContext): Promise<boolean> {
+    return this.isPersisted(this.getContentPath('languages', context))
+  }
+
+  isEventsPersisted (context: DatabaseContext): Promise<boolean> {
+    return this.isPersisted(this.getContentPath('events', context))
+  }
+
+  isPersisted (path: string): Promise<boolean> {
+    return RNFetchblob.fs.exists(path)
   }
 
   async readFile (path: string): Promise<string> {

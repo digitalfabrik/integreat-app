@@ -31,7 +31,7 @@ export const isIOS = () => {
   return platform.toLowerCase() === 'ios'
 }
 
-export const select = <T, K> (input: { android: T, ios: K }) => {
+export const select = <T, K> (input: { android: T, ios: K }): T | K => {
   if (isAndroid()) {
     return input.android
   } else if (isIOS()) {
@@ -65,7 +65,7 @@ export const setupDriver = async (additionalCaps: {} = {}) => {
     process.exit(1)
   }
 
-  const desiredCaps = {...clone(caps[capsName.toLowerCase()]), ...additionalCaps}
+  const desiredCaps = { ...clone(caps[capsName.toLowerCase()]), ...additionalCaps }
 
   if (!desiredCaps) {
     console.error(`Caps ${e2eServerConfigName} not found!`)
