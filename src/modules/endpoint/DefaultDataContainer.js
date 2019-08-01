@@ -11,6 +11,7 @@ import RNFetchBlob from 'rn-fetch-blob'
 import Cache from './Cache'
 
 type CacheType = {
+  cities: Cache<Array<CityModel>>,
   events: Cache<Array<EventModel>>,
   categories: Cache<CategoriesMapModel>,
   languages: Cache<Array<LanguageModel>>,
@@ -30,6 +31,10 @@ class DefaultDataContainer implements DataContainer {
     this._databaseConnector = new DatabaseConnector()
 
     this.caches = {
+      cities: new Cache<Array<CityModel>>(this._databaseConnector,
+        (connector: DatabaseConnector) => connector.loadCities(),
+        (value: Array<CityModel>, connector: DatabaseConnector) =>
+          connector.storeCities(value)),
       events: new Cache<Array<EventModel>>(this._databaseConnector,
         (connector: DatabaseConnector, context: DatabaseContext) => connector.loadEvents(context),
         (value: Array<EventModel>, connector: DatabaseConnector, context: DatabaseContext) =>
@@ -58,10 +63,8 @@ class DefaultDataContainer implements DataContainer {
   }
 
   getCities = async (): Promise<Array<CityModel>> => {
-    if (this._cities === null) {
-      throw Error('Cities are null.')
-    }
-    return this._cities
+    const cache: Cache<Array<CityModel>> = this.caches.cities
+    return cache.get()
   }
 
   getCategoriesMap = (context: DatabaseContext): Promise<CategoriesMapModel> => {
@@ -100,10 +103,9 @@ class DefaultDataContainer implements DataContainer {
     await cache.cache(categories, context)
   }
 
-  setCities = (cities: Array<CityModel>) => {
-    // TODO: Offline available cities will be persisted in NATIVE-175. For now switching cities when offline is not possible.
-    this._cities = cities
-    return Promise.resolve()
+  setCities = async (cities: Array<CityModel>) => {
+    const cache: Cache<CityModel> = this.caches.cities
+    await cache.cache(cities)
   }
 
   setEvents = async (context: DatabaseContext, events: Array<EventModel>) => {
@@ -159,6 +161,8 @@ class DefaultDataContainer implements DataContainer {
     const cache: Cache<Moment | null> = this.caches.lastUpdate
     await cache.cache(lastUpdate, context)
   }
+
+
 
   async categoriesAvailable (context: DatabaseContext): Promise<boolean> {
     return this.isCached('categories', context) || this._databaseConnector.isCategoriesPersisted(context)
