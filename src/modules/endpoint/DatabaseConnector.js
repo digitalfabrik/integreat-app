@@ -97,8 +97,13 @@ class DatabaseConnector {
   }
 
   getMetaCitiesPath (): string {
+    return `${CACHE_DIR_PATH}/metaCities.json`
+  }
+
+  getCitiesPath (): string {
     return `${CACHE_DIR_PATH}/cities.json`
   }
+
 
   async storeLastUpdate (lastUpdate: Moment, context: DatabaseContext) {
     const path = this.getMetaCitiesPath()
@@ -205,11 +210,11 @@ class DatabaseConnector {
       sortingName: city.sortingName
     }))
 
-    await this.writeFile(this.getMetaCitiesPath(), JSON.stringify(jsonModels))
+    await this.writeFile(this.getCitiesPath(), JSON.stringify(jsonModels))
   }
 
   async loadCities (): Promise<Array<CityModel> | null> {
-    const path = this.getMetaCitiesPath()
+    const path = this.getCitiesPath()
     const fileExists: boolean = await RNFetchblob.fs.exists(path)
 
     if (!fileExists) {
