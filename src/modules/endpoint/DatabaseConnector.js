@@ -320,6 +320,10 @@ class DatabaseConnector {
     await this.writeFile(path, JSON.stringify(json))
   }
 
+  isCitiesPersisted (): Promise<boolean> {
+    return this.isPersisted(this.getCitiesPath())
+  }
+
   isCategoriesPersisted (context: DatabaseContext): Promise<boolean> {
     return this.isPersisted(this.getContentPath('categories', context))
   }
