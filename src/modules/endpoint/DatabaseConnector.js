@@ -98,7 +98,7 @@ class DatabaseConnector {
   }
 
   getMetaCitiesPath (): string {
-    return `${CACHE_DIR_PATH}/metaCities.json`
+    return `${CACHE_DIR_PATH}/cities-meta.json`
   }
 
   getCitiesPath (): string {
