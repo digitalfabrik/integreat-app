@@ -22,7 +22,7 @@ function * fetchEvent (dataContainer: DataContainer, action: FetchEventActionTyp
       const [events, resourceCache, languages] = yield all([
         call(dataContainer.getEvents, city, language),
         call(dataContainer.getResourceCache, city, language),
-        call(dataContainer.getLanguages, city, language)
+        call(dataContainer.getLanguages, city)
       ])
 
       const insert: PushEventActionType = {
