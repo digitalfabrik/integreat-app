@@ -220,7 +220,7 @@
         "disclaimer": "Ein Impressum ist leider für diese Stadt nicht verfügbar.",
         "pageTitle": "Seite nicht gefunden"
       },
-      "tryAgain": "Nochmal Versuchen",
+      "tryAgain": "Erneut versuchen",
       "loadingFailed": "Die Seite konnte leider nicht geladen werden.",
       "chooseYourLanguage": "Wähle deine Sprache:",
       "goTo": {
@@ -242,7 +242,7 @@
         "disclaimer": "Sorry, but there is no disclaimer available for this city.",
         "pageTitle": "Page not found"
       },
-      "tryAgain": "Try Again",
+      "tryAgain": "Try again",
       "loadingFailed": "Sorry, but the requested page could not be loaded.",
       "chooseYourLanguage": "Choose your language:",
       "goTo": {
