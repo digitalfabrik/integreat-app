@@ -214,12 +214,12 @@ class DatabaseConnector {
     await this.writeFile(this.getCitiesPath(), JSON.stringify(jsonModels))
   }
 
-  async loadCities (): Promise<Array<CityModel> | null> {
+  async loadCities (): Promise<Array<CityModel>> {
     const path = this.getCitiesPath()
     const fileExists: boolean = await RNFetchblob.fs.exists(path)
 
     if (!fileExists) {
-      return null
+      throw Error(`File ${path} does not exist`)
     }
 
     const cities = JSON.parse(await this.readFile(path))
