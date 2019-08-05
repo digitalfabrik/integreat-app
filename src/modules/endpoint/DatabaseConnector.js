@@ -222,18 +222,19 @@ class DatabaseConnector {
       throw Error(`File ${path} does not exist`)
     }
 
-    const cities = JSON.parse(await this.readFile(path))
-    return cities.map(city =>
-      new CityModel(
-        city.name,
-        city.code,
-        city.prefix,
-        city.live,
-        city.eventsEnabled,
-        city.extrasEnabled,
-        city.sortingName
-      )
-    )
+    const json = JSON.parse(await this.readFile(path))
+
+    return json.map((jsonObject: ContentCityJsonType) => {
+      return new CityModel({
+        name: jsonObject.name,
+        code: jsonObject.code,
+        live: jsonObject.live,
+        eventsEnabled: jsonObject.eventsEnabled,
+        extrasEnabled: jsonObject.extrasEnabled,
+        sortingName: jsonObject.sortingName,
+        prefix: jsonObject.prefix
+      })
+    })
   }
 
   async storeEvents (events: Array<EventModel>, context: DatabaseContext) {
