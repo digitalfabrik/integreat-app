@@ -11,7 +11,7 @@ export interface DataContainer {
    * Returns an Array of CityModels.
    * @throws Will throw an error if the array is null.
    */
-  getCities: (context: DatabaseContext) => Promise<Array<CityModel>>,
+  getCities: () => Promise<Array<CityModel>>,
 
   /**
    * Sets the cities but does not persist them.

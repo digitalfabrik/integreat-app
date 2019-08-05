@@ -25,14 +25,12 @@ class DefaultDataContainer implements DataContainer {
   _databaseConnector: DatabaseConnector
   caches: CacheType
 
+  _cities: Array<CityModel> | null
+
   constructor () {
     this._databaseConnector = new DatabaseConnector()
 
     this.caches = {
-      cities: new Cache<Array<CityModel>>(this._databaseConnector,
-        (connector: DatabaseConnector) => connector.loadCities(),
-        (value: Array<CityModel>, connector: DatabaseConnector) =>
-          connector.storeCities(value)),
       events: new Cache<Array<EventModel>>(this._databaseConnector,
         (connector: DatabaseConnector, context: DatabaseContext) => connector.loadEvents(context),
         (value: Array<EventModel>, connector: DatabaseConnector, context: DatabaseContext) =>
@@ -61,8 +59,10 @@ class DefaultDataContainer implements DataContainer {
   }
 
   getCities = async (): Promise<Array<CityModel>> => {
-    const cache: Cache<Array<CityModel>> = this.caches.cities
-    return cache.get()
+    if (this._cities === null) {
+      throw Error('Cities are null.')
+    }
+    return this._cities
   }
 
   getCategoriesMap = (context: DatabaseContext): Promise<CategoriesMapModel> => {
@@ -102,8 +102,8 @@ class DefaultDataContainer implements DataContainer {
   }
 
   setCities = async (cities: Array<CityModel>) => {
-    const cache: Cache<CityModel> = this.caches.cities
-    await cache.cache(cities)
+    this._cities = cities
+    return Promise.resolve()
   }
 
   setEvents = async (context: DatabaseContext, events: Array<EventModel>) => {
@@ -158,10 +158,6 @@ class DefaultDataContainer implements DataContainer {
   setLastUpdate = async (context: DatabaseContext, lastUpdate: Moment | null) => {
     const cache: Cache<Moment | null> = this.caches.lastUpdate
     await cache.cache(lastUpdate, context)
-  }
-
-  async citiesAvailable (): Promise<boolean> {
-    return this.isCached('cities') || this._databaseConnector.isCitiesPersisted()
   }
 
   async categoriesAvailable (context: DatabaseContext): Promise<boolean> {
