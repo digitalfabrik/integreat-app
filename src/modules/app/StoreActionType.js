@@ -96,7 +96,7 @@ export type EventsActionType =
 
 export type SwitchContentLanguageActionType = {|
   type: 'SWITCH_CONTENT_LANGUAGE', params: {|
-    newLanguage: string
+    newLanguage: string, city: string
   |}
 |}
 

@@ -1,7 +1,7 @@
 // @flow
 
 import type { Saga } from 'redux-saga'
-import { all, call, put, takeLatest, select } from 'redux-saga/effects'
+import { all, call, put, takeLatest } from 'redux-saga/effects'
 import type {
   MorphContentLanguageActionType,
   SetContentLanguageActionType,
@@ -13,10 +13,9 @@ import loadCityContent from './loadCityContent'
 import { ContentLoadCriterion } from '../ContentLoadCriterion'
 import DatabaseContext from '../DatabaseContext'
 import AppSettings from '../../settings/AppSettings'
-import type { StateType } from '../../app/StateType'
 
 function * switchContentLanguage (dataContainer: DataContainer, action: SwitchContentLanguageActionType): Saga<void> {
-  const { newLanguage } = action.params
+  const { newLanguage, city } = action.params
   try {
     const appSettings = new AppSettings()
     yield call(appSettings.setContentLanguage, newLanguage)
@@ -26,10 +25,6 @@ function * switchContentLanguage (dataContainer: DataContainer, action: SwitchCo
     }
     yield put(setContentLanguage)
 
-    const city = yield select((state: StateType) => state.cityContent && state.cityContent.city)
-    if (!city) { // If no city is selected, there's nothing else to do.
-      return
-    }
     // We never want to force a refresh when switching languages
     yield call(
       loadCityContent, dataContainer, city, newLanguage,

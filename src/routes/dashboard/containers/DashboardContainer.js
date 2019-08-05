@@ -53,11 +53,10 @@ const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionT
 const createChangeUnavailableLanguage = (city: string, navigation: NavigationScreenProp<*>) => (
   dispatch: Dispatch<StoreActionType>, newLanguage: string
 ) => {
-  const switchContentLanguage: SwitchContentLanguageActionType = {
+  dispatch({
     type: 'SWITCH_CONTENT_LANGUAGE',
-    params: { newLanguage }
-  }
-  dispatch(switchContentLanguage)
+    params: { newLanguage, city }
+  })
   const navigateToDashboard = createNavigateToCategory('Dashboard', dispatch, navigation)
   navigateToDashboard({
     cityCode: city,

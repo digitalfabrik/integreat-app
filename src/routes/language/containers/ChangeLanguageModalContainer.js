@@ -35,12 +35,12 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 }
 
 type DispatchType = Dispatch<SwitchContentLanguageActionType>
-const mapDispatchToProps = (dispatch: DispatchType): DispatchPropsType => {
+const mapDispatchToProps = (dispatch: DispatchType, ownProps: OwnPropsType): DispatchPropsType => {
   return {
     changeLanguage: (newLanguage: string) => {
       dispatch({
         type: 'SWITCH_CONTENT_LANGUAGE',
-        params: { newLanguage }
+        params: { newLanguage, city: ownProps.navigation.getParam('cityCode') }
       })
     }
   }

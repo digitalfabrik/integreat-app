@@ -56,6 +56,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       params: {
         currentLanguage: route.language,
         languages,
+        cityCode,
         availableLanguages: Array.from(route.allAvailableLanguages.keys())
       }
     })
