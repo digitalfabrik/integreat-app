@@ -8,7 +8,7 @@ import type { CategoryRouteStateType, LanguageResourceCacheStateType, StateType 
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
-import type { StoreActionType, SwitchContentLanguageActionType } from '../../../modules/app/StoreActionType'
+import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import { translate } from 'react-i18next'
 import type { NavigationScreenProp } from 'react-navigation'
 import type { StatusPropsType } from '../../../modules/error/hocs/withPayloadProvider'
