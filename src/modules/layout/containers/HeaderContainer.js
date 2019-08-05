@@ -23,7 +23,7 @@ type OwnPropsType = {|
 
 type StatePropsType = {|
   routeKey: string,
-  peeking: boolean | 'unsure',
+  peeking: boolean,
   cityModel?: CityModel
 |}
 
@@ -41,7 +41,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   if (!route || state.cities.errorMessage !== undefined || !state.cities.models || !state.cityContent) {
     // Route does not exist yet. In this case it is not really defined whether we are peek or not because
     // we do not yet know the city of the route.
-    return { routeKey, peeking: 'unsure' }
+    return { routeKey, peeking: false }
   }
 
   const cities = state.cities.models

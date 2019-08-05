@@ -72,36 +72,13 @@ type PropsType = {|
   scenes: Array<NavigationScene>,
   t: TFunction,
   theme: ThemeType,
-  peeking: boolean | 'unsure',
+  peeking: boolean,
   navigateToLanding: () => void,
   routeKey: string,
   cityModel?: CityModel
 |}
 
-type StateType = {|
-  peeking: boolean
-|}
-
-class Header extends React.PureComponent<PropsType, StateType> {
-  constructor () {
-    super()
-
-    this.state = {
-      peeking: true
-    }
-  }
-
-  static getDerivedStateFromProps (props: PropsType, state: StateType): StateType {
-    if (props.peeking !== 'unsure') {
-      return {
-        ...state,
-        peeking: props.peeking
-      }
-    }
-
-    return state
-  }
-
+class Header extends React.PureComponent<PropsType> {
   canGoBackInStack (): boolean {
     return !!this.getLastSceneInStack()
   }
@@ -138,7 +115,7 @@ class Header extends React.PureComponent<PropsType, StateType> {
   }
 
   isPeeking (): boolean {
-    return this.state.peeking
+    return this.props.peeking === true
   }
 
   onShare = async () => {
