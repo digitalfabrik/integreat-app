@@ -11,7 +11,6 @@ import type {
 import type { DataContainer } from '../DataContainer'
 import loadCityContent from './loadCityContent'
 import { ContentLoadCriterion } from '../ContentLoadCriterion'
-import DatabaseContext from '../DatabaseContext'
 import AppSettings from '../../settings/AppSettings'
 
 function * switchContentLanguage (dataContainer: DataContainer, action: SwitchContentLanguageActionType): Saga<void> {

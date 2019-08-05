@@ -7,7 +7,6 @@ import request from '../request'
 import { baseUrl } from '../constants'
 import type { FetchMapType } from './fetchResourceCache'
 import type { DataContainer } from '../DataContainer'
-import DatabaseContext from '../DatabaseContext'
 
 function * fetchCategoriesMap (city: string, language: string): Saga<CategoriesMapModel> {
   const params = { city, language }
