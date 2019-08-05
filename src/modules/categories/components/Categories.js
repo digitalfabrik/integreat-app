@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import { ActivityIndicator, View } from 'react-native'
+import { View } from 'react-native'
 
 import Page from '../../common/components/Page'
 import Tiles from '../../common/components/Tiles'
@@ -131,10 +131,6 @@ class Categories extends React.Component<PropsType> {
    */
   render () {
     const { stateView, navigateToIntegreatUrl, theme, navigation, language, cityCode, t } = this.props
-
-    if (!stateView) {
-      return <ActivityIndicator size='large' color='#0000ff' />
-    }
 
     const category = stateView.root()
     const children = stateView.children()

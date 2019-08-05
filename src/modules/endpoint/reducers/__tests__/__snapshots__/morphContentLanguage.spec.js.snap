@@ -78,6 +78,7 @@ Object {
         },
       },
       "root": "/augsburg/en",
+      "status": "ready",
     },
   },
   "city": "augsburg",
@@ -163,6 +164,7 @@ Object {
         },
       ],
       "path": null,
+      "status": "ready",
     },
     "event-route-2": Object {
       "allAvailableLanguages": Map {
@@ -197,6 +199,7 @@ Object {
         },
       ],
       "path": "/augsburg/en/events/third_event",
+      "status": "ready",
     },
   },
   "languages": Array [
