@@ -48,7 +48,7 @@ export default function * loadCityContent (
 
   if (criterion.shouldLoadLanguages()) {
     yield call(loadLanguages, newCity, dataContainer, shouldUpdate)
-    const languages = yield call(dataContainer.getLanguages, newCity, newLanguage)
+    const languages = yield call(dataContainer.getLanguages, newCity)
 
     const initializeCityContent: InitializeCityContentActionType = {
       type: 'INITIALIZE_CITY_CONTENT',

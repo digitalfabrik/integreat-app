@@ -16,7 +16,7 @@ function * getRootAvailableLanguages (
   city: string, language: string,
   loadCriterion: ContentLoadCriterion, dataContainer: DataContainer): Saga<Map<string, string>> {
   if (loadCriterion.shouldLoadLanguages()) {
-    const languages = yield call(dataContainer.getLanguages, city, language)
+    const languages = yield call(dataContainer.getLanguages, city)
     return new Map<string, string>(languages
       .map(languageModel => [languageModel.code, `/${city}/${languageModel.code}`]))
   }
