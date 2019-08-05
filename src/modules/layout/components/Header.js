@@ -109,7 +109,7 @@ class Header extends React.PureComponent<PropsType> {
   }
 
   isPeeking (): boolean {
-    return this.props.peeking === true
+    return this.props.peeking
   }
 
   onShare = async () => {
