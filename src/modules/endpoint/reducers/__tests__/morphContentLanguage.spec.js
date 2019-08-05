@@ -5,20 +5,20 @@ import {
   CategoryModel,
   DateModel,
   EventModel,
-  LanguageModel, LocationModel
+  LanguageModel,
+  LocationModel
 } from '@integreat-app/integreat-api-client'
 import moment from 'moment-timezone'
 import morphContentLanguage from '../morphContentLanguage'
 import pushCategory from '../pushCategory'
 import type { CityContentStateType } from '../../../app/StateType'
 import type {
-  PushCategoryActionType,
   MorphContentLanguageActionType,
-  PushEventActionType, InitializeCityContentActionType
+  PushCategoryActionType,
+  PushEventActionType
 } from '../../../app/StoreActionType'
 import pushEvent from '../pushEvent'
-import initializeCityContent from '../initializeCityContent'
-import { defaultCityContentState } from '../../../app/StateType'
+import createCityContent from '../createCityContent'
 
 describe('morphContentLanguage', () => {
   const enCategories = [
@@ -273,8 +273,6 @@ describe('morphContentLanguage', () => {
 
   const deRootAvailableLanguages = new Map([['en', '/augsburg/en'], ['de', '/augsburg/de']])
 
-  const initialState = defaultCityContentState
-
   const prepareState = ({ path, model, eventPath, events }: {
     path: string, model: CategoryModel, eventPath: string, events: Array<EventModel>
   } = {
@@ -283,18 +281,7 @@ describe('morphContentLanguage', () => {
     eventPath: '/augsburg/de/events/drittes_event',
     events: deEvents
   }): CityContentStateType => {
-    let state = initialState
-
-    const initializeCityContentAction: InitializeCityContentActionType = {
-      type: 'INITIALIZE_CITY_CONTENT',
-      params: {
-        city: 'augsburg',
-        language: 'de',
-        languages
-      }
-    }
-
-    state = initializeCityContent(state, initializeCityContentAction)
+    let state = createCityContent('augsburg', languages)
 
     const pushAction: PushCategoryActionType = {
       type: 'PUSH_CATEGORY',
@@ -315,6 +302,7 @@ describe('morphContentLanguage', () => {
     let pushEventAction: PushEventActionType = {
       type: 'PUSH_EVENT',
       params: {
+        path: null,
         events,
         languages,
         key: 'event-route-1',
@@ -374,7 +362,11 @@ describe('morphContentLanguage', () => {
     if (previous.categoriesRouteMapping.errorMessage !== undefined) {
       throw Error('Preparation of state failed')
     }
-    previous.categoriesRouteMapping['route-0'].models['/augsburg/de/anlaufstellen'] = undefined
+    const route = previous.categoriesRouteMapping['route-0']
+    if (route.status !== 'ready') {
+      throw Error('Preparation of state failed')
+    }
+    route.models['/augsburg/de/anlaufstellen'] = undefined
     expect(() => morphContentLanguage(previous, action)).toThrowError()
   })
 

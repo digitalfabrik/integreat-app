@@ -8,6 +8,10 @@ export default (
   state: CitiesStateType = defaultCitiesState, action: CitiesActionType
 ): CitiesStateType => {
   switch (action.type) {
+    case 'FETCH_CITIES':
+      return {
+        models: null
+      }
     case 'PUSH_CITIES':
       return {
         models: action.params.cities

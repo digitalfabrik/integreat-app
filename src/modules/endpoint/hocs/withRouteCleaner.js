@@ -12,7 +12,7 @@ import type { NavigationScreenProp } from 'react-navigation'
 function withRouteCleaner<Props: { navigation: NavigationScreenProp<*> }> (
   Component: React.ComponentType<Props>
 ): React.ComponentType<Props> {
-  class RouteCleaner extends React.PureComponent<Props> {
+  class RouteCleaner extends React.Component<Props> {
     componentWillUnmount () {
       const onRouteClose = this.props.navigation.getParam('onRouteClose')
       if (!onRouteClose) {

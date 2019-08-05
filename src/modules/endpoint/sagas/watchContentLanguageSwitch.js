@@ -15,7 +15,7 @@ import DatabaseContext from '../DatabaseContext'
 import AppSettings from '../../settings/AppSettings'
 
 function * switchContentLanguage (dataContainer: DataContainer, action: SwitchContentLanguageActionType): Saga<void> {
-  const { city, newLanguage } = action.params
+  const { newLanguage, city } = action.params
   try {
     const appSettings = new AppSettings()
     yield call(appSettings.setContentLanguage, newLanguage)
