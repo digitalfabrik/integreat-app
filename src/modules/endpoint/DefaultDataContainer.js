@@ -64,38 +64,43 @@ class DefaultDataContainer implements DataContainer {
     return this._cities
   }
 
-  getCategoriesMap = (context: DatabaseContext): Promise<CategoriesMapModel> => {
+  getCategoriesMap = (city: string, language: string): Promise<CategoriesMapModel> => {
+    const context = new DatabaseContext(city, language)
     const cache: Cache<CategoriesMapModel> = this.caches.categories
     return cache.get(context)
   }
 
-  getEvents = (context: DatabaseContext): Promise<Array<EventModel>> => {
+  getEvents = (city: string, language: string): Promise<Array<EventModel>> => {
+    const context = new DatabaseContext(city, language)
     const cache: Cache<Array<EventModel>> = this.caches.events
     return cache.get(context)
   }
 
-  getLanguages = (context: DatabaseContext): Promise<Array<LanguageModel>> => {
+  getLanguages = (city: string): Promise<Array<LanguageModel>> => {
     const cache: Cache<Array<LanguageModel>> = this.caches.languages
-    return cache.get(context)
+    return cache.get(new DatabaseContext(city))
   }
 
-  getResourceCache = async (context: DatabaseContext): Promise<LanguageResourceCacheStateType> => {
+  getResourceCache = async (city: string, language: string): Promise<LanguageResourceCacheStateType> => {
+    const context = new DatabaseContext(city, language)
     const cache: Cache<CityResourceCacheStateType> = this.caches.resourceCache
     const resourceCache = await cache.get(context)
 
-    if (!resourceCache[context.languageCode]) {
+    if (!resourceCache[language]) {
       return {}
     }
 
-    return resourceCache[context.languageCode]
+    return resourceCache[language]
   }
 
-  getLastUpdate = (context: DatabaseContext): Promise<Moment | null> => {
+  getLastUpdate = (city: string, language: string): Promise<Moment | null> => {
+    const context = new DatabaseContext(city, language)
     const cache: Cache<Moment | null> = this.caches.lastUpdate
     return cache.get(context)
   }
 
-  setCategoriesMap = async (context: DatabaseContext, categories: CategoriesMapModel) => {
+  setCategoriesMap = async (city: string, language: string, categories: CategoriesMapModel) => {
+    const context = new DatabaseContext(city, language)
     const cache: Cache<CategoriesMapModel> = this.caches.categories
     await cache.cache(categories, context)
   }
@@ -106,12 +111,14 @@ class DefaultDataContainer implements DataContainer {
     return Promise.resolve()
   }
 
-  setEvents = async (context: DatabaseContext, events: Array<EventModel>) => {
+  setEvents = async (city: string, language: string, events: Array<EventModel>) => {
+    const context = new DatabaseContext(city, language)
     const cache: Cache<Array<EventModel>> = this.caches.events
     await cache.cache(events, context)
   }
 
-  setLanguages = async (context: DatabaseContext, languages: Array<LanguageModel>) => {
+  setLanguages = async (city: string, languages: Array<LanguageModel>) => {
+    const context = new DatabaseContext(city)
     const cache: Cache<Array<LanguageModel>> = this.caches.languages
     await cache.cache(languages, context)
   }
@@ -123,8 +130,9 @@ class DefaultDataContainer implements DataContainer {
     )
   }
 
-  setResourceCache = async (context: DatabaseContext, resourceCache: LanguageResourceCacheStateType) => {
-    const language = context.languageCode
+  setResourceCache = async (city: string, language: string, resourceCache: LanguageResourceCacheStateType) => {
+    const context = new DatabaseContext(city, language)
+
     const cache: Cache<CityResourceCacheStateType> = this.caches.resourceCache
     const previousResourceCache = cache.getCached(context)
 
@@ -155,20 +163,24 @@ class DefaultDataContainer implements DataContainer {
     await cache.cache(newResourceCache, context)
   }
 
-  setLastUpdate = async (context: DatabaseContext, lastUpdate: Moment | null) => {
+  setLastUpdate = async (city: string, language: string, lastUpdate: Moment | null) => {
+    const context = new DatabaseContext(city, language)
     const cache: Cache<Moment | null> = this.caches.lastUpdate
     await cache.cache(lastUpdate, context)
   }
 
-  async categoriesAvailable (context: DatabaseContext): Promise<boolean> {
+  async categoriesAvailable (city: string, language: string): Promise<boolean> {
+    const context = new DatabaseContext(city, language)
     return this.isCached('categories', context) || this._databaseConnector.isCategoriesPersisted(context)
   }
 
-  async languagesAvailable (context: DatabaseContext): Promise<boolean> {
+  async languagesAvailable (city: string): Promise<boolean> {
+    const context = new DatabaseContext(city)
     return this.isCached('languages', context) || this._databaseConnector.isLanguagesPersisted(context)
   }
 
-  async eventsAvailable (context: DatabaseContext): Promise<boolean> {
+  async eventsAvailable (city: string, language: string): Promise<boolean> {
+    const context = new DatabaseContext(city, language)
     return this.isCached('events', context) || this._databaseConnector.isEventsPersisted(context)
   }
 }
