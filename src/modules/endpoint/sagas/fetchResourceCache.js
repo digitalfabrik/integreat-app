@@ -28,8 +28,6 @@ const createErrorMessage = (fetchResult: FetchResultType) => {
 export default function * fetchResourceCache (
   city: string, language: string, fetchMap: FetchMapType, dataContainer: DataContainer): Saga<void> {
   try {
-    const context = new DatabaseContext(city, language)
-
     const targetUrls = mapValues(fetchMap, ([url]) => url)
 
     const results = yield call(new FetcherModule().fetchAsync, targetUrls, progress => console.log(progress))
@@ -58,7 +56,7 @@ export default function * fetchResourceCache (
       }, {})
     )
 
-    yield call(dataContainer.setResourceCache, context, resourceCache)
+    yield call(dataContainer.setResourceCache, city, language, resourceCache)
   } catch (e) {
     console.error(e)
     const failed: ResourcesFetchFailedActionType = {

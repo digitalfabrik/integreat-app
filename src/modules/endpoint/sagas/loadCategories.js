@@ -22,8 +22,10 @@ function * loadCategories (
   dataContainer: DataContainer,
   shouldUpdate: boolean
 ): Saga<FetchMapType> {
-  const context = new DatabaseContext(city, language)
-  const categoriesAvailable = yield call({ context: dataContainer, fn: dataContainer.categoriesAvailable }, context)
+  const categoriesAvailable = yield call(
+    (city: string, language: string) => dataContainer.categoriesAvailable(city, language),
+    city, language
+  )
 
   if (!categoriesAvailable || shouldUpdate) {
     // data is already loaded and should not be updated
@@ -33,11 +35,11 @@ function * loadCategories (
     // TODO: data was loaded but should be incrementally updated. This will be done in NATIVE-3
 
     const categoriesMap: CategoriesMapModel = yield call(fetchCategoriesMap, city, language)
-    yield call(dataContainer.setCategoriesMap, context, categoriesMap)
+    yield call(dataContainer.setCategoriesMap, city, language, categoriesMap)
     return categoriesMap
   }
   console.debug('Using cached categories')
-  return yield call(dataContainer.getCategoriesMap, context)
+  return yield call(dataContainer.getCategoriesMap, city, language)
 }
 
 export default loadCategories
