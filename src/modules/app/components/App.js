@@ -33,9 +33,7 @@ class App extends React.Component<PropsType, AppStateType> {
 
     this.dataContainer = new DefaultDataContainer()
 
-    this.store = createReduxStore(
-      this.dataContainer
-    )
+    this.store = createReduxStore(this.dataContainer)
   }
 
   render () {
