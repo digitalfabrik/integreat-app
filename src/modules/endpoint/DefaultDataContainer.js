@@ -160,6 +160,10 @@ class DefaultDataContainer implements DataContainer {
     await cache.cache(lastUpdate, context)
   }
 
+  async citiesAvailable (): Promise<boolean> {
+    return this.isCached('cities') || this._databaseConnector.isCitiesPersisted()
+  }
+
   async categoriesAvailable (context: DatabaseContext): Promise<boolean> {
     return this.isCached('categories', context) || this._databaseConnector.isCategoriesPersisted(context)
   }
