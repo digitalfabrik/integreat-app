@@ -11,7 +11,6 @@ import RNFetchBlob from 'rn-fetch-blob'
 import Cache from './Cache'
 
 type CacheType = {
-  cities: Cache<Array<CityModel>>,
   events: Cache<Array<EventModel>>,
   categories: Cache<CategoriesMapModel>,
   languages: Cache<Array<LanguageModel>>,
