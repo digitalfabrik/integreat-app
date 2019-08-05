@@ -8,7 +8,6 @@ import type { FetchResultType } from '../../fetcher/FetcherModule'
 import FetcherModule from '../../fetcher/FetcherModule'
 import { invertBy, mapValues, pickBy } from 'lodash/object'
 import type { DataContainer } from '../DataContainer'
-import DatabaseContext from '../DatabaseContext'
 
 type PathType = string
 type UrlType = string

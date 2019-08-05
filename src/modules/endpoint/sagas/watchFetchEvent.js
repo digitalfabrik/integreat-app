@@ -6,7 +6,6 @@ import type { FetchEventActionType, FetchEventFailedActionType, PushEventActionT
 import type { DataContainer } from '../DataContainer'
 import loadCityContent from './loadCityContent'
 import { ContentLoadCriterion } from '../ContentLoadCriterion'
-import DatabaseContext from '../DatabaseContext'
 
 function * fetchEvent (dataContainer: DataContainer, action: FetchEventActionType): Saga<void> {
   const { city, language, path, key, criterion } = action.params

@@ -12,7 +12,6 @@ import loadLanguages from './loadLanguages'
 import ResourceURLFinder from '../ResourceURLFinder'
 import buildResourceFilePath from '../buildResourceFilePath'
 import { ContentLoadCriterion } from '../ContentLoadCriterion'
-import DatabaseContext from '../DatabaseContext'
 import AppSettings from '../../settings/AppSettings'
 import NetInfo from '@react-native-community/netinfo'
 
