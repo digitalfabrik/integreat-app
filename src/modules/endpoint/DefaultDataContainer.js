@@ -25,8 +25,6 @@ class DefaultDataContainer implements DataContainer {
   _databaseConnector: DatabaseConnector
   caches: CacheType
 
-  _cities: Array<CityModel> | null
-
   constructor () {
     this._databaseConnector = new DatabaseConnector()
 
@@ -161,8 +159,6 @@ class DefaultDataContainer implements DataContainer {
     const cache: Cache<Moment | null> = this.caches.lastUpdate
     await cache.cache(lastUpdate, context)
   }
-
-
 
   async categoriesAvailable (context: DatabaseContext): Promise<boolean> {
     return this.isCached('categories', context) || this._databaseConnector.isCategoriesPersisted(context)
