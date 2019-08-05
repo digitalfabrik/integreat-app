@@ -68,7 +68,7 @@ export const AppStack = createStackNavigator(
     [WOHNEN_ROUTE]: createNavigationRouteConfig(WohnenExtraContainer, defaultHeader),
     [SPRUNGBRETT_ROUTE]: createNavigationRouteConfig(SprungbrettExtraContainer, defaultHeader),
     [EXTERNAL_EXTRA_ROUTE]: createNavigationRouteConfig(ExternalExtraContainer, defaultHeader),
-    'Events': createNavigationRouteConfig( // $FlowFixMe
+    'Events': createNavigationRouteConfig( // $FlowFixMe We don't know why this fails.
       EventsContainer, defaultHeader
     ),
     'Settings': createNavigationRouteConfig(SettingsContainer, defaultHeader),
