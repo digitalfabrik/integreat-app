@@ -57,6 +57,7 @@ type ContentCityJsonType = {|
     name: string,
     live: boolean,
     code: string,
+    prefix: string,
     extrasEnabled: boolean,
     eventsEnabled: boolean,
     sortingName: string
@@ -103,7 +104,6 @@ class DatabaseConnector {
   getCitiesPath (): string {
     return `${CACHE_DIR_PATH}/cities.json`
   }
-
 
   async storeLastUpdate (lastUpdate: Moment, context: DatabaseContext) {
     const path = this.getMetaCitiesPath()
@@ -205,6 +205,7 @@ class DatabaseConnector {
       name: city.name,
       live: city.live,
       code: city.code,
+      prefix: city.prefix,
       extrasEnabled: city.extrasEnabled,
       eventsEnabled: city.eventsEnabled,
       sortingName: city.sortingName
@@ -226,6 +227,7 @@ class DatabaseConnector {
       new CityModel(
         city.name,
         city.code,
+        city.prefix,
         city.live,
         city.eventsEnabled,
         city.extrasEnabled,
