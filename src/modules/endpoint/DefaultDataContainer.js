@@ -58,8 +58,8 @@ class DefaultDataContainer implements DataContainer {
   }
 
   getCities = async (): Promise<Array<CityModel>> => {
-    if (this._cities === null) {
-      throw Error('Cities are null.')
+    if (!this._cities) {
+      this._cities = await this._databaseConnector.loadCities()
     }
     return this._cities
   }
@@ -102,7 +102,7 @@ class DefaultDataContainer implements DataContainer {
 
   setCities = async (cities: Array<CityModel>) => {
     this._cities = cities
-    return Promise.resolve()
+    await this._databaseConnector.storeCities(cities)
   }
 
   setEvents = async (context: DatabaseContext, events: Array<EventModel>) => {
@@ -157,6 +157,10 @@ class DefaultDataContainer implements DataContainer {
   setLastUpdate = async (context: DatabaseContext, lastUpdate: Moment | null) => {
     const cache: Cache<Moment | null> = this.caches.lastUpdate
     await cache.cache(lastUpdate, context)
+  }
+
+  async citiesAvailable (): Promise<boolean> {
+    return !!this._cities || this._databaseConnector.isCitiesPersisted()
   }
 
   async categoriesAvailable (context: DatabaseContext): Promise<boolean> {
