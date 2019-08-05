@@ -1,95 +1,107 @@
 // @flow
 
 import withTheme from '../../../modules/theme/hocs/withTheme'
-import { translate, type TFunction } from 'react-i18next'
-
-import { connect } from 'react-redux'
+import { translate } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
 import type { Dispatch } from 'redux'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import Landing from '../components/Landing'
+import type { NavigationScreenProp } from 'react-navigation'
 import { type NavigationReplaceAction, StackActions } from 'react-navigation'
 import { generateKey } from '../../../modules/app/generateRouteKey'
-import withError from '../../../modules/error/hocs/withError'
-import { CityModel, LanguageModel } from '@integreat-app/integreat-api-client'
-import type { NavigationScreenProp } from 'react-navigation'
-import type { PropsType as LandingPropsType } from '../components/Landing'
+import type { StatusPropsType } from '../../../modules/error/hocs/withPayloadProvider'
+import withPayloadProvider from '../../../modules/error/hocs/withPayloadProvider'
+import { CityModel } from '@integreat-app/integreat-api-client'
+import * as React from 'react'
+import { connect } from 'react-redux'
+import omitNavigation from '../../../modules/common/hocs/omitNavigation'
 
-type OwnPropsType = {| navigation: NavigationScreenProp<*>, i18n: Object, t: TFunction |}
-
-export type StatePropsType = {|
-  error: boolean,
-  languageNotAvailable: boolean,
-  availableLanguages?: Array<LanguageModel>,
-  currentCityCode?: string,
-  cities?: Array<CityModel>,
-  language: string
+type ContainerPropsType = {|
+  dispatch: Dispatch<StoreActionType>,
+  navigation: NavigationScreenProp<*>,
+  language: string,
+  cities: Array<CityModel>
 |}
 
-type DispatchPropsType = {|
-  fetchCities: () => StoreActionType,
-  navigateToDashboard: (cityCode: string, language: string) => StoreActionType,
-  changeUnavailableLanguage?: (city: string, newLanguage: string) => void
-|}
+type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
+type StatePropsType = StatusPropsType<ContainerPropsType, void>
+type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
 
-type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
-
-const mapStateToProps = (state: StateType): StatePropsType => {
+const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const language = state.contentLanguage
   if (state.cities.errorMessage !== undefined) {
-    return { error: true, languageNotAvailable: false, language }
+    return { status: 'error', refreshProps: undefined }
   }
 
   if (!state.cities.models) {
-    return { error: false, languageNotAvailable: false, language }
+    return { status: 'loading' }
   }
-  return { error: false, languageNotAvailable: false, cities: state.cities.models, language }
-}
-
-const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps: OwnPropsType): DispatchPropsType => {
   return {
-    fetchCities: () => dispatch({
-      type: 'FETCH_CITIES'
-    }),
-    navigateToDashboard: (cityCode: string, language: string) => {
-      const path = `/${cityCode}/${language}`
-      const key: string = generateKey()
-
-      const action: NavigationReplaceAction = StackActions.replace({
-        routeName: 'Dashboard',
-        params: {
-          cityCode,
-          key,
-          sharePath: path,
-          onRouteClose: () => dispatch({ type: 'CLEAR_CATEGORY', params: { key } })
-        },
-        newKey: key
-      })
-
-      ownProps.navigation.navigate({
-        routeName: 'App',
-        // $FlowFixMe For some reason action is not allowed to be a StackAction
-        action: action
-      })
-
-      return dispatch({
-        type: 'FETCH_CATEGORY',
-        params: {
-          city: cityCode,
-          language,
-          path,
-          depth: 2,
-          criterion: { forceUpdate: false, shouldRefreshResources: true },
-          key
-        }
-      })
-    }
+    status: 'success',
+    innerProps: { cities: state.cities.models, language, navigation: ownProps.navigation },
+    refreshProps: undefined
   }
 }
 
-export default translate('landing')(
-  connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
-    withTheme(props => props.language)(
-      withError<LandingPropsType>(
-        Landing
-      ))))
+const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsType => ({ dispatch })
+
+const ThemedTranslatedLanding = translate('landing')(
+  withTheme(props => props.language)(
+    Landing
+  ))
+
+class LandingContainer extends React.Component<ContainerPropsType> {
+  navigateToDashboard = (cityCode: string, language: string) => {
+    const { dispatch, navigation } = this.props
+    const path = `/${cityCode}/${language}`
+    const key: string = generateKey()
+
+    const action: NavigationReplaceAction = StackActions.replace({
+      routeName: 'Dashboard',
+      params: {
+        cityCode,
+        key,
+        sharePath: path,
+        onRouteClose: () => dispatch({ type: 'CLEAR_CATEGORY', params: { key } })
+      },
+      newKey: key
+    })
+
+    navigation.navigate({
+      routeName: 'App',
+      // $FlowFixMe For some reason action is not allowed to be a StackAction
+      action: action
+    })
+
+    return dispatch({
+      type: 'FETCH_CATEGORY',
+      params: {
+        city: cityCode,
+        language,
+        path,
+        depth: 2,
+        criterion: { forceUpdate: false, shouldRefreshResources: true },
+        key
+      }
+    })
+  }
+
+  render () {
+    const { cities, language } = this.props
+    return <ThemedTranslatedLanding cities={cities} language={language}
+                                    navigateToDashboard={this.navigateToDashboard} />
+  }
+}
+
+const refresh = (refreshProps: void, dispatch: Dispatch<StoreActionType>) => {
+  dispatch({ type: 'FETCH_CITIES' })
+}
+
+type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
+
+export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
+  omitNavigation<PropsType>(
+    withPayloadProvider<ContainerPropsType, void>(refresh)(
+      LandingContainer
+    ))
+)

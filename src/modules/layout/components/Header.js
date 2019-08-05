@@ -8,7 +8,7 @@ import HeaderButtons, { HeaderButton, Item } from 'react-navigation-header-butto
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import HeaderBackButton from 'react-navigation-stack/lib/module/views/Header/HeaderBackButton'
 
-import type { NavigationScene, NavigationScreenProp, NavigationDescriptor } from 'react-navigation'
+import type { NavigationDescriptor, NavigationScene, NavigationScreenProp } from 'react-navigation'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { TFunction } from 'react-i18next'
 import { CityModel } from '@integreat-app/integreat-api-client'
@@ -72,9 +72,10 @@ type PropsType = {|
   scenes: Array<NavigationScene>,
   t: TFunction,
   theme: ThemeType,
+  language: string,
   peeking: boolean | 'unsure',
   navigateToLanding: () => void,
-  routeKey: string,
+  goToLanguageChange?: () => void,
   cityModel?: CityModel
 |}
 
@@ -130,13 +131,6 @@ class Header extends React.PureComponent<PropsType, StateType> {
     this.props.navigation.navigate('Settings')
   }
 
-  goToLanguageChange = () => {
-    const { navigation, routeKey } = this.props
-    navigation.navigate({
-      routeName: 'ChangeLanguageModal', params: { routeKey }
-    })
-  }
-
   isPeeking (): boolean {
     return this.state.peeking
   }
@@ -186,7 +180,7 @@ class Header extends React.PureComponent<PropsType, StateType> {
   }
 
   render () {
-    const { cityModel, navigation, t, theme } = this.props
+    const { cityModel, navigation, t, theme, goToLanguageChange } = this.props
     const sharePath = navigation.getParam('sharePath')
 
     return <BoxShadow theme={theme}>
@@ -197,7 +191,7 @@ class Header extends React.PureComponent<PropsType, StateType> {
         </HorizontalLeft>
         <MaterialHeaderButtons>
           {this.renderItem('Search', 'search', 'always', !this.isPeeking() ? this.goToSearch : undefined)}
-          {this.renderItem('Change Language', 'language', 'always', !this.isPeeking() ? this.goToLanguageChange : undefined)}
+          {this.renderItem('Change Language', 'language', 'always', !this.isPeeking() && goToLanguageChange ? goToLanguageChange : undefined)}
           {this.renderItem(t('share'), undefined, 'never', sharePath ? this.onShare : undefined)}
           {this.renderItem('Change Location', undefined, 'never', this.goToLanding)}
           {this.renderItem(t('settings'), undefined, 'never', this.goToSettings)}

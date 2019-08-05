@@ -7,7 +7,7 @@ import loadCategories from './loadCategories'
 import loadEvents from './loadEvents'
 import fetchResourceCache from './fetchResourceCache'
 import moment from 'moment-timezone'
-import type { FetchCitiesActionType, InitializeCityContentActionType } from '../../app/StoreActionType'
+import type { FetchCitiesActionType, PushLanguagesActionType } from '../../app/StoreActionType'
 import loadLanguages from './loadLanguages'
 import ResourceURLFinder from '../ResourceURLFinder'
 import buildResourceFilePath from '../buildResourceFilePath'
@@ -52,16 +52,8 @@ export default function * loadCityContent (
     yield call(loadLanguages, context, dataContainer, shouldUpdate)
     const languages = yield call(dataContainer.getLanguages, context)
 
-    const initializeCityContent: InitializeCityContentActionType = {
-      type: 'INITIALIZE_CITY_CONTENT',
-      params: {
-        city: newCity,
-        language: newLanguage,
-        languages
-      }
-    }
-
-    yield put(initializeCityContent)
+    const pushLanguages: PushLanguagesActionType = { type: 'PUSH_LANGUAGES', params: { languages } }
+    yield put(pushLanguages)
 
     if (!languages.map(language => language.code).includes(newLanguage)) {
       return false

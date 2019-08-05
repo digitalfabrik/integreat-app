@@ -6,7 +6,7 @@ import type { NavigationScreenProp } from 'react-navigation'
 import { generateKey } from './generateRouteKey'
 
 export type NavigateToEventParamsType =
-  {| cityCode: string, language: string, path?: string, key?: string, forceUpdate?: boolean |}
+  {| cityCode: string, language: string, path: ?string, key?: string, forceUpdate?: boolean |}
 
 export default (dispatch: Dispatch<StoreActionType>, navigation: NavigationScreenProp<*>) => (
   {
@@ -15,7 +15,6 @@ export default (dispatch: Dispatch<StoreActionType>, navigation: NavigationScree
   navigation.navigate({
     routeName: 'Events',
     params: {
-      cityCode,
       key,
       onRouteClose: () => dispatch({ type: 'CLEAR_EVENT', params: { key } }),
       sharePath: path || `/${cityCode}/${language}/events`

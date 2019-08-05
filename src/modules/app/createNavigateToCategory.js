@@ -17,7 +17,6 @@ export default (
   navigation.navigate({
     routeName,
     params: {
-      cityCode,
       key,
       onRouteClose: () => dispatch({ type: 'CLEAR_CATEGORY', params: { key } }),
       sharePath: path

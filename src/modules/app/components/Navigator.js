@@ -1,14 +1,19 @@
 // @flow
 
 import * as React from 'react'
-import type { HeaderProps, NavigationContainer, NavigationState, NavigationComponent } from 'react-navigation'
+import type {
+  HeaderProps,
+  NavigationComponent,
+  NavigationContainer,
+  NavigationRouteConfig,
+  NavigationState
+} from 'react-navigation'
 import {
   createAppContainer,
   createStackNavigator,
   createSwitchNavigator,
-  StackActions,
   NavigationActions,
-  type NavigationRouteConfig
+  StackActions
 } from 'react-navigation'
 import CategoriesContainer from '../../../routes/categories/containers/CategoriesContainer'
 import LandingContainer from '../../../routes/landing/containers/LandingContainer'
@@ -63,7 +68,9 @@ export const AppStack = createStackNavigator(
     [WOHNEN_ROUTE]: createNavigationRouteConfig(WohnenExtraContainer, defaultHeader),
     [SPRUNGBRETT_ROUTE]: createNavigationRouteConfig(SprungbrettExtraContainer, defaultHeader),
     [EXTERNAL_EXTRA_ROUTE]: createNavigationRouteConfig(ExternalExtraContainer, defaultHeader),
-    'Events': createNavigationRouteConfig(EventsContainer, defaultHeader),
+    'Events': createNavigationRouteConfig( // $FlowFixMe We don't know why this fails.
+      EventsContainer, defaultHeader
+    ),
     'Settings': createNavigationRouteConfig(SettingsContainer, defaultHeader),
     'ChangeLanguageModal': createNavigationRouteConfig(ChangeLanguageModalContainer),
     'SearchModal': createNavigationRouteConfig(SearchModalContainer),
@@ -87,8 +94,10 @@ export const LandingStack = createSwitchNavigator({
 const AppContainer: NavigationContainer<NavigationState, {}, {}> = createAppContainer(LandingStack)
 
 type PropsType = {|
+  setContentLanguage: (language: string) => void,
   fetchCategory: (cityCode: string, language: string, key: string) => void,
-  clearCategory: (key: string) => void
+  clearCategory: (key: string) => void,
+  fetchCities: () => void
 |}
 
 class Navigator extends React.Component<PropsType> {
@@ -104,6 +113,7 @@ class Navigator extends React.Component<PropsType> {
   }
 
   componentDidMount () {
+    this.props.fetchCities()
     this.loadSelectedCity()
   }
 
@@ -114,6 +124,8 @@ class Navigator extends React.Component<PropsType> {
     if (!contentLanguage) {
       throw new Error('ContentLanguage must be set!')
     }
+    this.props.setContentLanguage(contentLanguage)
+
     if (!this.navigator.current) {
       throw new Error('Ref must not be null!')
     }
@@ -134,7 +146,6 @@ class Navigator extends React.Component<PropsType> {
     const navigateToDashboard = StackActions.replace({
       routeName: 'Dashboard',
       params: {
-        cityCode,
         key,
         sharePath: path,
         onRouteClose: () => this.props.clearCategory(key)
