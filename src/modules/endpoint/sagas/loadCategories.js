@@ -21,10 +21,7 @@ function * loadCategories (
   dataContainer: DataContainer,
   shouldUpdate: boolean
 ): Saga<FetchMapType> {
-  const categoriesAvailable = yield call(
-    (city: string, language: string) => dataContainer.categoriesAvailable(city, language),
-    city, language
-  )
+  const categoriesAvailable = yield call(() => dataContainer.categoriesAvailable(city, language))
 
   if (!categoriesAvailable || shouldUpdate) {
     // data is already loaded and should not be updated

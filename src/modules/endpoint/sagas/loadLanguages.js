@@ -11,10 +11,7 @@ export default function * loadLanguages (
   city: string,
   dataContainer: DataContainer, shouldUpdate: boolean
 ): Saga<void> {
-  const languagesAvailable = yield call(
-    (city: string) => dataContainer.languagesAvailable(city),
-    city
-  )
+  const languagesAvailable = yield call(() => dataContainer.languagesAvailable(city))
 
   if (languagesAvailable && !shouldUpdate) {
     console.debug('Using cached languages')
