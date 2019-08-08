@@ -6,6 +6,7 @@ The structure of the data stored on the device is:
     ├── cities.json
     ├── content
     │   └── augsburg
+    │       ├── languages.json
     │       └── en
     │           ├── categories.json
     │           └── events.json

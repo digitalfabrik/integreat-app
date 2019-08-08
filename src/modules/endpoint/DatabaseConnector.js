@@ -79,6 +79,10 @@ class DatabaseConnector {
       throw Error('Key mustn\'t be empty')
     }
 
+    if (!context.languageCode) {
+      return `${CONTENT_DIR_PATH}/${context.cityCode}/${key}.json`
+    }
+
     return `${CONTENT_DIR_PATH}/${context.cityCode}/${context.languageCode}/${key}.json`
   }
 
@@ -109,8 +113,13 @@ class DatabaseConnector {
   }
 
   async loadLastUpdate (context: DatabaseContext): Promise<Moment | null> {
-    const path = this.getMetaCitiesPath()
+    const languageCode = context.languageCode
 
+    if (!languageCode) {
+      throw new Error('Language is not set in DatabaseContext!')
+    }
+
+    const path = this.getMetaCitiesPath()
     const fileExists: boolean = await RNFetchblob.fs.exists(path)
 
     if (!fileExists) {
@@ -118,7 +127,7 @@ class DatabaseConnector {
     }
 
     const currentCityMetaData: MetaCitiesJsonType = JSON.parse(await this.readFile(path))
-    const lastUpdate = currentCityMetaData[context.cityCode]?.languages[context.languageCode]?.lastUpdate
+    const lastUpdate = currentCityMetaData[context.cityCode]?.languages[languageCode]?.lastUpdate
     return lastUpdate ? moment.tz(lastUpdate, 'UTC') : null
   }
 

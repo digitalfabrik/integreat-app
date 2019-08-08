@@ -12,7 +12,6 @@ import loadLanguages from './loadLanguages'
 import ResourceURLFinder from '../ResourceURLFinder'
 import buildResourceFilePath from '../buildResourceFilePath'
 import { ContentLoadCriterion } from '../ContentLoadCriterion'
-import DatabaseContext from '../DatabaseContext'
 import AppSettings from '../../settings/AppSettings'
 import NetInfo from '@react-native-community/netinfo'
 
@@ -34,12 +33,10 @@ export default function * loadCityContent (
     yield call(appSettings.setSelectedCity, newCity)
   }
 
-  const context = new DatabaseContext(newCity, newLanguage)
-
   const fetchCities: FetchCitiesActionType = { type: 'FETCH_CITIES' }
   yield put(fetchCities)
 
-  const lastUpdate: moment | null = yield call(dataContainer.getLastUpdate, context)
+  const lastUpdate: moment | null = yield call(dataContainer.getLastUpdate, newCity, newLanguage)
 
   console.debug('Last city content update on ',
     lastUpdate ? lastUpdate.toISOString() : 'never')
@@ -49,8 +46,8 @@ export default function * loadCityContent (
   console.debug('City content should be refreshed: ', shouldUpdate)
 
   if (criterion.shouldLoadLanguages()) {
-    yield call(loadLanguages, context, dataContainer, shouldUpdate)
-    const languages = yield call(dataContainer.getLanguages, context)
+    yield call(loadLanguages, newCity, dataContainer, shouldUpdate)
+    const languages = yield call(dataContainer.getLanguages, newCity)
 
     const pushLanguages: PushLanguagesActionType = { type: 'PUSH_LANGUAGES', params: { languages } }
     yield put(pushLanguages)
@@ -85,7 +82,7 @@ export default function * loadCityContent (
   }
 
   if (shouldUpdate) {
-    yield call(dataContainer.setLastUpdate, context, moment.tz('UTC'))
+    yield call(dataContainer.setLastUpdate, newCity, newLanguage, moment.tz('UTC'))
   }
 
   return true
