@@ -60,7 +60,7 @@ describe('I18nProvider', () => {
       return i18nInstance
     })
 
-    const component = TestRenderer.create(
+    const root = TestRenderer.create(
       <I18nProvider setContentLanguage={() => {}}
                     getLocale={() => 'de_DE'}
                     appSettings={createAppSettings({})}>
@@ -70,7 +70,7 @@ describe('I18nProvider', () => {
 
     expect(i18next.createInstance.mock.calls).toHaveLength(1)
 
-    expect(component.findByType(I18nextProvider).props.i18n).toBe(i18nInstance)
+    expect(root.findByType(I18nextProvider).props.i18n).toBe(i18nInstance)
 
     expect(i18nInstance.init.mock.calls).toHaveLength(1)
     expect(i18nInstance.init.mock.calls[0]).toHaveLength(1)
