@@ -10,16 +10,15 @@ import type {
 import type { DataContainer } from '../DataContainer'
 import loadCityContent from './loadCityContent'
 import { ContentLoadCriterion } from '../ContentLoadCriterion'
-import DatabaseContext from '../DatabaseContext'
 import isPeekingRoute from '../selectors/isPeekingRoute'
 
 function * getRootAvailableLanguages (
-  context: DatabaseContext,
+  city: string, language: string,
   loadCriterion: ContentLoadCriterion, dataContainer: DataContainer): Saga<Map<string, string>> {
   if (loadCriterion.shouldLoadLanguages()) {
-    const languages = yield call(dataContainer.getLanguages, context)
+    const languages = yield call(dataContainer.getLanguages, city)
     return new Map<string, string>(languages
-      .map(language => [language.code, `/${context.cityCode}/${language.code}`]))
+      .map(languageModel => [languageModel.code, `/${city}/${languageModel.code}`]))
   }
 
   // If there are no loaded languages the result is an empty map because we do not have a root category
@@ -49,15 +48,12 @@ function * fetchCategory (dataContainer: DataContainer, action: FetchCategoryAct
     if (cityContentLoaded) {
       // Only proceed if the content is ready to be pushed to the state. If not then the UI automatically displays an
       // appropriate error
-
-      const context = new DatabaseContext(city, language)
-
       const [categoriesMap, resourceCache] = yield all([
-        call(dataContainer.getCategoriesMap, context),
-        call(dataContainer.getResourceCache, context)
+        call(dataContainer.getCategoriesMap, city, language),
+        call(dataContainer.getResourceCache, city, language)
       ])
 
-      const rootAvailableLanguages = yield call(getRootAvailableLanguages, context, loadCriterion, dataContainer)
+      const rootAvailableLanguages = yield call(getRootAvailableLanguages, city, language, loadCriterion, dataContainer)
 
       const push: PushCategoryActionType = {
         type: `PUSH_CATEGORY`,
