@@ -2,9 +2,9 @@
 
 class DatabaseContext {
   _cityCode: string
-  _languageCode: string
+  _languageCode: ?string
 
-  constructor (currentCity: string, currentLanguage: string) {
+  constructor (currentCity: string, currentLanguage: ?string) {
     this._cityCode = currentCity
     this._languageCode = currentLanguage
   }
@@ -13,7 +13,7 @@ class DatabaseContext {
     return this._cityCode
   }
 
-  get languageCode (): string {
+  get languageCode (): ?string {
     return this._languageCode
   }
 
@@ -32,10 +32,6 @@ class DatabaseContext {
   }
 
   equals (anotherContext: ?DatabaseContext): boolean {
-    if (!anotherContext) {
-      return false
-    }
-
     return this.sameCityAs(anotherContext) &&
       this.sameLanguageAs(anotherContext)
   }
