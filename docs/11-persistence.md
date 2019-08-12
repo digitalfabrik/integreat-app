@@ -3,6 +3,7 @@
 The structure of the data stored on the device is:
 
 ```
+    ├── cities-meta.json
     ├── cities.json
     ├── content
     │   └── augsburg
@@ -17,24 +18,29 @@ The structure of the data stored on the device is:
             └── files.json
 ```
 
-The `cities.json` could contain information about all cities. Usually they are not persisted:
+The `cities-meta.json` contains information about the last content update:
 ```
-{
-  "regensburg": {
-    "name": "Stadt Regensburg",
-    "languages": {
-      "de": {
-        "name": "Deutsch",
-        "dir": "ltr"
+{  
+   "regensburg":{  
+      "languages":{  
+         "de":{  
+            "lastUpdate":"2019-08-12T00:03:19.457Z"
+         }
       }
-    },
-    "offline_available": true,
-    "live": true,
-    "sorting_name": "Regensburg",
-    "events": true,
-    "push_notifications": true,
-    "extras": true
-  }
+   }
+}
+```
+
+The `cities.json` contains information about all cities:
+```
+{  
+  "name":"Stadt Regensburg",
+  "live":true,
+  "code":"regensburg",
+  "prefix":"Stadt",
+  "extrasEnabled":true,
+  "eventsEnabled":true,
+  "sortingName":"Regensburg"
 }
 ```
 
