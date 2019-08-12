@@ -35,7 +35,7 @@ type DispatchPropsType = {|
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
-  const routeKey = ownProps.navigation.getParam('key')
+  const routeKey = ownProps.navigation.state.key
 
   const route = state.cityContent?.categoriesRouteMapping[routeKey]
   const languages = state.cityContent?.languages
