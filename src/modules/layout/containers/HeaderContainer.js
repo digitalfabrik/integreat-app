@@ -68,9 +68,9 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps: OwnPropsType): DispatchPropsType => ({
   navigateToLanding: () => {
+    ownProps.navigation.navigate('Landing')
     const clearCity: ClearCityActionType = { type: 'CLEAR_CITY' }
     dispatch(clearCity)
-    ownProps.navigation.navigate('Landing')
   }
 })
 
