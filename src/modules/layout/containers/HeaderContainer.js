@@ -10,9 +10,10 @@ import Header from '../components/Header'
 import withTheme from '../../theme/hocs/withTheme'
 import type { StateType } from '../../app/StateType'
 import { type Dispatch } from 'redux'
-import type { ClearCityActionType, StoreActionType } from '../../app/StoreActionType'
+import type { StoreActionType } from '../../app/StoreActionType'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import isPeekingRoute from '../../endpoint/selectors/isPeekingRoute'
+import createNavigateToLanding from '../../app/createNavigateToLanding'
 
 type OwnPropsType = {|
   navigation: NavigationScreenProp<*>,
@@ -67,11 +68,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps: OwnPropsType): DispatchPropsType => ({
-  navigateToLanding: () => {
-    ownProps.navigation.navigate('Landing')
-    const clearCity: ClearCityActionType = { type: 'CLEAR_CITY' }
-    dispatch(clearCity)
-  }
+  navigateToLanding: createNavigateToLanding(dispatch, ownProps.navigation)
 })
 
 export default withNavigation(
