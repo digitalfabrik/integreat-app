@@ -47,7 +47,7 @@ class Page extends React.Component<PropType, StateType> {
   state = { loading: true }
 
   onLinkPress = (url: string) => {
-    const { navigation, cityCode, language, navigateToIntegreatUrl } = this.props
+    const { navigation, language, navigateToIntegreatUrl } = this.props
 
     if (url.includes('.pdf')) {
       navigation.navigate('PDFViewModal', { url })
