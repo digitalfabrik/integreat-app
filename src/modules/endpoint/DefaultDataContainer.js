@@ -107,7 +107,7 @@ class DefaultDataContainer implements DataContainer {
 
   setCities = async (cities: Array<CityModel>) => {
     this._cities = cities
-    await this._databaseConnector.storeCities(cities)
+    return this._databaseConnector.storeCities(cities)
   }
 
   setEvents = async (city: string, language: string, events: Array<EventModel>) => {
