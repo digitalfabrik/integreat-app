@@ -46,7 +46,7 @@ const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionT
   const { cityCode, language, navigation } = refreshProps
   const navigateToDashboard = createNavigateToCategory('Dashboard', dispatch, navigation)
   navigateToDashboard({
-    cityCode, language, path: `/${cityCode}/${language}`, forceUpdate: true, key: navigation.getParam('key')
+    cityCode, language, path: `/${cityCode}/${language}`, forceUpdate: true, key: navigation.state.key
   })
 }
 
@@ -63,7 +63,7 @@ const createChangeUnavailableLanguage = (city: string, navigation: NavigationScr
     language: newLanguage,
     path: `/${city}/${newLanguage}`,
     forceUpdate: false,
-    key: navigation.getParam('key')
+    key: navigation.state.key
   })
 }
 
@@ -72,7 +72,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     return { status: 'routeNotInitialized' }
   }
   const { resourceCache, categoriesRouteMapping, city, languages, switchingLanguage } = state.cityContent
-  const route: ?CategoryRouteStateType = categoriesRouteMapping[ownProps.navigation.getParam('key')]
+  const route: ?CategoryRouteStateType = categoriesRouteMapping[ownProps.navigation.state.key]
   if (!route) {
     return { status: 'routeNotInitialized' }
   }
