@@ -5,6 +5,7 @@ import {
   CategoryModel,
   DateModel,
   EventModel,
+  CityModel,
   LanguageModel,
   LocationModel
 } from '@integreat-app/integreat-api-client'
@@ -52,6 +53,16 @@ type ContentEventJsonType = {|
   |}
 |}
 
+type ContentCityJsonType = {|
+    name: string,
+    live: boolean,
+    code: string,
+    prefix: string,
+    extrasEnabled: boolean,
+    eventsEnabled: boolean,
+    sortingName: string
+|}
+
 type CityCodeType = string
 type LanguageCodeType = string
 
@@ -91,6 +102,10 @@ class DatabaseConnector {
   }
 
   getMetaCitiesPath (): string {
+    return `${CACHE_DIR_PATH}/cities-meta.json`
+  }
+
+  getCitiesPath (): string {
     return `${CACHE_DIR_PATH}/cities.json`
   }
 
@@ -194,6 +209,43 @@ class DatabaseConnector {
     await this.writeFile(path, JSON.stringify(languages))
   }
 
+  async storeCities (cities: Array<CityModel>) {
+    const jsonModels = cities.map((city: CityModel): ContentCityJsonType => ({
+      name: city.name,
+      live: city.live,
+      code: city.code,
+      prefix: city.prefix,
+      extrasEnabled: city.extrasEnabled,
+      eventsEnabled: city.eventsEnabled,
+      sortingName: city.sortingName
+    }))
+
+    await this.writeFile(this.getCitiesPath(), JSON.stringify(jsonModels))
+  }
+
+  async loadCities (): Promise<Array<CityModel>> {
+    const path = this.getCitiesPath()
+    const fileExists: boolean = await RNFetchblob.fs.exists(path)
+
+    if (!fileExists) {
+      throw Error(`File ${path} does not exist`)
+    }
+
+    const json = JSON.parse(await this.readFile(path))
+
+    return json.map((jsonObject: ContentCityJsonType) => {
+      return new CityModel({
+        name: jsonObject.name,
+        code: jsonObject.code,
+        live: jsonObject.live,
+        eventsEnabled: jsonObject.eventsEnabled,
+        extrasEnabled: jsonObject.extrasEnabled,
+        sortingName: jsonObject.sortingName,
+        prefix: jsonObject.prefix
+      })
+    })
+  }
+
   async storeEvents (events: Array<EventModel>, context: DatabaseContext) {
     const jsonModels = events.map((event: EventModel): ContentEventJsonType => ({
       path: event.path,
@@ -276,6 +328,10 @@ class DatabaseConnector {
 
     const json: ResourceCacheJsonType = resourceCache
     await this.writeFile(path, JSON.stringify(json))
+  }
+
+  isCitiesPersisted (): Promise<boolean> {
+    return this.isPersisted(this.getCitiesPath())
   }
 
   isCategoriesPersisted (context: DatabaseContext): Promise<boolean> {

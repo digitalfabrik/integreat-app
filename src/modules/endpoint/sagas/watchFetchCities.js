@@ -14,11 +14,14 @@ import { baseUrl } from '../constants'
 
 function * fetchCities (dataContainer: DataContainer): Saga<void> {
   try {
-    const payload: Payload<Array<CityModel>> = yield call(() => request(createCitiesEndpoint(baseUrl)))
-
-    const cities: Array<CityModel> = payload.data
-
-    yield call(dataContainer.setCities, cities)
+    let cities: Array<CityModel>
+    if (yield call(() => dataContainer.citiesAvailable())) {
+      cities = yield call(() => dataContainer.getCities())
+    } else {
+      const payload: Payload<Array<CityModel>> = yield call(() => request(createCitiesEndpoint(baseUrl)))
+      cities = payload.data
+      yield call(dataContainer.setCities, cities)
+    }
 
     const insert: PushCitiesActionType = {
       type: `PUSH_CITIES`,
