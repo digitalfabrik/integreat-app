@@ -56,7 +56,9 @@ class I18nProvider extends React.Component<PropsType> {
    */
   static transformResources (resources: {
     [namespace: string]: { [language: string]: { [key: string]: string } }
-  }): { key: string, value: string } {
+  }): {
+    [language: string]: { [namespace: string]: { [key: string]: string } }
+} {
     return reduce(
       resources,
       (accumulator, namespace, namespaceName) => {
