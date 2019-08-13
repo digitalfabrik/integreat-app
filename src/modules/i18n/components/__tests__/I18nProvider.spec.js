@@ -53,7 +53,7 @@ describe('I18nProvider', () => {
     await waitForExpect(() => expect(mockAppSettingsSetContentLanguage).toHaveBeenCalledWith('de'))
   })
 
-  it('should not set content language if already set', async () => {
+  it('should not set content language if already set', () => {
     const mockGetLocale = () => 'de_DE'
     const mockAppSettingsSetContentLanguage = jest.fn(() => Promise.resolve())
     const initialAppSettings = createAppSettingsMock({
@@ -66,10 +66,8 @@ describe('I18nProvider', () => {
                          getLocale={mockGetLocale}
                          appSettings={initialAppSettings} />)
 
-    setTimeout(() => {}, 4000)
-
-    await waitForExpect(() => expect(mockSetContentLanguage).not.toHaveBeenCalled())
-    await waitForExpect(() => expect(mockAppSettingsSetContentLanguage).not.toHaveBeenCalled())
+    expect(mockSetContentLanguage).not.toHaveBeenCalled()
+    expect(mockAppSettingsSetContentLanguage).not.toHaveBeenCalled()
   })
 
   it('should initialize correct i18next instance', () => {
