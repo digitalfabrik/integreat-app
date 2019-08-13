@@ -1,6 +1,6 @@
 // @flow
 
-import { render } from '@testing-library/react-native'
+import { render } from 'react-native-testing-library'
 import React from 'react'
 import PageDetail, { Identifier } from '../PageDetail'
 import brightTheme from '../../../theme/constants/theme'
