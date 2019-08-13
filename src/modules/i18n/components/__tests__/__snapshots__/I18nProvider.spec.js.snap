@@ -11,8 +11,6 @@ Object {
 }
 `;
 
-exports[`I18nProvider should throw if i18n language is unknown 1`] = `"locale has wrong format"`;
-
 exports[`I18nProvider should transform the resources correctly 1`] = `
 Object {
   "language1": Object {
