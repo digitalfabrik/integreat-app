@@ -1,7 +1,7 @@
 // @flow
 
-import type { AppSettingsType, SettingsType } from '../AppSettings'
-import { defaultSettings } from '../AppSettings'
+import type { AppSettingsType, SettingsType } from '../settings/AppSettings'
+import { defaultSettings } from '../settings/AppSettings'
 
 const defaultLoadSettings = () => Promise.resolve(defaultSettings)
 const defaultSetSettings = (settings: $Shape<SettingsType>) => Promise.resolve()
@@ -21,11 +21,11 @@ const defaultImplementations: AppSettingsType = {
   clearSelectedCity: defaultClearSelectedCity
 }
 
-const createAppSettings = (implementations: $Shape<AppSettingsType>): AppSettingsType => {
+const createAppSettingsMock = (implementations: $Shape<AppSettingsType>): AppSettingsType => {
   return {
     ...defaultImplementations,
     ...implementations
   }
 }
 
-export default createAppSettings
+export default createAppSettingsMock
