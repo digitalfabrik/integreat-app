@@ -1,16 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`I18nProvider should initialize correct i18next instance 1`] = `
-Object {
-  "debug": true,
-  "fallbackLng": Array [
-    "en",
-    "de",
-  ],
-  "load": "languageOnly",
-}
-`;
-
 exports[`I18nProvider should transform the resources correctly 1`] = `
 Object {
   "language1": Object {
