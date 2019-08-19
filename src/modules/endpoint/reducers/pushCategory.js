@@ -42,7 +42,7 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
     state.resourceCache.errorMessage === undefined ? { ...state.resourceCache, ...resourceCache } : resourceCache
 
   const route: CategoryRouteStateType = {
-    root: root.path,
+    path: root.path,
     models: resultModels,
     children: resultChildren,
     depth: depth,
