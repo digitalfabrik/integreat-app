@@ -201,4 +201,92 @@ describe('cityContentReducer', () => {
       switchingLanguage: false
     })
   })
+
+  it('should clear the category route on CLEAR_CATEGORY', () => {
+    const prevState: CityContentStateType = {
+      city: 'augsburg',
+      categoriesRouteMapping: {
+        'route-id-0': {
+          status: 'error',
+          language: 'de',
+          depth: 2,
+          city: 'augsburg',
+          path: '/augsburg/de',
+          message: 'No idea why it fails :/'
+        }
+      },
+      eventsRouteMapping: {},
+      languages: ['de', 'en'],
+      resourceCache: {},
+      searchRoute: null,
+      switchingLanguage: false
+    }
+
+    expect(cityContentReducer(prevState, {
+      type: 'CLEAR_CATEGORY',
+      params: { key: 'route-id-0' }
+    })?.categoriesRouteMapping).toEqual({})
+  })
+
+  it('should pass the error to the corresponding route on FETCH_CATEGORY_FAILED', () => {
+    const prevState: CityContentStateType = {
+      city: 'augsburg',
+      categoriesRouteMapping: {
+        'route-id-0': {
+          status: 'loading',
+          language: 'de',
+          path: '/augsburg/de',
+          depth: 2,
+          city: 'augsburg'
+        }
+      },
+      eventsRouteMapping: {},
+      languages: ['de', 'en'],
+      resourceCache: {},
+      searchRoute: null,
+      switchingLanguage: false
+    }
+
+    expect(cityContentReducer(prevState, {
+      type: 'FETCH_CATEGORY_FAILED',
+      params: { key: 'route-id-0', message: 'No idea why it fails :/' }
+    })?.categoriesRouteMapping['route-id-0']).toEqual({
+      status: 'error',
+      language: 'de',
+      path: '/augsburg/de',
+      city: 'augsburg',
+      depth: 2,
+      message: 'No idea why it fails :/'
+    })
+  })
+
+  it('should clear the cityContentState on CLEAR_CITY', () => {
+    const prevState = {
+      city: 'augsburg',
+      categoriesRouteMapping: {},
+      eventsRouteMapping: {},
+      languages: [],
+      resourceCache: {},
+      searchRoute: null,
+      switchingLanguage: false
+    }
+    expect(cityContentReducer(prevState, { type: 'CLEAR_CITY' })).toBeNull()
+  })
+
+  it('should set an errorState for the resourceCache on FETCH_RESOURCES_FAILED', () => {
+    const prevState = {
+      city: 'augsburg',
+      categoriesRouteMapping: {},
+      eventsRouteMapping: {},
+      languages: [],
+      resourceCache: {},
+      searchRoute: null,
+      switchingLanguage: false
+    }
+
+    expect(cityContentReducer(prevState, {
+      type: 'FETCH_RESOURCES_FAILED',
+      params: { message: 'No idea why it fails :/' }
+    })?.resourceCache).toEqual({ errorMessage: 'No idea why it fails :/' })
+  })
 })
