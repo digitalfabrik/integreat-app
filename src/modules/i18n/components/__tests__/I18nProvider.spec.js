@@ -98,7 +98,8 @@ describe('I18nProvider', () => {
     expect(options.resources).toEqual(I18nProvider.transformResources(localesResources))
     delete options.resources
 
-    expect(options).toMatchSnapshot()
+    expect(options.fallbackLng).toEqual(['en', 'de'])
+    expect(options.load).toBe('languageOnly')
     i18next.createInstance = unmockedCreateInstance
   })
 })
