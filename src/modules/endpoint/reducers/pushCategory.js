@@ -17,14 +17,6 @@ const getAllAvailableLanguages = (category: CategoryModel, language: string, roo
 const pushCategory = (state: CityContentStateType, action: PushCategoryActionType): CityContentStateType => {
   const { categoriesMap, path, depth, key, language, city, resourceCache, rootAvailableLanguages } = action.params
 
-  if (!depth) {
-    throw new Error('You need to specify a depth!')
-  }
-
-  if (!key) {
-    throw new Error('You need to specify a key!')
-  }
-
   const root: CategoryModel = categoriesMap.findCategoryByPath(path)
 
   const resultModels = {}
