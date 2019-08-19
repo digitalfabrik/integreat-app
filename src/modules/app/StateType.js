@@ -13,7 +13,7 @@ import { DEFAULT_LANGUAGE } from '../i18n/components/I18nProvider'
 export type PathType = string
 
 export type CategoryRouteConfigType = {|
-  +root: string, // path of the root category
+  +path: string,
   +depth: number,
   +language: string,
   +city: string

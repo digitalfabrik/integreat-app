@@ -63,7 +63,7 @@ export default (
     case 'FETCH_CATEGORY': {
       const { language, path, depth, key, city } = action.params
       const newState = state === null ? createCityContent(city) : state
-      newState.categoriesRouteMapping[key] = { status: 'loading', language, depth, root: path, city }
+      newState.categoriesRouteMapping[key] = { status: 'loading', language, depth, path, city }
       return newState
     }
     case 'CLEAR_CATEGORY': {
@@ -79,8 +79,8 @@ export default (
         throw Error('A fetch category fail cannot occur on not initialized cityContent')
       }
       const { message, key } = action.params
-      const { language, depth, root, city } = state.categoriesRouteMapping[key]
-      state.categoriesRouteMapping[key] = { status: 'error', message, language, depth, root, city }
+      const { language, depth, path, city } = state.categoriesRouteMapping[key]
+      state.categoriesRouteMapping[key] = { status: 'error', message, language, depth, path, city }
       return state
     }
     case 'CLEAR_CITY':
