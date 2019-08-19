@@ -1,6 +1,6 @@
 // @flow
 
-import type { CityContentActionType } from '../../../app/StoreActionType'
+import type { CityContentActionType, FetchCategoryActionType, FetchEventActionType } from '../../../app/StoreActionType'
 import { CategoriesMapModel, LanguageModel } from '@integreat-app/integreat-api-client'
 import cityContentReducer from '../cityContentReducer'
 import type { CityContentStateType } from '../../../app/StateType'
@@ -91,5 +91,114 @@ describe('cityContentReducer', () => {
       switchingLanguage: false
     }
     expect(cityContentReducer(prevState, pushLanguagesAction)?.languages).toEqual(pushLanguagesAction.params.languages)
+  })
+
+  it('should initialize cityContentState on FETCH_EVENT with loading route', () => {
+    const action: FetchEventActionType = {
+      type: 'FETCH_EVENT',
+      params: {
+        city: 'augsburg',
+        language: 'de',
+        path: null,
+        key: 'route-id-0',
+        criterion: { forceUpdate: false, shouldRefreshResources: false }
+      }
+    }
+
+    expect(cityContentReducer(null, action)).toEqual({
+      categoriesRouteMapping: {},
+      city: 'augsburg',
+      eventsRouteMapping: {
+        'route-id-0': {
+          language: 'de',
+          path: null,
+          status: 'loading'
+        }
+      },
+      languages: undefined,
+      resourceCache: {},
+      searchRoute: null,
+      switchingLanguage: false
+    })
+  })
+
+  it('should clear the event route on CLEAR_EVENT', () => {
+    const prevState: CityContentStateType = {
+      city: 'augsburg',
+      categoriesRouteMapping: {},
+      eventsRouteMapping: {
+        'route-id-0': {
+          status: 'error',
+          language: 'de',
+          path: null,
+          message: 'No idea why it fails :/'
+        }
+      },
+      languages: ['de', 'en'],
+      resourceCache: {},
+      searchRoute: null,
+      switchingLanguage: false
+    }
+
+    expect(cityContentReducer(prevState, {
+      type: 'CLEAR_EVENT',
+      params: { key: 'route-id-0' }
+    })?.eventsRouteMapping).toEqual({})
+  })
+
+  it('should pass the error to the corresponding route on FETCH_EVENT_FAILED', () => {
+    const prevState: CityContentStateType = {
+      city: 'augsburg',
+      categoriesRouteMapping: {},
+      eventsRouteMapping: {
+        'route-id-0': {
+          status: 'loading',
+          language: 'de',
+          path: null
+        }
+      },
+      languages: ['de', 'en'],
+      resourceCache: {},
+      searchRoute: null,
+      switchingLanguage: false
+    }
+
+    expect(cityContentReducer(prevState, {
+      type: 'FETCH_EVENT_FAILED',
+      params: { key: 'route-id-0', message: 'No idea why it fails :/' }
+    })?.eventsRouteMapping['route-id-0']).toEqual({
+      status: 'error',
+      language: 'de',
+      path: null,
+      message: 'No idea why it fails :/'
+    })
+  })
+
+  it('should initialize cityContentState on FETCH_CATEGORY with loading route', () => {
+    const action: FetchCategoryActionType = {
+      type: 'FETCH_CATEGORY',
+      params: {
+        city: 'augsburg',
+        language: 'de',
+        path: '/augsburg/de',
+        depth: 2,
+        key: 'route-id-0',
+        criterion: { forceUpdate: false, shouldRefreshResources: false }
+      }
+    }
+
+    expect(cityContentReducer(null, action)).toEqual({
+      categoriesRouteMapping: {
+        'route-id-0': {
+          city: 'augsburg', depth: 2, language: 'de', path: '/augsburg/de', status: 'loading'
+        }
+      },
+      city: 'augsburg',
+      eventsRouteMapping: {},
+      languages: undefined,
+      resourceCache: {},
+      searchRoute: null,
+      switchingLanguage: false
+    })
   })
 })
