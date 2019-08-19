@@ -13,7 +13,10 @@ export default (
 ): CityContentStateType | null => {
   switch (action.type) {
     case 'SWITCH_CONTENT_LANGUAGE':
-      return state === null ? null : { ...state, switchingLanguage: true }
+      if (state === null) {
+        throw Error('Cannot switch contentLanguage on not initialized cityContent')
+      }
+      return { ...state, switchingLanguage: true }
     case 'PUSH_LANGUAGES':
       if (state === null) {
         throw Error('Cannot push languages on not initialized cityContent')
