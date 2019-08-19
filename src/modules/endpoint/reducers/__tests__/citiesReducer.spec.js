@@ -1,0 +1,41 @@
+// @flow
+
+import type { CitiesStateType } from '../../../app/StateType'
+import citiesReducer from '../citiesReducer'
+import CityModel from '@integreat-app/integreat-api-client/models/CityModel'
+
+describe('citiesReducer', () => {
+  it('should set status to loading on FETCH_CITIES', () => {
+    const prevState: CitiesStateType = {
+      status: 'ready',
+      models: []
+    }
+    expect(citiesReducer(prevState, { type: 'FETCH_CITIES' })).toEqual({ status: 'loading' })
+  })
+
+  it('should set models on PUSH_CITIES', () => {
+    const prevState: CitiesStateType = { status: 'loading' }
+    const models = [new CityModel({
+      name: 'Stadt Augsburg',
+      code: 'augsburg',
+      live: true,
+      eventsEnabled: true,
+      extrasEnabled: true,
+      sortingName: 'augsburg',
+      prefix: 'Stadt'
+    })]
+    expect(citiesReducer(prevState, { type: 'PUSH_CITIES', params: { cities: models } })).toEqual({
+      status: 'ready',
+      models
+    })
+  })
+
+  it('should set error status on FETCH_CITIES_FAILED', () => {
+    const prevState: CitiesStateType = { status: 'loading' }
+    const errorMessage = 'Some Error'
+    expect(citiesReducer(prevState, { type: 'FETCH_CITIES_FAILED', params: { message: errorMessage } })).toEqual({
+      status: 'error',
+      message: errorMessage
+    })
+  })
+})
