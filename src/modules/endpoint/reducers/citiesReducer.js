@@ -1,11 +1,11 @@
 // @flow
 
-import type { CitiesActionType } from '../../app/StoreActionType'
+import type { StoreActionType } from '../../app/StoreActionType'
 import type { CitiesStateType } from '../../app/StateType'
 import { defaultCitiesState } from '../../app/StateType'
 
 export default (
-  state: CitiesStateType = defaultCitiesState, action: CitiesActionType
+  state: CitiesStateType = defaultCitiesState, action: StoreActionType
 ): CitiesStateType => {
   switch (action.type) {
     case 'FETCH_CITIES':
