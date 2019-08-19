@@ -4,7 +4,6 @@ import type { CityContentActionType } from '../../../app/StoreActionType'
 import { CategoriesMapModel, LanguageModel } from '@integreat-app/integreat-api-client'
 import cityContentReducer from '../cityContentReducer'
 import type { CityContentStateType } from '../../../app/StateType'
-import morphContentLanguage from '../morphContentLanguage'
 
 describe('cityContentReducer', () => {
   const switchContentLanguageAction = {
@@ -76,7 +75,7 @@ describe('cityContentReducer', () => {
       languages: [],
       resourceCache: {},
       searchRoute: null,
-      switchingLanguage: true
+      switchingLanguage: false
     }
     expect(cityContentReducer(prevState, switchContentLanguageAction)?.switchingLanguage).toBe(true)
   })
@@ -89,23 +88,8 @@ describe('cityContentReducer', () => {
       languages: null,
       resourceCache: {},
       searchRoute: null,
-      switchingLanguage: true
+      switchingLanguage: false
     }
     expect(cityContentReducer(prevState, pushLanguagesAction)?.languages).toEqual(pushLanguagesAction.params.languages)
-  })
-
-  jest.mock('../morphContentLanguage', () => jest.fn(() => 'mockReturn'))
-  it('should call morphContentLanguage on MORPH_CONTENT_LANGUAGE', () => {
-    const prevState: CityContentStateType = {
-      city: 'augsburg',
-      categoriesRouteMapping: {},
-      eventsRouteMapping: {},
-      languages: null,
-      resourceCache: {},
-      searchRoute: null,
-      switchingLanguage: true
-    }
-    expect(cityContentReducer(prevState, morphContentLanguageAction)).toBe('mockReturn')
-    expect(morphContentLanguage).toHaveBeenCalledWith(prevState, morphContentLanguageAction)
   })
 })
