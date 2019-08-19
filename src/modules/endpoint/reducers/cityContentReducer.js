@@ -82,7 +82,7 @@ export default (
     }
     case 'CLEAR_CITY':
       return null
-    case 'RESOURCES_FETCH_FAILED': {
+    case 'FETCH_RESOURCES_FAILED': {
       if (state === null) {
         throw Error('A fetch resources fail cannot occur on not initialized cityContent')
       }

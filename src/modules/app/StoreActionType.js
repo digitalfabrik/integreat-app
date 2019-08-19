@@ -118,7 +118,7 @@ export type ClearCityActionType = {|
 |}
 
 export type ResourcesFetchFailedActionType = {|
-  type: 'RESOURCES_FETCH_FAILED',
+  type: 'FETCH_RESOURCES_FAILED',
   params: {|
     message: string
   |}
