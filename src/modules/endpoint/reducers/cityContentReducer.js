@@ -5,11 +5,11 @@ import { defaultCityContentState } from '../../app/StateType'
 import morphContentLanguage from './morphContentLanguage'
 import pushCategory from './pushCategory'
 import pushEvent from './pushEvent'
-import type { CityContentActionType } from '../../app/StoreActionType'
+import type { StoreActionType } from '../../app/StoreActionType'
 import createCityContent from './createCityContent'
 
 export default (
-  state: CityContentStateType | null = defaultCityContentState, action: CityContentActionType
+  state: CityContentStateType | null = defaultCityContentState, action: StoreActionType
 ): CityContentStateType | null => {
   switch (action.type) {
     case 'SWITCH_CONTENT_LANGUAGE':
