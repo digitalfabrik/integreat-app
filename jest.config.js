@@ -6,7 +6,7 @@ module.exports = {
     '<rootDir>/jest.setup.js'
   ],
   'transformIgnorePatterns': [
-    'node_modules/(?!react-native|@react-native-community/async-storage|antd|rc-.+)'
+    'node_modules/(?!react-native|@react-native-community/async-storage|@integreat-app/integreat-api-client|antd|rc-.+)'
   ],
   'moduleFileExtensions': [
     'js'
