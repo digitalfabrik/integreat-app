@@ -84,11 +84,18 @@ export type EventsRouteMappingType = {
 }
 
 export type CitiesStateType = {|
-  +models: Array<CityModel> | null
-|} | ErrorStateType
+  +status: 'ready',
+  +models: Array<CityModel>
+|} | {|
+  +status: 'loading'
+|} | {|
+  +status: 'error',
+  +message: string
+|}
 
 export const defaultCitiesState: CitiesStateType = {
-  models: null
+  status: 'error',
+  message: 'Cities not yet initialized'
 }
 
 export const defaultContentLanguageState = DEFAULT_LANGUAGE
