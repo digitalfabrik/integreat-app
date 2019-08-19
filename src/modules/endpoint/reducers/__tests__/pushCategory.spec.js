@@ -150,10 +150,9 @@ describe('pushCategory', () => {
         }
       }
     }))
-
   })
 
-  it('should merge the resource cache if theres already one', () => {
+  it('should merge the resource cache if there\'s already one', () => {
     const prevState = prepareState({})
 
     const testumgebungRootCategory = new CategoryModel({
