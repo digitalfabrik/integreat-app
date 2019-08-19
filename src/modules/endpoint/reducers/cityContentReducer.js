@@ -40,7 +40,7 @@ export default (
     case 'FETCH_EVENT': {
       const { language, path, key, city } = action.params
       const newState = state === null ? createCityContent(city) : state
-      newState.eventsRouteMapping[key] = { status: 'loading', language, path }
+      newState.eventsRouteMapping[key] = { status: 'loading', language, city, path }
       return newState
     }
     case 'CLEAR_EVENT': {
@@ -56,8 +56,8 @@ export default (
         throw Error('A fetch category fail cannot occur on not initialized cityContent')
       }
       const { message, key } = action.params
-      const { language, path } = state.eventsRouteMapping[key]
-      state.eventsRouteMapping[key] = { status: 'error', message, language, path }
+      const { language, path, city } = state.eventsRouteMapping[key]
+      state.eventsRouteMapping[key] = { status: 'error', message, language, path, city }
       return state
     }
     case 'FETCH_CATEGORY': {

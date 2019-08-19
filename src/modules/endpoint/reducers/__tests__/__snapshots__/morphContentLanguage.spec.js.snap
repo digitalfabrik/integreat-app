@@ -77,7 +77,7 @@ Object {
           "_title": "Welcome to Augsburg",
         },
       },
-      "root": "/augsburg/en",
+      "path": "/augsburg/en",
       "status": "ready",
     },
   },
@@ -88,6 +88,7 @@ Object {
         "de" => "de",
         "en" => "en",
       },
+      "city": "augsburg",
       "language": "en",
       "models": Array [
         EventModel {
@@ -171,6 +172,7 @@ Object {
         "en" => "/augsburg/en/events/third_event",
         "de" => "/augsburg/de/events/drittes_event",
       },
+      "city": "augsburg",
       "language": "en",
       "models": Array [
         EventModel {

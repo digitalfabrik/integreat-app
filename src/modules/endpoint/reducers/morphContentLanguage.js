@@ -56,7 +56,7 @@ const eventRouteTranslator = (newEvents: Array<EventModel>, newLanguage: string)
       console.warn('Route was not ready when translating. Will not translate this route.')
       return route
     }
-    const { path, allAvailableLanguages } = route
+    const { path, allAvailableLanguages, city } = route
 
     if (!path) { // Route is a list of all events
       return {
@@ -64,7 +64,8 @@ const eventRouteTranslator = (newEvents: Array<EventModel>, newLanguage: string)
         path: null,
         models: newEvents,
         allAvailableLanguages,
-        language: newLanguage
+        language: newLanguage,
+        city
       }
     }
 
@@ -89,7 +90,8 @@ const eventRouteTranslator = (newEvents: Array<EventModel>, newLanguage: string)
       path: translatedPath,
       models: [translatedEvent],
       allAvailableLanguages,
-      language: newLanguage
+      language: newLanguage,
+      city
     }
   }
 

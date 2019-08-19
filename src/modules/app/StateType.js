@@ -38,7 +38,8 @@ export type CategoryRouteStateType = {|
 
 export type EventRouteConfigType = {|
   +path: ?string,
-  +language: string
+  +language: string,
+  +city: string
 |}
 
 export type EventRouteStateType = {|

@@ -32,7 +32,8 @@ function * fetchEvent (dataContainer: DataContainer, action: FetchEventActionTyp
           path,
           languages,
           key,
-          language
+          language,
+          city
         }
       }
       yield put(insert)

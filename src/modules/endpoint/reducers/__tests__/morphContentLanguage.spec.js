@@ -307,7 +307,8 @@ describe('morphContentLanguage', () => {
         languages,
         key: 'event-route-1',
         resourceCache: {},
-        language: 'de'
+        language: 'de',
+        city: 'augsburg'
       }
     }
 
@@ -321,7 +322,8 @@ describe('morphContentLanguage', () => {
         path: eventPath,
         key: 'event-route-2',
         resourceCache: {},
-        language: 'de'
+        language: 'de',
+        city: 'augsburg'
       }
     }
 

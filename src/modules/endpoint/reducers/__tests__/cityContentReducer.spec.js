@@ -32,7 +32,8 @@ describe('cityContentReducer', () => {
       key: 'route-id-0',
       resourceCache: {},
       languages: [],
-      language: 'de'
+      language: 'de',
+      city: 'augsburg'
     }
   }
   const morphContentLanguageAction = {
@@ -111,6 +112,7 @@ describe('cityContentReducer', () => {
       eventsRouteMapping: {
         'route-id-0': {
           language: 'de',
+          city: 'augsburg',
           path: null,
           status: 'loading'
         }
@@ -130,6 +132,7 @@ describe('cityContentReducer', () => {
         'route-id-0': {
           status: 'error',
           language: 'de',
+          city: 'augsburg',
           path: null,
           message: 'No idea why it fails :/'
         }
@@ -154,6 +157,7 @@ describe('cityContentReducer', () => {
         'route-id-0': {
           status: 'loading',
           language: 'de',
+          city: 'augsburg',
           path: null
         }
       },
@@ -169,6 +173,7 @@ describe('cityContentReducer', () => {
     })?.eventsRouteMapping['route-id-0']).toEqual({
       status: 'error',
       language: 'de',
+      city: 'augsburg',
       path: null,
       message: 'No idea why it fails :/'
     })
