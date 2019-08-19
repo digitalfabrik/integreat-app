@@ -46,15 +46,17 @@ export type PushCategoryActionType = {|
   type: 'PUSH_CATEGORY', params: {|
     categoriesMap: CategoriesMapModel,
     resourceCache: LanguageResourceCacheStateType,
-    rootAvailableLanguages: Map<string, string>,
+    cityLanguages: Array<LanguageModel>,
     city: string,
     language: string,
     path: string, depth: number, key: string
   |}
 |}
+
 export type ClearCategoryActionType = {|
   type: 'CLEAR_CATEGORY', params: {| key: string |}
 |}
+
 export type CategoriesActionType =
   ClearCategoryActionType
   | FetchCategoryActionType
@@ -72,11 +74,12 @@ export type ClearEventActionType = {|
   type: 'CLEAR_EVENT', params: {| key: string |}
 |}
 export type PushEventActionType = {|
-  type: 'PUSH_EVENT', params: {|
+  type: 'PUSH_EVENT',
+  params: {|
     events: Array<EventModel>,
     path: ?string, key: string,
     resourceCache: LanguageResourceCacheStateType,
-    languages: Array<LanguageModel>,
+    cityLanguages: Array<LanguageModel>,
     language: string,
     city: string
   |}

@@ -16,7 +16,7 @@ describe('cityContentReducer', () => {
     params: {
       categoriesMap: new CategoriesMapModel([]),
       resourceCache: {},
-      rootAvailableLanguages: new Map(),
+      cityLanguages: [new LanguageModel('de', 'Deutsch')],
       city: 'augsburg',
       language: 'de',
       path: '/augsburg/de',
@@ -31,7 +31,7 @@ describe('cityContentReducer', () => {
       path: null,
       key: 'route-id-0',
       resourceCache: {},
-      languages: [],
+      cityLanguages: [],
       language: 'de',
       city: 'augsburg'
     }

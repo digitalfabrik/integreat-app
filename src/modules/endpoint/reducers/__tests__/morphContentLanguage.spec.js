@@ -137,7 +137,7 @@ describe('morphContentLanguage', () => {
     return new CategoriesMapModel(deCategories)
   }
 
-  const languages = [new LanguageModel('de', 'Deutsch'), new LanguageModel('en', 'English')]
+  const cityLanguages = [new LanguageModel('de', 'Deutsch'), new LanguageModel('en', 'English')]
 
   const enEvents = [
     new EventModel({
@@ -271,7 +271,10 @@ describe('morphContentLanguage', () => {
     })
   ]
 
-  const deRootAvailableLanguages = new Map([['en', '/augsburg/en'], ['de', '/augsburg/de']])
+  const deRootAvailableLanguages = [
+    new LanguageModel('en', 'English'),
+    new LanguageModel('de', 'Deutsch')
+  ]
 
   const prepareState = ({ path, model, eventPath, events }: {
     path: string, model: CategoryModel, eventPath: string, events: Array<EventModel>
@@ -281,13 +284,13 @@ describe('morphContentLanguage', () => {
     eventPath: '/augsburg/de/events/drittes_event',
     events: deEvents
   }): CityContentStateType => {
-    let state = createCityContent('augsburg', languages)
+    let state = createCityContent('augsburg', cityLanguages)
 
     const pushAction: PushCategoryActionType = {
       type: 'PUSH_CATEGORY',
       params: {
         categoriesMap: model,
-        rootAvailableLanguages: deRootAvailableLanguages,
+        cityLanguages: deRootAvailableLanguages,
         path,
         depth: 2,
         key: 'route-0',
@@ -304,7 +307,7 @@ describe('morphContentLanguage', () => {
       params: {
         path: null,
         events,
-        languages,
+        cityLanguages,
         key: 'event-route-1',
         resourceCache: {},
         language: 'de',
@@ -318,7 +321,7 @@ describe('morphContentLanguage', () => {
       type: 'PUSH_EVENT',
       params: {
         events,
-        languages,
+        cityLanguages,
         path: eventPath,
         key: 'event-route-2',
         resourceCache: {},

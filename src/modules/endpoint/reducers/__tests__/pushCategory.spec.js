@@ -1,6 +1,6 @@
 // @flow
 
-import { CategoriesMapModel, CategoryModel } from '@integreat-app/integreat-api-client'
+import { CategoriesMapModel, CategoryModel, LanguageModel } from '@integreat-app/integreat-api-client'
 import moment from 'moment-timezone'
 import type { CityContentStateType } from '../../../app/StateType'
 import cityContentReducer from '../cityContentReducer'
@@ -91,7 +91,7 @@ describe('pushCategory', () => {
       params: {
         categoriesMap,
         resourceCache: {},
-        rootAvailableLanguages: new Map([['en', '/augsburg/en'], ['de', '/augsburg/de']]),
+        cityLanguages: [new LanguageModel('en', 'English'), new LanguageModel('de', 'Deutsch')],
         city: 'augsburg',
         language: 'de',
         path: '/augsburg/de',
@@ -127,7 +127,7 @@ describe('pushCategory', () => {
       params: {
         categoriesMap,
         resourceCache: {},
-        rootAvailableLanguages: new Map([['en', '/augsburg/en'], ['de', '/augsburg/de']]),
+        cityLanguages: [new LanguageModel('en'), new LanguageModel('de')],
         city: 'augsburg',
         language: 'de',
         path: '/augsburg/de/sub',
@@ -183,7 +183,7 @@ describe('pushCategory', () => {
       params: {
         categoriesMap: testumgebungCategoriesMap,
         resourceCache,
-        rootAvailableLanguages: new Map([['en', '/testumgebung/en'], ['de', '/testumgebung/de']]),
+        cityLanguages: [new LanguageModel('en', 'English'), new LanguageModel('de', 'Deutsch')],
         city: 'testumgebung',
         language: 'de',
         path: '/testumgebung/de',
@@ -210,7 +210,7 @@ describe('pushCategory', () => {
       params: {
         categoriesMap,
         resourceCache: {},
-        rootAvailableLanguages: new Map([['en', '/augsburg/en'], ['de', '/augsburg/de']]),
+        cityLanguages: [new LanguageModel('en', 'English'), new LanguageModel('de', 'Deutsch')],
         city: 'augsburg',
         language: 'de',
         path: '/augsburg/de',
