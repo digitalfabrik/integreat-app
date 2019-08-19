@@ -87,11 +87,11 @@ describe('I18nProvider', () => {
       </I18nProvider>
     ).root
 
-    expect(i18next.createInstance.mock.calls).toHaveLength(1)
+    expect(i18next.createInstance).toHaveBeenCalledTimes(1)
 
     expect(root.findByType(I18nextProvider).props.i18n).toBe(i18nInstance)
 
-    expect(i18nInstance.init.mock.calls).toHaveLength(1)
+    expect(i18nInstance.init).toHaveBeenCalledTimes(1)
     expect(i18nInstance.init.mock.calls[0]).toHaveLength(1)
     const options = i18nInstance.init.mock.calls[0][0]
 
