@@ -28,14 +28,14 @@ type PropsType = {|
  */
 export class ExtrasPage extends React.Component<PropsType> {
   toTileModels (extras: Array<ExtraModel>): Array<TileModel> {
-    const {city, language} = this.props
+    const { city, language } = this.props
     return extras.map(
       extra => {
         let path = extra.path
         if (extra.alias === SPRUNGBRETT_EXTRA) {
-          path = new SprungbrettRouteConfig().getRoutePath({city, language})
+          path = new SprungbrettRouteConfig().getRoutePath({ city, language })
         } else if (extra.alias === WOHNEN_EXTRA) {
-          path = new WohnenRouteConfig().getRoutePath({city, language})
+          path = new WohnenRouteConfig().getRoutePath({ city, language })
         }
 
         return new TileModel({
@@ -53,11 +53,11 @@ export class ExtrasPage extends React.Component<PropsType> {
   }
 
   render () {
-    const {city, extras, extraId, language, t} = this.props
+    const { city, extras, extraId, language, t } = this.props
 
     if (extraId) {
       // If there is an extraId, the route is invalid, because every internal extra has a separate route
-      const error = new ContentNotFoundError({type: 'extra', id: extraId, city: city, language})
+      const error = new ContentNotFoundError({ type: 'extra', id: extraId, city: city, language })
       return <FailureSwitcher error={error} />
     }
 

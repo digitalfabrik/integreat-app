@@ -1,7 +1,7 @@
 // @flow
 
 import type { Dispatch } from 'redux'
-import { Payload, LoadingError, ParamMissingError, MappingError, Endpoint } from '@integreat-app/integreat-api-client'
+import { Endpoint, LoadingError, MappingError, ParamMissingError, Payload } from '@integreat-app/integreat-api-client'
 import startFetchAction from './actions/startFetchAction'
 import finishFetchAction from './actions/finishFetchAction'
 import type { StoreActionType } from './StoreActionType'
@@ -48,7 +48,7 @@ async function fetchData<P, T> (
     if (e instanceof LoadingError || e instanceof ParamMissingError || e instanceof MappingError) {
       error = e
     } else {
-      error = new LoadingError({endpointName: endpoint.stateName, message: e.message})
+      error = new LoadingError({ endpointName: endpoint.stateName, message: e.message })
     }
 
     console.error(error)

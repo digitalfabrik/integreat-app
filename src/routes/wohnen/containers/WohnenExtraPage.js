@@ -25,7 +25,7 @@ type PropsType = {|
 |}
 
 export class WohnenExtraPage extends React.Component<PropsType> {
-  renderOfferListItem = ({city, language, hashFunction}: {
+  renderOfferListItem = ({ city, language, hashFunction }: {
     city: string, language: string,
     hashFunction: WohnenOfferModel => string
   }) => (offer: WohnenOfferModel) =>
@@ -36,7 +36,7 @@ export class WohnenExtraPage extends React.Component<PropsType> {
                    hashFunction={hashFunction} />
 
   render () {
-    const {offers, extras, city, language, offerHash, t} = this.props
+    const { offers, extras, city, language, offerHash, t } = this.props
     const extra: ExtraModel | void = extras.find(extra => extra.alias === 'wohnen')
 
     if (!extra) {
@@ -58,7 +58,7 @@ export class WohnenExtraPage extends React.Component<PropsType> {
         <Caption title={extra.title} />
         <List noItemsMessage={t('noOffersAvailable')}
               items={offers}
-              renderItem={this.renderOfferListItem({city, language, hashFunction})} />
+              renderItem={this.renderOfferListItem({ city, language, hashFunction })} />
       </>
     )
   }

@@ -14,7 +14,7 @@ const extras = [
   })
 ]
 const extrasPayload = new Payload(false, 'https://random.api.json', extras, null)
-const payloads = {extras: extrasPayload}
+const payloads = { extras: extrasPayload }
 
 const t = (key: ?string): string => key || ''
 
@@ -22,7 +22,7 @@ describe('ExtrasRouteConfig', () => {
   const extasRouteConfig = new ExtrasRouteConfig()
 
   it('should get the right path', () => {
-    expect(extasRouteConfig.getRoutePath({city: 'augsburg', language: 'de'})).toBe('/augsburg/de/extras')
+    expect(extasRouteConfig.getRoutePath({ city: 'augsburg', language: 'de' })).toBe('/augsburg/de/extras')
   })
 
   it('should get the required payloads', () => {
@@ -42,27 +42,27 @@ describe('ExtrasRouteConfig', () => {
 
   it('should get the right language change path', () => {
     const location = createLocation({
-      payload: {city: 'augsburg', language: 'de'},
+      payload: { city: 'augsburg', language: 'de' },
       pathname: '/augsburg/de/extras',
       type: extasRouteConfig.name
     })
 
-    expect(extasRouteConfig.getLanguageChangePath({payloads, language: 'en', location}))
+    expect(extasRouteConfig.getLanguageChangePath({ payloads, language: 'en', location }))
       .toBe('/augsburg/en/extras')
-    expect(extasRouteConfig.getLanguageChangePath({payloads, language: 'ar', location}))
+    expect(extasRouteConfig.getLanguageChangePath({ payloads, language: 'ar', location }))
       .toBe('/augsburg/ar/extras')
   })
 
   it('should get the right page title', () => {
     const location = createLocation({
-      payload: {city: 'augsburg', language: 'de'},
+      payload: { city: 'augsburg', language: 'de' },
       pathname: '/augsburg/de/extras',
       type: extasRouteConfig.name
     })
 
-    expect(extasRouteConfig.getPageTitle({payloads, location, cityName: 'Augsburg', t}))
+    expect(extasRouteConfig.getPageTitle({ payloads, location, cityName: 'Augsburg', t }))
       .toBe('pageTitles.extras - Augsburg')
-    expect(extasRouteConfig.getPageTitle({payloads, location, cityName: null, t}))
+    expect(extasRouteConfig.getPageTitle({ payloads, location, cityName: null, t }))
       .toBeNull()
   })
 
@@ -72,12 +72,12 @@ describe('ExtrasRouteConfig', () => {
 
   it('should return the right feedback target information', () => {
     const location = createLocation({
-      payload: {city: 'augsburg', language: 'de'},
+      payload: { city: 'augsburg', language: 'de' },
       pathname: '/augsburg/de/extras',
       type: extasRouteConfig.name
     })
 
-    expect(extasRouteConfig.getFeedbackTargetInformation({payloads, location}))
+    expect(extasRouteConfig.getFeedbackTargetInformation({ payloads, location }))
       .toBeNull()
   })
 })

@@ -83,7 +83,7 @@ describe.skip('I18nProvider', () => {
 
     const i18n = component.find(I18nextProvider).prop('i18n')
     expect(i18n.language).toEqual('en')
-    expect(component.state()).toEqual({language: 'en', fonts: {lateef: false, openSans: true, raleway: true}})
+    expect(component.state()).toEqual({ language: 'en', fonts: { lateef: false, openSans: true, raleway: true } })
   })
 
   it('should call setLanguage on property change', () => {
@@ -92,12 +92,12 @@ describe.skip('I18nProvider', () => {
     </I18nProvider>)
     component.instance().setLanguage = jest.fn()
 
-    component.setProps({language: 'de'})
+    component.setProps({ language: 'de' })
     expect(component.instance().setLanguage).toHaveBeenCalledWith('de')
   })
 
   it('should connect to the store', () => {
-    const store = mockStore({location: {payload: {language: 'language1'}}})
+    const store = mockStore({ location: { payload: { language: 'language1' } } })
     const component = mount(<Provider store={store}>
       <ConnectedI18nProvider>
         <div />
@@ -130,7 +130,7 @@ describe.skip('I18nProvider', () => {
       expect(I18nProvider.getSelectedFonts).toHaveBeenCalledWith(expectedLanguage)
       expect(component.state()).toEqual({
         language: expectedLanguage,
-        fonts: {lateef: false, openSans: true, raleway: true}
+        fonts: { lateef: false, openSans: true, raleway: true }
       })
       // $FlowFixMe
       I18nProvider.getSelectedFonts = originalGetSelectedFonts
@@ -158,7 +158,7 @@ describe.skip('I18nProvider', () => {
       expect(I18nProvider.getSelectedFonts).toHaveBeenCalledWith(expectedLanguage)
       expect(component.state()).toEqual({
         language: expectedLanguage,
-        fonts: {lateef: true, openSans: true, raleway: true}
+        fonts: { lateef: true, openSans: true, raleway: true }
       })
       // $FlowFixMe
       I18nProvider.getSelectedFonts = originalGetSelectedFonts
@@ -171,7 +171,7 @@ describe.skip('I18nProvider', () => {
       <div />
     </I18nProvider>)
     expect(component.find('div').at(0).prop('style').direction).toEqual('ltr')
-    component.setProps({language: 'ar'})
+    component.setProps({ language: 'ar' })
     component.update()
     expect(component.find('div').at(0).prop('style').direction).toEqual('rtl')
     expect(mockSetUiDirection).toHaveBeenCalledWith('rtl')

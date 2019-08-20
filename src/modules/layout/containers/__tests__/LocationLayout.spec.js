@@ -4,11 +4,11 @@ import React from 'react'
 import { shallow } from 'enzyme'
 
 import {
-  CityModel,
   CategoriesMapModel,
   CategoryModel,
-  EventModel,
+  CityModel,
   DateModel,
+  EventModel,
   LocationModel
 } from '@integreat-app/integreat-api-client'
 
@@ -73,14 +73,14 @@ describe('LocationLayout', () => {
   ]
 
   const languageChangePaths = [
-    {code: 'de', name: 'Deutsch', path: '/augsburg/de'},
-    {code: 'en', name: 'English', path: '/augsburg/en'}
+    { code: 'de', name: 'Deutsch', path: '/augsburg/de' },
+    { code: 'en', name: 'English', path: '/augsburg/en' }
   ]
 
-  const feedbackTargetInformation = {id: 75, title: 'Category_Title'}
+  const feedbackTargetInformation = { id: 75, title: 'Category_Title' }
 
   const MockNode = () => <div />
-  const renderLocationLayout = location => <LocationLayout location={createLocation({...location})}
+  const renderLocationLayout = location => <LocationLayout location={createLocation({ ...location })}
                                                            categories={categories} cities={cities}
                                                            events={events} languageChangePaths={languageChangePaths}
                                                            feedbackTargetInformation={feedbackTargetInformation}
@@ -91,7 +91,7 @@ describe('LocationLayout', () => {
   describe('renderToolbar', () => {
     it('should render a CategoriesToolbar if current route is categories', () => {
       const location = {
-        payload: {city, language},
+        payload: { city, language },
         type: '/augsburg/de/willkommen',
         pathname: CATEGORIES_ROUTE
       }
@@ -101,7 +101,7 @@ describe('LocationLayout', () => {
 
     it('should not render a LocationToolbar if current route is not categories', () => {
       const location = {
-        payload: {city, language},
+        payload: { city, language },
         type: SEARCH_ROUTE,
         pathname: '/augsburg/de/search'
       }
@@ -112,7 +112,7 @@ describe('LocationLayout', () => {
 
   it('should show LocationHeader and LocationFooter if city is available', () => {
     const location = {
-      payload: {city, language},
+      payload: { city, language },
       type: CATEGORIES_ROUTE,
       pathname: '/augsburg/de/willkommen'
     }
@@ -122,7 +122,7 @@ describe('LocationLayout', () => {
 
   it('should show GeneralHeader and GeneralFooter if city is not available', () => {
     const location = {
-      payload: {city, language},
+      payload: { city, language },
       type: CATEGORIES_ROUTE,
       pathname: '/augsburg/de/willkommen'
     }

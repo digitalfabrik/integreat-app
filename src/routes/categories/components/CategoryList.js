@@ -41,15 +41,15 @@ type PropsType = {|
  */
 class CategoryList extends React.PureComponent<PropsType> {
   render () {
-    const {categories, title, thumbnail, content, query, onInternalLinkClick} = this.props
+    const { categories, title, thumbnail, content, query, onInternalLinkClick } = this.props
     return (
       <div>
         {thumbnail && <Centering><CategoryIcon src={thumbnail} /></Centering>}
         {title && <Caption title={title} />}
-        {content && <RemoteContent centered dangerouslySetInnerHTML={{__html: content}}
+        {content && <RemoteContent centered dangerouslySetInnerHTML={{ __html: content }}
                                    onInternalLinkClick={onInternalLinkClick} />}
         <List>
-          {categories.map(({model, subCategories}) =>
+          {categories.map(({ model, subCategories }) =>
             <CategoryListItem key={model.id}
                               category={model}
                               subCategories={subCategories}

@@ -59,18 +59,18 @@ type StateType = {|
 |}
 
 class FeedbackModal extends React.Component<PropsType, StateType> {
-  state = {feedbackSent: false}
+  state = { feedbackSent: false }
 
-  onSubmit = () => this.setState({feedbackSent: true})
+  onSubmit = () => this.setState({ feedbackSent: true })
 
   closeFeedbackModal = () => {
-    this.setState({feedbackSent: false})
+    this.setState({ feedbackSent: false })
     this.props.closeFeedbackModal()
   }
 
   render () {
-    const {feedbackStatus, ...otherProps} = this.props
-    const {feedbackSent} = this.state
+    const { feedbackStatus, ...otherProps } = this.props
+    const { feedbackSent } = this.state
 
     return <ModalContainer>
       <Overlay onClick={this.closeFeedbackModal} />

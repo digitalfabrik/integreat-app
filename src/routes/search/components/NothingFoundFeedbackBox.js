@@ -26,15 +26,15 @@ type StateType = {|
 export class NothingFoundFeedbackBox extends React.Component<PropsType, StateType> {
   constructor (props: PropsType) {
     super(props)
-    this.state = {comment: '', feedbackSent: false}
+    this.state = { comment: '', feedbackSent: false }
   }
 
-  onCommentChanged = (event: SyntheticInputEvent<HTMLTextAreaElement>) => this.setState({comment: event.target.value})
+  onCommentChanged = (event: SyntheticInputEvent<HTMLTextAreaElement>) => this.setState({ comment: event.target.value })
 
   onSubmit = () => {
-    const {query, location} = this.props
-    const {city, language} = location.payload
-    const {comment} = this.state
+    const { query, location } = this.props
+    const { city, language } = location.payload
+    const { comment } = this.state
     createFeedbackEndpoint(cmsApiBaseUrl).request({
       feedbackType: SEARCH_FEEDBACK_TYPE,
       isPositiveRating: false,
@@ -44,12 +44,12 @@ export class NothingFoundFeedbackBox extends React.Component<PropsType, StateTyp
       query
     })
 
-    this.setState({feedbackSent: true})
+    this.setState({ feedbackSent: true })
   }
 
   render () {
-    const {feedbackSent, comment} = this.state
-    const {t} = this.props
+    const { feedbackSent, comment } = this.state
+    const { t } = this.props
 
     return <StyledFeedbackBox>
       {

@@ -30,7 +30,7 @@ type PropsType = {|
 
 export class ModalHeader extends React.PureComponent<PropsType> {
   render () {
-    const {title, closeFeedbackModal} = this.props
+    const { title, closeFeedbackModal } = this.props
 
     return (
       <Header>

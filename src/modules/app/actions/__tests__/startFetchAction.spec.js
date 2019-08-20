@@ -9,7 +9,7 @@ describe('startFetchAction', () => {
   const mockedTime = 0
 
   beforeEach(() => {
-    clock = lolex.install({now: mockedTime, toFake: []})
+    clock = lolex.install({ now: mockedTime, toFake: [] })
   })
 
   afterEach(() => {
@@ -22,6 +22,6 @@ describe('startFetchAction', () => {
 
   it('should create the right action', () => {
     expect(startFetchAction('endpoint', 'http://some.com/url'))
-      .toEqual({type: startFetchActionName('endpoint'), payload: new Payload(true, 'http://some.com/url')})
+      .toEqual({ type: startFetchActionName('endpoint'), payload: new Payload(true, 'http://some.com/url') })
   })
 })

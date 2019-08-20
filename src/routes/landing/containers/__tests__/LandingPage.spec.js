@@ -27,12 +27,12 @@ describe('LandingPage', () => {
   it('should map state to props', () => {
     const language = 'en'
 
-    const location = {type: LANDING_ROUTE, payload: {language}, routesMap}
+    const location = { type: LANDING_ROUTE, payload: { language }, routesMap }
 
     const mockStore = configureMockStore()
     const store = mockStore({
       location: location,
-      cities: {data: cities}
+      cities: { data: cities }
     })
 
     const landingPage = shallow(

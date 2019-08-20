@@ -22,7 +22,8 @@ describe('FeedbackModal', () => {
     ]
 
     const location = createLocation({
-      type: CATEGORIES_ROUTE, payload: {city: 'augsburg', language: 'de'}, query: {feedback: 'up'}})
+      type: CATEGORIES_ROUTE, payload: { city: 'augsburg', language: 'de' }, query: { feedback: 'up' }
+    })
 
     expect(shallow(
     <FeedbackModal

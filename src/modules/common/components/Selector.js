@@ -85,7 +85,7 @@ class Selector extends React.PureComponent<PropsType> {
   }
 
   getItems (): React.Node {
-    const {items, activeItemCode, closeDropDownCallback, disabledItemTooltip} = this.props
+    const { items, activeItemCode, closeDropDownCallback, disabledItemTooltip } = this.props
     return items.map(item => {
       if (item.href) {
         return (

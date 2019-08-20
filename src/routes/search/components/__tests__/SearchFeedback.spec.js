@@ -9,7 +9,7 @@ import createLocation from '../../../../createLocation'
 describe('SearchFeedback', () => {
   const t = (key: ?string): string => key || ''
   const location = createLocation(
-    {type: SEARCH_ROUTE, payload: {city: 'augsburg', language: 'de'}, query: {feedback: 'up'}})
+    { type: SEARCH_ROUTE, payload: { city: 'augsburg', language: 'de' }, query: { feedback: 'up' } })
 
   it('should render a NothingFoundFeedbackBox if no results are found', () => {
     expect(shallow(

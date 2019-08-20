@@ -1,7 +1,7 @@
 const fs = require('fs')
 const task = require('./task')
 
-const {reduce, map, union, isEmpty} = require('lodash')
+const { reduce, map, union, isEmpty } = require('lodash')
 
 function findMissingLocales () {
   const locales = JSON.parse(fs.readFileSync('./src/locales.json', 'utf8'))

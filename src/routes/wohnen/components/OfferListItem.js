@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import { WohnenOfferModel, WohnenFormData } from '@integreat-app/integreat-api-client'
+import { WohnenFormData, WohnenOfferModel } from '@integreat-app/integreat-api-client'
 import ListItem from '../../../modules/common/components/ListItem'
 import styled from 'styled-components'
 import WohnenRouteConfig from '../../../modules/app/route-configs/WohnenRouteConfig'
@@ -24,11 +24,11 @@ type PropsType = {|
 
 class OfferListItem extends React.PureComponent<PropsType> {
   render () {
-    const {offer, city, language, hashFunction} = this.props
+    const { offer, city, language, hashFunction } = this.props
 
     if (offer.formData instanceof WohnenFormData) {
       const hash = hashFunction(offer)
-      const offerPath = new WohnenRouteConfig().getRoutePath({city, language, offerHash: hash})
+      const offerPath = new WohnenRouteConfig().getRoutePath({ city, language, offerHash: hash })
       const specificOffer: WohnenOfferModel = offer
       const accommodation = specificOffer.formData.accommodation
       const costs = specificOffer.formData.costs

@@ -190,8 +190,9 @@ describe('Switcher', () => {
     const location = createLocation({
       type: currentRoute,
       pathname,
-      payload: {city: 'city1', language: 'de'},
-      prev: {payload: {param: 'param'}, type: 'RANDOM_TYPE', pathname: '/param'}})
+      payload: { city: 'city1', language: 'de' },
+      prev: { payload: { param: 'param' }, type: 'RANDOM_TYPE', pathname: '/param' }
+    })
     return (
       <Switcher viewportSmall={false} location={location} citiesPayload={citiesPayload}
                 categoriesPayload={categoriesPayload} eventsPayload={eventsPayload} extrasPayload={extrasPayload}
@@ -232,8 +233,8 @@ describe('Switcher', () => {
   it('should map state to props', () => {
     const location = createLocation({
       type: CATEGORIES_ROUTE,
-      payload: {city: 'augsburg', language: 'de'},
-      prev: {type: I18N_REDIRECT_ROUTE, pathname: '/param', payload: {param: 'param'}},
+      payload: { city: 'augsburg', language: 'de' },
+      prev: { type: I18N_REDIRECT_ROUTE, pathname: '/param', payload: { param: 'param' } },
       pathname: '/augsburg/de'
     })
     const mockStore = configureMockStore()
@@ -248,7 +249,7 @@ describe('Switcher', () => {
       pois: poisPayload,
       wohnen: wohnenPayload,
       sprungbrettJobs: sprungbrettPayload,
-      viewport: {is: {small: true}},
+      viewport: { is: { small: true } },
       darkMode: true
     })
 

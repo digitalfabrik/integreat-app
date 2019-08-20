@@ -4,7 +4,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 
 import ConnectedCategoriesPage, { CategoriesPage } from '../CategoriesPage'
-import { CategoryModel, CategoriesMapModel, CityModel } from '@integreat-app/integreat-api-client'
+import { CategoriesMapModel, CategoryModel, CityModel } from '@integreat-app/integreat-api-client'
 import configureMockStore from 'redux-mock-store'
 import moment from 'moment-timezone'
 
@@ -143,15 +143,15 @@ describe('CategoriesPage', () => {
   it('should map state to props', () => {
     const pathname = '/augsburg/en/willkommen'
     const location = {
-      payload: {city: city, language: language},
+      payload: { city: city, language: language },
       pathname: pathname
     }
 
     const mockStore = configureMockStore()
     const store = mockStore({
       location: location,
-      categories: {data: categories},
-      cities: {data: cities}
+      categories: { data: categories },
+      cities: { data: cities }
     })
 
     const categoriesPage = shallow(

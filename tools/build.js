@@ -6,11 +6,11 @@ const fsExtra = require('fs-extra')
 const task = require('./task')
 
 // Render html into the /www folder
-const html = task('html', ({appConfigName, appConfig, webpackConfig}) => {
+const html = task('html', ({ appConfigName, appConfig, webpackConfig }) => {
   const assets = JSON.parse(fs.readFileSync('./www/dist/assets.json', 'utf8'))
   const template = fs.readFileSync('./tools/index.ejs', 'utf8')
-  const render = ejs.compile(template, {filename: './tools/index.ejs'})
-  const output = render({debug: webpackConfig.debug, bundle: assets.main.js, config: appConfig})
+  const render = ejs.compile(template, { filename: './tools/index.ejs' })
+  const output = render({ debug: webpackConfig.debug, bundle: assets.main.js, config: appConfig })
   fs.writeFileSync('./www/index.html', output, 'utf8')
   return Promise.resolve(appConfigName)
 })
@@ -26,7 +26,7 @@ const bundle = task('bundle', appConfigName => {
         reject(err)
       } else {
         console.log(stats.toString(webpackConfig.stats))
-        resolve({appConfigName, appConfig, webpackConfig})
+        resolve({ appConfigName, appConfig, webpackConfig })
       }
     })
   })
@@ -42,7 +42,7 @@ const copyAssets = task('copyAssets', appConfigName => {
 // -----------------------------------------------------------------------------
 module.exports = task('build', (appConfigName = 'integreat') => {
   global.DEBUG = process.argv.includes('--debug') || false
-  rimraf.sync('www/dist/*', {nosort: true, dot: true})
+  rimraf.sync('www/dist/*', { nosort: true, dot: true })
   return Promise.resolve(appConfigName)
     .then(bundle)
     .then(html)
