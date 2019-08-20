@@ -2,14 +2,10 @@
 
 import type { Saga } from 'redux-saga'
 import { call, put, takeLatest } from 'redux-saga/effects'
-import type {
-  PushCitiesActionType,
-  FetchCitiesFailedActionType
-} from '../../app/StoreActionType'
+import type { FetchCitiesFailedActionType, PushCitiesActionType } from '../../app/StoreActionType'
 import type { DataContainer } from '../DataContainer'
 import { createCitiesEndpoint, Payload } from '@integreat-app/integreat-api-client'
 import CityModel from '@integreat-app/integreat-api-client/models/CityModel'
-import request from '../request'
 import { baseUrl } from '../constants'
 
 function * fetchCities (dataContainer: DataContainer): Saga<void> {
@@ -18,7 +14,7 @@ function * fetchCities (dataContainer: DataContainer): Saga<void> {
     if (yield call(() => dataContainer.citiesAvailable())) {
       cities = yield call(() => dataContainer.getCities())
     } else {
-      const payload: Payload<Array<CityModel>> = yield call(() => request(createCitiesEndpoint(baseUrl)))
+      const payload: Payload<Array<CityModel>> = yield call(() => createCitiesEndpoint(baseUrl).request())
       cities = payload.data
       yield call(dataContainer.setCities, cities)
     }
