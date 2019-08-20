@@ -28,13 +28,13 @@ const searchRoute: Route = {
   path: '/:city/:language/search',
   thunk: async (dispatch, getState) => {
     const state = getState()
-    const {city, language} = state.location.payload
+    const { city, language } = state.location.payload
 
     await Promise.all([
       fetchData(createCitiesEndpoint(cmsApiBaseUrl), dispatch, state.cities),
-      fetchData(createEventsEndpoint(cmsApiBaseUrl), dispatch, state.events, {city, language}),
-      fetchData(createLanguagesEndpoint(cmsApiBaseUrl), dispatch, state.languages, {city, language}),
-      fetchData(createCategoriesEndpoint(cmsApiBaseUrl), dispatch, state.categories, {city, language})
+      fetchData(createEventsEndpoint(cmsApiBaseUrl), dispatch, state.events, { city, language }),
+      fetchData(createLanguagesEndpoint(cmsApiBaseUrl), dispatch, state.languages, { city, language }),
+      fetchData(createCategoriesEndpoint(cmsApiBaseUrl), dispatch, state.categories, { city, language })
     ])
   }
 }
@@ -46,15 +46,15 @@ class SearchRouteConfig implements RouteConfig<SearchRouteParamsType, RequiredPa
   requiresHeader = true
   requiresFooter = true
 
-  getRoutePath = ({city, language}: SearchRouteParamsType): string => `/${city}/${language}/search`
+  getRoutePath = ({ city, language }: SearchRouteParamsType): string => `/${city}/${language}/search`
 
-  getLanguageChangePath = ({location, language}) =>
-    this.getRoutePath({city: location.payload.city, language})
+  getLanguageChangePath = ({ location, language }) =>
+    this.getRoutePath({ city: location.payload.city, language })
 
-  getPageTitle = ({cityName, t}) => cityName ? `${t('pageTitles.search')} - ${cityName}` : null
+  getPageTitle = ({ cityName, t }) => cityName ? `${t('pageTitles.search')} - ${cityName}` : null
 
   getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType =>
-    ({categories: payloads.categoriesPayload, cities: payloads.citiesPayload})
+    ({ categories: payloads.categoriesPayload, cities: payloads.citiesPayload })
 
   getMetaDescription = () => null
 

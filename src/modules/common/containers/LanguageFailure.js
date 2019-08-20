@@ -24,7 +24,7 @@ type PropsType = {|
 
 export class LanguageFailure extends React.PureComponent<PropsType> {
   render () {
-    const {t, location, cities, languageChangePaths} = this.props
+    const { t, location, cities, languageChangePaths } = this.props
     const title = cities && CityModel.findCityName(cities, location.payload.city)
     return <>
       {title && <Caption title={title} />}

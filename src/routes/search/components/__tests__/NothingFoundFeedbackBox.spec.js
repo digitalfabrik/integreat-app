@@ -8,7 +8,7 @@ import createLocation from '../../../../createLocation'
 
 describe('NothingFoundFeedbackBox', () => {
   const t = (key: ?string): string => key || ''
-  const location = createLocation({type: SEARCH_ROUTE, payload: {city: 'augsburg', language: 'de'}})
+  const location = createLocation({ type: SEARCH_ROUTE, payload: { city: 'augsburg', language: 'de' } })
   it('should match snapshot', () => {
     expect(shallow(
       <NothingFoundFeedbackBox location={location} t={t} />

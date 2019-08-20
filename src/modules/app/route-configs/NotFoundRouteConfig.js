@@ -16,7 +16,7 @@ class NotFoundRouteConfig implements RouteConfig<void, void> {
 
   getLanguageChangePath = () => null
 
-  getPageTitle = ({t}) => t('pageTitles.notFound')
+  getPageTitle = ({ t }) => t('pageTitles.notFound')
 
   getMetaDescription = () => null
 

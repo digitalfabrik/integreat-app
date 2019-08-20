@@ -22,22 +22,22 @@ export class FailureSwitcher extends React.Component<PropsType> {
    * @return {*}
    */
   static renderContentNotFoundComponent (error: ContentNotFoundError): React.Node {
-    const {city, language} = error
+    const { city, language } = error
     switch (error.type) {
       case 'category':
-        return <Failure goToPath={new CategoriesRouteConfig().getRoutePath({city, language})}
+        return <Failure goToPath={new CategoriesRouteConfig().getRoutePath({ city, language })}
                         goToMessage={'goTo.categories'}
                         errorMessage={'notFound.category'} />
       case 'event':
-        return <Failure goToPath={new EventsRouteConfig().getRoutePath({city, language})}
+        return <Failure goToPath={new EventsRouteConfig().getRoutePath({ city, language })}
                         goToMessage={'goTo.events'}
                         errorMessage={'notFound.event'} />
       case 'extra':
-        return <Failure goToPath={new ExtrasRouteConfig().getRoutePath({city, language})}
+        return <Failure goToPath={new ExtrasRouteConfig().getRoutePath({ city, language })}
                         goToMessage={'goTo.extras'}
                         errorMessage={'notFound.extra'} />
       case 'poi':
-        return <Failure goToPath={new PoisRouteConfig().getRoutePath({city, language})}
+        return <Failure goToPath={new PoisRouteConfig().getRoutePath({ city, language })}
                         goToMessage={'goTo.pois'}
                         errorMessage={'notFound.poi'} />
     }

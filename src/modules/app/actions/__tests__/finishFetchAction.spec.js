@@ -9,7 +9,7 @@ describe('finishFetchAction', () => {
   const mockedTime = 0
 
   beforeEach(() => {
-    clock = lolex.install({now: mockedTime, toFake: []})
+    clock = lolex.install({ now: mockedTime, toFake: [] })
   })
 
   afterEach(() => {
@@ -22,6 +22,9 @@ describe('finishFetchAction', () => {
 
   it('should create the right action', () => {
     const payload = new Payload(false, 'https://random_api.json', 'data', null)
-    expect(finishFetchAction('endpoint', payload)).toEqual({type: finishFetchActionName('endpoint'), payload: payload})
+    expect(finishFetchAction('endpoint', payload)).toEqual({
+      type: finishFetchActionName('endpoint'),
+      payload: payload
+    })
   })
 })

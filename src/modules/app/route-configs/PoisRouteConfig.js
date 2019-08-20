@@ -23,13 +23,13 @@ const poisRoute: Route = {
   path: '/:city/:language/locations/:poiId?',
   thunk: async (dispatch, getState) => {
     const state = getState()
-    const {city, language} = state.location.payload
+    const { city, language } = state.location.payload
 
     await Promise.all([
       fetchData(createCitiesEndpoint(cmsApiBaseUrl), dispatch, state.cities),
-      fetchData(createEventsEndpoint(cmsApiBaseUrl), dispatch, state.events, {city, language}),
-      fetchData(createLanguagesEndpoint(cmsApiBaseUrl), dispatch, state.languages, {city, language}),
-      fetchData(createPOIsEndpoint(cmsApiBaseUrl), dispatch, state.pois, {city, language})
+      fetchData(createEventsEndpoint(cmsApiBaseUrl), dispatch, state.events, { city, language }),
+      fetchData(createLanguagesEndpoint(cmsApiBaseUrl), dispatch, state.languages, { city, language }),
+      fetchData(createPOIsEndpoint(cmsApiBaseUrl), dispatch, state.pois, { city, language })
     ])
   }
 }
@@ -41,21 +41,21 @@ class PoisRouteConfig implements RouteConfig<PoisRouteParamsType, RequiredPayloa
   requiresHeader = true
   requiresFooter = true
 
-  getRoutePath = ({city, language}: PoisRouteParamsType): string => `/${city}/${language}/locations`
+  getRoutePath = ({ city, language }: PoisRouteParamsType): string => `/${city}/${language}/locations`
 
-  getLanguageChangePath = ({location, payloads, language}) => {
-    const {city, poiId} = location.payload
+  getLanguageChangePath = ({ location, payloads, language }) => {
+    const { city, poiId } = location.payload
     const pois = payloads.pois.data
     if (pois && poiId) {
       const poi = pois.find(_poi => _poi.path === location.pathname)
       return (poi && poi.availableLanguages.get(language)) || null
     }
-    return this.getRoutePath({city, language: language})
+    return this.getRoutePath({ city, language: language })
   }
 
-  getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType => ({pois: payloads.poisPayload})
+  getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType => ({ pois: payloads.poisPayload })
 
-  getPageTitle = ({cityName, payloads, t, location}) => {
+  getPageTitle = ({ cityName, payloads, t, location }) => {
     if (!cityName) {
       return null
     }

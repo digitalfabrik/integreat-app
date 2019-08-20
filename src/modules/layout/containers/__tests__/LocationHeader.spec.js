@@ -2,7 +2,7 @@
 
 import { shallow } from 'enzyme'
 import React from 'react'
-import { EventModel, DateModel, LocationModel } from '@integreat-app/integreat-api-client'
+import { DateModel, EventModel, LocationModel } from '@integreat-app/integreat-api-client'
 import { LocationHeader } from '../LocationHeader'
 import { CATEGORIES_ROUTE } from '../../../app/route-configs/CategoriesRouteConfig'
 import { EVENTS_ROUTE } from '../../../app/route-configs/EventsRouteConfig'
@@ -16,8 +16,8 @@ describe('LocationHeader', () => {
   const t = (key: ?string): string => key || ''
 
   const languageChangePaths = [
-    {code: 'de', name: 'Deutsch', path: '/augsburg/de'},
-    {code: 'en', name: 'English', path: '/augsburg/en'}
+    { code: 'de', name: 'Deutsch', path: '/augsburg/de' },
+    { code: 'en', name: 'English', path: '/augsburg/en' }
   ]
 
   const events = [
@@ -88,7 +88,7 @@ describe('LocationHeader', () => {
 
   const language = 'de'
   const city = 'augsburg'
-  const location = route => createLocation({type: route, payload: {city, language}})
+  const location = route => createLocation({ type: route, payload: { city, language } })
   const onStickyTopChanged = (value: number) => {}
 
   describe('NavigationItems', () => {

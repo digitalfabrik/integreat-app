@@ -42,7 +42,7 @@ const cities = [
   })
 ]
 const citiesPayload = new Payload(false, 'https://random.api.json', cities, null)
-const payloads = {cities: citiesPayload, categories: categoriesPayload}
+const payloads = { cities: citiesPayload, categories: categoriesPayload }
 
 const t = (key: ?string): string => key || ''
 
@@ -50,7 +50,7 @@ describe('SearchRouteConfig', () => {
   const searchRouteConfig = new SearchRouteConfig()
 
   it('should get the right path', () => {
-    expect(searchRouteConfig.getRoutePath({city: 'augsburg', language: 'de'})).toBe('/augsburg/de/search')
+    expect(searchRouteConfig.getRoutePath({ city: 'augsburg', language: 'de' })).toBe('/augsburg/de/search')
   })
 
   it('should get the required payloads', () => {
@@ -70,27 +70,27 @@ describe('SearchRouteConfig', () => {
 
   it('should get the right language change path', () => {
     const location = createLocation({
-      payload: {city: 'augsburg', language: 'de'},
+      payload: { city: 'augsburg', language: 'de' },
       pathname: '/augsburg/de/search',
       type: searchRouteConfig.name
     })
-    expect(searchRouteConfig.getLanguageChangePath({payloads, language: 'en', location}))
+    expect(searchRouteConfig.getLanguageChangePath({ payloads, language: 'en', location }))
       .toBe('/augsburg/en/search')
-    expect(searchRouteConfig.getLanguageChangePath({payloads, language: 'fr', location}))
+    expect(searchRouteConfig.getLanguageChangePath({ payloads, language: 'fr', location }))
       .toBe('/augsburg/fr/search')
   })
 
   it('should get the right page title', () => {
     const location = createLocation({
-      payload: {city: 'augsburg', language: 'de'},
+      payload: { city: 'augsburg', language: 'de' },
       pathname: '/augsburg/de/search',
       type: searchRouteConfig.name
     })
 
-    expect(searchRouteConfig.getPageTitle({payloads, location, cityName: 'Augsburg', t}))
+    expect(searchRouteConfig.getPageTitle({ payloads, location, cityName: 'Augsburg', t }))
       .toBe('pageTitles.search - Augsburg')
 
-    expect(searchRouteConfig.getPageTitle({payloads, location, cityName: null, t})).toBeNull()
+    expect(searchRouteConfig.getPageTitle({ payloads, location, cityName: null, t })).toBeNull()
   })
 
   it('should return the right meta description', () => {
@@ -99,11 +99,11 @@ describe('SearchRouteConfig', () => {
 
   describe('it should return the right feedback target information', () => {
     const location = createLocation({
-      payload: {city: 'augsburg', language: 'de'},
+      payload: { city: 'augsburg', language: 'de' },
       pathname: '/augsburg/de/search',
       type: searchRouteConfig.name
     })
 
-    expect(searchRouteConfig.getFeedbackTargetInformation({payloads, location})).toBeNull()
+    expect(searchRouteConfig.getFeedbackTargetInformation({ payloads, location })).toBeNull()
   })
 })

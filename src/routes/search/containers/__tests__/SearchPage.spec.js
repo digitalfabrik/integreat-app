@@ -72,7 +72,7 @@ describe('SearchPage', () => {
   const city = 'augsburg'
   const language = 'de'
   const categories = new CategoriesMapModel(categoryModels)
-  const location = createLocation({type: SEARCH_ROUTE, payload: {city, language}})
+  const location = createLocation({ type: SEARCH_ROUTE, payload: { city, language } })
 
   it('should match snapshot', () => {
     const wrapper = shallow(<SearchPage categories={categories} location={location} t={t} />)
@@ -166,8 +166,8 @@ describe('SearchPage', () => {
   it('should map state to props', () => {
     const mockStore = configureMockStore()
     const store = mockStore({
-      categories: {data: categories},
-      cities: {data: cities},
+      categories: { data: categories },
+      cities: { data: cities },
       location
     })
 

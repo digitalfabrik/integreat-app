@@ -1,6 +1,6 @@
 // @flow
 
-import { shallow, mount } from 'enzyme'
+import { mount, shallow } from 'enzyme'
 import React from 'react'
 
 import { ExtraModel } from '@integreat-app/integreat-api-client'
@@ -68,7 +68,7 @@ describe('ExtrasPage', () => {
   })
 
   it('should map state to props', () => {
-    const location = createLocation({type: EXTRAS_ROUTE, payload: {language, city, extraId: 'invalid_extra'}})
+    const location = createLocation({ type: EXTRAS_ROUTE, payload: { language, city, extraId: 'invalid_extra' } })
     const store = createReduxStore()
     store.getState().location = location
 

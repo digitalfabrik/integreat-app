@@ -34,7 +34,7 @@ export class EventsPage extends React.Component<PropsType> {
     <EventListItem event={event} language={language} key={event.path} />
 
   render () {
-    const {events, path, eventId, city, language, t} = this.props
+    const { events, path, eventId, city, language, t } = this.props
     if (eventId) {
       const event = events.find(_event => _event.path === decodeURIComponent(path))
 
@@ -53,7 +53,7 @@ export class EventsPage extends React.Component<PropsType> {
           </Page>
         </>
       } else {
-        const error = new ContentNotFoundError({type: 'event', id: eventId, city, language})
+        const error = new ContentNotFoundError({ type: 'event', id: eventId, city, language })
         return <FailureSwitcher error={error} />
       }
     }

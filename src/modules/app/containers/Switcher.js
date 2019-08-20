@@ -4,15 +4,15 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import SprungbrettExtraPage from '../../../routes/sprungbrett/containers/SprungbrettExtraPage'
 import {
+  CategoriesMapModel,
+  CityModel,
+  EventModel,
+  ExtraModel,
+  LanguageModel,
+  PageModel,
   Payload,
   PoiModel,
-  WohnenOfferModel,
-  EventModel,
-  CategoriesMapModel,
-  ExtraModel,
-  CityModel,
-  PageModel,
-  LanguageModel
+  WohnenOfferModel
 } from '@integreat-app/integreat-api-client'
 import Layout from '../../layout/components/Layout'
 import LocationLayout from '../../layout/containers/LocationLayout'
@@ -23,9 +23,9 @@ import { getRouteConfig } from '../route-configs'
 import Helmet from '../../common/containers/Helmet'
 import type { Dispatch } from 'redux'
 import type { LocationState } from 'redux-first-router'
+import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
 import compose from 'lodash/fp/compose'
-import type { TFunction } from 'react-i18next'
 import type { RouteConfig } from '../route-configs/RouteConfig'
 import toggleDarkModeAction from '../../theme/actions/toggleDarkMode'
 import LanguageFailure from '../../common/containers/LanguageFailure'
@@ -56,26 +56,26 @@ type PropsType = {|
  */
 export class Switcher extends React.Component<PropsType> {
   getAllPayloads = () => {
-    const {location, languages, viewportSmall, darkMode, toggleDarkMode, t, ...payloads} = this.props
+    const { location, languages, viewportSmall, darkMode, toggleDarkMode, t, ...payloads } = this.props
     return payloads
   }
 
   getLanguageChangePaths = (routeConfig: RouteConfig<*, *>): ?LanguageChangePathsType => {
-    const {languages, location} = this.props
+    const { languages, location } = this.props
     const payloads = routeConfig.getRequiredPayloads(this.getAllPayloads())
     return languages && languages.map(language => ({
-      path: routeConfig.getLanguageChangePath({payloads, location, language: language.code}),
+      path: routeConfig.getLanguageChangePath({ payloads, location, language: language.code }),
       name: language.name,
       code: language.code
     }))
   }
 
   renderHelmet = (): React.Node => {
-    const {location, citiesPayload, t} = this.props
+    const { location, citiesPayload, t } = this.props
     const routeConfig = getRouteConfig(location.type)
     const payloads = routeConfig.getRequiredPayloads(this.getAllPayloads())
     const cityModel = citiesPayload.data && citiesPayload.data.find(city => city.code === location.payload.city)
-    const pageTitle = routeConfig.getPageTitle({t, payloads, cityName: cityModel ? cityModel.name : '', location})
+    const pageTitle = routeConfig.getPageTitle({ t, payloads, cityName: cityModel ? cityModel.name : '', location })
     const metaDescription = routeConfig.getMetaDescription(t)
     const languageChangePaths = this.getLanguageChangePaths(routeConfig)
     return (
@@ -87,18 +87,18 @@ export class Switcher extends React.Component<PropsType> {
   }
 
   isLanguageInvalid (): boolean {
-    const {location, citiesPayload, languages} = this.props
-    const {city, language} = location.payload
+    const { location, citiesPayload, languages } = this.props
+    const { city, language } = location.payload
     return language && city && citiesPayload.data && !!languages && !languages.find(lang => lang.code === language)
   }
 
   renderLayoutWithContent (): React.Node {
-    const {location, viewportSmall, darkMode, categoriesPayload, citiesPayload, toggleDarkMode, eventsPayload} =
+    const { location, viewportSmall, darkMode, categoriesPayload, citiesPayload, toggleDarkMode, eventsPayload } =
       this.props
 
     const routeConfig = getRouteConfig(location.type)
     const payloads = routeConfig.getRequiredPayloads(this.getAllPayloads())
-    const feedbackTargetInformation = routeConfig.getFeedbackTargetInformation({location, payloads})
+    const feedbackTargetInformation = routeConfig.getFeedbackTargetInformation({ location, payloads })
     const languageChangePaths = this.getLanguageChangePaths(routeConfig)
 
     const error = this.isLanguageInvalid()

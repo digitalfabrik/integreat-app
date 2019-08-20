@@ -1161,10 +1161,10 @@
     humps "^2.0.1"
     prop-types "^15.5.10"
 
-"@integreat-app/eslint-config-babel@^0.3.1":
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/@integreat-app/eslint-config-babel/-/eslint-config-babel-0.3.1.tgz#179379daa944cdf36f245550b803c853885d2596"
-  integrity sha512-R/rCiIl5lku+qfF6gHMQ+o3azMyGl7ClZwImNYtnoHCq+7e3sCuYNNpbR/P/CaK2Y5dpN9V+1n3hCg0dmUPNdg==
+"@integreat-app/eslint-config-babel@^0.3.4":
+  version "0.3.4"
+  resolved "https://registry.yarnpkg.com/@integreat-app/eslint-config-babel/-/eslint-config-babel-0.3.4.tgz#9c259df4cc3969df53e79673579c6d04fca2dccb"
+  integrity sha512-eZTcLQTyI2K7rXaFkGRHI/jxcl8mqPGqqlxIgsS7Qk2mhB6FkPuKvYUHMWnggZ/FIthgBXV+nckGnjCzqEbQPw==
 
 "@integreat-app/eslint-config-flow@^0.3.2":
   version "0.3.2"
@@ -1176,10 +1176,10 @@
   resolved "https://registry.yarnpkg.com/@integreat-app/eslint-config-jest/-/eslint-config-jest-0.2.1.tgz#92cf9a9c221883b6194da2cde723f02945b625d1"
   integrity sha1-ks+anCIYg7YZTaLN5yPwKUW2JdE=
 
-"@integreat-app/eslint-config-node@^0.3.2":
-  version "0.3.2"
-  resolved "https://registry.yarnpkg.com/@integreat-app/eslint-config-node/-/eslint-config-node-0.3.2.tgz#e102a9f844529dba3adc1b57cdd2ecb59b6c90c5"
-  integrity sha512-1cHJ2DFPXqLbB4jObNCyNR7lh7o9s3tF/Rn1B3nEcE4IdWJgdExkHENkOw3krF0+elhMgOwuX+8IBLzgAaR58g==
+"@integreat-app/eslint-config-node@^0.3.4":
+  version "0.3.4"
+  resolved "https://registry.yarnpkg.com/@integreat-app/eslint-config-node/-/eslint-config-node-0.3.4.tgz#6c5335c82ea834f14abde94e954858eae7544cc3"
+  integrity sha512-syM1RAuz0oftRzi1v2lrWa1dKZLz32Cj6hpuNLEz51bXsy/Zj7j1T8bduZt9AHa0WU7tIVI2Ci5wgSaVEl58Rw==
 
 "@integreat-app/eslint-config-react@^0.3.3":
   version "0.3.3"

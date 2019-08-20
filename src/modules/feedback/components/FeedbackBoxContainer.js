@@ -58,11 +58,11 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
   constructor (props: PropsType) {
     super(props)
     const feedbackOptions = this.getFeedbackOptions()
-    this.state = {feedbackOptions: feedbackOptions, selectedFeedbackOption: feedbackOptions[0], comment: ''}
+    this.state = { feedbackOptions: feedbackOptions, selectedFeedbackOption: feedbackOptions[0], comment: '' }
   }
 
   postFeedbackData = (feedbackData: FeedbackParamsType) => {
-    const {postFeedbackDataOverride} = this.props
+    const { postFeedbackDataOverride } = this.props
 
     if (postFeedbackDataOverride) {
       postFeedbackDataOverride(feedbackData)
@@ -79,7 +79,7 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
    * * Feedback for technical topics
    */
   getFeedbackOptions = (): Array<FeedbackDropdownItem> => {
-    const {t} = this.props
+    const { t } = this.props
 
     const options = []
     const currentPageFeedbackOption = this.getCurrentPageFeedbackOption()
@@ -102,8 +102,8 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
    * Returns a feedback option for the content of the current city
    */
   getContentFeedbackOption = (): ?FeedbackDropdownItem => {
-    const {cities, location, t} = this.props
-    const {city} = location.payload
+    const { cities, location, t } = this.props
+    const { city } = location.payload
     const currentRoute = location.type
 
     if (city && cities) {
@@ -126,7 +126,7 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
    * Returns a feedback option for every available extra
    */
   getExtrasFeedbackOptions = (): Array<FeedbackDropdownItem> => {
-    const {extras, location, t} = this.props
+    const { extras, location, t } = this.props
     const currentRoute = location.type
     if (extras && currentRoute === EXTRAS_ROUTE) {
       return extras.map(
@@ -140,7 +140,7 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
    * Returns a feedback option for the current page or null if there shouldn't be one
    */
   getCurrentPageFeedbackOption = (): ?FeedbackDropdownItem => {
-    const {location, id, alias, title, query, t} = this.props
+    const { location, id, alias, title, query, t } = this.props
     const type = location.type
 
     if (type === CATEGORIES_ROUTE && id && title) {
@@ -162,8 +162,8 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
    * Returns the data that should be posted to the feedback endpoint
    */
   getFeedbackData = (selectedFeedbackOption: FeedbackDropdownItem, comment: string): FeedbackParamsType => {
-    const {location, query, isPositiveRatingSelected, id, alias} = this.props
-    const {city, language} = location.payload
+    const { location, query, isPositiveRatingSelected, id, alias } = this.props
+    const { city, language } = location.payload
 
     const isExtraOptionSelected = selectedFeedbackOption.feedbackType === EXTRA_FEEDBACK_TYPE
     const feedbackAlias = alias || (isExtraOptionSelected ? selectedFeedbackOption.value : '')
@@ -180,22 +180,22 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
     }
   }
 
-  onCommentChanged = (event: SyntheticInputEvent<HTMLTextAreaElement>) => this.setState({comment: event.target.value})
+  onCommentChanged = (event: SyntheticInputEvent<HTMLTextAreaElement>) => this.setState({ comment: event.target.value })
 
   onFeedbackOptionChanged = (selectedDropdown: FeedbackDropdownItem) => {
     this.setState(prevState =>
-      ({selectedFeedbackOption: prevState.feedbackOptions.find(option => option.value === selectedDropdown.value)})
+      ({ selectedFeedbackOption: prevState.feedbackOptions.find(option => option.value === selectedDropdown.value) })
     )
   }
 
   onSubmit = () => {
-    const {selectedFeedbackOption, comment} = this.state
+    const { selectedFeedbackOption, comment } = this.state
     this.postFeedbackData(this.getFeedbackData(selectedFeedbackOption, comment))
     this.props.onSubmit()
   }
 
   render () {
-    const {closeFeedbackModal, isPositiveRatingSelected} = this.props
+    const { closeFeedbackModal, isPositiveRatingSelected } = this.props
     return <FeedbackBox onFeedbackOptionChanged={this.onFeedbackOptionChanged}
                         onCommentChanged={this.onCommentChanged}
                         onSubmit={this.onSubmit}

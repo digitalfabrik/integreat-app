@@ -26,12 +26,12 @@ const eventsRoute: Route = {
   path: '/:city/:language/events/:eventId?',
   thunk: async (dispatch, getState) => {
     const state = getState()
-    const {city, language} = state.location.payload
+    const { city, language } = state.location.payload
 
     await Promise.all([
       fetchData(createCitiesEndpoint(cmsApiBaseUrl), dispatch, state.cities),
-      fetchData(createEventsEndpoint(cmsApiBaseUrl), dispatch, state.events, {city, language}),
-      fetchData(createLanguagesEndpoint(cmsApiBaseUrl), dispatch, state.languages, {city, language})
+      fetchData(createEventsEndpoint(cmsApiBaseUrl), dispatch, state.events, { city, language }),
+      fetchData(createLanguagesEndpoint(cmsApiBaseUrl), dispatch, state.languages, { city, language })
     ])
   }
 }
@@ -42,19 +42,19 @@ class EventsRouteConfig implements RouteConfig<EventsRouteParamsType, RequiredPa
   requiresHeader = true
   requiresFooter = true
 
-  getLanguageChangePath = ({location, payloads, language}) => {
-    const {city, eventId} = location.payload
+  getLanguageChangePath = ({ location, payloads, language }) => {
+    const { city, eventId } = location.payload
     const events = payloads.events.data
     if (events && eventId) {
       const event = events.find(_event => _event.path === location.pathname)
       return (event && event.availableLanguages.get(language)) || null
     }
-    return this.getRoutePath({city, language})
+    return this.getRoutePath({ city, language })
   }
 
-  getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType => ({events: payloads.eventsPayload})
+  getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType => ({ events: payloads.eventsPayload })
 
-  getPageTitle = ({t, payloads, cityName, location}) => {
+  getPageTitle = ({ t, payloads, cityName, location }) => {
     if (!cityName) {
       return null
     }
@@ -64,14 +64,14 @@ class EventsRouteConfig implements RouteConfig<EventsRouteParamsType, RequiredPa
     return `${event ? event.title : t('pageTitles.events')} - ${cityName}`
   }
 
-  getRoutePath = ({city, language}: EventsRouteParamsType): string => `/${city}/${language}/events`
+  getRoutePath = ({ city, language }: EventsRouteParamsType): string => `/${city}/${language}/events`
 
   getMetaDescription = () => null
 
-  getFeedbackTargetInformation = ({payloads, location}) => {
+  getFeedbackTargetInformation = ({ payloads, location }) => {
     const events = payloads.events.data
     const event = events && events.find(event => event.path === location.pathname)
-    return event ? {id: event.id, title: event.title} : null
+    return event ? { id: event.id, title: event.title } : null
   }
 }
 

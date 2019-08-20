@@ -27,13 +27,13 @@ const extrasRoute: Route = {
   path: '/:city/:language/extras/:extraId?',
   thunk: async (dispatch, getState) => {
     const state = getState()
-    const {city, language} = state.location.payload
+    const { city, language } = state.location.payload
 
     await Promise.all([
       fetchData(createCitiesEndpoint(cmsApiBaseUrl), dispatch, state.cities),
-      fetchData(createEventsEndpoint(cmsApiBaseUrl), dispatch, state.events, {city, language}),
-      fetchData(createLanguagesEndpoint(cmsApiBaseUrl), dispatch, state.languages, {city, language}),
-      fetchData(createExtrasEndpoint(cmsApiBaseUrl), dispatch, state.extras, {city, language})
+      fetchData(createEventsEndpoint(cmsApiBaseUrl), dispatch, state.events, { city, language }),
+      fetchData(createLanguagesEndpoint(cmsApiBaseUrl), dispatch, state.languages, { city, language }),
+      fetchData(createExtrasEndpoint(cmsApiBaseUrl), dispatch, state.extras, { city, language })
     ])
   }
 }
@@ -45,14 +45,14 @@ class ExtrasRouteConfig implements RouteConfig<ExtrasRouteParamsType, RequiredPa
   requiresHeader = true
   requiresFooter = true
 
-  getRoutePath = ({city, language}: ExtrasRouteParamsType): string => `/${city}/${language}/extras`
+  getRoutePath = ({ city, language }: ExtrasRouteParamsType): string => `/${city}/${language}/extras`
 
-  getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType => ({extras: payloads.extrasPayload})
+  getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType => ({ extras: payloads.extrasPayload })
 
-  getLanguageChangePath = ({location, language}) =>
-    this.getRoutePath({city: location.payload.city, language})
+  getLanguageChangePath = ({ location, language }) =>
+    this.getRoutePath({ city: location.payload.city, language })
 
-  getPageTitle = ({t, cityName}) => cityName ? `${t('pageTitles.extras')} - ${cityName}` : null
+  getPageTitle = ({ t, cityName }) => cityName ? `${t('pageTitles.extras')} - ${cityName}` : null
 
   getMetaDescription = () => null
 

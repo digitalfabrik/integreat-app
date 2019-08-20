@@ -33,7 +33,7 @@ export class PoisPage extends React.Component<PropsType> {
   renderPoiListItem = (poi: PoiModel) => <PoiListItem key={poi.path} poi={poi} />
 
   render () {
-    const {pois, path, poiId, city, language, t} = this.props
+    const { pois, path, poiId, city, language, t } = this.props
     if (poiId) {
       const poi = pois.find(_poi => _poi.path === path)
 
@@ -49,7 +49,7 @@ export class PoisPage extends React.Component<PropsType> {
           </Page>
         )
       } else {
-        const error = new ContentNotFoundError({type: 'poi', id: poiId, city, language})
+        const error = new ContentNotFoundError({ type: 'poi', id: poiId, city, language })
         return <FailureSwitcher error={error} />
       }
     }

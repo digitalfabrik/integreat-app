@@ -14,19 +14,19 @@ type PropsType = {|
 
 class Helmet extends React.PureComponent<PropsType> {
   getLanguageLinks (): React.Node {
-    const {languageChangePaths} = this.props
+    const { languageChangePaths } = this.props
     if (!languageChangePaths) {
       return null
     }
 
     return languageChangePaths.map(languageChangePath => {
-      const {code, path} = languageChangePath
+      const { code, path } = languageChangePath
       return path && <link key={code} rel='alternate' hrefLang={code} href={path} />
     })
   }
 
   render () {
-    const {pageTitle, cityModel, metaDescription} = this.props
+    const { pageTitle, cityModel, metaDescription } = this.props
 
     return <ReactHelmet>
       {pageTitle && <title>{pageTitle}</title>}

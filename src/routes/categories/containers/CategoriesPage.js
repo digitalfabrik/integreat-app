@@ -50,7 +50,7 @@ export class CategoriesPage extends React.Component<PropsType> {
    * @return {*} The content to be displayed
    */
   getContent (category: CategoryModel): React.Node {
-    const {categories, cities, language} = this.props
+    const { categories, cities, language } = this.props
     const children = categories.getChildren(category)
     if (category.isLeaf(categories)) {
       // last level, our category is a simple page
@@ -65,7 +65,7 @@ export class CategoriesPage extends React.Component<PropsType> {
                     title={CityModel.findCityName(cities, category.title)} />
     }
     // some level between, we want to display a list
-    return <CategoryList categories={children.map(model => ({model, subCategories: categories.getChildren(model)}))}
+    return <CategoryList categories={children.map(model => ({ model, subCategories: categories.getChildren(model) }))}
                          title={category.title}
                          content={category.content}
                          thumbnail={category.thumbnail}
@@ -73,7 +73,7 @@ export class CategoriesPage extends React.Component<PropsType> {
   }
 
   getBreadcrumbs (categoryModel: CategoryModel): Array<React.Node> {
-    const {cities, categories} = this.props
+    const { cities, categories } = this.props
     return categories.getAncestors(categoryModel)
       .map(ancestor => {
         const title = ancestor.id === 0 ? CityModel.findCityName(cities, ancestor.title) : ancestor.title
@@ -82,7 +82,7 @@ export class CategoriesPage extends React.Component<PropsType> {
   }
 
   render () {
-    const {categories, path, city, language, uiDirection} = this.props
+    const { categories, path, city, language, uiDirection } = this.props
     const categoryModel = categories.findCategoryByPath(path)
 
     if (categoryModel) {
@@ -93,7 +93,7 @@ export class CategoriesPage extends React.Component<PropsType> {
         {this.getContent(categoryModel)}
       </div>
     } else {
-      const error = new ContentNotFoundError({type: 'category', id: this.props.path, city: city, language})
+      const error = new ContentNotFoundError({ type: 'category', id: this.props.path, city: city, language })
       return <FailureSwitcher error={error} />
     }
   }

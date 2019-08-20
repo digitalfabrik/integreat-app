@@ -28,12 +28,12 @@ class RouteContentSwitcher extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const {location, allPayloads} = this.props
+    const { location, allPayloads } = this.props
     const currentRoute = location.type
     const RouteContent = getRouteContent(currentRoute)
     const payloads = getRouteConfig(currentRoute).getRequiredPayloads(allPayloads)
     return this.renderFailureLoadingComponents(payloads) ||
-      <RouteContent {...reduce(payloads, (result, value, key: string) => ({[key]: value.data, ...result}), {})} />
+      <RouteContent {...reduce(payloads, (result, value, key: string) => ({ [key]: value.data, ...result }), {})} />
   }
 }
 

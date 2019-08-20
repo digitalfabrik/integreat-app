@@ -17,7 +17,7 @@ type PropsType = {|
  */
 export class DisclaimerPage extends React.Component<PropsType> {
   render () {
-    const {disclaimer, language} = this.props
+    const { disclaimer, language } = this.props
 
     return (
       <Page lastUpdate={disclaimer.lastUpdate}

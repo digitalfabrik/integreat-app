@@ -11,7 +11,7 @@ class HeaderActionItem {
   _node: ?React.Node
   _text: ?string
 
-  constructor ({iconSrc, href, node, text}: {| iconSrc?: string, href?: string, node?: React.Node, text?: string|}) {
+  constructor ({ iconSrc, href, node, text }: {| iconSrc?: string, href?: string, node?: React.Node, text?: string |}) {
     this._iconSrc = iconSrc
     this._href = href
     this._node = node

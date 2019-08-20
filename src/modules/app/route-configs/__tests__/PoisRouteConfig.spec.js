@@ -24,7 +24,7 @@ const pois = [
   })
 ]
 const poisPayload = new Payload(false, 'https://random.api.json', pois, null)
-const payloads = {pois: poisPayload}
+const payloads = { pois: poisPayload }
 
 const t = (key: ?string): string => key || ''
 
@@ -32,7 +32,7 @@ describe('PoisRouteConfig', () => {
   const poisRouteConfig = new PoisRouteConfig()
 
   it('should get the right path', () => {
-    expect(poisRouteConfig.getRoutePath({city: 'augsburg', language: 'de'})).toBe('/augsburg/de/locations')
+    expect(poisRouteConfig.getRoutePath({ city: 'augsburg', language: 'de' })).toBe('/augsburg/de/locations')
   })
 
   it('should get the required payloads', () => {
@@ -53,34 +53,34 @@ describe('PoisRouteConfig', () => {
   describe('get language change path should return the right path if', () => {
     it('is the pois root page', () => {
       const location = createLocation({
-        payload: {city: 'augsburg', language: 'de'},
+        payload: { city: 'augsburg', language: 'de' },
         pathname: '/augsburg/de/locations',
         type: poisRouteConfig.name
       })
 
-      expect(poisRouteConfig.getLanguageChangePath({payloads, language: 'en', location}))
+      expect(poisRouteConfig.getLanguageChangePath({ payloads, language: 'en', location }))
         .toBe('/augsburg/en/locations')
     })
     it('a poi with the given pathname exists', () => {
       const location = createLocation({
-        payload: {city: 'augsburg', language: 'de', poiId: 'erster_poi'},
+        payload: { city: 'augsburg', language: 'de', poiId: 'erster_poi' },
         pathname: '/augsburg/de/locations/erster_poi',
         type: poisRouteConfig.name
       })
-      expect(poisRouteConfig.getLanguageChangePath({payloads, language: 'en', location}))
+      expect(poisRouteConfig.getLanguageChangePath({ payloads, language: 'en', location }))
         .toBe('/augsburg/en/locations/first_poi')
-      expect(poisRouteConfig.getLanguageChangePath({payloads, language: 'ar', location}))
+      expect(poisRouteConfig.getLanguageChangePath({ payloads, language: 'ar', location }))
         .toBe('/augsburg/ar/locations/erster_poi')
-      expect(poisRouteConfig.getLanguageChangePath({payloads, location, language: 'fr'})).toBeNull()
+      expect(poisRouteConfig.getLanguageChangePath({ payloads, location, language: 'fr' })).toBeNull()
     })
 
     it('no poi with the given pathname exists', () => {
       const location = createLocation({
-        payload: {city: 'augsburg', language: 'de', poiId: 'invalir_poi'},
+        payload: { city: 'augsburg', language: 'de', poiId: 'invalir_poi' },
         pathname: '/augsburg/de/locations/invalir_poi',
         type: poisRouteConfig.name
       })
-      expect(poisRouteConfig.getLanguageChangePath({payloads, language: 'en', location}))
+      expect(poisRouteConfig.getLanguageChangePath({ payloads, language: 'en', location }))
         .toBeNull()
     })
   })
@@ -88,45 +88,45 @@ describe('PoisRouteConfig', () => {
   describe('get the right page title if', () => {
     it('an poi with the given pathname does exist', () => {
       const location = createLocation({
-        payload: {city: 'augsburg', language: 'de', poiId: 'erster_poi'},
+        payload: { city: 'augsburg', language: 'de', poiId: 'erster_poi' },
         pathname: '/augsburg/de/locations/erster_poi',
         type: poisRouteConfig.name
       })
 
-      expect(poisRouteConfig.getPageTitle({payloads, location, cityName: 'Augsburg', t}))
+      expect(poisRouteConfig.getPageTitle({ payloads, location, cityName: 'Augsburg', t }))
         .toBe('Erster Poi - Augsburg')
     })
 
     it('no poi with the given pathname exists', () => {
       const location = createLocation({
-        payload: {city: 'augsburg', language: 'de', poiId: 'invalid_pathname'},
+        payload: { city: 'augsburg', language: 'de', poiId: 'invalid_pathname' },
         pathname: '/augsburg/de/locations/invalid_pathname',
         type: poisRouteConfig.name
       })
 
-      expect(poisRouteConfig.getPageTitle({payloads, location, cityName: 'Augsburg', t}))
+      expect(poisRouteConfig.getPageTitle({ payloads, location, cityName: 'Augsburg', t }))
         .toBe('pageTitles.pois - Augsburg')
     })
 
     it('is the pois root page', () => {
       const location = createLocation({
-        payload: {city: 'augsburg', language: 'de'},
+        payload: { city: 'augsburg', language: 'de' },
         pathname: '/augsburg/de/locations',
         type: poisRouteConfig.name
       })
 
-      expect(poisRouteConfig.getPageTitle({payloads, location, cityName: 'Augsburg', t}))
+      expect(poisRouteConfig.getPageTitle({ payloads, location, cityName: 'Augsburg', t }))
         .toBe('pageTitles.pois - Augsburg')
     })
 
     it('the city name is null', () => {
       const rootLocation = createLocation({
-        payload: {city: 'augsburg', language: 'de'},
+        payload: { city: 'augsburg', language: 'de' },
         pathname: '/augsburg/de/',
         type: poisRouteConfig.name
       })
 
-      expect(poisRouteConfig.getPageTitle({payloads, location: rootLocation, cityName: null, t}))
+      expect(poisRouteConfig.getPageTitle({ payloads, location: rootLocation, cityName: null, t }))
         .toBeNull()
     })
   })
@@ -137,12 +137,12 @@ describe('PoisRouteConfig', () => {
 
   it('should return the right feedback target information', () => {
     const location = createLocation({
-      payload: {city: 'augsburg', language: 'de', poiId: 'erster_poi'},
+      payload: { city: 'augsburg', language: 'de', poiId: 'erster_poi' },
       pathname: '/augsburg/de/locations/erster_poi',
       type: poisRouteConfig.name
     })
 
-    expect(poisRouteConfig.getFeedbackTargetInformation({payloads, location}))
+    expect(poisRouteConfig.getFeedbackTargetInformation({ payloads, location }))
       .toBeNull()
   })
 })

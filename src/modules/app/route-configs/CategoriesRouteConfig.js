@@ -28,13 +28,13 @@ const categoriesRoute: Route = {
   path: '/:city/:language/:categoryPath*',
   thunk: async (dispatch, getState) => {
     const state = getState()
-    const {city, language} = state.location.payload
+    const { city, language } = state.location.payload
 
     await Promise.all([
       fetchData(createCitiesEndpoint(cmsApiBaseUrl), dispatch, state.cities),
-      fetchData(createEventsEndpoint(cmsApiBaseUrl), dispatch, state.events, {city, language}),
-      fetchData(createLanguagesEndpoint(cmsApiBaseUrl), dispatch, state.languages, {city, language}),
-      fetchData(createCategoriesEndpoint(cmsApiBaseUrl), dispatch, state.categories, {city, language})
+      fetchData(createEventsEndpoint(cmsApiBaseUrl), dispatch, state.events, { city, language }),
+      fetchData(createLanguagesEndpoint(cmsApiBaseUrl), dispatch, state.languages, { city, language }),
+      fetchData(createCategoriesEndpoint(cmsApiBaseUrl), dispatch, state.categories, { city, language })
     ])
   }
 }
@@ -46,13 +46,13 @@ class CategoriesRouteConfig implements RouteConfig<CategoriesRouteParamsType, Re
   requiresHeader = true
   requiresFooter = true
 
-  getRoutePath = ({city, language}: CategoriesRouteParamsType): string => `/${city}/${language}`
+  getRoutePath = ({ city, language }: CategoriesRouteParamsType): string => `/${city}/${language}`
 
   getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType =>
-    ({categories: payloads.categoriesPayload, cities: payloads.citiesPayload})
+    ({ categories: payloads.categoriesPayload, cities: payloads.citiesPayload })
 
-  getLanguageChangePath = ({location, payloads, language}) => {
-    const {city} = location.payload
+  getLanguageChangePath = ({ location, payloads, language }) => {
+    const { city } = location.payload
     const categories = payloads.categories.data
     if (categories) {
       const category = categories.findCategoryByPath(location.pathname)
@@ -60,10 +60,10 @@ class CategoriesRouteConfig implements RouteConfig<CategoriesRouteParamsType, Re
         return category.availableLanguages.get(language) || null
       }
     }
-    return this.getRoutePath({city, language})
+    return this.getRoutePath({ city, language })
   }
 
-  getPageTitle = ({t, payloads, cityName, location}) => {
+  getPageTitle = ({ t, payloads, cityName, location }) => {
     if (!cityName) {
       return null
     }
@@ -75,10 +75,10 @@ class CategoriesRouteConfig implements RouteConfig<CategoriesRouteParamsType, Re
 
   getMetaDescription = t => t('metaDescription')
 
-  getFeedbackTargetInformation = ({location, payloads}) => {
+  getFeedbackTargetInformation = ({ location, payloads }) => {
     const categories = payloads.categories.data
     const category = categories && categories.findCategoryByPath(location.pathname)
-    return category ? {id: category.id, title: category.title} : null
+    return category ? { id: category.id, title: category.title } : null
   }
 }
 

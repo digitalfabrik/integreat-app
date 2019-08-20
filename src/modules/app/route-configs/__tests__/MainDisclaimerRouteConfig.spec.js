@@ -34,7 +34,7 @@ describe('MainDisclaimerRouteConfig', () => {
       pathname: '/disclaimer',
       type: mainDisclaimerRouteConfig.name
     })
-    expect(mainDisclaimerRouteConfig.getPageTitle({t, payloads: undefined, location, cityName: null}))
+    expect(mainDisclaimerRouteConfig.getPageTitle({ t, payloads: undefined, location, cityName: null }))
       .toBe('pageTitles.mainDisclaimer')
   })
 
@@ -44,19 +44,23 @@ describe('MainDisclaimerRouteConfig', () => {
 
   it('should return the right language change path', () => {
     const location = createLocation({
-      payload: {language: 'de'},
+      payload: { language: 'de' },
       pathname: '/disclaimer',
       type: mainDisclaimerRouteConfig.name
     })
-    expect(mainDisclaimerRouteConfig.getLanguageChangePath({payloads: undefined, location, language: 'de'})).toBeNull()
+    expect(mainDisclaimerRouteConfig.getLanguageChangePath({
+      payloads: undefined,
+      location,
+      language: 'de'
+    })).toBeNull()
   })
 
   it('all functions should return the right feedback target information', () => {
     const location = createLocation({
-      payload: {language: 'de'},
+      payload: { language: 'de' },
       pathname: '/disclaimer',
       type: mainDisclaimerRouteConfig.name
     })
-    expect(mainDisclaimerRouteConfig.getFeedbackTargetInformation({payloads: undefined, location})).toBeNull()
+    expect(mainDisclaimerRouteConfig.getFeedbackTargetInformation({ payloads: undefined, location })).toBeNull()
   })
 })

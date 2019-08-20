@@ -2,6 +2,7 @@
 
 import type { Element } from 'react'
 import React from 'react'
+import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
 
 import LanguageSelector from '../../common/containers/LanguageSelector'
@@ -17,7 +18,6 @@ import SearchRouteConfig from '../../app/route-configs/SearchRouteConfig'
 
 import type { LocationState } from 'redux-first-router'
 import { EventModel } from '@integreat-app/integreat-api-client'
-import type { TFunction } from 'react-i18next'
 import { WOHNEN_ROUTE } from '../../app/route-configs/WohnenRouteConfig'
 import { SPRUNGBRETT_ROUTE } from '../../app/route-configs/SprungbrettRouteConfig'
 import LandingRouteConfig from '../../app/route-configs/LandingRouteConfig'
@@ -36,16 +36,16 @@ type PropsType = {|
 
 export class LocationHeader extends React.Component<PropsType> {
   getActionItems (): Array<HeaderActionItem> {
-    const {location, languageChangePaths, t} = this.props
-    const {city, language} = location.payload
+    const { location, languageChangePaths, t } = this.props
+    const { city, language } = location.payload
     return [
       new HeaderActionItem({
-        href: new SearchRouteConfig().getRoutePath({city, language}),
+        href: new SearchRouteConfig().getRoutePath({ city, language }),
         iconSrc: searchIcon,
         text: t('search')
       }),
       new HeaderActionItem({
-        href: new LandingRouteConfig().getRoutePath({language}),
+        href: new LandingRouteConfig().getRoutePath({ language }),
         iconSrc: landingIcon,
         text: t('changeLocation')
       }),
@@ -56,8 +56,8 @@ export class LocationHeader extends React.Component<PropsType> {
   }
 
   getNavigationItems (): Array<Element<typeof HeaderNavigationItem>> {
-    const {t, isEventsEnabled, isExtrasEnabled, location, events} = this.props
-    const {city, language} = location.payload
+    const { t, isEventsEnabled, isExtrasEnabled, location, events } = this.props
+    const { city, language } = location.payload
     const currentRoute = location.type
 
     const isEventsActive = events ? events.length > 0 : false
@@ -69,7 +69,7 @@ export class LocationHeader extends React.Component<PropsType> {
       items.push(
         <HeaderNavigationItem
           key='extras'
-          href={new ExtrasRouteConfig().getRoutePath({city, language})}
+          href={new ExtrasRouteConfig().getRoutePath({ city, language })}
           selected={[EXTRAS_ROUTE, WOHNEN_ROUTE, SPRUNGBRETT_ROUTE].includes(currentRoute)}
           text={t('extras')}
           active
@@ -81,7 +81,7 @@ export class LocationHeader extends React.Component<PropsType> {
       items.push(
         <HeaderNavigationItem
           key='categories'
-          href={new CategoriesRouteConfig().getRoutePath({city, language})}
+          href={new CategoriesRouteConfig().getRoutePath({ city, language })}
           selected={currentRoute === CATEGORIES_ROUTE}
           text={t('categories')}
           active
@@ -93,7 +93,7 @@ export class LocationHeader extends React.Component<PropsType> {
       items.push(
         <HeaderNavigationItem
           key='events'
-          href={new EventsRouteConfig().getRoutePath({city, language})}
+          href={new EventsRouteConfig().getRoutePath({ city, language })}
           selected={currentRoute === EVENTS_ROUTE}
           text={t('news')}
           tooltip={t('noNews')}
@@ -106,12 +106,12 @@ export class LocationHeader extends React.Component<PropsType> {
   }
 
   render () {
-    const {city, language} = this.props.location.payload
+    const { city, language } = this.props.location.payload
 
     return (
       <Header
         viewportSmall={this.props.viewportSmall}
-        logoHref={new CategoriesRouteConfig().getRoutePath({city, language})}
+        logoHref={new CategoriesRouteConfig().getRoutePath({ city, language })}
         actionItems={this.getActionItems()}
         navigationItems={this.getNavigationItems()}
         onStickyTopChanged={this.props.onStickyTopChanged}

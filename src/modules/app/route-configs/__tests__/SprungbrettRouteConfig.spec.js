@@ -26,7 +26,7 @@ const sprungbrettJobs = [
   })
 ]
 const sprungbrettJobsPayload = new Payload(false, 'https://random.api.json', sprungbrettJobs, null)
-const payloads = {extras: extrasPayload, sprungbrettJobs: sprungbrettJobsPayload}
+const payloads = { extras: extrasPayload, sprungbrettJobs: sprungbrettJobsPayload }
 
 const t = (key: ?string): string => key || ''
 
@@ -34,7 +34,7 @@ describe('SprungbrettRouteConfig', () => {
   const sprungbrettRouteConfig = new SprungbrettRouteConfig()
 
   it('should get the right path', () => {
-    expect(sprungbrettRouteConfig.getRoutePath({city: 'augsburg', language: 'de'}))
+    expect(sprungbrettRouteConfig.getRoutePath({ city: 'augsburg', language: 'de' }))
       .toBe('/augsburg/de/extras/sprungbrett')
   })
 
@@ -55,27 +55,27 @@ describe('SprungbrettRouteConfig', () => {
 
   it('should get the right language change path', () => {
     const location = createLocation({
-      payload: {city: 'augsburg', language: 'de'},
+      payload: { city: 'augsburg', language: 'de' },
       pathname: '/augsburg/de/extras/sprungbrett',
       type: sprungbrettRouteConfig.name
     })
 
-    expect(sprungbrettRouteConfig.getLanguageChangePath({payloads, language: 'en', location}))
+    expect(sprungbrettRouteConfig.getLanguageChangePath({ payloads, language: 'en', location }))
       .toBe('/augsburg/en/extras/sprungbrett')
-    expect(sprungbrettRouteConfig.getLanguageChangePath({payloads, language: 'ar', location}))
+    expect(sprungbrettRouteConfig.getLanguageChangePath({ payloads, language: 'ar', location }))
       .toBe('/augsburg/ar/extras/sprungbrett')
   })
 
   it('should get the right page title', () => {
     const location = createLocation({
-      payload: {city: 'augsburg', language: 'de'},
+      payload: { city: 'augsburg', language: 'de' },
       pathname: '/augsburg/de/extras/sprungbrett',
       type: sprungbrettRouteConfig.name
     })
 
-    expect(sprungbrettRouteConfig.getPageTitle({payloads, location, cityName: 'Augsburg', t}))
+    expect(sprungbrettRouteConfig.getPageTitle({ payloads, location, cityName: 'Augsburg', t }))
       .toBe('Sprungbrett - Augsburg')
-    expect(sprungbrettRouteConfig.getPageTitle({payloads, location, cityName: null, t}))
+    expect(sprungbrettRouteConfig.getPageTitle({ payloads, location, cityName: null, t }))
       .toBeNull()
   })
 
@@ -85,12 +85,12 @@ describe('SprungbrettRouteConfig', () => {
 
   it('should return the right feedback target information', () => {
     const location = createLocation({
-      payload: {city: 'augsburg', language: 'de'},
+      payload: { city: 'augsburg', language: 'de' },
       pathname: '/augsburg/de/extras/sprungbrett',
       type: sprungbrettRouteConfig.name
     })
 
-    expect(sprungbrettRouteConfig.getFeedbackTargetInformation({payloads, location}))
+    expect(sprungbrettRouteConfig.getFeedbackTargetInformation({ payloads, location }))
       .toEqual({
         alias: 'sprungbrett',
         title: 'Sprungbrett'
