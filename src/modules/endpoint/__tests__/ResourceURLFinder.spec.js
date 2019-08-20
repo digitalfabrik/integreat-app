@@ -32,4 +32,21 @@ describe('ResourceURLFinder', () => {
       'https://ex.am/pl2.pdf'
     ]))
   })
+
+  it('should build a fetchMap including thumbnails if supplied', () => {
+    const finder = new ResourceURLFinder()
+    finder.init()
+    const input = [
+      {
+        path: '/path1',
+        thumbnail: 'https://ex.am/thumb.png',
+        content: `<img src="https://ex.am/pl1.png" alt="Crazy" />`
+      },
+      { path: '/path2', thumbnail: '', content: `<img src="https://ex.am/pl2.png" alt="Crazy" />` }
+    ]
+    const fetchMap = finder.buildFetchMap(input, (url, path) => `buildFilePath('${url}', '${path}')`)
+    finder.finalize()
+
+    expect(fetchMap).toMatchSnapshot()
+  })
 })
