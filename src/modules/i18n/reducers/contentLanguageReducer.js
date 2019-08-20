@@ -1,14 +1,13 @@
 // @flow
 
-import type { SetContentLanguageActionType } from '../../app/StoreActionType'
-import { handleAction, type ReduxReducer } from 'redux-actions'
+import type { StoreActionType } from '../../app/StoreActionType'
 import { DEFAULT_LANGUAGE } from '../components/I18nProvider'
 
-const contentLanguageReducer: ReduxReducer<string, SetContentLanguageActionType> =
-  handleAction(
-    'SET_CONTENT_LANGUAGE',
-    (state: string, action: SetContentLanguageActionType) => action.params.contentLanguage,
-    DEFAULT_LANGUAGE
-  )
+const contentLanguageReducer = (state: string = DEFAULT_LANGUAGE, action: StoreActionType): string => {
+  if (action.type === 'SET_CONTENT_LANGUAGE') {
+    return action.params.contentLanguage
+  }
+  return state
+}
 
 export default contentLanguageReducer

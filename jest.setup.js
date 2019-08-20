@@ -1,4 +1,8 @@
-import AsyncStorageMock from '@react-native-community/async-storage/jest/async-storage-mock'
+// setup file
+import { configure } from 'enzyme'
+import Adapter from 'enzyme-adapter-react-16'
+
+configure({ adapter: new Adapter() })
 
 // Setup fetch mock
 global.fetch = require('jest-fetch-mock')
@@ -17,4 +21,5 @@ if (typeof window !== 'object') {
   global.window.navigator = {}
 }
 
-jest.mock('@react-native-community/async-storage', () => AsyncStorageMock)
+jest.mock('rn-fetch-blob')
+jest.mock('@react-native-community/async-storage', () => require('@react-native-community/async-storage/jest/async-storage-mock'))
