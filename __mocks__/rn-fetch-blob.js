@@ -1,22 +1,39 @@
-const existsMock = jest.fn()
-existsMock.mockReturnValueOnce({ then: jest.fn() })
+const path = require('path')
 
-let mockFiles = Object.create(null);
+const mockFiles = Object.create(null)
 
-function __setMockFiles(newMockFiles) {
-  mockFiles = Object.create(null);
-  for (const file in newMockFiles) {
-    const dir = path.dirname(file);
+function writeMockFile (file:string, content:string | Array, encoding:string) : Promise {
+  const dir = path.dirname(file)
+  const fileName = path.basename(file)
 
-    if (!mockFiles[dir]) {
-      mockFiles[dir] = [];
-    }
-    mockFiles[dir].push(path.basename(file));
+  if (!mockFiles[dir]) {
+    mockFiles[dir] = []
   }
+  if (!mockFiles[dir][fileName]) {
+    mockFiles[dir].push(fileName)
+  }
+
+  mockFiles[dir][fileName] = content
+
+  return Promise.resolve()
 }
 
-function readdirSync(pathToDirectory){
-  return mockFiles[pathToDirectory];
+function readMockFile (file:string, encoding:string) : Promise {
+  const dir = path.dirname(file)
+  const fileName = path.basename(file)
+
+  return mockFiles[dir][fileName]
+}
+
+function existsMock (file:string):Promise {
+  const dir = path.dirname(file)
+  const fileName = path.basename(file)
+
+  return mockFiles[dir][fileName]
+}
+
+function readdirSync (pathToDirectory) {
+  return mockFiles[pathToDirectory]
 }
 
 export default {
@@ -28,12 +45,13 @@ export default {
   },
   fs: {
     readdirSync: readdirSync,
-    __setMockFiles: __setMockFiles(),
     exists: existsMock,
+    writeFile: writeMockFile,
+    readFile: readMockFile,
     dirs: {
       MainBundleDir: () => {},
       CacheDir: () => {},
-      DocumentDir: () => {}
+      DocumentDir: 'path/to/mocks'
     }
   }
 }
