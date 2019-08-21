@@ -14,6 +14,7 @@ function writeMockFile (file:string, content:string | Array, encoding:string) : 
   }
 
   mockFiles[dir][fileName] = content
+  console.log(`writeMockFile: ${content}`)
 
   return Promise.resolve()
 }
@@ -22,14 +23,24 @@ function readMockFile (file:string, encoding:string) : Promise {
   const dir = path.dirname(file)
   const fileName = path.basename(file)
 
+  const content = mockFiles[dir][fileName]
+
+  console.log(`readMockFile: ${content}`)
+
   return mockFiles[dir][fileName]
 }
 
-function existsMock (file:string):Promise {
+function existsMock (file:string) : Promise {
+  console.log(`existsMock. ${file}`)
   const dir = path.dirname(file)
   const fileName = path.basename(file)
 
-  return mockFiles[dir][fileName]
+  if (!mockFiles[dir]) {
+    return Promise.resolve(false)
+  } else if (!mockFiles[dir][fileName]) {
+    return Promise.resolve(false)
+  }
+  return Promise.resolve(true)
 }
 
 function readdirSync (pathToDirectory) {
