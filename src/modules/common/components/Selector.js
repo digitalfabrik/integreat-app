@@ -11,8 +11,9 @@ const Element = styled(Link)`
   ${props => props.theme.helpers.removeLinkHighlighting};
   height: ${props => props.theme.dimensions.headerHeightLarge}px;
   min-width: 90px;
-  max-width: 120px;
-  flex: 1 1 90px;
+  white-space: nowrap;
+  padding: 0 5px;
+  flex: 1 1 auto;
   font-size: 1.2em;
   line-height: ${props => props.theme.dimensions.headerHeightLarge}px;
   text-align: center;
@@ -23,7 +24,7 @@ const Element = styled(Link)`
   @media ${props => props.theme.dimensions.smallViewport} {
     height: ${props => props.theme.dimensions.headerHeightSmall}px;
     min-width: 70px;
-    flex: 1 1 70px;
+    flex: 1 1 auto;
     font-size: 1em;
     line-height: ${props => props.theme.dimensions.headerHeightSmall}px;
   }
