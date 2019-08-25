@@ -32,13 +32,13 @@ describe('databaseConnector', () => {
     })
   })
   it('should store/load lastUpdate', async () => {
-    const currentMoment = moment.tz('UTC')
+    const date = moment('20110530')
     const context = new DatabaseContext('tcc', 'de')
 
     await dbCon.storeLastUpdate(currentMoment, context)
 
     return dbCon.loadLastUpdate(context).then(m => {
-      expect(m.isSame(currentMoment)).toBeTruthy()
+      expect(m.isSame(date)).toBeTruthy()
     })
   })
 
