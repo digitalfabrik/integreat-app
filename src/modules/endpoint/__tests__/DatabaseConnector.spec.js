@@ -35,11 +35,10 @@ describe('databaseConnector', () => {
     const date = moment('20110530')
     const context = new DatabaseContext('tcc', 'de')
 
-    await dbCon.storeLastUpdate(currentMoment, context)
+    await dbCon.storeLastUpdate(date, context)
 
     return dbCon.loadLastUpdate(context).then(m => {
       expect(m.isSame(date)).toBeTruthy()
     })
   })
-
 })
