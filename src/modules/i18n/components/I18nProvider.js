@@ -10,10 +10,7 @@ import createLanguageDetector from '../createLanguageDetector'
 import MomentContext, { createMomentFormatter } from '../context/MomentContext'
 import AppSettings from '../../settings/AppSettings'
 import getLocale from '../../platform/constants/getLocale'
-
-export const RTL_LANGUAGES = ['ar', 'fa']
-const FALLBACK_LANGUAGES = ['en', 'de']
-export const DEFAULT_LANGUAGE = 'en'
+import { DEFAULT_LANGUAGE, FALLBACK_LANGUAGES } from '../constants'
 
 type PropsType = {|
   children?: React.Node,
