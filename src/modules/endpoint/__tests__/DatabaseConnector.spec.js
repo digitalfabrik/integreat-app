@@ -4,41 +4,70 @@ import { CityModel } from '@integreat-app/integreat-api-client'
 import DatabaseConnector from '../DatabaseConnector'
 import moment from 'moment-timezone'
 import DatabaseContext from '../DatabaseContext'
+import RNFetchBlob from 'rn-fetch-blob'
 
 jest.mock('rn-fetch-blob')
-const dbCon = new DatabaseConnector()
+const databaseConnector = new DatabaseConnector()
 
-describe('databaseConnector', () => {
-  afterEach(() => {
-    jest.resetModules()
+beforeEach(() => {
+  RNFetchBlob.fs.reset()
+})
+
+describe('city database', () => {
+  const testCity = new CityModel({
+    name: 'testCityName',
+    code: 'tcc',
+    live: true,
+    eventsEnabled: true,
+    extrasEnabled: true,
+    sortingName: 'testCity',
+    prefix: 'Stadt'
+  })
+  it('cities should not be persisted', async () => {
+    return databaseConnector.isCitiesPersisted().then(isPersisted => {
+      expect(isPersisted).toBe(false)
+    })
   })
 
-  it('should store/load city', async () => {
-    const testCity = new CityModel({
-      name: 'testCityName',
-      code: 'tcc',
-      live: true,
-      eventsEnabled: true,
-      extrasEnabled: true,
-      sortingName: 'testCity',
-      prefix: 'Stadt'
+  it('storeCities should throw exception if the data you want to save is empty', async () => {
+    expect(databaseConnector.storeCities([null])).rejects.toThrowError()
+  })
+
+  it('loadCities should throw exception if path does not exist', async () => {
+    expect(databaseConnector.loadCities()).rejects.toThrowError()
+  })
+
+  it('cities should be persisted after storeCities is called', async () => {
+    await databaseConnector.storeCities([testCity])
+
+    return databaseConnector.isCitiesPersisted().then(isPersisted => {
+      expect(isPersisted).toBe(true)
     })
+  })
 
-    // store city
-    await dbCon.storeCities([testCity])
+  it('loaded and stored data should be equal', async () => {
+    await databaseConnector.storeCities([testCity])
 
-    return dbCon.loadCities().then(cities => {
+    return databaseConnector.loadCities().then(cities => {
       expect(cities).toStrictEqual([testCity])
     })
   })
-  it('should store/load lastUpdate', async () => {
-    const date = moment('20110530')
+
+  it('loadLastUpdate should return null', async () => {
     const context = new DatabaseContext('tcc', 'de')
 
-    await dbCon.storeLastUpdate(date, context)
+    return databaseConnector.loadLastUpdate(context).then(moment => {
+      expect(moment).toBeNull()
+    })
+  })
 
-    return dbCon.loadLastUpdate(context).then(m => {
-      expect(m.isSame(date)).toBeTruthy()
+  it()
+})
+
+describe('test describe block', () => {
+  it('cities should not be persisted2', async () => {
+    return databaseConnector.isCitiesPersisted().then(isPersisted => {
+      expect(isPersisted).toBe(false)
     })
   })
 })
