@@ -106,7 +106,6 @@
     "jest-react-native": "^18.0.0",
     "lolex": "^3.0.0",
     "metro-react-native-babel-preset": "^0.54.1",
-    "mock-async-storage": "^2.2.0",
     "moment-timezone": "^0.5.23",
     "react-dom": "16",
     "react-native-git-upgrade": "^0.2.7",
