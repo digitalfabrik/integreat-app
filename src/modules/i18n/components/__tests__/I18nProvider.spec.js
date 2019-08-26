@@ -4,14 +4,22 @@ import 'react-native'
 import { render } from 'react-native-testing-library'
 import React from 'react'
 import I18nProvider from '../I18nProvider'
-import createAppSettingsMock from '../../../test-utils/createAppSettingsMock'
 import { I18nextProvider } from 'react-i18next'
 import i18next from 'i18next'
 import localesResources from '../../../../locales.json'
 import TestRenderer from 'react-test-renderer'
 import waitForExpect from 'wait-for-expect'
+import MockAsyncStorage from 'mock-async-storage'
+import AppSettings from '../../../settings/AppSettings'
 
 describe('I18nProvider', () => {
+  const mockAsyncStorage = new MockAsyncStorage()
+  jest.mock('AsyncStorage', () => mockAsyncStorage)
+
+  afterEach(async () => {
+    await mockAsyncStorage.clear()
+  })
+
   it('should transform the resources correctly', () => {
     const input = {
       'module1': {
@@ -36,38 +44,33 @@ describe('I18nProvider', () => {
 
   it('should set content language if not yet set', async () => {
     const mockGetLocale = () => 'de_DE'
-    const mockAppSettingsSetContentLanguage = jest.fn(() => Promise.resolve())
-    const initialAppSettings = createAppSettingsMock({
-      loadContentLanguage: () => Promise.resolve(undefined),
-      setContentLanguage: mockAppSettingsSetContentLanguage
-    })
+    const appSettings = new AppSettings(mockAsyncStorage)
     const mockSetContentLanguage = jest.fn()
 
     render(<I18nProvider setContentLanguage={mockSetContentLanguage}
                          getLocale={mockGetLocale}
-                         appSettings={initialAppSettings} />)
-
-    await waitForExpect(() => expect(mockSetContentLanguage).toHaveBeenCalledTimes(1))
-    await waitForExpect(() => expect(mockSetContentLanguage).toHaveBeenCalledWith('de'))
-    await waitForExpect(() => expect(mockAppSettingsSetContentLanguage).toHaveBeenCalledTimes(1))
-    await waitForExpect(() => expect(mockAppSettingsSetContentLanguage).toHaveBeenCalledWith('de'))
+                         appSettings={appSettings} />)
+    await waitForExpect(async () => {
+      expect(mockSetContentLanguage).toHaveBeenCalledTimes(1)
+      expect(mockSetContentLanguage).toHaveBeenCalledWith('de')
+      expect(await appSettings.loadContentLanguage()).toBe('de')
+    })
   })
 
   it('should not set content language if already set', () => {
     const mockGetLocale = () => 'de_DE'
-    const mockAppSettingsSetContentLanguage = jest.fn(() => Promise.resolve())
-    const initialAppSettings = createAppSettingsMock({
-      loadContentLanguage: () => Promise.resolve('en'),
-      setContentLanguage: mockAppSettingsSetContentLanguage
-    })
+    const appSettings = new AppSettings(mockAsyncStorage)
+    appSettings.setContentLanguage('de')
     const mockSetContentLanguage = jest.fn()
 
     render(<I18nProvider setContentLanguage={mockSetContentLanguage}
                          getLocale={mockGetLocale}
-                         appSettings={initialAppSettings} />)
+                         appSettings={appSettings} />)
 
-    expect(mockSetContentLanguage).not.toHaveBeenCalled()
-    expect(mockAppSettingsSetContentLanguage).not.toHaveBeenCalled()
+    waitForExpect(async () => {
+      expect(mockSetContentLanguage).not.toHaveBeenCalled()
+      expect(await appSettings.loadContentLanguage()).toBe('de')
+    })
   })
 
   it('should initialize correct i18next instance', () => {
@@ -82,7 +85,7 @@ describe('I18nProvider', () => {
     const root = TestRenderer.create(
       <I18nProvider setContentLanguage={() => {}}
                     getLocale={() => 'de_DE'}
-                    appSettings={createAppSettingsMock({})}>
+                    appSettings={new AppSettings(mockAsyncStorage)}>
         <div />
       </I18nProvider>
     ).root

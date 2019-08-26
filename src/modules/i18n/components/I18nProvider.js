@@ -10,7 +10,6 @@ import createLanguageDetector from '../createLanguageDetector'
 import MomentContext, { createMomentFormatter } from '../context/MomentContext'
 import AppSettings from '../../settings/AppSettings'
 import getLocale from '../../platform/constants/getLocale'
-import type { AppSettingsType } from '../../settings/AppSettings'
 
 export const RTL_LANGUAGES = ['ar', 'fa']
 const FALLBACK_LANGUAGES = ['en', 'de']
@@ -20,12 +19,11 @@ type PropsType = {|
   children?: React.Node,
   setContentLanguage: (language: string) => void,
   getLocale: () => string,
-  appSettings: AppSettingsType
+  appSettings: AppSettings
 |}
 
 class I18nProvider extends React.Component<PropsType> {
   i18n: i18n
-  appSettings: AppSettings
 
   static defaultProps = {
     getLocale: getLocale,
@@ -58,7 +56,7 @@ class I18nProvider extends React.Component<PropsType> {
     [namespace: string]: { [language: string]: { [key: string]: string } }
   }): {
     [language: string]: { [namespace: string]: { [key: string]: string } }
-} {
+  } {
     return reduce(
       resources,
       (accumulator, namespace, namespaceName) => {
@@ -103,7 +101,7 @@ class I18nProvider extends React.Component<PropsType> {
     return (
       <I18nextProvider i18n={this.i18n}>
         <MomentContext.Provider value={this.momentFormatter}>
-            {this.props.children}
+          {this.props.children}
         </MomentContext.Provider>
       </I18nextProvider>
     )
