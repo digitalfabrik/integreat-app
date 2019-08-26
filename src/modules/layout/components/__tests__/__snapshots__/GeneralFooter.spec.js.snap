@@ -3,11 +3,7 @@
 exports[`GeneralFooter should match snapshot 1`] = `
 <Footer>
   <CleanLink
-    to={
-      Object {
-        "type": "MAIN_DISCLAIMER",
-      }
-    }
+    to="/disclaimer"
   >
     layout:imprintAndContact
   </CleanLink>

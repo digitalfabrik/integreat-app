@@ -3,17 +3,16 @@
 import { mount, shallow } from 'enzyme'
 import React from 'react'
 
-import ExtraModel from '../../../../modules/endpoint/models/ExtraModel'
+import { ExtraModel, WohnenFormData, WohnenOfferModel } from '@integreat-app/integreat-api-client'
 import ConnectedWohnenExtraPage, { WohnenExtraPage } from '../WohnenExtraPage'
-import CityModel from '../../../../modules/endpoint/models/CityModel'
-import WohnenOfferModel from '../../../../modules/endpoint/models/WohnenOfferModel'
 import moment from 'moment'
-import WohnenFormData from '../../../../modules/endpoint/models/WohnenFormData'
 import Hashids from 'hashids'
 import { Provider } from 'react-redux'
-import createReduxStore from '../../../../modules/app/createReduxStore'
 import theme from '../../../../modules/theme/constants/theme'
 import { ThemeProvider } from 'styled-components'
+import createLocation from '../../../../createLocation'
+import { WOHNEN_ROUTE } from '../../../../modules/app/route-configs/WohnenRouteConfig'
+import configureMockStore from 'redux-mock-store'
 
 describe('WohnenExtraPage', () => {
   const city = 'augsburg'
@@ -24,17 +23,6 @@ describe('WohnenExtraPage', () => {
   })
 
   const extras = [wohnenExtra]
-
-  const cities = [
-    new CityModel({
-      name: 'Augsburg',
-      code: 'augsburg',
-      live: true,
-      eventsEnabled: true,
-      extrasEnabled: false,
-      sortingName: 'Augsburg'
-    })
-  ]
 
   const offer = new WohnenOfferModel({
     email: 'mail@mail.com',
@@ -77,7 +65,6 @@ describe('WohnenExtraPage', () => {
                        city={city}
                        language={language}
                        extras={[wohnenExtra]}
-                       cities={cities}
                        t={t} />
     )
     expect(wohnenPage).toMatchSnapshot()
@@ -90,7 +77,6 @@ describe('WohnenExtraPage', () => {
                        language={language}
                        offerHash={offerHash}
                        extras={[wohnenExtra]}
-                       cities={cities}
                        t={t} />
     )
     expect(wohnenPage).toMatchSnapshot()
@@ -103,7 +89,6 @@ describe('WohnenExtraPage', () => {
                        language={language}
                        offerHash={'invalid hash'}
                        extras={[wohnenExtra]}
-                       cities={cities}
                        t={t} />
     )
     expect(extrasPage).toMatchSnapshot()
@@ -116,7 +101,6 @@ describe('WohnenExtraPage', () => {
                        language={language}
                        offerHash={offerHash}
                        extras={[]}
-                       cities={cities}
                        t={t} />
     )
     expect(wohnenPage).toMatchSnapshot()
@@ -124,15 +108,17 @@ describe('WohnenExtraPage', () => {
 
   it('should map state to props', () => {
     const offerHash = 'hASH'
-    const location = {payload: {language, city, offerHash}}
 
-    const store = createReduxStore()
-    store.getState().location = location
+    const location = createLocation({ type: WOHNEN_ROUTE, payload: { city, language, offerHash } })
+    const mockStore = configureMockStore()
+    const store = mockStore({
+      location
+    })
 
     const tree = mount(
       <ThemeProvider theme={theme}>
         <Provider store={store}>
-          <ConnectedWohnenExtraPage cities={cities} extras={extras} offers={offers} />
+          <ConnectedWohnenExtraPage extras={extras} offers={offers} />
         </Provider>
       </ThemeProvider>
     )
@@ -140,9 +126,9 @@ describe('WohnenExtraPage', () => {
     expect(tree.find(WohnenExtraPage).props()).toEqual({
       language,
       city,
+      i18n: expect.anything(),
       offerHash,
       extras,
-      cities,
       offers,
       dispatch: expect.any(Function),
       t: expect.any(Function)

@@ -18,7 +18,7 @@ class ToolbarItem extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const {href, text, icon} = this.props
+    const { href, text, icon } = this.props
     return (
       <StyledToolbarItem href={href} aria-label={text}>
         <FontAwesomeIcon icon={icon} data-tip={text} />

@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title><%= config.appTitle %></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="manifest" href="/manifest.json">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="<%= config.appTitle %>">
+  <meta name="apple-mobile-web-app-title" content="<%= config.appTitle %>">
+  <% if (config.itunesAppId) { %>
+    <meta name="apple-itunes-app" content="app-id=<%= config.itunesAppId %>">
+  <% } %>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="mobile-web-app-capable" content="yes">
+
+
+  <meta name="theme-color" content="<%= config.theme.colors.themeColor %>">
+  <meta name="msapplication-navbutton-color" content="<%= config.theme.colors.themeColor %>">
+  <meta name="msapplication-starturl" content="/">
+  <meta name="msapplication-TileColor" content="<%= config.theme.colors.themeColor %>">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="dns-prefetch" href="<%= config.cmsUrl %>" />
+  <link rel="preconnect" href="<%= config.cmsUrl %>" />
+
+  <link rel="preload" href="<%= bundle %>" as="script" type="text/javascript" />
+
+  <link rel="preload" href="<%= config.cmsUrl %>/wp-json/extensions/v3/sites" as="fetch" crossorigin />
+
+  <link rel="stylesheet" href="/fonts/open-sans/open-sans.css" as="style" type="text/css" />
+  <link rel="preload"
+        href="/fonts/open-sans/open-sans-v15-greek_cyrillic-ext_vietnamese_latin_cyrillic_greek-ext-700.woff2" as="font"
+        type="font/woff2" crossorigin />
+  <link rel="preload"
+        href="/fonts/open-sans/open-sans-v15-greek_cyrillic-ext_vietnamese_latin_cyrillic_greek-ext-regular.woff2"
+        as="font" type="font/woff2" crossorigin />
+
+  <link rel="stylesheet" href="/fonts/raleway/raleway.css" type="text/css" />
+  <link rel="preload" href="/fonts/raleway/raleway-v12-latin_latin-ext-700.woff2" as="font" type="font/woff2"
+        crossorigin />
+  <link rel="preload" href="/fonts/raleway/raleway-v12-latin_latin-ext-regular.woff2" as="font" type="font/woff2"
+        crossorigin />
+
+  <link rel="icon" type="image/png"  sizes="16x16" href="/favicon-16x16.png">
+  <link rel="icon" type="image/png"  sizes="48x48" href="/favicon-48x48.png">
+  <link rel="icon" type="image/png"  sizes="96x96" href="/favicon-96x96.png">
+  <link rel="icon" type="image/png"  sizes="192x192" href="/favicon-192x192.png">
+  <link rel="icon" type="image/png"  sizes="512x512" href="/favicon-512x512.png">
+
+  <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="<%= config.theme.colors.themeColor %>">
+
+  <style>
+    @keyframes show {
+      0% {
+        opacity: 0;
+      }
+      86% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    #splash {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      height: 100vh;
+      width: 100vw;
+
+      animation: show 1.5s forwards;
+      pointer-events: none;
+      transition: height 0s 0.2s;
+    }
+
+    #splash > div {
+      background-color: <%= config.theme.colors.themeColor %>;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: opacity 0.2s ease-in;
+    }
+
+    #splash.splash-hidden {
+      animation-play-state: paused;
+      height: 0;
+    }
+
+    .splash-hidden > div {
+      opacity: 0;
+    }
+
+    #splash img {
+      height: 50%;
+      max-width: 100%;
+      object-fit: contain;
+    }
+
+    .no-js {
+      position: fixed;
+      z-index: 2;
+      text-align: center;
+      padding: 20px;
+      top: 0;
+      left: 0;
+      right: 0;
+    }
+  </style>
+</head>
+<body>
+<div id="splash">
+  <div><img src="/progressive-logo.jpg"></div>
+</div>
+<noscript>
+  <div class="no-js">
+    <p>Please enable JavaScript to use this page!</p>
+    <p>
+      If you don't know how to activate JavaScript, click
+      <a href="https://www.enable-javascript.com/" rel="noreferrer" target="_blank">here</a>
+      or ask your administrator for help.
+    </p>
+  </div>
+</noscript>
+<div id="container"></div>
+<script src="/warn-ie.js" type="text/javascript"></script>
+<script src="<%= bundle %>"></script>
+</body>
+</html>

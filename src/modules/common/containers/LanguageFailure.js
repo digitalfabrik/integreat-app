@@ -2,16 +2,13 @@
 
 import React from 'react'
 import type { TFunction } from 'react-i18next'
-import { withNamespaces } from 'react-i18next'
-import compose from 'lodash/fp/compose'
-import { connect } from 'react-redux'
-
+import { withTranslation } from 'react-i18next'
 import LanguageSelector from '../../../modules/common/containers/LanguageSelector'
-import CityModel from '../../../modules/endpoint/models/CityModel'
+import { CityModel } from '@integreat-app/integreat-api-client'
 import Caption from '../../../modules/common/components/Caption'
-
+import type { LocationState } from 'redux-first-router'
 import styled from 'styled-components'
-import type { StateType } from '../../app/StateType'
+import type { LanguageChangePathsType } from '../../app/containers/Switcher'
 
 const ChooseLanguage = styled.p`
   margin: 25px 0;
@@ -20,27 +17,21 @@ const ChooseLanguage = styled.p`
 
 type PropsType = {|
   cities: Array<CityModel>,
-  city: string,
+  location: LocationState,
+  languageChangePaths: LanguageChangePathsType,
   t: TFunction
 |}
 
 export class LanguageFailure extends React.PureComponent<PropsType> {
   render () {
-    const {t, city, cities} = this.props
-    const title = cities && CityModel.findCityName(cities, city)
+    const { t, location, cities, languageChangePaths } = this.props
+    const title = cities && CityModel.findCityName(cities, location.payload.city)
     return <>
       {title && <Caption title={title} />}
-      <ChooseLanguage>{`${t('not-found.language')} ${t('chooseYourLanguage')}`}</ChooseLanguage>
-      <LanguageSelector isHeaderActionItem={false} />
+      <ChooseLanguage>{`${t('notFound.language')} ${t('chooseALanguage')}`}</ChooseLanguage>
+      <LanguageSelector isHeaderActionItem={false} location={location} languageChangePaths={languageChangePaths} />
     </>
   }
 }
 
-const mapStateTypeToProps = (stateType: StateType) => ({
-  cities: stateType.cities.data
-})
-
-export default compose(
-  connect(mapStateTypeToProps),
-  withNamespaces('error')
-)(LanguageFailure)
+export default withTranslation('error')(LanguageFailure)

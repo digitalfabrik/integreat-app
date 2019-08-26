@@ -5,9 +5,8 @@ import { shallow } from 'enzyme'
 import moment from 'moment-timezone'
 
 import ConnectedDisclaimerPage, { DisclaimerPage } from '../DisclaimerPage'
-import PageModel from '../../../../modules/endpoint/models/PageModel'
+import { PageModel } from '@integreat-app/integreat-api-client'
 import configureMockStore from 'redux-mock-store'
-import CityModel from '../../../../modules/endpoint/models/CityModel'
 
 describe('DisclaimerPage', () => {
   const disclaimer = new PageModel({
@@ -17,45 +16,29 @@ describe('DisclaimerPage', () => {
     lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
   })
 
-  const cities = [
-    new CityModel({
-      name: 'Augsburg',
-      code: 'augsburg',
-      live: true,
-      eventsEnabled: true,
-      extrasEnabled: false,
-      sortingName: 'Augsburg'
-    })
-  ]
-  const t = (key: ?string): string => key || ''
-
-  const city = 'augsburg'
   const language = 'de'
 
   it('should match snapshot', () => {
     const wrapper = shallow(
-      <DisclaimerPage disclaimer={disclaimer} city={city} cities={cities} t={t} language={language} routesMap={{}}
-                      dispatch={() => {}} />)
+      <DisclaimerPage disclaimer={disclaimer}
+                      language={language} />)
     expect(wrapper).toMatchSnapshot()
   })
 
   describe('connect', () => {
     const mockStore = configureMockStore()
     const store = mockStore({
-      disclaimer: {data: disclaimer},
-      cities: {data: cities},
-      location: {payload: {city, language}}
+      location: { payload: { language } }
     })
 
     it('should map state and fetched data to props', () => {
       const disclaimerPage = shallow(
-        <ConnectedDisclaimerPage store={store} cities={cities} disclaimer={disclaimer} />
+        <ConnectedDisclaimerPage store={store} disclaimer={disclaimer} />
       )
 
       expect(disclaimerPage.props()).toMatchObject({
-        disclaimer: disclaimer,
-        city,
-        cities
+        disclaimer,
+        language
       })
     })
   })

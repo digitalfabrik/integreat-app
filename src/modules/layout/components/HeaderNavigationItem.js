@@ -2,8 +2,6 @@
 
 import React from 'react'
 import ReactTooltip from 'react-tooltip'
-
-import type { Action } from 'redux-first-router'
 import styled from 'styled-components'
 import Link from 'redux-first-router-link'
 
@@ -36,7 +34,7 @@ const ActiveNavigationItem = styled(NavigationItem)`
 
 type PropsType = {|
   text: string,
-  href: Action | string,
+  href: string,
   selected: boolean,
   active: boolean,
   tooltip?: string
@@ -52,7 +50,7 @@ class HeaderNavigationItem extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const {active, text, tooltip, selected, href} = this.props
+    const { active, text, tooltip, selected, href } = this.props
     if (active) {
       return <ActiveNavigationItem key={text} to={href} selected={selected}>
         {text}

@@ -1,7 +1,7 @@
 // @flow
 
-import createBrowserHistory from 'history/createBrowserHistory'
 import type { BrowserHistory } from 'history'
+import { createBrowserHistory } from 'history'
 
 const createHistory = (history: BrowserHistory = createBrowserHistory()): BrowserHistory => {
   history.listen((location, action) => {

@@ -16,11 +16,11 @@ type PropsType = {|
 
 class FeedbackComment extends React.PureComponent<PropsType> {
   render () {
-    const {commentMessage, comment, onCommentChanged} = this.props
+    const { commentMessage, comment, onCommentChanged } = this.props
     return (
       <>
         <Description>{commentMessage}</Description>
-        <CommentField rows={3} value={comment} onChange={onCommentChanged} />
+        <CommentField rows={7} value={comment} onChange={onCommentChanged} />
       </>
     )
   }

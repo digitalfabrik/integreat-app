@@ -5,7 +5,7 @@ import SelectorItemModel from '../../common/models/SelectorItemModel'
 import HeaderDropDown from './HeaderDropDown'
 import Selector from '../../common/components/Selector'
 import type { TFunction } from 'react-i18next'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import languageIcon from '../assets/language-icon.svg'
 import ReactTooltip from 'react-tooltip'
 
@@ -27,7 +27,7 @@ class HeaderLanguageSelectorItem extends React.Component<PropsType> {
   }
 
   render () {
-    const {selectorItems, activeItemCode, t} = this.props
+    const { selectorItems, activeItemCode, t } = this.props
     const noLanguagesHint = t('noLanguages')
 
     return selectorItems && selectorItems.length > 0
@@ -43,4 +43,4 @@ class HeaderLanguageSelectorItem extends React.Component<PropsType> {
   }
 }
 
-export default withNamespaces('layout')(HeaderLanguageSelectorItem)
+export default withTranslation('layout')(HeaderLanguageSelectorItem)

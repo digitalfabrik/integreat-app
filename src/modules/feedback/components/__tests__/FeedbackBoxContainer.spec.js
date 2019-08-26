@@ -4,24 +4,25 @@ import React from 'react'
 import { shallow } from 'enzyme'
 
 import { FeedbackBoxContainer } from '../FeedbackBoxContainer'
-import CityModel from '../../../../modules/endpoint/models/CityModel'
-import { CATEGORIES_ROUTE } from '../../../../modules/app/routes/categories'
+import { CATEGORIES_ROUTE } from '../../../app/route-configs/CategoriesRouteConfig'
 import {
   CATEGORIES_FEEDBACK_TYPE,
+  CityModel,
   EVENTS_FEEDBACK_TYPE,
   EXTRA_FEEDBACK_TYPE,
+  ExtraModel,
   EXTRAS_FEEDBACK_TYPE,
   PAGE_FEEDBACK_TYPE,
   SEARCH_FEEDBACK_TYPE
-} from '../../../../modules/endpoint/endpoints/feedback'
+} from '@integreat-app/integreat-api-client'
 import FeedbackDropdownItem from '../../FeedbackDropdownItem'
-import { EXTRAS_ROUTE } from '../../../../modules/app/routes/extras'
-import { EVENTS_ROUTE } from '../../../../modules/app/routes/events'
-import ExtraModel from '../../../../modules/endpoint/models/ExtraModel'
-import { WOHNEN_ROUTE } from '../../../../modules/app/routes/wohnen'
-import { SPRUNGBRETT_ROUTE } from '../../../../modules/app/routes/sprungbrett'
-import { SEARCH_ROUTE } from '../../../../modules/app/routes/search'
-import { DISCLAIMER_ROUTE } from '../../../../modules/app/routes/disclaimer'
+import { EXTRAS_ROUTE } from '../../../app/route-configs/ExtrasRouteConfig'
+import { EVENTS_ROUTE } from '../../../app/route-configs/EventsRouteConfig'
+import { WOHNEN_ROUTE } from '../../../app/route-configs/WohnenRouteConfig'
+import { SPRUNGBRETT_ROUTE } from '../../../app/route-configs/SprungbrettRouteConfig'
+import { SEARCH_ROUTE } from '../../../app/route-configs/SearchRouteConfig'
+import { DISCLAIMER_ROUTE } from '../../../app/route-configs/DisclaimerRouteConfig'
+import createLocation from '../../../../createLocation'
 
 describe('FeedbackBoxContainer', () => {
   const cities = [
@@ -35,7 +36,8 @@ describe('FeedbackBoxContainer', () => {
     })
   ]
   const t = (key: ?string): string => key || ''
-  const location = {type: CATEGORIES_ROUTE, payload: {city: 'augsburg', language: 'de'}, query: {feedback: 'up'}}
+  const location = createLocation(
+    { type: CATEGORIES_ROUTE, payload: { city: 'augsburg', language: 'de' }, query: { feedback: 'up' } })
 
   it('should match snapshot', () => {
     expect(shallow(
@@ -150,9 +152,9 @@ describe('FeedbackBoxContainer', () => {
   })
 
   it('getContentFeedbackOption should return the right option', () => {
-    const categoriesLocation = {type: CATEGORIES_ROUTE, payload: {city: 'augsburg', language: 'de'}}
-    const extrasLocation = {type: EXTRAS_ROUTE, payload: {city: 'augsburg', language: 'de'}}
-    const eventsLocation = {type: EVENTS_ROUTE, payload: {city: 'augsburg', language: 'de'}}
+    const categoriesLocation = createLocation({ type: CATEGORIES_ROUTE, payload: { city: 'augsburg', language: 'de' } })
+    const extrasLocation = createLocation({ type: EXTRAS_ROUTE, payload: { city: 'augsburg', language: 'de' } })
+    const eventsLocation = createLocation({ type: EVENTS_ROUTE, payload: { city: 'augsburg', language: 'de' } })
 
     const component = shallow(
       <FeedbackBoxContainer
@@ -171,20 +173,20 @@ describe('FeedbackBoxContainer', () => {
     expect(component.instance().getContentFeedbackOption())
       .toEqual(new FeedbackDropdownItem('contentOfCity Augsburg', CATEGORIES_FEEDBACK_TYPE))
 
-    component.setProps({location: extrasLocation})
+    component.setProps({ location: extrasLocation })
     expect(component.instance().getContentFeedbackOption())
       .toEqual(new FeedbackDropdownItem('contentOfCity Augsburg', EXTRAS_FEEDBACK_TYPE))
 
-    component.setProps({location: eventsLocation})
+    component.setProps({ location: eventsLocation })
     expect(component.instance().getContentFeedbackOption())
       .toEqual(new FeedbackDropdownItem('contentOfCity Augsburg', EVENTS_FEEDBACK_TYPE))
 
-    component.setProps({cities: null})
+    component.setProps({ cities: null })
     expect(component.instance().getContentFeedbackOption()).toBeUndefined()
   })
 
   it('getExtrasFeedbackOptions should return the right options', () => {
-    const extrasLocation = {type: EXTRAS_ROUTE, payload: {city: 'augsburg', language: 'de'}}
+    const extrasLocation = createLocation({ type: EXTRAS_ROUTE, payload: { city: 'augsburg', language: 'de' } })
     const extras = [
       new ExtraModel({
         alias: 'serlo-abc',
@@ -245,25 +247,26 @@ describe('FeedbackBoxContainer', () => {
     ${SEARCH_ROUTE}      | ${0}    | ${''}           | ${''}              | ${'my query'} | ${searchOption}
     ${DISCLAIMER_ROUTE}  | ${0}    | ${''}           | ${''}              | ${''}         | ${disclaimerOption}
     ${EXTRAS_ROUTE}      | ${0}    | ${''}           | ${''}              | ${''}         | ${extrasOption}
-    `('should return the right option', ({type, id, alias, title, query, result}) => {
-  const location = {type, payload: {city: 'augsburg', language: 'de'}}
+    `('should return the right option', ({ type, id, alias, title, query, result }) => {
+  const location = createLocation({ type, payload: { city: 'augsburg', language: 'de' } })
   const component = shallow(
-        <FeedbackBoxContainer
-          location={location}
-          query={query}
-          cities={cities}
-          id={id}
-          title={title}
-          alias={alias}
-          isPositiveRatingSelected
-          onSubmit={() => {}}
-          closeFeedbackModal={() => {}}
-          extras={null}
-          t={t} />
+          <FeedbackBoxContainer
+            location={location}
+            query={query}
+            cities={cities}
+            id={id}
+            title={title}
+            alias={alias}
+            isPositiveRatingSelected
+            onSubmit={() => {}}
+            closeFeedbackModal={() => {}}
+            extras={null}
+            t={t} />
   )
 
   expect(component.instance().getCurrentPageFeedbackOption()).toEqual(result)
-})
+}
+)
   })
 
   it('should post data on submit', () => {
@@ -306,7 +309,7 @@ describe('FeedbackBoxContainer', () => {
     ).instance()
 
     const prevState = instance.state
-    instance.onCommentChanged({target: {value: 'new comment'}})
+    instance.onCommentChanged({ target: { value: 'new comment' } })
     expect(prevState).not.toEqual(instance.state)
     expect(instance.state.comment).toEqual('new comment')
   })
