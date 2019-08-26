@@ -5,11 +5,10 @@ import * as React from 'react'
 import type { Store } from 'redux'
 import type { StateType } from '../StateType'
 import type { StoreActionType } from '../StoreActionType'
-import type { DataContainer } from '../../endpoint/DataContainer'
 import AppSettings from '../../settings/AppSettings'
 import SentryIntegration from '../SentryIntegration'
 import { Alert } from 'react-native'
-import { translate, type TFunction } from 'react-i18next'
+import { type TFunction, translate } from 'react-i18next'
 import { Sentry } from 'react-native-sentry'
 
 type PropsType = {|
@@ -23,7 +22,6 @@ type AppStateType = {|
 
 class LaunchInquiry extends React.Component<PropsType, AppStateType> {
   store: Store<StateType, StoreActionType>
-  dataContainer: DataContainer
   appSettings: AppSettings
 
   constructor (props: PropsType) {
