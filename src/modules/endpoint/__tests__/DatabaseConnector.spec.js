@@ -60,14 +60,4 @@ describe('city database', () => {
       expect(moment).toBeNull()
     })
   })
-
-  it()
-})
-
-describe('test describe block', () => {
-  it('cities should not be persisted2', async () => {
-    return databaseConnector.isCitiesPersisted().then(isPersisted => {
-      expect(isPersisted).toBe(false)
-    })
-  })
 })
