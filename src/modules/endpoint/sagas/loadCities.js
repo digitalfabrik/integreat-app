@@ -3,7 +3,6 @@
 import type { Saga } from 'redux-saga'
 import { createCitiesEndpoint, Payload } from '@integreat-app/integreat-api-client'
 import { call, put } from 'redux-saga/effects'
-import request from '../request'
 import { baseUrl } from '../constants'
 import type { DataContainer } from '../DataContainer'
 import CityModel from '@integreat-app/integreat-api-client/models/CityModel'
@@ -17,7 +16,7 @@ function * loadCities (
   if (!forceRefresh && (yield call(() => dataContainer.citiesAvailable()))) {
     cities = yield call(() => dataContainer.getCities())
   } else {
-    const payload: Payload<Array<CityModel>> = yield call(() => request(createCitiesEndpoint(baseUrl)))
+    const payload: Payload<Array<CityModel>> = yield call(() => createCitiesEndpoint(baseUrl).request())
     cities = payload.data
     yield call(dataContainer.setCities, cities)
   }
