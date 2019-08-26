@@ -86,7 +86,7 @@ describe('I18nProvider', () => {
       <I18nProvider setContentLanguage={() => {}}
                     getLocale={() => 'de_DE'}
                     appSettings={new AppSettings(mockAsyncStorage)}>
-        <div />
+        <React.Fragment />
       </I18nProvider>
     ).root
 
