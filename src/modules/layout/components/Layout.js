@@ -108,13 +108,13 @@ class Layout extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const {asideStickyTop, footer, header, toolbar, modal, children, darkMode} = this.props
+    const { asideStickyTop, footer, header, toolbar, modal, children, darkMode } = this.props
     return (
       <RichLayout>
         <div>
           {header}
           <Body>
-            <Aside style={{top: `${asideStickyTop}px`}}>
+            <Aside style={{ top: `${asideStickyTop}px` }}>
               {toolbar}
             </Aside>
             <Main>

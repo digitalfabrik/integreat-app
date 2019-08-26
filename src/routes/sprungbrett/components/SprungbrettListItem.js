@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 
-import SprungbrettJobModel from '../../../modules/endpoint/models/SprungbrettJobModel'
+import { SprungbrettJobModel } from '@integreat-app/integreat-api-client'
 import ListItem from '../../../modules/common/components/ListItem'
 
 type PropsType = {|
@@ -11,7 +11,7 @@ type PropsType = {|
 
 class SprungbrettListItem extends React.PureComponent<PropsType> {
   render () {
-    const {job} = this.props
+    const { job } = this.props
     return (
       <ListItem title={job.title} path={job.url} isExternalUrl>
         <div>{job.location}</div>

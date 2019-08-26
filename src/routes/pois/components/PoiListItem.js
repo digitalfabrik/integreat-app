@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import ListItem from '../../../modules/common/components/ListItem'
-import PoiModel from '../../../modules/endpoint/models/PoiModel'
+import { PoiModel } from '@integreat-app/integreat-api-client'
 
 type PropsType = {|
   poi: PoiModel
@@ -10,7 +10,7 @@ type PropsType = {|
 
 class PoiListItem extends React.PureComponent<PropsType> {
   render () {
-    const {poi} = this.props
+    const { poi } = this.props
     return (
       <ListItem key={poi.path}
                 title={poi.title}

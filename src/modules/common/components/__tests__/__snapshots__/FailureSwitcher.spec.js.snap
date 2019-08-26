@@ -2,107 +2,38 @@
 
 exports[`FailureSwitcher render component not found failure should render a category not found failure and match snapshot 1`] = `
 <Translate(Failure)
-  errorMessage="not-found.category"
-  goToAction={
-    Object {
-      "payload": Object {
-        "categoryPath": undefined,
-        "city": "augsburg",
-        "language": "de",
-      },
-      "type": "CATEGORIES",
-    }
-  }
+  errorMessage="notFound.category"
   goToMessage="goTo.categories"
+  goToPath="/augsburg/de"
 />
 `;
 
 exports[`FailureSwitcher render component not found failure should render a event not found failure and match snapshot 1`] = `
 <Translate(Failure)
-  errorMessage="not-found.event"
-  goToAction={
-    Object {
-      "payload": Object {
-        "city": "augsburg",
-        "language": "de",
-      },
-      "type": "EVENTS",
-    }
-  }
+  errorMessage="notFound.event"
   goToMessage="goTo.events"
+  goToPath="/augsburg/de/events"
 />
 `;
 
 exports[`FailureSwitcher render component not found failure should render a extra not found failure and match snapshot 1`] = `
 <Translate(Failure)
-  errorMessage="not-found.extra"
-  goToAction={
-    Object {
-      "payload": Object {
-        "city": "augsburg",
-        "language": "de",
-      },
-      "type": "EXTRAS",
-    }
-  }
+  errorMessage="notFound.extra"
   goToMessage="goTo.extras"
+  goToPath="/augsburg/de/extras"
 />
 `;
 
-exports[`FailureSwitcher should render a LanguageFailure if there is a LanguageNotFoundError 1`] = `
-<Fragment>
-  <HelmetWrapper
-    defer={true}
-    encodeSpecialCharacters={true}
-  >
-    <title>
-      not-found.pageTitle
-    </title>
-  </HelmetWrapper>
-  <Connect(Translate(LanguageFailure))
-    city="augsburg"
-  />
-</Fragment>
-`;
-
 exports[`FailureSwitcher should render a content not found failure if there is a ContentNotFoundError 1`] = `
-<Fragment>
-  <HelmetWrapper
-    defer={true}
-    encodeSpecialCharacters={true}
-  >
-    <title>
-      not-found.pageTitle
-    </title>
-  </HelmetWrapper>
-  <Translate(Failure)
-    errorMessage="not-found.extra"
-    goToAction={
-      Object {
-        "payload": Object {
-          "city": "augsburg",
-          "language": "de",
-        },
-        "type": "EXTRAS",
-      }
-    }
-    goToMessage="goTo.extras"
-  />
-</Fragment>
+<Translate(Failure)
+  errorMessage="notFound.extra"
+  goToMessage="goTo.extras"
+  goToPath="/augsburg/de/extras"
+/>
 `;
 
 exports[`FailureSwitcher should render a failure as default 1`] = `
-<Fragment>
-  <HelmetWrapper
-    defer={true}
-    encodeSpecialCharacters={true}
-  >
-    <title>
-      pageTitle
-    </title>
-  </HelmetWrapper>
-  <Translate(Failure)
-    errorMessage="error message"
-  />
-</Fragment>
+<Translate(Failure)
+  errorMessage="error message"
+/>
 `;

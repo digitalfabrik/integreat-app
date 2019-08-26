@@ -1,12 +1,10 @@
 // @flow
 
 import * as React from 'react'
-import CityModel from '../../../modules/endpoint/models/CityModel'
+import { CityModel, POSITIVE_RATING } from '@integreat-app/integreat-api-client'
 import styled from 'styled-components'
 import type { LocationState } from 'redux-first-router'
 import FeedbackThanksMessage from './FeedbackThanksMessage'
-import { POSITIVE_RATING } from '../../../modules/endpoint/endpoints/feedback'
-import ExtraModel from '../../../modules/endpoint/models/ExtraModel'
 import FeedbackBoxContainer from './FeedbackBoxContainer'
 import type { FeedbackRatingType } from '../../layout/containers/LocationLayout'
 
@@ -53,8 +51,7 @@ type PropsType = {|
   query?: string,
   feedbackStatus: FeedbackRatingType,
   closeFeedbackModal: () => void,
-  location: LocationState,
-  extras: ?Array<ExtraModel>
+  location: LocationState
 |}
 
 type StateType = {|
@@ -62,18 +59,18 @@ type StateType = {|
 |}
 
 class FeedbackModal extends React.Component<PropsType, StateType> {
-  state = {feedbackSent: false}
+  state = { feedbackSent: false }
 
-  onSubmit = () => this.setState({feedbackSent: true})
+  onSubmit = () => this.setState({ feedbackSent: true })
 
   closeFeedbackModal = () => {
-    this.setState({feedbackSent: false})
+    this.setState({ feedbackSent: false })
     this.props.closeFeedbackModal()
   }
 
   render () {
-    const {feedbackStatus, ...otherProps} = this.props
-    const {feedbackSent} = this.state
+    const { feedbackStatus, ...otherProps } = this.props
+    const { feedbackSent } = this.state
 
     return <ModalContainer>
       <Overlay onClick={this.closeFeedbackModal} />

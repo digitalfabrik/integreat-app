@@ -22,25 +22,25 @@ type StateType = {|
 |}
 
 export class ScrollingSearchBox extends React.Component<PropsType, StateType> {
-  static defaultProps = {spaceSearch: false}
+  static defaultProps = { spaceSearch: false }
   _node: HTMLElement
 
   constructor () {
     super()
-    this.state = {initialized: false}
+    this.state = { initialized: false }
   }
 
   setReference = (node: ?HTMLElement) => {
     if (node) {
       this._node = node
       if (!this.state.initialized) {
-        this.setState(prevState => ({...prevState, initialized: true}))
+        this.setState(prevState => ({ ...prevState, initialized: true }))
       }
     }
   }
 
   render () {
-    const {children, filterText, placeholderText, spaceSearch, onStickyTopChanged, onFilterTextChange} = this.props
+    const { children, filterText, placeholderText, spaceSearch, onStickyTopChanged, onFilterTextChange } = this.props
 
     return <div ref={this.setReference}>
       <Headroom pinStart={this._node ? this._node.offsetTop : 0}

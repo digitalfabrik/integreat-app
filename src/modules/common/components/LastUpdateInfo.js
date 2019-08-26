@@ -2,7 +2,7 @@
 
 import React from 'react'
 import type { TFunction } from 'react-i18next'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import type Moment from 'moment'
 import styled from 'styled-components'
 
@@ -21,7 +21,7 @@ type PropsType = {|
 
 export class LastUpdateInfo extends React.PureComponent<PropsType> {
   render () {
-    const {lastUpdate, t, language} = this.props
+    const { lastUpdate, t, language } = this.props
     lastUpdate.locale(language)
 
     // only show day, month and year
@@ -31,4 +31,4 @@ export class LastUpdateInfo extends React.PureComponent<PropsType> {
   }
 }
 
-export default withNamespaces('common')(LastUpdateInfo)
+export default withTranslation('common')(LastUpdateInfo)

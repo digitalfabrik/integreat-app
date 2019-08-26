@@ -2,9 +2,6 @@
 
 exports[`SearchPage should match snapshot 1`] = `
 <div>
-  <Connect(Helmet)
-    title="pageTitle - Augsburg"
-  />
   <SearchInput
     filterText=""
     onFilterTextChange={[Function]}
@@ -70,28 +67,26 @@ exports[`SearchPage should match snapshot 1`] = `
         },
       ]
     }
-    onInternLinkClick={[Function]}
+    onInternalLinkClick={[Function]}
     query=""
   />
   <Translate(SearchFeedback)
-    cities={
-      Array [
-        CityModel {
-          "_code": "augsburg",
-          "_eventsEnabled": true,
-          "_extrasEnabled": false,
-          "_live": true,
-          "_name": "Augsburg",
-          "_sortingName": "Augsburg",
-        },
-      ]
-    }
     location={
       Object {
+        "history": undefined,
+        "kind": undefined,
+        "pathname": "/random_pathname",
         "payload": Object {
           "city": "augsburg",
           "language": "de",
         },
+        "prev": Object {
+          "pathname": "/random_prev_pathname",
+          "payload": Object {},
+          "type": "RANDOM_PREV_TYPE",
+        },
+        "query": Object {},
+        "routesMap": Object {},
         "type": "SEARCH",
       }
     }

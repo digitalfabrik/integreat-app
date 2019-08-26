@@ -17,11 +17,11 @@ describe('Header', () => {
       <Header
         theme={darkTheme}
         platform={new Platform()}
-        logoHref={{type: 'RANDOM_ROUTE'}}
-        actionItems={[new HeaderActionItem({href: {type: 'RANDOM_ROUTE'}})]}
+        logoHref={'/random_route'}
+        actionItems={[new HeaderActionItem({ href: '/random_route' })]}
         onStickyTopChanged={onStickyTopChanged}
         navigationItems={
-          <HeaderNavigationItem href={{type: 'ANOTHER_RANDOM_ROUTE'}} text='text1' active selected tooltip='tooltip1' />
+          <HeaderNavigationItem href={'/another_route'} text='text1' active selected tooltip='tooltip1' />
         }
         viewportSmall />
     )
@@ -33,11 +33,11 @@ describe('Header', () => {
       <Header
         theme={darkTheme}
         platform={new Platform()}
-        logoHref={{type: 'RANDOM_ROUTE'}}
-        actionItems={[new HeaderActionItem({href: {type: 'RANDOM_ROUTE'}})]}
+        logoHref={'/random_route'}
+        actionItems={[new HeaderActionItem({ href: '/random_route' })]}
         onStickyTopChanged={onStickyTopChanged}
         navigationItems={
-          <HeaderNavigationItem href={{type: 'ANOTHER_RANDOM_ROUTE'}} text='text1' active selected tooltip='tooltip1' />
+          <HeaderNavigationItem href={'/another_route'} text='text1' active selected tooltip='tooltip1' />
         }
         viewportSmall={false} />
     )
@@ -51,10 +51,10 @@ describe('Header', () => {
       <Header
         theme={darkTheme}
         platform={new Platform()}
-        logoHref={{type: 'RANDOM_ROUTE'}}
-        actionItems={[new HeaderActionItem({href: {type: 'RANDOM_ROUTE'}})]}
+        logoHref={'/random_route'}
+        actionItems={[new HeaderActionItem({ href: '/random_route' })]}
         navigationItems={
-          <HeaderNavigationItem href={{type: 'ANOTHER_RANDOM_ROUTE'}} text='text1' active selected tooltip='tooltip1' />
+          <HeaderNavigationItem href={'/another_route'} text='text1' active selected tooltip='tooltip1' />
         }
         viewportSmall={false}
         onStickyTopChanged={callback}

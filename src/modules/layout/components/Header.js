@@ -1,7 +1,6 @@
 // @flow
 
 import * as React from 'react'
-import logoWide from '../assets/integreat-app-logo.png'
 import HeaderNavigationBar from './HeaderNavigationBar'
 import HeaderActionBar from './HeaderActionBar'
 import HeaderActionItem from '../HeaderActionItem'
@@ -10,14 +9,14 @@ import Headroom from '@integreat-app/react-sticky-headroom'
 import styled, { withTheme } from 'styled-components'
 import withPlatform from '../../platform/hocs/withPlatform'
 import Platform from '../../platform/Platform'
-import type { Action } from 'redux-first-router'
 import compose from 'lodash/fp/compose'
 import type { ThemeType } from '../../theme/constants/theme'
+import appConfig from '../../app/constants/appConfig'
 
 type PropsType = {|
   navigationItems: React.Node,
   actionItems: Array<HeaderActionItem>,
-  logoHref: Action | string,
+  logoHref: string,
   viewportSmall: boolean,
   theme: ThemeType,
   onStickyTopChanged: number => void,
@@ -110,8 +109,8 @@ export class Header extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const {theme, viewportSmall, onStickyTopChanged, actionItems, logoHref, navigationItems, platform} = this.props
-    const {headerHeightSmall, headerHeightLarge} = theme.dimensions
+    const { theme, viewportSmall, onStickyTopChanged, actionItems, logoHref, navigationItems, platform } = this.props
+    const { headerHeightSmall, headerHeightLarge } = theme.dimensions
     const height = viewportSmall ? headerHeightSmall : headerHeightLarge
     const scrollHeight = viewportSmall ? headerHeightSmall : headerHeightLarge
     return (
@@ -120,7 +119,7 @@ export class Header extends React.PureComponent<PropsType> {
                 height={height}
                 positionStickyDisabled={platform.positionStickyDisabled}>
         <HeaderContainer>
-          <LogoWide><Link to={logoHref}><img src={logoWide} /></Link></LogoWide>
+          <LogoWide><Link to={logoHref}><img src={appConfig.logoWide} /></Link></LogoWide>
           <NavigationBar>{navigationItems}</NavigationBar>
           <ActionBar items={actionItems} />
         </HeaderContainer>

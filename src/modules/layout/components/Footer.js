@@ -44,7 +44,7 @@ class Footer extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const {children, onClick} = this.props
+    const { children, onClick } = this.props
     return <FooterContainer onClick={onClick}>
       {children}
       {Footer.getVersion()}

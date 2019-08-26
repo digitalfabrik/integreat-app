@@ -1,6 +1,6 @@
 // @flow
 
-import LoadingError from '../../endpoint/errors/LoadingError'
+import { LoadingError } from '@integreat-app/integreat-api-client'
 
 type NotFoundType = 'category' | 'event' | 'extra' | 'poi'
 

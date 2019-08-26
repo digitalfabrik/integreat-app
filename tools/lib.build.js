@@ -22,7 +22,7 @@ const bundle = task('bundle', () => {
 // -----------------------------------------------------------------------------
 module.exports = task('build', () => {
   global.DEBUG = process.argv.includes('--debug') || false
-  rimraf.sync('dist/*', {nosort: true, dot: true})
+  rimraf.sync('dist/*', { nosort: true, dot: true })
   return Promise.resolve()
     .then(bundle)
 })

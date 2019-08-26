@@ -1,7 +1,7 @@
 // @flow
 
 import CityEntry from '../CityEntry'
-import CityModel from '../../../../modules/endpoint/models/CityModel'
+import { CityModel } from '@integreat-app/integreat-api-client'
 import { shallow } from 'enzyme'
 import React from 'react'
 

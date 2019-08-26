@@ -11,7 +11,7 @@ const Spacer = styled.div`
   ${props => props.space && `margin: 15px 0;`}
 `
 
-const TextInput = styled.input.attrs({type: 'text'})`
+const TextInput = styled.input.attrs({ type: 'text' })`
   width: calc(100% - ${searchLogoWidth} - 5px);
   height: 25px;
   box-sizing: border-box;
@@ -36,7 +36,7 @@ const Wrapper = styled.div`
   background-color: ${props => props.theme.colors.backgroundColor};
 `
 
-const SearchIcon = styled(FontAwesomeIcon).attrs({icon: faSearch})`
+const SearchIcon = styled(FontAwesomeIcon).attrs({ icon: faSearch })`
   width: 25px;
   font-size: 1.2em;
   text-align: center;
@@ -51,11 +51,11 @@ type PropsType = {|
 |}
 
 export class SearchInput extends React.PureComponent<PropsType> {
-  static defaultProps = {spaceSearch: false}
+  static defaultProps = { spaceSearch: false }
   onFilterTextChange = (event: SyntheticInputEvent<EventTarget>) => this.props.onFilterTextChange(event.target.value)
 
   render () {
-    const {onClickInput, filterText, placeholderText} = this.props
+    const { onClickInput, filterText, placeholderText } = this.props
     return (
       <Spacer space={this.props.spaceSearch}>
         <Wrapper>

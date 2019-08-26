@@ -1,17 +1,14 @@
 // @flow
 
-import type { Dispatch } from 'redux-first-router'
-import Payload from '../endpoint/Payload'
+import type { Dispatch } from 'redux'
+import { Endpoint, LoadingError, MappingError, ParamMissingError, Payload } from '@integreat-app/integreat-api-client'
 import startFetchAction from './actions/startFetchAction'
 import finishFetchAction from './actions/finishFetchAction'
-import LoadingError from '../endpoint/errors/LoadingError'
-import ParamMissingError from '../endpoint/errors/ParamMissingError'
-import MappingError from '../endpoint/errors/MappingError'
-import Endpoint from '../endpoint/Endpoint'
+import type { StoreActionType } from './StoreActionType'
 
 async function fetchData<P, T> (
   endpoint: Endpoint<P, T>,
-  dispatch: Dispatch, oldPayload: Payload<T>,
+  dispatch: Dispatch<StoreActionType>, oldPayload: Payload<T>,
   params: P
 ): Promise<Payload<T>> {
   let formattedUrl
@@ -51,7 +48,7 @@ async function fetchData<P, T> (
     if (e instanceof LoadingError || e instanceof ParamMissingError || e instanceof MappingError) {
       error = e
     } else {
-      error = new LoadingError({endpointName: endpoint.stateName, message: e.message})
+      error = new LoadingError({ endpointName: endpoint.stateName, message: e.message })
     }
 
     console.error(error)
