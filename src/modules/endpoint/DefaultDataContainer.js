@@ -11,6 +11,7 @@ import RNFetchBlob from 'rn-fetch-blob'
 import Cache from './Cache'
 
 type CacheType = {
+  cities: Cache<Array<CityModel>>,
   events: Cache<Array<EventModel>>,
   categories: Cache<CategoriesMapModel>,
   languages: Cache<Array<LanguageModel>>,
@@ -24,12 +25,13 @@ class DefaultDataContainer implements DataContainer {
   _databaseConnector: DatabaseConnector
   caches: CacheType
 
-  _cities: Array<CityModel> | null
-
   constructor () {
     this._databaseConnector = new DatabaseConnector()
 
     this.caches = {
+      cities: new Cache<Array<CityModel>>(this._databaseConnector,
+        (connector: DatabaseConnector) => connector.loadCities(),
+        (value: Array<CityModel>, connector: DatabaseConnector) => connector.storeCities(value)),
       events: new Cache<Array<EventModel>>(this._databaseConnector,
         (connector: DatabaseConnector, context: DatabaseContext) => connector.loadEvents(context),
         (value: Array<EventModel>, connector: DatabaseConnector, context: DatabaseContext) =>
@@ -58,10 +60,8 @@ class DefaultDataContainer implements DataContainer {
   }
 
   getCities = async (): Promise<Array<CityModel>> => {
-    if (!this._cities) {
-      this._cities = await this._databaseConnector.loadCities()
-    }
-    return this._cities
+    const cache = this.caches.cities
+    return cache.get(new DatabaseContext())
   }
 
   getCategoriesMap = (city: string, language: string): Promise<CategoriesMapModel> => {
@@ -106,8 +106,8 @@ class DefaultDataContainer implements DataContainer {
   }
 
   setCities = async (cities: Array<CityModel>) => {
-    this._cities = cities
-    return this._databaseConnector.storeCities(cities)
+    const cache = this.caches.cities
+    await cache.cache(cities, new DatabaseContext())
   }
 
   setEvents = async (city: string, language: string, events: Array<EventModel>) => {
@@ -169,7 +169,8 @@ class DefaultDataContainer implements DataContainer {
   }
 
   async citiesAvailable (): Promise<boolean> {
-    return !!this._cities || this._databaseConnector.isCitiesPersisted()
+    const context = new DatabaseContext()
+    return this.isCached('cities', context) || this._databaseConnector.isCitiesPersisted()
   }
 
   async categoriesAvailable (city: string, language: string): Promise<boolean> {

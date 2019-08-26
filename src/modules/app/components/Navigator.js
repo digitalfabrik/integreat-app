@@ -97,7 +97,7 @@ type PropsType = {|
   setContentLanguage: (language: string) => void,
   fetchCategory: (cityCode: string, language: string, key: string) => void,
   clearCategory: (key: string) => void,
-  fetchCities: () => void
+  fetchCities: (forceRefresh: boolean) => void
 |}
 
 class Navigator extends React.Component<PropsType> {
@@ -107,7 +107,7 @@ class Navigator extends React.Component<PropsType> {
   } = React.createRef()
 
   componentDidMount () {
-    this.props.fetchCities()
+    this.props.fetchCities(false)
     this.loadSelectedCity()
   }
 
