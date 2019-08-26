@@ -9,7 +9,7 @@ type DispatchPropsType = {|
   setContentLanguage: (language: string) => void,
   fetchCategory: (cityCode: string, language: string, key: string) => void,
   clearCategory: (key: string) => void,
-  fetchCities: () => void
+  fetchCities: (forceRefresh: boolean) => void
 |}
 
 type PropsType = DispatchPropsType
@@ -39,8 +39,8 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsT
   clearCategory: (key: string) => {
     dispatch({ type: 'CLEAR_CATEGORY', params: { key } })
   },
-  fetchCities: () => {
-    dispatch({ type: 'FETCH_CITIES' })
+  fetchCities: (forceRefresh: boolean) => {
+    dispatch({ type: 'FETCH_CITIES', params: { forceRefresh } })
   }
 })
 
