@@ -5,7 +5,7 @@ import { NativeModules, Platform } from 'react-native'
 /**
  * @returns {string} the system locale in the format "de_DE"
  */
-export const getLocale = () => {
+const getLocale = () => {
   const locale = Platform.select({
     android: NativeModules?.I18nManager?.localeIdentifier,
     ios: NativeModules?.SettingsManager?.settings?.AppleLocale
@@ -17,3 +17,5 @@ export const getLocale = () => {
 
   return locale
 }
+
+export default getLocale
