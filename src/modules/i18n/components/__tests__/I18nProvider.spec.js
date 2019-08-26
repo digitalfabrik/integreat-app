@@ -9,15 +9,14 @@ import i18next from 'i18next'
 import localesResources from '../../../../locales.json'
 import TestRenderer from 'react-test-renderer'
 import waitForExpect from 'wait-for-expect'
-import MockAsyncStorage from 'mock-async-storage'
 import AppSettings from '../../../settings/AppSettings'
+import AsyncStorage from '@react-native-community/async-storage'
+
+jest.mock('@react-native-community/async-storage', () => require('@react-native-community/async-storage/jest/async-storage-mock'))
 
 describe('I18nProvider', () => {
-  const mockAsyncStorage = new MockAsyncStorage()
-  jest.mock('AsyncStorage', () => mockAsyncStorage)
-
-  afterEach(async () => {
-    await mockAsyncStorage.clear()
+  beforeEach(async () => {
+    await AsyncStorage.clear()
   })
 
   it('should transform the resources correctly', () => {
@@ -44,7 +43,7 @@ describe('I18nProvider', () => {
 
   it('should set content language if not yet set', async () => {
     const mockGetLocale = () => 'de_DE'
-    const appSettings = new AppSettings(mockAsyncStorage)
+    const appSettings = new AppSettings()
     const mockSetContentLanguage = jest.fn()
 
     render(<I18nProvider setContentLanguage={mockSetContentLanguage}
@@ -59,7 +58,7 @@ describe('I18nProvider', () => {
 
   it('should not set content language if already set', () => {
     const mockGetLocale = () => 'de_DE'
-    const appSettings = new AppSettings(mockAsyncStorage)
+    const appSettings = new AppSettings()
     appSettings.setContentLanguage('de')
     const mockSetContentLanguage = jest.fn()
 
@@ -85,7 +84,7 @@ describe('I18nProvider', () => {
     const root = TestRenderer.create(
       <I18nProvider setContentLanguage={() => {}}
                     getLocale={() => 'de_DE'}
-                    appSettings={new AppSettings(mockAsyncStorage)}>
+                    appSettings={new AppSettings()}>
         <React.Fragment />
       </I18nProvider>
     ).root

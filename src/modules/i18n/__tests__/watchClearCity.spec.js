@@ -2,20 +2,16 @@
 
 import { runSaga } from 'redux-saga'
 import { clearCity } from '../watchClearCity'
+import AppSettings from '../../settings/AppSettings'
 
-const mockClearCity = jest.fn()
-jest.mock('../../settings/AppSettings', () => {
-  const createAppSettingsMock = require('../../test-utils/createAppSettingsMock')
-  return jest.fn().mockImplementation(() => createAppSettingsMock.default({ clearSelectedCity: mockClearCity }))
-})
+jest.mock('@react-native-community/async-storage', () => require('@react-native-community/async-storage/jest/async-storage-mock'))
 
 describe('watchClearCity', () => {
   it('should clear selected city of app settings', async () => {
-    await runSaga({
-      dispatch: action => {},
-      getState: () => ({ value: 'test' })
-    }, clearCity)
+    const appSettings = new AppSettings()
+    await appSettings.setSelectedCity('augsburg')
+    await runSaga({ dispatch: () => {} }, clearCity)
 
-    expect(mockClearCity).toHaveBeenCalledTimes(1)
+    expect(await appSettings.loadSelectedCity()).toBeNull()
   })
 })
