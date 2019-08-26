@@ -16,13 +16,13 @@ describe('I18nProviderContainer', () => {
     const wrapper = shallow(
       <Provider store={store}>
         <I18nProviderContainer>
-          <div />
+          <React.Fragment />
         </I18nProviderContainer>
       </Provider>
     )
 
     const props = wrapper.dive().find(I18nProvider).props()
-    expect(props.children).toEqual(<div />)
+    expect(props.children).toEqual(<React.Fragment />)
 
     const setContentLanguage = props.setContentLanguage
     setContentLanguage('de')
