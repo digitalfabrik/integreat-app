@@ -7,13 +7,14 @@ import loadCategories from './loadCategories'
 import loadEvents from './loadEvents'
 import fetchResourceCache from './fetchResourceCache'
 import moment from 'moment-timezone'
-import type { FetchCitiesActionType, PushLanguagesActionType } from '../../app/StoreActionType'
+import type { PushLanguagesActionType } from '../../app/StoreActionType'
 import loadLanguages from './loadLanguages'
 import ResourceURLFinder from '../ResourceURLFinder'
 import buildResourceFilePath from '../buildResourceFilePath'
 import { ContentLoadCriterion } from '../ContentLoadCriterion'
 import AppSettings from '../../settings/AppSettings'
 import NetInfo from '@react-native-community/netinfo'
+import loadCities from './loadCities'
 
 /**
  *
@@ -33,9 +34,7 @@ export default function * loadCityContent (
     yield call(appSettings.setSelectedCity, newCity)
   }
 
-  const fetchCities: FetchCitiesActionType = { type: 'FETCH_CITIES' }
-  yield put(fetchCities)
-
+  yield call(loadCities, dataContainer, false) // Never force refresh cities, when loading cityContent
   const lastUpdate: moment | null = yield call(dataContainer.getLastUpdate, newCity, newLanguage)
 
   console.debug('Last city content update on ',
