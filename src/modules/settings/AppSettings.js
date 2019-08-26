@@ -25,16 +25,6 @@ export const defaultSettings: SettingsType = (__DEV__ || process.env.E2E_TEST_ID
   test: false
 }
 
-export type AppSettingsType = {
-  loadSettings: () => Promise<SettingsType>,
-  setSettings: (settings: $Shape<SettingsType>) => Promise<void>,
-  loadContentLanguage: () => Promise<?string>,
-  setContentLanguage: (contentLanguage: string) => Promise<void>,
-  loadSelectedCity: () => Promise<?string>,
-  setSelectedCity: (selectedCity: string) => Promise<void>,
-  clearSelectedCity: () => Promise<void>
-}
-
 class AppSettings {
   asyncStorage: AsyncStorage
 
