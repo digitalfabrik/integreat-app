@@ -94,7 +94,7 @@ class LandingContainer extends React.Component<ContainerPropsType> {
 }
 
 const refresh = (refreshProps: void, dispatch: Dispatch<StoreActionType>) => {
-  dispatch({ type: 'FETCH_CITIES' })
+  dispatch({ type: 'FETCH_CITIES', params: { forceRefresh: true } })
 }
 
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
