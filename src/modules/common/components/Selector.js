@@ -11,12 +11,12 @@ const Element = styled(Link)`
   ${props => props.theme.helpers.removeLinkHighlighting};
   height: ${props => props.theme.dimensions.headerHeightLarge}px;
   min-width: 90px;
-  white-space: nowrap;
-  padding: 0 5px;
   flex: 1 1 auto;
+  padding: 0 5px;
   font-size: 1.2em;
   line-height: ${props => props.theme.dimensions.headerHeightLarge}px;
   text-align: center;
+  white-space: nowrap;
   border-radius: 30px;
   transition: background-color 0.2s, border-radius 0.2s;
   user-select: none;
