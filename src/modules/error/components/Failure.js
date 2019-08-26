@@ -35,7 +35,7 @@ export class Failure extends React.Component<PropsType> {
       <IconContainer source={FailureIcon} />
       <Text>{error ? error.message : t('generalError')}</Text>
       {tryAgain &&
-      <Button titleStyle={{ color: theme.colors.textColor }}
+      <Button testID='button-tryAgain' titleStyle={{ color: theme.colors.textColor }}
               buttonStyle={{ backgroundColor: theme.colors.themeColor, marginTop: 20 }}
               onPress={tryAgain} title={t('tryAgain')} />}
     </ViewContainer>
