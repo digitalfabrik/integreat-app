@@ -3,9 +3,9 @@
 import {
   CategoriesMapModel,
   CategoryModel,
+  CityModel,
   DateModel,
   EventModel,
-  CityModel,
   LanguageModel,
   LocationModel
 } from '@integreat-app/integreat-api-client'
@@ -54,13 +54,13 @@ type ContentEventJsonType = {|
 |}
 
 type ContentCityJsonType = {|
-    name: string,
-    live: boolean,
-    code: string,
-    prefix: string,
-    extrasEnabled: boolean,
-    eventsEnabled: boolean,
-    sortingName: string
+  name: string,
+  live: boolean,
+  code: string,
+  prefix: string,
+  extrasEnabled: boolean,
+  eventsEnabled: boolean,
+  sortingName: string
 |}
 
 type CityCodeType = string
@@ -88,6 +88,8 @@ class DatabaseConnector {
   getContentPath (key: string, context: DatabaseContext): string {
     if (!key) {
       throw Error('Key mustn\'t be empty')
+    } else if (!context.cityCode) {
+      throw Error('cityCode mustn\'t be empty')
     }
 
     if (!context.languageCode) {
@@ -98,6 +100,9 @@ class DatabaseConnector {
   }
 
   getResourceCachePath (context: DatabaseContext): string {
+    if (!context.cityCode) {
+      throw Error('cityCode mustn\'t be empty')
+    }
     return `${RESOURCE_CACHE_DIR_PATH}/${context.cityCode}/files.json`
   }
 
@@ -110,6 +115,10 @@ class DatabaseConnector {
   }
 
   async storeLastUpdate (lastUpdate: Moment, context: DatabaseContext) {
+    const cityCode = context.cityCode
+    if (!cityCode) {
+      throw Error('cityCode mustn\'t be empty')
+    }
     const path = this.getMetaCitiesPath()
 
     let currentCityMetaData: MetaCitiesJsonType = {}
@@ -118,9 +127,9 @@ class DatabaseConnector {
       currentCityMetaData = JSON.parse(await this.readFile(path))
     }
 
-    currentCityMetaData[context.cityCode] = currentCityMetaData[context.cityCode] || { languages: {} }
-    currentCityMetaData[context.cityCode].languages = {
-      ...currentCityMetaData[context.cityCode].languages,
+    currentCityMetaData[cityCode] = currentCityMetaData[cityCode] || { languages: {} }
+    currentCityMetaData[cityCode].languages = {
+      ...currentCityMetaData[cityCode].languages,
       [context.languageCode]: { lastUpdate: lastUpdate }
     }
 
@@ -128,9 +137,12 @@ class DatabaseConnector {
   }
 
   async loadLastUpdate (context: DatabaseContext): Promise<Moment | null> {
+    const cityCode = context.cityCode
     const languageCode = context.languageCode
 
-    if (!languageCode) {
+    if (!cityCode) {
+      throw new Error('City is not set in DatabaseContext!')
+    } else if (!languageCode) {
       throw new Error('Language is not set in DatabaseContext!')
     }
 
@@ -142,7 +154,7 @@ class DatabaseConnector {
     }
 
     const currentCityMetaData: MetaCitiesJsonType = JSON.parse(await this.readFile(path))
-    const lastUpdate = currentCityMetaData[context.cityCode]?.languages[languageCode]?.lastUpdate
+    const lastUpdate = currentCityMetaData[cityCode]?.languages[languageCode]?.lastUpdate
     return lastUpdate ? moment.tz(lastUpdate, 'UTC') : null
   }
 
