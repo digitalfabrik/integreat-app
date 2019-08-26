@@ -1,6 +1,10 @@
 const path = require('path')
 
-const mockFiles = Object.create(null)
+let mockFiles = Object.create(null)
+
+function deleteAllMockFiles () {
+  mockFiles = Object.create(null)
+}
 
 function writeMockFile (file:string, content:string | Array, encoding:string) : Promise {
   const dir = path.dirname(file)
@@ -59,6 +63,7 @@ export default {
     exists: existsMock,
     writeFile: writeMockFile,
     readFile: readMockFile,
+    reset: deleteAllMockFiles,
     dirs: {
       MainBundleDir: () => {},
       CacheDir: () => {},
