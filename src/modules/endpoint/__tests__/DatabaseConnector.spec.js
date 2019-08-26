@@ -45,7 +45,7 @@ describe('city database', () => {
     })
   })
 
-  it('loaded and stored data should be equal', async () => {
+  it('Cities: loaded and stored data should be equal', async () => {
     await databaseConnector.storeCities([testCity])
 
     return databaseConnector.loadCities().then(cities => {
@@ -60,4 +60,23 @@ describe('city database', () => {
       expect(moment).toBeNull()
     })
   })
+
+  it('storeLastUpdate should throw error if context data is null', async () => {
+    const context = new DatabaseContext(null, 'de')
+
+    expect(databaseConnector.loadLastUpdate(context)).rejects.toThrowError()
+  })
+
+  it('LastUpdate: loaded and stored data should be equal', async () => {
+    const context = new DatabaseContext('tcc', 'de')
+    const date = moment('20110205')
+
+    await databaseConnector.storeLastUpdate(date, context)
+
+    return databaseConnector.loadLastUpdate(context).then(moment => {
+      expect(date.isSame(moment)).toBe(true)
+    })
+  })
+
+  
 })
