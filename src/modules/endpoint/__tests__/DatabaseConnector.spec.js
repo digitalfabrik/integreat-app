@@ -5,14 +5,13 @@ import DatabaseConnector from '../DatabaseConnector'
 import DatabaseContext from '../DatabaseContext'
 import RNFetchBlob from 'rn-fetch-blob'
 import moment from 'moment-timezone'
-import DateModel from '@integreat-app/integreat-api-client/models/DateModel'
-import LocationModel from '@integreat-app/integreat-api-client/models/LocationModel'
 import Moment from "moment"
 
 jest.mock('rn-fetch-blob')
 const databaseConnector = new DatabaseConnector()
 
 beforeEach(() => {
+  // $FlowFixMe
   RNFetchBlob.fs.reset()
 })
 
