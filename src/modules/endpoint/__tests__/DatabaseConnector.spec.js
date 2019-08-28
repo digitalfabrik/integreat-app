@@ -1,10 +1,13 @@
 // @flow
 
-import { CityModel, CategoryModel, CategoriesMapModel, LanguageModel } from '@integreat-app/integreat-api-client'
+import { CityModel, CategoryModel, CategoriesMapModel, LanguageModel, EventModel, LocationModel, DateModel } from '@integreat-app/integreat-api-client'
 import DatabaseConnector from '../DatabaseConnector'
 import DatabaseContext from '../DatabaseContext'
 import RNFetchBlob from 'rn-fetch-blob'
 import moment from 'moment-timezone'
+import DateModel from '@integreat-app/integreat-api-client/models/DateModel'
+import LocationModel from '@integreat-app/integreat-api-client/models/LocationModel'
+import Moment from "moment"
 
 jest.mock('rn-fetch-blob')
 const databaseConnector = new DatabaseConnector()
@@ -39,6 +42,30 @@ describe('DatabaseConnector', () => {
     code: 'de',
     name: 'deutsch'
   })
+
+  const testEvent = new EventModel({
+    path: 'test/path',
+    title: 'testEvent',
+    content: 'testContent',
+    thumbnail: 'thumbnail.png',
+    date: new DateModel({
+      startDate: moment('2011-02-04T23:00:00.000Z', moment.ISO_8601),
+      endDate: moment('2011-02-05T23:00:00.000Z', moment.ISO_8601),
+      allDay: true
+    }),
+    location: new LocationModel({
+      address: 'testStreet 2',
+      town: 'testTown',
+      postcode: '12345',
+      latitude: null,
+      longitude: null
+    }),
+    excerpt: 'TestEvent',
+    availableLanguages: new Map<string, string>([]),
+    lastUpdate: moment('2011-02-04T23:00:00.000Z', moment.ISO_8601),
+    hash: 'testHash'
+  })
+
   describe('getContentPath', () => {
     it('should throw error if context data is null', () => {
       const context = new DatabaseContext(null, null)
