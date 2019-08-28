@@ -6,8 +6,12 @@ import { shallow } from 'enzyme'
 import I18nProviderContainer from '../I18nProviderContainer'
 import React from 'react'
 import I18nProvider from '../../components/I18nProvider'
+import AsyncStorage from '@react-native-community/async-storage'
 
 const mockStore = configureMockStore()
+
+const mockAsyncStorage: AsyncStorage = require('@react-native-community/async-storage/jest/async-storage-mock').default
+jest.mock('@react-native-community/async-storage', () => mockAsyncStorage)
 
 describe('I18nProviderContainer', () => {
   it('should pass the right props', () => {
@@ -16,13 +20,13 @@ describe('I18nProviderContainer', () => {
     const wrapper = shallow(
       <Provider store={store}>
         <I18nProviderContainer>
-          <div />
+          <React.Fragment />
         </I18nProviderContainer>
       </Provider>
     )
 
     const props = wrapper.dive().find(I18nProvider).props()
-    expect(props.children).toEqual(<div />)
+    expect(props.children).toEqual(<React.Fragment />)
 
     const setContentLanguage = props.setContentLanguage
     setContentLanguage('de')
