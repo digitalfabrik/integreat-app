@@ -5,7 +5,6 @@ import DatabaseConnector from '../DatabaseConnector'
 import DatabaseContext from '../DatabaseContext'
 import RNFetchBlob from 'rn-fetch-blob'
 import moment from 'moment-timezone'
-import Moment from "moment"
 
 jest.mock('rn-fetch-blob')
 const databaseConnector = new DatabaseConnector()
@@ -217,6 +216,44 @@ describe('DatabaseConnector', () => {
 
       return databaseConnector.loadLanguages(context).then(languages => {
         expect(languages).toEqual([testLanguage])
+      })
+    })
+  })
+
+  describe('isEventsPersisted', () => {
+    it('should return false if events are not persisted', async () => {
+      const context = new DatabaseContext('tcc', 'de')
+      return databaseConnector.isEventsPersisted(context).then(isPersisted => {
+        expect(isPersisted).toBe(false)
+      })
+    })
+    it('should return true if events are persisted', async () => {
+      const context = new DatabaseContext('tcc', 'de')
+      await databaseConnector.storeEvents([testEvent], context)
+      return databaseConnector.isEventsPersisted(context).then(isPersisted => {
+        expect(isPersisted).toBe(true)
+      })
+    })
+  })
+
+  describe('storeEvents', () => {
+    it('should throw error if data is empty', async () => {
+      const context = new DatabaseContext('tcc', 'de')
+      expect(databaseConnector.storeEvents([null], context)).rejects.toThrowError()
+    })
+  })
+
+  describe('loadEvents', () => {
+    it('should throw error if events are not persisted', async () => {
+      const context = new DatabaseContext('tcc', 'de')
+      expect(databaseConnector.loadEvents(context)).rejects.toThrowError()
+    })
+    it('should return a value that matches the one that was stored', async () => {
+      const context = new DatabaseContext('tcc', 'de')
+      await databaseConnector.storeEvents([testEvent], context)
+
+      return databaseConnector.loadEvents(context).then(events => {
+        expect(events).toEqual([testEvent])
       })
     })
   })
