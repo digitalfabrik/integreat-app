@@ -6,6 +6,8 @@ import { Text } from 'react-native'
 import { brightTheme } from '../../../theme/constants/theme'
 import { I18nextProvider } from 'react-i18next'
 import I18nProvider from '../../../i18n/components/I18nProvider'
+import ShallowRenderer from 'react-test-renderer/shallow'
+import Renderer from 'react-test-renderer'
 
 describe('Failure', () => {
   it('should render a retry button if tryAgain is passed', () => {
@@ -47,7 +49,17 @@ describe('Failure', () => {
   describe('withTheme()(translate())', () => {
 
     it('should pass props', () => {
-      const result = render(<I18nProvider setContentLanguage={() => {}}><FailureWithHOCs testID={'test'}/></I18nProvider>)
+      const result = render(<I18nProvider setContentLanguage={() => {}}><FailureWithHOCs
+        testID={'test'} /></I18nProvider>)
+
+      const shallowRenderer = new ShallowRenderer()
+      shallowRenderer.render(<Failure theme={brightTheme} error={new Error()}
+                                      t={key => key} />)
+      console.log(shallowRenderer.getMountedInstance().props)
+
+      const renderer = Renderer.create(<Failure theme={brightTheme} error={new Error()}
+                                                t={key => key} />)
+      console.log(renderer.toJSON())
 
       //console.dir(getByTestId('test'))
 
@@ -55,8 +67,8 @@ describe('Failure', () => {
 
       //getByTestId('test').toHaveAttribute('disabled')
 
-      console.log(JSON.stringify(result))
-      //result.debug.shallow()
+      //console.log(JSON.stringify(result))
+      result.debug()
     })
   })
 })
