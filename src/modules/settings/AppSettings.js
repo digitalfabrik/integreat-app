@@ -64,7 +64,7 @@ class AppSettings {
     return this.asyncStorage.getItem(SELECTED_CITY_KEY)
   }
 
-  setSelectedCity = async (city: ?string) => {
+  setSelectedCity = async (city: string) => {
     await this.asyncStorage.setItem(SELECTED_CITY_KEY, city)
   }
 
