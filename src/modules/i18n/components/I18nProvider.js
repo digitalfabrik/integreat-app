@@ -6,30 +6,34 @@ import { I18nextProvider, reactI18nextModule } from 'react-i18next'
 import { forEach, reduce } from 'lodash/collection'
 
 import localesResources from '../../../locales.json'
-import LanguageDetector from '../LanguageDetector'
+import createLanguageDetector from '../createLanguageDetector'
 import MomentContext, { createMomentFormatter } from '../context/MomentContext'
 import AppSettings from '../../settings/AppSettings'
-
-export const RTL_LANGUAGES = ['ar', 'fa']
-const FALLBACK_LANGUAGES = ['en', 'de']
-export const DEFAULT_LANGUAGE = 'en'
+import getLocale from '../../platform/constants/getLocale'
+import { DEFAULT_LANGUAGE, FALLBACK_LANGUAGES } from '../constants'
 
 type PropsType = {|
   children?: React.Node,
-  setContentLanguage: (language: string) => void
+  setContentLanguage: (language: string) => void,
+  getLocale: () => string,
+  appSettings: AppSettings
 |}
 
 class I18nProvider extends React.Component<PropsType> {
   i18n: i18n
-  appSettings: AppSettings
 
-  constructor () {
-    super()
+  static defaultProps = {
+    getLocale: getLocale,
+    appSettings: new AppSettings()
+  }
+
+  constructor (props: PropsType) {
+    super(props)
 
     const i18nextResources = I18nProvider.transformResources(localesResources)
     this.i18n = i18n
       .createInstance()
-      .use(LanguageDetector)
+      .use(createLanguageDetector(props.getLocale))
       .use(reactI18nextModule)
       .init({
         resources: i18nextResources,
@@ -37,8 +41,6 @@ class I18nProvider extends React.Component<PropsType> {
         load: 'languageOnly',
         debug: __DEV__
       })
-
-    this.appSettings = new AppSettings()
   }
 
   /**
@@ -48,9 +50,10 @@ class I18nProvider extends React.Component<PropsType> {
    * @returns {object} transformed resources that can be supplied to i18next instance
    */
   static transformResources (resources: {
-    namespace: string,
-    language: { language: string, languageCode: string }
-  }): { key: string, value: string } {
+    [namespace: string]: { [language: string]: { [key: string]: string } }
+  }): {
+    [language: string]: { [namespace: string]: { [key: string]: string } }
+  } {
     return reduce(
       resources,
       (accumulator, namespace, namespaceName) => {
@@ -75,12 +78,12 @@ class I18nProvider extends React.Component<PropsType> {
   }
 
   async initContentLanguage () {
-    const { setContentLanguage } = this.props
-    const contentLanguage: ?string = await this.appSettings.loadContentLanguage()
+    const { setContentLanguage, appSettings } = this.props
+    const contentLanguage: ?string = await appSettings.loadContentLanguage()
     const uiLanguage = this.getI18nextLanguage()
 
     if (!contentLanguage) {
-      await this.appSettings.setContentLanguage(uiLanguage)
+      await appSettings.setContentLanguage(uiLanguage)
       setContentLanguage(uiLanguage)
     }
   }
@@ -95,7 +98,7 @@ class I18nProvider extends React.Component<PropsType> {
     return (
       <I18nextProvider i18n={this.i18n}>
         <MomentContext.Provider value={this.momentFormatter}>
-            {this.props.children}
+          {this.props.children}
         </MomentContext.Provider>
       </I18nextProvider>
     )

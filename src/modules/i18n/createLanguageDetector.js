@@ -1,8 +1,6 @@
 // @flow
 
-import { getLocale } from '../platform/constants/locale'
-
-export default {
+export default (getLocale: () => string) => ({
   type: 'languageDetector',
   async: false,
   detect: () => {
@@ -16,4 +14,4 @@ export default {
   },
   init: () => {},
   cacheUserLanguage: () => {}
-}
+})
