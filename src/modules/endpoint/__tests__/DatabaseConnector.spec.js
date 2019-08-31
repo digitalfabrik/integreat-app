@@ -64,6 +64,30 @@ describe('DatabaseConnector', () => {
     hash: 'testHash'
   })
 
+  const testResources = {
+    'de':
+    {
+      '/path/to/page':
+      {
+        'https://test.de/path/to/resource/test.png':
+        {
+          filePath: '/local/path/to/resource/b4b5dca65e423.png',
+          lastUpdate: moment('2011-02-04T23:00:00.000Z', moment.ISO_8601),
+          hash: 'testHash'
+        }
+      },
+      '/path/to/page/child':
+      {
+        'https://test.de/path/to/resource/test2.jpg':
+        {
+          filePath: '/local/path/to/resource/970c65c41eac0.jpg',
+          lastUpdate: moment('2011-02-04T23:00:00.000Z', moment.ISO_8601),
+          hash: 'testHash'
+        }
+      }
+    }
+  }
+
   describe('getContentPath', () => {
     it('should throw error if context data is null', () => {
       const context = new DatabaseContext(null, null)
@@ -254,6 +278,30 @@ describe('DatabaseConnector', () => {
 
       return databaseConnector.loadEvents(context).then(events => {
         expect(events).toEqual([testEvent])
+      })
+    })
+  })
+
+  describe('storeResourceCache', () => {
+    it('should throw error if data is empty', async () => {
+      const context = new DatabaseContext('tcc', 'de')
+      expect(databaseConnector.storeResourceCache({}, context)).rejects.toThrowError()
+    })
+  })
+
+  describe('loadResourceCache', () => {
+    it('should return an empty value if resources are not persisted', async () => {
+      const context = new DatabaseContext('tcc', 'de')
+      return databaseConnector.loadResourceCache(context).then(cache => {
+        expect(cache).toEqual({})
+      })
+    })
+    it('should return a value that matches the one that was stored', async () => {
+      const context = new DatabaseContext('tcc', 'de')
+      await databaseConnector.storeResourceCache(testResources, context)
+
+      return databaseConnector.loadResourceCache(context).then(cache => {
+        expect(cache).toMatchSnapshot()
       })
     })
   })
