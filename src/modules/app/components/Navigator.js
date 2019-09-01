@@ -12,8 +12,8 @@ import {
   createAppContainer,
   createStackNavigator,
   createSwitchNavigator,
-  NavigationActions,
-  StackActions
+  type NavigationAction,
+  NavigationActions
 } from 'react-navigation'
 import CategoriesContainer from '../../../routes/categories/containers/CategoriesContainer'
 import LandingContainer from '../../../routes/landing/containers/LandingContainer'
@@ -33,10 +33,9 @@ import SearchModalContainer from '../../../routes/search/containers/SearchModalC
 import ExternalExtraContainer from '../../../routes/external-extra/containers/ExternalExtraContainer'
 import SettingsContainer from '../../../routes/settings/container/SettingsContainer'
 import FeedbackModalContainer from '../../../routes/feedback/containers/FeedbackModalContainer'
-import { generateKey } from '../generateRouteKey'
-import AppSettings from '../../settings/AppSettings'
 import type { Dispatch } from 'redux'
 import type { StoreActionType } from '../StoreActionType'
+import type { NavigateToCityContentParamsType } from '../createNavigateToCityContent'
 
 const LayoutedDashboardContainer = withLayout(DashboardContainer)
 const LayoutedCategoriesContainer = withLayout(CategoriesContainer)
@@ -49,8 +48,7 @@ const createNavigationRouteConfig = (Component: NavigationComponent, header = nu
 })
 
 const transparentHeader = (headerProps: HeaderProps) =>
-  <TransparentHeaderContainer scene={headerProps.scene}
-                              scenes={headerProps.scenes} />
+  <TransparentHeaderContainer scene={headerProps.scene} scenes={headerProps.scenes} />
 
 const defaultHeader = (headerProps: HeaderProps) =>
   <HeaderContainer scene={headerProps.scene} scenes={headerProps.scenes} />
@@ -60,7 +58,7 @@ const defaultHeader = (headerProps: HeaderProps) =>
  Therefore I removed the StackNavigator in the root and moved the routes to the other StackNavigator.
  We can not set the modal prop, but this is good enough atm.
  */
-export const AppStack = createStackNavigator(
+export const CityContentStack = createStackNavigator(
   {
     'Dashboard': createNavigationRouteConfig(LayoutedDashboardContainer, defaultHeader),
     'Categories': createNavigationRouteConfig(LayoutedCategoriesContainer, defaultHeader),
@@ -85,35 +83,34 @@ export const AppStack = createStackNavigator(
   }
 )
 
-export const LandingStack = createSwitchNavigator({
+export const MainSwitch = createSwitchNavigator({
   'Loading': () => null,
   'Landing': LandingContainer,
-  'App': AppStack
+  'CityContent': CityContentStack
 })
 
-const AppContainer: NavigationContainer<NavigationState, {}, {}> = createAppContainer(LandingStack)
+const AppContainer: NavigationContainer<NavigationState, {}, {}> = createAppContainer(MainSwitch)
 
 type PropsType = {|
   setContentLanguage: (language: string) => void,
-  fetchCategory: (cityCode: string, language: string, key: string) => void,
-  clearCategory: (key: string) => void,
-  fetchCities: (forceRefresh: boolean) => void
+  navigateToCityContent: NavigateToCityContentParamsType => NavigationAction,
+  fetchCities: (forceRefresh: boolean) => void,
+  selectedCity: ?string,
+  contentLanguage: ?string
 |}
 
 class Navigator extends React.Component<PropsType> {
-  appSettings: AppSettings = new AppSettings()
   navigator: {
     current: null | { ...React$ElementRef<NavigationContainer<NavigationState, {}, {}>>, dispatch: Dispatch<StoreActionType> }
   } = React.createRef()
 
   componentDidMount () {
     this.props.fetchCities(false)
-    this.loadSelectedCity()
+    this.doInitialNavigate()
   }
 
-  async loadSelectedCity () {
-    const selectedCity = await this.appSettings.loadSelectedCity()
-    const contentLanguage: ?string = await this.appSettings.loadContentLanguage()
+  doInitialNavigate () {
+    const { selectedCity, contentLanguage } = this.props
 
     if (!contentLanguage) {
       throw new Error('ContentLanguage must be set!')
@@ -124,38 +121,11 @@ class Navigator extends React.Component<PropsType> {
       throw new Error('Ref must not be null!')
     }
 
-    if (selectedCity) {
-      this.navigateToDashboard(selectedCity, contentLanguage)
-    } else {
-      this.navigator.current.dispatch(NavigationActions.navigate({
-        routeName: 'Landing'
-      }))
-    }
-  }
-
-  navigateToDashboard (cityCode: string, language: string) {
-    const path = `/${cityCode}/${language}`
-    const key = generateKey()
-
-    const navigateToDashboard = StackActions.replace({
-      routeName: 'Dashboard',
-      params: {
-        sharePath: path,
-        onRouteClose: () => this.props.clearCategory(key)
-      },
-      newKey: key
-    })
-
-    if (!this.navigator.current) {
-      throw new Error('Ref must not be null!')
-    }
-    this.navigator.current.dispatch(NavigationActions.navigate({
-      routeName: 'App',
-      // $FlowFixMe For some reason action is not allowed to be a StackAction
-      action: navigateToDashboard
-    }))
-
-    this.props.fetchCategory(cityCode, language, key)
+    this.navigator.current.dispatch(
+      selectedCity
+        ? this.props.navigateToCityContent({ cityCode: selectedCity, language: contentLanguage })
+        : NavigationActions.navigate({ routeName: 'Landing' })
+    )
   }
 
   render () {
