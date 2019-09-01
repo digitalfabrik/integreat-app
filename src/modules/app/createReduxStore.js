@@ -38,16 +38,13 @@ const createReduxStore = (
 
   const initialState: StateType = {
     darkMode: false,
-
     cities: defaultCitiesState,
     contentLanguage: defaultContentLanguageState,
     cityContent: defaultCityContentState
   }
 
-  // Create this reducer only once. It is not pure!
   const rootReducer = combineReducers({
     darkMode: toggleDarkModeReducer,
-
     cities: citiesReducer,
     contentLanguage: contentLanguageReducer,
     cityContent: cityContentReducer

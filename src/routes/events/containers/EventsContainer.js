@@ -54,7 +54,7 @@ const createChangeUnavailableLanguage = (path: ?string, navigation: NavigationSc
     language: newLanguage,
     path,
     forceUpdate: false,
-    key: navigation.getParam('key')
+    key: navigation.state.key
   })
 }
 
@@ -63,7 +63,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     return { status: 'routeNotInitialized' }
   }
   const { resourceCache, eventsRouteMapping, city, switchingLanguage } = state.cityContent
-  const route: ?EventRouteStateType = eventsRouteMapping[ownProps.navigation.getParam('key')]
+  const route: ?EventRouteStateType = eventsRouteMapping[ownProps.navigation.state.key]
   if (!route) {
     return { status: 'routeNotInitialized' }
   }
@@ -126,7 +126,7 @@ class EventsContainer extends React.Component<ContainerPropsType> {
 const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
   const { navigation, cityCode, language, path } = refreshProps
   const navigateToEvent = createNavigateToEvent(dispatch, navigation)
-  navigateToEvent({ cityCode, language, path, forceUpdate: true, key: navigation.getParam('key') })
+  navigateToEvent({ cityCode, language, path, forceUpdate: true, key: navigation.state.key })
 }
 
 export default withRouteCleaner<PropsType>(
