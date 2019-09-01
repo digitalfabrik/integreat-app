@@ -10,7 +10,8 @@ describe('citiesReducer', () => {
       status: 'ready',
       models: []
     }
-    expect(citiesReducer(prevState, { type: 'FETCH_CITIES' })).toEqual({ status: 'loading' })
+    const action = { type: 'FETCH_CITIES', params: { forceRefresh: false } }
+    expect(citiesReducer(prevState, action)).toEqual({ status: 'loading' })
   })
 
   it('should set models on PUSH_CITIES', () => {
