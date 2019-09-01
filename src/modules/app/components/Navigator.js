@@ -16,10 +16,16 @@ type PropsType = {|
 type StateType = {| waitingForSettings: boolean |}
 
 class Navigator extends React.Component<PropsType, StateType> {
-  appContainer: NavigationContainer<*, *, *>
+  appContainer: ?NavigationContainer<*, *, *>
   state = { waitingForSettings: true }
 
   async componentDidMount () {
+    const { fetchCities } = this.props
+    fetchCities(false)
+    await this.initializeAppContainer()
+  }
+
+  async initializeAppContainer () {
     const { fetchDashboard, clearCategory } = this.props
     const appSettings = new AppSettings()
     const [cityCode, language] = await Promise.all([appSettings.loadSelectedCity(), appSettings.loadContentLanguage()])
@@ -36,8 +42,6 @@ class Navigator extends React.Component<PropsType, StateType> {
       this.appContainer = createNavigationContainer({ initialRouteName: 'Landing' })
     }
 
-    // see https://github.com/yannickcr/eslint-plugin-react/issues/1110
-    // eslint-disable-next-line react/no-did-mount-set-state
     this.setState({ waitingForSettings: false })
   }
 
