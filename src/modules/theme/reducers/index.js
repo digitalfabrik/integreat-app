@@ -1,13 +1,12 @@
 // @flow
 
-import { handleAction, type ReduxReducer } from 'redux-actions'
-import type { ToggleDarkModeActionType } from '../../app/StoreActionType'
+import type { StoreActionType } from '../../app/StoreActionType'
 
-const toggleDarkModeReducer: ReduxReducer<boolean, ToggleDarkModeActionType> =
-  handleAction(
-    'TOGGLE_DARK_MODE',
-    (state: boolean) => !state,
-    false
-  )
+const toggleDarkModeReducer = (darkMode: boolean = false, action: StoreActionType) => {
+  if (action.type === 'TOGGLE_DARK_MODE') {
+    return !darkMode
+  }
+  return darkMode
+}
 
 export default toggleDarkModeReducer
