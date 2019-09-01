@@ -7,7 +7,6 @@ import Extras from '../components/Extras'
 import { type TFunction, translate } from 'react-i18next'
 import { CityModel, createExtrasEndpoint, ExtraModel, Payload } from '@integreat-app/integreat-api-client'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
-import request from '../../../modules/endpoint/request'
 import type { StateType } from '../../../modules/app/StateType'
 import type { NavigationScreenProp } from 'react-navigation'
 import { baseUrl } from '../../../modules/endpoint/constants'
@@ -73,7 +72,7 @@ class ExtrasContainer extends React.Component<ExtrasPropsType, ExtrasStateType> 
 
   async loadExtras () {
     const { city, language } = this.props
-    const payload: Payload<Array<ExtraModel>> = await request(createExtrasEndpoint(baseUrl), { city, language })
+    const payload: Payload<Array<ExtraModel>> = await (createExtrasEndpoint(baseUrl).request({ city, language }))
 
     if (payload.error) {
       this.setState(() => ({ error: payload.error, extras: null }))
