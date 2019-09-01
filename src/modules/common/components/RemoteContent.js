@@ -10,7 +10,7 @@ import { type DataDetectorTypes, WebView, type WebViewMessageEvent } from 'react
 import type { FileCacheStateType } from '../../app/StateType'
 import type { WebViewNavigation } from 'react-native-webview/js/WebViewTypes'
 import type { ViewLayoutEvent } from 'react-native/Libraries/Components/View/ViewPropTypes'
-import { RTL_LANGUAGES } from '../../i18n/components/I18nProvider'
+import { RTL_LANGUAGES } from '../../i18n/constants'
 
 // see https://github.com/react-native-community/react-native-webview#common-issues
 const StyledView: StyledComponent<{}, {}, *> = styled.View`
