@@ -1,15 +1,15 @@
 // @flow
 
 class DatabaseContext {
-  _cityCode: string
+  _cityCode: ?string
   _languageCode: ?string
 
-  constructor (currentCity: string, currentLanguage: ?string) {
+  constructor (currentCity: ?string, currentLanguage: ?string) {
     this._cityCode = currentCity
     this._languageCode = currentLanguage
   }
 
-  get cityCode (): string {
+  get cityCode (): ?string {
     return this._cityCode
   }
 

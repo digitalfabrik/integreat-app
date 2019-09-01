@@ -5,7 +5,7 @@ import type { LanguageResourceCacheStateType } from './StateType'
 import type { ContentLoadCriterionType } from '../endpoint/ContentLoadCriterion'
 
 export type FetchCitiesActionType = {|
-  type: 'FETCH_CITIES'
+  type: 'FETCH_CITIES', params: {| forceRefresh: boolean |}
 |}
 export type PushCitiesActionType = {|
   type: 'PUSH_CITIES', params: {| cities: Array<CityModel> |}

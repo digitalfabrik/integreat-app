@@ -1,7 +1,7 @@
 // @flow
 
 import type { StoreActionType } from '../../app/StoreActionType'
-import { DEFAULT_LANGUAGE } from '../components/I18nProvider'
+import { DEFAULT_LANGUAGE } from '../constants'
 
 const contentLanguageReducer = (state: string = DEFAULT_LANGUAGE, action: StoreActionType): string => {
   if (action.type === 'SET_CONTENT_LANGUAGE') {

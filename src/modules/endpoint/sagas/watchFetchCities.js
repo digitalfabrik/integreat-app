@@ -2,32 +2,13 @@
 
 import type { Saga } from 'redux-saga'
 import { call, put, takeLatest } from 'redux-saga/effects'
-import type {
-  PushCitiesActionType,
-  FetchCitiesFailedActionType
-} from '../../app/StoreActionType'
+import type { FetchCitiesActionType, FetchCitiesFailedActionType } from '../../app/StoreActionType'
 import type { DataContainer } from '../DataContainer'
-import { createCitiesEndpoint, Payload } from '@integreat-app/integreat-api-client'
-import CityModel from '@integreat-app/integreat-api-client/models/CityModel'
-import request from '../request'
-import { baseUrl } from '../constants'
+import loadCities from './loadCities'
 
-function * fetchCities (dataContainer: DataContainer): Saga<void> {
+function * fetchCities (dataContainer: DataContainer, action: FetchCitiesActionType): Saga<void> {
   try {
-    let cities: Array<CityModel>
-    if (yield call(() => dataContainer.citiesAvailable())) {
-      cities = yield call(() => dataContainer.getCities())
-    } else {
-      const payload: Payload<Array<CityModel>> = yield call(() => request(createCitiesEndpoint(baseUrl)))
-      cities = payload.data
-      yield call(dataContainer.setCities, cities)
-    }
-
-    const insert: PushCitiesActionType = {
-      type: `PUSH_CITIES`,
-      params: { cities: cities }
-    }
-    yield put(insert)
+    yield call(loadCities, dataContainer, action.params.forceRefresh)
   } catch (e) {
     console.error(e)
     const failed: FetchCitiesFailedActionType = {

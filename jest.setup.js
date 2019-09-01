@@ -21,4 +21,4 @@ if (typeof window !== 'object') {
   global.window.navigator = {}
 }
 
-jest.mock('@react-native-community/async-storage', () => require('@react-native-community/async-storage/jest/async-storage-mock'))
+jest.mock('rn-fetch-blob')
