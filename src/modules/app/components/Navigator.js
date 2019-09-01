@@ -4,7 +4,7 @@ import * as React from 'react'
 import type { NavigationContainer } from 'react-navigation'
 import { generateKey } from '../generateRouteKey'
 import AppSettings from '../../settings/AppSettings'
-import createNavigationContainer from '../createNavigationContainer'
+import createAppNavigationContainer from '../createAppNavigationContainer'
 
 type PropsType = {|
   setContentLanguage: (language: string) => void,
@@ -16,7 +16,7 @@ type PropsType = {|
 type StateType = {| waitingForSettings: boolean |}
 
 class Navigator extends React.Component<PropsType, StateType> {
-  appContainer: ?NavigationContainer<*, *, *>
+  appNavigationContainer: ?NavigationContainer<*, *, *>
   state = { waitingForSettings: true }
 
   async componentDidMount () {
@@ -34,19 +34,19 @@ class Navigator extends React.Component<PropsType, StateType> {
     }
     if (cityCode) {
       const key = generateKey()
-      this.appContainer = createNavigationContainer({
+      this.appNavigationContainer = createAppNavigationContainer({
         initialRouteName: 'CityContent', cityCode, language, clearCategory, key
       })
       fetchDashboard({ city: cityCode, language, key })
     } else {
-      this.appContainer = createNavigationContainer({ initialRouteName: 'Landing' })
+      this.appNavigationContainer = createAppNavigationContainer({ initialRouteName: 'Landing' })
     }
 
     this.setState({ waitingForSettings: false })
   }
 
   render () {
-    const AppContainer = this.appContainer
+    const AppContainer = this.appNavigationContainer
     return AppContainer ? <AppContainer /> : null
   }
 }

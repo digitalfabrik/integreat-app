@@ -3,16 +3,14 @@
 import withLayout from '../layout/hocs/withLayout'
 import DashboardContainer from '../../routes/dashboard/containers/DashboardContainer'
 import CategoriesContainer from '../../routes/categories/containers/CategoriesContainer'
-import {
-  createAppContainer,
-  createStackNavigator,
-  createSwitchNavigator,
-  type HeaderProps,
-  type NavigationComponent,
-  type NavigationContainer,
-  type NavigationRouteConfig,
-  type NavigationRouteConfigMap
+import type {
+  HeaderProps,
+  NavigationComponent,
+  NavigationContainer,
+  NavigationRouteConfig,
+  NavigationRouteConfigMap
 } from 'react-navigation'
+import { createAppContainer, createStackNavigator, createSwitchNavigator } from 'react-navigation'
 import TransparentHeaderContainer from '../layout/containers/TransparentHeaderContainer'
 import HeaderContainer from '../layout/containers/HeaderContainer'
 import ExtrasContainer from '../../routes/extras/containers/ExtrasContainer'
@@ -91,7 +89,7 @@ const createCityContentNavigator = (params: CreateNavigationContainerParamsType)
   }
 }
 
-const createNavigationContainer = (params: CreateNavigationContainerParamsType): NavigationContainer<*, *, *> => {
+const createAppNavigationContainer = (params: CreateNavigationContainerParamsType): NavigationContainer<*, *, *> => {
   const cityContentNavigator = createCityContentNavigator(params)
   return createAppContainer(
     createSwitchNavigator({
@@ -100,4 +98,4 @@ const createNavigationContainer = (params: CreateNavigationContainerParamsType):
     }, { initialRouteName: params.initialRouteName }))
 }
 
-export default createNavigationContainer
+export default createAppNavigationContainer
