@@ -8,8 +8,8 @@ import createAppNavigationContainer from '../createAppNavigationContainer'
 
 type PropsType = {|
   setContentLanguage: (language: string) => void,
+  fetchCategory: (cityCode: string, language: string, key: string) => void,
   clearCategory: (key: string) => void,
-  fetchDashboard: ({ city: string, language: string, key: string }) => void,
   fetchCities: (forceRefresh: boolean) => void
 |}
 
@@ -26,7 +26,7 @@ class Navigator extends React.Component<PropsType, StateType> {
   }
 
   async initializeAppContainer () {
-    const { fetchDashboard, clearCategory } = this.props
+    const { fetchCategory, clearCategory } = this.props
     const appSettings = new AppSettings()
     const [cityCode, language] = await Promise.all([appSettings.loadSelectedCity(), appSettings.loadContentLanguage()])
     if (!language) {
@@ -37,7 +37,7 @@ class Navigator extends React.Component<PropsType, StateType> {
       this.appNavigationContainer = createAppNavigationContainer({
         initialRouteName: 'CityContent', cityCode, language, clearCategory, key
       })
-      fetchDashboard({ city: cityCode, language, key })
+      fetchCategory(cityCode, language, key)
     } else {
       this.appNavigationContainer = createAppNavigationContainer({ initialRouteName: 'Landing' })
     }

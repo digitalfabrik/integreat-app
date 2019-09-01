@@ -2,13 +2,13 @@
 
 import { type Dispatch } from 'redux'
 import { connect } from 'react-redux'
-import type { StoreActionType } from '../StoreActionType'
 import Navigator from '../components/Navigator'
+import type { StoreActionType } from '../StoreActionType'
 
 type DispatchPropsType = {|
   setContentLanguage: (language: string) => void,
+  fetchCategory: (cityCode: string, language: string, key: string) => void,
   clearCategory: (key: string) => void,
-  fetchDashboard: ({ city: string, language: string, key: string }) => void,
   fetchCities: (forceRefresh: boolean) => void
 |}
 
@@ -21,24 +21,26 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsT
       params: { contentLanguage: language }
     })
   },
-  fetchCities: (forceRefresh: boolean) => {
-    dispatch({ type: 'FETCH_CITIES', params: { forceRefresh } })
+  fetchCategory: (cityCode: string, language: string, key: string) => {
+    const path = `/${cityCode}/${language}`
+
+    dispatch({
+      type: 'FETCH_CATEGORY',
+      params: {
+        city: cityCode,
+        language,
+        path,
+        depth: 2,
+        criterion: { forceUpdate: false, shouldRefreshResources: true },
+        key
+      }
+    })
   },
   clearCategory: (key: string) => {
     dispatch({ type: 'CLEAR_CATEGORY', params: { key } })
   },
-  fetchDashboard: ({ city, language, key }: { city: string, language: string, key: string }) => {
-    dispatch({
-      type: 'FETCH_CATEGORY',
-      params: {
-        city: city,
-        language: language,
-        path: `/${city}/${language}`,
-        depth: 2,
-        key: key,
-        criterion: { forceUpdate: false, shouldRefreshResources: true }
-      }
-    })
+  fetchCities: (forceRefresh: boolean) => {
+    dispatch({ type: 'FETCH_CITIES', params: { forceRefresh } })
   }
 })
 
