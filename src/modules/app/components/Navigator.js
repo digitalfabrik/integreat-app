@@ -6,15 +6,10 @@ import type {
   NavigationComponent,
   NavigationContainer,
   NavigationRouteConfig,
-  NavigationState
+  NavigationState,
+  StackNavigatorConfig
 } from 'react-navigation'
-import {
-  createAppContainer,
-  createStackNavigator,
-  createSwitchNavigator,
-  type NavigationAction,
-  NavigationActions
-} from 'react-navigation'
+import { createAppContainer, createStackNavigator, createSwitchNavigator } from 'react-navigation'
 import CategoriesContainer from '../../../routes/categories/containers/CategoriesContainer'
 import LandingContainer from '../../../routes/landing/containers/LandingContainer'
 import DashboardContainer from '../../../routes/dashboard/containers/DashboardContainer'
@@ -33,9 +28,7 @@ import SearchModalContainer from '../../../routes/search/containers/SearchModalC
 import ExternalExtraContainer from '../../../routes/external-extra/containers/ExternalExtraContainer'
 import SettingsContainer from '../../../routes/settings/container/SettingsContainer'
 import FeedbackModalContainer from '../../../routes/feedback/containers/FeedbackModalContainer'
-import type { Dispatch } from 'redux'
-import type { StoreActionType } from '../StoreActionType'
-import type { NavigateToCityContentParamsType } from '../createNavigateToCityContent'
+import { generateKey } from '../generateRouteKey'
 
 const LayoutedDashboardContainer = withLayout(DashboardContainer)
 const LayoutedCategoriesContainer = withLayout(CategoriesContainer)
@@ -58,7 +51,7 @@ const defaultHeader = (headerProps: HeaderProps) =>
  Therefore I removed the StackNavigator in the root and moved the routes to the other StackNavigator.
  We can not set the modal prop, but this is good enough atm.
  */
-export const CityContentStack = createStackNavigator(
+const createCityContentStack = (config?: StackNavigatorConfig) => createStackNavigator(
   {
     'Dashboard': createNavigationRouteConfig(LayoutedDashboardContainer, defaultHeader),
     'Categories': createNavigationRouteConfig(LayoutedCategoriesContainer, defaultHeader),
@@ -76,60 +69,66 @@ export const CityContentStack = createStackNavigator(
     'PDFViewModal': createNavigationRouteConfig(PDFViewModal, transparentHeader),
     'FeedbackModal': createNavigationRouteConfig(FeedbackModalContainer, transparentHeader)
   },
-  {
-    defaultNavigationOptions: {
-      header: null
-    }
-  }
+  config
 )
 
-export const MainSwitch = createSwitchNavigator({
-  'Loading': () => null,
-  'Landing': LandingContainer,
-  'CityContent': CityContentStack
-})
+const createMainSwitch = (
+  selectedCity: ?string,
+  contentLanguage: string,
+  clearCategory: (key: string) => void,
+  fetchDashboard: ({ city: string, language: string, key: string }) => void
+) => {
+  if (!selectedCity) {
+    return createSwitchNavigator({
+      'Landing': LandingContainer,
+      'CityContent': createCityContentStack({})
+    }, { initialRouteName: 'Landing' })
+  } else {
+    const key = generateKey()
+    const cityContentStack = createCityContentStack(
+      {
+        initialRouteName: 'Dashboard',
+        initialRouteKey: key,
+        initialRouteParams: {
+          onRouteClose: () => {},
+          sharePath: `/${selectedCity}/${contentLanguage}`
+        }
+      })
+    fetchDashboard({ city: selectedCity, language: contentLanguage, key })
 
-const AppContainer: NavigationContainer<NavigationState, {}, {}> = createAppContainer(MainSwitch)
+    return createSwitchNavigator({
+      'Landing': LandingContainer,
+      'CityContent': cityContentStack
+    }, { initialRouteName: 'CityContent' })
+  }
+}
 
 type PropsType = {|
   setContentLanguage: (language: string) => void,
-  navigateToCityContent: NavigateToCityContentParamsType => NavigationAction,
+  clearCategory: (key: string) => void,
+  fetchDashboard: ({ city: string, language: string, key: string }) => void,
   fetchCities: (forceRefresh: boolean) => void,
   selectedCity: ?string,
-  contentLanguage: ?string
+  contentLanguage: string
 |}
 
 class Navigator extends React.Component<PropsType> {
-  navigator: {
-    current: null | { ...React$ElementRef<NavigationContainer<NavigationState, {}, {}>>, dispatch: Dispatch<StoreActionType> }
-  } = React.createRef()
+  appContainer: NavigationContainer<NavigationState, {}, {}>
 
-  componentDidMount () {
-    this.props.fetchCities(false)
-    this.doInitialNavigate()
-  }
-
-  doInitialNavigate () {
-    const { selectedCity, contentLanguage } = this.props
-
-    if (!contentLanguage) {
-      throw new Error('ContentLanguage must be set!')
-    }
-    this.props.setContentLanguage(contentLanguage)
-
-    if (!this.navigator.current) {
-      throw new Error('Ref must not be null!')
-    }
-
-    this.navigator.current.dispatch(
-      selectedCity
-        ? this.props.navigateToCityContent({ cityCode: selectedCity, language: contentLanguage })
-        : NavigationActions.navigate({ routeName: 'Landing' })
+  constructor (props: PropsType) {
+    super(props)
+    this.appContainer = createAppContainer(
+      createMainSwitch(props.selectedCity, props.contentLanguage, props.clearCategory, props.fetchDashboard)
     )
   }
 
+  componentDidMount () {
+    this.props.fetchCities(false)
+  }
+
   render () {
-    return <AppContainer ref={this.navigator} />
+    const AppContainer = this.appContainer
+    return <AppContainer />
   }
 }
 
