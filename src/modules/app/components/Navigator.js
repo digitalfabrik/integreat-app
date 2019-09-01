@@ -7,7 +7,6 @@ import AppSettings from '../../settings/AppSettings'
 import createAppNavigationContainer from '../createAppNavigationContainer'
 
 type PropsType = {|
-  setContentLanguage: (language: string) => void,
   fetchCategory: (cityCode: string, language: string, key: string) => void,
   clearCategory: (key: string) => void,
   fetchCities: (forceRefresh: boolean) => void
