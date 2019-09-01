@@ -6,11 +6,16 @@ import FailureContainer from '../FailureContainer'
 import AsyncStorage from '@react-native-community/async-storage'
 import Failure from '../../components/Failure'
 import { brightTheme } from '../../../theme/constants/theme'
+import TestRenderer from 'react-test-renderer';
 
 const mockAsyncStorage: AsyncStorage = require('@react-native-community/async-storage/jest/async-storage-mock').default
 jest.mock('@react-native-community/async-storage', () => mockAsyncStorage)
 
 // jest.mock('../../components/Failure', () => jest.fn(props => null))
+jest.mock('../../components/Failure', () => {
+  const Component = jest.fn(props => null)
+  return props => <Component {...props} testID='some-id' />
+})
 jest.mock('react-i18next')
 jest.mock('../../../theme/hocs/withTheme')
 
@@ -24,11 +29,23 @@ describe('FailureContainer', () => {
         t: expect.anything(),
         theme: expect.anything()
       }), context)
+
+      expect(Failure).toHaveBeenCalledTimes(1)
+    })
+  })
+
+  it('should give props to inner component (2)', () => {
+    const rendered = TestRenderer.create(<FailureContainer />)
+
+    const instance = rendered.root.findByType(Failure)
+    expect(instance.props).toEqual({
+      t: expect.anything(),
+      theme: expect.anything()
     })
   })
 
   it('should render inner component correctly without passing props explicitly', () => {
-    jest.unmock('../../components/Failure')
+    // jest.unmock('../../components/Failure')
     const t = key => key
     const tryAgain = () => {}
     // const tryAgain = undefined
