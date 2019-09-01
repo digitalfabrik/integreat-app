@@ -3,7 +3,6 @@
 import type { Saga } from 'redux-saga'
 import { CategoriesMapModel, createCategoriesEndpoint } from '@integreat-app/integreat-api-client'
 import { call } from 'redux-saga/effects'
-import request from '../request'
 import { baseUrl } from '../constants'
 import type { FetchMapType } from './fetchResourceCache'
 import type { DataContainer } from '../DataContainer'
@@ -11,7 +10,7 @@ import type { DataContainer } from '../DataContainer'
 function * fetchCategoriesMap (city: string, language: string): Saga<CategoriesMapModel> {
   const params = { city, language }
 
-  const categoriesPayload: CategoriesMapModel = yield call(() => request(createCategoriesEndpoint(baseUrl), params))
+  const categoriesPayload: CategoriesMapModel = yield call(() => createCategoriesEndpoint(baseUrl).request(params))
   return categoriesPayload.data
 }
 

@@ -3,7 +3,6 @@
 import type { Saga } from 'redux-saga'
 import { call } from 'redux-saga/effects'
 import { createLanguagesEndpoint, LanguageModel, Payload } from '@integreat-app/integreat-api-client'
-import request from '../request'
 import { baseUrl } from '../constants'
 import type { DataContainer } from '../DataContainer'
 
@@ -19,6 +18,6 @@ export default function * loadLanguages (
   }
   console.debug('Fetching languages')
   const params = { city }
-  const payload: Payload<Array<LanguageModel>> = yield call(() => request(createLanguagesEndpoint(baseUrl), params))
+  const payload: Payload<Array<LanguageModel>> = yield call(() => createLanguagesEndpoint(baseUrl).request(params))
   yield call(dataContainer.setLanguages, city, payload.data)
 }
