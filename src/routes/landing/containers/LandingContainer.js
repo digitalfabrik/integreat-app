@@ -7,13 +7,14 @@ import type { Dispatch } from 'redux'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import Landing from '../components/Landing'
 import type { NavigationScreenProp } from 'react-navigation'
+import { type NavigationReplaceAction, StackActions } from 'react-navigation'
+import { generateKey } from '../../../modules/app/generateRouteKey'
 import type { StatusPropsType } from '../../../modules/error/hocs/withPayloadProvider'
 import withPayloadProvider from '../../../modules/error/hocs/withPayloadProvider'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import * as React from 'react'
 import { connect } from 'react-redux'
 import omitNavigation from '../../../modules/common/hocs/omitNavigation'
-import createNavigateToCityContent from '../../../modules/app/createNavigateToCityContent'
 
 type ContainerPropsType = {|
   dispatch: Dispatch<StoreActionType>,
@@ -51,8 +52,37 @@ const ThemedTranslatedLanding = translate('landing')(
 
 class LandingContainer extends React.Component<ContainerPropsType> {
   navigateToDashboard = (cityCode: string, language: string) => {
-    const navigateToCityContent = createNavigateToCityContent(this.props.dispatch)
-    this.props.navigation.dispatch(navigateToCityContent({ cityCode, language, shouldRefreshResources: true }))
+    const { dispatch, navigation } = this.props
+    const path = `/${cityCode}/${language}`
+    const key: string = generateKey()
+
+    const action: NavigationReplaceAction = StackActions.replace({
+      routeName: 'Dashboard',
+      params: {
+        cityCode,
+        sharePath: path,
+        onRouteClose: () => dispatch({ type: 'CLEAR_CATEGORY', params: { key } })
+      },
+      newKey: key
+    })
+
+    navigation.navigate({
+      routeName: 'CityContent',
+      // $FlowFixMe For some reason action is not allowed to be a StackAction
+      action: action
+    })
+
+    return dispatch({
+      type: 'FETCH_CATEGORY',
+      params: {
+        city: cityCode,
+        language,
+        path,
+        depth: 2,
+        criterion: { forceUpdate: false, shouldRefreshResources: true },
+        key
+      }
+    })
   }
 
   render () {
