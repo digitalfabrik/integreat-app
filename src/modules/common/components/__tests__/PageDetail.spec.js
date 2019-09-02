@@ -1,17 +1,24 @@
 // @flow
 
-import { render } from 'react-native-testing-library'
+import { render, queries } from '@testing-library/react-native'
 import React from 'react'
-import PageDetail, { Identifier } from '../PageDetail'
+import PageDetail from '../PageDetail'
+import { queryAllFlex } from '../../../../testing/styleTestingUtils'
 import brightTheme from '../../../theme/constants/theme'
 
 describe('PageDetail', () => {
   it('should display the given identifier followed by a colon', () => {
-    const { getByType } = render(
+    const { queryByText, container } = render(
       <PageDetail identifier={'Test Identifier'} information={'Some important information'} theme={brightTheme}
-                  language={'de'} />
+                  language={'de'} />,
+      {
+        queries: { ...queries }
+      }
     )
-    const identifier = getByType(Identifier).props.children.join('')
-    expect(identifier).toEqual('Test Identifier: ')
+    expect(queryByText('Test Identifier', { exact: false })).toBeTruthy()
+    expect(queryByText('Some important information', { exact: false })).toBeTruthy()
+    expect(queryAllFlex(container, {})).toSatisfyAll(
+      style => style.props.style.some(style => style.flexDirection === 'row')
+    )
   })
 })

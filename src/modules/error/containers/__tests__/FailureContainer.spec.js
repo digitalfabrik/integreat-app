@@ -3,19 +3,15 @@
 import { render } from '@testing-library/react-native'
 import * as React from 'react'
 import FailureContainer from '../FailureContainer'
-import AsyncStorage from '@react-native-community/async-storage'
 import Failure from '../../components/Failure'
 import { brightTheme } from '../../../theme/constants/theme'
-import TestRenderer from 'react-test-renderer';
+import TestRenderer from 'react-test-renderer'
 
-const mockAsyncStorage: AsyncStorage = require('@react-native-community/async-storage/jest/async-storage-mock').default
-jest.mock('@react-native-community/async-storage', () => mockAsyncStorage)
-
-// jest.mock('../../components/Failure', () => jest.fn(props => null))
-jest.mock('../../components/Failure', () => {
-  const Component = jest.fn(props => null)
-  return props => <Component {...props} testID='some-id' />
-})
+jest.mock('../../components/Failure', () => jest.fn(props => null))
+// jest.mock('../../components/Failure', () => {
+//  const Component = jest.fn(props => null)
+//  return props => <Component {...props} testID='some-id' />
+// })
 jest.mock('react-i18next')
 jest.mock('../../../theme/hocs/withTheme')
 
