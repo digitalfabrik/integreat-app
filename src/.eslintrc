@@ -8,5 +8,8 @@
   "globals": {
     "__DEV__": false,
     "__VERSION__": false
+  },
+  "rules": {
+    "require-await": "error"
   }
 }
