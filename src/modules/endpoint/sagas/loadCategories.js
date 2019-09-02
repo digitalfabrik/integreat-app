@@ -1,23 +1,22 @@
 // @flow
 
 import type { Saga } from 'redux-saga'
-import { CategoriesMapModel, createCategoriesEndpoint } from '@integreat-app/integreat-api-client'
+import { CategoriesMapModel } from '@integreat-app/integreat-api-client'
+
 import { call } from 'redux-saga/effects'
 import { baseUrl } from '../constants'
-import type { FetchMapType } from './fetchResourceCache'
 import type { DataContainer } from '../DataContainer'
+import createCategoriesEndpoint from '@integreat-app/integreat-api-client/endpoints/createCategoriesEndpoint'
 
 function * loadCategories (
   city: string,
   language: string,
   dataContainer: DataContainer,
   shouldUpdate: boolean
-): Saga<FetchMapType> {
+): Saga<CategoriesMapModel> {
   const categoriesAvailable = yield call(() => dataContainer.categoriesAvailable(city, language))
 
   if (!categoriesAvailable || shouldUpdate) {
-    // data is already loaded and should not be updated
-
     console.debug('Fetching categories')
 
     // TODO: data was loaded but should be incrementally updated. This will be done in NATIVE-3
