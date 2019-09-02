@@ -9,6 +9,7 @@ module.exports = {
     ...jestPreset.setupFiles,
     '<rootDir>/jest.setup.js'
   ],
+  'setupFilesAfterEnv': ['jest-extended'],
   'transformIgnorePatterns': [
     'node_modules/(?!react-native|@react-native-community/async-storage|rn-fetch-blob|@integreat-app/integreat-api-client|antd|rc-.+)'
   ],
