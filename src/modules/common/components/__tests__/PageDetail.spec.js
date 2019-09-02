@@ -3,7 +3,7 @@
 import { render, queries } from '@testing-library/react-native'
 import React from 'react'
 import PageDetail from '../PageDetail'
-import { queryAllFlex } from '../../../../testing/styleTestingUtils'
+import { queryAllFlex } from '../../../../testing/customQueries'
 import brightTheme from '../../../theme/constants/theme'
 
 describe('PageDetail', () => {
