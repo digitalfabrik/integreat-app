@@ -1,7 +1,7 @@
 // @flow
 
 import 'react-native'
-import { render } from 'react-native-testing-library'
+import { render } from '@testing-library/react-native'
 import React from 'react'
 import I18nProvider from '../I18nProvider'
 import { I18nextProvider } from 'react-i18next'
@@ -11,8 +11,6 @@ import TestRenderer from 'react-test-renderer'
 import waitForExpect from 'wait-for-expect'
 import AppSettings from '../../../settings/AppSettings'
 import AsyncStorage from '@react-native-community/async-storage'
-
-jest.mock('@react-native-community/async-storage', () => require('@react-native-community/async-storage/jest/async-storage-mock'))
 
 describe('I18nProvider', () => {
   beforeEach(async () => {
