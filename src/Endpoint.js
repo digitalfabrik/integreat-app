@@ -20,7 +20,8 @@ class Endpoint<P, T> {
 
   constructor (
     name: string,
-    mapParamsToUrl: MapParamsToUrlType<P>, mapParamsToBody: ?MapParamsToBodyType<P>,
+    mapParamsToUrl: MapParamsToUrlType<P>,
+    mapParamsToBody: ?MapParamsToBodyType<P>,
     mapResponse: MapResponseType<P, T>,
     responseOverride: ?T, errorOverride: ?Error
   ) {
@@ -49,7 +50,15 @@ class Endpoint<P, T> {
   }
 
   async request (params: P, overrideUrl?: string): Promise<Payload<T>> {
+    if (this.errorOverride) {
+      throw this.errorOverride
+    }
+
     const url = overrideUrl || this.mapParamsToUrl(params)
+    if (this.responseOverride) {
+      return new Payload(false, url, this.responseOverride, null)
+    }
+
     const response = await (this.mapParamsToBody ? this.postFormData(url, params) : fetch(url))
 
     if (!response.ok) {
