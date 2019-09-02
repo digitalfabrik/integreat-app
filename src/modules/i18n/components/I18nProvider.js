@@ -88,8 +88,8 @@ class I18nProvider extends React.Component<PropsType> {
     }
   }
 
-  componentDidMount () {
-    this.initContentLanguage()
+  async componentDidMount () {
+    await this.initContentLanguage()
   }
 
   momentFormatter = createMomentFormatter(() => undefined, () => DEFAULT_LANGUAGE)
