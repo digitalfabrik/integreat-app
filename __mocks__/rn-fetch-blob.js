@@ -9,7 +9,6 @@ function deleteAllMockFiles () {
 function writeMockFile (file:string, content:string | Array, encoding:string) : Promise {
   const dir = path.dirname(file)
   const fileName = path.basename(file)
-
   if (!mockFiles[dir]) {
     mockFiles[dir] = []
   }
@@ -18,7 +17,6 @@ function writeMockFile (file:string, content:string | Array, encoding:string) : 
   }
 
   mockFiles[dir][fileName] = content
-  console.log(`writeMockFile: ${content}`)
 
   return Promise.resolve()
 }
@@ -27,15 +25,10 @@ function readMockFile (file:string, encoding:string) : Promise {
   const dir = path.dirname(file)
   const fileName = path.basename(file)
 
-  const content = mockFiles[dir][fileName]
-
-  console.log(`readMockFile: ${content}`)
-
   return mockFiles[dir][fileName]
 }
 
 function existsMock (file:string) : Promise {
-  console.log(`existsMock. ${file}`)
   const dir = path.dirname(file)
   const fileName = path.basename(file)
 
