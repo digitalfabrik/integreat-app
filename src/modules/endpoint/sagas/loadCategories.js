@@ -20,7 +20,6 @@ function * loadCategories (
     console.debug('Fetching categories')
 
     // TODO: data was loaded but should be incrementally updated. This will be done in NATIVE-3
-
     const categoriesPayload = yield call(() => createCategoriesEndpoint(baseUrl).request({ city, language }))
     const categoriesMap: CategoriesMapModel = categoriesPayload.data
     yield call(dataContainer.setCategoriesMap, city, language, categoriesMap)
