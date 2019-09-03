@@ -63,7 +63,7 @@ describe('loadCategories', () => {
   const city = 'augsburg'
   const language = 'de'
 
-  it('should fetch categories if categories are not available', async () => {
+  it('should fetch and set categories if categories are not available', async () => {
     const dataContainer = new DefaultDataContainer()
     const setCategoriesMap = jest.fn()
     dataContainer.setCategoriesMap = setCategoriesMap
@@ -74,7 +74,7 @@ describe('loadCategories', () => {
     expect(setCategoriesMap).toHaveBeenCalledWith(city, language, newCategoriesMap)
   })
 
-  it('should fetch categories if it should update', async () => {
+  it('should fetch and set categories if it should update', async () => {
     const dataContainer = new DefaultDataContainer()
     await dataContainer.setCategoriesMap(city, language, oldCategoriesMap)
     const setCategoriesMap = jest.fn()
@@ -88,12 +88,12 @@ describe('loadCategories', () => {
 
   it('should use cached categories if categories are available and it should not update', async () => {
     const dataContainer = new DefaultDataContainer()
-    await dataContainer.setCategoriesMap(city, language, newCategoriesMap)
+    await dataContainer.setCategoriesMap(city, language, oldCategoriesMap)
     const setCategoriesMap = jest.fn()
     dataContainer.setCategoriesMap = setCategoriesMap
     const result = await runSaga({}, loadCategories, city, language, dataContainer, false).toPromise()
 
-    expect(result).toStrictEqual(newCategoriesMap)
+    expect(result).toStrictEqual(oldCategoriesMap)
     expect(setCategoriesMap).not.toHaveBeenCalled()
   })
 })
