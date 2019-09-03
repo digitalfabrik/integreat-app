@@ -17,7 +17,8 @@ describe('ContentNotFoundError', () => {
         { type: 'category', id: '/augsburg/de/test', city: 'augsburg', language: 'language' }
       )
     } catch (error) {
-      expect(error.stack).toContain('ContentNotFoundError.js:17')
+      expect(error.stack).toContain('ContentNotFoundError.js:16') /*  This expect depends on the order of the
+                                                                            lines in this test! */
     }
   })
 })
