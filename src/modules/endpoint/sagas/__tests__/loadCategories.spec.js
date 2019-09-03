@@ -6,10 +6,35 @@ import { runSaga } from 'redux-saga'
 import loadCategories from '../loadCategories'
 import DefaultDataContainer from '../../DefaultDataContainer'
 
-jest.mock('@integreat-app/integreat-api-client/endpoints/createCategoriesEndpoint')
+jest.mock('rn-fetch-blob')
+jest.mock('@integreat-app/integreat-api-client/endpoints/createCategoriesEndpoint',
+  () => () => {
+    const { CategoryModel, CategoriesMapModel, EndpointBuilder } = require('@integreat-app/integreat-api-client')
+    const moment = require('moment-timezone')
+
+    return new EndpointBuilder('categories-mock')
+      .withParamsToUrlMapper(() => 'https://cms.integreat-app.de/augsburg/de')
+      .withResponseOverride(new CategoriesMapModel([new CategoryModel({
+        path: '/augsburg/de',
+        title: '4 Issues schafft man immer!',
+        content: '',
+        order: -1,
+        availableLanguages: new Map(),
+        thumbnail: 'Integreat.jpg',
+        parentPath: '',
+        lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
+      })]))
+      .withMapper(() => { })
+      .build()
+  }
+)
 
 describe('loadCategories', () => {
-  const rootCategory = new CategoryModel({
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
+
+  const oldCategory = new CategoryModel({
     id: 0,
     path: '/augsburg/de',
     title: 'augsburg',
@@ -21,24 +46,20 @@ describe('loadCategories', () => {
     lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
   })
 
-  const oldCategoriesMap = new CategoriesMapModel([rootCategory])
+  const oldCategoriesMap = new CategoriesMapModel([oldCategory])
 
-  const categoryModels = [
-    rootCategory,
-    new CategoryModel({
-      id: 3650,
-      path: '/augsburg/de/anlaufstellen',
-      title: 'Anlaufstellen zu sonstigen Themen',
-      content: '',
-      parentPath: '/augsburg/de',
-      order: 75,
-      availableLanguages: new Map([['en', '4361'], ['ar', '4367'], ['fa', '4368']]),
-      thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png',
-      lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
-    })
-  ]
+  const newCategory = new CategoryModel({
+    path: '/augsburg/de',
+    title: '4 Issues schafft man immer!',
+    content: '',
+    order: -1,
+    availableLanguages: new Map(),
+    thumbnail: 'Integreat.jpg',
+    parentPath: '',
+    lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
+  })
 
-  const newCategoriesMap = new CategoriesMapModel(categoryModels)
+  const newCategoriesMap = new CategoriesMapModel([newCategory])
   const city = 'augsburg'
   const language = 'de'
 
@@ -58,7 +79,7 @@ describe('loadCategories', () => {
     await dataContainer.setCategoriesMap(city, language, oldCategoriesMap)
     const setCategoriesMap = jest.fn()
     dataContainer.setCategoriesMap = setCategoriesMap
-    const result = await runSaga({}, loadCategories, city, language, dataContainer, true)
+    const result = await runSaga({}, loadCategories, city, language, dataContainer, true).toPromise()
 
     expect(result).toStrictEqual(newCategoriesMap)
     expect(setCategoriesMap).toHaveBeenCalledTimes(1)
@@ -70,7 +91,7 @@ describe('loadCategories', () => {
     await dataContainer.setCategoriesMap(city, language, newCategoriesMap)
     const setCategoriesMap = jest.fn()
     dataContainer.setCategoriesMap = setCategoriesMap
-    const result = await runSaga({}, loadCategories, city, language, dataContainer, false)
+    const result = await runSaga({}, loadCategories, city, language, dataContainer, false).toPromise()
 
     expect(result).toStrictEqual(newCategoriesMap)
     expect(setCategoriesMap).not.toHaveBeenCalled()
