@@ -60,7 +60,6 @@ class LandingContainer extends React.Component<ContainerPropsType> {
       routeName: 'Dashboard',
       params: {
         cityCode,
-        key,
         sharePath: path,
         onRouteClose: () => dispatch({ type: 'CLEAR_CATEGORY', params: { key } })
       },

@@ -47,14 +47,14 @@ class Page extends React.Component<PropType, StateType> {
   state = { loading: true }
 
   onLinkPress = (url: string) => {
-    const { navigation, cityCode, language, navigateToIntegreatUrl } = this.props
+    const { navigation, language, navigateToIntegreatUrl } = this.props
 
     if (url.includes('.pdf')) {
       navigation.navigate('PDFViewModal', { url })
     } else if (url.includes('.png') || url.includes('.jpg')) {
       navigation.navigate('ImageViewModal', { url })
     } else if (HIJACK.test(url)) {
-      navigateToIntegreatUrl({ url, cityCode, language })
+      navigateToIntegreatUrl({ url, language })
     } else {
       Linking.openURL(url).catch(err => console.error('An error occurred', err))
     }
