@@ -1,5 +1,5 @@
-// Setup fetch mock
-global.fetch = require('jest-fetch-mock')
+const fs = require('fs')
+const path = require('path')
 
 console.error = error => {
   throw Error(error)
@@ -15,4 +15,24 @@ if (typeof window !== 'object') {
   global.window.navigator = {}
 }
 
+// Setup fetch mock
+global.fetch = require('jest-fetch-mock')
 jest.mock('rn-fetch-blob')
+
+function walkDir (dir, callback) {
+  fs.readdirSync(dir).forEach(f => {
+    const dirPath = path.join(dir, f)
+    const isDirectory = fs.statSync(dirPath).isDirectory()
+    isDirectory ? walkDir(dirPath, callback) : callback(path.join(dir, f))
+  })
+}
+
+// The following code automatically mocks the modules in `mocksPath`. This is required because jest mocks all these
+// modules automatically as soon as they are found
+const mocksPath = 'src/__mocks__/'
+const jsPath = '.js'
+walkDir(mocksPath, name => {
+  if (name.endsWith(jsPath)) {
+    jest.unmock(name.substring(mocksPath.length, name.length - jsPath.length))
+  }
+})
