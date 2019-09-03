@@ -19,7 +19,11 @@ type PropsType = {|
   appSettings: AppSettings
 |}
 
-class I18nProvider extends React.Component<PropsType> {
+type StateType = {|
+  errorMessage: ?string
+|}
+
+class I18nProvider extends React.Component<PropsType, StateType> {
   i18n: i18n
   appSettings: AppSettings
 
@@ -90,13 +94,18 @@ class I18nProvider extends React.Component<PropsType> {
   }
 
   componentDidMount () {
-    // todo
-    this.initContentLanguage().catch(e => { console.log(e) })
+    this.initContentLanguage().catch(error => {
+      this.setState(() => ({ errorMessage: error.message }))
+    })
   }
 
   momentFormatter = createMomentFormatter(() => undefined, () => DEFAULT_LANGUAGE)
 
   render () {
+    if (this.state.errorMessage) {
+      return <Text>{this.state.errorMessage}</Text>
+    }
+
     return (
       <I18nextProvider i18n={this.i18n}>
         <MomentContext.Provider value={this.momentFormatter}>
