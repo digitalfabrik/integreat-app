@@ -1,10 +1,11 @@
 // @flow
 
 import { isArray } from 'lodash'
+import { type NativeTestInstance } from '@testing-library/react-native'
 
-export function queryAllFlex (container: ReactTestInstance): Array<ReactTestInstance> {
+export function queryAllFlex (container: NativeTestInstance): Array<ReactTestInstance> {
   return Array.from(container.findAll(c => c.getProp('style')))
-    .filter(node => {
+    .filter((node: NativeTestInstance) => {
       const style = node.getProp('style')
 
       if (!style) {
