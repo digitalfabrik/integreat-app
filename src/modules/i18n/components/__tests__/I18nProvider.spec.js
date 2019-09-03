@@ -1,7 +1,7 @@
 // @flow
 
 import 'react-native'
-import { render } from '@testing-library/react-native'
+import { render, flushMicrotasksQueue } from '@testing-library/react-native'
 import React from 'react'
 import I18nProvider from '../I18nProvider'
 import { I18nextProvider } from 'react-i18next'
@@ -77,7 +77,7 @@ describe('I18nProvider', () => {
     })
 
     const root = TestRenderer.create(
-      <I18nProvider setContentLanguage={() => {}} >
+      <I18nProvider setContentLanguage={() => {}}>
         <React.Fragment />
       </I18nProvider>
     ).root
@@ -96,5 +96,20 @@ describe('I18nProvider', () => {
     expect(options.fallbackLng).toEqual(['en', 'de'])
     expect(options.load).toBe('languageOnly')
     i18next.createInstance = unmockedCreateInstance
+  })
+
+  it('should show error if loading fails', async () => {
+    AsyncStorage.getItem.mockImplementation(() => {
+      throw Error('An Error occurred while getting settings!')
+    })
+
+    const { queryByText } = render(
+      <I18nProvider setContentLanguage={() => {}}>
+        <React.Fragment />
+      </I18nProvider>)
+
+    await waitForExpect(async () => {
+      expect(queryByText('An Error occurred while getting settings!')).not.toBeNull()
+    })
   })
 })
