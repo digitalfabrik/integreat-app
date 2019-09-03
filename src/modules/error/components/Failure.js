@@ -19,7 +19,7 @@ margin-bottom: 10px;
 `
 
 type PropsType = {|
-  error?: Error,
+  error?: ?Error,
   tryAgain?: () => void,
   t: TFunction,
   theme: ThemeType
