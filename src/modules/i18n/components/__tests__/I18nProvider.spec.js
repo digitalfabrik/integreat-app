@@ -12,6 +12,8 @@ import waitForExpect from 'wait-for-expect'
 import AppSettings from '../../../settings/AppSettings'
 import AsyncStorage from '@react-native-community/async-storage'
 
+jest.mock('@react-native-community/async-storage')
+
 describe('I18nProvider', () => {
   beforeEach(async () => {
     await AsyncStorage.clear()

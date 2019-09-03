@@ -3,10 +3,11 @@
 import configureMockStore from 'redux-mock-store'
 import { Provider } from 'react-redux'
 import I18nProviderContainer from '../I18nProviderContainer'
-import React from 'react'
+import * as React from 'react'
+import waitForExpect from 'wait-for-expect'
 import { render } from '@testing-library/react-native'
 
-const waitForExpect = require('wait-for-expect')
+jest.mock('@react-native-community/async-storage')
 
 const mockStore = configureMockStore()
 
