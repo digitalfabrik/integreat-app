@@ -10,7 +10,7 @@ jest.mock('rn-fetch-blob')
 const databaseConnector = new DatabaseConnector()
 
 beforeEach(() => {
-  // $FlowFixMe
+  // $FlowFixMe The function reset is only defined in the mocked module
   RNFetchBlob.fs.reset()
 })
 
