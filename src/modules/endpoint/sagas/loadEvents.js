@@ -3,7 +3,6 @@
 import type { Saga } from 'redux-saga'
 import { createEventsEndpoint, EventModel, Payload } from '@integreat-app/integreat-api-client'
 import { call } from 'redux-saga/effects'
-import request from '../request'
 import { baseUrl } from '../constants'
 import type { FetchMapType } from './fetchResourceCache'
 import type { DataContainer } from '../DataContainer'
@@ -11,7 +10,7 @@ import type { DataContainer } from '../DataContainer'
 function * fetchEvents (city: string, language: string): Saga<Array<EventModel>> {
   const params = { city, language }
 
-  const categoriesPayload: Payload<Array<EventModel>> = yield call(() => request(createEventsEndpoint(baseUrl), params))
+  const categoriesPayload: Payload<Array<EventModel>> = yield call(() => createEventsEndpoint(baseUrl).request(params))
   return categoriesPayload.data
 }
 

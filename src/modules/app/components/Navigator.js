@@ -101,16 +101,10 @@ type PropsType = {|
 |}
 
 class Navigator extends React.Component<PropsType> {
-  appSettings: AppSettings
+  appSettings: AppSettings = new AppSettings()
   navigator: {
     current: null | { ...React$ElementRef<NavigationContainer<NavigationState, {}, {}>>, dispatch: Dispatch<StoreActionType> }
-  }
-
-  constructor (props: PropsType) {
-    super(props)
-    this.appSettings = new AppSettings()
-    this.navigator = React.createRef()
-  }
+  } = React.createRef()
 
   componentDidMount () {
     this.props.fetchCities(false)
@@ -146,7 +140,6 @@ class Navigator extends React.Component<PropsType> {
     const navigateToDashboard = StackActions.replace({
       routeName: 'Dashboard',
       params: {
-        key,
         sharePath: path,
         onRouteClose: () => this.props.clearCategory(key)
       },

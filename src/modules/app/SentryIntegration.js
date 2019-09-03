@@ -24,7 +24,7 @@ export default class SentryIntegration {
       return
     }
 
-    this.sentry.install()
+    await this.sentry.install()
 
     Sentry.setTagsContext({
       environment: __DEV__ ? 'dev' : 'release'
