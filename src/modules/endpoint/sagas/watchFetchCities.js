@@ -2,13 +2,25 @@
 
 import type { Saga } from 'redux-saga'
 import { call, put, takeLatest } from 'redux-saga/effects'
-import type { FetchCitiesActionType, FetchCitiesFailedActionType } from '../../app/StoreActionType'
+import type {
+  FetchCitiesActionType,
+  FetchCitiesFailedActionType,
+  PushCitiesActionType
+} from '../../app/StoreActionType'
 import type { DataContainer } from '../DataContainer'
 import loadCities from './loadCities'
 
 function * fetchCities (dataContainer: DataContainer, action: FetchCitiesActionType): Saga<void> {
   try {
-    yield call(loadCities, dataContainer, action.params.forceRefresh)
+    const cities = yield call(loadCities, dataContainer, action.params.forceRefresh)
+
+    const insert: PushCitiesActionType = {
+      type: `PUSH_CITIES`,
+      params: { cities: cities }
+    }
+
+    yield put(insert)
+    return cities
   } catch (e) {
     console.error(e)
     const failed: FetchCitiesFailedActionType = {

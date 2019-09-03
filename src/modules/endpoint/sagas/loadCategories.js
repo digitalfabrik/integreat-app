@@ -2,7 +2,6 @@
 
 import type { Saga } from 'redux-saga'
 import { CategoriesMapModel } from '@integreat-app/integreat-api-client'
-
 import { call } from 'redux-saga/effects'
 import { baseUrl } from '../constants'
 import type { DataContainer } from '../DataContainer'
@@ -12,11 +11,11 @@ function * loadCategories (
   city: string,
   language: string,
   dataContainer: DataContainer,
-  shouldUpdate: boolean
+  forceRefresh: boolean
 ): Saga<CategoriesMapModel> {
   const categoriesAvailable = yield call(() => dataContainer.categoriesAvailable(city, language))
 
-  if (!categoriesAvailable || shouldUpdate) {
+  if (!categoriesAvailable || forceRefresh) {
     console.debug('Fetching categories')
 
     // TODO: data was loaded but should be incrementally updated. This will be done in NATIVE-3
