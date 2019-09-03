@@ -3,7 +3,6 @@
 import ContentNotFoundError from '../ContentNotFoundError'
 
 describe('ContentNotFoundError', () => {
-
   it('should have correct message', () => {
     const error = new ContentNotFoundError(
       { type: 'category', id: '/augsburg/de/test', city: 'augsburg', language: 'language' }
