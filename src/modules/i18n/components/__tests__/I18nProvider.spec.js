@@ -13,6 +13,7 @@ import AppSettings from '../../../settings/AppSettings'
 import AsyncStorage from '@react-native-community/async-storage'
 
 jest.mock('@react-native-community/async-storage')
+jest.mock('../../../i18n/LanguageDetector')
 
 describe('I18nProvider', () => {
   beforeEach(async () => {
@@ -42,29 +43,23 @@ describe('I18nProvider', () => {
   })
 
   it('should set content language if not yet set', async () => {
-    const mockGetLocale = () => 'de_DE'
     const appSettings = new AppSettings()
     const mockSetContentLanguage = jest.fn()
 
-    render(<I18nProvider setContentLanguage={mockSetContentLanguage}
-                         getLocale={mockGetLocale}
-                         appSettings={appSettings} />)
+    render(<I18nProvider setContentLanguage={mockSetContentLanguage} />)
     await waitForExpect(async () => {
       expect(mockSetContentLanguage).toHaveBeenCalledTimes(1)
-      expect(mockSetContentLanguage).toHaveBeenCalledWith('de')
-      expect(await appSettings.loadContentLanguage()).toBe('de')
+      expect(mockSetContentLanguage).toHaveBeenCalledWith('en_US')
+      expect(await appSettings.loadContentLanguage()).toBe('en_US')
     })
   })
 
   it('should not set content language if already set', () => {
-    const mockGetLocale = () => 'de_DE'
     const appSettings = new AppSettings()
     appSettings.setContentLanguage('de')
     const mockSetContentLanguage = jest.fn()
 
-    render(<I18nProvider setContentLanguage={mockSetContentLanguage}
-                         getLocale={mockGetLocale}
-                         appSettings={appSettings} />)
+    render(<I18nProvider setContentLanguage={mockSetContentLanguage} />)
 
     waitForExpect(async () => {
       expect(mockSetContentLanguage).not.toHaveBeenCalled()
@@ -82,9 +77,7 @@ describe('I18nProvider', () => {
     })
 
     const root = TestRenderer.create(
-      <I18nProvider setContentLanguage={() => {}}
-                    getLocale={() => 'de_DE'}
-                    appSettings={new AppSettings()}>
+      <I18nProvider setContentLanguage={() => {}} >
         <React.Fragment />
       </I18nProvider>
     ).root

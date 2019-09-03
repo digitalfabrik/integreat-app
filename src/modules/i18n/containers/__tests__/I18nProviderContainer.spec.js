@@ -8,6 +8,7 @@ import waitForExpect from 'wait-for-expect'
 import { render } from '@testing-library/react-native'
 
 jest.mock('@react-native-community/async-storage')
+jest.mock('../../../i18n/LanguageDetector')
 
 const mockStore = configureMockStore()
 
@@ -26,7 +27,7 @@ describe('I18nProviderContainer', () => {
       expect(store.getActions()).toEqual([{
         type: 'SET_CONTENT_LANGUAGE',
         params: {
-          contentLanguage: 'de'
+          contentLanguage: 'en_US'
         }
       }])
     })
