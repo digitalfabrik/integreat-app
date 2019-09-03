@@ -14,12 +14,16 @@ function * loadCities (
   const citiesAvailable = yield call(() => dataContainer.citiesAvailable())
 
   if (!citiesAvailable || forceRefresh) {
+    console.debug('Fetching cities')
+
     const payload = yield call(() => createCitiesEndpoint(baseUrl).request())
     const cities: Array<CityModel> = payload.data
 
     yield call(dataContainer.setCities, cities)
     return cities
   }
+
+  console.debug('Using cached cities')
   return yield call(dataContainer.getCities)
 }
 
