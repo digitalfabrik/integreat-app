@@ -21,6 +21,7 @@ type PropsType = {|
 
 class I18nProvider extends React.Component<PropsType> {
   i18n: i18n
+  appSettings: AppSettings
 
   static defaultProps = {
     getLocale: getLocale,
