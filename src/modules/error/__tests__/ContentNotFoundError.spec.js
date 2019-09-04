@@ -1,6 +1,7 @@
 // @flow
 
 import ContentNotFoundError from '../ContentNotFoundError'
+import { escapeRegExp } from 'lodash/string'
 
 describe('ContentNotFoundError', () => {
   it('should have correct message', () => {
@@ -17,8 +18,8 @@ describe('ContentNotFoundError', () => {
         { type: 'category', id: '/augsburg/de/test', city: 'augsburg', language: 'language' }
       )
     } catch (error) {
-      expect(error.stack).toContain('ContentNotFoundError.js:16') /*  This expect depends on the order of the
-                                                                            lines in this test! */
+      expect(error.stack).toMatch(new RegExp(`${escapeRegExp(__filename)}:\\d+:\\d+`)) /* Matches the first line
+                                                                                          in stack */
     }
   })
 })
