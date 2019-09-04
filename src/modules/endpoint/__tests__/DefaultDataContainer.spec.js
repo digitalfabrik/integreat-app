@@ -7,7 +7,6 @@ import RNFetchBlob from 'rn-fetch-blob'
 
 jest.mock('rn-fetch-blob')
 
-
 const testCity = new CityModel({
   name: 'testCityName',
   code: 'tcc',
