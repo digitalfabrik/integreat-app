@@ -27,7 +27,7 @@ function walkDir (dir, callback) {
   })
 }
 
-// The following code automatically mocks the modules in `mocksPath`. This is required because jest mocks all these
+// The following code automatically unmocks the modules in `mocksPath`. This is required because jest mocks all these
 // modules automatically as soon as they are found
 const mocksPath = 'src/__mocks__/'
 const jsPath = '.js'
