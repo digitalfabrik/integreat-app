@@ -1,7 +1,7 @@
 // @flow
 
 import 'react-native'
-import { render, flushMicrotasksQueue } from '@testing-library/react-native'
+import { render } from '@testing-library/react-native'
 import React from 'react'
 import I18nProvider from '../I18nProvider'
 import { I18nextProvider } from 'react-i18next'
