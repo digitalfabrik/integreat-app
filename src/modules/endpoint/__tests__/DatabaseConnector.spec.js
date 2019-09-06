@@ -29,7 +29,7 @@ describe('DatabaseConnector', () => {
     title: 'testCategory',
     content: 'test content',
     thumbnail: 'thumbnail.png',
-    parentPath: null,
+    parentPath: '',
     order: 1,
     availableLanguages: new Map<string, string>([]),
     lastUpdate: moment('2011-02-04T23:00:00.000Z', moment.ISO_8601),
