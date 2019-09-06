@@ -3,14 +3,13 @@
 import { CityModel, CategoryModel, CategoriesMapModel, LanguageModel, EventModel, LocationModel, DateModel } from '@integreat-app/integreat-api-client'
 import DatabaseConnector from '../DatabaseConnector'
 import DatabaseContext from '../DatabaseContext'
-import RNFetchBlob from 'rn-fetch-blob'
 import moment from 'moment-timezone'
+import RNFetchBlob from '../../../__mocks__/rn-fetch-blob'
 
 jest.mock('rn-fetch-blob')
 const databaseConnector = new DatabaseConnector()
 
 beforeEach(() => {
-  // $FlowFixMe The function reset is only defined in the mocked module
   RNFetchBlob.fs.reset()
 })
 
