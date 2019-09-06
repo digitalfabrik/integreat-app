@@ -4,7 +4,7 @@ const path = require('path')
 
 let mockFiles = {}
 
-function deleteAllMockFiles (): void {
+function deleteAllMockFiles () {
   mockFiles = {}
 }
 
