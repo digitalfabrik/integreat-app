@@ -34,9 +34,8 @@ describe('DefaultDataContainer', () => {
     await defaultDataContainer.setCities([testCity])
 
     const anotherDataContainer = new DefaultDataContainer()
-    const readFile = jest.spyOn(RNFetchBlob.fs, 'readFile')
 
     await anotherDataContainer.getCities()
-    expect(readFile).toHaveBeenCalled()
+    expect(RNFetchBlob.fs.readFile).toHaveBeenCalled()
   })
 })
