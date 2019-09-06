@@ -123,17 +123,15 @@ describe('DatabaseConnector', () => {
     it('should return a value that matches the one that was stored', async () => {
       await databaseConnector.storeCities([testCity])
 
-      return databaseConnector.loadCities().then(cities => {
-        expect(cities).toStrictEqual([testCity])
-      })
+      const cities = await databaseConnector.loadCities()
+      expect(cities).toStrictEqual([testCity])
     })
   })
   describe('loadLastUpdate', () => {
-    it('should return null if no data is persisted', () => {
+    it('should return null if no data is persisted', async () => {
       const context = new DatabaseContext('tcc', 'de')
-      return databaseConnector.loadLastUpdate(context).then(moment => {
-        expect(moment).toBeNull()
-      })
+      const moment = await databaseConnector.loadLastUpdate(context)
+      expect(moment).toBeNull()
     })
     it('should throw error if currentCity in context is null', () => {
       const context = new DatabaseContext(null, 'de')
@@ -145,13 +143,13 @@ describe('DatabaseConnector', () => {
     })
     it('should return a moment that matches the one that was stored', async () => {
       const context = new DatabaseContext('tcc', 'de')
-      const date = moment('20110205')
 
-      await databaseConnector.storeLastUpdate(date, context)
+      const dateExpected = moment('20110205')
 
-      return databaseConnector.loadLastUpdate(context).then(moment => {
-        expect(date.isSame(moment)).toBe(true)
-      })
+      await databaseConnector.storeLastUpdate(dateExpected, context)
+      const dateReceived = await databaseConnector.loadLastUpdate(context)
+
+      expect(dateExpected.isSame(dateReceived)).toBe(true)
     })
   })
   describe('storeLastUpdate', () => {
@@ -199,9 +197,8 @@ describe('DatabaseConnector', () => {
       const context = new DatabaseContext('tcc', 'de')
       await databaseConnector.storeCategories(new CategoriesMapModel([testCategory]), context)
 
-      return databaseConnector.loadCategories(context).then(categories => {
-        expect(categories.toArray()).toEqual([testCategory])
-      })
+      const categories = await databaseConnector.loadCategories(context)
+      expect(categories.toArray()).toEqual([testCategory])
     })
   })
 
@@ -237,9 +234,8 @@ describe('DatabaseConnector', () => {
       const context = new DatabaseContext('tcc', 'de')
       await databaseConnector.storeLanguages([testLanguage], context)
 
-      return databaseConnector.loadLanguages(context).then(languages => {
-        expect(languages).toEqual([testLanguage])
-      })
+      const languages = await databaseConnector.loadLanguages(context)
+      expect(languages).toEqual([testLanguage])
     })
   })
 
@@ -275,9 +271,8 @@ describe('DatabaseConnector', () => {
       const context = new DatabaseContext('tcc', 'de')
       await databaseConnector.storeEvents([testEvent], context)
 
-      return databaseConnector.loadEvents(context).then(events => {
-        expect(events).toEqual([testEvent])
-      })
+      const events = await databaseConnector.loadEvents(context)
+      expect(events).toEqual([testEvent])
     })
   })
 
@@ -289,19 +284,18 @@ describe('DatabaseConnector', () => {
   })
 
   describe('loadResourceCache', () => {
-    it('should return an empty value if resources are not persisted', () => {
+    it('should return an empty value if resources are not persisted', async () => {
       const context = new DatabaseContext('tcc', 'de')
-      return databaseConnector.loadResourceCache(context).then(cache => {
-        expect(cache).toEqual({})
-      })
+
+      const cache = await databaseConnector.loadResourceCache(context)
+      expect(cache).toEqual({})
     })
     it('should return a value that matches the one that was stored', async () => {
       const context = new DatabaseContext('tcc', 'de')
       await databaseConnector.storeResourceCache(testResources, context)
 
-      return databaseConnector.loadResourceCache(context).then(cache => {
-        expect(cache).toMatchSnapshot()
-      })
+      const cache = await databaseConnector.loadResourceCache(context)
+      expect(cache).toMatchSnapshot()
     })
   })
 })
