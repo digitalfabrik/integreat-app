@@ -5,6 +5,7 @@ import { runSaga } from 'redux-saga'
 import DefaultDataContainer from '../../DefaultDataContainer'
 import loadEvents from '../loadEvents'
 import moment from 'moment-timezone'
+import RNFetchBlob from '../../../../__mocks__/rn-fetch-blob'
 
 jest.mock('rn-fetch-blob')
 jest.mock('@integreat-app/integreat-api-client/endpoints/createEventsEndpoint',
@@ -42,7 +43,7 @@ jest.mock('@integreat-app/integreat-api-client/endpoints/createEventsEndpoint',
 
 describe('loadEvents', () => {
   beforeEach(() => {
-    jest.clearAllMocks()
+    RNFetchBlob.fs._reset()
   })
 
   const oldEvents = [
@@ -95,37 +96,29 @@ describe('loadEvents', () => {
   const city = 'augsburg'
   const language = 'de'
 
-  it('should fetch and set cities if cities are not available', async () => {
+  it('should fetch and set events if events are not available', async () => {
     const dataContainer = new DefaultDataContainer()
-    const setEvents = jest.fn()
-    dataContainer.setEvents = setEvents
-    const result = await runSaga({}, loadEvents, city, language, dataContainer, false).toPromise()
 
-    expect(result).toStrictEqual(newEvents)
-    expect(setEvents).toHaveBeenCalledTimes(1)
-    expect(setEvents).toHaveBeenCalledWith(city, language, newEvents)
+    await runSaga({}, loadEvents, city, language, dataContainer, false).toPromise()
+
+    expect(await dataContainer.getEvents(city, language)).toStrictEqual(newEvents)
   })
 
-  it('should fetch and set cities if it should update', async () => {
+  it('should fetch and set events if it should update', async () => {
     const dataContainer = new DefaultDataContainer()
     await dataContainer.setEvents(city, language, oldEvents)
-    const setEvents = jest.fn()
-    dataContainer.setEvents = setEvents
-    const result = await runSaga({}, loadEvents, city, language, dataContainer, true).toPromise()
 
-    expect(result).toStrictEqual(newEvents)
-    expect(setEvents).toHaveBeenCalledTimes(1)
-    expect(setEvents).toHaveBeenCalledWith(city, language, newEvents)
+    await runSaga({}, loadEvents, city, language, dataContainer, true).toPromise()
+
+    expect(await dataContainer.getEvents(city, language)).toStrictEqual(newEvents)
   })
 
-  it('should use cached cities if cities are available and it should not update', async () => {
+  it('should use cached events if they are available and should not be update', async () => {
     const dataContainer = new DefaultDataContainer()
     await dataContainer.setEvents(city, language, oldEvents)
-    const setEvents = jest.fn()
-    dataContainer.setEvents = setEvents
-    const result = await runSaga({}, loadEvents, city, language, dataContainer, false).toPromise()
 
-    expect(result).toStrictEqual(oldEvents)
-    expect(setEvents).not.toHaveBeenCalled()
+    await runSaga({}, loadEvents, city, language, dataContainer, false).toPromise()
+
+    expect(await dataContainer.getEvents(city, language)).toBe(oldEvents)
   })
 })

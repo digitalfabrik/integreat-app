@@ -4,6 +4,7 @@ import { CityModel } from '@integreat-app/integreat-api-client'
 import { runSaga } from 'redux-saga'
 import DefaultDataContainer from '../../DefaultDataContainer'
 import loadCities from '../loadCities'
+import RNFetchBlob from '../../../../__mocks__/rn-fetch-blob'
 
 jest.mock('rn-fetch-blob')
 jest.mock('@integreat-app/integreat-api-client/endpoints/createCitiesEndpoint',
@@ -28,7 +29,7 @@ jest.mock('@integreat-app/integreat-api-client/endpoints/createCitiesEndpoint',
 
 describe('loadCities', () => {
   beforeEach(() => {
-    jest.clearAllMocks()
+    RNFetchBlob.fs._reset()
   })
 
   const oldCities = [
@@ -57,35 +58,26 @@ describe('loadCities', () => {
 
   it('should fetch and set cities if cities are not available', async () => {
     const dataContainer = new DefaultDataContainer()
-    const setCities = jest.fn()
-    dataContainer.setCities = setCities
-    const result = await runSaga({}, loadCities, dataContainer, false).toPromise()
 
-    expect(result).toStrictEqual(newCities)
-    expect(setCities).toHaveBeenCalledTimes(1)
-    expect(setCities).toHaveBeenCalledWith(newCities)
+    await runSaga({}, loadCities, dataContainer, false).toPromise()
+
+    expect(await dataContainer.getCities()).toStrictEqual(newCities)
   })
 
   it('should fetch and set cities if it should update', async () => {
     const dataContainer = new DefaultDataContainer()
     await dataContainer.setCities(oldCities)
-    const setCities = jest.fn()
-    dataContainer.setCities = setCities
-    const result = await runSaga({}, loadCities, dataContainer, true).toPromise()
 
-    expect(result).toStrictEqual(newCities)
-    expect(setCities).toHaveBeenCalledTimes(1)
-    expect(setCities).toHaveBeenCalledWith(newCities)
+    await runSaga({}, loadCities, dataContainer, true).toPromise()
+
+    expect(await dataContainer.getCities()).toStrictEqual(newCities)
   })
 
-  it('should use cached cities if cities are available and it should not update', async () => {
+  it('should use cached cities if they are available and should not update', async () => {
     const dataContainer = new DefaultDataContainer()
     await dataContainer.setCities(oldCities)
-    const setCities = jest.fn()
-    dataContainer.setCities = setCities
-    const result = await runSaga({}, loadCities, dataContainer, false).toPromise()
+    await runSaga({}, loadCities, dataContainer, false).toPromise()
 
-    expect(result).toStrictEqual(oldCities)
-    expect(setCities).not.toHaveBeenCalled()
+    expect(await dataContainer.getCities()).toBe(oldCities)
   })
 })
