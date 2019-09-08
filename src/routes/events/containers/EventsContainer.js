@@ -69,17 +69,17 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
 
   const refreshProps = { cityCode: city, language: route.language, navigation: ownProps.navigation, path: route.path }
-  if (state.cities.errorMessage !== undefined ||
+  if (state.cities.status === 'error' ||
     resourceCache.errorMessage !== undefined ||
     route.status === 'error') {
     return { status: 'error', refreshProps }
   }
 
-  const cities = state.cities.models
-  if (!cities || switchingLanguage || route.status === 'loading') {
+  if (state.cities.status === 'loading' || switchingLanguage || route.status === 'loading') {
     return { status: 'loading' }
   }
 
+  const cities = state.cities.models
   const languages = Array.from(route.allAvailableLanguages.keys())
   if (!languages.find(language => language === route.language)) {
     return {

@@ -59,7 +59,7 @@ export default function * fetchResourceCache (
   } catch (e) {
     console.error(e)
     const failed: ResourcesFetchFailedActionType = {
-      type: `RESOURCES_FETCH_FAILED`,
+      type: `FETCH_RESOURCES_FAILED`,
       params: {
         message: `Error in fetchResourceCache: ${e.message}`
       }
