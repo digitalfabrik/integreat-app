@@ -10,7 +10,7 @@ jest.mock('rn-fetch-blob')
 const databaseConnector = new DatabaseConnector()
 
 beforeEach(() => {
-  RNFetchBlob.fs.reset()
+  RNFetchBlob.fs._reset()
 })
 
 describe('DatabaseConnector', () => {
