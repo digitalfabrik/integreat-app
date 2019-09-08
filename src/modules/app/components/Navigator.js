@@ -5,6 +5,7 @@ import type { NavigationContainer } from 'react-navigation'
 import { generateKey } from '../generateRouteKey'
 import AppSettings from '../../settings/AppSettings'
 import createAppNavigationContainer from '../createAppNavigationContainer'
+import { Text } from 'react-native'
 
 type PropsType = {|
   fetchCategory: (cityCode: string, language: string, key: string) => void,
@@ -12,16 +13,16 @@ type PropsType = {|
   fetchCities: (forceRefresh: boolean) => void
 |}
 
-type StateType = {| waitingForSettings: boolean |}
+type StateType = {| waitingForSettings: boolean, errorMessage: null |}
 
 class Navigator extends React.Component<PropsType, StateType> {
   appNavigationContainer: ?NavigationContainer<*, *, *>
-  state = { waitingForSettings: true }
+  state = { waitingForSettings: true, errorMessage: null }
 
-  async componentDidMount () {
+  componentDidMount () {
     const { fetchCities } = this.props
     fetchCities(false)
-    await this.initializeAppContainer()
+    this.initializeAppContainer().catch(error => this.setState({ errorMessage: error.message }))
   }
 
   async initializeAppContainer () {
@@ -45,6 +46,9 @@ class Navigator extends React.Component<PropsType, StateType> {
   }
 
   render () {
+    if (this.state.errorMessage) {
+      return <Text>{this.state.errorMessage}</Text>
+    }
     const AppContainer = this.appNavigationContainer
     return AppContainer ? <AppContainer /> : null
   }

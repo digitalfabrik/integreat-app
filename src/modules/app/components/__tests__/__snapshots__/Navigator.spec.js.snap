@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Navigator should display CityContent if a city is selected in settings 1`] = `null`;
+
+exports[`Navigator should throw if contentLanguage has not been set in settings 1`] = `null`;
