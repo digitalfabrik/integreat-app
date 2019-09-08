@@ -1,6 +1,6 @@
 // @flow
 
-const path = require('path')
+import path from 'path'
 
 let mockFiles = {}
 
@@ -42,10 +42,6 @@ function existsMock (file: string): Promise<boolean> {
   return Promise.resolve(true)
 }
 
-function readdirSync (pathToDirectory: string): Array<string> {
-  return mockFiles[pathToDirectory]
-}
-
 export default {
   DocumentDir: () => {},
   ImageCache: {
@@ -54,11 +50,10 @@ export default {
     }
   },
   fs: {
-    readdirSync: jest.fn<$ReadOnlyArray<string>, Array<string>>(readdirSync),
-    exists: jest.fn<$ReadOnlyArray<string>, Promise<boolean>>(existsMock),
-    writeFile: jest.fn<$ReadOnlyArray<*>, Promise<void>>(writeMockFile),
-    readFile: jest.fn<$ReadOnlyArray<*>, Promise<string>>(readMockFile),
-    reset: jest.fn<$ReadOnlyArray<*>, void>(deleteAllMockFiles),
+    exists: jest.fn<[string], Promise<boolean>>(existsMock),
+    writeFile: jest.fn<[string, string | Array<string>, string], Promise<void>>(writeMockFile),
+    readFile: jest.fn<[string, string], Promise<string>>(readMockFile),
+    _reset: jest.fn<[], void>(deleteAllMockFiles),
     dirs: {
       MainBundleDir: 'path/to/mainBundleDir',
       CacheDir: 'path/to/cacheDir',
