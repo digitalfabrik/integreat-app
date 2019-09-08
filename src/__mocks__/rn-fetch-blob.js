@@ -42,10 +42,6 @@ function existsMock (file: string): Promise<boolean> {
   return Promise.resolve(true)
 }
 
-function readdirSync (pathToDirectory: string): Array<string> {
-  return mockFiles[pathToDirectory]
-}
-
 export default {
   DocumentDir: () => {},
   ImageCache: {
@@ -54,7 +50,6 @@ export default {
     }
   },
   fs: {
-    readdirSync: jest.fn<[string], Array<string>>(readdirSync),
     exists: jest.fn<[string], Promise<boolean>>(existsMock),
     writeFile: jest.fn<[string, string | Array<string>, string], Promise<void>>(writeMockFile),
     readFile: jest.fn<[string, string], Promise<string>>(readMockFile),
