@@ -98,17 +98,15 @@ describe('DatabaseConnector', () => {
     })
   })
   describe('isCitiesPersisted', () => {
-    it('should return false if cities are not persisted', () => {
-      return databaseConnector.isCitiesPersisted().then(isPersisted => {
-        expect(isPersisted).toBe(false)
-      })
+    it('should return false if cities are not persisted', async () => {
+      const isPersisted = await databaseConnector.isCitiesPersisted()
+      expect(isPersisted).toBe(false)
     })
     it('should return true if cities are persisted', async () => {
       await databaseConnector.storeCities([testCity])
 
-      return databaseConnector.isCitiesPersisted().then(isPersisted => {
-        expect(isPersisted).toBe(true)
-      })
+      const isPersisted = await databaseConnector.isCitiesPersisted()
+      expect(isPersisted).toBe(true)
     })
   })
   describe('storeCities', () => {
@@ -166,18 +164,16 @@ describe('DatabaseConnector', () => {
   })
 
   describe('isCategoriesPersisted', () => {
-    it('should return false if categories are not persisted', () => {
+    it('should return false if categories are not persisted', async () => {
       const context = new DatabaseContext('tcc', 'de')
-      return databaseConnector.isCategoriesPersisted(context).then(isPersisted => {
-        expect(isPersisted).toBe(false)
-      })
+      const isPersisted = await databaseConnector.isCategoriesPersisted(context)
+      expect(isPersisted).toBe(false)
     })
     it('should return true if categories are persisted', async () => {
       const context = new DatabaseContext('tcc', 'de')
       await databaseConnector.storeCategories(new CategoriesMapModel([testCategory]), context)
-      return databaseConnector.isCategoriesPersisted(context).then(isPersisted => {
-        expect(isPersisted).toBe(true)
-      })
+      const isPersisted = await databaseConnector.isCategoriesPersisted(context)
+      expect(isPersisted).toBe(true)
     })
   })
 
@@ -203,18 +199,16 @@ describe('DatabaseConnector', () => {
   })
 
   describe('isLanguagesPersisted', () => {
-    it('should return false if languages are not persisted', () => {
+    it('should return false if languages are not persisted', async () => {
       const context = new DatabaseContext('tcc', 'de')
-      return databaseConnector.isLanguagesPersisted(context).then(isPersisted => {
-        expect(isPersisted).toBe(false)
-      })
+      const isPersisted = await databaseConnector.isLanguagesPersisted(context)
+      expect(isPersisted).toBe(false)
     })
     it('should return true if categories are persisted', async () => {
       const context = new DatabaseContext('tcc', 'de')
       await databaseConnector.storeLanguages([testLanguage], context)
-      return databaseConnector.isLanguagesPersisted(context).then(isPersisted => {
-        expect(isPersisted).toBe(true)
-      })
+      const isPersisted = await databaseConnector.isLanguagesPersisted(context)
+      expect(isPersisted).toBe(true)
     })
   })
 
@@ -240,18 +234,16 @@ describe('DatabaseConnector', () => {
   })
 
   describe('isEventsPersisted', () => {
-    it('should return false if events are not persisted', () => {
+    it('should return false if events are not persisted', async () => {
       const context = new DatabaseContext('tcc', 'de')
-      return databaseConnector.isEventsPersisted(context).then(isPersisted => {
-        expect(isPersisted).toBe(false)
-      })
+      const isPersisted = await databaseConnector.isEventsPersisted(context)
+      expect(isPersisted).toBe(false)
     })
     it('should return true if events are persisted', async () => {
       const context = new DatabaseContext('tcc', 'de')
       await databaseConnector.storeEvents([testEvent], context)
-      return databaseConnector.isEventsPersisted(context).then(isPersisted => {
-        expect(isPersisted).toBe(true)
-      })
+      const isPersisted = await databaseConnector.isEventsPersisted(context)
+      expect(isPersisted).toBe(true)
     })
   })
 
