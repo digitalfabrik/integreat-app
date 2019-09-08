@@ -4,6 +4,7 @@ import { LanguageModel } from '@integreat-app/integreat-api-client'
 import { runSaga } from 'redux-saga'
 import DefaultDataContainer from '../../DefaultDataContainer'
 import loadLanguages from '../loadLanguages'
+import RNFetchBlob from '../../../../__mocks__/rn-fetch-blob'
 
 jest.mock('rn-fetch-blob')
 jest.mock('@integreat-app/integreat-api-client/endpoints/createLanguagesEndpoint',
@@ -20,7 +21,7 @@ jest.mock('@integreat-app/integreat-api-client/endpoints/createLanguagesEndpoint
 
 describe('loadLanguages', () => {
   beforeEach(() => {
-    jest.clearAllMocks()
+    RNFetchBlob.fs._reset()
   })
 
   const oldLanguages = [ new LanguageModel('en', 'English') ]
@@ -28,37 +29,29 @@ describe('loadLanguages', () => {
   const newLanguages = [ new LanguageModel('de', 'Deutsch') ]
   const city = 'augsburg'
 
-  it('should fetch and set cities if cities are not available', async () => {
+  it('should fetch and set languages if languages are not available', async () => {
     const dataContainer = new DefaultDataContainer()
-    const setLanguages = jest.fn()
-    dataContainer.setLanguages = setLanguages
-    const result = await runSaga({}, loadLanguages, city, dataContainer, false).toPromise()
 
-    expect(result).toStrictEqual(newLanguages)
-    expect(setLanguages).toHaveBeenCalledTimes(1)
-    expect(setLanguages).toHaveBeenCalledWith(city, newLanguages)
+    await runSaga({}, loadLanguages, city, dataContainer, false).toPromise()
+
+    expect(await dataContainer.getLanguages(city)).toStrictEqual(newLanguages)
   })
 
-  it('should fetch and set cities if it should update', async () => {
+  it('should fetch and set languages if it should update', async () => {
     const dataContainer = new DefaultDataContainer()
     await dataContainer.setLanguages(city, oldLanguages)
-    const setLanguages = jest.fn()
-    dataContainer.setLanguages = setLanguages
-    const result = await runSaga({}, loadLanguages, city, dataContainer, true).toPromise()
 
-    expect(result).toStrictEqual(newLanguages)
-    expect(setLanguages).toHaveBeenCalledTimes(1)
-    expect(setLanguages).toHaveBeenCalledWith(city, newLanguages)
+    await runSaga({}, loadLanguages, city, dataContainer, true).toPromise()
+
+    expect(await dataContainer.getLanguages(city)).toStrictEqual(newLanguages)
   })
 
-  it('should use cached cities if cities are available and it should not update', async () => {
+  it('should use cached languages if they are available and should not be update', async () => {
     const dataContainer = new DefaultDataContainer()
     await dataContainer.setLanguages(city, oldLanguages)
-    const setLanguages = jest.fn()
-    dataContainer.setLanguages = setLanguages
-    const result = await runSaga({}, loadLanguages, city, dataContainer, false).toPromise()
 
-    expect(result).toStrictEqual(oldLanguages)
-    expect(setLanguages).not.toHaveBeenCalled()
+    await runSaga({}, loadLanguages, city, dataContainer, false).toPromise()
+
+    expect(await dataContainer.getLanguages(city)).toBe(oldLanguages)
   })
 })

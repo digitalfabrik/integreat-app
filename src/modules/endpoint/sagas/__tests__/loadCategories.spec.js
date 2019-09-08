@@ -5,6 +5,7 @@ import moment from 'moment-timezone'
 import { runSaga } from 'redux-saga'
 import loadCategories from '../loadCategories'
 import DefaultDataContainer from '../../DefaultDataContainer'
+import RNFetchBlob from '../../../../__mocks__/rn-fetch-blob'
 
 jest.mock('rn-fetch-blob')
 jest.mock('@integreat-app/integreat-api-client/endpoints/createCategoriesEndpoint',
@@ -31,7 +32,7 @@ jest.mock('@integreat-app/integreat-api-client/endpoints/createCategoriesEndpoin
 
 describe('loadCategories', () => {
   beforeEach(() => {
-    jest.clearAllMocks()
+    RNFetchBlob.fs._reset()
   })
 
   const oldCategory = new CategoryModel({
@@ -65,35 +66,27 @@ describe('loadCategories', () => {
 
   it('should fetch and set categories if categories are not available', async () => {
     const dataContainer = new DefaultDataContainer()
-    const setCategoriesMap = jest.fn()
-    dataContainer.setCategoriesMap = setCategoriesMap
-    const result = await runSaga({}, loadCategories, city, language, dataContainer, false).toPromise()
 
-    expect(result).toStrictEqual(newCategoriesMap)
-    expect(setCategoriesMap).toHaveBeenCalledTimes(1)
-    expect(setCategoriesMap).toHaveBeenCalledWith(city, language, newCategoriesMap)
+    await runSaga({}, loadCategories, city, language, dataContainer, false).toPromise()
+
+    expect(await dataContainer.getCategoriesMap(city, language)).toStrictEqual(newCategoriesMap)
   })
 
   it('should fetch and set categories if it should update', async () => {
     const dataContainer = new DefaultDataContainer()
     await dataContainer.setCategoriesMap(city, language, oldCategoriesMap)
-    const setCategoriesMap = jest.fn()
-    dataContainer.setCategoriesMap = setCategoriesMap
-    const result = await runSaga({}, loadCategories, city, language, dataContainer, true).toPromise()
 
-    expect(result).toStrictEqual(newCategoriesMap)
-    expect(setCategoriesMap).toHaveBeenCalledTimes(1)
-    expect(setCategoriesMap).toHaveBeenCalledWith(city, language, newCategoriesMap)
+    await runSaga({}, loadCategories, city, language, dataContainer, true).toPromise()
+
+    expect(await dataContainer.getCategoriesMap(city, language)).toStrictEqual(newCategoriesMap)
   })
 
-  it('should use cached categories if categories are available and it should not update', async () => {
+  it('should use cached categories if they are available and should not update', async () => {
     const dataContainer = new DefaultDataContainer()
     await dataContainer.setCategoriesMap(city, language, oldCategoriesMap)
-    const setCategoriesMap = jest.fn()
-    dataContainer.setCategoriesMap = setCategoriesMap
-    const result = await runSaga({}, loadCategories, city, language, dataContainer, false).toPromise()
 
-    expect(result).toStrictEqual(oldCategoriesMap)
-    expect(setCategoriesMap).not.toHaveBeenCalled()
+    await runSaga({}, loadCategories, city, language, dataContainer, false).toPromise()
+
+    expect(await dataContainer.getCategoriesMap(city, language)).toBe(oldCategoriesMap)
   })
 })
