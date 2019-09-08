@@ -9,7 +9,7 @@ export function queryAllFlex (container: NativeTestInstance): Array<ReactTestIns
       const style = node.getProp('style')
 
       if (!style) {
-        return
+        return false
       }
 
       const testForFlex = style => style.display === 'flex'
