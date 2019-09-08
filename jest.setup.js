@@ -1,11 +1,5 @@
-// setup file
-import { configure } from 'enzyme'
-import Adapter from 'enzyme-adapter-react-16'
-
-configure({ adapter: new Adapter() })
-
-// Setup fetch mock
-global.fetch = require('jest-fetch-mock')
+const fs = require('fs')
+const path = require('path')
 
 console.error = error => {
   throw Error(error)
@@ -21,4 +15,24 @@ if (typeof window !== 'object') {
   global.window.navigator = {}
 }
 
+// Setup fetch mock
+global.fetch = require('jest-fetch-mock')
 jest.mock('rn-fetch-blob')
+
+function walkDir (dir, callback) {
+  fs.readdirSync(dir).forEach(f => {
+    const filePath = path.join(dir, f)
+    const isDirectory = fs.statSync(filePath).isDirectory()
+    isDirectory ? walkDir(filePath, callback) : callback(filePath)
+  })
+}
+
+// The following code automatically unmocks the modules in `mocksPath`. This is required because jest mocks all these
+// modules automatically as soon as they are found
+const mocksPath = 'src/__mocks__/'
+const jsPath = '.js'
+walkDir(mocksPath, name => {
+  if (name.endsWith(jsPath)) {
+    jest.unmock(name.substring(mocksPath.length, name.length - jsPath.length))
+  }
+})

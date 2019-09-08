@@ -1,9 +1,16 @@
+const jestPreset = require('@testing-library/react-native/jest-preset')
+
 module.exports = {
-  'preset': 'react-native',
+  'preset': '@testing-library/react-native',
   'verbose': true,
-  'automock': false, // Always explicitly mock modules
+  'automock': false, /* Always explicitly mock modules. Also automocking seems to be broken right now:
+                        https://github.com/facebook/jest/issues/6127 */
   'setupFiles': [
+    ...jestPreset.setupFiles,
     '<rootDir>/jest.setup.js'
+  ],
+  'setupFilesAfterEnv': ['jest-extended',
+    '<rootDir>/jest.setup.afterenv.js'
   ],
   'transformIgnorePatterns': [
     'node_modules/(?!react-native|@react-native-community/async-storage|rn-fetch-blob|@integreat-app/integreat-api-client|antd|rc-.+)'

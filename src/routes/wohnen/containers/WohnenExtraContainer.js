@@ -6,14 +6,8 @@ import type { StateType } from '../../../modules/app/StateType'
 import connect from 'react-redux/es/connect/connect'
 import { type TFunction, translate } from 'react-i18next'
 import WohnenExtra from '../components/WohnenExtra'
-import {
-  createWohnenEndpoint,
-  ExtraModel,
-  Payload,
-  WohnenOfferModel
-} from '@integreat-app/integreat-api-client'
+import { createWohnenEndpoint, ExtraModel, Payload, WohnenOfferModel } from '@integreat-app/integreat-api-client'
 import { WOHNEN_EXTRA, WOHNEN_ROUTE } from '../../extras/constants'
-import request from '../../../modules/endpoint/request'
 import { wohnenApiBaseUrl } from '../../../modules/endpoint/constants'
 import Failure from '../../../modules/error/components/Failure'
 import withTheme from '../../../modules/theme/hocs/withTheme'
@@ -90,8 +84,7 @@ class WohnenExtraContainer extends React.Component<WohnenPropsType, SprungbrettS
     }
 
     try {
-      const payload: Payload<Array<ExtraModel>> = await request(
-        createWohnenEndpoint(wohnenApiBaseUrl),
+      const payload: Payload<Array<ExtraModel>> = await createWohnenEndpoint(wohnenApiBaseUrl).request(
         { city: extra.postData.get('api-name') }
       )
 
@@ -111,7 +104,7 @@ class WohnenExtraContainer extends React.Component<WohnenPropsType, SprungbrettS
     const { offers, error } = this.state
 
     if (error) {
-      return <Failure error={error} />
+      return <Failure error={error} t={t} theme={theme} />
     }
 
     if (!offers) {

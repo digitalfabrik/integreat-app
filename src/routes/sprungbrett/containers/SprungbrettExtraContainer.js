@@ -12,7 +12,6 @@ import {
   Payload,
   SprungbrettJobModel
 } from '@integreat-app/integreat-api-client'
-import request from '../../../modules/endpoint/request'
 import { SPRUNGBRETT_EXTRA } from '../../extras/constants'
 import Failure from '../../../modules/error/components/Failure'
 import withTheme from '../../../modules/theme/hocs/withTheme'
@@ -66,7 +65,7 @@ class SprungbrettExtraContainer extends React.Component<SprungbrettPropsType, Sp
       return
     }
     try {
-      const payload: Payload<Array<ExtraModel>> = await request(createSprungbrettJobsEndpoint(extra.path))
+      const payload: Payload<Array<ExtraModel>> = await createSprungbrettJobsEndpoint(extra.path).request()
 
       if (payload.error) {
         this.setState(() => ({ error: payload.error, jobs: null }))
@@ -84,7 +83,7 @@ class SprungbrettExtraContainer extends React.Component<SprungbrettPropsType, Sp
     const { jobs, error } = this.state
 
     if (error) {
-      return <Failure error={error} />
+      return <Failure error={error} t={t} theme={theme} />
     }
 
     if (!jobs) {

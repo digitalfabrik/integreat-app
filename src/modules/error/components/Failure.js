@@ -4,11 +4,9 @@ import React from 'react'
 import styled, { type StyledComponent } from 'styled-components/native'
 import { Text } from 'react-native'
 import type { TFunction } from 'react-i18next'
-import { translate } from 'react-i18next'
 import FailureIcon from '../assets/FailureIcon.svg'
 import type { ThemeType } from '../../theme/constants/theme'
 import { Button } from 'react-native-elements'
-import withTheme from '../../theme/hocs/withTheme'
 
 const ViewContainer: StyledComponent<{}, ThemeType, *> = styled.View`
 flex: 1;
@@ -21,13 +19,13 @@ margin-bottom: 10px;
 `
 
 type PropsType = {|
-  error?: Error,
+  error?: ?Error,
   tryAgain?: () => void,
   t: TFunction,
   theme: ThemeType
 |}
 
-export class Failure extends React.Component<PropsType> {
+class Failure extends React.Component<PropsType> {
   render () {
     const { t, error, tryAgain, theme } = this.props
 
@@ -35,11 +33,11 @@ export class Failure extends React.Component<PropsType> {
       <IconContainer source={FailureIcon} />
       <Text>{error ? error.message : t('generalError')}</Text>
       {tryAgain &&
-      <Button titleStyle={{ color: theme.colors.textColor }}
+      <Button testID='button-tryAgain' titleStyle={{ color: theme.colors.textColor }}
               buttonStyle={{ backgroundColor: theme.colors.themeColor, marginTop: 20 }}
               onPress={tryAgain} title={t('tryAgain')} />}
     </ViewContainer>
   }
 }
 
-export default withTheme()(translate('error')(Failure))
+export default Failure
