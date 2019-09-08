@@ -10,7 +10,7 @@ import type {
 import type { DataContainer } from '../DataContainer'
 import loadCities from './loadCities'
 
-function * fetchCities (dataContainer: DataContainer, action: FetchCitiesActionType): Saga<void> {
+export function * fetchCities (dataContainer: DataContainer, action: FetchCitiesActionType): Saga<void> {
   try {
     const cities = yield call(loadCities, dataContainer, action.params.forceRefresh)
 
