@@ -1,17 +1,21 @@
 // @flow
 
-import { render } from 'react-native-testing-library'
+import { render } from '@testing-library/react-native'
 import React from 'react'
-import PageDetail, { Identifier } from '../PageDetail'
+import PageDetail from '../PageDetail'
+import { queryAllFlex } from '../../../../testing/customQueries'
 import brightTheme from '../../../theme/constants/theme'
 
 describe('PageDetail', () => {
   it('should display the given identifier followed by a colon', () => {
-    const { getByType } = render(
+    const { queryByText, container } = render(
       <PageDetail identifier={'Test Identifier'} information={'Some important information'} theme={brightTheme}
                   language={'de'} />
     )
-    const identifier = getByType(Identifier).props.children.join('')
-    expect(identifier).toEqual('Test Identifier: ')
+    expect(queryByText('Test Identifier', { exact: false })).toBeTruthy()
+    expect(queryByText('Some important information', { exact: false })).toBeTruthy()
+
+    // $FlowFixMe https://github.com/flow-typed/flow-typed/issues/948
+    expect(queryAllFlex(container)).toHaveDirection()
   })
 })

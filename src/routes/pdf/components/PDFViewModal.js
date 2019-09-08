@@ -5,7 +5,7 @@ import * as React from 'react'
 import { View, Platform } from 'react-native'
 import type { NavigationScreenProp } from 'react-navigation'
 import { URL_PREFIX } from '../../../modules/platform/constants/webview'
-import Failure from '../../../modules/error/components/Failure'
+import FailureContainer from '../../../modules/error/containers/FailureContainer'
 
 type PropsType = {
   navigation: NavigationScreenProp<*>,
@@ -44,7 +44,7 @@ export default class PDFViewModal extends React.Component<PropsType, StateType> 
     const { error } = this.state
 
     if (error) {
-      return <Failure error={error} />
+      return <FailureContainer error={error} />
     }
 
     return (
