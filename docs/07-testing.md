@@ -47,7 +47,7 @@ The most important part is to test the specific units using `@testing-library/re
   })
 ```
 
-The unit test for the container goes a follows:
+The unit test for the container works as follows:
 
 ```js
     const rendered = TestRenderer.create(<FailureContainer />)
