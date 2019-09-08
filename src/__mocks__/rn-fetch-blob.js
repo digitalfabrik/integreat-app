@@ -53,7 +53,7 @@ export default {
     exists: jest.fn<[string], Promise<boolean>>(existsMock),
     writeFile: jest.fn<[string, string | Array<string>, string], Promise<void>>(writeMockFile),
     readFile: jest.fn<[string, string], Promise<string>>(readMockFile),
-    reset: jest.fn<[], void>(deleteAllMockFiles),
+    _reset: jest.fn<[], void>(deleteAllMockFiles),
     dirs: {
       MainBundleDir: 'path/to/mainBundleDir',
       CacheDir: 'path/to/cacheDir',
