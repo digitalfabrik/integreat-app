@@ -1,16 +1,15 @@
 // @flow
 
-import 'react-native'
 import { render } from '@testing-library/react-native'
 import React from 'react'
 import I18nProvider from '../I18nProvider'
-import { I18nextProvider } from 'react-i18next'
-import i18next from 'i18next'
+import { withNamespaces } from 'react-i18next'
 import localesResources from '../../../../locales.json'
-import TestRenderer from 'react-test-renderer'
 import waitForExpect from 'wait-for-expect'
 import AppSettings from '../../../settings/AppSettings'
 import AsyncStorage from '@react-native-community/async-storage'
+import { Text } from 'react-native'
+import type { TFunction } from 'react-i18next'
 
 jest.mock('@react-native-community/async-storage')
 jest.mock('../../../i18n/LanguageDetector')
@@ -49,8 +48,8 @@ describe('I18nProvider', () => {
     render(<I18nProvider setContentLanguage={mockSetContentLanguage} />)
     await waitForExpect(async () => {
       expect(mockSetContentLanguage).toHaveBeenCalledTimes(1)
-      expect(mockSetContentLanguage).toHaveBeenCalledWith('en_US')
-      expect(await appSettings.loadContentLanguage()).toBe('en_US')
+      expect(mockSetContentLanguage).toHaveBeenCalledWith('en')
+      expect(await appSettings.loadContentLanguage()).toBe('en')
     })
   })
 
@@ -68,34 +67,30 @@ describe('I18nProvider', () => {
   })
 
   it('should initialize correct i18next instance', () => {
-    const unmockedCreateInstance = i18next.createInstance.bind(i18next)
-    const i18nInstance = unmockedCreateInstance()
-    i18next.createInstance = jest.fn(() => {
-      i18nInstance.init = jest.fn(i18nInstance.init)
-      i18nInstance.use = jest.fn(i18nInstance.use)
-      return i18nInstance
-    })
+    const ReceivingComponent = withNamespaces('common')(
+      ({ t, i18n }) => {
+        const transformedResources = I18nProvider.transformResources(localesResources)
+        const languages = Object.keys(transformedResources)
 
-    const root = TestRenderer.create(
+        const resources = languages.reduce((resources, language: string) => {
+          resources[language] = i18n.getDataByLanguage(language)
+          return resources
+        }, {})
+
+        expect(resources).toEqual(transformedResources)
+        expect(i18n.language).toEqual('en')
+        expect(i18n.languages).toEqual(['en', 'de'])
+        return <Text>{t('chooseALanguage')}</Text>
+      }
+    )
+
+    const { queryByText } = render(
       <I18nProvider setContentLanguage={() => {}}>
-        <React.Fragment />
+        <ReceivingComponent />
       </I18nProvider>
-    ).root
+    )
 
-    expect(i18next.createInstance).toHaveBeenCalledTimes(1)
-
-    expect(root.findByType(I18nextProvider).props.i18n).toBe(i18nInstance)
-
-    expect(i18nInstance.init).toHaveBeenCalledTimes(1)
-    expect(i18nInstance.init.mock.calls[0]).toHaveLength(1)
-    const options = i18nInstance.init.mock.calls[0][0]
-
-    expect(options.resources).toEqual(I18nProvider.transformResources(localesResources))
-    delete options.resources
-
-    expect(options.fallbackLng).toEqual(['en', 'de'])
-    expect(options.load).toBe('languageOnly')
-    i18next.createInstance = unmockedCreateInstance
+    expect(queryByText('Choose a language.')).toBeTruthy()
   })
 
   it('should show error if loading fails', async () => {
@@ -111,5 +106,21 @@ describe('I18nProvider', () => {
     await waitForExpect(async () => {
       expect(queryByText('An Error occurred while getting settings!')).not.toBeNull()
     })
+  })
+
+  it('should use fallback if language is invalid or unknown', () => {
+    const ReceivingComponent = withNamespaces('common')(
+      ({ t }: { t: TFunction }) => {
+        return <Text>{t('chooseALanguage', { lng: 'XX' })}</Text>
+      }
+    )
+
+    const { queryByText } = render(
+      <I18nProvider setContentLanguage={() => {}}>
+        <ReceivingComponent />
+      </I18nProvider>
+    )
+
+    expect(queryByText('Choose a language.')).toBeTruthy()
   })
 })

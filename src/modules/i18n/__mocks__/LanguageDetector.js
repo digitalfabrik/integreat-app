@@ -3,7 +3,7 @@
 export default {
   type: 'languageDetector',
   async: false,
-  detect: () => 'en_US',
+  detect: () => 'en',
   init: () => {},
   cacheUserLanguage: () => {}
 }
