@@ -4,28 +4,28 @@ import { CategoryModel } from '@integreat-app/integreat-api-client'
 import { has } from 'lodash'
 
 class CategoriesRouteStateView {
-  +rawRoot: string
+  +rawPath: string
   +rawModels: { [path: string]: CategoryModel }
   +rawChildren: { [path: string]: Array<string> }
 
-  constructor (root: string, models: { [path: string]: CategoryModel }, children: { [path: string]: Array<string> }) {
+  constructor (path: string, models: { [path: string]: CategoryModel }, children: { [path: string]: Array<string> }) {
     this.rawModels = models
     this.rawChildren = children
-    this.rawRoot = root
+    this.rawPath = path
   }
 
   root (): CategoryModel {
-    if (!has(this.rawModels, this.rawRoot)) {
-      throw new Error(`CategoriesRouteStateView doesn't have the root model for '${this.rawRoot}'!`)
+    if (!has(this.rawModels, this.rawPath)) {
+      throw new Error(`CategoriesRouteStateView doesn't have the root model for '${this.rawPath}'!`)
     }
-    return this.rawModels[this.rawRoot]
+    return this.rawModels[this.rawPath]
   }
 
   children (): Array<CategoryModel> {
-    const childrenPaths = this.rawChildren[this.rawRoot]
+    const childrenPaths = this.rawChildren[this.rawPath]
 
     if (!childrenPaths) {
-      throw new Error(`Could not find children for category '${this.rawRoot}'!`)
+      throw new Error(`Could not find children for category '${this.rawPath}'!`)
     }
 
     return childrenPaths.map(childPath => this.rawModels[childPath])
