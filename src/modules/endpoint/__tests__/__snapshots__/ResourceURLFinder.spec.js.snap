@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ResourceURLFinder should build a fetchMap including thumbnails if supplied 1`] = `
+Object {
+  "buildFilePath('https://ex.am/pl1.png', '/path1')": Array [
+    "https://ex.am/pl1.png",
+    "/path1",
+  ],
+  "buildFilePath('https://ex.am/pl2.png', '/path2')": Array [
+    "https://ex.am/pl2.png",
+    "/path2",
+  ],
+  "buildFilePath('https://ex.am/thumb.png', '/path1')": Array [
+    "https://ex.am/thumb.png",
+    "/path1",
+  ],
+}
+`;

@@ -4,11 +4,11 @@ import * as React from 'react'
 
 import { LanguageModel } from '@integreat-app/integreat-api-client'
 import { RefreshControl, ScrollView } from 'react-native'
-import Failure from '../components/Failure'
 import LanguageNotAvailableContainer from '../../common/containers/LanguageNotAvailableContainer'
 import type { StoreActionType } from '../../app/StoreActionType'
 import { type Dispatch } from 'redux'
 import { wrapDisplayName } from 'recompose'
+import FailureContainer from '../containers/FailureContainer'
 
 export type RouteNotInitializedType = {| status: 'routeNotInitialized' |}
 export type LoadingType = {| status: 'loading' |}
@@ -71,7 +71,7 @@ const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R> (
         } else if (props.status === 'error') {
           return <ScrollView refreshControl={<RefreshControl onRefresh={this.refresh} refreshing={false} />}
                              contentContainerStyle={{ flexGrow: 1 }}>
-            <Failure tryAgain={this.refresh} />
+            <FailureContainer tryAgain={this.refresh} />
           </ScrollView>
         } else if (props.status === 'languageNotAvailable') {
           return <LanguageNotAvailableContainer languages={props.availableLanguages}
