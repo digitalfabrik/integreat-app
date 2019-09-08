@@ -351,13 +351,15 @@ describe('morphContentLanguage', () => {
     expect(newState).toEqual(previous)
   })
 
-  it('should fail if category models are invalid', () => {
+  it('should warn if category models are invalid', () => {
+    const spy = jest.spyOn(console, 'warn')
+
     const action: MorphContentLanguageActionType = {
       type: 'MORPH_CONTENT_LANGUAGE',
       params: {
-        newCategoriesMap: enModel,
+        newCategoriesMap: new CategoriesMapModel([]),
         newResourceCache: {},
-        newEvents: [],
+        newEvents: enEvents,
         newLanguage: 'en'
       }
     }
@@ -371,8 +373,10 @@ describe('morphContentLanguage', () => {
     if (route.status !== 'ready') {
       throw Error('Preparation of state failed')
     }
-    route.models['/augsburg/de/anlaufstellen'] = undefined
-    expect(() => morphContentLanguage(previous, action)).toThrowError()
+
+    morphContentLanguage(previous, action)
+    expect(spy).toHaveBeenCalled()
+    spy.mockRestore()
   })
 
   it('should translate route', () => {

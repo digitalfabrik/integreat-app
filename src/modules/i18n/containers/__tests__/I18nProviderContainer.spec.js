@@ -27,7 +27,7 @@ describe('I18nProviderContainer', () => {
       expect(store.getActions()).toEqual([{
         type: 'SET_CONTENT_LANGUAGE',
         params: {
-          contentLanguage: 'en_US'
+          contentLanguage: 'en'
         }
       }])
     })
