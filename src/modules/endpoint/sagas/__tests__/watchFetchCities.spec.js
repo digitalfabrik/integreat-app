@@ -8,22 +8,23 @@ import { expectSaga, testSaga } from 'redux-saga-test-plan'
 import loadCities from '../loadCities'
 import CityModelBuilder from '../../../../testing/builder/CitiyModelBuilder'
 
-let mockCities
 let mockCreateCitiesEndpoint
 jest.mock('rn-fetch-blob')
 jest.mock('@integreat-app/integreat-api-client/endpoints/createCitiesEndpoint',
   () => {
-    mockCreateCitiesEndpoint = jest.fn(() => {
+    const implementation = () => {
       const { EndpointBuilder } = require('@integreat-app/integreat-api-client')
       const CityModelBuilder = require('../../../../testing/builder/CitiyModelBuilder').default
-      mockCities = new CityModelBuilder(1).build()
+      const cities = new CityModelBuilder(1).build()
 
       return new EndpointBuilder('cities-mock')
         .withParamsToUrlMapper(() => 'https://cms.integreat-app.de/sites')
-        .withResponseOverride(mockCities)
+        .withResponseOverride(cities)
         .withMapper(() => { })
         .build()
-    })
+    }
+    implementation()
+    mockCreateCitiesEndpoint = jest.fn(implementation)
     return mockCreateCitiesEndpoint
   }
 )
@@ -33,10 +34,10 @@ describe('watchFetchCities', () => {
     RNFetchBlob.fs._reset()
   })
 
-  const cities = new CityModelBuilder(2).build()
-
   describe('fetchCities', () => {
     it('should yield an action which pushes the cites', () => {
+      const cities = new CityModelBuilder(1).build()
+
       const dataContainer = new DefaultDataContainer()
       const action: FetchCitiesActionType = {
         type: 'FETCH_CITIES', params: { forceRefresh: false }
