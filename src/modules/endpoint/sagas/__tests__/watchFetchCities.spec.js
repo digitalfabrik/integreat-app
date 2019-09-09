@@ -1,30 +1,26 @@
 // @flow
 
 import RNFetchBlob from '../../../../__mocks__/rn-fetch-blob'
-import { CityModel } from '@integreat-app/integreat-api-client'
 import DefaultDataContainer from '../../DefaultDataContainer'
 import watchFetchCities, { fetchCities } from '../watchFetchCities'
 import type { FetchCitiesActionType } from '../../../app/StoreActionType'
 import { expectSaga, testSaga } from 'redux-saga-test-plan'
+import loadCities from '../loadCities'
+import CityModelBuilder from '../../../../testing/builder/CitiyModelBuilder'
 
-jest.mock('rn-fetch-blob')
+let mockCities
 let mockCreateCitiesEndpoint
+jest.mock('rn-fetch-blob')
 jest.mock('@integreat-app/integreat-api-client/endpoints/createCitiesEndpoint',
   () => {
     mockCreateCitiesEndpoint = jest.fn(() => {
-      const { CityModel, EndpointBuilder } = require('@integreat-app/integreat-api-client')
+      const { EndpointBuilder } = require('@integreat-app/integreat-api-client')
+      const CityModelBuilder = require('../../../../testing/builder/CitiyModelBuilder').default
+      mockCities = new CityModelBuilder(1).build()
 
       return new EndpointBuilder('cities-mock')
         .withParamsToUrlMapper(() => 'https://cms.integreat-app.de/sites')
-        .withResponseOverride([new CityModel({
-          name: 'Stadt Augsburg',
-          code: 'augsburg',
-          live: true,
-          eventsEnabled: true,
-          extrasEnabled: true,
-          sortingName: 'Augsburg',
-          prefix: 'Stadt'
-        })])
+        .withResponseOverride(mockCities)
         .withMapper(() => { })
         .build()
     })
@@ -37,17 +33,7 @@ describe('watchFetchCities', () => {
     RNFetchBlob.fs._reset()
   })
 
-  const cities = [
-    new CityModel({
-      name: 'Stadt Augsburg',
-      code: 'augsburg',
-      live: true,
-      eventsEnabled: true,
-      extrasEnabled: true,
-      sortingName: 'Augsburg',
-      prefix: 'Stadt'
-    })
-  ]
+  const cities = new CityModelBuilder(2).build()
 
   describe('fetchCities', () => {
     it('should yield an action which pushes the cites', () => {
@@ -57,6 +43,7 @@ describe('watchFetchCities', () => {
       }
 
       return expectSaga(fetchCities, dataContainer, action)
+        .call(loadCities, dataContainer, false)
         .put({ type: 'PUSH_CITIES', params: { cities } })
         .run()
     })
@@ -70,6 +57,7 @@ describe('watchFetchCities', () => {
       }
 
       return expectSaga(fetchCities, dataContainer, action)
+        .call(loadCities, dataContainer, false)
         .put({
           type: 'FETCH_CITIES_FAILED',
           params: { message: 'Error in fetchCities: Jemand hat keine 4 Issues geschafft!' }
