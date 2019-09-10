@@ -9,11 +9,10 @@ import watchFetchEvent, { fetchEvent } from '../watchFetchEvent'
 import { expectSaga, testSaga } from 'redux-saga-test-plan'
 import loadCityContent from '../loadCityContent'
 import { ContentLoadCriterion } from '../../ContentLoadCriterion'
+import { call } from 'redux-saga-test-plan/matchers'
 
 jest.mock('rn-fetch-blob')
 jest.mock('../loadCityContent')
-
-// const loadCityContent = require('../__mocks__/loadCityContent').default
 
 describe('watchFetchEvents', () => {
   beforeEach(() => {
@@ -45,10 +44,12 @@ describe('watchFetchEvents', () => {
       }
 
       return expectSaga(fetchEvent, dataContainer, action)
-        .call(loadCityContent, dataContainer, city, language, new ContentLoadCriterion({
-          forceUpdate: false,
-          shouldRefreshResources: false
-        }, false))
+        .provide([
+          [call.fn(loadCityContent), loadCityContent(dataContainer, city, language, new ContentLoadCriterion({
+            forceUpdate: false,
+            shouldRefreshResources: false
+          }, false))]
+        ])
         .put({
           type: 'PUSH_EVENT',
           params: {
@@ -65,8 +66,6 @@ describe('watchFetchEvents', () => {
     })
 
     it('should yield an error action', () => {
-      const mockOptions = loadCityContent.mockOptions
-      mockOptions.shouldThrow = true
       const dataContainer = new DefaultDataContainer()
 
       const action: FetchEventActionType = {
@@ -82,18 +81,22 @@ describe('watchFetchEvents', () => {
           }
         }
       }
-      const sagaPromise = expectSaga(fetchEvent, dataContainer, action)
-        .call(loadCityContent, dataContainer, city, language, new ContentLoadCriterion({
-          forceUpdate: false,
-          shouldRefreshResources: false
-        }, false))
-        .put({
-          type: 'FETCH_EVENT_FAILED',
-          params: { message: 'Error in fetchEvent: Jemand hat keine 4 Issues geschafft!', key: 'key' }
+
+      return expectSaga(fetchEvent, dataContainer, action)
+        .provide({
+          call: (effect, next) => {
+            if (effect.fn === loadCityContent) {
+              throw new Error('Jemand hat keine 4 Issues geschafft!')
+            }
+            return next()
+          }
+        })
+        .put.like({
+          action: {
+            type: 'FETCH_EVENT_FAILED'
+          }
         })
         .run()
-      mockOptions.shouldThrow = false
-      return sagaPromise
     })
   })
 
