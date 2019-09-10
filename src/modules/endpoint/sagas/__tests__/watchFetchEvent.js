@@ -5,17 +5,19 @@ import DefaultDataContainer from '../../DefaultDataContainer'
 import type { FetchEventActionType } from '../../../app/StoreActionType'
 import EventModelBuilder from '../../../../testing/builder/EventModelBuilder'
 import LanguageModelBuilder from '../../../../testing/builder/LanguageModelBuilder'
+import watchFetchEvent, { fetchEvent } from '../watchFetchEvent'
+import { expectSaga, testSaga } from 'redux-saga-test-plan'
+import loadCityContent from '../loadCityContent'
+import { ContentLoadCriterion } from '../../ContentLoadCriterion'
 
 jest.mock('rn-fetch-blob')
+jest.mock('../loadCityContent')
+
+// const loadCityContent = require('../__mocks__/loadCityContent').default
 
 describe('watchFetchEvents', () => {
   beforeEach(() => {
     RNFetchBlob.fs._reset()
-    // jest.resetModules()
-  })
-
-  afterEach(() => {
-    jest.resetModules()
   })
 
   const city = 'augsburg'
@@ -23,13 +25,6 @@ describe('watchFetchEvents', () => {
 
   describe('fetchEvents', () => {
     it('should yield an action which pushes the events', () => {
-      jest.doMock('../loadCityContent')
-      const { default: loadCityContent } = require('../loadCityContent')
-      const { fetchEvent } = require('../watchFetchEvent')
-      const { expectSaga } = require('redux-saga-test-plan')
-      const { default: DefaultDataContainer } = require('../../DefaultDataContainer')
-      const { ContentLoadCriterion } = require('../../ContentLoadCriterion')
-
       const events = new EventModelBuilder('loadCityContent-events', 2).build()
       const languages = new LanguageModelBuilder(2).build()
 
@@ -70,19 +65,8 @@ describe('watchFetchEvents', () => {
     })
 
     it('should yield an error action', () => {
-      const mockLoadCityContent = () => { throw Error('Jemand hat keine 4 Issues geschafft!') }
-      const mockModule = {
-        __esModule: true,
-        default: mockLoadCityContent
-      }
-      jest.doMock('../loadCityContent', () => {
-        return mockModule
-      })
-      const { default: loadCityContent } = require('../loadCityContent')
-      const { default: DefaultDataContainer } = require('../../DefaultDataContainer')
-      const { ContentLoadCriterion } = require('../../ContentLoadCriterion')
-      const { fetchEvent } = require('../watchFetchEvent')
-      const { expectSaga } = require('redux-saga-test-plan')
+      const mockOptions = loadCityContent.mockOptions
+      mockOptions.shouldThrow = true
       const dataContainer = new DefaultDataContainer()
 
       const action: FetchEventActionType = {
@@ -98,7 +82,7 @@ describe('watchFetchEvents', () => {
           }
         }
       }
-      return expectSaga(fetchEvent, dataContainer, action)
+      const sagaPromise = expectSaga(fetchEvent, dataContainer, action)
         .call(loadCityContent, dataContainer, city, language, new ContentLoadCriterion({
           forceUpdate: false,
           shouldRefreshResources: false
@@ -108,14 +92,12 @@ describe('watchFetchEvents', () => {
           params: { message: 'Error in fetchEvent: Jemand hat keine 4 Issues geschafft!', key: 'key' }
         })
         .run()
+      mockOptions.shouldThrow = false
+      return sagaPromise
     })
   })
 
   it('should correctly call fetchEvent when triggered', async () => {
-    jest.doMock('../loadCityContent')
-    const { default: watchFetchEvent, fetchEvent } = require('../watchFetchEvent')
-    // const { default: DefaultDataContainer } = require('../../DefaultDataContainer')
-    const { testSaga } = require('redux-saga-test-plan')
     const dataContainer = new DefaultDataContainer()
 
     return testSaga(watchFetchEvent, dataContainer)

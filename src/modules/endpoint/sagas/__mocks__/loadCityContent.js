@@ -7,10 +7,16 @@ import { ContentLoadCriterion } from '../../ContentLoadCriterion'
 import EventModelBuilder from '../../../../testing/builder/EventModelBuilder'
 import LanguageModelBuilder from '../../../../testing/builder/LanguageModelBuilder'
 
-export default function * loadCityContent (
+export const mockOptions = { shouldThrow: false }
+
+const loadCityContent = function * loadCityContent (
   dataContainer: DataContainer, newCity: string, newLanguage: string,
   criterion: ContentLoadCriterion
 ): Saga<boolean> {
+  if (mockOptions.shouldThrow) {
+    throw Error('Jemand hat keine 4 Issues geschafft!')
+  }
+
   yield call(() => dataContainer.setEvents(
     newCity,
     newLanguage,
@@ -30,3 +36,6 @@ export default function * loadCityContent (
   }
   return true
 }
+
+loadCityContent.mockOptions = mockOptions
+export default loadCityContent
