@@ -50,7 +50,6 @@ describe('loadEvents', () => {
   })
 
   it('should use cached events if they are available and should not be update', async () => {
-
     const dataContainer = new DefaultDataContainer()
     await dataContainer.setEvents(city, language, otherEvents)
 
