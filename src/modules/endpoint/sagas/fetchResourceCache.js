@@ -9,9 +9,9 @@ import FetcherModule from '../../fetcher/FetcherModule'
 import { invertBy, mapValues, pickBy } from 'lodash/object'
 import type { DataContainer } from '../DataContainer'
 
-type PathType = string
-type UrlType = string
-type FilePathType = string
+export type PathType = string
+export type UrlType = string
+export type FilePathType = string
 export type FetchMapType = { [filePath: FilePathType]: [UrlType, PathType] }
 
 const createErrorMessage = (fetchResult: FetchResultType) => {
