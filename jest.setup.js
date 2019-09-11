@@ -1,5 +1,6 @@
 const fs = require('fs')
 const path = require('path')
+require('react-native-gesture-handler/jestSetup')
 
 console.error = error => {
   throw Error(error)
