@@ -13,7 +13,7 @@ module.exports = {
     '<rootDir>/jest.setup.afterenv.js'
   ],
   'transformIgnorePatterns': [
-    'node_modules/(?!react-native|@react-native-community/async-storage|rn-fetch-blob|@integreat-app/integreat-api-client|antd|rc-.+)'
+    'node_modules/(?!react-native|@react-navigation/native/dist|react-navigation-stack|@react-native-community/async-storage|react-navigation-header-buttons|rn-fetch-blob|@integreat-app/integreat-api-client|antd|rc-.+)'
   ],
   'moduleFileExtensions': [
     'js'
