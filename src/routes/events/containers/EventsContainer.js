@@ -1,7 +1,7 @@
 // @flow
 
 import type { EventRouteStateType, LanguageResourceCacheStateType, StateType } from '../../../modules/app/StateType'
-import connect from 'react-redux/es/connect/connect'
+import { connect } from 'react-redux'
 import Events from '../components/Events'
 import { translate } from 'react-i18next'
 import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
