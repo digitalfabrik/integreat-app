@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { ActivityIndicator } from 'react-native'
 import type { StateType } from '../../../modules/app/StateType'
-import connect from 'react-redux/es/connect/connect'
+import { connect } from 'react-redux'
 import { type TFunction, translate } from 'react-i18next'
 import WohnenExtra from '../components/WohnenExtra'
 import { createWohnenEndpoint, ExtraModel, Payload, WohnenOfferModel } from '@integreat-app/integreat-api-client'
