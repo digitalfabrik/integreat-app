@@ -23,11 +23,16 @@ describe('watchFetchEvents', () => {
   const language = 'en'
 
   describe('fetchEvents', () => {
-    it('should yield an action which pushes the events', () => {
-      const events = new EventModelBuilder('loadCityContent-events', 2).build()
+    it('should yield an action which pushes the events', async () => {
+      const eventsBuilder = new EventModelBuilder('loadCityContent-events', 2)
+      const events = eventsBuilder.build()
+      const resources = eventsBuilder.buildResources()
       const languages = new LanguageModelBuilder(2).build()
 
       const dataContainer = new DefaultDataContainer()
+      await dataContainer.setEvents(city, language, events)
+      await dataContainer.setLanguages(city, languages)
+      await dataContainer.setResourceCache(city, language, resources)
 
       const action: FetchEventActionType = {
         type: 'FETCH_EVENT',
@@ -38,23 +43,22 @@ describe('watchFetchEvents', () => {
           key: 'key',
           criterion: {
             forceUpdate: false,
-            shouldRefreshResources: false
+            shouldRefreshResources: true
           }
         }
       }
-
       return expectSaga(fetchEvent, dataContainer, action)
         .provide([
           [call.fn(loadCityContent), loadCityContent(dataContainer, city, language, new ContentLoadCriterion({
             forceUpdate: false,
-            shouldRefreshResources: false
+            shouldRefreshResources: true
           }, false))]
         ])
         .put({
           type: 'PUSH_EVENT',
           params: {
             events,
-            resourceCache: {}, // fixme create proper data
+            resourceCache: resources,
             path: '/',
             cityLanguages: languages,
             key: 'key',
@@ -77,7 +81,7 @@ describe('watchFetchEvents', () => {
           key: 'key',
           criterion: {
             forceUpdate: false,
-            shouldRefreshResources: false
+            shouldRefreshResources: true
           }
         }
       }
