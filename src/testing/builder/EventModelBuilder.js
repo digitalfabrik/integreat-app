@@ -43,6 +43,13 @@ class EventModelBuilder {
     }
   }
 
+  /**
+   * Builds the requested amount of events. Two builds with an identical seed will yield equal events.
+   * Note that they are not identical. Furthermore instances of external classes like `moment` or `EventModel` maybe are
+   * not equal when comparing all the properties.
+   *
+   * @returns The events and the corresponding resource cache
+   */
   buildAll (): Array<{ path: string, event: EventModel, resources: FileCacheStateType }> {
     return Array.from({ length: this._eventCount }, (x, index) => {
       const startDate = moment.tz('2015-01-01 00:00:00', 'UTC').add(this.predictableNumber(index), 'years')
