@@ -4,7 +4,7 @@ import { runSaga } from 'redux-saga'
 import { clearCity } from '../watchClearCity'
 import AppSettings from '../../settings/AppSettings'
 
-jest.mock('@react-native-community/async-storage', () => require('@react-native-community/async-storage/jest/async-storage-mock'))
+jest.mock('@react-native-community/async-storage')
 
 describe('watchClearCity', () => {
   it('should clear selected city of app settings', async () => {
