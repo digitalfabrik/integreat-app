@@ -23,8 +23,7 @@ const loadCityContent = function * loadCityContent (
     //   languages)
     // )
 
-    const languages = yield call(() => dataContainer.getLanguages(newCity)
-    )
+    const languages = yield call(() => dataContainer.getLanguages(newCity))
 
     if (!languages.map(language => language.code).includes(newLanguage)) {
       return false
