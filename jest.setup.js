@@ -28,3 +28,7 @@ walkDir(mocksPath, name => {
     jest.unmock(name.substring(mocksPath.length, name.length - jsPath.length))
   }
 })
+
+jest.doMock('react-native/Libraries/ReactNative/I18nManager',
+  () => require('testing/I18nManagerMock.js')
+)
