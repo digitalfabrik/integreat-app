@@ -86,7 +86,7 @@ class ExtrasContainer extends React.Component<ExtrasPropsType, ExtrasStateType> 
     const { extras, error } = this.state
 
     if (error || !cities) {
-      return <Failure error={error} />
+      return <Failure error={error} theme={theme} t={t} />
     }
 
     if (!extras) {
