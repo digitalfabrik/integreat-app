@@ -3,8 +3,8 @@
 import { CategoriesMapModel, CategoryModel } from '@integreat-app/integreat-api-client'
 import moment from 'moment-timezone'
 import type { FileCacheStateType, LanguageResourceCacheStateType } from '../../modules/app/StateType'
-import fnv from 'fnv-plus'
 import seedrandom from 'seedrandom'
+import { hexHash } from '../../modules/endpoint/fnv1a'
 
 const DEFAULT_MAX_WIDTH = 3
 const DEFAULT_DEPTH = 2
@@ -20,11 +20,11 @@ class CategoriesMapModelBuilder {
   }
 
   predictableNumber (index: number, max: number = MAX_PREDICTABLE_VALUE): number {
-    return seedrandom(index + 'seed')() * max
+    return seedrandom(`${index}-seed`)() * max
   }
 
   createResource (url: string, index: number, lastUpdate: moment): FileCacheStateType {
-    const hash = fnv.hash(url).hex()
+    const hash = hexHash(url)
     return {
       [url]: {
         filePath: `path/to/documentDir/resource-cache/v1/some-city/files/${hash}.png`,
