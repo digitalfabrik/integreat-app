@@ -25,7 +25,7 @@ class EventModelBuilder {
     return this.buildAll().map(all => all.event)
   }
 
-  buildResources (): LanguageResourceCacheStateType {
+  buildResources (): { [path: string]: FileCacheStateType } {
     return this.buildAll().reduce((result, { path, resources }) => {
       result[path] = resources
       return result
@@ -50,7 +50,7 @@ class EventModelBuilder {
    *
    * @returns The events and the corresponding resource cache
    */
-  buildAll (): Array<{ path: string, event: EventModel, resources: FileCacheStateType }> {
+  buildAll (): Array<{ path: string, event: EventModel, resources: { [path: string]: FileCacheStateType } }> {
     return Array.from({ length: this._eventCount }, (x, index) => {
       const startDate = moment.tz('2015-01-01 00:00:00', 'UTC').add(this.predictableNumber(index), 'years')
       const endDate = moment(startDate).add(this.predictableNumber(index), 'hours')
