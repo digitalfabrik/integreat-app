@@ -13,7 +13,7 @@ describe('FailureContainer', () => {
     jest.resetModules()
   })
 
-  it('should give props to inner component', () => {
+  it('should pass props to inner component', () => {
     const FailureMock = () => null
     jest.doMock('../../components/Failure', () => FailureMock)
     const FailureContainerMock: FailureContainer = require('../FailureContainer').default

@@ -1,3 +1,5 @@
-import { toHaveDirection } from './src/testing/utils'
+// @flow
 
-expect.extend({ toHaveDirection })
+import { extend } from './src/testing/jest-extend-utils'
+
+extend()
