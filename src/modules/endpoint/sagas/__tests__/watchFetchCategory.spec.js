@@ -4,13 +4,12 @@ import RNFetchBlob from '../../../../__mocks__/rn-fetch-blob'
 import DefaultDataContainer from '../../DefaultDataContainer'
 import type { FetchCategoryActionType } from '../../../app/StoreActionType'
 import LanguageModelBuilder from '../../../../testing/builder/LanguageModelBuilder'
-import watchFetchCategory, { cancelableFetchCategory, fetchCategory } from '../watchFetchCategory'
+import watchFetchCategory, { fetchCategory } from '../watchFetchCategory'
 import { expectSaga, testSaga } from 'redux-saga-test-plan'
 import loadCityContent from '../loadCityContent'
 import { ContentLoadCriterion } from '../../ContentLoadCriterion'
 import { call } from 'redux-saga-test-plan/matchers'
 import CategoriesMapModelBuilder from '../../../../testing/builder/CategoriesMapModelBuilder'
-import { take } from 'redux-saga/effects'
 
 jest.mock('rn-fetch-blob')
 jest.mock('../loadCityContent')
@@ -113,102 +112,6 @@ describe('watchFetchCategories', () => {
 
     return testSaga(watchFetchCategory, dataContainer)
       .next()
-      .takeLatest('FETCH_CATEGORY', cancelableFetchCategory, dataContainer)
-  })
-
-  describe('cancelableFetchCategory', () => {
-    it('should finish without language change', async () => {
-      const dataContainer = new DefaultDataContainer()
-
-      const action: FetchCategoryActionType = {
-        type: 'FETCH_CATEGORY',
-        params: {
-          city,
-          language,
-          path: '/augsburg/en',
-          depth: 2,
-          key: 'categories-key',
-          criterion: {
-            forceUpdate: false,
-            shouldRefreshResources: true
-          }
-        }
-      }
-
-      return testSaga(cancelableFetchCategory, dataContainer, action)
-        .next()
-        .race({
-          response: call(fetchCategory, dataContainer, action),
-          cancel: take('SWITCH_CONTENT_LANGUAGE')
-        })
-        .next({
-          type: 'FETCH_CATEGORY',
-          params: {
-            city,
-            language,
-            path: '/augsburg/en',
-            depth: 2,
-            key: 'categories-key',
-            criterion: {
-              forceUpdate: false,
-              shouldRefreshResources: true
-            }
-          }
-        })
-        .next()
-        .isDone()
-    })
-
-    it('should cancel if new language arrives', async () => {
-      const dataContainer = new DefaultDataContainer()
-
-      const action: FetchCategoryActionType = {
-        type: 'FETCH_CATEGORY',
-        params: {
-          city,
-          language,
-          path: '/augsburg/en',
-          depth: 2,
-          key: 'categories-key',
-          criterion: {
-            forceUpdate: false,
-            shouldRefreshResources: true
-          }
-        }
-      }
-
-      const newLanguage = 'ar'
-
-      return testSaga(cancelableFetchCategory, dataContainer, action)
-        .next()
-        .race({
-          response: call(fetchCategory, dataContainer, action),
-          cancel: take('SWITCH_CONTENT_LANGUAGE')
-        })
-        .next({
-          cancel: {
-            type: 'SWITCH_CONTENT_LANGUAGE',
-            params: {
-              newLanguage: newLanguage, city
-            }
-          }
-        })
-        .put({
-          type: 'FETCH_CATEGORY',
-          params: {
-            city,
-            language: newLanguage,
-            path: '/augsburg/ar',
-            depth: 2,
-            key: 'categories-key',
-            criterion: {
-              forceUpdate: false,
-              shouldRefreshResources: true
-            }
-          }
-        })
-        .next()
-        .isDone()
-    })
+      .takeLatest('FETCH_CATEGORY', fetchCategory, dataContainer)
   })
 })
