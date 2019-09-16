@@ -3,8 +3,8 @@
 import { DateModel, EventModel, LocationModel } from '@integreat-app/integreat-api-client'
 import moment from 'moment-timezone'
 import seedrandom from 'seedrandom'
-import type { FileCacheStateType, LanguageResourceCacheStateType, PathType } from '../../modules/app/StateType'
-import fnv from 'fnv-plus'
+import type { FileCacheStateType } from '../../modules/app/StateType'
+import { hexHash } from '../../modules/endpoint/fnv1a'
 
 const MAX_PREDICTABLE_VALUE = 6
 
@@ -33,7 +33,7 @@ class EventModelBuilder {
   }
 
   createResource (url: string, index: number, lastUpdate: moment): FileCacheStateType {
-    const hash = fnv.hash(url).hex()
+    const hash = hexHash(url)
     return {
       [url]: {
         filePath: `path/to/documentDir/resource-cache/v1/some-city/files/${hash}.png`,
