@@ -27,10 +27,42 @@ describe('I18nProviderContainer', () => {
     const rendered = TestRenderer.create(<Provider store={store}>
       <I18nProviderContainerMock />
     </Provider>)
-    const instance = rendered.root.findByType(I18nProviderMock)
-    expect(instance.props).toEqual({
-      setContentLanguage: expect.anything()
+    const props = rendered.root.findByType(I18nProviderMock).props
+    expect(props).toEqual({
+      setContentLanguage: expect.any(Function)
     })
+  })
+
+  it('should dispatch action when setting content language', () => {
+    type MockPropsType = {
+      children?: React.Node,
+      setContentLanguage: (language: string) => void
+    }
+
+    class I18nProviderMock extends React.Component<MockPropsType> {
+      componentWillMount () {
+        this.props.setContentLanguage('ar')
+      }
+
+      render () {
+        return null
+      }
+    }
+
+    jest.doMock('../../components/I18nProvider', () => I18nProviderMock)
+    const I18nProviderContainerMock: I18nProviderContainer = require('../I18nProviderContainer').default
+
+    const store = mockStore({})
+    render(<Provider store={store}>
+      <I18nProviderContainerMock />
+    </Provider>)
+
+    expect(store.getActions()).toEqual([{
+      params: {
+        contentLanguage: 'ar'
+      },
+      type: 'SET_CONTENT_LANGUAGE'
+    }])
   })
 
   it('should trigger actions without passing props explicitly', async () => {
