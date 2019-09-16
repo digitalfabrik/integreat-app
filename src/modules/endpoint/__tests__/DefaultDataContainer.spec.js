@@ -1,113 +1,18 @@
 // @flow
 
 import DefaultDataContainer from '../DefaultDataContainer'
-import {
-  CategoryModel,
-  CityModel,
-  LanguageModel,
-  CategoriesMapModel,
-  EventModel, DateModel, LocationModel
-} from '@integreat-app/integreat-api-client'
 import DatabaseContext from '../DatabaseContext'
 import RNFetchBlob from '../../../__mocks__/rn-fetch-blob'
 import moment from 'moment-timezone'
+import CityModelBuilder from '../../../testing/builder/CitiyModelBuilder'
+import LanguageModelBuilder from '../../../testing/builder/LanguageModelBuilder'
+import CategoriesMapModelBuilder from '../../../testing/builder/CategoriesMapModelBuilder'
+import EventModelBuilder from '../../../testing/builder/EventModelBuilder'
 
 jest.mock('rn-fetch-blob')
 
 beforeEach(() => {
   RNFetchBlob.fs._reset()
-})
-
-const testCity = new CityModel({
-  name: 'testCityName',
-  code: 'tcc',
-  live: true,
-  eventsEnabled: true,
-  extrasEnabled: true,
-  sortingName: 'testCity',
-  prefix: 'Stadt'
-})
-
-const testLanguage = new LanguageModel({
-  code: 'de',
-  name: 'deutsch'
-})
-
-const anotherTestLanguage = new LanguageModel({
-  code: 'en',
-  name: 'english'
-})
-
-const testCategory = new CategoryModel({
-  root: true,
-  path: 'test/path',
-  title: 'testCategory',
-  content: 'test content',
-  thumbnail: 'thumbnail.png',
-  parentPath: '',
-  order: 1,
-  availableLanguages: new Map<string, string>([]),
-  lastUpdate: moment('2011-02-04T23:00:00.000Z', moment.ISO_8601),
-  hash: 'testHash'
-})
-
-const anotherTestCategory = new CategoryModel({
-  root: true,
-  path: 'test/path',
-  title: 'anotherTestCategory',
-  content: 'test content',
-  thumbnail: 'thumbnail.png',
-  parentPath: '',
-  order: 1,
-  availableLanguages: new Map<string, string>([]),
-  lastUpdate: moment('2011-03-04T23:00:00.000Z', moment.ISO_8601),
-  hash: 'testHash'
-})
-
-const testEvent = new EventModel({
-  path: 'test/path',
-  title: 'testEvent',
-  content: 'testContent',
-  thumbnail: 'thumbnail.png',
-  date: new DateModel({
-    startDate: moment('2011-02-04T23:00:00.000Z', moment.ISO_8601),
-    endDate: moment('2011-02-05T23:00:00.000Z', moment.ISO_8601),
-    allDay: true
-  }),
-  location: new LocationModel({
-    address: 'testStreet 2',
-    town: 'testTown',
-    postcode: '12345',
-    latitude: null,
-    longitude: null
-  }),
-  excerpt: 'TestEvent',
-  availableLanguages: new Map<string, string>([]),
-  lastUpdate: moment('2011-02-04T23:00:00.000Z', moment.ISO_8601),
-  hash: 'testHash'
-})
-
-const anotherTestEvent = new EventModel({
-  path: 'test/path',
-  title: 'testEvent2',
-  content: 'testContent',
-  thumbnail: 'thumbnail.png',
-  date: new DateModel({
-    startDate: moment('2011-02-04T23:00:00.000Z', moment.ISO_8601),
-    endDate: moment('2011-02-05T23:00:00.000Z', moment.ISO_8601),
-    allDay: true
-  }),
-  location: new LocationModel({
-    address: 'testStreet 2',
-    town: 'testTown',
-    postcode: '12345',
-    latitude: null,
-    longitude: null
-  }),
-  excerpt: 'TestEvent',
-  availableLanguages: new Map<string, string>([]),
-  lastUpdate: moment('2011-02-04T23:00:00.000Z', moment.ISO_8601),
-  hash: 'testHash'
 })
 
 const testResources = {
@@ -141,10 +46,25 @@ const anotherTestResources = {
 }
 
 describe('DefaultDataContainer', () => {
+  const cityModelBuilder = new CityModelBuilder(2)
+  const testCities = cityModelBuilder.build()
+
+  const languageModelBuilder = new LanguageModelBuilder(2)
+  const testLanguages = languageModelBuilder.build()
+
+  const categoriesMapModelBuilder = new CategoriesMapModelBuilder()
+  const testCategoryModel = categoriesMapModelBuilder.build()
+
+  const anotherCategoriesMapModelBuilder = new CategoriesMapModelBuilder(1, 1)
+  const anotherTestCategoryModel = anotherCategoriesMapModelBuilder.build()
+
+  const eventModelBuilder = new EventModelBuilder('seed', 2)
+  const testEvents = eventModelBuilder.build()
+
   describe('isCached', () => {
     it('should return true if CacheType is stored', async () => {
       const defaultDataContainer = new DefaultDataContainer()
-      await defaultDataContainer.setCities([testCity])
+      await defaultDataContainer.setCities(testCities)
       expect(defaultDataContainer.isCached('cities', new DatabaseContext())).toBe(true)
     })
     it('should return false if CacheType is not stored', () => {
@@ -154,7 +74,7 @@ describe('DefaultDataContainer', () => {
   })
   it('should look at the file system if data is not persisted in the cache', async () => {
     const defaultDataContainer = new DefaultDataContainer()
-    await defaultDataContainer.setCities([testCity])
+    await defaultDataContainer.setCities(testCities)
 
     const anotherDataContainer = new DefaultDataContainer()
 
@@ -163,36 +83,36 @@ describe('DefaultDataContainer', () => {
   })
   it('should return the language associated with the city', async () => {
     const defaultDataContainer = new DefaultDataContainer()
-    await defaultDataContainer.setLanguages('testCity', [testLanguage])
-    await defaultDataContainer.setLanguages('anotherTestCity', [anotherTestLanguage])
+    await defaultDataContainer.setLanguages('testCity', [testLanguages[0]])
+    await defaultDataContainer.setLanguages('anotherTestCity', [testLanguages[1]])
 
     const receivedTestLanguage = await defaultDataContainer.getLanguages('testCity')
     const receivedAnotherTestLanguage = await defaultDataContainer.getLanguages('anotherTestCity')
 
-    expect(receivedTestLanguage).toEqual([testLanguage])
-    expect(receivedAnotherTestLanguage).toEqual([anotherTestLanguage])
+    expect(receivedTestLanguage).toEqual([testLanguages[0]])
+    expect(receivedAnotherTestLanguage).toEqual([testLanguages[1]])
   })
   it('should return the category associated with the context', async () => {
     const defaultDataContainer = new DefaultDataContainer()
-    await defaultDataContainer.setCategoriesMap('testCity', 'de', new CategoriesMapModel([testCategory]))
-    await defaultDataContainer.setCategoriesMap('anotherTestCity', 'en', new CategoriesMapModel([anotherTestCategory]))
+    await defaultDataContainer.setCategoriesMap('testCity', 'de', testCategoryModel)
+    await defaultDataContainer.setCategoriesMap('anotherTestCity', 'en', anotherTestCategoryModel)
 
     const receivedTestCategories = await defaultDataContainer.getCategoriesMap('testCity', 'de')
     const receivedAnotherTestCategories = await defaultDataContainer.getCategoriesMap('anotherTestCity', 'en')
 
-    expect(receivedTestCategories.toArray()).toEqual([testCategory])
-    expect(receivedAnotherTestCategories.toArray()).toEqual([anotherTestCategory])
+    expect(receivedTestCategories).toEqual(testCategoryModel)
+    expect(receivedAnotherTestCategories).toEqual(anotherTestCategoryModel)
   })
   it('should return the events associated with the context', async () => {
     const defaultDataContainer = new DefaultDataContainer()
-    await defaultDataContainer.setEvents('testCity', 'de', [testEvent])
-    await defaultDataContainer.setEvents('anotherTestCity', 'en', [anotherTestEvent])
+    await defaultDataContainer.setEvents('testCity', 'de', [testEvents[0]])
+    await defaultDataContainer.setEvents('anotherTestCity', 'en', [testEvents[1]])
 
     const receivedTestEvents = await defaultDataContainer.getEvents('testCity', 'de')
     const receivedAnotherTestEvents = await defaultDataContainer.getEvents('anotherTestCity', 'en')
 
-    expect(receivedTestEvents).toEqual([testEvent])
-    expect(receivedAnotherTestEvents).toEqual([anotherTestEvent])
+    expect(receivedTestEvents).toEqual([testEvents[0]])
+    expect(receivedAnotherTestEvents).toEqual([testEvents[1]])
   })
   it('should return the resources associated with the context', async () => {
     const defaultDataContainer = new DefaultDataContainer()
