@@ -75,7 +75,7 @@ class CategoriesMapModelBuilder {
     }
   }
 
-  buildResources (): LanguageResourceCacheStateType {
+  buildResources (): { [path: string]: FileCacheStateType } {
     return this.buildAll().resourceCache
   }
 
@@ -83,7 +83,7 @@ class CategoriesMapModelBuilder {
     return this.buildAll().categories
   }
 
-  buildAll (): { categories: CategoriesMapModel, resourceCache: LanguageResourceCacheStateType } {
+  buildAll (): { categories: CategoriesMapModel, resourceCache: { [path: string]: FileCacheStateType } } {
     const categories = []
     const resourceCache = {}
 
