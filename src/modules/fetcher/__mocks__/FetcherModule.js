@@ -26,7 +26,7 @@ class FetcherModule {
     FetcherModule.currentlyFetching = false
 
     return Promise.resolve(reduce(targetFilePaths, (result, value, key) => {
-      result[key] = { lastUpdate: moment('2016-02-01 10:35:20', 'UTC'), url: value, errorMessage: null }
+      result[key] = { lastUpdate: moment('2016-02-01T10:35:20Z'), url: value, errorMessage: null }
       return result
     }, {}))
   }
