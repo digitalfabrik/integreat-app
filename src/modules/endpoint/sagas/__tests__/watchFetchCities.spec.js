@@ -8,26 +8,8 @@ import { expectSaga, testSaga } from 'redux-saga-test-plan'
 import loadCities from '../loadCities'
 import CityModelBuilder from '../../../../testing/builder/CitiyModelBuilder'
 
-let mockCreateCitiesEndpoint
 jest.mock('rn-fetch-blob')
-jest.mock('@integreat-app/integreat-api-client/endpoints/createCitiesEndpoint',
-  () => {
-    const implementation = () => {
-      const { EndpointBuilder } = require('@integreat-app/integreat-api-client')
-      const CityModelBuilder = require('../../../../testing/builder/CitiyModelBuilder').default
-      const cities = new CityModelBuilder(1).build()
-
-      return new EndpointBuilder('cities-mock')
-        .withParamsToUrlMapper(() => 'https://cms.integreat-app.de/sites')
-        .withResponseOverride(cities)
-        .withMapper(() => { })
-        .build()
-    }
-    implementation()
-    mockCreateCitiesEndpoint = jest.fn(implementation)
-    return mockCreateCitiesEndpoint
-  }
-)
+jest.mock('../loadCities')
 
 describe('watchFetchCities', () => {
   beforeEach(() => {
@@ -35,10 +17,12 @@ describe('watchFetchCities', () => {
   })
 
   describe('fetchCities', () => {
-    it('should yield an action which pushes the cites', () => {
+    it('should yield an action which pushes the cites', async () => {
       const cities = new CityModelBuilder(1).build()
 
       const dataContainer = new DefaultDataContainer()
+      await dataContainer.setCities(cities)
+
       const action: FetchCitiesActionType = {
         type: 'FETCH_CITIES', params: { forceRefresh: false }
       }
@@ -50,7 +34,6 @@ describe('watchFetchCities', () => {
     })
 
     it('should yield an error action', () => {
-      mockCreateCitiesEndpoint.mockImplementation(() => { throw Error('Jemand hat keine 4 Issues geschafft!') })
       const dataContainer = new DefaultDataContainer()
       const action: FetchCitiesActionType = {
         type: 'FETCH_CITIES',
@@ -58,6 +41,14 @@ describe('watchFetchCities', () => {
       }
 
       return expectSaga(fetchCities, dataContainer, action)
+        .provide({
+          call: (effect, next) => {
+            if (effect.fn === loadCities) {
+              throw new Error('Jemand hat keine 4 Issues geschafft!')
+            }
+            return next()
+          }
+        })
         .call(loadCities, dataContainer, false)
         .put({
           type: 'FETCH_CITIES_FAILED',
