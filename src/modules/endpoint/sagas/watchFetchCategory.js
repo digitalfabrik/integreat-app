@@ -24,7 +24,7 @@ function * isPeeking (routeCity: string): Saga<boolean> {
   return yield select(state => isPeekingRoute(state, { routeCity }))
 }
 
-function * fetchCategory (dataContainer: DataContainer, action: FetchCategoryActionType): Saga<void> {
+export function * fetchCategory (dataContainer: DataContainer, action: FetchCategoryActionType): Saga<void> {
   const { city, language, path, depth, key, criterion } = action.params
   try {
     const peeking = yield call(isPeeking, city)
@@ -62,7 +62,7 @@ function * fetchCategory (dataContainer: DataContainer, action: FetchCategoryAct
   }
 }
 
-function * cancelableFetchCategory (dataContainer: DataContainer, action: FetchCategoryActionType): Saga<void> {
+export function * cancelableFetchCategory (dataContainer: DataContainer, action: FetchCategoryActionType): Saga<void> {
   const { cancel } = yield race({
     response: call(fetchCategory, dataContainer, action),
     cancel: take('SWITCH_CONTENT_LANGUAGE')
