@@ -98,8 +98,8 @@ class ExtrasContainer extends React.Component<ExtrasPropsType, ExtrasStateType> 
   }
 }
 
-export default translate('extras')(
-  connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(
+export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(
+  translate('extras')(
     withTheme(props => props.language)(
       ExtrasContainer
     )))
