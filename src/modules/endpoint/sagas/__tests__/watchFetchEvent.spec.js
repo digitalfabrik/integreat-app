@@ -8,8 +8,6 @@ import LanguageModelBuilder from '../../../../testing/builder/LanguageModelBuild
 import watchFetchEvent, { fetchEvent } from '../watchFetchEvent'
 import { expectSaga, testSaga } from 'redux-saga-test-plan'
 import loadCityContent from '../loadCityContent'
-import { ContentLoadCriterion } from '../../ContentLoadCriterion'
-import { call } from 'redux-saga-test-plan/matchers'
 
 jest.mock('rn-fetch-blob')
 jest.mock('../loadCityContent')
@@ -29,6 +27,8 @@ describe('watchFetchEvents', () => {
       const resources = eventsBuilder.buildResources()
       const languages = new LanguageModelBuilder(2).build()
 
+      const initialPath = events[0].path
+
       const dataContainer = new DefaultDataContainer()
       await dataContainer.setEvents(city, language, events)
       await dataContainer.setLanguages(city, languages)
@@ -39,8 +39,8 @@ describe('watchFetchEvents', () => {
         params: {
           city,
           language,
-          path: '/',
-          key: 'key',
+          path: initialPath,
+          key: 'events-key',
           criterion: {
             forceUpdate: false,
             shouldRefreshResources: true
@@ -48,20 +48,14 @@ describe('watchFetchEvents', () => {
         }
       }
       return expectSaga(fetchEvent, dataContainer, action)
-        .provide([
-          [call.fn(loadCityContent), loadCityContent(dataContainer, city, language, new ContentLoadCriterion({
-            forceUpdate: false,
-            shouldRefreshResources: true
-          }, false))]
-        ])
         .put({
           type: 'PUSH_EVENT',
           params: {
             events,
             resourceCache: resources,
-            path: '/',
+            path: initialPath,
             cityLanguages: languages,
-            key: 'key',
+            key: 'events-key',
             language,
             city
           }
@@ -77,8 +71,8 @@ describe('watchFetchEvents', () => {
         params: {
           city,
           language,
-          path: '/',
-          key: 'key',
+          path: `/${city}/${language}/some-path`,
+          key: 'events-key',
           criterion: {
             forceUpdate: false,
             shouldRefreshResources: true
