@@ -16,24 +16,31 @@ beforeEach(() => {
 })
 
 const testResources = {
-  'de':
-  {
-    '/path/to/page':
+  '/path/to/page':
     {
       'https://test.de/path/to/resource/test.png':
       {
-        filePath: '/local/path/to/resource/b4b5dca65e423.png',
+        filePath: '/local/path/to/resource2/b4b5dca65e423.png',
         lastUpdate: moment('2011-02-04T23:00:00.000Z', moment.ISO_8601),
         hash: 'testHash'
       }
     }
-  }
+}
+
+const previousResources = {
+  '/path/to/page':
+      {
+        'https://test.de/path/to/resource/test.png':
+          {
+            filePath: '/local/path/to/resource/b4b5dca65e423.png',
+            lastUpdate: moment('2011-02-04T23:00:00.000Z', moment.ISO_8601),
+            hash: 'testHash'
+          }
+      }
 }
 
 const anotherTestResources = {
-  'de':
-  {
-    '/path/to/page2':
+  '/path/to/page2':
     {
       'https://test.de/path/to/anotherResource/test.png':
       {
@@ -42,7 +49,6 @@ const anotherTestResources = {
         hash: 'testHash'
       }
     }
-  }
 }
 
 describe('DefaultDataContainer', () => {
@@ -123,24 +129,20 @@ describe('DefaultDataContainer', () => {
     const receivedAnotherTestResources = await defaultDataContainer.getResourceCache('anotherTestCity', 'en')
 
     expect(receivedTestResources).toEqual({
-      'de': {
-        '/path/to/page': {
-          'https://test.de/path/to/resource/test.png': {
-            'filePath': '/local/path/to/resource/b4b5dca65e423.png',
-            'hash': 'testHash',
-            'lastUpdate': '2011-02-04T23:00:00.000Z'
-          }
+      '/path/to/page': {
+        'https://test.de/path/to/resource/test.png': {
+          'filePath': '/local/path/to/resource2/b4b5dca65e423.png',
+          'hash': 'testHash',
+          'lastUpdate': '2011-02-04T23:00:00.000Z'
         }
       }
     })
     expect(receivedAnotherTestResources).toEqual({
-      'de': {
-        '/path/to/page2': {
-          'https://test.de/path/to/anotherResource/test.png': {
-            'filePath': '/local/path/to/resource/b4b5dca65e424.png',
-            'hash': 'testHash',
-            'lastUpdate': '2011-02-04T23:00:00.000Z'
-          }
+      '/path/to/page2': {
+        'https://test.de/path/to/anotherResource/test.png': {
+          'filePath': '/local/path/to/resource/b4b5dca65e424.png',
+          'hash': 'testHash',
+          'lastUpdate': '2011-02-04T23:00:00.000Z'
         }
       }
     })
@@ -160,6 +162,18 @@ describe('DefaultDataContainer', () => {
     expect(anotherLastUpdate.isSame(receivedAnotherLastUpdate)).toBe(true)
   })
   describe('setResourceCache', () => {
+    it('should not delete any data if there are no previous resources available', async () => {
+      const defaultDataContainer = new DefaultDataContainer()
+      await defaultDataContainer.setResourceCache('testCity', 'de', testResources)
 
+      expect(RNFetchBlob.fs.unlink).not.toHaveBeenCalled()
+    })
+    it('should unlink the outdated resources if there are new resources available', async () => {
+      const defaultDataContainer = new DefaultDataContainer()
+      await defaultDataContainer.setResourceCache('testCity', 'de', previousResources)
+      await defaultDataContainer.setResourceCache('testCity', 'de', testResources)
+
+      expect(RNFetchBlob.fs.unlink).toHaveBeenCalledWith('/local/path/to/resource/b4b5dca65e423.png')
+    })
   })
 })
