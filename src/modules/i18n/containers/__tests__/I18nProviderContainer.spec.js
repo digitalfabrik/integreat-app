@@ -2,22 +2,75 @@
 
 import configureMockStore from 'redux-mock-store'
 import { Provider } from 'react-redux'
-import { shallow } from 'enzyme'
-import I18nProviderContainer from '../I18nProviderContainer'
-import React from 'react'
-import I18nProvider from '../../components/I18nProvider'
-import AsyncStorage from '@react-native-community/async-storage'
+import * as React from 'react'
+import waitForExpect from 'wait-for-expect'
+import { render } from '@testing-library/react-native'
+import TestRenderer from 'react-test-renderer'
+import typeof I18nProviderContainer from '../I18nProviderContainer'
+
+jest.mock('@react-native-community/async-storage')
+jest.mock('../../../i18n/LanguageDetector')
 
 const mockStore = configureMockStore()
 
-const mockAsyncStorage: AsyncStorage = require('@react-native-community/async-storage/jest/async-storage-mock').default
-jest.mock('@react-native-community/async-storage', () => mockAsyncStorage)
-
 describe('I18nProviderContainer', () => {
-  it('should pass the right props', () => {
+  beforeEach(() => {
+    jest.resetModules()
+  })
+
+  it('should pass props to inner component', () => {
+    const I18nProviderMock = () => null
+    jest.doMock('../../components/I18nProvider', () => I18nProviderMock)
+    const I18nProviderContainerMock: I18nProviderContainer = require('../I18nProviderContainer').default
+
     const store = mockStore({})
-    store.dispatch = jest.fn()
-    const wrapper = shallow(
+    const rendered = TestRenderer.create(<Provider store={store}>
+      <I18nProviderContainerMock />
+    </Provider>)
+    const props = rendered.root.findByType(I18nProviderMock).props
+    expect(props).toEqual({
+      setContentLanguage: expect.any(Function)
+    })
+  })
+
+  it('should dispatch action when setting content language', () => {
+    type MockPropsType = {
+      children?: React.Node,
+      setContentLanguage: (language: string) => void
+    }
+
+    class I18nProviderMock extends React.Component<MockPropsType> {
+      componentWillMount () {
+        this.props.setContentLanguage('ar')
+      }
+
+      render () {
+        return null
+      }
+    }
+
+    jest.doMock('../../components/I18nProvider', () => I18nProviderMock)
+    const I18nProviderContainerMock: I18nProviderContainer = require('../I18nProviderContainer').default
+
+    const store = mockStore({})
+    render(<Provider store={store}>
+      <I18nProviderContainerMock />
+    </Provider>)
+
+    expect(store.getActions()).toEqual([{
+      params: {
+        contentLanguage: 'ar'
+      },
+      type: 'SET_CONTENT_LANGUAGE'
+    }])
+  })
+
+  it('should trigger actions without passing props explicitly', async () => {
+    jest.dontMock('../../components/I18nProvider')
+    const I18nProviderContainer = require('../I18nProviderContainer').default
+
+    const store = mockStore({})
+    render(
       <Provider store={store}>
         <I18nProviderContainer>
           <React.Fragment />
@@ -25,17 +78,13 @@ describe('I18nProviderContainer', () => {
       </Provider>
     )
 
-    const props = wrapper.dive().find(I18nProvider).props()
-    expect(props.children).toEqual(<React.Fragment />)
-
-    const setContentLanguage = props.setContentLanguage
-    setContentLanguage('de')
-    expect(store.dispatch).toHaveBeenCalledTimes(1)
-    expect(store.dispatch).toHaveBeenCalledWith({
-      type: 'SET_CONTENT_LANGUAGE',
-      params: {
-        contentLanguage: 'de'
-      }
+    await waitForExpect(() => {
+      expect(store.getActions()).toEqual([{
+        type: 'SET_CONTENT_LANGUAGE',
+        params: {
+          contentLanguage: 'en'
+        }
+      }])
     })
   })
 })

@@ -9,10 +9,11 @@ import FetcherModule from '../../fetcher/FetcherModule'
 import { invertBy, mapValues, pickBy } from 'lodash/object'
 import type { DataContainer } from '../DataContainer'
 
-type PathType = string
-type UrlType = string
-type FilePathType = string
-export type FetchMapType = { [filePath: FilePathType]: [UrlType, PathType] }
+export type PathType = string
+export type UrlType = string
+export type FilePathType = string
+export type HashType = string
+export type FetchMapType = { [filePath: FilePathType]: [UrlType, PathType, HashType] }
 
 const createErrorMessage = (fetchResult: FetchResultType) => {
   return reduce(fetchResult, (message, result, path) => {
@@ -40,15 +41,18 @@ export default function * fetchResourceCache (
     }
 
     const targetCategories: { [categoryPath: PathType]: Array<FilePathType> } =
-      invertBy(mapValues(fetchMap, ([url, path]) => path))
+      invertBy(mapValues(fetchMap, ([url, path, urlHash]) => path))
 
     const resourceCache = mapValues(targetCategories, filePaths =>
       reduce(filePaths, (acc, filePath) => {
         const downloadResult = successResults[filePath]
+        const [, , urlHash] = fetchMap[filePath]
+
         if (downloadResult) {
           acc[downloadResult.url] = {
             filePath,
-            lastUpdate: downloadResult.lastUpdate
+            lastUpdate: downloadResult.lastUpdate,
+            hash: urlHash
           }
         }
         return acc
@@ -59,12 +63,11 @@ export default function * fetchResourceCache (
   } catch (e) {
     console.error(e)
     const failed: ResourcesFetchFailedActionType = {
-      type: `RESOURCES_FETCH_FAILED`,
+      type: `FETCH_RESOURCES_FAILED`,
       params: {
         message: `Error in fetchResourceCache: ${e.message}`
       }
     }
     yield put(failed)
-    throw e
   }
 }

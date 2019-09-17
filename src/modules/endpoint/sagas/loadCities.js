@@ -1,32 +1,30 @@
 // @flow
 
 import type { Saga } from 'redux-saga'
-import { createCitiesEndpoint, Payload } from '@integreat-app/integreat-api-client'
-import { call, put } from 'redux-saga/effects'
+import { CityModel } from '@integreat-app/integreat-api-client'
+import { call } from 'redux-saga/effects'
 import { baseUrl } from '../constants'
 import type { DataContainer } from '../DataContainer'
-import CityModel from '@integreat-app/integreat-api-client/models/CityModel'
-import type { PushCitiesActionType } from '../../app/StoreActionType'
+import createCitiesEndpoint from '@integreat-app/integreat-api-client/endpoints/createCitiesEndpoint'
 
 function * loadCities (
   dataContainer: DataContainer,
   forceRefresh: boolean
 ): Saga<Array<CityModel>> {
-  let cities: Array<CityModel>
-  if (!forceRefresh && (yield call(() => dataContainer.citiesAvailable()))) {
-    cities = yield call(() => dataContainer.getCities())
-  } else {
-    const payload: Payload<Array<CityModel>> = yield call(() => createCitiesEndpoint(baseUrl).request())
-    cities = payload.data
+  const citiesAvailable = yield call(() => dataContainer.citiesAvailable())
+
+  if (!citiesAvailable || forceRefresh) {
+    console.debug('Fetching cities')
+
+    const payload = yield call(() => createCitiesEndpoint(baseUrl).request())
+    const cities: Array<CityModel> = payload.data
+
     yield call(dataContainer.setCities, cities)
+    return cities
   }
 
-  const insert: PushCitiesActionType = {
-    type: `PUSH_CITIES`,
-    params: { cities: cities }
-  }
-  yield put(insert)
-  return cities
+  console.debug('Using cached cities')
+  return yield call(dataContainer.getCities)
 }
 
 export default loadCities
