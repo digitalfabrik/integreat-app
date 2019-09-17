@@ -4,7 +4,7 @@ import { CategoriesMapModel, CategoryModel } from '@integreat-app/integreat-api-
 import moment from 'moment-timezone'
 import type { FileCacheStateType, LanguageResourceCacheStateType } from '../../modules/app/StateType'
 import seedrandom from 'seedrandom'
-import { hexHash } from '../../modules/endpoint/fnv1a'
+import hashUrl from '../../modules/endpoint/hashUrl'
 
 const DEFAULT_MAX_WIDTH = 3
 const DEFAULT_DEPTH = 2
@@ -24,7 +24,7 @@ class CategoriesMapModelBuilder {
   }
 
   createResource (url: string, index: number, lastUpdate: moment): FileCacheStateType {
-    const hash = hexHash(url)
+    const hash = hashUrl(url)
     return {
       [url]: {
         filePath: `path/to/documentDir/resource-cache/v1/some-city/files/${hash}.png`,
