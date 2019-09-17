@@ -42,6 +42,17 @@ function existsMock (file: string): Promise<boolean> {
   return Promise.resolve(true)
 }
 
+function unlink (file: string): Promise<void> {
+  const dir = path.dirname(file)
+  const fileName = path.basename(file)
+
+  if (mockFiles[dir] && mockFiles[dir][fileName]) {
+    delete mockFiles[dir][fileName]
+  }
+
+  return Promise.resolve()
+}
+
 export default {
   DocumentDir: () => {},
   ImageCache: {
@@ -53,6 +64,7 @@ export default {
     exists: jest.fn<[string], Promise<boolean>>(existsMock),
     writeFile: jest.fn<[string, string | Array<string>, string], Promise<void>>(writeMockFile),
     readFile: jest.fn<[string, string], Promise<string>>(readMockFile),
+    unlink: jest.fn<[string], Promise<void>>(unlink),
     _reset: jest.fn<[], void>(deleteAllMockFiles),
     dirs: {
       MainBundleDir: 'path/to/mainBundleDir',
