@@ -19,7 +19,7 @@ pipeline {
         skipDefaultCheckout()
     }
     stages {
-        stage('Run on mac and master') {
+        stage('Run on mac and linux') {
             parallel {
                 stage('mac') {
                     agent {
@@ -83,9 +83,9 @@ pipeline {
                         }
                     }
                 }
-                stage('master') {
+                stage('linux') {
                     agent {
-                        label "master"
+                        label "linux"
                     }
                     stages {
                         stage("Install dependencies") {

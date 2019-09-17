@@ -46,15 +46,17 @@ export type PushCategoryActionType = {|
   type: 'PUSH_CATEGORY', params: {|
     categoriesMap: CategoriesMapModel,
     resourceCache: LanguageResourceCacheStateType,
-    rootAvailableLanguages: Map<string, string>,
+    cityLanguages: Array<LanguageModel>,
     city: string,
     language: string,
     path: string, depth: number, key: string
   |}
 |}
+
 export type ClearCategoryActionType = {|
   type: 'CLEAR_CATEGORY', params: {| key: string |}
 |}
+
 export type CategoriesActionType =
   ClearCategoryActionType
   | FetchCategoryActionType
@@ -72,12 +74,14 @@ export type ClearEventActionType = {|
   type: 'CLEAR_EVENT', params: {| key: string |}
 |}
 export type PushEventActionType = {|
-  type: 'PUSH_EVENT', params: {|
+  type: 'PUSH_EVENT',
+  params: {|
     events: Array<EventModel>,
     path: ?string, key: string,
     resourceCache: LanguageResourceCacheStateType,
-    languages: Array<LanguageModel>,
-    language: string
+    cityLanguages: Array<LanguageModel>,
+    language: string,
+    city: string
   |}
 |}
 export type FetchEventFailedActionType = {|
@@ -101,7 +105,9 @@ export type SwitchContentLanguageActionType = {|
 |}
 
 export type SwitchContentLanguageFailedActionType = {|
-  type: 'SWITCH_CONTENT_LANGUAGE_FAILED', message: string
+  type: 'SWITCH_CONTENT_LANGUAGE_FAILED', params: {|
+    message: string
+  |}
 |}
 
 export type MorphContentLanguageActionType = {|
@@ -118,7 +124,7 @@ export type ClearCityActionType = {|
 |}
 
 export type ResourcesFetchFailedActionType = {|
-  type: 'RESOURCES_FETCH_FAILED',
+  type: 'FETCH_RESOURCES_FAILED',
   params: {|
     message: string
   |}

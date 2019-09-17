@@ -7,7 +7,7 @@ import type { DataContainer } from '../DataContainer'
 import loadCityContent from './loadCityContent'
 import { ContentLoadCriterion } from '../ContentLoadCriterion'
 
-function * fetchEvent (dataContainer: DataContainer, action: FetchEventActionType): Saga<void> {
+export function * fetchEvent (dataContainer: DataContainer, action: FetchEventActionType): Saga<void> {
   const { city, language, path, key, criterion } = action.params
   try {
     const loadCriterion = new ContentLoadCriterion(criterion, false)
@@ -18,7 +18,7 @@ function * fetchEvent (dataContainer: DataContainer, action: FetchEventActionTyp
     if (cityContentLoaded) {
       // Only proceed if the content is ready to be pushed to the state. If not then the UI automatically displays an
       // appropriate error
-      const [events, resourceCache, languages] = yield all([
+      const [events, resourceCache, cityLanguages] = yield all([
         call(dataContainer.getEvents, city, language),
         call(dataContainer.getResourceCache, city, language),
         call(dataContainer.getLanguages, city)
@@ -26,14 +26,7 @@ function * fetchEvent (dataContainer: DataContainer, action: FetchEventActionTyp
 
       const insert: PushEventActionType = {
         type: `PUSH_EVENT`,
-        params: {
-          events,
-          resourceCache,
-          path,
-          languages,
-          key,
-          language
-        }
+        params: { events, resourceCache, path, cityLanguages, key, language, city }
       }
       yield put(insert)
     }

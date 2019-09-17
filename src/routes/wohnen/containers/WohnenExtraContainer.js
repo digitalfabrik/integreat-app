@@ -104,7 +104,7 @@ class WohnenExtraContainer extends React.Component<WohnenPropsType, SprungbrettS
     const { offers, error } = this.state
 
     if (error) {
-      return <Failure error={error} />
+      return <Failure error={error} t={t} theme={theme} />
     }
 
     if (!offers) {

@@ -41,8 +41,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   const route = state.cityContent?.categoriesRouteMapping[routeKey]
   const languages = state.cityContent?.languages
 
-  if (!route || route.status !== 'ready' || state.cities.errorMessage !== undefined ||
-    !state.cities.models || !state.cityContent || !languages) {
+  if (!route || route.status !== 'ready' || state.cities.status !== 'ready' || !state.cityContent || !languages) {
     // Route does not exist yet. In this case it is not really defined whether we are peek or not because
     // we do not yet know the city of the route.
     return { language: state.contentLanguage, peeking: false }
