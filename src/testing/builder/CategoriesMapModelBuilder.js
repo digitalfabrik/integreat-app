@@ -45,7 +45,7 @@ class CategoriesMapModelBuilder {
 
     for (let i = 0; i < this._maxWidth; i++) {
       const path = `${category.path}/category_${depth}-${i}`
-      const lastUpdate = moment.tz('2017-11-18 19:30:00', 'UTC')
+      const lastUpdate = moment('2017-11-18T19:30:00.000Z', moment.ISO_8601)
 
       const newChild = new CategoryModel({
         id: 0,
