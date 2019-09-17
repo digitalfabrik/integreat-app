@@ -25,8 +25,11 @@ class FetcherModule {
 
     FetcherModule.currentlyFetching = false
 
+    let errorMessage = 'This result is invalid because it is the first result produced by the FetcherModule.js mock.'
+
     return Promise.resolve(reduce(targetFilePaths, (result, value, key) => {
-      result[key] = { lastUpdate: moment('2016-02-01T10:35:20Z'), url: value, errorMessage: null }
+      result[key] = { lastUpdate: moment('2016-02-01T10:35:20Z'), url: value, errorMessage: errorMessage }
+      errorMessage = null
       return result
     }, {}))
   }

@@ -16,13 +16,8 @@ export type HashType = string
 export type FetchMapType = { [filePath: FilePathType]: [UrlType, PathType, HashType] }
 
 const createErrorMessage = (fetchResult: FetchResultType) => {
-  return reduce(fetchResult, (message, result, path) => {
-    if (!result.errorMessage) {
-      return message
-    }
-
-    return `${message}'Failed to download ${result.url} to ${path}': ${result.errorMessage}\n`
-  }, '')
+  return reduce(fetchResult, (message, result, path) =>
+    `${message}'Failed to download ${result.url} to ${path}': ${result.errorMessage}\n`, '')
 }
 
 export default function * fetchResourceCache (

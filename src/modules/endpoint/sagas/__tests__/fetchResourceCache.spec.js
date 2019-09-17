@@ -7,6 +7,7 @@ import RNFetchBlob from '../../../../__mocks__/rn-fetch-blob'
 import CategoriesMapModelBuilder from '../../../../testing/builder/CategoriesMapModelBuilder'
 import { transform, forEach } from 'lodash'
 import type { FileCacheStateType } from '../../../app/StateType'
+import Moment from 'moment'
 
 jest.mock('../../../fetcher/FetcherModule')
 jest.mock('rn-fetch-blob')
@@ -28,7 +29,9 @@ describe('fetchResourceCache', () => {
   const city = 'augsburg'
   const language = 'en'
 
-  it('should should fetch resources correctly', async () => {
+  it('should should fetch and create error message', async () => {
+    const spy = jest.spyOn(console, 'warn')
+
     const dataContainer = new DefaultDataContainer()
 
     const categoriesBuilder = new CategoriesMapModelBuilder(1, 2)
@@ -40,12 +43,19 @@ describe('fetchResourceCache', () => {
       .run()
 
     const fetchedResources = await dataContainer.getResourceCache(city, language)
-    expect(fetchedResources).toMatchObject(transform(resources, (result, value, path) => {
+
+    const lessStrictExpected = transform(resources, (result, value, path) => {
       forEach(value, (value, url) => {
-        delete result[path][url].lastUpdate
+        result[path][url].lastUpdate = expect.any(Moment)
       })
       return result
-    }, resources))
+    }, resources)
+
+    delete lessStrictExpected['/augsburg/de/category_0-0'] /* The first category is excluded because an the
+                                                              FetcherModule produced an error for this */
+    expect(fetchedResources).toMatchObject(lessStrictExpected)
+    expect(spy).toHaveBeenCalledWith(expect.stringContaining('Failed to download https://integreat/title_0-0-300x300.png'))
+    spy.mockRestore()
   })
 
   it('should should yield error if fetching fails', () => {
