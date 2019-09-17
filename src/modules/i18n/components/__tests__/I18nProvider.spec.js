@@ -53,14 +53,14 @@ describe('I18nProvider', () => {
     })
   })
 
-  it('should not set content language if already set', () => {
+  it('should not set content language if already set', async () => {
     const appSettings = new AppSettings()
     appSettings.setContentLanguage('de')
     const mockSetContentLanguage = jest.fn()
 
     render(<I18nProvider setContentLanguage={mockSetContentLanguage} />)
 
-    waitForExpect(async () => {
+    await waitForExpect(async () => {
       expect(mockSetContentLanguage).not.toHaveBeenCalled()
       expect(await appSettings.loadContentLanguage()).toBe('de')
     })

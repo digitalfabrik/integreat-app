@@ -13,18 +13,18 @@ const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, city: str
       console.warn('Route was not ready when translating. Will not translate this route.')
       return route
     }
-    const { depth, root, allAvailableLanguages } = route
+    const { depth, path, allAvailableLanguages } = route
 
-    const translatedRoot = allAvailableLanguages.get(newLanguage)
+    const translatedPath = allAvailableLanguages.get(newLanguage)
 
-    if (!translatedRoot) { // Route is not translatable
+    if (!translatedPath) { // Route is not translatable
       return route
     }
 
-    const rootModel = newCategoriesMap.findCategoryByPath(translatedRoot)
+    const rootModel = newCategoriesMap.findCategoryByPath(translatedPath)
     if (!rootModel) {
-      console.warn(`Inconsistent data detected: ${translatedRoot} does not exist,
-                      but is referenced in ${root} as translation for ${newLanguage}.`)
+      console.warn(`Inconsistent data detected: ${translatedPath} does not exist,
+                      but is referenced in ${path} as translation for ${newLanguage}.`)
       return route
     }
 
@@ -39,7 +39,7 @@ const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, city: str
     })
 
     return {
-      root: translatedRoot,
+      path: translatedPath,
       models: resultModels,
       children: resultChildren,
       depth,
@@ -56,7 +56,7 @@ const eventRouteTranslator = (newEvents: Array<EventModel>, newLanguage: string)
       console.warn('Route was not ready when translating. Will not translate this route.')
       return route
     }
-    const { path, allAvailableLanguages } = route
+    const { path, allAvailableLanguages, city } = route
 
     if (!path) { // Route is a list of all events
       return {
@@ -64,7 +64,8 @@ const eventRouteTranslator = (newEvents: Array<EventModel>, newLanguage: string)
         path: null,
         models: newEvents,
         allAvailableLanguages,
-        language: newLanguage
+        language: newLanguage,
+        city
       }
     }
 
@@ -89,7 +90,8 @@ const eventRouteTranslator = (newEvents: Array<EventModel>, newLanguage: string)
       path: translatedPath,
       models: [translatedEvent],
       allAvailableLanguages,
-      language: newLanguage
+      language: newLanguage,
+      city
     }
   }
 
