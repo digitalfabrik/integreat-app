@@ -24,7 +24,7 @@ const mapStateToProps = (state: StateType): StatePropsType => {
     throw new Error('CityContent must not be null!')
   }
 
-  const cities: ?Array<CityModel> = state.cities.errorMessage !== undefined ? null : state.cities.models
+  const cities: ?Array<CityModel> = state.cities.status !== 'ready' ? null : state.cities.models
 
   return {
     city: state.cityContent.city,

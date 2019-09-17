@@ -2,14 +2,6 @@ const fs = require('fs')
 const path = require('path')
 require('react-native-gesture-handler/jestSetup')
 
-console.error = error => {
-  throw Error(error)
-}
-
-console.warn = warn => {
-  throw Error(warn)
-}
-
 // window isn't defined as of react-native 0.45+ it seems
 if (typeof window !== 'object') {
   global.window = global
@@ -37,3 +29,7 @@ walkDir(mocksPath, name => {
     jest.unmock(name.substring(mocksPath.length, name.length - jsPath.length))
   }
 })
+
+jest.doMock('react-native/Libraries/ReactNative/I18nManager',
+  () => require('testing/I18nManagerMock.js')
+)

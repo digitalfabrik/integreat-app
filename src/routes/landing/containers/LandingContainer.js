@@ -29,11 +29,11 @@ type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const language = state.contentLanguage
-  if (state.cities.errorMessage !== undefined) {
+  if (state.cities.status === 'error') {
     return { status: 'error', refreshProps: undefined }
   }
 
-  if (!state.cities.models) {
+  if (state.cities.status === 'loading') {
     return { status: 'loading' }
   }
   return {
