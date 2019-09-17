@@ -142,7 +142,7 @@ class DefaultDataContainer implements DataContainer {
 
     const newResourceCache = { ...previousResourceCache, [language]: resourceCache }
 
-    if (resourceCache[language]) {
+    if (previousResourceCache[language]) {
       // Cleanup old resources
       const oldPaths = this.getFilePathsFromLanguageResourceCache(previousResourceCache[language])
       const newPaths = this.getFilePathsFromLanguageResourceCache(resourceCache)
