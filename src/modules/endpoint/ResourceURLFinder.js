@@ -4,7 +4,7 @@ import getExtension from './getExtension'
 import { Parser } from 'htmlparser2'
 import type { FetchMapType } from './sagas/fetchResourceCache'
 import { keyBy, reduce } from 'lodash/collection'
-import { hexHash } from './fnv1a'
+import hashUrl from './hashUrl'
 
 /**
  * A ResourceURLFinder allows to find resource urls in html source code.
@@ -56,7 +56,7 @@ export default class ResourceURLFinder {
       return {
         ...acc,
         ...keyBy(
-          Array.from(urlSet).map(url => [url, path, hexHash(url)]),
+          Array.from(urlSet).map(url => [url, path, hashUrl(url)]),
           ([url, path, urlHash]) => buildFilePath(url, path, urlHash)
         )
       }
