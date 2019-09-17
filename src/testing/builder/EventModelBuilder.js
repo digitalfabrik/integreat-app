@@ -52,9 +52,10 @@ class EventModelBuilder {
    */
   buildAll (): Array<{ path: string, event: EventModel, resources: { [path: string]: FileCacheStateType } }> {
     return Array.from({ length: this._eventCount }, (x, index) => {
-      const startDate = moment.tz('2015-01-01 00:00:00', 'UTC').add(this.predictableNumber(index), 'years')
-      const endDate = moment(startDate).add(this.predictableNumber(index), 'hours')
-      const lastUpdate = moment(startDate).subtract(this.predictableNumber(index), 'months')
+      const startDate = moment('2015-01-01T00:00:00.000Z', moment.ISO_8601).add(this.predictableNumber(index), 'years')
+
+      const endDate = startDate.add(this.predictableNumber(index), 'hours')
+      const lastUpdate = startDate.subtract(this.predictableNumber(index), 'months')
       const path = `/augsburg/en/events/event${index}`
       return {
         path,
