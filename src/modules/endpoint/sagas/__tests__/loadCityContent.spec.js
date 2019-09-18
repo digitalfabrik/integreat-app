@@ -26,7 +26,7 @@ jest.mock('../loadCities')
 jest.mock('../loadLanguages')
 
 const prepareDataContainer = async (dataContainer: DataContainer, city: string, language: string) => {
-  const filePathBuilder = (url: string, urlHash: string) => buildResourceFilePath(url, null, city, urlHash)
+  const filePathBuilder = (url: string, urlHash: string) => buildResourceFilePath(url, city, urlHash)
   const categoriesBuilder = new CategoriesMapModelBuilder(2, 2,
     filePathBuilder
   )

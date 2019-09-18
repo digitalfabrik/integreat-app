@@ -3,6 +3,6 @@
 import { getResourceCacheFilesDirPath } from '../platform/constants/webview'
 import getExtension from './getExtension'
 
-export default (url: string, path: string, city: string, urlHash: string) => {
+export default (url: string, city: string, urlHash: string) => {
   return `${getResourceCacheFilesDirPath(city)}/${urlHash}.${getExtension(url)}`
 }
