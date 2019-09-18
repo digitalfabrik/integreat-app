@@ -10,7 +10,7 @@ import type { DataContainer } from '../../DataContainer'
 import CategoriesMapModelBuilder from '../../../../testing/builder/CategoriesMapModelBuilder'
 import LanguageModelBuilder from '../../../../testing/builder/LanguageModelBuilder'
 import CityModelBuilder from '../../../../testing/builder/CitiyModelBuilder'
-import moment from 'moment'
+import moment from 'moment-timezone'
 import EventModelBuilder from '../../../../testing/builder/EventModelBuilder'
 import AsyncStorage from '@react-native-community/async-storage'
 import fetchResourceCache from '../fetchResourceCache'
@@ -48,20 +48,42 @@ const prepareDataContainer = async (dataContainer: DataContainer, city: string, 
   return { languages, cities, categories, events, resources, fetchMap }
 }
 
+jest.mock('moment-timezone', () => {
+  const moment = jest.requireActual('moment-timezone')
+  const mockActualTz = moment.tz
+  moment.tz = jest.fn(mockActualTz)
+  return moment
+})
+
+const mockTz = (mockDate: moment) => {
+  const previous = moment.tz.getMockImplementation()
+  moment.tz.mockImplementation(function (): moment {
+    if (arguments.length <= 1) {
+      return mockDate
+    }
+
+    return previous(...arguments)
+  })
+}
+
 describe('loadCityContent', () => {
   beforeEach(async () => {
     RNFetchBlob.fs._reset()
     await AsyncStorage.clear()
+
+    jest.restoreAllMocks()
   })
 
   const city = 'augsburg'
   const language = 'en'
 
+  const lastUpdate = moment('2019-09-18T16:04:06+02:00')
+
   it('should set selected city when not peeking', async () => {
     const dataContainer = new DefaultDataContainer()
     await prepareDataContainer(dataContainer, city, language)
 
-    await dataContainer.setLastUpdate(city, language, moment())
+    await dataContainer.setLastUpdate(city, language, lastUpdate)
 
     await expectSaga(loadCityContent,
       dataContainer, city, language, new ContentLoadCriterion({
@@ -71,13 +93,14 @@ describe('loadCityContent', () => {
     ).run()
 
     expect(await new AppSettings().loadSelectedCity()).toBe('augsburg')
+    expect(await dataContainer.getLastUpdate(city, language)).toBe(lastUpdate)
   })
 
   it('should not set selected city when peeking', async () => {
     const dataContainer = new DefaultDataContainer()
     await prepareDataContainer(dataContainer, city, language)
 
-    await dataContainer.setLastUpdate(city, language, moment())
+    await dataContainer.setLastUpdate(city, language, lastUpdate)
 
     await expectSaga(loadCityContent,
       dataContainer, city, language, new ContentLoadCriterion({
@@ -87,13 +110,14 @@ describe('loadCityContent', () => {
     ).run()
 
     expect(await new AppSettings().loadSelectedCity()).toBeFalsy()
+    expect(await dataContainer.getLastUpdate(city, language)).toBe(lastUpdate)
   })
 
   it('should load languages when not peeking', async () => {
     const dataContainer = new DefaultDataContainer()
     const { languages } = await prepareDataContainer(dataContainer, city, language)
 
-    await dataContainer.setLastUpdate(city, language, moment())
+    await dataContainer.setLastUpdate(city, language, lastUpdate)
 
     await expectSaga(loadCityContent,
       dataContainer, city, language, new ContentLoadCriterion({
@@ -103,13 +127,15 @@ describe('loadCityContent', () => {
     )
       .put({ type: 'PUSH_LANGUAGES', params: { languages } })
       .run()
+
+    expect(await dataContainer.getLastUpdate(city, language)).toBe(lastUpdate)
   })
 
   it('should not load languages when peeking', async () => {
     const dataContainer = new DefaultDataContainer()
     await prepareDataContainer(dataContainer, city, language)
 
-    await dataContainer.setLastUpdate(city, language, moment())
+    await dataContainer.setLastUpdate(city, language, lastUpdate)
 
     await expectSaga(loadCityContent,
       dataContainer, city, language, new ContentLoadCriterion({
@@ -119,13 +145,18 @@ describe('loadCityContent', () => {
     )
       .not.put.like({ action: { type: 'PUSH_LANGUAGES' } })
       .run()
+
+    expect(await dataContainer.getLastUpdate(city, language)).toBe(lastUpdate)
   })
 
   it('should return false if language does not exist', async () => {
+    const mockDate = jest.requireActual('moment-timezone').tz('2000-01-01T00:00:00.000Z', 'UTC')
+    mockTz(mockDate)
+
     const dataContainer = new DefaultDataContainer()
     await prepareDataContainer(dataContainer, city, language)
 
-    await dataContainer.setLastUpdate(city, language, moment())
+    await dataContainer.setLastUpdate(city, language, lastUpdate)
 
     await expectSaga(loadCityContent,
       dataContainer, city, '??', new ContentLoadCriterion({
@@ -135,13 +166,18 @@ describe('loadCityContent', () => {
     )
       .returns(false)
       .run()
+
+    const lastUpdateAfterLoading: moment = await dataContainer.getLastUpdate(city, language)
+
+    expect(lastUpdateAfterLoading.isSame(lastUpdate)).toBeTruthy()
+    expect(lastUpdateAfterLoading.isSame(mockDate)).not.toBeTruthy()
   })
 
   it('should return true if language does exist', async () => {
     const dataContainer = new DefaultDataContainer()
     await prepareDataContainer(dataContainer, city, language)
 
-    await dataContainer.setLastUpdate(city, language, moment())
+    await dataContainer.setLastUpdate(city, language, lastUpdate)
 
     await expectSaga(loadCityContent,
       dataContainer, city, language, new ContentLoadCriterion({
@@ -151,13 +187,15 @@ describe('loadCityContent', () => {
     )
       .returns(true)
       .run()
+
+    expect(await dataContainer.getLastUpdate(city, language)).toBe(lastUpdate)
   })
 
   it('should fetch resources when requested and connection type is not cellular', async () => {
     const dataContainer = new DefaultDataContainer()
     const { fetchMap } = await prepareDataContainer(dataContainer, city, language)
 
-    await dataContainer.setLastUpdate(city, language, moment())
+    await dataContainer.setLastUpdate(city, language, lastUpdate)
 
     await expectSaga(loadCityContent,
       dataContainer, city, language, new ContentLoadCriterion({
@@ -167,13 +205,15 @@ describe('loadCityContent', () => {
     )
       .call(fetchResourceCache, city, language, fetchMap, dataContainer)
       .run()
+
+    expect(await dataContainer.getLastUpdate(city, language)).toBe(lastUpdate)
   })
 
   it('should not fetch resources when not requested and connection type is not cellular', async () => {
     const dataContainer = new DefaultDataContainer()
     const { fetchMap } = await prepareDataContainer(dataContainer, city, language)
 
-    await dataContainer.setLastUpdate(city, language, moment())
+    await dataContainer.setLastUpdate(city, language, lastUpdate)
 
     await expectSaga(loadCityContent,
       dataContainer, city, language, new ContentLoadCriterion({
@@ -183,5 +223,26 @@ describe('loadCityContent', () => {
     )
       .not.call(fetchResourceCache, city, language, fetchMap, dataContainer)
       .run()
+
+    expect(await dataContainer.getLastUpdate(city, language)).toBe(lastUpdate)
+  })
+
+  it('should update if last update was a long time ago', async () => {
+    const mockDate = jest.requireActual('moment-timezone').tz('2000-01-01T00:00:00.000Z', 'UTC')
+    mockTz(mockDate)
+
+    const dataContainer = new DefaultDataContainer()
+    await prepareDataContainer(dataContainer, city, language)
+
+    await dataContainer.setLastUpdate(city, language, moment.unix(0))
+
+    await expectSaga(loadCityContent,
+      dataContainer, city, language, new ContentLoadCriterion({
+        forceUpdate: false,
+        shouldRefreshResources: false
+      }, false)
+    ).run()
+
+    expect(await dataContainer.getLastUpdate(city, language)).toBe(mockDate)
   })
 })
