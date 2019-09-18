@@ -45,7 +45,13 @@ export default function * loadCityContent (
   console.debug('City content should be refreshed: ', shouldUpdate)
 
   if (criterion.shouldLoadLanguages()) {
-    yield call(loadLanguages, newCity, dataContainer, shouldUpdate)
+    yield call(loadLanguages, newCity, dataContainer, shouldUpdate) /* The languages for a city get updated if a any
+                                                                       language of the city is:
+                                                                          * older than MAX_CONTENT_AGE,
+                                                                          * has no "lastUpdate" or
+                                                                          * an update is forced
+                                                                        This means the loading of languages depends on
+                                                                        language AND the city */
     const languages = yield call(dataContainer.getLanguages, newCity)
 
     const pushLanguages: PushLanguagesActionType = { type: 'PUSH_LANGUAGES', params: { languages } }
