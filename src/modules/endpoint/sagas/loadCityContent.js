@@ -79,7 +79,7 @@ export default function * loadCityContent (
 
     const fetchMap = resourceURLFinder.buildFetchMap(
       categoriesMap.toArray().concat(events),
-      (url, path, urlHash) => buildResourceFilePath(url, path, newCity, urlHash)
+      (url, path, urlHash) => buildResourceFilePath(url, newCity, urlHash)
     )
 
     resourceURLFinder.finalize()
