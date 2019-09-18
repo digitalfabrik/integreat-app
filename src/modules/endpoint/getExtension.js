@@ -1,9 +1,15 @@
 // @flow
 
 import { last } from 'lodash'
+import Url from 'url-parse'
 
 export default (urlString: string) => {
-  const url = new URL(urlString)
+  const url = new Url(urlString)
+
+  if (!url.protocol) {
+    throw new Error('Invalid URL! Missing protocol.')
+  }
+
   const pathname = url.pathname
 
   const lastPath = last(pathname.split('/'))
@@ -14,7 +20,7 @@ export default (urlString: string) => {
 
   const index = lastPath.lastIndexOf('.')
   if (index === -1) {
-    throw new Error('The URL does not have an extension!')
+    return ''
   }
   return lastPath.substring(index + 1)
 }
