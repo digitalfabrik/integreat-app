@@ -3,7 +3,7 @@
 import { type NetInfoState, type NetInfoSubscription } from '@react-native-community/netinfo'
 import { isString } from 'lodash'
 
-export const fetch = async (): Promise<NetInfoState> => {
+export const fetch = jest.fn<[], Promise<NetInfoState>>(async (): Promise<NetInfoState> => {
   return {
     type: 'wifi',
     isConnected: true,
@@ -12,7 +12,7 @@ export const fetch = async (): Promise<NetInfoState> => {
       isConnectionExpensive: false
     }
   }
-}
+})
 
 export const addEventListener = (
   listener: (NetInfoState) => mixed,
