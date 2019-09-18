@@ -5,16 +5,25 @@ import moment from 'moment-timezone'
 import seedrandom from 'seedrandom'
 import type { FileCacheStateType } from '../../modules/app/StateType'
 import hashUrl from '../../modules/endpoint/hashUrl'
+import type { FetchMapType } from '../../modules/endpoint/sagas/fetchResourceCache'
+import { createFetchMap } from './util'
 
 const MAX_PREDICTABLE_VALUE = 6
+
+const FILE_PATH_BUILDER = (url: string, urlHash: string) =>
+  `path/to/documentDir/resource-cache/v1/some-city/files/${urlHash}.png`
 
 class EventModelBuilder {
   _eventCount: number
   _seed: string
+  _buildFilePath: (url: string, urlHash: string) => string
 
-  constructor (seed: string, eventCount: number) {
+  constructor (
+    seed: string, eventCount: number,
+    buildFilePath: (url: string, urlHash: string) => string = FILE_PATH_BUILDER) {
     this._seed = seed
     this._eventCount = eventCount
+    this._buildFilePath = buildFilePath
   }
 
   predictableNumber (index: number, max: number = MAX_PREDICTABLE_VALUE): number {
@@ -32,11 +41,15 @@ class EventModelBuilder {
     }, {})
   }
 
+  buildFetchMap (): FetchMapType {
+    return createFetchMap(this.buildResources())
+  }
+
   createResource (url: string, index: number, lastUpdate: moment): FileCacheStateType {
     const hash = hashUrl(url)
     return {
       [url]: {
-        filePath: `path/to/documentDir/resource-cache/v1/some-city/files/${hash}.png`,
+        filePath: this._buildFilePath(url, hash),
         lastUpdate: moment(lastUpdate).add(this.predictableNumber(index), 'days'),
         hash
       }
@@ -56,6 +69,11 @@ class EventModelBuilder {
       const endDate = moment(startDate).add(this.predictableNumber(index), 'hours')
       const lastUpdate = moment(startDate).subtract(this.predictableNumber(index), 'months')
       const path = `/augsburg/en/events/event${index}`
+
+      const thumbnailUrl = `http://thumbnails/event_-${index}.png`
+      const imgUrl1 = `https://integreat/title_${index}-300x300.png`
+      const imgUrl2 = `https://integreat/event_${index}-300x300.png`
+
       return {
         path,
         event: new EventModel({
@@ -77,14 +95,15 @@ class EventModelBuilder {
           excerpt: 'excerpt',
           lastUpdate,
           content: `<h1>This is a sample event</h1>
-                    <img src="https://integreat/title_${index}-300x300.png"/>
+                    <img src="${imgUrl1}"/>
                     <p>This is a sample event</p>
-                    <img src="https://integreat/event_${index}-300x300.png"/>`,
-          thumbnail: 'https://integreat/thumbnail.png'
+                    <img src="${imgUrl2}"/>`,
+          thumbnail: thumbnailUrl
         }),
         resources: {
-          ...this.createResource(`https://integreat/title_${index}-300x300.png`, index),
-          ...this.createResource(`https://integreat/event_${index}-300x300.png`, index)
+          ...this.createResource(imgUrl1, index),
+          ...this.createResource(imgUrl2, index),
+          ...this.createResource(thumbnailUrl, index)
         }
       }
     })
