@@ -34,7 +34,7 @@ describe('Navigator', () => {
     })
   })
 
-  it('should display CityContent if a city is selected in settings', async () => {
+  it('should display CityContent and call fetchCategory if a city is selected in settings', async () => {
     const appSettings = new AppSettings()
     await appSettings.setSelectedCity('augsburg')
     await appSettings.setContentLanguage('de')
@@ -58,7 +58,7 @@ describe('Navigator', () => {
     })
   })
 
-  it('should display Landing and call fetchCategory if no city is selected in settings', async () => {
+  it('should display Landing if no city is selected in settings', async () => {
     const appSettings = new AppSettings()
     await appSettings.clearSelectedCity()
     await appSettings.setContentLanguage('de')
