@@ -52,9 +52,10 @@ class EventModelBuilder {
    */
   buildAll (): Array<{ path: string, event: EventModel, resources: { [path: string]: FileCacheStateType } }> {
     return Array.from({ length: this._eventCount }, (x, index) => {
-      const startDate = moment.tz('2015-01-01 00:00:00', 'UTC').add(this.predictableNumber(index), 'years')
-      const endDate = moment(startDate).add(this.predictableNumber(index), 'hours')
-      const lastUpdate = moment(startDate).subtract(this.predictableNumber(index), 'months')
+      const mockDate = moment('2015-01-01T00:00:00.000Z', moment.ISO_8601)
+      const startDate = moment(mockDate.add(this.predictableNumber(index), 'years').toISOString(), moment.ISO_8601)
+      const endDate = moment(mockDate.add(this.predictableNumber(index), 'hours').toISOString(), moment.ISO_8601)
+      const lastUpdate = moment(mockDate.subtract(this.predictableNumber(index), 'months').toISOString(), moment.ISO_8601)
       const path = `/augsburg/en/events/event${index}`
       return {
         path,
@@ -83,8 +84,8 @@ class EventModelBuilder {
           thumbnail: 'https://integreat/thumbnail.png'
         }),
         resources: {
-          ...this.createResource(`https://integreat/title_${index}-300x300.png`, index),
-          ...this.createResource(`https://integreat/event_${index}-300x300.png`, index)
+          ...this.createResource(`https://integreat/title_${index}-300x300.png`, index, lastUpdate),
+          ...this.createResource(`https://integreat/event_${index}-300x300.png`, index, lastUpdate)
         }
       }
     })
