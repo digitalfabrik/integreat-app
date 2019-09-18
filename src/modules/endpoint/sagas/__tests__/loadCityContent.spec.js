@@ -15,6 +15,7 @@ import EventModelBuilder from '../../../../testing/builder/EventModelBuilder'
 import AsyncStorage from '@react-native-community/async-storage'
 import fetchResourceCache from '../fetchResourceCache'
 import buildResourceFilePath from '../../buildResourceFilePath'
+import NetInfo from '@react-native-community/netinfo'
 
 jest.mock('@react-native-community/async-storage')
 jest.mock('@react-native-community/netinfo')
@@ -64,14 +65,14 @@ const mockTz = (mockDate: moment) => {
 
     return previous(...arguments)
   })
+
+  return { restore: () => { moment.tz.mockImplementation(previous) } }
 }
 
 describe('loadCityContent', () => {
   beforeEach(async () => {
     RNFetchBlob.fs._reset()
     await AsyncStorage.clear()
-
-    jest.restoreAllMocks()
   })
 
   const city = 'augsburg'
@@ -151,7 +152,7 @@ describe('loadCityContent', () => {
 
   it('should return false if language does not exist', async () => {
     const mockDate = jest.requireActual('moment-timezone').tz('2000-01-01T00:00:00.000Z', 'UTC')
-    mockTz(mockDate)
+    const { restore } = mockTz(mockDate)
 
     const dataContainer = new DefaultDataContainer()
     await prepareDataContainer(dataContainer, city, language)
@@ -171,6 +172,7 @@ describe('loadCityContent', () => {
 
     expect(lastUpdateAfterLoading.isSame(lastUpdate)).toBeTruthy()
     expect(lastUpdateAfterLoading.isSame(mockDate)).not.toBeTruthy()
+    restore()
   })
 
   it('should return true if language does exist', async () => {
@@ -227,9 +229,39 @@ describe('loadCityContent', () => {
     expect(await dataContainer.getLastUpdate(city, language)).toBe(lastUpdate)
   })
 
+  it('should not fetch resources if connection type is cellular', async () => {
+    const previous = NetInfo.fetch.getMockImplementation()
+    NetInfo.fetch.mockImplementation(() => {
+      return {
+        type: 'cellular',
+        isConnected: true,
+        isInternetReachable: true,
+        details: {
+          isConnectionExpensive: false
+        }
+      }
+    })
+    const dataContainer = new DefaultDataContainer()
+    const { fetchMap } = await prepareDataContainer(dataContainer, city, language)
+
+    await dataContainer.setLastUpdate(city, language, lastUpdate)
+
+    await expectSaga(loadCityContent,
+      dataContainer, city, language, new ContentLoadCriterion({
+        forceUpdate: false,
+        shouldRefreshResources: true
+      }, false)
+    )
+      .not.call(fetchResourceCache, city, language, fetchMap, dataContainer)
+      .run()
+
+    expect(await dataContainer.getLastUpdate(city, language)).toBe(lastUpdate)
+    NetInfo.fetch.mockImplementation(previous)
+  })
+
   it('should update if last update was a long time ago', async () => {
     const mockDate = jest.requireActual('moment-timezone').tz('2000-01-01T00:00:00.000Z', 'UTC')
-    mockTz(mockDate)
+    const { restore } = mockTz(mockDate)
 
     const dataContainer = new DefaultDataContainer()
     await prepareDataContainer(dataContainer, city, language)
@@ -244,5 +276,6 @@ describe('loadCityContent', () => {
     ).run()
 
     expect(await dataContainer.getLastUpdate(city, language)).toBe(mockDate)
+    restore()
   })
 })
