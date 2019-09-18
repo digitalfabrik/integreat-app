@@ -44,3 +44,13 @@ export const isConnected = {
   removeEventListener: () => { throw Error('Function is deprecated') },
   fetch: () => { throw Error('Function is deprecated') }
 }
+
+export default {
+  fetch,
+  addEventListener,
+  removeEventListener,
+  useNetInfo,
+  getConnectionInfo,
+  isConnectionExpensive,
+  isConnected
+}
