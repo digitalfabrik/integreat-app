@@ -13,6 +13,7 @@ jest.mock('rn-fetch-blob')
 
 beforeEach(() => {
   RNFetchBlob.fs._reset()
+  jest.clearAllMocks()
 })
 
 const testResources = {
@@ -40,11 +41,11 @@ const previousResources = {
 }
 
 const anotherTestResources = {
-  '/path/to/page2':
+  '/path/to/page':
     {
       'https://test.de/path/to/anotherResource/test.png':
       {
-        filePath: '/local/path/to/resource/b4b5dca65e424.png',
+        filePath: '/local/path/to/resource3/b4b5dca65e424.png',
         lastUpdate: moment('2011-02-04T23:00:00.000Z', moment.ISO_8601),
         hash: 'testHash'
       }
@@ -138,14 +139,20 @@ describe('DefaultDataContainer', () => {
       }
     })
     expect(receivedAnotherTestResources).toEqual({
-      '/path/to/page2': {
+      '/path/to/page': {
         'https://test.de/path/to/anotherResource/test.png': {
-          'filePath': '/local/path/to/resource/b4b5dca65e424.png',
+          'filePath': '/local/path/to/resource3/b4b5dca65e424.png',
           'hash': 'testHash',
           'lastUpdate': '2011-02-04T23:00:00.000Z'
         }
       }
     })
+  })
+  it('should return an empty object if no resources where found', async () => {
+    const defaultDataContainer = new DefaultDataContainer()
+    await defaultDataContainer.setResourceCache('testCity', 'de', testResources)
+    const result = await defaultDataContainer.getResourceCache('testCity', 'en')
+    expect(result).toBeEmpty()
   })
   it('should return the lastUpdateMoment associated with the context', async () => {
     const defaultDataContainer = new DefaultDataContainer()
@@ -170,10 +177,47 @@ describe('DefaultDataContainer', () => {
     })
     it('should unlink the outdated resources if there are new resources available', async () => {
       const defaultDataContainer = new DefaultDataContainer()
+      await defaultDataContainer.setResourceCache('testCity', 'en', anotherTestResources)
       await defaultDataContainer.setResourceCache('testCity', 'de', previousResources)
       await defaultDataContainer.setResourceCache('testCity', 'de', testResources)
 
       expect(RNFetchBlob.fs.unlink).toHaveBeenCalledWith('/local/path/to/resource/b4b5dca65e423.png')
+    })
+  })
+  describe('citiesAvailable', () => {
+    it('should return true, if cities are cached', async () => {
+      const defaultDataContainer = new DefaultDataContainer()
+      await defaultDataContainer.setCities(testCities)
+      const isAvailable = await defaultDataContainer.citiesAvailable()
+
+      expect(isAvailable).toBe(true)
+    })
+  })
+  describe('categoriesAvailable', () => {
+    it('should return true, if categories are cached', async () => {
+      const defaultDataContainer = new DefaultDataContainer()
+      await defaultDataContainer.setCategoriesMap('testCity', 'de', testCategoryModel)
+      const isAvailable = await defaultDataContainer.categoriesAvailable('testCity', 'de')
+
+      expect(isAvailable).toBe(true)
+    })
+  })
+  describe('languagesAvailable', () => {
+    it('should return true, if languages are cached', async () => {
+      const defaultDataContainer = new DefaultDataContainer()
+      await defaultDataContainer.setLanguages('testCity', testLanguages)
+      const isAvailable = await defaultDataContainer.languagesAvailable('testCity')
+
+      expect(isAvailable).toBe(true)
+    })
+  })
+  describe('eventsAvailable', () => {
+    it('should return true, if events are cached', async () => {
+      const defaultDataContainer = new DefaultDataContainer()
+      await defaultDataContainer.setEvents('testCity', 'de', testEvents)
+      const isAvailable = await defaultDataContainer.eventsAvailable('testCity', 'de')
+
+      expect(isAvailable).toBe(true)
     })
   })
 })
