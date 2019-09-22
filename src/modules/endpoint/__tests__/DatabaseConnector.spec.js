@@ -1,10 +1,13 @@
 // @flow
 
-import { CityModel, CategoryModel, CategoriesMapModel, LanguageModel, EventModel, LocationModel, DateModel } from '@integreat-app/integreat-api-client'
 import DatabaseConnector from '../DatabaseConnector'
 import DatabaseContext from '../DatabaseContext'
 import moment from 'moment-timezone'
 import RNFetchBlob from '../../../__mocks__/rn-fetch-blob'
+import CityModelBuilder from '../../../testing/builder/CitiyModelBuilder'
+import CategoriesMapModelBuilder from '../../../testing/builder/CategoriesMapModelBuilder'
+import LanguageModelBuilder from '../../../testing/builder/LanguageModelBuilder'
+import EventModelBuilder from '../../../testing/builder/EventModelBuilder'
 
 jest.mock('rn-fetch-blob')
 const databaseConnector = new DatabaseConnector()
@@ -14,54 +17,10 @@ beforeEach(() => {
 })
 
 describe('DatabaseConnector', () => {
-  const testCity = new CityModel({
-    name: 'testCityName',
-    code: 'tcc',
-    live: true,
-    eventsEnabled: true,
-    extrasEnabled: true,
-    sortingName: 'testCity',
-    prefix: 'Stadt'
-  })
-  const testCategory = new CategoryModel({
-    root: true,
-    path: 'test/path',
-    title: 'testCategory',
-    content: 'test content',
-    thumbnail: 'thumbnail.png',
-    parentPath: '',
-    order: 1,
-    availableLanguages: new Map<string, string>([]),
-    lastUpdate: moment('2011-02-04T23:00:00.000Z', moment.ISO_8601),
-    hash: 'testHash'
-  })
-  const testLanguage = new LanguageModel({
-    code: 'de',
-    name: 'deutsch'
-  })
-
-  const testEvent = new EventModel({
-    path: 'test/path',
-    title: 'testEvent',
-    content: 'testContent',
-    thumbnail: 'thumbnail.png',
-    date: new DateModel({
-      startDate: moment('2011-02-04T23:00:00.000Z', moment.ISO_8601),
-      endDate: moment('2011-02-05T23:00:00.000Z', moment.ISO_8601),
-      allDay: true
-    }),
-    location: new LocationModel({
-      address: 'testStreet 2',
-      town: 'testTown',
-      postcode: '12345',
-      latitude: null,
-      longitude: null
-    }),
-    excerpt: 'TestEvent',
-    availableLanguages: new Map<string, string>([]),
-    lastUpdate: moment('2011-02-04T23:00:00.000Z', moment.ISO_8601),
-    hash: 'testHash'
-  })
+  const testCity = new CityModelBuilder(2).build()
+  const testCategory = new CategoriesMapModelBuilder(2, 2).build()
+  const testLanguage = new LanguageModelBuilder(2).build()
+  const testEvent = new EventModelBuilder('testSeed', 2).build()
 
   const testResources = {
     'de':
@@ -88,6 +47,14 @@ describe('DatabaseConnector', () => {
   }
 
   describe('getContentPath', () => {
+    it('should return path', () => {
+      const context = new DatabaseContext('tcc', 'de')
+      expect(databaseConnector.getContentPath('key', context)).toMatch('/tcc/de/key.json')
+    })
+    it('should return path if language is null', () => {
+      const context = new DatabaseContext('tcc', null)
+      expect(databaseConnector.getContentPath('key', context)).toMatch('/tcc/key.json')
+    })
     it('should throw error if context data is null', () => {
       const context = new DatabaseContext(null, null)
       expect(() => databaseConnector.getContentPath('testKey', context)).toThrowError()
@@ -95,6 +62,16 @@ describe('DatabaseConnector', () => {
     it('should throw error if key is empty', () => {
       const context = new DatabaseContext('tcc', 'de')
       expect(() => databaseConnector.getContentPath('', context)).toThrowError()
+    })
+  })
+  describe('getResourceCachePath', () => {
+    it('should return path', () => {
+      const context = new DatabaseContext('tcc', 'de')
+      expect(databaseConnector.getResourceCachePath(context)).toMatch('/tcc/files.json')
+    })
+    it('should throw error if cityCode is null', () => {
+      const context = new DatabaseContext(null, null)
+      expect(() => databaseConnector.getResourceCachePath(context)).toThrowError()
     })
   })
   describe('isCitiesPersisted', () => {
@@ -119,10 +96,10 @@ describe('DatabaseConnector', () => {
       expect(databaseConnector.loadCities()).rejects.toThrowError()
     })
     it('should return a value that matches the one that was stored', async () => {
-      await databaseConnector.storeCities([testCity])
+      await databaseConnector.storeCities(testCity)
 
       const cities = await databaseConnector.loadCities()
-      expect(cities).toStrictEqual([testCity])
+      expect(cities).toStrictEqual(testCity)
     })
   })
   describe('loadLastUpdate', () => {
@@ -161,6 +138,15 @@ describe('DatabaseConnector', () => {
       const date = moment('20110205')
       expect(databaseConnector.storeLastUpdate(date, context)).rejects.toThrowError()
     })
+    it('should override multiple lastUpdates of the same context', async () => {
+      const context = new DatabaseContext('tcc', 'de')
+      const date = moment('20110205')
+      const date2 = moment('20120205')
+      await databaseConnector.storeLastUpdate(date, context)
+      await databaseConnector.storeLastUpdate(date2, context)
+      const result = await databaseConnector.loadLastUpdate(context)
+      expect(date2.isSame(moment(result))).toBe(true)
+    })
   })
 
   describe('isCategoriesPersisted', () => {
@@ -171,7 +157,7 @@ describe('DatabaseConnector', () => {
     })
     it('should return true if categories are persisted', async () => {
       const context = new DatabaseContext('tcc', 'de')
-      await databaseConnector.storeCategories(new CategoriesMapModel([testCategory]), context)
+      await databaseConnector.storeCategories(testCategory, context)
       const isPersisted = await databaseConnector.isCategoriesPersisted(context)
       expect(isPersisted).toBe(true)
     })
@@ -191,10 +177,10 @@ describe('DatabaseConnector', () => {
     })
     it('should return a value that matches the one that was stored', async () => {
       const context = new DatabaseContext('tcc', 'de')
-      await databaseConnector.storeCategories(new CategoriesMapModel([testCategory]), context)
+      await databaseConnector.storeCategories(testCategory, context)
 
       const categories = await databaseConnector.loadCategories(context)
-      expect(categories.toArray()).toEqual([testCategory])
+      expect(categories).toEqual(testCategory)
     })
   })
 
@@ -226,10 +212,10 @@ describe('DatabaseConnector', () => {
     })
     it('should return a value that matches the one that was stored', async () => {
       const context = new DatabaseContext('tcc', 'de')
-      await databaseConnector.storeLanguages([testLanguage], context)
+      await databaseConnector.storeLanguages(testLanguage, context)
 
       const languages = await databaseConnector.loadLanguages(context)
-      expect(languages).toEqual([testLanguage])
+      expect(languages).toEqual(testLanguage)
     })
   })
 
@@ -241,7 +227,7 @@ describe('DatabaseConnector', () => {
     })
     it('should return true if events are persisted', async () => {
       const context = new DatabaseContext('tcc', 'de')
-      await databaseConnector.storeEvents([testEvent], context)
+      await databaseConnector.storeEvents(testEvent, context)
       const isPersisted = await databaseConnector.isEventsPersisted(context)
       expect(isPersisted).toBe(true)
     })
@@ -261,10 +247,10 @@ describe('DatabaseConnector', () => {
     })
     it('should return a value that matches the one that was stored', async () => {
       const context = new DatabaseContext('tcc', 'de')
-      await databaseConnector.storeEvents([testEvent], context)
+      await databaseConnector.storeEvents(testEvent, context)
 
       const events = await databaseConnector.loadEvents(context)
-      expect(events).toEqual([testEvent])
+      expect(events).toEqual(testEvent)
     })
   })
 
