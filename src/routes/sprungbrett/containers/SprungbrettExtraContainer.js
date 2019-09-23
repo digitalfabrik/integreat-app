@@ -4,7 +4,7 @@ import * as React from 'react'
 import { ActivityIndicator } from 'react-native'
 import { type TFunction, translate } from 'react-i18next'
 import SprungbrettExtra from '../components/SprungbrettExtra'
-import connect from 'react-redux/es/connect/connect'
+import { connect } from 'react-redux'
 import type { StateType } from '../../../modules/app/StateType'
 import {
   createSprungbrettJobsEndpoint,

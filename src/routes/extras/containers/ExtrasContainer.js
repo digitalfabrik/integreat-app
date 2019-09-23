@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import connect from 'react-redux/es/connect/connect'
+import { connect } from 'react-redux'
 import { ActivityIndicator } from 'react-native'
 import Extras from '../components/Extras'
 import { type TFunction, translate } from 'react-i18next'
@@ -98,8 +98,8 @@ class ExtrasContainer extends React.Component<ExtrasPropsType, ExtrasStateType> 
   }
 }
 
-export default translate('extras')(
-  connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(
+export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(
+  translate('extras')(
     withTheme(props => props.language)(
       ExtrasContainer
     )))

@@ -1,5 +1,6 @@
 const fs = require('fs')
 const path = require('path')
+require('react-native-gesture-handler/jestSetup')
 
 // window isn't defined as of react-native 0.45+ it seems
 if (typeof window !== 'object') {
