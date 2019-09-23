@@ -146,7 +146,7 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
     if (type === CATEGORIES_ROUTE && id && title) {
       return new FeedbackDropdownItem(`${t('contentOfPage')} '${title}'`, PAGE_FEEDBACK_TYPE)
     } else if (type === EVENTS_ROUTE && id && title) {
-      return new FeedbackDropdownItem(`${t('news')} '${title}'`, PAGE_FEEDBACK_TYPE)
+      return new FeedbackDropdownItem(`${t('events')} '${title}'`, PAGE_FEEDBACK_TYPE)
     } else if (([WOHNEN_ROUTE, SPRUNGBRETT_ROUTE].includes(type)) && alias && title) {
       return new FeedbackDropdownItem(`${t('extra')} '${title}'`, EXTRA_FEEDBACK_TYPE)
     } else if (type === SEARCH_ROUTE && query) {
