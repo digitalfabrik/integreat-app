@@ -95,8 +95,8 @@ export class LocationHeader extends React.Component<PropsType> {
           key='events'
           href={new EventsRouteConfig().getRoutePath({ city, language })}
           selected={currentRoute === EVENTS_ROUTE}
-          text={t('news')}
-          tooltip={t('noNews')}
+          text={t('events')}
+          tooltip={t('noEvents')}
           active={isEventsActive}
         />
       )
