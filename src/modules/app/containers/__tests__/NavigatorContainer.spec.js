@@ -21,6 +21,7 @@ jest.mock('../../../layout/containers/HeaderContainer', () => {
 })
 jest.mock('@react-native-community/async-storage')
 jest.mock('react-native-share')
+jest.mock('rn-fetch-blob')
 
 const mockStore = configureMockStore()
 
