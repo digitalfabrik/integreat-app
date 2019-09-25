@@ -13,7 +13,10 @@ export default (
 ): CityContentStateType | null => {
   switch (action.type) {
     case 'SWITCH_CONTENT_LANGUAGE':
-      return state === null ? null : { ...state, switchingLanguage: true }
+      if (state === null) {
+        throw Error('Cannot switch contentLanguage on not initialized cityContent')
+      }
+      return { ...state, switchingLanguage: true }
     case 'PUSH_LANGUAGES':
       if (state === null) {
         throw Error('Cannot push languages on not initialized cityContent')
@@ -37,7 +40,7 @@ export default (
     case 'FETCH_EVENT': {
       const { language, path, key, city } = action.params
       const newState = state === null ? createCityContent(city) : state
-      newState.eventsRouteMapping[key] = { status: 'loading', language, path }
+      newState.eventsRouteMapping[key] = { status: 'loading', language, city, path }
       return newState
     }
     case 'CLEAR_EVENT': {
@@ -53,14 +56,14 @@ export default (
         throw Error('A fetch category fail cannot occur on not initialized cityContent')
       }
       const { message, key } = action.params
-      const { language, path } = state.eventsRouteMapping[key]
-      state.eventsRouteMapping[key] = { status: 'error', message, language, path }
+      const { language, path, city } = state.eventsRouteMapping[key]
+      state.eventsRouteMapping[key] = { status: 'error', message, language, path, city }
       return state
     }
     case 'FETCH_CATEGORY': {
       const { language, path, depth, key, city } = action.params
       const newState = state === null ? createCityContent(city) : state
-      newState.categoriesRouteMapping[key] = { status: 'loading', language, depth, root: path, city }
+      newState.categoriesRouteMapping[key] = { status: 'loading', language, depth, path, city }
       return newState
     }
     case 'CLEAR_CATEGORY': {
@@ -76,13 +79,13 @@ export default (
         throw Error('A fetch category fail cannot occur on not initialized cityContent')
       }
       const { message, key } = action.params
-      const { language, depth, root, city } = state.categoriesRouteMapping[key]
-      state.categoriesRouteMapping[key] = { status: 'error', message, language, depth, root, city }
+      const { language, depth, path, city } = state.categoriesRouteMapping[key]
+      state.categoriesRouteMapping[key] = { status: 'error', message, language, depth, path, city }
       return state
     }
     case 'CLEAR_CITY':
       return null
-    case 'RESOURCES_FETCH_FAILED': {
+    case 'FETCH_RESOURCES_FAILED': {
       if (state === null) {
         throw Error('A fetch resources fail cannot occur on not initialized cityContent')
       }

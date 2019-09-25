@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import connect from 'react-redux/es/connect/connect'
+import { connect } from 'react-redux'
 import { ActivityIndicator } from 'react-native'
 import Extras from '../components/Extras'
 import { type TFunction, translate } from 'react-i18next'
@@ -24,7 +24,7 @@ const mapStateToProps = (state: StateType): StatePropsType => {
     throw new Error('CityContent must not be null!')
   }
 
-  const cities: ?Array<CityModel> = state.cities.errorMessage !== undefined ? null : state.cities.models
+  const cities: ?Array<CityModel> = state.cities.status !== 'ready' ? null : state.cities.models
 
   return {
     city: state.cityContent.city,
@@ -98,8 +98,8 @@ class ExtrasContainer extends React.Component<ExtrasPropsType, ExtrasStateType> 
   }
 }
 
-export default translate('extras')(
-  connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(
+export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(
+  translate('extras')(
     withTheme(props => props.language)(
       ExtrasContainer
     )))
