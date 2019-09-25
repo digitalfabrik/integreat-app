@@ -1,13 +1,6 @@
 const fs = require('fs')
 const path = require('path')
-
-console.error = error => {
-  throw Error(error)
-}
-
-console.warn = warn => {
-  throw Error(warn)
-}
+require('react-native-gesture-handler/jestSetup')
 
 // window isn't defined as of react-native 0.45+ it seems
 if (typeof window !== 'object') {
@@ -21,9 +14,9 @@ jest.mock('rn-fetch-blob')
 
 function walkDir (dir, callback) {
   fs.readdirSync(dir).forEach(f => {
-    const dirPath = path.join(dir, f)
-    const isDirectory = fs.statSync(dirPath).isDirectory()
-    isDirectory ? walkDir(dirPath, callback) : callback(path.join(dir, f))
+    const filePath = path.join(dir, f)
+    const isDirectory = fs.statSync(filePath).isDirectory()
+    isDirectory ? walkDir(filePath, callback) : callback(filePath)
   })
 }
 
@@ -36,3 +29,7 @@ walkDir(mocksPath, name => {
     jest.unmock(name.substring(mocksPath.length, name.length - jsPath.length))
   }
 })
+
+jest.doMock('react-native/Libraries/ReactNative/I18nManager',
+  () => require('testing/I18nManagerMock.js')
+)

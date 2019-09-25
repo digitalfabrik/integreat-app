@@ -2,12 +2,14 @@
 
 import type { CategoryRouteStateType, CityContentStateType } from '../../app/StateType'
 import type { PushCategoryActionType } from '../../app/StoreActionType'
-import { CategoryModel } from '@integreat-app/integreat-api-client'
+import { CategoryModel, LanguageModel } from '@integreat-app/integreat-api-client'
 import forEachTreeNode from '../../common/forEachTreeNode'
 
-const getAllAvailableLanguages = (category: CategoryModel, language: string, rootAvailableLanguage: Map<string, string>) => {
+const getAllAvailableLanguages = (
+  category: CategoryModel, city: string, language: string, cityLanguages: Array<LanguageModel>
+) => {
   if (category.isRoot()) {
-    return rootAvailableLanguage
+    return new Map(cityLanguages.map(model => [model.code, `/${city}/${model.code}`]))
   }
   const allAvailableLanguages = new Map(category.availableLanguages)
   allAvailableLanguages.set(language, category.path)
@@ -15,15 +17,7 @@ const getAllAvailableLanguages = (category: CategoryModel, language: string, roo
 }
 
 const pushCategory = (state: CityContentStateType, action: PushCategoryActionType): CityContentStateType => {
-  const { categoriesMap, path, depth, key, language, city, resourceCache, rootAvailableLanguages } = action.params
-
-  if (!depth) {
-    throw new Error('You need to specify a depth!')
-  }
-
-  if (!key) {
-    throw new Error('You need to specify a key!')
-  }
+  const { categoriesMap, path, depth, key, language, city, resourceCache, cityLanguages } = action.params
 
   const root: CategoryModel = categoriesMap.findCategoryByPath(path)
 
@@ -42,11 +36,11 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
     state.resourceCache.errorMessage === undefined ? { ...state.resourceCache, ...resourceCache } : resourceCache
 
   const route: CategoryRouteStateType = {
-    root: root.path,
+    path: root.path,
     models: resultModels,
     children: resultChildren,
     depth: depth,
-    allAvailableLanguages: getAllAvailableLanguages(root, language, rootAvailableLanguages),
+    allAvailableLanguages: getAllAvailableLanguages(root, city, language, cityLanguages),
     language,
     city,
     status: 'ready'

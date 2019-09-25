@@ -10,7 +10,7 @@ describe('Failure', () => {
     const { getByTestId } = render(<Failure theme={brightTheme} error={new Error()} tryAgain={() => {}}
                                             t={key => key} />)
 
-    expect(getByTestId('button-tryAgain')).not.toBeNull()
+    expect(getByTestId('button-tryAgain')).toBeTruthy()
   })
 
   it('should not render a retry button if tryAgain is not passed', () => {
