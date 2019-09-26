@@ -133,7 +133,7 @@ const DashboardContainer = (props: ContainerPropsType) => {
     navigateToExtras={createNavigateToExtras(dispatch, rest.navigation)} />
 }
 
-export default withRouteCleaner<PropsType>(
+export default withRouteCleaner<OwnPropsType>(
   connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
     omitNavigation<PropsType>(
       withPayloadProvider<ContainerPropsType, RefreshPropsType>(refresh)(

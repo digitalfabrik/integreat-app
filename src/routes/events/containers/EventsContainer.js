@@ -129,7 +129,7 @@ const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionT
   navigateToEvent({ cityCode, language, path, forceUpdate: true, key: navigation.state.key })
 }
 
-export default withRouteCleaner<PropsType>(
+export default withRouteCleaner<OwnPropsType>(
   connect<PropsType, OwnPropsType, StatePropsType, DispatchPropsType, StateType, Dispatch<StoreActionType>>(mapStateToProps, mapDispatchToProps)(
     omitNavigation<PropsType>(
       withPayloadProvider<ContainerPropsType, RefreshPropsType>(refresh)(
