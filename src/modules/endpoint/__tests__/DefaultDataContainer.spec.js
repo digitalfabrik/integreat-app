@@ -156,8 +156,8 @@ describe('DefaultDataContainer', () => {
   })
   it('should return the lastUpdateMoment associated with the context', async () => {
     const defaultDataContainer = new DefaultDataContainer()
-    const lastUpdate = moment('20110205')
-    const anotherLastUpdate = moment('20110305')
+    const lastUpdate = moment.tz('20110205', 'UTC')
+    const anotherLastUpdate = moment.tz('20110305', 'UTC')
 
     await defaultDataContainer.setLastUpdate('testCity', 'de', lastUpdate)
     await defaultDataContainer.setLastUpdate('anotherTestCity', 'en', anotherLastUpdate)
