@@ -12,7 +12,7 @@ const prepare = task('prepare', () => {
   if (!fs.existsSync(dest)) {
     fs.mkdirSync(dest)
   }
-  fs.createReadStream('package.json').pipe(fs.createWriteStream('dist/package.json'))
+  fs.copyFileSync('package.json', 'dist/package.json')
 })
 
 const bundleUmd = task('bundle-umd', () => {
@@ -33,13 +33,15 @@ const transpileES6 = task('transpile-es6', () => {
   shell.exec('node node_modules/.bin/babel src --out-dir dist/ --source-maps --ignore \'**/*.spec.js\'')
 })
 
-const copyFlowSource = task('flow-copy', () => {
-  return flowCopySource(['src'], 'dist', {ignore: ['**/*.spec.js']})
+const copyFlowSource = task('flow-copy', async () => {
+  await flowCopySource(['src'], 'dist', { ignore: ['**/*.spec.js'] })
+
+  fs.copyFileSync('dist/index.js.flow', 'dist/index.umd.js.flow')
 })
 
 module.exports = task('build', () => {
   global.DEBUG = process.argv.includes('--debug') || false
-  rimraf.sync('www/dist/*', {nosort: true, dot: true})
+  rimraf.sync('www/dist/*', { nosort: true, dot: true })
   return Promise.resolve()
     .then(prepare)
     .then(transpileES6)
