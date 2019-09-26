@@ -152,7 +152,7 @@ describe('DefaultDataContainer', () => {
     const defaultDataContainer = new DefaultDataContainer()
     await defaultDataContainer.setResourceCache('testCity', 'de', testResources)
     const result = await defaultDataContainer.getResourceCache('testCity', 'en')
-    expect(result).toBeEmpty()
+    expect(result).toEqual({})
   })
   it('should return the lastUpdateMoment associated with the context', async () => {
     const defaultDataContainer = new DefaultDataContainer()
