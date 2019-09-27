@@ -8,10 +8,12 @@ class CityModel {
   _extrasEnabled: boolean
   _sortingName: string
   _prefix: ?string
+  _latitude: number | null
+  _longitude: number | null
 
   constructor (params: {|
     name: string, code: string, live: boolean, eventsEnabled: boolean, extrasEnabled: boolean,
-    sortingName: string, prefix: ?string
+    sortingName: string, prefix: ?string, latitude: number | null, longitude: number | null
   |}) {
     this._name = params.name
     this._code = params.code
@@ -20,6 +22,8 @@ class CityModel {
     this._extrasEnabled = params.extrasEnabled
     this._sortingName = params.sortingName
     this._prefix = params.prefix
+    this._latitude = params.latitude
+    this._longitude = params.longitude
   }
 
   get live (): boolean {

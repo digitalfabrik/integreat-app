@@ -26,6 +26,8 @@ export default (baseUrl: string): Endpoint<void, Array<CityModel>> => new Endpoi
     eventsEnabled: city.events,
     extrasEnabled: city.extras,
     sortingName: city.name_without_prefix,
-    prefix: city.prefix
+    prefix: city.prefix,
+    longitude: city.longitude,
+    latitude: city.latitude
   })).sort((city1, city2) => city1.sortingName.localeCompare(city2.sortingName)))
   .build()
