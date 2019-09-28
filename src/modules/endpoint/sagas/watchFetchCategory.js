@@ -33,8 +33,6 @@ function * fetchCategory (dataContainer: DataContainer, action: FetchCategoryAct
     const cityContentLoaded = yield call(loadCityContent, dataContainer, city, language, loadCriterion)
 
     if (cityContentLoaded) {
-      // Only proceed if the content is ready to be pushed to the state. If not then the UI automatically displays an
-      // appropriate error
       const [categoriesMap, resourceCache] = yield all([
         call(dataContainer.getCategoriesMap, city, language),
         call(dataContainer.getResourceCache, city, language)
@@ -49,6 +47,14 @@ function * fetchCategory (dataContainer: DataContainer, action: FetchCategoryAct
       }
 
       yield put(push)
+    } else {
+      const failed: FetchCategoryFailedActionType = {
+        type: `FETCH_CATEGORY_FAILED`,
+        params: {
+          message: `Could not load city content.`, key
+        }
+      }
+      yield put(failed)
     }
   } catch (e) {
     console.error(e)
