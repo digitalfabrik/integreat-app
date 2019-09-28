@@ -48,58 +48,50 @@ const createChangeUnavailableLanguage = (path: string, navigation: NavigationScr
     params: { newLanguage, city }
   }
   dispatch(switchContentLanguage)
-  const navigateToCategory = createNavigateToCategory('Categories', dispatch, navigation)
-  navigateToCategory({
-    cityCode: city,
-    language: newLanguage,
-    path,
-    forceUpdate: false,
-    key: navigation.state.key
-  })
 }
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   if (!state.cityContent) {
     return { status: 'routeNotInitialized' }
   }
-  const { resourceCache, categoriesRouteMapping, switchingLanguage } = state.cityContent
+  const { resourceCache, categoriesRouteMapping, switchingLanguage, languages } = state.cityContent
   const route = categoriesRouteMapping[ownProps.navigation.state.key]
-
   if (!route) {
     return { status: 'routeNotInitialized' }
   }
 
-  const city = route.city
-  const refreshProps = { cityCode: city, language: route.language, path: route.path, navigation: ownProps.navigation }
-
-  if (state.cities.status === 'error' ||
-    resourceCache.errorMessage !== undefined ||
-    route.status === 'error') {
+  const refreshProps = {
+    cityCode: route.city,
+    language: route.language,
+    path: route.path,
+    navigation: ownProps.navigation
+  }
+  if (state.cities.status === 'error' || resourceCache.errorMessage !== undefined || route.status === 'error') {
     return { status: 'error', refreshProps }
   }
 
-  if (route.status === 'loading' || switchingLanguage || state.cities.status === 'loading') {
+  if (state.cities.status === 'loading' || switchingLanguage || route.status === 'loading' || !languages) {
     return { status: 'loading' }
   }
 
-  const cities = state.cities.models
-  const languages = Array.from(route.allAvailableLanguages.keys())
-  const stateView = new CategoriesRouteStateView(route.path, route.models, route.children)
-  if (!languages.includes(route.language)) {
+  if (route.status === 'languageNotAvailable') {
     return {
       status: 'languageNotAvailable',
-      availableLanguages: languages,
-      cityCode: city,
+      availableLanguages: languages.filter(lng => route.allAvailableLanguages.has(lng.code)),
+      cityCode: route.city,
       refreshProps,
-      changeUnavailableLanguage: createChangeUnavailableLanguage(route.path, ownProps.navigation, city)
+      changeUnavailableLanguage: createChangeUnavailableLanguage(route.path, ownProps.navigation, route.city)
     }
   }
+
+  const cities = state.cities.models
+  const stateView = new CategoriesRouteStateView(route.path, route.models, route.children)
 
   return {
     status: 'success',
     refreshProps,
     innerProps: {
-      cityCode: city,
+      cityCode: route.city,
       language: route.language,
       cities,
       stateView,

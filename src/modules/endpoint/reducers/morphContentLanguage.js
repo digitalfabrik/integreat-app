@@ -9,7 +9,7 @@ import forEachTreeNode from '../../common/forEachTreeNode'
 
 const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, city: string, newLanguage: string) =>
   (route: CategoryRouteStateType): CategoryRouteStateType => {
-    if (route.status !== 'ready') {
+    if (route.status !== 'ready' && route.status !== 'languageNotAvailable') {
       console.warn('Route was not ready when translating. Will not translate this route.')
       return route
     }
@@ -18,7 +18,14 @@ const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, city: str
     const translatedPath = allAvailableLanguages.get(newLanguage)
 
     if (!translatedPath) { // Route is not translatable
-      return route
+      return {
+        status: 'languageNotAvailable',
+        allAvailableLanguages: route.allAvailableLanguages,
+        city: route.city,
+        language: route.language,
+        depth: route.depth,
+        path: route.path
+      }
     }
 
     const rootModel = newCategoriesMap.findCategoryByPath(translatedPath)

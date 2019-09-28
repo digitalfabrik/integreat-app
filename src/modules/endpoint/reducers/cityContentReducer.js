@@ -27,6 +27,18 @@ export default (
         throw Error('Cannot push category on not initialized cityContent')
       }
       return pushCategory(state, action)
+    case 'PUSH_CATEGORY_LANGUAGES':
+      if (state === null) {
+        throw Error('Cannot push category languages on not initialized cityContent')
+      }
+      const { key, ...rest } = action.params
+      return {
+        ...state,
+        categoriesRouteMapping: {
+          ...state.categoriesRouteMapping,
+          [key]: { ...rest, status: 'languageNotAvailable' }
+        }
+      }
     case 'PUSH_EVENT':
       if (state === null) {
         throw Error('Cannot push event on not initialized cityContent')

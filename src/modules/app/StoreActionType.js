@@ -52,6 +52,16 @@ export type PushCategoryActionType = {|
     path: string, depth: number, key: string
   |}
 |}
+export type PushCategoryLanguagesActionType = {|
+  type: 'PUSH_CATEGORY_LANGUAGES', params: {|
+    key: string,
+    allAvailableLanguages: Map<string, string>,
+    city: string,
+    language: string,
+    path: string,
+    depth: number
+  |}
+|}
 
 export type ClearCategoryActionType = {|
   type: 'CLEAR_CATEGORY', params: {| key: string |}
@@ -61,6 +71,7 @@ export type CategoriesActionType =
   ClearCategoryActionType
   | FetchCategoryActionType
   | PushCategoryActionType
+  | PushCategoryLanguagesActionType
   | FetchCategoryFailedActionType
 
 export type FetchEventActionType = {|
