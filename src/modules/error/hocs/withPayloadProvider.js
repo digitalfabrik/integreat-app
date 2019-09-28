@@ -16,11 +16,10 @@ export type ErrorType<R> = {|
   status: 'error',
   refreshProps: R
 |}
-export type LanguageNotAvailableType<R> = {|
+export type LanguageNotAvailableType = {|
   status: 'languageNotAvailable',
   availableLanguages: Array<LanguageModel>,
   cityCode: string,
-  refreshProps: R,
   changeUnavailableLanguage: (dispatch: Dispatch<StoreActionType>, newLanguage: string) => void
 |}
 
@@ -34,7 +33,7 @@ export type StatusPropsType<S, R> =
   RouteNotInitializedType
   | LoadingType
   | ErrorType<R>
-  | LanguageNotAvailableType<R>
+  | LanguageNotAvailableType
   | SuccessType<$Diff<S, { dispatch: Dispatch<StoreActionType> }>, R>
 
 export type PropsType<S: { dispatch: Dispatch<StoreActionType> }, R> = {|
@@ -51,7 +50,7 @@ const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R> (
 
       refresh = () => {
         const props = this.props
-        if (props.status === 'routeNotInitialized' || props.status === 'loading') {
+        if (props.status === 'routeNotInitialized' || props.status === 'loading' || props.status === 'languageNotAvailable') {
           throw Error('Refreshing is not possible because the route is not yet initialized or already loading.')
         }
         refresh(props.refreshProps, props.dispatch)
