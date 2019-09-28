@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import type { LanguageResourceCacheStateType, StateType } from '../../../modules/app/StateType'
 import { type Dispatch } from 'redux'
 import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
-import type { StoreActionType, SwitchContentLanguageActionType } from '../../../modules/app/StoreActionType'
+import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import createNavigateToCategory from '../../../modules/app/createNavigateToCategory'
 import createNavigateToIntegreatUrl from '../../../modules/app/createNavigateToIntegreatUrl'
 import type { NavigationScreenProp } from 'react-navigation'
@@ -40,24 +40,6 @@ type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
 type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
-const createChangeUnavailableLanguage = (path: string, navigation: NavigationScreenProp<*>, city: string) => (
-  dispatch: Dispatch<StoreActionType>, newLanguage: string
-) => {
-  const switchContentLanguage: SwitchContentLanguageActionType = {
-    type: 'SWITCH_CONTENT_LANGUAGE',
-    params: { newLanguage, city }
-  }
-  dispatch(switchContentLanguage)
-  const navigateToCategory = createNavigateToCategory('Categories', dispatch, navigation)
-  navigateToCategory({
-    cityCode: city,
-    language: newLanguage,
-    path,
-    forceUpdate: false,
-    key: navigation.state.key
-  })
-}
-
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   if (!state.cityContent) {
     return { status: 'routeNotInitialized' }
@@ -71,29 +53,16 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 
   const city = route.city
   const refreshProps = { cityCode: city, language: route.language, path: route.path, navigation: ownProps.navigation }
-
-  if (state.cities.status === 'error' ||
-    resourceCache.errorMessage !== undefined ||
-    route.status === 'error') {
-    return { status: 'error', refreshProps }
-  }
-
   if (route.status === 'loading' || switchingLanguage || state.cities.status === 'loading') {
     return { status: 'loading' }
   }
 
-  const cities = state.cities.models
-  const languages = Array.from(route.allAvailableLanguages.keys())
-  const stateView = new CategoriesRouteStateView(route.path, route.models, route.children)
-  if (!languages.includes(route.language)) {
-    return {
-      status: 'languageNotAvailable',
-      availableLanguages: languages,
-      cityCode: city,
-      refreshProps,
-      changeUnavailableLanguage: createChangeUnavailableLanguage(route.path, ownProps.navigation, city)
-    }
+  if (state.cities.status === 'error' || resourceCache.errorMessage !== undefined || route.status === 'error') {
+    return { status: 'error', refreshProps }
   }
+
+  const cities = state.cities.models
+  const stateView = new CategoriesRouteStateView(route.path, route.models, route.children)
 
   return {
     status: 'success',
