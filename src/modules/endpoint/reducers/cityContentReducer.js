@@ -67,8 +67,7 @@ export default (
       if (state === null) {
         throw Error('A fetch category fail cannot occur on not initialized cityContent')
       }
-      const { message, key } = action.params
-      const { language, path, city } = state.eventsRouteMapping[key]
+      const { message, key, language, path, city } = action.params
       state.eventsRouteMapping[key] = { status: 'error', message, language, path, city }
       return { ...state }
     }
@@ -90,8 +89,7 @@ export default (
       if (state === null) {
         throw Error('A fetch category fail cannot occur on not initialized cityContent')
       }
-      const { message, key } = action.params
-      const { language, depth, path, city } = state.categoriesRouteMapping[key]
+      const { message, key, path, depth, language, city } = action.params
       state.categoriesRouteMapping[key] = { status: 'error', message, language, depth, path, city }
       return { ...state }
     }
