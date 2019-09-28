@@ -40,7 +40,7 @@ type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
 type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
-const createChangeUnavailableLanguage = (path: string, navigation: NavigationScreenProp<*>, city: string) => (
+const createChangeUnavailableLanguage = (city: string) => (
   dispatch: Dispatch<StoreActionType>, newLanguage: string
 ) => {
   const switchContentLanguage: SwitchContentLanguageActionType = {
@@ -60,16 +60,6 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     return { status: 'routeNotInitialized' }
   }
 
-  const refreshProps = {
-    cityCode: route.city,
-    language: route.language,
-    path: route.path,
-    navigation: ownProps.navigation
-  }
-  if (state.cities.status === 'error' || resourceCache.errorMessage !== undefined || route.status === 'error') {
-    return { status: 'error', refreshProps }
-  }
-
   if (state.cities.status === 'loading' || switchingLanguage || route.status === 'loading' || !languages) {
     return { status: 'loading' }
   }
@@ -79,9 +69,18 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       status: 'languageNotAvailable',
       availableLanguages: languages.filter(lng => route.allAvailableLanguages.has(lng.code)),
       cityCode: route.city,
-      refreshProps,
-      changeUnavailableLanguage: createChangeUnavailableLanguage(route.path, ownProps.navigation, route.city)
+      changeUnavailableLanguage: createChangeUnavailableLanguage(route.city)
     }
+  }
+
+  const refreshProps = {
+    cityCode: route.city,
+    language: route.language,
+    path: route.path,
+    navigation: ownProps.navigation
+  }
+  if (state.cities.status === 'error' || resourceCache.errorMessage !== undefined || route.status === 'error') {
+    return { status: 'error', refreshProps }
   }
 
   const cities = state.cities.models

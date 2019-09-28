@@ -24,6 +24,7 @@ import omitNavigation from '../../../modules/common/hocs/omitNavigation'
 type RefreshPropsType = {|
   cityCode: string,
   language: string,
+  path: string,
   navigation: NavigationScreenProp<*>
 |}
 
@@ -43,21 +44,20 @@ type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
 const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
-  const { cityCode, language, navigation } = refreshProps
+  const { cityCode, language, navigation, path } = refreshProps
   const navigateToDashboard = createNavigateToCategory('Dashboard', dispatch, navigation)
   navigateToDashboard({
-    cityCode, language, path: `/${cityCode}/${language}`, forceUpdate: true, key: navigation.state.key
+    cityCode, language, path, forceUpdate: true, key: navigation.state.key
   })
 }
 
-const createChangeUnavailableLanguage = (city: string, navigation: NavigationScreenProp<*>) => (
-  dispatch: Dispatch<StoreActionType>, newLanguage: string
-) => {
-  dispatch({
-    type: 'SWITCH_CONTENT_LANGUAGE',
-    params: { newLanguage, city }
-  })
-}
+const createChangeUnavailableLanguage = (city: string) =>
+  (dispatch: Dispatch<StoreActionType>, newLanguage: string) => {
+    dispatch({
+      type: 'SWITCH_CONTENT_LANGUAGE',
+      params: { newLanguage, city }
+    })
+  }
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   if (!state.cityContent) {
@@ -69,11 +69,6 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     return { status: 'routeNotInitialized' }
   }
 
-  const refreshProps = { cityCode: route.city, language: route.language, navigation: ownProps.navigation }
-  if (state.cities.status === 'error' || resourceCache.errorMessage !== undefined || route.status === 'error') {
-    return { status: 'error', refreshProps }
-  }
-
   if (state.cities.status === 'loading' || switchingLanguage || route.status === 'loading' || !languages) {
     return { status: 'loading' }
   }
@@ -83,9 +78,18 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       status: 'languageNotAvailable',
       availableLanguages: languages.filter(lng => route.allAvailableLanguages.has(lng.code)),
       cityCode: route.city,
-      refreshProps,
-      changeUnavailableLanguage: createChangeUnavailableLanguage(route.city, ownProps.navigation)
+      changeUnavailableLanguage: createChangeUnavailableLanguage(route.city)
     }
+  }
+
+  const refreshProps = {
+    cityCode: route.city,
+    language: route.language,
+    path: route.path,
+    navigation: ownProps.navigation
+  }
+  if (state.cities.status === 'error' || resourceCache.errorMessage !== undefined || route.status === 'error') {
+    return { status: 'error', refreshProps }
   }
 
   const cities = state.cities.models
