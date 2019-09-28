@@ -77,18 +77,12 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     return { status: 'routeNotInitialized' }
   }
 
-  const refreshProps = { cityCode: city, language: route.language, navigation: ownProps.navigation }
-  if (state.cities.status === 'error' ||
-    resourceCache.errorMessage !== undefined ||
-    route.status === 'error') {
-    return { status: 'error', refreshProps }
-  }
-
-  if (state.cities.status === 'loading' || !languages || switchingLanguage || route.status === 'loading') {
+  const citiesState = state.cities
+  if (citiesState.status === 'loading' || !languages || switchingLanguage || route.status === 'loading') {
     return { status: 'loading' }
   }
 
-  const cities = state.cities.models
+  const refreshProps = { cityCode: city, language: route.language, navigation: ownProps.navigation }
   if (!languages.find(language => language.code === route.language)) {
     return {
       status: 'languageNotAvailable',
@@ -99,8 +93,11 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     }
   }
 
+  if (citiesState.status === 'error' || resourceCache.errorMessage !== undefined || route.status === 'error') {
+    return { status: 'error', refreshProps }
+  }
+  const cities = citiesState.models
   const stateView = new CategoriesRouteStateView(route.path, route.models, route.children)
-
   return {
     status: 'success',
     refreshProps,
