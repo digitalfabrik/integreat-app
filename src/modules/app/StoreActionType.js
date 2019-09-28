@@ -38,7 +38,8 @@ export type FetchCategoryActionType = {|
 export type FetchCategoryFailedActionType = {|
   type: 'FETCH_CATEGORY_FAILED',
   params: {|
-    key: string,
+    key: string, city: string, language: string,
+    path: string, depth: number,
     message: string
   |}
 |}
@@ -99,7 +100,7 @@ export type FetchEventFailedActionType = {|
   type: 'FETCH_EVENT_FAILED',
   params: {|
     message: string,
-    key: string
+    key: string, language: string, path: ?string, city: string
   |}
 |}
 

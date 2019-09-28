@@ -31,8 +31,7 @@ function * fetchEvent (dataContainer: DataContainer, action: FetchEventActionTyp
       const failed: FetchEventFailedActionType = {
         type: `FETCH_EVENT_FAILED`,
         params: {
-          message: `Could not load city content`,
-          key
+          message: `Could not load city content`, key, city, language, path
         }
       }
       yield put(failed)
@@ -42,8 +41,7 @@ function * fetchEvent (dataContainer: DataContainer, action: FetchEventActionTyp
     const failed: FetchEventFailedActionType = {
       type: `FETCH_EVENT_FAILED`,
       params: {
-        message: `Error in fetchEvent: ${e.message}`,
-        key
+        message: `Error in fetchEvent: ${e.message}`, key, city, language, path
       }
     }
     yield put(failed)

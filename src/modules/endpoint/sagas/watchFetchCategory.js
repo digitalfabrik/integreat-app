@@ -59,7 +59,7 @@ function * fetchCategory (dataContainer: DataContainer, action: FetchCategoryAct
       const failed: FetchCategoryFailedActionType = {
         type: `FETCH_CATEGORY_FAILED`,
         params: {
-          message: `Could not load category.`, key
+          message: `Could not load category.`, key, path, depth, language, city
         }
       }
       yield put(failed)
@@ -69,7 +69,7 @@ function * fetchCategory (dataContainer: DataContainer, action: FetchCategoryAct
     const failed: FetchCategoryFailedActionType = {
       type: `FETCH_CATEGORY_FAILED`,
       params: {
-        message: `Error in fetchCategory: ${e.message}`, key
+        message: `Error in fetchCategory: ${e.message}`, key, path, depth, language, city
       }
     }
     yield put(failed)

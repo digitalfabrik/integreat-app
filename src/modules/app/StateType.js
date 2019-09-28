@@ -29,7 +29,9 @@ export type CategoryRouteStateType = {|
   +children: { [path: PathType]: Array<PathType> }
 |} | {|
   +status: 'languageNotAvailable',
-  ...CategoryRouteConfigType,
+  +depth: number,
+  +language: string,
+  +city: string,
   +allAvailableLanguages: Map<string, string>
 |} | {|
   +status: 'loading',

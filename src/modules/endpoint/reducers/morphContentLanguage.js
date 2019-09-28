@@ -13,7 +13,7 @@ const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, city: str
       console.warn('Route was not ready when translating. Will not translate this route.')
       return route
     }
-    const { depth, path, allAvailableLanguages } = route
+    const { depth, allAvailableLanguages } = route
 
     const translatedPath = allAvailableLanguages.get(newLanguage)
 
@@ -22,16 +22,15 @@ const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, city: str
         status: 'languageNotAvailable',
         allAvailableLanguages: route.allAvailableLanguages,
         city: route.city,
-        language: route.language,
-        depth: route.depth,
-        path: route.path
+        language: newLanguage,
+        depth: route.depth
       }
     }
 
     const rootModel = newCategoriesMap.findCategoryByPath(translatedPath)
     if (!rootModel) {
       console.warn(`Inconsistent data detected: ${translatedPath} does not exist,
-                      but is referenced in ${path} as translation for ${newLanguage}.`)
+                      but is referenced as translation for ${newLanguage}.`)
       return route
     }
 
@@ -80,8 +79,12 @@ const eventRouteTranslator = (newEvents: Array<EventModel>, newLanguage: string)
     const translatedPath = allAvailableLanguages.get(newLanguage)
 
     if (!translatedPath) {
-      // There is no translation for this event
-      return route
+      return {
+        status: 'languageNotAvailable',
+        allAvailableLanguages,
+        language: newLanguage,
+        city
+      }
     }
 
     const translatedEvent = newEvents.find(newEvent => translatedPath === newEvent.path)
