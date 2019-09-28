@@ -28,6 +28,10 @@ export type CategoryRouteStateType = {|
                                                    in the state. This would be an optimization! */
   +children: { [path: PathType]: Array<PathType> }
 |} | {|
+  +status: 'languageNotAvailable',
+  ...CategoryRouteConfigType,
+  +allAvailableLanguages: Map<string, string>
+|} | {|
   +status: 'loading',
   ...CategoryRouteConfigType
 |} | {|

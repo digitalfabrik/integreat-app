@@ -4,7 +4,7 @@ import type { Dispatch } from 'redux'
 
 import { connect } from 'react-redux'
 import Dashboard from '../components/Dashboard'
-import type { CategoryRouteStateType, LanguageResourceCacheStateType, StateType } from '../../../modules/app/StateType'
+import type { LanguageResourceCacheStateType, StateType } from '../../../modules/app/StateType'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
@@ -57,53 +57,45 @@ const createChangeUnavailableLanguage = (city: string, navigation: NavigationScr
     type: 'SWITCH_CONTENT_LANGUAGE',
     params: { newLanguage, city }
   })
-  const navigateToDashboard = createNavigateToCategory('Dashboard', dispatch, navigation)
-  navigateToDashboard({
-    cityCode: city,
-    language: newLanguage,
-    path: `/${city}/${newLanguage}`,
-    forceUpdate: false,
-    key: navigation.state.key
-  })
 }
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   if (!state.cityContent) {
     return { status: 'routeNotInitialized' }
   }
-  const { resourceCache, categoriesRouteMapping, city, languages, switchingLanguage } = state.cityContent
-  const route: ?CategoryRouteStateType = categoriesRouteMapping[ownProps.navigation.state.key]
+  const { resourceCache, categoriesRouteMapping, switchingLanguage, languages } = state.cityContent
+  const route = categoriesRouteMapping[ownProps.navigation.state.key]
   if (!route) {
     return { status: 'routeNotInitialized' }
   }
 
-  const citiesState = state.cities
-  if (citiesState.status === 'loading' || !languages || switchingLanguage || route.status === 'loading') {
+  const refreshProps = { cityCode: route.city, language: route.language, navigation: ownProps.navigation }
+  if (state.cities.status === 'error' || resourceCache.errorMessage !== undefined || route.status === 'error') {
+    return { status: 'error', refreshProps }
+  }
+
+  if (state.cities.status === 'loading' || switchingLanguage || route.status === 'loading' || !languages) {
     return { status: 'loading' }
   }
 
-  const refreshProps = { cityCode: city, language: route.language, navigation: ownProps.navigation }
-  if (!languages.find(language => language.code === route.language)) {
+  if (route.status === 'languageNotAvailable') {
     return {
       status: 'languageNotAvailable',
-      availableLanguages: languages,
-      cityCode: city,
+      availableLanguages: languages.filter(lng => route.allAvailableLanguages.has(lng.code)),
+      cityCode: route.city,
       refreshProps,
-      changeUnavailableLanguage: createChangeUnavailableLanguage(city, ownProps.navigation)
+      changeUnavailableLanguage: createChangeUnavailableLanguage(route.city, ownProps.navigation)
     }
   }
 
-  if (citiesState.status === 'error' || resourceCache.errorMessage !== undefined || route.status === 'error') {
-    return { status: 'error', refreshProps }
-  }
-  const cities = citiesState.models
+  const cities = state.cities.models
   const stateView = new CategoriesRouteStateView(route.path, route.models, route.children)
   return {
     status: 'success',
     refreshProps,
     innerProps: {
       navigation: ownProps.navigation,
-      cityCode: city,
+      cityCode: route.city,
       language: route.language,
       cities,
       stateView,

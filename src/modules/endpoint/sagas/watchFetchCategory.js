@@ -5,7 +5,8 @@ import { all, call, put, race, select, take, takeLatest } from 'redux-saga/effec
 import type {
   FetchCategoryActionType,
   FetchCategoryFailedActionType,
-  PushCategoryActionType
+  PushCategoryActionType,
+  PushCategoryLanguagesActionType
 } from '../../app/StoreActionType'
 import type { DataContainer } from '../DataContainer'
 import loadCityContent from './loadCityContent'
@@ -30,16 +31,16 @@ function * fetchCategory (dataContainer: DataContainer, action: FetchCategoryAct
     const peeking = yield call(isPeeking, city)
 
     const loadCriterion = new ContentLoadCriterion(criterion, peeking)
-    const cityContentLoaded = yield call(loadCityContent, dataContainer, city, language, loadCriterion)
+    const languageValid = yield call(loadCityContent, dataContainer, city, language, loadCriterion)
 
-    if (cityContentLoaded) {
+    // Only get languages if we've loaded them, otherwise we're peeking
+    const cityLanguages = loadCriterion.shouldLoadLanguages() ? yield call(dataContainer.getLanguages, city) : []
+
+    if (languageValid) {
       const [categoriesMap, resourceCache] = yield all([
         call(dataContainer.getCategoriesMap, city, language),
         call(dataContainer.getResourceCache, city, language)
       ])
-
-      // Only get languages if we've loaded them, otherwise we're peeking
-      const cityLanguages = loadCriterion.shouldLoadLanguages() ? yield call(dataContainer.getLanguages, city) : []
 
       const push: PushCategoryActionType = {
         type: `PUSH_CATEGORY`,
@@ -47,11 +48,18 @@ function * fetchCategory (dataContainer: DataContainer, action: FetchCategoryAct
       }
 
       yield put(push)
+    } else if (path === `/${city}/${language}`) {
+      const allAvailableLanguages = new Map(cityLanguages.map(lng => [lng.code, `/${city}/${lng.code}`]))
+      const pushLanguages: PushCategoryLanguagesActionType = {
+        type: `PUSH_CATEGORY_LANGUAGES`,
+        params: { city, language, path, depth, allAvailableLanguages, key }
+      }
+      yield put(pushLanguages)
     } else {
       const failed: FetchCategoryFailedActionType = {
         type: `FETCH_CATEGORY_FAILED`,
         params: {
-          message: `Could not load city content.`, key
+          message: `Could not load category.`, key
         }
       }
       yield put(failed)
