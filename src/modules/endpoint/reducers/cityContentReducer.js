@@ -39,17 +39,17 @@ export default (
       return morphContentLanguage(state, action)
     case 'FETCH_EVENT': {
       const { language, path, key, city } = action.params
-      const newState = state === null ? createCityContent(city) : state
+      const newState = state === null ? createCityContent(city) : { ...state }
       newState.eventsRouteMapping[key] = { status: 'loading', language, city, path }
       return newState
     }
     case 'CLEAR_EVENT': {
       const { key } = action.params
       if (state === null) {
-        return state
+        return null
       }
       delete state.eventsRouteMapping[key]
-      return state
+      return { ...state }
     }
     case 'FETCH_EVENT_FAILED': {
       if (state === null) {
@@ -58,21 +58,21 @@ export default (
       const { message, key } = action.params
       const { language, path, city } = state.eventsRouteMapping[key]
       state.eventsRouteMapping[key] = { status: 'error', message, language, path, city }
-      return state
+      return { ...state }
     }
     case 'FETCH_CATEGORY': {
       const { language, path, depth, key, city } = action.params
-      const newState = state === null ? createCityContent(city) : state
+      const newState = state === null ? createCityContent(city) : { ...state }
       newState.categoriesRouteMapping[key] = { status: 'loading', language, depth, path, city }
       return newState
     }
     case 'CLEAR_CATEGORY': {
       const { key } = action.params
       if (state === null) {
-        return state
+        return null
       }
       delete state.categoriesRouteMapping[key]
-      return state
+      return { ...state }
     }
     case 'FETCH_CATEGORY_FAILED': {
       if (state === null) {
@@ -81,7 +81,7 @@ export default (
       const { message, key } = action.params
       const { language, depth, path, city } = state.categoriesRouteMapping[key]
       state.categoriesRouteMapping[key] = { status: 'error', message, language, depth, path, city }
-      return state
+      return { ...state }
     }
     case 'CLEAR_CITY':
       return null
