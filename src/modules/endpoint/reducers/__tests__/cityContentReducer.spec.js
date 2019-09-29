@@ -1,6 +1,11 @@
 // @flow
 
-import type { CityContentActionType, FetchCategoryActionType, FetchEventActionType } from '../../../app/StoreActionType'
+import type {
+  CityContentActionType,
+  FetchCategoryActionType,
+  FetchEventActionType,
+  PushEventLanguagesActionType
+} from '../../../app/StoreActionType'
 import { CategoriesMapModel, LanguageModel } from '@integreat-app/integreat-api-client'
 import cityContentReducer from '../cityContentReducer'
 import type { CityContentStateType } from '../../../app/StateType'
@@ -24,6 +29,16 @@ describe('cityContentReducer', () => {
       key: 'route-id-0'
     }
   }
+  const pushCategoryLanguagesAction = {
+    type: 'PUSH_CATEGORY_LANGUAGES',
+    params: {
+      allAvailableLanguages: new Map([['en', '/en/augsburg']]),
+      city: 'augsburg',
+      language: 'de',
+      depth: 2,
+      key: 'route-id-0'
+    }
+  }
   const pushEventAction = {
     type: 'PUSH_EVENT',
     params: {
@@ -32,6 +47,15 @@ describe('cityContentReducer', () => {
       key: 'route-id-0',
       resourceCache: {},
       cityLanguages: [],
+      language: 'de',
+      city: 'augsburg'
+    }
+  }
+  const pushEventLanguagesAction: PushEventLanguagesActionType = {
+    type: 'PUSH_EVENT_LANGUAGES',
+    params: {
+      key: 'route-id-0',
+      allAvailableLanguages: new Map([['en', '/augsburg/en/events']]),
       language: 'de',
       city: 'augsburg'
     }
@@ -47,16 +71,28 @@ describe('cityContentReducer', () => {
   }
   const fetchCategoryFailedAction = {
     type: 'FETCH_CATEGORY_FAILED',
-    params: { key: 'route-id-0', message: 'Some error' }
+    params: {
+      key: 'route-id-0',
+      message: 'Some error',
+      path: '/augsburg/de',
+      city: 'augsburg',
+      language: 'de',
+      depth: 2
+    }
   }
-  const fetchEventFailedAction = { type: 'FETCH_EVENT_FAILED', params: { key: 'route-id-0', message: 'Some error' } }
+  const fetchEventFailedAction = {
+    type: 'FETCH_EVENT_FAILED',
+    params: { key: 'route-id-0', message: 'Some error', path: null, city: 'augsburg', language: 'de' }
+  }
   const fetchResourcesFailedAction = { type: 'FETCH_RESOURCES_FAILED', params: { message: 'Some error' } }
 
   const unsupportedActionsOnUnitializedState: Array<CityContentActionType> = [
     switchContentLanguageAction,
     pushLanguagesAction,
     pushCategoryAction,
+    pushCategoryLanguagesAction,
     pushEventAction,
+    pushEventLanguagesAction,
     morphContentLanguageAction,
     fetchCategoryFailedAction,
     fetchEventFailedAction,
@@ -169,13 +205,13 @@ describe('cityContentReducer', () => {
 
     expect(cityContentReducer(prevState, {
       type: 'FETCH_EVENT_FAILED',
-      params: { key: 'route-id-0', message: 'No idea why it fails :/' }
+      params: { key: 'route-id-0', message: 'No idea', path: null, city: 'augsburg', language: 'de' }
     })?.eventsRouteMapping['route-id-0']).toEqual({
       status: 'error',
       language: 'de',
       city: 'augsburg',
       path: null,
-      message: 'No idea why it fails :/'
+      message: 'No idea'
     })
   })
 
@@ -254,14 +290,21 @@ describe('cityContentReducer', () => {
 
     expect(cityContentReducer(prevState, {
       type: 'FETCH_CATEGORY_FAILED',
-      params: { key: 'route-id-0', message: 'No idea why it fails :/' }
+      params: {
+        key: 'route-id-0',
+        message: 'No idea',
+        path: '/augsburg/de',
+        city: 'augsburg',
+        language: 'de',
+        depth: 2
+      }
     })?.categoriesRouteMapping['route-id-0']).toEqual({
       status: 'error',
       language: 'de',
       path: '/augsburg/de',
       city: 'augsburg',
       depth: 2,
-      message: 'No idea why it fails :/'
+      message: 'No idea'
     })
   })
 

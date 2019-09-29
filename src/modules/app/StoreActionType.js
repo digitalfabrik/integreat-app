@@ -59,7 +59,6 @@ export type PushCategoryLanguagesActionType = {|
     allAvailableLanguages: Map<string, string>,
     city: string,
     language: string,
-    path: string,
     depth: number
   |}
 |}
@@ -96,6 +95,15 @@ export type PushEventActionType = {|
     city: string
   |}
 |}
+export type PushEventLanguagesActionType = {|
+  type: 'PUSH_EVENT_LANGUAGES',
+  params: {|
+    key: string,
+    allAvailableLanguages: Map<string, string>,
+    city: string,
+    language: string
+  |}
+|}
 export type FetchEventFailedActionType = {|
   type: 'FETCH_EVENT_FAILED',
   params: {|
@@ -108,6 +116,7 @@ export type EventsActionType =
   ClearEventActionType
   | FetchEventActionType
   | PushEventActionType
+  | PushEventLanguagesActionType
   | FetchEventFailedActionType
 
 export type SwitchContentLanguageActionType = {|
