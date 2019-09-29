@@ -215,7 +215,7 @@ describe('cityContentReducer', () => {
       status: 'languageNotAvailable',
       language: 'de',
       city: 'augsburg',
-      allAvailableLanguages: new Map([['en', null]]),
+      allAvailableLanguages: new Map([['en', null]])
     })
   })
 
