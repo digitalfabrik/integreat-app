@@ -185,6 +185,40 @@ describe('cityContentReducer', () => {
     })?.eventsRouteMapping).toEqual({})
   })
 
+  it('should set the route status to languageNotAvailable on PUSH_EVENT_LANGUAGES', () => {
+    const prevState: CityContentStateType = {
+      city: 'augsburg',
+      categoriesRouteMapping: {},
+      eventsRouteMapping: {
+        'route-id-0': {
+          status: 'loading',
+          language: 'de',
+          city: 'augsburg',
+          path: null
+        }
+      },
+      languages: ['de', 'en'],
+      resourceCache: {},
+      searchRoute: null,
+      switchingLanguage: false
+    }
+
+    expect(cityContentReducer(prevState, {
+      type: 'PUSH_EVENT_LANGUAGES',
+      params: {
+        key: 'route-id-0',
+        allAvailableLanguages: new Map([['en', null]]),
+        city: 'augsburg',
+        language: 'de'
+      }
+    })?.eventsRouteMapping['route-id-0']).toEqual({
+      status: 'languageNotAvailable',
+      language: 'de',
+      city: 'augsburg',
+      allAvailableLanguages: new Map([['en', null]]),
+    })
+  })
+
   it('should pass the error to the corresponding route on FETCH_EVENT_FAILED', () => {
     const prevState: CityContentStateType = {
       city: 'augsburg',
@@ -267,6 +301,42 @@ describe('cityContentReducer', () => {
       type: 'CLEAR_CATEGORY',
       params: { key: 'route-id-0' }
     })?.categoriesRouteMapping).toEqual({})
+  })
+
+  it('should set the route status to languageNotAvailable on PUSH_CATEGORY_LANGUAGES', () => {
+    const prevState: CityContentStateType = {
+      city: 'augsburg',
+      categoriesRouteMapping: {
+        'route-id-0': {
+          status: 'loading',
+          language: 'de',
+          path: '/augsburg/de',
+          depth: 2,
+          city: 'augsburg'
+        }
+      },
+      eventsRouteMapping: {},
+      languages: ['de', 'en'],
+      resourceCache: {},
+      searchRoute: null,
+      switchingLanguage: false
+    }
+    expect(cityContentReducer(prevState, {
+      type: 'PUSH_CATEGORY_LANGUAGES',
+      params: {
+        key: 'route-id-0',
+        allAvailableLanguages: new Map([['en', '/augsburg/en']]),
+        city: 'augsburg',
+        language: 'de',
+        depth: 2
+      }
+    })?.categoriesRouteMapping['route-id-0']).toEqual({
+      status: 'languageNotAvailable',
+      language: 'de',
+      allAvailableLanguages: new Map([['en', '/augsburg/en']]),
+      city: 'augsburg',
+      depth: 2
+    })
   })
 
   it('should pass the error to the corresponding route on FETCH_CATEGORY_FAILED', () => {
