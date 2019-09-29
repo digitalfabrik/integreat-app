@@ -62,25 +62,23 @@ const eventRouteTranslator = (newEvents: Array<EventModel>, newLanguage: string)
       console.warn('Route was not ready when translating. Will not translate this route.')
       return route
     }
-    const { path, allAvailableLanguages, city } = route
+    const { allAvailableLanguages, city } = route
 
-    if (!path) { // Route is a list of all events
+    if (!allAvailableLanguages.has(newLanguage)) {
       return {
-        status: 'ready',
-        path: null,
-        models: newEvents,
+        status: 'languageNotAvailable',
         allAvailableLanguages,
         language: newLanguage,
         city
       }
     }
 
-    // Route is a single event
     const translatedPath = allAvailableLanguages.get(newLanguage)
-
-    if (!translatedPath) {
+    if (!translatedPath) { // Route is a list of all events
       return {
-        status: 'languageNotAvailable',
+        status: 'ready',
+        path: translatedPath,
+        models: newEvents,
         allAvailableLanguages,
         language: newLanguage,
         city
@@ -91,7 +89,7 @@ const eventRouteTranslator = (newEvents: Array<EventModel>, newLanguage: string)
 
     if (!translatedEvent) {
       console.warn(`Inconsistent data detected: ${translatedPath} does not exist,
-                    but is referenced in ${path} as translation for ${newLanguage}.`)
+                    but is referenced as translation for ${newLanguage}.`)
       return route
     }
 

@@ -85,8 +85,8 @@ Object {
   "eventsRouteMapping": Object {
     "event-route-1": Object {
       "allAvailableLanguages": Map {
-        "de" => "/augsburg/de/events",
-        "en" => "/augsburg/en/events",
+        "de" => null,
+        "en" => null,
       },
       "city": "augsburg",
       "language": "en",
