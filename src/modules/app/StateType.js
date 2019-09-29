@@ -43,7 +43,7 @@ export type CategoryRouteStateType = {|
 |}
 
 export type EventRouteConfigType = {|
-  +path: ?string,
+  +path: ?string, // path is null for the event-lists route
   +language: string,
   +city: string
 |}
@@ -52,12 +52,12 @@ export type EventRouteStateType = {|
   +status: 'ready',
   ...EventRouteConfigType,
   +models: Array<EventModel>,
-  +allAvailableLanguages: Map<string, string> // including the current content language
+  +allAvailableLanguages: Map<string, ?string> // including the current content language
 |} | {|
   +status: 'languageNotAvailable',
   +language: string,
   +city: string,
-  +allAvailableLanguages: Map<string, string>
+  +allAvailableLanguages: Map<string, ?string>
 |} | {|
   +status: 'loading',
   ...EventRouteConfigType
