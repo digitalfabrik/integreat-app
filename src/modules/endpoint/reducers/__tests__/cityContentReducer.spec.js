@@ -205,13 +205,13 @@ describe('cityContentReducer', () => {
 
     expect(cityContentReducer(prevState, {
       type: 'FETCH_EVENT_FAILED',
-      params: { key: 'route-id-0', message: 'No idea', path: null, city: 'augsburg', language: 'de' }
+      params: { key: 'route-id-0', message: 'No idea why it fails :/', path: null, city: 'augsburg', language: 'de' }
     })?.eventsRouteMapping['route-id-0']).toEqual({
       status: 'error',
       language: 'de',
       city: 'augsburg',
       path: null,
-      message: 'No idea'
+      message: 'No idea why it fails :/'
     })
   })
 
@@ -292,7 +292,7 @@ describe('cityContentReducer', () => {
       type: 'FETCH_CATEGORY_FAILED',
       params: {
         key: 'route-id-0',
-        message: 'No idea',
+        message: 'No idea why it fails :/',
         path: '/augsburg/de',
         city: 'augsburg',
         language: 'de',
@@ -304,7 +304,7 @@ describe('cityContentReducer', () => {
       path: '/augsburg/de',
       city: 'augsburg',
       depth: 2,
-      message: 'No idea'
+      message: 'No idea why it fails :/'
     })
   })
 
