@@ -1,7 +1,7 @@
 // @flow
 
 import type { Saga } from 'redux-saga'
-import { all, call, put, takeLatest } from 'redux-saga/effects'
+import { all, call, put, select, takeLatest } from 'redux-saga/effects'
 import type {
   FetchEventActionType,
   FetchEventFailedActionType,
@@ -11,16 +11,18 @@ import type {
 import type { DataContainer } from '../DataContainer'
 import loadCityContent from './loadCityContent'
 import { ContentLoadCriterion } from '../ContentLoadCriterion'
+import isPeekingRoute from '../selectors/isPeekingRoute'
 
 function * fetchEvent (dataContainer: DataContainer, action: FetchEventActionType): Saga<void> {
   const { city, language, path, key, criterion } = action.params
   try {
-    const loadCriterion = new ContentLoadCriterion(criterion, false)
-    const languageValid = yield call(loadCityContent,
-      dataContainer, city, language, loadCriterion
-    )
+    const peeking = yield select(state => isPeekingRoute(state, { routeCity: city }))
 
-    const cityLanguages = yield call(dataContainer.getLanguages, city)
+    const loadCriterion = new ContentLoadCriterion(criterion, peeking)
+    const languageValid = yield call(loadCityContent, dataContainer, city, language, loadCriterion)
+
+    // Only get languages if we've loaded them, otherwise we're peeking
+    const cityLanguages = loadCriterion.shouldLoadLanguages() ? yield call(dataContainer.getLanguages, city) : []
 
     if (languageValid) {
       const [events, resourceCache] = yield all([
@@ -48,7 +50,7 @@ function * fetchEvent (dataContainer: DataContainer, action: FetchEventActionTyp
       const failed: FetchEventFailedActionType = {
         type: `FETCH_EVENT_FAILED`,
         params: {
-          message: `Could not load city content`, key, city, language, path
+          message: 'Could not load event.', key, city, language, path
         }
       }
       yield put(failed)

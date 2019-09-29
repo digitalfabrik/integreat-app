@@ -59,7 +59,7 @@ function * fetchCategory (dataContainer: DataContainer, action: FetchCategoryAct
       const failed: FetchCategoryFailedActionType = {
         type: `FETCH_CATEGORY_FAILED`,
         params: {
-          message: `Could not load category.`, key, path, depth, language, city
+          message: 'Could not load category.', key, path, depth, language, city
         }
       }
       yield put(failed)

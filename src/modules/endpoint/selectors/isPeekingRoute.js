@@ -23,8 +23,8 @@ const isPeekingRoute: InputSelector<StateType, SelectPropsType, boolean> = (
     return false
   }
 
-  return cityContent.city !== routeCity /* If switching the city we want to peek. If we are in the same city we should
-                                            not peek */
+  return cityContent.city !== routeCity /* If we're the city differs to the selected city, we want to peek.
+                                           If we are in the same city we should not peek. */
 }
 
 export default isPeekingRoute
