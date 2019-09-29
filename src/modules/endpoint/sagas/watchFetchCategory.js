@@ -52,7 +52,7 @@ function * fetchCategory (dataContainer: DataContainer, action: FetchCategoryAct
       const allAvailableLanguages = new Map(cityLanguages.map(lng => [lng.code, `/${city}/${lng.code}`]))
       const pushLanguages: PushCategoryLanguagesActionType = {
         type: `PUSH_CATEGORY_LANGUAGES`,
-        params: { city, language, path, depth, allAvailableLanguages, key }
+        params: { city, language, depth, allAvailableLanguages, key }
       }
       yield put(pushLanguages)
     } else {

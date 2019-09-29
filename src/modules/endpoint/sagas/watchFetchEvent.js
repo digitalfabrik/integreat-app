@@ -2,7 +2,12 @@
 
 import type { Saga } from 'redux-saga'
 import { all, call, put, takeLatest } from 'redux-saga/effects'
-import type { FetchEventActionType, FetchEventFailedActionType, PushEventActionType } from '../../app/StoreActionType'
+import type {
+  FetchEventActionType,
+  FetchEventFailedActionType,
+  PushEventActionType,
+  PushEventLanguagesActionType
+} from '../../app/StoreActionType'
 import type { DataContainer } from '../DataContainer'
 import loadCityContent from './loadCityContent'
 import { ContentLoadCriterion } from '../ContentLoadCriterion'
@@ -11,15 +16,16 @@ function * fetchEvent (dataContainer: DataContainer, action: FetchEventActionTyp
   const { city, language, path, key, criterion } = action.params
   try {
     const loadCriterion = new ContentLoadCriterion(criterion, false)
-    const cityContentLoaded = yield call(loadCityContent,
-      dataContainer, city, language,
-      loadCriterion
+    const languageValid = yield call(loadCityContent,
+      dataContainer, city, language, loadCriterion
     )
-    if (cityContentLoaded) {
-      const [events, resourceCache, cityLanguages] = yield all([
+
+    const cityLanguages = yield call(dataContainer.getLanguages, city)
+
+    if (languageValid) {
+      const [events, resourceCache] = yield all([
         call(dataContainer.getEvents, city, language),
-        call(dataContainer.getResourceCache, city, language),
-        call(dataContainer.getLanguages, city)
+        call(dataContainer.getResourceCache, city, language)
       ])
 
       const insert: PushEventActionType = {
@@ -27,6 +33,17 @@ function * fetchEvent (dataContainer: DataContainer, action: FetchEventActionTyp
         params: { events, resourceCache, path, cityLanguages, key, language, city }
       }
       yield put(insert)
+    } else if (path === null) {
+      const pushLanguages: PushEventLanguagesActionType = {
+        type: `PUSH_EVENT_LANGUAGES`,
+        params: {
+          allAvailableLanguages: new Map(cityLanguages.map(lng => [lng.code, `${city}/${lng.code}/events`])),
+          key,
+          language,
+          city
+        }
+      }
+      yield put(pushLanguages)
     } else {
       const failed: FetchEventFailedActionType = {
         type: `FETCH_EVENT_FAILED`,
