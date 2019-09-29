@@ -39,7 +39,7 @@ function * fetchEvent (dataContainer: DataContainer, action: FetchEventActionTyp
       const pushLanguages: PushEventLanguagesActionType = {
         type: `PUSH_EVENT_LANGUAGES`,
         params: {
-          allAvailableLanguages: new Map(cityLanguages.map(lng => [lng.code, `${city}/${lng.code}/events`])),
+          allAvailableLanguages: new Map(cityLanguages.map(lng => [lng.code, null])),
           key,
           language,
           city
