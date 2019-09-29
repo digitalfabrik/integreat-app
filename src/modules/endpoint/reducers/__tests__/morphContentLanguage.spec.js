@@ -271,13 +271,8 @@ describe('morphContentLanguage', () => {
     })
   ]
 
-  const deRootAvailableLanguages = [
-    new LanguageModel('en', 'English'),
-    new LanguageModel('de', 'Deutsch')
-  ]
-
   const prepareState = ({ path, model, eventPath, events }: {
-    path: string, model: CategoryModel, eventPath: string, events: Array<EventModel>
+    path: string, model: CategoryModel, eventPath: ?string, events: Array<EventModel>
   } = {
     path: '/augsburg/de',
     model: createGermanModel(),
@@ -290,7 +285,7 @@ describe('morphContentLanguage', () => {
       type: 'PUSH_CATEGORY',
       params: {
         categoriesMap: model,
-        cityLanguages: deRootAvailableLanguages,
+        cityLanguages,
         path,
         depth: 2,
         key: 'route-0',
@@ -400,5 +395,47 @@ describe('morphContentLanguage', () => {
     const newState = morphContentLanguage(previous, action)
 
     expect(newState).toMatchSnapshot()
+  })
+
+  it('should set languageNotAvailable for category', () => {
+    const action: MorphContentLanguageActionType = {
+      type: 'MORPH_CONTENT_LANGUAGE',
+      params: {
+        newCategoriesMap: enModel,
+        newResourceCache: {},
+        newEvents: enEvents,
+        newLanguage: 'en'
+      }
+    }
+
+    const previous = prepareState({
+      path: '/augsburg/de/anlaufstellen',
+      model: createGermanModel({ translatable: false }),
+      eventPath: null,
+      events: deEvents
+    })
+
+    expect(morphContentLanguage(previous, action)).toMatchSnapshot()
+  })
+
+  it('should set languageNotAvailable for event', () => {
+    const action: MorphContentLanguageActionType = {
+      type: 'MORPH_CONTENT_LANGUAGE',
+      params: {
+        newCategoriesMap: enModel,
+        newResourceCache: {},
+        newEvents: enEvents,
+        newLanguage: 'en'
+      }
+    }
+
+    const previous = prepareState({
+      path: '/augsburg/de',
+      model: createGermanModel({ translatable: false }),
+      eventPath: '/augsburg/de/events/drittes_event',
+      events: deEvents
+    })
+
+    expect(morphContentLanguage(previous, action)).toMatchSnapshot()
   })
 })
