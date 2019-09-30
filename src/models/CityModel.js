@@ -10,12 +10,12 @@ class CityModel {
   _prefix: ?string
   _latitude: number | null
   _longitude: number | null
-  _aliases: { [alias: string]: {| long: number, lat: number |} } | null
+  _aliases: { [alias: string]: {| longitude: number, latitude: number |} } | null
 
   constructor (params: {|
     name: string, code: string, live: boolean, eventsEnabled: boolean, extrasEnabled: boolean,
     sortingName: string, prefix: ?string, latitude: number | null, longitude: number | null,
-    aliases: { [alias: string]: {| long: number, lat: number |} } | null
+    aliases: { [alias: string]: {| longitude: number, latitude: number |} } | null
   |}) {
     this._name = params.name
     this._code = params.code
@@ -59,6 +59,18 @@ class CityModel {
 
   get prefix (): ?string {
     return this._prefix
+  }
+
+  get longitude (): number | null {
+    return this._longitude
+  }
+
+  get latitude (): number | null {
+    return this._latitude
+  }
+
+  get aliases (): { [alias: string]: {| longitude: number, latitude: number |} } | null {
+    return this._aliases
   }
 
   static findCityName (cities: Array<CityModel>, code: string): string {
