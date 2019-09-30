@@ -47,17 +47,23 @@ describe('fetchResourceCache', () => {
       throw new Error('getResourceCache threw an error!')
     }
 
-    expect(Object.keys(fetchedResources['/augsburg/de/category_0'])).toHaveLength(
-      Object.keys(resources['/augsburg/de/category_0']).length - 1 /* The first url is excluded because the
-                                                                      FetcherModule mock produced an error for it */
-    )
+    const fetchedCount = {
+      ...fetchedResources['/augsburg/de/category_0'],
+      ...fetchedResources['/augsburg/de/category_0/category_0']
+    }
 
-    expect(Object.keys(fetchedResources['/augsburg/de/category_0/category_0'])).toHaveLength(
-      Object.keys(resources['/augsburg/de/category_0/category_0']).length
+    const expectedCount = {
+      ...resources['/augsburg/de/category_0'],
+      ...resources['/augsburg/de/category_0/category_0']
+    }
+
+    expect(Object.keys(fetchedCount)).toHaveLength(
+      Object.keys(expectedCount).length - 1 /* The first url is excluded because the
+                                               FetcherModule mock produced an error for it */
     )
 
     expect(spy).toHaveBeenCalledWith(
-      expect.stringContaining('Failed to download https://integreat/title_0-0-300x300.png')
+      expect.stringContaining('Failed to download')
     )
 
     spy.mockRestore()
