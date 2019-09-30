@@ -39,9 +39,14 @@ class CategoriesMapModelBuilder {
 
   _addChildren (
     category: CategoryModel,
+    id: number,
     categories: Array<CategoryModel>,
     resourceCache: LanguageResourceCacheStateType,
-    depth: number) {
+    depth: number,
+    ancestors: Array<number>) {
+    categories.push(category)
+    ancestors.push(id)
+
     if (depth === this._depth) {
       return
     }
@@ -49,13 +54,12 @@ class CategoriesMapModelBuilder {
     for (let i = 0; i < this._arity; i++) {
       const path = `${category.path}/category_${i}`
       const lastUpdate = moment('2017-11-18T19:30:00.000Z', moment.ISO_8601)
-      const id = depth * this._arity + i
+      const id = depth * this._arity + i + 1
       const resourceUrl1 = `https://integreat/title_${depth}-${i}-300x300.png`
       const resourceUrl2 = `https://integreat/category_${depth}-${i}-300x300.png`
-      const thumbnail = `http://thumbnails/category_${depth}-${i}.png`
+      const thumbnail = `http://thumbnails/category_${ancestors.join(',')}-${id}.png`
 
       const newChild = new CategoryModel({
-        id,
         path,
         title: `Category ${depth}-${i}`,
         content: `<h1>This is a sample page</h1>
@@ -74,8 +78,8 @@ class CategoriesMapModelBuilder {
         ...this.createResource(resourceUrl2, id, lastUpdate),
         ...this.createResource(thumbnail, id, lastUpdate)
       }
-      categories.push(newChild)
-      this._addChildren(newChild, categories, resourceCache, depth + 1)
+
+      this._addChildren(newChild, id, categories, resourceCache, depth + 1, [...ancestors])
     }
   }
 
@@ -93,7 +97,6 @@ class CategoriesMapModelBuilder {
 
     for (let i = 0; i < this._arity; i++) {
       this._addChildren(new CategoryModel({
-        id: 0,
         path: '/augsburg/de',
         title: 'augsburg',
         content: '',
@@ -102,7 +105,7 @@ class CategoriesMapModelBuilder {
         thumbnail: 'no_thumbnail',
         parentPath: '',
         lastUpdate: moment('2017-11-18T19:30:00.000Z', moment.ISO_8601)
-      }), categories, resourceCache, 0)
+      }), 0, categories, resourceCache, 0, [])
     }
 
     return { categories: new CategoriesMapModel(categories), resourceCache }
