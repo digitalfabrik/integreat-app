@@ -17,7 +17,7 @@ describe('watchFetchCities', () => {
   })
 
   describe('fetchCities', () => {
-    it('should yield an action which pushes the cites', async () => {
+    it('should put an action which pushes the cites', async () => {
       const cities = new CityModelBuilder(1).build()
 
       const dataContainer = new DefaultDataContainer()
@@ -33,7 +33,7 @@ describe('watchFetchCities', () => {
         .run()
     })
 
-    it('should yield an error action', () => {
+    it('should put an error action', () => {
       const dataContainer = new DefaultDataContainer()
       const action: FetchCitiesActionType = {
         type: 'FETCH_CITIES',
