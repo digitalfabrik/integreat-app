@@ -61,7 +61,7 @@ class CategoriesMapModelBuilder {
                     <img src="${resourceUrl1}"/>
                     <p>This is a sample page</p>
                     <img src="${resourceUrl2}"/>`,
-        order: -1,
+        order: i,
         availableLanguages: new Map(),
         thumbnail: `http://thumbnails/category_${depth}-${i}.png`,
         parentPath: category.path,
