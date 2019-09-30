@@ -1,11 +1,10 @@
 // @flow
 
 import type { Saga } from 'redux-saga'
-import { CategoriesMapModel } from '@integreat-app/integreat-api-client'
+import { CategoriesMapModel, createCategoriesEndpoint } from '@integreat-app/integreat-api-client'
 import { call } from 'redux-saga/effects'
 import { baseUrl } from '../constants'
 import type { DataContainer } from '../DataContainer'
-import createCategoriesEndpoint from '@integreat-app/integreat-api-client/endpoints/createCategoriesEndpoint'
 
 function * loadCategories (
   city: string,

@@ -2,10 +2,9 @@
 
 import type { Saga } from 'redux-saga'
 import { call } from 'redux-saga/effects'
-import { LanguageModel } from '@integreat-app/integreat-api-client'
+import { LanguageModel, createLanguagesEndpoint } from '@integreat-app/integreat-api-client'
 import { baseUrl } from '../constants'
 import type { DataContainer } from '../DataContainer'
-import createLanguagesEndpoint from '@integreat-app/integreat-api-client/endpoints/createLanguagesEndpoint'
 
 export default function * loadLanguages (
   city: string,

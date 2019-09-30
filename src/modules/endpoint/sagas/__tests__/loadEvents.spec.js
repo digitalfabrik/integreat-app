@@ -8,20 +8,25 @@ import EventModelBuilder from '../../../../testing/builder/EventModelBuilder'
 
 let mockEvents
 jest.mock('rn-fetch-blob')
-jest.mock('@integreat-app/integreat-api-client/endpoints/createEventsEndpoint',
-  () => () => {
-    const { EndpointBuilder } = require('@integreat-app/integreat-api-client')
-    const EventArrayBuilder = require('../../../../testing/builder/EventModelBuilder').default
+jest.mock('@integreat-app/integreat-api-client',
+  () => {
+    const actual = jest.requireActual('@integreat-app/integreat-api-client')
+    return {
+      ...actual,
+      createEventsEndpoint: () => {
+        const { EndpointBuilder } = require('@integreat-app/integreat-api-client')
+        const EventArrayBuilder = require('../../../../testing/builder/EventModelBuilder').default
 
-    mockEvents = new EventArrayBuilder('mockEvents', 1).build()
+        mockEvents = new EventArrayBuilder('mockEvents', 1).build()
 
-    return new EndpointBuilder('events-mock')
-      .withParamsToUrlMapper(() => 'https://cms.integreat-app.de/events')
-      .withResponseOverride(mockEvents)
-      .withMapper(() => { })
-      .build()
-  }
-)
+        return new EndpointBuilder('events-mock')
+          .withParamsToUrlMapper(() => 'https://cms.integreat-app.de/events')
+          .withResponseOverride(mockEvents)
+          .withMapper(() => { })
+          .build()
+      }
+    }
+  })
 
 describe('loadEvents', () => {
   beforeEach(() => {

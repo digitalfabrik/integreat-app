@@ -3,7 +3,7 @@
 import getExtension from './getExtension'
 import { Parser } from 'htmlparser2'
 import type { FetchMapType } from './sagas/fetchResourceCache'
-import { keyBy, reduce } from 'lodash/collection'
+import { reduce } from 'lodash/collection'
 import hashUrl from './hashUrl'
 
 /**

@@ -1,11 +1,10 @@
 // @flow
 
 import type { Saga } from 'redux-saga'
-import { CityModel } from '@integreat-app/integreat-api-client'
+import { CityModel, createCitiesEndpoint } from '@integreat-app/integreat-api-client'
 import { call } from 'redux-saga/effects'
 import { baseUrl } from '../constants'
 import type { DataContainer } from '../DataContainer'
-import createCitiesEndpoint from '@integreat-app/integreat-api-client/endpoints/createCitiesEndpoint'
 
 function * loadCities (
   dataContainer: DataContainer,

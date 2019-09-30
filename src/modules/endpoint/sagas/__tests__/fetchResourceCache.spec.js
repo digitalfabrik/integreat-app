@@ -7,7 +7,6 @@ import RNFetchBlob from '../../../../__mocks__/rn-fetch-blob'
 import CategoriesMapModelBuilder from '../../../../testing/builder/CategoriesMapModelBuilder'
 import { transform, forEach } from 'lodash'
 import type { FileCacheStateType } from '../../../app/StateType'
-import Moment from 'moment'
 
 jest.mock('../../../fetcher/FetcherModule')
 jest.mock('rn-fetch-blob')
@@ -29,7 +28,7 @@ describe('fetchResourceCache', () => {
   const city = 'augsburg'
   const language = 'en'
 
-  it('should should fetch and create error message', async () => {
+  it('should fetch and create warning message', async () => {
     const spy = jest.spyOn(console, 'warn')
 
     const dataContainer = new DefaultDataContainer()
@@ -49,8 +48,8 @@ describe('fetchResourceCache', () => {
     }
 
     expect(Object.keys(fetchedResources['/augsburg/de/category_0'])).toHaveLength(
-      Object.keys(resources['/augsburg/de/category_0']).length - 1 /* The first url is excluded because an the
-                                                                      FetcherModule produced an error for it */
+      Object.keys(resources['/augsburg/de/category_0']).length - 1 /* The first url is excluded because the
+                                                                      FetcherModule mock produced an error for it */
     )
 
     expect(Object.keys(fetchedResources['/augsburg/de/category_0/category_0'])).toHaveLength(
@@ -64,7 +63,7 @@ describe('fetchResourceCache', () => {
     spy.mockRestore()
   })
 
-  it('should should yield error if fetching fails', () => {
+  it('should put error if fetching fails', () => {
     const dataContainer = new DefaultDataContainer()
 
     const categoriesBuilder = new CategoriesMapModelBuilder(1, 2)
