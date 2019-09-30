@@ -51,8 +51,7 @@ describe('cities', () => {
         prefix: null,
         longitude: 10.89779,
         latitude: 48.3705449,
-        // eslint-disable-next-line standard/object-curly-even-spacing
-        aliases: { 'augsburg': {long: 10.89779, lat: 48.3705449 } }
+        aliases: { 'augsburg': { long: 10.89779, lat: 48.3705449 } }
       }),
       new CityModel({
         name: city2.name,
