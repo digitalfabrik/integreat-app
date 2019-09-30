@@ -147,5 +147,6 @@ export type JsonCityType = {
   name_without_prefix: string,
   prefix: ?string,
   latitude: number | null,
-  longitude: number | null
+  longitude: number | null,
+  aliases: { [alias: string]: {| long: number, lat: number |} } | null
 }
