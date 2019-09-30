@@ -18,6 +18,8 @@ describe('ResourceURLFinder', () => {
       <img src="https://ex.am/pl2.jpg" alt="Ultra!" />
       <img src="https://ex.am/pl2.jpeg" alt="Meeeeega!" />
       <img src="https://ex.am/pl2.pdf" alt="Exorbitant!" />
+      <img src="https://ex.am/noextension" alt="Nöp!" />
+      <img src="invalid-url" alt="Näp!" />
     `)
     finder.finalize()
 
@@ -40,7 +42,9 @@ describe('ResourceURLFinder', () => {
       {
         path: '/path1',
         thumbnail: 'https://ex.am/thumb.png',
-        content: `<img src="https://ex.am/pl1.png" alt="Crazy" />`
+        content: `<img src="https://ex.am/pl1.png" alt="Crazy" />
+                  <img src="https://ex.am/noextension" alt="Nöp!" />
+                  <img src="invalid-url" alt="Näp!" />`
       },
       { path: '/path2', thumbnail: '', content: `<img src="https://ex.am/pl2.png" alt="Crazy" />` }
     ]
@@ -49,5 +53,21 @@ describe('ResourceURLFinder', () => {
     finder.finalize()
 
     expect(fetchMap).toMatchSnapshot()
+  })
+
+  it('should ignore urls with invalid file paths', () => {
+    const finder = new ResourceURLFinder()
+    finder.init()
+    const input = [
+      {
+        path: '/path1',
+        thumbnail: 'https://ex.am/thumb.png',
+        content: `<img src="https://ex.am/pl1.png" alt="Crazy" />`
+      }
+    ]
+    const fetchMap = finder.buildFetchMap(input, () => '')
+    finder.finalize()
+
+    expect(fetchMap).toBeEmpty()
   })
 })
