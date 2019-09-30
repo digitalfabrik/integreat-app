@@ -56,7 +56,12 @@ class EventModelBuilder {
       const startDate = moment(mockDate.add(this._predictableNumber(index), 'years').toISOString(), moment.ISO_8601)
       const endDate = moment(mockDate.add(this._predictableNumber(index), 'hours').toISOString(), moment.ISO_8601)
       const lastUpdate = moment(mockDate.subtract(this._predictableNumber(index), 'months').toISOString(), moment.ISO_8601)
+
       const path = `/augsburg/en/events/event${index}`
+      const resourceUrl1 = `https://integreat/title_${index}-300x300.png`
+      const resourceUrl2 = `https://integreat/event_${index}-300x300.png`
+      const thumbnail = `http://thumbnails/event_${index}.png`
+
       return {
         path,
         event: new EventModel({
@@ -78,14 +83,15 @@ class EventModelBuilder {
           excerpt: 'excerpt',
           lastUpdate,
           content: `<h1>This is a sample event</h1>
-                    <img src="https://integreat/title_${index}-300x300.png"/>
+                    <img src="${resourceUrl1}"/>
                     <p>This is a sample event</p>
-                    <img src="https://integreat/event_${index}-300x300.png"/>`,
-          thumbnail: 'https://integreat/thumbnail.png'
+                    <img src="${resourceUrl2}"/>`,
+          thumbnail
         }),
         resources: {
-          ...this.createResource(`https://integreat/title_${index}-300x300.png`, index, lastUpdate),
-          ...this.createResource(`https://integreat/event_${index}-300x300.png`, index, lastUpdate)
+          ...this.createResource(resourceUrl1, index, lastUpdate),
+          ...this.createResource(resourceUrl2, index, lastUpdate),
+          ...this.createResource(thumbnail, index, lastUpdate)
         }
       }
     })

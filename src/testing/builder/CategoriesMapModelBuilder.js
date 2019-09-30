@@ -52,6 +52,7 @@ class CategoriesMapModelBuilder {
       const id = depth * this._arity + i
       const resourceUrl1 = `https://integreat/title_${depth}-${i}-300x300.png`
       const resourceUrl2 = `https://integreat/category_${depth}-${i}-300x300.png`
+      const thumbnail = `http://thumbnails/category_${depth}-${i}.png`
 
       const newChild = new CategoryModel({
         id,
@@ -63,14 +64,15 @@ class CategoriesMapModelBuilder {
                     <img src="${resourceUrl2}"/>`,
         order: i,
         availableLanguages: new Map(),
-        thumbnail: `http://thumbnails/category_${depth}-${i}.png`,
+        thumbnail,
         parentPath: category.path,
         lastUpdate
       })
 
       resourceCache[path] = {
         ...this.createResource(resourceUrl1, id, lastUpdate),
-        ...this.createResource(resourceUrl2, id, lastUpdate)
+        ...this.createResource(resourceUrl2, id, lastUpdate),
+        ...this.createResource(thumbnail, id, lastUpdate)
       }
       categories.push(newChild)
       this._addChildren(newChild, categories, resourceCache, depth + 1)
