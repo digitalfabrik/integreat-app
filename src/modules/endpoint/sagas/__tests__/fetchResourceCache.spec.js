@@ -44,17 +44,23 @@ describe('fetchResourceCache', () => {
 
     const fetchedResources = await dataContainer.getResourceCache(city, language)
 
-    const lessStrictExpected = transform(resources, (result, value, path) => {
-      forEach(value, (value, url) => {
-        result[path][url].lastUpdate = expect.any(Moment)
-      })
-      return result
-    }, resources)
+    if (fetchedResources.errorMessage !== undefined) {
+      throw new Error('getResourceCache threw an error!')
+    }
 
-    delete lessStrictExpected['/augsburg/de/category_0-0'] /* The first category is excluded because an the
-                                                              FetcherModule produced an error for this */
-    expect(fetchedResources).toMatchObject(lessStrictExpected)
-    expect(spy).toHaveBeenCalledWith(expect.stringContaining('Failed to download https://integreat/title_0-0-300x300.png'))
+    expect(Object.keys(fetchedResources['/augsburg/de/category_0'])).toHaveLength(
+      Object.keys(resources['/augsburg/de/category_0']).length - 1 /* The first url is excluded because an the
+                                                                      FetcherModule produced an error for it */
+    )
+
+    expect(Object.keys(fetchedResources['/augsburg/de/category_0/category_0'])).toHaveLength(
+      Object.keys(resources['/augsburg/de/category_0/category_0']).length
+    )
+
+    expect(spy).toHaveBeenCalledWith(
+      expect.stringContaining('Failed to download https://integreat/title_0-0-300x300.png')
+    )
+
     spy.mockRestore()
   })
 
