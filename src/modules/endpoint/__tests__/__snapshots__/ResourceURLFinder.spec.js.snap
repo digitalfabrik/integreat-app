@@ -2,17 +2,17 @@
 
 exports[`ResourceURLFinder should build a fetchMap including thumbnails if supplied 1`] = `
 Object {
-  "buildFilePath('https://ex.am/pl1.png', '/path1', '/path1')": Array [
+  "buildFilePath('https://ex.am/pl1.png', '/path1', 'c0ae5631859192e60552f726dbff7451')": Array [
     "https://ex.am/pl1.png",
     "/path1",
     "c0ae5631859192e60552f726dbff7451",
   ],
-  "buildFilePath('https://ex.am/pl2.png', '/path2', '/path2')": Array [
+  "buildFilePath('https://ex.am/pl2.png', '/path2', '2961bd9c8033abba619971942578d4e2')": Array [
     "https://ex.am/pl2.png",
     "/path2",
     "2961bd9c8033abba619971942578d4e2",
   ],
-  "buildFilePath('https://ex.am/thumb.png', '/path1', '/path1')": Array [
+  "buildFilePath('https://ex.am/thumb.png', '/path1', 'ca774e6debbeeafff1b6d4fe23c3079d')": Array [
     "https://ex.am/thumb.png",
     "/path1",
     "ca774e6debbeeafff1b6d4fe23c3079d",
