@@ -45,7 +45,7 @@ describe('ResourceURLFinder', () => {
       { path: '/path2', thumbnail: '', content: `<img src="https://ex.am/pl2.png" alt="Crazy" />` }
     ]
     const fetchMap = finder.buildFetchMap(input, (url, path, urlHash) =>
-      `buildFilePath('${url}', '${path}', '${path}')`)
+      `buildFilePath('${url}', '${path}', '${urlHash}')`)
     finder.finalize()
 
     expect(fetchMap).toMatchSnapshot()
