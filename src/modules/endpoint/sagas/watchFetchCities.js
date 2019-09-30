@@ -20,7 +20,6 @@ export function * fetchCities (dataContainer: DataContainer, action: FetchCities
     }
 
     yield put(insert)
-    return cities
   } catch (e) {
     console.error(e)
     const failed: FetchCitiesFailedActionType = {
