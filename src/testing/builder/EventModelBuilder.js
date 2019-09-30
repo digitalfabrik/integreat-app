@@ -17,7 +17,7 @@ class EventModelBuilder {
     this._eventCount = eventCount
   }
 
-  predictableNumber (index: number, max: number = MAX_PREDICTABLE_VALUE): number {
+  _predictableNumber (index: number, max: number = MAX_PREDICTABLE_VALUE): number {
     return seedrandom(index + this._seed)() * max
   }
 
@@ -37,7 +37,7 @@ class EventModelBuilder {
     return {
       [url]: {
         filePath: `path/to/documentDir/resource-cache/v1/some-city/files/${hash}.png`,
-        lastUpdate: moment(lastUpdate).add(this.predictableNumber(index), 'days'),
+        lastUpdate: moment(lastUpdate).add(this._predictableNumber(index), 'days'),
         hash
       }
     }
@@ -53,9 +53,9 @@ class EventModelBuilder {
   buildAll (): Array<{ path: string, event: EventModel, resources: { [path: string]: FileCacheStateType } }> {
     return Array.from({ length: this._eventCount }, (x, index) => {
       const mockDate = moment('2015-01-01T00:00:00.000Z', moment.ISO_8601)
-      const startDate = moment(mockDate.add(this.predictableNumber(index), 'years').toISOString(), moment.ISO_8601)
-      const endDate = moment(mockDate.add(this.predictableNumber(index), 'hours').toISOString(), moment.ISO_8601)
-      const lastUpdate = moment(mockDate.subtract(this.predictableNumber(index), 'months').toISOString(), moment.ISO_8601)
+      const startDate = moment(mockDate.add(this._predictableNumber(index), 'years').toISOString(), moment.ISO_8601)
+      const endDate = moment(mockDate.add(this._predictableNumber(index), 'hours').toISOString(), moment.ISO_8601)
+      const lastUpdate = moment(mockDate.subtract(this._predictableNumber(index), 'months').toISOString(), moment.ISO_8601)
       const path = `/augsburg/en/events/event${index}`
       return {
         path,

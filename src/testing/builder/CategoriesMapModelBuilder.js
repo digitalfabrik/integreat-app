@@ -22,7 +22,7 @@ class CategoriesMapModelBuilder {
     this._depth = depth
   }
 
-  predictableNumber (index: number, max: number = MAX_PREDICTABLE_VALUE): number {
+  _predictableNumber (index: number, max: number = MAX_PREDICTABLE_VALUE): number {
     return seedrandom(`${index}-seed`)() * max
   }
 
@@ -31,7 +31,7 @@ class CategoriesMapModelBuilder {
     return {
       [url]: {
         filePath: `path/to/documentDir/resource-cache/v1/some-city/files/${hash}.png`,
-        lastUpdate: moment(lastUpdate).add(this.predictableNumber(index), 'days'),
+        lastUpdate: moment(lastUpdate).add(this._predictableNumber(index), 'days'),
         hash
       }
     }
