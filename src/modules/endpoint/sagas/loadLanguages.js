@@ -13,7 +13,7 @@ export default function * loadLanguages (
 ): Saga<Array<LanguageModel>> {
   const languagesAvailable = yield call(() => dataContainer.languagesAvailable(city))
 
-  if (!(languagesAvailable && !forceRefresh)) {
+  if (!languagesAvailable || forceRefresh) {
     console.debug('Fetching languages')
 
     const payload = yield call(() => createLanguagesEndpoint(baseUrl).request({ city }))
