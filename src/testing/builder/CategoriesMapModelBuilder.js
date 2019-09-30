@@ -6,16 +6,19 @@ import type { FileCacheStateType, LanguageResourceCacheStateType } from '../../m
 import seedrandom from 'seedrandom'
 import hashUrl from '../../modules/endpoint/hashUrl'
 
-const DEFAULT_MAX_WIDTH = 3
+const DEFAULT_ARITY = 3
 const DEFAULT_DEPTH = 2
 const MAX_PREDICTABLE_VALUE = 6
 
+/**
+ * This builder generates a perfect m-ary tree of categories with the specified depth.
+ */
 class CategoriesMapModelBuilder {
   _depth: number
-  _maxWidth: number
+  _arity: number
 
-  constructor (maxWidth: number = DEFAULT_MAX_WIDTH, depth: number = DEFAULT_DEPTH) {
-    this._maxWidth = maxWidth
+  constructor (arity: number = DEFAULT_ARITY, depth: number = DEFAULT_DEPTH) {
+    this._arity = arity
     this._depth = depth
   }
 
@@ -43,10 +46,10 @@ class CategoriesMapModelBuilder {
       return
     }
 
-    for (let i = 0; i < this._maxWidth; i++) {
+    for (let i = 0; i < this._arity; i++) {
       const path = `${category.path}/category_${i}`
       const lastUpdate = moment('2017-11-18T19:30:00.000Z', moment.ISO_8601)
-      const id = depth * this._maxWidth + i
+      const id = depth * this._arity + i
       const resourceUrl1 = `https://integreat/title_${depth}-${i}-300x300.png`
       const resourceUrl2 = `https://integreat/category_${depth}-${i}-300x300.png`
 
@@ -86,7 +89,7 @@ class CategoriesMapModelBuilder {
     const categories = []
     const resourceCache = {}
 
-    for (let i = 0; i < this._maxWidth; i++) {
+    for (let i = 0; i < this._arity; i++) {
       this.addChildren(new CategoryModel({
         id: 0,
         path: '/augsburg/de',
