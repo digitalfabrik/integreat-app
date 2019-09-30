@@ -44,17 +44,20 @@ class CategoriesMapModelBuilder {
     }
 
     for (let i = 0; i < this._maxWidth; i++) {
-      const path = `${category.path}/category_${depth}-${i}`
+      const path = `${category.path}/category_${i}`
       const lastUpdate = moment('2017-11-18T19:30:00.000Z', moment.ISO_8601)
+      const id = depth * this._maxWidth + i
+      const resourceUrl1 = `https://integreat/title_${depth}-${i}-300x300.png`
+      const resourceUrl2 = `https://integreat/category_${depth}-${i}-300x300.png`
 
       const newChild = new CategoryModel({
-        id: 0,
+        id,
         path,
         title: `Category ${depth}-${i}`,
         content: `<h1>This is a sample page</h1>
-                    <img src="https://integreat/title_${depth}-${i}-300x300.png"/>
+                    <img src="${resourceUrl1}"/>
                     <p>This is a sample page</p>
-                    <img src="https://integreat/category_${depth}-${i}-300x300.png"/>`,
+                    <img src="${resourceUrl2}"/>`,
         order: -1,
         availableLanguages: new Map(),
         thumbnail: `http://thumbnails/category_${depth}-${i}.png`,
@@ -63,12 +66,8 @@ class CategoriesMapModelBuilder {
       })
 
       resourceCache[path] = {
-        ...this.createResource(`https://integreat/title_${depth}-${i}-300x300.png`,
-          depth * this._maxWidth + i,
-          lastUpdate),
-        ...this.createResource(`https://integreat/category_${depth}-${i}-300x300.png`,
-          depth * this._maxWidth + i,
-          lastUpdate)
+        ...this.createResource(resourceUrl1, id, lastUpdate),
+        ...this.createResource(resourceUrl2, id, lastUpdate)
       }
       categories.push(newChild)
       this.addChildren(newChild, categories, resourceCache, depth + 1)
