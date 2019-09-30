@@ -1,11 +1,10 @@
 // @flow
 
 import type { Saga } from 'redux-saga'
-import { EventModel } from '@integreat-app/integreat-api-client'
+import { EventModel, createEventsEndpoint } from '@integreat-app/integreat-api-client'
 import { call } from 'redux-saga/effects'
 import { baseUrl } from '../constants'
 import type { DataContainer } from '../DataContainer'
-import createEventsEndpoint from '@integreat-app/integreat-api-client/endpoints/createEventsEndpoint'
 
 function * loadEvents (
   city: string,

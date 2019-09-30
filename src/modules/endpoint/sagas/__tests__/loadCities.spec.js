@@ -8,19 +8,24 @@ import CityModelBuilder from '../../../../testing/builder/CitiyModelBuilder'
 
 let mockCities
 jest.mock('rn-fetch-blob')
-jest.mock('@integreat-app/integreat-api-client/endpoints/createCitiesEndpoint',
-  () => () => {
-    const { EndpointBuilder } = require('@integreat-app/integreat-api-client')
-    const CityModelBuilder = require('../../../../testing/builder/CitiyModelBuilder').default
-    mockCities = new CityModelBuilder(1).build()
+jest.mock('@integreat-app/integreat-api-client',
+  () => {
+    const actual = jest.requireActual('@integreat-app/integreat-api-client')
+    return {
+      ...actual,
+      createCitiesEndpoint: () => {
+        const { EndpointBuilder } = require('@integreat-app/integreat-api-client')
+        const CityModelBuilder = require('../../../../testing/builder/CitiyModelBuilder').default
+        mockCities = new CityModelBuilder(1).build()
 
-    return new EndpointBuilder('cities-mock')
-      .withParamsToUrlMapper(() => 'https://cms.integreat-app.de/sites')
-      .withResponseOverride(mockCities)
-      .withMapper(() => { })
-      .build()
-  }
-)
+        return new EndpointBuilder('cities-mock')
+          .withParamsToUrlMapper(() => 'https://cms.integreat-app.de/sites')
+          .withResponseOverride(mockCities)
+          .withMapper(() => { })
+          .build()
+      }
+    }
+  })
 
 describe('loadCities', () => {
   beforeEach(() => {

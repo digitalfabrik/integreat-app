@@ -2,9 +2,8 @@
 
 import type { CategoryRouteStateType, CityContentStateType, EventRouteStateType } from '../../app/StateType'
 import { mapValues } from 'lodash/object'
-import { EventModel } from '@integreat-app/integreat-api-client'
+import { EventModel, CategoriesMapModel } from '@integreat-app/integreat-api-client'
 import type { MorphContentLanguageActionType } from '../../app/StoreActionType'
-import CategoriesMapModel from '@integreat-app/integreat-api-client/models/CategoriesMapModel'
 import forEachTreeNode from '../../common/forEachTreeNode'
 
 const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, city: string, newLanguage: string) =>
