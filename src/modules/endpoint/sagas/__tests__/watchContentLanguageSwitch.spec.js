@@ -26,7 +26,7 @@ describe('watchContentLanguageSwitch', () => {
   const newLanguage = 'ar'
 
   describe('fetchCategory', () => {
-    it('should yield an action when switching language', async () => {
+    it('should put an action when switching language', async () => {
       const languages = new LanguageModelBuilder(2).build()
       const categoriesBuilder = new CategoriesMapModelBuilder()
       const categories = categoriesBuilder.build()
@@ -62,7 +62,7 @@ describe('watchContentLanguageSwitch', () => {
       expect(await new AppSettings().loadContentLanguage()).toBe(newLanguage)
     })
 
-    it('should yield an error action', () => {
+    it('should put an error action', () => {
       const dataContainer = new DefaultDataContainer()
 
       const action: SwitchContentLanguageActionType = {
