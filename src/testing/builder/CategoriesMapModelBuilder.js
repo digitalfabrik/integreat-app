@@ -37,7 +37,7 @@ class CategoriesMapModelBuilder {
     }
   }
 
-  addChildren (
+  _addChildren (
     category: CategoryModel,
     categories: Array<CategoryModel>,
     resourceCache: LanguageResourceCacheStateType,
@@ -73,7 +73,7 @@ class CategoriesMapModelBuilder {
         ...this.createResource(resourceUrl2, id, lastUpdate)
       }
       categories.push(newChild)
-      this.addChildren(newChild, categories, resourceCache, depth + 1)
+      this._addChildren(newChild, categories, resourceCache, depth + 1)
     }
   }
 
@@ -90,7 +90,7 @@ class CategoriesMapModelBuilder {
     const resourceCache = {}
 
     for (let i = 0; i < this._arity; i++) {
-      this.addChildren(new CategoryModel({
+      this._addChildren(new CategoryModel({
         id: 0,
         path: '/augsburg/de',
         title: 'augsburg',
