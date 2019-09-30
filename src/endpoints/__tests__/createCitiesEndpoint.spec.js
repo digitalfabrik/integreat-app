@@ -14,7 +14,11 @@ describe('cities', () => {
     events: true,
     extras: true,
     name_without_prefix: 'Augsburg',
-    prefix: null
+    prefix: null,
+    longitude: 10.89779,
+    latitude: 48.3705449,
+    // eslint-disable-next-line standard/object-curly-even-spacing
+    aliases: { 'augsburg': {long: 10.89779, lat: 48.3705449 } }
   }
   const city2 = {
     name: 'Stadt Regensburg',
@@ -23,7 +27,10 @@ describe('cities', () => {
     events: false,
     extras: false,
     name_without_prefix: 'Regensburg',
-    prefix: 'Stadt'
+    prefix: 'Stadt',
+    longitude: null,
+    latitude: null,
+    aliases: null
   }
   const cityJson = [city1, city2]
 
@@ -41,7 +48,11 @@ describe('cities', () => {
         eventsEnabled: true,
         extrasEnabled: true,
         sortingName: 'Augsburg',
-        prefix: null
+        prefix: null,
+        longitude: 10.89779,
+        latitude: 48.3705449,
+        // eslint-disable-next-line standard/object-curly-even-spacing
+        aliases: { 'augsburg': {long: 10.89779, lat: 48.3705449 } }
       }),
       new CityModel({
         name: city2.name,
@@ -50,7 +61,10 @@ describe('cities', () => {
         eventsEnabled: false,
         extrasEnabled: false,
         sortingName: 'Regensburg',
-        prefix: 'Stadt'
+        prefix: 'Stadt',
+        latitude: null,
+        longitude: null,
+        aliases: null
       })
     ])
   })
