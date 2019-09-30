@@ -148,7 +148,7 @@ describe('watchFetchCategories', () => {
         .run()
     })
 
-    it('should try to retrieved if peeking (independent of language)', async () => {
+    it('should try to loadCityContent with an invalid language when peeking', async () => {
       const { dataContainer, initialPath } = await createDataContainer(city, language)
 
       const anotherCity = 'anotherCity'
