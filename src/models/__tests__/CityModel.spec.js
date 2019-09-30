@@ -11,7 +11,10 @@ describe('CityModel', () => {
       eventsEnabled: false,
       extrasEnabled: false,
       sortingName: 'City',
-      prefix: 'prefix'
+      prefix: 'prefix',
+      longitude: null,
+      latitude: null,
+      aliases: null
     })
   ]
 
