@@ -17,7 +17,7 @@ describe('watchFetchCities', () => {
   })
 
   describe('fetchCities', () => {
-    it('should put an action which pushes the cites', async () => {
+    it('should put an action which pushes the cities', async () => {
       const cities = new CityModelBuilder(1).build()
 
       const dataContainer = new DefaultDataContainer()

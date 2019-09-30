@@ -239,7 +239,7 @@ describe('watchFetchCategories', () => {
     })
   })
 
-  it('should correctly call fetchEvent when triggered', async () => {
+  it('should correctly call fetchCategory when triggered', async () => {
     const dataContainer = new DefaultDataContainer()
 
     return testSaga(watchFetchCategory, dataContainer)
