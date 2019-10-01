@@ -16,6 +16,7 @@
 ; Ignore polyfills
 .*/Libraries/polyfills/.*
 .*/bom\.js
+.*/lib.dom.d.ts
 
 ; Ignore metro
 .*/node_modules/metro/.*
