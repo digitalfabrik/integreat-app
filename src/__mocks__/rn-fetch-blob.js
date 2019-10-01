@@ -2,52 +2,38 @@
 
 import path from 'path'
 
-let mockFiles = {}
-
-function deleteAllMockFiles () {
-  mockFiles = {}
+type MockFilesType = {
+  [path: string]: string
 }
 
-function writeMockFile (file: string, content: string | Array<string>, encoding: string): Promise<void> {
-  const dir = path.dirname(file)
-  const fileName = path.basename(file)
-  if (!mockFiles[dir]) {
-    mockFiles[dir] = []
-  }
-  if (!mockFiles[dir][fileName]) {
-    mockFiles[dir].push(fileName)
-  }
+const mockFiles: MockFilesType = {}
 
-  mockFiles[dir][fileName] = content
+function deleteAllMockFiles () {
+  for (const path in mockFiles) {
+    delete mockFiles[path]
+  }
+}
 
+function writeMockFile (file: string, content: string, encoding: string): Promise<void> {
+  const filePath = path.normalize(file)
+  mockFiles[filePath] = content
   return Promise.resolve()
 }
 
 function readMockFile (file: string, encoding: string): Promise<string> {
-  const dir = path.dirname(file)
-  const fileName = path.basename(file)
-
-  return mockFiles[dir][fileName]
+  const filePath = path.normalize(file)
+  return Promise.resolve(mockFiles[filePath])
 }
 
 function existsMock (file: string): Promise<boolean> {
-  const dir = path.dirname(file)
-  const fileName = path.basename(file)
-
-  if (!mockFiles[dir]) {
-    return Promise.resolve(false)
-  } else if (!mockFiles[dir][fileName]) {
-    return Promise.resolve(false)
-  }
-  return Promise.resolve(true)
+  const filePath = path.normalize(file)
+  return Promise.resolve(filePath in mockFiles)
 }
 
 function unlink (file: string): Promise<void> {
-  const dir = path.dirname(file)
-  const fileName = path.basename(file)
-
-  if (mockFiles[dir] && mockFiles[dir][fileName]) {
-    delete mockFiles[dir][fileName]
+  const filePath = path.normalize(file)
+  if (filePath in mockFiles) {
+    delete mockFiles[filePath]
   }
 
   return Promise.resolve()
@@ -62,7 +48,7 @@ export default {
   },
   fs: {
     exists: jest.fn<[string], Promise<boolean>>(existsMock),
-    writeFile: jest.fn<[string, string | Array<string>, string], Promise<void>>(writeMockFile),
+    writeFile: jest.fn<[string, string, string], Promise<void>>(writeMockFile),
     readFile: jest.fn<[string, string], Promise<string>>(readMockFile),
     unlink: jest.fn<[string], Promise<void>>(unlink),
     _reset: jest.fn<[], void>(deleteAllMockFiles),
