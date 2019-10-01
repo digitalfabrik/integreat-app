@@ -30,7 +30,7 @@ describe('DatabaseConnector', () => {
         'https://test.de/path/to/resource/test.png':
         {
           filePath: '/local/path/to/resource/b4b5dca65e423.png',
-          lastUpdate: moment('2011-02-04T23:00:00.000Z', moment.ISO_8601),
+          lastUpdate: moment.tz('20110204', 'UTC'),
           hash: 'testHash'
         }
       },
@@ -39,7 +39,7 @@ describe('DatabaseConnector', () => {
         'https://test.de/path/to/resource/test2.jpg':
         {
           filePath: '/local/path/to/resource/970c65c41eac0.jpg',
-          lastUpdate: moment('2011-02-04T23:00:00.000Z', moment.ISO_8601),
+          lastUpdate: moment.tz('20110204', 'UTC'),
           hash: 'testHash'
         }
       }
@@ -118,7 +118,7 @@ describe('DatabaseConnector', () => {
     it('should return a moment that matches the one that was stored', async () => {
       const context = new DatabaseContext('tcc', 'de')
 
-      const dateExpected = moment('20110205')
+      const dateExpected = moment.tz('20110205', 'UTC')
 
       await databaseConnector.storeLastUpdate(dateExpected, context)
       const dateReceived = await databaseConnector.loadLastUpdate(context)
@@ -130,18 +130,18 @@ describe('DatabaseConnector', () => {
   describe('storeLastUpdate', () => {
     it('should throw error if currentCity in context is null', () => {
       const context = new DatabaseContext(null, 'de')
-      const date = moment('20110205')
+      const date = moment.tz('20110205', 'UTC')
       expect(databaseConnector.storeLastUpdate(date, context)).rejects.toThrowError()
     })
     it('should throw error if currentLanguage in context is null', () => {
       const context = new DatabaseContext('tcc', null)
-      const date = moment('20110205')
+      const date = moment.tz('20110205', 'UTC')
       expect(databaseConnector.storeLastUpdate(date, context)).rejects.toThrowError()
     })
     it('should override multiple lastUpdates of the same context', async () => {
       const context = new DatabaseContext('tcc', 'de')
-      const date = moment('20110205')
-      const date2 = moment('20120205')
+      const date = moment.tz('20110205', 'UTC')
+      const date2 = moment.tz('20120205', 'UTC')
       await databaseConnector.storeLastUpdate(date, context)
       await databaseConnector.storeLastUpdate(date2, context)
       const result = await databaseConnector.loadLastUpdate(context)
@@ -261,14 +261,14 @@ describe('DatabaseConnector', () => {
             'https://test.de/path/to/resource/test.png': {
               'filePath': '/local/path/to/resource/b4b5dca65e423.png',
               'hash': 'testHash',
-              'lastUpdate': '2011-02-04T23:00:00.000Z'
+              'lastUpdate': '2011-02-04T00:00:00.000Z'
             }
           },
           '/path/to/page/child': {
             'https://test.de/path/to/resource/test2.jpg': {
               'filePath': '/local/path/to/resource/970c65c41eac0.jpg',
               'hash': 'testHash',
-              'lastUpdate': '2011-02-04T23:00:00.000Z'
+              'lastUpdate': '2011-02-04T00:00:00.000Z'
             }
           }
         }

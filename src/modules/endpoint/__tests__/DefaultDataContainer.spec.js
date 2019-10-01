@@ -22,7 +22,7 @@ const testResources = {
       'https://test.de/path/to/resource/test.png':
       {
         filePath: '/local/path/to/resource2/b4b5dca65e423.png',
-        lastUpdate: moment('2011-02-04T23:00:00.000Z', moment.ISO_8601),
+        lastUpdate: moment.tz('20110204', 'UTC'),
         hash: 'testHash'
       }
     }
@@ -34,7 +34,7 @@ const previousResources = {
         'https://test.de/path/to/resource/test.png':
           {
             filePath: '/local/path/to/resource/b4b5dca65e423.png',
-            lastUpdate: moment('2011-02-04T23:00:00.000Z', moment.ISO_8601),
+            lastUpdate: moment.tz('20110204', 'UTC'),
             hash: 'testHash'
           }
       }
@@ -46,7 +46,7 @@ const anotherTestResources = {
       'https://test.de/path/to/anotherResource/test.png':
       {
         filePath: '/local/path/to/resource3/b4b5dca65e424.png',
-        lastUpdate: moment('2011-02-04T23:00:00.000Z', moment.ISO_8601),
+        lastUpdate: moment.tz('20110204', 'UTC'),
         hash: 'testHash'
       }
     }
@@ -126,7 +126,7 @@ describe('DefaultDataContainer', () => {
         'https://test.de/path/to/resource/test.png': {
           'filePath': '/local/path/to/resource2/b4b5dca65e423.png',
           'hash': 'testHash',
-          'lastUpdate': '2011-02-04T23:00:00.000Z'
+          'lastUpdate': '2011-02-04T00:00:00.000Z'
         }
       }
     })
@@ -135,7 +135,7 @@ describe('DefaultDataContainer', () => {
         'https://test.de/path/to/anotherResource/test.png': {
           'filePath': '/local/path/to/resource3/b4b5dca65e424.png',
           'hash': 'testHash',
-          'lastUpdate': '2011-02-04T23:00:00.000Z'
+          'lastUpdate': '2011-02-04T00:00:00.000Z'
         }
       }
     })
