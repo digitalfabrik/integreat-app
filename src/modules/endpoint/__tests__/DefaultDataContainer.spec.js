@@ -53,20 +53,11 @@ const anotherTestResources = {
 }
 
 describe('DefaultDataContainer', () => {
-  const cityModelBuilder = new CityModelBuilder(2)
-  const testCities = cityModelBuilder.build()
-
-  const languageModelBuilder = new LanguageModelBuilder(2)
-  const testLanguages = languageModelBuilder.build()
-
-  const categoriesMapModelBuilder = new CategoriesMapModelBuilder()
-  const testCategoryModel = categoriesMapModelBuilder.build()
-
-  const anotherCategoriesMapModelBuilder = new CategoriesMapModelBuilder(1, 1)
-  const anotherTestCategoryModel = anotherCategoriesMapModelBuilder.build()
-
-  const eventModelBuilder = new EventModelBuilder('seed', 2)
-  const testEvents = eventModelBuilder.build()
+  const testCities = new CityModelBuilder(2).build()
+  const testLanguages = new LanguageModelBuilder(2).build()
+  const testCategoriesMap = new CategoriesMapModelBuilder().build()
+  const anotherTestCategoriesMap = new CategoriesMapModelBuilder(1, 1).build()
+  const testEvents = new EventModelBuilder('seed', 2).build()
 
   describe('isCached', () => {
     it('should return true if CacheType is stored', async () => {
@@ -79,6 +70,7 @@ describe('DefaultDataContainer', () => {
       expect(defaultDataContainer.isCached('cities', new DatabaseContext())).toBe(false)
     })
   })
+
   it('should look at the file system if data is not persisted in the cache', async () => {
     const defaultDataContainer = new DefaultDataContainer()
     await defaultDataContainer.setCities(testCities)
@@ -101,14 +93,14 @@ describe('DefaultDataContainer', () => {
   })
   it('should return the category associated with the context', async () => {
     const defaultDataContainer = new DefaultDataContainer()
-    await defaultDataContainer.setCategoriesMap('testCity', 'de', testCategoryModel)
-    await defaultDataContainer.setCategoriesMap('anotherTestCity', 'en', anotherTestCategoryModel)
+    await defaultDataContainer.setCategoriesMap('testCity', 'de', testCategoriesMap)
+    await defaultDataContainer.setCategoriesMap('anotherTestCity', 'en', anotherTestCategoriesMap)
 
     const receivedTestCategories = await defaultDataContainer.getCategoriesMap('testCity', 'de')
     const receivedAnotherTestCategories = await defaultDataContainer.getCategoriesMap('anotherTestCity', 'en')
 
-    expect(receivedTestCategories).toEqual(testCategoryModel)
-    expect(receivedAnotherTestCategories).toEqual(anotherTestCategoryModel)
+    expect(receivedTestCategories).toEqual(testCategoriesMap)
+    expect(receivedAnotherTestCategories).toEqual(anotherTestCategoriesMap)
   })
   it('should return the events associated with the context', async () => {
     const defaultDataContainer = new DefaultDataContainer()
@@ -196,7 +188,7 @@ describe('DefaultDataContainer', () => {
   describe('categoriesAvailable', () => {
     it('should return true, if categories are cached', async () => {
       const defaultDataContainer = new DefaultDataContainer()
-      await defaultDataContainer.setCategoriesMap('testCity', 'de', testCategoryModel)
+      await defaultDataContainer.setCategoriesMap('testCity', 'de', testCategoriesMap)
       const isAvailable = await defaultDataContainer.categoriesAvailable('testCity', 'de')
 
       expect(isAvailable).toBe(true)
