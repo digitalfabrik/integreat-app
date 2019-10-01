@@ -89,12 +89,6 @@ describe('DatabaseConnector', () => {
     })
   })
 
-  describe('storeCities', () => {
-    it('storeCities should throw exception if the data is empty', () => {
-      expect(databaseConnector.storeCities([null])).rejects.toThrowError()
-    })
-  })
-
   describe('loadCities', () => {
     it('should throw exception if cities are not persisted', () => {
       expect(databaseConnector.loadCities()).rejects.toThrowError()
@@ -169,13 +163,6 @@ describe('DatabaseConnector', () => {
     })
   })
 
-  describe('storeCategories', () => {
-    it('should throw error if data is empty', () => {
-      const context = new DatabaseContext('tcc', 'de')
-      expect(databaseConnector.storeCategories(null, context)).rejects.toThrowError()
-    })
-  })
-
   describe('loadCategories', () => {
     it('should throw error if categories are not persisted', () => {
       const context = new DatabaseContext('tcc', 'de')
@@ -204,13 +191,6 @@ describe('DatabaseConnector', () => {
     })
   })
 
-  describe('storeLanguages', () => {
-    it('should throw error if data is empty', () => {
-      const context = new DatabaseContext('tcc', 'de')
-      expect(databaseConnector.storeLanguages([null], context)).rejects.toThrowError()
-    })
-  })
-
   describe('loadLanguages', () => {
     it('should throw error if languages are not persisted', () => {
       const context = new DatabaseContext('tcc', 'de')
@@ -236,13 +216,6 @@ describe('DatabaseConnector', () => {
       await databaseConnector.storeEvents(testEvents, context)
       const isPersisted = await databaseConnector.isEventsPersisted(context)
       expect(isPersisted).toBe(true)
-    })
-  })
-
-  describe('storeEvents', () => {
-    it('should throw error if data is empty', () => {
-      const context = new DatabaseContext('tcc', 'de')
-      expect(databaseConnector.storeEvents([null], context)).rejects.toThrowError()
     })
   })
 
