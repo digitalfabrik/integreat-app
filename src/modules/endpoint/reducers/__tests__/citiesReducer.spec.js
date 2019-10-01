@@ -23,7 +23,10 @@ describe('citiesReducer', () => {
       eventsEnabled: true,
       extrasEnabled: true,
       sortingName: 'augsburg',
-      prefix: 'Stadt'
+      prefix: 'Stadt',
+      aliases: null,
+      latitude: null,
+      longitude: null
     })]
     expect(citiesReducer(prevState, { type: 'PUSH_CITIES', params: { cities: models } })).toEqual({
       status: 'ready',
