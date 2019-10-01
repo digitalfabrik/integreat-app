@@ -46,43 +46,50 @@ const developmentCompare = (a: CityModel, b: CityModel) => {
   return a.sortingName.localeCompare(b.sortingName, 'en-US')
 }
 
-const degreesToRadians = deg => {
-  if (deg === null) {
-    return null
-  }
+const degreesToRadians = (deg: number): number => {
   const degreesSemicircle = 180
   return Math.PI * deg / degreesSemicircle
 }
 
-const degreeDifference = (longitude0, latitude0, longitude1, latitude1) => {
+const degreeDifference = (longitude0: number, latitude0: number, longitude1: number, latitude1: number): number => {
   return Math.acos(Math.cos(longitude0) * Math.cos(longitude1) * Math.cos(latitude0 - latitude1) +
     Math.sin(longitude1) * Math.sin(longitude0))
 }
 
-const currentDistance = (a: CityModel, longitude, latitude) => {
-  if (a.longitude === null | a.latitude === null) {
+const currentDistance = (a: CityModel, longitude: number, latitude: number) => {
+  if (a.longitude === null && a.latitude === null && a.aliases === null) {
     return Infinity
   }
   const longitude0 = degreesToRadians(longitude)
   const latitude0 = degreesToRadians(latitude)
   const earthRadius = 6371
-  let coordinates = Object.values(a.aliases || {})
+  type CoordinatesType = {| longitude: number, latitude: number |}
+  // $FlowFixMe https://github.com/facebook/flow/issues/2221
+  const coordinates: Array<CoordinatesType> = Object.values(a.aliases || {})
   coordinates.push({ longitude: longitude, latitude: latitude })
-  coordinates = coordinates.map(coords => {
+  const distances: Array<number> = coordinates.map((coords: CoordinatesType): {| value: number |} | null => {
+    if (coords.longitude === null || coords.latitude === null) {
+      return null
+    }
     const longitude1 = degreesToRadians(coords.longitude)
     const latitude1 = degreesToRadians(coords.latitude)
-    return degreeDifference(longitude0, latitude0, longitude1, latitude1) * earthRadius
-  })
-  return Math.min(coordinates)
+    return { value: degreeDifference(longitude0, latitude0, longitude1, latitude1) * earthRadius }
+  }).filter(Boolean).map(x => x.value)
+  return Math.min(...distances)
 }
 
-const compareDistance = (a: CityModel, b: CityModel, longitude, latitude) => {
+const compareDistance = (a: CityModel, b: CityModel, longitude: number, latitude: number) => {
   const d0 = currentDistance(a, longitude, latitude)
   const d1 = currentDistance(b, longitude, latitude)
   return d0 - d1
 }
 
-class CitySelector extends React.PureComponent<PropsType> {
+type StateType = {
+  currentLongitude: null | number,
+  currentLatitude: null | number
+}
+
+class CitySelector extends React.PureComponent<PropsType, StateType> {
   state = {
     currentLongitude: null,
     currentLatitude: null
@@ -117,37 +124,43 @@ class CitySelector extends React.PureComponent<PropsType> {
     }, [])
   }
 
-  renderListByLocation (): React.Node {
-    if (Platform.ios) {
+  componentDidMount () {
+    if (Platform.OS === 'ios') {
       Geolocation.requestAuthorization()
     }
     Geolocation.getCurrentPosition(
       position => {
-        const currentLongitude = Number(position.coords.longitude)
-        const currentLatitude = Number(position.coords.longitude)
+        const currentLongitude = position.coords.longitude
+        const currentLatitude = position.coords.latitude
         this.setState({ currentLongitude: currentLongitude })
         this.setState({ currentLatitude: currentLatitude })
       },
       error => {
         alert(error.message)
-        return null
       },
       { enableHighAccuracy: false, timeout: 20000, maximumAge: 1000 }
     )
+  }
+
+  renderListByLocation (): React.Node {
+    if (this.state.currentLatitude === null || this.state.currentLongitude === null) {
+      return null
+    }
     let cities = this.props.cities.sort((a: CityModel, b: CityModel) =>
-      compareDistance(a, b, this.currentLongitude, this.currentLatitude))
+      compareDistance(a, b, Number(this.state.currentLongitude), Number(this.state.currentLatitude)))
     const numberOfClosestCities = 3
     cities = cities.slice(0, numberOfClosestCities)
     return <View>
-        <CityGroup theme={this.props.theme}> Next Cities </CityGroup>
-        {cities.map(city => <CityEntry
-          key={city.code}
-          city={city}
-          filterText={this.props.filterText}
-          navigateToDashboard={this.props.navigateToDashboard}
-          theme={this.props.theme} />)}
-      </View>
+      <CityGroup theme={this.props.theme}> Next Cities </CityGroup>
+      {cities.map(city => <CityEntry
+        key={city.code}
+        city={city}
+        filterText={this.props.filterText}
+        navigateToDashboard={this.props.navigateToDashboard}
+        theme={this.props.theme} />)}
+    </View>
   }
+
   render () {
     return <>
       { this.renderListByLocation() }
