@@ -46,36 +46,6 @@ describe('DatabaseConnector', () => {
     }
   }
 
-  describe('getContentPath', () => {
-    it('should return path', () => {
-      const context = new DatabaseContext('tcc', 'de')
-      expect(databaseConnector.getContentPath('key', context)).toMatch('/tcc/de/key.json')
-    })
-    it('should return path if language is null', () => {
-      const context = new DatabaseContext('tcc', null)
-      expect(databaseConnector.getContentPath('key', context)).toMatch('/tcc/key.json')
-    })
-    it('should throw error if cityCode is null', () => {
-      const context = new DatabaseContext(null, null)
-      expect(() => databaseConnector.getContentPath('testKey', context)).toThrowError()
-    })
-    it('should throw error if key is empty', () => {
-      const context = new DatabaseContext('tcc', 'de')
-      expect(() => databaseConnector.getContentPath('', context)).toThrowError()
-    })
-  })
-
-  describe('getResourceCachePath', () => {
-    it('should return path', () => {
-      const context = new DatabaseContext('tcc', 'de')
-      expect(databaseConnector.getResourceCachePath(context)).toMatch('/tcc/files.json')
-    })
-    it('should throw error if cityCode is null', () => {
-      const context = new DatabaseContext(null, null)
-      expect(() => databaseConnector.getResourceCachePath(context)).toThrowError()
-    })
-  })
-
   describe('isCitiesPersisted', () => {
     it('should return false if cities are not persisted', async () => {
       const isPersisted = await databaseConnector.isCitiesPersisted()
@@ -230,13 +200,6 @@ describe('DatabaseConnector', () => {
 
       const events = await databaseConnector.loadEvents(context)
       expect(events).toEqual(testEvents)
-    })
-  })
-
-  describe('storeResourceCache', () => {
-    it('should throw error if data is empty', () => {
-      const context = new DatabaseContext('tcc', 'de')
-      expect(databaseConnector.storeResourceCache({}, context)).rejects.toThrowError()
     })
   })
 
