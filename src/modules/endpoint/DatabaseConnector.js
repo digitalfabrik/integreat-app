@@ -60,7 +60,10 @@ type ContentCityJsonType = {|
   prefix: string,
   extrasEnabled: boolean,
   eventsEnabled: boolean,
-  sortingName: string
+  sortingName: string,
+  longitude: number | null,
+  latitude: number | null,
+  aliases: { [alias: string]: {|longitude: number, latitude: number|}} | null
 |}
 
 type CityCodeType = string
@@ -229,7 +232,10 @@ class DatabaseConnector {
       prefix: city.prefix,
       extrasEnabled: city.extrasEnabled,
       eventsEnabled: city.eventsEnabled,
-      sortingName: city.sortingName
+      sortingName: city.sortingName,
+      longitude: city.longitude,
+      latitude: city.latitude,
+      aliases: city.aliases
     }))
 
     await this.writeFile(this.getCitiesPath(), JSON.stringify(jsonModels))
@@ -253,7 +259,10 @@ class DatabaseConnector {
         eventsEnabled: jsonObject.eventsEnabled,
         extrasEnabled: jsonObject.extrasEnabled,
         sortingName: jsonObject.sortingName,
-        prefix: jsonObject.prefix
+        prefix: jsonObject.prefix,
+        longitude: jsonObject.longitude,
+        latitude: jsonObject.latitude,
+        aliases: jsonObject.aliases
       })
     })
   }
