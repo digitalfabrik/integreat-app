@@ -157,7 +157,6 @@ describe('DefaultDataContainer', () => {
     })
     it('should unlink the outdated resources if there are new resources available', async () => {
       const defaultDataContainer = new DefaultDataContainer()
-      await defaultDataContainer.setResourceCache('testCity', 'en', anotherTestResources)
       await defaultDataContainer.setResourceCache('testCity', 'de', previousResources)
       await defaultDataContainer.setResourceCache('testCity', 'de', testResources)
 
