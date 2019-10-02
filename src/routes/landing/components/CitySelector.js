@@ -151,7 +151,7 @@ class CitySelector extends React.PureComponent<PropsType, StateType> {
     const numberOfClosestCities = 3
     cities = cities.slice(0, numberOfClosestCities)
     return <View>
-      <CityGroup theme={this.props.theme}> Next Cities </CityGroup>
+      <CityGroup theme={this.props.theme}> Closeby places </CityGroup>
       {cities.map(city => <CityEntry
         key={city.code}
         city={city}
