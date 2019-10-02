@@ -71,14 +71,14 @@ describe('DefaultDataContainer', () => {
     })
   })
 
-  it('should look at the file system if data is not persisted in the cache', async () => {
+  it('should return persisted data if not cached', async () => {
     const defaultDataContainer = new DefaultDataContainer()
     await defaultDataContainer.setCities(testCities)
 
     const anotherDataContainer = new DefaultDataContainer()
 
-    await anotherDataContainer.getCities()
-    expect(RNFetchBlob.fs.readFile).toHaveBeenCalled()
+    const cities = await anotherDataContainer.getCities()
+    expect(cities).toEqual(testCities)
   })
   it('should return the language associated with the city', async () => {
     const defaultDataContainer = new DefaultDataContainer()
