@@ -4,7 +4,7 @@ import { runSaga } from 'redux-saga'
 import DefaultDataContainer from '../../DefaultDataContainer'
 import loadCities from '../loadCities'
 import RNFetchBlob from '../../../../__mocks__/rn-fetch-blob'
-import CityModelBuilder from '../../../../testing/builder/CitiyModelBuilder'
+import CityModelBuilder from '../../../../testing/builder/CityModelBuilder'
 
 let mockCities
 jest.mock('rn-fetch-blob')
@@ -15,7 +15,8 @@ jest.mock('@integreat-app/integreat-api-client',
       ...actual,
       createCitiesEndpoint: () => {
         const { EndpointBuilder } = require('@integreat-app/integreat-api-client')
-        const CityModelBuilder = require('../../../../testing/builder/CitiyModelBuilder').default
+        const { default: CityModelBuilder } = require('../../../../testing/builder/CityModelBuilder')
+
         mockCities = new CityModelBuilder(1).build()
 
         return new EndpointBuilder('cities-mock')
