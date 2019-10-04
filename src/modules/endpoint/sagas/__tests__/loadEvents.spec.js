@@ -15,9 +15,9 @@ jest.mock('@integreat-app/integreat-api-client',
       ...actual,
       createEventsEndpoint: () => {
         const { EndpointBuilder } = require('@integreat-app/integreat-api-client')
-        const EventArrayBuilder = require('../../../../testing/builder/EventModelBuilder').default
+        const { default: EventModelBuilder } = require('../../../../testing/builder/EventModelBuilder')
 
-        mockEvents = new EventArrayBuilder('mockEvents', 1).build()
+        mockEvents = new EventModelBuilder('mockEvents', 1).build()
 
         return new EndpointBuilder('events-mock')
           .withParamsToUrlMapper(() => 'https://cms.integreat-app.de/events')
