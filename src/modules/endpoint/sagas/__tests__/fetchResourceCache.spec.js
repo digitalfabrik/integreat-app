@@ -58,7 +58,7 @@ describe('fetchResourceCache', () => {
     }
 
     expect(Object.keys(fetchedCount)).toHaveLength(
-      Object.keys(expectedCount).length - 1 /* The first url is excluded because the
+      Object.keys(expectedCount).length - 1 /* A single url is excluded because the
                                                FetcherModule mock produced an error for it */
     )
 
