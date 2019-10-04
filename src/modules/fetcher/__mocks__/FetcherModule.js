@@ -1,6 +1,6 @@
 // @flow
 
-import { isEmpty, mapValues } from 'lodash'
+import { isEmpty, mapValues, sortBy, toPairs } from 'lodash'
 import type { FetchResultType, ProgressCallbackType, TargetFilePathsType } from '../FetcherModule'
 import moment from 'moment-timezone'
 
@@ -30,11 +30,13 @@ class FetcherModule {
       value => ({ lastUpdate: moment('2016-02-01T10:35:20Z'), url: value, errorMessage: null })
     )
 
-    const paths = Object.keys(fetchResult)
-    const pseudoRandomPath = paths[Math.floor(0.7 * paths.length)]
+    const fetchResultPairs = toPairs(fetchResult)
+    const sortedPaths = sortBy(fetchResultPairs, ([, result]) => result.url).map(([path]) => path)
 
-    fetchResult[pseudoRandomPath].errorMessage = 'This result is invalid because it is the first result produced by the ' +
-      'FetcherModule.js mock.'
+    const pseudoRandomPath = sortedPaths[Math.floor(0.7 * sortedPaths.length)]
+
+    fetchResult[pseudoRandomPath].errorMessage = 'This result is invalid because it is the first result produced by ' +
+      'the FetcherModule.js mock.'
 
     return Promise.resolve(fetchResult)
   }
