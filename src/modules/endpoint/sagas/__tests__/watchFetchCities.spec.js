@@ -6,7 +6,7 @@ import watchFetchCities, { fetchCities } from '../watchFetchCities'
 import type { FetchCitiesActionType } from '../../../app/StoreActionType'
 import { expectSaga, testSaga } from 'redux-saga-test-plan'
 import loadCities from '../loadCities'
-import CityModelBuilder from '../../../../testing/builder/CitiyModelBuilder'
+import CityModelBuilder from '../../../../testing/builder/CityModelBuilder'
 
 jest.mock('rn-fetch-blob')
 jest.mock('../loadCities')
