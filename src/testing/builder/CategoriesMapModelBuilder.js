@@ -17,6 +17,9 @@ class CategoriesMapModelBuilder {
   _depth: number
   _arity: number
 
+  _categories: Array<CategoryModel>
+  _id = 0
+
   constructor (arity: number = DEFAULT_ARITY, depth: number = DEFAULT_DEPTH) {
     this._arity = arity
     this._depth = depth
@@ -39,29 +42,27 @@ class CategoriesMapModelBuilder {
 
   _addChildren (
     category: CategoryModel,
-    id: number,
-    categories: Array<CategoryModel>,
     resourceCache: LanguageResourceCacheStateType,
-    depth: number,
-    ancestors: Array<number>) {
-    categories.push(category)
-    ancestors.push(id)
+    depth: number) {
+    this._categories.push(category)
 
     if (depth === this._depth) {
       return
     }
 
     for (let i = 0; i < this._arity; i++) {
+      const id = this._id
+      this._id++
+
       const path = `${category.path}/category_${i}`
       const lastUpdate = moment('2017-11-18T19:30:00.000Z', moment.ISO_8601)
-      const id = depth * this._arity + i + 1
-      const resourceUrl1 = `https://integreat/title_${depth}-${i}-300x300.png`
-      const resourceUrl2 = `https://integreat/category_${depth}-${i}-300x300.png`
-      const thumbnail = `http://thumbnails/category_${ancestors.join(',')}-${id}.png`
+      const resourceUrl1 = `https://integreat/title_${id}-300x300.png`
+      const resourceUrl2 = `https://integreat/category_${id}-300x300.png`
+      const thumbnail = `http://thumbnails/category_${id}.png`
 
       const newChild = new CategoryModel({
         path,
-        title: `Category ${depth}-${i}`,
+        title: `Category with id ${id}`,
         content: `<h1>This is a sample page</h1>
                     <img src="${resourceUrl1}"/>
                     <p>This is a sample page</p>
@@ -79,7 +80,7 @@ class CategoriesMapModelBuilder {
         ...this.createResource(thumbnail, id, lastUpdate)
       }
 
-      this._addChildren(newChild, id, categories, resourceCache, depth + 1, [...ancestors])
+      this._addChildren(newChild, resourceCache, depth + 1)
     }
   }
 
@@ -95,18 +96,17 @@ class CategoriesMapModelBuilder {
     const categories = []
     const resourceCache = {}
 
-    for (let i = 0; i < this._arity; i++) {
-      this._addChildren(new CategoryModel({
-        path: '/augsburg/de',
-        title: 'augsburg',
-        content: '',
-        order: -1,
-        availableLanguages: new Map(),
-        thumbnail: 'no_thumbnail',
-        parentPath: '',
-        lastUpdate: moment('2017-11-18T19:30:00.000Z', moment.ISO_8601)
-      }), 0, categories, resourceCache, 0, [])
-    }
+    this._categories = []
+    this._addChildren(new CategoryModel({
+      path: '/augsburg/de',
+      title: 'augsburg',
+      content: '',
+      order: -1,
+      availableLanguages: new Map(),
+      thumbnail: 'no_thumbnail',
+      parentPath: '',
+      lastUpdate: moment('2017-11-18T19:30:00.000Z', moment.ISO_8601)
+    }), resourceCache, 0)
 
     return { categories: new CategoriesMapModel(categories), resourceCache }
   }
