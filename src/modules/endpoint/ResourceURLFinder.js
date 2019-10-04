@@ -62,10 +62,6 @@ export default class ResourceURLFinder {
         const urlHash = hashUrl(url)
         const filePath = buildFilePath(url, path, urlHash)
 
-        if (!filePath) {
-          return
-        }
-
         fetchMap[filePath] = [url, path, urlHash]
       })
 
