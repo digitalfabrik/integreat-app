@@ -15,7 +15,7 @@ jest.mock('@integreat-app/integreat-api-client',
       ...actual,
       createCategoriesEndpoint: () => {
         const { EndpointBuilder } = require('@integreat-app/integreat-api-client')
-        const CategoriesMapModelBuilder = require('../../../../testing/builder/CategoriesMapModelBuilder').default
+        const { default: CategoriesMapModelBuilder } = require('../../../../testing/builder/CategoriesMapModelBuilder')
 
         mockCategories = new CategoriesMapModelBuilder(2).build()
         return new EndpointBuilder('categories-mock')

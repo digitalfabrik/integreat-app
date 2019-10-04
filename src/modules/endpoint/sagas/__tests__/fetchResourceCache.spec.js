@@ -33,7 +33,7 @@ describe('fetchResourceCache', () => {
 
     const dataContainer = new DefaultDataContainer()
 
-    const categoriesBuilder = new CategoriesMapModelBuilder(1, 2)
+    const categoriesBuilder = new CategoriesMapModelBuilder()
     const resources = categoriesBuilder.buildResources()
     const fetchMap = createFetchMap(resources)
 
@@ -72,7 +72,7 @@ describe('fetchResourceCache', () => {
   it('should put error if fetching fails', () => {
     const dataContainer = new DefaultDataContainer()
 
-    const categoriesBuilder = new CategoriesMapModelBuilder(1, 2)
+    const categoriesBuilder = new CategoriesMapModelBuilder()
     const resources = categoriesBuilder.buildResources()
     const fetchMap = createFetchMap(resources)
 

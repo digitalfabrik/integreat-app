@@ -15,7 +15,7 @@ jest.mock('@integreat-app/integreat-api-client',
       ...actual,
       createLanguagesEndpoint: () => {
         const { EndpointBuilder } = require('@integreat-app/integreat-api-client')
-        const LanguageModelBuilder = require('../../../../testing/builder/LanguageModelBuilder').default
+        const { default: LanguageModelBuilder } = require('../../../../testing/builder/LanguageModelBuilder')
 
         mockLanguages = new LanguageModelBuilder(1).build()
         return new EndpointBuilder('languages-mock')
