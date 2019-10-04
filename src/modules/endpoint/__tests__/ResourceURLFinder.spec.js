@@ -54,20 +54,4 @@ describe('ResourceURLFinder', () => {
 
     expect(fetchMap).toMatchSnapshot()
   })
-
-  it('should ignore urls with invalid file paths', () => {
-    const finder = new ResourceURLFinder()
-    finder.init()
-    const input = [
-      {
-        path: '/path1',
-        thumbnail: 'https://ex.am/thumb.png',
-        content: `<img src="https://ex.am/pl1.png" alt="Crazy" />`
-      }
-    ]
-    const fetchMap = finder.buildFetchMap(input, () => '')
-    finder.finalize()
-
-    expect(fetchMap).toBeEmpty()
-  })
 })
