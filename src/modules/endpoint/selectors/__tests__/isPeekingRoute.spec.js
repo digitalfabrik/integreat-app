@@ -3,7 +3,7 @@
 import isPeekingRoute from '../isPeekingRoute'
 
 describe('isPeekingRoute', () => {
-  it('should return true if new city is equal to city', () => {
+  it('should return false if new city is equal to city', () => {
     expect(isPeekingRoute({
       darkMode: false,
       cityContent: {
@@ -22,7 +22,7 @@ describe('isPeekingRoute', () => {
     }, { routeCity: 'augsburg' })).toBe(false)
   })
 
-  it('should return false if new city is not equal to city', () => {
+  it('should return true if new city is not equal to city', () => {
     expect(isPeekingRoute({
       darkMode: false,
       cityContent: {
