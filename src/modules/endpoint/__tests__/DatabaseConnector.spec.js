@@ -12,8 +12,9 @@ import EventModelBuilder from '../../../testing/builder/EventModelBuilder'
 jest.mock('rn-fetch-blob')
 const databaseConnector = new DatabaseConnector()
 
-beforeEach(() => {
+afterEach(() => {
   RNFetchBlob.fs._reset()
+  jest.clearAllMocks()
 })
 
 describe('DatabaseConnector', () => {
@@ -56,6 +57,17 @@ describe('DatabaseConnector', () => {
 
       const isPersisted = await databaseConnector.isCitiesPersisted()
       expect(isPersisted).toBe(true)
+    })
+  })
+
+  describe('storeCities', () => {
+    it('should store the json file in the correct path', async () => {
+      await databaseConnector.storeCities(testCities)
+      expect(RNFetchBlob.fs.writeFile).toBeCalledWith(
+        expect.stringContaining('/cities.json'),
+        expect.any(String),
+        expect.any(String)
+      )
     })
   })
 
@@ -117,6 +129,16 @@ describe('DatabaseConnector', () => {
       const result = await databaseConnector.loadLastUpdate(context)
       expect(date2.isSame(moment(result))).toBe(true)
     })
+    it('should store the json file in the correct path', async () => {
+      const context = new DatabaseContext('tcc', 'de')
+      const date = moment.tz('20110205', 'UTC')
+      await databaseConnector.storeLastUpdate(date, context)
+      expect(RNFetchBlob.fs.writeFile).toBeCalledWith(
+        expect.stringContaining('cities-meta.json'),
+        expect.any(String),
+        expect.any(String)
+      )
+    })
   })
 
   describe('isCategoriesPersisted', () => {
@@ -130,6 +152,18 @@ describe('DatabaseConnector', () => {
       await databaseConnector.storeCategories(testCategoriesMap, context)
       const isPersisted = await databaseConnector.isCategoriesPersisted(context)
       expect(isPersisted).toBe(true)
+    })
+  })
+
+  describe('storeCategories', () => {
+    it('should store the json file in the correct path', async () => {
+      const context = new DatabaseContext('tcc', 'de')
+      await databaseConnector.storeCategories(testCategoriesMap, context)
+      expect(RNFetchBlob.fs.writeFile).toBeCalledWith(
+        expect.stringContaining('tcc/de/categories.json'),
+        expect.any(String),
+        expect.any(String)
+      )
     })
   })
 
@@ -155,9 +189,21 @@ describe('DatabaseConnector', () => {
     })
     it('should return true if languages are persisted', async () => {
       const context = new DatabaseContext('tcc', 'de')
-      await databaseConnector.storeLanguages([testLanguages], context)
+      await databaseConnector.storeLanguages(testLanguages, context)
       const isPersisted = await databaseConnector.isLanguagesPersisted(context)
       expect(isPersisted).toBe(true)
+    })
+  })
+
+  describe('storeLanguages', () => {
+    it('should store the json file in the correct path', async () => {
+      const context = new DatabaseContext('tcc', 'de')
+      await databaseConnector.storeLanguages(testLanguages, context)
+      expect(RNFetchBlob.fs.writeFile).toBeCalledWith(
+        expect.stringContaining('tcc/de/languages.json'),
+        expect.any(String),
+        expect.any(String)
+      )
     })
   })
 
@@ -189,6 +235,18 @@ describe('DatabaseConnector', () => {
     })
   })
 
+  describe('storeEvents', () => {
+    it('should store the json file in the correct path', async () => {
+      const context = new DatabaseContext('tcc', 'de')
+      await databaseConnector.storeEvents(testEvents, context)
+      expect(RNFetchBlob.fs.writeFile).toBeCalledWith(
+        expect.stringContaining('tcc/de/events.json'),
+        expect.any(String),
+        expect.any(String)
+      )
+    })
+  })
+
   describe('loadEvents', () => {
     it('should throw error if events are not persisted', () => {
       const context = new DatabaseContext('tcc', 'de')
@@ -200,6 +258,18 @@ describe('DatabaseConnector', () => {
 
       const events = await databaseConnector.loadEvents(context)
       expect(events).toEqual(testEvents)
+    })
+  })
+
+  describe('storeResourceCache', () => {
+    it('should store the json file in the correct path', async () => {
+      const context = new DatabaseContext('tcc', 'de')
+      await databaseConnector.storeResourceCache(testResources, context)
+      expect(RNFetchBlob.fs.writeFile).toBeCalledWith(
+        expect.stringContaining('tcc/files.json'),
+        expect.any(String),
+        expect.any(String)
+      )
     })
   })
 
