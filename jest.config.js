@@ -1,5 +1,15 @@
 const jestPreset = require('@testing-library/react-native/jest-preset')
 
+const transformNodeModules = [
+  'react-native',
+  '@react-native-community/async-storage',
+  '@react-navigation/native/dist', // for integration tests including react-navigation
+  'react-navigation-stack', // for integration tests including react-navigation
+  'react-navigation-header-buttons', // for integration tests including react-navigation
+  'rn-fetch-blob',
+  '@integreat-app/integreat-api-client'
+]
+
 module.exports = {
   'preset': '@testing-library/react-native',
   'verbose': true,
@@ -13,7 +23,7 @@ module.exports = {
     '<rootDir>/jest.setup.afterenv.js'
   ],
   'transformIgnorePatterns': [
-    'node_modules/(?!react-native|@react-native-community/async-storage|rn-fetch-blob|@integreat-app/integreat-api-client|antd|rc-.+)'
+    `node_modules/(?!${transformNodeModules.join('|')})`
   ],
   'moduleFileExtensions': [
     'js'

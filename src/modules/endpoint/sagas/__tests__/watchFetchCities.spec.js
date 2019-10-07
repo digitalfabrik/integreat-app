@@ -6,7 +6,7 @@ import watchFetchCities, { fetchCities } from '../watchFetchCities'
 import type { FetchCitiesActionType } from '../../../app/StoreActionType'
 import { expectSaga, testSaga } from 'redux-saga-test-plan'
 import loadCities from '../loadCities'
-import CityModelBuilder from '../../../../testing/builder/CitiyModelBuilder'
+import CityModelBuilder from '../../../../testing/builder/CityModelBuilder'
 
 jest.mock('rn-fetch-blob')
 jest.mock('../loadCities')
@@ -17,7 +17,7 @@ describe('watchFetchCities', () => {
   })
 
   describe('fetchCities', () => {
-    it('should yield an action which pushes the cites', async () => {
+    it('should put an action which pushes the cities', async () => {
       const cities = new CityModelBuilder(1).build()
 
       const dataContainer = new DefaultDataContainer()
@@ -33,7 +33,7 @@ describe('watchFetchCities', () => {
         .run()
     })
 
-    it('should yield an error action', () => {
+    it('should put an error action', () => {
       const dataContainer = new DefaultDataContainer()
       const action: FetchCitiesActionType = {
         type: 'FETCH_CITIES',

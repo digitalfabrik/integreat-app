@@ -33,11 +33,6 @@ pipeline {
                             }
                         }
                         stage('Build Release for iOS') {
-                            environment {
-                                E2E_TEST_IDS = "1"
-                                RCT_NO_LAUNCH_PACKAGER = "true"
-                                BUNDLE_CONFIG = "./metro.config.ci.js"
-                            }
                             steps {
                                 lock('pod-compilation') {
                                     // We are locking 2 steps here because:
@@ -45,9 +40,9 @@ pipeline {
                                     // 2)   While the xcodebuild archive is running "pod install" must not be called by an
                                     //      an other build. Else the compilation fails to find e.g. included headers
                                     sh 'cd ios && pod install'
-                                    sh 'xcodebuild -workspace ios/Integreat.xcworkspace -scheme "Integreat" -configuration Release archive -archivePath output/Integreat.xcarchive ENABLE_BITCODE=NO'
+                                    xcodeBuild generateArchive: true, unlockKeychain: true, xcodeSchema: 'Integreat', configuration: 'Release', xcodeWorkspaceFile: 'ios/Integreat', keychainName: 'ios', xcodebuildArguments: 'NODE_BINARY=/usr/local/bin/node E2E_TEST_IDS=1 RCT_NO_LAUNCH_PACKAGER=true BUNDLE_CONFIG=./metro.config.ci.js ENABLE_BITCODE=NO'
                                 }
-                                sh 'xcodebuild -exportArchive -archivePath output/Integreat.xcarchive -exportOptionsPlist ios/ExportOptions/AdHocExportOptions.plist -exportPath output/export'
+                                sh 'xcodebuild -exportArchive -archivePath $WORKSPACE/build/Release-iphoneos/Integreat.xcarchive -exportOptionsPlist ios/ExportOptions/AdHocExportOptions.plist -exportPath output/export'
                                 archiveArtifacts artifacts: 'output/export/**/*.*'
                             }
                         }

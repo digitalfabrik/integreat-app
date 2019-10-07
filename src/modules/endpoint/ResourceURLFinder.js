@@ -3,7 +3,7 @@
 import getExtension from './getExtension'
 import { Parser } from 'htmlparser2'
 import type { FetchMapType } from './sagas/fetchResourceCache'
-import { keyBy, reduce } from 'lodash/collection'
+import { reduce } from 'lodash/collection'
 import hashUrl from './hashUrl'
 
 /**
@@ -19,8 +19,13 @@ export default class ResourceURLFinder {
 
   _onAttributeTagFound = (name: string, value: string) => {
     if (name === 'href' || name === 'src') {
-      if (['png', 'jpg', 'jpeg', 'pdf'].includes(getExtension(value))) {
-        this._foundUrls.add(value)
+      try {
+        const extension = getExtension(value)
+        if (['png', 'jpg', 'jpeg', 'pdf'].includes(extension)) {
+          this._foundUrls.add(value)
+        }
+      } catch (ignored) {
+        // invalid urls get ignored
       }
     }
   }
@@ -43,7 +48,7 @@ export default class ResourceURLFinder {
     inputs: Array<{ path: string, content: string, thumbnail: string }>,
     buildFilePath: (url: string, path: string, urlHash: string) => string
   ): FetchMapType {
-    return reduce(inputs, (acc, input: { path: string, content: string, thumbnail: string }) => {
+    return reduce(inputs, (fetchMap, input: { path: string, content: string, thumbnail: string }) => {
       const path = input.path
 
       this.findResourceUrls(input.content)
@@ -53,13 +58,14 @@ export default class ResourceURLFinder {
         urlSet.add(input.thumbnail)
       }
 
-      return {
-        ...acc,
-        ...keyBy(
-          Array.from(urlSet).map(url => [url, path, hashUrl(url)]),
-          ([url, path, urlHash]) => buildFilePath(url, path, urlHash)
-        )
-      }
+      Array.from(urlSet).forEach(url => {
+        const urlHash = hashUrl(url)
+        const filePath = buildFilePath(url, path, urlHash)
+
+        fetchMap[filePath] = [url, path, urlHash]
+      })
+
+      return fetchMap
     }, {})
   }
 }

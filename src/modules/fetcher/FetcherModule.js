@@ -5,7 +5,7 @@ import { isEmpty } from 'lodash'
 
 export type TargetFilePathsType = {[path: string]: string}
 
-export type FetchResultType = { [path: string]: {| lastUpdate: string, url: string, errorMessage: string |} }
+export type FetchResultType = { [path: string]: {| lastUpdate: string, url: string, errorMessage: ?string |} }
 
 export type ProgressCallbackType = (progress: number) => void
 

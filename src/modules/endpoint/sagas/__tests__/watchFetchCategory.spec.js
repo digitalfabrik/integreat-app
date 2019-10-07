@@ -37,7 +37,7 @@ describe('watchFetchCategories', () => {
   const language = 'en'
 
   describe('fetchCategory', () => {
-    it('should yield an action which pushes the categories', async () => {
+    it('should put an action which pushes the categories', async () => {
       const { categories, resources, languages, dataContainer, initialPath } = await createDataContainer(city, language)
 
       const action: FetchCategoryActionType = {
@@ -77,7 +77,7 @@ describe('watchFetchCategories', () => {
         .run()
     })
 
-    it('should yield an action which pushes the categories when peeking', async () => {
+    it('should put an action which pushes the categories when peeking', async () => {
       const { categories, resources, dataContainer, initialPath } = await createDataContainer(city, language)
       const anotherCity = 'anotherCity'
 
@@ -148,7 +148,7 @@ describe('watchFetchCategories', () => {
         .run()
     })
 
-    it('should try to retrieved if peeking (independent of language)', async () => {
+    it('should try to loadCityContent with an invalid language when peeking', async () => {
       const { dataContainer, initialPath } = await createDataContainer(city, language)
 
       const anotherCity = 'anotherCity'
@@ -196,7 +196,7 @@ describe('watchFetchCategories', () => {
         .run()
     })
 
-    it('should yield an error action', () => {
+    it('should put an error action', () => {
       const dataContainer = new DefaultDataContainer()
 
       const action: FetchCategoryActionType = {
@@ -239,7 +239,7 @@ describe('watchFetchCategories', () => {
     })
   })
 
-  it('should correctly call fetchEvent when triggered', async () => {
+  it('should correctly call fetchCategory when triggered', async () => {
     const dataContainer = new DefaultDataContainer()
 
     return testSaga(watchFetchCategory, dataContainer)

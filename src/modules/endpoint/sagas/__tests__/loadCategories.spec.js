@@ -8,19 +8,24 @@ import CategoriesMapModelBuilder from '../../../../testing/builder/CategoriesMap
 
 let mockCategories
 jest.mock('rn-fetch-blob')
-jest.mock('@integreat-app/integreat-api-client/endpoints/createCategoriesEndpoint',
-  () => () => {
-    const { EndpointBuilder } = require('@integreat-app/integreat-api-client')
-    const CategoriesMapModelBuilder = require('../../../../testing/builder/CategoriesMapModelBuilder').default
+jest.mock('@integreat-app/integreat-api-client',
+  () => {
+    const actual = jest.requireActual('@integreat-app/integreat-api-client')
+    return {
+      ...actual,
+      createCategoriesEndpoint: () => {
+        const { EndpointBuilder } = require('@integreat-app/integreat-api-client')
+        const { default: CategoriesMapModelBuilder } = require('../../../../testing/builder/CategoriesMapModelBuilder')
 
-    mockCategories = new CategoriesMapModelBuilder(2).build()
-    return new EndpointBuilder('categories-mock')
-      .withParamsToUrlMapper(() => 'https://cms.integreat-app.de/augsburg/de')
-      .withResponseOverride(mockCategories)
-      .withMapper(() => { })
-      .build()
-  }
-)
+        mockCategories = new CategoriesMapModelBuilder(2).build()
+        return new EndpointBuilder('categories-mock')
+          .withParamsToUrlMapper(() => 'https://cms.integreat-app.de/augsburg/de')
+          .withResponseOverride(mockCategories)
+          .withMapper(() => { })
+          .build()
+      }
+    }
+  })
 
 describe('loadCategories', () => {
   beforeEach(() => {
