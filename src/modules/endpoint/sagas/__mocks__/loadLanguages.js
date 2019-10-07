@@ -5,7 +5,11 @@ import type { Saga } from 'redux-saga'
 import { LanguageModel } from '@integreat-app/integreat-api-client'
 import { call } from 'redux-saga/effects'
 
-export default function * (city: string, dataContainer: DataContainer, forceRefresh: boolean): Saga<Array<LanguageModel>> {
+export default function * (
+  city: string,
+  dataContainer: DataContainer,
+  forceRefresh: boolean
+): Saga<Array<LanguageModel>> {
   const languagesAvailable = yield call(() => dataContainer.languagesAvailable(city))
   if (!languagesAvailable || forceRefresh) {
     if (city === 'augsburg') {
