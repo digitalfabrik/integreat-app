@@ -224,9 +224,6 @@ describe('morphContentLanguage', () => {
 
     const previous = prepareState()
 
-    if (previous.categoriesRouteMapping.errorMessage !== undefined) {
-      throw Error('Preparation of state failed')
-    }
     const route = previous.categoriesRouteMapping['route-0']
     if (route.status !== 'ready') {
       throw Error('Preparation of state failed')
