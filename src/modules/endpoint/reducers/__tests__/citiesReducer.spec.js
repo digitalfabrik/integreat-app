@@ -2,7 +2,7 @@
 
 import type { CitiesStateType } from '../../../app/StateType'
 import citiesReducer from '../citiesReducer'
-import CityModel from '@integreat-app/integreat-api-client/models/CityModel'
+import { CityModel } from '@integreat-app/integreat-api-client'
 
 describe('citiesReducer', () => {
   it('should set status to loading on FETCH_CITIES', () => {

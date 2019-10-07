@@ -7,7 +7,7 @@ import type { DataContainer } from '../DataContainer'
 import loadCityContent from './loadCityContent'
 import { ContentLoadCriterion } from '../ContentLoadCriterion'
 
-function * fetchEvent (dataContainer: DataContainer, action: FetchEventActionType): Saga<void> {
+export function * fetchEvent (dataContainer: DataContainer, action: FetchEventActionType): Saga<void> {
   const { city, language, path, key, criterion } = action.params
   try {
     const loadCriterion = new ContentLoadCriterion(criterion, false)
