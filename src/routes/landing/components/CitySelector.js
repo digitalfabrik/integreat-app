@@ -29,8 +29,12 @@ type PropsType = {|
   theme: ThemeType
 |}
 
-const byName = (name: string) => {
-  return (city: CityModel) => city.name.toLowerCase().includes(name)
+const checkAliases = (a: CityModel, filterText: string): boolean => {
+  return Object.keys(a.aliases || {}).map(key => key.toLowerCase().includes(filterText.toLowerCase())).includes(true)
+}
+
+const byNameAndAliases = (name: string) => {
+  return (city: CityModel) => city.name.toLowerCase().includes(name) || checkAliases(city, name)
 }
 
 const developmentCompare = (a: CityModel, b: CityModel) => {
@@ -66,7 +70,7 @@ const currentDistance = (a: CityModel, longitude: number, latitude: number) => {
   type CoordinatesType = {| longitude: number, latitude: number |}
   // $FlowFixMe https://github.com/facebook/flow/issues/2221
   const coordinates: Array<CoordinatesType> = Object.values(a.aliases || {})
-  coordinates.push({ longitude: longitude, latitude: latitude })
+  coordinates.push({ longitude: a.longitude, latitude: a.latitude })
   const distances: Array<number> = coordinates.map((coords: CoordinatesType): {| value: number |} | null => {
     if (coords.longitude === null || coords.latitude === null) {
       return null
@@ -99,13 +103,14 @@ class CitySelector extends React.PureComponent<PropsType, StateType> {
     const cities = this.props.cities
 
     if (__DEV__) {
-      return cities.filter(byName(filterText)).sort(developmentCompare)
+      return cities.filter(byNameAndAliases(filterText))
+        .sort(developmentCompare)
     } else if (filterText === 'wirschaffendas') {
       return cities.filter(_city => !_city.live)
     } else {
       return cities
         .filter(_city => _city.live)
-        .filter(byName(filterText))
+        .filter(byNameAndAliases(filterText))
     }
   }
 
@@ -146,12 +151,15 @@ class CitySelector extends React.PureComponent<PropsType, StateType> {
     if (this.state.currentLatitude === null || this.state.currentLongitude === null) {
       return null
     }
-    let cities = this.props.cities.sort((a: CityModel, b: CityModel) =>
-      compareDistance(a, b, Number(this.state.currentLongitude), Number(this.state.currentLatitude)))
+    const { currentLatitude, currentLongitude } = this.state
+    let cities = this.props.cities.filter(_city => _city.live)
+      .sort((a: CityModel, b: CityModel) => compareDistance(a, b, currentLongitude, currentLatitude))
     const numberOfClosestCities = 3
     cities = cities.slice(0, numberOfClosestCities)
+    const maximalDistance = 90
+    cities = cities.filter(_city => currentDistance(_city, currentLongitude, currentLatitude) < maximalDistance)
     return <View>
-      <CityGroup theme={this.props.theme}> Closeby places </CityGroup>
+      <CityGroup theme={this.props.theme}> Close </CityGroup>
       {cities.map(city => <CityEntry
         key={city.code}
         city={city}
