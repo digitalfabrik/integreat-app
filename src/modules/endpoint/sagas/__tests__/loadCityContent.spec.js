@@ -9,12 +9,11 @@ import { ContentLoadCriterion } from '../../ContentLoadCriterion'
 import type { DataContainer } from '../../DataContainer'
 import CategoriesMapModelBuilder from '../../../../testing/builder/CategoriesMapModelBuilder'
 import LanguageModelBuilder from '../../../../testing/builder/LanguageModelBuilder'
-import CityModelBuilder from '../../../../testing/builder/CitiyModelBuilder'
+import CityModelBuilder from '../../../../testing/builder/CityModelBuilder'
 import moment from 'moment-timezone'
 import EventModelBuilder from '../../../../testing/builder/EventModelBuilder'
 import AsyncStorage from '@react-native-community/async-storage'
 import fetchResourceCache from '../fetchResourceCache'
-import buildResourceFilePath from '../../buildResourceFilePath'
 import NetInfo from '@react-native-community/netinfo'
 
 jest.mock('@react-native-community/async-storage')
@@ -27,11 +26,8 @@ jest.mock('../loadCities')
 jest.mock('../loadLanguages')
 
 const prepareDataContainer = async (dataContainer: DataContainer, city: string, language: string) => {
-  const filePathBuilder = (url: string, urlHash: string) => buildResourceFilePath(url, city, urlHash)
-  const categoriesBuilder = new CategoriesMapModelBuilder(2, 2,
-    filePathBuilder
-  )
-  const eventsBuilder = new EventModelBuilder('loadCityContent-events', 2, filePathBuilder)
+  const categoriesBuilder = new CategoriesMapModelBuilder(2, 2)
+  const eventsBuilder = new EventModelBuilder('loadCityContent-events', 2)
 
   const categories = categoriesBuilder.build()
   const cities = new CityModelBuilder(1).build()
@@ -151,7 +147,7 @@ describe('loadCityContent', () => {
   })
 
   it('should return false if language does not exist', async () => {
-    const mockDate = jest.requireActual('moment-timezone').tz('2000-01-01T00:00:00.000Z', 'UTC')
+    const mockDate = jest.requireActual('moment')('2000-01-01T00:00:00.000Z')
     const { restore } = mockTz(mockDate)
 
     const dataContainer = new DefaultDataContainer()
@@ -260,7 +256,7 @@ describe('loadCityContent', () => {
   })
 
   it('should update if last update was a long time ago', async () => {
-    const mockDate = jest.requireActual('moment-timezone').tz('2000-01-01T00:00:00.000Z', 'UTC')
+    const mockDate = jest.requireActual('moment')('2000-01-01T00:00:00.000Z')
     const { restore } = mockTz(mockDate)
 
     const dataContainer = new DefaultDataContainer()
