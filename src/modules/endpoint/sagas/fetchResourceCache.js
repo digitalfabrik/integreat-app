@@ -9,19 +9,15 @@ import FetcherModule from '../../fetcher/FetcherModule'
 import { invertBy, mapValues, pickBy } from 'lodash/object'
 import type { DataContainer } from '../DataContainer'
 
-type PathType = string
-type UrlType = string
-type FilePathType = string
-export type FetchMapType = { [filePath: FilePathType]: [UrlType, PathType] }
+export type PathType = string
+export type UrlType = string
+export type FilePathType = string
+export type HashType = string
+export type FetchMapType = { [filePath: FilePathType]: [UrlType, PathType, HashType] }
 
 const createErrorMessage = (fetchResult: FetchResultType) => {
-  return reduce(fetchResult, (message, result, path) => {
-    if (!result.errorMessage) {
-      return message
-    }
-
-    return `${message}'Failed to download ${result.url} to ${path}': ${result.errorMessage}\n`
-  }, '')
+  return reduce(fetchResult, (message, result, path) =>
+    `${message}'Failed to download ${result.url} to ${path}': ${result.errorMessage}\n`, '')
 }
 
 export default function * fetchResourceCache (
@@ -40,15 +36,18 @@ export default function * fetchResourceCache (
     }
 
     const targetCategories: { [categoryPath: PathType]: Array<FilePathType> } =
-      invertBy(mapValues(fetchMap, ([url, path]) => path))
+      invertBy(mapValues(fetchMap, ([url, path, urlHash]) => path))
 
     const resourceCache = mapValues(targetCategories, filePaths =>
       reduce(filePaths, (acc, filePath) => {
         const downloadResult = successResults[filePath]
+        const [, , urlHash] = fetchMap[filePath]
+
         if (downloadResult) {
           acc[downloadResult.url] = {
             filePath,
-            lastUpdate: downloadResult.lastUpdate
+            lastUpdate: downloadResult.lastUpdate,
+            hash: urlHash
           }
         }
         return acc
@@ -65,6 +64,5 @@ export default function * fetchResourceCache (
       }
     }
     yield put(failed)
-    throw e
   }
 }

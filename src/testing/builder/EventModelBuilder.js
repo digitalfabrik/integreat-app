@@ -1,0 +1,102 @@
+// @flow
+
+import { DateModel, EventModel, LocationModel } from '@integreat-app/integreat-api-client'
+import moment from 'moment-timezone'
+import seedrandom from 'seedrandom'
+import type { FileCacheStateType } from '../../modules/app/StateType'
+import hashUrl from '../../modules/endpoint/hashUrl'
+import md5 from 'js-md5'
+
+const MAX_PREDICTABLE_VALUE = 6
+
+class EventModelBuilder {
+  _eventCount: number
+  _seed: string
+
+  constructor (seed: string, eventCount: number) {
+    this._seed = seed
+    this._eventCount = eventCount
+  }
+
+  _predictableNumber (index: number, max: number = MAX_PREDICTABLE_VALUE): number {
+    return seedrandom(index + this._seed)() * max
+  }
+
+  build (): Array<EventModel> {
+    return this.buildAll().map(all => all.event)
+  }
+
+  buildResources (): { [path: string]: FileCacheStateType } {
+    return this.buildAll().reduce((result, { path, resources }) => {
+      result[path] = resources
+      return result
+    }, {})
+  }
+
+  createResource (url: string, index: number, lastUpdate: moment): FileCacheStateType {
+    const hash = hashUrl(url)
+    return {
+      [url]: {
+        filePath: `path/to/documentDir/resource-cache/v1/some-city/files/${hash}.png`,
+        lastUpdate: moment(lastUpdate).add(this._predictableNumber(index), 'days'),
+        hash
+      }
+    }
+  }
+
+  /**
+   * Builds the requested amount of events. Two builds with an identical seed will yield equal events.
+   * Note that they are not identical. Furthermore instances of external classes like `moment` or `EventModel` maybe are
+   * not equal when comparing all the properties.
+   *
+   * @returns The events and the corresponding resource cache
+   */
+  buildAll (): Array<{ path: string, event: EventModel, resources: { [path: string]: FileCacheStateType } }> {
+    return Array.from({ length: this._eventCount }, (x, index) => {
+      const mockDate = moment('2015-01-01T00:00:00.000Z', moment.ISO_8601)
+      const startDate = moment(mockDate.add(this._predictableNumber(index), 'years').toISOString(), moment.ISO_8601)
+      const endDate = moment(mockDate.add(this._predictableNumber(index), 'hours').toISOString(), moment.ISO_8601)
+      const lastUpdate = moment(mockDate.subtract(this._predictableNumber(index), 'months').toISOString(), moment.ISO_8601)
+
+      const path = `/augsburg/en/events/event${index}`
+      const resourceUrl1 = `https://integreat/title_${index}-300x300.png`
+      const resourceUrl2 = `https://integreat/event_${index}-300x300.png`
+      const thumbnail = `http://thumbnails/event_${index}.png`
+
+      return {
+        path,
+        event: new EventModel({
+          path,
+          title: 'first Event',
+          availableLanguages: new Map(
+            [['de', `/augsburg/de/events/event${index}`], ['ar', `/augsburg/ar/events/event${index}`]]),
+          date: new DateModel({
+            startDate,
+            endDate,
+            allDay: false
+          }),
+          location: new LocationModel({
+            address: 'address',
+            town: 'town',
+            postcode: 'postcode'
+          }),
+          excerpt: 'excerpt',
+          lastUpdate,
+          content: `<h1>This is a sample event</h1>
+                    <img src="${resourceUrl1}"/>
+                    <p>This is a sample event</p>
+                    <img src="${resourceUrl2}"/>`,
+          thumbnail,
+          hash: md5.create().update(Buffer.from([index])).hex()
+        }),
+        resources: {
+          ...this.createResource(resourceUrl1, index, lastUpdate),
+          ...this.createResource(resourceUrl2, index, lastUpdate),
+          ...this.createResource(thumbnail, index, lastUpdate)
+        }
+      }
+    })
+  }
+}
+
+export default EventModelBuilder
