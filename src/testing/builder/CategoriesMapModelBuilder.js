@@ -113,7 +113,7 @@ class CategoriesMapModelBuilder {
       content: '',
       order: -1,
       availableLanguages: new Map(),
-      thumbnail: 'no_thumbnail',
+      thumbnail: '',
       parentPath: '',
       lastUpdate: moment('2017-11-18T19:30:00.000Z', moment.ISO_8601),
       hash: md5.create().update(path).hex()
