@@ -5,6 +5,7 @@ import moment from 'moment-timezone'
 import seedrandom from 'seedrandom'
 import type { FileCacheStateType } from '../../modules/app/StateType'
 import hashUrl from '../../modules/endpoint/hashUrl'
+import md5 from 'js-md5'
 
 const MAX_PREDICTABLE_VALUE = 6
 
@@ -65,7 +66,6 @@ class EventModelBuilder {
       return {
         path,
         event: new EventModel({
-          id: index + 1,
           path,
           title: 'first Event',
           availableLanguages: new Map(
@@ -86,7 +86,8 @@ class EventModelBuilder {
                     <img src="${resourceUrl1}"/>
                     <p>This is a sample event</p>
                     <img src="${resourceUrl2}"/>`,
-          thumbnail
+          thumbnail,
+          hash: md5.create().update(Buffer.from([index])).hex()
         }),
         resources: {
           ...this.createResource(resourceUrl1, index, lastUpdate),
