@@ -18,14 +18,12 @@ const createDataContainer = async (city: string, language: string) => {
   const resources = categoriesBuilder.buildResources()
   const languages = new LanguageModelBuilder(2).build()
 
-  const initialPath = categories.toArray()[0]
-
   const dataContainer = new DefaultDataContainer()
   await dataContainer.setCategoriesMap(city, language, categories)
   await dataContainer.setLanguages(city, languages)
   await dataContainer.setResourceCache(city, language, resources)
 
-  return { categories, resources, languages, dataContainer, initialPath }
+  return { categories, resources, languages, dataContainer, initialPath: `/${city}/${language}` }
 }
 
 describe('watchFetchCategories', () => {
@@ -56,11 +54,7 @@ describe('watchFetchCategories', () => {
       }
 
       return expectSaga(fetchCategory, dataContainer, action)
-        .withState({
-          cityContent: {
-            city: city
-          }
-        })
+        .withState({ cityContent: { city: city } })
         .put({
           type: 'PUSH_CATEGORY',
           params: {
@@ -97,11 +91,7 @@ describe('watchFetchCategories', () => {
       }
 
       return expectSaga(fetchCategory, dataContainer, action)
-        .withState({
-          cityContent: {
-            city: anotherCity
-          }
-        })
+        .withState({ cityContent: { city: anotherCity } })
         .put({
           type: 'PUSH_CATEGORY',
           params: {
@@ -118,7 +108,41 @@ describe('watchFetchCategories', () => {
         .run()
     })
 
-    it('should do nothing if content can not be retrieved (e.g. language invalid) and not peeking', async () => {
+    it('should put pushCategoryLanguages action if content can not be retrieved for root model', async () => {
+      const { dataContainer, languages } = await createDataContainer(city, language)
+
+      const invalidLanguage = '??'
+      const action: FetchCategoryActionType = {
+        type: 'FETCH_CATEGORY',
+        params: {
+          city,
+          language: invalidLanguage,
+          path: '/augsburg/??',
+          depth: 2,
+          key: 'categories-key',
+          criterion: {
+            forceUpdate: false,
+            shouldRefreshResources: true
+          }
+        }
+      }
+
+      return expectSaga(fetchCategory, dataContainer, action)
+        .withState({ cityContent: { city: city } })
+        .put({
+          type: 'PUSH_CATEGORY_LANGUAGES',
+          params: {
+            city: 'augsburg',
+            language: '??',
+            depth: 2,
+            allAvailableLanguages: new Map(languages.map(lng => ([lng.code, `/${city}/${lng.code}`]))),
+            key: 'categories-key'
+          }
+        })
+        .run()
+    })
+
+    it('should put failed action if content can not be retrieved and not peeking', async () => {
       const { dataContainer, initialPath } = await createDataContainer(city, language)
 
       const invalidLanguage = '??'
@@ -138,13 +162,8 @@ describe('watchFetchCategories', () => {
       }
 
       return expectSaga(fetchCategory, dataContainer, action)
-        .withState({
-          cityContent: {
-            city: city
-          }
-        })
-        .not.put.like({ action: { type: 'PUSH_CATEGORY' } })
-        .not.put.like({ action: { type: 'FETCH_CATEGORY_FAILED' } })
+        .withState({ cityContent: { city: city } })
+        .put.like({ action: { type: 'FETCH_CATEGORY_FAILED' } })
         .run()
     })
 
@@ -169,11 +188,7 @@ describe('watchFetchCategories', () => {
       }
 
       return expectSaga(fetchCategory, dataContainer, action)
-        .withState({
-          cityContent: {
-            city: anotherCity
-          }
-        })
+        .withState({ cityContent: { city: anotherCity } })
         .provide({
           call: (effect, next) => {
             if (effect.fn === loadCityContent) {
@@ -190,7 +205,11 @@ describe('watchFetchCategories', () => {
           type: 'FETCH_CATEGORY_FAILED',
           params: {
             message: 'Error in fetchCategory: Failed to fetch the language ??!',
-            key: 'categories-key'
+            key: 'categories-key',
+            path: initialPath,
+            depth: 2,
+            language: '??',
+            city
           }
         })
         .run()
@@ -215,11 +234,7 @@ describe('watchFetchCategories', () => {
       }
 
       return expectSaga(fetchCategory, dataContainer, action)
-        .withState({
-          cityContent: {
-            city
-          }
-        })
+        .withState({ cityContent: { city } })
         .provide({
           call: (effect, next) => {
             if (effect.fn === loadCityContent) {
@@ -232,7 +247,11 @@ describe('watchFetchCategories', () => {
           type: 'FETCH_CATEGORY_FAILED',
           params: {
             message: 'Error in fetchCategory: Jemand hat keine 4 Issues geschafft!',
-            key: 'categories-key'
+            key: 'categories-key',
+            path: `/${city}/${language}/some-path`,
+            depth: 2,
+            language: 'en',
+            city: 'augsburg'
           }
         })
         .run()
