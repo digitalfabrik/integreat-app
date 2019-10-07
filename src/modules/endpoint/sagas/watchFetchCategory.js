@@ -1,7 +1,7 @@
 // @flow
 
 import type { Saga } from 'redux-saga'
-import { all, call, put, race, select, take, takeLatest } from 'redux-saga/effects'
+import { all, call, put, select, takeLatest } from 'redux-saga/effects'
 import type {
   FetchCategoryActionType,
   FetchCategoryFailedActionType,
@@ -25,7 +25,7 @@ function * isPeeking (routeCity: string): Saga<boolean> {
   return yield select(state => isPeekingRoute(state, { routeCity }))
 }
 
-function * fetchCategory (dataContainer: DataContainer, action: FetchCategoryActionType): Saga<void> {
+export function * fetchCategory (dataContainer: DataContainer, action: FetchCategoryActionType): Saga<void> {
   const { city, language, path, depth, key, criterion } = action.params
   try {
     const peeking = yield call(isPeeking, city)
@@ -76,26 +76,6 @@ function * fetchCategory (dataContainer: DataContainer, action: FetchCategoryAct
   }
 }
 
-function * cancelableFetchCategory (dataContainer: DataContainer, action: FetchCategoryActionType): Saga<void> {
-  const { cancel } = yield race({
-    response: call(fetchCategory, dataContainer, action),
-    cancel: take('SWITCH_CONTENT_LANGUAGE')
-  })
-
-  if (cancel) {
-    const newLanguage = cancel.params.newLanguage
-    const newFetchCategory: FetchCategoryActionType = {
-      type: 'FETCH_CATEGORY',
-      params: {
-        language: newLanguage,
-        path: `/${action.params.city}/${newLanguage}`,
-        ...action.params
-      }
-    }
-    yield put(newFetchCategory)
-  }
-}
-
 export default function * (dataContainer: DataContainer): Saga<void> {
-  yield takeLatest(`FETCH_CATEGORY`, cancelableFetchCategory, dataContainer)
+  yield takeLatest(`FETCH_CATEGORY`, fetchCategory, dataContainer)
 }

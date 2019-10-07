@@ -13,7 +13,7 @@ import loadCityContent from './loadCityContent'
 import { ContentLoadCriterion } from '../ContentLoadCriterion'
 import AppSettings from '../../settings/AppSettings'
 
-function * switchContentLanguage (dataContainer: DataContainer, action: SwitchContentLanguageActionType): Saga<void> {
+export function * switchContentLanguage (dataContainer: DataContainer, action: SwitchContentLanguageActionType): Saga<void> {
   const { newLanguage, city } = action.params
   try {
     const appSettings = new AppSettings()
@@ -50,7 +50,9 @@ function * switchContentLanguage (dataContainer: DataContainer, action: SwitchCo
     console.error(e)
     const failed: SwitchContentLanguageFailedActionType = {
       type: `SWITCH_CONTENT_LANGUAGE_FAILED`,
-      message: `Error in fetchCategory: ${e.message}`
+      params: {
+        message: `Error in switchContentLanguage: ${e.message}`
+      }
     }
     yield put(failed)
   }

@@ -116,8 +116,12 @@ class DatabaseConnector {
 
   async storeLastUpdate (lastUpdate: Moment, context: DatabaseContext) {
     const cityCode = context.cityCode
+    const languageCode = context.languageCode
+
     if (!cityCode) {
       throw Error('cityCode mustn\'t be empty')
+    } else if (!languageCode) {
+      throw Error('languageCode mustn\'t be empty')
     }
     const path = this.getMetaCitiesPath()
 

@@ -82,7 +82,7 @@ class DefaultDataContainer implements DataContainer {
   }
 
   getResourceCache = async (city: string, language: string): Promise<LanguageResourceCacheStateType> => {
-    const context = new DatabaseContext(city, language)
+    const context = new DatabaseContext(city, null)
     const cache: Cache<CityResourceCacheStateType> = this.caches.resourceCache
     const resourceCache = await cache.get(context)
 
@@ -130,7 +130,7 @@ class DefaultDataContainer implements DataContainer {
   }
 
   setResourceCache = async (city: string, language: string, resourceCache: LanguageResourceCacheStateType) => {
-    const context = new DatabaseContext(city, language)
+    const context = new DatabaseContext(city, null)
 
     const cache: Cache<CityResourceCacheStateType> = this.caches.resourceCache
     const previousResourceCache = cache.getCached(context)
@@ -142,7 +142,7 @@ class DefaultDataContainer implements DataContainer {
 
     const newResourceCache = { ...previousResourceCache, [language]: resourceCache }
 
-    if (resourceCache[language]) {
+    if (previousResourceCache[language]) {
       // Cleanup old resources
       const oldPaths = this.getFilePathsFromLanguageResourceCache(previousResourceCache[language])
       const newPaths = this.getFilePathsFromLanguageResourceCache(resourceCache)
