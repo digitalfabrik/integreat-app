@@ -2,9 +2,10 @@
 
 import { CategoriesMapModel, CategoryModel } from '@integreat-app/integreat-api-client'
 import moment from 'moment-timezone'
-import type { FileCacheStateType, LanguageResourceCacheStateType } from '../../modules/app/StateType'
+import type { FileCacheStateType } from '../../modules/app/StateType'
 import seedrandom from 'seedrandom'
 import hashUrl from '../../modules/endpoint/hashUrl'
+import md5 from 'js-md5'
 
 const DEFAULT_ARITY = 3
 const DEFAULT_DEPTH = 2
@@ -61,6 +62,7 @@ class CategoriesMapModelBuilder {
       const thumbnail = `http://thumbnails/category_${id}.png`
 
       const newChild = new CategoryModel({
+        root: false,
         path,
         title: `Category with id ${id}`,
         content: `<h1>This is a sample page</h1>
@@ -71,7 +73,8 @@ class CategoriesMapModelBuilder {
         availableLanguages: new Map(),
         thumbnail,
         parentPath: category.path,
-        lastUpdate
+        lastUpdate,
+        hash: md5.create().update(category.path).hex()
       })
 
       this._resourceCache[path] = {
@@ -95,15 +98,19 @@ class CategoriesMapModelBuilder {
   buildAll (): { categories: CategoriesMapModel, resourceCache: { [path: string]: FileCacheStateType } } {
     this._resourceCache = {}
     this._categories = []
+
+    const path = '/augsburg/de'
     this._addChildren(new CategoryModel({
-      path: '/augsburg/de',
+      root: true,
+      path,
       title: 'augsburg',
       content: '',
       order: -1,
       availableLanguages: new Map(),
       thumbnail: 'no_thumbnail',
       parentPath: '',
-      lastUpdate: moment('2017-11-18T19:30:00.000Z', moment.ISO_8601)
+      lastUpdate: moment('2017-11-18T19:30:00.000Z', moment.ISO_8601),
+      hash: md5.create().update(path).hex()
     }), 0)
 
     return { categories: new CategoriesMapModel(this._categories), resourceCache: this._resourceCache }
