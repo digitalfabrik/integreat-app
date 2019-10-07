@@ -1,19 +1,17 @@
 // @flow
 
 import type { Saga } from 'redux-saga'
-import { isEmpty, reduce } from 'lodash'
+import { flatten, isEmpty, reduce } from 'lodash'
 import { call, put } from 'redux-saga/effects'
 import type { ResourcesFetchFailedActionType } from '../../app/StoreActionType'
 import type { FetchResultType } from '../../fetcher/FetcherModule'
 import FetcherModule from '../../fetcher/FetcherModule'
-import { invertBy, mapValues, pickBy } from 'lodash/object'
+import { mapValues, pickBy } from 'lodash/object'
 import type { DataContainer } from '../DataContainer'
 
-export type PathType = string
-export type UrlType = string
-export type FilePathType = string
-export type HashType = string
-export type FetchMapType = { [filePath: FilePathType]: [UrlType, PathType, HashType] }
+export type FetchMapTargetType = { url: string, filePath: string, urlHash: string }
+export type FetchMapEntryType = Array<FetchMapTargetType>
+export type FetchMapType = { [path: string]: FetchMapEntryType }
 
 const createErrorMessage = (fetchResult: FetchResultType) => {
   return reduce(fetchResult, (message, result, path) =>
@@ -21,11 +19,18 @@ const createErrorMessage = (fetchResult: FetchResultType) => {
 }
 
 export default function * fetchResourceCache (
-  city: string, language: string, fetchMap: FetchMapType, dataContainer: DataContainer): Saga<void> {
+  city: string,
+  language: string,
+  fetchMap: FetchMapType,
+  dataContainer: DataContainer): Saga<void> {
   try {
-    const targetUrls = mapValues(fetchMap, ([url]) => url)
+    const fetchMapTargets = flatten(Object.values(fetchMap))
+    const targetFilePaths = reduce(fetchMapTargets, (acc, value: { url: string, filePath: string }) => {
+      acc[value.filePath] = value.url
+      return acc
+    }, {})
 
-    const results = yield call(new FetcherModule().fetchAsync, targetUrls, progress => console.log(progress))
+    const results = yield call(new FetcherModule().fetchAsync, targetFilePaths, progress => console.log(progress))
 
     const successResults = pickBy(results, result => !result.errorMessage)
     const failureResults = pickBy(results, result => !!result.errorMessage)
@@ -35,19 +40,16 @@ export default function * fetchResourceCache (
       console.warn(message)
     }
 
-    const targetCategories: { [categoryPath: PathType]: Array<FilePathType> } =
-      invertBy(mapValues(fetchMap, ([url, path, urlHash]) => path))
-
-    const resourceCache = mapValues(targetCategories, filePaths =>
-      reduce(filePaths, (acc, filePath) => {
+    const resourceCache = mapValues(fetchMap, fetchMapEntry =>
+      reduce(fetchMapEntry, (acc, fetchMapTarget: FetchMapTargetType) => {
+        const filePath = fetchMapTarget.filePath
         const downloadResult = successResults[filePath]
-        const [, , urlHash] = fetchMap[filePath]
 
         if (downloadResult) {
           acc[downloadResult.url] = {
             filePath,
             lastUpdate: downloadResult.lastUpdate,
-            hash: urlHash
+            hash: fetchMapTarget.urlHash
           }
         }
         return acc

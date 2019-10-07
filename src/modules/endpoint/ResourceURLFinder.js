@@ -46,9 +46,9 @@ export default class ResourceURLFinder {
 
   buildFetchMap (
     inputs: Array<{ path: string, content: string, thumbnail: string }>,
-    buildFilePath: (url: string, path: string, urlHash: string) => string
+    buildFilePath: (url: string, urlHash: string) => string
   ): FetchMapType {
-    return reduce(inputs, (fetchMap, input: { path: string, content: string, thumbnail: string }) => {
+    return reduce(inputs, (fetchMap: FetchMapType, input: { path: string, content: string, thumbnail: string }) => {
       const path = input.path
 
       this.findResourceUrls(input.content)
@@ -58,11 +58,10 @@ export default class ResourceURLFinder {
         urlSet.add(input.thumbnail)
       }
 
-      Array.from(urlSet).forEach(url => {
+      fetchMap[path] = Array.from(urlSet).map(url => {
         const urlHash = hashUrl(url)
-        const filePath = buildFilePath(url, path, urlHash)
-
-        fetchMap[filePath] = [url, path, urlHash]
+        const filePath = buildFilePath(url, urlHash)
+        return { url, urlHash, filePath }
       })
 
       return fetchMap
