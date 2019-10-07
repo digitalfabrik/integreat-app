@@ -5,7 +5,11 @@ import type { Saga } from 'redux-saga'
 import { CategoriesMapModel } from '@integreat-app/integreat-api-client'
 import { call } from 'redux-saga/effects'
 
-export default function * loadCategories (city: string, language: string, dataContainer: DataContainer, forceRefresh: boolean): Saga<CategoriesMapModel> {
+export default function * loadCategories (
+  city: string, language: string,
+  dataContainer: DataContainer,
+  forceRefresh: boolean
+): Saga<CategoriesMapModel> {
   const categoriesAvailable = yield call(() => dataContainer.categoriesAvailable(city, language))
   if (!categoriesAvailable || forceRefresh) {
     if (city === 'augsburg' && language === 'en') {

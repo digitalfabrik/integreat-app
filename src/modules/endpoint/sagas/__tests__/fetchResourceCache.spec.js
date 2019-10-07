@@ -5,9 +5,6 @@ import fetchResourceCache from '../fetchResourceCache'
 import DefaultDataContainer from '../../DefaultDataContainer'
 import RNFetchBlob from '../../../../__mocks__/rn-fetch-blob'
 import CategoriesMapModelBuilder from '../../../../testing/builder/CategoriesMapModelBuilder'
-import { transform, forEach } from 'lodash'
-import Moment from 'moment'
-import type { FileCacheStateType } from '../../../app/StateType'
 
 jest.mock('../../../fetcher/FetcherModule')
 jest.mock('rn-fetch-blob')
