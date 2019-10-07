@@ -89,8 +89,8 @@ class I18nProvider extends React.Component<PropsType, StateType> {
 
     if (!contentLanguage) {
       await this.appSettings.setContentLanguage(uiLanguage)
-      setContentLanguage(uiLanguage)
     }
+    setContentLanguage(contentLanguage || uiLanguage)
   }
 
   componentDidMount () {
