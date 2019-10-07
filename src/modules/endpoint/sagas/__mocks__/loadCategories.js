@@ -9,7 +9,7 @@ export default function * loadCategories (city: string, language: string, dataCo
   const categoriesAvailable = yield call(() => dataContainer.categoriesAvailable(city, language))
   if (!categoriesAvailable || forceRefresh) {
     if (city === 'augsburg' && language === 'en') {
-      return yield call(dataContainer.getLanguages, city)
+      return yield call(dataContainer.getCategoriesMap, city, language)
     } else {
       throw new Error('When using this mock you should prepare the DataContainer with "augsburg" and language "en"!')
     }
