@@ -26,8 +26,7 @@ import loadCities from './loadCities'
  * @throws if the saga was unable to load necessary data
  */
 export default function * loadCityContent (
-  dataContainer: DataContainer, newCity: string, newLanguage: string,
-  criterion: ContentLoadCriterion
+  dataContainer: DataContainer, newCity: string, newLanguage: string, criterion: ContentLoadCriterion
 ): Saga<boolean> {
   if (!criterion.peeking()) {
     const appSettings = new AppSettings()
@@ -37,8 +36,7 @@ export default function * loadCityContent (
   yield call(loadCities, dataContainer, false) // Never force refresh cities, when loading cityContent
   const lastUpdate: moment | null = yield call(dataContainer.getLastUpdate, newCity, newLanguage)
 
-  console.debug('Last city content update on ',
-    lastUpdate ? lastUpdate.toISOString() : 'never')
+  console.debug('Last city content update on ', lastUpdate?.lastUpdate.toISOString() || 'never')
 
   const shouldUpdate = criterion.shouldUpdate(lastUpdate)
 
