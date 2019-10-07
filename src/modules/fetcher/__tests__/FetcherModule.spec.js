@@ -16,9 +16,6 @@ describe('FetcherModule', () => {
     'local/path/to/resource2.jpg': 'http://randomtesturl.de/resource2.jpg'
   }
 
-  it('currentlyFetching should be false if no fetching process is running', () => {
-    expect(FetcherModule.currentlyFetching).toBe(false)
-  })
   it('should call fetchAsync with targetFiles on native module', async () => {
     const fetcherModule = new FetcherModule()
     await fetcherModule.fetchAsync(testTargetFilePaths, progress => console.log(progress))
@@ -32,11 +29,15 @@ describe('FetcherModule', () => {
   })
   it('should return an error if fetcher is already busy', async () => {
     const fetcherModule = new FetcherModule()
-    FetcherModule.currentlyFetching = true
-    expect(fetcherModule.fetchAsync(testTargetFilePaths, progress => console.log(progress)))
-      .rejects.toEqual({
-        error: 'Already fetching!'
-      })
-    FetcherModule.currentlyFetching = false
+    const anotherFetcherModule = new FetcherModule()
+
+    fetcherModule.fetchAsync(testTargetFilePaths, process => console.log(process))
+
+    expect.assertions(1)
+    try {
+      await anotherFetcherModule.fetchAsync(testTargetFilePaths, process => console.log(process))
+    } catch (e) {
+      expect(e).toEqual(new Error('Already fetching!'))
+    }
   })
 })
