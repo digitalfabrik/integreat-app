@@ -126,7 +126,9 @@ export type SwitchContentLanguageActionType = {|
 |}
 
 export type SwitchContentLanguageFailedActionType = {|
-  type: 'SWITCH_CONTENT_LANGUAGE_FAILED', message: string
+  type: 'SWITCH_CONTENT_LANGUAGE_FAILED', params: {|
+    message: string
+  |}
 |}
 
 export type MorphContentLanguageActionType = {|
