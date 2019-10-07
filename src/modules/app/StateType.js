@@ -81,7 +81,7 @@ export type ErrorStateType = {|
 
 export type LanguageResourceCacheStateType = {
   [path: string]: FileCacheStateType
-} | ErrorStateType
+}
 
 export type CityResourceCacheStateType = {
   [language: string]: LanguageResourceCacheStateType
@@ -122,7 +122,7 @@ export type CityContentStateType = {|
   +languages: ?Array<LanguageModel>,
   +categoriesRouteMapping: CategoriesRouteMappingType,
   +eventsRouteMapping: EventsRouteMappingType,
-  +resourceCache: LanguageResourceCacheStateType,
+  +resourceCache: LanguageResourceCacheStateType | ErrorStateType,
   +searchRoute: SearchRouteType | null
 |}
 
