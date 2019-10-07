@@ -66,15 +66,25 @@ const mockTz = (mockDate: moment) => {
 }
 
 describe('loadCityContent', () => {
+  const mockDate = jest.requireActual('moment')('2000-01-05T00:11:00.000Z')
+  const lastUpdate = moment('2000-01-05T10:10:00.000Z')
+
+  let restoreMoment
+
   beforeEach(async () => {
     RNFetchBlob.fs._reset()
     await AsyncStorage.clear()
+
+    const { restore } = mockTz(mockDate)
+    restoreMoment = restore
+  })
+
+  afterEach(async () => {
+    restoreMoment()
   })
 
   const city = 'augsburg'
   const language = 'en'
-
-  const lastUpdate = moment('2019-09-18T16:04:06+02:00')
 
   it('should set selected city when not peeking', async () => {
     const dataContainer = new DefaultDataContainer()
@@ -147,9 +157,6 @@ describe('loadCityContent', () => {
   })
 
   it('should return false if language does not exist', async () => {
-    const mockDate = jest.requireActual('moment')('2000-01-01T00:00:00.000Z')
-    const { restore } = mockTz(mockDate)
-
     const dataContainer = new DefaultDataContainer()
     await prepareDataContainer(dataContainer, city, language)
 
@@ -168,7 +175,6 @@ describe('loadCityContent', () => {
 
     expect(lastUpdateAfterLoading.isSame(lastUpdate)).toBeTruthy()
     expect(lastUpdateAfterLoading.isSame(mockDate)).not.toBeTruthy()
-    restore()
   })
 
   it('should return true if language does exist', async () => {
@@ -256,9 +262,6 @@ describe('loadCityContent', () => {
   })
 
   it('should update if last update was a long time ago', async () => {
-    const mockDate = jest.requireActual('moment')('2000-01-01T00:00:00.000Z')
-    const { restore } = mockTz(mockDate)
-
     const dataContainer = new DefaultDataContainer()
     await prepareDataContainer(dataContainer, city, language)
 
@@ -272,6 +275,5 @@ describe('loadCityContent', () => {
     ).run()
 
     expect(await dataContainer.getLastUpdate(city, language)).toBe(mockDate)
-    restore()
   })
 })
