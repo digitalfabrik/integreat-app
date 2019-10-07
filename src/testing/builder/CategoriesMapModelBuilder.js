@@ -18,6 +18,7 @@ class CategoriesMapModelBuilder {
   _arity: number
 
   _categories: Array<CategoryModel>
+  _resourceCache: { [path: string]: FileCacheStateType }
   _id = 0
 
   constructor (arity: number = DEFAULT_ARITY, depth: number = DEFAULT_DEPTH) {
@@ -42,7 +43,6 @@ class CategoriesMapModelBuilder {
 
   _addChildren (
     category: CategoryModel,
-    resourceCache: LanguageResourceCacheStateType,
     depth: number) {
     this._categories.push(category)
 
@@ -74,13 +74,13 @@ class CategoriesMapModelBuilder {
         lastUpdate
       })
 
-      resourceCache[path] = {
+      this._resourceCache[path] = {
         ...this.createResource(resourceUrl1, id, lastUpdate),
         ...this.createResource(resourceUrl2, id, lastUpdate),
         ...this.createResource(thumbnail, id, lastUpdate)
       }
 
-      this._addChildren(newChild, resourceCache, depth + 1)
+      this._addChildren(newChild, depth + 1)
     }
   }
 
@@ -93,9 +93,7 @@ class CategoriesMapModelBuilder {
   }
 
   buildAll (): { categories: CategoriesMapModel, resourceCache: { [path: string]: FileCacheStateType } } {
-    const categories = []
-    const resourceCache = {}
-
+    this._resourceCache = {}
     this._categories = []
     this._addChildren(new CategoryModel({
       path: '/augsburg/de',
@@ -106,9 +104,9 @@ class CategoriesMapModelBuilder {
       thumbnail: 'no_thumbnail',
       parentPath: '',
       lastUpdate: moment('2017-11-18T19:30:00.000Z', moment.ISO_8601)
-    }), resourceCache, 0)
+    }), 0)
 
-    return { categories: new CategoriesMapModel(categories), resourceCache }
+    return { categories: new CategoriesMapModel(this._categories), resourceCache: this._resourceCache }
   }
 }
 
