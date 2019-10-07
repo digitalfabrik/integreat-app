@@ -7,6 +7,7 @@ import RNFetchBlob from '../../../../__mocks__/rn-fetch-blob'
 import CategoriesMapModelBuilder from '../../../../testing/builder/CategoriesMapModelBuilder'
 import { transform, forEach } from 'lodash'
 import Moment from 'moment'
+import type { FileCacheStateType } from '../../../app/StateType'
 
 jest.mock('../../../fetcher/FetcherModule')
 jest.mock('rn-fetch-blob')
@@ -19,12 +20,12 @@ describe('fetchResourceCache', () => {
   const city = 'augsburg'
   const language = 'en'
 
-  it('should should fetch and create error message', async () => {
+  it('should fetch and create warning message', async () => {
     const spy = jest.spyOn(console, 'warn')
 
     const dataContainer = new DefaultDataContainer()
 
-    const categoriesBuilder = new CategoriesMapModelBuilder(1, 2)
+    const categoriesBuilder = new CategoriesMapModelBuilder()
     const resources = categoriesBuilder.buildResources()
     const fetchMap = categoriesBuilder.buildFetchMap()
 
@@ -34,24 +35,36 @@ describe('fetchResourceCache', () => {
 
     const fetchedResources = await dataContainer.getResourceCache(city, language)
 
-    const lessStrictExpected = transform(resources, (result, value, path) => {
-      forEach(value, (value, url) => {
-        result[path][url].lastUpdate = expect.any(Moment)
-      })
-      return result
-    }, resources)
+    if (fetchedResources.errorMessage !== undefined) {
+      throw new Error('getResourceCache threw an error!')
+    }
 
-    delete lessStrictExpected['/augsburg/de/category_0-0'] /* The first category is excluded because an the
-                                                              FetcherModule produced an error for this */
-    expect(fetchedResources).toMatchObject(lessStrictExpected)
-    expect(spy).toHaveBeenCalledWith(expect.stringContaining('Failed to download https://integreat/title_0-0-300x300.png'))
+    const fetchedCount = {
+      ...fetchedResources['/augsburg/de/category_0'],
+      ...fetchedResources['/augsburg/de/category_0/category_0']
+    }
+
+    const expectedCount = {
+      ...resources['/augsburg/de/category_0'],
+      ...resources['/augsburg/de/category_0/category_0']
+    }
+
+    expect(Object.keys(fetchedCount)).toHaveLength(
+      Object.keys(expectedCount).length - 1 /* A single url is excluded because the
+                                               FetcherModule mock produced an error for it */
+    )
+
+    expect(spy).toHaveBeenCalledWith(
+      expect.stringContaining('Failed to download')
+    )
+
     spy.mockRestore()
   })
 
-  it('should should yield error if fetching fails', () => {
+  it('should put error if fetching fails', () => {
     const dataContainer = new DefaultDataContainer()
 
-    const categoriesBuilder = new CategoriesMapModelBuilder(1, 2)
+    const categoriesBuilder = new CategoriesMapModelBuilder()
     const fetchMap = categoriesBuilder.buildFetchMap()
 
     return expectSaga(fetchResourceCache, city, language, fetchMap, dataContainer)

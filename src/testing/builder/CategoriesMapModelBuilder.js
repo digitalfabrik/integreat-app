@@ -2,34 +2,34 @@
 
 import { CategoriesMapModel, CategoryModel } from '@integreat-app/integreat-api-client'
 import moment from 'moment-timezone'
-import type { FileCacheStateType, LanguageResourceCacheStateType } from '../../modules/app/StateType'
+import type { FileCacheStateType } from '../../modules/app/StateType'
 import seedrandom from 'seedrandom'
 import hashUrl from '../../modules/endpoint/hashUrl'
 import type { FetchMapType } from '../../modules/endpoint/sagas/fetchResourceCache'
 import { createFetchMap } from './util'
+import md5 from 'js-md5'
 
-const DEFAULT_MAX_WIDTH = 3
+const DEFAULT_ARITY = 3
 const DEFAULT_DEPTH = 2
 const MAX_PREDICTABLE_VALUE = 6
 
-const FILE_PATH_BUILDER = (url: string, urlHash: string) =>
-  `path/to/documentDir/resource-cache/v1/some-city/files/${urlHash}.png`
-
+/**
+ * This builder generates a perfect m-ary tree of categories with the specified depth.
+ */
 class CategoriesMapModelBuilder {
   _depth: number
-  _maxWidth: number
-  _buildFilePath: (url: string, urlHash: string) => string
+  _arity: number
 
-  constructor (
-    maxWidth: number = DEFAULT_MAX_WIDTH,
-    depth: number = DEFAULT_DEPTH,
-    buildFilePath: (url: string, urlHash: string) => string = FILE_PATH_BUILDER) {
-    this._maxWidth = maxWidth
+  _categories: Array<CategoryModel>
+  _resourceCache: { [path: string]: FileCacheStateType }
+  _id = 0
+
+  constructor (arity: number = DEFAULT_ARITY, depth: number = DEFAULT_DEPTH) {
+    this._arity = arity
     this._depth = depth
-    this._buildFilePath = buildFilePath
   }
 
-  predictableNumber (index: number, max: number = MAX_PREDICTABLE_VALUE): number {
+  _predictableNumber (index: number, max: number = MAX_PREDICTABLE_VALUE): number {
     return seedrandom(`${index}-seed`)() * max
   }
 
@@ -37,53 +37,55 @@ class CategoriesMapModelBuilder {
     const hash = hashUrl(url)
     return {
       [url]: {
-        filePath: this._buildFilePath(url, hash),
-        lastUpdate: moment(lastUpdate).add(this.predictableNumber(index), 'days'),
+        filePath: `path/to/documentDir/resource-cache/v1/some-city/files/${hash}.png`,
+        lastUpdate: moment(lastUpdate).add(this._predictableNumber(index), 'days'),
         hash
       }
     }
   }
 
-  addChildren (
+  _addChildren (
     category: CategoryModel,
-    categories: Array<CategoryModel>,
-    resourceCache: LanguageResourceCacheStateType,
     depth: number) {
+    this._categories.push(category)
+
     if (depth === this._depth) {
       return
     }
 
-    for (let i = 0; i < this._maxWidth; i++) {
-      const path = `${category.path}/category_${depth}-${i}`
-      const lastUpdate = moment.tz('2017-11-18 19:30:00', 'UTC')
+    for (let i = 0; i < this._arity; i++) {
+      const id = this._id
+      this._id++
 
-      const thumbnailUrl = `http://thumbnails/category_${depth}-${i}.png`
-      const imgUrl1 = `https://integreat/title_${depth}-${i}-300x300.png`
-      const imgUrl2 = `https://integreat/category_${depth}-${i}-300x300.png`
+      const path = `${category.path}/category_${i}`
+      const lastUpdate = moment('2017-11-18T19:30:00.000Z', moment.ISO_8601)
+      const resourceUrl1 = `https://integreat/title_${id}-300x300.png`
+      const resourceUrl2 = `https://integreat/category_${id}-300x300.png`
+      const thumbnail = `http://thumbnails/category_${id}.png`
 
       const newChild = new CategoryModel({
-        id: 0,
+        root: false,
         path,
-        title: `Category ${depth}-${i}`,
+        title: `Category with id ${id}`,
         content: `<h1>This is a sample page</h1>
-                    <img src="${imgUrl1}"/>
+                    <img src="${resourceUrl1}"/>
                     <p>This is a sample page</p>
-                    <img src="${imgUrl2}"/>`,
-        order: -1,
+                    <img src="${resourceUrl2}"/>`,
+        order: i,
         availableLanguages: new Map(),
-        thumbnail: thumbnailUrl,
+        thumbnail,
         parentPath: category.path,
-        lastUpdate
+        lastUpdate,
+        hash: md5.create().update(category.path).hex()
       })
 
-      const index = depth * this._maxWidth + i
-      resourceCache[path] = {
-        ...this.createResource(imgUrl1, index, lastUpdate),
-        ...this.createResource(imgUrl2, index, lastUpdate),
-        ...this.createResource(thumbnailUrl, index, lastUpdate)
+      this._resourceCache[path] = {
+        ...this.createResource(resourceUrl1, id, lastUpdate),
+        ...this.createResource(resourceUrl2, id, lastUpdate),
+        ...this.createResource(thumbnail, id, lastUpdate)
       }
-      categories.push(newChild)
-      this.addChildren(newChild, categories, resourceCache, depth + 1)
+
+      this._addChildren(newChild, depth + 1)
     }
   }
 
@@ -100,24 +102,24 @@ class CategoriesMapModelBuilder {
   }
 
   buildAll (): { categories: CategoriesMapModel, resourceCache: { [path: string]: FileCacheStateType } } {
-    const categories = []
-    const resourceCache = {}
+    this._resourceCache = {}
+    this._categories = []
 
-    for (let i = 0; i < this._maxWidth; i++) {
-      this.addChildren(new CategoryModel({
-        id: 0,
-        path: '/augsburg/de',
-        title: 'augsburg',
-        content: '',
-        order: -1,
-        availableLanguages: new Map(),
-        thumbnail: 'no_thumbnail',
-        parentPath: '',
-        lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
-      }), categories, resourceCache, 0)
-    }
+    const path = '/augsburg/de'
+    this._addChildren(new CategoryModel({
+      root: true,
+      path,
+      title: 'augsburg',
+      content: '',
+      order: -1,
+      availableLanguages: new Map(),
+      thumbnail: 'no_thumbnail',
+      parentPath: '',
+      lastUpdate: moment('2017-11-18T19:30:00.000Z', moment.ISO_8601),
+      hash: md5.create().update(path).hex()
+    }), 0)
 
-    return { categories: new CategoriesMapModel(categories), resourceCache }
+    return { categories: new CategoriesMapModel(this._categories), resourceCache: this._resourceCache }
   }
 }
 

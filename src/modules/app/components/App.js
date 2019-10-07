@@ -15,26 +15,9 @@ import type { DataContainer } from '../../endpoint/DataContainer'
 import LaunchInquiry from './LaunchInquiry'
 import NavigatorContainer from '../containers/NavigatorContainer'
 
-type PropsType = {||}
-
-type AppStateType = {|
-  waitingForStore: boolean
-|}
-
-class App extends React.Component<PropsType, AppStateType> {
-  store: Store<StateType, StoreActionType>
-  dataContainer: DataContainer
-
-  constructor (props: PropsType) {
-    super(props)
-    this.state = {
-      waitingForStore: true
-    }
-
-    this.dataContainer = new DefaultDataContainer()
-
-    this.store = createReduxStore(this.dataContainer)
-  }
+class App extends React.Component<{||}> {
+  dataContainer: DataContainer = new DefaultDataContainer()
+  store: Store<StateType, StoreActionType> = createReduxStore(this.dataContainer)
 
   render () {
     return (

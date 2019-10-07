@@ -21,7 +21,7 @@ describe('watchFetchEvents', () => {
   const language = 'en'
 
   describe('fetchEvents', () => {
-    it('should yield an action which pushes the events', async () => {
+    it('should put an action which pushes the events', async () => {
       const eventsBuilder = new EventModelBuilder('loadCityContent-events', 2)
       const events = eventsBuilder.build()
       const resources = eventsBuilder.buildResources()
@@ -63,7 +63,7 @@ describe('watchFetchEvents', () => {
         .run()
     })
 
-    it('should yield an error action', () => {
+    it('should put an error action', () => {
       const dataContainer = new DefaultDataContainer()
 
       const action: FetchEventActionType = {

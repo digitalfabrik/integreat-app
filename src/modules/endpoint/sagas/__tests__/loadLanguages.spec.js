@@ -8,19 +8,24 @@ import LanguageModelBuilder from '../../../../testing/builder/LanguageModelBuild
 
 let mockLanguages
 jest.mock('rn-fetch-blob')
-jest.mock('@integreat-app/integreat-api-client/endpoints/createLanguagesEndpoint',
-  () => () => {
-    const { EndpointBuilder } = require('@integreat-app/integreat-api-client')
-    const LanguageModelBuilder = require('../../../../testing/builder/LanguageModelBuilder').default
+jest.mock('@integreat-app/integreat-api-client',
+  () => {
+    const actual = jest.requireActual('@integreat-app/integreat-api-client')
+    return {
+      ...actual,
+      createLanguagesEndpoint: () => {
+        const { EndpointBuilder } = require('@integreat-app/integreat-api-client')
+        const { default: LanguageModelBuilder } = require('../../../../testing/builder/LanguageModelBuilder')
 
-    mockLanguages = new LanguageModelBuilder(1).build()
-    return new EndpointBuilder('languages-mock')
-      .withParamsToUrlMapper(() => 'https://cms.integreat-app.de/languages')
-      .withResponseOverride(mockLanguages)
-      .withMapper(() => { })
-      .build()
-  }
-)
+        mockLanguages = new LanguageModelBuilder(1).build()
+        return new EndpointBuilder('languages-mock')
+          .withParamsToUrlMapper(() => 'https://cms.integreat-app.de/languages')
+          .withResponseOverride(mockLanguages)
+          .withMapper(() => { })
+          .build()
+      }
+    }
+  })
 
 describe('loadLanguages', () => {
   beforeEach(() => {

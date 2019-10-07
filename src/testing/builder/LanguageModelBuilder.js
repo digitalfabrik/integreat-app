@@ -4,7 +4,8 @@ import { LanguageModel } from '@integreat-app/integreat-api-client'
 
 const languages = [
   new LanguageModel('en', 'English'),
-  new LanguageModel('de', 'Deutsch')
+  new LanguageModel('de', 'Deutsch'),
+  new LanguageModel('ar', 'اَللُّغَةُ اَلْعَرَبِيَّة')
 ]
 
 class LanguageModelBuilder {
