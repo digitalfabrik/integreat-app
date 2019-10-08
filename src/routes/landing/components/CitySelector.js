@@ -26,7 +26,10 @@ type PropsType = {|
   cities: Array<CityModel>,
   filterText: string,
   navigateToDashboard: (city: CityModel) => void,
-  theme: ThemeType
+  theme: ThemeType,
+  currentLongitude: number | null,
+  currentLatitude: number | null,
+  renderLocationList: boolean
 |}
 
 const checkAliases = (a: CityModel, filterText: string): boolean => {
@@ -158,22 +161,33 @@ class CitySelector extends React.PureComponent<PropsType, StateType> {
     cities = cities.slice(0, numberOfClosestCities)
     const maximalDistance = 90
     cities = cities.filter(_city => currentDistance(_city, currentLongitude, currentLatitude) < maximalDistance)
-    return <View>
-      <CityGroup theme={this.props.theme}> Close </CityGroup>
-      {cities.map(city => <CityEntry
-        key={city.code}
-        city={city}
-        filterText={this.props.filterText}
-        navigateToDashboard={this.props.navigateToDashboard}
-        theme={this.props.theme} />)}
-    </View>
+    if (cities && cities.length) {
+      return <View>
+        <CityGroup theme={this.props.theme}> Close </CityGroup>
+        {cities.map(city => <CityEntry
+          key={city.code}
+          city={city}
+          filterText={this.props.filterText}
+          navigateToDashboard={this.props.navigateToDashboard}
+          theme={this.props.theme} />)}
+      </View>
+    } else {
+      alert('There are no cities offering integreat close to you.')
+      return null
+    }
   }
 
   render () {
-    return <>
-      { this.renderListByLocation() }
-      { this.renderList(this.filter()) }
-    </>
+    if (this.props.renderLocationList) {
+      return <>
+        {this.renderListByLocation()}
+        {this.renderList(this.filter())}
+      </>
+    } else {
+      return <>
+        {this.renderList(this.filter())}
+        </>
+    }
   }
 }
 
