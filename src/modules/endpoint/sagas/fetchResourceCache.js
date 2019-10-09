@@ -1,13 +1,13 @@
 // @flow
 
 import type { Saga } from 'redux-saga'
-import { flatten, isEmpty, reduce } from 'lodash'
+import { flatten, isEmpty, reduce, values, mapValues, pickBy } from 'lodash'
 import { call, put } from 'redux-saga/effects'
 import type { ResourcesFetchFailedActionType } from '../../app/StoreActionType'
-import type { FetchResultType } from '../../fetcher/FetcherModule'
+import type { FetchResultType, TargetFilePathsType } from '../../fetcher/FetcherModule'
 import FetcherModule from '../../fetcher/FetcherModule'
-import { mapValues, pickBy } from 'lodash/object'
 import type { DataContainer } from '../DataContainer'
+import type { FileCacheStateType } from '../../app/StateType'
 
 export type FetchMapTargetType = { url: string, filePath: string, urlHash: string }
 export type FetchMapEntryType = Array<FetchMapTargetType>
@@ -24,8 +24,8 @@ export default function * fetchResourceCache (
   fetchMap: FetchMapType,
   dataContainer: DataContainer): Saga<void> {
   try {
-    const fetchMapTargets = flatten(Object.values(fetchMap))
-    const targetFilePaths = reduce(fetchMapTargets, (acc, value: { url: string, filePath: string }) => {
+    const fetchMapTargets: Array<FetchMapTargetType> = flatten(values(fetchMap))
+    const targetFilePaths = reduce<Array<FetchMapTargetType>, TargetFilePathsType>(fetchMapTargets, (acc, value) => {
       acc[value.filePath] = value.url
       return acc
     }, {})
@@ -41,7 +41,7 @@ export default function * fetchResourceCache (
     }
 
     const resourceCache = mapValues(fetchMap, fetchMapEntry =>
-      reduce(fetchMapEntry, (acc, fetchMapTarget: FetchMapTargetType) => {
+      reduce<FetchMapEntryType, FileCacheStateType>(fetchMapEntry, (acc, fetchMapTarget: FetchMapTargetType) => {
         const filePath = fetchMapTarget.filePath
         const downloadResult = successResults[filePath]
 
