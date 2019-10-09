@@ -2,13 +2,12 @@
 
 import * as React from 'react'
 
-import Caption from '../../../modules/common/components/Caption'
 import CategoryListItem from './CategoryListItem'
 import HTML from 'react-native-render-html'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
-import iconPlaceholder from '../assets/IconPlaceholder.png'
 import styled from 'styled-components/native'
 import Image from '../../common/components/Image'
+import CategoryListCaption from '../../../modules/common/components/CategoryListCaption'
 
 type PropsType = {|
   categories: Array<{|
@@ -40,8 +39,8 @@ class CategoryList extends React.Component<PropsType> {
   render () {
     const { categories, title, content, query, theme, onItemPress, language, thumbnail } = this.props
     return <>
-      <CategoryThumbnail source={thumbnail || iconPlaceholder} />
-      {title && <Caption title={title} theme={theme} />}
+      <CategoryThumbnail source={thumbnail} />
+      {title && <CategoryListCaption title={title} theme={theme} withThumbnail={Boolean(thumbnail)} />}
       {!!content && <HTML html={content} />}
       {categories.map(({ model, subCategories }) =>
         <CategoryListItem key={model.path}
