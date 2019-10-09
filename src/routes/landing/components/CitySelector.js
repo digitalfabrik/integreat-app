@@ -32,7 +32,7 @@ type PropsType = {|
 |}
 
 const checkAliases = (a: CityModel, filterText: string): boolean => {
-  return Object.keys(a.aliases || {}).map(key => key.toLowerCase().includes(filterText.toLowerCase())).includes(true)
+  return Object.keys(a.aliases || {}).some(key => key.toLowerCase().includes(filterText.toLowerCase()))
 }
 
 const byNameAndAliases = (name: string) => {
