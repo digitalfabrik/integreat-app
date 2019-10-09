@@ -5,7 +5,7 @@ import styled, { type StyledComponent } from 'styled-components/native'
 import type { ThemeType } from '../../theme/constants/theme'
 
 const H1: StyledComponent<{}, ThemeType, *> = styled.Text`
-  padding: 0 0;
+  padding: 20px 0;
   font-size: 20px;
   text-align: center;
   color: ${props => props.theme.colors.textColor};
