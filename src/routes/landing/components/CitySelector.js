@@ -6,9 +6,8 @@ import { groupBy } from 'lodash/collection'
 import CityEntry from './CityEntry'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import styled, { type StyledComponent } from 'styled-components/native'
-import { View, Platform } from 'react-native'
+import { View } from 'react-native'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
-import Geolocation from '@react-native-community/geolocation'
 
 export const CityGroup: StyledComponent<{}, ThemeType, *> = styled.Text`
   flex: 1;
@@ -91,16 +90,7 @@ const compareDistance = (a: CityModel, b: CityModel, longitude: number, latitude
   return d0 - d1
 }
 
-type StateType = {
-  currentLongitude: null | number,
-  currentLatitude: null | number
-}
-
-class CitySelector extends React.PureComponent<PropsType, StateType> {
-  state = {
-    currentLongitude: null,
-    currentLatitude: null
-  }
+class CitySelector extends React.PureComponent<PropsType> {
   filter (): Array<CityModel> {
     const filterText = this.props.filterText.toLowerCase()
     const cities = this.props.cities
@@ -132,29 +122,12 @@ class CitySelector extends React.PureComponent<PropsType, StateType> {
     }, [])
   }
 
-  componentDidMount () {
-    if (Platform.OS === 'ios') {
-      Geolocation.requestAuthorization()
-    }
-    Geolocation.getCurrentPosition(
-      position => {
-        const currentLongitude = position.coords.longitude
-        const currentLatitude = position.coords.latitude
-        this.setState({ currentLongitude: currentLongitude })
-        this.setState({ currentLatitude: currentLatitude })
-      },
-      error => {
-        alert(error.message)
-      },
-      { enableHighAccuracy: false, timeout: 20000, maximumAge: 1000 }
-    )
-  }
-
   renderListByLocation (): React.Node {
-    if (this.state.currentLatitude === null || this.state.currentLongitude === null) {
+    if (this.props.currentLatitude === null || this.props.currentLongitude === null) {
       return null
     }
-    const { currentLatitude, currentLongitude } = this.state
+    const currentLatitude = this.props.currentLatitude
+    const currentLongitude = this.props.currentLongitude
     let cities = this.props.cities.filter(_city => _city.live)
       .sort((a: CityModel, b: CityModel) => compareDistance(a, b, currentLongitude, currentLatitude))
     const numberOfClosestCities = 3
