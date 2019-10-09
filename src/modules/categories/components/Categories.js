@@ -175,7 +175,7 @@ class Categories extends React.Component<PropsType> {
               subCategories: this.getListModels(children)
             })
           })}
-          thumbnail={category.thumbnail}
+          thumbnail={this.getCachedThumbnail(category) || category.thumbnail}
           title={category.title}
           content={category.content}
           language={language}
