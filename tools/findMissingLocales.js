@@ -4,7 +4,7 @@ const task = require('./task')
 const { reduce, map, union, isEmpty } = require('lodash')
 
 function findMissingLocales () {
-  const locales = JSON.parse(fs.readFileSync('./src/locales.json', 'utf8'))
+  const locales = JSON.parse(fs.readFileSync('./locales/locales.json', 'utf8'))
   const keys = reduce(locales, (moduleAcc, languages, moduleKey) => {
     const keysPerLanguage = map(languages, values => Object.keys(values))
     moduleAcc[moduleKey] = union(...keysPerLanguage)
