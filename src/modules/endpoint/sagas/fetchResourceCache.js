@@ -22,9 +22,10 @@ export default function * fetchResourceCache (
   city: string,
   language: string,
   fetchMap: FetchMapType,
-  dataContainer: DataContainer): Saga<void> {
+  dataContainer: DataContainer
+): Saga<void> {
   try {
-    const fetchMapTargets: Array<FetchMapTargetType> = flatten(values(fetchMap))
+    const fetchMapTargets = flatten<FetchMapTargetType, FetchMapTargetType>(values(fetchMap))
     const targetFilePaths = reduce<Array<FetchMapTargetType>, TargetFilePathsType>(fetchMapTargets, (acc, value) => {
       acc[value.filePath] = value.url
       return acc
