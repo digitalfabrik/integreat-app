@@ -20,7 +20,7 @@ import omitNavigation from '../../../modules/common/hocs/omitNavigation'
 
 type ContainerPropsType = {|
   navigation: NavigationScreenProp<*>,
-  cities: Array<CityModel>,
+  cities: $ReadOnlyArray<CityModel>,
   cityCode: string,
   language: string,
   stateView: CategoriesRouteStateView,
@@ -83,7 +83,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     return { status: 'error', refreshProps }
   }
 
-  const cities = state.cities.models
+  const cities: $ReadOnlyArray<CityModel> = state.cities.models
   const stateView = new CategoriesRouteStateView(route.path, route.models, route.children)
 
   return {

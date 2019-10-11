@@ -19,8 +19,8 @@ import omitNavigation from '../../../modules/common/hocs/omitNavigation'
 
 type ContainerPropsType = {|
   path: ?string,
-  events: Array<EventModel>,
-  cities: Array<CityModel>,
+  events: $ReadOnlyArray<EventModel>,
+  cities: $ReadOnlyArray<CityModel>,
   cityCode: string,
   language: string,
   resourceCache: LanguageResourceCacheStateType,

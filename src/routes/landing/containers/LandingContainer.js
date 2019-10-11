@@ -20,7 +20,7 @@ type ContainerPropsType = {|
   dispatch: Dispatch<StoreActionType>,
   navigation: NavigationScreenProp<*>,
   language: string,
-  cities: Array<CityModel>
+  cities: $ReadOnlyArray<CityModel>
 |}
 
 type OwnPropsType = {| navigation: NavigationScreenProp<*> |}

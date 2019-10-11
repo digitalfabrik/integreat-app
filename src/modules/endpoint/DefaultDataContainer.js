@@ -149,6 +149,7 @@ class DefaultDataContainer implements DataContainer {
       const removedPaths = difference(oldPaths, newPaths)
       if (!isEmpty(removedPaths)) {
         const pathsOfOtherLanguages = flatMap(
+          // $FlowFixMe https://github.com/flow-typed/flow-typed/issues/1099
           omitBy(previousResourceCache, (val, key: string) => key === language),
           (languageCache: LanguageResourceCacheStateType) => this.getFilePathsFromLanguageResourceCache(languageCache)
         )
