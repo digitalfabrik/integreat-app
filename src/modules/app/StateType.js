@@ -29,9 +29,7 @@ export type CategoryRouteStateType = {|
   +children: $ReadOnly<{ [path: PathType]: $ReadOnlyArray<PathType> }>
 |} | {|
   +status: 'languageNotAvailable',
-  +depth: number,
-  +language: string,
-  +city: string,
+  ...CategoryRouteConfigType,
   +allAvailableLanguages: $ReadOnlyMap<string, string>
 |} | {|
   +status: 'loading',
@@ -55,8 +53,7 @@ export type EventRouteStateType = {|
   +allAvailableLanguages: $ReadOnlyMap<string, ?string> // including the current content language
 |} | {|
   +status: 'languageNotAvailable',
-  +language: string,
-  +city: string,
+  ...EventRouteConfigType,
   +allAvailableLanguages: $ReadOnlyMap<string, ?string>
 |} | {|
   +status: 'loading',

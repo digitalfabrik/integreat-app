@@ -40,6 +40,7 @@ export function * fetchEvent (dataContainer: DataContainer, action: FetchEventAc
         type: `PUSH_EVENT_LANGUAGES`,
         params: {
           allAvailableLanguages: new Map(cityLanguages.map(lng => [lng.code, null])),
+          path: null,
           key,
           language,
           city
