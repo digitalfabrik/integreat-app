@@ -2,7 +2,7 @@
 
 import type { CategoryRouteStateType, CityContentStateType, EventRouteStateType } from '../../app/StateType'
 import { mapValues } from 'lodash/object'
-import { EventModel, CategoriesMapModel } from '@integreat-app/integreat-api-client'
+import { CategoriesMapModel, EventModel } from '@integreat-app/integreat-api-client'
 import type { MorphContentLanguageActionType } from '../../app/StoreActionType'
 import forEachTreeNode from '../../common/forEachTreeNode'
 
@@ -19,9 +19,10 @@ const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, city: str
     if (!translatedPath) { // Route is not translatable
       return {
         status: 'languageNotAvailable',
-        allAvailableLanguages: route.allAvailableLanguages,
+        allAvailableLanguages: allAvailableLanguages,
         city: route.city,
-        language: newLanguage,
+        path: route.path,
+        language: route.language,
         depth: route.depth
       }
     }
@@ -67,7 +68,8 @@ const eventRouteTranslator = (newEvents: Array<EventModel>, newLanguage: string)
       return {
         status: 'languageNotAvailable',
         allAvailableLanguages,
-        language: newLanguage,
+        path: route.path,
+        language: route.language,
         city
       }
     }

@@ -100,6 +100,7 @@ export type PushEventLanguagesActionType = {|
   params: {|
     key: string,
     allAvailableLanguages: Map<string, ?string>,
+    path: ?string,
     city: string,
     language: string
   |}

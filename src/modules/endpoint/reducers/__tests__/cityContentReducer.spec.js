@@ -55,6 +55,7 @@ describe('cityContentReducer', () => {
     type: 'PUSH_EVENT_LANGUAGES',
     params: {
       key: 'route-id-0',
+      path: null,
       allAvailableLanguages: new Map([['en', '/augsburg/en/events']]),
       language: 'de',
       city: 'augsburg'
@@ -207,6 +208,7 @@ describe('cityContentReducer', () => {
       type: 'PUSH_EVENT_LANGUAGES',
       params: {
         key: 'route-id-0',
+        path: null,
         allAvailableLanguages: new Map([['en', null]]),
         city: 'augsburg',
         language: 'de'

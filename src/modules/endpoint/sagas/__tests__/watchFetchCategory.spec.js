@@ -108,7 +108,7 @@ describe('watchFetchCategories', () => {
         .run()
     })
 
-    it('should put pushCategoryLanguages action if content can not be retrieved for root model', async () => {
+    it('should put pushCategoryLanguages action if language is not available for root model', async () => {
       const { dataContainer, languages } = await createDataContainer(city, language)
 
       const invalidLanguage = '??'
@@ -142,7 +142,7 @@ describe('watchFetchCategories', () => {
         .run()
     })
 
-    it('should put failed action if content can not be retrieved and not peeking', async () => {
+    it('should put failed action if language is not available and not peeking', async () => {
       const { dataContainer, initialPath } = await createDataContainer(city, language)
 
       const invalidLanguage = '??'

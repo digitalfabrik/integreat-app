@@ -67,7 +67,7 @@ describe('watchFetchEvents', () => {
         .run()
     })
 
-    it('should put pushEventLanguages action if content can not be retrieved for events list', async () => {
+    it('should put pushEventLanguages action if language is not available for events list', async () => {
       const { dataContainer, languages } = await createDataContainer(city, language)
 
       const invalidLanguage = '??'
@@ -99,7 +99,7 @@ describe('watchFetchEvents', () => {
         .run()
     })
 
-    it('should put an error action if content can not be retrieved for specific event', async () => {
+    it('should put an error action if language is not available for specific event', async () => {
       const { dataContainer } = await createDataContainer(city, language)
 
       const invalidLanguage = '??'
