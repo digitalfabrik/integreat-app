@@ -7,6 +7,7 @@ import pushCategory from './pushCategory'
 import pushEvent from './pushEvent'
 import type { StoreActionType } from '../../app/StoreActionType'
 import createCityContent from './createCityContent'
+import { omit } from 'lodash'
 
 export default (
   state: CityContentStateType | null = defaultCityContentState, action: StoreActionType
@@ -64,47 +65,71 @@ export default (
       return morphContentLanguage(state, action)
     case 'FETCH_EVENT': {
       const { language, path, key, city } = action.params
-      const newState = state === null ? createCityContent(city) : { ...state }
-      newState.eventsRouteMapping[key] = { status: 'loading', language, city, path }
-      return newState
+      const initializedState = state || createCityContent(city)
+      return {
+        ...initializedState,
+        eventsRouteMapping: {
+          ...initializedState.eventsRouteMapping,
+          [key]: { status: 'loading', language, city, path }
+        }
+      }
     }
     case 'CLEAR_EVENT': {
       const { key } = action.params
       if (state === null) {
         return null
       }
-      delete state.eventsRouteMapping[key]
-      return { ...state }
+      return {
+        ...state,
+        eventsRouteMapping: omit(state.eventsRouteMapping, [key])
+      }
     }
     case 'FETCH_EVENT_FAILED': {
       if (state === null) {
         throw Error('A fetch category fail cannot occur on not initialized cityContent')
       }
       const { message, key, language, path, city } = action.params
-      state.eventsRouteMapping[key] = { status: 'error', message, language, path, city }
-      return { ...state }
+      return {
+        ...state,
+        eventsRouteMapping: {
+          ...state.eventsRouteMapping,
+          [key]: { status: 'error', message, language, path, city }
+        }
+      }
     }
     case 'FETCH_CATEGORY': {
       const { language, path, depth, key, city } = action.params
-      const newState = state === null ? createCityContent(city) : { ...state }
-      newState.categoriesRouteMapping[key] = { status: 'loading', language, depth, path, city }
-      return newState
+      const initializedState = state || createCityContent(city)
+      return {
+        ...initializedState,
+        categoriesRouteMapping: {
+          ...initializedState.categoriesRouteMapping,
+          [key]: { status: 'loading', language, depth, path, city }
+        }
+      }
     }
     case 'CLEAR_CATEGORY': {
       const { key } = action.params
       if (state === null) {
         return null
       }
-      delete state.categoriesRouteMapping[key]
-      return { ...state }
+      return {
+        ...state,
+        categoriesRouteMapping: omit(state.categoriesRouteMapping, [key])
+      }
     }
     case 'FETCH_CATEGORY_FAILED': {
       if (state === null) {
         throw Error('A fetch category fail cannot occur on not initialized cityContent')
       }
       const { message, key, path, depth, language, city } = action.params
-      state.categoriesRouteMapping[key] = { status: 'error', message, language, depth, path, city }
-      return { ...state }
+      return {
+        ...state,
+        categoriesRouteMapping: {
+          ...state.categoriesRouteMapping,
+          [key]: { status: 'error', message, language, depth, path, city }
+        }
+      }
     }
     case 'CLEAR_CITY':
       return null
