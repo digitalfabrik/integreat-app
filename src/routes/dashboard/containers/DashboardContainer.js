@@ -32,7 +32,7 @@ type ContainerPropsType = {|
   navigation: NavigationScreenProp<*>,
   language: string,
   cityCode: string,
-  cities: Array<CityModel>,
+  cities: $ReadOnlyArray<CityModel>,
   stateView: CategoriesRouteStateView,
   resourceCache: LanguageResourceCacheStateType,
   dispatch: Dispatch<StoreActionType>
