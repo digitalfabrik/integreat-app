@@ -1,77 +1,70 @@
 // @flow
 
 import { CategoriesMapModel, CityModel, EventModel, LanguageModel } from '@integreat-app/integreat-api-client'
-import type { LanguageResourceCacheStateType } from './StateType'
+import type { CategoryRouteConfigType, LanguageResourceCacheStateType } from './StateType'
 import type { ContentLoadCriterionType } from '../endpoint/ContentLoadCriterion'
 
 export type FetchCitiesActionType = {|
-  type: 'FETCH_CITIES', params: {| forceRefresh: boolean |}
+  type: 'FETCH_CITIES',
+  +params: {| +forceRefresh: boolean |}
 |}
 export type PushCitiesActionType = {|
-  type: 'PUSH_CITIES', params: {| cities: Array<CityModel> |}
+  type: 'PUSH_CITIES', +params: {| +cities: $ReadOnlyArray<CityModel> |}
 |}
 export type FetchCitiesFailedActionType = {|
-  type: 'FETCH_CITIES_FAILED', params: {|
-    message: string
+  type: 'FETCH_CITIES_FAILED', +params: {|
+    +message: string
   |}
 |}
 export type CitiesActionType = PushCitiesActionType | FetchCitiesActionType | FetchCitiesFailedActionType
 
 export type PushLanguagesActionType = {|
   type: 'PUSH_LANGUAGES',
-  params: {|
-    languages: Array<LanguageModel>
+  +params: {|
+    +languages: $ReadOnlyArray<LanguageModel>
   |}
 |}
 
 export type SetContentLanguageActionType = {|
-  type: 'SET_CONTENT_LANGUAGE', params: {| contentLanguage: string |}
+  type: 'SET_CONTENT_LANGUAGE', +params: {| +contentLanguage: string |}
 |}
 
 export type FetchCategoryActionType = {|
-  type: 'FETCH_CATEGORY', params: {|
-    city: string, language: string,
-    path: string, depth: number, key: string,
-    criterion: ContentLoadCriterionType
+  type: 'FETCH_CATEGORY',
+  +params: {|
+    +key: string,
+    ...CategoryRouteConfigType,
+    +criterion: ContentLoadCriterionType
   |}
 |}
 export type FetchCategoryFailedActionType = {|
   type: 'FETCH_CATEGORY_FAILED',
-  params: {|
-    key: string, city: string, language: string,
-    path: string, depth: number,
-    message: string
+  +params: {|
+    +key: string,
+    ...CategoryRouteConfigType,
+    +message: string,
+    +allAvailableLanguages: $ReadOnlyMap<string, ?string> | null
   |}
 |}
 export type PushCategoryActionType = {|
-  type: 'PUSH_CATEGORY', params: {|
-    categoriesMap: CategoriesMapModel,
-    resourceCache: LanguageResourceCacheStateType,
-    cityLanguages: Array<LanguageModel>,
-    city: string,
-    language: string,
-    path: string, depth: number, key: string
-  |}
-|}
-export type PushCategoryLanguagesActionType = {|
-  type: 'PUSH_CATEGORY_LANGUAGES', params: {|
-    key: string,
-    allAvailableLanguages: Map<string, string>,
-    city: string,
-    language: string,
-    depth: number
+  type: 'PUSH_CATEGORY',
+  +params: {|
+    +categoriesMap: CategoriesMapModel,
+    +resourceCache: LanguageResourceCacheStateType,
+    +cityLanguages: Array<LanguageModel>,
+    ...CategoryRouteConfigType,
+    +key: string
   |}
 |}
 
 export type ClearCategoryActionType = {|
-  type: 'CLEAR_CATEGORY', params: {| key: string |}
+  type: 'CLEAR_CATEGORY', +params: {| +key: string |}
 |}
 
 export type CategoriesActionType =
   ClearCategoryActionType
   | FetchCategoryActionType
   | PushCategoryActionType
-  | PushCategoryLanguagesActionType
   | FetchCategoryFailedActionType
 
 export type FetchEventActionType = {|

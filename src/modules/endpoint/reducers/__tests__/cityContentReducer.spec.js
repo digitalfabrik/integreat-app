@@ -78,7 +78,8 @@ describe('cityContentReducer', () => {
       path: '/augsburg/de',
       city: 'augsburg',
       language: 'de',
-      depth: 2
+      depth: 2,
+      allAvailableLanguages: null
     }
   }
   const fetchEventFailedAction = {
@@ -91,7 +92,6 @@ describe('cityContentReducer', () => {
     switchContentLanguageAction,
     pushLanguagesAction,
     pushCategoryAction,
-    pushCategoryLanguagesAction,
     pushEventAction,
     pushEventLanguagesAction,
     morphContentLanguageAction,
@@ -305,7 +305,7 @@ describe('cityContentReducer', () => {
     })?.categoriesRouteMapping).toEqual({})
   })
 
-  it('should set the route status to languageNotAvailable on PUSH_CATEGORY_LANGUAGES', () => {
+  it('should set route status to languageNotAvailable on FETCH_CATEGORY_FAILED if allAvailableLanguages is not null', () => {
     const prevState: CityContentStateType = {
       city: 'augsburg',
       categoriesRouteMapping: {
@@ -324,12 +324,14 @@ describe('cityContentReducer', () => {
       switchingLanguage: false
     }
     expect(cityContentReducer(prevState, {
-      type: 'PUSH_CATEGORY_LANGUAGES',
+      type: 'FETCH_CATEGORY_FAILED',
       params: {
         key: 'route-id-0',
         allAvailableLanguages: new Map([['en', '/augsburg/en']]),
+        message: 'Language not available.',
         city: 'augsburg',
         language: 'de',
+        path: '/augsburg/de',
         depth: 2
       }
     })?.categoriesRouteMapping['route-id-0']).toEqual({
@@ -367,6 +369,7 @@ describe('cityContentReducer', () => {
         message: 'No idea why it fails :/',
         path: '/augsburg/de',
         city: 'augsburg',
+        allAvailableLanguages: null,
         language: 'de',
         depth: 2
       }

@@ -5,8 +5,7 @@ import { all, call, put, select, takeLatest } from 'redux-saga/effects'
 import type {
   FetchCategoryActionType,
   FetchCategoryFailedActionType,
-  PushCategoryActionType,
-  PushCategoryLanguagesActionType
+  PushCategoryActionType
 } from '../../app/StoreActionType'
 import type { DataContainer } from '../DataContainer'
 import loadCityContent from './loadCityContent'
@@ -46,30 +45,25 @@ export function * fetchCategory (dataContainer: DataContainer, action: FetchCate
         type: `PUSH_CATEGORY`,
         params: { categoriesMap, resourceCache, path, cityLanguages, depth, key, city, language }
       }
-
       yield put(push)
-    } else if (path === `/${city}/${language}`) {
-      const allAvailableLanguages = new Map(cityLanguages.map(lng => [lng.code, `/${city}/${lng.code}`]))
-      const pushLanguages: PushCategoryLanguagesActionType = {
-        type: `PUSH_CATEGORY_LANGUAGES`,
-        params: { city, language, depth, allAvailableLanguages, key }
-      }
-      yield put(pushLanguages)
     } else {
-      const failed: FetchCategoryFailedActionType = {
+      const allAvailableLanguages = path === `/${city}/${language}`
+        ? new Map(cityLanguages.map(lng => [lng.code, `/${city}/${lng.code}`]))
+        : null
+      const failedAction: FetchCategoryFailedActionType = {
         type: `FETCH_CATEGORY_FAILED`,
         params: {
-          message: 'Could not load category.', key, path, depth, language, city
+          message: 'Language not available.', key, path, depth, language, city, allAvailableLanguages
         }
       }
-      yield put(failed)
+      yield put(failedAction)
     }
   } catch (e) {
     console.error(e)
     const failed: FetchCategoryFailedActionType = {
       type: `FETCH_CATEGORY_FAILED`,
       params: {
-        message: `Error in fetchCategory: ${e.message}`, key, path, depth, language, city
+        message: `Error in fetchCategory: ${e.message}`, key, path, depth, language, city, allAvailableLanguages: null
       }
     }
     yield put(failed)
