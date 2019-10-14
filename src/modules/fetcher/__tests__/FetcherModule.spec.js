@@ -7,7 +7,7 @@ import type { TargetFilePathsType } from '../FetcherModule'
 jest.mock('../NativeFetcherModule')
 
 beforeEach(() => {
-  jest.resetAllMocks()
+  jest.clearAllMocks()
 })
 
 describe('FetcherModule', () => {
@@ -39,5 +39,10 @@ describe('FetcherModule', () => {
     } catch (e) {
       expect(e).toEqual(new Error('Already fetching!'))
     }
+  })
+  it('should return the fetch result data if fetchAsync call is valid', async () => {
+    const fetcherModule = new FetcherModule()
+    const fetchResult = await fetcherModule.fetchAsync(testTargetFilePaths, progress => console.log(progress))
+    expect(fetchResult).toMatchSnapshot()
   })
 })
