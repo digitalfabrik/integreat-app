@@ -55,7 +55,8 @@ export type EventRouteStateType = {|
   +allAvailableLanguages: $ReadOnlyMap<string, ?string> // including the current content language
 |} | {|
   +status: 'languageNotAvailable',
-  ...EventRouteConfigType,
+  +language: string,
+  +city: string,
   +allAvailableLanguages: $ReadOnlyMap<string, ?string>
 |} | {|
   +status: 'loading',

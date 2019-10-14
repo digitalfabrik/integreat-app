@@ -55,7 +55,7 @@ const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, city: str
     }
   }
 
-const eventRouteTranslator = (newEvents: Array<EventModel>, newLanguage: string) =>
+const eventRouteTranslator = (newEvents: $ReadOnlyArray<EventModel>, newLanguage: string) =>
   (route: EventRouteStateType): EventRouteStateType => {
     if (route.status !== 'ready') {
       console.warn('Route was not ready when translating. Will not translate this route.')
@@ -67,8 +67,7 @@ const eventRouteTranslator = (newEvents: Array<EventModel>, newLanguage: string)
       return {
         status: 'languageNotAvailable',
         allAvailableLanguages,
-        path: route.path,
-        language: route.language,
+        language: newLanguage,
         city
       }
     }

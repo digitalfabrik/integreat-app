@@ -6,8 +6,8 @@ import Moment from 'moment'
 const MAX_CONTENT_AGE = 24
 
 export type ContentLoadCriterionType = {|
-  forceUpdate: boolean,
-  shouldRefreshResources: boolean
+  +forceUpdate: boolean,
+  +shouldRefreshResources: boolean
 |}
 
 export class ContentLoadCriterion {
