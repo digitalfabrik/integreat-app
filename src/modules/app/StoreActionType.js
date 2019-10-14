@@ -68,41 +68,36 @@ export type CategoriesActionType =
   | FetchCategoryFailedActionType
 
 export type FetchEventActionType = {|
-  type: 'FETCH_EVENT', params: {|
-    city: string, language: string,
-    path: ?string, key: string,
-    criterion: ContentLoadCriterionType
+  type: 'FETCH_EVENT', +params: {|
+    +city: string, +language: string,
+    +path: ?string, +key: string,
+    +criterion: ContentLoadCriterionType
   |}
 |}
 export type ClearEventActionType = {|
-  type: 'CLEAR_EVENT', params: {| key: string |}
+  type: 'CLEAR_EVENT', +params: {| +key: string |}
 |}
 export type PushEventActionType = {|
   type: 'PUSH_EVENT',
-  params: {|
-    events: Array<EventModel>,
-    path: ?string, key: string,
-    resourceCache: LanguageResourceCacheStateType,
-    cityLanguages: Array<LanguageModel>,
-    language: string,
-    city: string
-  |}
-|}
-export type PushEventLanguagesActionType = {|
-  type: 'PUSH_EVENT_LANGUAGES',
-  params: {|
-    key: string,
-    allAvailableLanguages: Map<string, ?string>,
-    path: ?string,
-    city: string,
-    language: string
+  +params: {|
+    +events: $ReadOnlyArray<EventModel>,
+    +path: ?string,
+    +key: string,
+    +resourceCache: LanguageResourceCacheStateType,
+    +cityLanguages: $ReadOnlyArray<LanguageModel>,
+    +language: string,
+    +city: string
   |}
 |}
 export type FetchEventFailedActionType = {|
   type: 'FETCH_EVENT_FAILED',
-  params: {|
-    message: string,
-    key: string, language: string, path: ?string, city: string
+  +params: {|
+    +message: string,
+    +key: string,
+    +allAvailableLanguages: ?$ReadOnlyMap<string, ?string>,
+    +language: string,
+    +path: ?string,
+    +city: string
   |}
 |}
 
@@ -110,27 +105,26 @@ export type EventsActionType =
   ClearEventActionType
   | FetchEventActionType
   | PushEventActionType
-  | PushEventLanguagesActionType
   | FetchEventFailedActionType
 
 export type SwitchContentLanguageActionType = {|
-  type: 'SWITCH_CONTENT_LANGUAGE', params: {|
-    newLanguage: string, city: string
+  type: 'SWITCH_CONTENT_LANGUAGE', +params: {|
+    +newLanguage: string, +city: string
   |}
 |}
 
 export type SwitchContentLanguageFailedActionType = {|
-  type: 'SWITCH_CONTENT_LANGUAGE_FAILED', params: {|
-    message: string
+  type: 'SWITCH_CONTENT_LANGUAGE_FAILED', +params: {|
+    +message: string
   |}
 |}
 
 export type MorphContentLanguageActionType = {|
-  type: 'MORPH_CONTENT_LANGUAGE', params: {|
-    newCategoriesMap: CategoriesMapModel,
-    newResourceCache: LanguageResourceCacheStateType,
-    newEvents: Array<EventModel>,
-    newLanguage: string
+  type: 'MORPH_CONTENT_LANGUAGE', +params: {|
+    +newCategoriesMap: CategoriesMapModel,
+    +newResourceCache: LanguageResourceCacheStateType,
+    +newEvents: $ReadOnlyArray<EventModel>,
+    +newLanguage: string
   |}
 |}
 
@@ -140,8 +134,8 @@ export type ClearCityActionType = {|
 
 export type ResourcesFetchFailedActionType = {|
   type: 'FETCH_RESOURCES_FAILED',
-  params: {|
-    message: string
+  +params: {|
+    +message: string
   |}
 |}
 

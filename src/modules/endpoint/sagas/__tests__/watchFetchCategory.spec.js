@@ -108,7 +108,7 @@ describe('watchFetchCategories', () => {
         .run()
     })
 
-    it('should put pushCategoryLanguages action if language is not available for root model', async () => {
+    it('should put error action if language is not available for root model', async () => {
       const { dataContainer, languages } = await createDataContainer(city, language)
 
       const invalidLanguage = '??'
@@ -129,14 +129,17 @@ describe('watchFetchCategories', () => {
 
       return expectSaga(fetchCategory, dataContainer, action)
         .withState({ cityContent: { city: city } })
-        .put({
-          type: 'PUSH_CATEGORY_LANGUAGES',
-          params: {
-            city: 'augsburg',
-            language: '??',
-            depth: 2,
-            allAvailableLanguages: new Map(languages.map(lng => ([lng.code, `/${city}/${lng.code}`]))),
-            key: 'categories-key'
+        .put.like({
+          action: {
+            type: 'FETCH_CATEGORY_FAILED',
+            params: {
+              city: 'augsburg',
+              language: '??',
+              depth: 2,
+              path: '/augsburg/??',
+              allAvailableLanguages: new Map(languages.map(lng => ([lng.code, `/${city}/${lng.code}`]))),
+              key: 'categories-key'
+            }
           }
         })
         .run()
@@ -209,6 +212,7 @@ describe('watchFetchCategories', () => {
             path: initialPath,
             depth: 2,
             language: '??',
+            allAvailableLanguages: null,
             city
           }
         })
@@ -249,6 +253,7 @@ describe('watchFetchCategories', () => {
             message: 'Error in fetchCategory: Jemand hat keine 4 Issues geschafft!',
             key: 'categories-key',
             path: `/${city}/${language}/some-path`,
+            allAvailableLanguages: null,
             depth: 2,
             language: 'en',
             city: 'augsburg'

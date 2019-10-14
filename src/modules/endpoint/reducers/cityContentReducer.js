@@ -33,18 +33,6 @@ export default (
         throw Error('Cannot push event on not initialized cityContent')
       }
       return pushEvent(state, action)
-    case 'PUSH_EVENT_LANGUAGES':
-      if (state === null) {
-        throw Error('Cannot push event languages on not initialized cityContent')
-      }
-      const { key, ...rest } = action.params
-      return {
-        ...state,
-        eventsRouteMapping: {
-          ...state.eventsRouteMapping,
-          [key]: { ...rest, status: 'languageNotAvailable' }
-        }
-      }
     case 'MORPH_CONTENT_LANGUAGE':
       if (state === null) {
         throw Error('Cannot morph content language on not initialized cityContent')
@@ -75,12 +63,14 @@ export default (
       if (state === null) {
         throw Error('A fetch category fail cannot occur on not initialized cityContent')
       }
-      const { message, key, language, path, city } = action.params
+      const { message, key, path, allAvailableLanguages, ...rest } = action.params
       return {
         ...state,
         eventsRouteMapping: {
           ...state.eventsRouteMapping,
-          [key]: { status: 'error', message, language, path, city }
+          [key]: allAvailableLanguages
+            ? { status: 'languageNotAvailable', allAvailableLanguages, ...rest }
+            : { status: 'error', message, path, ...rest }
         }
       }
     }

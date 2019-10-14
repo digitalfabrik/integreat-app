@@ -2,12 +2,7 @@
 
 import type { Saga } from 'redux-saga'
 import { all, call, put, select, takeLatest } from 'redux-saga/effects'
-import type {
-  FetchEventActionType,
-  FetchEventFailedActionType,
-  PushEventActionType,
-  PushEventLanguagesActionType
-} from '../../app/StoreActionType'
+import type { FetchEventActionType, FetchEventFailedActionType, PushEventActionType } from '../../app/StoreActionType'
 import type { DataContainer } from '../DataContainer'
 import loadCityContent from './loadCityContent'
 import { ContentLoadCriterion } from '../ContentLoadCriterion'
@@ -35,23 +30,17 @@ export function * fetchEvent (dataContainer: DataContainer, action: FetchEventAc
         params: { events, resourceCache, path, cityLanguages, key, language, city }
       }
       yield put(insert)
-    } else if (path === null) {
-      const pushLanguages: PushEventLanguagesActionType = {
-        type: `PUSH_EVENT_LANGUAGES`,
+    } else {
+      const allAvailableLanguages = path === null ? new Map(cityLanguages.map(lng => [lng.code, null])) : null
+      const failed: FetchEventFailedActionType = {
+        type: `FETCH_EVENT_FAILED`,
         params: {
-          allAvailableLanguages: new Map(cityLanguages.map(lng => [lng.code, null])),
+          message: 'Could not load event.',
+          allAvailableLanguages,
           path: null,
           key,
           language,
           city
-        }
-      }
-      yield put(pushLanguages)
-    } else {
-      const failed: FetchEventFailedActionType = {
-        type: `FETCH_EVENT_FAILED`,
-        params: {
-          message: 'Could not load event.', key, city, language, path
         }
       }
       yield put(failed)
@@ -61,7 +50,7 @@ export function * fetchEvent (dataContainer: DataContainer, action: FetchEventAc
     const failed: FetchEventFailedActionType = {
       type: `FETCH_EVENT_FAILED`,
       params: {
-        message: `Error in fetchEvent: ${e.message}`, key, city, language, path
+        message: `Error in fetchEvent: ${e.message}`, key, city, language, path, allAvailableLanguages: null
       }
     }
     yield put(failed)

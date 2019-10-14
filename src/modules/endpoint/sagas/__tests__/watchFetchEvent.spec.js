@@ -67,7 +67,7 @@ describe('watchFetchEvents', () => {
         .run()
     })
 
-    it('should put pushEventLanguages action if language is not available for events list', async () => {
+    it('should put error action if language is not available for events list', async () => {
       const { dataContainer, languages } = await createDataContainer(city, language)
 
       const invalidLanguage = '??'
@@ -88,10 +88,12 @@ describe('watchFetchEvents', () => {
       return expectSaga(fetchEvent, dataContainer, action)
         .withState({ cityContent: { city: city } })
         .put({
-          type: 'PUSH_EVENT_LANGUAGES',
+          type: 'FETCH_EVENT_FAILED',
           params: {
             city: 'augsburg',
             language: '??',
+            message: 'Could not load event.',
+            path: null,
             allAvailableLanguages: new Map(languages.map(lng => ([lng.code, null]))),
             key: 'route-0'
           }
