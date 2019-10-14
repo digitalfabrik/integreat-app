@@ -110,6 +110,8 @@ export type SwitchContentLanguageFailedActionType = {|
   |}
 |}
 
+export type ContentLanguageActionType = SwitchContentLanguageActionType | SwitchContentLanguageFailedActionType
+
 export type MorphContentLanguageActionType = {|
   type: 'MORPH_CONTENT_LANGUAGE', params: {|
     newCategoriesMap: CategoriesMapModel,
@@ -134,7 +136,7 @@ export type CityContentActionType =
   CategoriesActionType
   | EventsActionType
   | MorphContentLanguageActionType
-  | SwitchContentLanguageActionType
+  | ContentLanguageActionType
   | ClearCityActionType
   | PushLanguagesActionType
   | ResourcesFetchFailedActionType

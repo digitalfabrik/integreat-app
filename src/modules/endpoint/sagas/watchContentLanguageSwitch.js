@@ -12,17 +12,27 @@ import type { DataContainer } from '../DataContainer'
 import loadCityContent from './loadCityContent'
 import { ContentLoadCriterion } from '../ContentLoadCriterion'
 import AppSettings from '../../settings/AppSettings'
+import NetInfo from '@react-native-community/netinfo'
+import { Alert } from 'react-native'
 
 export function * switchContentLanguage (dataContainer: DataContainer, action: SwitchContentLanguageActionType): Saga<void> {
   const { newLanguage, city } = action.params
   try {
-    const appSettings = new AppSettings()
-    yield call(appSettings.setContentLanguage, newLanguage)
+    const netInfo = yield call(NetInfo.fetch)
+    const offline = !netInfo.isInternetReachable
+    const newLanguageDownloaded = yield call(dataContainer.cityContentAvailable, city, newLanguage)
 
-    const setContentLanguage: SetContentLanguageActionType = {
-      type: 'SET_CONTENT_LANGUAGE', params: { contentLanguage: newLanguage }
+    if (offline && !newLanguageDownloaded) {
+      Alert.alert('Failed to switch language', 'The language is not available offline yet, connect to the Internet and try again')
+      const failed: SwitchContentLanguageFailedActionType = {
+        type: `SWITCH_CONTENT_LANGUAGE_FAILED`,
+        params: {
+          message: `Error in switchContentLanguage: `
+        }
+      }
+      yield put(failed)
+      return
     }
-    yield put(setContentLanguage)
 
     // We never want to force a refresh when switching languages
     yield call(
@@ -35,6 +45,15 @@ export function * switchContentLanguage (dataContainer: DataContainer, action: S
       call(dataContainer.getResourceCache, city, newLanguage),
       call(dataContainer.getEvents, city, newLanguage)
     ])
+
+    // Only set new language after fetch succeeded
+    const appSettings = new AppSettings()
+    yield call(appSettings.setContentLanguage, newLanguage)
+
+    const setContentLanguage: SetContentLanguageActionType = {
+      type: 'SET_CONTENT_LANGUAGE', params: { contentLanguage: newLanguage }
+    }
+    yield put(setContentLanguage)
 
     const insert: MorphContentLanguageActionType = {
       type: `MORPH_CONTENT_LANGUAGE`,
