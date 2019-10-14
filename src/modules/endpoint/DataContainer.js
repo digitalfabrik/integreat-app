@@ -88,6 +88,11 @@ export interface DataContainer {
   eventsAvailable (city: string, language: string): Promise<boolean>,
 
   /**
+   * Returns whether the city content (e.g. events, categories, ...) have been loaded or not.
+   */
+  cityContentAvailable (city: string, language: string): Promise<boolean>,
+
+  /**
    * Returns whether the cities have been loaded or not.
    */
   citiesAvailable (): Promise<boolean>
