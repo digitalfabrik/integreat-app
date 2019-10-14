@@ -19,10 +19,9 @@ const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, city: str
     if (!translatedPath) { // Route is not translatable
       return {
         status: 'languageNotAvailable',
-        allAvailableLanguages: allAvailableLanguages,
+        allAvailableLanguages,
         city: route.city,
-        path: route.path,
-        language: route.language,
+        language: newLanguage,
         depth: route.depth
       }
     }
