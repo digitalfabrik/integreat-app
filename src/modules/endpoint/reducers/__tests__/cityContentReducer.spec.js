@@ -167,7 +167,7 @@ describe('cityContentReducer', () => {
     })?.eventsRouteMapping).toEqual({})
   })
 
-  it('should set the route status to languageNotAvailable on PUSH_EVENT_LANGUAGES', () => {
+  it('should set the route status to languageNotAvailable on FETCH_EVENT_FAILED with available languages', () => {
     const prevState: CityContentStateType = {
       city: 'augsburg',
       categoriesRouteMapping: {},
