@@ -8,10 +8,10 @@ import type { FetchResultType, TargetFilePathsType } from '../../fetcher/Fetcher
 import FetcherModule from '../../fetcher/FetcherModule'
 import type { DataContainer } from '../DataContainer'
 import type { FileCacheStateType } from '../../app/StateType'
+import moment from 'moment'
 
 export type FetchMapTargetType = { url: string, filePath: string, urlHash: string }
-export type FetchMapEntryType = Array<FetchMapTargetType>
-export type FetchMapType = { [path: string]: FetchMapEntryType }
+export type FetchMapType = { [path: string]: Array<FetchMapTargetType> }
 
 const createErrorMessage = (fetchResult: FetchResultType) => {
   return reduce(fetchResult, (message, result, path) =>
@@ -33,8 +33,8 @@ export default function * fetchResourceCache (
 
     const results = yield call(new FetcherModule().fetchAsync, targetFilePaths, progress => console.log(progress))
 
-    const successResults = pickBy(results, result => !result.errorMessage)
-    const failureResults = pickBy(results, result => !!result.errorMessage)
+    const successResults: FetchResultType = pickBy(results, result => !result.errorMessage)
+    const failureResults: FetchResultType = pickBy(results, result => !!result.errorMessage)
     if (!isEmpty(failureResults)) {
       // TODO: we might remember which files have failed to retry later (internet connection of client could have failed)
       const message = createErrorMessage(failureResults)
@@ -42,19 +42,20 @@ export default function * fetchResourceCache (
     }
 
     const resourceCache = mapValues(fetchMap, fetchMapEntry =>
-      reduce<FetchMapEntryType, FileCacheStateType>(fetchMapEntry, (acc, fetchMapTarget: FetchMapTargetType) => {
-        const filePath = fetchMapTarget.filePath
-        const downloadResult = successResults[filePath]
+      reduce<Array<FetchMapTargetType>, FileCacheStateType>(
+        fetchMapEntry, (acc, fetchMapTarget: FetchMapTargetType) => {
+          const filePath = fetchMapTarget.filePath
+          const downloadResult = successResults[filePath]
 
-        if (downloadResult) {
-          acc[downloadResult.url] = {
-            filePath,
-            lastUpdate: downloadResult.lastUpdate,
-            hash: fetchMapTarget.urlHash
+          if (downloadResult) {
+            acc[downloadResult.url] = {
+              filePath,
+              lastUpdate: moment(downloadResult.lastUpdate),
+              hash: fetchMapTarget.urlHash
+            }
           }
-        }
-        return acc
-      }, {})
+          return acc
+        }, {})
     )
 
     yield call(dataContainer.setResourceCache, city, language, resourceCache)
