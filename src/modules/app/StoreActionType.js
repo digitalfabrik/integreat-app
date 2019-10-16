@@ -3,6 +3,7 @@
 import { CategoriesMapModel, CityModel, EventModel, LanguageModel } from '@integreat-app/integreat-api-client'
 import type { LanguageResourceCacheStateType } from './StateType'
 import type { ContentLoadCriterionType } from '../endpoint/ContentLoadCriterion'
+import type { TFunction } from 'i18next'
 
 export type FetchCitiesActionType = {|
   type: 'FETCH_CITIES', params: {| forceRefresh: boolean |}
@@ -100,7 +101,7 @@ export type EventsActionType =
 
 export type SwitchContentLanguageActionType = {|
   type: 'SWITCH_CONTENT_LANGUAGE', params: {|
-    newLanguage: string, city: string
+    newLanguage: string, city: string, t: TFunction
   |}
 |}
 
