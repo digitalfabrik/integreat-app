@@ -15,7 +15,7 @@ import AppSettings from '../../settings/AppSettings'
 import { Alert } from 'react-native'
 
 export function * switchContentLanguage (dataContainer: DataContainer, action: SwitchContentLanguageActionType): Saga<void> {
-  const { newLanguage, city } = action.params
+  const { newLanguage, city, t } = action.params
   try {
     // todo Use netinfo to decide whether offline and language not yet downloaded
     // netInfo.isInternetReachable only available since v4.1.0, but with v4.0.0 netinfo was migrated to androidx
@@ -53,7 +53,7 @@ export function * switchContentLanguage (dataContainer: DataContainer, action: S
     yield put(insert)
   } catch (e) {
     if (e.message === 'Network request failed') {
-      Alert.alert('Failed to switch language', 'The language is not available offline yet, connect to the Internet and try again')
+      Alert.alert(t('pageTitle'), t('generalError'))
     }
     console.error(e)
     const failed: SwitchContentLanguageFailedActionType = {
