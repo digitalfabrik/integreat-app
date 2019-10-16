@@ -8,7 +8,7 @@ import type { CityContentStateType } from '../../../app/StateType'
 describe('cityContentReducer', () => {
   const switchContentLanguageAction = {
     type: 'SWITCH_CONTENT_LANGUAGE',
-    params: { newLanguage: 'de', city: 'augsburg' }
+    params: { newLanguage: 'de', city: 'augsburg', t: key => key }
   }
   const pushLanguagesAction = { type: 'PUSH_LANGUAGES', params: { languages: [new LanguageModel('de', 'Deutsch')] } }
   const pushCategoryAction = {
