@@ -53,7 +53,7 @@ export function * switchContentLanguage (dataContainer: DataContainer, action: S
     yield put(insert)
   } catch (e) {
     if (e.message === 'Network request failed') {
-      Alert.alert(t('pageTitle'), t('generalError'))
+      Alert.alert(t('languageSwitchFailedTitle'), t('languageSwitchFailedMessage'))
     }
     console.error(e)
     const failed: SwitchContentLanguageFailedActionType = {

@@ -252,7 +252,9 @@
         "extras": "Go to Extras"
       },
       "pageTitle": "Error",
-      "generalError": "An error occured"
+      "generalError": "An error occured",
+      "languageSwitchFailedTitle": "Language switch failed",
+      "languageSwitchFailedMessage": "This language is not available offline, please reconnect and try again."
     },
     "fa": {
       "not-found": {
