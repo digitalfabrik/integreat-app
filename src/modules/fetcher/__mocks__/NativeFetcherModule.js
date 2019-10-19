@@ -2,12 +2,11 @@
 
 import type { FetchResultType, TargetFilePathsType } from '../FetcherModule'
 import { NativeEventEmitter } from 'react-native'
-import moment from 'moment-timezone'
 import { mapValues } from 'lodash/object'
 
 function mockFetchAsync (targetFilePaths: TargetFilePathsType): Promise<FetchResultType> {
   const fetchResult = mapValues(targetFilePaths, url => ({
-    lastUpdate: moment.tz('20110204', 'UTC').toISOString(),
+    lastUpdate: '2004-06-14T23:34:30Z',
     url: url,
     errorMessage: null
   }))

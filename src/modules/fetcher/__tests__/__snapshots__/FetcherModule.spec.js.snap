@@ -4,12 +4,12 @@ exports[`FetcherModule should return the fetch result data if fetchAsync call is
 Object {
   "local/path/to/resource.png": Object {
     "errorMessage": null,
-    "lastUpdate": "2011-02-04T00:00:00.000Z",
+    "lastUpdate": "2004-06-14T23:34:30Z",
     "url": "http://randomtesturl.de/resource.png",
   },
   "local/path/to/resource2.jpg": Object {
     "errorMessage": null,
-    "lastUpdate": "2011-02-04T00:00:00.000Z",
+    "lastUpdate": "2004-06-14T23:34:30Z",
     "url": "http://randomtesturl.de/resource2.jpg",
   },
 }
