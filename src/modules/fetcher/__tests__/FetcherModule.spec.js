@@ -45,4 +45,9 @@ describe('FetcherModule', () => {
     const fetchResult = await fetcherModule.fetchAsync(testTargetFilePaths, progress => console.log(progress))
     expect(fetchResult).toMatchSnapshot()
   })
+  it('should add eventType to listeners', async () => {
+    const fetcherModule = new FetcherModule()
+    await fetcherModule.fetchAsync(testTargetFilePaths, progress => console.log(progress))
+    expect(NativeFetcherModule.addListener).toHaveBeenCalledWith('progress')
+  })
 })
