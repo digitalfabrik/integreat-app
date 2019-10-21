@@ -21,7 +21,7 @@ type PropsType = {|
   theme: ThemeType,
   onItemPress: (tile: { title: string, thumbnail: string, path: string }) => void,
   language: string,
-  thumbnail: string
+  thumbnail?: string
 |}
 
 const CategoryThumbnail = styled(Image)`
@@ -39,7 +39,7 @@ class CategoryList extends React.Component<PropsType> {
   render () {
     const { categories, title, content, query, theme, onItemPress, language, thumbnail } = this.props
     return <>
-      <CategoryThumbnail source={thumbnail} />
+      {thumbnail && <CategoryThumbnail source={thumbnail} />}
       {title && <CategoryListCaption title={title} theme={theme} withThumbnail={Boolean(thumbnail)} />}
       {!!content && <HTML html={content} />}
       {categories.map(({ model, subCategories }) =>

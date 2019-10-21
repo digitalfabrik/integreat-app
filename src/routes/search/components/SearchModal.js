@@ -88,7 +88,7 @@ class SearchModal extends React.Component<PropsType, StateType> {
     return <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <SpaceBetween>
         <View><CategoryList categories={filteredCategories} query={query} onItemPress={this.onItemPress}
-                            theme={theme} language={language} thumbnail={''} /></View>
+                            theme={theme} language={language} /></View>
         <SearchFeedbackBox t={t} query={query} theme={theme} resultsFound={filteredCategories.length !== 0}
                            sendFeedback={sendFeedback} />
       </SpaceBetween>
