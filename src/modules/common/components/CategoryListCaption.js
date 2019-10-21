@@ -12,7 +12,7 @@ const H1: StyledComponent<{}, ThemeType, *> = styled.Text`
   font-family: ${props => props.theme.fonts.decorativeFontBold};
 `
 
-const H2: StyledComponent<{}, ThemeType, *> = styled.Text`
+const CaptionWithThumbnail: StyledComponent<{}, ThemeType, *> = styled.Text`
   padding: 0 0;
   font-size: 20px;
   text-align: center;
@@ -28,7 +28,7 @@ type PropsType = {|
 class CategoryListCaption extends React.Component<PropsType> {
   render () {
     if (this.props.withThumbnail) {
-      return <H2 theme={this.props.theme}>{this.props.title}</H2>
+      return <CaptionWithThumbnail theme={this.props.theme}>{this.props.title}</CaptionWithThumbnail>
     } else {
       return <H1 theme={this.props.theme}>{this.props.title}</H1>
     }
