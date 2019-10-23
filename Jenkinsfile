@@ -12,6 +12,24 @@ void uploadToBrowserstack(String path) {
     )
 }
 
+void checkoutWithSubmodules() {
+    checkout([
+            $class: 'GitSCM',
+            branches: scm.branches,
+            doGenerateSubmoduleConfigurations: false,
+            extensions: [[
+                                 $class: 'SubmoduleOption',
+                                 disableSubmodules: false,
+                                 parentCredentials: true,
+                                 recursiveSubmodules: true,
+                                 reference: '',
+                                 trackingSubmodules: false
+                         ]],
+            submoduleCfg: [],
+            userRemoteConfigs: scm.userRemoteConfigs
+    ])
+}
+
 pipeline {
     agent none
     options {
@@ -28,7 +46,7 @@ pipeline {
                     stages {
                         stage("Install dependencies") {
                             steps {
-                                checkout scm
+                                checkoutWithSubmodules()
                                 sh 'yarn install --frozen-lockfile'
                             }
                         }
@@ -85,7 +103,7 @@ pipeline {
                     stages {
                         stage("Install dependencies") {
                             steps {
-                                checkout scm
+                                checkoutWithSubmodules()
                                 sh 'yarn install --frozen-lockfile'
                             }
                         }
