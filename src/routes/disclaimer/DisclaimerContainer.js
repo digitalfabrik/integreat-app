@@ -51,21 +51,22 @@ class DisclaimerContainer extends React.Component<DisclaimerPropsType, Disclaime
     this.loadDisclaimer()
   }
 
-  async loadDisclaimer () {
+  loadDisclaimer = async () => {
     const { city, language } = this.props
-    const disclaimerEndpoint = createDisclaimerEndpoint(baseUrl)
-    const payload: Payload<Array<PageModel>> = await (disclaimerEndpoint.request({ city, language }))
-
-    if (payload.error) {
-      this.setState(() => ({ error: payload.error, disclaimer: null }))
-    } else {
-      this.setState(() => ({ error: null, disclaimer: payload.data }))
-    }
-  }
-
-  async tryAgain () {
     this.setState({ error: null, disclaimer: null })
-    this.loadDisclaimer()
+
+    try {
+      const disclaimerEndpoint = createDisclaimerEndpoint(baseUrl)
+      const payload: Payload<Array<PageModel>> = await (disclaimerEndpoint.request({ city, language }))
+
+      if (payload.error) {
+        this.setState(({ error: payload.error, disclaimer: null }))
+      } else {
+        this.setState(({ error: null, disclaimer: payload.data }))
+      }
+    } catch (e) {
+      this.setState({ error: e, disclaimer: null })
+    }
   }
 
   render () {
@@ -73,7 +74,7 @@ class DisclaimerContainer extends React.Component<DisclaimerPropsType, Disclaime
     const { disclaimer, error } = this.state
 
     if (error) {
-      return <FailureContainer error={error} tryAgain={this.tryAgain} />
+      return <FailureContainer error={error} tryAgain={this.loadDisclaimer} />
     }
 
     if (!disclaimer) {
