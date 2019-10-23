@@ -106,6 +106,7 @@ class CategoriesMapModelBuilder {
   buildAll (): { categories: CategoriesMapModel, resourceCache: { [path: string]: FileCacheStateType } } {
     this._resourceCache = {}
     this._categories = []
+    this._id = 0
 
     const path = '/augsburg/de'
     this._addChildren(new CategoryModel({
