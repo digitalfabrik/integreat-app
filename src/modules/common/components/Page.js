@@ -31,14 +31,14 @@ type PropType = {|
   content: string,
   theme: ThemeType,
   navigation: NavigationScreenProp<*>,
-  navigateToIntegreatUrl: NavigateToIntegreatUrlParamsType => void,
-  navigateToFeedback: (positive: boolean) => void,
+  navigateToIntegreatUrl?: NavigateToIntegreatUrlParamsType => void,
+  navigateToFeedback?: (positive: boolean) => void,
   files: FileCacheStateType,
   children?: React.Node,
   language: string,
   cityCode: string,
   lastUpdate: Moment,
-  t: TFunction
+  t?: TFunction
 |}
 
 const HIJACK = /https?:\/\/(cms(-test)?\.integreat-app\.de|web\.integreat-app\.de|integreat\.app)(?!\/[^/]*\/(wp-content|wp-admin|wp-json)\/.*).*/
@@ -53,7 +53,7 @@ class Page extends React.Component<PropType, StateType> {
       navigation.navigate('PDFViewModal', { url })
     } else if (url.includes('.png') || url.includes('.jpg')) {
       navigation.navigate('ImageViewModal', { url })
-    } else if (HIJACK.test(url)) {
+    } else if (navigateToIntegreatUrl && HIJACK.test(url)) {
       navigateToIntegreatUrl({ url, language })
     } else {
       Linking.openURL(url).catch(err => console.error('An error occurred', err))
@@ -74,7 +74,8 @@ class Page extends React.Component<PropType, StateType> {
           {formatter => <TimeStamp formatter={formatter} lastUpdate={lastUpdate} language={language} theme={theme} />}
         </MomentContext.Consumer>}
       </Container>
-      {!this.state.loading && <SiteHelpfulBox navigateToFeedback={navigateToFeedback} theme={theme} t={t} />}
+      {navigateToFeedback && !this.state.loading && <SiteHelpfulBox navigateToFeedback={navigateToFeedback}
+                                                                    theme={theme} t={t} />}
     </SpaceBetween>
   }
 }
