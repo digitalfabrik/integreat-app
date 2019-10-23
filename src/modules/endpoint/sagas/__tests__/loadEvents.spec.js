@@ -6,9 +6,6 @@ import loadEvents from '../loadEvents'
 import RNFetchBlob from '../../../../__mocks__/rn-fetch-blob'
 import EventModelBuilder from '../../../../testing/builder/EventModelBuilder'
 
-const city = 'augsburg'
-const language = 'de'
-
 let mockEvents
 jest.mock('rn-fetch-blob')
 jest.mock('@integreat-app/integreat-api-client',
