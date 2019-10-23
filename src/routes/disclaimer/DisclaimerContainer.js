@@ -11,12 +11,14 @@ import { baseUrl } from '../../modules/endpoint/constants'
 import withTheme from '../../modules/theme/hocs/withTheme'
 import Disclaimer from './Disclaimer'
 import FailureContainer from '../../modules/error/containers/FailureContainer'
+import type { Dispatch } from 'redux'
+import type { StoreActionType } from '../../modules/app/StoreActionType'
 
 type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
 
 type StatePropsType = {| city: string, language: string |}
 
-type PropsType = {| ...OwnPropsType, ...StatePropsType, dispatch: () => void |}
+type PropsType = {| ...OwnPropsType, ...StatePropsType, dispatch: Dispatch<StoreActionType> |}
 
 const mapStateToProps = (state: StateType): StatePropsType => {
   if (!state.cityContent) {
@@ -31,7 +33,7 @@ type DisclaimerPropsType = {|
   city: string,
   language: string,
   theme: ThemeType,
-  dispatch: () => void
+  dispatch: Dispatch<StoreActionType>
 |}
 
 type DisclaimerStateType = {|
