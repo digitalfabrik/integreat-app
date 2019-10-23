@@ -40,7 +40,7 @@ class CategoryList extends React.Component<PropsType> {
     const { categories, title, content, query, theme, onItemPress, language, thumbnail } = this.props
     return <>
       {thumbnail && <CategoryThumbnail source={thumbnail} />}
-      {title && <CategoryListCaption title={title} theme={theme} withThumbnail={Boolean(thumbnail)} />}
+      {title && <CategoryListCaption title={title} theme={theme} withThumbnail={!!(thumbnail)} />}
       {!!content && <HTML html={content} />}
       {categories.map(({ model, subCategories }) =>
         <CategoryListItem key={model.path}
