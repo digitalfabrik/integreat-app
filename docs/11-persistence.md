@@ -59,7 +59,7 @@ The format of the files is:
   "en": {
     "/ahaus/en/everyday-life-and-free-time/donate-stock/": {
       "https://cms.integreat-app.de/altmuehlfranken/wp-content/uploads/sites/163/2017/11/calendar159-150x150.png": {
-        "path": "/data/user/0/com.integreat/cache/city/hash(path)/hash(url).extension(url)",
+        "path": "/data/user/0/com.integreat/cache/city/hash(path)/hash(url)extension(url)",
         "last_update": "2017-01-22 19:51:10",
         "hash": "2f97435138745"
       }
@@ -67,6 +67,7 @@ The format of the files is:
   }
 }
 ```
+If an URL does not have an extension then `extension(url)` is an empty string. `hash(url) returns an md5 sum of the URL. Note that the URL should be valid for both functions.
 
 **categories.json:**
 ```json

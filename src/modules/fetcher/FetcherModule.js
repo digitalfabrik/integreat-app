@@ -5,9 +5,9 @@ import { isEmpty } from 'lodash'
 
 export type TargetFilePathsType = {[path: string]: string}
 
-export type FetchResultType = { [path: string]: {| lastUpdate: string, url: string, errorMessage: string |} }
+export type FetchResultType = { [path: string]: {| lastUpdate: string, url: string, errorMessage: ?string |} }
 
-type ProgressCallbackType = (progress: number) => void
+export type ProgressCallbackType = (progress: number) => void
 
 class FetcherModule {
   // TODO NATIVE-264: Correctly handle already fetching
