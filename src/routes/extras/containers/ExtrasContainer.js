@@ -10,8 +10,8 @@ import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { StateType } from '../../../modules/app/StateType'
 import type { NavigationScreenProp } from 'react-navigation'
 import { baseUrl } from '../../../modules/endpoint/constants'
-import Failure from '../../../modules/error/components/Failure'
 import withTheme from '../../../modules/theme/hocs/withTheme'
+import FailureContainer from '../../../modules/error/containers/FailureContainer'
 
 type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
 
@@ -70,14 +70,20 @@ class ExtrasContainer extends React.Component<ExtrasPropsType, ExtrasStateType> 
     }
   }
 
-  async loadExtras () {
+  loadExtras = async () => {
     const { city, language } = this.props
-    const payload: Payload<Array<ExtraModel>> = await (createExtrasEndpoint(baseUrl).request({ city, language }))
+    this.setState({ error: null, extras: null })
 
-    if (payload.error) {
-      this.setState(() => ({ error: payload.error, extras: null }))
-    } else {
-      this.setState(() => ({ error: null, extras: payload.data }))
+    try {
+      const payload: Payload<Array<ExtraModel>> = await (createExtrasEndpoint(baseUrl).request({ city, language }))
+
+      if (payload.error) {
+        this.setState({ error: payload.error, extras: null })
+      } else {
+        this.setState({ error: null, extras: payload.data })
+      }
+    } catch (e) {
+      this.setState({ error: e, extras: null })
     }
   }
 
@@ -85,11 +91,11 @@ class ExtrasContainer extends React.Component<ExtrasPropsType, ExtrasStateType> 
     const { theme, t, cities, navigation, city, language } = this.props
     const { extras, error } = this.state
 
-    if (error || !cities) {
-      return <Failure error={error} theme={theme} t={t} />
+    if (error) {
+      return <FailureContainer error={error} tryAgain={this.loadExtras} />
     }
 
-    if (!extras) {
+    if (!extras || !cities) {
       return <ActivityIndicator size='large' color='#0000ff' />
     }
 

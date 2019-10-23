@@ -9,10 +9,10 @@ import WohnenExtra from '../components/WohnenExtra'
 import { createWohnenEndpoint, ExtraModel, Payload, WohnenOfferModel } from '@integreat-app/integreat-api-client'
 import { WOHNEN_EXTRA, WOHNEN_ROUTE } from '../../extras/constants'
 import { wohnenApiBaseUrl } from '../../../modules/endpoint/constants'
-import Failure from '../../../modules/error/components/Failure'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { NavigationScreenProp } from 'react-navigation'
+import FailureContainer from '../../../modules/error/containers/FailureContainer'
 
 type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
 
@@ -75,7 +75,7 @@ class WohnenExtraContainer extends React.Component<WohnenPropsType, SprungbrettS
     this.loadSprungbrett()
   }
 
-  async loadSprungbrett () {
+  loadWohnen = async () => {
     const { extra } = this.props
 
     if (!extra) {
@@ -83,6 +83,7 @@ class WohnenExtraContainer extends React.Component<WohnenPropsType, SprungbrettS
       return
     }
 
+    this.setState({ offers: null, error: null })
     try {
       const payload: Payload<Array<ExtraModel>> = await createWohnenEndpoint(wohnenApiBaseUrl).request(
         { city: extra.postData.get('api-name') }
@@ -90,10 +91,9 @@ class WohnenExtraContainer extends React.Component<WohnenPropsType, SprungbrettS
 
       if (payload.error) {
         this.setState(() => ({ error: payload.error, offers: null }))
-        return
+      } else {
+        this.setState(() => ({ error: null, offers: payload.data }))
       }
-
-      this.setState(() => ({ error: null, offers: payload.data }))
     } catch (e) {
       this.setState(() => ({ error: e, offers: null }))
     }
@@ -104,7 +104,7 @@ class WohnenExtraContainer extends React.Component<WohnenPropsType, SprungbrettS
     const { offers, error } = this.state
 
     if (error) {
-      return <Failure error={error} t={t} theme={theme} />
+      return <FailureContainer error={error} tryAgain={this.loadWohnen} />
     }
 
     if (!offers) {

@@ -13,10 +13,10 @@ import {
   SprungbrettJobModel
 } from '@integreat-app/integreat-api-client'
 import { SPRUNGBRETT_EXTRA } from '../../extras/constants'
-import Failure from '../../../modules/error/components/Failure'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { NavigationScreenProp } from 'react-navigation'
+import FailureContainer from '../../../modules/error/containers/FailureContainer'
 
 type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
 
@@ -57,22 +57,23 @@ class SprungbrettExtraContainer extends React.Component<SprungbrettPropsType, Sp
     this.loadSprungbrett()
   }
 
-  async loadSprungbrett () {
+  loadSprungbrett = async () => {
     const { extra } = this.props
 
     if (!extra) {
       this.setState(() => ({ error: new Error('The Sprungbrett extra is not supported.'), jobs: null }))
       return
     }
+
+    this.setState({ error: null, jobs: null })
     try {
       const payload: Payload<Array<ExtraModel>> = await createSprungbrettJobsEndpoint(extra.path).request()
 
       if (payload.error) {
         this.setState(() => ({ error: payload.error, jobs: null }))
-        return
+      } else {
+        this.setState(() => ({ error: null, jobs: payload.data }))
       }
-
-      this.setState(() => ({ error: null, jobs: payload.data }))
     } catch (e) {
       this.setState(() => ({ error: e, jobs: null }))
     }
@@ -83,7 +84,7 @@ class SprungbrettExtraContainer extends React.Component<SprungbrettPropsType, Sp
     const { jobs, error } = this.state
 
     if (error) {
-      return <Failure error={error} t={t} theme={theme} />
+      return <FailureContainer error={error} tryAgain={this.loadSprungbrett} />
     }
 
     if (!jobs) {
