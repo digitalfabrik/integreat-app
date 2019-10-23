@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import { ActivityIndicator } from 'react-native'
+import { RefreshControl, ScrollView } from 'react-native'
 import type { StateType } from '../../../modules/app/StateType'
 import { connect } from 'react-redux'
 import { type TFunction, translate } from 'react-i18next'
@@ -59,20 +59,20 @@ type WohnenPropsType = {|
   t: TFunction
 |}
 
-type SprungbrettStateType = {|
+type WohnenStateType = {|
   offers: ?Array<WohnenOfferModel>,
   error: ?Error
 |}
 
 // HINT: If you are copy-pasting this container think about generalizing this way of fetching
-class WohnenExtraContainer extends React.Component<WohnenPropsType, SprungbrettStateType> {
+class WohnenExtraContainer extends React.Component<WohnenPropsType, WohnenStateType> {
   constructor (props: WohnenPropsType) {
     super(props)
     this.state = { offers: null, error: null }
   }
 
   componentWillMount () {
-    this.loadSprungbrett()
+    this.loadWohnen()
   }
 
   loadWohnen = async () => {
@@ -104,15 +104,21 @@ class WohnenExtraContainer extends React.Component<WohnenPropsType, SprungbrettS
     const { offers, error } = this.state
 
     if (error) {
-      return <FailureContainer error={error} tryAgain={this.loadWohnen} />
+      return <ScrollView refreshControl={<RefreshControl onRefresh={this.loadWohnen} refreshing={false} />}
+                         contentContainerStyle={{ flexGrow: 1 }}>
+        <FailureContainer error={error} tryAgain={this.loadWohnen} />
+      </ScrollView>
     }
 
     if (!offers) {
-      return <ActivityIndicator size='large' color='#0000ff' />
+      return <ScrollView refreshControl={<RefreshControl refreshing />} contentContainerStyle={{ flexGrow: 1 }} />
     }
 
-    return <WohnenExtra wohnenExtra={extra} offerHash={offerHash} navigateToOffer={navigateToOffer} offers={offers}
-                        t={t} theme={theme} language={language} />
+    return <ScrollView refreshControl={<RefreshControl onRefresh={this.loadWohnen} refreshing={false} />}
+                       contentContainerStyle={{ flexGrow: 1 }}>
+      return <WohnenExtra wohnenExtra={extra} offerHash={offerHash} navigateToOffer={navigateToOffer} offers={offers}
+                          t={t} theme={theme} language={language} />
+    </ScrollView>
   }
 }
 

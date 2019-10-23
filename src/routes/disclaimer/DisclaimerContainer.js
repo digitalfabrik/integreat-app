@@ -2,7 +2,6 @@
 
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { ActivityIndicator } from 'react-native'
 import { createDisclaimerEndpoint, PageModel, Payload } from '@integreat-app/integreat-api-client'
 import type { ThemeType } from '../../modules/theme/constants/theme'
 import type { StateType } from '../../modules/app/StateType'
@@ -13,6 +12,7 @@ import Disclaimer from './Disclaimer'
 import FailureContainer from '../../modules/error/containers/FailureContainer'
 import type { Dispatch } from 'redux'
 import type { StoreActionType } from '../../modules/app/StoreActionType'
+import { RefreshControl, ScrollView } from 'react-native'
 
 type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
 
@@ -74,14 +74,20 @@ class DisclaimerContainer extends React.Component<DisclaimerPropsType, Disclaime
     const { disclaimer, error } = this.state
 
     if (error) {
-      return <FailureContainer error={error} tryAgain={this.loadDisclaimer} />
+      return <ScrollView refreshControl={<RefreshControl onRefresh={this.loadDisclaimer} refreshing={false} />}
+                  contentContainerStyle={{ flexGrow: 1 }}>
+        <FailureContainer error={error} tryAgain={this.loadDisclaimer} />
+      </ScrollView>
     }
 
     if (!disclaimer) {
-      return <ActivityIndicator size='large' color='#0000ff' />
+      return <ScrollView refreshControl={<RefreshControl refreshing />} contentContainerStyle={{ flexGrow: 1 }} />
     }
 
-    return <Disclaimer disclaimer={disclaimer} theme={theme} navigation={navigation} city={city} language={language} />
+    return <ScrollView refreshControl={<RefreshControl onRefresh={this.loadDisclaimer} refreshing={false} />}
+                contentContainerStyle={{ flexGrow: 1 }}>
+      <Disclaimer disclaimer={disclaimer} theme={theme} navigation={navigation} city={city} language={language} />
+    </ScrollView>
   }
 }
 

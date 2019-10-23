@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { ActivityIndicator } from 'react-native'
+import { RefreshControl, ScrollView } from 'react-native'
 import Extras from '../components/Extras'
 import { type TFunction, translate } from 'react-i18next'
 import { CityModel, createExtrasEndpoint, ExtraModel, Payload } from '@integreat-app/integreat-api-client'
@@ -92,15 +92,21 @@ class ExtrasContainer extends React.Component<ExtrasPropsType, ExtrasStateType> 
     const { extras, error } = this.state
 
     if (error) {
-      return <FailureContainer error={error} tryAgain={this.loadExtras} />
+      return <ScrollView refreshControl={<RefreshControl onRefresh={this.loadExtras} refreshing={false} />}
+                         contentContainerStyle={{ flexGrow: 1 }}>
+        <FailureContainer error={error} tryAgain={this.loadExtras} />
+      </ScrollView>
     }
 
     if (!extras || !cities) {
-      return <ActivityIndicator size='large' color='#0000ff' />
+      return <ScrollView refreshControl={<RefreshControl refreshing />} contentContainerStyle={{ flexGrow: 1 }} />
     }
 
-    return <Extras extras={extras} navigateToExtra={this.navigateToExtra} theme={theme} t={t} cities={cities}
-                   navigation={navigation} cityCode={city} language={language} />
+    return <ScrollView refreshControl={<RefreshControl onRefresh={this.loadExtras} refreshing={false} />}
+                       contentContainerStyle={{ flexGrow: 1 }}>
+      <Extras extras={extras} navigateToExtra={this.navigateToExtra} theme={theme} t={t} cities={cities}
+              navigation={navigation} cityCode={city} language={language} />
+    </ScrollView>
   }
 }
 
