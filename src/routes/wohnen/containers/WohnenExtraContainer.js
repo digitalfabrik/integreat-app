@@ -79,7 +79,7 @@ class WohnenExtraContainer extends React.Component<WohnenPropsType, WohnenStateT
     const { extra } = this.props
 
     if (!extra) {
-      this.setState(() => ({ error: new Error('The Wohnen extra is not supported.'), offers: null }))
+      this.setState({ error: new Error('The Wohnen extra is not supported.'), offers: null })
       return
     }
 
@@ -90,12 +90,12 @@ class WohnenExtraContainer extends React.Component<WohnenPropsType, WohnenStateT
       )
 
       if (payload.error) {
-        this.setState(() => ({ error: payload.error, offers: null }))
+        this.setState({ error: payload.error, offers: null })
       } else {
-        this.setState(() => ({ error: null, offers: payload.data }))
+        this.setState({ error: null, offers: payload.data })
       }
     } catch (e) {
-      this.setState(() => ({ error: e, offers: null }))
+      this.setState({ error: e, offers: null })
     }
   }
 
