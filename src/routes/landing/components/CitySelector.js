@@ -26,8 +26,7 @@ type PropsType = {|
   navigateToDashboard: (city: CityModel) => void,
   theme: ThemeType,
   currentLongitude: number | null,
-  currentLatitude: number | null,
-  renderLocationList: boolean
+  currentLatitude: number | null
 |}
 
 const checkAliases = (a: CityModel, filterText: string): boolean => {
@@ -90,7 +89,7 @@ const compareDistance = (a: CityModel, b: CityModel, longitude: number, latitude
 }
 
 class CitySelector extends React.PureComponent<PropsType> {
-  filter (): Array<CityModel> {
+  _filter (): Array<CityModel> {
     const filterText = this.props.filterText.toLowerCase()
     const cities = this.props.cities
 
@@ -106,7 +105,7 @@ class CitySelector extends React.PureComponent<PropsType> {
     }
   }
 
-  renderList (cities: Array<CityModel>): React.Node {
+  _renderFilteredLocations (cities: Array<CityModel>): React.Node {
     const groups = groupBy(cities, city => city.sortCategory)
     return transform(groups, (result, cities, key) => {
       result.push(<React.Fragment key={key}>
@@ -121,7 +120,7 @@ class CitySelector extends React.PureComponent<PropsType> {
     }, [])
   }
 
-  renderListByLocation (): React.Node {
+  _renderNearbyLocations (): React.Node {
     if (this.props.currentLatitude === null || this.props.currentLongitude === null) {
       return null
     }
@@ -150,16 +149,10 @@ class CitySelector extends React.PureComponent<PropsType> {
   }
 
   render () {
-    if (this.props.renderLocationList) {
-      return <View>
-        {this.renderListByLocation()}
-        {this.renderList(this.filter())}
-      </View>
-    } else {
-      return <View>
-        {this.renderList(this.filter())}
-        </View>
-    }
+    return <View>
+      {this._renderNearbyLocations()}
+      {this._renderFilteredLocations(this._filter())}
+    </View>
   }
 }
 
