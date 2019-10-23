@@ -29,8 +29,7 @@ type PropsType = {
 type StateType = {
   filterText: string,
   currentLongitude: number | null,
-  currentLatitude: number | null,
-  renderLocationList: boolean
+  currentLatitude: number | null
 }
 
 class FilterableCitySelector extends React.Component<PropsType, StateType> {
@@ -39,8 +38,7 @@ class FilterableCitySelector extends React.Component<PropsType, StateType> {
     this.state = {
       filterText: '',
       currentLongitude: null,
-      currentLatitude: null,
-      renderLocationList: false
+      currentLatitude: null
     }
   }
 
@@ -51,18 +49,13 @@ class FilterableCitySelector extends React.Component<PropsType, StateType> {
       Geolocation.requestAuthorization()
     }
     Geolocation.getCurrentPosition(
-      position => {
-        const currentLongitude = position.coords.longitude
-        const currentLatitude = position.coords.latitude
-        this.setState({ currentLongitude: currentLongitude })
-        this.setState({ currentLatitude: currentLatitude })
-      },
-      error => {
-        alert(error.message)
-      },
+      position => this.setState({
+        currentLongitude: position.coords.longitude,
+        currentLatitude: position.coords.latitude
+      }),
+      error => alert(error.message),
       { enableHighAccuracy: false, timeout: 20000, maximumAge: 1000 }
     )
-    this.setState({ renderLocationList: true })
   }
 
   render () {
@@ -88,7 +81,6 @@ class FilterableCitySelector extends React.Component<PropsType, StateType> {
           theme={theme}
           currentLongitude={this.state.currentLongitude}
           currentLatitude={this.state.currentLatitude}
-          renderLocationList={this.state.renderLocationList}
         />
       </View>
     )
