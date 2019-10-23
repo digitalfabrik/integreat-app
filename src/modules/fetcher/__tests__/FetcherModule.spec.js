@@ -22,11 +22,13 @@ describe('FetcherModule', () => {
     expect(NativeFetcherModule.fetchAsync).toHaveBeenCalledTimes(1)
     expect(NativeFetcherModule.fetchAsync).toHaveBeenCalledWith(testTargetFilePaths)
   })
+
   it('should not call fetchAsync if targetFiles are empty', async () => {
     const fetcherModule = new FetcherModule()
     await fetcherModule.fetchAsync({}, progress => console.log(progress))
     expect(NativeFetcherModule.fetchAsync).not.toHaveBeenCalled()
   })
+
   it('should return an error if fetcher is already busy', async () => {
     const fetcherModule = new FetcherModule()
     const anotherFetcherModule = new FetcherModule()
@@ -40,14 +42,10 @@ describe('FetcherModule', () => {
       expect(e).toEqual(new Error('Already fetching!'))
     }
   })
+
   it('should return the fetch result data if fetchAsync call is valid', async () => {
     const fetcherModule = new FetcherModule()
     const fetchResult = await fetcherModule.fetchAsync(testTargetFilePaths, progress => console.log(progress))
     expect(fetchResult).toMatchSnapshot()
-  })
-  it('should add eventType to listeners', async () => {
-    const fetcherModule = new FetcherModule()
-    await fetcherModule.fetchAsync(testTargetFilePaths, progress => console.log(progress))
-    expect(NativeFetcherModule.addListener).toHaveBeenCalledWith('progress')
   })
 })
