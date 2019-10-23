@@ -6,14 +6,13 @@ import DefaultDataContainer from '../../DefaultDataContainer'
 import RNFetchBlob from '../../../../__mocks__/rn-fetch-blob'
 import CategoriesMapModelBuilder from '../../../../testing/builder/CategoriesMapModelBuilder'
 
-const city = 'augsburg'
-const language = 'de'
-
 let mockCategories
 jest.mock('rn-fetch-blob')
 jest.mock('@integreat-app/integreat-api-client',
   () => {
     const actual = jest.requireActual('@integreat-app/integreat-api-client')
+    const city = 'augsburg'
+
     return {
       ...actual,
       createCategoriesEndpoint: () => {
@@ -34,6 +33,9 @@ describe('loadCategories', () => {
   beforeEach(() => {
     RNFetchBlob.fs._reset()
   })
+
+  const city = 'augsburg'
+  const language = 'de'
 
   const otherCategories = new CategoriesMapModelBuilder(city, 3).build()
 

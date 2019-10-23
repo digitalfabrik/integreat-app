@@ -14,6 +14,8 @@ jest.mock('rn-fetch-blob')
 jest.mock('@integreat-app/integreat-api-client',
   () => {
     const actual = jest.requireActual('@integreat-app/integreat-api-client')
+    const city = 'augsburg'
+
     return {
       ...actual,
       createEventsEndpoint: () => {
@@ -35,6 +37,9 @@ describe('loadEvents', () => {
   beforeEach(() => {
     RNFetchBlob.fs._reset()
   })
+
+  const city = 'augsburg'
+  const language = 'de'
 
   const otherEvents = new EventModelBuilder('otherEvents', 2, city).build()
 
