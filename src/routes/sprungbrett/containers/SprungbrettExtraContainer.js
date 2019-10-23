@@ -61,7 +61,7 @@ class SprungbrettExtraContainer extends React.Component<SprungbrettPropsType, Sp
     const { extra } = this.props
 
     if (!extra) {
-      this.setState(() => ({ error: new Error('The Sprungbrett extra is not supported.'), jobs: null }))
+      this.setState({ error: new Error('The Sprungbrett extra is not supported.'), jobs: null })
       return
     }
 
@@ -70,12 +70,12 @@ class SprungbrettExtraContainer extends React.Component<SprungbrettPropsType, Sp
       const payload: Payload<Array<ExtraModel>> = await createSprungbrettJobsEndpoint(extra.path).request()
 
       if (payload.error) {
-        this.setState(() => ({ error: payload.error, jobs: null }))
+        this.setState({ error: payload.error, jobs: null })
       } else {
-        this.setState(() => ({ error: null, jobs: payload.data }))
+        this.setState({ error: null, jobs: payload.data })
       }
     } catch (e) {
-      this.setState(() => ({ error: e, jobs: null }))
+      this.setState({ error: e, jobs: null })
     }
   }
 
