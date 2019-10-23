@@ -8,6 +8,7 @@ import type { ThemeType } from '../../../modules/theme/constants/theme'
 
 const CityListItem: StyledComponent<{}, {}, *> = styled.TouchableHighlight`
   padding: 7px;
+  width: 100%;
 `
 
 const Label = styled.Text`
