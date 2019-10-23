@@ -408,7 +408,8 @@
       "settings": "Settings",
       "share": "Share",
       "shareMessage": "Hey, check this out.",
-      "shareFailDefaultMessage": "Something went wrong"
+      "shareFailDefaultMessage": "Something went wrong",
+      "disclaimer": "Disclaimer"
     },
     "de": {
       "settings": "Einstellungen"
