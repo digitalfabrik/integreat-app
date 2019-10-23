@@ -19,14 +19,16 @@ const MAX_PREDICTABLE_VALUE = 6
 class CategoriesMapModelBuilder {
   _depth: number
   _arity: number
+  _city: string
 
   _categories: Array<CategoryModel>
   _resourceCache: { [path: string]: FileCacheStateType }
   _id = 0
 
-  constructor (arity: number = DEFAULT_ARITY, depth: number = DEFAULT_DEPTH) {
+  constructor (city: string, arity: number = DEFAULT_ARITY, depth: number = DEFAULT_DEPTH) {
     this._arity = arity
     this._depth = depth
+    this._city = city
   }
 
   _predictableNumber (index: number, max: number = MAX_PREDICTABLE_VALUE): number {
@@ -37,7 +39,7 @@ class CategoriesMapModelBuilder {
     const hash = hashUrl(url)
     return {
       [url]: {
-        filePath: `path/to/documentDir/resource-cache/v1/some-city/files/${hash}.png`,
+        filePath: `path/to/documentDir/resource-cache/v1/${this._city}/files/${hash}.png`,
         lastUpdate: moment(lastUpdate).add(this._predictableNumber(index), 'days'),
         hash
       }

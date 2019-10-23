@@ -14,10 +14,12 @@ const MAX_PREDICTABLE_VALUE = 6
 class EventModelBuilder {
   _eventCount: number
   _seed: string
+  _city: string
 
-  constructor (seed: string, eventCount: number) {
+  constructor (seed: string, eventCount: number, city: string) {
     this._seed = seed
     this._eventCount = eventCount
+    this._city = city
   }
 
   _predictableNumber (index: number, max: number = MAX_PREDICTABLE_VALUE): number {
@@ -43,7 +45,7 @@ class EventModelBuilder {
     const hash = hashUrl(url)
     return {
       [url]: {
-        filePath: `path/to/documentDir/resource-cache/v1/some-city/files/${hash}.png`,
+        filePath: `path/to/documentDir/resource-cache/v1/${this._city}/files/${hash}.png`,
         lastUpdate: moment(lastUpdate).add(this._predictableNumber(index), 'days'),
         hash
       }
