@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import { ActivityIndicator } from 'react-native'
+import { RefreshControl, ScrollView } from 'react-native'
 import { type TFunction, translate } from 'react-i18next'
 import SprungbrettExtra from '../components/SprungbrettExtra'
 import { connect } from 'react-redux'
@@ -84,14 +84,20 @@ class SprungbrettExtraContainer extends React.Component<SprungbrettPropsType, Sp
     const { jobs, error } = this.state
 
     if (error) {
-      return <FailureContainer error={error} tryAgain={this.loadSprungbrett} />
+      return <ScrollView refreshControl={<RefreshControl onRefresh={this.loadSprungbrett} refreshing={false} />}
+                         contentContainerStyle={{ flexGrow: 1 }}>
+        <FailureContainer error={error} tryAgain={this.loadSprungbrett} />
+      </ScrollView>
     }
 
     if (!jobs) {
-      return <ActivityIndicator size='large' color='#0000ff' />
+      return <ScrollView refreshControl={<RefreshControl refreshing />} contentContainerStyle={{ flexGrow: 1 }} />
     }
 
-    return <SprungbrettExtra sprungbrettExtra={extra} sprungbrettJobs={jobs} t={t} theme={theme} language={language} />
+    return <ScrollView refreshControl={<RefreshControl onRefresh={this.loadSprungbrett} refreshing={false} />}
+                       contentContainerStyle={{ flexGrow: 1 }}>
+      <SprungbrettExtra sprungbrettExtra={extra} sprungbrettJobs={jobs} t={t} theme={theme} language={language} />
+    </ScrollView>
   }
 }
 
