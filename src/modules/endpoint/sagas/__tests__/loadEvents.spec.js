@@ -6,6 +6,9 @@ import loadEvents from '../loadEvents'
 import RNFetchBlob from '../../../../__mocks__/rn-fetch-blob'
 import EventModelBuilder from '../../../../testing/builder/EventModelBuilder'
 
+const city = 'augsburg'
+const language = 'de'
+
 let mockEvents
 jest.mock('rn-fetch-blob')
 jest.mock('@integreat-app/integreat-api-client',
@@ -17,7 +20,7 @@ jest.mock('@integreat-app/integreat-api-client',
         const { EndpointBuilder } = require('@integreat-app/integreat-api-client')
         const { default: EventModelBuilder } = require('../../../../testing/builder/EventModelBuilder')
 
-        mockEvents = new EventModelBuilder('mockEvents', 1).build()
+        mockEvents = new EventModelBuilder('mockEvents', 1, city).build()
 
         return new EndpointBuilder('events-mock')
           .withParamsToUrlMapper(() => 'https://cms.integreat-app.de/events')
@@ -33,9 +36,7 @@ describe('loadEvents', () => {
     RNFetchBlob.fs._reset()
   })
 
-  const otherEvents = new EventModelBuilder('otherEvents', 2).build()
-  const city = 'augsburg'
-  const language = 'de'
+  const otherEvents = new EventModelBuilder('otherEvents', 2, city).build()
 
   it('should fetch and set events if events are not available', async () => {
     const dataContainer = new DefaultDataContainer()
