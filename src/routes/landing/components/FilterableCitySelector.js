@@ -3,13 +3,21 @@
 import React from 'react'
 
 import CitySelector from './CitySelector'
-
 import type { TFunction } from 'react-i18next'
 import SearchInput from './SearchInput'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
-import { Platform, TouchableOpacity, Image, View } from 'react-native'
+import { Platform, TouchableOpacity, View } from 'react-native'
 import Geolocation from '@react-native-community/geolocation'
+import styled from 'styled-components/native'
+import Icon from 'react-native-vector-icons/MaterialIcons'
+
+const SearchBar = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 0 15%;
+`
 
 type PropsType = {
   cities: Array<CityModel>,
@@ -62,19 +70,17 @@ class FilterableCitySelector extends React.Component<PropsType, StateType> {
     const filterText = this.state.filterText
 
     return (
-      <>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }} >
-          <SearchInput style={{ flexGrow: 1 }}
-          filterText={filterText}
-          onFilterTextChange={this.onFilterTextChange}
-          placeholderText={t('searchCity')}
-          spaceSearch={false}
-          theme={theme} />
-          <TouchableOpacity onPress={this._onPressLocationButton} style={{ flexGrow: 0 }}>
-            <Image source={
-              require('../../../../assets/app-locationButton.png')} />
+      <View>
+        <SearchBar>
+          <SearchInput filterText={filterText}
+                       onFilterTextChange={this.onFilterTextChange}
+                       placeholderText={t('searchCity')}
+                       spaceSearch={false}
+                       theme={theme} />
+          <TouchableOpacity onPress={this._onPressLocationButton}>
+            <Icon name='gps-fixed' size={30} color={theme.colors.textSecondaryColor} />
           </TouchableOpacity>
-        </View>
+        </SearchBar>
         <CitySelector
           cities={cities}
           filterText={filterText}
@@ -84,7 +90,7 @@ class FilterableCitySelector extends React.Component<PropsType, StateType> {
           currentLatitude={this.state.currentLatitude}
           renderLocationList={this.state.renderLocationList}
         />
-      </>
+      </View>
     )
   }
 }

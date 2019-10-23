@@ -4,24 +4,17 @@ import * as React from 'react'
 
 import LocationBig from '../assets/LocationBig.png'
 import styled, { type StyledComponent } from 'styled-components/native'
+import type { ThemeType } from '../../../modules/theme/constants/theme'
 
-const LocationImage = styled.Image`
+const LocationImage: StyledComponent<{}, ThemeType, *> = styled.Image`
   height: 70px;
   resize-mode: contain;
-`
-
-const Wrapper: StyledComponent<{| children: React.Node |}, {}, *> = styled.View`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 `
 
 class Heading extends React.Component<{||}> {
   render () {
     return (
-      <Wrapper>
-        <LocationImage source={LocationBig} />
-      </Wrapper>
+      <LocationImage source={LocationBig} />
     )
   }
 }

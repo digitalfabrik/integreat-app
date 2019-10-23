@@ -4,16 +4,15 @@ import * as React from 'react'
 import { transform } from 'lodash/object'
 import { groupBy } from 'lodash/collection'
 import CityEntry from './CityEntry'
+import { View } from 'react-native'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import styled, { type StyledComponent } from 'styled-components/native'
-import { View } from 'react-native'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 
 export const CityGroup: StyledComponent<{}, ThemeType, *> = styled.Text`
-  flex: 1;
-  height: 30px;
-  margin-top: 10px;
-  line-height: 30px;
+  width: 100%;
+  margin-top: 5px;
+  padding: 10px 0;
   background-color: white;
   font-family: ${props => props.theme.fonts.decorativeFontRegular};
   color: ${props => props.theme.colors.textColor};
@@ -110,7 +109,7 @@ class CitySelector extends React.PureComponent<PropsType> {
   renderList (cities: Array<CityModel>): React.Node {
     const groups = groupBy(cities, city => city.sortCategory)
     return transform(groups, (result, cities, key) => {
-      result.push(<View key={key}>
+      result.push(<React.Fragment key={key}>
         <CityGroup theme={this.props.theme}>{key}</CityGroup>
         {cities.map(city => <CityEntry
           key={city.code}
@@ -118,7 +117,7 @@ class CitySelector extends React.PureComponent<PropsType> {
           filterText={this.props.filterText}
           navigateToDashboard={this.props.navigateToDashboard}
           theme={this.props.theme} />)}
-      </View>)
+      </React.Fragment>)
     }, [])
   }
 
@@ -135,15 +134,15 @@ class CitySelector extends React.PureComponent<PropsType> {
     const maximalDistance = 90
     cities = cities.filter(_city => currentDistance(_city, currentLongitude, currentLatitude) < maximalDistance)
     if (cities && cities.length) {
-      return <View>
-        <CityGroup theme={this.props.theme}> Close </CityGroup>
+      return <>
+        <CityGroup theme={this.props.theme}>Nearby</CityGroup>
         {cities.map(city => <CityEntry
           key={city.code}
           city={city}
           filterText={this.props.filterText}
           navigateToDashboard={this.props.navigateToDashboard}
           theme={this.props.theme} />)}
-      </View>
+      </>
     } else {
       alert('There are no cities offering integreat close to you.')
       return null
@@ -152,14 +151,14 @@ class CitySelector extends React.PureComponent<PropsType> {
 
   render () {
     if (this.props.renderLocationList) {
-      return <>
+      return <View>
         {this.renderListByLocation()}
         {this.renderList(this.filter())}
-      </>
+      </View>
     } else {
-      return <>
+      return <View>
         {this.renderList(this.filter())}
-        </>
+        </View>
     }
   }
 }
