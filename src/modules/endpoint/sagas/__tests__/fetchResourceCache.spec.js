@@ -22,7 +22,7 @@ describe('fetchResourceCache', () => {
 
     const dataContainer = new DefaultDataContainer()
 
-    const categoriesBuilder = new CategoriesMapModelBuilder()
+    const categoriesBuilder = new CategoriesMapModelBuilder(city)
     const resources = categoriesBuilder.buildResources()
     const fetchMap = categoriesBuilder.buildFetchMap()
 
@@ -61,7 +61,7 @@ describe('fetchResourceCache', () => {
   it('should put error if fetching fails', () => {
     const dataContainer = new DefaultDataContainer()
 
-    const categoriesBuilder = new CategoriesMapModelBuilder()
+    const categoriesBuilder = new CategoriesMapModelBuilder(city)
     const fetchMap = categoriesBuilder.buildFetchMap()
 
     return expectSaga(fetchResourceCache, city, language, fetchMap, dataContainer)

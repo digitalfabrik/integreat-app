@@ -26,8 +26,8 @@ jest.mock('../loadCities')
 jest.mock('../loadLanguages')
 
 const prepareDataContainer = async (dataContainer: DataContainer, city: string, language: string) => {
-  const categoriesBuilder = new CategoriesMapModelBuilder(2, 2)
-  const eventsBuilder = new EventModelBuilder('loadCityContent-events', 2)
+  const categoriesBuilder = new CategoriesMapModelBuilder(city, 2, 2)
+  const eventsBuilder = new EventModelBuilder('loadCityContent-events', 2, city)
 
   const categories = categoriesBuilder.build()
   const cities = new CityModelBuilder(1).build()
@@ -90,6 +90,7 @@ describe('loadCityContent', () => {
     const dataContainer = new DefaultDataContainer()
     await prepareDataContainer(dataContainer, city, language)
 
+    await new AppSettings().setSelectedCity('nuernberg')
     await dataContainer.setLastUpdate(city, language, lastUpdate)
 
     await expectSaga(loadCityContent,
@@ -107,6 +108,7 @@ describe('loadCityContent', () => {
     const dataContainer = new DefaultDataContainer()
     await prepareDataContainer(dataContainer, city, language)
 
+    await new AppSettings().setSelectedCity('nuernberg')
     await dataContainer.setLastUpdate(city, language, lastUpdate)
 
     await expectSaga(loadCityContent,
@@ -116,7 +118,7 @@ describe('loadCityContent', () => {
       }, true)
     ).run()
 
-    expect(await new AppSettings().loadSelectedCity()).toBeFalsy()
+    expect(await new AppSettings().loadSelectedCity()).toBe('nuernberg')
     expect(await dataContainer.getLastUpdate(city, language)).toBe(lastUpdate)
   })
 
@@ -173,8 +175,8 @@ describe('loadCityContent', () => {
 
     const lastUpdateAfterLoading: moment = await dataContainer.getLastUpdate(city, language)
 
-    expect(lastUpdateAfterLoading.isSame(lastUpdate)).toBeTruthy()
-    expect(lastUpdateAfterLoading.isSame(mockDate)).not.toBeTruthy()
+    expect(lastUpdateAfterLoading.isSame(lastUpdate)).toBe(true)
+    expect(lastUpdateAfterLoading.isSame(mockDate)).toBe(false)
   })
 
   it('should return true if language does exist', async () => {
