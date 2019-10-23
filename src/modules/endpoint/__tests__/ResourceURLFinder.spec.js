@@ -18,6 +18,8 @@ describe('ResourceURLFinder', () => {
       <img src="https://ex.am/pl2.jpg" alt="Ultra!" />
       <img src="https://ex.am/pl2.jpeg" alt="Meeeeega!" />
       <img src="https://ex.am/pl2.pdf" alt="Exorbitant!" />
+      <img src="https://ex.am/noextension" alt="Nöp!" />
+      <img src="invalid-url" alt="Näp!" />
     `)
     finder.finalize()
 
@@ -40,11 +42,14 @@ describe('ResourceURLFinder', () => {
       {
         path: '/path1',
         thumbnail: 'https://ex.am/thumb.png',
-        content: `<img src="https://ex.am/pl1.png" alt="Crazy" />`
+        content: `<img src="https://ex.am/pl1.png" alt="Crazy" />
+                  <img src="https://ex.am/noextension" alt="Nöp!" />
+                  <img src="invalid-url" alt="Näp!" />`
       },
       { path: '/path2', thumbnail: '', content: `<img src="https://ex.am/pl2.png" alt="Crazy" />` }
     ]
-    const fetchMap = finder.buildFetchMap(input, (url, path) => `buildFilePath('${url}', '${path}')`)
+    const fetchMap = finder.buildFetchMap(input, (url, urlHash) =>
+      `buildFilePath('${url}', '${urlHash}')`)
     finder.finalize()
 
     expect(fetchMap).toMatchSnapshot()

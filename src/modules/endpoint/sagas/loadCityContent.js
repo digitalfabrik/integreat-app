@@ -45,7 +45,13 @@ export default function * loadCityContent (
   console.debug('City content should be refreshed: ', shouldUpdate)
 
   if (criterion.shouldLoadLanguages()) {
-    yield call(loadLanguages, newCity, dataContainer, shouldUpdate)
+    yield call(loadLanguages, newCity, dataContainer, shouldUpdate) /* The languages for a city get updated if a any
+                                                                       language of the city is:
+                                                                          * older than MAX_CONTENT_AGE,
+                                                                          * has no "lastUpdate" or
+                                                                          * an update is forced
+                                                                        This means the loading of languages depends on
+                                                                        language AND the city */
     const languages = yield call(dataContainer.getLanguages, newCity)
 
     const pushLanguages: PushLanguagesActionType = { type: 'PUSH_LANGUAGES', params: { languages } }
@@ -73,7 +79,7 @@ export default function * loadCityContent (
 
     const fetchMap = resourceURLFinder.buildFetchMap(
       categoriesMap.toArray().concat(events),
-      (url, path) => buildResourceFilePath(url, path, newCity)
+      (url, urlHash) => buildResourceFilePath(url, newCity, urlHash)
     )
 
     resourceURLFinder.finalize()
