@@ -12,11 +12,11 @@ import withTheme from '../../modules/theme/hocs/withTheme'
 import Disclaimer from './Disclaimer'
 import FailureContainer from '../../modules/error/containers/FailureContainer'
 
-type OwnPropsType = {| navigation: NavigationScreenProp<*>, theme: ThemeType |}
+type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
 
 type StatePropsType = {| city: string, language: string |}
 
-type PropsType = {| ...OwnPropsType, ...StatePropsType |}
+type PropsType = {| ...OwnPropsType, ...StatePropsType, dispatch: () => void |}
 
 const mapStateToProps = (state: StateType): StatePropsType => {
   if (!state.cityContent) {
@@ -30,7 +30,8 @@ type DisclaimerPropsType = {|
   navigation: NavigationScreenProp<*>,
   city: string,
   language: string,
-  theme: ThemeType
+  theme: ThemeType,
+  dispatch: () => void
 |}
 
 type DisclaimerStateType = {|
@@ -81,7 +82,7 @@ class DisclaimerContainer extends React.Component<DisclaimerPropsType, Disclaime
   }
 }
 
-export default withTheme(props => props.language)(
-  connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, null)(
+export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(
+  withTheme(props => props.language)(
     DisclaimerContainer
   ))
