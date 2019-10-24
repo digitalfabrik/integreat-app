@@ -130,7 +130,7 @@ class CitySelector extends React.PureComponent<PropsType> {
       .sort((a: CityModel, b: CityModel) => compareDistance(a, b, currentLongitude, currentLatitude))
       .slice(0, NUMBER_OF_CLOSEST_CITIES)
       .filter(_city => currentDistance(_city, currentLongitude, currentLatitude) < MAXIMAL_DISTANCE)
-    if (cities && cities.length) {
+    if (cities.length > 0) {
       return <>
         <CityGroup theme={this.props.theme}>Nearby</CityGroup>
         {cities.map(city => <CityEntry
