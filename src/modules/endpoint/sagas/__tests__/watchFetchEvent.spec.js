@@ -22,7 +22,7 @@ describe('watchFetchEvents', () => {
 
   describe('fetchEvents', () => {
     const createDataContainer = async (city, language) => {
-      const eventsBuilder = new EventModelBuilder('loadCityContent-events', 2)
+      const eventsBuilder = new EventModelBuilder('loadCityContent-events', 2, city)
       const events = eventsBuilder.build()
       const resources = eventsBuilder.buildResources()
       const languages = new LanguageModelBuilder(2).build()

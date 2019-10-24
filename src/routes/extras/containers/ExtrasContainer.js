@@ -55,7 +55,7 @@ class ExtrasContainer extends React.Component<ExtrasPropsType, ExtrasStateType> 
   }
 
   componentWillMount () {
-    this.loadExtras()
+    this.loadExtras().catch(e => this.setState({ error: e }))
   }
 
   navigateToExtra = (path: string, isExternalUrl: boolean, postData: ?Map<string, string>) => {

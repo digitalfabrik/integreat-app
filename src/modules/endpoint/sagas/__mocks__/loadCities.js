@@ -12,7 +12,7 @@ function * loadCities (
   const citiesAvailable = yield call(() => dataContainer.citiesAvailable())
 
   if (!citiesAvailable || forceRefresh) {
-    throw Error('Mock is unable to fetch cities!')
+    throw new Error('When using this mock you should prepare the DataContainer!')
   }
 
   return yield call(dataContainer.getCities)

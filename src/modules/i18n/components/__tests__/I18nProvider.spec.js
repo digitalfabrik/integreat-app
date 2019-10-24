@@ -94,7 +94,8 @@ describe('I18nProvider', () => {
   })
 
   it('should show error if loading fails', async () => {
-    AsyncStorage.getItem.mockImplementation(() => {
+    const previous = AsyncStorage.getItem
+    previous.mockImplementation(() => {
       throw Error('An Error occurred while getting settings!')
     })
 
@@ -106,6 +107,8 @@ describe('I18nProvider', () => {
     await waitForExpect(async () => {
       expect(queryByText('An Error occurred while getting settings!')).not.toBeNull()
     })
+
+    previous.mockImplementation(previous)
   })
 
   it('should use fallback if language is invalid or unknown', () => {
