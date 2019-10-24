@@ -9,6 +9,9 @@ import { CityModel } from '@integreat-app/integreat-api-client'
 import styled, { type StyledComponent } from 'styled-components/native'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 
+const NUMBER_OF_CLOSEST_CITIES = 3
+const MAXIMAL_DISTANCE = 90
+
 export const CityGroup: StyledComponent<{}, ThemeType, *> = styled.Text`
   width: 100%;
   margin-top: 5px;
@@ -25,12 +28,12 @@ type PropsType = {|
   filterText: string,
   navigateToDashboard: (city: CityModel) => void,
   theme: ThemeType,
-  currentLongitude: number | null,
-  currentLatitude: number | null
+  currentLongitude: ?number,
+  currentLatitude: ?number
 |}
 
-const checkAliases = (a: CityModel, filterText: string): boolean => {
-  return Object.keys(a.aliases || {}).some(key => key.toLowerCase().includes(filterText.toLowerCase()))
+const checkAliases = (cityModel: CityModel, filterText: string): boolean => {
+  return Object.keys(cityModel.aliases || {}).some(key => key.toLowerCase().includes(filterText.toLowerCase()))
 }
 
 const byNameAndAliases = (name: string) => {
@@ -55,36 +58,33 @@ const degreesToRadians = (deg: number): number => {
   return Math.PI * deg / degreesSemicircle
 }
 
-const degreeDifference = (longitude0: number, latitude0: number, longitude1: number, latitude1: number): number => {
+const calculateDistance = (longitude0: number, latitude0: number, longitude1: number, latitude1: number): number => {
+  const earthRadius = 6371
   return Math.acos(Math.cos(longitude0) * Math.cos(longitude1) * Math.cos(latitude0 - latitude1) +
-    Math.sin(longitude1) * Math.sin(longitude0))
+    Math.sin(longitude1) * Math.sin(longitude0)) * earthRadius
 }
 
-const currentDistance = (a: CityModel, longitude: number, latitude: number) => {
-  if (a.longitude === null && a.latitude === null && a.aliases === null) {
+const currentDistance = (cityModel: CityModel, longitude: number, latitude: number) => {
+  if (cityModel.longitude === null || cityModel.latitude === null) {
     return Infinity
   }
   const longitude0 = degreesToRadians(longitude)
   const latitude0 = degreesToRadians(latitude)
-  const earthRadius = 6371
   type CoordinatesType = {| longitude: number, latitude: number |}
   // $FlowFixMe https://github.com/facebook/flow/issues/2221
-  const coordinates: Array<CoordinatesType> = Object.values(a.aliases || {})
-  coordinates.push({ longitude: a.longitude, latitude: a.latitude })
-  const distances: Array<number> = coordinates.map((coords: CoordinatesType): {| value: number |} | null => {
-    if (coords.longitude === null || coords.latitude === null) {
-      return null
-    }
+  const coordinates: Array<CoordinatesType> = Object.values(cityModel.aliases || {})
+  coordinates.push({ longitude: cityModel.longitude, latitude: cityModel.latitude })
+  const distances: Array<number> = coordinates.map((coords: CoordinatesType) => {
     const longitude1 = degreesToRadians(coords.longitude)
     const latitude1 = degreesToRadians(coords.latitude)
-    return { value: degreeDifference(longitude0, latitude0, longitude1, latitude1) * earthRadius }
-  }).filter(Boolean).map(x => x.value)
+    return calculateDistance(longitude0, latitude0, longitude1, latitude1)
+  })
   return Math.min(...distances)
 }
 
-const compareDistance = (a: CityModel, b: CityModel, longitude: number, latitude: number) => {
-  const d0 = currentDistance(a, longitude, latitude)
-  const d1 = currentDistance(b, longitude, latitude)
+const compareDistance = (cityModelA: CityModel, cityModelB: CityModel, longitude: number, latitude: number) => {
+  const d0 = currentDistance(cityModelA, longitude, latitude)
+  const d1 = currentDistance(cityModelB, longitude, latitude)
   return d0 - d1
 }
 
@@ -121,17 +121,15 @@ class CitySelector extends React.PureComponent<PropsType> {
   }
 
   _renderNearbyLocations (): React.Node {
-    if (this.props.currentLatitude === null || this.props.currentLongitude === null) {
+    const { currentLatitude, currentLongitude } = this.props
+    if (!currentLatitude || !currentLongitude) {
       return null
     }
-    const currentLatitude = this.props.currentLatitude
-    const currentLongitude = this.props.currentLongitude
-    let cities = this.props.cities.filter(_city => _city.live)
+    const cities = this.props.cities
+      .filter(_city => _city.live)
       .sort((a: CityModel, b: CityModel) => compareDistance(a, b, currentLongitude, currentLatitude))
-    const numberOfClosestCities = 3
-    cities = cities.slice(0, numberOfClosestCities)
-    const maximalDistance = 90
-    cities = cities.filter(_city => currentDistance(_city, currentLongitude, currentLatitude) < maximalDistance)
+      .slice(0, NUMBER_OF_CLOSEST_CITIES)
+      .filter(_city => currentDistance(_city, currentLongitude, currentLatitude) < MAXIMAL_DISTANCE)
     if (cities && cities.length) {
       return <>
         <CityGroup theme={this.props.theme}>Nearby</CityGroup>
@@ -143,8 +141,7 @@ class CitySelector extends React.PureComponent<PropsType> {
           theme={this.props.theme} />)}
       </>
     } else {
-      alert('There are no cities offering integreat close to you.')
-      return null
+      return <CityGroup theme={this.props.theme}>No Integreat places nearby</CityGroup>
     }
   }
 
