@@ -19,6 +19,7 @@ export function * switchContentLanguage (dataContainer: DataContainer, action: S
   try {
     // todo Use netinfo to decide whether offline and language not yet downloaded
     // netInfo.isInternetReachable only available since v4.1.0, but with v4.0.0 netinfo was migrated to androidx
+    // https://issues.integreat-app.de/browse/NATIVE-354
 
     // We never want to force a refresh when switching languages
     yield call(
