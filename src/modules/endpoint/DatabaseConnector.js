@@ -61,8 +61,8 @@ type ContentCityJsonType = {|
   extrasEnabled: boolean,
   eventsEnabled: boolean,
   sortingName: string,
-  longitude: number | null,
-  latitude: number | null,
+  longitude?: number,
+  latitude?: number,
   aliases: { [alias: string]: {|longitude: number, latitude: number|}} | null
 |}
 

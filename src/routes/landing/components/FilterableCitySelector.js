@@ -28,8 +28,8 @@ type PropsType = {
 
 type StateType = {
   filterText: string,
-  currentLongitude: number | null,
-  currentLatitude: number | null
+  currentLongitude: ?number,
+  currentLatitude: ?number
 }
 
 class FilterableCitySelector extends React.Component<PropsType, StateType> {
