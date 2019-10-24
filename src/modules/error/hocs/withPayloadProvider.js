@@ -41,12 +41,21 @@ export type PropsType<S: { dispatch: Dispatch<StoreActionType> }, R> = {|
   dispatch: Dispatch<StoreActionType>
 |}
 
+// A waiting time of >=1s feels like an interruption
+const LOADING_TIMEOUT = 800
+
 const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R> (
   refresh: (refreshProps: R, dispatch: Dispatch<StoreActionType>) => void
 ): ((Component: React.ComponentType<S>) => React.ComponentType<PropsType<S, R>>) => {
   return (Component: React.ComponentType<S>): React.ComponentType<PropsType<S, R>> => {
-    return class extends React.Component<PropsType<S, R>> {
+    return class extends React.Component<PropsType<S, R>, {| timeoutExpired: boolean |}> {
       static displayName = wrapDisplayName(Component, 'withPayloadProvider')
+
+      state = { timeoutExpired: false }
+
+      componentDidMount () {
+        setTimeout(() => this.setState({ timeoutExpired: true }), LOADING_TIMEOUT)
+      }
 
       refresh = () => {
         const props = this.props
@@ -76,7 +85,9 @@ const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R> (
           return <LanguageNotAvailableContainer languages={props.availableLanguages}
                                                 changeLanguage={this.changeUnavailableLanguage} />
         } else if (props.status === 'loading') {
-          return <ScrollView refreshControl={<RefreshControl refreshing />} contentContainerStyle={{ flexGrow: 1 }} />
+          return this.state.timeoutExpired
+            ? <ScrollView refreshControl={<RefreshControl refreshing />} contentContainerStyle={{ flexGrow: 0 }} />
+            : null
         } else { // props.status === 'success'
           return <ScrollView refreshControl={<RefreshControl onRefresh={this.refresh} refreshing={false} />}
                              contentContainerStyle={{ flexGrow: 1 }}>
