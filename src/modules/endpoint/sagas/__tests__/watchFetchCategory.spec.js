@@ -13,7 +13,7 @@ jest.mock('rn-fetch-blob')
 jest.mock('../loadCityContent')
 
 const createDataContainer = async (city: string, language: string) => {
-  const categoriesBuilder = new CategoriesMapModelBuilder()
+  const categoriesBuilder = new CategoriesMapModelBuilder(city)
   const categories = categoriesBuilder.build()
   const resources = categoriesBuilder.buildResources()
   const languages = new LanguageModelBuilder(2).build()

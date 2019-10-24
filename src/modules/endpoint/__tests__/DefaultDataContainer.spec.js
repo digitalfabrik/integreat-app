@@ -53,11 +53,13 @@ const anotherTestResources = {
 }
 
 describe('DefaultDataContainer', () => {
+  const city = 'augsburg'
+
   const testCities = new CityModelBuilder(2).build()
   const testLanguages = new LanguageModelBuilder(2).build()
-  const testCategoriesMap = new CategoriesMapModelBuilder().build()
-  const anotherTestCategoriesMap = new CategoriesMapModelBuilder(1, 1).build()
-  const testEvents = new EventModelBuilder('seed', 2).build()
+  const testCategoriesMap = new CategoriesMapModelBuilder(city).build()
+  const anotherTestCategoriesMap = new CategoriesMapModelBuilder(city, 1, 1).build()
+  const testEvents = new EventModelBuilder('seed', 2, city).build()
 
   describe('isCached', () => {
     it('should return true if CacheType is stored', async () => {
