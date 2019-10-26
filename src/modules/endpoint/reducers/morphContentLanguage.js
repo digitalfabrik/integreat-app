@@ -2,29 +2,34 @@
 
 import type { CategoryRouteStateType, CityContentStateType, EventRouteStateType } from '../../app/StateType'
 import { mapValues } from 'lodash/object'
-import { EventModel } from '@integreat-app/integreat-api-client'
+import { CategoriesMapModel, EventModel } from '@integreat-app/integreat-api-client'
 import type { MorphContentLanguageActionType } from '../../app/StoreActionType'
-import CategoriesMapModel from '@integreat-app/integreat-api-client/models/CategoriesMapModel'
 import forEachTreeNode from '../../common/forEachTreeNode'
 
 const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, city: string, newLanguage: string) =>
   (route: CategoryRouteStateType): CategoryRouteStateType => {
-    if (route.status !== 'ready') {
+    if (route.status !== 'ready' && route.status !== 'languageNotAvailable') {
       console.warn('Route was not ready when translating. Will not translate this route.')
       return route
     }
-    const { depth, path, allAvailableLanguages } = route
+    const { depth, allAvailableLanguages } = route
 
     const translatedPath = allAvailableLanguages.get(newLanguage)
 
     if (!translatedPath) { // Route is not translatable
-      return route
+      return {
+        status: 'languageNotAvailable',
+        allAvailableLanguages,
+        city: route.city,
+        language: newLanguage,
+        depth: route.depth
+      }
     }
 
     const rootModel = newCategoriesMap.findCategoryByPath(translatedPath)
     if (!rootModel) {
       console.warn(`Inconsistent data detected: ${translatedPath} does not exist,
-                      but is referenced in ${path} as translation for ${newLanguage}.`)
+                      but is referenced as translation for ${newLanguage}.`)
       return route
     }
 
@@ -50,18 +55,28 @@ const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, city: str
     }
   }
 
-const eventRouteTranslator = (newEvents: Array<EventModel>, newLanguage: string) =>
+const eventRouteTranslator = (newEvents: $ReadOnlyArray<EventModel>, newLanguage: string) =>
   (route: EventRouteStateType): EventRouteStateType => {
     if (route.status !== 'ready') {
       console.warn('Route was not ready when translating. Will not translate this route.')
       return route
     }
-    const { path, allAvailableLanguages, city } = route
+    const { allAvailableLanguages, city } = route
 
-    if (!path) { // Route is a list of all events
+    if (!allAvailableLanguages.has(newLanguage)) {
+      return {
+        status: 'languageNotAvailable',
+        allAvailableLanguages,
+        language: newLanguage,
+        city
+      }
+    }
+
+    const translatedPath = allAvailableLanguages.get(newLanguage)
+    if (!translatedPath) { // Route is a list of all events
       return {
         status: 'ready',
-        path: null,
+        path: translatedPath,
         models: newEvents,
         allAvailableLanguages,
         language: newLanguage,
@@ -69,19 +84,11 @@ const eventRouteTranslator = (newEvents: Array<EventModel>, newLanguage: string)
       }
     }
 
-    // Route is a single event
-    const translatedPath = allAvailableLanguages.get(newLanguage)
-
-    if (!translatedPath) {
-      // There is no translation for this event
-      return route
-    }
-
     const translatedEvent = newEvents.find(newEvent => translatedPath === newEvent.path)
 
     if (!translatedEvent) {
       console.warn(`Inconsistent data detected: ${translatedPath} does not exist,
-                    but is referenced in ${path} as translation for ${newLanguage}.`)
+                    but is referenced as translation for ${newLanguage}.`)
       return route
     }
 
