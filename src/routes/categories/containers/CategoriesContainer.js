@@ -88,17 +88,14 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     return { status: 'error', message: resourceCache.message, refreshProps }
   }
 
-  const cities: $ReadOnlyArray<CityModel> = state.cities.models
-  const stateView = new CategoriesRouteStateView(route.path, route.models, route.children)
-
   return {
     status: 'success',
     refreshProps,
     innerProps: {
       cityCode: route.city,
       language: route.language,
-      cities,
-      stateView,
+      cities: state.cities.models,
+      stateView: new CategoriesRouteStateView(route.path, route.models, route.children),
       resourceCache: resourceCache.value,
       navigation: ownProps.navigation
     }
