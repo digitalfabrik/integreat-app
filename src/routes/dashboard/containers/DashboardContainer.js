@@ -4,7 +4,7 @@ import type { Dispatch } from 'redux'
 
 import { connect } from 'react-redux'
 import Dashboard from '../components/Dashboard'
-import type { LanguageResourceCacheStateType, StateType } from '../../../modules/app/StateType'
+import type { CityResourceCacheStateType, StateType } from '../../../modules/app/StateType'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
@@ -34,7 +34,7 @@ type ContainerPropsType = {|
   cityCode: string,
   cities: $ReadOnlyArray<CityModel>,
   stateView: CategoriesRouteStateView,
-  resourceCache: LanguageResourceCacheStateType,
+  resourceCache: CityResourceCacheStateType,
   dispatch: Dispatch<StoreActionType>
 |}
 

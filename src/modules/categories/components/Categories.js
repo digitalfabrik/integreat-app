@@ -16,7 +16,7 @@ import {
 import type { ThemeType } from '../../theme/constants/theme'
 import { URL_PREFIX } from '../../platform/constants/webview'
 import CategoriesRouteStateView from '../../app/CategoriesRouteStateView'
-import type { FileCacheStateType, LanguageResourceCacheStateType } from '../../app/StateType'
+import type { FileResourceCacheStateType, CityResourceCacheStateType } from '../../app/StateType'
 import type { NavigateToCategoryParamsType } from '../../app/createNavigateToCategory'
 import type { NavigateToIntegreatUrlParamsType } from '../../app/createNavigateToIntegreatUrl'
 import type { NavigationScreenProp } from 'react-navigation'
@@ -36,7 +36,7 @@ type PropsType = {|
   navigateToIntegreatUrl: NavigateToIntegreatUrlParamsType => void,
 
   navigation: NavigationScreenProp<*>,
-  resourceCache: LanguageResourceCacheStateType,
+  resourceCache: CityResourceCacheStateType,
   theme: ThemeType,
   t: TFunction
 |}
@@ -104,7 +104,7 @@ class Categories extends React.Component<PropsType> {
       }))
   }
 
-  getFileCache (category: CategoryModel): FileCacheStateType {
+  getFileCache (category: CategoryModel): FileResourceCacheStateType {
     return this.props.resourceCache[category.path] || {}
   }
 
