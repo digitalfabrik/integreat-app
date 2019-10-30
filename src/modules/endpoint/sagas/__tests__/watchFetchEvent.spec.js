@@ -21,25 +21,28 @@ describe('watchFetchEvents', () => {
   const language = 'en'
 
   describe('fetchEvents', () => {
-    it('should put an action which pushes the events', async () => {
+    const createDataContainer = async (city, language) => {
       const eventsBuilder = new EventModelBuilder('loadCityContent-events', 2, city)
       const events = eventsBuilder.build()
       const resources = eventsBuilder.buildResources()
       const languages = new LanguageModelBuilder(2).build()
 
-      const initialPath = events[0].path
-
       const dataContainer = new DefaultDataContainer()
       await dataContainer.setEvents(city, language, events)
       await dataContainer.setLanguages(city, languages)
       await dataContainer.setResourceCache(city, language, resources)
+      return { dataContainer, events, resources, languages }
+    }
+
+    it('should put an action which pushes the events', async () => {
+      const { events, dataContainer, resources, languages } = await createDataContainer(city, language)
 
       const action: FetchEventActionType = {
         type: 'FETCH_EVENT',
         params: {
           city,
           language,
-          path: initialPath,
+          path: events[0].path,
           key: 'events-key',
           criterion: {
             forceUpdate: false,
@@ -48,18 +51,77 @@ describe('watchFetchEvents', () => {
         }
       }
       return expectSaga(fetchEvent, dataContainer, action)
+        .withState({ cityContent: { city } })
         .put({
           type: 'PUSH_EVENT',
           params: {
             events,
             resourceCache: resources,
-            path: initialPath,
+            path: events[0].path,
             cityLanguages: languages,
             key: 'events-key',
             language,
             city
           }
         })
+        .run()
+    })
+
+    it('should put error action if language is not available for events list', async () => {
+      const { dataContainer, languages } = await createDataContainer(city, language)
+
+      const invalidLanguage = '??'
+      const action: FetchEventActionType = {
+        type: 'FETCH_EVENT',
+        params: {
+          city,
+          language: invalidLanguage,
+          path: null,
+          key: 'route-0',
+          criterion: {
+            forceUpdate: false,
+            shouldRefreshResources: true
+          }
+        }
+      }
+
+      return expectSaga(fetchEvent, dataContainer, action)
+        .withState({ cityContent: { city: city } })
+        .put({
+          type: 'FETCH_EVENT_FAILED',
+          params: {
+            city: 'augsburg',
+            language: '??',
+            message: 'Could not load event.',
+            path: null,
+            allAvailableLanguages: new Map(languages.map(lng => ([lng.code, null]))),
+            key: 'route-0'
+          }
+        })
+        .run()
+    })
+
+    it('should put an error action if language is not available for specific event', async () => {
+      const { dataContainer } = await createDataContainer(city, language)
+
+      const invalidLanguage = '??'
+      const action: FetchEventActionType = {
+        type: 'FETCH_EVENT',
+        params: {
+          city,
+          language: invalidLanguage,
+          path: `/${city}/${invalidLanguage}/events/some_event`,
+          key: 'route-0',
+          criterion: {
+            forceUpdate: false,
+            shouldRefreshResources: true
+          }
+        }
+      }
+
+      return expectSaga(fetchEvent, dataContainer, action)
+        .withState({ cityContent: { city } })
+        .put.like({ action: { type: 'FETCH_EVENT_FAILED' } })
         .run()
     })
 
@@ -71,7 +133,7 @@ describe('watchFetchEvents', () => {
         params: {
           city,
           language,
-          path: `/${city}/${language}/some-path`,
+          path: `/${city}/${language}/events/some-event`,
           key: 'events-key',
           criterion: {
             forceUpdate: false,
@@ -81,6 +143,7 @@ describe('watchFetchEvents', () => {
       }
 
       return expectSaga(fetchEvent, dataContainer, action)
+        .withState({ cityContent: { city } })
         .provide({
           call: (effect, next) => {
             if (effect.fn === loadCityContent) {
