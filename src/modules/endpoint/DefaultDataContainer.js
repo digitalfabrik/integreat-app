@@ -190,7 +190,8 @@ class DefaultDataContainer implements DataContainer {
   }
 
   cityContentAvailable = async (city: string, language: string): Promise<boolean> => {
-    return this.categoriesAvailable(city, language) && this.eventsAvailable(city, language)
+    return this.categoriesAvailable(city, language) && this.eventsAvailable(city, language) &&
+      this.languagesAvailable(city)
   }
 }
 
