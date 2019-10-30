@@ -8,7 +8,7 @@ import type { FetchResultType, TargetFilePathsType } from '../../fetcher/Fetcher
 import FetcherModule from '../../fetcher/FetcherModule'
 import type { DataContainer } from '../DataContainer'
 import moment from 'moment'
-import type { CityResourceCacheStateType, PageResourceCacheStateType } from '../../app/StateType'
+import type { LanguageResourceCacheStateType, PageResourceCacheStateType } from '../../app/StateType'
 
 export type FetchMapTargetType = { url: string, filePath: string, urlHash: string }
 export type FetchMapType = { [path: string]: Array<FetchMapTargetType> }
@@ -41,7 +41,7 @@ export default function * fetchResourceCache (
       console.warn(message)
     }
 
-    const resourceCache: CityResourceCacheStateType = mapValues(fetchMap, fetchMapEntry =>
+    const resourceCache: LanguageResourceCacheStateType = mapValues(fetchMap, fetchMapEntry =>
       reduce<Array<FetchMapTargetType>, PageResourceCacheStateType>(
         fetchMapEntry, (acc: {}, fetchMapTarget: FetchMapTargetType) => {
           const filePath = fetchMapTarget.filePath

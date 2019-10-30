@@ -13,10 +13,9 @@ import RNFetchblob from 'rn-fetch-blob'
 import type Moment from 'moment-timezone'
 import moment from 'moment-timezone'
 import type {
-  CityResourceCacheStateType,
+  LanguageResourceCacheStateType,
   PageResourceCacheStateType,
-  PageResourceCacheEntryStateType,
-  ResourceCacheStateType
+  PageResourceCacheEntryStateType
 } from '../app/StateType'
 import DatabaseContext from './DatabaseContext'
 import { CACHE_DIR_PATH, CONTENT_DIR_PATH, RESOURCE_CACHE_DIR_PATH } from '../platform/constants/webview'
@@ -349,7 +348,7 @@ class DatabaseConnector {
     })
   }
 
-  async loadResourceCache (context: DatabaseContext): Promise<ResourceCacheStateType> {
+  async loadResourceCache (context: DatabaseContext): Promise<LanguageResourceCacheStateType> {
     const path = this.getResourceCachePath(context)
     const fileExists: boolean = await RNFetchblob.fs.exists(path)
 
@@ -370,9 +369,9 @@ class DatabaseConnector {
     )
   }
 
-  async storeResourceCache (resourceCache: ResourceCacheStateType, context: DatabaseContext) {
+  async storeResourceCache (resourceCache: LanguageResourceCacheStateType, context: DatabaseContext) {
     const path = this.getResourceCachePath(context)
-    const json: ResourceCacheJsonType = mapValues(resourceCache, (cityResourceCache: CityResourceCacheStateType) =>
+    const json: ResourceCacheJsonType = mapValues(resourceCache, (cityResourceCache: LanguageResourceCacheStateType) =>
       mapValues(cityResourceCache, (fileResourceCache: PageResourceCacheStateType) =>
         mapValues(fileResourceCache, (entry: PageResourceCacheEntryStateType): PageResourceCacheEntryJsonType => ({
           file_path: entry.filePath,
