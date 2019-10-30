@@ -19,12 +19,12 @@ The structure of the data stored on the device is:
 ```
 
 The `cities-meta.json` contains information about the last content update:
-```
+```json
 {  
-   "regensburg":{  
-      "languages":{  
-         "de":{  
-            "last_update":"2019-08-12T00:03:19.457Z"
+   "regensburg": {  
+      "languages": {  
+         "de": {  
+            "last_update": "2019-08-12T00:03:19.457Z"
          }
       }
    }
@@ -32,22 +32,24 @@ The `cities-meta.json` contains information about the last content update:
 ```
 
 The `cities.json` contains information about all cities:
-```
-{  
-  "name":"Stadt Regensburg",
-  "live":true,
-  "code":"regensburg",
-  "prefix":"Stadt",
-  "extrasEnabled":true,
-  "eventsEnabled":true,
-  "sortingName":"Regensburg"
-}
+```json
+[
+  {  
+    "name": "Stadt Regensburg",
+    "live": true,
+    "code": "regensburg",
+    "prefix": "Stadt",
+    "extrasEnabled": true,
+    "eventsEnabled": true,
+    "sortingName": "Regensburg"
+  }
+]
 ```
 
-The ""content"" is responsible to store the JSON data from the API.
-The ""resource-cache"" contains all the resources. Resources are files which are either referenced in the HTML content or used as thumbnails of pages.
+The `content` is responsible to store the JSON data from the API.
+The `resource-cache` contains all the resources. Resources are files which are either referenced in the HTML content or used as thumbnails of pages.
 
-The files are stored in ""resource-cache/${city}/files/"" and the corresponding metadata gets stored in ""files.json"".
+The files are stored in `resource-cache/${city}/files/` and the corresponding metadata gets stored in `files.json`.
 
 *Note: Temporary files, like files which are currently downloaded, are also stored in the cache directory. This is platform specific but exists on Android and iOS.*
 
@@ -67,7 +69,7 @@ The format of the files is:
   }
 }
 ```
-If an URL does not have an extension then `extension(url)` is an empty string. `hash(url) returns an md5 sum of the URL. Note that the URL should be valid for both functions.
+If an URL does not have an extension then `extension(url)` is an empty string. `hash(url)` returns a md5 sum of the URL. Note that the URL should be valid for both functions.
 
 **categories.json:**
 ```json
@@ -75,7 +77,7 @@ If an URL does not have an extension then `extension(url)` is an empty string. `
   {
     "path": "/ahaus/en/everyday-life-and-free-time/donate-stock/",
     "title": "Donate stock",
-    "content": "",
+    "content": "<h1>This is a sample category</h1>",
     "last_update": "2017-01-22 19:51:10",
     "thumbnail": "https://cms.integreat-app.de/ahaus/wp-content/uploads/sites/20/2016/05/truck69b-150x150.png",
     "available_languages": {
