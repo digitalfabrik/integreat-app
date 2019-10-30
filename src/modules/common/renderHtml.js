@@ -1,11 +1,11 @@
 // @flow
 
 import { getFontFaceSource, URL_PREFIX } from '../platform/constants/webview'
-import type { FileResourceCacheStateType } from '../app/StateType'
+import type { PageResourceCacheStateType } from '../app/StateType'
 import type { ThemeType } from '../theme/constants/theme'
 
 // language=JavaScript
-const renderJS = (files: FileResourceCacheStateType) => `
+const renderJS = (files: PageResourceCacheStateType) => `
 (function() {
   var hrefs = document.querySelectorAll('[href]')
   var srcs = document.querySelectorAll('[src]')
@@ -53,7 +53,7 @@ const renderJS = (files: FileResourceCacheStateType) => `
 })();
 `
 
-export default (html: string, files: FileResourceCacheStateType, theme: ThemeType, direction: 'rtl' | 'ltr') => {
+export default (html: string, files: PageResourceCacheStateType, theme: ThemeType, direction: 'rtl' | 'ltr') => {
   // language=HTML
   return `
 <html>

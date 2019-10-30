@@ -71,18 +71,18 @@ export type EventRouteStateType = {|
   +message: string
 |}
 
-export type FileResourceCacheEntryStateType = {|
+export type PageResourceCacheEntryStateType = {|
   +filePath: string,
   +lastUpdate: Moment,
   +hash: string
 |}
 
-export type FileResourceCacheStateType = $ReadOnly<{
-  [url: string]: FileResourceCacheEntryStateType
+export type PageResourceCacheStateType = $ReadOnly<{
+  [url: string]: PageResourceCacheEntryStateType
 }>
 
 export type CityResourceCacheStateType = $ReadOnly<{
-  [path: string]: FileResourceCacheStateType
+  [path: string]: PageResourceCacheStateType
 }>
 
 export type ResourceCacheStateType = $ReadOnly<{

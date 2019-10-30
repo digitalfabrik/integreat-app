@@ -3,7 +3,7 @@
 import { DateModel, EventModel, LocationModel } from '@integreat-app/integreat-api-client'
 import moment from 'moment-timezone'
 import seedrandom from 'seedrandom'
-import type { FileResourceCacheStateType } from '../../modules/app/StateType'
+import type { PageResourceCacheStateType } from '../../modules/app/StateType'
 import hashUrl from '../../modules/endpoint/hashUrl'
 import md5 from 'js-md5'
 import type { FetchMapType } from '../../modules/endpoint/sagas/fetchResourceCache'
@@ -30,7 +30,7 @@ class EventModelBuilder {
     return this.buildAll().map(all => all.event)
   }
 
-  buildResources (): { [path: string]: FileResourceCacheStateType } {
+  buildResources (): { [path: string]: PageResourceCacheStateType } {
     return this.buildAll().reduce((result, { path, resources }) => {
       result[path] = resources
       return result
@@ -41,7 +41,7 @@ class EventModelBuilder {
     return createFetchMap(this.buildResources())
   }
 
-  createResource (url: string, index: number, lastUpdate: moment): FileResourceCacheStateType {
+  createResource (url: string, index: number, lastUpdate: moment): PageResourceCacheStateType {
     const hash = hashUrl(url)
     return {
       [url]: {
@@ -59,7 +59,7 @@ class EventModelBuilder {
    *
    * @returns The events and the corresponding resource cache
    */
-  buildAll (): Array<{ path: string, event: EventModel, resources: { [path: string]: FileResourceCacheStateType } }> {
+  buildAll (): Array<{ path: string, event: EventModel, resources: { [path: string]: PageResourceCacheStateType } }> {
     return Array.from({ length: this._eventCount }, (x, index) => {
       const mockDate = moment('2015-01-01T00:00:00.000Z', moment.ISO_8601)
       const startDate = moment(mockDate.add(this._predictableNumber(index), 'years').toISOString(), moment.ISO_8601)
