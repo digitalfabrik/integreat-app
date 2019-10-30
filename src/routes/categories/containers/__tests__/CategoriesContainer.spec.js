@@ -202,6 +202,26 @@ describe('CategoriesContainer', () => {
     expectLoadingIndicator(state)
   })
 
+  it('should display LanguageNotAvailable if the route has the corresponding status', () => {
+    const state = prepareState({
+      status: 'languageNotAvailable',
+      depth: 2,
+      city: city.code,
+      language: language.code,
+      allAvailableLanguages: new Map(languages.map(lng => [lng.code, `/${city.code}/${lng.code}`]))
+    })
+    const store = mockStore(state)
+    const navigation = createNavigationScreenPropMock()
+    navigation.state.key = 'route-id-0'
+    jest.doMock('../../../../modules/categories/components/Categories', () => MockCategories)
+    const CategoriesContainer = require('../CategoriesContainer').default
+
+    const { getByText } = render(
+      <Provider store={store}><CategoriesContainer navigation={navigation} /></Provider>
+    )
+    expect(getByText('chooseALanguage')).toBeTruthy()
+  })
+
   it('should display Categories component if the state is ready', () => {
     const state: StateType = prepareState(successfulRouteState)
     const store = mockStore(state)
