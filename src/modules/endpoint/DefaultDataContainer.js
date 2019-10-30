@@ -2,7 +2,7 @@
 
 import { CategoriesMapModel, CityModel, EventModel, LanguageModel } from '@integreat-app/integreat-api-client'
 import DatabaseContext from './DatabaseContext'
-import type { LanguageResourceCacheStateType, PageResourceCacheStateType } from '../app/StateType'
+import type { CityResourceCacheStateType, PageResourceCacheStateType, LanguageResourceCacheStateType } from '../app/StateType'
 import DatabaseConnector from './DatabaseConnector'
 import type { DataContainer } from './DataContainer'
 import type Moment from 'moment'
@@ -15,7 +15,7 @@ type CacheType = {
   events: Cache<Array<EventModel>>,
   categories: Cache<CategoriesMapModel>,
   languages: Cache<Array<LanguageModel>>,
-  resourceCache: Cache<LanguageResourceCacheStateType>,
+  resourceCache: Cache<CityResourceCacheStateType>,
   lastUpdate: Cache<Moment | null>
 }
 
@@ -44,9 +44,9 @@ class DefaultDataContainer implements DataContainer {
         (connector: DatabaseConnector, context: DatabaseContext) => connector.loadLanguages(context),
         (value: Array<LanguageModel>, connector: DatabaseConnector, context: DatabaseContext) =>
           connector.storeLanguages(value, context)),
-      resourceCache: new Cache<LanguageResourceCacheStateType>(this._databaseConnector,
+      resourceCache: new Cache<CityResourceCacheStateType>(this._databaseConnector,
         (connector: DatabaseConnector, context: DatabaseContext) => connector.loadResourceCache(context),
-        (value: LanguageResourceCacheStateType, connector: DatabaseConnector, context: DatabaseContext) =>
+        (value: CityResourceCacheStateType, connector: DatabaseConnector, context: DatabaseContext) =>
           connector.storeResourceCache(value, context)),
       lastUpdate: new Cache<Moment | null>(this._databaseConnector,
         (connector: DatabaseConnector, context: DatabaseContext) => connector.loadLastUpdate(context),
@@ -83,7 +83,7 @@ class DefaultDataContainer implements DataContainer {
 
   getResourceCache = async (city: string, language: string): Promise<LanguageResourceCacheStateType> => {
     const context = new DatabaseContext(city, null)
-    const cache: Cache<LanguageResourceCacheStateType> = this.caches.resourceCache
+    const cache: Cache<CityResourceCacheStateType> = this.caches.resourceCache
     const resourceCache = await cache.get(context)
 
     if (!resourceCache[language]) {
@@ -132,7 +132,7 @@ class DefaultDataContainer implements DataContainer {
   setResourceCache = async (city: string, language: string, resourceCache: LanguageResourceCacheStateType) => {
     const context = new DatabaseContext(city, null)
 
-    const cache: Cache<LanguageResourceCacheStateType> = this.caches.resourceCache
+    const cache: Cache<CityResourceCacheStateType> = this.caches.resourceCache
     const previousResourceCache = cache.getCached(context)
 
     if (!previousResourceCache) {
