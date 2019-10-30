@@ -6,13 +6,15 @@ import type { NavigationScreenProp } from 'react-navigation'
 import { translate } from 'react-i18next'
 import { connect } from 'react-redux'
 import type { StateType } from '../../../modules/app/StateType'
+import { type Dispatch } from 'redux'
+import type { StoreActionType } from '../../../modules/app/StoreActionType'
 
 type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
 
 type PropsType = {|
   navigation: NavigationScreenProp<*>,
   language: string,
-  dispatch: () => void
+  dispatch: Dispatch<StoreActionType>
 |}
 
 const mapStateToProps = (state: StateType) => {

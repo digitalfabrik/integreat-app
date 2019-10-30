@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { ActivityIndicator } from 'react-native'
+import { RefreshControl, ScrollView } from 'react-native'
 import Extras from '../components/Extras'
 import { type TFunction, translate } from 'react-i18next'
 import { CityModel, createExtrasEndpoint, ExtraModel, Payload } from '@integreat-app/integreat-api-client'
@@ -10,8 +10,9 @@ import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { StateType } from '../../../modules/app/StateType'
 import type { NavigationScreenProp } from 'react-navigation'
 import { baseUrl } from '../../../modules/endpoint/constants'
-import Failure from '../../../modules/error/components/Failure'
 import withTheme from '../../../modules/theme/hocs/withTheme'
+import FailureContainer from '../../../modules/error/containers/FailureContainer'
+import { LOADING_TIMEOUT } from '../../../modules/common/constants'
 
 type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
 
@@ -45,13 +46,14 @@ type ExtrasPropsType = {|
 
 type ExtrasStateType = {|
   extras: ?Array<ExtraModel>,
-  error: ?Error
+  error: ?Error,
+  timeoutExpired: boolean
 |}
 
 class ExtrasContainer extends React.Component<ExtrasPropsType, ExtrasStateType> {
   constructor (props: ExtrasPropsType) {
     super(props)
-    this.state = { extras: null, error: null }
+    this.state = { extras: null, error: null, timeoutExpired: false }
   }
 
   componentWillMount () {
@@ -70,31 +72,46 @@ class ExtrasContainer extends React.Component<ExtrasPropsType, ExtrasStateType> 
     }
   }
 
-  async loadExtras () {
+  loadExtras = async () => {
     const { city, language } = this.props
-    const payload: Payload<Array<ExtraModel>> = await (createExtrasEndpoint(baseUrl).request({ city, language }))
+    this.setState({ error: null, extras: null, timeoutExpired: false })
+    setTimeout(() => this.setState({ timeoutExpired: true }), LOADING_TIMEOUT)
 
-    if (payload.error) {
-      this.setState(() => ({ error: payload.error, extras: null }))
-    } else {
-      this.setState(() => ({ error: null, extras: payload.data }))
+    try {
+      const payload: Payload<Array<ExtraModel>> = await (createExtrasEndpoint(baseUrl).request({ city, language }))
+
+      if (payload.error) {
+        this.setState({ error: payload.error, extras: null })
+      } else {
+        this.setState({ error: null, extras: payload.data })
+      }
+    } catch (e) {
+      this.setState({ error: e, extras: null })
     }
   }
 
   render () {
     const { theme, t, cities, navigation, city, language } = this.props
-    const { extras, error } = this.state
+    const { extras, error, timeoutExpired } = this.state
 
-    if (error || !cities) {
-      return <Failure errorMessage={error?.message} theme={theme} t={t} />
+    if (error) {
+      return <ScrollView refreshControl={<RefreshControl onRefresh={this.loadExtras} refreshing={false} />}
+                         contentContainerStyle={{ flexGrow: 1 }}>
+        <FailureContainer errorMessage={error.message} tryAgain={this.loadExtras} />
+      </ScrollView>
     }
 
-    if (!extras) {
-      return <ActivityIndicator size='large' color='#0000ff' />
+    if (!extras || !cities) {
+      return timeoutExpired
+        ? <ScrollView refreshControl={<RefreshControl refreshing />} contentContainerStyle={{ flexGrow: 1 }} />
+        : null
     }
 
-    return <Extras extras={extras} navigateToExtra={this.navigateToExtra} theme={theme} t={t} cities={cities}
-                   navigation={navigation} cityCode={city} language={language} />
+    return <ScrollView refreshControl={<RefreshControl onRefresh={this.loadExtras} refreshing={false} />}
+                       contentContainerStyle={{ flexGrow: 1 }}>
+      <Extras extras={extras} navigateToExtra={this.navigateToExtra} theme={theme} t={t} cities={cities}
+              navigation={navigation} cityCode={city} language={language} />
+    </ScrollView>
   }
 }
 

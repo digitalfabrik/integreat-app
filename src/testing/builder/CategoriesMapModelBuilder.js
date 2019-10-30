@@ -53,6 +53,10 @@ class CategoriesMapModelBuilder {
     depth: number) {
     this._categories.push(category)
 
+    if (depth === 0) {
+      this._resourceCache[category.path] = {}
+    }
+
     if (depth === this._depth) {
       return
     }

@@ -9,6 +9,7 @@ import type { StoreActionType } from '../../app/StoreActionType'
 import { type Dispatch } from 'redux'
 import { wrapDisplayName } from 'recompose'
 import FailureContainer from '../containers/FailureContainer'
+import { LOADING_TIMEOUT } from '../../common/constants'
 
 export type RouteNotInitializedType = {| status: 'routeNotInitialized' |}
 export type LoadingType = {| status: 'loading' |}
@@ -47,8 +48,14 @@ const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R> (
   refresh: (refreshProps: R, dispatch: Dispatch<StoreActionType>) => void
 ): ((Component: React.ComponentType<S>) => React.ComponentType<PropsType<S, R>>) => {
   return (Component: React.ComponentType<S>): React.ComponentType<PropsType<S, R>> => {
-    return class extends React.Component<PropsType<S, R>> {
+    return class extends React.Component<PropsType<S, R>, {| timeoutExpired: boolean |}> {
       static displayName = wrapDisplayName(Component, 'withPayloadProvider')
+
+      state = { timeoutExpired: false }
+
+      componentDidMount () {
+        setTimeout(() => this.setState({ timeoutExpired: true }), LOADING_TIMEOUT)
+      }
 
       refresh = () => {
         const props = this.props
@@ -78,7 +85,9 @@ const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R> (
           return <LanguageNotAvailableContainer languages={props.availableLanguages}
                                                 changeLanguage={this.changeUnavailableLanguage} />
         } else if (props.status === 'loading') {
-          return <ScrollView refreshControl={<RefreshControl refreshing />} contentContainerStyle={{ flexGrow: 1 }} />
+          return this.state.timeoutExpired
+            ? <ScrollView refreshControl={<RefreshControl refreshing />} contentContainerStyle={{ flexGrow: 0 }} />
+            : null
         } else { // props.status === 'success'
           return <ScrollView refreshControl={<RefreshControl onRefresh={this.refresh} refreshing={false} />}
                              contentContainerStyle={{ flexGrow: 1 }}>
