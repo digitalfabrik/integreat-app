@@ -13,6 +13,7 @@ import FailureContainer from '../../modules/error/containers/FailureContainer'
 import type { Dispatch } from 'redux'
 import type { StoreActionType } from '../../modules/app/StoreActionType'
 import { RefreshControl, ScrollView } from 'react-native'
+import { LOADING_TIMEOUT } from '../../modules/common/constants'
 
 type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
 
@@ -38,13 +39,14 @@ type DisclaimerPropsType = {|
 
 type DisclaimerStateType = {|
   disclaimer: ?PageModel,
-  error: ?Error
+  error: ?Error,
+  timeoutExpired: boolean
 |}
 
 class DisclaimerContainer extends React.Component<DisclaimerPropsType, DisclaimerStateType> {
   constructor (props: DisclaimerPropsType) {
     super(props)
-    this.state = { disclaimer: null, error: null }
+    this.state = { disclaimer: null, error: null, timeoutExpired: false }
   }
 
   componentWillMount () {
@@ -53,7 +55,8 @@ class DisclaimerContainer extends React.Component<DisclaimerPropsType, Disclaime
 
   loadDisclaimer = async () => {
     const { city, language } = this.props
-    this.setState({ error: null, disclaimer: null })
+    this.setState({ error: null, disclaimer: null, timeoutExpired: false })
+    setTimeout(() => this.setState({ timeoutExpired: true }), LOADING_TIMEOUT)
 
     try {
       const disclaimerEndpoint = createDisclaimerEndpoint(baseUrl)
@@ -71,7 +74,7 @@ class DisclaimerContainer extends React.Component<DisclaimerPropsType, Disclaime
 
   render () {
     const { theme, navigation, city, language } = this.props
-    const { disclaimer, error } = this.state
+    const { disclaimer, error, timeoutExpired } = this.state
 
     if (error) {
       return <ScrollView refreshControl={<RefreshControl onRefresh={this.loadDisclaimer} refreshing={false} />}
@@ -81,7 +84,9 @@ class DisclaimerContainer extends React.Component<DisclaimerPropsType, Disclaime
     }
 
     if (!disclaimer) {
-      return <ScrollView refreshControl={<RefreshControl refreshing />} contentContainerStyle={{ flexGrow: 1 }} />
+      return timeoutExpired
+        ? <ScrollView refreshControl={<RefreshControl refreshing />} contentContainerStyle={{ flexGrow: 1 }} />
+        : null
     }
 
     return <ScrollView refreshControl={<RefreshControl onRefresh={this.loadDisclaimer} refreshing={false} />}
