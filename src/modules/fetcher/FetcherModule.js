@@ -21,7 +21,7 @@ class FetcherModule {
       return Promise.reject(new Error('Already fetching!'))
     }
     if (isEmpty(targetFilePaths)) {
-      return Promise.resolve({})
+      throw Error('Fetch map can not be empty!')
     }
     FetcherModule.currentlyFetching = true
 
@@ -29,7 +29,13 @@ class FetcherModule {
     subscriptions.push(NativeFetcherModuleEmitter.addListener('progress', progress))
 
     try {
-      return await NativeFetcherModule.fetchAsync(targetFilePaths)
+      const result = await NativeFetcherModule.fetchAsync(targetFilePaths)
+
+      if (!result) {
+        throw Error('Fetch failed for some reason!')
+      }
+
+      return result
     } finally {
       subscriptions.forEach(sub => sub.remove())
       FetcherModule.currentlyFetching = false
