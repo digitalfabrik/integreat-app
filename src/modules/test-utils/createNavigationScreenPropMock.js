@@ -3,7 +3,7 @@
 import type { NavigationScreenProp } from 'react-navigation'
 
 export default (): NavigationScreenProp<*> => ({
-  state: { params: {} },
+  state: { params: {}, key: '' },
   dispatch: jest.fn(),
   goBack: jest.fn(),
   dangerouslyGetParent: jest.fn(),
