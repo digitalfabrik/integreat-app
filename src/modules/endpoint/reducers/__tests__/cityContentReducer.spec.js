@@ -92,7 +92,7 @@ describe('cityContentReducer', () => {
       categoriesRouteMapping: {},
       eventsRouteMapping: {},
       languages: [],
-      resourceCache: {},
+      resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
       switchingLanguage: false
     }
@@ -105,7 +105,7 @@ describe('cityContentReducer', () => {
       categoriesRouteMapping: {},
       eventsRouteMapping: {},
       languages: null,
-      resourceCache: {},
+      resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
       switchingLanguage: false
     }
@@ -156,7 +156,7 @@ describe('cityContentReducer', () => {
         }
       },
       languages: ['de', 'en'],
-      resourceCache: {},
+      resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
       switchingLanguage: false
     }
@@ -180,7 +180,7 @@ describe('cityContentReducer', () => {
         }
       },
       languages: ['de', 'en'],
-      resourceCache: {},
+      resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
       switchingLanguage: false
     }
@@ -216,7 +216,7 @@ describe('cityContentReducer', () => {
         }
       },
       languages: ['de', 'en'],
-      resourceCache: {},
+      resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
       switchingLanguage: false
     }
@@ -283,7 +283,7 @@ describe('cityContentReducer', () => {
       },
       eventsRouteMapping: {},
       languages: ['de', 'en'],
-      resourceCache: {},
+      resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
       switchingLanguage: false
     }
@@ -308,7 +308,7 @@ describe('cityContentReducer', () => {
       },
       eventsRouteMapping: {},
       languages: ['de', 'en'],
-      resourceCache: {},
+      resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
       switchingLanguage: false
     }
@@ -346,7 +346,7 @@ describe('cityContentReducer', () => {
       },
       eventsRouteMapping: {},
       languages: ['de', 'en'],
-      resourceCache: {},
+      resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
       switchingLanguage: false
     }
@@ -378,7 +378,7 @@ describe('cityContentReducer', () => {
       categoriesRouteMapping: {},
       eventsRouteMapping: {},
       languages: [],
-      resourceCache: {},
+      resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
       switchingLanguage: false
     }
@@ -391,7 +391,7 @@ describe('cityContentReducer', () => {
       categoriesRouteMapping: {},
       eventsRouteMapping: {},
       languages: [],
-      resourceCache: {},
+      resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
       switchingLanguage: false
     }

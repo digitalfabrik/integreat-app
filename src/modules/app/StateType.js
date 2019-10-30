@@ -75,13 +75,17 @@ export type FileCacheStateType = $ReadOnly<{
   |}
 }>
 
-export type ErrorStateType = {|
-  +errorMessage: string
-|}
-
 export type LanguageResourceCacheStateType = $ReadOnly<{
   [path: string]: FileCacheStateType
 }>
+
+export type CityContentResourceCacheStateType = {|
+  +status: 'error',
+  +message: string
+|} | {|
+  +status: 'ready',
+  +value: LanguageResourceCacheStateType
+|}
 
 export type CityResourceCacheStateType = $ReadOnly<{
   [language: string]: LanguageResourceCacheStateType
@@ -122,7 +126,7 @@ export type CityContentStateType = {|
   +languages: ?$ReadOnlyArray<LanguageModel>,
   +categoriesRouteMapping: CategoriesRouteMappingType,
   +eventsRouteMapping: EventsRouteMappingType,
-  +resourceCache: LanguageResourceCacheStateType | ErrorStateType,
+  +resourceCache: CityContentResourceCacheStateType,
   +searchRoute: SearchRouteType | null
 |}
 

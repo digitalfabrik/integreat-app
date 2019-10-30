@@ -10,7 +10,7 @@ const createCityContent = (city: string, languages: ?Array<LanguageModel>): City
     switchingLanguage: false,
     categoriesRouteMapping: {},
     eventsRouteMapping: {},
-    resourceCache: {},
+    resourceCache: { status: 'ready', value: {} },
     searchRoute: null
   }
 }
