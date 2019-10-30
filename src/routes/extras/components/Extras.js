@@ -69,7 +69,7 @@ class Extras extends React.Component<PropsType> {
 
     const feedbackItems = [
       createFeedbackVariant(t('feedback:contentOfCity', { city: cityTitle }), EXTRAS_FEEDBACK_TYPE),
-      ...extras.map(extra => createFeedbackVariant(t('feedback:extra', { extra: extra.title }), EXTRA_FEEDBACK_TYPE, extra.alias)),
+      ...extras.map(extra => createFeedbackVariant(t('feedback:contentOfExtra', { extra: extra.title }), EXTRA_FEEDBACK_TYPE, extra.alias)),
       createFeedbackVariant(t('feedback:technicalTopics'), CATEGORIES_FEEDBACK_TYPE)
     ]
 
