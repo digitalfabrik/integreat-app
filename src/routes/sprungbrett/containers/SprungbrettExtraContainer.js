@@ -83,7 +83,7 @@ class SprungbrettExtraContainer extends React.Component<SprungbrettPropsType, Sp
     const { jobs, error } = this.state
 
     if (error) {
-      return <Failure error={error} t={t} theme={theme} />
+      return <Failure errorMessage={error.message} t={t} theme={theme} />
     }
 
     if (!jobs) {
