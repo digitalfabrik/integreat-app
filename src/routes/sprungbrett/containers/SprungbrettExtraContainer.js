@@ -17,6 +17,7 @@ import withTheme from '../../../modules/theme/hocs/withTheme'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { NavigationScreenProp } from 'react-navigation'
 import FailureContainer from '../../../modules/error/containers/FailureContainer'
+import { LOADING_TIMEOUT } from '../../../modules/common/constants'
 
 type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
 
@@ -43,14 +44,15 @@ type SprungbrettPropsType = {|
 
 type SprungbrettStateType = {|
   jobs: ?Array<SprungbrettJobModel>,
-  error: ?Error
+  error: ?Error,
+  timeoutExpired: boolean
 |}
 
 // HINT: If you are copy-pasting this container think about generalizing this way of fetching
 class SprungbrettExtraContainer extends React.Component<SprungbrettPropsType, SprungbrettStateType> {
   constructor (props: SprungbrettPropsType) {
     super(props)
-    this.state = { jobs: null, error: null }
+    this.state = { jobs: null, error: null, timeoutExpired: false }
   }
 
   componentWillMount () {
@@ -65,7 +67,9 @@ class SprungbrettExtraContainer extends React.Component<SprungbrettPropsType, Sp
       return
     }
 
-    this.setState({ error: null, jobs: null })
+    this.setState({ error: null, jobs: null, timeoutExpired: false })
+    setTimeout(() => this.setState({ timeoutExpired: true }), LOADING_TIMEOUT)
+
     try {
       const payload: Payload<Array<ExtraModel>> = await createSprungbrettJobsEndpoint(extra.path).request()
 
@@ -81,7 +85,7 @@ class SprungbrettExtraContainer extends React.Component<SprungbrettPropsType, Sp
 
   render () {
     const { extra, t, theme, language } = this.props
-    const { jobs, error } = this.state
+    const { jobs, error, timeoutExpired } = this.state
 
     if (error) {
       return <ScrollView refreshControl={<RefreshControl onRefresh={this.loadSprungbrett} refreshing={false} />}
@@ -91,7 +95,9 @@ class SprungbrettExtraContainer extends React.Component<SprungbrettPropsType, Sp
     }
 
     if (!jobs) {
-      return <ScrollView refreshControl={<RefreshControl refreshing />} contentContainerStyle={{ flexGrow: 1 }} />
+      return timeoutExpired
+        ? <ScrollView refreshControl={<RefreshControl refreshing />} contentContainerStyle={{ flexGrow: 1 }} />
+        : null
     }
 
     return <ScrollView refreshControl={<RefreshControl onRefresh={this.loadSprungbrett} refreshing={false} />}
