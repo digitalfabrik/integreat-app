@@ -12,9 +12,15 @@ import {
 import RNFetchblob from 'rn-fetch-blob'
 import type Moment from 'moment-timezone'
 import moment from 'moment-timezone'
-import type { CityResourceCacheStateType } from '../app/StateType'
+import type {
+  CityResourceCacheStateType,
+  FileResourceCacheStateType,
+  FileResourceCacheEntryStateType,
+  ResourceCacheStateType
+} from '../app/StateType'
 import DatabaseContext from './DatabaseContext'
 import { CACHE_DIR_PATH, CONTENT_DIR_PATH, RESOURCE_CACHE_DIR_PATH } from '../platform/constants/webview'
+import { mapValues } from 'lodash'
 
 type ContentCategoryJsonType = {|
   root: string,
@@ -70,13 +76,28 @@ type MetaCitiesJsonType = {
   [CityCodeType]: {|
     languages: {
       [LanguageCodeType]: {|
-        lastUpdate: Moment
+        last_update: Moment
       |}
     }
   |}
 }
 
-type ResourceCacheJsonType = CityResourceCacheStateType
+type FileResourceCacheEntryJsonType = {|
+  file_path: string,
+  last_update: string,
+  hash: string
+|}
+
+type FileResourceCacheJsonType = {
+  [url: string]: FileResourceCacheEntryJsonType
+}
+
+type CityResourceCacheJsonType = {
+  [path: string]: FileResourceCacheJsonType
+}
+type ResourceCacheJsonType = {
+  [city: CityCodeType]: CityResourceCacheJsonType
+}
 
 const mapToObject = (map: Map<string, string>) => {
   const output = {}
@@ -134,7 +155,7 @@ class DatabaseConnector {
     currentCityMetaData[cityCode] = currentCityMetaData[cityCode] || { languages: {} }
     currentCityMetaData[cityCode].languages = {
       ...currentCityMetaData[cityCode].languages,
-      [context.languageCode]: { lastUpdate: lastUpdate }
+      [context.languageCode]: { last_update: lastUpdate.toISOString() }
     }
 
     await this.writeFile(path, JSON.stringify(currentCityMetaData))
@@ -158,8 +179,9 @@ class DatabaseConnector {
     }
 
     const currentCityMetaData: MetaCitiesJsonType = JSON.parse(await this.readFile(path))
-    const lastUpdate = currentCityMetaData[cityCode]?.languages[languageCode]?.lastUpdate
-    return lastUpdate ? moment.tz(lastUpdate, 'UTC') : null
+    // eslint-disable-next-line camelcase
+    const lastUpdate = currentCityMetaData[cityCode]?.languages[languageCode]?.last_update
+    return lastUpdate ? moment(lastUpdate, moment.ISO_8601) : null
   }
 
   async storeCategories (categoriesMap: CategoriesMapModel, context: DatabaseContext) {
@@ -327,7 +349,7 @@ class DatabaseConnector {
     })
   }
 
-  async loadResourceCache (context: DatabaseContext): Promise<CityResourceCacheStateType> {
+  async loadResourceCache (context: DatabaseContext): Promise<ResourceCacheStateType> {
     const path = this.getResourceCachePath(context)
     const fileExists: boolean = await RNFetchblob.fs.exists(path)
 
@@ -335,14 +357,30 @@ class DatabaseConnector {
       return {}
     }
 
-    return JSON.parse(await this.readFile(path))
+    const json: ResourceCacheJsonType = JSON.parse(await this.readFile(path))
+
+    return mapValues(json, (cityResourceCache: CityResourceCacheJsonType) =>
+      mapValues(cityResourceCache, (fileResourceCache: FileResourceCacheJsonType) =>
+        mapValues(fileResourceCache, (entry: FileResourceCacheEntryJsonType): FileResourceCacheEntryStateType => ({
+          filePath: entry.file_path,
+          lastUpdate: moment(entry.last_update, moment.ISO_8601),
+          hash: entry.hash
+        }))
+      )
+    )
   }
 
-  async storeResourceCache (resourceCache: CityResourceCacheStateType, context: DatabaseContext) {
+  async storeResourceCache (resourceCache: ResourceCacheStateType, context: DatabaseContext) {
     const path = this.getResourceCachePath(context)
-    // todo: NATIVE-330 Use ResourceCacheJsonType
-
-    const json: ResourceCacheJsonType = resourceCache
+    const json: ResourceCacheJsonType = mapValues(resourceCache, (cityResourceCache: CityResourceCacheStateType) =>
+      mapValues(cityResourceCache, (fileResourceCache: FileResourceCacheStateType) =>
+        mapValues(fileResourceCache, (entry: FileResourceCacheEntryStateType): FileResourceCacheEntryJsonType => ({
+          file_path: entry.filePath,
+          last_update: entry.lastUpdate.toISOString(),
+          hash: entry.hash
+        }))
+      )
+    )
     await this.writeFile(path, JSON.stringify(json))
   }
 

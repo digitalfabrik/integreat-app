@@ -1,6 +1,6 @@
 // @flow
 
-import type { EventRouteStateType, LanguageResourceCacheStateType, StateType } from '../../../modules/app/StateType'
+import type { EventRouteStateType, CityResourceCacheStateType, StateType } from '../../../modules/app/StateType'
 import { connect } from 'react-redux'
 import Events from '../components/Events'
 import { translate } from 'react-i18next'
@@ -23,7 +23,7 @@ type ContainerPropsType = {|
   cities: $ReadOnlyArray<CityModel>,
   cityCode: string,
   language: string,
-  resourceCache: LanguageResourceCacheStateType,
+  resourceCache: CityResourceCacheStateType,
   navigation: NavigationScreenProp<*>,
   dispatch: Dispatch<StoreActionType>
 |}

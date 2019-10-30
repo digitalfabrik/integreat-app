@@ -1,7 +1,7 @@
 // @flow
 
 import { connect } from 'react-redux'
-import type { LanguageResourceCacheStateType, StateType } from '../../../modules/app/StateType'
+import type { CityResourceCacheStateType, StateType } from '../../../modules/app/StateType'
 import { type Dispatch } from 'redux'
 import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
 import type { StoreActionType, SwitchContentLanguageActionType } from '../../../modules/app/StoreActionType'
@@ -24,7 +24,7 @@ type ContainerPropsType = {|
   cityCode: string,
   language: string,
   stateView: CategoriesRouteStateView,
-  resourceCache: LanguageResourceCacheStateType,
+  resourceCache: CityResourceCacheStateType,
   dispatch: Dispatch<StoreActionType>
 |}
 

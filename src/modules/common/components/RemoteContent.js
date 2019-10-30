@@ -7,7 +7,7 @@ import type { ThemeType } from '../../theme/constants/theme'
 import { createHtmlSource, getResourceCacheFilesDirPath, URL_PREFIX } from '../../platform/constants/webview'
 import renderHtml from '../renderHtml'
 import { type DataDetectorTypes, WebView, type WebViewMessageEvent } from 'react-native-webview'
-import type { FileCacheStateType } from '../../app/StateType'
+import type { FileResourceCacheStateType } from '../../app/StateType'
 import type { WebViewNavigation } from 'react-native-webview/js/WebViewTypes'
 import type { ViewLayoutEvent } from 'react-native/Libraries/Components/View/ViewPropTypes'
 import { RTL_LANGUAGES } from '../../i18n/constants'
@@ -26,7 +26,7 @@ type StateType = {|
 type PropType = {|
   content: string,
   theme: ThemeType,
-  files: FileCacheStateType,
+  files: FileResourceCacheStateType,
   language: string,
   cityCode: string,
   onLinkPress: string => void,

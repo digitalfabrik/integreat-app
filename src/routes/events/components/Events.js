@@ -18,7 +18,7 @@ import List from '../../../modules/common/components/List'
 import Caption from '../../../modules/common/components/Caption'
 import Failure from '../../../modules/error/components/Failure'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
-import type { LanguageResourceCacheStateType } from '../../../modules/app/StateType'
+import type { CityResourceCacheStateType } from '../../../modules/app/StateType'
 import type { NavigationScreenProp } from 'react-navigation'
 import type { NavigateToEventParamsType } from '../../../modules/app/createNavigateToEvent'
 import type { NavigateToIntegreatUrlParamsType } from '../../../modules/app/createNavigateToIntegreatUrl'
@@ -33,7 +33,7 @@ export type PropsType = {|
   cities: Array<CityModel>,
   cityCode: string,
   language: string,
-  resourceCache: LanguageResourceCacheStateType,
+  resourceCache: CityResourceCacheStateType,
   theme: ThemeType,
   t: TFunction,
   navigation: NavigationScreenProp<*>,
