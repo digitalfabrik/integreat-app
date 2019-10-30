@@ -48,7 +48,8 @@ export default function * fetchResourceCache (
           const downloadResult = successResults[filePath]
 
           if (downloadResult) {
-            acc[downloadResult.url] = {
+            const url = downloadResult.url
+            acc[url] = {
               filePath,
               lastUpdate: moment(downloadResult.lastUpdate),
               hash: fetchMapTarget.urlHash
