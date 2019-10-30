@@ -320,6 +320,7 @@ class DatabaseConnector {
     }
 
     const json = JSON.parse(await this.readFile(path))
+    console.log(json)
 
     return json.map((jsonObject: ContentEventJsonType) => {
       const jsonDate = jsonObject.date
