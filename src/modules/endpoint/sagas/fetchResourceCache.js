@@ -1,13 +1,13 @@
 // @flow
 
 import type { Saga } from 'redux-saga'
-import { flatten, isEmpty, reduce, values, mapValues, pickBy } from 'lodash'
+import { flatten, isEmpty, mapValues, pickBy, reduce, values } from 'lodash'
 import { call, put } from 'redux-saga/effects'
 import type { ResourcesFetchFailedActionType } from '../../app/StoreActionType'
 import type { FetchResultType, TargetFilePathsType } from '../../fetcher/FetcherModule'
 import FetcherModule from '../../fetcher/FetcherModule'
 import type { DataContainer } from '../DataContainer'
-import type { FileCacheStateType } from '../../app/StateType'
+import type { FileCacheStateType, LanguageResourceCacheStateType } from '../../app/StateType'
 import moment from 'moment'
 
 export type FetchMapTargetType = { url: string, filePath: string, urlHash: string }
@@ -41,15 +41,14 @@ export default function * fetchResourceCache (
       console.warn(message)
     }
 
-    const resourceCache = mapValues(fetchMap, fetchMapEntry =>
+    const resourceCache: LanguageResourceCacheStateType = mapValues(fetchMap, fetchMapEntry =>
       reduce<Array<FetchMapTargetType>, FileCacheStateType>(
-        fetchMapEntry, (acc: FileCacheStateType, fetchMapTarget: FetchMapTargetType) => {
+        fetchMapEntry, (acc: {}, fetchMapTarget: FetchMapTargetType) => {
           const filePath = fetchMapTarget.filePath
           const downloadResult = successResults[filePath]
 
           if (downloadResult) {
-            const url = downloadResult.url
-            acc[url] = {
+            acc[(downloadResult.url)] = {
               filePath,
               lastUpdate: moment(downloadResult.lastUpdate),
               hash: fetchMapTarget.urlHash
