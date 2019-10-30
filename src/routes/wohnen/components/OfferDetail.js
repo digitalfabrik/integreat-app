@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react'
-import { Linking, ScrollView } from 'react-native'
+import { Linking } from 'react-native'
 import { WohnenOfferModel, WohnenFormData, type AccommodationType } from '@integreat-app/integreat-api-client'
 import styled from 'styled-components/native'
 import type { TFunction } from 'react-i18next'
@@ -73,7 +73,7 @@ class OfferDetail extends React.PureComponent<PropsType> {
       const translateAdditionalServices = keys => this.stringify(this.translate('additionalServices', keys))
       const translateRooms = keys => this.stringify(this.translate('rooms', keys))
 
-      return <ScrollView>
+      return <>
         <Caption title={accommodation.title} theme={this.props.theme} />
 
         <MarginalizedView>
@@ -157,7 +157,7 @@ class OfferDetail extends React.PureComponent<PropsType> {
             <RowValue onPress={this.openUrl(`tel:${landlord.phone}`)}>{landlord.phone}</RowValue>
           </Row>
         </MarginalizedView>
-      </ScrollView>
+      </>
     } else {
       throw new Error(`Failed to render form ${JSON.stringify(offer.formData)} because it is not supported!`)
     }

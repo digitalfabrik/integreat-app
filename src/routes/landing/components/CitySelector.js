@@ -33,7 +33,6 @@ const byName = (name: string) => {
 }
 
 const developmentCompare = (a: CityModel, b: CityModel) => {
-  console.log(a.sortingName)
   const aIsTest = a.name.toLocaleLowerCase().includes('test')
   const bIsTest = b.name.toLocaleLowerCase().includes('test')
   if (aIsTest && !bIsTest) {
