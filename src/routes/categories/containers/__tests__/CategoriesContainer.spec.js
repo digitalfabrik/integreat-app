@@ -2,6 +2,8 @@
 
 import type {
   CategoryRouteStateType,
+  CitiesStateType,
+  CityContentResourceCacheStateType,
   LanguageResourceCacheStateType,
   StateType
 } from '../../../../modules/app/StateType'
@@ -13,14 +15,16 @@ import configureMockStore from 'redux-mock-store'
 import React from 'react'
 import { Provider } from 'react-redux'
 import createNavigationScreenPropMock from '../../../../modules/test-utils/createNavigationScreenPropMock'
-import { Text } from 'react-native'
+import { ScrollView, Text } from 'react-native'
 import TestRenderer from 'react-test-renderer'
 import { render } from '@testing-library/react-native'
 import CategoriesRouteStateView from '../../../../modules/app/CategoriesRouteStateView'
 import brightTheme from '../../../../modules/theme/constants/theme'
 import moment from 'moment'
+import { LanguageModel } from '@integreat-app/integreat-api-client'
 
 jest.mock('react-i18next')
+jest.useFakeTimers()
 
 const mockStore = configureMockStore()
 
@@ -45,20 +49,33 @@ describe('CategoriesContainer', () => {
     }
   }
 
-  const prepareState = (routeState: ?CategoryRouteStateType, params = { switchingLanguage: false }): StateType => {
+  const prepareState = (
+    routeState: ?CategoryRouteStateType,
+    {
+      switchingLanguage,
+      cities,
+      languages,
+      resourceCacheState
+    }: {|
+      switchingLanguage?: boolean,
+      cities?: CitiesStateType,
+      languages?: ?Array<LanguageModel>,
+      resourceCacheState?: CityContentResourceCacheStateType
+    |} = {}
+  ): StateType => {
     return {
       darkMode: false,
       cityContent: {
         city: city.code,
-        switchingLanguage: params.switchingLanguage,
-        languages: [language],
+        switchingLanguage: switchingLanguage !== undefined ? switchingLanguage : false,
+        languages: languages !== undefined ? languages : [language],
         categoriesRouteMapping: routeState ? { 'route-id-0': routeState } : {},
         eventsRouteMapping: {},
-        resourceCache: { status: 'ready', value: resourceCache },
+        resourceCache: resourceCacheState || { status: 'ready', value: resourceCache },
         searchRoute: null
       },
       contentLanguage: 'de',
-      cities: { status: 'ready', models: [city] }
+      cities: cities || { status: 'ready', models: [city] }
     }
   }
 
@@ -100,15 +117,7 @@ describe('CategoriesContainer', () => {
     expect(result.toJSON()).toBeNull()
   })
 
-  it('should display error if the route has the status error', () => {
-    const state: StateType = prepareState({
-      status: 'error',
-      path: rootCategory.path,
-      depth: 2,
-      language: language.code,
-      city: city.code,
-      message: 'Something went wrong'
-    })
+  const expectError = (state: StateType, message: string) => {
     const store = mockStore(state)
     const navigation = createNavigationScreenPropMock()
     navigation.state.key = 'route-id-0'
@@ -118,7 +127,79 @@ describe('CategoriesContainer', () => {
     const { getByText } = render(
       <Provider store={store}><CategoriesContainer navigation={navigation} /></Provider>
     )
-    expect(getByText('Something went wrong')).toBeTruthy()
+    expect(getByText(message)).toBeTruthy()
+  }
+
+  it('should display error if the route has the status error', () => {
+    const state: StateType = prepareState({
+      status: 'error',
+      path: rootCategory.path,
+      depth: 2,
+      language: language.code,
+      city: city.code,
+      message: 'Something went wrong with the route'
+    })
+    expectError(state, 'Something went wrong with the route')
+  })
+
+  it('should display error if cities could not be loaded', () => {
+    const state: StateType = prepareState(successfulRouteState, {
+      cities: {
+        status: 'error',
+        message: 'Something went wrong with the cities'
+      }
+    })
+    expectError(state, 'Something went wrong with the cities')
+  })
+
+  it('should display error if resourceCache could not be loaded', () => {
+    const state: StateType = prepareState(successfulRouteState, {
+      resourceCacheState: {
+        status: 'error',
+        message: 'Something went wrong with the resourceCache'
+      }
+    })
+    expectError(state, 'Something went wrong with the resourceCache')
+  })
+
+  const expectLoadingIndicator = (state: StateType) => {
+    const store = mockStore(state)
+    const navigation = createNavigationScreenPropMock()
+    navigation.state.key = 'route-id-0'
+    jest.doMock('../../../../modules/categories/components/Categories', () => MockCategories)
+    const CategoriesContainer = require('../CategoriesContainer').default
+    const result = TestRenderer.create(
+      <Provider store={store}><CategoriesContainer navigation={navigation} /></Provider>
+    )
+    jest.advanceTimersByTime(1000)
+    const refreshControl = result.root.findByType(ScrollView).props.refreshControl
+    expect(refreshControl.props.refreshing).toBe(true)
+  }
+
+  it('should display loading indicator if the route is loading long enough', () => {
+    const state: StateType = prepareState({
+      status: 'loading',
+      path: rootCategory.path,
+      depth: 2,
+      language: language.code,
+      city: city.code
+    })
+    expectLoadingIndicator(state)
+  })
+
+  it('should display loading indicator if switching languages lasts long enough', () => {
+    const state: StateType = prepareState(successfulRouteState, { switchingLanguage: true })
+    expectLoadingIndicator(state)
+  })
+
+  it('should display loading indicator if cities are loading long enough', () => {
+    const state: StateType = prepareState(successfulRouteState, { cities: { status: 'loading' } })
+    expectLoadingIndicator(state)
+  })
+
+  it('should display loading indicator if languages are loading long enough', () => {
+    const state: StateType = prepareState(successfulRouteState, { languages: null })
+    expectLoadingIndicator(state)
   })
 
   it('should display Categories component if the state is ready', () => {
