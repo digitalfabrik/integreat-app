@@ -140,6 +140,10 @@ class Header extends React.PureComponent<PropsType> {
     this.props.navigation.navigate('SearchModal')
   }
 
+  goToDisclaimer = () => {
+    this.props.navigation.navigate('Disclaimer')
+  }
+
   cityDisplayName = (cityModel: CityModel) => {
     const description = cityModel.prefix ? ` (${cityModel.prefix})` : ''
     return `${cityModel.sortingName}${description}`
@@ -168,10 +172,12 @@ class Header extends React.PureComponent<PropsType> {
         </HorizontalLeft>
         <MaterialHeaderButtons>
           {this.renderItem('Search', 'search', 'always', !this.isPeeking() ? this.goToSearch : undefined)}
-          {this.renderItem('Change Language', 'language', 'always', !this.isPeeking() && goToLanguageChange ? goToLanguageChange : undefined)}
+          {this.renderItem('Change Language', 'language', 'always',
+            !this.isPeeking() && goToLanguageChange ? goToLanguageChange : undefined)}
           {this.renderItem(t('share'), undefined, 'never', sharePath ? this.onShare : undefined)}
           {this.renderItem('Change Location', undefined, 'never', this.goToLanding)}
           {this.renderItem(t('settings'), undefined, 'never', this.goToSettings)}
+          {this.renderItem(t('disclaimer'), undefined, 'never', this.goToDisclaimer)}
         </MaterialHeaderButtons>
       </Horizontal>
     </BoxShadow>
