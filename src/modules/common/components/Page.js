@@ -14,7 +14,6 @@ import MomentContext from '../../i18n/context/MomentContext'
 import RemoteContent from './RemoteContent'
 import SiteHelpfulBox from './SiteHelpfulBox'
 import SpaceBetween from './SpaceBetween'
-import type { TFunction } from 'react-i18next'
 
 const HORIZONTAL_MARGIN = 8
 
@@ -37,8 +36,7 @@ type PropType = {|
   children?: React.Node,
   language: string,
   cityCode: string,
-  lastUpdate: Moment,
-  t?: TFunction
+  lastUpdate: Moment
 |}
 
 const HIJACK = /https?:\/\/(cms(-test)?\.integreat-app\.de|web\.integreat-app\.de|integreat\.app)(?!\/[^/]*\/(wp-content|wp-admin|wp-json)\/.*).*/
@@ -63,7 +61,7 @@ class Page extends React.Component<PropType, StateType> {
   onLoad = () => this.setState({ loading: false })
 
   render () {
-    const { title, children, content, files, theme, language, cityCode, lastUpdate, navigateToFeedback, t } = this.props
+    const { title, children, content, files, theme, language, cityCode, lastUpdate, navigateToFeedback } = this.props
     return <SpaceBetween>
       <Container>
         <Caption title={title} theme={theme} />
@@ -75,7 +73,7 @@ class Page extends React.Component<PropType, StateType> {
         </MomentContext.Consumer>}
       </Container>
       {navigateToFeedback && !this.state.loading && <SiteHelpfulBox navigateToFeedback={navigateToFeedback}
-                                                                    theme={theme} t={t} />}
+                                                                    theme={theme} />}
     </SpaceBetween>
   }
 }
