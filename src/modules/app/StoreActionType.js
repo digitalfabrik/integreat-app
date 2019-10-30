@@ -1,7 +1,7 @@
 // @flow
 
 import { CategoriesMapModel, CityModel, EventModel, LanguageModel } from '@integreat-app/integreat-api-client'
-import type { CategoryRouteConfigType, CityResourceCacheStateType } from './StateType'
+import type { CategoryRouteConfigType, LanguageResourceCacheStateType } from './StateType'
 import type { ContentLoadCriterionType } from '../endpoint/ContentLoadCriterion'
 
 export type FetchCitiesActionType = {|
@@ -50,7 +50,7 @@ export type PushCategoryActionType = {|
   type: 'PUSH_CATEGORY',
   +params: {|
     +categoriesMap: CategoriesMapModel,
-    +resourceCache: CityResourceCacheStateType,
+    +resourceCache: LanguageResourceCacheStateType,
     +cityLanguages: Array<LanguageModel>,
     ...CategoryRouteConfigType,
     +key: string
@@ -83,7 +83,7 @@ export type PushEventActionType = {|
     +events: $ReadOnlyArray<EventModel>,
     +path: ?string,
     +key: string,
-    +resourceCache: CityResourceCacheStateType,
+    +resourceCache: LanguageResourceCacheStateType,
     +cityLanguages: $ReadOnlyArray<LanguageModel>,
     +language: string,
     +city: string
@@ -122,7 +122,7 @@ export type SwitchContentLanguageFailedActionType = {|
 export type MorphContentLanguageActionType = {|
   type: 'MORPH_CONTENT_LANGUAGE', +params: {|
     +newCategoriesMap: CategoriesMapModel,
-    +newResourceCache: CityResourceCacheStateType,
+    +newResourceCache: LanguageResourceCacheStateType,
     +newEvents: $ReadOnlyArray<EventModel>,
     +newLanguage: string
   |}

@@ -2,7 +2,7 @@
 
 import { CategoriesMapModel, CityModel, EventModel, LanguageModel } from '@integreat-app/integreat-api-client'
 import DatabaseContext from './DatabaseContext'
-import type { ResourceCacheStateType, PageResourceCacheStateType, CityResourceCacheStateType } from '../app/StateType'
+import type { LanguageResourceCacheStateType, PageResourceCacheStateType } from '../app/StateType'
 import DatabaseConnector from './DatabaseConnector'
 import type { DataContainer } from './DataContainer'
 import type Moment from 'moment'
@@ -15,7 +15,7 @@ type CacheType = {
   events: Cache<Array<EventModel>>,
   categories: Cache<CategoriesMapModel>,
   languages: Cache<Array<LanguageModel>>,
-  resourceCache: Cache<ResourceCacheStateType>,
+  resourceCache: Cache<LanguageResourceCacheStateType>,
   lastUpdate: Cache<Moment | null>
 }
 
@@ -44,9 +44,9 @@ class DefaultDataContainer implements DataContainer {
         (connector: DatabaseConnector, context: DatabaseContext) => connector.loadLanguages(context),
         (value: Array<LanguageModel>, connector: DatabaseConnector, context: DatabaseContext) =>
           connector.storeLanguages(value, context)),
-      resourceCache: new Cache<ResourceCacheStateType>(this._databaseConnector,
+      resourceCache: new Cache<LanguageResourceCacheStateType>(this._databaseConnector,
         (connector: DatabaseConnector, context: DatabaseContext) => connector.loadResourceCache(context),
-        (value: ResourceCacheStateType, connector: DatabaseConnector, context: DatabaseContext) =>
+        (value: LanguageResourceCacheStateType, connector: DatabaseConnector, context: DatabaseContext) =>
           connector.storeResourceCache(value, context)),
       lastUpdate: new Cache<Moment | null>(this._databaseConnector,
         (connector: DatabaseConnector, context: DatabaseContext) => connector.loadLastUpdate(context),
@@ -81,9 +81,9 @@ class DefaultDataContainer implements DataContainer {
     return cache.get(new DatabaseContext(city))
   }
 
-  getResourceCache = async (city: string, language: string): Promise<CityResourceCacheStateType> => {
+  getResourceCache = async (city: string, language: string): Promise<LanguageResourceCacheStateType> => {
     const context = new DatabaseContext(city, null)
-    const cache: Cache<ResourceCacheStateType> = this.caches.resourceCache
+    const cache: Cache<LanguageResourceCacheStateType> = this.caches.resourceCache
     const resourceCache = await cache.get(context)
 
     if (!resourceCache[language]) {
@@ -122,17 +122,17 @@ class DefaultDataContainer implements DataContainer {
     await cache.cache(languages, context)
   }
 
-  getFilePathsFromLanguageResourceCache (languageResourceCache: CityResourceCacheStateType): Array<string> {
+  getFilePathsFromLanguageResourceCache (languageResourceCache: LanguageResourceCacheStateType): Array<string> {
     return flatMap(
       Object.values(languageResourceCache),
       (file: PageResourceCacheStateType): Array<string> => map(file, ({ filePath }) => filePath)
     )
   }
 
-  setResourceCache = async (city: string, language: string, resourceCache: CityResourceCacheStateType) => {
+  setResourceCache = async (city: string, language: string, resourceCache: LanguageResourceCacheStateType) => {
     const context = new DatabaseContext(city, null)
 
-    const cache: Cache<ResourceCacheStateType> = this.caches.resourceCache
+    const cache: Cache<LanguageResourceCacheStateType> = this.caches.resourceCache
     const previousResourceCache = cache.getCached(context)
 
     if (!previousResourceCache) {
@@ -151,7 +151,7 @@ class DefaultDataContainer implements DataContainer {
         const pathsOfOtherLanguages = flatMap(
           // $FlowFixMe https://github.com/flow-typed/flow-typed/issues/1099
           omitBy(previousResourceCache, (val, key: string) => key === language),
-          (languageCache: CityResourceCacheStateType) => this.getFilePathsFromLanguageResourceCache(languageCache)
+          (languageCache: LanguageResourceCacheStateType) => this.getFilePathsFromLanguageResourceCache(languageCache)
         )
         const pathsToClean = difference(removedPaths, pathsOfOtherLanguages)
         console.debug('Cleaning up the following resources:')

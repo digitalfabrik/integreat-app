@@ -16,7 +16,7 @@ import {
 import type { ThemeType } from '../../theme/constants/theme'
 import { URL_PREFIX } from '../../platform/constants/webview'
 import CategoriesRouteStateView from '../../app/CategoriesRouteStateView'
-import type { PageResourceCacheStateType, CityResourceCacheStateType } from '../../app/StateType'
+import type { PageResourceCacheStateType, LanguageResourceCacheStateType } from '../../app/StateType'
 import type { NavigateToCategoryParamsType } from '../../app/createNavigateToCategory'
 import type { NavigateToIntegreatUrlParamsType } from '../../app/createNavigateToIntegreatUrl'
 import type { NavigationScreenProp } from 'react-navigation'
@@ -36,7 +36,7 @@ type PropsType = {|
   navigateToIntegreatUrl: NavigateToIntegreatUrlParamsType => void,
 
   navigation: NavigationScreenProp<*>,
-  resourceCache: CityResourceCacheStateType,
+  resourceCache: LanguageResourceCacheStateType,
   theme: ThemeType,
   t: TFunction
 |}

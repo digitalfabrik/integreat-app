@@ -81,12 +81,12 @@ export type PageResourceCacheStateType = $ReadOnly<{
   [url: string]: PageResourceCacheEntryStateType
 }>
 
-export type CityResourceCacheStateType = $ReadOnly<{
+export type LanguageResourceCacheStateType = $ReadOnly<{
   [path: string]: PageResourceCacheStateType
 }>
 
-export type ResourceCacheStateType = $ReadOnly<{
-  [city: string]: CityResourceCacheStateType
+export type CityResourceCacheStateType = $ReadOnly<{
+  [city: string]: LanguageResourceCacheStateType
 }>
 
 export type CategoriesRouteMappingType = $ReadOnly<{
@@ -124,7 +124,7 @@ export type CityContentStateType = {|
   +languages: ?$ReadOnlyArray<LanguageModel>,
   +categoriesRouteMapping: CategoriesRouteMappingType,
   +eventsRouteMapping: EventsRouteMappingType,
-  +resourceCache: CityResourceCacheStateType | ErrorStateType,
+  +resourceCache: LanguageResourceCacheStateType | ErrorStateType,
   +searchRoute: SearchRouteType | null
 |}
 
