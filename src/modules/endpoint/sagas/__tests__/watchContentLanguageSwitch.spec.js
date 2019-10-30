@@ -28,9 +28,9 @@ describe('watchContentLanguageSwitch', () => {
   describe('fetchCategory', () => {
     it('should put an action when switching language', async () => {
       const languages = new LanguageModelBuilder(2).build()
-      const categoriesBuilder = new CategoriesMapModelBuilder(city)
+      const categoriesBuilder = new CategoriesMapModelBuilder(city, newLanguage)
       const categories = categoriesBuilder.build()
-      const eventsBuilder = new EventModelBuilder('fetchCategory-events', 2, city)
+      const eventsBuilder = new EventModelBuilder('fetchCategory-events', 2, city, newLanguage)
       const events = eventsBuilder.build()
       const resources = { ...categoriesBuilder.buildResources(), ...eventsBuilder.buildResources() }
 
