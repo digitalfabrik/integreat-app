@@ -21,7 +21,7 @@ import { mapProps } from 'recompose'
 
 type ContainerPropsType = {|
   navigation: NavigationScreenProp<*>,
-  cities: Array<CityModel>,
+  cities: $ReadOnlyArray<CityModel>,
   cityCode: string,
   language: string,
   stateView: CategoriesRouteStateView,
@@ -41,9 +41,7 @@ type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
 type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
-const createChangeUnavailableLanguage = (
-  path: string, navigation: NavigationScreenProp<*>, city: string, t: TFunction
-) => (
+const createChangeUnavailableLanguage = (city: string, t: TFunction) => (
   dispatch: Dispatch<StoreActionType>, newLanguage: string
 ) => {
   const switchContentLanguage: SwitchContentLanguageActionType = {
@@ -51,14 +49,6 @@ const createChangeUnavailableLanguage = (
     params: { newLanguage, city, t }
   }
   dispatch(switchContentLanguage)
-  const navigateToCategory = createNavigateToCategory('Categories', dispatch, navigation)
-  navigateToCategory({
-    cityCode: city,
-    language: newLanguage,
-    path,
-    forceUpdate: false,
-    key: navigation.state.key
-  })
 }
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
@@ -66,44 +56,43 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   if (!state.cityContent) {
     return { status: 'routeNotInitialized' }
   }
-  const { resourceCache, categoriesRouteMapping, switchingLanguage } = state.cityContent
+  const { resourceCache, categoriesRouteMapping, switchingLanguage, languages } = state.cityContent
   const route = categoriesRouteMapping[navigation.state.key]
-
   if (!route) {
     return { status: 'routeNotInitialized' }
   }
 
-  const city = route.city
-  const refreshProps = { cityCode: city, language: route.language, path: route.path, navigation }
-
-  if (state.cities.status === 'error' ||
-    resourceCache.errorMessage !== undefined ||
-    route.status === 'error') {
-    return { status: 'error', refreshProps }
-  }
-
-  if (route.status === 'loading' || switchingLanguage || state.cities.status === 'loading') {
+  if (state.cities.status === 'loading' || switchingLanguage || route.status === 'loading' || !languages) {
     return { status: 'loading' }
   }
 
-  const cities = state.cities.models
-  const languages = Array.from(route.allAvailableLanguages.keys())
-  const stateView = new CategoriesRouteStateView(route.path, route.models, route.children)
-  if (!languages.includes(route.language)) {
+  if (route.status === 'languageNotAvailable') {
     return {
       status: 'languageNotAvailable',
-      availableLanguages: languages,
-      cityCode: city,
-      refreshProps,
-      changeUnavailableLanguage: createChangeUnavailableLanguage(route.path, navigation, city, t)
+      availableLanguages: languages.filter(lng => route.allAvailableLanguages.has(lng.code)),
+      cityCode: route.city,
+      changeUnavailableLanguage: createChangeUnavailableLanguage(route.city, t)
     }
   }
+
+  const refreshProps = {
+    cityCode: route.city,
+    language: route.language,
+    path: route.path,
+    navigation: ownProps.navigation
+  }
+  if (state.cities.status === 'error' || resourceCache.errorMessage !== undefined || route.status === 'error') {
+    return { status: 'error', refreshProps }
+  }
+
+  const cities: $ReadOnlyArray<CityModel> = state.cities.models
+  const stateView = new CategoriesRouteStateView(route.path, route.models, route.children)
 
   return {
     status: 'success',
     refreshProps,
     innerProps: {
-      cityCode: city,
+      cityCode: route.city,
       language: route.language,
       cities,
       stateView,

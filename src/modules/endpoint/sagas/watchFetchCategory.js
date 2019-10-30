@@ -30,32 +30,40 @@ export function * fetchCategory (dataContainer: DataContainer, action: FetchCate
     const peeking = yield call(isPeeking, city)
 
     const loadCriterion = new ContentLoadCriterion(criterion, peeking)
-    const cityContentLoaded = yield call(loadCityContent, dataContainer, city, language, loadCriterion)
+    const languageValid = yield call(loadCityContent, dataContainer, city, language, loadCriterion)
 
-    if (cityContentLoaded) {
-      // Only proceed if the content is ready to be pushed to the state. If not then the UI automatically displays an
-      // appropriate error
+    // Only get languages if we've loaded them, otherwise we're peeking
+    const cityLanguages = loadCriterion.shouldLoadLanguages() ? yield call(dataContainer.getLanguages, city) : []
+
+    if (languageValid) {
       const [categoriesMap, resourceCache] = yield all([
         call(dataContainer.getCategoriesMap, city, language),
         call(dataContainer.getResourceCache, city, language)
       ])
 
-      // Only get languages if we've loaded them, otherwise we're peeking
-      const cityLanguages = loadCriterion.shouldLoadLanguages() ? yield call(dataContainer.getLanguages, city) : []
-
       const push: PushCategoryActionType = {
         type: `PUSH_CATEGORY`,
         params: { categoriesMap, resourceCache, path, cityLanguages, depth, key, city, language }
       }
-
       yield put(push)
+    } else {
+      const allAvailableLanguages = path === `/${city}/${language}`
+        ? new Map(cityLanguages.map(lng => [lng.code, `/${city}/${lng.code}`]))
+        : null
+      const failedAction: FetchCategoryFailedActionType = {
+        type: `FETCH_CATEGORY_FAILED`,
+        params: {
+          message: 'Language not available.', key, path, depth, language, city, allAvailableLanguages
+        }
+      }
+      yield put(failedAction)
     }
   } catch (e) {
     console.error(e)
     const failed: FetchCategoryFailedActionType = {
       type: `FETCH_CATEGORY_FAILED`,
       params: {
-        message: `Error in fetchCategory: ${e.message}`, key
+        message: `Error in fetchCategory: ${e.message}`, key, path, depth, language, city, allAvailableLanguages: null
       }
     }
     yield put(failed)

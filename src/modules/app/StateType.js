@@ -22,11 +22,17 @@ export type CategoryRouteConfigType = {|
 export type CategoryRouteStateType = {|
   +status: 'ready',
   ...CategoryRouteConfigType,
-  +allAvailableLanguages: Map<string, string>, // including the current content language
-  +models: { [path: PathType]: CategoryModel }, /* Models could be stored outside of CategoryRouteStateType
-                                                   (e.g. CategoriesStateType) to save memory
-                                                   in the state. This would be an optimization! */
-  +children: { [path: PathType]: Array<PathType> }
+  +allAvailableLanguages: $ReadOnlyMap<string, string>, // including the current content language
+  +models: $ReadOnly<{ [path: PathType]: CategoryModel }>, /* Models could be stored outside of CategoryRouteStateType
+                                                              (e.g. CategoriesStateType) to save memory
+                                                              in the state. This would be an optimization! */
+  +children: $ReadOnly<{ [path: PathType]: $ReadOnlyArray<PathType> }>
+|} | {|
+  +status: 'languageNotAvailable',
+  +depth: number,
+  +city: string,
+  +language: string,
+  +allAvailableLanguages: $ReadOnlyMap<string, string>
 |} | {|
   +status: 'loading',
   ...CategoryRouteConfigType
@@ -37,7 +43,7 @@ export type CategoryRouteStateType = {|
 |}
 
 export type EventRouteConfigType = {|
-  +path: ?string,
+  +path: ?string, // path is null for the event-lists route
   +language: string,
   +city: string
 |}
@@ -45,8 +51,13 @@ export type EventRouteConfigType = {|
 export type EventRouteStateType = {|
   +status: 'ready',
   ...EventRouteConfigType,
-  +models: Array<EventModel>,
-  +allAvailableLanguages: Map<string, string> // including the current content language
+  +models: $ReadOnlyArray<EventModel>,
+  +allAvailableLanguages: $ReadOnlyMap<string, ?string> // including the current content language
+|} | {|
+  +status: 'languageNotAvailable',
+  +language: string,
+  +city: string,
+  +allAvailableLanguages: $ReadOnlyMap<string, ?string>
 |} | {|
   +status: 'loading',
   ...EventRouteConfigType
@@ -56,37 +67,37 @@ export type EventRouteStateType = {|
   +message: string
 |}
 
-export type FileCacheStateType = {
+export type FileCacheStateType = $ReadOnly<{
   [url: string]: {|
-    filePath: string,
-    lastUpdate: Moment,
-    hash: string
+    +filePath: string,
+    +lastUpdate: Moment,
+    +hash: string
   |}
-}
+}>
 
 export type ErrorStateType = {|
   +errorMessage: string
 |}
 
-export type LanguageResourceCacheStateType = {
+export type LanguageResourceCacheStateType = $ReadOnly<{
   [path: string]: FileCacheStateType
-} | ErrorStateType
+}>
 
-export type CityResourceCacheStateType = {
+export type CityResourceCacheStateType = $ReadOnly<{
   [language: string]: LanguageResourceCacheStateType
-}
+}>
 
-export type CategoriesRouteMappingType = {
+export type CategoriesRouteMappingType = $ReadOnly<{
   [key: string]: CategoryRouteStateType
-}
+}>
 
-export type EventsRouteMappingType = {
+export type EventsRouteMappingType = $ReadOnly<{
   [key: string]: EventRouteStateType
-}
+}>
 
 export type CitiesStateType = {|
   +status: 'ready',
-  +models: Array<CityModel>
+  +models: $ReadOnlyArray<CityModel>
 |} | {|
   +status: 'loading'
 |} | {|
@@ -108,10 +119,10 @@ export type SearchRouteType = {|
 export type CityContentStateType = {|
   +city: string,
   +switchingLanguage: boolean,
-  +languages: ?Array<LanguageModel>,
+  +languages: ?$ReadOnlyArray<LanguageModel>,
   +categoriesRouteMapping: CategoriesRouteMappingType,
   +eventsRouteMapping: EventsRouteMappingType,
-  +resourceCache: LanguageResourceCacheStateType,
+  +resourceCache: LanguageResourceCacheStateType | ErrorStateType,
   +searchRoute: SearchRouteType | null
 |}
 
