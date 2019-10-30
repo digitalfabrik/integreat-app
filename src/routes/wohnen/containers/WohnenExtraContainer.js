@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import { ActivityIndicator } from 'react-native'
+import { RefreshControl, ScrollView } from 'react-native'
 import type { StateType } from '../../../modules/app/StateType'
 import { connect } from 'react-redux'
 import { type TFunction, translate } from 'react-i18next'
@@ -9,10 +9,11 @@ import WohnenExtra from '../components/WohnenExtra'
 import { createWohnenEndpoint, ExtraModel, Payload, WohnenOfferModel } from '@integreat-app/integreat-api-client'
 import { WOHNEN_EXTRA, WOHNEN_ROUTE } from '../../extras/constants'
 import { wohnenApiBaseUrl } from '../../../modules/endpoint/constants'
-import Failure from '../../../modules/error/components/Failure'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { NavigationScreenProp } from 'react-navigation'
+import FailureContainer from '../../../modules/error/containers/FailureContainer'
+import { LOADING_TIMEOUT } from '../../../modules/common/constants'
 
 type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
 
@@ -59,29 +60,33 @@ type WohnenPropsType = {|
   t: TFunction
 |}
 
-type SprungbrettStateType = {|
+type WohnenStateType = {|
   offers: ?Array<WohnenOfferModel>,
-  error: ?Error
+  error: ?Error,
+  timeoutExpired: boolean
 |}
 
 // HINT: If you are copy-pasting this container think about generalizing this way of fetching
-class WohnenExtraContainer extends React.Component<WohnenPropsType, SprungbrettStateType> {
+class WohnenExtraContainer extends React.Component<WohnenPropsType, WohnenStateType> {
   constructor (props: WohnenPropsType) {
     super(props)
-    this.state = { offers: null, error: null }
+    this.state = { offers: null, error: null, timeoutExpired: false }
   }
 
   componentWillMount () {
-    this.loadSprungbrett()
+    this.loadWohnen()
   }
 
-  async loadSprungbrett () {
+  loadWohnen = async () => {
     const { extra } = this.props
 
     if (!extra) {
-      this.setState(() => ({ error: new Error('The Wohnen extra is not supported.'), offers: null }))
+      this.setState({ error: new Error('The Wohnen extra is not supported.'), offers: null })
       return
     }
+
+    this.setState({ offers: null, error: null, timeoutExpired: false })
+    setTimeout(() => this.setState({ timeoutExpired: true }), LOADING_TIMEOUT)
 
     try {
       const payload: Payload<Array<ExtraModel>> = await createWohnenEndpoint(wohnenApiBaseUrl).request(
@@ -89,30 +94,37 @@ class WohnenExtraContainer extends React.Component<WohnenPropsType, SprungbrettS
       )
 
       if (payload.error) {
-        this.setState(() => ({ error: payload.error, offers: null }))
-        return
+        this.setState({ error: payload.error, offers: null })
+      } else {
+        this.setState({ error: null, offers: payload.data })
       }
-
-      this.setState(() => ({ error: null, offers: payload.data }))
     } catch (e) {
-      this.setState(() => ({ error: e, offers: null }))
+      this.setState({ error: e, offers: null })
     }
   }
 
   render () {
     const { language, extra, offerHash, navigateToOffer, t, theme } = this.props
-    const { offers, error } = this.state
+    const { offers, error, timeoutExpired } = this.state
 
     if (error) {
-      return <Failure error={error} t={t} theme={theme} />
+      return <ScrollView refreshControl={<RefreshControl onRefresh={this.loadWohnen} refreshing={false} />}
+                         contentContainerStyle={{ flexGrow: 1 }}>
+        <FailureContainer error={error} tryAgain={this.loadWohnen} />
+      </ScrollView>
     }
 
     if (!offers) {
-      return <ActivityIndicator size='large' color='#0000ff' />
+      return timeoutExpired
+        ? <ScrollView refreshControl={<RefreshControl refreshing />} contentContainerStyle={{ flexGrow: 1 }} />
+        : null
     }
 
-    return <WohnenExtra wohnenExtra={extra} offerHash={offerHash} navigateToOffer={navigateToOffer} offers={offers}
-                        t={t} theme={theme} language={language} />
+    return <ScrollView refreshControl={<RefreshControl onRefresh={this.loadWohnen} refreshing={false} />}
+                       contentContainerStyle={{ flexGrow: 1 }}>
+      return <WohnenExtra wohnenExtra={extra} offerHash={offerHash} navigateToOffer={navigateToOffer} offers={offers}
+                          t={t} theme={theme} language={language} />
+    </ScrollView>
   }
 }
 

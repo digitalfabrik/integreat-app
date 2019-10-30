@@ -100,7 +100,6 @@ class Events extends React.Component<PropsType> {
                      lastUpdate={event.lastUpdate}
                      language={language}
                      files={files}
-                     t={t}
                      theme={theme}
                      cityCode={cityCode}
                      navigation={navigation}
