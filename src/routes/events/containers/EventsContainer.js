@@ -19,8 +19,8 @@ import { mapProps } from 'recompose'
 
 type ContainerPropsType = {|
   path: ?string,
-  events: Array<EventModel>,
-  cities: Array<CityModel>,
+  events: $ReadOnlyArray<EventModel>,
+  cities: $ReadOnlyArray<CityModel>,
   cityCode: string,
   language: string,
   resourceCache: LanguageResourceCacheStateType,
@@ -40,9 +40,7 @@ type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
 type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
-const createChangeUnavailableLanguage = (
-  path: ?string, navigation: NavigationScreenProp<*>, city: string, t: TFunction
-) => (
+const createChangeUnavailableLanguage = (city: string, t: TFunction) => (
   dispatch: Dispatch<StoreActionType>, newLanguage: string
 ) => {
   const switchContentLanguage: SwitchContentLanguageActionType = {
@@ -50,14 +48,6 @@ const createChangeUnavailableLanguage = (
     params: { newLanguage, city, t }
   }
   dispatch(switchContentLanguage)
-  const navigateToEvent = createNavigateToEvent(dispatch, navigation)
-  navigateToEvent({
-    cityCode: city,
-    language: newLanguage,
-    path,
-    forceUpdate: false,
-    key: navigation.state.key
-  })
 }
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
@@ -65,34 +55,35 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   if (!state.cityContent) {
     return { status: 'routeNotInitialized' }
   }
-  const { resourceCache, eventsRouteMapping, city, switchingLanguage } = state.cityContent
+  const { resourceCache, eventsRouteMapping, switchingLanguage, languages } = state.cityContent
   const route: ?EventRouteStateType = eventsRouteMapping[navigation.state.key]
   if (!route) {
     return { status: 'routeNotInitialized' }
   }
 
-  const refreshProps = { cityCode: city, language: route.language, navigation, path: route.path }
-  if (state.cities.status === 'error' ||
-    resourceCache.errorMessage !== undefined ||
-    route.status === 'error') {
-    return { status: 'error', refreshProps }
-  }
-
-  if (state.cities.status === 'loading' || switchingLanguage || route.status === 'loading') {
+  if (state.cities.status === 'loading' || switchingLanguage || route.status === 'loading' || !languages) {
     return { status: 'loading' }
   }
 
-  const cities = state.cities.models
-  const languages = Array.from(route.allAvailableLanguages.keys())
-  if (!languages.find(language => language === route.language)) {
+  if (route.status === 'languageNotAvailable') {
     return {
       status: 'languageNotAvailable',
-      availableLanguages: languages,
-      cityCode: city,
-      refreshProps,
-      changeUnavailableLanguage: createChangeUnavailableLanguage(route.path, navigation, city, t)
+      availableLanguages: languages.filter(lng => route.allAvailableLanguages.has(lng.code)),
+      cityCode: route.city,
+      changeUnavailableLanguage: createChangeUnavailableLanguage(route.city, t)
     }
   }
+
+  const refreshProps = {
+    path: route.path,
+    cityCode: route.city,
+    language: route.language,
+    navigation: ownProps.navigation
+  }
+  if (state.cities.status === 'error' || resourceCache.errorMessage !== undefined || route.status === 'error') {
+    return { status: 'error', refreshProps }
+  }
+  const cities = state.cities.models
 
   return {
     status: 'success',
@@ -101,7 +92,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       path: route.path,
       events: route.models,
       cities: cities,
-      cityCode: city,
+      cityCode: route.city,
       language: route.language,
       resourceCache,
       navigation

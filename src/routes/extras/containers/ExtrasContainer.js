@@ -15,7 +15,7 @@ import withTheme from '../../../modules/theme/hocs/withTheme'
 
 type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
 
-type StatePropsType = {| city: string, language: string, cities: ?Array<CityModel> |}
+type StatePropsType = {| city: string, language: string, cities: ?$ReadOnlyArray<CityModel> |}
 
 type PropsType = { ...OwnPropsType, ...StatePropsType }
 
@@ -24,7 +24,7 @@ const mapStateToProps = (state: StateType): StatePropsType => {
     throw new Error('CityContent must not be null!')
   }
 
-  const cities: ?Array<CityModel> = state.cities.status !== 'ready' ? null : state.cities.models
+  const cities: ?$ReadOnlyArray<CityModel> = state.cities.status !== 'ready' ? null : state.cities.models
 
   return {
     city: state.cityContent.city,
@@ -55,7 +55,7 @@ class ExtrasContainer extends React.Component<ExtrasPropsType, ExtrasStateType> 
   }
 
   componentWillMount () {
-    this.loadExtras()
+    this.loadExtras().catch(e => this.setState({ error: e }))
   }
 
   navigateToExtra = (path: string, isExternalUrl: boolean, postData: ?Map<string, string>) => {
