@@ -66,7 +66,7 @@ class Events extends React.Component<PropsType> {
     navigation.navigate('FeedbackModal', {
       isPositiveFeedback,
       feedbackItems: [
-        createFeedbackVariant(t('feedback:contentOfPage', { page: event.title }), PAGE_FEEDBACK_TYPE, event.path),
+        createFeedbackVariant(t('feedback:contentOfEvent', { event: event.title }), PAGE_FEEDBACK_TYPE, event.path),
         createFeedbackVariant(t('feedback:contentOfCity', { city: cityTitle }), EVENTS_FEEDBACK_TYPE),
         createFeedbackVariant(t('feedback:technicalTopics'), CATEGORIES_FEEDBACK_TYPE)
       ]
@@ -121,7 +121,7 @@ class Events extends React.Component<PropsType> {
 
     return <SpaceBetween>
       <View>
-        <Caption title={t('news')} theme={theme} />
+        <Caption title={t('events')} theme={theme} />
         <List noItemsMessage={t('currentlyNoEvents')}
               items={events}
               renderItem={this.renderEventListItem(cityCode, language)}
