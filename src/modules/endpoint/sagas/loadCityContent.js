@@ -22,8 +22,8 @@ import loadCities from './loadCities'
  * @param newCity
  * @param newLanguage
  * @param criterion
- * @returns Returns a saga which returns whether all data was loaded and
- *          the inputs (like newCity, newLanguage) are valid
+ * @returns Returns a saga which returns whether the newLanguage is available for newCity
+ * @throws if the saga was unable to load necessary data
  */
 export default function * loadCityContent (
   dataContainer: DataContainer, newCity: string, newLanguage: string,

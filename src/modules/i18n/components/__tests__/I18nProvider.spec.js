@@ -3,13 +3,13 @@
 import { render } from '@testing-library/react-native'
 import React from 'react'
 import I18nProvider from '../I18nProvider'
+import type { TFunction } from 'react-i18next'
 import { withNamespaces } from 'react-i18next'
-import localesResources from '../../../../locales.json'
+import localesResources from '../../../../../locales/locales.json'
 import waitForExpect from 'wait-for-expect'
 import AppSettings from '../../../settings/AppSettings'
 import AsyncStorage from '@react-native-community/async-storage'
 import { Text } from 'react-native'
-import type { TFunction } from 'react-i18next'
 
 jest.mock('@react-native-community/async-storage')
 jest.mock('../../../i18n/LanguageDetector')
@@ -53,7 +53,7 @@ describe('I18nProvider', () => {
     })
   })
 
-  it('should not set content language if already set', async () => {
+  it('should not use ui language as content language if already set', async () => {
     const appSettings = new AppSettings()
     await appSettings.setContentLanguage('de')
     const mockSetContentLanguage = jest.fn()
@@ -61,7 +61,7 @@ describe('I18nProvider', () => {
     render(<I18nProvider setContentLanguage={mockSetContentLanguage} />)
 
     await waitForExpect(async () => {
-      expect(mockSetContentLanguage).not.toHaveBeenCalled()
+      expect(mockSetContentLanguage).toHaveBeenCalledWith('de')
       expect(await appSettings.loadContentLanguage()).toBe('de')
     })
   })

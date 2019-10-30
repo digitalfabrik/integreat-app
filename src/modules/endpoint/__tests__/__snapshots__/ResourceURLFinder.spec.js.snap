@@ -1,21 +1,54 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`ResourceURLFinder should build a correct fetch map if two pages are using the same resource 1`] = `
+Object {
+  "/path1": Array [
+    Object {
+      "filePath": "buildFilePath('https://ex.am/pl1.png', 'c0ae5631859192e60552f726dbff7451')",
+      "url": "https://ex.am/pl1.png",
+      "urlHash": "c0ae5631859192e60552f726dbff7451",
+    },
+    Object {
+      "filePath": "buildFilePath('https://ex.am/thumb.png', 'ca774e6debbeeafff1b6d4fe23c3079d')",
+      "url": "https://ex.am/thumb.png",
+      "urlHash": "ca774e6debbeeafff1b6d4fe23c3079d",
+    },
+  ],
+  "/path2": Array [
+    Object {
+      "filePath": "buildFilePath('https://ex.am/pl1.png', 'c0ae5631859192e60552f726dbff7451')",
+      "url": "https://ex.am/pl1.png",
+      "urlHash": "c0ae5631859192e60552f726dbff7451",
+    },
+    Object {
+      "filePath": "buildFilePath('https://ex.am/thumb.png', 'ca774e6debbeeafff1b6d4fe23c3079d')",
+      "url": "https://ex.am/thumb.png",
+      "urlHash": "ca774e6debbeeafff1b6d4fe23c3079d",
+    },
+  ],
+}
+`;
+
 exports[`ResourceURLFinder should build a fetchMap including thumbnails if supplied 1`] = `
 Object {
-  "buildFilePath('https://ex.am/pl1.png', 'c0ae5631859192e60552f726dbff7451')": Array [
-    "https://ex.am/pl1.png",
-    "/path1",
-    "c0ae5631859192e60552f726dbff7451",
+  "/path1": Array [
+    Object {
+      "filePath": "buildFilePath('https://ex.am/pl1.png', 'c0ae5631859192e60552f726dbff7451')",
+      "url": "https://ex.am/pl1.png",
+      "urlHash": "c0ae5631859192e60552f726dbff7451",
+    },
+    Object {
+      "filePath": "buildFilePath('https://ex.am/thumb.png', 'ca774e6debbeeafff1b6d4fe23c3079d')",
+      "url": "https://ex.am/thumb.png",
+      "urlHash": "ca774e6debbeeafff1b6d4fe23c3079d",
+    },
   ],
-  "buildFilePath('https://ex.am/pl2.png', '2961bd9c8033abba619971942578d4e2')": Array [
-    "https://ex.am/pl2.png",
-    "/path2",
-    "2961bd9c8033abba619971942578d4e2",
-  ],
-  "buildFilePath('https://ex.am/thumb.png', 'ca774e6debbeeafff1b6d4fe23c3079d')": Array [
-    "https://ex.am/thumb.png",
-    "/path1",
-    "ca774e6debbeeafff1b6d4fe23c3079d",
+  "/path2": Array [
+    Object {
+      "filePath": "buildFilePath('https://ex.am/pl2.png', '2961bd9c8033abba619971942578d4e2')",
+      "url": "https://ex.am/pl2.png",
+      "urlHash": "2961bd9c8033abba619971942578d4e2",
+    },
   ],
 }
 `;

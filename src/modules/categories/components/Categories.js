@@ -162,7 +162,8 @@ class Categories extends React.Component<PropsType> {
       </SpaceBetween>
     }
     // some level between, we want to display a list
-    return <SpaceBetween>
+    return (
+      <SpaceBetween>
       <View>
         <CategoryList
           categories={children.map((model: CategoryModel) => {
@@ -173,6 +174,7 @@ class Categories extends React.Component<PropsType> {
               subCategories: this.getListModels(children)
             })
           })}
+          thumbnail={this.getCachedThumbnail(category) || category.thumbnail}
           title={category.title}
           content={category.content}
           language={language}
@@ -180,7 +182,8 @@ class Categories extends React.Component<PropsType> {
           theme={theme} />
       </View>
       <SiteHelpfulBox navigateToFeedback={this.navigateToFeedback} theme={theme} t={t} />
-    </SpaceBetween>
+      </SpaceBetween>
+    )
   }
 }
 
