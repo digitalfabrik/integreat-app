@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import { ActivityIndicator } from 'react-native'
+import { RefreshControl, ScrollView } from 'react-native'
 import { type TFunction, translate } from 'react-i18next'
 import SprungbrettExtra from '../components/SprungbrettExtra'
 import { connect } from 'react-redux'
@@ -13,10 +13,11 @@ import {
   SprungbrettJobModel
 } from '@integreat-app/integreat-api-client'
 import { SPRUNGBRETT_EXTRA } from '../../extras/constants'
-import Failure from '../../../modules/error/components/Failure'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { NavigationScreenProp } from 'react-navigation'
+import FailureContainer from '../../../modules/error/containers/FailureContainer'
+import { LOADING_TIMEOUT } from '../../../modules/common/constants'
 
 type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
 
@@ -43,54 +44,66 @@ type SprungbrettPropsType = {|
 
 type SprungbrettStateType = {|
   jobs: ?Array<SprungbrettJobModel>,
-  error: ?Error
+  error: ?Error,
+  timeoutExpired: boolean
 |}
 
 // HINT: If you are copy-pasting this container think about generalizing this way of fetching
 class SprungbrettExtraContainer extends React.Component<SprungbrettPropsType, SprungbrettStateType> {
   constructor (props: SprungbrettPropsType) {
     super(props)
-    this.state = { jobs: null, error: null }
+    this.state = { jobs: null, error: null, timeoutExpired: false }
   }
 
   componentWillMount () {
     this.loadSprungbrett()
   }
 
-  async loadSprungbrett () {
+  loadSprungbrett = async () => {
     const { extra } = this.props
 
     if (!extra) {
-      this.setState(() => ({ error: new Error('The Sprungbrett extra is not supported.'), jobs: null }))
+      this.setState({ error: new Error('The Sprungbrett extra is not supported.'), jobs: null })
       return
     }
+
+    this.setState({ error: null, jobs: null, timeoutExpired: false })
+    setTimeout(() => this.setState({ timeoutExpired: true }), LOADING_TIMEOUT)
+
     try {
       const payload: Payload<Array<ExtraModel>> = await createSprungbrettJobsEndpoint(extra.path).request()
 
       if (payload.error) {
-        this.setState(() => ({ error: payload.error, jobs: null }))
-        return
+        this.setState({ error: payload.error, jobs: null })
+      } else {
+        this.setState({ error: null, jobs: payload.data })
       }
-
-      this.setState(() => ({ error: null, jobs: payload.data }))
     } catch (e) {
-      this.setState(() => ({ error: e, jobs: null }))
+      this.setState({ error: e, jobs: null })
     }
   }
 
   render () {
     const { extra, t, theme, language } = this.props
-    const { jobs, error } = this.state
+    const { jobs, error, timeoutExpired } = this.state
 
     if (error) {
-      return <Failure error={error} t={t} theme={theme} />
+      return <ScrollView refreshControl={<RefreshControl onRefresh={this.loadSprungbrett} refreshing={false} />}
+                         contentContainerStyle={{ flexGrow: 1 }}>
+        <FailureContainer error={error} tryAgain={this.loadSprungbrett} />
+      </ScrollView>
     }
 
     if (!jobs) {
-      return <ActivityIndicator size='large' color='#0000ff' />
+      return timeoutExpired
+        ? <ScrollView refreshControl={<RefreshControl refreshing />} contentContainerStyle={{ flexGrow: 1 }} />
+        : null
     }
 
-    return <SprungbrettExtra sprungbrettExtra={extra} sprungbrettJobs={jobs} t={t} theme={theme} language={language} />
+    return <ScrollView refreshControl={<RefreshControl onRefresh={this.loadSprungbrett} refreshing={false} />}
+                       contentContainerStyle={{ flexGrow: 1 }}>
+      <SprungbrettExtra sprungbrettExtra={extra} sprungbrettJobs={jobs} t={t} theme={theme} language={language} />
+    </ScrollView>
   }
 }
 
