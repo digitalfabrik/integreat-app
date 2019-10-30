@@ -14,8 +14,8 @@ import type Moment from 'moment-timezone'
 import moment from 'moment-timezone'
 import type {
   CityResourceCacheStateType,
-  FileResourceCacheStateType,
-  FileResourceCacheEntryStateType,
+  PageResourceCacheStateType,
+  PageResourceCacheEntryStateType,
   ResourceCacheStateType
 } from '../app/StateType'
 import DatabaseContext from './DatabaseContext'
@@ -82,18 +82,18 @@ type MetaCitiesJsonType = {
   |}
 }
 
-type FileResourceCacheEntryJsonType = {|
+type PageResourceCacheEntryJsonType = {|
   file_path: string,
   last_update: string,
   hash: string
 |}
 
-type FileResourceCacheJsonType = {
-  [url: string]: FileResourceCacheEntryJsonType
+type PageResourceCacheJsonType = {
+  [url: string]: PageResourceCacheEntryJsonType
 }
 
 type CityResourceCacheJsonType = {
-  [path: string]: FileResourceCacheJsonType
+  [path: string]: PageResourceCacheJsonType
 }
 type ResourceCacheJsonType = {
   [city: CityCodeType]: CityResourceCacheJsonType
@@ -360,8 +360,8 @@ class DatabaseConnector {
     const json: ResourceCacheJsonType = JSON.parse(await this.readFile(path))
 
     return mapValues(json, (cityResourceCache: CityResourceCacheJsonType) =>
-      mapValues(cityResourceCache, (fileResourceCache: FileResourceCacheJsonType) =>
-        mapValues(fileResourceCache, (entry: FileResourceCacheEntryJsonType): FileResourceCacheEntryStateType => ({
+      mapValues(cityResourceCache, (fileResourceCache: PageResourceCacheJsonType) =>
+        mapValues(fileResourceCache, (entry: PageResourceCacheEntryJsonType): PageResourceCacheEntryStateType => ({
           filePath: entry.file_path,
           lastUpdate: moment(entry.last_update, moment.ISO_8601),
           hash: entry.hash
@@ -373,8 +373,8 @@ class DatabaseConnector {
   async storeResourceCache (resourceCache: ResourceCacheStateType, context: DatabaseContext) {
     const path = this.getResourceCachePath(context)
     const json: ResourceCacheJsonType = mapValues(resourceCache, (cityResourceCache: CityResourceCacheStateType) =>
-      mapValues(cityResourceCache, (fileResourceCache: FileResourceCacheStateType) =>
-        mapValues(fileResourceCache, (entry: FileResourceCacheEntryStateType): FileResourceCacheEntryJsonType => ({
+      mapValues(cityResourceCache, (fileResourceCache: PageResourceCacheStateType) =>
+        mapValues(fileResourceCache, (entry: PageResourceCacheEntryStateType): PageResourceCacheEntryJsonType => ({
           file_path: entry.filePath,
           last_update: entry.lastUpdate.toISOString(),
           hash: entry.hash
