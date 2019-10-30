@@ -19,11 +19,12 @@ afterEach(() => {
 
 describe('DatabaseConnector', () => {
   const city = 'augsburg'
+  const language = 'de'
 
   const testCities = new CityModelBuilder(2).build()
-  const testCategoriesMap = new CategoriesMapModelBuilder(city, 2, 2).build()
+  const testCategoriesMap = new CategoriesMapModelBuilder(city, language, 2, 2).build()
   const testLanguages = new LanguageModelBuilder(2).build()
-  const testEvents = new EventModelBuilder('testSeed', 2, city).build()
+  const testEvents = new EventModelBuilder('testSeed', 2, city, language).build()
 
   const testResources = {
     'de':

@@ -12,6 +12,7 @@ jest.mock('@integreat-app/integreat-api-client',
   () => {
     const actual = jest.requireActual('@integreat-app/integreat-api-client')
     const city = 'augsburg'
+    const language = 'de'
 
     return {
       ...actual,
@@ -19,7 +20,7 @@ jest.mock('@integreat-app/integreat-api-client',
         const { EndpointBuilder } = require('@integreat-app/integreat-api-client')
         const { default: EventModelBuilder } = require('../../../../testing/builder/EventModelBuilder')
 
-        mockEvents = new EventModelBuilder('mockEvents', 1, city).build()
+        mockEvents = new EventModelBuilder('mockEvents', 1, city, language).build()
 
         return new EndpointBuilder('events-mock')
           .withParamsToUrlMapper(() => 'https://cms.integreat-app.de/events')
@@ -38,7 +39,7 @@ describe('loadEvents', () => {
   const city = 'augsburg'
   const language = 'de'
 
-  const otherEvents = new EventModelBuilder('otherEvents', 2, city).build()
+  const otherEvents = new EventModelBuilder('otherEvents', 2, city, language).build()
 
   it('should fetch and set events if events are not available', async () => {
     const dataContainer = new DefaultDataContainer()
