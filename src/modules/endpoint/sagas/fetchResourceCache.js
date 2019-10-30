@@ -43,7 +43,7 @@ export default function * fetchResourceCache (
 
     const resourceCache = mapValues(fetchMap, fetchMapEntry =>
       reduce<Array<FetchMapTargetType>, FileCacheStateType>(
-        fetchMapEntry, (acc, fetchMapTarget: FetchMapTargetType) => {
+        fetchMapEntry, (acc: FileCacheStateType, fetchMapTarget: FetchMapTargetType) => {
           const filePath = fetchMapTarget.filePath
           const downloadResult = successResults[filePath]
 
