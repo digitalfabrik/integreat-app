@@ -15,7 +15,8 @@ import moment from 'moment-timezone'
 import type {
   LanguageResourceCacheStateType,
   PageResourceCacheStateType,
-  PageResourceCacheEntryStateType
+  PageResourceCacheEntryStateType,
+  CityResourceCacheStateType
 } from '../app/StateType'
 import DatabaseContext from './DatabaseContext'
 import { CACHE_DIR_PATH, CONTENT_DIR_PATH, RESOURCE_CACHE_DIR_PATH } from '../platform/constants/webview'
@@ -91,11 +92,11 @@ type PageResourceCacheJsonType = {
   [url: string]: PageResourceCacheEntryJsonType
 }
 
-type CityResourceCacheJsonType = {
+type LanguageResourceCacheJsonType = {
   [path: string]: PageResourceCacheJsonType
 }
-type ResourceCacheJsonType = {
-  [city: CityCodeType]: CityResourceCacheJsonType
+type CityResourceCacheJsonType = {
+  [language: LanguageCodeType]: LanguageResourceCacheJsonType
 }
 
 const mapToObject = (map: Map<string, string>) => {
@@ -348,7 +349,7 @@ class DatabaseConnector {
     })
   }
 
-  async loadResourceCache (context: DatabaseContext): Promise<LanguageResourceCacheStateType> {
+  async loadResourceCache (context: DatabaseContext): Promise<CityResourceCacheStateType> {
     const path = this.getResourceCachePath(context)
     const fileExists: boolean = await RNFetchblob.fs.exists(path)
 
@@ -356,10 +357,10 @@ class DatabaseConnector {
       return {}
     }
 
-    const json: ResourceCacheJsonType = JSON.parse(await this.readFile(path))
+    const json: CityResourceCacheJsonType = JSON.parse(await this.readFile(path))
 
-    return mapValues(json, (cityResourceCache: CityResourceCacheJsonType) =>
-      mapValues(cityResourceCache, (fileResourceCache: PageResourceCacheJsonType) =>
+    return mapValues(json, (languageResourceCache: LanguageResourceCacheJsonType) =>
+      mapValues(languageResourceCache, (fileResourceCache: PageResourceCacheJsonType) =>
         mapValues(fileResourceCache, (entry: PageResourceCacheEntryJsonType): PageResourceCacheEntryStateType => ({
           filePath: entry.file_path,
           lastUpdate: moment(entry.last_update, moment.ISO_8601),
@@ -369,17 +370,18 @@ class DatabaseConnector {
     )
   }
 
-  async storeResourceCache (resourceCache: LanguageResourceCacheStateType, context: DatabaseContext) {
+  async storeResourceCache (resourceCache: CityResourceCacheStateType, context: DatabaseContext) {
     const path = this.getResourceCachePath(context)
-    const json: ResourceCacheJsonType = mapValues(resourceCache, (cityResourceCache: LanguageResourceCacheStateType) =>
-      mapValues(cityResourceCache, (fileResourceCache: PageResourceCacheStateType) =>
-        mapValues(fileResourceCache, (entry: PageResourceCacheEntryStateType): PageResourceCacheEntryJsonType => ({
-          file_path: entry.filePath,
-          last_update: entry.lastUpdate.toISOString(),
-          hash: entry.hash
-        }))
+    const json: CityResourceCacheJsonType =
+      mapValues(resourceCache, (languageResourceCache: LanguageResourceCacheStateType) =>
+        mapValues(languageResourceCache, (fileResourceCache: PageResourceCacheStateType) =>
+          mapValues(fileResourceCache, (entry: PageResourceCacheEntryStateType): PageResourceCacheEntryJsonType => ({
+            file_path: entry.filePath,
+            last_update: entry.lastUpdate.toISOString(),
+            hash: entry.hash
+          }))
+        )
       )
-    )
     await this.writeFile(path, JSON.stringify(json))
   }
 

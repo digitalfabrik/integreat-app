@@ -86,7 +86,7 @@ export type LanguageResourceCacheStateType = $ReadOnly<{
 }>
 
 export type CityResourceCacheStateType = $ReadOnly<{
-  [city: string]: LanguageResourceCacheStateType
+  [language: string]: LanguageResourceCacheStateType
 }>
 
 export type CategoriesRouteMappingType = $ReadOnly<{
