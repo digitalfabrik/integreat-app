@@ -91,8 +91,6 @@ class CategoriesMapModelBuilder {
         ...this.createResource(thumbnail, id, lastUpdate)
       }
 
-
-
       this._addChildren(newChild, depth + 1)
     }
   }
