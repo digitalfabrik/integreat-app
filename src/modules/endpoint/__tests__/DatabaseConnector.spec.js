@@ -278,6 +278,11 @@ describe('DatabaseConnector', () => {
       expect(spy).toHaveBeenCalledWith(context)
     })
 
+    const expectExists = async (path: string, exists: boolean = true) => {
+      expect(await RNFetchBlob.fs.exists(databaseConnector.getResourceCachePath(new DatabaseContext('muenchen'))))
+        .toBe(exists)
+    }
+
     it('should keep only the maximal number of caches', async () => {
       jest.spyOn(moment, 'now').mockReturnValue(moment('2011-05-04T00:00:00.000Z'))
       await databaseConnector.storeResourceCache(testResources, new DatabaseContext('muenchen'))
@@ -290,10 +295,11 @@ describe('DatabaseConnector', () => {
       jest.spyOn(moment, 'now').mockReturnValue(moment('2015-05-04T00:00:00.000Z'))
       await databaseConnector.storeResourceCache(testResources, new DatabaseContext('augsburg'))
 
-      expect(await RNFetchBlob.fs.exists(databaseConnector.getResourceCachePath(new DatabaseContext('muenchen'))))
-        .toBeFalse()
-      expect(await RNFetchBlob.fs.exists(databaseConnector.getResourceCachePath(new DatabaseContext('dortmund'))))
-        .toBeFalse()
+      expectExists(databaseConnector.getResourceCachePath(new DatabaseContext('muenchen')), false)
+      expectExists(databaseConnector.getResourceCachePath(new DatabaseContext('dortmund')), false)
+      expectExists(databaseConnector.getResourceCachePath(new DatabaseContext('ansbach')))
+      expectExists(databaseConnector.getResourceCachePath(new DatabaseContext('regensburg')))
+      expectExists(databaseConnector.getResourceCachePath(new DatabaseContext('augsburg')))
 
       const meta = await RNFetchBlob.fs.readFile(databaseConnector.getMetaCitiesPath(), '')
       expect(meta).toMatchSnapshot()
@@ -309,6 +315,9 @@ describe('DatabaseConnector', () => {
       jest.spyOn(moment, 'now').mockReturnValue(moment('2014-05-04T00:00:00.000Z'))
       await databaseConnector.storeResourceCache(testResources, new DatabaseContext('augsburg'))
 
+      expectExists(databaseConnector.getResourceCachePath(new DatabaseContext('dortmund')))
+      expectExists(databaseConnector.getResourceCachePath(new DatabaseContext('ansbach')))
+      expectExists(databaseConnector.getResourceCachePath(new DatabaseContext('augsburg')))
       expect(RNFetchBlob.fs.unlink).not.toHaveBeenCalled()
     })
   })
