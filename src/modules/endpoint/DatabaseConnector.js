@@ -19,8 +19,15 @@ import type {
   PageResourceCacheStateType
 } from '../app/StateType'
 import DatabaseContext from './DatabaseContext'
-import { CACHE_DIR_PATH, CONTENT_DIR_PATH, RESOURCE_CACHE_DIR_PATH } from '../platform/constants/webview'
-import { mapValues, map } from 'lodash'
+import { map, mapValues } from 'lodash'
+import { CONTENT_VERSION, RESOURCE_CACHE_VERSION } from '../endpoint/persistentVersions'
+
+// Our pdf view can only load from DocumentDir. Therefore we need to use that
+export const CACHE_DIR_PATH = RNFetchblob.fs.dirs.DocumentDir
+export const CONTENT_DIR_PATH = `${CACHE_DIR_PATH}/content/${CONTENT_VERSION}`
+export const RESOURCE_CACHE_DIR_PATH = `${CACHE_DIR_PATH}/resource-cache/${RESOURCE_CACHE_VERSION}`
+
+const MAX_RESOURCE_CACHES = 2
 
 type ContentCategoryJsonType = {|
   root: string,
