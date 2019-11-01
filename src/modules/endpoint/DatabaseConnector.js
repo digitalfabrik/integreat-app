@@ -20,7 +20,7 @@ import type {
 } from '../app/StateType'
 import DatabaseContext from './DatabaseContext'
 import { CACHE_DIR_PATH, CONTENT_DIR_PATH, RESOURCE_CACHE_DIR_PATH } from '../platform/constants/webview'
-import { mapValues } from 'lodash'
+import { mapValues, map } from 'lodash'
 
 type ContentCategoryJsonType = {|
   root: string,
@@ -72,16 +72,19 @@ type ContentCityJsonType = {|
 type CityCodeType = string
 type LanguageCodeType = string
 
+type MetaCitiesEntryJsonType = {|
+  languages: {
+    [LanguageCodeType]: {|
+      last_update: string
+    |}
+  },
+  last_update: string
+|}
 type MetaCitiesJsonType = {
-  [CityCodeType]: {|
-    languages: {
-      [LanguageCodeType]: {|
-        last_update: string
-      |}
-    },
-    last_update: string
-  |}
+  [CityCodeType]: MetaCitiesEntryJsonType
 }
+
+type CityLastUpdateType = {| city: CityCodeType, lastUpdate: Moment |}
 
 type PageResourceCacheEntryJsonType = {|
   file_path: string,
@@ -183,22 +186,17 @@ class DatabaseConnector {
     return lastUpdate ? moment(lastUpdate, moment.ISO_8601) : null
   }
 
-  async loadLastCityUpdate (context: DatabaseContext): Promise<Moment | null> {
-    const cityCode = context.cityCode
-    if (!cityCode) {
-      throw new Error('City is not set in DatabaseContext!')
-    }
-
+  async loadCitiesLastUpdates (): Promise<Array<CityLastUpdateType>> {
     const path = this.getMetaCitiesPath()
     const fileExists: boolean = await RNFetchblob.fs.exists(path)
     if (!fileExists) {
-      return null
+      return []
     }
 
     const metaData: MetaCitiesJsonType = JSON.parse(await this.readFile(path))
-    // eslint-disable-next-line camelcase
-    const lastUpdate = metaData[cityCode]?.last_update
-    return lastUpdate ? moment(lastUpdate, moment.ISO_8601) : null
+    return map<MetaCitiesEntryJsonType, MetaCitiesJsonType, CityLastUpdateType>(
+      metaData, (value, key) => ({ city: key, lastUpdate: value.last_update })
+    )
   }
 
   async storeCategories (categoriesMap: CategoriesMapModel, context: DatabaseContext) {
@@ -388,6 +386,8 @@ class DatabaseConnector {
   }
 
   async storeResourceCache (resourceCache: CityResourceCacheStateType, context: DatabaseContext) {
+    await this.deleteOldResourceCaches()
+
     const path = this.getResourceCachePath(context)
     const json: CityResourceCacheJsonType =
       mapValues(resourceCache, (languageResourceCache: LanguageResourceCacheStateType) =>
@@ -400,6 +400,22 @@ class DatabaseConnector {
         )
       )
     await this.writeFile(path, JSON.stringify(json))
+  }
+
+  /**
+   * Delete the resource caches of all but the two latest updated cities
+   * @return {Promise<void>}
+   */
+  async deleteOldResourceCaches () {
+    const citiesLastUpdates = await this.loadCitiesLastUpdates()
+    // Sort last updates chronological, from newest to oldest
+    citiesLastUpdates.sort((a, b) =>
+      a.lastUpdate.isAfter(b.lastUpdate) ? -1 : (a.lastUpdate.isSame(b.lastUpdate) ? 0 : 1)
+    )
+    citiesLastUpdates.slice(2).forEach(async cityLastUpdate => {
+      const cityResourceCachePath = this.getResourceCachePath(new DatabaseContext(cityLastUpdate.city))
+      await this.deleteFileOrDirectory(cityResourceCachePath)
+    })
   }
 
   isCitiesPersisted (): Promise<boolean> {
@@ -434,6 +450,10 @@ class DatabaseConnector {
 
   async writeFile (path: string, data: string): Promise<number> {
     return RNFetchblob.fs.writeFile(path, data, 'utf8')
+  }
+
+  async deleteFileOrDirectory (path: string): Promise<void> {
+    return RNFetchblob.fs.unlink(path)
   }
 }
 
