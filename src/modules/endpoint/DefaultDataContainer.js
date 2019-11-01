@@ -2,7 +2,11 @@
 
 import { CategoriesMapModel, CityModel, EventModel, LanguageModel } from '@integreat-app/integreat-api-client'
 import DatabaseContext from './DatabaseContext'
-import type { CityResourceCacheStateType, PageResourceCacheStateType, LanguageResourceCacheStateType } from '../app/StateType'
+import type {
+  CityResourceCacheStateType,
+  PageResourceCacheStateType,
+  LanguageResourceCacheStateType
+} from '../app/StateType'
 import DatabaseConnector from './DatabaseConnector'
 import type { DataContainer } from './DataContainer'
 import type Moment from 'moment'
