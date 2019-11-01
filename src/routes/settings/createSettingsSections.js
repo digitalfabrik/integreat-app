@@ -59,9 +59,9 @@ export default ({ setSetting, t, language }: {
           title: t('privacyPolicy'),
           onPress: () => {
             if (language === 'de') {
-              Linking.openURL('https://integreat-app.de/datenschutz-webseite/')
+              Linking.openURL('https://integreat-app.de/datenschutz/')
             } else {
-              Linking.openURL('https://integreat-app.de/en/privacy-website/')
+              Linking.openURL('https://integreat-app.de/en/privacy/')
             }
           }
         },

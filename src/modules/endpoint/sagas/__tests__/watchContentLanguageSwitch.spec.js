@@ -43,7 +43,7 @@ describe('watchContentLanguageSwitch', () => {
       const action: SwitchContentLanguageActionType = {
         type: 'SWITCH_CONTENT_LANGUAGE',
         params: {
-          newLanguage, city
+          newLanguage, city, t: key => key
         }
       }
 
@@ -68,7 +68,7 @@ describe('watchContentLanguageSwitch', () => {
       const action: SwitchContentLanguageActionType = {
         type: 'SWITCH_CONTENT_LANGUAGE',
         params: {
-          newLanguage, city
+          newLanguage, city, t: key => key
         }
       }
 
