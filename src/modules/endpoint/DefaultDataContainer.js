@@ -29,8 +29,8 @@ class DefaultDataContainer implements DataContainer {
   _databaseConnector: DatabaseConnector
   caches: CacheType
 
-  constructor () {
-    this._databaseConnector = new DatabaseConnector()
+  constructor (databaseConnector: DatabaseConnector = new DatabaseConnector()) {
+    this._databaseConnector = databaseConnector
 
     this.caches = {
       cities: new Cache<Array<CityModel>>(this._databaseConnector,
