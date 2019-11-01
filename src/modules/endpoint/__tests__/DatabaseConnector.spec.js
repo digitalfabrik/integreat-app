@@ -2,7 +2,7 @@
 
 import DatabaseConnector from '../DatabaseConnector'
 import DatabaseContext from '../DatabaseContext'
-import moment from 'moment-timezone'
+import moment from 'moment'
 import RNFetchBlob from '../../../__mocks__/rn-fetch-blob'
 import CityModelBuilder from '../../../testing/builder/CityModelBuilder'
 import CategoriesMapModelBuilder from '../../../testing/builder/CategoriesMapModelBuilder'
@@ -102,38 +102,36 @@ describe('DatabaseConnector', () => {
     it('should return a moment that matches the one that was stored', async () => {
       const context = new DatabaseContext('tcc', 'de')
 
-      const dateExpected = moment.tz('20110205', 'UTC')
+      const dateExpected = moment('2011-05-04T00:00:00.000Z')
 
       await databaseConnector.storeLastUpdate(dateExpected, context)
-      const dateReceived = await databaseConnector.loadLastUpdate(context)
-
-      expect(dateExpected.isSame(dateReceived)).toBe(true)
+      expect(dateExpected).toStrictEqual(await databaseConnector.loadLastUpdate(context))
     })
   })
 
   describe('storeLastUpdate', () => {
     it('should throw error if currentCity in context is null', () => {
       const context = new DatabaseContext(null, 'de')
-      const date = moment.tz('20110205', 'UTC')
+      const date = moment('2011-05-04T00:00:00.000Z')
       expect(databaseConnector.storeLastUpdate(date, context)).rejects.toThrowError()
     })
     it('should throw error if currentLanguage in context is null', () => {
       const context = new DatabaseContext('tcc', null)
-      const date = moment.tz('20110205', 'UTC')
+      const date = moment('2011-05-04T00:00:00.000Z')
       expect(databaseConnector.storeLastUpdate(date, context)).rejects.toThrowError()
     })
     it('should override multiple lastUpdates of the same context', async () => {
       const context = new DatabaseContext('tcc', 'de')
-      const date = moment.tz('20110205', 'UTC')
-      const date2 = moment.tz('20120205', 'UTC')
+      const date = moment('2011-05-04T00:00:00.000Z')
+      const date2 = moment('2012-05-04T00:00:00.000Z')
       await databaseConnector.storeLastUpdate(date, context)
       await databaseConnector.storeLastUpdate(date2, context)
-      const result = await databaseConnector.loadLastUpdate(context)
-      expect(date2.isSame(moment(result))).toBe(true)
+
+      expect(date2).toStrictEqual(await databaseConnector.loadLastUpdate(context))
     })
     it('should store the json file in the correct path', async () => {
       const context = new DatabaseContext('tcc', 'de')
-      const date = moment.tz('20110205', 'UTC')
+      const date = moment('2011-05-04T00:00:00.000Z')
       await databaseConnector.storeLastUpdate(date, context)
       expect(RNFetchBlob.fs.writeFile).toBeCalledWith(
         expect.stringContaining('cities-meta.json'),
@@ -272,6 +270,46 @@ describe('DatabaseConnector', () => {
         expect.any(String),
         expect.any(String)
       )
+    })
+    it('should call delete old resource caches', async () => {
+      const context = new DatabaseContext('tcc', 'de')
+      const spy = jest.spyOn(databaseConnector, 'deleteOldResourceCaches')
+      await databaseConnector.storeResourceCache(testResources, context)
+      expect(spy).toHaveBeenCalledWith(context)
+    })
+
+    it('should keep only the maximal number of caches', async () => {
+      jest.spyOn(moment, 'now').mockReturnValue(moment('2011-05-04T00:00:00.000Z'))
+      await databaseConnector.storeResourceCache(testResources, new DatabaseContext('muenchen'))
+      jest.spyOn(moment, 'now').mockReturnValue(moment('2012-05-04T00:00:00.000Z'))
+      await databaseConnector.storeResourceCache(testResources, new DatabaseContext('dortmund'))
+      jest.spyOn(moment, 'now').mockReturnValue(moment('2013-05-04T00:00:00.000Z'))
+      await databaseConnector.storeResourceCache(testResources, new DatabaseContext('ansbach'))
+      jest.spyOn(moment, 'now').mockReturnValue(moment('2014-05-04T00:00:00.000Z'))
+      await databaseConnector.storeResourceCache(testResources, new DatabaseContext('regensburg'))
+      jest.spyOn(moment, 'now').mockReturnValue(moment('2015-05-04T00:00:00.000Z'))
+      await databaseConnector.storeResourceCache(testResources, new DatabaseContext('augsburg'))
+
+      expect(await RNFetchBlob.fs.exists(databaseConnector.getResourceCachePath(new DatabaseContext('muenchen'))))
+        .toBeFalse()
+      expect(await RNFetchBlob.fs.exists(databaseConnector.getResourceCachePath(new DatabaseContext('dortmund'))))
+        .toBeFalse()
+
+      const meta = await RNFetchBlob.fs.readFile(databaseConnector.getMetaCitiesPath(), '')
+      expect(meta).toMatchSnapshot()
+    })
+
+    it('should not delete the resource cache of the same city', async () => {
+      jest.spyOn(moment, 'now').mockReturnValue(moment('2011-05-04T00:00:00.000Z'))
+      await databaseConnector.storeResourceCache(testResources, new DatabaseContext('augsburg'))
+      jest.spyOn(moment, 'now').mockReturnValue(moment('2012-05-04T00:00:00.000Z'))
+      await databaseConnector.storeResourceCache(testResources, new DatabaseContext('dortmund'))
+      jest.spyOn(moment, 'now').mockReturnValue(moment('2013-05-04T00:00:00.000Z'))
+      await databaseConnector.storeResourceCache(testResources, new DatabaseContext('ansbach'))
+      jest.spyOn(moment, 'now').mockReturnValue(moment('2014-05-04T00:00:00.000Z'))
+      await databaseConnector.storeResourceCache(testResources, new DatabaseContext('augsburg'))
+
+      expect(RNFetchBlob.fs.unlink).not.toHaveBeenCalled()
     })
   })
 
