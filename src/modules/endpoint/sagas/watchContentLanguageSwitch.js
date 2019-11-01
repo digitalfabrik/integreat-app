@@ -54,6 +54,8 @@ export function * switchContentLanguage (dataContainer: DataContainer, action: S
     yield put(insert)
   } catch (e) {
     if (e.message === 'Network request failed') {
+      // The alert should be replaced with an error component in https://issues.integreat-app.de/browse/NATIVE-359
+      // Hence the TFunction should also be removed
       Alert.alert(t('languageSwitchFailedTitle'), t('languageSwitchFailedMessage'))
     }
     console.error(e)

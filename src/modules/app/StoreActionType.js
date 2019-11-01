@@ -110,6 +110,7 @@ export type EventsActionType =
 
 export type SwitchContentLanguageActionType = {|
   type: 'SWITCH_CONTENT_LANGUAGE', +params: {|
+    // The TFunction should be removed again in https://issues.integreat-app.de/browse/NATIVE-359
     +newLanguage: string, +city: string, +t: TFunction
   |}
 |}
