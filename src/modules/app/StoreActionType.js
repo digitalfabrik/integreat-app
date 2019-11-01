@@ -3,6 +3,7 @@
 import { CategoriesMapModel, CityModel, EventModel, LanguageModel } from '@integreat-app/integreat-api-client'
 import type { CategoryRouteConfigType, LanguageResourceCacheStateType } from './StateType'
 import type { ContentLoadCriterionType } from '../endpoint/ContentLoadCriterion'
+import type { TFunction } from 'i18next'
 
 export type FetchCitiesActionType = {|
   type: 'FETCH_CITIES',
@@ -109,7 +110,8 @@ export type EventsActionType =
 
 export type SwitchContentLanguageActionType = {|
   type: 'SWITCH_CONTENT_LANGUAGE', +params: {|
-    +newLanguage: string, +city: string
+    // The TFunction should be removed again in https://issues.integreat-app.de/browse/NATIVE-359
+    +newLanguage: string, +city: string, +t: TFunction
   |}
 |}
 
@@ -118,6 +120,8 @@ export type SwitchContentLanguageFailedActionType = {|
     +message: string
   |}
 |}
+
+export type ContentLanguageActionType = SwitchContentLanguageActionType | SwitchContentLanguageFailedActionType
 
 export type MorphContentLanguageActionType = {|
   type: 'MORPH_CONTENT_LANGUAGE', +params: {|
@@ -143,7 +147,7 @@ export type CityContentActionType =
   CategoriesActionType
   | EventsActionType
   | MorphContentLanguageActionType
-  | SwitchContentLanguageActionType
+  | ContentLanguageActionType
   | ClearCityActionType
   | PushLanguagesActionType
   | ResourcesFetchFailedActionType
