@@ -39,9 +39,9 @@ The `cities.json` contains information about all cities:
     "live": true,
     "code": "regensburg",
     "prefix": "Stadt",
-    "extrasEnabled": true,
-    "eventsEnabled": true,
-    "sortingName": "Regensburg"
+    "extras_enabled": true,
+    "events_enabled": true,
+    "sorting_name": "Regensburg"
   }
 ]
 ```
@@ -76,7 +76,7 @@ If an URL does not have an extension then `extension(url)` is an empty string. `
     "path": "/ahaus/en/everyday-life-and-free-time/donate-stock/",
     "title": "Donate stock",
     "content": "<h1>This is a sample category</h1>",
-    "last_update": "2017-01-22 19:51:10",
+    "last_update": "2011-02-04T00:00:00.000Z",
     "thumbnail": "https://cms.integreat-app.de/ahaus/wp-content/uploads/sites/20/2016/05/truck69b-150x150.png",
     "available_languages": {
       "de": "/ahaus/de/alltag-und-freizeit/spendenlager/"

@@ -64,9 +64,9 @@ type ContentCityJsonType = {|
   live: boolean,
   code: string,
   prefix: string,
-  extrasEnabled: boolean,
-  eventsEnabled: boolean,
-  sortingName: string
+  extras_enabled: boolean,
+  events_enabled: boolean,
+  sorting_name: string
 |}
 
 type CityCodeType = string
@@ -76,7 +76,7 @@ type MetaCitiesJsonType = {
   [CityCodeType]: {|
     languages: {
       [LanguageCodeType]: {|
-        last_update: Moment
+        last_update: string
       |}
     }
   |}
@@ -253,9 +253,9 @@ class DatabaseConnector {
       live: city.live,
       code: city.code,
       prefix: city.prefix,
-      extrasEnabled: city.extrasEnabled,
-      eventsEnabled: city.eventsEnabled,
-      sortingName: city.sortingName
+      extras_enabled: city.extrasEnabled,
+      events_enabled: city.eventsEnabled,
+      sorting_name: city.sortingName
     }))
 
     await this.writeFile(this.getCitiesPath(), JSON.stringify(jsonModels))
@@ -276,9 +276,9 @@ class DatabaseConnector {
         name: jsonObject.name,
         code: jsonObject.code,
         live: jsonObject.live,
-        eventsEnabled: jsonObject.eventsEnabled,
-        extrasEnabled: jsonObject.extrasEnabled,
-        sortingName: jsonObject.sortingName,
+        eventsEnabled: jsonObject.events_enabled,
+        extrasEnabled: jsonObject.extras_enabled,
+        sortingName: jsonObject.sorting_name,
         prefix: jsonObject.prefix
       })
     })
