@@ -90,6 +90,8 @@ class DefaultDataContainer implements DataContainer {
     const cache: Cache<CityResourceCacheStateType> = this.caches.resourceCache
     const resourceCache = await cache.get(context)
 
+    await this._databaseConnector.updateLastUsage(context)
+
     if (!resourceCache[language]) {
       return {}
     }
