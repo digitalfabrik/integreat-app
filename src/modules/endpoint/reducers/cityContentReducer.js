@@ -18,6 +18,11 @@ export default (
         throw Error('Cannot switch contentLanguage on not initialized cityContent')
       }
       return { ...state, switchingLanguage: true }
+    case 'SWITCH_CONTENT_LANGUAGE_FAILED':
+      if (state === null) {
+        throw Error('A content language switch cannot fail if the state is not yet initialized')
+      }
+      return { ...state, switchingLanguage: false }
     case 'PUSH_LANGUAGES':
       if (state === null) {
         throw Error('Cannot push languages on not initialized cityContent')
