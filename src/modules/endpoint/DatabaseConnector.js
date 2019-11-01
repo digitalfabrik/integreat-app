@@ -27,7 +27,7 @@ export const CACHE_DIR_PATH = RNFetchblob.fs.dirs.DocumentDir
 export const CONTENT_DIR_PATH = `${CACHE_DIR_PATH}/content/${CONTENT_VERSION}`
 export const RESOURCE_CACHE_DIR_PATH = `${CACHE_DIR_PATH}/resource-cache/${RESOURCE_CACHE_VERSION}`
 
-const MAX_RESOURCE_CACHES = 2
+const MAX_RESOURCE_CACHES = 3
 
 type ContentCategoryJsonType = {|
   root: string,
@@ -214,7 +214,7 @@ class DatabaseConnector {
 
     lastUsages.forEach(lastUsage => {
       const city = lastUsage.city
-      metaData[city] = { last_usage: lastUsage.lastUsage, languages: metaData[city].languages || {} }
+      metaData[city] = { last_usage: lastUsage.lastUsage, languages: metaData[city]?.languages || {} }
     })
 
     this.writeFile(this.getMetaCitiesPath(), JSON.stringify(metaData))
@@ -224,7 +224,8 @@ class DatabaseConnector {
     if (!context.cityCode) {
       throw Error('cityCode mustn\'t be null')
     }
-    await this.updateLastUsages([{ city: context.cityCode, lastUsage: moment().toISOString() }])
+    const lastUsage = { city: context.cityCode, lastUsage: moment().toISOString() }
+    await this.updateLastUsages([lastUsage])
   }
 
   async storeCategories (categoriesMap: CategoriesMapModel, context: DatabaseContext) {
@@ -414,6 +415,7 @@ class DatabaseConnector {
   }
 
   async storeResourceCache (resourceCache: CityResourceCacheStateType, context: DatabaseContext) {
+    await this.updateLastUsage(context)
     await this.deleteOldResourceCaches(context)
 
     const path = this.getResourceCachePath(context)
@@ -444,7 +446,7 @@ class DatabaseConnector {
     // Sort last usages chronological, from newest to oldest and remove the latest.
     const cachesToDelete = lastUsages.sort((a, b) =>
       a.lastUsage.isAfter(b.lastUsage) ? -1 : (a.lastUsage.isSame(b.lastUsage) ? 0 : 1)
-    ).slice(MAX_RESOURCE_CACHES)
+    ).slice(MAX_RESOURCE_CACHES - 1)
 
     await cachesToDelete.forEach(async cityLastUpdate => {
       const cityResourceCachePath = `${RESOURCE_CACHE_DIR_PATH}/${cityLastUpdate.city}`

@@ -32,9 +32,11 @@ function existsMock (file: string): Promise<boolean> {
 
 function unlink (file: string): Promise<void> {
   const filePath = path.normalize(file)
-  if (filePath in mockFiles) {
-    delete mockFiles[filePath]
-  }
+  Object.keys(mockFiles).forEach(path => {
+    if (path.includes(filePath)) {
+      delete mockFiles[path]
+    }
+  })
 
   return Promise.resolve()
 }
