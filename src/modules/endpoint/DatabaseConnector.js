@@ -212,14 +212,10 @@ class DatabaseConnector {
     }
     const metaData = await this.loadMetaCities() || {}
 
-    console.log('update')
-    console.log(metaData)
-    console.log(lastUsages)
     lastUsages.forEach(lastUsage => {
       const city = lastUsage.city
       metaData[city] = { last_usage: lastUsage.lastUsage, languages: metaData[city].languages || {} }
     })
-    console.log(metaData)
 
     this.writeFile(this.getMetaCitiesPath(), JSON.stringify(metaData))
   }
@@ -439,6 +435,9 @@ class DatabaseConnector {
    * @return {Promise<void>}
    */
   async deleteOldResourceCaches (context: DatabaseContext) {
+    if (!context.cityCode) {
+      throw Error('cityCode mustn\'t be null')
+    }
     const lastUsages: Array<{| city: CityCodeType, lastUsage: Moment |}> =
       (await this.loadLastUsages()).filter(it => it.lastUsage !== null && it.city !== context.cityCode)
 
@@ -447,13 +446,8 @@ class DatabaseConnector {
       a.lastUsage.isAfter(b.lastUsage) ? -1 : (a.lastUsage.isSame(b.lastUsage) ? 0 : 1)
     ).slice(MAX_RESOURCE_CACHES)
 
-    console.log('delete')
-    console.log(cachesToDelete)
-    console.log(lastUsages)
-
     await cachesToDelete.forEach(async cityLastUpdate => {
       const cityResourceCachePath = `${RESOURCE_CACHE_DIR_PATH}/${cityLastUpdate.city}`
-      console.log(cityResourceCachePath)
       await this.deleteFileOrDirectory(cityResourceCachePath)
     })
 
