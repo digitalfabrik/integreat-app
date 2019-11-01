@@ -169,24 +169,29 @@ class DefaultDataContainer implements DataContainer {
     await cache.cache(lastUpdate, context)
   }
 
-  async citiesAvailable (): Promise<boolean> {
+  citiesAvailable = async (): Promise<boolean> => {
     const context = new DatabaseContext()
     return this.isCached('cities', context) || this._databaseConnector.isCitiesPersisted()
   }
 
-  async categoriesAvailable (city: string, language: string): Promise<boolean> {
+  categoriesAvailable = async (city: string, language: string): Promise<boolean> => {
     const context = new DatabaseContext(city, language)
     return this.isCached('categories', context) || this._databaseConnector.isCategoriesPersisted(context)
   }
 
-  async languagesAvailable (city: string): Promise<boolean> {
+  languagesAvailable = async (city: string): Promise<boolean> => {
     const context = new DatabaseContext(city)
     return this.isCached('languages', context) || this._databaseConnector.isLanguagesPersisted(context)
   }
 
-  async eventsAvailable (city: string, language: string): Promise<boolean> {
+  eventsAvailable = async (city: string, language: string): Promise<boolean> => {
     const context = new DatabaseContext(city, language)
     return this.isCached('events', context) || this._databaseConnector.isEventsPersisted(context)
+  }
+
+  cityContentAvailable = async (city: string, language: string): Promise<boolean> => {
+    return this.categoriesAvailable(city, language) && this.eventsAvailable(city, language) &&
+      this.languagesAvailable(city)
   }
 }
 

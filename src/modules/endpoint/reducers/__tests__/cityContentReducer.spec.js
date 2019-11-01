@@ -8,7 +8,10 @@ import type { CityContentStateType } from '../../../app/StateType'
 describe('cityContentReducer', () => {
   const switchContentLanguageAction = {
     type: 'SWITCH_CONTENT_LANGUAGE',
-    params: { newLanguage: 'de', city: 'augsburg' }
+    params: { newLanguage: 'de', city: 'augsburg', t: key => key }
+  }
+  const switchContentLanguageFailedAction = {
+    type: 'SWITCH_CONTENT_LANGUAGE_FAILED', params: { message: 'Some error' }
   }
   const pushLanguagesAction = { type: 'PUSH_LANGUAGES', params: { languages: [new LanguageModel('de', 'Deutsch')] } }
   const pushCategoryAction = {
@@ -97,6 +100,19 @@ describe('cityContentReducer', () => {
       switchingLanguage: false
     }
     expect(cityContentReducer(prevState, switchContentLanguageAction)?.switchingLanguage).toBe(true)
+  })
+
+  it('should set switchingLanguage to false on SWITCH_CONTENT_LANGUAGE_FAILED', () => {
+    const prevState: CityContentStateType = {
+      city: 'augsburg',
+      categoriesRouteMapping: {},
+      eventsRouteMapping: {},
+      languages: [],
+      resourceCache: {},
+      searchRoute: null,
+      switchingLanguage: true
+    }
+    expect(cityContentReducer(prevState, switchContentLanguageFailedAction)?.switchingLanguage).toBe(false)
   })
 
   it('should set languages on PUSH_LANGUAGES', () => {
