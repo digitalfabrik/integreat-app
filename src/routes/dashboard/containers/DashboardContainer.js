@@ -9,7 +9,7 @@ import withTheme from '../../../modules/theme/hocs/withTheme'
 import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
-import { translate } from 'react-i18next'
+import { type TFunction, translate } from 'react-i18next'
 import type { NavigationScreenProp } from 'react-navigation'
 import type { StatusPropsType } from '../../../modules/error/hocs/withPayloadProvider'
 import withPayloadProvider from '../../../modules/error/hocs/withPayloadProvider'
@@ -19,7 +19,7 @@ import createNavigateToCategory from '../../../modules/app/createNavigateToCateg
 import createNavigateToEvent from '../../../modules/app/createNavigateToEvent'
 import createNavigateToIntegreatUrl from '../../../modules/app/createNavigateToIntegreatUrl'
 import createNavigateToExtras from '../../../modules/app/createNavigateToExtras'
-import omitNavigation from '../../../modules/common/hocs/omitNavigation'
+import { mapProps } from 'recompose'
 
 type RefreshPropsType = {|
   cityCode: string,
@@ -38,7 +38,7 @@ type ContainerPropsType = {|
   dispatch: Dispatch<StoreActionType>
 |}
 
-type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
+type OwnPropsType = {| navigation: NavigationScreenProp<*>, t: TFunction |}
 type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
 type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
@@ -51,20 +51,21 @@ const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionT
   })
 }
 
-const createChangeUnavailableLanguage = (city: string) =>
+const createChangeUnavailableLanguage = (city: string, t: TFunction) =>
   (dispatch: Dispatch<StoreActionType>, newLanguage: string) => {
     dispatch({
       type: 'SWITCH_CONTENT_LANGUAGE',
-      params: { newLanguage, city }
+      params: { newLanguage, city, t }
     })
   }
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
+  const { t, navigation } = ownProps
   if (!state.cityContent) {
     return { status: 'routeNotInitialized' }
   }
   const { resourceCache, categoriesRouteMapping, switchingLanguage, languages } = state.cityContent
-  const route = categoriesRouteMapping[ownProps.navigation.state.key]
+  const route = categoriesRouteMapping[navigation.state.key]
   if (!route) {
     return { status: 'routeNotInitialized' }
   }
@@ -78,7 +79,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       status: 'languageNotAvailable',
       availableLanguages: languages.filter(lng => route.allAvailableLanguages.has(lng.code)),
       cityCode: route.city,
-      changeUnavailableLanguage: createChangeUnavailableLanguage(route.city)
+      changeUnavailableLanguage: createChangeUnavailableLanguage(route.city, t)
     }
   }
 
@@ -98,7 +99,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     status: 'success',
     refreshProps,
     innerProps: {
-      navigation: ownProps.navigation,
+      navigation,
       cityCode: route.city,
       language: route.language,
       cities,
@@ -126,11 +127,16 @@ const DashboardContainer = (props: ContainerPropsType) => {
     navigateToExtras={createNavigateToExtras(dispatch, rest.navigation)} />
 }
 
-export default withRouteCleaner<PropsType>(
-  connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
-    omitNavigation<PropsType>(
-      withPayloadProvider<ContainerPropsType, RefreshPropsType>(refresh)(
-        DashboardContainer
-      )
-    )
-  ))
+type RestType = $Diff<PropsType, OwnPropsType>
+const removeOwnProps = (props: PropsType): RestType => {
+  const { t, navigation, ...rest } = props
+  return rest
+}
+
+export default withRouteCleaner<{| navigation: NavigationScreenProp<*> |}>(
+  translate('error')(
+    connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
+      mapProps<RestType, PropsType>(removeOwnProps)(
+        withPayloadProvider<ContainerPropsType, RefreshPropsType>(refresh)(
+          DashboardContainer
+        )))))
