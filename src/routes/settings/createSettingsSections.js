@@ -14,21 +14,6 @@ export default ({ setSetting, t, language }: {
 ) => {
   return ([
     {
-      title: 'Placeholder',
-      data: [
-        {
-          title: 'Placeholder',
-          description: 'Placeholder',
-          hasSwitch: true
-        },
-        {
-          title: 'Placeholder',
-          description: 'Placeholder',
-          hasSwitch: true
-        }
-      ]
-    },
-    {
       title: null,
       data: [
         {
@@ -67,10 +52,6 @@ export default ({ setSetting, t, language }: {
         },
         {
           title: t('version', { version: '??' })
-        },
-        {
-          title: t('openSourceLicenses'),
-          onPress: () => { console.warn('Not yet implemented.') }
         }
       ]
     }
