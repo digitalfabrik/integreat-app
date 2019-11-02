@@ -97,8 +97,14 @@ export default class Settings extends React.Component<PropsType, StateType> {
     )
   }
 
-  renderSectionHeader = ({ section: { title } }: { section: SectionType }) =>
-    <View><SectionHeader theme={this.props.theme}>{title}</SectionHeader></View>
+  renderSectionHeader = ({ section: { title } }: { section: SectionType }) => {
+    if (!title) {
+      return
+    }
+    return (
+      <View><SectionHeader theme={this.props.theme}>{title}</SectionHeader></View>
+    )
+  }
 
   keyExtractor = (item: ItemType, index: number): string => index.toString()
 
