@@ -10,10 +10,8 @@ const loadCityContent = function * loadCityContent (
   criterion: ContentLoadCriterion
 ): Saga<boolean> {
   const languagesAvailable = yield call(() => dataContainer.languagesAvailable(newCity))
-  const eventsAvailable = yield call(() => dataContainer.eventsAvailable(newCity, newLanguage))
-  const categoriesAvailable = yield call(() => dataContainer.categoriesAvailable(newCity, newLanguage))
 
-  if (!languagesAvailable || (!eventsAvailable && !categoriesAvailable)) {
+  if (!languagesAvailable) {
     console.error('You have to prepare the data container properly in order to use the loadCityContent.js mock!')
   }
 

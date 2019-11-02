@@ -8,6 +8,7 @@ import type { TFunction } from 'react-i18next'
 import happyIcon from './assets/smile-happy.svg'
 import sadIcon from './assets/smile-sad.svg'
 import Image from './Image'
+import { translate } from 'react-i18next'
 
 const FeedbackBox: StyledComponent<{}, ThemeType, *> = styled.View`
   margin-top: 25px;
@@ -71,19 +72,19 @@ class SiteHelpfulBox extends React.Component<PropType> {
   render () {
     const { theme, t } = this.props
     return <FeedbackBox theme={theme}>
-      <HelpfulText theme={theme}>{t('feedback:isThisSiteUseful')}</HelpfulText>
+      <HelpfulText theme={theme}>{t('isThisSiteUseful')}</HelpfulText>
       <FeedbackButtons>
         <FeedbackTouchableOpacity theme={theme} onPress={this.navigateToFeedback(true)}>
           <Circle theme={theme}><Thumbnail source={happyIcon} /></Circle>
-          <FeedbackText theme={theme}>{t('feedback:useful')}</FeedbackText>
+          <FeedbackText theme={theme}>{t('useful')}</FeedbackText>
         </FeedbackTouchableOpacity>
         <FeedbackTouchableOpacity theme={theme} onPress={this.navigateToFeedback(false)}>
           <Circle theme={theme}><Thumbnail source={sadIcon} /></Circle>
-          <FeedbackText theme={theme}>{t('feedback:notUseful')}</FeedbackText>
+          <FeedbackText theme={theme}>{t('notUseful')}</FeedbackText>
         </FeedbackTouchableOpacity>
       </FeedbackButtons>
     </FeedbackBox>
   }
 }
 
-export default SiteHelpfulBox
+export default translate('feedback')(SiteHelpfulBox)

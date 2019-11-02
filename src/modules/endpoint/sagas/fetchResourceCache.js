@@ -1,19 +1,17 @@
 // @flow
 
 import type { Saga } from 'redux-saga'
-import { isEmpty, reduce } from 'lodash'
+import { flatten, isEmpty, mapValues, pickBy, reduce, values } from 'lodash'
 import { call, put } from 'redux-saga/effects'
 import type { ResourcesFetchFailedActionType } from '../../app/StoreActionType'
-import type { FetchResultType } from '../../fetcher/FetcherModule'
+import type { FetchResultType, TargetFilePathsType } from '../../fetcher/FetcherModule'
 import FetcherModule from '../../fetcher/FetcherModule'
-import { invertBy, mapValues, pickBy } from 'lodash/object'
 import type { DataContainer } from '../DataContainer'
+import type { FileCacheStateType, LanguageResourceCacheStateType } from '../../app/StateType'
+import moment from 'moment'
 
-export type PathType = string
-export type UrlType = string
-export type FilePathType = string
-export type HashType = string
-export type FetchMapType = { [filePath: FilePathType]: [UrlType, PathType, HashType] }
+export type FetchMapTargetType = { url: string, filePath: string, urlHash: string }
+export type FetchMapType = { [path: string]: Array<FetchMapTargetType> }
 
 const createErrorMessage = (fetchResult: FetchResultType) => {
   return reduce(fetchResult, (message, result, path) =>
@@ -21,37 +19,43 @@ const createErrorMessage = (fetchResult: FetchResultType) => {
 }
 
 export default function * fetchResourceCache (
-  city: string, language: string, fetchMap: FetchMapType, dataContainer: DataContainer): Saga<void> {
+  city: string,
+  language: string,
+  fetchMap: FetchMapType,
+  dataContainer: DataContainer
+): Saga<void> {
   try {
-    const targetUrls = mapValues(fetchMap, ([url]) => url)
+    const fetchMapTargets = flatten<FetchMapTargetType, FetchMapTargetType>(values(fetchMap))
+    const targetFilePaths = reduce<Array<FetchMapTargetType>, TargetFilePathsType>(fetchMapTargets, (acc, value) => {
+      acc[value.filePath] = value.url
+      return acc
+    }, {})
 
-    const results = yield call(new FetcherModule().fetchAsync, targetUrls, progress => console.log(progress))
+    const results = yield call(new FetcherModule().fetchAsync, targetFilePaths, progress => console.log(progress))
 
-    const successResults = pickBy(results, result => !result.errorMessage)
-    const failureResults = pickBy(results, result => !!result.errorMessage)
+    const successResults: FetchResultType = pickBy(results, result => !result.errorMessage)
+    const failureResults: FetchResultType = pickBy(results, result => !!result.errorMessage)
     if (!isEmpty(failureResults)) {
       // TODO: we might remember which files have failed to retry later (internet connection of client could have failed)
       const message = createErrorMessage(failureResults)
       console.warn(message)
     }
 
-    const targetCategories: { [categoryPath: PathType]: Array<FilePathType> } =
-      invertBy(mapValues(fetchMap, ([url, path, urlHash]) => path))
+    const resourceCache: LanguageResourceCacheStateType = mapValues(fetchMap, fetchMapEntry =>
+      reduce<Array<FetchMapTargetType>, FileCacheStateType>(
+        fetchMapEntry, (acc: {}, fetchMapTarget: FetchMapTargetType) => {
+          const filePath = fetchMapTarget.filePath
+          const downloadResult = successResults[filePath]
 
-    const resourceCache = mapValues(targetCategories, filePaths =>
-      reduce(filePaths, (acc, filePath) => {
-        const downloadResult = successResults[filePath]
-        const [, , urlHash] = fetchMap[filePath]
-
-        if (downloadResult) {
-          acc[downloadResult.url] = {
-            filePath,
-            lastUpdate: downloadResult.lastUpdate,
-            hash: urlHash
+          if (downloadResult) {
+            acc[downloadResult.url] = {
+              filePath,
+              lastUpdate: moment(downloadResult.lastUpdate),
+              hash: fetchMapTarget.urlHash
+            }
           }
-        }
-        return acc
-      }, {})
+          return acc
+        }, {})
     )
 
     yield call(dataContainer.setResourceCache, city, language, resourceCache)

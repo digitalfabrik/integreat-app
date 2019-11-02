@@ -16,11 +16,12 @@ import { translate } from 'react-i18next'
 import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 import Categories from '../../../modules/categories/components/Categories'
 import React from 'react'
-import omitNavigation from '../../../modules/common/hocs/omitNavigation'
+import type { TFunction } from 'i18next'
+import { mapProps } from 'recompose'
 
 type ContainerPropsType = {|
   navigation: NavigationScreenProp<*>,
-  cities: Array<CityModel>,
+  cities: $ReadOnlyArray<CityModel>,
   cityCode: string,
   language: string,
   stateView: CategoriesRouteStateView,
@@ -35,76 +36,68 @@ type RefreshPropsType = {|
   navigation: NavigationScreenProp<*>
 |}
 
-type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
+type OwnPropsType = {| navigation: NavigationScreenProp<*>, t: TFunction |}
 type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
 type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
-const createChangeUnavailableLanguage = (path: string, navigation: NavigationScreenProp<*>, city: string) => (
+const createChangeUnavailableLanguage = (city: string, t: TFunction) => (
   dispatch: Dispatch<StoreActionType>, newLanguage: string
 ) => {
   const switchContentLanguage: SwitchContentLanguageActionType = {
     type: 'SWITCH_CONTENT_LANGUAGE',
-    params: { newLanguage, city }
+    params: { newLanguage, city, t }
   }
   dispatch(switchContentLanguage)
-  const navigateToCategory = createNavigateToCategory('Categories', dispatch, navigation)
-  navigateToCategory({
-    cityCode: city,
-    language: newLanguage,
-    path,
-    forceUpdate: false,
-    key: navigation.state.key
-  })
 }
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
+  const { t, navigation } = ownProps
   if (!state.cityContent) {
     return { status: 'routeNotInitialized' }
   }
-  const { resourceCache, categoriesRouteMapping, switchingLanguage } = state.cityContent
-  const route = categoriesRouteMapping[ownProps.navigation.state.key]
-
+  const { resourceCache, categoriesRouteMapping, switchingLanguage, languages } = state.cityContent
+  const route = categoriesRouteMapping[navigation.state.key]
   if (!route) {
     return { status: 'routeNotInitialized' }
   }
 
-  const city = route.city
-  const refreshProps = { cityCode: city, language: route.language, path: route.path, navigation: ownProps.navigation }
-
-  if (state.cities.status === 'error' ||
-    resourceCache.errorMessage !== undefined ||
-    route.status === 'error') {
-    return { status: 'error', refreshProps }
-  }
-
-  if (route.status === 'loading' || switchingLanguage || state.cities.status === 'loading') {
+  if (state.cities.status === 'loading' || switchingLanguage || route.status === 'loading' || !languages) {
     return { status: 'loading' }
   }
 
-  const cities = state.cities.models
-  const languages = Array.from(route.allAvailableLanguages.keys())
-  const stateView = new CategoriesRouteStateView(route.path, route.models, route.children)
-  if (!languages.includes(route.language)) {
+  if (route.status === 'languageNotAvailable') {
     return {
       status: 'languageNotAvailable',
-      availableLanguages: languages,
-      cityCode: city,
-      refreshProps,
-      changeUnavailableLanguage: createChangeUnavailableLanguage(route.path, ownProps.navigation, city)
+      availableLanguages: languages.filter(lng => route.allAvailableLanguages.has(lng.code)),
+      cityCode: route.city,
+      changeUnavailableLanguage: createChangeUnavailableLanguage(route.city, t)
     }
   }
+
+  const refreshProps = {
+    cityCode: route.city,
+    language: route.language,
+    path: route.path,
+    navigation: ownProps.navigation
+  }
+  if (state.cities.status === 'error' || resourceCache.errorMessage !== undefined || route.status === 'error') {
+    return { status: 'error', refreshProps }
+  }
+
+  const cities: $ReadOnlyArray<CityModel> = state.cities.models
+  const stateView = new CategoriesRouteStateView(route.path, route.models, route.children)
 
   return {
     status: 'success',
     refreshProps,
     innerProps: {
-      cityCode: city,
+      cityCode: route.city,
       language: route.language,
       cities,
       stateView,
       resourceCache,
-      navigation: ownProps.navigation
+      navigation
     }
   }
 }
@@ -134,9 +127,16 @@ const ThemedTranslatedCategories = withTheme(props => props.language)(
     Categories
   ))
 
-export default withRouteCleaner<PropsType>(
-  connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
-    omitNavigation<PropsType>(
-      withPayloadProvider<ContainerPropsType, RefreshPropsType>(refresh)(
-        CategoriesContainer
-      ))))
+type RestType = $Diff<PropsType, OwnPropsType>
+const removeOwnProps = (props: PropsType): RestType => {
+  const { t, navigation, ...rest } = props
+  return rest
+}
+
+export default withRouteCleaner<{| navigation: NavigationScreenProp<*> |}>(
+  translate('error')(
+    connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
+      mapProps<RestType, PropsType>(removeOwnProps)(
+        withPayloadProvider<ContainerPropsType, RefreshPropsType>(refresh)(
+          CategoriesContainer
+        )))))
