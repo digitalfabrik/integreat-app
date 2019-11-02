@@ -4,12 +4,12 @@ import type { Dispatch } from 'redux'
 
 import { connect } from 'react-redux'
 import Dashboard from '../components/Dashboard'
-import type { CategoryRouteStateType, LanguageResourceCacheStateType, StateType } from '../../../modules/app/StateType'
+import type { LanguageResourceCacheStateType, StateType } from '../../../modules/app/StateType'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
-import { translate } from 'react-i18next'
+import { type TFunction, translate } from 'react-i18next'
 import type { NavigationScreenProp } from 'react-navigation'
 import type { StatusPropsType } from '../../../modules/error/hocs/withPayloadProvider'
 import withPayloadProvider from '../../../modules/error/hocs/withPayloadProvider'
@@ -19,11 +19,12 @@ import createNavigateToCategory from '../../../modules/app/createNavigateToCateg
 import createNavigateToEvent from '../../../modules/app/createNavigateToEvent'
 import createNavigateToIntegreatUrl from '../../../modules/app/createNavigateToIntegreatUrl'
 import createNavigateToExtras from '../../../modules/app/createNavigateToExtras'
-import omitNavigation from '../../../modules/common/hocs/omitNavigation'
+import { mapProps } from 'recompose'
 
 type RefreshPropsType = {|
   cityCode: string,
   language: string,
+  path: string,
   navigation: NavigationScreenProp<*>
 |}
 
@@ -31,82 +32,75 @@ type ContainerPropsType = {|
   navigation: NavigationScreenProp<*>,
   language: string,
   cityCode: string,
-  cities: Array<CityModel>,
+  cities: $ReadOnlyArray<CityModel>,
   stateView: CategoriesRouteStateView,
   resourceCache: LanguageResourceCacheStateType,
   dispatch: Dispatch<StoreActionType>
 |}
 
-type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
+type OwnPropsType = {| navigation: NavigationScreenProp<*>, t: TFunction |}
 type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
 type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
 const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
-  const { cityCode, language, navigation } = refreshProps
+  const { cityCode, language, navigation, path } = refreshProps
   const navigateToDashboard = createNavigateToCategory('Dashboard', dispatch, navigation)
   navigateToDashboard({
-    cityCode, language, path: `/${cityCode}/${language}`, forceUpdate: true, key: navigation.state.key
+    cityCode, language, path, forceUpdate: true, key: navigation.state.key
   })
 }
 
-const createChangeUnavailableLanguage = (city: string, navigation: NavigationScreenProp<*>) => (
-  dispatch: Dispatch<StoreActionType>, newLanguage: string
-) => {
-  dispatch({
-    type: 'SWITCH_CONTENT_LANGUAGE',
-    params: { newLanguage, city }
-  })
-  const navigateToDashboard = createNavigateToCategory('Dashboard', dispatch, navigation)
-  navigateToDashboard({
-    cityCode: city,
-    language: newLanguage,
-    path: `/${city}/${newLanguage}`,
-    forceUpdate: false,
-    key: navigation.state.key
-  })
-}
+const createChangeUnavailableLanguage = (city: string, t: TFunction) =>
+  (dispatch: Dispatch<StoreActionType>, newLanguage: string) => {
+    dispatch({
+      type: 'SWITCH_CONTENT_LANGUAGE',
+      params: { newLanguage, city, t }
+    })
+  }
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
+  const { t, navigation } = ownProps
   if (!state.cityContent) {
     return { status: 'routeNotInitialized' }
   }
-  const { resourceCache, categoriesRouteMapping, city, languages, switchingLanguage } = state.cityContent
-  const route: ?CategoryRouteStateType = categoriesRouteMapping[ownProps.navigation.state.key]
+  const { resourceCache, categoriesRouteMapping, switchingLanguage, languages } = state.cityContent
+  const route = categoriesRouteMapping[navigation.state.key]
   if (!route) {
     return { status: 'routeNotInitialized' }
   }
 
-  const refreshProps = { cityCode: city, language: route.language, navigation: ownProps.navigation }
-  if (state.cities.status === 'error' ||
-    resourceCache.errorMessage !== undefined ||
-    route.status === 'error') {
-    return { status: 'error', refreshProps }
-  }
-
-  if (state.cities.status === 'loading' || !languages || switchingLanguage || route.status === 'loading') {
+  if (state.cities.status === 'loading' || switchingLanguage || route.status === 'loading' || !languages) {
     return { status: 'loading' }
   }
 
-  const cities = state.cities.models
-  if (!languages.find(language => language.code === route.language)) {
+  if (route.status === 'languageNotAvailable') {
     return {
       status: 'languageNotAvailable',
-      availableLanguages: languages,
-      cityCode: city,
-      refreshProps,
-      changeUnavailableLanguage: createChangeUnavailableLanguage(city, ownProps.navigation)
+      availableLanguages: languages.filter(lng => route.allAvailableLanguages.has(lng.code)),
+      cityCode: route.city,
+      changeUnavailableLanguage: createChangeUnavailableLanguage(route.city, t)
     }
   }
 
-  const stateView = new CategoriesRouteStateView(route.path, route.models, route.children)
+  const refreshProps = {
+    cityCode: route.city,
+    language: route.language,
+    path: route.path,
+    navigation: ownProps.navigation
+  }
+  if (state.cities.status === 'error' || resourceCache.errorMessage !== undefined || route.status === 'error') {
+    return { status: 'error', refreshProps }
+  }
 
+  const cities = state.cities.models
+  const stateView = new CategoriesRouteStateView(route.path, route.models, route.children)
   return {
     status: 'success',
     refreshProps,
     innerProps: {
-      navigation: ownProps.navigation,
-      cityCode: city,
+      navigation,
+      cityCode: route.city,
       language: route.language,
       cities,
       stateView,
@@ -133,11 +127,16 @@ const DashboardContainer = (props: ContainerPropsType) => {
     navigateToExtras={createNavigateToExtras(dispatch, rest.navigation)} />
 }
 
-export default withRouteCleaner<PropsType>(
-  connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
-    omitNavigation<PropsType>(
-      withPayloadProvider<ContainerPropsType, RefreshPropsType>(refresh)(
-        DashboardContainer
-      )
-    )
-  ))
+type RestType = $Diff<PropsType, OwnPropsType>
+const removeOwnProps = (props: PropsType): RestType => {
+  const { t, navigation, ...rest } = props
+  return rest
+}
+
+export default withRouteCleaner<{| navigation: NavigationScreenProp<*> |}>(
+  translate('error')(
+    connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
+      mapProps<RestType, PropsType>(removeOwnProps)(
+        withPayloadProvider<ContainerPropsType, RefreshPropsType>(refresh)(
+          DashboardContainer
+        )))))

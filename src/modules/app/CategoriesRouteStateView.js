@@ -5,10 +5,14 @@ import { has } from 'lodash'
 
 class CategoriesRouteStateView {
   +rawPath: string
-  +rawModels: { [path: string]: CategoryModel }
-  +rawChildren: { [path: string]: Array<string> }
+  +rawModels: $ReadOnly<{ [path: string]: CategoryModel }>
+  +rawChildren: $ReadOnly<{ [path: string]: $ReadOnlyArray<string> }>
 
-  constructor (path: string, models: { [path: string]: CategoryModel }, children: { [path: string]: Array<string> }) {
+  constructor (
+    path: string,
+    models: $ReadOnly<{ [path: string]: CategoryModel }>,
+    children: $ReadOnly<{ [path: string]: $ReadOnlyArray<string> }>
+  ) {
     this.rawModels = models
     this.rawChildren = children
     this.rawPath = path

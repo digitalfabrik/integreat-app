@@ -32,10 +32,6 @@ describe('fetchResourceCache', () => {
 
     const fetchedResources = await dataContainer.getResourceCache(city, language)
 
-    if (fetchedResources.errorMessage !== undefined) {
-      throw new Error('getResourceCache threw an error!')
-    }
-
     const fetchedCount = {
       ...fetchedResources['/augsburg/de/category_0'],
       ...fetchedResources['/augsburg/de/category_0/category_0']

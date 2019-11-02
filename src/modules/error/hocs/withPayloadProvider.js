@@ -9,6 +9,7 @@ import type { StoreActionType } from '../../app/StoreActionType'
 import { type Dispatch } from 'redux'
 import { wrapDisplayName } from 'recompose'
 import FailureContainer from '../containers/FailureContainer'
+import { LOADING_TIMEOUT } from '../../common/constants'
 
 export type RouteNotInitializedType = {| status: 'routeNotInitialized' |}
 export type LoadingType = {| status: 'loading' |}
@@ -16,11 +17,10 @@ export type ErrorType<R> = {|
   status: 'error',
   refreshProps: R
 |}
-export type LanguageNotAvailableType<R> = {|
+export type LanguageNotAvailableType = {|
   status: 'languageNotAvailable',
   availableLanguages: Array<LanguageModel>,
   cityCode: string,
-  refreshProps: R,
   changeUnavailableLanguage: (dispatch: Dispatch<StoreActionType>, newLanguage: string) => void
 |}
 
@@ -34,7 +34,7 @@ export type StatusPropsType<S, R> =
   RouteNotInitializedType
   | LoadingType
   | ErrorType<R>
-  | LanguageNotAvailableType<R>
+  | LanguageNotAvailableType
   | SuccessType<$Diff<S, { dispatch: Dispatch<StoreActionType> }>, R>
 
 export type PropsType<S: { dispatch: Dispatch<StoreActionType> }, R> = {|
@@ -46,12 +46,18 @@ const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R> (
   refresh: (refreshProps: R, dispatch: Dispatch<StoreActionType>) => void
 ): ((Component: React.ComponentType<S>) => React.ComponentType<PropsType<S, R>>) => {
   return (Component: React.ComponentType<S>): React.ComponentType<PropsType<S, R>> => {
-    return class extends React.Component<PropsType<S, R>> {
+    return class extends React.Component<PropsType<S, R>, {| timeoutExpired: boolean |}> {
       static displayName = wrapDisplayName(Component, 'withPayloadProvider')
+
+      state = { timeoutExpired: false }
+
+      componentDidMount () {
+        setTimeout(() => this.setState({ timeoutExpired: true }), LOADING_TIMEOUT)
+      }
 
       refresh = () => {
         const props = this.props
-        if (props.status === 'routeNotInitialized' || props.status === 'loading') {
+        if (props.status === 'routeNotInitialized' || props.status === 'loading' || props.status === 'languageNotAvailable') {
           throw Error('Refreshing is not possible because the route is not yet initialized or already loading.')
         }
         refresh(props.refreshProps, props.dispatch)
@@ -77,7 +83,9 @@ const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R> (
           return <LanguageNotAvailableContainer languages={props.availableLanguages}
                                                 changeLanguage={this.changeUnavailableLanguage} />
         } else if (props.status === 'loading') {
-          return <ScrollView refreshControl={<RefreshControl refreshing />} contentContainerStyle={{ flexGrow: 1 }} />
+          return this.state.timeoutExpired
+            ? <ScrollView refreshControl={<RefreshControl refreshing />} contentContainerStyle={{ flexGrow: 0 }} />
+            : null
         } else { // props.status === 'success'
           return <ScrollView refreshControl={<RefreshControl onRefresh={this.refresh} refreshing={false} />}
                              contentContainerStyle={{ flexGrow: 1 }}>
