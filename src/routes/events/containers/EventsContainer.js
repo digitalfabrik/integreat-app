@@ -3,7 +3,7 @@
 import type { EventRouteStateType, LanguageResourceCacheStateType, StateType } from '../../../modules/app/StateType'
 import { connect } from 'react-redux'
 import Events from '../components/Events'
-import { translate } from 'react-i18next'
+import { type TFunction, translate } from 'react-i18next'
 import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 import createNavigateToEvent from '../../../modules/app/createNavigateToEvent'
 import type { Dispatch } from 'redux'
@@ -15,7 +15,7 @@ import withTheme from '../../../modules/theme/hocs/withTheme'
 import { CityModel, EventModel } from '@integreat-app/integreat-api-client'
 import * as React from 'react'
 import createNavigateToIntegreatUrl from '../../../modules/app/createNavigateToIntegreatUrl'
-import omitNavigation from '../../../modules/common/hocs/omitNavigation'
+import { mapProps } from 'recompose'
 
 type ContainerPropsType = {|
   path: ?string,
@@ -35,27 +35,28 @@ type RefreshPropsType = {|
   path: ?string
 |}
 
-type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
+type OwnPropsType = {| navigation: NavigationScreenProp<*>, t: TFunction |}
 type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
 type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
-const createChangeUnavailableLanguage = (city: string) => (
+const createChangeUnavailableLanguage = (city: string, t: TFunction) => (
   dispatch: Dispatch<StoreActionType>, newLanguage: string
 ) => {
   const switchContentLanguage: SwitchContentLanguageActionType = {
     type: 'SWITCH_CONTENT_LANGUAGE',
-    params: { newLanguage, city }
+    params: { newLanguage, city, t }
   }
   dispatch(switchContentLanguage)
 }
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
+  const { t, navigation } = ownProps
   if (!state.cityContent) {
     return { status: 'routeNotInitialized' }
   }
   const { resourceCache, eventsRouteMapping, switchingLanguage, languages } = state.cityContent
-  const route: ?EventRouteStateType = eventsRouteMapping[ownProps.navigation.state.key]
+  const route: ?EventRouteStateType = eventsRouteMapping[navigation.state.key]
   if (!route) {
     return { status: 'routeNotInitialized' }
   }
@@ -69,7 +70,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       status: 'languageNotAvailable',
       availableLanguages: languages.filter(lng => route.allAvailableLanguages.has(lng.code)),
       cityCode: route.city,
-      changeUnavailableLanguage: createChangeUnavailableLanguage(route.city)
+      changeUnavailableLanguage: createChangeUnavailableLanguage(route.city, t)
     }
   }
 
@@ -94,7 +95,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       cityCode: route.city,
       language: route.language,
       resourceCache,
-      navigation: ownProps.navigation
+      navigation
     }
   }
 }
@@ -122,9 +123,16 @@ const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionT
   navigateToEvent({ cityCode, language, path, forceUpdate: true, key: navigation.state.key })
 }
 
-export default withRouteCleaner<PropsType>(
-  connect<PropsType, OwnPropsType, StatePropsType, DispatchPropsType, StateType, Dispatch<StoreActionType>>(mapStateToProps, mapDispatchToProps)(
-    omitNavigation<PropsType>(
-      withPayloadProvider<ContainerPropsType, RefreshPropsType>(refresh)(
-        EventsContainer
-      ))))
+type RestType = $Diff<PropsType, OwnPropsType>
+const removeOwnProps = (props: PropsType): RestType => {
+  const { t, navigation, ...rest } = props
+  return rest
+}
+
+export default withRouteCleaner<{| navigation: NavigationScreenProp<*> |}>(
+  translate('error')(
+    connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
+      mapProps<RestType, PropsType>(removeOwnProps)(
+        withPayloadProvider<ContainerPropsType, RefreshPropsType>(refresh)(
+          EventsContainer
+        )))))
