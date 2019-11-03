@@ -22,6 +22,7 @@ import CategoriesRouteStateView from '../../../../modules/app/CategoriesRouteSta
 import brightTheme from '../../../../modules/theme/constants/theme'
 import moment from 'moment'
 import { LanguageModel } from '@integreat-app/integreat-api-client'
+import { LOADING_TIMEOUT } from '../../../../modules/common/constants'
 
 jest.mock('react-i18next')
 jest.useFakeTimers()
@@ -166,7 +167,7 @@ describe('DashboardContainer', () => {
     const result = TestRenderer.create(
       <Provider store={store}><DashboardContainer navigation={navigation} /></Provider>
     )
-    jest.advanceTimersByTime(1000)
+    jest.advanceTimersByTime(LOADING_TIMEOUT)
     const refreshControl = result.root.findByType(ScrollView).props.refreshControl
     expect(refreshControl.props.refreshing).toBe(true)
   }
