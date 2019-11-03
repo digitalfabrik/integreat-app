@@ -447,6 +447,8 @@ class DatabaseConnector {
       a.lastUsage.isAfter(b.lastUsage) ? -1 : (a.lastUsage.isSame(b.lastUsage) ? 0 : 1)
     ).slice(MAX_RESOURCE_CACHES - 1)
 
+    console.log(lastUsages)
+    console.log(cachesToDelete)
     await cachesToDelete.forEach(async cityLastUpdate => {
       const cityResourceCachePath = `${RESOURCE_CACHE_DIR_PATH}/${cityLastUpdate.city}`
       await this.deleteFileOrDirectory(cityResourceCachePath)

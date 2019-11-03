@@ -8,7 +8,6 @@ import CityModelBuilder from '../../../testing/builder/CityModelBuilder'
 import LanguageModelBuilder from '../../../testing/builder/LanguageModelBuilder'
 import CategoriesMapModelBuilder from '../../../testing/builder/CategoriesMapModelBuilder'
 import EventModelBuilder from '../../../testing/builder/EventModelBuilder'
-import DatabaseConnector from '../DatabaseConnector'
 
 jest.mock('rn-fetch-blob')
 
@@ -118,19 +117,15 @@ describe('DefaultDataContainer', () => {
   })
 
   it('should return the resources associated with the context', async () => {
-    const databaseConnector = new DatabaseConnector()
-    const defaultDataContainer = new DefaultDataContainer(databaseConnector)
+    const defaultDataContainer = new DefaultDataContainer()
     await defaultDataContainer.setResourceCache('testCity', 'de', testResources)
     await defaultDataContainer.setResourceCache('anotherTestCity', 'en', anotherTestResources)
 
-    const spyUpdateLastUsage = jest.spyOn(databaseConnector, 'updateLastUsage')
     const receivedTestResources = await defaultDataContainer.getResourceCache('testCity', 'de')
     const receivedAnotherTestResources = await defaultDataContainer.getResourceCache('anotherTestCity', 'en')
 
     expect(receivedTestResources).toEqual(testResources)
     expect(receivedAnotherTestResources).toEqual(anotherTestResources)
-    expect(spyUpdateLastUsage).toHaveBeenCalledWith(new DatabaseContext('testCity', null))
-    expect(spyUpdateLastUsage).toHaveBeenCalledWith(new DatabaseContext('anotherTestCity', null))
   })
   it('should return an empty object if no resources where found', async () => {
     const defaultDataContainer = new DefaultDataContainer()
