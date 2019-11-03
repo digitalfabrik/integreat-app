@@ -19,7 +19,7 @@ afterEach(() => {
 
 describe('DatabaseConnector', () => {
   const city = 'augsburg'
-
+  const spyMomentNow = jest.spyOn(moment, 'now')
   const testCities = new CityModelBuilder(2).build()
   const testCategoriesMap = new CategoriesMapModelBuilder(city, 2, 2).build()
   const testLanguages = new LanguageModelBuilder(2).build()
@@ -284,23 +284,23 @@ describe('DatabaseConnector', () => {
     }
 
     it('should keep only the maximal number of caches', async () => {
-      const spy = jest.spyOn(moment, 'now').mockReturnValue(moment('2011-05-04T00:00:00.000Z'))
+      spyMomentNow.mockReturnValue(moment('2011-05-04T00:00:00.000Z'))
       await databaseConnector.updateLastUsage(new DatabaseContext('muenchen'))
       await databaseConnector.storeResourceCache(testResources, new DatabaseContext('muenchen'))
 
-      spy.mockReturnValue(moment('2012-05-04T00:00:00.000Z'))
+      spyMomentNow.mockReturnValue(moment('2012-05-04T00:00:00.000Z'))
       await databaseConnector.updateLastUsage(new DatabaseContext('dortmund'))
       await databaseConnector.storeResourceCache(testResources, new DatabaseContext('dortmund'))
 
-      spy.mockReturnValue(moment('2013-05-04T00:00:00.000Z'))
+      spyMomentNow.mockReturnValue(moment('2013-05-04T00:00:00.000Z'))
       await databaseConnector.updateLastUsage(new DatabaseContext('ansbach'))
       await databaseConnector.storeResourceCache(testResources, new DatabaseContext('ansbach'))
 
-      spy.mockReturnValue(moment('2014-05-04T00:00:00.000Z'))
+      spyMomentNow.mockReturnValue(moment('2014-05-04T00:00:00.000Z'))
       await databaseConnector.updateLastUsage(new DatabaseContext('regensburg'))
       await databaseConnector.storeResourceCache(testResources, new DatabaseContext('regensburg'))
 
-      spy.mockReturnValue(moment('2015-05-04T00:00:00.000Z'))
+      spyMomentNow.mockReturnValue(moment('2015-05-04T00:00:00.000Z'))
       await databaseConnector.updateLastUsage(new DatabaseContext('augsburg'))
       await databaseConnector.storeResourceCache(testResources, new DatabaseContext('augsburg'))
 
@@ -315,26 +315,26 @@ describe('DatabaseConnector', () => {
     })
 
     it('should not delete the resource cache of the same city', async () => {
-      const spy = jest.spyOn(moment, 'now').mockReturnValue(moment('2011-05-04T00:00:00.000Z'))
+      spyMomentNow.mockReturnValue(moment('2011-05-04T00:00:00.000Z'))
       await databaseConnector.storeResourceCache(testResources, new DatabaseContext('augsburg'))
 
-      spy.mockReturnValue(moment('2011-05-04T00:00:00.000Z'))
+      spyMomentNow.mockReturnValue(moment('2011-05-04T00:00:00.000Z'))
       await databaseConnector.updateLastUsage(new DatabaseContext('dortmund'))
       await databaseConnector.storeResourceCache(testResources, new DatabaseContext('dortmund'))
 
-      spy.mockReturnValue(moment('2012-05-04T00:00:00.000Z'))
+      spyMomentNow.mockReturnValue(moment('2012-05-04T00:00:00.000Z'))
       await databaseConnector.updateLastUsage(new DatabaseContext('ansbach'))
       await databaseConnector.storeResourceCache(testResources, new DatabaseContext('ansbach'))
 
-      spy.mockReturnValue(moment('2013-05-04T00:00:00.000Z'))
+      spyMomentNow.mockReturnValue(moment('2013-05-04T00:00:00.000Z'))
       await databaseConnector.updateLastUsage(new DatabaseContext('ansbach'))
       await databaseConnector.storeResourceCache(testResources, new DatabaseContext('ansbach'))
 
-      spy.mockReturnValue(moment('2014-05-04T00:00:00.000Z'))
+      spyMomentNow.mockReturnValue(moment('2014-05-04T00:00:00.000Z'))
       await databaseConnector.updateLastUsage(new DatabaseContext('ansbach'))
       await databaseConnector.storeResourceCache(testResources, new DatabaseContext('ansbach'))
 
-      spy.mockReturnValue(moment('2014-05-04T00:00:00.000Z'))
+      spyMomentNow.mockReturnValue(moment('2014-05-04T00:00:00.000Z'))
       await databaseConnector.updateLastUsage(new DatabaseContext('augsburg'))
       await databaseConnector.storeResourceCache(testResources, new DatabaseContext('augsburg'))
 
@@ -359,6 +359,79 @@ describe('DatabaseConnector', () => {
 
       const cache = await databaseConnector.loadResourceCache(context)
       expect(cache).toEqual(testResources)
+    })
+  })
+
+  describe('updateLastUsage', () => {
+    it('should update the usage of the passed city', async () => {
+      const date = moment('2014-05-04T00:00:00.000Z')
+      spyMomentNow.mockReturnValue(date)
+      const context = new DatabaseContext('augsburg')
+      await databaseConnector.updateLastUsage(context)
+
+      expect(JSON.parse(await RNFetchBlob.fs.readFile(databaseConnector.getMetaCitiesPath(), '')))
+        .toEqual({ augsburg: { last_usage: date.toISOString(), languages: {} } })
+    })
+  })
+
+  describe('updateLastUsages', () => {
+    it('should update all passed usages', async () => {
+      const usages = [
+        { city: 'augsburg', lastUsage: moment('2014-05-04T00:00:00.000Z') },
+        { city: 'bielefeld', lastUsage: null },
+        { city: 'dortmund', lastUsage: moment('2015-05-04T00:00:00.000Z') },
+        { city: 'nuernberg', lastUsage: moment('2016-05-04T00:00:00.000Z') }
+      ]
+
+      await databaseConnector.updateLastUsages(usages)
+
+      expect(JSON.parse(await RNFetchBlob.fs.readFile(databaseConnector.getMetaCitiesPath(), ''))).toMatchSnapshot()
+
+      const newUsages = [
+        { city: 'augsburg', lastUsage: null },
+        { city: 'bonn', lastUsage: moment('2010-05-04T00:00:00.000Z') }
+      ]
+
+      await databaseConnector.updateLastUsages(newUsages)
+
+      expect(JSON.parse(await RNFetchBlob.fs.readFile(databaseConnector.getMetaCitiesPath(), ''))).toMatchSnapshot()
+    })
+  })
+
+  describe('deleteOldResourceCaches', () => {
+    it('should delete old caches if there are more MAX_RESOURCE_CACHES', async () => {
+      const usages = [
+        { city: 'augsburg', lastUsage: moment('2014-05-04T00:00:00.000Z') },
+        { city: 'dillingen', lastUsage: moment('2015-08-04T00:00:00.000Z') },
+        { city: 'bielefeld', lastUsage: null },
+        { city: 'dortmund', lastUsage: moment('2016-05-04T00:00:00.000Z') },
+        { city: 'berlin', lastUsage: moment('2017-10-04T00:00:00.000Z') },
+        { city: 'nuernberg', lastUsage: moment('2018-05-04T00:00:00.000Z') }
+      ]
+
+      await databaseConnector.updateLastUsages(usages)
+
+      await databaseConnector.deleteOldResourceCaches(new DatabaseContext('aachen'))
+      expect(RNFetchBlob.fs.unlink).toHaveBeenCalledWith('path/to/documentDir/resource-cache/v1/augsburg')
+      expect(RNFetchBlob.fs.unlink).toHaveBeenCalledWith('path/to/documentDir/resource-cache/v1/dillingen')
+      expect(RNFetchBlob.fs.unlink).toHaveBeenCalledWith('path/to/documentDir/resource-cache/v1/dortmund')
+      expect(RNFetchBlob.fs.unlink).toHaveBeenCalledTimes(3)
+      expect(JSON.parse(await RNFetchBlob.fs.readFile(databaseConnector.getMetaCitiesPath(), ''))).toMatchSnapshot()
+    })
+
+    it('should not delete anything if there are exactly MAX_RESOURCE_CACHES and a cache is updated', async () => {
+      const usages = [
+        { city: 'augsburg', lastUsage: moment('2014-05-04T00:00:00.000Z') },
+        { city: 'dillingen', lastUsage: moment('2015-08-04T00:00:00.000Z') },
+        { city: 'bielefeld', lastUsage: null },
+        { city: 'dortmund', lastUsage: moment('2016-05-04T00:00:00.000Z') }
+      ]
+
+      await databaseConnector.updateLastUsages(usages)
+
+      await databaseConnector.deleteOldResourceCaches(new DatabaseContext('augsburg'))
+      expect(RNFetchBlob.fs.unlink).not.toHaveBeenCalled()
+      expect(JSON.parse(await RNFetchBlob.fs.readFile(databaseConnector.getMetaCitiesPath(), ''))).toMatchSnapshot()
     })
   })
 })

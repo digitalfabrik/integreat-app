@@ -223,7 +223,7 @@ class DatabaseConnector {
       }
     })
 
-    this.writeFile(this.getMetaCitiesPath(), JSON.stringify(metaData))
+    await this.writeFile(this.getMetaCitiesPath(), JSON.stringify(metaData))
   }
 
   async updateLastUsage (context: DatabaseContext) {
@@ -449,17 +449,18 @@ class DatabaseConnector {
     const lastUsages = await this.loadLastUsages()
     const cachesToDelete = lastUsages.filter(it => it.lastUsage !== null)
       .filter(it => it.city !== context.cityCode)
-      // Sort last usages chronological, from newest to oldest and remove the latest.
+      // Sort last usages chronological, from oldest to newest
       .sort((a, b) =>
-        a.lastUsage.isAfter(b.lastUsage) ? -1 : (a.lastUsage.isSame(b.lastUsage) ? 0 : 1)
-      ).slice(MAX_RESOURCE_CACHES - 1)
+        a.lastUsage.isBefore(b.lastUsage) ? -1 : (a.lastUsage.isSame(b.lastUsage) ? 0 : 1)
+      )
+      .slice(0, -(MAX_RESOURCE_CACHES - 1))
 
     await cachesToDelete.forEach(async cityLastUpdate => {
       const cityResourceCachePath = `${RESOURCE_CACHE_DIR_PATH}/${cityLastUpdate.city}`
       await this.deleteFileOrDirectory(cityResourceCachePath)
     })
 
-    this.updateLastUsages(cachesToDelete.map(it => ({ city: it.city, lastUsage: null })))
+    await this.updateLastUsages(cachesToDelete.map(it => ({ city: it.city, lastUsage: null })))
   }
 
   isCitiesPersisted (): Promise<boolean> {

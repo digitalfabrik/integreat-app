@@ -1,3 +1,99 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`DatabaseConnector deleteOldResourceCaches should delete old caches if there are more than permitted 1`] = `
+Object {
+  "augsburg": Object {
+    "languages": Object {},
+    "last_usage": null,
+  },
+  "berlin": Object {
+    "languages": Object {},
+    "last_usage": "2017-10-04T00:00:00.000Z",
+  },
+  "bielefeld": Object {
+    "languages": Object {},
+    "last_usage": null,
+  },
+  "dillingen": Object {
+    "languages": Object {},
+    "last_usage": null,
+  },
+  "dortmund": Object {
+    "languages": Object {},
+    "last_usage": null,
+  },
+  "nuernberg": Object {
+    "languages": Object {},
+    "last_usage": "2018-05-04T00:00:00.000Z",
+  },
+}
+`;
+
+exports[`DatabaseConnector deleteOldResourceCaches should not delete anything if there are exactly MAX_RESOURCE_CACHES and a cache is updated 1`] = `
+Object {
+  "augsburg": Object {
+    "languages": Object {},
+    "last_usage": "2014-05-04T00:00:00.000Z",
+  },
+  "bielefeld": Object {
+    "languages": Object {},
+    "last_usage": null,
+  },
+  "dillingen": Object {
+    "languages": Object {},
+    "last_usage": "2015-08-04T00:00:00.000Z",
+  },
+  "dortmund": Object {
+    "languages": Object {},
+    "last_usage": "2016-05-04T00:00:00.000Z",
+  },
+}
+`;
+
 exports[`DatabaseConnector storeResourceCache should keep only the maximal number of caches 1`] = `"{\\"muenchen\\":{\\"last_usage\\":null,\\"languages\\":{}},\\"dortmund\\":{\\"last_usage\\":null,\\"languages\\":{}},\\"ansbach\\":{\\"last_usage\\":\\"2013-05-04T00:00:00.000Z\\",\\"languages\\":{}},\\"regensburg\\":{\\"last_usage\\":\\"2014-05-04T00:00:00.000Z\\",\\"languages\\":{}},\\"augsburg\\":{\\"last_usage\\":\\"2015-05-04T00:00:00.000Z\\",\\"languages\\":{}}}"`;
+
+exports[`DatabaseConnector updateLastUsages should update all passed usages 1`] = `
+Object {
+  "augsburg": Object {
+    "languages": Object {},
+    "last_usage": "2014-05-04T00:00:00.000Z",
+  },
+  "bielefeld": Object {
+    "languages": Object {},
+    "last_usage": null,
+  },
+  "dortmund": Object {
+    "languages": Object {},
+    "last_usage": "2015-05-04T00:00:00.000Z",
+  },
+  "nuernberg": Object {
+    "languages": Object {},
+    "last_usage": "2016-05-04T00:00:00.000Z",
+  },
+}
+`;
+
+exports[`DatabaseConnector updateLastUsages should update all passed usages 2`] = `
+Object {
+  "augsburg": Object {
+    "languages": Object {},
+    "last_usage": null,
+  },
+  "bielefeld": Object {
+    "languages": Object {},
+    "last_usage": null,
+  },
+  "bonn": Object {
+    "languages": Object {},
+    "last_usage": "2010-05-04T00:00:00.000Z",
+  },
+  "dortmund": Object {
+    "languages": Object {},
+    "last_usage": "2015-05-04T00:00:00.000Z",
+  },
+  "nuernberg": Object {
+    "languages": Object {},
+    "last_usage": "2016-05-04T00:00:00.000Z",
+  },
+}
+`;
