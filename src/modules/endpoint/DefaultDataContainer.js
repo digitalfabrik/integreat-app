@@ -90,10 +90,6 @@ class DefaultDataContainer implements DataContainer {
     const cache: Cache<CityResourceCacheStateType> = this.caches.resourceCache
     const resourceCache = await cache.get(context)
 
-    if (resourceCache) {
-      await this._databaseConnector.updateLastUsage(context)
-    }
-
     if (!resourceCache[language]) {
       return {}
     }
@@ -200,6 +196,10 @@ class DefaultDataContainer implements DataContainer {
   cityContentAvailable = async (city: string, language: string): Promise<boolean> => {
     return this.categoriesAvailable(city, language) && this.eventsAvailable(city, language) &&
       this.languagesAvailable(city)
+  }
+
+  updateLastCityUsage = async (city: string) => {
+    await this._databaseConnector.updateLastUsage(new DatabaseContext(city))
   }
 }
 

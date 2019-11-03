@@ -271,7 +271,7 @@ describe('DatabaseConnector', () => {
         expect.any(String)
       )
     })
-    it('should call delete old resource caches', async () => {
+    it('should evict resources from old caches', async () => {
       const context = new DatabaseContext('tcc', 'de')
       const spy = jest.spyOn(databaseConnector, 'deleteOldResourceCaches')
       await databaseConnector.storeResourceCache(testResources, context)

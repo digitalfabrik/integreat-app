@@ -415,7 +415,6 @@ class DatabaseConnector {
   }
 
   async storeResourceCache (resourceCache: CityResourceCacheStateType, context: DatabaseContext) {
-    await this.updateLastUsage(context)
     await this.deleteOldResourceCaches(context)
 
     const path = this.getResourceCachePath(context)
