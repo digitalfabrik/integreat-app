@@ -3,8 +3,8 @@
 import type {
   CategoryRouteStateType,
   CitiesStateType,
-  CityContentResourceCacheStateType,
   LanguageResourceCacheStateType,
+  ResourceCacheStateType,
   StateType
 } from '../../../../modules/app/StateType'
 import CityModelBuilder from '../../../../testing/builder/CityModelBuilder'
@@ -62,7 +62,7 @@ describe('DashboardContainer', () => {
       switchingLanguage?: boolean,
       cities?: CitiesStateType,
       languages?: ?Array<LanguageModel>,
-      resourceCacheState?: CityContentResourceCacheStateType
+      resourceCacheState?: ResourceCacheStateType
     |} = {}
   ): StateType => {
     return {
