@@ -81,6 +81,7 @@ class FilterableCitySelector extends React.Component<PropsType, StateType> {
           theme={theme}
           currentLongitude={this.state.currentLongitude}
           currentLatitude={this.state.currentLatitude}
+          t={this.props.t}
         />
       </View>
     )

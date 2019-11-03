@@ -8,6 +8,7 @@ import { View } from 'react-native'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import styled, { type StyledComponent } from 'styled-components/native'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
+import type { TFunction } from 'react-i18next'
 
 const NUMBER_OF_CLOSEST_CITIES = 3
 const MAXIMAL_DISTANCE = 90
@@ -29,7 +30,8 @@ type PropsType = {|
   navigateToDashboard: (city: CityModel) => void,
   theme: ThemeType,
   currentLongitude: ?number,
-  currentLatitude: ?number
+  currentLatitude: ?number,
+  t: TFunction
 |}
 
 const checkAliases = (cityModel: CityModel, filterText: string): boolean => {
@@ -91,7 +93,6 @@ class CitySelector extends React.PureComponent<PropsType> {
   _filter (): Array<CityModel> {
     const filterText = this.props.filterText.toLowerCase()
     const cities = this.props.cities
-
     if (__DEV__) {
       return cities.filter(byNameAndAliases(filterText))
         .sort(developmentCompare)
@@ -131,7 +132,7 @@ class CitySelector extends React.PureComponent<PropsType> {
       .filter(_city => currentDistance(_city, currentLongitude, currentLatitude) < MAXIMAL_DISTANCE)
     if (cities.length > 0) {
       return <>
-        <CityGroup theme={this.props.theme}>Nearby</CityGroup>
+        <CityGroup theme={this.props.theme}>{this.props.t('nearbyPlaces')}</CityGroup>
         {cities.map(city => <CityEntry
           key={city.code}
           city={city}
