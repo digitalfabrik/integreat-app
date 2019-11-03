@@ -11,15 +11,16 @@ import EventModelBuilder from '../../../testing/builder/EventModelBuilder'
 
 jest.mock('rn-fetch-blob')
 const databaseConnector = new DatabaseConnector()
+const spyMomentNow = jest.spyOn(moment, 'now')
 
 afterEach(() => {
   RNFetchBlob.fs._reset()
   jest.clearAllMocks()
+  spyMomentNow.mockRestore()
 })
 
 describe('DatabaseConnector', () => {
   const city = 'augsburg'
-  const spyMomentNow = jest.spyOn(moment, 'now')
   const testCities = new CityModelBuilder(2).build()
   const testCategoriesMap = new CategoriesMapModelBuilder(city, 2, 2).build()
   const testLanguages = new LanguageModelBuilder(2).build()
