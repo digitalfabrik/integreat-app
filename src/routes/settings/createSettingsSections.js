@@ -2,6 +2,7 @@
 
 import { type TFunction } from 'react-i18next'
 import { Linking } from 'react-native'
+import NativeConstants from '../../modules/platform/constants/NativeConstants'
 import type { SettingsType } from '../../modules/settings/AppSettings'
 
 export type ChangeSettingFunctionType = SettingsType => $Shape<SettingsType>
@@ -51,7 +52,7 @@ export default ({ setSetting, t, language }: {
           }
         },
         {
-          title: t('version', { version: '??' })
+          title: t('version', { version: NativeConstants.appVersion })
         }
       ]
     }
