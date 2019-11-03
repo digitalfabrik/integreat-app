@@ -141,7 +141,7 @@ class CitySelector extends React.PureComponent<PropsType> {
           theme={this.props.theme} />)}
       </>
     } else {
-      return <CityGroup theme={this.props.theme}>No Integreat places nearby</CityGroup>
+      return <CityGroup theme={this.props.theme}>{this.props.t('noNearbyPlaces')}</CityGroup>
     }
   }
 
