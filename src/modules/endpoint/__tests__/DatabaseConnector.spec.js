@@ -284,15 +284,24 @@ describe('DatabaseConnector', () => {
     }
 
     it('should keep only the maximal number of caches', async () => {
-      jest.spyOn(moment, 'now').mockReturnValue(moment('2011-05-04T00:00:00.000Z'))
+      const spy = jest.spyOn(moment, 'now').mockReturnValue(moment('2011-05-04T00:00:00.000Z'))
+      await databaseConnector.updateLastUsage(new DatabaseContext('muenchen'))
       await databaseConnector.storeResourceCache(testResources, new DatabaseContext('muenchen'))
-      jest.spyOn(moment, 'now').mockReturnValue(moment('2012-05-04T00:00:00.000Z'))
+
+      spy.mockReturnValue(moment('2012-05-04T00:00:00.000Z'))
+      await databaseConnector.updateLastUsage(new DatabaseContext('dortmund'))
       await databaseConnector.storeResourceCache(testResources, new DatabaseContext('dortmund'))
-      jest.spyOn(moment, 'now').mockReturnValue(moment('2013-05-04T00:00:00.000Z'))
+
+      spy.mockReturnValue(moment('2013-05-04T00:00:00.000Z'))
+      await databaseConnector.updateLastUsage(new DatabaseContext('ansbach'))
       await databaseConnector.storeResourceCache(testResources, new DatabaseContext('ansbach'))
-      jest.spyOn(moment, 'now').mockReturnValue(moment('2014-05-04T00:00:00.000Z'))
+
+      spy.mockReturnValue(moment('2014-05-04T00:00:00.000Z'))
+      await databaseConnector.updateLastUsage(new DatabaseContext('regensburg'))
       await databaseConnector.storeResourceCache(testResources, new DatabaseContext('regensburg'))
-      jest.spyOn(moment, 'now').mockReturnValue(moment('2015-05-04T00:00:00.000Z'))
+
+      spy.mockReturnValue(moment('2015-05-04T00:00:00.000Z'))
+      await databaseConnector.updateLastUsage(new DatabaseContext('augsburg'))
       await databaseConnector.storeResourceCache(testResources, new DatabaseContext('augsburg'))
 
       expectExists(databaseConnector.getResourceCachePath(new DatabaseContext('muenchen')), false)
@@ -306,13 +315,27 @@ describe('DatabaseConnector', () => {
     })
 
     it('should not delete the resource cache of the same city', async () => {
-      jest.spyOn(moment, 'now').mockReturnValue(moment('2011-05-04T00:00:00.000Z'))
+      const spy = jest.spyOn(moment, 'now').mockReturnValue(moment('2011-05-04T00:00:00.000Z'))
       await databaseConnector.storeResourceCache(testResources, new DatabaseContext('augsburg'))
-      jest.spyOn(moment, 'now').mockReturnValue(moment('2012-05-04T00:00:00.000Z'))
+
+      spy.mockReturnValue(moment('2011-05-04T00:00:00.000Z'))
+      await databaseConnector.updateLastUsage(new DatabaseContext('dortmund'))
       await databaseConnector.storeResourceCache(testResources, new DatabaseContext('dortmund'))
-      jest.spyOn(moment, 'now').mockReturnValue(moment('2013-05-04T00:00:00.000Z'))
+
+      spy.mockReturnValue(moment('2012-05-04T00:00:00.000Z'))
+      await databaseConnector.updateLastUsage(new DatabaseContext('ansbach'))
       await databaseConnector.storeResourceCache(testResources, new DatabaseContext('ansbach'))
-      jest.spyOn(moment, 'now').mockReturnValue(moment('2014-05-04T00:00:00.000Z'))
+
+      spy.mockReturnValue(moment('2013-05-04T00:00:00.000Z'))
+      await databaseConnector.updateLastUsage(new DatabaseContext('ansbach'))
+      await databaseConnector.storeResourceCache(testResources, new DatabaseContext('ansbach'))
+
+      spy.mockReturnValue(moment('2014-05-04T00:00:00.000Z'))
+      await databaseConnector.updateLastUsage(new DatabaseContext('ansbach'))
+      await databaseConnector.storeResourceCache(testResources, new DatabaseContext('ansbach'))
+
+      spy.mockReturnValue(moment('2014-05-04T00:00:00.000Z'))
+      await databaseConnector.updateLastUsage(new DatabaseContext('augsburg'))
       await databaseConnector.storeResourceCache(testResources, new DatabaseContext('augsburg'))
 
       expectExists(databaseConnector.getResourceCachePath(new DatabaseContext('dortmund')))
