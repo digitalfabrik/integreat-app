@@ -108,7 +108,7 @@ describe('cityContentReducer', () => {
       categoriesRouteMapping: {},
       eventsRouteMapping: {},
       languages: [],
-      resourceCache: {},
+      resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
       switchingLanguage: true
     }
@@ -152,7 +152,7 @@ describe('cityContentReducer', () => {
         }
       },
       languages: undefined,
-      resourceCache: {},
+      resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
       switchingLanguage: false
     })
@@ -278,7 +278,7 @@ describe('cityContentReducer', () => {
       city: 'augsburg',
       eventsRouteMapping: {},
       languages: undefined,
-      resourceCache: {},
+      resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
       switchingLanguage: false
     })
@@ -415,6 +415,6 @@ describe('cityContentReducer', () => {
     expect(cityContentReducer(prevState, {
       type: 'FETCH_RESOURCES_FAILED',
       params: { message: 'No idea why it fails :/' }
-    })?.resourceCache).toEqual({ errorMessage: 'No idea why it fails :/' })
+    })?.resourceCache).toEqual({ status: 'error', message: 'No idea why it fails :/' })
   })
 })
