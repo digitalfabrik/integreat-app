@@ -10,8 +10,8 @@ import {
   LocationModel
 } from '@integreat-app/integreat-api-client'
 import RNFetchblob from 'rn-fetch-blob'
-import type Moment from 'moment-timezone'
-import moment from 'moment-timezone'
+import type Moment from 'moment'
+import moment from 'moment'
 import type {
   CityResourceCacheStateType,
   LanguageResourceCacheStateType,
@@ -146,7 +146,10 @@ class DatabaseConnector {
     return `${CACHE_DIR_PATH}/cities.json`
   }
 
-  async storeLastUpdate (lastUpdate: Moment, context: DatabaseContext) {
+  async storeLastUpdate (lastUpdate: Moment | null, context: DatabaseContext) {
+    if (lastUpdate === null) {
+      return
+    }
     const cityCode = context.cityCode
     const languageCode = context.languageCode
 
@@ -210,11 +213,14 @@ class DatabaseConnector {
     if (lastUsages.length === 0) {
       return
     }
-    const metaData = await this.loadMetaCities() || {}
+    const metaData = (await this.loadMetaCities()) || {}
 
     lastUsages.forEach(lastUsage => {
-      const city = lastUsage.city
-      metaData[city] = { last_usage: lastUsage.lastUsage, languages: metaData[city]?.languages || {} }
+      const { city, lastUsage: timestamp } = lastUsage
+      metaData[city] = {
+        last_usage: timestamp ? timestamp.toISOString() : null,
+        languages: metaData[city]?.languages || {}
+      }
     })
 
     this.writeFile(this.getMetaCitiesPath(), JSON.stringify(metaData))
@@ -224,7 +230,7 @@ class DatabaseConnector {
     if (!context.cityCode) {
       throw Error('cityCode mustn\'t be null')
     }
-    const lastUsage = { city: context.cityCode, lastUsage: moment().toISOString() }
+    const lastUsage = { city: context.cityCode, lastUsage: moment() }
     await this.updateLastUsages([lastUsage])
   }
 
@@ -439,16 +445,15 @@ class DatabaseConnector {
     if (!context.cityCode) {
       throw Error('cityCode mustn\'t be null')
     }
-    const lastUsages: Array<{| city: CityCodeType, lastUsage: Moment |}> =
-      (await this.loadLastUsages()).filter(it => it.lastUsage !== null && it.city !== context.cityCode)
+    // $FlowFixMe flow does not get we're filtering for null
+    const lastUsages = await this.loadLastUsages()
+    const cachesToDelete = lastUsages.filter(it => it.lastUsage !== null)
+      .filter(it => it.city !== context.cityCode)
+      // Sort last usages chronological, from newest to oldest and remove the latest.
+      .sort((a, b) =>
+        a.lastUsage.isAfter(b.lastUsage) ? -1 : (a.lastUsage.isSame(b.lastUsage) ? 0 : 1)
+      ).slice(MAX_RESOURCE_CACHES - 1)
 
-    // Sort last usages chronological, from newest to oldest and remove the latest.
-    const cachesToDelete = lastUsages.sort((a, b) =>
-      a.lastUsage.isAfter(b.lastUsage) ? -1 : (a.lastUsage.isSame(b.lastUsage) ? 0 : 1)
-    ).slice(MAX_RESOURCE_CACHES - 1)
-
-    console.log(lastUsages)
-    console.log(cachesToDelete)
     await cachesToDelete.forEach(async cityLastUpdate => {
       const cityResourceCachePath = `${RESOURCE_CACHE_DIR_PATH}/${cityLastUpdate.city}`
       await this.deleteFileOrDirectory(cityResourceCachePath)

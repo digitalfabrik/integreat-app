@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`loadCityContent should set selected city when not peeking 1`] = `"{\\"augsburg\\":{\\"last_usage\\":\\"2000-01-05T11:10:00.000Z\\",\\"languages\\":{\\"en\\":{\\"last_update\\":\\"2000-01-05T10:10:00.000Z\\"}}}}"`;
