@@ -48,9 +48,7 @@ class CategoriesMapModelBuilder {
     }
   }
 
-  _addChildren (
-    category: CategoryModel,
-    depth: number) {
+  _addChildren (category: CategoryModel, depth: number) {
     this._categories.push(category)
 
     if (depth === 0) {
