@@ -53,7 +53,7 @@ class FilterableCitySelector extends React.Component<PropsType, StateType> {
         currentLongitude: position.coords.longitude,
         currentLatitude: position.coords.latitude
       }),
-      error => alert(error.message),
+      alert(this.props.t('locationError')),
       { enableHighAccuracy: false, timeout: 20000, maximumAge: 1000 }
     )
   }
