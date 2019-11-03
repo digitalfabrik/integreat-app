@@ -10,7 +10,7 @@ import type {
 import CityModelBuilder from '../../../../testing/builder/CityModelBuilder'
 import LanguageModelBuilder from '../../../../testing/builder/LanguageModelBuilder'
 import CategoriesMapModelBuilder from '../../../../testing/builder/CategoriesMapModelBuilder'
-import { flatMap, reduce } from 'lodash'
+import { reduce } from 'lodash'
 import configureMockStore from 'redux-mock-store'
 import React from 'react'
 import { Provider } from 'react-redux'
@@ -38,7 +38,8 @@ describe('CategoriesContainer', () => {
   const [city] = new CityModelBuilder(1).build()
   const languages = new LanguageModelBuilder(2).build()
   const language = languages[0]
-  const categoriesMap = new CategoriesMapModelBuilder(city.code, language.code).build()
+  // a categoriesMap of depth 2
+  const categoriesMap = new CategoriesMapModelBuilder(city.code, language.code, 3, 2).build()
   const resourceCache: LanguageResourceCacheStateType = {
     'some-path': {
       'some-url': {
@@ -80,17 +81,11 @@ describe('CategoriesContainer', () => {
   }
 
   const rootCategory = categoriesMap.findCategoryByPath(`/${city.code}/${language.code}`)
-  const models = reduce(
-    flatMap(
-      flatMap(categoriesMap.getChildren(rootCategory), child => [child, ...categoriesMap.getChildren(child)]),
-      child => [child, ...categoriesMap.getChildren(child)]
-    ),
-    (acc, model) => ({ ...acc, [model.path]: model }),
-    { [rootCategory.path]: rootCategory })
+  const models = reduce(categoriesMap.toArray(), (acc, model) => ({ ...acc, [model.path]: model }), {})
   const children = reduce(
-    flatMap(categoriesMap.getChildren(rootCategory), child => [child, ...categoriesMap.getChildren(child)]),
+    [rootCategory, ...categoriesMap.getChildren(rootCategory)],
     (acc, model) => ({ ...acc, [model.path]: categoriesMap.getChildren(model).map(child => child.path) }),
-    { [rootCategory.path]: categoriesMap.getChildren(rootCategory).map(child => child.path) })
+    {})
 
   const successfulRouteState: CategoryRouteStateType = {
     status: 'ready',
