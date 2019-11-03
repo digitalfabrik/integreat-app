@@ -3,7 +3,7 @@
 import DefaultDataContainer from '../DefaultDataContainer'
 import DatabaseContext from '../DatabaseContext'
 import RNFetchBlob from '../../../__mocks__/rn-fetch-blob'
-import moment from 'moment-timezone'
+import moment from 'moment'
 import CityModelBuilder from '../../../testing/builder/CityModelBuilder'
 import LanguageModelBuilder from '../../../testing/builder/LanguageModelBuilder'
 import CategoriesMapModelBuilder from '../../../testing/builder/CategoriesMapModelBuilder'
@@ -135,8 +135,8 @@ describe('DefaultDataContainer', () => {
   })
   it('should return the lastUpdateMoment associated with the context', async () => {
     const defaultDataContainer = new DefaultDataContainer()
-    const lastUpdate = moment.tz('20110205', 'UTC')
-    const anotherLastUpdate = moment.tz('20110305', 'UTC')
+    const lastUpdate = moment('2011-02-04T00:00:00.000Z')
+    const anotherLastUpdate = moment('2012-02-04T00:00:00.000Z')
 
     await defaultDataContainer.setLastUpdate('testCity', 'de', lastUpdate)
     await defaultDataContainer.setLastUpdate('anotherTestCity', 'en', anotherLastUpdate)
@@ -144,8 +144,8 @@ describe('DefaultDataContainer', () => {
     const receivedLastUpdate = await defaultDataContainer.getLastUpdate('testCity', 'de')
     const receivedAnotherLastUpdate = await defaultDataContainer.getLastUpdate('anotherTestCity', 'en')
 
-    expect(lastUpdate.isSame(receivedLastUpdate)).toBe(true)
-    expect(anotherLastUpdate.isSame(receivedAnotherLastUpdate)).toBe(true)
+    expect(receivedLastUpdate !== null && lastUpdate.isSame(receivedLastUpdate)).toBe(true)
+    expect(receivedAnotherLastUpdate !== null && anotherLastUpdate.isSame(receivedAnotherLastUpdate)).toBe(true)
   })
   describe('setResourceCache', () => {
     it('should not delete any data if there are no previous resources available', async () => {
