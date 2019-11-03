@@ -36,7 +36,8 @@ describe('pushEvent', () => {
       },
       languages: ['de', 'en'],
       resourceCache: {
-        status: 'ready', value: {
+        status: 'ready',
+        value: {
           '/augsburg/de/events/ev1': {
             'some-url': {
               filePath: 'some-path',
@@ -120,6 +121,10 @@ describe('pushEvent', () => {
 
   it('should merge the resource cache if there\'s already one', () => {
     const prevState = prepareState({})
+    if (prevState.resourceCache.status !== 'ready') {
+      throw Error('Preparation failed')
+    }
+    const prevResources = prevState.resourceCache.value
 
     const resourceCache = {
       '/testumgebung/de/events/ev2': {
@@ -155,7 +160,7 @@ describe('pushEvent', () => {
 
     expect(cityContentReducer(prevState, pushEventAction)).toEqual(expect.objectContaining({
       city: 'augsburg',
-      resourceCache: { ...prevState.resourceCache, ...resourceCache }
+      resourceCache: { status: 'ready', value: { ...prevResources, ...resourceCache } }
     }))
   })
 })

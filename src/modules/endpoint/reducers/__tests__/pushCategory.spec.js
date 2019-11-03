@@ -157,6 +157,10 @@ describe('pushCategory', () => {
 
   it('should merge the resource cache if there\'s already one', () => {
     const prevState = prepareState({})
+    if (prevState.resourceCache.status !== 'ready') {
+      throw new Error('Preparation failed')
+    }
+    const prevResources = prevState.resourceCache.value
 
     const testumgebungRootCategory = new CategoryModel({
       root: true,
@@ -196,7 +200,7 @@ describe('pushCategory', () => {
 
     expect(cityContentReducer(prevState, pushCategoryAction)).toEqual(expect.objectContaining({
       city: 'augsburg',
-      resourceCache: { ...prevState.resourceCache, ...resourceCache }
+      resourceCache: { status: 'ready', value: { ...prevResources, ...resourceCache } }
     }))
   })
 
