@@ -453,6 +453,7 @@ class DatabaseConnector {
       .sort((a, b) =>
         a.lastUsage.isBefore(b.lastUsage) ? -1 : (a.lastUsage.isSame(b.lastUsage) ? 0 : 1)
       )
+      // We only have to remove MAX_RESOURCE_CACHES - 1 since we already filtered for the current resource cache
       .slice(0, -(MAX_RESOURCE_CACHES - 1))
 
     await Promise.all(cachesToDelete.map(cityLastUpdate => {
