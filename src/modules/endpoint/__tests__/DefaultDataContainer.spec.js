@@ -127,7 +127,7 @@ describe('DefaultDataContainer', () => {
     expect(receivedTestResources).toEqual(testResources)
     expect(receivedAnotherTestResources).toEqual(anotherTestResources)
   })
-  it('should return an empty object if no resources where found', async () => {
+  it('should return an empty object if no resources were found', async () => {
     const defaultDataContainer = new DefaultDataContainer()
     await defaultDataContainer.setResourceCache('testCity', 'de', testResources)
     const result = await defaultDataContainer.getResourceCache('testCity', 'en')
