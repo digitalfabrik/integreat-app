@@ -8,7 +8,7 @@ import type { NavigationScreenProp } from 'react-navigation'
 import Caption from './Caption'
 import TimeStamp from './TimeStamp'
 import type Moment from 'moment'
-import type { FileCacheStateType } from '../../app/StateType'
+import type { PageResourceCacheStateType } from '../../app/StateType'
 import type { NavigateToIntegreatUrlParamsType } from '../../app/createNavigateToIntegreatUrl'
 import MomentContext from '../../i18n/context/MomentContext'
 import RemoteContent from './RemoteContent'
@@ -32,7 +32,7 @@ type PropType = {|
   navigation: NavigationScreenProp<*>,
   navigateToIntegreatUrl?: NavigateToIntegreatUrlParamsType => void,
   navigateToFeedback?: (positive: boolean) => void,
-  files: FileCacheStateType,
+  files: PageResourceCacheStateType,
   children?: React.Node,
   language: string,
   cityCode: string,
