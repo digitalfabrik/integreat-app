@@ -455,10 +455,10 @@ class DatabaseConnector {
       )
       .slice(0, -(MAX_RESOURCE_CACHES - 1))
 
-    await cachesToDelete.forEach(async cityLastUpdate => {
+    await Promise.all(cachesToDelete.map(cityLastUpdate => {
       const cityResourceCachePath = `${RESOURCE_CACHE_DIR_PATH}/${cityLastUpdate.city}`
-      await this.deleteFileOrDirectory(cityResourceCachePath)
-    })
+      return RNFetchblob.fs.unlink(cityResourceCachePath)
+    }))
 
     await this.updateLastUsages(cachesToDelete.map(it => ({ city: it.city, lastUsage: null })))
   }
@@ -495,10 +495,6 @@ class DatabaseConnector {
 
   async writeFile (path: string, data: string): Promise<number> {
     return RNFetchblob.fs.writeFile(path, data, 'utf8')
-  }
-
-  async deleteFileOrDirectory (path: string): Promise<void> {
-    return RNFetchblob.fs.unlink(path)
   }
 }
 
