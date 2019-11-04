@@ -445,8 +445,8 @@ class DatabaseConnector {
     if (!context.cityCode) {
       throw Error('cityCode mustn\'t be null')
     }
-    // $FlowFixMe flow does not get we're filtering for null
     const lastUsages = await this.loadLastUsages()
+    // $FlowFixMe flow does not get we're filtering for null
     const cachesToDelete = lastUsages.filter(it => it.lastUsage !== null)
       .filter(it => it.city !== context.cityCode)
       // Sort last usages chronological, from oldest to newest
