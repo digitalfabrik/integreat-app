@@ -12,6 +12,10 @@ import { DEFAULT_LANGUAGE } from '../i18n/constants'
 
 export type PathType = string
 
+export type ErrorStateType = {|
+  +errorMessage: string
+|}
+
 export type CategoryRouteConfigType = {|
   +path: string,
   +depth: number,
@@ -67,20 +71,18 @@ export type EventRouteStateType = {|
   +message: string
 |}
 
-export type FileCacheStateType = $ReadOnly<{
-  [url: string]: {|
-    +filePath: string,
-    +lastUpdate: Moment,
-    +hash: string
-  |}
-}>
-
-export type ErrorStateType = {|
-  +errorMessage: string
+export type PageResourceCacheEntryStateType = {|
+  +filePath: string,
+  +lastUpdate: Moment,
+  +hash: string
 |}
 
+export type PageResourceCacheStateType = $ReadOnly<{
+  [url: string]: PageResourceCacheEntryStateType
+}>
+
 export type LanguageResourceCacheStateType = $ReadOnly<{
-  [path: string]: FileCacheStateType
+  [path: string]: PageResourceCacheStateType
 }>
 
 export type CityResourceCacheStateType = $ReadOnly<{
