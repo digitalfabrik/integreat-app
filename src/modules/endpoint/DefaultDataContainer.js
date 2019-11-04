@@ -2,7 +2,7 @@
 
 import { CategoriesMapModel, CityModel, EventModel, LanguageModel } from '@integreat-app/integreat-api-client'
 import DatabaseContext from './DatabaseContext'
-import type { CityResourceCacheStateType, FileCacheStateType, LanguageResourceCacheStateType } from '../app/StateType'
+import type { CityResourceCacheStateType, PageResourceCacheStateType, LanguageResourceCacheStateType } from '../app/StateType'
 import DatabaseConnector from './DatabaseConnector'
 import type { DataContainer } from './DataContainer'
 import type Moment from 'moment'
@@ -125,7 +125,7 @@ class DefaultDataContainer implements DataContainer {
   getFilePathsFromLanguageResourceCache (languageResourceCache: LanguageResourceCacheStateType): Array<string> {
     return flatMap(
       Object.values(languageResourceCache),
-      (file: FileCacheStateType): Array<string> => map(file, ({ filePath }) => filePath)
+      (file: PageResourceCacheStateType): Array<string> => map(file, ({ filePath }) => filePath)
     )
   }
 
