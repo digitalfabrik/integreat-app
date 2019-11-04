@@ -34,7 +34,7 @@ function unlink (file: string): Promise<void> {
   const filePath = path.normalize(file)
   Object.keys(mockFiles).forEach(path => {
     const slicedPath = path.slice(0, filePath.length)
-    // Delete file if paths are matching or file is a parent directory
+    // Delete file if paths are matching or file is a ancestor directory
     if (filePath === path || (filePath === slicedPath && path[filePath.length] === '/')) {
       delete mockFiles[path]
     }
