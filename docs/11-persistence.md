@@ -19,12 +19,12 @@ The structure of the data stored on the device is:
 ```
 
 The `cities-meta.json` contains information about the last content update:
-```
+```json
 {  
-   "regensburg":{  
-      "languages":{  
-         "de":{  
-            "lastUpdate":"2019-08-12T00:03:19.457Z"
+   "regensburg": {  
+      "languages": {  
+         "de": {  
+            "last_update": "2019-08-12T00:03:19.457Z"
          }
       }
    }
@@ -32,22 +32,22 @@ The `cities-meta.json` contains information about the last content update:
 ```
 
 The `cities.json` contains information about all cities:
-```
-{  
-  "name":"Stadt Regensburg",
-  "live":true,
-  "code":"regensburg",
-  "prefix":"Stadt",
-  "extrasEnabled":true,
-  "eventsEnabled":true,
-  "sortingName":"Regensburg"
-}
+```json
+[
+  {  
+    "name": "Stadt Regensburg",
+    "live": true,
+    "code": "regensburg",
+    "prefix": "Stadt",
+    "extras_enabled": true,
+    "events_enabled": true,
+    "sorting_name": "Regensburg"
+  }
+]
 ```
 
-The ''content'' is responsible to store the JSON data from the API.
-The ''resource-cache'' contains all the resources. Resources are files which are either referenced in the HTML content or used as thumbnails of pages.
-
-The files are stored in ''resource-cache/${city}/files/'' and the corresponding metadata gets stored in ''files.json''.
+The `content` is responsible to store the JSON data from the API.
+The `resource-cache` contains all the resources. Resources are files which are either referenced in the HTML content or used as thumbnails of pages.
 
 *Note: Temporary files, like files which are currently downloaded, are also stored in the cache directory. This is platform specific but exists on Android and iOS.*
 
@@ -59,15 +59,15 @@ The format of the files is:
   "en": {
     "/ahaus/en/everyday-life-and-free-time/donate-stock/": {
       "https://cms.integreat-app.de/altmuehlfranken/wp-content/uploads/sites/163/2017/11/calendar159-150x150.png": {
-        "path": "/data/user/0/com.integreat/cache/city/hash(path)/hash(url)extension(url)",
-        "last_update": "2017-01-22 19:51:10",
+        "file_path": "/data/user/0/com.integreat/cache/city/hash(path)/hash(url)extension(url)",
+        "last_update": "2011-02-04T00:00:00.000Z",
         "hash": "2f97435138745"
       }
     }
   }
 }
 ```
-If an URL does not have an extension then `extension(url)` is an empty string. `hash(url) returns an md5 sum of the URL. Note that the URL should be valid for both functions.
+If an URL does not have an extension then `extension(url)` is an empty string. `hash(url)` returns a md5 sum of the URL. Note that the URL should be valid for both functions.
 
 **categories.json:**
 ```json
@@ -75,8 +75,8 @@ If an URL does not have an extension then `extension(url)` is an empty string. `
   {
     "path": "/ahaus/en/everyday-life-and-free-time/donate-stock/",
     "title": "Donate stock",
-    "content": "",
-    "last_update": "2017-01-22 19:51:10",
+    "content": "<h1>This is a sample category</h1>",
+    "last_update": "2011-02-04T00:00:00.000Z",
     "thumbnail": "https://cms.integreat-app.de/ahaus/wp-content/uploads/sites/20/2016/05/truck69b-150x150.png",
     "available_languages": {
       "de": "/ahaus/de/alltag-und-freizeit/spendenlager/"
@@ -93,7 +93,29 @@ If an URL does not have an extension then `extension(url)` is an empty string. `
 
 **events.json:**
 ```json
-
+[
+  {
+    "path": "/augsburg/en/events/event0",
+    "title": "first Event",
+    "content": "<h1>This is a sample event</h1>",
+    "last_update": "2019-10-01T04:07:35.659Z",
+    "thumbnail": "http://thumbnails/event_0.png",
+    "available_languages": {
+      "de": "/augsburg/de/events/event0",
+      "ar": "/augsburg/ar/events/event0"
+    },
+    "hash": "93b885adfe0da089cdf634904fd59f71",
+    "excerpt": "excerpt",
+    "date": {
+      "start_date": "2020-03-01T00:00:00.000Z",
+      "end_date": "2020-03-01T05:07:35.659Z",
+      "all_day": false
+    },
+    "location": {
+      "address": "address",
+      "town": "town",
+      "postcode": "postcode"
+    }
+  }
+]
 ```
-
-**
