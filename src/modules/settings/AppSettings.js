@@ -6,6 +6,7 @@ import { fromPairs } from 'lodash/array'
 
 const CONTENT_LANGUAGE_KEY = 'CONTENT_LANGUAGE'
 const SELECTED_CITY_KEY = 'SELECTED_CITY'
+const INTRO_SHOWN_KEY = 'INTRO_SHOWN'
 
 export type SettingsType = {|
   errorTracking: boolean | null,
@@ -70,6 +71,15 @@ class AppSettings {
 
   clearSelectedCity = async () => {
     await this.asyncStorage.removeItem(SELECTED_CITY_KEY)
+  }
+
+  setIntroShown = async () => {
+    await this.asyncStorage.setItem(INTRO_SHOWN_KEY, JSON.stringify(true))
+  }
+
+  loadIntroShown = async (): Promise<boolean> => {
+    const value = await this.asyncStorage.getItem(INTRO_SHOWN_KEY)
+    return value ? JSON.parse(value) : false
   }
 }
 
