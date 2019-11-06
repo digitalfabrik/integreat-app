@@ -1,5 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`DatabaseConnector deleteOldFiles should keep only the maximal number of caches and files 1`] = `
+Object {
+  "ansbach": Object {
+    "languages": Object {},
+    "last_usage": "2013-05-04T00:00:00.000Z",
+  },
+  "augsburg": Object {
+    "languages": Object {},
+    "last_usage": "2015-05-04T00:00:00.000Z",
+  },
+  "regensburg": Object {
+    "languages": Object {},
+    "last_usage": "2014-05-04T00:00:00.000Z",
+  },
+}
+`;
+
 exports[`DatabaseConnector deleteOldResourceCaches should delete old caches if there are more than permitted 1`] = `
 Object {
   "augsburg": Object {

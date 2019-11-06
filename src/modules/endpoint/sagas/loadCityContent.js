@@ -35,7 +35,7 @@ export default function * loadCityContent (
     yield call(appSettings.setSelectedCity, newCity)
   }
 
-  yield call(dataContainer.updateLastCityUsage, newCity)
+  yield call(dataContainer.updateLastCityUsage, newCity, criterion.peeking)
 
   yield call(loadCities, dataContainer, false) // Never force refresh cities, when loading cityContent
   const lastUpdate: Moment | null = yield call(dataContainer.getLastUpdate, newCity, newLanguage)

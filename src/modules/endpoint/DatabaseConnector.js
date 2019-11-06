@@ -177,13 +177,13 @@ class DatabaseConnector {
     return fileExists ? JSON.parse(await this.readFile(path)) : null
   }
 
-  async deleteMetaCity (city: string) {
+  async deleteMetaOfCities (cities: Array<string>) {
     const metaCities = await this.loadMetaCities()
     if (!metaCities) {
       throw Error('cannot delete city of undefined metaCities')
     }
 
-    delete metaCities[city]
+    cities.forEach(city => delete metaCities[city])
     await this.writeFile(this.getMetaCitiesPath(), JSON.stringify(metaCities))
   }
 
@@ -221,7 +221,7 @@ class DatabaseConnector {
     )
   }
 
-  async storeLastUsage (context: DatabaseContext) {
+  async storeLastUsage (context: DatabaseContext, peeking: boolean) {
     const city = context.cityCode
     if (!city) {
       throw Error('cityCode mustn\'t be null')
@@ -234,6 +234,12 @@ class DatabaseConnector {
     }
 
     await this.writeFile(this.getMetaCitiesPath(), JSON.stringify(metaData))
+
+    // Only delete files if not peeking, otherwise if you peek from one city to three different cities, the content of
+    // the non peeking city would be deleted while still open
+    if (!peeking) {
+      await this.deleteOldFiles(context)
+    }
   }
 
   async storeCategories (categoriesMap: CategoriesMapModel, context: DatabaseContext) {
@@ -423,8 +429,6 @@ class DatabaseConnector {
   }
 
   async storeResourceCache (resourceCache: CityResourceCacheStateType, context: DatabaseContext) {
-    await this.deleteOldFiles(context)
-
     const path = this.getResourceCachePath(context)
     const json: CityResourceCacheJsonType =
       mapValues(resourceCache, (languageResourceCache: LanguageResourceCacheStateType) =>
@@ -463,10 +467,10 @@ class DatabaseConnector {
       RNFetchblob.fs.unlink(cityResourceCachePath)
 
       const cityContentPath = `${CONTENT_DIR_PATH}/${city}`
-      RNFetchblob.fs.unlink(cityContentPath)
-
-      return this.deleteMetaCity(city)
+      return RNFetchblob.fs.unlink(cityContentPath)
     }))
+
+    this.deleteMetaOfCities(cachesToDelete.map(it => it.city))
   }
 
   isCitiesPersisted (): Promise<boolean> {
