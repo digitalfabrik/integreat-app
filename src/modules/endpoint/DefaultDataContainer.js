@@ -199,7 +199,7 @@ class DefaultDataContainer implements DataContainer {
   }
 
   updateLastCityUsage = async (city: string) => {
-    await this._databaseConnector.updateLastUsage(new DatabaseContext(city))
+    await this._databaseConnector.storeLastUsage(new DatabaseContext(city))
   }
 }
 
