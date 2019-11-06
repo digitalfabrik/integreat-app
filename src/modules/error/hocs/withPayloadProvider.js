@@ -15,8 +15,10 @@ export type RouteNotInitializedType = {| status: 'routeNotInitialized' |}
 export type LoadingType = {| status: 'loading' |}
 export type ErrorType<R> = {|
   status: 'error',
+  message: string,
   refreshProps: R
 |}
+
 export type LanguageNotAvailableType = {|
   status: 'languageNotAvailable',
   availableLanguages: Array<LanguageModel>,
@@ -77,7 +79,7 @@ const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R> (
         } else if (props.status === 'error') {
           return <ScrollView refreshControl={<RefreshControl onRefresh={this.refresh} refreshing={false} />}
                              contentContainerStyle={{ flexGrow: 1 }}>
-            <FailureContainer tryAgain={this.refresh} />
+            <FailureContainer tryAgain={this.refresh} errorMessage={props.message} />
           </ScrollView>
         } else if (props.status === 'languageNotAvailable') {
           return <LanguageNotAvailableContainer languages={props.availableLanguages}

@@ -120,7 +120,7 @@ const morphContentLanguage = (
 
   return {
     ...state,
-    resourceCache: newResourceCache,
+    resourceCache: { status: 'ready', value: newResourceCache },
     searchRoute: { categoriesMap: newCategoriesMap },
     categoriesRouteMapping: translatedCategoriesRouteMapping,
     eventsRouteMapping: translatedEventsRouteMapping,
