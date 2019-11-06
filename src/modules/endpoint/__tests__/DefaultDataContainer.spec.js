@@ -22,7 +22,7 @@ const testResources = {
       'https://test.de/path/to/resource/test.png':
       {
         filePath: '/local/path/to/resource2/b4b5dca65e423.png',
-        lastUpdate: moment.tz('20110204', 'UTC'),
+        lastUpdate: moment('2011-02-04T00:00:00.000Z'),
         hash: 'testHash'
       }
     }
@@ -34,7 +34,7 @@ const previousResources = {
         'https://test.de/path/to/resource/test.png':
           {
             filePath: '/local/path/to/resource/b4b5dca65e423.png',
-            lastUpdate: moment.tz('20110204', 'UTC'),
+            lastUpdate: moment('2011-02-04T00:00:00.000Z'),
             hash: 'testHash'
           }
       }
@@ -46,7 +46,7 @@ const anotherTestResources = {
       'https://test.de/path/to/anotherResource/test.png':
       {
         filePath: '/local/path/to/resource3/b4b5dca65e424.png',
-        lastUpdate: moment.tz('20110204', 'UTC'),
+        lastUpdate: moment('2011-02-04T00:00:00.000Z'),
         hash: 'testHash'
       }
     }
@@ -116,11 +116,8 @@ describe('DefaultDataContainer', () => {
     expect(receivedTestEvents).toEqual([testEvents[0]])
     expect(receivedAnotherTestEvents).toEqual([testEvents[1]])
   })
-  // cache is not equal to testResources
-  // (lastUpdate is a moment object in the expected data, but a string in the received data)
-  // will be fixed in NATIVE-330
-  // eslint-disable-next-line jest/no-disabled-tests
-  it.skip('should return the resources associated with the context', async () => {
+
+  it('should return the resources associated with the context', async () => {
     const defaultDataContainer = new DefaultDataContainer()
     await defaultDataContainer.setResourceCache('testCity', 'de', testResources)
     await defaultDataContainer.setResourceCache('anotherTestCity', 'en', anotherTestResources)
@@ -131,7 +128,7 @@ describe('DefaultDataContainer', () => {
     expect(receivedTestResources).toEqual(testResources)
     expect(receivedAnotherTestResources).toEqual(anotherTestResources)
   })
-  it('should return an empty object if no resources where found', async () => {
+  it('should return an empty object if no resources were found', async () => {
     const defaultDataContainer = new DefaultDataContainer()
     await defaultDataContainer.setResourceCache('testCity', 'de', testResources)
     const result = await defaultDataContainer.getResourceCache('testCity', 'en')

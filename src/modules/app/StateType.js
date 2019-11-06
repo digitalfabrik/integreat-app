@@ -67,16 +67,18 @@ export type EventRouteStateType = {|
   +message: string
 |}
 
-export type FileCacheStateType = $ReadOnly<{
-  [url: string]: {|
-    +filePath: string,
-    +lastUpdate: Moment,
-    +hash: string
-  |}
+export type PageResourceCacheEntryStateType = {|
+  +filePath: string,
+  +lastUpdate: Moment,
+  +hash: string
+|}
+
+export type PageResourceCacheStateType = $ReadOnly<{
+  [url: string]: PageResourceCacheEntryStateType
 }>
 
 export type LanguageResourceCacheStateType = $ReadOnly<{
-  [path: string]: FileCacheStateType
+  [path: string]: PageResourceCacheStateType
 }>
 
 export type ResourceCacheStateType = {|
