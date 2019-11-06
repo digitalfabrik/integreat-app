@@ -291,8 +291,8 @@ describe('DatabaseConnector', () => {
     })
   })
 
-  describe('updateLastUsage', () => {
-    it('should update the usage of the passed city', async () => {
+  describe('storeLastUsage', () => {
+    it('should store the usage of the passed city', async () => {
       const date = moment('2014-05-04T00:00:00.000Z')
       spyMomentNow.mockReturnValue(date)
       const context = new DatabaseContext('augsburg')
@@ -315,6 +315,34 @@ describe('DatabaseConnector', () => {
 
       expect(deleteOldFiles).toHaveBeenCalled()
     })
+  })
+
+  it('should load last usages', async () => {
+    await RNFetchBlob.fs.writeFile(databaseConnector.getMetaCitiesPath(), JSON.stringify({
+      muenchen: {
+        languages: {}, last_usage: '2010-05-04T00:00:00.000Z'
+      },
+      dortmund: {
+        languages: {}, last_usage: '2011-05-04T00:00:00.000Z'
+      },
+      ansbach: {
+        languages: {}, last_usage: '2012-05-04T00:00:00.000Z'
+      },
+      augsburg: {
+        languages: {}, last_usage: '2014-05-04T00:00:00.000Z'
+      },
+      regensburg: {
+        languages: {}, last_usage: '2013-05-04T00:00:00.000Z'
+      }
+    }), '')
+
+    expect(await databaseConnector.loadLastUsages()).toEqual([
+      { city: 'muenchen', lastUsage: moment('2010-05-04T00:00:00.000Z') },
+      { city: 'dortmund', lastUsage: moment('2011-05-04T00:00:00.000Z') },
+      { city: 'ansbach', lastUsage: moment('2012-05-04T00:00:00.000Z') },
+      { city: 'augsburg', lastUsage: moment('2014-05-04T00:00:00.000Z') },
+      { city: 'regensburg', lastUsage: moment('2013-05-04T00:00:00.000Z') }
+    ])
   })
 
   describe('deleteOldFiles', () => {
