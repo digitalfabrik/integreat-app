@@ -99,7 +99,7 @@ export interface DataContainer {
   citiesAvailable (): Promise<boolean>,
 
   /**
-   * Updates the last usage of the passed city
+   * Stores the last usage of the passed city
    */
-  updateLastCityUsage (city: string): Promise<void>
+  storeLastUsage (city: string, peeking: boolean): Promise<void>
 }

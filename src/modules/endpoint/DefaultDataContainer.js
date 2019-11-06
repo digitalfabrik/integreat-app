@@ -198,8 +198,8 @@ class DefaultDataContainer implements DataContainer {
       this.languagesAvailable(city)
   }
 
-  updateLastCityUsage = async (city: string) => {
-    await this._databaseConnector.storeLastUsage(new DatabaseContext(city))
+  storeLastUsage = async (city: string, peeking: boolean) => {
+    await this._databaseConnector.storeLastUsage(new DatabaseContext(city), peeking)
   }
 }
 
