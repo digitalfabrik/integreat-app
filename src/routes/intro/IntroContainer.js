@@ -3,57 +3,66 @@
 import { translate, type TFunction } from 'react-i18next'
 import React from 'react'
 import AppIntroSlider from 'react-native-app-intro-slider'
-import { View, Text, Image } from 'react-native'
 import type { NavigationScreenProp } from 'react-navigation'
+import Language from './assets/Language.svg'
+import Offers from './assets/Offers.svg'
+import Search from './assets/Search.svg'
+import Events from './assets/Events.svg'
+import type { ThemeType } from '../../modules/theme/constants/theme'
+import withTheme from '../../modules/theme/hocs/withTheme'
 
-type SlideType = {|
-  key: string,
-  title: string,
-  text: string,
-  image: string,
-  backgroundColor: string
-|}
-
-const slides: Array<SlideType> = [{
-  key: 'somethun',
-  title: 'Title 1',
-  text: 'Description.\nSay something cool',
-  image: '',
-  backgroundColor: '#59b2ab'
-},
-{
-  key: 'somethun-dos',
-  title: 'Title 2',
-  text: 'Other cool stuff',
-  image: '',
-  backgroundColor: '#febe29'
-},
-{
-  key: 'somethun1',
-  title: 'Rocket guy',
-  text: 'I\'m already out of descriptions\n\nLorem ipsum bla bla bla',
-  image: '',
-  backgroundColor: '#22bcb5'
-}]
-
-type PropsType = {| t: TFunction, navigation: NavigationScreenProp<*> |}
+type PropsType = {| t: TFunction, navigation: NavigationScreenProp<*>, theme: ThemeType |}
 
 class Intro extends React.Component<PropsType> {
-  renderItem = ({ item }) => {
-    return (
-      <View>
-        <Text>{item.title}</Text>
-        <Image source={item.image} />
-        <Text>{item.text}</Text>
-      </View>
-    )
+  slides = () => {
+    const colors = this.props.theme.colors
+    const backgroundColor = colors.backgroundColor
+    const textStyle = { color: colors.textColor }
+
+    return [{
+      key: 'search',
+      title: 'search',
+      titleStyle: textStyle,
+      text: 'searchDescription',
+      textStyle,
+      image: Search,
+      backgroundColor
+    }, {
+      key: 'events',
+      title: 'events',
+      titleStyle: textStyle,
+      text: 'eventsDescription',
+      textStyle,
+      image: Events,
+      backgroundColor
+    }, {
+      key: 'offers',
+      title: 'offers',
+      titleStyle: textStyle,
+      text: 'offersDescription',
+      textStyle,
+      image: Offers,
+      backgroundColor
+    }, {
+      key: 'languageChange',
+      title: 'languageChange',
+      titleStyle: textStyle,
+      text: 'languageChangeDescription',
+      textStyle,
+      image: Language,
+      backgroundColor
+    }]
   }
 
   navigateToLanding = () => this.props.navigation.navigate('Landing')
 
   render () {
-    return <AppIntroSlider renderItem={this.renderItem} slides={slides} onDone={this.navigateToLanding} />
+    const colors = this.props.theme.colors
+    return <AppIntroSlider slides={this.slides()} onDone={this.navigateToLanding}
+                           dotStyle={{ backgroundColor: colors.textDecorationColor }}
+                           activeDotStyle={{ backgroundColor: colors.textSecondaryColor }}
+                           buttonTextStyle={{ color: colors.textSecondaryColor }} />
   }
 }
 
-export default translate('intro')(Intro)
+export default translate('intro')(withTheme()(Intro))
