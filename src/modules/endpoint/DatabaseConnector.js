@@ -85,13 +85,13 @@ type MetaCitiesEntryJsonType = {|
       last_update: string
     |}
   },
-  last_usage: string | null
+  last_usage: string
 |}
 type MetaCitiesJsonType = {
   [CityCodeType]: MetaCitiesEntryJsonType
 }
 
-type CityLastUsageType = {| city: CityCodeType, lastUsage: Moment | null |}
+type CityLastUsageType = {| city: CityCodeType, lastUsage: Moment |}
 
 type PageResourceCacheEntryJsonType = {|
   file_path: string,
@@ -148,7 +148,7 @@ class DatabaseConnector {
 
   async storeLastUpdate (lastUpdate: Moment | null, context: DatabaseContext) {
     if (lastUpdate === null) {
-      return
+      throw Error('cannot set lastUsage to null')
     }
     const cityCode = context.cityCode
     const languageCode = context.languageCode
@@ -161,7 +161,9 @@ class DatabaseConnector {
 
     const metaData = await this.loadMetaCities() || {}
 
-    metaData[cityCode] = metaData[cityCode] || { languages: {}, last_usage: null }
+    if (!metaData[cityCode]) {
+      throw Error('cannot store last update for unused city')
+    }
     metaData[cityCode].languages[languageCode] = { last_update: lastUpdate.toISOString() }
 
     const path = this.getMetaCitiesPath()
@@ -173,6 +175,16 @@ class DatabaseConnector {
     const fileExists: boolean = await RNFetchblob.fs.exists(path)
 
     return fileExists ? JSON.parse(await this.readFile(path)) : null
+  }
+
+  async deleteMetaCity (city: string) {
+    const metaCities = await this.loadMetaCities()
+    if (!metaCities) {
+      throw Error('cannot delete city of undefined metaCities')
+    }
+
+    delete metaCities[city]
+    await this.writeFile(this.getMetaCitiesPath(), JSON.stringify(metaCities))
   }
 
   async loadLastUpdate (context: DatabaseContext): Promise<Moment | null> {
@@ -204,34 +216,24 @@ class DatabaseConnector {
     return map<MetaCitiesEntryJsonType, MetaCitiesJsonType, CityLastUsageType>(
       metaData, (value, key) => ({
         city: key,
-        lastUsage: value.last_usage ? moment(value.last_usage, moment.ISO_8601) : null
+        lastUsage: moment(value.last_usage, moment.ISO_8601)
       })
     )
   }
 
-  async updateLastUsages (lastUsages: Array<CityLastUsageType>) {
-    if (lastUsages.length === 0) {
-      return
+  async storeLastUsage (context: DatabaseContext) {
+    const city = context.cityCode
+    if (!city) {
+      throw Error('cityCode mustn\'t be null')
     }
     const metaData = (await this.loadMetaCities()) || {}
 
-    lastUsages.forEach(lastUsage => {
-      const { city, lastUsage: timestamp } = lastUsage
-      metaData[city] = {
-        last_usage: timestamp ? timestamp.toISOString() : null,
-        languages: metaData[city]?.languages || {}
-      }
-    })
+    metaData[city] = {
+      last_usage: moment().toISOString(),
+      languages: metaData[city]?.languages || {}
+    }
 
     await this.writeFile(this.getMetaCitiesPath(), JSON.stringify(metaData))
-  }
-
-  async updateLastUsage (context: DatabaseContext) {
-    if (!context.cityCode) {
-      throw Error('cityCode mustn\'t be null')
-    }
-    const lastUsage = { city: context.cityCode, lastUsage: moment() }
-    await this.updateLastUsages([lastUsage])
   }
 
   async storeCategories (categoriesMap: CategoriesMapModel, context: DatabaseContext) {
@@ -421,7 +423,7 @@ class DatabaseConnector {
   }
 
   async storeResourceCache (resourceCache: CityResourceCacheStateType, context: DatabaseContext) {
-    await this.deleteOldResourceCaches(context)
+    await this.deleteOldFiles(context)
 
     const path = this.getResourceCachePath(context)
     const json: CityResourceCacheJsonType =
@@ -438,17 +440,16 @@ class DatabaseConnector {
   }
 
   /**
-   * Deletes the resource caches of all but the latest used cities
+   * Deletes the resource caches and files of all but the latest used cities
    * @return {Promise<void>}
    */
-  async deleteOldResourceCaches (context: DatabaseContext) {
-    if (!context.cityCode) {
+  async deleteOldFiles (context: DatabaseContext) {
+    const city = context.cityCode
+    if (!city) {
       throw Error('cityCode mustn\'t be null')
     }
     const lastUsages = await this.loadLastUsages()
-    // $FlowFixMe flow does not get we're filtering for null
-    const cachesToDelete = lastUsages.filter(it => it.lastUsage !== null)
-      .filter(it => it.city !== context.cityCode)
+    const cachesToDelete = lastUsages.filter(it => it.city !== city)
       // Sort last usages chronological, from oldest to newest
       .sort((a, b) =>
         a.lastUsage.isBefore(b.lastUsage) ? -1 : (a.lastUsage.isSame(b.lastUsage) ? 0 : 1)
@@ -457,11 +458,15 @@ class DatabaseConnector {
       .slice(0, -(MAX_RESOURCE_CACHES - 1))
 
     await Promise.all(cachesToDelete.map(cityLastUpdate => {
-      const cityResourceCachePath = `${RESOURCE_CACHE_DIR_PATH}/${cityLastUpdate.city}`
-      return RNFetchblob.fs.unlink(cityResourceCachePath)
-    }))
+      const city = cityLastUpdate.city
+      const cityResourceCachePath = `${RESOURCE_CACHE_DIR_PATH}/${city}`
+      RNFetchblob.fs.unlink(cityResourceCachePath)
 
-    await this.updateLastUsages(cachesToDelete.map(it => ({ city: it.city, lastUsage: null })))
+      const cityContentPath = `${CONTENT_DIR_PATH}/${city}`
+      RNFetchblob.fs.unlink(cityContentPath)
+
+      return this.deleteMetaCity(city)
+    }))
   }
 
   isCitiesPersisted (): Promise<boolean> {
