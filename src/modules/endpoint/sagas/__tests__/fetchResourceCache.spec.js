@@ -22,7 +22,7 @@ describe('fetchResourceCache', () => {
 
     const dataContainer = new DefaultDataContainer()
 
-    const categoriesBuilder = new CategoriesMapModelBuilder(city)
+    const categoriesBuilder = new CategoriesMapModelBuilder(city, language)
     const resources = categoriesBuilder.buildResources()
     const fetchMap = categoriesBuilder.buildFetchMap()
 
@@ -33,13 +33,13 @@ describe('fetchResourceCache', () => {
     const fetchedResources = await dataContainer.getResourceCache(city, language)
 
     const fetchedCount = {
-      ...fetchedResources['/augsburg/de/category_0'],
-      ...fetchedResources['/augsburg/de/category_0/category_0']
+      ...fetchedResources['/augsburg/en/category_0'],
+      ...fetchedResources['/augsburg/en/category_0/category_0']
     }
 
     const expectedCount = {
-      ...resources['/augsburg/de/category_0'],
-      ...resources['/augsburg/de/category_0/category_0']
+      ...resources['/augsburg/en/category_0'],
+      ...resources['/augsburg/en/category_0/category_0']
     }
 
     expect(Object.keys(fetchedCount)).toHaveLength(
@@ -57,7 +57,7 @@ describe('fetchResourceCache', () => {
   it('should put error if fetching fails', () => {
     const dataContainer = new DefaultDataContainer()
 
-    const categoriesBuilder = new CategoriesMapModelBuilder(city)
+    const categoriesBuilder = new CategoriesMapModelBuilder(city, language)
     const fetchMap = categoriesBuilder.buildFetchMap()
 
     return expectSaga(fetchResourceCache, city, language, fetchMap, dataContainer)

@@ -27,8 +27,8 @@ jest.mock('../loadCities')
 jest.mock('../loadLanguages')
 
 const prepareDataContainer = async (dataContainer: DataContainer, city: string, language: string) => {
-  const categoriesBuilder = new CategoriesMapModelBuilder(city, 2, 2)
-  const eventsBuilder = new EventModelBuilder('loadCityContent-events', 2, city)
+  const categoriesBuilder = new CategoriesMapModelBuilder(city, language, 2, 2)
+  const eventsBuilder = new EventModelBuilder('loadCityContent-events', 2, city, language)
 
   const categories = categoriesBuilder.build()
   const cities = new CityModelBuilder(1).build()

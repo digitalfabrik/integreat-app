@@ -17,11 +17,11 @@ In this section we want to test the component Failure and FailureContainer:
 // Failure.js
 class Failure extends React.Component<PropsType> {
   render () {
-    const { t, error, tryAgain, theme } = this.props
+    const { t, errorMessage, tryAgain, theme } = this.props
 
     return <ViewContainer>
       <IconContainer source={FailureIcon} />
-      <Text>{error ? error.message : t('generalError')}</Text>
+      <Text>{errorMessage || t('generalError')}</Text>
       {tryAgain &&
       <Button testID='button-tryAgain' titleStyle={{ color: theme.colors.textColor }}
               buttonStyle={{ backgroundColor: theme.colors.themeColor, marginTop: 20 }}
@@ -40,8 +40,7 @@ The most important part is to test the specific units using `@testing-library/re
 
 ```js
   it('should not render a retry button if tryAgain is not passed', () => {
-    const { queryByTestId } = render(<Failure theme={brightTheme} error={new Error()}
-                                              t={key => key} />)
+    const { queryByTestId } = render(<Failure theme={brightTheme} t={key => key} />)
 
     expect(queryByTestId('button-tryAgain')).toBeNull()
   })
@@ -82,12 +81,11 @@ Apart from unit tests it can also be beneficial to test the integration between 
     const t = key => key
     const tryAgain = () => {}
 
-    const error = new Error()
     const { asJSON: asJSONFailure } =
-      render(<Failure theme={brightTheme} error={error} tryAgain={tryAgain} t={t} />)
+      render(<Failure theme={brightTheme} tryAgain={tryAgain} t={t} />)
     const { asJSON: asJSONFailureContainer } =
-      render(<FailureContainer error={error} tryAgain={tryAgain} />)
-    
+      render(<FailureContainer tryAgain={tryAgain} />)
+
     expect(asJSONFailure()).toEqual(asJSONFailureContainer())
 ```
 OR:
@@ -95,7 +93,7 @@ OR:
     import FailureContainer from '../FailureContainer'
 
     const tryAgain = jest.fn()
-    const { getByTestId } = render(<FailureContainer error={new Error()} tryAgain={tryAgain} />)
+    const { getByTestId } = render(<FailureContainer tryAgain={tryAgain} />)
     fireEvent.press(getByTestId('button-tryAgain'))
     expect(tryAgain).toHaveBeenCalled()
 ```

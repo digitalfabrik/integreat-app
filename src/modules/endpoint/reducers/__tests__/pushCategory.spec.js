@@ -66,11 +66,14 @@ describe('pushCategory', () => {
       eventsRouteMapping: {},
       languages: ['de', 'en'],
       resourceCache: {
-        '/augsburg/de': {
-          'some-url': {
-            filePath: 'some-path',
-            lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC'),
-            hash: '123456'
+        status: 'ready',
+        value: {
+          '/augsburg/de': {
+            'some-url': {
+              filePath: 'some-path',
+              lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+              hash: '123456'
+            }
           }
         }
       },
@@ -83,7 +86,7 @@ describe('pushCategory', () => {
   it('should add rootCategory to categoriesRouteMapping with depth 1', () => {
     const prevState: CityContentStateType = prepareState({
       categoriesRouteMapping: {},
-      resourceCache: {}
+      resourceCache: { status: 'ready', value: {} }
     })
 
     const pushCategoryAction = {
@@ -119,7 +122,7 @@ describe('pushCategory', () => {
   it('should add subCategory to routeMapping with depth 1', () => {
     const prevState = prepareState({
       categoriesRouteMapping: {},
-      resourceCache: {}
+      resourceCache: { status: 'ready', value: {} }
     })
 
     const pushCategoryAction = {
@@ -154,6 +157,10 @@ describe('pushCategory', () => {
 
   it('should merge the resource cache if there\'s already one', () => {
     const prevState = prepareState({})
+    if (prevState.resourceCache.status !== 'ready') {
+      throw new Error('Preparation failed')
+    }
+    const prevResources = prevState.resourceCache.value
 
     const testumgebungRootCategory = new CategoryModel({
       root: true,
@@ -193,7 +200,7 @@ describe('pushCategory', () => {
 
     expect(cityContentReducer(prevState, pushCategoryAction)).toEqual(expect.objectContaining({
       city: 'augsburg',
-      resourceCache: { ...prevState.resourceCache, ...resourceCache }
+      resourceCache: { status: 'ready', value: { ...prevResources, ...resourceCache } }
     }))
   })
 
@@ -201,7 +208,7 @@ describe('pushCategory', () => {
     const prevState: CityContentStateType = prepareState({
       categoriesRouteMapping: {},
       searchRoute: null,
-      resourceCache: {}
+      resourceCache: { status: 'ready', value: {} }
     })
 
     const pushCategoryAction = {

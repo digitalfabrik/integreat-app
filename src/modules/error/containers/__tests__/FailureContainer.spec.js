@@ -1,6 +1,6 @@
 // @flow
 
-import { render, fireEvent } from '@testing-library/react-native'
+import { fireEvent, render } from '@testing-library/react-native'
 import * as React from 'react'
 import TestRenderer from 'react-test-renderer'
 import typeof FailureContainer from '../FailureContainer'
@@ -31,7 +31,7 @@ describe('FailureContainer', () => {
     const FailureContainer = require('../FailureContainer').default
 
     const tryAgain = jest.fn()
-    const { getByTestId } = render(<FailureContainer error={new Error()} tryAgain={tryAgain} />)
+    const { getByTestId } = render(<FailureContainer tryAgain={tryAgain} />)
     fireEvent.press(getByTestId('button-tryAgain'))
     expect(tryAgain).toHaveBeenCalled()
   })
