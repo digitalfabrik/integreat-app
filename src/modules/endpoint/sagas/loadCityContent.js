@@ -30,12 +30,12 @@ export default function * loadCityContent (
   dataContainer: DataContainer, newCity: string, newLanguage: string,
   criterion: ContentLoadCriterion
 ): Saga<boolean> {
+  yield call(dataContainer.storeLastUsage, newCity, criterion.peeking())
+
   if (!criterion.peeking()) {
     const appSettings = new AppSettings()
     yield call(appSettings.setSelectedCity, newCity)
   }
-
-  yield call(dataContainer.storeLastUsage, newCity, criterion.peeking())
 
   yield call(loadCities, dataContainer, false) // Never force refresh cities, when loading cityContent
   const lastUpdate: Moment | null = yield call(dataContainer.getLastUpdate, newCity, newLanguage)
