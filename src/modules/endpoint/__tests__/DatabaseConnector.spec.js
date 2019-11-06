@@ -105,6 +105,7 @@ describe('DatabaseConnector', () => {
 
       const dateExpected = moment('2011-05-04T00:00:00.000Z')
 
+      await databaseConnector.storeLastUsage(context, false)
       await databaseConnector.storeLastUpdate(dateExpected, context)
       expect(dateExpected).toStrictEqual(await databaseConnector.loadLastUpdate(context))
     })
@@ -121,10 +122,16 @@ describe('DatabaseConnector', () => {
       const date = moment('2011-05-04T00:00:00.000Z')
       expect(databaseConnector.storeLastUpdate(date, context)).rejects.toThrowError()
     })
+    it('should throw error if meta of city is null', () => {
+      const context = new DatabaseContext('tcc', null)
+      const date = moment('2011-05-04T00:00:00.000Z')
+      expect(databaseConnector.storeLastUpdate(date, context)).rejects.toThrowError()
+    })
     it('should override multiple lastUpdates of the same context', async () => {
       const context = new DatabaseContext('tcc', 'de')
       const date = moment('2011-05-04T00:00:00.000Z')
       const date2 = moment('2012-05-04T00:00:00.000Z')
+      await databaseConnector.storeLastUsage(context, false)
       await databaseConnector.storeLastUpdate(date, context)
       await databaseConnector.storeLastUpdate(date2, context)
 
@@ -133,6 +140,7 @@ describe('DatabaseConnector', () => {
     it('should store the json file in the correct path', async () => {
       const context = new DatabaseContext('tcc', 'de')
       const date = moment('2011-05-04T00:00:00.000Z')
+      await databaseConnector.storeLastUsage(context, false)
       await databaseConnector.storeLastUpdate(date, context)
       expect(RNFetchBlob.fs.writeFile).toBeCalledWith(
         expect.stringContaining('cities-meta.json'),
