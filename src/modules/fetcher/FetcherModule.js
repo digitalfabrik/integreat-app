@@ -3,7 +3,7 @@
 import NativeFetcherModule, { NativeFetcherModuleEmitter } from './NativeFetcherModule'
 import { isEmpty } from 'lodash'
 
-export type TargetFilePathsType = {[path: string]: string}
+export type TargetFilePathsType = { [path: string]: string }
 
 export type FetchResultType = { [path: string]: {| lastUpdate: string, url: string, errorMessage: ?string |} }
 
@@ -18,10 +18,10 @@ class FetcherModule {
     progress: ProgressCallbackType
   ): Promise<FetchResultType> {
     if (FetcherModule.currentlyFetching) {
-      return Promise.reject(new Error('Already fetching!'))
+      throw new Error('Already fetching!')
     }
     if (isEmpty(targetFilePaths)) {
-      throw Error('Fetch map can not be empty!')
+      return {}
     }
     FetcherModule.currentlyFetching = true
 
@@ -32,7 +32,7 @@ class FetcherModule {
       const result = await NativeFetcherModule.fetchAsync(targetFilePaths)
 
       if (!result) {
-        throw Error('Fetch failed for some reason!')
+        throw new Error('Fetch failed for some reason!')
       }
 
       return result
