@@ -470,7 +470,7 @@ class DatabaseConnector {
       return RNFetchblob.fs.unlink(cityContentPath)
     }))
 
-    this.deleteMetaOfCities(cachesToDelete.map(it => it.city))
+    await this.deleteMetaOfCities(cachesToDelete.map(it => it.city))
   }
 
   isCitiesPersisted (): Promise<boolean> {
