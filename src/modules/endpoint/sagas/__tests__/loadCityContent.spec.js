@@ -65,6 +65,7 @@ describe('loadCityContent', () => {
     await prepareDataContainer(dataContainer, city, language)
 
     await new AppSettings().setSelectedCity('nuernberg')
+    await dataContainer.storeLastUsage(city, false)
     await dataContainer.setLastUpdate(city, language, lastUpdate)
 
     await expectSaga(loadCityContent,
@@ -76,7 +77,6 @@ describe('loadCityContent', () => {
 
     expect(await new AppSettings().loadSelectedCity()).toBe('augsburg')
     expect(await dataContainer.getLastUpdate(city, language)).toBe(lastUpdate)
-    expect(await RNFetchBlob.fs.readFile(new DatabaseConnector().getMetaCitiesPath(), '')).toMatchSnapshot()
   })
 
   it('should not set selected city when peeking', async () => {
@@ -84,6 +84,7 @@ describe('loadCityContent', () => {
     await prepareDataContainer(dataContainer, city, language)
 
     await new AppSettings().setSelectedCity('nuernberg')
+    await dataContainer.storeLastUsage(city, true)
     await dataContainer.setLastUpdate(city, language, lastUpdate)
 
     await expectSaga(loadCityContent,
@@ -97,10 +98,26 @@ describe('loadCityContent', () => {
     expect(await dataContainer.getLastUpdate(city, language)).toBe(lastUpdate)
   })
 
+  it('should store last usage', async () => {
+    const dataContainer = new DefaultDataContainer()
+    await prepareDataContainer(dataContainer, city, language)
+
+    await expectSaga(loadCityContent,
+      dataContainer, city, language, new ContentLoadCriterion({
+        forceUpdate: false,
+        shouldRefreshResources: true
+      }, true)
+    ).run()
+
+    expect(await new DatabaseConnector().loadLastUsages())
+      .toEqual([{ city: 'augsburg', lastUsage: moment('2000-01-05T11:10:00.000Z') }])
+  })
+
   it('should load languages when not peeking', async () => {
     const dataContainer = new DefaultDataContainer()
     const { languages } = await prepareDataContainer(dataContainer, city, language)
 
+    await dataContainer.storeLastUsage(city, false)
     await dataContainer.setLastUpdate(city, language, lastUpdate)
 
     await expectSaga(loadCityContent,
@@ -119,6 +136,7 @@ describe('loadCityContent', () => {
     const dataContainer = new DefaultDataContainer()
     await prepareDataContainer(dataContainer, city, language)
 
+    await dataContainer.storeLastUsage(city, true)
     await dataContainer.setLastUpdate(city, language, lastUpdate)
 
     await expectSaga(loadCityContent,
@@ -137,6 +155,7 @@ describe('loadCityContent', () => {
     const dataContainer = new DefaultDataContainer()
     await prepareDataContainer(dataContainer, city, language)
 
+    await dataContainer.storeLastUsage(city, false)
     await dataContainer.setLastUpdate(city, language, lastUpdate)
 
     await expectSaga(loadCityContent,
@@ -158,6 +177,7 @@ describe('loadCityContent', () => {
     const dataContainer = new DefaultDataContainer()
     await prepareDataContainer(dataContainer, city, language)
 
+    await dataContainer.storeLastUsage(city, false)
     await dataContainer.setLastUpdate(city, language, lastUpdate)
 
     await expectSaga(loadCityContent,
@@ -176,6 +196,7 @@ describe('loadCityContent', () => {
     const dataContainer = new DefaultDataContainer()
     const { fetchMap } = await prepareDataContainer(dataContainer, city, language)
 
+    await dataContainer.storeLastUsage(city, false)
     await dataContainer.setLastUpdate(city, language, lastUpdate)
 
     await expectSaga(loadCityContent,
@@ -194,6 +215,7 @@ describe('loadCityContent', () => {
     const dataContainer = new DefaultDataContainer()
     const { fetchMap } = await prepareDataContainer(dataContainer, city, language)
 
+    await dataContainer.storeLastUsage(city, false)
     await dataContainer.setLastUpdate(city, language, lastUpdate)
 
     await expectSaga(loadCityContent,
@@ -223,6 +245,7 @@ describe('loadCityContent', () => {
     const dataContainer = new DefaultDataContainer()
     const { fetchMap } = await prepareDataContainer(dataContainer, city, language)
 
+    await dataContainer.storeLastUsage(city, false)
     await dataContainer.setLastUpdate(city, language, lastUpdate)
 
     await expectSaga(loadCityContent,
@@ -242,6 +265,7 @@ describe('loadCityContent', () => {
     const dataContainer = new DefaultDataContainer()
     await prepareDataContainer(dataContainer, city, language)
 
+    await dataContainer.storeLastUsage(city, false)
     await dataContainer.setLastUpdate(city, language, moment('1971-01-05T10:10:00.000Z'))
 
     await expectSaga(loadCityContent,
