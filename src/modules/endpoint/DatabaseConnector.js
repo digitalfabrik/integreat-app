@@ -12,9 +12,15 @@ import {
 import RNFetchblob from 'rn-fetch-blob'
 import type Moment from 'moment-timezone'
 import moment from 'moment-timezone'
-import type { CityResourceCacheStateType } from '../app/StateType'
+import type {
+  LanguageResourceCacheStateType,
+  PageResourceCacheStateType,
+  PageResourceCacheEntryStateType,
+  CityResourceCacheStateType
+} from '../app/StateType'
 import DatabaseContext from './DatabaseContext'
 import { CACHE_DIR_PATH, CONTENT_DIR_PATH, RESOURCE_CACHE_DIR_PATH } from '../platform/constants/webview'
+import { mapValues } from 'lodash'
 
 type ContentCategoryJsonType = {|
   root: string,
@@ -58,9 +64,9 @@ type ContentCityJsonType = {|
   live: boolean,
   code: string,
   prefix: string,
-  extrasEnabled: boolean,
-  eventsEnabled: boolean,
-  sortingName: string
+  extras_enabled: boolean,
+  events_enabled: boolean,
+  sorting_name: string
 |}
 
 type CityCodeType = string
@@ -70,13 +76,28 @@ type MetaCitiesJsonType = {
   [CityCodeType]: {|
     languages: {
       [LanguageCodeType]: {|
-        lastUpdate: Moment
+        last_update: string
       |}
     }
   |}
 }
 
-type ResourceCacheJsonType = CityResourceCacheStateType
+type PageResourceCacheEntryJsonType = {|
+  file_path: string,
+  last_update: string,
+  hash: string
+|}
+
+type PageResourceCacheJsonType = {
+  [url: string]: PageResourceCacheEntryJsonType
+}
+
+type LanguageResourceCacheJsonType = {
+  [path: string]: PageResourceCacheJsonType
+}
+type CityResourceCacheJsonType = {
+  [language: LanguageCodeType]: LanguageResourceCacheJsonType
+}
 
 const mapToObject = (map: Map<string, string>) => {
   const output = {}
@@ -134,7 +155,7 @@ class DatabaseConnector {
     currentCityMetaData[cityCode] = currentCityMetaData[cityCode] || { languages: {} }
     currentCityMetaData[cityCode].languages = {
       ...currentCityMetaData[cityCode].languages,
-      [context.languageCode]: { lastUpdate: lastUpdate }
+      [context.languageCode]: { last_update: lastUpdate.toISOString() }
     }
 
     await this.writeFile(path, JSON.stringify(currentCityMetaData))
@@ -158,8 +179,9 @@ class DatabaseConnector {
     }
 
     const currentCityMetaData: MetaCitiesJsonType = JSON.parse(await this.readFile(path))
-    const lastUpdate = currentCityMetaData[cityCode]?.languages[languageCode]?.lastUpdate
-    return lastUpdate ? moment.tz(lastUpdate, 'UTC') : null
+    // eslint-disable-next-line camelcase
+    const lastUpdate = currentCityMetaData[cityCode]?.languages[languageCode]?.last_update
+    return lastUpdate ? moment(lastUpdate, moment.ISO_8601) : null
   }
 
   async storeCategories (categoriesMap: CategoriesMapModel, context: DatabaseContext) {
@@ -231,9 +253,9 @@ class DatabaseConnector {
       live: city.live,
       code: city.code,
       prefix: city.prefix,
-      extrasEnabled: city.extrasEnabled,
-      eventsEnabled: city.eventsEnabled,
-      sortingName: city.sortingName
+      extras_enabled: city.extrasEnabled,
+      events_enabled: city.eventsEnabled,
+      sorting_name: city.sortingName
     }))
 
     await this.writeFile(this.getCitiesPath(), JSON.stringify(jsonModels))
@@ -254,9 +276,9 @@ class DatabaseConnector {
         name: jsonObject.name,
         code: jsonObject.code,
         live: jsonObject.live,
-        eventsEnabled: jsonObject.eventsEnabled,
-        extrasEnabled: jsonObject.extrasEnabled,
-        sortingName: jsonObject.sortingName,
+        eventsEnabled: jsonObject.events_enabled,
+        extrasEnabled: jsonObject.extras_enabled,
+        sortingName: jsonObject.sorting_name,
         prefix: jsonObject.prefix
       })
     })
@@ -335,14 +357,31 @@ class DatabaseConnector {
       return {}
     }
 
-    return JSON.parse(await this.readFile(path))
+    const json: CityResourceCacheJsonType = JSON.parse(await this.readFile(path))
+
+    return mapValues(json, (languageResourceCache: LanguageResourceCacheJsonType) =>
+      mapValues(languageResourceCache, (fileResourceCache: PageResourceCacheJsonType) =>
+        mapValues(fileResourceCache, (entry: PageResourceCacheEntryJsonType): PageResourceCacheEntryStateType => ({
+          filePath: entry.file_path,
+          lastUpdate: moment(entry.last_update, moment.ISO_8601),
+          hash: entry.hash
+        }))
+      )
+    )
   }
 
   async storeResourceCache (resourceCache: CityResourceCacheStateType, context: DatabaseContext) {
     const path = this.getResourceCachePath(context)
-    // todo: NATIVE-330 Use ResourceCacheJsonType
-
-    const json: ResourceCacheJsonType = resourceCache
+    const json: CityResourceCacheJsonType =
+      mapValues(resourceCache, (languageResourceCache: LanguageResourceCacheStateType) =>
+        mapValues(languageResourceCache, (fileResourceCache: PageResourceCacheStateType) =>
+          mapValues(fileResourceCache, (entry: PageResourceCacheEntryStateType): PageResourceCacheEntryJsonType => ({
+            file_path: entry.filePath,
+            last_update: entry.lastUpdate.toISOString(),
+            hash: entry.hash
+          }))
+        )
+      )
     await this.writeFile(path, JSON.stringify(json))
   }
 

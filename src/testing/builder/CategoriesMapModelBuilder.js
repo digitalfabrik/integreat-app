@@ -2,7 +2,7 @@
 
 import { CategoriesMapModel, CategoryModel } from '@integreat-app/integreat-api-client'
 import moment from 'moment-timezone'
-import type { FileCacheStateType } from '../../modules/app/StateType'
+import type { PageResourceCacheStateType } from '../../modules/app/StateType'
 import seedrandom from 'seedrandom'
 import hashUrl from '../../modules/endpoint/hashUrl'
 import type { FetchMapType } from '../../modules/endpoint/sagas/fetchResourceCache'
@@ -23,7 +23,7 @@ class CategoriesMapModelBuilder {
   _language: string
 
   _categories: Array<CategoryModel>
-  _resourceCache: { [path: string]: FileCacheStateType }
+  _resourceCache: { [path: string]: PageResourceCacheStateType }
   _id = 0
 
   constructor (city: string, language: string, arity: number = DEFAULT_ARITY, depth: number = DEFAULT_DEPTH) {
@@ -37,7 +37,7 @@ class CategoriesMapModelBuilder {
     return seedrandom(`${index}-seed`)() * max
   }
 
-  createResource (url: string, index: number, lastUpdate: moment): FileCacheStateType {
+  createResource (url: string, index: number, lastUpdate: moment): PageResourceCacheStateType {
     const hash = hashUrl(url)
     return {
       [url]: {
@@ -95,7 +95,7 @@ class CategoriesMapModelBuilder {
     }
   }
 
-  buildResources (): { [path: string]: FileCacheStateType } {
+  buildResources (): { [path: string]: PageResourceCacheStateType } {
     return this.buildAll().resourceCache
   }
 
@@ -107,7 +107,7 @@ class CategoriesMapModelBuilder {
     return this.buildAll().categories
   }
 
-  buildAll (): { categories: CategoriesMapModel, resourceCache: { [path: string]: FileCacheStateType } } {
+  buildAll (): { categories: CategoriesMapModel, resourceCache: { [path: string]: PageResourceCacheStateType } } {
     this._resourceCache = {}
     this._categories = []
     this._id = 0
