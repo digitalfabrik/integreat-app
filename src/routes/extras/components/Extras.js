@@ -12,7 +12,7 @@ import {
 import Tiles from '../../../modules/common/components/Tiles'
 import type { TFunction } from 'react-i18next'
 import { SPRUNGBRETT_EXTRA, SPRUNGBRETT_ROUTE, WOHNEN_EXTRA, WOHNEN_ROUTE } from '../constants'
-import { ScrollView, View } from 'react-native'
+import { View } from 'react-native'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import FeedbackVariant from '../../feedback/FeedbackVariant'
 import type { NavigationScreenProp } from 'react-navigation'
@@ -69,7 +69,9 @@ class Extras extends React.Component<PropsType> {
 
     const feedbackItems = [
       createFeedbackVariant(t('feedback:contentOfCity', { city: cityTitle }), EXTRAS_FEEDBACK_TYPE),
-      ...extras.map(extra => createFeedbackVariant(t('feedback:contentOfExtra', { extra: extra.title }), EXTRA_FEEDBACK_TYPE, extra.alias)),
+      ...extras.map(extra =>
+        createFeedbackVariant(t('feedback:contentOfExtra', { extra: extra.title }), EXTRA_FEEDBACK_TYPE, extra.alias)
+      ),
       createFeedbackVariant(t('feedback:technicalTopics'), CATEGORIES_FEEDBACK_TYPE)
     ]
 
@@ -79,15 +81,13 @@ class Extras extends React.Component<PropsType> {
   render () {
     const { language, extras, t, theme } = this.props
     return (
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <SpaceBetween>
-          <View>
-            <Tiles title={t('extras')} tiles={this.toTileModels(extras)} onTilePress={this.onTilePress} theme={theme}
-                   language={language} />
-          </View>
-          <SiteHelpfulBox navigateToFeedback={this.navigateToFeedback} theme={theme} t={t} />
-        </SpaceBetween>
-      </ScrollView>
+      <SpaceBetween>
+        <View>
+          <Tiles title={t('extras')} tiles={this.toTileModels(extras)} onTilePress={this.onTilePress} theme={theme}
+                 language={language} />
+        </View>
+        <SiteHelpfulBox navigateToFeedback={this.navigateToFeedback} theme={theme} t={t} />
+      </SpaceBetween>
     )
   }
 }

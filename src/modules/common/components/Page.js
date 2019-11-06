@@ -8,13 +8,12 @@ import type { NavigationScreenProp } from 'react-navigation'
 import Caption from './Caption'
 import TimeStamp from './TimeStamp'
 import type Moment from 'moment'
-import type { FileCacheStateType } from '../../app/StateType'
+import type { PageResourceCacheStateType } from '../../app/StateType'
 import type { NavigateToIntegreatUrlParamsType } from '../../app/createNavigateToIntegreatUrl'
 import MomentContext from '../../i18n/context/MomentContext'
 import RemoteContent from './RemoteContent'
 import SiteHelpfulBox from './SiteHelpfulBox'
 import SpaceBetween from './SpaceBetween'
-import type { TFunction } from 'react-i18next'
 
 const HORIZONTAL_MARGIN = 8
 
@@ -31,14 +30,13 @@ type PropType = {|
   content: string,
   theme: ThemeType,
   navigation: NavigationScreenProp<*>,
-  navigateToIntegreatUrl: NavigateToIntegreatUrlParamsType => void,
-  navigateToFeedback: (positive: boolean) => void,
-  files: FileCacheStateType,
+  navigateToIntegreatUrl?: NavigateToIntegreatUrlParamsType => void,
+  navigateToFeedback?: (positive: boolean) => void,
+  files: PageResourceCacheStateType,
   children?: React.Node,
   language: string,
   cityCode: string,
-  lastUpdate: Moment,
-  t: TFunction
+  lastUpdate: Moment
 |}
 
 const HIJACK = /https?:\/\/(cms(-test)?\.integreat-app\.de|web\.integreat-app\.de|integreat\.app)(?!\/[^/]*\/(wp-content|wp-admin|wp-json)\/.*).*/
@@ -53,7 +51,7 @@ class Page extends React.Component<PropType, StateType> {
       navigation.navigate('PDFViewModal', { url })
     } else if (url.includes('.png') || url.includes('.jpg')) {
       navigation.navigate('ImageViewModal', { url })
-    } else if (HIJACK.test(url)) {
+    } else if (navigateToIntegreatUrl && HIJACK.test(url)) {
       navigateToIntegreatUrl({ url, language })
     } else {
       Linking.openURL(url).catch(err => console.error('An error occurred', err))
@@ -63,7 +61,7 @@ class Page extends React.Component<PropType, StateType> {
   onLoad = () => this.setState({ loading: false })
 
   render () {
-    const { title, children, content, files, theme, language, cityCode, lastUpdate, navigateToFeedback, t } = this.props
+    const { title, children, content, files, theme, language, cityCode, lastUpdate, navigateToFeedback } = this.props
     return <SpaceBetween>
       <Container>
         <Caption title={title} theme={theme} />
@@ -74,7 +72,8 @@ class Page extends React.Component<PropType, StateType> {
           {formatter => <TimeStamp formatter={formatter} lastUpdate={lastUpdate} language={language} theme={theme} />}
         </MomentContext.Consumer>}
       </Container>
-      {!this.state.loading && <SiteHelpfulBox navigateToFeedback={navigateToFeedback} theme={theme} t={t} />}
+      {navigateToFeedback && !this.state.loading && <SiteHelpfulBox navigateToFeedback={navigateToFeedback}
+                                                                    theme={theme} />}
     </SpaceBetween>
   }
 }

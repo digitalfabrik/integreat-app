@@ -2,7 +2,7 @@
 
 import { CategoriesMapModel, CityModel, EventModel, LanguageModel } from '@integreat-app/integreat-api-client'
 import DatabaseContext from './DatabaseContext'
-import type { CityResourceCacheStateType, FileCacheStateType, LanguageResourceCacheStateType } from '../app/StateType'
+import type { CityResourceCacheStateType, PageResourceCacheStateType, LanguageResourceCacheStateType } from '../app/StateType'
 import DatabaseConnector from './DatabaseConnector'
 import type { DataContainer } from './DataContainer'
 import type Moment from 'moment'
@@ -125,7 +125,7 @@ class DefaultDataContainer implements DataContainer {
   getFilePathsFromLanguageResourceCache (languageResourceCache: LanguageResourceCacheStateType): Array<string> {
     return flatMap(
       Object.values(languageResourceCache),
-      (file: FileCacheStateType): Array<string> => map(file, ({ filePath }) => filePath)
+      (file: PageResourceCacheStateType): Array<string> => map(file, ({ filePath }) => filePath)
     )
   }
 
@@ -169,24 +169,29 @@ class DefaultDataContainer implements DataContainer {
     await cache.cache(lastUpdate, context)
   }
 
-  async citiesAvailable (): Promise<boolean> {
+  citiesAvailable = async (): Promise<boolean> => {
     const context = new DatabaseContext()
     return this.isCached('cities', context) || this._databaseConnector.isCitiesPersisted()
   }
 
-  async categoriesAvailable (city: string, language: string): Promise<boolean> {
+  categoriesAvailable = async (city: string, language: string): Promise<boolean> => {
     const context = new DatabaseContext(city, language)
     return this.isCached('categories', context) || this._databaseConnector.isCategoriesPersisted(context)
   }
 
-  async languagesAvailable (city: string): Promise<boolean> {
+  languagesAvailable = async (city: string): Promise<boolean> => {
     const context = new DatabaseContext(city)
     return this.isCached('languages', context) || this._databaseConnector.isLanguagesPersisted(context)
   }
 
-  async eventsAvailable (city: string, language: string): Promise<boolean> {
+  eventsAvailable = async (city: string, language: string): Promise<boolean> => {
     const context = new DatabaseContext(city, language)
     return this.isCached('events', context) || this._databaseConnector.isEventsPersisted(context)
+  }
+
+  cityContentAvailable = async (city: string, language: string): Promise<boolean> => {
+    return this.categoriesAvailable(city, language) && this.eventsAvailable(city, language) &&
+      this.languagesAvailable(city)
   }
 }
 

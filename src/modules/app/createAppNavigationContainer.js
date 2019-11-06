@@ -27,6 +27,7 @@ import PDFViewModal from '../../routes/pdf/components/PDFViewModal'
 import FeedbackModalContainer from '../../routes/feedback/containers/FeedbackModalContainer'
 import LandingContainer from '../../routes/landing/containers/LandingContainer'
 import React from 'react'
+import DisclaimerContainer from '../../routes/disclaimer/DisclaimerContainer'
 
 const LayoutedDashboardContainer = withLayout(DashboardContainer)
 const LayoutedCategoriesContainer = withLayout(CategoriesContainer)
@@ -55,6 +56,7 @@ const cityContentRouteConfigMap: NavigationRouteConfigMap = {
     EventsContainer, defaultHeader
   ),
   'Settings': createNavigationRouteConfig(SettingsContainer, defaultHeader),
+  'Disclaimer': createNavigationRouteConfig(DisclaimerContainer, defaultHeader),
   'ChangeLanguageModal': createNavigationRouteConfig(ChangeLanguageModalContainer),
   'SearchModal': createNavigationRouteConfig(SearchModalContainer),
   'ImageViewModal': createNavigationRouteConfig(ImageViewModal, transparentHeader),
