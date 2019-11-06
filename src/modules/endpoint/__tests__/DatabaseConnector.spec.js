@@ -28,26 +28,26 @@ describe('DatabaseConnector', () => {
 
   const testResources = {
     'de':
-    {
-      '/path/to/page':
       {
-        'https://test.de/path/to/resource/test.png':
-        {
-          filePath: '/local/path/to/resource/b4b5dca65e423.png',
-          lastUpdate: moment('2011-02-04T00:00:00.000Z'),
-          hash: 'testHash'
-        }
-      },
-      '/path/to/page/child':
-      {
-        'https://test.de/path/to/resource/test2.jpg':
-        {
-          filePath: '/local/path/to/resource/970c65c41eac0.jpg',
-          lastUpdate: moment('2011-05-04T00:00:00.000Z'),
-          hash: 'testHash'
-        }
+        '/path/to/page':
+          {
+            'https://test.de/path/to/resource/test.png':
+              {
+                filePath: '/local/path/to/resource/b4b5dca65e423.png',
+                lastUpdate: moment('2011-02-04T00:00:00.000Z'),
+                hash: 'testHash'
+              }
+          },
+        '/path/to/page/child':
+          {
+            'https://test.de/path/to/resource/test2.jpg':
+              {
+                filePath: '/local/path/to/resource/970c65c41eac0.jpg',
+                lastUpdate: moment('2011-05-04T00:00:00.000Z'),
+                hash: 'testHash'
+              }
+          }
       }
-    }
   }
 
   describe('isCitiesPersisted', () => {
@@ -272,78 +272,6 @@ describe('DatabaseConnector', () => {
         expect.any(String)
       )
     })
-    it('should evict resources from old caches', async () => {
-      const context = new DatabaseContext('tcc', 'de')
-      const spy = jest.spyOn(databaseConnector, 'deleteOldResourceCaches')
-      await databaseConnector.storeResourceCache(testResources, context)
-      expect(spy).toHaveBeenCalledWith(context)
-    })
-
-    const expectExists = async (path: string, exists: boolean = true) => {
-      expect(await RNFetchBlob.fs.exists(databaseConnector.getResourceCachePath(new DatabaseContext('muenchen'))))
-        .toBe(exists)
-    }
-
-    it('should keep only the maximal number of caches', async () => {
-      spyMomentNow.mockReturnValue(moment('2011-05-04T00:00:00.000Z'))
-      await databaseConnector.updateLastUsage(new DatabaseContext('muenchen'))
-      await databaseConnector.storeResourceCache(testResources, new DatabaseContext('muenchen'))
-
-      spyMomentNow.mockReturnValue(moment('2012-05-04T00:00:00.000Z'))
-      await databaseConnector.updateLastUsage(new DatabaseContext('dortmund'))
-      await databaseConnector.storeResourceCache(testResources, new DatabaseContext('dortmund'))
-
-      spyMomentNow.mockReturnValue(moment('2013-05-04T00:00:00.000Z'))
-      await databaseConnector.updateLastUsage(new DatabaseContext('ansbach'))
-      await databaseConnector.storeResourceCache(testResources, new DatabaseContext('ansbach'))
-
-      spyMomentNow.mockReturnValue(moment('2014-05-04T00:00:00.000Z'))
-      await databaseConnector.updateLastUsage(new DatabaseContext('regensburg'))
-      await databaseConnector.storeResourceCache(testResources, new DatabaseContext('regensburg'))
-
-      spyMomentNow.mockReturnValue(moment('2015-05-04T00:00:00.000Z'))
-      await databaseConnector.updateLastUsage(new DatabaseContext('augsburg'))
-      await databaseConnector.storeResourceCache(testResources, new DatabaseContext('augsburg'))
-
-      expectExists(databaseConnector.getResourceCachePath(new DatabaseContext('muenchen')), false)
-      expectExists(databaseConnector.getResourceCachePath(new DatabaseContext('dortmund')), false)
-      expectExists(databaseConnector.getResourceCachePath(new DatabaseContext('ansbach')))
-      expectExists(databaseConnector.getResourceCachePath(new DatabaseContext('regensburg')))
-      expectExists(databaseConnector.getResourceCachePath(new DatabaseContext('augsburg')))
-
-      const meta = await RNFetchBlob.fs.readFile(databaseConnector.getMetaCitiesPath(), '')
-      expect(meta).toMatchSnapshot()
-    })
-
-    it('should not delete the resource cache of the same city', async () => {
-      spyMomentNow.mockReturnValue(moment('2011-05-04T00:00:00.000Z'))
-      await databaseConnector.storeResourceCache(testResources, new DatabaseContext('augsburg'))
-
-      spyMomentNow.mockReturnValue(moment('2011-05-04T00:00:00.000Z'))
-      await databaseConnector.updateLastUsage(new DatabaseContext('dortmund'))
-      await databaseConnector.storeResourceCache(testResources, new DatabaseContext('dortmund'))
-
-      spyMomentNow.mockReturnValue(moment('2012-05-04T00:00:00.000Z'))
-      await databaseConnector.updateLastUsage(new DatabaseContext('ansbach'))
-      await databaseConnector.storeResourceCache(testResources, new DatabaseContext('ansbach'))
-
-      spyMomentNow.mockReturnValue(moment('2013-05-04T00:00:00.000Z'))
-      await databaseConnector.updateLastUsage(new DatabaseContext('ansbach'))
-      await databaseConnector.storeResourceCache(testResources, new DatabaseContext('ansbach'))
-
-      spyMomentNow.mockReturnValue(moment('2014-05-04T00:00:00.000Z'))
-      await databaseConnector.updateLastUsage(new DatabaseContext('ansbach'))
-      await databaseConnector.storeResourceCache(testResources, new DatabaseContext('ansbach'))
-
-      spyMomentNow.mockReturnValue(moment('2014-05-04T00:00:00.000Z'))
-      await databaseConnector.updateLastUsage(new DatabaseContext('augsburg'))
-      await databaseConnector.storeResourceCache(testResources, new DatabaseContext('augsburg'))
-
-      expectExists(databaseConnector.getResourceCachePath(new DatabaseContext('dortmund')))
-      expectExists(databaseConnector.getResourceCachePath(new DatabaseContext('ansbach')))
-      expectExists(databaseConnector.getResourceCachePath(new DatabaseContext('augsburg')))
-      expect(RNFetchBlob.fs.unlink).not.toHaveBeenCalled()
-    })
   })
 
   describe('loadResourceCache', () => {
@@ -368,71 +296,136 @@ describe('DatabaseConnector', () => {
       const date = moment('2014-05-04T00:00:00.000Z')
       spyMomentNow.mockReturnValue(date)
       const context = new DatabaseContext('augsburg')
-      await databaseConnector.updateLastUsage(context)
+      await databaseConnector.storeLastUsage(context, false)
 
       expect(JSON.parse(await RNFetchBlob.fs.readFile(databaseConnector.getMetaCitiesPath(), '')))
         .toEqual({ augsburg: { last_usage: date.toISOString(), languages: {} } })
     })
-  })
 
-  describe('updateLastUsages', () => {
-    it('should update all passed usages', async () => {
-      const usages = [
-        { city: 'augsburg', lastUsage: moment('2014-05-04T00:00:00.000Z') },
-        { city: 'bielefeld', lastUsage: null },
-        { city: 'dortmund', lastUsage: moment('2015-05-04T00:00:00.000Z') },
-        { city: 'nuernberg', lastUsage: moment('2016-05-04T00:00:00.000Z') }
-      ]
+    it('should only call deleteOldFiles if not peeking', async () => {
+      const date = moment('2014-05-04T00:00:00.000Z')
+      spyMomentNow.mockReturnValue(date)
+      const deleteOldFiles = jest.spyOn(databaseConnector, 'deleteOldFiles')
+      const context = new DatabaseContext('augsburg')
+      await databaseConnector.storeLastUsage(context, true)
 
-      await databaseConnector.updateLastUsages(usages)
+      expect(deleteOldFiles).not.toHaveBeenCalled()
 
-      expect(JSON.parse(await RNFetchBlob.fs.readFile(databaseConnector.getMetaCitiesPath(), ''))).toMatchSnapshot()
+      await databaseConnector.storeLastUsage(context, false)
 
-      const newUsages = [
-        { city: 'augsburg', lastUsage: null },
-        { city: 'bonn', lastUsage: moment('2010-05-04T00:00:00.000Z') }
-      ]
-
-      await databaseConnector.updateLastUsages(newUsages)
-
-      expect(JSON.parse(await RNFetchBlob.fs.readFile(databaseConnector.getMetaCitiesPath(), ''))).toMatchSnapshot()
+      expect(deleteOldFiles).toHaveBeenCalled()
     })
   })
 
-  describe('deleteOldResourceCaches', () => {
-    it('should delete old caches if there are more MAX_RESOURCE_CACHES', async () => {
-      const usages = [
-        { city: 'augsburg', lastUsage: moment('2014-05-04T00:00:00.000Z') },
-        { city: 'dillingen', lastUsage: moment('2015-08-04T00:00:00.000Z') },
-        { city: 'bielefeld', lastUsage: null },
-        { city: 'dortmund', lastUsage: moment('2016-05-04T00:00:00.000Z') },
-        { city: 'berlin', lastUsage: moment('2017-10-04T00:00:00.000Z') },
-        { city: 'nuernberg', lastUsage: moment('2018-05-04T00:00:00.000Z') }
-      ]
+  describe('deleteOldFiles', () => {
+    const expectExists = async (path: string, exists: boolean = true) => {
+      const doesExist = await RNFetchBlob.fs.exists(path)
+      expect(doesExist).toBe(exists)
+    }
 
-      await databaseConnector.updateLastUsages(usages)
+    const expectCityFilesExist = async (city: string, exists: boolean = true) => {
+      const context = new DatabaseContext(city)
+      const resourcePath = databaseConnector.getResourceCachePath(context)
+      await expectExists(resourcePath, exists)
+      const contentPath = databaseConnector.getContentPath('categories', context)
+      await expectExists(contentPath, exists)
+    }
 
-      await databaseConnector.deleteOldResourceCaches(new DatabaseContext('aachen'))
-      expect(RNFetchBlob.fs.unlink).toHaveBeenCalledWith('path/to/documentDir/resource-cache/v1/augsburg')
-      expect(RNFetchBlob.fs.unlink).toHaveBeenCalledWith('path/to/documentDir/resource-cache/v1/dillingen')
-      expect(RNFetchBlob.fs.unlink).toHaveBeenCalledWith('path/to/documentDir/resource-cache/v1/dortmund')
-      expect(RNFetchBlob.fs.unlink).toHaveBeenCalledTimes(3)
-      expect(JSON.parse(await RNFetchBlob.fs.readFile(databaseConnector.getMetaCitiesPath(), ''))).toMatchSnapshot()
+    const populateCityContent = async (city: string) => {
+      const context = new DatabaseContext(city)
+      await databaseConnector.storeResourceCache(testResources, context)
+      await databaseConnector.storeCategories(testCategoriesMap, context)
+    }
+
+    it('should keep only the maximal number of caches and files', async () => {
+      await populateCityContent('muenchen')
+      await populateCityContent('dortmund')
+      await populateCityContent('ansbach')
+      await populateCityContent('regensburg')
+      await populateCityContent('augsburg')
+
+      // We have to write this manually, since this is normally done in storeLastUsage, but it calls deleteOldFiles
+      await RNFetchBlob.fs.writeFile(databaseConnector.getMetaCitiesPath(), JSON.stringify({
+        muenchen: {
+          languages: {}, last_usage: '2010-05-04T00:00:00.000Z'
+        },
+        dortmund: {
+          languages: {}, last_usage: '2011-05-04T00:00:00.000Z'
+        },
+        ansbach: {
+          languages: {}, last_usage: '2012-05-04T00:00:00.000Z'
+        },
+        augsburg: {
+          languages: {}, last_usage: '2014-05-04T00:00:00.000Z'
+        },
+        regensburg: {
+          languages: {}, last_usage: '2013-05-04T00:00:00.000Z'
+        }
+      }), '')
+
+      await databaseConnector.deleteOldFiles(new DatabaseContext('augsburg'))
+
+      await expectCityFilesExist('muenchen', false)
+      await expectCityFilesExist('dortmund', false)
+      await expectCityFilesExist('ansbach')
+      await expectCityFilesExist('regensburg')
+      await expectCityFilesExist('augsburg')
+
+      expect(JSON.parse(await RNFetchBlob.fs.readFile(databaseConnector.getMetaCitiesPath(), '')))
+        .toEqual({
+          ansbach: {
+            languages: {}, last_usage: '2012-05-04T00:00:00.000Z'
+          },
+          augsburg: {
+            languages: {}, last_usage: '2014-05-04T00:00:00.000Z'
+          },
+          regensburg: {
+            languages: {}, last_usage: '2013-05-04T00:00:00.000Z'
+          }
+        })
     })
 
-    it('should not delete anything if there are exactly MAX_RESOURCE_CACHES and a cache is updated', async () => {
-      const usages = [
-        { city: 'augsburg', lastUsage: moment('2014-05-04T00:00:00.000Z') },
-        { city: 'dillingen', lastUsage: moment('2015-08-04T00:00:00.000Z') },
-        { city: 'bielefeld', lastUsage: null },
-        { city: 'dortmund', lastUsage: moment('2016-05-04T00:00:00.000Z') }
-      ]
+    it('should not delete the resource cache of the same city', async () => {
+      await populateCityContent('augsburg')
+      await populateCityContent('dortmund')
+      await populateCityContent('ansbach')
+      await populateCityContent('regensburg')
 
-      await databaseConnector.updateLastUsages(usages)
+      // We have to write this manually, since this is normally done in storeLastUsage, but it calls deleteOldFiles
+      await RNFetchBlob.fs.writeFile(databaseConnector.getMetaCitiesPath(), JSON.stringify({
+        augsburg: {
+          languages: {}, last_usage: '2010-05-04T00:00:00.000Z'
+        },
+        dortmund: {
+          languages: {}, last_usage: '2011-05-04T00:00:00.000Z'
+        },
+        ansbach: {
+          languages: {}, last_usage: '2012-05-04T00:00:00.000Z'
+        },
+        regensburg: {
+          languages: {}, last_usage: '2013-05-04T00:00:00.000Z'
+        }
+      }), '')
 
-      await databaseConnector.deleteOldResourceCaches(new DatabaseContext('augsburg'))
-      expect(RNFetchBlob.fs.unlink).not.toHaveBeenCalled()
-      expect(JSON.parse(await RNFetchBlob.fs.readFile(databaseConnector.getMetaCitiesPath(), ''))).toMatchSnapshot()
+      await databaseConnector.deleteOldFiles(new DatabaseContext('augsburg'))
+
+      await expectCityFilesExist('dortmund', false)
+      await expectCityFilesExist('ansbach')
+      await expectCityFilesExist('regensburg')
+      await expectCityFilesExist('augsburg')
+
+      expect(JSON.parse(await RNFetchBlob.fs.readFile(databaseConnector.getMetaCitiesPath(), '')))
+        .toEqual({
+          ansbach: {
+            languages: {}, last_usage: '2012-05-04T00:00:00.000Z'
+          },
+          augsburg: {
+            languages: {}, last_usage: '2010-05-04T00:00:00.000Z'
+          },
+          regensburg: {
+            languages: {}, last_usage: '2013-05-04T00:00:00.000Z'
+          }
+        })
     })
   })
 })
