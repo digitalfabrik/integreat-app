@@ -19,7 +19,7 @@ margin-bottom: 10px;
 `
 
 type PropsType = {|
-  error?: ?Error,
+  errorMessage?: string,
   tryAgain?: () => void,
   t: TFunction,
   theme: ThemeType
@@ -27,11 +27,11 @@ type PropsType = {|
 
 class Failure extends React.Component<PropsType> {
   render () {
-    const { t, error, tryAgain, theme } = this.props
+    const { t, errorMessage, tryAgain, theme } = this.props
 
     return <ViewContainer>
       <IconContainer source={FailureIcon} />
-      <Text>{error ? error.message : t('generalError')}</Text>
+      <Text>{errorMessage || t('generalError')}</Text>
       {tryAgain &&
       <Button testID='button-tryAgain' titleStyle={{ color: theme.colors.textColor }}
               buttonStyle={{ backgroundColor: theme.colors.themeColor, marginTop: 20 }}

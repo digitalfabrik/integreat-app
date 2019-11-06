@@ -122,7 +122,7 @@ export default (
         throw Error('A fetch resources fail cannot occur on not initialized cityContent')
       }
       const errorMessage: string = action.params.message
-      return { ...state, resourceCache: { errorMessage } }
+      return { ...state, resourceCache: { status: 'error', message: errorMessage } }
     }
     default:
       return state

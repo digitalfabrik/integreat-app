@@ -89,8 +89,12 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     path: route.path,
     navigation: ownProps.navigation
   }
-  if (state.cities.status === 'error' || resourceCache.errorMessage !== undefined || route.status === 'error') {
-    return { status: 'error', refreshProps }
+  if (state.cities.status === 'error') {
+    return { status: 'error', refreshProps, message: state.cities.message }
+  } else if (resourceCache.status === 'error') {
+    return { status: 'error', refreshProps, message: resourceCache.message }
+  } else if (route.status === 'error') {
+    return { status: 'error', refreshProps, message: route.message }
   }
 
   const cities = state.cities.models
@@ -104,7 +108,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       language: route.language,
       cities,
       stateView,
-      resourceCache
+      resourceCache: resourceCache.value
     }
   }
 }
