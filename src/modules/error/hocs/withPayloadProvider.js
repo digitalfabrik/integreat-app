@@ -9,6 +9,7 @@ import type { StoreActionType } from '../../app/StoreActionType'
 import { type Dispatch } from 'redux'
 import { wrapDisplayName } from 'recompose'
 import FailureContainer from '../containers/FailureContainer'
+import { LOADING_TIMEOUT } from '../../common/constants'
 
 export type RouteNotInitializedType = {| status: 'routeNotInitialized' |}
 export type LoadingType = {| status: 'loading' |}
@@ -40,9 +41,6 @@ export type PropsType<S: { dispatch: Dispatch<StoreActionType> }, R> = {|
   ...StatusPropsType<S, R>,
   dispatch: Dispatch<StoreActionType>
 |}
-
-// A waiting time of >=1s feels like an interruption
-const LOADING_TIMEOUT = 800
 
 const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R> (
   refresh: (refreshProps: R, dispatch: Dispatch<StoreActionType>) => void
