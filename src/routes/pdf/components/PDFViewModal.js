@@ -2,7 +2,7 @@
 
 import PDFView from 'react-native-view-pdf'
 import * as React from 'react'
-import { View, Platform } from 'react-native'
+import { Platform, View } from 'react-native'
 import type { NavigationScreenProp } from 'react-navigation'
 import { URL_PREFIX } from '../../../modules/platform/constants/webview'
 import FailureContainer from '../../../modules/error/containers/FailureContainer'
@@ -44,7 +44,7 @@ export default class PDFViewModal extends React.Component<PropsType, StateType> 
     const { error } = this.state
 
     if (error) {
-      return <FailureContainer error={error} />
+      return <FailureContainer errorMessage={error.message} />
     }
 
     return (

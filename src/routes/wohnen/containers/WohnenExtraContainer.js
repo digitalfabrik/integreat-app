@@ -110,7 +110,7 @@ class WohnenExtraContainer extends React.Component<WohnenPropsType, WohnenStateT
     if (error) {
       return <ScrollView refreshControl={<RefreshControl onRefresh={this.loadWohnen} refreshing={false} />}
                          contentContainerStyle={{ flexGrow: 1 }}>
-        <FailureContainer error={error} tryAgain={this.loadWohnen} />
+        <FailureContainer errorMessage={error.message} tryAgain={this.loadWohnen} />
       </ScrollView>
     }
 

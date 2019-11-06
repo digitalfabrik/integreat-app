@@ -12,10 +12,6 @@ import { DEFAULT_LANGUAGE } from '../i18n/constants'
 
 export type PathType = string
 
-export type ErrorStateType = {|
-  +errorMessage: string
-|}
-
 export type CategoryRouteConfigType = {|
   +path: string,
   +depth: number,
@@ -85,6 +81,14 @@ export type LanguageResourceCacheStateType = $ReadOnly<{
   [path: string]: PageResourceCacheStateType
 }>
 
+export type ResourceCacheStateType = {|
+  +status: 'error',
+  +message: string
+|} | {|
+  +status: 'ready',
+  +value: LanguageResourceCacheStateType
+|}
+
 export type CityResourceCacheStateType = $ReadOnly<{
   [language: string]: LanguageResourceCacheStateType
 }>
@@ -124,7 +128,7 @@ export type CityContentStateType = {|
   +languages: ?$ReadOnlyArray<LanguageModel>,
   +categoriesRouteMapping: CategoriesRouteMappingType,
   +eventsRouteMapping: EventsRouteMappingType,
-  +resourceCache: LanguageResourceCacheStateType | ErrorStateType,
+  +resourceCache: ResourceCacheStateType,
   +searchRoute: SearchRouteType | null
 |}
 

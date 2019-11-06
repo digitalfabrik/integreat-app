@@ -90,7 +90,7 @@ class SprungbrettExtraContainer extends React.Component<SprungbrettPropsType, Sp
     if (error) {
       return <ScrollView refreshControl={<RefreshControl onRefresh={this.loadSprungbrett} refreshing={false} />}
                          contentContainerStyle={{ flexGrow: 1 }}>
-        <FailureContainer error={error} tryAgain={this.loadSprungbrett} />
+        <FailureContainer errorMessage={error.message} tryAgain={this.loadSprungbrett} />
       </ScrollView>
     }
 
