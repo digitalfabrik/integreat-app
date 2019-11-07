@@ -10,9 +10,10 @@ import Search from './assets/Search.svg'
 import Events from './assets/Events.svg'
 import type { ThemeType } from '../../modules/theme/constants/theme'
 import withTheme from '../../modules/theme/hocs/withTheme'
-import { Dimensions, TouchableOpacity } from 'react-native'
+import { Dimensions, TouchableOpacity, Switch } from 'react-native'
 import DefaultSlide from 'react-native-app-intro-slider/DefaultSlide'
 import styled from 'styled-components/native'
+import AppSettings from '../../modules/settings/AppSettings'
 
 const Content = styled.View`
   justifyContent: space-around;
@@ -51,15 +52,19 @@ type SlideType = {|
   backgroundColor: string
 |}
 type PropsType = {| t: TFunction, navigation: NavigationScreenProp<*>, theme: ThemeType |}
-type StateType = {| isLastSlide: boolean |}
+type StateType = {| isLastSlide: boolean, allowPushNotifications: boolean |}
 
 class Intro extends React.Component<PropsType, StateType> {
   appIntroSlider: {current: null | React$ElementRef<AppIntroSlider>}
+  appSettings: AppSettings
+
   constructor (props: PropsType) {
     super(props)
-    this.state = { isLastSlide: false }
+    this.state = { isLastSlide: false, allowPushNotifications: false }
     this.appIntroSlider = React.createRef()
+    this.appSettings = new AppSettings()
   }
+
   slides = (): Array<SlideType> => {
     const colors = this.props.theme.colors
     const backgroundColor = colors.backgroundColor
@@ -108,24 +113,41 @@ class Intro extends React.Component<PropsType, StateType> {
     }]
   }
 
+  setAllowPushNotifications = (allow: boolean) => this.setState({ allowPushNotifications: allow })
+
   renderItem = ({ item, index }: { item: SlideType, index: number}) => {
+    const themeColor = this.props.theme.colors.themeColor
+    const { allowPushNotifications } = this.state
     if (index === this.slides().length - 1) {
       return <Content>
-        <StyledHeading>SOme</StyledHeading>
+        <StyledHeading>Configuration</StyledHeading>
+        <StyledText>Receive push notifications for new events</StyledText>
+        <Switch thumbColor={themeColor} trackColor={{ true: themeColor }}
+                onValueChange={this.setAllowPushNotifications} value={allowPushNotifications} />
       </Content>
     }
     return <DefaultSlide item={item} index={index} dimensions={Dimensions.get('window')} />
   }
 
-  onAccept = () => {
+  onAccept = async () => {
+    this.onDone(true)
+  }
+
+  onRefuse = async () => {
+    this.onDone(false)
+  }
+
+  onDone = async (errorTracking: boolean) => {
+    if (errorTracking) {
+      // TODO install sentry
+    }
+
+    const { allowPushNotifications } = this.state
+    await this.appSettings.setSettings({ errorTracking, allowPushNotifications })
     this.props.navigation.navigate('Landing')
   }
 
-  onRefuse = () => {
-    this.props.navigation.navigate('Landing')
-  }
-
-  onSlideChange = (index: number, lastIndex: number) =>
+  onSlideChange = (index: number) =>
     this.setState({ isLastSlide: index === this.slides().length - 1 })
 
   onSkip = () => {
