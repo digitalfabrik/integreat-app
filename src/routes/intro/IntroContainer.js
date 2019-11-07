@@ -10,7 +10,7 @@ import Search from './assets/Search.svg'
 import Events from './assets/Events.svg'
 import type { ThemeType } from '../../modules/theme/constants/theme'
 import withTheme from '../../modules/theme/hocs/withTheme'
-import { Dimensions, View } from 'react-native'
+import { Dimensions, TouchableOpacity } from 'react-native'
 import DefaultSlide from 'react-native-app-intro-slider/DefaultSlide'
 import styled from 'styled-components/native'
 
@@ -29,17 +29,16 @@ const StyledHeading = styled.Text`
 `
 
 const ButtonText = styled.Text`
-  color: ${props => props.theme.colors.backgroundAccentColor}
+  color: ${props => props.theme.colors.textSecondaryColor};
+  fontSize: 18;
 `
 
-const AcceptButtonContainer = styled.View`
-  position: absolute;
-  right: 0;
+const ButtonContainer = styled.View`
+  padding: 12px;
+`
+
+const AcceptButtonContainer = styled(ButtonContainer)`
   background-color: ${props => props.theme.colors.themeColor};
-
-`
-const AcceptButton = styled.TouchableOpacity`
-  flex: 1
 `
 
 type SlideType = {|
@@ -118,12 +117,17 @@ class Intro extends React.Component<PropsType, StateType> {
     return <DefaultSlide item={item} index={index} dimensions={Dimensions.get('window')} />
   }
 
-  onDone = () => {
+  onAccept = () => {
+    this.props.navigation.navigate('Landing')
+  }
+
+  onRefuse = () => {
     this.props.navigation.navigate('Landing')
   }
 
   onSlideChange = (index: number, lastIndex: number) =>
     this.setState({ isLastSlide: index === this.slides().length - 1 })
+
   onSkip = () => {
     if (!this.appIntroSlider.current) {
       throw Error()
@@ -132,11 +136,29 @@ class Intro extends React.Component<PropsType, StateType> {
     this.setState({ isLastSlide: true })
   }
 
+  renderRefuseButton = () => {
+    const theme = this.props.theme
+    return <ButtonContainer>
+      <TouchableOpacity onPress={this.onRefuse}>
+        <ButtonText theme={theme}>Refuse</ButtonText>
+      </TouchableOpacity>
+    </ButtonContainer>
+  }
+
+  renderAcceptButton = () => {
+    const theme = this.props.theme
+    return <AcceptButtonContainer theme={theme}>
+      <TouchableOpacity onPress={this.onAccept}>
+        <ButtonText theme={theme}>Accept</ButtonText>
+      </TouchableOpacity>
+    </AcceptButtonContainer>
+  }
+
   render () {
     const colors = this.props.theme.colors
-    return <AppIntroSlider ref={this.appIntroSlider} slides={this.slides()} onDone={this.onDone} showSkipButton
-                           renderItem={this.renderItem} doneLabel={'Accept'}
-                           onSlideChange={this.onSlideChange}
+    return <AppIntroSlider ref={this.appIntroSlider} slides={this.slides()} showSkipButton
+                           renderItem={this.renderItem} renderPrevButton={this.renderRefuseButton}
+                           onSlideChange={this.onSlideChange} renderDoneButton={this.renderAcceptButton}
                            onSkip={this.onSkip} showPrevButton={this.state.isLastSlide}
                            dotStyle={{ backgroundColor: colors.textDecorationColor }}
                            activeDotStyle={{ backgroundColor: colors.textSecondaryColor }}
