@@ -108,8 +108,8 @@ android {
         applicationId "tuerantuer.app.integreat"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 60001
-        versionName "3.0-rc1"
+        versionCode 60002
+        versionName "3.0-rc2"
     }
     signingConfigs {
         release {
