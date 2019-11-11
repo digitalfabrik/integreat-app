@@ -30,7 +30,7 @@ const StyledHeading = styled.Text`
 `
 
 const ButtonText = styled.Text`
-  color: ${props => props.theme.colors.textSecondaryColor};
+  color: ${props => props.theme.colors.textColor};
   fontSize: 18;
 `
 
@@ -66,47 +66,48 @@ class Intro extends React.Component<PropsType, StateType> {
   }
 
   slides = (): Array<SlideType> => {
-    const colors = this.props.theme.colors
+    const { theme, t } = this.props
+    const colors = theme.colors
     const backgroundColor = colors.backgroundColor
     const textStyle = { color: colors.textColor }
 
     return [{
       key: 'search',
-      title: 'search',
+      title: t('search'),
       titleStyle: textStyle,
-      text: 'searchDescription',
+      text: t('searchDescription'),
       textStyle,
       image: Search,
       backgroundColor
     }, {
       key: 'events',
-      title: 'events',
+      title: t('events'),
       titleStyle: textStyle,
-      text: 'eventsDescription',
+      text: t('eventsDescription'),
       textStyle,
       image: Events,
       backgroundColor
     }, {
       key: 'offers',
-      title: 'offers',
+      title: t('offers'),
       titleStyle: textStyle,
-      text: 'offersDescription',
+      text: t('offersDescription'),
       textStyle,
       image: Offers,
       backgroundColor
     }, {
       key: 'languageChange',
-      title: 'languageChange',
+      title: t('languageChange'),
       titleStyle: textStyle,
-      text: 'languageChangeDescription',
+      text: t('languageChangeDescription'),
       textStyle,
       image: Language,
       backgroundColor
     }, {
-      key: 'questions',
-      title: 'languageChange',
+      key: 'inquiry',
+      title: t('inquiryTitle'),
       titleStyle: textStyle,
-      text: 'languageChangeDescription',
+      text: t('inquiryDescription'),
       textStyle,
       image: Language,
       backgroundColor
@@ -120,8 +121,8 @@ class Intro extends React.Component<PropsType, StateType> {
     const { allowPushNotifications } = this.state
     if (index === this.slides().length - 1) {
       return <Content>
-        <StyledHeading>Configuration</StyledHeading>
-        <StyledText>Receive push notifications for new events</StyledText>
+        <StyledHeading>{item.title}</StyledHeading>
+        <StyledText>{item.text}</StyledText>
         <Switch thumbColor={themeColor} trackColor={{ true: themeColor }}
                 onValueChange={this.setAllowPushNotifications} value={allowPushNotifications} />
       </Content>
@@ -159,32 +160,33 @@ class Intro extends React.Component<PropsType, StateType> {
   }
 
   renderRefuseButton = () => {
-    const theme = this.props.theme
+    const { t, theme } = this.props
     return <ButtonContainer>
       <TouchableOpacity onPress={this.onRefuse}>
-        <ButtonText theme={theme}>Refuse</ButtonText>
+        <ButtonText theme={theme}>{t('refuse')}</ButtonText>
       </TouchableOpacity>
     </ButtonContainer>
   }
 
   renderAcceptButton = () => {
-    const theme = this.props.theme
+    const { theme, t } = this.props
     return <AcceptButtonContainer theme={theme}>
       <TouchableOpacity onPress={this.onAccept}>
-        <ButtonText theme={theme}>Accept</ButtonText>
+        <ButtonText theme={theme}>{t('accept')}</ButtonText>
       </TouchableOpacity>
     </AcceptButtonContainer>
   }
 
   render () {
-    const colors = this.props.theme.colors
-    return <AppIntroSlider ref={this.appIntroSlider} slides={this.slides()} showSkipButton
-                           renderItem={this.renderItem} renderPrevButton={this.renderRefuseButton}
+    const { theme, t } = this.props
+    const colors = theme.colors
+    return <AppIntroSlider ref={this.appIntroSlider} slides={this.slides()} showSkipButton skipLabel={t('skip')}
+                           nextLabel={t('next')} renderItem={this.renderItem} renderPrevButton={this.renderRefuseButton}
                            onSlideChange={this.onSlideChange} renderDoneButton={this.renderAcceptButton}
                            onSkip={this.onSkip} showPrevButton={this.state.isLastSlide}
                            dotStyle={{ backgroundColor: colors.textDecorationColor }}
                            activeDotStyle={{ backgroundColor: colors.textSecondaryColor }}
-                           buttonTextStyle={{ color: colors.textSecondaryColor }} />
+                           buttonTextStyle={{ color: colors.textColor }} />
   }
 }
 
