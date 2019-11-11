@@ -85,7 +85,11 @@ describe('cityContentReducer', () => {
   ]
   for (const action of unsupportedActionsOnUnitializedState) {
     it(`should throw on ${action.type} if state is unitialized`, () => {
-      expect(() => cityContentReducer(null, action)).toThrow()
+      if (action === pushCategoryAction || action === pushEventAction) {
+        expect(cityContentReducer(null, action)).toBeNull()
+      } else {
+        expect(() => cityContentReducer(null, action)).toThrow()
+      }
     })
   }
 
