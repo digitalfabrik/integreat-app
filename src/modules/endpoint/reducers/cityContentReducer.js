@@ -30,12 +30,14 @@ export default (
       return { ...state, languages: action.params.languages }
     case 'PUSH_CATEGORY':
       if (state === null) {
-        throw Error('Cannot push category on not initialized cityContent')
+        // throw Error('Cannot push category on not initialized cityContent')
+        return null
       }
       return pushCategory(state, action)
     case 'PUSH_EVENT':
       if (state === null) {
-        throw Error('Cannot push event on not initialized cityContent')
+        // throw Error('Cannot push event on not initialized cityContent')
+        return null
       }
       return pushEvent(state, action)
     case 'MORPH_CONTENT_LANGUAGE':
