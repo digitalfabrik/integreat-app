@@ -8,6 +8,7 @@ import CityModelBuilder from '../../../testing/builder/CityModelBuilder'
 import LanguageModelBuilder from '../../../testing/builder/LanguageModelBuilder'
 import CategoriesMapModelBuilder from '../../../testing/builder/CategoriesMapModelBuilder'
 import EventModelBuilder from '../../../testing/builder/EventModelBuilder'
+import DatabaseConnector from '../DatabaseConnector'
 
 jest.mock('rn-fetch-blob')
 
@@ -136,6 +137,9 @@ describe('DefaultDataContainer', () => {
   })
   it('should return the lastUpdateMoment associated with the context', async () => {
     const defaultDataContainer = new DefaultDataContainer()
+    const databaseConnector = new DatabaseConnector()
+    await databaseConnector.storeLastUsage(new DatabaseContext('testCity'), false)
+    await databaseConnector.storeLastUsage(new DatabaseContext('anotherTestCity'), false)
     const lastUpdate = moment('2011-02-04T00:00:00.000Z')
     const anotherLastUpdate = moment('2012-02-04T00:00:00.000Z')
 
