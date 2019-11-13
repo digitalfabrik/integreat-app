@@ -82,6 +82,16 @@ type MetaCitiesJsonType = {
   |}
 }
 
+type MetaCitiesType = {
+  [CityCodeType]: {|
+    languages: {
+      [LanguageCodeType]: {|
+        lastUpdate: Moment
+      |}
+    }
+  |}
+}
+
 type PageResourceCacheEntryJsonType = {|
   file_path: string,
   last_update: string,
@@ -144,21 +154,14 @@ class DatabaseConnector {
     } else if (!languageCode) {
       throw Error('languageCode mustn\'t be empty')
     }
-    const path = this.getMetaCitiesPath()
-
-    let currentCityMetaData: MetaCitiesJsonType = {}
-    const fileExists: boolean = await RNFetchblob.fs.exists(path)
-    if (fileExists) {
-      currentCityMetaData = JSON.parse(await this.readFile(path))
+    const citiesMeta = await this._loadMetaCities()
+    citiesMeta[cityCode] = citiesMeta[cityCode] || { languages: {} }
+    citiesMeta[cityCode].languages = {
+      ...citiesMeta[cityCode].languages,
+      [context.languageCode]: { lastUpdate }
     }
 
-    currentCityMetaData[cityCode] = currentCityMetaData[cityCode] || { languages: {} }
-    currentCityMetaData[cityCode].languages = {
-      ...currentCityMetaData[cityCode].languages,
-      [context.languageCode]: { last_update: lastUpdate.toISOString() }
-    }
-
-    await this.writeFile(path, JSON.stringify(currentCityMetaData))
+    await this._storeMetaCities(citiesMeta)
   }
 
   async loadLastUpdate (context: DatabaseContext): Promise<Moment | null> {
@@ -178,10 +181,39 @@ class DatabaseConnector {
       return null
     }
 
-    const currentCityMetaData: MetaCitiesJsonType = JSON.parse(await this.readFile(path))
-    // eslint-disable-next-line camelcase
-    const lastUpdate = currentCityMetaData[cityCode]?.languages[languageCode]?.last_update
-    return lastUpdate ? moment(lastUpdate, moment.ISO_8601) : null
+    const citiesMeta = await this._loadMetaCities()
+    return citiesMeta[cityCode]?.languages[languageCode]?.lastUpdate || null
+  }
+
+  async _loadMetaCities (): Promise<MetaCitiesType> {
+    const path = this.getMetaCitiesPath()
+    const fileExists: boolean = await RNFetchblob.fs.exists(path)
+    if (fileExists) {
+      try {
+        const citiesMetaJson: MetaCitiesJsonType = JSON.parse(await this.readFile(path))
+        return mapValues(citiesMetaJson, cityMeta => ({
+          languages: mapValues(
+            cityMeta.languages,
+            // eslint-disable-next-line camelcase
+            ({ last_update }): {| lastUpdate: Moment |} => ({ lastUpdate: moment(last_update, moment.ISO_8601) })
+          )
+        }))
+      } catch (e) {
+        console.error(e)
+      }
+    }
+    return {}
+  }
+
+  async _storeMetaCities (metaCities: MetaCitiesType) {
+    const path = this.getMetaCitiesPath()
+    const citiesMetaJson: MetaCitiesJsonType = mapValues(metaCities, cityMeta => ({
+      languages: mapValues(
+        cityMeta.languages,
+        ({ lastUpdate }): { last_update: string } => ({ last_update: lastUpdate.toISOString() })
+      )
+    }))
+    await this.writeFile(path, JSON.stringify(citiesMetaJson))
   }
 
   async storeCategories (categoriesMap: CategoriesMapModel, context: DatabaseContext) {
