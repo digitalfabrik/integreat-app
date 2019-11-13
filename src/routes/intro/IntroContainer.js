@@ -15,6 +15,7 @@ import styled from 'styled-components/native'
 import AppSettings from '../../modules/settings/AppSettings'
 import SettingItem from '../settings/components/SettingItem'
 import SlideContent from './SlideContent'
+import SentryIntegration from '../../modules/app/SentryIntegration'
 
 const CenteredImage = styled.Image`
   align-self: center;
@@ -40,31 +41,33 @@ type SlideType = {|
   image?: number
 |}
 
-const slides: Array<SlideType> = [{
-  key: 'search',
-  title: 'search',
-  text: 'searchDescription',
-  image: Search
-}, {
-  key: 'events',
-  title: 'events',
-  text: 'eventsDescription',
-  image: Events
-}, {
-  key: 'offers',
-  title: 'offers',
-  text: 'offersDescription',
-  image: Offers
-}, {
-  key: 'languageChange',
-  title: 'languageChange',
-  text: 'languageChangeDescription',
-  image: Language
-}, {
-  key: 'inquiry',
-  title: 'inquiryTitle',
-  text: 'inquiryDescription'
-}]
+const slides: Array<SlideType> = [
+  {
+    key: 'search',
+    title: 'search',
+    text: 'searchDescription',
+    image: Search
+  }, {
+    key: 'events',
+    title: 'events',
+    text: 'eventsDescription',
+    image: Events
+  }, {
+    key: 'offers',
+    title: 'offers',
+    text: 'offersDescription',
+    image: Offers
+  }, {
+    key: 'languageChange',
+    title: 'languageChange',
+    text: 'languageChangeDescription',
+    image: Language
+  }, {
+    key: 'inquiry',
+    title: 'inquiryTitle',
+    text: 'inquiryDescription'
+  }
+]
 
 type PropsType = {| t: TFunction, navigation: NavigationScreenProp<*>, theme: ThemeType |}
 type StateType = {| isLastSlide: boolean, allowPushNotifications: boolean, useLocationAccess: boolean |}
@@ -132,11 +135,12 @@ class Intro extends React.Component<PropsType, StateType> {
 
   onDone = async (errorTracking: boolean) => {
     if (errorTracking) {
-      // TODO install sentry
+      const sentry = new SentryIntegration()
+      await sentry.install()
     }
 
-    const { allowPushNotifications } = this.state
-    await this.appSettings.setSettings({ errorTracking, allowPushNotifications })
+    const { allowPushNotifications, useLocationAccess } = this.state
+    await this.appSettings.setSettings({ errorTracking, allowPushNotifications, useLocationAccess })
     this.props.navigation.navigate('Landing')
   }
 
@@ -172,10 +176,10 @@ class Intro extends React.Component<PropsType, StateType> {
   render () {
     const { theme, t } = this.props
     const colors = theme.colors
-    return <AppIntroSlider ref={this.appIntroSlider} slides={slides} showSkipButton skipLabel={t('skip')}
-                           nextLabel={t('next')} renderItem={this.renderItem} renderPrevButton={this.renderRefuseButton}
+    return <AppIntroSlider ref={this.appIntroSlider} slides={slides} renderItem={this.renderItem}
+                           showSkipButton skipLabel={t('skip')} onSkip={this.onSkip} nextLabel={t('next')}
+                           renderPrevButton={this.renderRefuseButton} showPrevButton={this.state.isLastSlide}
                            onSlideChange={this.onSlideChange} renderDoneButton={this.renderAcceptButton}
-                           onSkip={this.onSkip} showPrevButton={this.state.isLastSlide}
                            dotStyle={{ backgroundColor: colors.textDecorationColor }}
                            activeDotStyle={{ backgroundColor: colors.textSecondaryColor }}
                            buttonTextStyle={{ color: colors.textColor }} backgroundColor={colors.backgroundColor} />
