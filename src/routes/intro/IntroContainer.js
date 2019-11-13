@@ -39,6 +39,33 @@ type SlideType = {|
   text: string,
   image?: number
 |}
+
+const slides: Array<SlideType> = [{
+  key: 'search',
+  title: 'search',
+  text: 'searchDescription',
+  image: Search
+}, {
+  key: 'events',
+  title: 'events',
+  text: 'eventsDescription',
+  image: Events
+}, {
+  key: 'offers',
+  title: 'offers',
+  text: 'offersDescription',
+  image: Offers
+}, {
+  key: 'languageChange',
+  title: 'languageChange',
+  text: 'languageChangeDescription',
+  image: Language
+}, {
+  key: 'inquiry',
+  title: 'inquiryTitle',
+  text: 'inquiryDescription'
+}]
+
 type PropsType = {| t: TFunction, navigation: NavigationScreenProp<*>, theme: ThemeType |}
 type StateType = {| isLastSlide: boolean, allowPushNotifications: boolean, useLocationAccess: boolean |}
 
@@ -51,36 +78,6 @@ class Intro extends React.Component<PropsType, StateType> {
     this.state = { isLastSlide: false, allowPushNotifications: false, useLocationAccess: false }
     this.appIntroSlider = React.createRef()
     this.appSettings = new AppSettings()
-  }
-
-  slides = (): Array<SlideType> => {
-    const { t } = this.props
-
-    return [{
-      key: 'search',
-      title: t('search'),
-      text: t('searchDescription'),
-      image: Search
-    }, {
-      key: 'events',
-      title: t('events'),
-      text: t('eventsDescription'),
-      image: Events
-    }, {
-      key: 'offers',
-      title: t('offers'),
-      text: t('offersDescription'),
-      image: Offers
-    }, {
-      key: 'languageChange',
-      title: t('languageChange'),
-      text: t('languageChangeDescription'),
-      image: Language
-    }, {
-      key: 'inquiry',
-      title: t('inquiryTitle'),
-      text: t('inquiryDescription')
-    }]
   }
 
   setAllowPushNotifications = () => this.setState(prevState =>
@@ -116,7 +113,7 @@ class Intro extends React.Component<PropsType, StateType> {
 
   renderItem = ({ item, index }: { item: SlideType, index: number}) => {
     const { t, theme } = this.props
-    const isInquirySlide = index === this.slides().length - 1
+    const isInquirySlide = index === slides.length - 1
     return <SlideContent title={t(item.title)} description={t(item.text)} theme={theme}>
       {isInquirySlide
         ? this.renderSettings()
@@ -144,13 +141,13 @@ class Intro extends React.Component<PropsType, StateType> {
   }
 
   onSlideChange = (index: number) =>
-    this.setState({ isLastSlide: index === this.slides().length - 1 })
+    this.setState({ isLastSlide: index === slides.length - 1 })
 
   onSkip = () => {
     if (!this.appIntroSlider.current) {
       throw Error()
     }
-    this.appIntroSlider.current.goToSlide(this.slides().length - 1)
+    this.appIntroSlider.current.goToSlide(slides.length - 1)
     this.setState({ isLastSlide: true })
   }
 
@@ -175,7 +172,7 @@ class Intro extends React.Component<PropsType, StateType> {
   render () {
     const { theme, t } = this.props
     const colors = theme.colors
-    return <AppIntroSlider ref={this.appIntroSlider} slides={this.slides()} showSkipButton skipLabel={t('skip')}
+    return <AppIntroSlider ref={this.appIntroSlider} slides={slides} showSkipButton skipLabel={t('skip')}
                            nextLabel={t('next')} renderItem={this.renderItem} renderPrevButton={this.renderRefuseButton}
                            onSlideChange={this.onSlideChange} renderDoneButton={this.renderAcceptButton}
                            onSkip={this.onSkip} showPrevButton={this.state.isLastSlide}
