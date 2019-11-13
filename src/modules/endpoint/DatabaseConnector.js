@@ -13,10 +13,10 @@ import RNFetchblob from 'rn-fetch-blob'
 import type Moment from 'moment-timezone'
 import moment from 'moment-timezone'
 import type {
+  CityResourceCacheStateType,
   LanguageResourceCacheStateType,
-  PageResourceCacheStateType,
   PageResourceCacheEntryStateType,
-  CityResourceCacheStateType
+  PageResourceCacheStateType
 } from '../app/StateType'
 import DatabaseContext from './DatabaseContext'
 import { CACHE_DIR_PATH, CONTENT_DIR_PATH, RESOURCE_CACHE_DIR_PATH } from '../platform/constants/webview'
@@ -386,22 +386,22 @@ class DatabaseConnector {
   }
 
   isCitiesPersisted (): Promise<boolean> {
-    return this.isPersisted(this.getCitiesPath())
+    return this._isPersisted(this.getCitiesPath())
   }
 
   isCategoriesPersisted (context: DatabaseContext): Promise<boolean> {
-    return this.isPersisted(this.getContentPath('categories', context))
+    return this._isPersisted(this.getContentPath('categories', context))
   }
 
   isLanguagesPersisted (context: DatabaseContext): Promise<boolean> {
-    return this.isPersisted(this.getContentPath('languages', context))
+    return this._isPersisted(this.getContentPath('languages', context))
   }
 
   isEventsPersisted (context: DatabaseContext): Promise<boolean> {
-    return this.isPersisted(this.getContentPath('events', context))
+    return this._isPersisted(this.getContentPath('events', context))
   }
 
-  isPersisted (path: string): Promise<boolean> {
+  _isPersisted (path: string): Promise<boolean> {
     return RNFetchblob.fs.exists(path)
   }
 
