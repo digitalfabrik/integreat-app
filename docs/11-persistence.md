@@ -18,7 +18,9 @@ The structure of the data stored on the device is:
             └── files.json
 ```
 
-The `cities-meta.json` contains information about the last content update:
+In general, only files and metadata of maximal three instances are kept (this may differ if peeking).
+
+The `cities-meta.json` contains information about the last content update as well as the last usage of the city:
 ```json
 {  
    "regensburg": {  
@@ -26,7 +28,8 @@ The `cities-meta.json` contains information about the last content update:
          "de": {  
             "last_update": "2019-08-12T00:03:19.457Z"
          }
-      }
+      },
+      "last_usage": "2019-008-13T00:03:19.457Z"
    }
 }
 ```
