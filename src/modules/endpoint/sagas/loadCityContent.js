@@ -15,6 +15,7 @@ import { ContentLoadCriterion } from '../ContentLoadCriterion'
 import AppSettings from '../../settings/AppSettings'
 import NetInfo from '@react-native-community/netinfo'
 import loadCities from './loadCities'
+import { allowedResourceHostNames } from '../constants'
 
 /**
  *
@@ -74,7 +75,7 @@ export default function * loadCityContent (
   // loadLanguages did not update the dataContainer this is needed. In case the previous call to fetchResourceCache
   // failed to download some resources an other call could fix this and download missing files.
   if (criterion.shouldRefreshResources() && !isCellularConnection) {
-    const resourceURLFinder = new ResourceURLFinder()
+    const resourceURLFinder = new ResourceURLFinder(allowedResourceHostNames)
     resourceURLFinder.init()
 
     const fetchMap = resourceURLFinder.buildFetchMap(
