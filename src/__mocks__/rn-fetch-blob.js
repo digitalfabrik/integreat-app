@@ -30,6 +30,11 @@ function existsMock (file: string): Promise<boolean> {
   return Promise.resolve(filePath in mockFiles)
 }
 
+/**
+ * Delete a file or an entire folder at path. Note that there will be no error if the file to be deleted does not exist
+ * @param file
+ * @return {Promise<void>}
+ */
 function unlink (file: string): Promise<void> {
   const filePath = path.normalize(file)
   Object.keys(mockFiles).forEach(path => {
