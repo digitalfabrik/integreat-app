@@ -92,6 +92,12 @@ describe('DatabaseConnector', () => {
       const moment = await databaseConnector.loadLastUpdate(context)
       expect(moment).toBeNull()
     })
+    it('should return null if persisted data is malformatted for a given city-language pair', async () => {
+      const context = new DatabaseContext('tcc', 'de')
+      RNFetchBlob.fs.writeFile(databaseConnector.getMetaCitiesPath(), `{ "i": "am": "malformatted" } }`, 'utf8')
+      const moment = await databaseConnector.loadLastUpdate(context)
+      expect(moment).toBeNull()
+    })
     it('should throw error if currentCity in context is null', () => {
       const context = new DatabaseContext(null, 'de')
       expect(databaseConnector.loadLastUpdate(context)).rejects.toThrowError()
@@ -141,6 +147,16 @@ describe('DatabaseConnector', () => {
         expect.any(String),
         expect.any(String)
       )
+    })
+    it('should override if persisted data is malformatted for a given city-language pair', async () => {
+      const context = new DatabaseContext('tcc', 'de')
+      const path = databaseConnector.getMetaCitiesPath()
+      RNFetchBlob.fs.writeFile(path, `{ "i": "am": "malformatted" } }`, 'utf8')
+      const date = moment.tz('20110205', 'UTC')
+      await databaseConnector.storeLastUpdate(date, context)
+      expect(JSON.parse(await RNFetchBlob.fs.readFile(path, 'utf8'))).toEqual({
+        'tcc': { languages: { 'de': { last_update: date.toISOString() } } }
+      })
     })
   })
 
