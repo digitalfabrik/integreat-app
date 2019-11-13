@@ -1,7 +1,7 @@
 // @flow
 
 import { translate, type TFunction } from 'react-i18next'
-import React from 'react'
+import * as React from 'react'
 import AppIntroSlider from 'react-native-app-intro-slider'
 import type { NavigationScreenProp } from 'react-navigation'
 import Language from './assets/Language.svg'
@@ -10,42 +10,14 @@ import Search from './assets/Search.svg'
 import Events from './assets/Events.svg'
 import type { ThemeType } from '../../modules/theme/constants/theme'
 import withTheme from '../../modules/theme/hocs/withTheme'
-import { Dimensions, TouchableOpacity, Switch } from 'react-native'
-import DefaultSlide from 'react-native-app-intro-slider/DefaultSlide'
+import { TouchableOpacity, Switch } from 'react-native'
 import styled from 'styled-components/native'
 import AppSettings from '../../modules/settings/AppSettings'
 import SettingItem from '../settings/components/SettingItem'
+import SlideContent from './SlideContent'
 
-const Slide = styled.View`
-  display: flex;
-  justify-content: space-around;
-  flex-direction: column;
-  padding: 32px 16px 64px;
-  flex: 1;
-`
-
-const StyledHeading = styled.Text`
-  width: 100%;
-  font-size: 26px;
-  text-align: center;
-  color: ${props => props.theme.colors.textColor};
-`
-
-const SettingsContainer = styled.View`
-  width: 100%;
-  display: flex;
-  flex: 0.5;
-  flex-direction: column;
-`
-
-const Description = styled.Text`
-  width: 100%;
-  display: flex;
-  align-self: flex-end;
-  font-size: 16px;
-  text-align: center;
-  color: ${props => props.theme.colors.textColor};
-  padding: 0 24px;
+const CenteredImage = styled.Image`
+  align-self: center;
 `
 
 const ButtonText = styled.Text`
@@ -64,11 +36,8 @@ const AcceptButtonContainer = styled(ButtonContainer)`
 type SlideType = {|
   key: string,
   title: string,
-  titleStyle: { color: string },
   text: string,
-  textStyle: { color: string },
-  image: number,
-  backgroundColor: string
+  image?: number
 |}
 type PropsType = {| t: TFunction, navigation: NavigationScreenProp<*>, theme: ThemeType |}
 type StateType = {| isLastSlide: boolean, allowPushNotifications: boolean, useLocationAccess: boolean |}
@@ -85,51 +54,32 @@ class Intro extends React.Component<PropsType, StateType> {
   }
 
   slides = (): Array<SlideType> => {
-    const { theme, t } = this.props
-    const colors = theme.colors
-    const backgroundColor = colors.backgroundColor
-    const textStyle = { color: colors.textColor }
+    const { t } = this.props
 
     return [{
       key: 'search',
       title: t('search'),
-      titleStyle: textStyle,
       text: t('searchDescription'),
-      textStyle,
-      image: Search,
-      backgroundColor
+      image: Search
     }, {
       key: 'events',
       title: t('events'),
-      titleStyle: textStyle,
       text: t('eventsDescription'),
-      textStyle,
-      image: Events,
-      backgroundColor
+      image: Events
     }, {
       key: 'offers',
       title: t('offers'),
-      titleStyle: textStyle,
       text: t('offersDescription'),
-      textStyle,
-      image: Offers,
-      backgroundColor
+      image: Offers
     }, {
       key: 'languageChange',
       title: t('languageChange'),
-      titleStyle: textStyle,
       text: t('languageChangeDescription'),
-      textStyle,
-      image: Language,
-      backgroundColor
+      image: Language
     }, {
       key: 'inquiry',
       title: t('inquiryTitle'),
-      titleStyle: textStyle,
-      text: t('inquiryDescription'),
-      textStyle,
-      image: Language,
-      backgroundColor
+      text: t('inquiryDescription')
     }]
   }
 
@@ -145,29 +95,34 @@ class Intro extends React.Component<PropsType, StateType> {
     }
   }
 
-  renderItem = ({ item, index }: { item: SlideType, index: number}) => {
+  renderSettings = (): React.Node => {
     const { t, theme } = this.props
     const themeColor = theme.colors.themeColor
     const { allowPushNotifications, useLocationAccess } = this.state
-    if (index === this.slides().length - 1) {
-      return <Slide>
-        <StyledHeading theme={theme}>{item.title}</StyledHeading>
-        <SettingsContainer>
-          <SettingItem title={t('pushNewsTitle')} description={t('pushNewsDescription')}
-                       onPress={this.setAllowPushNotifications} theme={theme}>
-            <Switch thumbColor={themeColor} trackColor={{ true: themeColor }}
-                    onValueChange={this.setAllowPushNotifications} value={allowPushNotifications} />
-          </SettingItem>
-          <SettingItem title={t('locationTitle')} description={t('locationDescription')}
-                       onPress={this.setUseLocationAccess} theme={theme}>
-            <Switch thumbColor={themeColor} trackColor={{ true: themeColor }}
-                    onValueChange={this.setUseLocationAccess} value={useLocationAccess} />
-          </SettingItem>
-        </SettingsContainer>
-        <Description theme={theme}>{t('sentryDescription')}</Description>
-      </Slide>
-    }
-    return <DefaultSlide item={item} index={index} dimensions={Dimensions.get('window')} />
+
+    return <>
+      <SettingItem title={t('pushNewsTitle')} description={t('pushNewsDescription')}
+                   onPress={this.setAllowPushNotifications} theme={theme}>
+        <Switch thumbColor={themeColor} trackColor={{ true: themeColor }}
+                onValueChange={this.setAllowPushNotifications} value={allowPushNotifications} />
+      </SettingItem>
+      <SettingItem title={t('locationTitle')} description={t('locationDescription')}
+                   onPress={this.setUseLocationAccess} theme={theme}>
+        <Switch thumbColor={themeColor} trackColor={{ true: themeColor }}
+                onValueChange={this.setUseLocationAccess} value={useLocationAccess} />
+      </SettingItem>
+    </>
+  }
+
+  renderItem = ({ item, index }: { item: SlideType, index: number}) => {
+    const { t, theme } = this.props
+    const isInquirySlide = index === this.slides().length - 1
+    return <SlideContent title={t(item.title)} description={t(item.text)} theme={theme}>
+      {isInquirySlide
+        ? this.renderSettings()
+        : <CenteredImage source={item.image} />
+      }
+    </SlideContent>
   }
 
   onAccept = async () => {
