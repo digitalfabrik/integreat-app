@@ -16,6 +16,7 @@ import AsyncStorage from '@react-native-community/async-storage'
 import fetchResourceCache from '../fetchResourceCache'
 import NetInfo from '@react-native-community/netinfo'
 import DatabaseConnector from '../../DatabaseConnector'
+import mockDate from '../../../../testing/mockDate'
 
 jest.mock('@react-native-community/async-storage')
 jest.mock('@react-native-community/netinfo')
@@ -48,15 +49,20 @@ const prepareDataContainer = async (dataContainer: DataContainer, city: string, 
 
 describe('loadCityContent', () => {
   const lastUpdate = moment('2000-01-05T10:10:00.000Z')
-
-  const mockDate = moment('2000-01-05T11:10:00.000Z', moment.ISO_8601)
-  jest.spyOn(moment, 'now').mockReturnValue(mockDate)
+  const mockedDate = moment('2000-01-05T11:10:00.000Z', moment.ISO_8601)
+  let restoreMockedDate
 
   beforeEach(async () => {
     RNFetchBlob.fs._reset()
     await AsyncStorage.clear()
+
+    const { restoreDate } = mockDate(mockedDate)
+    restoreMockedDate = restoreDate
   })
 
+  afterEach(async () => {
+    restoreMockedDate()
+  })
   const city = 'augsburg'
   const language = 'en'
 
@@ -170,7 +176,7 @@ describe('loadCityContent', () => {
     const lastUpdateAfterLoading = await dataContainer.getLastUpdate(city, language)
 
     expect(lastUpdateAfterLoading && lastUpdateAfterLoading.isSame(lastUpdate)).toBe(true)
-    expect(lastUpdateAfterLoading && lastUpdateAfterLoading.isSame(mockDate)).toBe(false)
+    expect(lastUpdateAfterLoading && lastUpdateAfterLoading.isSame(mockedDate)).toBe(false)
   })
 
   it('should return true if language does exist', async () => {
@@ -276,6 +282,6 @@ describe('loadCityContent', () => {
     ).run()
 
     const date = await dataContainer.getLastUpdate(city, language)
-    expect(date && date.isSame(mockDate)).toBeTrue()
+    expect(date && date.isSame(mockedDate)).toBeTrue()
   })
 })

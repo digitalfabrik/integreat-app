@@ -8,10 +8,10 @@ import CityModelBuilder from '../../../testing/builder/CityModelBuilder'
 import CategoriesMapModelBuilder from '../../../testing/builder/CategoriesMapModelBuilder'
 import LanguageModelBuilder from '../../../testing/builder/LanguageModelBuilder'
 import EventModelBuilder from '../../../testing/builder/EventModelBuilder'
+import mockDate from '../../../testing/mockDate'
 
 jest.mock('rn-fetch-blob')
 const databaseConnector = new DatabaseConnector()
-const spyMomentNow = jest.spyOn(moment, 'now')
 
 afterEach(() => {
   RNFetchBlob.fs._reset()
@@ -322,12 +322,15 @@ describe('DatabaseConnector', () => {
   describe('storeLastUsage', () => {
     it('should store the usage of the passed city', async () => {
       const date = moment('2014-05-04T00:00:00.000Z')
-      spyMomentNow.mockReturnValue(date)
+      const { restoreDate } = mockDate(date)
+
       const context = new DatabaseContext('augsburg')
       await databaseConnector.storeLastUsage(context, false)
 
       expect(JSON.parse(await RNFetchBlob.fs.readFile(databaseConnector.getMetaCitiesPath(), '')))
         .toEqual({ augsburg: { last_usage: date.toISOString(), languages: {} } })
+
+      restoreDate()
     })
 
     it('should not delete old cities if peeking', async () => {
@@ -349,7 +352,7 @@ describe('DatabaseConnector', () => {
         }
       }), '')
 
-      spyMomentNow.mockReturnValue(moment('2013-05-04T00:00:00.000Z'))
+      const { restoreDate } = mockDate(moment('2013-05-04T00:00:00.000Z'))
       await databaseConnector.storeLastUsage(new DatabaseContext('regensburg'), true)
 
       await expectCityFilesExist('muenchen')
@@ -372,6 +375,8 @@ describe('DatabaseConnector', () => {
             languages: {}, last_usage: '2013-05-04T00:00:00.000Z'
           }
         })
+
+      restoreDate()
     })
 
     it('should delete old files if there are more than MAX_STORED_CITIES and not peeking', async () => {
@@ -393,7 +398,7 @@ describe('DatabaseConnector', () => {
         }
       }), '')
 
-      spyMomentNow.mockReturnValue(moment('2013-05-04T00:00:00.000Z'))
+      const { restoreDate } = mockDate(moment('2013-05-04T00:00:00.000Z'))
       await databaseConnector.storeLastUsage(new DatabaseContext('regensburg'), false)
 
       await expectCityFilesExist('muenchen', false)
@@ -413,6 +418,7 @@ describe('DatabaseConnector', () => {
             languages: {}, last_usage: '2013-05-04T00:00:00.000Z'
           }
         })
+      restoreDate()
     })
   })
 
