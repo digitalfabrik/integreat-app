@@ -11,18 +11,21 @@ const INTRO_SHOWN_KEY = 'INTRO_SHOWN'
 export type SettingsType = {|
   errorTracking: boolean | null,
   allowPushNotifications: boolean | null,
+  useLocationAccess: boolean | null,
   test: boolean | null
 |}
 
 const e2eSettings = {
   errorTracking: false,
   allowPushNotifications: false,
+  useLocationAccess: false,
   test: false
 }
 
 export const defaultSettings: SettingsType = (__DEV__ || process.env.E2E_TEST_IDS) ? e2eSettings : {
   errorTracking: null,
   allowPushNotifications: null,
+  useLocationAccess: null,
   test: false
 }
 
