@@ -14,36 +14,38 @@ import { Dimensions, TouchableOpacity, Switch } from 'react-native'
 import DefaultSlide from 'react-native-app-intro-slider/DefaultSlide'
 import styled from 'styled-components/native'
 import AppSettings from '../../modules/settings/AppSettings'
+import SettingItem from '../settings/components/SettingItem'
 
 const Slide = styled.View`
-  justifyContent: space-around;
-  alignItems: center;
-  flex: 1;
-  width: ${Dimensions.get('window').width};
-`
-
-const Content = styled.View`
   display: flex;
-  padding: 12px;
+  justify-content: space-around;
+  flex-direction: column;
+  padding: 32px 24px 64px;
+  flex: 1;
 `
 
-const StyledText = styled.Text`
-  fontSize: 16;
-  textAlign: center;
+const SettingsContainer = styled.View`
+  display: flex;
+  flex-direction: column;
+  flex: 0.5;
+`
+
+const Description = styled.Text`
+  display: flex;
+  align-self: flex-end;
+  font-size: 16px;
+  text-align: center;
+  color: ${props => props.theme.colors.textColor};
 `
 const StyledHeading = styled.Text`
-  fontSize: 26;
+  font-size: 26px;
+  text-align: center;
+  color: ${props => props.theme.colors.textColor};
 `
 
 const ButtonText = styled.Text`
   color: ${props => props.theme.colors.textColor};
-  fontSize: 18;
-`
-
-const SettingContainer = styled.View`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  font-size: 18px;
 `
 
 const ButtonContainer = styled.View`
@@ -64,7 +66,7 @@ type SlideType = {|
   backgroundColor: string
 |}
 type PropsType = {| t: TFunction, navigation: NavigationScreenProp<*>, theme: ThemeType |}
-type StateType = {| isLastSlide: boolean, allowPushNotifications: boolean |}
+type StateType = {| isLastSlide: boolean, allowPushNotifications: boolean, useLocationAccess: boolean |}
 
 class Intro extends React.Component<PropsType, StateType> {
   appIntroSlider: {current: null | React$ElementRef<AppIntroSlider>}
@@ -72,7 +74,7 @@ class Intro extends React.Component<PropsType, StateType> {
 
   constructor (props: PropsType) {
     super(props)
-    this.state = { isLastSlide: false, allowPushNotifications: false }
+    this.state = { isLastSlide: false, allowPushNotifications: false, useLocationAccess: false }
     this.appIntroSlider = React.createRef()
     this.appSettings = new AppSettings()
   }
@@ -126,28 +128,38 @@ class Intro extends React.Component<PropsType, StateType> {
     }]
   }
 
-  setAllowPushNotifications = (allow: boolean) => this.setState({ allowPushNotifications: allow })
+  setAllowPushNotifications = () => this.setState(prevState =>
+    ({ allowPushNotifications: !prevState.allowPushNotifications }))
+
+  setUseLocationAccess = () => {
+    this.setState(prevState =>
+      ({ useLocationAccess: !prevState.useLocationAccess }))
+
+    if (this.state.useLocationAccess) {
+      // TODO request permissions and disable again if not granted
+    }
+  }
 
   renderItem = ({ item, index }: { item: SlideType, index: number}) => {
     const { t, theme } = this.props
     const themeColor = theme.colors.themeColor
-    const { allowPushNotifications } = this.state
+    const { allowPushNotifications, useLocationAccess } = this.state
     if (index === this.slides().length - 1) {
       return <Slide>
-        <StyledHeading>{item.title}</StyledHeading>
-        <Content>
-          <SettingContainer>
-            <StyledText>{item.text}</StyledText>
+        <StyledHeading theme={theme}>{item.title}</StyledHeading>
+        <SettingsContainer>
+          <SettingItem title={t('pushNewsTitle')} description={t('pushNewsDescription')}
+                       onPress={this.setAllowPushNotifications} theme={theme}>
             <Switch thumbColor={themeColor} trackColor={{ true: themeColor }}
                     onValueChange={this.setAllowPushNotifications} value={allowPushNotifications} />
-          </SettingContainer>
-          <SettingContainer>
-            <StyledText>{item.text}</StyledText>
+          </SettingItem>
+          <SettingItem title={t('locationTitle')} description={t('locationDescription')}
+                       onPress={this.setUseLocationAccess} theme={theme}>
             <Switch thumbColor={themeColor} trackColor={{ true: themeColor }}
-                    onValueChange={this.setAllowPushNotifications} value={allowPushNotifications} />
-          </SettingContainer>
-        </Content>
-        <StyledText>{t('sentryDescription')}</StyledText>
+                    onValueChange={this.setUseLocationAccess} value={useLocationAccess} />
+          </SettingItem>
+        </SettingsContainer>
+        <Description theme={theme}>{t('sentryDescription')}</Description>
       </Slide>
     }
     return <DefaultSlide item={item} index={index} dimensions={Dimensions.get('window')} />
@@ -209,7 +221,7 @@ class Intro extends React.Component<PropsType, StateType> {
                            onSkip={this.onSkip} showPrevButton={this.state.isLastSlide}
                            dotStyle={{ backgroundColor: colors.textDecorationColor }}
                            activeDotStyle={{ backgroundColor: colors.textSecondaryColor }}
-                           buttonTextStyle={{ color: colors.textColor }} />
+                           buttonTextStyle={{ color: colors.textColor }} backgroundColor={colors.backgroundColor} />
   }
 }
 
