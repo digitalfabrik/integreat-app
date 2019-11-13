@@ -4,7 +4,7 @@ import ResourceURLFinder from '../ResourceURLFinder'
 
 describe('ResourceURLFinder', () => {
   it('should find urls ending on png,jpg,jpeg,pdf in src and href tags', () => {
-    const finder = new ResourceURLFinder()
+    const finder = new ResourceURLFinder(['ex.am'])
     finder.init()
     const urls = finder.findResourceUrls(`
       <a href="https://ex.am/pl1.pdf.exe">Runterladen und zweimal klicken, um pdf zu öffnen</a>
@@ -19,6 +19,7 @@ describe('ResourceURLFinder', () => {
       <img src="https://ex.am/pl2.jpeg" alt="Meeeeega!" />
       <img src="https://ex.am/pl2.pdf" alt="Exorbitant!" />
       <img src="https://ex.am/noextension" alt="Nöp!" />
+      <img src="https://ev.il/pl2.jpg" alt="Bööööse!" />
       <img src="invalid-url" alt="Näp!" />
     `)
     finder.finalize()
@@ -36,7 +37,7 @@ describe('ResourceURLFinder', () => {
   })
 
   it('should build a fetchMap including thumbnails if supplied', () => {
-    const finder = new ResourceURLFinder()
+    const finder = new ResourceURLFinder(['ex.am'])
     finder.init()
     const input = [
       {
@@ -56,7 +57,7 @@ describe('ResourceURLFinder', () => {
   })
 
   it('should build a correct fetch map if two pages are using the same resource', () => {
-    const finder = new ResourceURLFinder()
+    const finder = new ResourceURLFinder(['ex.am'])
     finder.init()
     const input = [
       {
