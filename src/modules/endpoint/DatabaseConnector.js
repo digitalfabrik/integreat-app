@@ -202,8 +202,7 @@ class DatabaseConnector {
       return null
     }
 
-    // eslint-disable-next-line camelcase
-    const lastUpdate = metaData[cityCode]?.languages[languageCode]?.last_update
+    const { last_update: lastUpdate } = metaData[cityCode]?.languages[languageCode] || {}
     return lastUpdate ? moment(lastUpdate, moment.ISO_8601) : null
   }
 
