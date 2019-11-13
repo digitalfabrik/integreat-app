@@ -20,27 +20,32 @@ const Slide = styled.View`
   display: flex;
   justify-content: space-around;
   flex-direction: column;
-  padding: 32px 24px 64px;
+  padding: 32px 16px 64px;
   flex: 1;
 `
 
+const StyledHeading = styled.Text`
+  width: 100%;
+  font-size: 26px;
+  text-align: center;
+  color: ${props => props.theme.colors.textColor};
+`
+
 const SettingsContainer = styled.View`
+  width: 100%;
   display: flex;
-  flex-direction: column;
   flex: 0.5;
+  flex-direction: column;
 `
 
 const Description = styled.Text`
+  width: 100%;
   display: flex;
   align-self: flex-end;
   font-size: 16px;
   text-align: center;
   color: ${props => props.theme.colors.textColor};
-`
-const StyledHeading = styled.Text`
-  font-size: 26px;
-  text-align: center;
-  color: ${props => props.theme.colors.textColor};
+  padding: 0 24px;
 `
 
 const ButtonText = styled.Text`
