@@ -15,12 +15,18 @@ import DefaultSlide from 'react-native-app-intro-slider/DefaultSlide'
 import styled from 'styled-components/native'
 import AppSettings from '../../modules/settings/AppSettings'
 
-const Content = styled.View`
+const Slide = styled.View`
   justifyContent: space-around;
   alignItems: center;
   flex: 1;
   width: ${Dimensions.get('window').width};
 `
+
+const Content = styled.View`
+  display: flex;
+  padding: 12px;
+`
+
 const StyledText = styled.Text`
   fontSize: 16;
   textAlign: center;
@@ -32,6 +38,12 @@ const StyledHeading = styled.Text`
 const ButtonText = styled.Text`
   color: ${props => props.theme.colors.textColor};
   fontSize: 18;
+`
+
+const SettingContainer = styled.View`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 `
 
 const ButtonContainer = styled.View`
@@ -117,15 +129,26 @@ class Intro extends React.Component<PropsType, StateType> {
   setAllowPushNotifications = (allow: boolean) => this.setState({ allowPushNotifications: allow })
 
   renderItem = ({ item, index }: { item: SlideType, index: number}) => {
-    const themeColor = this.props.theme.colors.themeColor
+    const { t, theme } = this.props
+    const themeColor = theme.colors.themeColor
     const { allowPushNotifications } = this.state
     if (index === this.slides().length - 1) {
-      return <Content>
+      return <Slide>
         <StyledHeading>{item.title}</StyledHeading>
-        <StyledText>{item.text}</StyledText>
-        <Switch thumbColor={themeColor} trackColor={{ true: themeColor }}
-                onValueChange={this.setAllowPushNotifications} value={allowPushNotifications} />
-      </Content>
+        <Content>
+          <SettingContainer>
+            <StyledText>{item.text}</StyledText>
+            <Switch thumbColor={themeColor} trackColor={{ true: themeColor }}
+                    onValueChange={this.setAllowPushNotifications} value={allowPushNotifications} />
+          </SettingContainer>
+          <SettingContainer>
+            <StyledText>{item.text}</StyledText>
+            <Switch thumbColor={themeColor} trackColor={{ true: themeColor }}
+                    onValueChange={this.setAllowPushNotifications} value={allowPushNotifications} />
+          </SettingContainer>
+        </Content>
+        <StyledText>{t('sentryDescription')}</StyledText>
+      </Slide>
     }
     return <DefaultSlide item={item} index={index} dimensions={Dimensions.get('window')} />
   }
