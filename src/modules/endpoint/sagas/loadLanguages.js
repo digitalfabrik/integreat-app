@@ -18,7 +18,7 @@ export default function * loadLanguages (
       console.debug('Using cached languages')
       return yield call(dataContainer.getLanguages, city)
     } catch (e) {
-      console.error('An error occurred while loading languages from JSON', e)
+      console.warn('An error occurred while loading languages from JSON', e)
     }
   }
 
