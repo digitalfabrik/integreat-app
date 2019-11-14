@@ -18,7 +18,10 @@ import SlideContent from './SlideContent'
 import SentryIntegration from '../../modules/app/SentryIntegration'
 
 const CenteredImage = styled.Image`
+  justify-content: center;
   align-self: center;
+  width: 65%;
+  height: 65%;
 `
 
 const ButtonText = styled.Text`
@@ -125,13 +128,9 @@ class Intro extends React.Component<PropsType, StateType> {
     </SlideContent>
   }
 
-  onAccept = async () => {
-    this.onDone(true)
-  }
+  onAccept = async () => this.onDone(true)
 
-  onRefuse = async () => {
-    this.onDone(false)
-  }
+  onRefuse = async () => this.onDone(false)
 
   onDone = async (errorTracking: boolean) => {
     if (errorTracking) {
