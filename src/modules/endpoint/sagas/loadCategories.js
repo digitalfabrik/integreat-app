@@ -19,7 +19,7 @@ function * loadCategories (
       console.debug('Using cached categories')
       return yield call(dataContainer.getCategoriesMap, city, language)
     } catch (e) {
-      console.error('An error occurred while loading categories from JSON', e)
+      console.warn('An error occurred while loading categories from JSON', e)
     }
   }
 

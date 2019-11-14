@@ -17,7 +17,7 @@ function * loadCities (
       console.debug('Using cached cities')
       return yield call(dataContainer.getCities)
     } catch (e) {
-      console.error('An error occurred while loading cities from JSON', e)
+      console.warn('An error occurred while loading cities from JSON', e)
     }
   }
 

@@ -199,7 +199,7 @@ class DatabaseConnector {
           )
         }))
       } catch (e) {
-        console.error(e)
+        console.warn('An error occurred while loading cities from JSON', e)
       }
     }
     return {}

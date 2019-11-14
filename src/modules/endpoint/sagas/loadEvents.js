@@ -19,7 +19,7 @@ function * loadEvents (
       console.debug('Using cached events')
       return yield call(dataContainer.getEvents, city, language)
     } catch (e) {
-      console.error('An error occurred while loading events from JSON', e)
+      console.warn('An error occurred while loading events from JSON', e)
     }
   }
 
