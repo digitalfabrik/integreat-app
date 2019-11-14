@@ -194,8 +194,8 @@ class DatabaseConnector {
         return mapValues(citiesMetaJson, cityMeta => ({
           languages: mapValues(
             cityMeta.languages,
-            // eslint-disable-next-line camelcase
-            ({ last_update }): {| lastUpdate: Moment |} => ({ lastUpdate: moment(last_update, moment.ISO_8601) })
+            ({ last_update: jsonLastUpdate }): {| lastUpdate: Moment |} =>
+              ({ lastUpdate: moment(jsonLastUpdate, moment.ISO_8601) })
           )
         }))
       } catch (e) {
