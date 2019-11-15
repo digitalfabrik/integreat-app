@@ -5,6 +5,7 @@ import DefaultDataContainer from '../../DefaultDataContainer'
 import loadCities from '../loadCities'
 import RNFetchBlob from '../../../../__mocks__/rn-fetch-blob'
 import CityModelBuilder from '../../../../testing/builder/CityModelBuilder'
+import DatabaseConnector from '../../DatabaseConnector'
 
 let mockCities
 jest.mock('rn-fetch-blob')
@@ -58,5 +59,14 @@ describe('loadCities', () => {
     await runSaga({}, loadCities, dataContainer, false).toPromise()
 
     expect(await dataContainer.getCities()).toBe(otherCities)
+  })
+
+  it('should fetch cities if the stored JSON is malformatted', async () => {
+    const path = new DatabaseConnector().getCitiesPath()
+    await RNFetchBlob.fs.writeFile(path, `{ "i": { "am": "malformatted" } }`, 'utf-8')
+    const dataContainer = new DefaultDataContainer()
+    const cities = await runSaga({}, loadCities, dataContainer, false).toPromise()
+
+    expect(cities).toBe(mockCities)
   })
 })

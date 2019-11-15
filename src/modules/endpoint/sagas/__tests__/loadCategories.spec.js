@@ -5,6 +5,8 @@ import loadCategories from '../loadCategories'
 import DefaultDataContainer from '../../DefaultDataContainer'
 import RNFetchBlob from '../../../../__mocks__/rn-fetch-blob'
 import CategoriesMapModelBuilder from '../../../../testing/builder/CategoriesMapModelBuilder'
+import DatabaseConnector from '../../DatabaseConnector'
+import DatabaseContext from '../../DatabaseContext'
 
 let mockCategories
 jest.mock('rn-fetch-blob')
@@ -64,5 +66,15 @@ describe('loadCategories', () => {
     await runSaga({}, loadCategories, city, language, dataContainer, false).toPromise()
 
     expect(await dataContainer.getCategoriesMap(city, language)).toBe(otherCategories)
+  })
+
+  it('should fetch categories if the stored JSON is malformatted', async () => {
+    const context = new DatabaseContext('augsburg', 'de')
+    const path = new DatabaseConnector().getContentPath('categories', context)
+    await RNFetchBlob.fs.writeFile(path, `{ "i": { "am": "malformatted" } }`, 'utf-8')
+    const dataContainer = new DefaultDataContainer()
+    const categories = await runSaga({}, loadCategories, city, language, dataContainer, false).toPromise()
+
+    expect(categories).toBe(mockCategories)
   })
 })
