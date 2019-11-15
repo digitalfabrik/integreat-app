@@ -5,14 +5,14 @@ import type { ThemeType } from '../../modules/theme/constants/theme'
 import styled, { type StyledComponent } from 'styled-components/native'
 import { range } from 'lodash'
 
-const Container = styled.View`
+const Container: StyledComponent<{}, ThemeType, *> = styled.View`
   flex: 0.1;
   flex-direction: row;
   padding: 16px;
   background-color: ${props => props.theme.colors.backgroundColor};
 `
 
-const ButtonContainer: StyledComponent<{| backgroundColor: string, end: boolean |}, ThemeType, *> =
+const ButtonContainer: StyledComponent<{ backgroundColor: string, end: boolean }, ThemeType, *> =
   styled.TouchableOpacity`
   flex: 1;
   padding: 12px;
@@ -33,7 +33,7 @@ const DotsContainer = styled.View`
   align-items: center;
 `
 
-const Dot: StyledComponent<{| isActive: boolean |}, ThemeType, *> = styled.TouchableOpacity`
+const Dot: StyledComponent<{ isActive: boolean }, ThemeType, *> = styled.TouchableOpacity`
   width: 10px;
   height: 10px;
   border-radius: 5px;

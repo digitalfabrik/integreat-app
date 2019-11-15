@@ -17,8 +17,9 @@ import SlideContent, { type SlideContentType } from './SlideContent'
 import SentryIntegration from '../../modules/app/SentryIntegration'
 import type { ButtonType } from './SlideFooter'
 import SlideFooter from './SlideFooter'
+import type { ViewToken } from 'react-native/Libraries/Lists/ViewabilityHelper'
 
-const Container: StyledComponent<{| width: number |}, {}, *> = styled.View`
+const Container: StyledComponent<{ width: number }, {}, *> = styled.View`
   display: flex;
   flex-direction: column;
   width: ${props => props.width};
@@ -39,6 +40,7 @@ type StateType = {|
   currentSlide: number,
   allowPushNotifications: boolean,
   useLocationAccess: boolean,
+  allowSentry: boolean,
   width: number
 |}
 
@@ -51,8 +53,9 @@ class Intro extends React.Component<PropsType, StateType> {
     this.state = {
       slideCount: this.slides().length,
       currentSlide: 0,
-      allowPushNotifications: false,
-      useLocationAccess: false,
+      allowPushNotifications: true,
+      useLocationAccess: true,
+      allowSentry: true,
       width: Dimensions.get('window').width
     }
     this._appSettings = new AppSettings()
@@ -86,7 +89,6 @@ class Intro extends React.Component<PropsType, StateType> {
     }, {
       key: t('inquiry'),
       title: t('inquiryTitle'),
-      description: t('inquiryDescription'),
       renderContent: this.renderSettings
     }]
   }
@@ -103,37 +105,49 @@ class Intro extends React.Component<PropsType, StateType> {
     }
   }
 
+  setAllowSentry = () => this.setState(prevState =>
+    ({ allowSentry: !prevState.allowSentry }))
+
   renderSettings = (): React.Node => {
     const { t, theme } = this.props
     const themeColor = theme.colors.themeColor
     const { allowPushNotifications, useLocationAccess } = this.state
 
     return <>
-      <SettingItem title={t('pushNewsTitle')} description={t('pushNewsDescription')}
+      <SettingItem bigTitle title={t('pushNewsTitle')} description={t('pushNewsDescription')}
                    onPress={this.setAllowPushNotifications} theme={theme}>
         <Switch thumbColor={themeColor} trackColor={{ true: themeColor }}
                 onValueChange={this.setAllowPushNotifications} value={allowPushNotifications} />
       </SettingItem>
-      <SettingItem title={t('locationTitle')} description={t('locationDescription')}
+      <SettingItem bigTitle title={t('locationTitle')} description={t('locationDescription')}
                    onPress={this.setUseLocationAccess} theme={theme}>
         <Switch thumbColor={themeColor} trackColor={{ true: themeColor }}
                 onValueChange={this.setUseLocationAccess} value={useLocationAccess} />
       </SettingItem>
+      <SettingItem bigTitle title={t('sentryTitle')} description={t('sentryDescription')}
+                   onPress={this.setAllowSentry} theme={theme}>
+        <Switch thumbColor={themeColor} trackColor={{ true: themeColor }}
+                onValueChange={this.setAllowSentry} value={useLocationAccess} />
+      </SettingItem>
     </>
   }
 
-  onAccept = async () => this.onDone(true)
+  disableAll = () =>
+    this.setState({ allowSentry: false, allowPushNotifications: false, useLocationAccess: false })
 
-  onRefuse = async () => this.onDone(false)
+  onDone = async () => {
+    const { allowSentry, allowPushNotifications, useLocationAccess } = this.state
 
-  onDone = async (errorTracking: boolean) => {
-    if (errorTracking) {
+    if (allowSentry) {
       const sentry = new SentryIntegration()
       await sentry.install()
     }
 
-    const { allowPushNotifications, useLocationAccess } = this.state
-    await this._appSettings.setSettings({ errorTracking, allowPushNotifications, useLocationAccess })
+    if (useLocationAccess) {
+      // TODO request permission, return if not granted
+    }
+
+    await this._appSettings.setSettings({ errorTracking: allowSentry, allowPushNotifications, useLocationAccess })
     this.props.navigation.navigate('Landing')
   }
 
@@ -141,8 +155,7 @@ class Intro extends React.Component<PropsType, StateType> {
     if (!this._flatList.current) {
       throw Error('ref not correctly set')
     }
-    this._flatList.current.scrollToIndex({ index: ++index, viewOffset: 0 })
-    this.setState(prevState => ({ currentSlide: ++prevState.currentSlide }))
+    this._flatList.current.scrollToIndex({ index: ++index })
   }
 
   lastSlide = () => {
@@ -150,15 +163,13 @@ class Intro extends React.Component<PropsType, StateType> {
       throw Error('ref not correctly set')
     }
     this._flatList.current.scrollToEnd()
-    this.setState(prevState => ({ currentSlide: prevState.slideCount - 1 }))
   }
 
   goToSlide = (index: number) => {
     if (!this._flatList.current) {
       throw Error('ref not correctly set')
     }
-    this._flatList.current.scrollToIndex({ index, viewOffset: 0 })
-    this.setState({ currentSlide: index })
+    this._flatList.current.scrollToIndex({ index })
   }
 
   skipButton = (): ButtonType => ({
@@ -167,8 +178,8 @@ class Intro extends React.Component<PropsType, StateType> {
   })
 
   refuseButton = (): ButtonType => ({
-    label: this.props.t('refuse'),
-    onPress: this.onRefuse
+    label: this.props.t('disableAll'),
+    onPress: this.disableAll
   })
 
   nextButton = (currentIndex: number): ButtonType => ({
@@ -178,16 +189,18 @@ class Intro extends React.Component<PropsType, StateType> {
 
   acceptButton = (): ButtonType => ({
     label: this.props.t('accept'),
-    onPress: this.onAccept
+    onPress: this.onDone
   })
 
   renderSlide = ({ item }: { item: SlideContentType }) => {
     return <SlideContent item={item} theme={this.props.theme} width={this.state.width} />
   }
 
-  onViewableItemsChanged = ({ viewableItems }: {| viewableItems: Array<{}> |}) => {
+  onViewableItemsChanged = ({ viewableItems }: { viewableItems: Array<ViewToken> }) => {
     if (viewableItems.length === 1) {
-      this.setState({ currentSlide: viewableItems[0].index })
+      if (viewableItems[0].index !== null) {
+        this.setState({ currentSlide: viewableItems[0].index })
+      }
     }
   }
 
@@ -204,7 +217,7 @@ class Intro extends React.Component<PropsType, StateType> {
   render () {
     return <Container width={this.state.width}>
       <FlatList ref={this._flatList} data={this.slides()} horizontal pagingEnabled
-                viewabilityConfig={{ itemVisiblePercentThreshold: 51, minimumViewTime: 0 }}
+                viewabilityConfig={{ itemVisiblePercentThreshold: 51, minimumViewTime: 0.1 }}
                 onViewableItemsChanged={this.onViewableItemsChanged} showsHorizontalScrollIndicator={false}
                 bounces={false} renderItem={this.renderSlide} />
       {this.renderFooter()}

@@ -4,7 +4,7 @@ import * as React from 'react'
 import styled, { type StyledComponent } from 'styled-components/native'
 import type { ThemeType } from '../../modules/theme/constants/theme'
 
-const Container: StyledComponent<{| width: number |}, ThemeType, *> = styled.View`
+const Container: StyledComponent<{ width: number }, ThemeType, *> = styled.View`
   display: flex;
   justify-content: space-around;
   padding: 32px 16px 64px;
@@ -41,7 +41,7 @@ const Description: StyledComponent<{}, ThemeType, *> = styled.Text`
 export type SlideContentType = {|
   key: string,
   title: string,
-  description: string,
+  description?: string,
   renderContent: () => React.Node
 |}
 
@@ -63,7 +63,7 @@ class SlideContent extends React.Component<PropsType> {
         {item.renderContent()}
       </ContentContainer>
       <TextContainer>
-        <Description theme={theme}>{item.description}</Description>
+        {item.description && <Description theme={theme}>{item.description}</Description>}
       </TextContainer>
     </Container>
   }
