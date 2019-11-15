@@ -2,7 +2,7 @@
 
 import { type TFunction } from 'react-i18next'
 import { Linking } from 'react-native'
-import NativeConstants from '../../modules/platform/constants/NativeConstants'
+import NativeConstants from '../../modules/native-constants/NativeConstants'
 import type { SettingsType } from '../../modules/settings/AppSettings'
 
 export type ChangeSettingFunctionType = SettingsType => $Shape<SettingsType>
