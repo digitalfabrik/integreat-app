@@ -99,7 +99,7 @@ export default class Settings extends React.Component<PropsType, StateType> {
 
   renderSectionHeader = ({ section: { title } }: { section: SectionType }) => {
     if (!title) {
-      return
+      return null
     }
     return (
       <View><SectionHeader theme={this.props.theme}>{title}</SectionHeader></View>
