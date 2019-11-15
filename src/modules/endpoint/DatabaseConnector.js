@@ -79,19 +79,29 @@ type ContentCityJsonType = {|
 type CityCodeType = string
 type LanguageCodeType = string
 
-type MetaCitiesEntryJsonType = {|
+type MetaCitiesEntryType = {|
   languages: {
     [LanguageCodeType]: {|
-      last_update: string
+      lastUpdate: Moment
     |}
   },
-  last_usage: string
+  lastUsage: Moment
 |}
+
 type MetaCitiesJsonType = {
-  [CityCodeType]: MetaCitiesEntryJsonType
+  [CityCodeType]: {|
+    languages: {
+      [LanguageCodeType]: {|
+        last_update: string
+      |}
+    },
+    last_usage: string
+  |}
 }
 
 type CityLastUsageType = {| city: CityCodeType, lastUsage: Moment |}
+
+type MetaCitiesType = { [CityCodeType]: MetaCitiesEntryType }
 
 type PageResourceCacheEntryJsonType = {|
   file_path: string,
@@ -146,6 +156,9 @@ class DatabaseConnector {
     return `${CACHE_DIR_PATH}/cities.json`
   }
 
+  /**
+   * Prior to storing lastUpdate, there needs to be a lastUsage of the city.
+   */
   async storeLastUpdate (lastUpdate: Moment | null, context: DatabaseContext) {
     if (lastUpdate === null) {
       throw Error('cannot set lastUsage to null')
@@ -159,32 +172,20 @@ class DatabaseConnector {
       throw Error('languageCode mustn\'t be empty')
     }
 
-    const metaData = await this.loadMetaCities() || {}
+    const metaData = await this._loadMetaCities() || {}
 
     if (!metaData[cityCode]) {
       throw Error('cannot store last update for unused city')
     }
-    metaData[cityCode].languages[languageCode] = { last_update: lastUpdate.toISOString() }
+    metaData[cityCode].languages[languageCode] = { lastUpdate }
 
-    const path = this.getMetaCitiesPath()
-    await this.writeFile(path, JSON.stringify(metaData))
+    this._storeMetaCities(metaData)
   }
 
-  async loadMetaCities (): Promise<MetaCitiesJsonType | null> {
-    const path = this.getMetaCitiesPath()
-    const fileExists: boolean = await RNFetchblob.fs.exists(path)
-
-    return fileExists ? JSON.parse(await this.readFile(path)) : null
-  }
-
-  async deleteMetaOfCities (cities: Array<string>) {
-    const metaCities = await this.loadMetaCities()
-    if (!metaCities) {
-      throw Error('cannot delete city of undefined metaCities')
-    }
-
+  async _deleteMetaOfCities (cities: Array<string>) {
+    const metaCities = await this._loadMetaCities()
     cities.forEach(city => delete metaCities[city])
-    await this.writeFile(this.getMetaCitiesPath(), JSON.stringify(metaCities))
+    await this._storeMetaCities(metaCities)
   }
 
   async loadLastUpdate (context: DatabaseContext): Promise<Moment | null> {
@@ -197,25 +198,49 @@ class DatabaseConnector {
       throw new Error('Language is not set in DatabaseContext!')
     }
 
-    const metaData = await this.loadMetaCities()
-    if (!metaData) {
-      return null
-    }
+    const metaData = await this._loadMetaCities()
+    return metaData[cityCode]?.languages[languageCode]?.lastUpdate || null
+  }
 
-    const { last_update: lastUpdate } = metaData[cityCode]?.languages[languageCode] || {}
-    return lastUpdate ? moment(lastUpdate, moment.ISO_8601) : null
+  async _loadMetaCities (): Promise<MetaCitiesType> {
+    const path = this.getMetaCitiesPath()
+    const fileExists: boolean = await RNFetchblob.fs.exists(path)
+    if (fileExists) {
+      try {
+        const citiesMetaJson: MetaCitiesJsonType = JSON.parse(await this.readFile(path))
+        return mapValues(citiesMetaJson, cityMeta => ({
+          languages: mapValues(
+            cityMeta.languages,
+            ({ last_update: jsonLastUpdate }): {| lastUpdate: Moment |} =>
+              ({ lastUpdate: moment(jsonLastUpdate, moment.ISO_8601) })
+          ),
+          lastUsage: moment(cityMeta.last_usage, moment.ISO_8601)
+        }))
+      } catch (e) {
+        console.warn('An error occurred while loading cities from JSON', e)
+      }
+    }
+    return {}
+  }
+
+  async _storeMetaCities (metaCities: MetaCitiesType) {
+    const path = this.getMetaCitiesPath()
+    const citiesMetaJson: MetaCitiesJsonType = mapValues(metaCities, cityMeta => ({
+      languages: mapValues(
+        cityMeta.languages,
+        ({ lastUpdate }): { last_update: string } => ({ last_update: lastUpdate.toISOString() })
+      ),
+      last_usage: cityMeta.lastUsage.toISOString()
+    }))
+    await this.writeFile(path, JSON.stringify(citiesMetaJson))
   }
 
   async loadLastUsages (): Promise<Array<CityLastUsageType>> {
-    const metaData = await this.loadMetaCities()
-    if (!metaData) {
-      return []
-    }
-
-    return map<MetaCitiesEntryJsonType, MetaCitiesJsonType, CityLastUsageType>(
+    const metaData = await this._loadMetaCities()
+    return map<MetaCitiesEntryType, MetaCitiesJsonType, CityLastUsageType>(
       metaData, (value, key) => ({
         city: key,
-        lastUsage: moment(value.last_usage, moment.ISO_8601)
+        lastUsage: value.lastUsage
       })
     )
   }
@@ -225,14 +250,15 @@ class DatabaseConnector {
     if (!city) {
       throw Error('cityCode mustn\'t be null')
     }
-    const metaData = (await this.loadMetaCities()) || {}
+
+    const metaData = await this._loadMetaCities()
 
     metaData[city] = {
-      last_usage: moment().toISOString(),
+      lastUsage: moment(),
       languages: metaData[city]?.languages || {}
     }
 
-    await this.writeFile(this.getMetaCitiesPath(), JSON.stringify(metaData))
+    await this._storeMetaCities(metaData)
 
     // Only delete files if not peeking, otherwise if you peek from one city to three different cities, the content of
     // the non peeking city would be deleted while still open
@@ -453,7 +479,7 @@ class DatabaseConnector {
     }
     const lastUsages = await this.loadLastUsages()
     const cachesToDelete = lastUsages.filter(it => it.city !== city)
-      // Sort last usages chronological, from oldest to newest
+    // Sort last usages chronological, from oldest to newest
       .sort((a, b) =>
         a.lastUsage.isBefore(b.lastUsage) ? -1 : (a.lastUsage.isSame(b.lastUsage) ? 0 : 1)
       )
@@ -469,26 +495,26 @@ class DatabaseConnector {
       return RNFetchblob.fs.unlink(cityContentPath)
     }))
 
-    await this.deleteMetaOfCities(cachesToDelete.map(it => it.city))
+    await this._deleteMetaOfCities(cachesToDelete.map(it => it.city))
   }
 
   isCitiesPersisted (): Promise<boolean> {
-    return this.isPersisted(this.getCitiesPath())
+    return this._isPersisted(this.getCitiesPath())
   }
 
   isCategoriesPersisted (context: DatabaseContext): Promise<boolean> {
-    return this.isPersisted(this.getContentPath('categories', context))
+    return this._isPersisted(this.getContentPath('categories', context))
   }
 
   isLanguagesPersisted (context: DatabaseContext): Promise<boolean> {
-    return this.isPersisted(this.getContentPath('languages', context))
+    return this._isPersisted(this.getContentPath('languages', context))
   }
 
   isEventsPersisted (context: DatabaseContext): Promise<boolean> {
-    return this.isPersisted(this.getContentPath('events', context))
+    return this._isPersisted(this.getContentPath('events', context))
   }
 
-  isPersisted (path: string): Promise<boolean> {
+  _isPersisted (path: string): Promise<boolean> {
     return RNFetchblob.fs.exists(path)
   }
 
