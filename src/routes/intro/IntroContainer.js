@@ -2,7 +2,6 @@
 
 import { translate, type TFunction } from 'react-i18next'
 import * as React from 'react'
-import AppIntroSlider from 'react-native-app-intro-slider'
 import type { NavigationScreenProp } from 'react-navigation'
 import Language from './assets/Language.svg'
 import Offers from './assets/Offers.svg'
@@ -10,11 +9,11 @@ import Search from './assets/Search.svg'
 import Events from './assets/Events.svg'
 import type { ThemeType } from '../../modules/theme/constants/theme'
 import withTheme from '../../modules/theme/hocs/withTheme'
-import { TouchableOpacity, Switch, FlatList, Dimensions } from 'react-native'
+import { Switch, FlatList, Dimensions } from 'react-native'
 import styled, { type StyledComponent } from 'styled-components/native'
 import AppSettings from '../../modules/settings/AppSettings'
 import SettingItem from '../settings/components/SettingItem'
-import SlideContent, { type SlideType } from './SlideContent'
+import SlideContent, { type SlideContentType } from './SlideContent'
 import SentryIntegration from '../../modules/app/SentryIntegration'
 import type { ButtonType } from './SlideFooter'
 import SlideFooter from './SlideFooter'
@@ -26,20 +25,15 @@ const ImageContent = styled.Image`
   height: 65%;
 `
 
-const ButtonText = styled.Text`
-  color: ${props => props.theme.colors.textColor};
-  font-size: 18px;
-`
-
-const ButtonContainer: StyledComponent<{| backgroundColor?: string |}, ThemeType, *> = styled.View`
-  padding: 12px;
-  background-color: ${props => props.backgroundColor || props.theme.colors.backgroundColor};
+const Slide = styled.View`
+  display: flex;
+  flex-direction: column;
+  width: ${props => props.width};
 `
 
 type PropsType = {| t: TFunction, navigation: NavigationScreenProp<*>, theme: ThemeType |}
 type StateType = {|
   slideCount: number,
-  currentSlide: number,
   allowPushNotifications: boolean,
   useLocationAccess: boolean,
   width: number
@@ -47,12 +41,11 @@ type StateType = {|
 
 class Intro extends React.Component<PropsType, StateType> {
   _appSettings: AppSettings
-  _flatList: {current: null | React$ElementRef<FlatList<SlideType>>}
+  _flatList: {current: null | React$ElementRef<FlatList<SlideContentType>>}
 
   constructor (props: PropsType) {
     super(props)
     this.state = {
-      currentSlide: 0,
       slideCount: this.slides().length,
       allowPushNotifications: false,
       useLocationAccess: false,
@@ -64,7 +57,7 @@ class Intro extends React.Component<PropsType, StateType> {
 
   renderImageContent = (image: number) => (): React.Node => <ImageContent source={image} />
 
-  slides = (): Array<SlideType> => {
+  slides = (): Array<SlideContentType> => {
     const { t } = this.props
     return [{
       key: t('search'),
@@ -140,12 +133,26 @@ class Intro extends React.Component<PropsType, StateType> {
     this.props.navigation.navigate('Landing')
   }
 
-  onSlideChange = (currentSlide: number) => this.setState({ currentSlide })
-  nextSlide = () => this.setState(prevState => ({
-    currentSlide: Math.max(++prevState.currentSlide, prevState.slideCount - 1)
-  }))
-  previousSlide = () => this.setState(prevState => ({ currentSlide: Math.min(--prevState.currentSlide, 0) }))
-  lastSlide = () => this.setState({ currentSlide: this.slides().length - 1 })
+  nextSlide = (index: number) => {
+    if (!this._flatList.current) {
+      throw Error('ref not correctly set')
+    }
+    this._flatList.current.scrollToIndex({ index: ++index, viewOffset: 0 })
+  }
+
+  lastSlide = () => {
+    if (!this._flatList.current) {
+      throw Error('ref not correctly set')
+    }
+    this._flatList.current.scrollToEnd()
+  }
+
+  goToSlide = (index: number) => {
+    if (!this._flatList.current) {
+      throw Error('ref not correctly set')
+    }
+    this._flatList.current.scrollToIndex(index)
+  }
 
   skipButton = (): ButtonType => ({
     label: this.props.t('skip'),
@@ -157,9 +164,9 @@ class Intro extends React.Component<PropsType, StateType> {
     onPress: this.onRefuse
   })
 
-  nextButton = (): ButtonType => ({
+  nextButton = (currentIndex: number): ButtonType => ({
     label: this.props.t('next'),
-    onPress: this.nextSlide
+    onPress: () => this.nextSlide(currentIndex)
   })
 
   acceptButton = (): ButtonType => ({
@@ -167,18 +174,21 @@ class Intro extends React.Component<PropsType, StateType> {
     onPress: this.onAccept
   })
 
-  renderSlide = ({ item }: { item: SlideType }) => {
-    return <SlideContent item={item} theme={this.props.theme} width={this.state.width} />
+  renderSlide = ({ item, index }: { item: SlideContentType, index: number }) => {
+    return <Slide width={this.state.width}>
+        <SlideContent item={item} theme={this.props.theme} />
+        {this.renderFooter(index)}
+      </Slide>
   }
 
-  renderFooter = () => {
+  renderFooter = (index: number) => {
     const { theme } = this.props
-    const { currentSlide, slideCount } = this.state
-    const leftButton = currentSlide === slideCount - 1 ? this.refuseButton() : this.skipButton()
-    const rightButton = currentSlide === slideCount - 1 ? this.acceptButton() : this.nextButton()
+    const { slideCount } = this.state
+    const leftButton = index === slideCount - 1 ? this.refuseButton() : this.skipButton()
+    const rightButton = index === slideCount - 1 ? this.acceptButton() : this.nextButton(index)
 
     return <SlideFooter leftButton={leftButton} rightButton={rightButton} slideCount={slideCount}
-                        currentSlide={currentSlide} leftSwipe={this.previousSlide} rightSwipe={this.nextSlide}
+                        currentSlide={index} leftSwipe={this.previousSlide} rightSwipe={this.nextSlide}
                         theme={theme} />
   }
 
