@@ -10,11 +10,13 @@ import type { DataContainer } from '../../DataContainer'
 import CategoriesMapModelBuilder from '../../../../testing/builder/CategoriesMapModelBuilder'
 import LanguageModelBuilder from '../../../../testing/builder/LanguageModelBuilder'
 import CityModelBuilder from '../../../../testing/builder/CityModelBuilder'
-import moment from 'moment-timezone'
+import moment from 'moment'
 import EventModelBuilder from '../../../../testing/builder/EventModelBuilder'
 import AsyncStorage from '@react-native-community/async-storage'
 import fetchResourceCache from '../fetchResourceCache'
 import NetInfo from '@react-native-community/netinfo'
+import DatabaseConnector from '../../DatabaseConnector'
+import mockDate from '../../../../testing/mockDate'
 
 jest.mock('@react-native-community/async-storage')
 jest.mock('@react-native-community/netinfo')
@@ -45,44 +47,22 @@ const prepareDataContainer = async (dataContainer: DataContainer, city: string, 
   return { languages, cities, categories, events, resources, fetchMap }
 }
 
-jest.mock('moment-timezone', () => {
-  const moment = jest.requireActual('moment-timezone')
-  const mockActualTz = moment.tz
-  moment.tz = jest.fn(mockActualTz)
-  return moment
-})
-
-const mockTz = (mockDate: moment) => {
-  const previous = moment.tz.getMockImplementation()
-  moment.tz.mockImplementation(function (): moment {
-    if (arguments.length <= 1) {
-      return mockDate
-    }
-
-    return previous(...arguments)
-  })
-
-  return { restore: () => { moment.tz.mockImplementation(previous) } }
-}
-
 describe('loadCityContent', () => {
-  const mockDate = jest.requireActual('moment')('2000-01-05T00:11:00.000Z')
   const lastUpdate = moment('2000-01-05T10:10:00.000Z')
-
-  let restoreMoment
+  const mockedDate = moment('2000-01-05T11:10:00.000Z', moment.ISO_8601)
+  let restoreMockedDate
 
   beforeEach(async () => {
     RNFetchBlob.fs._reset()
     await AsyncStorage.clear()
 
-    const { restore } = mockTz(mockDate)
-    restoreMoment = restore
+    const { restoreDate } = mockDate(mockedDate)
+    restoreMockedDate = restoreDate
   })
 
   afterEach(async () => {
-    restoreMoment()
+    restoreMockedDate()
   })
-
   const city = 'augsburg'
   const language = 'en'
 
@@ -91,6 +71,7 @@ describe('loadCityContent', () => {
     await prepareDataContainer(dataContainer, city, language)
 
     await new AppSettings().setSelectedCity('nuernberg')
+    await dataContainer.storeLastUsage(city, false)
     await dataContainer.setLastUpdate(city, language, lastUpdate)
 
     await expectSaga(loadCityContent,
@@ -109,6 +90,7 @@ describe('loadCityContent', () => {
     await prepareDataContainer(dataContainer, city, language)
 
     await new AppSettings().setSelectedCity('nuernberg')
+    await dataContainer.storeLastUsage(city, true)
     await dataContainer.setLastUpdate(city, language, lastUpdate)
 
     await expectSaga(loadCityContent,
@@ -122,10 +104,26 @@ describe('loadCityContent', () => {
     expect(await dataContainer.getLastUpdate(city, language)).toBe(lastUpdate)
   })
 
+  it('should store last usage', async () => {
+    const dataContainer = new DefaultDataContainer()
+    await prepareDataContainer(dataContainer, city, language)
+
+    await expectSaga(loadCityContent,
+      dataContainer, city, language, new ContentLoadCriterion({
+        forceUpdate: false,
+        shouldRefreshResources: true
+      }, true)
+    ).run()
+
+    expect(await new DatabaseConnector().loadLastUsages())
+      .toEqual([{ city: 'augsburg', lastUsage: moment('2000-01-05T11:10:00.000Z') }])
+  })
+
   it('should load languages when not peeking', async () => {
     const dataContainer = new DefaultDataContainer()
     const { languages } = await prepareDataContainer(dataContainer, city, language)
 
+    await dataContainer.storeLastUsage(city, false)
     await dataContainer.setLastUpdate(city, language, lastUpdate)
 
     await expectSaga(loadCityContent,
@@ -144,6 +142,7 @@ describe('loadCityContent', () => {
     const dataContainer = new DefaultDataContainer()
     await prepareDataContainer(dataContainer, city, language)
 
+    await dataContainer.storeLastUsage(city, true)
     await dataContainer.setLastUpdate(city, language, lastUpdate)
 
     await expectSaga(loadCityContent,
@@ -162,6 +161,7 @@ describe('loadCityContent', () => {
     const dataContainer = new DefaultDataContainer()
     await prepareDataContainer(dataContainer, city, language)
 
+    await dataContainer.storeLastUsage(city, false)
     await dataContainer.setLastUpdate(city, language, lastUpdate)
 
     await expectSaga(loadCityContent,
@@ -173,16 +173,17 @@ describe('loadCityContent', () => {
       .returns(false)
       .run()
 
-    const lastUpdateAfterLoading: moment = await dataContainer.getLastUpdate(city, language)
+    const lastUpdateAfterLoading = await dataContainer.getLastUpdate(city, language)
 
-    expect(lastUpdateAfterLoading.isSame(lastUpdate)).toBe(true)
-    expect(lastUpdateAfterLoading.isSame(mockDate)).toBe(false)
+    expect(lastUpdateAfterLoading && lastUpdateAfterLoading.isSame(lastUpdate)).toBe(true)
+    expect(lastUpdateAfterLoading && lastUpdateAfterLoading.isSame(mockedDate)).toBe(false)
   })
 
   it('should return true if language does exist', async () => {
     const dataContainer = new DefaultDataContainer()
     await prepareDataContainer(dataContainer, city, language)
 
+    await dataContainer.storeLastUsage(city, false)
     await dataContainer.setLastUpdate(city, language, lastUpdate)
 
     await expectSaga(loadCityContent,
@@ -201,6 +202,7 @@ describe('loadCityContent', () => {
     const dataContainer = new DefaultDataContainer()
     const { fetchMap } = await prepareDataContainer(dataContainer, city, language)
 
+    await dataContainer.storeLastUsage(city, false)
     await dataContainer.setLastUpdate(city, language, lastUpdate)
 
     await expectSaga(loadCityContent,
@@ -219,6 +221,7 @@ describe('loadCityContent', () => {
     const dataContainer = new DefaultDataContainer()
     const { fetchMap } = await prepareDataContainer(dataContainer, city, language)
 
+    await dataContainer.storeLastUsage(city, false)
     await dataContainer.setLastUpdate(city, language, lastUpdate)
 
     await expectSaga(loadCityContent,
@@ -248,6 +251,7 @@ describe('loadCityContent', () => {
     const dataContainer = new DefaultDataContainer()
     const { fetchMap } = await prepareDataContainer(dataContainer, city, language)
 
+    await dataContainer.storeLastUsage(city, false)
     await dataContainer.setLastUpdate(city, language, lastUpdate)
 
     await expectSaga(loadCityContent,
@@ -267,7 +271,8 @@ describe('loadCityContent', () => {
     const dataContainer = new DefaultDataContainer()
     await prepareDataContainer(dataContainer, city, language)
 
-    await dataContainer.setLastUpdate(city, language, moment.unix(0))
+    await dataContainer.storeLastUsage(city, false)
+    await dataContainer.setLastUpdate(city, language, moment('1971-01-05T10:10:00.000Z'))
 
     await expectSaga(loadCityContent,
       dataContainer, city, language, new ContentLoadCriterion({
@@ -276,6 +281,7 @@ describe('loadCityContent', () => {
       }, false)
     ).run()
 
-    expect(await dataContainer.getLastUpdate(city, language)).toBe(mockDate)
+    const date = await dataContainer.getLastUpdate(city, language)
+    expect(date && date.isSame(mockedDate)).toBeTrue()
   })
 })

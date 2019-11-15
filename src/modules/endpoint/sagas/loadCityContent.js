@@ -6,7 +6,8 @@ import type { DataContainer } from '../DataContainer'
 import loadCategories from './loadCategories'
 import loadEvents from './loadEvents'
 import fetchResourceCache from './fetchResourceCache'
-import moment from 'moment-timezone'
+import moment from 'moment'
+import type Moment from 'moment'
 import type { PushLanguagesActionType } from '../../app/StoreActionType'
 import loadLanguages from './loadLanguages'
 import ResourceURLFinder from '../ResourceURLFinder'
@@ -29,13 +30,15 @@ export default function * loadCityContent (
   dataContainer: DataContainer, newCity: string, newLanguage: string,
   criterion: ContentLoadCriterion
 ): Saga<boolean> {
+  yield call(dataContainer.storeLastUsage, newCity, criterion.peeking())
+
   if (!criterion.peeking()) {
     const appSettings = new AppSettings()
     yield call(appSettings.setSelectedCity, newCity)
   }
 
   yield call(loadCities, dataContainer, false) // Never force refresh cities, when loading cityContent
-  const lastUpdate: moment | null = yield call(dataContainer.getLastUpdate, newCity, newLanguage)
+  const lastUpdate: Moment | null = yield call(dataContainer.getLastUpdate, newCity, newLanguage)
 
   console.debug('Last city content update on ',
     lastUpdate ? lastUpdate.toISOString() : 'never')
@@ -87,7 +90,7 @@ export default function * loadCityContent (
   }
 
   if (shouldUpdate) {
-    yield call(dataContainer.setLastUpdate, newCity, newLanguage, moment.tz('UTC'))
+    yield call(dataContainer.setLastUpdate, newCity, newLanguage, moment())
   }
 
   return true

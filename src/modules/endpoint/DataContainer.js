@@ -96,5 +96,10 @@ export interface DataContainer {
   /**
    * Returns whether the cities have been loaded or not.
    */
-  citiesAvailable (): Promise<boolean>
+  citiesAvailable (): Promise<boolean>,
+
+  /**
+   * Stores the last usage of the passed city
+   */
+  storeLastUsage (city: string, peeking: boolean): Promise<void>
 }
