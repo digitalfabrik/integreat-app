@@ -8,14 +8,6 @@ class MappingError extends Error {
     super()
     this.message = this.getMessage(endpointName, message)
 
-    // https://github.com/babel/babel/issues/3083
-    /* eslint-disable */
-    // $FlowFixMe
-    this.constructor = MappingError
-    // $FlowFixMe
-    this.__proto__ = MappingError.prototype
-    /* eslint-enable */
-
     if (Error.captureStackTrace) {
       Error.captureStackTrace(this, MappingError)
     }

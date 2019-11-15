@@ -1,11 +1,12 @@
 // @flow
 
 import Payload from './Payload'
-import LoadingError from './errors/LoadingError'
 import MappingError from './errors/MappingError'
 import type { MapResponseType } from './MapResponseType'
 import type { MapParamsToUrlType } from './MapParamsToUrlType'
 import type { MapParamsToBodyType } from './MapParamsToBody'
+import ResponseError from './errors/ResponseError'
+import FetchError from './errors/FetchError'
 
 /**
  * A Endpoint holds all the relevant information to fetch data from it
@@ -50,10 +51,15 @@ class Endpoint<P, T> {
 
   async request (params: P, overrideUrl?: string): Promise<Payload<T>> {
     const url = overrideUrl || this.mapParamsToUrl(params)
-    const response = await (this.mapParamsToBody ? this.postFormData(url, params) : fetch(url))
+    let response = null
+    try {
+      response = await (this.mapParamsToBody ? this.postFormData(url, params) : fetch(url))
+    } catch (e) {
+      throw new FetchError({ endpointName: this.stateName, innerError: e })
+    }
 
     if (!response.ok) {
-      throw new LoadingError({endpointName: this.stateName, message: `${response.status}`})
+      throw new ResponseError({ endpointName: this.stateName, response })
     }
 
     try {

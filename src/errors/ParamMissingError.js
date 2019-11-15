@@ -8,14 +8,6 @@ class ParamMissingError extends Error {
     super()
     this.message = this.getMessage(endpointName, paramName)
 
-    // https://github.com/babel/babel/issues/3083
-    /* eslint-disable */
-    // $FlowFixMe
-    this.constructor = ParamMissingError
-    // $FlowFixMe
-    this.__proto__ = ParamMissingError.prototype
-    /* eslint-enable */
-
     if (Error.captureStackTrace) {
       Error.captureStackTrace(this, ParamMissingError)
     }
