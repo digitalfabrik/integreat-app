@@ -182,7 +182,7 @@ class DatabaseConnector {
     this._storeMetaCities(metaData)
   }
 
-  async deleteMetaOfCities (cities: Array<string>) {
+  async _deleteMetaOfCities (cities: Array<string>) {
     const metaCities = await this._loadMetaCities()
     cities.forEach(city => delete metaCities[city])
     await this._storeMetaCities(metaCities)
@@ -495,7 +495,7 @@ class DatabaseConnector {
       return RNFetchblob.fs.unlink(cityContentPath)
     }))
 
-    await this.deleteMetaOfCities(cachesToDelete.map(it => it.city))
+    await this._deleteMetaOfCities(cachesToDelete.map(it => it.city))
   }
 
   isCitiesPersisted (): Promise<boolean> {
