@@ -16,7 +16,8 @@ export {default as Endpoint} from './Endpoint'
 export {default as EndpointBuilder} from './EndpointBuilder'
 export {default as Payload} from './Payload'
 
-export {default as LoadingError} from './errors/LoadingError'
+export {default as FetchError} from './errors/FetchError'
+export {default as ResponseError} from './errors/ResponseError'
 export {default as MappingError} from './errors/MappingError'
 export {default as ParamMissingError} from './errors/ParamMissingError'
 
