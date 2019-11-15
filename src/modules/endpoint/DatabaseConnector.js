@@ -157,7 +157,7 @@ class DatabaseConnector {
   }
 
   /**
-   * Prior to storing lastUpdate, there needs to be a lastUsage of the city in the context.
+   * Prior to storing lastUpdate, there needs to be a lastUsage of the city.
    */
   async storeLastUpdate (lastUpdate: Moment | null, context: DatabaseContext) {
     if (lastUpdate === null) {
