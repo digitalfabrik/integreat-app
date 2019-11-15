@@ -2,7 +2,7 @@
 
 import { NativeModules } from 'react-native'
 
-type NativeConstantsType = {
+export type NativeConstantsType = {
   +appVersion: ?string
 }
 
