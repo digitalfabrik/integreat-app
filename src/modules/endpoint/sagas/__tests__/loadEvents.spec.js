@@ -5,6 +5,8 @@ import DefaultDataContainer from '../../DefaultDataContainer'
 import loadEvents from '../loadEvents'
 import RNFetchBlob from '../../../../__mocks__/rn-fetch-blob'
 import EventModelBuilder from '../../../../testing/builder/EventModelBuilder'
+import DatabaseContext from '../../DatabaseContext'
+import DatabaseConnector from '../../DatabaseConnector'
 
 let mockEvents
 jest.mock('rn-fetch-blob')
@@ -65,5 +67,15 @@ describe('loadEvents', () => {
     await runSaga({}, loadEvents, city, language, dataContainer, false).toPromise()
 
     expect(await dataContainer.getEvents(city, language)).toBe(otherEvents)
+  })
+
+  it('should fetch events if the stored JSON is malformatted', async () => {
+    const context = new DatabaseContext('augsburg', 'de')
+    const path = new DatabaseConnector().getContentPath('events', context)
+    await RNFetchBlob.fs.writeFile(path, `{ "i": { "am": "malformatted" } }`, 'utf-8')
+    const dataContainer = new DefaultDataContainer()
+    const events = await runSaga({}, loadEvents, city, language, dataContainer, false).toPromise()
+
+    expect(events).toBe(mockEvents)
   })
 })

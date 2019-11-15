@@ -93,6 +93,12 @@ describe('DatabaseConnector', () => {
       const moment = await databaseConnector.loadLastUpdate(context)
       expect(moment).toBeNull()
     })
+    it('should return null if persisted data is malformatted for a given city-language pair', async () => {
+      const context = new DatabaseContext('tcc', 'de')
+      RNFetchBlob.fs.writeFile(databaseConnector.getMetaCitiesPath(), `{ "i": "am": "malformatted" } }`, 'utf8')
+      const moment = await databaseConnector.loadLastUpdate(context)
+      expect(moment).toBeNull()
+    })
     it('should throw error if currentCity in context is null', () => {
       const context = new DatabaseContext(null, 'de')
       expect(databaseConnector.loadLastUpdate(context)).rejects.toThrowError()
@@ -420,6 +426,17 @@ describe('DatabaseConnector', () => {
         })
       restoreDate()
     })
+    it('should override if persisted data is malformatted for a given city-language pair', async () => {
+      const context = new DatabaseContext('tcc', 'de')
+      const path = databaseConnector.getMetaCitiesPath()
+      RNFetchBlob.fs.writeFile(path, `{ "i": "am": "malformatted" } }`, 'utf8')
+      const { restoreDate } = mockDate(moment('2013-05-04T00:00:00.000Z'))
+      await databaseConnector.storeLastUsage(context, false)
+      expect(JSON.parse(await RNFetchBlob.fs.readFile(path, 'utf8'))).toEqual({
+        'tcc': { languages: {}, last_usage: '2013-05-04T00:00:00.000Z' }
+      })
+      restoreDate()
+    })
   })
 
   describe('loadLastUsages', () => {
@@ -449,6 +466,13 @@ describe('DatabaseConnector', () => {
         { city: 'augsburg', lastUsage: moment('2014-05-04T00:00:00.000Z') },
         { city: 'regensburg', lastUsage: moment('2013-05-04T00:00:00.000Z') }
       ])
+    })
+
+    it('should return empty array if persisted data is malformatted', async () => {
+      const path = databaseConnector.getMetaCitiesPath()
+      RNFetchBlob.fs.writeFile(path, `{ "i": "am": "malformatted" } }`, 'utf8')
+      const usages = await databaseConnector.loadLastUsages()
+      expect(usages).toEqual([])
     })
   })
 
