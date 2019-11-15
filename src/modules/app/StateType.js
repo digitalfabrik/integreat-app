@@ -9,6 +9,8 @@ import {
 } from '@integreat-app/integreat-api-client'
 import Moment from 'moment'
 import { DEFAULT_LANGUAGE } from '../i18n/constants'
+import type { ErrorCodeType } from '../error/ErrorCode'
+import { ErrorCodes } from '../error/ErrorCode'
 
 export type PathType = string
 
@@ -64,7 +66,8 @@ export type EventRouteStateType = {|
 |} | {|
   +status: 'error',
   ...EventRouteConfigType,
-  +message: string
+  +code: ErrorCodeType,
+  +message: ?string
 |}
 
 export type PageResourceCacheEntryStateType = {|
@@ -83,7 +86,8 @@ export type LanguageResourceCacheStateType = $ReadOnly<{
 
 export type ResourceCacheStateType = {|
   +status: 'error',
-  +message: string
+  +code: ErrorCodeType,
+  +message: ?string
 |} | {|
   +status: 'ready',
   +value: LanguageResourceCacheStateType
@@ -108,11 +112,13 @@ export type CitiesStateType = {|
   +status: 'loading'
 |} | {|
   +status: 'error',
+  +code: ErrorCodeType,
   +message: string
 |}
 
 export const defaultCitiesState: CitiesStateType = {
   status: 'error',
+  code: ErrorCodes.UnknownError,
   message: 'Cities not yet initialized'
 }
 
