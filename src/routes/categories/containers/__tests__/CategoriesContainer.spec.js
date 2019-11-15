@@ -23,6 +23,7 @@ import brightTheme from '../../../../modules/theme/constants/theme'
 import moment from 'moment'
 import { LanguageModel } from '@integreat-app/integreat-api-client'
 import { LOADING_TIMEOUT } from '../../../../modules/common/constants'
+import { ErrorCodes } from '../../../../modules/error/ErrorCode'
 
 jest.mock('react-i18next')
 jest.useFakeTimers()
@@ -142,7 +143,8 @@ describe('CategoriesContainer', () => {
     const state: StateType = prepareState(successfulRouteState, {
       cities: {
         status: 'error',
-        message: 'Something went wrong with the cities'
+        message: 'Something went wrong with the cities',
+        code: ErrorCodes.UnknownError
       }
     })
     expectError(state, 'Something went wrong with the cities')
@@ -152,7 +154,8 @@ describe('CategoriesContainer', () => {
     const state: StateType = prepareState(successfulRouteState, {
       resourceCacheState: {
         status: 'error',
-        message: 'Something went wrong with the resourceCache'
+        message: 'Something went wrong with the resourceCache',
+        code: ErrorCodes.UnknownError
       }
     })
     expectError(state, 'Something went wrong with the resourceCache')

@@ -83,11 +83,11 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
 
   if (state.cities.status === 'error') {
-    return { status: 'error', message: state.cities.message, refreshProps }
+    return { status: 'error', message: state.cities.message, code: state.cities.code, refreshProps }
   } else if (route.status === 'error') {
-    return { status: 'error', message: route.message, refreshProps }
+    return { status: 'error', message: route.message, code: route.code, refreshProps }
   } else if (resourceCache.status === 'error') {
-    return { status: 'error', message: resourceCache.message, refreshProps }
+    return { status: 'error', message: resourceCache.message, code: resourceCache.code, refreshProps }
   }
 
   return {
