@@ -10,14 +10,16 @@ import Search from './assets/Search.svg'
 import Events from './assets/Events.svg'
 import type { ThemeType } from '../../modules/theme/constants/theme'
 import withTheme from '../../modules/theme/hocs/withTheme'
-import { TouchableOpacity, Switch } from 'react-native'
-import styled from 'styled-components/native'
+import { TouchableOpacity, Switch, FlatList, Dimensions } from 'react-native'
+import styled, { type StyledComponent } from 'styled-components/native'
 import AppSettings from '../../modules/settings/AppSettings'
 import SettingItem from '../settings/components/SettingItem'
-import SlideContent from './SlideContent'
+import SlideContent, { type SlideType } from './SlideContent'
 import SentryIntegration from '../../modules/app/SentryIntegration'
+import type { ButtonType } from './SlideFooter'
+import SlideFooter from './SlideFooter'
 
-const CenteredImage = styled.Image`
+const ImageContent = styled.Image`
   justify-content: center;
   align-self: center;
   width: 65%;
@@ -29,61 +31,67 @@ const ButtonText = styled.Text`
   font-size: 18px;
 `
 
-const ButtonContainer = styled.View`
+const ButtonContainer: StyledComponent<{| backgroundColor?: string |}, ThemeType, *> = styled.View`
   padding: 12px;
+  background-color: ${props => props.backgroundColor || props.theme.colors.backgroundColor};
 `
-
-const AcceptButtonContainer = styled(ButtonContainer)`
-  background-color: ${props => props.theme.colors.themeColor};
-`
-
-type SlideType = {|
-  key: string,
-  title: string,
-  text: string,
-  image?: number
-|}
-
-const slides: Array<SlideType> = [
-  {
-    key: 'search',
-    title: 'search',
-    text: 'searchDescription',
-    image: Search
-  }, {
-    key: 'events',
-    title: 'events',
-    text: 'eventsDescription',
-    image: Events
-  }, {
-    key: 'offers',
-    title: 'offers',
-    text: 'offersDescription',
-    image: Offers
-  }, {
-    key: 'languageChange',
-    title: 'languageChange',
-    text: 'languageChangeDescription',
-    image: Language
-  }, {
-    key: 'inquiry',
-    title: 'inquiryTitle',
-    text: 'inquiryDescription'
-  }
-]
 
 type PropsType = {| t: TFunction, navigation: NavigationScreenProp<*>, theme: ThemeType |}
-type StateType = {| isLastSlide: boolean, allowPushNotifications: boolean, useLocationAccess: boolean |}
+type StateType = {|
+  slideCount: number,
+  currentSlide: number,
+  allowPushNotifications: boolean,
+  useLocationAccess: boolean,
+  width: number
+|}
 
 class Intro extends React.Component<PropsType, StateType> {
-  appIntroSlider: {current: null | React$ElementRef<AppIntroSlider>}
-  appSettings: AppSettings
+  _appSettings: AppSettings
+  _flatList: {current: null | React$ElementRef<FlatList<SlideType>>}
 
   constructor (props: PropsType) {
     super(props)
-    this.state = { isLastSlide: false, allowPushNotifications: false, useLocationAccess: false }
-    this.appIntroSlider = React.createRef()
-    this.appSettings = new AppSettings()
+    this.state = {
+      currentSlide: 0,
+      slideCount: this.slides().length,
+      allowPushNotifications: false,
+      useLocationAccess: false,
+      width: Dimensions.get('window').width
+    }
+    this._appSettings = new AppSettings()
+    this._flatList = React.createRef()
+  }
+
+  renderImageContent = (image: number) => (): React.Node => <ImageContent source={image} />
+
+  slides = (): Array<SlideType> => {
+    const { t } = this.props
+    return [{
+      key: t('search'),
+      title: t('search'),
+      description: t('searchDescription'),
+      renderContent: this.renderImageContent(Search)
+    }, {
+      key: t('events'),
+      title: t('events'),
+      description: t('eventsDescription'),
+      renderContent: this.renderImageContent(Events)
+    }, {
+      key: t('offers'),
+      title: t('offers'),
+      description: t('offersDescription'),
+      renderContent: this.renderImageContent(Offers)
+    }, {
+      key: t('languageChange'),
+      title: t('languageChange'),
+      description: t('languageChangeDescription'),
+      renderContent: this.renderImageContent(Language)
+    }, {
+      key: t('inquiry'),
+      title: t('inquiryTitle'),
+      description: t('inquiryDescription'),
+      renderContent: this.renderSettings
+    }]
   }
 
   setAllowPushNotifications = () => this.setState(prevState =>
@@ -117,17 +125,6 @@ class Intro extends React.Component<PropsType, StateType> {
     </>
   }
 
-  renderItem = ({ item, index }: { item: SlideType, index: number}) => {
-    const { t, theme } = this.props
-    const isInquirySlide = index === slides.length - 1
-    return <SlideContent title={t(item.title)} description={t(item.text)} theme={theme}>
-      {isInquirySlide
-        ? this.renderSettings()
-        : <CenteredImage source={item.image} />
-      }
-    </SlideContent>
-  }
-
   onAccept = async () => this.onDone(true)
 
   onRefuse = async () => this.onDone(false)
@@ -139,49 +136,55 @@ class Intro extends React.Component<PropsType, StateType> {
     }
 
     const { allowPushNotifications, useLocationAccess } = this.state
-    await this.appSettings.setSettings({ errorTracking, allowPushNotifications, useLocationAccess })
+    await this._appSettings.setSettings({ errorTracking, allowPushNotifications, useLocationAccess })
     this.props.navigation.navigate('Landing')
   }
 
-  onSlideChange = (index: number) =>
-    this.setState({ isLastSlide: index === slides.length - 1 })
+  onSlideChange = (currentSlide: number) => this.setState({ currentSlide })
+  nextSlide = () => this.setState(prevState => ({
+    currentSlide: Math.max(++prevState.currentSlide, prevState.slideCount - 1)
+  }))
+  previousSlide = () => this.setState(prevState => ({ currentSlide: Math.min(--prevState.currentSlide, 0) }))
+  lastSlide = () => this.setState({ currentSlide: this.slides().length - 1 })
 
-  onSkip = () => {
-    if (!this.appIntroSlider.current) {
-      throw Error()
-    }
-    this.appIntroSlider.current.goToSlide(slides.length - 1)
-    this.setState({ isLastSlide: true })
+  skipButton = (): ButtonType => ({
+    label: this.props.t('skip'),
+    onPress: this.lastSlide
+  })
+
+  refuseButton = (): ButtonType => ({
+    label: this.props.t('refuse'),
+    onPress: this.onRefuse
+  })
+
+  nextButton = (): ButtonType => ({
+    label: this.props.t('next'),
+    onPress: this.nextSlide
+  })
+
+  acceptButton = (): ButtonType => ({
+    label: this.props.t('accept'),
+    onPress: this.onAccept
+  })
+
+  renderSlide = ({ item }: { item: SlideType }) => {
+    return <SlideContent item={item} theme={this.props.theme} width={this.state.width} />
   }
 
-  renderRefuseButton = () => {
-    const { t, theme } = this.props
-    return <ButtonContainer>
-      <TouchableOpacity onPress={this.onRefuse}>
-        <ButtonText theme={theme}>{t('refuse')}</ButtonText>
-      </TouchableOpacity>
-    </ButtonContainer>
-  }
+  renderFooter = () => {
+    const { theme } = this.props
+    const { currentSlide, slideCount } = this.state
+    const leftButton = currentSlide === slideCount - 1 ? this.refuseButton() : this.skipButton()
+    const rightButton = currentSlide === slideCount - 1 ? this.acceptButton() : this.nextButton()
 
-  renderAcceptButton = () => {
-    const { theme, t } = this.props
-    return <AcceptButtonContainer theme={theme}>
-      <TouchableOpacity onPress={this.onAccept}>
-        <ButtonText theme={theme}>{t('accept')}</ButtonText>
-      </TouchableOpacity>
-    </AcceptButtonContainer>
+    return <SlideFooter leftButton={leftButton} rightButton={rightButton} slideCount={slideCount}
+                        currentSlide={currentSlide} leftSwipe={this.previousSlide} rightSwipe={this.nextSlide}
+                        theme={theme} />
   }
 
   render () {
-    const { theme, t } = this.props
-    const colors = theme.colors
-    return <AppIntroSlider ref={this.appIntroSlider} slides={slides} renderItem={this.renderItem}
-                           showSkipButton skipLabel={t('skip')} onSkip={this.onSkip} nextLabel={t('next')}
-                           renderPrevButton={this.renderRefuseButton} showPrevButton={this.state.isLastSlide}
-                           onSlideChange={this.onSlideChange} renderDoneButton={this.renderAcceptButton}
-                           dotStyle={{ backgroundColor: colors.textDecorationColor }}
-                           activeDotStyle={{ backgroundColor: colors.textSecondaryColor }}
-                           buttonTextStyle={{ color: colors.textColor }} backgroundColor={colors.backgroundColor} />
+    return <FlatList ref={this._flatList} data={this.slides()} horizontal pagingEnabled
+                     showsHorizontalScrollIndicator={false} bounces={false} renderItem={this.renderSlide} />
   }
 }
 

@@ -4,7 +4,7 @@ import * as React from 'react'
 import styled, { type StyledComponent } from 'styled-components/native'
 import type { ThemeType } from '../../modules/theme/constants/theme'
 
-const Slide: StyledComponent<{}, ThemeType, *> = styled.View`
+const Container: StyledComponent<{| width: number |}, ThemeType, *> = styled.View`
   display: flex;
   justify-content: space-around;
   padding: 32px 16px 64px;
@@ -12,7 +12,7 @@ const Slide: StyledComponent<{}, ThemeType, *> = styled.View`
   background-color: ${props => props.theme.colors.backgroundColor};
 `
 
-const Container = styled.View`
+const TextContainer = styled.View`
   flex: 1;
   justify-content: center;
   width: 100%;
@@ -37,27 +37,34 @@ const Description: StyledComponent<{}, ThemeType, *> = styled.Text`
   text-align: center;
 `
 
-type PropsType = {|
+export type SlideType = {|
+  key: string,
   title: string,
   description: string,
-  children: React.Node,
-  theme: ThemeType
+  renderContent: () => React.Node
+|}
+
+type PropsType = {|
+  item: SlideType,
+  theme: ThemeType,
+  width: number
 |}
 
 class SlideContent extends React.Component<PropsType> {
   render () {
-    const { theme, title, description, children } = this.props
-    return <Slide theme={theme}>
-      <Container>
-        <Heading theme={theme}>{title}</Heading>
-      </Container>
+    const { theme, item, width } = this.props
+
+    return <Container theme={theme} width={width}>
+      <TextContainer>
+        <Heading theme={theme}>{item.title}</Heading>
+      </TextContainer>
       <ContentContainer>
-        {children}
+        {item.renderContent}
       </ContentContainer>
-      <Container>
-        <Description theme={theme}>{description}</Description>
-      </Container>
-    </Slide>
+      <TextContainer>
+        <Description theme={theme}>{item.description}</Description>
+      </TextContainer>
+    </Container>
   }
 }
 
