@@ -37,7 +37,7 @@ const Description: StyledComponent<{}, ThemeType, *> = styled.Text`
   text-align: center;
 `
 
-export type SlideType = {|
+export type SlideContentType = {|
   key: string,
   title: string,
   description: string,
@@ -45,21 +45,20 @@ export type SlideType = {|
 |}
 
 type PropsType = {|
-  item: SlideType,
-  theme: ThemeType,
-  width: number
+  item: SlideContentType,
+  theme: ThemeType
 |}
 
 class SlideContent extends React.Component<PropsType> {
   render () {
-    const { theme, item, width } = this.props
+    const { theme, item } = this.props
 
-    return <Container theme={theme} width={width}>
+    return <Container theme={theme}>
       <TextContainer>
         <Heading theme={theme}>{item.title}</Heading>
       </TextContainer>
       <ContentContainer>
-        {item.renderContent}
+        {item.renderContent()}
       </ContentContainer>
       <TextContainer>
         <Description theme={theme}>{item.description}</Description>
