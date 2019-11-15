@@ -10,6 +10,7 @@ const Container: StyledComponent<{| width: number |}, ThemeType, *> = styled.Vie
   padding: 32px 16px 64px;
   flex: 1;
   background-color: ${props => props.theme.colors.backgroundColor};
+  width: ${props => props.width};
 `
 
 const TextContainer = styled.View`
@@ -46,14 +47,15 @@ export type SlideContentType = {|
 
 type PropsType = {|
   item: SlideContentType,
-  theme: ThemeType
+  theme: ThemeType,
+  width: number
 |}
 
 class SlideContent extends React.Component<PropsType> {
   render () {
-    const { theme, item } = this.props
+    const { width, theme, item } = this.props
 
-    return <Container theme={theme}>
+    return <Container theme={theme} width={width}>
       <TextContainer>
         <Heading theme={theme}>{item.title}</Heading>
       </TextContainer>

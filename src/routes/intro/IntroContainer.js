@@ -18,6 +18,14 @@ import SentryIntegration from '../../modules/app/SentryIntegration'
 import type { ButtonType } from './SlideFooter'
 import SlideFooter from './SlideFooter'
 
+const Container: StyledComponent<{| width: number |}, {}, *> = styled.View`
+  display: flex;
+  flex-direction: column;
+  width: ${props => props.width};
+  height: 100%;
+  justify-content: space-between;
+`
+
 const ImageContent = styled.Image`
   justify-content: center;
   align-self: center;
@@ -25,15 +33,10 @@ const ImageContent = styled.Image`
   height: 65%;
 `
 
-const Slide = styled.View`
-  display: flex;
-  flex-direction: column;
-  width: ${props => props.width};
-`
-
 type PropsType = {| t: TFunction, navigation: NavigationScreenProp<*>, theme: ThemeType |}
 type StateType = {|
   slideCount: number,
+  currentSlide: number,
   allowPushNotifications: boolean,
   useLocationAccess: boolean,
   width: number
@@ -47,6 +50,7 @@ class Intro extends React.Component<PropsType, StateType> {
     super(props)
     this.state = {
       slideCount: this.slides().length,
+      currentSlide: 0,
       allowPushNotifications: false,
       useLocationAccess: false,
       width: Dimensions.get('window').width
@@ -138,6 +142,7 @@ class Intro extends React.Component<PropsType, StateType> {
       throw Error('ref not correctly set')
     }
     this._flatList.current.scrollToIndex({ index: ++index, viewOffset: 0 })
+    this.setState(prevState => ({ currentSlide: ++prevState.currentSlide }))
   }
 
   lastSlide = () => {
@@ -145,13 +150,15 @@ class Intro extends React.Component<PropsType, StateType> {
       throw Error('ref not correctly set')
     }
     this._flatList.current.scrollToEnd()
+    this.setState(prevState => ({ currentSlide: prevState.slideCount - 1 }))
   }
 
   goToSlide = (index: number) => {
     if (!this._flatList.current) {
       throw Error('ref not correctly set')
     }
-    this._flatList.current.scrollToIndex(index)
+    this._flatList.current.scrollToIndex({ index, viewOffset: 0 })
+    this.setState({ currentSlide: index })
   }
 
   skipButton = (): ButtonType => ({
@@ -174,27 +181,34 @@ class Intro extends React.Component<PropsType, StateType> {
     onPress: this.onAccept
   })
 
-  renderSlide = ({ item, index }: { item: SlideContentType, index: number }) => {
-    return <Slide width={this.state.width}>
-        <SlideContent item={item} theme={this.props.theme} />
-        {this.renderFooter(index)}
-      </Slide>
+  renderSlide = ({ item }: { item: SlideContentType }) => {
+    return <SlideContent item={item} theme={this.props.theme} width={this.state.width} />
   }
 
-  renderFooter = (index: number) => {
+  onViewableItemsChanged = ({ viewableItems }: {| viewableItems: Array<{}> |}) => {
+    if (viewableItems.length === 1) {
+      this.setState({ currentSlide: viewableItems[0].index })
+    }
+  }
+
+  renderFooter = () => {
     const { theme } = this.props
-    const { slideCount } = this.state
-    const leftButton = index === slideCount - 1 ? this.refuseButton() : this.skipButton()
-    const rightButton = index === slideCount - 1 ? this.acceptButton() : this.nextButton(index)
+    const { slideCount, currentSlide } = this.state
+    const leftButton = currentSlide === slideCount - 1 ? this.refuseButton() : this.skipButton()
+    const rightButton = currentSlide === slideCount - 1 ? this.acceptButton() : this.nextButton(currentSlide)
 
     return <SlideFooter leftButton={leftButton} rightButton={rightButton} slideCount={slideCount}
-                        currentSlide={index} leftSwipe={this.previousSlide} rightSwipe={this.nextSlide}
-                        theme={theme} />
+                        currentSlide={currentSlide} goToSlide={this.goToSlide} theme={theme} />
   }
 
   render () {
-    return <FlatList ref={this._flatList} data={this.slides()} horizontal pagingEnabled
-                     showsHorizontalScrollIndicator={false} bounces={false} renderItem={this.renderSlide} />
+    return <Container width={this.state.width}>
+      <FlatList ref={this._flatList} data={this.slides()} horizontal pagingEnabled
+                viewabilityConfig={{ itemVisiblePercentThreshold: 51, minimumViewTime: 0 }}
+                onViewableItemsChanged={this.onViewableItemsChanged} showsHorizontalScrollIndicator={false}
+                bounces={false} renderItem={this.renderSlide} />
+      {this.renderFooter()}
+    </Container>
   }
 }
 
