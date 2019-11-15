@@ -4,6 +4,7 @@ import * as React from 'react'
 import type { ThemeType } from '../../modules/theme/constants/theme'
 import styled, { type StyledComponent } from 'styled-components/native'
 import { range } from 'lodash'
+import { type TFunction } from 'react-i18next'
 
 const Container: StyledComponent<{}, ThemeType, *> = styled.View`
   flex: 0.1;
@@ -12,18 +13,21 @@ const Container: StyledComponent<{}, ThemeType, *> = styled.View`
   background-color: ${props => props.theme.colors.backgroundColor};
 `
 
-const ButtonContainer: StyledComponent<{ backgroundColor: string, end: boolean }, ThemeType, *> =
-  styled.TouchableOpacity`
+const ButtonContainer: StyledComponent<{}, ThemeType, *> = styled.TouchableOpacity`
   flex: 1;
   padding: 12px;
-  background-color: ${props => props.backgroundColor};
-  align-content: ${props => props.end ? 'flex-end' : 'flex-start'};
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 `
 
-const ButtonText = styled.Text`
+const ButtonText: StyledComponent<{ backgroundColor: string }, ThemeType, *> = styled.Text`
   color: ${props => props.theme.colors.textColor};
+  background-color: ${props => props.backgroundColor};
   font-size: 18px;
   text-align: center;
+  padding: 8px 16px;
+  border-radius: 3px;
 `
 
 const DotsContainer = styled.View`
@@ -50,20 +54,43 @@ export type ButtonType = {|
 |}
 
 type PropsType = {|
-  leftButton: ButtonType,
-  rightButton: ButtonType,
   slideCount: number,
   currentSlide: number,
   goToSlide: (index: number) => void,
-  theme: ThemeType
+  onDisable: () => void,
+  onAccept: () => void,
+  theme: ThemeType,
+  t: TFunction
 |}
 
 class SlideFooter extends React.Component<PropsType> {
-  renderButton = (button: ButtonType, end: boolean): React.Node => {
+  skipButton = (): ButtonType => ({
+    label: this.props.t('skip'),
+    onPress: () => this.props.goToSlide(this.props.slideCount - 1)
+  })
+
+  refuseButton = (): ButtonType => ({
+    label: this.props.t('disableAll'),
+    onPress: this.props.onDisable
+  })
+
+  nextButton = (currentIndex: number): ButtonType => ({
+    label: this.props.t('next'),
+    onPress: () => this.props.goToSlide(++currentIndex)
+  })
+
+  acceptButton = (): ButtonType => ({
+    label: this.props.t('accept'),
+    onPress: this.props.onAccept,
+    backgroundColor: this.props.theme.colors.themeColor
+  })
+
+  renderButton = (button: ButtonType): React.Node => {
     const { theme } = this.props
-    return <ButtonContainer theme={theme} onPress={button.onPress} end={end}
-                            backgroundColor={button.backgroundColor || theme.colors.backgroundColor}>
-      <ButtonText theme={theme}>{button.label}</ButtonText>
+    return <ButtonContainer theme={theme} onPress={button.onPress}>
+      <ButtonText theme={theme} backgroundColor={button.backgroundColor || theme.colors.backgroundColor}>
+        {button.label}
+      </ButtonText>
     </ButtonContainer>
   }
 
@@ -79,11 +106,15 @@ class SlideFooter extends React.Component<PropsType> {
   }
 
   render () {
-    const { leftButton, rightButton, theme } = this.props
+    const { currentSlide, slideCount, theme } = this.props
+
+    const leftButton = currentSlide === slideCount - 1 ? this.refuseButton() : this.skipButton()
+    const rightButton = currentSlide === slideCount - 1 ? this.acceptButton() : this.nextButton(currentSlide)
+
     return <Container theme={theme}>
-      {this.renderButton(leftButton, false)}
+      {this.renderButton(leftButton)}
       {this.renderPagination()}
-      {this.renderButton(rightButton, true)}
+      {this.renderButton(rightButton)}
     </Container>
   }
 }

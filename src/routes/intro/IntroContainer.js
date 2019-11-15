@@ -15,7 +15,6 @@ import AppSettings from '../../modules/settings/AppSettings'
 import SettingItem from '../settings/components/SettingItem'
 import SlideContent, { type SlideContentType } from './SlideContent'
 import SentryIntegration from '../../modules/app/SentryIntegration'
-import type { ButtonType } from './SlideFooter'
 import SlideFooter from './SlideFooter'
 import type { ViewToken } from 'react-native/Libraries/Lists/ViewabilityHelper'
 
@@ -151,46 +150,12 @@ class Intro extends React.Component<PropsType, StateType> {
     this.props.navigation.navigate('Landing')
   }
 
-  nextSlide = (index: number) => {
-    if (!this._flatList.current) {
-      throw Error('ref not correctly set')
-    }
-    this._flatList.current.scrollToIndex({ index: ++index })
-  }
-
-  lastSlide = () => {
-    if (!this._flatList.current) {
-      throw Error('ref not correctly set')
-    }
-    this._flatList.current.scrollToEnd()
-  }
-
   goToSlide = (index: number) => {
     if (!this._flatList.current) {
       throw Error('ref not correctly set')
     }
     this._flatList.current.scrollToIndex({ index })
   }
-
-  skipButton = (): ButtonType => ({
-    label: this.props.t('skip'),
-    onPress: this.lastSlide
-  })
-
-  refuseButton = (): ButtonType => ({
-    label: this.props.t('disableAll'),
-    onPress: this.disableAll
-  })
-
-  nextButton = (currentIndex: number): ButtonType => ({
-    label: this.props.t('next'),
-    onPress: () => this.nextSlide(currentIndex)
-  })
-
-  acceptButton = (): ButtonType => ({
-    label: this.props.t('accept'),
-    onPress: this.onDone
-  })
 
   renderSlide = ({ item }: { item: SlideContentType }) => {
     return <SlideContent item={item} theme={this.props.theme} width={this.state.width} />
@@ -204,23 +169,16 @@ class Intro extends React.Component<PropsType, StateType> {
     }
   }
 
-  renderFooter = () => {
-    const { theme } = this.props
-    const { slideCount, currentSlide } = this.state
-    const leftButton = currentSlide === slideCount - 1 ? this.refuseButton() : this.skipButton()
-    const rightButton = currentSlide === slideCount - 1 ? this.acceptButton() : this.nextButton(currentSlide)
-
-    return <SlideFooter leftButton={leftButton} rightButton={rightButton} slideCount={slideCount}
-                        currentSlide={currentSlide} goToSlide={this.goToSlide} theme={theme} />
-  }
-
   render () {
-    return <Container width={this.state.width}>
+    const { theme } = this.props
+    const { slideCount, currentSlide, width, t } = this.state
+    return <Container width={width}>
       <FlatList ref={this._flatList} data={this.slides()} horizontal pagingEnabled
                 viewabilityConfig={{ itemVisiblePercentThreshold: 51, minimumViewTime: 0.1 }}
                 onViewableItemsChanged={this.onViewableItemsChanged} showsHorizontalScrollIndicator={false}
                 bounces={false} renderItem={this.renderSlide} />
-      {this.renderFooter()}
+      <SlideFooter slideCount={slideCount} onDisable={this.disableAll} onAccept={this.onDone}
+                   currentSlide={currentSlide} goToSlide={this.goToSlide} theme={theme} t={t} />
     </Container>
   }
 }
