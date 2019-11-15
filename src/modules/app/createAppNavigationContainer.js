@@ -12,6 +12,7 @@ import type {
 } from 'react-navigation'
 import { createAppContainer, createStackNavigator, createSwitchNavigator } from 'react-navigation'
 import TransparentHeaderContainer from '../layout/containers/TransparentHeaderContainer'
+import EmptyHeaderContainer from '../layout/containers/EmptyHeaderContainer'
 import HeaderContainer from '../layout/containers/HeaderContainer'
 import ExtrasContainer from '../../routes/extras/containers/ExtrasContainer'
 import { EXTERNAL_EXTRA_ROUTE, SPRUNGBRETT_ROUTE, WOHNEN_ROUTE } from '../../routes/extras/constants'
@@ -42,6 +43,9 @@ const createNavigationRouteConfig = (Component: NavigationComponent, header = nu
 const transparentHeader = (headerProps: HeaderProps) =>
   <TransparentHeaderContainer scene={headerProps.scene} scenes={headerProps.scenes} />
 
+const emptyHeader = (headerProps: HeaderProps) =>
+  <EmptyHeaderContainer scene={headerProps.scene} scenes={headerProps.scenes} />
+
 const defaultHeader = (headerProps: HeaderProps) =>
   <HeaderContainer scene={headerProps.scene} scenes={headerProps.scenes} />
 
@@ -55,7 +59,7 @@ const cityContentRouteConfigMap: NavigationRouteConfigMap = {
   'Events': createNavigationRouteConfig( // $FlowFixMe We don't know why this fails.
     EventsContainer, defaultHeader
   ),
-  'Settings': createNavigationRouteConfig(SettingsContainer, defaultHeader),
+  'Settings': createNavigationRouteConfig(SettingsContainer, emptyHeader),
   'Disclaimer': createNavigationRouteConfig(DisclaimerContainer, defaultHeader),
   'ChangeLanguageModal': createNavigationRouteConfig(ChangeLanguageModalContainer),
   'SearchModal': createNavigationRouteConfig(SearchModalContainer),
