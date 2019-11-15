@@ -467,6 +467,13 @@ describe('DatabaseConnector', () => {
         { city: 'regensburg', lastUsage: moment('2013-05-04T00:00:00.000Z') }
       ])
     })
+
+    it('should return empty array if persisted data is malformatted', async () => {
+      const path = databaseConnector.getMetaCitiesPath()
+      RNFetchBlob.fs.writeFile(path, `{ "i": "am": "malformatted" } }`, 'utf8')
+      const usages = await databaseConnector.loadLastUsages()
+      expect(usages).toEqual([])
+    })
   })
 
   describe('deleteOldFiles', () => {
