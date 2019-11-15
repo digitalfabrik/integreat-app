@@ -10,8 +10,8 @@ import {
   LocationModel
 } from '@integreat-app/integreat-api-client'
 import RNFetchblob from 'rn-fetch-blob'
-import type Moment from 'moment-timezone'
-import moment from 'moment-timezone'
+import type Moment from 'moment'
+import moment from 'moment'
 import type {
   CityResourceCacheStateType,
   LanguageResourceCacheStateType,
@@ -19,8 +19,15 @@ import type {
   PageResourceCacheStateType
 } from '../app/StateType'
 import DatabaseContext from './DatabaseContext'
-import { CACHE_DIR_PATH, CONTENT_DIR_PATH, RESOURCE_CACHE_DIR_PATH } from '../platform/constants/webview'
-import { mapValues } from 'lodash'
+import { map, mapValues } from 'lodash'
+import { CONTENT_VERSION, RESOURCE_CACHE_VERSION } from '../endpoint/persistentVersions'
+
+// Our pdf view can only load from DocumentDir. Therefore we need to use that
+export const CACHE_DIR_PATH = RNFetchblob.fs.dirs.DocumentDir
+export const CONTENT_DIR_PATH = `${CACHE_DIR_PATH}/content/${CONTENT_VERSION}`
+export const RESOURCE_CACHE_DIR_PATH = `${CACHE_DIR_PATH}/resource-cache/${RESOURCE_CACHE_VERSION}`
+
+const MAX_STORED_CITIES = 3
 
 type ContentCategoryJsonType = {|
   root: string,
@@ -72,25 +79,29 @@ type ContentCityJsonType = {|
 type CityCodeType = string
 type LanguageCodeType = string
 
+type MetaCitiesEntryType = {|
+  languages: {
+    [LanguageCodeType]: {|
+      lastUpdate: Moment
+    |}
+  },
+  lastUsage: Moment
+|}
+
 type MetaCitiesJsonType = {
   [CityCodeType]: {|
     languages: {
       [LanguageCodeType]: {|
         last_update: string
       |}
-    }
+    },
+    last_usage: string
   |}
 }
 
-type MetaCitiesType = {
-  [CityCodeType]: {|
-    languages: {
-      [LanguageCodeType]: {|
-        lastUpdate: Moment
-      |}
-    }
-  |}
-}
+type CityLastUsageType = {| city: CityCodeType, lastUsage: Moment |}
+
+type MetaCitiesType = { [CityCodeType]: MetaCitiesEntryType }
 
 type PageResourceCacheEntryJsonType = {|
   file_path: string,
@@ -145,7 +156,13 @@ class DatabaseConnector {
     return `${CACHE_DIR_PATH}/cities.json`
   }
 
-  async storeLastUpdate (lastUpdate: Moment, context: DatabaseContext) {
+  /**
+   * Prior to storing lastUpdate, there needs to be a lastUsage of the city in the context.
+   */
+  async storeLastUpdate (lastUpdate: Moment | null, context: DatabaseContext) {
+    if (lastUpdate === null) {
+      throw Error('cannot set lastUsage to null')
+    }
     const cityCode = context.cityCode
     const languageCode = context.languageCode
 
@@ -154,14 +171,21 @@ class DatabaseConnector {
     } else if (!languageCode) {
       throw Error('languageCode mustn\'t be empty')
     }
-    const citiesMeta = await this._loadMetaCities()
-    citiesMeta[cityCode] = citiesMeta[cityCode] || { languages: {} }
-    citiesMeta[cityCode].languages = {
-      ...citiesMeta[cityCode].languages,
-      [context.languageCode]: { lastUpdate }
-    }
 
-    await this._storeMetaCities(citiesMeta)
+    const metaData = await this._loadMetaCities() || {}
+
+    if (!metaData[cityCode]) {
+      throw Error('cannot store last update for unused city')
+    }
+    metaData[cityCode].languages[languageCode] = { lastUpdate }
+
+    this._storeMetaCities(metaData)
+  }
+
+  async deleteMetaOfCities (cities: Array<string>) {
+    const metaCities = await this._loadMetaCities()
+    cities.forEach(city => delete metaCities[city])
+    await this._storeMetaCities(metaCities)
   }
 
   async loadLastUpdate (context: DatabaseContext): Promise<Moment | null> {
@@ -174,15 +198,8 @@ class DatabaseConnector {
       throw new Error('Language is not set in DatabaseContext!')
     }
 
-    const path = this.getMetaCitiesPath()
-    const fileExists: boolean = await RNFetchblob.fs.exists(path)
-
-    if (!fileExists) {
-      return null
-    }
-
-    const citiesMeta = await this._loadMetaCities()
-    return citiesMeta[cityCode]?.languages[languageCode]?.lastUpdate || null
+    const metaData = await this._loadMetaCities()
+    return metaData[cityCode]?.languages[languageCode]?.lastUpdate || null
   }
 
   async _loadMetaCities (): Promise<MetaCitiesType> {
@@ -196,7 +213,8 @@ class DatabaseConnector {
             cityMeta.languages,
             ({ last_update: jsonLastUpdate }): {| lastUpdate: Moment |} =>
               ({ lastUpdate: moment(jsonLastUpdate, moment.ISO_8601) })
-          )
+          ),
+          lastUsage: moment(cityMeta.last_usage, moment.ISO_8601)
         }))
       } catch (e) {
         console.warn('An error occurred while loading cities from JSON', e)
@@ -211,9 +229,42 @@ class DatabaseConnector {
       languages: mapValues(
         cityMeta.languages,
         ({ lastUpdate }): { last_update: string } => ({ last_update: lastUpdate.toISOString() })
-      )
+      ),
+      last_usage: cityMeta.lastUsage.toISOString()
     }))
     await this.writeFile(path, JSON.stringify(citiesMetaJson))
+  }
+
+  async loadLastUsages (): Promise<Array<CityLastUsageType>> {
+    const metaData = await this._loadMetaCities()
+    return map<MetaCitiesEntryType, MetaCitiesJsonType, CityLastUsageType>(
+      metaData, (value, key) => ({
+        city: key,
+        lastUsage: value.lastUsage
+      })
+    )
+  }
+
+  async storeLastUsage (context: DatabaseContext, peeking: boolean) {
+    const city = context.cityCode
+    if (!city) {
+      throw Error('cityCode mustn\'t be null')
+    }
+
+    const metaData = await this._loadMetaCities()
+
+    metaData[city] = {
+      lastUsage: moment(),
+      languages: metaData[city]?.languages || {}
+    }
+
+    await this._storeMetaCities(metaData)
+
+    // Only delete files if not peeking, otherwise if you peek from one city to three different cities, the content of
+    // the non peeking city would be deleted while still open
+    if (!peeking) {
+      await this.deleteOldFiles(context)
+    }
   }
 
   async storeCategories (categoriesMap: CategoriesMapModel, context: DatabaseContext) {
@@ -415,6 +466,36 @@ class DatabaseConnector {
         )
       )
     await this.writeFile(path, JSON.stringify(json))
+  }
+
+  /**
+   * Deletes the resource caches and files of all but the latest used cities
+   * @return {Promise<void>}
+   */
+  async deleteOldFiles (context: DatabaseContext) {
+    const city = context.cityCode
+    if (!city) {
+      throw Error('cityCode mustn\'t be null')
+    }
+    const lastUsages = await this.loadLastUsages()
+    const cachesToDelete = lastUsages.filter(it => it.city !== city)
+    // Sort last usages chronological, from oldest to newest
+      .sort((a, b) =>
+        a.lastUsage.isBefore(b.lastUsage) ? -1 : (a.lastUsage.isSame(b.lastUsage) ? 0 : 1)
+      )
+      // We only have to remove MAX_STORED_CITIES - 1 since we already filtered for the current resource cache
+      .slice(0, -(MAX_STORED_CITIES - 1))
+
+    await Promise.all(cachesToDelete.map(cityLastUpdate => {
+      const city = cityLastUpdate.city
+      const cityResourceCachePath = `${RESOURCE_CACHE_DIR_PATH}/${city}`
+      RNFetchblob.fs.unlink(cityResourceCachePath)
+
+      const cityContentPath = `${CONTENT_DIR_PATH}/${city}`
+      return RNFetchblob.fs.unlink(cityContentPath)
+    }))
+
+    await this.deleteMetaOfCities(cachesToDelete.map(it => it.city))
   }
 
   isCitiesPersisted (): Promise<boolean> {

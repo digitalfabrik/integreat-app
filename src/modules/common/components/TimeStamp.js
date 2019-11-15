@@ -43,4 +43,4 @@ export class TimeStamp extends React.PureComponent<PropsType> {
   }
 }
 
-export default translate('categories')(TimeStamp)
+export default translate('common')(TimeStamp)
