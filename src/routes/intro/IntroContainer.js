@@ -47,7 +47,7 @@ type StateType = {|
 
 class Intro extends React.Component<PropsType, StateType> {
   _appSettings: AppSettings
-  _flatList: {current: null | React$ElementRef<FlatList<SlideContentType>>}
+  _flatList: {current: null | React$ElementRef<typeof FlatList>}
 
   constructor (props: PropsType) {
     super(props)
@@ -133,9 +133,9 @@ class Intro extends React.Component<PropsType, StateType> {
     </>
   }
 
-  onRefuse = () => this.onDone(true)
+  onRefuse = () => { this.onDone(true) }
 
-  onContinue = () => this.onDone(false)
+  onContinue = () => { this.onDone(false) }
 
   onDone = async (refuse: boolean) => {
     if (refuse) {
