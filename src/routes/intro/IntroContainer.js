@@ -29,8 +29,10 @@ const Container: StyledComponent<{ width: number }, {}, *> = styled.View`
 const ImageContent = styled.Image`
   justify-content: center;
   align-self: center;
-  width: 65%;
-  height: 65%;
+  display: flex;
+  height: 100%;
+  width: 60%;
+  resize-mode: contain
 `
 
 type PropsType = {| t: TFunction, navigation: NavigationScreenProp<*>, theme: ThemeType |}
