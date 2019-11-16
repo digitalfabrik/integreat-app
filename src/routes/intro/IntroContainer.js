@@ -97,17 +97,9 @@ class Intro extends React.Component<PropsType, StateType> {
   setAllowPushNotifications = () => this.setState(prevState =>
     ({ allowPushNotifications: !prevState.allowPushNotifications }))
 
-  setUseLocationAccess = () => {
-    this.setState(prevState =>
-      ({ useLocationAccess: !prevState.useLocationAccess }))
+  setUseLocationAccess = () => this.setState(prevState => ({ useLocationAccess: !prevState.useLocationAccess }))
 
-    if (this.state.useLocationAccess) {
-      // TODO request permissions and disable again if not granted
-    }
-  }
-
-  setAllowSentry = () => this.setState(prevState =>
-    ({ allowSentry: !prevState.allowSentry }))
+  setAllowSentry = () => this.setState(prevState => ({ allowSentry: !prevState.allowSentry }))
 
   renderSettings = (): React.Node => {
     const { t, theme } = this.props
@@ -138,24 +130,21 @@ class Intro extends React.Component<PropsType, StateType> {
   onContinue = () => { this.onDone(false) }
 
   onDone = async (refuse: boolean) => {
-    if (refuse) {
-      await this._appSettings.setSettings({
-        errorTracking: false, allowPushNotifications: false, useLocationAccess: false
-      })
-    } else {
-      const { allowSentry, allowPushNotifications, useLocationAccess } = this.state
+    const allowPushNotifications = refuse ? false : this.state.allowPushNotifications
+    const errorTracking = refuse ? false : this.state.allowSentry
+    const useLocationAccess = refuse ? false : this.state.useLocationAccess
 
-      if (allowSentry) {
-        const sentry = new SentryIntegration()
-        await sentry.install()
-      }
-
-      if (useLocationAccess) {
-        // TODO request permission, return if not granted
-      }
-
-      await this._appSettings.setSettings({ errorTracking: allowSentry, allowPushNotifications, useLocationAccess })
+    if (errorTracking) {
+      const sentry = new SentryIntegration()
+      await sentry.install()
     }
+
+    if (useLocationAccess) {
+      // TODO request permission, return if not granted
+    }
+
+    await this._appSettings.setSettings({ errorTracking, allowPushNotifications, useLocationAccess })
+    this._appSettings.setIntroShown()
     this.props.navigation.navigate('Landing')
   }
 
