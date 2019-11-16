@@ -43,7 +43,6 @@
     "react": "16.8.3",
     "react-i18next": "^9.0.5",
     "react-native": "0.59.9",
-    "react-native-app-intro-slider": "^3.0.0",
     "react-native-elements": "^1.0.0-beta7",
     "react-native-fast-image": "^5.1.2",
     "react-native-gesture-handler": "~1.2.2",
