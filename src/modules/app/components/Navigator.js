@@ -38,7 +38,7 @@ class Navigator extends React.Component<PropsType, StateType> {
       throw Error('The contentLanguage has not been set correctly by I18nProvider!')
     }
 
-    if (true || !introShown) {
+    if (!introShown) {
       this.appNavigationContainer = createAppNavigationContainer({ initialRouteName: 'Intro' })
     } else if (cityCode) {
       const key = generateKey()
