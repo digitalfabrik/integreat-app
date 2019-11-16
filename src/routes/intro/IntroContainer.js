@@ -131,22 +131,29 @@ class Intro extends React.Component<PropsType, StateType> {
     </>
   }
 
-  disableAll = () =>
-    this.setState({ allowSentry: false, allowPushNotifications: false, useLocationAccess: false })
+  onRefuse = () => this.onDone(true)
 
-  onDone = async () => {
-    const { allowSentry, allowPushNotifications, useLocationAccess } = this.state
+  onContinue = () => this.onDone(false)
 
-    if (allowSentry) {
-      const sentry = new SentryIntegration()
-      await sentry.install()
+  onDone = async (refuse: boolean) => {
+    if (refuse) {
+      await this._appSettings.setSettings({
+        errorTracking: false, allowPushNotifications: false, useLocationAccess: false
+      })
+    } else {
+      const { allowSentry, allowPushNotifications, useLocationAccess } = this.state
+
+      if (allowSentry) {
+        const sentry = new SentryIntegration()
+        await sentry.install()
+      }
+
+      if (useLocationAccess) {
+        // TODO request permission, return if not granted
+      }
+
+      await this._appSettings.setSettings({ errorTracking: allowSentry, allowPushNotifications, useLocationAccess })
     }
-
-    if (useLocationAccess) {
-      // TODO request permission, return if not granted
-    }
-
-    await this._appSettings.setSettings({ errorTracking: allowSentry, allowPushNotifications, useLocationAccess })
     this.props.navigation.navigate('Landing')
   }
 
@@ -170,14 +177,14 @@ class Intro extends React.Component<PropsType, StateType> {
   }
 
   render () {
-    const { theme } = this.props
-    const { slideCount, currentSlide, width, t } = this.state
+    const { theme, t } = this.props
+    const { slideCount, currentSlide, width } = this.state
     return <Container width={width}>
       <FlatList ref={this._flatList} data={this.slides()} horizontal pagingEnabled
                 viewabilityConfig={{ itemVisiblePercentThreshold: 51, minimumViewTime: 0.1 }}
                 onViewableItemsChanged={this.onViewableItemsChanged} showsHorizontalScrollIndicator={false}
                 bounces={false} renderItem={this.renderSlide} />
-      <SlideFooter slideCount={slideCount} onDisable={this.disableAll} onAccept={this.onDone}
+      <SlideFooter slideCount={slideCount} onRefuse={this.onRefuse} onContinue={this.onContinue}
                    currentSlide={currentSlide} goToSlide={this.goToSlide} theme={theme} t={t} />
     </Container>
   }

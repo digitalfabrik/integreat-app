@@ -57,8 +57,8 @@ type PropsType = {|
   slideCount: number,
   currentSlide: number,
   goToSlide: (index: number) => void,
-  onDisable: () => void,
-  onAccept: () => void,
+  onRefuse: () => void,
+  onContinue: () => void,
   theme: ThemeType,
   t: TFunction
 |}
@@ -70,8 +70,8 @@ class SlideFooter extends React.Component<PropsType> {
   })
 
   refuseButton = (): ButtonType => ({
-    label: this.props.t('disableAll'),
-    onPress: this.props.onDisable
+    label: this.props.t('refuse'),
+    onPress: this.props.onRefuse
   })
 
   nextButton = (currentIndex: number): ButtonType => ({
@@ -79,9 +79,9 @@ class SlideFooter extends React.Component<PropsType> {
     onPress: () => this.props.goToSlide(++currentIndex)
   })
 
-  acceptButton = (): ButtonType => ({
-    label: this.props.t('accept'),
-    onPress: this.props.onAccept,
+  continueButton = (): ButtonType => ({
+    label: this.props.t('continue'),
+    onPress: this.props.onContinue,
     backgroundColor: this.props.theme.colors.themeColor
   })
 
@@ -109,7 +109,7 @@ class SlideFooter extends React.Component<PropsType> {
     const { currentSlide, slideCount, theme } = this.props
 
     const leftButton = currentSlide === slideCount - 1 ? this.refuseButton() : this.skipButton()
-    const rightButton = currentSlide === slideCount - 1 ? this.acceptButton() : this.nextButton(currentSlide)
+    const rightButton = currentSlide === slideCount - 1 ? this.continueButton() : this.nextButton(currentSlide)
 
     return <Container theme={theme}>
       {this.renderButton(leftButton)}
