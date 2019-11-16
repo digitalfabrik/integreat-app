@@ -9,7 +9,7 @@ import { type TFunction } from 'react-i18next'
 const Container: StyledComponent<{}, ThemeType, *> = styled.View`
   flex: 0.1;
   flex-direction: row;
-  padding: 16px;
+  padding: 16px 0;
   background-color: ${props => props.theme.colors.backgroundColor};
 `
 
