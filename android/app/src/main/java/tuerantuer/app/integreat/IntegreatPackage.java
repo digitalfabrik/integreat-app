@@ -21,6 +21,7 @@ public class IntegreatPackage implements ReactPackage {
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
         List<NativeModule> modules = new ArrayList<>();
         modules.add(new FetcherModule(reactContext));
+        modules.add(new NativeConstantsModule(reactContext));
         return modules;
     }
 }
