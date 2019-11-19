@@ -54,9 +54,9 @@ class Intro extends React.Component<PropsType, StateType> {
     this.state = {
       slideCount: this.slides().length,
       currentSlide: 0,
-      allowPushNotifications: true,
-      useLocationAccess: true,
-      allowSentry: true,
+      allowPushNotifications: false,
+      useLocationAccess: false,
+      allowSentry: false,
       width: Dimensions.get('window').width
     }
     this._appSettings = new AppSettings()
@@ -125,14 +125,14 @@ class Intro extends React.Component<PropsType, StateType> {
     </>
   }
 
-  onRefuse = () => { this.onDone(true) }
+  onAccept = () => { this.onDone(true) }
 
   onContinue = () => { this.onDone(false) }
 
-  onDone = async (refuse: boolean) => {
-    const allowPushNotifications = refuse ? false : this.state.allowPushNotifications
-    const errorTracking = refuse ? false : this.state.allowSentry
-    const useLocationAccess = refuse ? false : this.state.useLocationAccess
+  onDone = async (accept: boolean) => {
+    const allowPushNotifications = accept ? true : this.state.allowPushNotifications
+    const errorTracking = accept ? true : this.state.allowSentry
+    const useLocationAccess = accept ? true : this.state.useLocationAccess
 
     if (errorTracking) {
       const sentry = new SentryIntegration()
@@ -175,7 +175,7 @@ class Intro extends React.Component<PropsType, StateType> {
                 viewabilityConfig={{ itemVisiblePercentThreshold: 51, minimumViewTime: 0.1 }}
                 onViewableItemsChanged={this.onViewableItemsChanged} showsHorizontalScrollIndicator={false}
                 bounces={false} renderItem={this.renderSlide} />
-      <SlideFooter slideCount={slideCount} onRefuse={this.onRefuse} onContinue={this.onContinue}
+      <SlideFooter slideCount={slideCount} onAccept={this.onAccept} onContinue={this.onContinue}
                    currentSlide={currentSlide} goToSlide={this.goToSlide} theme={theme} t={t} />
     </Container>
   }
