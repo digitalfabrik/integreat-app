@@ -15,6 +15,11 @@ jest.mock('../../../../routes/dashboard/containers/DashboardContainer', () => {
   const Text = require('react-native').Text
   return () => <Text>Dashboard</Text>
 })
+
+jest.mock('../../../../routes/intro/IntroContainer', () => {
+  const Text = require('react-native').Text
+  return () => <Text>Intro</Text>
+})
 jest.mock('../../../layout/containers/HeaderContainer', () => {
   const Text = require('react-native').Text
   return () => <Text>Header</Text>
@@ -79,7 +84,20 @@ describe('NavigatorContainer', () => {
     expect(store.getActions()).toEqual([{ type: 'FETCH_CITIES', params: { forceRefresh: true } }])
   })
 
-  it('should render the DashboardContainer if a city is selected', async () => {
+  it('should render the IntroContainer if it has not been shown previously', async () => {
+    jest.dontMock('../../components/Navigator')
+    const NavigatorContainer = require('../NavigatorContainer').default
+    const AppSettings = require('../../../settings/AppSettings').default
+    const store = mockStore({})
+    const appSettings = new AppSettings()
+    await appSettings.setContentLanguage('de')
+    const result = render(<Provider store={store}><NavigatorContainer /></Provider>)
+    await waitForExpect(() => {
+      expect(result.getByText('Intro')).toBeTruthy()
+    })
+  })
+
+  it('should render the DashboardContainer if a city is selected and the intro has already been shown', async () => {
     jest.dontMock('../../components/Navigator')
     const NavigatorContainer = require('../NavigatorContainer').default
     const AppSettings = require('../../../settings/AppSettings').default
@@ -87,18 +105,21 @@ describe('NavigatorContainer', () => {
     const appSettings = new AppSettings()
     await appSettings.setContentLanguage('de')
     await appSettings.setSelectedCity('augsburg')
+    await appSettings.setIntroShown()
     const result = render(<Provider store={store}><NavigatorContainer /></Provider>)
     await waitForExpect(() => {
       expect(result.getByText('Dashboard')).toBeTruthy()
     })
   })
 
-  it('should render the LandingContainer if no city is selected', async () => {
+  it('should render the LandingContainer if no city is selected and the intro has aldready been shown', async () => {
     jest.dontMock('../../components/Navigator')
     const NavigatorContainer = require('../NavigatorContainer').default
     const AppSettings = require('../../../settings/AppSettings').default
     const store = mockStore({})
-    await new AppSettings().setContentLanguage('de')
+    const appSettings = new AppSettings()
+    await appSettings.setContentLanguage('de')
+    await appSettings.setIntroShown()
     const result = render(<Provider store={store}><NavigatorContainer /></Provider>)
     await waitForExpect(() => {
       expect(result.getByText('Landing')).toBeTruthy()
