@@ -199,7 +199,7 @@ describe('FeedbackBoxContainer', () => {
         alias: 'sprungbrett',
         thumbnail: 'some_other_thumbnail',
         title: 'Sprungbrett',
-        path: 'https://web.integreat-app.de/proxy/sprungbrett/app-search-internships?location=augsburg',
+        path: 'https://integreat.app/proxy/sprungbrett/app-search-internships?location=augsburg',
         postData: null
       }),
       new ExtraModel({
