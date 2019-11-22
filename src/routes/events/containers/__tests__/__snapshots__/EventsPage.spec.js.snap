@@ -25,7 +25,7 @@ exports[`EventsPage should match snapshot and render EventDetail 1`] = `
 exports[`EventsPage should match snapshot and render EventList 1`] = `
 <Fragment>
   <Caption
-    title="news"
+    title="events"
   />
   <List
     items={
