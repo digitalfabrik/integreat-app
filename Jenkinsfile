@@ -5,12 +5,35 @@ def deploy(String remoteDirectory) {
   }
 }
 
+void checkoutWithSubmodules() {
+  checkout([
+    $class: 'GitSCM',
+    branches: scm.branches,
+    doGenerateSubmoduleConfigurations: false,
+    extensions: [[
+                   $class: 'SubmoduleOption',
+                   disableSubmodules: false,
+                   parentCredentials: true,
+                   recursiveSubmodules: true,
+                   reference: '',
+                   trackingSubmodules: false
+                 ]],
+    submoduleCfg: [],
+    userRemoteConfigs: scm.userRemoteConfigs
+  ])
+}
+
 pipeline {
   agent any
+  options {
+    timeout(time: 1, unit: 'HOURS')
+    skipDefaultCheckout()
+  }
 
   stages {
     stage('Test') {
       steps {
+        checkoutWithSubmodules()
         sh 'yarn'
         sh 'yarn run flow'
         sh 'yarn run lint'
