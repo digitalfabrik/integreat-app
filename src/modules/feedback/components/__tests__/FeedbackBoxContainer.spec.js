@@ -229,10 +229,10 @@ describe('FeedbackBoxContainer', () => {
   })
 
   describe('getCurrentPageFeedbackOption', () => {
-    const categoriesOption = new FeedbackDropdownItem(`contentOfPage 'Willkommen'`, PAGE_FEEDBACK_TYPE)
-    const eventsOption = new FeedbackDropdownItem(`news 'Event1'`, PAGE_FEEDBACK_TYPE)
-    const wohnenOption = new FeedbackDropdownItem(`extra 'Wohnungsboerse'`, EXTRA_FEEDBACK_TYPE)
-    const sprungbrettOption = new FeedbackDropdownItem(`extra 'Sprungbrett'`, EXTRA_FEEDBACK_TYPE)
+    const categoriesOption = new FeedbackDropdownItem(`contentOfPage`, PAGE_FEEDBACK_TYPE)
+    const eventsOption = new FeedbackDropdownItem(`contentOfEvent`, PAGE_FEEDBACK_TYPE)
+    const wohnenOption = new FeedbackDropdownItem(`contentOfExtra`, EXTRA_FEEDBACK_TYPE)
+    const sprungbrettOption = new FeedbackDropdownItem(`contentOfExtra`, EXTRA_FEEDBACK_TYPE)
     const searchOption = new FeedbackDropdownItem(`searchFor 'my query'`, SEARCH_FEEDBACK_TYPE)
     const disclaimerOption = new FeedbackDropdownItem(`disclaimer`, PAGE_FEEDBACK_TYPE)
     const extrasOption = null

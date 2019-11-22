@@ -89,8 +89,8 @@ Array [
     active={true}
     href="/augsburg/de/events"
     selected={false}
-    text="news"
-    tooltip="noNews"
+    text="events"
+    tooltip="noEvents"
   />,
 ]
 `;
@@ -113,8 +113,8 @@ Array [
     active={true}
     href="/augsburg/de/events"
     selected={false}
-    text="news"
-    tooltip="noNews"
+    text="events"
+    tooltip="noEvents"
   />,
 ]
 `;
@@ -197,8 +197,8 @@ exports[`LocationHeader should match snapshot 1`] = `
         active={true}
         href="/augsburg/de/events"
         selected={false}
-        text="news"
-        tooltip="noNews"
+        text="events"
+        tooltip="noEvents"
       />,
     ]
   }
