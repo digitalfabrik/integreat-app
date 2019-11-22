@@ -6,6 +6,7 @@ import { generateKey } from '../generateRouteKey'
 import AppSettings from '../../settings/AppSettings'
 import createAppNavigationContainer from '../createAppNavigationContainer'
 import { Text } from 'react-native'
+import SentryIntegration from '../SentryIntegration'
 
 type PropsType = {|
   fetchCategory: (cityCode: string, language: string, key: string) => void,
@@ -28,8 +29,9 @@ class Navigator extends React.Component<PropsType, StateType> {
   async initializeAppContainer () {
     const { fetchCategory, clearCategory } = this.props
     const appSettings = new AppSettings()
-    const [introShown, cityCode, language] = await Promise.all([
+    const [introShown, settings, cityCode, language] = await Promise.all([
       appSettings.loadIntroShown(),
+      appSettings.loadSettings(),
       appSettings.loadSelectedCity(),
       appSettings.loadContentLanguage()
     ])
@@ -40,14 +42,21 @@ class Navigator extends React.Component<PropsType, StateType> {
 
     if (!introShown) {
       this.appNavigationContainer = createAppNavigationContainer({ initialRouteName: 'Intro' })
-    } else if (cityCode) {
-      const key = generateKey()
-      this.appNavigationContainer = createAppNavigationContainer({
-        initialRouteName: 'CityContent', cityCode, language, clearCategory, key
-      })
-      fetchCategory(cityCode, language, key)
     } else {
-      this.appNavigationContainer = createAppNavigationContainer({ initialRouteName: 'Landing' })
+      if (settings.errorTracking) {
+        const sentry = new SentryIntegration()
+        await sentry.install()
+      }
+
+      if (cityCode) {
+        const key = generateKey()
+        this.appNavigationContainer = createAppNavigationContainer({
+          initialRouteName: 'CityContent', cityCode, language, clearCategory, key
+        })
+        fetchCategory(cityCode, language, key)
+      } else {
+        this.appNavigationContainer = createAppNavigationContainer({ initialRouteName: 'Landing' })
+      }
     }
 
     this.setState({ waitingForSettings: false })
