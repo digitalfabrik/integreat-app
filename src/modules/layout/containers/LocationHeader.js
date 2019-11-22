@@ -71,7 +71,7 @@ export class LocationHeader extends React.Component<PropsType> {
           key='extras'
           href={new ExtrasRouteConfig().getRoutePath({ city, language })}
           selected={[EXTRAS_ROUTE, WOHNEN_ROUTE, SPRUNGBRETT_ROUTE].includes(currentRoute)}
-          text={t('extras')}
+          text={t('offers')}
           active
         />
       )

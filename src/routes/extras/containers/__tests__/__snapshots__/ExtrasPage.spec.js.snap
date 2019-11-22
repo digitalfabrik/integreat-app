@@ -40,6 +40,6 @@ exports[`ExtrasPage should render extra tiles if no extra is selected 1`] = `
       },
     ]
   }
-  title="extras"
+  title="offers"
 />
 `;
