@@ -58,7 +58,7 @@ export class EventsPage extends React.Component<PropsType> {
       }
     }
     return <>
-      <Caption title={t('news')} />
+      <Caption title={t('events')} />
       <List noItemsMessage={t('currentlyNoEvents')}
             items={events}
             renderItem={this.renderEventListItem(language)} />

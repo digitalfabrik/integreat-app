@@ -8,7 +8,7 @@ import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
 import ConnectedI18nProvider, { I18nProvider } from '../I18nProvider'
 import { I18nextProvider } from 'react-i18next'
-import resources from '../../../../locales.json'
+import resources from '../../../../../locales/locales.json'
 
 const mockStore = configureMockStore()
 

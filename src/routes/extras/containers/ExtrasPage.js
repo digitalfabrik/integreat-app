@@ -62,7 +62,7 @@ export class ExtrasPage extends React.Component<PropsType> {
     }
 
     return (
-      <Tiles title={t('extras')} tiles={this.toTileModels(extras)} />
+      <Tiles title={t('offers')} tiles={this.toTileModels(extras)} />
     )
   }
 }
