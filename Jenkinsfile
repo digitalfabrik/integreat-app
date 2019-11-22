@@ -60,7 +60,7 @@ pipeline {
       steps {
         script {
           if (env.BRANCH_NAME == 'master') {
-            deploy("/web.integreat-app.de")
+            deploy("/integreat.app")
           } else if (env.BRANCH_NAME == 'develop') {
             deploy("/webnext.integreat-app.de")
           } else {
