@@ -66,7 +66,7 @@ Array [
     active={true}
     href="/augsburg/de/extras"
     selected={false}
-    text="extras"
+    text="offers"
   />,
   <HeaderNavigationItem
     active={true}
@@ -101,7 +101,7 @@ Array [
     active={true}
     href="/augsburg/de/extras"
     selected={false}
-    text="extras"
+    text="offers"
   />,
   <HeaderNavigationItem
     active={true}
@@ -185,7 +185,7 @@ exports[`LocationHeader should match snapshot 1`] = `
         active={true}
         href="/augsburg/de/extras"
         selected={true}
-        text="extras"
+        text="offers"
       />,
       <HeaderNavigationItem
         active={true}
