@@ -6,6 +6,7 @@ import { fromPairs } from 'lodash/array'
 
 const CONTENT_LANGUAGE_KEY = 'CONTENT_LANGUAGE'
 const SELECTED_CITY_KEY = 'SELECTED_CITY'
+const API_URL_OVERRIDE_KEY = 'API_URL_OVERRIDE'
 
 export type SettingsType = {|
   errorTracking: boolean | null,
@@ -70,6 +71,14 @@ class AppSettings {
 
   clearSelectedCity = async () => {
     await this.asyncStorage.removeItem(SELECTED_CITY_KEY)
+  }
+
+  setApiUrlOverride = async (apiUrl: string) => {
+    await this.asyncStorage.setItem(API_URL_OVERRIDE_KEY, apiUrl)
+  }
+
+  loadApiUrlOverride = async (): Promise<?string> => {
+    await this.asyncStorage.getItem(API_URL_OVERRIDE_KEY)
   }
 }
 
