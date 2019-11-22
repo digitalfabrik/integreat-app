@@ -1,3 +1,4 @@
 [submodule "locales"]
 	path = locales
-	url = git@github.com:Integreat/integreat-locales.git
+	url = ../integreat-locales.git
+	update = merge

@@ -28,8 +28,8 @@ exports[`FeedbackBoxContainer should match snapshot 1`] = `
     Array [
       FeedbackDropdownItem {
         "feedbackType": null,
-        "label": "contentOfPage 'title'",
-        "value": "contentOfPage 'title'",
+        "label": "contentOfPage",
+        "value": "contentOfPage",
       },
       FeedbackDropdownItem {
         "feedbackType": "categories",
@@ -50,8 +50,8 @@ exports[`FeedbackBoxContainer should match snapshot 1`] = `
   selectedFeedbackOption={
     FeedbackDropdownItem {
       "feedbackType": null,
-      "label": "contentOfPage 'title'",
-      "value": "contentOfPage 'title'",
+      "label": "contentOfPage",
+      "value": "contentOfPage",
     }
   }
 />
