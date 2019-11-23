@@ -93,8 +93,6 @@ class LandingContainer extends React.Component<ContainerPropsType> {
     })
   }
 
-  refresh = () => this.props.dispatch({ type: 'FETCH_CITIES', params: { forceRefresh: true } })
-
   clearResourcesAndCache = () => this.props.dispatch({ type: 'CLEAR_RESOURCES_AND_CACHE' })
 
   render () {
@@ -102,7 +100,6 @@ class LandingContainer extends React.Component<ContainerPropsType> {
 
     return <ThemedTranslatedLanding cities={cities} language={language}
                                     navigateToDashboard={this.navigateToDashboard}
-                                    refresh={this.refresh}
                                     clearResourcesAndCache={this.clearResourcesAndCache}
     />
   }

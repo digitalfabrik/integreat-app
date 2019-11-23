@@ -157,10 +157,7 @@ class DatabaseConnector {
   }
 
   async deleteAllFiles () {
-    await Promise.all([
-      RNFetchblob.fs.unlink(RESOURCE_CACHE_DIR_PATH),
-      RNFetchblob.fs.unlink(CACHE_DIR_PATH)
-    ])
+    await RNFetchblob.fs.unlink(CACHE_DIR_PATH)
   }
 
   /**
