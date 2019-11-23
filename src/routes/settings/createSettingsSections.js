@@ -2,6 +2,7 @@
 
 import { type TFunction } from 'react-i18next'
 import { Linking } from 'react-native'
+import NativeConstants from '../../modules/native-constants/NativeConstants'
 import type { SettingsType } from '../../modules/settings/AppSettings'
 
 export type ChangeSettingFunctionType = SettingsType => $Shape<SettingsType>
@@ -13,21 +14,6 @@ export default ({ setSetting, t, language }: {
                 }
 ) => {
   return ([
-    {
-      title: 'Placeholder',
-      data: [
-        {
-          title: 'Placeholder',
-          description: 'Placeholder',
-          hasSwitch: true
-        },
-        {
-          title: 'Placeholder',
-          description: 'Placeholder',
-          hasSwitch: true
-        }
-      ]
-    },
     {
       title: null,
       data: [
@@ -49,9 +35,9 @@ export default ({ setSetting, t, language }: {
           title: t('about'),
           onPress: () => {
             if (language === 'de') {
-              Linking.openURL('https://integreat-app.de/')
+              Linking.openURL('https://integreat-app.de/about/')
             } else {
-              Linking.openURL('https://integreat-app.de/en/')
+              Linking.openURL('https://integreat-app.de/en/about/')
             }
           }
         },
@@ -66,11 +52,7 @@ export default ({ setSetting, t, language }: {
           }
         },
         {
-          title: t('version', { version: '??' })
-        },
-        {
-          title: t('openSourceLicenses'),
-          onPress: () => { console.warn('Not yet implemented.') }
+          title: t('version', { version: NativeConstants.appVersion })
         }
       ]
     }

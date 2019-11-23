@@ -12,7 +12,7 @@ describe('isPeekingRoute', () => {
         languages: [],
         categoriesRouteMapping: {},
         eventsRouteMapping: {},
-        resourceCache: {},
+        resourceCache: { status: 'ready', value: {} },
         searchRoute: null
       },
       contentLanguage: 'en',
@@ -31,7 +31,7 @@ describe('isPeekingRoute', () => {
         languages: [],
         categoriesRouteMapping: {},
         eventsRouteMapping: {},
-        resourceCache: {},
+        resourceCache: { status: 'ready', value: {} },
         searchRoute: null
       },
       contentLanguage: 'en',

@@ -3,23 +3,27 @@
 import { DateModel, EventModel, LocationModel } from '@integreat-app/integreat-api-client'
 import moment from 'moment-timezone'
 import seedrandom from 'seedrandom'
-import type { FileCacheStateType } from '../../modules/app/StateType'
+import type { PageResourceCacheStateType } from '../../modules/app/StateType'
 import hashUrl from '../../modules/endpoint/hashUrl'
 import md5 from 'js-md5'
 import type { FetchMapType } from '../../modules/endpoint/sagas/fetchResourceCache'
 import { createFetchMap } from './util'
+import { difference } from 'lodash'
 
 const MAX_PREDICTABLE_VALUE = 6
+const LANGUAGES = ['de', 'en', 'ar']
 
 class EventModelBuilder {
   _eventCount: number
   _seed: string
   _city: string
+  _language: string
 
-  constructor (seed: string, eventCount: number, city: string) {
+  constructor (seed: string, eventCount: number, city: string, language: string) {
     this._seed = seed
     this._eventCount = eventCount
     this._city = city
+    this._language = language
   }
 
   _predictableNumber (index: number, max: number = MAX_PREDICTABLE_VALUE): number {
@@ -30,7 +34,7 @@ class EventModelBuilder {
     return this.buildAll().map(all => all.event)
   }
 
-  buildResources (): { [path: string]: FileCacheStateType } {
+  buildResources (): { [path: string]: PageResourceCacheStateType } {
     return this.buildAll().reduce((result, { path, resources }) => {
       result[path] = resources
       return result
@@ -41,7 +45,7 @@ class EventModelBuilder {
     return createFetchMap(this.buildResources())
   }
 
-  createResource (url: string, index: number, lastUpdate: moment): FileCacheStateType {
+  createResource (url: string, index: number, lastUpdate: moment): PageResourceCacheStateType {
     const hash = hashUrl(url)
     return {
       [url]: {
@@ -59,25 +63,26 @@ class EventModelBuilder {
    *
    * @returns The events and the corresponding resource cache
    */
-  buildAll (): Array<{ path: string, event: EventModel, resources: { [path: string]: FileCacheStateType } }> {
+  buildAll (): Array<{ path: string, event: EventModel, resources: { [path: string]: PageResourceCacheStateType } }> {
     return Array.from({ length: this._eventCount }, (x, index) => {
       const mockDate = moment('2015-01-01T00:00:00.000Z', moment.ISO_8601)
       const startDate = moment(mockDate.add(this._predictableNumber(index), 'years').toISOString(), moment.ISO_8601)
       const endDate = moment(mockDate.add(this._predictableNumber(index), 'hours').toISOString(), moment.ISO_8601)
       const lastUpdate = moment(mockDate.subtract(this._predictableNumber(index), 'months').toISOString(), moment.ISO_8601)
 
-      const path = `/augsburg/en/events/event${index}`
-      const resourceUrl1 = `https://integreat/title_${index}-300x300.png`
-      const resourceUrl2 = `https://integreat/event_${index}-300x300.png`
-      const thumbnail = `http://thumbnails/event_${index}.png`
+      const path = `/${this._city}/${this._language}/events/event${index}`
+      const resourceUrl1 = `https://cms.integreat-app.de/title_${index}-300x300.png`
+      const resourceUrl2 = `https://cms.integreat-app.de/event_${index}-300x300.png`
+      const thumbnail = `http://cms.integreat-app.de/thumbnails/event_${index}.png`
 
       return {
         path,
         event: new EventModel({
           path,
           title: 'first Event',
-          availableLanguages: new Map(
-            [['de', `/augsburg/de/events/event${index}`], ['ar', `/augsburg/ar/events/event${index}`]]),
+          availableLanguages: new Map(difference(LANGUAGES, [this._language]).map(
+            lng => [lng, `/${this._city}/${lng}/events/event${index}`]
+          )),
           date: new DateModel({
             startDate,
             endDate,

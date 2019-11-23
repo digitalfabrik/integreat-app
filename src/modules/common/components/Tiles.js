@@ -24,7 +24,7 @@ const TilesRow: StyledComponent<TilesRowPropsType, ThemeType, *> = styled.View`
   display: flex;
   flex-direction: ${props => contentDirection(props.language)};
   flex-wrap: wrap;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-start;
   padding: 10px 0;
 `

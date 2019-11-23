@@ -6,6 +6,7 @@ import type { FetchMapType } from './sagas/fetchResourceCache'
 import { reduce } from 'lodash'
 import hashUrl from './hashUrl'
 import { ExtendedPageModel } from '@integreat-app/integreat-api-client'
+import Url from 'url-parse'
 
 /**
  * A ResourceURLFinder allows to find resource urls in html source code.
@@ -17,12 +18,20 @@ import { ExtendedPageModel } from '@integreat-app/integreat-api-client'
 export default class ResourceURLFinder {
   _parser: Parser
   _foundUrls: Set<string> = new Set<string>()
+  _allowedHostNames: Array<string>
+
+  constructor (allowedHostNames: Array<string>) {
+    this._allowedHostNames = allowedHostNames
+  }
 
   _onAttributeTagFound = (name: string, value: string) => {
     if (name === 'href' || name === 'src') {
       try {
         const extension = getExtension(value)
-        if (['png', 'jpg', 'jpeg', 'pdf'].includes(extension)) {
+        if (
+          ['png', 'jpg', 'jpeg', 'pdf'].includes(extension) &&
+          this._allowedHostNames.includes(new Url(value).host)
+        ) {
           this._foundUrls.add(value)
         }
       } catch (ignored) {

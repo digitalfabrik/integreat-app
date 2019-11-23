@@ -97,7 +97,7 @@ class ExtrasContainer extends React.Component<ExtrasPropsType, ExtrasStateType> 
     if (error) {
       return <ScrollView refreshControl={<RefreshControl onRefresh={this.loadExtras} refreshing={false} />}
                          contentContainerStyle={{ flexGrow: 1 }}>
-        <FailureContainer error={error} tryAgain={this.loadExtras} />
+        <FailureContainer errorMessage={error.message} tryAgain={this.loadExtras} />
       </ScrollView>
     }
 
