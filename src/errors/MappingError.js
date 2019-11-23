@@ -6,11 +6,12 @@ class MappingError extends Error {
 
   constructor (endpointName: string, message: string) {
     super()
-    this.message = this.getMessage(endpointName, message)
 
     if (Error.captureStackTrace) {
       Error.captureStackTrace(this, MappingError)
     }
+
+    this.message = this.getMessage(endpointName, message)
   }
 }
 

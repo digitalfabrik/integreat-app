@@ -6,11 +6,12 @@ class ParamMissingError extends Error {
 
   constructor (endpointName: string, paramName: string) {
     super()
-    this.message = this.getMessage(endpointName, paramName)
 
     if (Error.captureStackTrace) {
       Error.captureStackTrace(this, ParamMissingError)
     }
+
+    this.message = this.getMessage(endpointName, paramName)
   }
 }
 
