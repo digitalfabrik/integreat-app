@@ -20,7 +20,8 @@ export type PropsType = {|
   t: TFunction,
   theme: ThemeType,
   navigateToDashboard: (cityCode: string, language: string) => void,
-  refresh: () => void
+  refresh: () => void,
+  clearResourcesAndCache: () => void
 |}
 
 class Landing extends React.Component<PropsType> {
@@ -30,10 +31,10 @@ class Landing extends React.Component<PropsType> {
   }
 
   render () {
-    const { theme, cities, t, refresh } = this.props
+    const { theme, cities, t, refresh, clearResourcesAndCache } = this.props
 
     return <Wrapper theme={theme}>
-      <Heading refresh={refresh} />
+      <Heading refresh={refresh} clearResourcesAndCache={clearResourcesAndCache}/>
       <FilterableCitySelector theme={theme} cities={cities} t={t} navigateToDashboard={this.navigateToDashboard} />
     </Wrapper>
   }
