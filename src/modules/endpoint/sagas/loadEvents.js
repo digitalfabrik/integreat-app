@@ -5,6 +5,7 @@ import { createEventsEndpoint, EventModel } from '@integreat-app/integreat-api-c
 import { call } from 'redux-saga/effects'
 import { baseUrl } from '../constants'
 import type { DataContainer } from '../DataContainer'
+import AppSettings from '../../settings/AppSettings'
 
 function * loadEvents (
   city: string,
@@ -25,7 +26,10 @@ function * loadEvents (
 
   console.debug('Fetching events')
 
-  const payload = yield call(() => createEventsEndpoint(baseUrl).request({ city, language }))
+  const appSettings = new AppSettings()
+  const apiUrlOverride = yield call(appSettings.loadApiUrlOverride)
+
+  const payload = yield call(() => createEventsEndpoint(apiUrlOverride || baseUrl).request({ city, language }))
   const events: Array<EventModel> = payload.data
 
   yield call(dataContainer.setEvents, city, language, events)

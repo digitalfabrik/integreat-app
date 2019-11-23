@@ -25,8 +25,6 @@ export type PropsType = {|
   sendFeedback: (comment: string, query: string) => Promise<void>
 |}
 
-const feedbackEndpoint = createFeedbackEndpoint(baseUrl)
-
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType) => {
   if (!state.cityContent) {
     throw new Error('CityContent must not be null!')
@@ -39,8 +37,8 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType) => {
     language: state.contentLanguage,
     cityCode: city,
     closeModal: () => { ownProps.navigation.goBack() },
-    sendFeedback: async (comment: string, query: string) => {
-      await feedbackEndpoint.request({
+    sendFeedback: async (comment: string, query: string, apiUrlOverride: ?string = undefined) => {
+      await createFeedbackEndpoint(apiUrlOverride || baseUrl).request({
         feedbackType: SEARCH_FEEDBACK_TYPE,
         isPositiveRating: false,
         comment,

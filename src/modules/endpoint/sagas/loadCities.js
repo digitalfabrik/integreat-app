@@ -5,6 +5,7 @@ import { CityModel, createCitiesEndpoint } from '@integreat-app/integreat-api-cl
 import { call } from 'redux-saga/effects'
 import { baseUrl } from '../constants'
 import type { DataContainer } from '../DataContainer'
+import AppSettings from '../../settings/AppSettings'
 
 function * loadCities (
   dataContainer: DataContainer,
@@ -23,7 +24,10 @@ function * loadCities (
 
   console.debug('Fetching cities')
 
-  const payload = yield call(() => createCitiesEndpoint(baseUrl).request())
+  const appSettings = new AppSettings()
+  const apiUrlOverride = yield call(appSettings.loadApiUrlOverride)
+
+  const payload = yield call(() => createCitiesEndpoint(apiUrlOverride || baseUrl).request())
   const cities: Array<CityModel> = payload.data
 
   yield call(dataContainer.setCities, cities)
