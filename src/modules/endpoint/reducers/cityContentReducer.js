@@ -40,7 +40,7 @@ export default (
       return pushEvent(state, action)
     case 'MORPH_CONTENT_LANGUAGE':
       if (state === null) {
-        throw Error('Cannot morph content language on not initialized cityContent')
+        return null
       }
       return morphContentLanguage(state, action)
     case 'FETCH_EVENT': {
