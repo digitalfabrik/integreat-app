@@ -2,15 +2,14 @@
 
 import type { DataContainer } from '../DataContainer'
 import type { Saga } from 'redux-saga'
-import { takeLatest, all } from 'redux-saga/effects'
+import { takeLatest, call, put } from 'redux-saga/effects'
 import type { FetchEventActionType } from '../../app/StoreActionType'
 
 export function * clearResourcesAndCache (dataContainer: DataContainer, action: FetchEventActionType): Saga<void> {
-  console.log('Clearing Resource Cache')
-  yield all([
-    dataContainer.clearCaches,
-    dataContainer.clearOfflineStorage
-  ])
+  console.debug('Clearing Resource Cache')
+  dataContainer.clearCaches()
+  yield call(dataContainer.clearOfflineStorage)
+  yield put({ type: 'FETCH_CITIES', params: { forceRefresh: true } })
 }
 
 export default function * (dataContainer: DataContainer): Saga<void> {

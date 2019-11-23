@@ -59,7 +59,7 @@ class DefaultDataContainer implements DataContainer {
     }
   }
 
-  clearCaches () {
+  clearCaches = () => {
     // $FlowFixMe see https://github.com/facebook/flow/issues/2221
     Object.values(this.caches).forEach(cache => cache.evict())
   }

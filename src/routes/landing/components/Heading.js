@@ -12,7 +12,6 @@ const API_URL_OVERRIDE_MIN_CLICKS = 10
 type StateType = {| clickCount: number |}
 
 type PropsType = {|
-  refresh: () => void,
   clearResourcesAndCache: () => void
 |}
 
@@ -43,7 +42,6 @@ class Heading extends React.Component<PropsType, StateType> {
       this.setState({ clickCount: 0 })
       this.showApiUrlToast(newApiUrl)
       this.props.clearResourcesAndCache()
-      this.props.refresh()
     } else {
       this.setState(previousState => ({ clickCount: previousState.clickCount + 1 }))
     }
