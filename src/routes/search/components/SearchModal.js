@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import { CategoriesMapModel, CategoryModel, createFeedbackEndpoint } from '@integreat-app/integreat-api-client'
+import { CategoriesMapModel, CategoryModel } from '@integreat-app/integreat-api-client'
 import CategoryList from '../../../modules/categories/components/CategoryList'
 import styled, { type StyledComponent } from 'styled-components/native'
 import SearchHeader from './SearchHeader'

@@ -14,7 +14,6 @@ import AppSettings from '../../../modules/settings/AppSettings'
 const TranslatedFeedbackModal = translate('feedback')(withTheme()(FeedbackModal))
 
 class FeedbackModalContainer extends React.Component<{| navigation: NavigationScreenProp<*> |}> {
-
   closeModal = () => this.props.navigation.goBack()
 
   sendFeedback = async (feedbackData: FeedbackParamsType) => {
