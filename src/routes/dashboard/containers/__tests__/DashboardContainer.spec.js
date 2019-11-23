@@ -137,7 +137,7 @@ describe('DashboardContainer', () => {
       message: 'Something went wrong with the route',
       code: ErrorCodes.UnknownError
     })
-    expectError(state, 'Something went wrong with the route')
+    expectError(state, ErrorCodes.UnknownError)
   })
 
   it('should display error if cities could not be loaded', () => {
@@ -148,7 +148,7 @@ describe('DashboardContainer', () => {
         code: ErrorCodes.UnknownError
       }
     })
-    expectError(state, 'Something went wrong with the cities')
+    expectError(state, ErrorCodes.UnknownError)
   })
 
   it('should display error if resourceCache could not be loaded', () => {
@@ -159,7 +159,7 @@ describe('DashboardContainer', () => {
         code: ErrorCodes.UnknownError
       }
     })
-    expectError(state, 'Something went wrong with the resourceCache')
+    expectError(state, ErrorCodes.UnknownError)
   })
 
   const expectLoadingIndicator = (state: StateType) => {

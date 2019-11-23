@@ -221,6 +221,7 @@ describe('cityContentReducer', () => {
       }
     })?.eventsRouteMapping['route-id-0']).toEqual({
       status: 'languageNotAvailable',
+      code: ErrorCodes.PageNotFound,
       language: 'de',
       city: 'augsburg',
       allAvailableLanguages: new Map([['en', null]])
@@ -261,7 +262,8 @@ describe('cityContentReducer', () => {
       language: 'de',
       city: 'augsburg',
       path: null,
-      message: 'No idea why it fails :/'
+      message: 'No idea why it fails :/',
+      code: ErrorCodes.UnknownError
     })
   })
 
@@ -396,7 +398,8 @@ describe('cityContentReducer', () => {
       path: '/augsburg/de',
       city: 'augsburg',
       depth: 2,
-      message: 'No idea why it fails :/'
+      message: 'No idea why it fails :/',
+      code: ErrorCodes.UnknownError
     })
   })
 
@@ -427,6 +430,6 @@ describe('cityContentReducer', () => {
     expect(cityContentReducer(prevState, {
       type: 'FETCH_RESOURCES_FAILED',
       params: { message: 'No idea why it fails :/', code: ErrorCodes.UnknownError }
-    })?.resourceCache).toEqual({ status: 'error', message: 'No idea why it fails :/' })
+    })?.resourceCache).toEqual({ status: 'error', message: 'No idea why it fails :/', code: ErrorCodes.UnknownError })
   })
 })
