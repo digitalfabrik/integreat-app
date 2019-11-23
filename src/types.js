@@ -144,5 +144,9 @@ export type JsonCityType = {
   live: boolean,
   events: boolean,
   extras: boolean,
-  name_without_prefix: string
+  name_without_prefix: string,
+  prefix: ?string,
+  latitude: number | null,
+  longitude: number | null,
+  aliases: { [alias: string]: {| longitude: number, latitude: number |} } | null
 }
