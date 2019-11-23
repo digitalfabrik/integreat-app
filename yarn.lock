@@ -8686,6 +8686,11 @@ react-native-share@^1.2.1:
   resolved "https://registry.yarnpkg.com/react-native-share/-/react-native-share-1.2.1.tgz#3756a3cf383c1489a6a0edf2b529ec025ee8f8f7"
   integrity sha512-V9q1FM+LuYJ65qN3k6BLWs17mIbJCzGyMOhF3rb4MIQXdJfCUbtkDX9aaV86PzcsL1EudCA53HVTJBmWPDed0Q==
 
+react-native-simple-toast@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-simple-toast/-/react-native-simple-toast-1.0.0.tgz#116f00774c00b082bde2c44585028f4015b9aaaa"
+  integrity sha512-xaMhI1PTNlDs4PF9AflNsD55RDwlPaFpF6iq1qb3o1MCy1nDkYyqRbytwtvUODepPwOvtgMQSDaGW1u0tgUnjw==
+
 react-native-svg-asset-plugin@^0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/react-native-svg-asset-plugin/-/react-native-svg-asset-plugin-0.1.2.tgz#6f707c02748f38adc81e38469baa7d81863b1392"
