@@ -32,6 +32,10 @@ const CategoryThumbnail = styled(Image)`
   margin: 10px;
 `
 
+const VerticalPadding = styled.View`
+  padding: 0 20px;
+`
+
 /**
  * Displays a ContentList which is a list of categories, a caption and a thumbnail
  */
@@ -41,7 +45,7 @@ class CategoryList extends React.Component<PropsType> {
     return <>
       {thumbnail && <CategoryThumbnail source={thumbnail} />}
       {title && <CategoryListCaption title={title} theme={theme} withThumbnail={!!(thumbnail)} />}
-      {!!content && <HTML html={content} />}
+      {!!content && <VerticalPadding><HTML html={content} /></VerticalPadding>}
       {categories.map(({ model, subCategories }) =>
         <CategoryListItem key={model.path}
                           category={model}
