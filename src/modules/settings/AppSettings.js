@@ -78,7 +78,7 @@ class AppSettings {
   }
 
   loadApiUrlOverride = async (): Promise<?string> => {
-    await this.asyncStorage.getItem(API_URL_OVERRIDE_KEY)
+    return this.asyncStorage.getItem(API_URL_OVERRIDE_KEY)
   }
 }
 
