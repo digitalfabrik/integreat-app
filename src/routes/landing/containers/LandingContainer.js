@@ -93,10 +93,7 @@ class LandingContainer extends React.Component<ContainerPropsType> {
     })
   }
 
-  refresh = () => {
-    const { dispatch } = this.props
-    return () => dispatch({ type: 'FETCH_CITIES', params: { forceRefresh: true } })
-  }
+  refresh = () => this.props.dispatch({ type: 'FETCH_CITIES', params: { forceRefresh: true } })
 
   render () {
     const { cities, language } = this.props
