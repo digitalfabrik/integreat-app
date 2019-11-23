@@ -10,7 +10,7 @@ type ErrorCodesType = {|
   UnknownError: 'unknownError'
 |}
 
-export const ErrorCodes: ErrorCodesType = {
+const ErrorCodes: ErrorCodesType = {
   PageNotFound: 'pageNotFound',
   NetworkConnectionFailed: 'networkConnectionFailed',
   NetworkRequestFailed: 'networkRequestFailed', // server's http-status was not 200
@@ -30,3 +30,5 @@ export const fromError = (error: Error): ErrorCodeType => {
   }
   return ErrorCodes.UnknownError
 }
+
+export default ErrorCodes

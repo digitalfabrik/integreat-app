@@ -4,7 +4,7 @@ import { CategoriesMapModel, CityModel, EventModel, LanguageModel } from '@integ
 import type { CategoryRouteConfigType, LanguageResourceCacheStateType } from './StateType'
 import type { ContentLoadCriterionType } from '../endpoint/ContentLoadCriterion'
 import type { TFunction } from 'i18next'
-import type { ErrorCodeType } from '../error/ErrorCode'
+import type { ErrorCodeType } from '../error/ErrorCodes'
 
 export type FetchCitiesActionType = {|
   type: 'FETCH_CITIES',

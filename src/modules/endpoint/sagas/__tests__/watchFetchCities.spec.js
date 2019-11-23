@@ -7,7 +7,7 @@ import type { FetchCitiesActionType } from '../../../app/StoreActionType'
 import { expectSaga, testSaga } from 'redux-saga-test-plan'
 import loadCities from '../loadCities'
 import CityModelBuilder from '../../../../testing/builder/CityModelBuilder'
-import { ErrorCodes } from '../../../error/ErrorCode'
+import ErrorCodes from '../../../error/ErrorCodes'
 
 jest.mock('rn-fetch-blob')
 jest.mock('../loadCities')

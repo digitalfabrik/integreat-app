@@ -7,7 +7,7 @@ import type { DataContainer } from '../DataContainer'
 import loadCityContent from './loadCityContent'
 import { ContentLoadCriterion } from '../ContentLoadCriterion'
 import isPeekingRoute from '../selectors/isPeekingRoute'
-import { ErrorCodes, fromError } from '../../error/ErrorCode'
+import ErrorCodes, { fromError } from '../../error/ErrorCodes'
 
 export function * fetchEvent (dataContainer: DataContainer, action: FetchEventActionType): Saga<void> {
   const { city, language, path, key, criterion } = action.params

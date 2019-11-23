@@ -4,7 +4,7 @@ import type { CategoryRouteStateType, CityContentStateType } from '../../app/Sta
 import type { PushCategoryActionType } from '../../app/StoreActionType'
 import { CategoryModel, LanguageModel } from '@integreat-app/integreat-api-client'
 import forEachTreeNode from '../../common/forEachTreeNode'
-import { ErrorCodes } from '../../error/ErrorCode'
+import ErrorCodes from '../../error/ErrorCodes'
 
 const getAllAvailableLanguages = (
   category: CategoryModel, city: string, language: string, cityLanguages: Array<LanguageModel>

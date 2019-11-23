@@ -9,7 +9,7 @@ import type {
 } from '../../app/StoreActionType'
 import type { DataContainer } from '../DataContainer'
 import loadCities from './loadCities'
-import { fromError } from '../../error/ErrorCode'
+import { fromError } from '../../error/ErrorCodes'
 
 export function * fetchCities (dataContainer: DataContainer, action: FetchCitiesActionType): Saga<void> {
   try {

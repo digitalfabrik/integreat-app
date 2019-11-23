@@ -10,7 +10,7 @@ import List from '../../../modules/common/components/List'
 import { hashWohnenOffer } from '../../extras/hashWohnenOffer'
 import Failure from '../../../modules/error/components/Failure'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
-import { ErrorCodes } from '../../../modules/error/ErrorCode'
+import ErrorCodes from '../../../modules/error/ErrorCodes'
 
 type PropsType = {|
   offers: Array<WohnenOfferModel>,

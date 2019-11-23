@@ -8,7 +8,7 @@ import LanguageModelBuilder from '../../../../testing/builder/LanguageModelBuild
 import watchFetchEvent, { fetchEvent } from '../watchFetchEvent'
 import { expectSaga, testSaga } from 'redux-saga-test-plan'
 import loadCityContent from '../loadCityContent'
-import { ErrorCodes } from '../../../error/ErrorCode'
+import ErrorCodes from '../../../error/ErrorCodes'
 
 jest.mock('rn-fetch-blob')
 jest.mock('../loadCityContent')
