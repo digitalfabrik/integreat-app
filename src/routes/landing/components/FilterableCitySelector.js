@@ -7,7 +7,7 @@ import type { TFunction } from 'react-i18next'
 import SearchInput from './SearchInput'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
-import { Platform, TouchableOpacity, View } from 'react-native'
+import { Platform, TouchableOpacity, View, Alert } from 'react-native'
 import Geolocation from '@react-native-community/geolocation'
 import styled from 'styled-components/native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
@@ -53,7 +53,7 @@ class FilterableCitySelector extends React.Component<PropsType, StateType> {
         currentLongitude: position.coords.longitude,
         currentLatitude: position.coords.latitude
       }),
-      alert(this.props.t('locationError')),
+      () => Alert.alert(this.props.t('alert'), this.props.t('locationError')),
       { enableHighAccuracy: false, timeout: 20000, maximumAge: 1000 }
     )
   }
