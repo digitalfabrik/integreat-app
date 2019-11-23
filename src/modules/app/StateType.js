@@ -41,7 +41,8 @@ export type CategoryRouteStateType = {|
 |} | {|
   +status: 'error',
   ...CategoryRouteConfigType,
-  +message: string
+  +message: string,
+  +code: ErrorCodeType
 |}
 
 export type EventRouteConfigType = {|

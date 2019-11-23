@@ -134,7 +134,8 @@ describe('DashboardContainer', () => {
       depth: 2,
       language: language.code,
       city: city.code,
-      message: 'Something went wrong with the route'
+      message: 'Something went wrong with the route',
+      code: ErrorCodes.UnknownError
     })
     expectError(state, 'Something went wrong with the route')
   })

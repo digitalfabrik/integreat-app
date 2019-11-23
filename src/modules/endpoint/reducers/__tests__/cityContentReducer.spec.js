@@ -212,7 +212,7 @@ describe('cityContentReducer', () => {
       type: 'FETCH_EVENT_FAILED',
       params: {
         message: 'Invalid language...',
-        code: ErrorCodes.PageDoesNotExist,
+        code: ErrorCodes.PageNotFound,
         key: 'route-id-0',
         path: null,
         allAvailableLanguages: new Map([['en', null]]),
@@ -303,7 +303,8 @@ describe('cityContentReducer', () => {
           depth: 2,
           city: 'augsburg',
           path: '/augsburg/de',
-          message: 'No idea why it fails :/'
+          message: 'No idea why it fails :/',
+          code: ErrorCodes.UnknownError
         }
       },
       eventsRouteMapping: {},
@@ -343,7 +344,7 @@ describe('cityContentReducer', () => {
         key: 'route-id-0',
         allAvailableLanguages: new Map([['en', '/augsburg/en']]),
         message: 'Language not available.',
-        code: ErrorCodes.PageDoesNotExist,
+        code: ErrorCodes.PageNotFound,
         city: 'augsburg',
         language: 'de',
         path: '/augsburg/de',
