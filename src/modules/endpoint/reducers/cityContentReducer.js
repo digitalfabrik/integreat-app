@@ -30,7 +30,8 @@ export default (
       return { ...state, languages: action.params.languages }
     case 'PUSH_CATEGORY':
       if (state === null) {
-        return null
+        return null /* If you are on the landing page, then the `state` is null. If you quickly navigate
+                       to Landing screen while data is being fetched, then this line is reached. */
       }
       return pushCategory(state, action)
     case 'PUSH_EVENT':
