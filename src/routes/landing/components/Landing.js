@@ -33,7 +33,7 @@ class Landing extends React.Component<PropsType> {
     const { theme, cities, t, clearResourcesAndCache } = this.props
 
     return <Wrapper theme={theme}>
-      <Heading clearResourcesAndCache={clearResourcesAndCache} />
+      <Heading clearResourcesAndCache={clearResourcesAndCache} theme={theme} />
       <FilterableCitySelector theme={theme} cities={cities} t={t} navigateToDashboard={this.navigateToDashboard} />
     </Wrapper>
   }
