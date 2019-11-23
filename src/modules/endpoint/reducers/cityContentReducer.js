@@ -104,14 +104,14 @@ export default (
       if (state === null) {
         throw Error('A fetch category fail cannot occur on not initialized cityContent')
       }
-      const { message, key, allAvailableLanguages, path, ...rest } = action.params
+      const { message, code, key, allAvailableLanguages, path, ...rest } = action.params
       return {
         ...state,
         categoriesRouteMapping: {
           ...state.categoriesRouteMapping,
           [key]: allAvailableLanguages
             ? { status: 'languageNotAvailable', allAvailableLanguages, ...rest }
-            : { status: 'error', message, path, ...rest }
+            : { status: 'error', message, code, path, ...rest }
         }
       }
     }
