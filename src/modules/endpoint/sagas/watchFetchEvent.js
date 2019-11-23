@@ -37,7 +37,7 @@ export function * fetchEvent (dataContainer: DataContainer, action: FetchEventAc
         type: `FETCH_EVENT_FAILED`,
         params: {
           message: 'Could not load event.',
-          code: ErrorCodes.PageDoesNotExist,
+          code: ErrorCodes.PageNotFound,
           allAvailableLanguages,
           path: null,
           key,

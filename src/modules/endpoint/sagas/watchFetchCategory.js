@@ -55,7 +55,7 @@ export function * fetchCategory (dataContainer: DataContainer, action: FetchCate
         type: `FETCH_CATEGORY_FAILED`,
         params: {
           message: 'Language not available.',
-          code: ErrorCodes.PageDoesNotExist,
+          code: ErrorCodes.PageNotFound,
           key,
           path,
           depth,

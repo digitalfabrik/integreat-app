@@ -116,7 +116,7 @@ class Events extends React.Component<PropsType> {
       }
 
       const error = new ContentNotFoundError({ type: 'event', id: path, city: cityCode, language })
-      return <Failure errorMessage={error.message} code={ErrorCodes.PageDoesNotExist} t={t} theme={theme} />
+      return <Failure errorMessage={error.message} code={ErrorCodes.PageNotFound} t={t} theme={theme} />
     }
 
     return <SpaceBetween>

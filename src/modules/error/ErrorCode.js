@@ -3,19 +3,19 @@
 import { FetchError, MappingError, ResponseError } from '@integreat-app/integreat-api-client'
 
 type ErrorCodesType = {|
-  PageDoesNotExist: 'page-does-not-exist',
-  NetworkConnectionFailed: 'network-connection-failed',
-  NetworkRequestFailed: 'network-request-failed', // server's http-status was not 200
-  ResponseMappingFailed: 'response-mapping-failed',
-  UnknownError: 'unknown-error'
+  PageNotFound: 'pageNotFound',
+  NetworkConnectionFailed: 'networkConnectionFailed',
+  NetworkRequestFailed: 'networkRequestFailed', // server's http-status was not 200
+  ResponseMappingFailed: 'responseMappingFailed',
+  UnknownError: 'unknownError'
 |}
 
 export const ErrorCodes: ErrorCodesType = {
-  PageDoesNotExist: 'page-does-not-exist',
-  NetworkConnectionFailed: 'network-connection-failed',
-  NetworkRequestFailed: 'network-request-failed', // server's http-status was not 200
-  ResponseMappingFailed: 'response-mapping-failed',
-  UnknownError: 'unknown-error'
+  PageNotFound: 'pageNotFound',
+  NetworkConnectionFailed: 'networkConnectionFailed',
+  NetworkRequestFailed: 'networkRequestFailed', // server's http-status was not 200
+  ResponseMappingFailed: 'responseMappingFailed',
+  UnknownError: 'unknownError'
 }
 
 export type ErrorCodeType = $Values<ErrorCodesType>
