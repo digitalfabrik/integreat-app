@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import { CategoriesMapModel, CategoryModel } from '@integreat-app/integreat-api-client'
+import { CategoriesMapModel, CategoryModel, createFeedbackEndpoint } from '@integreat-app/integreat-api-client'
 import CategoryList from '../../../modules/categories/components/CategoryList'
 import styled, { type StyledComponent } from 'styled-components/native'
 import SearchHeader from './SearchHeader'
@@ -33,7 +33,7 @@ export type PropsType = {|
   closeModal: () => void,
   navigation: NavigationScreenProp<*>,
   t: TFunction,
-  sendFeedback: (comment: string, query: string) => Promise<void>
+  sendFeedback: (comment: string, query: string, apiUrlOverride: ?string) => Promise<void>
 |}
 
 type StateType = {|
@@ -76,7 +76,7 @@ class SearchModal extends React.Component<PropsType, StateType> {
     this.setState({ query })
   }
 
-  renderContent = () => {
+  renderContent = async () => {
     const { language, theme, categories, t, sendFeedback } = this.props
     const { query } = this.state
 

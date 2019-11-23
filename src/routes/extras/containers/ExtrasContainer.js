@@ -13,6 +13,7 @@ import { baseUrl } from '../../../modules/endpoint/constants'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import FailureContainer from '../../../modules/error/containers/FailureContainer'
 import { LOADING_TIMEOUT } from '../../../modules/common/constants'
+import AppSettings from '../../../modules/settings/AppSettings'
 
 type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
 
@@ -78,7 +79,13 @@ class ExtrasContainer extends React.Component<ExtrasPropsType, ExtrasStateType> 
     setTimeout(() => this.setState({ timeoutExpired: true }), LOADING_TIMEOUT)
 
     try {
-      const payload: Payload<Array<ExtraModel>> = await (createExtrasEndpoint(baseUrl).request({ city, language }))
+      const appSettings = new AppSettings()
+      const apiUrlOverride = await appSettings.loadApiUrlOverride()
+
+      const payload: Payload<Array<ExtraModel>> = await (createExtrasEndpoint(apiUrlOverride || baseUrl).request({
+        city,
+        language
+      }))
 
       if (payload.error) {
         this.setState({ error: payload.error, extras: null })

@@ -14,6 +14,7 @@ import type { Dispatch } from 'redux'
 import type { StoreActionType } from '../../modules/app/StoreActionType'
 import { RefreshControl, ScrollView } from 'react-native'
 import { LOADING_TIMEOUT } from '../../modules/common/constants'
+import AppSettings from '../../modules/settings/AppSettings'
 
 type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
 
@@ -59,7 +60,10 @@ class DisclaimerContainer extends React.Component<DisclaimerPropsType, Disclaime
     setTimeout(() => this.setState({ timeoutExpired: true }), LOADING_TIMEOUT)
 
     try {
-      const disclaimerEndpoint = createDisclaimerEndpoint(baseUrl)
+      const appSettings = new AppSettings()
+      const apiUrlOverride = await appSettings.loadApiUrlOverride()
+
+      const disclaimerEndpoint = createDisclaimerEndpoint(apiUrlOverride || baseUrl)
       const payload: Payload<Array<PageModel>> = await disclaimerEndpoint.request({ city, language })
 
       if (payload.error) {
@@ -78,7 +82,7 @@ class DisclaimerContainer extends React.Component<DisclaimerPropsType, Disclaime
 
     if (error) {
       return <ScrollView refreshControl={<RefreshControl onRefresh={this.loadDisclaimer} refreshing={false} />}
-                  contentContainerStyle={{ flexGrow: 1 }}>
+                         contentContainerStyle={{ flexGrow: 1 }}>
         <FailureContainer error={error} tryAgain={this.loadDisclaimer} />
       </ScrollView>
     }
@@ -90,7 +94,7 @@ class DisclaimerContainer extends React.Component<DisclaimerPropsType, Disclaime
     }
 
     return <ScrollView refreshControl={<RefreshControl onRefresh={this.loadDisclaimer} refreshing={false} />}
-                contentContainerStyle={{ flexGrow: 1 }}>
+                       contentContainerStyle={{ flexGrow: 1 }}>
       <Disclaimer disclaimer={disclaimer} theme={theme} navigation={navigation} city={city} language={language} />
     </ScrollView>
   }
