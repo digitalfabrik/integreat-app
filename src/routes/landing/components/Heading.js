@@ -12,7 +12,7 @@ import moment from 'moment'
 import type Moment from 'moment'
 
 const API_URL_OVERRIDE_MIN_CLICKS = 10
-const CLICK_TIMEOUT = 10
+const CLICK_TIMEOUT = 8
 
 type StateType = {| clickCount: number, clickStart: ?Moment, apiUrlOverride: ?string |}
 
