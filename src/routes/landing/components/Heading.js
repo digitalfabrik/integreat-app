@@ -11,7 +11,10 @@ const API_URL_OVERRIDE_MIN_CLICKS = 10
 
 type StateType = {| clickCount: number |}
 
-type PropsType = {| refresh: () => void |}
+type PropsType = {|
+  refresh: () => void,
+  clearResourcesAndCache: () => void
+|}
 
 const LocationImage = styled.Image`
   height: 70px;
@@ -38,12 +41,15 @@ class Heading extends React.Component<PropsType, StateType> {
       const newApiUrl = apiUrlOverride === testBaseUrl ? liveBaseUrl : testBaseUrl
       await appSettings.setApiUrlOverride(newApiUrl)
       this.setState({ clickCount: 0 })
-      ToastAndroid.show(`Switched to new API-Url: ${newApiUrl}`, ToastAndroid.LONG)
+      this.showApiUrlToast(newApiUrl)
+      this.props.clearResourcesAndCache()
       this.props.refresh()
     } else {
       this.setState(previousState => ({ clickCount: previousState.clickCount + 1 }))
     }
   }
+
+  showApiUrlToast = (apiUrl: string) => ToastAndroid.show(`Switched to new API-Url: ${apiUrl}`, ToastAndroid.LONG)
 
   render () {
     return (

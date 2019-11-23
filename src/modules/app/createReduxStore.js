@@ -20,6 +20,7 @@ import watchFetchEvent from '../endpoint/sagas/watchFetchEvent'
 import watchContentLanguageSwitch from '../endpoint/sagas/watchContentLanguageSwitch'
 import contentLanguageReducer from '../i18n/reducers/contentLanguageReducer'
 import watchClearCity from '../i18n/watchClearCity'
+import watchClearResourcesAndCache from '../endpoint/sagas/watchClearResourcesAndCache'
 
 function * rootSaga (dataContainer: DataContainer): Saga<void> {
   yield all([
@@ -27,7 +28,8 @@ function * rootSaga (dataContainer: DataContainer): Saga<void> {
     call(watchFetchEvent, dataContainer),
     call(watchFetchCities, dataContainer),
     call(watchClearCity),
-    call(watchContentLanguageSwitch, dataContainer)
+    call(watchContentLanguageSwitch, dataContainer),
+    call(watchClearResourcesAndCache, dataContainer)
   ])
 }
 
