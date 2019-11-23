@@ -36,11 +36,14 @@ describe('pushEvent', () => {
       },
       languages: ['de', 'en'],
       resourceCache: {
-        '/augsburg/de/events/ev1': {
-          'some-url': {
-            filePath: 'some-path',
-            lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC'),
-            hash: '123456'
+        status: 'ready',
+        value: {
+          '/augsburg/de/events/ev1': {
+            'some-url': {
+              filePath: 'some-path',
+              lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+              hash: '123456'
+            }
           }
         }
       },
@@ -53,7 +56,7 @@ describe('pushEvent', () => {
   it('should add general events route to eventsRouteMapping', () => {
     const prevState: CityContentStateType = prepareState({
       eventsRouteMapping: {},
-      resourceCache: {}
+      resourceCache: { status: 'ready', value: {} }
     })
 
     const pushEventAction: PushEventActionType = {
@@ -86,7 +89,7 @@ describe('pushEvent', () => {
   it('should add specific event routeMapping', () => {
     const prevState = prepareState({
       eventsRouteMapping: {},
-      resourceCache: {}
+      resourceCache: { status: 'ready', value: {} }
     })
 
     const pushEventAction: PushEventActionType = {
@@ -118,6 +121,10 @@ describe('pushEvent', () => {
 
   it('should merge the resource cache if there\'s already one', () => {
     const prevState = prepareState({})
+    if (prevState.resourceCache.status !== 'ready') {
+      throw Error('Preparation failed')
+    }
+    const prevResources = prevState.resourceCache.value
 
     const resourceCache = {
       '/testumgebung/de/events/ev2': {
@@ -153,7 +160,7 @@ describe('pushEvent', () => {
 
     expect(cityContentReducer(prevState, pushEventAction)).toEqual(expect.objectContaining({
       city: 'augsburg',
-      resourceCache: { ...prevState.resourceCache, ...resourceCache }
+      resourceCache: { status: 'ready', value: { ...prevResources, ...resourceCache } }
     }))
   })
 })

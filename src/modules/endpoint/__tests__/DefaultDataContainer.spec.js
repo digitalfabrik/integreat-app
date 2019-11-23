@@ -3,11 +3,12 @@
 import DefaultDataContainer from '../DefaultDataContainer'
 import DatabaseContext from '../DatabaseContext'
 import RNFetchBlob from '../../../__mocks__/rn-fetch-blob'
-import moment from 'moment-timezone'
+import moment from 'moment'
 import CityModelBuilder from '../../../testing/builder/CityModelBuilder'
 import LanguageModelBuilder from '../../../testing/builder/LanguageModelBuilder'
 import CategoriesMapModelBuilder from '../../../testing/builder/CategoriesMapModelBuilder'
 import EventModelBuilder from '../../../testing/builder/EventModelBuilder'
+import DatabaseConnector from '../DatabaseConnector'
 
 jest.mock('rn-fetch-blob')
 
@@ -22,7 +23,7 @@ const testResources = {
       'https://test.de/path/to/resource/test.png':
       {
         filePath: '/local/path/to/resource2/b4b5dca65e423.png',
-        lastUpdate: moment.tz('20110204', 'UTC'),
+        lastUpdate: moment('2011-02-04T00:00:00.000Z'),
         hash: 'testHash'
       }
     }
@@ -34,7 +35,7 @@ const previousResources = {
         'https://test.de/path/to/resource/test.png':
           {
             filePath: '/local/path/to/resource/b4b5dca65e423.png',
-            lastUpdate: moment.tz('20110204', 'UTC'),
+            lastUpdate: moment('2011-02-04T00:00:00.000Z'),
             hash: 'testHash'
           }
       }
@@ -46,7 +47,7 @@ const anotherTestResources = {
       'https://test.de/path/to/anotherResource/test.png':
       {
         filePath: '/local/path/to/resource3/b4b5dca65e424.png',
-        lastUpdate: moment.tz('20110204', 'UTC'),
+        lastUpdate: moment('2011-02-04T00:00:00.000Z'),
         hash: 'testHash'
       }
     }
@@ -54,12 +55,13 @@ const anotherTestResources = {
 
 describe('DefaultDataContainer', () => {
   const city = 'augsburg'
+  const language = 'de'
 
   const testCities = new CityModelBuilder(2).build()
   const testLanguages = new LanguageModelBuilder(2).build()
-  const testCategoriesMap = new CategoriesMapModelBuilder(city).build()
-  const anotherTestCategoriesMap = new CategoriesMapModelBuilder(city, 1, 1).build()
-  const testEvents = new EventModelBuilder('seed', 2, city).build()
+  const testCategoriesMap = new CategoriesMapModelBuilder(city, language).build()
+  const anotherTestCategoriesMap = new CategoriesMapModelBuilder(city, language, 1, 1).build()
+  const testEvents = new EventModelBuilder('seed', 2, city, language).build()
 
   describe('isCached', () => {
     it('should return true if CacheType is stored', async () => {
@@ -115,11 +117,8 @@ describe('DefaultDataContainer', () => {
     expect(receivedTestEvents).toEqual([testEvents[0]])
     expect(receivedAnotherTestEvents).toEqual([testEvents[1]])
   })
-  // cache is not equal to testResources
-  // (lastUpdate is a moment object in the expected data, but a string in the received data)
-  // will be fixed in NATIVE-330
-  // eslint-disable-next-line jest/no-disabled-tests
-  it.skip('should return the resources associated with the context', async () => {
+
+  it('should return the resources associated with the context', async () => {
     const defaultDataContainer = new DefaultDataContainer()
     await defaultDataContainer.setResourceCache('testCity', 'de', testResources)
     await defaultDataContainer.setResourceCache('anotherTestCity', 'en', anotherTestResources)
@@ -130,7 +129,7 @@ describe('DefaultDataContainer', () => {
     expect(receivedTestResources).toEqual(testResources)
     expect(receivedAnotherTestResources).toEqual(anotherTestResources)
   })
-  it('should return an empty object if no resources where found', async () => {
+  it('should return an empty object if no resources were found', async () => {
     const defaultDataContainer = new DefaultDataContainer()
     await defaultDataContainer.setResourceCache('testCity', 'de', testResources)
     const result = await defaultDataContainer.getResourceCache('testCity', 'en')
@@ -138,8 +137,11 @@ describe('DefaultDataContainer', () => {
   })
   it('should return the lastUpdateMoment associated with the context', async () => {
     const defaultDataContainer = new DefaultDataContainer()
-    const lastUpdate = moment.tz('20110205', 'UTC')
-    const anotherLastUpdate = moment.tz('20110305', 'UTC')
+    const databaseConnector = new DatabaseConnector()
+    await databaseConnector.storeLastUsage(new DatabaseContext('testCity'), false)
+    await databaseConnector.storeLastUsage(new DatabaseContext('anotherTestCity'), false)
+    const lastUpdate = moment('2011-02-04T00:00:00.000Z')
+    const anotherLastUpdate = moment('2012-02-04T00:00:00.000Z')
 
     await defaultDataContainer.setLastUpdate('testCity', 'de', lastUpdate)
     await defaultDataContainer.setLastUpdate('anotherTestCity', 'en', anotherLastUpdate)
@@ -147,8 +149,8 @@ describe('DefaultDataContainer', () => {
     const receivedLastUpdate = await defaultDataContainer.getLastUpdate('testCity', 'de')
     const receivedAnotherLastUpdate = await defaultDataContainer.getLastUpdate('anotherTestCity', 'en')
 
-    expect(lastUpdate.isSame(receivedLastUpdate)).toBe(true)
-    expect(anotherLastUpdate.isSame(receivedAnotherLastUpdate)).toBe(true)
+    expect(receivedLastUpdate !== null && lastUpdate.isSame(receivedLastUpdate)).toBe(true)
+    expect(receivedAnotherLastUpdate !== null && anotherLastUpdate.isSame(receivedAnotherLastUpdate)).toBe(true)
   })
   describe('setResourceCache', () => {
     it('should not delete any data if there are no previous resources available', async () => {

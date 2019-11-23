@@ -81,12 +81,14 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     path: route.path,
     navigation: ownProps.navigation
   }
-  if (state.cities.status === 'error' || resourceCache.errorMessage !== undefined || route.status === 'error') {
-    return { status: 'error', refreshProps }
-  }
 
-  const cities: $ReadOnlyArray<CityModel> = state.cities.models
-  const stateView = new CategoriesRouteStateView(route.path, route.models, route.children)
+  if (state.cities.status === 'error') {
+    return { status: 'error', message: state.cities.message, refreshProps }
+  } else if (route.status === 'error') {
+    return { status: 'error', message: route.message, refreshProps }
+  } else if (resourceCache.status === 'error') {
+    return { status: 'error', message: resourceCache.message, refreshProps }
+  }
 
   return {
     status: 'success',
@@ -94,9 +96,9 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     innerProps: {
       cityCode: route.city,
       language: route.language,
-      cities,
-      stateView,
-      resourceCache,
+      cities: state.cities.models,
+      stateView: new CategoriesRouteStateView(route.path, route.models, route.children),
+      resourceCache: resourceCache.value,
       navigation
     }
   }

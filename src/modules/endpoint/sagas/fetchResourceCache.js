@@ -7,8 +7,8 @@ import type { ResourcesFetchFailedActionType } from '../../app/StoreActionType'
 import type { FetchResultType, TargetFilePathsType } from '../../fetcher/FetcherModule'
 import FetcherModule from '../../fetcher/FetcherModule'
 import type { DataContainer } from '../DataContainer'
-import type { FileCacheStateType, LanguageResourceCacheStateType } from '../../app/StateType'
 import moment from 'moment'
+import type { LanguageResourceCacheStateType, PageResourceCacheStateType } from '../../app/StateType'
 
 export type FetchMapTargetType = { url: string, filePath: string, urlHash: string }
 export type FetchMapType = { [path: string]: Array<FetchMapTargetType> }
@@ -42,7 +42,7 @@ export default function * fetchResourceCache (
     }
 
     const resourceCache: LanguageResourceCacheStateType = mapValues(fetchMap, fetchMapEntry =>
-      reduce<Array<FetchMapTargetType>, FileCacheStateType>(
+      reduce<Array<FetchMapTargetType>, PageResourceCacheStateType>(
         fetchMapEntry, (acc: {}, fetchMapTarget: FetchMapTargetType) => {
           const filePath = fetchMapTarget.filePath
           const downloadResult = successResults[filePath]

@@ -13,6 +13,7 @@ The following steps are needed to release the app:
 ### Android
 
 * Build release APK using the commands used in the [Jenksinsfile](../Jenkinsfile)
+* For example if you use a custom keystore you can use the command: `./gradlew -PMYAPP_RELEASE_STORE_PASSWORD=*** -PMYAPP_RELEASE_KEY_ALIAS=*** -PMYAPP_RELEASE_KEY_PASSWORD=** -PMYAPP_RELEASE_STORE_FILE=***.jks  build -x lint -x lintVitalRelease `
 * Upload APK in Developer Console
 
 ### iOS
