@@ -8,12 +8,13 @@ class ResponseError extends Error {
 
   constructor (params: { endpointName: string, response: Response }) {
     super()
-    this.response = params.response
-    this.message = this.getMessage(params.endpointName, params.response)
 
     if (Error.captureStackTrace) {
       Error.captureStackTrace(this, ResponseError)
     }
+
+    this.response = params.response
+    this.message = this.getMessage(params.endpointName, params.response)
   }
 }
 
