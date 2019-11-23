@@ -101,5 +101,15 @@ export interface DataContainer {
   /**
    * Stores the last usage of the passed city
    */
-  storeLastUsage (city: string, peeking: boolean): Promise<void>
+  storeLastUsage (city: string, peeking: boolean): Promise<void>,
+
+  /**
+   * Deletes all files that are stored offline
+   */
+  clearOfflineStorage (): Promise<void>,
+
+  /**
+   * Clears all caches
+   */
+  clearCaches (): void
 }

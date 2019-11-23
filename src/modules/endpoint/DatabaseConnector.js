@@ -156,6 +156,13 @@ class DatabaseConnector {
     return `${CACHE_DIR_PATH}/cities.json`
   }
 
+  async deleteAllFiles () {
+    await Promise.all([
+      RNFetchblob.fs.unlink(RESOURCE_CACHE_DIR_PATH),
+      RNFetchblob.fs.unlink(CACHE_DIR_PATH)
+    ])
+  }
+
   /**
    * Prior to storing lastUpdate, there needs to be a lastUsage of the city.
    */
