@@ -11,7 +11,7 @@ import type { DataContainer } from '../DataContainer'
 import loadCityContent from './loadCityContent'
 import { ContentLoadCriterion } from '../ContentLoadCriterion'
 import isPeekingRoute from '../selectors/isPeekingRoute'
-import { ErrorCodes, fromError } from '../../error/ErrorCode'
+import ErrorCodes, { fromError } from '../../error/ErrorCodes'
 
 /**
  * This fetch corresponds to a peek if the major content city is not equal to the city of the current route.

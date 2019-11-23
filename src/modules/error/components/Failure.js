@@ -7,7 +7,7 @@ import type { TFunction } from 'react-i18next'
 import FailureIcon from '../assets/FailureIcon.svg'
 import type { ThemeType } from '../../theme/constants/theme'
 import { Button } from 'react-native-elements'
-import type { ErrorCodeType } from '../ErrorCode'
+import type { ErrorCodeType } from '../ErrorCodes'
 
 const ViewContainer: StyledComponent<{}, ThemeType, *> = styled.View`
 flex: 1;

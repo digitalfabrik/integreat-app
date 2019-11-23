@@ -5,7 +5,7 @@ import fetchResourceCache from '../fetchResourceCache'
 import DefaultDataContainer from '../../DefaultDataContainer'
 import RNFetchBlob from '../../../../__mocks__/rn-fetch-blob'
 import CategoriesMapModelBuilder from '../../../../testing/builder/CategoriesMapModelBuilder'
-import { ErrorCodes } from '../../../error/ErrorCode'
+import ErrorCodes from '../../../error/ErrorCodes'
 
 jest.mock('../../../fetcher/FetcherModule')
 jest.mock('rn-fetch-blob')

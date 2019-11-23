@@ -26,7 +26,7 @@ import FeedbackVariant from '../../feedback/FeedbackVariant'
 import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
 import type { FeedbackType } from '@integreat-app/integreat-api-client/endpoints/createFeedbackEndpoint'
-import { ErrorCodes } from '../../../modules/error/ErrorCode'
+import ErrorCodes from '../../../modules/error/ErrorCodes'
 
 export type PropsType = {|
   path: ?string,

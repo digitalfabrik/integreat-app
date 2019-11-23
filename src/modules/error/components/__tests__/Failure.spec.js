@@ -4,7 +4,7 @@ import Failure from '../Failure'
 import { fireEvent, render } from '@testing-library/react-native'
 import * as React from 'react'
 import { brightTheme } from '../../../theme/constants/theme'
-import { ErrorCodes } from '../../ErrorCode'
+import ErrorCodes from '../../ErrorCodes'
 
 describe('Failure', () => {
   it('should render a retry button if tryAgain is passed', () => {

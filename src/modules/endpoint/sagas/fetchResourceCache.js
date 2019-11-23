@@ -9,7 +9,7 @@ import FetcherModule from '../../fetcher/FetcherModule'
 import type { DataContainer } from '../DataContainer'
 import moment from 'moment'
 import type { LanguageResourceCacheStateType, PageResourceCacheStateType } from '../../app/StateType'
-import { fromError } from '../../error/ErrorCode'
+import { fromError } from '../../error/ErrorCodes'
 
 export type FetchMapTargetType = { url: string, filePath: string, urlHash: string }
 export type FetchMapType = { [path: string]: Array<FetchMapTargetType> }

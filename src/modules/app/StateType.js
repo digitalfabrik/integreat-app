@@ -9,8 +9,8 @@ import {
 } from '@integreat-app/integreat-api-client'
 import Moment from 'moment'
 import { DEFAULT_LANGUAGE } from '../i18n/constants'
-import type { ErrorCodeType } from '../error/ErrorCode'
-import { ErrorCodes } from '../error/ErrorCode'
+import type { ErrorCodeType } from '../error/ErrorCodes'
+import ErrorCodes from '../error/ErrorCodes'
 
 export type PathType = string
 

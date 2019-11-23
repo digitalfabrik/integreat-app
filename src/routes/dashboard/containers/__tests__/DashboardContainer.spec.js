@@ -23,7 +23,7 @@ import brightTheme from '../../../../modules/theme/constants/theme'
 import moment from 'moment'
 import { LanguageModel } from '@integreat-app/integreat-api-client'
 import { LOADING_TIMEOUT } from '../../../../modules/common/constants'
-import { ErrorCodes } from '../../../../modules/error/ErrorCode'
+import ErrorCodes from '../../../../modules/error/ErrorCodes'
 
 jest.mock('react-i18next')
 jest.useFakeTimers()
