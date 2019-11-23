@@ -6,6 +6,7 @@ import { fromPairs } from 'lodash/array'
 
 const CONTENT_LANGUAGE_KEY = 'CONTENT_LANGUAGE'
 const SELECTED_CITY_KEY = 'SELECTED_CITY'
+const ASYNC_STORAGE_VERSION_KEY = 'ASYNC_STORAGE_VERSION'
 
 export type SettingsType = {|
   errorTracking: boolean | null,
@@ -50,6 +51,14 @@ class AppSettings {
   setSettings = async (settings: $Shape<SettingsType>) => {
     const settingsArray = toPairs(mapValues(settings, value => JSON.stringify(value)))
     await this.asyncStorage.multiSet(settingsArray)
+  }
+
+  setVersion = async (version: number) => {
+    await this.asyncStorage.setItem(ASYNC_STORAGE_VERSION_KEY, version)
+  }
+
+  loadVersion = async (): Promise<?number> => {
+    return this.asyncStorage.getItem(ASYNC_STORAGE_VERSION_KEY)
   }
 
   loadContentLanguage = async (): Promise<?string> => {
