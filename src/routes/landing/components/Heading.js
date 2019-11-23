@@ -8,10 +8,13 @@ import AppSettings from '../../../modules/settings/AppSettings'
 import { baseUrl, liveBaseUrl, testBaseUrl } from '../../../modules/endpoint/constants'
 import { Button } from 'react-native-elements'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
+import moment from 'moment'
+import type Moment from 'moment'
 
 const API_URL_OVERRIDE_MIN_CLICKS = 10
+const CLICK_TIMEOUT = 10
 
-type StateType = {| clickCount: number, apiUrlOverride: ?string |}
+type StateType = {| clickCount: number, clickStart: ?Moment, apiUrlOverride: ?string |}
 
 type PropsType = {|
   clearResourcesAndCache: () => void,
@@ -37,7 +40,7 @@ const Wrapper: StyledComponent<{| children: React.Node |}, {}, *> = styled.View`
 class Heading extends React.Component<PropsType, StateType> {
   constructor (props: PropsType) {
     super(props)
-    this.state = { clickCount: 0, apiUrlOverride: null }
+    this.state = { clickCount: 0, apiUrlOverride: null, clickStart: null }
   }
 
   componentDidMount () {
@@ -47,19 +50,24 @@ class Heading extends React.Component<PropsType, StateType> {
 
   onImagePress = async () => {
     const prevClickCount = this.state.clickCount
-    if (prevClickCount + 1 >= API_URL_OVERRIDE_MIN_CLICKS) {
+    const clickStart = this.state.clickStart
+    const clickedInTimeInterval = clickStart && clickStart.isAfter(moment().subtract(CLICK_TIMEOUT, 's'))
+
+    if (prevClickCount + 1 >= API_URL_OVERRIDE_MIN_CLICKS && clickedInTimeInterval) {
       const appSettings = new AppSettings()
       const apiUrlOverride = await appSettings.loadApiUrlOverride()
       const newApiUrl = (apiUrlOverride === testBaseUrl) || (!apiUrlOverride && baseUrl === testBaseUrl) ? liveBaseUrl : testBaseUrl
 
       await appSettings.setApiUrlOverride(newApiUrl)
-      this.setState({ clickCount: 0 })
+      this.setState({ clickCount: 0, clickStart: null })
       this.props.clearResourcesAndCache()
 
       console.debug(`Switching to new API-Url: ${newApiUrl}`)
       this.showApiUrlToast(newApiUrl)
     } else {
-      this.setState(previousState => ({ clickCount: previousState.clickCount + 1 }))
+      const newClickStart = clickedInTimeInterval ? clickStart : moment()
+      const newClickCount = clickedInTimeInterval ? prevClickCount + 1 : 1
+      this.setState({ clickCount: newClickCount, clickStart: newClickStart })
     }
   }
 
