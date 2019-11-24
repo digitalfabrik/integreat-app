@@ -125,15 +125,14 @@ class Intro extends React.Component<PropsType, StateType> {
     </>
   }
 
-  onAccept = () => { this.onDone(true) }
+  onAccept = () => this.onDone(true, true, true)
 
-  onContinue = () => { this.onDone(false) }
+  onContinue = () => {
+    const { allowPushNotifications, useLocationAccess, allowSentry } = this.state
+    this.onDone(allowPushNotifications, allowSentry, useLocationAccess)
+  }
 
-  onDone = async (accept: boolean) => {
-    const allowPushNotifications = accept ? true : this.state.allowPushNotifications
-    const errorTracking = accept ? true : this.state.allowSentry
-    const useLocationAccess = accept ? true : this.state.useLocationAccess
-
+  onDone = async (allowPushNotifications: boolean, errorTracking: boolean, useLocationAccess: boolean) => {
     if (errorTracking) {
       const sentry = new SentryIntegration()
       await sentry.install()
