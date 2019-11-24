@@ -90,11 +90,11 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     navigation: ownProps.navigation
   }
   if (state.cities.status === 'error') {
-    return { status: 'error', refreshProps, message: state.cities.message }
+    return { status: 'error', refreshProps, message: state.cities.message, code: state.cities.code }
   } else if (resourceCache.status === 'error') {
-    return { status: 'error', refreshProps, message: resourceCache.message }
+    return { status: 'error', refreshProps, message: resourceCache.message, code: resourceCache.code }
   } else if (route.status === 'error') {
-    return { status: 'error', refreshProps, message: route.message }
+    return { status: 'error', refreshProps, message: route.message, code: route.code }
   }
 
   const cities = state.cities.models
