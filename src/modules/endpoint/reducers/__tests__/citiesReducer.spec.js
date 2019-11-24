@@ -3,6 +3,7 @@
 import type { CitiesStateType } from '../../../app/StateType'
 import citiesReducer from '../citiesReducer'
 import { CityModel } from '@integreat-app/integreat-api-client'
+import ErrorCodes from '../../../error/ErrorCodes'
 
 describe('citiesReducer', () => {
   it('should set status to loading on FETCH_CITIES', () => {
@@ -37,9 +38,13 @@ describe('citiesReducer', () => {
   it('should set error status on FETCH_CITIES_FAILED', () => {
     const prevState: CitiesStateType = { status: 'loading' }
     const errorMessage = 'Some Error'
-    expect(citiesReducer(prevState, { type: 'FETCH_CITIES_FAILED', params: { message: errorMessage } })).toEqual({
+    expect(citiesReducer(prevState, {
+      type: 'FETCH_CITIES_FAILED',
+      params: { message: errorMessage, code: ErrorCodes.UnknownError }
+    })).toEqual({
       status: 'error',
-      message: errorMessage
+      message: errorMessage,
+      code: ErrorCodes.UnknownError
     })
   })
 })
