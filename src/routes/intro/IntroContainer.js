@@ -125,7 +125,7 @@ class Intro extends React.Component<PropsType, StateType> {
     </>
   }
 
-  onAccept = () => this.onDone(true, true, true)
+  onAccept = () => { this.onDone(true, true, true) }
 
   onContinue = () => {
     const { allowPushNotifications, useLocationAccess, allowSentry } = this.state
@@ -133,15 +133,18 @@ class Intro extends React.Component<PropsType, StateType> {
   }
 
   onDone = async (allowPushNotifications: boolean, errorTracking: boolean, useLocationAccess: boolean) => {
-    if (errorTracking) {
-      const sentry = new SentryIntegration()
-      await sentry.install()
-    }
+    try {
+      if (errorTracking) {
+        const sentry = new SentryIntegration()
+        await sentry.install()
+      }
 
-    if (useLocationAccess) {
-      // TODO request permission, return if not granted
+      if (useLocationAccess) {
+        // TODO request permission, return if not granted
+      }
+    } catch (e) {
+      console.warn(e)
     }
-
     await this._appSettings.setSettings({ errorTracking, allowPushNotifications, useLocationAccess })
     this._appSettings.setIntroShown()
     this.props.navigation.navigate('Landing')
