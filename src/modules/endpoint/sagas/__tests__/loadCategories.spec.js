@@ -9,6 +9,7 @@ import DatabaseConnector from '../../DatabaseConnector'
 import DatabaseContext from '../../DatabaseContext'
 
 let mockCategories
+jest.mock('@react-native-community/async-storage')
 jest.mock('rn-fetch-blob')
 jest.mock('@integreat-app/integreat-api-client',
   () => {
