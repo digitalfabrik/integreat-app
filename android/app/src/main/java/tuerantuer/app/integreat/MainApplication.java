@@ -5,6 +5,7 @@ import android.app.Application;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.dylanvann.fastimage.FastImageViewPackage;
 import com.facebook.react.ReactApplication;
+import com.reactnativecommunity.geolocation.GeolocationPackage;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.reactnativecommunity.netinfo.NetInfoPackage;
 
@@ -35,6 +36,7 @@ public class MainApplication extends Application implements ShareApplication, Re
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+                    new GeolocationPackage(),
                     new RNSharePackage(),
                     new AsyncStoragePackage(),
                     new NetInfoPackage(),
