@@ -8,6 +8,7 @@ import CityModelBuilder from '../../../../testing/builder/CityModelBuilder'
 import DatabaseConnector from '../../DatabaseConnector'
 
 let mockCities
+jest.mock('@react-native-community/async-storage')
 jest.mock('rn-fetch-blob')
 jest.mock('@integreat-app/integreat-api-client',
   () => {
