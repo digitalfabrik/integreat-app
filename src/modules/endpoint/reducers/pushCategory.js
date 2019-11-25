@@ -4,6 +4,7 @@ import type { CategoryRouteStateType, CityContentStateType } from '../../app/Sta
 import type { PushCategoryActionType } from '../../app/StoreActionType'
 import { CategoryModel, LanguageModel } from '@integreat-app/integreat-api-client'
 import forEachTreeNode from '../../common/forEachTreeNode'
+import ErrorCodes from '../../error/ErrorCodes'
 
 const getAllAvailableLanguages = (
   category: CategoryModel, city: string, language: string, cityLanguages: Array<LanguageModel>
@@ -19,7 +20,31 @@ const getAllAvailableLanguages = (
 const pushCategory = (state: CityContentStateType, action: PushCategoryActionType): CityContentStateType => {
   const { categoriesMap, path, depth, key, language, city, resourceCache, cityLanguages } = action.params
 
-  const root: CategoryModel = categoriesMap.findCategoryByPath(path)
+  // If there is an error in the old resourceCache, we want to override it
+  const newResourceCache = state.resourceCache.status === 'ready'
+    ? { ...state.resourceCache.value, ...resourceCache }
+    : resourceCache
+
+  const root: ?CategoryModel = categoriesMap.findCategoryByPath(path)
+
+  if (!root) {
+    const route: CategoryRouteStateType = {
+      path: path,
+      depth: depth,
+      language,
+      city,
+      status: 'error',
+      message: `Could not find a category with path '${path}'.`,
+      code: ErrorCodes.PageNotFound
+    }
+
+    return {
+      ...state,
+      categoriesRouteMapping: { ...state.categoriesRouteMapping, [key]: route },
+      resourceCache: { status: 'ready', value: newResourceCache },
+      searchRoute: { categoriesMap }
+    }
+  }
 
   const resultModels = {}
   const resultChildren = {}
@@ -30,11 +55,6 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
       resultChildren[node.path] = children.map(child => child.path)
     }
   })
-
-  // If there is an error in the old resourceCache, we want to override it
-  const newResourceCache = state.resourceCache.status === 'ready'
-    ? { ...state.resourceCache.value, ...resourceCache }
-    : resourceCache
 
   const route: CategoryRouteStateType = {
     path: root.path,
