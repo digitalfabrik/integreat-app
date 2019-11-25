@@ -10,12 +10,14 @@ import { type Dispatch } from 'redux'
 import { wrapDisplayName } from 'recompose'
 import FailureContainer from '../containers/FailureContainer'
 import { LOADING_TIMEOUT } from '../../common/constants'
+import type { ErrorCodeType } from '../ErrorCodes'
 
 export type RouteNotInitializedType = {| status: 'routeNotInitialized' |}
 export type LoadingType = {| status: 'loading' |}
 export type ErrorType<R> = {|
   status: 'error',
-  message: string,
+  message: ?string,
+  code: ErrorCodeType,
   refreshProps: R
 |}
 
@@ -79,7 +81,7 @@ const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R> (
         } else if (props.status === 'error') {
           return <ScrollView refreshControl={<RefreshControl onRefresh={this.refresh} refreshing={false} />}
                              contentContainerStyle={{ flexGrow: 1 }}>
-            <FailureContainer tryAgain={this.refresh} errorMessage={props.message} />
+            <FailureContainer tryAgain={this.refresh} message={props.message} code={props.code} />
           </ScrollView>
         } else if (props.status === 'languageNotAvailable') {
           return <LanguageNotAvailableContainer languages={props.availableLanguages}

@@ -11,7 +11,7 @@ export default (state: CitiesStateType = defaultCitiesState, action: StoreAction
     case 'PUSH_CITIES':
       return { status: 'ready', models: action.params.cities }
     case 'FETCH_CITIES_FAILED':
-      return { status: 'error', message: action.params.message }
+      return { status: 'error', message: action.params.message, code: action.params.code }
     default:
       return state
   }

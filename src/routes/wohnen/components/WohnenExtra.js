@@ -10,6 +10,7 @@ import List from '../../../modules/common/components/List'
 import { hashWohnenOffer } from '../../extras/hashWohnenOffer'
 import Failure from '../../../modules/error/components/Failure'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
+import ErrorCodes from '../../../modules/error/ErrorCodes'
 
 type PropsType = {|
   offers: Array<WohnenOfferModel>,
@@ -43,7 +44,8 @@ class WohnenExtra extends React.Component<PropsType> {
       const offer = offers.find(_offer => hashWohnenOffer(_offer) === offerHash)
 
       if (!offer) {
-        return <Failure errorMessage={'Angebot nicht gefunden.'} t={t} theme={theme} />
+        return <Failure errorMessage={'Angebot nicht gefunden.'} code={ErrorCodes.PageNotFound} t={t}
+                        theme={theme} />
       }
 
       return (

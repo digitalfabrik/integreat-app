@@ -4,6 +4,7 @@ import { CategoriesMapModel, CityModel, EventModel, LanguageModel } from '@integ
 import type { CategoryRouteConfigType, LanguageResourceCacheStateType } from './StateType'
 import type { ContentLoadCriterionType } from '../endpoint/ContentLoadCriterion'
 import type { TFunction } from 'i18next'
+import type { ErrorCodeType } from '../error/ErrorCodes'
 
 export type FetchCitiesActionType = {|
   type: 'FETCH_CITIES',
@@ -14,7 +15,7 @@ export type PushCitiesActionType = {|
 |}
 export type FetchCitiesFailedActionType = {|
   type: 'FETCH_CITIES_FAILED', +params: {|
-    +message: string
+    +message: string, +code: ErrorCodeType
   |}
 |}
 export type CitiesActionType = PushCitiesActionType | FetchCitiesActionType | FetchCitiesFailedActionType
@@ -44,6 +45,7 @@ export type FetchCategoryFailedActionType = {|
     +key: string,
     ...CategoryRouteConfigType,
     +message: string,
+    +code: ErrorCodeType,
     +allAvailableLanguages: $ReadOnlyMap<string, ?string> | null
   |}
 |}
@@ -94,6 +96,7 @@ export type FetchEventFailedActionType = {|
   type: 'FETCH_EVENT_FAILED',
   +params: {|
     +message: string,
+    +code: ErrorCodeType,
     +key: string,
     +allAvailableLanguages: ?$ReadOnlyMap<string, ?string>,
     +language: string,
@@ -139,7 +142,8 @@ export type ClearCityActionType = {|
 export type ResourcesFetchFailedActionType = {|
   type: 'FETCH_RESOURCES_FAILED',
   +params: {|
-    +message: string
+    +message: string,
+    +code: ErrorCodeType
   |}
 |}
 
