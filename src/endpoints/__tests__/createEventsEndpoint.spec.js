@@ -6,37 +6,73 @@ import EventModel from '../../models/EventModel'
 import DateModel from '../../models/DateModel'
 import LocationModel from '../../models/LocationModel'
 import createEventsEndpoint from '../createEventsEndpoint'
+import type { JsonEventType } from '../../types'
+import FeaturedImageModel from '../../models/FeaturedImageModel'
 
 describe('events', () => {
   const baseUrl = 'https://integreat-api-url.de'
   const events = createEventsEndpoint(baseUrl)
 
-  const createEvent = (id, allDay, startDate, startTime, endDate, endTime, timezone) => ({
+  const createEvent = (id, allDay, startDate, startTime, endDate, endTime, timezone): JsonEventType => ({
     id,
+    url: 'https://inegreat.app/augsburg/de/events/asylpolitischer_fruehschoppen',
     path: '/augsburg/de/events/asylpolitischer_fruehschoppen',
     title: 'Asylpolitischer Frühschoppen',
     excerpt: 'Asylpolitischer Fr&uuml;hschoppen',
     content: '<a href="javascript:IWantToBeRemoved();">Ich bleib aber da.</a>',
-    available_languages: [],
+    available_languages: {},
     thumbnail: '',
     event: {
+      id: 6349,
       all_day: allDay,
       start_date: startDate,
       start_time: startTime,
       end_date: endDate,
       end_time: endTime,
-      timezone: timezone
+      timezone: timezone,
+      recurrence_id: null
     },
     location: {
+      id: 1234,
+      name: 'Senkelfabrik',
       address: 'Wertachstr. 29',
       town: 'Augsburg',
-      postcode: '86353'
+      postcode: '86353',
+      state: 'Bavaria',
+      region: 'Swabia',
+      country: 'Germany',
+      latitude: null,
+      longitude: null
     },
     modified_gmt: '2017-01-09 15:30:00',
-    hash: '91d435afbc7aa83496137e81fd2832e3'
+    hash: '91d435afbc7aa83496137e81fd2832e3',
+    featured_image: {
+      description: 'I am an image showing beer',
+      mimetype: 'image/png',
+      thumbnail: [{
+        url: 'https://thumbna.il',
+        width: 150,
+        height: 150
+      }],
+      medium: [{
+        url: 'https://medi.um',
+        width: 300,
+        height: 300
+      }],
+      large: [{
+        url: 'https://lar.ge',
+        width: 500,
+        height: 500
+      }],
+      full: [{
+        url: 'https://fu.ll',
+        width: 500,
+        height: 500
+      }]
+    }
   })
 
-  const createEventModel = (id, allDay, startDate: Moment, endDate: Moment) => new EventModel({
+  const createEventModel = (id, allDay, startDate: Moment, endDate: Moment): EventModel => new EventModel({
     path: '/augsburg/de/events/asylpolitischer_fruehschoppen',
     title: 'Asylpolitischer Frühschoppen',
     excerpt: 'Asylpolitischer Frühschoppen',
@@ -54,7 +90,30 @@ describe('events', () => {
       postcode: '86353'
     }),
     lastUpdate: moment.tz('2017-01-09 15:30:00', 'GMT'),
-    hash: '91d435afbc7aa83496137e81fd2832e3'
+    hash: '91d435afbc7aa83496137e81fd2832e3',
+    featuredImage: new FeaturedImageModel({
+      description: 'I am an image showing beer',
+      thumbnail: {
+        url: 'https://thumbna.il',
+        width: 150,
+        height: 150
+      },
+      medium: {
+        url: 'https://medi.um',
+        width: 300,
+        height: 300
+      },
+      large: {
+        url: 'https://lar.ge',
+        width: 500,
+        height: 500
+      },
+      full: {
+        url: 'https://fu.ll',
+        width: 500,
+        height: 500
+      }
+    })
   })
 
   const event1 = createEvent(2730, false,

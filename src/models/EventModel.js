@@ -4,20 +4,23 @@ import type Moment from 'moment'
 import LocationModel from './LocationModel'
 import DateModel from './DateModel'
 import ExtendedPageModel from './ExtendedPageModel'
+import FeaturedImageModel from './FeaturedImageModel'
 
 class EventModel extends ExtendedPageModel {
   _date: DateModel
   _location: LocationModel
   _excerpt: string
+  _featuredImage: ?FeaturedImageModel
 
-  constructor (params: {|path: string, title: string, content: string, thumbnail: string,
+  constructor (params: {| path: string, title: string, content: string, thumbnail: string,
     date: DateModel, location: LocationModel, excerpt: string, availableLanguages: Map<string, string>,
-    lastUpdate: Moment, hash: string|}) {
-    const {date, location, excerpt, ...other} = params
+    lastUpdate: Moment, hash: string, featuredImage: ?FeaturedImageModel |}) {
+    const {date, location, excerpt, featuredImage, ...other} = params
     super(other)
     this._date = date
     this._location = location
     this._excerpt = excerpt
+    this._featuredImage = featuredImage
   }
 
   get date (): DateModel {
@@ -30,6 +33,10 @@ class EventModel extends ExtendedPageModel {
 
   get excerpt (): string {
     return this._excerpt
+  }
+
+  get featuredImage (): ?FeaturedImageModel {
+    return this._featuredImage
   }
 }
 
