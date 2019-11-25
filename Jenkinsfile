@@ -149,6 +149,7 @@ pipeline {
                                 E2E_CAPS = 'ci_browserstack'
                                 E2E_PLATFORM = 'android'
                                 E2E_SERVER = 'browserstack'
+                                E2E = true
                             }
                             steps {
                                 sh 'yarn test:e2e'
