@@ -22,7 +22,7 @@ const e2eSettings = {
   test: false
 }
 
-export const defaultSettings: SettingsType = (__DEV__ || process.env.E2E) ? e2eSettings : {
+export const defaultSettings: SettingsType = (__DEV__ || process.env.E2E_TEST_IDS) ? e2eSettings : {
   errorTracking: null,
   allowPushNotifications: null,
   useLocationAccess: null,
@@ -82,7 +82,7 @@ class AppSettings {
 
   loadIntroShown = async (): Promise<boolean> => {
     const value = await this.asyncStorage.getItem(INTRO_SHOWN_KEY)
-    if (value === null && process.env.E2E) {
+    if (value === null && process.env.E2E_TEST_IDS) {
       return true
     }
     return value ? JSON.parse(value) : false
