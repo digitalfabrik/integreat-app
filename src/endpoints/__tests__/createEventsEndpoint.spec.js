@@ -87,7 +87,9 @@ describe('events', () => {
     location: new LocationModel({
       address: 'Wertachstr. 29',
       town: 'Augsburg',
-      postcode: '86353'
+      postcode: '86353',
+      longitude: null,
+      latitude: null
     }),
     lastUpdate: moment.tz('2017-01-09 15:30:00', 'GMT'),
     hash: '91d435afbc7aa83496137e81fd2832e3',
