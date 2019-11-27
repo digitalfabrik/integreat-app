@@ -20,7 +20,7 @@ export default (
       return { ...state, switchingLanguage: true }
     case 'SWITCH_CONTENT_LANGUAGE_FAILED':
       if (state === null) {
-        throw Error('A content language switch cannot fail if the state is not yet initialized')
+        return null
       }
       return { ...state, switchingLanguage: false }
     case 'PUSH_LANGUAGES':
@@ -103,7 +103,7 @@ export default (
     }
     case 'FETCH_CATEGORY_FAILED': {
       if (state === null) {
-        throw Error('A fetch category fail cannot occur on not initialized cityContent')
+        return null
       }
       const { message, key, allAvailableLanguages, path, ...rest } = action.params
       return {
@@ -120,7 +120,7 @@ export default (
       return null
     case 'FETCH_RESOURCES_FAILED': {
       if (state === null) {
-        throw Error('A fetch resources fail cannot occur on not initialized cityContent')
+        return null
       }
       const errorMessage: string = action.params.message
       return { ...state, resourceCache: { status: 'error', message: errorMessage } }
