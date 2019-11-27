@@ -19,6 +19,9 @@
 ; Ignore metro
 .*/node_modules/metro/.*
 
+; Remove this line when upgrading geolocation
+.*/node_modules/@react-native-community/geolocation/lib/commonjs/implementation.js.flow
+
 [untyped]
 .*/node_modules/react-native-share/.*
 

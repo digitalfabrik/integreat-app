@@ -7,6 +7,7 @@ import type { DataContainer } from '../DataContainer'
 import loadCityContent from './loadCityContent'
 import { ContentLoadCriterion } from '../ContentLoadCriterion'
 import isPeekingRoute from '../selectors/isPeekingRoute'
+import ErrorCodes, { fromError } from '../../error/ErrorCodes'
 
 export function * fetchEvent (dataContainer: DataContainer, action: FetchEventActionType): Saga<void> {
   const { city, language, path, key, criterion } = action.params
@@ -36,6 +37,7 @@ export function * fetchEvent (dataContainer: DataContainer, action: FetchEventAc
         type: `FETCH_EVENT_FAILED`,
         params: {
           message: 'Could not load event.',
+          code: ErrorCodes.PageNotFound,
           allAvailableLanguages,
           path: null,
           key,
@@ -50,7 +52,13 @@ export function * fetchEvent (dataContainer: DataContainer, action: FetchEventAc
     const failed: FetchEventFailedActionType = {
       type: `FETCH_EVENT_FAILED`,
       params: {
-        message: `Error in fetchEvent: ${e.message}`, key, city, language, path, allAvailableLanguages: null
+        message: `Error in fetchEvent: ${e.message}`,
+        code: fromError(e),
+        key,
+        city,
+        language,
+        path,
+        allAvailableLanguages: null
       }
     }
     yield put(failed)

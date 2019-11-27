@@ -8,6 +8,7 @@ import watchFetchCategory, { fetchCategory } from '../watchFetchCategory'
 import { expectSaga, testSaga } from 'redux-saga-test-plan'
 import loadCityContent from '../loadCityContent'
 import CategoriesMapModelBuilder from '../../../../testing/builder/CategoriesMapModelBuilder'
+import ErrorCodes from '../../../error/ErrorCodes'
 
 jest.mock('rn-fetch-blob')
 jest.mock('../loadCityContent')
@@ -208,6 +209,7 @@ describe('watchFetchCategories', () => {
           type: 'FETCH_CATEGORY_FAILED',
           params: {
             message: 'Error in fetchCategory: Failed to fetch the language ??!',
+            code: ErrorCodes.UnknownError,
             key: 'categories-key',
             path: initialPath,
             depth: 2,
@@ -251,6 +253,7 @@ describe('watchFetchCategories', () => {
           type: 'FETCH_CATEGORY_FAILED',
           params: {
             message: 'Error in fetchCategory: Jemand hat keine 4 Issues geschafft!',
+            code: ErrorCodes.UnknownError,
             key: 'categories-key',
             path: `/${city}/${language}/some-path`,
             allAvailableLanguages: null,

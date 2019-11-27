@@ -9,6 +9,7 @@ import type {
 } from '../../app/StoreActionType'
 import type { DataContainer } from '../DataContainer'
 import loadCities from './loadCities'
+import { fromError } from '../../error/ErrorCodes'
 
 export function * fetchCities (dataContainer: DataContainer, action: FetchCitiesActionType): Saga<void> {
   try {
@@ -25,7 +26,7 @@ export function * fetchCities (dataContainer: DataContainer, action: FetchCities
     const failed: FetchCitiesFailedActionType = {
       type: `FETCH_CITIES_FAILED`,
       params: {
-        message: `Error in fetchCities: ${e.message}`
+        message: `Error in fetchCities: ${e.message}`, code: fromError(e)
       }
     }
     yield put(failed)

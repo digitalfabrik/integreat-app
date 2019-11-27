@@ -26,6 +26,7 @@ import FeedbackVariant from '../../feedback/FeedbackVariant'
 import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
 import type { FeedbackType } from '@integreat-app/integreat-api-client/endpoints/createFeedbackEndpoint'
+import ErrorCodes from '../../../modules/error/ErrorCodes'
 
 export type PropsType = {|
   path: ?string,
@@ -115,7 +116,7 @@ class Events extends React.Component<PropsType> {
       }
 
       const error = new ContentNotFoundError({ type: 'event', id: path, city: cityCode, language })
-      return <Failure errorMessage={error.message} t={t} theme={theme} />
+      return <Failure errorMessage={error.message} code={ErrorCodes.PageNotFound} t={t} theme={theme} />
     }
 
     return <SpaceBetween>

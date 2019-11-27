@@ -4,6 +4,7 @@ import type { CityContentActionType, FetchCategoryActionType, FetchEventActionTy
 import { CategoriesMapModel, LanguageModel } from '@integreat-app/integreat-api-client'
 import cityContentReducer from '../cityContentReducer'
 import type { CityContentStateType } from '../../../app/StateType'
+import ErrorCodes from '../../../error/ErrorCodes'
 
 describe('cityContentReducer', () => {
   const switchContentLanguageAction = {
@@ -53,6 +54,7 @@ describe('cityContentReducer', () => {
     params: {
       key: 'route-id-0',
       message: 'Some error',
+      code: ErrorCodes.UnknownError,
       path: '/augsburg/de',
       city: 'augsburg',
       language: 'de',
@@ -65,13 +67,17 @@ describe('cityContentReducer', () => {
     params: {
       key: 'route-id-0',
       message: 'Some error',
+      code: ErrorCodes.UnknownError,
       path: null,
       city: 'augsburg',
       language: 'de',
       allAvailableLanguages: null
     }
   }
-  const fetchResourcesFailedAction = { type: 'FETCH_RESOURCES_FAILED', params: { message: 'Some error' } }
+  const fetchResourcesFailedAction = {
+    type: 'FETCH_RESOURCES_FAILED',
+    params: { message: 'Some error', code: ErrorCodes.UnknownError }
+  }
 
   const unsupportedActionsOnUnitializedState: Array<CityContentActionType> = [
     switchContentLanguageAction,
@@ -168,7 +174,8 @@ describe('cityContentReducer', () => {
           language: 'de',
           city: 'augsburg',
           path: null,
-          message: 'No idea why it fails :/'
+          message: 'No idea why it fails :/',
+          code: ErrorCodes.UnknownError
         }
       },
       languages: ['de', 'en'],
@@ -205,6 +212,7 @@ describe('cityContentReducer', () => {
       type: 'FETCH_EVENT_FAILED',
       params: {
         message: 'Invalid language...',
+        code: ErrorCodes.PageNotFound,
         key: 'route-id-0',
         path: null,
         allAvailableLanguages: new Map([['en', null]]),
@@ -213,6 +221,7 @@ describe('cityContentReducer', () => {
       }
     })?.eventsRouteMapping['route-id-0']).toEqual({
       status: 'languageNotAvailable',
+      code: ErrorCodes.PageNotFound,
       language: 'de',
       city: 'augsburg',
       allAvailableLanguages: new Map([['en', null]])
@@ -242,6 +251,7 @@ describe('cityContentReducer', () => {
       params: {
         key: 'route-id-0',
         message: 'No idea why it fails :/',
+        code: ErrorCodes.UnknownError,
         path: null,
         city: 'augsburg',
         language: 'de',
@@ -252,7 +262,8 @@ describe('cityContentReducer', () => {
       language: 'de',
       city: 'augsburg',
       path: null,
-      message: 'No idea why it fails :/'
+      message: 'No idea why it fails :/',
+      code: ErrorCodes.UnknownError
     })
   })
 
@@ -294,7 +305,8 @@ describe('cityContentReducer', () => {
           depth: 2,
           city: 'augsburg',
           path: '/augsburg/de',
-          message: 'No idea why it fails :/'
+          message: 'No idea why it fails :/',
+          code: ErrorCodes.UnknownError
         }
       },
       eventsRouteMapping: {},
@@ -334,6 +346,7 @@ describe('cityContentReducer', () => {
         key: 'route-id-0',
         allAvailableLanguages: new Map([['en', '/augsburg/en']]),
         message: 'Language not available.',
+        code: ErrorCodes.PageNotFound,
         city: 'augsburg',
         language: 'de',
         path: '/augsburg/de',
@@ -372,6 +385,7 @@ describe('cityContentReducer', () => {
       params: {
         key: 'route-id-0',
         message: 'No idea why it fails :/',
+        code: ErrorCodes.UnknownError,
         path: '/augsburg/de',
         city: 'augsburg',
         allAvailableLanguages: null,
@@ -384,7 +398,8 @@ describe('cityContentReducer', () => {
       path: '/augsburg/de',
       city: 'augsburg',
       depth: 2,
-      message: 'No idea why it fails :/'
+      message: 'No idea why it fails :/',
+      code: ErrorCodes.UnknownError
     })
   })
 
@@ -414,7 +429,7 @@ describe('cityContentReducer', () => {
 
     expect(cityContentReducer(prevState, {
       type: 'FETCH_RESOURCES_FAILED',
-      params: { message: 'No idea why it fails :/' }
-    })?.resourceCache).toEqual({ status: 'error', message: 'No idea why it fails :/' })
+      params: { message: 'No idea why it fails :/', code: ErrorCodes.UnknownError }
+    })?.resourceCache).toEqual({ status: 'error', message: 'No idea why it fails :/', code: ErrorCodes.UnknownError })
   })
 })

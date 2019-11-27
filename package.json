@@ -26,8 +26,9 @@
     "proxy": "node tools/metro-proxy.js"
   },
   "dependencies": {
-    "@integreat-app/integreat-api-client": "^4.1.1",
+    "@integreat-app/integreat-api-client": "^4.2.0",
     "@react-native-community/async-storage": "^1.5.1",
+    "@react-native-community/geolocation": "^1.4.2",
     "@react-native-community/netinfo": "^3.2.1",
     "@testing-library/react-native": "^4.0.8",
     "hashids": "^1.2.2",

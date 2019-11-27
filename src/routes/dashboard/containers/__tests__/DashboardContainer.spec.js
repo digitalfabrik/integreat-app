@@ -23,6 +23,7 @@ import brightTheme from '../../../../modules/theme/constants/theme'
 import moment from 'moment'
 import { LanguageModel } from '@integreat-app/integreat-api-client'
 import { LOADING_TIMEOUT } from '../../../../modules/common/constants'
+import ErrorCodes from '../../../../modules/error/ErrorCodes'
 
 jest.mock('react-i18next')
 jest.useFakeTimers()
@@ -133,29 +134,32 @@ describe('DashboardContainer', () => {
       depth: 2,
       language: language.code,
       city: city.code,
-      message: 'Something went wrong with the route'
+      message: 'Something went wrong with the route',
+      code: ErrorCodes.UnknownError
     })
-    expectError(state, 'Something went wrong with the route')
+    expectError(state, ErrorCodes.UnknownError)
   })
 
   it('should display error if cities could not be loaded', () => {
     const state: StateType = prepareState(successfulRouteState, {
       cities: {
         status: 'error',
-        message: 'Something went wrong with the cities'
+        message: 'Something went wrong with the cities',
+        code: ErrorCodes.UnknownError
       }
     })
-    expectError(state, 'Something went wrong with the cities')
+    expectError(state, ErrorCodes.UnknownError)
   })
 
   it('should display error if resourceCache could not be loaded', () => {
     const state: StateType = prepareState(successfulRouteState, {
       resourceCacheState: {
         status: 'error',
-        message: 'Something went wrong with the resourceCache'
+        message: 'Something went wrong with the resourceCache',
+        code: ErrorCodes.UnknownError
       }
     })
-    expectError(state, 'Something went wrong with the resourceCache')
+    expectError(state, ErrorCodes.UnknownError)
   })
 
   const expectLoadingIndicator = (state: StateType) => {
