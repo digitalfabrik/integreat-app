@@ -36,7 +36,7 @@ const refresh = (refreshProps: void, dispatch: Dispatch<StoreActionType>) => {
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const language = state.contentLanguage
   if (state.cities.status === 'error') {
-    return { status: 'error', message: state.cities.message, refreshProps: undefined }
+    return { status: 'error', message: state.cities.message, code: state.cities.code, refreshProps: undefined }
   }
 
   if (state.cities.status === 'loading') {

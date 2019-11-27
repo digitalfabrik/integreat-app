@@ -802,10 +802,10 @@
   resolved "https://registry.yarnpkg.com/@integreat-app/eslint-config/-/eslint-config-0.2.1.tgz#0f82f1b7c9d22367b95134d92c4c21156c2b26c2"
   integrity sha1-D4Lxt8nSI2e5UTTZLEwhFWwrJsI=
 
-"@integreat-app/integreat-api-client@^4.1.1":
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/@integreat-app/integreat-api-client/-/integreat-api-client-4.1.1.tgz#161392eace5893d73c98f8f4493b4561f381b38a"
-  integrity sha512-1xvTrxanNl/pGHZnwE6KNzlq1w0sH7IviA9dfWGZ/Yz5xpaOk1l+qranXotPqa3vcWYepzwbp2KeTorULFtYdA==
+"@integreat-app/integreat-api-client@^4.2.0":
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/@integreat-app/integreat-api-client/-/integreat-api-client-4.2.0.tgz#6e947c5f2b6681856e5711b7e9889cb3cdc2c18c"
+  integrity sha512-i3xp7+jrF/B3TR2nZX4R/f0gMOCwo1lukH3ueZ0Xbrn1rPZQflFBxID7ro3Gvo99163AehQTrdB943E9B8IDbg==
   dependencies:
     entities "^1.1"
     is-url "^1.2"
@@ -1068,6 +1068,11 @@
     ws "^1.1.0"
     xcode "^2.0.0"
     xmldoc "^0.4.0"
+
+"@react-native-community/geolocation@^1.4.2":
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/@react-native-community/geolocation/-/geolocation-1.4.2.tgz#7228c6d37c2f55017af9c49c2b9ad586d9bcb9f8"
+  integrity sha512-9x9dHDeUXnh2larA4zTT3y/tXPmRnysh5o9fsNbGcnUKPj1BUCIHnGGPxEIDnwP1DNIMP2DN9DmuMHImtTbX6A==
 
 "@react-native-community/netinfo@^3.2.1":
   version "3.2.1"
@@ -9075,9 +9080,9 @@ redux-mock-store@^1.5.3:
     lodash.isplainobject "^4.0.6"
 
 redux-saga-test-plan@^4.0.0-rc.1:
-  version "4.0.0-rc.1"
-  resolved "https://registry.yarnpkg.com/redux-saga-test-plan/-/redux-saga-test-plan-4.0.0-rc.1.tgz#f3c4a17b95d080ac640e212312e119dee8020d67"
-  integrity sha512-pCdbQaR1V9ek0Q7Tu4FSWNnVns3tuNqUieyRXIJ95BRmpTqGEAKRUCj5Qkc936y7FT4Cuu7JVN51j972jIh8Fg==
+  version "4.0.0-rc.3"
+  resolved "https://registry.yarnpkg.com/redux-saga-test-plan/-/redux-saga-test-plan-4.0.0-rc.3.tgz#bde05527202be652859e68d15cdabe79ffa7509a"
+  integrity sha512-18Ha1AWmP4Xt64cSyJv2j7sH8lwQzdk/LByiyhoNyuqyhzkQzlKlflHr3LqiSCzn3e2AgFxagynto8XGRqsHcg==
   dependencies:
     core-js "^2.4.1"
     fsm-iterator "^1.1.0"
@@ -9590,9 +9595,9 @@ scoped-regex@^1.0.0:
   integrity sha1-o0a7Gs1CB65wvXwMfKnlZra63bg=
 
 seedrandom@^3.0.3:
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/seedrandom/-/seedrandom-3.0.3.tgz#74efcc324533b417b8f3e2cf2a70797aa4a94441"
-  integrity sha512-PJLhhxIMjlMJaiIRtqiVW061EZn3cS+waZkbFe7eCa2R3g88HbNdWmw4NTFG1w5unxd0GeNaUUxZJP7gPAzSDQ==
+  version "3.0.5"
+  resolved "https://registry.yarnpkg.com/seedrandom/-/seedrandom-3.0.5.tgz#54edc85c95222525b0c7a6f6b3543d8e0b3aa0a7"
+  integrity sha512-8OwmbklUNzwezjGInmZ+2clQmExQPvomqjL7LFqOYqtmuxRgQYqOD3mHaU+MvZn5FLUeVxVfQjwLZW/n/JFuqg==
 
 semver-diff@^2.0.0:
   version "2.1.0"

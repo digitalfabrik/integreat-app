@@ -27,7 +27,7 @@ padding-top: 10px;
 color: red;
 `
 
-const LocationImage = styled.Image`
+const LocationImage: StyledComponent<{}, ThemeType, *> = styled.Image`
   height: 70px;
   resize-mode: contain;
 `
