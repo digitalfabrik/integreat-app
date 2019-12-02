@@ -76,21 +76,27 @@ describe('cityContentReducer', () => {
   const unsupportedActionsOnUnitializedState: Array<CityContentActionType> = [
     switchContentLanguageAction,
     pushLanguagesAction,
+    fetchEventFailedAction
+  ]
+
+  // these actions should not thrown an error if then state is unitialized
+  const softUnsupportedActionsOnUnitializedState: Array<CityContentActionType> = [
     pushCategoryAction,
     pushEventAction,
     morphContentLanguageAction,
     fetchCategoryFailedAction,
-    fetchEventFailedAction,
     fetchResourcesFailedAction
   ]
+
   for (const action of unsupportedActionsOnUnitializedState) {
     it(`should throw on ${action.type} if state is unitialized`, () => {
-      if (action === pushCategoryAction || action === pushEventAction || action === morphContentLanguageAction ||
-        action === fetchCategoryFailedAction || action === fetchResourcesFailedAction) {
-        expect(cityContentReducer(null, action)).toBeNull()
-      } else {
-        expect(() => cityContentReducer(null, action)).toThrow()
-      }
+      expect(() => cityContentReducer(null, action)).toThrow()
+    })
+  }
+
+  for (const action of softUnsupportedActionsOnUnitializedState) {
+    it(`should return null on ${action.type} if state is unitialized`, () => {
+      expect(cityContentReducer(null, action)).toBeNull()
     })
   }
 
