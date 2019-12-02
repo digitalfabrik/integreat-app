@@ -53,11 +53,11 @@ class AppSettings {
     await this.asyncStorage.multiSet(settingsArray)
   }
 
-  setVersion = async (version: number) => {
+  setVersion = async (version: string) => {
     await this.asyncStorage.setItem(ASYNC_STORAGE_VERSION_KEY, version)
   }
 
-  loadVersion = async (): Promise<?number> => {
+  loadVersion = async (): Promise<?string> => {
     return this.asyncStorage.getItem(ASYNC_STORAGE_VERSION_KEY)
   }
 
