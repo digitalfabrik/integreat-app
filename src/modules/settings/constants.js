@@ -1,3 +1,3 @@
 // @flow
 
-export const AsyncStorageVersion: number = 1
+export const AsyncStorageVersion = '1'
