@@ -30,7 +30,11 @@ class Navigator extends React.Component<PropsType, StateType> {
     const { fetchCategory, clearCategory } = this.props
     const appSettings = new AppSettings()
     const [cityCode, language, storageVersion] = await Promise.all([appSettings.loadSelectedCity(), appSettings.loadContentLanguage(), appSettings.loadVersion()])
-    if (!storageVersion || storageVersion !== AsyncStorageVersion) {
+    if (!storageVersion) {
+      await appSettings.clearAppSettings()
+      await appSettings.setVersion(AsyncStorageVersion)
+    }
+    if (storageVersion !== AsyncStorageVersion) {
       // start a migration routine
       await appSettings.setVersion(AsyncStorageVersion)
     }
