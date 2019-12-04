@@ -11,7 +11,8 @@ import type { ThemeType } from '../../../modules/theme/constants/theme'
 
 const Wrapper: StyledComponent<{}, ThemeType, *> = styled(View)`
   background-color: ${props => props.theme.colors.backgroundColor};
-  padding: 11px 10px 0;
+  padding: 20px;
+  align-items: center;
 `
 
 export type PropsType = {|
