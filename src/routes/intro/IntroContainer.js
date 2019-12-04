@@ -9,7 +9,7 @@ import Search from './assets/Search.svg'
 import Events from './assets/Events.svg'
 import type { ThemeType } from '../../modules/theme/constants/theme'
 import withTheme from '../../modules/theme/hocs/withTheme'
-import { Switch, FlatList, Dimensions } from 'react-native'
+import { Switch, FlatList, Dimensions, Platform, PermissionsAndroid } from 'react-native'
 import styled, { type StyledComponent } from 'styled-components/native'
 import AppSettings from '../../modules/settings/AppSettings'
 import SettingItem from '../settings/components/SettingItem'
@@ -17,6 +17,7 @@ import SlideContent, { type SlideContentType } from './SlideContent'
 import SentryIntegration from '../../modules/app/SentryIntegration'
 import SlideFooter from './SlideFooter'
 import type { ViewToken } from 'react-native/Libraries/Lists/ViewabilityHelper'
+import Geolocation from '@react-native-community/geolocation'
 
 const Container: StyledComponent<{ width: number }, {}, *> = styled.View`
   display: flex;
@@ -104,7 +105,7 @@ class Intro extends React.Component<PropsType, StateType> {
   renderSettings = (): React.Node => {
     const { t, theme } = this.props
     const themeColor = theme.colors.themeColor
-    const { allowPushNotifications, useLocationAccess } = this.state
+    const { allowPushNotifications, useLocationAccess, allowSentry } = this.state
 
     return <>
       <SettingItem bigTitle title={t('pushNewsTitle')} description={t('pushNewsDescription')}
@@ -120,7 +121,7 @@ class Intro extends React.Component<PropsType, StateType> {
       <SettingItem bigTitle title={t('sentryTitle')} description={t('sentryDescription')}
                    onPress={this.setAllowSentry} theme={theme}>
         <Switch thumbColor={themeColor} trackColor={{ true: themeColor }}
-                onValueChange={this.setAllowSentry} value={useLocationAccess} />
+                onValueChange={this.setAllowSentry} value={allowSentry} />
       </SettingItem>
     </>
   }
@@ -140,7 +141,7 @@ class Intro extends React.Component<PropsType, StateType> {
       }
 
       if (useLocationAccess) {
-        // TODO request permission, return if not granted
+        await this.requestLocationPermissions()
       }
     } catch (e) {
       console.warn(e)
@@ -148,6 +149,19 @@ class Intro extends React.Component<PropsType, StateType> {
     await this._appSettings.setSettings({ errorTracking, allowPushNotifications, useLocationAccess })
     this._appSettings.setIntroShown()
     this.props.navigation.navigate('Landing')
+  }
+
+  requestLocationPermissions = async () => {
+    if (Platform.OS === 'ios') {
+      Geolocation.requestAuthorization()
+    } else {
+      const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION)
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        // TODO
+      } else {
+        // TODO
+      }
+    }
   }
 
   goToSlide = (index: number) => {
