@@ -115,16 +115,24 @@ pipeline {
                                 sh 'yarn run bundle'
                             }
                         }
-                        stage('Build Release for Android') {
+                        stage('Unit tests') {
                             environment {
-                                ANDROID_HOME = '/opt/android-sdk/'
-                                E2E_TEST_IDS = "1"
-                                BUNDLE_CONFIG = "./metro.config.ci.js"
+                                E2E  = false
                             }
                             steps {
                                 sh 'yarn run flow:check-now'
                                 sh 'yarn run lint'
                                 sh 'yarn run test'
+                            }
+                        }
+                        stage('Build Release for Android') {
+                            environment {
+                                ANDROID_HOME = '/opt/android-sdk/'
+                                E2E_TEST_IDS = "1"
+                                BUNDLE_CONFIG = "./metro.config.ci.js"
+                                E2E = true
+                            }
+                            steps {
                                 sh 'cd android/ && ./gradlew build -x lint -x lintVitalRelease'
                                 archiveArtifacts artifacts: 'android/app/build/outputs/apk/**/*.*'
                             }
