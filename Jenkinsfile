@@ -116,9 +116,6 @@ pipeline {
                             }
                         }
                         stage('Unit tests') {
-                            environment {
-                                E2E  = false
-                            }
                             steps {
                                 sh 'yarn run flow:check-now'
                                 sh 'yarn run lint'
@@ -130,7 +127,6 @@ pipeline {
                                 ANDROID_HOME = '/opt/android-sdk/'
                                 E2E_TEST_IDS = "1"
                                 BUNDLE_CONFIG = "./metro.config.ci.js"
-                                E2E = true
                             }
                             steps {
                                 sh 'cd android/ && ./gradlew build -x lint -x lintVitalRelease'
