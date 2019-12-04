@@ -155,12 +155,7 @@ class Intro extends React.Component<PropsType, StateType> {
     if (Platform.OS === 'ios') {
       Geolocation.requestAuthorization()
     } else {
-      const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION)
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        // TODO
-      } else {
-        // TODO
-      }
+      await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION)
     }
   }
 
