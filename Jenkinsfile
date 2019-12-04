@@ -116,6 +116,10 @@ pipeline {
                             }
                         }
                         stage('Unit tests') {
+                            environment {
+                                ANDROID_HOME = '/opt/android-sdk/'
+                                BUNDLE_CONFIG = "./metro.config.ci.js"
+                            }
                             steps {
                                 sh 'yarn run flow:check-now'
                                 sh 'yarn run lint'
