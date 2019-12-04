@@ -82,9 +82,6 @@ class AppSettings {
 
   loadIntroShown = async (): Promise<boolean> => {
     const value = await this.asyncStorage.getItem(INTRO_SHOWN_KEY)
-    if (process.env.E2E_TEST_IDS) {
-      throw Error(process.env.E2E_TEST_IDS)
-    }
     if (value === null && process.env.E2E_TEST_IDS) {
       return true
     }
