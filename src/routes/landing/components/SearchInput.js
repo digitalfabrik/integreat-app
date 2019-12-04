@@ -7,36 +7,33 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import testID from '../../../modules/e2e/testID'
 
-export const Spacer: StyledComponent<{| space: boolean, children: React.Node |}, {}, *> = styled.View`
-  ${props => props.space && `margin: 50px 0;`}
-`
-
 export const Input = styled.TextInput.attrs((props: { theme: ThemeType }) => ({
   multiline: false,
   textColor: props.theme.colors.textSecondaryColor,
   placeholderTextColor: props.theme.colors.textSecondaryColor
 }))`
-  margin-left: 5px;
+  margin: 0 5px;
   flex-grow: 1;
-
+  
   border-bottom-width: 1px;
   border-bottom-color: ${props => props.theme.colors.textSecondaryColor};
 `
 
-export const Wrapper: StyledComponent<{}, ThemeType, *> = styled.View`
-  display: flex;
+export const Wrapper: StyledComponent<{ space: boolean }, ThemeType, *> = styled.View`
   flex-direction: row;
-  justifyContent:center;
-  padding: 10px 10%;
+  ${props => props.space && `margin: 50px 0;`}
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
   background-color: ${props => props.theme.colors.backgroundColor};
 `
 
 // $FlowFixMe https://github.com/flow-typed/flow-typed/pull/3228
 export const SearchIcon = styled(Icon).attrs(props => ({
   name: 'search',
-  size: 40
-}))`
-`
+  size: 30,
+  color: props.theme.colors.textSecondaryColor
+}))``
 
 type PropsType = {
   placeholderText: string,
@@ -52,21 +49,19 @@ class SearchInput extends React.Component<PropsType> {
   onFilterTextChange = (text: string) => this.props.onFilterTextChange(text)
 
   render () {
-    const { onClickInput, filterText, placeholderText } = this.props
+    const { onClickInput, filterText, placeholderText, theme, spaceSearch } = this.props
     return (
-      <Spacer space={this.props.spaceSearch}>
-        <Wrapper theme={this.props.theme}>
-          <SearchIcon />
-          <Input
-            {...testID('Search-Input')}
-            theme={this.props.theme}
-            placeholder={placeholderText}
-            aria-label={placeholderText}
-            defaultValue={filterText}
-            onChangeText={this.onFilterTextChange}
-            onClick={onClickInput} />
-        </Wrapper>
-      </Spacer>
+      <Wrapper theme={theme} space={spaceSearch}>
+        <SearchIcon theme={theme} />
+        <Input
+          {...testID('Search-Input')}
+          theme={theme}
+          placeholder={placeholderText}
+          aria-label={placeholderText}
+          defaultValue={filterText}
+          onChangeText={this.onFilterTextChange}
+          onClick={onClickInput} />
+      </Wrapper>
     )
   }
 }
