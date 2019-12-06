@@ -21,6 +21,11 @@ const ButtonContainer: StyledComponent<{}, ThemeType, *> = styled.TouchableOpaci
   width: 100%;
 `
 
+const VerticalButtonContainer: StyledComponent<{}, ThemeType, *> = styled.TouchableOpacity`
+  flex: 1;
+  flex-direction: column;
+`
+
 const ButtonText: StyledComponent<{ backgroundColor: string }, ThemeType, *> = styled.Text`
   color: ${props => props.theme.colors.textColor};
   background-color: ${props => props.backgroundColor};
@@ -57,34 +62,14 @@ type PropsType = {|
   slideCount: number,
   currentSlide: number,
   goToSlide: (index: number) => void,
-  onAccept: () => void,
-  onContinue: () => void,
+  onDone: ({| refuseAll?: boolean, acceptAll?: boolean |}) => void,
+  toggleCustomizeSettings: () => void,
+  customizableSettings: boolean,
   theme: ThemeType,
   t: TFunction
 |}
 
 class SlideFooter extends React.Component<PropsType> {
-  skipButton = (): ButtonType => ({
-    label: this.props.t('skip'),
-    onPress: () => this.props.goToSlide(this.props.slideCount - 1)
-  })
-
-  continueButton = (): ButtonType => ({
-    label: this.props.t('continue'),
-    onPress: this.props.onContinue
-  })
-
-  nextButton = (currentIndex: number): ButtonType => ({
-    label: this.props.t('next'),
-    onPress: () => this.props.goToSlide(++currentIndex)
-  })
-
-  acceptButton = (): ButtonType => ({
-    label: this.props.t('acceptAll'),
-    onPress: this.props.onAccept,
-    backgroundColor: this.props.theme.colors.themeColor
-  })
-
   renderButton = (button: ButtonType): React.Node => {
     const { theme } = this.props
     return <ButtonContainer theme={theme} onPress={button.onPress}>
@@ -105,17 +90,51 @@ class SlideFooter extends React.Component<PropsType> {
     </DotsContainer>
   }
 
-  render () {
-    const { currentSlide, slideCount, theme } = this.props
+  renderStandardFooter = (): React.Node => {
+    const { theme, slideCount, goToSlide, currentSlide, t } = this.props
+    return <Container theme={theme}>
+      {this.renderButton({ label: t('skip'), onPress: () => goToSlide(slideCount - 1) })}
+      {this.renderPagination()}
+      {this.renderButton({ label: t('next'), onPress: () => goToSlide(currentSlide + 1) })}
+    </Container>
+  }
 
-    const leftButton = currentSlide === slideCount - 1 ? this.continueButton() : this.skipButton()
-    const rightButton = currentSlide === slideCount - 1 ? this.acceptButton() : this.nextButton(currentSlide)
+  renderCustomizableSettingsFooter = (): React.Node => {
+    const { onDone, toggleCustomizeSettings, theme, t } = this.props
+    return <Container theme={theme}>
+      {this.renderButton({ label: t('back'), onPress: toggleCustomizeSettings })}
+      {this.renderPagination()}
+      {this.renderButton({ label: t('accept'), onPress: onDone })}
+    </Container>
+  }
+
+  renderSettingsFooter = (): React.Node => {
+    const { onDone, toggleCustomizeSettings, theme, t } = this.props
 
     return <Container theme={theme}>
-      {this.renderButton(leftButton)}
+      <VerticalButtonContainer>
+        {this.renderButton({ label: t('customize'), onPress: toggleCustomizeSettings })}
+        {this.renderButton({ label: t('refuse'), onPress: () => onDone({ refuseAll: true }) })}
+      </VerticalButtonContainer>
       {this.renderPagination()}
-      {this.renderButton(rightButton)}
+      {this.renderButton({
+        label: t('accept'),
+        onPress: () => onDone({ acceptAll: true }),
+        backgroundColor: theme.colors.themeColor
+      })}
     </Container>
+  }
+
+  render () {
+    const { customizableSettings, currentSlide, slideCount } = this.props
+
+    if (currentSlide < slideCount - 1) {
+      return this.renderStandardFooter()
+    } else if (customizableSettings) {
+      return this.renderCustomizableSettingsFooter()
+    } else {
+      return this.renderSettingsFooter()
+    }
   }
 }
 

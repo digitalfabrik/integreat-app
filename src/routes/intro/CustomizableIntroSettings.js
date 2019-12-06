@@ -28,17 +28,20 @@ class CustomizableIntroSettings extends React.Component<PropsType> {
     return <>
       <SettingItem bigTitle title={t('pushNewsTitle')} description={t('pushNewsDescription')}
                    onPress={toggleSetAllowPushNotifications} theme={theme}>
-        <Switch thumbColor={themeColor} trackColor={{ true: themeColor }} value={allowPushNotifications} />
+        <Switch thumbColor={themeColor} trackColor={{ true: themeColor }} value={allowPushNotifications}
+                onValueChange={toggleSetAllowPushNotifications} />
       </SettingItem>
       <SettingItem bigTitle title={t('locationTitle')} description={t('locationDescription')}
                    onPress={toggleProposeNearbyCities} theme={theme}>
-        <Switch thumbColor={themeColor} trackColor={{ true: themeColor }} value={proposeNearbyCities} />
+        <Switch thumbColor={themeColor} trackColor={{ true: themeColor }} value={proposeNearbyCities}
+                onValueChange={toggleProposeNearbyCities} />
       </SettingItem>
       <SettingItem bigTitle title={t('sentryTitle')} description={t('sentryDescription')}
                    onPress={toggleAllowSentry} theme={theme}>
-        <Switch thumbColor={themeColor} trackColor={{ true: themeColor }} value={allowSentry} />
+        <Switch thumbColor={themeColor} trackColor={{ true: themeColor }} value={allowSentry}
+                onValueChange={toggleAllowSentry} />
       </SettingItem>
-      </>
+    </>
   }
 }
 
