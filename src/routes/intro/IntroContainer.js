@@ -9,15 +9,15 @@ import Search from './assets/Search.svg'
 import Events from './assets/Events.svg'
 import type { ThemeType } from '../../modules/theme/constants/theme'
 import withTheme from '../../modules/theme/hocs/withTheme'
-import { Switch, FlatList, Dimensions, Platform, PermissionsAndroid } from 'react-native'
-import styled, { type StyledComponent } from 'styled-components/native'
+import { FlatList, Dimensions, Platform, PermissionsAndroid } from 'react-native'
+import styled, { StyledComponent } from 'styled-components/native'
 import AppSettings from '../../modules/settings/AppSettings'
-import SettingItem from '../settings/components/SettingItem'
 import SlideContent, { type SlideContentType } from './SlideContent'
 import SentryIntegration from '../../modules/app/SentryIntegration'
 import SlideFooter from './SlideFooter'
 import type { ViewToken } from 'react-native/Libraries/Lists/ViewabilityHelper'
 import Geolocation from '@react-native-community/geolocation'
+import CustomizableIntroSettings from './CustomizableIntroSettings'
 
 const Container: StyledComponent<{ width: number }, {}, *> = styled.View`
   display: flex;
@@ -40,8 +40,9 @@ type PropsType = {| t: TFunction, navigation: NavigationScreenProp<*>, theme: Th
 type StateType = {|
   slideCount: number,
   currentSlide: number,
+  customizeSettings: boolean,
   allowPushNotifications: boolean,
-  useLocationAccess: boolean,
+  proposeCities: boolean,
   allowSentry: boolean,
   width: number
 |}
@@ -55,8 +56,9 @@ class Intro extends React.Component<PropsType, StateType> {
     this.state = {
       slideCount: this.slides().length,
       currentSlide: 0,
+      customizeSettings: false,
       allowPushNotifications: false,
-      useLocationAccess: false,
+      proposeCities: false,
       allowSentry: false,
       width: Dimensions.get('window').width
     }
@@ -98,58 +100,42 @@ class Intro extends React.Component<PropsType, StateType> {
     }]
   }
 
-  setAllowPushNotifications = () => this.setState(prevState =>
+  toggleAllowPushNotifications = () => this.setState(prevState =>
     ({ allowPushNotifications: !prevState.allowPushNotifications }))
 
-  setUseLocationAccess = () => this.setState(prevState => ({ useLocationAccess: !prevState.useLocationAccess }))
+  toggleProposeCities = () => this.setState(prevState => ({ proposeCities: !prevState.proposeCities }))
 
-  setAllowSentry = () => this.setState(prevState => ({ allowSentry: !prevState.allowSentry }))
+  toggleAllowSentry = () => this.setState(prevState => ({ allowSentry: !prevState.allowSentry }))
 
-  renderSettings = (): React.Node => {
-    const { t, theme } = this.props
-    const themeColor = theme.colors.themeColor
-    const { allowPushNotifications, useLocationAccess, allowSentry } = this.state
-
-    return <>
-      <SettingItem bigTitle title={t('pushNewsTitle')} description={t('pushNewsDescription')}
-                   onPress={this.setAllowPushNotifications} theme={theme}>
-        <Switch thumbColor={themeColor} trackColor={{ true: themeColor }}
-                onValueChange={this.setAllowPushNotifications} value={allowPushNotifications} />
-      </SettingItem>
-      <SettingItem bigTitle title={t('locationTitle')} description={t('locationDescription')}
-                   onPress={this.setUseLocationAccess} theme={theme}>
-        <Switch thumbColor={themeColor} trackColor={{ true: themeColor }}
-                onValueChange={this.setUseLocationAccess} value={useLocationAccess} />
-      </SettingItem>
-      <SettingItem bigTitle title={t('sentryTitle')} description={t('sentryDescription')}
-                   onPress={this.setAllowSentry} theme={theme}>
-        <Switch thumbColor={themeColor} trackColor={{ true: themeColor }}
-                onValueChange={this.setAllowSentry} value={allowSentry} />
-      </SettingItem>
-    </>
+  renderSettings = () => {
+    const { customizeSettings, allowPushNotifications, proposeCities, allowSentry } = this.state
+    const { theme, t } = this.props
+    if (customizeSettings) {
+      return <CustomizableIntroSettings allowPushNotifications={allowPushNotifications}
+                                        toggleSetAllowPushNotifications={this.toggleAllowPushNotifications}
+                                        proposeNearbyCities={proposeCities}
+                                        toggleProposeNearbyCities={this.toggleProposeCities} allowSentry={allowSentry}
+                                        toggleAllowSentry={this.toggleAllowSentry}
+                                        theme={theme} t={t} />
+    } else {
+      return null
+    }
   }
 
-  onAccept = () => { this.onDone(true, true, true) }
-
-  onContinue = () => {
-    const { allowPushNotifications, useLocationAccess, allowSentry } = this.state
-    this.onDone(allowPushNotifications, allowSentry, useLocationAccess)
-  }
-
-  onDone = async (allowPushNotifications: boolean, errorTracking: boolean, useLocationAccess: boolean) => {
+  onDone = async (allowPushNotifications: boolean, allowSentry: boolean, proposeCities: boolean) => {
     try {
-      if (errorTracking) {
+      if (allowSentry) {
         const sentry = new SentryIntegration()
         await sentry.install()
       }
 
-      if (useLocationAccess) {
+      if (proposeCities) {
         await this.requestLocationPermissions()
       }
     } catch (e) {
       console.warn(e)
     }
-    await this._appSettings.setSettings({ errorTracking, allowPushNotifications, useLocationAccess })
+    await this._appSettings.setSettings({ allowSentry, allowPushNotifications, proposeCities })
     this._appSettings.setIntroShown()
     this.props.navigation.navigate('Landing')
   }

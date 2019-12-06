@@ -10,23 +10,23 @@ const INTRO_SHOWN_KEY = 'INTRO_SHOWN'
 const ASYNC_STORAGE_VERSION_KEY = 'ASYNC_STORAGE_VERSION'
 
 export type SettingsType = {|
-  errorTracking: boolean | null,
+  allowSentry: boolean | null,
   allowPushNotifications: boolean | null,
-  useLocationAccess: boolean | null,
+  proposeNearbyCities: boolean | null,
   test: boolean | null
 |}
 
 const e2eSettings = {
-  errorTracking: false,
+  allowSentry: false,
   allowPushNotifications: false,
-  useLocationAccess: false,
+  proposeNearbyCities: false,
   test: false
 }
 
 export const defaultSettings: SettingsType = (__DEV__ || process.env.E2E_TEST_IDS) ? e2eSettings : {
-  errorTracking: null,
+  allowSentry: null,
   allowPushNotifications: null,
-  useLocationAccess: null,
+  proposeNearbyCities: null,
   test: false
 }
 
