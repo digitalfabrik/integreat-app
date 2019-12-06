@@ -34,7 +34,7 @@ const ImageContent = styled.Image`
   display: flex;
   height: 100%;
   width: 60%;
-  resize-mode: contain
+  resize-mode: contain;
 `
 
 type PropsType = {| t: TFunction, navigation: NavigationScreenProp<*>, theme: ThemeType |}
@@ -122,7 +122,7 @@ class Intro extends React.Component<PropsType, StateType> {
                                         toggleAllowSentry={this.toggleAllowSentry}
                                         theme={theme} t={t} />
     } else {
-      return <IntroSettings />
+      return <IntroSettings theme={theme} />
     }
   }
 
