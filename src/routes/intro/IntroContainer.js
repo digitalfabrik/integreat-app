@@ -18,6 +18,7 @@ import SlideFooter from './SlideFooter'
 import type { ViewToken } from 'react-native/Libraries/Lists/ViewabilityHelper'
 import Geolocation from '@react-native-community/geolocation'
 import CustomizableIntroSettings from './CustomizableIntroSettings'
+import IntroSettings from './IntroSettings'
 
 const Container: StyledComponent<{ width: number }, {}, *> = styled.View`
   display: flex;
@@ -40,7 +41,7 @@ type PropsType = {| t: TFunction, navigation: NavigationScreenProp<*>, theme: Th
 type StateType = {|
   slideCount: number,
   currentSlide: number,
-  customizeSettings: boolean,
+  customizableSettings: boolean,
   allowPushNotifications: boolean,
   proposeCities: boolean,
   allowSentry: boolean,
@@ -56,7 +57,7 @@ class Intro extends React.Component<PropsType, StateType> {
     this.state = {
       slideCount: this.slides().length,
       currentSlide: 0,
-      customizeSettings: false,
+      customizableSettings: false,
       allowPushNotifications: false,
       proposeCities: false,
       allowSentry: false,
@@ -100,6 +101,9 @@ class Intro extends React.Component<PropsType, StateType> {
     }]
   }
 
+  toggleCustomizeSettings = () => this.setState(prevState =>
+    ({ customizableSettings: !prevState.customizableSettings }))
+
   toggleAllowPushNotifications = () => this.setState(prevState =>
     ({ allowPushNotifications: !prevState.allowPushNotifications }))
 
@@ -108,9 +112,9 @@ class Intro extends React.Component<PropsType, StateType> {
   toggleAllowSentry = () => this.setState(prevState => ({ allowSentry: !prevState.allowSentry }))
 
   renderSettings = () => {
-    const { customizeSettings, allowPushNotifications, proposeCities, allowSentry } = this.state
+    const { customizableSettings, allowPushNotifications, proposeCities, allowSentry } = this.state
     const { theme, t } = this.props
-    if (customizeSettings) {
+    if (customizableSettings) {
       return <CustomizableIntroSettings allowPushNotifications={allowPushNotifications}
                                         toggleSetAllowPushNotifications={this.toggleAllowPushNotifications}
                                         proposeNearbyCities={proposeCities}
@@ -118,11 +122,16 @@ class Intro extends React.Component<PropsType, StateType> {
                                         toggleAllowSentry={this.toggleAllowSentry}
                                         theme={theme} t={t} />
     } else {
-      return null
+      return <IntroSettings />
     }
   }
 
-  onDone = async (allowPushNotifications: boolean, allowSentry: boolean, proposeCities: boolean) => {
+  onDone = async ({ refuseAll, acceptAll }: {| refuseAll?: boolean, acceptAll?: boolean |}) => {
+    const { allowSentry, allowPushNotifications, proposeCities } = this.state
+    if (refuseAll && acceptAll) {
+      throw Error('Cannot refuse and accept all at the same time')
+    }
+
     try {
       if (allowSentry) {
         const sentry = new SentryIntegration()
@@ -152,6 +161,7 @@ class Intro extends React.Component<PropsType, StateType> {
     if (!this._flatList.current) {
       throw Error('ref not correctly set')
     }
+    this.setState({ customizableSettings: false })
     this._flatList.current.scrollToIndex({ index })
   }
 
@@ -169,14 +179,15 @@ class Intro extends React.Component<PropsType, StateType> {
 
   render () {
     const { theme, t } = this.props
-    const { slideCount, currentSlide, width } = this.state
+    const { customizableSettings, slideCount, currentSlide, width } = this.state
     return <Container width={width}>
       <FlatList ref={this._flatList} data={this.slides()} horizontal pagingEnabled
                 viewabilityConfig={{ itemVisiblePercentThreshold: 51, minimumViewTime: 0.1 }}
                 onViewableItemsChanged={this.onViewableItemsChanged} showsHorizontalScrollIndicator={false}
                 bounces={false} renderItem={this.renderSlide} />
-      <SlideFooter slideCount={slideCount} onAccept={this.onAccept} onContinue={this.onContinue}
-                   currentSlide={currentSlide} goToSlide={this.goToSlide} theme={theme} t={t} />
+      <SlideFooter slideCount={slideCount} onDone={this.onDone} toggleCustomizeSettings={this.toggleCustomizeSettings}
+                   customizableSettings={customizableSettings} currentSlide={currentSlide} goToSlide={this.goToSlide}
+                   theme={theme} t={t} />
     </Container>
   }
 }
