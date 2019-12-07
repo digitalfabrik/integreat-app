@@ -9,16 +9,15 @@ import { type TFunction } from 'react-i18next'
 const Container: StyledComponent<{}, ThemeType, *> = styled.View`
   flex: 0.1;
   flex-direction: row;
-  padding: 16px 0 25px;
+  padding: 16px 10px 25px;
   background-color: ${props => props.theme.colors.backgroundColor};
 `
 
 const ButtonContainer: StyledComponent<{}, ThemeType, *> = styled.TouchableOpacity`
   flex: 1;
-  padding: 12px;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  padding: 16px 0;
 `
 
 const VerticalButtonContainer: StyledComponent<{}, ThemeType, *> = styled.TouchableOpacity`
@@ -31,12 +30,12 @@ const ButtonText: StyledComponent<{ backgroundColor: string }, ThemeType, *> = s
   background-color: ${props => props.backgroundColor};
   font-size: 18px;
   text-align: center;
-  padding: 8px 16px;
+  padding: 8px 12px;
   border-radius: 3px;
 `
 
 const DotsContainer = styled.View`
-  display: flex;
+  flex: 1;
   flex-direction: row;
   justify-content: center;
   align-items: center;
@@ -62,7 +61,7 @@ type PropsType = {|
   slideCount: number,
   currentSlide: number,
   goToSlide: (index: number) => void,
-  onDone: ($Shape<{| refuseAll?: boolean, acceptAll?: boolean |}>) => Promise<void>,
+  onDone: ($Shape<{| declineAll?: boolean, acceptAll?: boolean |}>) => Promise<void>,
   toggleCustomizeSettings: () => void,
   customizableSettings: boolean,
   theme: ThemeType,
@@ -114,7 +113,7 @@ class SlideFooter extends React.Component<PropsType> {
     return <Container theme={theme}>
       <VerticalButtonContainer>
         {this.renderButton({ label: t('customize'), onPress: toggleCustomizeSettings })}
-        {this.renderButton({ label: t('refuse'), onPress: () => onDone({ refuseAll: true }) })}
+        {this.renderButton({ label: t('decline'), onPress: () => onDone({ declineAll: true }) })}
       </VerticalButtonContainer>
       {this.renderPagination()}
       {this.renderButton({
