@@ -135,9 +135,9 @@ class Intro extends React.Component<PropsType, StateType> {
     }
   }
 
-  onDone = async ({ refuseAll, acceptAll }: $Shape<{| refuseAll?: boolean, acceptAll?: boolean |}>) => {
+  onDone = async ({ declineAll, acceptAll }: $Shape<{| declineAll?: boolean, acceptAll?: boolean |}>) => {
     const { allowSentry, allowPushNotifications, proposeNearbyCities } = this.state
-    if (refuseAll && acceptAll) {
+    if (declineAll && acceptAll) {
       throw Error('Cannot refuse and accept all at the same time')
     }
 

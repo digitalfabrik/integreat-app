@@ -59,19 +59,16 @@ class IntroSettings extends React.Component<PropsType> {
   showPrivacyPolicy = () => openPrivacyPolicy(this.props.language)
 
   render () {
-    const { theme } = this.props
+    const { theme, t } = this.props
     return <Padding>
       <ItemContainer>
-        <MainText theme={theme}>Durch Klicken auf "Akzeptieren" erlaube ich der Integreat-App, ...</MainText>
-        {this.renderItem('Push-Benachrichtigungen',
-          '... mir Push-Benachrichtigungen über die neuesten lokalen News zu senden')}
-        {this.renderItem('Orte Vorschlagen',
-          '... mir mithilfe meines GPS-Standorts nahegelegene Orte vorzuschlagen')}
-        {this.renderItem('App-Stabilität verbessern',
-          '... mit dem automatischen senden von Absturzberichten Integreat zu verbessern')}
+        <MainText theme={theme}>{t('inquiryIntro', { accept: t('accept') })}</MainText>
+        {this.renderItem(t('pushNewsTitle'), t('pushNewsCondition'))}
+        {this.renderItem(t('locationTitle'), t('locationCondition'))}
+        {this.renderItem(t('sentryTitle'), t('sentryCondition'))}
       </ItemContainer>
       <LinkContainer>
-        <Link onPress={this.showPrivacyPolicy}>Privacy Policy</Link>
+        <Link onPress={this.showPrivacyPolicy}>{t('privacyPolicy')}</Link>
       </LinkContainer>
     </Padding>
   }
