@@ -10,7 +10,7 @@ import Events from './assets/Events.svg'
 import type { ThemeType } from '../../modules/theme/constants/theme'
 import withTheme from '../../modules/theme/hocs/withTheme'
 import { FlatList, Dimensions, Platform, PermissionsAndroid } from 'react-native'
-import styled, { StyledComponent } from 'styled-components/native'
+import styled, { type StyledComponent } from 'styled-components/native'
 import AppSettings from '../../modules/settings/AppSettings'
 import SlideContent, { type SlideContentType } from './SlideContent'
 import SentryIntegration from '../../modules/app/SentryIntegration'
@@ -19,6 +19,8 @@ import type { ViewToken } from 'react-native/Libraries/Lists/ViewabilityHelper'
 import Geolocation from '@react-native-community/geolocation'
 import CustomizableIntroSettings from './CustomizableIntroSettings'
 import IntroSettings from './IntroSettings'
+import type { StateType as ReduxStateType } from '../../modules/app/StateType'
+import { connect } from 'react-redux'
 
 const Container: StyledComponent<{ width: number }, {}, *> = styled.View`
   display: flex;
@@ -37,13 +39,20 @@ const ImageContent = styled.Image`
   resize-mode: contain;
 `
 
-type PropsType = {| t: TFunction, navigation: NavigationScreenProp<*>, theme: ThemeType |}
+type PropsType = {|
+  t: TFunction,
+  navigation: NavigationScreenProp<*>,
+  theme: ThemeType,
+  language: string,
+  dispatch: () => void
+|}
+
 type StateType = {|
   slideCount: number,
   currentSlide: number,
   customizableSettings: boolean,
   allowPushNotifications: boolean,
-  proposeCities: boolean,
+  proposeNearbyCities: boolean,
   allowSentry: boolean,
   width: number
 |}
@@ -59,7 +68,7 @@ class Intro extends React.Component<PropsType, StateType> {
       currentSlide: 0,
       customizableSettings: false,
       allowPushNotifications: false,
-      proposeCities: false,
+      proposeNearbyCities: false,
       allowSentry: false,
       width: Dimensions.get('window').width
     }
@@ -107,27 +116,27 @@ class Intro extends React.Component<PropsType, StateType> {
   toggleAllowPushNotifications = () => this.setState(prevState =>
     ({ allowPushNotifications: !prevState.allowPushNotifications }))
 
-  toggleProposeCities = () => this.setState(prevState => ({ proposeCities: !prevState.proposeCities }))
+  toggleProposeCities = () => this.setState(prevState => ({ proposeNearbyCities: !prevState.proposeNearbyCities }))
 
   toggleAllowSentry = () => this.setState(prevState => ({ allowSentry: !prevState.allowSentry }))
 
   renderSettings = () => {
-    const { customizableSettings, allowPushNotifications, proposeCities, allowSentry } = this.state
-    const { theme, t } = this.props
+    const { customizableSettings, allowPushNotifications, proposeNearbyCities, allowSentry } = this.state
+    const { language, theme, t } = this.props
     if (customizableSettings) {
       return <CustomizableIntroSettings allowPushNotifications={allowPushNotifications}
                                         toggleSetAllowPushNotifications={this.toggleAllowPushNotifications}
-                                        proposeNearbyCities={proposeCities}
+                                        proposeNearbyCities={proposeNearbyCities}
                                         toggleProposeNearbyCities={this.toggleProposeCities} allowSentry={allowSentry}
                                         toggleAllowSentry={this.toggleAllowSentry}
                                         theme={theme} t={t} />
     } else {
-      return <IntroSettings theme={theme} />
+      return <IntroSettings theme={theme} language={language} t={t} />
     }
   }
 
-  onDone = async ({ refuseAll, acceptAll }: {| refuseAll?: boolean, acceptAll?: boolean |}) => {
-    const { allowSentry, allowPushNotifications, proposeCities } = this.state
+  onDone = async ({ refuseAll, acceptAll }: $Shape<{| refuseAll?: boolean, acceptAll?: boolean |}>) => {
+    const { allowSentry, allowPushNotifications, proposeNearbyCities } = this.state
     if (refuseAll && acceptAll) {
       throw Error('Cannot refuse and accept all at the same time')
     }
@@ -138,13 +147,13 @@ class Intro extends React.Component<PropsType, StateType> {
         await sentry.install()
       }
 
-      if (proposeCities) {
+      if (proposeNearbyCities) {
         await this.requestLocationPermissions()
       }
     } catch (e) {
       console.warn(e)
     }
-    await this._appSettings.setSettings({ allowSentry, allowPushNotifications, proposeCities })
+    await this._appSettings.setSettings({ allowSentry, allowPushNotifications, proposeNearbyCities })
     this._appSettings.setIntroShown()
     this.props.navigation.navigate('Landing')
   }
@@ -158,10 +167,10 @@ class Intro extends React.Component<PropsType, StateType> {
   }
 
   goToSlide = (index: number) => {
+    this.setState({ customizableSettings: false })
     if (!this._flatList.current) {
       throw Error('ref not correctly set')
     }
-    this.setState({ customizableSettings: false })
     this._flatList.current.scrollToIndex({ index })
   }
 
@@ -192,4 +201,11 @@ class Intro extends React.Component<PropsType, StateType> {
   }
 }
 
-export default translate('intro')(withTheme()(Intro))
+const mapStateToProps = (state: ReduxStateType): {| language: string |} => ({ language: state.contentLanguage })
+type ConnectType = {| language: string, dispatch: () => void |}
+
+export default connect<ConnectType, {||}, _, _, _, _>(mapStateToProps)(
+  translate('intro')(
+    withTheme()(
+      Intro
+    )))

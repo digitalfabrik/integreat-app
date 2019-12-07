@@ -4,6 +4,7 @@ import { type TFunction } from 'react-i18next'
 import { Linking } from 'react-native'
 import NativeConstants from '../../modules/native-constants/NativeConstants'
 import type { SettingsType } from '../../modules/settings/AppSettings'
+import openPrivacyPolicy from './openPrivacyPolicy'
 
 export type ChangeSettingFunctionType = SettingsType => $Shape<SettingsType>
 
@@ -21,8 +22,8 @@ export default ({ setSetting, t, language }: {
           title: t('troubleshooting'),
           description: t('troubleshootingDescription'),
           hasSwitch: true,
-          getSettingValue: (settings: SettingsType) => settings.errorTracking,
-          onPress: () => { setSetting(settings => ({ errorTracking: !settings.errorTracking })) }
+          getSettingValue: (settings: SettingsType) => settings.allowSentry,
+          onPress: () => { setSetting(settings => ({ allowSentry: !settings.allowSentry })) }
         },
         {
           title: t('allowPushNotifications'),
@@ -43,13 +44,7 @@ export default ({ setSetting, t, language }: {
         },
         {
           title: t('privacyPolicy'),
-          onPress: () => {
-            if (language === 'de') {
-              Linking.openURL('https://integreat-app.de/datenschutz/')
-            } else {
-              Linking.openURL('https://integreat-app.de/en/privacy/')
-            }
-          }
+          onPress: () => openPrivacyPolicy(language)
         },
         {
           title: t('version', { version: NativeConstants.appVersion })

@@ -53,7 +53,7 @@ class Navigator extends React.Component<PropsType, StateType> {
     if (!introShown) {
       this.appNavigationContainer = createAppNavigationContainer({ initialRouteName: 'Intro' })
     } else {
-      if (settings.errorTracking) {
+      if (settings.allowSentry) {
         const sentry = new SentryIntegration()
         await sentry.install()
       }

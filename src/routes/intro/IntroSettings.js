@@ -3,9 +3,10 @@
 import * as React from 'react'
 import type { ThemeType } from '../../modules/theme/constants/theme'
 import type TFunction from 'react-i18next'
-import styled, { StyledComponent } from 'styled-components/native'
+import styled, { type StyledComponent } from 'styled-components/native'
+import openPrivacyPolicy from '../settings/openPrivacyPolicy'
 
-const Padding = styled.View`
+const Padding: StyledComponent<{}, ThemeType, *> = styled.View`
   padding: 10px;
 `
 
@@ -25,7 +26,12 @@ const Description = styled.Text`
   color: ${props => props.theme.colors.textColor};
 `
 
+const Link = styled.Text`
+  color: blue;
+`
+
 type PropsType = {|
+  language: string,
   theme: ThemeType,
   t: TFunction
 |}
@@ -39,8 +45,10 @@ class IntroSettings extends React.Component<PropsType> {
     </Item>
   }
 
+  showPrivacyPolicy = () => openPrivacyPolicy(this.props.language)
+
   render () {
-    const { theme, t } = this.props
+    const { theme } = this.props
     return <Padding>
       <MainText theme={theme}>Durch Klicken auf "Akzeptieren" erlaube ich der Integreat-App, ...</MainText>
       {this.renderItem('Push-Benachrichtigungen',
@@ -49,6 +57,7 @@ class IntroSettings extends React.Component<PropsType> {
         '... mir mithilfe meines GPS-Standorts nahegelegene Orte vorzuschlagen')}
       {this.renderItem('App-Stabilität verbessern',
         '... mit dem automatischen senden von Absturzberichten Integreat zu verbessern')}
+      <Link onPress={this.showPrivacyPolicy}>Privacy Policy</Link>
     </Padding>
   }
 }
