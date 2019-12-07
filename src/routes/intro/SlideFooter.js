@@ -9,7 +9,7 @@ import { type TFunction } from 'react-i18next'
 const Container: StyledComponent<{}, ThemeType, *> = styled.View`
   flex: 0.1;
   flex-direction: row;
-  padding: 16px 0;
+  padding: 16px 0 25px;
   background-color: ${props => props.theme.colors.backgroundColor};
 `
 
@@ -62,7 +62,7 @@ type PropsType = {|
   slideCount: number,
   currentSlide: number,
   goToSlide: (index: number) => void,
-  onDone: ({| refuseAll?: boolean, acceptAll?: boolean |}) => void,
+  onDone: ($Shape<{| refuseAll?: boolean, acceptAll?: boolean |}>) => void,
   toggleCustomizeSettings: () => void,
   customizableSettings: boolean,
   theme: ThemeType,
@@ -104,7 +104,7 @@ class SlideFooter extends React.Component<PropsType> {
     return <Container theme={theme}>
       {this.renderButton({ label: t('back'), onPress: toggleCustomizeSettings })}
       {this.renderPagination()}
-      {this.renderButton({ label: t('accept'), onPress: onDone })}
+      {this.renderButton({ label: t('accept'), onPress: () => onDone(Object.seal({})) })}
     </Container>
   }
 
