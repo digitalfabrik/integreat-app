@@ -19,18 +19,25 @@ export default ({ setSetting, t, language }: {
       title: null,
       data: [
         {
-          title: t('troubleshooting'),
-          description: t('troubleshootingDescription'),
-          hasSwitch: true,
-          getSettingValue: (settings: SettingsType) => settings.allowSentry,
-          onPress: () => { setSetting(settings => ({ allowSentry: !settings.allowSentry })) }
-        },
-        {
-          title: t('allowPushNotifications'),
-          description: t('allowPushNotificationsDescription'),
+          title: t('pushNewsTitle'),
+          description: t('pushNewsDescription'),
           hasSwitch: true,
           getSettingValue: (settings: SettingsType) => settings.allowPushNotifications,
           onPress: () => { setSetting(settings => ({ allowPushNotifications: !settings.allowPushNotifications })) }
+        },
+        {
+          title: t('proposeCitiesTitle'),
+          description: t('proposeCitiesDescription'),
+          hasSwitch: true,
+          getSettingValue: (settings: SettingsType) => settings.proposeNearbyCities,
+          onPress: () => { setSetting(settings => ({ proposeNearbyCities: !settings.proposeNearbyCities })) }
+        },
+        {
+          title: t('sentryTitle'),
+          description: t('sentryDescription'),
+          hasSwitch: true,
+          getSettingValue: (settings: SettingsType) => settings.allowSentry,
+          onPress: () => { setSetting(settings => ({ allowSentry: !settings.allowSentry })) }
         },
         {
           title: t('about'),

@@ -101,9 +101,9 @@ class SlideFooter extends React.Component<PropsType> {
   renderCustomizableSettingsFooter = (): React.Node => {
     const { onDone, toggleCustomizeSettings, theme, t } = this.props
     return <Container theme={theme}>
-      {this.renderButton({ label: t('back'), onPress: toggleCustomizeSettings })}
+      {this.renderButton({ label: t('cancel'), onPress: toggleCustomizeSettings })}
       {this.renderPagination()}
-      {this.renderButton({ label: t('accept'), onPress: () => onDone(Object.seal({})) })}
+      {this.renderButton({ label: t('save'), onPress: () => onDone(Object.seal({})) })}
     </Container>
   }
 

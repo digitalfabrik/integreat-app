@@ -128,8 +128,7 @@ class Intro extends React.Component<PropsType, StateType> {
                                         toggleSetAllowPushNotifications={this.toggleAllowPushNotifications}
                                         proposeNearbyCities={proposeNearbyCities}
                                         toggleProposeNearbyCities={this.toggleProposeCities} allowSentry={allowSentry}
-                                        toggleAllowSentry={this.toggleAllowSentry}
-                                        theme={theme} t={t} />
+                                        toggleAllowSentry={this.toggleAllowSentry} theme={theme} />
     } else {
       return <IntroSettings theme={theme} language={language} t={t} />
     }
