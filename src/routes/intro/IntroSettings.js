@@ -64,7 +64,7 @@ class IntroSettings extends React.Component<PropsType> {
       <ItemContainer>
         <MainText theme={theme}>{t('inquiryIntro', { accept: t('accept') })}</MainText>
         {this.renderItem(t('pushNewsTitle'), t('pushNewsCondition'))}
-        {this.renderItem(t('locationTitle'), t('locationCondition'))}
+        {this.renderItem(t('proposeCitiesTitle'), t('proposeCitiesCondition'))}
         {this.renderItem(t('sentryTitle'), t('sentryCondition'))}
       </ItemContainer>
       <LinkContainer>
