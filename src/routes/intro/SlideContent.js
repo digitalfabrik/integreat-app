@@ -7,7 +7,7 @@ import type { ThemeType } from '../../modules/theme/constants/theme'
 const Container: StyledComponent<{ width: number }, ThemeType, *> = styled.View`
   display: flex;
   justify-content: space-around;
-  padding: 32px 16px 64px;
+  padding: 32px 16px;
   flex: 1;
   background-color: ${props => props.theme.colors.backgroundColor};
   width: ${props => props.width};
@@ -16,7 +16,6 @@ const Container: StyledComponent<{ width: number }, ThemeType, *> = styled.View`
 const TextContainer = styled.View`
   flex: 1;
   justify-content: center;
-  width: 100%;
 `
 
 const Heading: StyledComponent<{}, ThemeType, *> = styled.Text`
@@ -25,11 +24,8 @@ const Heading: StyledComponent<{}, ThemeType, *> = styled.Text`
   color: ${props => props.theme.colors.textColor};
 `
 
-const ContentContainer = styled.View`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex: 2;
+const ContentContainer: StyledComponent<{ description: boolean }, ThemeType, *> = styled.View`
+  flex: ${props => props.description ? 2 : 2 + 1};
 `
 
 const Description: StyledComponent<{}, ThemeType, *> = styled.Text`
@@ -60,12 +56,12 @@ class SlideContent extends React.Component<PropsType> {
       <TextContainer>
         <Heading theme={theme}>{item.title}</Heading>
       </TextContainer>
-      <ContentContainer>
+      <ContentContainer description={item.description !== undefined}>
         {item.renderContent()}
       </ContentContainer>
-      <TextContainer>
-        {item.description && <Description theme={theme}>{item.description}</Description>}
-      </TextContainer>
+      {item.description && <TextContainer>
+        <Description theme={theme}>{item.description}</Description>
+      </TextContainer>}
     </Container>
   }
 }

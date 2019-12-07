@@ -7,13 +7,18 @@ import styled, { type StyledComponent } from 'styled-components/native'
 import openPrivacyPolicy from '../settings/openPrivacyPolicy'
 
 const Padding: StyledComponent<{}, ThemeType, *> = styled.View`
+  flex: 1;
   padding: 10px;
+  flex-direction: column;
 `
 
 const Item: StyledComponent<{}, ThemeType, *> = styled.View`
-  padding-horizontal: 16px;
+  padding: 8px 16px;
   flex-direction: column;
-  padding-vertical: 8px;
+`
+
+const ItemContainer = styled.View`
+  flex: 4;
 `
 
 const MainText: StyledComponent<{}, ThemeType, *> = styled.Text`
@@ -26,8 +31,14 @@ const Description = styled.Text`
   color: ${props => props.theme.colors.textColor};
 `
 
+const LinkContainer = styled.View`
+  flex: 1;
+  justify-content: flex-end;
+`
+
 const Link = styled.Text`
   color: blue;
+  align-self: center;
 `
 
 type PropsType = {|
@@ -50,14 +61,18 @@ class IntroSettings extends React.Component<PropsType> {
   render () {
     const { theme } = this.props
     return <Padding>
-      <MainText theme={theme}>Durch Klicken auf "Akzeptieren" erlaube ich der Integreat-App, ...</MainText>
-      {this.renderItem('Push-Benachrichtigungen',
-        '... mir Push-Benachrichtigungen über die neuesten lokalen News zu senden')}
-      {this.renderItem('Orte Vorschlagen',
-        '... mir mithilfe meines GPS-Standorts nahegelegene Orte vorzuschlagen')}
-      {this.renderItem('App-Stabilität verbessern',
-        '... mit dem automatischen senden von Absturzberichten Integreat zu verbessern')}
-      <Link onPress={this.showPrivacyPolicy}>Privacy Policy</Link>
+      <ItemContainer>
+        <MainText theme={theme}>Durch Klicken auf "Akzeptieren" erlaube ich der Integreat-App, ...</MainText>
+        {this.renderItem('Push-Benachrichtigungen',
+          '... mir Push-Benachrichtigungen über die neuesten lokalen News zu senden')}
+        {this.renderItem('Orte Vorschlagen',
+          '... mir mithilfe meines GPS-Standorts nahegelegene Orte vorzuschlagen')}
+        {this.renderItem('App-Stabilität verbessern',
+          '... mit dem automatischen senden von Absturzberichten Integreat zu verbessern')}
+      </ItemContainer>
+      <LinkContainer>
+        <Link onPress={this.showPrivacyPolicy}>Privacy Policy</Link>
+      </LinkContainer>
     </Padding>
   }
 }
