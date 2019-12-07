@@ -5,6 +5,7 @@ import type { ThemeType } from '../../modules/theme/constants/theme'
 import styled, { type StyledComponent } from 'styled-components/native'
 import { range } from 'lodash'
 import { type TFunction } from 'react-i18next'
+import type { IntroSettingsType } from './IntroContainer'
 
 const Container: StyledComponent<{}, ThemeType, *> = styled.View`
   flex: 0.1;
@@ -61,7 +62,7 @@ type PropsType = {|
   slideCount: number,
   currentSlide: number,
   goToSlide: (index: number) => void,
-  onDone: ($Shape<{| declineAll?: boolean, acceptAll?: boolean |}>) => Promise<void>,
+  onDone: ($Shape<IntroSettingsType>) => Promise<void>,
   toggleCustomizeSettings: () => void,
   customizableSettings: boolean,
   theme: ThemeType,
@@ -113,12 +114,15 @@ class SlideFooter extends React.Component<PropsType> {
     return <Container theme={theme}>
       <VerticalButtonContainer>
         {this.renderButton({ label: t('customize'), onPress: toggleCustomizeSettings })}
-        {this.renderButton({ label: t('decline'), onPress: () => onDone({ declineAll: true }) })}
+        {this.renderButton(
+          { label: t('decline'),
+            onPress: () => onDone({ allowPushNotifications: false, allowSentry: false, proposeNearbyCities: false })
+        })}
       </VerticalButtonContainer>
       {this.renderPagination()}
       {this.renderButton({
         label: t('accept'),
-        onPress: () => onDone({ acceptAll: true }),
+        onPress: () => onDone({ allowPushNotifications: true, allowSentry: true, proposeNearbyCities: true }),
         backgroundColor: theme.colors.themeColor
       })}
     </Container>

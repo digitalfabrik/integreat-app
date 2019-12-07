@@ -47,14 +47,18 @@ type PropsType = {|
   dispatch: () => void
 |}
 
+export type IntroSettingsType = {|
+  allowPushNotifications: boolean,
+  proposeNearbyCities: boolean,
+  allowSentry: boolean
+|}
+
 type StateType = {|
   slideCount: number,
   currentSlide: number,
   customizableSettings: boolean,
-  allowPushNotifications: boolean,
-  proposeNearbyCities: boolean,
-  allowSentry: boolean,
-  width: number
+  width: number,
+    ...IntroSettingsType
 |}
 
 class Intro extends React.Component<PropsType, StateType> {
@@ -134,11 +138,13 @@ class Intro extends React.Component<PropsType, StateType> {
     }
   }
 
-  onDone = async ({ declineAll, acceptAll }: $Shape<{| declineAll?: boolean, acceptAll?: boolean |}>) => {
-    const { allowSentry, allowPushNotifications, proposeNearbyCities } = this.state
-    if (declineAll && acceptAll) {
-      throw Error('Cannot refuse and accept all at the same time')
-    }
+  onDone = async ({
+    allowSentry: sentry, allowPushNotifications: pushNotifications, proposeNearbyCities: nearbyCities
+  }: $Shape<IntroSettingsType>) => {
+    const allowSentry = sentry !== undefined ? sentry : this.state.allowSentry
+    const proposeNearbyCities = nearbyCities !== undefined ? nearbyCities : this.state.proposeNearbyCities
+    const allowPushNotifications =
+      pushNotifications !== undefined ? pushNotifications : this.state.allowPushNotifications
 
     try {
       if (allowSentry) {

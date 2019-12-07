@@ -12,22 +12,19 @@ const ASYNC_STORAGE_VERSION_KEY = 'ASYNC_STORAGE_VERSION'
 export type SettingsType = {|
   allowSentry: boolean | null,
   allowPushNotifications: boolean | null,
-  proposeNearbyCities: boolean | null,
-  test: boolean | null
+  proposeNearbyCities: boolean | null
 |}
 
 const e2eSettings = {
   allowSentry: false,
   allowPushNotifications: false,
-  proposeNearbyCities: false,
-  test: false
+  proposeNearbyCities: false
 }
 
 export const defaultSettings: SettingsType = (__DEV__ || process.env.E2E_TEST_IDS) ? e2eSettings : {
   allowSentry: null,
   allowPushNotifications: null,
-  proposeNearbyCities: null,
-  test: false
+  proposeNearbyCities: null
 }
 
 class AppSettings {
