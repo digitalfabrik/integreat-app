@@ -54,7 +54,7 @@ const Dot: StyledComponent<{ isActive: boolean }, ThemeType, *> = styled.Touchab
 
 export type ButtonType = {|
   label: string,
-  onPress: () => void,
+  onPress: () => void | Promise<void>,
   backgroundColor?: string
 |}
 
@@ -62,7 +62,7 @@ type PropsType = {|
   slideCount: number,
   currentSlide: number,
   goToSlide: (index: number) => void,
-  onDone: ($Shape<{| refuseAll?: boolean, acceptAll?: boolean |}>) => void,
+  onDone: ($Shape<{| refuseAll?: boolean, acceptAll?: boolean |}>) => Promise<void>,
   toggleCustomizeSettings: () => void,
   customizableSettings: boolean,
   theme: ThemeType,
