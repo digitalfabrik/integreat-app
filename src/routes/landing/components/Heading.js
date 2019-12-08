@@ -1,8 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import { TouchableOpacity } from 'react-native'
-import Toast from 'react-native-simple-toast'
+import { ToastAndroid, TouchableOpacity } from 'react-native'
 import LocationBig from '../assets/LocationBig.png'
 import styled, { type StyledComponent } from 'styled-components/native'
 import AppSettings from '../../../modules/settings/AppSettings'
@@ -72,7 +71,7 @@ class Heading extends React.Component<PropsType, StateType> {
     }
   }
 
-  showApiUrlToast = (apiUrl: string) => Toast.show(`Switched to new API-Url: ${apiUrl}`, Toast.LONG)
+  showApiUrlToast = (apiUrl: string) => ToastAndroid.show(`Switched to new API-Url: ${apiUrl}`, ToastAndroid.LONG)
 
   switchApi = async () => {
     const appSettings = new AppSettings()
