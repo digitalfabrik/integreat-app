@@ -5,6 +5,6 @@ import { baseUrl } from './constants'
 
 export default async () => {
   const appSettings = new AppSettings()
-  const apiUrlOverride = appSettings.loadApiUrlOverride()
+  const apiUrlOverride = await appSettings.loadApiUrlOverride()
   return apiUrlOverride || baseUrl
 }

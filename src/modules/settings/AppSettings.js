@@ -6,7 +6,7 @@ import { fromPairs } from 'lodash/array'
 
 const CONTENT_LANGUAGE_KEY = 'CONTENT_LANGUAGE'
 const SELECTED_CITY_KEY = 'SELECTED_CITY'
-const API_URL_OVERRIDE_KEY = 'API_URL_OVERRIDE'
+export const API_URL_OVERRIDE_KEY = 'API_URL_OVERRIDE'
 
 export type SettingsType = {|
   errorTracking: boolean | null,
