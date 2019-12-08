@@ -9,11 +9,10 @@ import { CityModel, createExtrasEndpoint, ExtraModel, Payload } from '@integreat
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { StateType } from '../../../modules/app/StateType'
 import type { NavigationScreenProp } from 'react-navigation'
-import { baseUrl } from '../../../modules/endpoint/constants'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import FailureContainer from '../../../modules/error/containers/FailureContainer'
 import { LOADING_TIMEOUT } from '../../../modules/common/constants'
-import AppSettings from '../../../modules/settings/AppSettings'
+import determineApiUrl from '../../../modules/endpoint/determineApiUrl'
 
 type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
 
@@ -79,10 +78,8 @@ class ExtrasContainer extends React.Component<ExtrasPropsType, ExtrasStateType> 
     setTimeout(() => this.setState({ timeoutExpired: true }), LOADING_TIMEOUT)
 
     try {
-      const appSettings = new AppSettings()
-      const apiUrlOverride = await appSettings.loadApiUrlOverride()
-
-      const payload: Payload<Array<ExtraModel>> = await (createExtrasEndpoint(apiUrlOverride || baseUrl).request({
+      const apiUrl = determineApiUrl()
+      const payload: Payload<Array<ExtraModel>> = await (createExtrasEndpoint(apiUrl).request({
         city,
         language
       }))

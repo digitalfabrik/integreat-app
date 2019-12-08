@@ -1,7 +1,7 @@
 // @flow
 
-import AppSettings from '../../settings/AppSettings'
-import { baseUrl } from '../constants'
+import AppSettings from '../settings/AppSettings'
+import { baseUrl } from './constants'
 
 export default async () => {
   const appSettings = new AppSettings()

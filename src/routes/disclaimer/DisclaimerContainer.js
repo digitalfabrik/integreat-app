@@ -6,7 +6,6 @@ import { createDisclaimerEndpoint, PageModel, Payload } from '@integreat-app/int
 import type { ThemeType } from '../../modules/theme/constants/theme'
 import type { StateType } from '../../modules/app/StateType'
 import type { NavigationScreenProp } from 'react-navigation'
-import { baseUrl } from '../../modules/endpoint/constants'
 import withTheme from '../../modules/theme/hocs/withTheme'
 import Disclaimer from './Disclaimer'
 import FailureContainer from '../../modules/error/containers/FailureContainer'
@@ -14,7 +13,7 @@ import type { Dispatch } from 'redux'
 import type { StoreActionType } from '../../modules/app/StoreActionType'
 import { RefreshControl, ScrollView } from 'react-native'
 import { LOADING_TIMEOUT } from '../../modules/common/constants'
-import AppSettings from '../../modules/settings/AppSettings'
+import determineApiUrl from '../../modules/endpoint/determineApiUrl'
 
 type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
 
@@ -60,10 +59,8 @@ class DisclaimerContainer extends React.Component<DisclaimerPropsType, Disclaime
     setTimeout(() => this.setState({ timeoutExpired: true }), LOADING_TIMEOUT)
 
     try {
-      const appSettings = new AppSettings()
-      const apiUrlOverride = await appSettings.loadApiUrlOverride()
-
-      const disclaimerEndpoint = createDisclaimerEndpoint(apiUrlOverride || baseUrl)
+      const apiUrl = determineApiUrl()
+      const disclaimerEndpoint = createDisclaimerEndpoint(apiUrl)
       const payload: Payload<Array<PageModel>> = await disclaimerEndpoint.request({ city, language })
 
       if (payload.error) {
