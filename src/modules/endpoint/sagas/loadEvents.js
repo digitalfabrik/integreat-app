@@ -3,10 +3,8 @@
 import type { Saga } from 'redux-saga'
 import { createEventsEndpoint, EventModel } from '@integreat-app/integreat-api-client'
 import { call } from 'redux-saga/effects'
-import { baseUrl } from '../constants'
 import type { DataContainer } from '../DataContainer'
-import AppSettings from '../../settings/AppSettings'
-import determineApiUrl from './determineApiUrl'
+import determineApiUrl from '../determineApiUrl'
 
 function * loadEvents (
   city: string,

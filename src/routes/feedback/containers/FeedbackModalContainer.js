@@ -7,9 +7,8 @@ import withTheme from '../../../modules/theme/hocs/withTheme'
 import FeedbackModal from '../components/FeedbackModal'
 import FeedbackVariant from '../FeedbackVariant'
 import { createFeedbackEndpoint } from '@integreat-app/integreat-api-client'
-import { baseUrl } from '../../../modules/endpoint/constants'
 import type { FeedbackParamsType } from '@integreat-app/integreat-api-client/index'
-import AppSettings from '../../../modules/settings/AppSettings'
+import determineApiUrl from '../../../modules/endpoint/determineApiUrl'
 
 const TranslatedFeedbackModal = translate('feedback')(withTheme()(FeedbackModal))
 
@@ -17,9 +16,8 @@ class FeedbackModalContainer extends React.Component<{| navigation: NavigationSc
   closeModal = () => this.props.navigation.goBack()
 
   sendFeedback = async (feedbackData: FeedbackParamsType) => {
-    const appSettings = new AppSettings()
-    const apiUrlOverride = await appSettings.loadApiUrlOverride()
-    const feedbackEndpoint = createFeedbackEndpoint(apiUrlOverride || baseUrl)
+    const apiUrl = determineApiUrl()
+    const feedbackEndpoint = createFeedbackEndpoint(apiUrl)
     feedbackEndpoint.request(feedbackData)
   }
 
