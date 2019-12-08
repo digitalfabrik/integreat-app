@@ -3,9 +3,8 @@
 import type { Saga } from 'redux-saga'
 import { CityModel, createCitiesEndpoint } from '@integreat-app/integreat-api-client'
 import { call } from 'redux-saga/effects'
-import { baseUrl } from '../constants'
 import type { DataContainer } from '../DataContainer'
-import AppSettings from '../../settings/AppSettings'
+import determineApiUrl from './determineApiUrl'
 
 function * loadCities (
   dataContainer: DataContainer,
@@ -24,10 +23,8 @@ function * loadCities (
 
   console.debug('Fetching cities')
 
-  const appSettings = new AppSettings()
-  const apiUrlOverride = yield call(appSettings.loadApiUrlOverride)
-
-  const payload = yield call(() => createCitiesEndpoint(apiUrlOverride || baseUrl).request())
+  const apiUrl = yield call(determineApiUrl)
+  const payload = yield call(() => createCitiesEndpoint(apiUrl).request())
   const cities: Array<CityModel> = payload.data
 
   yield call(dataContainer.setCities, cities)
