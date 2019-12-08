@@ -104,12 +104,12 @@ export interface DataContainer {
   storeLastUsage (city: string, peeking: boolean): Promise<void>,
 
   /**
-   * Deletes all files that are stored offline
+   * Deletes all pages and files that are stored offline in the filesystem
    */
-  clearOfflineStorage (): Promise<void>,
+  clearOfflineCache (): Promise<void>,
 
   /**
-   * Clears all caches
+   * Clears all in-memory caches
    */
-  clearCaches (): void
+  clearInMemoryCache (): void
 }

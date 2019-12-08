@@ -59,12 +59,12 @@ class DefaultDataContainer implements DataContainer {
     }
   }
 
-  clearCaches = () => {
+  clearInMemoryCache = () => {
     // $FlowFixMe see https://github.com/facebook/flow/issues/2221
     Object.values(this.caches).forEach(cache => cache.evict())
   }
 
-  clearOfflineStorage = async () => {
+  clearOfflineCache = async () => {
     await this._databaseConnector.deleteAllFiles()
   }
 
