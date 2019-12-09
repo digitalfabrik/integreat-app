@@ -24,6 +24,16 @@ describe('Navigator', () => {
     jest.clearAllMocks()
   })
 
+  it('should clear AsyncStorage if storageVersion is undefined', async () => {
+    const appSettings = new AppSettings()
+    await appSettings.setSelectedCity('augsburg')
+    await appSettings.setContentLanguage('de')
+    render(<Navigator fetchCities={() => {}} fetchCategory={() => {}} clearCategory={() => {}} />)
+    await waitForExpect(() => {
+      expect(AsyncStorage.removeItem).toHaveBeenCalled()
+    })
+  })
+
   it('should fetch cities on mount', async () => {
     const mock = jest.fn()
     const appSettings = new AppSettings()
