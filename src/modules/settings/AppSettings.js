@@ -7,6 +7,7 @@ import { fromPairs } from 'lodash/array'
 const CONTENT_LANGUAGE_KEY = 'CONTENT_LANGUAGE'
 const SELECTED_CITY_KEY = 'SELECTED_CITY'
 const ASYNC_STORAGE_VERSION_KEY = 'ASYNC_STORAGE_VERSION'
+const XAMARIN_INSTALLATION_KEY = 'last_location'
 
 export type SettingsType = {|
   errorTracking: boolean | null,
@@ -59,6 +60,10 @@ class AppSettings {
 
   loadVersion = async (): Promise<?string> => {
     return this.asyncStorage.getItem(ASYNC_STORAGE_VERSION_KEY)
+  }
+
+  loadXamarinIstallation = async (): Promise<?string> => {
+    return this.asyncStorage.getItem(XAMARIN_INSTALLATION_KEY)
   }
 
   loadContentLanguage = async (): Promise<?string> => {
