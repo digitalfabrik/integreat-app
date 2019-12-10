@@ -20,7 +20,7 @@ export default (
       return { ...state, switchingLanguage: true }
     case 'SWITCH_CONTENT_LANGUAGE_FAILED':
       if (state === null) {
-        throw Error('A content language switch cannot fail if the state is not yet initialized')
+        return null
       }
       return { ...state, switchingLanguage: false }
     case 'PUSH_LANGUAGES':
@@ -30,17 +30,18 @@ export default (
       return { ...state, languages: action.params.languages }
     case 'PUSH_CATEGORY':
       if (state === null) {
-        throw Error('Cannot push category on not initialized cityContent')
+        return null /* If you are on the landing page, then the `state` is null. If you quickly navigate
+                       to Landing screen while data is being fetched, then this line is reached. */
       }
       return pushCategory(state, action)
     case 'PUSH_EVENT':
       if (state === null) {
-        throw Error('Cannot push event on not initialized cityContent')
+        return null
       }
       return pushEvent(state, action)
     case 'MORPH_CONTENT_LANGUAGE':
       if (state === null) {
-        throw Error('Cannot morph content language on not initialized cityContent')
+        return null
       }
       return morphContentLanguage(state, action)
     case 'FETCH_EVENT': {
@@ -102,7 +103,7 @@ export default (
     }
     case 'FETCH_CATEGORY_FAILED': {
       if (state === null) {
-        throw Error('A fetch category fail cannot occur on not initialized cityContent')
+        return null
       }
       const { message, code, key, allAvailableLanguages, path, ...rest } = action.params
       return {
@@ -120,7 +121,7 @@ export default (
       return null
     case 'FETCH_RESOURCES_FAILED': {
       if (state === null) {
-        throw Error('A fetch resources fail cannot occur on not initialized cityContent')
+        return null
       }
       const { message, code } = action.params
       return { ...state, resourceCache: { status: 'error', message, code } }
