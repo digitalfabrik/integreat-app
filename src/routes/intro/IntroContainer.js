@@ -148,7 +148,7 @@ class Intro extends React.Component<PropsType, StateType> {
                                         toggleSetAllowPushNotifications={this.toggleAllowPushNotifications}
                                         proposeNearbyCities={proposeNearbyCities}
                                         toggleProposeNearbyCities={this.toggleProposeCities} allowSentry={allowSentry}
-                                        toggleAllowSentry={this.toggleAllowSentry} theme={theme} />
+                                        toggleAllowSentry={this.toggleAllowSentry} theme={theme} t={t} />
     } else {
       return <IntroSettings theme={theme} language={language} t={t} />
     }
@@ -226,7 +226,7 @@ const mapStateToProps = (state: ReduxStateType): {| language: string |} => ({ la
 type ConnectType = {| language: string, dispatch: () => void |}
 
 export default connect<ConnectType, {||}, _, _, _, _>(mapStateToProps)(
-  translate('intro')(
+  translate(['intro', 'settings'])(
     withTheme()(
       Intro
     )))
