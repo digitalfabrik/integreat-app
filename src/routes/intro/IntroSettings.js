@@ -13,7 +13,7 @@ const Padding: StyledComponent<{}, ThemeType, *> = styled.View`
 `
 
 const Item: StyledComponent<{}, ThemeType, *> = styled.View`
-  padding: 8px 16px;
+  padding: 16px;
   flex-direction: column;
 `
 
@@ -26,17 +26,18 @@ const MainText: StyledComponent<{}, ThemeType, *> = styled.Text`
   color: ${props => props.theme.colors.textColor};
 `
 
-const Description = styled.Text`
+const Description: StyledComponent<{}, ThemeType, *> = styled.Text`
   font-size: 14px;
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.colors.textSecondaryColor};
 `
 
 const LinkContainer = styled.View`
   flex: 1;
-  justify-content: flex-end;
+  justify-content: center;
 `
 
 const Link = styled.Text`
+  padding-top: 20px;
   color: blue;
   align-self: center;
 `
