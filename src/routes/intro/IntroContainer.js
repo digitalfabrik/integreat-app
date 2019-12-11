@@ -7,6 +7,7 @@ import Language from './assets/Language.svg'
 import Offers from './assets/Offers.svg'
 import Search from './assets/Search.svg'
 import Events from './assets/Events.svg'
+import AppLogo from '../../../assets/app-logo.png'
 import type { ThemeType } from '../../modules/theme/constants/theme'
 import withTheme from '../../modules/theme/hocs/withTheme'
 import { FlatList, Dimensions, Platform, PermissionsAndroid } from 'react-native'
@@ -30,10 +31,19 @@ const Container: StyledComponent<{ width: number }, {}, *> = styled.View`
   justify-content: space-between;
 `
 
+const IntegreatImage = styled.Image`
+  justify-content: center;
+  align-self: center;
+  flex: 1;
+  height: 40%;
+  width: 40%;
+  resize-mode: contain;
+`
+
 const ImageContent = styled.Image`
   justify-content: center;
   align-self: center;
-  display: flex;
+  flex: 1;
   height: 100%;
   width: 60%;
   resize-mode: contain;
@@ -83,32 +93,38 @@ class Intro extends React.Component<PropsType, StateType> {
     )
   }
 
+  renderIntegreatImage = () => (): React.Node => <IntegreatImage source={AppLogo} />
   renderImageContent = (image: number) => (): React.Node => <ImageContent source={image} />
 
   slides = (): Array<SlideContentType> => {
     const { t } = this.props
     return [{
-      key: t('search'),
+      key: 'integerat',
+      title: t('integreat'),
+      description: t('integreatDescription'),
+      renderContent: this.renderIntegreatImage()
+    }, {
+      key: 'search',
       title: t('search'),
       description: t('searchDescription'),
       renderContent: this.renderImageContent(Search)
     }, {
-      key: t('events'),
+      key: 'events',
       title: t('events'),
       description: t('eventsDescription'),
       renderContent: this.renderImageContent(Events)
     }, {
-      key: t('offers'),
+      key: 'offers',
       title: t('offers'),
       description: t('offersDescription'),
       renderContent: this.renderImageContent(Offers)
     }, {
-      key: t('languageChange'),
+      key: 'languageChange',
       title: t('languageChange'),
       description: t('languageChangeDescription'),
       renderContent: this.renderImageContent(Language)
     }, {
-      key: t('inquiry'),
+      key: 'inquiry',
       title: t('inquiryTitle'),
       renderContent: this.renderSettings
     }]
