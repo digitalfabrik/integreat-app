@@ -27,18 +27,18 @@ class CustomizableIntroSettings extends React.Component<PropsType> {
     const themeColor = theme.colors.themeColor
 
     return <>
-      <SettingItem bigTitle title={t('settings:pushNewsTitle')} description={t('settings:pushNewsDescription')}
+      <SettingItem bigTitle title={t('pushNewsTitle')} description={t('pushNewsDescription')}
                    onPress={toggleSetAllowPushNotifications} theme={theme}>
         <Switch thumbColor={themeColor} trackColor={{ true: themeColor }} value={allowPushNotifications}
                 onValueChange={toggleSetAllowPushNotifications} />
       </SettingItem>
-      <SettingItem bigTitle title={t('settings:proposeCitiesTitle')}
-                   description={t('settings:proposeCitiesDescription')}
+      <SettingItem bigTitle title={t('proposeCitiesTitle')}
+                   description={t('proposeCitiesDescription')}
                    onPress={toggleProposeNearbyCities} theme={theme}>
         <Switch thumbColor={themeColor} trackColor={{ true: themeColor }} value={proposeNearbyCities}
                 onValueChange={toggleProposeNearbyCities} />
       </SettingItem>
-      <SettingItem bigTitle title={t('settings:sentryTitle')} description={t('settings:sentryDescription')}
+      <SettingItem bigTitle title={t('sentryTitle')} description={t('sentryDescription')}
                    onPress={toggleAllowSentry} theme={theme}>
         <Switch thumbColor={themeColor} trackColor={{ true: themeColor }} value={allowSentry}
                 onValueChange={toggleAllowSentry} />
