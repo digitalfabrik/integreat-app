@@ -8,10 +8,13 @@ import { type TFunction } from 'react-i18next'
 import type { IntroSettingsType } from './IntroContainer'
 
 const Container: StyledComponent<{}, ThemeType, *> = styled.View`
-  flex: 0.1;
+  flex: 0.15;
   flex-direction: row;
-  padding: 16px 10px 25px;
+  padding: 16px 10px;
   background-color: ${props => props.theme.colors.backgroundColor};
+  align-self: flex-end;
+  align-content: flex-end;
+  justify-content: flex-end;
 `
 
 const ButtonContainer: StyledComponent<{}, ThemeType, *> = styled.TouchableOpacity`
