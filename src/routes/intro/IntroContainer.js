@@ -58,7 +58,7 @@ type StateType = {|
   currentSlide: number,
   customizableSettings: boolean,
   width: number,
-    ...IntroSettingsType
+  ...IntroSettingsType
 |}
 
 class Intro extends React.Component<PropsType, StateType> {
