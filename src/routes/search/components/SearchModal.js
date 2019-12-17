@@ -76,7 +76,7 @@ class SearchModal extends React.Component<PropsType, StateType> {
     this.setState({ query })
   }
 
-  renderContent = async () => {
+  renderContent = () => {
     const { language, theme, categories, t, sendFeedback } = this.props
     const { query } = this.state
 
