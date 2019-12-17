@@ -18,7 +18,7 @@ type PropsType = {|
   resultsFound: boolean,
   theme: ThemeType,
   t: TFunction,
-  sendFeedback: (comment: string, query: string, apiUrlOverride: ?string) => Promise<void>
+  sendFeedback: (comment: string, query: string) => Promise<void>
 |}
 
 type StateType = {|

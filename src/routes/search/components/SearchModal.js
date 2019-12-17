@@ -33,7 +33,7 @@ export type PropsType = {|
   closeModal: () => void,
   navigation: NavigationScreenProp<*>,
   t: TFunction,
-  sendFeedback: (comment: string, query: string, apiUrlOverride: ?string) => Promise<void>
+  sendFeedback: (comment: string, query: string) => Promise<void>
 |}
 
 type StateType = {|
