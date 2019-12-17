@@ -7,7 +7,6 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { TFunction } from 'react-i18next'
 import styled, { type StyledComponent } from 'styled-components/native'
-import AppSettings from '../../../modules/settings/AppSettings'
 
 const Input = styled(TextInput)`
   margin-bottom: 15px;
@@ -31,7 +30,7 @@ type PropsType = {|
   query: string,
   t: TFunction,
   theme: ThemeType,
-  sendFeedback: (comment: string, query: string, apiUrlOverride: ?string) => Promise<void>
+  sendFeedback: (comment: string, query: string) => Promise<void>
 |}
 
 type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
@@ -47,11 +46,8 @@ class NothingFoundFeedbackBox extends React.Component<PropsType, StateType> {
   onCommentChanged = (value: string) => this.setState({ comment: value })
 
   onSubmit = async () => {
-    const appSettings = new AppSettings()
-    const apiUrlOverride = await appSettings.loadApiUrlOverride()
-
     this.setState({ sendingStatus: 'sending' })
-    this.props.sendFeedback(this.state.comment, this.props.query, apiUrlOverride)
+    this.props.sendFeedback(this.state.comment, this.props.query)
       .then(() => this.setState({ sendingStatus: 'successful' }))
       .catch(() => this.setState({ sendingStatus: 'failed' }))
   }
