@@ -78,7 +78,7 @@ class ExtrasContainer extends React.Component<ExtrasPropsType, ExtrasStateType> 
     setTimeout(() => this.setState({ timeoutExpired: true }), LOADING_TIMEOUT)
 
     try {
-      const apiUrl = determineApiUrl()
+      const apiUrl = await determineApiUrl()
       const payload: Payload<Array<ExtraModel>> = await (createExtrasEndpoint(apiUrl).request({
         city,
         language
