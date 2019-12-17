@@ -59,7 +59,7 @@ class DisclaimerContainer extends React.Component<DisclaimerPropsType, Disclaime
     setTimeout(() => this.setState({ timeoutExpired: true }), LOADING_TIMEOUT)
 
     try {
-      const apiUrl = determineApiUrl()
+      const apiUrl = await determineApiUrl()
       const disclaimerEndpoint = createDisclaimerEndpoint(apiUrl)
       const payload: Payload<Array<PageModel>> = await disclaimerEndpoint.request({ city, language })
 
