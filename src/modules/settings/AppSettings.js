@@ -94,6 +94,7 @@ class AppSettings {
     await this.asyncStorage.removeItem(CONTENT_LANGUAGE_KEY)
     await this.asyncStorage.removeItem(SELECTED_CITY_KEY)
     await this.asyncStorage.removeItem(ASYNC_STORAGE_VERSION_KEY)
+    await this.asyncStorage.removeItem(API_URL_OVERRIDE_KEY)
   }
 }
 
