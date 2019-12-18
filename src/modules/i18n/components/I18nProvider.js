@@ -21,7 +21,8 @@ type PropsType = {|
 |}
 
 type StateType = {|
-  errorMessage: ?string
+  errorMessage: ?string,
+  initialisationFinished: boolean
 |}
 
 class I18nProvider extends React.Component<PropsType, StateType> {
@@ -31,7 +32,7 @@ class I18nProvider extends React.Component<PropsType, StateType> {
   constructor () {
     super()
 
-    this.state = { errorMessage: null }
+    this.state = { errorMessage: null, initialisationFinished: false }
 
     const i18nextResources = I18nProvider.transformResources(localesResources)
     this.i18n = i18n
@@ -84,13 +85,15 @@ class I18nProvider extends React.Component<PropsType, StateType> {
 
   async initContentLanguage () {
     const { setContentLanguage } = this.props
-    const contentLanguage: ?string = await this.appSettings.loadContentLanguage()
+    const contentLanguage = await this.appSettings.loadContentLanguage()
     const uiLanguage = this.getI18nextLanguage()
 
     if (!contentLanguage) {
       await this.appSettings.setContentLanguage(uiLanguage)
     }
     setContentLanguage(contentLanguage || uiLanguage)
+
+    this.setState({ initialisationFinished: true })
   }
 
   componentDidMount () {
@@ -109,7 +112,7 @@ class I18nProvider extends React.Component<PropsType, StateType> {
     return (
       <I18nextProvider i18n={this.i18n}>
         <MomentContext.Provider value={this.momentFormatter}>
-          {this.props.children}
+          {this.state.initialisationFinished ? this.props.children : null}
         </MomentContext.Provider>
       </I18nextProvider>
     )

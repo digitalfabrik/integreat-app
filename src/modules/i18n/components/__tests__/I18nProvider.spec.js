@@ -90,11 +90,11 @@ describe('I18nProvider', () => {
       </I18nProvider>
     )
 
-    expect(queryByText('Choose a language.')).toBeTruthy()
+    waitForExpect(async () => expect(queryByText('Choose a language.')).toBeTruthy())
   })
 
   it('should show error if loading fails', async () => {
-    const previous = AsyncStorage.getItem
+    const previous = AsyncStorage.multiGet
     previous.mockImplementation(() => {
       throw Error('An Error occurred while getting settings!')
     })
@@ -124,6 +124,6 @@ describe('I18nProvider', () => {
       </I18nProvider>
     )
 
-    expect(queryByText('Choose a language.')).toBeTruthy()
+    waitForExpect(async () => expect(queryByText('Choose a language.')).toBeTruthy())
   })
 })

@@ -115,6 +115,17 @@ pipeline {
                                 sh 'yarn run bundle'
                             }
                         }
+                        stage('Unit tests') {
+                            environment {
+                                ANDROID_HOME = '/opt/android-sdk/'
+                                BUNDLE_CONFIG = "./metro.config.ci.js"
+                            }
+                            steps {
+                                sh 'yarn run flow:check-now'
+                                sh 'yarn run lint'
+                                sh 'yarn run test'
+                            }
+                        }
                         stage('Build Release for Android') {
                             environment {
                                 ANDROID_HOME = '/opt/android-sdk/'
@@ -122,9 +133,6 @@ pipeline {
                                 BUNDLE_CONFIG = "./metro.config.ci.js"
                             }
                             steps {
-                                sh 'yarn run flow:check-now'
-                                sh 'yarn run lint'
-                                sh 'yarn run test'
                                 sh 'cd android/ && ./gradlew build -x lint -x lintVitalRelease'
                                 archiveArtifacts artifacts: 'android/app/build/outputs/apk/**/*.*'
                             }
