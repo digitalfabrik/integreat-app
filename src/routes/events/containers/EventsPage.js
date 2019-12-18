@@ -48,7 +48,8 @@ export class EventsPage extends React.Component<PropsType> {
                 onInternalLinkClick={push}>
             <>
               <PageDetail identifier={t('date')} information={event.date.toFormattedString(language)} />
-              <PageDetail identifier={t('location')} information={event.location.location} />
+              {event.location.location && <PageDetail identifier={t('location')}
+                                                      information={event.location.location} />}
             </>
           </Page>
         </>

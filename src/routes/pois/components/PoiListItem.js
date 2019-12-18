@@ -15,7 +15,7 @@ class PoiListItem extends React.PureComponent<PropsType> {
       <ListItem key={poi.path}
                 title={poi.title}
                 path={poi.path}>
-        <div>{poi.location.location}</div>
+        {poi.location.location && <div>{poi.location.location}</div>}
       </ListItem>
     )
   }
