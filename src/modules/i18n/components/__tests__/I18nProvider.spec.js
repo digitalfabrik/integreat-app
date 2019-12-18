@@ -90,7 +90,7 @@ describe('I18nProvider', () => {
       </I18nProvider>
     )
 
-    expect(queryByText('Choose a language.')).toBeTruthy()
+    waitForExpect(async () => expect(queryByText('Choose a language.')).toBeTruthy())
   })
 
   it('should show error if loading fails', async () => {
@@ -124,6 +124,6 @@ describe('I18nProvider', () => {
       </I18nProvider>
     )
 
-    expect(queryByText('Choose a language.')).toBeTruthy()
+    waitForExpect(async () => expect(queryByText('Choose a language.')).toBeTruthy())
   })
 })
