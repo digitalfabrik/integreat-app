@@ -21,6 +21,26 @@ class FeaturedImageModel {
     this._large = params.large
     this._full = params.full
   }
+
+  get description (): ?string {
+    return this._description
+  }
+
+  get thumbnail (): FeaturedImageInstanceType {
+    return this._thumbnail
+  }
+
+  get medium (): FeaturedImageInstanceType {
+    return this._medium
+  }
+
+  get large (): FeaturedImageInstanceType {
+    return this._large
+  }
+
+  get full (): FeaturedImageInstanceType {
+    return this._full
+  }
 }
 
 export default FeaturedImageModel
