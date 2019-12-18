@@ -35,40 +35,46 @@ type PropsType = {|
 |}
 
 class SlideFooter extends React.Component<PropsType> {
+  goToPreviousSlide = () => this.props.goToSlide(this.props.slideCount - 1)
+  goToNextSlide = () => this.props.goToSlide(this.props.currentSlide + 1)
+
+  onDecline = () =>
+    this.props.onDone({ allowPushNotifications: false, errorTracking: false, proposeNearbyCities: false })
+  onAccept = () =>
+    this.props.onDone({ allowPushNotifications: true, errorTracking: true, proposeNearbyCities: true })
+  onSave = () => this.props.onDone(Object.seal({}))
+
   renderStandardFooter = (): React.Node => {
     const { theme, slideCount, goToSlide, currentSlide, t } = this.props
-    const goToPreviousSlide = () => goToSlide(slideCount - 1)
-    const goToNextSlide = () => goToSlide(currentSlide + 1)
 
     return <Container theme={theme}>
-      <SlideButton label={t('skip')} onPress={goToPreviousSlide} theme={theme} />
+      <SlideButton label={t('skip')} onPress={this.goToPreviousSlide} theme={theme} />
       <Pagination slideCount={slideCount} currentSlide={currentSlide} goToSlide={goToSlide} theme={theme} />
-      <SlideButton label={t('next')} onPress={goToNextSlide} theme={theme} />
+      <SlideButton label={t('next')} onPress={this.goToNextSlide} theme={theme} />
     </Container>
   }
 
   renderCustomizableSettingsFooter = (): React.Node => {
-    const { slideCount, currentSlide, goToSlide, onDone, toggleCustomizeSettings, theme, t } = this.props
-    const saveSettings = () => onDone(Object.seal({}))
+    const { slideCount, currentSlide, goToSlide, toggleCustomizeSettings, theme, t } = this.props
+
     return <Container theme={theme}>
       <SlideButton label={t('cancel')} onPress={toggleCustomizeSettings} theme={theme} />
       <Pagination slideCount={slideCount} currentSlide={currentSlide} goToSlide={goToSlide} theme={theme} />
-      <SlideButton label={t('save')} onPress={saveSettings} theme={theme} />
+      <SlideButton label={t('save')} onPress={this.onSave} theme={theme} />
     </Container>
   }
 
   renderSettingsFooter = (): React.Node => {
-    const { slideCount, currentSlide, goToSlide, onDone, toggleCustomizeSettings, theme, t } = this.props
-    const onDecline = () => onDone({ allowPushNotifications: false, errorTracking: false, proposeNearbyCities: false })
-    const onAccept = () => onDone({ allowPushNotifications: true, errorTracking: true, proposeNearbyCities: true })
+    const { slideCount, currentSlide, goToSlide, toggleCustomizeSettings, theme, t } = this.props
 
     return <Container theme={theme}>
       <VerticalButtonContainer>
         <SlideButton label={t('customize')} onPress={toggleCustomizeSettings} theme={theme} />
-        <SlideButton label={t('decline')} onPress={onDecline} theme={theme} />
+        <SlideButton label={t('decline')} onPress={this.onDecline} theme={theme} />
       </VerticalButtonContainer>
       <Pagination slideCount={slideCount} currentSlide={currentSlide} goToSlide={goToSlide} theme={theme} />
-      <SlideButton label={t('accept')} onPress={onAccept} theme={theme} backgroundColor={theme.colors.themeColor} />
+      <SlideButton label={t('accept')} onPress={this.onAccept} theme={theme}
+                   backgroundColor={theme.colors.themeColor} />
     </Container>
   }
 
