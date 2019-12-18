@@ -91,13 +91,13 @@ class SlideFooter extends React.Component<PropsType> {
         {this.renderButton({ label: t('customize'), onPress: toggleCustomizeSettings })}
         {this.renderButton(
           { label: t('decline'),
-            onPress: () => onDone({ allowPushNotifications: false, allowSentry: false, proposeNearbyCities: false })
+            onPress: () => onDone({ allowPushNotifications: false, errorTracking: false, proposeNearbyCities: false })
         })}
       </VerticalButtonContainer>
       <Pagination slideCount={slideCount} currentSlide={currentSlide} goToSlide={goToSlide} theme={theme} />
       {this.renderButton({
         label: t('accept'),
-        onPress: () => onDone({ allowPushNotifications: true, allowSentry: true, proposeNearbyCities: true }),
+        onPress: () => onDone({ allowPushNotifications: true, errorTracking: true, proposeNearbyCities: true }),
         backgroundColor: theme.colors.themeColor
       })}
     </Container>
