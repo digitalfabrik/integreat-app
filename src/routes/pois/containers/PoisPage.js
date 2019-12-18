@@ -45,7 +45,7 @@ export class PoisPage extends React.Component<PropsType> {
                 title={poi.title}
                 language={language}
                 onInternalLinkClick={push}>
-            <PageDetail identifier={t('location')} information={poi.location.location} />
+            {poi.location.location && <PageDetail identifier={t('location')} information={poi.location.location} />}
           </Page>
         )
       } else {
