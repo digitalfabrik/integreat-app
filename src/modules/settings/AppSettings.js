@@ -3,27 +3,36 @@
 import AsyncStorage from '@react-native-community/async-storage'
 import { mapValues, toPairs } from 'lodash/object'
 import { fromPairs } from 'lodash/array'
-
-const CONTENT_LANGUAGE_KEY = 'CONTENT_LANGUAGE'
-const SELECTED_CITY_KEY = 'SELECTED_CITY'
-const ASYNC_STORAGE_VERSION_KEY = 'ASYNC_STORAGE_VERSION'
+import { ASYNC_STORAGE_VERSION } from './constants'
 
 export type SettingsType = {|
+  storageVersion: string | null,
+  contentLanguage: string | null,
+  selectedCity: string | null,
+  introShown: boolean | null,
   errorTracking: boolean | null,
   allowPushNotifications: boolean | null,
-  test: boolean | null
+  useLocationAccess: boolean | null
 |}
 
 const e2eSettings = {
+  storageVersion: ASYNC_STORAGE_VERSION,
+  contentLanguage: null,
+  selectedCity: null,
+  introShown: true,
   errorTracking: false,
   allowPushNotifications: false,
-  test: false
+  useLocationAccess: false
 }
 
-export const defaultSettings: SettingsType = (__DEV__ || process.env.E2E_TEST_IDS) ? e2eSettings : {
+export const defaultSettings: SettingsType = (process.env.E2E_TEST_IDS) ? e2eSettings : {
+  storageVersion: null,
+  contentLanguage: null,
+  selectedCity: null,
+  introShown: null,
   errorTracking: null,
   allowPushNotifications: null,
-  test: false
+  useLocationAccess: null
 }
 
 class AppSettings {
@@ -54,37 +63,48 @@ class AppSettings {
   }
 
   setVersion = async (version: string) => {
-    await this.asyncStorage.setItem(ASYNC_STORAGE_VERSION_KEY, version)
+    await this.setSettings({ storageVersion: version })
   }
 
-  loadVersion = async (): Promise<?string> => {
-    return this.asyncStorage.getItem(ASYNC_STORAGE_VERSION_KEY)
-  }
-
-  loadContentLanguage = async (): Promise<?string> => {
-    return this.asyncStorage.getItem(CONTENT_LANGUAGE_KEY)
+  loadVersion = async (): Promise<string | null> => {
+    const settings = await this.loadSettings()
+    return settings.storageVersion
   }
 
   setContentLanguage = async (language: string) => {
-    await this.asyncStorage.setItem(CONTENT_LANGUAGE_KEY, language)
+    await this.setSettings({ contentLanguage: language })
   }
 
-  loadSelectedCity = async (): Promise<?string> => {
-    return this.asyncStorage.getItem(SELECTED_CITY_KEY)
+  loadContentLanguage = async (): Promise<string | null> => {
+    const settings = await this.loadSettings()
+    return settings.contentLanguage
   }
 
   setSelectedCity = async (city: string) => {
-    await this.asyncStorage.setItem(SELECTED_CITY_KEY, city)
+    await this.setSettings({ selectedCity: city })
   }
 
   clearSelectedCity = async () => {
-    await this.asyncStorage.removeItem(SELECTED_CITY_KEY)
+    await this.setSettings({ selectedCity: null })
+  }
+
+  loadSelectedCity = async (): Promise<?string> => {
+    const settings = await this.loadSettings()
+    return settings.selectedCity
+  }
+
+  setIntroShown = async () => {
+    await this.setSettings({ introShown: true })
+  }
+
+  loadIntroShown = async (): Promise<boolean | null> => {
+    const settings = await this.loadSettings()
+    return settings.introShown
   }
 
   clearAppSettings = async () => {
-    await this.asyncStorage.removeItem(CONTENT_LANGUAGE_KEY)
-    await this.asyncStorage.removeItem(SELECTED_CITY_KEY)
-    await this.asyncStorage.removeItem(ASYNC_STORAGE_VERSION_KEY)
+    const settingsKeys = Object.keys(defaultSettings)
+    await this.asyncStorage.multiRemove(settingsKeys)
   }
 }
 

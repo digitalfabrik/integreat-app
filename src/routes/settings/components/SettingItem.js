@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { View } from 'react-native'
-import styled from 'styled-components/native'
+import styled, { type StyledComponent } from 'styled-components/native'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import Touchable from '../../../modules/platform/components/Touchable'
 
@@ -11,14 +11,15 @@ type PropType = {
   description: ?string,
   onPress: ?() => void,
   children: ?React.Node,
-  theme: ThemeType
+  theme: ThemeType,
+  bigTitle?: boolean
 }
 
-const PadView = styled.View`
+const PadView: StyledComponent<{}, ThemeType, *> = styled.View`
   padding: 16px;
   flex-direction: row;
   align-items: center;
-  background-color: white;
+  background-color: ${props => props.theme.colors.backgroundColor};
   padding-vertical: 8px;
 `
 
@@ -34,8 +35,9 @@ const ContentContainer = styled.View`
   align-items: flex-start;
 `
 
-const Title = styled.Text`
+const Title: StyledComponent<{ bigTitle: boolean }, ThemeType, *> = styled.Text`
   color: ${props => props.theme.colors.textColor};
+  ${props => props.bigTitle && 'font-size: 18px;'}
 `
 
 const Description = styled.Text`
@@ -44,12 +46,12 @@ const Description = styled.Text`
 
 export default class SettingItem extends React.Component<PropType> {
   render () {
-    const { title, description, onPress, children, theme } = this.props
+    const { title, description, onPress, children, bigTitle, theme } = this.props
 
     return <Touchable onPress={onPress}>
-      <PadView>
+      <PadView theme={theme}>
         <ContentContainer>
-          <View><Title theme={theme}>{title}</Title></View>
+          <View><Title theme={theme} bigTitle={bigTitle || false}>{title}</Title></View>
           {description && <View><Description theme={theme}>{description}</Description></View>}
         </ContentContainer>
         <RightContentContainer>{children}</RightContentContainer>

@@ -12,7 +12,6 @@ import type { StateType } from '../StateType'
 import type { StoreActionType } from '../StoreActionType'
 import DefaultDataContainer from '../../endpoint/DefaultDataContainer'
 import type { DataContainer } from '../../endpoint/DataContainer'
-import LaunchInquiry from './LaunchInquiry'
 import NavigatorContainer from '../containers/NavigatorContainer'
 
 class App extends React.Component<{||}> {
@@ -23,14 +22,12 @@ class App extends React.Component<{||}> {
     return (
       <Provider store={this.store}>
         <I18nProviderContainer>
-          <LaunchInquiry>
-            <>
-              <AndroidStatusBarContainer />
-              <IOSSafeAreaView>
-                <NavigatorContainer />
-              </IOSSafeAreaView>
-            </>
-          </LaunchInquiry>
+          <>
+            <AndroidStatusBarContainer />
+            <IOSSafeAreaView>
+              <NavigatorContainer />
+            </IOSSafeAreaView>
+          </>
         </I18nProviderContainer>
       </Provider>
     )
