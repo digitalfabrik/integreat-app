@@ -3,9 +3,9 @@
 import * as React from 'react'
 import type { ThemeType } from '../../modules/theme/constants/theme'
 import styled, { type StyledComponent } from 'styled-components/native'
-import { range } from 'lodash'
 import { type TFunction } from 'react-i18next'
 import type { IntroSettingsType } from './IntroContainer'
+import Pagination from './Pagination'
 
 const Container: StyledComponent<{}, ThemeType, *> = styled.View`
   flex: 0.15;
@@ -38,23 +38,6 @@ const ButtonText: StyledComponent<{ backgroundColor: string }, ThemeType, *> = s
   border-radius: 3px;
 `
 
-const DotsContainer = styled.View`
-  flex: 1;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-`
-
-const Dot: StyledComponent<{ isActive: boolean }, ThemeType, *> = styled.TouchableOpacity`
-  width: 10px;
-  height: 10px;
-  border-radius: 5px;
-  margin-horizontal: 4px;
-  background-color: ${props => props.isActive
-    ? props.theme.colors.textSecondaryColor
-    : props.theme.colors.textDecorationColor};
-`
-
 export type ButtonType = {|
   label: string,
   onPress: () => void | Promise<void>,
@@ -82,37 +65,26 @@ class SlideFooter extends React.Component<PropsType> {
     </ButtonContainer>
   }
 
-  renderPagination = (): React.Node => {
-    const { slideCount, currentSlide, goToSlide, theme } = this.props
-    const goToSlideIndex = (index: number) => () => goToSlide(index)
-
-    return <DotsContainer>
-      {range(slideCount).map(index =>
-        <Dot key={index} isActive={index === currentSlide} onPress={goToSlideIndex(index)} theme={theme} />
-      )}
-    </DotsContainer>
-  }
-
   renderStandardFooter = (): React.Node => {
     const { theme, slideCount, goToSlide, currentSlide, t } = this.props
     return <Container theme={theme}>
       {this.renderButton({ label: t('skip'), onPress: () => goToSlide(slideCount - 1) })}
-      {this.renderPagination()}
+      <Pagination slideCount={slideCount} currentSlide={currentSlide} goToSlide={goToSlide} theme={theme} />
       {this.renderButton({ label: t('next'), onPress: () => goToSlide(currentSlide + 1) })}
     </Container>
   }
 
   renderCustomizableSettingsFooter = (): React.Node => {
-    const { onDone, toggleCustomizeSettings, theme, t } = this.props
+    const { slideCount, currentSlide, goToSlide, onDone, toggleCustomizeSettings, theme, t } = this.props
     return <Container theme={theme}>
       {this.renderButton({ label: t('cancel'), onPress: toggleCustomizeSettings })}
-      {this.renderPagination()}
+      <Pagination slideCount={slideCount} currentSlide={currentSlide} goToSlide={goToSlide} theme={theme} />
       {this.renderButton({ label: t('save'), onPress: () => onDone(Object.seal({})) })}
     </Container>
   }
 
   renderSettingsFooter = (): React.Node => {
-    const { onDone, toggleCustomizeSettings, theme, t } = this.props
+    const { slideCount, currentSlide, goToSlide, onDone, toggleCustomizeSettings, theme, t } = this.props
 
     return <Container theme={theme}>
       <VerticalButtonContainer>
@@ -122,7 +94,7 @@ class SlideFooter extends React.Component<PropsType> {
             onPress: () => onDone({ allowPushNotifications: false, allowSentry: false, proposeNearbyCities: false })
         })}
       </VerticalButtonContainer>
-      {this.renderPagination()}
+      <Pagination slideCount={slideCount} currentSlide={currentSlide} goToSlide={goToSlide} theme={theme} />
       {this.renderButton({
         label: t('accept'),
         onPress: () => onDone({ allowPushNotifications: true, allowSentry: true, proposeNearbyCities: true }),
