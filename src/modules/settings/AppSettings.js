@@ -98,7 +98,6 @@ class AppSettings {
   }
 
   clearAppSettings = async () => {
-    await this.asyncStorage.removeItem(CONTENT_LANGUAGE_KEY)
     await this.asyncStorage.removeItem(SELECTED_CITY_KEY)
     await this.asyncStorage.removeItem(INTRO_SHOWN_KEY)
     await this.asyncStorage.removeItem(ASYNC_STORAGE_VERSION_KEY)
