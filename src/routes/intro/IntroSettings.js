@@ -5,20 +5,18 @@ import type { ThemeType } from '../../modules/theme/constants/theme'
 import type TFunction from 'react-i18next'
 import styled, { type StyledComponent } from 'styled-components/native'
 import openPrivacyPolicy from '../settings/openPrivacyPolicy'
+import { View } from 'react-native'
 
 const Padding: StyledComponent<{}, ThemeType, *> = styled.View`
   flex: 1;
   padding: 10px;
   flex-direction: column;
+  justify-content: space-between;
 `
 
 const Item: StyledComponent<{}, ThemeType, *> = styled.View`
   padding: 16px;
   flex-direction: column;
-`
-
-const ItemContainer = styled.View`
-  flex: 4;
 `
 
 const MainText: StyledComponent<{}, ThemeType, *> = styled.Text`
@@ -31,15 +29,10 @@ const Description: StyledComponent<{}, ThemeType, *> = styled.Text`
   color: ${props => props.theme.colors.textSecondaryColor};
 `
 
-const LinkContainer = styled.View`
-  flex: 1;
-  justify-content: center;
-`
-
 const Link = styled.Text`
-  padding-top: 20px;
-  color: blue;
+  padding: 10px;
   align-self: center;
+  text-decoration: underline;
 `
 
 type PropsType = {|
@@ -62,15 +55,15 @@ class IntroSettings extends React.Component<PropsType> {
   render () {
     const { theme, t } = this.props
     return <Padding>
-      <ItemContainer>
+      <View>
         <MainText theme={theme}>{t('inquiryIntro', { accept: t('accept') })}</MainText>
         {this.renderItem(t('settings:pushNewsTitle'), t('pushNewsCondition'))}
         {this.renderItem(t('settings:proposeCitiesTitle'), t('proposeCitiesCondition'))}
         {this.renderItem(t('settings:sentryTitle'), t('sentryCondition'))}
-      </ItemContainer>
-      <LinkContainer>
+      </View>
+      <View>
         <Link onPress={this.showPrivacyPolicy}>{t('privacyPolicy')}</Link>
-      </LinkContainer>
+      </View>
     </Padding>
   }
 }
