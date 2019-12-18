@@ -7,7 +7,7 @@ import AppSettings from '../../settings/AppSettings'
 import createAppNavigationContainer from '../createAppNavigationContainer'
 import { Text } from 'react-native'
 import SentryIntegration from '../SentryIntegration'
-import { AsyncStorageVersion } from '../../settings/constants'
+import { ASYNC_STORAGE_VERSION } from '../../settings/constants'
 
 type PropsType = {|
   fetchCategory: (cityCode: string, language: string, key: string) => void,
@@ -30,41 +30,40 @@ class Navigator extends React.Component<PropsType, StateType> {
   async initializeAppContainer () {
     const { fetchCategory, clearCategory } = this.props
     const appSettings = new AppSettings()
-    const storageVersion = await appSettings.loadVersion()
+    const {
+      introShown,
+      selectedCity,
+      contentLanguage,
+      storageVersion,
+      errorTracking
+    } = await appSettings.loadSettings()
 
     if (!storageVersion) {
-      await appSettings.clearAppSettings()
-      await appSettings.setVersion(AsyncStorageVersion)
-    } else if (storageVersion !== AsyncStorageVersion) {
-      // start a migration routine
-      await appSettings.setVersion(AsyncStorageVersion)
+      await appSettings.setVersion(ASYNC_STORAGE_VERSION)
     }
 
-    const [introShown, settings, cityCode, language] = await Promise.all([
-      appSettings.loadIntroShown(),
-      appSettings.loadSettings(),
-      appSettings.loadSelectedCity(),
-      appSettings.loadContentLanguage()
-    ])
+    if (storageVersion !== ASYNC_STORAGE_VERSION) {
+      // start a migration routine
+    }
 
-    if (!language) {
+    if (!contentLanguage) {
       throw Error('The contentLanguage has not been set correctly by I18nProvider!')
     }
 
     if (!introShown) {
       this.appNavigationContainer = createAppNavigationContainer({ initialRouteName: 'Intro' })
     } else {
-      if (settings.allowSentry) {
+      if (errorTracking) {
         const sentry = new SentryIntegration()
         await sentry.install()
       }
 
-      if (cityCode) {
+      if (selectedCity) {
         const key = generateKey()
         this.appNavigationContainer = createAppNavigationContainer({
-          initialRouteName: 'CityContent', cityCode, language, clearCategory, key
+          initialRouteName: 'CityContent', cityCode: selectedCity, language: contentLanguage, clearCategory, key
         })
-        fetchCategory(cityCode, language, key)
+        fetchCategory(selectedCity, contentLanguage, key)
       } else {
         this.appNavigationContainer = createAppNavigationContainer({ initialRouteName: 'Landing' })
       }
