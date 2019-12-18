@@ -60,7 +60,7 @@ type PropsType = {|
 export type IntroSettingsType = {|
   allowPushNotifications: boolean,
   proposeNearbyCities: boolean,
-  allowSentry: boolean
+  errorTracking: boolean
 |}
 
 type StateType = {|
@@ -83,7 +83,7 @@ class Intro extends React.Component<PropsType, StateType> {
       customizableSettings: false,
       allowPushNotifications: false,
       proposeNearbyCities: false,
-      allowSentry: false,
+      errorTracking: false,
       width: Dimensions.get('window').width
     }
     this._appSettings = new AppSettings()
@@ -138,32 +138,33 @@ class Intro extends React.Component<PropsType, StateType> {
 
   toggleProposeCities = () => this.setState(prevState => ({ proposeNearbyCities: !prevState.proposeNearbyCities }))
 
-  toggleAllowSentry = () => this.setState(prevState => ({ allowSentry: !prevState.allowSentry }))
+  toggleErrorTracking = () => this.setState(prevState => ({ errorTracking: !prevState.errorTracking }))
 
   renderSettings = () => {
-    const { customizableSettings, allowPushNotifications, proposeNearbyCities, allowSentry } = this.state
+    const { customizableSettings, allowPushNotifications, proposeNearbyCities, errorTracking } = this.state
     const { language, theme, t } = this.props
     if (customizableSettings) {
       return <CustomizableIntroSettings allowPushNotifications={allowPushNotifications}
                                         toggleSetAllowPushNotifications={this.toggleAllowPushNotifications}
                                         proposeNearbyCities={proposeNearbyCities}
-                                        toggleProposeNearbyCities={this.toggleProposeCities} allowSentry={allowSentry}
-                                        toggleAllowSentry={this.toggleAllowSentry} theme={theme} t={t} />
+                                        toggleProposeNearbyCities={this.toggleProposeCities}
+                                        errorTracking={errorTracking}
+                                        toggleErrorTracking={this.toggleErrorTracking} theme={theme} t={t} />
     } else {
       return <IntroSettings theme={theme} language={language} t={t} />
     }
   }
 
   onDone = async ({
-    allowSentry: sentry, allowPushNotifications: pushNotifications, proposeNearbyCities: nearbyCities
+    errorTracking: sentry, allowPushNotifications: pushNotifications, proposeNearbyCities: nearbyCities
   }: $Shape<IntroSettingsType>) => {
-    const allowSentry = sentry !== undefined ? sentry : this.state.allowSentry
+    const errorTracking = sentry !== undefined ? sentry : this.state.errorTracking
     const proposeNearbyCities = nearbyCities !== undefined ? nearbyCities : this.state.proposeNearbyCities
     const allowPushNotifications =
       pushNotifications !== undefined ? pushNotifications : this.state.allowPushNotifications
 
     try {
-      if (allowSentry) {
+      if (errorTracking) {
         const sentry = new SentryIntegration()
         await sentry.install()
       }
@@ -174,7 +175,7 @@ class Intro extends React.Component<PropsType, StateType> {
     } catch (e) {
       console.warn(e)
     }
-    await this._appSettings.setSettings({ allowSentry, allowPushNotifications, proposeNearbyCities })
+    await this._appSettings.setSettings({ errorTracking, allowPushNotifications, proposeNearbyCities })
     this._appSettings.setIntroShown()
     this.props.navigation.navigate('Landing')
   }

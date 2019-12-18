@@ -36,8 +36,8 @@ export default ({ setSetting, t, language }: {
           title: t('sentryTitle'),
           description: t('sentryDescription'),
           hasSwitch: true,
-          getSettingValue: (settings: SettingsType) => settings.allowSentry,
-          onPress: () => { setSetting(settings => ({ allowSentry: !settings.allowSentry })) }
+          getSettingValue: (settings: SettingsType) => settings.errorTracking,
+          onPress: () => { setSetting(settings => ({ errorTracking: !settings.errorTracking })) }
         },
         {
           title: t('about'),

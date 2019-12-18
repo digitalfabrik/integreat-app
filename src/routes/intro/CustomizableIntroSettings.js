@@ -13,15 +13,15 @@ type PropsType = {|
   toggleSetAllowPushNotifications: () => void,
   proposeNearbyCities: boolean,
   toggleProposeNearbyCities: () => void,
-  allowSentry: boolean,
-  toggleAllowSentry: () => void
+  errorTracking: boolean,
+  toggleErrorTracking: () => void
 |}
 
 class CustomizableIntroSettings extends React.Component<PropsType> {
   render () {
     const { t, theme, allowPushNotifications,
       toggleSetAllowPushNotifications, proposeNearbyCities,
-      toggleProposeNearbyCities, allowSentry, toggleAllowSentry
+      toggleProposeNearbyCities, errorTracking, toggleErrorTracking
     } = this.props
     const themeColor = theme.colors.themeColor
 
@@ -38,9 +38,9 @@ class CustomizableIntroSettings extends React.Component<PropsType> {
                 onValueChange={toggleProposeNearbyCities} />
       </SettingItem>
       <SettingItem bigTitle title={t('settings:sentryTitle')} description={t('settings:sentryDescription')}
-                   onPress={toggleAllowSentry} theme={theme}>
-        <Switch thumbColor={themeColor} trackColor={{ true: themeColor }} value={allowSentry}
-                onValueChange={toggleAllowSentry} />
+                   onPress={toggleErrorTracking} theme={theme}>
+        <Switch thumbColor={themeColor} trackColor={{ true: themeColor }} value={errorTracking}
+                onValueChange={toggleErrorTracking} />
       </SettingItem>
     </>
   }

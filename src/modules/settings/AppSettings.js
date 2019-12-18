@@ -12,7 +12,7 @@ export type SettingsType = {|
   introShown: boolean | null,
   errorTracking: boolean | null,
   allowPushNotifications: boolean | null,
-  useLocationAccess: boolean | null
+  proposeNearbyCities: boolean | null
 |}
 
 const e2eSettings = {
@@ -22,7 +22,7 @@ const e2eSettings = {
   introShown: true,
   errorTracking: false,
   allowPushNotifications: false,
-  useLocationAccess: false
+  proposeNearbyCities: false
 }
 
 export const defaultSettings: SettingsType = (process.env.E2E_TEST_IDS) ? e2eSettings : {
@@ -32,7 +32,7 @@ export const defaultSettings: SettingsType = (process.env.E2E_TEST_IDS) ? e2eSet
   introShown: null,
   errorTracking: null,
   allowPushNotifications: null,
-  useLocationAccess: null
+  proposeNearbyCities: null
 }
 
 class AppSettings {
