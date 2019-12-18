@@ -21,21 +21,16 @@ type PropsType = {|
 
 class SlideFooter extends React.Component<PropsType> {
   render () {
-    const {
-      theme, t, toggleCustomizeSettings, onDone, goToSlide, customizableSettings, currentSlide, slideCount
-    } = this.props
+    const { customizableSettings, ...footerProps } = this.props
+    const { currentSlide, slideCount, goToSlide, theme, t } = footerProps
 
     if (currentSlide < slideCount - 1) {
       return <StandardFooter slideCount={slideCount} currentSlide={currentSlide} goToSlide={goToSlide} theme={theme}
                              t={t} />
     } else if (customizableSettings) {
-      return <CustomizableSettingsFooter slideCount={slideCount} currentSlide={currentSlide} onDone={onDone}
-                                         toggleCustomizeSettings={toggleCustomizeSettings} goToSlide={goToSlide}
-                                         theme={theme} t={t} />
+      return <CustomizableSettingsFooter {...footerProps} />
     } else {
-      return <SettingsFooter slideCount={slideCount} currentSlide={currentSlide} onDone={onDone}
-                             toggleCustomizeSettings={toggleCustomizeSettings} goToSlide={goToSlide}
-                             theme={theme} t={t} />
+      return <SettingsFooter {...footerProps} />
     }
   }
 }
