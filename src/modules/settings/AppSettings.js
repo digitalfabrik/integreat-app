@@ -7,6 +7,7 @@ import { fromPairs } from 'lodash/array'
 const CONTENT_LANGUAGE_KEY = 'CONTENT_LANGUAGE'
 const SELECTED_CITY_KEY = 'SELECTED_CITY'
 const INTRO_SHOWN_KEY = 'INTRO_SHOWN'
+const ASYNC_STORAGE_VERSION_KEY = 'ASYNC_STORAGE_VERSION'
 
 export type SettingsType = {|
   errorTracking: boolean | null,
@@ -56,6 +57,14 @@ class AppSettings {
     await this.asyncStorage.multiSet(settingsArray)
   }
 
+  setVersion = async (version: string) => {
+    await this.asyncStorage.setItem(ASYNC_STORAGE_VERSION_KEY, version)
+  }
+
+  loadVersion = async (): Promise<?string> => {
+    return this.asyncStorage.getItem(ASYNC_STORAGE_VERSION_KEY)
+  }
+
   loadContentLanguage = async (): Promise<?string> => {
     return this.asyncStorage.getItem(CONTENT_LANGUAGE_KEY)
   }
@@ -86,6 +95,13 @@ class AppSettings {
       return true
     }
     return value ? JSON.parse(value) : false
+  }
+
+  clearAppSettings = async () => {
+    await this.asyncStorage.removeItem(CONTENT_LANGUAGE_KEY)
+    await this.asyncStorage.removeItem(SELECTED_CITY_KEY)
+    await this.asyncStorage.removeItem(INTRO_SHOWN_KEY)
+    await this.asyncStorage.removeItem(ASYNC_STORAGE_VERSION_KEY)
   }
 }
 

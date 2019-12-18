@@ -7,6 +7,7 @@ import AppSettings from '../../settings/AppSettings'
 import createAppNavigationContainer from '../createAppNavigationContainer'
 import { Text } from 'react-native'
 import SentryIntegration from '../SentryIntegration'
+import { AsyncStorageVersion } from '../../settings/constants'
 
 type PropsType = {|
   fetchCategory: (cityCode: string, language: string, key: string) => void,
@@ -29,13 +30,22 @@ class Navigator extends React.Component<PropsType, StateType> {
   async initializeAppContainer () {
     const { fetchCategory, clearCategory } = this.props
     const appSettings = new AppSettings()
-    const [introShown, settings, cityCode, language] = await Promise.all([
+    const [introShown, settings, cityCode, language, storageVersion] = await Promise.all([
       appSettings.loadIntroShown(),
       appSettings.loadSettings(),
       appSettings.loadSelectedCity(),
-      appSettings.loadContentLanguage()
+      appSettings.loadContentLanguage(),
+      appSettings.loadVersion()
     ])
 
+    if (!storageVersion) {
+      await appSettings.clearAppSettings()
+      await appSettings.setVersion(AsyncStorageVersion)
+    }
+    if (storageVersion !== AsyncStorageVersion) {
+      // start a migration routine
+      await appSettings.setVersion(AsyncStorageVersion)
+    }
     if (!language) {
       throw Error('The contentLanguage has not been set correctly by I18nProvider!')
     }
