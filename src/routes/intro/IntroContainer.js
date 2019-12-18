@@ -62,6 +62,9 @@ class Intro extends React.Component<PropsType, StateType> {
     }
     this._appSettings = new AppSettings()
     this._flatList = React.createRef()
+    Dimensions.addEventListener('change',
+      (event: { window: { width: number }}) => this.setState({ width: event.window.width })
+    )
   }
 
   renderImageContent = (image: number) => (): React.Node => <ImageContent source={image} />
