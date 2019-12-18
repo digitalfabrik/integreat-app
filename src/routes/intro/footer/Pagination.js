@@ -2,7 +2,7 @@
 
 import React from 'react'
 import styled, { type StyledComponent } from 'styled-components/native'
-import type { ThemeType } from '../../modules/theme/constants/theme'
+import type { ThemeType } from '../../../modules/theme/constants/theme'
 import { range } from 'lodash'
 
 const DotsContainer: StyledComponent<{}, {}, *> = styled.View`
