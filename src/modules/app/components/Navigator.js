@@ -39,12 +39,13 @@ class Navigator extends React.Component<PropsType, StateType> {
     } = await appSettings.loadSettings()
 
     if (!storageVersion) {
-      throw Error('The storage version is not defined!')
-    }
-    if (storageVersion !== ASYNC_STORAGE_VERSION) {
-      // start a migration routine
       await appSettings.setVersion(ASYNC_STORAGE_VERSION)
     }
+
+    if (storageVersion !== ASYNC_STORAGE_VERSION) {
+      // start a migration routine
+    }
+
     if (!contentLanguage) {
       throw Error('The contentLanguage has not been set correctly by I18nProvider!')
     }

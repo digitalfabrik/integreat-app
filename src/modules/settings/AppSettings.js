@@ -6,7 +6,7 @@ import { fromPairs } from 'lodash/array'
 import { ASYNC_STORAGE_VERSION } from './constants'
 
 export type SettingsType = {|
-  storageVersion: string,
+  storageVersion: string | null,
   contentLanguage: string | null,
   selectedCity: string | null,
   introShown: boolean | null,
@@ -26,7 +26,7 @@ const e2eSettings = {
 }
 
 export const defaultSettings: SettingsType = (process.env.E2E_TEST_IDS) ? e2eSettings : {
-  storageVersion: ASYNC_STORAGE_VERSION,
+  storageVersion: null,
   contentLanguage: null,
   selectedCity: null,
   introShown: null,
@@ -66,7 +66,7 @@ class AppSettings {
     await this.setSettings({ storageVersion: version })
   }
 
-  loadVersion = async (): Promise<?string> => {
+  loadVersion = async (): Promise<string | null> => {
     const settings = await this.loadSettings()
     return settings.storageVersion
   }
