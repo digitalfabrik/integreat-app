@@ -23,6 +23,21 @@ export type JsonLocationType = {
   longitude: ?string
 }
 
+type JsonFeaturedImageInstanceType = {|
+  url: string,
+  width: number,
+  height: number
+|}
+
+type JsonFeaturedImageType = {|
+  description: string,
+  mimetype: string,
+  thumbnail: Array<JsonFeaturedImageInstanceType>,
+  medium: Array<JsonFeaturedImageInstanceType>,
+  large: Array<JsonFeaturedImageInstanceType>,
+  full: Array<JsonFeaturedImageInstanceType>
+|}
+
 type JsonEventInfoType = {
   id: number,
   start_date: string,
@@ -77,7 +92,8 @@ export type JsonEventType = {
   thumbnail: string,
   hash: string,
   event: JsonEventInfoType,
-  location: JsonLocationType
+  location: JsonLocationType,
+  featured_image: ?JsonFeaturedImageType
 }
 
 export type JsonExtraPostType = {
