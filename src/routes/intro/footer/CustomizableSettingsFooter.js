@@ -27,7 +27,7 @@ class CustomizableSettingsFooter extends React.Component<PropsType> {
     return <FooterContainer theme={theme}>
       <SlideButton label={t('cancel')} onPress={toggleCustomizeSettings} theme={theme} />
       <Pagination slideCount={slideCount} currentSlide={currentSlide} goToSlide={goToSlide} theme={theme} />
-      <SlideButton label={t('save')} onPress={this.onSave} theme={theme} />
+      <SlideButton label={t('save')} onPress={this.onSave} theme={theme} backgroundColor={theme.colors.themeColor} />
     </FooterContainer>
   }
 }
