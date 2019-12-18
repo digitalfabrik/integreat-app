@@ -94,7 +94,7 @@ describe('I18nProvider', () => {
   })
 
   it('should show error if loading fails', async () => {
-    const previous = AsyncStorage.getItem
+    const previous = AsyncStorage.multiGet
     previous.mockImplementation(() => {
       throw Error('An Error occurred while getting settings!')
     })
