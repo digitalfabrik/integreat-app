@@ -107,10 +107,11 @@ class Events extends React.Component<PropsType> {
                      navigateToIntegreatUrl={navigateToIntegreatUrl}
                      navigateToFeedback={this.createNavigateToFeedbackForEvent(event)}>
           <>
-            <PageDetail identifier={t('date', { lng: language })} information={event.date.toFormattedString(language)}
-                          theme={theme} language={language} />
-            <PageDetail identifier={t('location', { lng: language })} information={event.location.location}
-                          theme={theme} language={language} />
+            <PageDetail identifier={t('date')} information={event.date.toFormattedString(language)}
+                        theme={theme} language={language} />
+            {event.location.location && <PageDetail identifier={t('location')}
+                                                    information={event.location.location} theme={theme}
+                                                    language={language} />}
           </>
         </Page>
       }
