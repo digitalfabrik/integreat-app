@@ -21,7 +21,8 @@ type PropsType = {|
 |}
 
 type StateType = {|
-  errorMessage: ?string
+  errorMessage: ?string,
+  contentLanguageInitialized: boolean
 |}
 
 class I18nProvider extends React.Component<PropsType, StateType> {
@@ -31,7 +32,7 @@ class I18nProvider extends React.Component<PropsType, StateType> {
   constructor () {
     super()
 
-    this.state = { errorMessage: null }
+    this.state = { errorMessage: null, contentLanguageInitialized: false }
 
     const i18nextResources = I18nProvider.transformResources(localesResources)
     this.i18n = i18n
@@ -91,6 +92,7 @@ class I18nProvider extends React.Component<PropsType, StateType> {
       await this.appSettings.setContentLanguage(uiLanguage)
     }
     setContentLanguage(contentLanguage || uiLanguage)
+    this.setState({ contentLanguageInitialized: true })
   }
 
   componentDidMount () {
@@ -102,14 +104,15 @@ class I18nProvider extends React.Component<PropsType, StateType> {
   momentFormatter = createMomentFormatter(() => undefined, () => DEFAULT_LANGUAGE)
 
   render () {
-    if (this.state.errorMessage) {
+    const { errorMessage, contentLanguageInitialized } = this.state
+    if (errorMessage) {
       return <Text>{this.state.errorMessage}</Text>
     }
 
     return (
       <I18nextProvider i18n={this.i18n}>
         <MomentContext.Provider value={this.momentFormatter}>
-          {this.props.children}
+          {contentLanguageInitialized ? this.props.children : null}
         </MomentContext.Provider>
       </I18nextProvider>
     )
