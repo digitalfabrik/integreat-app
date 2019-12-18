@@ -26,6 +26,7 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<PoiModel>> => new E
         availableLanguages: mapAvailableLanguages(poi.available_languages),
         excerpt: poi.excerpt,
         location: new LocationModel({
+          name: poi.location.name,
           address: poi.location.address,
           town: poi.location.town,
           postcode: poi.location.postcode,

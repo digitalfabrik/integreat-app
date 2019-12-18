@@ -11,10 +11,10 @@ export type JsonAvailableLanguagesType = {
 }
 
 export type JsonLocationType = {
-  id: number,
-  name: string,
-  address: string,
-  town: string,
+  id: ?number,
+  name: ?string,
+  address: ?string,
+  town: ?string,
   state: ?string,
   postcode: ?string,
   region: ?string,
