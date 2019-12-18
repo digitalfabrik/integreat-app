@@ -41,6 +41,7 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<EventModel>> => new
           allDay: allDay
         }),
         location: new LocationModel({
+          name: event.location.name,
           address: event.location.address,
           town: event.location.town,
           postcode: event.location.postcode,
