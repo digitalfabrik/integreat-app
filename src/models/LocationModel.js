@@ -46,10 +46,11 @@ class LocationModel {
     if (!this._town) {
       return null
     }
+    const withoutAddress = this._postcode ? `${this._postcode} ${this._town}` : this._town
     if (!this._address) {
-      return `${this._postcode || ''} ${this._town}`
+      return withoutAddress
     }
-    return `${this._address}, ${this._postcode || ''} ${this._town}`
+    return `${this._address}, ${withoutAddress}`
   }
 }
 
