@@ -30,22 +30,23 @@ class Navigator extends React.Component<PropsType, StateType> {
   async initializeAppContainer () {
     const { fetchCategory, clearCategory } = this.props
     const appSettings = new AppSettings()
-    const [introShown, settings, cityCode, language, storageVersion] = await Promise.all([
-      appSettings.loadIntroShown(),
-      appSettings.loadSettings(),
-      appSettings.loadSelectedCity(),
-      appSettings.loadContentLanguage(),
-      appSettings.loadVersion()
-    ])
+    const storageVersion = await appSettings.loadVersion()
 
     if (!storageVersion) {
       await appSettings.clearAppSettings()
       await appSettings.setVersion(AsyncStorageVersion)
-    }
-    if (storageVersion !== AsyncStorageVersion) {
+    } else if (storageVersion !== AsyncStorageVersion) {
       // start a migration routine
       await appSettings.setVersion(AsyncStorageVersion)
     }
+
+    const [introShown, settings, cityCode, language] = await Promise.all([
+      appSettings.loadIntroShown(),
+      appSettings.loadSettings(),
+      appSettings.loadSelectedCity(),
+      appSettings.loadContentLanguage()
+    ])
+
     if (!language) {
       throw Error('The contentLanguage has not been set correctly by I18nProvider!')
     }
