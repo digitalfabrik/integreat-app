@@ -36,7 +36,7 @@ const FeedbackTouchableOpacity: StyledComponent<{}, {}, *> = styled(TouchableOpa
 const FeedbackText: StyledComponent<{}, ThemeType, *> = styled(Text)`
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.decorativeFontRegular};
-  font-size: 12;
+  font-size: 12px;
   margin-top: -2px;
 `
 

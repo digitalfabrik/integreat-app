@@ -24,7 +24,7 @@ const PadView: StyledComponent<{}, ThemeType, *> = styled.View`
 `
 
 const RightContentContainer = styled.View`
-  flex: 0.5;
+  flex: 0.4;
   justify-content: center;
   align-items: flex-end;
 `
