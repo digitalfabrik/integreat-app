@@ -29,6 +29,7 @@ import FeedbackModalContainer from '../../routes/feedback/containers/FeedbackMod
 import LandingContainer from '../../routes/landing/containers/LandingContainer'
 import React from 'react'
 import DisclaimerContainer from '../../routes/disclaimer/DisclaimerContainer'
+import IntroContainer from '../../routes/intro/IntroContainer'
 
 const LayoutedDashboardContainer = withLayout(DashboardContainer)
 const LayoutedCategoriesContainer = withLayout(CategoriesContainer)
@@ -68,18 +69,22 @@ const cityContentRouteConfigMap: NavigationRouteConfigMap = {
   'FeedbackModal': createNavigationRouteConfig(FeedbackModalContainer, transparentHeader)
 }
 
-export type CreateNavigationContainerParamsType =
-  {| initialRouteName: 'Landing' |} |
-  {|
-    initialRouteName: 'CityContent',
-    cityCode: string,
-    language: string,
-    clearCategory: (key: string) => void,
-    key: string
-  |}
+export type CreateNavigationContainerParamsType = {|
+  initialRouteName: 'Landing'
+|} | {|
+  initialRouteName: 'Intro'
+|} | {|
+  initialRouteName: 'CityContent',
+  cityCode: string,
+  language: string,
+  clearCategory: (key: string) => void,
+  key: string
+|}
 
 const createCityContentNavigator = (params: CreateNavigationContainerParamsType) => {
   if (params.initialRouteName === 'Landing') {
+    return createStackNavigator(cityContentRouteConfigMap)
+  } else if (params.initialRouteName === 'Intro') {
     return createStackNavigator(cityContentRouteConfigMap)
   } else {
     const { clearCategory, key, cityCode, language } = params
@@ -99,6 +104,7 @@ const createAppNavigationContainer = (params: CreateNavigationContainerParamsTyp
   const cityContentNavigator = createCityContentNavigator(params)
   return createAppContainer(
     createSwitchNavigator({
+      'Intro': IntroContainer,
       'Landing': LandingContainer,
       'CityContent': cityContentNavigator
     }, { initialRouteName: params.initialRouteName }))
