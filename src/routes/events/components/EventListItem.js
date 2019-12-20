@@ -41,7 +41,7 @@ class EventListItem extends React.PureComponent<PropsType> {
                 navigateTo={navigateToEvent}
                 theme={theme}>
         <Description theme={theme}>{event.date.toFormattedString(language)}</Description>
-        <Description theme={theme}>{event.location.location}</Description>
+        {event.location.location && <Description theme={theme}>{event.location.location}</Description>}
       </ListItem>
     )
   }

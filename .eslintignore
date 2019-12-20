@@ -12,3 +12,6 @@ stylelint.config.js
 
 bundle.js
 ios/main.jsbundle
+
+# Locales submodule
+/locales/
