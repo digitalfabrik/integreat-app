@@ -51,12 +51,10 @@
 - (void)clearStorage
 {
   NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-
-  NSString *lastLanguageKey = @"last_language";
+  NSString *lastLanguageKey = @"last_location";
 
   if ([preferences objectForKey:lastLanguageKey] != nil)
   {
-     // const NSInteger lastLanguage = [preferences integerForKey:lastLanguageKey];
     //clear preferences
     [self resetDefaults];
     
@@ -78,8 +76,10 @@
 {
     NSFileManager* manager = [NSFileManager defaultManager];
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
-    for (NSString *filePath in paths)  {
-       [manager removeItemAtPath:filePath error:nil];
+    NSString *libraryDirectory = [paths objectAtIndex:0];
+    NSArray *directoryContent = [manager directoryContentsAtPath: libraryDirectory];
+    for (NSString *content in directoryContent)  {
+       [manager removeItemAtPath:content error:nil];
     }
 }
 
