@@ -34,6 +34,8 @@
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
+  
+  [self clearStorage];
   return YES;
 }
 
@@ -44,6 +46,41 @@
 #else
   return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 #endif
+}
+
+- (void)clearStorage
+{
+  NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+
+  NSString *lastLanguageKey = @"last_language";
+
+  if ([preferences objectForKey:lastLanguageKey] != nil)
+  {
+     // const NSInteger lastLanguage = [preferences integerForKey:lastLanguageKey];
+    //clear preferences
+    [self resetDefaults];
+    
+    //clear storage
+    [self removeCache];
+  }
+}
+
+- (void)resetDefaults {
+    NSUserDefaults * defs = [NSUserDefaults standardUserDefaults];
+    NSDictionary * dict = [defs dictionaryRepresentation];
+    for (id key in dict) {
+        [defs removeObjectForKey:key];
+    }
+    [defs synchronize];
+}
+
+- (void)removeCache
+{
+    NSFileManager* manager = [NSFileManager defaultManager];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
+    for (NSString *filePath in paths)  {
+       [manager removeItemAtPath:filePath error:nil];
+    }
 }
 
 @end
