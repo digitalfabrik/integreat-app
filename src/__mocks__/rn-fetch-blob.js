@@ -30,6 +30,11 @@ function existsMock (file: string): Promise<boolean> {
   return Promise.resolve(filePath in mockFiles)
 }
 
+function lsMock (path: string): Promise<Array<string>> {
+  const filesInPath = Object.keys(mockFiles).filter(filePath => filePath.startsWith(path))
+  return Promise.resolve(filesInPath)
+}
+
 /**
  * Delete a file or an entire folder at path. Note that there will be no error if the file to be deleted does not exist
  * @param file
@@ -56,6 +61,7 @@ export default {
     }
   },
   fs: {
+    ls: jest.fn<[string], Promise<Array<string>>>(lsMock),
     exists: jest.fn<[string], Promise<boolean>>(existsMock),
     writeFile: jest.fn<[string, string, string], Promise<void>>(writeMockFile),
     readFile: jest.fn<[string, string], Promise<string>>(readMockFile),
