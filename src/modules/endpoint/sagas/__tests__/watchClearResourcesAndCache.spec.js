@@ -33,7 +33,7 @@ describe('watchClearResourcesAndCache', () => {
     const dataContainer = new DefaultDataContainer()
 
     await expectSaga(clearResourcesAndCache, dataContainer, action).run()
-    return expect(await RNFetchBlob.fs.ls(CACHE_DIR_PATH)).toBeEmpty()
+    expect(await RNFetchBlob.fs.ls(CACHE_DIR_PATH)).toBeEmpty()
   })
 
   it('should delete all data in in-memory caches', async () => {
@@ -55,15 +55,15 @@ describe('watchClearResourcesAndCache', () => {
   it('should trigger a reload of the cities', () => {
     const dataContainer = new DefaultDataContainer()
 
-    return testSaga(watchClearResourcesAndCache, dataContainer)
-      .next()
-      .takeLatest('CLEAR_RESOURCES_AND_CACHE', clearResourcesAndCache, dataContainer)
+    expectSaga(watchClearResourcesAndCache, dataContainer)
+      .take('CLEAR_RESOURCES_AND_CACHE', clearResourcesAndCache, dataContainer)
+      .put({ type: 'FETCH_CITIES', params: { forceRefresh: false } })
   })
 
   it('should correctly call clearResourcesAndCache when triggered', async () => {
     const dataContainer = new DefaultDataContainer()
 
-    return testSaga(watchClearResourcesAndCache, dataContainer)
+    testSaga(watchClearResourcesAndCache, dataContainer)
       .next()
       .takeLatest('CLEAR_RESOURCES_AND_CACHE', clearResourcesAndCache, dataContainer)
   })
