@@ -92,7 +92,8 @@ export default class Settings extends React.Component<PropsType, StateType> {
     return (
       <SettingItem title={title} description={description}
                    onPress={onPress} theme={theme}>
-        {hasSwitch && <Switch value={value} onValueChange={onPress} />}
+        {hasSwitch && <Switch thumbColor={theme.colors.themeColor} trackColor={{ true: theme.colors.themeColor }}
+                              value={value} onValueChange={onPress} />}
       </SettingItem>
     )
   }
