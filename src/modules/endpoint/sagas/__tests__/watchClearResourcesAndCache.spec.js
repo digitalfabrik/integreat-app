@@ -6,6 +6,8 @@ import path from 'path'
 import DefaultDataContainer from '../../DefaultDataContainer'
 import { expectSaga, testSaga } from 'redux-saga-test-plan'
 import watchClearResourcesAndCache, { clearResourcesAndCache } from '../watchClearResourcesAndCache'
+import CityModelBuilder from '../../../../testing/builder/CityModelBuilder'
+import LanguageModelBuilder from '../../../../testing/builder/LanguageModelBuilder'
 
 jest.mock('rn-fetch-blob')
 
@@ -34,8 +36,20 @@ describe('watchClearResourcesAndCache', () => {
     return expect(await RNFetchBlob.fs.ls(CACHE_DIR_PATH)).toBeEmpty()
   })
 
-  it('should delete all data in in-memory caches', () => {
+  it('should delete all data in in-memory caches', async () => {
+    const dataContainer = new DefaultDataContainer()
+    const action = { type: 'CLEAR_RESOURCES_AND_CACHE' }
 
+    // populate some caches
+    const cityModels = new CityModelBuilder(3).build()
+    await dataContainer.setCities(cityModels)
+    const languageModels = new LanguageModelBuilder(3).build()
+    await dataContainer.setLanguages('augsburg', languageModels)
+
+    await expectSaga(clearResourcesAndCache, dataContainer, action).run()
+
+    expect(await dataContainer.languagesAvailable('augsburg')).toBeFalse()
+    expect(await dataContainer.citiesAvailable()).toBeFalse()
   })
 
   it('should trigger a reload of the cities', () => {
