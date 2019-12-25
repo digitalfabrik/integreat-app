@@ -26,8 +26,8 @@ const LocationImage: StyledComponent<{}, ThemeType, *> = styled.Image`
   resize-mode: contain;
 `
 const ApiUrlText = styled.Text`
-padding-top: 10px;
-color: red;
+  padding-top: 10px;
+  color: red;
 `
 
 class EastereggImage extends React.Component<PropsType, StateType> {
