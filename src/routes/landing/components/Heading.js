@@ -4,9 +4,6 @@ import * as React from 'react'
 import EastereggImage from './EastereggImage'
 import styled, { type StyledComponent } from 'styled-components/native'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
-import type Moment from 'moment'
-
-type StateType = {| clickCount: number, clickStart: ?Moment, apiUrlOverride: ?string |}
 
 type PropsType = {|
   clearResourcesAndCache: () => void,
@@ -19,7 +16,7 @@ const Wrapper: StyledComponent<{| children: React.Node |}, {}, *> = styled.View`
   align-items: center;
 `
 
-class Heading extends React.Component<PropsType, StateType> {
+class Heading extends React.Component<PropsType> {
   render () {
     const { clearResourcesAndCache, theme } = this.props
     return (
