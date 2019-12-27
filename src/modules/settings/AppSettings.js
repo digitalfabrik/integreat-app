@@ -12,7 +12,8 @@ export type SettingsType = {|
   introShown: boolean | null,
   errorTracking: boolean | null,
   allowPushNotifications: boolean | null,
-  proposeNearbyCities: boolean | null
+  proposeNearbyCities: boolean | null,
+  apiUrlOverride: string | null
 |}
 
 const e2eSettings = {
@@ -22,7 +23,8 @@ const e2eSettings = {
   introShown: true,
   errorTracking: false,
   allowPushNotifications: false,
-  proposeNearbyCities: false
+  proposeNearbyCities: false,
+  apiUrlOverride: null
 }
 
 export const defaultSettings: SettingsType = (process.env.E2E_TEST_IDS) ? e2eSettings : {
@@ -32,7 +34,8 @@ export const defaultSettings: SettingsType = (process.env.E2E_TEST_IDS) ? e2eSet
   introShown: null,
   errorTracking: null,
   allowPushNotifications: null,
-  proposeNearbyCities: null
+  proposeNearbyCities: null,
+  apiUrlOverride: null
 }
 
 class AppSettings {
@@ -100,6 +103,15 @@ class AppSettings {
   loadIntroShown = async (): Promise<boolean | null> => {
     const settings = await this.loadSettings()
     return settings.introShown
+  }
+
+  setApiUrlOverride = async (apiUrlOverride: string) => {
+    await this.setSettings({ apiUrlOverride })
+  }
+
+  loadApiUrlOverride = async (): Promise<?string> => {
+    const settings = await this.loadSettings()
+    return settings.apiUrlOverride
   }
 
   clearAppSettings = async () => {

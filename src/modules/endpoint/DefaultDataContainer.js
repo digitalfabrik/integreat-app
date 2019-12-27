@@ -59,6 +59,14 @@ class DefaultDataContainer implements DataContainer {
     }
   }
 
+  clearInMemoryCache = () => {
+    Object.keys(this.caches).forEach(cache => this.caches[cache].evict())
+  }
+
+  clearOfflineCache = async () => {
+    await this._databaseConnector.deleteAllFiles()
+  }
+
   isCached (key: CacheKeyType, context: DatabaseContext): boolean {
     return this.caches[key].isCached(context)
   }

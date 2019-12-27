@@ -11,7 +11,7 @@ import SearchModal from '../components/SearchModal'
 import { CategoriesMapModel, createFeedbackEndpoint, SEARCH_FEEDBACK_TYPE } from '@integreat-app/integreat-api-client'
 import type { NavigationScreenProp } from 'react-navigation'
 import { translate } from 'react-i18next'
-import { baseUrl } from '../../../modules/endpoint/constants'
+import determineApiUrl from '../../../modules/endpoint/determineApiUrl'
 
 type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
 
@@ -24,8 +24,6 @@ export type PropsType = {|
   navigation: NavigationScreenProp<*>,
   sendFeedback: (comment: string, query: string) => Promise<void>
 |}
-
-const feedbackEndpoint = createFeedbackEndpoint(baseUrl)
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType) => {
   if (!state.cityContent) {
@@ -40,7 +38,8 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType) => {
     cityCode: city,
     closeModal: () => { ownProps.navigation.goBack() },
     sendFeedback: async (comment: string, query: string) => {
-      await feedbackEndpoint.request({
+      const apiUrlOverride = await determineApiUrl()
+      await createFeedbackEndpoint(apiUrlOverride).request({
         feedbackType: SEARCH_FEEDBACK_TYPE,
         isPositiveRating: false,
         comment,
