@@ -25,7 +25,13 @@ type ContainerPropsType = {|
 
 type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
 type StatePropsType = StatusPropsType<ContainerPropsType, void>
-type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
+type DispatchPropsType = {|
+  dispatch: Dispatch<StoreActionType>
+|}
+
+const refresh = (refreshProps: void, dispatch: Dispatch<StoreActionType>) => {
+  dispatch({ type: 'FETCH_CITIES', params: { forceRefresh: true } })
+}
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const language = state.contentLanguage
@@ -43,7 +49,9 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsType => ({ dispatch })
+const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsType => ({
+  dispatch
+})
 
 const ThemedTranslatedLanding = translate('landing')(
   withTheme(props => props.language)(
@@ -85,15 +93,16 @@ class LandingContainer extends React.Component<ContainerPropsType> {
     })
   }
 
+  clearResourcesAndCache = () => this.props.dispatch({ type: 'CLEAR_RESOURCES_AND_CACHE' })
+
   render () {
     const { cities, language } = this.props
-    return <ThemedTranslatedLanding cities={cities} language={language}
-                                    navigateToDashboard={this.navigateToDashboard} />
-  }
-}
 
-const refresh = (refreshProps: void, dispatch: Dispatch<StoreActionType>) => {
-  dispatch({ type: 'FETCH_CITIES', params: { forceRefresh: true } })
+    return <ThemedTranslatedLanding cities={cities} language={language}
+                                    navigateToDashboard={this.navigateToDashboard}
+                                    clearResourcesAndCache={this.clearResourcesAndCache}
+    />
+  }
 }
 
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}

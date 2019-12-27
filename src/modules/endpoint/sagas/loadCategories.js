@@ -3,8 +3,8 @@
 import type { Saga } from 'redux-saga'
 import { CategoriesMapModel, createCategoriesEndpoint } from '@integreat-app/integreat-api-client'
 import { call } from 'redux-saga/effects'
-import { baseUrl } from '../constants'
 import type { DataContainer } from '../DataContainer'
+import determineApiUrl from '../determineApiUrl'
 
 function * loadCategories (
   city: string,
@@ -24,7 +24,9 @@ function * loadCategories (
   }
 
   console.debug('Fetching categories')
-  const categoriesPayload = yield call(() => createCategoriesEndpoint(baseUrl).request({ city, language }))
+
+  const apiUrl = yield call(determineApiUrl)
+  const categoriesPayload = yield call(() => createCategoriesEndpoint(apiUrl).request({ city, language }))
   const categoriesMap: CategoriesMapModel = categoriesPayload.data
 
   yield call(dataContainer.setCategoriesMap, city, language, categoriesMap)
