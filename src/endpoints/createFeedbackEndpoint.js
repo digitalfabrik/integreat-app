@@ -16,13 +16,19 @@ export const CATEGORIES_FEEDBACK_TYPE = 'categories'
 export const EVENTS_FEEDBACK_TYPE = 'events'
 export const EXTRAS_FEEDBACK_TYPE = 'extras'
 
+export const CONTENT_FEEDBACK_CATEGORY = 'Inhalte'
+export const TECHNICAL_FEEDBACK_CATEGORY = 'Technisches Feedback'
+
 export type FeedbackType = null | 'extra' | 'search' | 'categories' | 'events' | 'extras'
+
+export type FeedbackCategoryType = null | 'Inhalte' | 'Technisches Feedback'
 
 export const INTEGREAT_INSTANCE = 'Integreat'
 export const DEFAULT_FEEDBACK_LANGUAGE = 'de'
 
 export type ParamsType = {
   feedbackType: FeedbackType,
+  feedbackCategory?: FeedbackCategoryType,
   permalink?: string,
   city: string,
   language: string,
@@ -51,6 +57,9 @@ export default (baseUrl: string): Endpoint<ParamsType, {}> => new EndpointBuilde
     }
     if (params.alias) {
       formData.append('alias', params.alias)
+    }
+    if (params.feedbackCategory) {
+      formData.append('category', params.feedbackCategory)
     }
     return formData
   })
