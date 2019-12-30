@@ -45,7 +45,7 @@ class NothingFoundFeedbackBox extends React.Component<PropsType, StateType> {
 
   onCommentChanged = (value: string) => this.setState({ comment: value })
 
-  onSubmit = () => {
+  onSubmit = async () => {
     this.setState({ sendingStatus: 'sending' })
     this.props.sendFeedback(this.state.comment, this.props.query)
       .then(() => this.setState({ sendingStatus: 'successful' }))

@@ -6,7 +6,6 @@ import { createDisclaimerEndpoint, PageModel, Payload } from '@integreat-app/int
 import type { ThemeType } from '../../modules/theme/constants/theme'
 import type { StateType } from '../../modules/app/StateType'
 import type { NavigationScreenProp } from 'react-navigation'
-import { baseUrl } from '../../modules/endpoint/constants'
 import withTheme from '../../modules/theme/hocs/withTheme'
 import Disclaimer from './Disclaimer'
 import FailureContainer from '../../modules/error/containers/FailureContainer'
@@ -14,6 +13,7 @@ import type { Dispatch } from 'redux'
 import type { StoreActionType } from '../../modules/app/StoreActionType'
 import { RefreshControl, ScrollView } from 'react-native'
 import { LOADING_TIMEOUT } from '../../modules/common/constants'
+import determineApiUrl from '../../modules/endpoint/determineApiUrl'
 
 type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
 
@@ -59,7 +59,8 @@ class DisclaimerContainer extends React.Component<DisclaimerPropsType, Disclaime
     setTimeout(() => this.setState({ timeoutExpired: true }), LOADING_TIMEOUT)
 
     try {
-      const disclaimerEndpoint = createDisclaimerEndpoint(baseUrl)
+      const apiUrl = await determineApiUrl()
+      const disclaimerEndpoint = createDisclaimerEndpoint(apiUrl)
       const payload: Payload<Array<PageModel>> = await disclaimerEndpoint.request({ city, language })
 
       if (payload.error) {
@@ -78,7 +79,7 @@ class DisclaimerContainer extends React.Component<DisclaimerPropsType, Disclaime
 
     if (error) {
       return <ScrollView refreshControl={<RefreshControl onRefresh={this.loadDisclaimer} refreshing={false} />}
-                  contentContainerStyle={{ flexGrow: 1 }}>
+                         contentContainerStyle={{ flexGrow: 1 }}>
         <FailureContainer error={error} tryAgain={this.loadDisclaimer} />
       </ScrollView>
     }
@@ -90,7 +91,7 @@ class DisclaimerContainer extends React.Component<DisclaimerPropsType, Disclaime
     }
 
     return <ScrollView refreshControl={<RefreshControl onRefresh={this.loadDisclaimer} refreshing={false} />}
-                contentContainerStyle={{ flexGrow: 1 }}>
+                       contentContainerStyle={{ flexGrow: 1 }}>
       <Disclaimer disclaimer={disclaimer} theme={theme} navigation={navigation} city={city} language={language} />
     </ScrollView>
   }

@@ -117,6 +117,7 @@ export default (
       }
     }
     case 'CLEAR_CITY':
+    case 'CLEAR_RESOURCES_AND_CACHE':
       return null
     case 'FETCH_RESOURCES_FAILED': {
       if (state === null) {
