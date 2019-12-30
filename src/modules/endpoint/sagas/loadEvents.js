@@ -3,8 +3,8 @@
 import type { Saga } from 'redux-saga'
 import { createEventsEndpoint, EventModel } from '@integreat-app/integreat-api-client'
 import { call } from 'redux-saga/effects'
-import { baseUrl } from '../constants'
 import type { DataContainer } from '../DataContainer'
+import determineApiUrl from '../determineApiUrl'
 
 function * loadEvents (
   city: string,
@@ -25,7 +25,8 @@ function * loadEvents (
 
   console.debug('Fetching events')
 
-  const payload = yield call(() => createEventsEndpoint(baseUrl).request({ city, language }))
+  const apiUrl = yield call(determineApiUrl)
+  const payload = yield call(() => createEventsEndpoint(apiUrl).request({ city, language }))
   const events: Array<EventModel> = payload.data
 
   yield call(dataContainer.setEvents, city, language, events)

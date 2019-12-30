@@ -160,8 +160,13 @@ export type ToggleDarkModeActionType = {|
   type: 'TOGGLE_DARK_MODE'
 |}
 
+export type ClearResourcesAndCacheActionType = {|
+  type: 'CLEAR_RESOURCES_AND_CACHE'
+|}
+
 export type StoreActionType =
   ToggleDarkModeActionType
   | CitiesActionType
   | CityContentActionType
   | SetContentLanguageActionType
+  | ClearResourcesAndCacheActionType
