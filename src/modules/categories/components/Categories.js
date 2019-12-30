@@ -24,7 +24,14 @@ import FeedbackVariant from '../../../routes/feedback/FeedbackVariant'
 import { type TFunction } from 'react-i18next'
 import SpaceBetween from '../../common/components/SpaceBetween'
 import SiteHelpfulBox from '../../common/components/SiteHelpfulBox'
-import type { FeedbackType } from '@integreat-app/integreat-api-client/endpoints/createFeedbackEndpoint'
+import type {
+  FeedbackCatetory,
+  FeedbackType
+} from '@integreat-app/integreat-api-client/endpoints/createFeedbackEndpoint'
+import {
+  CONTENT_FEEDBACK_CATEGORY,
+  TECHNICAL_FEEDBACK_CATEGORY
+} from '@integreat-app/integreat-api-client/endpoints/createFeedbackEndpoint'
 
 type PropsType = {|
   cities: Array<CityModel>,
@@ -61,19 +68,20 @@ class Categories extends React.Component<PropsType> {
       throw Error('language or cityCode not available')
     }
 
-    const createFeedbackVariant = (label: string, feedbackType: FeedbackType, pagePath?: string) =>
-      new FeedbackVariant(label, language, cityCode, feedbackType, pagePath)
+    const createFeedbackVariant = (label: string, feedbackType: FeedbackType, feedbackCategory?: FeedbackCatetory,
+      pagePath?: string) =>
+      new FeedbackVariant(label, language, cityCode, feedbackType, feedbackCategory, pagePath)
     const cityTitle = CityModel.findCityName(cities, cityCode)
     const category = stateView.root()
 
     const feedbackItems = [
-      createFeedbackVariant(t('feedback:contentOfCity', { city: cityTitle }), CATEGORIES_FEEDBACK_TYPE),
-      createFeedbackVariant(t('feedback:technicalTopics'), CATEGORIES_FEEDBACK_TYPE)
+      createFeedbackVariant(t('feedback:contentOfCity', { city: cityTitle }), CATEGORIES_FEEDBACK_TYPE, CONTENT_FEEDBACK_CATEGORY),
+      createFeedbackVariant(t('feedback:technicalTopics'), CATEGORIES_FEEDBACK_TYPE, TECHNICAL_FEEDBACK_CATEGORY)
     ]
 
     if (!category.isRoot()) {
       feedbackItems.unshift(
-        createFeedbackVariant(t('feedback:contentOfPage', { page: category.title }), PAGE_FEEDBACK_TYPE, category.path)
+        createFeedbackVariant(t('feedback:contentOfPage', { page: category.title }), PAGE_FEEDBACK_TYPE, CONTENT_FEEDBACK_CATEGORY, category.path)
       )
     }
 
