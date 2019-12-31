@@ -17,6 +17,14 @@ import type { NavigateToCategoryParamsType } from '../../../modules/app/createNa
 import type { NavigateToIntegreatUrlParamsType } from '../../../modules/app/createNavigateToIntegreatUrl'
 import type { NavigateToEventParamsType } from '../../../modules/app/createNavigateToEvent'
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
+import SnackBar from '../../../modules/layout/components/Snackbar'
+import styled, { type StyledComponent } from 'styled-components/native'
+import { ScrollView } from 'react-native-gesture-handler'
+
+const Flex: StyledComponent<{}, ThemeType, *> = styled.View`
+  flex: 1;
+  height: 100%;
+`
 
 export type PropsType = {|
   navigation: NavigationScreenProp<*>,
@@ -76,12 +84,19 @@ class Dashboard extends React.Component<PropsType> {
       navigation, t
     } = this.props
 
-    return <SpaceBetween>
-      <NavigationTiles tiles={this.getNavigationTileModels(cityCode, language)} theme={theme} />
-      <Categories stateView={stateView} cities={cities} resourceCache={resourceCache} language={language}
-                  cityCode={cityCode} theme={theme} navigation={navigation} navigateToCategory={navigateToCategory}
-                  t={t} navigateToIntegreatUrl={navigateToIntegreatUrl} />
-    </SpaceBetween>
+    return <Flex>
+      <ScrollView>
+        <SpaceBetween>
+          <NavigationTiles tiles={this.getNavigationTileModels(cityCode, language)} theme={theme} />
+          <Categories stateView={stateView} cities={cities} resourceCache={resourceCache} language={language}
+                      cityCode={cityCode} theme={theme} navigation={navigation} navigateToCategory={navigateToCategory}
+                      t={t} navigateToIntegreatUrl={navigateToIntegreatUrl} />
+        </SpaceBetween>
+      </ScrollView>
+      <SnackBar message={'Permissions missing'} theme={theme}
+                negativeAction={{ label: 'Disable feature', onPress: () => console.log('disable') }}
+                positiveAction={{ label: 'Grant permissions', onPress: () => console.log('grant') }} />
+    </Flex>
   }
 }
 
