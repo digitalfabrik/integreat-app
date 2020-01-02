@@ -6,11 +6,11 @@ import CategoriesContainer from '../../routes/categories/containers/CategoriesCo
 import type {
   HeaderProps,
   NavigationComponent,
-  NavigationContainer,
+  NavigationNavigator,
   NavigationRouteConfig,
   NavigationRouteConfigMap
 } from 'react-navigation'
-import { createAppContainer, createStackNavigator, createSwitchNavigator } from 'react-navigation'
+import { createStackNavigator, createSwitchNavigator } from 'react-navigation'
 import TransparentHeaderContainer from '../layout/containers/TransparentHeaderContainer'
 import SettingsHeaderContainer from '../layout/containers/SettingsHeaderContainer'
 import HeaderContainer from '../layout/containers/HeaderContainer'
@@ -100,14 +100,13 @@ const createCityContentNavigator = (params: CreateNavigationContainerParamsType)
   }
 }
 
-const createAppNavigationContainer = (params: CreateNavigationContainerParamsType): NavigationContainer<*, *, *> => {
+const createAppNavigator = (params: CreateNavigationContainerParamsType): NavigationNavigator<*, *, *> => {
   const cityContentNavigator = createCityContentNavigator(params)
-  return createAppContainer(
-    createSwitchNavigator({
-      'Intro': IntroContainer,
-      'Landing': LandingContainer,
-      'CityContent': cityContentNavigator
-    }, { initialRouteName: params.initialRouteName }))
+  return createSwitchNavigator({
+    'Intro': IntroContainer,
+    'Landing': LandingContainer,
+    'CityContent': cityContentNavigator
+  }, { initialRouteName: params.initialRouteName })
 }
 
-export default createAppNavigationContainer
+export default createAppNavigator

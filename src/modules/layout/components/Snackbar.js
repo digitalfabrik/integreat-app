@@ -10,7 +10,7 @@ const ANIMATION_DURATION = 400
 
 const Container: StyledComponent<{ negativeAction: boolean }, ThemeType, *> = styled(Animated.View)`
   position: absolute;
-  flex: 1;
+  flex: 0.1;
   background-color: ${props => props.theme.colors.textSecondaryColor};
   flex-direction: ${props => props.negativeAction ? 'column' : 'row'};
   align-items: center;
@@ -47,7 +47,7 @@ export type SnackbarActionType = {|
   onPress: () => void
 |}
 
-type PropsType = {|
+export type PropsType = {|
   message: string,
   positiveAction: SnackbarActionType,
   negativeAction?: SnackbarActionType,
@@ -58,7 +58,7 @@ type StateType = {|
 
 |}
 
-class SnackBar extends React.Component<PropsType, StateType> {
+class Snackbar extends React.Component<PropsType, StateType> {
   _animatedValue: Animated.Value
 
   constructor () {
@@ -105,4 +105,4 @@ class SnackBar extends React.Component<PropsType, StateType> {
   }
 }
 
-export default SnackBar
+export default Snackbar
