@@ -1,5 +1,5 @@
-// flow-typed signature: e82a57ad89bebc4ed2e42fef7f133e70
-// flow-typed version: 4018635bcb/react-navigation_v3.x.x/flow_>=v0.92.x
+// flow-typed signature: 1e0a14aaec551bd339f7b5eea186a9e1
+// flow-typed version: 16cbaddecd/react-navigation_v3.x.x/flow_>=v0.92.x <=v0.103.x
 
 // @flow
 
@@ -426,7 +426,7 @@ declare module 'react-navigation' {
     headerTitleAllowFontScaling?: boolean,
     headerTintColor?: string,
     headerLeft?: React$Node | React$ElementType,
-    headerBackTitle?: string,
+    headerBackTitle?: ?string,
     headerBackImage?: React$Node | React$ElementType,
     headerTruncatedBackTitle?: string,
     headerBackTitleStyle?: TextStyleProp,
