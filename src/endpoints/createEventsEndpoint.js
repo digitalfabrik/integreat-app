@@ -11,6 +11,7 @@ import DateModel from '../models/DateModel'
 import LocationModel from '../models/LocationModel'
 import Endpoint from '../Endpoint'
 import sanitizeHtml from 'sanitize-html-react'
+import FeaturedImageModel from '../models/FeaturedImageModel'
 
 export const EVENTS_ENDPOINT_NAME = 'events'
 
@@ -51,7 +52,14 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<EventModel>> => new
         excerpt: decodeHTML(event.excerpt),
         availableLanguages: mapAvailableLanguages(event.available_languages),
         lastUpdate: moment.tz(event.modified_gmt, 'GMT'),
-        hash: event.hash
+        hash: event.hash,
+        featuredImage: event.featured_image ? new FeaturedImageModel({
+          description: event.featured_image.description,
+          thumbnail: event.featured_image.thumbnail[0],
+          medium: event.featured_image.medium[0],
+          large: event.featured_image.large[0],
+          full: event.featured_image.full[0]
+        }) : null
       })
     })
     .sort((event1, event2) => {
