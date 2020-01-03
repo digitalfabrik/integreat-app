@@ -30,6 +30,7 @@ import LandingContainer from '../../routes/landing/containers/LandingContainer'
 import React from 'react'
 import DisclaimerContainer from '../../routes/disclaimer/DisclaimerContainer'
 import IntroContainer from '../../routes/intro/IntroContainer'
+import PermissionSnackbarContainer from '../layout/containers/PermissionSnackbarContainer'
 
 const LayoutedDashboardContainer = withLayout(DashboardContainer)
 const LayoutedCategoriesContainer = withLayout(CategoriesContainer)
@@ -100,9 +101,9 @@ const createCityContentNavigator = (params: CreateNavigationContainerParamsType)
   }
 }
 
-type NavigatorPropsType = {
+type NavigatorPropsType = {|
   navigation: NavigationScreenProp<*>
-}
+|}
 
 const createSwitchNavigatorWithSnackbar = (
   params: CreateNavigationContainerParamsType
@@ -119,7 +120,12 @@ const createSwitchNavigatorWithSnackbar = (
     static navigationOptions = SwitchNavigator.navigationOptions
 
     render () {
-      return <SwitchNavigator {...this.props} />
+      const { navigation } = this.props
+
+      return <>
+        <SwitchNavigator navigation={navigation} />
+        <PermissionSnackbarContainer navigation={navigation} />
+      </>
     }
   }
 
