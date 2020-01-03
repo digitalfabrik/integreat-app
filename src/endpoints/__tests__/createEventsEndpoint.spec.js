@@ -85,6 +85,7 @@ describe('events', () => {
       endDate
     }),
     location: new LocationModel({
+      name: 'Senkelfabrik',
       address: 'Wertachstr. 29',
       town: 'Augsburg',
       postcode: '86353',

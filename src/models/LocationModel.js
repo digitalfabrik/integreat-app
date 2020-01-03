@@ -1,19 +1,25 @@
 // @flow
 
 class LocationModel {
-  _address: string
-  _town: string
+  _name: ?string
+  _address: ?string
+  _town: ?string
   _postcode: ?string
   _latitude: ?string
   _longitude: ?string
 
-  constructor ({address, town, postcode, latitude, longitude}: {|address: string, town: string, postcode: ?string,
-    latitude?: ?string, longitude?: ?string|}) {
+  constructor ({ name, address, town, postcode, latitude, longitude }: {| name: ?string, address: ?string,
+    town: ?string, postcode: ?string, latitude: ?string, longitude: ?string |}) {
     this._address = address
     this._town = town
     this._postcode = postcode
     this._latitude = latitude
     this._longitude = longitude
+    this._name = name
+  }
+
+  get name (): ?string {
+    return this._name
   }
 
   get address (): ?string {
@@ -36,8 +42,15 @@ class LocationModel {
     return this._latitude
   }
 
-  get location (): string {
-    return `${this._address}, ${this._postcode || ''} ${this._town}`
+  get location (): ?string {
+    if (!this._town) {
+      return null
+    }
+    const withoutAddress = this._postcode ? `${this._postcode} ${this._town}` : this._town
+    if (!this._address) {
+      return withoutAddress
+    }
+    return `${this._address}, ${withoutAddress}`
   }
 }
 
