@@ -1,16 +1,13 @@
 // @flow
 
 import * as React from 'react'
-import { createAppContainer, type NavigationContainer } from 'react-navigation'
+import type { NavigationContainer } from 'react-navigation'
 import { generateKey } from '../generateRouteKey'
 import AppSettings from '../../settings/AppSettings'
-import createAppNavigator from '../createAppNavigator'
+import createAppContainer from '../createAppContainer'
 import { Text } from 'react-native'
 import SentryIntegration from '../SentryIntegration'
 import { ASYNC_STORAGE_VERSION } from '../../settings/constants'
-import PermissionSnackbarContainer from '../../layout/containers/PermissionSnackbarContainer'
-import type { CreateNavigationContainerParamsType } from '../createAppNavigator'
-import createSwitchNavigatorWithSnackbar from './SwitchNavigatorWithSnackbar'
 
 type PropsType = {|
   fetchCategory: (cityCode: string, language: string, key: string) => void,
@@ -29,9 +26,6 @@ class Navigator extends React.Component<PropsType, StateType> {
     fetchCities(false)
     this.initializeAppContainer().catch(error => this.setState({ errorMessage: error.message }))
   }
-
-  createAppNavigationContainer = (params: CreateNavigationContainerParamsType) => () =>
-    createAppContainer<*, *>(createSwitchNavigatorWithSnackbar(createAppNavigator(params)))
 
   async initializeAppContainer () {
     const { fetchCategory, clearCategory } = this.props
@@ -57,7 +51,7 @@ class Navigator extends React.Component<PropsType, StateType> {
     }
 
     if (!introShown) {
-      this._appNavigationContainer = this.createAppNavigationContainer({ initialRouteName: 'Intro' })
+      this._appNavigationContainer = createAppContainer({ initialRouteName: 'Intro' })
     } else {
       if (errorTracking) {
         const sentry = new SentryIntegration()
@@ -66,12 +60,12 @@ class Navigator extends React.Component<PropsType, StateType> {
 
       if (selectedCity) {
         const key = generateKey()
-        this._appNavigationContainer = this.createAppNavigationContainer({
+        this._appNavigationContainer = createAppContainer({
           initialRouteName: 'CityContent', cityCode: selectedCity, language: contentLanguage, clearCategory, key
         })
         fetchCategory(selectedCity, contentLanguage, key)
       } else {
-        this._appNavigationContainer = this.createAppNavigationContainer({ initialRouteName: 'Landing' })
+        this._appNavigationContainer = createAppContainer({ initialRouteName: 'Landing' })
       }
     }
 
@@ -84,10 +78,7 @@ class Navigator extends React.Component<PropsType, StateType> {
       return <Text>{this.state.errorMessage}</Text>
     }
     const AppContainer = this._appNavigationContainer
-    return <>
-      {AppContainer ? <AppContainer /> : null}
-      <PermissionSnackbarContainer />
-    </>
+    return AppContainer ? <AppContainer /> : null
   }
 }
 
