@@ -33,6 +33,7 @@ describe('events', () => {
       recurrence_id: null
     },
     location: {
+      id: 1234,
       name: 'Senkelfabrik',
       address: 'Wertachstr. 29',
       town: 'Augsburg',
@@ -84,7 +85,7 @@ describe('events', () => {
       endDate
     }),
     location: new LocationModel({
-      name: 'Cafe Tür an Tür',
+      name: 'Senkelfabrik',
       address: 'Wertachstr. 29',
       town: 'Augsburg',
       postcode: '86353',
