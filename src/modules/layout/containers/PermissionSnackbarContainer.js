@@ -11,7 +11,7 @@ import type { CategoryRouteStateType, StateType } from '../../app/StateType'
 import type { SettingsType } from '../../settings/AppSettings'
 import AppSettings from '../../settings/AppSettings'
 import { Platform } from 'react-native'
-import { check, PERMISSIONS, RESULTS } from 'react-native-permissions'
+import { request, openSettings, check, PERMISSIONS, RESULTS } from 'react-native-permissions'
 
 type OwnPropsType = {|
   navigation: NavigationScreenProp<*>,
@@ -57,6 +57,11 @@ class PermissionSnackbarContainer extends React.Component<PropsType, ComponentSt
     this.setState({ settings })
   }
 
+  deactivateProposeNearbyCities = async () => {
+    const appSettings = new AppSettings()
+    await appSettings.setSettings({ proposeNearbyCities: false })
+  }
+
   loadPermissionStatus = async () => {
     this.setState({ locationPermissionStatus: null })
     const locationPermissionStatus = await this.locationPermissionStatus()
@@ -71,14 +76,24 @@ class PermissionSnackbarContainer extends React.Component<PropsType, ComponentSt
     }
   }
 
-  renderLocationSnackbar = (): React.Node => {
-    const { theme, t } = this.props
-    return <Snackbar message={'asdf'} positiveAction={{ label: 'asdf', onPress: () => {} }} theme={theme} />
+  requestLocationPermissions = async () => {
+    const { locationPermissionStatus } = this.state
+    if (locationPermissionStatus === RESULTS.BLOCKED) {
+      await openSettings()
+    } else {
+      await request(Platform.OS === 'ios'
+        ? PERMISSIONS.IOS.LOCATION_WHEN_IN_USE
+        : PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION)
+    }
+
+    await this.loadPermissionStatus()
   }
 
-  renderPushNotificationSnackbar = (): React.Node => {
+  renderLocationSnackbar = (): React.Node => {
     const { theme, t } = this.props
-    return <Snackbar message={'asdf'} positiveAction={{ label: 'asdf', onPress: () => {} }} theme={theme} />
+    return <Snackbar positiveAction={{ label: t('grant'), onPress: this.requestLocationPermissions }}
+                     negativeAction={{ label: t('deactivate'), onPress: this.deactivateProposeNearbyCities }}
+                     message={t('locationPermissionMissing')} theme={theme} />
   }
 
   shouldShowLocationSnackbar = (): boolean => {
