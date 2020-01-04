@@ -5,8 +5,8 @@ import { Animated } from 'react-native'
 import styled, { type StyledComponent } from 'styled-components/native'
 import type { ThemeType } from '../../theme/constants/theme'
 
-const SNACKBAR_HEIGHT = 100
-const ANIMATION_DURATION = 400
+const SNACKBAR_HEIGHT = 120
+const ANIMATION_DURATION = 1000
 
 const Container: StyledComponent<{ negativeAction: boolean }, ThemeType, *> = styled(Animated.View)`
   position: absolute;
@@ -25,6 +25,7 @@ const Message: StyledComponent<{}, ThemeType, *> = styled.Text`
   flex: 1;
   color: ${props => props.theme.colors.themeColor};
   font-size: 18px;
+  text-align: center;
 `
 
 const ActionContainer: StyledComponent<{}, ThemeType, *> = styled.View`
@@ -39,12 +40,13 @@ const Action: StyledComponent<{}, ThemeType, *> = styled.Text`
   color: ${props => props.theme.colors.themeColor};
   font-size: 18px;
   justify-content: center;
+  text-align: center;
   padding: 5px;
 `
 
 export type SnackbarActionType = {|
   label: string,
-  onPress: () => void
+  onPress: () => void | Promise<void>
 |}
 
 export type PropsType = {|
