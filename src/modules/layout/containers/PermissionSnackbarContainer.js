@@ -4,11 +4,14 @@ import * as React from 'react'
 import Snackbar from '../components/Snackbar'
 import type { ThemeType } from '../../theme/constants/theme'
 import { type NavigationScreenProp } from 'react-navigation'
-import { translate, type TFunction } from 'react-i18next'
+import { type TFunction, translate } from 'react-i18next'
 import withTheme from '../../theme/hocs/withTheme'
 import { connect } from 'react-redux'
 import type { CategoryRouteStateType, StateType } from '../../app/StateType'
 import type { SettingsType } from '../../settings/AppSettings'
+import AppSettings from '../../settings/AppSettings'
+import { Platform } from 'react-native'
+import { check, PERMISSIONS, RESULTS } from 'react-native-permissions'
 
 type OwnPropsType = {|
   navigation: NavigationScreenProp<*>,
@@ -28,17 +31,44 @@ type PropsType = {|
 |}
 
 type ComponentStateType = {|
-  settings: ?SettingsType
+  settings: ?SettingsType,
+  locationPermissionStatus: ?RESULTS
 |}
 
 class PermissionSnackbarContainer extends React.Component<PropsType, ComponentStateType> {
   constructor (props: PropsType) {
     super(props)
-    this.state = { settings: null }
+    this.state = { settings: null, locationPermissionStatus: null }
   }
 
   componentDidMount () {
+    this.updateSettingsAndPermissions()
+  }
 
+  updateSettingsAndPermissions = async () => {
+    await this.loadSettings()
+    await this.loadPermissionStatus()
+  }
+
+  loadSettings = async () => {
+    this.setState({ settings: null })
+    const appSettings = new AppSettings()
+    const settings = await appSettings.loadSettings()
+    this.setState({ settings })
+  }
+
+  loadPermissionStatus = async () => {
+    this.setState({ locationPermissionStatus: null })
+    const locationPermissionStatus = await this.locationPermissionStatus()
+    this.setState({ locationPermissionStatus })
+  }
+
+  locationPermissionStatus = async (): RESULTS => {
+    if (Platform.OS === 'ios') {
+      return check(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE)
+    } else {
+      return check(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION)
+    }
   }
 
   renderLocationSnackbar = (): React.Node => {
@@ -52,14 +82,17 @@ class PermissionSnackbarContainer extends React.Component<PropsType, ComponentSt
   }
 
   shouldShowLocationSnackbar = (): boolean => {
+    const { settings, locationPermissionStatus } = this.state
     const { navigation, landingReady } = this.props
     const { index, routes } = navigation.state
+
+    if (!settings || !settings.proposeNearbyCities ||
+      !locationPermissionStatus || locationPermissionStatus === RESULTS.GRANTED) {
+      return false
+    }
+
     const currentRoute = routes[index]
-
-    const landingRouteAndReady = currentRoute.key === 'Landing' && landingReady
-    const locationPermissionMissing = true
-
-    return locationPermissionMissing && landingRouteAndReady
+    return currentRoute.key === 'Landing' && landingReady
   }
 
   shouldShowPushNotificationsSnackbar = (): boolean => {
@@ -82,9 +115,9 @@ class PermissionSnackbarContainer extends React.Component<PropsType, ComponentSt
 
     if (this.shouldShowLocationSnackbar()) {
       return this.renderLocationSnackbar()
-    } else if (this.shouldShowPushNotificationsSnackbar) {
+    } /* else if (this.shouldShowPushNotificationsSnackbar) {
       return this.renderPushNotificationSnackbar()
-    }
+    } */
 
     return null
   }
