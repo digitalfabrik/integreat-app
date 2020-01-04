@@ -5,8 +5,8 @@ import { Animated } from 'react-native'
 import styled, { type StyledComponent } from 'styled-components/native'
 import type { ThemeType } from '../../theme/constants/theme'
 
-const SNACKBAR_HEIGHT = 120
-const ANIMATION_DURATION = 1000
+export const SNACKBAR_HEIGHT = 120
+export const ANIMATION_DURATION = 1000
 
 const Container: StyledComponent<{ negativeAction: boolean }, ThemeType, *> = styled(Animated.View)`
   position: absolute;
@@ -52,56 +52,30 @@ export type SnackbarActionType = {|
 export type PropsType = {|
   message: string,
   positiveAction: SnackbarActionType,
-  negativeAction?: SnackbarActionType,
+  negativeAction: SnackbarActionType,
+  animatedValue: Animated.Value,
   theme: ThemeType
 |}
 
-type StateType = {|
-
-|}
-
-class Snackbar extends React.Component<PropsType, StateType> {
-  _animatedValue: Animated.Value
-
-  constructor () {
-    super()
-    this._animatedValue = new Animated.Value(SNACKBAR_HEIGHT)
-  }
-
-  componentDidMount () {
-    Animated.timing(this._animatedValue, { toValue: 0, duration: ANIMATION_DURATION }).start()
-  }
-
-  hide = () => {
-    Animated.timing(this._animatedValue, { toValue: SNACKBAR_HEIGHT, duration: ANIMATION_DURATION }).start()
-  }
-
+class Snackbar extends React.Component<PropsType> {
   onPositive = () => {
-    this.hide()
     this.props.positiveAction.onPress()
   }
 
   onNegative = () => {
-    this.hide()
-    if (!this.props.negativeAction) {
-      throw Error('Negative action not defined')
-    }
     this.props.negativeAction.onPress()
   }
 
   render () {
-    const { theme, message, positiveAction, negativeAction } = this.props
+    const { theme, message, positiveAction, negativeAction, animatedValue } = this.props
 
     return (
-      <Container theme={theme} negativeAction style={{ transform: [{ translateY: this._animatedValue }] }}>
+      <Container theme={theme} negativeAction style={{ transform: [{ translateY: animatedValue }] }}>
         <Message theme={theme}>{message}</Message>
-        { negativeAction
-          ? <ActionContainer>
-            <Action theme={theme} onPress={this.onNegative}>{negativeAction.label}</Action>
-            <Action theme={theme} onPress={this.onPositive}>{positiveAction.label}</Action>
-          </ActionContainer>
-          : <Action theme={theme} onPress={this.onPositive}>{positiveAction.label}</Action>
-        }
+        <ActionContainer>
+          <Action theme={theme} onPress={this.onNegative}>{negativeAction.label}</Action>
+          <Action theme={theme} onPress={this.onPositive}>{positiveAction.label}</Action>
+        </ActionContainer>
       </Container>
     )
   }
