@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import Snackbar from '../components/Snackbar'
+import Snackbar, { ANIMATION_DURATION, SNACKBAR_HEIGHT } from '../components/Snackbar'
 import type { ThemeType } from '../../theme/constants/theme'
 import { type NavigationScreenProp } from 'react-navigation'
 import { type TFunction, translate } from 'react-i18next'
@@ -10,7 +10,7 @@ import { connect } from 'react-redux'
 import type { CategoryRouteStateType, StateType } from '../../app/StateType'
 import type { SettingsType } from '../../settings/AppSettings'
 import AppSettings from '../../settings/AppSettings'
-import { Platform } from 'react-native'
+import { Animated, Platform } from 'react-native'
 import { request, openSettings, check, PERMISSIONS, RESULTS } from 'react-native-permissions'
 
 type OwnPropsType = {|
@@ -36,13 +36,30 @@ type ComponentStateType = {|
 |}
 
 class PermissionSnackbarContainer extends React.Component<PropsType, ComponentStateType> {
+  _animatedValue: Animated.Value
+
   constructor (props: PropsType) {
     super(props)
     this.state = { settings: null, locationPermissionStatus: null }
+    this._animatedValue = new Animated.Value(SNACKBAR_HEIGHT)
   }
 
   componentDidMount () {
     this.updateSettingsAndPermissions()
+  }
+
+  componentDidUpdate (prevProps: PropsType) {
+    if (prevProps.navigation.state !== this.landingRoute() || this.dashboardRoute()) {
+      this.updateSettingsAndPermissions()
+    }
+  }
+
+  show = () => {
+    Animated.timing(this._animatedValue, { toValue: 0, duration: ANIMATION_DURATION }).start()
+  }
+
+  hide = () => {
+    Animated.timing(this._animatedValue, { toValue: SNACKBAR_HEIGHT, duration: ANIMATION_DURATION }).start()
   }
 
   updateSettingsAndPermissions = async () => {
@@ -89,47 +106,53 @@ class PermissionSnackbarContainer extends React.Component<PropsType, ComponentSt
     await this.loadPermissionStatus()
   }
 
-  renderLocationSnackbar = (): React.Node => {
-    const { theme, t } = this.props
-    return <Snackbar positiveAction={{ label: t('grant'), onPress: this.requestLocationPermissions }}
-                     negativeAction={{ label: t('deactivate'), onPress: this.deactivateProposeNearbyCities }}
-                     message={t('locationPermissionMissing')} theme={theme} />
-  }
-
   shouldShowLocationSnackbar = (): boolean => {
     const { settings, locationPermissionStatus } = this.state
-    const { navigation, landingReady } = this.props
-    const { index, routes } = navigation.state
+    const { landingReady } = this.props
 
     if (!settings || !settings.proposeNearbyCities ||
       !locationPermissionStatus || locationPermissionStatus === RESULTS.GRANTED) {
       return false
     }
 
-    const currentRoute = routes[index]
-    return currentRoute.key === 'Landing' && landingReady
+    return this.landingRoute() && landingReady
   }
 
   shouldShowPushNotificationsSnackbar = (): boolean => {
-    const { navigation, dashboardReady } = this.props
+    const { settings } = this.state
+    const { dashboardReady } = this.props
+
+    // TODO NATIVE-399 Add real check for push notifications permissions
+    if (!settings || !settings.proposeNearbyCities) {
+      return false
+    }
+    return this.dashboardRoute() && dashboardReady
+  }
+
+  landingRoute = (): boolean => {
+    const { navigation } = this.props
     const { index, routes } = navigation.state
     const currentRoute = routes[index]
 
-    const dashboardRouteAndReady = currentRoute.key === 'CityContent' &&
-      currentRoute.routes[currentRoute.index]?.routeName === 'Dashboard' &&
-      dashboardReady
+    return currentRoute.key === 'Landing'
+  }
 
-    // TODO NATIVE-399 Add real check for push notifications permissions
-    const pushNotificationPermissionMissing = false
+  dashboardRoute = (): boolean => {
+    const { navigation } = this.props
+    const { index, routes } = navigation.state
+    const currentRoute = routes[index]
 
-    return dashboardRouteAndReady && pushNotificationPermissionMissing
+    return currentRoute.key === 'CityContent' && currentRoute.routes[currentRoute.index]?.routeName === 'Dashboard'
   }
 
   render () {
+    const { theme, t } = this.props
     console.log(this.props.navigation)
 
     if (this.shouldShowLocationSnackbar()) {
-      return this.renderLocationSnackbar()
+      return <Snackbar positiveAction={{ label: t('grant'), onPress: this.requestLocationPermissions }}
+                       negativeAction={{ label: t('deactivate'), onPress: this.deactivateProposeNearbyCities }}
+                       message={t('locationPermissionMissing')} theme={theme} animatedValue={this._animatedValue} />
     } /* else if (this.shouldShowPushNotificationsSnackbar) {
       return this.renderPushNotificationSnackbar()
     } */
