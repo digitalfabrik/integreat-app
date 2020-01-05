@@ -22,8 +22,9 @@ const Container: StyledComponent<{ negativeAction: boolean }, ThemeType, *> = st
 `
 
 const Message: StyledComponent<{}, ThemeType, *> = styled.Text`
+  padding: 0 10px;
   flex: 1;
-  color: ${props => props.theme.colors.themeColor};
+  color: ${props => props.theme.colors.backgroundColor};
   font-size: 18px;
   text-align: center;
 `
@@ -41,7 +42,8 @@ const Action: StyledComponent<{}, ThemeType, *> = styled.Text`
   font-size: 18px;
   justify-content: center;
   text-align: center;
-  padding: 5px;
+  padding: 10px;
+  font-weight: bold;
 `
 
 export type SnackbarActionType = {|
