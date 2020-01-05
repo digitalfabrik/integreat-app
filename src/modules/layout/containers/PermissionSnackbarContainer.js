@@ -31,8 +31,11 @@ type PropsType = {|
 |}
 
 type ComponentStateType = {|
-  settings: ?SettingsType,
-  locationPermissionStatus: ?RESULTS
+  settings: SettingsType | null,
+  locationPermissionStatus: RESULTS | null,
+  pushNotificationPermissionStatus: RESULTS | null,
+  show: 'LOCATION' | 'PUSH_NOTIFICATION' | null,
+  lastShown: 'LOCATION' | 'PUSH_NOTIFICATION'
 |}
 
 class PermissionSnackbarContainer extends React.Component<PropsType, ComponentStateType> {
@@ -40,7 +43,13 @@ class PermissionSnackbarContainer extends React.Component<PropsType, ComponentSt
 
   constructor (props: PropsType) {
     super(props)
-    this.state = { settings: null, locationPermissionStatus: null }
+    this.state = {
+      settings: null,
+      locationPermissionStatus: null,
+      pushNotificationPermissionStatus: null,
+      show: null,
+      lastShown: 'LOCATION'
+    }
     this._animatedValue = new Animated.Value(SNACKBAR_HEIGHT)
   }
 
@@ -49,7 +58,7 @@ class PermissionSnackbarContainer extends React.Component<PropsType, ComponentSt
   }
 
   componentDidUpdate (prevProps: PropsType) {
-    if (prevProps.navigation.state !== this.landingRoute() || this.dashboardRoute()) {
+    if (prevProps.navigation.state !== this.props.navigation.state) {
       this.updateSettingsAndPermissions()
     }
   }
@@ -65,6 +74,7 @@ class PermissionSnackbarContainer extends React.Component<PropsType, ComponentSt
   updateSettingsAndPermissions = async () => {
     await this.loadSettings()
     await this.loadPermissionStatus()
+    this.checkShowSnackbar()
   }
 
   loadSettings = async () => {
@@ -77,12 +87,20 @@ class PermissionSnackbarContainer extends React.Component<PropsType, ComponentSt
   deactivateProposeNearbyCities = async () => {
     const appSettings = new AppSettings()
     await appSettings.setSettings({ proposeNearbyCities: false })
+    this.hide()
+  }
+
+  deactivateAllowPushNotifications = async () => {
+    const appSettings = new AppSettings()
+    await appSettings.setSettings({ allowPushNotifications: false })
+    this.hide()
   }
 
   loadPermissionStatus = async () => {
     this.setState({ locationPermissionStatus: null })
     const locationPermissionStatus = await this.locationPermissionStatus()
-    this.setState({ locationPermissionStatus })
+    const pushNotificationPermissionStatus = await this.pushNotificationPermissionStatus()
+    this.setState({ locationPermissionStatus, pushNotificationPermissionStatus })
   }
 
   locationPermissionStatus = async (): RESULTS => {
@@ -93,40 +111,59 @@ class PermissionSnackbarContainer extends React.Component<PropsType, ComponentSt
     }
   }
 
+  pushNotificationPermissionStatus = async (): RESULTS => {
+    // TODO NATIVE-399 Really check for push notification permissions
+    return RESULTS.GRANTED
+  }
+
   requestLocationPermissions = async () => {
     const { locationPermissionStatus } = this.state
     if (locationPermissionStatus === RESULTS.BLOCKED) {
       await openSettings()
     } else {
-      await request(Platform.OS === 'ios'
+      const result = await request(Platform.OS === 'ios'
         ? PERMISSIONS.IOS.LOCATION_WHEN_IN_USE
         : PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION)
+
+      if (result === RESULTS.GRANTED) {
+        this.hide()
+      }
     }
 
-    await this.loadPermissionStatus()
+    this.updateSettingsAndPermissions()
   }
 
-  shouldShowLocationSnackbar = (): boolean => {
-    const { settings, locationPermissionStatus } = this.state
-    const { landingReady } = this.props
-
-    if (!settings || !settings.proposeNearbyCities ||
-      !locationPermissionStatus || locationPermissionStatus === RESULTS.GRANTED) {
-      return false
-    }
-
-    return this.landingRoute() && landingReady
+  requestPushNotificationPermissions = async () => {
+    // TODO NATIVE-399 Really request push notification permissions
   }
 
-  shouldShowPushNotificationsSnackbar = (): boolean => {
-    const { settings } = this.state
-    const { dashboardReady } = this.props
+  checkShowSnackbar = () => {
+    const { settings, locationPermissionStatus, pushNotificationPermissionStatus, show: prevShow } = this.state
+    const { landingReady, dashboardReady } = this.props
 
-    // TODO NATIVE-399 Add real check for push notifications permissions
-    if (!settings || !settings.proposeNearbyCities) {
-      return false
+    const showLocationSnackbar = settings !== null && settings.proposeNearbyCities === true &&
+      [RESULTS.BLOCKED, RESULTS.DENIED].includes(locationPermissionStatus) &&
+      landingReady && this.landingRoute()
+
+    const showPushNotificationSnackbar = settings !== null && settings.allowPushNotifications === true &&
+      [RESULTS.BLOCKED, RESULTS.DENIED].includes(pushNotificationPermissionStatus) &&
+      dashboardReady && this.dashboardRoute
+
+    const show = showLocationSnackbar ? 'LOCATION' : showPushNotificationSnackbar ? 'PUSH_NOTIFICATION' : null
+
+    if (show !== prevShow) {
+      this.setState({ show })
+
+      if (show === null) {
+        this.hide()
+      } else {
+        this.setState({ lastShown: show })
+      }
+
+      if (prevShow === null) {
+        this.show()
+      }
     }
-    return this.dashboardRoute() && dashboardReady
   }
 
   landingRoute = (): boolean => {
@@ -147,17 +184,16 @@ class PermissionSnackbarContainer extends React.Component<PropsType, ComponentSt
 
   render () {
     const { theme, t } = this.props
-    console.log(this.props.navigation)
+    const { lastShown } = this.state
 
-    if (this.shouldShowLocationSnackbar()) {
+    if (lastShown === 'LOCATION') {
       return <Snackbar positiveAction={{ label: t('grant'), onPress: this.requestLocationPermissions }}
                        negativeAction={{ label: t('deactivate'), onPress: this.deactivateProposeNearbyCities }}
                        message={t('locationPermissionMissing')} theme={theme} animatedValue={this._animatedValue} />
-    } /* else if (this.shouldShowPushNotificationsSnackbar) {
-      return this.renderPushNotificationSnackbar()
-    } */
-
-    return null
+    } else {
+      // TODO Render push notification snackbar
+      return null
+    }
   }
 }
 
