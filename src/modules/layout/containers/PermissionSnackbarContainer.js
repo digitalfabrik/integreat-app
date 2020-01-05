@@ -113,7 +113,7 @@ class PermissionSnackbarContainer extends React.Component<PropsType, ComponentSt
 
   pushNotificationPermissionStatus = async (): RESULTS => {
     // TODO NATIVE-399 Really check for push notification permissions
-    return RESULTS.GRANTED
+    return RESULTS.DENIED
   }
 
   requestLocationPermissions = async () => {
@@ -147,7 +147,7 @@ class PermissionSnackbarContainer extends React.Component<PropsType, ComponentSt
 
     const showPushNotificationSnackbar = settings !== null && settings.allowPushNotifications === true &&
       [RESULTS.BLOCKED, RESULTS.DENIED].includes(pushNotificationPermissionStatus) &&
-      dashboardReady && this.dashboardRoute
+      dashboardReady && this.dashboardRoute()
 
     const show = showLocationSnackbar ? 'LOCATION' : showPushNotificationSnackbar ? 'PUSH_NOTIFICATION' : null
 
@@ -191,8 +191,10 @@ class PermissionSnackbarContainer extends React.Component<PropsType, ComponentSt
                        negativeAction={{ label: t('deactivate'), onPress: this.deactivateProposeNearbyCities }}
                        message={t('locationPermissionMissing')} theme={theme} animatedValue={this._animatedValue} />
     } else {
-      // TODO Render push notification snackbar
-      return null
+      return <Snackbar positiveAction={{ label: t('grant'), onPress: this.requestPushNotificationPermissions }}
+                       negativeAction={{ label: t('deactivate'), onPress: this.deactivateAllowPushNotifications }}
+                       message={t('pushNotificationPermissionMissing')} theme={theme}
+                       animatedValue={this._animatedValue} />
     }
   }
 }
@@ -204,7 +206,7 @@ const mapStateToProps = (state: StateType): StatePropsType => {
   const categoriesMappingValues: Array<CategoryRouteStateType> = cityContent
     ? Object.values(cityContent.categoriesRouteMapping)
     : []
-  const dashboardReady = categoriesMappingValues.length === 1 && categoriesMappingValues[0].status === 'ready'
+  const dashboardReady = categoriesMappingValues.length >= 1 && categoriesMappingValues[0].status === 'ready'
 
   return {
     landingReady,
