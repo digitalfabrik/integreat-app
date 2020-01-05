@@ -8,7 +8,7 @@ import { type TFunction, translate } from 'react-i18next'
 import withTheme from '../../theme/hocs/withTheme'
 import type { SettingsType } from '../../settings/AppSettings'
 import AppSettings from '../../settings/AppSettings'
-import { Animated, Platform } from 'react-native'
+import { Animated, Platform, Easing } from 'react-native'
 import { request, openSettings, check, PERMISSIONS, RESULTS } from 'react-native-permissions'
 
 type PropsType = {|
@@ -18,12 +18,13 @@ type PropsType = {|
   dispatch: () => void
 |}
 
+type SnackbarType = 'LOCATION' | 'PUSH_NOTIFICATION'
+
 type StateType = {|
   settings: SettingsType | null,
   locationPermissionStatus: RESULTS | null,
   pushNotificationPermissionStatus: RESULTS | null,
-  show: 'LOCATION' | 'PUSH_NOTIFICATION' | null,
-  lastShown: 'LOCATION' | 'PUSH_NOTIFICATION'
+  showSnackbar: SnackbarType | null
 |}
 
 class PermissionSnackbarContainer extends React.Component<PropsType, StateType> {
@@ -35,8 +36,7 @@ class PermissionSnackbarContainer extends React.Component<PropsType, StateType> 
       settings: null,
       locationPermissionStatus: null,
       pushNotificationPermissionStatus: null,
-      show: null,
-      lastShown: 'LOCATION'
+      showSnackbar: null
     }
     this._animatedValue = new Animated.Value(SNACKBAR_HEIGHT)
   }
@@ -52,17 +52,32 @@ class PermissionSnackbarContainer extends React.Component<PropsType, StateType> 
   }
 
   show = () => {
-    Animated.timing(this._animatedValue, { toValue: 0, duration: ANIMATION_DURATION }).start()
+    Animated.timing(this._animatedValue, { toValue: 0, duration: ANIMATION_DURATION, easing: Easing.linear }).start()
   }
 
   hide = () => {
-    Animated.timing(this._animatedValue, { toValue: SNACKBAR_HEIGHT, duration: ANIMATION_DURATION }).start()
+    Animated.timing(
+      this._animatedValue, { toValue: SNACKBAR_HEIGHT, duration: ANIMATION_DURATION, easing: Easing.linear }
+    ).start(() => this.setState({ showSnackbar: null }))
+  }
+
+  hideAndShow = (newShow: SnackbarType) => {
+    Animated.timing(
+      this._animatedValue, { toValue: SNACKBAR_HEIGHT, duration: ANIMATION_DURATION, easing: Easing.linear }
+    ).start(() => {
+      this.setState({ showSnackbar: newShow })
+    })
+
+    Animated.sequence([
+      Animated.delay(2 * ANIMATION_DURATION),
+      Animated.timing(this._animatedValue, { toValue: 0, duration: ANIMATION_DURATION, easing: Easing.linear })
+    ]).start()
   }
 
   updateSettingsAndPermissions = async () => {
     await this.loadSettings()
     await this.loadPermissionStatus()
-    this.checkShowSnackbar()
+    await this.checkShowSnackbar()
   }
 
   loadSettings = async () => {
@@ -125,8 +140,8 @@ class PermissionSnackbarContainer extends React.Component<PropsType, StateType> 
     // TODO NATIVE-399 Really request push notification permissions
   }
 
-  checkShowSnackbar = () => {
-    const { settings, locationPermissionStatus, pushNotificationPermissionStatus, show: prevShow } = this.state
+  checkShowSnackbar = async () => {
+    const { settings, locationPermissionStatus, pushNotificationPermissionStatus, showSnackbar: prevShow } = this.state
 
     const showLocationSnackbar = settings !== null && settings.proposeNearbyCities === true &&
       [RESULTS.BLOCKED, RESULTS.DENIED].includes(locationPermissionStatus) &&
@@ -136,19 +151,16 @@ class PermissionSnackbarContainer extends React.Component<PropsType, StateType> 
       [RESULTS.BLOCKED, RESULTS.DENIED].includes(pushNotificationPermissionStatus) &&
       this.dashboardRoute()
 
-    const show = showLocationSnackbar ? 'LOCATION' : showPushNotificationSnackbar ? 'PUSH_NOTIFICATION' : null
+    const showSnackbar = showLocationSnackbar ? 'LOCATION' : showPushNotificationSnackbar ? 'PUSH_NOTIFICATION' : null
 
-    if (show !== prevShow) {
-      this.setState({ show })
-
-      if (show === null) {
+    if (showSnackbar !== prevShow) {
+      if (showSnackbar === null) {
         this.hide()
-      } else {
-        this.setState({ lastShown: show })
-      }
-
-      if (prevShow === null) {
+      } else if (prevShow === null) {
+        await this.setState({ showSnackbar })
         this.show()
+      } else {
+        this.hideAndShow(showSnackbar)
       }
     }
   }
@@ -171,18 +183,20 @@ class PermissionSnackbarContainer extends React.Component<PropsType, StateType> 
 
   render () {
     const { theme, t } = this.props
-    const { lastShown } = this.state
+    const { showSnackbar } = this.state
 
-    if (lastShown === 'LOCATION') {
+    if (showSnackbar === 'LOCATION') {
       return <Snackbar positiveAction={{ label: t('grant'), onPress: this.requestLocationPermissions }}
                        negativeAction={{ label: t('deactivate'), onPress: this.deactivateProposeNearbyCities }}
                        message={t('locationPermissionMissing')} theme={theme} animatedValue={this._animatedValue} />
-    } else {
+    } else if (showSnackbar === 'PUSH_NOTIFICATION') {
       return <Snackbar positiveAction={{ label: t('grant'), onPress: this.requestPushNotificationPermissions }}
                        negativeAction={{ label: t('deactivate'), onPress: this.deactivateAllowPushNotifications }}
                        message={t('pushNotificationPermissionMissing')} theme={theme}
                        animatedValue={this._animatedValue} />
     }
+
+    return null
   }
 }
 
