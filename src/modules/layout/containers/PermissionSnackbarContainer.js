@@ -81,7 +81,6 @@ class PermissionSnackbarContainer extends React.Component<PropsType, StateType> 
   }
 
   loadSettings = async () => {
-    this.setState({ settings: null })
     const appSettings = new AppSettings()
     const settings = await appSettings.loadSettings()
     this.setState({ settings })
@@ -100,7 +99,6 @@ class PermissionSnackbarContainer extends React.Component<PropsType, StateType> 
   }
 
   loadPermissionStatus = async () => {
-    this.setState({ locationPermissionStatus: null })
     const locationPermissionStatus = await this.locationPermissionStatus()
     const pushNotificationPermissionStatus = await this.pushNotificationPermissionStatus()
     this.setState({ locationPermissionStatus, pushNotificationPermissionStatus })
@@ -132,7 +130,6 @@ class PermissionSnackbarContainer extends React.Component<PropsType, StateType> 
         this.hide()
       }
     }
-
     this.updateSettingsAndPermissions()
   }
 
