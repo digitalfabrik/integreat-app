@@ -11,6 +11,7 @@ import { Platform, TouchableOpacity, View, Alert } from 'react-native'
 import Geolocation from '@react-native-community/geolocation'
 import styled from 'styled-components/native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
+import { PERMISSIONS, request } from 'react-native-permissions'
 
 const SearchBar = styled.View`
   flex-direction: row;
@@ -44,10 +45,11 @@ class FilterableCitySelector extends React.Component<PropsType, StateType> {
 
   onFilterTextChange = (filterText: string) => this.setState({ filterText })
 
-  _onPressLocationButton = () => {
-    if (Platform.OS === 'ios') {
-      Geolocation.requestAuthorization()
-    }
+  _onPressLocationButton = async () => {
+    await request(Platform.OS === 'ios'
+      ? PERMISSIONS.IOS.LOCATION_WHEN_IN_USE
+      : PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION)
+
     Geolocation.getCurrentPosition(
       position => this.setState({
         currentLongitude: position.coords.longitude,

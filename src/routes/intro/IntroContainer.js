@@ -10,18 +10,18 @@ import Events from './assets/Events.svg'
 import AppLogo from '../../../assets/app-logo.png'
 import type { ThemeType } from '../../modules/theme/constants/theme'
 import withTheme from '../../modules/theme/hocs/withTheme'
-import { FlatList, Dimensions, Platform, PermissionsAndroid } from 'react-native'
+import { FlatList, Dimensions, Platform } from 'react-native'
 import styled, { type StyledComponent } from 'styled-components/native'
 import AppSettings from '../../modules/settings/AppSettings'
 import SlideContent, { type SlideContentType } from './SlideContent'
 import SentryIntegration from '../../modules/app/SentryIntegration'
 import SlideFooter from './footer/SlideFooter'
 import type { ViewToken } from 'react-native/Libraries/Lists/ViewabilityHelper'
-import Geolocation from '@react-native-community/geolocation'
 import CustomizableIntroSettings from './CustomizableIntroSettings'
 import IntroSettings from './IntroSettings'
 import type { StateType as ReduxStateType } from '../../modules/app/StateType'
 import { connect } from 'react-redux'
+import { PERMISSIONS, request } from 'react-native-permissions'
 
 const Container: StyledComponent<{ width: number }, {}, *> = styled.View`
   display: flex;
@@ -172,6 +172,10 @@ class Intro extends React.Component<PropsType, StateType> {
       if (proposeNearbyCities) {
         await this.requestLocationPermissions()
       }
+
+      if (allowPushNotifications) {
+        // TODO NATIVE-399 Request permissions for push notifications
+      }
     } catch (e) {
       console.warn(e)
     }
@@ -181,11 +185,9 @@ class Intro extends React.Component<PropsType, StateType> {
   }
 
   requestLocationPermissions = async () => {
-    if (Platform.OS === 'ios') {
-      Geolocation.requestAuthorization()
-    } else {
-      await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION)
-    }
+    await request(Platform.OS === 'ios'
+      ? PERMISSIONS.IOS.LOCATION_WHEN_IN_USE
+      : PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION)
   }
 
   goToSlide = (index: number) => {
