@@ -37,7 +37,7 @@ public class MainApplication extends Application implements ShareApplication, Re
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
-            new RNPermissionsPackage(),
+                    new RNPermissionsPackage(),
                     new GeolocationPackage(),
                     new RNSharePackage(),
                     new AsyncStoragePackage(),

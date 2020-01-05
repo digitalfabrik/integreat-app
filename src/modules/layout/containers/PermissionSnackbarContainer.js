@@ -14,8 +14,7 @@ import { request, openSettings, check, PERMISSIONS, RESULTS } from 'react-native
 type PropsType = {|
   navigation: NavigationScreenProp<*>,
   t: TFunction,
-  theme: ThemeType,
-  dispatch: () => void
+  theme: ThemeType
 |}
 
 type SnackbarType = 'LOCATION' | 'PUSH_NOTIFICATION'
@@ -45,10 +44,8 @@ class PermissionSnackbarContainer extends React.Component<PropsType, StateType> 
     this.updateSettingsAndPermissions()
   }
 
-  componentDidUpdate (prevProps: PropsType) {
-    if (prevProps.navigation.state !== this.props.navigation.state) {
-      this.updateSettingsAndPermissions()
-    }
+  componentDidUpdate () {
+    this.updateSettingsAndPermissions()
   }
 
   show = () => {
