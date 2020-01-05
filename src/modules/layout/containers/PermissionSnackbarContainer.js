@@ -6,31 +6,19 @@ import type { ThemeType } from '../../theme/constants/theme'
 import { type NavigationScreenProp } from 'react-navigation'
 import { type TFunction, translate } from 'react-i18next'
 import withTheme from '../../theme/hocs/withTheme'
-import { connect } from 'react-redux'
-import type { CategoryRouteStateType, StateType } from '../../app/StateType'
 import type { SettingsType } from '../../settings/AppSettings'
 import AppSettings from '../../settings/AppSettings'
 import { Animated, Platform } from 'react-native'
 import { request, openSettings, check, PERMISSIONS, RESULTS } from 'react-native-permissions'
 
-type OwnPropsType = {|
+type PropsType = {|
   navigation: NavigationScreenProp<*>,
   t: TFunction,
   theme: ThemeType,
   dispatch: () => void
 |}
 
-type StatePropsType = {|
-  landingReady: boolean,
-  dashboardReady: boolean
-|}
-
-type PropsType = {|
-  ...OwnPropsType,
-  ...StatePropsType
-|}
-
-type ComponentStateType = {|
+type StateType = {|
   settings: SettingsType | null,
   locationPermissionStatus: RESULTS | null,
   pushNotificationPermissionStatus: RESULTS | null,
@@ -38,7 +26,7 @@ type ComponentStateType = {|
   lastShown: 'LOCATION' | 'PUSH_NOTIFICATION'
 |}
 
-class PermissionSnackbarContainer extends React.Component<PropsType, ComponentStateType> {
+class PermissionSnackbarContainer extends React.Component<PropsType, StateType> {
   _animatedValue: Animated.Value
 
   constructor (props: PropsType) {
@@ -139,15 +127,14 @@ class PermissionSnackbarContainer extends React.Component<PropsType, ComponentSt
 
   checkShowSnackbar = () => {
     const { settings, locationPermissionStatus, pushNotificationPermissionStatus, show: prevShow } = this.state
-    const { landingReady, dashboardReady } = this.props
 
     const showLocationSnackbar = settings !== null && settings.proposeNearbyCities === true &&
       [RESULTS.BLOCKED, RESULTS.DENIED].includes(locationPermissionStatus) &&
-      landingReady && this.landingRoute()
+      this.landingRoute()
 
     const showPushNotificationSnackbar = settings !== null && settings.allowPushNotifications === true &&
       [RESULTS.BLOCKED, RESULTS.DENIED].includes(pushNotificationPermissionStatus) &&
-      dashboardReady && this.dashboardRoute()
+      this.dashboardRoute()
 
     const show = showLocationSnackbar ? 'LOCATION' : showPushNotificationSnackbar ? 'PUSH_NOTIFICATION' : null
 
@@ -199,25 +186,8 @@ class PermissionSnackbarContainer extends React.Component<PropsType, ComponentSt
   }
 }
 
-const mapStateToProps = (state: StateType): StatePropsType => {
-  const { cities, cityContent } = state
-  const landingReady = cities.status === 'ready'
-  // $FlowFixMe https://github.com/facebook/flow/issues/2221
-  const categoriesMappingValues: Array<CategoryRouteStateType> = cityContent
-    ? Object.values(cityContent.categoriesRouteMapping)
-    : []
-  const dashboardReady = categoriesMappingValues.length >= 1 && categoriesMappingValues[0].status === 'ready'
-
-  return {
-    landingReady,
-    dashboardReady
-  }
-}
-
-export default connect<PropsType, OwnPropsType, *, *, *, *>(mapStateToProps)(
-  translate('snackbar')(
-    withTheme()(
-      PermissionSnackbarContainer
-    )
+export default translate('snackbar')(
+  withTheme()(
+    PermissionSnackbarContainer
   )
 )
