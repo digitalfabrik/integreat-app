@@ -23,6 +23,31 @@ export const CityGroup: StyledComponent<{}, ThemeType, *> = styled.Text`
   border-bottom-color: ${props => props.theme.colors.themeColor};
 `
 
+const MessageContainer: StyledComponent<{}, {}, *> = styled.View`
+  flex: 1;
+  padding: 7px;
+  flex-direction: row;
+`
+
+const LocationMessage = styled.Text`
+  color: ${props => props.theme.colors.textColor};
+  font-family: ${props => props.theme.fonts.decorativeFontRegular};
+`
+
+const ButtonContainer: StyledComponent<{}, ThemeType, *> = styled.View`
+  flex: 1;
+  padding: 16px 0;
+`
+
+const ButtonText: StyledComponent<{}, ThemeType, *> = styled.Text`
+  color: ${props => props.theme.colors.textColor};
+  border-color: ${props => props.theme.colors.themeColor};
+  font-size: 18px;
+  text-align: center;
+  padding: 8px 12px;
+  border-radius: 3px;
+`
+
 type PropsType = {|
   cities: Array<CityModel>,
   filterText: string,
@@ -30,6 +55,7 @@ type PropsType = {|
   theme: ThemeType,
   location: LocationType,
   proposeNearbyCities: boolean,
+  tryAgain: () => Promise<void>,
   t: TFunction
 |}
 
@@ -70,7 +96,7 @@ class CitySelector extends React.PureComponent<PropsType> {
   }
 
   _renderNearbyLocations (): React.Node {
-    const { proposeNearbyCities, cities, location } = this.props
+    const { proposeNearbyCities, cities, location, t, theme, navigateToDashboard, filterText, tryAgain } = this.props
     if (!proposeNearbyCities) {
       return null
     }
@@ -80,19 +106,36 @@ class CitySelector extends React.PureComponent<PropsType> {
 
       if (nearbyCities.length > 0) {
         return <>
-          <CityGroup theme={this.props.theme}>{this.props.t('nearbyPlaces')}</CityGroup>
+          <CityGroup theme={theme}>{t('nearbyPlaces')}</CityGroup>
           {cities.map(city => <CityEntry
             key={city.code}
             city={city}
-            filterText={this.props.filterText}
-            navigateToDashboard={this.props.navigateToDashboard}
-            theme={this.props.theme} />)}
+            filterText={filterText}
+            navigateToDashboard={navigateToDashboard}
+            theme={theme} />)}
         </>
       } else {
-        return <CityGroup theme={this.props.theme}>{this.props.t('noNearbyPlaces')}</CityGroup>
+        return <>
+          <CityGroup theme={theme}>{t('nearbyPlaces')}</CityGroup>
+          <MessageContainer>
+            <LocationMessage theme={theme}>{t('noNearbyPlaces')}</LocationMessage>
+            <ButtonContainer>
+              <ButtonText theme={theme} onPress={tryAgain}>{t('tryAgain')}</ButtonText>
+            </ButtonContainer>
+          </MessageContainer>
+        </>
       }
     } else {
-      return null
+      return <>
+        <CityGroup theme={theme}>{t('nearbyPlaces')}</CityGroup>
+        <MessageContainer>
+          {/* $FlowFixMe Flow does not get that message is not null */}
+          <LocationMessage theme={theme}>{t(location.message)}</LocationMessage>
+          <ButtonContainer>
+            <ButtonText theme={theme} onPress={tryAgain}>{t('tryAgain')}</ButtonText>
+          </ButtonContainer>
+        </MessageContainer>
+      </>
     }
   }
 

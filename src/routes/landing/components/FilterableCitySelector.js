@@ -24,7 +24,8 @@ type PropsType = {
   t: TFunction,
   theme: ThemeType,
   location: LocationType,
-  proposeNearbyCities: boolean
+  proposeNearbyCities: boolean,
+  tryAgain: () => Promise<void>
 }
 
 type StateType = {
