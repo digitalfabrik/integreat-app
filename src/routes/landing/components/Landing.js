@@ -52,18 +52,22 @@ class Landing extends React.Component<PropsType, StateType> {
     this.setState({ proposeNearbyCities: proposeNearbyCities })
 
     if (proposeNearbyCities) {
-      Geolocation.getCurrentPosition(
-        (position: GeolocationResponse) => {
-          this.setState({ location: {
-            longitude: position.coords.longitude,
-            latitude: position.coords.latitude
-          } })
-        },
-        (error: GeolocationError) => this.setLocationErrorMessage(error)
-        ,
-        { enableHighAccuracy: true, timeout: 10000, maximumAge: 3600000 }
-      )
+      this.currentPosition()
     }
+  }
+
+  currentPosition = () => {
+    Geolocation.getCurrentPosition(
+      (position: GeolocationResponse) => {
+        this.setState({ location: {
+          longitude: position.coords.longitude,
+          latitude: position.coords.latitude
+        } })
+      },
+      (error: GeolocationError) => this.setLocationErrorMessage(error)
+      ,
+      { enableHighAccuracy: true, timeout: 10000, maximumAge: 3600000 }
+    )
   }
 
   setLocationErrorMessage = (error: GeolocationError) => {
@@ -90,7 +94,7 @@ class Landing extends React.Component<PropsType, StateType> {
       return <Wrapper theme={theme}>
         <Heading clearResourcesAndCache={clearResourcesAndCache} theme={theme} />
         {/* $FlowFixMe Flow does not get that proposeNearbyCities is null */}
-        <FilterableCitySelector theme={theme} cities={cities} t={t} {...this.state}
+        <FilterableCitySelector theme={theme} cities={cities} t={t} {...this.state} tryAgain={this.currentPosition}
                                 navigateToDashboard={this.navigateToDashboard} />
       </Wrapper>
     } else {
