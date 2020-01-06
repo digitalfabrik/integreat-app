@@ -26,17 +26,20 @@ export type PropsType = {|
   clearResourcesAndCache: () => void
 |}
 
+export type LocationType = {| message: string |} | {|
+  longitude: number,
+  latitude: number
+|}
+
 type StateType = {|
-  proposeNearbyCities: ?boolean,
-  longitude: ?number,
-  latitude: ?number,
-  locationMessage: ?string
+  proposeNearbyCities: boolean | null,
+  location: LocationType
 |}
 
 class Landing extends React.Component<PropsType, StateType> {
   constructor (props: PropsType) {
     super(props)
-    this.state = { proposeNearbyCities: null, latitude: null, longitude: null, locationMessage: null }
+    this.state = { proposeNearbyCities: null, location: { message: props.t('loading') } }
   }
 
   componentDidMount () {
@@ -51,10 +54,10 @@ class Landing extends React.Component<PropsType, StateType> {
     if (proposeNearbyCities) {
       Geolocation.getCurrentPosition(
         (position: GeolocationResponse) => {
-          this.setState({
+          this.setState({ location: {
             longitude: position.coords.longitude,
             latitude: position.coords.latitude
-          })
+          } })
         },
         (error: GeolocationError) => this.setLocationErrorMessage(error)
         ,
@@ -66,11 +69,11 @@ class Landing extends React.Component<PropsType, StateType> {
   setLocationErrorMessage = (error: GeolocationError) => {
     const { t } = this.props
     if (error.code === 1) {
-      this.setState({ locationMessage: t('noPermission') })
+      this.setState({ location: { message: t('noPermission') } })
     } else if (error.code === 2) {
-      this.setState({ locationMessage: t('notAvailable') })
+      this.setState({ location: { message: t('notAvailable') } })
     } else {
-      this.setState({ locationMessage: t('timeout') })
+      this.setState({ location: { message: t('timeout') } })
     }
   }
 
@@ -81,12 +84,18 @@ class Landing extends React.Component<PropsType, StateType> {
 
   render () {
     const { theme, cities, t, clearResourcesAndCache } = this.props
+    const { proposeNearbyCities } = this.state
 
-    return <Wrapper theme={theme}>
-      <Heading clearResourcesAndCache={clearResourcesAndCache} theme={theme} />
-      <FilterableCitySelector theme={theme} cities={cities} t={t} {...this.state}
-                              navigateToDashboard={this.navigateToDashboard} />
-    </Wrapper>
+    if (proposeNearbyCities !== null) {
+      return <Wrapper theme={theme}>
+        <Heading clearResourcesAndCache={clearResourcesAndCache} theme={theme} />
+        {/* $FlowFixMe Flow does not get that proposeNearbyCities is null */}
+        <FilterableCitySelector theme={theme} cities={cities} t={t} {...this.state}
+                                navigateToDashboard={this.navigateToDashboard} />
+      </Wrapper>
+    } else {
+      return null
+    }
   }
 }
 
