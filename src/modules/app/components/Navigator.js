@@ -75,7 +75,7 @@ class Navigator extends React.Component<PropsType, StateType> {
   render () {
     const { errorMessage } = this.state
     if (errorMessage) {
-      return <Text>{this.state.errorMessage}</Text>
+      return <Text>{errorMessage}</Text>
     }
     const AppContainer = this._appNavigationContainer
     return AppContainer ? <AppContainer /> : null
