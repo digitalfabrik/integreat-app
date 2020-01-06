@@ -8,11 +8,11 @@ import type { ThemeType } from '../../theme/constants/theme'
 export const SNACKBAR_HEIGHT = 120
 export const ANIMATION_DURATION = 1000
 
-const Container: StyledComponent<{ negativeAction: boolean }, ThemeType, *> = styled(Animated.View)`
+const Container: StyledComponent<{}, ThemeType, *> = styled(Animated.View)`
   position: absolute;
   flex: 0.1;
   background-color: ${props => props.theme.colors.textSecondaryColor};
-  flex-direction: ${props => props.negativeAction ? 'column' : 'row'};
+  flex-direction: column;
   align-items: center;
   left: 0;
   bottom: 0;
