@@ -25,13 +25,13 @@ export const CityGroup: StyledComponent<{}, ThemeType, *> = styled.Text`
   border-bottom-color: ${props => props.theme.colors.themeColor};
 `
 
-const MessageContainer: StyledComponent<{}, {}, *> = styled.View`
+const NearbyMessageContainer: StyledComponent<{}, {}, *> = styled.View`
   padding: 7px;
   flex-direction: row;
   justify-content: space-between;
 `
 
-const LocationMessage = styled.Text`
+const NearbyMessage = styled.Text`
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.decorativeFontRegular};
   padding-top: 15px;
@@ -90,13 +90,13 @@ class CitySelector extends React.PureComponent<PropsType> {
       return null
     }
 
-    if (location.message === null) {
+    if (location.message === undefined) {
       const nearbyCities = nearbyPlaces(cities.filter(city => city.live), location.longitude, location.latitude)
 
       if (nearbyCities.length > 0) {
         return <>
           <CityGroup theme={theme}>{t('nearbyPlaces')}</CityGroup>
-          {cities.map(city => <CityEntry
+          {nearbyCities.map(city => <CityEntry
             key={city.code}
             city={city}
             filterText={filterText}
@@ -106,22 +106,22 @@ class CitySelector extends React.PureComponent<PropsType> {
       } else {
         return <>
           <CityGroup theme={theme}>{t('nearbyPlaces')}</CityGroup>
-          <MessageContainer>
-            <LocationMessage theme={theme}>{t('noNearbyPlaces')}</LocationMessage>
-          </MessageContainer>
+          <NearbyMessageContainer>
+            <NearbyMessage theme={theme}>{t('noNearbyPlaces')}</NearbyMessage>
+          </NearbyMessageContainer>
         </>
       }
     } else {
       return <>
         <CityGroup theme={theme}>{t('nearbyPlaces')}</CityGroup>
-        <MessageContainer>
+        <NearbyMessageContainer>
           {/* $FlowFixMe Flow does not get that message is not null */}
-          <LocationMessage theme={theme}>{t(location.message)}</LocationMessage>
+          <NearbyMessage theme={theme}>{t(location.message)}</NearbyMessage>
           {tryAgain &&
             <Button icon={<Icon name='refresh' size={30} color={theme.colors.textSecondaryColor} style='material' />}
                     title={''} type='clear' onPress={tryAgain} />
           }
-        </MessageContainer>
+        </NearbyMessageContainer>
       </>
     }
   }
