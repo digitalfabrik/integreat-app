@@ -44,8 +44,10 @@ class PermissionSnackbarContainer extends React.Component<PropsType, StateType> 
     this.updateSettingsAndPermissions()
   }
 
-  componentDidUpdate () {
-    this.updateSettingsAndPermissions()
+  componentDidUpdate (prevProps: PropsType) {
+    if (prevProps.navigation.state !== this.props.navigation.state) {
+      this.updateSettingsAndPermissions()
+    }
   }
 
   show = () => {
