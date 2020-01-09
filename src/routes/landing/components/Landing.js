@@ -39,7 +39,7 @@ type StateType = {|
 class Landing extends React.Component<PropsType, StateType> {
   constructor (props: PropsType) {
     super(props)
-    this.state = { proposeNearbyCities: null, location: { message: props.t('loading') } }
+    this.state = { proposeNearbyCities: null, location: { message: 'loading' } }
   }
 
   componentDidMount () {
@@ -57,6 +57,7 @@ class Landing extends React.Component<PropsType, StateType> {
   }
 
   currentPosition = () => {
+    this.setState({ location: { message: 'loading' } })
     Geolocation.getCurrentPosition(
       (position: GeolocationResponse) => {
         this.setState({ location: {
@@ -66,18 +67,17 @@ class Landing extends React.Component<PropsType, StateType> {
       },
       (error: GeolocationError) => this.setLocationErrorMessage(error)
       ,
-      { enableHighAccuracy: true, timeout: 10000, maximumAge: 3600000 }
+      { enableHighAccuracy: true, timeout: 50000, maximumAge: 3600000 }
     )
   }
 
   setLocationErrorMessage = (error: GeolocationError) => {
-    const { t } = this.props
     if (error.code === 1) {
-      this.setState({ location: { message: t('noPermission') } })
+      this.setState({ location: { message: 'noPermission' } })
     } else if (error.code === 2) {
-      this.setState({ location: { message: t('notAvailable') } })
+      this.setState({ location: { message: 'notAvailable' } })
     } else {
-      this.setState({ location: { message: t('timeout') } })
+      this.setState({ location: { message: 'timeout' } })
     }
   }
 
@@ -89,13 +89,14 @@ class Landing extends React.Component<PropsType, StateType> {
   render () {
     const { theme, cities, t, clearResourcesAndCache } = this.props
     const { proposeNearbyCities } = this.state
+    const tryAgain = this.state.location.message === 'loading' ? null : this.currentPosition
 
     if (proposeNearbyCities !== null) {
       return <Wrapper theme={theme}>
         <Heading clearResourcesAndCache={clearResourcesAndCache} theme={theme} />
         {/* $FlowFixMe Flow does not get that proposeNearbyCities is null */}
-        <FilterableCitySelector theme={theme} cities={cities} t={t} {...this.state} tryAgain={this.currentPosition}
-                                navigateToDashboard={this.navigateToDashboard} />
+        <FilterableCitySelector theme={theme} cities={cities} t={t} {...this.state}
+                                tryAgain={tryAgain} navigateToDashboard={this.navigateToDashboard} />
       </Wrapper>
     } else {
       return null

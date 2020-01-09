@@ -11,6 +11,8 @@ import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { TFunction } from 'react-i18next'
 import nearbyPlaces from '../nearbyPlaces'
 import type { LocationType } from './Landing'
+import { Button } from 'react-native-elements'
+import Icon from 'react-native-vector-icons/MaterialIcons'
 
 export const CityGroup: StyledComponent<{}, ThemeType, *> = styled.Text`
   width: 100%;
@@ -24,28 +26,15 @@ export const CityGroup: StyledComponent<{}, ThemeType, *> = styled.Text`
 `
 
 const MessageContainer: StyledComponent<{}, {}, *> = styled.View`
-  flex: 1;
   padding: 7px;
   flex-direction: row;
+  justify-content: space-between;
 `
 
 const LocationMessage = styled.Text`
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.decorativeFontRegular};
-`
-
-const ButtonContainer: StyledComponent<{}, ThemeType, *> = styled.View`
-  flex: 1;
-  padding: 16px 0;
-`
-
-const ButtonText: StyledComponent<{}, ThemeType, *> = styled.Text`
-  color: ${props => props.theme.colors.textColor};
-  border-color: ${props => props.theme.colors.themeColor};
-  font-size: 18px;
-  text-align: center;
-  padding: 8px 12px;
-  border-radius: 3px;
+  padding-top: 15px;
 `
 
 type PropsType = {|
@@ -55,7 +44,7 @@ type PropsType = {|
   theme: ThemeType,
   location: LocationType,
   proposeNearbyCities: boolean,
-  tryAgain: () => Promise<void>,
+  tryAgain: () => Promise<void> | null,
   t: TFunction
 |}
 
@@ -119,9 +108,6 @@ class CitySelector extends React.PureComponent<PropsType> {
           <CityGroup theme={theme}>{t('nearbyPlaces')}</CityGroup>
           <MessageContainer>
             <LocationMessage theme={theme}>{t('noNearbyPlaces')}</LocationMessage>
-            <ButtonContainer>
-              <ButtonText theme={theme} onPress={tryAgain}>{t('tryAgain')}</ButtonText>
-            </ButtonContainer>
           </MessageContainer>
         </>
       }
@@ -131,9 +117,10 @@ class CitySelector extends React.PureComponent<PropsType> {
         <MessageContainer>
           {/* $FlowFixMe Flow does not get that message is not null */}
           <LocationMessage theme={theme}>{t(location.message)}</LocationMessage>
-          <ButtonContainer>
-            <ButtonText theme={theme} onPress={tryAgain}>{t('tryAgain')}</ButtonText>
-          </ButtonContainer>
+          {tryAgain &&
+            <Button icon={<Icon name='refresh' size={30} color={theme.colors.textSecondaryColor} style='material' />}
+                    title={''} type='clear' onPress={tryAgain} />
+          }
         </MessageContainer>
       </>
     }
