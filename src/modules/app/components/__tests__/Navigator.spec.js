@@ -10,7 +10,7 @@ import waitForExpect from 'wait-for-expect'
 jest.mock('@react-native-community/async-storage')
 
 let mockCreateAppNavigationContainer: JestMockFn<*, *>
-jest.mock('../../createAppNavigationContainer', () => {
+jest.mock('../../createAppContainer', () => {
   mockCreateAppNavigationContainer = jest.fn(({ initialRouteName }) => {
     const Text = require('react-native').Text
     return () => <Text>AppContainerOf({initialRouteName})</Text>
