@@ -14,8 +14,7 @@ type StateType = {|
   translate: Animated.Value,
   height: ?number,
   status: 'in' | 'out' | 'animating',
-  displayed: ?React$Element<*>,
-  key: ?React$Key
+  displayed: ?React$Element<*>
 |}
 
 const Container: StyledComponent<{}, {}, *> = styled(Animated.View)`
@@ -28,21 +27,23 @@ const Container: StyledComponent<{}, {}, *> = styled(Animated.View)`
 const ANIMATION_DURATION = 300
 const MAX_HEIGHT = 9999
 
+const getKey = (element: ?React$Element<*>): ?React$Key => element ? React.Children.only(element).key : null
+
 class SnackbarAnimator extends React.Component<PropsType, StateType> {
-  state = { translate: new Animated.Value(1), height: null, displayed: null, key: null, status: 'out' }
+  state = { translate: new Animated.Value(1), height: null, displayed: null, status: 'out' }
 
   componentDidMount () {
     this.checkForUpdate()
   }
 
   checkForUpdate = () => {
-    const displayed = this.state.displayed
+    const { displayed, status } = this.state
     const children = this.props.children
-    if (this.state.status === 'animating') {
+    if (status === 'animating') {
       return
     }
-    if (this.getKey(displayed) !== this.getKey(children)) { // displayed doesn't correspond to current
-      if (this.state.status === 'in') {
+    if (getKey(displayed) !== getKey(children)) { // displayed doesn't correspond to current
+      if (status === 'in') {
         this.setState({ status: 'animating' })
         this.hide()
       } else if (children) {
@@ -52,13 +53,9 @@ class SnackbarAnimator extends React.Component<PropsType, StateType> {
     }
   }
 
-  show = () => {
-    Animated.timing(this.state.translate, { toValue: 0, duration: ANIMATION_DURATION }).start(this.onShowEnd)
-  }
+  show = () => Animated.timing(this.state.translate, { toValue: 0, duration: ANIMATION_DURATION }).start(this.onShowEnd)
 
-  hide = () => {
-    Animated.timing(this.state.translate, { toValue: 1, duration: ANIMATION_DURATION }).start(this.onHideEnd)
-  }
+  hide = () => Animated.timing(this.state.translate, { toValue: 1, duration: ANIMATION_DURATION }).start(this.onHideEnd)
 
   onShowEnd = () => {
     this.setState({ status: 'in' })
@@ -70,18 +67,12 @@ class SnackbarAnimator extends React.Component<PropsType, StateType> {
     this.checkForUpdate()
   }
 
-  getKey (element: ?React$Element<*>): ?React$Key {
-    return element ? React.Children.only(element).key : null
-  }
-
   componentDidUpdate (prevProps: PropsType) {
     const children = this.props.children
     const displayed = this.state.displayed
     if (prevProps.children !== children) {
-      if (children && displayed) {
-        if (this.getKey(children) === this.getKey(displayed)) {
-          this.setState({ displayed: children })
-        }
+      if (children && displayed && getKey(children) === getKey(displayed)) {
+        this.setState({ displayed: children })
       }
       this.checkForUpdate()
     }
