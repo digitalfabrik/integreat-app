@@ -10,7 +10,7 @@ import Events from './assets/Events.svg'
 import AppLogo from '../../../assets/app-logo.png'
 import type { ThemeType } from '../../modules/theme/constants/theme'
 import withTheme from '../../modules/theme/hocs/withTheme'
-import { FlatList, Dimensions, Platform } from 'react-native'
+import { FlatList, Dimensions } from 'react-native'
 import styled, { type StyledComponent } from 'styled-components/native'
 import AppSettings from '../../modules/settings/AppSettings'
 import SlideContent, { type SlideContentType } from './SlideContent'
@@ -21,7 +21,7 @@ import CustomizableIntroSettings from './CustomizableIntroSettings'
 import IntroSettings from './IntroSettings'
 import type { StateType as ReduxStateType } from '../../modules/app/StateType'
 import { connect } from 'react-redux'
-import { PERMISSIONS, request } from 'react-native-permissions'
+import { requestLocationPermission, requestPushNotificationPermission } from '../../modules/app/Permissions'
 
 const Container: StyledComponent<{ width: number }, {}, *> = styled.View`
   display: flex;
@@ -170,11 +170,11 @@ class Intro extends React.Component<PropsType, StateType> {
       }
 
       if (proposeNearbyCities) {
-        await this.requestLocationPermissions()
+        await requestLocationPermission()
       }
 
       if (allowPushNotifications) {
-        // TODO NATIVE-399 Request permissions for push notifications
+        await requestPushNotificationPermission()
       }
     } catch (e) {
       console.warn(e)
@@ -182,12 +182,6 @@ class Intro extends React.Component<PropsType, StateType> {
     await this._appSettings.setSettings({ errorTracking, allowPushNotifications, proposeNearbyCities })
     this._appSettings.setIntroShown()
     this.props.navigation.navigate('Landing')
-  }
-
-  requestLocationPermissions = async () => {
-    await request(Platform.OS === 'ios'
-      ? PERMISSIONS.IOS.LOCATION_WHEN_IN_USE
-      : PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION)
   }
 
   goToSlide = (index: number) => {
