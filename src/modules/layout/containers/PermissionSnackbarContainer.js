@@ -6,7 +6,6 @@ import type { ThemeType } from '../../theme/constants/theme'
 import { type NavigationScreenProp } from 'react-navigation'
 import { type TFunction, translate } from 'react-i18next'
 import withTheme from '../../theme/hocs/withTheme'
-import type { SettingsType } from '../../settings/AppSettings'
 import AppSettings from '../../settings/AppSettings'
 import { Platform } from 'react-native'
 import { check, openSettings, PERMISSIONS, request, RESULTS } from 'react-native-permissions'
@@ -19,9 +18,6 @@ type PropsType = {|
 |}
 
 type StateType = {|
-  settings: SettingsType | null,
-  locationPermissionStatus: RESULTS | null,
-  pushNotificationPermissionStatus: RESULTS | null,
   showLocationSnackbar: boolean,
   showPushNotificationSnackbar: boolean
 |}
@@ -29,13 +25,7 @@ type StateType = {|
 class PermissionSnackbarContainer extends React.Component<PropsType, StateType> {
   constructor (props: PropsType) {
     super(props)
-    this.state = {
-      settings: null,
-      locationPermissionStatus: null,
-      pushNotificationPermissionStatus: null,
-      showLocationSnackbar: false,
-      showPushNotificationSnackbar: false
-    }
+    this.state = { showLocationSnackbar: false, showPushNotificationSnackbar: false }
   }
 
   componentDidMount () {
@@ -53,13 +43,11 @@ class PermissionSnackbarContainer extends React.Component<PropsType, StateType> 
     const locationPermissionStatus = await this.locationPermissionStatus()
     const pushNotificationPermissionStatus = await this.pushNotificationPermissionStatus()
 
-    const showLocationSnackbar = settings !== null && settings.proposeNearbyCities === true &&
-      [RESULTS.BLOCKED, RESULTS.DENIED].includes(locationPermissionStatus) &&
-      this.landingRoute()
+    const showLocationSnackbar = settings && settings.proposeNearbyCities === true &&
+      [RESULTS.BLOCKED, RESULTS.DENIED].includes(locationPermissionStatus) && this.landingRoute()
 
-    const showPushNotificationSnackbar = settings !== null && settings.allowPushNotifications === true &&
-      [RESULTS.BLOCKED, RESULTS.DENIED].includes(pushNotificationPermissionStatus) &&
-      this.dashboardRoute()
+    const showPushNotificationSnackbar = settings && settings.allowPushNotifications === true &&
+      [RESULTS.BLOCKED, RESULTS.DENIED].includes(pushNotificationPermissionStatus) && this.dashboardRoute()
 
     this.setState({ showLocationSnackbar, showPushNotificationSnackbar })
   }
@@ -88,8 +76,7 @@ class PermissionSnackbarContainer extends React.Component<PropsType, StateType> 
   }
 
   requestLocationPermissions = async () => {
-    const { locationPermissionStatus } = this.state
-    if (locationPermissionStatus === RESULTS.BLOCKED) {
+    if (await this.locationPermissionStatus() === RESULTS.BLOCKED) {
       await openSettings()
     } else {
       await request(Platform.OS === 'ios'
