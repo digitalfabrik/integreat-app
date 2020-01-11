@@ -25,7 +25,7 @@ type PropsType = {
   theme: ThemeType,
   location: LocationType,
   proposeNearbyCities: boolean,
-  tryAgain: () => Promise<void>
+  tryAgain: null | () => void
 }
 
 type StateType = {

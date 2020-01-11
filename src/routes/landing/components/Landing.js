@@ -88,14 +88,13 @@ class Landing extends React.Component<PropsType, StateType> {
 
   render () {
     const { theme, cities, t, clearResourcesAndCache } = this.props
-    const { proposeNearbyCities } = this.state
+    const { proposeNearbyCities, ...state } = this.state
     const tryAgain = this.state.location.message === 'loading' ? null : this.currentPosition
 
     if (proposeNearbyCities !== null) {
       return <Wrapper theme={theme}>
         <Heading clearResourcesAndCache={clearResourcesAndCache} theme={theme} />
-        {/* $FlowFixMe Flow does not get that proposeNearbyCities is null */}
-        <FilterableCitySelector theme={theme} cities={cities} t={t} {...this.state}
+        <FilterableCitySelector theme={theme} cities={cities} t={t} {...state} proposeNearbyCities={proposeNearbyCities}
                                 tryAgain={tryAgain} navigateToDashboard={this.navigateToDashboard} />
       </Wrapper>
     } else {
