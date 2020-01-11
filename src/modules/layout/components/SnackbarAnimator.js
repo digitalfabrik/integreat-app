@@ -39,14 +39,11 @@ class SnackbarAnimator extends React.Component<PropsType, StateType> {
   checkForUpdate = () => {
     const { displayed, status } = this.state
     const children = this.props.children
-    if (status === 'animating') {
-      return
-    }
     if (getKey(displayed) !== getKey(children)) { // displayed doesn't correspond to current
       if (status === 'in') {
         this.setState({ status: 'animating' })
         this.hide()
-      } else if (children) {
+      } else if (status === 'out' && children) {
         this.setState({ displayed: children, status: 'animating' })
         this.show()
       }
@@ -78,9 +75,7 @@ class SnackbarAnimator extends React.Component<PropsType, StateType> {
     }
   }
 
-  onLayout = (event: ViewLayoutEvent) => {
-    this.setState({ height: event.nativeEvent.layout.height })
-  }
+  onLayout = (event: ViewLayoutEvent) => this.setState({ height: event.nativeEvent.layout.height })
 
   render () {
     const { translate, height, displayed } = this.state
