@@ -7,8 +7,12 @@ import { type NavigationScreenProp } from 'react-navigation'
 import { type TFunction, translate } from 'react-i18next'
 import withTheme from '../../theme/hocs/withTheme'
 import AppSettings from '../../settings/AppSettings'
-import { Platform } from 'react-native'
-import { check, openSettings, PERMISSIONS, request, RESULTS } from 'react-native-permissions'
+import { openSettings, RESULTS } from 'react-native-permissions'
+import {
+  locationPermissionStatus,
+  pushNotificationPermissionStatus,
+  requestLocationPermission, requestPushNotificationPermission
+} from '../../app/Permissions'
 import SnackbarAnimator from '../components/SnackbarAnimator'
 
 type PropsType = {|
@@ -62,32 +66,21 @@ class PermissionSnackbarContainer extends React.Component<PropsType, StateType> 
     this.updateSettingsAndPermissions()
   }
 
-  locationPermissionStatus = async (): RESULTS => {
-    if (Platform.OS === 'ios') {
-      return check(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE)
-    } else {
-      return check(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION)
-    }
-  }
-
-  pushNotificationPermissionStatus = async (): RESULTS => {
-    // TODO NATIVE-399 Really check for push notification permissions
-    return RESULTS.DENIED
-  }
-
-  requestLocationPermissions = async () => {
-    if (await this.locationPermissionStatus() === RESULTS.BLOCKED) {
+  requestOrOpenSettings = async (status: RESULTS, request: () => Promise<RESULTS>) => {
+    if (status === RESULTS.BLOCKED) {
       await openSettings()
     } else {
-      await request(Platform.OS === 'ios'
-        ? PERMISSIONS.IOS.LOCATION_WHEN_IN_USE
-        : PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION)
+      await request()
     }
     this.updateSettingsAndPermissions()
   }
 
-  requestPushNotificationPermissions = async () => {
-    // TODO NATIVE-399 Really request push notification permissions
+  requestLocationPermissionOrSettings = async () => {
+    this.requestOrOpenSettings(locationPermissionStatus(), requestLocationPermission)
+  }
+
+  requestPushNotificationPermissionOrSettings = async () => {
+    this.requestOrOpenSettings(pushNotificationPermissionStatus(), requestPushNotificationPermission)
   }
 
   landingRoute = (): boolean => {
@@ -110,12 +103,12 @@ class PermissionSnackbarContainer extends React.Component<PropsType, StateType> 
     const { t, theme } = this.props
     const { showLocationSnackbar, showPushNotificationSnackbar } = this.state
     if (showLocationSnackbar) {
-      return <Snackbar key='location' positiveAction={{ label: t('grant'), onPress: this.requestLocationPermissions }}
+      return <Snackbar key='location' positiveAction={{ label: t('grant'), onPress: this.requestLocationPermissionOrSettings }}
                        negativeAction={{ label: t('deactivate'), onPress: this.deactivateProposeNearbyCities }}
                        message={t('locationPermissionMissing')} theme={theme} />
     } else if (showPushNotificationSnackbar) {
       return <Snackbar key='push'
-                       positiveAction={{ label: t('grant'), onPress: this.requestPushNotificationPermissions }}
+                       positiveAction={{ label: t('grant'), onPress: this.requestPushNotificationPermissionOrSettings }}
                        negativeAction={{ label: t('deactivate'), onPress: this.deactivateAllowPushNotifications }}
                        message={t('pushNotificationPermissionMissing')} theme={theme} />
     }
