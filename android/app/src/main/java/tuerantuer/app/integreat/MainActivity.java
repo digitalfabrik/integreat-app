@@ -32,8 +32,7 @@ public class MainActivity extends ReactActivity {
 
     private void clearCachedResources()
     {
-        // delete all files
-        File dir = new File("/");
+        File dir = getApplicationContext().getDataDir();
         if (dir.isDirectory())
         {
             String[] children = dir.list();
