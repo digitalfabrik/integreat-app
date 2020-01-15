@@ -4,7 +4,7 @@ import * as React from 'react'
 import type { NavigationContainer } from 'react-navigation'
 import { generateKey } from '../generateRouteKey'
 import AppSettings from '../../settings/AppSettings'
-import createAppNavigationContainer from '../createAppNavigationContainer'
+import createAppContainer from '../createAppContainer'
 import { Text } from 'react-native'
 import SentryIntegration from '../SentryIntegration'
 import { ASYNC_STORAGE_VERSION } from '../../settings/constants'
@@ -18,7 +18,7 @@ type PropsType = {|
 type StateType = {| waitingForSettings: boolean, errorMessage: null |}
 
 class Navigator extends React.Component<PropsType, StateType> {
-  appNavigationContainer: ?NavigationContainer<*, *, *>
+  _appNavigationContainer: ?NavigationContainer<*, *, *>
   state = { waitingForSettings: true, errorMessage: null }
 
   componentDidMount () {
@@ -51,7 +51,7 @@ class Navigator extends React.Component<PropsType, StateType> {
     }
 
     if (!introShown) {
-      this.appNavigationContainer = createAppNavigationContainer({ initialRouteName: 'Intro' })
+      this._appNavigationContainer = createAppContainer({ initialRouteName: 'Intro' })
     } else {
       if (errorTracking) {
         const sentry = new SentryIntegration()
@@ -60,12 +60,12 @@ class Navigator extends React.Component<PropsType, StateType> {
 
       if (selectedCity) {
         const key = generateKey()
-        this.appNavigationContainer = createAppNavigationContainer({
+        this._appNavigationContainer = createAppContainer({
           initialRouteName: 'CityContent', cityCode: selectedCity, language: contentLanguage, clearCategory, key
         })
         fetchCategory(selectedCity, contentLanguage, key)
       } else {
-        this.appNavigationContainer = createAppNavigationContainer({ initialRouteName: 'Landing' })
+        this._appNavigationContainer = createAppContainer({ initialRouteName: 'Landing' })
       }
     }
 
@@ -73,10 +73,11 @@ class Navigator extends React.Component<PropsType, StateType> {
   }
 
   render () {
-    if (this.state.errorMessage) {
-      return <Text>{this.state.errorMessage}</Text>
+    const { errorMessage } = this.state
+    if (errorMessage) {
+      return <Text>{errorMessage}</Text>
     }
-    const AppContainer = this.appNavigationContainer
+    const AppContainer = this._appNavigationContainer
     return AppContainer ? <AppContainer /> : null
   }
 }

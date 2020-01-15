@@ -15,7 +15,7 @@ export default (
   switch (action.type) {
     case 'SWITCH_CONTENT_LANGUAGE':
       if (state === null) {
-        throw Error('Cannot switch contentLanguage on not initialized cityContent')
+        return null
       }
       return { ...state, switchingLanguage: true }
     case 'SWITCH_CONTENT_LANGUAGE_FAILED':
@@ -25,7 +25,7 @@ export default (
       return { ...state, switchingLanguage: false }
     case 'PUSH_LANGUAGES':
       if (state === null) {
-        throw Error('Cannot push languages on not initialized cityContent')
+        return null
       }
       return { ...state, languages: action.params.languages }
     case 'PUSH_CATEGORY':
@@ -67,7 +67,7 @@ export default (
     }
     case 'FETCH_EVENT_FAILED': {
       if (state === null) {
-        throw Error('A fetch category fail cannot occur on not initialized cityContent')
+        return null
       }
       const { message, key, path, allAvailableLanguages, ...rest } = action.params
       return {

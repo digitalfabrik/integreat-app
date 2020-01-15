@@ -79,26 +79,17 @@ describe('cityContentReducer', () => {
     params: { message: 'Some error', code: ErrorCodes.UnknownError }
   }
 
-  const unsupportedActionsOnUnitializedState: Array<CityContentActionType> = [
-    switchContentLanguageAction,
-    pushLanguagesAction,
-    fetchEventFailedAction
-  ]
-
   // these actions should not thrown an error if then state is unitialized
   const softUnsupportedActionsOnUnitializedState: Array<CityContentActionType> = [
     pushCategoryAction,
     pushEventAction,
     morphContentLanguageAction,
     fetchCategoryFailedAction,
-    fetchResourcesFailedAction
+    fetchResourcesFailedAction,
+    switchContentLanguageAction,
+    pushLanguagesAction,
+    fetchEventFailedAction
   ]
-
-  for (const action of unsupportedActionsOnUnitializedState) {
-    it(`should throw on ${action.type} if state is unitialized`, () => {
-      expect(() => cityContentReducer(null, action)).toThrow()
-    })
-  }
 
   for (const action of softUnsupportedActionsOnUnitializedState) {
     it(`should return null on ${action.type} if state is unitialized`, () => {

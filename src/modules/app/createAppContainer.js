@@ -5,12 +5,12 @@ import DashboardContainer from '../../routes/dashboard/containers/DashboardConta
 import CategoriesContainer from '../../routes/categories/containers/CategoriesContainer'
 import type {
   HeaderProps,
-  NavigationComponent,
-  NavigationContainer,
+  NavigationComponent, NavigationContainer,
+  NavigationNavigator,
   NavigationRouteConfig,
-  NavigationRouteConfigMap
+  NavigationRouteConfigMap, NavigationRouter, NavigationScreenProp
 } from 'react-navigation'
-import { createAppContainer, createStackNavigator, createSwitchNavigator } from 'react-navigation'
+import { createStackNavigator, createSwitchNavigator, createAppContainer } from 'react-navigation'
 import TransparentHeaderContainer from '../layout/containers/TransparentHeaderContainer'
 import SettingsHeaderContainer from '../layout/containers/SettingsHeaderContainer'
 import HeaderContainer from '../layout/containers/HeaderContainer'
@@ -30,6 +30,7 @@ import LandingContainer from '../../routes/landing/containers/LandingContainer'
 import React from 'react'
 import DisclaimerContainer from '../../routes/disclaimer/DisclaimerContainer'
 import IntroContainer from '../../routes/intro/IntroContainer'
+import PermissionSnackbarContainer from '../layout/containers/PermissionSnackbarContainer'
 
 const LayoutedDashboardContainer = withLayout(DashboardContainer)
 const LayoutedCategoriesContainer = withLayout(CategoriesContainer)
@@ -100,14 +101,38 @@ const createCityContentNavigator = (params: CreateNavigationContainerParamsType)
   }
 }
 
-const createAppNavigationContainer = (params: CreateNavigationContainerParamsType): NavigationContainer<*, *, *> => {
+type NavigatorPropsType = {|
+  navigation: NavigationScreenProp<*>
+|}
+
+const createSwitchNavigatorWithSnackbar = (
+  params: CreateNavigationContainerParamsType
+): NavigationNavigator<*, *, *> => {
   const cityContentNavigator = createCityContentNavigator(params)
-  return createAppContainer(
-    createSwitchNavigator({
-      'Intro': IntroContainer,
-      'Landing': LandingContainer,
-      'CityContent': cityContentNavigator
-    }, { initialRouteName: params.initialRouteName }))
+  const SwitchNavigator = createSwitchNavigator({
+    'Intro': IntroContainer,
+    'Landing': LandingContainer,
+    'CityContent': cityContentNavigator
+  }, { initialRouteName: params.initialRouteName })
+
+  class SwitchNavigatorWithSnackbar extends React.Component<NavigatorPropsType> {
+    static router: NavigationRouter<*, *> = SwitchNavigator.router
+    static navigationOptions = SwitchNavigator.navigationOptions
+
+    render () {
+      const { navigation } = this.props
+
+      return <>
+        <SwitchNavigator navigation={navigation} />
+        <PermissionSnackbarContainer navigation={navigation} />
+      </>
+    }
+  }
+
+  return SwitchNavigatorWithSnackbar
 }
 
-export default createAppNavigationContainer
+const createContainer = (params: CreateNavigationContainerParamsType): NavigationContainer<*, *, *> =>
+  createAppContainer(createSwitchNavigatorWithSnackbar(params))
+
+export default createContainer
