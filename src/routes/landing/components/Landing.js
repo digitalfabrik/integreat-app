@@ -43,7 +43,7 @@ type StateType = {|
 class Landing extends React.Component<PropsType, StateType> {
   constructor (props: PropsType) {
     super(props)
-    this.state = { proposeNearbyCities: null, location: { message: 'loading' } }
+    this.state = { proposeNearbyCities: null, location: { message: 'loading', status: 'unavailable' } }
   }
 
   componentDidMount () {
