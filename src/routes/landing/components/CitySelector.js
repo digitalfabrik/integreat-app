@@ -90,7 +90,7 @@ class CitySelector extends React.PureComponent<PropsType> {
       return null
     }
 
-    if (location.message === undefined) {
+    if (location.status === 'ready') {
       const nearbyCities = getNearbyPlaces(cities.filter(city => city.live), location.longitude, location.latitude)
 
       if (nearbyCities.length > 0) {
@@ -115,7 +115,6 @@ class CitySelector extends React.PureComponent<PropsType> {
       return <>
         <CityGroup theme={theme}>{t('getNearbyPlaces')}</CityGroup>
         <NearbyMessageContainer>
-          {/* $FlowFixMe Flow does not get that message is not null */}
           <NearbyMessage theme={theme}>{t(location.message)}</NearbyMessage>
           {tryAgain &&
             <Button icon={<Icon name='refresh' size={30} color={theme.colors.textSecondaryColor} style='material' />}
