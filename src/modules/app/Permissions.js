@@ -4,11 +4,10 @@ import { check, PERMISSIONS, request, RESULTS } from 'react-native-permissions'
 import { Platform } from 'react-native'
 
 export const locationPermissionStatus = async (): RESULTS => {
-  if (Platform.OS === 'ios') {
-    return check(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE)
-  } else {
-    return check(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION)
-  }
+  return check(Platform.OS === 'ios'
+    ? PERMISSIONS.IOS.LOCATION_WHEN_IN_USE
+    : PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION
+  )
 }
 
 export const pushNotificationPermissionStatus = async (): RESULTS => {
@@ -19,7 +18,8 @@ export const pushNotificationPermissionStatus = async (): RESULTS => {
 export const requestLocationPermission = async (): RESULTS => {
   return request(Platform.OS === 'ios'
     ? PERMISSIONS.IOS.LOCATION_WHEN_IN_USE
-    : PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION)
+    : PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION
+  )
 }
 
 export const requestPushNotificationPermission = async (): RESULTS => {
