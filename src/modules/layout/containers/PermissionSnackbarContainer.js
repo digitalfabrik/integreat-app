@@ -66,8 +66,9 @@ class PermissionSnackbarContainer extends React.Component<PropsType, StateType> 
     this.updateSettingsAndPermissions()
   }
 
-  requestOrOpenSettings = async (status: RESULTS, request: () => Promise<RESULTS>) => {
-    if (status === RESULTS.BLOCKED) {
+  requestOrOpenSettings = async (status: () => Promise<RESULTS>, request: () => Promise<RESULTS>) => {
+    const permissionStatus = await status()
+    if (permissionStatus === RESULTS.BLOCKED) {
       await openSettings()
     } else {
       await request()
@@ -76,11 +77,11 @@ class PermissionSnackbarContainer extends React.Component<PropsType, StateType> 
   }
 
   requestLocationPermissionOrSettings = async () => {
-    this.requestOrOpenSettings(locationPermissionStatus(), requestLocationPermission)
+    this.requestOrOpenSettings(locationPermissionStatus, requestLocationPermission)
   }
 
   requestPushNotificationPermissionOrSettings = async () => {
-    this.requestOrOpenSettings(pushNotificationPermissionStatus(), requestPushNotificationPermission)
+    this.requestOrOpenSettings(pushNotificationPermissionStatus, requestPushNotificationPermission)
   }
 
   landingRoute = (): boolean => {
@@ -103,7 +104,8 @@ class PermissionSnackbarContainer extends React.Component<PropsType, StateType> 
     const { t, theme } = this.props
     const { showLocationSnackbar, showPushNotificationSnackbar } = this.state
     if (showLocationSnackbar) {
-      return <Snackbar key='location' positiveAction={{ label: t('grant'), onPress: this.requestLocationPermissionOrSettings }}
+      return <Snackbar key='location'
+                       positiveAction={{ label: t('grant'), onPress: this.requestLocationPermissionOrSettings }}
                        negativeAction={{ label: t('deactivate'), onPress: this.deactivateProposeNearbyCities }}
                        message={t('locationPermissionMissing')} theme={theme} />
     } else if (showPushNotificationSnackbar) {
