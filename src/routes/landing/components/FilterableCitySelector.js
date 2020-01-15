@@ -7,11 +7,11 @@ import type { TFunction } from 'react-i18next'
 import SearchInput from './SearchInput'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
-import { Platform, TouchableOpacity, View, Alert } from 'react-native'
+import { TouchableOpacity, View, Alert } from 'react-native'
 import Geolocation from '@react-native-community/geolocation'
 import styled from 'styled-components/native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
-import { PERMISSIONS, request } from 'react-native-permissions'
+import { requestLocationPermission } from '../../../modules/app/Permissions'
 
 const SearchBar = styled.View`
   flex-direction: row;
@@ -46,9 +46,7 @@ class FilterableCitySelector extends React.Component<PropsType, StateType> {
   onFilterTextChange = (filterText: string) => this.setState({ filterText })
 
   _onPressLocationButton = async () => {
-    await request(Platform.OS === 'ios'
-      ? PERMISSIONS.IOS.LOCATION_WHEN_IN_USE
-      : PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION)
+    await requestLocationPermission()
 
     Geolocation.getCurrentPosition(
       position => this.setState({
