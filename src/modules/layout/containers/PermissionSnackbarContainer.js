@@ -1,15 +1,19 @@
 // @flow
 
 import * as React from 'react'
-import Snackbar, { ANIMATION_DURATION, SNACKBAR_HEIGHT } from '../components/Snackbar'
+import Snackbar from '../components/Snackbar'
 import type { ThemeType } from '../../theme/constants/theme'
 import { type NavigationScreenProp } from 'react-navigation'
 import { type TFunction, translate } from 'react-i18next'
 import withTheme from '../../theme/hocs/withTheme'
-import type { SettingsType } from '../../settings/AppSettings'
 import AppSettings from '../../settings/AppSettings'
-import { Animated, Platform, Easing } from 'react-native'
-import { request, openSettings, check, PERMISSIONS, RESULTS } from 'react-native-permissions'
+import { openSettings, RESULTS } from 'react-native-permissions'
+import {
+  locationPermissionStatus,
+  pushNotificationPermissionStatus,
+  requestLocationPermission, requestPushNotificationPermission
+} from '../../app/Permissions'
+import SnackbarAnimator from '../components/SnackbarAnimator'
 
 type PropsType = {|
   navigation: NavigationScreenProp<*>,
@@ -17,27 +21,15 @@ type PropsType = {|
   theme: ThemeType
 |}
 
-type SnackbarType = 'LOCATION' | 'PUSH_NOTIFICATION'
-
 type StateType = {|
-  settings: SettingsType | null,
-  locationPermissionStatus: RESULTS | null,
-  pushNotificationPermissionStatus: RESULTS | null,
-  showSnackbar: SnackbarType | null
+  showLocationSnackbar: boolean,
+  showPushNotificationSnackbar: boolean
 |}
 
 class PermissionSnackbarContainer extends React.Component<PropsType, StateType> {
-  _animatedValue: Animated.Value
-
   constructor (props: PropsType) {
     super(props)
-    this.state = {
-      settings: null,
-      locationPermissionStatus: null,
-      pushNotificationPermissionStatus: null,
-      showSnackbar: null
-    }
-    this._animatedValue = new Animated.Value(SNACKBAR_HEIGHT)
+    this.state = { showLocationSnackbar: false, showPushNotificationSnackbar: false }
   }
 
   componentDidMount () {
@@ -50,115 +42,45 @@ class PermissionSnackbarContainer extends React.Component<PropsType, StateType> 
     }
   }
 
-  show = () => {
-    Animated.timing(this._animatedValue, { toValue: 0, duration: ANIMATION_DURATION, easing: Easing.linear }).start()
-  }
-
-  hide = () => {
-    Animated.timing(
-      this._animatedValue, { toValue: SNACKBAR_HEIGHT, duration: ANIMATION_DURATION, easing: Easing.linear }
-    ).start(() => this.setState({ showSnackbar: null }))
-  }
-
-  hideAndShow = (newShow: SnackbarType) => {
-    Animated.timing(
-      this._animatedValue, { toValue: SNACKBAR_HEIGHT, duration: ANIMATION_DURATION, easing: Easing.linear }
-    ).start(() => {
-      this.setState({ showSnackbar: newShow })
-    })
-
-    Animated.sequence([
-      Animated.delay(2 * ANIMATION_DURATION),
-      Animated.timing(this._animatedValue, { toValue: 0, duration: ANIMATION_DURATION, easing: Easing.linear })
-    ]).start()
-  }
-
   updateSettingsAndPermissions = async () => {
-    await this.loadSettings()
-    await this.loadPermissionStatus()
-    await this.checkShowSnackbar()
-  }
+    const settings = await new AppSettings().loadSettings()
+    const locationStatus = await locationPermissionStatus()
+    const pushNotificationStatus = await pushNotificationPermissionStatus()
 
-  loadSettings = async () => {
-    const appSettings = new AppSettings()
-    const settings = await appSettings.loadSettings()
-    this.setState({ settings })
+    const showLocationSnackbar = settings && settings.proposeNearbyCities === true &&
+      [RESULTS.BLOCKED, RESULTS.DENIED].includes(locationStatus) && this.landingRoute()
+
+    const showPushNotificationSnackbar = settings && settings.allowPushNotifications === true &&
+      [RESULTS.BLOCKED, RESULTS.DENIED].includes(pushNotificationStatus) && this.dashboardRoute()
+
+    this.setState({ showLocationSnackbar, showPushNotificationSnackbar })
   }
 
   deactivateProposeNearbyCities = async () => {
-    const appSettings = new AppSettings()
-    await appSettings.setSettings({ proposeNearbyCities: false })
-    this.hide()
+    await new AppSettings().setSettings({ proposeNearbyCities: false })
+    this.updateSettingsAndPermissions()
   }
 
   deactivateAllowPushNotifications = async () => {
-    const appSettings = new AppSettings()
-    await appSettings.setSettings({ allowPushNotifications: false })
-    this.hide()
+    await new AppSettings().setSettings({ allowPushNotifications: false })
+    this.updateSettingsAndPermissions()
   }
 
-  loadPermissionStatus = async () => {
-    const locationPermissionStatus = await this.locationPermissionStatus()
-    const pushNotificationPermissionStatus = await this.pushNotificationPermissionStatus()
-    this.setState({ locationPermissionStatus, pushNotificationPermissionStatus })
-  }
-
-  locationPermissionStatus = async (): RESULTS => {
-    if (Platform.OS === 'ios') {
-      return check(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE)
-    } else {
-      return check(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION)
-    }
-  }
-
-  pushNotificationPermissionStatus = async (): RESULTS => {
-    // TODO NATIVE-399 Really check for push notification permissions
-    return RESULTS.DENIED
-  }
-
-  requestLocationPermissions = async () => {
-    const { locationPermissionStatus } = this.state
-    if (locationPermissionStatus === RESULTS.BLOCKED) {
+  requestOrOpenSettings = async (status: RESULTS, request: () => Promise<RESULTS>) => {
+    if (status === RESULTS.BLOCKED) {
       await openSettings()
     } else {
-      const result = await request(Platform.OS === 'ios'
-        ? PERMISSIONS.IOS.LOCATION_WHEN_IN_USE
-        : PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION)
-
-      if (result === RESULTS.GRANTED) {
-        this.hide()
-      }
+      await request()
     }
     this.updateSettingsAndPermissions()
   }
 
-  requestPushNotificationPermissions = async () => {
-    // TODO NATIVE-399 Really request push notification permissions
+  requestLocationPermissionOrSettings = async () => {
+    this.requestOrOpenSettings(locationPermissionStatus(), requestLocationPermission)
   }
 
-  checkShowSnackbar = async () => {
-    const { settings, locationPermissionStatus, pushNotificationPermissionStatus, showSnackbar: prevShow } = this.state
-
-    const showLocationSnackbar = settings !== null && settings.proposeNearbyCities === true &&
-      [RESULTS.BLOCKED, RESULTS.DENIED].includes(locationPermissionStatus) &&
-      this.landingRoute()
-
-    const showPushNotificationSnackbar = settings !== null && settings.allowPushNotifications === true &&
-      [RESULTS.BLOCKED, RESULTS.DENIED].includes(pushNotificationPermissionStatus) &&
-      this.dashboardRoute()
-
-    const showSnackbar = showLocationSnackbar ? 'LOCATION' : showPushNotificationSnackbar ? 'PUSH_NOTIFICATION' : null
-
-    if (showSnackbar !== prevShow) {
-      if (showSnackbar === null) {
-        this.hide()
-      } else if (prevShow === null) {
-        await this.setState({ showSnackbar })
-        this.show()
-      } else {
-        this.hideAndShow(showSnackbar)
-      }
-    }
+  requestPushNotificationPermissionOrSettings = async () => {
+    this.requestOrOpenSettings(pushNotificationPermissionStatus(), requestPushNotificationPermission)
   }
 
   landingRoute = (): boolean => {
@@ -177,22 +99,26 @@ class PermissionSnackbarContainer extends React.Component<PropsType, StateType> 
     return currentRoute.key === 'CityContent' && currentRoute.routes[currentRoute.index]?.routeName === 'Dashboard'
   }
 
-  render () {
-    const { theme, t } = this.props
-    const { showSnackbar } = this.state
-
-    if (showSnackbar === 'LOCATION') {
-      return <Snackbar positiveAction={{ label: t('grant'), onPress: this.requestLocationPermissions }}
+  getSnackbar (): ?React$Element<*> {
+    const { t, theme } = this.props
+    const { showLocationSnackbar, showPushNotificationSnackbar } = this.state
+    if (showLocationSnackbar) {
+      return <Snackbar key='location' positiveAction={{ label: t('grant'), onPress: this.requestLocationPermissionOrSettings }}
                        negativeAction={{ label: t('deactivate'), onPress: this.deactivateProposeNearbyCities }}
-                       message={t('locationPermissionMissing')} theme={theme} animatedValue={this._animatedValue} />
-    } else if (showSnackbar === 'PUSH_NOTIFICATION') {
-      return <Snackbar positiveAction={{ label: t('grant'), onPress: this.requestPushNotificationPermissions }}
+                       message={t('locationPermissionMissing')} theme={theme} />
+    } else if (showPushNotificationSnackbar) {
+      return <Snackbar key='push'
+                       positiveAction={{ label: t('grant'), onPress: this.requestPushNotificationPermissionOrSettings }}
                        negativeAction={{ label: t('deactivate'), onPress: this.deactivateAllowPushNotifications }}
-                       message={t('pushNotificationPermissionMissing')} theme={theme}
-                       animatedValue={this._animatedValue} />
+                       message={t('pushNotificationPermissionMissing')} theme={theme} />
     }
-
     return null
+  }
+
+  render () {
+    return <SnackbarAnimator>
+      {this.getSnackbar()}
+    </SnackbarAnimator>
   }
 }
 

@@ -5,32 +5,21 @@ import { Animated } from 'react-native'
 import styled, { type StyledComponent } from 'styled-components/native'
 import type { ThemeType } from '../../theme/constants/theme'
 
-export const SNACKBAR_HEIGHT = 120
-export const ANIMATION_DURATION = 1000
-
 const Container: StyledComponent<{}, ThemeType, *> = styled(Animated.View)`
-  position: absolute;
-  flex: 0.1;
   background-color: ${props => props.theme.colors.textSecondaryColor};
   flex-direction: column;
   align-items: center;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  height: ${SNACKBAR_HEIGHT};
   padding: 10px;
 `
 
 const Message: StyledComponent<{}, ThemeType, *> = styled.Text`
   padding: 0 10px;
-  flex: 1;
   color: ${props => props.theme.colors.backgroundColor};
   font-size: 18px;
   text-align: center;
 `
 
 const ActionContainer: StyledComponent<{}, ThemeType, *> = styled.View`
-  flex: 1;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
@@ -55,7 +44,6 @@ export type PropsType = {|
   message: string,
   positiveAction: SnackbarActionType,
   negativeAction: SnackbarActionType,
-  animatedValue: Animated.Value,
   theme: ThemeType
 |}
 
@@ -69,10 +57,10 @@ class Snackbar extends React.Component<PropsType> {
   }
 
   render () {
-    const { theme, message, positiveAction, negativeAction, animatedValue } = this.props
+    const { theme, message, positiveAction, negativeAction } = this.props
 
     return (
-      <Container theme={theme} negativeAction style={{ transform: [{ translateY: animatedValue }] }}>
+      <Container theme={theme}>
         <Message theme={theme}>{message}</Message>
         <ActionContainer>
           <Action theme={theme} onPress={this.onNegative}>{negativeAction.label}</Action>
