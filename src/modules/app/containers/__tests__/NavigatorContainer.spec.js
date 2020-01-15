@@ -28,6 +28,7 @@ jest.mock('../../../native-constants/NativeConstants')
 jest.mock('@react-native-community/async-storage')
 jest.mock('react-native-share')
 jest.mock('rn-fetch-blob')
+jest.mock('react-native-permissions')
 
 const mockStore = configureMockStore()
 
@@ -86,6 +87,7 @@ describe('NavigatorContainer', () => {
 
   it('should render the IntroContainer if it has not been shown previously', async () => {
     jest.dontMock('../../components/Navigator')
+    jest.doMock('react-native-permissions')
     const NavigatorContainer = require('../NavigatorContainer').default
     const AppSettings = require('../../../settings/AppSettings').default
     const store = mockStore({})
@@ -99,6 +101,7 @@ describe('NavigatorContainer', () => {
 
   it('should render the DashboardContainer if a city is selected and the intro has already been shown', async () => {
     jest.dontMock('../../components/Navigator')
+    jest.doMock('react-native-permissions')
     const NavigatorContainer = require('../NavigatorContainer').default
     const AppSettings = require('../../../settings/AppSettings').default
     const store = mockStore({})
@@ -114,6 +117,7 @@ describe('NavigatorContainer', () => {
 
   it('should render the LandingContainer if no city is selected and the intro has aldready been shown', async () => {
     jest.dontMock('../../components/Navigator')
+    jest.doMock('react-native-permissions')
     const NavigatorContainer = require('../NavigatorContainer').default
     const AppSettings = require('../../../settings/AppSettings').default
     const store = mockStore({})
