@@ -44,14 +44,14 @@ class PermissionSnackbarContainer extends React.Component<PropsType, StateType> 
 
   updateSettingsAndPermissions = async () => {
     const settings = await new AppSettings().loadSettings()
-    const locationPermissionStatus = await this.locationPermissionStatus()
-    const pushNotificationPermissionStatus = await this.pushNotificationPermissionStatus()
+    const locationStatus = await locationPermissionStatus()
+    const pushNotificationStatus = await pushNotificationPermissionStatus()
 
     const showLocationSnackbar = settings && settings.proposeNearbyCities === true &&
-      [RESULTS.BLOCKED, RESULTS.DENIED].includes(locationPermissionStatus) && this.landingRoute()
+      [RESULTS.BLOCKED, RESULTS.DENIED].includes(locationStatus) && this.landingRoute()
 
     const showPushNotificationSnackbar = settings && settings.allowPushNotifications === true &&
-      [RESULTS.BLOCKED, RESULTS.DENIED].includes(pushNotificationPermissionStatus) && this.dashboardRoute()
+      [RESULTS.BLOCKED, RESULTS.DENIED].includes(pushNotificationStatus) && this.dashboardRoute()
 
     this.setState({ showLocationSnackbar, showPushNotificationSnackbar })
   }
