@@ -9,7 +9,7 @@ describe('isPeekingRoute', () => {
       cityContent: {
         city: 'augsburg',
         switchingLanguage: false,
-        languages: [],
+        languages: { status: 'ready', models: [] },
         categoriesRouteMapping: {},
         eventsRouteMapping: {},
         resourceCache: { status: 'ready', value: {} },
@@ -28,7 +28,7 @@ describe('isPeekingRoute', () => {
       cityContent: {
         city: 'augsburg',
         switchingLanguage: false,
-        languages: [],
+        languages: { status: 'ready', models: [] },
         categoriesRouteMapping: {},
         eventsRouteMapping: {},
         resourceCache: { status: 'ready', value: {} },

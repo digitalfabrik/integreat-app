@@ -26,6 +26,7 @@ type StatePropsType = {|
   language: string,
   goToLanguageChange?: () => void,
   peeking: boolean,
+  categoriesAvailable: boolean,
   cityModel?: CityModel
 |}
 
@@ -45,7 +46,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     !languages || languages.status !== 'ready') {
     // Route does not exist yet. In this case it is not really defined whether we are peek or not because
     // we do not yet know the city of the route.
-    return { language: state.contentLanguage, peeking: false }
+    return { language: state.contentLanguage, peeking: false, categoriesAvailable: false }
   }
 
   const cities = state.cities.models
