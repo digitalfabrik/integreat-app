@@ -102,7 +102,7 @@ describe('cityContentReducer', () => {
       city: 'augsburg',
       categoriesRouteMapping: {},
       eventsRouteMapping: {},
-      languages: [],
+      languages: { status: 'ready', models: [] },
       resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
       switchingLanguage: false
@@ -115,7 +115,7 @@ describe('cityContentReducer', () => {
       city: 'augsburg',
       categoriesRouteMapping: {},
       eventsRouteMapping: {},
-      languages: [],
+      languages: { status: 'ready', models: [] },
       resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
       switchingLanguage: true
@@ -128,7 +128,7 @@ describe('cityContentReducer', () => {
       city: 'augsburg',
       categoriesRouteMapping: {},
       eventsRouteMapping: {},
-      languages: null,
+      languages: { status: 'ready', models: [] },
       resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
       switchingLanguage: false
@@ -180,7 +180,7 @@ describe('cityContentReducer', () => {
           code: ErrorCodes.UnknownError
         }
       },
-      languages: ['de', 'en'],
+      languages: { status: 'ready', models: ['de', 'en'] },
       resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
       switchingLanguage: false
@@ -204,7 +204,7 @@ describe('cityContentReducer', () => {
           path: null
         }
       },
-      languages: ['de', 'en'],
+      languages: { status: 'ready', models: ['de', 'en'] },
       resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
       switchingLanguage: false
@@ -242,7 +242,7 @@ describe('cityContentReducer', () => {
           path: null
         }
       },
-      languages: ['de', 'en'],
+      languages: { status: 'ready', models: ['de', 'en'] },
       resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
       switchingLanguage: false
@@ -290,7 +290,7 @@ describe('cityContentReducer', () => {
       },
       city: 'augsburg',
       eventsRouteMapping: {},
-      languages: undefined,
+      languages: { status: 'loading' },
       resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
       switchingLanguage: false
@@ -312,7 +312,7 @@ describe('cityContentReducer', () => {
         }
       },
       eventsRouteMapping: {},
-      languages: ['de', 'en'],
+      languages: { status: 'ready', models: ['de', 'en'] },
       resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
       switchingLanguage: false
@@ -324,44 +324,45 @@ describe('cityContentReducer', () => {
     })?.categoriesRouteMapping).toEqual({})
   })
 
-  it('should set route status to languageNotAvailable on FETCH_CATEGORY_FAILED if allAvailableLanguages is not null', () => {
-    const prevState: CityContentStateType = {
-      city: 'augsburg',
-      categoriesRouteMapping: {
-        'route-id-0': {
-          status: 'loading',
+  it('should set route status to languageNotAvailable on FETCH_CATEGORY_FAILED if allAvailableLanguages is not null',
+    () => {
+      const prevState: CityContentStateType = {
+        city: 'augsburg',
+        categoriesRouteMapping: {
+          'route-id-0': {
+            status: 'loading',
+            language: 'de',
+            path: '/augsburg/de',
+            depth: 2,
+            city: 'augsburg'
+          }
+        },
+        eventsRouteMapping: {},
+        languages: { status: 'ready', models: ['de', 'en'] },
+        resourceCache: { status: 'ready', value: {} },
+        searchRoute: null,
+        switchingLanguage: false
+      }
+      expect(cityContentReducer(prevState, {
+        type: 'FETCH_CATEGORY_FAILED',
+        params: {
+          key: 'route-id-0',
+          allAvailableLanguages: new Map([['en', '/augsburg/en']]),
+          message: 'Language not available.',
+          code: ErrorCodes.PageNotFound,
+          city: 'augsburg',
           language: 'de',
           path: '/augsburg/de',
-          depth: 2,
-          city: 'augsburg'
+          depth: 2
         }
-      },
-      eventsRouteMapping: {},
-      languages: ['de', 'en'],
-      resourceCache: { status: 'ready', value: {} },
-      searchRoute: null,
-      switchingLanguage: false
-    }
-    expect(cityContentReducer(prevState, {
-      type: 'FETCH_CATEGORY_FAILED',
-      params: {
-        key: 'route-id-0',
-        allAvailableLanguages: new Map([['en', '/augsburg/en']]),
-        message: 'Language not available.',
-        code: ErrorCodes.PageNotFound,
-        city: 'augsburg',
+      })?.categoriesRouteMapping['route-id-0']).toEqual({
+        status: 'languageNotAvailable',
         language: 'de',
-        path: '/augsburg/de',
+        allAvailableLanguages: new Map([['en', '/augsburg/en']]),
+        city: 'augsburg',
         depth: 2
-      }
-    })?.categoriesRouteMapping['route-id-0']).toEqual({
-      status: 'languageNotAvailable',
-      language: 'de',
-      allAvailableLanguages: new Map([['en', '/augsburg/en']]),
-      city: 'augsburg',
-      depth: 2
+      })
     })
-  })
 
   it('should pass the error to the corresponding route on FETCH_CATEGORY_FAILED', () => {
     const prevState: CityContentStateType = {
@@ -376,7 +377,7 @@ describe('cityContentReducer', () => {
         }
       },
       eventsRouteMapping: {},
-      languages: ['de', 'en'],
+      languages: { status: 'ready', models: ['de', 'en'] },
       resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
       switchingLanguage: false
@@ -410,7 +411,7 @@ describe('cityContentReducer', () => {
       city: 'augsburg',
       categoriesRouteMapping: {},
       eventsRouteMapping: {},
-      languages: [],
+      languages: { status: 'ready', models: ['de', 'en'] },
       resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
       switchingLanguage: false
@@ -423,7 +424,7 @@ describe('cityContentReducer', () => {
       city: 'augsburg',
       categoriesRouteMapping: {},
       eventsRouteMapping: {},
-      languages: [],
+      languages: { status: 'ready', models: ['de', 'en'] },
       resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
       switchingLanguage: false

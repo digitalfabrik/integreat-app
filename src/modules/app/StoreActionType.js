@@ -26,6 +26,13 @@ export type PushLanguagesActionType = {|
     +languages: $ReadOnlyArray<LanguageModel>
   |}
 |}
+export type FetchLanguagesFailedActionType = {|
+  type: 'FETCH_LANGUAGES_FAILED',
+  +params: {|
+    +message: string,
+    +code: ErrorCodeType
+  |}
+|}
 
 export type SetContentLanguageActionType = {|
   type: 'SET_CONTENT_LANGUAGE', +params: {| +contentLanguage: string |}
@@ -154,6 +161,7 @@ export type CityContentActionType =
   | ContentLanguageActionType
   | ClearCityActionType
   | PushLanguagesActionType
+  | FetchLanguagesFailedActionType
   | ResourcesFetchFailedActionType
 
 export type ToggleDarkModeActionType = {|
