@@ -9,7 +9,7 @@ import { CityModel } from '@integreat-app/integreat-api-client'
 import styled, { type StyledComponent } from 'styled-components/native'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { TFunction } from 'react-i18next'
-import nearbyPlaces from '../nearbyPlaces'
+import getNearbyPlaces from '../getNearbyPlaces'
 import type { LocationType } from './Landing'
 import { Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/MaterialIcons'
@@ -91,11 +91,11 @@ class CitySelector extends React.PureComponent<PropsType> {
     }
 
     if (location.message === undefined) {
-      const nearbyCities = nearbyPlaces(cities.filter(city => city.live), location.longitude, location.latitude)
+      const nearbyCities = getNearbyPlaces(cities.filter(city => city.live), location.longitude, location.latitude)
 
       if (nearbyCities.length > 0) {
         return <>
-          <CityGroup theme={theme}>{t('nearbyPlaces')}</CityGroup>
+          <CityGroup theme={theme}>{t('getNearbyPlaces')}</CityGroup>
           {nearbyCities.map(city => <CityEntry
             key={city.code}
             city={city}
@@ -105,7 +105,7 @@ class CitySelector extends React.PureComponent<PropsType> {
         </>
       } else {
         return <>
-          <CityGroup theme={theme}>{t('nearbyPlaces')}</CityGroup>
+          <CityGroup theme={theme}>{t('getNearbyPlaces')}</CityGroup>
           <NearbyMessageContainer>
             <NearbyMessage theme={theme}>{t('noNearbyPlaces')}</NearbyMessage>
           </NearbyMessageContainer>
@@ -113,7 +113,7 @@ class CitySelector extends React.PureComponent<PropsType> {
       }
     } else {
       return <>
-        <CityGroup theme={theme}>{t('nearbyPlaces')}</CityGroup>
+        <CityGroup theme={theme}>{t('getNearbyPlaces')}</CityGroup>
         <NearbyMessageContainer>
           {/* $FlowFixMe Flow does not get that message is not null */}
           <NearbyMessage theme={theme}>{t(location.message)}</NearbyMessage>
