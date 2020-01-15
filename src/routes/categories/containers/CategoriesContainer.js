@@ -68,7 +68,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
 
   if (route.status === 'languageNotAvailable') {
-    if (languages.status === 'error') {
+    if (languages.status !== 'ready') {
       throw Error('languageNotAvailable status impossible if languages not ready')
     }
     return {
