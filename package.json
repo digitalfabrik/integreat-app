@@ -23,6 +23,7 @@
     "flow:check-now": "flow check",
     "flow:install-types": "flow-typed install --ignoreDeps dev",
     "flow:install-types:all": "flow-typed install",
+    "postinstall": "jetifier -r",
     "proxy": "node tools/metro-proxy.js"
   },
   "dependencies": {
