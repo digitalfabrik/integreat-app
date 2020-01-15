@@ -95,7 +95,7 @@ class CitySelector extends React.PureComponent<PropsType> {
 
       if (nearbyCities.length > 0) {
         return <>
-          <CityGroup theme={theme}>{t('getNearbyPlaces')}</CityGroup>
+          <CityGroup theme={theme}>{t('nearbyPlaces')}</CityGroup>
           {nearbyCities.map(city => <CityEntry
             key={city.code}
             city={city}
@@ -105,7 +105,7 @@ class CitySelector extends React.PureComponent<PropsType> {
         </>
       } else {
         return <>
-          <CityGroup theme={theme}>{t('getNearbyPlaces')}</CityGroup>
+          <CityGroup theme={theme}>{t('nearbyPlaces')}</CityGroup>
           <NearbyMessageContainer>
             <NearbyMessage theme={theme}>{t('noNearbyPlaces')}</NearbyMessage>
           </NearbyMessageContainer>
@@ -113,7 +113,7 @@ class CitySelector extends React.PureComponent<PropsType> {
       }
     } else {
       return <>
-        <CityGroup theme={theme}>{t('getNearbyPlaces')}</CityGroup>
+        <CityGroup theme={theme}>{t('nearbyPlaces')}</CityGroup>
         <NearbyMessageContainer>
           <NearbyMessage theme={theme}>{t(location.message)}</NearbyMessage>
           {tryAgain &&
