@@ -10,6 +10,8 @@ import type { TFunction } from 'react-i18next'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import AppSettings from '../../../modules/settings/AppSettings'
 import Geolocation, { GeolocationError, GeolocationResponse } from '@react-native-community/geolocation'
+import { locationPermissionStatus } from '../../../modules/app/Permissions'
+import { RESULTS } from 'react-native-permissions'
 
 const Wrapper: StyledComponent<{}, ThemeType, *> = styled(View)`
   background-color: ${props => props.theme.colors.backgroundColor};
@@ -54,8 +56,11 @@ class Landing extends React.Component<PropsType, StateType> {
     const appSettings = new AppSettings()
     const { proposeNearbyCities } = await appSettings.loadSettings()
     this.setState({ proposeNearbyCities: proposeNearbyCities })
+    const permissionGranted = await locationPermissionStatus() === RESULTS.GRANTED
 
-    if (proposeNearbyCities) {
+    if (!permissionGranted) {
+      this.setState({ location: { message: 'noPermission', status: 'unavailable' } })
+    } else if (proposeNearbyCities) {
       this.determineCurrentPosition()
     }
   }

@@ -12,7 +12,7 @@ export const locationPermissionStatus = async (): RESULTS => {
 
 export const pushNotificationPermissionStatus = async (): RESULTS => {
   // TODO NATIVE-399 Really check for push notification permissions
-  return RESULTS.DENIED
+  return RESULTS.GRANTED
 }
 
 export const requestLocationPermission = async (): RESULTS => {
@@ -24,4 +24,5 @@ export const requestLocationPermission = async (): RESULTS => {
 
 export const requestPushNotificationPermission = async (): RESULTS => {
   // TODO NATIVE-399 Really request push notification permissions
+  return RESULTS.GRANTED
 }
