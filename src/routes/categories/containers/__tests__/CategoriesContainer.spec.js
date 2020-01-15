@@ -71,7 +71,7 @@ describe('CategoriesContainer', () => {
       cityContent: {
         city: city.code,
         switchingLanguage: switchingLanguage !== undefined ? switchingLanguage : false,
-        languages: languages !== undefined ? languages : [language],
+        languages: { status: 'ready', models: languages || [language] },
         categoriesRouteMapping: routeState ? { 'route-id-0': routeState } : {},
         eventsRouteMapping: {},
         resourceCache: resourceCacheState || { status: 'ready', value: resourceCache },
