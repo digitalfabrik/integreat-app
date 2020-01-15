@@ -22,6 +22,16 @@ export default (
         [key]: { status: 'loading', language, depth, path, city }
       }
     }
+  } else if (action.type === 'FETCH_EVENT') {
+    const { language, path, key, city } = action.params
+    const initializedState = state || createCityContent(city)
+    return {
+      ...initializedState,
+      eventsRouteMapping: {
+        ...initializedState.eventsRouteMapping,
+        [key]: { status: 'loading', language, city, path }
+      }
+    }
   } else {
     if (state === null) {
       return null
@@ -42,17 +52,6 @@ export default (
         return pushEvent(state, action)
       case 'MORPH_CONTENT_LANGUAGE':
         return morphContentLanguage(state, action)
-      case 'FETCH_EVENT': {
-        const { language, path, key, city } = action.params
-        const initializedState = state || createCityContent(city)
-        return {
-          ...initializedState,
-          eventsRouteMapping: {
-            ...initializedState.eventsRouteMapping,
-            [key]: { status: 'loading', language, city, path }
-          }
-        }
-      }
       case 'CLEAR_EVENT': {
         const { key } = action.params
         return {
