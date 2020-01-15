@@ -24,6 +24,11 @@ jest.mock('../../../layout/containers/HeaderContainer', () => {
   const Text = require('react-native').Text
   return () => <Text>Header</Text>
 })
+jest.mock('../../../layout/containers/PermissionSnackbarContainer', () => {
+  const Text = require('react-native').Text
+  return () => <Text>PermissionSnackbarContainer</Text>
+})
+
 jest.mock('../../../native-constants/NativeConstants')
 jest.mock('@react-native-community/async-storage')
 jest.mock('react-native-share')

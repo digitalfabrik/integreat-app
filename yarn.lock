@@ -6260,6 +6260,11 @@ jest@^24.8.0:
     import-local "^2.0.0"
     jest-cli "^24.8.0"
 
+jetifier@^1.6.5:
+  version "1.6.5"
+  resolved "https://registry.yarnpkg.com/jetifier/-/jetifier-1.6.5.tgz#ea87324a4230bef20a9651178ecab978ee54a8cb"
+  integrity sha512-T7yzBSu9PR+DqjYt+I0KVO1XTb1QhAfHnXV5Nd3xpbXM6Xg4e3vP60Q4qkNU8Fh6PHC2PivPUNN3rY7G2MxcDQ==
+
 js-md5@^0.7.3:
   version "0.7.3"
   resolved "https://registry.yarnpkg.com/js-md5/-/js-md5-0.7.3.tgz#b4f2fbb0b327455f598d6727e38ec272cd09c3f2"
@@ -8643,6 +8648,11 @@ react-native-image-zoom-viewer@^2.2.24:
   integrity sha512-kySTnc2AttTG6Ed0VRj1Fnrer5kwv28VOyyYkSxmZy0hTiLSZEHIDCkeowvTjDTkQZc0wKRMK7/Y5diEgpuDCg==
   dependencies:
     react-native-image-pan-zoom "^2.1.9"
+
+react-native-permissions@2.0.8:
+  version "2.0.8"
+  resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-2.0.8.tgz#e6d20a7b6e3df5333a3d80cc83024686fa2f49e3"
+  integrity sha512-qK8Thp+9PTl/YjhKkRr8LPHfX5Evv5Zj/3CmAiqE45qCTB5UbWTKBWUfg3iqfMrjv9nE2rcS1PrIjZCDh6s/gQ==
 
 react-native-platform-touchable@^1.1.1:
   version "1.1.1"
