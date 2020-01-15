@@ -77,9 +77,10 @@
     NSFileManager* manager = [NSFileManager defaultManager];
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
     NSString *libraryDirectory = [paths objectAtIndex:0];
-    NSArray *directoryContent = [manager directoryContentsAtPath: libraryDirectory];
+    NSArray *directoryContent = [manager contentsOfDirectoryAtPath: libraryDirectory error:nil];
     for (NSString *content in directoryContent)  {
-       [manager removeItemAtPath:content error:nil];
+        NSString *path = [libraryDirectory stringByAppendingPathComponent:content];
+        [manager removeItemAtPath:path error:nil];
     }
 }
 
