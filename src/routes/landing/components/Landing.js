@@ -26,7 +26,11 @@ export type PropsType = {|
   clearResourcesAndCache: () => void
 |}
 
-export type LocationType = {| message: string |} | {|
+export type LocationType = {|
+  status: 'unavailable',
+  message: string
+|} | {|
+  status: 'ready',
   longitude: number,
   latitude: number
 |}
@@ -57,10 +61,11 @@ class Landing extends React.Component<PropsType, StateType> {
   }
 
   determineCurrentPosition = () => {
-    this.setState({ location: { message: 'loading' } })
+    this.setState({ location: { message: 'loading', status: 'unavailable' } })
     Geolocation.getCurrentPosition(
       (position: GeolocationResponse) => {
         this.setState({ location: {
+          status: 'ready',
           longitude: position.coords.longitude,
           latitude: position.coords.latitude
         } })
@@ -73,11 +78,11 @@ class Landing extends React.Component<PropsType, StateType> {
 
   setLocationErrorMessage = (error: GeolocationError) => {
     if (error.code === 1) {
-      this.setState({ location: { message: 'noPermission' } })
+      this.setState({ location: { status: 'unavailable', message: 'noPermission' } })
     } else if (error.code === 2) {
-      this.setState({ location: { message: 'notAvailable' } })
+      this.setState({ location: { status: 'unavailable', message: 'notAvailable' } })
     } else {
-      this.setState({ location: { message: 'timeout' } })
+      this.setState({ location: { status: 'unavailable', message: 'timeout' } })
     }
   }
 
