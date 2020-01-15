@@ -52,11 +52,11 @@ class Landing extends React.Component<PropsType, StateType> {
     this.setState({ proposeNearbyCities: proposeNearbyCities })
 
     if (proposeNearbyCities) {
-      this.currentPosition()
+      this.determineCurrentPosition()
     }
   }
 
-  currentPosition = () => {
+  determineCurrentPosition = () => {
     this.setState({ location: { message: 'loading' } })
     Geolocation.getCurrentPosition(
       (position: GeolocationResponse) => {
@@ -89,7 +89,7 @@ class Landing extends React.Component<PropsType, StateType> {
   render () {
     const { theme, cities, t, clearResourcesAndCache } = this.props
     const { proposeNearbyCities, ...state } = this.state
-    const tryAgain = this.state.location.message === 'loading' ? null : this.currentPosition
+    const tryAgain = this.state.location.message === 'loading' ? null : this.determineCurrentPosition
 
     if (proposeNearbyCities !== null) {
       return <Wrapper theme={theme}>
