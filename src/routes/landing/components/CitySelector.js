@@ -9,9 +9,10 @@ import { CityModel } from '@integreat-app/integreat-api-client'
 import styled, { type StyledComponent } from 'styled-components/native'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { TFunction } from 'react-i18next'
-
-const NUMBER_OF_CLOSEST_CITIES = 3
-const MAXIMAL_DISTANCE = 90
+import getNearbyPlaces from '../getNearbyPlaces'
+import type { LocationType } from './Landing'
+import { Button } from 'react-native-elements'
+import Icon from 'react-native-vector-icons/MaterialIcons'
 
 export const CityGroup: StyledComponent<{}, ThemeType, *> = styled.Text`
   width: 100%;
@@ -24,13 +25,26 @@ export const CityGroup: StyledComponent<{}, ThemeType, *> = styled.Text`
   border-bottom-color: ${props => props.theme.colors.themeColor};
 `
 
+const NearbyMessageContainer: StyledComponent<{}, {}, *> = styled.View`
+  padding: 7px;
+  flex-direction: row;
+  justify-content: space-between;
+`
+
+const NearbyMessage = styled.Text`
+  color: ${props => props.theme.colors.textColor};
+  font-family: ${props => props.theme.fonts.decorativeFontRegular};
+  padding-top: 15px;
+`
+
 type PropsType = {|
   cities: Array<CityModel>,
   filterText: string,
   navigateToDashboard: (city: CityModel) => void,
   theme: ThemeType,
-  currentLongitude: ?number,
-  currentLatitude: ?number,
+  location: LocationType,
+  proposeNearbyCities: boolean,
+  tryAgain: null | () => void,
   t: TFunction
 |}
 
@@ -42,61 +56,11 @@ const byNameAndAliases = (name: string) => {
   return (city: CityModel) => city.name.toLowerCase().includes(name) || checkAliases(city, name)
 }
 
-const developmentCompare = (a: CityModel, b: CityModel) => {
-  const aIsTest = a.name.toLocaleLowerCase().includes('test')
-  const bIsTest = b.name.toLocaleLowerCase().includes('test')
-  if (aIsTest && !bIsTest) {
-    return -1
-  } else if (!aIsTest && bIsTest) {
-    return 1
-  }
-
-  return a.sortingName.localeCompare(b.sortingName, 'en-US')
-}
-
-const degreesToRadians = (deg: number): number => {
-  const degreesSemicircle = 180
-  return Math.PI * deg / degreesSemicircle
-}
-
-const calculateDistance = (longitude0: number, latitude0: number, longitude1: number, latitude1: number): number => {
-  const earthRadius = 6371
-  return Math.acos(Math.cos(longitude0) * Math.cos(longitude1) * Math.cos(latitude0 - latitude1) +
-    Math.sin(longitude1) * Math.sin(longitude0)) * earthRadius
-}
-
-const currentDistance = (cityModel: CityModel, longitude: number, latitude: number) => {
-  if (cityModel.longitude === null || cityModel.latitude === null) {
-    return Infinity
-  }
-  const longitude0 = degreesToRadians(longitude)
-  const latitude0 = degreesToRadians(latitude)
-  type CoordinatesType = {| longitude: number, latitude: number |}
-  // $FlowFixMe https://github.com/facebook/flow/issues/2221
-  const coordinates: Array<CoordinatesType> = Object.values(cityModel.aliases || {})
-  coordinates.push({ longitude: cityModel.longitude, latitude: cityModel.latitude })
-  const distances: Array<number> = coordinates.map((coords: CoordinatesType) => {
-    const longitude1 = degreesToRadians(coords.longitude)
-    const latitude1 = degreesToRadians(coords.latitude)
-    return calculateDistance(longitude0, latitude0, longitude1, latitude1)
-  })
-  return Math.min(...distances)
-}
-
-const compareDistance = (cityModelA: CityModel, cityModelB: CityModel, longitude: number, latitude: number) => {
-  const d0 = currentDistance(cityModelA, longitude, latitude)
-  const d1 = currentDistance(cityModelB, longitude, latitude)
-  return d0 - d1
-}
-
 class CitySelector extends React.PureComponent<PropsType> {
   _filter (): Array<CityModel> {
     const filterText = this.props.filterText.toLowerCase()
     const cities = this.props.cities
-    if (__DEV__) {
-      return cities.filter(byNameAndAliases(filterText))
-        .sort(developmentCompare)
-    } else if (filterText === 'wirschaffendas') {
+    if (filterText === 'wirschaffendas') {
       return cities.filter(_city => !_city.live)
     } else {
       return cities
@@ -121,27 +85,43 @@ class CitySelector extends React.PureComponent<PropsType> {
   }
 
   _renderNearbyLocations (): React.Node {
-    const { currentLatitude, currentLongitude } = this.props
-    if (!currentLatitude || !currentLongitude) {
+    const { proposeNearbyCities, cities, location, t, theme, navigateToDashboard, filterText, tryAgain } = this.props
+    if (!proposeNearbyCities) {
       return null
     }
-    const cities = this.props.cities
-      .filter(_city => _city.live)
-      .sort((a: CityModel, b: CityModel) => compareDistance(a, b, currentLongitude, currentLatitude))
-      .slice(0, NUMBER_OF_CLOSEST_CITIES)
-      .filter(_city => currentDistance(_city, currentLongitude, currentLatitude) < MAXIMAL_DISTANCE)
-    if (cities.length > 0) {
-      return <>
-        <CityGroup theme={this.props.theme}>{this.props.t('nearbyPlaces')}</CityGroup>
-        {cities.map(city => <CityEntry
-          key={city.code}
-          city={city}
-          filterText={this.props.filterText}
-          navigateToDashboard={this.props.navigateToDashboard}
-          theme={this.props.theme} />)}
-      </>
+
+    if (location.status === 'ready') {
+      const nearbyCities = getNearbyPlaces(cities.filter(city => city.live), location.longitude, location.latitude)
+
+      if (nearbyCities.length > 0) {
+        return <>
+          <CityGroup theme={theme}>{t('nearbyPlaces')}</CityGroup>
+          {nearbyCities.map(city => <CityEntry
+            key={city.code}
+            city={city}
+            filterText={filterText}
+            navigateToDashboard={navigateToDashboard}
+            theme={theme} />)}
+        </>
+      } else {
+        return <>
+          <CityGroup theme={theme}>{t('nearbyPlaces')}</CityGroup>
+          <NearbyMessageContainer>
+            <NearbyMessage theme={theme}>{t('noNearbyPlaces')}</NearbyMessage>
+          </NearbyMessageContainer>
+        </>
+      }
     } else {
-      return <CityGroup theme={this.props.theme}>{this.props.t('noNearbyPlaces')}</CityGroup>
+      return <>
+        <CityGroup theme={theme}>{t('nearbyPlaces')}</CityGroup>
+        <NearbyMessageContainer>
+          <NearbyMessage theme={theme}>{t(location.message)}</NearbyMessage>
+          {tryAgain &&
+            <Button icon={<Icon name='refresh' size={30} color={theme.colors.textSecondaryColor} style='material' />}
+                    title={''} type='clear' onPress={tryAgain} />
+          }
+        </NearbyMessageContainer>
+      </>
     }
   }
 
