@@ -134,10 +134,7 @@ class Header extends React.PureComponent<PropsType> {
   }
 
   goToSearch = () => {
-    const { categoriesAvailable, navigation } = this.props
-    if (categoriesAvailable) {
-      navigation.navigate('SearchModal')
-    }
+    this.props.navigation.navigate('SearchModal')
   }
 
   goToDisclaimer = () => {
@@ -161,7 +158,7 @@ class Header extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const { cityModel, navigation, t, theme, goToLanguageChange, peeking } = this.props
+    const { cityModel, navigation, t, theme, goToLanguageChange, peeking, categoriesAvailable } = this.props
     const sharePath = navigation.getParam('sharePath')
 
     return <BoxShadow theme={theme}>
@@ -171,9 +168,10 @@ class Header extends React.PureComponent<PropsType> {
           {cityModel && <HeaderText theme={theme}>{this.cityDisplayName(cityModel)}</HeaderText>}
         </HorizontalLeft>
         <MaterialHeaderButtons>
-          {this.renderItem('Search', 'search', 'always', this.goToSearch)}
-          {this.renderItem('Change Language', 'language', 'always',
-            !peeking && goToLanguageChange ? goToLanguageChange : undefined)}
+          {!peeking && categoriesAvailable &&
+            this.renderItem('Search', 'search', 'always', this.goToSearch)}
+          {!peeking && goToLanguageChange &&
+          this.renderItem('Change Language', 'language', 'always', goToLanguageChange)}
           {this.renderItem(t('share'), undefined, 'never', sharePath ? this.onShare : undefined)}
           {this.renderItem('Change Location', undefined, 'never', this.goToLanding)}
           {this.renderItem(t('settings'), undefined, 'never', this.goToSettings)}
