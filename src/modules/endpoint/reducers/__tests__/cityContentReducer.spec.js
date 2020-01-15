@@ -79,6 +79,11 @@ describe('cityContentReducer', () => {
     params: { message: 'Some error', code: ErrorCodes.UnknownError }
   }
 
+  const fetchLanguagesFailed = {
+    type: 'FETCH_LANGUAGES_FAILED',
+    params: { message: 'Some error', code: ErrorCodes.UnknownError }
+  }
+
   // these actions should not thrown an error if then state is unitialized
   const softUnsupportedActionsOnUnitializedState: Array<CityContentActionType> = [
     pushCategoryAction,
@@ -88,7 +93,8 @@ describe('cityContentReducer', () => {
     fetchResourcesFailedAction,
     switchContentLanguageAction,
     pushLanguagesAction,
-    fetchEventFailedAction
+    fetchEventFailedAction,
+    fetchLanguagesFailed
   ]
 
   for (const action of softUnsupportedActionsOnUnitializedState) {
@@ -133,7 +139,22 @@ describe('cityContentReducer', () => {
       searchRoute: null,
       switchingLanguage: false
     }
-    expect(cityContentReducer(prevState, pushLanguagesAction)?.languages).toEqual(pushLanguagesAction.params.languages)
+    expect(cityContentReducer(prevState, pushLanguagesAction)?.languages).toEqual(
+      { status: 'ready', models: pushLanguagesAction.params.languages })
+  })
+
+  it('should set error on FETCH_LANGUAGES_FAILED', () => {
+    const prevState: CityContentStateType = {
+      city: 'augsburg',
+      categoriesRouteMapping: {},
+      eventsRouteMapping: {},
+      languages: { status: 'ready', models: [] },
+      resourceCache: { status: 'ready', value: {} },
+      searchRoute: null,
+      switchingLanguage: false
+    }
+    expect(cityContentReducer(prevState, fetchLanguagesFailed)?.languages).toEqual(
+      { status: 'error', ...fetchLanguagesFailed.params })
   })
 
   it('should initialize cityContentState on FETCH_EVENT with loading route', () => {
@@ -159,7 +180,7 @@ describe('cityContentReducer', () => {
           status: 'loading'
         }
       },
-      languages: undefined,
+      languages: { status: 'loading' },
       resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
       switchingLanguage: false

@@ -3,7 +3,7 @@
 import type {
   CategoryRouteStateType,
   CitiesStateType,
-  LanguageResourceCacheStateType,
+  LanguageResourceCacheStateType, LanguagesStateType,
   ResourceCacheStateType,
   StateType
 } from '../../../../modules/app/StateType'
@@ -21,7 +21,6 @@ import { render } from '@testing-library/react-native'
 import CategoriesRouteStateView from '../../../../modules/app/CategoriesRouteStateView'
 import brightTheme from '../../../../modules/theme/constants/theme'
 import moment from 'moment'
-import { LanguageModel } from '@integreat-app/integreat-api-client'
 import { LOADING_TIMEOUT } from '../../../../modules/common/constants'
 import ErrorCodes from '../../../../modules/error/ErrorCodes'
 
@@ -62,7 +61,7 @@ describe('DashboardContainer', () => {
     }: {|
       switchingLanguage?: boolean,
       cities?: CitiesStateType,
-      languages?: ?Array<LanguageModel>,
+      languages?: LanguagesStateType,
       resourceCacheState?: ResourceCacheStateType
     |} = {}
   ): StateType => {
@@ -71,7 +70,7 @@ describe('DashboardContainer', () => {
       cityContent: {
         city: city.code,
         switchingLanguage: switchingLanguage !== undefined ? switchingLanguage : false,
-        languages: { status: 'ready', models: languages || [language] },
+        languages: languages || { status: 'ready', models: [language] },
         categoriesRouteMapping: routeState ? { 'route-id-0': routeState } : {},
         eventsRouteMapping: {},
         resourceCache: resourceCacheState || { status: 'ready', value: resourceCache },
@@ -198,7 +197,7 @@ describe('DashboardContainer', () => {
   })
 
   it('should display loading indicator if languages are loading long enough', () => {
-    const state: StateType = prepareState(successfulRouteState, { languages: null })
+    const state: StateType = prepareState(successfulRouteState, { languages: { status: 'loading' } })
     expectLoadingIndicator(state)
   })
 
