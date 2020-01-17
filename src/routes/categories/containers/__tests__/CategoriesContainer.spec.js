@@ -204,6 +204,7 @@ describe('CategoriesContainer', () => {
   it('should display LanguageNotAvailable if the route has the corresponding status', () => {
     const state = prepareState({
       status: 'languageNotAvailable',
+      path: 'augsburg/de/willkommen',
       depth: 2,
       city: city.code,
       language: language.code,
