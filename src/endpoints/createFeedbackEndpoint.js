@@ -21,14 +21,14 @@ export const TECHNICAL_FEEDBACK_CATEGORY = 'Technisches Feedback'
 
 export type FeedbackType = null | 'extra' | 'search' | 'categories' | 'events' | 'extras'
 
-export type FeedbackCategoryType = null | 'Inhalte' | 'Technisches Feedback'
+export type FeedbackCategoryType = 'Inhalte' | 'Technisches Feedback'
 
 export const INTEGREAT_INSTANCE = 'Integreat'
 export const DEFAULT_FEEDBACK_LANGUAGE = 'de'
 
 export type ParamsType = {
   feedbackType: FeedbackType,
-  feedbackCategory?: FeedbackCategoryType,
+  feedbackCategory: FeedbackCategoryType,
   permalink?: string,
   city: string,
   language: string,
