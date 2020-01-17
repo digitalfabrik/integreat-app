@@ -105,13 +105,18 @@ class PermissionSnackbarContainer extends React.Component<PropsType, StateType> 
     const { showLocationSnackbar, showPushNotificationSnackbar } = this.state
     if (showLocationSnackbar) {
       return <Snackbar key='location'
-                       positiveAction={{ label: t('grant'), onPress: this.requestLocationPermissionOrSettings }}
-                       negativeAction={{ label: t('deactivate'), onPress: this.deactivateProposeNearbyCities }}
+                       positiveAction={{ label: t('grantPermission').toUpperCase(),
+                         onPress: this.requestLocationPermissionOrSettings }}
+                       negativeAction={{ label: t('deactivateFeature').toUpperCase(),
+                         onPress: this.deactivateProposeNearbyCities }}
                        message={t('locationPermissionMissing')} theme={theme} />
     } else if (showPushNotificationSnackbar) {
       return <Snackbar key='push'
-                       positiveAction={{ label: t('grant'), onPress: this.requestPushNotificationPermissionOrSettings }}
-                       negativeAction={{ label: t('deactivate'), onPress: this.deactivateAllowPushNotifications }}
+                       positiveAction={{ label: t('grantPermission').toUpperCase(),
+                         onPress: this.requestPushNotificationPermissionOrSettings
+                       }}
+                       negativeAction={{ label: t('deactivateFeature').toUpperCase(),
+                         onPress: this.deactivateAllowPushNotifications }}
                        message={t('pushNotificationPermissionMissing')} theme={theme} />
     }
     return null
