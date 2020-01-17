@@ -12,13 +12,14 @@ const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, city: str
       console.warn('Route was not ready when translating. Will not translate this route.')
       return route
     }
-    const { depth, allAvailableLanguages } = route
+    const { depth, allAvailableLanguages, path } = route
 
     const translatedPath = allAvailableLanguages.get(newLanguage)
 
     if (!translatedPath) { // Route is not translatable
       return {
         status: 'languageNotAvailable',
+        path,
         allAvailableLanguages,
         city: route.city,
         language: newLanguage,
@@ -61,11 +62,12 @@ const eventRouteTranslator = (newEvents: $ReadOnlyArray<EventModel>, newLanguage
       console.warn('Route was not ready when translating. Will not translate this route.')
       return route
     }
-    const { allAvailableLanguages, city } = route
+    const { allAvailableLanguages, city, path } = route
 
     if (!allAvailableLanguages.has(newLanguage)) {
       return {
         status: 'languageNotAvailable',
+        path,
         allAvailableLanguages,
         language: newLanguage,
         city

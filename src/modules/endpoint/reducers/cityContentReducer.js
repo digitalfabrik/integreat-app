@@ -60,14 +60,14 @@ export default (
         }
       }
       case 'FETCH_EVENT_FAILED': {
-        const { message, key, path, allAvailableLanguages, ...rest } = action.params
+        const { message, key, allAvailableLanguages, ...rest } = action.params
         return {
           ...state,
           eventsRouteMapping: {
             ...state.eventsRouteMapping,
             [key]: allAvailableLanguages
               ? { status: 'languageNotAvailable', allAvailableLanguages, ...rest }
-              : { status: 'error', message, path, ...rest }
+              : { status: 'error', message, ...rest }
           }
         }
       }
@@ -79,14 +79,14 @@ export default (
         }
       }
       case 'FETCH_CATEGORY_FAILED': {
-        const { message, code, key, allAvailableLanguages, path, ...rest } = action.params
+        const { message, code, key, allAvailableLanguages, ...rest } = action.params
         return {
           ...state,
           categoriesRouteMapping: {
             ...state.categoriesRouteMapping,
             [key]: allAvailableLanguages
               ? { status: 'languageNotAvailable', allAvailableLanguages, ...rest }
-              : { status: 'error', message, code, path, ...rest }
+              : { status: 'error', message, code, ...rest }
           }
         }
       }
