@@ -113,9 +113,9 @@ class Header extends React.PureComponent<PropsType> {
     const { navigation, t } = this.props
     const sharePath: ?string = navigation.getParam('sharePath')
     if (!sharePath) {
-      console.error('sharePath is undefined')
+      return console.error('sharePath is undefined')
     }
-    const url = `https://integreat.app${sharePath || ''}`
+    const url = `https://integreat.app${sharePath}`
     const shareMessage = t('shareMessage')
     const message: string = Platform.select({
       android: `${shareMessage} ${url}`,
