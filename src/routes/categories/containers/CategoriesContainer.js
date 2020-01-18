@@ -18,7 +18,6 @@ import Categories from '../../../modules/categories/components/Categories'
 import React from 'react'
 import type { TFunction } from 'i18next'
 import { mapProps } from 'recompose'
-import ErrorCodes from '../../../modules/error/ErrorCodes'
 
 type ContainerPropsType = {|
   navigation: NavigationScreenProp<*>,
@@ -68,17 +67,10 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     return { status: 'loading' }
   }
 
-  const refreshProps = {
-    cityCode: route.city,
-    language: route.language,
-    path: route.path,
-    navigation: ownProps.navigation
-  }
-
   if (route.status === 'languageNotAvailable') {
-    if (languages.status !== 'ready') {
+    if (languages.status === 'error') {
       console.error('languageNotAvailable status impossible if languages not ready')
-      return { status: 'error', refreshProps, code: ErrorCodes.UnknownError, message: null }
+      return { status: 'error', refreshProps: null, code: languages.code, message: languages.message }
     }
     return {
       status: 'languageNotAvailable',
@@ -86,6 +78,13 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       cityCode: route.city,
       changeUnavailableLanguage: createChangeUnavailableLanguage(route.city, t)
     }
+  }
+
+  const refreshProps = {
+    cityCode: route.city,
+    language: route.language,
+    path: route.path,
+    navigation: ownProps.navigation
   }
 
   if (state.cities.status === 'error') {

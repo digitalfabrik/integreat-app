@@ -16,7 +16,6 @@ import { CityModel, EventModel } from '@integreat-app/integreat-api-client'
 import * as React from 'react'
 import createNavigateToIntegreatUrl from '../../../modules/app/createNavigateToIntegreatUrl'
 import { mapProps } from 'recompose'
-import ErrorCodes from '../../../modules/error/ErrorCodes'
 
 type ContainerPropsType = {|
   path: ?string,
@@ -67,17 +66,10 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     return { status: 'loading' }
   }
 
-  const refreshProps = {
-    path: route.path,
-    cityCode: route.city,
-    language: route.language,
-    navigation: ownProps.navigation
-  }
-
   if (route.status === 'languageNotAvailable') {
-    if (languages.status !== 'ready') {
+    if (languages.status === 'error') {
       console.error('languageNotAvailable status impossible if languages not ready')
-      return { status: 'error', refreshProps, code: ErrorCodes.UnknownError, message: null }
+      return { status: 'error', refreshProps: null, code: languages.code, message: languages.message }
     }
     return {
       status: 'languageNotAvailable',
@@ -85,6 +77,13 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       cityCode: route.city,
       changeUnavailableLanguage: createChangeUnavailableLanguage(route.city, t)
     }
+  }
+
+  const refreshProps = {
+    path: route.path,
+    cityCode: route.city,
+    language: route.language,
+    navigation: ownProps.navigation
   }
 
   if (state.cities.status === 'error') {
