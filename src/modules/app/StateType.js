@@ -123,6 +123,17 @@ export const defaultCitiesState: CitiesStateType = {
   message: 'Cities not yet initialized'
 }
 
+export type LanguagesStateType = {|
+  +status: 'ready',
+  +models: $ReadOnlyArray<LanguageModel>
+|} | {|
+  +status: 'loading'
+|} | {|
+  +status: 'error',
+  +code: ErrorCodeType,
+  +message: string
+|}
+
 export const defaultContentLanguageState = DEFAULT_LANGUAGE
 
 export type SearchRouteType = {|
@@ -132,7 +143,7 @@ export type SearchRouteType = {|
 export type CityContentStateType = {|
   +city: string,
   +switchingLanguage: boolean,
-  +languages: ?$ReadOnlyArray<LanguageModel>,
+  +languages: LanguagesStateType,
   +categoriesRouteMapping: CategoriesRouteMappingType,
   +eventsRouteMapping: EventsRouteMappingType,
   +resourceCache: ResourceCacheStateType,
@@ -143,7 +154,6 @@ export const defaultCityContentState = null
 
 export type StateType = {|
   +darkMode: boolean,
-
   +cityContent: CityContentStateType | null,
   +contentLanguage: string,
   +cities: CitiesStateType

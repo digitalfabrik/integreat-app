@@ -257,7 +257,7 @@ describe('morphContentLanguage', () => {
     expect(newState).toEqual({
       city: 'augsburg',
       switchingLanguage: false,
-      languages: cityLanguages,
+      languages: { status: 'ready', models: cityLanguages },
       categoriesRouteMapping: {
         'route-0': {
           status: 'ready',
@@ -318,7 +318,7 @@ describe('morphContentLanguage', () => {
     expect(morphContentLanguage(previous, action)).toEqual({
       city: 'augsburg',
       switchingLanguage: false,
-      languages: cityLanguages,
+      languages: { status: 'ready', models: cityLanguages },
       categoriesRouteMapping: {
         'route-0': {
           status: 'languageNotAvailable',
@@ -355,7 +355,7 @@ describe('morphContentLanguage', () => {
     expect(morphContentLanguage(previous, action)).toEqual({
       city: 'augsburg',
       switchingLanguage: false,
-      languages: cityLanguages,
+      languages: { status: 'ready', models: cityLanguages },
       categoriesRouteMapping: expect.any(Object),
       eventsRouteMapping: {
         'route-1': {
