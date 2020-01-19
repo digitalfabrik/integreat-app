@@ -74,6 +74,7 @@ type PropsType = {|
   theme: ThemeType,
   language: string,
   peeking: boolean,
+  categoriesAvailable: boolean,
   navigateToLanding: () => void,
   goToLanguageChange?: () => void,
   cityModel?: CityModel
@@ -106,10 +107,6 @@ class Header extends React.PureComponent<PropsType> {
 
   goToSettings = () => {
     this.props.navigation.navigate('Settings')
-  }
-
-  isPeeking (): boolean {
-    return this.props.peeking
   }
 
   onShare = async () => {
@@ -161,7 +158,7 @@ class Header extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const { cityModel, navigation, t, theme, goToLanguageChange } = this.props
+    const { cityModel, navigation, t, theme, goToLanguageChange, peeking, categoriesAvailable } = this.props
     const sharePath = navigation.getParam('sharePath')
 
     return <BoxShadow theme={theme}>
@@ -171,9 +168,10 @@ class Header extends React.PureComponent<PropsType> {
           {cityModel && <HeaderText theme={theme}>{this.cityDisplayName(cityModel)}</HeaderText>}
         </HorizontalLeft>
         <MaterialHeaderButtons>
-          {this.renderItem('Search', 'search', 'always', !this.isPeeking() ? this.goToSearch : undefined)}
-          {this.renderItem('Change Language', 'language', 'always',
-            !this.isPeeking() && goToLanguageChange ? goToLanguageChange : undefined)}
+          {!peeking && categoriesAvailable &&
+            this.renderItem('Search', 'search', 'always', this.goToSearch)}
+          {!peeking && goToLanguageChange &&
+          this.renderItem('Change Language', 'language', 'always', goToLanguageChange)}
           {this.renderItem(t('share'), undefined, 'never', sharePath ? this.onShare : undefined)}
           {this.renderItem('Change Location', undefined, 'never', this.goToLanding)}
           {this.renderItem(t('settings'), undefined, 'never', this.goToSettings)}

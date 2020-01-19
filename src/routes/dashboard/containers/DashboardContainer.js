@@ -70,14 +70,19 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     return { status: 'routeNotInitialized' }
   }
 
-  if (state.cities.status === 'loading' || switchingLanguage || route.status === 'loading' || !languages) {
+  if (state.cities.status === 'loading' || switchingLanguage || route.status === 'loading' ||
+    languages.status === 'loading') {
     return { status: 'loading' }
   }
 
   if (route.status === 'languageNotAvailable') {
+    if (languages.status === 'error') {
+      console.error('languageNotAvailable status impossible if languages not ready')
+      return { status: 'error', refreshProps: null, code: languages.code, message: languages.message }
+    }
     return {
       status: 'languageNotAvailable',
-      availableLanguages: languages.filter(lng => route.allAvailableLanguages.has(lng.code)),
+      availableLanguages: languages.models.filter(lng => route.allAvailableLanguages.has(lng.code)),
       cityCode: route.city,
       changeUnavailableLanguage: createChangeUnavailableLanguage(route.city, t)
     }
@@ -89,12 +94,15 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     path: route.path,
     navigation: ownProps.navigation
   }
+
   if (state.cities.status === 'error') {
     return { status: 'error', refreshProps, message: state.cities.message, code: state.cities.code }
   } else if (resourceCache.status === 'error') {
     return { status: 'error', refreshProps, message: resourceCache.message, code: resourceCache.code }
   } else if (route.status === 'error') {
     return { status: 'error', refreshProps, message: route.message, code: route.code }
+  } else if (languages.status === 'error') {
+    return { status: 'error', message: languages.message, code: languages.code, refreshProps }
   }
 
   const cities = state.cities.models

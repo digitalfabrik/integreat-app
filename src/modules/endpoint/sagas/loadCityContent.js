@@ -8,7 +8,7 @@ import loadEvents from './loadEvents'
 import fetchResourceCache from './fetchResourceCache'
 import moment from 'moment'
 import type Moment from 'moment'
-import type { PushLanguagesActionType } from '../../app/StoreActionType'
+import type { FetchLanguagesFailedActionType, PushLanguagesActionType } from '../../app/StoreActionType'
 import loadLanguages from './loadLanguages'
 import ResourceURLFinder from '../ResourceURLFinder'
 import buildResourceFilePath from '../buildResourceFilePath'
@@ -17,6 +17,7 @@ import AppSettings from '../../settings/AppSettings'
 import NetInfo from '@react-native-community/netinfo'
 import loadCities from './loadCities'
 import { allowedResourceHostNames } from '../constants'
+import { fromError } from '../../error/ErrorCodes'
 
 /**
  *
@@ -49,20 +50,32 @@ export default function * loadCityContent (
   console.debug('City content should be refreshed: ', shouldUpdate)
 
   if (criterion.shouldLoadLanguages()) {
-    yield call(loadLanguages, newCity, dataContainer, shouldUpdate) /* The languages for a city get updated if a any
+    try {
+      yield call(loadLanguages, newCity, dataContainer, shouldUpdate) /* The languages for a city get updated if a any
                                                                        language of the city is:
                                                                           * older than MAX_CONTENT_AGE,
                                                                           * has no "lastUpdate" or
                                                                           * an update is forced
                                                                         This means the loading of languages depends on
                                                                         language AND the city */
-    const languages = yield call(dataContainer.getLanguages, newCity)
+      const languages = yield call(dataContainer.getLanguages, newCity)
 
-    const pushLanguages: PushLanguagesActionType = { type: 'PUSH_LANGUAGES', params: { languages } }
-    yield put(pushLanguages)
+      const pushLanguages: PushLanguagesActionType = { type: 'PUSH_LANGUAGES', params: { languages } }
+      yield put(pushLanguages)
 
-    if (!languages.map(language => language.code).includes(newLanguage)) {
-      return false
+      if (!languages.map(language => language.code).includes(newLanguage)) {
+        return false
+      }
+    } catch (e) {
+      console.error(e)
+      const languagesFailed: FetchLanguagesFailedActionType = {
+        type: 'FETCH_LANGUAGES_FAILED',
+        params: {
+          message: `Error in fetchCategory: ${e.message}`,
+          code: fromError(e)
+        }
+      }
+      yield put(languagesFailed)
     }
   }
 
