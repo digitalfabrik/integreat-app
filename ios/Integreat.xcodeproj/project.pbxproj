@@ -487,6 +487,8 @@
 		7BF11468226F4D730031D233 /* Integreat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Integreat-Bridging-Header.h"; path = "Integreat/Integreat-Bridging-Header.h"; sourceTree = "<group>"; };
 		7BF11469226F4D740031D233 /* FetcherModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetcherModule.swift; sourceTree = "<group>"; };
 		7BF11490226F4E6D0031D233 /* FetcherModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FetcherModule.m; sourceTree = "<group>"; };
+		7BFEF42A23D5FF0100903668 /* RNPermissionHandlerLocationWhenInUse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RNPermissionHandlerLocationWhenInUse.h; path = "../../node_modules/react-native-permissions/ios/LocationWhenInUse/RNPermissionHandlerLocationWhenInUse.h"; sourceTree = "<group>"; };
+		7BFEF42B23D5FF0100903668 /* RNPermissionHandlerLocationWhenInUse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RNPermissionHandlerLocationWhenInUse.m; path = "../../node_modules/react-native-permissions/ios/LocationWhenInUse/RNPermissionHandlerLocationWhenInUse.m"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		849AFFE560F04184AE83BFAA /* RNSentry.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNSentry.xcodeproj; path = "../node_modules/react-native-sentry/ios/RNSentry.xcodeproj"; sourceTree = "<group>"; };
 		875643DF6F1A4A95AF206185 /* RNShare.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNShare.xcodeproj; path = "../node_modules/react-native-share/ios/RNShare.xcodeproj"; sourceTree = "<group>"; };
@@ -642,6 +644,7 @@
 		13B07FAE1A68108700A75B9A /* Integreat */ = {
 			isa = PBXGroup;
 			children = (
+				7BFEF42C23D5FF0100903668 /* Permissions */,
 				616E1ACC2370DFCF00136B38 /* constants */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -868,6 +871,15 @@
 			);
 			name = fetcher;
 			path = Integreat/fetcher;
+			sourceTree = "<group>";
+		};
+		7BFEF42C23D5FF0100903668 /* Permissions */ = {
+			isa = PBXGroup;
+			children = (
+				7BFEF42A23D5FF0100903668 /* RNPermissionHandlerLocationWhenInUse.h */,
+				7BFEF42B23D5FF0100903668 /* RNPermissionHandlerLocationWhenInUse.m */,
+			);
+			path = Permissions;
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
