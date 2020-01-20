@@ -8,6 +8,12 @@ import openPrivacyPolicy from './openPrivacyPolicy'
 
 export type ChangeSettingFunctionType = SettingsType => $Shape<SettingsType>
 
+const volatileValues = {
+  versionTaps: 0
+}
+
+const TRIGGER_VERSION_TAPS = 25
+
 export default ({ setSetting, t, language }: {
                   setSetting: (changeSetting: ChangeSettingFunctionType) => Promise<void>,
                   t: TFunction,
@@ -54,7 +60,14 @@ export default ({ setSetting, t, language }: {
           onPress: () => openPrivacyPolicy(language)
         },
         {
-          title: t('version', { version: NativeConstants.appVersion })
+          title: t('version', { version: NativeConstants.appVersion }),
+          onPress: () => {
+            volatileValues.versionTaps++
+            if (volatileValues.versionTaps === TRIGGER_VERSION_TAPS) {
+              volatileValues.versionTaps = 0
+              throw Error('This error was thrown for testing purposes. Please ignore this error.')
+            }
+          }
         }
       ]
     }
