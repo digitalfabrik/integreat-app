@@ -8,7 +8,6 @@ const ButtonContainer: StyledComponent<{}, ThemeType, *> = styled.TouchableOpaci
   flex: 1;
   align-items: center;
   justify-content: center;
-  padding: 16px 0;
 `
 
 const ButtonText: StyledComponent<{ backgroundColor: string }, ThemeType, *> = styled.Text`
