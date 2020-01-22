@@ -1,7 +1,2 @@
-/* 
-  InfoPlist.strings
-  Integreat
+NSPhotoLibraryAddUsageDescription = "لحفظ الصور، يحتاج تطبيق إنتجريت الوصول إلى المعرض.";
 
-  Created by Max Ammann on 15.07.19.
-  Copyright © 2019 Facebook. All rights reserved.
-*/

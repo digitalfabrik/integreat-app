@@ -1,10 +1,2 @@
-/* 
-  InfoPlist.strings
-  Integreat
-
-  Created by Max Ammann on 15.07.19.
-  Copyright © 2019 Facebook. All rights reserved.
-*/
-
-NSPhotoLibraryAddUsageDescription = "Integreat möchte Bilder in der Gallerie speichern";
-NSLocationWhenInUseUsageDescription = "Integreat möchte nahegelegene Orte finden, welche lokale Informationen bereitstellen";
+NSPhotoLibraryAddUsageDescription = "Um Bilder zu speichern, benötigt Integreat Zugriff auf die Galerie.";
+NSLocationWhenInUseUsageDescription = "Um nahegelegene Orte zu finden, benötigt Integreat Zugriff auf den Standort.";
