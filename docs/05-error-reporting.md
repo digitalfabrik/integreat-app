@@ -65,7 +65,7 @@ yarn sentry-cli releases --project integreat-react-native-app --org tur-an-tur-d
 
 Creating a bundle:
 ```bash
-react-native bundle \
+yarn react-native bundle \
   --dev false \
   --platform ios \
   --entry-file src/index.js \
@@ -75,7 +75,7 @@ react-native bundle \
 
 Uploading the bundle:
 ```bash
-node_modules/@sentry/cli/bin/sentry-cli releases --project integreat-react-native-app --org tur-an-tur-digitalfabrik \
+yarn sentry-cli releases --project integreat-react-native-app --org tur-an-tur-digitalfabrik \
     files <release> \
     upload-sourcemaps \
     --dist <distribution> \
