@@ -6,5 +6,7 @@
   Copyright © 2019 Facebook. All rights reserved.
 */
 
+
 NSPhotoLibraryAddUsageDescription = "Integreat wants to save photos to your library";
 NSLocationWhenInUseUsageDescription = "Integreat wants to use your location to find nearby cities";
+
