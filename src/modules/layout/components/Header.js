@@ -116,7 +116,7 @@ class Header extends React.PureComponent<PropsType> {
       return console.error('sharePath is undefined')
     }
     const url = `https://integreat.app${sharePath}`
-    const message = t('shareMessage', { message: url })
+    const message = t('shareMessage', { message: url, interpolation: { escapeValue: false } })
 
     try {
       await Share.share({
