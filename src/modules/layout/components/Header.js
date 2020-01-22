@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import { Platform, Share } from 'react-native'
+import { Share } from 'react-native'
 import logo from '../assets/integreat-app-logo.png'
 import styled, { type StyledComponent } from 'styled-components/native'
 import HeaderButtons, { HeaderButton, Item } from 'react-navigation-header-buttons'
@@ -116,17 +116,12 @@ class Header extends React.PureComponent<PropsType> {
       return console.error('sharePath is undefined')
     }
     const url = `https://integreat.app${sharePath}`
-    const shareMessage = t('shareMessage')
-    const message: string = Platform.select({
-      android: `${shareMessage} ${url}`,
-      ios: shareMessage
-    })
+    const message = t('shareMessage', { message: url, interpolation: { escapeValue: false } })
 
     try {
       await Share.share({
         message,
-        title: 'Integreat App',
-        url
+        title: 'Integreat App'
       })
     } catch (e) {
       alert(e.message)
@@ -169,11 +164,11 @@ class Header extends React.PureComponent<PropsType> {
         </HorizontalLeft>
         <MaterialHeaderButtons>
           {!peeking && categoriesAvailable &&
-            this.renderItem('Search', 'search', 'always', this.goToSearch)}
+            this.renderItem(t('search'), 'search', 'always', this.goToSearch)}
           {!peeking && goToLanguageChange &&
-          this.renderItem('Change Language', 'language', 'always', goToLanguageChange)}
+          this.renderItem(t('changeLanguage'), 'language', 'always', goToLanguageChange)}
           {this.renderItem(t('share'), undefined, 'never', sharePath ? this.onShare : undefined)}
-          {this.renderItem('Change Location', undefined, 'never', this.goToLanding)}
+          {this.renderItem(t('changeLocation'), undefined, 'never', this.goToLanding)}
           {this.renderItem(t('settings'), undefined, 'never', this.goToSettings)}
           {this.renderItem(t('disclaimer'), undefined, 'never', this.goToDisclaimer)}
         </MaterialHeaderButtons>
