@@ -75,7 +75,7 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps: OwnPr
 })
 
 export default withNavigation(
-  translate('header')(
+  translate('layout')(
     connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
       withTheme(props => props.language)(
         Header
