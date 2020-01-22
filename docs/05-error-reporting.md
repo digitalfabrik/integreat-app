@@ -29,7 +29,14 @@ Only proper releases should be handled correctly by sentry. This means we do no 
 
 ## Upload of source maps
 
-Sentry wants source maps in order to display stack traces properly. We are not uploading them automatically. Instead you can [use the cli](https://docs.sentry.io/platforms/javascript/sourcemaps/#uploading-source-maps-to-sentry) to upload source maps. You need a `sentry.properties` with a valid authentication key for this to work! You can generate this with the cli.
+Sentry wants source maps in order to display stack traces properly. We are not uploading them automatically. Instead you can [use the cli](https://docs.sentry.io/platforms/javascript/sourcemaps/#uploading-source-maps-to-sentry) to upload source maps.
+You need a `sentry.properties` with a valid authentication key for this to work!
+You can generate this with the cli:
+```bash
+yarn sentry-cli --url=https://sentry.integreat-app.de login
+```
+
+
 
 You can read [here](https://docs.sentry.io/clients/react-native/sourcemaps/) about generating sourcemaps for react-native projects or just use these commands:
 
@@ -37,22 +44,12 @@ You can read [here](https://docs.sentry.io/clients/react-native/sourcemaps/) abo
 
 Creating a bundle:
 ```bash
-yarn react-native bundle \                             
-  --dev false \         
-  --platform android \ 
-  --entry-file src/index.js \ 
-  --bundle-output index.android.bundle \
-  --sourcemap-output index.android.bundle.map
+yarn react-native bundle --dev false --platform android --entry-file src/index.js --bundle-output index.android.bundle --sourcemap-output index.android.bundle.map
 ```
 
 Uploading the bundle:
 ```bash
-yarn sentry-cli releases --project integreat-react-native-app --org tur-an-tur-digitalfabrik \
-    files <release> \
-    upload-sourcemaps \
-    --dist <distribution> \
-    --strip-prefix <prefix> \
-    --rewrite index.android.bundle index.android.bundle.map
+yarn sentry-cli releases --project integreat-react-native-app --org tur-an-tur-digitalfabrik files <release> upload-sourcemaps --dist <distribution> --strip-prefix <prefix> --rewrite index.android.bundle index.android.bundle.map
 ```
 
 `<release>` is the `applicationId` concatenated with the version string e.g. `tuerantuer.app.integreat-2020.1.0`
