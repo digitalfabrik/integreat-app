@@ -2,14 +2,14 @@
 
 import finishFetchAction, { finishFetchActionName } from '../finishFetchAction'
 import lolex from 'lolex'
-import Payload from '../../../endpoint/Payload'
+import { Payload } from '@integreat-app/integreat-api-client'
 
 describe('finishFetchAction', () => {
   let clock
   const mockedTime = 0
 
   beforeEach(() => {
-    clock = lolex.install({now: mockedTime, toFake: []})
+    clock = lolex.install({ now: mockedTime, toFake: [] })
   })
 
   afterEach(() => {
@@ -22,6 +22,9 @@ describe('finishFetchAction', () => {
 
   it('should create the right action', () => {
     const payload = new Payload(false, 'https://random_api.json', 'data', null)
-    expect(finishFetchAction('endpoint', payload)).toEqual({type: finishFetchActionName('endpoint'), payload: payload})
+    expect(finishFetchAction('endpoint', payload)).toEqual({
+      type: finishFetchActionName('endpoint'),
+      payload: payload
+    })
   })
 })

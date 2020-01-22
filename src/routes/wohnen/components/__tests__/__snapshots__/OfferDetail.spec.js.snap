@@ -2,6 +2,28 @@
 
 exports[`OfferDetail should render detail view 1`] = `
 <OfferDetail
+  i18n={
+    I18n {
+      "logger": Logger {
+        "debug": undefined,
+        "logger": Object {
+          "error": [Function],
+          "log": [Function],
+          "output": [Function],
+          "type": "logger",
+          "warn": [Function],
+        },
+        "options": Object {},
+        "prefix": "i18next:",
+      },
+      "modules": Object {
+        "external": Array [],
+      },
+      "observers": Object {},
+      "options": Object {},
+      "services": Object {},
+    }
+  }
   offer={
     WohnenOfferModel {
       "_createdDate": "2018-07-24T00:00:00.000Z",

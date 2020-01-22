@@ -1,4 +1,4 @@
-// flow-typed signature: afa3502910d5b2aef93707cc683f52b8
+// flow-typed signature: e669d1b2d7dc201249682bc920d47af0
 // flow-typed version: 492c298a82/react-helmet_v5.x.x/flow_>=v0.53.x
 
 declare module 'react-helmet' {

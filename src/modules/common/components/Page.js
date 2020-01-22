@@ -32,14 +32,14 @@ type PropsType = {|
  */
 class Page extends React.PureComponent<PropsType> {
   render () {
-    const {title, thumbnail, content, lastUpdate, language, hijackRegExp, children, onInternalLinkClick} = this.props
+    const { title, thumbnail, content, lastUpdate, language, hijackRegExp, children, onInternalLinkClick } = this.props
     return (
       <>
         {thumbnail && <Thumbnail src={thumbnail} />}
         <Caption title={title} />
         {children}
-        <RemoteContent dangerouslySetInnerHTML={{__html: content}}
-                       onInternLinkClick={onInternalLinkClick}
+        <RemoteContent dangerouslySetInnerHTML={{ __html: content }}
+                       onInternalLinkClick={onInternalLinkClick}
                        hijackRegExp={hijackRegExp} />
         {lastUpdate && <LastUpdateInfo lastUpdate={lastUpdate} language={language} />}
       </>

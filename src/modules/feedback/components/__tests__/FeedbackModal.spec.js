@@ -4,8 +4,9 @@ import React from 'react'
 import { shallow } from 'enzyme'
 
 import FeedbackModal from '../FeedbackModal'
-import CityModel from '../../../../modules/endpoint/models/CityModel'
-import { CATEGORIES_ROUTE } from '../../../../modules/app/routes/categories'
+import { CityModel } from '@integreat-app/integreat-api-client'
+import { CATEGORIES_ROUTE } from '../../../app/route-configs/CategoriesRouteConfig'
+import createLocation from '../../../../createLocation'
 
 describe('FeedbackModal', () => {
   it('should match snapshot', () => {
@@ -20,7 +21,9 @@ describe('FeedbackModal', () => {
       })
     ]
 
-    const location = {type: CATEGORIES_ROUTE, payload: {city: 'augsburg', language: 'de'}, query: {feedback: 'up'}}
+    const location = createLocation({
+      type: CATEGORIES_ROUTE, payload: { city: 'augsburg', language: 'de' }, query: { feedback: 'up' }
+    })
 
     expect(shallow(
     <FeedbackModal
@@ -31,8 +34,7 @@ describe('FeedbackModal', () => {
       title={'title'}
       alias='alias'
       closeFeedbackModal={() => {}}
-      feedbackStatus={'up'}
-      extras={null} />
+      feedbackStatus={'up'} />
     )).toMatchSnapshot()
   })
 })

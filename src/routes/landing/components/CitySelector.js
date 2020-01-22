@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { transform } from 'lodash/object'
 import { groupBy } from 'lodash/collection'
-import CityModel from '../../../modules/endpoint/models/CityModel'
+import { CityModel } from '@integreat-app/integreat-api-client'
 import CityEntry from './CityEntry'
 import withPlatform from '../../../modules/platform/hocs/withPlatform'
 import styled from 'styled-components'
@@ -46,10 +46,10 @@ class CitySelector extends React.PureComponent<PropsType> {
   renderList (cities: Array<CityModel>): React.Node {
     const groups = groupBy(cities, city => city.sortCategory)
     return transform(groups, (result, cities, key) => {
-      const {language, stickyTop, filterText} = this.props
+      const { language, stickyTop, filterText } = this.props
       result.push(
         <div key={key}>
-          <CityListParent style={{top: `${stickyTop}px`}}>{key}</CityListParent>
+          <CityListParent style={{ top: `${stickyTop}px` }}>{key}</CityListParent>
           {cities.map(city => <CityEntry key={city.code} city={city} language={language} filterText={filterText} />)}
         </div>
       )

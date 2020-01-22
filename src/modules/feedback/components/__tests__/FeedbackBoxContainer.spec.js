@@ -4,24 +4,25 @@ import React from 'react'
 import { shallow } from 'enzyme'
 
 import { FeedbackBoxContainer } from '../FeedbackBoxContainer'
-import CityModel from '../../../../modules/endpoint/models/CityModel'
-import { CATEGORIES_ROUTE } from '../../../../modules/app/routes/categories'
+import { CATEGORIES_ROUTE } from '../../../app/route-configs/CategoriesRouteConfig'
 import {
   CATEGORIES_FEEDBACK_TYPE,
+  CityModel,
   EVENTS_FEEDBACK_TYPE,
   EXTRA_FEEDBACK_TYPE,
+  ExtraModel,
   EXTRAS_FEEDBACK_TYPE,
   PAGE_FEEDBACK_TYPE,
   SEARCH_FEEDBACK_TYPE
-} from '../../../../modules/endpoint/endpoints/feedback'
+} from '@integreat-app/integreat-api-client'
 import FeedbackDropdownItem from '../../FeedbackDropdownItem'
-import { EXTRAS_ROUTE } from '../../../../modules/app/routes/extras'
-import { EVENTS_ROUTE } from '../../../../modules/app/routes/events'
-import ExtraModel from '../../../../modules/endpoint/models/ExtraModel'
-import { WOHNEN_ROUTE } from '../../../../modules/app/routes/wohnen'
-import { SPRUNGBRETT_ROUTE } from '../../../../modules/app/routes/sprungbrett'
-import { SEARCH_ROUTE } from '../../../../modules/app/routes/search'
-import { DISCLAIMER_ROUTE } from '../../../../modules/app/routes/disclaimer'
+import { EXTRAS_ROUTE } from '../../../app/route-configs/ExtrasRouteConfig'
+import { EVENTS_ROUTE } from '../../../app/route-configs/EventsRouteConfig'
+import { WOHNEN_ROUTE } from '../../../app/route-configs/WohnenRouteConfig'
+import { SPRUNGBRETT_ROUTE } from '../../../app/route-configs/SprungbrettRouteConfig'
+import { SEARCH_ROUTE } from '../../../app/route-configs/SearchRouteConfig'
+import { DISCLAIMER_ROUTE } from '../../../app/route-configs/DisclaimerRouteConfig'
+import createLocation from '../../../../createLocation'
 
 describe('FeedbackBoxContainer', () => {
   const cities = [
@@ -35,7 +36,8 @@ describe('FeedbackBoxContainer', () => {
     })
   ]
   const t = (key: ?string): string => key || ''
-  const location = {type: CATEGORIES_ROUTE, payload: {city: 'augsburg', language: 'de'}, query: {feedback: 'up'}}
+  const location = createLocation(
+    { type: CATEGORIES_ROUTE, payload: { city: 'augsburg', language: 'de' }, query: { feedback: 'up' } })
 
   it('should match snapshot', () => {
     expect(shallow(
@@ -150,9 +152,9 @@ describe('FeedbackBoxContainer', () => {
   })
 
   it('getContentFeedbackOption should return the right option', () => {
-    const categoriesLocation = {type: CATEGORIES_ROUTE, payload: {city: 'augsburg', language: 'de'}}
-    const extrasLocation = {type: EXTRAS_ROUTE, payload: {city: 'augsburg', language: 'de'}}
-    const eventsLocation = {type: EVENTS_ROUTE, payload: {city: 'augsburg', language: 'de'}}
+    const categoriesLocation = createLocation({ type: CATEGORIES_ROUTE, payload: { city: 'augsburg', language: 'de' } })
+    const extrasLocation = createLocation({ type: EXTRAS_ROUTE, payload: { city: 'augsburg', language: 'de' } })
+    const eventsLocation = createLocation({ type: EVENTS_ROUTE, payload: { city: 'augsburg', language: 'de' } })
 
     const component = shallow(
       <FeedbackBoxContainer
@@ -171,20 +173,20 @@ describe('FeedbackBoxContainer', () => {
     expect(component.instance().getContentFeedbackOption())
       .toEqual(new FeedbackDropdownItem('contentOfCity Augsburg', CATEGORIES_FEEDBACK_TYPE))
 
-    component.setProps({location: extrasLocation})
+    component.setProps({ location: extrasLocation })
     expect(component.instance().getContentFeedbackOption())
       .toEqual(new FeedbackDropdownItem('contentOfCity Augsburg', EXTRAS_FEEDBACK_TYPE))
 
-    component.setProps({location: eventsLocation})
+    component.setProps({ location: eventsLocation })
     expect(component.instance().getContentFeedbackOption())
       .toEqual(new FeedbackDropdownItem('contentOfCity Augsburg', EVENTS_FEEDBACK_TYPE))
 
-    component.setProps({cities: null})
+    component.setProps({ cities: null })
     expect(component.instance().getContentFeedbackOption()).toBeUndefined()
   })
 
   it('getExtrasFeedbackOptions should return the right options', () => {
-    const extrasLocation = {type: EXTRAS_ROUTE, payload: {city: 'augsburg', language: 'de'}}
+    const extrasLocation = createLocation({ type: EXTRAS_ROUTE, payload: { city: 'augsburg', language: 'de' } })
     const extras = [
       new ExtraModel({
         alias: 'serlo-abc',
@@ -197,7 +199,7 @@ describe('FeedbackBoxContainer', () => {
         alias: 'sprungbrett',
         thumbnail: 'some_other_thumbnail',
         title: 'Sprungbrett',
-        path: 'https://web.integreat-app.de/proxy/sprungbrett/app-search-internships?location=augsburg',
+        path: 'https://integreat.app/proxy/sprungbrett/app-search-internships?location=augsburg',
         postData: null
       }),
       new ExtraModel({
@@ -227,10 +229,10 @@ describe('FeedbackBoxContainer', () => {
   })
 
   describe('getCurrentPageFeedbackOption', () => {
-    const categoriesOption = new FeedbackDropdownItem(`contentOfPage 'Willkommen'`, PAGE_FEEDBACK_TYPE)
-    const eventsOption = new FeedbackDropdownItem(`news 'Event1'`, PAGE_FEEDBACK_TYPE)
-    const wohnenOption = new FeedbackDropdownItem(`extra 'Wohnungsboerse'`, EXTRA_FEEDBACK_TYPE)
-    const sprungbrettOption = new FeedbackDropdownItem(`extra 'Sprungbrett'`, EXTRA_FEEDBACK_TYPE)
+    const categoriesOption = new FeedbackDropdownItem(`contentOfPage`, PAGE_FEEDBACK_TYPE)
+    const eventsOption = new FeedbackDropdownItem(`contentOfEvent`, PAGE_FEEDBACK_TYPE)
+    const wohnenOption = new FeedbackDropdownItem(`contentOfExtra`, EXTRA_FEEDBACK_TYPE)
+    const sprungbrettOption = new FeedbackDropdownItem(`contentOfExtra`, EXTRA_FEEDBACK_TYPE)
     const searchOption = new FeedbackDropdownItem(`searchFor 'my query'`, SEARCH_FEEDBACK_TYPE)
     const disclaimerOption = new FeedbackDropdownItem(`disclaimer`, PAGE_FEEDBACK_TYPE)
     const extrasOption = null
@@ -245,25 +247,26 @@ describe('FeedbackBoxContainer', () => {
     ${SEARCH_ROUTE}      | ${0}    | ${''}           | ${''}              | ${'my query'} | ${searchOption}
     ${DISCLAIMER_ROUTE}  | ${0}    | ${''}           | ${''}              | ${''}         | ${disclaimerOption}
     ${EXTRAS_ROUTE}      | ${0}    | ${''}           | ${''}              | ${''}         | ${extrasOption}
-    `('should return the right option', ({type, id, alias, title, query, result}) => {
-  const location = {type, payload: {city: 'augsburg', language: 'de'}}
+    `('should return the right option', ({ type, id, alias, title, query, result }) => {
+  const location = createLocation({ type, payload: { city: 'augsburg', language: 'de' } })
   const component = shallow(
-        <FeedbackBoxContainer
-          location={location}
-          query={query}
-          cities={cities}
-          id={id}
-          title={title}
-          alias={alias}
-          isPositiveRatingSelected
-          onSubmit={() => {}}
-          closeFeedbackModal={() => {}}
-          extras={null}
-          t={t} />
+          <FeedbackBoxContainer
+            location={location}
+            query={query}
+            cities={cities}
+            id={id}
+            title={title}
+            alias={alias}
+            isPositiveRatingSelected
+            onSubmit={() => {}}
+            closeFeedbackModal={() => {}}
+            extras={null}
+            t={t} />
   )
 
   expect(component.instance().getCurrentPageFeedbackOption()).toEqual(result)
-})
+}
+)
   })
 
   it('should post data on submit', () => {
@@ -306,7 +309,7 @@ describe('FeedbackBoxContainer', () => {
     ).instance()
 
     const prevState = instance.state
-    instance.onCommentChanged({target: {value: 'new comment'}})
+    instance.onCommentChanged({ target: { value: 'new comment' } })
     expect(prevState).not.toEqual(instance.state)
     expect(instance.state.comment).toEqual('new comment')
   })

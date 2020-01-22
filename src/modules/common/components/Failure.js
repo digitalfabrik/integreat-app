@@ -2,15 +2,14 @@
 
 import React from 'react'
 import type { TFunction } from 'react-i18next'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFrown } from '../../../modules/app/constants/icons'
 
 import Link from 'redux-first-router-link'
 
-import { goToI18nRedirect } from '../../../modules/app/routes/i18nRedirect'
-import type { Action } from 'redux-first-router'
 import styled from 'styled-components'
+import I18nRedirectRouteConfig from '../../app/route-configs/I18nRedirectRouteConfig'
 
 const Centered = styled.div`
   & > * {
@@ -22,7 +21,7 @@ const Centered = styled.div`
 
 type PropsType = {|
   errorMessage: string,
-  goToAction?: Action,
+  goToPath?: string,
   goToMessage?: string,
   t: TFunction
 |}
@@ -32,13 +31,13 @@ type PropsType = {|
  */
 export class Failure extends React.PureComponent<PropsType> {
   render () {
-    const {t, errorMessage, goToAction, goToMessage} = this.props
+    const { t, errorMessage, goToPath, goToMessage } = this.props
     return <Centered>
       <div>{t(errorMessage)}</div>
       <div><FontAwesomeIcon icon={faFrown} size='5x' /></div>
-      <Link to={goToAction || goToI18nRedirect()}>{t(goToMessage || 'goTo.start')}</Link>
+      <Link to={goToPath || new I18nRedirectRouteConfig().getRoutePath({})}>{t(goToMessage || 'goTo.start')}</Link>
     </Centered>
   }
 }
 
-export default withNamespaces('error')(Failure)
+export default withTranslation('error')(Failure)

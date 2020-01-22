@@ -1,43 +1,46 @@
 // @flow
 
-import languagesEndpoint from '../../endpoint/endpoints/languages'
-import citiesEndpoint from '../../endpoint/endpoints/cities'
-import categoriesEndpoint from '../../endpoint/endpoints/categories'
-import eventsEndpoint from '../../endpoint/endpoints/events'
-import disclaimerEndpoint from '../../endpoint/endpoints/disclaimer'
-import extrasEndpoint from '../../endpoint/endpoints/extras'
-import sprungbrettJobEndpoint from '../../endpoint/endpoints/sprungbrettJobs'
-import wohnenEndpoint from '../../endpoint/endpoints/wohnen'
-import poisEndpoint from '../../endpoint/endpoints/pois'
-
+import {
+  CATEGORIES_ENDPOINT_NAME,
+  CITIES_ENDPOINT_NAME,
+  DISCLAIMER_ENDPOINT_NAME,
+  EVENTS_ENDPOINT_NAME,
+  EXTRAS_ENDPOINT_NAME,
+  LANGUAGES_ENDPOINT_NAME,
+  Payload,
+  POIS_ENDPOINT_NAME,
+  SPRUNGBRETT_JOBS_ENDPOINT_NAME,
+  WOHNEN_ENDPOINT_NAME
+} from '@integreat-app/integreat-api-client'
 import { handleActions } from 'redux-actions'
-import Payload from '../../endpoint/Payload'
+import type { StartFetchActionType } from '../../app/actions/startFetchAction'
 import { startFetchActionName } from '../../app/actions/startFetchAction'
+import type { FinishFetchActionType } from '../../app/actions/finishFetchAction'
 import { finishFetchActionName } from '../../app/actions/finishFetchAction'
-import type { ActionType } from '../../app/createReduxStore'
+import type { Reducer } from 'redux'
+import type { StateType } from '../StateType'
+import type { PayloadDataType } from '../PayloadDataType'
 
 /**
  * Contains all endpoints which are defined in {@link './endpoints/'}
  */
-const endpoints = [
-  languagesEndpoint,
-  citiesEndpoint,
-  categoriesEndpoint,
-  disclaimerEndpoint,
-  eventsEndpoint,
-  extrasEndpoint,
-  sprungbrettJobEndpoint,
-  wohnenEndpoint,
-  poisEndpoint
+const endpointNames = [
+  LANGUAGES_ENDPOINT_NAME,
+  CITIES_ENDPOINT_NAME,
+  CATEGORIES_ENDPOINT_NAME,
+  DISCLAIMER_ENDPOINT_NAME,
+  EVENTS_ENDPOINT_NAME,
+  EXTRAS_ENDPOINT_NAME,
+  SPRUNGBRETT_JOBS_ENDPOINT_NAME,
+  WOHNEN_ENDPOINT_NAME,
+  POIS_ENDPOINT_NAME
 ]
 
-// fixme: WEBAPP-400 This type should be removed
-export type ReducerType<T> = <T> (oldPayload?: Payload<T>, action: ActionType<T>) => Payload<T>
+export const startFetchReducer = <T: PayloadDataType> (oldPayload?: Payload<T>, action: StartFetchActionType<T>
+): Payload<T> => action.payload
 
-export const startFetchReducer: ReducerType<*> = <T> (oldPayload?: Payload<T>, action: ActionType<T>): Payload<T> =>
-  action.payload
-
-export const finishFetchReducer: ReducerType<*> = <T> (oldPayload?: Payload<T>, action: ActionType<T>): Payload<T> => {
+export const finishFetchReducer = <T: PayloadDataType> (oldPayload?: Payload<T>, action: FinishFetchActionType<T>
+): Payload<T> => {
   if (!oldPayload) {
     return action.payload
   }
@@ -54,13 +57,13 @@ export const finishFetchReducer: ReducerType<*> = <T> (oldPayload?: Payload<T>, 
 
 const defaultState = new Payload(false)
 
-const reducers: { [actionName: string]: ReducerType<*> } = endpoints.reduce(
-  (result, endpoint) => {
-    const name = endpoint.stateName
-    result[name] = handleActions(
+type ReducerType = Reducer<StateType, StartFetchActionType<PayloadDataType> | FinishFetchActionType<PayloadDataType>>
+const reducers: { [actionName: string]: ReducerType } = endpointNames.reduce(
+  (result, endpointName) => {
+    result[endpointName] = handleActions(
       {
-        [startFetchActionName(name)]: startFetchReducer,
-        [finishFetchActionName(name)]: finishFetchReducer
+        [startFetchActionName(endpointName)]: startFetchReducer,
+        [finishFetchActionName(endpointName)]: finishFetchReducer
       },
       defaultState
     )

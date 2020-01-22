@@ -21,7 +21,7 @@ class CleanAnchor extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const {newTab, href, children, className} = this.props
+    const { newTab, href, children, className } = this.props
 
     if (newTab) {
       return <StyledAnchor className={className} href={href} target='_blank' rel='noreferrer'>{children}</StyledAnchor>

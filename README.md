@@ -134,7 +134,7 @@ You'll  also have to bump the version in [`lib.build.js`](tools/lib.build.js).
 7. Create Pull Request to merge develop in master:
 8. Merge develop in master
 
-9. The app gets deployed automatically to  [web.integreat-app.de](https://web.integreat-app.de/) by our jenkins.
+9. The app gets deployed automatically to  [integreat.app](https://integreat.app/) by our jenkins.
 
 
 10. Tag the master HEAD as "2018.03.02". Add the release notes from Jira as description.

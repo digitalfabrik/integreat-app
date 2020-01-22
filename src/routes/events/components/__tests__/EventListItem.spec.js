@@ -1,9 +1,7 @@
 // @flow
 
 import React from 'react'
-import EventModel from '../../../../modules/endpoint/models/EventModel'
-import LocationModel from '../../../../modules/endpoint/models/LocationModel'
-import DateModel from '../../../../modules/endpoint/models/DateModel'
+import { EventModel, LocationModel, DateModel } from '@integreat-app/integreat-api-client'
 import moment from 'moment-timezone'
 import { shallow } from 'enzyme'
 import EventListItem from '../EventListItem'

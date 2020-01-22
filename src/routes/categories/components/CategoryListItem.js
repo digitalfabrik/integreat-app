@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 
-import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
+import { CategoryModel } from '@integreat-app/integreat-api-client'
 import iconPlaceholder from '../assets/IconPlaceholder.svg'
 import styled from 'styled-components'
 import Highlighter from 'react-highlighter'
@@ -66,27 +66,27 @@ type PropsType = {
  */
 class CategoryListItem extends React.PureComponent<PropsType> {
   renderSubCategories (): Array<React.Node> {
-    const {subCategories} = this.props
+    const { subCategories } = this.props
     return subCategories.map(subCategory =>
       <SubCategory key={subCategory.id}>
         <StyledLink to={subCategory.path}>
           <SubCategoryCaption search={''}>
             {subCategory.title}
-            </SubCategoryCaption>
+          </SubCategoryCaption>
         </StyledLink>
       </SubCategory>
     )
   }
 
   renderTitle (): React.Node {
-    const {query} = this.props
+    const { query } = this.props
     return <CategoryCaption search={query || ''}>
       {this.props.category.title}
     </CategoryCaption>
   }
 
   render () {
-    const {category} = this.props
+    const { category } = this.props
     return (
       <Row>
         <StyledLink to={category.path}>
