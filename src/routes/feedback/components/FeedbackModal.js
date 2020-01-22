@@ -59,6 +59,7 @@ class FeedbackModal extends React.Component<PropsType, StateType> {
     const feedbackItem = this.props.feedbackItems[feedbackIndex]
     const feedbackData: FeedbackParamsType = {
       feedbackType: feedbackItem.feedbackType,
+      feedbackCategory: feedbackItem.feedbackCategory,
       isPositiveRating: this.props.isPositiveFeedback,
       comment: comment,
       permalink: feedbackItem.pagePath || undefined,

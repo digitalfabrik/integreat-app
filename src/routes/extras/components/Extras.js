@@ -18,7 +18,14 @@ import FeedbackVariant from '../../feedback/FeedbackVariant'
 import type { NavigationScreenProp } from 'react-navigation'
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
 import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
-import type { FeedbackType } from '@integreat-app/integreat-api-client/endpoints/createFeedbackEndpoint'
+import type {
+  FeedbackCategoryType,
+  FeedbackType
+} from '@integreat-app/integreat-api-client/endpoints/createFeedbackEndpoint'
+import {
+  CONTENT_FEEDBACK_CATEGORY,
+  TECHNICAL_FEEDBACK_CATEGORY
+} from '@integreat-app/integreat-api-client/endpoints/createFeedbackEndpoint'
 
 type PropsType = {|
   extras: Array<ExtraModel>,
@@ -63,16 +70,19 @@ class Extras extends React.Component<PropsType> {
     if (!cityCode || !language) {
       throw Error('language or cityCode not available')
     }
-    const createFeedbackVariant = (label: string, feedbackType: FeedbackType, alias?: string) =>
-      new FeedbackVariant(label, language, cityCode, feedbackType, undefined, alias)
+    const createFeedbackVariant = (
+      label: string, feedbackType: FeedbackType, feedbackCategory: FeedbackCategoryType, alias?: string
+    ) => new FeedbackVariant(label, language, cityCode, feedbackType, feedbackCategory, undefined, alias)
     const cityTitle = CityModel.findCityName(cities, cityCode)
 
     const feedbackItems = [
-      createFeedbackVariant(t('feedback:contentOfCity', { city: cityTitle }), EXTRAS_FEEDBACK_TYPE),
+      createFeedbackVariant(t('feedback:contentOfCity', { city: cityTitle }), EXTRAS_FEEDBACK_TYPE,
+        CONTENT_FEEDBACK_CATEGORY),
       ...extras.map(extra =>
-        createFeedbackVariant(t('feedback:contentOfExtra', { extra: extra.title }), EXTRA_FEEDBACK_TYPE, extra.alias)
+        createFeedbackVariant(t('feedback:contentOfExtra', { extra: extra.title }), EXTRA_FEEDBACK_TYPE,
+          CONTENT_FEEDBACK_CATEGORY, extra.alias)
       ),
-      createFeedbackVariant(t('feedback:technicalTopics'), CATEGORIES_FEEDBACK_TYPE)
+      createFeedbackVariant(t('feedback:technicalTopics'), CATEGORIES_FEEDBACK_TYPE, TECHNICAL_FEEDBACK_CATEGORY)
     ]
 
     navigation.navigate('FeedbackModal', { isPositiveFeedback, feedbackItems })
