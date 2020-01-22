@@ -25,7 +25,7 @@ import { type TFunction } from 'react-i18next'
 import SpaceBetween from '../../common/components/SpaceBetween'
 import SiteHelpfulBox from '../../common/components/SiteHelpfulBox'
 import type {
-  FeedbackCatetory,
+  FeedbackCategoryType,
   FeedbackType
 } from '@integreat-app/integreat-api-client/endpoints/createFeedbackEndpoint'
 import {
@@ -68,20 +68,22 @@ class Categories extends React.Component<PropsType> {
       throw Error('language or cityCode not available')
     }
 
-    const createFeedbackVariant = (label: string, feedbackType: FeedbackType, feedbackCategory?: FeedbackCatetory,
-      pagePath?: string) =>
-      new FeedbackVariant(label, language, cityCode, feedbackType, feedbackCategory, pagePath)
+    const createFeedbackVariant = (
+      label: string, feedbackType: FeedbackType, feedbackCategory: FeedbackCategoryType, pagePath?: string
+    ) => new FeedbackVariant(label, language, cityCode, feedbackType, feedbackCategory, pagePath)
     const cityTitle = CityModel.findCityName(cities, cityCode)
     const category = stateView.root()
 
     const feedbackItems = [
-      createFeedbackVariant(t('feedback:contentOfCity', { city: cityTitle }), CATEGORIES_FEEDBACK_TYPE, CONTENT_FEEDBACK_CATEGORY),
+      createFeedbackVariant(t('feedback:contentOfCity', { city: cityTitle }),
+        CATEGORIES_FEEDBACK_TYPE, CONTENT_FEEDBACK_CATEGORY),
       createFeedbackVariant(t('feedback:technicalTopics'), CATEGORIES_FEEDBACK_TYPE, TECHNICAL_FEEDBACK_CATEGORY)
     ]
 
     if (!category.isRoot()) {
       feedbackItems.unshift(
-        createFeedbackVariant(t('feedback:contentOfPage', { page: category.title }), PAGE_FEEDBACK_TYPE, CONTENT_FEEDBACK_CATEGORY, category.path)
+        createFeedbackVariant(t('feedback:contentOfPage', { page: category.title }),
+          PAGE_FEEDBACK_TYPE, CONTENT_FEEDBACK_CATEGORY, category.path)
       )
     }
 

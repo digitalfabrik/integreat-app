@@ -28,7 +28,7 @@ import FeedbackVariant from '../../feedback/FeedbackVariant'
 import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
 import type {
-  FeedbackCatetory,
+  FeedbackCategoryType,
   FeedbackType
 } from '@integreat-app/integreat-api-client/endpoints/createFeedbackEndpoint'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
@@ -65,16 +65,19 @@ class Events extends React.Component<PropsType> {
 
   createNavigateToFeedbackForEvent = (event: EventModel) => (isPositiveFeedback: boolean) => {
     const { t, navigation, cities, cityCode, language } = this.props
-    const createFeedbackVariant = (label: string, feedbackType: FeedbackType, feedbackCategory?: FeedbackCatetory,
-      pagePath?: string): FeedbackVariant =>
-      new FeedbackVariant(label, language, cityCode, feedbackType, feedbackCategory, pagePath)
+
+    const createFeedbackVariant = (
+      label: string, feedbackType: FeedbackType, feedbackCategory: FeedbackCategoryType, pagePath?: string
+    ): FeedbackVariant => new FeedbackVariant(label, language, cityCode, feedbackType, feedbackCategory, pagePath)
 
     const cityTitle = CityModel.findCityName(cities, cityCode)
     navigation.navigate('FeedbackModal', {
       isPositiveFeedback,
       feedbackItems: [
-        createFeedbackVariant(t('feedback:contentOfEvent', { event: event.title }), PAGE_FEEDBACK_TYPE, CONTENT_FEEDBACK_CATEGORY, event.path),
-        createFeedbackVariant(t('feedback:contentOfCity', { city: cityTitle }), EVENTS_FEEDBACK_TYPE, CONTENT_FEEDBACK_CATEGORY),
+        createFeedbackVariant(t('feedback:contentOfEvent', { event: event.title }), PAGE_FEEDBACK_TYPE,
+          CONTENT_FEEDBACK_CATEGORY, event.path),
+        createFeedbackVariant(t('feedback:contentOfCity', { city: cityTitle }), EVENTS_FEEDBACK_TYPE,
+          CONTENT_FEEDBACK_CATEGORY),
         createFeedbackVariant(t('feedback:technicalTopics'), CATEGORIES_FEEDBACK_TYPE, TECHNICAL_FEEDBACK_CATEGORY)
       ]
     })
@@ -82,14 +85,15 @@ class Events extends React.Component<PropsType> {
 
   navigateToFeedbackForEvents = (isPositiveFeedback: boolean) => {
     const { t, navigation, cities, cityCode, language } = this.props
-    const createFeedbackVariant = (label: string, feedbackType: FeedbackType, feedbackCategory?: FeedbackCatetory,
+    const createFeedbackVariant = (label: string, feedbackType: FeedbackType, feedbackCategory: FeedbackCategoryType,
       pagePath?: string) =>
       new FeedbackVariant(label, language, cityCode, feedbackType, feedbackCategory, pagePath)
     const cityTitle = CityModel.findCityName(cities, cityCode)
     navigation.navigate('FeedbackModal', {
       isPositiveFeedback,
       feedbackItems: [
-        createFeedbackVariant(t('feedback:contentOfCity', { city: cityTitle }), EVENTS_FEEDBACK_TYPE, CONTENT_FEEDBACK_CATEGORY),
+        createFeedbackVariant(t('feedback:contentOfCity', { city: cityTitle }), EVENTS_FEEDBACK_TYPE,
+          CONTENT_FEEDBACK_CATEGORY),
         createFeedbackVariant(t('feedback:technicalTopics'), CATEGORIES_FEEDBACK_TYPE, TECHNICAL_FEEDBACK_CATEGORY)
       ]
     })
