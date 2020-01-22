@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -37,6 +39,10 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Integreat wants to use your location to find nearby cities.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Integreat wants to save photos to your library.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Lateef.ttf</string>
@@ -61,9 +67,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Integreat wants to save photos to your library.</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Integreat wants to use your location to find nearby cities.</string>
 </dict>
 </plist>
