@@ -1,6 +1,9 @@
 // @flow
 
-import createFeedbackEndponit from '../createFeedbackEndpoint'
+import createFeedbackEndponit, {
+  CONTENT_FEEDBACK_CATEGORY,
+  TECHNICAL_FEEDBACK_CATEGORY
+} from '../createFeedbackEndpoint'
 
 describe('feedback', () => {
   const baseUrl = 'https://integreat-api-url.de'
@@ -12,6 +15,7 @@ describe('feedback', () => {
       language: 'de',
       comment: null,
       feedbackType: null,
+      feedbackCategory: TECHNICAL_FEEDBACK_CATEGORY,
       isPositiveRating: true
     })).toEqual(
       'https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/feedback'
@@ -25,6 +29,7 @@ describe('feedback', () => {
     formData.append('comment', 'comment')
     formData.append('query', 'query')
     formData.append('alias', 'alias')
+    formData.append('category', 'Inhalte')
 
     expect(feedback.mapParamsToBody).not.toBeNull()
 
@@ -39,6 +44,7 @@ describe('feedback', () => {
       permalink: '/augsburg/de/familie',
       isPositiveRating: true,
       feedbackType: 'categories',
+      feedbackCategory: CONTENT_FEEDBACK_CATEGORY,
       comment: 'comment',
       alias: 'alias',
       query: 'query'
