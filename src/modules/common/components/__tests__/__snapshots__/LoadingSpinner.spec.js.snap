@@ -3,13 +3,12 @@
 exports[`LoadingSpinner should render and match snapshot 1`] = `
 <LoadingSpinner>
   <StyledComponent
-    forwardedClass={
+    forwardedComponent={
       Object {
         "$$typeof": Symbol(react.forward_ref),
-        "attrs": Object {
-          "color": [Function],
-          "name": "line-scale-party",
-        },
+        "attrs": Array [
+          [Function],
+        ],
         "componentStyle": ComponentStyle {
           "componentId": "LoadingSpinner-sc-17lopqu-0",
           "isStatic": false,
@@ -19,13 +18,13 @@ exports[`LoadingSpinner should render and match snapshot 1`] = `
           ],
         },
         "displayName": "LoadingSpinner",
+        "foldedComponentIds": Array [],
         "render": [Function],
         "styledComponentId": "LoadingSpinner-sc-17lopqu-0",
         "target": [Function],
         "toString": [Function],
         "warnTooManyClasses": [Function],
         "withComponent": [Function],
-        Symbol(Symbol.hasInstance): [Function],
       }
     }
     forwardedRef={null}

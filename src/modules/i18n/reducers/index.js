@@ -8,7 +8,7 @@ export type DirectionStateType = 'ltr' | 'rtl'
 const uiDirectionReducer: ReduxReducer<DirectionStateType, { type: 'SET_UI_DIRECTION', payload: 'ltr' | 'rtl' }> =
   handleAction(
     'SET_UI_DIRECTION',
-    (state: DirectionStateType, {payload}: ActionType<typeof setUIDirection>) => payload,
+    (state: DirectionStateType, { payload }: ActionType<typeof setUIDirection>) => payload,
     'ltr'
   )
 

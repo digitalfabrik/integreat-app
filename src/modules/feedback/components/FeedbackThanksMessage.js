@@ -4,7 +4,7 @@ import React from 'react'
 import { Description, StyledFeedbackBox } from './FeedbackBox'
 import ModalHeader from './ModalHeader'
 import type { TFunction } from 'react-i18next'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 
 type PropsType = {|
   closeFeedbackModal: () => void,
@@ -13,7 +13,7 @@ type PropsType = {|
 
 export class FeedbackThanksMessage extends React.PureComponent<PropsType> {
   render () {
-    const {closeFeedbackModal, t} = this.props
+    const { closeFeedbackModal, t } = this.props
     return (
       <StyledFeedbackBox>
         <ModalHeader closeFeedbackModal={closeFeedbackModal} title={t('feedbackSent')} />
@@ -23,4 +23,4 @@ export class FeedbackThanksMessage extends React.PureComponent<PropsType> {
   }
 }
 
-export default withNamespaces('feedback')(FeedbackThanksMessage)
+export default withTranslation('feedback')(FeedbackThanksMessage)

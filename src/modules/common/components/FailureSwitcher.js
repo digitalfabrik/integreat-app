@@ -3,16 +3,12 @@
 import * as React from 'react'
 import ContentNotFoundError from '../errors/ContentNotFoundError'
 import Failure from './Failure'
-import LanguageFailure from '../containers/LanguageFailure'
-import { goToEvents } from '../../app/routes/events'
-import { goToExtras } from '../../app/routes/extras'
-import { goToCategories } from '../../app/routes/categories'
-import LanguageNotFoundError from '../../app/errors/LanguageNotFoundError'
-import Helmet from 'react-helmet'
-
-import CityNotFoundError from '../../app/errors/CityNotFoundError'
 import type { TFunction } from 'react-i18next'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
+import CategoriesRouteConfig from '../../app/route-configs/CategoriesRouteConfig'
+import EventsRouteConfig from '../../app/route-configs/EventsRouteConfig'
+import ExtrasRouteConfig from '../../app/route-configs/ExtrasRouteConfig'
+import PoisRouteConfig from '../../app/route-configs/PoisRouteConfig'
 
 type PropsType = {|
   error: Error,
@@ -26,57 +22,37 @@ export class FailureSwitcher extends React.Component<PropsType> {
    * @return {*}
    */
   static renderContentNotFoundComponent (error: ContentNotFoundError): React.Node {
+    const { city, language } = error
     switch (error.type) {
       case 'category':
-        return <Failure goToAction={goToCategories(error.city, error.language)}
+        return <Failure goToPath={new CategoriesRouteConfig().getRoutePath({ city, language })}
                         goToMessage={'goTo.categories'}
-                        errorMessage={'not-found.category'} />
+                        errorMessage={'notFound.category'} />
       case 'event':
-        return <Failure goToAction={goToEvents(error.city, error.language)}
+        return <Failure goToPath={new EventsRouteConfig().getRoutePath({ city, language })}
                         goToMessage={'goTo.events'}
-                        errorMessage={'not-found.event'} />
+                        errorMessage={'notFound.event'} />
       case 'extra':
-        return <Failure goToAction={goToExtras(error.city, error.language)}
+        return <Failure goToPath={new ExtrasRouteConfig().getRoutePath({ city, language })}
                         goToMessage={'goTo.extras'}
-                        errorMessage={'not-found.extra'} />
+                        errorMessage={'notFound.extra'} />
+      case 'poi':
+        return <Failure goToPath={new PoisRouteConfig().getRoutePath({ city, language })}
+                        goToMessage={'goTo.pois'}
+                        errorMessage={'notFound.poi'} />
     }
 
     throw new Error('Failed to find component to render a content error')
   }
 
-  /**
-   * Decides which kind of error should be rendered
-   * @return {*}
-   */
-  renderErrorComponent (): React.Node {
+  render () {
     const error = this.props.error
     if (error instanceof ContentNotFoundError) {
       return FailureSwitcher.renderContentNotFoundComponent(error)
-    } else if (error instanceof LanguageNotFoundError) {
-      return <LanguageFailure city={error.city} />
     } else {
       return <Failure errorMessage={error.message} />
     }
   }
-
-  getErrorName (): string {
-    const {t, error} = this.props
-    if (error instanceof CityNotFoundError ||
-        error instanceof LanguageNotFoundError ||
-        error instanceof ContentNotFoundError) {
-      return t('not-found.pageTitle')
-    }
-    return t('pageTitle')
-  }
-
-  render () {
-    return <>
-      <Helmet>
-        <title>{this.getErrorName()}</title>
-      </Helmet>
-      {this.renderErrorComponent()}
-    </>
-  }
 }
 
-export default withNamespaces('error')(FailureSwitcher)
+export default withTranslation('error')(FailureSwitcher)

@@ -1,0 +1,99 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PoisPage should render a Failure if poi is invalid 1`] = `
+<Translate(FailureSwitcher)
+  error={[Error: The poi invalid_poi does not exist here.]}
+/>
+`;
+
+exports[`PoisPage should render a Page if a poi is selected 1`] = `
+<Page
+  content="content"
+  language="en"
+  lastUpdate={"2016-01-07T09:36:24.000Z"}
+  onInternalLinkClick={[Function]}
+  thumbnail="thumbnail"
+  title="third Event"
+>
+  <PageDetail
+    identifier="location"
+    information="address, postcode town"
+  />
+</Page>
+`;
+
+exports[`PoisPage should render a list of pois if no poi is selected 1`] = `
+<Fragment>
+  <Caption
+    title="pois"
+  />
+  <List
+    items={
+      Array [
+        PoiModel {
+          "_availableLanguages": Map {
+            "de" => "/augsburg/de/locations/erster_poi",
+            "ar" => "/augsburg/ar/locations/erster_poi",
+          },
+          "_content": "content",
+          "_excerpt": "excerpt",
+          "_id": 1,
+          "_lastUpdate": "2016-01-07T09:36:24.000Z",
+          "_location": LocationModel {
+            "_address": "address",
+            "_latitude": undefined,
+            "_longitude": undefined,
+            "_postcode": "postcode",
+            "_town": "town",
+          },
+          "_path": "/augsburg/en/locations/first_poi",
+          "_thumbnail": "thumbnail",
+          "_title": "first Event",
+        },
+        PoiModel {
+          "_availableLanguages": Map {
+            "en" => "/augsburg/de/locations/zwoter_poi",
+            "ar" => "/augsburg/ar/locations/zwoter_poi",
+          },
+          "_content": "content",
+          "_excerpt": "excerpt",
+          "_id": 2,
+          "_lastUpdate": "2016-01-07T09:36:24.000Z",
+          "_location": LocationModel {
+            "_address": "address",
+            "_latitude": undefined,
+            "_longitude": undefined,
+            "_postcode": "postcode",
+            "_town": "town",
+          },
+          "_path": "/augsburg/en/locations/second_poi",
+          "_thumbnail": "thumbnail",
+          "_title": "second Event",
+        },
+        PoiModel {
+          "_availableLanguages": Map {
+            "de" => "/augsburg/de/locations/dritter_poi",
+            "ar" => "/augsburg/ar/locations/dritter_poi",
+          },
+          "_content": "content",
+          "_excerpt": "excerpt",
+          "_id": 3,
+          "_lastUpdate": "2016-01-07T09:36:24.000Z",
+          "_location": LocationModel {
+            "_address": "address",
+            "_latitude": undefined,
+            "_longitude": undefined,
+            "_postcode": "postcode",
+            "_town": "town",
+          },
+          "_path": "/augsburg/en/locations/third_poi",
+          "_thumbnail": "thumbnail",
+          "_title": "third Event",
+        },
+      ]
+    }
+    noItemsMessage="noPois"
+    renderItem={[Function]}
+  />
+</Fragment>
+`;

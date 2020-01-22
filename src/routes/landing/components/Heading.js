@@ -2,11 +2,8 @@
 
 import React from 'react'
 
-import LocationBig from '../assets/LocationBig.svg'
-import type { TFunction } from 'react-i18next'
-import { withNamespaces } from 'react-i18next'
-import Caption from '../../../modules/common/components/Caption'
 import styled from 'styled-components'
+import appConfig from '../../../modules/app/constants/appConfig'
 
 const Logo = styled.img`
   display: block;
@@ -14,20 +11,6 @@ const Logo = styled.img`
   margin: 0 auto;
 `
 
-type PropsType = {|
-  t: TFunction
-|}
+const Heading = () => <Logo src={appConfig.locationIcon} />
 
-class Heading extends React.PureComponent<PropsType> {
-  render () {
-    const {t} = this.props
-    return (
-      <div>
-        <Logo src={LocationBig} />
-        <Caption title={t('where')} />
-      </div>
-    )
-  }
-}
-
-export default withNamespaces('landing')(Heading)
+export default Heading

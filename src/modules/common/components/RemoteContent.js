@@ -3,6 +3,7 @@
 import React from 'react'
 
 import styled, { css } from 'styled-components'
+import appConfig from '../../app/constants/appConfig'
 
 const SandBox = styled.div`
   font-family: ${props => props.theme.fonts.contentFontFamily};
@@ -59,11 +60,11 @@ type PropsType = {|
     __html: string
   },
   hijackRegExp?: RegExp,
-  onInternLinkClick: string => void,
+  onInternalLinkClick: string => void,
   centered: boolean
 |}
 
-const HIJACK = /https?:\/\/(cms\.integreat-app\.de|web\.integreat-app\.de|integreat\.app)(?!\/[^/]*\/(wp-content|wp-admin|wp-json)\/.*).*/
+const HIJACK = new RegExp(appConfig.internalLinksHijackPattern)
 
 class RemoteContent extends React.Component<PropsType> {
   static defaultProps = {
@@ -80,7 +81,7 @@ class RemoteContent extends React.Component<PropsType> {
 
     if (target instanceof HTMLAnchorElement) {
       const href = target.href
-      this.props.onInternLinkClick(decodeURIComponent(new URL(decodeURIComponent(href)).pathname))
+      this.props.onInternalLinkClick(decodeURIComponent(new URL(decodeURIComponent(href)).pathname))
     }
   }
 

@@ -1,33 +1,34 @@
 // @flow
 
 import * as React from 'react'
-import 'react-dropdown/style.css'
 
-import CityModel from '../../../modules/endpoint/models/CityModel'
-import type { ParamsType as FeedbackParamsType } from '../../../modules/endpoint/endpoints/feedback'
-import feedbackEndpoint, {
+import {
   CATEGORIES_FEEDBACK_TYPE,
+  CityModel,
+  createFeedbackEndpoint,
   DEFAULT_FEEDBACK_LANGUAGE,
   EVENTS_FEEDBACK_TYPE,
   EXTRA_FEEDBACK_TYPE,
+  ExtraModel,
   EXTRAS_FEEDBACK_TYPE,
+  type FeedbackParamsType,
   INTEGREAT_INSTANCE,
   PAGE_FEEDBACK_TYPE,
   SEARCH_FEEDBACK_TYPE
-} from '../../../modules/endpoint/endpoints/feedback'
+} from '@integreat-app/integreat-api-client'
 import type { TFunction } from 'react-i18next'
-import { withNamespaces } from 'react-i18next'
-import { CATEGORIES_ROUTE } from '../../../modules/app/routes/categories'
-import { EVENTS_ROUTE } from '../../../modules/app/routes/events'
-import { SEARCH_ROUTE } from '../../../modules/app/routes/search'
-import { DISCLAIMER_ROUTE } from '../../../modules/app/routes/disclaimer'
+import { withTranslation } from 'react-i18next'
 import type { LocationState } from 'redux-first-router'
 import FeedbackDropdownItem from '../FeedbackDropdownItem'
-import { WOHNEN_ROUTE } from '../../../modules/app/routes/wohnen'
-import { SPRUNGBRETT_ROUTE } from '../../../modules/app/routes/sprungbrett'
-import { EXTRAS_ROUTE } from '../../../modules/app/routes/extras'
-import ExtraModel from '../../../modules/endpoint/models/ExtraModel'
 import FeedbackBox from './FeedbackBox'
+import { EVENTS_ROUTE } from '../../app/route-configs/EventsRouteConfig'
+import { EXTRAS_ROUTE } from '../../app/route-configs/ExtrasRouteConfig'
+import { CATEGORIES_ROUTE } from '../../app/route-configs/CategoriesRouteConfig'
+import { WOHNEN_ROUTE } from '../../app/route-configs/WohnenRouteConfig'
+import { SPRUNGBRETT_ROUTE } from '../../app/route-configs/SprungbrettRouteConfig'
+import { SEARCH_ROUTE } from '../../app/route-configs/SearchRouteConfig'
+import { DISCLAIMER_ROUTE } from '../../app/route-configs/DisclaimerRouteConfig'
+import { cmsApiBaseUrl } from '../../app/constants/urls'
 
 type PropsType = {|
   cities: ?Array<CityModel>,
@@ -57,16 +58,16 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
   constructor (props: PropsType) {
     super(props)
     const feedbackOptions = this.getFeedbackOptions()
-    this.state = {feedbackOptions: feedbackOptions, selectedFeedbackOption: feedbackOptions[0], comment: ''}
+    this.state = { feedbackOptions: feedbackOptions, selectedFeedbackOption: feedbackOptions[0], comment: '' }
   }
 
   postFeedbackData = (feedbackData: FeedbackParamsType) => {
-    const {postFeedbackDataOverride} = this.props
+    const { postFeedbackDataOverride } = this.props
 
     if (postFeedbackDataOverride) {
       postFeedbackDataOverride(feedbackData)
     } else {
-      feedbackEndpoint.request(feedbackData)
+      createFeedbackEndpoint(cmsApiBaseUrl).request(feedbackData)
     }
   }
 
@@ -78,7 +79,7 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
    * * Feedback for technical topics
    */
   getFeedbackOptions = (): Array<FeedbackDropdownItem> => {
-    const {t} = this.props
+    const { t } = this.props
 
     const options = []
     const currentPageFeedbackOption = this.getCurrentPageFeedbackOption()
@@ -101,8 +102,8 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
    * Returns a feedback option for the content of the current city
    */
   getContentFeedbackOption = (): ?FeedbackDropdownItem => {
-    const {cities, location, t} = this.props
-    const {city} = location.payload
+    const { cities, location, t } = this.props
+    const { city } = location.payload
     const currentRoute = location.type
 
     if (city && cities) {
@@ -125,7 +126,7 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
    * Returns a feedback option for every available extra
    */
   getExtrasFeedbackOptions = (): Array<FeedbackDropdownItem> => {
-    const {extras, location, t} = this.props
+    const { extras, location, t } = this.props
     const currentRoute = location.type
     if (extras && currentRoute === EXTRAS_ROUTE) {
       return extras.map(
@@ -139,15 +140,15 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
    * Returns a feedback option for the current page or null if there shouldn't be one
    */
   getCurrentPageFeedbackOption = (): ?FeedbackDropdownItem => {
-    const {location, id, alias, title, query, t} = this.props
+    const { location, id, alias, title, query, t } = this.props
     const type = location.type
 
     if (type === CATEGORIES_ROUTE && id && title) {
-      return new FeedbackDropdownItem(`${t('contentOfPage')} '${title}'`, PAGE_FEEDBACK_TYPE)
+      return new FeedbackDropdownItem(t('contentOfPage', { page: title }), PAGE_FEEDBACK_TYPE)
     } else if (type === EVENTS_ROUTE && id && title) {
-      return new FeedbackDropdownItem(`${t('news')} '${title}'`, PAGE_FEEDBACK_TYPE)
+      return new FeedbackDropdownItem(t('contentOfEvent', { event: title }), PAGE_FEEDBACK_TYPE)
     } else if (([WOHNEN_ROUTE, SPRUNGBRETT_ROUTE].includes(type)) && alias && title) {
-      return new FeedbackDropdownItem(`${t('extra')} '${title}'`, EXTRA_FEEDBACK_TYPE)
+      return new FeedbackDropdownItem(t('contentOfExtra', { extra: title }), EXTRA_FEEDBACK_TYPE)
     } else if (type === SEARCH_ROUTE && query) {
       return new FeedbackDropdownItem(`${t('searchFor')} '${query}'`, SEARCH_FEEDBACK_TYPE)
     } else if (type === DISCLAIMER_ROUTE) {
@@ -161,8 +162,8 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
    * Returns the data that should be posted to the feedback endpoint
    */
   getFeedbackData = (selectedFeedbackOption: FeedbackDropdownItem, comment: string): FeedbackParamsType => {
-    const {location, query, isPositiveRatingSelected, id, alias} = this.props
-    const {city, language} = location.payload
+    const { location, query, isPositiveRatingSelected, id, alias } = this.props
+    const { city, language } = location.payload
 
     const isExtraOptionSelected = selectedFeedbackOption.feedbackType === EXTRA_FEEDBACK_TYPE
     const feedbackAlias = alias || (isExtraOptionSelected ? selectedFeedbackOption.value : '')
@@ -179,22 +180,22 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
     }
   }
 
-  onCommentChanged = (event: SyntheticInputEvent<HTMLTextAreaElement>) => this.setState({comment: event.target.value})
+  onCommentChanged = (event: SyntheticInputEvent<HTMLTextAreaElement>) => this.setState({ comment: event.target.value })
 
   onFeedbackOptionChanged = (selectedDropdown: FeedbackDropdownItem) => {
     this.setState(prevState =>
-      ({selectedFeedbackOption: prevState.feedbackOptions.find(option => option.value === selectedDropdown.value)})
+      ({ selectedFeedbackOption: prevState.feedbackOptions.find(option => option.value === selectedDropdown.value) })
     )
   }
 
   onSubmit = () => {
-    const {selectedFeedbackOption, comment} = this.state
+    const { selectedFeedbackOption, comment } = this.state
     this.postFeedbackData(this.getFeedbackData(selectedFeedbackOption, comment))
     this.props.onSubmit()
   }
 
   render () {
-    const {closeFeedbackModal, isPositiveRatingSelected} = this.props
+    const { closeFeedbackModal, isPositiveRatingSelected } = this.props
     return <FeedbackBox onFeedbackOptionChanged={this.onFeedbackOptionChanged}
                         onCommentChanged={this.onCommentChanged}
                         onSubmit={this.onSubmit}
@@ -204,4 +205,4 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
   }
 }
 
-export default withNamespaces('feedback')(FeedbackBoxContainer)
+export default withTranslation('feedback')(FeedbackBoxContainer)

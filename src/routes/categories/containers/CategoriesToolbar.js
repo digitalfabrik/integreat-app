@@ -2,16 +2,15 @@
 
 import React from 'react'
 import type { TFunction } from 'react-i18next'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import { faFilePdf } from '../../../modules/app/constants/icons'
 
-import CategoriesMapModel from '../../../modules/endpoint/models/CategoriesMapModel'
+import { CategoriesMapModel, CategoryModel } from '@integreat-app/integreat-api-client'
 import ToolbarItem from '../../../modules/layout/components/ToolbarItem'
-import { apiUrl } from '../../../modules/endpoint/constants'
-import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 import type { LocationState } from 'redux-first-router'
 import LocationToolbar from '../../../modules/layout/components/LocationToolbar'
 import type { FeedbackRatingType } from '../../../modules/layout/containers/LocationLayout'
+import { cmsApiBaseUrl } from '../../../modules/app/constants/urls'
 
 type PropsType = {|
   categories: ?CategoriesMapModel,
@@ -22,17 +21,17 @@ type PropsType = {|
 
 export class CategoriesToolbar extends React.PureComponent<PropsType> {
   getPdfUrl (category: CategoryModel): string {
-    const {city, language} = this.props.location.payload
+    const { city, language } = this.props.location.payload
 
     if (category.id === 0) {
-      return `${apiUrl}/${city}/${language}/wp-json/ig-mpdf/v1/pdf`
+      return `${cmsApiBaseUrl}/${city}/${language}/wp-json/ig-mpdf/v1/pdf`
     } else {
-      return `${apiUrl}/${city}/${language}/wp-json/ig-mpdf/v1/pdf?url=${encodeURIComponent(category.path)}`
+      return `${cmsApiBaseUrl}/${city}/${language}/wp-json/ig-mpdf/v1/pdf?url=${encodeURIComponent(category.path)}`
     }
   }
 
   render () {
-    const {t, location, categories, openFeedbackModal} = this.props
+    const { t, location, categories, openFeedbackModal } = this.props
     const category = categories && categories.findCategoryByPath(location.pathname)
     if (!category) {
       return null
@@ -45,4 +44,4 @@ export class CategoriesToolbar extends React.PureComponent<PropsType> {
   }
 }
 
-export default withNamespaces('categories')(CategoriesToolbar)
+export default withTranslation('categories')(CategoriesToolbar)

@@ -2,12 +2,12 @@
 
 import React from 'react'
 import type { TFunction } from 'react-i18next'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFrown, faSmile } from '../../../modules/app/constants/icons'
 
 import ReactTooltip from 'react-tooltip'
-import { NEGATIVE_RATING, POSITIVE_RATING } from '../../../modules/endpoint/endpoints/feedback'
+import { NEGATIVE_RATING, POSITIVE_RATING } from '@integreat-app/integreat-api-client'
 import StyledToolbarItem from '../../../modules/layout/components/StyledToolbarItem'
 import type { FeedbackRatingType } from '../../layout/containers/LocationLayout'
 
@@ -29,7 +29,7 @@ export class FeedbackToolbarItem extends React.PureComponent<PropsType> {
   onLinkClick = () => this.props.openFeedbackModal(this.props.isPositiveRatingLink ? POSITIVE_RATING : NEGATIVE_RATING)
 
   render () {
-    const {t, isPositiveRatingLink, className} = this.props
+    const { t, isPositiveRatingLink, className } = this.props
     const dataTip = isPositiveRatingLink ? t('positiveRating') : t('negativeRating')
     return (
       <StyledFeedbackToolbarItem className={className} onClick={this.onLinkClick}>
@@ -43,4 +43,4 @@ export class FeedbackToolbarItem extends React.PureComponent<PropsType> {
   }
 }
 
-export default withNamespaces('feedback')(FeedbackToolbarItem)
+export default withTranslation('feedback')(FeedbackToolbarItem)

@@ -7,44 +7,39 @@ exports[`ExtrasPage should render a ExtraNotFoundError if there is an extraId 1`
 `;
 
 exports[`ExtrasPage should render extra tiles if no extra is selected 1`] = `
-<Fragment>
-  <Connect(Helmet)
-    title="pageTitle - Augsburg"
-  />
-  <Tiles
-    tiles={
-      Array [
-        TileModel {
-          "_id": "sprungbrett",
-          "_isExternalUrl": false,
-          "_path": "/augsburg/de/extras/sprungbrett",
-          "_postData": null,
-          "_thumbnail": "xy",
-          "_title": "Sprungbrett",
+<Tiles
+  tiles={
+    Array [
+      TileModel {
+        "_id": "sprungbrett",
+        "_isExternalUrl": false,
+        "_path": "/augsburg/de/extras/sprungbrett",
+        "_postData": null,
+        "_thumbnail": "xy",
+        "_title": "Sprungbrett",
+      },
+      TileModel {
+        "_id": "ihk-lehrstellenboerse",
+        "_isExternalUrl": true,
+        "_path": "ihk-jobborese.com",
+        "_postData": Map {
+          "partner" => "0006",
+          "radius" => "50",
+          "plz" => "86150",
         },
-        TileModel {
-          "_id": "ihk-lehrstellenboerse",
-          "_isExternalUrl": true,
-          "_path": "ihk-jobborese.com",
-          "_postData": Map {
-            "partner" => "0006",
-            "radius" => "50",
-            "plz" => "86150",
-          },
-          "_thumbnail": "xy",
-          "_title": "Jobboerse",
-        },
-        TileModel {
-          "_id": "ihk-praktikumsboerse",
-          "_isExternalUrl": true,
-          "_path": "ihk-pratkitkumsboerse.com",
-          "_postData": null,
-          "_thumbnail": "xy",
-          "_title": "Praktikumsboerse",
-        },
-      ]
-    }
-    title="extras"
-  />
-</Fragment>
+        "_thumbnail": "xy",
+        "_title": "Jobboerse",
+      },
+      TileModel {
+        "_id": "ihk-praktikumsboerse",
+        "_isExternalUrl": true,
+        "_path": "ihk-pratkitkumsboerse.com",
+        "_postData": null,
+        "_thumbnail": "xy",
+        "_title": "Praktikumsboerse",
+      },
+    ]
+  }
+  title="offers"
+/>
 `;

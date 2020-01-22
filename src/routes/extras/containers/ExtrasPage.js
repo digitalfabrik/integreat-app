@@ -5,23 +5,20 @@ import { connect } from 'react-redux'
 
 import TileModel from '../../../modules/common/models/TileModel'
 import Tiles from '../../../modules/common/components/Tiles'
-import ExtraModel from '../../../modules/endpoint/models/ExtraModel'
+import { ExtraModel } from '@integreat-app/integreat-api-client'
 import type { TFunction } from 'react-i18next'
-import { withNamespaces } from 'react-i18next'
-import CityModel from '../../../modules/endpoint/models/CityModel'
+import { withTranslation } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
-import Helmet from '../../../modules/common/containers/Helmet'
 import { compose } from 'recompose'
-import { getSprungbrettExtraPath, SPRUNGBRETT_EXTRA } from '../../../modules/app/routes/sprungbrett'
-import { getWohnenExtraPath, WOHNEN_EXTRA } from '../../../modules/app/routes/wohnen'
+import SprungbrettRouteConfig, { SPRUNGBRETT_EXTRA } from '../../../modules/app/route-configs/SprungbrettRouteConfig'
+import WohnenRouteConfig, { WOHNEN_EXTRA } from '../../../modules/app/route-configs/WohnenRouteConfig'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 
 type PropsType = {|
   city: string,
   language: string,
-  extras: ?Array<ExtraModel>,
-  cities: ?Array<CityModel>,
+  extras: Array<ExtraModel>,
   extraId: ?string,
   t: TFunction
 |}
@@ -31,13 +28,14 @@ type PropsType = {|
  */
 export class ExtrasPage extends React.Component<PropsType> {
   toTileModels (extras: Array<ExtraModel>): Array<TileModel> {
+    const { city, language } = this.props
     return extras.map(
       extra => {
         let path = extra.path
         if (extra.alias === SPRUNGBRETT_EXTRA) {
-          path = getSprungbrettExtraPath(this.props.city, this.props.language)
+          path = new SprungbrettRouteConfig().getRoutePath({ city, language })
         } else if (extra.alias === WOHNEN_EXTRA) {
-          path = getWohnenExtraPath(this.props.city, this.props.language)
+          path = new WohnenRouteConfig().getRoutePath({ city, language })
         }
 
         return new TileModel({
@@ -55,25 +53,16 @@ export class ExtrasPage extends React.Component<PropsType> {
   }
 
   render () {
-    const {city, cities, extras, extraId, language, t} = this.props
-
-    if (!cities || !extras) {
-      throw new Error('Data not ready')
-    }
-
-    const cityName = CityModel.findCityName(cities, city)
+    const { city, extras, extraId, language, t } = this.props
 
     if (extraId) {
       // If there is an extraId, the route is invalid, because every internal extra has a separate route
-      const error = new ContentNotFoundError({type: 'extra', id: extraId, city: city, language})
+      const error = new ContentNotFoundError({ type: 'extra', id: extraId, city: city, language })
       return <FailureSwitcher error={error} />
     }
 
     return (
-      <>
-        <Helmet title={`${t('pageTitle')} - ${cityName}`} />
-        <Tiles title={t('extras')} tiles={this.toTileModels(extras)} />
-      </>
+      <Tiles title={t('offers')} tiles={this.toTileModels(extras)} />
     )
   }
 }
@@ -86,5 +75,5 @@ const mapStateToProps = (state: StateType) => ({
 
 export default compose(
   connect(mapStateToProps),
-  withNamespaces('extras')
+  withTranslation('extras')
 )(ExtrasPage)

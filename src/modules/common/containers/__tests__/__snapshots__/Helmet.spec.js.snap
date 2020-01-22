@@ -6,26 +6,26 @@ exports[`Helmet should add noindex tag, if city is not live 1`] = `
   encodeSpecialCharacters={true}
 >
   <title>
-    Random title
+    PageTitle
   </title>
   <meta
     content="noindex"
     name="robots"
   />
   <link
-    href={null}
+    href="/testinstanz/de"
     hrefLang="de"
     key="de"
     rel="alternate"
   />
   <link
-    href={null}
+    href="/testinstanz/en"
     hrefLang="en"
     key="en"
     rel="alternate"
   />
   <link
-    href={null}
+    href="/testinstanz/ar"
     hrefLang="ar"
     key="ar"
     rel="alternate"
@@ -39,22 +39,26 @@ exports[`Helmet should render and match snapshot 1`] = `
   encodeSpecialCharacters={true}
 >
   <title>
-    Random title
+    PageTitle
   </title>
+  <meta
+    content="MetaDescription"
+    name="description"
+  />
   <link
-    href={null}
+    href="/augsburg/de"
     hrefLang="de"
     key="de"
     rel="alternate"
   />
   <link
-    href={null}
+    href="/augsburg/en"
     hrefLang="en"
     key="en"
     rel="alternate"
   />
   <link
-    href={null}
+    href="/augsburg/ar"
     hrefLang="ar"
     key="ar"
     rel="alternate"

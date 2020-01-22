@@ -42,85 +42,42 @@ exports[`Heading should render 1`] = `
     }
   }
 >
-  <Translate(Heading)>
-    <Heading
-      t={[Function]}
+  <Heading>
+    <Heading__Logo
+      src="/location-big.svg"
     >
-      <div>
-        <Heading__Logo
-          src="test-file-stub"
-        >
-          <StyledComponent
-            forwardedClass={
-              Object {
-                "$$typeof": Symbol(react.forward_ref),
-                "attrs": undefined,
-                "componentStyle": ComponentStyle {
-                  "componentId": "Heading__Logo-nspadb-0",
-                  "isStatic": true,
-                  "lastClassName": "douIoU",
-                  "rules": Array [
-                    "display:block;height:70px;margin:0 auto;",
-                  ],
-                },
-                "displayName": "Heading__Logo",
-                "render": [Function],
-                "styledComponentId": "Heading__Logo-nspadb-0",
-                "target": "img",
-                "toString": [Function],
-                "warnTooManyClasses": [Function],
-                "withComponent": [Function],
-              }
-            }
-            forwardedRef={null}
-            src="test-file-stub"
-          >
-            <img
-              className="Heading__Logo-nspadb-0 douIoU"
-              src="test-file-stub"
-            />
-          </StyledComponent>
-        </Heading__Logo>
-        <Caption
-          title="landing:where"
-        >
-          <Caption__H1>
-            <StyledComponent
-              forwardedClass={
-                Object {
-                  "$$typeof": Symbol(react.forward_ref),
-                  "attrs": undefined,
-                  "componentStyle": ComponentStyle {
-                    "componentId": "Caption__H1-sc-1ggkcri-0",
-                    "isStatic": false,
-                    "lastClassName": "gqxdkx",
-                    "rules": Array [
-                      "margin:25px 0;font-size:2rem;text-align:center;@media ",
-                      [Function],
-                      "{margin:10px 0;}",
-                    ],
-                  },
-                  "displayName": "Caption__H1",
-                  "render": [Function],
-                  "styledComponentId": "Caption__H1-sc-1ggkcri-0",
-                  "target": "h1",
-                  "toString": [Function],
-                  "warnTooManyClasses": [Function],
-                  "withComponent": [Function],
-                }
-              }
-              forwardedRef={null}
-            >
-              <h1
-                className="Caption__H1-sc-1ggkcri-0 gqxdkx"
-              >
-                landing:where
-              </h1>
-            </StyledComponent>
-          </Caption__H1>
-        </Caption>
-      </div>
-    </Heading>
-  </Translate(Heading)>
+      <StyledComponent
+        forwardedComponent={
+          Object {
+            "$$typeof": Symbol(react.forward_ref),
+            "attrs": Array [],
+            "componentStyle": ComponentStyle {
+              "componentId": "Heading__Logo-nspadb-0",
+              "isStatic": true,
+              "lastClassName": "douIoU",
+              "rules": Array [
+                "display:block;height:70px;margin:0 auto;",
+              ],
+            },
+            "displayName": "Heading__Logo",
+            "foldedComponentIds": Array [],
+            "render": [Function],
+            "styledComponentId": "Heading__Logo-nspadb-0",
+            "target": "img",
+            "toString": [Function],
+            "warnTooManyClasses": [Function],
+            "withComponent": [Function],
+          }
+        }
+        forwardedRef={null}
+        src="/location-big.svg"
+      >
+        <img
+          className="Heading__Logo-nspadb-0 douIoU"
+          src="/location-big.svg"
+        />
+      </StyledComponent>
+    </Heading__Logo>
+  </Heading>
 </ThemeProvider>
 `;

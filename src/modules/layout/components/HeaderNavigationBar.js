@@ -22,7 +22,7 @@ export const NavigationBarContainer = styled.div`
  */
 class HeaderNavigationBar extends React.PureComponent<PropsType> {
   render () {
-    const {className, children} = this.props
+    const { className, children } = this.props
     return <NavigationBarContainer hidden={isEmpty(children)} className={className}>{children}</NavigationBarContainer>
   }
 }
