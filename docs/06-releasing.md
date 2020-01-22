@@ -12,8 +12,10 @@ The following steps are needed to release the app:
 
 ### Android
 
+* Increment the `versionCode` in the [build.gradle](../android/app/build.gradle)
 * Build release APK using the commands used in the [Jenksinsfile](../Jenkinsfile)
-* For example if you use a custom keystore you can use the command: `./gradlew -PMYAPP_RELEASE_STORE_PASSWORD=*** -PMYAPP_RELEASE_KEY_ALIAS=*** -PMYAPP_RELEASE_KEY_PASSWORD=** -PMYAPP_RELEASE_STORE_FILE=***.jks  build -x lint -x lintVitalRelease`
+    * For example with necessary keystore file and keys: `./gradlew -PMYAPP_RELEASE_STORE_PASSWORD=*** -PMYAPP_RELEASE_KEY_ALIAS=*** -PMYAPP_RELEASE_KEY_PASSWORD=*** -PMYAPP_RELEASE_STORE_FILE=***.jks  build -x lint -x lintVitalRelease`
+    * For further information regarding the keystore have a look at the `keystore_integreat.txt` in the drive
 * Upload APK in [Developer Console](https://play.google.com/apps/publish/)
 
 ### iOS
