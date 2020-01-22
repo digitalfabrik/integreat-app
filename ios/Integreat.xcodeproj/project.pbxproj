@@ -479,9 +479,19 @@
 		7B4C277B2274DE2B000FA969 /* FetchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchResult.swift; sourceTree = "<group>"; };
 		7B845BAA23CF6F8500E50074 /* RNPermissionHandlerLocationWhenInUse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RNPermissionHandlerLocationWhenInUse.h; path = "../node_modules/react-native-permissions/ios/LocationWhenInUse/RNPermissionHandlerLocationWhenInUse.h"; sourceTree = "<group>"; };
 		7B845BAB23CF6F8500E50074 /* RNPermissionHandlerLocationWhenInUse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RNPermissionHandlerLocationWhenInUse.m; path = "../node_modules/react-native-permissions/ios/LocationWhenInUse/RNPermissionHandlerLocationWhenInUse.m"; sourceTree = "<group>"; };
-		7B9749D422DC7A940078B456 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7B9749D622DC7AEE0078B456 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7B9749D722DC7B1B0078B456 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		7BB592D623D855BA0012BF03 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		7BB592D723D8562E0012BF03 /* fa */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fa; path = fa.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		7BB592D823D8563B0012BF03 /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		7BB592D923D856440012BF03 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		7BB592DA23D856640012BF03 /* pl-PL */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pl-PL"; path = "pl-PL.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		7BB592DB23D856710012BF03 /* ti */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ti; path = ti.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		7BB592DE23D857DF0012BF03 /* ku */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ku; path = ku.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		7BB592DF23D859FB0012BF03 /* ru-RU */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ru-RU"; path = "ru-RU.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		7BB592E023D85A210012BF03 /* so */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = so; path = so.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		7BB592E123D85A830012BF03 /* hr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hr; path = hr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		7BB592E223D85AA70012BF03 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7BB616B122B7AC3E0089C37E /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = SOURCE_ROOT; };
 		7BB616FF22B7AE1F0089C37E /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = SOURCE_ROOT; };
 		7BF11468226F4D730031D233 /* Integreat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Integreat-Bridging-Header.h"; path = "Integreat/Integreat-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -1052,6 +1062,17 @@
 				ar,
 				ru,
 				de,
+				fr,
+				fa,
+				ro,
+				tr,
+				"pl-PL",
+				ti,
+				ku,
+				"ru-RU",
+				so,
+				hr,
+				es,
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
@@ -1669,10 +1690,20 @@
 		7B9749D522DC7A940078B456 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				7B9749D422DC7A940078B456 /* en */,
 				7B9749D622DC7AEE0078B456 /* ar */,
 				7B9749D722DC7B1B0078B456 /* ru */,
 				7B0E54CE2369C1480016A7C1 /* de */,
+				7BB592D623D855BA0012BF03 /* fr */,
+				7BB592D723D8562E0012BF03 /* fa */,
+				7BB592D823D8563B0012BF03 /* ro */,
+				7BB592D923D856440012BF03 /* tr */,
+				7BB592DA23D856640012BF03 /* pl-PL */,
+				7BB592DB23D856710012BF03 /* ti */,
+				7BB592DE23D857DF0012BF03 /* ku */,
+				7BB592DF23D859FB0012BF03 /* ru-RU */,
+				7BB592E023D85A210012BF03 /* so */,
+				7BB592E123D85A830012BF03 /* hr */,
+				7BB592E223D85AA70012BF03 /* es */,
 			);
 			name = InfoPlist.strings;
 			path = Integreat;
