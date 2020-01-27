@@ -46,16 +46,16 @@ export default (baseUrl: string): Endpoint<ParamsType, {}> => new EndpointBuilde
   .withParamsToBodyMapper((params: ParamsType): FormData => {
     const formData = new FormData()
     formData.append('rating', params.isPositiveRating ? POSITIVE_RATING : NEGATIVE_RATING)
-    if (params.permalink) {
+    if (params.permalink !== undefined) {
       formData.append('permalink', `${params.permalink}`)
     }
-    if (params.comment) {
+    if (params.comment !== null) {
       formData.append('comment', params.comment)
     }
-    if (params.query) {
+    if (params.query !== undefined) {
       formData.append('query', params.query)
     }
-    if (params.alias) {
+    if (params.alias !== undefined) {
       formData.append('alias', params.alias)
     }
     if (params.feedbackCategory) {
