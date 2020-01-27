@@ -23,19 +23,24 @@ const HorizontalLeft = styled.View`
   align-items: center;
 `
 
-const BoxShadow: StyledComponent<{}, ThemeType, *> = styled.View`
+const BoxShadow: StyledComponent<{float: boolean}, ThemeType, *> = styled.View`
   background-color: transparent;
-  position: absolute;
-  z-index: 100;
-  top: 0;
-  left: 0;
-  right: 0;
   height: ${props => props.theme.dimensions.modalHeaderHeight};
+  ${props => props.float
+    ? `position: absolute;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    right: 0;`
+    : ''
+}
 `
 
 type PropsType = {|
   navigation: NavigationScreenProp<*>,
   theme: ThemeType,
+  withMenu: boolean,
+  float: boolean,
   t: TFunction
 |}
 
@@ -79,17 +84,17 @@ class TransparentHeader extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const { t } = this.props
+    const { theme, withMenu, float, t } = this.props
 
     return (
-      <BoxShadow theme={this.props.theme}>
+      <BoxShadow theme={theme} float={float}>
         <Horizontal>
           <HorizontalLeft>
             <HeaderBackButton onPress={this.goBack} />
           </HorizontalLeft>
-          <MaterialHeaderButtons>
+          { withMenu && <MaterialHeaderButtons>
             <Item title={t('share')} show='never' onPress={this.onShare} />
-          </MaterialHeaderButtons>
+          </MaterialHeaderButtons> }
         </Horizontal>
       </BoxShadow>
     )
