@@ -55,7 +55,8 @@ const createConfig = (env = {}) => {
       port: 9000,
       hot: true,
       http2: false,
-      historyApiFallback: true
+      historyApiFallback: true,
+      stats: 'minimal'
     },
     // What information should be printed to the console
     stats: 'minimal',
