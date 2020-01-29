@@ -134,8 +134,6 @@
     "jest-junit": "^6.3.0",
     "json-loader": "^0.5.7",
     "lolex": "^3.1.0",
-    "pleeease-filters": "^4.0.0",
-    "prettier-eslint": "^8.8.2",
     "prop-types": "^15.7.2",
     "raf": "^3.4.1",
     "react-hot-loader": "^4.12.19",
