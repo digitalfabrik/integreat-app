@@ -33,7 +33,7 @@ const config = {
   externals: [nodeExternals()],
   // Options affecting the output of the compilation
   output: {
-    path: path.resolve(__dirname, '../dist'),
+    path: path.resolve(__dirname, '../lib-dist'),
     publicPath: '/dist/',
     filename: 'index.js',
     sourcePrefix: '  ',
