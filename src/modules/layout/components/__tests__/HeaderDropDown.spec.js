@@ -10,7 +10,7 @@ describe('HeaderDropDown', () => {
   let wrapperComponent
 
   beforeEach(() => {
-    wrapperComponent = shallow(<ClickOutsideHeaderDropDown iconSrc='/someImg' text={'some text'}>
+    wrapperComponent = shallow(<ClickOutsideHeaderDropDown iconSrc='/someImg' text='some text'>
       <MockNode />
     </ClickOutsideHeaderDropDown>)
   })
@@ -74,7 +74,7 @@ describe('HeaderDropDown', () => {
   })
 
   it('should add class if active', () => {
-    const component = shallow(<HeaderDropDown iconSrc={fileMock} text={'some text'}><MockNode /></HeaderDropDown>)
+    const component = shallow(<HeaderDropDown iconSrc={fileMock} text='some text'><MockNode /></HeaderDropDown>)
     expect(component.find(DropDownContainer).prop('active')).toBe(false)
     component.setState({ dropDownActive: true })
     expect(component.find(DropDownContainer).prop('active')).toBe(true)

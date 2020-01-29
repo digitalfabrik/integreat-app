@@ -27,20 +27,20 @@ describe.skip('I18nProvider', () => {
 
   it('should transform the resources correctly', () => {
     const input = {
-      'module1': {
-        'language1': {
-          'key1': 'lang1-translated1'
+      module1: {
+        language1: {
+          key1: 'lang1-translated1'
         },
-        'language2': {
-          'key1': 'lang2-translated1'
+        language2: {
+          key1: 'lang2-translated1'
         }
       },
-      'module2': {
-        'language1': {
-          'key2': 'lang1-translated2'
+      module2: {
+        language1: {
+          key2: 'lang1-translated2'
         },
-        'language2': {
-          'key2': 'lang2-translated2'
+        language2: {
+          key2: 'lang2-translated2'
         }
       }
     }
