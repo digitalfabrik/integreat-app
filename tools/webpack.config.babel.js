@@ -12,10 +12,6 @@ const createConfig = (env = {}) => {
     throw Error('You need to specify a mode!')
   }
 
-  if (env.NODE_ENV === undefined) {
-    throw Error('You need to specify NODE_ENV!')
-  }
-
   const isDebug = env.prod === 'false'
   const appConfigName = env.config_name || 'integreat'
   const appConfig = require(`./${appConfigName}-config`)
@@ -23,7 +19,6 @@ const createConfig = (env = {}) => {
   const distDirectory = path.resolve(__dirname, '../dist')
   const configAssets = path.resolve(__dirname, `../tools/${appConfigName}-config/assets`)
 
-  console.log('NODE_ENV: ', env.NODE_ENV)
   console.log('isDebug: ', isDebug)
   console.log('config_name: ', appConfigName)
 
