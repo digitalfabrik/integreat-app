@@ -180,15 +180,15 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
     }
   }
 
-  onCommentChanged = (event: SyntheticInputEvent<HTMLTextAreaElement>) => this.setState({ comment: event.target.value })
+  handleCommentChanged = (event: SyntheticInputEvent<HTMLTextAreaElement>) => this.setState({ comment: event.target.value })
 
-  onFeedbackOptionChanged = (selectedDropdown: FeedbackDropdownItem) => {
+  handleFeedbackOptionChanged = (selectedDropdown: FeedbackDropdownItem) => {
     this.setState(prevState =>
       ({ selectedFeedbackOption: prevState.feedbackOptions.find(option => option.value === selectedDropdown.value) })
     )
   }
 
-  onSubmit = () => {
+  handleSubmit = () => {
     const { selectedFeedbackOption, comment } = this.state
     this.postFeedbackData(this.getFeedbackData(selectedFeedbackOption, comment))
     this.props.onSubmit()
@@ -196,9 +196,9 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
 
   render () {
     const { closeFeedbackModal, isPositiveRatingSelected } = this.props
-    return <FeedbackBox onFeedbackOptionChanged={this.onFeedbackOptionChanged}
-                        onCommentChanged={this.onCommentChanged}
-                        onSubmit={this.onSubmit}
+    return <FeedbackBox onFeedbackOptionChanged={this.handleFeedbackOptionChanged}
+                        onCommentChanged={this.handleCommentChanged}
+                        onSubmit={this.handleSubmit}
                         closeFeedbackModal={closeFeedbackModal}
                         isPositiveRatingSelected={isPositiveRatingSelected}
                         {...this.state} />
