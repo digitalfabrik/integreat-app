@@ -128,7 +128,6 @@ const createConfig = appConfig => {
   // Hot Module Replacement (HMR) + React Hot Reload
   if (isDebug && useHMR) {
     config.entry.unshift('react-hot-loader/patch', 'webpack-hot-middleware/client')
-    config.plugins.push(new webpack.HotModuleReplacementPlugin())
     config.plugins.push(new webpack.NoEmitOnErrorsPlugin())
   }
 
