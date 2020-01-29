@@ -9,7 +9,7 @@ import {
   LanguageModel,
   LocationModel
 } from '@integreat-app/integreat-api-client'
-import RNFetchblob from 'rn-fetch-blob'
+import RNFetchBlob from 'rn-fetch-blob'
 import type Moment from 'moment'
 import moment from 'moment'
 import type {
@@ -23,7 +23,7 @@ import { map, mapValues } from 'lodash'
 import { CONTENT_VERSION, RESOURCE_CACHE_VERSION } from '../endpoint/persistentVersions'
 
 // Our pdf view can only load from DocumentDir. Therefore we need to use that
-export const CACHE_DIR_PATH = RNFetchblob.fs.dirs.DocumentDir
+export const CACHE_DIR_PATH = RNFetchBlob.fs.dirs.DocumentDir
 export const CONTENT_DIR_PATH = `${CACHE_DIR_PATH}/content/${CONTENT_VERSION}`
 export const RESOURCE_CACHE_DIR_PATH = `${CACHE_DIR_PATH}/resource-cache/${RESOURCE_CACHE_VERSION}`
 
@@ -160,7 +160,7 @@ class DatabaseConnector {
   }
 
   async deleteAllFiles () {
-    await RNFetchblob.fs.unlink(CACHE_DIR_PATH)
+    await RNFetchBlob.fs.unlink(CACHE_DIR_PATH)
   }
 
   /**
@@ -211,7 +211,7 @@ class DatabaseConnector {
 
   async _loadMetaCities (): Promise<MetaCitiesType> {
     const path = this.getMetaCitiesPath()
-    const fileExists: boolean = await RNFetchblob.fs.exists(path)
+    const fileExists: boolean = await RNFetchBlob.fs.exists(path)
     if (fileExists) {
       try {
         const citiesMetaJson: MetaCitiesJsonType = JSON.parse(await this.readFile(path))
@@ -296,7 +296,7 @@ class DatabaseConnector {
 
   async loadCategories (context: DatabaseContext): Promise<CategoriesMapModel> {
     const path = this.getContentPath('categories', context)
-    const fileExists: boolean = await RNFetchblob.fs.exists(path)
+    const fileExists: boolean = await RNFetchBlob.fs.exists(path)
 
     if (!fileExists) {
       throw Error(`File ${path} does not exist`)
@@ -322,7 +322,7 @@ class DatabaseConnector {
 
   async loadLanguages (context: DatabaseContext): Promise<Array<LanguageModel>> {
     const path = this.getContentPath('languages', context)
-    const fileExists: boolean = await RNFetchblob.fs.exists(path)
+    const fileExists: boolean = await RNFetchBlob.fs.exists(path)
 
     if (!fileExists) {
       throw Error(`File ${path} does not exist`)
@@ -356,7 +356,7 @@ class DatabaseConnector {
 
   async loadCities (): Promise<Array<CityModel>> {
     const path = this.getCitiesPath()
-    const fileExists: boolean = await RNFetchblob.fs.exists(path)
+    const fileExists: boolean = await RNFetchBlob.fs.exists(path)
 
     if (!fileExists) {
       throw Error(`File ${path} does not exist`)
@@ -409,7 +409,7 @@ class DatabaseConnector {
 
   async loadEvents (context: DatabaseContext): Promise<Array<EventModel>> {
     const path = this.getContentPath('events', context)
-    const fileExists: boolean = await RNFetchblob.fs.exists(path)
+    const fileExists: boolean = await RNFetchBlob.fs.exists(path)
 
     if (!fileExists) {
       throw Error(`File ${path} does not exist`)
@@ -447,7 +447,7 @@ class DatabaseConnector {
 
   async loadResourceCache (context: DatabaseContext): Promise<CityResourceCacheStateType> {
     const path = this.getResourceCachePath(context)
-    const fileExists: boolean = await RNFetchblob.fs.exists(path)
+    const fileExists: boolean = await RNFetchBlob.fs.exists(path)
 
     if (!fileExists) {
       return {}
@@ -502,10 +502,10 @@ class DatabaseConnector {
     await Promise.all(cachesToDelete.map(cityLastUpdate => {
       const city = cityLastUpdate.city
       const cityResourceCachePath = `${RESOURCE_CACHE_DIR_PATH}/${city}`
-      RNFetchblob.fs.unlink(cityResourceCachePath)
+      RNFetchBlob.fs.unlink(cityResourceCachePath)
 
       const cityContentPath = `${CONTENT_DIR_PATH}/${city}`
-      return RNFetchblob.fs.unlink(cityContentPath)
+      return RNFetchBlob.fs.unlink(cityContentPath)
     }))
 
     await this._deleteMetaOfCities(cachesToDelete.map(it => it.city))
@@ -528,11 +528,11 @@ class DatabaseConnector {
   }
 
   _isPersisted (path: string): Promise<boolean> {
-    return RNFetchblob.fs.exists(path)
+    return RNFetchBlob.fs.exists(path)
   }
 
   async readFile (path: string): Promise<string> {
-    const jsonString: number[] | string = await RNFetchblob.fs.readFile(path, 'utf8')
+    const jsonString: number[] | string = await RNFetchBlob.fs.readFile(path, 'utf8')
 
     if (typeof jsonString !== 'string') {
       throw new Error('readFile did not return a string')
@@ -542,7 +542,7 @@ class DatabaseConnector {
   }
 
   async writeFile (path: string, data: string): Promise<number> {
-    return RNFetchblob.fs.writeFile(path, data, 'utf8')
+    return RNFetchBlob.fs.writeFile(path, data, 'utf8')
   }
 }
 
