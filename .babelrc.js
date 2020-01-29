@@ -1,4 +1,3 @@
-const useHMR = !!global.HMR // HotModuleReplacement
 const config = {
   presets: [
     '@babel/preset-env',
@@ -6,6 +5,7 @@ const config = {
     '@babel/preset-flow'
   ],
   plugins: [
+    'react-hot-loader/babel',
     'babel-plugin-styled-components',
     '@babel/plugin-transform-react-jsx',
     '@babel/plugin-transform-runtime',
@@ -20,12 +20,6 @@ const config = {
     '@babel/plugin-proposal-export-namespace-from',
     'lodash'
   ]
-}
-
-if (useHMR) {
-  config.babelrc = false
-  config.cacheDirectory = useHMR
-  config.plugins.unshift('react-hot-loader/babel')
 }
 
 module.exports = config
