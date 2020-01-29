@@ -73,8 +73,8 @@ pipeline {
 
   post {
     always {
-      sh 'tar cf www.tar.gz www/'
-      archiveArtifacts artifacts: 'www.tar.gz', fingerprint: true
+      sh 'tar cf dist.tar.gz dist/'
+      archiveArtifacts artifacts: 'dist.tar.gz', fingerprint: true
       junit 'junit.xml'
 
       step([
