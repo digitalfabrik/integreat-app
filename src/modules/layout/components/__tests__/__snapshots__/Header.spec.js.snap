@@ -42,3 +42,46 @@ exports[`Header should match snapshot with largeViewport 1`] = `
   </Header__HeaderContainer>
 </Headroom>
 `;
+
+exports[`Header should match snapshot with smallViewport 1`] = `
+<Headroom
+  height={55}
+  onStickyTopChanged={[Function]}
+  pinStart={0}
+  positionStickyDisabled={false}
+  scrollHeight={55}
+>
+  <Header__HeaderContainer>
+    <Header__LogoWide>
+      <Connect(Link)
+        to="/random_route"
+      >
+        <img
+          src="/integreat-app-logo.png"
+        />
+      </Connect(Link)>
+    </Header__LogoWide>
+    <Header__NavigationBar>
+      <HeaderNavigationItem
+        active={true}
+        href="/another_route"
+        selected={true}
+        text="text1"
+        tooltip="tooltip1"
+      />
+    </Header__NavigationBar>
+    <Header__ActionBar
+      items={
+        Array [
+          HeaderActionItem {
+            "_href": "/random_route",
+            "_iconSrc": undefined,
+            "_node": undefined,
+            "_text": undefined,
+          },
+        ]
+      }
+    />
+  </Header__HeaderContainer>
+</Headroom>
+`;

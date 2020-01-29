@@ -13,7 +13,6 @@
   "rules": {
     "react/jsx-closing-tag-location": 0,
     "react/jsx-closing-bracket-location": 0,
-    "react/jsx-first-prop-new-line": 0,
-    "react/jsx-handler-names": 1
+    "react/jsx-first-prop-new-line": 0
   }
 }

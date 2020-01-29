@@ -288,7 +288,7 @@ describe('FeedbackBoxContainer', () => {
         t={t} />
     )
 
-    component.instance().onSubmit()
+    component.instance().handleSubmit()
     expect(mockPostFeedbackData).toHaveBeenCalledTimes(1)
   })
 
@@ -309,7 +309,7 @@ describe('FeedbackBoxContainer', () => {
     ).instance()
 
     const prevState = instance.state
-    instance.onCommentChanged({ target: { value: 'new comment' } })
+    instance.handleCommentChanged({ target: { value: 'new comment' } })
     expect(prevState).not.toEqual(instance.state)
     expect(instance.state.comment).toEqual('new comment')
   })
@@ -331,7 +331,7 @@ describe('FeedbackBoxContainer', () => {
     ).instance()
 
     const prevState = instance.state
-    instance.onFeedbackOptionChanged(prevState.feedbackOptions[1])
+    instance.handleFeedbackOptionChanged(prevState.feedbackOptions[1])
     expect(prevState).not.toEqual(instance.state)
     expect(instance.state.selectedFeedbackOption).toEqual(prevState.feedbackOptions[1])
   })
