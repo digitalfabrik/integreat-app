@@ -34,7 +34,7 @@
     "@integreat-app/react-sticky-headroom": "^1.0.4",
     "detect-browser": "^4.1.0",
     "entities": "^1.1.2",
-    "hashids": "^1.2.2",
+    "hashids": "^2.1.0",
     "history": "^4.9.0",
     "i18next": "^19.1.0",
     "i18next-browser-languagedetector": "^4.0.1",
