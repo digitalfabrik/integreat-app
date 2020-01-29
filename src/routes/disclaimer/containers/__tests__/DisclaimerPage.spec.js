@@ -36,7 +36,7 @@ describe('DisclaimerPage', () => {
         <ConnectedDisclaimerPage store={store} disclaimer={disclaimer} />
       )
 
-      expect(disclaimerPage.props()).toMatchObject({
+      expect(disclaimerPage.find('DisclaimerPage').props()).toMatchObject({
         disclaimer,
         language
       })
