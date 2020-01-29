@@ -39,7 +39,7 @@ export default (
 
     switch (action.type) {
       case 'SWITCH_CONTENT_LANGUAGE':
-        return { ...state, switchingLanguage: true }
+        return { ...state, switchingLanguage: true, searchRoute: null }
       case 'SWITCH_CONTENT_LANGUAGE_FAILED':
         return { ...state, switchingLanguage: false }
       case 'PUSH_LANGUAGES':
