@@ -2,15 +2,31 @@ const path = require('path')
 const webpack = require('webpack')
 const AssetsPlugin = require('assets-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 const babelConfig = require('../.babelrc.js')
 const getVersion = require('git-repo-version')
 
-const isDebug = global.DEBUG === false ? false : !process.argv.includes('--release')
-const appConfigName = 'integreat'
-const appConfig = require(`./${appConfigName}-config`)
+const createConfig = (env = {}) => {
+  if (env.prod === undefined) {
+    throw Error('You need to specify a mode!')
+  }
 
-const createConfig = () => {
+  if (env.NODE_ENV === undefined) {
+    throw Error('You need to specify NODE_ENV!')
+  }
+
+  const isDebug = env.prod === 'false'
+  const appConfigName = env.config_name || 'integreat'
+  const appConfig = require(`./${appConfigName}-config`)
+  const wwwDirectory = path.resolve(__dirname, '../www')
+  const distDirectory = path.resolve(__dirname, '../dist')
+  const configAssets = path.resolve(__dirname, `../tools/${appConfigName}-config/assets`)
+
+  console.log('NODE_ENV: ', env.NODE_ENV)
+  console.log('isDebug: ', isDebug)
+  console.log('config_name: ', appConfigName)
+
   const config = {
     mode: isDebug ? 'development' : 'production',
     resolve: {
@@ -29,7 +45,7 @@ const createConfig = () => {
     ],
     // Options affecting the output of the compilation
     output: {
-      path: path.resolve(__dirname, '../dist'),
+      path: distDirectory,
       publicPath: '/',
       filename: isDebug ? '[name].js?[hash]' : '[name].[hash].js',
       chunkFilename: isDebug ? '[id].js?[chunkhash]' : '[id].[chunkhash].js',
@@ -39,7 +55,7 @@ const createConfig = () => {
     // http://webpack.github.io/docs/configuration.html#devtool
     devtool: isDebug ? 'source-map' : false,
     devServer: {
-      contentBase: path.resolve(__dirname, '../dist'),
+      contentBase: distDirectory,
       compress: true,
       port: 9000,
       hot: true,
@@ -50,6 +66,7 @@ const createConfig = () => {
     stats: 'minimal',
     // The list of plugins for Webpack compiler
     plugins: [
+      new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
         title: appConfig.appTitle,
         // Load a custom template (lodash by default)
@@ -59,8 +76,8 @@ const createConfig = () => {
         }
       }),
       new CopyPlugin([
-        { from: path.resolve(__dirname, '../www'), to: path.resolve(__dirname, '../dist') },
-        { from: path.resolve(__dirname, `../tools/${appConfigName}-config/assets`), to: path.resolve(__dirname, '../dist') }
+        { from: wwwDirectory, to: distDirectory },
+        { from: configAssets, to: distDirectory }
       ]),
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': isDebug ? '"development"' : '"production"',
@@ -71,7 +88,7 @@ const createConfig = () => {
       // Emit a JSON file with assets paths
       // https://github.com/sporto/assets-webpack-plugin#options
       new AssetsPlugin({
-        path: path.resolve(__dirname, '../dist'),
+        path: distDirectory,
         filename: 'assets.json',
         prettyPrint: true
       }),
@@ -80,7 +97,6 @@ const createConfig = () => {
         minimize: !isDebug
       })
     ],
-    // Options affecting the normal modules
     module: {
       rules: [
         {
