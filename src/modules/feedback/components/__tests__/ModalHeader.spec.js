@@ -14,7 +14,7 @@ describe('ModalHeader', () => {
         title={'title'} />
     )
 
-    component.findWhere(elem => elem.name()?.includes('CloseButton')).simulate('click')
+    component.findWhere(elem => elem.name() ? elem.name().includes('CloseButton') : false).simulate('click')
     expect(jestMockFn).toHaveBeenCalled()
   })
 })
