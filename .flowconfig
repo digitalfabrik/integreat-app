@@ -1,6 +1,7 @@
 [ignore]
 .*/node_modules/config-chain/test/broken.json
 <PROJECT_ROOT>/dist/.*
+<PROJECT_ROOT>/lib-dist/.*
 # Ignoring redux-first-router failing types: https://github.com/faceyspacey/redux-first-router/issues/340
 .*/node_modules/redux-first-router/dist/pure-utils/nestAction.js.flow.*
 .*/node_modules/redux-first-router/dist/pure-utils/actionToPath.js.flow.*
