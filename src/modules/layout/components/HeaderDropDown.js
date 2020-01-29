@@ -50,32 +50,36 @@ export class HeaderDropDown extends React.Component<PropsType, StateType> {
     this.state = { dropDownActive: false }
     const self: any = this // https://github.com/facebook/flow/issues/5874
     self.handleClickOutside = this.handleClickOutside.bind(this)
-    self.toggleDropDown = this.handleDropDownToggled.bind(this)
-    self.closeDropDown = this.handleDropDownClosed.bind(this)
+    self.toggleDropDown = this.toggleDropDown.bind(this)
+    self.closeDropDown = this.closeDropDown.bind(this)
   }
 
-  handleDropDownToggled () {
+  toggleDropDown () {
     this.setState(prevState => ({ dropDownActive: !prevState.dropDownActive }))
   }
 
-  handleDropDownClosed () {
+  closeDropDown () {
     if (this.state.dropDownActive) {
-      this.handleDropDownToggled()
+      this.toggleDropDown()
     }
   }
 
   handleClickOutside () {
-    this.handleDropDownClosed()
+    this.closeDropDown()
+  }
+
+  handleIconClicked () {
+    this.toggleDropDown()
   }
 
   render () {
     const { iconSrc, text, children } = this.props
     return (
       <span data-tip={text} aria-label={text}>
-        <img src={iconSrc} onClick={this.handleDropDownToggled} />
+        <img src={iconSrc} onClick={this.handleIconClicked} />
         <DropDownContainer active={this.state.dropDownActive}>
           {React.cloneElement(children, {
-            closeDropDownCallback: this.handleDropDownClosed
+            closeDropDownCallback: this.closeDropDown
           })}
         </DropDownContainer>
       </span>
