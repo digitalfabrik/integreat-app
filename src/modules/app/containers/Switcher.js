@@ -110,8 +110,7 @@ export class Switcher extends React.Component<PropsType> {
           {error ? <LanguageFailure cities={citiesPayload.data}
                                     location={location}
                                     languageChangePaths={languageChangePaths} />
-            : <RouteContentSwitcher location={location} allPayloads={this.getAllPayloads()} />
-          }
+            : <RouteContentSwitcher location={location} allPayloads={this.getAllPayloads()} />}
         </Layout>
       )
     } else {

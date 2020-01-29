@@ -29,7 +29,7 @@ describe('Tiles', () => {
   it('should match snapshot', () => {
     const wrapper = shallow(
       <Tiles tiles={tiles}
-             title={'Augsburg'} />
+             title='Augsburg' />
     )
     expect(wrapper).toMatchSnapshot()
   })

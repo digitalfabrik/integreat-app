@@ -8,7 +8,7 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons/faSearch'
 const searchLogoWidth = '25px'
 
 const Spacer = styled.div`
-  ${props => props.space && `margin: 15px 0;`}
+  ${props => props.space && 'margin: 15px 0;'}
 `
 
 const TextInput = styled.input.attrs({ type: 'text' })`

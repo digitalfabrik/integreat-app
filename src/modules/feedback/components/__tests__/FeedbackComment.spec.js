@@ -10,7 +10,7 @@ describe('FeedbackComment', () => {
 
   it('should match snapshot', () => {
     const component = shallow(
-      <FeedbackComment comment={'Nice app!'} commentMessage={'message'} onCommentChanged={onCommentChanged} />
+      <FeedbackComment comment='Nice app!' commentMessage='message' onCommentChanged={onCommentChanged} />
     )
     expect(component).toMatchSnapshot()
   })

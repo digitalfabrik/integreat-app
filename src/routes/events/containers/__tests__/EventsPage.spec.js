@@ -87,7 +87,7 @@ describe('EventsPage', () => {
     const wrapper = shallow(
       <EventsPage events={events}
                   city={city}
-                  path={'/augsburg/en/events'}
+                  path='/augsburg/en/events'
                   eventId={undefined}
                   t={t}
                   language={language} />
@@ -101,8 +101,8 @@ describe('EventsPage', () => {
                   city={city}
                   t={t}
                   language={language}
-                  path={'/augsburg/en/events/first_event'}
-                  eventId={'first_event'} />
+                  path='/augsburg/en/events/first_event'
+                  eventId='first_event' />
     )
     expect(wrapper).toMatchSnapshot()
   })
@@ -113,8 +113,8 @@ describe('EventsPage', () => {
                   city={city}
                   t={t}
                   language={language}
-                  path={'/augsburg/en/events/invalid_event'}
-                  eventId={'invalid_event'} />
+                  path='/augsburg/en/events/invalid_event'
+                  eventId='invalid_event' />
     )
     expect(wrapper).toMatchSnapshot()
   })
