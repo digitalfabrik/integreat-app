@@ -6,9 +6,9 @@ const nodeExternals = require('webpack-node-externals')
 const GeneratePackageJsonPlugin = require('generate-package-json-webpack-plugin')
 
 const basePackageValues = {
-  'name': '@integreat-app/shared',
-  'version': '0.0.4',
-  'main': './index.js'
+  name: '@integreat-app/shared',
+  version: '0.0.4',
+  main: './index.js'
 }
 
 const versionsPackageFilename = path.resolve(__dirname, '../package.json')
