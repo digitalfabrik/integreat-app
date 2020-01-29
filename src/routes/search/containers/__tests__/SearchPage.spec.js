@@ -175,7 +175,7 @@ describe('SearchPage', () => {
       <ConnectedSearchPage store={store} categories={categories} />
     )
 
-    expect(searchPage.props()).toMatchObject({
+    expect(searchPage.dive().dive().props()).toMatchObject({
       categories,
       location
     })

@@ -39,7 +39,7 @@ describe('LandingPage', () => {
       <ConnectedLandingPage store={store} cities={cities} />
     )
 
-    expect(landingPage.props()).toMatchObject({
+    expect(landingPage.find(LandingPage).props()).toMatchObject({
       language,
       cities
     })
