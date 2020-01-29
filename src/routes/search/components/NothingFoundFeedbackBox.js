@@ -29,9 +29,9 @@ export class NothingFoundFeedbackBox extends React.Component<PropsType, StateTyp
     this.state = { comment: '', feedbackSent: false }
   }
 
-  onCommentChanged = (event: SyntheticInputEvent<HTMLTextAreaElement>) => this.setState({ comment: event.target.value })
+  handleCommentChanged = (event: SyntheticInputEvent<HTMLTextAreaElement>) => this.setState({ comment: event.target.value })
 
-  onSubmit = () => {
+  handleSubmit = () => {
     const { query, location } = this.props
     const { city, language } = location.payload
     const { comment } = this.state
@@ -59,8 +59,8 @@ export class NothingFoundFeedbackBox extends React.Component<PropsType, StateTyp
             <FeedbackComment
               comment={comment}
               commentMessage={t('wantedInformation')}
-              onCommentChanged={this.onCommentChanged} />
-            <StyledSubmitButton onClick={this.onSubmit}>{t('send')}</StyledSubmitButton>
+              onCommentChanged={this.handleCommentChanged} />
+            <StyledSubmitButton onClick={this.handleSubmit}>{t('send')}</StyledSubmitButton>
           </>
       }
     </StyledFeedbackBox>
