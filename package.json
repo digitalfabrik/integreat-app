@@ -99,7 +99,7 @@
     "eslint-plugin-promise": "^4.1.1",
     "eslint-plugin-react": "^7.13.0",
     "eslint-plugin-standard": "^4.0.0",
-    "flow-bin": "^0.92.0",
+    "flow-bin": "^0.98.0",
     "flow-typed": "^2.5.1",
     "generator-rn-toolbox": "^3.11.1",
     "get-dev-paths": "^0.1.1",
