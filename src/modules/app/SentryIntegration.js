@@ -1,6 +1,6 @@
 // @flow
 
-import { Sentry, SentryLog } from 'react-native-sentry'
+import { Sentry, SentryLog } from '@sentry/react-native'
 
 export default class SentryIntegration {
   sentry: Sentry
