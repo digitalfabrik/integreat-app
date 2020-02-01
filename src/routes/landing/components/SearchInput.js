@@ -21,7 +21,7 @@ export const Input = styled.TextInput.attrs((props: { theme: ThemeType }) => ({
 
 export const Wrapper: StyledComponent<{ space: boolean }, ThemeType, *> = styled.View`
   flex-direction: row;
-  ${props => props.space && `margin: 50px 0;`}
+  ${props => props.space ? `margin: 50px 0;` : ''}
   justify-content: center;
   align-items: center;
   padding: 10px 0;

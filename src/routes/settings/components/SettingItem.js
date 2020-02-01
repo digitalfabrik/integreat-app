@@ -37,7 +37,7 @@ const ContentContainer = styled.View`
 
 const Title: StyledComponent<{ bigTitle: boolean }, ThemeType, *> = styled.Text`
   color: ${props => props.theme.colors.textColor};
-  ${props => props.bigTitle && 'font-size: 18px;'}
+  ${props => props.bigTitle ? 'font-size: 18px;' : ''}
 `
 
 const Description = styled.Text`

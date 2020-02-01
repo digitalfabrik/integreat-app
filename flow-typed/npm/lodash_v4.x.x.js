@@ -1,5 +1,5 @@
-// flow-typed signature: 87df1eda75f7ee0bdeaa1bb9d77252bb
-// flow-typed version: 5fefb63264/lodash_v4.x.x/flow_>=v0.63.x <=v0.103.x
+// flow-typed signature: 4d0c9ba43b5b639df7e1f9c70d835f29
+// flow-typed version: 48347c4ce3/lodash_v4.x.x/flow_>=v0.63.x <=v0.103.x
 
 
 declare module "lodash" {
@@ -274,7 +274,7 @@ declare module "lodash" {
     flatten<T, X>(array?: ?$ReadOnlyArray<$ReadOnlyArray<T> | X>): Array<T | X>;
     flattenDeep<T>(array?: ?(any[])): Array<T>;
     flattenDepth(array?: ?(any[]), depth?: ?number): any[];
-    fromPairs<A, B>(pairs?: ?Array<[A, B]>): { [key: A]: B };
+    fromPairs<A, B>(pairs?: ?$ReadOnlyArray<[A, B]>): {| [key: A]: B |};
     head<T>(array: ?$ReadOnlyArray<T>): T;
     indexOf<T>(array: $ReadOnlyArray<T>, value: T, fromIndex?: number): number;
     indexOf<T>(array: void | null, value?: ?T, fromIndex?: ?number): -1;
@@ -1773,7 +1773,7 @@ declare module "lodash/fp" {
     flattenDeep<T>(array: any[]): Array<T>;
     flattenDepth(depth: number): (array: any[]) => any[];
     flattenDepth(depth: number, array: any[]): any[];
-    fromPairs<A, B>(pairs: Array<[A, B]>): { [key: A]: B };
+    fromPairs<A, B>(pairs: $ReadOnlyArray<[A, B]>): {| [key: A]: B |};
     head<T>(array: $ReadOnlyArray<T>): T;
     indexOf<T>(value: T): (array: $ReadOnlyArray<T>) => number;
     indexOf<T>(value: T, array: $ReadOnlyArray<T>): number;
