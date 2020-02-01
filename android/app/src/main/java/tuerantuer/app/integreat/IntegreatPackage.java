@@ -4,6 +4,7 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewManager;
+import tuerantuer.app.integreat.constants.NativeConstantsModule;
 import tuerantuer.app.integreat.fetcher.FetcherModule;
 
 import java.util.ArrayList;
