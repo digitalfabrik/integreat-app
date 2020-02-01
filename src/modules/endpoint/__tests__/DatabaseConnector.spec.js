@@ -76,8 +76,8 @@ describe('DatabaseConnector', () => {
   })
 
   describe('loadCities', () => {
-    it('should throw exception if cities are not persisted', () => {
-      expect(databaseConnector.loadCities()).rejects.toThrowError()
+    it('should throw exception if cities are not persisted', async () => {
+      await expect(databaseConnector.loadCities()).rejects.toThrowError()
     })
     it('should return a value that matches the one that was stored', async () => {
       await databaseConnector.storeCities(testCities)
@@ -99,13 +99,13 @@ describe('DatabaseConnector', () => {
       const moment = await databaseConnector.loadLastUpdate(context)
       expect(moment).toBeNull()
     })
-    it('should throw error if currentCity in context is null', () => {
+    it('should throw error if currentCity in context is null', async () => {
       const context = new DatabaseContext(null, 'de')
-      expect(databaseConnector.loadLastUpdate(context)).rejects.toThrowError()
+      await expect(databaseConnector.loadLastUpdate(context)).rejects.toThrowError()
     })
-    it('should throw error if currentLanguage is null', () => {
+    it('should throw error if currentLanguage is null', async () => {
       const context = new DatabaseContext('tcc', null)
-      expect(databaseConnector.loadLastUpdate(context)).rejects.toThrowError()
+      await expect(databaseConnector.loadLastUpdate(context)).rejects.toThrowError()
     })
     it('should return a moment that matches the one that was stored', async () => {
       const context = new DatabaseContext('tcc', 'de')
@@ -119,20 +119,20 @@ describe('DatabaseConnector', () => {
   })
 
   describe('storeLastUpdate', () => {
-    it('should throw error if currentCity in context is null', () => {
+    it('should throw error if currentCity in context is null', async () => {
       const context = new DatabaseContext(null, 'de')
       const date = moment('2011-05-04T00:00:00.000Z')
-      expect(databaseConnector.storeLastUpdate(date, context)).rejects.toThrowError()
+      await expect(databaseConnector.storeLastUpdate(date, context)).rejects.toThrowError()
     })
-    it('should throw error if currentLanguage in context is null', () => {
+    it('should throw error if currentLanguage in context is null', async () => {
       const context = new DatabaseContext('tcc', null)
       const date = moment('2011-05-04T00:00:00.000Z')
-      expect(databaseConnector.storeLastUpdate(date, context)).rejects.toThrowError()
+      await expect(databaseConnector.storeLastUpdate(date, context)).rejects.toThrowError()
     })
-    it('should throw error if meta of city is null', () => {
+    it('should throw error if meta of city is null', async () => {
       const context = new DatabaseContext('tcc', null)
       const date = moment('2011-05-04T00:00:00.000Z')
-      expect(databaseConnector.storeLastUpdate(date, context)).rejects.toThrowError()
+      await expect(databaseConnector.storeLastUpdate(date, context)).rejects.toThrowError()
     })
     it('should override multiple lastUpdates of the same context', async () => {
       const context = new DatabaseContext('tcc', 'de')
@@ -184,9 +184,9 @@ describe('DatabaseConnector', () => {
   })
 
   describe('loadCategories', () => {
-    it('should throw error if categories are not persisted', () => {
+    it('should throw error if categories are not persisted', async () => {
       const context = new DatabaseContext('tcc', 'de')
-      expect(databaseConnector.loadCategories(context)).rejects.toThrowError()
+      await expect(databaseConnector.loadCategories(context)).rejects.toThrowError()
     })
     it('should return a value that matches the one that was stored', async () => {
       const context = new DatabaseContext('tcc', 'de')
@@ -224,9 +224,9 @@ describe('DatabaseConnector', () => {
   })
 
   describe('loadLanguages', () => {
-    it('should throw error if languages are not persisted', () => {
+    it('should throw error if languages are not persisted', async () => {
       const context = new DatabaseContext('tcc', 'de')
-      expect(databaseConnector.loadLanguages(context)).rejects.toThrowError()
+      await expect(databaseConnector.loadLanguages(context)).rejects.toThrowError()
     })
     it('should return a value that matches the one that was stored', async () => {
       const context = new DatabaseContext('tcc', 'de')
@@ -264,9 +264,9 @@ describe('DatabaseConnector', () => {
   })
 
   describe('loadEvents', () => {
-    it('should throw error if events are not persisted', () => {
+    it('should throw error if events are not persisted', async () => {
       const context = new DatabaseContext('tcc', 'de')
-      expect(databaseConnector.loadEvents(context)).rejects.toThrowError()
+      await expect(databaseConnector.loadEvents(context)).rejects.toThrowError()
     })
     it('should return a value that matches the one that was stored', async () => {
       const context = new DatabaseContext('tcc', 'de')
