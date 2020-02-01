@@ -127,7 +127,6 @@ android {
     }
 
     defaultConfig {
-        missingDimensionStrategy "RNN.reactNativeVersion", "reactNative60"
         applicationId "tuerantuer.app.integreat"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
@@ -191,7 +190,6 @@ dependencies {
     implementation 'com.squareup.okio:okio:2.1.0'
     implementation 'com.squareup.okhttp3:okhttp:3.11.0'
     implementation 'com.squareup.okhttp3:okhttp-urlconnection:3.11.0'
-    implementation(project(':react-native-fast-image'))
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.facebook.react:react-native:+'
     // From node_modules
