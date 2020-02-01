@@ -37,7 +37,7 @@ class SprungbrettExtra extends React.Component<PropsType> {
               renderItem={this.renderSprungbrettListItem}
               items={sprungbrettJobs}
               theme={theme} />
-      </>
+    </>
   }
 }
 
