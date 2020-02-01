@@ -94,7 +94,7 @@ class Intro extends React.Component<PropsType, StateType> {
   }
 
   renderIntegreatImage = () => (): React.Node => <IntegreatImage source={AppLogo} />
-  renderImageContent = (image: number) => (): React.Node => <ImageContent source={image} />
+  renderImageContent = (image: string) => (): React.Node => <ImageContent source={image} />
 
   slides = (): Array<SlideContentType> => {
     const { t } = this.props

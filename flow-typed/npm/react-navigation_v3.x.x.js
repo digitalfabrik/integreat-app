@@ -1,5 +1,5 @@
-// flow-typed signature: 1e0a14aaec551bd339f7b5eea186a9e1
-// flow-typed version: 16cbaddecd/react-navigation_v3.x.x/flow_>=v0.92.x <=v0.103.x
+// flow-typed signature: 97ddc331005f49383c5a1c47b33f71cb
+// flow-typed version: 036cb66b1b/react-navigation_v3.x.x/flow_>=v0.92.x <=v0.103.x
 
 // @flow
 
@@ -997,6 +997,7 @@ declare module 'react-navigation' {
     style?: ViewStyleProp,
     useNativeAnimations?: boolean,
     drawerBackgroundColor?: string,
+    overlayColor?: string,
     screenProps?: {},
   |};
   declare type _DrawerNavigatorConfig = $Exact<{

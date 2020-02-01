@@ -1,5 +1,5 @@
-// flow-typed signature: 90448158f7585274ad62ef0febb8626d
-// flow-typed version: 48a1b7b5fd/redux-saga_v1.x.x/flow_>=v0.76.0
+// flow-typed signature: 96802fc8b7c0d4a0bb714bd5882d61be
+// flow-typed version: c6154227d1/redux-saga_v1.x.x/flow_>=v0.76.0 <=v0.103.x
 
 declare module "redux-saga" {
   // These types are copied directly from the redux libdef.
