@@ -23,19 +23,23 @@ const HorizontalLeft = styled.View`
   align-items: center;
 `
 
-const BoxShadow: StyledComponent<{}, ThemeType, *> = styled.View`
+const BoxShadow: StyledComponent<{float: boolean}, ThemeType, *> = styled.View`
   background-color: transparent;
-  position: absolute;
-  z-index: 100;
-  top: 0;
-  left: 0;
-  right: 0;
   height: ${props => props.theme.dimensions.modalHeaderHeight};
+  ${props => props.float
+    ? `position: absolute;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    right: 0;`
+    : ''
+}
 `
 
 type PropsType = {|
   navigation: NavigationScreenProp<*>,
   theme: ThemeType,
+  float: boolean,
   t: TFunction
 |}
 
@@ -53,11 +57,6 @@ const MaterialHeaderButtons = props => {
   )
 }
 
-export type ShareParamsType = {|
-  url: string,
-  pageTitle: string
-|}
-
 class TransparentHeader extends React.PureComponent<PropsType> {
   goBack = () => {
     this.props.navigation.goBack(null)
@@ -65,31 +64,34 @@ class TransparentHeader extends React.PureComponent<PropsType> {
 
   onShare = async () => {
     const { navigation, t } = this.props
-    const { url }: ShareParamsType = navigation.state.params
+    const url: ?string = navigation.state.params.url
 
-    try {
-      await Share.open({
-        url,
-        failOnCancel: false
-      })
-    } catch (e) {
-      const errorMessage = e.hasOwnProperty('message') ? e.message : t('shareFailDefaultMessage')
-      alert(errorMessage)
+    if (url) {
+      try {
+        await Share.open({
+          url,
+          failOnCancel: false
+        })
+      } catch (e) {
+        const errorMessage = e.hasOwnProperty('message') ? e.message : t('shareFailDefaultMessage')
+        alert(errorMessage)
+      }
     }
   }
 
   render () {
-    const { t } = this.props
+    const { theme, float, navigation, t } = this.props
+    const shareUrl = navigation.state.params.url
 
     return (
-      <BoxShadow theme={this.props.theme}>
+      <BoxShadow theme={theme} float={float}>
         <Horizontal>
           <HorizontalLeft>
             <HeaderBackButton onPress={this.goBack} />
           </HorizontalLeft>
-          <MaterialHeaderButtons>
+          { shareUrl && <MaterialHeaderButtons>
             <Item title={t('share')} show='never' onPress={this.onShare} />
-          </MaterialHeaderButtons>
+          </MaterialHeaderButtons> }
         </Horizontal>
       </BoxShadow>
     )
