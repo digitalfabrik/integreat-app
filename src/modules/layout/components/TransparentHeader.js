@@ -39,7 +39,6 @@ const BoxShadow: StyledComponent<{float: boolean}, ThemeType, *> = styled.View`
 type PropsType = {|
   navigation: NavigationScreenProp<*>,
   theme: ThemeType,
-  withMenu: boolean,
   float: boolean,
   t: TFunction
 |}
@@ -58,11 +57,6 @@ const MaterialHeaderButtons = props => {
   )
 }
 
-export type ShareParamsType = {|
-  url: string,
-  pageTitle: string
-|}
-
 class TransparentHeader extends React.PureComponent<PropsType> {
   goBack = () => {
     this.props.navigation.goBack(null)
@@ -70,21 +64,24 @@ class TransparentHeader extends React.PureComponent<PropsType> {
 
   onShare = async () => {
     const { navigation, t } = this.props
-    const { url }: ShareParamsType = navigation.state.params
+    const url: ?string = navigation.state.params.url
 
-    try {
-      await Share.open({
-        url,
-        failOnCancel: false
-      })
-    } catch (e) {
-      const errorMessage = e.hasOwnProperty('message') ? e.message : t('shareFailDefaultMessage')
-      alert(errorMessage)
+    if (url) {
+      try {
+        await Share.open({
+          url,
+          failOnCancel: false
+        })
+      } catch (e) {
+        const errorMessage = e.hasOwnProperty('message') ? e.message : t('shareFailDefaultMessage')
+        alert(errorMessage)
+      }
     }
   }
 
   render () {
-    const { theme, withMenu, float, t } = this.props
+    const { theme, float, navigation, t } = this.props
+    const shareUrl = navigation.state.params.url
 
     return (
       <BoxShadow theme={theme} float={float}>
@@ -92,7 +89,7 @@ class TransparentHeader extends React.PureComponent<PropsType> {
           <HorizontalLeft>
             <HeaderBackButton onPress={this.goBack} />
           </HorizontalLeft>
-          { withMenu && <MaterialHeaderButtons>
+          { shareUrl && <MaterialHeaderButtons>
             <Item title={t('share')} show='never' onPress={this.onShare} />
           </MaterialHeaderButtons> }
         </Horizontal>

@@ -42,11 +42,11 @@ const createNavigationRouteConfig = (Component: NavigationComponent, header = nu
   }
 })
 
-const transparentHeader = (headerProps: HeaderProps) =>
-  <TransparentHeaderContainer scene={headerProps.scene} scenes={headerProps.scenes} withMenu={false} float={false} />
+const transparentStaticHeader = (headerProps: HeaderProps) =>
+  <TransparentHeaderContainer scene={headerProps.scene} scenes={headerProps.scenes} float={false} />
 
-const transparentHeaderWithMenu = (headerProps: HeaderProps) =>
-  <TransparentHeaderContainer scene={headerProps.scene} scenes={headerProps.scenes} withMenu float />
+const transparentFloatingHeader = (headerProps: HeaderProps) =>
+  <TransparentHeaderContainer scene={headerProps.scene} scenes={headerProps.scenes} float />
 
 const settingsHeader = (headerProps: HeaderProps) =>
   <SettingsHeaderContainer scene={headerProps.scene} scenes={headerProps.scenes} />
@@ -66,11 +66,11 @@ const cityContentRouteConfigMap: NavigationRouteConfigMap = {
   ),
   'Settings': createNavigationRouteConfig(SettingsContainer, settingsHeader),
   'Disclaimer': createNavigationRouteConfig(DisclaimerContainer, defaultHeader),
-  'ChangeLanguageModal': createNavigationRouteConfig(ChangeLanguageModalContainer, transparentHeader),
+  'ChangeLanguageModal': createNavigationRouteConfig(ChangeLanguageModalContainer, transparentStaticHeader),
   'SearchModal': createNavigationRouteConfig(SearchModalContainer),
-  'ImageViewModal': createNavigationRouteConfig(ImageViewModal, transparentHeaderWithMenu),
-  'PDFViewModal': createNavigationRouteConfig(PDFViewModal, transparentHeaderWithMenu),
-  'FeedbackModal': createNavigationRouteConfig(FeedbackModalContainer, transparentHeaderWithMenu)
+  'ImageViewModal': createNavigationRouteConfig(ImageViewModal, transparentFloatingHeader),
+  'PDFViewModal': createNavigationRouteConfig(PDFViewModal, transparentFloatingHeader),
+  'FeedbackModal': createNavigationRouteConfig(FeedbackModalContainer, transparentFloatingHeader)
 }
 
 export type CreateNavigationContainerParamsType = {|
