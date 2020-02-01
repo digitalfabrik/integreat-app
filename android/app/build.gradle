@@ -188,7 +188,6 @@ android {
 }
 
 dependencies {
-    implementation project(':rn-fetch-blob')
     implementation 'com.squareup.okio:okio:2.1.0'
     implementation 'com.squareup.okhttp3:okhttp:3.11.0'
     implementation 'com.squareup.okhttp3:okhttp-urlconnection:3.11.0'
