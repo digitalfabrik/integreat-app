@@ -2,7 +2,8 @@
 
 import * as React from 'react'
 import { View } from 'react-native'
-import styled, { type StyledComponent } from 'styled-components/native'
+import styled from 'styled-components/native'
+import { type StyledComponent } from 'styled-components'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import Touchable from '../../../modules/platform/components/Touchable'
 
