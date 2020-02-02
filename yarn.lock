@@ -4655,10 +4655,10 @@ flatted@^2.0.0:
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-2.0.1.tgz#69e57caa8f0eacbc281d2e2cb458d46fdb449e08"
   integrity sha512-a1hQMktqW9Nmqr5aktAux3JMNqaucxGcjtjWnZLHX7yyPCmlSV3M54nGYbqT8K+0GhF3NBgmJCc3ma+WOgX8Jg==
 
-flow-bin@^0.98.0:
-  version "0.98.1"
-  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.98.1.tgz#a8d781621c91703df69928acc83c9777e2fcbb49"
-  integrity sha512-y1YzQgbFUX4EG6h2EO8PhyJeS0VxNgER8XsTwU8IXw4KozfneSmGVgw8y3TwAOza7rVhTlHEoli1xNuNW1rhPw==
+flow-bin@^0.117.0:
+  version "0.117.0"
+  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.117.0.tgz#2fd331f476dac31f7dae6ac9b557581ebc84e8ad"
+  integrity sha512-LwDdiApyQsO26ubieaLBcW//K8QNcFR50FSUUDo5roy+2nsvkfRdJa0Qse2De6/2fwBElLDDrc3rrSzvC3hy2Q==
 
 flow-typed@^2.5.1:
   version "2.5.1"
@@ -8998,10 +8998,10 @@ react-navigation-drawer@~1.2.1:
   dependencies:
     react-native-tab-view "^1.2.0"
 
-react-navigation-header-buttons@^2.1.2:
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/react-navigation-header-buttons/-/react-navigation-header-buttons-2.3.1.tgz#f5465ee4d3e6e9d17656221809e16e6eae39067d"
-  integrity sha512-LSc4DSmhnw4gCPim35cr5/40JDAk+oSoAW/Uy7zULz9l/dQckxk9v3zaIAhTVTCK1clwaHktZKFUjggkIlt1IQ==
+react-navigation-header-buttons@^3.0.4:
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/react-navigation-header-buttons/-/react-navigation-header-buttons-3.0.4.tgz#63480ae356745549ede8b0232fda9c23c8526ea1"
+  integrity sha512-9wXSciaY1bxGxJQMhzVoPrVR20DQd487Re3119crVYZbAvQpugTznAc4VKc4rY4Z68LR//V7x7a00uEGAiZQDA==
   dependencies:
     react-native-platform-touchable "^1.1.1"
 

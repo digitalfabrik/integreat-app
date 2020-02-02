@@ -28,6 +28,7 @@ node_modules/warning/.*
 .*/node_modules/@react-native-community/cli/.*/.*
 .*/node_modules/react-native-share/.*
 .*/node_modules/react-native-webview/.*
+.*/node_modules/react-native-view-pdf/.*
 
 [include]
 
@@ -63,4 +64,4 @@ suppress_comment=\\(.\\|\n\\)*\\$FlowIssue\\((\\(<VERSION>\\)? *\\(site=[a-z,_]*
 suppress_comment=\\(.\\|\n\\)*\\$FlowExpectedError
 
 [version]
-^0.98.0
+^0.117.0
