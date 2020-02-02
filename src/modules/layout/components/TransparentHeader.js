@@ -2,7 +2,8 @@
 
 import * as React from 'react'
 import Share from 'react-native-share'
-import styled, { type StyledComponent } from 'styled-components/native'
+import styled from 'styled-components/native'
+import { type StyledComponent } from 'styled-components'
 import type { NavigationScreenProp } from 'react-navigation'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import HeaderBackButton from 'react-navigation-stack/lib/module/views/Header/HeaderBackButton'

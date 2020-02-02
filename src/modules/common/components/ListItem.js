@@ -1,7 +1,8 @@
 // @flow
 
 import * as React from 'react'
-import styled, { type StyledComponent } from 'styled-components/native'
+import styled from 'styled-components/native'
+import { type StyledComponent } from 'styled-components'
 import type { ThemeType } from '../../theme/constants/theme'
 import Image from './Image'
 import type { ImageSourceType } from './Image'

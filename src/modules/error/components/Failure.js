@@ -1,7 +1,8 @@
 // @flow
 
 import React from 'react'
-import styled, { type StyledComponent } from 'styled-components/native'
+import styled from 'styled-components/native'
+import { type StyledComponent } from 'styled-components'
 import { Text } from 'react-native'
 import type { TFunction } from 'react-i18next'
 import FailureIcon from '../assets/FailureIcon.svg'
