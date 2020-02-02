@@ -4,7 +4,7 @@ import * as React from 'react'
 import { Share } from 'react-native'
 import logo from '../assets/integreat-app-logo.png'
 import styled, { type StyledComponent } from 'styled-components/native'
-import HeaderButtons, { HeaderButton, Item } from 'react-navigation-header-buttons'
+import { HeaderButtons, HeaderButton, Item } from 'react-navigation-header-buttons'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import HeaderBackButton from 'react-navigation-stack/lib/module/views/Header/HeaderBackButton'
 
