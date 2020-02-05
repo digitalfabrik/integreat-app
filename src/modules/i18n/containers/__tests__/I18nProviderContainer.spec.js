@@ -40,7 +40,7 @@ describe('I18nProviderContainer', () => {
     }
 
     class I18nProviderMock extends React.Component<MockPropsType> {
-      componentWillMount () {
+      componentDidMount () {
         this.props.setContentLanguage('ar')
       }
 
