@@ -46,10 +46,10 @@ const MaterialHeaderButton = props => (
 
 const MaterialHeaderButtons = props => {
   return (
-    <HeaderButtons
-      HeaderButtonComponent={MaterialHeaderButton}
-      OverflowIcon={<MaterialIcon name='more-vert' size={23} color='black' />}
-      {...props}
+    // $FlowFixMe onOverflowMenuPress should not be required
+    <HeaderButtons HeaderButtonComponent={MaterialHeaderButton}
+                   OverflowIcon={<MaterialIcon name='more-vert' size={23} color='black' />}
+                   {...props}
     />
   )
 }
