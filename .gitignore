@@ -32,6 +32,9 @@ yarn-debug.log*
 yarn-error.log*
 .png-cache
 
+# CocoaPods
+/ios/Pods/
+
 # Runtime data
 pids
 *.pid

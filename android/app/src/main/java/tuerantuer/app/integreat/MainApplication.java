@@ -1,28 +1,14 @@
 package tuerantuer.app.integreat;
 
 import android.app.Application;
-
-import com.RNFetchBlob.RNFetchBlobPackage;
-import com.dylanvann.fastimage.FastImageViewPackage;
+import cl.json.ShareApplication;
+import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
-import com.reactnativecommunity.rnpermissions.RNPermissionsPackage;
-import com.reactnativecommunity.geolocation.GeolocationPackage;
-import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
-import com.reactnativecommunity.netinfo.NetInfoPackage;
-
-import com.oblador.vectoricons.VectorIconsPackage;
-import com.reactnativecommunity.webview.RNCWebViewPackage;
-import com.rumax.reactnative.pdfviewer.PDFViewPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
-import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
-import io.sentry.RNSentryPackage;
-import cl.json.RNSharePackage;
-import cl.json.ShareApplication;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class MainApplication extends Application implements ShareApplication, ReactApplication {
@@ -35,22 +21,9 @@ public class MainApplication extends Application implements ShareApplication, Re
 
         @Override
         protected List<ReactPackage> getPackages() {
-            return Arrays.<ReactPackage>asList(
-                    new MainReactPackage(),
-                    new RNPermissionsPackage(),
-                    new GeolocationPackage(),
-                    new RNSharePackage(),
-                    new AsyncStoragePackage(),
-                    new NetInfoPackage(),
-                    new RNSentryPackage(),
-                    new RNFetchBlobPackage(),
-                    new RNCWebViewPackage(),
-                    new PDFViewPackage(),
-                    new VectorIconsPackage(),
-                    new RNGestureHandlerPackage(),
-                    new FastImageViewPackage(),
-                    new IntegreatPackage()
-            );
+            List<ReactPackage> packages = new PackageList(this).getPackages();
+            packages.add(new IntegreatPackage());
+            return packages;
         }
 
         @Override

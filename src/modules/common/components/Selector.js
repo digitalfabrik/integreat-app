@@ -27,7 +27,7 @@ export const EnabledElement: StyledComponent<EnabledElementPropsType, ThemeType,
   font-weight: 700;
   color: ${props => props.theme.colors.textColor};
   background-color: ${props => props.theme.colors.backgroundColor};
-  ${props => props.selected && `background-color: ${props.theme.colors.backgroundAccentColor}`};
+  ${props => props.selected ? `background-color: ${props.theme.colors.backgroundAccentColor}` : ''};
 `
 
 export const DisabledElement: StyledComponent<{}, ThemeType, *> = styled(Element)`
@@ -46,10 +46,10 @@ export const Wrapper: StyledComponent<WrapperPropsType, ThemeType, *> = styled.V
   color: ${props => props.theme.colors.textColor};
   text-align: center;
 
-  ${props => props.vertical && css`
+  ${props => props.vertical ? css`
     flex-flow: column;
     align-items: center;
-  `}
+  ` : ''}
 `
 
 type PropsType = {
