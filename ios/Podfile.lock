@@ -11,15 +11,15 @@ PODS:
     - DoubleConversion
     - glog
   - glog (0.3.5)
-  - libwebp (1.1.0):
-    - libwebp/demux (= 1.1.0)
-    - libwebp/mux (= 1.1.0)
-    - libwebp/webp (= 1.1.0)
-  - libwebp/demux (1.1.0):
+  - libwebp (1.0.3):
+    - libwebp/demux (= 1.0.3)
+    - libwebp/mux (= 1.0.3)
+    - libwebp/webp (= 1.0.3)
+  - libwebp/demux (1.0.3):
     - libwebp/webp
-  - libwebp/mux (1.1.0):
+  - libwebp/mux (1.0.3):
     - libwebp/demux
-  - libwebp/webp (1.1.0)
+  - libwebp/webp (1.0.3)
   - Permission-LocationWhenInUse (2.0.8):
     - RNPermissions
   - React (0.60.6):
@@ -247,7 +247,7 @@ SPEC CHECKSUMS:
   DoubleConversion: 5805e889d232975c086db112ece9ed034df7a0b2
   Folly: 30e7936e1c45c08d884aa59369ed951a8e68cf51
   glog: 1f3da668190260b06b429bb211bfbee5cd790c28
-  libwebp: 946cb3063cea9236285f7e9a8505d806d30e07f3
+  libwebp: 057912d6d0abfb6357d8bb05c0ea470301f5d61e
   Permission-LocationWhenInUse: 0d4763b950baa5442e09f6ffc4d991db8d1d5662
   React: 68e7f8dfc27729eade18423072a143120f2f32ab
   React-Core: fc9dace551f6c8c1007dd2d3cb1bc10c90a01d3e
