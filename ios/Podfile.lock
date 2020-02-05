@@ -96,7 +96,7 @@ PODS:
     - React-Core (= 0.60.6)
   - React-RCTWebSocket (0.60.6):
     - React-Core (= 0.60.6)
-  - rn-fetch-blob (0.10.16):
+  - rn-fetch-blob (0.12.0):
     - React-Core
   - RNCAsyncStorage (1.5.1):
     - React
@@ -112,7 +112,7 @@ PODS:
     - React
   - RNShare (1.2.1):
     - React
-  - RNVectorIcons (6.2.0):
+  - RNVectorIcons (6.6.0):
     - React
   - SDWebImage (5.5.2):
     - SDWebImage/Core (= 5.5.2)
@@ -269,14 +269,14 @@ SPEC CHECKSUMS:
   React-RCTText: d91537e29e38dc69cf09cbca0875cf5dc7402da6
   React-RCTVibration: 7655d72dfb919dd6d8e135ca108a5a2bd9fcd7b4
   React-RCTWebSocket: 7cd2c8d0f8ddd680dc76404defba7ab1f56b83af
-  rn-fetch-blob: 651b8d076b43d0d7aa294a3d9ec16c00aab8bef9
+  rn-fetch-blob: f065bb7ab7fb48dd002629f8bdcb0336602d3cba
   RNCAsyncStorage: b63d6e83fc629b01df6b624688f17944cea5637f
   RNFastImage: 9b0c22643872bb7494c8d87bbbb66cc4c0d9e7a2
   RNGestureHandler: 0e0813f9370d00efc5dd7a7f19f579260d0244c2
   RNPDF: 96fe99f55787456ba2f7df44a866a0baf98aaf84
   RNPermissions: 923c1506d0bde387fbcfc18a8f87945806d03c19
   RNShare: 48cf88cadf9ca2143cdaa557c1ec7f8808040ffc
-  RNVectorIcons: b6b131d2fdc2e240f7aba41296df869141443793
+  RNVectorIcons: 0bb4def82230be1333ddaeee9fcba45f0b288ed4
   SDWebImage: 4d5c027c935438f341ed33dbac53ff9f479922ca
   SDWebImageWebPCoder: 947093edd1349d820c40afbd9f42acb6cdecd987
   Sentry: 4e8a17b61ddd116f89536cc81d567fdee1ebca96
