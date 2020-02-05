@@ -79,7 +79,6 @@ class RemoteContent extends React.Component<PropType, StateType> {
             URL_PREFIX + getResourceCacheFilesDirPath(cityCode))}
           allowFileAccess // Needed by android to access file:// urls
           originWhitelist={['*']} // Needed by iOS to load the initial html
-          useWebKit={false}
           javaScriptEnabled
 
           dataDetectorTypes={dataDetectorTypes}
