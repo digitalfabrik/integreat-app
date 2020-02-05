@@ -1,4 +1,4 @@
-package tuerantuer.app.integreat;
+package tuerantuer.app.integreat.constants;
 
 import android.content.pm.PackageManager;
 

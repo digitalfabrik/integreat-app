@@ -1,5 +1,5 @@
-// flow-typed signature: bfbfd99e158d6ba552a6d4d43e9ea945
-// flow-typed version: 84e615b60b/prop-types_v15.x.x/flow_>=v0.89.x
+// flow-typed signature: 4c227e658fff67d328126eb392cb3317
+// flow-typed version: c6154227d1/prop-types_v15.x.x/flow_>=v0.89.x <=v0.103.x
 
 type $npm$propTypes$ReactPropsCheckType = (
   props: any,
