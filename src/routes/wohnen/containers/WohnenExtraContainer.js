@@ -73,7 +73,7 @@ class WohnenExtraContainer extends React.Component<WohnenPropsType, WohnenStateT
     this.state = { offers: null, error: null, timeoutExpired: false }
   }
 
-  componentWillMount () {
+  componentDidMount () {
     this.loadWohnen()
   }
 
