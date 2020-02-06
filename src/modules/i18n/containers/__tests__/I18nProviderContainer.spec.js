@@ -13,78 +13,84 @@ jest.mock('../../../i18n/LanguageDetector')
 
 const mockStore = configureMockStore()
 
+// jest.resetModules() produces a invariant violation: Invalid hook call https://github.com/facebook/jest/issues/8987
 describe('I18nProviderContainer', () => {
-  beforeEach(() => {
-    jest.resetModules()
-  })
-
   it('should pass props to inner component', () => {
-    const I18nProviderMock = () => null
-    jest.doMock('../../components/I18nProvider', () => I18nProviderMock)
-    const I18nProviderContainerMock: I18nProviderContainer = require('../I18nProviderContainer').default
+    // $FlowFixMe jest.isolateModules() undefined
+    jest.isolateModules(() => {
+      const I18nProviderMock = () => null
+      jest.doMock('../../components/I18nProvider', () => I18nProviderMock)
+      const I18nProviderContainerMock: I18nProviderContainer = require('../I18nProviderContainer').default
 
-    const store = mockStore({})
-    const rendered = TestRenderer.create(<Provider store={store}>
-      <I18nProviderContainerMock />
-    </Provider>)
-    const props = rendered.root.findByType(I18nProviderMock).props
-    expect(props).toEqual({
-      setContentLanguage: expect.any(Function)
+      const store = mockStore({})
+      const rendered = TestRenderer.create(<Provider store={store}>
+        <I18nProviderContainerMock />
+      </Provider>)
+      const props = rendered.root.findByType(I18nProviderMock).props
+      expect(props).toEqual({
+        setContentLanguage: expect.any(Function)
+      })
     })
   })
 
   it('should dispatch action when setting content language', () => {
-    type MockPropsType = {
-      children?: React.Node,
-      setContentLanguage: (language: string) => void
-    }
-
-    class I18nProviderMock extends React.Component<MockPropsType> {
-      componentDidMount () {
-        this.props.setContentLanguage('ar')
+    // $FlowFixMe jest.isolateModules() undefined
+    jest.isolateModules(() => {
+      type MockPropsType = {
+        children?: React.Node,
+        setContentLanguage: (language: string) => void
       }
 
-      render () {
-        return null
+      class I18nProviderMock extends React.Component<MockPropsType> {
+        componentDidMount () {
+          this.props.setContentLanguage('ar')
+        }
+
+        render () {
+          return null
+        }
       }
-    }
 
-    jest.doMock('../../components/I18nProvider', () => I18nProviderMock)
-    const I18nProviderContainerMock: I18nProviderContainer = require('../I18nProviderContainer').default
+      jest.doMock('../../components/I18nProvider', () => I18nProviderMock)
+      const I18nProviderContainerMock: I18nProviderContainer = require('../I18nProviderContainer').default
 
-    const store = mockStore({})
-    render(<Provider store={store}>
-      <I18nProviderContainerMock />
-    </Provider>)
+      const store = mockStore({})
+      render(<Provider store={store}>
+        <I18nProviderContainerMock />
+      </Provider>)
 
-    expect(store.getActions()).toEqual([{
-      params: {
-        contentLanguage: 'ar'
-      },
-      type: 'SET_CONTENT_LANGUAGE'
-    }])
+      expect(store.getActions()).toEqual([{
+        params: {
+          contentLanguage: 'ar'
+        },
+        type: 'SET_CONTENT_LANGUAGE'
+      }])
+    })
   })
 
   it('should trigger actions without passing props explicitly', async () => {
-    jest.dontMock('../../components/I18nProvider')
-    const I18nProviderContainer = require('../I18nProviderContainer').default
+    // $FlowFixMe jest.isolateModules() undefined
+    jest.isolateModules(async () => {
+      jest.dontMock('../../components/I18nProvider')
+      const I18nProviderContainer = require('../I18nProviderContainer').default
 
-    const store = mockStore({})
-    render(
-      <Provider store={store}>
-        <I18nProviderContainer>
-          <React.Fragment />
-        </I18nProviderContainer>
-      </Provider>
-    )
+      const store = mockStore({})
+      render(
+        <Provider store={store}>
+          <I18nProviderContainer>
+            <React.Fragment />
+          </I18nProviderContainer>
+        </Provider>
+      )
 
-    await waitForExpect(() => {
-      expect(store.getActions()).toEqual([{
-        type: 'SET_CONTENT_LANGUAGE',
-        params: {
-          contentLanguage: 'en'
-        }
-      }])
+      await waitForExpect(() => {
+        expect(store.getActions()).toEqual([{
+          type: 'SET_CONTENT_LANGUAGE',
+          params: {
+            contentLanguage: 'en'
+          }
+        }])
+      })
     })
   })
 })
