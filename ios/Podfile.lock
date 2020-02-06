@@ -263,9 +263,9 @@ PODS:
   - SDWebImageWebPCoder (0.2.5):
     - libwebp (~> 1.0)
     - SDWebImage/Core (~> 5.0)
-  - Sentry (4.4.3):
-    - Sentry/Core (= 4.4.3)
-  - Sentry/Core (4.4.3)
+  - Sentry (4.4.0):
+    - Sentry/Core (= 4.4.0)
+  - Sentry/Core (4.4.0)
   - Yoga (1.14.0)
 
 DEPENDENCIES:
