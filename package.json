@@ -112,8 +112,6 @@
     "jetifier": "^1.6.5",
     "lolex": "^3.0.0",
     "metro-react-native-babel-preset": "^0.56.0",
-    "moment-timezone": "^0.5.23",
-    "react-dom": "16",
     "react-native-git-upgrade": "^0.2.7",
     "react-native-svg-asset-plugin": "^0.1.2",
     "react-test-renderer": "16.8.6",
