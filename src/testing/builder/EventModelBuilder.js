@@ -1,7 +1,7 @@
 // @flow
 
 import { DateModel, EventModel, LocationModel } from '@integreat-app/integreat-api-client'
-import moment from 'moment-timezone'
+import moment from 'moment'
 import seedrandom from 'seedrandom'
 import type { PageResourceCacheStateType } from '../../modules/app/StateType'
 import hashUrl from '../../modules/endpoint/hashUrl'

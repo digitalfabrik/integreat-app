@@ -1,7 +1,7 @@
 // @flow
 
 import { CategoriesMapModel, CategoryModel } from '@integreat-app/integreat-api-client'
-import moment from 'moment-timezone'
+import moment from 'moment'
 import type { PageResourceCacheStateType } from '../../modules/app/StateType'
 import seedrandom from 'seedrandom'
 import hashUrl from '../../modules/endpoint/hashUrl'

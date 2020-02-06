@@ -8,7 +8,7 @@ import {
   LanguageModel,
   LocationModel
 } from '@integreat-app/integreat-api-client'
-import moment from 'moment-timezone'
+import moment from 'moment'
 import morphContentLanguage from '../morphContentLanguage'
 import pushCategory from '../pushCategory'
 import type { CityContentStateType } from '../../../app/StateType'
@@ -104,8 +104,8 @@ describe('morphContentLanguage', () => {
       title: 'title',
       availableLanguages,
       date: new DateModel({
-        startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
-        endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+        startDate: moment('2017-11-18 09:30:00', moment.ISO_8601),
+        endDate: moment('2017-11-18 19:30:00', moment.ISO_8601),
         allDay: true
       }),
       location: new LocationModel({
@@ -114,7 +114,7 @@ describe('morphContentLanguage', () => {
         postcode: 'postcode'
       }),
       excerpt: 'excerpt',
-      lastUpdate: moment('2016-01-07 10:36:24', 'UTC'),
+      lastUpdate: moment('2016-01-07 10:36:24', moment.ISO_8601),
       content: 'content',
       thumbnail: 'thumbnail'
     })

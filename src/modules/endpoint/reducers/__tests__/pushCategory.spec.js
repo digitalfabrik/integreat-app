@@ -1,7 +1,7 @@
 // @flow
 
 import { CategoriesMapModel, CategoryModel, LanguageModel } from '@integreat-app/integreat-api-client'
-import moment from 'moment-timezone'
+import moment from 'moment'
 import type { CityContentStateType } from '../../../app/StateType'
 import cityContentReducer from '../cityContentReducer'
 
@@ -15,7 +15,7 @@ describe('pushCategory', () => {
     parentPath: '',
     order: 0,
     availableLanguages: new Map(),
-    lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+    lastUpdate: moment('2017-11-18 19:30:00', moment.ISO_8601),
     hash: '123456'
   })
   const subCategory = new CategoryModel({
@@ -27,7 +27,7 @@ describe('pushCategory', () => {
     parentPath: '/augsburg/de',
     order: 0,
     availableLanguages: new Map([['en', '/augsburg/en/sub']]),
-    lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+    lastUpdate: moment('2017-11-18 19:30:00', moment.ISO_8601),
     hash: '123456'
   })
   const subSubCategory = new CategoryModel({
@@ -39,7 +39,7 @@ describe('pushCategory', () => {
     parentPath: '/augsburg/de/sub',
     order: 0,
     availableLanguages: new Map([['en', '/augsburg/en/sub/sub']]),
-    lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+    lastUpdate: moment('2017-11-18 19:30:00', moment.ISO_8601),
     hash: '123456'
   })
   const categoriesMap = new CategoriesMapModel([rootCategory, subCategory, subSubCategory])
@@ -71,7 +71,7 @@ describe('pushCategory', () => {
           '/augsburg/de': {
             'some-url': {
               filePath: 'some-path',
-              lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+              lastUpdate: moment('2017-11-18 19:30:00', moment.ISO_8601),
               hash: '123456'
             }
           }
@@ -178,7 +178,7 @@ describe('pushCategory', () => {
       '/testumgebung/de': {
         'another-url': {
           filePath: 'another-path',
-          lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+          lastUpdate: moment('2017-11-18 19:30:00', moment.ISO_8601),
           hash: '123456'
         }
       }

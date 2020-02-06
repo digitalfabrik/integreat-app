@@ -2,7 +2,7 @@
 
 import { isEmpty, mapValues, sortBy, toPairs } from 'lodash'
 import type { FetchResultType, ProgressCallbackType, TargetFilePathsType } from '../FetcherModule'
-import moment from 'moment-timezone'
+import moment from 'moment'
 
 class FetcherModule {
   static currentlyFetching = false
@@ -27,7 +27,7 @@ class FetcherModule {
 
     const fetchResult = mapValues(
       targetFilePaths,
-      value => ({ lastUpdate: moment('2016-02-01T10:35:20Z'), url: value, errorMessage: null })
+      value => ({ lastUpdate: moment('2016-02-01T10:35:20Z', moment.ISO_8601), url: value, errorMessage: null })
     )
 
     const fetchResultPairs = toPairs(fetchResult)
