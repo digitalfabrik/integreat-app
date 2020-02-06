@@ -2,7 +2,7 @@
 
 import { CategoryModel } from '@integreat-app/integreat-api-client'
 import CategoriesRouteStateView from '../CategoriesRouteStateView'
-import moment from 'moment-timezone'
+import moment from 'moment'
 
 describe('CategoriesRouteStateView', () => {
   const models = {
@@ -14,7 +14,7 @@ describe('CategoriesRouteStateView', () => {
       parentPath: '',
       order: 0,
       availableLanguages: new Map(),
-      lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
+      lastUpdate: moment('2017-11-18 19:30:00', moment.ISO_8601)
     }),
     '/augsburg/de/erste-hilfe': new CategoryModel({
       root: false,
@@ -24,7 +24,7 @@ describe('CategoriesRouteStateView', () => {
       parentPath: '/augsburg/de',
       order: 0,
       availableLanguages: new Map(),
-      lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
+      lastUpdate: moment('2017-11-18 19:30:00', moment.ISO_8601)
     }),
     '/augsburg/de/zweite-hilfe': new CategoryModel({
       root: false,
@@ -34,7 +34,7 @@ describe('CategoriesRouteStateView', () => {
       parentPath: '/augsburg/de/erste-hilfe',
       order: 0,
       availableLanguages: new Map(),
-      lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
+      lastUpdate: moment('2017-11-18 19:30:00', moment.ISO_8601)
     })
   }
 

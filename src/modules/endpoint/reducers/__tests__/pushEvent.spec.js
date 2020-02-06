@@ -1,7 +1,7 @@
 // @flow
 
 import { EventModel, LanguageModel } from '@integreat-app/integreat-api-client'
-import moment from 'moment-timezone'
+import moment from 'moment'
 import type { CityContentStateType } from '../../../app/StateType'
 import cityContentReducer from '../cityContentReducer'
 import type { PushEventActionType } from '../../../app/StoreActionType'
@@ -15,8 +15,8 @@ describe('pushEvent', () => {
     parentPath: '/augsburg/de',
     order: 0,
     availableLanguages: new Map([['en', '/augsburg/en/events/ev1']]),
-    lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC'),
-    date: moment.tz('2017-11-18 19:30:00', 'UTC'),
+    lastUpdate: moment('2017-11-18 19:30:00', moment.ISO_8601),
+    date: moment('2017-11-18 19:30:00', moment.ISO_8601),
     hash: '123456'
   })
 
@@ -41,7 +41,7 @@ describe('pushEvent', () => {
           '/augsburg/de/events/ev1': {
             'some-url': {
               filePath: 'some-path',
-              lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+              lastUpdate: moment('2017-11-18 19:30:00', moment.ISO_8601),
               hash: '123456'
             }
           }
@@ -130,7 +130,7 @@ describe('pushEvent', () => {
       '/testumgebung/de/events/ev2': {
         'another-url': {
           filePath: 'another-path',
-          lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+          lastUpdate: moment('2017-11-18 19:30:00', moment.ISO_8601),
           hash: '123456'
         }
       }
@@ -145,8 +145,8 @@ describe('pushEvent', () => {
           title: 'T',
           content: 'lul',
           thumbnail: '',
-          date: moment.tz('2017-11-18 19:30:00', 'UTC'),
-          lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+          date: moment('2017-11-18 19:30:00', moment.ISO_8601),
+          lastUpdate: moment('2017-11-18 19:30:00', moment.ISO_8601),
           availableLanguages: new Map(),
           hash: '123456'
         })],
