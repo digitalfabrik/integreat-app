@@ -16,7 +16,7 @@ import { translate } from 'react-i18next'
 import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 import Categories from '../../../modules/categories/components/Categories'
 import React from 'react'
-import type { TFunction } from 'i18next'
+import type { TFunction } from 'react-i18next'
 import { mapProps } from 'recompose'
 
 type ContainerPropsType = {|
