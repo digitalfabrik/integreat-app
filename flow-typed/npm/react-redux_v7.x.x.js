@@ -1,5 +1,5 @@
-// flow-typed signature: be1a6a9041ded9d5eb2308664fa10a77
-// flow-typed version: c6154227d1/react-redux_v5.x.x/flow_>=v0.89.x <=v0.103.x
+// flow-typed signature: d6e8d9a72e906ae26b83c9b33a1a6e56
+// flow-typed version: c6154227d1/react-redux_v7.x.x/flow_>=v0.104.x
 
 /**
 The order of type arguments for connect() is as follows:
@@ -27,6 +27,7 @@ Decrypting the abbreviations:
   RMP = Returned merge props
   CP = Props for returned component
   Com = React Component
+  SS = Selected state
   ST = Static properties of Com
   EFO = Extra factory options (used only in connectAdvanced)
 */
@@ -38,7 +39,7 @@ declare module "react-redux" {
 
   declare export type Options<S, OP, SP, MP> = {|
     pure?: boolean,
-    withRef?: boolean,
+    forwardRef?: boolean,
     areStatesEqual?: (next: S, prev: S) => boolean,
     areOwnPropsEqual?: (next: OP, prev: OP) => boolean,
     areStatePropsEqual?: (next: SP, prev: SP) => boolean,
@@ -199,12 +200,26 @@ declare module "react-redux" {
   ): Connector<P, OP, P>;
 
   // ------------------------------------------------------------
+  // Typings for Hooks
+  // ------------------------------------------------------------
+
+  declare export function useDispatch<D>(): D;
+
+  declare export function useSelector<S, SS>(
+    selector: (state: S) => SS,
+    equalityFn?: (a: SS, b: SS) => boolean,
+  ): SS;
+
+  declare export function useStore<Store>(): Store;
+
+  // ------------------------------------------------------------
   // Typings for Provider
   // ------------------------------------------------------------
 
   declare export class Provider<Store> extends React$Component<{
     store: Store,
     children?: React$Node,
+    ...
   }> {}
 
   declare export function createProvider(
@@ -222,7 +237,8 @@ declare module "react-redux" {
     renderCountProp?: string,
     shouldHandleStateChanges?: boolean,
     storeKey?: string,
-    withRef?: boolean,
+    forwardRef?: boolean,
+    ...
   };
 
   declare type SelectorFactoryOptions<Com> = {
@@ -231,10 +247,11 @@ declare module "react-redux" {
     renderCountProp: ?string,
     shouldHandleStateChanges: boolean,
     storeKey: string,
-    withRef: boolean,
+    forwardRef: boolean,
     displayName: string,
     wrappedComponentName: string,
     WrappedComponent: Com,
+    ...
   };
 
   declare type MapStateToPropsEx<S: Object, SP: Object, RSP: Object> = (
@@ -261,7 +278,7 @@ declare module "react-redux" {
     OP: Object,
     CP: Object,
     EFO: Object,
-    ST: { [_: $Keys<Com>]: any },
+    ST: { [_: $Keys<Com>]: any, ... },
   >(
     selectorFactory: SelectorFactory<Com, D, S, OP, EFO, CP>,
     connectAdvancedOptions: ?(ConnectAdvancedOptions & EFO),
@@ -272,5 +289,9 @@ declare module "react-redux" {
     createProvider: typeof createProvider,
     connect: typeof connect,
     connectAdvanced: typeof connectAdvanced,
+    useDispatch: typeof useDispatch,
+    useSelector: typeof useSelector,
+    useStore: typeof useStore,
+    ...
   };
 }
