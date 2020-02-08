@@ -105,7 +105,7 @@
     "generator-rn-toolbox": "^3.11.1",
     "get-dev-paths": "^0.1.1",
     "http-proxy": "^1.17.0",
-    "jest": "^25.1.0",
+    "jest": "^24.9.0",
     "jest-extended": "^0.11.2",
     "jest-fetch-mock": "^2.1.0",
     "jest-react-native": "^18.0.0",
