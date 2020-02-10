@@ -45,10 +45,14 @@ class RemoteContent extends React.Component<PropType, StateType> {
     if (!event.nativeEvent) {
       return
     }
-    const height = parseFloat(event.nativeEvent.data)
-    this.setState({
-      webViewHeight: height
-    }, this.props.onLoad)
+    const message = JSON.parse(event.nativeEvent.data)
+    if (message.type === 'error') {
+      throw Error(`An error occurred in the webview:\n${message.message}`)
+    } else if (message.type === 'height' && typeof message.height === 'number') {
+      this.setState({ webViewHeight: message.height }, this.props.onLoad)
+    } else {
+      throw Error(`Got an unknown message from the webview.`)
+    }
   }
 
   onShouldStartLoadWithRequest = (event: WebViewNavigation) => {
