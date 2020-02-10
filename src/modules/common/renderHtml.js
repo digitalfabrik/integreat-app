@@ -6,6 +6,36 @@ import type { ThemeType } from '../theme/constants/theme'
 
 // language=JavaScript
 const renderJS = (files: PageResourceCacheStateType) => `
+// Catching occurring errors
+(function() {
+  function reportError (message) {
+    if (!window.ReactNativeWebView) {
+      return window.setTimeout(function() { reportError(message) }, 100)
+    }
+
+    window.ReactNativeWebView.postMessage(JSON.stringify({ type: "error", message: message }))
+  };
+  
+  window.onerror = function(msg, url, lineNo, columnNo, error) {
+    // from https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/onerror
+    var string = msg.toLowerCase()
+    var substring = "script error"
+    if (string.indexOf(substring) > -1){
+      reportError('Script Error: See Browser Console for Detail: '  + msg + JSON.stringify(error))
+    } else {
+      var message = [
+        'Message: ' + msg,
+        'URL: ' + url,
+        'Line: ' + lineNo,
+        'Column: ' + columnNo,
+        'Error object: ' + JSON.stringify(error)
+      ].join(' - ')
+      reportError(message)
+    }
+    return false
+  };
+})();
+
 (function() {
   var hrefs = document.querySelectorAll('[href]')
   var srcs = document.querySelectorAll('[src]')
@@ -43,19 +73,19 @@ const renderJS = (files: PageResourceCacheStateType) => `
     if (!window.ReactNativeWebView){
       return window.setTimeout(adjustHeight, 100);
     }
-
-    window.ReactNativeWebView.postMessage(container.getBoundingClientRect().height - 2);
+    
+    var height = container.getBoundingClientRect().height - 2
+    window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'height', height: height }));
     container.setAttribute('style', '');
-  }
+  };
   
   window.addEventListener('load', adjustHeight);
   window.addEventListener('resize', adjustHeight);
 })();
 `
 
-export default (html: string, files: PageResourceCacheStateType, theme: ThemeType, direction: 'rtl' | 'ltr') => {
-  // language=HTML
-  return `
+// language=HTML
+const renderHtml = (html: string, files: PageResourceCacheStateType, theme: ThemeType, direction: 'rtl' | 'ltr') => `
 <html>
 <head>
   <!-- disables zooming https://stackoverflow.com/questions/44625680/disable-zoom-on-web-view-react-native-->
@@ -158,4 +188,5 @@ export default (html: string, files: PageResourceCacheStateType, theme: ThemeTyp
 </body>
 </html>
 `
-}
+
+export default renderHtml
