@@ -8,7 +8,7 @@ import { createHtmlSource, getResourceCacheFilesDirPath, URL_PREFIX } from '../.
 import renderHtml from '../renderHtml'
 import { type DataDetectorTypes, WebView, type WebViewMessageEvent } from 'react-native-webview'
 import type { PageResourceCacheStateType } from '../../app/StateType'
-import type { WebViewNavigation } from 'react-native-webview/js/WebViewTypes'
+import type { WebViewNavigation } from 'react-native-webview/lib/WebViewTypes'
 import type { ViewLayoutEvent } from 'react-native/Libraries/Components/View/ViewPropTypes'
 import { RTL_LANGUAGES } from '../../i18n/constants'
 
@@ -72,18 +72,17 @@ class RemoteContent extends React.Component<PropType, StateType> {
     const width = this.state.webViewWidth
     const dataDetectorTypes: DataDetectorTypes = 'all'
     return <StyledView onLayout={this.onLayout}>
-      {// $FlowFixMe dataDetectorTypes (correct types, but Flow doesn't try the right branch)
-        <WebView
-          source={createHtmlSource(renderHtml(content, files, theme, RTL_LANGUAGES.includes(language) ? 'rtl' : 'ltr'),
-            URL_PREFIX + getResourceCacheFilesDirPath(cityCode))}
-          allowFileAccess // Needed by android to access file:// urls
-          originWhitelist={['*']} // Needed by iOS to load the initial html
-          useWebKit={false}
-          javaScriptEnabled
+      {<WebView
+        source={createHtmlSource(renderHtml(content, files, theme, RTL_LANGUAGES.includes(language) ? 'rtl' : 'ltr'),
+          URL_PREFIX + getResourceCacheFilesDirPath(cityCode))}
+        allowFileAccess // Needed by android to access file:// urls
+        originWhitelist={['*']} // Needed by iOS to load the initial html
+        useWebKit={false}
+        javaScriptEnabled
 
-          dataDetectorTypes={dataDetectorTypes}
-          domStorageEnabled={false}
-          showsVerticalScrollIndicator={false}
+        dataDetectorTypes={dataDetectorTypes}
+        domStorageEnabled={false}
+        showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
 
           onMessage={this.onMessage}
