@@ -27,7 +27,7 @@ import { requestLocationPermission, requestPushNotificationPermission } from '..
 const Container: StyledComponent<{ width: number }, {}, *> = styled.View`
   display: flex;
   flex-direction: column;
-  width: ${props => props.width};
+  width: ${props => props.width}px;
   height: 100%;
   justify-content: space-between;
 `

@@ -11,7 +11,7 @@ const Container: StyledComponent<{ width: number }, ThemeType, *> = styled.View`
   padding: 32px 16px;
   flex: 1;
   background-color: ${props => props.theme.colors.backgroundColor};
-  width: ${props => props.width};
+  width: ${props => props.width}px;
 `
 
 const TextContainer = styled.View`
