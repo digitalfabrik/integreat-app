@@ -14,8 +14,7 @@ describe('createNavigateToEvent', () => {
     expect(navigation.navigate).toHaveBeenCalledWith(expect.objectContaining({
       key: expect.stringMatching(/^.{6,}$/) // at least 6 chars but no newline
     }))
-    // $FlowFixMe .mock is missing
-    const key = navigation.navigate.mock.calls[0][0].key
+    const key = (navigation.navigate: any).mock.calls[0][0].key
     expect(dispatch).toHaveBeenCalledWith({
       type: 'FETCH_EVENT',
       params: expect.objectContaining({ key })
@@ -36,8 +35,7 @@ describe('createNavigateToEvent', () => {
       })
     }))
 
-    // $FlowFixMe .mock is missing
-    const key = navigation.navigate.mock.calls[0][0].key
+    const key = (navigation.navigate: any).mock.calls[0][0].key
     // $FlowFixMe .mock is missing
     navigation.navigate.mock.calls[0][0].params.onRouteClose()
     expect(dispatch).toHaveBeenLastCalledWith({
