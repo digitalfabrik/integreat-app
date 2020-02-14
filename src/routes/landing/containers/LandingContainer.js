@@ -1,7 +1,7 @@
 // @flow
 
 import withTheme from '../../../modules/theme/hocs/withTheme'
-import { translate } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
 import type { Dispatch } from 'redux'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
@@ -53,7 +53,7 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsT
   dispatch
 })
 
-const ThemedTranslatedLanding = translate('landing')(
+const ThemedTranslatedLanding = withTranslation('landing')(
   withTheme(props => props.language)(
     Landing
   ))

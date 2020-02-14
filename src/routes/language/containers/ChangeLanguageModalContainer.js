@@ -8,7 +8,7 @@ import ChangeLanguageModal from '../components/ChangeLanguageModal'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import { LanguageModel } from '@integreat-app/integreat-api-client'
 import type { NavigationScreenProp } from 'react-navigation'
-import { translate } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import type { TFunction } from 'react-i18next'
 
 type OwnPropsType = {| navigation: NavigationScreenProp<*>, t: TFunction |}
@@ -48,7 +48,7 @@ const mapDispatchToProps = (dispatch: DispatchType, ownProps: OwnPropsType): Dis
   }
 }
 
-export default translate('error')(
+export default withTranslation('error')(
   connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
     withTheme(props => props.currentLanguage)(ChangeLanguageModal)
   )

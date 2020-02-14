@@ -4,7 +4,7 @@ import * as React from 'react'
 import Snackbar from '../components/Snackbar'
 import type { ThemeType } from '../../theme/constants/theme'
 import { type NavigationScreenProp } from 'react-navigation'
-import { type TFunction, translate } from 'react-i18next'
+import { type TFunction, withTranslation } from 'react-i18next'
 import withTheme from '../../theme/hocs/withTheme'
 import AppSettings from '../../settings/AppSettings'
 import { openSettings, RESULTS } from 'react-native-permissions'
@@ -129,7 +129,7 @@ class PermissionSnackbarContainer extends React.Component<PropsType, StateType> 
   }
 }
 
-export default translate('snackbar')(
+export default withTranslation('snackbar')(
   withTheme()(
     PermissionSnackbarContainer
   )

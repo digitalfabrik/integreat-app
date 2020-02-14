@@ -3,7 +3,7 @@
 import Settings from '../components/Settings'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import type { NavigationScreenProp } from 'react-navigation'
-import { translate } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
 import type { StateType } from '../../../modules/app/StateType'
 import { type Dispatch } from 'redux'
@@ -22,5 +22,5 @@ const mapStateToProps = (state: StateType) => {
 }
 
 export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(
-  withTheme(props => props.language)(translate('settings')(Settings))
+  withTheme(props => props.language)(withTranslation('settings')(Settings))
 )

@@ -5,7 +5,7 @@ import { Linking } from 'react-native'
 import { WohnenOfferModel, WohnenFormData, type AccommodationType } from '@integreat-app/integreat-api-client'
 import styled from 'styled-components/native'
 import type { TFunction } from 'react-i18next'
-import { translate } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import Caption from '../../../modules/common/components/Caption'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 
@@ -164,4 +164,4 @@ class OfferDetail extends React.PureComponent<PropsType> {
   }
 }
 
-export default translate('wohnen')(OfferDetail)
+export default withTranslation('wohnen')(OfferDetail)

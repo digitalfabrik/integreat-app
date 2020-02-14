@@ -9,7 +9,7 @@ import type { TFunction } from 'react-i18next'
 import happyIcon from './assets/smile-happy.svg'
 import sadIcon from './assets/smile-sad.svg'
 import Image from './Image'
-import { translate } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 
 const FeedbackBox: StyledComponent<{}, ThemeType, *> = styled.View`
   margin-top: 25px;
@@ -88,4 +88,4 @@ class SiteHelpfulBox extends React.Component<PropType> {
   }
 }
 
-export default translate('feedback')(SiteHelpfulBox)
+export default withTranslation('feedback')(SiteHelpfulBox)

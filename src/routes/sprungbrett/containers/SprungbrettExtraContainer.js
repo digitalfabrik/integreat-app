@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { RefreshControl, ScrollView } from 'react-native'
-import { type TFunction, translate } from 'react-i18next'
+import { type TFunction, withTranslation } from 'react-i18next'
 import SprungbrettExtra from '../components/SprungbrettExtra'
 import { connect } from 'react-redux'
 import type { StateType } from '../../../modules/app/StateType'
@@ -108,7 +108,7 @@ class SprungbrettExtraContainer extends React.Component<SprungbrettPropsType, Sp
 }
 
 export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(
-  translate('sprungbrett')(
+  withTranslation('sprungbrett')(
     withTheme()(
       SprungbrettExtraContainer
     )))
