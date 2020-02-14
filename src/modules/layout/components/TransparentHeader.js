@@ -31,7 +31,7 @@ const BoxShadow: StyledComponent<{}, ThemeType, *> = styled.View`
   top: 0;
   left: 0;
   right: 0;
-  height: ${props => props.theme.dimensions.modalHeaderHeight};
+  height: ${props => props.theme.dimensions.modalHeaderHeight}px;
 `
 
 type PropsType = {|

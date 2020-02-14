@@ -50,7 +50,7 @@ const BoxShadow: StyledComponent<{}, ThemeType, *> = styled.View`
   shadow-opacity: 0.18;
   shadow-radius: 1.00px;
   background-color: ${props => props.theme.colors.backgroundAccentColor};
-  height: ${props => props.theme.dimensions.headerHeight};
+  height: ${props => props.theme.dimensions.headerHeight}px;
 `
 
 const MaterialHeaderButton = props => (
