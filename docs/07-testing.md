@@ -33,7 +33,7 @@ class Failure extends React.Component<PropsType> {
 
 ```js
 // FailureContainer.js
-export default withTheme()(translate('error')(Failure))
+export default withTheme()(withTranslation('error')(Failure))
 ```
 
 The most important part is to test the specific units using `@testing-library/react-native` and `react-test-renderer`. The following test is for the `Failure` component.

@@ -10,7 +10,7 @@ import createNavigateToCategory from '../../../modules/app/createNavigateToCateg
 import SearchModal from '../components/SearchModal'
 import { CategoriesMapModel, createFeedbackEndpoint, SEARCH_FEEDBACK_TYPE } from '@integreat-app/integreat-api-client'
 import type { NavigationScreenProp } from 'react-navigation'
-import { translate } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import determineApiUrl from '../../../modules/endpoint/determineApiUrl'
 
 type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
@@ -58,5 +58,5 @@ const mapDispatchToProps = (dispatch: DispatchType, ownProps: OwnPropsType) => (
 
 export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
   withTheme(props => props.language)(
-    translate('search')(SearchModal)
+    withTranslation('search')(SearchModal)
   ))

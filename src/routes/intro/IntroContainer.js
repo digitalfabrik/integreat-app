@@ -1,6 +1,6 @@
 // @flow
 
-import { translate, type TFunction } from 'react-i18next'
+import { withTranslation, type TFunction } from 'react-i18next'
 import * as React from 'react'
 import type { NavigationScreenProp } from 'react-navigation'
 import Language from './assets/Language.svg'
@@ -223,7 +223,7 @@ const mapStateToProps = (state: ReduxStateType): {| language: string |} => ({ la
 type ConnectType = {| language: string, dispatch: () => void |}
 
 export default connect<ConnectType, {||}, _, _, _, _>(mapStateToProps)(
-  translate(['intro', 'settings'])(
+  withTranslation(['intro', 'settings'])(
     withTheme()(
       Intro
     )))

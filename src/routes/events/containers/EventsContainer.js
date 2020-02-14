@@ -3,7 +3,7 @@
 import type { EventRouteStateType, LanguageResourceCacheStateType, StateType } from '../../../modules/app/StateType'
 import { connect } from 'react-redux'
 import Events from '../components/Events'
-import { type TFunction, translate } from 'react-i18next'
+import { type TFunction, withTranslation } from 'react-i18next'
 import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 import createNavigateToEvent from '../../../modules/app/createNavigateToEvent'
 import type { Dispatch } from 'redux'
@@ -114,7 +114,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsType => ({ dispatch })
 
-const ThemedTranslatedEvents = translate('events')(
+const ThemedTranslatedEvents = withTranslation('events')(
   withTheme(props => props.language)(
     Events
   ))
@@ -142,7 +142,7 @@ const removeOwnProps = (props: PropsType): RestType => {
 }
 
 export default withRouteCleaner<{| navigation: NavigationScreenProp<*> |}>(
-  translate('error')(
+  withTranslation('error')(
     connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
       mapProps<RestType, PropsType>(removeOwnProps)(
         withPayloadProvider<ContainerPropsType, RefreshPropsType>(refresh)(
