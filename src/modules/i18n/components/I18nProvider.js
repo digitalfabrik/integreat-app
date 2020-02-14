@@ -2,7 +2,7 @@
 
 import i18n from 'i18next'
 import * as React from 'react'
-import { I18nextProvider, reactI18nextModule } from 'react-i18next'
+import { I18nextProvider, initReactI18next } from 'react-i18next'
 import { forEach, reduce } from 'lodash/collection'
 
 import localesResources from '../../../../locales/locales.json'
@@ -38,7 +38,7 @@ class I18nProvider extends React.Component<PropsType, StateType> {
     this.i18n = i18n
       .createInstance()
       .use(LanguageDetector)
-      .use(reactI18nextModule)
+      .use(initReactI18next)
       .init({
         resources: i18nextResources,
         fallbackLng: FALLBACK_LANGUAGES,

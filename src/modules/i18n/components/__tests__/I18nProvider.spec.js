@@ -4,7 +4,7 @@ import { render } from '@testing-library/react-native'
 import React from 'react'
 import I18nProvider from '../I18nProvider'
 import type { TFunction } from 'react-i18next'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import localesResources from '../../../../../locales/locales.json'
 import waitForExpect from 'wait-for-expect'
 import AppSettings from '../../../settings/AppSettings'
@@ -21,20 +21,20 @@ describe('I18nProvider', () => {
 
   it('should transform the resources correctly', () => {
     const input = {
-      'module1': {
-        'language1': {
-          'key1': 'lang1-translated1'
+      module1: {
+        language1: {
+          key1: 'lang1-translated1'
         },
-        'language2': {
-          'key1': 'lang2-translated1'
+        language2: {
+          key1: 'lang2-translated1'
         }
       },
-      'module2': {
-        'language1': {
-          'key2': 'lang1-translated2'
+      module2: {
+        language1: {
+          key2: 'lang1-translated2'
         },
-        'language2': {
-          'key2': 'lang2-translated2'
+        language2: {
+          key2: 'lang2-translated2'
         }
       }
     }
@@ -67,7 +67,7 @@ describe('I18nProvider', () => {
   })
 
   it('should initialize correct i18next instance', () => {
-    const ReceivingComponent = withNamespaces('common')(
+    const ReceivingComponent = withTranslation('common')(
       ({ t, i18n }) => {
         const transformedResources = I18nProvider.transformResources(localesResources)
         const languages = Object.keys(transformedResources)
@@ -101,7 +101,7 @@ describe('I18nProvider', () => {
 
     const { queryByText } = render(
       <I18nProvider setContentLanguage={() => {}}>
-        <React.Fragment />
+        <></>
       </I18nProvider>)
 
     await waitForExpect(async () => {
@@ -112,7 +112,7 @@ describe('I18nProvider', () => {
   })
 
   it('should use fallback if language is invalid or unknown', () => {
-    const ReceivingComponent = withNamespaces('common')(
+    const ReceivingComponent = withTranslation('common')(
       ({ t }: { t: TFunction }) => {
         return <Text>{t('chooseALanguage', { lng: 'XX' })}</Text>
       }
