@@ -7,7 +7,8 @@ const transformNodeModules = [
   'react-navigation-stack', // for integration tests including react-navigation
   'react-navigation-header-buttons', // for integration tests including react-navigation
   'rn-fetch-blob',
-  '@integreat-app/integreat-api-client'
+  '@integreat-app/integreat-api-client',
+  '@sentry/react-native'
 ]
 
 module.exports = {

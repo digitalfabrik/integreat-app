@@ -1,6 +1,6 @@
 # Error reporting
 
-We are using Sentry for error reporting. Sentry offers a [react-native client](https://github.com/getsentry/react-native-sentry) which is used in this project. This basically consists of three different clients:
+We are using Sentry for error reporting. Sentry offers a [react-native client](https://github.com/getsentry/sentry-react-native) which is used in this project. This basically consists of three different clients:
 * [sentry-java](https://github.com/getsentry/sentry-java)
 * [sentry-javascript](https://github.com/getsentry/sentry-javascript) (currently uses raven-js)
 * [sentry-cocoa](https://github.com/getsentry/sentry-cocoa)
