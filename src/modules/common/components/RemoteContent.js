@@ -6,7 +6,7 @@ import styled, { type StyledComponent } from 'styled-components/native'
 import type { ThemeType } from '../../theme/constants/theme'
 import { createHtmlSource, getResourceCacheFilesDirPath, URL_PREFIX } from '../../platform/constants/webview'
 import renderHtml from '../renderHtml'
-import { type DataDetectorTypes, WebView, type WebViewMessageEvent } from 'react-native-webview'
+import { WebView, type WebViewMessageEvent } from 'react-native-webview'
 import type { PageResourceCacheStateType } from '../../app/StateType'
 import type { WebViewNavigation } from 'react-native-webview/lib/WebViewTypes'
 import type { ViewLayoutEvent } from 'react-native/Libraries/Components/View/ViewPropTypes'
@@ -74,27 +74,25 @@ class RemoteContent extends React.Component<PropType, StateType> {
     const { content, files, theme, cityCode, language } = this.props
     const height = this.state.webViewHeight
     const width = this.state.webViewWidth
-    const dataDetectorTypes: DataDetectorTypes = 'all'
     return <StyledView onLayout={this.onLayout}>
       {<WebView
         source={createHtmlSource(renderHtml(content, files, theme, RTL_LANGUAGES.includes(language) ? 'rtl' : 'ltr'),
           URL_PREFIX + getResourceCacheFilesDirPath(cityCode))}
-        allowFileAccess // Needed by android to access file:// urls
+        allowFileAccessFromFileURLs // Needed by android to access file:// urls
         originWhitelist={['*']} // Needed by iOS to load the initial html
-        useWebKit={false}
         javaScriptEnabled
 
-        dataDetectorTypes={dataDetectorTypes}
+        dataDetectorTypes='all'
         domStorageEnabled={false}
         showsVerticalScrollIndicator={false}
-          showsHorizontalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
 
-          onMessage={this.onMessage}
-          style={{ height: height, width: width }}
-          renderError={this.renderError}
-          bounces={false}
-          onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
-        />}
+        onMessage={this.onMessage}
+        style={{ height, width }}
+        renderError={this.renderError}
+        bounces={false}
+        onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
+      />}
     </StyledView>
   }
 }
