@@ -55,7 +55,7 @@ class SprungbrettExtraContainer extends React.Component<SprungbrettPropsType, Sp
     this.state = { jobs: null, error: null, timeoutExpired: false }
   }
 
-  componentWillMount () {
+  componentDidMount () {
     this.loadSprungbrett()
   }
 

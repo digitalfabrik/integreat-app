@@ -3,8 +3,9 @@
 import * as React from 'react'
 import { Share } from 'react-native'
 import logo from '../assets/integreat-app-logo.png'
-import styled, { type StyledComponent } from 'styled-components/native'
-import HeaderButtons, { HeaderButton, Item } from 'react-navigation-header-buttons'
+import styled from 'styled-components/native'
+import { type StyledComponent } from 'styled-components'
+import { HeaderButtons, HeaderButton, Item } from 'react-navigation-header-buttons'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import HeaderBackButton from 'react-navigation-stack/lib/module/views/Header/HeaderBackButton'
 
@@ -58,10 +59,10 @@ const MaterialHeaderButton = props => (
 
 const MaterialHeaderButtons = props => {
   return (
-    <HeaderButtons
-      HeaderButtonComponent={MaterialHeaderButton}
-      OverflowIcon={<MaterialIcon name='more-vert' size={23} color='black' />}
-      {...props}
+    // $FlowFixMe onOverflowMenuPress should not be required
+    <HeaderButtons HeaderButtonComponent={MaterialHeaderButton}
+                   OverflowIcon={<MaterialIcon name='more-vert' size={23} color='black' />}
+                   {...props}
     />
   )
 }

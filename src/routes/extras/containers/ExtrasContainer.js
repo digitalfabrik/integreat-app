@@ -56,7 +56,7 @@ class ExtrasContainer extends React.Component<ExtrasPropsType, ExtrasStateType> 
     this.state = { extras: null, error: null, timeoutExpired: false }
   }
 
-  componentWillMount () {
+  componentDidMount () {
     this.loadExtras().catch(e => this.setState({ error: e }))
   }
 
