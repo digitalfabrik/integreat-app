@@ -1,0 +1,31 @@
+fastlane_version "2.67.0"
+
+default_platform :android
+
+platform :android do
+
+  desc "Create a release build"
+  lane :build do
+    gradle(
+        task: "build",
+        properties: {
+            "versionCode" => 100,
+            "versionName" => "1.0.0",
+            "MYAPP_RELEASE_STORE_FILE" => "test.keystore",
+            "MYAPP_RELEASE_KEY_ALIAS" => "test",
+            "MYAPP_RELEASE_STORE_PASSWORD" => "123456",
+            "MYAPP_RELEASE_KEY_PASSWORD" => "123456"
+        },
+        print_command: false
+    )
+  end
+
+  before_all do
+  end
+
+  after_all do |lane|
+  end
+
+  error do |lane, exception|
+  end
+end

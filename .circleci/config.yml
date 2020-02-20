@@ -1,0 +1,98 @@
+jobs:
+  build_android:
+    docker:
+      - image: circleci/android:api-28-node
+    resource_class: medium
+    environment:
+      GRADLE_OPTS: -Dorg.gradle.jvmargs="-Xmx3072m -XX:+HeapDumpOnOutOfMemoryError"
+      BUNDLE_CONFIG: ./metro.config.ci.js
+    steps:
+      - checkout
+      - restore_cache:
+          key: gems-{{ checksum "android/Gemfile.lock" }}-{{ arch }}
+      - run:
+          command: bundle check || bundle install --path vendor/bundle
+          working_directory: android
+      - save_cache:
+          key: gems-{{ checksum "android/Gemfile.lock" }}-{{ arch }}
+          paths:
+            - vendor/bundle
+      - run:
+          name: "Pull Submodules"
+          command: |
+            git submodule init
+            git submodule update --remote
+      - restore_cache:
+          name: Restore Yarn Package Cache
+          keys:
+            - yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
+      - run:
+          name: Install Dependencies
+          command: yarn install --frozen-lockfile
+      - save_cache:
+          name: Save Yarn Package Cache
+          key: yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
+          paths:
+            - ~/.cache/yarn
+      - run:
+          name: Ruby version
+          command: ruby --version
+      - run:
+          name: fastlane
+          command: bundle exec fastlane android build
+          working_directory: android
+
+  build_ios:
+    macos:
+      xcode: 11.2.0
+    environment:
+      FL_OUTPUT_DIR: output
+      FASTLANE_LANE: ios
+    shell: /bin/bash --login -o pipefail
+    steps:
+      - checkout
+      - restore_cache:
+          key: gems-{{ checksum "ios/Gemfile.lock" }}-{{ arch }}
+      - run:
+          command: bundle check || bundle install --path vendor/bundle
+          working_directory: ios
+      - save_cache:
+          key: gems-{{ checksum "ios/Gemfile.lock" }}-{{ arch }}
+          paths:
+            - vendor/bundle
+      - run:
+          name: "Pull Submodules"
+          command: |
+            git submodule init
+            git submodule update --remote
+      - restore_cache:
+          name: Restore Yarn Package Cache
+          keys:
+            - yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
+      - run:
+          name: Install Dependencies
+          command: yarn install --frozen-lockfile
+      - save_cache:
+          name: Save Yarn Package Cache
+          key: yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
+          paths:
+            - ~/.cache/yarn
+      - run:
+          name: set Ruby version
+          command: echo "ruby-2.4" > ~/.ruby-version
+      - run:
+          name: Ruby version
+          command: ruby --version
+      - run:
+          name: fastlane
+          command: bundle exec fastlane ios build
+          working_directory: ios
+
+version: 2.1
+
+workflows:
+  react-native:
+    jobs:
+      - build_android
+      - build_ios
+

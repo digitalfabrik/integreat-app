@@ -1,0 +1,24 @@
+fastlane_version "2.67.0"
+
+default_platform :ios
+
+platform :ios do
+  before_all do
+    setup_circle_ci
+  end
+  desc "Create a simulator build"
+  lane :build do
+    xcbuild(
+        workspace: "Integreat.xcworkspace",
+        scheme: "Integreat",
+        configuration: "Debug",
+        xcargs: "-sdk iphonesimulator"
+    )
+  end
+
+  after_all do |lane|
+  end
+
+  error do |lane, exception|
+  end
+end
