@@ -1,13 +1,14 @@
 // @flow
 
 import * as React from 'react'
-import styled, { type StyledComponent } from 'styled-components/native'
+import styled from 'styled-components/native'
+import { type StyledComponent } from 'styled-components'
 
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import testID from '../../../modules/e2e/testID'
 
-export const Input = styled.TextInput.attrs((props: { theme: ThemeType }) => ({
+export const Input: StyledComponent<{}, ThemeType, *> = styled.TextInput.attrs((props: { theme: ThemeType }) => ({
   multiline: false,
   textColor: props.theme.colors.textSecondaryColor,
   placeholderTextColor: props.theme.colors.textSecondaryColor
@@ -28,8 +29,7 @@ export const Wrapper: StyledComponent<{ space: boolean }, ThemeType, *> = styled
   background-color: ${props => props.theme.colors.backgroundColor};
 `
 
-// $FlowFixMe https://github.com/flow-typed/flow-typed/pull/3228
-export const SearchIcon = styled(Icon).attrs(props => ({
+export const SearchIcon: StyledComponent<{}, ThemeType, *> = styled(Icon).attrs(props => ({
   name: 'search',
   size: 30,
   color: props.theme.colors.textSecondaryColor

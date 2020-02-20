@@ -2,7 +2,8 @@
 
 import React from 'react'
 import { Animated } from 'react-native'
-import styled, { type StyledComponent } from 'styled-components/native'
+import styled from 'styled-components/native'
+import { type StyledComponent } from 'styled-components'
 import type { ThemeType } from '../../theme/constants/theme'
 
 const Container: StyledComponent<{}, ThemeType, *> = styled(Animated.View)`

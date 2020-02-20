@@ -1,6 +1,7 @@
 // @flow
 
-import styled, { type StyledComponent } from 'styled-components/native'
+import styled from 'styled-components/native'
+import { type StyledComponent } from 'styled-components'
 import type { ThemeType } from '../../theme/constants/theme'
 
 const CategoryCaption: StyledComponent<{}, ThemeType, *> = styled.Text`

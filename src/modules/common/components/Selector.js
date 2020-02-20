@@ -3,7 +3,8 @@
 import * as React from 'react'
 
 import SelectorItemModel from '../models/SelectorItemModel'
-import styled, { css, type StyledComponent } from 'styled-components/native'
+import styled from 'styled-components/native'
+import { css, type StyledComponent } from 'styled-components'
 import { TouchableHighlight } from 'react-native'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 

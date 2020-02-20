@@ -1,7 +1,8 @@
 // @flow
 
 import * as React from 'react'
-import styled, { type StyledComponent } from 'styled-components/native'
+import styled from 'styled-components/native'
+import { type StyledComponent } from 'styled-components'
 import type { ThemeType } from '../../modules/theme/constants/theme'
 
 const Container: StyledComponent<{ width: number }, ThemeType, *> = styled.View`

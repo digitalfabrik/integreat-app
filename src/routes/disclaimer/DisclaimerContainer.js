@@ -49,7 +49,7 @@ class DisclaimerContainer extends React.Component<DisclaimerPropsType, Disclaime
     this.state = { disclaimer: null, error: null, timeoutExpired: false }
   }
 
-  componentWillMount () {
+  componentDidMount () {
     this.loadDisclaimer()
   }
 
