@@ -42,8 +42,11 @@ const createNavigationRouteConfig = (Component: NavigationComponent, header = nu
   }
 })
 
-const transparentHeader = (headerProps: HeaderProps) =>
-  <TransparentHeaderContainer scene={headerProps.scene} scenes={headerProps.scenes} />
+const transparentStaticHeader = (headerProps: HeaderProps) =>
+  <TransparentHeaderContainer scene={headerProps.scene} scenes={headerProps.scenes} float={false} />
+
+const transparentFloatingHeader = (headerProps: HeaderProps) =>
+  <TransparentHeaderContainer scene={headerProps.scene} scenes={headerProps.scenes} float />
 
 const settingsHeader = (headerProps: HeaderProps) =>
   <SettingsHeaderContainer scene={headerProps.scene} scenes={headerProps.scenes} />
@@ -63,11 +66,11 @@ const cityContentRouteConfigMap: NavigationRouteConfigMap = {
   ),
   'Settings': createNavigationRouteConfig(SettingsContainer, settingsHeader),
   'Disclaimer': createNavigationRouteConfig(DisclaimerContainer, defaultHeader),
-  'ChangeLanguageModal': createNavigationRouteConfig(ChangeLanguageModalContainer),
+  'ChangeLanguageModal': createNavigationRouteConfig(ChangeLanguageModalContainer, transparentStaticHeader),
   'SearchModal': createNavigationRouteConfig(SearchModalContainer),
-  'ImageViewModal': createNavigationRouteConfig(ImageViewModal, transparentHeader),
-  'PDFViewModal': createNavigationRouteConfig(PDFViewModal, transparentHeader),
-  'FeedbackModal': createNavigationRouteConfig(FeedbackModalContainer, transparentHeader)
+  'ImageViewModal': createNavigationRouteConfig(ImageViewModal, transparentFloatingHeader),
+  'PDFViewModal': createNavigationRouteConfig(PDFViewModal, transparentFloatingHeader),
+  'FeedbackModal': createNavigationRouteConfig(FeedbackModalContainer, transparentFloatingHeader)
 }
 
 export type CreateNavigationContainerParamsType = {|

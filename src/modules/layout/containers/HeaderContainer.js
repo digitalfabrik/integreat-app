@@ -51,7 +51,8 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 
   const cities = state.cities.models
   const cityCode = state.cityContent.city
-  const categoriesAvailable = state.cityContent.searchRoute?.categoriesMap !== null
+  const categoriesAvailable = state.cityContent.searchRoute !== null
+
   const cityModel = cities.find(city => city.code === cityCode)
 
   const goToLanguageChange = () => {
