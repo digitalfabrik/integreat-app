@@ -84,7 +84,7 @@
     "@integreat-app/eslint-config-react": "^0.3.3",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
-    "babel-jest": "^25.1.0",
+    "babel-jest": "^24.9.0",
     "babel-plugin-module-resolver": "^4.0.0",
     "babel-plugin-transform-inline-environment-variables": "^0.4.3",
     "babel-plugin-transform-remove-console": "^6.9.4",
