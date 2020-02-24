@@ -79,7 +79,7 @@ class RemoteContent extends React.Component<PropType, StateType> {
       {<WebView
         source={createHtmlSource(renderHtml(content, files, theme, RTL_LANGUAGES.includes(language) ? 'rtl' : 'ltr'),
           URL_PREFIX + getResourceCacheFilesDirPath(cityCode))}
-        allowFileAccessFromFileURLs // Needed by android to access file:// urls
+        allowFileAccess // Needed by android to access file:// urls
         originWhitelist={['*']} // Needed by iOS to load the initial html
         javaScriptEnabled
 
