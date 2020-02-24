@@ -87,11 +87,11 @@ class RemoteContent extends React.Component<PropType, StateType> {
         domStorageEnabled={false}
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
+        scrollEnabled={false} // to disable scrolling in iOS
 
         onMessage={this.onMessage}
         style={{ height, width }}
         renderError={this.renderError}
-        bounces={false}
         onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
       />}
     </StyledView>
