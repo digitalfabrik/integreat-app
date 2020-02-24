@@ -1150,10 +1150,10 @@
     eslint-plugin-promise "^4.2.1"
     eslint-plugin-standard "^4.0.1"
 
-"@integreat-app/eslint-config-react@^0.6.0":
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/@integreat-app/eslint-config-react/-/eslint-config-react-0.6.0.tgz#ea19420f932300e618dbc24234eed2e4c24dd51a"
-  integrity sha512-dDvrHkZX47G6F0koRrf3ggbrHSqQs8ip5WGVYMVKCnmORZ/Spo8P4xD5baTn2yJgB+xsHvYAfN5gQwmG21wffQ==
+"@integreat-app/eslint-config-react@^0.6.1":
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/@integreat-app/eslint-config-react/-/eslint-config-react-0.6.1.tgz#d59bdde9efd1bf757316c1b124fd69154dc90ff2"
+  integrity sha512-qvsfCuB1cQPorz2qMDZJjOfs9ZPUsuUqtKLnkq2iXTrAixPSe6p1wvhJyWfMbpN+rhAZ56QNH3W3zaqFfc6C6g==
   dependencies:
     eslint-config-standard-react "^9.2.0"
     eslint-plugin-react "^7.18.3"
