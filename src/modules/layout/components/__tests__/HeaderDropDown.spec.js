@@ -30,14 +30,17 @@ describe('HeaderDropDown', () => {
     it('should close DropDown if active', () => {
       const component = wrapperComponent.dive()
       component.setState({ dropDownActive: true })
-      component.instance().closeDropDown()
-      expect(component.instance().state.dropDownActive).toBe(false)
+      const instance: any = component.instance()
+      instance.closeDropDown()
+      expect(instance.state.dropDownActive).toBe(false)
     })
 
     it('shouldnt open DropDown if inactive', () => {
       const component = wrapperComponent.dive()
-      component.instance().closeDropDown()
-      expect(component.instance().state.dropDownActive).toBe(false)
+      const instance: any = component.instance()
+      instance.closeDropDown()
+      instance.closeDropDown()
+      expect(instance.state.dropDownActive).toBe(false)
     })
   })
 
@@ -45,14 +48,16 @@ describe('HeaderDropDown', () => {
     it('should close DropDown if active', () => {
       const component = wrapperComponent.dive()
       component.setState({ dropDownActive: true })
-      component.instance().toggleDropDown()
-      expect(component.instance().state.dropDownActive).toBe(false)
+      const instance: any = component.instance()
+      instance.toggleDropDown()
+      expect(instance.state.dropDownActive).toBe(false)
     })
 
     it('should open DropDown if inactive', () => {
       const component = wrapperComponent.dive()
-      component.instance().toggleDropDown()
-      expect(component.instance().state.dropDownActive).toBe(true)
+      const instance: any = component.instance()
+      instance.toggleDropDown()
+      expect(instance.state.dropDownActive).toBe(true)
     })
   })
 
@@ -64,9 +69,10 @@ describe('HeaderDropDown', () => {
 
   it('should call closeDropDown when handleClickOutside is called', () => {
     const component = wrapperComponent.dive()
-    component.instance().closeDropDown = jest.fn()
-    component.instance().handleClickOutside()
-    expect(component.instance().closeDropDown).toHaveBeenCalled()
+    const instance: any = component.instance()
+    instance.closeDropDown = jest.fn()
+    instance.handleClickOutside()
+    expect(instance.closeDropDown).toHaveBeenCalled()
   })
 
   it('should be closed from the beginning', () => {

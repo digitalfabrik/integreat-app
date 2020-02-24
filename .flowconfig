@@ -8,6 +8,7 @@
 .*/node_modules/redux-first-router/dist/pure-utils/attemptCallRouteThunk.js.flow.*
 .*/node_modules/redux-first-router/dist/pure-utils/pathToAction.js.flow.*
 .*/node_modules/redux-first-router/dist/pure-utils/createThunk.js.flow.*
+.*/node_modules/react-select/.*
 [include]
 
 [libs]
