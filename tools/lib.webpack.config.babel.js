@@ -22,7 +22,7 @@ module.exports = (env = {}) => {
   console.log('isDebug: ', isDebug)
 
   return {
-    mode: 'production',
+    mode: isDebug ? 'development' : 'production',
     resolve: {
       modules: [
         path.resolve('./node_modules')
