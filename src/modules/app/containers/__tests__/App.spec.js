@@ -20,7 +20,7 @@ describe('App', () => {
   it('should create correct store and pass it to Provider', () => {
     const app = shallow(<App />)
 
-    expect(createReduxStore).toHaveBeenCalledWith({})
+    expect(createReduxStore).toHaveBeenCalled()
     expect(app.find(Provider).prop('store')).toEqual(mockedStore)
   })
 })
