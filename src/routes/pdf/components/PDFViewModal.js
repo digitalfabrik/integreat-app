@@ -47,7 +47,7 @@ export default class PDFViewModal extends React.Component<PropsType, StateType> 
     const path = urlToPath(url)
     const { error } = this.state
     if (error) {
-      return <FailureContainer errorMessage={error.message} />
+      return <FailureContainer code={'unknownError'} />
     }
 
     return (
