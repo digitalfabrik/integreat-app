@@ -24,19 +24,19 @@ type ContainerPropsType = {|
 |}
 
 type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
-type StatePropsType = StatusPropsType<ContainerPropsType, void>
+type StatePropsType = StatusPropsType<ContainerPropsType, {}>
 type DispatchPropsType = {|
   dispatch: Dispatch<StoreActionType>
 |}
 
-const refresh = (refreshProps: void, dispatch: Dispatch<StoreActionType>) => {
+const refresh = (refreshProps: {}, dispatch: Dispatch<StoreActionType>) => {
   dispatch({ type: 'FETCH_CITIES', params: { forceRefresh: true } })
 }
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const language = state.contentLanguage
   if (state.cities.status === 'error') {
-    return { status: 'error', message: state.cities.message, code: state.cities.code, refreshProps: undefined }
+    return { status: 'error', message: state.cities.message, code: state.cities.code, refreshProps: {} }
   }
 
   if (state.cities.status === 'loading') {
@@ -45,7 +45,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   return {
     status: 'success',
     innerProps: { cities: state.cities.models, language, navigation: ownProps.navigation },
-    refreshProps: undefined
+    refreshProps: {}
   }
 }
 
@@ -109,7 +109,7 @@ type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
 export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
   omitNavigation<PropsType>(
-    withPayloadProvider<ContainerPropsType, void>(refresh)(
+    withPayloadProvider<ContainerPropsType, {}>(refresh)(
       LandingContainer
     ))
 )
