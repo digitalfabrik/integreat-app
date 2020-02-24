@@ -24,4 +24,4 @@ const mapStateToProps = state => ({
   darkMode: state.darkMode
 })
 
-export default connect(mapStateToProps)(CustomThemeProvider)
+export default connect<*, *, *, *, *, *>(mapStateToProps)(CustomThemeProvider)

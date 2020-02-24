@@ -106,4 +106,4 @@ const mapStateToProps = (state: StateType) => ({
   path: state.location.pathname
 })
 
-export default connect(mapStateToProps)(CategoriesPage)
+export default connect<*, *, *, *, *, *>(mapStateToProps)(CategoriesPage)

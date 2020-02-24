@@ -22,4 +22,4 @@ const mapStateTypeToProps = (state: StateType) => ({
   language: state.location.payload.language
 })
 
-export default connect(mapStateTypeToProps)(LandingPage)
+export default connect<*, *, *, *, *, *>(mapStateTypeToProps)(LandingPage)
