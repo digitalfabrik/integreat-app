@@ -15,13 +15,13 @@ const jestExtends = {
     if (received.every(instance => instance.props.style.some(style => style.flexDirection.includes('reverse')))) {
       return {
         message: () =>
-          `expected received components not to have direction`,
+          'expected received components not to have direction',
         pass: true
       }
     } else {
       return {
         message: () =>
-          `expected received components to have direction`,
+          'expected received components to have direction',
         pass: false
       }
     }

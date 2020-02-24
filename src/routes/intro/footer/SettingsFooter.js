@@ -28,6 +28,7 @@ type PropsType = {|
 class SettingsFooter extends React.Component<PropsType> {
   onDecline = () =>
     this.props.onDone({ allowPushNotifications: false, errorTracking: false, proposeNearbyCities: false })
+
   onAccept = () =>
     this.props.onDone({ allowPushNotifications: true, errorTracking: true, proposeNearbyCities: true })
 

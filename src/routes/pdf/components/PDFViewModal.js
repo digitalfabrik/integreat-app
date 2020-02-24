@@ -55,7 +55,7 @@ export default class PDFViewModal extends React.Component<PropsType, StateType> 
           // This PDFView can only load from Documents dir on iOS:
           // https://github.com/rumax/react-native-PDFView/issues/90
           resource={Platform.OS === 'ios' ? getRelativeToDocumentsDir(path) : path}
-          resourceType={'file'}
+          resourceType='file'
           onError={this.onError}
         />
       </View>

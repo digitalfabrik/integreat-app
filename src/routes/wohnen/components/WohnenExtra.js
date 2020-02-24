@@ -44,7 +44,7 @@ class WohnenExtra extends React.Component<PropsType> {
       const offer = offers.find(_offer => hashWohnenOffer(_offer) === offerHash)
 
       if (!offer) {
-        return <Failure errorMessage={'Angebot nicht gefunden.'} code={ErrorCodes.PageNotFound} t={t}
+        return <Failure errorMessage='Angebot nicht gefunden.' code={ErrorCodes.PageNotFound} t={t}
                         theme={theme} />
       }
 

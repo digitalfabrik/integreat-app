@@ -43,7 +43,7 @@ export function * switchContentLanguage (dataContainer: DataContainer, action: S
     yield put(setContentLanguage)
 
     const insert: MorphContentLanguageActionType = {
-      type: `MORPH_CONTENT_LANGUAGE`,
+      type: 'MORPH_CONTENT_LANGUAGE',
       params: {
         newCategoriesMap: categories,
         newResourceCache: resourceCache,
@@ -60,7 +60,7 @@ export function * switchContentLanguage (dataContainer: DataContainer, action: S
     }
     console.error(e)
     const failed: SwitchContentLanguageFailedActionType = {
-      type: `SWITCH_CONTENT_LANGUAGE_FAILED`,
+      type: 'SWITCH_CONTENT_LANGUAGE_FAILED',
       params: {
         message: `Error in switchContentLanguage: ${e.message}`
       }
@@ -70,5 +70,5 @@ export function * switchContentLanguage (dataContainer: DataContainer, action: S
 }
 
 export default function * (dataContainer: DataContainer): Saga<void> {
-  yield takeLatest(`SWITCH_CONTENT_LANGUAGE`, switchContentLanguage, dataContainer)
+  yield takeLatest('SWITCH_CONTENT_LANGUAGE', switchContentLanguage, dataContainer)
 }

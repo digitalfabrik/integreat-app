@@ -119,8 +119,7 @@ class CitySelector extends React.PureComponent<PropsType> {
           <NearbyMessage theme={theme}>{t(location.message)}</NearbyMessage>
           {tryAgain &&
             <Button icon={<Icon name='refresh' size={30} color={theme.colors.textSecondaryColor} style='material' />}
-                    title={''} type='clear' onPress={tryAgain} />
-          }
+                    title='' type='clear' onPress={tryAgain} />}
         </NearbyMessageContainer>
       </>
     }

@@ -3,7 +3,7 @@
 import * as React from 'react'
 
 import CategoryListItem from './CategoryListItem'
-import HTML from 'react-native-render-html'
+import Html from 'react-native-render-html'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import styled from 'styled-components/native'
 import Image from '../../common/components/Image'
@@ -45,7 +45,7 @@ class CategoryList extends React.Component<PropsType> {
     return <>
       {thumbnail && <CategoryThumbnail source={thumbnail} />}
       {title && <CategoryListCaption title={title} theme={theme} withThumbnail={!!(thumbnail)} />}
-      {!!content && <VerticalPadding><HTML html={content} /></VerticalPadding>}
+      {!!content && <VerticalPadding><Html html={content} /></VerticalPadding>}
       {categories.map(({ model, subCategories }) =>
         <CategoryListItem key={model.path}
                           category={model}

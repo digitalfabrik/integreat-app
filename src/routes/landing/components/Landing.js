@@ -46,7 +46,13 @@ type StateType = {|
 class Landing extends React.Component<PropsType, StateType> {
   constructor (props: PropsType) {
     super(props)
-    this.state = { proposeNearbyCities: null, location: { message: 'loading', status: 'unavailable' } }
+    this.state = {
+      proposeNearbyCities: null,
+      location: {
+        message: 'loading',
+        status: 'unavailable'
+      }
+    }
   }
 
   componentDidMount () {
@@ -60,35 +66,66 @@ class Landing extends React.Component<PropsType, StateType> {
     const permissionGranted = await locationPermissionStatus() === RESULTS.GRANTED
 
     if (!permissionGranted) {
-      this.setState({ location: { message: 'noPermission', status: 'unavailable' } })
+      this.setState({
+        location: {
+          message: 'noPermission',
+          status: 'unavailable'
+        }
+      })
     } else if (proposeNearbyCities) {
       this.determineCurrentPosition()
     }
   }
 
   determineCurrentPosition = () => {
-    this.setState({ location: { message: 'loading', status: 'unavailable' } })
+    this.setState({
+      location: {
+        message: 'loading',
+        status: 'unavailable'
+      }
+    })
     Geolocation.getCurrentPosition(
       (position: GeolocationResponse) => {
-        this.setState({ location: {
-          status: 'ready',
-          longitude: position.coords.longitude,
-          latitude: position.coords.latitude
-        } })
+        this.setState({
+          location: {
+            status: 'ready',
+            longitude: position.coords.longitude,
+            latitude: position.coords.latitude
+          }
+        })
       },
       (error: GeolocationError) => this.setLocationErrorMessage(error)
       ,
-      { enableHighAccuracy: true, timeout: 50000, maximumAge: 3600000 }
+      {
+        enableHighAccuracy: true,
+        timeout: 50000,
+        maximumAge: 3600000
+      }
     )
   }
 
   setLocationErrorMessage = (error: GeolocationError) => {
     if (error.code === 1) {
-      this.setState({ location: { status: 'unavailable', message: 'noPermission' } })
+      this.setState({
+        location: {
+          status: 'unavailable',
+          message: 'noPermission'
+        }
+      })
     } else if (error.code === 2) {
-      this.setState({ location: { status: 'unavailable', message: 'notAvailable' } })
+      this.setState({
+        location: {
+          status: 'unavailable',
+          message: 'notAvailable'
+        }
+      })
     } else {
-      this.setState({ location: { status: 'unavailable', message: 'timeout' } })
+      this.setState({
+        location: {
+          status: 'unavailable',
+          message: 'timeout'
+        }
+      })
     }
   }
 
