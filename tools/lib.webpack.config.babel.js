@@ -52,7 +52,7 @@ module.exports = (env = {}) => {
     plugins: [
       new GeneratePackageJsonPlugin(basePackageValues, versionsPackageFilename),
       new webpack.DefinePlugin({
-        'process.env.NODE_ENV': '"production"',
+        'process.env.NODE_ENV': isDebug ? '"development"' : '"production"',
         __DEV__: false,
         __VERSION__: JSON.stringify(getVersion())
       }),
