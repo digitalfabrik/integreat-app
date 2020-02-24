@@ -6,7 +6,7 @@ import { shallow } from 'enzyme'
 import { ModalHeader } from '../ModalHeader'
 
 describe('ModalHeader', () => {
-  it('should match snapshot', () => {
+  it('should call close function when clicking on close', () => {
     const jestMockFn = jest.fn()
     const component = shallow(
       <ModalHeader
