@@ -66,7 +66,7 @@ describe('HeaderDropDown', () => {
     const component = wrapperComponent.dive()
     const instance: any = component.instance()
     const onClick = component.find('img').prop('onClick')
-    expect(onClick).toBe(instance.handleIconClicked)
+    expect(onClick).toBe(instance.toggleDropDown)
   })
 
   it('should call closeDropDown when handleClickOutside is called', () => {
