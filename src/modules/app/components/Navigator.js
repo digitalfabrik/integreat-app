@@ -6,7 +6,7 @@ import { generateKey } from '../generateRouteKey'
 import AppSettings from '../../settings/AppSettings'
 import createAppContainer from '../createAppContainer'
 import { Text } from 'react-native'
-import SentryIntegration from '../SentryIntegration'
+import initSentry from '../initSentry'
 import { ASYNC_STORAGE_VERSION } from '../../settings/constants'
 
 type PropsType = {|
@@ -54,8 +54,7 @@ class Navigator extends React.Component<PropsType, StateType> {
       this._appNavigationContainer = createAppContainer({ initialRouteName: 'Intro' })
     } else {
       if (errorTracking) {
-        const sentry = new SentryIntegration()
-        await sentry.install()
+        initSentry()
       }
 
       if (selectedCity) {

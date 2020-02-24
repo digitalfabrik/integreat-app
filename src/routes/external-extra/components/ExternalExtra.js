@@ -19,7 +19,6 @@ class ExternalExtra extends React.Component<PropsType> {
     const body = !postData ? '' : stringify(fromPairs([...postData.entries()]))
     return <WebView
       source={postData ? createPostSource(url, body) : createGetSource(url, body)}
-      useWebKit
       javaScriptEnabled
 
       dataDetectorTypes={['all']}

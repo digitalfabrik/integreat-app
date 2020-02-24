@@ -2,11 +2,12 @@
 
 import * as React from 'react'
 import Share from 'react-native-share'
-import styled, { type StyledComponent } from 'styled-components/native'
+import styled from 'styled-components/native'
+import { type StyledComponent } from 'styled-components'
 import type { NavigationScreenProp } from 'react-navigation'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import HeaderBackButton from 'react-navigation-stack/lib/module/views/Header/HeaderBackButton'
-import HeaderButtons, { HeaderButton, Item } from 'react-navigation-header-buttons'
+import { HeaderButtons, HeaderButton, Item } from 'react-navigation-header-buttons'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import type { TFunction } from 'react-i18next'
 
@@ -49,10 +50,10 @@ const MaterialHeaderButton = props => (
 
 const MaterialHeaderButtons = props => {
   return (
-    <HeaderButtons
-      HeaderButtonComponent={MaterialHeaderButton}
-      OverflowIcon={<MaterialIcon name='more-vert' size={23} color='black' />}
-      {...props}
+    // $FlowFixMe onOverflowMenuPress should not be required
+    <HeaderButtons HeaderButtonComponent={MaterialHeaderButton}
+                   OverflowIcon={<MaterialIcon name='more-vert' size={23} color='black' />}
+                   {...props}
     />
   )
 }

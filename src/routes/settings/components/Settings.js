@@ -2,8 +2,8 @@
 
 import * as React from 'react'
 import { SectionList, StyleSheet, Switch, View } from 'react-native'
-import styled, { type StyledComponent } from 'styled-components/native'
-
+import styled from 'styled-components/native'
+import { type StyledComponent } from 'styled-components'
 import SettingItem from './SettingItem'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { TFunction } from 'react-i18next'

@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { Animated } from 'react-native'
-import type { StyledComponent } from 'styled-components/native'
+import type { StyledComponent } from 'styled-components'
 import styled from 'styled-components/native'
 import type { ViewLayoutEvent } from 'react-native/Libraries/Components/View/ViewPropTypes'
 
