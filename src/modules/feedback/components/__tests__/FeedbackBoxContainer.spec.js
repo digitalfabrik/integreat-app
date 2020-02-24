@@ -309,6 +309,7 @@ describe('FeedbackBoxContainer', () => {
     ).instance()
 
     const prevState = instance.state
+    // $FlowFixMe
     instance.handleCommentChanged({ target: { value: 'new comment' } })
     expect(prevState).not.toEqual(instance.state)
     expect(instance.state.comment).toEqual('new comment')
