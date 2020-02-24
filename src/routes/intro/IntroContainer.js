@@ -11,10 +11,11 @@ import AppLogo from '../../../assets/app-logo.png'
 import type { ThemeType } from '../../modules/theme/constants/theme'
 import withTheme from '../../modules/theme/hocs/withTheme'
 import { FlatList, Dimensions } from 'react-native'
-import styled, { type StyledComponent } from 'styled-components/native'
+import styled from 'styled-components/native'
+import { type StyledComponent } from 'styled-components'
 import AppSettings from '../../modules/settings/AppSettings'
 import SlideContent, { type SlideContentType } from './SlideContent'
-import SentryIntegration from '../../modules/app/SentryIntegration'
+import initSentry from '../../modules/app/initSentry'
 import SlideFooter from './footer/SlideFooter'
 import type { ViewToken } from 'react-native/Libraries/Lists/ViewabilityHelper'
 import CustomizableIntroSettings from './CustomizableIntroSettings'
@@ -165,8 +166,7 @@ class Intro extends React.Component<PropsType, StateType> {
 
     try {
       if (errorTracking) {
-        const sentry = new SentryIntegration()
-        await sentry.install()
+        initSentry()
       }
 
       if (proposeNearbyCities) {

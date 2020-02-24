@@ -3,7 +3,8 @@
 import * as React from 'react'
 import type { ThemeType } from '../../modules/theme/constants/theme'
 import type TFunction from 'react-i18next'
-import styled, { type StyledComponent } from 'styled-components/native'
+import styled from 'styled-components/native'
+import { type StyledComponent } from 'styled-components'
 import openPrivacyPolicy from '../settings/openPrivacyPolicy'
 import { View } from 'react-native'
 

@@ -6,7 +6,8 @@ import Pagination from './Pagination'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { TFunction } from 'react-i18next'
 import type { IntroSettingsType } from '../IntroContainer'
-import styled, { type StyledComponent } from 'styled-components/native'
+import styled from 'styled-components/native'
+import { type StyledComponent } from 'styled-components'
 import { FooterContainer } from './StandardFooter'
 
 const VerticalButtonContainer: StyledComponent<{}, ThemeType, *> = styled.TouchableOpacity`

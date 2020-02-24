@@ -2,7 +2,8 @@
 
 import * as React from 'react'
 import { Text } from 'react-native'
-import styled, { type StyledComponent } from 'styled-components/native'
+import styled from 'styled-components/native'
+import { type StyledComponent } from 'styled-components'
 import type { ThemeType } from '../../theme/constants/theme'
 import { createHtmlSource, getResourceCacheFilesDirPath, URL_PREFIX } from '../../platform/constants/webview'
 import renderHtml from '../renderHtml'
