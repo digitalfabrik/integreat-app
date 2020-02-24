@@ -81,22 +81,26 @@ class SearchModal extends React.Component<PropsType, StateType> {
     const { language, theme, categories, t, sendFeedback } = this.props
     const { query } = this.state
 
+    const minHeight = theme.dimensions.categoryListItem.iconSize + theme.dimensions.categoryListItem.margin * 2
+
     if (!categories) {
       return <ActivityIndicator size='large' color='#0000ff' />
     }
 
     const filteredCategories = this.findCategories(categories)
     return <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <SpaceBetween>
-          <View style={{ minHeight: 70 }}>
-            <CategoryList categories={filteredCategories} query={query}
-                          onItemPress={this.onItemPress}
-                          theme={theme} language={language} />
-          </View>
-          <SearchFeedbackBox t={t} query={query} theme={theme} resultsFound={filteredCategories.length !== 0}
-                             sendFeedback={sendFeedback} />
-        </SpaceBetween>
-      </ScrollView>
+      <SpaceBetween>
+        {/* The minHeight is needed to circumvent a bug that appears when there is only one search result.
+              See NATIVE-430 for reference. */}
+        <View style={{ minHeight: minHeight }}>
+          <CategoryList categories={filteredCategories} query={query}
+                        onItemPress={this.onItemPress}
+                        theme={theme} language={language} />
+        </View>
+        <SearchFeedbackBox t={t} query={query} theme={theme} resultsFound={filteredCategories.length !== 0}
+                           sendFeedback={sendFeedback} />
+      </SpaceBetween>
+    </ScrollView>
   }
 
   render () {
