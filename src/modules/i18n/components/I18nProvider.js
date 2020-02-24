@@ -26,6 +26,7 @@ type StateType = {|
 |}
 
 class I18nProvider extends React.Component<PropsType, StateType> {
+  i18n: i18n
   appSettings: AppSettings
 
   constructor (props: PropsType) {
@@ -33,6 +34,7 @@ class I18nProvider extends React.Component<PropsType, StateType> {
 
     this.state = { errorMessage: null, initialisationFinished: false }
 
+    this.i18n = i18n.createInstance()
     this.appSettings = new AppSettings()
   }
 
@@ -63,8 +65,8 @@ class I18nProvider extends React.Component<PropsType, StateType> {
   }
 
   getI18nextLanguage = (): string => {
-    if (i18n.languages.length > 0) {
-      return i18n.languages[0]
+    if (this.i18n.languages && this.i18n.languages.length > 0) {
+      return this.i18n.languages[0]
     } else {
       throw new Error('Failed to set language because it is currently unknown and even i18next does not know it!')
     }
@@ -73,7 +75,7 @@ class I18nProvider extends React.Component<PropsType, StateType> {
   initI18n = async () => {
     try {
       const i18nextResources = I18nProvider.transformResources(localesResources)
-      await i18n
+      await this.i18n
         .use(LanguageDetector)
         .use(initReactI18next)
         .init({
@@ -114,7 +116,7 @@ class I18nProvider extends React.Component<PropsType, StateType> {
     }
 
     return (
-      <I18nextProvider i18n={i18n}>
+      <I18nextProvider i18n={this.i18n}>
         <MomentContext.Provider value={this.momentFormatter}>
           {this.state.initialisationFinished ? this.props.children : null}
         </MomentContext.Provider>
