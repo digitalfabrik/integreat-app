@@ -74,6 +74,6 @@ const mapStateToProps = (state: StateType) => ({
 })
 
 export default compose(
-  connect(mapStateToProps),
+  connect<*, *, *, *, *, *>(mapStateToProps),
   withTranslation('extras')
 )(ExtrasPage)
