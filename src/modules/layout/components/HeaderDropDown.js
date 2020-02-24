@@ -48,27 +48,23 @@ export class HeaderDropDown extends React.Component<PropsType, StateType> {
   constructor (props: PropsType) {
     super(props)
     this.state = { dropDownActive: false }
-    const self: any = this // https://github.com/facebook/flow/issues/5874
-    self.handleClickOutside = this.handleClickOutside.bind(this)
-    self.toggleDropDown = this.toggleDropDown.bind(this)
-    self.closeDropDown = this.closeDropDown.bind(this)
   }
 
   toggleDropDown () {
     this.setState(prevState => ({ dropDownActive: !prevState.dropDownActive }))
   }
 
-  closeDropDown () {
+  closeDropDown = () => {
     if (this.state.dropDownActive) {
       this.toggleDropDown()
     }
   }
 
-  handleClickOutside () {
+  handleClickOutside = () => {
     this.closeDropDown()
   }
 
-  handleIconClicked () {
+  handleIconClicked = () => {
     this.toggleDropDown()
   }
 
