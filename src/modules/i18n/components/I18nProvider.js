@@ -12,8 +12,8 @@ import AppSettings from '../../settings/AppSettings'
 import { Text } from 'react-native'
 
 export const RTL_LANGUAGES = ['ar', 'fa']
-const FALLBACK_LANGUAGES = ['en', 'de']
-export const DEFAULT_LANGUAGE = 'en'
+export const DEFAULT_LANGUAGE = 'de'
+const FALLBACK_LANGUAGES = [DEFAULT_LANGUAGE]
 
 type PropsType = {|
   children?: React.Node,
