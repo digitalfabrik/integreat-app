@@ -180,7 +180,8 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
     }
   }
 
-  handleCommentChanged = (event: SyntheticInputEvent<HTMLTextAreaElement>) => this.setState({ comment: event.target.value })
+  handleCommentChanged = (event: SyntheticInputEvent<HTMLTextAreaElement>) =>
+    this.setState({ comment: event.target.value })
 
   handleFeedbackOptionChanged = (selectedDropdown: FeedbackDropdownItem) => {
     this.setState(prevState =>

@@ -90,7 +90,8 @@ describe.skip('I18nProvider', () => {
     const component = mount(<I18nProvider setUiDirection={() => {}}>
       <div />
     </I18nProvider>)
-    component.instance().setLanguage = jest.fn()
+    const instance: any = component.instance()
+    instance.setLanguage = jest.fn()
 
     component.setProps({ language: 'de' })
     expect(component.instance().setLanguage).toHaveBeenCalledWith('de')

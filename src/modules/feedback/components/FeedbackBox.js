@@ -8,7 +8,7 @@ import styled from 'styled-components'
 import ModalHeader from './ModalHeader'
 import FeedbackComment from './FeedbackComment'
 import FeedbackDropdownItem from '../FeedbackDropdownItem'
-import Select from 'react-select'
+import Select from 'react-select/src/Select'
 
 export const StyledFeedbackBox = styled.div`
   display: flex;
