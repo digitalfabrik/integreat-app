@@ -54,6 +54,7 @@ class Events extends React.Component<PropsType> {
   navigateToEvent = (cityCode: string, language: string, path: string) => () => {
     this.props.navigateToEvent({ cityCode, language, path })
   }
+
   renderEventListItem = (cityCode: string, language: string) => (event: EventModel) => {
     const { theme } = this.props
     return <EventListItem key={event.path}

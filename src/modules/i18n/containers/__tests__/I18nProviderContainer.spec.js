@@ -78,7 +78,7 @@ describe('I18nProviderContainer', () => {
       render(
         <Provider store={store}>
           <I18nProviderContainer>
-            <React.Fragment />
+            <></>
           </I18nProviderContainer>
         </Provider>
       )

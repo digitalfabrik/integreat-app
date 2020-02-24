@@ -49,7 +49,7 @@ describe('watchContentLanguageSwitch', () => {
 
       await expectSaga(switchContentLanguage, dataContainer, action)
         .put({
-          type: `MORPH_CONTENT_LANGUAGE`,
+          type: 'MORPH_CONTENT_LANGUAGE',
           params: {
             newCategoriesMap: categories,
             newResourceCache: resources,

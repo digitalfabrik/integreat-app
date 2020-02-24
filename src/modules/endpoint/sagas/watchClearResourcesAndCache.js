@@ -13,5 +13,5 @@ export function * clearResourcesAndCache (dataContainer: DataContainer, action: 
 }
 
 export default function * (dataContainer: DataContainer): Saga<void> {
-  yield takeLatest(`CLEAR_RESOURCES_AND_CACHE`, clearResourcesAndCache, dataContainer)
+  yield takeLatest('CLEAR_RESOURCES_AND_CACHE', clearResourcesAndCache, dataContainer)
 }

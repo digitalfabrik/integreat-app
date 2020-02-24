@@ -12,32 +12,32 @@ const transformNodeModules = [
 ]
 
 module.exports = {
-  'preset': '@testing-library/react-native',
-  'verbose': true,
-  'automock': false, /* Always explicitly mock modules. Also automocking seems to be broken right now:
+  preset: '@testing-library/react-native',
+  verbose: true,
+  automock: false, /* Always explicitly mock modules. Also automocking seems to be broken right now:
                         https://github.com/facebook/jest/issues/6127 */
-  'setupFiles': [
+  setupFiles: [
     ...jestPreset.setupFiles,
     '<rootDir>/jest.setup.js'
   ],
-  'setupFilesAfterEnv': ['jest-extended',
+  setupFilesAfterEnv: ['jest-extended',
     '<rootDir>/jest.setup.afterenv.js'
   ],
-  'transformIgnorePatterns': [
+  transformIgnorePatterns: [
     `node_modules/(?!${transformNodeModules.join('|')})`
   ],
-  'moduleFileExtensions': [
+  moduleFileExtensions: [
     'js'
   ],
-  'moduleDirectories': [
+  moduleDirectories: [
     'node_modules',
     'src'
   ],
-  'globals': {
-    '__DEV__': false
+  globals: {
+    __DEV__: false
   },
-  'collectCoverageFrom': [
+  collectCoverageFrom: [
     '**/*.{js,jsx}'
   ],
-  'coverageDirectory': '../__coverage__'
+  coverageDirectory: '../__coverage__'
 }

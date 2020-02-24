@@ -43,7 +43,7 @@ export function * fetchCategory (dataContainer: DataContainer, action: FetchCate
       ])
 
       const push: PushCategoryActionType = {
-        type: `PUSH_CATEGORY`,
+        type: 'PUSH_CATEGORY',
         params: { categoriesMap, resourceCache, path, cityLanguages, depth, key, city, language }
       }
       yield put(push)
@@ -52,7 +52,7 @@ export function * fetchCategory (dataContainer: DataContainer, action: FetchCate
         ? new Map(cityLanguages.map(lng => [lng.code, `/${city}/${lng.code}`]))
         : null
       const failedAction: FetchCategoryFailedActionType = {
-        type: `FETCH_CATEGORY_FAILED`,
+        type: 'FETCH_CATEGORY_FAILED',
         params: {
           message: 'Language not available.',
           code: ErrorCodes.PageNotFound,
@@ -69,7 +69,7 @@ export function * fetchCategory (dataContainer: DataContainer, action: FetchCate
   } catch (e) {
     console.error(e)
     const failed: FetchCategoryFailedActionType = {
-      type: `FETCH_CATEGORY_FAILED`,
+      type: 'FETCH_CATEGORY_FAILED',
       params: {
         message: `Error in fetchCategory: ${e.message}`,
         code: fromError(e),
@@ -86,5 +86,5 @@ export function * fetchCategory (dataContainer: DataContainer, action: FetchCate
 }
 
 export default function * (dataContainer: DataContainer): Saga<void> {
-  yield takeLatest(`FETCH_CATEGORY`, fetchCategory, dataContainer)
+  yield takeLatest('FETCH_CATEGORY', fetchCategory, dataContainer)
 }
