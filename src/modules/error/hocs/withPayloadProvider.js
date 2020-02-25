@@ -14,7 +14,7 @@ import type { ErrorCodeType } from '../ErrorCodes'
 
 export type RouteNotInitializedType = {| status: 'routeNotInitialized' |}
 export type LoadingType = {| status: 'loading' |}
-export type ErrorType<R> = {|
+export type ErrorType<R: {}> = {|
   status: 'error',
   message: ?string,
   code: ErrorCodeType,
@@ -28,25 +28,25 @@ export type LanguageNotAvailableType = {|
   changeUnavailableLanguage: (dispatch: Dispatch<StoreActionType>, newLanguage: string) => void
 |}
 
-export type SuccessType<S, R> = {|
+export type SuccessType<S: {}, R: {}> = {|
   status: 'success',
   innerProps: S,
   refreshProps: R
 |}
 
-export type StatusPropsType<S, R> =
+export type StatusPropsType<S: {}, R: {}> =
   RouteNotInitializedType
   | LoadingType
   | ErrorType<R>
   | LanguageNotAvailableType
   | SuccessType<$Diff<S, { dispatch: Dispatch<StoreActionType> }>, R>
 
-export type PropsType<S: { dispatch: Dispatch<StoreActionType> }, R> = {|
+export type PropsType<S: { dispatch: Dispatch<StoreActionType> }, R: {}> = {|
   ...StatusPropsType<S, R>,
   dispatch: Dispatch<StoreActionType>
 |}
 
-const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R> (
+const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R: {}> (
   refresh: (refreshProps: R, dispatch: Dispatch<StoreActionType>) => void
 ): ((Component: React.ComponentType<S>) => React.ComponentType<PropsType<S, R>>) => {
   return (Component: React.ComponentType<S>): React.ComponentType<PropsType<S, R>> => {
