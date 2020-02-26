@@ -39,7 +39,14 @@ class CitySelector extends React.PureComponent<PropsType> {
     } else {
       return cities
         .filter(_city => _city.live)
-        .filter(_city => _city.name.toLowerCase().includes(filterText))
+        // .filter(_city => _city.name.toLowerCase().includes(filterText))
+        .filter(_city => {
+          const isCityName = _city.name.toLowerCase().includes(filterText)
+          const isAlias = _city._aliases && Object
+            .keys(_city._aliases).some(alias => alias.toLowerCase().includes(filterText))
+          // const isAlias = Boolean(_city._aliases)
+          return isCityName || isAlias
+        })
     }
   }
 
