@@ -1,40 +1,26 @@
 // @flow
 
 import React from 'react'
-import styled from 'styled-components/native'
-import { type StyledComponent } from 'styled-components'
+import { Button } from 'react-native-elements'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
-
-const ButtonContainer: StyledComponent<{}, ThemeType, *> = styled.TouchableOpacity`
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-`
-
-const ButtonText: StyledComponent<{ backgroundColor: string }, ThemeType, *> = styled.Text`
-  color: ${props => props.theme.colors.textColor};
-  background-color: ${props => props.backgroundColor};
-  font-size: 18px;
-  text-align: center;
-  padding: 8px 12px;
-  border-radius: 3px;
-`
 
 type PropsType = {|
   label: string,
   onPress: () => void | Promise<void>,
-  backgroundColor?: string,
-  theme: ThemeType
+  theme: ThemeType,
+  highlighted?: boolean
 |}
 
 class SlideButton extends React.Component<PropsType> {
   render () {
-    const { label, onPress, backgroundColor, theme } = this.props
-    return <ButtonContainer theme={theme} onPress={onPress}>
-      <ButtonText theme={theme} backgroundColor={backgroundColor || theme.colors.backgroundColor}>
-        {label}
-      </ButtonText>
-    </ButtonContainer>
+    const { label, onPress, theme, highlighted } = this.props
+    return <Button type={highlighted ? 'solid' : 'clear'} title={label} borderless onPress={onPress}
+                   titleStyle={{ color: theme.colors.textColor }}
+                   containerStyle={{ flex: 1, margin: 0 }}
+                   buttonStyle={{
+                     margin: 0,
+                     backgroundColor: highlighted ? theme.colors.themeColor : theme.colors.backgroundColor
+                   }} />
   }
 }
 
