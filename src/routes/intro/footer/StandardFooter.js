@@ -9,7 +9,6 @@ import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { TFunction } from 'react-i18next'
 
 export const FooterContainer: StyledComponent<{}, ThemeType, *> = styled.View`
-  flex: 0.15;
   flex-direction: row;
   padding: 16px 10px;
   background-color: ${props => props.theme.colors.backgroundColor};
