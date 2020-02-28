@@ -7,14 +7,12 @@ import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { TFunction } from 'react-i18next'
+import { View } from 'react-native'
 
-export const FooterContainer: StyledComponent<{}, ThemeType, *> = styled.View`
+export const ButtonContainer: StyledComponent<{}, ThemeType, *> = styled.View`
   flex-direction: row;
-  padding: 16px 10px;
+  padding: 5px;
   background-color: ${props => props.theme.colors.backgroundColor};
-  align-self: flex-end;
-  align-content: flex-end;
-  justify-content: flex-end;
 `
 
 type PropsType = {|
@@ -32,11 +30,13 @@ class StandardFooter extends React.Component<PropsType> {
   render () {
     const { theme, slideCount, goToSlide, currentSlide, t } = this.props
 
-    return <FooterContainer theme={theme}>
-      <SlideButton label={t('skip')} onPress={this.goToPreviousSlide} theme={theme} />
+    return <View>
+      <ButtonContainer theme={theme}>
+        <SlideButton label={t('skip')} onPress={this.goToPreviousSlide} theme={theme} />
+        <SlideButton label={t('next')} onPress={this.goToNextSlide} theme={theme} />
+      </ButtonContainer>
       <Pagination slideCount={slideCount} currentSlide={currentSlide} goToSlide={goToSlide} theme={theme} />
-      <SlideButton label={t('next')} onPress={this.goToNextSlide} theme={theme} />
-    </FooterContainer>
+    </View>
   }
 }
 

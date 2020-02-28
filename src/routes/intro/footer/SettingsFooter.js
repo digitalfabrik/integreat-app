@@ -6,14 +6,8 @@ import Pagination from './Pagination'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { TFunction } from 'react-i18next'
 import type { IntroSettingsType } from '../IntroContainer'
-import styled from 'styled-components/native'
-import { type StyledComponent } from 'styled-components'
-import { FooterContainer } from './StandardFooter'
-
-const VerticalButtonContainer: StyledComponent<{}, ThemeType, *> = styled.TouchableOpacity`
-  flex: 1;
-  flex-direction: column;
-`
+import { ButtonContainer } from './StandardFooter'
+import { View } from 'react-native'
 
 type PropsType = {|
   slideCount: number,
@@ -34,15 +28,14 @@ class SettingsFooter extends React.Component<PropsType> {
   render () {
     const { slideCount, currentSlide, goToSlide, toggleCustomizeSettings, theme, t } = this.props
 
-    return <FooterContainer theme={theme}>
-      <VerticalButtonContainer>
+    return <View>
+      <ButtonContainer theme={theme}>
         <SlideButton label={t('customize')} onPress={toggleCustomizeSettings} theme={theme} />
         <SlideButton label={t('decline')} onPress={this.onDecline} theme={theme} />
-      </VerticalButtonContainer>
+        <SlideButton label={t('accept')} onPress={this.onAccept} theme={theme} highlighted />
+      </ButtonContainer>
       <Pagination slideCount={slideCount} currentSlide={currentSlide} goToSlide={goToSlide} theme={theme} />
-      <SlideButton label={t('accept')} onPress={this.onAccept} theme={theme}
-                   backgroundColor={theme.colors.themeColor} />
-    </FooterContainer>
+    </View>
   }
 }
 
