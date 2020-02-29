@@ -15,7 +15,7 @@ describe('SearchFeedback', () => {
     expect(shallow(
       <SearchFeedback
         location={location}
-        query={'abc'}
+        query='abc'
         resultsFound={false}
         t={t} />
     )).toMatchSnapshot()
@@ -25,7 +25,7 @@ describe('SearchFeedback', () => {
     expect(shallow(
       <SearchFeedback
         location={location}
-        query={'ab'}
+        query='ab'
         resultsFound
         t={t} />
     )).toMatchSnapshot()
@@ -35,7 +35,7 @@ describe('SearchFeedback', () => {
     expect(shallow(
       <SearchFeedback
         location={location}
-        query={''}
+        query=''
         resultsFound
         t={t} />
     )).toMatchSnapshot()

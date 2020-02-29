@@ -69,7 +69,7 @@ describe('RouteContentSwitcher', () => {
       <RouteContentSwitcher allPayloads={allPayloads} location={location} />
     ).instance().renderFailureLoadingComponents
 
-    expect(renderFailureLoadingComponents({ 'payload': errorPayload })).toMatchSnapshot()
+    expect(renderFailureLoadingComponents({ payload: errorPayload })).toMatchSnapshot()
   })
 
   it('should render a Spinner if data has not been fetched yet', () => {

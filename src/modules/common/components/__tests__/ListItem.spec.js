@@ -10,8 +10,8 @@ describe('ListItem', () => {
 
   it('should render a Link and match snapshot', () => {
     expect(shallow(
-      <ListItem thumbnail={'thumbnail'}
-                title={'first Event'}
+      <ListItem thumbnail='thumbnail'
+                title='first Event'
                 path={path}
                 isExternalUrl={false} />
     )).toMatchSnapshot()
@@ -19,8 +19,8 @@ describe('ListItem', () => {
 
   it('should render an Anchor and match snapshot', () => {
     expect(shallow(
-      <ListItem thumbnail={'thumbnail'}
-                title={'first Event'}
+      <ListItem thumbnail='thumbnail'
+                title='first Event'
                 path={path}
                 isExternalUrl />
     )).toMatchSnapshot()

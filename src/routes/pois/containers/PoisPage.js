@@ -70,6 +70,6 @@ const mapStateTypeToProps = (state: StateType) => ({
 })
 
 export default compose(
-  connect(mapStateTypeToProps),
+  connect<*, *, *, *, *, *>(mapStateTypeToProps),
   withTranslation('pois')
 )(PoisPage)

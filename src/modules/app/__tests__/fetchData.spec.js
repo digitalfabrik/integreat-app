@@ -28,6 +28,7 @@ describe('fetchData', () => {
   })
 
   afterEach(() => {
+    // $FlowFixMe
     fetch.resetMocks()
     clock.uninstall()
     // $FlowFixMe
@@ -39,6 +40,7 @@ describe('fetchData', () => {
     const dispatch = jest.fn()
     const oldPayload = new Payload(false)
     const params = { var1: 'a', var2: 'b' }
+    // $FlowFixMe
     fetch.mockResponse(JSON.stringify(json))
 
     const data = await fetchData(endpoint, dispatch, oldPayload, params)
@@ -55,6 +57,7 @@ describe('fetchData', () => {
     const dispatch = jest.fn()
     const oldPayload = new Payload(false, 'https://weird-endpoint/old-url/api.json', {}, null)
     const params = { var1: 'a', var2: 'b' }
+    // $FlowFixMe
     fetch.mockResponse(JSON.stringify(json))
 
     const data = await fetchData(endpoint, dispatch, oldPayload, params)
@@ -71,12 +74,13 @@ describe('fetchData', () => {
     const dispatch = jest.fn()
     const oldPayload = new Payload(false, 'https://weird-endpoint/old-url/api.json', {}, null)
     const params = { var1: 'a', var2: 'b' }
+    // $FlowFixMe
     fetch.mockResponse(malformedJSON)
 
     const data = await fetchData(endpoint, dispatch, oldPayload, params)
     const mappingError = new MappingError(
       defaultName,
-      'invalid json response body at undefined reason: Unexpected token I in JSON at position 0'
+      'invalid json response body at  reason: Unexpected token I in JSON at position 0'
     )
     const payload = new Payload(false, defaultMapParamsToUrl(params), null, mappingError)
 

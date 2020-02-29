@@ -11,7 +11,7 @@ describe('LastUpdateInfo', () => {
   it('should match snapshot', () => {
     const lastUpdate = moment.tz('2017-11-18 19:30:00', 'UTC')
     expect(shallow(
-      <LastUpdateInfo lastUpdate={lastUpdate} language={'de'} t={t} />
+      <LastUpdateInfo lastUpdate={lastUpdate} language='de' t={t} />
     )).toMatchSnapshot()
   })
 })

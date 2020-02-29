@@ -11,7 +11,7 @@ import { hot } from 'react-hot-loader'
 const container = document.getElementById('container')
 
 if (container == null) {
-  throw new Error(`Couldn't find element with id container.`)
+  throw new Error('Couldn\'t find element with id container.')
 }
 
 const HMRApp = hot(module)(App)

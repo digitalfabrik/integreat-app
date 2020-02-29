@@ -55,7 +55,7 @@ export class SearchPage extends React.Component<PropsType, LocalStateType> {
       .map(category => ({ model: category, subCategories: [] }))
   }
 
-  onFilterTextChange = (filterText: string) => this.setState({ filterText: filterText })
+  handleFilterTextChanged = (filterText: string) => this.setState({ filterText: filterText })
 
   render () {
     const categories = this.findCategories()
@@ -66,7 +66,7 @@ export class SearchPage extends React.Component<PropsType, LocalStateType> {
       <div>
         <SearchInput filterText={this.state.filterText}
                      placeholderText={t('searchCategory')}
-                     onFilterTextChange={this.onFilterTextChange}
+                     onFilterTextChange={this.handleFilterTextChanged}
                      spaceSearch />
         <CategoryList categories={categories} query={this.state.filterText} onInternalLinkClick={noop} />
         <SearchFeedback
@@ -83,6 +83,6 @@ const mapStateToProps = (state: StateType) => ({
 })
 
 export default compose(
-  connect(mapStateToProps),
+  connect<*, *, *, *, *, *>(mapStateToProps),
   withTranslation('search')
 )(SearchPage)

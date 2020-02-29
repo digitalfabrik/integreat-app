@@ -6,6 +6,6 @@ import Caption from '../Caption'
 
 describe('Caption', () => {
   it('should render', () => {
-    expect(shallow(<Caption title={'Test Title'} />)).toMatchSnapshot()
+    expect(shallow(<Caption title='Test Title' />)).toMatchSnapshot()
   })
 })

@@ -63,7 +63,7 @@ describe('FilterableCitySelector', () => {
         cities={cities} />
     )
 
-    wrapper.instance().onFilterTextChange('City')
+    wrapper.instance().handleFilterTextChanged('City')
     expect(wrapper).toMatchSnapshot()
   })
 })
