@@ -6,12 +6,15 @@ import { shallow } from 'enzyme'
 import { ModalHeader } from '../ModalHeader'
 
 describe('ModalHeader', () => {
-  it('should match snapshot', () => {
+  it('should call close function when clicking on close', () => {
+    const jestMockFn = jest.fn()
     const component = shallow(
       <ModalHeader
-        closeFeedbackModal={() => {}}
+        closeFeedbackModal={jestMockFn}
         title={'title'} />
     )
-    expect(component).toMatchSnapshot()
+
+    component.findWhere(elem => elem.name() ? elem.name().includes('CloseButton') : false).simulate('click')
+    expect(jestMockFn).toHaveBeenCalled()
   })
 })

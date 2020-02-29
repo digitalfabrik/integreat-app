@@ -1,15 +1,27 @@
 const path = require('path')
 const webpack = require('webpack')
 const AssetsPlugin = require('assets-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const CopyPlugin = require('copy-webpack-plugin')
 const babelConfig = require('../.babelrc.js')
 const getVersion = require('git-repo-version')
 
-const isDebug = global.DEBUG === false ? false : !process.argv.includes('--release')
-const useHMR = !!global.HMR // Hot Module Replacement (HMR)
+const createConfig = (env = {}) => {
+  if (env.prod === undefined) {
+    throw Error('You need to specify a mode!')
+  }
 
-const createConfig = appConfig => {
-  // Webpack configuration (main.js => www/dist/main.{hash}.js)
-  // http://webpack.github.io/docs/configuration.html
+  const isDebug = env.prod === 'false'
+  const appConfigName = env.config_name || 'integreat'
+  const appConfig = require(`./${appConfigName}-config`)
+  const wwwDirectory = path.resolve(__dirname, '../www')
+  const distDirectory = path.resolve(__dirname, '../dist')
+  const configAssets = path.resolve(__dirname, `../tools/${appConfigName}-config/assets`)
+
+  console.log('isDebug: ', isDebug)
+  console.log('config_name: ', appConfigName)
+
   const config = {
     mode: isDebug ? 'development' : 'production',
     resolve: {
@@ -22,13 +34,14 @@ const createConfig = appConfig => {
     // The entry point for the bundle
     entry: [
       '!!style-loader!css-loader!normalize.css/normalize.css',
+      'react-hot-loader/patch',
       /* The main entry point of your JavaScript application */
       './main.js'
     ],
     // Options affecting the output of the compilation
     output: {
-      path: path.resolve(__dirname, '../www/dist'),
-      publicPath: '/dist/',
+      path: distDirectory,
+      publicPath: '/',
       filename: isDebug ? '[name].js?[hash]' : '[name].[hash].js',
       chunkFilename: isDebug ? '[id].js?[chunkhash]' : '[id].[chunkhash].js',
       sourcePrefix: '  '
@@ -36,10 +49,32 @@ const createConfig = appConfig => {
     // Developer tool to enhance debugging, source maps
     // http://webpack.github.io/docs/configuration.html#devtool
     devtool: isDebug ? 'source-map' : false,
+    devServer: {
+      contentBase: distDirectory,
+      compress: true,
+      port: 9000,
+      hot: true,
+      http2: false,
+      historyApiFallback: true,
+      stats: 'minimal'
+    },
     // What information should be printed to the console
     stats: 'minimal',
     // The list of plugins for Webpack compiler
     plugins: [
+      new CleanWebpackPlugin(),
+      new HtmlWebpackPlugin({
+        title: appConfig.appTitle,
+        // Load a custom template (lodash by default)
+        template: 'index.ejs',
+        templateParameters: {
+          config: appConfig
+        }
+      }),
+      new CopyPlugin([
+        { from: wwwDirectory, to: distDirectory },
+        { from: configAssets, to: distDirectory }
+      ]),
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': isDebug ? '"development"' : '"production"',
         __DEV__: isDebug,
@@ -49,7 +84,7 @@ const createConfig = appConfig => {
       // Emit a JSON file with assets paths
       // https://github.com/sporto/assets-webpack-plugin#options
       new AssetsPlugin({
-        path: path.resolve(__dirname, '../www/dist'),
+        path: distDirectory,
         filename: 'assets.json',
         prettyPrint: true
       }),
@@ -58,7 +93,6 @@ const createConfig = appConfig => {
         minimize: !isDebug
       })
     ],
-    // Options affecting the normal modules
     module: {
       rules: [
         {
@@ -123,13 +157,6 @@ const createConfig = appConfig => {
   // Optimize the bundle in release (production) mode
   if (!isDebug) {
     config.plugins.push(new webpack.optimize.AggressiveMergingPlugin())
-  }
-
-  // Hot Module Replacement (HMR) + React Hot Reload
-  if (isDebug && useHMR) {
-    config.entry.unshift('react-hot-loader/patch', 'webpack-hot-middleware/client')
-    config.plugins.push(new webpack.HotModuleReplacementPlugin())
-    config.plugins.push(new webpack.NoEmitOnErrorsPlugin())
   }
 
   return config
