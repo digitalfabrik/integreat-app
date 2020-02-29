@@ -9,5 +9,7 @@
     "__DEV__": false,
     "__VERSION__": false,
     "__CONFIG__": false
+  },
+  "rules": {
   }
 }

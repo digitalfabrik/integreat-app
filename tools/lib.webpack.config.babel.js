@@ -6,9 +6,9 @@ const nodeExternals = require('webpack-node-externals')
 const GeneratePackageJsonPlugin = require('generate-package-json-webpack-plugin')
 
 const basePackageValues = {
-  'name': '@integreat-app/shared',
-  'version': '0.0.4',
-  'main': './index.js'
+  name: '@integreat-app/shared',
+  version: '0.0.4',
+  main: './index.js'
 }
 
 const versionsPackageFilename = path.resolve(__dirname, '../package.json')
@@ -22,7 +22,7 @@ module.exports = (env = {}) => {
   console.log('isDebug: ', isDebug)
 
   return {
-    mode: 'production',
+    mode: isDebug ? 'development' : 'production',
     resolve: {
       modules: [
         path.resolve('./node_modules')
@@ -52,7 +52,7 @@ module.exports = (env = {}) => {
     plugins: [
       new GeneratePackageJsonPlugin(basePackageValues, versionsPackageFilename),
       new webpack.DefinePlugin({
-        'process.env.NODE_ENV': '"production"',
+        'process.env.NODE_ENV': isDebug ? '"development"' : '"production"',
         __DEV__: false,
         __VERSION__: JSON.stringify(getVersion())
       }),

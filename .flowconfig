@@ -2,12 +2,13 @@
 .*/node_modules/config-chain/test/broken.json
 <PROJECT_ROOT>/dist/.*
 <PROJECT_ROOT>/lib-dist/.*
-# Ignoring redux-first-router failing types: https://github.com/faceyspacey/redux-first-router/issues/340
-.*/node_modules/redux-first-router/dist/pure-utils/nestAction.js.flow.*
-.*/node_modules/redux-first-router/dist/pure-utils/actionToPath.js.flow.*
-.*/node_modules/redux-first-router/dist/pure-utils/attemptCallRouteThunk.js.flow.*
+
+[untyped]
+.*/node_modules/react-select/src/.*
+.*/node_modules/redux-first-router/dist/connectRoutes.js.flow.*
 .*/node_modules/redux-first-router/dist/pure-utils/pathToAction.js.flow.*
-.*/node_modules/redux-first-router/dist/pure-utils/createThunk.js.flow.*
+.*/node_modules/redux-first-router/dist/pure-utils/actionToPath.js.flow.*
+
 [include]
 
 [libs]

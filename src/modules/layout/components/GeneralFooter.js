@@ -19,7 +19,7 @@ class GeneralFooter extends React.PureComponent<PropsType> {
     return (
       <Footer>
         <CleanLink to={new MainDisclaimerRouteConfig().getRoutePath()}>{t('imprintAndContact')}</CleanLink>
-        <CleanAnchor href={'https://integreat-app.de/datenschutz/'}>{t('privacy')}</CleanAnchor>
+        <CleanAnchor href='https://integreat-app.de/datenschutz/'>{t('privacy')}</CleanAnchor>
       </Footer>
     )
   }

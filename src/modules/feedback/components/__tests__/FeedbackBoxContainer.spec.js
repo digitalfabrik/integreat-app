@@ -43,10 +43,10 @@ describe('FeedbackBoxContainer', () => {
     expect(shallow(
       <FeedbackBoxContainer
         location={location}
-        query={'ab'}
+        query='ab'
         cities={cities}
         id={1234}
-        title={'title'}
+        title='title'
         alias='alias'
         isPositiveRatingSelected
         extras={null}
@@ -61,10 +61,10 @@ describe('FeedbackBoxContainer', () => {
       const instance = shallow(
         <FeedbackBoxContainer
           location={location}
-          query={'ab'}
+          query='ab'
           cities={cities}
           id={1234}
-          title={'title'}
+          title='title'
           alias='alias'
           isPositiveRatingSelected
           onSubmit={() => {}}
@@ -85,10 +85,10 @@ describe('FeedbackBoxContainer', () => {
       const instance = shallow(
         <FeedbackBoxContainer
           location={location}
-          query={'ab'}
+          query='ab'
           cities={cities}
           id={1234}
-          title={'title'}
+          title='title'
           alias='alias'
           isPositiveRatingSelected
           onSubmit={() => {}}
@@ -109,10 +109,10 @@ describe('FeedbackBoxContainer', () => {
       const instance = shallow(
         <FeedbackBoxContainer
           location={location}
-          query={'ab'}
+          query='ab'
           cities={cities}
           id={1234}
-          title={'title'}
+          title='title'
           alias='alias'
           isPositiveRatingSelected
           onSubmit={() => {}}
@@ -134,10 +134,10 @@ describe('FeedbackBoxContainer', () => {
       const instance = shallow(
         <FeedbackBoxContainer
           location={location}
-          query={'ab'}
+          query='ab'
           cities={cities}
           id={1234}
-          title={'title'}
+          title='title'
           alias='alias'
           isPositiveRatingSelected
           onSubmit={() => {}}
@@ -159,10 +159,10 @@ describe('FeedbackBoxContainer', () => {
     const component = shallow(
       <FeedbackBoxContainer
         location={categoriesLocation}
-        query={'ab'}
+        query='ab'
         cities={cities}
         id={1234}
-        title={'title'}
+        title='title'
         alias='alias'
         isPositiveRatingSelected
         onSubmit={() => {}}
@@ -213,10 +213,10 @@ describe('FeedbackBoxContainer', () => {
     const component = shallow(
       <FeedbackBoxContainer
         location={extrasLocation}
-        query={'ab'}
+        query='ab'
         cities={cities}
         id={1234}
-        title={'title'}
+        title='title'
         alias='alias'
         isPositiveRatingSelected
         onSubmit={() => {}}
@@ -229,12 +229,12 @@ describe('FeedbackBoxContainer', () => {
   })
 
   describe('getCurrentPageFeedbackOption', () => {
-    const categoriesOption = new FeedbackDropdownItem(`contentOfPage`, PAGE_FEEDBACK_TYPE)
-    const eventsOption = new FeedbackDropdownItem(`contentOfEvent`, PAGE_FEEDBACK_TYPE)
-    const wohnenOption = new FeedbackDropdownItem(`contentOfExtra`, EXTRA_FEEDBACK_TYPE)
-    const sprungbrettOption = new FeedbackDropdownItem(`contentOfExtra`, EXTRA_FEEDBACK_TYPE)
-    const searchOption = new FeedbackDropdownItem(`searchFor 'my query'`, SEARCH_FEEDBACK_TYPE)
-    const disclaimerOption = new FeedbackDropdownItem(`disclaimer`, PAGE_FEEDBACK_TYPE)
+    const categoriesOption = new FeedbackDropdownItem('contentOfPage', PAGE_FEEDBACK_TYPE)
+    const eventsOption = new FeedbackDropdownItem('contentOfEvent', PAGE_FEEDBACK_TYPE)
+    const wohnenOption = new FeedbackDropdownItem('contentOfExtra', EXTRA_FEEDBACK_TYPE)
+    const sprungbrettOption = new FeedbackDropdownItem('contentOfExtra', EXTRA_FEEDBACK_TYPE)
+    const searchOption = new FeedbackDropdownItem('searchFor \'my query\'', SEARCH_FEEDBACK_TYPE)
+    const disclaimerOption = new FeedbackDropdownItem('disclaimer', PAGE_FEEDBACK_TYPE)
     const extrasOption = null
 
     // $FlowFixMe
@@ -275,10 +275,10 @@ describe('FeedbackBoxContainer', () => {
     const component = shallow(
       <FeedbackBoxContainer
         location={location}
-        query={'ab'}
+        query='ab'
         cities={cities}
         id={1234}
-        title={'title'}
+        title='title'
         alias='alias'
         isPositiveRatingSelected
         onSubmit={() => {}}
@@ -288,7 +288,7 @@ describe('FeedbackBoxContainer', () => {
         t={t} />
     )
 
-    component.instance().onSubmit()
+    component.instance().handleSubmit()
     expect(mockPostFeedbackData).toHaveBeenCalledTimes(1)
   })
 
@@ -296,10 +296,10 @@ describe('FeedbackBoxContainer', () => {
     const instance = shallow(
       <FeedbackBoxContainer
         location={location}
-        query={'ab'}
+        query='ab'
         cities={cities}
         id={1234}
-        title={'title'}
+        title='title'
         alias='alias'
         isPositiveRatingSelected
         onSubmit={() => {}}
@@ -309,7 +309,8 @@ describe('FeedbackBoxContainer', () => {
     ).instance()
 
     const prevState = instance.state
-    instance.onCommentChanged({ target: { value: 'new comment' } })
+    // $FlowFixMe
+    instance.handleCommentChanged({ target: { value: 'new comment' } })
     expect(prevState).not.toEqual(instance.state)
     expect(instance.state.comment).toEqual('new comment')
   })
@@ -318,10 +319,10 @@ describe('FeedbackBoxContainer', () => {
     const instance = shallow(
       <FeedbackBoxContainer
         location={location}
-        query={'ab'}
+        query='ab'
         cities={cities}
         id={1234}
-        title={'title'}
+        title='title'
         alias='alias'
         isPositiveRatingSelected
         onSubmit={() => {}}
@@ -331,7 +332,7 @@ describe('FeedbackBoxContainer', () => {
     ).instance()
 
     const prevState = instance.state
-    instance.onFeedbackOptionChanged(prevState.feedbackOptions[1])
+    instance.handleFeedbackOptionChanged(prevState.feedbackOptions[1])
     expect(prevState).not.toEqual(instance.state)
     expect(instance.state.selectedFeedbackOption).toEqual(prevState.feedbackOptions[1])
   })

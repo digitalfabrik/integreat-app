@@ -29,8 +29,8 @@ describe('Selector', () => {
       <Selector verticalLayout={false}
                 closeDropDownCallback={() => {}}
                 items={selectorItems}
-                activeItemCode={'de'}
-                disabledItemTooltip={'random tooltip'} />
+                activeItemCode='de'
+                disabledItemTooltip='random tooltip' />
     )
     expect(wrapper).toMatchSnapshot()
   })
@@ -40,8 +40,8 @@ describe('Selector', () => {
       <Selector verticalLayout
                 closeDropDownCallback={() => {}}
                 items={selectorItems}
-                activeItemCode={'de'}
-                disabledItemTooltip={'random tooltip'} />
+                activeItemCode='de'
+                disabledItemTooltip='random tooltip' />
     )
     expect(wrapper).toMatchSnapshot()
   })
