@@ -47,7 +47,7 @@ const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionT
   const { cityCode, language, navigation, path } = refreshProps
   const navigateToDashboard = createNavigateToCategory('Dashboard', dispatch, navigation)
   navigateToDashboard({
-    cityCode, language, path, forceUpdate: true, key: navigation.state.key
+    cityCode, language, path, forceRefresh: true, key: navigation.state.key
   })
 }
 
