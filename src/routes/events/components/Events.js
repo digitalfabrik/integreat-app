@@ -6,10 +6,10 @@ import type { TFunction } from 'react-i18next'
 import {
   CATEGORIES_FEEDBACK_TYPE,
   CityModel,
+  CONTENT_FEEDBACK_CATEGORY,
   EventModel,
   EVENTS_FEEDBACK_TYPE,
   PAGE_FEEDBACK_TYPE,
-  CONTENT_FEEDBACK_CATEGORY,
   TECHNICAL_FEEDBACK_CATEGORY
 } from '@integreat-app/integreat-api-client'
 import Page from '../../../modules/common/components/Page'
@@ -106,7 +106,7 @@ class Events extends React.Component<PropsType> {
       const event: EventModel = events.find(_event => _event.path === path)
 
       if (event) {
-        const files = resourceCache[event.path]
+        const files = resourceCache[event.path] || {}
         return <Page content={event.content}
                      title={event.title}
                      lastUpdate={event.lastUpdate}
