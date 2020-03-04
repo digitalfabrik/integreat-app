@@ -62,21 +62,12 @@ yarn sentry-cli releases --project integreat-react-native-app --org tur-an-tur-d
 
 Creating a bundle:
 ```bash
-yarn react-native bundle \
-  --dev false \
-  --platform ios \
-  --entry-file src/index.js \
-  --bundle-output main.jsbundle \
-  --sourcemap-output main.jsbundle.map
+yarn react-native bundle --dev false --platform ios --entry-file src/index.js --bundle-output main.jsbundle --sourcemap-output main.jsbundle.map
 ```
 
 Uploading the bundle:
 ```bash
-yarn sentry-cli releases --project integreat-react-native-app --org tur-an-tur-digitalfabrik \
-    files <release> \
-    upload-sourcemaps \
-    --dist <distribution> \
-    --rewrite main.jsbundle main.jsbundle.map
+yarn sentry-cli releases --project integreat-react-native-app --org tur-an-tur-digitalfabrik files <release> upload-sourcemaps --dist <distribution> --rewrite main.jsbundle main.jsbundle.map
 ```
 
 `<release>` is the bundle identifier concatenated with the version string e.g. `de.integreat-app-2020.1.0`

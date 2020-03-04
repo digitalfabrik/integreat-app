@@ -5,7 +5,7 @@
 The following steps are needed to release the app:
 
 * Tag latest git commit on master
-* Create a release in [Sentry](https://sentry.integreat-app.de) and [upload source maps](05-error-reporting.md).
+* Create a release in [Sentry](https://sentry.integreat-app.de) by [uploading source maps](05-error-reporting.md).
 * Create a release in Jira so we can reference to this later.
 * Create an entry in [CHANGELOG.md](../CHANGELOG.md)
 * Decide whether we want to send the app to testing prior to releasing
@@ -20,6 +20,6 @@ The following steps are needed to release the app:
 
 ### iOS
 
-* Archive the app using XCode and directly upload it
+* Archive the app using XCode (Product > Archive) and directly upload it (using xcode)
 * Check whether the uploading worked in at [App Store Connect](https://appstoreconnect.apple.com/)
 
