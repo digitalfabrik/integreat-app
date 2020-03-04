@@ -18,6 +18,9 @@ The following steps are needed to release the app:
     * For further information regarding the keystore have a look at the `keystore_integreat.txt` in the drive
 * Upload APK in [Developer Console](https://play.google.com/apps/publish/)
 
+#### Known issues
+* Upon receiving the error `java.io.UncheckedIOException: java.io.IOException: Execution of compression failed.` during the build process, just restart your computer.
+
 ### iOS
 
 * Archive the app using XCode (Product > Archive) and directly upload it (using xcode)
