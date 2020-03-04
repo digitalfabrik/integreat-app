@@ -5,8 +5,9 @@ import SlideButton from './SlideButton'
 import Pagination from './Pagination'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { TFunction } from 'react-i18next'
-import { FooterContainer } from './StandardFooter'
+import { ButtonContainer } from './StandardFooter'
 import type { IntroSettingsType } from '../IntroContainer'
+import { View } from 'react-native'
 
 type PropsType = {|
   slideCount: number,
@@ -24,11 +25,13 @@ class CustomizableSettingsFooter extends React.Component<PropsType> {
   render () {
     const { slideCount, currentSlide, goToSlide, toggleCustomizeSettings, theme, t } = this.props
 
-    return <FooterContainer theme={theme}>
-      <SlideButton label={t('cancel')} onPress={toggleCustomizeSettings} theme={theme} />
+    return <View style={{ flexDirection: 'column' }}>
+      <ButtonContainer theme={theme}>
+        <SlideButton label={t('cancel')} onPress={toggleCustomizeSettings} theme={theme} />
+        <SlideButton label={t('save')} onPress={this.onSave} theme={theme} highlighted />
+      </ButtonContainer>
       <Pagination slideCount={slideCount} currentSlide={currentSlide} goToSlide={goToSlide} theme={theme} />
-      <SlideButton label={t('save')} onPress={this.onSave} theme={theme} backgroundColor={theme.colors.themeColor} />
-    </FooterContainer>
+    </View>
   }
 }
 
