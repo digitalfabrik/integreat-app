@@ -117,7 +117,7 @@ const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionT
   const { cityCode, language, path, navigation } = refreshProps
   const navigateToCategories = createNavigateToCategory('Categories', dispatch, navigation)
   navigateToCategories({
-    cityCode, language, path, forceUpdate: true, key: navigation.state.key
+    cityCode, language, path, forceRefresh: true, key: navigation.state.key
   })
 }
 

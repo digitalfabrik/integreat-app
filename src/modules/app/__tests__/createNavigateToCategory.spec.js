@@ -72,13 +72,13 @@ describe('createNavigateToCategory', () => {
     }))
   })
 
-  it('should dispatch a FETCH_CATEGORY action while never refreshing resources', () => {
+  it('should dispatch a FETCH_CATEGORY action and refresh resources on force refresh', () => {
     const dispatch = jest.fn()
     const navigation = createNavigationScreenPropMock()
 
     const navigateToCategory = createNavigateToCategory('Categories', dispatch, navigation)
     navigateToCategory({
-      cityCode: 'augsburg', language: 'de', path: '/augsburg/de/schule', key: 'route-id-1', forceUpdate: true
+      cityCode: 'augsburg', language: 'de', path: '/augsburg/de/schule', key: 'route-id-1', forceRefresh: true
     })
 
     expect(dispatch).toHaveBeenCalledWith({
@@ -89,7 +89,7 @@ describe('createNavigateToCategory', () => {
         path: '/augsburg/de/schule',
         depth: 2,
         key: 'route-id-1',
-        criterion: { forceUpdate: true, shouldRefreshResources: false }
+        criterion: { forceUpdate: true, shouldRefreshResources: true }
       }
     })
   })
