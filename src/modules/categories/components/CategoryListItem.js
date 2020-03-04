@@ -40,9 +40,9 @@ const CategoryTitle = styled.Text`
 const CategoryThumbnail = styled(Image)`
   align-self: center;
   flex-shrink: 0;
-  width: 40px;
-  height: 40px;
-  margin: 10px;
+  width: ${props => props.theme.dimensions.categoryListItem.iconSize}px;
+  height: ${props => props.theme.dimensions.categoryListItem.iconSize}px;
+  margin: ${props => props.theme.dimensions.categoryListItem.margin}px;
 `
 
 type PropsType = {
@@ -87,7 +87,7 @@ class CategoryListItem extends React.Component<PropsType> {
       <Row>
         <FlexStyledLink onPress={this.onCategoryPress} underlayColor={this.props.theme.colors.backgroundAccentColor}>
           <DirectionContainer theme={theme} language={language}>
-            <CategoryThumbnail source={category.thumbnail || iconPlaceholder} />
+            <CategoryThumbnail source={category.thumbnail || iconPlaceholder} theme={theme} />
             {this.renderTitle()}
           </DirectionContainer>
         </FlexStyledLink>
