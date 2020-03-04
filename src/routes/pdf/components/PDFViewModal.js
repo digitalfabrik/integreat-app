@@ -31,6 +31,8 @@ const urlToPath = (url: string) => {
   return url.replace(URL_PREFIX, '')
 }
 
+const isExternalUrl = (url: string) => !url.startsWith(URL_PREFIX)
+
 export default class PDFViewModal extends React.Component<PropsType, StateType> {
   constructor (props: PropsType) {
     super(props)
@@ -40,11 +42,12 @@ export default class PDFViewModal extends React.Component<PropsType, StateType> 
   onError = (error: Error) => this.setState(() => ({ error }))
 
   render () {
-    const path = urlToPath(this.props.navigation.getParam('url'))
+    const url = this.props.navigation.getParam('url')
+    const externalUrl = isExternalUrl(url)
+    const path = urlToPath(url)
     const { error } = this.state
-
     if (error) {
-      return <FailureContainer errorMessage={error.message} />
+      return <FailureContainer code={'unknownError'} />
     }
 
     return (
@@ -55,7 +58,7 @@ export default class PDFViewModal extends React.Component<PropsType, StateType> 
           // This PDFView can only load from Documents dir on iOS:
           // https://github.com/rumax/react-native-PDFView/issues/90
           resource={Platform.OS === 'ios' ? getRelativeToDocumentsDir(path) : path}
-          resourceType='file'
+          resourceType={externalUrl ? 'url' : 'file'}
           onError={this.onError}
         />
       </View>

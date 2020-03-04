@@ -59,13 +59,13 @@ describe('createNavigateToEvent', () => {
     }))
   })
 
-  it('should dispatch a FETCH_EVENT action while never refreshing resources', () => {
+  it('should dispatch a FETCH_EVENT action and refresh resources on force refresh', () => {
     const dispatch = jest.fn()
     const navigation = createNavigationScreenPropMock()
 
     const navigateToEvent = createNavigateToEvent(dispatch, navigation)
     navigateToEvent({
-      cityCode: 'augsburg', language: 'de', path: '/augsburg/de/events', key: 'route-id-1', forceUpdate: true
+      cityCode: 'augsburg', language: 'de', path: '/augsburg/de/events', key: 'route-id-1', forceRefresh: true
     })
 
     expect(dispatch).toHaveBeenCalledWith({
@@ -75,7 +75,7 @@ describe('createNavigateToEvent', () => {
         language: 'de',
         path: '/augsburg/de/events',
         key: 'route-id-1',
-        criterion: { forceUpdate: true, shouldRefreshResources: false }
+        criterion: { forceUpdate: true, shouldRefreshResources: true }
       }
     })
   })

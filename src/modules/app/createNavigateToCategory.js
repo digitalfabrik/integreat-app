@@ -6,14 +6,14 @@ import type { NavigationScreenProp } from 'react-navigation'
 import { generateKey } from './generateRouteKey'
 
 export type NavigateToCategoryParamsType = {|
-  cityCode: string, language: string, path: string, key?: string, forceUpdate?: boolean
+  cityCode: string, language: string, path: string, key?: string, forceRefresh?: boolean
 |}
 
 export default (
   routeName: 'Categories' | 'Dashboard',
   dispatch: Dispatch<StoreActionType>,
   navigation: NavigationScreenProp<*>
-) => ({ cityCode, language, path, key = generateKey(), forceUpdate = false }: NavigateToCategoryParamsType) => {
+) => ({ cityCode, language, path, key = generateKey(), forceRefresh = false }: NavigateToCategoryParamsType) => {
   navigation.navigate({
     routeName,
     params: {
@@ -31,7 +31,7 @@ export default (
       path,
       depth: 2,
       key,
-      criterion: { forceUpdate, shouldRefreshResources: false }
+      criterion: { forceUpdate: forceRefresh, shouldRefreshResources: forceRefresh }
     }
   }
 

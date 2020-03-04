@@ -132,7 +132,7 @@ class EventsContainer extends React.Component<ContainerPropsType> {
 const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
   const { navigation, cityCode, language, path } = refreshProps
   const navigateToEvent = createNavigateToEvent(dispatch, navigation)
-  navigateToEvent({ cityCode, language, path, forceUpdate: true, key: navigation.state.key })
+  navigateToEvent({ cityCode, language, path, forceRefresh: true, key: navigation.state.key })
 }
 
 type RestType = $Diff<PropsType, OwnPropsType>
