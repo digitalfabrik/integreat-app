@@ -4,6 +4,7 @@ import * as React from 'react'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
 import type { ThemeType } from '../../modules/theme/constants/theme'
+import { ScrollView } from 'react-native'
 
 const Container: StyledComponent<{ width: number }, ThemeType, *> = styled.View`
   display: flex;
@@ -53,17 +54,19 @@ class SlideContent extends React.Component<PropsType> {
   render () {
     const { width, theme, item } = this.props
 
-    return <Container theme={theme} width={width}>
-      <TextContainer>
-        <Heading theme={theme}>{item.title}</Heading>
-      </TextContainer>
-      <ContentContainer description={item.description !== undefined}>
-        {item.renderContent()}
-      </ContentContainer>
-      {item.description && <TextContainer>
-        <Description theme={theme}>{item.description}</Description>
-      </TextContainer>}
-    </Container>
+    return <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <Container theme={theme} width={width}>
+        <TextContainer>
+          <Heading theme={theme}>{item.title}</Heading>
+        </TextContainer>
+        <ContentContainer description={item.description !== undefined}>
+          {item.renderContent()}
+        </ContentContainer>
+        {item.description && <TextContainer>
+          <Description theme={theme}>{item.description}</Description>
+        </TextContainer>}
+      </Container>
+    </ScrollView>
   }
 }
 

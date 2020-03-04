@@ -6,11 +6,14 @@ import { type StyledComponent } from 'styled-components'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import { range } from 'lodash'
 
-const DotsContainer: StyledComponent<{}, {}, *> = styled.View`
+const DotsContainer: StyledComponent<{}, ThemeType, *> = styled.View`
   flex: 1;
+  height: 10px;
+  padding: 10px;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  background-color: ${props => props.theme.colors.backgroundColor};
 `
 
 const Dot: StyledComponent<{ isActive: boolean }, ThemeType, *> = styled.TouchableOpacity`
@@ -34,8 +37,7 @@ class Pagination extends React.Component<PropsType> {
   render () {
     const { slideCount, currentSlide, goToSlide, theme } = this.props
     const goToSlideIndex = (index: number) => () => goToSlide(index)
-
-    return <DotsContainer>
+    return <DotsContainer theme={theme}>
       {range(slideCount).map(index =>
         <Dot key={index} isActive={index === currentSlide} onPress={goToSlideIndex(index)} theme={theme} />
       )}
