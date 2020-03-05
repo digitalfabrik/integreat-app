@@ -14,6 +14,7 @@ const GroupText: StyledComponent<{}, ThemeType, *> = styled.Text`
   color: ${props => props.theme.colors.textColor};
 `
 
+// Wrapper is necessary, because iOS doesn't display border for Text components.
 const BorderWrapper: StyledComponent<{}, ThemeType, *> = styled.View`
   border-bottom-width: 1px;
   border-bottom-color: ${props => props.theme.colors.themeColor};
