@@ -14,17 +14,7 @@ import getNearbyPlaces from '../getNearbyPlaces'
 import type { LocationType } from './Landing'
 import { Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/MaterialIcons'
-
-export const CityGroup: StyledComponent<{}, ThemeType, *> = styled.Text`
-  width: 100%;
-  margin-top: 5px;
-  padding: 10px 0;
-  background-color: white;
-  font-family: ${props => props.theme.fonts.decorativeFontRegular};
-  color: ${props => props.theme.colors.textColor};
-  border-bottom-width: 1px;
-  border-bottom-color: ${props => props.theme.colors.themeColor};
-`
+import CityGroup from './CityGroup'
 
 const NearbyMessageContainer: StyledComponent<{}, {}, *> = styled.View`
   padding: 7px;
