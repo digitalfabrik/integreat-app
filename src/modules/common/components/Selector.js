@@ -19,8 +19,7 @@ const ItemWrapper = styled.View`
 const Element = styled.Text`
   font-size: 20px;
   ${props => props.enabled ? 'font-weight: 700' : ''};
-  ${props => props.enabled ? `color: ${props.theme.colors.textColor}`
-    : `color: ${props.theme.colors.textSecondaryColor}`};
+  color: ${props => props.enabled ? props.theme.colors.textColor : props.theme.colors.textSecondaryColor}};
 `
 
 export const TouchTarget: StyledComponent<{}, {}, *> = styled(TouchableHighlight)`
