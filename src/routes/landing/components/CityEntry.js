@@ -2,6 +2,7 @@
 
 import React from 'react'
 import Highlighter from 'react-highlighter'
+import normalize from 'normalize-strings'
 
 import { CityModel } from '@integreat-app/integreat-api-client'
 import styled from 'styled-components'
@@ -32,21 +33,17 @@ type PropsType = {|
 |}
 
 class CityEntry extends React.PureComponent<PropsType> {
+  getMunicipality = (city, filterText): Array<CityModel> => {
+    if (city._aliases && filterText) {
+      return Object.keys(city._aliases)
+        .filter(municipality => normalize(municipality).toLowerCase().includes(filterText.toLowerCase()))
+    }
+    return []
+  }
   render () {
     const { city, language, filterText } = this.props
-    const getMunicipality = (city, filterText): Array<CityModel> => {
-      if (!filterText) {
-        return []
-      }
-      if (city._aliases) {
-        const municipalities = Object.keys(city._aliases).map(municipality => municipality.toLowerCase())
-        const municipalityMatch = municipalities.filter(municipality => municipality.includes(filterText.toLowerCase()))
-        const municipalityMatchCapitalized = municipalityMatch.map(match => match[0].toUpperCase() + match.slice(1))
-        return municipalityMatchCapitalized
-      }
-      return []
-    }
-    const municipalities = getMunicipality(city, filterText)
+    const municipalities = this.getMunicipality(city, filterText)
+
     return (
       <CityListItem to={new CategoriesRouteConfig().getRoutePath({ city: city.code, language })}>
         <Highlighter search={filterText}>

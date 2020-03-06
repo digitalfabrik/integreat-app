@@ -29,7 +29,7 @@ exports[`CategoriesToolbar should render root-url for pdf endpoint 1`] = `
   openFeedbackModal={[Function]}
 >
   <ToolbarItem
-    href="https://cms.integreat-app.de/augsburg/de/wp-json/ig-mpdf/v1/pdf"
+    href="https://cms.integreat-app.de/augsburg/de/wp-json/ig-mpdf/v1/pdf?url=%2Faugsburg%2Fde"
     icon={
       Object {
         "icon": Array [

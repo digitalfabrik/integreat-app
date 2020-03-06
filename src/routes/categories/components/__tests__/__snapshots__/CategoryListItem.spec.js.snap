@@ -44,9 +44,7 @@ exports[`CategoryListItem should replace empty thumbnail 1`] = `
       GotNoThumb :O
     </CategoryListItem__CategoryCaption>
   </CategoryListItem__StyledLink>
-  <CategoryListItem__SubCategory
-    key="35"
-  >
+  <CategoryListItem__SubCategory>
     <CategoryListItem__StyledLink
       to="/augsburg/de/willkommen/willkommen-in-augsburg"
     >
