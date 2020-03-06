@@ -8,31 +8,23 @@ import { css, type StyledComponent } from 'styled-components'
 import { TouchableHighlight } from 'react-native'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 
-const Element = styled.Text`
+const ItemWrapper = styled.View`
+  justify-content: center;
+  align-items: center;
+  background-color: ${props => props.theme.colors.backgroundColor};
+  ${props => props.selected ? `background-color: ${props.theme.colors.backgroundAccentColor}` : ''};
   height: ${props => props.theme.dimensions.headerHeight}px;
-  width: 100%;
+`
+
+const Element = styled.Text`
   font-size: 20px;
-  line-height: ${props => props.theme.dimensions.headerHeight}px;
-  text-align: center;
+  ${props => props.enabled ? 'font-weight: 700' : ''};
+  ${props => props.enabled ? `color: ${props.theme.colors.textColor}`
+    : `color: ${props.theme.colors.textSecondaryColor}`};
 `
 
 export const TouchTarget: StyledComponent<{}, {}, *> = styled(TouchableHighlight)`
- width: 100%;
-`
-
-type EnabledElementPropsType = {|
-  selected: boolean, children: React.Node, theme: ThemeType
-|}
-
-export const EnabledElement: StyledComponent<EnabledElementPropsType, ThemeType, *> = styled(Element)`
-  font-weight: 700;
-  color: ${props => props.theme.colors.textColor};
-  background-color: ${props => props.theme.colors.backgroundColor};
-  ${props => props.selected ? `background-color: ${props.theme.colors.backgroundAccentColor}` : ''};
-`
-
-export const DisabledElement: StyledComponent<{}, ThemeType, *> = styled(Element)`
-  color: ${props => props.theme.colors.textSecondaryColor};
+   width: 100%;
 `
 
 type WrapperPropsType = {|
@@ -72,16 +64,16 @@ class Selector extends React.Component<PropsType> {
       if (item.enabled || isSelected) {
         return (
           <TouchTarget key={item.code} onPress={item.onPress}>
-            <EnabledElement selected={isSelected} theme={theme}>
-              <Element theme={theme}>{item.name}</Element>
-            </EnabledElement>
+            <ItemWrapper selected={isSelected} theme={theme}>
+                <Element theme={theme} enabled>{item.name}</Element>
+            </ItemWrapper>
           </TouchTarget>
         )
       }
       return (
-        <DisabledElement key={item.code} theme={theme}>
-          <Element theme={theme}>{item.name}</Element>
-        </DisabledElement>
+        <ItemWrapper key={item.code} selected={isSelected} theme={theme}>
+            <Element theme={theme} enabled={false}>{item.name}</Element>
+        </ItemWrapper>
       )
     })
   }
