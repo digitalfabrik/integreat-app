@@ -20,7 +20,7 @@ const ThumbnailContainer = styled(Image)`
 `
 
 const TileTitle = styled.Text`
-  margin: 5px 0;
+  margin: 5px 5px;
   color: ${props => props.theme.colors.textColor};
   text-align: center;
   font-family: ${props => props.theme.fonts.decorativeFontRegular};
