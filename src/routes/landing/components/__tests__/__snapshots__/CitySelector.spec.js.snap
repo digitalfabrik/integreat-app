@@ -7,11 +7,15 @@ exports[`CitySelector should exclude location if location is not live 1`] = `Arr
 exports[`CitySelector should filter for all non-live cities if filterText is "wirschaffendas" 1`] = `
 Array [
   CityModel {
+    "_aliases": undefined,
     "_code": "nonlive",
     "_eventsEnabled": false,
     "_extrasEnabled": false,
+    "_latitude": undefined,
     "_live": false,
+    "_longitude": undefined,
     "_name": "Notlive",
+    "_prefix": undefined,
     "_sortingName": "Nonlive",
   },
 ]
@@ -20,27 +24,39 @@ Array [
 exports[`CitySelector should filter for existing and live cities 1`] = `
 Array [
   CityModel {
+    "_aliases": undefined,
     "_code": "city",
     "_eventsEnabled": false,
     "_extrasEnabled": false,
+    "_latitude": undefined,
     "_live": true,
+    "_longitude": undefined,
     "_name": "City",
+    "_prefix": undefined,
     "_sortingName": "City",
   },
   CityModel {
+    "_aliases": undefined,
     "_code": "otherCity",
     "_eventsEnabled": false,
     "_extrasEnabled": false,
+    "_latitude": undefined,
     "_live": true,
+    "_longitude": undefined,
     "_name": "Other city",
+    "_prefix": undefined,
     "_sortingName": "OtherCity",
   },
   CityModel {
+    "_aliases": undefined,
     "_code": "yetanothercity",
     "_eventsEnabled": false,
     "_extrasEnabled": false,
+    "_latitude": undefined,
     "_live": true,
+    "_longitude": undefined,
     "_name": "Yet another city",
+    "_prefix": undefined,
     "_sortingName": "Yetanothercity",
   },
 ]

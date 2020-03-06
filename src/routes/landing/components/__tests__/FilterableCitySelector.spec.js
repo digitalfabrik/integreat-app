@@ -11,6 +11,16 @@ describe('FilterableCitySelector', () => {
 
   const cities = [
     new CityModel({
+      aliases: {
+        'Allmendingen': {
+          'longitude': 9.72429,
+          'latitude': 48.330714
+        },
+        'Altheim': {
+          'longitude': 9.770679,
+          'latitude': 48.327677
+        }
+      },
       name: 'City',
       code: 'city',
       live: true,

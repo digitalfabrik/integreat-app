@@ -8224,6 +8224,11 @@ normalize-selector@^0.2.0:
   resolved "https://registry.yarnpkg.com/normalize-selector/-/normalize-selector-0.2.0.tgz#d0b145eb691189c63a78d201dc4fdb1293ef0c03"
   integrity sha1-0LFF62kRicY6eNIB3E/bEpPvDAM=
 
+normalize-strings@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/normalize-strings/-/normalize-strings-1.1.0.tgz#b24a75ed48176394404f74649b5cb8040e899a75"
+  integrity sha1-skp17UgXY5RAT3Rkm1y4BA6JmnU=
+
 normalize.css@^8.0.1:
   version "8.0.1"
   resolved "https://registry.yarnpkg.com/normalize.css/-/normalize.css-8.0.1.tgz#9b98a208738b9cc2634caacbc42d131c97487bf3"

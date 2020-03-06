@@ -116,16 +116,16 @@ exports[`CategoryList should render and not display a caption 1`] = `
         CategoryModel {
           "_availableLanguages": Map {},
           "_content": "",
-          "_id": 0,
+          "_hash": undefined,
           "_lastUpdate": "2017-11-18T19:30:00.000Z",
           "_order": -1,
           "_parentPath": "",
           "_path": "/augsburg/de",
+          "_root": undefined,
           "_thumbnail": "no_thumbnail",
           "_title": "augsburg",
         }
       }
-      key="0"
       subCategories={
         Array [
           CategoryModel {
@@ -135,11 +135,12 @@ exports[`CategoryList should render and not display a caption 1`] = `
               "fa" => "4368",
             },
             "_content": "",
-            "_id": 3650,
+            "_hash": undefined,
             "_lastUpdate": "2017-11-18T19:30:00.000Z",
             "_order": 75,
             "_parentPath": "/augsburg/de",
             "_path": "/augsburg/de/anlaufstellen",
+            "_root": undefined,
             "_thumbnail": "https://cms.integreat-ap…/03/Hotline-150x150.png",
             "_title": "Anlaufstellen zu sonstigen Themen",
           },
@@ -150,11 +151,12 @@ exports[`CategoryList should render and not display a caption 1`] = `
               "fa" => "4368",
             },
             "_content": "",
-            "_id": 3649,
+            "_hash": undefined,
             "_lastUpdate": "2017-11-18T19:30:00.000Z",
             "_order": 11,
             "_parentPath": "/augsburg/de",
             "_path": "/augsburg/de/willkommen",
+            "_root": undefined,
             "_thumbnail": "https://cms.integreat-ap…03/Beratung-150x150.png",
             "_title": "Willkommen",
           },
@@ -170,16 +172,16 @@ exports[`CategoryList should render and not display a caption 1`] = `
             "fa" => "4368",
           },
           "_content": "",
-          "_id": 3649,
+          "_hash": undefined,
           "_lastUpdate": "2017-11-18T19:30:00.000Z",
           "_order": 11,
           "_parentPath": "/augsburg/de",
           "_path": "/augsburg/de/willkommen",
+          "_root": undefined,
           "_thumbnail": "https://cms.integreat-ap…03/Beratung-150x150.png",
           "_title": "Willkommen",
         }
       }
-      key="3649"
       subCategories={
         Array [
           CategoryModel {
@@ -189,11 +191,12 @@ exports[`CategoryList should render and not display a caption 1`] = `
               "fa" => "397",
             },
             "_content": "some content",
-            "_id": 35,
+            "_hash": undefined,
             "_lastUpdate": "2017-11-18T19:30:00.000Z",
             "_order": 1,
             "_parentPath": "/augsburg/de/willkommen",
             "_path": "/augsburg/de/willkommen/willkommen-in-augsburg",
+            "_root": undefined,
             "_thumbnail": "https://cms.integreat-ap…09/heart295-150x150.png",
             "_title": "Willkommen in Augsburg",
           },

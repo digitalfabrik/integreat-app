@@ -88,7 +88,7 @@ describe('SearchPage', () => {
     const searchInputProps = tree.find('SearchInput').props()
 
     // the root category should not be returned
-    expect(searchPage.findCategories()).toHaveLength(categories.toArray().length - 1)
+    expect(searchPage.findCategories()).toHaveLength(categories.toArray().length)
 
     searchInputProps.onFilterTextChange('Does not exist!')
     expect(searchPage.findCategories()).toHaveLength(0)

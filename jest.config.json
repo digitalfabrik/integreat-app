@@ -10,7 +10,8 @@
     "\\.(css)$": "identity-obj-proxy"
   },
   "moduleFileExtensions": [
-    "js"
+    "js",
+    "json"
   ],
   "moduleDirectories": [
     "node_modules"
