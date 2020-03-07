@@ -1,5 +1,5 @@
-// flow-typed signature: 41cec0d82f4afbe4616a577845c60c4e
-// flow-typed version: c6154227d1/react-native-webview_v5.x.x/flow_>=v0.88.x <=v0.103.x
+// flow-typed signature: 4ee29aa0a1a5b8e43b88d95e7a9e55aa
+// flow-typed version: c6154227d1/react-native-webview_v5.x.x/flow_>=v0.104.x
 
 /*
  * The next module declaration need to show which types was copy from `react-native`
@@ -10,21 +10,25 @@ declare module 'react-native-webview/@@react-native' {
     top: number,
     bottom: number,
     right: number,
+    ...
   };
 
   declare export type NativeScrollPoint = {
     x: number,
     y: number,
+    ...
   };
 
   declare export type NativeScrollVelocity = {
     x: number,
     y: number,
+    ...
   };
 
   declare export type NativeScrollSize = {
     height: number,
     width: number,
+    ...
   };
 
   declare export type NativeScrollEvent = {
@@ -34,9 +38,10 @@ declare module 'react-native-webview/@@react-native' {
     layoutMeasurement: NativeScrollSize,
     velocity?: NativeScrollVelocity,
     zoomScale: number,
+    ...
   };
 
-  declare export type NativeSyntheticEvent<T> = { +nativeEvent: T };
+  declare export type NativeSyntheticEvent<T> = { +nativeEvent: T, ... };
 }
 
 declare module 'react-native-webview' {
@@ -107,7 +112,7 @@ declare module 'react-native-webview' {
   declare export type WebViewSourceUri = {|
     uri?: string,
     method?: string,
-    headers?: { [string]: string },
+    headers?: { [string]: string, ... },
     body?: string,
   |};
 
@@ -123,8 +128,8 @@ declare module 'react-native-webview' {
 
   declare export type WebViewNativeConfig = {|
     component?: React$ComponentType<WebViewSharedProps>,
-    props?: {},
-    viewManager?: {},
+    props?: {...},
+    viewManager?: {...},
   |};
 
   declare export type WebViewEvent = NativeSyntheticEvent<WebViewNativeEvent>;
@@ -150,11 +155,11 @@ declare module 'react-native-webview' {
     hideKeyboardAccessoryView?: boolean,
     allowsBackForwardNavigationGestures?: boolean,
     useSharedProcessPool?: boolean,
-
     allowsLinkPreview?: boolean,
     sharedCookiesEnabled?: boolean,
     directionalLockEnabled?: boolean,
     keyboardDisplayRequiresUserAction?: boolean,
+    ...
   } & WebViewSharedProps;
 
   declare export type AndroidWebViewProps = {
@@ -170,9 +175,9 @@ declare module 'react-native-webview' {
     androidHardwareAccelerationDisabled?: boolean,
     thirdPartyCookiesEnabled?: boolean,
     domStorageEnabled?: boolean,
-
     textZoom?: number,
     mixedContentMode?: MixedContentMode,
+    ...
   } & WebViewSharedProps;
 
   declare export type WebViewSharedProps = {
@@ -202,6 +207,7 @@ declare module 'react-native-webview' {
     nativeConfig?: WebViewNativeConfig,
     cacheEnabled?: boolean,
     userAgent?: string,
+    ...
   };
 
   declare export type WebViewProps = IOSWebViewProps & AndroidWebViewProps;
