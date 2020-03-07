@@ -197,7 +197,7 @@ PODS:
     - React
   - react-native-netinfo (3.2.1):
     - React
-  - react-native-webview (8.0.6):
+  - react-native-webview (5.12.1):
     - React
   - React-RCTActionSheet (0.61.5):
     - React-Core/RCTActionSheetHeaders (= 0.61.5)
@@ -313,7 +313,7 @@ DEPENDENCIES:
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - boost-for-react-native
     - libwebp
     - SDWebImage
@@ -420,7 +420,7 @@ SPEC CHECKSUMS:
   React-jsinspector: fa0ecc501688c3c4c34f28834a76302233e29dc0
   react-native-geolocation: a7b94614afbd5fd8350e0233a2025c8228fc8041
   react-native-netinfo: 0da34082d2cec3100c9b5073bb217e35f1142bdd
-  react-native-webview: e32e5ced4c99d7240362690a65e3467d7ef535ef
+  react-native-webview: 5036ed4a973ad1deeeff118262d2df7b60b3419d
   React-RCTActionSheet: 600b4d10e3aea0913b5a92256d2719c0cdd26d76
   React-RCTAnimation: 791a87558389c80908ed06cc5dfc5e7920dfa360
   React-RCTBlob: d89293cc0236d9cb0933d85e430b0bbe81ad1d72
@@ -448,4 +448,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 23462fe2f87fbcd67fd66133ef6f07473a2100ee
 
-COCOAPODS: 1.7.4
+COCOAPODS: 1.9.0
