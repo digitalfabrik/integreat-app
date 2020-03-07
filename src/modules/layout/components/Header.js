@@ -144,12 +144,12 @@ class Header extends React.PureComponent<PropsType> {
 
   renderItem (
     title: string, iconName?: string, show: 'never' | 'always',
-    onPress: ?() => void | Promise<void>
+    onPress: ?() => void | Promise<void>, accessibilityLabel: ?string = undefined
   ): React.Node {
     const { theme } = this.props
     const buttonStyle = onPress ? {} : { color: theme.colors.textSecondaryColor }
 
-    return <Item title={title} iconName={iconName} show={show}
+    return <Item title={title} accessibilityLabel={accessibilityLabel} iconName={iconName} show={show}
                  onPress={onPress} buttonStyle={buttonStyle} />
   }
 
@@ -160,14 +160,15 @@ class Header extends React.PureComponent<PropsType> {
     return <BoxShadow theme={theme}>
       <Horizontal>
         <HorizontalLeft>
-          {this.canGoBackInStack() ? <HeaderBackButton onPress={this.goBackInStack} /> : <Logo source={logo} />}
+          {this.canGoBackInStack() ? <HeaderBackButton onPress={this.goBackInStack} />
+          : <Logo source={logo} accessibilityLabel={'Integreat'} />}
           {cityModel && <HeaderText theme={theme}>{this.cityDisplayName(cityModel)}</HeaderText>}
         </HorizontalLeft>
         <MaterialHeaderButtons>
           {!peeking && categoriesAvailable &&
-            this.renderItem(t('search'), 'search', 'always', this.goToSearch)}
+          this.renderItem(t('search'), 'search', 'always', this.goToSearch, t('search'))}
           {!peeking && goToLanguageChange &&
-          this.renderItem(t('changeLanguage'), 'language', 'always', goToLanguageChange)}
+          this.renderItem(t('changeLanguage'), 'language', 'always', goToLanguageChange, t('changeLanguage'))}
           {this.renderItem(t('share'), undefined, 'never', sharePath ? this.onShare : undefined)}
           {this.renderItem(t('changeLocation'), undefined, 'never', this.goToLanding)}
           {this.renderItem(t('settings'), undefined, 'never', this.goToSettings)}
