@@ -10,6 +10,7 @@ const CategoryCaption: StyledComponent<{}, ThemeType, *> = styled.View`
   border-bottom-width: 2px;
   border-bottom-color: ${props => props.theme.colors.themeColor};
   flex: 1;
+  justify-content: flex-start;
 `
 
 export default CategoryCaption
