@@ -6,10 +6,10 @@ import createLocation from '../../../../createLocation'
 import DisclaimerRouteConfig from '../DisclaimerRouteConfig'
 
 const disclaimer = new PageModel({
-  id: 1689,
   title: 'Feedback, Kontakt und mögliches Engagement',
   content: 'this is a test content',
-  lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
+  lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+  hash: '2fe6283485a93932'
 })
 const disclaimerPayload = new Payload(false, 'https://random.api.json', disclaimer, null)
 const payloads = { disclaimer: disclaimerPayload }
@@ -75,8 +75,6 @@ describe('DisclaimerRouteConfig', () => {
       pathname: '/augsburg/de/disclaimer',
       type: disclaimerRouteConfig.name
     })
-
-    expect(disclaimerRouteConfig.getFeedbackTargetInformation({ payloads, location })).toEqual({ id: 1689 })
 
     expect(disclaimerRouteConfig.getFeedbackTargetInformation({
       payloads: { disclaimer: new Payload(false) },

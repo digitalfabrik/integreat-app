@@ -68,7 +68,7 @@ class CategoryListItem extends React.PureComponent<PropsType> {
   renderSubCategories (): Array<React.Node> {
     const { subCategories } = this.props
     return subCategories.map(subCategory =>
-      <SubCategory key={subCategory.id}>
+      <SubCategory key={subCategory.hash}>
         <StyledLink to={subCategory.path}>
           <SubCategoryCaption search={''}>
             {subCategory.title}
