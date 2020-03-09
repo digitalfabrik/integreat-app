@@ -24,7 +24,7 @@ export class LocationFooter extends React.PureComponent<PropsType> {
       <CleanLink aria-label={t('imprintAndContact')} to={new DisclaimerRouteConfig().getRoutePath({ city, language })}>
         {t('imprintAndContact')}
       </CleanLink>
-      <CleanAnchor href='https://integreat-app.de/datenschutz/'>{t('privacy')}</CleanAnchor>
+      <CleanAnchor title={t('privacy')} href='https://integreat-app.de/datenschutz/'>{t('privacy')}</CleanAnchor>
     </Footer>
   }
 }

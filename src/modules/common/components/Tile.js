@@ -45,7 +45,7 @@ const TileTitle = styled.div`
 
 const TileContainer = styled(Col)`
   margin-bottom: 20px;
-  
+
   & > a,
   & button {
     display: block;
@@ -57,7 +57,7 @@ const TileContainer = styled(Col)`
     box-shadow: none;
     cursor: pointer;
   }
-  
+
   & > a:hover img,
   & button:hover img {
     transform: scale(1.01);
@@ -71,7 +71,7 @@ class Tile extends React.PureComponent<PropsType> {
   getTileContent (): React.Node {
     return <>
       <ThumbnailSizer>
-        <Thumbnail><img src={this.props.tile.thumbnail} /></Thumbnail>
+        <Thumbnail><img alt='' src={this.props.tile.thumbnail} /></Thumbnail>
       </ThumbnailSizer>
       <TileTitle>{this.props.tile.title}</TileTitle>
     </>
@@ -82,7 +82,7 @@ class Tile extends React.PureComponent<PropsType> {
     if (!tile.isExternalUrl) {
       return <CleanLink to={tile.path}>{this.getTileContent()}</CleanLink>
     } else if (!tile.postData) {
-      return <CleanAnchor href={tile.path}>{this.getTileContent()}</CleanAnchor>
+      return <CleanAnchor title={tile.title} href={tile.path}>{this.getTileContent()}</CleanAnchor>
     } else {
       const inputs = []
       tile.postData.forEach((value, key) => inputs.unshift(<input type='hidden' value={value} key={key} name={key} />))
