@@ -32,10 +32,12 @@ type PropsType = {|
 export class Failure extends React.PureComponent<PropsType> {
   render () {
     const { t, errorMessage, goToPath, goToMessage } = this.props
+    const message = t(goToMessage || 'goTo.start')
+
     return <Centered>
       <div>{t(errorMessage)}</div>
       <div><FontAwesomeIcon icon={faFrown} size='5x' /></div>
-      <Link to={goToPath || new I18nRedirectRouteConfig().getRoutePath({})}>{t(goToMessage || 'goTo.start')}</Link>
+      <Link aria-label={message} to={goToPath || new I18nRedirectRouteConfig().getRoutePath({})}>{message}</Link>
     </Centered>
   }
 }

@@ -27,13 +27,13 @@ export const Description = styled.div`
   padding: 10px 0 5px;
 `
 
-export const SubmitButton = styled.span`
+export const SubmitButton = styled.button`
   margin: 15px 0;
   padding: 5px;
   background-color: ${props => props.theme.colors.themeColor};
   text-align: center;
   border-radius: 0.25em;
-  cursor: pointer;
+  border: none;
 `
 
 const StyledSelect = styled(Select)`
@@ -74,7 +74,7 @@ export class FeedbackBox extends React.PureComponent<PropsType> {
 
     return (
       <StyledFeedbackBox>
-        <ModalHeader closeFeedbackModal={closeFeedbackModal} title={t('feedback')} />
+        <ModalHeader t={t} closeFeedbackModal={closeFeedbackModal} title={t('feedback')} />
         <Description>{t('feedbackType')}</Description>
         <StyledSelect
           value={selectedFeedbackOption}
@@ -84,7 +84,7 @@ export class FeedbackBox extends React.PureComponent<PropsType> {
           comment={comment}
           commentMessage={isPositiveRatingSelected ? t('positiveComment') : t('negativeComment')}
           onCommentChanged={onCommentChanged} />
-        <SubmitButton onClick={onSubmit}>
+        <SubmitButton aria-label={t('send')} onClick={onSubmit}>
           {t('send')}
         </SubmitButton>
       </StyledFeedbackBox>
