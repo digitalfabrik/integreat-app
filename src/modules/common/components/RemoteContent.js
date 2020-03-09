@@ -51,7 +51,7 @@ class RemoteContent extends React.Component<PropType, StateType> {
     } else if (message.type === 'height' && typeof message.height === 'number') {
       this.setState({ webViewHeight: message.height }, this.props.onLoad)
     } else {
-      throw Error(`Got an unknown message from the webview.`)
+      throw Error('Got an unknown message from the webview.')
     }
   }
 
@@ -75,7 +75,7 @@ class RemoteContent extends React.Component<PropType, StateType> {
     const height = this.state.webViewHeight
     const width = this.state.webViewWidth
     return <StyledView onLayout={this.onLayout}>
-      {<WebView
+      <WebView
         source={createHtmlSource(renderHtml(content, files, theme, RTL_LANGUAGES.includes(language) ? 'rtl' : 'ltr'),
           URL_PREFIX + getResourceCacheFilesDirPath(cityCode))}
         allowFileAccess // Needed by android to access file:// urls
@@ -93,7 +93,7 @@ class RemoteContent extends React.Component<PropType, StateType> {
         style={{ height, width }}
         renderError={this.renderError}
         onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
-      />}
+      />
     </StyledView>
   }
 }
