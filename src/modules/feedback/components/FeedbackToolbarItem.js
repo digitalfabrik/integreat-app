@@ -18,7 +18,7 @@ type PropsType = {|
   className?: string
 |}
 
-const StyledFeedbackToolbarItem = StyledToolbarItem.withComponent('div')
+const StyledFeedbackToolbarItem = StyledToolbarItem.withComponent('button')
 
 export class FeedbackToolbarItem extends React.PureComponent<PropsType> {
   componentDidMount () {
@@ -26,7 +26,8 @@ export class FeedbackToolbarItem extends React.PureComponent<PropsType> {
     ReactTooltip.rebuild()
   }
 
-  handleLinkClick = () => this.props.openFeedbackModal(this.props.isPositiveRatingLink ? POSITIVE_RATING : NEGATIVE_RATING)
+  handleLinkClick = () =>
+    this.props.openFeedbackModal(this.props.isPositiveRatingLink ? POSITIVE_RATING : NEGATIVE_RATING)
 
   render () {
     const { t, isPositiveRatingLink, className } = this.props
