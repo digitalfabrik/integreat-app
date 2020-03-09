@@ -61,9 +61,9 @@ type StateType = {|
 class FeedbackModal extends React.Component<PropsType, StateType> {
   state = { feedbackSent: false }
 
-  onSubmit = () => this.setState({ feedbackSent: true })
+  handleSubmit = () => this.setState({ feedbackSent: true })
 
-  closeFeedbackModal = () => {
+  handleOverlayClick = () => {
     this.setState({ feedbackSent: false })
     this.props.closeFeedbackModal()
   }
@@ -73,13 +73,13 @@ class FeedbackModal extends React.Component<PropsType, StateType> {
     const { feedbackSent } = this.state
 
     return <ModalContainer>
-      <Overlay onClick={this.closeFeedbackModal} />
+      <Overlay onClick={this.handleOverlayClick} />
       <FeedbackContainer>
         {
           feedbackSent
             ? <FeedbackThanksMessage closeFeedbackModal={this.props.closeFeedbackModal} />
             : <FeedbackBoxContainer isPositiveRatingSelected={feedbackStatus === POSITIVE_RATING}
-                                    {...otherProps} onSubmit={this.onSubmit} />
+                                    {...otherProps} onSubmit={this.handleSubmit} />
         }
       </FeedbackContainer>
     </ModalContainer>

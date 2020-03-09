@@ -20,11 +20,10 @@ class App extends React.Component<PropsType> {
 
   constructor () {
     super()
-    this.store = createReduxStore({})
+    this.store = createReduxStore()
   }
 
   render () {
-    // $FlowFixMe https://github.com/facebook/flow/issues/6107 StrictMode not yet available in flow
     return <React.StrictMode>
       <Provider store={this.store}>
         <PlatformProvider>

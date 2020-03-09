@@ -186,7 +186,7 @@ describe('Switcher', () => {
 
   const toggleDarkMode = () => {}
 
-  const createSwitcher = (currentRoute: string, pathname?: string): React.Node => {
+  const createSwitcher = (currentRoute: string, pathname?: string): React.Element<*> => {
     const location = createLocation({
       type: currentRoute,
       pathname,

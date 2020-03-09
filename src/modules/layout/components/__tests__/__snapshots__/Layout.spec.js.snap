@@ -18,7 +18,6 @@ exports[`Layout should render all components 1`] = `
       </withPlatform(Layout__Aside)>
       <Layout__Main>
         <p>
-           
           content right here
         </p>
       </Layout__Main>

@@ -21,7 +21,7 @@ describe('LandingPage', () => {
   ]
 
   it('should match snapshot', () => {
-    expect(shallow(<LandingPage cities={cities} language={'de'} />)).toMatchSnapshot()
+    expect(shallow(<LandingPage cities={cities} language='de' />)).toMatchSnapshot()
   })
 
   it('should map state to props', () => {
@@ -39,7 +39,7 @@ describe('LandingPage', () => {
       <ConnectedLandingPage store={store} cities={cities} />
     )
 
-    expect(landingPage.props()).toMatchObject({
+    expect(landingPage.find(LandingPage).props()).toMatchObject({
       language,
       cities
     })

@@ -16,7 +16,7 @@ import createHistory from './createHistory'
 import type { StateType } from './StateType'
 import type { StoreActionType } from './StoreActionType'
 
-const createReduxStore = (initialState: {} = {}, routesMap: RoutesMap = defaultRoutesMap): Store<StateType,
+const createReduxStore = (initialState: StateType = {}, routesMap: RoutesMap = defaultRoutesMap): Store<StateType,
   StoreActionType> => {
   const { reducer, middleware, enhancer } = connectRoutes(routesMap, {
     createHistory: () => createHistory()
@@ -41,7 +41,6 @@ const createReduxStore = (initialState: {} = {}, routesMap: RoutesMap = defaultR
     darkMode: toggleDarkModeReducer
   })
 
-  // $FlowFixMe Types of redux applyMiddleware and the redux-first-router middleware are not the same
   const enhancers = compose(responsiveStoreEnhancer, enhancer, applyMiddleware(...middlewares))
 
   return createStore(rootReducer, initialState, enhancers)

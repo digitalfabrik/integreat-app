@@ -100,7 +100,7 @@ describe('CategoriesPage', () => {
                       city={city}
                       language={language}
                       path={categoryModels[3].path}
-                      uiDirection={'ltr'} />
+                      uiDirection='ltr' />
     )
 
     expect(wrapper).toMatchSnapshot()
@@ -112,7 +112,7 @@ describe('CategoriesPage', () => {
                       cities={cities}
                       city={city}
                       language={language}
-                      uiDirection={'ltr'}
+                      uiDirection='ltr'
                       path={categoryModels[2].path} />
     )
 
@@ -125,8 +125,8 @@ describe('CategoriesPage', () => {
                       cities={cities}
                       city={city}
                       language={language}
-                      uiDirection={'ltr'}
-                      path={'/augsburg/de'} />
+                      uiDirection='ltr'
+                      path='/augsburg/de' />
     )
 
     expect(wrapper).toMatchSnapshot()
@@ -137,9 +137,9 @@ describe('CategoriesPage', () => {
       <CategoriesPage categories={categories}
                       cities={cities}
                       city={city}
-                      uiDirection={'ltr'}
+                      uiDirection='ltr'
                       language={language}
-                      path={'/augsburg/de/not/valid'} />
+                      path='/augsburg/de/not/valid' />
     )
 
     expect(wrapper).toMatchSnapshot()
@@ -163,7 +163,7 @@ describe('CategoriesPage', () => {
       <ConnectedCategoriesPage store={store} cities={cities} categories={categories} />
     )
 
-    expect(categoriesPage.props()).toMatchObject({
+    expect(categoriesPage.find(CategoriesPage).props()).toMatchObject({
       city,
       language,
       path: pathname,

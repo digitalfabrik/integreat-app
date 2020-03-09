@@ -87,7 +87,7 @@ describe('WohnenExtraPage', () => {
       <WohnenExtraPage offers={offers}
                        city={city}
                        language={language}
-                       offerHash={'invalid hash'}
+                       offerHash='invalid hash'
                        extras={[wohnenExtra]}
                        t={t} />
     )

@@ -45,7 +45,7 @@ type StateType = {|
 export class SearchFeedback extends React.Component<PropsType, StateType> {
   state = { boxOpenedForQuery: null }
 
-  openFeedbackBox = () => {
+  handleFeedbackLinkClicked = () => {
     const { location, query } = this.props
     const { city, language } = location.payload
     createFeedbackEndpoint(cmsApiBaseUrl).request({
@@ -68,7 +68,7 @@ export class SearchFeedback extends React.Component<PropsType, StateType> {
       </FeedbackContainer>
     } else {
       return <FeedbackButton>
-        <FeedbackLink onClick={this.openFeedbackBox}>{t('informationNotFound')}</FeedbackLink>
+        <FeedbackLink onClick={this.handleFeedbackLinkClicked}>{t('informationNotFound')}</FeedbackLink>
       </FeedbackButton>
     }
   }

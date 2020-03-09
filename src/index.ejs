@@ -29,8 +29,6 @@
   <link rel="dns-prefetch" href="<%= config.cmsUrl %>" />
   <link rel="preconnect" href="<%= config.cmsUrl %>" />
 
-  <link rel="preload" href="<%= bundle %>" as="script" type="text/javascript" />
-
   <link rel="preload" href="<%= config.cmsUrl %>/wp-json/extensions/v3/sites" as="fetch" crossorigin />
 
   <link rel="stylesheet" href="/fonts/open-sans/open-sans.css" as="style" type="text/css" />
@@ -136,6 +134,5 @@
 </noscript>
 <div id="container"></div>
 <script src="/warn-ie.js" type="text/javascript"></script>
-<script src="<%= bundle %>"></script>
 </body>
 </html>

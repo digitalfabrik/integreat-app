@@ -11,17 +11,17 @@ import Headroom from '@integreat-app/react-sticky-headroom'
 import Platform from '../../../platform/Platform'
 
 describe('Header', () => {
-  const onStickyTopChanged = (value: number) => void
+  const onStickyTopChanged = (value: number) => undefined
   it('should match snapshot with smallViewport', () => {
     const component = shallow(
       <Header
         theme={darkTheme}
         platform={new Platform()}
-        logoHref={'/random_route'}
+        logoHref='/random_route'
         actionItems={[new HeaderActionItem({ href: '/random_route' })]}
         onStickyTopChanged={onStickyTopChanged}
         navigationItems={
-          <HeaderNavigationItem href={'/another_route'} text='text1' active selected tooltip='tooltip1' />
+          <HeaderNavigationItem href='/another_route' text='text1' active selected tooltip='tooltip1' />
         }
         viewportSmall />
     )
@@ -33,11 +33,11 @@ describe('Header', () => {
       <Header
         theme={darkTheme}
         platform={new Platform()}
-        logoHref={'/random_route'}
+        logoHref='/random_route'
         actionItems={[new HeaderActionItem({ href: '/random_route' })]}
         onStickyTopChanged={onStickyTopChanged}
         navigationItems={
-          <HeaderNavigationItem href={'/another_route'} text='text1' active selected tooltip='tooltip1' />
+          <HeaderNavigationItem href='/another_route' text='text1' active selected tooltip='tooltip1' />
         }
         viewportSmall={false} />
     )
@@ -51,10 +51,10 @@ describe('Header', () => {
       <Header
         theme={darkTheme}
         platform={new Platform()}
-        logoHref={'/random_route'}
+        logoHref='/random_route'
         actionItems={[new HeaderActionItem({ href: '/random_route' })]}
         navigationItems={
-          <HeaderNavigationItem href={'/another_route'} text='text1' active selected tooltip='tooltip1' />
+          <HeaderNavigationItem href='/another_route' text='text1' active selected tooltip='tooltip1' />
         }
         viewportSmall={false}
         onStickyTopChanged={callback}

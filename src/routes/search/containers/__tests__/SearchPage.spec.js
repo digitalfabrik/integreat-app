@@ -136,7 +136,7 @@ describe('SearchPage', () => {
       <SearchPage location={location} categories={categories} t={t} />
     ).instance()
 
-    searchPage.onFilterTextChange('abc')
+    searchPage.handleFilterTextChanged('abc')
 
     expect(searchPage.findCategories()[0].model).toBe(categoryModels[0])
     expect(searchPage.findCategories()[1].model).toBe(categoryModels[1])
@@ -156,7 +156,7 @@ describe('SearchPage', () => {
       <ConnectedSearchPage store={store} categories={categories} />
     )
 
-    expect(searchPage.props()).toMatchObject({
+    expect(searchPage.dive().dive().props()).toMatchObject({
       categories,
       location
     })

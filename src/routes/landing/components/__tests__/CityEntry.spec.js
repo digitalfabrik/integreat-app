@@ -16,7 +16,7 @@ describe('CityEntry', () => {
       sortingName: 'Augsburg'
     })
 
-    const component = shallow(<CityEntry language={'de'} city={city} filterText={''} />)
+    const component = shallow(<CityEntry language='de' city={city} filterText='' />)
     expect(component).toMatchSnapshot()
   })
 })

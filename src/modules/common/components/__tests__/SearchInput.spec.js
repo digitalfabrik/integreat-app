@@ -8,22 +8,22 @@ import { ThemeProvider } from 'styled-components'
 
 describe('SearchInput', () => {
   it('should render', () => {
-    expect(shallow(<SearchInput filterText={'Test'}
-                                placeholderText={'Placeholder'}
+    expect(shallow(<SearchInput filterText='Test'
+                                placeholderText='Placeholder'
                                 onFilterTextChange={() => {}} />)).toMatchSnapshot()
   })
 
   it('should render and space search', () => {
-    expect(shallow(<SearchInput filterText={'Test'}
-                                placeholderText={'Placeholder'}
+    expect(shallow(<SearchInput filterText='Test'
+                                placeholderText='Placeholder'
                                 onFilterTextChange={() => {}}
                                 spaceSearch />)).toMatchSnapshot()
   })
 
   describe('connect', () => {
     it('should render', () => {
-      expect(shallow(<ConnectedSearchInput filterText={'Test'}
-                                           placeholderText={'Placeholder'}
+      expect(shallow(<ConnectedSearchInput filterText='Test'
+                                           placeholderText='Placeholder'
                                            onFilterTextChange={() => {}} />)).toMatchSnapshot()
     })
   })
@@ -33,8 +33,8 @@ describe('SearchInput', () => {
     const onClickInput = jest.fn()
     const component = mount(
       <ThemeProvider theme={theme}>
-        <ConnectedSearchInput filterText={'Test'}
-                              placeholderText={'Placeholder'}
+        <ConnectedSearchInput filterText='Test'
+                              placeholderText='Placeholder'
                               onClickInput={onClickInput}
                               onFilterTextChange={outerFilterTextChange} />
       </ThemeProvider>
