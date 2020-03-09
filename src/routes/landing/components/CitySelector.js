@@ -43,7 +43,8 @@ class CitySelector extends React.PureComponent<PropsType> {
         .filter(_city => {
           const isCityName = _city.name.toLowerCase().includes(filterText)
           const isAlias = _city._aliases && Object
-            .keys(_city._aliases).some(alias => normalize(alias).toLowerCase().includes(filterText))
+            .keys(_city._aliases)
+            .some(alias => normalize(alias).toLowerCase().includes(normalize(filterText).toLowerCase()))
           return isCityName || isAlias
         })
     }

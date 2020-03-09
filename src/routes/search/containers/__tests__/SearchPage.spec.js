@@ -14,47 +14,28 @@ describe('SearchPage', () => {
 
   const categoryModels = [
     new CategoryModel({
-      id: 0,
-      path: '/augsburg/de',
-      title: 'augsburg',
+      root: true,
+      path: '/augsburg/en/',
+      title: 'Welcome',
       content: '',
-      order: -1,
-      availableLanguages: new Map(),
-      thumbnail: 'no_thumbnail',
-      parentPath: '',
-      lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
-    }), new CategoryModel({
-      id: 3650,
-      path: '/augsburg/de/anlaufstellen',
-      title: 'Anlaufstellen zu sonstigen Themen',
-      content: '',
-      parentPath: '/augsburg/de',
+      parentPath: '/augsburg/en',
       order: 75,
-      availableLanguages: new Map([['en', '4361'], ['ar', '4367'], ['fa', '4368']]),
+      availableLanguages: new Map([['de', '/augsburg/de/']]),
       thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png',
-      lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
+      lastUpdate: moment('2016-01-07 10:36:24'),
+      hash: '91d435afbc7aa83496137e81fd2832e3'
     }),
     new CategoryModel({
-      id: 3649,
-      path: '/augsburg/de/willkommen',
-      title: 'Willkommen',
+      root: false,
+      path: '/augsburg/en/welcome',
+      title: 'Welcome',
       content: '',
-      parentPath: '/augsburg/de',
-      order: 11,
-      availableLanguages: new Map([['en', '4861'], ['ar', '4867'], ['fa', '4868']]),
-      thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
-      lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
-    }),
-    new CategoryModel({
-      id: 35,
-      path: '/augsburg/de/willkommen/willkommen-in-augsburg',
-      title: 'Willkommen in Augsburg',
-      content: 'some content',
-      parentPath: '/augsburg/de/willkommen',
-      order: 1,
-      availableLanguages: new Map([['en', '390'], ['ar', '711'], ['fa', '397']]),
-      thumbnail: 'https://cms.integreat-ap…09/heart295-150x150.png',
-      lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
+      parentPath: '/augsburg/en',
+      order: 75,
+      availableLanguages: new Map([['de', '/augsburg/de/willkommen']]),
+      thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png',
+      lastUpdate: moment('2016-01-07 10:36:24'),
+      hash: '91d435afbc7aa83496137e81fd2832e3'
     })
   ]
 
@@ -88,7 +69,7 @@ describe('SearchPage', () => {
     const searchInputProps = tree.find('SearchInput').props()
 
     // the root category should not be returned
-    expect(searchPage.findCategories()).toHaveLength(categories.toArray().length)
+    expect(searchPage.findCategories()).toHaveLength(categories.toArray().length - 1)
 
     searchInputProps.onFilterTextChange('Does not exist!')
     expect(searchPage.findCategories()).toHaveLength(0)

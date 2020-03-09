@@ -36,7 +36,7 @@ class CityEntry extends React.PureComponent<PropsType> {
   getMunicipality = (city: CityModel, filterText: string): Array<CityModel> => {
     if (city._aliases && filterText) {
       return Object.keys(city._aliases)
-        .filter(municipality => normalize(municipality).toLowerCase().includes(filterText.toLowerCase()))
+        .filter(municipality => normalize(municipality).toLowerCase().includes(normalize(filterText).toLowerCase()))
     }
     return []
   }
