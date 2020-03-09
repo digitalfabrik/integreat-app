@@ -40,6 +40,7 @@ class CityEntry extends React.PureComponent<PropsType> {
     }
     return []
   }
+
   render () {
     const { city, language, filterText } = this.props
     const municipalities = this.getMunicipality(city, filterText)
