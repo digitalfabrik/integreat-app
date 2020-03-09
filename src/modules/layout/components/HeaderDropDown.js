@@ -5,6 +5,11 @@ import onClickOutside from 'react-onclickoutside'
 import styled from 'styled-components'
 import ReactTooltip from 'react-tooltip'
 
+export const StyledButton = styled.button`
+  background-color: ${props => props.theme.colors.backgroundAccentColor};
+  border: none;
+`
+
 export const DropDownContainer = styled.div`
   position: absolute;
   top: ${props => props.theme.dimensions.headerHeightLarge}px;
@@ -18,6 +23,7 @@ export const DropDownContainer = styled.div`
   transition: transform 0.2s, opacity 0.2s;
   background-color: ${props => props.theme.colors.backgroundColor};
   pointer-events: ${props => props.active ? 'auto' : 'none'};
+  ${props => props.active ? '' : 'display: none;'}
 
   @media ${props => props.theme.dimensions.smallViewport} {
     top: ${props => props.theme.dimensions.headerHeightSmall}px;
@@ -70,15 +76,17 @@ export class HeaderDropDown extends React.Component<PropsType, StateType> {
 
   render () {
     const { iconSrc, text, children } = this.props
+    const { dropDownActive } = this.state
+
     return (
-      <span data-tip={text} aria-label={text}>
-        <img src={iconSrc} onClick={this.toggleDropDown} />
-        <DropDownContainer active={this.state.dropDownActive}>
+      <StyledButton data-tip={text} aria-label={text}>
+        <img alt='' src={iconSrc} onClick={this.toggleDropDown} />
+        <DropDownContainer active={dropDownActive}>
           {React.cloneElement(children, {
             closeDropDownCallback: this.closeDropDown
           })}
         </DropDownContainer>
-      </span>
+      </StyledButton>
     )
   }
 }
