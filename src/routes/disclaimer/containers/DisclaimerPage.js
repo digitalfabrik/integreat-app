@@ -33,4 +33,4 @@ const mapStateTypeToProps = (stateType: StateType) => ({
   language: stateType.location.payload.language
 })
 
-export default connect(mapStateTypeToProps)(DisclaimerPage)
+export default connect<*, *, *, *, *, *>(mapStateTypeToProps)(DisclaimerPage)

@@ -8,7 +8,7 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons/faSearch'
 const searchLogoWidth = '25px'
 
 const Spacer = styled.div`
-  ${props => props.space && `margin: 15px 0;`}
+  ${props => props.space && 'margin: 15px 0;'}
 `
 
 const TextInput = styled.input.attrs({ type: 'text' })`
@@ -52,7 +52,7 @@ type PropsType = {|
 
 export class SearchInput extends React.PureComponent<PropsType> {
   static defaultProps = { spaceSearch: false }
-  onFilterTextChange = (event: SyntheticInputEvent<EventTarget>) => this.props.onFilterTextChange(event.target.value)
+  handleFilterTextChange = (event: SyntheticInputEvent<EventTarget>) => this.props.onFilterTextChange(event.target.value)
 
   render () {
     const { onClickInput, filterText, placeholderText } = this.props
@@ -63,7 +63,7 @@ export class SearchInput extends React.PureComponent<PropsType> {
             <TextInput placeholder={placeholderText}
                        aria-label={placeholderText}
                        defaultValue={filterText}
-                       onChange={this.onFilterTextChange}
+                       onChange={this.handleFilterTextChange}
                        onClick={onClickInput}
                        autoFocus />
         </Wrapper>

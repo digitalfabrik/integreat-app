@@ -6,7 +6,7 @@ exports[`Tile should render a Link if path is not an external url 1`] = `
   sm={4}
   xs={6}
 >
-  <CleanLink
+  <CleanLink___default
     to="/augsburg/de/willkommen"
   >
     <Tile__ThumbnailSizer>
@@ -19,7 +19,7 @@ exports[`Tile should render a Link if path is not an external url 1`] = `
     <Tile__TileTitle>
       Willkommen
     </Tile__TileTitle>
-  </CleanLink>
+  </CleanLink___default>
 </Tile__TileContainer>
 `;
 

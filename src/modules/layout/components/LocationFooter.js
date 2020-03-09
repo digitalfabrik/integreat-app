@@ -22,7 +22,7 @@ export class LocationFooter extends React.PureComponent<PropsType> {
 
     return <Footer onClick={onClick}>
       <CleanLink to={new DisclaimerRouteConfig().getRoutePath({ city, language })}>{t('imprintAndContact')}</CleanLink>
-      <CleanAnchor href={'https://integreat-app.de/datenschutz/'}>{t('privacy')}</CleanAnchor>
+      <CleanAnchor href='https://integreat-app.de/datenschutz/'>{t('privacy')}</CleanAnchor>
     </Footer>
   }
 }

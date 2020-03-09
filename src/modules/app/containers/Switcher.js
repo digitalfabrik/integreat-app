@@ -110,8 +110,7 @@ export class Switcher extends React.Component<PropsType> {
           {error ? <LanguageFailure cities={citiesPayload.data}
                                     location={location}
                                     languageChangePaths={languageChangePaths} />
-            : <RouteContentSwitcher location={location} allPayloads={this.getAllPayloads()} />
-          }
+            : <RouteContentSwitcher location={location} allPayloads={this.getAllPayloads()} />}
         </Layout>
       )
     } else {
@@ -160,8 +159,7 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>) => ({
   toggleDarkMode: () => dispatch(toggleDarkModeAction())
 })
 
-// $FlowFixMe https://github.com/facebook/flow/issues/7125
 export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
+  connect<*, *, *, *, *, *>(mapStateToProps, mapDispatchToProps),
   withTranslation('app')
 )(Switcher)

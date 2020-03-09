@@ -1,3 +1,5 @@
+/* eslint-disable no-magic-numbers */
+
 (function () {
   // Get IE browser version
   var version = detectIE()

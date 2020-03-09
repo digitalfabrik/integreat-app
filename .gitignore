@@ -48,6 +48,7 @@ jspm_packages/
 
 #Library output
 dist/
+lib-dist/
 
 # Typescript v1 declaration files
 typings/

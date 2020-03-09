@@ -7,7 +7,7 @@ import Toolbar from '../Toolbar'
 
 describe('Toolbar', () => {
   it('should render', () => {
-    const component = shallow(<Toolbar className={'sample'}>
+    const component = shallow(<Toolbar className='sample'>
       <p>test item</p>
     </Toolbar>)
     expect(component).toMatchSnapshot()

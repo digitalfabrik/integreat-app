@@ -14,8 +14,8 @@ describe('ScrollingSearchBox', () => {
 
   it('should render', () => {
     const component = (
-      <ScrollingSearchBox filterText={'Test'}
-                          placeholderText={'Placeholder'}
+      <ScrollingSearchBox filterText='Test'
+                          placeholderText='Placeholder'
                           onFilterTextChange={() => {}}
                           onStickyTopChanged={onStickyTopChanged}>
         <MockNode />
@@ -24,8 +24,8 @@ describe('ScrollingSearchBox', () => {
   })
 
   it('should space search', () => {
-    expect(shallow(<ScrollingSearchBox filterText={'Test'}
-                                       placeholderText={'Placeholder'}
+    expect(shallow(<ScrollingSearchBox filterText='Test'
+                                       placeholderText='Placeholder'
                                        onFilterTextChange={() => {}}
                                        spaceSearch
                                        onStickyTopChanged={onStickyTopChanged}>
@@ -38,8 +38,8 @@ describe('ScrollingSearchBox', () => {
     const outerStickyTopChanged = jest.fn()
     const component = mount(
       <ThemeProvider theme={theme}>
-        <ScrollingSearchBox filterText={'Test'}
-                            placeholderText={'Placeholder'}
+        <ScrollingSearchBox filterText='Test'
+                            placeholderText='Placeholder'
                             onFilterTextChange={outerFilterTextChange}
                             onStickyTopChanged={outerStickyTopChanged}>
           <MockNode />
@@ -56,9 +56,9 @@ describe('ScrollingSearchBox', () => {
   it('should set correct reference', () => {
     const component = mount(
       <ThemeProvider theme={theme}>
-        <ScrollingSearchBox filterText={'Test'}
+        <ScrollingSearchBox filterText='Test'
                             onFilterTextChange={() => {}}
-                            placeholderText={'Placeholder'}
+                            placeholderText='Placeholder'
                             onStickyTopChanged={onStickyTopChanged}>
           <MockNode />
         </ScrollingSearchBox>

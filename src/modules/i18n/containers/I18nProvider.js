@@ -137,4 +137,4 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>) => ({
 
 const mapStateToProps = state => ({ language: state.location.payload.language })
 
-export default connect(mapStateToProps, mapDispatchToProps)(I18nProvider)
+export default connect<*, *, *, *, *, *>(mapStateToProps, mapDispatchToProps)(I18nProvider)

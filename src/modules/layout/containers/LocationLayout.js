@@ -47,9 +47,9 @@ const DARK_THEME_CLICK_COUNT = 5
 export class LocationLayout extends React.Component<PropsType, LocalStateType> {
   state = { asideStickyTop: 0, feedbackModalRating: null, footerClicked: 0 }
 
-  onStickyTopChanged = (asideStickyTop: number) => this.setState({ asideStickyTop })
+  handleStickyTopChanged = (asideStickyTop: number) => this.setState({ asideStickyTop })
 
-  onFooterClicked = () => {
+  handleFooterClicked = () => {
     if (this.state.footerClicked >= DARK_THEME_CLICK_COUNT - 1) {
       this.props.toggleDarkMode()
     }
@@ -119,8 +119,8 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
                                            location={location}
                                            events={events}
                                            viewportSmall={viewportSmall}
-                                           onStickyTopChanged={this.onStickyTopChanged} />}
-                   footer={<LocationFooter onClick={this.onFooterClicked} city={city} language={language} />}
+                                           onStickyTopChanged={this.handleStickyTopChanged} />}
+                   footer={<LocationFooter onClick={this.handleFooterClicked} city={city} language={language} />}
                    toolbar={this.renderToolbar()}
                    modal={type !== SEARCH_ROUTE && this.renderFeedbackModal()}
                    darkMode={darkMode}>

@@ -61,7 +61,7 @@ describe('ExtrasPage', () => {
       <ExtrasPage city={city}
                   language={language}
                   extras={extras}
-                  extraId={'invalid_extra'}
+                  extraId='invalid_extra'
                   t={t} />
     )
     expect(extrasPage).toMatchSnapshot()
