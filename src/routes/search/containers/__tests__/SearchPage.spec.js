@@ -143,4 +143,22 @@ describe('SearchPage', () => {
     expect(searchPage.findCategories()[2].model).toBe(categoryModels[2])
     expect(searchPage.findCategories()[3].model).toBe(categoryModels[3])
   })
+
+  it('should map state to props', () => {
+    const mockStore = configureMockStore()
+    const store = mockStore({
+      categories: { data: categories },
+      cities: { data: cities },
+      location
+    })
+
+    const searchPage = shallow(
+      <ConnectedSearchPage store={store} categories={categories} />
+    )
+
+    expect(searchPage.dive().dive().props()).toMatchObject({
+      categories,
+      location
+    })
+  })
 })
