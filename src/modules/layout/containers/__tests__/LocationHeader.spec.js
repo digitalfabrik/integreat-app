@@ -22,7 +22,7 @@ describe('LocationHeader', () => {
 
   const events = [
     new EventModel({
-      id: 1,
+      hash: '35654fa',
       path: '/augsburg/en/events/first_event',
       title: 'first Event',
       availableLanguages: new Map(
@@ -43,7 +43,7 @@ describe('LocationHeader', () => {
       thumbnail: 'thumbnail'
     }),
     new EventModel({
-      id: 2,
+      hash: '35654fff',
       path: '/augsburg/en/events/second_event',
       title: 'second Event',
       availableLanguages: new Map(
@@ -64,7 +64,7 @@ describe('LocationHeader', () => {
       thumbnail: 'thumbnail'
     }),
     new EventModel({
-      id: 3,
+      hash: '23535654fa',
       path: '/augsburg/en/events/third_event',
       title: 'third Event',
       availableLanguages: new Map(
