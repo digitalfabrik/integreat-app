@@ -16,7 +16,7 @@ export function * fetchCities (dataContainer: DataContainer, action: FetchCities
     const cities = yield call(loadCities, dataContainer, action.params.forceRefresh)
 
     const insert: PushCitiesActionType = {
-      type: `PUSH_CITIES`,
+      type: 'PUSH_CITIES',
       params: { cities: cities }
     }
 
@@ -24,7 +24,7 @@ export function * fetchCities (dataContainer: DataContainer, action: FetchCities
   } catch (e) {
     console.error(e)
     const failed: FetchCitiesFailedActionType = {
-      type: `FETCH_CITIES_FAILED`,
+      type: 'FETCH_CITIES_FAILED',
       params: {
         message: `Error in fetchCities: ${e.message}`, code: fromError(e)
       }
@@ -34,5 +34,5 @@ export function * fetchCities (dataContainer: DataContainer, action: FetchCities
 }
 
 export default function * (dataContainer: DataContainer): Saga<void> {
-  yield takeLatest(`FETCH_CITIES`, fetchCities, dataContainer)
+  yield takeLatest('FETCH_CITIES', fetchCities, dataContainer)
 }

@@ -19,14 +19,14 @@ describe('watchClearResourcesAndCache', () => {
   it('should delete all data in offline cache', async () => {
     // populate the offline cache
     await RNFetchBlob.fs.writeFile(path.join(CACHE_DIR_PATH, 'testFile.json'), JSON.stringify({
-      'this': 'is',
-      'a': 'cool',
-      'json': 111
+      this: 'is',
+      a: 'cool',
+      json: 111
     }), 'utf-8')
     await RNFetchBlob.fs.writeFile(path.join(CACHE_DIR_PATH, 'notSoSecretDirectory', 'testFile2.json'), JSON.stringify({
-      'this': 'expression',
-      'is': true,
-      'not': false
+      this: 'expression',
+      is: true,
+      not: false
     }), 'utf-8')
 
     const action = { type: 'CLEAR_RESOURCES_AND_CACHE' }
