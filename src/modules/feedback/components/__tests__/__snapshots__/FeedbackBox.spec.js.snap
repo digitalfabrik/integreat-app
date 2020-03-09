@@ -4,6 +4,7 @@ exports[`FeedbackBox should match snapshot 1`] = `
 <FeedbackBox__StyledFeedbackBox>
   <ModalHeader
     closeFeedbackModal={[Function]}
+    t={[Function]}
     title="feedback"
   />
   <FeedbackBox__Description>
@@ -34,6 +35,7 @@ exports[`FeedbackBox should match snapshot 1`] = `
     onCommentChanged={[Function]}
   />
   <FeedbackBox__SubmitButton
+    aria-label="send"
     onClick={[Function]}
   >
     send

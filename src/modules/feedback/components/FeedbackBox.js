@@ -31,9 +31,9 @@ export const SubmitButton = styled.button`
   margin: 15px 0;
   padding: 5px;
   background-color: ${props => props.theme.colors.themeColor};
+  border: none;
   text-align: center;
   border-radius: 0.25em;
-  border: none;
 `
 
 const StyledSelect = styled(Select)`
