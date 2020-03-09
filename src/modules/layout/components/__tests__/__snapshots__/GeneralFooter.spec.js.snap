@@ -10,6 +10,7 @@ exports[`GeneralFooter should match snapshot 1`] = `
   <CleanAnchor
     href="https://integreat-app.de/datenschutz/"
     newTab={true}
+    title="layout:privacy"
   >
     layout:privacy
   </CleanAnchor>

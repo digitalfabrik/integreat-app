@@ -5,6 +5,7 @@ exports[`LocationFooter should match snapshot 1`] = `
   onClick={[Function]}
 >
   <CleanLink___default
+    aria-label="imprintAndContact"
     to="/augsburg/de/disclaimer"
   >
     imprintAndContact
@@ -12,6 +13,7 @@ exports[`LocationFooter should match snapshot 1`] = `
   <CleanAnchor
     href="https://integreat-app.de/datenschutz/"
     newTab={true}
+    title="privacy"
   >
     privacy
   </CleanAnchor>

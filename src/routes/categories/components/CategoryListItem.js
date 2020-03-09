@@ -10,7 +10,7 @@ import Link from 'redux-first-router-link'
 
 const Row = styled.div`
   margin: 12px 0;
-  
+
   & > * {
     width: 100%;
   }
@@ -18,7 +18,7 @@ const Row = styled.div`
 
 const SubCategory = styled.div`
   text-align: end;
-  
+
   & > * {
     width: calc(100% - 60px);
     text-align: start;
@@ -90,7 +90,7 @@ class CategoryListItem extends React.PureComponent<PropsType> {
     return (
       <Row>
         <StyledLink to={category.path}>
-          <CategoryThumbnail src={category.thumbnail || iconPlaceholder} />
+          <CategoryThumbnail alt='' src={category.thumbnail || iconPlaceholder} />
           {this.renderTitle()}
         </StyledLink>
         {this.renderSubCategories()}
