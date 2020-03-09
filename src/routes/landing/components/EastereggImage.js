@@ -80,7 +80,7 @@ class EastereggImage extends React.Component<PropsType, StateType> {
           <ApiUrlText>{`Currently using API: ${apiUrlOverride.toString()}`}</ApiUrlText>
           <Button titleStyle={{ color: theme.colors.textColor }}
                   buttonStyle={{ backgroundColor: theme.colors.themeColor, marginTop: 10 }}
-                  onPress={this.switchApi} title={'Switch back to default API'} />
+                  onPress={this.switchApi} title='Switch back to default API' />
         </>
       )
     }

@@ -27,14 +27,14 @@ export function * fetchEvent (dataContainer: DataContainer, action: FetchEventAc
       ])
 
       const insert: PushEventActionType = {
-        type: `PUSH_EVENT`,
+        type: 'PUSH_EVENT',
         params: { events, resourceCache, path, cityLanguages, key, language, city }
       }
       yield put(insert)
     } else {
       const allAvailableLanguages = path === null ? new Map(cityLanguages.map(lng => [lng.code, null])) : null
       const failed: FetchEventFailedActionType = {
-        type: `FETCH_EVENT_FAILED`,
+        type: 'FETCH_EVENT_FAILED',
         params: {
           message: 'Could not load event.',
           code: ErrorCodes.PageNotFound,
@@ -50,7 +50,7 @@ export function * fetchEvent (dataContainer: DataContainer, action: FetchEventAc
   } catch (e) {
     console.error(e)
     const failed: FetchEventFailedActionType = {
-      type: `FETCH_EVENT_FAILED`,
+      type: 'FETCH_EVENT_FAILED',
       params: {
         message: `Error in fetchEvent: ${e.message}`,
         code: fromError(e),
@@ -66,5 +66,5 @@ export function * fetchEvent (dataContainer: DataContainer, action: FetchEventAc
 }
 
 export default function * (dataContainer: DataContainer): Saga<void> {
-  yield takeLatest(`FETCH_EVENT`, fetchEvent, dataContainer)
+  yield takeLatest('FETCH_EVENT', fetchEvent, dataContainer)
 }

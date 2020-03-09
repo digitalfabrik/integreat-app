@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import type { NavigationScreenProp } from 'react-navigation'
-import { translate } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import FeedbackModal from '../components/FeedbackModal'
 import FeedbackVariant from '../FeedbackVariant'
@@ -10,7 +10,7 @@ import { createFeedbackEndpoint } from '@integreat-app/integreat-api-client'
 import type { FeedbackParamsType } from '@integreat-app/integreat-api-client/index'
 import determineApiUrl from '../../../modules/endpoint/determineApiUrl'
 
-const TranslatedFeedbackModal = translate('feedback')(withTheme()(FeedbackModal))
+const TranslatedFeedbackModal = withTranslation('feedback')(withTheme()(FeedbackModal))
 
 class FeedbackModalContainer extends React.Component<{| navigation: NavigationScreenProp<*> |}> {
   closeModal = () => this.props.navigation.goBack()
