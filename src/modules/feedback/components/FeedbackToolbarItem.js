@@ -33,11 +33,10 @@ export class FeedbackToolbarItem extends React.PureComponent<PropsType> {
     const { t, isPositiveRatingLink, className } = this.props
     const dataTip = isPositiveRatingLink ? t('positiveRating') : t('negativeRating')
     return (
-      <StyledFeedbackToolbarItem className={className} onClick={this.handleLinkClick}>
+      <StyledFeedbackToolbarItem className={className} onClick={this.handleLinkClick} aria-label={dataTip}>
         <FontAwesomeIcon
           className={className}
           data-tip={dataTip}
-          aria-label={dataTip}
           icon={isPositiveRatingLink ? faSmile : faFrown} />
       </StyledFeedbackToolbarItem>
     )

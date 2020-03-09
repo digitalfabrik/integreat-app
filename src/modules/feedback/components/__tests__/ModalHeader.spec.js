@@ -10,6 +10,7 @@ describe('ModalHeader', () => {
     const jestMockFn = jest.fn()
     const component = shallow(
       <ModalHeader
+        t={t => t}
         closeFeedbackModal={jestMockFn}
         title='title' />
     )

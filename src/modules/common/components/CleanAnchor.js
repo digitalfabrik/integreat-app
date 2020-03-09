@@ -12,7 +12,8 @@ type PropsType = {|
   newTab?: boolean,
   href: string,
   children: React.Node,
-  className?: string
+  className?: string,
+  title: string
 |}
 
 class CleanAnchor extends React.PureComponent<PropsType> {
@@ -21,12 +22,14 @@ class CleanAnchor extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const { newTab, href, children, className } = this.props
+    const { newTab, href, children, className, title } = this.props
 
     if (newTab) {
-      return <StyledAnchor className={className} href={href} target='_blank' rel='noreferrer'>{children}</StyledAnchor>
+      return <StyledAnchor className={className} href={href} title={title} target='_blank' rel='noreferrer'>
+        {children}
+      </StyledAnchor>
     } else {
-      return <StyledAnchor className={className} href={href}>{children}</StyledAnchor>
+      return <StyledAnchor className={className} href={href} title={title}>{children}</StyledAnchor>
     }
   }
 }
