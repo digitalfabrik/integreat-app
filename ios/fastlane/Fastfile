@@ -8,9 +8,18 @@ platform :ios do
   end
   desc "Create a simulator build"
   lane :build do
+    # xcbuild(
+    #     workspace: "Integreat.xcworkspace",
+    #     scheme: "Integreat",
+    #     configuration: "Debug",
+    #     xcargs: "-sdk iphonesimulator"
+    # )
+
     scan(
         workspace: "Integreat.xcworkspace",
-        device: "iPhone 6s"
+        scheme: "Integreat",
+        configuration: "Debug",
+        device: ["iPhone 6s"]
     )
   end
 
