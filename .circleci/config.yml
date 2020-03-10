@@ -16,7 +16,7 @@ jobs:
       - save_cache:
           key: gems-{{ checksum "android/Gemfile.lock" }}-{{ arch }}
           paths:
-            - vendor/bundle
+            - android/vendor/bundle
       - run:
           name: "Pull Submodules"
           command: |
@@ -59,7 +59,7 @@ jobs:
       - save_cache:
           key: gems-{{ checksum "ios/Gemfile.lock" }}-{{ arch }}
           paths:
-            - vendor/bundle
+            - ios/vendor/bundle
       - run:
           name: "Pull Submodules"
           command: |
@@ -77,6 +77,10 @@ jobs:
           key: yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
           paths:
             - ~/.cache/yarn
+      - run:
+          name: Install CocoaPods
+          command: pod install
+          working_directory: ios
       - run:
           name: set Ruby version
           command: echo "ruby-2.4" > ~/.ruby-version
