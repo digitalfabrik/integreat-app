@@ -9,12 +9,12 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: gems-{{ checksum "android/Gemfile.lock" }}-{{ arch }}
+          key: 1-gems-{{ checksum "android/Gemfile.lock" }}-{{ arch }}
       - run:
           command: bundle check || bundle install --path vendor/bundle
           working_directory: android
       - save_cache:
-          key: gems-{{ checksum "android/Gemfile.lock" }}-{{ arch }}
+          key: 1-gems-{{ checksum "android/Gemfile.lock" }}-{{ arch }}
           paths:
             - android/vendor/bundle
       - run:
@@ -52,12 +52,12 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: gems-{{ checksum "ios/Gemfile.lock" }}-{{ arch }}
+          key: 1-gems-{{ checksum "ios/Gemfile.lock" }}-{{ arch }}
       - run:
           command: bundle check || bundle install --path vendor/bundle
           working_directory: ios
       - save_cache:
-          key: gems-{{ checksum "ios/Gemfile.lock" }}-{{ arch }}
+          key: 1-gems-{{ checksum "ios/Gemfile.lock" }}-{{ arch }}
           paths:
             - ios/vendor/bundle
       - run:
