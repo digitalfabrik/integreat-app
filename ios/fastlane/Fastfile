@@ -18,7 +18,8 @@ platform :ios do
     scan(
         workspace: "Integreat.xcworkspace",
         scheme: "Integreat",
-        configuration: "Debug"
+        configuration: "Debug",
+        build_for_testing: true
     )
   end
 
