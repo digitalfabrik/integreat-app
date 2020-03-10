@@ -8,19 +8,19 @@ platform :ios do
   end
   desc "Create a simulator build"
   lane :build do
-    # xcbuild(
-    #     workspace: "Integreat.xcworkspace",
-    #     scheme: "Integreat",
-    #     configuration: "Debug",
-    #     xcargs: "-sdk iphonesimulator"
-    # )
-
-    scan(
+    xcbuild(
         workspace: "Integreat.xcworkspace",
         scheme: "Integreat",
         configuration: "Debug",
-        build_for_testing: true
+        xcargs: "-sdk iphonesimulator"
     )
+
+    # scan(
+    #     workspace: "Integreat.xcworkspace",
+    #     scheme: "Integreat",
+    #     configuration: "Debug",
+    #     build_for_testing: true
+    # )
   end
 
   after_all do |lane|
