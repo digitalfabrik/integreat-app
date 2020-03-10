@@ -18,8 +18,7 @@ platform :ios do
     scan(
         workspace: "Integreat.xcworkspace",
         scheme: "Integreat",
-        configuration: "Debug",
-        device: ["iPhone 6s"]
+        configuration: "Debug"
     )
   end
 
