@@ -89,7 +89,7 @@ jobs:
           command: ruby --version
       - run:
           name: fastlane
-          command: bundle exec fastlane ios build
+          command: bundle exec fastlane ios release
           working_directory: ios
 
 version: 2.1
