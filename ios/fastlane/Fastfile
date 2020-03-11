@@ -6,6 +6,12 @@ platform :ios do
   before_all do
     setup_circle_ci
   end
+
+  desc "Setup certificates"
+  lane :certificates do
+    match(app_identifier: ["de.integreat-app"])
+  end
+
   desc "Create a simulator build"
   lane :build do
     xcbuild(
@@ -21,6 +27,12 @@ platform :ios do
     #     configuration: "Debug",
     #     build_for_testing: true
     # )
+  end
+
+  desc "Create a simulator build"
+  lane :release do
+    sync_code_signing(type: "appstore")
+    build_app(scheme: "Integreat", workspace: "Integreat.xcworkspace", include_bitcode: true)
   end
 
   after_all do |lane|
