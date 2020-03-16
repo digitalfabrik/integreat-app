@@ -28,13 +28,13 @@ jobs:
       - restore_cache:
           name: Restore Yarn Package Cache
           keys:
-            - yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
+            - 1-yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
       - run:
           name: Install Dependencies
           command: yarn install --frozen-lockfile
       - save_cache:
           name: Save Yarn Package Cache
-          key: yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
+          key: 1-yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
           paths:
             - ~/.cache/yarn
       - run:
@@ -78,13 +78,13 @@ jobs:
       - restore_cache:
           name: Restore Yarn Package Cache
           keys:
-            - yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
+            - 1-yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
       - run:
           name: Install Dependencies
           command: yarn install --frozen-lockfile
       - save_cache:
           name: Save Yarn Package Cache
-          key: yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
+          key: 1-yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
           paths:
             - ~/.cache/yarn
       - run:
