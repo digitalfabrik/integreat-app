@@ -50,7 +50,7 @@ jobs:
           working_directory: android
       - run:
           name: fastlane
-          command: bundle exec fastlane ios browserstack_upload
+          command: bundle exec fastlane android browserstack_upload
           working_directory: android
       - store_artifacts:
           path: android/app/build/outputs/apk
