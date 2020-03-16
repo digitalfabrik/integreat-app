@@ -35,6 +35,15 @@ platform :ios do
     build_app(scheme: "Integreat", workspace: "Integreat.xcworkspace", include_bitcode: true)
   end
 
+  desc "Upload to Browserstack"
+  lane :browserstack_upload do
+    upload_to_browserstack_app_live(
+        browserstack_username: ENV["BROWSERSTACK_USERNAME"],
+        browserstack_access_key: ENV["BROWSERSTACK_ACCESS_KEY"],
+        file_path: "output/gym/Integreat.ipa"
+    )
+  end
+
   after_all do |lane|
   end
 

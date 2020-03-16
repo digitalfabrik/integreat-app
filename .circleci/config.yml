@@ -48,6 +48,12 @@ jobs:
           name: fastlane
           command: bundle exec fastlane android build
           working_directory: android
+      - run:
+          name: fastlane
+          command: bundle exec fastlane ios browserstack_upload
+          working_directory: android
+      - store_artifacts:
+          path: android/app/build/outputs/apk
 
   build_ios:
     macos:
@@ -101,6 +107,13 @@ jobs:
           name: fastlane
           command: bundle exec fastlane ios release
           working_directory: ios
+      - run:
+          name: fastlane
+          command: bundle exec fastlane ios browserstack_upload
+          working_directory: ios
+      - store_artifacts:
+          path: ios/output
+
 
 version: 2.1
 
