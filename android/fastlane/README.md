@@ -16,6 +16,11 @@ or alternatively using `brew cask install fastlane`
 
 # Available Actions
 ## Android
+### android keystore
+```
+fastlane android keystore
+```
+Prepare the keystore
 ### android build
 ```
 fastlane android build
