@@ -7,6 +7,9 @@ jobs:
       GRADLE_OPTS: -Dorg.gradle.jvmargs="-Xmx5120m -XX:+HeapDumpOnOutOfMemoryError"
       BUNDLE_CONFIG: ./metro.config.ci.js
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "9a:0f:b1:f0:97:c8:db:3f:be:87:a4:9b:09:7f:d3:af"
       - checkout
       - restore_cache:
           key: 1-gems-{{ checksum "android/Gemfile.lock" }}-{{ arch }}
@@ -37,6 +40,10 @@ jobs:
       - run:
           name: Ruby version
           command: ruby --version
+      - run:
+          name: fastlane
+          command: bundle exec fastlane android keystore
+          working_directory: android
       - run:
           name: fastlane
           command: bundle exec fastlane android build
