@@ -49,6 +49,7 @@ jobs:
       - run:
           name: Download Dependencies
           command: bundle exec fastlane android dependencies
+          working_directory: android
       - save_cache:
           paths:
             - ~/.gradle
