@@ -65,8 +65,16 @@ platform :android do
 
   desc "Upload to Play Store"
   lane :playstore_upload do
+    GOOGLE_SERVICE_ACCOUNT_JSON = ENV["GOOGLE_SERVICE_ACCOUNT_JSON"]
+    unless GOOGLE_SERVICE_ACCOUNT_JSON
+      UI.crash!('Unable to upload to Play Console as authentification is missing!')
+    end
+
     upload_to_play_store(
-        track: 'alpha'
+        versionCode: 100008,
+        versionName: "2020.3.2",
+        track: 'alpha',
+        json_key_data: GOOGLE_SERVICE_ACCOUNT_JSON
     )
   end
 
