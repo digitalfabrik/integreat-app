@@ -34,7 +34,7 @@ platform :ios do
 
   desc "Create a simulator build"
   lane :release do
-    sync_code_signing(type: "appstore", app_identifier: ["de.integreat-app"])
+    sync_code_signing(type: "app-store", app_identifier: ["de.integreat-app"])
 
     increment_build_number(
         build_number: build_number
@@ -48,7 +48,7 @@ platform :ios do
         workspace: "Integreat.xcworkspace",
         scheme: "Integreat",
         output_name: output_name,
-        export_method: "appstore",
+        export_method: "app-store",
         include_bitcode: true
     )
   end
