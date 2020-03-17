@@ -130,16 +130,14 @@ android {
         applicationId "tuerantuer.app.integreat"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 100007
-        versionName "2020.3.1"
     }
     signingConfigs {
         release {
-            if (project.hasProperty('MYAPP_RELEASE_STORE_FILE')) {
-                storeFile file(MYAPP_RELEASE_STORE_FILE)
-                storePassword MYAPP_RELEASE_STORE_PASSWORD
-                keyAlias MYAPP_RELEASE_KEY_ALIAS
-                keyPassword MYAPP_RELEASE_KEY_PASSWORD
+            if (project.hasProperty('KEYSTORE_PATH')) {
+                storeFile file(KEYSTORE_PATH)
+                storePassword KEYSTORE_PASSWORD
+                keyAlias KEYSTORE_KEY_ALIAS
+                keyPassword KEYSTORE_KEY_PASSWORD
             }
         }
     }

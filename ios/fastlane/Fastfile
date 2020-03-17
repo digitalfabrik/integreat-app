@@ -2,6 +2,9 @@ fastlane_version "2.67.0"
 
 default_platform :ios
 
+build_number = 100008
+output_name = "Integreat-#{build_number}.ipa"
+
 platform :ios do
   before_all do
     setup_circle_ci
@@ -9,7 +12,7 @@ platform :ios do
 
   desc "Setup certificates"
   lane :certificates do
-    match(app_identifier: ["de.integreat-app"])
+    sync_code_signing(type: "appstore", app_identifier: ["de.integreat-app"])
   end
 
   desc "Create a simulator build"
@@ -31,8 +34,23 @@ platform :ios do
 
   desc "Create a simulator build"
   lane :release do
-    sync_code_signing(type: "appstore")
-    build_app(scheme: "Integreat", workspace: "Integreat.xcworkspace", include_bitcode: true)
+    sync_code_signing(type: "appstore", app_identifier: ["de.integreat-app"])
+
+    increment_build_number(
+        build_number: build_number
+    )
+
+    increment_version_number(
+        version_number: "2020.3.2"
+    )
+
+    build_app(
+        workspace: "Integreat.xcworkspace",
+        scheme: "Integreat",
+        output_name: output_name,
+        export_method: "appstore",
+        include_bitcode: true
+    )
   end
 
   desc "Upload to Browserstack"
@@ -40,7 +58,7 @@ platform :ios do
     upload_to_browserstack_app_live(
         browserstack_username: ENV["BROWSERSTACK_USERNAME"],
         browserstack_access_key: ENV["BROWSERSTACK_ACCESS_KEY"],
-        file_path: "output/gym/Integreat.ipa"
+        file_path: "output/gym/#{output_name}"
     )
   end
 

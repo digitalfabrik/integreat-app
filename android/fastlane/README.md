@@ -26,6 +26,11 @@ Prepare the keystore
 fastlane android build
 ```
 Create a release build
+### android browserstack_upload
+```
+fastlane android browserstack_upload
+```
+Upload to Browserstack
 
 ----
 
