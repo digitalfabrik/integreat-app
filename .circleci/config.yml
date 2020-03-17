@@ -2,9 +2,9 @@ jobs:
   build_android:
     docker:
       - image: circleci/android:api-28-node
-    resource_class: medium+
+    resource_class: medium
     environment:
-      GRADLE_OPTS: -Dorg.gradle.jvmargs="-Xmx5120m -XX:+HeapDumpOnOutOfMemoryError"
+      GRADLE_OPTS: -Dorg.gradle.jvmargs="-Xmx2560m -XX:+HeapDumpOnOutOfMemoryError" -Dorg.gradle.daemon=false
       BUNDLE_CONFIG: ./metro.config.ci.js
     steps:
       - add_ssh_keys:
@@ -98,17 +98,14 @@ jobs:
           command: pod install
           working_directory: ios
       - run:
-          name: set Ruby version
-          command: echo "ruby-2.4" > ~/.ruby-version
-      - run:
           name: Ruby version
           command: ruby --version
       - run:
-          name: fastlane
+          name: Fastlane Release Build
           command: bundle exec fastlane ios release
           working_directory: ios
       - run:
-          name: fastlane
+          name: Fastlane Browserstack Upload
           command: bundle exec fastlane ios browserstack_upload
           working_directory: ios
       - store_artifacts:
