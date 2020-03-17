@@ -44,6 +44,15 @@ jobs:
           name: fastlane
           command: bundle exec fastlane android keystore
           working_directory: android
+      - restore_cache:
+          key: gradle-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "settings.gradle" }}
+      - run:
+          name: Download Dependencies
+          command: bundle exec fastlane android dependencies
+      - save_cache:
+          paths:
+            - ~/.gradle
+          key: gradle-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "settings.gradle" }}
       - run:
           name: fastlane
           command: bundle exec fastlane android build
