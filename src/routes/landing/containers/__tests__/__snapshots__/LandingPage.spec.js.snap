@@ -5,11 +5,15 @@ exports[`LandingPage should match snapshot 1`] = `
   cities={
     Array [
       CityModel {
+        "_aliases": undefined,
         "_code": "city",
         "_eventsEnabled": false,
         "_extrasEnabled": false,
+        "_latitude": undefined,
         "_live": true,
+        "_longitude": undefined,
         "_name": "City",
+        "_prefix": undefined,
         "_sortingName": "City",
       },
     ]

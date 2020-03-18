@@ -12,47 +12,52 @@ const content = 'test content'
 
 const categoryModels = [
   new CategoryModel({
-    id: 0,
+    root: true,
     path: '/augsburg/de',
     title: 'augsburg',
-    content: '',
-    order: -1,
-    availableLanguages: new Map(),
-    thumbnail: 'no_thumbnail',
     parentPath: '',
-    lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
-  }), new CategoryModel({
-    id: 3650,
-    path: '/augsburg/de/anlaufstellen',
-    title: 'Anlaufstellen zu sonstigen Themen',
-    content: '',
-    parentPath: '/augsburg/de',
-    order: 75,
-    availableLanguages: new Map([['en', '4361'], ['ar', '4367'], ['fa', '4368']]),
-    thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png',
-    lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
+    availableLanguages: new Map(),
+    content: 'exampleContent0',
+    lastUpdate: moment('2016-01-07 10:36:24'),
+    order: 0,
+    thumbnail: 'thumb-nail',
+    hash: '91d435afbc7aa83496137e81fd2832e3'
   }),
   new CategoryModel({
-    id: 3649,
+    root: false,
     path: '/augsburg/de/willkommen',
-    title: 'Willkommen',
-    content: '',
     parentPath: '/augsburg/de',
-    order: 11,
-    availableLanguages: new Map([['en', '4361'], ['ar', '4367'], ['fa', '4368']]),
-    thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
-    lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
+    title: 'willkommen',
+    order: 1,
+    availableLanguages: new Map(),
+    content: 'exampleContent0',
+    lastUpdate: moment('2016-01-07 10:36:24'),
+    thumbnail: 'thumb-nail',
+    hash: '91d435afbc7aa83496137e81fd2832e3'
   }),
   new CategoryModel({
-    id: 35,
-    path: '/augsburg/de/willkommen/willkommen-in-augsburg',
-    title: 'Willkommen in Augsburg',
-    content: 'some content',
-    parentPath: '/augsburg/de/willkommen',
-    order: 1,
-    availableLanguages: new Map([['en', '390'], ['ar', '711'], ['fa', '397']]),
-    thumbnail: 'https://cms.integreat-ap…09/heart295-150x150.png',
-    lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
+    root: false,
+    path: '/augsburg/de/erste-schritte',
+    parentPath: '/augsburg/de',
+    title: 'erste-schritte',
+    order: 2,
+    availableLanguages: new Map(),
+    content: 'exampleContent0',
+    lastUpdate: moment('2016-01-07 10:36:24'),
+    thumbnail: 'thumb-nail',
+    hash: '91d435afbc7aa83496137e81fd2832e3'
+  }),
+  new CategoryModel({
+    root: false,
+    path: '/augsburg/de/erste-schritte/asylantrag',
+    parentPath: '/augsburg/de/erste-schritte',
+    title: 'asylantrag',
+    order: 3,
+    availableLanguages: new Map(),
+    content: 'exampleContent0',
+    lastUpdate: moment('2016-01-07 10:36:24'),
+    thumbnail: 'thumb-nail',
+    hash: '91d435afbc7aa83496137e81fd2832e3'
   })
 ]
 

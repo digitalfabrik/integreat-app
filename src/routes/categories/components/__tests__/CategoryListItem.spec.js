@@ -8,7 +8,6 @@ import CategoryListItem from '../CategoryListItem'
 import { CategoryModel } from '@integreat-app/integreat-api-client'
 
 const category = new CategoryModel({
-  id: 3649,
   path: '/augsburg/de/willkommen',
   title: 'Willkommen',
   content: 'this is a test content',
@@ -16,10 +15,10 @@ const category = new CategoryModel({
   order: 11,
   availableLanguages: new Map([['en', '4861'], ['ar', '4867'], ['fa', '4868']]),
   thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
-  lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
+  lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+  hash: 'a36a56'
 })
 const childCategory = new CategoryModel({
-  id: 5234,
   path: '/augsburg/de/test',
   title: 'Child',
   content: 'this is a test content',
@@ -27,10 +26,10 @@ const childCategory = new CategoryModel({
   order: 11,
   availableLanguages: new Map([['en', '4861'], ['ar', '4867'], ['fa', '4868']]),
   thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
-  lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
+  lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+  hash: 'a36a57'
 })
 const noThumbCategory = new CategoryModel({
-  id: 35,
   path: '/augsburg/de/willkommen/willkommen-in-augsburg',
   title: 'GotNoThumb :O',
   content: 'some content',
@@ -38,7 +37,8 @@ const noThumbCategory = new CategoryModel({
   order: 1,
   availableLanguages: new Map([['en', '390'], ['ar', '711'], ['fa', '397']]),
   thumbnail: '',
-  lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
+  lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+  hash: 'a36a58'
 })
 
 describe('CategoryListItem', () => {

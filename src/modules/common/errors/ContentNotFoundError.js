@@ -1,6 +1,6 @@
 // @flow
 
-import { LoadingError } from '@integreat-app/integreat-api-client'
+import { ResponseError } from '@integreat-app/integreat-api-client'
 
 type NotFoundType = 'category' | 'event' | 'extra' | 'poi'
 
@@ -30,7 +30,7 @@ class ContentNotFoundError extends Error {
     /* eslint-enable */
 
     if (Error.captureStackTrace) {
-      Error.captureStackTrace(this, LoadingError)
+      Error.captureStackTrace(this, ResponseError)
     }
   }
 

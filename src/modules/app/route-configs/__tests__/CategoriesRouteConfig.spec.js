@@ -7,26 +7,24 @@ import createLocation from '../../../../createLocation'
 
 const categories = new CategoriesMapModel([
   new CategoryModel({
-    id: 0,
-    path: '/augsburg/de',
-    title: 'Augsburg',
-    content: '',
-    thumbnail: '',
-    parentPath: '',
-    order: 0,
     availableLanguages: new Map(),
-    lastUpdate: moment.tz('2017-11-18 09:30:00', 'UTC')
+    content: '',
+    lastUpdate: moment.tz('2017-11-18 09:30:00', 'UTC'),
+    order: 0,
+    parentPath: '',
+    path: '/augsburg/de',
+    thumbnail: '',
+    title: 'Augsburg'
   }),
   new CategoryModel({
-    id: 1,
-    path: '/augsburg/de/categorie01',
-    title: 'Title01',
-    content: 'contnentl',
-    thumbnail: 'thumb/nail',
-    parentPath: 'parent/url',
-    order: 4,
     availableLanguages: new Map([['en', '/augsburg/en/category01'], ['fr', '/augsburg/fr/fr_category01']]),
-    lastUpdate: moment.tz('2017-11-18 09:30:00', 'UTC')
+    content: 'contnentl',
+    lastUpdate: moment.tz('2017-11-18 09:30:00', 'UTC'),
+    order: 4,
+    parentPath: 'parent/url',
+    path: '/augsburg/de/categorie01',
+    thumbnail: 'thumb/nail',
+    title: 'Title01'
   })
 ])
 const categoriesPayload = new Payload(false, 'https://random.api.json', categories, null)
@@ -90,9 +88,9 @@ describe('CategoriesRouteConfig', () => {
       })
 
       expect(categoriesRouteConfig.getLanguageChangePath({ payloads, language: 'en', location }))
-        .toBe('/augsburg/en')
+        .toBeNull()
       expect(categoriesRouteConfig.getLanguageChangePath({ payloads, language: 'ar', location }))
-        .toBe('/augsburg/ar')
+        .toBeNull()
     })
 
     it('no category with the given pathname exists', () => {
@@ -116,7 +114,7 @@ describe('CategoriesRouteConfig', () => {
       })
 
       expect(categoriesRouteConfig.getPageTitle({ payloads, location: rootLocation, cityName: 'Augsburg', t }))
-        .toBe('Augsburg')
+        .toBe('Augsburg - Augsburg')
 
       const location = createLocation({
         payload: { city: 'augsburg', language: 'de' },
@@ -164,7 +162,6 @@ describe('CategoriesRouteConfig', () => {
 
     expect(categoriesRouteConfig.getFeedbackTargetInformation({ payloads, location }))
       .toEqual({
-        id: 1,
         title: 'Title01'
       })
 

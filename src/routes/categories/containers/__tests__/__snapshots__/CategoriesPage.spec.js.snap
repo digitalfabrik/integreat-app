@@ -9,20 +9,20 @@ exports[`CategoriesPage should match snapshot and render CategoryTiles if the pa
     tiles={
       Array [
         TileModel {
-          "_id": "3649",
+          "_id": "undefined",
           "_isExternalUrl": false,
           "_path": "/augsburg/de/willkommen",
           "_postData": null,
-          "_thumbnail": "https://cms.integreat-ap…03/Beratung-150x150.png",
-          "_title": "Willkommen",
+          "_thumbnail": "thumb-nail",
+          "_title": "willkommen",
         },
         TileModel {
-          "_id": "3650",
+          "_id": "undefined",
           "_isExternalUrl": false,
-          "_path": "/augsburg/de/anlaufstellen",
+          "_path": "/augsburg/de/erste-schritte",
           "_postData": null,
-          "_thumbnail": "https://cms.integreat-ap…/03/Hotline-150x150.png",
-          "_title": "Anlaufstellen zu sonstigen Themen",
+          "_thumbnail": "thumb-nail",
+          "_title": "erste-schritte",
         },
       ]
     }
@@ -40,7 +40,7 @@ exports[`CategoriesPage should match snapshot and render a CategoryList if the c
       key="/augsburg/de"
       to="/augsburg/de"
     >
-      Augsburg
+      augsburg
     </Connect(Link)>
   </Breadcrumbs>
   <CategoryList
@@ -48,28 +48,25 @@ exports[`CategoriesPage should match snapshot and render a CategoryList if the c
       Array [
         Object {
           "model": CategoryModel {
-            "_availableLanguages": Map {
-              "en" => "390",
-              "ar" => "711",
-              "fa" => "397",
-            },
-            "_content": "some content",
-            "_id": 35,
-            "_lastUpdate": "2017-11-18T19:30:00.000Z",
-            "_order": 1,
-            "_parentPath": "/augsburg/de/willkommen",
-            "_path": "/augsburg/de/willkommen/willkommen-in-augsburg",
-            "_thumbnail": "https://cms.integreat-ap…09/heart295-150x150.png",
-            "_title": "Willkommen in Augsburg",
+            "_availableLanguages": Map {},
+            "_content": "exampleContent0",
+            "_hash": "91d435afbc7aa83496137e81fd2832e3",
+            "_lastUpdate": "2016-01-07T09:36:24.000Z",
+            "_order": 3,
+            "_parentPath": "/augsburg/de/erste-schritte",
+            "_path": "/augsburg/de/erste-schritte/asylantrag",
+            "_root": false,
+            "_thumbnail": "thumb-nail",
+            "_title": "asylantrag",
           },
           "subCategories": Array [],
         },
       ]
     }
-    content=""
+    content="exampleContent0"
     onInternalLinkClick={[Function]}
-    thumbnail="https://cms.integreat-ap…03/Beratung-150x150.png"
-    title="Willkommen"
+    thumbnail="thumb-nail"
+    title="erste-schritte"
   />
 </div>
 `;
@@ -83,21 +80,21 @@ exports[`CategoriesPage should match snapshot and render a Page if page has no c
       key="/augsburg/de"
       to="/augsburg/de"
     >
-      Augsburg
+      augsburg
     </Connect(Link)>
     <Connect(Link)
-      key="/augsburg/de/willkommen"
-      to="/augsburg/de/willkommen"
+      key="/augsburg/de/erste-schritte"
+      to="/augsburg/de/erste-schritte"
     >
-      Willkommen
+      erste-schritte
     </Connect(Link)>
   </Breadcrumbs>
   <Page
-    content="some content"
+    content="exampleContent0"
     language="en"
-    lastUpdate={"2017-11-18T19:30:00.000Z"}
+    lastUpdate={"2016-01-07T09:36:24.000Z"}
     onInternalLinkClick={[Function]}
-    title="Willkommen in Augsburg"
+    title="asylantrag"
   />
 </div>
 `;
