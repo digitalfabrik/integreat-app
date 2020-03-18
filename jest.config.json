@@ -11,7 +11,8 @@
     "hashids": "hashids/dist/hashids.min.js"
   },
   "moduleFileExtensions": [
-    "js"
+    "js",
+    "json"
   ],
   "moduleDirectories": [
     "node_modules"

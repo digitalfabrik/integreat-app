@@ -14,11 +14,12 @@ exports[`RouteContentSwitcher should render and match snapshot 1`] = `
         "path01" => CategoryModel {
           "_availableLanguages": Map {},
           "_content": "contnentl",
-          "_id": 1,
+          "_hash": undefined,
           "_lastUpdate": "2017-11-18T09:30:00.000Z",
           "_order": 4,
           "_parentPath": "parent/url",
           "_path": "path01",
+          "_root": undefined,
           "_thumbnail": "thumb/nail",
           "_title": "Title10",
         },
@@ -28,11 +29,15 @@ exports[`RouteContentSwitcher should render and match snapshot 1`] = `
   cities={
     Array [
       CityModel {
+        "_aliases": undefined,
         "_code": "city1",
         "_eventsEnabled": true,
         "_extrasEnabled": false,
+        "_latitude": undefined,
         "_live": true,
+        "_longitude": undefined,
         "_name": "Mambo No. 5",
+        "_prefix": undefined,
         "_sortingName": "Mambo",
       },
     ]

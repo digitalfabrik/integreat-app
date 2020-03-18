@@ -50,7 +50,7 @@ class CategoryList extends React.PureComponent<PropsType> {
                                    onInternalLinkClick={onInternalLinkClick} />}
         <List>
           {categories.map(({ model, subCategories }) =>
-            <CategoryListItem key={model.id}
+            <CategoryListItem key={model.hash}
                               category={model}
                               subCategories={subCategories}
                               query={query} />

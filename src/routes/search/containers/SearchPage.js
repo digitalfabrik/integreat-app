@@ -50,7 +50,7 @@ export class SearchPage extends React.Component<PropsType, LocalStateType> {
 
     // return all categories from above and remove the root category
     return categoriesWithTitle
-      .filter(category => category.id !== 0)
+      .filter(category => !category._root)
       .concat(categoriesWithContent)
       .map(category => ({ model: category, subCategories: [] }))
   }

@@ -7,7 +7,7 @@ import createLocation from '../../../../createLocation'
 
 const events = [
   new EventModel({
-    id: 1,
+    hash: '425652fa',
     path: '/augsburg/de/events/erstes_event',
     title: 'Erstes Event',
     availableLanguages: new Map(
@@ -146,20 +146,22 @@ describe('EventsRouteConfig', () => {
       pathname: '/augsburg/de/events/erstes_event',
       type: eventsRouteConfig.name
     })
-
-    expect(eventsRouteConfig.getFeedbackTargetInformation({ payloads, location }))
-      .toEqual({
-        id: 1,
-        title: 'Erstes Event'
-      })
-
     const invalidLocation = createLocation({
       payload: { city: 'augsburg', language: 'de', eventId: 'invalid_path' },
       pathname: '/augsburg/de/events/invalid_path',
       type: eventsRouteConfig.name
     })
 
-    expect(eventsRouteConfig.getFeedbackTargetInformation({ payloads, location: invalidLocation }))
-      .toBeNull()
+    it('should get feedback information', () => {
+      expect(eventsRouteConfig.getFeedbackTargetInformation({ payloads, location }))
+        .toEqual({
+          title: 'Erstes Event'
+        })
+    })
+
+    it('should get nothing for feedback information if location is invalid', () => {
+      expect(eventsRouteConfig.getFeedbackTargetInformation({ payloads, location: invalidLocation }))
+        .toBeNull()
+    })
   })
 })
