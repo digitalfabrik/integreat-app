@@ -21,6 +21,11 @@ or alternatively using `brew cask install fastlane`
 fastlane android keystore
 ```
 Prepare the keystore
+### android dependencies
+```
+fastlane android dependencies
+```
+Create a release build
 ### android build
 ```
 fastlane android build
@@ -31,6 +36,11 @@ Create a release build
 fastlane android browserstack_upload
 ```
 Upload to Browserstack
+### android playstore_upload
+```
+fastlane android playstore_upload
+```
+Upload to Play Store
 
 ----
 

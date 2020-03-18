@@ -130,14 +130,18 @@ android {
         applicationId "tuerantuer.app.integreat"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
+        if (project.hasProperty('VERSION_CODE')) {
+            versionCode project.VERSION_CODE.toInteger()
+            versionName project.VERSION_NAME
+        }
     }
     signingConfigs {
         release {
             if (project.hasProperty('KEYSTORE_PATH')) {
-                storeFile file(KEYSTORE_PATH)
-                storePassword KEYSTORE_PASSWORD
-                keyAlias KEYSTORE_KEY_ALIAS
-                keyPassword KEYSTORE_KEY_PASSWORD
+                storeFile file(project.KEYSTORE_PATH)
+                storePassword project.KEYSTORE_PASSWORD
+                keyAlias project.KEYSTORE_KEY_ALIAS
+                keyPassword project.KEYSTORE_KEY_PASSWORD
             }
         }
     }
