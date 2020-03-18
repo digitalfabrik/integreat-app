@@ -1,39 +1,24 @@
 // @flow
 
-import PDFView from 'react-native-view-pdf'
+import Pdf from 'react-native-pdf'
 import * as React from 'react'
-import { Platform, View } from 'react-native'
+import { View } from 'react-native'
 import type { NavigationScreenProp } from 'react-navigation'
-import { URL_PREFIX } from '../../../modules/platform/constants/webview'
 import FailureContainer from '../../../modules/error/containers/FailureContainer'
+import type { ThemeType } from '../../../modules/theme/constants/theme'
+import withTheme from '../../../modules/theme/hocs/withTheme'
 
 type PropsType = {
   navigation: NavigationScreenProp<*>,
-  url: string
+  url: string,
+  theme: ThemeType
 }
 
 type StateType = {
   error: ?Error
 }
 
-const getRelativeToDocumentsDir = (path: string) => {
-  const documentsDirName = 'Documents'
-  const index = path.indexOf(documentsDirName)
-
-  if (index < 0) {
-    return path
-  }
-
-  return path.substr(index + documentsDirName.length + 1)
-}
-
-const urlToPath = (url: string) => {
-  return url.replace(URL_PREFIX, '')
-}
-
-const isExternalUrl = (url: string) => !url.startsWith(URL_PREFIX)
-
-export default class PDFViewModal extends React.Component<PropsType, StateType> {
+class PDFViewModal extends React.Component<PropsType, StateType> {
   constructor (props: PropsType) {
     super(props)
     this.state = { error: null }
@@ -42,9 +27,8 @@ export default class PDFViewModal extends React.Component<PropsType, StateType> 
   onError = (error: Error) => this.setState(() => ({ error }))
 
   render () {
-    const url = this.props.navigation.getParam('url')
-    const externalUrl = isExternalUrl(url)
-    const path = urlToPath(url)
+    const { theme, navigation } = this.props
+    const url = navigation.getParam('url')
     const { error } = this.state
     if (error) {
       return <FailureContainer code='unknownError' />
@@ -52,16 +36,18 @@ export default class PDFViewModal extends React.Component<PropsType, StateType> 
 
     return (
       <View style={{ flex: 1 }}>
-        <PDFView
-          fadeInDuration={250.0}
+        <Pdf
           style={{ flex: 1 }}
-          // This PDFView can only load from Documents dir on iOS:
-          // https://github.com/rumax/react-native-PDFView/issues/90
-          resource={Platform.OS === 'ios' ? getRelativeToDocumentsDir(path) : path}
-          resourceType={externalUrl ? 'url' : 'file'}
+          activityIndicatorProps={{
+            color: theme.colors.themeColor,
+            progressTintColor: theme.colors.themeColor
+          }}
+          source={{ uri: url }}
           onError={this.onError}
         />
       </View>
     )
   }
 }
+
+export default withTheme<PropsType>()(PDFViewModal)
