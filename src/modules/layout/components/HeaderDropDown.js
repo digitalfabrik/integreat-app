@@ -54,6 +54,8 @@ export class HeaderDropDown extends React.Component<PropsType, StateType> {
   constructor (props: PropsType) {
     super(props)
     this.state = { dropDownActive: false }
+    const self: any = this // https://github.com/facebook/flow/issues/5874
+    self.handleClickOutside = this.handleClickOutside.bind(this)
   }
 
   toggleDropDown = () => {
@@ -66,7 +68,7 @@ export class HeaderDropDown extends React.Component<PropsType, StateType> {
     }
   }
 
-  handleClickOutside = () => {
+  handleClickOutside () {
     this.closeDropDown()
   }
 
@@ -76,7 +78,7 @@ export class HeaderDropDown extends React.Component<PropsType, StateType> {
 
     return (
       <div>
-        <StyledButton data-tip={text} aria-label={text} onClick={this.toggleDropDown}>
+        <StyledButton selector='button' data-tip={text} aria-label={text} onClick={this.toggleDropDown}>
           <img alt='' src={iconSrc} />
         </StyledButton>
         <DropDownContainer active={dropDownActive}>
