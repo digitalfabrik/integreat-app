@@ -72,7 +72,7 @@ describe('loadCategories', () => {
   it('should fetch categories if the stored JSON is malformatted', async () => {
     const context = new DatabaseContext('augsburg', 'de')
     const path = new DatabaseConnector().getContentPath('categories', context)
-    await RNFetchBlob.fs.writeFile(path, `{ "i": { "am": "malformatted" } }`, 'utf-8')
+    await RNFetchBlob.fs.writeFile(path, '{ "i": { "am": "malformatted" } }', 'utf-8')
     const dataContainer = new DefaultDataContainer()
     const categories = await runSaga({}, loadCategories, city, language, dataContainer, false).toPromise()
 

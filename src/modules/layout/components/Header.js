@@ -50,7 +50,7 @@ const BoxShadow: StyledComponent<{}, ThemeType, *> = styled.View`
   shadow-opacity: 0.18;
   shadow-radius: 1.00px;
   background-color: ${props => props.theme.colors.backgroundAccentColor};
-  height: ${props => props.theme.dimensions.headerHeight};
+  height: ${props => props.theme.dimensions.headerHeight}px;
 `
 
 const MaterialHeaderButton = props => (
@@ -161,11 +161,12 @@ class Header extends React.PureComponent<PropsType> {
       <Horizontal>
         <HorizontalLeft>
           {this.canGoBackInStack() ? <HeaderBackButton onPress={this.goBackInStack} /> : <Logo source={logo} />}
-          {cityModel && <HeaderText theme={theme}>{this.cityDisplayName(cityModel)}</HeaderText>}
+          {cityModel &&
+          <HeaderText allowFontScaling={false} theme={theme}>{this.cityDisplayName(cityModel)}</HeaderText>}
         </HorizontalLeft>
         <MaterialHeaderButtons>
           {!peeking && categoriesAvailable &&
-            this.renderItem(t('search'), 'search', 'always', this.goToSearch)}
+          this.renderItem(t('search'), 'search', 'always', this.goToSearch)}
           {!peeking && goToLanguageChange &&
           this.renderItem(t('changeLanguage'), 'language', 'always', goToLanguageChange)}
           {this.renderItem(t('share'), undefined, 'never', sharePath ? this.onShare : undefined)}

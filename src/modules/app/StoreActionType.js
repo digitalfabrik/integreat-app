@@ -3,7 +3,7 @@
 import { CategoriesMapModel, CityModel, EventModel, LanguageModel } from '@integreat-app/integreat-api-client'
 import type { CategoryRouteConfigType, LanguageResourceCacheStateType } from './StateType'
 import type { ContentLoadCriterionType } from '../endpoint/ContentLoadCriterion'
-import type { TFunction } from 'i18next'
+import type { TFunction } from 'react-i18next'
 import type { ErrorCodeType } from '../error/ErrorCodes'
 
 export type FetchCitiesActionType = {|

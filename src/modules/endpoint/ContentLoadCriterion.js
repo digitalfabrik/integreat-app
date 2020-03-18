@@ -1,7 +1,6 @@
 // @flow
 
-import moment from 'moment-timezone'
-import Moment from 'moment'
+import moment from 'moment'
 
 const MAX_CONTENT_AGE = 24
 
@@ -25,10 +24,10 @@ export class ContentLoadCriterion {
     return this._peeking
   }
 
-  shouldUpdate (lastUpdate: ?Moment): boolean {
+  shouldUpdate (lastUpdate: ?moment): boolean {
     // The last update was more than 24h ago or a refresh should be forced
     return this._forceUpdate || !lastUpdate ||
-      lastUpdate.isBefore(moment.tz('UTC').subtract(MAX_CONTENT_AGE, 'hours'))
+      lastUpdate.isBefore(moment.utc().subtract(MAX_CONTENT_AGE, 'hours'))
   }
 
   shouldLoadLanguages (): boolean {

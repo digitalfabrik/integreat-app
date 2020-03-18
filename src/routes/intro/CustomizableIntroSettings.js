@@ -19,7 +19,8 @@ type PropsType = {|
 
 class CustomizableIntroSettings extends React.Component<PropsType> {
   render () {
-    const { t, theme, allowPushNotifications,
+    const {
+      t, theme, allowPushNotifications,
       toggleSetAllowPushNotifications, proposeNearbyCities,
       toggleProposeNearbyCities, errorTracking, toggleErrorTracking
     } = this.props

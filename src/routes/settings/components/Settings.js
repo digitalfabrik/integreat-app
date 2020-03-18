@@ -37,8 +37,8 @@ type ItemType = {
 type SectionType = SectionBase<ItemType> & {title: ?string}
 
 const ItemSeparator: StyledComponent<{}, ThemeType, *> = styled.View`
-    background-color: ${props => props.theme.colors.textDecorationColor};;
-    height: ${StyleSheet.hairlineWidth};
+    background-color: ${props => props.theme.colors.textDecorationColor};
+    height: ${StyleSheet.hairlineWidth}px;
 `
 
 const SectionHeader = styled.Text`

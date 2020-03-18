@@ -31,10 +31,8 @@ const Row: StyledComponent<{}, {}, *> = styled.View`
 `
 
 const CategoryTitle = styled.Text`
-  align-self: center;
   font-family: ${props => props.theme.fonts.decorativeFontRegular};
   color: ${props => props.theme.colors.textColor};
-  margin: 0 10px;
 `
 
 const CategoryThumbnail = styled(Image)`
