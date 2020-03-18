@@ -46,7 +46,7 @@ class SubCategoryListItem extends React.PureComponent<PropsType> {
     return (
       <FlexStyledLink onPress={this.onSubCategoryPress} underlayColor={theme.colors.backgroundAccentColor}
                       language={language} theme={theme}>
-        <SubCategoryCaption search={''} theme={theme}>
+        <SubCategoryCaption search='' theme={theme}>
           <SubCategoryTitle theme={theme}>{subCategory.title}</SubCategoryTitle>
         </SubCategoryCaption>
       </FlexStyledLink>

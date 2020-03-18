@@ -9,7 +9,7 @@ import type { TFunction } from 'react-i18next'
 import happyIcon from './assets/smile-happy.svg'
 import sadIcon from './assets/smile-sad.svg'
 import Image from './Image'
-import { translate } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 
 const FeedbackBox: StyledComponent<{}, ThemeType, *> = styled.View`
   margin-top: 25px;
@@ -47,8 +47,8 @@ const Circle: StyledComponent<{}, ThemeType, *> = styled(View)`
   margin-top: 9px;
   margin-bottom: 5px;
   border-radius: ${ICON_SIZE}px;
-  height: ${ICON_SIZE};
-  width: ${ICON_SIZE};
+  height: ${ICON_SIZE}px;
+  width: ${ICON_SIZE}px;
   background-color: ${props => props.theme.colors.themeColor};
   align-items: center;
   justify-content: center;
@@ -57,8 +57,8 @@ const Circle: StyledComponent<{}, ThemeType, *> = styled(View)`
 const MAXIMAL_ICON_SIZE = ICON_SIZE / Math.sqrt(2)
 const ICON_SCALE_FACTOR = 0.85
 const Thumbnail = styled(Image)`
-  height: ${MAXIMAL_ICON_SIZE * ICON_SCALE_FACTOR};
-  width: ${MAXIMAL_ICON_SIZE * ICON_SCALE_FACTOR};
+  height: ${MAXIMAL_ICON_SIZE * ICON_SCALE_FACTOR}px;
+  width: ${MAXIMAL_ICON_SIZE * ICON_SCALE_FACTOR}px;
 `
 
 type PropType = {|
@@ -88,4 +88,4 @@ class SiteHelpfulBox extends React.Component<PropType> {
   }
 }
 
-export default translate('feedback')(SiteHelpfulBox)
+export default withTranslation('feedback')(SiteHelpfulBox)

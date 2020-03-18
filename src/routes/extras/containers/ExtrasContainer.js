@@ -4,7 +4,7 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { RefreshControl, ScrollView } from 'react-native'
 import Extras from '../components/Extras'
-import { type TFunction, translate } from 'react-i18next'
+import { type TFunction, withTranslation } from 'react-i18next'
 import { CityModel, createExtrasEndpoint, ExtraModel, Payload } from '@integreat-app/integreat-api-client'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { StateType } from '../../../modules/app/StateType'
@@ -120,7 +120,7 @@ class ExtrasContainer extends React.Component<ExtrasPropsType, ExtrasStateType> 
 }
 
 export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(
-  translate('extras')(
+  withTranslation('extras')(
     withTheme(props => props.language)(
       ExtrasContainer
     )))

@@ -4,7 +4,7 @@ import * as React from 'react'
 import { RefreshControl, ScrollView } from 'react-native'
 import type { StateType } from '../../../modules/app/StateType'
 import { connect } from 'react-redux'
-import { type TFunction, translate } from 'react-i18next'
+import { type TFunction, withTranslation } from 'react-i18next'
 import WohnenExtra from '../components/WohnenExtra'
 import { createWohnenEndpoint, ExtraModel, Payload, WohnenOfferModel } from '@integreat-app/integreat-api-client'
 import { WOHNEN_EXTRA, WOHNEN_ROUTE } from '../../extras/constants'
@@ -129,7 +129,7 @@ class WohnenExtraContainer extends React.Component<WohnenPropsType, WohnenStateT
 }
 
 export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(
-  translate('wohnen')(
+  withTranslation('wohnen')(
     withTheme()(
       WohnenExtraContainer
     )))

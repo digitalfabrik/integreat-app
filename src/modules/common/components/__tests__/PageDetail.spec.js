@@ -10,8 +10,8 @@ import { expectToHaveForwardDirection, expectToHaveReverseDirection } from '../.
 describe('PageDetail', () => {
   it('should display the given identifier followed by a colon', () => {
     const { queryByText } = render(
-      <PageDetail identifier={'Test Identifier'} information={'Some important information'} theme={brightTheme}
-                  language={'de'} />
+      <PageDetail identifier='Test Identifier' information='Some important information' theme={brightTheme}
+                  language='de' />
     )
     expect(queryByText('Test Identifier', { exact: false })).toBeTruthy()
     expect(queryByText('Some important information', { exact: false })).toBeTruthy()
@@ -22,15 +22,15 @@ describe('PageDetail', () => {
       I18nManager.forceRTL(false)
 
       const { container } = render(
-        <PageDetail identifier={'Test Identifier'} information={'Some important information'} theme={brightTheme}
-                    language={'de'} />
+        <PageDetail identifier='Test Identifier' information='Some important information' theme={brightTheme}
+                    language='de' />
       )
 
       expectToHaveForwardDirection(container)
 
       const { container: arabicContainer } = render(
-        <PageDetail identifier={'Test Identifier'} information={'Some important information'} theme={brightTheme}
-                    language={'ar'} />
+        <PageDetail identifier='Test Identifier' information='Some important information' theme={brightTheme}
+                    language='ar' />
       )
 
       expectToHaveReverseDirection(arabicContainer)
@@ -40,15 +40,15 @@ describe('PageDetail', () => {
       I18nManager.forceRTL(true)
 
       const { container } = render(
-        <PageDetail identifier={'Test Identifier'} information={'Some important information'} theme={brightTheme}
-                    language={'de'} />
+        <PageDetail identifier='Test Identifier' information='Some important information' theme={brightTheme}
+                    language='de' />
       )
 
       expectToHaveReverseDirection(container)
 
       const { container: arabicContainer } = render(
-        <PageDetail identifier={'Test Identifier'} information={'Some important information'} theme={brightTheme}
-                    language={'ar'} />
+        <PageDetail identifier='Test Identifier' information='Some important information' theme={brightTheme}
+                    language='ar' />
       )
 
       expectToHaveForwardDirection(arabicContainer)
