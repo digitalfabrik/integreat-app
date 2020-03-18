@@ -18,7 +18,7 @@ You need to place the keystore file in the `android/app` folder.
 * Increment the `versionCode` in the [build.gradle](../android/app/build.gradle)
 * For building the Release Android App Bundle use the following command:
   ```bash
-    ./gradlew -PMYAPP_RELEASE_STORE_FILE=<store_file> -PMYAPP_RELEASE_STORE_PASSWORD=<store_pw> -PMYAPP_RELEASE_KEY_ALIAS=<key_alias> -PMYAPP_RELEASE_KEY_PASSWORD=<key_pw> bundleRelease -x lint
+    ./gradlew -PMYAPP_RELEASE_STORE_FILE=<store_file> -PMYAPP_RELEASE_STORE_PASSWORD=<store_pw> -PMYAPP_RELEASE_KEY_ALIAS=<key_alias> -PMYAPP_RELEASE_KEY_PASSWORD=<key_pw> bundleRelease
   ```
 
   `<store_file>` is the filename of the keystore file.
