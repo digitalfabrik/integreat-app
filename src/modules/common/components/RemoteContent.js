@@ -11,7 +11,6 @@ import { WebView, type WebViewMessageEvent } from 'react-native-webview'
 import type { PageResourceCacheStateType } from '../../app/StateType'
 import type { WebViewNavigation } from 'react-native-webview/lib/WebViewTypes'
 import type { ViewLayoutEvent } from 'react-native/Libraries/Components/View/ViewPropTypes'
-import { RTL_LANGUAGES } from '../../i18n/constants'
 
 const StyledView: StyledComponent<{}, {}, *> = styled.View`
   overflow: hidden;
@@ -76,7 +75,7 @@ class RemoteContent extends React.Component<PropType, StateType> {
     const width = this.state.webViewWidth
     return <StyledView onLayout={this.onLayout}>
       <WebView
-        source={createHtmlSource(renderHtml(content, files, theme, RTL_LANGUAGES.includes(language) ? 'rtl' : 'ltr'),
+        source={createHtmlSource(renderHtml(content, files, theme, language),
           URL_PREFIX + getResourceCacheFilesDirPath(cityCode))}
         allowFileAccess // Needed by android to access file:// urls
         originWhitelist={['*']} // Needed by iOS to load the initial html
