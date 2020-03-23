@@ -36,11 +36,11 @@ Create a release build
 fastlane android browserstack_upload_live
 ```
 Upload to Browserstack Live
-### android browserstack_upload_auto
+### android browserstack_e2e_tests
 ```
-fastlane android browserstack_upload_auto
+fastlane android browserstack_e2e_tests
 ```
-Run e2e tests
+Run E2E tests on BrowserStack
 ### android playstore_upload
 ```
 fastlane android playstore_upload
