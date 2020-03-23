@@ -2,8 +2,6 @@ git_url("git@github.com:Integreat/app-credentials.git")
 
 storage_mode("git")
 
-type("development") # The default type, can be: appstore, adhoc, enterprise or development
-
 app_identifier("de.integreat-app")
 username("app-team@integreat-app.de")
 
