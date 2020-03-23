@@ -118,7 +118,7 @@ jobs:
             - 1-pods-{{ checksum "ios/Podfile.lock" }}-{{ arch }}
       - run:
           name: Install CocoaPods
-          command: pod install --deployment
+          command: bundle exec pod install --deployment
           working_directory: ios
       - save_cache:
           name: Save CocoaPods Cache
