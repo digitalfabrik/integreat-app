@@ -117,7 +117,7 @@ platform :android do
         skip_upload_metadata: true,
         release_status: "draft",
         apk: 'app/build/outputs/apk/release/app-release.apk',
-        json_key_data: GOOGLE_SERVICE_ACCOUNT_JSON
+        json_key_data: ENV["GOOGLE_SERVICE_ACCOUNT_JSON"]
     )
   end
 
