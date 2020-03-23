@@ -5,7 +5,6 @@ jobs:
     resource_class: medium+
     environment:
       GRADLE_OPTS: -Dorg.gradle.jvmargs="-Xmx4096m -XX:+HeapDumpOnOutOfMemoryError -Dorg.gradle.daemon=false -Dorg.gradle.parallel=true -Dorg.gradle.configureondemand=true"
-      BUNDLE_CONFIG: ./metro.config.ci.js
     steps:
       - add_ssh_keys:
           fingerprints:
@@ -63,22 +62,9 @@ jobs:
           command: bundle exec fastlane android browserstack_upload_live
           working_directory: android
       - run:
-          name: Fastlane Browserstack Upload Automate
-          command: |
-            bundle exec fastlane android browserstack_upload_auto
-            echo "export BROWSERSTACK_APP_ID=$BROWSERSTACK_APP_ID" >> $BASH_ENV
+          name: Fastlane E2E Tests on Browserstack
+          command: bundle exec fastlane android browserstack_e2e_tests
           working_directory: android
-      - run:
-          name: Run E2E tests
-          environment:
-            E2E_CAPS: ci_browserstack
-            E2E_PLATFORM: android
-            E2E_SERVER: browserstack
-          command: |
-            export E2E_BROWSERSTACK_USER=$BROWSERSTACK_USERNAME
-            export E2E_BROWSERSTACK_KEY=$BROWSERSTACK_ACCESS_KEY
-            export E2E_BROWSERSTACK_APP=$BROWSERSTACK_APP_ID
-            yarn test:e2e
       - run:
           name: Fastlane Play Store Upload
           command: bundle exec fastlane android playstore_upload
@@ -140,26 +126,13 @@ jobs:
           command: bundle exec fastlane ios browserstack_upload_live
           working_directory: ios
       - run:
-          name: Fastlane Browserstack Upload Automate
-          command: |
-            bundle exec fastlane ios browserstack_upload_auto
-            echo "export BROWSERSTACK_APP_ID=$BROWSERSTACK_APP_ID" >> $BASH_ENV
-            source $BASH_ENV
+          name: Fastlane E2E Tests on Browserstack
+          command: bundle exec fastlane ios browserstack_e2e_tests
           working_directory: ios
       - run:
-          command: cat $BASH_ENV
-      - run:
-          name: Run E2E tests
-          environment:
-            E2E_CAPS: ci_browserstack_ios
-            E2E_PLATFORM: ios
-            E2E_SERVER: browserstack
-          command: |
-            source $BASH_ENV
-            export E2E_BROWSERSTACK_USER=$BROWSERSTACK_USERNAME
-            export E2E_BROWSERSTACK_KEY=$BROWSERSTACK_ACCESS_KEY
-            export E2E_BROWSERSTACK_APP=$BROWSERSTACK_APP_ID
-            yarn test:e2e
+          name: Fastlane TestFlight Upload
+          command: bundle exec fastlane android testflight_upload
+          working_directory: ios
       - store_artifacts:
           path: ios/output
 

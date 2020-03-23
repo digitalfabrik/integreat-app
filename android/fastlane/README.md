@@ -31,11 +31,16 @@ Create a release build
 fastlane android build
 ```
 Create a release build
-### android browserstack_upload
+### android browserstack_upload_live
 ```
-fastlane android browserstack_upload
+fastlane android browserstack_upload_live
 ```
-Upload to Browserstack
+Upload to Browserstack Live
+### android browserstack_upload_auto
+```
+fastlane android browserstack_upload_auto
+```
+Run e2e tests
 ### android playstore_upload
 ```
 fastlane android playstore_upload

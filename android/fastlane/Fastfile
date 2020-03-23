@@ -39,6 +39,9 @@ platform :android do
 
   desc "Create a release build"
   lane :build do
+    ENV["E2E_TEST_IDS"] = "1"
+    ENV["BUNDLE_CONFIG"] = "./metro.config.ci.js"
+
     gradle(
         task: "build",
         properties: {
@@ -63,13 +66,21 @@ platform :android do
     )
   end
 
-  desc "Upload to Browserstack Automate"
-  lane :browserstack_upload_auto do
+  desc "Run E2E tests on BrowserStack"
+  lane :browserstack_e2e_tests do
     upload_to_browserstack_app_automate(
         browserstack_username: ENV["BROWSERSTACK_USERNAME"],
         browserstack_access_key: ENV["BROWSERSTACK_ACCESS_KEY"],
         file_path: "app/build/outputs/apk/release/app-release.apk"
     )
+
+    ENV["E2E_CAPS"] = 'ci_browserstack'
+    ENV["E2E_PLATFORM"] = 'android'
+    ENV["E2E_SERVER"] = 'browserstack'
+    ENV["E2E_BROWSERSTACK_USER"] = ENV["BROWSERSTACK_USERNAME"]
+    ENV["E2E_BROWSERSTACK_KEY"] = ENV["BROWSERSTACK_ACCESS_KEY"]
+    ENV["E2E_BROWSERSTACK_APP"] = lane_context[SharedValues::BROWSERSTACK_LIVE_APP_ID]
+    sh("cd .. && yarn test:e2e")
   end
 
   desc "Upload to Play Store"
