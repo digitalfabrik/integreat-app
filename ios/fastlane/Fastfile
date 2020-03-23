@@ -27,6 +27,10 @@ platform :ios do
 
   desc "Create a simulator build"
   lane :release do
+    # Maybe xcodebuildArguments is needed
+    ENV["E2E_TEST_IDS"] = "1"
+    ENV["BUNDLE_CONFIG"] = "./metro.config.ci.js"
+
     sync_code_signing(type: "development", app_identifier: ["de.integreat-app"])
     sync_code_signing(type: "appstore", app_identifier: ["de.integreat-app"])
 
@@ -47,6 +51,11 @@ platform :ios do
     )
   end
 
+  desc "Upload to TestFlight"
+  lane :testflight_upload do
+    upload_to_testflight
+  end
+
   desc "Upload to Browserstack Live"
   lane :browserstack_upload_live do
     upload_to_browserstack_app_live(
@@ -56,13 +65,20 @@ platform :ios do
     )
   end
 
-  desc "Upload to Browserstack Automate"
-  lane :browserstack_upload_auto do
+  desc "Run E2E tests on BrowserStack"
+  lane :browserstack_e2e_tests do
     upload_to_browserstack_app_automate(
         browserstack_username: ENV["BROWSERSTACK_USERNAME"],
         browserstack_access_key: ENV["BROWSERSTACK_ACCESS_KEY"],
         file_path: "output/gym/#{output_name}"
     )
+
+    ENV["E2E_CAPS"] = 'ci_browserstack_ios'
+    ENV["E2E_PLATFORM"] = 'ios'
+    ENV["E2E_SERVER"] = 'browserstack'
+    ENV["E2E_BROWSERSTACK_USER"] = ENV["BROWSERSTACK_USERNAME"]
+    ENV["E2E_BROWSERSTACK_KEY"] = ENV["BROWSERSTACK_ACCESS_KEY"]
+    ENV["E2E_BROWSERSTACK_APP"] = lane_context[SharedValues::BROWSERSTACK_LIVE_APP_ID]
   end
 
   after_all do |lane|
