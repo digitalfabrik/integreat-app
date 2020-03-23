@@ -15,9 +15,9 @@ platform :android do
 
   desc "Prepare the keystore"
   lane :keystore do
-    unless CREDENTIALS_GIT_REPOSITORY_URL
-      UI.crash!('Unable to prepare keystore as remote information is missing')
-    end
+    ensure_env_vars(
+        env_vars: ['CREDENTIALS_GIT_REPOSITORY_URL']
+    )
 
     puts("Cloning repository with keystore")
 
@@ -59,6 +59,10 @@ platform :android do
 
   desc "Upload to Browserstack Live"
   lane :browserstack_upload_live do
+    ensure_env_vars(
+        env_vars: ['BROWSERSTACK_USERNAME', 'BROWSERSTACK_ACCESS_KEY']
+    )
+
     upload_to_browserstack_app_live(
         browserstack_username: ENV["BROWSERSTACK_USERNAME"],
         browserstack_access_key: ENV["BROWSERSTACK_ACCESS_KEY"],
@@ -68,6 +72,10 @@ platform :android do
 
   desc "Run E2E tests on BrowserStack"
   lane :browserstack_e2e_tests do
+    ensure_env_vars(
+        env_vars: ['BROWSERSTACK_USERNAME', 'BROWSERSTACK_ACCESS_KEY']
+    )
+
     upload_to_browserstack_app_automate(
         browserstack_username: ENV["BROWSERSTACK_USERNAME"],
         browserstack_access_key: ENV["BROWSERSTACK_ACCESS_KEY"],
@@ -79,19 +87,25 @@ platform :android do
     ENV["E2E_SERVER"] = 'browserstack'
     ENV["E2E_BROWSERSTACK_USER"] = ENV["BROWSERSTACK_USERNAME"]
     ENV["E2E_BROWSERSTACK_KEY"] = ENV["BROWSERSTACK_ACCESS_KEY"]
-    ENV["E2E_BROWSERSTACK_APP"] = lane_context[SharedValues::BROWSERSTACK_LIVE_APP_ID]
+    ENV["E2E_BROWSERSTACK_APP"] = lane_context[SharedValues::BROWSERSTACK_APP_ID]
+
     yarn(
         command: "test:e2e",
         package_path: "../package.json"
     )
   end
 
+  desc "experiment"
+  lane :experiment do
+    ENV["E2E_CAPS"] = 'ci_browserstack'
+    sh("echo $E2E_CAPS")
+  end
+
   desc "Upload to Play Store"
   lane :playstore_upload do
-    GOOGLE_SERVICE_ACCOUNT_JSON = ENV["GOOGLE_SERVICE_ACCOUNT_JSON"]
-    unless GOOGLE_SERVICE_ACCOUNT_JSON
-      UI.crash!('Unable to upload to Play Console as authentification is missing!')
-    end
+    ensure_env_vars(
+        env_vars: ['GOOGLE_SERVICE_ACCOUNT_JSON']
+    )
 
     upload_to_play_store(
         version_code: 100008,

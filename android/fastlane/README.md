@@ -41,6 +41,11 @@ Upload to Browserstack Live
 fastlane android browserstack_e2e_tests
 ```
 Run E2E tests on BrowserStack
+### android experiment
+```
+fastlane android experiment
+```
+experiment
 ### android playstore_upload
 ```
 fastlane android playstore_upload
