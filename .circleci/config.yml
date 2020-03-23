@@ -144,7 +144,10 @@ jobs:
           command: |
             bundle exec fastlane ios browserstack_upload_auto
             echo "export BROWSERSTACK_APP_ID=$BROWSERSTACK_APP_ID" >> $BASH_ENV
+            source $BASH_ENV
           working_directory: ios
+      - run:
+          command: cat $BASH_ENV
       - run:
           name: Run E2E tests
           environment:
@@ -152,6 +155,7 @@ jobs:
             E2E_PLATFORM: ios
             E2E_SERVER: browserstack
           command: |
+            source $BASH_ENV
             export E2E_BROWSERSTACK_USER=$BROWSERSTACK_USERNAME
             export E2E_BROWSERSTACK_KEY=$BROWSERSTACK_ACCESS_KEY
             export E2E_BROWSERSTACK_APP=$BROWSERSTACK_APP_ID
