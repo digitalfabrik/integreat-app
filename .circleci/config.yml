@@ -60,14 +60,14 @@ jobs:
           working_directory: android
       - run:
           name: Fastlane Browserstack Upload Live
-          command: bundle exec fastlane ios browserstack_upload_live
-          working_directory: ios
+          command: bundle exec fastlane android browserstack_upload_live
+          working_directory: android
       - run:
           name: Fastlane Browserstack Upload Automate
           command: |
-            bundle exec fastlane ios browserstack_upload_auto
+            bundle exec fastlane android browserstack_upload_auto
             echo "export BROWSERSTACK_APP_ID=$BROWSERSTACK_APP_ID" >> $BASH_ENV
-          working_directory: ios
+          working_directory: android
       - run:
           name: Run E2E tests
           environment:
