@@ -53,11 +53,19 @@ platform :ios do
 
   desc "Upload to TestFlight"
   lane :testflight_upload do
+    ensure_env_vars(
+        env_vars: ['FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD']
+    )
+
     upload_to_testflight
   end
 
   desc "Upload to Browserstack Live"
   lane :browserstack_upload_live do
+    ensure_env_vars(
+        env_vars: ['BROWSERSTACK_USERNAME', 'BROWSERSTACK_ACCESS_KEY']
+    )
+
     upload_to_browserstack_app_live(
         browserstack_username: ENV["BROWSERSTACK_USERNAME"],
         browserstack_access_key: ENV["BROWSERSTACK_ACCESS_KEY"],
@@ -67,6 +75,10 @@ platform :ios do
 
   desc "Run E2E tests on BrowserStack"
   lane :browserstack_e2e_tests do
+    ensure_env_vars(
+        env_vars: ['BROWSERSTACK_USERNAME', 'BROWSERSTACK_ACCESS_KEY']
+    )
+
     upload_to_browserstack_app_automate(
         browserstack_username: ENV["BROWSERSTACK_USERNAME"],
         browserstack_access_key: ENV["BROWSERSTACK_ACCESS_KEY"],
@@ -78,7 +90,7 @@ platform :ios do
     ENV["E2E_SERVER"] = 'browserstack'
     ENV["E2E_BROWSERSTACK_USER"] = ENV["BROWSERSTACK_USERNAME"]
     ENV["E2E_BROWSERSTACK_KEY"] = ENV["BROWSERSTACK_ACCESS_KEY"]
-    ENV["E2E_BROWSERSTACK_APP"] = lane_context[SharedValues::BROWSERSTACK_LIVE_APP_ID]
+    ENV["E2E_BROWSERSTACK_APP"] = lane_context[SharedValues::BROWSERSTACK_APP_ID]
     yarn(
         command: "test:e2e",
         package_path: "../package.json"
