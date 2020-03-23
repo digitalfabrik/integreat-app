@@ -27,8 +27,8 @@ platform :ios do
 
   desc "Create a simulator build"
   lane :release do
-    #sync_code_signing(type: "adhoc", app_identifier: ["de.integreat-app"], readonly: true)
-    sync_code_signing(type: "appstore", app_identifier: ["de.integreat-app"], readonly: true)
+    sync_code_signing(type: "development", app_identifier: ["de.integreat-app"])
+    sync_code_signing(type: "appstore", app_identifier: ["de.integreat-app"])
 
     increment_build_number(
         build_number: build_number
