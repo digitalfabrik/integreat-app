@@ -31,6 +31,11 @@ Create a simulator build
 fastlane ios release
 ```
 Create a simulator build
+### ios browserstack_upload
+```
+fastlane ios browserstack_upload
+```
+Upload to Browserstack
 
 ----
 
