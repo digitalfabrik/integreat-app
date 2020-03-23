@@ -33,9 +33,10 @@ jobs:
           command: yarn install --frozen-lockfile
       - save_cache:
           name: Save Yarn Package Cache
-          key: 1-yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
+          key: 2-yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
           paths:
             - ~/.cache/yarn
+            - node_modules
       - run:
           name: Ruby version
           command: ruby --version
@@ -107,16 +108,17 @@ jobs:
           command: yarn install --frozen-lockfile
       - save_cache:
           name: Save Yarn Package Cache
-          key: 3-yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
+          key: 4-yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
           paths:
             - ~/Library/Caches/Yarn/
+            - node_modules
       - restore_cache:
           name: Restore CocoaPods Cache
           keys:
             - 1-pods-{{ checksum "ios/Podfile.lock" }}-{{ arch }}
       - run:
           name: Install CocoaPods
-          command: pod install
+          command: pod install --deployment
           working_directory: ios
       - save_cache:
           name: Save CocoaPods Cache
@@ -140,7 +142,7 @@ jobs:
           working_directory: ios
       - run:
           name: Fastlane TestFlight Upload
-          command: bundle exec fastlane android testflight_upload
+          command: bundle exec fastlane ios testflight_upload
           working_directory: ios
       - store_artifacts:
           path: ios/output
