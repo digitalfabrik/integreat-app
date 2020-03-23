@@ -11,7 +11,7 @@
     "build": "webpack --config tools/webpack.config.babel.js --env.prod=true --env.config_name=integreat",
     "build:debug": "webpack --config tools/webpack.config.babel.js --env.prod=false --env.config_name=integreat",
     "build:lib": "webpack --config tools/lib.webpack.config.babel.js --env.prod=true && flow-copy-source -i '**/@(__mocks__|__tests__)/**' ./src ./lib-dist && mv ./lib-dist/lib.js.flow ./lib-dist/index.js.flow",
-    "check:built": "yarn es-check es5 ./www/**/*.js",
+    "check:built": "yarn es-check es5 ./dist/**/*.js",
     "test": "jest --config jest.config.json",
     "test:coverage": "jest --config jest.config.json --coverage",
     "test:watch": "jest --config jest.config.json --watchAll",
