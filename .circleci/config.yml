@@ -110,10 +110,19 @@ jobs:
           key: 3-yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
           paths:
             - ~/Library/Caches/Yarn/
+      - restore_cache:
+          name: Restore CocoaPods Cache
+          keys:
+            - 1-pods-{{ checksum "ios/Podfile.lock" }}-{{ arch }}
       - run:
           name: Install CocoaPods
           command: pod install
           working_directory: ios
+      - save_cache:
+          name: Save CocoaPods Cache
+          key: 1-pods-{{ checksum "ios/Podfile.lock" }}-{{ arch }}
+          paths:
+            - ~/Library/Caches/CocoaPods/
       - run:
           name: Ruby version
           command: ruby --version
