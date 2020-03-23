@@ -14,7 +14,7 @@ const ARABIC_LANGUAGES = ['ar', 'fa', 'ku']
 
 function withTheme<Props: { theme: ThemeType }> (
   mapPropsToLanguage?: MapPropsToLanguageType<$Diff<Props, {| theme: ThemeType |}>>
-): (Component: React.AbstractComponent<Props>) => React.AbstractComponent<$Diff<Props, {| theme: ThemeType |}>> {
+): React.AbstractComponent<Props> => React.AbstractComponent<$Diff<Props, {| theme: ThemeType |}>> {
   return (Component: React.AbstractComponent<Props>): React.AbstractComponent<$Diff<Props, {| theme: ThemeType |}>> => {
     return class extends React.Component<$Diff<Props, {| theme: ThemeType |}>> {
       static displayName = wrapDisplayName(Component, 'withTheme')
