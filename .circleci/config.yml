@@ -59,9 +59,26 @@ jobs:
           command: bundle exec fastlane android build
           working_directory: android
       - run:
-          name: Fastlane Browserstack Upload
-          command: bundle exec fastlane android browserstack_upload
-          working_directory: android
+          name: Fastlane Browserstack Upload Live
+          command: bundle exec fastlane ios browserstack_upload_live
+          working_directory: ios
+      - run:
+          name: Fastlane Browserstack Upload Automate
+          command: |
+            bundle exec fastlane ios browserstack_upload_auto
+            echo "export BROWSERSTACK_APP_ID=$BROWSERSTACK_APP_ID" >> $BASH_ENV
+          working_directory: ios
+      - run:
+          name: Run E2E tests
+          environment:
+            E2E_CAPS: ci_browserstack
+            E2E_PLATFORM: android
+            E2E_SERVER: browserstack
+          command: |
+            export E2E_BROWSERSTACK_USER=$BROWSERSTACK_USERNAME
+            export E2E_BROWSERSTACK_KEY=$BROWSERSTACK_ACCESS_KEY
+            export E2E_BROWSERSTACK_APP=$BROWSERSTACK_APP_ID
+            yarn test:e2e
       - run:
           name: Fastlane Play Store Upload
           command: bundle exec fastlane android playstore_upload
@@ -119,9 +136,26 @@ jobs:
           command: bundle exec fastlane ios release
           working_directory: ios
       - run:
-          name: Fastlane Browserstack Upload
-          command: bundle exec fastlane ios browserstack_upload
+          name: Fastlane Browserstack Upload Live
+          command: bundle exec fastlane ios browserstack_upload_live
           working_directory: ios
+      - run:
+          name: Fastlane Browserstack Upload Automate
+          command: |
+            bundle exec fastlane ios browserstack_upload_auto
+            echo "export BROWSERSTACK_APP_ID=$BROWSERSTACK_APP_ID" >> $BASH_ENV
+          working_directory: ios
+      - run:
+          name: Run E2E tests
+          environment:
+            E2E_CAPS: ci_browserstack_ios
+            E2E_PLATFORM: ios
+            E2E_SERVER: browserstack
+          command: |
+            export E2E_BROWSERSTACK_USER=$BROWSERSTACK_USERNAME
+            export E2E_BROWSERSTACK_KEY=$BROWSERSTACK_ACCESS_KEY
+            export E2E_BROWSERSTACK_APP=$BROWSERSTACK_APP_ID
+            yarn test:e2e
       - store_artifacts:
           path: ios/output
 

@@ -47,9 +47,18 @@ platform :ios do
     )
   end
 
-  desc "Upload to Browserstack"
+  desc "Upload to Browserstack Live"
   lane :browserstack_upload do
     upload_to_browserstack_app_live(
+        browserstack_username: ENV["BROWSERSTACK_USERNAME"],
+        browserstack_access_key: ENV["BROWSERSTACK_ACCESS_KEY"],
+        file_path: "output/gym/#{output_name}"
+    )
+  end
+
+  desc "Upload to Browserstack Automate"
+  lane :browserstack_upload_auto do
+    upload_to_browserstack_app_automate(
         browserstack_username: ENV["BROWSERSTACK_USERNAME"],
         browserstack_access_key: ENV["BROWSERSTACK_ACCESS_KEY"],
         file_path: "output/gym/#{output_name}"
