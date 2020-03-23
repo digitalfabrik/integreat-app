@@ -73,7 +73,7 @@ import com.android.build.OutputFile
  */
 
 project.ext.react = [
-        entryFile: "index.js",
+        entryFile   : "index.js",
         bundleConfig: System.getenv('BUNDLE_CONFIG'),
         enableHermes: false,  // clean and rebuild if changing
 ]
