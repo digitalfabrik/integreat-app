@@ -2,6 +2,9 @@ fastlane_version "2.143.0"
 
 default_platform :android
 
+version_code = 100009
+version_name = "2020.3.2"
+
 platform :android do
   CREDENTIALS_GIT_REPOSITORY_URL = ENV['CREDENTIALS_GIT_REPOSITORY_URL']
   CREDENTIALS_DIRECTORY_PATH = ENV['CREDENTIALS_DIRECTORY_PATH']
@@ -45,8 +48,8 @@ platform :android do
     gradle(
         task: "build",
         properties: {
-            :VERSION_CODE => 100008,
-            :VERSION_NAME => "2020.3.2",
+            :VERSION_CODE => version_code,
+            :VERSION_NAME => version_name,
             :KEYSTORE_PATH => KEYSTORE_PATH,
             :KEYSTORE_KEY_ALIAS => KEYSTORE_KEY_ALIAS,
             :KEYSTORE_PASSWORD => KEYSTORE_PASSWORD,
@@ -108,8 +111,8 @@ platform :android do
     )
 
     upload_to_play_store(
-        version_code: 100009,
-        version_name: "2020.3.2",
+        version_code: version_code,
+        version_name: version_name,
         track: 'alpha',
         skip_upload_changelogs: true,
         skip_upload_images: true,
