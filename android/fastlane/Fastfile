@@ -80,7 +80,10 @@ platform :android do
     ENV["E2E_BROWSERSTACK_USER"] = ENV["BROWSERSTACK_USERNAME"]
     ENV["E2E_BROWSERSTACK_KEY"] = ENV["BROWSERSTACK_ACCESS_KEY"]
     ENV["E2E_BROWSERSTACK_APP"] = lane_context[SharedValues::BROWSERSTACK_LIVE_APP_ID]
-    sh("cd .. && yarn test:e2e")
+    yarn(
+        command: "test:e2e",
+        package_path: "../package.json"
+    )
   end
 
   desc "Upload to Play Store"

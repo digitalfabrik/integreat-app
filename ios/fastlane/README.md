@@ -31,11 +31,21 @@ Create a simulator build
 fastlane ios release
 ```
 Create a simulator build
-### ios browserstack_upload
+### ios testflight_upload
 ```
-fastlane ios browserstack_upload
+fastlane ios testflight_upload
 ```
-Upload to Browserstack
+Upload to TestFlight
+### ios browserstack_upload_live
+```
+fastlane ios browserstack_upload_live
+```
+Upload to Browserstack Live
+### ios browserstack_e2e_tests
+```
+fastlane ios browserstack_e2e_tests
+```
+Run E2E tests on BrowserStack
 
 ----
 
