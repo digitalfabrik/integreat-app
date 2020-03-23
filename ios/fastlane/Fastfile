@@ -2,7 +2,7 @@ fastlane_version "2.67.0"
 
 default_platform :ios
 
-build_number = 100008
+build_number = 100009
 output_name = "Integreat-#{build_number}.ipa"
 
 platform :ios do
@@ -57,7 +57,7 @@ platform :ios do
         env_vars: ['FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD']
     )
 
-    upload_to_testflight
+    upload_to_testflight(skip_waiting_for_build_processing: false, apple_id: "1072353915")
   end
 
   desc "Upload to Browserstack Live"

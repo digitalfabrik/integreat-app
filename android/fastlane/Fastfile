@@ -108,7 +108,7 @@ platform :android do
     )
 
     upload_to_play_store(
-        version_code: 100008,
+        version_code: 100009,
         version_name: "2020.3.2",
         track: 'alpha',
         skip_upload_changelogs: true,
@@ -117,7 +117,8 @@ platform :android do
         skip_upload_metadata: true,
         release_status: "draft",
         apk: 'app/build/outputs/apk/release/app-release.apk',
-        json_key_data: ENV["GOOGLE_SERVICE_ACCOUNT_JSON"]
+        json_key_data: ENV["GOOGLE_SERVICE_ACCOUNT_JSON"],
+        validate_only: true
     )
   end
 
