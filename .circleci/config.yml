@@ -27,7 +27,7 @@ jobs:
       - restore_cache:
           name: Restore Yarn Package Cache
           keys:
-            - 1-yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
+            - 2-yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
       - run:
           name: Install Dependencies
           command: yarn install --frozen-lockfile
@@ -111,7 +111,7 @@ jobs:
       - restore_cache:
           name: Restore Yarn Package Cache
           keys:
-            - 3-yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
+            - 4-yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
       - run:
           name: Install Dependencies
           command: yarn install --frozen-lockfile
