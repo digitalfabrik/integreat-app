@@ -3,7 +3,7 @@ fastlane_version "2.67.0"
 default_platform :ios
 
 version_config = YAML.load_file("../../version.yml")
-build_number = 0
+build_number = 1
 version_number = version_config['version_name']
 output_name = "Integreat-#{version_number}-#{build_number}.ipa"
 
