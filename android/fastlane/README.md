@@ -25,7 +25,12 @@ Prepare the keystore
 ```
 fastlane android dependencies
 ```
-Create a release build
+Download Gradle Dependencies
+### android bundle
+```
+fastlane android bundle
+```
+Bundle JavaScript
 ### android build
 ```
 fastlane android build

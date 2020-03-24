@@ -1,4 +1,19 @@
 jobs:
+  bundle:
+    docker:
+      - image: circleci/android:api-28-node
+    resource_class: medium
+    steps:
+      - checkout
+      - run:
+          name: Fastlane Release Bundle
+          command: bundle exec fastlane android bundle
+          working_directory: android
+#      yarn react-native bundle --platform android --reset-cache --entry-file index.js --bundle-output android/app/build/generated/assets/react/release/index.android.bundle --assets-dest android/app/build/generated/res/react/release --sourcemap-output "android/app/build/generated/sourcemaps/react/release/index.android.bundle.map
+      - persist_to_workspace:
+          root: .
+          paths:
+            - android/app/build/generated
   build_android:
     docker:
       - image: circleci/android:api-28-node
@@ -7,7 +22,8 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - "9a:0f:b1:f0:97:c8:db:3f:be:87:a4:9b:09:7f:d3:af"
-      - checkout
+      - attach_workspace:
+          at: .
       - restore_cache:
           key: 1-gems-{{ checksum "android/Gemfile.lock" }}-{{ arch }}
       - run:
@@ -160,6 +176,9 @@ version: 2.1
 workflows:
   react-native:
     jobs:
+      - bundle
       - build_android
+        requires:
+          - bundle
 #      - build_ios
 
