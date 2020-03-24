@@ -43,7 +43,6 @@ platform :android do
   desc "Create a release build"
   lane :build do
     ENV["E2E_TEST_IDS"] = "1"
-    ENV["BUNDLE_CONFIG"] = "./metro.config.ci.js"
 
     gradle(
         task: "build",
