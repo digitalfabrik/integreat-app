@@ -5,6 +5,15 @@ jobs:
     resource_class: medium
     steps:
       - checkout
+      - restore_cache:
+          key: 1-gems-{{ checksum "android/Gemfile.lock" }}-{{ arch }}
+      - run:
+          command: bundle check || bundle install --path vendor/bundle
+          working_directory: android
+      - save_cache:
+          key: 1-gems-{{ checksum "android/Gemfile.lock" }}-{{ arch }}
+          paths:
+            - android/vendor/bundle
       - run:
           name: Fastlane Release Bundle
           command: bundle exec fastlane android bundle
