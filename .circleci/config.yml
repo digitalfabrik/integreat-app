@@ -91,6 +91,7 @@ jobs:
     macos:
       xcode: 11.2.0
     environment:
+      FL_OUTPUT_DIR: output
       TOTAL_CPUS: 4 # For class ios medium
     shell: /bin/bash --login -o pipefail
     steps:
