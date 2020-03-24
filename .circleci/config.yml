@@ -223,9 +223,6 @@ version: 2.1
 workflows:
   react-native:
     jobs:
-#      - bundle
-      - build_android:
-#          requires:
-#            - bundle
+      - build_android
       - build_ios
 
