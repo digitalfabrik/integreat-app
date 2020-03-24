@@ -1,59 +1,65 @@
 jobs:
-  bundle:
-    docker:
-      - image: circleci/android:api-28-node
-    resource_class: medium+
-    steps:
-      - checkout
-      - run:
-          name: "Pull Submodules"
-          command: |
-            git submodule init
-            git submodule update --remote
-      - restore_cache:
-          name: Restore Yarn Package Cache
-          keys:
-            - 2-yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
-      - run:
-          name: Install Dependencies
-          command: yarn install --frozen-lockfile
-      - save_cache:
-          name: Save Yarn Package Cache
-          key: 2-yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
-          paths:
-            - ~/.cache/yarn
-            - node_modules
-      - restore_cache:
-          key: 1-gems-{{ checksum "android/Gemfile.lock" }}-{{ arch }}
-      - run:
-          command: bundle check || bundle install --path vendor/bundle
-          working_directory: android
-      - save_cache:
-          key: 1-gems-{{ checksum "android/Gemfile.lock" }}-{{ arch }}
-          paths:
-            - android/vendor/bundle
+#  bundle:
+#    docker:
+#      - image: circleci/android:api-28-node
+#    resource_class: medium+
+#    steps:
+#      - checkout
 #      - run:
-#          name: Fastlane Release Bundle
-#          command: bundle exec fastlane android bundle
+#          name: "Pull Submodules"
+#          command: |
+#            git submodule init
+#            git submodule update --remote
+#      - restore_cache:
+#          name: Restore Yarn Package Cache
+#          keys:
+#            - 2-yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
+#      - run:
+#          name: Install Dependencies
+#          command: yarn install --frozen-lockfile
+#      - save_cache:
+#          name: Save Yarn Package Cache
+#          key: 2-yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
+#          paths:
+#            - ~/.cache/yarn
+#            - node_modules
+#      - restore_cache:
+#          key: 1-gems-{{ checksum "android/Gemfile.lock" }}-{{ arch }}
+#      - run:
+#          command: bundle check || bundle install --path vendor/bundle
 #          working_directory: android
-      - run:
-          name: Bundle
-          environment:
-            BUNDLE_CONFIG: "./metro.config.ci.js"
-          command: |
-            mkdir -p android/app/build/generated/assets/react/release
-            mkdir -p android/app/build/generated/res/react/release
-            mkdir -p android/app/build/generated/sourcemaps/react/release
-            yarn react-native bundle --platform android --reset-cache --entry-file index.js --bundle-output android/app/build/generated/assets/react/release/index.android.bundle --assets-dest android/app/build/generated/res/react/release --sourcemap-output android/app/build/generated/sourcemaps/react/release/index.android.bundle.map
-      - persist_to_workspace:
-          root: .
-          paths:
-            - android/app/build/generated
+#      - save_cache:
+#          key: 1-gems-{{ checksum "android/Gemfile.lock" }}-{{ arch }}
+#          paths:
+#            - android/vendor/bundle
+##      - run:
+##          name: Fastlane Release Bundle
+##          command: bundle exec fastlane android bundle
+##          working_directory: android
+#      - run:
+#          name: Bundle
+#          environment:
+#            BUNDLE_CONFIG: "./metro.config.ci.js"
+#          command: |
+#            mkdir -p android/app/build/generated/assets/react/release
+#            mkdir -p android/app/build/generated/res/react/release
+#            mkdir -p android/app/build/generated/sourcemaps/react/release
+#            yarn react-native bundle --platform android --reset-cache --entry-file index.js --bundle-output android/app/build/generated/assets/react/release/index.android.bundle --assets-dest android/app/build/generated/res/react/release --sourcemap-output android/app/build/generated/sourcemaps/react/release/index.android.bundle.map
+#      - persist_to_workspace:
+#          root: .
+#          paths:
+#            - android/app/build/generated
   build_android:
     docker:
       - image: circleci/android:api-28-node
     resource_class: medium+
+    environment:
     steps:
+      - run:
+          name: "Set CPU count properly"
+          command: |
+            export TOTAL_CPUS=$CIRCLE_NODE_TOTAL
+            echo "CPU count is ${TOTAL_CPUS}"
       - add_ssh_keys:
           fingerprints:
             - "9a:0f:b1:f0:97:c8:db:3f:be:87:a4:9b:09:7f:d3:af"
@@ -140,6 +146,11 @@ jobs:
       FASTLANE_LANE: ios
     shell: /bin/bash --login -o pipefail
     steps:
+      - run:
+          name: "Set CPU count properly"
+          command: |
+            export TOTAL_CPUS=$CIRCLE_NODE_TOTAL
+            echo "CPU count is ${TOTAL_CPUS}"
       - add_ssh_keys:
           fingerprints:
             - "9a:0f:b1:f0:97:c8:db:3f:be:87:a4:9b:09:7f:d3:af"
@@ -212,9 +223,9 @@ version: 2.1
 workflows:
   react-native:
     jobs:
-      - bundle
+#      - bundle
       - build_android:
-          requires:
-            - bundle
-#      - build_ios
+#          requires:
+#            - bundle
+      - build_ios
 
