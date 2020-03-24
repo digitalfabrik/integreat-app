@@ -1,60 +1,11 @@
 jobs:
-#  bundle:
-#    docker:
-#      - image: circleci/android:api-28-node
-#    resource_class: medium+
-#    steps:
-#      - checkout
-#      - run:
-#          name: "Pull Submodules"
-#          command: |
-#            git submodule init
-#            git submodule update --remote
-#      - restore_cache:
-#          name: Restore Yarn Package Cache
-#          keys:
-#            - 2-yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
-#      - run:
-#          name: Install Dependencies
-#          command: yarn install --frozen-lockfile
-#      - save_cache:
-#          name: Save Yarn Package Cache
-#          key: 2-yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
-#          paths:
-#            - ~/.cache/yarn
-#            - node_modules
-#      - restore_cache:
-#          key: 1-gems-{{ checksum "android/Gemfile.lock" }}-{{ arch }}
-#      - run:
-#          command: bundle check || bundle install --path vendor/bundle
-#          working_directory: android
-#      - save_cache:
-#          key: 1-gems-{{ checksum "android/Gemfile.lock" }}-{{ arch }}
-#          paths:
-#            - android/vendor/bundle
-##      - run:
-##          name: Fastlane Release Bundle
-##          command: bundle exec fastlane android bundle
-##          working_directory: android
-#      - run:
-#          name: Bundle
-#          environment:
-#            BUNDLE_CONFIG: "./metro.config.ci.js"
-#          command: |
-#            mkdir -p android/app/build/generated/assets/react/release
-#            mkdir -p android/app/build/generated/res/react/release
-#            mkdir -p android/app/build/generated/sourcemaps/react/release
-#            yarn react-native bundle --platform android --reset-cache --entry-file index.js --bundle-output android/app/build/generated/assets/react/release/index.android.bundle --assets-dest android/app/build/generated/res/react/release --sourcemap-output android/app/build/generated/sourcemaps/react/release/index.android.bundle.map
-#      - persist_to_workspace:
-#          root: .
-#          paths:
-#            - android/app/build/generated
   build_android:
     docker:
       - image: circleci/android:api-28-node
-    resource_class: medium+
+    resource_class: medium
     environment:
       TOTAL_CPUS: 3 # For class medium+
+    shell: /bin/bash -eo pipefail
     steps:
       - run:
           name: "Set CPU count properly"
@@ -69,8 +20,6 @@ jobs:
           command: |
             git submodule init
             git submodule update --remote
-      - attach_workspace:
-          at: .
       - restore_cache:
           key: 1-gems-{{ checksum "android/Gemfile.lock" }}-{{ arch }}
       - run:
@@ -123,18 +72,18 @@ jobs:
           name: Fastlane Release Build
           command: bundle exec fastlane android release
           working_directory: android
-      - run:
-          name: Fastlane Browserstack Upload Live
-          command: bundle exec fastlane android browserstack_upload_live
-          working_directory: android
+#      - run:
+#          name: Fastlane Browserstack Upload Live
+#          command: bundle exec fastlane android browserstack_upload_live
+#          working_directory: android
       - run:
           name: Fastlane E2E Tests on Browserstack
           command: bundle exec fastlane android browserstack_e2e_tests
           working_directory: android
-      - run:
-          name: Fastlane Play Store Upload
-          command: bundle exec fastlane android playstore_upload
-          working_directory: android
+#      - run:
+#          name: Fastlane Play Store Upload
+#          command: bundle exec fastlane android playstore_upload
+#          working_directory: android
       - store_artifacts:
           path: android/app/build/outputs/apk
 
@@ -202,18 +151,18 @@ jobs:
           name: Fastlane Release Build
           command: bundle exec fastlane ios release
           working_directory: ios
-      - run:
-          name: Fastlane Browserstack Upload Live
-          command: bundle exec fastlane ios browserstack_upload_live
-          working_directory: ios
+#      - run:
+#          name: Fastlane Browserstack Upload Live
+#          command: bundle exec fastlane ios browserstack_upload_live
+#          working_directory: ios
       - run:
           name: Fastlane E2E Tests on Browserstack
           command: bundle exec fastlane ios browserstack_e2e_tests
           working_directory: ios
-      - run:
-          name: Fastlane TestFlight Upload
-          command: bundle exec fastlane ios testflight_upload
-          working_directory: ios
+#      - run:
+#          name: Fastlane TestFlight Upload
+#          command: bundle exec fastlane ios testflight_upload
+#          working_directory: ios
       - store_artifacts:
           path: ios/output
 
