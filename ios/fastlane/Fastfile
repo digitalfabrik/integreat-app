@@ -58,11 +58,13 @@ platform :ios do
         env_vars: ['FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD']
     )
 
-    upload_to_testflight(
-        skip_waiting_for_build_processing: true,
-        apple_id: "1072353915",
-        ipa: "output/gym/#{output_name}"
-    )
+      # Do not upload for now
+      # upload_to_testflight(
+      #     skip_waiting_for_build_processing: true,
+      #     apple_id: "1072353915",
+      #     ipa: "output/gym/#{output_name}",
+      #     distribute_external: true
+      # )
   end
 
   desc "Upload to Browserstack Live"
