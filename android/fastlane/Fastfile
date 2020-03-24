@@ -54,7 +54,7 @@ platform :android do
             :KEYSTORE_PASSWORD => KEYSTORE_PASSWORD,
             :KEYSTORE_KEY_PASSWORD => KEYSTORE_KEY_PASSWORD
         },
-        print_command: true
+        print_command: false
     )
   end
 
