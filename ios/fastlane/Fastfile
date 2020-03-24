@@ -61,7 +61,7 @@ platform :ios do
     upload_to_testflight(
         skip_waiting_for_build_processing: true,
         apple_id: "1072353915",
-        ipa: "#{output_name}",
+        ipa: "output/gym/#{output_name}",
         distribute_external: true
     )
   end
@@ -75,7 +75,7 @@ platform :ios do
     upload_to_browserstack_app_live(
         browserstack_username: ENV["BROWSERSTACK_USERNAME"],
         browserstack_access_key: ENV["BROWSERSTACK_ACCESS_KEY"],
-        file_path: "#{output_name}"
+        file_path: "output/gym/#{output_name}"
     )
   end
 
@@ -88,7 +88,7 @@ platform :ios do
     upload_to_browserstack_app_automate(
         browserstack_username: ENV["BROWSERSTACK_USERNAME"],
         browserstack_access_key: ENV["BROWSERSTACK_ACCESS_KEY"],
-        file_path: "#{output_name}"
+        file_path: "output/gym/#{output_name}"
     )
 
     ENV["E2E_CAPS"] = 'ci_browserstack_ios'
