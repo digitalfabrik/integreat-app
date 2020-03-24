@@ -2,8 +2,9 @@ fastlane_version "2.143.0"
 
 default_platform :android
 
-version_code = 100009
-version_name = "2020.3.2"
+version_config = YAML.load_file("../../version.yml")
+version_code = 0
+version_name = version_config['version_name']
 
 platform :android do
   CREDENTIALS_GIT_REPOSITORY_URL = ENV['CREDENTIALS_GIT_REPOSITORY_URL']

@@ -2,9 +2,10 @@ fastlane_version "2.67.0"
 
 default_platform :ios
 
-build_number = 100009
-version_number = "2020.3.2"
-output_name = "Integreat-#{build_number}.ipa"
+version_config = YAML.load_file("../../version.yml")
+build_number = 0
+version_number = version_config['version_name']
+output_name = "Integreat-#{version_number}-#{build_number}.ipa"
 
 platform :ios do
   before_all do
