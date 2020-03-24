@@ -30,7 +30,7 @@ Create a simulator build
 ```
 fastlane ios release
 ```
-Create a simulator build
+Create a release build
 ### ios testflight_upload
 ```
 fastlane ios testflight_upload
