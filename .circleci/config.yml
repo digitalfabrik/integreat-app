@@ -38,6 +38,15 @@ jobs:
             - ~/.cache/yarn
             - node_modules
       - run:
+          name: Linting check
+          command: yarn run lint
+      - run:
+          name: Flow-type check
+          command: yarn run flow:check-now
+      - run:
+          name: Unit tests
+          command: yarn run test
+      - run:
           name: Ruby version
           command: ruby --version
       - run:
