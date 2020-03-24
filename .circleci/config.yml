@@ -58,7 +58,7 @@ jobs:
       - run:
           name: "Set CPU count properly"
           command: |
-            export TOTAL_CPUS=$CIRCLE_NODE_TOTAL
+            export TOTAL_CPUS=$(nproc)
             echo "CPU count is ${TOTAL_CPUS}"
       - add_ssh_keys:
           fingerprints:
@@ -106,7 +106,7 @@ jobs:
           name: Ruby version
           command: ruby --version
       - run:
-          name: fastlane
+          name: Fastlane Prepare Android Keystore
           command: bundle exec fastlane android keystore
           working_directory: android
       - restore_cache:
@@ -121,7 +121,7 @@ jobs:
           key: gradle-{{ checksum "android/build.gradle" }}-{{ checksum "android/app/build.gradle" }}-{{ checksum "android/settings.gradle" }}
       - run:
           name: Fastlane Release Build
-          command: bundle exec fastlane android build
+          command: bundle exec fastlane android release
           working_directory: android
       - run:
           name: Fastlane Browserstack Upload Live
@@ -149,7 +149,7 @@ jobs:
       - run:
           name: "Set CPU count properly"
           command: |
-            export TOTAL_CPUS=$CIRCLE_NODE_TOTAL
+            export TOTAL_CPUS=$(sysctl -n hw.logicalcpu)
             echo "CPU count is ${TOTAL_CPUS}"
       - add_ssh_keys:
           fingerprints:
