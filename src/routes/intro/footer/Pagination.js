@@ -9,7 +9,7 @@ import { range } from 'lodash'
 const DotsContainer: StyledComponent<{}, ThemeType, *> = styled.View`
   flex: 1;
   height: 10px;
-  padding: 10px;
+  padding: 10px 10px 20px;
   flex-direction: row;
   justify-content: center;
   align-items: center;
