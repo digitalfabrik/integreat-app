@@ -9,7 +9,7 @@ jobs:
           name: Fastlane Release Bundle
           command: bundle exec fastlane android bundle
           working_directory: android
-#      yarn react-native bundle --platform android --reset-cache --entry-file index.js --bundle-output android/app/build/generated/assets/react/release/index.android.bundle --assets-dest android/app/build/generated/res/react/release --sourcemap-output "android/app/build/generated/sourcemaps/react/release/index.android.bundle.map
+      #      yarn react-native bundle --platform android --reset-cache --entry-file index.js --bundle-output android/app/build/generated/assets/react/release/index.android.bundle --assets-dest android/app/build/generated/res/react/release --sourcemap-output "android/app/build/generated/sourcemaps/react/release/index.android.bundle.map
       - persist_to_workspace:
           root: .
           paths:
@@ -177,8 +177,8 @@ workflows:
   react-native:
     jobs:
       - bundle
-      - build_android
-        requires:
-          - bundle
+      - build_android:
+          requires:
+            - bundle
 #      - build_ios
 
