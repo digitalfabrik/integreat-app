@@ -5,6 +5,11 @@ jobs:
     resource_class: medium
     steps:
       - checkout
+      - run:
+          name: "Pull Submodules"
+          command: |
+            git submodule init
+            git submodule update --remote
       - restore_cache:
           name: Restore Yarn Package Cache
           keys:
@@ -44,6 +49,12 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - "9a:0f:b1:f0:97:c8:db:3f:be:87:a4:9b:09:7f:d3:af"
+      - checkout
+      - run:
+          name: "Pull Submodules"
+          command: |
+            git submodule init
+            git submodule update --remote
       - attach_workspace:
           at: .
       - restore_cache:
@@ -55,11 +66,6 @@ jobs:
           key: 1-gems-{{ checksum "android/Gemfile.lock" }}-{{ arch }}
           paths:
             - android/vendor/bundle
-      - run:
-          name: "Pull Submodules"
-          command: |
-            git submodule init
-            git submodule update --remote
       - restore_cache:
           name: Restore Yarn Package Cache
           keys:
@@ -130,6 +136,11 @@ jobs:
           fingerprints:
             - "9a:0f:b1:f0:97:c8:db:3f:be:87:a4:9b:09:7f:d3:af"
       - checkout
+      - run:
+          name: "Pull Submodules"
+          command: |
+            git submodule init
+            git submodule update --remote
       - restore_cache:
           key: 1-gems-{{ checksum "ios/Gemfile.lock" }}-{{ arch }}
       - run:
@@ -139,11 +150,6 @@ jobs:
           key: 1-gems-{{ checksum "ios/Gemfile.lock" }}-{{ arch }}
           paths:
             - ios/vendor/bundle
-      - run:
-          name: "Pull Submodules"
-          command: |
-            git submodule init
-            git submodule update --remote
       - restore_cache:
           name: Restore Yarn Package Cache
           keys:
