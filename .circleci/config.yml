@@ -6,6 +6,19 @@ jobs:
     steps:
       - checkout
       - restore_cache:
+          name: Restore Yarn Package Cache
+          keys:
+            - 2-yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
+      - run:
+          name: Install Dependencies
+          command: yarn install --frozen-lockfile
+      - save_cache:
+          name: Save Yarn Package Cache
+          key: 2-yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
+          paths:
+            - ~/.cache/yarn
+            - node_modules
+      - restore_cache:
           key: 1-gems-{{ checksum "android/Gemfile.lock" }}-{{ arch }}
       - run:
           command: bundle check || bundle install --path vendor/bundle
