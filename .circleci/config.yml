@@ -32,11 +32,13 @@ jobs:
           key: 1-gems-{{ checksum "android/Gemfile.lock" }}-{{ arch }}
           paths:
             - android/vendor/bundle
+#      - run:
+#          name: Fastlane Release Bundle
+#          command: bundle exec fastlane android bundle
+#          working_directory: android
       - run:
-          name: Fastlane Release Bundle
-          command: bundle exec fastlane android bundle
-          working_directory: android
-      #      yarn react-native bundle --platform android --reset-cache --entry-file index.js --bundle-output android/app/build/generated/assets/react/release/index.android.bundle --assets-dest android/app/build/generated/res/react/release --sourcemap-output "android/app/build/generated/sourcemaps/react/release/index.android.bundle.map
+          name: Bundle
+          command: yarn react-native bundle --platform android --reset-cache --entry-file index.js --bundle-output android/app/build/generated/assets/react/release/index.android.bundle --assets-dest android/app/build/generated/res/react/release --sourcemap-output "android/app/build/generated/sourcemaps/react/release/index.android.bundle.map
       - persist_to_workspace:
           root: .
           paths:
