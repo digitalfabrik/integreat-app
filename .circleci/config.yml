@@ -54,15 +54,12 @@ jobs:
       - image: circleci/android:api-28-node
     resource_class: medium+
     environment:
+      TOTAL_CPUS: 3 # For class medium+
     steps:
       - run:
           name: "Set CPU count properly"
           command: |
-            cpuset=$(cat /sys/fs/cgroup/cpuset/cpuset.cpus)
-            limits=(${cpuset//-/ })
-            TOTAL_CPUS=$(echo ${limits[1]}-${limits[0]}+1 | bc)
             echo "CPU count is ${TOTAL_CPUS}"
-            export TOTAL_CPUS
       - add_ssh_keys:
           fingerprints:
             - "9a:0f:b1:f0:97:c8:db:3f:be:87:a4:9b:09:7f:d3:af"
