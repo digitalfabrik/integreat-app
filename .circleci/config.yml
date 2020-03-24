@@ -40,7 +40,11 @@ jobs:
           name: Bundle
           environment:
             BUNDLE_CONFIG: "./metro.config.ci.js"
-          command: yarn react-native bundle --platform android --reset-cache --entry-file index.js --bundle-output android/app/build/generated/assets/react/release/index.android.bundle --assets-dest android/app/build/generated/res/react/release --sourcemap-output android/app/build/generated/sourcemaps/react/release/index.android.bundle.map
+          command: |
+            mkdir -p android/app/build/generated/assets/react/release
+            mkdir -p android/app/build/generated/res/react/release
+            mkdir -p android/app/build/generated/sourcemaps/react/release
+            yarn react-native bundle --platform android --reset-cache --entry-file index.js --bundle-output android/app/build/generated/assets/react/release/index.android.bundle --assets-dest android/app/build/generated/res/react/release --sourcemap-output android/app/build/generated/sourcemaps/react/release/index.android.bundle.map
       - persist_to_workspace:
           root: .
           paths:
