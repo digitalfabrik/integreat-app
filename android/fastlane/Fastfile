@@ -111,12 +111,6 @@ platform :android do
     )
   end
 
-  desc "experiment"
-  lane :experiment do
-    ENV["E2E_CAPS"] = 'ci_browserstack'
-    sh("echo $E2E_CAPS")
-  end
-
   desc "Upload to Play Store"
   lane :playstore_upload do
     ensure_env_vars(
