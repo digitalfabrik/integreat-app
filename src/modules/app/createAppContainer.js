@@ -5,12 +5,15 @@ import DashboardContainer from '../../routes/dashboard/containers/DashboardConta
 import CategoriesContainer from '../../routes/categories/containers/CategoriesContainer'
 import type {
   HeaderProps,
-  NavigationComponent, NavigationContainer,
+  NavigationComponent,
+  NavigationContainer,
   NavigationNavigator,
   NavigationRouteConfig,
-  NavigationRouteConfigMap, NavigationRouter, NavigationScreenProp
+  NavigationRouteConfigMap,
+  NavigationRouter,
+  NavigationScreenProp
 } from 'react-navigation'
-import { createStackNavigator, createSwitchNavigator, createAppContainer } from 'react-navigation'
+import { createAppContainer, createStackNavigator, createSwitchNavigator } from 'react-navigation'
 import TransparentHeaderContainer from '../layout/containers/TransparentHeaderContainer'
 import SettingsHeaderContainer from '../layout/containers/SettingsHeaderContainer'
 import HeaderContainer from '../layout/containers/HeaderContainer'
@@ -64,13 +67,15 @@ const cityContentRouteConfigMap: NavigationRouteConfigMap = {
   Events: createNavigationRouteConfig( // $FlowFixMe We don't know why this fails.
     EventsContainer, defaultHeader
   ),
-  Settings: createNavigationRouteConfig(SettingsContainer, settingsHeader),
-  Disclaimer: createNavigationRouteConfig(DisclaimerContainer, defaultHeader),
+  PDFViewModal: createNavigationRouteConfig( // $FlowFixMe We don't know why this fails.
+    PDFViewModal, transparentFloatingHeader
+  ),
   ChangeLanguageModal: createNavigationRouteConfig(ChangeLanguageModalContainer, transparentStaticHeader),
   SearchModal: createNavigationRouteConfig(SearchModalContainer),
   ImageViewModal: createNavigationRouteConfig(ImageViewModal, transparentFloatingHeader),
-  PDFViewModal: createNavigationRouteConfig(PDFViewModal, transparentFloatingHeader),
-  FeedbackModal: createNavigationRouteConfig(FeedbackModalContainer, transparentFloatingHeader)
+  FeedbackModal: createNavigationRouteConfig(FeedbackModalContainer, transparentFloatingHeader),
+  Settings: createNavigationRouteConfig(SettingsContainer, settingsHeader),
+  Disclaimer: createNavigationRouteConfig(DisclaimerContainer, defaultHeader)
 }
 
 export type CreateNavigationContainerParamsType = {|
