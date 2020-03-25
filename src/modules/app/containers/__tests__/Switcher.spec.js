@@ -37,22 +37,23 @@ import { I18N_REDIRECT_ROUTE } from '../../route-configs/I18nRedirectRouteConfig
 describe('Switcher', () => {
   const categories = new CategoriesMapModel([
     new CategoryModel({
-      id: 1,
+      root: true,
       path: 'path01',
       title: 'Title10',
       content: 'contnentl',
       thumbnail: 'thumb/nail',
       parentPath: 'parent/url',
       order: 4,
+      hash: '2fe6283485a93932',
       availableLanguages: new Map(),
       lastUpdate: moment.tz('2017-11-18 09:30:00', 'UTC')
     })
   ])
   const disclaimer = new PageModel({
-    id: 1689,
     title: 'Feedback, Kontakt und mögliches Engagement',
     content: 'this is a test content',
-    lastUpdate: moment.tz('2017-11-18 09:30:00', 'UTC')
+    lastUpdate: moment.tz('2017-11-18 09:30:00', 'UTC'),
+    hash: '2fe6283485a93932'
   })
 
   const extras = [
@@ -74,7 +75,6 @@ describe('Switcher', () => {
 
   const events = [
     new EventModel({
-      id: 1234,
       path: '/augsburg/en/events/nulltes_event',
       title: 'nulltes Event',
       date: new DateModel({
@@ -92,7 +92,8 @@ describe('Switcher', () => {
       }),
       availableLanguages: new Map(
         [['de', '/augsburg/de/events/nulltes_event'], ['ar', '/augsburg/ar/events/nulltes_event']]),
-      lastUpdate: moment(0)
+      lastUpdate: moment(0),
+      hash: '2fe6283485a93932'
     })
   ]
 
