@@ -37,7 +37,7 @@ exports[`PoisPage should render a list of pois if no poi is selected 1`] = `
           },
           "_content": "content",
           "_excerpt": "excerpt",
-          "_hash": undefined,
+          "_hash": "2fe6283485a93932",
           "_lastUpdate": "2016-01-07T09:36:24.000Z",
           "_location": LocationModel {
             "_address": "address",
@@ -58,7 +58,7 @@ exports[`PoisPage should render a list of pois if no poi is selected 1`] = `
           },
           "_content": "content",
           "_excerpt": "excerpt",
-          "_hash": undefined,
+          "_hash": "2fe6283485b93932",
           "_lastUpdate": "2016-01-07T09:36:24.000Z",
           "_location": LocationModel {
             "_address": "address",
@@ -79,7 +79,7 @@ exports[`PoisPage should render a list of pois if no poi is selected 1`] = `
           },
           "_content": "content",
           "_excerpt": "excerpt",
-          "_hash": undefined,
+          "_hash": "2fe6283485c93932",
           "_lastUpdate": "2016-01-07T09:36:24.000Z",
           "_location": LocationModel {
             "_address": "address",
