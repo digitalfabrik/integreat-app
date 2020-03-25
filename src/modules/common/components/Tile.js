@@ -82,13 +82,13 @@ class Tile extends React.PureComponent<PropsType> {
     if (!tile.isExternalUrl) {
       return <CleanLink to={tile.path}>{this.getTileContent()}</CleanLink>
     } else if (!tile.postData) {
-      return <CleanAnchor title={tile.title} href={tile.path}>{this.getTileContent()}</CleanAnchor>
+      return <CleanAnchor href={tile.path}>{this.getTileContent()}</CleanAnchor>
     } else {
       const inputs = []
       tile.postData.forEach((value, key) => inputs.unshift(<input type='hidden' value={value} key={key} name={key} />))
       return <form method='POST' action={tile.path} target='_blank'>
         {inputs}
-        <button type='submit'>{this.getTileContent()}</button>
+        <button type='submit' role='link'>{this.getTileContent()}</button>
       </form>
     }
   }

@@ -37,7 +37,7 @@ export class Failure extends React.PureComponent<PropsType> {
     return <Centered>
       <div>{t(errorMessage)}</div>
       <div><FontAwesomeIcon icon={faFrown} size='5x' /></div>
-      <Link aria-label={message} to={goToPath || new I18nRedirectRouteConfig().getRoutePath({})}>{message}</Link>
+      <Link to={goToPath || new I18nRedirectRouteConfig().getRoutePath({})}>{message}</Link>
     </Centered>
   }
 }
