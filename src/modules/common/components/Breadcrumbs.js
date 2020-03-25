@@ -3,6 +3,7 @@
 import * as React from 'react'
 import type { UiDirectionType } from '../../i18n/types/UiDirectionType'
 import styled from 'styled-components'
+import Breadcrumb from './Breadcrumb'
 
 const opposite = (direction: UiDirectionType) => direction === 'ltr' ? 'rtl' : 'ltr'
 
@@ -25,22 +26,6 @@ const OrderedList = styled.ol`
   &:empty::after {
     padding-left: 1px;
     content: '';
-  }
-`
-
-const Breadcrumb = styled.li`
-  display: inline;
-  
-  & * {
-    ${props => props.theme.helpers.removeLinkHighlighting}
-    color: ${props => props.theme.colors.textSecondaryColor};
-    font-size: 15px;
-  }
-  
-  &::before {
-    color: ${props => props.theme.colors.textDecorationColor};
-    font-size: 16px;
-    content: ' > ';
   }
 `
 
