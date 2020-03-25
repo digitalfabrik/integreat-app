@@ -16,7 +16,7 @@ export class FeedbackThanksMessage extends React.PureComponent<PropsType> {
     const { closeFeedbackModal, t } = this.props
     return (
       <StyledFeedbackBox>
-        <ModalHeader closeFeedbackModal={closeFeedbackModal} title={t('feedbackSent')} />
+        <ModalHeader t={t} closeFeedbackModal={closeFeedbackModal} title={t('feedbackSent')} />
         <Description>{t('thanksMessage')}</Description>
       </StyledFeedbackBox>
     )

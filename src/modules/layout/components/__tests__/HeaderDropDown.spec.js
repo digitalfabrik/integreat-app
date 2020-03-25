@@ -62,10 +62,10 @@ describe('HeaderDropDown', () => {
     })
   })
 
-  it('should toggle when user clicks on img', () => {
+  it('should toggle when user clicks on button', () => {
     const component = wrapperComponent.dive()
     const instance: any = component.instance()
-    const onClick = component.find('img').prop('onClick')
+    const onClick = component.find({ selector: 'button' }).prop('onClick')
     expect(onClick).toBe(instance.toggleDropDown)
   })
 

@@ -1,14 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`HeaderDropDown should match snapshot 1`] = `
-<span
-  aria-label="some text"
-  data-tip="some text"
->
-  <img
+<div>
+  <HeaderDropDown__StyledButton
+    aria-label="some text"
+    data-tip="some text"
     onClick={[Function]}
-    src="/someImg"
-  />
+    selector="button"
+  >
+    <img
+      alt=""
+      src="/someImg"
+    />
+  </HeaderDropDown__StyledButton>
   <HeaderDropDown__DropDownContainer
     active={false}
   >
@@ -16,5 +20,5 @@ exports[`HeaderDropDown should match snapshot 1`] = `
       closeDropDownCallback={[Function]}
     />
   </HeaderDropDown__DropDownContainer>
-</span>
+</div>
 `;
