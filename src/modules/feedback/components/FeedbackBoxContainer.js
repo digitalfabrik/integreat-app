@@ -14,7 +14,9 @@ import {
   type FeedbackParamsType,
   INTEGREAT_INSTANCE,
   PAGE_FEEDBACK_TYPE,
-  SEARCH_FEEDBACK_TYPE
+  SEARCH_FEEDBACK_TYPE,
+  CONTENT_FEEDBACK_CATEGORY,
+  TECHNICAL_FEEDBACK_CATEGORY
 } from '@integreat-app/integreat-api-client'
 import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
@@ -29,10 +31,6 @@ import { SPRUNGBRETT_ROUTE } from '../../app/route-configs/SprungbrettRouteConfi
 import { SEARCH_ROUTE } from '../../app/route-configs/SearchRouteConfig'
 import { DISCLAIMER_ROUTE } from '../../app/route-configs/DisclaimerRouteConfig'
 import { cmsApiBaseUrl } from '../../app/constants/urls'
-import {
-  CONTENT_FEEDBACK_CATEGORY,
-  TECHNICAL_FEEDBACK_CATEGORY
-} from '@integreat-app/integreat-api-client/endpoints/createFeedbackEndpoint'
 
 type PropsType = {|
   cities: ?Array<CityModel>,

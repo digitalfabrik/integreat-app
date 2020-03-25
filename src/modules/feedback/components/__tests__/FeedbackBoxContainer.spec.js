@@ -13,7 +13,9 @@ import {
   ExtraModel,
   EXTRAS_FEEDBACK_TYPE,
   PAGE_FEEDBACK_TYPE,
-  SEARCH_FEEDBACK_TYPE
+  SEARCH_FEEDBACK_TYPE,
+  CONTENT_FEEDBACK_CATEGORY,
+  TECHNICAL_FEEDBACK_CATEGORY
 } from '@integreat-app/integreat-api-client'
 import FeedbackDropdownItem from '../../FeedbackDropdownItem'
 import { EXTRAS_ROUTE } from '../../../app/route-configs/ExtrasRouteConfig'
@@ -23,10 +25,6 @@ import { SPRUNGBRETT_ROUTE } from '../../../app/route-configs/SprungbrettRouteCo
 import { SEARCH_ROUTE } from '../../../app/route-configs/SearchRouteConfig'
 import { DISCLAIMER_ROUTE } from '../../../app/route-configs/DisclaimerRouteConfig'
 import createLocation from '../../../../createLocation'
-import {
-  CONTENT_FEEDBACK_CATEGORY,
-  TECHNICAL_FEEDBACK_CATEGORY
-} from '@integreat-app/integreat-api-client/endpoints/createFeedbackEndpoint'
 
 describe('FeedbackBoxContainer', () => {
   const cities = [

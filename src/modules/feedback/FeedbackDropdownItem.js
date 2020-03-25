@@ -3,7 +3,7 @@
 import type {
   FeedbackCategoryType,
   FeedbackType
-} from '@integreat-app/integreat-api-client/endpoints/createFeedbackEndpoint'
+} from '@integreat-app/integreat-api-client'
 
 class FeedbackDropdownItem {
   feedbackType: FeedbackType
