@@ -34,7 +34,7 @@ const FeedbackContainer = styled.div`
   position: relative;
   display: flex;
   background-color: ${props => props.theme.colors.backgroundColor};
-  
+
   @media ${props => props.theme.dimensions.smallViewport} {
     width: 100%;
     height: 100%;
@@ -46,7 +46,7 @@ const FeedbackContainer = styled.div`
 type PropsType = {|
   cities: ?Array<CityModel>,
   title?: string,
-  id?: number,
+  path?: string,
   alias?: string,
   query?: string,
   feedbackStatus: FeedbackRatingType,

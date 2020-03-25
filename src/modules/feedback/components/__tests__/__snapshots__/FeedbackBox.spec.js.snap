@@ -14,7 +14,7 @@ exports[`FeedbackBox should match snapshot 1`] = `
     onChange={[Function]}
     options={
       Array [
-        FeedbackDropdownItem {
+        FeedbackVariant {
           "alias": undefined,
           "feedbackCategory": "Inhalte",
           "feedbackType": "categories",
@@ -24,7 +24,7 @@ exports[`FeedbackBox should match snapshot 1`] = `
       ]
     }
     value={
-      FeedbackDropdownItem {
+      FeedbackVariant {
         "alias": undefined,
         "feedbackCategory": "Inhalte",
         "feedbackType": "categories",

@@ -2,21 +2,21 @@
 
 exports[`FeedbackBoxContainer getExtrasFeedbackOptions should return the right options 1`] = `
 Array [
-  FeedbackDropdownItem {
+  FeedbackVariant {
     "alias": "serlo-abc",
     "feedbackCategory": "Inhalte",
     "feedbackType": "extra",
     "label": "extra 'Serlo ABC'",
     "value": "extra 'Serlo ABC'",
   },
-  FeedbackDropdownItem {
+  FeedbackVariant {
     "alias": "sprungbrett",
     "feedbackCategory": "Inhalte",
     "feedbackType": "extra",
     "label": "extra 'Sprungbrett'",
     "value": "extra 'Sprungbrett'",
   },
-  FeedbackDropdownItem {
+  FeedbackVariant {
     "alias": "lehrstellen-radar",
     "feedbackCategory": "Inhalte",
     "feedbackType": "extra",
@@ -32,21 +32,21 @@ exports[`FeedbackBoxContainer should match snapshot 1`] = `
   comment=""
   feedbackOptions={
     Array [
-      FeedbackDropdownItem {
+      FeedbackVariant {
         "alias": undefined,
         "feedbackCategory": "Inhalte",
         "feedbackType": null,
         "label": "contentOfPage",
         "value": "contentOfPage",
       },
-      FeedbackDropdownItem {
+      FeedbackVariant {
         "alias": undefined,
         "feedbackCategory": "Inhalte",
         "feedbackType": "categories",
         "label": "contentOfCity Augsburg",
         "value": "contentOfCity Augsburg",
       },
-      FeedbackDropdownItem {
+      FeedbackVariant {
         "alias": undefined,
         "feedbackCategory": "Technisches Feedback",
         "feedbackType": "categories",
@@ -60,7 +60,7 @@ exports[`FeedbackBoxContainer should match snapshot 1`] = `
   onFeedbackOptionChanged={[Function]}
   onSubmit={[Function]}
   selectedFeedbackOption={
-    FeedbackDropdownItem {
+    FeedbackVariant {
       "alias": undefined,
       "feedbackCategory": "Inhalte",
       "feedbackType": null,

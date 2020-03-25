@@ -7,7 +7,7 @@ import { withTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import ModalHeader from './ModalHeader'
 import FeedbackComment from './FeedbackComment'
-import FeedbackDropdownItem from '../FeedbackDropdownItem'
+import FeedbackVariant from '../FeedbackVariant'
 import Select from 'react-select'
 
 export const StyledFeedbackBox = styled.div`
@@ -45,11 +45,11 @@ const StyledSelect = styled(Select)`
 
 type PropsType = {|
   isPositiveRatingSelected: boolean,
-  feedbackOptions: Array<FeedbackDropdownItem>,
-  selectedFeedbackOption: FeedbackDropdownItem,
+  feedbackOptions: Array<FeedbackVariant>,
+  selectedFeedbackOption: FeedbackVariant,
   comment: string,
   onCommentChanged: SyntheticInputEvent<HTMLTextAreaElement> => void,
-  onFeedbackOptionChanged: FeedbackDropdownItem => void,
+  onFeedbackOptionChanged: FeedbackVariant => void,
   onSubmit: () => void,
   t: TFunction,
   closeFeedbackModal: () => void
