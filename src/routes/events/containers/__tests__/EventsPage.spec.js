@@ -88,7 +88,7 @@ describe('EventsPage', () => {
       <EventsPage events={events}
                   city={city}
                   path='/augsburg/en/events'
-                  eventPath={undefined}
+                  eventId={undefined}
                   t={t}
                   language={language} />
     )
@@ -102,7 +102,7 @@ describe('EventsPage', () => {
                   t={t}
                   language={language}
                   path='/augsburg/en/events/first_event'
-                  eventPath='first_event' />
+                  eventId='first_event' />
     )
     expect(wrapper).toMatchSnapshot()
   })
@@ -114,7 +114,7 @@ describe('EventsPage', () => {
                   t={t}
                   language={language}
                   path='/augsburg/en/events/invalid_event'
-                  eventPath='invalid_event' />
+                  eventId='invalid_event' />
     )
     expect(wrapper).toMatchSnapshot()
   })

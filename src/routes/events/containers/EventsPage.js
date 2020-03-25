@@ -20,7 +20,7 @@ import { push } from 'redux-first-router'
 type PropsType = {|
   events: Array<EventModel>,
   city: string,
-  eventPath: ?string,
+  eventId: ?string,
   language: string,
   t: TFunction,
   path: string
@@ -34,8 +34,8 @@ export class EventsPage extends React.Component<PropsType> {
     <EventListItem event={event} language={language} key={event.path} />
 
   render () {
-    const { events, path, eventPath, city, language, t } = this.props
-    if (eventPath) {
+    const { events, path, eventId, city, language, t } = this.props
+    if (eventId) {
       const event = events.find(_event => _event.path === decodeURIComponent(path))
 
       if (event) {
@@ -54,7 +54,7 @@ export class EventsPage extends React.Component<PropsType> {
           </Page>
         </>
       } else {
-        const error = new ContentNotFoundError({ type: 'event', id: eventPath, city, language })
+        const error = new ContentNotFoundError({ type: 'event', id: eventId, city, language })
         return <FailureSwitcher error={error} />
       }
     }
