@@ -29,6 +29,10 @@ import { SPRUNGBRETT_ROUTE } from '../../app/route-configs/SprungbrettRouteConfi
 import { SEARCH_ROUTE } from '../../app/route-configs/SearchRouteConfig'
 import { DISCLAIMER_ROUTE } from '../../app/route-configs/DisclaimerRouteConfig'
 import { cmsApiBaseUrl } from '../../app/constants/urls'
+import {
+  CONTENT_FEEDBACK_CATEGORY,
+  TECHNICAL_FEEDBACK_CATEGORY
+} from '@integreat-app/integreat-api-client/endpoints/createFeedbackEndpoint'
 
 type PropsType = {|
   cities: ?Array<CityModel>,
@@ -93,7 +97,11 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
     }
 
     this.getExtrasFeedbackOptions().forEach(option => options.push(option))
-    options.push(new FeedbackDropdownItem(t('technicalTopics'), CATEGORIES_FEEDBACK_TYPE))
+    options.push(new FeedbackDropdownItem({
+      label: t('technicalTopics'),
+      feedbackType: CATEGORIES_FEEDBACK_TYPE,
+      feedbackCategory: TECHNICAL_FEEDBACK_CATEGORY
+    }))
 
     return options
   }
@@ -118,7 +126,11 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
       }
       // We don't want to differ between the content of categories, extras and events for the user, but we want to know
       // from which route the feedback was sent
-      return new FeedbackDropdownItem(`${t('contentOfCity')} ${cityTitle}`, feedbackType)
+      return new FeedbackDropdownItem({
+        label: `${t('contentOfCity')} ${cityTitle}`,
+        feedbackType,
+        feedbackCategory: CONTENT_FEEDBACK_CATEGORY
+      })
     }
   }
 
@@ -130,7 +142,12 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
     const currentRoute = location.type
     if (extras && currentRoute === EXTRAS_ROUTE) {
       return extras.map(
-        extra => new FeedbackDropdownItem(`${t('extra')} '${extra.title}'`, EXTRA_FEEDBACK_TYPE, extra.alias)
+        extra => new FeedbackDropdownItem({
+          label: `${t('extra')} '${extra.title}'`,
+          feedbackType: EXTRA_FEEDBACK_TYPE,
+          feedbackCategory: CONTENT_FEEDBACK_CATEGORY,
+          alias: extra.alias
+        })
       )
     }
     return []
@@ -144,15 +161,35 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
     const type = location.type
 
     if (type === CATEGORIES_ROUTE && id && title) {
-      return new FeedbackDropdownItem(t('contentOfPage', { page: title }), PAGE_FEEDBACK_TYPE)
+      return new FeedbackDropdownItem({
+        label: t('contentOfPage', { page: title }),
+        feedbackType: PAGE_FEEDBACK_TYPE,
+        feedbackCategory: CONTENT_FEEDBACK_CATEGORY
+      })
     } else if (type === EVENTS_ROUTE && id && title) {
-      return new FeedbackDropdownItem(t('contentOfEvent', { event: title }), PAGE_FEEDBACK_TYPE)
+      return new FeedbackDropdownItem({
+        label: t('contentOfEvent', { event: title }),
+        feedbackType: PAGE_FEEDBACK_TYPE,
+        feedbackCategory: CONTENT_FEEDBACK_CATEGORY
+      })
     } else if (([WOHNEN_ROUTE, SPRUNGBRETT_ROUTE].includes(type)) && alias && title) {
-      return new FeedbackDropdownItem(t('contentOfExtra', { extra: title }), EXTRA_FEEDBACK_TYPE)
+      return new FeedbackDropdownItem({
+        label: t('contentOfExtra', { extra: title }),
+        feedbackType: EXTRA_FEEDBACK_TYPE,
+        feedbackCategory: CONTENT_FEEDBACK_CATEGORY
+      })
     } else if (type === SEARCH_ROUTE && query) {
-      return new FeedbackDropdownItem(`${t('searchFor')} '${query}'`, SEARCH_FEEDBACK_TYPE)
+      return new FeedbackDropdownItem({
+        label: `${t('searchFor')} '${query}'`,
+        feedbackType: SEARCH_FEEDBACK_TYPE,
+        feedbackCategory: CONTENT_FEEDBACK_CATEGORY
+      })
     } else if (type === DISCLAIMER_ROUTE) {
-      return new FeedbackDropdownItem(`${t('disclaimer')}`, PAGE_FEEDBACK_TYPE)
+      return new FeedbackDropdownItem({
+        label: `${t('disclaimer')}`,
+        feedbackType: PAGE_FEEDBACK_TYPE,
+        feedbackCategory: CONTENT_FEEDBACK_CATEGORY
+      })
     } else {
       return null
     }
@@ -166,7 +203,7 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
     const { city, language } = location.payload
 
     const isExtraOptionSelected = selectedFeedbackOption.feedbackType === EXTRA_FEEDBACK_TYPE
-    const feedbackAlias = alias || (isExtraOptionSelected ? selectedFeedbackOption.value : '')
+    const feedbackAlias = alias || (isExtraOptionSelected ? selectedFeedbackOption.alias : '')
 
     return {
       feedbackType: selectedFeedbackOption.feedbackType,
@@ -184,9 +221,9 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
     this.setState({ comment: event.target.value })
 
   handleFeedbackOptionChanged = (selectedDropdown: FeedbackDropdownItem) => {
-    this.setState(prevState =>
-      ({ selectedFeedbackOption: prevState.feedbackOptions.find(option => option.value === selectedDropdown.value) })
-    )
+    this.setState(prevState => ({
+      selectedFeedbackOption: prevState.feedbackOptions.find(option => option.label === selectedDropdown.label)
+    }))
   }
 
   handleSubmit = () => {

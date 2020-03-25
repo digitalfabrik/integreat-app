@@ -23,6 +23,10 @@ import { SPRUNGBRETT_ROUTE } from '../../../app/route-configs/SprungbrettRouteCo
 import { SEARCH_ROUTE } from '../../../app/route-configs/SearchRouteConfig'
 import { DISCLAIMER_ROUTE } from '../../../app/route-configs/DisclaimerRouteConfig'
 import createLocation from '../../../../createLocation'
+import {
+  CONTENT_FEEDBACK_CATEGORY,
+  TECHNICAL_FEEDBACK_CATEGORY
+} from '@integreat-app/integreat-api-client/endpoints/createFeedbackEndpoint'
 
 describe('FeedbackBoxContainer', () => {
   const cities = [
@@ -73,7 +77,11 @@ describe('FeedbackBoxContainer', () => {
           t={t} />
       ).instance()
 
-      const option = new FeedbackDropdownItem('value', EXTRAS_FEEDBACK_TYPE)
+      const option = new FeedbackDropdownItem({
+        label: 'value',
+        feedbackType: EXTRAS_FEEDBACK_TYPE,
+        feedbackCategory: CONTENT_FEEDBACK_CATEGORY
+      })
       instance.getCurrentPageFeedbackOption = jest.fn(() => option)
       expect(instance.getFeedbackOptions()).toContain(option)
 
@@ -97,7 +105,11 @@ describe('FeedbackBoxContainer', () => {
           t={t} />
       ).instance()
 
-      const option = new FeedbackDropdownItem('another value', EXTRAS_FEEDBACK_TYPE)
+      const option = new FeedbackDropdownItem({
+        label: 'another value',
+        feedbackType: EXTRAS_FEEDBACK_TYPE,
+        feedbackCategory: CONTENT_FEEDBACK_CATEGORY
+      })
       instance.getContentFeedbackOption = jest.fn(() => option)
       expect(instance.getFeedbackOptions()).toContain(option)
 
@@ -122,8 +134,18 @@ describe('FeedbackBoxContainer', () => {
       ).instance()
 
       const options = [
-        new FeedbackDropdownItem('value1', EXTRA_FEEDBACK_TYPE, 'alias1'),
-        new FeedbackDropdownItem('value2', EXTRA_FEEDBACK_TYPE, 'alias2')
+        new FeedbackDropdownItem({
+          label: 'value1',
+          feedbackType: EXTRA_FEEDBACK_TYPE,
+          feedbackCategory: CONTENT_FEEDBACK_CATEGORY,
+          alias: 'alias1'
+        }),
+        new FeedbackDropdownItem({
+          label: 'value2',
+          feedbackType: EXTRA_FEEDBACK_TYPE,
+          feedbackCategory: CONTENT_FEEDBACK_CATEGORY,
+          alias: 'alias2'
+        })
       ]
       instance.getExtrasFeedbackOptions = jest.fn(() => options)
       expect(instance.getFeedbackOptions()).toContain(options[0])
@@ -147,7 +169,11 @@ describe('FeedbackBoxContainer', () => {
       ).instance()
 
       expect(instance.getFeedbackOptions())
-        .toContainEqual(new FeedbackDropdownItem('technicalTopics', CATEGORIES_FEEDBACK_TYPE))
+        .toContainEqual(new FeedbackDropdownItem({
+          label: 'technicalTopics',
+          feedbackCategory: TECHNICAL_FEEDBACK_CATEGORY,
+          feedbackType: CATEGORIES_FEEDBACK_TYPE
+        }))
     })
   })
 
@@ -171,15 +197,27 @@ describe('FeedbackBoxContainer', () => {
         t={t} />
     )
     expect(component.instance().getContentFeedbackOption())
-      .toEqual(new FeedbackDropdownItem('contentOfCity Augsburg', CATEGORIES_FEEDBACK_TYPE))
+      .toEqual(new FeedbackDropdownItem({
+        label: 'contentOfCity Augsburg',
+        feedbackType: CATEGORIES_FEEDBACK_TYPE,
+        feedbackCategory: CONTENT_FEEDBACK_CATEGORY
+      }))
 
     component.setProps({ location: extrasLocation })
     expect(component.instance().getContentFeedbackOption())
-      .toEqual(new FeedbackDropdownItem('contentOfCity Augsburg', EXTRAS_FEEDBACK_TYPE))
+      .toEqual(new FeedbackDropdownItem({
+        label: 'contentOfCity Augsburg',
+        feedbackType: EXTRAS_FEEDBACK_TYPE,
+        feedbackCategory: CONTENT_FEEDBACK_CATEGORY
+      }))
 
     component.setProps({ location: eventsLocation })
     expect(component.instance().getContentFeedbackOption())
-      .toEqual(new FeedbackDropdownItem('contentOfCity Augsburg', EVENTS_FEEDBACK_TYPE))
+      .toEqual(new FeedbackDropdownItem({
+        label: 'contentOfCity Augsburg',
+        feedbackType: EVENTS_FEEDBACK_TYPE,
+        feedbackCategory: CONTENT_FEEDBACK_CATEGORY
+      }))
 
     component.setProps({ cities: null })
     expect(component.instance().getContentFeedbackOption()).toBeUndefined()
@@ -229,12 +267,36 @@ describe('FeedbackBoxContainer', () => {
   })
 
   describe('getCurrentPageFeedbackOption', () => {
-    const categoriesOption = new FeedbackDropdownItem('contentOfPage', PAGE_FEEDBACK_TYPE)
-    const eventsOption = new FeedbackDropdownItem('contentOfEvent', PAGE_FEEDBACK_TYPE)
-    const wohnenOption = new FeedbackDropdownItem('contentOfExtra', EXTRA_FEEDBACK_TYPE)
-    const sprungbrettOption = new FeedbackDropdownItem('contentOfExtra', EXTRA_FEEDBACK_TYPE)
-    const searchOption = new FeedbackDropdownItem('searchFor \'my query\'', SEARCH_FEEDBACK_TYPE)
-    const disclaimerOption = new FeedbackDropdownItem('disclaimer', PAGE_FEEDBACK_TYPE)
+    const categoriesOption = new FeedbackDropdownItem({
+      label: 'contentOfPage',
+      feedbackType: PAGE_FEEDBACK_TYPE,
+      feedbackCategory: CONTENT_FEEDBACK_CATEGORY
+    })
+    const eventsOption = new FeedbackDropdownItem({
+      label: 'contentOfEvent',
+      feedbackType: PAGE_FEEDBACK_TYPE,
+      feedbackCategory: CONTENT_FEEDBACK_CATEGORY
+    })
+    const wohnenOption = new FeedbackDropdownItem({
+      label: 'contentOfExtra',
+      feedbackType: EXTRA_FEEDBACK_TYPE,
+      feedbackCategory: CONTENT_FEEDBACK_CATEGORY
+    })
+    const sprungbrettOption = new FeedbackDropdownItem({
+      label: 'contentOfExtra',
+      feedbackType: EXTRA_FEEDBACK_TYPE,
+      feedbackCategory: CONTENT_FEEDBACK_CATEGORY
+    })
+    const searchOption = new FeedbackDropdownItem({
+      label: 'searchFor \'my query\'',
+      feedbackType: SEARCH_FEEDBACK_TYPE,
+      feedbackCategory: CONTENT_FEEDBACK_CATEGORY
+    })
+    const disclaimerOption = new FeedbackDropdownItem({
+      label: 'disclaimer',
+      feedbackType: PAGE_FEEDBACK_TYPE,
+      feedbackCategory: CONTENT_FEEDBACK_CATEGORY
+    })
     const extrasOption = null
 
     // $FlowFixMe

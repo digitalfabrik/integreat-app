@@ -5,10 +5,17 @@ import { shallow } from 'enzyme'
 import { FeedbackBox } from '../FeedbackBox'
 import FeedbackDropdownItem from '../../FeedbackDropdownItem'
 import { CATEGORIES_FEEDBACK_TYPE } from '@integreat-app/integreat-api-client'
+import { CONTENT_FEEDBACK_CATEGORY } from '@integreat-app/integreat-api-client/endpoints/createFeedbackEndpoint'
 
 describe('FeedbackBox', () => {
   const t = (key: ?string): string => key || ''
-  const feedbackOptions = [new FeedbackDropdownItem('label', CATEGORIES_FEEDBACK_TYPE)]
+  const feedbackOptions = [
+    new FeedbackDropdownItem({
+      label: 'label',
+      feedbackType: CATEGORIES_FEEDBACK_TYPE,
+      feedbackCategory: CONTENT_FEEDBACK_CATEGORY
+    })
+  ]
   const onCommentChanged = (event: SyntheticInputEvent<HTMLTextAreaElement>) => {}
   const onFeedbackOptionChanged = (option: FeedbackDropdownItem) => {}
   const onSubmit = () => {}
