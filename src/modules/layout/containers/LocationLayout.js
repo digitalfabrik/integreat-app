@@ -118,6 +118,7 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
                                            languageChangePaths={languageChangePaths}
                                            location={location}
                                            events={events}
+                                           cityName={cityModel.name}
                                            viewportSmall={viewportSmall}
                                            onStickyTopChanged={this.handleStickyTopChanged} />}
                    footer={<LocationFooter onClick={this.handleFooterClicked} city={city} language={language} />}
