@@ -56,7 +56,7 @@ class HeaderActionBar extends React.PureComponent<PropsType> {
           return item.node
             ? <React.Fragment key={index}>{item.node}</React.Fragment>
             : <Link key={index} to={item.href} data-tip={item.text} aria-label={item.text}>
-              <img src={item.iconSrc} />
+              <img alt='' src={item.iconSrc} />
             </Link>
         })}
       </ActionItems>
