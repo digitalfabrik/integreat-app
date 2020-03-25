@@ -1,0 +1,111 @@
+fastlane_version "2.143.0"
+
+default_platform :ios
+
+version_config = YAML.load_file("../../version.yml")
+build_number = 1
+version_number = version_config['version_name']
+output_name = "Integreat-#{version_number}-#{build_number}.ipa"
+
+platform :ios do
+  before_all do
+    setup_circle_ci
+  end
+
+  desc "Setup certificates"
+  lane :certificates do
+    sync_code_signing(type: "appstore", app_identifier: ["de.integreat-app"])
+  end
+
+  desc "Create a simulator build"
+  lane :build do
+    xcbuild(
+        workspace: "Integreat.xcworkspace",
+        scheme: "Integreat",
+        configuration: "Debug",
+        xcargs: "-sdk iphonesimulator"
+    )
+  end
+
+  desc "Create a release build"
+  lane :release do
+    ENV["E2E_TEST_IDS"] = "1"
+    ENV["BUNDLE_CONFIG"] = "./metro.config.ci.js"
+
+    sync_code_signing(type: "development", app_identifier: ["de.integreat-app"])
+    sync_code_signing(type: "appstore", app_identifier: ["de.integreat-app"])
+
+    increment_build_number(
+        build_number: build_number
+    )
+
+    increment_version_number(
+        version_number: version_number
+    )
+
+    build_app(
+        workspace: "Integreat.xcworkspace",
+        scheme: "Integreat",
+        output_name: output_name,
+        export_method: "app-store",
+        include_bitcode: false # Uploading to BrowserStack does not work when including Bitcode
+    )
+  end
+
+  desc "Upload to TestFlight"
+  lane :testflight_upload do
+    ensure_env_vars(
+        env_vars: ['FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD']
+    )
+
+    upload_to_testflight(
+        skip_waiting_for_build_processing: true,
+        apple_id: "1072353915",
+        ipa: "output/gym/#{output_name}",
+        distribute_external: true
+    )
+  end
+
+  desc "Upload to Browserstack Live"
+  lane :browserstack_upload_live do
+    ensure_env_vars(
+        env_vars: ['BROWSERSTACK_USERNAME', 'BROWSERSTACK_ACCESS_KEY']
+    )
+
+    upload_to_browserstack_app_live(
+        browserstack_username: ENV["BROWSERSTACK_USERNAME"],
+        browserstack_access_key: ENV["BROWSERSTACK_ACCESS_KEY"],
+        file_path: "output/gym/#{output_name}"
+    )
+  end
+
+  desc "Run E2E tests on BrowserStack"
+  lane :browserstack_e2e_tests do
+    ensure_env_vars(
+        env_vars: ['BROWSERSTACK_USERNAME', 'BROWSERSTACK_ACCESS_KEY']
+    )
+
+    upload_to_browserstack_app_automate(
+        browserstack_username: ENV["BROWSERSTACK_USERNAME"],
+        browserstack_access_key: ENV["BROWSERSTACK_ACCESS_KEY"],
+        file_path: "output/gym/#{output_name}"
+    )
+
+    ENV["E2E_CAPS"] = 'ci_browserstack_ios'
+    ENV["E2E_PLATFORM"] = 'ios'
+    ENV["E2E_SERVER"] = 'browserstack'
+    ENV["E2E_BROWSERSTACK_USER"] = ENV["BROWSERSTACK_USERNAME"]
+    ENV["E2E_BROWSERSTACK_KEY"] = ENV["BROWSERSTACK_ACCESS_KEY"]
+    ENV["E2E_BROWSERSTACK_APP"] = lane_context[SharedValues::BROWSERSTACK_APP_ID]
+    yarn(
+        command: "test:e2e",
+        package_path: "../package.json"
+    )
+  end
+
+  after_all do |lane|
+  end
+
+  error do |lane, exception|
+  end
+end

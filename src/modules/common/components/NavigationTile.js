@@ -20,8 +20,8 @@ const Circle = styled(View)`
   margin-top: 9px;
   margin-bottom: 5px;
   border-radius: ${ICON_SIZE}px;
-  height: ${ICON_SIZE};
-  width: ${ICON_SIZE};
+  height: ${ICON_SIZE}px;
+  width: ${ICON_SIZE}px;
   background-color: ${props => props.theme.colors.backgroundColor};
   align-items: center;
   justify-content: center;
@@ -33,14 +33,14 @@ const Circle = styled(View)`
 `
 
 const ThumbnailContainer = styled(Image)`
-  height: ${ICON_SIZE / Math.sqrt(2)};
-  width: ${ICON_SIZE / Math.sqrt(2)};
+  height: ${ICON_SIZE / Math.sqrt(2)}px;
+  width: ${ICON_SIZE / Math.sqrt(2)}px;
 `
 
 const TileTitle = styled.Text`
   color: ${props => props.theme.colors.textColor};
   text-align: center;
-  font-size: 11;
+  font-size: 11px;
   margin-bottom: 5px;
 `
 
@@ -55,10 +55,10 @@ const NewsDot = styled.Text`
   top: ${-NEWS_DOT_RADIUS / 2};
   end: ${-NEWS_DOT_RADIUS / 2};
   text-align: center;
-  line-height: ${NEWS_DOT_RADIUS};
-  height: ${NEWS_DOT_RADIUS};
-  width: ${NEWS_DOT_RADIUS};
-  border-radius: ${NEWS_DOT_RADIUS / 2};
+  line-height: ${NEWS_DOT_RADIUS}px;
+  height: ${NEWS_DOT_RADIUS}px;
+  width: ${NEWS_DOT_RADIUS}px;
+  border-radius: ${NEWS_DOT_RADIUS / 2}px;
   background-color: #EE5353;
   color: #FFFFFF;
   elevation: 5;

@@ -25,8 +25,8 @@ const HorizontalLeft = styled.View`
 `
 
 const BoxShadow: StyledComponent<{float: boolean}, ThemeType, *> = styled.View`
-  background-color: transparent;
-  height: ${props => props.theme.dimensions.modalHeaderHeight};
+  background-color: ${props => props.float ? 'transparent' : props.theme.colors.backgroundColor};
+  height: ${props => props.theme.dimensions.modalHeaderHeight}px;
   ${props => props.float
     ? `position: absolute;
     z-index: 100;
@@ -74,7 +74,7 @@ class TransparentHeader extends React.PureComponent<PropsType> {
           failOnCancel: false
         })
       } catch (e) {
-        const errorMessage = e.hasOwnProperty('message') ? e.message : t('shareFailDefaultMessage')
+        const errorMessage = e.message ? e.message : t('shareFailDefaultMessage')
         alert(errorMessage)
       }
     }
@@ -90,9 +90,9 @@ class TransparentHeader extends React.PureComponent<PropsType> {
           <HorizontalLeft>
             <HeaderBackButton onPress={this.goBack} />
           </HorizontalLeft>
-          { shareUrl && <MaterialHeaderButtons>
+          {shareUrl && <MaterialHeaderButtons>
             <Item title={t('share')} show='never' onPress={this.onShare} />
-          </MaterialHeaderButtons> }
+          </MaterialHeaderButtons>}
         </Horizontal>
       </BoxShadow>
     )
