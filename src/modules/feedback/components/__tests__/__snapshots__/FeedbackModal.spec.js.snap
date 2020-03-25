@@ -25,7 +25,6 @@ exports[`FeedbackModal should match snapshot 1`] = `
         ]
       }
       closeFeedbackModal={[Function]}
-      id={1234}
       isPositiveRatingSelected={true}
       location={
         Object {
@@ -49,6 +48,7 @@ exports[`FeedbackModal should match snapshot 1`] = `
         }
       }
       onSubmit={[Function]}
+      path="path"
       query="ab"
       title="title"
     />

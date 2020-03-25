@@ -5,7 +5,7 @@ import type {
   FeedbackType
 } from '@integreat-app/integreat-api-client'
 
-class FeedbackDropdownItem {
+class FeedbackVariant {
   feedbackType: FeedbackType
   feedbackCategory: FeedbackCategoryType
   label: string
@@ -23,4 +23,4 @@ class FeedbackDropdownItem {
   }
 }
 
-export default FeedbackDropdownItem
+export default FeedbackVariant
