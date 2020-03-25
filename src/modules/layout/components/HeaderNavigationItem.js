@@ -56,7 +56,8 @@ class HeaderNavigationItem extends React.PureComponent<PropsType> {
         {text}
       </ActiveNavigationItem>
     } else {
-      return <DisabledNavigationItem key={text} data-tip={tooltip}>
+      return <DisabledNavigationItem role='link' aria-disabled key={text} data-tip={tooltip}
+                                     aria-label={`${text}${tooltip ? ` - ${tooltip}` : ''}`}>
         {text}
       </DisabledNavigationItem>
     }
