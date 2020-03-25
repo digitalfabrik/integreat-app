@@ -1,14 +1,23 @@
 // @flow
 
-class FeedbackDropdownItem {
-  value: string
-  feedbackType: ?string
-  label: string
+import type {
+  FeedbackCategoryType,
+  FeedbackType
+} from '@integreat-app/integreat-api-client/endpoints/createFeedbackEndpoint'
 
-  constructor (label: string, feedbackType: ?string, value?: string) {
-    this.value = value || label
+class FeedbackDropdownItem {
+  feedbackType: FeedbackType
+  feedbackCategory: FeedbackCategoryType
+  label: string
+  alias: ?string
+
+  constructor ({ label, feedbackType, feedbackCategory, alias }: {|
+    label: string, feedbackType: FeedbackType, feedbackCategory: FeedbackCategoryType, alias?: string
+  |}) {
     this.feedbackType = feedbackType
     this.label = label
+    this.feedbackCategory = feedbackCategory
+    this.alias = alias
   }
 }
 
