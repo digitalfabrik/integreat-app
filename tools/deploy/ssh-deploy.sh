@@ -15,4 +15,4 @@ then
     rsync -vr --delete $(mktemp -d)/ ${HOST}:${REMOTE_DIR}
 fi
 
-rsync -vIacz --progress --stats --chmod=774 --chown=${CHOWN} www/ ${HOST}:${REMOTE_DIR}
+rsync -vIacz --progress --stats --chmod=774 --chown=${CHOWN} dist/ ${HOST}:${REMOTE_DIR}

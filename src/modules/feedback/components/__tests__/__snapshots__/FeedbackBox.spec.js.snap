@@ -35,7 +35,6 @@ exports[`FeedbackBox should match snapshot 1`] = `
     onCommentChanged={[Function]}
   />
   <FeedbackBox__SubmitButton
-    aria-label="send"
     onClick={[Function]}
   >
     send
