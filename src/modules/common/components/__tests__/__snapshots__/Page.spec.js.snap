@@ -3,6 +3,7 @@
 exports[`Page should render 1`] = `
 <Fragment>
   <Page__Thumbnail
+    alt=""
     src="thumbnail"
   />
   <Caption
