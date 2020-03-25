@@ -5,6 +5,11 @@ import onClickOutside from 'react-onclickoutside'
 import styled from 'styled-components'
 import ReactTooltip from 'react-tooltip'
 
+export const StyledButton = styled.button`
+  background-color: ${props => props.theme.colors.backgroundAccentColor};
+  border: none;
+`
+
 export const DropDownContainer = styled.div`
   position: absolute;
   top: ${props => props.theme.dimensions.headerHeightLarge}px;
@@ -14,10 +19,10 @@ export const DropDownContainer = styled.div`
   transform-origin: center top;
   justify-content: center;
   box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.2);
-  opacity: ${props => props.active ? '1' : '0'};
-  transition: transform 0.2s, opacity 0.2s;
+  transition: transform 0.2s, opacity 0.2s, visibility 0s ${props => props.active ? '0s' : '0.2s'};
   background-color: ${props => props.theme.colors.backgroundColor};
-  pointer-events: ${props => props.active ? 'auto' : 'none'};
+  visibility: ${props => props.active ? 'visible' : 'hidden'};
+
 
   @media ${props => props.theme.dimensions.smallViewport} {
     top: ${props => props.theme.dimensions.headerHeightSmall}px;
@@ -50,15 +55,13 @@ export class HeaderDropDown extends React.Component<PropsType, StateType> {
     this.state = { dropDownActive: false }
     const self: any = this // https://github.com/facebook/flow/issues/5874
     self.handleClickOutside = this.handleClickOutside.bind(this)
-    self.toggleDropDown = this.toggleDropDown.bind(this)
-    self.closeDropDown = this.closeDropDown.bind(this)
   }
 
-  toggleDropDown () {
+  toggleDropDown = () => {
     this.setState(prevState => ({ dropDownActive: !prevState.dropDownActive }))
   }
 
-  closeDropDown () {
+  closeDropDown = () => {
     if (this.state.dropDownActive) {
       this.toggleDropDown()
     }
@@ -70,15 +73,19 @@ export class HeaderDropDown extends React.Component<PropsType, StateType> {
 
   render () {
     const { iconSrc, text, children } = this.props
+    const { dropDownActive } = this.state
+
     return (
-      <span data-tip={text} aria-label={text}>
-        <img src={iconSrc} onClick={this.toggleDropDown} />
-        <DropDownContainer active={this.state.dropDownActive}>
+      <div>
+        <StyledButton selector='button' data-tip={text} aria-label={text} onClick={this.toggleDropDown}>
+          <img alt='' src={iconSrc} />
+        </StyledButton>
+        <DropDownContainer active={dropDownActive}>
           {React.cloneElement(children, {
             closeDropDownCallback: this.closeDropDown
           })}
         </DropDownContainer>
-      </span>
+      </div>
     )
   }
 }

@@ -35,7 +35,7 @@ class Page extends React.PureComponent<PropsType> {
     const { title, thumbnail, content, lastUpdate, language, hijackRegExp, children, onInternalLinkClick } = this.props
     return (
       <>
-        {thumbnail && <Thumbnail src={thumbnail} />}
+        {thumbnail && <Thumbnail alt='' src={thumbnail} />}
         <Caption title={title} />
         {children}
         <RemoteContent dangerouslySetInnerHTML={{ __html: content }}
