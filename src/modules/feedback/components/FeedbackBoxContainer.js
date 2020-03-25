@@ -207,6 +207,7 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
 
     return {
       feedbackType: selectedFeedbackOption.feedbackType,
+      feedbackCategory: selectedFeedbackOption.feedbackCategory,
       isPositiveRating: isPositiveRatingSelected,
       comment,
       id,
