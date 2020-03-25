@@ -3,13 +3,19 @@
 import type {MapParamsToBodyType as ImportedMapParamsToBodyType} from './MapParamsToBody'
 import type {MapParamsToUrlType as ImportedMapParamsToUrlType} from './MapParamsToUrlType'
 import type {MapResponseType as ImportedMapResponseType} from './MapResponseType'
-import type {ParamsType as ImportedFeedbackParamsType} from './endpoints/createFeedbackEndpoint'
+import type {
+  ParamsType as ImportedFeedbackParamsType,
+  FeedbackType as ImportedFeedbackType,
+  FeedbackCategoryType as ImportedFeedbackCategoryType
+} from './endpoints/createFeedbackEndpoint'
 import type {AccommodationType as ImportedAccommodationType} from './models/WohnenFormData'
 
 export type MapParamsToBodyType<P> = ImportedMapParamsToBodyType<P>
 export type MapParamsToUrlType<P> = ImportedMapParamsToUrlType<P>
 export type MapResponseType<P, T> = ImportedMapResponseType<P, T>
 export type FeedbackParamsType = ImportedFeedbackParamsType
+export type FeedbackType = ImportedFeedbackType
+export type FeedbackCategoryType = ImportedFeedbackCategoryType
 export type AccommodationType = ImportedAccommodationType
 
 export {default as Endpoint} from './Endpoint'
@@ -38,6 +44,9 @@ export {SEARCH_FEEDBACK_TYPE} from './endpoints/createFeedbackEndpoint'
 export {CATEGORIES_FEEDBACK_TYPE} from './endpoints/createFeedbackEndpoint'
 export {EVENTS_FEEDBACK_TYPE} from './endpoints/createFeedbackEndpoint'
 export {EXTRAS_FEEDBACK_TYPE} from './endpoints/createFeedbackEndpoint'
+
+export {CONTENT_FEEDBACK_CATEGORY} from './endpoints/createFeedbackEndpoint'
+export {TECHNICAL_FEEDBACK_CATEGORY} from './endpoints/createFeedbackEndpoint'
 
 export {INTEGREAT_INSTANCE} from './endpoints/createFeedbackEndpoint'
 export {DEFAULT_FEEDBACK_LANGUAGE} from './endpoints/createFeedbackEndpoint'
