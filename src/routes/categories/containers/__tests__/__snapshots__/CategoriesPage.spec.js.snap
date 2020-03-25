@@ -9,7 +9,7 @@ exports[`CategoriesPage should match snapshot and render CategoryTiles if the pa
     tiles={
       Array [
         TileModel {
-          "_id": "undefined",
+          "_id": "/augsburg/de/willkommen",
           "_isExternalUrl": false,
           "_path": "/augsburg/de/willkommen",
           "_postData": null,
@@ -17,7 +17,7 @@ exports[`CategoriesPage should match snapshot and render CategoryTiles if the pa
           "_title": "willkommen",
         },
         TileModel {
-          "_id": "undefined",
+          "_id": "/augsburg/de/erste-schritte",
           "_isExternalUrl": false,
           "_path": "/augsburg/de/erste-schritte",
           "_postData": null,
@@ -40,7 +40,7 @@ exports[`CategoriesPage should match snapshot and render a CategoryList if the c
       key="/augsburg/de"
       to="/augsburg/de"
     >
-      augsburg
+      Augsburg
     </Connect(Link)>
   </Breadcrumbs>
   <CategoryList
@@ -80,7 +80,7 @@ exports[`CategoriesPage should match snapshot and render a Page if page has no c
       key="/augsburg/de"
       to="/augsburg/de"
     >
-      augsburg
+      Augsburg
     </Connect(Link)>
     <Connect(Link)
       key="/augsburg/de/erste-schritte"
