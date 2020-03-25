@@ -92,9 +92,9 @@ describe('CategoriesRouteConfig', () => {
       })
 
       expect(categoriesRouteConfig.getLanguageChangePath({ payloads, language: 'en', location }))
-        .toBeNull()
+        .toBe('/augsburg/en')
       expect(categoriesRouteConfig.getLanguageChangePath({ payloads, language: 'ar', location }))
-        .toBeNull()
+        .toBe('/augsburg/ar')
     })
 
     it('no category with the given pathname exists', () => {
@@ -118,7 +118,7 @@ describe('CategoriesRouteConfig', () => {
       })
 
       expect(categoriesRouteConfig.getPageTitle({ payloads, location: rootLocation, cityName: 'Augsburg', t }))
-        .toBe('Augsburg - Augsburg')
+        .toBe('Augsburg')
 
       const location = createLocation({
         payload: { city: 'augsburg', language: 'de' },
