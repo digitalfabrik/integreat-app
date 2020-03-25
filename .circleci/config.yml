@@ -1,0 +1,176 @@
+jobs:
+  build_android:
+    docker:
+      - image: circleci/android:api-28-node
+    resource_class: medium+
+    environment:
+      TOTAL_CPUS: 3 # For class medium+
+    shell: /bin/bash -eo pipefail
+    steps:
+      - run:
+          name: "Set CPU count properly"
+          command: |
+            echo "CPU count is ${TOTAL_CPUS}"
+      - add_ssh_keys:
+          fingerprints:
+            - "9a:0f:b1:f0:97:c8:db:3f:be:87:a4:9b:09:7f:d3:af"
+      - checkout
+      - run:
+          name: "Pull Submodules"
+          command: |
+            git submodule init
+            git submodule update --remote
+      - restore_cache:
+          key: 1-gems-{{ checksum "android/Gemfile.lock" }}-{{ arch }}
+      - run:
+          command: bundle check || bundle install --path vendor/bundle
+          working_directory: android
+      - save_cache:
+          key: 1-gems-{{ checksum "android/Gemfile.lock" }}-{{ arch }}
+          paths:
+            - android/vendor/bundle
+      - restore_cache:
+          name: Restore Yarn Package Cache
+          keys:
+            - 2-yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
+      - run:
+          name: Install Dependencies
+          command: yarn install --frozen-lockfile
+      - save_cache:
+          name: Save Yarn Package Cache
+          key: 2-yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
+          paths:
+            - ~/.cache/yarn
+            - node_modules
+      - run:
+          name: Linting check
+          command: yarn run lint
+      - run:
+          name: Flow-type check
+          command: yarn run flow:check-now
+      - run:
+          name: Unit tests
+          command: yarn run test
+      - run:
+          name: Ruby version
+          command: ruby --version
+      - run:
+          name: Fastlane Prepare Android Keystore
+          command: bundle exec fastlane android keystore
+          working_directory: android
+      - restore_cache:
+          key: gradle-{{ checksum "android/build.gradle" }}-{{ checksum "android/app/build.gradle" }}-{{ checksum "android/settings.gradle" }}
+      - run:
+          name: Download Dependencies
+          command: bundle exec fastlane android dependencies
+          working_directory: android
+      - save_cache:
+          paths:
+            - ~/.gradle
+          key: gradle-{{ checksum "android/build.gradle" }}-{{ checksum "android/app/build.gradle" }}-{{ checksum "android/settings.gradle" }}
+      - run:
+          name: Fastlane Release Build
+          command: bundle exec fastlane android release
+          working_directory: android
+#      - run:
+#          name: Fastlane Browserstack Upload Live
+#          command: bundle exec fastlane android browserstack_upload_live
+#          working_directory: android
+      - run:
+          name: Fastlane E2E Tests on Browserstack
+          command: bundle exec fastlane android browserstack_e2e_tests
+          working_directory: android
+#      - run:
+#          name: Fastlane Play Store Upload
+#          command: bundle exec fastlane android playstore_upload
+#          working_directory: android
+      - store_artifacts:
+          path: android/app/build/outputs/apk
+
+  build_ios:
+    macos:
+      xcode: 11.2.0
+    environment:
+      FL_OUTPUT_DIR: output
+      TOTAL_CPUS: 4 # For class ios medium
+    shell: /bin/bash --login -o pipefail
+    steps:
+      - run:
+          name: "Set CPU count properly"
+          command: |
+            echo "CPU count is ${TOTAL_CPUS}"
+      - add_ssh_keys:
+          fingerprints:
+            - "9a:0f:b1:f0:97:c8:db:3f:be:87:a4:9b:09:7f:d3:af"
+      - checkout
+      - run:
+          name: "Pull Submodules"
+          command: |
+            git submodule init
+            git submodule update --remote
+      - restore_cache:
+          key: 1-gems-{{ checksum "ios/Gemfile.lock" }}-{{ arch }}
+      - run:
+          command: bundle check || bundle install --path vendor/bundle
+          working_directory: ios
+      - save_cache:
+          key: 1-gems-{{ checksum "ios/Gemfile.lock" }}-{{ arch }}
+          paths:
+            - ios/vendor/bundle
+      - restore_cache:
+          name: Restore Yarn Package Cache
+          keys:
+            - 4-yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
+      - run:
+          name: Install Dependencies
+          command: yarn install --frozen-lockfile
+      - save_cache:
+          name: Save Yarn Package Cache
+          key: 4-yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
+          paths:
+            - ~/Library/Caches/Yarn/
+            - node_modules
+      - restore_cache:
+          name: Restore CocoaPods Cache
+          keys:
+            - 1-pods-{{ checksum "ios/Podfile.lock" }}-{{ arch }}
+      - run:
+          name: Install CocoaPods
+          command: bundle exec pod install --deployment
+          working_directory: ios
+      - save_cache:
+          name: Save CocoaPods Cache
+          key: 1-pods-{{ checksum "ios/Podfile.lock" }}-{{ arch }}
+          paths:
+            - ~/Library/Caches/CocoaPods/
+      - run:
+          name: Ruby version
+          command: ruby --version
+      - run:
+          name: Fastlane Release Build
+          command: bundle exec fastlane ios release
+          working_directory: ios
+#      - run:
+#          name: Fastlane Browserstack Upload Live
+#          command: bundle exec fastlane ios browserstack_upload_live
+#          working_directory: ios
+      - run:
+          name: Fastlane E2E Tests on Browserstack
+          command: bundle exec fastlane ios browserstack_e2e_tests
+          working_directory: ios
+#      - run:
+#          name: Fastlane TestFlight Upload
+#          command: bundle exec fastlane ios testflight_upload
+#          working_directory: ios
+      - store_artifacts:
+          path: ios/output
+
+
+version: 2.1
+
+workflows:
+  create-release-builds:
+    jobs:
+      - build_android
+      - build_ios
+
