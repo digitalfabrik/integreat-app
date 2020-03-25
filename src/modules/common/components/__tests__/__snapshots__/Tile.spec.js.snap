@@ -12,6 +12,7 @@ exports[`Tile should render a Link if path is not an external url 1`] = `
     <Tile__ThumbnailSizer>
       <Tile__Thumbnail>
         <img
+          alt=""
           src="https://cms.integreat-ap…03/Beratung-150x150.png"
         />
       </Tile__Thumbnail>
@@ -36,6 +37,7 @@ exports[`Tile should render a a-Tag if path is not an external url 1`] = `
     <Tile__ThumbnailSizer>
       <Tile__Thumbnail>
         <img
+          alt=""
           src="https://cms.integreat-ap…03/Beratung-150x150.png"
         />
       </Tile__Thumbnail>
@@ -77,11 +79,13 @@ exports[`Tile should render a form-Tag if path is not an external url and has po
       value="0006"
     />
     <button
+      role="link"
       type="submit"
     >
       <Tile__ThumbnailSizer>
         <Tile__Thumbnail>
           <img
+            alt=""
             src="https://cms.integreat-ap…03/Beratung-150x150.png"
           />
         </Tile__Thumbnail>

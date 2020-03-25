@@ -4,6 +4,7 @@ import * as React from 'react'
 import styled from 'styled-components'
 import { faTimes } from '../../app/constants/icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { TFunction } from 'i18next'
 
 const Header = styled.div`
   display: flex;
@@ -14,9 +15,10 @@ const Header = styled.div`
   font-size: ${props => props.theme.fonts.subTitleFontSize};
 `
 
-const CloseButton = styled.span`
-  cursor: pointer;
-  
+const CloseButton = styled.button`
+  background-color: ${props => props.theme.colors.backgroundColor};
+  border: none;
+
   & * {
     font-size: 0.8em;
     vertical-align: baseline;
@@ -25,17 +27,20 @@ const CloseButton = styled.span`
 
 type PropsType = {|
   closeFeedbackModal: () => void,
-  title: string
+  title: string,
+  t: TFunction
 |}
 
 export class ModalHeader extends React.PureComponent<PropsType> {
   render () {
-    const { title, closeFeedbackModal } = this.props
+    const { title, closeFeedbackModal, t } = this.props
 
     return (
       <Header>
         <div>{title}</div>
-        <CloseButton onClick={closeFeedbackModal}><FontAwesomeIcon icon={faTimes} /></CloseButton>
+        <CloseButton aria-label={t('close')} onClick={closeFeedbackModal}>
+          <FontAwesomeIcon icon={faTimes} />
+        </CloseButton>
       </Header>
     )
   }

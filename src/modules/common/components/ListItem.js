@@ -32,7 +32,7 @@ const Description = styled.div`
   flex-grow: 1;
   padding: 15px 10px 0;
   word-wrap: break-word;
-  
+
   > * {
     padding-bottom: 10px;
   }
@@ -60,7 +60,7 @@ class ListItem extends React.PureComponent<PropsType> {
 
     return (
       <>
-        {thumbnail && <Thumbnail src={thumbnail} />}
+        {thumbnail && <Thumbnail alt='' src={thumbnail} />}
         <Description>
           <Title>{title}</Title>
           {children}
