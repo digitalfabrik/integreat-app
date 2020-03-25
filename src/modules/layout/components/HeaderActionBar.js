@@ -11,12 +11,13 @@ const ActionItems = styled.div`
   justify-content: flex-end;
 
   & > *,
-  & img, button {
+  & img,
+  button {
     width: calc(0.8 * ${props => props.theme.dimensions.headerHeightLarge}px);
     height: calc(0.8 * ${props => props.theme.dimensions.headerHeightLarge}px);
     box-sizing: border-box;
-    padding: 0;
     margin: 0;
+    padding: 0;
     cursor: pointer;
 
     @media ${props => props.theme.dimensions.smallViewport} {
