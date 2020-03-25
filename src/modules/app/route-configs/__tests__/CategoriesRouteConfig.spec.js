@@ -7,6 +7,8 @@ import createLocation from '../../../../createLocation'
 
 const categories = new CategoriesMapModel([
   new CategoryModel({
+    root: true,
+    hash: '2fe6283485a93932',
     availableLanguages: new Map(),
     content: '',
     lastUpdate: moment.tz('2017-11-18 09:30:00', 'UTC'),
@@ -17,6 +19,8 @@ const categories = new CategoriesMapModel([
     title: 'Augsburg'
   }),
   new CategoryModel({
+    root: false,
+    hash: '2fe6283485b93932',
     availableLanguages: new Map([['en', '/augsburg/en/category01'], ['fr', '/augsburg/fr/fr_category01']]),
     content: 'contnentl',
     lastUpdate: moment.tz('2017-11-18 09:30:00', 'UTC'),

@@ -14,7 +14,6 @@ import { EVENTS_ROUTE } from '../../../../modules/app/route-configs/EventsRouteC
 describe('EventsPage', () => {
   const events = [
     new EventModel({
-      id: 1,
       path: '/augsburg/en/events/first_event',
       title: 'first Event',
       availableLanguages: new Map(
@@ -32,10 +31,10 @@ describe('EventsPage', () => {
       excerpt: 'excerpt',
       lastUpdate: moment('2016-01-07 10:36:24'),
       content: 'content',
-      thumbnail: 'thumbnail'
+      thumbnail: 'thumbnail',
+      hash: '2fe6283485a93932'
     }),
     new EventModel({
-      id: 2,
       path: '/augsburg/en/events/second_event',
       title: 'second Event',
       availableLanguages: new Map(
@@ -53,10 +52,10 @@ describe('EventsPage', () => {
       content: 'content',
       excerpt: 'excerpt',
       lastUpdate: moment('2016-01-07 10:36:24'),
-      thumbnail: 'thumbnail'
+      thumbnail: 'thumbnail',
+      hash: '2fe6283485b93932'
     }),
     new EventModel({
-      id: 3,
       path: '/augsburg/en/events/third_event',
       title: 'third Event',
       availableLanguages: new Map(
@@ -74,7 +73,8 @@ describe('EventsPage', () => {
       content: 'content',
       excerpt: 'excerpt',
       lastUpdate: moment('2016-01-07 10:36:24'),
-      thumbnail: 'thumbnail'
+      thumbnail: 'thumbnail',
+      hash: '2fe6283485c93932'
     })
   ]
 

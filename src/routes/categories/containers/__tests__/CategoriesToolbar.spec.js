@@ -12,7 +12,7 @@ import createLocation from '../../../../createLocation'
 describe('CategoriesToolbar', () => {
   const categoryModels = [
     new CategoryModel({
-      id: 0,
+      root: true,
       path: '/augsburg/de',
       title: 'augsburg',
       content: '',
@@ -20,9 +20,10 @@ describe('CategoriesToolbar', () => {
       availableLanguages: new Map(),
       thumbnail: 'no_thumbnail',
       parentPath: '',
+      hash: '2fe6283485a93932',
       lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
     }), new CategoryModel({
-      id: 3650,
+      root: false,
       path: '/augsburg/de/anlaufstellen',
       title: 'Anlaufstellen zu sonstigen Themen',
       content: '',
@@ -30,10 +31,11 @@ describe('CategoriesToolbar', () => {
       order: 75,
       availableLanguages: new Map([['en', '4361'], ['ar', '4367'], ['fa', '4368']]),
       thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png',
+      hash: '2fe6283485b93932',
       lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
     }),
     new CategoryModel({
-      id: 3649,
+      root: false,
       path: '/augsburg/de/willkommen',
       title: 'Willkommen',
       content: '',
@@ -41,10 +43,11 @@ describe('CategoriesToolbar', () => {
       order: 11,
       availableLanguages: new Map([['en', '4361'], ['ar', '4367'], ['fa', '4368']]),
       thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
+      hash: '2fe6283485c93932',
       lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
     }),
     new CategoryModel({
-      id: 35,
+      root: false,
       path: '/augsburg/de/willkommen/willkommen-in-augsburg',
       title: 'Willkommen in Augsburg',
       content: 'some content',
@@ -52,6 +55,7 @@ describe('CategoriesToolbar', () => {
       order: 1,
       availableLanguages: new Map([['en', '390'], ['ar', '711'], ['fa', '397']]),
       thumbnail: 'https://cms.integreat-ap…09/heart295-150x150.png',
+      hash: '2fe6283485d93932',
       lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
     })
   ]

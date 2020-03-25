@@ -10,7 +10,6 @@ describe('EventListItem', () => {
   const language = 'de'
 
   const event = new EventModel({
-    id: 1,
     path: '/augsburg/en/events/first_event',
     title: 'first Event',
     availableLanguages: new Map(
@@ -28,7 +27,8 @@ describe('EventListItem', () => {
     excerpt: 'very loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong excerpt',
     lastUpdate: moment('2016-01-07 10:36:24'),
     content: 'content',
-    thumbnail: 'thumbnail'
+    thumbnail: 'thumbnail',
+    hash: '2fe6283485a93932'
   })
 
   it('should render and match snapshot', () => {
