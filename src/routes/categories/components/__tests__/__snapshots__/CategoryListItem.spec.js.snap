@@ -6,6 +6,7 @@ exports[`CategoryListItem should render and match snapshot 1`] = `
     to="/augsburg/de/willkommen"
   >
     <CategoryListItem__CategoryThumbnail
+      alt=""
       src="https://cms.integreat-ap…03/Beratung-150x150.png"
     />
     <CategoryListItem__CategoryCaption
@@ -36,6 +37,7 @@ exports[`CategoryListItem should replace empty thumbnail 1`] = `
     to="/augsburg/de/willkommen/willkommen-in-augsburg"
   >
     <CategoryListItem__CategoryThumbnail
+      alt=""
       src="test-file-stub"
     />
     <CategoryListItem__CategoryCaption

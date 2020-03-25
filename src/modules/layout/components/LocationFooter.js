@@ -21,7 +21,9 @@ export class LocationFooter extends React.PureComponent<PropsType> {
     const { t, city, language, onClick } = this.props
 
     return <Footer onClick={onClick}>
-      <CleanLink to={new DisclaimerRouteConfig().getRoutePath({ city, language })}>{t('imprintAndContact')}</CleanLink>
+      <CleanLink to={new DisclaimerRouteConfig().getRoutePath({ city, language })}>
+        {t('imprintAndContact')}
+      </CleanLink>
       <CleanAnchor href='https://integreat-app.de/datenschutz/'>{t('privacy')}</CleanAnchor>
     </Footer>
   }
