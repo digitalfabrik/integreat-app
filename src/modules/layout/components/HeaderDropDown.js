@@ -19,11 +19,10 @@ export const DropDownContainer = styled.div`
   transform-origin: center top;
   justify-content: center;
   box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.2);
-  opacity: ${props => props.active ? '1' : '0'};
-  transition: transform 0.2s, opacity 0.2s;
+  transition: transform 0.2s, opacity 0.2s, visibility 0s ${props => props.active ? '0s' : '0.2s'};
   background-color: ${props => props.theme.colors.backgroundColor};
-  pointer-events: ${props => props.active ? 'auto' : 'none'};
-  ${props => props.active ? '' : 'display: none;'}
+  visibility: ${props => props.active ? 'visible' : 'hidden'};
+
 
   @media ${props => props.theme.dimensions.smallViewport} {
     top: ${props => props.theme.dimensions.headerHeightSmall}px;
