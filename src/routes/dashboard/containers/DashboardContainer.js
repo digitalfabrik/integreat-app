@@ -9,7 +9,7 @@ import withTheme from '../../../modules/theme/hocs/withTheme'
 import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
-import { type TFunction, translate } from 'react-i18next'
+import { type TFunction, withTranslation } from 'react-i18next'
 import type { NavigationScreenProp } from 'react-navigation'
 import type { StatusPropsType } from '../../../modules/error/hocs/withPayloadProvider'
 import withPayloadProvider from '../../../modules/error/hocs/withPayloadProvider'
@@ -123,7 +123,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsType => ({ dispatch })
 
-const ThemedTranslatedDashboard = translate('dashboard')(
+const ThemedTranslatedDashboard = withTranslation('dashboard')(
   withTheme(props => props.language)(
     Dashboard
   ))
@@ -146,7 +146,7 @@ const removeOwnProps = (props: PropsType): RestType => {
 }
 
 export default withRouteCleaner<{| navigation: NavigationScreenProp<*> |}>(
-  translate('error')(
+  withTranslation('error')(
     connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
       mapProps<RestType, PropsType>(removeOwnProps)(
         withPayloadProvider<ContainerPropsType, RefreshPropsType>(refresh)(

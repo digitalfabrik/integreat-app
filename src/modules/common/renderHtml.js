@@ -3,6 +3,7 @@
 import { getFontFaceSource, URL_PREFIX } from '../platform/constants/webview'
 import type { PageResourceCacheStateType } from '../app/StateType'
 import type { ThemeType } from '../theme/constants/theme'
+import { RTL_LANGUAGES } from '../i18n/constants'
 
 // language=JavaScript
 const renderJS = (files: PageResourceCacheStateType) => `
@@ -85,10 +86,11 @@ const renderJS = (files: PageResourceCacheStateType) => `
 `
 
 // language=HTML
-const renderHtml = (html: string, files: PageResourceCacheStateType, theme: ThemeType, direction: 'rtl' | 'ltr') => `
-<html>
+const renderHtml = (html: string, files: PageResourceCacheStateType, theme: ThemeType, language: string) => `
+<!-- The lang attribute makes TalkBack use the appropriate language. -->
+<html lang="${language}">
 <head>
-  <!-- disables zooming https://stackoverflow.com/questions/44625680/disable-zoom-on-web-view-react-native-->
+  <!-- disables zooming https://stackoverflow.com/questions/44625680/disable-zoom-on-web-view-react-native -->
   <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0">
   <style>
     @font-face {
@@ -121,11 +123,11 @@ const renderHtml = (html: string, files: PageResourceCacheStateType, theme: Them
       font-weight: 400;
       src: ${getFontFaceSource('Lateef')};
     }
-   
+
     html, body {
         margin: 0;
         padding: 0;
-        
+
         font-family: ${theme.fonts.webviewFontFamilies};
         font-size: ${theme.fonts.contentFontSize};
         line-height: ${theme.fonts.contentLineHeight};
@@ -136,11 +138,11 @@ const renderHtml = (html: string, files: PageResourceCacheStateType, theme: Them
         list-style-position: inside;
         \`} */
     }
-    
+
     p {
       margin: ${theme.fonts.standardParagraphMargin} 0;
     }
-    
+
     img {
       max-width: 100%;
       max-height: 100%;
@@ -182,7 +184,7 @@ const renderHtml = (html: string, files: PageResourceCacheStateType, theme: Them
     }
   </style>
 </head>
-<body dir="${direction}">
+<body dir="${RTL_LANGUAGES.includes(language) ? 'rtl' : 'ltr'}">
   <div id="measure-container">${html}</div>
   <script>${renderJS(files)}</script>
 </body>
