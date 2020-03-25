@@ -7,6 +7,7 @@ import type { LocationState } from 'redux-first-router'
 import FeedbackThanksMessage from './FeedbackThanksMessage'
 import FeedbackBoxContainer from './FeedbackBoxContainer'
 import type { FeedbackRatingType } from '../../layout/containers/LocationLayout'
+import FocusTrap from 'focus-trap-react'
 
 const Overlay = styled.div`
   position: absolute;
@@ -34,7 +35,7 @@ const FeedbackContainer = styled.div`
   position: relative;
   display: flex;
   background-color: ${props => props.theme.colors.backgroundColor};
-  
+
   @media ${props => props.theme.dimensions.smallViewport} {
     width: 100%;
     height: 100%;
@@ -72,17 +73,19 @@ class FeedbackModal extends React.Component<PropsType, StateType> {
     const { feedbackStatus, ...otherProps } = this.props
     const { feedbackSent } = this.state
 
-    return <ModalContainer>
-      <Overlay onClick={this.handleOverlayClick} />
-      <FeedbackContainer>
-        {
-          feedbackSent
-            ? <FeedbackThanksMessage closeFeedbackModal={this.props.closeFeedbackModal} />
-            : <FeedbackBoxContainer isPositiveRatingSelected={feedbackStatus === POSITIVE_RATING}
-                                    {...otherProps} onSubmit={this.handleSubmit} />
-        }
-      </FeedbackContainer>
-    </ModalContainer>
+    return <FocusTrap>
+      <ModalContainer aria-modal>
+        <Overlay onClick={this.handleOverlayClick} />
+        <FeedbackContainer>
+          {
+            feedbackSent
+              ? <FeedbackThanksMessage closeFeedbackModal={this.props.closeFeedbackModal} />
+              : <FeedbackBoxContainer isPositiveRatingSelected={feedbackStatus === POSITIVE_RATING}
+                                      {...otherProps} onSubmit={this.handleSubmit} />
+          }
+        </FeedbackContainer>
+      </ModalContainer>
+    </FocusTrap>
   }
 }
 
