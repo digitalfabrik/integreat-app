@@ -3,19 +3,25 @@
 exports[`FeedbackBoxContainer getExtrasFeedbackOptions should return the right options 1`] = `
 Array [
   FeedbackDropdownItem {
+    "alias": "serlo-abc",
+    "feedbackCategory": "Inhalte",
     "feedbackType": "extra",
     "label": "extra 'Serlo ABC'",
-    "value": "serlo-abc",
+    "value": "extra 'Serlo ABC'",
   },
   FeedbackDropdownItem {
+    "alias": "sprungbrett",
+    "feedbackCategory": "Inhalte",
     "feedbackType": "extra",
     "label": "extra 'Sprungbrett'",
-    "value": "sprungbrett",
+    "value": "extra 'Sprungbrett'",
   },
   FeedbackDropdownItem {
+    "alias": "lehrstellen-radar",
+    "feedbackCategory": "Inhalte",
     "feedbackType": "extra",
     "label": "extra 'Lehrstellenradar'",
-    "value": "lehrstellen-radar",
+    "value": "extra 'Lehrstellenradar'",
   },
 ]
 `;
@@ -27,16 +33,22 @@ exports[`FeedbackBoxContainer should match snapshot 1`] = `
   feedbackOptions={
     Array [
       FeedbackDropdownItem {
+        "alias": undefined,
+        "feedbackCategory": "Inhalte",
         "feedbackType": null,
         "label": "contentOfPage",
         "value": "contentOfPage",
       },
       FeedbackDropdownItem {
+        "alias": undefined,
+        "feedbackCategory": "Inhalte",
         "feedbackType": "categories",
         "label": "contentOfCity Augsburg",
         "value": "contentOfCity Augsburg",
       },
       FeedbackDropdownItem {
+        "alias": undefined,
+        "feedbackCategory": "Technisches Feedback",
         "feedbackType": "categories",
         "label": "technicalTopics",
         "value": "technicalTopics",
@@ -49,6 +61,8 @@ exports[`FeedbackBoxContainer should match snapshot 1`] = `
   onSubmit={[Function]}
   selectedFeedbackOption={
     FeedbackDropdownItem {
+      "alias": undefined,
+      "feedbackCategory": "Inhalte",
       "feedbackType": null,
       "label": "contentOfPage",
       "value": "contentOfPage",
