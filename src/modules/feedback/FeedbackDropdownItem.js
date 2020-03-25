@@ -10,6 +10,7 @@ class FeedbackDropdownItem {
   feedbackCategory: FeedbackCategoryType
   label: string
   alias: ?string
+  value: string
 
   constructor ({ label, feedbackType, feedbackCategory, alias }: {|
     label: string, feedbackType: FeedbackType, feedbackCategory: FeedbackCategoryType, alias?: string
@@ -18,6 +19,7 @@ class FeedbackDropdownItem {
     this.label = label
     this.feedbackCategory = feedbackCategory
     this.alias = alias
+    this.value = label // Required for react-select
   }
 }
 
