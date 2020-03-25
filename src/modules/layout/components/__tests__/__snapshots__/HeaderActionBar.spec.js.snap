@@ -9,6 +9,7 @@ exports[`HeaderActionBar should match snapshot 1`] = `
     to="/random_route"
   >
     <img
+      alt=""
       src="icon1"
     />
   </Connect(Link)>
