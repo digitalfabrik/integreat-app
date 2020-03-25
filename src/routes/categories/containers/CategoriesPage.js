@@ -32,7 +32,7 @@ type PropsType = {|
 export class CategoriesPage extends React.Component<PropsType> {
   getTileModels (categories: Array<CategoryModel>): Array<TileModel> {
     return categories.map(category => new TileModel({
-      id: String(category.id),
+      id: category.path,
       title: category.title,
       path: category.path,
       thumbnail: category.thumbnail,
@@ -73,10 +73,10 @@ export class CategoriesPage extends React.Component<PropsType> {
   }
 
   getBreadcrumbs (categoryModel: CategoryModel): Array<React.Node> {
-    const { cities, categories } = this.props
+    const { cities, categories, city } = this.props
     return categories.getAncestors(categoryModel)
       .map(ancestor => {
-        const title = ancestor.id === 0 ? CityModel.findCityName(cities, ancestor.title) : ancestor.title
+        const title = ancestor.isRoot() ? CityModel.findCityName(cities, city) : ancestor.title
         return <Link to={ancestor.path} key={ancestor.path}>{title}</Link>
       })
   }
