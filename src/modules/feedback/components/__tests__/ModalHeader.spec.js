@@ -9,9 +9,9 @@ describe('ModalHeader', () => {
   it('should call close function when clicking on close', () => {
     const jestMockFn = jest.fn()
     const component = shallow(
-      <ModalHeader
-        closeFeedbackModal={jestMockFn}
-        title='title' />
+      <ModalHeader t={key => key}
+                   closeFeedbackModal={jestMockFn}
+                   title='title' />
     )
 
     component.findWhere(elem => elem.name() ? elem.name().includes('CloseButton') : false).simulate('click')
