@@ -43,8 +43,8 @@ exports[`FeedbackBoxContainer should match snapshot 1`] = `
         "alias": undefined,
         "feedbackCategory": "Inhalte",
         "feedbackType": "categories",
-        "label": "contentOfCity Augsburg",
-        "value": "contentOfCity Augsburg",
+        "label": "contentOfCity",
+        "value": "contentOfCity",
       },
       FeedbackVariant {
         "alias": undefined,

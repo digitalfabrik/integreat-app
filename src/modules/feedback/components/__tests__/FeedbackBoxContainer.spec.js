@@ -196,7 +196,7 @@ describe('FeedbackBoxContainer', () => {
     )
     expect(component.instance().getContentFeedbackOption())
       .toEqual(new FeedbackVariant({
-        label: 'contentOfCity Augsburg',
+        label: 'contentOfCity',
         feedbackType: CATEGORIES_FEEDBACK_TYPE,
         feedbackCategory: CONTENT_FEEDBACK_CATEGORY
       }))
@@ -204,7 +204,7 @@ describe('FeedbackBoxContainer', () => {
     component.setProps({ location: extrasLocation })
     expect(component.instance().getContentFeedbackOption())
       .toEqual(new FeedbackVariant({
-        label: 'contentOfCity Augsburg',
+        label: 'contentOfCity',
         feedbackType: EXTRAS_FEEDBACK_TYPE,
         feedbackCategory: CONTENT_FEEDBACK_CATEGORY
       }))
@@ -212,7 +212,7 @@ describe('FeedbackBoxContainer', () => {
     component.setProps({ location: eventsLocation })
     expect(component.instance().getContentFeedbackOption())
       .toEqual(new FeedbackVariant({
-        label: 'contentOfCity Augsburg',
+        label: 'contentOfCity',
         feedbackType: EVENTS_FEEDBACK_TYPE,
         feedbackCategory: CONTENT_FEEDBACK_CATEGORY
       }))
@@ -301,11 +301,11 @@ describe('FeedbackBoxContainer', () => {
     type                 | path       | alias           | title              | query         | result
     ${CATEGORIES_ROUTE}  | ${'path1'} | ${''}           | ${'Willkommen'}    | ${''}         | ${categoriesOption}
     ${EVENTS_ROUTE}      | ${'path2'} | ${''}           | ${'Event1'}        | ${''}         | ${eventsOption}
-    ${WOHNEN_ROUTE}      | ${''}      | ${'wohnen'}     | ${'Wohnungsboerse'}| ${''}         | ${wohnenOption}
-    ${SPRUNGBRETT_ROUTE} | ${''}      | ${'sprungbrett'}| ${'Sprungbrett'}   | ${''}         | ${sprungbrettOption}
-    ${SEARCH_ROUTE}      | ${''}      | ${''}           | ${''}              | ${'my query'} | ${searchOption}
-    ${DISCLAIMER_ROUTE}  | ${''}      | ${''}           | ${''}              | ${''}         | ${disclaimerOption}
-    ${EXTRAS_ROUTE}      | ${''}      | ${''}           | ${''}              | ${''}         | ${extrasOption}
+    ${WOHNEN_ROUTE}      | ${null}    | ${'wohnen'}     | ${'Wohnungsboerse'}| ${''}         | ${wohnenOption}
+    ${SPRUNGBRETT_ROUTE} | ${null}    | ${'sprungbrett'}| ${'Sprungbrett'}   | ${''}         | ${sprungbrettOption}
+    ${SEARCH_ROUTE}      | ${null}    | ${''}           | ${''}              | ${'my query'} | ${searchOption}
+    ${DISCLAIMER_ROUTE}  | ${null}    | ${''}           | ${''}              | ${''}         | ${disclaimerOption}
+    ${EXTRAS_ROUTE}      | ${null}    | ${''}           | ${''}              | ${''}         | ${extrasOption}
     `('should return the right option', ({ type, path, alias, title, query, result }) => {
   const location = createLocation({ type, payload: { city: 'augsburg', language: 'de' } })
   const component = shallow(

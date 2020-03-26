@@ -11,7 +11,6 @@ exports[`ExtrasPage should render extra tiles if no extra is selected 1`] = `
   tiles={
     Array [
       TileModel {
-        "_id": "sprungbrett",
         "_isExternalUrl": false,
         "_path": "/augsburg/de/extras/sprungbrett",
         "_postData": null,
@@ -19,7 +18,6 @@ exports[`ExtrasPage should render extra tiles if no extra is selected 1`] = `
         "_title": "Sprungbrett",
       },
       TileModel {
-        "_id": "ihk-lehrstellenboerse",
         "_isExternalUrl": true,
         "_path": "ihk-jobborese.com",
         "_postData": Map {
@@ -31,7 +29,6 @@ exports[`ExtrasPage should render extra tiles if no extra is selected 1`] = `
         "_title": "Jobboerse",
       },
       TileModel {
-        "_id": "ihk-praktikumsboerse",
         "_isExternalUrl": true,
         "_path": "ihk-pratkitkumsboerse.com",
         "_postData": null,
