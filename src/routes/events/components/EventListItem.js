@@ -19,9 +19,10 @@ class EventListItem extends React.PureComponent<PropsType> {
    * We have three placeholder thumbnails to display when cities don't provide a thumbnail
    * @returns {*} The Placeholder Thumbnail
    */
-  getEventPlaceholder (id: number): string {
+  getEventPlaceholder (path: string): string {
+    const pseudoId = path.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0)
     const placeholders = [EventPlaceholder1, EventPlaceholder2, EventPlaceholder3]
-    return placeholders[id % placeholders.length]
+    return placeholders[pseudoId % placeholders.length]
   }
 
   static formatExcerpt (excerpt: string): string {
@@ -31,7 +32,7 @@ class EventListItem extends React.PureComponent<PropsType> {
   render () {
     const { event, language } = this.props
     return (
-      <ListItem thumbnail={event.thumbnail || this.getEventPlaceholder(event.id)}
+      <ListItem thumbnail={event.thumbnail || this.getEventPlaceholder(event.path)}
                 title={event.title}
                 path={event.path}>
         <div>

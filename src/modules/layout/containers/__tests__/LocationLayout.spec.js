@@ -26,7 +26,8 @@ describe('LocationLayout', () => {
 
   const categories = new CategoriesMapModel([
     new CategoryModel({
-      id: 1,
+      root: true,
+      hash: '2fe6283485a93932',
       path: 'path01',
       title: 'Title10',
       content: 'contnentl',
@@ -40,7 +41,6 @@ describe('LocationLayout', () => {
 
   const events = [
     new EventModel({
-      id: 1,
       path: '/augsburg/en/events/first_event',
       title: 'first Event',
       availableLanguages: new Map(
@@ -58,7 +58,8 @@ describe('LocationLayout', () => {
       excerpt: 'excerpt',
       lastUpdate: moment('2016-01-07 10:36:24'),
       content: 'content',
-      thumbnail: 'thumbnail'
+      thumbnail: 'thumbnail',
+      hash: '2fe6283485a93932'
     })
   ]
 
