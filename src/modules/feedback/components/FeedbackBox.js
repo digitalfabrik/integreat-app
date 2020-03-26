@@ -9,6 +9,7 @@ import ModalHeader from './ModalHeader'
 import FeedbackComment from './FeedbackComment'
 import FeedbackVariant from '../FeedbackVariant'
 import Select from 'react-select'
+import TextButton from '../../common/components/TextButton'
 
 export const StyledFeedbackBox = styled.div`
   display: flex;
@@ -25,15 +26,6 @@ export const StyledFeedbackBox = styled.div`
 
 export const Description = styled.div`
   padding: 10px 0 5px;
-`
-
-export const SubmitButton = styled.button`
-  margin: 15px 0;
-  padding: 5px;
-  background-color: ${props => props.theme.colors.themeColor};
-  border: none;
-  text-align: center;
-  border-radius: 0.25em;
 `
 
 const StyledSelect = styled(Select)`
@@ -84,9 +76,7 @@ export class FeedbackBox extends React.PureComponent<PropsType> {
           comment={comment}
           commentMessage={isPositiveRatingSelected ? t('positiveComment') : t('negativeComment')}
           onCommentChanged={onCommentChanged} />
-        <SubmitButton onClick={onSubmit}>
-          {t('send')}
-        </SubmitButton>
+        <TextButton onClick={onSubmit} text={t('send')} />
       </StyledFeedbackBox>
     )
   }

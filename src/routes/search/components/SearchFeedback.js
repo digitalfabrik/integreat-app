@@ -8,18 +8,7 @@ import { createFeedbackEndpoint, SEARCH_FEEDBACK_TYPE } from '@integreat-app/int
 import type { LocationState } from 'redux-first-router'
 import NothingFoundFeedbackBox from './NothingFoundFeedbackBox'
 import { cmsApiBaseUrl } from '../../../modules/app/constants/urls'
-
-const FeedbackButton = styled.div`
-  padding: 30px 0;
-  text-align: center;
-`
-
-const FeedbackLink = styled.span`
-  padding: 5px 20px;
-  background-color: ${props => props.theme.colors.themeColor};
-  color: ${props => props.theme.colors.textColor};
-  border-radius: 0.25em;
-`
+import TextButton from '../../../modules/common/components/TextButton'
 
 const FeedbackContainer = styled.div`
   display: flex;
@@ -67,9 +56,9 @@ export class SearchFeedback extends React.Component<PropsType, StateType> {
         <NothingFoundFeedbackBox location={location} query={query} />
       </FeedbackContainer>
     } else {
-      return <FeedbackButton>
-        <FeedbackLink onClick={this.handleFeedbackLinkClicked}>{t('informationNotFound')}</FeedbackLink>
-      </FeedbackButton>
+      return <FeedbackContainer>
+        <TextButton onClick={this.handleFeedbackLinkClicked} text={t('informationNotFound')} />
+      </FeedbackContainer>
     }
   }
 }
