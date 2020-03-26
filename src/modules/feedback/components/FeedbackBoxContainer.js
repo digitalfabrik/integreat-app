@@ -65,6 +65,7 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
 
   postFeedbackData = async (feedbackData: FeedbackParamsType) => {
     const { postFeedbackDataOverride } = this.props
+    console.warn(feedbackData)
 
     try {
       if (postFeedbackDataOverride) {
@@ -117,9 +118,9 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
     const { cities, location, t } = this.props
     const { city } = location.payload
     const currentRoute = location.type
+    const cityTitle = city && cities && CityModel.findCityName(cities, city)
 
-    if (city && cities) {
-      const cityTitle = CityModel.findCityName(cities, city)
+    if (cityTitle) {
       let feedbackType
       if (currentRoute === EVENTS_ROUTE) {
         feedbackType = EVENTS_FEEDBACK_TYPE
@@ -131,7 +132,7 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
       // We don't want to differ between the content of categories, extras and events for the user, but we want to know
       // from which route the feedback was sent
       return new FeedbackVariant({
-        label: `${t('contentOfCity')} ${cityTitle}`,
+        label: t('contentOfCity', { city: cityTitle }),
         feedbackType,
         feedbackCategory: CONTENT_FEEDBACK_CATEGORY
       })
