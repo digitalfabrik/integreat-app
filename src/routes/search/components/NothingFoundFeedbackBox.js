@@ -29,7 +29,8 @@ export class NothingFoundFeedbackBox extends React.Component<PropsType, StateTyp
     this.state = { comment: '', feedbackSent: false }
   }
 
-  handleCommentChanged = (event: SyntheticInputEvent<HTMLTextAreaElement>) => this.setState({ comment: event.target.value })
+  handleCommentChanged = (event: SyntheticInputEvent<HTMLTextAreaElement>) =>
+    this.setState({ comment: event.target.value })
 
   handleSubmit = () => {
     const { query, location } = this.props

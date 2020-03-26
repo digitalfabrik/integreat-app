@@ -65,7 +65,6 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
 
   postFeedbackData = async (feedbackData: FeedbackParamsType) => {
     const { postFeedbackDataOverride } = this.props
-    console.warn(feedbackData)
 
     try {
       if (postFeedbackDataOverride) {
@@ -121,21 +120,19 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
     const cityTitle = city && cities && CityModel.findCityName(cities, city)
 
     if (cityTitle) {
-      let feedbackType
-      if (currentRoute === EVENTS_ROUTE) {
-        feedbackType = EVENTS_FEEDBACK_TYPE
-      } else if (currentRoute === EXTRAS_ROUTE) {
-        feedbackType = EXTRAS_FEEDBACK_TYPE
-      } else {
-        feedbackType = CATEGORIES_FEEDBACK_TYPE
-      }
+      const label = t('contentOfCity', { city: cityTitle })
+      const feedbackCategory = CONTENT_FEEDBACK_CATEGORY
+
       // We don't want to differ between the content of categories, extras and events for the user, but we want to know
       // from which route the feedback was sent
-      return new FeedbackVariant({
-        label: t('contentOfCity', { city: cityTitle }),
-        feedbackType,
-        feedbackCategory: CONTENT_FEEDBACK_CATEGORY
-      })
+      switch (currentRoute) {
+        case EVENTS_ROUTE:
+          return new FeedbackVariant({ label, feedbackType: EVENTS_FEEDBACK_TYPE, feedbackCategory })
+        case EXTRAS_ROUTE:
+          return new FeedbackVariant({ label, feedbackType: EXTRAS_FEEDBACK_TYPE, feedbackCategory })
+        default:
+          return new FeedbackVariant({ label, feedbackType: CATEGORIES_FEEDBACK_TYPE, feedbackCategory })
+      }
     }
   }
 
@@ -146,8 +143,8 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
     const { extras, location, t } = this.props
     const currentRoute = location.type
     if (extras && currentRoute === EXTRAS_ROUTE) {
-      return extras.map(
-        extra => new FeedbackVariant({
+      return extras.map(extra =>
+        new FeedbackVariant({
           label: `${t('extra')} '${extra.title}'`,
           feedbackType: EXTRA_FEEDBACK_TYPE,
           feedbackCategory: CONTENT_FEEDBACK_CATEGORY,
@@ -165,35 +162,36 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
     const { location, path, alias, title, query, t } = this.props
     const type = location.type
 
+    const feedbackCategory = CONTENT_FEEDBACK_CATEGORY
     if (type === CATEGORIES_ROUTE && path && title) {
       return new FeedbackVariant({
         label: t('contentOfPage', { page: title }),
         feedbackType: PAGE_FEEDBACK_TYPE,
-        feedbackCategory: CONTENT_FEEDBACK_CATEGORY
+        feedbackCategory
       })
     } else if (type === EVENTS_ROUTE && path && title) {
       return new FeedbackVariant({
         label: t('contentOfEvent', { event: title }),
         feedbackType: PAGE_FEEDBACK_TYPE,
-        feedbackCategory: CONTENT_FEEDBACK_CATEGORY
+        feedbackCategory
       })
     } else if (([WOHNEN_ROUTE, SPRUNGBRETT_ROUTE].includes(type)) && alias && title) {
       return new FeedbackVariant({
         label: t('contentOfExtra', { extra: title }),
         feedbackType: EXTRA_FEEDBACK_TYPE,
-        feedbackCategory: CONTENT_FEEDBACK_CATEGORY
+        feedbackCategory
       })
     } else if (type === SEARCH_ROUTE && query) {
       return new FeedbackVariant({
         label: `${t('searchFor')} '${query}'`,
         feedbackType: SEARCH_FEEDBACK_TYPE,
-        feedbackCategory: CONTENT_FEEDBACK_CATEGORY
+        feedbackCategory
       })
     } else if (type === DISCLAIMER_ROUTE) {
       return new FeedbackVariant({
         label: `${t('disclaimer')}`,
         feedbackType: PAGE_FEEDBACK_TYPE,
-        feedbackCategory: CONTENT_FEEDBACK_CATEGORY
+        feedbackCategory
       })
     } else {
       return null
