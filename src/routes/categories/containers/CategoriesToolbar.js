@@ -23,7 +23,7 @@ export class CategoriesToolbar extends React.PureComponent<PropsType> {
   getPdfUrl (category: CategoryModel): string {
     const { city, language } = this.props.location.payload
 
-    if (category.id === 0) {
+    if (category.isRoot()) {
       return `${cmsApiBaseUrl}/${city}/${language}/wp-json/ig-mpdf/v1/pdf`
     } else {
       return `${cmsApiBaseUrl}/${city}/${language}/wp-json/ig-mpdf/v1/pdf?url=${encodeURIComponent(category.path)}`

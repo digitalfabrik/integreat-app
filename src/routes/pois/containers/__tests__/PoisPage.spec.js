@@ -10,7 +10,6 @@ import List from '../../../../modules/common/components/List'
 describe('PoisPage', () => {
   const pois = [
     new PoiModel({
-      id: 1,
       path: '/augsburg/en/locations/first_poi',
       title: 'first Event',
       availableLanguages: new Map(
@@ -23,10 +22,11 @@ describe('PoisPage', () => {
       excerpt: 'excerpt',
       lastUpdate: moment('2016-01-07 10:36:24'),
       content: 'content',
-      thumbnail: 'thumbnail'
+      thumbnail: 'thumbnail',
+      hash: '2fe6283485a93932'
     }),
     new PoiModel({
-      id: 2,
+      hash: '2fe6283485b93932',
       path: '/augsburg/en/locations/second_poi',
       title: 'second Event',
       availableLanguages: new Map(
@@ -42,7 +42,7 @@ describe('PoisPage', () => {
       thumbnail: 'thumbnail'
     }),
     new PoiModel({
-      id: 3,
+      hash: '2fe6283485c93932',
       path: '/augsburg/en/locations/third_poi',
       title: 'third Event',
       availableLanguages: new Map(
