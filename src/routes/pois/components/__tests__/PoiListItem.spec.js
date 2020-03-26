@@ -8,7 +8,7 @@ import PoiListItem from '../PoiListItem'
 
 describe('PoiListItem', () => {
   const poi = new PoiModel({
-    id: 1,
+    hash: '2fe6283485a93932',
     path: '/augsburg/en/locations/first_poi',
     title: 'first Event',
     availableLanguages: new Map(

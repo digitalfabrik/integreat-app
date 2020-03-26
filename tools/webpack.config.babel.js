@@ -53,6 +53,7 @@ const createConfig = (env = {}) => {
       contentBase: distDirectory,
       compress: true,
       port: 9000,
+      host: '0.0.0.0', // This enables devices in the same network to connect to the dev server
       hot: true,
       http2: false,
       historyApiFallback: true,

@@ -7,9 +7,10 @@ import createLocation from '../../../../createLocation'
 
 const categories = new CategoriesMapModel([
   new CategoryModel({
-    id: 0,
+    root: true,
     path: '/augsburg/de',
     title: 'Augsburg',
+    hash: '2fe6283485a93932',
     content: '',
     thumbnail: '',
     parentPath: '',
@@ -18,11 +19,12 @@ const categories = new CategoriesMapModel([
     lastUpdate: moment.tz('2017-11-18 09:30:00', 'UTC')
   }),
   new CategoryModel({
-    id: 1,
+    root: false,
     path: '/augsburg/de/categorie01',
     title: 'Title01',
     content: 'contnentl',
     thumbnail: 'thumb/nail',
+    hash: '2fe6283485ab3932',
     parentPath: 'parent/url',
     order: 4,
     availableLanguages: new Map([['en', '/augsburg/en/category01'], ['fr', '/augsburg/fr/fr_category01']]),
