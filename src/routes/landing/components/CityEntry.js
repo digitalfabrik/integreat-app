@@ -25,8 +25,8 @@ const CityListItem = styled(Link)`
 `
 
 const AliasItem = styled(Highlighter)`
-  font-size: 12px;
   display: inline-block;
+  font-size: 12px;
 
   &:not(:last-child):after {
     content: ',\\00a0';
