@@ -19,7 +19,7 @@ class PageModel {
     this._hash = hash
   }
 
-  get path (): number {
+  get path (): string {
     return this._path
   }
 
