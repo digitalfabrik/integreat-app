@@ -5,7 +5,8 @@ import * as React from 'react'
 import { CategoryModel } from '@integreat-app/integreat-api-client'
 import iconPlaceholder from '../assets/IconPlaceholder.svg'
 import styled from 'styled-components'
-import Highlighter from 'react-highlighter'
+import Highlighter from 'react-highlight-words'
+import normalize from '../../../modules/common/utils/normalize'
 import Link from 'redux-first-router-link'
 
 const Row = styled.div`
@@ -79,10 +80,8 @@ class CategoryListItem extends React.PureComponent<PropsType> {
   }
 
   renderTitle (): React.Node {
-    const { query } = this.props
-    return <CategoryCaption search={query || ''}>
-      {this.props.category.title}
-    </CategoryCaption>
+    const { query, category } = this.props
+    return <CategoryCaption searchWords={[query]} textToHighlight={category.title} sanitize={normalize} />
   }
 
   render () {

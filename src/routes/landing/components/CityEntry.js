@@ -1,8 +1,8 @@
 // @flow
 
 import React from 'react'
-import Highlighter from 'react-highlighter'
-import normalize from 'normalize-strings'
+import Highlighter from 'react-highlight-words'
+import normalize from '../../../modules/common/utils/normalize'
 
 import { CityModel } from '@integreat-app/integreat-api-client'
 import styled from 'styled-components'
@@ -23,9 +23,17 @@ const CityListItem = styled(Link)`
     background-color: ${props => props.theme.colors.backgroundAccentColor};
   }
 `
-const MunicipalityItem = styled(Highlighter)`
+
+const AliasItem = styled(Highlighter)`
   font-size: 12px;
+  display: inline-block;
+
+  &:not(:last-child):after {
+    content: ',\\00a0';
+    font-size: 12px;
+  }
 `
+
 type PropsType = {|
   language: string,
   city: CityModel,
@@ -33,30 +41,31 @@ type PropsType = {|
 |}
 
 class CityEntry extends React.PureComponent<PropsType> {
-  getMunicipality = (city: CityModel, filterText: string): Array<CityModel> => {
-    if (city._aliases && filterText) {
-      return Object.keys(city._aliases)
-        .filter(municipality => normalize(municipality).toLowerCase().includes(normalize(filterText).toLowerCase()))
+  getMatchedAliases = (city: CityModel, normalizedFilter: string): Array<CityModel> => {
+    if (city.aliases && normalizedFilter.length >= 2) {
+      return Object.keys(city.aliases)
+        .filter(alias => normalize(alias).includes(normalizedFilter))
     }
     return []
   }
 
   render () {
     const { city, language, filterText } = this.props
-    const municipalities = this.getMunicipality(city, filterText)
+    const normalizedFilter = normalize(filterText)
+    const aliases = this.getMatchedAliases(city, normalizedFilter)
 
     return (
       <CityListItem to={new CategoriesRouteConfig().getRoutePath({ city: city.code, language })}>
-        <Highlighter search={filterText}>
-          {city.name}
-        </Highlighter>
-        {
-          municipalities.map(municipality => (
-            <MunicipalityItem key={municipality} search={filterText}>
-              {municipality}
-            </MunicipalityItem>
-          ))
-        }
+        <Highlighter searchWords={[filterText]} sanitize={normalize}
+                     textToHighlight={city.name} />
+        <div style={{ margin: '0 5px' }}>
+          {
+            aliases.map(alias => (
+              <AliasItem key={alias} searchWords={[filterText]} sanitize={normalize}
+                         textToHighlight={alias} />
+            ))
+          }
+        </div>
       </CityListItem>
     )
   }

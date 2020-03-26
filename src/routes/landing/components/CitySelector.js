@@ -1,13 +1,13 @@
 // @flow
 
 import * as React from 'react'
-import normalize from 'normalize-strings'
 import { transform } from 'lodash/object'
 import { groupBy } from 'lodash/collection'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import CityEntry from './CityEntry'
 import withPlatform from '../../../modules/platform/hocs/withPlatform'
 import styled from 'styled-components'
+import normalize from '../../../modules/common/utils/normalize'
 
 const CityListParent = withPlatform(styled.div`
   position: ${props => props.platform.positionStickyDisabled ? 'static' : 'sticky'};
@@ -32,19 +32,19 @@ class CitySelector extends React.PureComponent<PropsType> {
   }
 
   filter (): Array<CityModel> {
-    const filterText = this.props.filterText.toLowerCase()
+    const normalizedFilter = normalize(this.props.filterText)
     const cities = this.props.cities
 
-    if (filterText === 'wirschaffendas') {
+    if (normalizedFilter === 'wirschaffendas') {
       return cities.filter(_city => !_city.live)
     } else {
       return cities
         .filter(_city => _city.live)
         .filter(_city => {
-          const isCityName = _city.name.toLowerCase().includes(filterText)
+          const isCityName = normalize(_city.name).includes(normalizedFilter)
           const isAlias = _city._aliases && Object
             .keys(_city._aliases)
-            .some(alias => normalize(alias).toLowerCase().includes(normalize(filterText).toLowerCase()))
+            .some(alias => normalize(alias).includes(normalizedFilter))
           return isCityName || isAlias
         })
     }
