@@ -10,10 +10,10 @@ exports[`CategoryListItem should render and match snapshot 1`] = `
       src="https://cms.integreat-ap…03/Beratung-150x150.png"
     />
     <CategoryListItem__CategoryCaption
-      search=""
-    >
-      Willkommen
-    </CategoryListItem__CategoryCaption>
+      sanitize={[Function]}
+      searchWords={Array []}
+      textToHighlight="Willkommen"
+    />
   </CategoryListItem__StyledLink>
   <CategoryListItem__SubCategory
     key="a36a57"
@@ -41,10 +41,10 @@ exports[`CategoryListItem should replace empty thumbnail 1`] = `
       src="test-file-stub"
     />
     <CategoryListItem__CategoryCaption
-      search=""
-    >
-      GotNoThumb :O
-    </CategoryListItem__CategoryCaption>
+      sanitize={[Function]}
+      searchWords={Array []}
+      textToHighlight="GotNoThumb :O"
+    />
   </CategoryListItem__StyledLink>
   <CategoryListItem__SubCategory
     key="a36a58"
