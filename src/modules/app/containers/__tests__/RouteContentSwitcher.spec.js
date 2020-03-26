@@ -14,7 +14,7 @@ import { ThemeProvider } from 'styled-components'
 describe('RouteContentSwitcher', () => {
   const categories = new CategoriesMapModel([
     new CategoryModel({
-      id: 1,
+      root: true,
       path: 'path01',
       title: 'Title10',
       content: 'contnentl',
@@ -22,7 +22,8 @@ describe('RouteContentSwitcher', () => {
       parentPath: 'parent/url',
       order: 4,
       availableLanguages: new Map(),
-      lastUpdate: moment.tz('2017-11-18 09:30:00', 'UTC')
+      lastUpdate: moment.tz('2017-11-18 09:30:00', 'UTC'),
+      hash: '2fe6283485a93932'
     })
   ])
 

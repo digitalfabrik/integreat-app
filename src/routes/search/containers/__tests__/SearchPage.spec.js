@@ -82,7 +82,7 @@ describe('SearchPage', () => {
     const categoryModels = [
       // should be 1st because 'abc' is in the title and it is lexicographically smaller than category 2
       new CategoryModel({
-        id: 1,
+        root: false,
         path: '/abc',
         title: 'abc',
         content: '',
@@ -90,11 +90,12 @@ describe('SearchPage', () => {
         order: 1,
         availableLanguages: new Map(),
         thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
+        hash: '2fe6283485a93932',
         lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
       }),
       // should be 2nd because 'abc' is in the title but it is lexicographically bigger than category 1
       new CategoryModel({
-        id: 2,
+        root: false,
         path: '/defabc',
         title: 'defabc',
         content: '',
@@ -102,11 +103,12 @@ describe('SearchPage', () => {
         order: 1,
         availableLanguages: new Map(),
         thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
+        hash: '2fe6283485b93932',
         lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
       }),
       // should be 3rd because 'abc' is only in the content and the title is lexicographically smaller than category 4
       new CategoryModel({
-        id: 3,
+        root: false,
         path: '/def',
         title: 'def',
         content: 'abc',
@@ -114,11 +116,12 @@ describe('SearchPage', () => {
         order: 1,
         availableLanguages: new Map(),
         thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
+        hash: '2fe6283485c93932',
         lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
       }),
       // should be 4th because 'abc' is only in the content and the title is lexicographically bigger than category 3
       new CategoryModel({
-        id: 4,
+        root: false,
         path: '/ghi',
         title: 'ghi',
         content: 'abc',
@@ -126,6 +129,7 @@ describe('SearchPage', () => {
         order: 1,
         availableLanguages: new Map(),
         thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
+        hash: '2fe6283485d93932',
         lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
       })
     ]

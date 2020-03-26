@@ -8,6 +8,7 @@ import CategoryListItem from '../CategoryListItem'
 import { CategoryModel } from '@integreat-app/integreat-api-client'
 
 const category = new CategoryModel({
+  root: false,
   path: '/augsburg/de/willkommen',
   title: 'Willkommen',
   content: 'this is a test content',
@@ -19,6 +20,7 @@ const category = new CategoryModel({
   hash: 'a36a56'
 })
 const childCategory = new CategoryModel({
+  root: false,
   path: '/augsburg/de/test',
   title: 'Child',
   content: 'this is a test content',
@@ -30,6 +32,7 @@ const childCategory = new CategoryModel({
   hash: 'a36a57'
 })
 const noThumbCategory = new CategoryModel({
+  root: false,
   path: '/augsburg/de/willkommen/willkommen-in-augsburg',
   title: 'GotNoThumb :O',
   content: 'some content',
