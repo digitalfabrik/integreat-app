@@ -23,7 +23,6 @@ export const DropDownContainer = styled.div`
   background-color: ${props => props.theme.colors.backgroundColor};
   visibility: ${props => props.active ? 'visible' : 'hidden'};
 
-
   @media ${props => props.theme.dimensions.smallViewport} {
     top: ${props => props.theme.dimensions.headerHeightSmall}px;
   }
