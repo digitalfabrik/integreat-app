@@ -10,10 +10,10 @@ import configureMockStore from 'redux-mock-store'
 
 describe('DisclaimerPage', () => {
   const disclaimer = new PageModel({
-    id: 1689,
     title: 'Feedback, Kontakt und mögliches Engagement',
     content: 'this is a test content',
-    lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
+    lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+    hash: '2fe6283485a93932'
   })
 
   const language = 'de'
