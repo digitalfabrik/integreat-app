@@ -26,6 +26,13 @@ const AliasLabel = styled(Highlighter)`
   color: ${props => props.theme.colors.textSecondaryColor};
 `
 
+const Aliases = styled.View`
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: flex-start;
+  margin: 0 5px;
+`
+
 type PropType = {|
   city: CityModel,
   filterText: string,
@@ -56,22 +63,13 @@ class CityEntry extends React.PureComponent<PropType> {
         <View>
           <Label theme={theme} searchWords={[filterText]} textToHighlight={city.name} sanitize={normalize}
                  highlightStyle={{ backgroundColor: 'yellow' }} />
-          {
-            aliases.length > 0 &&
-            <View style={{
-              flexWrap: 'wrap',
-              flexDirection: 'row',
-              alignItems: 'flex-start'
-            }}>
-              {
-                aliases.map(
-                  (alias, index) => <AliasLabel key={alias} theme={theme} searchWords={[filterText]}
-                                                textToHighlight={index === aliases.length - 1 ? alias : `${alias}, `}
-                                                sanitize={normalize} highlightStyle={{ backgroundColor: 'yellow' }} />
-                )
-              }
-            </View>
-          }
+          {aliases.length > 0 && <Aliases>
+            {aliases.map(
+              (alias, index) => <AliasLabel key={alias} theme={theme} searchWords={[filterText]}
+                                            textToHighlight={index === aliases.length - 1 ? alias : `${alias}, `}
+                                            sanitize={normalize} highlightStyle={{ backgroundColor: 'yellow' }} />
+            )}
+          </Aliases>}
         </View>
       </CityListItem>
     )
