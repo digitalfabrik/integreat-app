@@ -15,7 +15,7 @@ const SearchBar = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  padding: 0 15%;
+  padding: 0 10%;
 `
 
 type PropsType = {
