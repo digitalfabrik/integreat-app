@@ -8,18 +8,19 @@ import { type StyledComponent } from 'styled-components'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import normalize from '../../../modules/common/normalize'
 import { View } from 'react-native'
+import Highlighter from 'react-native-highlight-words'
 
 const CityListItem: StyledComponent<{}, {}, *> = styled.TouchableHighlight`
   padding: 7px;
   width: 100%;
 `
 
-const Label = styled.Text`
+const Label = styled(Highlighter)`
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.decorativeFontRegular};
 `
 
-const AliasLabel = styled.Text`
+const AliasLabel = styled(Highlighter)`
   font-size: 11px;
   font-family: ${props => props.theme.fonts.decorativeFontRegular};
   color: ${props => props.theme.colors.textSecondaryColor};
@@ -53,18 +54,24 @@ class CityEntry extends React.PureComponent<PropType> {
       <CityListItem onPress={this.navigateToDashboard}
                     underlayColor={theme.colors.backgroundAccentColor}>
         <View>
-          <Label theme={theme}>{city.name}</Label>
-          <View style={{
-            flexWrap: 'wrap',
-            flexDirection: 'row',
-            alignItems: 'flex-start'
-          }}>
-            {
-              aliases.length > 0 && aliases.map(
-                (alias, index) => <AliasLabel key={alias}
-                                              theme={theme}>{index === aliases.length - 1 ? alias : `${alias}, `}</AliasLabel>)
-            }
-          </View>
+          <Label theme={theme} searchWords={[filterText]} textToHighlight={city.name} sanitize={normalize}
+                 highlightStyle={{ backgroundColor: 'yellow' }} />
+          {
+            aliases.length > 0 &&
+            <View style={{
+              flexWrap: 'wrap',
+              flexDirection: 'row',
+              alignItems: 'flex-start'
+            }}>
+              {
+                aliases.map(
+                  (alias, index) => <AliasLabel key={alias} theme={theme} searchWords={[filterText]}
+                                                textToHighlight={index === aliases.length - 1 ? alias : `${alias}, `}
+                                                sanitize={normalize} highlightStyle={{ backgroundColor: 'yellow' }} />
+                )
+              }
+            </View>
+          }
         </View>
       </CityListItem>
     )
