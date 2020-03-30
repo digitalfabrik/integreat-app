@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Run on Android (Currently no working)" type="ReactNative" factoryName="React Native" singleton="true">
+  <configuration default="false" name="Start packager and install app" type="ReactNative" factoryName="React Native">
     <node-interpreter value="project" />
     <react-native value="$PROJECT_DIR$/node_modules/react-native" />
     <platform value="ANDROID" />
@@ -8,7 +8,6 @@
     <browser value="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" />
     <method v="2">
       <option name="ReactNativePackager" enabled="true" />
-      <option name="RunConfigurationTask" enabled="true" run_configuration_name="Run on Android" run_configuration_type="js.build_tools.npm" />
     </method>
   </configuration>
 </component>
