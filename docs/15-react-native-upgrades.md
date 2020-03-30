@@ -1,5 +1,9 @@
 # Upgrades
 
+## From 0.59.9 to 0.61.5
+
+The following patches were applied manually: [Online diff](https://react-native-community.github.io/upgrade-helper/?from=0.59.9&to=0.61.5)
+
 ## From 0.56.0 to 0.59.9
 
 [Patch file](upgrade-diffs/0.56.0-0.59.9.diff) (Only for a reference. This was not applied directly!)
