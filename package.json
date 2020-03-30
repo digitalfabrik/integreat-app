@@ -33,6 +33,7 @@
     "@integreat-app/integreat-api-client": "^4.2.2",
     "@integreat-app/react-sticky-headroom": "^1.0.4",
     "detect-browser": "^4.1.0",
+    "focus-trap-react": "^6.0.0",
     "hashids": "^2.2.1",
     "history": "^4.9.0",
     "i18next": "^19.1.0",
