@@ -1,5 +1,0 @@
-<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Debug (Chrome)" type="JavascriptDebugType" factoryName="JavaScript Debug" uri="http://localhost:8081/debugger-ui" useFirstLineBreakpoints="true">
-    <method v="2" />
-  </configuration>
-</component>
