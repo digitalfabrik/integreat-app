@@ -2,7 +2,9 @@
 
 exports[`Layout should render all components 1`] = `
 <Layout__RichLayout>
-  <div>
+  <div
+    aria-hidden={false}
+  >
     <header />
     <Layout__Body>
       <withPlatform(Layout__Aside)
@@ -23,7 +25,6 @@ exports[`Layout should render all components 1`] = `
       </Layout__Main>
     </Layout__Body>
   </div>
-  <footer />
   <ReactTooltip
     clickable={false}
     delayShow={0}
@@ -33,5 +34,10 @@ exports[`Layout should render all components 1`] = `
     type="dark"
     wrapper="div"
   />
+  <div
+    aria-hidden={false}
+  >
+    <footer />
+  </div>
 </Layout__RichLayout>
 `;
