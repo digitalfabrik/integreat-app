@@ -1,21 +1,24 @@
-require 'openssl'
-require 'jwt'
-require 'octokit'
-require 'base64'
 require 'yaml'
+require_relative 'version'
 
 desc "Commit version file"
 private_lane :github_commit_version do |options|
+  require 'openssl'
+  require 'jwt'
+  require 'octokit'
+  require 'base64'
+
   branch = options[:branch]
   version_yml_path = options[:version_yml_path]
   repo = options[:repo]
-  new_version_code = options[:version_code]
+  new_version_code = options[:new_version_code]
+  new_version_name = options[:new_version_name]
   app_id = options[:app_id]
   private_key = OpenSSL::PKey::RSA.new(options[:private_key])
 
   payload = {
       iat: Time.now.to_i,
-      exp: Time.now.to_i + (10 * 60),
+      exp: Time.now.to_i + (5 * 60),
       iss: app_id
   }
 
@@ -28,11 +31,12 @@ private_lane :github_commit_version do |options|
 
   version_yml_content = client.contents(repo, path: version_yml_path, query: {ref: branch})
   version_yml = YAML.load(Base64.decode64(version_yml_content.content))
-  version_yml['new_version_code'] = new_version_code
+  version_yml['version_code'] = new_version_code
+  version_yml['version_name'] = new_version_name
 
   client.update_contents(repo,
                          version_yml_path,
-                         "Update version.yml",
+                         "Bump version name to #{new_version_name} and version code to #{new_version_code}",
                          version_yml_content.sha,
                          YAML.dump(version_yml),
                          :branch => branch)
@@ -40,29 +44,122 @@ end
 
 
 desc "Bump version file in Git repository"
-lane :github_bump_version do |options|
+lane :github_bump_version do
   ensure_env_vars(
       env_vars: ['DELIVERINO_PRIVATE_KEY']
   )
 
-  version_config = YAML.load_file("../version.yml")
-  version_code = version_config['version_code']
-  version_name = version_config['version_name']
-  version_name_parts = version_name.split('.')
-
-  unless version_name_parts.length === 3
-    UI.crash!("version_name must have 3 parts!")
-  end
-
-  now = Time.now
-
-  github_bump_version(
+  github_commit_version(
       app_id: 59249,
       private_key: ENV['DELIVERINO_PRIVATE_KEY'],
       repo: "Integreat/integreat-react-native-app",
       branch: "github-api-test",
       version_yml_path: 'version.yml',
-      new_version_code: version_code + 1,
-      version_name: now.year + '.' + now.month + '.' + version_name.split('.').last
+      **next_version
   )
+end
+
+
+platform :android do
+  desc "Upload to Browserstack Live"
+  lane :browserstack_upload_live do
+    ensure_env_vars(
+        env_vars: ['BROWSERSTACK_USERNAME', 'BROWSERSTACK_ACCESS_KEY']
+    )
+
+    upload_to_browserstack_app_live(
+        browserstack_username: ENV["BROWSERSTACK_USERNAME"],
+        browserstack_access_key: ENV["BROWSERSTACK_ACCESS_KEY"],
+        file_path: "/tmp/output/app-release.apk"
+    )
+  end
+
+  desc "Run E2E tests on BrowserStack"
+  lane :browserstack_e2e_tests do
+    ensure_env_vars(
+        env_vars: ['BROWSERSTACK_USERNAME', 'BROWSERSTACK_ACCESS_KEY']
+    )
+
+    upload_to_browserstack_app_automate(
+        browserstack_username: ENV["BROWSERSTACK_USERNAME"],
+        browserstack_access_key: ENV["BROWSERSTACK_ACCESS_KEY"],
+        file_path: "/tmp/output/app-release.apk"
+    )
+
+    ENV["E2E_CAPS"] = 'ci_browserstack'
+    ENV["E2E_PLATFORM"] = 'android'
+    ENV["E2E_SERVER"] = 'browserstack'
+    ENV["E2E_BROWSERSTACK_USER"] = ENV["BROWSERSTACK_USERNAME"]
+    ENV["E2E_BROWSERSTACK_KEY"] = ENV["BROWSERSTACK_ACCESS_KEY"]
+    ENV["E2E_BROWSERSTACK_APP"] = lane_context[SharedValues::BROWSERSTACK_APP_ID]
+
+    yarn(
+        command: "test:e2e",
+        package_path: "../package.json"
+    )
+  end
+
+  desc "Upload to Play Store"
+  lane :playstore_upload do
+    ensure_env_vars(
+        env_vars: ['GOOGLE_SERVICE_ACCOUNT_JSON']
+    )
+
+    next_version = next_version()
+
+    upload_to_play_store(
+        version_code: next_version[:version_code],
+        version_name: next_version[:version_name],
+        track: 'alpha',
+        skip_upload_changelogs: true,
+        skip_upload_images: true,
+        skip_upload_screenshots: true,
+        skip_upload_metadata: true,
+        release_status: "draft",
+        apk: '/tmp/output/app-release.apk',
+        json_key_data: ENV["GOOGLE_SERVICE_ACCOUNT_JSON"],
+        validate_only: true
+    )
+  end
+end
+
+platform :ios do
+
+  desc "Upload to Browserstack Live"
+  lane :browserstack_upload_live do
+    ensure_env_vars(
+        env_vars: ['BROWSERSTACK_USERNAME', 'BROWSERSTACK_ACCESS_KEY']
+    )
+
+    upload_to_browserstack_app_live(
+        browserstack_username: ENV["BROWSERSTACK_USERNAME"],
+        browserstack_access_key: ENV["BROWSERSTACK_ACCESS_KEY"],
+        file_path: "/tmp/output/Integreat.ipa"
+    )
+  end
+
+  desc "Run E2E tests on BrowserStack"
+  lane :browserstack_e2e_tests do
+    ensure_env_vars(
+        env_vars: ['BROWSERSTACK_USERNAME', 'BROWSERSTACK_ACCESS_KEY']
+    )
+
+    upload_to_browserstack_app_automate(
+        browserstack_username: ENV["BROWSERSTACK_USERNAME"],
+        browserstack_access_key: ENV["BROWSERSTACK_ACCESS_KEY"],
+        file_path: "/tmp/output/Integreat.ipa"
+    )
+
+    ENV["E2E_CAPS"] = 'ci_browserstack_ios'
+    ENV["E2E_PLATFORM"] = 'ios'
+    ENV["E2E_SERVER"] = 'browserstack'
+    ENV["E2E_BROWSERSTACK_USER"] = ENV["BROWSERSTACK_USERNAME"]
+    ENV["E2E_BROWSERSTACK_KEY"] = ENV["BROWSERSTACK_ACCESS_KEY"]
+    ENV["E2E_BROWSERSTACK_APP"] = lane_context[SharedValues::BROWSERSTACK_APP_ID]
+    yarn(
+        command: "test:e2e",
+        package_path: "../package.json"
+    )
+  end
+
 end
