@@ -6,7 +6,7 @@ import { CityModel } from '@integreat-app/integreat-api-client'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
-import normalize from '../../../modules/common/normalize'
+import normalizeSearchString from '../../../modules/common/normalizeSearchString'
 import { View } from 'react-native'
 import Highlighter from 'react-native-highlight-words'
 
@@ -44,7 +44,7 @@ class CityEntry extends React.PureComponent<PropType> {
   getMatchingAliases = (city: CityModel, normalizedFilter: string): Array<CityModel> => {
     if (city.aliases && normalizedFilter.length >= 2) {
       return Object.keys(city.aliases)
-        .filter(alias => normalize(alias).includes(normalizedFilter))
+        .filter(alias => normalizeSearchString(alias).includes(normalizedFilter))
     }
     return []
   }
@@ -55,19 +55,20 @@ class CityEntry extends React.PureComponent<PropType> {
 
   render () {
     const { city, theme, filterText } = this.props
-    const normalizedFilter = normalize(filterText)
+    const normalizedFilter = normalizeSearchString(filterText)
     const aliases = this.getMatchingAliases(city, normalizedFilter)
     return (
       <CityListItem onPress={this.navigateToDashboard}
                     underlayColor={theme.colors.backgroundAccentColor}>
         <View>
-          <Label theme={theme} searchWords={[filterText]} textToHighlight={city.name} sanitize={normalize}
+          <Label theme={theme} searchWords={[filterText]} textToHighlight={city.name} sanitize={normalizeSearchString}
                  highlightStyle={{ backgroundColor: 'yellow' }} />
           {aliases.length > 0 && <Aliases>
             {aliases.map(
               (alias, index) => <AliasLabel key={alias} theme={theme} searchWords={[filterText]}
                                             textToHighlight={index === aliases.length - 1 ? alias : `${alias}, `}
-                                            sanitize={normalize} highlightStyle={{ backgroundColor: 'yellow' }} />
+                                            sanitize={normalizeSearchString}
+                                            highlightStyle={{ backgroundColor: 'yellow' }} />
             )}
           </Aliases>}
         </View>
