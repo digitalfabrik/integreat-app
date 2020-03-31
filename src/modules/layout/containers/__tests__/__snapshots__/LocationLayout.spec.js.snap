@@ -13,6 +13,7 @@ exports[`LocationLayout should show GeneralHeader and GeneralFooter if city is n
   }
   header={
     <Translate(LocationHeader)
+      cityName="Mambo No. 5"
       events={
         Array [
           EventModel {
@@ -144,6 +145,7 @@ exports[`LocationLayout should show LocationHeader and LocationFooter if city is
   }
   header={
     <Translate(LocationHeader)
+      cityName="Mambo No. 5"
       events={
         Array [
           EventModel {

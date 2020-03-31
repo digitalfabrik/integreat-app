@@ -178,6 +178,7 @@ exports[`LocationHeader should match snapshot 1`] = `
       },
     ]
   }
+  cityName="Stadt Augsburg"
   logoHref="/augsburg/de"
   navigationItems={
     Array [

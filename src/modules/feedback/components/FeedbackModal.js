@@ -74,7 +74,7 @@ class FeedbackModal extends React.Component<PropsType, StateType> {
     const { feedbackSent } = this.state
 
     return <FocusTrap>
-      <ModalContainer aria-modal>
+      <ModalContainer role='dialog' aria-modal>
         <Overlay onClick={this.handleOverlayClick} />
         <FeedbackContainer>
           {

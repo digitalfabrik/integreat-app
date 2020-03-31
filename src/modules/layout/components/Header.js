@@ -19,6 +19,7 @@ type PropsType = {|
   logoHref: string,
   viewportSmall: boolean,
   theme: ThemeType,
+  cityName?: string,
   onStickyTopChanged: number => void,
   platform: Platform
 |}
@@ -31,21 +32,21 @@ const HeaderContainer = styled.header`
   box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.2);
   background-color: ${props => props.theme.colors.backgroundAccentColor};
   user-select: none;
-  
+
   & > div {
     display: flex;
     height: ${props => props.theme.dimensions.headerHeightLarge}px;
     align-items: center;
   }
-  
+
   @media ${props => props.theme.dimensions.smallViewport} {
     flex-wrap: wrap;
-    
+
     & > div {
       height: ${props => props.theme.dimensions.headerHeightSmall}px;
     }
   }
-  
+
   @media ${props => props.theme.dimensions.minMaxWidth} {
     padding-right: calc((200% - 100vw - ${props => props.theme.dimensions.maxWidth}px) / 2);
     padding-left: calc((100vw - ${props => props.theme.dimensions.maxWidth}px) / 2);
@@ -57,20 +58,20 @@ const LogoWide = styled.div`
   flex: 1 1 100px;
   order: 0;
   padding: 0 10px;
-  
+
   & a {
     width: 100%;
     height: 60%;
   }
-  
+
   & img {
     max-width: 100%;
     max-height: 100%;
   }
-  
+
   @media ${props => props.theme.dimensions.smallViewport} {
     flex: 1 1 100px;
-    
+
     & a {
       max-height: 75%;
     }
@@ -80,7 +81,7 @@ const LogoWide = styled.div`
 const ActionBar = styled(HeaderActionBar)`
   flex: 1 1 100px;
   order: 2;
-  
+
   @media ${props => props.theme.dimensions.smallViewport} {
     flex: 1 1 100px;
   }
@@ -89,7 +90,7 @@ const ActionBar = styled(HeaderActionBar)`
 const NavigationBar = styled(HeaderNavigationBar)`
   flex: 2 1 100px;
   order: 1;
-  
+
   @media ${props => props.theme.dimensions.smallViewport} {
     flex: 1 0 100%;
     order: 3;
@@ -109,7 +110,9 @@ export class Header extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const { theme, viewportSmall, onStickyTopChanged, actionItems, logoHref, navigationItems, platform } = this.props
+    const {
+      theme, viewportSmall, onStickyTopChanged, actionItems, logoHref, navigationItems, platform, cityName
+    } = this.props
     const { headerHeightSmall, headerHeightLarge } = theme.dimensions
     const height = viewportSmall ? headerHeightSmall : headerHeightLarge
     const scrollHeight = viewportSmall ? headerHeightSmall : headerHeightLarge
@@ -119,7 +122,11 @@ export class Header extends React.PureComponent<PropsType> {
                 height={height}
                 positionStickyDisabled={platform.positionStickyDisabled}>
         <HeaderContainer>
-          <LogoWide><Link to={logoHref}><img src={appConfig.logoWide} /></Link></LogoWide>
+          <LogoWide>
+            <Link to={logoHref}>
+              <img src={appConfig.logoWide} alt={`Integreat${cityName ? ` - ${cityName}` : ''}`} />
+            </Link>
+          </LogoWide>
           <NavigationBar>{navigationItems}</NavigationBar>
           <ActionBar items={actionItems} />
         </HeaderContainer>
