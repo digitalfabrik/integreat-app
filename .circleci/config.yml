@@ -77,20 +77,10 @@ jobs:
           name: Fastlane Release Build
           command: bundle exec fastlane release
           working_directory: android
-#      - run:
-#          name: Fastlane Browserstack Upload Live
-#          command: bundle exec fastlane browserstack_upload_live
-#          working_directory: android
-      - run:
-          name: Fastlane E2E Tests on Browserstack
-          command: bundle exec fastlane browserstack_e2e_tests
-          working_directory: android
-#      - run:
-#          name: Fastlane Play Store Upload
-#          command: bundle exec fastlane playstore_upload
-#          working_directory: android
-      - store_artifacts:
-          path: android/app/build/outputs/apk
+      - persist_to_workspace:
+          root: android/app/build/outputs/apk/release/
+          paths:
+            - app-release.apk
 
   build_ios:
     macos:
@@ -160,20 +150,69 @@ jobs:
           name: Fastlane Release Build
           command: bundle exec fastlane release
           working_directory: ios
-#      - run:
-#          name: Fastlane Browserstack Upload Live
-#          command: bundle exec fastlane browserstack_upload_live
-#          working_directory: ios
+      - run: # TODO: Only run on develop
+          name: Fastlane TestFlight Upload
+          command: bundle exec fastlane testflight_upload
+          working_directory: ios
+      - persist_to_workspace:
+          root: ios/output/gym/
+          paths:
+            - Integreat.ipa
+
+  deliver:
+    docker:
+      - image: circleci/android:api-28-node
+    resource_class: small
+    shell: /bin/bash -eo pipefail
+    steps:
+      - attach_workspace:
+          at: /tmp/output
+      - restore_cache:
+          keys:
+            - 1-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
+            - 1-gems-{{ arch }}-
+      - run:
+          command: bundle check || bundle install --path vendor/bundle
+      - save_cache:
+          key: 1-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+      - restore_cache:
+          name: Restore Yarn Package Cache
+          keys:
+            - 2-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install Dependencies
+          command: yarn install --frozen-lockfile
+      - save_cache:
+          name: Save Yarn Package Cache
+          key: 2-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+            - node_modules
+      - run:
+          name: Fastlane Browserstack Upload Live
+          command: bundle exec fastlane ios browserstack_upload_live
       - run:
           name: Fastlane E2E Tests on Browserstack
-          command: bundle exec fastlane browserstack_e2e_tests
-          working_directory: ios
-#      - run:
-#          name: Fastlane TestFlight Upload
-#          command: bundle exec fastlane testflight_upload
-#          working_directory: ios
+          command: bundle exec fastlane ios browserstack_e2e_tests
+      - run:
+          name: Fastlane Browserstack Upload Live
+          command: bundle exec fastlane android browserstack_upload_live
+      - run:
+          name: Fastlane E2E Tests on Browserstack
+          command: bundle exec fastlane android browserstack_e2e_tests
+      - run:
+          name: Fastlane Play Store Upload
+          command: bundle exec fastlane android playstore_upload
       - store_artifacts:
           path: ios/output
+      - store_artifacts:
+          path: android/app/build/outputs/apk
+      - run:
+          name: Bump version
+          command: bundle exec fastlane github_bump_version
+
 
 
 version: 2.1
@@ -183,4 +222,8 @@ workflows:
     jobs:
       - build_android
       - build_ios
+      - deliver:
+          requires:
+            - build_android
+            - build_ios
 
