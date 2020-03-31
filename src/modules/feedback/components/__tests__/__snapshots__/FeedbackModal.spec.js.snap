@@ -9,6 +9,7 @@ exports[`FeedbackModal should match snapshot 1`] = `
 >
   <FeedbackModal__ModalContainer
     aria-modal={true}
+    role="dialog"
   >
     <FeedbackModal__Overlay
       onClick={[Function]}
