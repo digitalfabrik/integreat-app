@@ -1,9 +1,6 @@
+require_relative '../../fastlane/version'
+
 fastlane_version "2.143.0"
-
-version_config = YAML.load_file("../../version.yml")
-version_code = version_config['version_code']
-version_name = version_config['version_name']
-
 
 CREDENTIALS_GIT_REPOSITORY_URL = ENV['CREDENTIALS_GIT_REPOSITORY_URL']
 CREDENTIALS_DIRECTORY_PATH = ENV['CREDENTIALS_DIRECTORY_PATH']
@@ -13,10 +10,6 @@ KEYSTORE_PATH = ENV['KEYSTORE_PATH'] || 'test.keystore'
 KEYSTORE_KEY_ALIAS = ENV['KEYSTORE_KEY_ALIAS'] || 'test'
 KEYSTORE_PASSWORD = ENV['KEYSTORE_PASSWORD'] || '123456'
 KEYSTORE_KEY_PASSWORD = ENV['KEYSTORE_KEY_PASSWORD'] || '123456'
-
-before_all do
-  import("../../fastlane/Fastfile")
-end
 
 desc "Prepare the keystore"
 lane :keystore do
@@ -44,6 +37,10 @@ end
 
 desc "Create a release build"
 lane :release do
+  next_version = next_version()
+
+  puts(next_version)
+
   ENV["E2E_TEST_IDS"] = "1"
   ENV["BUNDLE_CONFIG"] = "./metro.config.ci.js"
 
@@ -62,8 +59,8 @@ lane :release do
   gradle(
       task: "assembleRelease",
       properties: {
-          :VERSION_CODE => version_code,
-          :VERSION_NAME => version_name,
+          :VERSION_CODE => next_version[:new_version_code],
+          :VERSION_NAME => next_version[:new_version_name],
           :KEYSTORE_PATH => KEYSTORE_PATH,
           :KEYSTORE_KEY_ALIAS => KEYSTORE_KEY_ALIAS,
           :KEYSTORE_PASSWORD => KEYSTORE_PASSWORD,
@@ -74,71 +71,3 @@ lane :release do
   )
 end
 
-
-desc "Upload to Browserstack Live"
-lane :browserstack_upload_live do
-  ensure_env_vars(
-      env_vars: ['BROWSERSTACK_USERNAME', 'BROWSERSTACK_ACCESS_KEY']
-  )
-
-  upload_to_browserstack_app_live(
-      browserstack_username: ENV["BROWSERSTACK_USERNAME"],
-      browserstack_access_key: ENV["BROWSERSTACK_ACCESS_KEY"],
-      file_path: "app/build/outputs/apk/release/app-release.apk"
-  )
-end
-
-desc "Run E2E tests on BrowserStack"
-lane :browserstack_e2e_tests do
-  ensure_env_vars(
-      env_vars: ['BROWSERSTACK_USERNAME', 'BROWSERSTACK_ACCESS_KEY']
-  )
-
-  upload_to_browserstack_app_automate(
-      browserstack_username: ENV["BROWSERSTACK_USERNAME"],
-      browserstack_access_key: ENV["BROWSERSTACK_ACCESS_KEY"],
-      file_path: "app/build/outputs/apk/release/app-release.apk"
-  )
-
-  ENV["E2E_CAPS"] = 'ci_browserstack'
-  ENV["E2E_PLATFORM"] = 'android'
-  ENV["E2E_SERVER"] = 'browserstack'
-  ENV["E2E_BROWSERSTACK_USER"] = ENV["BROWSERSTACK_USERNAME"]
-  ENV["E2E_BROWSERSTACK_KEY"] = ENV["BROWSERSTACK_ACCESS_KEY"]
-  ENV["E2E_BROWSERSTACK_APP"] = lane_context[SharedValues::BROWSERSTACK_APP_ID]
-
-  yarn(
-      command: "test:e2e",
-      package_path: "../package.json"
-  )
-end
-
-desc "Upload to Play Store"
-lane :playstore_upload do
-  ensure_env_vars(
-      env_vars: ['GOOGLE_SERVICE_ACCOUNT_JSON']
-  )
-
-
-  # upload_to_play_store(
-  #     version_code: version_code,
-  #     version_name: version_name,
-  #     track: 'alpha',
-  #     skip_upload_changelogs: true,
-  #     skip_upload_images: true,
-  #     skip_upload_screenshots: true,
-  #     skip_upload_metadata: true,
-  #     release_status: "draft",
-  #     apk: 'app/build/outputs/apk/release/app-release.apk',
-  #     json_key_data: ENV["GOOGLE_SERVICE_ACCOUNT_JSON"],
-  #     validate_only: true
-  # )
-
-  github_bump_version(
-      app_id: 59249,
-      repo: "Integreat/integreat-react-native-app",
-      branch: "github-api-test",
-      version_yml_path: 'version.yml',
-      build_number: version_code
-  )
-end
