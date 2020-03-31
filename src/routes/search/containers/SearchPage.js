@@ -13,6 +13,7 @@ import { withTranslation } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
 import SearchFeedback from '../components/SearchFeedback'
 import type { LocationState } from 'redux-first-router'
+import normalizeSearchString from '../../../modules/common/utils/normalizeSearchString'
 
 type CategoryListItemType = {| model: CategoryModel, subCategories: Array<CategoryModel> |}
 
@@ -35,17 +36,17 @@ export class SearchPage extends React.Component<PropsType, LocalStateType> {
 
   findCategories (): Array<CategoryListItemType> {
     const categories = this.props.categories
-    const filterText = this.state.filterText.toLowerCase()
+    const filterText = normalizeSearchString(this.state.filterText)
 
     // find all categories whose titles include the filter text and sort them lexicographically
     const categoriesWithTitle = categories.toArray()
-      .filter(category => category.title.toLowerCase().includes(filterText))
+      .filter(category => normalizeSearchString(category.title).includes(filterText))
       .sort((category1, category2) => category1.title.localeCompare(category2.title))
 
     // find all categories whose contents but not titles include the filter text and sort them lexicographically
     const categoriesWithContent = categories.toArray()
-      .filter(category => !category.title.toLowerCase().includes(filterText))
-      .filter(category => category.content.toLowerCase().includes(filterText))
+      .filter(category => !normalizeSearchString(category.title).includes(filterText))
+      .filter(category => normalizeSearchString(category.content).includes(filterText))
       .sort((category1, category2) => category1.title.localeCompare(category2.title))
 
     // return all categories from above and remove the root category

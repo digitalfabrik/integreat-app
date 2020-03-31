@@ -6,6 +6,7 @@ import moment from 'moment-timezone'
 
 import CategoryListItem from '../CategoryListItem'
 import { CategoryModel } from '@integreat-app/integreat-api-client'
+import { brightTheme } from '../../../../modules/theme/constants/theme'
 
 const category = new CategoryModel({
   root: false,
@@ -47,15 +48,15 @@ const noThumbCategory = new CategoryModel({
 describe('CategoryListItem', () => {
   it('should render and match snapshot', () => {
     const wrapper = shallow(
-      <CategoryListItem category={category} subCategories={[childCategory]} />
-    )
+      <CategoryListItem theme={brightTheme} category={category} subCategories={[childCategory]} />
+    ).dive()
     expect(wrapper).toMatchSnapshot()
   })
 
   it('should replace empty thumbnail', () => {
     const wrapper = shallow(
-      <CategoryListItem category={noThumbCategory} subCategories={[noThumbCategory]} />
-    )
+      <CategoryListItem theme={brightTheme} category={noThumbCategory} subCategories={[noThumbCategory]} />
+    ).dive()
     expect(wrapper).toMatchSnapshot()
   })
 })
