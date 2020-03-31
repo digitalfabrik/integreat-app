@@ -117,6 +117,37 @@ platform :android do
         env_vars: ['GOOGLE_SERVICE_ACCOUNT_JSON']
     )
 
+    # 1.
+    # Pro: flexibel
+    # Con: API changes machen kaputt
+    require 'supply'
+    Supply.config = {
+        json_key_data: ENV["GOOGLE_SERVICE_ACCOUNT_JSON"],
+        package_name: "tuerantuer.app.integreat"
+    }
+    supply_client = Supply::Client.make_from_config
+    publisher_client = supply_client.client
+
+    supply_client.begin_edit(package_name: Supply.config[:package_name])
+    track_list = publisher_client.list_edit_tracks(supply_client.current_package_name, supply_client.current_edit.id)
+    supply_client.abort_current_edit
+
+    all_releases = track_list.tracks.map { |track| track.releases }.flatten
+    all_version_codes = all_releases.map { |release| release.version_codes }.flatten.map!(&:to_i)
+    new_version_code = all_version_codes.max + 1
+    # puts("From API" + new_version_code)
+
+    # 2.
+    # Pros: sehr einfach
+    # Con: einfach kaputt zu machen durch falsche uploads, changelogs schwer zu erstellen, da datum von letztem production schwer zu ermitteln
+    beginning_of_time = Date.parse('2020-01-01T00:00Z')
+    days = (beginning_of_time .. Date.today).count
+    puts((100000 + days)* 10)
+
+    # 3. Increment and commit
+    # Pro: Sehr flexibel, einfache changelogs
+    # Con: Commits sind nötig
+
     upload_to_play_store(
         version_code: version_code,
         version_name: version_name,
