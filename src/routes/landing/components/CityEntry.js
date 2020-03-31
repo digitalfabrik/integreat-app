@@ -5,9 +5,10 @@ import Highlighter from 'react-highlight-words'
 import normalize from '../../../modules/common/utils/normalize'
 
 import { CityModel } from '@integreat-app/integreat-api-client'
-import styled from 'styled-components'
+import styled, { withTheme } from 'styled-components'
 import Link from 'redux-first-router-link'
 import CategoriesRouteConfig from '../../../modules/app/route-configs/CategoriesRouteConfig'
+import type { ThemeType } from '../../../modules/theme/constants/theme'
 
 const CityListItem = styled(Link)`
   display: flex;
@@ -26,18 +27,13 @@ const CityListItem = styled(Link)`
 
 const AliasItem = styled(Highlighter)`
   display: inline-block;
-  font-size: 12px;
-
-  &:not(:last-child):after {
-    content: ',\\00a0';
-    font-size: 12px;
-  }
 `
 
 type PropsType = {|
   language: string,
   city: CityModel,
-  filterText: string
+  filterText: string,
+  theme: ThemeType
 |}
 
 class CityEntry extends React.PureComponent<PropsType> {
@@ -50,19 +46,22 @@ class CityEntry extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const { city, language, filterText } = this.props
+    const { city, language, filterText, theme } = this.props
     const normalizedFilter = normalize(filterText)
     const aliases = this.getMatchedAliases(city, normalizedFilter)
 
     return (
       <CityListItem to={new CategoriesRouteConfig().getRoutePath({ city: city.code, language })}>
-        <Highlighter searchWords={[filterText]} sanitize={normalize}
-                     textToHighlight={city.name} />
-        <div style={{ margin: '0 5px' }}>
+        <Highlighter searchWords={[filterText]} sanitize={normalize} aria-label={city.name}
+                     textToHighlight={city.name} highlightStyle={{ backgroundColor: theme.colors.themeColor }} />
+        <div style={{ margin: '0 5px', fontSize: '12px' }}>
           {
-            aliases.map(alias => (
-              <AliasItem key={alias} searchWords={[filterText]} sanitize={normalize}
-                         textToHighlight={alias} />
+            aliases.map((alias, index) => (
+              <>
+                <AliasItem key={alias} aria-label={alias} searchWords={[filterText]} sanitize={normalize}
+                           textToHighlight={alias} highlightStyle={{ backgroundColor: theme.colors.themeColor }} />
+                {index !== aliases.length - 1 && <span>, </span>}
+              </>
             ))
           }
         </div>
@@ -71,4 +70,4 @@ class CityEntry extends React.PureComponent<PropsType> {
   }
 }
 
-export default CityEntry
+export default withTheme(CityEntry)

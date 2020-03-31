@@ -57,7 +57,8 @@ class CitySelector extends React.PureComponent<PropsType> {
       result.push(
         <div key={key}>
           <CityListParent style={{ top: `${stickyTop}px` }}>{key}</CityListParent>
-          {cities.map(city => <CityEntry key={city.code} city={city} language={language} filterText={filterText} />)}
+          {cities.map(city => <CityEntry key={city.code} city={city} language={language}
+                                         filterText={filterText} />)}
         </div>
       )
     }, [])

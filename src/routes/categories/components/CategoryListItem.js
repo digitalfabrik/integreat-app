@@ -81,7 +81,8 @@ class CategoryListItem extends React.PureComponent<PropsType> {
 
   renderTitle (): React.Node {
     const { query, category } = this.props
-    return <CategoryCaption searchWords={query ? [query] : []} textToHighlight={category.title} sanitize={normalize} />
+    return <CategoryCaption searchWords={query ? [query] : []} aria-label={category.title}
+                            textToHighlight={category.title} sanitize={normalize} />
   }
 
   render () {
