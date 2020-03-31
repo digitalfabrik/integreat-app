@@ -7,7 +7,7 @@ import { CityModel } from '@integreat-app/integreat-api-client'
 import CityEntry from './CityEntry'
 import withPlatform from '../../../modules/platform/hocs/withPlatform'
 import styled from 'styled-components'
-import normalize from '../../../modules/common/utils/normalize'
+import normalizeSearchString from '../../../modules/common/utils/normalizeSearchString'
 
 const CityListParent = withPlatform(styled.div`
   position: ${props => props.platform.positionStickyDisabled ? 'static' : 'sticky'};
@@ -32,7 +32,7 @@ class CitySelector extends React.PureComponent<PropsType> {
   }
 
   filter (): Array<CityModel> {
-    const normalizedFilter = normalize(this.props.filterText)
+    const normalizedFilter = normalizeSearchString(this.props.filterText)
     const cities = this.props.cities
 
     if (normalizedFilter === 'wirschaffendas') {
@@ -41,10 +41,10 @@ class CitySelector extends React.PureComponent<PropsType> {
       return cities
         .filter(_city => _city.live)
         .filter(_city => {
-          const isCityName = normalize(_city.name).includes(normalizedFilter)
+          const isCityName = normalizeSearchString(_city.name).includes(normalizedFilter)
           const isAlias = _city._aliases && Object
             .keys(_city._aliases)
-            .some(alias => normalize(alias).includes(normalizedFilter))
+            .some(alias => normalizeSearchString(alias).includes(normalizedFilter))
           return isCityName || isAlias
         })
     }
