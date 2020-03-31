@@ -41,7 +41,7 @@ type PropType = {|
 |}
 
 class CityEntry extends React.PureComponent<PropType> {
-  getMatchedAliases = (city: CityModel, normalizedFilter: string): Array<CityModel> => {
+  getMatchingAliases = (city: CityModel, normalizedFilter: string): Array<CityModel> => {
     if (city.aliases && normalizedFilter.length >= 2) {
       return Object.keys(city.aliases)
         .filter(alias => normalize(alias).includes(normalizedFilter))
@@ -56,7 +56,7 @@ class CityEntry extends React.PureComponent<PropType> {
   render () {
     const { city, theme, filterText } = this.props
     const normalizedFilter = normalize(filterText)
-    const aliases = this.getMatchedAliases(city, normalizedFilter)
+    const aliases = this.getMatchingAliases(city, normalizedFilter)
     return (
       <CityListItem onPress={this.navigateToDashboard}
                     underlayColor={theme.colors.backgroundAccentColor}>
