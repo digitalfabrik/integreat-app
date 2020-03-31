@@ -4,9 +4,11 @@ import * as React from 'react'
 
 import { CategoryModel } from '@integreat-app/integreat-api-client'
 import iconPlaceholder from '../assets/IconPlaceholder.svg'
-import styled from 'styled-components'
-import Highlighter from 'react-highlighter'
+import styled, { withTheme } from 'styled-components'
+import Highlighter from 'react-highlight-words'
+import normalizeSearchString from '../../../modules/common/utils/normalizeSearchString'
 import Link from 'redux-first-router-link'
+import type { ThemeType } from '../../../modules/theme/constants/theme'
 
 const Row = styled.div`
   margin: 12px 0;
@@ -35,7 +37,7 @@ const CategoryThumbnail = styled.img`
 
 const CategoryCaption = styled(Highlighter)`
   height: 100%;
-  min-width: 1px; /* needed to enable line breaks for to long words, exact value doesn't matter */
+  min-width: 1px; /* needed to enable line breaks for too long words, exact value doesn't matter */
   flex-grow: 1;
   padding: 15px 5px;
   border-bottom: 2px solid ${props => props.theme.colors.themeColor};
@@ -58,7 +60,8 @@ type PropsType = {
   category: CategoryModel,
   subCategories: Array<CategoryModel>,
   /** A search query to highlight in the category title */
-  query?: string
+  query?: string,
+  theme: ThemeType
 }
 
 /**
@@ -79,10 +82,10 @@ class CategoryListItem extends React.PureComponent<PropsType> {
   }
 
   renderTitle (): React.Node {
-    const { query } = this.props
-    return <CategoryCaption search={query || ''}>
-      {this.props.category.title}
-    </CategoryCaption>
+    const { query, category, theme } = this.props
+    return <CategoryCaption searchWords={query ? [query] : []} aria-label={category.title} sanitize={normalizeSearchString}
+                            highlightStyle={{ backgroundColor: theme.colors.themeColor }}
+                            textToHighlight={category.title} />
   }
 
   render () {
@@ -99,4 +102,4 @@ class CategoryListItem extends React.PureComponent<PropsType> {
   }
 }
 
-export default CategoryListItem
+export default withTheme(CategoryListItem)

@@ -5,15 +5,27 @@ exports[`CityEntry should match snapshot 1`] = `
   to="/augsburg/de"
 >
   <Highlighter
-    caseSensitive={false}
-    diacriticsBlacklist=""
-    ignoreDiacritics={false}
-    matchClass="highlight"
-    matchElement="mark"
-    matchStyle={Object {}}
-    search=""
-  >
-    Augsburg
-  </Highlighter>
+    aria-label="Augsburg"
+    highlightStyle={
+      Object {
+        "backgroundColor": "#fbda16",
+      }
+    }
+    sanitize={[Function]}
+    searchWords={
+      Array [
+        "",
+      ]
+    }
+    textToHighlight="Augsburg"
+  />
+  <div
+    style={
+      Object {
+        "fontSize": "12px",
+        "margin": "0 5px",
+      }
+    }
+  />
 </CityEntry__CityListItem>
 `;
