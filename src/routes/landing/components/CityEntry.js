@@ -2,7 +2,7 @@
 
 import React from 'react'
 import Highlighter from 'react-highlight-words'
-import normalize from '../../../modules/common/utils/normalize'
+import normalizeSearchString from '../../../modules/common/utils/normalizeSearchString'
 
 import { CityModel } from '@integreat-app/integreat-api-client'
 import styled, { withTheme } from 'styled-components'
@@ -40,25 +40,25 @@ class CityEntry extends React.PureComponent<PropsType> {
   getMatchedAliases = (city: CityModel, normalizedFilter: string): Array<CityModel> => {
     if (city.aliases && normalizedFilter.length >= 2) {
       return Object.keys(city.aliases)
-        .filter(alias => normalize(alias).includes(normalizedFilter))
+        .filter(alias => normalizeSearchString(alias).includes(normalizedFilter))
     }
     return []
   }
 
   render () {
     const { city, language, filterText, theme } = this.props
-    const normalizedFilter = normalize(filterText)
+    const normalizedFilter = normalizeSearchString(filterText)
     const aliases = this.getMatchedAliases(city, normalizedFilter)
 
     return (
       <CityListItem to={new CategoriesRouteConfig().getRoutePath({ city: city.code, language })}>
-        <Highlighter searchWords={[filterText]} sanitize={normalize} aria-label={city.name}
+        <Highlighter searchWords={[filterText]} sanitize={normalizeSearchString} aria-label={city.name}
                      textToHighlight={city.name} highlightStyle={{ backgroundColor: theme.colors.themeColor }} />
         <div style={{ margin: '0 5px', fontSize: '12px' }}>
           {
             aliases.map((alias, index) => (
               <>
-                <AliasItem key={alias} aria-label={alias} searchWords={[filterText]} sanitize={normalize}
+                <AliasItem key={alias} aria-label={alias} searchWords={[filterText]} sanitize={normalizeSearchString}
                            textToHighlight={alias} highlightStyle={{ backgroundColor: theme.colors.themeColor }} />
                 {index !== aliases.length - 1 && <span>, </span>}
               </>

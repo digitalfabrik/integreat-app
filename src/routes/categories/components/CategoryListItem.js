@@ -6,7 +6,7 @@ import { CategoryModel } from '@integreat-app/integreat-api-client'
 import iconPlaceholder from '../assets/IconPlaceholder.svg'
 import styled, { withTheme } from 'styled-components'
 import Highlighter from 'react-highlight-words'
-import normalize from '../../../modules/common/utils/normalize'
+import normalizeSearchString from '../../../modules/common/utils/normalizeSearchString'
 import Link from 'redux-first-router-link'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 
@@ -83,7 +83,7 @@ class CategoryListItem extends React.PureComponent<PropsType> {
 
   renderTitle (): React.Node {
     const { query, category, theme } = this.props
-    return <CategoryCaption searchWords={query ? [query] : []} aria-label={category.title} sanitize={normalize}
+    return <CategoryCaption searchWords={query ? [query] : []} aria-label={category.title} sanitize={normalizeSearchString}
                             highlightStyle={{ backgroundColor: theme.colors.themeColor }}
                             textToHighlight={category.title} />
   }
