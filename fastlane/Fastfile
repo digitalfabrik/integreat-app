@@ -1,0 +1,68 @@
+require 'openssl'
+require 'jwt'
+require 'octokit'
+require 'base64'
+require 'yaml'
+
+desc "Commit version file"
+private_lane :github_commit_version do |options|
+  branch = options[:branch]
+  version_yml_path = options[:version_yml_path]
+  repo = options[:repo]
+  new_version_code = options[:version_code]
+  app_id = options[:app_id]
+  private_key = OpenSSL::PKey::RSA.new(options[:private_key])
+
+  payload = {
+      iat: Time.now.to_i,
+      exp: Time.now.to_i + (10 * 60),
+      iss: app_id
+  }
+
+  jwt = JWT.encode(payload, private_key, 'RS256')
+  client = Octokit::Client.new(:bearer_token => jwt)
+
+  installation = client.find_repository_installation(repo)
+  token = client.create_app_installation_access_token(installation.id).token
+  client = Octokit::Client.new(:access_token => token)
+
+  version_yml_content = client.contents(repo, path: version_yml_path, query: {ref: branch})
+  version_yml = YAML.load(Base64.decode64(version_yml_content.content))
+  version_yml['new_version_code'] = new_version_code
+
+  client.update_contents(repo,
+                         version_yml_path,
+                         "Update version.yml",
+                         version_yml_content.sha,
+                         YAML.dump(version_yml),
+                         :branch => branch)
+end
+
+
+desc "Bump version file in Git repository"
+lane :github_bump_version do |options|
+  ensure_env_vars(
+      env_vars: ['DELIVERINO_PRIVATE_KEY']
+  )
+
+  version_config = YAML.load_file("../version.yml")
+  version_code = version_config['version_code']
+  version_name = version_config['version_name']
+  version_name_parts = version_name.split('.')
+
+  unless version_name_parts.length === 3
+    UI.crash!("version_name must have 3 parts!")
+  end
+
+  now = Time.now
+
+  github_bump_version(
+      app_id: 59249,
+      private_key: ENV['DELIVERINO_PRIVATE_KEY'],
+      repo: "Integreat/integreat-react-native-app",
+      branch: "github-api-test",
+      version_yml_path: 'version.yml',
+      new_version_code: version_code + 1,
+      version_name: now.year + '.' + now.month + '.' + version_name.split('.').last
+  )
+end
