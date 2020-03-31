@@ -78,7 +78,7 @@ class CategoryListItem extends React.Component<PropsType> {
     const { query, theme, category } = this.props
     return <CategoryCaption theme={theme}>
       <CategoryTitle theme={theme} textToHighlight={category.title} sanitize={normalizeSearchString}
-                     searchWords={query ? [query] : []} highlightStyle={{ backgroundColor: 'yellow' }} />
+                     searchWords={query ? [query] : []} highlightStyle={{ backgroundColor: theme.colors.themeColor }} />
     </CategoryCaption>
   }
 
