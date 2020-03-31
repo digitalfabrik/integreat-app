@@ -28,6 +28,7 @@ type PropsType = {|
   location: LocationState,
   viewportSmall: boolean,
   t: TFunction,
+  cityName: string,
   isEventsEnabled: boolean,
   isExtrasEnabled: boolean,
   onStickyTopChanged: number => void,
@@ -106,13 +107,15 @@ export class LocationHeader extends React.Component<PropsType> {
   }
 
   render () {
-    const { city, language } = this.props.location.payload
+    const { cityName, location } = this.props
+    const { city, language } = location.payload
 
     return (
       <Header
         viewportSmall={this.props.viewportSmall}
         logoHref={new CategoriesRouteConfig().getRoutePath({ city, language })}
         actionItems={this.getActionItems()}
+        cityName={cityName}
         navigationItems={this.getNavigationItems()}
         onStickyTopChanged={this.props.onStickyTopChanged}
       />
