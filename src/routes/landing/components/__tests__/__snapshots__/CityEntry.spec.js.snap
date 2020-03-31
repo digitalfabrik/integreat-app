@@ -5,6 +5,12 @@ exports[`CityEntry should match snapshot 1`] = `
   to="/augsburg/de"
 >
   <Highlighter
+    aria-label="Augsburg"
+    highlightStyle={
+      Object {
+        "backgroundColor": "#fbda16",
+      }
+    }
     sanitize={[Function]}
     searchWords={
       Array [
@@ -16,6 +22,7 @@ exports[`CityEntry should match snapshot 1`] = `
   <div
     style={
       Object {
+        "fontSize": "12px",
         "margin": "0 5px",
       }
     }
