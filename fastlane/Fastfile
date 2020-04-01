@@ -95,7 +95,7 @@ platform :android do
 
     yarn(
         command: "test:e2e",
-        package_path: "../package.json"
+        package_path: "package.json"
     )
   end
 
@@ -158,7 +158,7 @@ platform :ios do
     ENV["E2E_BROWSERSTACK_APP"] = lane_context[SharedValues::BROWSERSTACK_APP_ID]
     yarn(
         command: "test:e2e",
-        package_path: "../package.json"
+        package_path: "package.json"
     )
   end
 
