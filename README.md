@@ -2,14 +2,16 @@
 develop: ![develop build state](https://api.travis-ci.org/Integreat/integreat-webapp.svg?branch=develop)
 master: ![develop build state](https://api.travis-ci.org/Integreat/integreat-webapp.svg?branch=master)
 versioning: ![versioning](https://img.shields.io/badge/calver-YYYY.MM.PATCH-22bfda.svg)
+
 # integreat-webapp
-
+## Contributing
+If you want to know more about Integreat or if you want to join us, contact [Max](mailto:ammann@integreat-app.de), 
+[Steffen](mailto:kleinle@integreat-app.de) or [our info mail](mailto:info@integreat-app.de) and visit our [website](https://integreat-app.de).
+Pull requests and bug reports are also very much appreciated.
+ 
 ## Getting Started
-
 ### Prerequisites
-* **Make sure you have at least [nodejs 6](https://nodejs.org/) installed.**
-We recommend the nodejs 12 LTS.
-
+* Install [nodejs](https://nodejs.org/) installed. At least v6 is required, but we recommend the v12 LTS.
 * Install [yarn](https://yarnpkg.com/)
 
 ### IDE
@@ -43,8 +45,10 @@ If you want you can associate the *.snap files with the file type JavaScript.
 * Use nodejs 12 LTS instead of the latest version.
 
 ## Bug reporting
-
 You can [view our issues](https://issues.integreat-app.de/projects/WEBAPP) or
  [create new ones](https://issues.integreat-app.de/secure/CreateIssue!default.jspa) on our jira.
 
-
+## Pull requests
+To merge a pull request, 
+* at least two approvals are required.
+* tests, linting and flow have to succeed.
