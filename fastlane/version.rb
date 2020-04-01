@@ -13,12 +13,12 @@ def next_version()
   month = now.month
   version_counter = version_name.split('.').last.to_i + 1
 
-  if year != version_name_parts[0] || month != version_name_parts[1]
-    version_counter = 1
+  if year != version_name_parts[0].to_i || month != version_name_parts[1].to_i
+    version_counter = 0
   end
 
   {
       new_version_code: version_code + 1,
-      new_version_name: "#{year}.#{month}.#{version_counter}"
+      new_version_name: "%d.%02d.%d" % [year, month, version_counter]
   }
 end
