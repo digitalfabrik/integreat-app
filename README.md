@@ -4,6 +4,15 @@ master: ![develop build state](https://api.travis-ci.org/Integreat/integreat-web
 versioning: ![versioning](https://img.shields.io/badge/calver-YYYY.MM.PATCH-22bfda.svg)
 
 # integreat-webapp
+## Contents
+* [Contributing](#contributing)
+* [Getting Started](#getting-started)
+* [Bug reporting](#bug-reporting)
+* [Pull requests](#pull-requests)
+* [Conventions](docs/01-conventions.md)
+* [Technology Stack](docs/02-technology-stack.md)
+* [Deployment](docs/03-deployment.md)
+
 ## Contributing
 If you want to know more about Integreat or if you want to join us, contact [Max](mailto:ammann@integreat-app.de), 
 [Steffen](mailto:kleinle@integreat-app.de) or [our info mail](mailto:info@integreat-app.de) and visit our [website](https://integreat-app.de).
@@ -32,7 +41,7 @@ We suggest **IntelliJ IDEA Ultimate** as IDE. JetBrains provides free licences f
    
 If you want you can associate the *.snap files with the file type JavaScript.
 
-### Getting Started
+### Start developing
 * Import this project (from existing sources).
 * Run **git submodule init** and **git submodule update** to initialize the locales submodule.
 * Run **yarn** in the terminal to install all dependencies.
