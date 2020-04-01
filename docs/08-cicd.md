@@ -1,5 +1,7 @@
 # Continuous Integration and Delivery
 
+# Worker limits aka. $TOTAL_CPUS
+
 # Pipeline Steps
 
 
