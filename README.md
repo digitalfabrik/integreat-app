@@ -16,7 +16,7 @@ versioning: ![versioning](https://img.shields.io/badge/calver-YYYY.MM.PATCH-22bf
 ## Contributing
 If you want to know more about Integreat or if you want to join us, contact [Max](mailto:ammann@integreat-app.de), 
 [Steffen](mailto:kleinle@integreat-app.de) or [our info mail](mailto:info@integreat-app.de) and visit our [website](https://integreat-app.de).
-Pull requests and bug reports are also very much appreciated.
+[Pull requests](#pull-requests) and [bug reports](#bug-reporting) are also very much appreciated.
  
 ## Getting Started
 ### Prerequisites
@@ -58,6 +58,8 @@ You can [view our issues](https://issues.integreat-app.de/projects/WEBAPP) or
  [create new ones](https://issues.integreat-app.de/secure/CreateIssue!default.jspa) on our jira.
 
 ## Pull requests
+Please take a look at our [conventions](docs/01-conventions.md).
+
 To merge a pull request, 
 * at least two approvals are required.
 * tests, linting and flow have to succeed.
