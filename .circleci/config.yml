@@ -80,6 +80,10 @@ jobs:
       - store_artifacts:
           path: android/app/build/outputs/apk/release/
       - persist_to_workspace:
+          root: android/app/build/generated/sourcemaps/react/release/
+          paths:
+            - index.android.bundle.map
+      - persist_to_workspace:
           root: android/app/build/outputs/apk/release/
           paths:
             - app-release.apk
@@ -159,6 +163,10 @@ jobs:
       - store_artifacts:
           path: ios/output/gym/
       - persist_to_workspace:
+          root: ios/
+          paths:
+            - index.ios.bundle.map
+      - persist_to_workspace:
           root: ios/output/gym/
           paths:
             - Integreat.ipa
@@ -169,6 +177,7 @@ jobs:
     resource_class: small
     shell: /bin/bash -eo pipefail
     steps:
+      - run: 'curl -sL https://sentry.io/get-cli/ | bash'
       - checkout
       - attach_workspace:
           at: /tmp/output
@@ -214,6 +223,7 @@ jobs:
     resource_class: small
     shell: /bin/bash -eo pipefail
     steps:
+      - run: 'curl -sL https://sentry.io/get-cli/ | bash'
       - checkout
       - attach_workspace:
           at: /tmp/output

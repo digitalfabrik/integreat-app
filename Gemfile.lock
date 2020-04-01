@@ -83,6 +83,7 @@ GEM
       xcpretty-travis-formatter (>= 0.0.3)
     fastlane-plugin-browserstack (0.3.1)
       rest-client (~> 2.0, >= 2.0.2)
+    fastlane-plugin-sentry (1.6.0)
     fastlane-plugin-yarn (1.2)
     gh_inspector (1.1.3)
     google-api-client (0.36.4)
@@ -194,6 +195,7 @@ PLATFORMS
 DEPENDENCIES
   fastlane
   fastlane-plugin-browserstack
+  fastlane-plugin-sentry
   fastlane-plugin-yarn
   octokit (~> 4.18)
 
