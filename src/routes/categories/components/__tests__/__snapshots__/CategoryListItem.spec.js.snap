@@ -28,10 +28,10 @@ exports[`CategoryListItem should render and match snapshot 1`] = `
       to="/augsburg/de/test"
     >
       <CategoryListItem__SubCategoryCaption
-        search=""
-      >
-        Child
-      </CategoryListItem__SubCategoryCaption>
+        aria-label="Child"
+        searchWords={Array []}
+        textToHighlight="Child"
+      />
     </CategoryListItem__StyledLink>
   </CategoryListItem__SubCategory>
 </CategoryListItem__Row>
@@ -65,10 +65,10 @@ exports[`CategoryListItem should replace empty thumbnail 1`] = `
       to="/augsburg/de/willkommen/willkommen-in-augsburg"
     >
       <CategoryListItem__SubCategoryCaption
-        search=""
-      >
-        GotNoThumb :O
-      </CategoryListItem__SubCategoryCaption>
+        aria-label="GotNoThumb :O"
+        searchWords={Array []}
+        textToHighlight="GotNoThumb :O"
+      />
     </CategoryListItem__StyledLink>
   </CategoryListItem__SubCategory>
 </CategoryListItem__Row>
