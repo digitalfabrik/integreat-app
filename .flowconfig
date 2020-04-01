@@ -27,6 +27,8 @@ node_modules/warning/.*
 ; Ignore native directories as they may contain JSONs
 .*/ios/.*
 .*/android/.*
+; Ignore ruby gems
+.*/vendor/.*
 
 [untyped]
 .*/node_modules/@react-native-community/cli/.*/.*
