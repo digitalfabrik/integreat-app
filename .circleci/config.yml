@@ -2,9 +2,9 @@ jobs:
   build_android:
     docker:
       - image: circleci/android:api-28-node
-    resource_class: medium+
+    resource_class: medium
     environment:
-      TOTAL_CPUS: 3 # For class docker medium+
+      TOTAL_CPUS: 2 # For class docker medium
     shell: /bin/bash -eo pipefail
     steps:
       - run:
