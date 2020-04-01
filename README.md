@@ -4,48 +4,6 @@ master: ![develop build state](https://api.travis-ci.org/Integreat/integreat-web
 versioning: ![versioning](https://img.shields.io/badge/calver-YYYY.MM.PATCH-22bfda.svg)
 # integreat-webapp
 
-## Conventions
-
-For naming we follow the airbnb style: https://github.com/airbnb/javascript/tree/master/react
-For the JavasScript code style we use the standard style: https://standardjs.com/
-For git commit messages: https://github.com/erlang/otp/wiki/Writing-good-commit-messages
-
-## Versioning
-![versioning](https://img.shields.io/badge/calver-YYYY.MM.PATCH-22bfda.svg) with:
-* **`YYYY`** - Full year - 2006, 2016
-* **`MM`** - Short month - 1, 2 ... 11, 12
-* **`Minor`** - The third number in the version. For feature and bugfix releases.
-
-## Folder structure
-```
-├── __mocks__
-├── modules
-│   └── app
-│       ├── constants
-│       ├── assets
-│       ├── components
-│       ├── containers
-│       ├── actions
-│       ├── hocs
-│       └── reducers
-└── routes
-    └── route-name
-│       ├── assets
-│       ├── components
-│       ├── containers
-│       │   └── RouteNamePage.js
-│       ├── actions
-│       ├── hocs
-│       └── reducers
-```
-A component always follows the following structure (Uppercase files always contain a single class):
-```
-├── __tests__
-│   └── Caption.js
-├── Caption.css
-└── Caption.js
-```
-
 ## Technology stack
 
 ### Build tools
@@ -82,30 +40,44 @@ You can run the linter by calling **yarn run lint**. Some issues can be fixed au
 ### Type checking
 [Flow](https://flow.org/) is used for static type checking.
 
-Go to Settings > Languages & Frameworks > JavaScript and
-* choose **Flow** as Language version
-* set *Flow package or executable* to **<project_dir>/node_modules/flow-bin**
 
 You can run flow using **yarn flow**. 
 
-## IDE
-**Make sure you have at least [nodejs 6](https://nodejs.org/) installed**
+## Getting Started
+### Prerequisites
+* **Make sure you have at least [nodejs 6](https://nodejs.org/) installed.**
+We recommend the nodejs 12 LTS.
 
-We suggest IntellJ IDEA Ultimate as IDE. Just import this project (from existing sources).
-Run **yarn** in Terminal and right-click on package.json to show the npm scripts. 
-Also mark the *src* and *www* folder as *Source directory*.
+* Install [yarn](https://yarnpkg.com/)
 
-Install the following plugins:
-* EJS
-* ESLint
-* React CSS Modules
+### IDE
+We suggest **IntelliJ IDEA Ultimate** as IDE. JetBrains provides free licences for students.
+
+#### Plugins
 * Styled Components
 
-Go to:
+#### Additional Configuration
+* Mark the *src* and *www* folder as *Source directory*.
 * Run > Edit Configurations > Defaults > Jest  
    to set **Configuration file** to **jest.config.json**
    
+* Settings > Languages & Frameworks > JavaScript and
+    * choose **Flow** as Language version
+    * set *Flow package or executable* to **<project_dir>/node_modules/flow-bin**
+   
 If you want you can associate the *.snap files with the file type JavaScript.
+
+### Getting Started
+* Import this project (from existing sources).
+* Run **git submodule init** and **git submodule update** to initialize the locales submodule.
+* Run **yarn** in the terminal to install all dependencies.
+* Take a look at package.json to show all available npm scripts.
+* Run **yarn start** to start a local webpack dev server.
+* Start coding :)
+
+### Trouble shooting
+* **Invalid VCS Root**: Initialize and update the locales submodule.
+* ****: Use nodejs 12 LTS instead of the latest version.
 
 # Issue Tracker
 

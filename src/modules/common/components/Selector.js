@@ -36,7 +36,7 @@ const ActiveElement = styled(Element)`
     : `:hover {
           font-weight: 700;
           border-radius: 0;
-        }`}
+        }`};
   color: ${props => props.theme.colors.textColor};
 `
 
@@ -51,11 +51,11 @@ const Wrapper = styled.div`
   justify-content: center;
   color: ${props => props.theme.colors.textColor};
   text-align: center;
-  
+
   ${props => props.vertical && css`
     flex-flow: column;
     align-items: center;
-  
+
     & ${Element} {
       flex: 1;
     }
