@@ -25,7 +25,7 @@ Using the latest version (v13) may lead to errors.
 * Install [yarn](https://yarnpkg.com/)
 
 ### IDE
-We suggest **IntelliJ IDEA Ultimate** as IDE. JetBrains provides free licences for students.
+We suggest [IntelliJ IDEA Ultimate](https://www.jetbrains.com/idea/) as IDE. JetBrains provides free licences for students.
 
 #### Project setup
 * Import this project (VCS > Get from Version Control).
