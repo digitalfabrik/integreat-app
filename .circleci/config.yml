@@ -53,7 +53,7 @@ jobs:
           command: yarn run flow:check-now
       - run:
           name: Unit tests
-          command: yarn run test
+          command: yarn run test --maxWorkers 2
       - run:
           name: Ruby version
           command: ruby --version
