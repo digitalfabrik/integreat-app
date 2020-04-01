@@ -26,10 +26,13 @@ Access to the Bot is granted by a Private Key in PEM format. This is used to get
 
 ### Metadata
 
+bundle exec fastlane supply
 
 ## App Store Connect
 
 ### Metadata
+
+bundle exec fastlane deliver
 
 ### Authenticating via spaceauth
 https://docs.fastlane.tools/best-practices/continuous-integration/#environment-variables-to-set
