@@ -3,7 +3,7 @@ git_url("git@github.com:Integreat/app-credentials.git")
 storage_mode("git")
 
 app_identifier("de.integreat-app")
-username("app-team@integreat-app.de")
+username("app-team-delivery@integreat-app.de")
 
 # app_identifier(["tools.fastlane.app", "tools.fastlane.app2"])
 # username("user@fastlane.tools") # Your Apple Developer Portal username
