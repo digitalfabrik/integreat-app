@@ -9,9 +9,16 @@ def next_version()
   end
 
   now = Time.now
+  year = now.year
+  month = now.month
+  version_counter = version_name.split('.').last.to_i + 1
+
+  if year != version_name_parts[0] || month != version_name_parts[1]
+    version_counter = 1
+  end
 
   {
       new_version_code: version_code + 1,
-      new_version_name: "#{now.year}.#{now.month}.#{version_name.split('.').last.to_i + 1}"
+      new_version_name: "#{year}.#{month}.#{version_counter}"
   }
 end

@@ -150,10 +150,10 @@ jobs:
           name: Fastlane Release Build
           command: bundle exec fastlane release
           working_directory: ios
-      - run: # TODO: Only run on develop
-          name: Fastlane TestFlight Upload
-          command: bundle exec fastlane testflight_upload
-          working_directory: ios
+#      - run: # TODO: Only run on develop
+#          name: Fastlane TestFlight Upload
+#          command: bundle exec fastlane testflight_upload
+#          working_directory: ios
       - persist_to_workspace:
           root: ios/output/gym/
           paths:
@@ -165,6 +165,7 @@ jobs:
     resource_class: small
     shell: /bin/bash -eo pipefail
     steps:
+      - checkout
       - attach_workspace:
           at: /tmp/output
       - restore_cache:
