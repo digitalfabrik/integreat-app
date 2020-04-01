@@ -5,7 +5,11 @@
 
 # Environment variables and dependencies
 
-`DELIVERINO_PRIVATE_KEY`
+`DELIVERINO_PRIVATE_KEY` (\n in CircleCI)
+
+`FASTLANE_USER`
+
+`FASTLANE_PASSWORD`
 
 # Credentials and services
 
@@ -25,5 +29,13 @@ Access to the Bot is granted by a Private Key in PEM format. This is used to get
 
 ### Metadata
 
+### Authenticating via spaceauth
+https://docs.fastlane.tools/best-practices/continuous-integration/#environment-variables-to-set
+https://github.com/fastlane/fastlane/tree/master/spaceship#2-step-verification
 
 ## BrowserStack
+
+
+## TestFlight
+
+### App Store Connect Users
