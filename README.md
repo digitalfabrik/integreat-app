@@ -20,7 +20,8 @@ If you want to know more about Integreat or if you want to join us, contact [Max
  
 ## Getting Started
 ### Prerequisites
-* Install [nodejs](https://nodejs.org/) installed. At least v6 is required, but we recommend the v12 LTS.
+* Install [nodejs](https://nodejs.org/). At least v6 is required, but we recommend the v12 LTS.
+Using the latest version (v13) may lead to errors.
 * Install [yarn](https://yarnpkg.com/)
 
 ### IDE
