@@ -34,6 +34,11 @@ Upload to Browserstack Live
 fastlane android browserstack_e2e_tests
 ```
 Run E2E tests on BrowserStack
+### android sentry_upload
+```
+fastlane android sentry_upload
+```
+Upload source map to Sentry
 ### android playstore_upload
 ```
 fastlane android playstore_upload
@@ -53,6 +58,11 @@ Upload to Browserstack Live
 fastlane ios browserstack_e2e_tests
 ```
 Run E2E tests on BrowserStack
+### ios sentry_upload
+```
+fastlane ios sentry_upload
+```
+Upload source map to Sentry
 
 ----
 
