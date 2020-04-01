@@ -21,6 +21,8 @@
 
 Access to the Bot is granted by a Private Key in PEM format. This is used to get an access token for an installation. This access_token allows to write content to the repositories/organisations where it was installed.
 
+// PEM is base64 encoded
+
 
 ## Google Play Store
 
