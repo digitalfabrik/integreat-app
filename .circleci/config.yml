@@ -214,6 +214,9 @@ jobs:
           name: Fastlane Play Store Upload
           command: bundle exec fastlane android playstore_upload
       - run:
+          name: Fastlane Upload to Sentry
+          command: bundle exec fastlane android sentry_upload
+      - run:
           name: Bump version
           command: bundle exec fastlane github_bump_version
 
@@ -256,6 +259,9 @@ jobs:
       - run:
           name: Fastlane E2E Tests on Browserstack
           command: bundle exec fastlane ios browserstack_e2e_tests
+      - run:
+          name: Fastlane Upload to Sentry
+          command: bundle exec fastlane ios sentry_upload
 
 version: 2.1
 
