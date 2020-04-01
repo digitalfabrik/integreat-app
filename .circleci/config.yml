@@ -156,10 +156,10 @@ jobs:
           name: Fastlane Release Build
           command: bundle exec fastlane release
           working_directory: ios
-#      - run: # TODO: Only run on develop
-#          name: Fastlane TestFlight Upload
-#          command: bundle exec fastlane testflight_upload
-#          working_directory: ios
+      - run:
+          name: Fastlane TestFlight Upload
+          command: bundle exec fastlane testflight_upload
+          working_directory: ios
       - store_artifacts:
           path: ios/output/gym/
       - persist_to_workspace:
@@ -266,7 +266,8 @@ jobs:
 version: 2.1
 
 workflows:
-  create-release-builds:
+  version: 2
+  commit:
     jobs:
       - build_android
       - build_ios
@@ -276,5 +277,20 @@ workflows:
       - e2e_ios:
           requires:
             - build_ios
-
-
+  nightly:
+    triggers:
+      - schedule:
+          cron: "0 0 * * *"
+          filters:
+            branches:
+              only:
+                - NATIVE-487-cd # FIXME: Change
+    jobs:
+      - build_android
+      - build_ios
+      - deliver_android:
+          requires:
+            - build_android
+      - e2e_ios:
+          requires:
+            - build_ios
