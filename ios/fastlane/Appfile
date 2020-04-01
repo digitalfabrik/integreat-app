@@ -1,5 +1,5 @@
 app_identifier "de.integreat-app" # The bundle identifier of your app
-apple_id "app-team@integreat-app.de" # Your Apple email address
+apple_id "app-team-delivery@integreat-app.de" # Your Apple email address
 
 team_id "7272KE28TJ" # Developer Portal Team ID
 
