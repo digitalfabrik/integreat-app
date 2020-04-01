@@ -42,6 +42,32 @@ private_lane :github_commit_version do |options|
                          :branch => branch)
 end
 
+desc "Upload source map to Sentry"
+private_lane :generic_sentry_upload do |options|
+  ensure_env_vars(
+      env_vars: ['SENTRY_AUTH_TOKEN']
+  )
+
+  next_version = next_version()
+  version_code = next_version[:new_version_code]
+  version_name = next_version[:new_version_name]
+  package_name = options[:package_name]
+  sourcemap_path = options[:sourcemap_path]
+
+  sentry_create_release(
+      version: version_name,
+      app_identifier: package_name,
+      finalize: true
+  )
+
+  sentry_upload_sourcemap(
+      version: version_name,
+      app_identifier: package_name,
+      dist: version_code,
+      sourcemap: sourcemap_path,
+      rewrite: true
+  )
+end
 
 desc "Bump version file in Git repository"
 lane :github_bump_version do
@@ -99,6 +125,14 @@ platform :android do
     )
   end
 
+  desc "Upload source map to Sentry"
+  lane :sentry_upload do
+    generic_sentry_upload(
+        package_name: 'tuerantuer.app.integreat',
+        sourcemap_path: '/tmp/output/index.android.bundle.map'
+    )
+  end
+
   desc "Upload to Play Store"
   lane :playstore_upload do
     ensure_env_vars(
@@ -108,9 +142,10 @@ platform :android do
     next_version = next_version()
 
     upload_to_play_store(
-        version_code: next_version[:version_code],
-        version_name: next_version[:version_name],
+        version_code: next_version[:new_version_code],
+        version_name: next_version[:new_version_name],
         package_name: "tuerantuer.app.integreat",
+        metadata_path: "./metadata",
         track: 'alpha',
         skip_upload_changelogs: true,
         skip_upload_images: true,
@@ -163,4 +198,11 @@ platform :ios do
     )
   end
 
+  desc "Upload source map to Sentry"
+  lane :sentry_upload do
+    generic_sentry_upload(
+        package_name: 'de.integreat-app',
+        sourcemap_path: '/tmp/output/index.ios.bundle.map'
+    )
+  end
 end

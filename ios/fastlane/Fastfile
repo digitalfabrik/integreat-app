@@ -27,6 +27,7 @@ desc "Create a release build"
 lane :release do
   ENV["E2E_TEST_IDS"] = "1"
   ENV["BUNDLE_CONFIG"] = "./metro.config.ci.js"
+  ENV["EXTRA_PACKAGER_ARGS"] = "--sourcemap-output /Users/distiller/project/ios/index.ios.bundle.map"
 
   next_version = next_version()
 
