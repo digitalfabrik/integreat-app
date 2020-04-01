@@ -110,6 +110,7 @@ platform :android do
     upload_to_play_store(
         version_code: next_version[:version_code],
         version_name: next_version[:version_name],
+        package_name: "tuerantuer.app.integreat",
         track: 'alpha',
         skip_upload_changelogs: true,
         skip_upload_images: true,
