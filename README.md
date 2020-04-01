@@ -26,9 +26,13 @@ If you want to know more about Integreat or if you want to join us, contact [Max
 ### IDE
 We suggest **IntelliJ IDEA Ultimate** as IDE. JetBrains provides free licences for students.
 
-#### Plugins
-* Styled Components
-* EJS
+#### Project setup
+* Import this project (VCS > Get from Version Control).
+* Run **git submodule init** and **git submodule update** to initialize the locales submodule.
+* Run **yarn** in the terminal to install all dependencies.
+* Take a look at package.json to show all available npm scripts.
+* Run **yarn start** to start a local webpack dev server.
+* Start coding :)
 
 #### Additional Configuration
 * Mark the *src* and *www* folder as *Source directory*.
@@ -39,15 +43,8 @@ We suggest **IntelliJ IDEA Ultimate** as IDE. JetBrains provides free licences f
     * choose **Flow** as Language version
     * set *Flow package or executable* to **<project_dir>/node_modules/flow-bin**
    
-If you want you can associate the *.snap files with the file type JavaScript.
-
-### Start developing
-* Import this project (from existing sources).
-* Run **git submodule init** and **git submodule update** to initialize the locales submodule.
-* Run **yarn** in the terminal to install all dependencies.
-* Take a look at package.json to show all available npm scripts.
-* Run **yarn start** to start a local webpack dev server.
-* Start coding :)
+* [optional] Associate the *\*.snap* files with the file type *JavaScript*.
+* [optional] Install the following plugins: *Styled Components*, *EJS*.
 
 ### Trouble shooting
 * **Invalid VCS Root**: Initialize and update the locales submodule.
