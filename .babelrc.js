@@ -1,6 +1,6 @@
 const config = {
   presets: [
-    '@babel/preset-env',
+    ['@babel/preset-env', { "modules": "commonjs" }],
     '@babel/preset-react',
     '@babel/preset-flow'
   ],
