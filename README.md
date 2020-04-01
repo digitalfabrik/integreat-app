@@ -28,20 +28,20 @@ We suggest **IntelliJ IDEA Ultimate** as IDE. JetBrains provides free licences f
 
 #### Project setup
 * Import this project (VCS > Get from Version Control).
-* Run **git submodule init** and **git submodule update** to initialize the locales submodule.
-* Run **yarn** in the terminal to install all dependencies.
+* Run `git submodule init` and `git submodule update` to initialize the locales submodule.
+* Run `yarn` in the terminal to install all dependencies.
 * Take a look at package.json to show all available npm scripts.
-* Run **yarn start** to start a local webpack dev server.
+* Run `yarn start` to start a local webpack dev server.
 * Start coding :)
 
 #### Additional Configuration
 * Mark the *src* and *www* folder as *Source directory*.
 * Run > Edit Configurations > Defaults > Jest  
-   to set **Configuration file** to **jest.config.json**
+   to set *Configuration file* to *jest.config.json*
    
 * Settings > Languages & Frameworks > JavaScript and
-    * choose **Flow** as Language version
-    * set *Flow package or executable* to **<project_dir>/node_modules/flow-bin**
+    * choose *Flow* as Language version
+    * set *Flow package or executable* to *<project_dir>/node_modules/flow-bin*
    
 * [optional] Associate the *\*.snap* files with the file type *JavaScript*.
 * [optional] Install the following plugins: *Styled Components*, *EJS*.
