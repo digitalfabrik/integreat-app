@@ -73,9 +73,7 @@ class CategoryListItem extends React.PureComponent<PropsType> {
     return subCategories.map(subCategory =>
       <SubCategory key={subCategory.hash}>
         <StyledLink to={subCategory.path}>
-          <SubCategoryCaption search=''>
-            {subCategory.title}
-          </SubCategoryCaption>
+          <SubCategoryCaption searchWords={[]} aria-label={subCategory.title} textToHighlight={subCategory.title} />
         </StyledLink>
       </SubCategory>
     )
