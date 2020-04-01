@@ -79,7 +79,7 @@ lane :github_bump_version do
       app_id: 59249,
       private_key: ENV['DELIVERINO_PRIVATE_KEY'],
       repo: "Integreat/integreat-react-native-app",
-      branch: "github-api-test",
+      branch: "NATIVE-487-cd", # FIXME: Change
       version_yml_path: 'version.yml',
       **next_version
   )
@@ -153,8 +153,7 @@ platform :android do
         skip_upload_metadata: true,
         release_status: "draft",
         apk: '/tmp/output/app-release.apk',
-        json_key_data: ENV["GOOGLE_SERVICE_ACCOUNT_JSON"],
-        validate_only: true
+        json_key_data: ENV["GOOGLE_SERVICE_ACCOUNT_JSON"]
     )
   end
 end
