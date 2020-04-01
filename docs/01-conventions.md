@@ -1,7 +1,11 @@
 # Conventions
-
+## Naming
 For naming we follow the airbnb style: https://github.com/airbnb/javascript/tree/master/react
+
+## Code style
 For the JavasScript code style we use the standard style: https://standardjs.com/
+
+## Git commit messages
 For git commit messages: https://github.com/erlang/otp/wiki/Writing-good-commit-messages
 
 ## Versioning
