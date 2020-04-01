@@ -36,7 +36,7 @@ private_lane :github_commit_version do |options|
 
   client.update_contents(repo,
                          version_yml_path,
-                         "Bump version name to #{new_version_name} and version code to #{new_version_code}",
+                         "Bump version name to #{new_version_name} and version code to #{new_version_code}\n[skip ci]",
                          version_yml_content.sha,
                          YAML.dump(version_yml),
                          :branch => branch)
