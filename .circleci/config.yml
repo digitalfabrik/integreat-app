@@ -1,3 +1,49 @@
+version: 2.1
+
+workflows:
+  version: 2
+  commit:
+    jobs:
+      - build_android
+      - build_ios
+      - e2e:
+          requires:
+            - build_ios
+            - build_android
+  weekly:
+    triggers:
+      - schedule:
+          cron: "0 0 * * WED"
+          filters:
+            branches:
+              only:
+                - NATIVE-487-cd # FIXME: Change
+    jobs:
+      - build_android
+      - build_ios
+      - deliver_android:
+          requires:
+            - build_android
+      - deliver_ios:
+          requires:
+            - build_ios
+  bi-weekly:
+    triggers:
+      - schedule:
+          cron: "0 0 */1,15,28 * *"
+          filters:
+            branches:
+              only:
+                - NATIVE-487-cd # FIXME: Change
+    jobs:
+      - build_android
+      - build_ios
+      - deliver_android:
+          requires:
+            - build_android
+      - deliver_ios:
+          requires:
+            - build_ios
 jobs:
   build_android:
     docker:
@@ -156,10 +202,6 @@ jobs:
           name: Fastlane Release Build
           command: bundle exec fastlane release
           working_directory: ios
-      - run:
-          name: Fastlane TestFlight Upload
-          command: bundle exec fastlane testflight_upload
-          working_directory: ios
       - store_artifacts:
           path: ios/output/gym/
       - persist_to_workspace:
@@ -176,7 +218,14 @@ jobs:
       - image: circleci/android:api-28-node
     resource_class: small
     shell: /bin/bash -eo pipefail
+    environment:
+      FASTLANE_SKIP_UPDATE_CHECK: true
+      TOTAL_CPUS: 4 # For class mac medium
     steps:
+      - run:
+          name: "Show current CPU count"
+          command: |
+            echo "CPU count is ${TOTAL_CPUS}"
       - run: 'curl -sL https://sentry.io/get-cli/ | bash'
       - checkout
       - attach_workspace:
@@ -208,25 +257,76 @@ jobs:
           name: Fastlane Browserstack Upload Live
           command: bundle exec fastlane android browserstack_upload_live
       - run:
-          name: Fastlane E2E Tests on Browserstack
-          command: bundle exec fastlane android browserstack_e2e_tests
-      - run:
           name: Fastlane Play Store Upload
           command: bundle exec fastlane android playstore_upload
       - run:
           name: Fastlane Upload to Sentry
           command: bundle exec fastlane android sentry_upload
-      - run:
+      - deploy:
           name: Bump version
           command: bundle exec fastlane github_bump_version
 
-  e2e_ios:
+  deliver_ios:
+    macos:
+      xcode: 11.2.0
+    environment:
+      FASTLANE_SKIP_UPDATE_CHECK: true
+      TOTAL_CPUS: 4 # For class mac medium
+    shell: /bin/bash --login -o pipefail
+    steps:
+      - run:
+          name: "Show current CPU count"
+          command: |
+            echo "CPU count is ${TOTAL_CPUS}"
+      - checkout
+      - restore_cache:
+          keys:
+            - 1-gems-{{ arch }}-{{ checksum "ios/Gemfile.lock" }}
+            - 1-gems-{{ arch }}-
+      - run:
+          command: bundle check || bundle install --path vendor/bundle
+          working_directory: ios
+      - save_cache:
+          key: 1-gems-{{ arch }}-{{ checksum "ios/Gemfile.lock" }}
+          paths:
+            - ios/vendor/bundle
+      - restore_cache:
+          name: Restore Yarn Package Cache
+          keys:
+            - 4-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+            - 4-yarn-{{ arch }}-
+      - run:
+          name: Install Dependencies
+          command: yarn install --frozen-lockfile
+      - save_cache:
+          name: Save Yarn Package Cache
+          key: 4-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/Library/Caches/Yarn/
+            - node_modules
+      - run:
+          name: Ruby version
+          command: ruby --version
+      - run:
+          name: Fastlane Browserstack Upload Live
+          command: bundle exec fastlane android browserstack_upload_live
+      - run:
+          name: Fastlane TestFlight Upload
+          command: bundle exec fastlane testflight_upload
+          working_directory: ios
+      - deploy:
+          name: Bump version
+          command: bundle exec fastlane github_bump_version
+
+  e2e:
     docker:
       - image: circleci/android:api-28-node
     resource_class: small
     shell: /bin/bash -eo pipefail
+    environment:
+      FASTLANE_SKIP_UPDATE_CHECK: true
+      TOTAL_CPUS: 4 # For class mac medium
     steps:
-      - run: 'curl -sL https://sentry.io/get-cli/ | bash'
       - checkout
       - attach_workspace:
           at: /tmp/output
@@ -254,43 +354,8 @@ jobs:
             - ~/.cache/yarn
             - node_modules
       - run:
-          name: Fastlane Browserstack Upload Live
-          command: bundle exec fastlane ios browserstack_upload_live
+          name: Fastlane E2E Tests on Browserstack
+          command: bundle exec fastlane android browserstack_e2e_tests
       - run:
           name: Fastlane E2E Tests on Browserstack
           command: bundle exec fastlane ios browserstack_e2e_tests
-      - run:
-          name: Fastlane Upload to Sentry
-          command: bundle exec fastlane ios sentry_upload
-
-version: 2.1
-
-workflows:
-  version: 2
-  commit:
-    jobs:
-      - build_android
-      - build_ios
-      - deliver_android:
-          requires:
-            - build_android
-      - e2e_ios:
-          requires:
-            - build_ios
-  nightly:
-    triggers:
-      - schedule:
-          cron: "0 0 * * *"
-          filters:
-            branches:
-              only:
-                - NATIVE-487-cd # FIXME: Change
-    jobs:
-      - build_android
-      - build_ios
-      - deliver_android:
-          requires:
-            - build_android
-      - e2e_ios:
-          requires:
-            - build_ios
