@@ -35,8 +35,8 @@ lane :dependencies do
   gradle(task: "androidDependencies")
 end
 
-desc "Create a release build"
-lane :release do
+desc "Create a build"
+lane :build do
   next_version = next_version()
 
   puts(next_version)
