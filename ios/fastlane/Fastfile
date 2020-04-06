@@ -21,8 +21,8 @@ lane :build do
   )
 end
 
-desc "Create a release build"
-lane :release do
+desc "Create a build"
+lane :build do
   ENV["BUNDLE_CONFIG"] = "./metro.config.ci.js"
   ENV["EXTRA_PACKAGER_ARGS"] = "--sourcemap-output /Users/distiller/project/ios/index.ios.bundle.map"
 

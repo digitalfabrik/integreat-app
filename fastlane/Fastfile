@@ -227,8 +227,8 @@ platform :ios do
     )
   end
 
-  desc "Upload to TestFlight"
-  lane :testflight_upload do |options|
+  desc "Upload to App Store Connect"
+  lane :appstoreconnect_upload do |options|
     ensure_env_vars(
         env_vars: ['FASTLANE_USER', 'FASTLANE_PASSWORD']
     )
@@ -238,14 +238,29 @@ platform :ios do
     # https://docs.fastlane.tools/actions/deliver/
     deliver(
         ipa: "/tmp/output/Integreat.ipa",
-        submit_for_review: production,
-        automatic_release: false, # TODO: change to `production`
+        submit_for_review: true,
+        automatic_release: false, # TODO: change to `true` if we are sure CD works
         force: true,
         skip_screenshots: false,
         skip_metadata: false,
         skip_app_version_update: false,
         metadata_path: "./ios/fastlane/metadata",
         screenshots_path: "./ios/fastlane/screenshots",
+        include_in_app_purchases: false # We do not have inapp purchases
+    )
+  end
+
+  desc "Upload to TestFlight"
+  lane :testflight_upload do |options|
+    ensure_env_vars(
+        env_vars: ['FASTLANE_USER', 'FASTLANE_PASSWORD']
+    )
+
+    upload_to_testflight(
+        skip_waiting_for_build_processing: true,
+        apple_id: "1072353915",
+        ipa: "/tmp/output/Integreat.ipa",
+        distribute_external: false
     )
   end
 end

@@ -146,8 +146,8 @@ jobs:
             - ~/.gradle
           key: 1-gradle-{{ checksum "android/build.gradle" }}-{{ checksum "android/app/build.gradle" }}-{{ checksum "android/settings.gradle" }}
       - run:
-          name: Fastlane Release Build
-          command: bundle exec fastlane release
+          name: Fastlane Build
+          command: bundle exec fastlane build
           working_directory: android
       - store_artifacts:
           path: android/app/build/outputs/apk/release/
@@ -231,8 +231,8 @@ jobs:
           name: Ruby version
           command: ruby --version
       - run:
-          name: Fastlane Release Build
-          command: bundle exec fastlane release
+          name: Fastlane Build
+          command: bundle exec fastlane build
           working_directory: ios
       - store_artifacts:
           path: ios/output/gym/
@@ -337,9 +337,18 @@ jobs:
       - run:
           name: Fastlane Browserstack Upload Live
           command: bundle exec fastlane ios browserstack_upload_live
-      - run:
-          name: Fastlane TestFlight Upload
-          command: bundle exec fastlane ios testflight_upload production:"<< parameters.production >>"
+      - when:
+          condition: <<parameters.production>>
+          steps:
+            - run:
+                name: Fastlane App Store Connect Upload
+                command: bundle exec fastlane ios appstoreconnect_upload
+      - unless:
+          condition: <<parameters.production>>
+          steps:
+            - run:
+                name: Fastlane TestFlight Upload
+                command: bundle exec fastlane ios testflight_upload
       - run:
           name: Fastlane Upload to Sentry
           command: bundle exec fastlane ios sentry_upload
