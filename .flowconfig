@@ -46,8 +46,6 @@ libdefs.js
 [options]
 emoji=true
 
-server.max_workers=2
-
 esproposal.optional_chaining=enable
 esproposal.nullish_coalescing=enable
 

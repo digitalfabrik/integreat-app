@@ -120,12 +120,12 @@ jobs:
           command: yarn run lint
       - run:
           name: Flow-type check
-          command: yarn run flow:check-now
+          command: yarn run flow:check-now --max-workers $TOTAL_CPUS
       - run:
           name: Unit tests
           environment:
             E2E_TEST_IDS: '' # Empty string equals to false in JS
-          command: yarn run test --maxWorkers 2
+          command: yarn run test --maxWorkers $TOTAL_CPUS
       - run:
           name: Ruby version
           command: ruby --version
