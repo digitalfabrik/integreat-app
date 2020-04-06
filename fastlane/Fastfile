@@ -86,7 +86,7 @@ lane :github_bump_version do
 end
 
 desc "Notify about the status of this build"
-lane :notify do
+lane :notify_release do
   ensure_env_vars(
       env_vars: ['SLACK_URL']
   )
@@ -246,7 +246,7 @@ platform :ios do
         skip_app_version_update: false,
         metadata_path: "./ios/fastlane/metadata",
         screenshots_path: "./ios/fastlane/screenshots",
-        include_in_app_purchases: false # We do not have inapp purchases
+        precheck_include_in_app_purchases: false # We do not have inapp purchases
     )
   end
 
