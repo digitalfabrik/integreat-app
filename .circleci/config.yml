@@ -408,3 +408,6 @@ jobs:
       - deploy:
           name: Bump version
           command: bundle exec fastlane github_bump_version
+      - deploy:
+          name: Notify
+          command: bundle exec fastlane notify
