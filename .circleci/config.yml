@@ -33,10 +33,10 @@ workflows:
           production: true
           requires:
             - build_ios
-      - party:
+      - bump_version:
           requires:
-#            - deliver_android
-            - deliver_ios
+#            - build_android
+            - build_ios # Bump version should only depend on build_ and not delivery_. Sometimes delivery fails but the version code already has been used.
 #  bi-weekly:
 #    triggers:
 #      - schedule:
@@ -58,10 +58,6 @@ workflows:
 #          production: false
 #          requires:
 #            - build_ios
-#      - party:
-#          requires:
-#            - deliver_android
-#            - deliver_ios
 jobs:
   build_android:
     parameters:
@@ -299,6 +295,9 @@ jobs:
       - run:
           name: Fastlane Upload to Sentry
           command: bundle exec fastlane android sentry_upload
+      - run:
+          name: Notify
+          command: bundle exec fastlane android notify_release
 
   deliver_ios:
     parameters:
@@ -352,6 +351,9 @@ jobs:
       - run:
           name: Fastlane Upload to Sentry
           command: bundle exec fastlane ios sentry_upload
+      - run:
+          name: Notify
+          command: bundle exec fastlane ios notify_release
 
   e2e:
     docker:
@@ -395,7 +397,7 @@ jobs:
           name: Fastlane E2E Tests on Browserstack
           command: bundle exec fastlane ios browserstack_e2e_tests
 
-  party:
+  bump_version:
     docker:
       - image: circleci/ruby:2.6.5
     resource_class: small
@@ -414,9 +416,7 @@ jobs:
           key: 1-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
-      - deploy:
+      - run:
           name: Bump version
           command: bundle exec fastlane github_bump_version
-      - deploy:
-          name: Notify
-          command: bundle exec fastlane notify_release
+
