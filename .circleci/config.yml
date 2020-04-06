@@ -2,16 +2,16 @@ version: 2.1
 
 workflows:
   version: 2
-  commit:
-    jobs:
-      - build_android:
-          e2e_build: true
-      - build_ios:
-          e2e_build: true
-      - e2e:
-          requires:
-            - build_ios
-            - build_android
+#  commit:
+#    jobs:
+#      - build_android:
+#          e2e_build: true
+#      - build_ios:
+#          e2e_build: true
+#      - e2e:
+#          requires:
+#            - build_ios
+#            - build_android
   weekly:
     #    triggers:
     #      - schedule:
