@@ -10,6 +10,12 @@ exports[`LocationFooter should match snapshot 1`] = `
     imprintAndContact
   </CleanLink___default>
   <CleanAnchor
+    href="https://integreat-app.de/about/"
+    newTab={true}
+  >
+    settings:about
+  </CleanAnchor>
+  <CleanAnchor
     href="https://integreat-app.de/datenschutz/"
     newTab={true}
   >
