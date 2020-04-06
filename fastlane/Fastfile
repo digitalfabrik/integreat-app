@@ -225,7 +225,8 @@ platform :ios do
         skip_screenshots: false,
         skip_metadata: false,
         skip_app_version_update: false,
-        metadata_path: "./ios/fastlane/"
+        metadata_path: "./ios/fastlane/metadata",
+        screenshots_path: "./ios/fastlane/screenshots",
     )
   end
 end
