@@ -2,8 +2,6 @@ require_relative '../../fastlane/version'
 
 fastlane_version "2.143.0"
 
-output_name = "Integreat.ipa"
-
 before_all do
   setup_circle_ci
 end
@@ -45,7 +43,7 @@ lane :release do
   build_app(
       workspace: "Integreat.xcworkspace",
       scheme: "Integreat",
-      output_name: output_name,
+      output_name: "Integreat.ipa",
       export_method: "app-store",
       include_bitcode: false # Uploading to BrowserStack does not work when including Bitcode
   )
@@ -59,7 +57,7 @@ lane :testflight_upload do
 
   # https://docs.fastlane.tools/actions/deliver/
   deliver(
-      ipa: "output/gym/#{output_name}",
+      ipa: "/tmp/output/Integreat.ipa",
       submit_for_review: false,
       automatic_release: false,
       force: true,
