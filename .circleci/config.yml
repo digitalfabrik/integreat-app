@@ -13,13 +13,13 @@ workflows:
             - build_ios
             - build_android
   weekly:
-#    triggers:
-#      - schedule:
-#          cron: "0 0 * * 3"
-#          filters:
-#            branches:
-#              only:
-#                - NATIVE-487-cd # FIXME: Change
+    #    triggers:
+    #      - schedule:
+    #          cron: "0 0 * * 3"
+    #          filters:
+    #            branches:
+    #              only:
+    #                - NATIVE-487-cd # FIXME: Change
     jobs:
       - build_android:
           e2e_build: '' # Empty string equals to false in JS
@@ -52,6 +52,11 @@ workflows:
 #            - build_ios
 jobs:
   build_android:
+    parameters:
+      e2e_build:
+        description: Whether to create a build for E2E testing
+        type: string
+        default: true
     docker:
       - image: circleci/android:api-28-node
     resource_class: medium
