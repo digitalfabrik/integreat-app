@@ -97,6 +97,7 @@ describe('LocationHeader', () => {
                                                 isExtrasEnabled={false}
                                                 isEventsEnabled={false}
                                                 viewportSmall
+                                                cityName='Stadt Augsburg'
                                                 events={events}
                                                 languageChangePaths={languageChangePaths}
                                                 onStickyTopChanged={onStickyTopChanged}
@@ -109,6 +110,7 @@ describe('LocationHeader', () => {
                                                  isExtrasEnabled
                                                  isEventsEnabled={false}
                                                  viewportSmall
+                                                 cityName='Stadt Augsburg'
                                                  events={events}
                                                  languageChangePaths={languageChangePaths}
                                                  onStickyTopChanged={onStickyTopChanged}
@@ -117,6 +119,7 @@ describe('LocationHeader', () => {
                                                  isExtrasEnabled={false}
                                                  isEventsEnabled
                                                  viewportSmall
+                                                 cityName='Stadt Augsburg'
                                                  events={events}
                                                  languageChangePaths={languageChangePaths}
                                                  onStickyTopChanged={onStickyTopChanged}
@@ -131,6 +134,7 @@ describe('LocationHeader', () => {
                                                 isExtrasEnabled
                                                 isEventsEnabled
                                                 viewportSmall
+                                                cityName='Stadt Augsburg'
                                                 events={events}
                                                 languageChangePaths={languageChangePaths}
                                                 onStickyTopChanged={onStickyTopChanged}
@@ -143,6 +147,7 @@ describe('LocationHeader', () => {
                                                 isExtrasEnabled
                                                 isEventsEnabled
                                                 viewportSmall
+                                                cityName='Stadt Augsburg'
                                                 events={events}
                                                 languageChangePaths={languageChangePaths}
                                                 onStickyTopChanged={onStickyTopChanged}
@@ -155,6 +160,7 @@ describe('LocationHeader', () => {
                                                 isExtrasEnabled
                                                 isEventsEnabled
                                                 viewportSmall
+                                                cityName='Stadt Augsburg'
                                                 events={events}
                                                 languageChangePaths={languageChangePaths}
                                                 onStickyTopChanged={onStickyTopChanged}
@@ -167,6 +173,7 @@ describe('LocationHeader', () => {
                                                 isExtrasEnabled
                                                 isEventsEnabled
                                                 viewportSmall
+                                                cityName='Stadt Augsburg'
                                                 events={events}
                                                 languageChangePaths={languageChangePaths}
                                                 onStickyTopChanged={onStickyTopChanged}
@@ -179,6 +186,7 @@ describe('LocationHeader', () => {
                                                 isExtrasEnabled
                                                 isEventsEnabled
                                                 viewportSmall
+                                                cityName='Stadt Augsburg'
                                                 events={events}
                                                 languageChangePaths={languageChangePaths}
                                                 onStickyTopChanged={onStickyTopChanged}
@@ -191,6 +199,7 @@ describe('LocationHeader', () => {
                                                 isExtrasEnabled
                                                 isEventsEnabled
                                                 viewportSmall
+                                                cityName='Stadt Augsburg'
                                                 events={events}
                                                 languageChangePaths={languageChangePaths}
                                                 onStickyTopChanged={onStickyTopChanged}
@@ -205,6 +214,7 @@ describe('LocationHeader', () => {
                                                 isExtrasEnabled
                                                 isEventsEnabled
                                                 viewportSmall
+                                                cityName='Stadt Augsburg'
                                                 events={events}
                                                 languageChangePaths={languageChangePaths}
                                                 onStickyTopChanged={onStickyTopChanged}
@@ -219,6 +229,7 @@ describe('LocationHeader', () => {
                                               isExtrasEnabled
                                               isEventsEnabled
                                               viewportSmall
+                                              cityName='Stadt Augsburg'
                                               events={events}
                                               languageChangePaths={languageChangePaths}
                                               onStickyTopChanged={onStickyTopChanged}

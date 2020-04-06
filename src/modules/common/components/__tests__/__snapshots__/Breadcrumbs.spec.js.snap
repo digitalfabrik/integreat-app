@@ -7,7 +7,7 @@ exports[`Breadcrumbs should render and match snapshot 1`] = `
   <Breadcrumbs__OrderedList
     direction="rtl"
   >
-    <Breadcrumbs__Breadcrumb
+    <Breadcrumb
       key="0"
     >
       <a
@@ -15,8 +15,8 @@ exports[`Breadcrumbs should render and match snapshot 1`] = `
       >
         asdf
       </a>
-    </Breadcrumbs__Breadcrumb>
-    <Breadcrumbs__Breadcrumb
+    </Breadcrumb>
+    <Breadcrumb
       key="1"
     >
       <a
@@ -24,7 +24,7 @@ exports[`Breadcrumbs should render and match snapshot 1`] = `
       >
         test
       </a>
-    </Breadcrumbs__Breadcrumb>
+    </Breadcrumb>
   </Breadcrumbs__OrderedList>
 </Breadcrumbs__Wrapper>
 `;

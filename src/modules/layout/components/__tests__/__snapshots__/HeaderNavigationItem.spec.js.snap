@@ -12,8 +12,11 @@ exports[`HeaderNavigationItem should render an ActiveNavigationItem 1`] = `
 
 exports[`HeaderNavigationItem should render an InactiveNavigationItem 1`] = `
 <HeaderNavigationItem__DisabledNavigationItem
+  aria-disabled={true}
+  aria-label="Kategorien - random tooltip"
   data-tip="random tooltip"
   key="Kategorien"
+  role="link"
 >
   Kategorien
 </HeaderNavigationItem__DisabledNavigationItem>
