@@ -111,6 +111,8 @@ jobs:
           command: yarn run flow:check-now
       - run:
           name: Unit tests
+          environment:
+            E2E_TEST_IDS: '' # Empty string equals to false in JS
           command: yarn run test --maxWorkers 2
       - run:
           name: Ruby version
@@ -298,6 +300,8 @@ jobs:
             echo "CPU count is ${TOTAL_CPUS}"
       - run: 'curl -sL https://sentry.io/get-cli/ | bash'
       - checkout
+      - attach_workspace:
+          at: /tmp/output
       - restore_cache:
           keys:
             - 1-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
