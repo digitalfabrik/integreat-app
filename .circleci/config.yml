@@ -419,4 +419,4 @@ jobs:
           command: bundle exec fastlane github_bump_version
       - deploy:
           name: Notify
-          command: bundle exec fastlane notify
+          command: bundle exec fastlane notify_release
