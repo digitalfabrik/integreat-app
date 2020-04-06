@@ -4,46 +4,52 @@ workflows:
   version: 2
   commit:
     jobs:
-      - build_android
-      - build_ios
+      - build_android:
+          e2e_build: true
+      - build_ios:
+          e2e_build: true
       - e2e:
           requires:
             - build_ios
             - build_android
   weekly:
-    triggers:
-      - schedule:
-          cron: "0 0 * * 3"
-          filters:
-            branches:
-              only:
-                - NATIVE-487-cd # FIXME: Change
+#    triggers:
+#      - schedule:
+#          cron: "0 0 * * 3"
+#          filters:
+#            branches:
+#              only:
+#                - NATIVE-487-cd # FIXME: Change
     jobs:
-      - build_android
-      - build_ios
+      - build_android:
+          e2e_build: '' # Empty string equals to false in JS
+      - build_ios:
+          e2e_build: '' # Empty string equals to false in JS
       - deliver_android:
           requires:
             - build_android
       - deliver_ios:
           requires:
             - build_ios
-  bi-weekly:
-    triggers:
-      - schedule:
-          cron: "0 5 1,15,28 * *"
-          filters:
-            branches:
-              only:
-                - NATIVE-487-cd # FIXME: Change
-    jobs:
-      - build_android
-      - build_ios
-      - deliver_android:
-          requires:
-            - build_android
-      - deliver_ios:
-          requires:
-            - build_ios
+#  bi-weekly:
+#    triggers:
+#      - schedule:
+#          cron: "0 5 1,15,28 * *"
+#          filters:
+#            branches:
+#              only:
+#                - NATIVE-487-cd # FIXME: Change
+#    jobs:
+#      - build_android:
+#          e2e_build: '' # Empty string equals to false in JS
+#      - build_ios:
+#          e2e_build: '' # Empty string equals to false in JS
+#      - deliver_android:
+#          requires:
+#            - build_android
+#      - deliver_ios:
+#          requires:
+#            - build_ios
 jobs:
   build_android:
     docker:
@@ -51,6 +57,7 @@ jobs:
     resource_class: medium
     environment:
       TOTAL_CPUS: 2 # For class docker medium
+      E2E_TEST_IDS: << parameters.e2e_build >>
     shell: /bin/bash -eo pipefail
     steps:
       - run:
@@ -141,6 +148,7 @@ jobs:
       FL_OUTPUT_DIR: output
       FASTLANE_SKIP_UPDATE_CHECK: true
       TOTAL_CPUS: 4 # For class mac medium
+      E2E_TEST_IDS: << parameters.e2e_build >>
     shell: /bin/bash --login -o pipefail
     steps:
       - run:
@@ -278,42 +286,30 @@ jobs:
           name: "Show current CPU count"
           command: |
             echo "CPU count is ${TOTAL_CPUS}"
+      - run: 'curl -sL https://sentry.io/get-cli/ | bash'
       - checkout
       - restore_cache:
           keys:
-            - 1-gems-{{ arch }}-{{ checksum "ios/Gemfile.lock" }}
+            - 1-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
             - 1-gems-{{ arch }}-
       - run:
           command: bundle check || bundle install --path vendor/bundle
-          working_directory: ios
       - save_cache:
-          key: 1-gems-{{ arch }}-{{ checksum "ios/Gemfile.lock" }}
+          key: 1-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
           paths:
-            - ios/vendor/bundle
-      - restore_cache:
-          name: Restore Yarn Package Cache
-          keys:
-            - 4-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
-            - 4-yarn-{{ arch }}-
-      - run:
-          name: Install Dependencies
-          command: yarn install --frozen-lockfile
-      - save_cache:
-          name: Save Yarn Package Cache
-          key: 4-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
-          paths:
-            - ~/Library/Caches/Yarn/
-            - node_modules
+            - vendor/bundle
       - run:
           name: Ruby version
           command: ruby --version
       - run:
           name: Fastlane Browserstack Upload Live
-          command: bundle exec fastlane android browserstack_upload_live
+          command: bundle exec fastlane ios browserstack_upload_live
       - run:
           name: Fastlane TestFlight Upload
-          command: bundle exec fastlane testflight_upload
-          working_directory: ios
+          command: bundle exec fastlane ios testflight_upload
+      - run:
+          name: Fastlane Upload to Sentry
+          command: bundle exec fastlane ios sentry_upload
       - deploy:
           name: Bump version
           command: bundle exec fastlane github_bump_version
