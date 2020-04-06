@@ -8,7 +8,7 @@ private_lane :github_commit_version do |options|
   require 'octokit'
   require 'base64'
 
-  branch = options[:branch]
+  branch = git_branch() # Commit to current branch
   version_yml_path = options[:version_yml_path]
   repo = options[:repo]
   new_version_code = options[:new_version_code]
@@ -79,7 +79,6 @@ lane :github_bump_version do
       app_id: 59249,
       private_key: ENV['DELIVERINO_PRIVATE_KEY'],
       repo: "Integreat/integreat-react-native-app",
-      branch: "NATIVE-487-cd", # FIXME: Change
       version_yml_path: 'version.yml',
       **next_version
   )
