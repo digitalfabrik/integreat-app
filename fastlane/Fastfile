@@ -148,7 +148,7 @@ platform :android do
         version_code: next_version[:new_version_code],
         version_name: next_version[:new_version_name],
         package_name: "tuerantuer.app.integreat",
-        metadata_path: "./android/fastlane/metadata",
+        metadata_path: "./android/fastlane/metadata/android",
         track: track,
         skip_upload_changelogs: false,
         skip_upload_images: false,
