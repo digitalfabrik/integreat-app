@@ -44,7 +44,7 @@ class CategoryList extends React.PureComponent<PropsType> {
     const { categories, title, thumbnail, content, query, onInternalLinkClick } = this.props
     return (
       <div>
-        {thumbnail && <Centering><CategoryIcon src={thumbnail} /></Centering>}
+        {thumbnail && <Centering><CategoryIcon src={thumbnail} alt='' /></Centering>}
         {title && <Caption title={title} />}
         {content && <RemoteContent centered dangerouslySetInnerHTML={{ __html: content }}
                                    onInternalLinkClick={onInternalLinkClick} />}

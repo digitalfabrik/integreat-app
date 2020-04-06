@@ -6,8 +6,10 @@ import moment from 'moment-timezone'
 
 import CategoryListItem from '../CategoryListItem'
 import { CategoryModel } from '@integreat-app/integreat-api-client'
+import { brightTheme } from '../../../../modules/theme/constants/theme'
 
 const category = new CategoryModel({
+  root: false,
   path: '/augsburg/de/willkommen',
   title: 'Willkommen',
   content: 'this is a test content',
@@ -19,6 +21,7 @@ const category = new CategoryModel({
   hash: 'a36a56'
 })
 const childCategory = new CategoryModel({
+  root: false,
   path: '/augsburg/de/test',
   title: 'Child',
   content: 'this is a test content',
@@ -30,6 +33,7 @@ const childCategory = new CategoryModel({
   hash: 'a36a57'
 })
 const noThumbCategory = new CategoryModel({
+  root: false,
   path: '/augsburg/de/willkommen/willkommen-in-augsburg',
   title: 'GotNoThumb :O',
   content: 'some content',
@@ -44,15 +48,15 @@ const noThumbCategory = new CategoryModel({
 describe('CategoryListItem', () => {
   it('should render and match snapshot', () => {
     const wrapper = shallow(
-      <CategoryListItem category={category} subCategories={[childCategory]} />
-    )
+      <CategoryListItem theme={brightTheme} category={category} subCategories={[childCategory]} />
+    ).dive()
     expect(wrapper).toMatchSnapshot()
   })
 
   it('should replace empty thumbnail', () => {
     const wrapper = shallow(
-      <CategoryListItem category={noThumbCategory} subCategories={[noThumbCategory]} />
-    )
+      <CategoryListItem theme={brightTheme} category={noThumbCategory} subCategories={[noThumbCategory]} />
+    ).dive()
     expect(wrapper).toMatchSnapshot()
   })
 })

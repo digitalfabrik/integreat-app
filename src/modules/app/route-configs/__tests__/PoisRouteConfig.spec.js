@@ -7,7 +7,7 @@ import createLocation from '../../../../createLocation'
 
 const pois = [
   new PoiModel({
-    id: 1,
+    hash: '2fe6283485a93932',
     path: '/augsburg/de/locations/erster_poi',
     title: 'Erster Poi',
     availableLanguages: new Map(

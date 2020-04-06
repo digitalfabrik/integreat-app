@@ -10,10 +10,16 @@ exports[`CategoryListItem should render and match snapshot 1`] = `
       src="https://cms.integreat-ap…03/Beratung-150x150.png"
     />
     <CategoryListItem__CategoryCaption
-      search=""
-    >
-      Willkommen
-    </CategoryListItem__CategoryCaption>
+      aria-label="Willkommen"
+      highlightStyle={
+        Object {
+          "backgroundColor": "#fbda16",
+        }
+      }
+      sanitize={[Function]}
+      searchWords={Array []}
+      textToHighlight="Willkommen"
+    />
   </CategoryListItem__StyledLink>
   <CategoryListItem__SubCategory
     key="a36a57"
@@ -22,10 +28,10 @@ exports[`CategoryListItem should render and match snapshot 1`] = `
       to="/augsburg/de/test"
     >
       <CategoryListItem__SubCategoryCaption
-        search=""
-      >
-        Child
-      </CategoryListItem__SubCategoryCaption>
+        aria-label="Child"
+        searchWords={Array []}
+        textToHighlight="Child"
+      />
     </CategoryListItem__StyledLink>
   </CategoryListItem__SubCategory>
 </CategoryListItem__Row>
@@ -41,10 +47,16 @@ exports[`CategoryListItem should replace empty thumbnail 1`] = `
       src="test-file-stub"
     />
     <CategoryListItem__CategoryCaption
-      search=""
-    >
-      GotNoThumb :O
-    </CategoryListItem__CategoryCaption>
+      aria-label="GotNoThumb :O"
+      highlightStyle={
+        Object {
+          "backgroundColor": "#fbda16",
+        }
+      }
+      sanitize={[Function]}
+      searchWords={Array []}
+      textToHighlight="GotNoThumb :O"
+    />
   </CategoryListItem__StyledLink>
   <CategoryListItem__SubCategory
     key="a36a58"
@@ -53,10 +65,10 @@ exports[`CategoryListItem should replace empty thumbnail 1`] = `
       to="/augsburg/de/willkommen/willkommen-in-augsburg"
     >
       <CategoryListItem__SubCategoryCaption
-        search=""
-      >
-        GotNoThumb :O
-      </CategoryListItem__SubCategoryCaption>
+        aria-label="GotNoThumb :O"
+        searchWords={Array []}
+        textToHighlight="GotNoThumb :O"
+      />
     </CategoryListItem__StyledLink>
   </CategoryListItem__SubCategory>
 </CategoryListItem__Row>

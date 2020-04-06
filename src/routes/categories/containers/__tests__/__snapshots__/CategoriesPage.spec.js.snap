@@ -38,7 +38,7 @@ exports[`CategoriesPage should match snapshot and render a CategoryList if the c
       key="/augsburg/de"
       to="/augsburg/de"
     >
-      augsburg
+      Augsburg
     </Connect(Link)>
   </Breadcrumbs>
   <CategoryList
@@ -78,7 +78,7 @@ exports[`CategoriesPage should match snapshot and render a Page if page has no c
       key="/augsburg/de"
       to="/augsburg/de"
     >
-      augsburg
+      Augsburg
     </Connect(Link)>
     <Connect(Link)
       key="/augsburg/de/erste-schritte"

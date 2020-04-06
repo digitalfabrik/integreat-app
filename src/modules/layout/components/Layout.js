@@ -109,9 +109,10 @@ class Layout extends React.PureComponent<PropsType> {
 
   render () {
     const { asideStickyTop, footer, header, toolbar, modal, children, darkMode } = this.props
+    const modalVisible = !!modal
     return (
       <RichLayout>
-        <div>
+        <div aria-hidden={modalVisible}>
           {header}
           <Body>
             <Aside style={{ top: `${asideStickyTop}px` }}>
@@ -121,10 +122,12 @@ class Layout extends React.PureComponent<PropsType> {
               {children}
             </Main>
           </Body>
-          {modal}
         </div>
-        {footer}
         <ReactTooltip effect='solid' type={darkMode ? 'light' : 'dark'} delayShow={0} />
+        {modal}
+        <div aria-hidden={modalVisible}>
+          {footer}
+        </div>
       </RichLayout>
     )
   }
