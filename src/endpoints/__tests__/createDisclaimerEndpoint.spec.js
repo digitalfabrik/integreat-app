@@ -9,7 +9,7 @@ describe('disclaimer', () => {
   const disclaimer = createDisclaimerEndpoint(baseUrl)
 
   const pageJson = {
-    id: 1689,
+    path: '/augsburg/en/disclaimer/feedback-contact-and-opportunities-to-take-part/',
     title: 'Feedback, Kontakt und mögliches Engagement',
     type: 'disclaimer',
     modified_gmt: '2017-06-12 12:27:57',
@@ -32,6 +32,7 @@ describe('disclaimer', () => {
   it('should map fetched data to models', () => {
     const disclaimerModel = disclaimer.mapResponse(pageJson, params)
     expect(disclaimerModel).toEqual(new PageModel({
+      path: '/augsburg/en/disclaimer/feedback-contact-and-opportunities-to-take-part',
       title: pageJson.title,
       content: '<a>Ich bleib aber da.</a>',
       lastUpdate: moment.tz('2017-06-12 12:27:57', 'GMT'),
