@@ -145,7 +145,7 @@ platform :android do
         version_code: next_version[:new_version_code],
         version_name: next_version[:new_version_name],
         package_name: "tuerantuer.app.integreat",
-        metadata_path: "./metadata",
+        metadata_path: "./android/fastlane/metadata",
         track: 'alpha',
         skip_upload_changelogs: true,
         skip_upload_images: true,
@@ -202,6 +202,22 @@ platform :ios do
     generic_sentry_upload(
         package_name: 'de.integreat-app',
         sourcemap_path: '/tmp/output/index.ios.bundle.map'
+    )
+  end
+
+  desc "Upload to TestFlight"
+  lane :testflight_upload do
+    ensure_env_vars(
+        env_vars: ['FASTLANE_USER', 'FASTLANE_PASSWORD']
+    )
+
+    # https://docs.fastlane.tools/actions/deliver/
+    deliver(
+        ipa: "/tmp/output/Integreat.ipa",
+        submit_for_review: false,
+        automatic_release: false,
+        force: true,
+        metadata_path: "./ios/fastlane/"
     )
   end
 end

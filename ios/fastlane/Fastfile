@@ -23,7 +23,6 @@ end
 
 desc "Create a release build"
 lane :release do
-  ENV["E2E_TEST_IDS"] = "1"
   ENV["BUNDLE_CONFIG"] = "./metro.config.ci.js"
   ENV["EXTRA_PACKAGER_ARGS"] = "--sourcemap-output /Users/distiller/project/ios/index.ios.bundle.map"
 
@@ -49,18 +48,3 @@ lane :release do
   )
 end
 
-desc "Upload to TestFlight"
-lane :testflight_upload do
-  ensure_env_vars(
-      env_vars: ['FASTLANE_USER', 'FASTLANE_PASSWORD']
-  )
-
-  # https://docs.fastlane.tools/actions/deliver/
-  deliver(
-      ipa: "/tmp/output/Integreat.ipa",
-      submit_for_review: false,
-      automatic_release: false,
-      force: true,
-      metadata_path: "./metadata"
-  )
-end

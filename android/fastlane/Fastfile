@@ -41,7 +41,6 @@ lane :release do
 
   puts(next_version)
 
-  ENV["E2E_TEST_IDS"] = "1"
   ENV["BUNDLE_CONFIG"] = "./metro.config.ci.js"
 
   gradle_system_properties = {
