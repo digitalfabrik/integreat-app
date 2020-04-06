@@ -33,6 +33,10 @@ workflows:
           production: false
           requires:
             - build_ios
+      - party:
+          requires:
+            - deliver_android
+            - deliver_ios
 #  bi-weekly:
 #    triggers:
 #      - schedule:
@@ -47,11 +51,17 @@ workflows:
 #      - build_ios:
 #          e2e_build: false
 #      - deliver_android:
+#          production: false
 #          requires:
 #            - build_android
 #      - deliver_ios:
+#          production: false
 #          requires:
 #            - build_ios
+#      - party:
+#          requires:
+#            - deliver_android
+#            - deliver_ios
 jobs:
   build_android:
     parameters:
@@ -289,9 +299,6 @@ jobs:
       - run:
           name: Fastlane Upload to Sentry
           command: bundle exec fastlane android sentry_upload
-      - deploy:
-          name: Bump version
-          command: bundle exec fastlane github_bump_version
 
   deliver_ios:
     parameters:
@@ -336,9 +343,6 @@ jobs:
       - run:
           name: Fastlane Upload to Sentry
           command: bundle exec fastlane ios sentry_upload
-      - deploy:
-          name: Bump version
-          command: bundle exec fastlane github_bump_version
 
   e2e:
     docker:
@@ -381,3 +385,26 @@ jobs:
       - run:
           name: Fastlane E2E Tests on Browserstack
           command: bundle exec fastlane ios browserstack_e2e_tests
+
+  party:
+    docker:
+      - image: circleci/ruby:2.6.5
+    resource_class: small
+    shell: /bin/bash -eo pipefail
+    environment:
+      FASTLANE_SKIP_UPDATE_CHECK: true
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - 1-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
+            - 1-gems-{{ arch }}-
+      - run:
+          command: bundle check || bundle install --path vendor/bundle
+      - save_cache:
+          key: 1-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+      - deploy:
+          name: Bump version
+          command: bundle exec fastlane github_bump_version
