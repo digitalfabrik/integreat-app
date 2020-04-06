@@ -25,7 +25,7 @@ export type AllPayloadsType = {|
   disclaimerPayload: Payload<PageModel>
 |}
 
-export type FeedbackTargetInformationType = {|id?: number, title?: string, alias?: string|} | null
+export type FeedbackTargetInformationType = {| path?: string, title?: string, alias?: string |} | null
 
 export interface RouteConfig<T, P> {
   name: string,

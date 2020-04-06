@@ -11,7 +11,7 @@ import TileModel from '../models/TileModel'
 
 type PropsType = {|
   title: ?string,
-  tiles: TileModel[]
+  tiles: Array<TileModel>
 |}
 
 const TilesRow = styled(Row)`
@@ -27,7 +27,7 @@ class Tiles extends React.PureComponent<PropsType> {
       <div>
         {this.props.title && <Caption title={this.props.title} />}
         <TilesRow>
-          {this.props.tiles.map(tile => <Tile key={tile.id} tile={tile} />)}
+          {this.props.tiles.map(tile => <Tile key={tile.path} tile={tile} />)}
         </TilesRow>
       </div>
     )

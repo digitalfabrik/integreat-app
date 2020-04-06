@@ -7,10 +7,9 @@ exports[`Tiles should match snapshot 1`] = `
   />
   <Tiles__TilesRow>
     <Tile
-      key="35"
+      key="/augsburg/de/willkommen/willkommen-in-augsburg"
       tile={
         TileModel {
-          "_id": "35",
           "_isExternalUrl": false,
           "_path": "/augsburg/de/willkommen/willkommen-in-augsburg",
           "_postData": null,
@@ -20,10 +19,9 @@ exports[`Tiles should match snapshot 1`] = `
       }
     />
     <Tile
-      key="36"
+      key="/augsburg/de/willkommen/erste-schritte"
       tile={
         TileModel {
-          "_id": "36",
           "_isExternalUrl": false,
           "_path": "/augsburg/de/willkommen/erste-schritte",
           "_postData": null,
