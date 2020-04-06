@@ -18,6 +18,7 @@ const Wrapper: StyledComponent<{}, ThemeType, *> = styled(View)`
   background-color: ${props => props.theme.colors.backgroundColor};
   padding: 20px;
   align-items: center;
+  flex-grow: 1;
 `
 
 export type PropsType = {|
