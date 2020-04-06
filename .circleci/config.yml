@@ -40,7 +40,7 @@ workflows:
   bi-weekly:
     triggers:
       - schedule:
-          cron: "0 5 */3 * *" # FIXME "0 5 1,15,28 * *"
+          cron: "0 5 7,9,11,12,14,16,18,20,22,24,26 * *" # FIXME "0 5 1,15,28 * *"
           filters:
             branches:
               only:
