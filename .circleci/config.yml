@@ -30,7 +30,7 @@ workflows:
 #          requires:
 #            - build_android
       - deliver_ios:
-          production: false
+          production: true
           requires:
             - build_ios
       - party:
