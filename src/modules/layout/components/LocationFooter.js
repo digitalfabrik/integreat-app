@@ -24,9 +24,10 @@ export class LocationFooter extends React.PureComponent<PropsType> {
       <CleanLink to={new DisclaimerRouteConfig().getRoutePath({ city, language })}>
         {t('imprintAndContact')}
       </CleanLink>
+      <CleanAnchor href='https://integreat-app.de/about/'>{t('settings:about')}</CleanAnchor>
       <CleanAnchor href='https://integreat-app.de/datenschutz/'>{t('privacy')}</CleanAnchor>
     </Footer>
   }
 }
 
-export default withTranslation('layout')(LocationFooter)
+export default withTranslation(['layout', 'settings'])(LocationFooter)
