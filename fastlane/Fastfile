@@ -85,6 +85,25 @@ lane :github_bump_version do
   )
 end
 
+desc "Notify about the status of this build"
+lane :notify do
+  ensure_env_vars(
+      env_vars: ['SLACK_URL']
+  )
+
+  next_version = next_version()
+  version_code = next_version[:new_version_code]
+  version_name = next_version[:new_version_name]
+  slack(
+      message: "Integreat #{version_name} has been released successfully on iOS and Android!",
+      payload: {
+          "Version Name" => version_name,
+          "Version Code" => version_code,
+      },
+      default_payloads: []
+  )
+end
+
 
 platform :android do
   desc "Upload to Browserstack Live"

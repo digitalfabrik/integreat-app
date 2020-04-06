@@ -20,6 +20,11 @@ or alternatively using `brew cask install fastlane`
 fastlane github_bump_version
 ```
 Bump version file in Git repository
+### notify
+```
+fastlane notify
+```
+Notify about the status of this build
 
 ----
 
