@@ -11,6 +11,8 @@ import StyledLink from './StyledLink'
 import SubCategoryListItem from './SubCategoryListItem'
 import Image from '../../common/components/Image'
 import { contentDirection } from '../../i18n/contentDirection'
+import Highlighter from 'react-native-highlight-words'
+import normalizeSearchString from '../../common/normalizeSearchString'
 
 const FlexStyledLink: StyledComponent<{}, ThemeType, *> = styled(StyledLink)`
   display: flex;
@@ -30,7 +32,7 @@ const Row: StyledComponent<{}, {}, *> = styled.View`
   flex: 1;
 `
 
-const CategoryTitle = styled.Text`
+const CategoryTitle = styled(Highlighter)`
   font-family: ${props => props.theme.fonts.decorativeFontRegular};
   color: ${props => props.theme.colors.textColor};
 `
@@ -73,9 +75,10 @@ class CategoryListItem extends React.Component<PropsType> {
   }
 
   renderTitle (): React.Node {
-    const { query, theme } = this.props
-    return <CategoryCaption search={query || ''} theme={theme}>
-      <CategoryTitle theme={theme}>{this.props.category.title}</CategoryTitle>
+    const { query, theme, category } = this.props
+    return <CategoryCaption theme={theme}>
+      <CategoryTitle theme={theme} textToHighlight={category.title} sanitize={normalizeSearchString}
+                     searchWords={query ? [query] : []} highlightStyle={{ backgroundColor: theme.colors.themeColor }} />
     </CategoryCaption>
   }
 

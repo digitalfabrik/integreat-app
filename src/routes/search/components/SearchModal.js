@@ -13,6 +13,7 @@ import type { NavigateToCategoryParamsType } from '../../../modules/app/createNa
 import type { TFunction } from 'react-i18next'
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
 import SearchFeedbackBox from './SearchFeedbackBox'
+import normalizeSearchString from '../../../modules/common/normalizeSearchString'
 
 const Wrapper: StyledComponent<{}, ThemeType, *> = styled.View`
   position: absolute;  
@@ -46,18 +47,18 @@ class SearchModal extends React.Component<PropsType, StateType> {
 
   findCategories (categories: CategoriesMapModel): Array<CategoryListItemType> {
     const { query } = this.state
-    const filterText = query.toLowerCase()
+    const normalizedFilter = normalizeSearchString(query)
     const categoriesArray = categories.toArray()
 
     // find all categories whose titles include the filter text and sort them lexicographically
     const categoriesWithTitle = categoriesArray
-      .filter(category => category.title.toLowerCase().includes(filterText))
+      .filter(category => normalizeSearchString(category.title).includes(normalizedFilter))
       .sort((category1, category2) => category1.title.localeCompare(category2.title))
 
     // find all categories whose contents but not titles include the filter text and sort them lexicographically
     const categoriesWithContent = categoriesArray
-      .filter(category => !category.title.toLowerCase().includes(filterText))
-      .filter(category => category.content.toLowerCase().includes(filterText))
+      .filter(category => !normalizeSearchString(category.title).includes(normalizedFilter))
+      .filter(category => normalizeSearchString(category.content).includes(normalizedFilter))
       .sort((category1, category2) => category1.title.localeCompare(category2.title))
 
     // return all categories from above and remove the root category

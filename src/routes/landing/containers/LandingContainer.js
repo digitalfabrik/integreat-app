@@ -100,8 +100,7 @@ class LandingContainer extends React.Component<ContainerPropsType> {
 
     return <ThemedTranslatedLanding cities={cities} language={language}
                                     navigateToDashboard={this.navigateToDashboard}
-                                    clearResourcesAndCache={this.clearResourcesAndCache}
-    />
+                                    clearResourcesAndCache={this.clearResourcesAndCache} />
   }
 }
 
