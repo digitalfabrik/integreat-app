@@ -5,9 +5,9 @@ workflows:
   commit:
     jobs:
       - build_android:
-          e2e_build: "1"
+          e2e_build: true
       - build_ios:
-          e2e_build: "1"
+          e2e_build: true
       - e2e:
           requires:
             - build_ios
@@ -22,13 +22,15 @@ workflows:
     #                - NATIVE-487-cd # FIXME: Change
     jobs:
       - build_android:
-          e2e_build: '' # Empty string equals to false in JS
+          e2e_build: false
       - build_ios:
-          e2e_build: '' # Empty string equals to false in JS
+          e2e_build: false
       - deliver_android:
+          production: false
           requires:
             - build_android
       - deliver_ios:
+          production: false
           requires:
             - build_ios
 #  bi-weekly:
@@ -41,9 +43,9 @@ workflows:
 #                - NATIVE-487-cd # FIXME: Change
 #    jobs:
 #      - build_android:
-#          e2e_build: '' # Empty string equals to false in JS
+#          e2e_build: false
 #      - build_ios:
-#          e2e_build: '' # Empty string equals to false in JS
+#          e2e_build: false
 #      - deliver_android:
 #          requires:
 #            - build_android
@@ -55,14 +57,14 @@ jobs:
     parameters:
       e2e_build:
         description: Whether to create a build for E2E testing
-        type: string
-        default: "1"
+        type: boolean
+        default: true
     docker:
       - image: circleci/android:api-28-node
     resource_class: medium
     environment:
       TOTAL_CPUS: 2 # For class docker medium
-      E2E_TEST_IDS: << parameters.e2e_build >>
+      E2E_TEST_IDS: <<# parameters.e2e_build >>1<</ parameters.e2e_build >> # Empty string equals to false in JS
     shell: /bin/bash -eo pipefail
     steps:
       - run:
@@ -152,15 +154,15 @@ jobs:
     parameters:
       e2e_build:
         description: Whether to create a build for E2E testing
-        type: string
-        default: "1"
+        type: boolean
+        default: true
     macos:
       xcode: 11.2.0
     environment:
       FL_OUTPUT_DIR: output
       FASTLANE_SKIP_UPDATE_CHECK: true
       TOTAL_CPUS: 4 # For class mac medium
-      E2E_TEST_IDS: << parameters.e2e_build >>
+      E2E_TEST_IDS: <<# parameters.e2e_build >>1<</ parameters.e2e_build >> # Empty string equals to false in JS
     shell: /bin/bash --login -o pipefail
     steps:
       - run:
@@ -234,6 +236,11 @@ jobs:
             - Integreat.ipa
 
   deliver_android:
+    parameters:
+      production:
+        description: Whether to roll out the build to production
+        type: boolean
+        default: false
     docker:
       - image: circleci/android:api-28-node
     resource_class: small
@@ -278,7 +285,7 @@ jobs:
           command: bundle exec fastlane android browserstack_upload_live
       - run:
           name: Fastlane Play Store Upload
-          command: bundle exec fastlane android playstore_upload
+          command: bundle exec fastlane android playstore_upload production:"<< parameters.production >>"
       - run:
           name: Fastlane Upload to Sentry
           command: bundle exec fastlane android sentry_upload
@@ -287,6 +294,11 @@ jobs:
           command: bundle exec fastlane github_bump_version
 
   deliver_ios:
+    parameters:
+      production:
+        description: Whether to roll out the build to production
+        type: boolean
+        default: false
     macos:
       xcode: 11.2.0
     environment:
@@ -320,7 +332,7 @@ jobs:
           command: bundle exec fastlane ios browserstack_upload_live
       - run:
           name: Fastlane TestFlight Upload
-          command: bundle exec fastlane ios testflight_upload
+          command: bundle exec fastlane ios testflight_upload production:"<< parameters.production >>"
       - run:
           name: Fastlane Upload to Sentry
           command: bundle exec fastlane ios sentry_upload
