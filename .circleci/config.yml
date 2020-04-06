@@ -5,9 +5,9 @@ workflows:
   commit:
     jobs:
       - build_android:
-          e2e_build: true
+          e2e_build: "1"
       - build_ios:
-          e2e_build: true
+          e2e_build: "1"
       - e2e:
           requires:
             - build_ios
@@ -56,7 +56,7 @@ jobs:
       e2e_build:
         description: Whether to create a build for E2E testing
         type: string
-        default: true
+        default: "1"
     docker:
       - image: circleci/android:api-28-node
     resource_class: medium
@@ -147,6 +147,11 @@ jobs:
             - app-release.apk
 
   build_ios:
+    parameters:
+      e2e_build:
+        description: Whether to create a build for E2E testing
+        type: string
+        default: "1"
     macos:
       xcode: 11.2.0
     environment:
