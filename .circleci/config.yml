@@ -21,21 +21,21 @@ workflows:
     #              only:
     #                - NATIVE-487-cd # FIXME: Change
     jobs:
-      - build_android:
-          e2e_build: false
+#      - build_android:
+#          e2e_build: false
       - build_ios:
           e2e_build: false
-      - deliver_android:
-          production: false
-          requires:
-            - build_android
+#      - deliver_android:
+#          production: false
+#          requires:
+#            - build_android
       - deliver_ios:
           production: false
           requires:
             - build_ios
       - party:
           requires:
-            - deliver_android
+#            - deliver_android
             - deliver_ios
 #  bi-weekly:
 #    triggers:
