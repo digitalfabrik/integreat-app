@@ -232,11 +232,13 @@ platform :ios do
         env_vars: ['FASTLANE_USER', 'FASTLANE_PASSWORD']
     )
 
-    production = options[:production] === true
+    next_version = next_version()
+    version_name = next_version[:new_version_name]
 
     # https://docs.fastlane.tools/actions/deliver/
     deliver(
         ipa: "/tmp/output/Integreat.ipa",
+        app_version: version_name,
         submit_for_review: true,
         automatic_release: false, # TODO: change to `true` if we are sure CD works
         force: true,
