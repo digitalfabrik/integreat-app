@@ -15,6 +15,7 @@ import type { LocationType } from './Landing'
 import { Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import CityGroup from './CityGroup'
+import normalizeSearchString from '../../../modules/common/normalizeSearchString'
 
 const NearbyMessageContainer: StyledComponent<{}, {}, *> = styled.View`
   padding: 7px;
@@ -39,24 +40,24 @@ type PropsType = {|
   t: TFunction
 |}
 
-const checkAliases = (cityModel: CityModel, filterText: string): boolean => {
-  return Object.keys(cityModel.aliases || {}).some(key => key.toLowerCase().includes(filterText.toLowerCase()))
+const checkAliases = (cityModel: CityModel, normalizedFilter: string): boolean => {
+  return Object.keys(cityModel.aliases || {}).some(key => normalizeSearchString(key).includes(normalizedFilter))
 }
 
 const byNameAndAliases = (name: string) => {
-  return (city: CityModel) => city.name.toLowerCase().includes(name) || checkAliases(city, name)
+  return (city: CityModel) => normalizeSearchString(city.name).includes(name) || checkAliases(city, name)
 }
 
 class CitySelector extends React.PureComponent<PropsType> {
   _filter (): Array<CityModel> {
-    const filterText = this.props.filterText.toLowerCase()
+    const normalizedFilter = normalizeSearchString(this.props.filterText)
     const cities = this.props.cities
-    if (filterText === 'wirschaffendas') {
+    if (normalizedFilter === 'wirschaffendas') {
       return cities.filter(_city => !_city.live)
     } else {
       return cities
         .filter(_city => _city.live)
-        .filter(byNameAndAliases(filterText))
+        .filter(byNameAndAliases(normalizedFilter))
     }
   }
 
