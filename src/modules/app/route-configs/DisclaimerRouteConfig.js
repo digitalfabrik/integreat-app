@@ -60,7 +60,7 @@ class DisclaimerRouteConfig implements RouteConfig<DisclaimerRouteParamsType, Re
 
   getFeedbackTargetInformation = ({ payloads }) => {
     const disclaimer = payloads.disclaimer.data
-    return disclaimer ? { id: disclaimer.id } : null
+    return disclaimer ? { path: disclaimer.path } : null
   }
 }
 

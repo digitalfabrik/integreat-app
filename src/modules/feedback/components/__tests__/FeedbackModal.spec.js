@@ -26,15 +26,14 @@ describe('FeedbackModal', () => {
     })
 
     expect(shallow(
-    <FeedbackModal
-      location={location}
-      query='ab'
-      cities={cities}
-      id={1234}
-      title='title'
-      alias='alias'
-      closeFeedbackModal={() => {}}
-      feedbackStatus='up' />
+      <FeedbackModal location={location}
+                     query='ab'
+                     cities={cities}
+                     path='path'
+                     title='title'
+                     alias='alias'
+                     closeFeedbackModal={() => {}}
+                     feedbackStatus='up' />
     )).toMatchSnapshot()
   })
 })

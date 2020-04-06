@@ -1,10 +1,11 @@
 // @flow
 
 import React from 'react'
-import { NothingFoundFeedbackBox, StyledSubmitButton } from '../NothingFoundFeedbackBox'
+import { NothingFoundFeedbackBox } from '../NothingFoundFeedbackBox'
 import { SEARCH_ROUTE } from '../../../../modules/app/route-configs/SearchRouteConfig'
 import { shallow } from 'enzyme'
 import createLocation from '../../../../createLocation'
+import TextButton from '../../../../modules/common/components/TextButton'
 
 describe('NothingFoundFeedbackBox', () => {
   const t = (key: ?string): string => key || ''
@@ -17,7 +18,7 @@ describe('NothingFoundFeedbackBox', () => {
 
   it('should show a thanks message after feedback was sent', () => {
     const component = shallow(<NothingFoundFeedbackBox location={location} t={t} />)
-    const submitButton = component.find(StyledSubmitButton)
+    const submitButton = component.find(TextButton)
     submitButton.simulate('click')
 
     expect(component).toMatchSnapshot()
