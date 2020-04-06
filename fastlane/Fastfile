@@ -141,7 +141,7 @@ platform :android do
 
     next_version = next_version()
 
-    track = options[:channel] == 'production' ? 'production' : 'beta'
+    track = options[:production] === true ? 'production' : 'beta'
 
     # https://docs.fastlane.tools/actions/supply/
     upload_to_play_store(
@@ -209,12 +209,12 @@ platform :ios do
   end
 
   desc "Upload to TestFlight"
-  lane :testflight_upload do
+  lane :testflight_upload do |options|
     ensure_env_vars(
         env_vars: ['FASTLANE_USER', 'FASTLANE_PASSWORD']
     )
 
-    production = options[:channel] == 'production'
+    production = options[:production] === true
 
     # https://docs.fastlane.tools/actions/deliver/
     deliver(

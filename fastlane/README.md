@@ -63,6 +63,11 @@ Run E2E tests on BrowserStack
 fastlane ios sentry_upload
 ```
 Upload source map to Sentry
+### ios testflight_upload
+```
+fastlane ios testflight_upload
+```
+Upload to TestFlight
 
 ----
 
