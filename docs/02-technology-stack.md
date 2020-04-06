@@ -28,7 +28,7 @@ The data which is received through the restful api of the CMS is "cached" and st
 * The linter for JavaScript is [eslint](http://eslint.org/)
 * The linter for CSS is [stylelint](https://stylelint.io/)
 
-You can run the linter by calling **yarn run lint**. Some issues can be fixed automatically by running **yarn run lintfix**
+You can run the linter by calling **yarn run lint**. Some issues can be fixed automatically by running **yarn run lint:fix**
 
 ### Type checking
 [Flow](https://flow.org/) is used for static type checking.
