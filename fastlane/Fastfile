@@ -134,24 +134,27 @@ platform :android do
   end
 
   desc "Upload to Play Store"
-  lane :playstore_upload do
+  lane :playstore_upload do |options|
     ensure_env_vars(
         env_vars: ['GOOGLE_SERVICE_ACCOUNT_JSON']
     )
 
     next_version = next_version()
 
+    track = options[:channel] == 'production' ? 'production' : 'beta'
+
+    # https://docs.fastlane.tools/actions/supply/
     upload_to_play_store(
         version_code: next_version[:new_version_code],
         version_name: next_version[:new_version_name],
         package_name: "tuerantuer.app.integreat",
         metadata_path: "./android/fastlane/metadata",
-        track: 'alpha',
-        skip_upload_changelogs: true,
-        skip_upload_images: true,
-        skip_upload_screenshots: true,
-        skip_upload_metadata: true,
-        release_status: "draft",
+        track: track,
+        skip_upload_changelogs: false,
+        skip_upload_images: false,
+        skip_upload_screenshots: false,
+        skip_upload_metadata: false,
+        release_status: "completed",
         apk: '/tmp/output/app-release.apk',
         json_key_data: ENV["GOOGLE_SERVICE_ACCOUNT_JSON"]
     )
@@ -211,12 +214,17 @@ platform :ios do
         env_vars: ['FASTLANE_USER', 'FASTLANE_PASSWORD']
     )
 
+    production = options[:channel] == 'production'
+
     # https://docs.fastlane.tools/actions/deliver/
     deliver(
         ipa: "/tmp/output/Integreat.ipa",
-        submit_for_review: false,
-        automatic_release: false,
+        submit_for_review: production,
+        automatic_release: false, # TODO: change to `production`
         force: true,
+        skip_screenshots: false,
+        skip_metadata: false,
+        skip_app_version_update: false,
         metadata_path: "./ios/fastlane/"
     )
   end
