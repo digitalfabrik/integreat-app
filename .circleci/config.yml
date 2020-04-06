@@ -36,7 +36,7 @@ workflows:
       - bump_version:
           requires:
 #            - build_android
-            - build_ios # Bump version should only depend on build_ and not delivery_. Sometimes delivery fails but the version code already has been used.
+            - build_ios # Bump version should only depend on build_ and not delivery_. Sometimes upload to the stores fails only for iOS or Android. Then we still should bump the version
 #  bi-weekly:
 #    triggers:
 #      - schedule:
@@ -399,7 +399,7 @@ jobs:
 
   bump_version:
     docker:
-      - image: circleci/ruby:2.6.5
+      - image: circleci/android:api-28-node
     resource_class: small
     shell: /bin/bash -eo pipefail
     environment:
