@@ -19,6 +19,6 @@ def next_version()
 
   {
       new_version_code: version_code + 1,
-      new_version_name: "%d.%02d.%d" % [year, month, version_counter]
+      new_version_name: "%d.%d.%d" % [year, month, version_counter] # e.g. 2020.4.0, 2020.4.1 ...
   }
 end
