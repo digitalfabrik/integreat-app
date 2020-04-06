@@ -12,7 +12,7 @@ lane :certificates do
 end
 
 desc "Create a simulator build"
-lane :build do
+lane :simulator_build do
   xcbuild(
       workspace: "Integreat.xcworkspace",
       scheme: "Integreat",
