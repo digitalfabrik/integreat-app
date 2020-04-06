@@ -31,13 +31,13 @@ const Element = styled(Link)`
 `
 
 const ActiveElement = styled(Element)`
+  color: ${props => props.theme.colors.textColor};
   ${props => props.selected
     ? 'font-weight: 700;'
     : `:hover {
           font-weight: 700;
           border-radius: 0;
-        }`};
-  color: ${props => props.theme.colors.textColor};
+        }`}
 `
 
 const DisabledElement = styled(Element.withComponent('span'))`
