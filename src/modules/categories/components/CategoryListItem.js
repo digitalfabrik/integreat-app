@@ -6,7 +6,6 @@ import iconPlaceholder from '../assets/IconPlaceholder.png'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
-import CategoryCaption from './CategoryCaption'
 import StyledLink from './StyledLink'
 import SubCategoryListItem from './SubCategoryListItem'
 import Image from '../../common/components/Image'
@@ -28,8 +27,13 @@ const DirectionContainer: StyledComponent<DirectionContainerPropsType, ThemeType
   flex-direction: ${props => contentDirection(props.language)};
 `
 
-const Row: StyledComponent<{}, {}, *> = styled.View`
+const CategoryTitleContainer: StyledComponent<DirectionContainerPropsType, ThemeType, *> = styled.View`
   flex: 1;
+  flex-direction: ${props => contentDirection(props.language)};
+  align-self: center;
+  padding: 15px 5px;
+  border-bottom-width: 2px;
+  border-bottom-color: ${props => props.theme.colors.themeColor};
 `
 
 const CategoryTitle = styled(Highlighter)`
@@ -75,17 +79,17 @@ class CategoryListItem extends React.Component<PropsType> {
   }
 
   renderTitle (): React.Node {
-    const { query, theme, category } = this.props
-    return <CategoryCaption theme={theme}>
+    const { query, theme, category, language } = this.props
+    return <CategoryTitleContainer theme={theme} language={language}>
       <CategoryTitle theme={theme} textToHighlight={category.title} sanitize={normalizeSearchString}
                      searchWords={query ? [query] : []} highlightStyle={{ backgroundColor: theme.colors.themeColor }} />
-    </CategoryCaption>
+    </CategoryTitleContainer>
   }
 
   render () {
     const { language, category, theme } = this.props
     return (
-      <Row>
+      <>
         <FlexStyledLink onPress={this.onCategoryPress} underlayColor={this.props.theme.colors.backgroundAccentColor}>
           <DirectionContainer theme={theme} language={language}>
             <CategoryThumbnail source={category.thumbnail || iconPlaceholder} theme={theme} />
@@ -93,7 +97,7 @@ class CategoryListItem extends React.Component<PropsType> {
           </DirectionContainer>
         </FlexStyledLink>
         {this.renderSubCategories()}
-      </Row>
+      </>
     )
   }
 }
