@@ -17,6 +17,7 @@ const Wrapper: StyledComponent<{}, ThemeType, *> = styled.View`
   left: 0;
   right: 0;
   background-color: ${props => props.theme.colors.backgroundColor};
+  justifyContent: center;
 `
 
 type PropsType = {
