@@ -18,7 +18,7 @@ class FeedbackModalContainer extends React.Component<{| navigation: NavigationSc
   sendFeedback = async (feedbackData: FeedbackParamsType) => {
     const apiUrl = await determineApiUrl()
     const feedbackEndpoint = createFeedbackEndpoint(apiUrl)
-    feedbackEndpoint.request(feedbackData)
+    await feedbackEndpoint.request(feedbackData)
   }
 
   render () {
