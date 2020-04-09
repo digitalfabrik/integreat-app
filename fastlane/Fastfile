@@ -48,22 +48,21 @@ private_lane :generic_sentry_upload do |options|
       env_vars: ['SENTRY_AUTH_TOKEN']
   )
 
-  next_version = next_version()
-  version_code = next_version[:new_version_code]
-  version_name = next_version[:new_version_name]
+  new_version_code = options[:new_version_code]
+  new_version_name = options[:new_version_name]
   package_name = options[:package_name]
   sourcemap_path = options[:sourcemap_path]
 
   sentry_create_release(
-      version: version_name,
+      version: new_version_name,
       app_identifier: package_name,
       finalize: true
   )
 
   sentry_upload_sourcemap(
-      version: version_name,
+      version: new_version_name,
       app_identifier: package_name,
-      dist: version_code.to_s,
+      dist: new_version_code.to_s,
       sourcemap: sourcemap_path,
       rewrite: true
   )
@@ -127,7 +126,8 @@ platform :android do
   lane :sentry_upload do
     generic_sentry_upload(
         package_name: 'tuerantuer.app.integreat',
-        sourcemap_path: '/tmp/output/index.android.bundle.map'
+        sourcemap_path: '/tmp/output/index.android.bundle.map',
+        **next_version
     )
   end
 
@@ -221,7 +221,8 @@ platform :ios do
   lane :sentry_upload do
     generic_sentry_upload(
         package_name: 'de.integreat-app',
-        sourcemap_path: '/tmp/output/index.ios.bundle.map'
+        sourcemap_path: '/tmp/output/index.ios.bundle.map',
+        **next_version
     )
   end
 
