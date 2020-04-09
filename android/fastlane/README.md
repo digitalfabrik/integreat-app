@@ -25,11 +25,11 @@ Prepare the keystore
 fastlane dependencies
 ```
 Download Gradle Dependencies
-### release
+### build
 ```
-fastlane release
+fastlane build
 ```
-Create a release build
+Create a build
 
 ----
 
