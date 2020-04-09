@@ -54,7 +54,7 @@ class FeedbackModal extends React.Component<PropsType, StateType> {
 
   onFeedbackCommentChanged = (comment: string) => this.setState({ comment })
 
-  onSubmit = () => {
+  onSubmit = async () => {
     const { feedbackIndex, comment } = this.state
     const feedbackItem = this.props.feedbackItems[feedbackIndex]
     const feedbackData: FeedbackParamsType = {
