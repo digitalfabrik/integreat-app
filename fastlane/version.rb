@@ -11,9 +11,11 @@ def next_version()
   now = Time.now
   year = now.year
   month = now.month
-  version_counter = version_name_parts.last.to_i + 1
 
-  if year != version_name_parts[0].to_i || month != version_name_parts[1].to_i
+
+  if year == version_name_parts[0].to_i && month == version_name_parts[1].to_i
+    version_counter = version_name_parts.last.to_i + 1
+  else
     version_counter = 0
   end
 
