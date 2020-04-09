@@ -74,6 +74,7 @@ jobs:
     environment:
       TOTAL_CPUS: 2 # For class docker medium
       E2E_TEST_IDS: <<# parameters.e2e_build >>1<</ parameters.e2e_build >> # Empty string equals to false in JS
+      FASTLANE_SKIP_UPDATE_CHECK: true
     shell: /bin/bash -eo pipefail
     steps:
       - run:
