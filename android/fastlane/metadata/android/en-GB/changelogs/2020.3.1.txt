@@ -1,0 +1,7 @@
+We've been working for you to fix several bugs:
+* The app now displays all contents in Deutsch-Einfach and Tigrinya.
+* The app always shows description texts for events if available.
+* Opening PDFs from external URLs is possible now.
+* The intro slides now adjust to the size of your screen.
+
+Furthermore we've fixed some minor glitches and worked under the hood to increase performance and stability.

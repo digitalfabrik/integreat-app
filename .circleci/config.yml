@@ -1,17 +1,117 @@
+version: 2.1
+
+parameters:
+  api_triggered:
+    type: boolean
+    description: Whether the pipeline was triggered through the CircleCi API (https://circleci.com/docs/api/v2/?shell#trigger-a-new-pipeline)
+    default: false
+  production:
+    type: boolean
+    description: Whether to deploy to production instead of beta channel
+    default: false
+
+workflows:
+  version: 2
+  commit:
+    unless: << pipeline.parameters.api_triggered >>
+    jobs:
+      - build_android:
+          e2e_build: true
+      - build_ios:
+          e2e_build: true
+      - e2e:
+          requires:
+            - build_ios
+            - build_android
+  api-triggered:
+    when: << pipeline.parameters.api_triggered >>
+    jobs:
+      - build_android:
+          e2e_build: false
+      - build_ios:
+          e2e_build: false
+      - deliver_android:
+          production: << pipeline.parameters.production >>
+          requires:
+            - build_android
+      - deliver_ios:
+          production: << pipeline.parameters.production >>
+          requires:
+            - build_ios
+      - bump_version:
+          requires: # Bump version should only depend on build_ and not delivery_. Sometimes upload to the stores fails only for iOS or Android. Then we still should bump the version
+            - build_android
+            - build_ios
+  weekly:
+    triggers:
+      - schedule:
+          cron: "0 0 18,20,24 * *" # FIXME "0 0 * * 3"
+          filters:
+            branches:
+              only:
+                - develop
+    jobs:
+      - build_android:
+          e2e_build: false
+      - build_ios:
+          e2e_build: false
+      - deliver_android:
+          production: false
+          requires:
+            - build_android
+      - deliver_ios:
+          production: false
+          requires:
+            - build_ios
+      - bump_version:
+          requires: # Bump version should only depend on build_ and not delivery_. Sometimes upload to the stores fails only for iOS or Android. Then we still should bump the version
+            - build_android
+            - build_ios
+  bi-weekly:
+    triggers:
+      - schedule:
+          cron: "0 5 16,21,27 * *" # FIXME "0 5 1,15,28 * *"
+          filters:
+            branches:
+              only:
+                - develop
+    jobs:
+      - build_android:
+          e2e_build: false
+      - build_ios:
+          e2e_build: false
+      - deliver_android:
+          production: true
+          requires:
+            - build_android
+      - deliver_ios:
+          production: true
+          requires:
+            - build_ios
+      - bump_version:
+          requires: # Bump version should only depend on build_ and not delivery_. Sometimes upload to the stores fails only for iOS or Android. Then we still should bump the version
+            - build_android
+            - build_ios
 jobs:
   build_android:
+    parameters:
+      e2e_build:
+        description: Whether to create a build for E2E testing
+        type: boolean
     docker:
       - image: circleci/android:api-28-node
-    resource_class: medium+
+    resource_class: medium
     environment:
-      TOTAL_CPUS: 3 # For class medium+
+      TOTAL_CPUS: 2 # For resource_class medium
+      E2E_TEST_IDS: <<# parameters.e2e_build >>1<</ parameters.e2e_build >> # Empty string equals to false in JS
+      FASTLANE_SKIP_UPDATE_CHECK: true
     shell: /bin/bash -eo pipefail
     steps:
       - run:
-          name: "Set CPU count properly"
+          name: "Show current CPU count"
           command: |
             echo "CPU count is ${TOTAL_CPUS}"
-      - add_ssh_keys:
+      - add_ssh_keys: # Install
           fingerprints:
             - "9a:0f:b1:f0:97:c8:db:3f:be:87:a4:9b:09:7f:d3:af"
       - checkout
@@ -21,24 +121,27 @@ jobs:
             git submodule init
             git submodule update --remote
       - restore_cache:
-          key: 1-gems-{{ checksum "android/Gemfile.lock" }}-{{ arch }}
+          keys:
+            - 1-gems-{{ arch }}-{{ checksum "android/Gemfile.lock" }}
+            - 1-gems-{{ arch }}-
       - run:
           command: bundle check || bundle install --path vendor/bundle
           working_directory: android
       - save_cache:
-          key: 1-gems-{{ checksum "android/Gemfile.lock" }}-{{ arch }}
+          key: 1-gems-{{ arch }}-{{ checksum "android/Gemfile.lock" }}
           paths:
             - android/vendor/bundle
       - restore_cache:
           name: Restore Yarn Package Cache
           keys:
-            - 2-yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
+            - 2-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+            - 2-yarn-{{ arch }}-
       - run:
           name: Install Dependencies
           command: yarn install --frozen-lockfile
       - save_cache:
           name: Save Yarn Package Cache
-          key: 2-yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
+          key: 2-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
             - node_modules
@@ -47,56 +150,62 @@ jobs:
           command: yarn run lint
       - run:
           name: Flow-type check
-          command: yarn run flow:check-now
+          command: yarn run flow:check-now --max-workers $TOTAL_CPUS
       - run:
           name: Unit tests
-          command: yarn run test
+          environment:
+            E2E_TEST_IDS: '' # Empty string equals to false in JS
+          command: yarn run test --maxWorkers $TOTAL_CPUS
       - run:
           name: Ruby version
           command: ruby --version
       - run:
           name: Fastlane Prepare Android Keystore
-          command: bundle exec fastlane android keystore
+          command: bundle exec fastlane keystore
           working_directory: android
       - restore_cache:
-          key: gradle-{{ checksum "android/build.gradle" }}-{{ checksum "android/app/build.gradle" }}-{{ checksum "android/settings.gradle" }}
+          keys:
+            - 1-gradle-{{ checksum "android/build.gradle" }}-{{ checksum "android/app/build.gradle" }}-{{ checksum "android/settings.gradle" }}
+            - 1-gradle-
       - run:
           name: Download Dependencies
-          command: bundle exec fastlane android dependencies
+          command: bundle exec fastlane dependencies
           working_directory: android
       - save_cache:
           paths:
             - ~/.gradle
-          key: gradle-{{ checksum "android/build.gradle" }}-{{ checksum "android/app/build.gradle" }}-{{ checksum "android/settings.gradle" }}
+          key: 1-gradle-{{ checksum "android/build.gradle" }}-{{ checksum "android/app/build.gradle" }}-{{ checksum "android/settings.gradle" }}
       - run:
-          name: Fastlane Release Build
-          command: bundle exec fastlane android release
+          name: Fastlane Build
+          command: bundle exec fastlane build
           working_directory: android
-#      - run:
-#          name: Fastlane Browserstack Upload Live
-#          command: bundle exec fastlane android browserstack_upload_live
-#          working_directory: android
-      - run:
-          name: Fastlane E2E Tests on Browserstack
-          command: bundle exec fastlane android browserstack_e2e_tests
-          working_directory: android
-#      - run:
-#          name: Fastlane Play Store Upload
-#          command: bundle exec fastlane android playstore_upload
-#          working_directory: android
       - store_artifacts:
-          path: android/app/build/outputs/apk
+          path: android/app/build/outputs/apk/release/
+      - persist_to_workspace:
+          root: android/app/build/generated/sourcemaps/react/release/
+          paths:
+            - index.android.bundle.map
+      - persist_to_workspace:
+          root: android/app/build/outputs/apk/release/
+          paths:
+            - app-release.apk
 
   build_ios:
+    parameters:
+      e2e_build:
+        description: Whether to create a build for E2E testing
+        type: boolean
     macos:
       xcode: 11.2.0
     environment:
       FL_OUTPUT_DIR: output
-      TOTAL_CPUS: 4 # For class ios medium
+      FASTLANE_SKIP_UPDATE_CHECK: true
+      TOTAL_CPUS: 4 # For mac with resource_class medium
+      E2E_TEST_IDS: <<# parameters.e2e_build >>1<</ parameters.e2e_build >> # Empty string equals to false in JS
     shell: /bin/bash --login -o pipefail
     steps:
       - run:
-          name: "Set CPU count properly"
+          name: "Show current CPU count"
           command: |
             echo "CPU count is ${TOTAL_CPUS}"
       - add_ssh_keys:
@@ -109,68 +218,240 @@ jobs:
             git submodule init
             git submodule update --remote
       - restore_cache:
-          key: 1-gems-{{ checksum "ios/Gemfile.lock" }}-{{ arch }}
+          keys:
+            - 1-gems-{{ arch }}-{{ checksum "ios/Gemfile.lock" }}
+            - 1-gems-{{ arch }}-
       - run:
           command: bundle check || bundle install --path vendor/bundle
           working_directory: ios
       - save_cache:
-          key: 1-gems-{{ checksum "ios/Gemfile.lock" }}-{{ arch }}
+          key: 1-gems-{{ arch }}-{{ checksum "ios/Gemfile.lock" }}
           paths:
             - ios/vendor/bundle
       - restore_cache:
           name: Restore Yarn Package Cache
           keys:
-            - 4-yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
+            - 4-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+            - 4-yarn-{{ arch }}-
       - run:
           name: Install Dependencies
           command: yarn install --frozen-lockfile
       - save_cache:
           name: Save Yarn Package Cache
-          key: 4-yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
+          key: 4-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
           paths:
             - ~/Library/Caches/Yarn/
             - node_modules
       - restore_cache:
           name: Restore CocoaPods Cache
           keys:
-            - 1-pods-{{ checksum "ios/Podfile.lock" }}-{{ arch }}
+            - 1-pods-{{ arch }}-{{ checksum "ios/Podfile.lock" }}
+            - 1-pods-{{ arch }}-
       - run:
           name: Install CocoaPods
           command: bundle exec pod install --deployment
           working_directory: ios
       - save_cache:
           name: Save CocoaPods Cache
-          key: 1-pods-{{ checksum "ios/Podfile.lock" }}-{{ arch }}
+          key: 1-pods-{{ arch }}-{{ checksum "ios/Podfile.lock" }}
           paths:
             - ~/Library/Caches/CocoaPods/
       - run:
           name: Ruby version
           command: ruby --version
       - run:
-          name: Fastlane Release Build
-          command: bundle exec fastlane ios release
+          name: Fastlane Build
+          command: bundle exec fastlane build
           working_directory: ios
-#      - run:
-#          name: Fastlane Browserstack Upload Live
-#          command: bundle exec fastlane ios browserstack_upload_live
-#          working_directory: ios
+      - store_artifacts:
+          path: ios/output/gym/
+      - persist_to_workspace:
+          root: ios/
+          paths:
+            - index.ios.bundle.map
+      - persist_to_workspace:
+          root: ios/output/gym/
+          paths:
+            - Integreat.ipa
+
+  deliver_android:
+    parameters:
+      production:
+        description: Whether to roll out the build to production
+        type: boolean
+    docker:
+      - image: circleci/android:api-28-node
+    resource_class: small
+    shell: /bin/bash -eo pipefail
+    environment:
+      FASTLANE_SKIP_UPDATE_CHECK: true
+      TOTAL_CPUS: 1 # For resource_class small
+    steps:
+      - run:
+          name: "Show current CPU count"
+          command: |
+            echo "CPU count is ${TOTAL_CPUS}"
+      - run: 'curl -sL https://sentry.io/get-cli/ | bash'
+      - checkout
+      - attach_workspace:
+          at: /tmp/output
+      - restore_cache:
+          keys:
+            - 1-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
+            - 1-gems-{{ arch }}-
+      - run:
+          command: bundle check || bundle install --path vendor/bundle
+      - save_cache:
+          key: 1-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+      - restore_cache:
+          name: Restore Yarn Package Cache
+          keys:
+            - 2-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install Dependencies
+          command: yarn install --frozen-lockfile
+      - save_cache:
+          name: Save Yarn Package Cache
+          key: 2-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+            - node_modules
+      - run:
+          name: Fastlane Browserstack Upload Live
+          command: bundle exec fastlane android browserstack_upload_live
+      - run:
+          name: Fastlane Play Store Upload
+          command: bundle exec fastlane android playstore_upload production:"<< parameters.production >>"
+      - run:
+          name: Fastlane Upload to Sentry
+          command: bundle exec fastlane android sentry_upload
+      - run:
+          name: Notify
+          command: bundle exec fastlane android notify_release
+
+  deliver_ios:
+    parameters:
+      production:
+        description: Whether to roll out the build to production
+        type: boolean
+    macos:
+      xcode: 11.2.0
+    environment:
+      FASTLANE_SKIP_UPDATE_CHECK: true
+      TOTAL_CPUS: 4 # For mac with resource_class medium
+    shell: /bin/bash --login -o pipefail
+    steps:
+      - run:
+          name: "Show current CPU count"
+          command: |
+            echo "CPU count is ${TOTAL_CPUS}"
+      - run: 'curl -sL https://sentry.io/get-cli/ | bash'
+      - checkout
+      - attach_workspace:
+          at: /tmp/output
+      - restore_cache:
+          keys:
+            - 1-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
+            - 1-gems-{{ arch }}-
+      - run:
+          command: bundle check || bundle install --path vendor/bundle
+      - save_cache:
+          key: 1-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+      - run:
+          name: Ruby version
+          command: ruby --version
+      - run:
+          name: Fastlane Browserstack Upload Live
+          command: bundle exec fastlane ios browserstack_upload_live
+      - when:
+          condition: <<parameters.production>>
+          steps:
+            - run:
+                name: Fastlane App Store Connect Upload
+                command: bundle exec fastlane ios appstoreconnect_upload
+      - unless:
+          condition: <<parameters.production>>
+          steps:
+            - run:
+                name: Fastlane TestFlight Upload
+                command: bundle exec fastlane ios testflight_upload
+      - run:
+          name: Fastlane Upload to Sentry
+          command: bundle exec fastlane ios sentry_upload
+      - run:
+          name: Notify
+          command: bundle exec fastlane ios notify_release
+
+  e2e:
+    docker:
+      - image: circleci/android:api-28-node
+    resource_class: small
+    shell: /bin/bash -eo pipefail
+    environment:
+      FASTLANE_SKIP_UPDATE_CHECK: true
+      TOTAL_CPUS: 1 # For resource_class small
+    steps:
+      - run:
+          name: "Show current CPU count"
+          command: |
+            echo "CPU count is ${TOTAL_CPUS}"
+      - checkout
+      - attach_workspace:
+          at: /tmp/output
+      - restore_cache:
+          keys:
+            - 1-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
+            - 1-gems-{{ arch }}-
+      - run:
+          command: bundle check || bundle install --path vendor/bundle
+      - save_cache:
+          key: 1-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+      - restore_cache:
+          name: Restore Yarn Package Cache
+          keys:
+            - 2-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install Dependencies
+          command: yarn install --frozen-lockfile
+      - save_cache:
+          name: Save Yarn Package Cache
+          key: 2-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+            - node_modules
+      - run:
+          name: Fastlane E2E Tests on Browserstack
+          command: bundle exec fastlane android browserstack_e2e_tests
       - run:
           name: Fastlane E2E Tests on Browserstack
           command: bundle exec fastlane ios browserstack_e2e_tests
-          working_directory: ios
-#      - run:
-#          name: Fastlane TestFlight Upload
-#          command: bundle exec fastlane ios testflight_upload
-#          working_directory: ios
-      - store_artifacts:
-          path: ios/output
 
-
-version: 2.1
-
-workflows:
-  create-release-builds:
-    jobs:
-      - build_android
-      - build_ios
+  bump_version:
+    docker:
+      - image: circleci/android:api-28-node
+    resource_class: small
+    shell: /bin/bash -eo pipefail
+    environment:
+      FASTLANE_SKIP_UPDATE_CHECK: true
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - 1-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
+            - 1-gems-{{ arch }}-
+      - run:
+          command: bundle check || bundle install --path vendor/bundle
+      - save_cache:
+          key: 1-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+      - run:
+          name: Bump version
+          command: bundle exec fastlane github_bump_version
 

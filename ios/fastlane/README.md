@@ -15,37 +15,21 @@ Install _fastlane_ using
 or alternatively using `brew cask install fastlane`
 
 # Available Actions
-## iOS
-### ios certificates
+### certificates
 ```
-fastlane ios certificates
+fastlane certificates
 ```
 Setup certificates
-### ios build
+### simulator_build
 ```
-fastlane ios build
+fastlane simulator_build
 ```
 Create a simulator build
-### ios release
+### build
 ```
-fastlane ios release
+fastlane build
 ```
-Create a release build
-### ios testflight_upload
-```
-fastlane ios testflight_upload
-```
-Upload to TestFlight
-### ios browserstack_upload_live
-```
-fastlane ios browserstack_upload_live
-```
-Upload to Browserstack Live
-### ios browserstack_e2e_tests
-```
-fastlane ios browserstack_e2e_tests
-```
-Run E2E tests on BrowserStack
+Create a build
 
 ----
 
