@@ -8,8 +8,12 @@ end
 
 desc "Setup certificates"
 lane :certificates do
+  ensure_env_vars(
+      env_vars: ['FASTLANE_USER']
+  )
+
   # https://docs.fastlane.tools/actions/match/
-  sync_code_signing(type: "appstore", app_identifier: ["de.integreat-app"])
+  sync_code_signing(type: "appstore", username: ENV['FASTLANE_USER'])
 end
 
 desc "Create a simulator build"
@@ -24,14 +28,18 @@ end
 
 desc "Create a build"
 lane :build do
+  ensure_env_vars(
+      env_vars: ['FASTLANE_USER']
+  )
+
   ENV["BUNDLE_CONFIG"] = "./metro.config.ci.js"
   ENV["EXTRA_PACKAGER_ARGS"] = "--sourcemap-output /Users/distiller/project/ios/index.ios.bundle.map"
 
   next_version = next_version()
 
   # https://docs.fastlane.tools/actions/match/
-  sync_code_signing(type: "development", app_identifier: ["de.integreat-app"])
-  sync_code_signing(type: "appstore", app_identifier: ["de.integreat-app"])
+  sync_code_signing(type: "development", username: ENV['FASTLANE_USER'])
+  sync_code_signing(type: "appstore", username: ENV['FASTLANE_USER'])
 
   increment_build_number(
       build_number: next_version[:new_version_code]
