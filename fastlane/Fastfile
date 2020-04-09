@@ -1,6 +1,15 @@
 require 'yaml'
 require_relative 'version'
 
+#
+# `options` contains several parameter:
+#
+# private_key: a base64 encoded PEM encoded private key for authentication as GitHub App
+# app_id: The GitHub App app id
+# version_yml_path: absolute path to the version.yml in the GitHub repo
+# new_version_code: The new version code
+# new_version_name: The new version name
+# repo: The repo like Integreat/integreat-react-native-app
 desc "Commit version file"
 private_lane :github_commit_version do |options|
   require 'openssl'
@@ -42,6 +51,13 @@ private_lane :github_commit_version do |options|
                          :branch => branch)
 end
 
+#
+# `options` contains several parameter:
+#
+# new_version_code: The new version code
+# new_version_name: The new version name
+# package_name: The name of the app in Sentry
+# sourcemap_path: The path to the sourcemap file to upload
 desc "Upload source map to Sentry"
 private_lane :generic_sentry_upload do |options|
   ensure_env_vars(
