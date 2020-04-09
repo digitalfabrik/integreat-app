@@ -1,8 +1,19 @@
 version: 2.1
 
+parameters:
+  api_triggered:
+    type: boolean
+    description: Whether the pipeline was triggered through the CircleCi API (https://circleci.com/docs/api/v2/?shell#trigger-a-new-pipeline)
+    default: false
+  production:
+    type: boolean
+    description: Whether to deploy to production instead of beta channel
+    default: false
+
 workflows:
   version: 2
   commit:
+    unless: << pipeline.parameters.api_triggered >>
     jobs:
       - build_android:
           e2e_build: true
@@ -12,6 +23,25 @@ workflows:
           requires:
             - build_ios
             - build_android
+  api-triggered:
+    when: << pipeline.parameters.api_triggered >>
+    jobs:
+      - build_android:
+          e2e_build: false
+      - build_ios:
+          e2e_build: false
+      - deliver_android:
+          production: << pipeline.parameters.production >>
+          requires:
+            - build_android
+      - deliver_ios:
+          production: << pipeline.parameters.production >>
+          requires:
+            - build_ios
+      - bump_version:
+          requires: # Bump version should only depend on build_ and not delivery_. Sometimes upload to the stores fails only for iOS or Android. Then we still should bump the version
+            - build_android
+            - build_ios
   weekly:
     triggers:
       - schedule:
