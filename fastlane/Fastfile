@@ -265,7 +265,7 @@ platform :ios do
     )
   end
 
-  desc "Notify about the status of this build"
+  desc "Notify a the Slack channel #app about a release"
   lane :notify_release do
     ensure_env_vars(
         env_vars: ['SLACK_URL']

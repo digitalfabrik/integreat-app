@@ -20,11 +20,6 @@ or alternatively using `brew cask install fastlane`
 fastlane github_bump_version
 ```
 Bump version file in Git repository
-### notify
-```
-fastlane notify
-```
-Notify about the status of this build
 
 ----
 
@@ -49,6 +44,11 @@ Upload source map to Sentry
 fastlane android playstore_upload
 ```
 Upload to Play Store
+### android notify_release
+```
+fastlane android notify_release
+```
+Notify about the status of this build
 
 ----
 
@@ -68,11 +68,21 @@ Run E2E tests on BrowserStack
 fastlane ios sentry_upload
 ```
 Upload source map to Sentry
+### ios appstoreconnect_upload
+```
+fastlane ios appstoreconnect_upload
+```
+Upload to App Store Connect
 ### ios testflight_upload
 ```
 fastlane ios testflight_upload
 ```
 Upload to TestFlight
+### ios notify_release
+```
+fastlane ios notify_release
+```
+Notify a the Slack channel #app about a release
 
 ----
 
