@@ -1,143 +1,72 @@
+require_relative '../../fastlane/version'
+
 fastlane_version "2.143.0"
 
-default_platform :android
+CREDENTIALS_GIT_REPOSITORY_URL = ENV['CREDENTIALS_GIT_REPOSITORY_URL']
+CREDENTIALS_DIRECTORY_PATH = ENV['CREDENTIALS_DIRECTORY_PATH']
+CREDENTIALS_KEYSTORE_PATH = ENV['CREDENTIALS_KEYSTORE_PATH']
 
-version_config = YAML.load_file("../../version.yml")
-version_code = 1
-version_name = version_config['version_name']
+KEYSTORE_PATH = ENV['KEYSTORE_PATH'] || 'test.keystore'
+KEYSTORE_KEY_ALIAS = ENV['KEYSTORE_KEY_ALIAS'] || 'test'
+KEYSTORE_PASSWORD = ENV['KEYSTORE_PASSWORD'] || '123456'
+KEYSTORE_KEY_PASSWORD = ENV['KEYSTORE_KEY_PASSWORD'] || '123456'
 
-platform :android do
-  CREDENTIALS_GIT_REPOSITORY_URL = ENV['CREDENTIALS_GIT_REPOSITORY_URL']
-  CREDENTIALS_DIRECTORY_PATH = ENV['CREDENTIALS_DIRECTORY_PATH']
-  CREDENTIALS_KEYSTORE_PATH = ENV['CREDENTIALS_KEYSTORE_PATH']
+desc "Prepare the keystore"
+lane :keystore do
+  ensure_env_vars(
+      env_vars: ['CREDENTIALS_GIT_REPOSITORY_URL']
+  )
 
-  KEYSTORE_PATH = ENV['KEYSTORE_PATH'] || 'test.keystore'
-  KEYSTORE_KEY_ALIAS = ENV['KEYSTORE_KEY_ALIAS'] || 'test'
-  KEYSTORE_PASSWORD = ENV['KEYSTORE_PASSWORD'] || '123456'
-  KEYSTORE_KEY_PASSWORD = ENV['KEYSTORE_KEY_PASSWORD'] || '123456'
+  puts("Cloning repository with keystore")
 
-  desc "Prepare the keystore"
-  lane :keystore do
-    ensure_env_vars(
-        env_vars: ['CREDENTIALS_GIT_REPOSITORY_URL']
-    )
+  unless File.exists? File.expand_path(CREDENTIALS_DIRECTORY_PATH)
+    sh("git clone #{CREDENTIALS_GIT_REPOSITORY_URL} #{CREDENTIALS_DIRECTORY_PATH}")
+  end
 
-    puts("Cloning repository with keystore")
+  puts("Decrypting keystore")
 
-    unless File.exists? File.expand_path(CREDENTIALS_DIRECTORY_PATH)
-      sh("git clone #{CREDENTIALS_GIT_REPOSITORY_URL} #{CREDENTIALS_DIRECTORY_PATH}")
-    end
-
-    puts("Decrypting keystore")
-
-    sh("openssl enc -d -aes-256-cbc -md sha512 -pbkdf2 -iter 100000 -salt \\
+  sh("openssl enc -d -aes-256-cbc -md sha512 -pbkdf2 -iter 100000 -salt \\
           -in #{CREDENTIALS_KEYSTORE_PATH} -out #{KEYSTORE_PATH} \\
           -pass pass:$CREDENTIALS_KEYSTORE_PASSWORD")
-  end
-
-  desc "Download Gradle Dependencies"
-  lane :dependencies do
-    gradle(task: "androidDependencies")
-  end
-
-  desc "Create a release build"
-  lane :release do
-    ENV["E2E_TEST_IDS"] = "1"
-    ENV["BUNDLE_CONFIG"] = "./metro.config.ci.js"
-
-    gradle_system_properties = {
-        :"org.gradle.jvmargs" => "-Xmx5120m -XX:+HeapDumpOnOutOfMemoryError",
-        :"org.gradle.daemon" => false,
-        :"org.gradle.parallel" => true,
-        :"org.gradle.configureondemand" => true
-    }
-
-    if ENV['TOTAL_CPUS']
-      # Gradle uses the wrong cpu count from the host (e.g. 36)
-      gradle_system_properties["org.gradle.workers.max"] = ENV['TOTAL_CPUS']
-    end
-
-    gradle(
-        task: "assembleRelease",
-        properties: {
-            :VERSION_CODE => version_code,
-            :VERSION_NAME => version_name,
-            :KEYSTORE_PATH => KEYSTORE_PATH,
-            :KEYSTORE_KEY_ALIAS => KEYSTORE_KEY_ALIAS,
-            :KEYSTORE_PASSWORD => KEYSTORE_PASSWORD,
-            :KEYSTORE_KEY_PASSWORD => KEYSTORE_KEY_PASSWORD
-        },
-        system_properties: gradle_system_properties,
-        print_command: true
-    )
-  end
-
-
-  desc "Upload to Browserstack Live"
-  lane :browserstack_upload_live do
-    ensure_env_vars(
-        env_vars: ['BROWSERSTACK_USERNAME', 'BROWSERSTACK_ACCESS_KEY']
-    )
-
-    upload_to_browserstack_app_live(
-        browserstack_username: ENV["BROWSERSTACK_USERNAME"],
-        browserstack_access_key: ENV["BROWSERSTACK_ACCESS_KEY"],
-        file_path: "app/build/outputs/apk/release/app-release.apk"
-    )
-  end
-
-  desc "Run E2E tests on BrowserStack"
-  lane :browserstack_e2e_tests do
-    ensure_env_vars(
-        env_vars: ['BROWSERSTACK_USERNAME', 'BROWSERSTACK_ACCESS_KEY']
-    )
-
-    upload_to_browserstack_app_automate(
-        browserstack_username: ENV["BROWSERSTACK_USERNAME"],
-        browserstack_access_key: ENV["BROWSERSTACK_ACCESS_KEY"],
-        file_path: "app/build/outputs/apk/release/app-release.apk"
-    )
-
-    ENV["E2E_CAPS"] = 'ci_browserstack'
-    ENV["E2E_PLATFORM"] = 'android'
-    ENV["E2E_SERVER"] = 'browserstack'
-    ENV["E2E_BROWSERSTACK_USER"] = ENV["BROWSERSTACK_USERNAME"]
-    ENV["E2E_BROWSERSTACK_KEY"] = ENV["BROWSERSTACK_ACCESS_KEY"]
-    ENV["E2E_BROWSERSTACK_APP"] = lane_context[SharedValues::BROWSERSTACK_APP_ID]
-
-    yarn(
-        command: "test:e2e",
-        package_path: "../package.json"
-    )
-  end
-
-  desc "Upload to Play Store"
-  lane :playstore_upload do
-    ensure_env_vars(
-        env_vars: ['GOOGLE_SERVICE_ACCOUNT_JSON']
-    )
-
-    upload_to_play_store(
-        version_code: version_code,
-        version_name: version_name,
-        track: 'alpha',
-        skip_upload_changelogs: true,
-        skip_upload_images: true,
-        skip_upload_screenshots: true,
-        skip_upload_metadata: true,
-        release_status: "draft",
-        apk: 'app/build/outputs/apk/release/app-release.apk',
-        json_key_data: ENV["GOOGLE_SERVICE_ACCOUNT_JSON"],
-        validate_only: true
-    )
-  end
-
-  before_all do
-  end
-
-  after_all do |lane|
-  end
-
-  error do |lane, exception|
-  end
 end
+
+desc "Download Gradle Dependencies"
+lane :dependencies do
+  gradle(task: "androidDependencies")
+end
+
+desc "Create a build"
+lane :build do
+  next_version = next_version()
+
+  puts(next_version)
+
+  ENV["BUNDLE_CONFIG"] = "./metro.config.ci.js"
+
+  gradle_system_properties = {
+      :"org.gradle.jvmargs" => "-Xmx2048m -XX:+HeapDumpOnOutOfMemoryError",
+      :"org.gradle.daemon" => false,
+      :"org.gradle.parallel" => false,
+      :"org.gradle.configureondemand" => true
+  }
+
+  if ENV['TOTAL_CPUS']
+    # Gradle uses the wrong cpu count from the host (e.g. 36)
+    gradle_system_properties["org.gradle.workers.max"] = ENV['TOTAL_CPUS']
+  end
+
+  gradle(
+      task: "assembleRelease",
+      properties: {
+          :VERSION_CODE => next_version[:new_version_code],
+          :VERSION_NAME => next_version[:new_version_name],
+          :KEYSTORE_PATH => KEYSTORE_PATH,
+          :KEYSTORE_KEY_ALIAS => KEYSTORE_KEY_ALIAS,
+          :KEYSTORE_PASSWORD => KEYSTORE_PASSWORD,
+          :KEYSTORE_KEY_PASSWORD => KEYSTORE_KEY_PASSWORD
+      },
+      system_properties: gradle_system_properties,
+      print_command: true
+  )
+end
+

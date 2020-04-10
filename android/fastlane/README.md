@@ -15,47 +15,21 @@ Install _fastlane_ using
 or alternatively using `brew cask install fastlane`
 
 # Available Actions
-## Android
-### android keystore
+### keystore
 ```
-fastlane android keystore
+fastlane keystore
 ```
 Prepare the keystore
-### android dependencies
+### dependencies
 ```
-fastlane android dependencies
+fastlane dependencies
 ```
 Download Gradle Dependencies
-### android bundle
+### build
 ```
-fastlane android bundle
+fastlane build
 ```
-Bundle JavaScript
-### android build
-```
-fastlane android build
-```
-Create a release build
-### android browserstack_upload_live
-```
-fastlane android browserstack_upload_live
-```
-Upload to Browserstack Live
-### android browserstack_e2e_tests
-```
-fastlane android browserstack_e2e_tests
-```
-Run E2E tests on BrowserStack
-### android experiment
-```
-fastlane android experiment
-```
-experiment
-### android playstore_upload
-```
-fastlane android playstore_upload
-```
-Upload to Play Store
+Create a build
 
 ----
 
