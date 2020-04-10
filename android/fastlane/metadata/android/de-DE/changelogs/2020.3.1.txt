@@ -1,0 +1,7 @@
+Wir haben für Sie einige Fehler behoben:
+* Die App zeigt jetzt alle Inhalte in Deutsch-Einfach und Tigrinya an.
+* Die App zeigt nun immer Beschreibungstexte zu Ereignissen an, falls verfügbar.
+* Das Öffnen von PDFs mit externen URLs ist jetzt möglich.
+* Die Intro-Folien passen sich jetzt an die Größe Ihres Bildschirms an.
+
+Darüber hinaus haben wir einige kleinere Fehler behoben und unter der Haube gearbeitet, um die Leistung und Stabilität zu erhöhen.

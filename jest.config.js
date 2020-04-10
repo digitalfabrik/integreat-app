@@ -27,7 +27,8 @@ module.exports = {
     `node_modules/(?!${transformNodeModules.join('|')})`
   ],
   moduleFileExtensions: [
-    'js'
+    'js',
+    'json'
   ],
   moduleDirectories: [
     'node_modules',
