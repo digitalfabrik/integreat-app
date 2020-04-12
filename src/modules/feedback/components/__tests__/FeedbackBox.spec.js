@@ -3,14 +3,20 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import { FeedbackBox } from '../FeedbackBox'
-import FeedbackDropdownItem from '../../FeedbackDropdownItem'
-import { CATEGORIES_FEEDBACK_TYPE } from '@integreat-app/integreat-api-client'
+import FeedbackVariant from '../../FeedbackVariant'
+import { CATEGORIES_FEEDBACK_TYPE, CONTENT_FEEDBACK_CATEGORY } from '@integreat-app/integreat-api-client'
 
 describe('FeedbackBox', () => {
   const t = (key: ?string): string => key || ''
-  const feedbackOptions = [new FeedbackDropdownItem('label', CATEGORIES_FEEDBACK_TYPE)]
+  const feedbackOptions = [
+    new FeedbackVariant({
+      label: 'label',
+      feedbackType: CATEGORIES_FEEDBACK_TYPE,
+      feedbackCategory: CONTENT_FEEDBACK_CATEGORY
+    })
+  ]
   const onCommentChanged = (event: SyntheticInputEvent<HTMLTextAreaElement>) => {}
-  const onFeedbackOptionChanged = (option: FeedbackDropdownItem) => {}
+  const onFeedbackOptionChanged = (option: FeedbackVariant) => {}
   const onSubmit = () => {}
 
   it('should match snapshot', () => {

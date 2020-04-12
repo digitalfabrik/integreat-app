@@ -1,13 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SearchFeedback should render a FeedbackButton if results are found and the query is not empty 1`] = `
-<SearchFeedback__FeedbackButton>
-  <SearchFeedback__FeedbackLink
+<SearchFeedback__FeedbackContainer>
+  <TextButton
     onClick={[Function]}
-  >
-    informationNotFound
-  </SearchFeedback__FeedbackLink>
-</SearchFeedback__FeedbackButton>
+    text="informationNotFound"
+  />
+</SearchFeedback__FeedbackContainer>
 `;
 
 exports[`SearchFeedback should render a NothingFoundFeedbackBox if no results are found 1`] = `
@@ -43,11 +42,10 @@ exports[`SearchFeedback should render a NothingFoundFeedbackBox if no results ar
 `;
 
 exports[`SearchFeedback should render neither a NothingFoundFeedbackBox nor a FeedbackButton 1`] = `
-<SearchFeedback__FeedbackButton>
-  <SearchFeedback__FeedbackLink
+<SearchFeedback__FeedbackContainer>
+  <TextButton
     onClick={[Function]}
-  >
-    informationNotFound
-  </SearchFeedback__FeedbackLink>
-</SearchFeedback__FeedbackButton>
+    text="informationNotFound"
+  />
+</SearchFeedback__FeedbackContainer>
 `;

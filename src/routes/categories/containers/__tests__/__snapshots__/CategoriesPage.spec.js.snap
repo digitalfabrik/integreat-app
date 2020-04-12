@@ -9,7 +9,6 @@ exports[`CategoriesPage should match snapshot and render CategoryTiles if the pa
     tiles={
       Array [
         TileModel {
-          "_id": "/augsburg/de/willkommen",
           "_isExternalUrl": false,
           "_path": "/augsburg/de/willkommen",
           "_postData": null,
@@ -17,7 +16,6 @@ exports[`CategoriesPage should match snapshot and render CategoryTiles if the pa
           "_title": "willkommen",
         },
         TileModel {
-          "_id": "/augsburg/de/erste-schritte",
           "_isExternalUrl": false,
           "_path": "/augsburg/de/erste-schritte",
           "_postData": null,

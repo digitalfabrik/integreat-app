@@ -6,11 +6,10 @@ import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
 import { createFeedbackEndpoint, SEARCH_FEEDBACK_TYPE } from '@integreat-app/integreat-api-client'
 import type { LocationState } from 'redux-first-router'
-import { Description, StyledFeedbackBox, SubmitButton } from '../../../modules/feedback/components/FeedbackBox'
+import { Description, StyledFeedbackBox } from '../../../modules/feedback/components/FeedbackBox'
 import FeedbackComment from '../../../modules/feedback/components/FeedbackComment'
 import { cmsApiBaseUrl } from '../../../modules/app/constants/urls'
-
-export const StyledSubmitButton = SubmitButton.withComponent('div')
+import TextButton from '../../../modules/common/components/TextButton'
 
 type PropsType = {|
   query?: string,
@@ -29,7 +28,8 @@ export class NothingFoundFeedbackBox extends React.Component<PropsType, StateTyp
     this.state = { comment: '', feedbackSent: false }
   }
 
-  handleCommentChanged = (event: SyntheticInputEvent<HTMLTextAreaElement>) => this.setState({ comment: event.target.value })
+  handleCommentChanged = (event: SyntheticInputEvent<HTMLTextAreaElement>) =>
+    this.setState({ comment: event.target.value })
 
   handleSubmit = () => {
     const { query, location } = this.props
@@ -60,7 +60,7 @@ export class NothingFoundFeedbackBox extends React.Component<PropsType, StateTyp
               comment={comment}
               commentMessage={t('wantedInformation')}
               onCommentChanged={this.handleCommentChanged} />
-            <StyledSubmitButton onClick={this.handleSubmit}>{t('send')}</StyledSubmitButton>
+            <TextButton onClick={this.handleSubmit} text={t('send')} />
           </>
       }
     </StyledFeedbackBox>

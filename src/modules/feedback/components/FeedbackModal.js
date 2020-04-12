@@ -47,7 +47,7 @@ const FeedbackContainer = styled.div`
 type PropsType = {|
   cities: ?Array<CityModel>,
   title?: string,
-  id?: number,
+  path?: string,
   alias?: string,
   query?: string,
   feedbackStatus: FeedbackRatingType,

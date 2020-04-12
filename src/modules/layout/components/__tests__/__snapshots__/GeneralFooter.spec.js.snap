@@ -5,13 +5,19 @@ exports[`GeneralFooter should match snapshot 1`] = `
   <CleanLink___default
     to="/disclaimer"
   >
-    layout:imprintAndContact
+    layout,settings:imprintAndContact
   </CleanLink___default>
+  <CleanAnchor
+    href="https://integreat-app.de/about/"
+    newTab={true}
+  >
+    layout,settings:settings:about
+  </CleanAnchor>
   <CleanAnchor
     href="https://integreat-app.de/datenschutz/"
     newTab={true}
   >
-    layout:privacy
+    layout,settings:privacy
   </CleanAnchor>
 </Footer>
 `;

@@ -166,7 +166,8 @@ describe('CategoriesRouteConfig', () => {
 
     expect(categoriesRouteConfig.getFeedbackTargetInformation({ payloads, location }))
       .toEqual({
-        title: 'Title01'
+        title: 'Title01',
+        path: location.pathname
       })
 
     const invalidLocation = createLocation({

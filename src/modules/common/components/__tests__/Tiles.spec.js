@@ -8,7 +8,6 @@ import Tiles from '../Tiles'
 
 const tiles = [
   new TileModel({
-    id: '35',
     path: '/augsburg/de/willkommen/willkommen-in-augsburg',
     title: 'Willkommen in Augsburg',
     thumbnail: 'some-thumnail.jpg',
@@ -16,7 +15,6 @@ const tiles = [
     postData: null
   }),
   new TileModel({
-    id: '36',
     path: '/augsburg/de/willkommen/erste-schritte',
     title: 'Erste Schritte',
     thumbnail: 'some-other-thumbnail.jpg',
