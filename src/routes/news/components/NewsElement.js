@@ -75,12 +75,12 @@ class ListItem extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const { path, isNewsListItem, newsItem } = this.props
+    const { path, newsItem } = this.props
     const itemPath = `${path}/${newsItem.title}`
 
     return (
       <StyledNewsElement>
-        <Link to={itemPath} isNewsListItem={isNewsListItem}>
+        <Link to={itemPath}>
           {!!newsItem.title && this.renderContent(itemPath)}
         </Link>
       </StyledNewsElement>
