@@ -7,6 +7,7 @@ import {
   createEventsEndpoint,
   createExtrasEndpoint,
   createLanguagesEndpoint,
+  createLocalNewsEndpoint,
   ExtraModel,
   Payload
 } from '@integreat-app/integreat-api-client'
@@ -32,6 +33,7 @@ const extrasRoute: Route = {
     await Promise.all([
       fetchData(createCitiesEndpoint(cmsApiBaseUrl), dispatch, state.cities),
       fetchData(createEventsEndpoint(cmsApiBaseUrl), dispatch, state.events, { city, language }),
+      fetchData(createLocalNewsEndpoint(cmsApiBaseUrl), dispatch, state.news, { city, language }),
       fetchData(createLanguagesEndpoint(cmsApiBaseUrl), dispatch, state.languages, { city, language }),
       fetchData(createExtrasEndpoint(cmsApiBaseUrl), dispatch, state.extras, { city, language })
     ])

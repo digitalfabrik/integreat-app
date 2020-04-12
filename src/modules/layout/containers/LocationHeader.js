@@ -14,10 +14,11 @@ import HeaderActionItem from '../HeaderActionItem'
 import ExtrasRouteConfig, { EXTRAS_ROUTE } from '../../app/route-configs/ExtrasRouteConfig'
 import CategoriesRouteConfig, { CATEGORIES_ROUTE } from '../../app/route-configs/CategoriesRouteConfig'
 import EventsRouteConfig, { EVENTS_ROUTE } from '../../app/route-configs/EventsRouteConfig'
+import NewsRouteConfig, { NEWS_ROUTE } from '../../app/route-configs/NewsRouteConfig'
 import SearchRouteConfig from '../../app/route-configs/SearchRouteConfig'
 
 import type { LocationState } from 'redux-first-router'
-import { EventModel } from '@integreat-app/integreat-api-client'
+import { EventModel, LocalNewsModel } from '@integreat-app/integreat-api-client'
 import { WOHNEN_ROUTE } from '../../app/route-configs/WohnenRouteConfig'
 import { SPRUNGBRETT_ROUTE } from '../../app/route-configs/SprungbrettRouteConfig'
 import LandingRouteConfig from '../../app/route-configs/LandingRouteConfig'
@@ -25,11 +26,13 @@ import type { LanguageChangePathsType } from '../../app/containers/Switcher'
 
 type PropsType = {|
   events: ?Array<EventModel>,
+  news: ?Array<LocalNewsModel>,
   location: LocationState,
   viewportSmall: boolean,
   t: TFunction,
   cityName: string,
   isEventsEnabled: boolean,
+  isNewsEnabled: boolean,
   isExtrasEnabled: boolean,
   onStickyTopChanged: number => void,
   languageChangePaths: ?LanguageChangePathsType
@@ -57,12 +60,13 @@ export class LocationHeader extends React.Component<PropsType> {
   }
 
   getNavigationItems (): Array<Element<typeof HeaderNavigationItem>> {
-    const { t, isEventsEnabled, isExtrasEnabled, location, events } = this.props
+    const { t, isEventsEnabled, isNewsEnabled, isExtrasEnabled, location, events } = this.props
     const { city, language } = location.payload
     const currentRoute = location.type
 
     const isEventsActive = events ? events.length > 0 : false
     const isCategoriesEnabled = isExtrasEnabled || isEventsEnabled
+    const isNewsActive = true
 
     const items: Array<Element<typeof HeaderNavigationItem>> = []
 
@@ -86,6 +90,18 @@ export class LocationHeader extends React.Component<PropsType> {
           selected={currentRoute === CATEGORIES_ROUTE}
           text={t('categories')}
           active
+        />
+      )
+    }
+
+    if (isNewsEnabled) {
+      items.push(
+        <HeaderNavigationItem
+          key='news'
+          href={new NewsRouteConfig().getRoutePath({ city, language })}
+          selected={currentRoute === NEWS_ROUTE}
+          text={t('news')}
+          active={isNewsActive}
         />
       )
     }

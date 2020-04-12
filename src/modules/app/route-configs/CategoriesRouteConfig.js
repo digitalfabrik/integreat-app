@@ -10,6 +10,7 @@ import {
   createCategoriesEndpoint,
   createCitiesEndpoint,
   createEventsEndpoint,
+  createLocalNewsEndpoint,
   createLanguagesEndpoint,
   Payload
 } from '@integreat-app/integreat-api-client'
@@ -33,6 +34,7 @@ const categoriesRoute: Route = {
     await Promise.all([
       fetchData(createCitiesEndpoint(cmsApiBaseUrl), dispatch, state.cities),
       fetchData(createEventsEndpoint(cmsApiBaseUrl), dispatch, state.events, { city, language }),
+      fetchData(createLocalNewsEndpoint(cmsApiBaseUrl), dispatch, state.news, { city, language }),
       fetchData(createLanguagesEndpoint(cmsApiBaseUrl), dispatch, state.languages, { city, language }),
       fetchData(createCategoriesEndpoint(cmsApiBaseUrl), dispatch, state.categories, { city, language })
     ])
