@@ -9,7 +9,7 @@ import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
-import NewsListItem from '../components/NewsListItem'
+import NewsElement from '../components/NewsElement'
 import NewsList from '../components/NewsList'
 import Tabs from '../components/Tabs'
 import PushNewsDetails from '../components/PushNewsDetails'
@@ -36,8 +36,8 @@ export class NewsPage extends React.Component<PropsType> {
     items: []
   };
 
-  renderNewsListItem = (language: string, type: string) => (newsItem: EventModel) => (
-    <NewsListItem newsItem={newsItem} language={language} key={newsItem.path} type={type} path={this.props.path} />
+  renderNewsElement = (language: string, type: string) => (newsItem: EventModel) => (
+    <NewsElement newsItem={newsItem} language={language} key={newsItem.path} type={type} path={this.props.path} />
   )
 
   render () {
@@ -63,12 +63,13 @@ export class NewsPage extends React.Component<PropsType> {
     return (
       <>
         <Tabs>
+        {/* TODO: update the locale file realted issues */}
           <div label={t('LOCAL NEWS')} type={LOCAL_NEWS}>
             <NewsList
               noItemsMessage={t('currentlyNoEvents')}
               isNewsList
               items={news}
-              renderItem={this.renderNewsListItem(language, LOCAL_NEWS)}
+              renderItem={this.renderNewsElement(language, LOCAL_NEWS)}
               path={path}
               city={city}
               language={language}
@@ -76,16 +77,7 @@ export class NewsPage extends React.Component<PropsType> {
             />
           </div>
           <div label={t('News')} type={TU_NEWS}>
-            <NewsList
-              noItemsMessage={t('currentlyNoEvents')}
-              isNewsList
-              // items={news}
-              renderItem={this.renderNewsListItem(language, TU_NEWS)}
-              path={path}
-              city={city}
-              language={language}
-              t={t}
-            />
+            {/* TODO: TuNews list goes here */}
           </div>
         </Tabs>
       </>

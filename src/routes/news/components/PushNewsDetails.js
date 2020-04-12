@@ -32,6 +32,7 @@ type PropsType = {|
   timestap: any
 |}
 
+// This just a placeholder until the page design is ready
 class PushNewsDetails extends React.PureComponent<PropsType> {
   render () {
     const { title, message, timestap } = this.props
