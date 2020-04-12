@@ -7,7 +7,6 @@ import TileModel from '../../../../modules/common/models/TileModel'
 import Tile from '../Tile'
 
 const tile1 = new TileModel({
-  id: '3649',
   path: '/augsburg/de/willkommen',
   title: 'Willkommen',
   thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
@@ -16,7 +15,6 @@ const tile1 = new TileModel({
 })
 
 const tile2 = new TileModel({
-  id: '3649',
   path: 'https://example.com',
   title: 'Example',
   thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
@@ -30,7 +28,6 @@ lehrstellenRadarPostData.set('radius', '50')
 lehrstellenRadarPostData.set('plz', '86150')
 
 const tile3 = new TileModel({
-  id: '3649',
   path: 'https://example.com',
   title: 'Example',
   thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',

@@ -39,7 +39,6 @@ export class ExtrasPage extends React.Component<PropsType> {
         }
 
         return new TileModel({
-          id: extra.alias,
           title: extra.title,
           // the url stored in the sprungbrett extra is the url of the endpoint
           path: path,

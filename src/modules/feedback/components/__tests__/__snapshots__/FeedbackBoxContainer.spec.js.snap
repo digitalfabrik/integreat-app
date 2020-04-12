@@ -2,20 +2,26 @@
 
 exports[`FeedbackBoxContainer getExtrasFeedbackOptions should return the right options 1`] = `
 Array [
-  FeedbackDropdownItem {
+  FeedbackVariant {
+    "alias": "serlo-abc",
+    "feedbackCategory": "Inhalte",
     "feedbackType": "extra",
     "label": "extra 'Serlo ABC'",
-    "value": "serlo-abc",
+    "value": "extra 'Serlo ABC'",
   },
-  FeedbackDropdownItem {
+  FeedbackVariant {
+    "alias": "sprungbrett",
+    "feedbackCategory": "Inhalte",
     "feedbackType": "extra",
     "label": "extra 'Sprungbrett'",
-    "value": "sprungbrett",
+    "value": "extra 'Sprungbrett'",
   },
-  FeedbackDropdownItem {
+  FeedbackVariant {
+    "alias": "lehrstellen-radar",
+    "feedbackCategory": "Inhalte",
     "feedbackType": "extra",
     "label": "extra 'Lehrstellenradar'",
-    "value": "lehrstellen-radar",
+    "value": "extra 'Lehrstellenradar'",
   },
 ]
 `;
@@ -26,17 +32,23 @@ exports[`FeedbackBoxContainer should match snapshot 1`] = `
   comment=""
   feedbackOptions={
     Array [
-      FeedbackDropdownItem {
+      FeedbackVariant {
+        "alias": undefined,
+        "feedbackCategory": "Inhalte",
         "feedbackType": null,
         "label": "contentOfPage",
         "value": "contentOfPage",
       },
-      FeedbackDropdownItem {
+      FeedbackVariant {
+        "alias": undefined,
+        "feedbackCategory": "Inhalte",
         "feedbackType": "categories",
-        "label": "contentOfCity Augsburg",
-        "value": "contentOfCity Augsburg",
+        "label": "contentOfCity",
+        "value": "contentOfCity",
       },
-      FeedbackDropdownItem {
+      FeedbackVariant {
+        "alias": undefined,
+        "feedbackCategory": "Technisches Feedback",
         "feedbackType": "categories",
         "label": "technicalTopics",
         "value": "technicalTopics",
@@ -48,7 +60,9 @@ exports[`FeedbackBoxContainer should match snapshot 1`] = `
   onFeedbackOptionChanged={[Function]}
   onSubmit={[Function]}
   selectedFeedbackOption={
-    FeedbackDropdownItem {
+    FeedbackVariant {
+      "alias": undefined,
+      "feedbackCategory": "Inhalte",
       "feedbackType": null,
       "label": "contentOfPage",
       "value": "contentOfPage",
