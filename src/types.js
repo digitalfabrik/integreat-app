@@ -96,6 +96,13 @@ export type JsonEventType = {
   featured_image: ?JsonFeaturedImageType
 }
 
+export type JsonLocalNewsType = {
+  timestap: string,
+  title: string,
+  message: string
+}
+
+
 export type JsonExtraPostType = {
   [key: string]: string
 }
