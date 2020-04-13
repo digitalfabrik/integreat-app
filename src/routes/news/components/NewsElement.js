@@ -4,9 +4,9 @@ import * as React from 'react'
 import styled from 'styled-components'
 import { LocalNewsModel } from '@integreat-app/integreat-api-client'
 import CleanLink from '../../../modules/common/components/CleanLink'
+import LastUpdateInfo from '../../../modules/common/components/LastUpdateInfo'
 
 const LOCAL_NEWS = 'local'
-const TU_NEWS = 'tu'
 
 const Link = styled(CleanLink)`
   display: flex;
@@ -39,6 +39,7 @@ const Title = styled.div`
   font-size: 18px;
   font-weight: bold;
   color: #6f6f6e;
+  margin-bottom: 0;
 `
 const Body = styled.div`
   font-size: 16px;
@@ -61,13 +62,14 @@ type PropsType = {|
 
 class ListItem extends React.PureComponent<PropsType> {
   renderContent (itemPath: string): React.Node {
-    const { newsItem, type } = this.props
+    const { newsItem, type, language } = this.props
 
     return (
       <>
         <Description>
           <Title>{newsItem.title}</Title>
           <Body>{newsItem && newsItem.message}</Body>
+          {newsItem.timestamp && <LastUpdateInfo lastUpdate={newsItem.timestamp} language={language} />}
           <ReadMoreLink to={itemPath} type={type}>Read more</ReadMoreLink>
         </Description>
       </>

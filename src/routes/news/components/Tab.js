@@ -52,7 +52,7 @@ type PropsType = {|
 
 class Tab extends React.PureComponent<PropsType> {
   onClick = () => {
-    const { label, onClick, type } = this.props
+    const { label, onClick } = this.props
     onClick(label)
   }
 

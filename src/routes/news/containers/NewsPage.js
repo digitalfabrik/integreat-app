@@ -49,10 +49,10 @@ export class NewsPage extends React.Component<PropsType> {
       })
 
       if (newsItem) {
-        const { title, message, timestap } = newsItem
+        const { title, message, timestamp } = newsItem
         return (
           <>
-            <PushNewsDetails title={title} message={message} timestap={timestap} />
+            <PushNewsDetails title={title} message={message} timestamp={timestamp} language={language} />
           </>
         )
       } else {
@@ -64,7 +64,7 @@ export class NewsPage extends React.Component<PropsType> {
       <>
         <Tabs>
         {/* TODO: update the locale file realted issues */}
-          <div label={t('LOCAL NEWS')} type={LOCAL_NEWS}>
+          <div label={t('LOKALE NEWS')} type={LOCAL_NEWS}>
             <NewsList
               noItemsMessage={t('currentlyNoEvents')}
               isNewsList
