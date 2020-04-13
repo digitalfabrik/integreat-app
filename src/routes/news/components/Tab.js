@@ -11,7 +11,7 @@ const decideColor = (activeTab, label, theme) => {
   if (activeTab.toLowerCase() !== 'news') {
     color = theme.colors.themeColor
   } else {
-    color = '#0279a6'
+    color = theme.colors.tuNewsColor
   }
   return color
 }
@@ -65,7 +65,6 @@ class Tab extends React.PureComponent<PropsType> {
     if (type === TU_NEWS) {
       return (
         <TuStyledTab onClick={onClick} activeTab={activeTab} label={label} />
-
       )
     }
 
