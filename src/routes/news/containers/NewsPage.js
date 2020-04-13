@@ -37,7 +37,14 @@ export class NewsPage extends React.Component<PropsType> {
   };
 
   renderNewsElement = (language: string, type: string) => (newsItem: EventModel) => (
-    <NewsElement newsItem={newsItem} language={language} key={newsItem.path} type={type} path={this.props.path} />
+    <NewsElement
+      newsItem={newsItem}
+      language={language}
+      key={newsItem.path}
+      type={type}
+      path={this.props.path}
+      t={this.props.t}
+    />
   )
 
   render () {
@@ -52,7 +59,7 @@ export class NewsPage extends React.Component<PropsType> {
         const { title, message, timestamp } = newsItem
         return (
           <>
-            <PushNewsDetails title={title} message={message} timestamp={timestamp} language={language} />
+            <PushNewsDetails title={title} message={message} timestamp={timestamp} language={language} t={t} />
           </>
         )
       } else {
@@ -64,9 +71,9 @@ export class NewsPage extends React.Component<PropsType> {
       <>
         <Tabs>
         {/* TODO: update the locale file realted issues */}
-          <div label={t('LOKALE NEWS')} type={LOCAL_NEWS}>
+          <div label={t('local')} type={LOCAL_NEWS}>
             <NewsList
-              noItemsMessage={t('currentlyNoEvents')}
+              noItemsMessage={t('currentlyNoNews')}
               isNewsList
               items={news}
               renderItem={this.renderNewsElement(language, LOCAL_NEWS)}

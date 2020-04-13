@@ -62,7 +62,7 @@ type PropsType = {|
 
 class NewsElement extends React.PureComponent<PropsType> {
   renderContent (itemPath: string): React.Node {
-    const { newsItem, type, language } = this.props
+    const { newsItem, type, language, t } = this.props
 
     return (
       <>
@@ -70,7 +70,7 @@ class NewsElement extends React.PureComponent<PropsType> {
           <Title>{newsItem.title}</Title>
           <Body>{newsItem && newsItem.message}</Body>
           {newsItem.timestamp && <LastUpdateInfo lastUpdate={newsItem.timestamp} language={language} />}
-          <ReadMoreLink to={itemPath} type={type}>Read more</ReadMoreLink>
+          <ReadMoreLink to={itemPath} type={type}>{t('readMore')}</ReadMoreLink>
         </Description>
       </>
     )

@@ -37,6 +37,7 @@ const newsRoute: Route = {
     ])
   }
 }
+
 class NewsRouteConfig implements RouteConfig<NewsRouteParamsType, RequiredPayloadsType> {
   name = NEWS_ROUTE
   route = newsRoute
