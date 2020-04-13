@@ -2,13 +2,12 @@
 
 import * as React from 'react'
 import styled from 'styled-components'
+import type Moment from 'moment'
 import LastUpdateInfo from '../../../modules/common/components/LastUpdateInfo'
 
 const StyledBanner = styled.div`
   display: flex;
   align-items: center;
-  font-size: 24px;
-  font-weight: 700;
   margin: 25px 0;
   height: 60px;
   background-color: rgba(239, 210, 43, 0.4);
@@ -21,8 +20,10 @@ const StyledText = styled.div`
   display: flex;
   align-items: center;
   background-color: #efd22b;
+  font-size: 20px;
+  font-weight: bold;
   color: white;
-  width: auto;
+  width: 260px;
   height: 100%;
   padding: 0 10px;
 `
@@ -42,13 +43,13 @@ const Content = styled.p`
 type PropsType = {|
   title: string,
   message: string,
-  timestamp: any
+  timestamp: Moment
 |}
 
 // This just a placeholder until the page design is ready
 class PushNewsDetails extends React.PureComponent<PropsType> {
   render () {
-    const { title, message, timestamp, language = 'de' } = this.props
+    const { title, message, timestamp, language, t } = this.props
     return (
       <div
         style={{
@@ -57,10 +58,9 @@ class PushNewsDetails extends React.PureComponent<PropsType> {
         >
         <StyledBanner>
           <StyledText>
-            LOCAL NEWS
+            {t('local')}
           </StyledText>
         </StyledBanner>
-
         <Title>{title}</Title>
         <Content>{message}</Content>
         <LastUpdateInfo lastUpdate={timestamp} language={language} />
