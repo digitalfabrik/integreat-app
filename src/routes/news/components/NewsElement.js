@@ -15,7 +15,7 @@ const Link = styled(CleanLink)`
 
 const ReadMoreLink = styled(CleanLink)`
   align-self: flex-end;
-  color: ${({ type }) => (type === LOCAL_NEWS ? '#efd22b' : '#0279a6')};
+  color: ${({ type, theme }) => (type === LOCAL_NEWS ? theme.colors.themeColor : theme.colors.tuNewsColor)};
 `
 
 const Description = styled.div`
@@ -60,7 +60,7 @@ type PropsType = {|
   children?: React.Node
 |}
 
-class ListItem extends React.PureComponent<PropsType> {
+class NewsElement extends React.PureComponent<PropsType> {
   renderContent (itemPath: string): React.Node {
     const { newsItem, type, language } = this.props
 
@@ -90,4 +90,4 @@ class ListItem extends React.PureComponent<PropsType> {
   }
 }
 
-export default ListItem
+export default NewsElement
