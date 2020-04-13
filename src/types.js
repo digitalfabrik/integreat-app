@@ -97,7 +97,7 @@ export type JsonEventType = {
 }
 
 export type JsonLocalNewsType = {
-  timestap: string,
+  timestamp: string,
   title: string,
   message: string
 }

@@ -3,19 +3,19 @@
 import type Moment from 'moment'
 
 class LocalNewsModel {
-  _timestap: Moment
+  _timestamp: Moment
   _title: string
   _message: string
 
-  constructor (params: {| timestap: Moment, title: string, message: string |}) {
-    const { timestap, title, message } = params
-    this._timestap = timestap
+  constructor (params: {| timestamp: Moment, title: string, message: string |}) {
+    const { timestamp, title, message } = params
+    this._timestamp = timestamp
     this._title = title
     this._message = message
   }
 
-  get timestap (): Moment {
-    return this._timestap
+  get timestamp (): Moment {
+    return this._timestamp
   }
 
   get title (): string {
