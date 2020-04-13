@@ -18,7 +18,7 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<LocalNewsModel>> =>
     .withMapper((json: Array<JsonLocalNewsType>): Array<LocalNewsModel> => json
       .map((localNews: JsonLocalNewsType) => {
         return new LocalNewsModel({
-          timestap: moment.tz(localNews.timestap, 'GMT'),
+          timestamp: moment.tz(localNews.timestamp, 'GMT'),
           title: localNews.title,
           message: localNews.message
         })
