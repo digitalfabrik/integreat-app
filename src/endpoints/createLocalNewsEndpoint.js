@@ -8,7 +8,7 @@ import Endpoint from '../Endpoint'
 
 export const LOCALNEWS_ENDPOINT_NAME = 'news'
 
-type ParamsType = { city: string, language: string, channel: string }
+type ParamsType = { city: string, language: string }
 
 export default (baseUrl: string): Endpoint<ParamsType, Array<LocalNewsModel>> =>
   new EndpointBuilder(LOCALNEWS_ENDPOINT_NAME)
