@@ -39,15 +39,18 @@ done
 # set positional arguments in their proper place
 eval set -- "$PARAMS"
 
-curl -v -X POST https://circleci.com/api/v2/project/github/Integreat/integreat-react-native-app/pipeline \
+
+post_data="
+    {
+      \"branch\": \"$branch\",
+      \"parameters\": {
+        \"api_triggered\": true,
+        \"production\": $production
+      }
+    }"
+
+curl -X POST https://circleci.com/api/v2/project/github/Integreat/integreat-react-native-app/pipeline \
   -H "Content-Type: application/json" \
   -H "Accept: application/json" \
   -H "Circle-Token: ${api_token}" \
-   --data "
-  {
-    \"branch\": \"$branch\",
-    \"parameters\": {
-      \"api_triggered\": true,
-      \"production\": false
-    }
-  }"
+   --data $post_data
