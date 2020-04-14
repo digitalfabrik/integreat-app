@@ -17,6 +17,8 @@ versioning: ![versioning](https://img.shields.io/badge/calver-YYYY.MM.PATCH-22bf
 If you want to know more about Integreat or if you want to join us, contact [Max](mailto:ammann@integreat-app.de), 
 [Steffen](mailto:kleinle@integreat-app.de) or [our info mail](mailto:info@integreat-app.de) and visit our [website](https://integreat-app.de).
 [Pull requests](#pull-requests) and [bug reports](#bug-reporting) are also very much appreciated.
+
+**Testing with the live cms instance should be avoided. Instead, [please use the test cms](docs/02-technology-stack.md/#test-cms).**
  
 ## Getting Started
 ### Prerequisites
