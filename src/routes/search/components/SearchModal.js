@@ -89,7 +89,7 @@ class SearchModal extends React.Component<PropsType, StateType> {
     }
 
     const filteredCategories = this.findCategories(categories)
-    return <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+    return <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps={"always"}>
       <SpaceBetween>
         {/* The minHeight is needed to circumvent a bug that appears when there is only one search result.
               See NATIVE-430 for reference. */}
@@ -108,13 +108,13 @@ class SearchModal extends React.Component<PropsType, StateType> {
     const { theme, closeModal } = this.props
     const { query } = this.state
     return (
-      <Wrapper theme={theme}>
-        <SearchHeader theme={theme}
-                      query={query}
-                      closeSearchBar={closeModal}
-                      onSearchChanged={this.onSearchChanged} />
-        {this.renderContent()}
-      </Wrapper>
+        <Wrapper theme={theme}>
+            <SearchHeader theme={theme}
+                          query={query}
+                          closeSearchBar={closeModal}
+                          onSearchChanged={this.onSearchChanged} />
+            {this.renderContent()}
+        </Wrapper>
     )
   }
 }

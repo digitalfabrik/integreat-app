@@ -28,26 +28,27 @@ type StateType = {
 }
 
 type ItemType = {
-  title: string, description: string,
+  title: string,
+  description: string,
   hasSwitch?: true,
   getSettingValue: (settings: SettingsType) => boolean,
   onPress?: () => void
 }
 
-type SectionType = SectionBase<ItemType> & {title: ?string}
+type SectionType = SectionBase<ItemType> & { title: ?string }
 
 const ItemSeparator: StyledComponent<{}, ThemeType, *> = styled.View`
-    background-color: ${props => props.theme.colors.textDecorationColor};
-    height: ${StyleSheet.hairlineWidth}px;
+  background-color: ${props => props.theme.colors.textDecorationColor};
+  height: ${StyleSheet.hairlineWidth}px;
 `
 
 const SectionHeader = styled.Text`
-    padding: 20px;
-    color: ${props => props.theme.colors.textColor};
+  padding: 20px;
+  color: ${props => props.theme.colors.textColor};
 `
 
 export default class Settings extends React.Component<PropsType, StateType> {
-  appSettings: AppSettings
+  appSettings: AppSettings;
 
   constructor (props: PropsType) {
     super(props)
@@ -61,7 +62,7 @@ export default class Settings extends React.Component<PropsType, StateType> {
   async loadSettings () {
     try {
       const settings = await this.appSettings.loadSettings()
-
+      console.log(settings)
       this.setState({ settingsLoaded: true, settings })
     } catch (e) {
       console.error('Failed to load settings.')
@@ -82,7 +83,7 @@ export default class Settings extends React.Component<PropsType, StateType> {
         }
       }
     )
-  }
+  };
 
   renderItem = ({ item }: { item: ItemType }) => {
     const { theme } = this.props
@@ -90,33 +91,41 @@ export default class Settings extends React.Component<PropsType, StateType> {
     const value = getSettingValue ? getSettingValue(this.state.settings) : false
 
     return (
-      <SettingItem title={title} description={description}
-                   onPress={onPress} theme={theme}>
-        {hasSwitch && <Switch thumbColor={theme.colors.themeColor} trackColor={{ true: theme.colors.themeColor }}
-                              value={value} onValueChange={onPress} />}
+      <SettingItem title={title} description={description} onPress={onPress} theme={theme}>
+        {hasSwitch && (
+          <Switch
+            thumbColor={theme.colors.themeColor}
+            trackColor={{ true: theme.colors.themeColor }}
+            value={value}
+            onValueChange={onPress}
+          />
+        )}
       </SettingItem>
     )
-  }
+  };
 
   renderSectionHeader = ({ section: { title } }: { section: SectionType }) => {
     if (!title) {
       return null
     }
     return (
-      <View><SectionHeader theme={this.props.theme}>{title}</SectionHeader></View>
+      <View>
+        <SectionHeader theme={this.props.theme}>{title}</SectionHeader>
+      </View>
     )
-  }
+  };
 
-  keyExtractor = (item: ItemType, index: number): string => index.toString()
+  keyExtractor = (item: ItemType, index: number): string => index.toString();
 
-  ThemedItemSeparator = () => <ItemSeparator theme={this.props.theme} />
+  ThemedItemSeparator = () => <ItemSeparator theme={this.props.theme} />;
 
   render () {
     if (!this.state.settingsLoaded) {
       return null
     }
 
-    return <SectionList
+    return (
+      <SectionList
         keyExtractor={this.keyExtractor}
         sections={createSettingsSections({ setSetting: this.setSetting, ...this.props })}
         extraData={this.state.settings}
@@ -126,5 +135,6 @@ export default class Settings extends React.Component<PropsType, StateType> {
         SectionSeparatorComponent={this.ThemedItemSeparator}
         stickySectionHeadersEnabled={false}
       />
+    )
   }
 }
