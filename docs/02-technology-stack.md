@@ -28,6 +28,7 @@ The data which is received through the restful api of the CMS is "cached" and st
 To use the test cms, just set the new cms domain by typing 
 `window.localStorage.setItem('api-url', 'https://cms-test.integreat-app.de')` 
 in the console of your web browser and reloading the page.
+This is not required when testing locally on localhost since the test cms is used as default here.
 
 ## Linting
 * The linter for JavaScript is [eslint](http://eslint.org/)
