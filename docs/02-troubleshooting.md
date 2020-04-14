@@ -6,11 +6,11 @@ Initialize and update the locales submodule as stated in the [README](../README.
 ## Problems with sharp or other node modules
 Use nodejs 12 LTS instead of the latest version.
 
-## 
+## java.io.IOException: Unable to delete directory on Windows 10
 Possible solutions:
 * Switch to Linux :)
-* Run app  as administrator
 * Windows Security > Virus & threat protection settings > Controlled folder access > Manage Controlled folder access > Set to `Off`
+* Run app as administrator
     
 ## `ERROR watch... ENOSPC` when running `yarn start` on Linux
 Increase the number of inotify watches by running  
