@@ -22,7 +22,12 @@ The data which is received through the restful api of the CMS is "cached" and st
 ### Testing
 * [Jest](https://facebook.github.io/jest/) is used for testing.
 * [<img src="https://d2ogrdw2mh0rsl.cloudfront.net/production/images/static/header/header-logo.svg" width="150">](https://www.browserstack.com) is used for testing cross-browser compatibility
-* To test another api, you can set the new cms domain via Console of your web browser: Just type `window.localStorage.setItem('api-url', 'https://cms-test.integreat-app.de')` and reload the page.
+
+#### Test CMS
+**Testing with the live cms instance should be avoided.**
+To use the test cms, just set the new cms domain by typing 
+`window.localStorage.setItem('api-url', 'https://cms-test.integreat-app.de')` 
+in the console of your web browser and reloading the page.
 
 ### Linting
 * The linter for JavaScript is [eslint](http://eslint.org/)
