@@ -1,5 +1,6 @@
 # Debugging
-For debugging install [react-native-debugger](https://github.com/jhen0409/react-native-debugger)
+For debugging install [react-native-debugger](https://github.com/jhen0409/react-native-debugger) or use the IntelliJ
+debugging tool.
 
 ## Setup reverse tunnel from device to metro
 On Android you have 2 options:
