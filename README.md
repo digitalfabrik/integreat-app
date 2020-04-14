@@ -26,10 +26,10 @@ If you want to know more about Integreat or if you want to join us, contact [Max
 Using the latest version (v13) may lead to errors.
 * Install [yarn](https://yarnpkg.com/)
 
-### IDE
-We suggest [IntelliJ IDEA Ultimate](https://www.jetbrains.com/idea/) as IDE. JetBrains provides free licences for students.
+### Project setup
+We suggest **[IntelliJ IDEA Ultimate](https://www.jetbrains.com/idea/)** as IDE. JetBrains provides free licences for students.
+If you are using a different IDE, the steps might differ.
 
-#### Project setup
 * Import this project (VCS > Get from Version Control).
 * Run `git submodule init` and `git submodule update` to initialize the locales submodule.
 * Run `yarn` in the terminal to install all dependencies.
