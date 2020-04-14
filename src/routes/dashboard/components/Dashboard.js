@@ -68,20 +68,39 @@ class Dashboard extends React.Component<PropsType> {
     ]
   }
 
-  landing = () => this.props.navigation.navigate('Landing')
+  landing = () => this.props.navigation.navigate('Landing');
 
   render () {
     const {
-      cities, stateView, theme, resourceCache, navigateToIntegreatUrl, language, cityCode, navigateToCategory,
-      navigation, t
+      cities,
+      stateView,
+      theme,
+      resourceCache,
+      navigateToIntegreatUrl,
+      language,
+      cityCode,
+      navigateToCategory,
+      navigation,
+      t
     } = this.props
 
-    return <SpaceBetween>
-      <NavigationTiles tiles={this.getNavigationTileModels(cityCode, language)} theme={theme} />
-      <Categories stateView={stateView} cities={cities} resourceCache={resourceCache} language={language}
-                  cityCode={cityCode} theme={theme} navigation={navigation} navigateToCategory={navigateToCategory}
-                  t={t} navigateToIntegreatUrl={navigateToIntegreatUrl} />
-    </SpaceBetween>
+    return (
+      <SpaceBetween>
+        <NavigationTiles tiles={this.getNavigationTileModels(cityCode, language)} theme={theme} />
+        <Categories
+          stateView={stateView}
+          cities={cities}
+          resourceCache={resourceCache}
+          language={language}
+          cityCode={cityCode}
+          theme={theme}
+          navigation={navigation}
+          navigateToCategory={navigateToCategory}
+          t={t}
+          navigateToIntegreatUrl={navigateToIntegreatUrl}
+        />
+      </SpaceBetween>
+    )
   }
 }
 
