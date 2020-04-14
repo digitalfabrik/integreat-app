@@ -1,7 +1,18 @@
-# If you encounter problems:
+# Troubleshooting
+
+## Invalid VCS Root
+Initialize and update the locales submodule as stated in the [README](../README.md/#project-setup).
+
+## Problems with sharp or other node modules
+Use nodejs 12 LTS instead of the latest version.
+
+## 
+Possible solutions:
+* Switch to Linux :)
+* Run app  as administrator
+* Windows Security > Virus & threat protection settings > Controlled folder access > Manage Controlled folder access > Set to `Off`
     
 ## `ERROR watch... ENOSPC` when running `yarn start` on Linux
-
 Increase the number of inotify watches by running  
 `echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p`
 
@@ -12,7 +23,6 @@ There are 2 ways to fix this:
 2. Add `~/Android/sdk/platform-tools/adb` to your $PATH
 
 ## 'adb server version (x) doesn't match this client (y)'
-
 Make sure you only have one version of adb installed. Probably your system has one and Android Studio installed a second
 one. There are 2 ways to fix this:
 
@@ -20,5 +30,4 @@ one. There are 2 ways to fix this:
 2. Add `~/Android/sdk/platform-tools/adb` to your $PATH
 
 ## adb shows no-permission
-
 [Setup udev rules](https://wiki.archlinux.org/index.php/Android_Debug_Bridge#Adding_udev_Rules) to allow user accounts to access your phone.
