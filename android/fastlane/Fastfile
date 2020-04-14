@@ -14,7 +14,7 @@ KEYSTORE_KEY_PASSWORD = ENV['KEYSTORE_KEY_PASSWORD'] || '123456'
 desc "Prepare the keystore"
 lane :keystore do
   ensure_env_vars(
-      env_vars: ['CREDENTIALS_GIT_REPOSITORY_URL']
+      env_vars: ['CREDENTIALS_GIT_REPOSITORY_URL', 'CREDENTIALS_KEYSTORE_PATH', 'CREDENTIALS_DIRECTORY_PATH', 'CREDENTIALS_KEYSTORE_PASSWORD']
   )
 
   puts("Cloning repository with keystore")
