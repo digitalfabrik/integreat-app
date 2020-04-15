@@ -9,8 +9,14 @@ Use nodejs 12 LTS instead of the latest version.
 ## java.io.IOException: Unable to delete the directory on Windows 10
 Possible solutions:
 * Switch to Linux :)
-* Windows Security > Virus & threat protection settings > Controlled folder access > Manage Controlled folder access > Set to `Off`
-* Run app as administrator
+* Windows Security > Virus & threat protection settings > 
+  * Controlled folder access > Manage Controlled folder access > Set to `Off`
+  * Exclusions > Add or Remove exclusions > 
+    * Add the workspace folder
+    * Maybe also add user specific configuration locations and appdata folder if required
+* Run the IDE as administrator
+* For first time android developer try to open Android Studio and create and start one of the samples 
+  (there are a lot of hints present)
     
 ## `ERROR watch... ENOSPC` when running `yarn start` on Linux
 Increase the number of inotify watches by running  
