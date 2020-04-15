@@ -134,7 +134,7 @@ export const setupDriver = async (additionalCaps: {} = {}) => {
   const desiredCaps = {
     ...clone(config.caps),
     build: `${config.prefix}: ${getGitBranch()}`,
-    name: `${config.platform}: ${getGitHeadReference()}`,
+    name: `${getGitHeadReference()}`,
     tags: [config.prefix, config.platform, ...getAdditionalTags()],
     ...additionalCaps
   }
