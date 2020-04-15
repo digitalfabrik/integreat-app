@@ -25,6 +25,8 @@ The data which is received through the restful api of the CMS is "cached" and st
 
 ### Test CMS
 **Testing with the live cms instance should be avoided.**
+In debug builds the test cms is used as default, so it is **only required for release builds**, i.e. the `webnext.integreat-app.de` and `integreat.app`.
+
 To use the test cms:
 * Enter `window.localStorage.setItem('api-url', 'https://cms-test.integreat-app.de')` 
 in the console of your web browser.
