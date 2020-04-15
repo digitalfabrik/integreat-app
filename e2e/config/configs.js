@@ -56,6 +56,7 @@ exports.browserstack_dev_ios = {
   caps: {
     'browserstack.user': process.env.E2E_BROWSERSTACK_USER,
     'browserstack.key': process.env.E2E_BROWSERSTACK_KEY,
+    project: 'integreat-react-native-app',
     os_version: '11',
     device: 'iPhone 8',
     real_mobile: 'true',
