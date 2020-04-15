@@ -1,9 +1,9 @@
 # End to End Tests
 
 We are using Jest and Appium to run the tests.
-There are two essential config files in the `e2e-tests/config` directory. The `server-configs.js` contains the urls to the Appium servers. Currently there are two of them: `local` and `browserstack`
+There are two essential config files in the `e2e-tests/config` directory. The `server-configs.js` contains the urls to the Appium servers. Currently, there are two of them: `local` and `browserstack`
 
-The other essential config is `e2e-tests/config/caps.js` which set the capabilites you require. A set of capabilites is like a requirement of devices you want to test against (e.g. Android 9/iOS 11). [Here](https://www.browserstack.com/app-automate/capabilities) is a good definition of capabilites and which caps you can set.
+The other essential config is `e2e-tests/config/caps.js` which set the capabilities you require. A set of capabilities is like a requirement of devices you want to test against (e.g. Android 9/iOS 11). [Here](https://www.browserstack.com/app-automate/capabilities) is a good definition of capabilites and which caps you can set.
 
 ## Setup
 
@@ -22,7 +22,7 @@ E2E_TEST_IDS=1 yarn android:release
 
 ### Using appium-desktop
 
-[Appium Desktop](https://github.com/appium/appium-desktop) allows you to inspect the tree of the app. To set it up I recommend to clone the repository and run the electron app manually:
+[Appium Desktop](https://github.com/appium/appium-desktop) allows you to inspect the tree of the app. To set it up I recommend cloning the repository and run the electron app manually:
 ```bash
 git clone https://github.com/appium/appium-desktop.git
 cd appium-desktop
