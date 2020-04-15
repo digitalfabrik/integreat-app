@@ -163,7 +163,7 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
     const type = location.type
 
     const feedbackCategory = CONTENT_FEEDBACK_CATEGORY
-    if (type === CATEGORIES_ROUTE && path && title) {
+    if (type === CATEGORIES_ROUTE && path && title && location.payload.categoryPath) {
       return new FeedbackVariant({
         label: t('contentOfPage', { page: title }),
         feedbackType: PAGE_FEEDBACK_TYPE,
