@@ -96,7 +96,7 @@ class SearchModal extends React.Component<PropsType, StateType> {
     }
 
     const filteredCategories = this.findCategories(categories)
-    return <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps={'always'}>
+    return <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps='always'>
       <SpaceBetween>
         {/* The minHeight is needed to circumvent a bug that appears when there is only one search result.
               See NATIVE-430 for reference. */}
