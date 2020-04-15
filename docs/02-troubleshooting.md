@@ -37,3 +37,14 @@ one. There are 2 ways to fix this:
 
 ## adb shows no-permission
 [Setup udev rules](https://wiki.archlinux.org/index.php/Android_Debug_Bridge#Adding_udev_Rules) to allow user accounts to access your phone.
+
+## Build failed with an exception
+
+* What went wrong: 
+
+Execution failed for task ':app:installDebug':
+`> com.android.builder.testing.api.DeviceException: com.android.ddmlib.InstallException: INSTALL_FAILED_VERSION_DOWNGRADE`
+
+* Fix
+
+Uninstall already existing application from target device  
