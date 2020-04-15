@@ -68,7 +68,7 @@ class Dashboard extends React.Component<PropsType> {
     ]
   }
 
-  landing = () => this.props.navigation.navigate('Landing');
+  landing = () => this.props.navigation.navigate('Landing')
 
   render () {
     const {

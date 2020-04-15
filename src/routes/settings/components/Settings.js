@@ -62,7 +62,6 @@ export default class Settings extends React.Component<PropsType, StateType> {
   async loadSettings () {
     try {
       const settings = await this.appSettings.loadSettings()
-      console.log(settings)
       this.setState({ settingsLoaded: true, settings })
     } catch (e) {
       console.error('Failed to load settings.')
