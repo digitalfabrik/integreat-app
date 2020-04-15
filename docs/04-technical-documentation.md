@@ -30,9 +30,10 @@ The data which is received through the restful api of the CMS is "cached" and st
 
 #### Test CMS
 **Testing with the live cms instance should be avoided.**
+In debug builds the test cms is used as default, so it is **only required for release builds**, i.e. the versions in the stores.
+
 To switch between test and live cms, click the location image on the landing page 10 times.
 On iOS it may be required to close and reopen the app after changing the cms instance.
-This is not required when testing locally since the test cms is used as default here.
 
 ### Linting
 * The linter for JavaScript is [eslint](http://eslint.org/)
@@ -45,7 +46,7 @@ You can run the linter by calling **yarn run lint**. Some issues can be fixed au
 You can run flow using **yarn flow**. 
 
 ### Backend
-The endpoints for the webapp and this project are defined in the [api-client](https://github.com/Integreat/api-client).
+The endpoints for the webapp and this project are defined in the [api-client](https://github.com/Integreat/integreat-api-client).
 
 * The current backend uses WordPress and can be found [here](https://github.com/Integreat/cms).
 * [API Documentation](https://github.com/Integreat/cms/wiki/REST-APIv3-Documentation)
