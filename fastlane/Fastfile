@@ -125,9 +125,7 @@ platform :android do
         file_path: "/tmp/output/app-release.apk"
     )
 
-    ENV["E2E_CAPS"] = 'ci_browserstack'
-    ENV["E2E_PLATFORM"] = 'android'
-    ENV["E2E_SERVER"] = 'browserstack'
+    ENV["E2E_CONFIG"] = 'browserstack_ci_android'
     ENV["E2E_BROWSERSTACK_USER"] = ENV["BROWSERSTACK_USERNAME"]
     ENV["E2E_BROWSERSTACK_KEY"] = ENV["BROWSERSTACK_ACCESS_KEY"]
     ENV["E2E_BROWSERSTACK_APP"] = lane_context[SharedValues::BROWSERSTACK_APP_ID]
@@ -221,9 +219,7 @@ platform :ios do
         file_path: "/tmp/output/Integreat.ipa"
     )
 
-    ENV["E2E_CAPS"] = 'ci_browserstack_ios'
-    ENV["E2E_PLATFORM"] = 'ios'
-    ENV["E2E_SERVER"] = 'browserstack'
+    ENV["E2E_CONFIG"] = 'browserstack_ci_ios'
     ENV["E2E_BROWSERSTACK_USER"] = ENV["BROWSERSTACK_USERNAME"]
     ENV["E2E_BROWSERSTACK_KEY"] = ENV["BROWSERSTACK_ACCESS_KEY"]
     ENV["E2E_BROWSERSTACK_APP"] = lane_context[SharedValues::BROWSERSTACK_APP_ID]
