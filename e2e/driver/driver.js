@@ -118,6 +118,10 @@ const getGitBranch = () => {
   return childProcess.execSync('git rev-parse --abbrev-ref HEAD').toString().trim()
 }
 
+const getGitHeadReference = () => {
+  return childProcess.execSync('git rev-parse --short HEAD').toString().trim()
+}
+
 export const setupDriver = async (additionalCaps: {} = {}) => {
   const config = getConfig()
 
@@ -130,7 +134,7 @@ export const setupDriver = async (additionalCaps: {} = {}) => {
   const desiredCaps = {
     ...clone(config.caps),
     build: `${config.prefix}: ${getGitBranch()}`,
-    name: config.platform,
+    name: `${config.platform}: ${getGitHeadReference()}`,
     tags: [config.prefix, config.platform, ...getAdditionalTags()],
     ...additionalCaps
   }
