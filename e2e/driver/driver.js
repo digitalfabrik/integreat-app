@@ -35,7 +35,7 @@ export const isIOS = () => {
 }
 
 const getAdditionalTags = () => {
-  return ADDITIONAL_ENV_VARIABLES.map(variable => process.env[variable]).filter(value => !value)
+  return ADDITIONAL_ENV_VARIABLES.map(variable => process.env[variable]).filter(value => !!value)
 }
 
 export const select = <T, K> (input: { android: T, ios: K }): T | K => {
@@ -92,7 +92,7 @@ const fetchTestResults = async (driver: wd.PromiseChainWebdriver) => {
         }
       })
     const json = await response.json()
-    console.log(json)
+    console.log(`View the results here: ${json.automation_session.public_url}`)
   } catch (error) {
     console.error(error)
   }
@@ -106,7 +106,7 @@ export const setupDriver = async (additionalCaps: {} = {}) => {
     process.exit(1)
   }
 
-  console.log(`Server config: ${JSON.stringify(serverConfig)}`)
+  console.log(`Trying to use ${serverConfig.url} ...`)
 
   const desiredCaps = { ...clone(caps[capsName.toLowerCase()]), ...additionalCaps }
 
@@ -121,8 +121,8 @@ export const setupDriver = async (additionalCaps: {} = {}) => {
   const driver = await initDriver(serverConfig, desiredCaps)
   const status = await driver.status()
 
-  console.log(`Driver session id: ${JSON.stringify(driver.sessionID)}`)
-  console.log(`Driver status: ${JSON.stringify(status)}`)
+  console.log(`Session ID is ${JSON.stringify(driver.sessionID)}`)
+  console.log(`Status of Driver is ${JSON.stringify(status)}`)
 
   await driver.setImplicitWaitTimeout(IMPLICIT_WAIT_TIMEOUT)
   await timer(STARTUP_DELAY)
