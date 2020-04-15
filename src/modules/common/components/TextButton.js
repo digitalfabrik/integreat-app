@@ -15,13 +15,14 @@ export const StyledButton = styled.button`
 
 type ButtonPropsType = {
   onClick: () => void,
-  text: string
+  text: string,
+  disabled: boolean
 }
 
 class TextButton extends React.PureComponent<ButtonPropsType> {
   render () {
-    const { onClick, text } = this.props
-    return <StyledButton onClick={onClick}>{text}</StyledButton>
+    const { onClick, text, disabled } = this.props
+    return <StyledButton onClick={onClick} disabled={disabled}>{text}</StyledButton>
   }
 }
 
