@@ -40,7 +40,10 @@ exports.browserstack_dev_android = {
     'browserstack.user': process.env.E2E_BROWSERSTACK_USER,
     'browserstack.key': process.env.E2E_BROWSERSTACK_KEY,
     project: 'integreat-react-native-app',
-    device: 'Google Pixel',
+    os_version: '9.0',
+    device: 'Google Pixel 3',
+    real_mobile: 'true',
+    'browserstack.appium_version': '1.17.0',
     app: process.env.E2E_BROWSERSTACK_APP,
     'browserstack.debug': true
   }
@@ -53,7 +56,10 @@ exports.browserstack_dev_ios = {
   caps: {
     'browserstack.user': process.env.E2E_BROWSERSTACK_USER,
     'browserstack.key': process.env.E2E_BROWSERSTACK_KEY,
-    device: 'iPhone XS',
+    os_version: '11',
+    device: 'iPhone 8',
+    real_mobile: 'true',
+    'browserstack.appium_version': '1.16.0',
     app: process.env.E2E_BROWSERSTACK_APP,
     'browserstack.debug': true
   }
@@ -67,7 +73,10 @@ exports.browserstack_ci_android = {
     'browserstack.user': process.env.E2E_BROWSERSTACK_USER,
     'browserstack.key': process.env.E2E_BROWSERSTACK_KEY,
     project: 'integreat-react-native-app',
-    device: 'Google Pixel',
+    os_version: '9.0',
+    device: 'Google Pixel 3',
+    real_mobile: 'true',
+    'browserstack.appium_version': '1.17.0',
     app: process.env.E2E_BROWSERSTACK_APP,
     'browserstack.debug': true
   }
@@ -81,7 +90,10 @@ exports.browserstack_ci_ios = {
     'browserstack.user': process.env.E2E_BROWSERSTACK_USER,
     'browserstack.key': process.env.E2E_BROWSERSTACK_KEY,
     project: 'integreat-react-native-app',
-    device: 'iPhone XS',
+    os_version: '11',
+    device: 'iPhone 8',
+    real_mobile: 'true',
+    'browserstack.appium_version': '1.16.0',
     app: process.env.E2E_BROWSERSTACK_APP,
     'browserstack.debug': true
   }
