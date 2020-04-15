@@ -1,7 +1,8 @@
 // @flow
 
-import childProcess from 'child_process'
 import wd from 'wd'
+import fetch from 'node-fetch'
+import childProcess from 'child_process'
 import serverConfigs from '../config/server-configs'
 import caps from '../config/caps'
 import { clone } from 'lodash'
@@ -21,6 +22,8 @@ const IMPLICIT_WAIT_TIMEOUT = 80000
 const INIT_RETRY_TIME = 3000
 const STARTUP_DELAY = 3000
 
+const ADDITIONAL_ENV_VARIABLES = ['CIRCLE_BUILD_URL', 'CIRCLE_BUILD_NUM']
+
 export const timer = (ms: number) => new Promise<{}>(resolve => setTimeout(resolve, ms))
 
 export const isAndroid = () => {
@@ -29,6 +32,10 @@ export const isAndroid = () => {
 
 export const isIOS = () => {
   return platform.toLowerCase() === 'ios'
+}
+
+const getAdditionalTags = () => {
+  return ADDITIONAL_ENV_VARIABLES.map(variable => process.env[variable]).filter(value => !value)
 }
 
 export const select = <T, K> (input: { android: T, ios: K }): T | K => {
@@ -57,6 +64,40 @@ const initDriver = async (serverConfig, desiredCaps) => {
   }
 }
 
+const fetchTestResults = async (driver: wd.PromiseChainWebdriver) => {
+  if (!driver.sessionID) {
+    // We are not using BrowserStack probably
+    return
+  }
+
+  const user = process.env.E2E_BROWSERSTACK_USER
+  const password = process.env.E2E_BROWSERSTACK_KEY
+
+  if (!user || !password) {
+    console.log('Can not fetch test results from BrowserStack as no username is set!')
+    return
+  }
+
+  const auth = `Basic ${Buffer.from(
+    `${user}:${password}`
+  ).toString('base64')}`
+
+  try {
+    const response = await fetch(
+      `https://api.browserstack.com/app-automate/sessions/${driver.sessionID}.json`,
+      {
+        method: 'GET',
+        headers: {
+          Authorization: auth
+        }
+      })
+    const json = await response.json()
+    console.log(json)
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 export const setupDriver = async (additionalCaps: {} = {}) => {
   const serverConfig = serverConfigs[e2eServerConfigName.toLowerCase()]
 
@@ -65,6 +106,8 @@ export const setupDriver = async (additionalCaps: {} = {}) => {
     process.exit(1)
   }
 
+  console.log(`Server config: ${JSON.stringify(serverConfig)}`)
+
   const desiredCaps = { ...clone(caps[capsName.toLowerCase()]), ...additionalCaps }
 
   if (!desiredCaps) {
@@ -72,28 +115,13 @@ export const setupDriver = async (additionalCaps: {} = {}) => {
     process.exit(1)
   }
 
-  if (isAndroid()) {
-    if (serverConfig.local) {
-      try {
-        const androidVersion = childProcess
-          .execSync('adb shell getprop ro.build.version.release')
-          .toString()
-          .replace(/^\s+|\s+$/g, '')
-        if (!isNaN(androidVersion)) {
-          console.log('Detected Android device running Android %s', androidVersion)
-        }
-      } catch (e) {
-        throw new Error('Failed to get version from adb device. Do you have a device connected?')
-      }
-    }
-  }
-
-  desiredCaps.name = `Integreat [${platform}]`
-  desiredCaps.tags = ['Integreat']
+  desiredCaps.name = childProcess.execSync('git rev-parse HEAD').toString().trim()
+  desiredCaps.tags = ['Integreat', platform, ...getAdditionalTags()]
 
   const driver = await initDriver(serverConfig, desiredCaps)
   const status = await driver.status()
 
+  console.log(`Driver session id: ${JSON.stringify(driver.sessionID)}`)
   console.log(`Driver status: ${JSON.stringify(status)}`)
 
   await driver.setImplicitWaitTimeout(IMPLICIT_WAIT_TIMEOUT)
@@ -102,6 +130,7 @@ export const setupDriver = async (additionalCaps: {} = {}) => {
 }
 
 export const stopDriver = async (driver: wd.PromiseChainWebdriver) => {
+  await fetchTestResults(driver)
   if (driver === undefined) {
     return
   }
