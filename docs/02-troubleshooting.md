@@ -47,4 +47,14 @@ Execution failed for task ':app:installDebug':
 
 * Fix
 
-Uninstall already existing application from target device  
+Uninstall already existing application from target device
+
+## App hangs on loading screen
+
+* What went wrong:
+
+The app starts, but remains in the loading screen for long time
+
+* Fix
+
+Close the app on the device complete and re-open it on the device 
