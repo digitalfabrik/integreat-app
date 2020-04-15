@@ -25,9 +25,10 @@ The data which is received through the restful api of the CMS is "cached" and st
 
 ### Test CMS
 **Testing with the live cms instance should be avoided.**
-To use the test cms, just set the new cms domain by typing 
-`window.localStorage.setItem('api-url', 'https://cms-test.integreat-app.de')` 
-in the console of your web browser and reloading the page.
+To use the test cms:
+* Enter `window.localStorage.setItem('api-url', 'https://cms-test.integreat-app.de')` 
+in the console of your web browser.
+* Reload the page.
 This is not required when testing locally on localhost since the test cms is used as default here.
 
 ## Linting
@@ -42,8 +43,8 @@ You can run the linter by calling **yarn run lint**. Some issues can be fixed au
 You can run flow using **yarn flow**. 
 
 ## Backend
-The endpoints for the webapp and this project are defined in the [api-client](https://github.com/Integreat/api-client).
+The endpoints for the webapp and this project are defined in the [api-client](https://github.com/Integreat/integreat-api-client).
 
-* The current backend uses wordpress and can be found [here](https://github.com/Integreat/cms).
+* The current backend uses WordPress and can be found [here](https://github.com/Integreat/cms).
 * [API Documentation](https://github.com/Integreat/cms/wiki/REST-APIv3-Documentation)
 * We are working on replacing it with a [python/django project](https://github.com/Integreat/cms-django).
