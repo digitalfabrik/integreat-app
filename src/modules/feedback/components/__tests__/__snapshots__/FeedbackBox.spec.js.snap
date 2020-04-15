@@ -39,6 +39,7 @@ exports[`FeedbackBox should match snapshot 1`] = `
     onCommentChanged={[Function]}
   />
   <TextButton
+    disabled={true}
     onClick={[Function]}
     text="send"
   />
