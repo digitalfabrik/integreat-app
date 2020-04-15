@@ -24,7 +24,7 @@ export const NEWS_ROUTE = 'NEWS'
  * @type {{path: string, thunk: function(Dispatch, GetState)}}
  */
 const newsRoute: Route = {
-  path: '/:city/:language/news/:newsId?',
+  path: '/:city/:language/tunews/:newsId',
   thunk: async (dispatch, getState) => {
     const state = getState()
     const { city, language } = state.location.payload
@@ -38,7 +38,7 @@ const newsRoute: Route = {
   }
 }
 
-class NewsRouteConfig implements RouteConfig<NewsRouteParamsType, RequiredPayloadsType> {
+class TuNewsRouteConfig implements RouteConfig<NewsRouteParamsType, RequiredPayloadsType> {
   name = NEWS_ROUTE
   route = newsRoute
   isLocationLayoutRoute = true
@@ -78,4 +78,4 @@ class NewsRouteConfig implements RouteConfig<NewsRouteParamsType, RequiredPayloa
   }
 }
 
-export default NewsRouteConfig
+export default TuNewsRouteConfig
