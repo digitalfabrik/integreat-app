@@ -6,7 +6,7 @@ Initialize and update the locales submodule as stated in the [README](../README.
 ## Problems with sharp or other node modules
 Use nodejs 12 LTS instead of the latest version.
 
-## java.io.IOException: Unable to delete directory on Windows 10
+## java.io.IOException: Unable to delete the directory on Windows 10
 Possible solutions:
 * Switch to Linux :)
 * Windows Security > Virus & threat protection settings > Controlled folder access > Manage Controlled folder access > Set to `Off`

@@ -1,6 +1,6 @@
 # Conventions
 ## Naming
-For naming we follow the airbnb style: https://github.com/airbnb/javascript/tree/master/react
+For naming, we follow the airbnb style: https://github.com/airbnb/javascript/tree/master/react
 
 ## Code style
 For the JavasScript code style we use the standard style: https://standardjs.com/

@@ -45,6 +45,6 @@ You can run the linter by calling **yarn run lint**. Some issues can be fixed au
 You can run flow using **yarn flow**. 
 
 ### Backend
-* The current backend uses wordpress and can be found [here](https://github.com/Integreat/cms).
+* The current backend uses WordPress and can be found [here](https://github.com/Integreat/cms).
 * [API Documentation](https://github.com/Integreat/cms/wiki/REST-APIv3-Documentation)
 * We are working on replacing it with a [python/django project](https://github.com/Integreat/cms-django).
