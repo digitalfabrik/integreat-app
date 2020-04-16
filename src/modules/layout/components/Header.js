@@ -5,14 +5,13 @@ import { Share } from 'react-native'
 import logo from '../assets/integreat-app-logo.png'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
-import { HeaderButtons, HeaderButton, Item } from 'react-navigation-header-buttons'
-import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
+import { Item } from 'react-navigation-header-buttons'
 import HeaderBackButton from 'react-navigation-stack/lib/module/views/Header/HeaderBackButton'
-
 import type { NavigationDescriptor, NavigationScene, NavigationScreenProp } from 'react-navigation'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { TFunction } from 'react-i18next'
 import { CityModel } from '@integreat-app/integreat-api-client'
+import MaterialHeaderButtons from './MaterialHeaderButtons'
 
 const Horizontal = styled.View`
   flex: 1;
@@ -52,20 +51,6 @@ const BoxShadow: StyledComponent<{}, ThemeType, *> = styled.View`
   background-color: ${props => props.theme.colors.backgroundAccentColor};
   height: ${props => props.theme.dimensions.headerHeight}px;
 `
-
-const MaterialHeaderButton = props => (
-  <HeaderButton {...props} IconComponent={MaterialIcon} iconSize={23} color='black' />
-)
-
-const MaterialHeaderButtons = props => {
-  return (
-    // $FlowFixMe onOverflowMenuPress should not be required
-    <HeaderButtons HeaderButtonComponent={MaterialHeaderButton}
-                   OverflowIcon={<MaterialIcon name='more-vert' size={23} color='black' />}
-                   {...props}
-    />
-  )
-}
 
 type PropsType = {|
   navigation: NavigationScreenProp<*>,
@@ -165,7 +150,7 @@ class Header extends React.PureComponent<PropsType> {
           {cityModel &&
           <HeaderText allowFontScaling={false} theme={theme}>{this.cityDisplayName(cityModel)}</HeaderText>}
         </HorizontalLeft>
-        <MaterialHeaderButtons>
+        <MaterialHeaderButtons cancelLabel={t('cancel')}>
           {!peeking && categoriesAvailable &&
           this.renderItem(t('search'), 'search', 'always', this.goToSearch, t('search'))}
           {!peeking && goToLanguageChange &&
