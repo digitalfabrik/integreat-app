@@ -8,18 +8,24 @@ const CommentField = styled.textarea`
   resize: none;
 `
 
+const RequiredText = styled.text`
+  color: red;
+  font-size: 1.5em
+`
+
 type PropsType = {|
   comment: string,
   commentMessage: string,
+  required: boolean,
   onCommentChanged: SyntheticInputEvent<HTMLTextAreaElement> => void
 |}
 
 class FeedbackComment extends React.PureComponent<PropsType> {
   render () {
-    const { commentMessage, comment, onCommentChanged } = this.props
+    const { commentMessage, comment, onCommentChanged, required } = this.props
     return (
       <>
-        <Description>{commentMessage}</Description>
+        <Description>{commentMessage}{required ? <RequiredText>*</RequiredText> : ''}</Description>
         <CommentField rows={7} value={comment} onChange={onCommentChanged} />
       </>
     )

@@ -16,7 +16,7 @@ export const StyledButton = styled.button`
 type ButtonPropsType = {
   onClick: () => void,
   text: string,
-  disabled: boolean
+  disabled?: boolean
 }
 
 class TextButton extends React.PureComponent<ButtonPropsType> {
