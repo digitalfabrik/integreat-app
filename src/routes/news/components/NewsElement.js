@@ -4,9 +4,9 @@ import * as React from 'react'
 import styled from 'styled-components'
 import { LocalNewsModel } from '@integreat-app/integreat-api-client'
 import CleanLink from '../../../modules/common/components/CleanLink'
-import LastUpdateInfo from '../../../modules/common/components/LastUpdateInfo'
 
 const LOCAL_NEWS = 'local'
+const TU_NEWS = 'tu'
 
 const Link = styled(CleanLink)`
   display: flex;
@@ -15,7 +15,8 @@ const Link = styled(CleanLink)`
 
 const ReadMoreLink = styled(CleanLink)`
   align-self: flex-end;
-  color: ${({ type, theme }) => (type === LOCAL_NEWS ? theme.colors.themeColor : theme.colors.tuNewsColor)};
+  color: ${({ type, theme }) => (type === LOCAL_NEWS ? theme.colors.themeColor : '#007aa8')};
+  font-weight: 600
 `
 
 const Description = styled.div`
@@ -26,7 +27,7 @@ const Description = styled.div`
   flex-grow: 1;
   padding: 15px 10px 0;
   word-wrap: break-word;
-  
+
 
   > * {
     padding-bottom: 10px;
@@ -53,15 +54,15 @@ const StyledNewsElement = styled.div`
 `
 
 type PropsType = {|
-  newsItem: Array<LocalNewsModel>,
-  path: string,
-  title: string,
-  type: string,
-  children?: React.Node
-|}
+  newsItem: Array < LocalNewsModel >,
+    path: string,
+      title: string,
+        type ?: string,
+        children ?: React.Node
+          |}
 
 class NewsElement extends React.PureComponent<PropsType> {
-  renderContent (itemPath: string): React.Node {
+  renderContent(itemPath: string): React.Node {
     const { newsItem, type, language, t } = this.props
 
     return (
@@ -69,14 +70,15 @@ class NewsElement extends React.PureComponent<PropsType> {
         <Description>
           <Title>{newsItem.title}</Title>
           <Body>{newsItem && newsItem.message}</Body>
-          {newsItem.timestamp && <LastUpdateInfo lastUpdate={newsItem.timestamp} language={language} />}
           <ReadMoreLink to={itemPath} type={type}>{t('readMore')}</ReadMoreLink>
         </Description>
       </>
     )
   }
 
-  render () {
+
+
+  render() {
     const { path, newsItem } = this.props
     const itemPath = `${path}/${newsItem.title}`
 
