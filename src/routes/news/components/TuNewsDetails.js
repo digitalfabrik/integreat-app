@@ -3,7 +3,6 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import type Moment from 'moment'
-// import LastUpdateInfo from '../../../modules/common/components/LastUpdateInfo'
 import BreadCrumbs from '../../../modules/common/components/Breadcrumbs'
 import TuNewsIcon from './../assets/tu-news-active.png'
 
@@ -48,8 +47,10 @@ const Content = styled.p`
 type PropsType = {|
   title: string,
     message: string,
-      timestamp: Moment
-        |}
+      timestamp: Moment,
+        language: string,
+          t: any
+            |}
 
 // This just a placeholder until the page design is ready
 class TuNewsDetails extends React.PureComponent<PropsType> {
@@ -59,13 +60,11 @@ class TuNewsDetails extends React.PureComponent<PropsType> {
       <div>
         <StyledBanner>
           <StyledTitle>
-            <StyledBannerImage src={TuNewsIcon} alt={t('Tu News')} />
+            <StyledBannerImage src={TuNewsIcon} alt={t('tu.news')} />
           </StyledTitle>
         </StyledBanner>
         <Title>{title}</Title>
         <Content>{message}</Content>
-        <span>I AM HERERE BITCCCHHH</span>
-        {/* <LastUpdateInfo lastUpdate={timestamp} language={language} /> */}
       </div>
     )
   }
