@@ -12,16 +12,17 @@ import type { StateType } from '../../../modules/app/StateType'
 import NewsElement from '../components/NewsElement'
 import NewsList from '../components/NewsList'
 import Tabs from '../components/Tabs'
-import PushNewsDetails from '../components/PushNewsDetails'
+import LocalNewsDetails from '../components/LocalNewsDetails'
+import TuNewsDetails from '../components/TuNewsDetails'
 
 type PropsType = {|
-  news: Array<LocalNewsModel>,
-  city: string,
-  newsId: ?string,
-  language: string,
-  t: TFunction,
-  path: string
-|}
+  news: Array < LocalNewsModel >,
+    city: string,
+      newsId: ?string,
+        language: string,
+          t: TFunction,
+            path: string
+              |}
 
 const LOCAL_NEWS = 'local'
 const TU_NEWS = 'tu'
@@ -47,21 +48,30 @@ export class NewsPage extends React.Component<PropsType> {
     />
   )
 
-  render () {
+  render() {
     const { news, path, newsId, city, language, t } = this.props
-
     if (newsId) {
       const newsItem = news.find(_newsItem => {
         return _newsItem.title === decodeURIComponent(newsId)
       })
 
+      console.log('newsItem', newsItem)
+
       if (newsItem) {
         const { title, message, timestamp } = newsItem
+        // if (type === LOCAL_NEWS) {
         return (
           <>
-            <PushNewsDetails title={title} message={message} timestamp={timestamp} language={language} t={t} />
+            <LocalNewsDetails title={title} message={message} timestamp={timestamp} language={language} t={t} />
           </>
         )
+        // } else if (type === TU_NEWS) {
+        //   return (
+        //     <>
+        //       <TuNewsDetails title={title} message={message} timestamp={timestamp} language={language} t={t} />
+        //     </>
+        //   )
+        // }
       } else {
         const error = new ContentNotFoundError({ type: 'newsItem', id: newsId, city, language })
         return <FailureSwitcher error={error} />
@@ -70,7 +80,7 @@ export class NewsPage extends React.Component<PropsType> {
     return (
       <>
         <Tabs>
-        {/* TODO: update the locale file realted issues */}
+          {/* TODO: update the locale file realted issues */}
           <div label={t('local')} type={LOCAL_NEWS}>
             <NewsList
               noItemsMessage={t('currentlyNoNews')}
@@ -84,7 +94,16 @@ export class NewsPage extends React.Component<PropsType> {
             />
           </div>
           <div label={t('News')} type={TU_NEWS}>
-            {/* TODO: TuNews list goes here */}
+            <NewsList
+              noItemsMessage={t('currentlyNoNews')}
+              isNewsList
+              items={news}
+              renderItem={this.renderNewsElement(language, TU_NEWS)}
+              path={path}
+              city={city}
+              language={language}
+              t={t}
+            />
           </div>
         </Tabs>
       </>
