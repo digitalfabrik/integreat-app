@@ -63,10 +63,7 @@ class Endpoint<P, T> {
     const response = await this.fetchOrPost(url, formData)
 
     if (!response.ok) {
-      const text = await response.text()
-      throw new ResponseError({
-        endpointName: this.stateName, responseMessage: text.message, responseStatus: response.status, url, formData
-      })
+      throw new ResponseError({ endpointName: this.stateName, responseStatus: response.status, url, formData })
     }
 
     try {
