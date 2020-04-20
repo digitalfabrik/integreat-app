@@ -11,6 +11,7 @@ import NavigationTiles from '../../../modules/common/components/NavigationTiles'
 import TileModel from '../../../modules/common/models/TileModel'
 import eventsIcon from '../assets/events.svg'
 import offersIcon from '../assets/offers.svg'
+import newsIcon from '../assets/news.svg'
 import localInformationIcon from '../assets/local_information.svg'
 import type { TFunction } from 'react-i18next'
 import type { NavigateToCategoryParamsType } from '../../../modules/app/createNavigateToCategory'
@@ -55,6 +56,14 @@ class Dashboard extends React.Component<PropsType> {
         thumbnail: offersIcon,
         isExternalUrl: false,
         onTilePress: () => navigateToExtras({ cityCode, language }),
+        notifications: 0
+      }),
+      new TileModel({
+        title: t('news'),
+        path: 'news',
+        thumbnail: newsIcon,
+        isExternalUrl: false,
+        onTilePress: () => navigateToEvent({ cityCode, language, path: null }),
         notifications: 0
       }),
       new TileModel({
