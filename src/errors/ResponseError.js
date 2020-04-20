@@ -33,7 +33,12 @@ class ResponseError extends Error {
   createMessage ({ formData, url, endpointName, responseStatus }: ResponseErrorParamsType): string {
     const stringifyFormData = (formData: ?FormData) => {
       if (formData) {
-        return ` and the formData ${JSON.stringify(formData)}`
+        const entries = {}
+        for (const entry of formData.entries()) {
+          entries[entry[0]] = entry[1]
+        }
+
+        return ` and the formData ${JSON.stringify(entries)}`
       }
       return ''
     }
