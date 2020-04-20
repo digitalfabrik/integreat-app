@@ -38,16 +38,15 @@ class Endpoint<P, T> {
     return this._stateName
   }
 
-  async postFormData (url: string, params: P): Promise<Response> {
-    if (!this.mapParamsToBody) {
-      throw new Error(`The endpoint ${this.stateName} is not able to post form data!`)
+  async fetchOrPost (url: string, formData: ?FormData): Promise<Response> {
+    try {
+      return fetch(url, formData ? {
+        method: 'POST',
+        body: formData
+      } : {})
+    } catch (e) {
+      throw new FetchError({ endpointName: this.stateName, innerError: e })
     }
-    const formattedBody = this.mapParamsToBody(params)
-
-    return fetch(url, {
-      method: 'POST',
-      body: formattedBody
-    })
   }
 
   async request (params: P, overrideUrl?: string): Promise<Payload<T>> {
@@ -60,15 +59,14 @@ class Endpoint<P, T> {
       return new Payload(false, url, this.responseOverride, null)
     }
 
-    let response = null
-    try {
-      response = await (this.mapParamsToBody ? this.postFormData(url, params) : fetch(url))
-    } catch (e) {
-      throw new FetchError({ endpointName: this.stateName, innerError: e })
-    }
+    const formData = this.mapParamsToBody ? this.mapParamsToBody(params) : null
+    const response = await this.fetchOrPost(url, formData)
 
     if (!response.ok) {
-      throw new ResponseError({ endpointName: this.stateName, response })
+      const responseMessage = await response.text()
+      throw new ResponseError({
+        endpointName: this.stateName, responseMessage, responseStatus: response.status, url, formData
+      })
     }
 
     try {
