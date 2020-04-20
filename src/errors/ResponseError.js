@@ -36,17 +36,14 @@ class ResponseError extends Error {
   createMessage ({ formData, url, endpointName, responseStatus, responseMessage }: ResponseErrorParamsType): string {
     const stringifyFormData = (formData: ?FormData) => {
       if (formData) {
-        const object = {}
-        // $FlowFixMe formData.forEach exists
-        formData.forEach((value, key) => { object[key] = value })
-        return ` and the formData ${JSON.stringify(object)}`
+        return ` and the formData ${JSON.stringify(formData)}`
       }
       return ''
     }
 
     return `ResponseError:
      Failed to load the request for the ${endpointName} endpoint with the url ${url}${stringifyFormData(formData)}.
-     Received response status ${responseStatus} with the message ${responseMessage}`
+     Received response status ${responseStatus} with the message ${responseMessage}.`
   }
 
   get message (): string {
