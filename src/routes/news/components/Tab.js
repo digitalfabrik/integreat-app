@@ -33,15 +33,15 @@ const StyledTab = styled.div`
   font-size: 18px;
   font-weight: bold;
   color: #ffffff;
+  width: 150px;
 `
 
 const TuStyledTab = styled(StyledTab)`
-  
+
   background-image: url(${tuNewsLogoActive});
   background-image: ${({ activeTab, label, theme }) =>
     activeTab === label ? `url(${tuNewsLogoActive})` : `url(${tuNewsLogoInActive})`};
   background-size: cover;
-  width: 150px;
 `
 
 type PropsType = {|
