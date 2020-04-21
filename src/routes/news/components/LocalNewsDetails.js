@@ -3,8 +3,6 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import type Moment from 'moment'
-// import LastUpdateInfo from '../../../modules/common/components/LastUpdateInfo'
-// import Caption from '../../../modules/common/components/Caption'
 import Page from './../../../modules/common/components/Page'
 
 const StyledContainer = styled.div`
