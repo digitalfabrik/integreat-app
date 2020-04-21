@@ -8,14 +8,12 @@ import type { StoreActionType } from './StoreActionType'
 
 async function fetchData<P, T> (
   endpoint: Endpoint<P, T>,
-  dispatch: Dispatch<StoreActionType>, oldPayload: Payload<T>,
+  dispatch: Dispatch<StoreActionType>,
+  oldPayload: Payload<T>,
   params: P
 ): Promise<Payload<T>> {
   let formattedUrl
   try {
-    const responseOverride = endpoint.responseOverride
-    const errorOverride = endpoint.errorOverride
-
     formattedUrl = endpoint.mapParamsToUrl(params)
 
     const lastUrl = oldPayload.requestUrl
@@ -28,19 +26,7 @@ async function fetchData<P, T> (
     // Fetch if the data is not valid anymore or it hasn't been fetched yet
     dispatch(startFetchAction(endpoint.stateName, formattedUrl))
 
-    if (errorOverride) {
-      const payload = new Payload(false, formattedUrl, null, errorOverride)
-      dispatch(finishFetchAction(endpoint.stateName, payload))
-      return payload
-    }
-    if (responseOverride) {
-      const data = endpoint.mapResponse(responseOverride, params)
-      const payload = new Payload(false, formattedUrl, data, null)
-      dispatch(finishFetchAction(endpoint.stateName, payload))
-      return payload
-    }
-
-    const payload = await endpoint.request(params, formattedUrl)
+    const payload = await endpoint.request(params, { developmentHeader: true })
     dispatch(finishFetchAction(endpoint.stateName, payload))
     return payload
   } catch (e) {
