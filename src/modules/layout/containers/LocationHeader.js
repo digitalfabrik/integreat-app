@@ -99,7 +99,7 @@ export class LocationHeader extends React.Component<PropsType> {
         <HeaderNavigationItem
           key='news'
           href={new NewsRouteConfig().getRoutePath({ city, language })}
-          selected={currentRoute === NEWS_ROUTE}
+          selected={ location.pathname.includes('news') }
           text={t('news')}
           active={isNewsActive}
         />
