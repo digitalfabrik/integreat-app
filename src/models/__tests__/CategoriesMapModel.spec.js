@@ -81,6 +81,10 @@ describe('CategoriesMapModel', () => {
   const category3 = categoriesMapModel.findCategoryByPath('/augsburg/de/erste-schritte///')
   const category4 = categoriesMapModel.findCategoryByPath('/augsburg/de/erste-schritte/asylantrag')
 
+  if (!category1 || !category2 || !category3 || !category4) {
+    throw new Error('Category not found. Error setting up tests.')
+  }
+
   it('should get the right categories and normalize url components', () => {
     expect(category1).toEqual(categories[0])
     expect(category2).toEqual(categories[1])
