@@ -41,7 +41,7 @@ class Page extends React.PureComponent<PropsType> {
         <RemoteContent dangerouslySetInnerHTML={{ __html: content }}
                        onInternalLinkClick={onInternalLinkClick}
                        hijackRegExp={hijackRegExp} />
-        {lastUpdate && <LastUpdateInfo lastUpdate={lastUpdate} language={language} />}
+        {lastUpdate && <LastUpdateInfo lastUpdate={lastUpdate} language={language} withText={true}/>}
       </>
     )
   }
