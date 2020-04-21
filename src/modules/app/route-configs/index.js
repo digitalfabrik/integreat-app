@@ -8,6 +8,7 @@ import LandingRouteConfig, { LANDING_ROUTE } from './LandingRouteConfig'
 import MainDisclaimerRouteConfig, { MAIN_DISCLAIMER_ROUTE } from './MainDisclaimerRouteConfig'
 import EventsRouteConfig, { EVENTS_ROUTE } from './EventsRouteConfig'
 import NewsRouteConfig, { NEWS_ROUTE } from './NewsRouteConfig'
+import TuNewsDetailsRouteConfig, { TUNEWS_DETAILS_ROUTE } from './TuNewsDetailsRouteConfig'
 import WohnenRouteConfig, { WOHNEN_ROUTE } from './WohnenRouteConfig'
 import ExtrasRouteConfig, { EXTRAS_ROUTE } from './ExtrasRouteConfig'
 import SearchRouteConfig, { SEARCH_ROUTE } from './SearchRouteConfig'
@@ -23,6 +24,7 @@ const routeConfigs: {[string]: RouteConfig<any, any>} = {
   [LANDING_ROUTE]: new LandingRouteConfig(),
   [EVENTS_ROUTE]: new EventsRouteConfig(),
   [NEWS_ROUTE]: new NewsRouteConfig(),
+  [TUNEWS_DETAILS_ROUTE]: new TuNewsDetailsRouteConfig(),
   [SPRUNGBRETT_ROUTE]: new SprungbrettRouteConfig(),
   [WOHNEN_ROUTE]: new WohnenRouteConfig(),
   [EXTRAS_ROUTE]: new ExtrasRouteConfig(),
@@ -48,6 +50,7 @@ export const routesMap: {[string]: Route} = {
   [LANDING_ROUTE]: new LandingRouteConfig().route,
   [EVENTS_ROUTE]: new EventsRouteConfig().route,
   [NEWS_ROUTE]: new NewsRouteConfig().route,
+  [TUNEWS_DETAILS_ROUTE]: new TuNewsDetailsRouteConfig().route,
   [SPRUNGBRETT_ROUTE]: new SprungbrettRouteConfig().route,
   [WOHNEN_ROUTE]: new WohnenRouteConfig().route,
   [EXTRAS_ROUTE]: new ExtrasRouteConfig().route,
