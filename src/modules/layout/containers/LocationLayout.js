@@ -114,14 +114,14 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
     }
 
     return <Layout asideStickyTop={this.state.asideStickyTop}
-                   header={<LocationHeader isEventsEnabled={cityModel.eventsEnabled}
-                                           isExtrasEnabled={cityModel.extrasEnabled}
+      header={<LocationHeader isEventsEnabled={cityModel && cityModel.eventsEnabled}
+                                           isExtrasEnabled={cityModel && cityModel.extrasEnabled}
                                            isNewsEnabled
                                            languageChangePaths={languageChangePaths}
                                            location={location}
                                            events={events}
                                            news={news}
-                                           cityName={cityModel.name}
+                                           cityName={cityModel && cityModel.name}
                                            viewportSmall={viewportSmall}
                                            onStickyTopChanged={this.handleStickyTopChanged} />}
                    footer={<LocationFooter onClick={this.handleFooterClicked} city={city} language={language} />}
