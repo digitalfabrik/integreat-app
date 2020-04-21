@@ -25,7 +25,7 @@ class FeedbackComment extends React.PureComponent<PropsType> {
     const { commentMessage, comment, onCommentChanged, required } = this.props
     return (
       <>
-        <Description>{commentMessage}{required ? <RequiredText>*</RequiredText> : ''}</Description>
+        <Description>{commentMessage}{required && <RequiredText>*</RequiredText>}</Description>
         <CommentField rows={7} value={comment} onChange={onCommentChanged} />
       </>
     )
