@@ -11,7 +11,4 @@ Before you can merge the code has to be reviewed and a [jenkins build](https://b
 needs to pass.
 The CI runs the linter, flow and all unit tests. So better run these locally first before pushing.
 
-If you merge something into develop or master you **have to** do a no-fast-forward merge.
-Do this by running `git merge <feature-branch> --no-ff`.
-
 When you merge to develop a new debug release is pushed to [webnext.integreat-app.de](https://webnext.integreat-app.de/).
