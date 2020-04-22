@@ -12,9 +12,9 @@ void checkoutWithSubmodules() {
     doGenerateSubmoduleConfigurations: false,
     extensions: [[
                    $class: 'SubmoduleOption',
-                   disableSubmodules: false,
+                   disableSubmodules: true,
                    parentCredentials: true,
-                   recursiveSubmodules: true,
+                   recursiveSubmodules: false,
                    reference: '',
                    trackingSubmodules: false
                  ]],
