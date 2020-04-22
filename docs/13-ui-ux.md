@@ -1,11 +1,10 @@
 # UI/UX
+Design proposals can be found in the folder [ui-ux](../ui-ux) or in the
+[drive](https://drive.google.com/drive/folders/1cAJB_-FItDmhj4naHBKwsY6LVhmjN_er) for non tech people.
 
-You can request access to the internal drive by writing to [ammann@integreat-app.de](mailto:ammann@integreat-app.de)
+All new design proposals and mockups should be added to the ui-ux folder AND the drive.
+ 
+Access to the drive can be requested at one of the members of Integreat mentioned in the [README](../README.md).
 
 ## Icons
-
-Current icons can be found [here in the drive](https://drive.google.com/drive/folders/1MA3_WkCSS2jyDZlccSMmtqsmAZubaHWs)
-
-## Design resources
-
-Resources can be found in [our drive](https://drive.google.com/drive/u/0/folders/1x15-tX3ErZtBimwO6IPrhuM1LPajfDbm).
+Current icons can be found [here in the drive](https://drive.google.com/drive/folders/1FlSvpC0et0OnFuV-rxV1m2U3hoZO-ufJ).
