@@ -12,6 +12,7 @@ versioning: ![versioning](https://img.shields.io/badge/calver-YYYY.MM.PATCH-22bf
 * [Conventions](docs/01-conventions.md)
 * [Technology Stack](docs/02-technology-stack.md)
 * [Deployment](docs/03-deployment.md)
+* [I18N](docs/14-i18n.md)
 
 ## Contributing
 If you want to know more about Integreat or if you want to join us, contact [Max](mailto:ammann@integreat-app.de), 
@@ -29,7 +30,6 @@ We suggest [IntelliJ IDEA Ultimate](https://www.jetbrains.com/idea/) as IDE. Jet
 
 #### Project setup
 * Import this project (VCS > Get from Version Control).
-* Run `git submodule init` and `git submodule update` to initialize the locales submodule.
 * Run `yarn` in the terminal to install all dependencies.
 * Take a look at package.json to show all available npm scripts.
 * Run `yarn start` to start a local webpack dev server.
@@ -48,7 +48,6 @@ We suggest [IntelliJ IDEA Ultimate](https://www.jetbrains.com/idea/) as IDE. Jet
 * [optional] Install the following plugins: *Styled Components*, *EJS*.
 
 ### Trouble shooting
-* **Invalid VCS Root**: Initialize and update the locales submodule.
 * Use nodejs 12 LTS instead of the latest version.
 
 ## Bug reporting
