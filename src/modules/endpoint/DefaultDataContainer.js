@@ -12,7 +12,7 @@ import type { DataContainer } from './DataContainer'
 import type Moment from 'moment'
 import { difference, flatMap, isEmpty, map, omitBy } from 'lodash'
 import Cache from './Cache'
-import deleteIfExisting from './deleteIfExisting'
+import deleteIfExists from './deleteIfExists'
 
 type CacheType = {
   cities: Cache<Array<CityModel>>,
@@ -167,7 +167,7 @@ class DefaultDataContainer implements DataContainer {
         const pathsToClean = difference(removedPaths, pathsOfOtherLanguages)
         console.debug('Cleaning up the following resources:')
         console.debug(pathsToClean)
-        await Promise.all(pathsToClean.map(path => deleteIfExisting(path)))
+        await Promise.all(pathsToClean.map(path => deleteIfExists(path)))
       }
     }
 
