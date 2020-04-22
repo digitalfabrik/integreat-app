@@ -58,10 +58,7 @@ class TuNewsDetailsRouteConfig implements RouteConfig<RequiredPayloadsType> {
 
   getMetaDescription = () => null
 
-  getFeedbackTargetInformation = ({ payloads, location }) => {
-    const tunewsItem = payloads.tuNewsElementDetails.data
-    return tunewsItem ? { id: tunewsItem._id, title: tunewsItem._title } : null
-  }
+  getFeedbackTargetInformation = () => null
 }
 
 export default TuNewsDetailsRouteConfig
