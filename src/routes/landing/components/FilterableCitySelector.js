@@ -53,8 +53,7 @@ class FilterableCitySelector extends React.Component<PropsType, StateType> {
                        onFilterTextChange={this.onFilterTextChange}
                        placeholderText={t('searchCity')}
                        spaceSearch={false}
-                       theme={theme}
-                       autofocus />
+                       theme={theme} />
         </SearchBar>
         <CitySelector {...this.props} filterText={filterText} />
       </View>

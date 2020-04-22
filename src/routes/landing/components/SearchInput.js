@@ -41,8 +41,7 @@ type PropsType = {
   onFilterTextChange: (string) => void,
   spaceSearch: boolean,
   onClickInput?: () => void,
-  theme: ThemeType,
-  autofocus: boolean
+  theme: ThemeType
 }
 
 class SearchInput extends React.Component<PropsType> {
@@ -50,12 +49,11 @@ class SearchInput extends React.Component<PropsType> {
   onFilterTextChange = (text: string) => this.props.onFilterTextChange(text)
 
   render () {
-    const { onClickInput, filterText, placeholderText, theme, spaceSearch, autofocus } = this.props
+    const { onClickInput, filterText, placeholderText, theme, spaceSearch } = this.props
     return (
       <Wrapper theme={theme} space={spaceSearch}>
         <SearchIcon theme={theme} />
         <Input
-          autoFocus={autofocus}
           {...testID('Search-Input')}
           theme={theme}
           placeholder={placeholderText}
