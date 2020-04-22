@@ -29,6 +29,11 @@ const Description = styled.Text`
     font-family: ${props => props.theme.fonts.decorativeFontRegular};
 `
 
+const RequiredText = styled.Text`
+    color: red;
+    fontSize: 25px
+`
+
 type PropsType = {|
   theme: ThemeType,
   closeModal: () => void,
@@ -87,7 +92,7 @@ class FeedbackModal extends React.Component<PropsType, StateType> {
                 mode='dropdown'>
           {feedbackItems.map((item, index) => <Picker.Item label={item.label} value={index} key={index} />)}
         </Picker>
-        <Description theme={theme}> {isPositiveFeedback ? t('positiveComment') : t('negativeComment')}</Description>
+        <Description theme={theme}> {isPositiveFeedback ? t('positiveComment') : t('negativeComment')}{!isPositiveFeedback && <RequiredText>*</RequiredText>}</Description>
         <Input theme={theme} onChangeText={this.onFeedbackCommentChanged}
                autoFocus value={comment} multiline placeholderTextColor={theme.colors.textSecondaryColor}
                placeholder={t('yourFeedback')} />
