@@ -72,7 +72,6 @@ color: red;
 type PropsType = {|
   newsItem: TuNewsModel,
   path: string,
-  title: string,
   type: string,
   language: string,
   city: string,

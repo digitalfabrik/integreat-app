@@ -19,13 +19,13 @@ const Wrapper = styled.div`
 `
 
 type PropsType<T> = {|
-  items: Array <T>,
+  items: Array<T>,
   noItemsMessage: string,
-  renderItem: T => React.Node,
+  renderItem: any,
   city: string,
 |}
 
-class NewsList<T> extends React.PureComponent<PropsType<T>> {
+class NewsList<T>extends React.PureComponent<PropsType<T>> {
   render() {
     const { items, renderItem, noItemsMessage, city } = this.props
     if (isEmpty(items)) {
