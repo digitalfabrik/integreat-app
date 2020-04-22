@@ -19,14 +19,15 @@ const Wrapper = styled.div`
 `
 
 type PropsType<T> = {|
-  items: Array<T>,
+  items: Array <T>,
   noItemsMessage: string,
-  renderItem: T => React.Node
+  renderItem: T => React.Node,
+  city: string,
 |}
 
 class NewsList<T> extends React.PureComponent<PropsType<T>> {
-  render () {
-    const { items, renderItem, noItemsMessage } = this.props
+  render() {
+    const { items, renderItem, noItemsMessage, city } = this.props
     if (isEmpty(items)) {
       return <NoItemsMessage>{noItemsMessage}</NoItemsMessage>
     }
@@ -34,7 +35,7 @@ class NewsList<T> extends React.PureComponent<PropsType<T>> {
     return (
       <StyledList>
         <Wrapper>
-          {items.map(item => renderItem(item))}
+          {items.map(item => renderItem(item, city))}
         </Wrapper>
       </StyledList>
     )
