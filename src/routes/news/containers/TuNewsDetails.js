@@ -59,7 +59,7 @@ const Content = styled.p`
 `
 
 type PropsType = {|
-  payloads: any,
+  tuNewsElementDetails: any,
   language: string,
   t: TFunction
 |}
@@ -67,8 +67,7 @@ type PropsType = {|
 // This just a placeholder until the page design is ready
 class TuNewsDetailsPage extends React.PureComponent<PropsType> {
   render() {
-    const { payloads, language, t } = this.props
-    const tuNewsElementDetails = payloads;
+    const { tuNewsElementDetails, language, t } = this.props
 
     return (
       <StyledContainer>
