@@ -11,7 +11,7 @@ import {
   createEventsEndpoint
 } from '@integreat-app/integreat-api-client'
 import fetchData from '../fetchData'
-import { cmsApiBaseUrl, tunewsApiBaseUrl } from '../constants/urls'
+import { cmsApiBaseUrl, tuNewsApiBaseUrl } from '../constants/urls'
 
 type RequiredPayloadsType = {| news: Payload<Array<TuNewsElementModel>> |}
 
@@ -21,7 +21,7 @@ export const TUNEWS_DETAILS_ROUTE = 'TUNEWS_DETAILS'
  * EventsRoute, matches /augsburg/de/events and /augsburg/de/events/begegnungscafe
  * @type {{path: string, thunk: function(Dispatch, GetState)}}
  */
-const newsRoute: Route = {
+const tuNewsDetailsRoute: Route = {
   path: '/:city/:language/news/tu-news/:newsId?',
   thunk: async (dispatch, getState) => {
     const state = getState()
@@ -29,17 +29,16 @@ const newsRoute: Route = {
     const { city, language } = state.location.payload
 
     await Promise.all([
-      fetchData(createTuNewsElementEndpoint(tunewsApiBaseUrl), dispatch, state.tunews_element, { id: newsId }),
+      fetchData(createTuNewsElementEndpoint(tuNewsApiBaseUrl), dispatch, state.tunews_element, { id: newsId }),
       fetchData(createCitiesEndpoint(cmsApiBaseUrl), dispatch, state.cities),
-      fetchData(createEventsEndpoint(cmsApiBaseUrl), dispatch, state.events, { city, language }),
-      // fetchData(createLanguagesEndpoint(cmsApiBaseUrl), dispatch, state.languages, { city, language })
+      fetchData(createEventsEndpoint(cmsApiBaseUrl), dispatch, state.events, { city, language })
     ])
   }
 }
 
 class TuNewsDetailsRouteConfig implements RouteConfig<RequiredPayloadsType> {
   name = TUNEWS_DETAILS_ROUTE
-  route = newsRoute
+  route = tuNewsDetailsRoute
   isLocationLayoutRoute = true
   requiresHeader = true
   requiresFooter = true
