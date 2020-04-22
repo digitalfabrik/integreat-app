@@ -265,6 +265,7 @@ describe('FeedbackBoxContainer', () => {
   })
 
   describe('getCurrentPageFeedbackOption', () => {
+    const dashboardOption = null
     const categoriesOption = new FeedbackVariant({
       label: 'contentOfPage',
       feedbackType: PAGE_FEEDBACK_TYPE,
@@ -299,6 +300,7 @@ describe('FeedbackBoxContainer', () => {
 
     it.each`
     type                 | path       | alias           | title              | query         | result
+    ${CATEGORIES_ROUTE}  | ${null}    | ${''}           | ${'Augsburg'}      | ${''}         | ${dashboardOption}
     ${CATEGORIES_ROUTE}  | ${'path1'} | ${''}           | ${'Willkommen'}    | ${''}         | ${categoriesOption}
     ${EVENTS_ROUTE}      | ${'path2'} | ${''}           | ${'Event1'}        | ${''}         | ${eventsOption}
     ${WOHNEN_ROUTE}      | ${null}    | ${'wohnen'}     | ${'Wohnungsboerse'}| ${''}         | ${wohnenOption}
@@ -307,7 +309,7 @@ describe('FeedbackBoxContainer', () => {
     ${DISCLAIMER_ROUTE}  | ${null}    | ${''}           | ${''}              | ${''}         | ${disclaimerOption}
     ${EXTRAS_ROUTE}      | ${null}    | ${''}           | ${''}              | ${''}         | ${extrasOption}
     `('should return the right option', ({ type, path, alias, title, query, result }) => {
-  const location = createLocation({ type, payload: { city: 'augsburg', language: 'de' } })
+  const location = createLocation({ type, payload: { city: 'augsburg', language: 'de', categoryPath: path } })
   const component = shallow(
           <FeedbackBoxContainer
             location={location}

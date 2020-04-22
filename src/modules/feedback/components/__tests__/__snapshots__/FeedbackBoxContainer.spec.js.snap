@@ -35,13 +35,6 @@ exports[`FeedbackBoxContainer should match snapshot 1`] = `
       FeedbackVariant {
         "alias": undefined,
         "feedbackCategory": "Inhalte",
-        "feedbackType": null,
-        "label": "contentOfPage",
-        "value": "contentOfPage",
-      },
-      FeedbackVariant {
-        "alias": undefined,
-        "feedbackCategory": "Inhalte",
         "feedbackType": "categories",
         "label": "contentOfCity",
         "value": "contentOfCity",
@@ -63,9 +56,9 @@ exports[`FeedbackBoxContainer should match snapshot 1`] = `
     FeedbackVariant {
       "alias": undefined,
       "feedbackCategory": "Inhalte",
-      "feedbackType": null,
-      "label": "contentOfPage",
-      "value": "contentOfPage",
+      "feedbackType": "categories",
+      "label": "contentOfCity",
+      "value": "contentOfCity",
     }
   }
 />
