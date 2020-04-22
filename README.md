@@ -39,7 +39,20 @@ Note that we are using the `--squash` command which will create a merge commit:
 
 When pushing changes you are required to do the changes directly in the `integreat-locales` repository. After that you can pull the changes.
 
-You should create a separate branch in `integreat-locales` for your locale changes.
+You should create a separate branch in `integreat-locales` for your locale changes. When pulling the changes you can do:
+```bash
+git subtree pull --prefix locales locales test-subtrees --squash -m "Merging squashed locales for branch $(git rev-parse --abbrev-ref HEAD)"
+```
+
+This will create a merge commit with the changes from the `NATIVE-X` branch:
+```
+*   dc053771 (HEAD -> NATIVE-497-subtree) Merging squashed locales for branch NATIVE-497-subtree
+|\  
+| * 3d386e7c Squashed 'locales/' changes from b0db264d..2f2d7443
+| * 850eada7 Squashed 'locales/' content from commit b0db264d
+* | 7053596b NATIVE-Y: Some change
+* | 7053596b NATIVE-Y: Some other change
+```
 
 ## Origin
 
