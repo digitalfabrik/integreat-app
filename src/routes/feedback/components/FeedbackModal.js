@@ -95,6 +95,7 @@ class FeedbackModal extends React.Component<PropsType, StateType> {
         <Button icon={<Icon name='send' size={15} color='black' style='material' />}
                 titleStyle={{ color: theme.colors.textColor }}
                 buttonStyle={{ backgroundColor: theme.colors.themeColor }}
+                disabled={!isPositiveFeedback && !comment}
                 onPress={this.onSubmit} title={t('send')} />
       </>
     } else if (sendingStatus === 'sending') {
