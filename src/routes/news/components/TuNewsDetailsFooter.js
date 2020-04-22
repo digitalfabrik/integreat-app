@@ -1,7 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
-
-
+import PageDetail from '../../../modules/common/components/PageDetail'
+import { TFunction } from 'i18next'
+import compose from 'lodash/fp/compose'
+import { withTranslation } from 'react-i18next'
 
 const Footer = styled.footer`
   display: flex;
@@ -19,26 +21,38 @@ const StyledContainer = styled.div`
 padding: 5px 10px 0;
 `
 
-const StyledSpan = styled.span`
+const StyledLink = styled.a`
+color: white;
 text-decoration: underline;
 `
 
 type PropsType<T> = {|
-  items: Array < T >,
-      |}
+  eNewsNumber: string,
+  date: string,
+  language: string,
+  t: TFunction
+|}
 
 class TuNewsDetailsFooter<T> extends React.PureComponent<PropsType<T>> {
   render() {
-    const { items } = this.props
+    const { eNewsNumber, date, language, t } = this.props
+    date.locale(language)
+    const timestamp = date.format('LL')
+
     return (
       <Footer>
-        <StyledContainer>E-news No: tun0000009902</StyledContainer>
-        <StyledContainer><StyledSpan>tünews INTERNATIONAL</StyledSpan></StyledContainer>
-        <StyledContainer>20.01.2020 15:16:06</StyledContainer>
+        <StyledContainer>{t('eNewsNo')}: {eNewsNumber}</StyledContainer>
+        <StyledContainer>
+          <StyledLink href="http://www.tunews.de" target="_blank">
+            {t('tunewsInternational')}
+          </StyledLink>
+        </StyledContainer>
+        <StyledContainer>{timestamp}</StyledContainer>
       </Footer>
     )
   }
 }
 
-
-export default TuNewsDetailsFooter
+export default compose(
+  withTranslation('tuNewsDetails')
+)(TuNewsDetailsFooter)
