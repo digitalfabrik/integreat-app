@@ -1,0 +1,27 @@
+From 23a59c1a24058e4b4a3fb5d5393b473e1ecb0335 Mon Sep 17 00:00:00 2001
+From: Steffen Kleinle <klinzo@yahoo.de>
+Date: Tue, 23 Oct 2018 12:44:51 +0200
+Subject: [PATCH 05/23] WEBAPP-376: Generalize lists
+
+---
+ src/locales.json | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/src/locales.json b/src/locales.json
+index 99b7c37e..b409adde 100644
+--- a/src/locales.json
++++ b/src/locales.json
+@@ -322,5 +322,10 @@
+     "fa": {
+       "lastUpdate": "آخرین به روزآوری: "
+     }
++  },
++  "sprungbrett": {
++    "de": {
++      "noOffersAvailable": "Keine Angebote verfügbar"
++    }
+   }
+ }
+-- 
+2.20.1 (Apple Git-117)
+

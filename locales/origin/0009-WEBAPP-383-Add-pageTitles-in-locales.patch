@@ -1,0 +1,222 @@
+From dad6f7e39b18104071212c28b6142fb8dddc0e94 Mon Sep 17 00:00:00 2001
+From: Steffen Kleinle <klinzo@yahoo.de>
+Date: Fri, 16 Nov 2018 16:11:16 +0100
+Subject: [PATCH 09/23] WEBAPP-383: Add pageTitles in locales
+
+---
+ src/locales.json | 113 +++++++++++++++++++++++++----------------------
+ 1 file changed, 60 insertions(+), 53 deletions(-)
+
+diff --git a/src/locales.json b/src/locales.json
+index cd707ee1..d5aab9f1 100644
+--- a/src/locales.json
++++ b/src/locales.json
+@@ -1,4 +1,55 @@
+ {
++  "app": {
++    "ar": {
++      "pageTitles": {
++        "search": "البحث",
++        "events": "الأخبار",
++        "extras": "إضافات",
++        "landing": "أين أنت؟",
++        "disclaimer": "هيئة التحرير وجهة الاتصال"
++      }
++    },
++    "de": {
++      "pageTitles": {
++        "search": "Suche",
++        "events": "News",
++        "extras": "Extras",
++        "landing": "Wo bist du?",
++        "disclaimer": "Impressum und Kontakt",
++        "wohnen": "Raumfrei",
++        "sprungbrett": "Sprungbrett"
++      }
++    },
++    "en": {
++      "pageTitles": {
++        "search": "Search",
++        "events": "News",
++        "extras": "Extras",
++        "landing": "Where are you?",
++        "disclaimer": "Imprint and contact",
++        "pois": "Points of Interest"
++      }
++    },
++    "fa": {
++      "pageTitles": {
++        "search": "جستجو",
++        "events": "تازه​ها",
++        "extras": "اضافات",
++        "landing": "تو کجایی؟",
++        "disclaimer": "مجوز ‎و اطلاعات تماس"
++      }
++    },
++    "fr": {
++      "pageTitles": {
++        "search": "Rechercher",
++        "events": "Actualités",
++        "extras": "Extras",
++        "landing": "Tu es où?",
++        "disclaimer": "Mentions légales et contact"
++      }
++
++    }
++  },
+   "layout": {
+     "ar": {
+       "imprintAndContact": "هيئة التحرير وجهة الاتصال",
+@@ -59,22 +110,11 @@
+     }
+   },
+   "search": {
+-    "ar": {
+-      "pageTitle": "البحث"
+-    },
+     "de": {
+-      "pageTitle": "Suche",
+       "searchCategory": "Suche nach einer Kategorie"
+     },
+     "en": {
+-      "pageTitle": "Search",
+       "searchCategory": "Search for a category"
+-    },
+-    "fa": {
+-      "pageTitle": "جستجو"
+-    },
+-    "fr": {
+-      "pageTitle": "Rechercher"
+     }
+   },
+   "categories": {
+@@ -101,84 +141,69 @@
+       "location": "الموقع",
+       "date": "تاريخ",
+       "news": "الأخبار",
+-      "pageTitle": "الأخبار",
+       "currentlyNoEvents": "ليس هناك فعاليات متوفرة حاليَاً"
+     },
+     "de": {
+       "location": "Standort",
+       "date": "Datum",
+       "news": "News",
+-      "pageTitle": "News",
+       "currentlyNoEvents": "Es gibt aktuell keine Veranstaltungen."
+     },
+     "en": {
+       "location": "Location",
+       "date": "Date",
+       "news": "News",
+-      "pageTitle": "News",
+       "currentlyNoEvents": "No recent events available."
+     },
+     "fa": {
+       "location": "موقعیت مکانی",
+       "date": "تاریخ",
+       "news": "تازه​ها",
+-      "pageTitle": "تازه​ها",
+       "currentlyNoEvents": "هیچ رویداد جدیدی موجود نیست."
+     },
+     "fr": {
+       "location": "Lieu",
+       "date": "Date",
+       "news": "Actualités",
+-      "pageTitle": "Actualités",
+       "currentlyNoEvents": "Pas d'événements actuels disponibles."
+     }
+   },
+   "extras": {
+     "ar": {
+-      "extras": "إضافات",
+-      "pageTitle": "إضافات"
++      "extras": "إضافات"
+     },
+     "en": {
+-      "extras": "Extras",
+-      "pageTitle": "Extras"
++      "extras": "Extras"
+     },
+     "de": {
+-      "extras": "Extras",
+-      "pageTitle": "Extras"
++      "extras": "Extras"
+     },
+     "fa": {
+-      "extras": "اضافات",
+-      "pageTitle": "اضافات"
++      "extras": "اضافات"
+     },
+     "fr": {
+-      "extras": "Extras",
+-      "pageTitle": "Extras"
++      "extras": "Extras"
+     }
+   },
+   "landing": {
+     "ar": {
+-      "where": "أين أنت؟",
+-      "pageTitle": "أين أنت؟"
++      "where": "أين أنت؟"
+     },
+     "de": {
+       "where": "Wo bist du?",
+-      "pageTitle": "Wo bist du?",
+       "searchCity": "Suche nach deinem Ort",
+       "metaDescription": "Finde lokale und aktuelle Informationen, Events und werde Teil deiner neuen Stadt. Integreat hilft dir dich mit anderen zu vernetzen und unterstützt mehrere Sprachen."
+     },
+     "en": {
+       "where": "Where are you?",
+-      "pageTitle": "Where are you?",
+       "searchCity": "Search for your city",
+       "metaDescription": "Find local and relevant content, events and become part of your new city. Integreat helps you to connect to others and supports multiple languages."
+     },
+     "fa": {
+-      "where": "تو کجایی؟",
+-      "pageTitle": "تو کجایی؟"
++      "where": "تو کجایی؟"
+     },
+     "fr": {
+-      "where": "Tu es où?",
+-      "pageTitle": "Tu es où?"
++      "where": "Tu es où?"
+     }
+   },
+   "error": {
+@@ -243,23 +268,6 @@
+       "chooseYourLanguage": "Choisis ta Langue:"
+     }
+   },
+-  "disclaimer": {
+-    "ar": {
+-      "pageTitle": "هيئة التحرير وجهة الاتصال"
+-    },
+-    "de": {
+-      "pageTitle": "Impressum und Kontakt"
+-    },
+-    "en": {
+-      "pageTitle": "Imprint and contact"
+-    },
+-    "fa": {
+-      "pageTitle": "مجوز ‎و اطلاعات تماس"
+-    },
+-    "fr": {
+-      "pageTitle": "Mentions légales et contact"
+-    }
+-  },
+   "wohnen": {
+     "de": {
+       "noOffersAvailable": "Keine Angebote verfügbar.",
+@@ -360,8 +368,7 @@
+     "en": {
+       "location": "Location",
+       "noPois": "No Points of Interest available",
+-      "pois": "Points of Interest",
+-      "pageTitle": "Points of Interest"
++      "pois": "Points of Interest"
+     }
+   }
+ }
+-- 
+2.20.1 (Apple Git-117)
+

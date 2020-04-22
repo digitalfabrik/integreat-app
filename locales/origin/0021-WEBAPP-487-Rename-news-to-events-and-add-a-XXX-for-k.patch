@@ -1,0 +1,208 @@
+From d7bf291413c5b0f4d4c9e870409be002d6e7e8b1 Mon Sep 17 00:00:00 2001
+From: Maximilian Ammann <max@maxammann.org>
+Date: Mon, 23 Sep 2019 14:07:32 +0200
+Subject: [PATCH 21/23] WEBAPP-487: Rename news to events and add a 'XXX' for
+ keys which need a new translation
+
+---
+ src/locales.json | 52 ++++++++++++++++++++++++------------------------
+ 1 file changed, 26 insertions(+), 26 deletions(-)
+
+diff --git a/src/locales.json b/src/locales.json
+index c5f99d7a..92b22d4d 100644
+--- a/src/locales.json
++++ b/src/locales.json
+@@ -15,7 +15,7 @@
+     "de": {
+       "pageTitles": {
+         "search": "Suche",
+-        "events": "News",
++        "events": "Veranstaltungen",
+         "extras": "Extras",
+         "landing": "Ortsauswahl",
+         "disclaimer": "Impressum und Kontakt",
+@@ -27,7 +27,7 @@
+     "en": {
+       "pageTitles": {
+         "search": "Search",
+-        "events": "News",
++        "events": "Events",
+         "extras": "Extras",
+         "landing": "Location selection",
+         "disclaimer": "Imprint and contact",
+@@ -66,8 +66,8 @@
+       "privacy": "حماية المعلومات",
+       "extras": "إضافات",
+       "categories": "الفئات",
+-      "news": "الأخبار",
+-      "noNews": "لا توجد أخبار",
++      "news": "XXX",
++      "noNews": "XXX",
+       "noLanguages": "غير متوفر بلغات أخرى",
+       "noTranslation": "لا توجد ترجمة متاحة",
+       "search": "البحث",
+@@ -79,8 +79,8 @@
+       "privacy": "Datenschutz",
+       "extras": "Extras",
+       "categories": "Kategorien",
+-      "news": "News",
+-      "noNews": "Keine News",
++      "news": "Veranstaltungen",
++      "noNews": "Keine Veranstaltungen",
+       "noLanguages": "Nicht verfügbar in anderen Sprachen",
+       "noTranslation": "Keine Übersetzung verfügbar",
+       "search": "Suchen",
+@@ -92,8 +92,8 @@
+       "privacy": "Data Privacy",
+       "extras": "Extras",
+       "categories": "Categories",
+-      "news": "News",
+-      "noNews": "No News",
++      "news": "Events",
++      "noNews": "No events",
+       "noLanguages": "Not available in other languages",
+       "noTranslation": "No translation available",
+       "search": "Search",
+@@ -105,8 +105,8 @@
+       "privacy": "محافظت از داده ها",
+       "extras": "اضافات",
+       "categories": "دسته​ها",
+-      "news": "تازه​ها",
+-      "noNews": "خبری موجود نیست",
++      "news": "XXX",
++      "noNews": "XXX",
+       "noLanguages": "در زبان های دیگر موجود نیست",
+       "noTranslation": "ترجمه موجود نیست",
+       "search": "جستجو",
+@@ -118,8 +118,8 @@
+       "privacy": "Protection des données",
+       "extras": "Extras",
+       "categories": "Catégorie",
+-      "news": "Actualités",
+-      "noNews": "Aucune news",
++      "news": "XXX",
++      "noNews": "XXX",
+       "noLanguages": "Non disponible dans d'autres langues",
+       "noTranslation": "Aucune traduction disponible",
+       "search": "Rechercher",
+@@ -156,31 +156,31 @@
+     "ar": {
+       "location": "الموقع",
+       "date": "تاريخ",
+-      "news": "الأخبار",
++      "news": "XXX",
+       "currentlyNoEvents": "ليس هناك فعاليات متوفرة حاليَاً"
+     },
+     "de": {
+       "location": "Standort",
+       "date": "Datum",
+-      "news": "News",
++      "news": "Veranstaltungen",
+       "currentlyNoEvents": "Es gibt aktuell keine Veranstaltungen."
+     },
+     "en": {
+       "location": "Location",
+       "date": "Date",
+-      "news": "News",
++      "news": "Events",
+       "currentlyNoEvents": "No recent events available."
+     },
+     "fa": {
+       "location": "موقعیت مکانی",
+       "date": "تاریخ",
+-      "news": "تازه​ها",
++      "news": "XXX",
+       "currentlyNoEvents": "هیچ رویداد جدیدی موجود نیست."
+     },
+     "fr": {
+       "location": "Lieu",
+       "date": "Date",
+-      "news": "Actualités",
++      "news": "XXX",
+       "currentlyNoEvents": "Pas d'événements actuels disponibles."
+     }
+   },
+@@ -244,7 +244,7 @@
+       "goTo": {
+         "start": "Zur Startseite",
+         "categories": "Zu den Kategorien",
+-        "events": "Zu den News",
++        "events": "Zu den Veranstaltungen",
+         "extras": "Zu den Extras"
+       }
+     },
+@@ -262,7 +262,7 @@
+       "goTo": {
+         "start": "Go to Start",
+         "categories": "Go to Categories",
+-        "events": "Go to Events",
++        "events": "Go to events",
+         "extras": "Go to Extras"
+       }
+     },
+@@ -271,7 +271,7 @@
+         "language": "متاسفانه زبان شما در اینجا موجود نیست.",
+         "city": "متاسفانه شهر شما پیدا نشد.",
+         "category": "متاسفانه این صفحه پیدا نشد.",
+-        "event": "متاسفانه برنامه شما پیدا نشد.",
++        "event": "XXX",
+         "extra": "متاسفانه این اضافه، پیدا نشد."
+       },
+       "loadingFailed": "خطایی هنگام بارگیری محتوا رخ داده است.",
+@@ -282,7 +282,7 @@
+         "language": "Malheureusement, ta langue n'est pas disponible ici.",
+         "city": "Malheureusement, ta ville est introuvable.",
+         "category": "Malheureusement, cette page est introuvable.",
+-        "event": "Malheureusement, cet événement est introuvable.",
++        "event": "XXX",
+         "extra": "Malheureusement, cet extra est introuvable."
+       },
+       "loadingFailed": "Malheureusement, la page n'a pas pu être chargée.",
+@@ -326,7 +326,7 @@
+       "technicalTopics": "وظائف تقنية",
+       "contentOfCity": "محتويات",
+       "extra": "إضافي",
+-      "news": "الأخبار",
++      "news": "XXX",
+       "disclaimer": "هيئة التحرير وجهة الاتصال",
+       "searchFor": "البحث عن",
+       "contentOfPage": "محتوى الصفحة",
+@@ -347,7 +347,7 @@
+       "technicalTopics": "Technische Funktionen",
+       "contentOfCity": "Inhalte von",
+       "extra": "Extra",
+-      "news": "News",
++      "news": "Veranstaltungen",
+       "disclaimer": "Kontakt und Impressum",
+       "searchFor": "Suche nach",
+       "contentOfPage": "Inhalt der Seite",
+@@ -369,7 +369,7 @@
+       "technicalTopics": "Technical topics",
+       "contentOfCity": "Contents of",
+       "extra": "Extra",
+-      "news": "News",
++      "news": "Events",
+       "disclaimer": "Imprint and contact",
+       "searchFor": "Search for",
+       "contentOfPage": "Content of the page",
+@@ -391,7 +391,7 @@
+       "technicalTopics": "عملکردهای فنی",
+       "contentOfCity": "محتویاتِ",
+       "extra": "اضافی",
+-      "news": "اخبار",
++      "news": "XXX",
+       "disclaimer": "مجوز \u200Eو اطلاعات تماس",
+       "searchFor": "جستجو برای",
+       "contentOfPage": "محتوای صفحه",
+@@ -412,7 +412,7 @@
+       "technicalTopics": "Fonctions techniques",
+       "contentOfCity": "Contenu de",
+       "extra": "Extra",
+-      "news": "Nouvelles",
++      "news": "XXX",
+       "disclaimer": "Mentions Légales",
+       "searchFor": "Rechercher pour",
+       "contentOfPage": "Contenu de la page",
+-- 
+2.20.1 (Apple Git-117)
+
