@@ -12,6 +12,7 @@ import reduce from 'lodash/reduce'
 import { getRouteContent } from '../routeContents'
 import { SPRUNGBRETT_EXTRA } from '../route-configs/SprungbrettRouteConfig'
 import { WOHNEN_EXTRA } from '../route-configs/WohnenRouteConfig'
+import ContentNotFoundError from '../../common/errors/ContentNotFoundError'
 
 type PropsType = {|
   location: LocationState,
@@ -29,12 +30,20 @@ class RouteContentSwitcher extends React.PureComponent<PropsType> {
     return null
   }
 
-  renderExtraFailure = (payloads: {[string]: Payload<any>}): React.Node => {
+  isWaitingForExtra = (extraType: 'offers' | 'sprungbrettJobs', payloads: {[string]: Payload<any>}): boolean => {
+    const alias = extraType === 'offers' ? WOHNEN_EXTRA : SPRUNGBRETT_EXTRA
+    return payloads[extraType] && find(payloads.extras.data, extra => extra.alias === alias)
+  }
+
+  renderExtraFailure = (payloads: {[string]: Payload<any>}, location: LocationState): React.Node => {
     if (payloads.extras && !payloads.extras.isFetching && payloads.extras.data && !payloads.extras.error) {
-      if (payloads.offers && !find(payloads.extras.data, extra => extra.alias === WOHNEN_EXTRA)) {
-        return <FailureSwitcher error={new Error('The Wohnen extra is not supported.')} />
-      } else if (payloads.sprungbrettJobs && !find(payloads.extras.data, extra => extra.alias === SPRUNGBRETT_EXTRA)) {
-        return <FailureSwitcher error={new Error('The Sprunbrett extra is not supported.')} />
+      if (!this.isWaitingForExtra('offers', payloads) && !this.isWaitingForExtra('sprungbrettJobs', payloads)) {
+        return <FailureSwitcher error={new ContentNotFoundError({
+          type: 'extra',
+          id: location.pathname,
+          city: location.payload.city,
+          language: location.payload.language
+        })} />
       }
     }
     return null
@@ -45,7 +54,7 @@ class RouteContentSwitcher extends React.PureComponent<PropsType> {
     const currentRoute = location.type
     const RouteContent = getRouteContent(currentRoute)
     const payloads = getRouteConfig(currentRoute).getRequiredPayloads(allPayloads)
-    return this.renderExtraFailure(payloads) ||
+    return this.renderExtraFailure(payloads, location) ||
       this.renderFailureLoadingComponents(payloads) ||
       <RouteContent {...reduce(payloads, (result, value, key: string) => ({ [key]: value.data, ...result }), {})} />
   }
