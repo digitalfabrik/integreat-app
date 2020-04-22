@@ -15,6 +15,9 @@ const Thumbnail = styled.img`
   padding-bottom: 10px;
   object-fit: contain;
 `
+const StyledContainer = styled.div`
+margin-top: 30px !important;
+`
 
 type PropsType = {|
   title: string,
@@ -37,11 +40,17 @@ class Page extends React.PureComponent<PropsType> {
       <>
         {thumbnail && <Thumbnail alt='' src={thumbnail} />}
         <Caption title={title} />
-        {children}
+        <StyledContainer>
+          {children}
+        </StyledContainer>
         <RemoteContent dangerouslySetInnerHTML={{ __html: content }}
                        onInternalLinkClick={onInternalLinkClick}
-                       hijackRegExp={hijackRegExp} />
-        {lastUpdate && <LastUpdateInfo lastUpdate={lastUpdate} language={language} withText={true}/>}
+          hijackRegExp={hijackRegExp} />
+        {lastUpdate &&
+          <StyledContainer>
+            <LastUpdateInfo lastUpdate={lastUpdate} language={language} withText={true} />
+          </StyledContainer>
+        }
       </>
     )
   }
