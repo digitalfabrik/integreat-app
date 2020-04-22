@@ -13,7 +13,8 @@ import NewsElement from '../components/NewsElement'
 import NewsList from '../components/NewsList'
 import Tabs from '../components/Tabs'
 import LocalNewsDetails from '../components/LocalNewsDetails'
-import TuNewsDetails from '../components/TuNewsDetails'
+import TuNewsDetails from './TuNewsDetails'
+import TuNewsElement from '../components/TuNewsElement'
 
 type PropsType = {|
   news: Array < LocalNewsModel >,
@@ -37,41 +38,48 @@ export class NewsPage extends React.Component<PropsType> {
     items: []
   };
 
-  renderNewsElement = (language: string, type: string) => (newsItem: EventModel) => (
-    <NewsElement
-      newsItem={newsItem}
-      language={language}
-      key={newsItem.path}
-      type={type}
-      path={this.props.path}
-      t={this.props.t}
-    />
-  )
+  renderLocalNewsElement = (language: string, type: string) => (newsItem: EventModel, city: string) => {
+    return (
+      <NewsElement
+        newsItem={newsItem}
+        key={newsItem.path}
+        type={type}
+        path={this.props.path}
+        t={this.props.t}
+        city={city}
+        language={language}
+      />
+    )
+  }
+
+  renderTuNewsElement = (language: string, type: string) => (newsItem: EventModel, city: string) => {
+    return (
+      <TuNewsElement
+        newsItem={newsItem}
+        key={newsItem.path}
+        type={type}
+        path={this.props.path}
+        t={this.props.t}
+        city={city}
+        language={language}
+      />
+    )
+  }
 
   render() {
-    const { news, path, newsId, city, language, t } = this.props
+    const { news, path, newsId, city, language, t, tuNews } = this.props
     if (newsId) {
       const newsItem = news.find(_newsItem => {
         return _newsItem.title === decodeURIComponent(newsId)
       })
 
-      console.log('newsItem', newsItem)
-
       if (newsItem) {
         const { title, message, timestamp } = newsItem
-        // if (type === LOCAL_NEWS) {
         return (
           <>
             <LocalNewsDetails title={title} message={message} timestamp={timestamp} language={language} t={t} />
           </>
         )
-        // } else if (type === TU_NEWS) {
-        //   return (
-        //     <>
-        //       <TuNewsDetails title={title} message={message} timestamp={timestamp} language={language} t={t} />
-        //     </>
-        //   )
-        // }
       } else {
         const error = new ContentNotFoundError({ type: 'newsItem', id: newsId, city, language })
         return <FailureSwitcher error={error} />
@@ -83,22 +91,20 @@ export class NewsPage extends React.Component<PropsType> {
           {/* TODO: update the locale file realted issues */}
           <div label={t('local')} type={LOCAL_NEWS}>
             <NewsList
-              noItemsMessage={t('currentlyNoNews')}
-              isNewsList
+              noItemsMessage={t('currentlyNoLocalNews')}
               items={news}
-              renderItem={this.renderNewsElement(language, LOCAL_NEWS)}
+              renderItem={this.renderLocalNewsElement(language, LOCAL_NEWS)}
               path={path}
               city={city}
               language={language}
               t={t}
             />
           </div>
-          <div label={t('News')} type={TU_NEWS}>
+          <div label={t('news.tuNews')} type={TU_NEWS}>
             <NewsList
-              noItemsMessage={t('currentlyNoNews')}
-              isNewsList
-              items={news}
-              renderItem={this.renderNewsElement(language, TU_NEWS)}
+              noItemsMessage={t('currentlyNoTuNews')}
+              items={tuNews}
+              renderItem={this.renderTuNewsElement(language, TU_NEWS)}
               path={path}
               city={city}
               language={language}
@@ -117,7 +123,8 @@ const mapStateTypeToProps = (state: StateType) => {
     city: state.location.payload.city,
     news: state.news.data,
     newsId: state.location.payload.newsId,
-    path: state.location.pathname
+    path: state.location.pathname,
+    tuNews: state.tunews_list._data
   }
 }
 
