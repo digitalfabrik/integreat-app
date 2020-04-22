@@ -1,0 +1,26 @@
+From 2cc27be39a5c708df33c106c5b63ec5f769e3738 Mon Sep 17 00:00:00 2001
+From: Steffen Kleinle <klinzo@yahoo.de>
+Date: Sat, 17 Nov 2018 13:06:03 +0100
+Subject: [PATCH 10/23] WEBAPP-383: Move routesMap back to separate file
+
+---
+ src/locales.json | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/src/locales.json b/src/locales.json
+index d5aab9f1..96009a32 100644
+--- a/src/locales.json
++++ b/src/locales.json
+@@ -17,7 +17,8 @@
+         "landing": "Wo bist du?",
+         "disclaimer": "Impressum und Kontakt",
+         "wohnen": "Raumfrei",
+-        "sprungbrett": "Sprungbrett"
++        "sprungbrett": "Sprungbrett",
++        "mainDisclaimer": "Impressum und Datenschutz - Integreat"
+       }
+     },
+     "en": {
+-- 
+2.20.1 (Apple Git-117)
+
