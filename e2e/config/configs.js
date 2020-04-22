@@ -6,7 +6,7 @@ exports.local_android = {
   platform: 'android',
   caps: {
     browserName: '',
-    platformName: 'iOS',
+    platformName: 'Android',
     platformVersion: '12.0',
     deviceName: 'iPhone Simulator',
     os: 'iOS',
@@ -21,7 +21,7 @@ exports.local_ios = {
   platform: 'ios',
   caps: {
     browserName: '',
-    platformName: 'Android',
+    platformName: 'iOS',
     platformVersion: '9',
     deviceName: 'Android Emulator',
     automationName: 'UiAutomator2',
