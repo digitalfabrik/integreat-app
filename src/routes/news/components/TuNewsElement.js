@@ -4,6 +4,10 @@ import * as React from 'react'
 import styled from 'styled-components'
 import { TuNewsModel } from '@integreat-app/integreat-api-client'
 import CleanLink from '../../../modules/common/components/CleanLink'
+import LastUpdateInfo from './../../../modules/common/components/LastUpdateInfo'
+import type { TFunction } from 'react-i18next'
+import {textTruncator} from './../../../modules/theme/constants/helpers'
+
 
 const LOCAL_NEWS = 'local'
 const TU_NEWS = 'tu'
@@ -15,8 +19,8 @@ const Link = styled(CleanLink)`
 
 const ReadMoreLink = styled(CleanLink)`
   align-self: flex-end;
-  color: #007aa8;
-  font-weight: 600
+  color: ${({ theme }) => (theme.colors.secondaryAccentColor)};
+  font-weight: 600;
 `
 
 const Description = styled.div`
@@ -34,18 +38,18 @@ const Description = styled.div`
   }
 `
 
-const Title = styled.div`
+const Title = styled.h3`
   font-weight: 700;
   font-family: Raleway;
   font-size: 18px;
   font-weight: bold;
-  color: #6f6f6e;
+  color: ${({ theme }) => (theme.colors.headlineTextColor)};
   margin-bottom: 0;
 `
-const Body = styled.div`
+const Body = styled.p`
   font-size: 16px;
   line-height: 1.38;
-  color: #6f6f6e;
+  color: ${({ theme }) => (theme.colors.headlineTextColor)};
 `
 
 const StyledNewsElement = styled.div`
@@ -53,41 +57,40 @@ const StyledNewsElement = styled.div`
   padding-bottom: 2px;
 `
 
-const StyledDate = styled.div`
-font-size: 12px;
-color: #6f6f6e;
-`
-
 const StyledContainer = styled.div`
 width: 100%;
 display: flex;
 justify-content: space-between;
+align-items: center;
+`
+
+const StyledDate = styled(LastUpdateInfo)`
+font-size: 12px;
+color: red;
 `
 
 type PropsType = {|
   newsItem: TuNewsModel,
-    path: string,
-      title: string,
-        type: string,
-          language: string,
-            city: string,
-          |}
+  path: string,
+  title: string,
+  type: string,
+  language: string,
+  city: string,
+  t: TFunction
+|}
 
 class NewsElement extends React.PureComponent<PropsType> {
   renderContent(itemPath: string): React.Node {
-    const { newsItem, t } = this.props
+    const { newsItem, t, language } = this.props
     return (
-      <>
-        <Description>
-          <Title>{newsItem._title}</Title>
-          {/* <Date>{newsItem.date}</Date> */}
-          <Body>{newsItem._content}</Body>
-          <StyledContainer>
-            <StyledDate>April 21, 2020</StyledDate>
-            <ReadMoreLink to={itemPath}>{t('readMore')}</ReadMoreLink>
-          </StyledContainer>
-        </Description>
-      </>
+      <Description>
+        <Title>{newsItem._title}</Title>
+        <Body>{textTruncator(newsItem._content, 30)}</Body>
+        <StyledContainer>
+          <StyledDate lastUpdate={newsItem.date} language={language} withText={false}/>
+          <ReadMoreLink to={itemPath}>{t('readMore')}</ReadMoreLink>
+        </StyledContainer>
+      </Description>
     )
   }
 
