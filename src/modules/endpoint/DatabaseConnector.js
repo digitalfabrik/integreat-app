@@ -21,7 +21,7 @@ import type {
 import DatabaseContext from './DatabaseContext'
 import { map, mapValues } from 'lodash'
 import { CONTENT_VERSION, RESOURCE_CACHE_VERSION } from '../endpoint/persistentVersions'
-import deleteIfExisting from './deleteIfExisting'
+import deleteIfExists from './deleteIfExists'
 
 // Our pdf view can only load from DocumentDir. Therefore we need to use that
 export const CACHE_DIR_PATH = RNFetchBlob.fs.dirs.DocumentDir
@@ -161,7 +161,7 @@ class DatabaseConnector {
   }
 
   async deleteAllFiles () {
-    await deleteIfExisting(CACHE_DIR_PATH)
+    await deleteIfExists(CACHE_DIR_PATH)
   }
 
   /**
@@ -505,7 +505,7 @@ class DatabaseConnector {
       const cityResourceCachePath = `${RESOURCE_CACHE_DIR_PATH}/${city}`
       const cityContentPath = `${CONTENT_DIR_PATH}/${city}`
 
-      return Promise.all([deleteIfExisting(cityResourceCachePath), deleteIfExisting(cityContentPath)])
+      return Promise.all([deleteIfExists(cityResourceCachePath), deleteIfExists(cityContentPath)])
     }))
 
     await this._deleteMetaOfCities(cachesToDelete.map(it => it.city))
