@@ -13,7 +13,7 @@ import {
   Payload
 } from '@integreat-app/integreat-api-client'
 import fetchData from '../fetchData'
-import { cmsApiBaseUrl, tunewsApiBaseUrl, localNewsApiBaseUrl } from '../constants/urls'
+import { cmsApiBaseUrl, tuNewsApiBaseUrl, localNewsApiBaseUrl } from '../constants/urls'
 
 type NewsRouteParamsType = {| city: string, language: string |}
 type RequiredPayloadsType = {| news: Payload<Array<LocalNewsModel>> |}
@@ -32,7 +32,7 @@ const newsRoute: Route = {
 
     await Promise.all([
       fetchData(createLocalNewsEndpoint(localNewsApiBaseUrl), dispatch, state.news, { city, language }),
-      fetchData(createTuNewsListEndpoint(tunewsApiBaseUrl), dispatch, state.tunews_list, { page: 1, language: language || 'en', count: 20 }),
+      fetchData(createTuNewsListEndpoint(tuNewsApiBaseUrl), dispatch, state.tunews_list, { page: 1, language: language || 'en', count: 20 }),
       fetchData(createCitiesEndpoint(cmsApiBaseUrl), dispatch, state.cities),
       fetchData(createEventsEndpoint(cmsApiBaseUrl), dispatch, state.events, { city, language }),
       fetchData(createLanguagesEndpoint(cmsApiBaseUrl), dispatch, state.languages, { city, language })
