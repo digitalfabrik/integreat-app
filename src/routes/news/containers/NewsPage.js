@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
-import { LocalNewsModel } from '@integreat-app/integreat-api-client'
+import { LocalNewsModel, TuNewsElementModel } from '@integreat-app/integreat-api-client'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import type { TFunction } from 'react-i18next'
@@ -17,13 +17,14 @@ import TuNewsDetails from './TuNewsDetails'
 import TuNewsElement from '../components/TuNewsElement'
 
 type PropsType = {|
-  news: Array < LocalNewsModel >,
-    city: string,
-      newsId: ?string,
-        language: string,
-          t: TFunction,
-            path: string
-              |}
+  news: Array<LocalNewsModel>,
+  tuNews: Array<TuNewsElementModel>,
+  city: string,
+  newsId: ?string,
+  language: string,
+  t: TFunction,
+  path: string
+|}
 
 const LOCAL_NEWS = 'local'
 const TU_NEWS = 'tu'
@@ -32,27 +33,25 @@ const TU_NEWS = 'tu'
  * Displays a list of news or a single newsElement, matching the route /<location>/<language>/news(/<id>)
  */
 export class NewsPage extends React.Component<PropsType> {
-  state = {
+  state: any = {
     hasNextPage: true,
     isNextPageLoading: false,
     items: []
   };
 
-  renderLocalNewsElement = (language: string, type: string) => (newsItem: EventModel, city: string) => {
+  renderLocalNewsElement = (language: string, type: string) => (newsItem: LocalNewsModel, city: string) => {
     return (
       <NewsElement
         newsItem={newsItem}
         key={newsItem.path}
-        type={type}
         path={this.props.path}
         t={this.props.t}
-        city={city}
         language={language}
       />
     )
   }
 
-  renderTuNewsElement = (language: string, type: string) => (newsItem: EventModel, city: string) => {
+  renderTuNewsElement = (language: string, type: string) => (newsItem: TuNewsElementModel, city: string) => {
     return (
       <TuNewsElement
         newsItem={newsItem}
@@ -77,7 +76,7 @@ export class NewsPage extends React.Component<PropsType> {
         const { title, message, timestamp } = newsItem
         return (
           <>
-            <LocalNewsDetails title={title} message={message} timestamp={timestamp} language={language} t={t} />
+            <LocalNewsDetails title={title} message={message} timestamp={timestamp} language={language} />
           </>
         )
       } else {
@@ -91,24 +90,18 @@ export class NewsPage extends React.Component<PropsType> {
           {/* TODO: update the locale file realted issues */}
           <div label={t('local')} type={LOCAL_NEWS}>
             <NewsList
-              noItemsMessage={t('currentlyNoLocalNews')}
               items={news}
+              noItemsMessage={t('currentlyNoLocalNews')}
               renderItem={this.renderLocalNewsElement(language, LOCAL_NEWS)}
-              path={path}
               city={city}
-              language={language}
-              t={t}
             />
           </div>
           <div label={t('news.tuNews')} type={TU_NEWS}>
             <NewsList
-              noItemsMessage={t('currentlyNoTuNews')}
               items={tuNews}
+              noItemsMessage={t('currentlyNoTuNews')}
               renderItem={this.renderTuNewsElement(language, TU_NEWS)}
-              path={path}
               city={city}
-              language={language}
-              t={t}
             />
           </div>
         </Tabs>
@@ -129,6 +122,6 @@ const mapStateTypeToProps = (state: StateType) => {
 }
 
 export default compose(
-  connect(mapStateTypeToProps),
+  connect<*, *, *, *, *, *>(mapStateTypeToProps),
   withTranslation('news')
 )(NewsPage)

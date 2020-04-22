@@ -22,7 +22,7 @@ export const TUNEWS_DETAILS_ROUTE = 'TUNEWS_DETAILS'
  * @type {{path: string, thunk: function(Dispatch, GetState)}}
  */
 const tuNewsDetailsRoute: Route = {
-  path: '/:city/:language/news/tu-news/:newsId?',
+  path: '/:city/:language/news/tu-news/:newsId',
   thunk: async (dispatch, getState) => {
     const state = getState()
     const newsId = state.location.payload.newsId;

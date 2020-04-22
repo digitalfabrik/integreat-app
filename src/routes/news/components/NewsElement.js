@@ -70,7 +70,6 @@ color: ${({ theme }) => (theme.colors.headlineTextColor)};
 type PropsType = {|
   newsItem: LocalNewsModel,
   path: string,
-  title: string,
   language: string,
   t: TFunction
 |}
