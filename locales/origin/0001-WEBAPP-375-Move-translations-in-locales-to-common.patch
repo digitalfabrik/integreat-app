@@ -1,0 +1,100 @@
+From 0f4d7cefe736f383a51ba71f5eb7ad18e984daf8 Mon Sep 17 00:00:00 2001
+From: Steffen Kleinle <klinzo@yahoo.de>
+Date: Wed, 17 Oct 2018 14:28:12 +0200
+Subject: [PATCH 01/23] WEBAPP-375: Move translations in locales to common
+
+---
+ src/locales.json | 30 ++++++++----------------------
+ 1 file changed, 8 insertions(+), 22 deletions(-)
+
+diff --git a/src/locales.json b/src/locales.json
+index 90956f8e..15340eb1 100644
+--- a/src/locales.json
++++ b/src/locales.json
+@@ -60,55 +60,37 @@
+     }
+   },
+   "categories": {
+-    "ar": {
+-      "lastUpdate": "اخر تحديث: "
+-    },
+     "de": {
+       "createPdf": "PDF Erstellen",
+-      "lastUpdate": "Letzte Änderung: ",
+       "metaDescription": "Finde lokale und aktuelle Informationen, Events und werde Teil deiner neuen Stadt. Integreat hilft dir dich mit anderen zu vernetzen und unterstützt mehrere Sprachen."
+     },
+     "en": {
+       "createPdf": "Create PDF",
+-      "lastUpdate": "Last Update: ",
+       "metaDescription": "Find local and relevant content, events and become part of your new city. Integreat helps you to connect to others and supports multiple languages."
+-    },
+-    "fa": {
+-      "lastUpdate": "آخرین به روزآوری: "
+     }
+   },
+   "events": {
+     "ar": {
+-      "location": "الموقع",
+-      "date": "تاريخ",
+       "news": "الأخبار",
+       "pageTitle": "الأخبار",
+       "currentlyNoEvents": "ليس هناك فعاليات متوفرة حاليَاً"
+     },
+     "de": {
+-      "location": "Standort",
+-      "date": "Datum",
+       "news": "News",
+       "pageTitle": "News",
+       "currentlyNoEvents": "Es gibt aktuell keine Veranstaltungen."
+     },
+     "en": {
+-      "location": "Location",
+-      "date": "Date",
+       "news": "News",
+       "pageTitle": "News",
+       "currentlyNoEvents": "No recent events available."
+     },
+     "fa": {
+-      "location": "موقعیت مکانی",
+-      "date": "تاریخ",
+       "news": "تازه​ها",
+       "pageTitle": "تازه​ها",
+       "currentlyNoEvents": "هیچ رویداد جدیدی موجود نیست."
+     },
+     "fr": {
+-      "location": "Lieu",
+-      "date": "Date",
+       "news": "Actualités",
+       "pageTitle": "Actualités",
+       "currentlyNoEvents": "Pas d'événements actuels disponibles."
+@@ -320,19 +302,23 @@
+   "common": {
+     "ar": {
+       "location": "الموقع",
+-      "date": "تاريخ"
++      "date": "تاريخ",
++      "lastUpdate": "اخر تحديث: "
+     },
+     "de": {
+       "location": "Standort",
+-      "date": "Datum"
++      "date": "Datum",
++      "lastUpdate": "Letzte Änderung: "
+     },
+     "en": {
+       "location": "Location",
+-      "date": "Date"
++      "date": "Date",
++      "lastUpdate": "Last Update: "
+     },
+     "fa": {
+       "location": "موقعیت مکانی",
+-      "date": "تاریخ"
++      "date": "تاریخ",
++      "lastUpdate": "آخرین به روزآوری: "
+     },
+     "fr": {
+       "location": "Lieu",
+-- 
+2.20.1 (Apple Git-117)
+
