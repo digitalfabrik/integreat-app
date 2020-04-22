@@ -1,0 +1,148 @@
+key,source_language,target_language
+app.pageTitles.search,Suche,Search
+app.pageTitles.events,Veranstaltungen,Events
+app.pageTitles.extras,Angebote,Offers
+app.pageTitles.landing,Ortsauswahl,Location selection
+app.pageTitles.disclaimer,Impressum und Kontakt,Imprint and contact
+app.pageTitles.mainDisclaimer,Impressum und Kontakt - Integreat,Imprint and Contact - Integreat
+app.pageTitles.pois,Points of Interest,Points of Interest
+app.pageTitles.notFound,Seite nicht gefunden,Seite konnte nicht gefunden werden.
+app.metaDescription,"Integreat ist Ihr digitaler Guide für Deutschland. Finden Sie lokale Informationen, Events und Beratung. Immer aktuell und in Ihrer Sprache.","Integreat is your digital guide to life in Germany. Discover local information, events and counselling. Always up to date and available in your language."
+categories.createPdf,PDF erstellen,Create PDF
+common.languageNotAvailable,Deine Sprache ist hier leider nicht verfügbar.,"Sorry, but your language is not available here."
+common.chooseALanguage,Wähle eine Sprache.,Choose a language.
+common.lastUpdate,Letzte Änderung: ,Last Update: 
+dashboard.localInformation,Lokale Informationen,Local Information
+dashboard.offers,Angebote,Offers
+dashboard.events,Veranstaltungen,Events
+error.notFound.language,Diese Sprache ist hier leider nicht verfügbar.,"Sorry, but this language is not available here."
+error.notFound.city,Diese Stadt wurde leider nicht gefunden.,"Sorry, but this city could not be found."
+error.notFound.category,Diese Seite wurde leider nicht gefunden.,"Sorry, but the requested page could not be found."
+error.notFound.event,Dieses Event wurde leider nicht gefunden.,"Sorry, but this event could not be found."
+error.notFound.extra,Dieses Angebot wurde leider nicht gefunden.,"Sorry, but this offer could not be found."
+error.notFound.poi,Dieser Point of Interest wurde leider nicht gefunden.,"Sorry, but this Point of Interest could not be found."
+error.pageNotFound,Diese Seite wurde leider nicht gefunden.,This page could not be found.
+error.networkConnectionFailed,Die Verbindung zum Server ist fehlgeschlagen.,The connection to the server failed.
+error.networkRequestFailed,Die Anfrage konnte nicht bearbeitet werden.,The request could not be processed.
+error.responseMappingFailed,Die Antwort des Servers konnte nicht verarbeitet werden.,An error occurred while processing the server's response.
+error.unknownError,Ein unbekannter Fehler ist aufgetreten.,An unknown error occurred.
+error.tryAgain,Erneut versuchen,Try again
+error.loadingFailed,Die Seite konnte leider nicht geladen werden.,"Sorry, but the requested page could not be loaded."
+error.chooseALanguage,Wähle eine Sprache:,Choose a language:
+error.goTo.start,Zur Startseite,Go to Start
+error.goTo.categories,Zu den Kategorien,Go to Categories
+error.goTo.events,Zu den Veranstaltungen,Go to events
+error.goTo.extras,Zu den Angeboten,Go to Offers
+error.pageTitle,Fehler,Error
+error.generalError,Ein Fehler ist aufgetreten,An error occurred
+error.languageSwitchFailedTitle,Leider ist der Sprachwechsel fehlgeschlagen.,"Unfortunately, the app was not able to change the language."
+error.languageSwitchFailedMessage,Die ausgewählte Sprache ist nicht offline verfügbar. Eine aktive Internetverbinding ist notwendig.,The selected langauge is not available if you are offline. An active internet connection is required.
+events.location,Standort,Location
+events.date,Datum,Date
+events.events,Veranstaltungen,Events
+events.currentlyNoEvents,Es gibt aktuell keine Veranstaltungen.,No recent events available.
+extras.offers,Angebote,Offers
+feedback.technicalTopics,Technische Funktionen,Technical topics
+feedback.contentOfCity,Inhalte von {{city}},Contents of {{city}}
+feedback.contentOfExtra,"Angebot ""{{extra}}""",
+feedback.disclaimer,Kontakt und Impressum,Imprint and contact
+feedback.searchFor,Suche nach,Search for
+feedback.contentOfPage,"Inhalt der Seite ""{{page}}""",Content of the site '{{page}}'
+feedback.contentOfEvent,"Inhalt der Veranstaltung ""{{event}}""",
+feedback.send,Abschicken,Send
+feedback.failedSendingFeedback,Beim Senden des Feedbacks ist ein Fehler aufgetreten.,An error occurred while sending feedback.
+feedback.feedback,Feedback,Feedback
+feedback.positiveComment,Was war hilfreich?,What was helpful?
+feedback.negativeComment,Was können wir besser machen?,What can we improve?
+feedback.feedbackType,Wofür ist das Feedback?,What is the feedback for?
+feedback.isThisSiteUseful,Ist diese Seite hilfreich?,Is this site useful?
+feedback.useful,Hilfreich,Useful
+feedback.notUseful,Nicht hilfreich,Not useful
+feedback.nothingFound,Es wurden leider keine passenden Ergebnisse gefunden.,"Sorry, we could not find matching results."
+feedback.yourFeedback,Ihr Feedback...,Your feedback...
+feedback.informationNotFound,Nicht das Richtige gefunden?,Not found what you were looking for?
+feedback.wantedInformation,Welche Informationen fehlen hier?,What information is missing?
+feedback.feedbackSent,Feedback abgeschickt,Feedback sent
+feedback.thanksMessage,"Vielen Dank für Ihr Feedback. Damit helfen Sie uns, unsere Inhalte und die Integreat-App zu verbessern. Wir würden uns über weiteres Feedback freuen.",Thank you for your feedback. This will help us to improve our content and the Integreat app. We would be happy to receive further feedback.
+feedback.close,Schließen,Close
+feedback.negativeRating,Diese Seite ist nicht hilfreich,This site is not useful
+feedback.positiveRating,Diese Seite ist hilfreich,This site is useful
+header.settings,Einstellungen,Settings
+header.share,Teilen,Share
+header.shareMessage,Gerade gefunden:,Just found:
+header.shareFailDefaultMessage,Das Teilen des Inhalts ist leider fehlgeschlagen.,
+header.disclaimer,Impressum,Imprint
+intro.search,Suche,
+intro.searchDescription,Anhand von Schlagwörtern schnell die richtige Information finden,
+intro.languageChange,Sprachwechsel,
+intro.languageChangeDescription,Einfaches Umstellen der Sprache einzelner Seiten,
+intro.events,Veranstaltungen,
+intro.eventsDescription,Aktuelle Veranstaltungen und Termine in der Umgebung,
+intro.offers,Angebote,
+intro.offersDescription,"Jobsuche, Praktikasuche und mehr in der Umgebung",
+intro.inquiryTitle,Einstellungen,
+intro.inquiryIntro,"Durch Klicken auf ""{{accept}}"" erlaube ich der Integreat-App, ...",
+intro.sentryTitle,App-Stabilität,
+intro.sentryCondition,... mit dem automatischen Senden von Absturzberichten Integreat zu verbessern,
+intro.pushNewsTitle,Push-Benachrichtigungen,
+intro.pushNewsCondition,... mir Push-Benachrichtigungen zu den neuesten lokalen News zu senden,
+intro.proposeCitiesTitle,Nahegelegene Orte,
+intro.proposeCitiesCondition,... mir mithilfe meines GPS-Standortes nahegelegene Orte vorzuschlagen,
+intro.skip,Überspringen,
+intro.next,Weiter,
+intro.cancel,Abbrechen,
+intro.save,Speichern,
+intro.customize,Anpassen,
+intro.decline,Ablehnen,
+intro.accept,Akzeptieren,
+intro.privacyPolicy,Datenschutzerklärung,
+landing.searchCity,Ort suchen,Search for a city
+landing.nearbyPlaces,Orte in der Nähe,Nearby
+landing.noNearbyPlaces,Keine Orte in der Nähe gefunden.,No nearby places found.
+landing.alert,Hinweis,Alert
+landing.locationError,"Um Orte in der Nähe anzeigen zu können, müssen Ortungsdienste aktiviert werden.",
+layout.imprintAndContact,Impressum und Kontakt,Imprint and contact
+layout.privacy,Datenschutz,Data Privacy
+layout.offers,Angebote,Offers
+layout.categories,Kategorien,Categories
+layout.events,Veranstaltungen,Events
+layout.noEvents,Keine Veranstaltungen,No events
+layout.noLanguages,Nicht verfügbar in anderen Sprachen,Not available in other languages
+layout.noTranslation,Keine Übersetzung verfügbar,No translation available
+layout.search,Suchen,Search
+layout.changeLocation,Standort wechseln,Change location
+layout.changeLanguage,Sprache wechseln,Change language
+search.searchCategory,Suche nach einer Kategorie,Search for a category
+settings.sentryTitle,App-Stabilität,
+settings.sentryDescription,Durch das automatische Senden von Absturzberichten die Integreat-App verbessern,
+settings.pushNewsTitle,Push-Benachrichtigungen,
+settings.pushNewsDescription,Push-Benachrichtigungen für die neuesten lokalen News erhalten,
+settings.proposeCitiesTitle,Nahegelegene Orte,
+settings.proposeCitiesDescription,Mithilfe des GPS-Standortes Vorschläge für nahegelegene Orte erhalten,
+settings.about,Über Integreat,About Integreat
+settings.privacyPolicy,Datenschutzerklärung,Data protection declaration
+settings.version,Version: {{version}},Version: {{version}}
+settings.openSourceLicenses,Open-Source-Lizenzen,Open source licenses
+snackbar.grantPermission,Erlauben,Allow
+snackbar.deactivateFeature,Feature deaktivieren,Deactivate feature
+sprungbrett.noOffersAvailable,Keine Angebote verfügbar,No offers available
+wohnen.noOffersAvailable,Keine Angebote verfügbar.,
+wohnen.values.runningServices.heating,Heizung,
+wohnen.values.runningServices.water,Wasser/Abwasser,
+wohnen.values.runningServices.garbage,Müllabfuhr,
+wohnen.values.runningServices.chimney,Kaminkehrer,
+wohnen.values.runningServices.other,Sonstiges,
+wohnen.values.additionalServices.garage,Garage/Stellplatz,
+wohnen.values.additionalServices.other,Sonstiges,
+wohnen.values.rooms.kitchen,Küche,
+wohnen.values.rooms.bath,Bad,
+wohnen.values.rooms.wc,WC,
+wohnen.values.rooms.child1,Kinderzimmer 1,
+wohnen.values.rooms.child2,Kinderzimmer 2,
+wohnen.values.rooms.child3,Kinderzimmer 3,
+wohnen.values.rooms.bed,Schlafzimmer,
+wohnen.values.rooms.livingroom,Wohnzimmer,
+wohnen.values.rooms.hallway,Diele,
+wohnen.values.rooms.store,Abstellraum,
+wohnen.values.rooms.basement,Kellerraum,
+wohnen.values.rooms.balcony,Balkon / Terrasse,
