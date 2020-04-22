@@ -20,10 +20,12 @@ The `--squash` command creates only a single commit for all of the changes.
 
 ### Pulling changes
 
+**No action should cause a merge conflict! If there is a conflict then you are using subtrees wrong!**
+
 Pulling is required if you want to fetch commits from `integreat-locales`. This can happen because the project is shared between multiple people and branches. For example if somebody makes a change in the `integreat-locales` repository, then you can pull these changes in the _native app_ using:
 
 ```bash
-git subtree pull --prefix locales locales master --squash
+git subtree pull --prefix locales locales master --squash -m "Merging squashed locales for branch $(git rev-parse --abbrev-ref HEAD)"
 ```
 
 Note that we are using the `--squash` command which will create a merge commit:
@@ -37,11 +39,13 @@ Note that we are using the `--squash` command which will create a merge commit:
 
 ### Pushing changes
 
+**No action should cause a merge conflict! If there is a conflict then you are using subtrees wrong!**
+
 When pushing changes you are required to do the changes directly in the `integreat-locales` repository. After that you can pull the changes.
 
-You should create a separate branch in `integreat-locales` for your locale changes. When pulling the changes you can do:
+You should create a separate branch in `integreat-locales` for your locale changes. **Note that you should not rebase the new branch after you pulled it into another repository.** When pulling the changes you can do:
 ```bash
-git subtree pull --prefix locales locales test-subtrees --squash -m "Merging squashed locales for branch $(git rev-parse --abbrev-ref HEAD)"
+git subtree pull --prefix locales locales NATIVE-X --squash -m "Merging squashed locales for branch $(git rev-parse --abbrev-ref HEAD)"
 ```
 
 This will create a merge commit with the changes from the `NATIVE-X` branch:
@@ -54,10 +58,25 @@ This will create a merge commit with the changes from the `NATIVE-X` branch:
 * | 7053596b NATIVE-Y: Some other change
 ```
 
-## Origin
+After merging `NATIVE-X` into `master` it is possible to pull again from `master`:
+```bash
+ git subtree pull --prefix locales locales master --squash -m "Merging squashed locales for branch $(git rev-parse --abbrev-ref HEAD)"
+```
 
-This repository is the result of a merge of the locales between the webapp project and the react-native project. The base for the locales is the file `src/locales` from the integreat-react-native project. It was copied on on 04-09-2018 the from the integreat-webapp project.
-All changes after 04-09-2018 have been reapplied to the locales.json such that no locale changes are missing. The patches can be found in `origin`.
+This last step is optional as it will be pulled in automatically when the next task touches updates the locales.
+
+### Tips & Tricks
+
+As the pull command is quite long you can define an alias:
+```bash
+git config alias.pull-locales "\!f() { git subtree pull --prefix locales locales \$1 --squash -m 'Merging squashed locales for branch \$(git rev-parse --abbrev-ref HEAD)'; }; f"
+```
+
+Then you can pull using:
+
+```bash
+git pull-locales NATIVE-X
+```
 
 ## manage.js
 
@@ -75,3 +94,8 @@ Example: `./manage convert csv locales.json json`
 Notes:
 * The module and language keys in the JSON are sorted
 * The source language is always the first language
+
+## Origin of the locales
+
+This repository is the result of a merge of the locales between the webapp project and the react-native project. The base for the locales is the file `src/locales` from the integreat-react-native project. It was copied on on 04-09-2018 the from the integreat-webapp project.
+All changes after 04-09-2018 have been reapplied to the locales.json such that no locale changes are missing. The patches can be found in `origin`.
