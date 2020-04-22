@@ -10,7 +10,7 @@ import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 import type { StateType } from '../../../modules/app/StateType'
 import TuNewsDetailsFooter from './../components/TuNewsDetailsFooter'
-
+import { TFunction } from 'i18next'
 
 const StyledContainer = styled.div`
 display: flex;
@@ -49,20 +49,20 @@ const StyledTitle = styled.div`
 const Title = styled.h2`
   font-size: 24px;
   font-weight: bold;
-  color: #6f6f6e;
+  color: ${({ theme }) => (theme.colors.headlineTextColor)};
   margin-bottom: 5px;
 `
 const Content = styled.p`
   font-size: 16px;
   line-height: 1.38;
-  color: #6f6f6e;
+  color: ${({ theme }) => (theme.colors.headlineTextColor)};
 `
 
 type PropsType = {|
   payloads: any,
-    language: string,
-      t: any
-        |}
+  language: string,
+  t: TFunction
+|}
 
 // This just a placeholder until the page design is ready
 class TuNewsDetailsPage extends React.PureComponent<PropsType> {
@@ -81,13 +81,17 @@ class TuNewsDetailsPage extends React.PureComponent<PropsType> {
           <Title>{tuNewsElementDetails && tuNewsElementDetails._title}</Title>
           <Content>{tuNewsElementDetails && tuNewsElementDetails._content}</Content>
         </StyledWrapper>
-        <TuNewsDetailsFooter />
+        <TuNewsDetailsFooter eNewsNumber={tuNewsElementDetails.enewsno} date={tuNewsElementDetails && tuNewsElementDetails._date} language={language} t={this.props.t}/>
       </StyledContainer>
     )
   }
 }
 
+const mapStateToProps = (state: StateType) => ({
+  language: state.location.payload.language,
+})
+
 export default compose(
+  connect<*, *, *, *, *, *>(mapStateToProps),
   withTranslation('tuNewsDetails')
 )(TuNewsDetailsPage)
-
