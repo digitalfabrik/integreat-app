@@ -12,7 +12,7 @@ import type { StateType } from '../../../modules/app/StateType'
 import NewsElement from '../components/NewsElement'
 import NewsList from '../components/NewsList'
 import Tabs from '../components/Tabs'
-import LocalNewsDetails from '../components/LocalNewsDetails'
+import LocalNewsDetailsPage from './../containers/LocalNewsDetails'
 import TuNewsDetails from './TuNewsDetails'
 import TuNewsElement from '../components/TuNewsElement'
 
@@ -61,7 +61,7 @@ export class NewsPage extends React.Component<PropsType> {
         const { title, message, timestamp } = newsItem
         return (
           <>
-            <LocalNewsDetails title={title} message={message} timestamp={timestamp} language={language} />
+            <LocalNewsDetailsPage title={title} message={message} timestamp={timestamp} language={language} />
           </>
         )
       } else {
