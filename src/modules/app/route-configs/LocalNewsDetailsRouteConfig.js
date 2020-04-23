@@ -55,8 +55,8 @@ class LocalNewsDetailsRouteConfig implements RouteConfig<LocalNewsDetailsType, R
       return null
     }
 
-    const news = payloads.localNewsList
-    const newsItem = news && news.find(newsItem => newsItem.title === location.payload.title)
+    const localNews = payloads.localNewsList.data
+    const newsItem = localNews && localNews.find(newsItem => newsItem.title === location.payload.title)
     return `${newsItem ? newsItem.title : t('pageTitles.news')} - ${cityName}`
   }
 
@@ -65,8 +65,8 @@ class LocalNewsDetailsRouteConfig implements RouteConfig<LocalNewsDetailsType, R
   getMetaDescription = () => null
 
   getFeedbackTargetInformation = ({ payloads, location }) => {
-    const news = payloads.localNewsList
-    const newsItem = news && news.find(newsItem => newsItem.title === location.payload.title)
+    const localNews = payloads.localNewsList.data
+    const newsItem = localNews && localNews.find(newsItem => newsItem.title === location.payload.title)
     return newsItem ? { title: newsItem.title } : null
   }
 }
