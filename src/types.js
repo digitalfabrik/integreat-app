@@ -96,6 +96,15 @@ export type JsonEventType = {
   featured_image: ?JsonFeaturedImageType
 }
 
+export type JsonTuNewsType = {
+  id: number,
+  title: string,
+  tags: string[],
+  date: string,
+  content: string,
+  enewsno: string
+}
+
 export type JsonLocalNewsType = {
   timestamp: string,
   title: string,
