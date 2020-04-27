@@ -8,7 +8,7 @@ import styled from 'styled-components'
 import ModalHeader from './ModalHeader'
 import FeedbackComment from './FeedbackComment'
 import FeedbackVariant from '../FeedbackVariant'
-import Select from 'react-select'
+import { Wrapper, Button, Menu, MenuItem } from 'react-aria-menubutton'
 import TextButton from '../../common/components/TextButton'
 
 export const StyledFeedbackBox = styled.div`
@@ -28,7 +28,7 @@ export const Description = styled.div`
   padding: 10px 0 5px;
 `
 
-const StyledSelect = styled(Select)`
+const StyledWrapper = styled(Wrapper)`
   &,
   & * {
     cursor: pointer !important;
@@ -68,10 +68,21 @@ export class FeedbackBox extends React.PureComponent<PropsType> {
       <StyledFeedbackBox>
         <ModalHeader t={t} closeFeedbackModal={closeFeedbackModal} title={t('feedback')} />
         <Description>{t('feedbackType')}</Description>
-        <StyledSelect
-          value={selectedFeedbackOption}
-          options={feedbackOptions}
-          onChange={onFeedbackOptionChanged} />
+        <StyledWrapper onSelection={onFeedbackOptionChanged}>
+          <Button>{selectedFeedbackOption.label}</Button>
+          <Menu>
+            <ul>
+            {
+              feedbackOptions.map((option, index) =>
+              <li key={index}>
+                <MenuItem value={option}>
+                  {option.label}
+                </MenuItem>
+              </li>)
+            }
+            </ul>
+          </Menu>
+        </StyledWrapper>
         <FeedbackComment
           comment={comment}
           commentMessage={isPositiveRatingSelected ? t('positiveComment') : t('negativeComment')}
