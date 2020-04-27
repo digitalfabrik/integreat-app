@@ -6,13 +6,13 @@ import type { Route } from 'redux-first-router'
 import {
   createCitiesEndpoint,
   createEventsEndpoint,
-  createLocalNewsEndpoint,
+  createLocalNewsElementEndpoint,
   createLanguagesEndpoint,
   LocalNewsModel,
   Payload
 } from '@integreat-app/integreat-api-client'
 import fetchData from '../fetchData'
-import { cmsApiBaseUrl,  localNewsApiBaseUrl } from '../constants/urls'
+import { cmsApiBaseUrl, localNewsApiBaseUrl, localNewsApiBaseUrlDev } from '../constants/urls'
 
 type LocalNewsDetailsType = {| city: string, language: string |}
 type RequiredPayloadsType = {| news: Payload<Array<LocalNewsModel>> |}
@@ -24,13 +24,13 @@ export const LOCAL_NEWS_DETAILS_ROUTE = 'LOCAL_NEWS_DETAILS'
  * @type {{path: string, thunk: function(Dispatch, GetState)}}
  */
 const localNewsDetailsRoute: Route = {
-  path: '/:city/:language/news/local/:title',
+  path: '/:city/:language/news/local/:id',
   thunk: async (dispatch, getState) => {
     const state = getState()
-    const { city, language } = state.location.payload
+    const { city, language, id } = state.location.payload
 
     await Promise.all([
-      fetchData(createLocalNewsEndpoint(localNewsApiBaseUrl), dispatch, state.news, { city, language }),
+      fetchData(createLocalNewsElementEndpoint(localNewsApiBaseUrlDev), dispatch, state.newsElement, { city, language, id }),
       fetchData(createCitiesEndpoint(cmsApiBaseUrl), dispatch, state.cities),
       fetchData(createEventsEndpoint(cmsApiBaseUrl), dispatch, state.events, { city, language }),
       fetchData(createLanguagesEndpoint(cmsApiBaseUrl), dispatch, state.languages, { city, language })
@@ -48,27 +48,15 @@ class LocalNewsDetailsRouteConfig implements RouteConfig<LocalNewsDetailsType, R
   getLanguageChangePath = ({ location, payloads, language }) => {
   }
 
-  getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType => ({ localNewsList: payloads.newsPayload })
+  getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType => ({ localNewsDetails: payloads.newsElementPayload })
 
-  getPageTitle = ({ t, payloads, cityName, location }) => {
-    if (!cityName) {
-      return null
-    }
+  getPageTitle = ({ t, payloads, cityName, location }) => null
 
-    const localNews = payloads.localNewsList.data
-    const newsItem = localNews && localNews.find(newsItem => newsItem.title === location.payload.title)
-    return `${newsItem ? newsItem.title : t('pageTitles.news')} - ${cityName}`
-  }
-
-  getRoutePath = ({ city, language }: LocalNewsDetailsType): string => '/${city}/${language}/news/local/:title'
+  getRoutePath = ({ city, language }: LocalNewsDetailsType): string => '/${city}/${language}/news/:id'
 
   getMetaDescription = () => null
 
-  getFeedbackTargetInformation = ({ payloads, location }) => {
-    const localNews = payloads.localNewsList.data
-    const newsItem = localNews && localNews.find(newsItem => newsItem.title === location.payload.title)
-    return newsItem ? { title: newsItem.title } : null
-  }
+  getFeedbackTargetInformation = ({ payloads, location }) => null
 }
 
 export default LocalNewsDetailsRouteConfig
