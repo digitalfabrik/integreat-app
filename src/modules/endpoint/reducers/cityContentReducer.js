@@ -5,6 +5,7 @@ import { defaultCityContentState } from '../../app/StateType'
 import morphContentLanguage from './morphContentLanguage'
 import pushCategory from './pushCategory'
 import pushEvent from './pushEvent'
+import pushNews from './pushNews'
 import type { StoreActionType } from '../../app/StoreActionType'
 import createCityContent from './createCityContent'
 import { omit } from 'lodash'
@@ -32,6 +33,28 @@ export default (
         [key]: { status: 'loading', language, city, path }
       }
     }
+  } else if (action.type === 'FETCH_NEWS') {
+    const { language, path, key, city, type } = action.params
+
+    const initializedState = state || createCityContent(city)
+    return {
+      ...initializedState,
+      newsRouteMapping: {
+        ...initializedState.newsRouteMapping,
+        [key]: { status: 'loading', language, city, path, type, page: 1 }
+      }
+    }
+  } else if (action.type === 'FETCH_MORE_NEWS') {
+    const { language, path, key, city, type, page, oldNewsList } = action.params
+
+    const initializedState = state || createCityContent(city)
+    return {
+      ...initializedState,
+      newsRouteMapping: {
+        ...initializedState.newsRouteMapping,
+        [key]: { status: 'loadingMore', language, city, path, type, page, models: oldNewsList }
+      }
+    }
   } else {
     if (state === null) {
       return null
@@ -50,6 +73,20 @@ export default (
         return pushCategory(state, action)
       case 'PUSH_EVENT':
         return pushEvent(state, action)
+      case 'PUSH_NEWS':
+        return pushNews(state, action)
+      case 'FETCH_NEWS_FAILED': {
+        const { message, key, allAvailableLanguages, path, ...rest } = action.params
+        return {
+          ...state,
+          newsRouteMapping: {
+            ...state.newsRouteMapping,
+            [key]: allAvailableLanguages
+              ? { status: 'languageNotAvailable', allAvailableLanguages, ...rest }
+              : { status: 'error', message, path, ...rest }
+          }
+        }
+      }
       case 'MORPH_CONTENT_LANGUAGE':
         return morphContentLanguage(state, action)
       case 'CLEAR_EVENT': {
