@@ -15,18 +15,17 @@ import Tabs from '../components/Tabs'
 import LocalNewsDetailsPage from './../containers/LocalNewsDetails'
 import TuNewsDetails from './TuNewsDetails'
 import TuNewsElement from '../components/TuNewsElement'
+import Link from 'redux-first-router-link'
+
 
 type PropsType = {|
   news: Array<LocalNewsModel>,
-  tuNews: Array<TuNewsElementModel>,
   city: string,
   newsId: ?string,
   language: string,
   t: TFunction,
   path: string
 |}
-
-const LOCAL_NEWS = 'local'
 
 /**
  * Displays a list of news or a single newsElement, matching the route /<location>/<language>/news(/<id>)
@@ -51,46 +50,11 @@ export class NewsPage extends React.Component<PropsType> {
   }
 
   render() {
-    const { news, path, newsId, city, language, t, tuNews } = this.props
-    if (newsId) {
-      const newsItem = news.find(_newsItem => {
-        return _newsItem.title === decodeURIComponent(newsId)
-      })
-
-      if (newsItem) {
-        const { title, message, timestamp } = newsItem
-        return (
-          <>
-            <LocalNewsDetailsPage title={title} message={message} timestamp={timestamp} language={language} />
-          </>
-        )
-      } else {
-        const error = new ContentNotFoundError({ type: 'newsItem', id: newsId, city, language })
-        return <FailureSwitcher error={error} />
-      }
-    }
-    return (
-      <>
-        <Tabs>
-          {/* TODO: update the locale file realted issues */}
-          <div label={t('local')} type={LOCAL_NEWS}>
-            <NewsList
-              items={news}
-              noItemsMessage={t('currentlyNoLocalNews')}
-              renderItem={this.renderLocalNewsElement(language, LOCAL_NEWS)}
-              city={city}
-            />
-          </div>
-          <div label={t('news.tuNews')} type={TU_NEWS}>
-            <NewsList
-              items={tuNews}
-              noItemsMessage={t('currentlyNoTuNews')}
-              renderItem={this.renderTuNewsElement(language, TU_NEWS)}
-              city={city}
-            />
-          </div>
+    const { news,city, newsId, language, t, path } = this.props
+      return (
+        <Tabs localNews={true} tuNews={false}>
+          <NewsList items={news} noItemsMessage="No locals news" renderItem={this.renderLocalNewsElement} city={city}/>
         </Tabs>
-      </>
     )
   }
 }
@@ -102,7 +66,7 @@ const mapStateTypeToProps = (state: StateType) => {
     news: state.news.data,
     newsId: state.location.payload.newsId,
     path: state.location.pathname,
-    tuNews: state.tunews_list._data
+    location: state.location
   }
 }
 
