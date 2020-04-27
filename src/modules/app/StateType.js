@@ -51,6 +51,12 @@ export type EventRouteConfigType = {|
   +city: string
 |}
 
+export type NewsRouteConfigType = {|
+  +path: ?string, // path is null for the event-lists route
+  +language: string,
+  +city: string
+|}
+
 export type EventRouteStateType = {|
   +status: 'ready',
   ...EventRouteConfigType,
@@ -70,6 +76,26 @@ export type EventRouteStateType = {|
   +code: ErrorCodeType,
   +message: ?string
 |}
+
+export type NewsRouteStateType = {|
+  +status: 'ready',
+  ...NewsRouteConfigType,
+  +models: $ReadOnlyArray<NewsModel>, // TODO
+  +allAvailableLanguages: $ReadOnlyMap<string, ?string> // including the current content language
+  |} | {|
+  +status: 'languageNotAvailable',
+  +language: string,
+  +city: string,
+  +allAvailableLanguages: $ReadOnlyMap<string, ?string>
+  |} | {|
+  +status: 'loading',
+  ...NewsRouteConfigType
+  |} | {|
+  +status: 'error',
+  ...NewsRouteConfigType,
+  +code: ErrorCodeType,
+  +message: ?string
+  |}
 
 export type PageResourceCacheEntryStateType = {|
   +filePath: string,

@@ -39,7 +39,7 @@ export type PropsType = {|
 
 class Dashboard extends React.Component<PropsType> {
   getNavigationTileModels (cityCode: string, language: string): Array<TileModel> {
-    const { navigateToCategory, navigateToEvent, navigateToExtras, t } = this.props
+    const { navigateToCategory, navigateToEvent, navigateToExtras, navigateToNews, t } = this.props
 
     return [
       new TileModel({
@@ -59,19 +59,19 @@ class Dashboard extends React.Component<PropsType> {
         notifications: 0
       }),
       new TileModel({
-        title: t('news'),
-        path: 'news',
-        thumbnail: newsIcon,
-        isExternalUrl: false,
-        onTilePress: () => navigateToEvent({ cityCode, language, path: null }),
-        notifications: 0
-      }),
-      new TileModel({
         title: t('events'),
         path: 'events',
         thumbnail: eventsIcon,
         isExternalUrl: false,
         onTilePress: () => navigateToEvent({ cityCode, language, path: null }),
+        notifications: 0
+      }),
+      new TileModel({
+        title: t('news'),
+        path: 'news',
+        thumbnail: newsIcon,
+        isExternalUrl: false,
+        onTilePress: () => navigateToNews({ cityCode, language, path: null, type: 'local' }),
         notifications: 0
       })
     ]
