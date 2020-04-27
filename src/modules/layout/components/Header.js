@@ -150,7 +150,7 @@ class Header extends React.PureComponent<PropsType> {
           {cityModel &&
           <HeaderText allowFontScaling={false} theme={theme}>{this.cityDisplayName(cityModel)}</HeaderText>}
         </HorizontalLeft>
-        <MaterialHeaderButtons cancelLabel={t('cancel')}>
+        <MaterialHeaderButtons cancelLabel={t('cancel')} theme={theme}>
           {!peeking && categoriesAvailable &&
           this.renderItem(t('search'), 'search', 'always', this.goToSearch, t('search'))}
           {!peeking && goToLanguageChange &&
