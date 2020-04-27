@@ -66,14 +66,14 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
   }
 
   renderFeedbackModal = (): React.Node => {
-    if (!this.state.feedbackModalRating) {
+    if (this.state.feedbackModalRating) {
       return null
     }
 
     const { cities, location, feedbackTargetInformation } = this.props
 
     return <FeedbackModal cities={cities}
-                          feedbackStatus={this.state.feedbackModalRating}
+                          feedbackStatus={'up'}
                           closeFeedbackModal={this.closeFeedbackModal}
                           location={location}
                           {...feedbackTargetInformation} />
