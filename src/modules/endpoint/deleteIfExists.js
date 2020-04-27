@@ -7,6 +7,8 @@ import RNFetchBlob from 'rn-fetch-blob'
 const deleteIfExists = async (path: string) => {
   if (await RNFetchBlob.fs.exists((path))) {
     await RNFetchBlob.fs.unlink(path)
+  } else {
+    console.warn(`File or directory ${path} does not exist and was therefore not deleted.`)
   }
 }
 
