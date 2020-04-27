@@ -39,7 +39,7 @@ type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const routeKey = ownProps.navigation.state.key
 
-  const route = state.cityContent?.categoriesRouteMapping[routeKey] || state.cityContent?.eventsRouteMapping[routeKey]
+  const route = state.cityContent?.categoriesRouteMapping[routeKey] || state.cityContent?.eventsRouteMapping[routeKey] || state.cityContent?.newsRouteMapping[routeKey]
   const languages = state.cityContent?.languages
 
   if (!route || route.status !== 'ready' || state.cities.status !== 'ready' || !state.cityContent ||

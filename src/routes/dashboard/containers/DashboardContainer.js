@@ -20,6 +20,7 @@ import createNavigateToEvent from '../../../modules/app/createNavigateToEvent'
 import createNavigateToIntegreatUrl from '../../../modules/app/createNavigateToIntegreatUrl'
 import createNavigateToExtras from '../../../modules/app/createNavigateToExtras'
 import { mapProps } from 'recompose'
+import createNavigateToNews from '../../../modules/app/createNavigateToNews'
 
 type RefreshPropsType = {|
   cityCode: string,
@@ -134,6 +135,7 @@ const DashboardContainer = (props: ContainerPropsType) => {
     {...rest}
     navigateToCategory={createNavigateToCategory('Categories', dispatch, rest.navigation)}
     navigateToEvent={createNavigateToEvent(dispatch, rest.navigation)}
+    navigateToNews={createNavigateToNews(dispatch, rest.navigation)}
     navigateToIntegreatUrl={createNavigateToIntegreatUrl(dispatch, rest.navigation)}
     navigateToDashboard={createNavigateToCategory('Dashboard', dispatch, rest.navigation)}
     navigateToExtras={createNavigateToExtras(dispatch, rest.navigation)} />
