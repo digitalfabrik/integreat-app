@@ -90,7 +90,7 @@ const fetchTestResults = async (driver: wd.PromiseChainWebdriver) => {
   const password = process.env.E2E_BROWSERSTACK_KEY
 
   if (!user || !password) {
-    console.log('Can not fetch test results from BrowserStack as no username is set!')
+    console.log('Can not fetch test results from BrowserStack as username or password is not set!')
     return
   }
 
