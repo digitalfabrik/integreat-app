@@ -13,7 +13,7 @@ import {
   Payload
 } from '@integreat-app/integreat-api-client'
 import fetchData from '../fetchData'
-import { cmsApiBaseUrl, tuNewsApiBaseUrl, localNewsApiBaseUrl } from '../constants/urls'
+import { cmsApiBaseUrl, tuNewsApiBaseUrl, localNewsApiBaseUrlDev } from '../constants/urls'
 
 type NewsRouteParamsType = {| city: string, language: string |}
 type RequiredPayloadsType = {| news: Payload<Array<LocalNewsModel>> |}
@@ -25,14 +25,13 @@ export const NEWS_ROUTE = 'NEWS'
  * @type {{path: string, thunk: function(Dispatch, GetState)}}
  */
 const newsRoute: Route = {
-  path: '/:city/:language/news',
+  path: '/:city/:language/news/local',
   thunk: async (dispatch, getState) => {
     const state = getState()
     const { city, language } = state.location.payload
 
     await Promise.all([
-      fetchData(createLocalNewsEndpoint(localNewsApiBaseUrl), dispatch, state.news, { city, language }),
-      fetchData(createTuNewsListEndpoint(tuNewsApiBaseUrl), dispatch, state.tunews_list, { page: 1, language: language || 'en', count: 20 }),
+      fetchData(createLocalNewsEndpoint(localNewsApiBaseUrlDev), dispatch, state.news, { city, language }),
       fetchData(createCitiesEndpoint(cmsApiBaseUrl), dispatch, state.cities),
       fetchData(createEventsEndpoint(cmsApiBaseUrl), dispatch, state.events, { city, language }),
       fetchData(createLanguagesEndpoint(cmsApiBaseUrl), dispatch, state.languages, { city, language })
@@ -69,7 +68,7 @@ class NewsRouteConfig implements RouteConfig<NewsRouteParamsType, RequiredPayloa
     return `${newsItem ? newsItem.title : t('pageTitles.news')} - ${cityName}`
   }
 
-  getRoutePath = ({ city, language }: NewsRouteParamsType): string => `/${city}/${language}/news`
+  getRoutePath = ({ city, language }: NewsRouteParamsType): string => `/${city}/${language}/news/local`
 
   getMetaDescription = () => null
 
