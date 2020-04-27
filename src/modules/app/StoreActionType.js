@@ -46,6 +46,59 @@ export type FetchCategoryActionType = {|
     +criterion: ContentLoadCriterionType
   |}
 |}
+
+export type FetchNewsActionType = {|
+  type: "FETCH_NEWS",
+  +params: {|
+    +city: string, +language: string,
+    +path: ?string, +key: string,
+    +criterion: ContentLoadCriterionType,
+    +type: ?string
+  |}
+|}
+
+export type FetchMoreNewsActionType = {|
+  type: "FETCH_MORE_NEWS",
+  +params: {|
+    +city: string, +language: string,
+    +path: ?string, +key: string,
+    +criterion: ContentLoadCriterionType,
+    +type: ?string,
+    +page: ?number
+  |}
+|}
+
+export type ClearNewstActionType = {|
+  type: 'CLEAR_NEWS', +params: {| +key: string |}
+|}
+
+export type PushNewsActionType = {|
+  type: 'PUSH_NEWS',
+  +params: {|
+    +newsList: $ReadOnlyArray<any>, // TODO must be NewsModel
+    +path: ?string,
+    +key: string,
+    +resourceCache: LanguageResourceCacheStateType,
+    +cityLanguages: $ReadOnlyArray<LanguageModel>,
+    +language: string,
+    +city: string,
+    +type: ?string
+  |}
+|}
+
+export type FetchNewsFailedActionType = {|
+  type: 'FETCH_NEWS_FAILED',
+  +params: {|
+    +message: string,
+    +code: ErrorCodeType,
+    +key: string,
+    +allAvailableLanguages: ?$ReadOnlyMap<string, ?string>,
+    +language: string,
+    +path: ?string,
+    +city: string
+  |}
+|}
+
 export type FetchCategoryFailedActionType = {|
   type: 'FETCH_CATEGORY_FAILED',
   +params: {|
@@ -84,9 +137,11 @@ export type FetchEventActionType = {|
     +criterion: ContentLoadCriterionType
   |}
 |}
+
 export type ClearEventActionType = {|
   type: 'CLEAR_EVENT', +params: {| +key: string |}
 |}
+
 export type PushEventActionType = {|
   type: 'PUSH_EVENT',
   +params: {|
@@ -99,6 +154,7 @@ export type PushEventActionType = {|
     +city: string
   |}
 |}
+
 export type FetchEventFailedActionType = {|
   type: 'FETCH_EVENT_FAILED',
   +params: {|
