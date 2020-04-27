@@ -11,8 +11,6 @@ import type { StateType } from '../../../modules/app/StateType'
 import Page from '../../../modules/common/components/Page'
 import { LocalNewsModel } from '@integreat-app/integreat-api-client'
 
-
-
 const StyledContainer = styled.div`
 display: flex;
 flex-direction: column;
@@ -20,22 +18,19 @@ align-items: center;
 `
 
 type PropsType = {|
-  localNewsList: Array<LocalNewsModel>,
+  localNewsDetails: LocalNewsModel,
   title: string,
   language: string
 |}
 
-// This just a placeholder until the page design is ready
 class LocalNewsDetailsPage extends React.PureComponent<PropsType> {
   render() {
-    const { localNewsList, title, language } = this.props
-    const localNewsItem: any = localNewsList.find(ele => ele.title === title)
-
-    console.log('189',this.props.localNewsList)
+    const { localNewsDetails, title, language } = this.props
+    const localNewsItem = localNewsDetails[0]
 
     return (
-      <Page title={localNewsItem.title} content="" language={language} lastUpdate={localNewsItem.timestamp}>
-        {localNewsItem.message}
+      <Page title={localNewsItem._title} content="" language={language} lastUpdate={localNewsItem._timestamp}>
+        {localNewsItem._message}
       </Page>
     )
   }
@@ -43,7 +38,6 @@ class LocalNewsDetailsPage extends React.PureComponent<PropsType> {
 
 const mapStateTypeToProps = (state: StateType) => {
   return {
-    title: state.location.payload.title,
     language: state.location.payload.language,
   }
 }
@@ -53,3 +47,5 @@ export default compose(
   withTranslation('localNewsDetails')
 )(LocalNewsDetailsPage)
 
+// const error = new ContentNotFoundError({ type: 'newsItem', id: newsId, city, language })
+// return <FailureSwitcher error={error} />
