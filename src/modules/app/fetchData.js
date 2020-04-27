@@ -26,7 +26,7 @@ async function fetchData<P, T> (
     // Fetch if the data is not valid anymore or it hasn't been fetched yet
     dispatch(startFetchAction(endpoint.stateName, formattedUrl))
 
-    const payload = await endpoint.request(params, { developmentHeader: true })
+    const payload = await endpoint.request(params)
     dispatch(finishFetchAction(endpoint.stateName, payload))
     return payload
   } catch (e) {
