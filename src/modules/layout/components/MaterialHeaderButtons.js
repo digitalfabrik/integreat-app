@@ -7,6 +7,7 @@ import {
   HeaderButtons
 } from 'react-navigation-header-buttons'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
+import type { ThemeType } from '../../theme/constants/theme'
 
 const MaterialHeaderButton = (props: {
   title: string, onPress: () => void, getButtonElement: () => React.Element<*>
@@ -20,11 +21,11 @@ const onOverflowMenuPress = (cancelButtonLabel: string) => ({ overflowButtonRef,
     cancelButtonLabel
   })
 
-const MaterialHeaderButtons = (props: { cancelLabel: string, children: React.Node }) => {
-  const { cancelLabel, ...otherProps } = props
+const MaterialHeaderButtons = (props: { cancelLabel: string, children: React.Node, theme: ThemeType }) => {
+  const { cancelLabel, theme, ...otherProps } = props
   return (
     <HeaderButtons HeaderButtonComponent={MaterialHeaderButton}
-                   OverflowIcon={<MaterialIcon name='more-vert' size={23} color='black' />}
+                   OverflowIcon={<MaterialIcon name='more-vert' size={23} color={theme.colors.textColor} />}
                    onOverflowMenuPress={onOverflowMenuPress(cancelLabel)}
                    {...otherProps}
     />
