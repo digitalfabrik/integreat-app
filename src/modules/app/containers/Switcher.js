@@ -43,6 +43,7 @@ type PropsType = {|
   poisPayload: Payload<Array<PoiModel>>,
   eventsPayload: Payload<Array<EventModel>>,
   newsPayload: Payload<Array<LocalNewsModel>>,
+  newsElementPayload: Payload<LocalNewsModel>,
   tuNewsPayload: Payload<Array<TuNewsModel>>,
   tuNewsElementPayload: Payload<Array<TuNewsElementModel>>,
   extrasPayload: Payload<Array<ExtraModel>>,
@@ -99,7 +100,7 @@ export class Switcher extends React.Component<PropsType> {
   }
 
   renderLayoutWithContent (): React.Node {
-    const { location, viewportSmall, darkMode, categoriesPayload, citiesPayload, toggleDarkMode, eventsPayload, newsPayload, tuNewsPayload, tuNewsElementPayload } =
+    const { location, viewportSmall, darkMode, categoriesPayload, citiesPayload, toggleDarkMode, eventsPayload, newsPayload, tuNewsPayload, tuNewsElementPayload, newsElementPayload } =
       this.props
 
     const routeConfig = getRouteConfig(location.type)
@@ -127,8 +128,6 @@ export class Switcher extends React.Component<PropsType> {
                         cities={citiesPayload.data}
                         events={eventsPayload.data}
                         news={newsPayload && newsPayload.data}
-                        tuNews= { tuNewsPayload }
-                        tuNewsElement={ tuNewsElementPayload.data }
                         darkMode={darkMode}
                         viewportSmall={viewportSmall}
                         toggleDarkMode={toggleDarkMode}
@@ -154,6 +153,7 @@ const mapStateToProps = (state: StateType) => ({
   categoriesPayload: state.categories,
   eventsPayload: state.events,
   newsPayload: state.news,
+  newsElementPayload: state.newsElement,
   tuNewsPayload: state.tunews_list,
   tuNewsElementPayload: state.tunews_element,
   poisPayload: state.pois,
