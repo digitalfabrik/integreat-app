@@ -7,11 +7,13 @@ exports.local_android = {
   caps: {
     browserName: '',
     platformName: 'Android',
-    platformVersion: '12.0',
-    deviceName: 'iPhone Simulator',
-    os: 'iOS',
-    deviceOrientation: 'portrait',
-    automationName: 'XCUITest'
+    platformVersion: '9',
+    deviceName: 'Android Emulator',
+    automationName: 'UiAutomator2',
+    os: 'Android',
+    appPackage: 'com.integreat',
+    appActivity: 'com.integreat.MainActivity',
+    deviceOrientation: 'portrait'
   }
 }
 
@@ -22,13 +24,11 @@ exports.local_ios = {
   caps: {
     browserName: '',
     platformName: 'iOS',
-    platformVersion: '9',
-    deviceName: 'Android Emulator',
-    automationName: 'UiAutomator2',
-    os: 'Android',
-    appPackage: 'com.integreat',
-    appActivity: 'com.integreat.MainActivity',
-    deviceOrientation: 'portrait'
+    platformVersion: '12.0',
+    deviceName: 'iPhone Simulator',
+    os: 'iOS',
+    deviceOrientation: 'portrait',
+    automationName: 'XCUITest'
   }
 }
 
