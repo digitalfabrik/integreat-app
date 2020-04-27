@@ -28,11 +28,16 @@ export const Description = styled.div`
   padding: 10px 0 5px;
 `
 
-const StyledWrapper = styled(Wrapper)`
-  &,
-  & * {
-    cursor: pointer !important;
-  }
+const StyledMenuButton = styled(Button)`
+  cursor: pointer;
+`
+
+const MenuWrapper = styled.div`
+
+`
+
+const StyledMenuItem = styled.div`
+  cursor: pointer;
 `
 
 type PropsType = {|
@@ -64,25 +69,26 @@ export class FeedbackBox extends React.PureComponent<PropsType> {
       closeFeedbackModal
     } = this.props
 
+    console.warn(feedbackOptions)
     return (
       <StyledFeedbackBox>
         <ModalHeader t={t} closeFeedbackModal={closeFeedbackModal} title={t('feedback')} />
         <Description>{t('feedbackType')}</Description>
-        <StyledWrapper onSelection={onFeedbackOptionChanged}>
-          <Button>{selectedFeedbackOption.label}</Button>
-          <Menu>
-            <ul>
-            {
-              feedbackOptions.map((option, index) =>
-              <li key={index}>
-                <MenuItem value={option}>
-                  {option.label}
-                </MenuItem>
-              </li>)
-            }
-            </ul>
-          </Menu>
-        </StyledWrapper>
+        <div>
+          <Wrapper onSelection={onFeedbackOptionChanged}>
+            <StyledMenuButton>{selectedFeedbackOption.label}</StyledMenuButton>
+            <Menu>
+              <MenuWrapper>
+                {
+                  feedbackOptions.map((option, index) =>
+                    <MenuItem key={index} value={option} text={option.label}>
+                      <StyledMenuItem>{option.label}</StyledMenuItem>
+                    </MenuItem>)
+                }
+              </MenuWrapper>
+            </Menu>
+          </Wrapper>
+        </div>
         <FeedbackComment
           comment={comment}
           commentMessage={isPositiveRatingSelected ? t('positiveComment') : t('negativeComment')}
