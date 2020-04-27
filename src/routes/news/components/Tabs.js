@@ -4,6 +4,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import Tab from './Tab'
+import compose from 'lodash/fp/compose'
+import type { TFunction } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
+import { connect } from 'react-redux'
 
 const StyledTabs = styled.div`
   display: flex;
@@ -11,57 +15,47 @@ const StyledTabs = styled.div`
   padding-bottom: 40px;
 `
 
+const LOCAL_NEWS = 'local'
+const TU_NEWS = 'tu'
+
 type PropsType = {|
-  children: Array<React.Node>
+  localNews: boolean,
+  tuNews: boolean,
+  children: any,
+  city: string,
+  language: string,
 |}
 
 type StateType = {|
-  activeTab: string
+  location: any
 |}
 
 class Tabs extends React.PureComponent<PropsType, StateType> {
-  static propTypes = {
-    children: PropTypes.instanceOf(Array).isRequired
-  }
-
-  constructor (props) {
-    super(props)
-
-    this.state = {
-      activeTab: this.props.children[0].props.label
-    }
-  }
-
-  onClickTabItem = (tab: string) => {
-    this.setState({ activeTab: tab })
-  }
-
-  render () {
-    const {
-      onClickTabItem,
-      props: { children },
-      state: { activeTab }
-    } = this
+  render() {
+    const { localNews, tuNews, children, city, language } = this.props
 
     return (
       <>
         <StyledTabs>
-          {children.map(child => {
-            const { label, type } = child.props
-            return <Tab activeTab={activeTab} key={label} label={label} onClick={onClickTabItem} type={type} />
-          })}
+          <Tab active={localNews} type={LOCAL_NEWS} destination={`/${city}/${language}/news/local`} />
+          <Tab active={tuNews} type={TU_NEWS} destination={`/${city}/${language}/news/tu-news`} />
         </StyledTabs>
-        <div>
-          {children.map(child => {
-            if (child.props.label !== activeTab) {
-              return undefined
-            }
-            return child.props.children
-          })}
-        </div>
+        {children}
       </>
     )
   }
 }
 
-export default Tabs
+const mapStateTypeToProps = (state: StateType) => {
+  return {
+    language: state.location.payload.language,
+    city: state.location.payload.city
+  }
+}
+
+
+export default compose(
+  connect<*, *, *, *, *, *>(mapStateTypeToProps),
+  withTranslation('news')
+)(Tabs)
+
