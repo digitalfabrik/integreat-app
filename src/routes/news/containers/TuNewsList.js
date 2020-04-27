@@ -10,6 +10,7 @@ import type { StateType } from '../../../modules/app/StateType'
 import { TFunction } from 'i18next'
 import NewsList from './../components/NewsList'
 import TuNewsElement from './../components/TuNewsElement'
+import Tabs from './../components/Tabs'
 import {
   TuNewsModel,
   TuNewsElementModel,
@@ -44,15 +45,15 @@ class TuNewsListPage extends React.PureComponent<PropsType> {
 
   render() {
     const { tuNewsList, language, city, path, t } = this.props
-
-    console.log('helllo', this.props)
     return (
-      <NewsList
-        noItemsMessage={t('currentlyNoTuNews')}
-        items={tuNewsList}
-        renderItem={this.renderTuNewsElement(language, TU_NEWS)}
-        city={city}
-        t={t}/>
+      <Tabs localNews={false} tuNews={true}>
+        <NewsList
+          noItemsMessage={t('currentlyNoTuNews')}
+          items={tuNewsList}
+          renderItem={this.renderTuNewsElement(language, TU_NEWS)}
+          city={city}
+        />
+      </Tabs>
     )
   }
 }
