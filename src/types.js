@@ -106,6 +106,7 @@ export type JsonTuNewsType = {
 }
 
 export type JsonLocalNewsType = {
+  id: string,
   timestamp: string,
   title: string,
   message: string
