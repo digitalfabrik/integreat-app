@@ -50,12 +50,20 @@ class NavigationTiles extends React.Component<PropsType> {
 
   onRightAnchorPress = () => {
     const { xPosition } = this.state
-    this.ref_.scrollTo({ y: 0, x: xPosition + ITEM_WIDTH, animated: true })
+    if (!xPosition) {
+      this.ref_.scrollToEnd({ animated: true })
+    } else {
+      this.ref_.scrollTo({ y: 0, x: xPosition - ITEM_WIDTH, animated: true })
+    }
   };
 
   onLeftAnchorPress = () => {
     const { xPosition } = this.state
-    this.ref_.scrollTo({ y: 0, x: xPosition - ITEM_WIDTH, animated: true })
+    if (!xPosition) {
+      this.ref_.scrollToEnd({ animated: true })
+    } else {
+      this.ref_.scrollTo({ y: 0, x: xPosition - ITEM_WIDTH, animated: true })
+    }
   };
 
   setRef = ref => {
