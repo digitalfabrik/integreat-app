@@ -8,6 +8,7 @@ import compose from 'lodash/fp/compose'
 import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
+import { CityModel } from '@integreat-app/integreat-api-client'
 
 const StyledTabs = styled.div`
   display: flex;
@@ -23,22 +24,29 @@ type PropsType = {|
   tuNews: boolean,
   children: any,
   city: string,
+  cities: Array<CityModel>,
   language: string,
 |}
 
 type StateType = {|
-  location: any
+  location: any,
+  cities: Array<CityModel>,
 |}
 
 class Tabs extends React.PureComponent<PropsType, StateType> {
   render() {
-    const { localNews, tuNews, children, city, language } = this.props
+    const { localNews, tuNews, children, city, cities, language } = this.props
+    const currentCity:any = cities.find(cityElement => cityElement._code === city)
 
     return (
       <>
         <StyledTabs>
-          <Tab active={localNews} type={LOCAL_NEWS} destination={`/${city}/${language}/news/local`} />
-          <Tab active={tuNews} type={TU_NEWS} destination={`/${city}/${language}/news/tu-news`} />
+          {
+            currentCity._newsEnabled && <Tab active={localNews} type={LOCAL_NEWS} destination={`/${city}/${language}/news/local`} />
+          }
+          {
+            currentCity._tuNewsEnabled && <Tab active={tuNews} type={TU_NEWS} destination={`/${city}/${language}/news/tu-news`} />
+          }
         </StyledTabs>
         {children}
       </>
@@ -49,7 +57,8 @@ class Tabs extends React.PureComponent<PropsType, StateType> {
 const mapStateTypeToProps = (state: StateType) => {
   return {
     language: state.location.payload.language,
-    city: state.location.payload.city
+    city: state.location.payload.city,
+    cities: state.cities._data,
   }
 }
 
