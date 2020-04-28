@@ -3,7 +3,6 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import type Moment from 'moment'
-import BreadCrumbs from '../../../modules/common/components/Breadcrumbs'
 import TuNewsIcon from './../assets/tu-news-active.png'
 import { withTranslation } from 'react-i18next'
 import { connect } from 'react-redux'

@@ -37,7 +37,6 @@ type PropsType = {|
  */
 export class NewsPage extends React.Component<PropsType> {
 
-
   componentDidMount() {
 
     const currentCity: any = this.props.cities.find(cityElement => cityElement._code === this.props.city) || {}
