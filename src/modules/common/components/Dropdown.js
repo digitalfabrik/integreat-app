@@ -17,11 +17,11 @@ const StyledMenuButton = styled(Button)`
   cursor: pointer;
   box-sizing: border-box;
   align-items: center;
+  justify-content: space-between;
+  border-width: 1px;
   border-style: solid;
   border-color: ${props => props.theme.colors.textDecorationColor};
   border-radius: 4px;
-  border-width: 1px;
-  justify-content: space-between;
 `
 
 const StyledMenuButtonText = styled.div`
@@ -35,18 +35,18 @@ const StyledMenuButtonIcon = styled.div`
 `
 
 const StyledMenu = styled(Menu)`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  z-index: 1;
-  top: 100%;
-  box-sizing: border-box;
-  margin: 8px 0;
   position: absolute;
+  top: 100%;
+  z-index: 1;
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  flex-direction: column;
+  margin: 8px 0;
   border-radius: 4px;
   background-color: ${props => props.theme.colors.backgroundColor};
   box-shadow: 0 0 0 1px ${props => props.theme.colors.textDecorationColor},
-  0 4px 11px ${props => props.theme.colors.textDecorationColor};
+    0 4px 11px ${props => props.theme.colors.textDecorationColor};
 `
 
 const StyledMenuItem = styled(MenuItem)`
@@ -55,7 +55,8 @@ const StyledMenuItem = styled(MenuItem)`
   color: ${props => props.theme.colors.textSecondaryColor};
   cursor: pointer;
 
-  :focus, :hover {
+  :focus,
+  :hover {
     background-color: ${props => props.theme.colors.textDecorationColor};
   }
 `
