@@ -15,8 +15,10 @@ import ExtrasRouteConfig, { EXTRAS_ROUTE } from '../../app/route-configs/ExtrasR
 import CategoriesRouteConfig, { CATEGORIES_ROUTE } from '../../app/route-configs/CategoriesRouteConfig'
 import EventsRouteConfig, { EVENTS_ROUTE } from '../../app/route-configs/EventsRouteConfig'
 import NewsRouteConfig, { NEWS_ROUTE } from '../../app/route-configs/NewsRouteConfig'
+import LocalNewsDetailsRouteConfig, { LOCAL_NEWS_DETAILS_ROUTE } from '../../app/route-configs/LocalNewsDetailsRouteConfig'
+import TuNewsListRouteConfig, { TUNEWS_LIST_ROUTE } from '../../app/route-configs/TuNewsListRouteConfig'
+import TuNewsDetailsRouteConfig, { TUNEWS_DETAILS_ROUTE } from '../../app/route-configs/TuNewsDetailsRouteConfig'
 import SearchRouteConfig from '../../app/route-configs/SearchRouteConfig'
-
 import type { LocationState } from 'redux-first-router'
 import { EventModel, LocalNewsModel } from '@integreat-app/integreat-api-client'
 import { WOHNEN_ROUTE } from '../../app/route-configs/WohnenRouteConfig'
@@ -33,6 +35,7 @@ type PropsType = {|
   cityName: string,
   isEventsEnabled: boolean,
   isNewsEnabled: boolean,
+  isNewsActive: boolean,
   isExtrasEnabled: boolean,
   onStickyTopChanged: number => void,
   languageChangePaths: ?LanguageChangePathsType
@@ -60,13 +63,13 @@ export class LocationHeader extends React.Component<PropsType> {
   }
 
   getNavigationItems (): Array<Element<typeof HeaderNavigationItem>> {
-    const { t, isEventsEnabled, isNewsEnabled, isExtrasEnabled, location, events } = this.props
+    const { t, isEventsEnabled, isNewsEnabled, isExtrasEnabled, location, events, isNewsActive } = this.props
+
     const { city, language } = location.payload
     const currentRoute = location.type
 
     const isEventsActive = events ? events.length > 0 : false
     const isCategoriesEnabled = isExtrasEnabled || isEventsEnabled
-    const isNewsActive = true
 
     const items: Array<Element<typeof HeaderNavigationItem>> = []
 
@@ -95,11 +98,12 @@ export class LocationHeader extends React.Component<PropsType> {
     }
 
     if (isNewsEnabled) {
+      const newsUrl = city.newsEnabled ? new NewsRouteConfig().getRoutePath({ city, language }) : new TuNewsListRouteConfig().getRoutePath({ city, language })
       items.push(
         <HeaderNavigationItem
           key='news'
-          href={new NewsRouteConfig().getRoutePath({ city, language })}
-          selected={ location.pathname.includes('news') }
+          href={newsUrl}
+          selected={[NEWS_ROUTE, TUNEWS_LIST_ROUTE, TUNEWS_DETAILS_ROUTE, LOCAL_NEWS_DETAILS_ROUTE, LOCAL_NEWS_DETAILS_ROUTE].includes(currentRoute)}
           text={t('news')}
           active={isNewsActive}
         />
