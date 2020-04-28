@@ -8,10 +8,6 @@ import LastUpdateInfo from './../../../modules/common/components/LastUpdateInfo'
 import type { TFunction } from 'react-i18next'
 import {textTruncator} from './../../../modules/theme/constants/helpers'
 
-
-const LOCAL_NEWS = 'local'
-const TU_NEWS = 'tu'
-
 const Link = styled(CleanLink)`
   display: flex;
   background-color: white;
@@ -72,7 +68,6 @@ color: red;
 type PropsType = {|
   newsItem: TuNewsModel,
   path: string,
-  type: string,
   language: string,
   city: string,
   t: TFunction
@@ -94,7 +89,7 @@ class NewsElement extends React.PureComponent<PropsType> {
   }
 
   render() {
-    const { path, newsItem, type, city, language } = this.props
+    const { path, newsItem, city, language } = this.props
     const itemPath = `/${city}/${language}/news/tu-news/${newsItem._id}`;
 
     return (
