@@ -41,7 +41,7 @@ class TuNewsListPage extends React.PureComponent<PropsType> {
       this.props.redirect({ payload: { language: this.props.language, city: this.props.city }, type: CATEGORIES_ROUTE })
     }
     else if (currentCity.newsEnabled && !currentCity.tuNewsEnabled) {
-      this.props.redirect({ payload: { language: "en", city: this.props.city }, type: NEWS_ROUTE })
+      this.props.redirect({ payload: { language: this.props.language, city: this.props.city }, type: NEWS_ROUTE })
     }
   }
 
