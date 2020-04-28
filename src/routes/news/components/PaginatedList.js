@@ -27,11 +27,11 @@ type PropsType<T> = {|
 class NewsList<T>extends React.PureComponent<PropsType<T>> {
   constructor (props) {
     super(props)
-    this.loadItemsTh = throttle(this.loadItems, 1000)
+    this.loadItemsThrottle = throttle(this.loadItems, 600)
   }
 
   loadItems = async page => {
-    this.props.fetchNews(page + 1, 20)
+    this.props.fetchTuNews(page + 1, 20)
   };
 
   render() {
@@ -45,7 +45,7 @@ class NewsList<T>extends React.PureComponent<PropsType<T>> {
     return (
       <StyledList>
         <InfiniteScroll
-          loadMore={this.loadItemsTh}
+          loadMore={this.loadItemsThrottle}
           hasMore={hasMore}
           loader={loader}
         >

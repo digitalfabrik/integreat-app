@@ -9,7 +9,7 @@ import compose from 'lodash/fp/compose'
 import type { StateType } from '../../../modules/app/StateType'
 import { TFunction } from 'i18next'
 import PaginatedList from './../components/PaginatedList'
-import { fetchNews } from '../actions/fetchNews'
+import { fetchTuNews } from '../actions/fetchTuNews'
 import TuNewsElement from './../components/TuNewsElement'
 import Tabs from './../components/Tabs'
 import {
@@ -42,7 +42,7 @@ class TuNewsListPage extends React.PureComponent<PropsType> {
   }
 
   render() {
-    const { tuNewsList, language, city, path, t, fetchNews, hasMore } = this.props
+    const { tuNewsList, language, city, path, t, fetchTuNews, hasMore } = this.props
     return (
       <Tabs localNews={false} tuNews={true}>
         <PaginatedList
@@ -50,7 +50,7 @@ class TuNewsListPage extends React.PureComponent<PropsType> {
           items={tuNewsList}
           renderItem={this.renderTuNewsElement(language)}
           city={city}
-          fetchNews={fetchNews}
+          fetchTuNews={fetchTuNews}
           hasMore={hasMore}
         />
       </Tabs>
@@ -66,6 +66,6 @@ const mapStateToProps = (state: StateType) => ({
 })
 
 export default compose(
-  connect<*, *, *, *, *, *>(mapStateToProps, { fetchNews }),
+  connect<*, *, *, *, *, *>(mapStateToProps, { fetchTuNews }),
   withTranslation('tuNewsDetails')
 )(TuNewsListPage)
