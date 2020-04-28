@@ -27,6 +27,7 @@ type PropsType = {|
 |}
 
 const LOCAL_NEWS = 'local'
+const TU_NEWS = 'tu'
 
 /**
  * Displays a list of news or a single newsElement, matching the route /<location>/<language>/news(/<id>)
@@ -82,12 +83,7 @@ export class NewsPage extends React.Component<PropsType> {
             />
           </div>
           <div label={t('news.tuNews')} type={TU_NEWS}>
-            <NewsList
-              items={tuNews}
-              noItemsMessage={t('currentlyNoTuNews')}
-              renderItem={this.renderTuNewsElement(language, TU_NEWS)}
-              city={city}
-            />
+            <div></div>
           </div>
         </Tabs>
       </>
