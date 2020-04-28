@@ -8,8 +8,9 @@ import styled from 'styled-components'
 import ModalHeader from './ModalHeader'
 import FeedbackComment from './FeedbackComment'
 import FeedbackVariant from '../FeedbackVariant'
-import { Wrapper, Button, Menu, MenuItem } from 'react-aria-menubutton'
 import TextButton from '../../common/components/TextButton'
+import type { ThemeType } from '../../theme/constants/theme'
+import Dropdown from '../../common/components/Dropdown'
 
 export const StyledFeedbackBox = styled.div`
   display: flex;
@@ -28,18 +29,6 @@ export const Description = styled.div`
   padding: 10px 0 5px;
 `
 
-const StyledMenuButton = styled(Button)`
-  cursor: pointer;
-`
-
-const MenuWrapper = styled.div`
-
-`
-
-const StyledMenuItem = styled.div`
-  cursor: pointer;
-`
-
 type PropsType = {|
   isPositiveRatingSelected: boolean,
   feedbackOptions: Array<FeedbackVariant>,
@@ -49,7 +38,8 @@ type PropsType = {|
   onFeedbackOptionChanged: FeedbackVariant => void,
   onSubmit: () => void,
   t: TFunction,
-  closeFeedbackModal: () => void
+  closeFeedbackModal: () => void,
+  theme: ThemeType
 |}
 
 /**
@@ -66,28 +56,19 @@ export class FeedbackBox extends React.PureComponent<PropsType> {
       onCommentChanged,
       onSubmit,
       comment,
-      closeFeedbackModal
+      closeFeedbackModal,
+      theme
     } = this.props
 
-    console.warn(feedbackOptions)
     return (
       <StyledFeedbackBox>
         <ModalHeader t={t} closeFeedbackModal={closeFeedbackModal} title={t('feedback')} />
         <Description>{t('feedbackType')}</Description>
         <div>
-          <Wrapper onSelection={onFeedbackOptionChanged}>
-            <StyledMenuButton>{selectedFeedbackOption.label}</StyledMenuButton>
-            <Menu>
-              <MenuWrapper>
-                {
-                  feedbackOptions.map((option, index) =>
-                    <MenuItem key={index} value={option} text={option.label}>
-                      <StyledMenuItem>{option.label}</StyledMenuItem>
-                    </MenuItem>)
-                }
-              </MenuWrapper>
-            </Menu>
-          </Wrapper>
+          <Dropdown items={feedbackOptions}
+                    selectedItem={selectedFeedbackOption}
+                    onOptionChanged={onFeedbackOptionChanged}
+                    theme={theme} />
         </div>
         <FeedbackComment
           comment={comment}
