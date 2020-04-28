@@ -64,12 +64,10 @@ export class FeedbackBox extends React.PureComponent<PropsType> {
       <StyledFeedbackBox>
         <ModalHeader t={t} closeFeedbackModal={closeFeedbackModal} title={t('feedback')} />
         <Description>{t('feedbackType')}</Description>
-        <div>
-          <Dropdown items={feedbackOptions}
-                    selectedItem={selectedFeedbackOption}
-                    onOptionChanged={onFeedbackOptionChanged}
-                    theme={theme} />
-        </div>
+        <Dropdown items={feedbackOptions}
+                  selectedItem={selectedFeedbackOption}
+                  onOptionChanged={onFeedbackOptionChanged}
+                  theme={theme} />
         <FeedbackComment
           comment={comment}
           commentMessage={isPositiveRatingSelected ? t('positiveComment') : t('negativeComment')}
