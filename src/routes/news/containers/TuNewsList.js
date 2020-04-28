@@ -44,14 +44,13 @@ class TuNewsListPage extends React.PureComponent<PropsType> {
   }
 
   render() {
-    const { tuNewsList, language, city, path, t } = this.props
+    const { tuNewsList, language, city, path } = this.props
     return (
       <NewsList
         noItemsMessage={t('currentlyNoTuNews')}
         items={tuNewsList}
         renderItem={this.renderTuNewsElement(language, TU_NEWS)}
         city={city}
-        t={t}
         />
     )
   }

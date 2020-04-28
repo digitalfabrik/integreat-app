@@ -18,7 +18,6 @@ type PropsType = {|
   language: string,
 |}
 
-// This just a placeholder until the page design is ready
 class LocalNewsDetails extends React.PureComponent<PropsType> {
   render() {
     const { title, message, timestamp, language} = this.props

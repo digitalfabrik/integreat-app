@@ -3,7 +3,6 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import type Moment from 'moment'
-import BreadCrumbs from '../../../modules/common/components/Breadcrumbs'
 import TuNewsIcon from './../assets/tu-news-active.png'
 import { withTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
@@ -63,8 +62,6 @@ type PropsType = {|
   language: string,
   t: TFunction
 |}
-
-// This just a placeholder until the page design is ready
 class TuNewsDetailsPage extends React.PureComponent<PropsType> {
   render() {
     const { tuNewsElementDetails, language, t } = this.props
