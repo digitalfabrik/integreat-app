@@ -7,7 +7,7 @@ import { faAngleDown } from '../../app/constants/icons'
 import type { ThemeType } from '../../theme/constants/theme'
 import styled from 'styled-components'
 
-const DropdownContainer = styled.div`
+const StyledWrapper = styled(Wrapper)`
   position: relative;
   box-sizing: border-box;
 `
@@ -34,7 +34,7 @@ const StyledMenuButtonIcon = styled.div`
   padding: 8px 16px;
 `
 
-const MenuWrapper = styled.div`
+const StyledMenu = styled(Menu)`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -73,28 +73,28 @@ class Dropdown<T: DropdownItemType> extends React.Component<DropdownPropsType<T>
   render () {
     const { onOptionChanged, items, selectedItem, theme } = this.props
 
-    return <DropdownContainer>
-      <Wrapper onSelection={onOptionChanged}>
-        <StyledMenuButton>
-          <StyledMenuButtonText>
-            {selectedItem.label}
-          </StyledMenuButtonText>
-          <StyledMenuButtonIcon>
-            <FontAwesomeIcon icon={faAngleDown} size='lg' color={theme.colors.textDecorationColor} />
-          </StyledMenuButtonIcon>
-        </StyledMenuButton>
-        <Menu>
-          <MenuWrapper>
-            {
-              items.map((option, index) =>
-                <StyledMenuItem key={index} value={option} text={option.label} theme={theme}>
-                  {option.label}
-                </StyledMenuItem>)
-            }
-          </MenuWrapper>
-        </Menu>
-      </Wrapper>
-    </DropdownContainer>
+    const renderMenuButton = () => {
+      return <StyledMenuButton>
+        <StyledMenuButtonText>{selectedItem.label}</StyledMenuButtonText>
+        <StyledMenuButtonIcon>
+          <FontAwesomeIcon icon={faAngleDown} size='lg' color={theme.colors.textDecorationColor} />
+        </StyledMenuButtonIcon>
+      </StyledMenuButton>
+    }
+
+    const renderItems = () => {
+      return items.map((option, index) =>
+        <StyledMenuItem key={index} value={option} text={option.label} theme={theme}>
+          {option.label}
+        </StyledMenuItem>)
+    }
+
+    return <StyledWrapper onSelection={onOptionChanged}>
+      {renderMenuButton()}
+      <StyledMenu>
+        {renderItems()}
+      </StyledMenu>
+    </StyledWrapper>
   }
 }
 
