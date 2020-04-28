@@ -1,4 +1,4 @@
-
+// @flow
 
 import type { AllPayloadsType } from './RouteConfig'
 import { RouteConfig } from './RouteConfig'
@@ -30,7 +30,7 @@ const tuNewsListRoute: Route = {
     const { city, language } = state.location.payload
 
     await Promise.all([
-      fetchData(createTuNewsListEndpoint(tuNewsApiBaseUrl), dispatch, state.tunews_list, { page: 1, language: language || 'en', count: 20 }),
+      fetchData(createTuNewsListEndpoint(tuNewsApiBaseUrl), dispatch, state.tunewsList, { page: 1, language: language || 'en', count: 20 }),
       fetchData(createCitiesEndpoint(cmsApiBaseUrl), dispatch, state.cities),
       fetchData(createEventsEndpoint(cmsApiBaseUrl), dispatch, state.events, { city, language })
     ])

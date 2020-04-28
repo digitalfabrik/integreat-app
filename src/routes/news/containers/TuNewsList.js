@@ -8,7 +8,8 @@ import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 import type { StateType } from '../../../modules/app/StateType'
 import { TFunction } from 'i18next'
-import NewsList from './../components/NewsList'
+import PaginatedList from './../components/PaginatedList'
+import { fetchNews } from '../actions/fetchNews'
 import TuNewsElement from './../components/TuNewsElement'
 import Tabs from './../components/Tabs'
 import {
@@ -41,14 +42,16 @@ class TuNewsListPage extends React.PureComponent<PropsType> {
   }
 
   render() {
-    const { tuNewsList, language, city, path, t } = this.props
+    const { tuNewsList, language, city, path, t, fetchNews, hasMore } = this.props
     return (
       <Tabs localNews={false} tuNews={true}>
-        <NewsList
+        <PaginatedList
           noItemsMessage={t('currentlyNoTuNews')}
           items={tuNewsList}
           renderItem={this.renderTuNewsElement(language)}
           city={city}
+          fetchNews={fetchNews}
+          hasMore={hasMore}
         />
       </Tabs>
     )
@@ -59,9 +62,10 @@ const mapStateToProps = (state: StateType) => ({
   language: state.location.payload.language,
   city: state.location.payload.city,
   path: state.location.pathname,
+  hasMore: state.tunewsList.hasMore
 })
 
 export default compose(
-  connect<*, *, *, *, *, *>(mapStateToProps),
+  connect<*, *, *, *, *, *>(mapStateToProps, { fetchNews }),
   withTranslation('tuNewsDetails')
 )(TuNewsListPage)
