@@ -8,6 +8,7 @@ import compose from 'lodash/fp/compose'
 import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
+import { fetchNews } from '../actions/fetchNews'
 
 const StyledTabs = styled.div`
   display: flex;
@@ -32,13 +33,13 @@ type StateType = {|
 
 class Tabs extends React.PureComponent<PropsType, StateType> {
   render() {
-    const { localNews, tuNews, children, city, language } = this.props
+    const { localNews, tuNews, children, city, language, fetchNews, tuNewsList } = this.props
 
     return (
       <>
         <StyledTabs>
           <Tab active={localNews} type={LOCAL_NEWS} destination={`/${city}/${language}/news/local`} />
-          <Tab active={tuNews} type={TU_NEWS} destination={`/${city}/${language}/news/tu-news`} />
+          <Tab active={tuNews} type={TU_NEWS} destination={`/${city}/${language}/news/tu-news`} fetchNews={fetchNews} tuNewsList={tuNewsList} />
         </StyledTabs>
         {children}
       </>
@@ -47,15 +48,17 @@ class Tabs extends React.PureComponent<PropsType, StateType> {
 }
 
 const mapStateTypeToProps = (state: StateType) => {
+  console.log('stateeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', state)
   return {
     language: state.location.payload.language,
-    city: state.location.payload.city
+    city: state.location.payload.city,
+    tuNewsList: state.tunewsList.data
   }
 }
 
 
 export default compose(
-  connect<*, *, *, *, *, *>(mapStateTypeToProps),
+  connect<*, *, *, *, *, *>(mapStateTypeToProps, { fetchNews }),
   withTranslation('news')
 )(Tabs)
 
