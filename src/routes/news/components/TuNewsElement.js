@@ -6,7 +6,10 @@ import { TuNewsModel } from '@integreat-app/integreat-api-client'
 import CleanLink from '../../../modules/common/components/CleanLink'
 import LastUpdateInfo from './../../../modules/common/components/LastUpdateInfo'
 import type { TFunction } from 'react-i18next'
-import {textTruncator} from './../../../modules/theme/constants/helpers'
+import { textTruncator } from './../../../modules/theme/constants/helpers'
+import { withTranslation } from 'react-i18next'
+import { connect } from 'react-redux'
+import compose from 'lodash/fp/compose'
 
 
 const LOCAL_NEWS = 'local'
@@ -72,7 +75,6 @@ color: red;
 type PropsType = {|
   newsItem: TuNewsModel,
   path: string,
-  type: string,
   language: string,
   city: string,
   t: TFunction
@@ -94,8 +96,8 @@ class NewsElement extends React.PureComponent<PropsType> {
   }
 
   render() {
-    const { path, newsItem, type, city, language } = this.props
-    const itemPath = `/${city}/${language}/news/tu-news/${newsItem._id}`;
+    const { path, newsItem, city, language } = this.props
+    const itemPath = `${path}/${newsItem._id}`;
 
     return (
       <StyledNewsElement>
@@ -107,4 +109,6 @@ class NewsElement extends React.PureComponent<PropsType> {
   }
 }
 
-export default NewsElement
+export default compose(
+  withTranslation('news')
+)(NewsElement)

@@ -73,7 +73,6 @@ export class NewsPage extends React.Component<PropsType> {
     return (
       <>
         <Tabs>
-          {/* TODO: update the locale file realted issues */}
           <div label={t('local')} type={LOCAL_NEWS}>
             <NewsList
               items={news}
