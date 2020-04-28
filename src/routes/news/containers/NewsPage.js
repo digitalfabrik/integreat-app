@@ -37,23 +37,19 @@ export class NewsPage extends React.Component<PropsType> {
     items: []
   };
 
-  renderLocalNewsElement = (language: string, type: string) => (newsItem: LocalNewsModel, city: string) => {
-    return (
-      <NewsElement
-        newsItem={newsItem}
-        key={newsItem.path}
-        path={this.props.path}
-        t={this.props.t}
-        language={language}
-      />
-    )
-  }
+  renderLocalNewsElement = (language: string) => (newsItem: LocalNewsModel, city: string) => (<NewsElement
+    newsItem={newsItem}
+    key={newsItem.path}
+    path={this.props.path}
+    t={this.props.t}
+    language={language}
+  />)
 
   render() {
     const { news,city, newsId, language, t, path } = this.props
       return (
         <Tabs localNews={true} tuNews={false}>
-          <NewsList items={news} noItemsMessage="No locals news" renderItem={this.renderLocalNewsElement} city={city}/>
+          <NewsList items={news} noItemsMessage={t("currentlyNoLocalNews")} renderItem={this.renderLocalNewsElement(language)} city={city}/>
         </Tabs>
     )
   }

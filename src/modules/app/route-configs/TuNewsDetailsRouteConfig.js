@@ -53,7 +53,7 @@ class TuNewsDetailsRouteConfig implements RouteConfig<RequiredPayloadsType> {
     return `${tunewsItemTitle ? tunewsItemTitle : t('pageTitles.tuNews')}`
   }
 
-  getRoutePath = ({ city, language }): string => null;
+  getRoutePath = ({ city, language }): string => '/:city/:language/news/tu-news/:newsId';
 
   getMetaDescription = () => null
 

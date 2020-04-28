@@ -24,21 +24,18 @@ type PropsType = {|
   t: TFunction
 |}
 
-const TU_NEWS = 'tu'
-
-
 class TuNewsListPage extends React.PureComponent<PropsType> {
 
-  renderTuNewsElement = (language: string, type: string) => (newsItem: TuNewsElementModel, city: string) => {
+  renderTuNewsElement = (language: string) => (newsItem: TuNewsElementModel, city: string) => {
     return (
       <TuNewsElement
         newsItem={newsItem}
         key={newsItem.path}
-        type={type}
         path={this.props.path}
         t={this.props.t}
         city={city}
         language={language}
+        key={newsItem.title}
       />
     )
   }
@@ -50,7 +47,7 @@ class TuNewsListPage extends React.PureComponent<PropsType> {
         <NewsList
           noItemsMessage={t('currentlyNoTuNews')}
           items={tuNewsList}
-          renderItem={this.renderTuNewsElement(language, TU_NEWS)}
+          renderItem={this.renderTuNewsElement(language)}
           city={city}
         />
       </Tabs>
