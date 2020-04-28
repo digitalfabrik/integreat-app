@@ -31,7 +31,8 @@ export {default as createCategoriesEndpoint, CATEGORIES_ENDPOINT_NAME} from './e
 export {default as createCitiesEndpoint, CITIES_ENDPOINT_NAME} from './endpoints/createCitiesEndpoint'
 export {default as createDisclaimerEndpoint, DISCLAIMER_ENDPOINT_NAME} from './endpoints/createDisclaimerEndpoint'
 export {default as createEventsEndpoint, EVENTS_ENDPOINT_NAME} from './endpoints/createEventsEndpoint'
-export {default as createLocalNewsEndpoint, LOCALNEWS_ENDPOINT_NAME} from './endpoints/createLocalNewsEndpoint'
+export { default as createLocalNewsEndpoint, LOCALNEWS_ENDPOINT_NAME } from './endpoints/createLocalNewsEndpoint'
+export { default as createLocalNewsElementEndpoint, LOCALNEWS_ELEMENT_ENDPOINT_NAME } from './endpoints/createLocalNewsElementEndpoint'
 export {default as createExtrasEndpoint, EXTRAS_ENDPOINT_NAME} from './endpoints/createExtrasEndpoint'
 export {default as createFeedbackEndpoint, FEEDBACK_ENDPOINT_NAME} from './endpoints/createFeedbackEndpoint'
 
