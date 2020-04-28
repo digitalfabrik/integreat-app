@@ -5,6 +5,7 @@ import { shallow } from 'enzyme'
 import { FeedbackBox } from '../FeedbackBox'
 import FeedbackVariant from '../../FeedbackVariant'
 import { CATEGORIES_FEEDBACK_TYPE, CONTENT_FEEDBACK_CATEGORY } from '@integreat-app/integreat-api-client'
+import theme from '../../../theme/constants/theme'
 
 describe('FeedbackBox', () => {
   const t = (key: ?string): string => key || ''
@@ -30,7 +31,8 @@ describe('FeedbackBox', () => {
         onFeedbackOptionChanged={onFeedbackOptionChanged}
         onSubmit={onSubmit}
         t={t}
-        closeFeedbackModal={() => {}} />
+        closeFeedbackModal={() => {}}
+        theme={theme} />
     )
     expect(component).toMatchSnapshot()
   })

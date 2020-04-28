@@ -227,7 +227,6 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
     this.setState({ comment: event.target.value })
 
   handleFeedbackOptionChanged = (selectedDropdown: FeedbackVariant) => {
-    console.warn('new selection', selectedDropdown)
     this.setState(prevState => ({
       selectedFeedbackOption: prevState.feedbackOptions.find(option => option.label === selectedDropdown.label)
     }))
