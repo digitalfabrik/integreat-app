@@ -7,7 +7,7 @@ export const cmsApiBaseUrl =
   appConfig.cmsUrl
 export const wohnenApiBaseUrl = 'https://api.wohnen.integreat-app.de/v0'
 
-export const tuNewsApiBaseUrl = 'https://tunews.integreat-app.de/'
+export const tuNewsApiBaseUrl = 'https://tunews.integreat-app.de'
 
 export const localNewsApiBaseUrl = "https://cms-test.integreat-app.de/"
 
