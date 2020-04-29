@@ -161,7 +161,7 @@ class DatabaseConnector {
   }
 
   async deleteAllFiles () {
-    await deleteIfExists(CACHE_DIR_PATH)
+    await RNFetchBlob.fs.unlink(CACHE_DIR_PATH)
   }
 
   /**

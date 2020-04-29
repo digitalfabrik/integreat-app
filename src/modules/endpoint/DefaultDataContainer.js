@@ -11,8 +11,8 @@ import DatabaseConnector from './DatabaseConnector'
 import type { DataContainer } from './DataContainer'
 import type Moment from 'moment'
 import { difference, flatMap, isEmpty, map, omitBy } from 'lodash'
+import RNFetchBlob from 'rn-fetch-blob'
 import Cache from './Cache'
-import deleteIfExists from './deleteIfExists'
 
 type CacheType = {
   cities: Cache<Array<CityModel>>,
@@ -167,7 +167,7 @@ class DefaultDataContainer implements DataContainer {
         const pathsToClean = difference(removedPaths, pathsOfOtherLanguages)
         console.debug('Cleaning up the following resources:')
         console.debug(pathsToClean)
-        await Promise.all(pathsToClean.map(path => deleteIfExists(path)))
+        await Promise.all(pathsToClean.map(path => RNFetchBlob.fs.unlink(path)))
       }
     }
 
