@@ -27,7 +27,7 @@ const StyledMenuButton = styled(Button)`
 const StyledMenuButtonText = styled.div`
   display: flex;
   padding: 8px;
-  color: ${props => props.theme.colors.textSecondaryColor};
+  color: ${props => props.theme.colors.textColor};
 `
 
 const StyledMenuButtonIcon = styled.div`
@@ -52,7 +52,7 @@ const StyledMenu = styled(Menu)`
 const StyledMenuItem = styled(MenuItem)`
   display: flex;
   padding: 8px;
-  color: ${props => props.theme.colors.textSecondaryColor};
+  color: ${props => props.theme.colors.textColor};
   cursor: pointer;
 
   :focus,
