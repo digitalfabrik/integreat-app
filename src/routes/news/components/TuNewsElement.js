@@ -1,5 +1,4 @@
 // @flow
-
 import * as React from 'react'
 import styled from 'styled-components'
 import { TuNewsModel } from '@integreat-app/integreat-api-client'
@@ -10,7 +9,6 @@ import { textTruncator } from './../../../modules/theme/constants/helpers'
 import { withTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
-
 
 const LOCAL_NEWS = 'local'
 const TU_NEWS = 'tu'
@@ -29,12 +27,11 @@ const ReadMoreLink = styled(CleanLink)`
 const Description = styled.div`
   display: flex;
   height: 100%;
-  min-width: 1px; /* needed to enable line breaks for too long words, exact value doesn't matter */
+  min-width: 1px;
   flex-direction: column;
   flex-grow: 1;
   padding: 15px 10px 0;
   word-wrap: break-word;
-
 
   > * {
     padding-bottom: 10px;
@@ -49,6 +46,7 @@ const Title = styled.h3`
   color: ${({ theme }) => (theme.colors.headlineTextColor)};
   margin-bottom: 0;
 `
+
 const Body = styled.p`
   font-size: 16px;
   line-height: 1.38;
