@@ -18,7 +18,7 @@ git subtree add --prefix locales locales master --squash
 
 The `--squash` command creates only a single commit for all of the changes. 
 
-### Pulling changes
+### Pulling Changes
 
 **No action should cause a merge conflict! If there is a conflict then you are using subtrees wrong!**
 
@@ -37,7 +37,7 @@ Note that we are using the `--squash` command which will create a merge commit:
 * d518e01 Initial commit
 ```
 
-### Pushing changes
+### Pushing Changes
 
 **No action should cause a merge conflict! If there is a conflict then you are using subtrees wrong!**
 
@@ -58,12 +58,7 @@ This will create a merge commit with the changes from the `NATIVE-X` branch:
 * | 7053596b NATIVE-Y: Some other change
 ```
 
-After merging `NATIVE-X` into `master` it is possible to pull again from `master`:
-```bash
- git subtree pull --prefix locales locales master --squash -m "Merging squashed locales for branch $(git rev-parse --abbrev-ref HEAD)"
-```
-
-This last step is optional as it will be pulled in automatically when the next task touches updates the locales.
+After merging `NATIVE-X` into `master` it is possible for anyone to pull again from `master` like described in [Pulling Changes](#pushing-changes). This step is optional as it will be pulled in automatically when the next task touches updates the locales.
 
 ### Tips & Tricks
 
