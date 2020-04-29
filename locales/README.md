@@ -4,31 +4,20 @@
 
 This repository should be included as a [git subtree](https://raw.githubusercontent.com/git/git/master/contrib/subtree/git-subtree.txt). 
 
-For easier management of the subtrees, it is possible to add the `integreat-locales` repository as a remote:
+For easier management of the subtrees, you should add the `integreat-locales` repository as a remote
+(otherwise the whole repo url has to be used for each command):
 
 ```bash
 git remote add locales git@github.com:Integreat/integreat-locales.git
 ```
 
-Initially, if the locales directory does not exist, you have to do:
+Initially, if the locales directory **does not exist**, you have to do:
 
 ```bash
 git subtree add --prefix locales locales master --squash
 ```
 
-The `--squash` command creates only a single commit for all of the changes. 
-
-### Pulling Changes
-
-**No action should cause a merge conflict! If there is a conflict then you are using subtrees wrong!**
-
-Pulling is required if you want to fetch commits from `integreat-locales`. This can happen because the project is shared between multiple people and branches. For example if somebody makes a change in the `integreat-locales` repository, then you can pull these changes in the _native app_ using:
-
-```bash
-git subtree pull --prefix locales locales master --squash -m "Merging squashed locales for branch $(git rev-parse --abbrev-ref HEAD)"
-```
-
-Note that we are using the `--squash` command which will create a merge commit:
+The `--squash` command creates only a single commit for all the changes. After adding the subtree the log of your repository will look like this:
 
 ```txt
 *   b7ecd2f Merge commit '61d6a7d61de73a29e15ed08acad0a8eb3364c042' as 'locales'
@@ -37,18 +26,20 @@ Note that we are using the `--squash` command which will create a merge commit:
 * d518e01 Initial commit
 ```
 
-### Pushing Changes
+### Pulling Changes
 
 **No action should cause a merge conflict! If there is a conflict then you are using subtrees wrong!**
 
-When pushing changes you are required to do the changes directly in the `integreat-locales` repository. After that you can pull the changes.
+Pulling is required if you want to fetch commits from `integreat-locales`.
+This can happen because the project is shared between multiple people and branches as well as to pull your own changes made in the locales repo.
+To pull from `<branch>` of the locales, execute the following command (or the alias described in [Tips & Tricks](#tips-&-tricks):
 
-You should create a separate branch in `integreat-locales` for your locale changes. **Note that you should not rebase the new branch after you pulled it into another repository.** When pulling the changes you can do:
 ```bash
-git subtree pull --prefix locales locales NATIVE-X --squash -m "Merging squashed locales for branch $(git rev-parse --abbrev-ref HEAD)"
+git subtree pull --prefix locales locales <branch> --squash -m "Merging squashed locales for branch $(git rev-parse --abbrev-ref HEAD)"
 ```
 
-This will create a merge commit with the changes from the `NATIVE-X` branch:
+Note that we are using the `--squash` command which will create a merge commit:
+
 ```
 *   dc053771 (HEAD -> NATIVE-497-subtree) Merging squashed locales for branch NATIVE-497-subtree
 |\  
@@ -58,19 +49,28 @@ This will create a merge commit with the changes from the `NATIVE-X` branch:
 * | 7053596b NATIVE-Y: Some other change
 ```
 
-After merging `NATIVE-X` into `master` it is possible for anyone to pull again from `master` like described in [Pulling Changes](#pushing-changes). This step is optional as it will be pulled in automatically when the next task touches updates the locales.
+### Pushing Changes
+
+**No action should cause a merge conflict! If there is a conflict then you are using subtrees wrong!**
+
+Modifications on the locales files should **only be made directly in the `integreat-locales` repository**.
+Just create a branch and a PR in the `integreat-locales` repo and pull the corresponding branch using the command mentioned in [Pulling Changes](#pulling-changes).
+
+**Note that you should not rebase the new branch after you pulled it into another repository.**
+
+After merging `<branch>` into `master` it is possible for anyone to pull again from `master` like described in [Pulling Changes](#pushing-changes). This step is optional for you right now as it will be pulled by the next person which creates a PR.
 
 ### Tips & Tricks
 
 As the pull command is quite long you can define an alias:
 ```bash
-git config alias.pull-locales "\!f() { git subtree pull --prefix locales locales \$1 --squash -m 'Merging squashed locales for branch \$(git rev-parse --abbrev-ref HEAD)'; }; f"
+git config alias.pull-locales '!f() { git subtree pull --prefix locales locales $1 --squash -m "Merging squashed locales for branch $(git rev-parse --abbrev-ref HEAD)"; }; f'
 ```
 
 Then you can pull using:
 
 ```bash
-git pull-locales NATIVE-X
+git pull-locales <branch>
 ```
 
 ## manage.js
