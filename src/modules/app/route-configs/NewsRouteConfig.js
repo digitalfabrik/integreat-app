@@ -1,4 +1,4 @@
-
+// @flow
 
 import type { AllPayloadsType } from './RouteConfig'
 import { RouteConfig } from './RouteConfig'

@@ -5,6 +5,7 @@ import { isEmpty } from 'lodash/lang'
 import throttle from 'lodash/throttle'
 import styled from 'styled-components'
 import InfiniteScroll from 'react-infinite-scroller'
+import LoadingSpinner from '../../../modules/common/components/LoadingSpinner'
 
 const NoItemsMessage = styled.div`
   padding-top: 25px;
@@ -27,29 +28,27 @@ type PropsType<T> = {|
 class NewsList<T>extends React.PureComponent<PropsType<T>> {
   constructor (props) {
     super(props)
-    this.loadItemsThrottle = throttle(this.loadItems, 600)
+    this.loadItemsThrottle = throttle(this.loadItems, 2000)
   }
 
   loadItems = async page => {
     this.props.fetchTuNews(page + 1, 20)
   };
 
-  render() {
+  render () {
     const { items, renderItem, noItemsMessage, city, hasMore } = this.props
     if (isEmpty(items)) {
       return <NoItemsMessage>{noItemsMessage}</NoItemsMessage>
     }
-
-    const loader = <div>Loading ...</div>
 
     return (
       <StyledList>
         <InfiniteScroll
           loadMore={this.loadItemsThrottle}
           hasMore={hasMore}
-          loader={loader}
+          loader={<LoadingSpinner />}
         >
-          <div>{items.map(item => renderItem(item))}</div>
+          <div>{items.map(item => renderItem(item, city))}</div>
         </InfiniteScroll>
       </StyledList>
     )
