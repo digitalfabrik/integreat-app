@@ -25,7 +25,6 @@ type PropsType = {|
 
 const TU_NEWS = 'tu'
 
-
 class TuNewsListPage extends React.PureComponent<PropsType> {
 
   renderTuNewsElement = (language: string, type: string) => (newsItem: TuNewsElementModel, city: string) => {
@@ -64,5 +63,5 @@ const mapStateToProps = (state: StateType) => ({
 
 export default compose(
   connect<*, *, *, *, *, *>(mapStateToProps),
-  withTranslation('tuNewsDetails')
+  withTranslation('news')
 )(TuNewsListPage)
