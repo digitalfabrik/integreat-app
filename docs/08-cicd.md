@@ -17,6 +17,26 @@
 
 # Manual deployment
 
+## iOS
+
+## Android
+
+`export CREDENTIALS_GIT_REPOSITORY_URL=<secret>`
+`export CREDENTIALS_DIRECTORY_PATH=/tmp/credentials`
+`export CREDENTIALS_KEYSTORE_PASSWORD=<secret>`
+`export CREDENTIALS_KEYSTORE_PATH=/tmp/credentials/<secret>.enc`
+`export KEYSTORE_PATH=/tmp/keystore.jks`
+`fastlane keystore`
+
+`export KEYSTORE_KEY_ALIAS=<secret>`
+`export KEYSTORE_PASSWORD=<secret>`
+`export KEYSTORE_KEY_PASSWORD=<secret>`
+`fastlane build`
+
+`adb install app/build/outputs/apk/release/app-release.apk`
+`adb shell am force-stop tuerantuer.app.integreat`
+`adb shell am start -n tuerantuer.app.integreat/.MainActivity`
+
 ## Setup environment variables locally
 
 # Credentials and services
@@ -28,6 +48,7 @@
 Access to the Bot is granted by a Private Key in PEM format. This is used to get an access token for an installation. This access_token allows to write content to the repositories/organisations where it was installed.
 
 // PEM is base64 encoded
+// Disable "Include Administrators" in Protected Branches (GitHub App is Admin)
 
 
 ## Google Play Store

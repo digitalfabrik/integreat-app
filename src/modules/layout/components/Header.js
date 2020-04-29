@@ -5,14 +5,13 @@ import { Share } from 'react-native'
 import logo from '../assets/integreat-app-logo.png'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
-import { HeaderButtons, HeaderButton, Item } from 'react-navigation-header-buttons'
-import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
+import { Item } from 'react-navigation-header-buttons'
 import HeaderBackButton from 'react-navigation-stack/lib/module/views/Header/HeaderBackButton'
-
 import type { NavigationDescriptor, NavigationScene, NavigationScreenProp } from 'react-navigation'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { TFunction } from 'react-i18next'
 import { CityModel } from '@integreat-app/integreat-api-client'
+import MaterialHeaderButtons from './MaterialHeaderButtons'
 
 const Horizontal = styled.View`
   flex: 1;
@@ -52,20 +51,6 @@ const BoxShadow: StyledComponent<{}, ThemeType, *> = styled.View`
   background-color: ${props => props.theme.colors.backgroundAccentColor};
   height: ${props => props.theme.dimensions.headerHeight}px;
 `
-
-const MaterialHeaderButton = props => (
-  <HeaderButton {...props} IconComponent={MaterialIcon} iconSize={23} color='black' />
-)
-
-const MaterialHeaderButtons = props => {
-  return (
-    // $FlowFixMe onOverflowMenuPress should not be required
-    <HeaderButtons HeaderButtonComponent={MaterialHeaderButton}
-                   OverflowIcon={<MaterialIcon name='more-vert' size={23} color='black' />}
-                   {...props}
-    />
-  )
-}
 
 type PropsType = {|
   navigation: NavigationScreenProp<*>,
@@ -144,12 +129,12 @@ class Header extends React.PureComponent<PropsType> {
 
   renderItem (
     title: string, iconName?: string, show: 'never' | 'always',
-    onPress: ?() => void | Promise<void>
+    onPress: ?() => void | Promise<void>, accessibilityLabel: string
   ): React.Node {
     const { theme } = this.props
     const buttonStyle = onPress ? {} : { color: theme.colors.textSecondaryColor }
 
-    return <Item title={title} iconName={iconName} show={show}
+    return <Item title={title} accessibilityLabel={accessibilityLabel} iconName={iconName} show={show}
                  onPress={onPress} buttonStyle={buttonStyle} />
   }
 
@@ -160,19 +145,20 @@ class Header extends React.PureComponent<PropsType> {
     return <BoxShadow theme={theme}>
       <Horizontal>
         <HorizontalLeft>
-          {this.canGoBackInStack() ? <HeaderBackButton onPress={this.goBackInStack} /> : <Logo source={logo} />}
+          {this.canGoBackInStack() ? <HeaderBackButton onPress={this.goBackInStack} />
+            : <Logo source={logo} />}
           {cityModel &&
           <HeaderText allowFontScaling={false} theme={theme}>{this.cityDisplayName(cityModel)}</HeaderText>}
         </HorizontalLeft>
-        <MaterialHeaderButtons>
+        <MaterialHeaderButtons cancelLabel={t('cancel')} theme={theme}>
           {!peeking && categoriesAvailable &&
-          this.renderItem(t('search'), 'search', 'always', this.goToSearch)}
+          this.renderItem(t('search'), 'search', 'always', this.goToSearch, t('search'))}
           {!peeking && goToLanguageChange &&
-          this.renderItem(t('changeLanguage'), 'language', 'always', goToLanguageChange)}
-          {this.renderItem(t('share'), undefined, 'never', sharePath ? this.onShare : undefined)}
-          {this.renderItem(t('changeLocation'), undefined, 'never', this.goToLanding)}
-          {this.renderItem(t('settings'), undefined, 'never', this.goToSettings)}
-          {this.renderItem(t('disclaimer'), undefined, 'never', this.goToDisclaimer)}
+          this.renderItem(t('changeLanguage'), 'language', 'always', goToLanguageChange, t('changeLanguage'))}
+          {this.renderItem(t('share'), undefined, 'never', sharePath ? this.onShare : undefined, t('share'))}
+          {this.renderItem(t('changeLocation'), undefined, 'never', this.goToLanding, t('changeLocation'))}
+          {this.renderItem(t('settings'), undefined, 'never', this.goToSettings, t('settings'))}
+          {this.renderItem(t('disclaimer'), undefined, 'never', this.goToDisclaimer, t('disclaimer'))}
         </MaterialHeaderButtons>
       </Horizontal>
     </BoxShadow>
