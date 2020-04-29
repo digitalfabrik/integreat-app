@@ -7,6 +7,7 @@ import styled from 'styled-components/native'
 const Loader = styled.ActivityIndicator`
   margin-top: 7px;
 `
+const keyExtractor = (item, index) => `${index}`
 
 export default ({
   items,
@@ -25,7 +26,8 @@ export default ({
     showsVerticalScrollIndicator={false}
     contentContainerStyle={{
       flexGrow: 1,
-      paddingHorizontal: 10
+      paddingHorizontal: 10,
+      backgroundColor: 'red'
     }}
     onEndReached={getMoreItems}
     ListEmptyComponent={status === 'success' && renderNotItemsComponent}
@@ -34,10 +36,8 @@ export default ({
         <Loader size='large' color={theme.colors.themeDarkColor} />
       )
     }
-    // onRefresh={fetchItems}
-    // refreshing={isFetching}
     onEndReachedThreshold={1}
-    keyExtractor={(item, index) => `${index}`}
+    keyExtractor={keyExtractor}
     renderItem={renderItem}
   />
 )

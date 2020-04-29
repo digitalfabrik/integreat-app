@@ -3,41 +3,25 @@
 import * as React from 'react'
 import {
   View,
-  TouchableWithoutFeedback,
   ActivityIndicator
 } from 'react-native'
 import type { TFunction } from 'react-i18next'
 import {
   CityModel,
-  NewsModel,
-  PAGE_FEEDBACK_TYPE,
-  TECHNICAL_FEEDBACK_CATEGORY
+  NewsModel
 } from '@integreat-app/integreat-api-client'
-import Page from '../../../modules/common/components/Page'
 import ContentNotFoundError from '../../../modules/error/ContentNotFoundError'
-import PageDetail from '../../../modules/common/components/PageDetail'
 import List from './List'
-import Caption from '../../../modules/common/components/Caption'
 import Failure from '../../../modules/error/components/Failure'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { LanguageResourceCacheStateType } from '../../../modules/app/StateType'
-import { NavigationScreenProp, Header } from 'react-navigation'
-import type { NavigateToEventParamsType } from '../../../modules/app/createNavigateToEvent'
-import type { NavigateToIntegreatUrlParamsType } from '../../../modules/app/createNavigateToIntegreatUrl'
-import FeedbackVariant from '../../feedback/FeedbackVariant'
-import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
+import { NavigationScreenProp } from 'react-navigation'
+import type { NavigateToNewsParamsType } from '../../../modules/app/createNavigateToNews'
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
-import type {
-  FeedbackCategoryType,
-  FeedbackType
-} from '@integreat-app/integreat-api-client/endpoints/createFeedbackEndpoint'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
 import NewsListItem, { Title, Content } from './NewsListItem'
-import createNavigateToNews from '../../../modules/app/createNavigateToNews'
 import headerImage from '../assets/header.png'
 import thumbnailImage from '../assets/thumbnail.jpg'
-import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
-import moment from 'moment'
 import styled from 'styled-components/native'
 import ListItem from '../../../modules/common/components/ListItem'
 import { INTERNATIONAL } from '../containers/NewsContainer'
@@ -76,6 +60,13 @@ const Description = styled.Text`
   font-family: ${props => props.theme.fonts.contentFontRegular};
 `
 
+const NoNews = styled.Text`
+  color: ${props => props.theme.colors.textColor};
+  font-family: ${props => props.theme.fonts.contentFontRegular};
+  align-self: center;
+  margin-top: 20px;
+`
+
 export type PropsType = {|
   path: ?string,
   newsList: Array<NewsModel | any>,
@@ -86,16 +77,13 @@ export type PropsType = {|
   theme: ThemeType,
   t: TFunction,
   navigation: NavigationScreenProp<*>,
-  createNavigateToNews: (NavigateToEventParamsType) => void,
-  navigateToIntegreatUrl: (NavigateToIntegreatUrlParamsType) => void
+  createNavigateToNews: (NavigateToNewsParamsType) => void
 |}
 
 /**
  * Displays a list of events or a single event, matching the route /<location>/<language>/events(/<id>)
  */
 class NewsList extends React.Component<PropsType> {
-  listRef = null;
-
   navigateToNews = (cityCode: string, language: string, path: string) => () => {
     const { selectedNewsType } = this.props
     this.props.navigateToNews({
@@ -108,11 +96,7 @@ class NewsList extends React.Component<PropsType> {
 
   renderNotItemsComponent = () => {
     const { t, theme } = this.props
-    return <Content theme={theme}>{t('currentlyNoNews')}</Content>
-  };
-
-  setListRef = ref => {
-    this.listRef = ref
+    return <NoNews theme={theme}>{t('currentlyNoNews')}</NoNews>
   };
 
   rendersNewsListItem = (cityCode: string, language: string) => ({
@@ -143,11 +127,6 @@ class NewsList extends React.Component<PropsType> {
     )
   };
 
-  async componentDidMount () {
-    this.listRef &&
-      this.listRef.scrollToOffset({ animated: true, offest: { x: 0, y: 0 } })
-  }
-
   render () {
     const {
       newsList,
@@ -159,10 +138,14 @@ class NewsList extends React.Component<PropsType> {
       contentLanguage,
       status,
       fetchMoreNews,
+      selectedNewsType,
       fetchNews
     } = this.props
+
     if (path) {
       const selectedNewsItem = newsList && newsList[0]
+      const isTuNews = selectedNewsType === INTERNATIONAL
+
       if (selectedNewsItem) {
         const content = selectedNewsItem.content || ''
         const contentExtraInfo = content.substring(content.indexOf('tünews'))
@@ -170,7 +153,7 @@ class NewsList extends React.Component<PropsType> {
 
         return (
           <>
-            <HeaderImage resizeMode='cover' source={headerImage} />
+            {isTuNews && <HeaderImage resizeMode='cover' source={headerImage} />}
             <Container>
               <Title theme={theme}>{selectedNewsItem.title}</Title>
               <Thumbnail resizeMode='cover' source={thumbnailImage} />
@@ -189,6 +172,7 @@ class NewsList extends React.Component<PropsType> {
       if (status === 'loading') {
         return <ActivityIndicator style={{ marginTop: 20 }} />
       }
+
       const error = new ContentNotFoundError({
         type: 'newsItem',
         id: path,
@@ -209,8 +193,8 @@ class NewsList extends React.Component<PropsType> {
       <SpaceBetween>
         <View style={{ flex: 1 }}>
           <List
-            setRef={this.setListRef}
-            renderNotItemsComponent={this.renderNotItemsComponent} // TODO: needs to add to locale
+            setRef={this.props.setFlatListRef}
+            renderNotItemsComponent={this.renderNotItemsComponent}
             items={newsList}
             isFetchingMore={status === 'loadingMore'}
             isFetching={status === 'loading'}

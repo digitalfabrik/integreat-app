@@ -62,6 +62,7 @@ export const Title = styled.Text`
   color: ${props => props.theme.colors.textColor};
   font-size: 14px;
   margin-bottom: 8px;
+  margin-top: 8px;
 `
 
 export const Content = styled.Text`
@@ -92,6 +93,7 @@ class NewsListItem extends React.PureComponent<PropsType> {
       theme,
       t
     } = this.props
+
     const isContentSplitted = content.length > TEXT_MAX_LENGTH
 
     const contentSplitted =
@@ -122,4 +124,4 @@ class NewsListItem extends React.PureComponent<PropsType> {
   }
 }
 
-export default withTranslation()(NewsListItem)
+export default withTranslation('news')(NewsListItem)
