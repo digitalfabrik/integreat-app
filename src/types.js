@@ -103,7 +103,6 @@ export type JsonLocalNewsType = {
   message: string
 }
 
-
 export type JsonExtraPostType = {
   [key: string]: string
 }
