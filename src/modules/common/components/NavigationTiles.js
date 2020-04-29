@@ -28,7 +28,6 @@ const TilesRow = styled.View`
   align-items: center;
   justify-content: space-around;
   elevation: 1;
-  flex: 1;
   shadow-color: #000000;
   shadow-opacity: 0.2;
   shadow-radius: 1px;
@@ -89,7 +88,7 @@ class NavigationTiles extends React.Component<PropsType> {
         <ScrollView
           horizontal
           ref={this.setRef}
-          contentContainerStyle={{ flexGrow: 1 }}
+          contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between' }}
           style={{ width: SCROLL_VIEW_WIDTH }}
           showsHorizontalScrollIndicator={false}
           pagingEnabled
