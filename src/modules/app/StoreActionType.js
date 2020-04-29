@@ -64,12 +64,13 @@ export type FetchMoreNewsActionType = {|
     +path: ?string, +key: string,
     +criterion: ContentLoadCriterionType,
     +type: ?string,
-    +page: ?number
+    +page: ?number,
+    +hasMoreNews: boolean
   |}
 |}
 
 export type ClearNewstActionType = {|
-  type: 'CLEAR_NEWS', +params: {| +key: string |}
+  type: 'CLEAR_NEWS', +params: {| +key: string, +city: string |}
 |}
 
 export type PushNewsActionType = {|
