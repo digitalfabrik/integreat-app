@@ -10,7 +10,6 @@ display: flex;
 flex-direction: column;
 align-items: center;
 `
-
 type PropsType = {|
   title: string,
   message: string,
