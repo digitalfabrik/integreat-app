@@ -39,7 +39,10 @@ export type PropsType = {|
 
 class Dashboard extends React.Component<PropsType> {
   getNavigationTileModels (cityCode: string, language: string): Array<TileModel> {
-    const { navigateToCategory, navigateToEvent, navigateToExtras, navigateToNews, t } = this.props
+    // Note: check if news is enabled to show the menu item
+    const { navigateToCategory, navigateToEvent, navigateToExtras, navigateToNews, t, cityModel } = this.props
+    const { tunewsEnabled, pushNotificationsEnabled } = cityModel || {}
+    const isNewsEnabled = tunewsEnabled || pushNotificationsEnabled
 
     return [
       new TileModel({
@@ -66,14 +69,14 @@ class Dashboard extends React.Component<PropsType> {
         onTilePress: () => navigateToEvent({ cityCode, language, path: null }),
         notifications: 0
       }),
-      new TileModel({
+      ...(isNewsEnabled ? [new TileModel({
         title: t('news'),
         path: 'news',
         thumbnail: newsIcon,
         isExternalUrl: false,
         onTilePress: () => navigateToNews({ cityCode, language, path: null, type: 'local' }),
         notifications: 0
-      })
+      })] : [])
     ]
   }
 
@@ -84,7 +87,6 @@ class Dashboard extends React.Component<PropsType> {
       cities, stateView, theme, resourceCache, navigateToIntegreatUrl, language, cityCode, navigateToCategory,
       navigation, t
     } = this.props
-
     return <SpaceBetween>
       <NavigationTiles tiles={this.getNavigationTileModels(cityCode, language)} theme={theme} />
       <Categories stateView={stateView} cities={cities} resourceCache={resourceCache} language={language}
