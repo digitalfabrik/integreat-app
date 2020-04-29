@@ -13,13 +13,13 @@ import TuNewsDetailsFooter from './../components/TuNewsDetailsFooter'
 import { TFunction } from 'i18next'
 
 const StyledContainer = styled.div`
-display: flex;
-justify-content: space-between;
-flex-direction: column;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
 `
 
 const StyledWrapper = styled.div`
-padding-bottom: 50px
+  padding-bottom: 50px;
 `
 
 const StyledBanner = styled.div`
@@ -33,7 +33,7 @@ const StyledBanner = styled.div`
   position: relative;
 `
 const StyledBannerImage = styled.img`
-max-height: 100%
+max-height: 100%;
 `
 const StyledTitle = styled.div`
   display: flex;
