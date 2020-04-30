@@ -53,11 +53,13 @@ type PropsType = {|
 
 class Tab extends React.PureComponent<PropsType> {
   render () {
-    const { type, active, destination } = this.props;
+    const { type, active, destination } = this.props
 
     if (type === TU_NEWS) {
       return (
-        <TuStyledTab active={active} to={destination} />
+        <div>
+          <TuStyledTab active={active} to={destination} />
+        </div>
       )
     }
 

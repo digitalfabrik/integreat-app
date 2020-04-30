@@ -16,6 +16,7 @@ import {
   TuNewsModel,
   TuNewsElementModel,
 } from '@integreat-app/integreat-api-client'
+import LoadingSpinner from '../../../modules/common/components/LoadingSpinner'
 
 type PropsType = {|
   tuNewsList: TuNewsModel,
@@ -41,18 +42,23 @@ class TuNewsListPage extends React.PureComponent<PropsType> {
     )
   }
 
-  render() {
-    const { tuNewsList, language, city, path, t, fetchTuNews, hasMore } = this.props
+  render () {
+    const { tuNewsList, language, city, t, fetchTuNews, hasMore, isFetching } = this.props
+
     return (
       <Tabs localNews={false} tuNews={true}>
-        <PaginatedList
-          noItemsMessage={t('currentlyNoTuNews')}
-          items={tuNewsList}
-          renderItem={this.renderTuNewsElement(language)}
-          city={city}
-          fetchTuNews={fetchTuNews}
-          hasMore={hasMore}
-        />
+        {isFetching ? (
+          <LoadingSpinner />
+        ) : (
+          <PaginatedList
+            noItemsMessage={t('currentlyNoTuNews')}
+            items={tuNewsList}
+            renderItem={this.renderTuNewsElement(language)}
+            city={city}
+            fetchTuNews={fetchTuNews}
+            hasMore={hasMore}
+          />
+        )}
       </Tabs>
     )
   }
@@ -62,7 +68,8 @@ const mapStateToProps = (state: StateType) => ({
   language: state.location.payload.language,
   city: state.location.payload.city,
   path: state.location.pathname,
-  hasMore: state.tunewsList.hasMore
+  hasMore: state.tunewsList.hasMore,
+  isFetching: state.tunewsList._isFetching
 })
 
 export default compose(
