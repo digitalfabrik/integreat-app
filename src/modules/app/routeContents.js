@@ -6,7 +6,6 @@ import { SPRUNGBRETT_ROUTE } from './route-configs/SprungbrettRouteConfig'
 import { SEARCH_ROUTE } from './route-configs/SearchRouteConfig'
 import { I18N_REDIRECT_ROUTE } from './route-configs/I18nRedirectRouteConfig'
 import { EVENTS_ROUTE } from './route-configs/EventsRouteConfig'
-import { NEWS_ROUTE } from './route-configs/NewsRouteConfig'
 import { POIS_ROUTE } from './route-configs/PoisRouteConfig'
 import { EXTRAS_ROUTE } from './route-configs/ExtrasRouteConfig'
 import { LANDING_ROUTE } from './route-configs/LandingRouteConfig'
@@ -16,7 +15,10 @@ import MainDisclaimerPage from '../../routes/main-disclaimer/components/MainDisc
 import I18nRedirectPage from '../../routes/i18nRedirect/containers/I18nRedirectPage'
 import LandingPage from '../../routes/landing/containers/LandingPage'
 import EventsPage from '../../routes/events/containers/EventsPage'
+import { NEWS_ROUTE } from './route-configs/NewsRouteConfig'
 import NewsPage from '../../routes/news/containers/NewsPage'
+import { LOCAL_NEWS_DETAILS_ROUTE } from './route-configs/LocalNewsDetailsRouteConfig'
+import LocalNewsDetailsPage from '../../routes/news/containers/LocalNewsDetails'
 import { TUNEWS_DETAILS_ROUTE } from './route-configs/TuNewsDetailsRouteConfig'
 import TuNewsDetailsPage from '../../routes/news/containers/TuNewsDetails'
 import { TUNEWS_LIST_ROUTE } from './route-configs/TuNewsListRouteConfig'
@@ -40,6 +42,7 @@ const routeContents = {
   [LANDING_ROUTE]: LandingPage,
   [EVENTS_ROUTE]: EventsPage,
   [NEWS_ROUTE]: NewsPage,
+  [LOCAL_NEWS_DETAILS_ROUTE]: LocalNewsDetailsPage,
   [TUNEWS_LIST_ROUTE]: TuNewsListPage,
   [TUNEWS_DETAILS_ROUTE]: TuNewsDetailsPage,
   [SPRUNGBRETT_ROUTE]: SprungbrettExtraPage,

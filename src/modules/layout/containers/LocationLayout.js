@@ -117,6 +117,7 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
       header={<LocationHeader isEventsEnabled={cityModel && cityModel.eventsEnabled}
                                            isExtrasEnabled={cityModel && cityModel.extrasEnabled}
                                            isNewsEnabled
+                                           isNewsActive={cityModel && (cityModel.newsEnabled || cityModel.tuNewsEnabled)}
                                            languageChangePaths={languageChangePaths}
                                            location={location}
                                            events={events}

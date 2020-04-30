@@ -10,6 +10,13 @@ import compose from 'lodash/fp/compose'
 import type { StateType } from '../../../modules/app/StateType'
 import TuNewsDetailsFooter from './../components/TuNewsDetailsFooter'
 import { TFunction } from 'i18next'
+import { redirect } from 'redux-first-router'
+import type { Dispatch } from 'redux'
+import type { StoreActionType } from '../../../modules/app/StoreActionType'
+import { TUNEWS_LIST_ROUTE } from './../../../modules/app/route-configs/TuNewsListRouteConfig'
+import { CityModel } from '@integreat-app/integreat-api-client'
+import { CATEGORIES_ROUTE } from './../../../modules/app/route-configs/CategoriesRouteConfig'
+import { NEWS_ROUTE } from './../../../modules/app/route-configs/NewsRouteConfig'
 
 const StyledContainer = styled.div`
 display: flex;
@@ -60,9 +67,25 @@ const Content = styled.p`
 type PropsType = {|
   tuNewsElementDetails: any,
   language: string,
+  city: string,
+  cities: Array<CityModel>,
+  redirect: any,
   t: TFunction
 |}
+
 class TuNewsDetailsPage extends React.PureComponent<PropsType> {
+
+  componentDidMount() {
+    const currentCity: any = this.props.cities.find(cityElement => cityElement._code === this.props.city) || {}
+
+    if (!currentCity.newsEnabled && !currentCity.tuNewsEnabled) {
+      this.props.redirect({ payload: { language: this.props.language, city: this.props.city }, type: CATEGORIES_ROUTE })
+    }
+    else if (currentCity.newsEnabled && !currentCity.tuNewsEnabled) {
+      this.props.redirect({ payload: { language: this.props.language, city: this.props.city }, type: NEWS_ROUTE })
+    }
+  }
+
   render() {
     const { tuNewsElementDetails, language, t } = this.props
 
@@ -85,9 +108,15 @@ class TuNewsDetailsPage extends React.PureComponent<PropsType> {
 
 const mapStateToProps = (state: StateType) => ({
   language: state.location.payload.language,
+  city: state.location.payload.city,
+  cities: state.cities._data,
+})
+
+const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>) => ({
+  redirect: action => dispatch(redirect(action))
 })
 
 export default compose(
-  connect<*, *, *, *, *, *>(mapStateToProps),
+  connect<*, *, *, *, *, *>(mapStateToProps, mapDispatchToProps),
   withTranslation('tuNewsDetails')
 )(TuNewsDetailsPage)
