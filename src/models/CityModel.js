@@ -1,4 +1,5 @@
 // @flow
+
 class CityModel {
   _name: string
   _code: string
@@ -55,12 +56,12 @@ class CityModel {
   get extrasEnabled (): boolean {
     return this._extrasEnabled
   }
-  
-  get pushNotificationsEnabled(): boolean {
+
+  get pushNotificationsEnabled (): boolean {
     return this._pushNotificationsEnabled
   }
-  
-  get tunewsEnabled(): boolean {
+
+  get tunewsEnabled (): boolean {
     return this._tunewsEnabled
   }
 

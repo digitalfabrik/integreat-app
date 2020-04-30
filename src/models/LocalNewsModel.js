@@ -27,7 +27,7 @@ class LocalNewsModel {
   get message (): string {
     return this._message
   }
-  
+
   get id (): number {
     return this._id
   }

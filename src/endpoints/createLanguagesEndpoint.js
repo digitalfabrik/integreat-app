@@ -35,6 +35,7 @@ export default (baseUrl: string, isTunews: ?boolean): Endpoint<ParamsType, Array
             language.native_name
           )
         })
-        .sort((lang1, lang2) => lang1.code.localeCompare(lang2.code))}
+        .sort((lang1, lang2) => lang1.code.localeCompare(lang2.code))
+    }
     )
     .build()
