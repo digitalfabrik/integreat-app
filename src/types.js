@@ -106,7 +106,7 @@ export type JsonTuNewsType = {
 }
 
 export type JsonLocalNewsType = {
-  id: ?string,
+  id: string,
   timestamp: string,
   title: string,
   message: string
@@ -176,6 +176,8 @@ export type JsonCityType = {
   live: boolean,
   events: boolean,
   extras: boolean,
+  tunews: boolean,
+  ["push-notifications"]: boolean,
   name_without_prefix: string,
   prefix: ?string,
   latitude: number | null,
