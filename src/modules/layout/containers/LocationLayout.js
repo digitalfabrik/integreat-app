@@ -7,12 +7,13 @@ import GeneralFooter from '../components/GeneralFooter'
 import LocationHeader from './LocationHeader'
 import LocationFooter from '../components/LocationFooter'
 import CategoriesToolbar from '../../../routes/categories/containers/CategoriesToolbar'
-import { CategoriesMapModel, CityModel, EventModel } from '@integreat-app/integreat-api-client'
+import { CategoriesMapModel, CityModel, EventModel, LocalNewsModel } from '@integreat-app/integreat-api-client'
 import type { LocationState } from 'redux-first-router'
 import FeedbackModal from '../../feedback/components/FeedbackModal'
 import LocationToolbar from '../components/LocationToolbar'
 import { CATEGORIES_ROUTE } from '../../app/route-configs/CategoriesRouteConfig'
 import { EVENTS_ROUTE } from '../../app/route-configs/EventsRouteConfig'
+import { NEWS_ROUTE } from '../../app/route-configs/NewsRouteConfig'
 import { SPRUNGBRETT_ROUTE } from '../../app/route-configs/SprungbrettRouteConfig'
 import { WOHNEN_ROUTE } from '../../app/route-configs/WohnenRouteConfig'
 import { DISCLAIMER_ROUTE } from '../../app/route-configs/DisclaimerRouteConfig'
@@ -27,6 +28,7 @@ type PropsType = {|
   cities: ?Array<CityModel>,
   categories: ?CategoriesMapModel,
   events: ?Array<EventModel>,
+  news: ?Array<LocalNewsModel>,
   viewportSmall: boolean,
   children?: React.Node,
   location: LocationState,
@@ -90,7 +92,7 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
     if (type === CATEGORIES_ROUTE) {
       return <CategoriesToolbar categories={categories} location={location}
                                 openFeedbackModal={this.openFeedbackModal} />
-    } else if ([EXTRAS_ROUTE, EVENTS_ROUTE, DISCLAIMER_ROUTE, WOHNEN_ROUTE, SPRUNGBRETT_ROUTE].includes(type)) {
+    } else if ([EXTRAS_ROUTE, EVENTS_ROUTE, NEWS_ROUTE, DISCLAIMER_ROUTE, WOHNEN_ROUTE, SPRUNGBRETT_ROUTE].includes(type)) {
       return <LocationToolbar openFeedbackModal={this.openFeedbackModal} />
     } else {
       return null
@@ -98,7 +100,7 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
   }
 
   render () {
-    const { viewportSmall, children, location, darkMode, languageChangePaths, events } = this.props
+    const { viewportSmall, children, location, darkMode, languageChangePaths, events, news } = this.props
     const type = location.type
     const { city, language } = location.payload
 
@@ -112,12 +114,14 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
     }
 
     return <Layout asideStickyTop={this.state.asideStickyTop}
-                   header={<LocationHeader isEventsEnabled={cityModel.eventsEnabled}
-                                           isExtrasEnabled={cityModel.extrasEnabled}
+      header={<LocationHeader isEventsEnabled={cityModel && cityModel.eventsEnabled}
+                                           isExtrasEnabled={cityModel && cityModel.extrasEnabled}
+                                           isNewsEnabled
                                            languageChangePaths={languageChangePaths}
                                            location={location}
                                            events={events}
-                                           cityName={cityModel.name}
+                                           news={news}
+                                           cityName={cityModel && cityModel.name}
                                            viewportSmall={viewportSmall}
                                            onStickyTopChanged={this.handleStickyTopChanged} />}
                    footer={<LocationFooter onClick={this.handleFooterClicked} city={city} language={language} />}

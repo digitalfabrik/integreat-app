@@ -5,12 +5,15 @@ import {
   CITIES_ENDPOINT_NAME,
   DISCLAIMER_ENDPOINT_NAME,
   EVENTS_ENDPOINT_NAME,
+  LOCALNEWS_ENDPOINT_NAME,
+  TUNEWS_LIST_ENDPOINT_NAME,
+  TUNEWS_ELEMENT_ENDPOINT_NAME,
   EXTRAS_ENDPOINT_NAME,
   LANGUAGES_ENDPOINT_NAME,
   Payload,
   POIS_ENDPOINT_NAME,
   SPRUNGBRETT_JOBS_ENDPOINT_NAME,
-  WOHNEN_ENDPOINT_NAME
+  WOHNEN_ENDPOINT_NAME,
 } from '@integreat-app/integreat-api-client'
 import { handleActions } from 'redux-actions'
 import type { StartFetchActionType } from '../../app/actions/startFetchAction'
@@ -30,10 +33,13 @@ const endpointNames = [
   CATEGORIES_ENDPOINT_NAME,
   DISCLAIMER_ENDPOINT_NAME,
   EVENTS_ENDPOINT_NAME,
+  LOCALNEWS_ENDPOINT_NAME,
+  TUNEWS_LIST_ENDPOINT_NAME,
   EXTRAS_ENDPOINT_NAME,
   SPRUNGBRETT_JOBS_ENDPOINT_NAME,
   WOHNEN_ENDPOINT_NAME,
-  POIS_ENDPOINT_NAME
+  POIS_ENDPOINT_NAME,
+  TUNEWS_ELEMENT_ENDPOINT_NAME
 ]
 
 export const startFetchReducer = <T: PayloadDataType> (oldPayload?: Payload<T>, action: StartFetchActionType<T>
@@ -58,7 +64,7 @@ export const finishFetchReducer = <T: PayloadDataType> (oldPayload?: Payload<T>,
 const defaultState = new Payload(false)
 
 type ReducerType = Reducer<StateType, StartFetchActionType<PayloadDataType> | FinishFetchActionType<PayloadDataType>>
-const reducers: { [actionName: string]: ReducerType } = endpointNames.reduce(
+const reducers: {[actionName: string]: ReducerType } = endpointNames.reduce(
   (result, endpointName) => {
     result[endpointName] = handleActions(
       {
