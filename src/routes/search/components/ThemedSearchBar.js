@@ -7,12 +7,13 @@ import { SearchBar } from 'react-native-elements'
 type PropsType = {|
   theme: ThemeType,
   onChangeText: (text: string) => void,
-  value: string
+  value: string,
+  autofocus: boolean
 |}
 
 class ThemedSearchBar extends React.Component<PropsType> {
   render () {
-    const { theme, onChangeText, value } = this.props
+    const { theme, onChangeText, value, autofocus } = this.props
     const { colors } = theme
 
     return <SearchBar
@@ -31,6 +32,7 @@ class ThemedSearchBar extends React.Component<PropsType> {
       }}
       onChangeText={onChangeText}
       value={value}
+      autoFocus={autofocus}
     />
   }
 }
