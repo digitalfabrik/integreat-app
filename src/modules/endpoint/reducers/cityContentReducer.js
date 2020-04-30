@@ -9,6 +9,7 @@ import pushNews from './pushNews'
 import type { StoreActionType } from '../../app/StoreActionType'
 import createCityContent from './createCityContent'
 import { omit } from 'lodash'
+const FIRST_PAGE = 1
 
 export default (
   state: CityContentStateType | null = defaultCityContentState, action: StoreActionType
@@ -35,18 +36,16 @@ export default (
     }
   } else if (action.type === 'FETCH_NEWS') {
     const { language, path, key, city, type } = action.params
-
     const initializedState = state || createCityContent(city)
     return {
       ...initializedState,
       newsRouteMapping: {
         ...initializedState.newsRouteMapping,
-        [key]: { status: 'loading', language, city, path, type, page: 1 }
+        [key]: { status: 'loading', language, city, path, type, page: FIRST_PAGE }
       }
     }
   } else if (action.type === 'FETCH_MORE_NEWS') {
     const { language, path, key, city, type, page, oldNewsList } = action.params
-
     const initializedState = state || createCityContent(city)
     return {
       ...initializedState,

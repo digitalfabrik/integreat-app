@@ -148,7 +148,8 @@ class NewsList extends React.Component<PropsType> {
 
       if (selectedNewsItem) {
         const content = selectedNewsItem.content || ''
-        const contentExtraInfo = content.substring(content.indexOf('tünews'))
+        const contentFooterIndex = content.indexOf('tünews')
+        const contentExtraInfo = content.substring(contentFooterIndex)
         const splittedContent = content.split(contentExtraInfo)[0]
 
         return (

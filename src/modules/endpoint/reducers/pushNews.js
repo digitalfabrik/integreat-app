@@ -11,9 +11,9 @@ const pushNews = (state: CityContentStateType, action: PushNewsActionType): City
     throw new Error('You need to specify a key!')
   }
 
-  const getNewsRoute = (): any => { // TODO
+  const getNewsRoute = (): any => {
     if (!path) {
-      const allAvailableLanguages = new Map(cityLanguages.map(lng => [lng.code, null]))
+      const allAvailableLanguages = new Map(cityLanguages.map(language => [language.code, null]))
       if (page && oldNewsList) {
         return { status: 'ready', path: null, models: [...oldNewsList, ...newsList], hasMoreNews, allAvailableLanguages, language, city, type, page }
       }

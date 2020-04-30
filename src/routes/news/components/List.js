@@ -26,8 +26,7 @@ export default ({
     showsVerticalScrollIndicator={false}
     contentContainerStyle={{
       flexGrow: 1,
-      paddingHorizontal: 10,
-      backgroundColor: 'red'
+      paddingHorizontal: 10
     }}
     onEndReached={getMoreItems}
     ListEmptyComponent={status === 'success' && renderNotItemsComponent}
