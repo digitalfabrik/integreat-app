@@ -11,6 +11,7 @@ describe('localnews', () => {
   const localNews = createLocalNewsEndpoint(baseUrl)
 
   const createNewsItem = (date): JsonLocalNewsType => ({
+    id: 217,
     title: 'Tick bite - What to do?',
     timestamp: date,
     message:
@@ -23,6 +24,7 @@ describe('localnews', () => {
 
   const createNewsItemModel = (date: Moment): LocalNewsModel =>
     new LocalNewsModel({
+      id: 217,
       title: 'Tick bite - What to do?',
       timestamp: date,
       message:

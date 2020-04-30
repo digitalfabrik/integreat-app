@@ -4,7 +4,7 @@ class LanguageModel {
   _code: string
   _name: string
 
-  constructor (code: string, name: string) {
+  constructor (code: string, name: any) {
     this._code = code
     this._name = name
   }
