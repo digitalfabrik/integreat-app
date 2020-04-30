@@ -13,21 +13,21 @@ type ParamsType = { city: string, language: string, id: number }
 // https://cms-dev.integreat-app.de/testumgebung/en/wp-json/extensions/v3/fcm?id=39
 
 export default (
-	baseUrl: string
+  baseUrl: string
 ): Endpoint<ParamsType, Array<LocalNewsModel>> =>
-	new EndpointBuilder(LOCALNEWS_ELEMENT_ENDPOINT_NAME)
-		.withParamsToUrlMapper(
-			(params: ParamsType): string =>
-				`${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/fcm?id=${params.id}`
-		)
-		.withMapper((json: Array<JsonLocalNewsType>): Array<LocalNewsModel> =>
-			json.map((localNews: JsonLocalNewsType) => {
-				return new LocalNewsModel({
-					id: localNews.id,
-					timestamp: moment.tz(localNews.timestamp, "GMT"),
-					title: localNews.title,
-					message: localNews.message,
-				});
-			})
-		)
-		.build();
+  new EndpointBuilder(LOCALNEWS_ELEMENT_ENDPOINT_NAME)
+    .withParamsToUrlMapper(
+      (params: ParamsType): string =>
+        `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/fcm?id=${params.id}`
+    )
+    .withMapper((json: Array<JsonLocalNewsType>): Array<LocalNewsModel> =>
+      json.map((localNews: JsonLocalNewsType) => {
+        return new LocalNewsModel({
+          id: localNews.id,
+          timestamp: moment.tz(localNews.timestamp, 'GMT'),
+          title: localNews.title,
+          message: localNews.message
+        })
+      })
+    )
+    .build()
