@@ -10,7 +10,7 @@ function * loadTuNews (
   page: number,
   count: number
 ): Saga<Array<TuNewsModel>> {
-  console.debug('Fetching tu news')
+  console.debug('Fetching tunews')
 
   const payload = yield call(() => createTuNewsListEndpoint(tuNewsApiUrl).request({ language, page, count }))
   const newsList: Array<TuNewsModel> = payload.data

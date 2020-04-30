@@ -5,7 +5,7 @@ import type {
   LanguageResourceCacheStateType,
   StateType
 } from '../../../modules/app/StateType'
-import { View, Text, RefreshControl } from 'react-native'
+import { View, ScrollView, RefreshControl } from 'react-native'
 import { connect } from 'react-redux'
 import { type TFunction, withTranslation } from 'react-i18next'
 import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
@@ -15,7 +15,7 @@ import type {
   StoreActionType,
   SwitchContentLanguageActionType
 } from '../../../modules/app/StoreActionType'
-import { NavigationScreenProp, ScrollView } from 'react-navigation'
+import { NavigationScreenProp } from 'react-navigation'
 import type { StatusPropsType } from '../../../modules/error/hocs/withPayloadProvider'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import { CityModel } from '@integreat-app/integreat-api-client'
@@ -115,19 +115,17 @@ const mapStateToProps = (
   } = state.cityContent
   const route: ?NewsRouteStateType = newsRouteMapping[navigation.state.key]
 
+  if (!route) {
+    return { status: 'routeNotInitialized', innerProps: {} }
+  }
+  const cities = state.cities.models || []
+  const cityModel = cities.find(city => city.code === route.city) || {}
   const refreshProps = {
     path: route.path,
     cityCode: route.city,
     language: route.language,
     navigation: ownProps.navigation,
     page: route.page
-  }
-
-  const cities = state.cities.models
-  const cityModel = cities.find(city => city.code === route.city)
-
-  if (!route) {
-    return { status: 'routeNotInitialized' }
   }
 
   if (
@@ -175,7 +173,8 @@ const mapStateToProps = (
       status: 'error',
       message: state.cities.message,
       code: state.cities.code,
-      refreshProps
+      refreshProps,
+      innerProps: {}
     }
   } else if (resourceCache.status === 'error') {
     return {
@@ -396,7 +395,7 @@ class NewsContainer extends React.Component<ContainerPropsType> {
           contentContainerStyle={{ flexGrow: 1 }}>
           {this.renderHeader()}
           <FailureContainer
-            tryAgain={this.refresh}
+            tryAgain={this.fetchNews}
             message={message}
             code={code}
           />
