@@ -9,10 +9,10 @@ import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import NavigationTile from './NavigationTile'
 import { ScrollView, Dimensions } from 'react-native'
 const SCREEN_WIDTH = Dimensions.get('window').width
-const isScreenWidthBig = SCREEN_WIDTH >= 375
-const ANCHORS_WIDTH = isScreenWidthBig ? 0 : 60
+const isWideScreen = SCREEN_WIDTH >= 375
+const ANCHORS_WIDTH = isWideScreen ? 0 : 60
 const SCROLL_VIEW_WIDTH = SCREEN_WIDTH - ANCHORS_WIDTH
-const ITEM_WIDTH = isScreenWidthBig
+const ITEM_WIDTH = isWideScreen
   ? SCROLL_VIEW_WIDTH / 4
   : SCROLL_VIEW_WIDTH / 3
 
@@ -78,7 +78,7 @@ class NavigationTiles extends React.Component<PropsType> {
 
     return (
       <TilesRow theme={theme}>
-        {!isScreenWidthBig && (
+        {!isWideScreen && (
           <Icon
             name='keyboard-arrow-left'
             color={theme.colors.black}
@@ -106,7 +106,7 @@ class NavigationTiles extends React.Component<PropsType> {
             />
           ))}
         </ScrollView>
-        {!isScreenWidthBig && (
+        {!isWideScreen && (
           <Icon
             name='keyboard-arrow-right'
             color={theme.colors.black}
