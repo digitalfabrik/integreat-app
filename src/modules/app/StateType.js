@@ -52,7 +52,7 @@ export type EventRouteConfigType = {|
 |}
 
 export type NewsRouteConfigType = {|
-  +path: ?string, // path is null for the event-lists route
+  +path: ?string, // path is null for the news-lists route
   +language: string,
   +city: string
 |}
