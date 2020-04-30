@@ -69,14 +69,14 @@ export type FetchMoreNewsActionType = {|
   |}
 |}
 
-export type ClearNewstActionType = {|
+export type ClearNewsActionType = {|
   type: 'CLEAR_NEWS', +params: {| +key: string, +city: string |}
 |}
 
 export type PushNewsActionType = {|
   type: 'PUSH_NEWS',
   +params: {|
-    +newsList: $ReadOnlyArray<any>, // TODO must be NewsModel
+    +newsList: $ReadOnlyArray<any>,
     +path: ?string,
     +key: string,
     +resourceCache: LanguageResourceCacheStateType,

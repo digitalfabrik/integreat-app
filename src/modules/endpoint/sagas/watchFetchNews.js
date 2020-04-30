@@ -6,10 +6,9 @@ import type {
   FetchNewsActionType,
   PushNewsActionType,
   FetchNewsFailedActionType,
-  ClearNewstActionType
+  ClearNewsActionType
 } from '../../app/StoreActionType'
 import type { DataContainer } from '../DataContainer'
-import loadCityContent from './loadCityContent'
 import { ContentLoadCriterion } from '../ContentLoadCriterion'
 import isPeekingRoute from '../selectors/isPeekingRoute'
 import ErrorCodes, { fromError } from '../../error/ErrorCodes'
@@ -18,6 +17,7 @@ import loadLocalNews from './loadLocalNews'
 import loadTuNews from './loadTuNews'
 import loadLanguages from './loadLanguages'
 const NEWS_FETCH_COUNT_LIMIT = 20
+const FIRST_PAGE = 1
 
 export function * fetchNews (
   dataContainer: DataContainer,
@@ -52,8 +52,8 @@ export function * fetchNews (
             loadTuNews,
             language,
             dataContainer,
-            true,
-            1,
+            true, // forceRefresh
+            FIRST_PAGE,
             NEWS_FETCH_COUNT_LIMIT
           )
       ])
@@ -69,7 +69,7 @@ export function * fetchNews (
           language,
           city,
           type,
-          page: 1,
+          page: FIRST_PAGE,
           hasMoreNews: true
         }
       }
@@ -77,7 +77,7 @@ export function * fetchNews (
     } else {
       const allAvailableLanguages =
         path === null
-          ? new Map(languages.map(lng => [lng.code, null]))
+          ? new Map(languages.map(language => [language.code, null]))
           : null
 
       const failed: FetchNewsFailedActionType = {
@@ -99,7 +99,7 @@ export function * fetchNews (
     const failed: FetchNewsFailedActionType = {
       type: 'FETCH_NEWS_FAILED',
       params: {
-        message: `Error in fetchNews: ${e.message}`,
+        message: `Error in fetch news: ${e.message}`,
         code: fromError(e),
         key,
         city,
@@ -171,7 +171,7 @@ export function * fetchMoreNews (
     const failed: FetchNewsFailedActionType = {
       type: 'FETCH_NEWS_FAILED',
       params: {
-        message: `Error in fetchNews: ${e.message}`,
+        message: `Error in fetch news: ${e.message}`,
         code: fromError(e),
         key,
         city,
@@ -187,7 +187,7 @@ export function * fetchMoreNews (
 // Note: added this function when clearing news in case user clicked on tunews
 export function * updateLanguages (
   dataContainer: DataContainer,
-  action: ClearNewstActionType
+  action: ClearNewsActionType
 ): Saga<void> {
   const { city } = action.params
   try {
