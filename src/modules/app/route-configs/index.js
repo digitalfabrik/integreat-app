@@ -7,6 +7,9 @@ import I18nRedirectRouteConfig, { I18N_REDIRECT_ROUTE } from './I18nRedirectRout
 import LandingRouteConfig, { LANDING_ROUTE } from './LandingRouteConfig'
 import MainDisclaimerRouteConfig, { MAIN_DISCLAIMER_ROUTE } from './MainDisclaimerRouteConfig'
 import EventsRouteConfig, { EVENTS_ROUTE } from './EventsRouteConfig'
+import NewsRouteConfig, { NEWS_ROUTE } from './NewsRouteConfig'
+import TuNewsDetailsRouteConfig, { TUNEWS_DETAILS_ROUTE } from './TuNewsDetailsRouteConfig'
+import TuNewsListRouteConfig, { TUNEWS_LIST_ROUTE } from './TuNewsListRouteConfig'
 import WohnenRouteConfig, { WOHNEN_ROUTE } from './WohnenRouteConfig'
 import ExtrasRouteConfig, { EXTRAS_ROUTE } from './ExtrasRouteConfig'
 import SearchRouteConfig, { SEARCH_ROUTE } from './SearchRouteConfig'
@@ -21,6 +24,9 @@ const routeConfigs: {[string]: RouteConfig<any, any>} = {
   [I18N_REDIRECT_ROUTE]: new I18nRedirectRouteConfig(),
   [LANDING_ROUTE]: new LandingRouteConfig(),
   [EVENTS_ROUTE]: new EventsRouteConfig(),
+  [NEWS_ROUTE]: new NewsRouteConfig(),
+  [TUNEWS_DETAILS_ROUTE]: new TuNewsDetailsRouteConfig(),
+  [TUNEWS_LIST_ROUTE]: new TuNewsListRouteConfig(),
   [SPRUNGBRETT_ROUTE]: new SprungbrettRouteConfig(),
   [WOHNEN_ROUTE]: new WohnenRouteConfig(),
   [EXTRAS_ROUTE]: new ExtrasRouteConfig(),
@@ -28,7 +34,7 @@ const routeConfigs: {[string]: RouteConfig<any, any>} = {
   [SEARCH_ROUTE]: new SearchRouteConfig(),
   [POIS_ROUTE]: new PoisRouteConfig(),
   [CATEGORIES_ROUTE]: new CategoriesRouteConfig(),
-  [NOT_FOUND]: new NotFoundRouteConfig()
+  [NOT_FOUND]: new NotFoundRouteConfig(),
 }
 
 export const getRouteConfig = (routeName: string): RouteConfig<*, *> => {
@@ -45,11 +51,14 @@ export const routesMap: {[string]: Route} = {
   [I18N_REDIRECT_ROUTE]: new I18nRedirectRouteConfig().route,
   [LANDING_ROUTE]: new LandingRouteConfig().route,
   [EVENTS_ROUTE]: new EventsRouteConfig().route,
+  [NEWS_ROUTE]: new NewsRouteConfig().route,
+  [TUNEWS_DETAILS_ROUTE]: new TuNewsDetailsRouteConfig().route,
+  [TUNEWS_LIST_ROUTE]: new TuNewsListRouteConfig().route,
   [SPRUNGBRETT_ROUTE]: new SprungbrettRouteConfig().route,
   [WOHNEN_ROUTE]: new WohnenRouteConfig().route,
   [EXTRAS_ROUTE]: new ExtrasRouteConfig().route,
   [DISCLAIMER_ROUTE]: new DisclaimerRouteConfig().route,
   [SEARCH_ROUTE]: new SearchRouteConfig().route,
   [POIS_ROUTE]: new PoisRouteConfig().route,
-  [CATEGORIES_ROUTE]: new CategoriesRouteConfig().route
+  [CATEGORIES_ROUTE]: new CategoriesRouteConfig().route,
 }

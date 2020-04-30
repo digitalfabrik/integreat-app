@@ -7,6 +7,7 @@ import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
 import CategoriesRouteConfig from '../../app/route-configs/CategoriesRouteConfig'
 import EventsRouteConfig from '../../app/route-configs/EventsRouteConfig'
+import NewsRouteConfig from '../../app/route-configs/NewsRouteConfig'
 import ExtrasRouteConfig from '../../app/route-configs/ExtrasRouteConfig'
 import PoisRouteConfig from '../../app/route-configs/PoisRouteConfig'
 
@@ -32,6 +33,10 @@ export class FailureSwitcher extends React.Component<PropsType> {
         return <Failure goToPath={new EventsRouteConfig().getRoutePath({ city, language })}
                         goToMessage='goTo.events'
                         errorMessage='notFound.event' />
+      case 'newsItem':
+        return <Failure goToPath={new NewsRouteConfig().getRoutePath({ city, language })}
+                        goToMessage='goTo.news'
+                        errorMessage='notFound.newsItem' />
       case 'extra':
         return <Failure goToPath={new ExtrasRouteConfig().getRoutePath({ city, language })}
                         goToMessage='goTo.extras'

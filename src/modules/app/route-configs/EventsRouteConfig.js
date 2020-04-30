@@ -6,6 +6,7 @@ import type { Route } from 'redux-first-router'
 import {
   createCitiesEndpoint,
   createEventsEndpoint,
+  createLocalNewsEndpoint,
   createLanguagesEndpoint,
   EventModel,
   Payload
@@ -31,6 +32,7 @@ const eventsRoute: Route = {
     await Promise.all([
       fetchData(createCitiesEndpoint(cmsApiBaseUrl), dispatch, state.cities),
       fetchData(createEventsEndpoint(cmsApiBaseUrl), dispatch, state.events, { city, language }),
+      fetchData(createLocalNewsEndpoint(cmsApiBaseUrl), dispatch, state.news, { city, language }),
       fetchData(createLanguagesEndpoint(cmsApiBaseUrl), dispatch, state.languages, { city, language })
     ])
   }
