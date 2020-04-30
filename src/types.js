@@ -106,7 +106,7 @@ export type JsonTuNewsType = {
 }
 
 export type JsonLocalNewsType = {
-  id: string,
+  id: number,
   timestamp: string,
   title: string,
   message: string
@@ -168,7 +168,7 @@ export type OfferType = {
   createdDate: string
 }
 
-export type JsonLanguageType = { code: string, native_name: string }
+export type JsonLanguageType = { code: string, native_name: ?any, name: ?any }
 
 export type JsonCityType = {
   name: string,
