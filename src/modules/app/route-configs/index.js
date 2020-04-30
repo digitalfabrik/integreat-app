@@ -8,6 +8,7 @@ import LandingRouteConfig, { LANDING_ROUTE } from './LandingRouteConfig'
 import MainDisclaimerRouteConfig, { MAIN_DISCLAIMER_ROUTE } from './MainDisclaimerRouteConfig'
 import EventsRouteConfig, { EVENTS_ROUTE } from './EventsRouteConfig'
 import NewsRouteConfig, { NEWS_ROUTE } from './NewsRouteConfig'
+import LocalNewsDetailsRouteConfig, { LOCAL_NEWS_DETAILS_ROUTE } from './LocalNewsDetailsRouteConfig'
 import TuNewsDetailsRouteConfig, { TUNEWS_DETAILS_ROUTE } from './TuNewsDetailsRouteConfig'
 import TuNewsListRouteConfig, { TUNEWS_LIST_ROUTE } from './TuNewsListRouteConfig'
 import WohnenRouteConfig, { WOHNEN_ROUTE } from './WohnenRouteConfig'
@@ -25,6 +26,7 @@ const routeConfigs: {[string]: RouteConfig<any, any>} = {
   [LANDING_ROUTE]: new LandingRouteConfig(),
   [EVENTS_ROUTE]: new EventsRouteConfig(),
   [NEWS_ROUTE]: new NewsRouteConfig(),
+  [LOCAL_NEWS_DETAILS_ROUTE]: new LocalNewsDetailsRouteConfig(),
   [TUNEWS_DETAILS_ROUTE]: new TuNewsDetailsRouteConfig(),
   [TUNEWS_LIST_ROUTE]: new TuNewsListRouteConfig(),
   [SPRUNGBRETT_ROUTE]: new SprungbrettRouteConfig(),
@@ -52,6 +54,7 @@ export const routesMap: {[string]: Route} = {
   [LANDING_ROUTE]: new LandingRouteConfig().route,
   [EVENTS_ROUTE]: new EventsRouteConfig().route,
   [NEWS_ROUTE]: new NewsRouteConfig().route,
+  [LOCAL_NEWS_DETAILS_ROUTE]: new LocalNewsDetailsRouteConfig().route,
   [TUNEWS_DETAILS_ROUTE]: new TuNewsDetailsRouteConfig().route,
   [TUNEWS_LIST_ROUTE]: new TuNewsListRouteConfig().route,
   [SPRUNGBRETT_ROUTE]: new SprungbrettRouteConfig().route,

@@ -4,11 +4,13 @@ import React from 'react'
 import styled from 'styled-components'
 import tuNewsLogoActive from '../assets/tu-news-active.png'
 import tuNewsLogoInActive from '../assets/tu-news-inactive.png'
+import Link from 'redux-first-router-link'
 
 const TU_NEWS = 'tu'
-const decideColor = (activeTab, label, theme) => {
+
+const decideColor = (active, theme) => {
   let color
-  if (activeTab.toLowerCase() !== 'news') {
+  if (active) {
     color = theme.colors.themeColor
   } else {
     color = theme.colors.tuNewsColor
@@ -16,7 +18,7 @@ const decideColor = (activeTab, label, theme) => {
   return color
 }
 
-const StyledTab = styled.div`
+const StyledTab = styled(Link)`
   cursor: pointer;
   box-sizing: border-box;
   display: flex;
@@ -26,8 +28,8 @@ const StyledTab = styled.div`
   padding: 13px 15px;
   flex-shrink: 0;
   object-fit: contain;
-  background-color: ${({ activeTab, label, theme }) =>
-    activeTab === label ? decideColor(activeTab, label, theme) : 'rgba(111, 111, 110, 0.4)'};
+  background-color: ${({ active, theme }) =>
+    active ? decideColor(active, theme) : 'rgba(111, 111, 110, 0.4)'};
   border-radius: 11px;
   margin-right: 30px;
   font-size: 18px;
@@ -37,40 +39,31 @@ const StyledTab = styled.div`
 `
 
 const TuStyledTab = styled(StyledTab)`
-
   background-image: url(${tuNewsLogoActive});
-  background-image: ${({ activeTab, label, theme }) =>
-    activeTab === label ? `url(${tuNewsLogoActive})` : `url(${tuNewsLogoInActive})`};
+  background-image: ${({ active, theme }) =>
+    active ? `url(${tuNewsLogoActive})` : `url(${tuNewsLogoInActive})`};
   background-size: cover;
 `
 
 type PropsType = {|
-  label: string,
-  activeTab: string,
-  onClick: string => void
+  type: string,
+  active: boolean,
+  destination: string,
 |}
 
 class Tab extends React.PureComponent<PropsType> {
-  onClick = () => {
-    const { label, onClick } = this.props
-    onClick(label)
-  }
-
   render () {
-    const {
-      onClick,
-      props: { activeTab, label, type }
-    } = this
+    const { type, active, destination } = this.props;
 
     if (type === TU_NEWS) {
       return (
-        <TuStyledTab onClick={onClick} activeTab={activeTab} label={label} />
+        <TuStyledTab active={active} to={destination}/>
       )
     }
 
     return (
-      <StyledTab onClick={onClick} activeTab={activeTab} label={label}>
-        {label}
+      <StyledTab active={active} to={destination}>
+        LOCAL
       </StyledTab>
     )
   }
