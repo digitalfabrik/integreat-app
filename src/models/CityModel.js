@@ -1,11 +1,12 @@
 // @flow
-
 class CityModel {
   _name: string
   _code: string
   _live: boolean
   _eventsEnabled: boolean
   _extrasEnabled: boolean
+  _pushNotificationsEnabled: boolean
+  _tunewsEnabled: boolean
   _sortingName: string
   _prefix: ?string
   _latitude: number | null
@@ -13,7 +14,7 @@ class CityModel {
   _aliases: { [alias: string]: {| longitude: number, latitude: number |} } | null
 
   constructor (params: {|
-    name: string, code: string, live: boolean, eventsEnabled: boolean, extrasEnabled: boolean,
+    name: string, code: string, live: boolean, eventsEnabled: boolean, extrasEnabled: boolean, pushNotificationsEnabled: boolean, tunewsEnabled: boolean,
     sortingName: string, prefix: ?string, latitude: number | null, longitude: number | null,
     aliases: { [alias: string]: {| longitude: number, latitude: number |} } | null
   |}) {
@@ -22,6 +23,8 @@ class CityModel {
     this._live = params.live
     this._eventsEnabled = params.eventsEnabled
     this._extrasEnabled = params.extrasEnabled
+    this._pushNotificationsEnabled = params.pushNotificationsEnabled
+    this._tunewsEnabled = params.tunewsEnabled
     this._sortingName = params.sortingName
     this._prefix = params.prefix
     this._latitude = params.latitude
@@ -51,6 +54,14 @@ class CityModel {
 
   get extrasEnabled (): boolean {
     return this._extrasEnabled
+  }
+  
+  get pushNotificationsEnabled(): boolean {
+    return this._pushNotificationsEnabled
+  }
+  
+  get tunewsEnabled(): boolean {
+    return this._tunewsEnabled
   }
 
   get sortCategory (): string {
