@@ -177,6 +177,8 @@ export type JsonCityType = {
   live: boolean,
   events: boolean,
   extras: boolean,
+  tunews: boolean,
+  ["push-notifications"]: boolean,
   name_without_prefix: string,
   prefix: ?string,
   latitude: number | null,
