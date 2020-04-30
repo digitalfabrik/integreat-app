@@ -27,7 +27,9 @@ function readMockFile (file: string, encoding: string): Promise<string> {
 
 function existsMock (file: string): Promise<boolean> {
   const filePath = path.normalize(file)
-  return Promise.resolve(filePath in mockFiles)
+  const exists = filePath in mockFiles
+  const isParentOfExisting = Object.keys(mockFiles).some(filePath => filePath.startsWith(file))
+  return Promise.resolve(exists || isParentOfExisting)
 }
 
 function lsMock (path: string): Promise<Array<string>> {

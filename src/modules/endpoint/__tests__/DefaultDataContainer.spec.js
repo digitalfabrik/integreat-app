@@ -162,6 +162,8 @@ describe('DefaultDataContainer', () => {
     it('should unlink the outdated resources if there are new resources available', async () => {
       const defaultDataContainer = new DefaultDataContainer()
       await defaultDataContainer.setResourceCache('testCity', 'de', previousResources)
+      // Add mock file, normally this is done in the NativeFetcherModule.fetchAsync
+      await RNFetchBlob.fs.writeFile('/local/path/to/resource/b4b5dca65e423.png', '', 'UTF-8')
       await defaultDataContainer.setResourceCache('testCity', 'de', testResources)
 
       expect(RNFetchBlob.fs.unlink).toHaveBeenCalledWith('/local/path/to/resource/b4b5dca65e423.png')
