@@ -4,7 +4,11 @@ import * as React from 'react'
 import { isEmpty } from 'lodash/lang'
 import throttle from 'lodash/throttle'
 import styled from 'styled-components'
+import { withTranslation } from 'react-i18next'
+import compose from 'lodash/fp/compose'
+import { connect } from 'react-redux'
 import InfiniteScroll from 'react-infinite-scroller'
+import { fetchTuNews, resetTuNews } from '../actions/fetchTuNews'
 import LoadingSpinner from '../../../modules/common/components/LoadingSpinner'
 
 const NoItemsMessage = styled.div`
@@ -25,10 +29,18 @@ type PropsType<T> = {|
   city: string,
 |}
 
-class NewsList<T>extends React.PureComponent<PropsType<T>> {
+class PaginatedList<T>extends React.PureComponent<PropsType<T>> {
   constructor (props) {
     super(props)
     this.loadItemsThrottle = throttle(this.loadItems, 2000)
+  }
+
+  componentDidUpdate (prevProp) {
+    const { language, resetTuNews, fetchTuNews } = this.props
+    if (prevProp.language !== language) {
+      resetTuNews()
+      fetchTuNews()
+    }
   }
 
   loadItems = async page => {
@@ -55,4 +67,14 @@ class NewsList<T>extends React.PureComponent<PropsType<T>> {
   }
 }
 
-export default NewsList
+const mapStateTypeToProps = (state: StateType) => {
+  return {
+    language: state.location.payload.language,
+    prevLanguage: state.location.prev.payload.language,
+    city: state.location.payload.city,
+    tuNewsList: state.tunewsList.data,
+    isFetching: state.tunewsList._isFetching
+  }
+}
+
+export default connect(mapStateTypeToProps, { fetchTuNews, resetTuNews })(PaginatedList)

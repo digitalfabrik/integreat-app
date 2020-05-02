@@ -28,7 +28,7 @@ const tuNewsListRoute: Route = {
     const promises = [
       fetchData(createCitiesEndpoint(cmsApiBaseUrl), dispatch, state.cities),
       fetchData(createEventsEndpoint(cmsApiBaseUrl), dispatch, state.events, { city, language }),
-      fetchData(createLanguagesEndpoint(cmsApiBaseUrl), dispatch, state.languages, { city, language })
+      fetchData(createLanguagesEndpoint(tuNewsApiBaseUrl, true), dispatch, state.languages, { city, language })
     ]
 
     if (!state.tunewsList.data.length) {
@@ -46,7 +46,8 @@ class TuNewsListRouteConfig implements RouteConfig<TuNewsListRouteParamsType, Re
   requiresHeader = true
   requiresFooter = true
 
-  getLanguageChangePath = ({ location, payloads, language }) => null
+  getLanguageChangePath = ({ location, language }) =>
+    this.getRoutePath({ city: location.payload.city, language })
 
   getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType => ({
     tuNewsList: payloads.tuNewsPayload
