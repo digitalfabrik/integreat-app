@@ -8,7 +8,8 @@ import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 import type { StateType } from '../../../modules/app/StateType'
 import { TFunction } from 'i18next'
-import NewsList from './../components/NewsList'
+import PaginatedList from './../components/PaginatedList'
+import { fetchTuNews } from '../actions/fetchTuNews'
 import TuNewsElement from './../components/TuNewsElement'
 import Tabs from './../components/Tabs'
 import { redirect } from 'redux-first-router'
@@ -59,14 +60,16 @@ class TuNewsListPage extends React.PureComponent<PropsType> {
   }
 
   render() {
-    const { tuNewsList, language, city, path, t } = this.props
+    const { tuNewsList, language, city, path, t, fetchTuNews, hasMore } = this.props
     return (
       <Tabs localNews={false} tuNews={true}>
-        <NewsList
+        <PaginatedList
           noItemsMessage={t('currentlyNoTuNews')}
           items={tuNewsList}
           renderItem={this.renderTuNewsElement(language)}
           city={city}
+          fetchTuNews={fetchTuNews}
+          hasMore={hasMore}
         />
       </Tabs>
     )
@@ -78,13 +81,13 @@ const mapStateToProps = (state: StateType) => ({
   city: state.location.payload.city,
   path: state.location.pathname,
   cities: state.cities._data,
+  hasMore: state.tunewsList.hasMore
 })
-
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>) => ({
-  redirect: action => dispatch(redirect(action))
+  redirect: action => dispatch(redirect(action)),
+  fetchTuNews
 })
-
 
 export default compose(
   connect<*, *, *, *, *, *>(mapStateToProps, mapDispatchToProps),

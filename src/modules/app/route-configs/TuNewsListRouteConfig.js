@@ -1,3 +1,5 @@
+// @flow
+
 import type { AllPayloadsType } from './RouteConfig'
 import { RouteConfig } from './RouteConfig'
 import type { Route } from 'redux-first-router'
@@ -23,11 +25,17 @@ const tuNewsListRoute: Route = {
     const state = getState()
     const { city, language } = state.location.payload
 
-    await Promise.all([
-      fetchData(createTuNewsListEndpoint(tuNewsApiBaseUrl), dispatch, state.tunews_list, { page: 1, language: language || 'en', count: 20 }),
+    const promises = [
       fetchData(createCitiesEndpoint(cmsApiBaseUrl), dispatch, state.cities),
-      fetchData(createEventsEndpoint(cmsApiBaseUrl), dispatch, state.events, { city, language })
-    ])
+      fetchData(createEventsEndpoint(cmsApiBaseUrl), dispatch, state.events, { city, language }),
+      fetchData(createLanguagesEndpoint(cmsApiBaseUrl), dispatch, state.languages, { city, language })
+    ]
+
+    if (!state.tunewsList.data.length) {
+      promises.push(fetchData(createTuNewsListEndpoint(tuNewsApiBaseUrl), dispatch, state.tunewsList, { page: 1, language: language || 'en', count: 20 }))
+    }
+
+    await Promise.all(promises)
   }
 }
 
