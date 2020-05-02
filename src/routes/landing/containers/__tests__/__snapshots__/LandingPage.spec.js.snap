@@ -14,7 +14,9 @@ exports[`LandingPage should match snapshot 1`] = `
         "_longitude": undefined,
         "_name": "City",
         "_prefix": undefined,
+        "_pushNotificationsEnabled": undefined,
         "_sortingName": "City",
+        "_tunewsEnabled": undefined,
       },
     ]
   }
