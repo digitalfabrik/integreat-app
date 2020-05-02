@@ -4,11 +4,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import Tab from './Tab'
-import compose from 'lodash/fp/compose'
 import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
+import compose from 'lodash/fp/compose'
 import { connect } from 'react-redux'
 import { CityModel } from '@integreat-app/integreat-api-client'
+import { fetchTuNews } from '../actions/fetchTuNews'
 
 const StyledTabs = styled.div`
   display: flex;
@@ -57,12 +58,13 @@ class Tabs extends React.PureComponent<PropsType, StateType> {
 const mapStateTypeToProps = (state: StateType) => {
   return {
     language: state.location.payload.language,
+    prevLanguage: state.location.prev.payload.language,
     city: state.location.payload.city,
     cities: state.cities._data
   }
 }
 
 export default compose(
-  connect<*, *, *, *, *, *>(mapStateTypeToProps),
+  connect<*, *, *, *, *, *>(mapStateTypeToProps, { fetchTuNews }),
   withTranslation('news')
 )(Tabs)
