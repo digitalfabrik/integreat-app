@@ -154,7 +154,7 @@ const mapStateToProps = (state: StateType) => ({
   eventsPayload: state.events,
   newsPayload: state.news,
   newsElementPayload: state.newsElement,
-  tuNewsPayload: state.tunews_list,
+  tuNewsPayload: state.tunewsList,
   tuNewsElementPayload: state.tunews_element,
   poisPayload: state.pois,
   extrasPayload: state.extras,

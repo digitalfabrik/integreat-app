@@ -1,3 +1,5 @@
+// @flow
+
 import type { AllPayloadsType } from './RouteConfig'
 import { RouteConfig } from './RouteConfig'
 import type { Route } from 'redux-first-router'

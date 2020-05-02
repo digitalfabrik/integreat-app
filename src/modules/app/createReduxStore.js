@@ -11,6 +11,7 @@ import uiDirectionReducer from '../i18n/reducers'
 import endpointReducers from './reducers'
 import toggleDarkModeReducer from '../theme/reducers'
 import { createResponsiveStateReducer, responsiveStoreEnhancer } from 'redux-responsive'
+import fetchTuNewsRecducer from '../../routes/news/reducers'
 import { routesMap as defaultRoutesMap } from './route-configs/index'
 import createHistory from './createHistory'
 import type { StateType } from './StateType'
@@ -38,7 +39,8 @@ const createReduxStore = (initialState: StateType = {}, routesMap: RoutesMap = d
     viewport: createResponsiveStateReducer({ small: 750 }, { infinity: 'large' }),
     location: reducer,
     uiDirection: uiDirectionReducer,
-    darkMode: toggleDarkModeReducer
+    darkMode: toggleDarkModeReducer,
+    tunewsList: fetchTuNewsRecducer
   })
 
   const enhancers = compose(responsiveStoreEnhancer, enhancer, applyMiddleware(...middlewares))

@@ -57,7 +57,7 @@ class Tab extends React.PureComponent<PropsType> {
 
     if (type === TU_NEWS) {
       return (
-        <TuStyledTab active={active} to={destination}/>
+        <TuStyledTab active={active} to={destination} />
       )
     }
 

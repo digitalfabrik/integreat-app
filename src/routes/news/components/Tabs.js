@@ -58,13 +58,11 @@ const mapStateTypeToProps = (state: StateType) => {
   return {
     language: state.location.payload.language,
     city: state.location.payload.city,
-    cities: state.cities._data,
+    cities: state.cities._data
   }
 }
-
 
 export default compose(
   connect<*, *, *, *, *, *>(mapStateTypeToProps),
   withTranslation('news')
 )(Tabs)
-
