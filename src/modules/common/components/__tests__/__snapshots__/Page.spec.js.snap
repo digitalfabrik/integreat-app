@@ -9,6 +9,7 @@ exports[`Page should render 1`] = `
   <Caption
     title="first Event"
   />
+  <Page__StyledContainer />
   <RemoteContent
     centered={false}
     dangerouslySetInnerHTML={
@@ -18,9 +19,12 @@ exports[`Page should render 1`] = `
     }
     onInternalLinkClick={[Function]}
   />
-  <Translate(LastUpdateInfo)
-    language="en"
-    lastUpdate={"2016-01-07T09:36:24.000Z"}
-  />
+  <Page__StyledContainer>
+    <Translate(LastUpdateInfo)
+      language="en"
+      lastUpdate={"2016-01-07T08:36:24.000Z"}
+      withText={true}
+    />
+  </Page__StyledContainer>
 </Fragment>
 `;

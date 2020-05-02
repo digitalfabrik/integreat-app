@@ -16,7 +16,9 @@ Array [
     "_longitude": undefined,
     "_name": "Notlive",
     "_prefix": undefined,
+    "_pushNotificationsEnabled": undefined,
     "_sortingName": "Nonlive",
+    "_tunewsEnabled": undefined,
   },
 ]
 `;
@@ -33,7 +35,9 @@ Array [
     "_longitude": undefined,
     "_name": "City",
     "_prefix": undefined,
+    "_pushNotificationsEnabled": undefined,
     "_sortingName": "City",
+    "_tunewsEnabled": undefined,
   },
   CityModel {
     "_aliases": undefined,
@@ -45,7 +49,9 @@ Array [
     "_longitude": undefined,
     "_name": "Other city",
     "_prefix": undefined,
+    "_pushNotificationsEnabled": undefined,
     "_sortingName": "OtherCity",
+    "_tunewsEnabled": undefined,
   },
   CityModel {
     "_aliases": undefined,
@@ -57,7 +63,9 @@ Array [
     "_longitude": undefined,
     "_name": "Yet another city",
     "_prefix": undefined,
+    "_pushNotificationsEnabled": undefined,
     "_sortingName": "Yetanothercity",
+    "_tunewsEnabled": undefined,
   },
 ]
 `;

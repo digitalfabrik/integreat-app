@@ -10,7 +10,7 @@ exports[`PoisPage should render a Page if a poi is selected 1`] = `
 <Page
   content="content"
   language="en"
-  lastUpdate={"2016-01-07T09:36:24.000Z"}
+  lastUpdate={"2016-01-07T08:36:24.000Z"}
   onInternalLinkClick={[Function]}
   thumbnail="thumbnail"
   title="third Event"
@@ -38,7 +38,7 @@ exports[`PoisPage should render a list of pois if no poi is selected 1`] = `
           "_content": "content",
           "_excerpt": "excerpt",
           "_hash": "2fe6283485a93932",
-          "_lastUpdate": "2016-01-07T09:36:24.000Z",
+          "_lastUpdate": "2016-01-07T08:36:24.000Z",
           "_location": LocationModel {
             "_address": "address",
             "_latitude": undefined,
@@ -59,7 +59,7 @@ exports[`PoisPage should render a list of pois if no poi is selected 1`] = `
           "_content": "content",
           "_excerpt": "excerpt",
           "_hash": "2fe6283485b93932",
-          "_lastUpdate": "2016-01-07T09:36:24.000Z",
+          "_lastUpdate": "2016-01-07T08:36:24.000Z",
           "_location": LocationModel {
             "_address": "address",
             "_latitude": undefined,
@@ -80,7 +80,7 @@ exports[`PoisPage should render a list of pois if no poi is selected 1`] = `
           "_content": "content",
           "_excerpt": "excerpt",
           "_hash": "2fe6283485c93932",
-          "_lastUpdate": "2016-01-07T09:36:24.000Z",
+          "_lastUpdate": "2016-01-07T08:36:24.000Z",
           "_location": LocationModel {
             "_address": "address",
             "_latitude": undefined,
