@@ -1,5 +1,3 @@
-
-
 import type { AllPayloadsType } from './RouteConfig'
 import { RouteConfig } from './RouteConfig'
 import type { Route } from 'redux-first-router'
@@ -17,10 +15,6 @@ type RequiredPayloadsType = {| news: Payload<Array<TuNewsElementModel>> |}
 
 export const TUNEWS_DETAILS_ROUTE = 'TUNEWS_DETAILS'
 
-/**
- * EventsRoute, matches /augsburg/de/events and /augsburg/de/events/begegnungscafe
- * @type {{path: string, thunk: function(Dispatch, GetState)}}
- */
 const tuNewsDetailsRoute: Route = {
   path: '/:city/:language/news/tu-news/:newsId',
   thunk: async (dispatch, getState) => {
