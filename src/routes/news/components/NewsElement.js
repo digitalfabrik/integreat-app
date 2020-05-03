@@ -91,9 +91,9 @@ class NewsElement extends React.PureComponent<PropsType> {
     )
   }
 
-  render() {
+  render () {
     const { path, newsItem } = this.props
-    const itemPath = `${path}/local/${newsItem.id}`
+    const itemPath = `${path}/${newsItem.id}`
 
     return (
       <StyledNewsElement>
