@@ -10,6 +10,8 @@ import compose from 'lodash/fp/compose'
 import type { StateType } from '../../../modules/app/StateType'
 import TuNewsDetailsFooter from './../components/TuNewsDetailsFooter'
 import { TFunction } from 'i18next'
+import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
+import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 
 const StyledContainer = styled.div`
 display: flex;
@@ -60,11 +62,18 @@ const Content = styled.p`
 type PropsType = {|
   tuNewsElementDetails: any,
   language: string,
+  path: string,
+  city: string,
   t: TFunction
 |}
 class TuNewsDetailsPage extends React.PureComponent<PropsType> {
   render() {
-    const { tuNewsElementDetails, language, t } = this.props
+    const { tuNewsElementDetails, language, path, city, t } = this.props
+
+    if (!tuNewsElementDetails) {
+      const error = new ContentNotFoundError({ type: 'tuNewsItem', id: path, city, language })
+      return <FailureSwitcher error={error} />
+    }
 
     return (
       <StyledContainer>
@@ -85,6 +94,8 @@ class TuNewsDetailsPage extends React.PureComponent<PropsType> {
 
 const mapStateToProps = (state: StateType) => ({
   language: state.location.payload.language,
+  path: state.location.pathname,
+  city: state.location.payload.city,
 })
 
 export default compose(
