@@ -66,5 +66,5 @@ const mapStateToProps = (state: StateType) => ({
 
 export default compose(
   connect<*, *, *, *, *, *>(mapStateToProps),
-  withTranslation('tuNewsDetails')
+  withTranslation('news')
 )(TuNewsListPage)
