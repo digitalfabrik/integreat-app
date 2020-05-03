@@ -37,16 +37,16 @@ type StateType = {|
 class Tabs extends React.PureComponent<PropsType, StateType> {
   render() {
     const { localNews, tuNews, children, city, cities, language } = this.props
-    const currentCity:any = cities.find(cityElement => cityElement._code === city)
+    const currentCity:any = cities && cities.find(cityElement => cityElement._code === city)
 
     return (
       <>
         <StyledTabs>
           {
-            currentCity._pushNotificationsEnabled && <Tab active={localNews} type={LOCAL_NEWS} destination={`/${city}/${language}/news/local`} />
+            currentCity && currentCity._pushNotificationsEnabled && <Tab active={localNews} type={LOCAL_NEWS} destination={`/${city}/${language}/news/local`} />
           }
           {
-            currentCity._tunewsEnabled && <Tab active={tuNews} type={TU_NEWS} destination={`/${city}/${language}/news/tu-news`} />
+            currentCity && currentCity._tunewsEnabled && <Tab active={tuNews} type={TU_NEWS} destination={`/${city}/${language}/news/tu-news`} />
           }
         </StyledTabs>
         {children}
@@ -58,7 +58,6 @@ class Tabs extends React.PureComponent<PropsType, StateType> {
 const mapStateTypeToProps = (state: StateType) => {
   return {
     language: state.location.payload.language,
-    prevLanguage: state.location.prev.payload.language,
     city: state.location.payload.city,
     cities: state.cities._data
   }

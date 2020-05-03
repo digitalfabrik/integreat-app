@@ -5,14 +5,16 @@ export const fetchTuNewsRecducer = (state = { data: [] }, action) => {
     case 'START_FETCH_TUNEWS_LIST':
       return {
         ...state,
-        ...action.payload
+        ...action.payload,
+        isFetchingFirstTime: state.data.length === 0
       }
     case 'FINISH_FETCH_TUNEWS_LIST': {
       return {
         ...state,
         ...action.payload,
         data: [...state.data, ...action.payload.data],
-        hasMore: action.payload.data.length !== 0
+        hasMore: action.payload.data.length !== 0,
+        isFetchingFirstTime: false
       }
     }
     case 'RESET_TU_NEWS': {
@@ -20,7 +22,8 @@ export const fetchTuNewsRecducer = (state = { data: [] }, action) => {
         ...state,
         ...action.payload,
         data: [],
-        hasMore: true
+        hasMore: true,
+        isFetchingFirstTime: false
       }
     }
     default:
