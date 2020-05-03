@@ -15,14 +15,10 @@ import fetchData from '../fetchData'
 import { cmsApiBaseUrl, localNewsApiBaseUrl, localNewsApiBaseUrlDev } from '../constants/urls'
 
 type LocalNewsDetailsType = {| city: string, language: string |}
-type RequiredPayloadsType = {| news: Payload<Array<LocalNewsModel>> |}
+type RequiredPayloadsType = {| news: Payload<LocalNewsModel> |}
 
 export const LOCAL_NEWS_DETAILS_ROUTE = 'LOCAL_NEWS_DETAILS'
 
-/**
- * EventsRoute, matches /augsburg/de/events and /augsburg/de/events/begegnungscafe
- * @type {{path: string, thunk: function(Dispatch, GetState)}}
- */
 const localNewsDetailsRoute: Route = {
   path: '/:city/:language/news/local/:id',
   thunk: async (dispatch, getState) => {
@@ -45,14 +41,13 @@ class LocalNewsDetailsRouteConfig implements RouteConfig<LocalNewsDetailsType, R
   requiresHeader = true
   requiresFooter = true
 
-  getLanguageChangePath = ({ location, payloads, language }) => {
-  }
+  getLanguageChangePath = ({ location, payloads, language }) => null
 
   getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType => ({ localNewsDetails: payloads.newsElementPayload })
 
   getPageTitle = ({ t, payloads, cityName, location }) => null
 
-  getRoutePath = ({ city, language }: LocalNewsDetailsType): string => '/${city}/${language}/news/:id'
+  getRoutePath = ({ city, language }: LocalNewsDetailsType): string => null
 
   getMetaDescription = () => null
 
