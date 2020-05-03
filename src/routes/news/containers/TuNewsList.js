@@ -60,11 +60,11 @@ class TuNewsListPage extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const { tuNewsList, language, city, t, fetchTuNews, hasMore, isFetching } = this.props
+    const { tuNewsList, language, city, t, fetchTuNews, hasMore, isFetchingFirstTime } = this.props
 
     return (
       <Tabs localNews={false} tuNews={true}>
-        {isFetching ? (
+        {isFetchingFirstTime ? (
           <LoadingSpinner />
         ) : (
           <PaginatedList
@@ -87,7 +87,7 @@ const mapStateToProps = (state: StateType) => ({
   path: state.location.pathname,
   cities: state.cities._data,
   hasMore: state.tunewsList.hasMore,
-  isFetching: state.tunewsList._isFetching
+  isFetchingFirstTime: state.tunewsList.isFetchingFirstTime
 })
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>) => ({
