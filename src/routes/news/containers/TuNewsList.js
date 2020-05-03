@@ -24,7 +24,7 @@ type PropsType = {|
   language: string,
   city: string,
   path: string,
-  t: TFunction,
+  t: TFunction
 |}
 
 class TuNewsListPage extends React.PureComponent<PropsType> {
@@ -33,12 +33,11 @@ class TuNewsListPage extends React.PureComponent<PropsType> {
     return (
       <TuNewsElement
         newsItem={newsItem}
-        key={newsItem.path}
+        key={newsItem.id}
         path={this.props.path}
         t={this.props.t}
         city={city}
         language={language}
-        key={newsItem.title}
       />
     )
   }
