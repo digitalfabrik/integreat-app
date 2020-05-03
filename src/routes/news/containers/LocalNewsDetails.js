@@ -1,20 +1,16 @@
 // @flow
-
 import * as React from 'react'
 import styled from 'styled-components'
 import type Moment from 'moment'
 import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
-import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
 import Page from '../../../modules/common/components/Page'
-import { LocalNewsModel, CityModel } from '@integreat-app/integreat-api-client'
-import { redirect } from 'redux-first-router'
-import type { Dispatch } from 'redux'
-import type { StoreActionType } from '../../../modules/app/StoreActionType'
-import { TUNEWS_LIST_ROUTE } from './../../../modules/app/route-configs/TuNewsListRouteConfig'
-import { CATEGORIES_ROUTE } from './../../../modules/app/route-configs/CategoriesRouteConfig'
+import { LocalNewsModel } from '@integreat-app/integreat-api-client'
+import NewsController from './../containers/NewsController'
+import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
+import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 
 const StyledContainer = styled.div`
 display: flex;
@@ -27,32 +23,25 @@ type PropsType = {|
   title: string,
   language: string,
   city: string,
-  cities: Array<CityModel>,
-  redirect: any,
+  path: string,
 |}
 
 class LocalNewsDetailsPage extends React.PureComponent<PropsType> {
-
-  componentDidMount() {
-
-    const currentCity: any = this.props.cities.find(cityElement => cityElement._code === this.props.city) || {}
-
-    if (!currentCity.newsEnabled && !currentCity.tuNewsEnabled) {
-      this.props.redirect({ payload: { language: this.props.language, city: this.props.city }, type: CATEGORIES_ROUTE })
-    }
-    else if (!currentCity.newsEnabled && currentCity.tuNewsEnabled) {
-      this.props.redirect({ payload: { language: this.props.language, city: this.props.city }, type: TUNEWS_LIST_ROUTE })
-    }
-  }
-
   render() {
-    const { localNewsDetails, title, language } = this.props
+    const { localNewsDetails, title, language, city, path } = this.props
     const localNewsItem = localNewsDetails[0]
 
+    if (!localNewsItem) {
+      const error = new ContentNotFoundError({ type: 'newsItem', id: path, city, language })
+      return <FailureSwitcher error={error} />
+    }
+
     return (
-      <Page title={localNewsItem._title} content="" language={language} lastUpdate={localNewsItem._timestamp}>
-        {localNewsItem._message}
-      </Page>
+      <NewsController>
+        <Page title={localNewsItem._title} content="" language={language} lastUpdate={localNewsItem._timestamp}>
+          {localNewsItem._message}
+        </Page>
+      </NewsController>
     )
   }
 }
@@ -61,16 +50,12 @@ const mapStateTypeToProps = (state: StateType) => (
   {
     language: state.location.payload.language,
     city: state.location.payload.city,
-    cities: state.cities._data,
+    path: state.location.pathname
   }
 )
 
-const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>) => ({
-  redirect: action => dispatch(redirect(action))
-})
-
 export default compose(
-  connect<*, *, *, *, *, *>(mapStateTypeToProps, mapDispatchToProps),
+  connect<*, *, *, *, *, *>(mapStateTypeToProps),
   withTranslation('localNewsDetails')
 )(LocalNewsDetailsPage)
 
