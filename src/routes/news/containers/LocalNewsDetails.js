@@ -37,10 +37,10 @@ class LocalNewsDetailsPage extends React.PureComponent<PropsType> {
 
     const currentCity: any = this.props.cities.find(cityElement => cityElement._code === this.props.city) || {}
 
-    if (!currentCity.newsEnabled && !currentCity.tuNewsEnabled) {
+    if (!currentCity.pushNotificationsEnabled && !currentCity.tunewsEnabled) {
       this.props.redirect({ payload: { language: this.props.language, city: this.props.city }, type: CATEGORIES_ROUTE })
     }
-    else if (!currentCity.newsEnabled && currentCity.tuNewsEnabled) {
+    else if (!currentCity.pushNotificationsEnabled && currentCity.tunewsEnabled) {
       this.props.redirect({ payload: { language: this.props.language, city: this.props.city }, type: TUNEWS_LIST_ROUTE })
     }
   }

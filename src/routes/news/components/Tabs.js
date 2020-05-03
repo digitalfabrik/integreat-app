@@ -43,10 +43,10 @@ class Tabs extends React.PureComponent<PropsType, StateType> {
       <>
         <StyledTabs>
           {
-            currentCity._newsEnabled && <Tab active={localNews} type={LOCAL_NEWS} destination={`/${city}/${language}/news/local`} />
+            currentCity._pushNotificationsEnabled && <Tab active={localNews} type={LOCAL_NEWS} destination={`/${city}/${language}/news/local`} />
           }
           {
-            currentCity._tuNewsEnabled && <Tab active={tuNews} type={TU_NEWS} destination={`/${city}/${language}/news/tu-news`} />
+            currentCity._tunewsEnabled && <Tab active={tuNews} type={TU_NEWS} destination={`/${city}/${language}/news/tu-news`} />
           }
         </StyledTabs>
         {children}

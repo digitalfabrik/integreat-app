@@ -98,7 +98,7 @@ export class LocationHeader extends React.Component<PropsType> {
     }
 
     if (isNewsEnabled) {
-      const newsUrl = city.newsEnabled ? new NewsRouteConfig().getRoutePath({ city, language }) : new TuNewsListRouteConfig().getRoutePath({ city, language })
+      const newsUrl = city.pushNotificationsEnabled ? new NewsRouteConfig().getRoutePath({ city, language }) : new TuNewsListRouteConfig().getRoutePath({ city, language })
       items.push(
         <HeaderNavigationItem
           key='news'
