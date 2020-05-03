@@ -14,6 +14,7 @@ import LocationToolbar from '../components/LocationToolbar'
 import { CATEGORIES_ROUTE } from '../../app/route-configs/CategoriesRouteConfig'
 import { EVENTS_ROUTE } from '../../app/route-configs/EventsRouteConfig'
 import { NEWS_ROUTE } from '../../app/route-configs/NewsRouteConfig'
+import { TUNEWS_LIST_ROUTE } from '../../app/route-configs/TuNewsListRouteConfig'
 import { SPRUNGBRETT_ROUTE } from '../../app/route-configs/SprungbrettRouteConfig'
 import { WOHNEN_ROUTE } from '../../app/route-configs/WohnenRouteConfig'
 import { DISCLAIMER_ROUTE } from '../../app/route-configs/DisclaimerRouteConfig'
@@ -92,7 +93,7 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
     if (type === CATEGORIES_ROUTE) {
       return <CategoriesToolbar categories={categories} location={location}
                                 openFeedbackModal={this.openFeedbackModal} />
-    } else if ([EXTRAS_ROUTE, EVENTS_ROUTE, NEWS_ROUTE, DISCLAIMER_ROUTE, WOHNEN_ROUTE, SPRUNGBRETT_ROUTE].includes(type)) {
+    } else if ([EXTRAS_ROUTE, EVENTS_ROUTE, NEWS_ROUTE, TUNEWS_LIST_ROUTE, DISCLAIMER_ROUTE, WOHNEN_ROUTE, SPRUNGBRETT_ROUTE].includes(type)) {
       return <LocationToolbar openFeedbackModal={this.openFeedbackModal} />
     } else {
       return null
