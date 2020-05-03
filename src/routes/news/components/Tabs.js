@@ -1,5 +1,4 @@
 // @flow
-
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
@@ -36,7 +35,7 @@ type StateType = {|
 class Tabs extends React.PureComponent<PropsType, StateType> {
   render() {
     const { localNews, tuNews, children, city, cities, language } = this.props
-    const currentCity:any = cities.find(cityElement => cityElement._code === city)
+    const currentCity: CityModel = cities && cities.find(cityElement => cityElement._code === city) || {}
 
     return (
       <>
@@ -61,7 +60,6 @@ const mapStateTypeToProps = (state: StateType) => {
     cities: state.cities._data,
   }
 }
-
 
 export default compose(
   connect<*, *, *, *, *, *>(mapStateTypeToProps),
