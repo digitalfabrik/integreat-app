@@ -48,7 +48,7 @@ const TuStyledTab = styled(StyledTab)`
 type PropsType = {|
   type: string,
   active: boolean,
-  destination: string,
+  destination: string
 |}
 
 class Tab extends React.PureComponent<PropsType> {

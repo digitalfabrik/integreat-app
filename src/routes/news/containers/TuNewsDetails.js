@@ -10,24 +10,18 @@ import compose from 'lodash/fp/compose'
 import type { StateType } from '../../../modules/app/StateType'
 import TuNewsDetailsFooter from './../components/TuNewsDetailsFooter'
 import { TFunction } from 'i18next'
-import { redirect } from 'redux-first-router'
-import type { Dispatch } from 'redux'
-import type { StoreActionType } from '../../../modules/app/StoreActionType'
-import { TUNEWS_LIST_ROUTE } from './../../../modules/app/route-configs/TuNewsListRouteConfig'
-import { CityModel } from '@integreat-app/integreat-api-client'
-import { CATEGORIES_ROUTE } from './../../../modules/app/route-configs/CategoriesRouteConfig'
-import { NEWS_ROUTE } from './../../../modules/app/route-configs/NewsRouteConfig'
+import NewsController from './../containers/NewsController'
+import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
+import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 
 const StyledContainer = styled.div`
   display: flex;
   justify-content: space-between;
   flex-direction: column;
 `
-
 const StyledWrapper = styled.div`
   padding-bottom: 50px;
 `
-
 const StyledBanner = styled.div`
   display: flex;
   align-items: center;
@@ -63,59 +57,49 @@ const Content = styled.p`
   line-height: 1.38;
   color: ${({ theme }) => (theme.colors.headlineTextColor)};
 `
-
 type PropsType = {|
   tuNewsElementDetails: any,
   language: string,
+  path: string,
   city: string,
-  cities: Array<CityModel>,
-  redirect: any,
   t: TFunction
 |}
 
 class TuNewsDetailsPage extends React.PureComponent<PropsType> {
-  componentDidMount() {
-    const currentCity: any = this.props.cities.find(cityElement => cityElement._code === this.props.city) || {}
-
-    if (!currentCity.pushNotificationsEnabled && !currentCity.tunewsEnabled) {
-      this.props.redirect({ payload: { language: this.props.language, city: this.props.city }, type: CATEGORIES_ROUTE })
-    }
-    else if (currentCity.pushNotificationsEnabled && !currentCity.tunewsEnabled) {
-      this.props.redirect({ payload: { language: this.props.language, city: this.props.city }, type: NEWS_ROUTE })
-    }
-  }
-
   render() {
-    const { tuNewsElementDetails, language, t } = this.props
+    const { tuNewsElementDetails, language, path, city, t } = this.props
+
+    if (!tuNewsElementDetails) {
+      const error = new ContentNotFoundError({ type: 'tuNewsItem', id: path, city, language })
+      return <FailureSwitcher error={error} />
+    }
 
     return (
-      <StyledContainer>
-        <StyledWrapper>
-          <StyledBanner>
-            <StyledTitle>
-              <StyledBannerImage src={TuNewsIcon} alt={t('tu.news')} />
-            </StyledTitle>
-          </StyledBanner>
-          <Title>{tuNewsElementDetails && tuNewsElementDetails._title}</Title>
-          <Content>{tuNewsElementDetails && tuNewsElementDetails._content}</Content>
-        </StyledWrapper>
-        <TuNewsDetailsFooter eNewsNumber={tuNewsElementDetails.enewsno} date={tuNewsElementDetails && tuNewsElementDetails._date} language={language} t={this.props.t}/>
-      </StyledContainer>
+      <NewsController>
+        <StyledContainer>
+          <StyledWrapper>
+            <StyledBanner>
+              <StyledTitle>
+                <StyledBannerImage src={TuNewsIcon} alt={t('tu.news')} />
+              </StyledTitle>
+            </StyledBanner>
+            <Title>{tuNewsElementDetails && tuNewsElementDetails._title}</Title>
+            <Content>{tuNewsElementDetails && tuNewsElementDetails._content}</Content>
+          </StyledWrapper>
+          <TuNewsDetailsFooter eNewsNumber={tuNewsElementDetails.enewsno} date={tuNewsElementDetails && tuNewsElementDetails._date} language={language} t={this.props.t} />
+        </StyledContainer>
+      </NewsController>
     )
   }
 }
 
 const mapStateToProps = (state: StateType) => ({
   language: state.location.payload.language,
+  path: state.location.pathname,
   city: state.location.payload.city,
-  cities: state.cities._data,
-})
-
-const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>) => ({
-  redirect: action => dispatch(redirect(action))
 })
 
 export default compose(
-  connect<*, *, *, *, *, *>(mapStateToProps, mapDispatchToProps),
+  connect<*, *, *, *, *, *>(mapStateToProps),
   withTranslation('tuNewsDetails')
 )(TuNewsDetailsPage)

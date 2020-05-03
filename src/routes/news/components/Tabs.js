@@ -4,7 +4,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import Tab from './Tab'
-import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
 import compose from 'lodash/fp/compose'
 import { connect } from 'react-redux'
@@ -26,18 +25,18 @@ type PropsType = {|
   children: any,
   city: string,
   cities: Array<CityModel>,
-  language: string,
+  language: string
 |}
 
 type StateType = {|
   location: any,
-  cities: Array<CityModel>,
+  cities: Array<CityModel>
 |}
 
 class Tabs extends React.PureComponent<PropsType, StateType> {
-  render() {
+  render () {
     const { localNews, tuNews, children, city, cities, language } = this.props
-    const currentCity:any = cities && cities.find(cityElement => cityElement._code === city)
+    const currentCity: CityModel = cities && cities.find(cityElement => cityElement._code === city) || {}
 
     return (
       <>

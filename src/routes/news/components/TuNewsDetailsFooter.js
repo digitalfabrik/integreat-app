@@ -1,6 +1,7 @@
+// @flow
+
 import React from 'react'
 import styled from 'styled-components'
-import PageDetail from '../../../modules/common/components/PageDetail'
 import { TFunction } from 'i18next'
 import compose from 'lodash/fp/compose'
 import { withTranslation } from 'react-i18next'
@@ -14,16 +15,16 @@ const Footer = styled.footer`
   background-color:  #007aa8;
   padding: 0 2% 5px;
   color: white;
-  border-radius: 24px
+  border-radius: 24px;
 `
 
 const StyledContainer = styled.div`
-padding: 5px 10px 0;
+  padding: 5px 10px 0;
 `
 
 const StyledLink = styled.a`
-color: white;
-text-decoration: underline;
+  color: white;
+  text-decoration: underline;
 `
 
 type PropsType<T> = {|
@@ -34,7 +35,7 @@ type PropsType<T> = {|
 |}
 
 class TuNewsDetailsFooter<T> extends React.PureComponent<PropsType<T>> {
-  render() {
+  render () {
     const { eNewsNumber, date, language, t } = this.props
     date.locale(language)
     const timestamp = date.format('LL')

@@ -1,4 +1,5 @@
 // @flow
+
 import * as React from 'react'
 import styled from 'styled-components'
 import { TuNewsModel } from '@integreat-app/integreat-api-client'
@@ -7,11 +8,7 @@ import LastUpdateInfo from './../../../modules/common/components/LastUpdateInfo'
 import type { TFunction } from 'react-i18next'
 import { textTruncator } from './../../../modules/theme/constants/helpers'
 import { withTranslation } from 'react-i18next'
-import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
-
-const LOCAL_NEWS = 'local'
-const TU_NEWS = 'tu'
 
 const Link = styled(CleanLink)`
   display: flex;
@@ -59,15 +56,15 @@ const StyledNewsElement = styled.div`
 `
 
 const StyledContainer = styled.div`
-width: 100%;
-display: flex;
-justify-content: space-between;
-align-items: center;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `
 
 const StyledDate = styled(LastUpdateInfo)`
-font-size: 12px;
-color: red;
+  font-size: 12px;
+  color: ${({ theme }) => (theme.colors.headlineTextColor)};
 `
 
 type PropsType = {|
@@ -79,7 +76,7 @@ type PropsType = {|
 |}
 
 class NewsElement extends React.PureComponent<PropsType> {
-  renderContent(itemPath: string): React.Node {
+  renderContent (itemPath: string): React.Node {
     const { newsItem, t, language } = this.props
     return (
       <Description>
@@ -93,9 +90,9 @@ class NewsElement extends React.PureComponent<PropsType> {
     )
   }
 
-  render() {
-    const { path, newsItem, city, language } = this.props
-    const itemPath = `${path}/${newsItem._id}`;
+  render () {
+    const { path, newsItem } = this.props
+    const itemPath = `${path}/${newsItem._id}`
 
     return (
       <StyledNewsElement>
