@@ -22,11 +22,11 @@ type PropsType<T> = {|
   items: Array<T>,
   noItemsMessage: string,
   renderItem: any,
-  city: string,
+  city: string
 |}
 
-class NewsList<T>extends React.PureComponent<PropsType<T>> {
-  render() {
+class NewsList<T> extends React.PureComponent<PropsType<T>> {
+  render () {
     const { items, renderItem, noItemsMessage, city } = this.props
     if (isEmpty(items)) {
       return <NoItemsMessage>{noItemsMessage}</NoItemsMessage>

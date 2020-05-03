@@ -26,16 +26,11 @@ type PropsType<T> = {|
   items: Array<T>,
   noItemsMessage: string,
   renderItem: any,
-  city: string,
+  city: string
 |}
 
-class PaginatedList<T>extends React.PureComponent<PropsType<T>> {
-  constructor (props) {
-    super(props)
-    this.loadItemsThrottle = throttle(this.loadItems, 2000)
-  }
-
-  componentDidUpdate (prevProp) {
+class PaginatedList<T> extends React.PureComponent<PropsType<T>> {
+  componentDidUpdate (prevProp: PropsType) {
     const { language, resetTuNews, fetchTuNews } = this.props
     if (prevProp.language !== language) {
       resetTuNews()
@@ -48,7 +43,7 @@ class PaginatedList<T>extends React.PureComponent<PropsType<T>> {
   };
 
   render () {
-    const { items, renderItem, noItemsMessage, city, hasMore } = this.props
+    const { items, renderItem, noItemsMessage, city, hasMore, isFetching } = this.props
     if (isEmpty(items)) {
       return <NoItemsMessage>{noItemsMessage}</NoItemsMessage>
     }
@@ -56,8 +51,8 @@ class PaginatedList<T>extends React.PureComponent<PropsType<T>> {
     return (
       <StyledList>
         <InfiniteScroll
-          loadMore={this.loadItemsThrottle}
-          hasMore={hasMore}
+          loadMore={this.loadItems}
+          hasMore={!isFetching && hasMore}
           loader={<LoadingSpinner />}
         >
           <div>{items.map(item => renderItem(item, city))}</div>
