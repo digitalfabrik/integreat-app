@@ -20,10 +20,6 @@ type RequiredPayloadsType = {| news: Payload<Array<LocalNewsModel>> |}
 
 export const NEWS_ROUTE = 'NEWS'
 
-/**
- * EventsRoute, matches /augsburg/de/events and /augsburg/de/events/begegnungscafe
- * @type {{path: string, thunk: function(Dispatch, GetState)}}
- */
 const newsRoute: Route = {
   path: '/:city/:language/news/local',
   thunk: async (dispatch, getState) => {
