@@ -8,6 +8,7 @@ import {
   createEventsEndpoint,
   createTuNewsListEndpoint,
   createLanguagesEndpoint,
+  createLocalNewsEndpoint,
   TuNewsModel,
   Payload
 } from '@integreat-app/integreat-api-client'
@@ -17,7 +18,7 @@ import { cmsApiBaseUrl, tuNewsApiBaseUrl } from '../constants/urls'
 type TuNewsListRouteParamsType = {| city: string, language: string |}
 type RequiredPayloadsType = {| news: Payload<Array<TuNewsModel>> |}
 
-export const TUNEWS_LIST_ROUTE = "TUNEWS_LIST"
+export const TUNEWS_LIST_ROUTE = 'TUNEWS_LIST'
 
 const tuNewsListRoute: Route = {
   path: '/:city/:language/news/tu-news',
@@ -28,7 +29,8 @@ const tuNewsListRoute: Route = {
     const promises = [
       fetchData(createCitiesEndpoint(cmsApiBaseUrl), dispatch, state.cities),
       fetchData(createEventsEndpoint(cmsApiBaseUrl), dispatch, state.events, { city, language }),
-      fetchData(createLanguagesEndpoint(tuNewsApiBaseUrl, true), dispatch, state.languages, { city, language })
+      fetchData(createLanguagesEndpoint(tuNewsApiBaseUrl, true), dispatch, state.languages, { city, language }),
+      fetchData(createLocalNewsEndpoint(cmsApiBaseUrl), dispatch, state.news, { city, language })
     ]
 
     if (!state.tunewsList.data.length) {

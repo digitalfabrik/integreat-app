@@ -8,16 +8,6 @@ import Link from 'redux-first-router-link'
 
 const TU_NEWS = 'tu'
 
-const decideColor = (active, theme) => {
-  let color
-  if (active) {
-    color = theme.colors.themeColor
-  } else {
-    color = theme.colors.tuNewsColor
-  }
-  return color
-}
-
 const StyledTab = styled(Link)`
   cursor: pointer;
   box-sizing: border-box;
@@ -29,17 +19,19 @@ const StyledTab = styled(Link)`
   flex-shrink: 0;
   object-fit: contain;
   background-color: ${({ active, theme }) =>
-    active ? decideColor(active, theme) : 'rgba(111, 111, 110, 0.4)'};
+    active ? theme.colors.themeColor : 'rgba(111, 111, 110, 0.4)'};
   border-radius: 11px;
   margin-right: 30px;
   font-size: 18px;
   font-weight: bold;
   color: #ffffff;
-  width: 150px;
+  width: 160px;
+  text-decoration: none;
 `
 
 const TuStyledTab = styled(StyledTab)`
-  background-image: url(${tuNewsLogoActive});
+  background-color: ${({ active, theme }) =>
+    active ? '#0179a6' : 'rgba(111, 111, 110, 0.4)'};
   background-image: ${({ active, theme }) =>
     active ? `url(${tuNewsLogoActive})` : `url(${tuNewsLogoInActive})`};
   background-size: cover;
@@ -53,7 +45,7 @@ type PropsType = {|
 
 class Tab extends React.PureComponent<PropsType> {
   render () {
-    const { type, active, destination } = this.props
+    const { type, active, destination, t } = this.props
 
     if (type === TU_NEWS) {
       return (
@@ -65,7 +57,7 @@ class Tab extends React.PureComponent<PropsType> {
 
     return (
       <StyledTab active={active} to={destination}>
-        LOCAL
+        {t('local')}
       </StyledTab>
     )
   }

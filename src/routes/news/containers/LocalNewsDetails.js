@@ -1,8 +1,6 @@
 // @flow
 
 import * as React from 'react'
-import styled from 'styled-components'
-import type Moment from 'moment'
 import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 import { withTranslation } from 'react-i18next'
@@ -13,24 +11,18 @@ import NewsController from './../containers/NewsController'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 
-const StyledContainer = styled.div`
-display: flex;
-flex-direction: column;
-align-items: center;
-`
-
 type PropsType = {|
   localNewsDetails: LocalNewsModel,
   title: string,
   language: string,
   city: string,
-  path: string,
+  path: string
 |}
 
 class LocalNewsDetailsPage extends React.PureComponent<PropsType> {
-  render() {
-    const { localNewsDetails, title, language, city, path } = this.props
-    const localNewsItem = localNewsDetails[0]
+  render () {
+    const { localNewsDetails, language, city, path, id } = this.props
+    const localNewsItem: LocalNewsModel | void = localNewsDetails.find(item => item.id && item.id === id)
 
     if (!localNewsItem) {
       const error = new ContentNotFoundError({ type: 'newsItem', id: path, city, language })
@@ -51,7 +43,8 @@ const mapStateTypeToProps = (state: StateType) => (
   {
     language: state.location.payload.language,
     city: state.location.payload.city,
-    path: state.location.pathname
+    path: state.location.pathname,
+    id: state.location.payload.id
   }
 )
 
@@ -59,4 +52,3 @@ export default compose(
   connect<*, *, *, *, *, *>(mapStateTypeToProps),
   withTranslation('localNewsDetails')
 )(LocalNewsDetailsPage)
-
