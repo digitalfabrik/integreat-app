@@ -1,15 +1,9 @@
 // @flow
 
 import * as React from 'react'
-import {
-  View,
-  ActivityIndicator
-} from 'react-native'
+import { View, ActivityIndicator, ScrollView } from 'react-native'
 import type { TFunction } from 'react-i18next'
-import {
-  CityModel,
-  NewsModel
-} from '@integreat-app/integreat-api-client'
+import { CityModel, NewsModel } from '@integreat-app/integreat-api-client'
 import ContentNotFoundError from '../../../modules/error/ContentNotFoundError'
 import List from './List'
 import Failure from '../../../modules/error/components/Failure'
@@ -19,45 +13,44 @@ import { NavigationScreenProp } from 'react-navigation'
 import type { NavigateToNewsParamsType } from '../../../modules/app/createNavigateToNews'
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
-import NewsListItem, { Title, Content } from './NewsListItem'
-import headerImage from '../assets/header.png'
-import thumbnailImage from '../assets/thumbnail.jpg'
+import NewsListItem from './NewsListItem'
+import headerImage from '../assets/tu-news-header-details-icon.svg'
 import styled from 'styled-components/native'
-import ListItem from '../../../modules/common/components/ListItem'
 import { INTERNATIONAL } from '../containers/NewsContainer'
+import { contentAlignment } from '../../../modules/i18n/contentDirection'
 
 const Container = styled.View`
   align-items: center;
-  margin-horizontal: 26px;
+  margin-horizontal: 3%;
+  flex: 1;
+`
+
+const HeaderImageWrapper = styled.View`
+  width: 95%;
+  align-self: center;
+  align-items: flex-start;
+  margin-top: 19px;
+  border-radius: 5px;
+  background-color: rgba(2, 121, 166, 0.4);
 `
 const HeaderImage = styled.Image`
-  width: 95%;
-  height: 50px;
-  margin-horizontal: 10px;
-  align-self: center;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
 `
-const Thumbnail = styled.Image`
-  width: 100%;
-  height: 150px;
-  margin-bottom: 15px;
-  margin-top: 10px;
-`
+
 const Row = styled.View`
   flex-direction: row;
   border-radius: 5px;
+  width: 95%;
+  align-self: center;
   background-color: ${props => props.theme.colors.tuNewsColor};
 `
 
 const ExtraInfo = styled.Text`
   font-family: ${props => props.theme.fonts.decorativeFontBold};
-  font-size: 11px;
+  font-size: 12px;
   color: white;
   padding: 5px;
-`
-
-const Description = styled.Text`
-  color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.contentFontRegular};
 `
 
 const NoNews = styled.Text`
@@ -65,6 +58,23 @@ const NoNews = styled.Text`
   font-family: ${props => props.theme.fonts.contentFontRegular};
   align-self: center;
   margin-top: 20px;
+`
+
+const NewsDetailsTitle = styled.Text`
+  font-weight: 700;
+  font-family: ${props => props.theme.fonts.decorativeFontBold};
+  color: ${props => props.theme.colors.textColor};
+  font-size: 18px;
+  margin-top: 18px;
+  margin-bottom: 15px;
+`
+
+const NewsDetailsContent = styled.Text`
+  font-family: ${props => props.theme.fonts.decorativeFontRegular};
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  text-align: ${props => contentAlignment(props.language)};
+  color: ${props => props.theme.colors.textColor};
 `
 
 export type PropsType = {|
@@ -81,9 +91,9 @@ export type PropsType = {|
 |}
 
 /**
- * Displays a list of events or a single event, matching the route /<location>/<language>/events(/<id>)
+ * Displays a list of news or a single event, matching the route /<location>/<language>/events(/<id>)
  */
-class NewsList extends React.Component<PropsType> {
+class NewsList extends React.PureComponent<PropsType> {
   navigateToNews = (cityCode: string, language: string, path: string) => () => {
     const { selectedNewsType } = this.props
     this.props.navigateToNews({
@@ -103,27 +113,20 @@ class NewsList extends React.Component<PropsType> {
     item: newsItem
   }) => {
     const { theme, selectedNewsType } = this.props
-
-    return selectedNewsType === INTERNATIONAL ? (
+    const isTuNews = selectedNewsType === INTERNATIONAL
+    return (
       <NewsListItem
-        key={newsItem.id || newsItem.timestap}
+        key={newsItem.id}
         newsItem={newsItem}
         language={language}
         theme={theme}
+        isTuNews={isTuNews}
         navigateToNews={this.navigateToNews(
           cityCode,
           language,
           `${newsItem.id}`
         )}
       />
-    ) : (
-      <ListItem
-        title={newsItem.title}
-        language={language}
-        navigateTo={this.navigateToNews(cityCode, language, `${newsItem.id}`)}
-        theme={theme}>
-        <Description theme={theme}>{newsItem.message}</Description>
-      </ListItem>
     )
   };
 
@@ -138,14 +141,13 @@ class NewsList extends React.Component<PropsType> {
       contentLanguage,
       status,
       fetchMoreNews,
-      selectedNewsType,
-      fetchNews
+      fetchNews,
+      type: selectedNewsType
     } = this.props
+    const isTuNews = selectedNewsType === INTERNATIONAL
 
     if (path) {
       const selectedNewsItem = newsList && newsList[0]
-      const isTuNews = selectedNewsType === INTERNATIONAL
-
       if (selectedNewsItem) {
         const content = selectedNewsItem.content || ''
         const contentFooterIndex = content.indexOf('tünews')
@@ -153,21 +155,34 @@ class NewsList extends React.Component<PropsType> {
         const splittedContent = content.split(contentExtraInfo)[0]
 
         return (
-          <>
-            {isTuNews && <HeaderImage resizeMode='cover' source={headerImage} />}
-            <Container>
-              <Title theme={theme}>{selectedNewsItem.title}</Title>
-              <Thumbnail resizeMode='cover' source={thumbnailImage} />
-              <Content theme={theme}>
-                {splittedContent || selectedNewsItem.message}
-              </Content>
+          <View style={{ flex: 1 }}>
+            <ScrollView
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={{
+                flexGrow: 1,
+                marginBottom: 10,
+                paddingHorizontal: '5%'
+              }}>
+              {isTuNews && (
+                <HeaderImageWrapper>
+                  <HeaderImage source={headerImage} />
+                </HeaderImageWrapper>
+              )}
+              <Container>
+                <NewsDetailsTitle theme={theme}>
+                  {selectedNewsItem.title}
+                </NewsDetailsTitle>
+                <NewsDetailsContent theme={theme} language={language}>
+                  {splittedContent || selectedNewsItem.message}
+                </NewsDetailsContent>
+              </Container>
               <Row theme={theme}>
                 {contentExtraInfo ? (
                   <ExtraInfo theme={theme}>{contentExtraInfo}</ExtraInfo>
                 ) : null}
               </Row>
-            </Container>
-          </>
+            </ScrollView>
+          </View>
         )
       }
       if (status === 'loading') {

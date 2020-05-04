@@ -5,7 +5,10 @@ import { NewsModel } from '@integreat-app/integreat-api-client' // TODO: check i
 import styled from 'styled-components/native'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import { type StyledComponent } from 'styled-components'
-import { contentDirection } from '../../../modules/i18n/contentDirection'
+import {
+  contentDirection,
+  contentAlignment
+} from '../../../modules/i18n/contentDirection'
 import { withTranslation } from 'react-i18next'
 
 const TEXT_MAX_LENGTH = 250
@@ -30,7 +33,20 @@ const ListItemView: StyledComponent<
 > = styled.View`
   flex-direction: ${props => contentDirection(props.language)};
 `
-const ListItemWrapper = styled.View``
+
+const ReadMoreWrapper: StyledComponent<
+  ListItemViewPropsType,
+  ThemeType,
+  *
+> = styled.View`
+  flex-direction: ${props => contentDirection(props.language)};
+  justify-content: flex-end;
+  width: 100%;
+`
+
+const ListItemWrapper = styled.View`
+  padding-horizontal: 5%;
+`
 
 const StyledTouchableOpacity: StyledComponent<
   {},
@@ -38,7 +54,6 @@ const StyledTouchableOpacity: StyledComponent<
   *
 > = styled.TouchableOpacity`
   flex-direction: column;
-  padding-bottom: 10px;
 `
 
 const Divider = styled.View`
@@ -53,22 +68,24 @@ const Divider = styled.View`
 export const Description = styled.View`
   flex-direction: column;
   font-family: ${props => props.theme.fonts.decorativeFontRegular};
-  padding: 15px 5px 0;
+  padding: ${props =>
+    props.isTuNews ? '15px 5px 0px 0px' : '0px'};
 `
 
 export const Title = styled.Text`
   font-weight: 700;
   font-family: ${props => props.theme.fonts.decorativeFontBold};
   color: ${props => props.theme.colors.textColor};
-  font-size: 14px;
+  font-size: 16px;
   margin-bottom: 8px;
   margin-top: 8px;
 `
 
 export const Content = styled.Text`
   font-family: ${props => props.theme.fonts.decorativeFontRegular};
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 0.5px;
+  text-align: ${props => contentAlignment(props.language)};
   color: ${props => props.theme.colors.textColor};
 `
 
@@ -76,7 +93,10 @@ export const ReadMore = styled.Text`
   font-family: ${props => props.theme.fonts.decorativeFontRegular};
   font-size: 12px;
   letter-spacing: 0.5px;
-  color: ${props => props.theme.colors.tuNewsColor};
+  color: ${props =>
+    props.isTuNews
+      ? props.theme.colors.tuNewsColor
+      : props.theme.colors.themeColor};
 `
 
 class NewsListItem extends React.PureComponent<PropsType> {
@@ -87,41 +107,46 @@ class NewsListItem extends React.PureComponent<PropsType> {
 
   render () {
     const {
-      newsItem: { title, content = '' },
+      newsItem: { title, content, message },
       language,
       navigateToNews,
       theme,
-      t
+      t,
+      isTuNews
     } = this.props
-
-    const isContentSplitted = content.length > TEXT_MAX_LENGTH
+    const newsContent = content || message || ''
 
     const contentSplitted =
-      content.length > TEXT_MAX_LENGTH
-        ? `${content.slice(0, TEXT_MAX_LENGTH)}...`
-        : content
+      newsContent.length > TEXT_MAX_LENGTH
+        ? `${newsContent.slice(0, TEXT_MAX_LENGTH)}...`
+        : newsContent
 
     return (
-      <ListItemWrapper>
+      <>
         <Divider />
-        <StyledTouchableOpacity onPress={navigateToNews} theme={theme}>
-          <Description theme={theme}>
-            <ListItemView language={language} theme={theme}>
-              <Title theme={theme}>{title}</Title>
-            </ListItemView>
-            <ListItemView language={language} theme={theme}>
-              <Content theme={theme}>
-                {contentSplitted}
-                {isContentSplitted && (
-                  <ReadMore theme={theme}>{t('readMore')}</ReadMore>
-                )}
-              </Content>
-            </ListItemView>
-          </Description>
-        </StyledTouchableOpacity>
-      </ListItemWrapper>
+        <ListItemWrapper>
+          <StyledTouchableOpacity onPress={navigateToNews} theme={theme}>
+            <Description theme={theme} isTuNews={isTuNews}>
+              <ListItemView language={language} theme={theme}>
+                <Title theme={theme}>{title}</Title>
+              </ListItemView>
+              <ListItemView language={language} theme={theme}>
+                <Content language={language} theme={theme}>
+                  {contentSplitted}
+                </Content>
+              </ListItemView>
+            </Description>
+          </StyledTouchableOpacity>
+          <ReadMoreWrapper language={language}>
+            <ReadMore theme={theme} isTuNews={isTuNews} onPress={navigateToNews}>{`${t(
+              'readMore'
+            )}`}</ReadMore>
+          </ReadMoreWrapper>
+        </ListItemWrapper>
+      </>
     )
   }
 }
 
-export default withTranslation('news')(NewsListItem)
+const TranslatedNewsListItem = withTranslation('news')(NewsListItem)
+export default TranslatedNewsListItem

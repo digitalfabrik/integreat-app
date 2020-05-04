@@ -381,6 +381,7 @@ class NewsContainer extends React.Component<ContainerPropsType> {
       code,
       availableLanguages
     } = this.props
+
     if (status === 'routeNotInitialized') {
       return null
     } else if (status === 'error') {
@@ -388,14 +389,14 @@ class NewsContainer extends React.Component<ContainerPropsType> {
         <ScrollView
           refreshControl={
             <RefreshControl
-              onRefresh={this.fetchNews}
+              onRefresh={() => this.fetchNews}
               refreshing={false}
             />
           }
           contentContainerStyle={{ flexGrow: 1 }}>
           {this.renderHeader()}
           <FailureContainer
-            tryAgain={this.fetchNews}
+            tryAgain={() => this.fetchNews()}
             message={message}
             code={code}
           />

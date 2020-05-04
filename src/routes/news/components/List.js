@@ -9,7 +9,7 @@ const Loader = styled.ActivityIndicator`
 `
 const keyExtractor = (item, index) => `${index}`
 
-export default ({
+const List = ({
   items,
   renderItem,
   isFetchingMore,
@@ -32,7 +32,7 @@ export default ({
     ListEmptyComponent={status === 'success' && renderNotItemsComponent}
     ListFooterComponent={
       (isFetchingMore || isFetching) && (
-        <Loader size='large' color={theme.colors.themeDarkColor} />
+        <Loader size='small' />
       )
     }
     onEndReachedThreshold={1}
@@ -40,3 +40,4 @@ export default ({
     renderItem={renderItem}
   />
 )
+export default List

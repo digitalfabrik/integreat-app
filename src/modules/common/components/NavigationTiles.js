@@ -75,10 +75,11 @@ class NavigationTiles extends React.Component<PropsType> {
 
   render () {
     const { tiles, theme } = this.props
+    const isMoreThanThreeItems = tiles.length > 3
 
     return (
       <TilesRow theme={theme}>
-        {!isWideScreen && (
+        {!isWideScreen && isMoreThanThreeItems && (
           <Icon
             name='keyboard-arrow-left'
             color={theme.colors.black}
@@ -106,7 +107,7 @@ class NavigationTiles extends React.Component<PropsType> {
             />
           ))}
         </ScrollView>
-        {!isWideScreen && (
+        {!isWideScreen && isMoreThanThreeItems && (
           <Icon
             name='keyboard-arrow-right'
             color={theme.colors.black}
