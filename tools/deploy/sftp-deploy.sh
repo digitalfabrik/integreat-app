@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-
 REMOTE_DIR=$1
 USERNAME=$2
 KEYFILE=$3

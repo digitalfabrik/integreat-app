@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  slack: circleci/slack@3.4.2
+
 parameters:
   api_triggered:
     type: boolean
@@ -55,12 +58,10 @@ jobs:
       production:
         description: Whether to build for production.
         type: boolean
-    docker: # TOOD environment
-      - image: circleci/android:api-28-node
-    resource_class: medium
+    docker:
+      - image: circleci/node:12.16.3
     environment:
       TOTAL_CPUS: 2 # For resource_class medium
-      FASTLANE_SKIP_UPDATE_CHECK: true
     shell: /bin/bash -eo pipefail
     steps:
       - run:
@@ -86,10 +87,10 @@ jobs:
             - ~/.cache/yarn
             - node_modules
       - run:
-          name: Linting check
+          name: Check linting
           command: yarn run lint
       - run:
-          name: Flow-type check
+          name: Check flow
           command: yarn run flow:check-now --max-workers $TOTAL_CPUS
       - run:
           name: Unit tests
@@ -105,7 +106,7 @@ jobs:
       - store_artifacts:
           path: dist/
       - persist_to_workspace:
-          root: dist/
+          root: dist
           paths:
             - *
 
@@ -115,177 +116,43 @@ jobs:
         description: Whether to release to production.
         type: boolean
     docker:
-      - image: circleci/android:api-28-node
+      - image: circleci/node:12.16.3
     resource_class: small
     shell: /bin/bash -eo pipefail
-    environment: # TODO environment
-      FASTLANE_SKIP_UPDATE_CHECK: true
+    environment:
       TOTAL_CPUS: 1 # For resource_class small
     steps:
       - run:
           name: "Show current CPU count"
           command: |
             echo "CPU count is ${TOTAL_CPUS}"
-      - run: 'curl -sL https://sentry.io/get-cli/ | bash'
       - checkout
       - attach_workspace:
-          at: /tmp/output
-      - restore_cache:
-          keys:
-            - 1-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
-            - 1-gems-{{ arch }}-
-      - run:
-          command: bundle check || bundle install --path vendor/bundle
-      - save_cache:
-          key: 1-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
-          paths:
-            - vendor/bundle
-      - restore_cache:
-          name: Restore Yarn Package Cache
-          keys:
-            - 2-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
-      - run:
-          name: Install Dependencies
-          command: yarn install --frozen-lockfile
-      - save_cache:
-          name: Save Yarn Package Cache
-          key: 2-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
-          paths:
-            - ~/.cache/yarn
-            - node_modules
-      - run:
-          name: Fastlane Browserstack Upload Live
-          command: bundle exec fastlane android browserstack_upload_live
-      - run:
-          name: Fastlane Play Store Upload
-          command: bundle exec fastlane android playstore_upload production:"<< parameters.production >>"
-      - run:
-          name: Fastlane Upload to Sentry
-          command: bundle exec fastlane android sentry_upload
-      - run:
-          name: Notify
-          command: bundle exec fastlane android notify_release
-
-  deliver_ios:
-    parameters:
-      production:
-        description: Whether to release to production.
-        type: boolean
-    macos:
-      xcode: 11.2.0
-    environment:
-      FASTLANE_SKIP_UPDATE_CHECK: true
-      TOTAL_CPUS: 4 # For mac with resource_class medium
-    shell: /bin/bash --login -o pipefail
-    steps:
-      - run:
-          name: "Show current CPU count"
-          command: |
-            echo "CPU count is ${TOTAL_CPUS}"
-      - run: 'curl -sL https://sentry.io/get-cli/ | bash'
-      - checkout
-      - attach_workspace:
-          at: /tmp/output
-      - restore_cache:
-          keys:
-            - 1-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
-            - 1-gems-{{ arch }}-
-      - run:
-          command: bundle check || bundle install --path vendor/bundle
-      - save_cache:
-          key: 1-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
-          paths:
-            - vendor/bundle
-      - run:
-          name: Ruby version
-          command: ruby --version
-      - run:
-          name: Fastlane Browserstack Upload Live
-          command: bundle exec fastlane ios browserstack_upload_live
+          at: dist
       - when:
           condition: <<parameters.production>>
           steps:
             - run:
-                name: Fastlane App Store Connect Upload
-                command: bundle exec fastlane ios appstoreconnect_upload
+                name: Production release
+                command: tools/deploy/sftp-deploy.sh /integreat.app # TODO
+            - slack/notify: # TODO
+                channel: CHANNELID
+                color: '#42e2f4'
+                mentions: 'USERID1,USERID2,'
+                message: This is a custom message notification
+                webhook: webhook
       - unless:
-          condition: <<parameters.production>>
-          steps:
-            - run:
-                name: Fastlane TestFlight Upload
-                command: bundle exec fastlane ios testflight_upload
-      - run:
-          name: Fastlane Upload to Sentry
-          command: bundle exec fastlane ios sentry_upload
-      - run:
-          name: Notify
-          command: bundle exec fastlane ios notify_release
-
-  e2e:
-    docker:
-      - image: circleci/android:api-28-node
-    resource_class: small
-    shell: /bin/bash -eo pipefail
-    environment:
-      FASTLANE_SKIP_UPDATE_CHECK: true
-      TOTAL_CPUS: 1 # For resource_class small
-    steps:
-      - run:
-          name: "Show current CPU count"
-          command: |
-            echo "CPU count is ${TOTAL_CPUS}"
-      - checkout
-      - attach_workspace:
-          at: /tmp/output
-      - restore_cache:
-          keys:
-            - 1-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
-            - 1-gems-{{ arch }}-
-      - run:
-          command: bundle check || bundle install --path vendor/bundle
-      - save_cache:
-          key: 1-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
-          paths:
-            - vendor/bundle
-      - restore_cache:
-          name: Restore Yarn Package Cache
-          keys:
-            - 2-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
-      - run:
-          name: Install Dependencies
-          command: yarn install --frozen-lockfile
-      - save_cache:
-          name: Save Yarn Package Cache
-          key: 2-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
-          paths:
-            - ~/.cache/yarn
-            - node_modules
-      - run:
-          name: Fastlane E2E Tests on Browserstack
-          command: bundle exec fastlane android browserstack_e2e_tests
-      - run:
-          name: Fastlane E2E Tests on Browserstack
-          command: bundle exec fastlane ios browserstack_e2e_tests
+        condition: <<parameters.production>>
+        name: Debug release
+        command: tools/deploy/sftp-deploy.sh /webnext.integreat-app.de # TODO
 
   bump_version:
     docker:
-      - image: circleci/android:api-28-node
+      - image: circleci/node:12.16.3
     resource_class: small
     shell: /bin/bash -eo pipefail
-    environment:
-      FASTLANE_SKIP_UPDATE_CHECK: true
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - 1-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
-            - 1-gems-{{ arch }}-
-      - run:
-          command: bundle check || bundle install --path vendor/bundle
-      - save_cache:
-          key: 1-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
-          paths:
-            - vendor/bundle
       - run:
           name: Bump version
           command: bundle exec fastlane github_bump_version
