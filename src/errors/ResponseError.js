@@ -2,14 +2,14 @@
 
 type ResponseErrorParamsType = {|
   endpointName: string,
-  responseStatus: number,
+  response: Response,
   url: string,
   formData: ?FormData
 |}
 
 class ResponseError extends Error {
   _endpointName: string
-  _responseStatus: number
+  _response: Response
   _url: string
   _formData: ?FormData
   _message: string
@@ -21,16 +21,16 @@ class ResponseError extends Error {
       Error.captureStackTrace(this, ResponseError)
     }
 
-    const { endpointName, responseStatus, url, formData } = params
+    const { endpointName, response, url, formData } = params
 
     this._message = this.createMessage(params)
     this._endpointName = endpointName
-    this._responseStatus = responseStatus
+    this._response = response
     this._url = url
     this._formData = formData
   }
 
-  createMessage ({ formData, url, endpointName, responseStatus }: ResponseErrorParamsType): string {
+  createMessage ({ formData, url, endpointName, response }: ResponseErrorParamsType): string {
     const stringifyFormData = (formData: ?FormData) => {
       if (formData) {
         const entries = {}
@@ -45,7 +45,7 @@ class ResponseError extends Error {
 
     return `ResponseError:
      Failed to load the request for the ${endpointName} endpoint with the url ${url}${stringifyFormData(formData)}.
-     Received response status ${responseStatus}.`
+     Received response status ${response.status}.`
   }
 
   get message (): string {
@@ -60,8 +60,8 @@ class ResponseError extends Error {
     return this._endpointName
   }
 
-  get responseStatus (): number {
-    return this._responseStatus
+  get response (): Response {
+    return this._response
   }
 
   get url (): string {
