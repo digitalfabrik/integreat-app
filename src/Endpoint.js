@@ -38,7 +38,7 @@ class Endpoint<P, T> {
     return this._stateName
   }
 
-  async fetchOrPost (url: string, formData: ?FormData): Promise<Response> {
+  async getOrPost (url: string, formData: ?FormData): Promise<Response> {
     try {
       return fetch(url, formData ? {
         method: 'POST',
@@ -60,7 +60,7 @@ class Endpoint<P, T> {
     }
 
     const formData = this.mapParamsToBody ? this.mapParamsToBody(params) : null
-    const response = await this.fetchOrPost(url, formData)
+    const response = await this.getOrPost(url, formData)
 
     if (!response.ok) {
       throw new ResponseError({ endpointName: this.stateName, responseStatus: response.status, url, formData })
