@@ -63,7 +63,7 @@ class Endpoint<P, T> {
     const response = await this.getOrPost(url, formData)
 
     if (!response.ok) {
-      throw new ResponseError({ endpointName: this.stateName, responseStatus: response.status, url, formData })
+      throw new ResponseError({ endpointName: this.stateName, response: response, url, formData })
     }
 
     try {
