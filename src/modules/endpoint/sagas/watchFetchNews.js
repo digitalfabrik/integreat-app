@@ -47,12 +47,10 @@ export function * fetchNews (
     if (languageValid) {
       const [newsList, resourceCache] = yield all([
         isNewsLocal
-          ? call(loadLocalNews, city, language, dataContainer, true)
+          ? call(loadLocalNews, city, language)
           : call(
             loadTuNews,
             language,
-            dataContainer,
-            true, // forceRefresh
             FIRST_PAGE,
             NEWS_FETCH_COUNT_LIMIT
           )
@@ -142,8 +140,6 @@ export function * fetchMoreNews (
       call(
         loadTuNews,
         language,
-        dataContainer,
-        true,
         page,
         NEWS_FETCH_COUNT_LIMIT
       )

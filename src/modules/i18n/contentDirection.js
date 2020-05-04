@@ -8,3 +8,6 @@ export const isContentDirectionReversalRequired = (contentLanguage: string): boo
 
 export const contentDirection = (contentLanguage: string): 'row' | 'row-reverse' =>
   isContentDirectionReversalRequired(contentLanguage) ? 'row-reverse' : 'row'
+
+export const contentAlignment = (contentLanguage: string): 'right' | 'left' =>
+  isContentDirectionReversalRequired(contentLanguage) ? 'right' : 'left'
