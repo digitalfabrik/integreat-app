@@ -26,7 +26,7 @@ export default (baseUrl: string): Endpoint<void, Array<CityModel>> => new Endpoi
     eventsEnabled: city.events,
     extrasEnabled: city.extras,
     tunewsEnabled: city.tunews,
-    pushNotificationsEnabled: city['push-notifications'],
+    pushNotificationsEnabled: city.push_notifications,
     sortingName: city.name_without_prefix,
     prefix: city.prefix,
     longitude: city.longitude,
