@@ -7,8 +7,6 @@ import CleanLink from '../../../modules/common/components/CleanLink'
 import LastUpdateInfo from './../../../modules/common/components/LastUpdateInfo'
 import type { TFunction } from 'react-i18next'
 import { textTruncator } from './../../../modules/theme/constants/helpers'
-import { withTranslation } from 'react-i18next'
-import compose from 'lodash/fp/compose'
 
 const Link = styled(CleanLink)`
   display: flex;
@@ -75,15 +73,17 @@ type PropsType = {|
   t: TFunction
 |}
 
-class NewsElement extends React.PureComponent<PropsType> {
+const TRUNCATE_LETTERS_COUNT = 30
+
+class TuNewsElement extends React.PureComponent<PropsType> {
   renderContent (itemPath: string): React.Node {
     const { newsItem, t, language } = this.props
     return (
       <Description>
         <Title>{newsItem._title}</Title>
-        <Body>{textTruncator(newsItem._content, 30)}</Body>
+        <Body>{textTruncator(newsItem._content, TRUNCATE_LETTERS_COUNT)}</Body>
         <StyledContainer>
-          <StyledDate lastUpdate={newsItem.date} language={language} withText={false}/>
+          <StyledDate lastUpdate={newsItem.date} language={language} withText={false} />
           <ReadMoreLink to={itemPath}>{t('readMore')}</ReadMoreLink>
         </StyledContainer>
       </Description>
@@ -104,6 +104,4 @@ class NewsElement extends React.PureComponent<PropsType> {
   }
 }
 
-export default compose(
-  withTranslation('news')
-)(NewsElement)
+export default TuNewsElement

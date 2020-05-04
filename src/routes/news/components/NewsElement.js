@@ -8,8 +8,7 @@ import LastUpdateInfo from './../../../modules/common/components/LastUpdateInfo'
 import type { TFunction } from 'react-i18next'
 import { textTruncator } from './../../../modules/theme/constants/helpers'
 
-const LOCAL_NEWS = 'local'
-const TU_NEWS = 'tu'
+const TRUNCATE_LETTERS_COUNT = 30
 
 const Link = styled(CleanLink)`
   display: flex;
@@ -30,7 +29,6 @@ const Description = styled.div`
   flex-grow: 1;
   padding: 15px 10px 0;
   word-wrap: break-word;
-
 
   > * {
     padding-bottom: 10px;
@@ -57,14 +55,14 @@ const StyledNewsElement = styled.div`
 `
 
 const StyledContainer = styled.div`
-width: 100%;
-display: flex;
-justify-content: space-between;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 `
 
 const StyledDate = styled(LastUpdateInfo)`
-font-size: 12px;
-color: ${({ theme }) => (theme.colors.headlineTextColor)};
+  font-size: 12px;
+  color: ${({ theme }) => (theme.colors.headlineTextColor)};
 `
 
 type PropsType = {|
@@ -75,13 +73,13 @@ type PropsType = {|
 |}
 
 class NewsElement extends React.PureComponent<PropsType> {
-  renderContent(itemPath: string): React.Node {
+  renderContent (itemPath: string): React.Node {
     const { newsItem, language, t } = this.props
     return (
       <>
         <Description>
           <Title>{newsItem.title}</Title>
-          <Body>{newsItem && textTruncator(newsItem.message, 30)}</Body>
+          <Body>{newsItem && textTruncator(newsItem.message, TRUNCATE_LETTERS_COUNT)}</Body>
           <StyledContainer>
             <StyledDate lastUpdate={newsItem.timestamp} language={language} />
             <ReadMoreLink to={itemPath}>{t('readMore')}</ReadMoreLink>

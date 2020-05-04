@@ -48,7 +48,7 @@ class Page extends React.PureComponent<PropsType> {
           hijackRegExp={hijackRegExp} />
         {lastUpdate &&
           <StyledContainer>
-            <LastUpdateInfo lastUpdate={lastUpdate} language={language} withText={true} />
+            <LastUpdateInfo lastUpdate={lastUpdate} language={language} withText />
           </StyledContainer>
         }
       </>

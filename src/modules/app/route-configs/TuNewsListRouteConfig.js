@@ -6,7 +6,7 @@ import type { Route } from 'redux-first-router'
 import {
   createCitiesEndpoint,
   createEventsEndpoint,
-  createTuNewsListEndpoint,
+  createTuNewsEndpoint,
   createLanguagesEndpoint,
   createLocalNewsEndpoint,
   TuNewsModel,
@@ -34,7 +34,7 @@ const tuNewsListRoute: Route = {
     ]
 
     if (!state.tunewsList.data.length) {
-      promises.push(fetchData(createTuNewsListEndpoint(tuNewsApiBaseUrl), dispatch, state.tunewsList, { page: 1, language: language || 'en', count: 20 }))
+      promises.push(fetchData(createTuNewsEndpoint(tuNewsApiBaseUrl), dispatch, state.tunewsList, { page: 1, language: language || 'en', count: 20 }))
     }
 
     await Promise.all(promises)

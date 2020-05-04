@@ -31,7 +31,7 @@ class LocalNewsDetailsPage extends React.PureComponent<PropsType> {
 
     return (
       <NewsController>
-        <Page title={localNewsItem._title} content="" language={language} lastUpdate={localNewsItem._timestamp}>
+        <Page title={localNewsItem._title} content='' language={language} lastUpdate={localNewsItem._timestamp}>
           {localNewsItem._message}
         </Page>
       </NewsController>
