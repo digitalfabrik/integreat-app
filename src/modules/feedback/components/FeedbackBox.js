@@ -77,7 +77,10 @@ export class FeedbackBox extends React.PureComponent<PropsType> {
           commentMessage={isPositiveRatingSelected ? t('positiveComment') : t('negativeComment')}
           onCommentChanged={onCommentChanged}
           required={!isPositiveRatingSelected} />
-        <TextButton disabled={!isPositiveRatingSelected && !comment} onClick={onSubmit} text={t('send')} />
+        <TextButton
+          disabled={!isPositiveRatingSelected && !comment}
+          onClick={onSubmit}
+          text={t('send')} />
       </StyledFeedbackBox>
     )
   }

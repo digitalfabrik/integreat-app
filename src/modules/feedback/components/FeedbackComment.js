@@ -8,7 +8,7 @@ const CommentField = styled.textarea`
   resize: none;
 `
 
-const RequiredText = styled.text`
+const RequiredText = styled.span`
   color: red;
   font-size: 1.5em
 `
