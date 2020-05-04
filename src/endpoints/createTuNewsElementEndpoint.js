@@ -2,7 +2,7 @@
 
 import EndpointBuilder from '../EndpointBuilder'
 import type { JsonTuNewsType } from '../types'
-import TuNewsElementModel from '../models/TunewsElementModel'
+import TuNewsElementModel from '../models/TuNewsElementModel'
 import moment from 'moment-timezone'
 import Endpoint from '../Endpoint'
 

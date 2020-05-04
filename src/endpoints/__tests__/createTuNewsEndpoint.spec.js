@@ -1,14 +1,14 @@
 // @flow
 
 import moment from 'moment-timezone'
-import createTuNewsListEndpoint from '../createTuNewsListEndpoint'
+import createTuNewsEndpoint from '../createTuNewsEndpoint'
 import TuNewsModel from '../../models/TuNewsModel'
 import type { JsonTuNewsType } from '../../types'
 import type Moment from 'moment'
 
 describe('tunews', () => {
   const baseUrl = 'https://tunews.integreat-app.de'
-  const TuNews = createTuNewsListEndpoint(baseUrl)
+  const TuNews = createTuNewsEndpoint(baseUrl)
 
   const createNewsItem = (id, date): JsonTuNewsType => ({
     id,
