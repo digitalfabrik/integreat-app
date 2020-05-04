@@ -2,9 +2,9 @@
 
 class LanguageModel {
   _code: string
-  _name: string
+  _name: ?string
 
-  constructor (code: string, name: any) {
+  constructor (code: string, name: ?string) {
     this._code = code
     this._name = name
   }
@@ -13,7 +13,7 @@ class LanguageModel {
     return this._code
   }
 
-  get name (): string {
+  get name (): ?string {
     return this._name
   }
 }

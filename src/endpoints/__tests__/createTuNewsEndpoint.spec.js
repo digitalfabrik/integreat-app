@@ -43,7 +43,7 @@ describe('tunews', () => {
 
   it('should map params to url', () => {
     expect(TuNews.mapParamsToUrl(params)).toEqual(
-      `https://tunews.integreat-app.de/v1/news/${params.language}?page=${params.page}&count=${params.count}`
+      `${baseUrl}/v1/news/${params.language}?page=${params.page}&count=${params.count}`
     )
   })
 
@@ -56,11 +56,11 @@ describe('tunews', () => {
   it('should map fetched data to models', () => {
     const tunewsModels = TuNews.mapResponse(json, params)
 
-    const value = [
+    const newsItemsValues = [
       itemModel1,
       itemModel2,
       itemModel3
     ]
-    expect(tunewsModels).toEqual(value)
+    expect(tunewsModels).toEqual(newsItemsValues)
   })
 })
