@@ -8,7 +8,7 @@ import type Moment from 'moment'
 
 describe('tunews', () => {
   const baseUrl = 'https://tunews.integreat-app.de'
-  const TuNews = createTuNewsEndpoint(baseUrl)
+  const tuNews = createTuNewsEndpoint(baseUrl)
 
   const createNewsItem = (id, date): JsonTuNewsType => ({
     id,
@@ -42,7 +42,7 @@ describe('tunews', () => {
   const params = {page: 1, language: 'de', count: 1}
 
   it('should map params to url', () => {
-    expect(TuNews.mapParamsToUrl(params)).toEqual(
+    expect(tuNews.mapParamsToUrl(params)).toEqual(
       `${baseUrl}/v1/news/${params.language}?page=${params.page}&count=${params.count}`
     )
   })
@@ -54,7 +54,7 @@ describe('tunews', () => {
   ]
 
   it('should map fetched data to models', () => {
-    const tunewsModels = TuNews.mapResponse(json, params)
+    const tunewsModels = tuNews.mapResponse(json, params)
 
     const newsItemsValues = [
       itemModel1,
