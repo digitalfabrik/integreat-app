@@ -9,11 +9,12 @@ import configureMockStore from 'redux-mock-store'
 import ConnectedI18nProvider, { I18nProvider } from '../I18nProvider'
 import { I18nextProvider } from 'react-i18next'
 import resources from '../../../../../locales/locales.json'
+import setUIDirection from '../../actions/setUIDirection'
 
 const mockStore = configureMockStore()
 
 // eslint-disable-next-line jest/no-disabled-tests
-describe.skip('I18nProvider', () => {
+describe('I18nProvider', () => {
   it('should match snapshot', () => {
     const component = mount(<I18nProvider setUiDirection={() => {}}>
       <div />
@@ -83,7 +84,11 @@ describe.skip('I18nProvider', () => {
 
     const i18n = component.find(I18nextProvider).prop('i18n')
     expect(i18n.language).toEqual('en')
-    expect(component.state()).toEqual({ language: 'en', fonts: { lateef: false, openSans: true, raleway: true } })
+    expect(component.state()).toEqual({
+      language: 'en',
+      i18nLoaded: true,
+      fonts: { lateef: false, openSans: true, raleway: true }
+    })
   })
 
   it('should call setLanguage on property change', () => {
@@ -109,7 +114,7 @@ describe.skip('I18nProvider', () => {
   })
 
   describe('setLanguage', () => {
-    it('should take first i18next language if param is undefined', () => {
+    it('should take first i18next language if param is undefined', async () => {
       const component = mount(<I18nProvider setUiDirection={() => {}}>
         <div />
       </I18nProvider>)
@@ -121,9 +126,9 @@ describe.skip('I18nProvider', () => {
       const originalGetSelectedFonts = I18nProvider.getSelectedFonts
       // $FlowFixMe
       I18nProvider.getSelectedFonts = jest.fn(I18nProvider.getSelectedFonts)
-      i18n.changeLanguage = jest.fn()
+      i18n.changeLanguage = jest.fn(i18next.changeLanguage)
 
-      component.instance().setLanguage()
+      await component.instance().setLanguage()
 
       // $FlowFixMe
       expect(document.documentElement.lang).toEqual(expectedLanguage)
@@ -131,13 +136,14 @@ describe.skip('I18nProvider', () => {
       expect(I18nProvider.getSelectedFonts).toHaveBeenCalledWith(expectedLanguage)
       expect(component.state()).toEqual({
         language: expectedLanguage,
+        i18nLoaded: true,
         fonts: { lateef: false, openSans: true, raleway: true }
       })
       // $FlowFixMe
       I18nProvider.getSelectedFonts = originalGetSelectedFonts
     })
 
-    it('should take param language if param is defined', () => {
+    it('should take param language if param is defined', async () => {
       const component = mount(<I18nProvider setUiDirection={() => {}}>
         <div />
       </I18nProvider>)
@@ -149,9 +155,10 @@ describe.skip('I18nProvider', () => {
       const originalGetSelectedFonts = I18nProvider.getSelectedFonts
       // $FlowFixMe
       I18nProvider.getSelectedFonts = jest.fn(I18nProvider.getSelectedFonts)
-      i18n.changeLanguage = jest.fn()
+      i18n.changeLanguage = jest.fn(i18next.changeLanguage)
 
       component.instance().setLanguage(expectedLanguage)
+      await component.instance().setLanguage(expectedLanguage)
 
       // $FlowFixMe
       expect(document.documentElement.lang).toEqual(expectedLanguage)
@@ -159,6 +166,7 @@ describe.skip('I18nProvider', () => {
       expect(I18nProvider.getSelectedFonts).toHaveBeenCalledWith(expectedLanguage)
       expect(component.state()).toEqual({
         language: expectedLanguage,
+        i18nLoaded: true,
         fonts: { lateef: true, openSans: true, raleway: true }
       })
       // $FlowFixMe
@@ -167,14 +175,15 @@ describe.skip('I18nProvider', () => {
   })
 
   it('should add direction style depending on language', () => {
-    const mockSetUiDirection = jest.fn()
+    const mockSetUiDirection = jest.fn(setUIDirection)
     const component = mount(<I18nProvider language='en' setUiDirection={mockSetUiDirection}>
       <div />
     </I18nProvider>)
     expect(component.find('div').at(0).prop('style').direction).toEqual('ltr')
     component.setProps({ language: 'ar' })
     component.update()
-    expect(component.find('div').at(0).prop('style').direction).toEqual('rtl')
+    await new Promise(r => setTimeout(r, 3000))
     expect(mockSetUiDirection).toHaveBeenCalledWith('rtl')
+    expect(component.find('div').at(0).prop('style').direction).toEqual('rtl')
   })
 })
