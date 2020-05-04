@@ -2,7 +2,7 @@
 
 import moment from 'moment-timezone'
 import createTuNewsElementEndpoint from '../createTuNewsElementEndpoint'
-import TunewsElementModel from '../../models/TunewsElementModel'
+import TuNewsElementModel from '../../models/TuNewsElementModel'
 import type { JsonTuNewsType } from '../../types'
 import type Moment from 'moment'
 
@@ -21,7 +21,7 @@ describe('tunews', () => {
 
   const item1 = createNewsItem(1, '2020-01-20 12:04:22+00:00')
 
-  const createNewsItemModel = (id, date: Moment): TunewsElementModel => new TunewsElementModel({
+  const createNewsItemModel = (id, date: Moment): TuNewsElementModel => new TuNewsElementModel({
     id,
     title: 'Tick bite - What to do?',
     tags: ['8 Gesundheit'],
