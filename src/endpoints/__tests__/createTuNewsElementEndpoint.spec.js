@@ -8,7 +8,7 @@ import type Moment from 'moment'
 
 describe('tunews', () => {
   const baseUrl = 'https://cms-test.integreat-app.de'
-  const TuNewsElement = createTuNewsElementEndpoint(baseUrl)
+  const tuNewsElement = createTuNewsElementEndpoint(baseUrl)
 
   const createNewsItem = (id, date): JsonTuNewsType => ({
     id,
@@ -36,13 +36,13 @@ describe('tunews', () => {
   const params = {id: 1}
 
   it('should map params to url', () => {
-    expect(TuNewsElement.mapParamsToUrl(params)).toEqual(
+    expect(tuNewsElement.mapParamsToUrl(params)).toEqual(
       `${baseUrl}/v1/news/${params.id}`
     )
   })
 
   it('should map fetched data to models', () => {
-    const itemModel = TuNewsElement.mapResponse(item1, params)
+    const itemModel = tuNewsElement.mapResponse(item1, params)
 
     expect(itemModel).toEqual(itemModel1)
   })
