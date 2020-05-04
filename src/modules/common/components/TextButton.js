@@ -10,7 +10,7 @@ export const StyledButton = styled.button`
   border: none;
   text-align: center;
   border-radius: 0.25em;
-  cursor: pointer;
+  cursor: ${props => props.disabled ? 'default' : 'pointer'};
 `
 
 type ButtonPropsType = {
