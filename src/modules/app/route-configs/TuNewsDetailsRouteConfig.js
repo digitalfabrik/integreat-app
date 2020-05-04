@@ -21,11 +21,11 @@ const tuNewsDetailsRoute: Route = {
   path: '/:city/:language/news/tu-news/:newsId',
   thunk: async (dispatch, getState) => {
     const state = getState()
-    const newsId = state.location.payload.newsId;
+    const newsId = state.location.payload.newsId
     const { city, language } = state.location.payload
 
     await Promise.all([
-      fetchData(createTuNewsElementEndpoint(tuNewsApiBaseUrl), dispatch, state.tunews_element, { id: newsId }),
+      fetchData(createTuNewsElementEndpoint(tuNewsApiBaseUrl), dispatch, state.tunewsElement, { id: newsId }),
       fetchData(createCitiesEndpoint(cmsApiBaseUrl), dispatch, state.cities),
       fetchData(createEventsEndpoint(cmsApiBaseUrl), dispatch, state.events, { city, language })
     ])
@@ -45,8 +45,8 @@ class TuNewsDetailsRouteConfig implements RouteConfig<RequiredPayloadsType> {
 
   getPageTitle = ({ t, payloads, cityName, location }) => {
     const tunewsItem = payloads.tuNewsElementDetails.data
-    const tunewsItemTitle = tunewsItem && `${t('pageTitles.tuNews')} | ` + tunewsItem._title
-    return `${tunewsItemTitle ? tunewsItemTitle : t('pageTitles.tuNews')}`
+    const tunewsItemTitle = !!tunewsItem && `${t('pageTitles.tuNews')} | ${tunewsItem._title}`
+    return tunewsItemTitle || t('pageTitles.tuNews')
   }
 
   getRoutePath = ({ city, language }): string => null

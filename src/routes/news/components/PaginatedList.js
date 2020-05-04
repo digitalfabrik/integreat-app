@@ -2,14 +2,11 @@
 
 import * as React from 'react'
 import { isEmpty } from 'lodash/lang'
-import throttle from 'lodash/throttle'
 import styled from 'styled-components'
-import { withTranslation } from 'react-i18next'
-import compose from 'lodash/fp/compose'
-import { connect } from 'react-redux'
 import InfiniteScroll from 'react-infinite-scroller'
-import { fetchTuNews, resetTuNews } from '../actions/fetchTuNews'
 import LoadingSpinner from '../../../modules/common/components/LoadingSpinner'
+
+const LIMIT = 20
 
 const NoItemsMessage = styled.div`
   padding-top: 25px;
@@ -39,7 +36,7 @@ class PaginatedList<T> extends React.PureComponent<PropsType<T>> {
   }
 
   loadItems = async page => {
-    this.props.fetchTuNews(page + 1, 20)
+    this.props.fetchTuNews(page + 1, LIMIT)
   };
 
   render () {
@@ -62,14 +59,4 @@ class PaginatedList<T> extends React.PureComponent<PropsType<T>> {
   }
 }
 
-const mapStateTypeToProps = (state: StateType) => {
-  return {
-    language: state.location.payload.language,
-    prevLanguage: state.location.prev.payload.language,
-    city: state.location.payload.city,
-    tuNewsList: state.tunewsList.data,
-    isFetching: state.tunewsList._isFetching
-  }
-}
-
-export default connect(mapStateTypeToProps, { fetchTuNews, resetTuNews })(PaginatedList)
+export default PaginatedList

@@ -1,15 +1,16 @@
 // @flow
 
-import { createTuNewsListEndpoint } from '@integreat-app/integreat-api-client'
+import { createTuNewsEndpoint } from '@integreat-app/integreat-api-client'
 import fetchData from '../../../modules/app/fetchData'
+import { tuNewsApiBaseUrl } from '../../../modules/app/constants/urls'
 
-const cmsApiBaseUrl = 'https://tunews.integreat-app.de'
+const DEFAULT_LIMIT = 20
+const DEFAULT_PAGE_NUMBER = 1
 
-// Fetches a list of news items
-export const fetchTuNews = (page = 1, count = 20) => (dispatch, getState) => {
+export const fetchTuNews = (page = DEFAULT_PAGE_NUMBER, count = DEFAULT_LIMIT) => (dispatch, getState) => {
   const state = getState()
   const { language } = state.location.payload
-  return fetchData(createTuNewsListEndpoint(cmsApiBaseUrl), dispatch, state.tunewsList, { language, page, count })
+  return fetchData(createTuNewsEndpoint(tuNewsApiBaseUrl), dispatch, state.tunewsList, { language, page, count })
 }
 
 export const resetTuNews = () => {

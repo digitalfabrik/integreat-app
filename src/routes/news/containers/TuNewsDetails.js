@@ -2,7 +2,6 @@
 
 import * as React from 'react'
 import styled from 'styled-components'
-import type Moment from 'moment'
 import TuNewsIcon from './../assets/tu-news-active.png'
 import { withTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
@@ -66,7 +65,7 @@ type PropsType = {|
 |}
 
 class TuNewsDetailsPage extends React.PureComponent<PropsType> {
-  render() {
+  render () {
     const { tuNewsElementDetails, language, path, city, t } = this.props
 
     if (!tuNewsElementDetails) {
@@ -96,7 +95,7 @@ class TuNewsDetailsPage extends React.PureComponent<PropsType> {
 const mapStateToProps = (state: StateType) => ({
   language: state.location.payload.language,
   path: state.location.pathname,
-  city: state.location.payload.city,
+  city: state.location.payload.city
 })
 
 export default compose(

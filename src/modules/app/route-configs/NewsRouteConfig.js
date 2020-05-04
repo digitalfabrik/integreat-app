@@ -7,7 +7,6 @@ import {
   createCitiesEndpoint,
   createEventsEndpoint,
   createLocalNewsEndpoint,
-  createTuNewsListEndpoint,
   createLanguagesEndpoint,
   LocalNewsModel,
   Payload

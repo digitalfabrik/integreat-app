@@ -3,8 +3,6 @@
 import React from 'react'
 import styled from 'styled-components'
 import { TFunction } from 'i18next'
-import compose from 'lodash/fp/compose'
-import { withTranslation } from 'react-i18next'
 
 const Footer = styled.footer`
   display: flex;
@@ -27,14 +25,14 @@ const StyledLink = styled.a`
   text-decoration: underline;
 `
 
-type PropsType<T> = {|
+type PropsType = {|
   eNewsNumber: string,
   date: string,
   language: string,
   t: TFunction
 |}
 
-class TuNewsDetailsFooter<T> extends React.PureComponent<PropsType<T>> {
+class TuNewsDetailsFooter extends React.PureComponent<PropsType> {
   render () {
     const { eNewsNumber, date, language, t } = this.props
     date.locale(language)
@@ -44,7 +42,7 @@ class TuNewsDetailsFooter<T> extends React.PureComponent<PropsType<T>> {
       <Footer>
         <StyledContainer>{t('eNewsNo')}: {eNewsNumber}</StyledContainer>
         <StyledContainer>
-          <StyledLink href="http://www.tunews.de" target="_blank">
+          <StyledLink href='http://www.tunews.de' target='_blank'>
             {t('tunewsInternational')}
           </StyledLink>
         </StyledContainer>
@@ -54,6 +52,4 @@ class TuNewsDetailsFooter<T> extends React.PureComponent<PropsType<T>> {
   }
 }
 
-export default compose(
-  withTranslation('tuNewsDetails')
-)(TuNewsDetailsFooter)
+export default TuNewsDetailsFooter

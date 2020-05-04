@@ -2,13 +2,13 @@
 
 export const fetchTuNewsRecducer = (state = { data: [] }, action) => {
   switch (action.type) {
-    case 'START_FETCH_TUNEWS_LIST':
+    case 'START_FETCH_TUNEWSLIST':
       return {
         ...state,
         ...action.payload,
         isFetchingFirstTime: state.data.length === 0
       }
-    case 'FINISH_FETCH_TUNEWS_LIST': {
+    case 'FINISH_FETCH_TUNEWSLIST': {
       return {
         ...state,
         ...action.payload,
