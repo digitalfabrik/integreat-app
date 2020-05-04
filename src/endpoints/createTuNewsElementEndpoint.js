@@ -6,7 +6,7 @@ import TuNewsElementModel from '../models/TuNewsElementModel'
 import moment from 'moment-timezone'
 import Endpoint from '../Endpoint'
 
-export const TUNEWS_ELEMENT_ENDPOINT_NAME = 'tunews_element'
+export const TUNEWS_ELEMENT_ENDPOINT_NAME = 'tunewsElement'
 
 type ParamsType = { id: number }
 

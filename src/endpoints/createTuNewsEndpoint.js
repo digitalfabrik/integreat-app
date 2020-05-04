@@ -6,7 +6,7 @@ import TuNewsModel from '../models/TuNewsModel'
 import moment from 'moment-timezone'
 import Endpoint from '../Endpoint'
 
-export const TUNEWS_ENDPOINT_NAME = 'tunews_list'
+export const TUNEWS_ENDPOINT_NAME = 'tunewsList'
 
 type ParamsType = { language: string, page: number, count: number }
 
