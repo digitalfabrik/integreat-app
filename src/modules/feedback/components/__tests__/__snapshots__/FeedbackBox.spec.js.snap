@@ -37,6 +37,7 @@ exports[`FeedbackBox should match snapshot 1`] = `
     comment=""
     commentMessage="negativeComment"
     onCommentChanged={[Function]}
+    required={true}
   />
   <TextButton
     disabled={true}
