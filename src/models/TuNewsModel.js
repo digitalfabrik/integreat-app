@@ -26,6 +26,10 @@ class TuNewsModel {
     return this._id
   }
 
+  get title (): string {
+    return this._title
+  }
+
   get date (): Moment {
     return this._date
   }
