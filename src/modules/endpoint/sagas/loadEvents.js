@@ -9,6 +9,7 @@ import determineApiUrl from '../determineApiUrl'
 function * loadEvents (
   city: string,
   language: string,
+  eventsEnabled: boolean,
   dataContainer: DataContainer,
   forceRefresh: boolean
 ): Saga<Array<EventModel>> {
@@ -23,10 +24,19 @@ function * loadEvents (
     }
   }
 
+  if (!eventsEnabled) {
+    console.debug('Events disabled')
+    yield call(dataContainer.setEvents, city, language, [])
+    return []
+  }
+
   console.debug('Fetching events')
 
   const apiUrl = yield call(determineApiUrl)
-  const payload = yield call(() => createEventsEndpoint(apiUrl).request({ city, language }))
+  const payload = yield call(() => createEventsEndpoint(apiUrl).request({
+    city,
+    language
+  }))
   const events: Array<EventModel> = payload.data
 
   yield call(dataContainer.setEvents, city, language, events)
