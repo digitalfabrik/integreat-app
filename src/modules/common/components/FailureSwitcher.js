@@ -10,7 +10,7 @@ import EventsRouteConfig from '../../app/route-configs/EventsRouteConfig'
 import ExtrasRouteConfig from '../../app/route-configs/ExtrasRouteConfig'
 import PoisRouteConfig from '../../app/route-configs/PoisRouteConfig'
 import LocalNewsDetailsRouteConfig from '../../app/route-configs/LocalNewsDetailsRouteConfig'
-import TuNewsListRouteConfig from '../../app/route-configs/TuNewsListRouteConfig'
+import TunewsListRouteConfig from '../../app/route-configs/TunewsListRouteConfig'
 
 type PropsType = {|
   error: Error,
@@ -38,10 +38,10 @@ export class FailureSwitcher extends React.Component<PropsType> {
         return <Failure goToPath={new LocalNewsDetailsRouteConfig().getRoutePath({ city, language })}
                         goToMessage='goTo.news'
                         errorMessage='notFound.newsItem' />
-      case 'tuNewsItem':
-        return <Failure goToPath={new TuNewsListRouteConfig().getRoutePath({ city, language })}
-                        goToMessage='goTo.tuNews'
-                        errorMessage='notFound.tuNewsItem' />
+      case 'tunewsItem':
+        return <Failure goToPath={new TunewsListRouteConfig().getRoutePath({ city, language })}
+                        goToMessage='goTo.tunews'
+                        errorMessage='notFound.tunewsItem' />
 
       case 'extra':
         return <Failure goToPath={new ExtrasRouteConfig().getRoutePath({ city, language })}

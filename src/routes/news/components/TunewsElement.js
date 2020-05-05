@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import styled from 'styled-components'
-import { TuNewsModel } from '@integreat-app/integreat-api-client'
+import { TunewsModel } from '@integreat-app/integreat-api-client'
 import CleanLink from '../../../modules/common/components/CleanLink'
 import LastUpdateInfo from './../../../modules/common/components/LastUpdateInfo'
 import type { TFunction } from 'react-i18next'
@@ -66,7 +66,7 @@ const StyledDate = styled(LastUpdateInfo)`
 `
 
 type PropsType = {|
-  newsItem: TuNewsModel,
+  newsItem: TunewsModel,
   path: string,
   language: string,
   city: string,
@@ -75,7 +75,7 @@ type PropsType = {|
 
 const TRUNCATE_LETTERS_COUNT = 30
 
-class TuNewsElement extends React.PureComponent<PropsType> {
+class TunewsElement extends React.PureComponent<PropsType> {
   renderContent (itemPath: string): React.Node {
     const { newsItem, t, language } = this.props
     return (
@@ -104,4 +104,4 @@ class TuNewsElement extends React.PureComponent<PropsType> {
   }
 }
 
-export default TuNewsElement
+export default TunewsElement

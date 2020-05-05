@@ -6,21 +6,21 @@ import type { Route } from 'redux-first-router'
 import {
   createCitiesEndpoint,
   createEventsEndpoint,
-  createTuNewsEndpoint,
+  createTunewsEndpoint,
   createLanguagesEndpoint,
   createLocalNewsEndpoint,
-  TuNewsModel,
+  TunewsModel,
   Payload
 } from '@integreat-app/integreat-api-client'
 import fetchData from '../fetchData'
-import { cmsApiBaseUrl, tuNewsApiBaseUrl } from '../constants/urls'
+import { cmsApiBaseUrl, tunewsApiBaseUrl } from '../constants/urls'
 
-type TuNewsListRouteParamsType = {| city: string, language: string |}
-type RequiredPayloadsType = {| news: Payload<Array<TuNewsModel>> |}
+type TunewsListRouteParamsType = {| city: string, language: string |}
+type RequiredPayloadsType = {| news: Payload<Array<TunewsModel>> |}
 
 export const TUNEWS_LIST_ROUTE = 'TUNEWS_LIST'
 
-const tuNewsListRoute: Route = {
+const tunewsListRoute: Route = {
   path: '/:city/:language/news/tu-news',
   thunk: async (dispatch, getState) => {
     const state = getState()
@@ -29,21 +29,21 @@ const tuNewsListRoute: Route = {
     const promises = [
       fetchData(createCitiesEndpoint(cmsApiBaseUrl), dispatch, state.cities),
       fetchData(createEventsEndpoint(cmsApiBaseUrl), dispatch, state.events, { city, language }),
-      fetchData(createLanguagesEndpoint(tuNewsApiBaseUrl, true), dispatch, state.languages, { city, language }),
+      fetchData(createLanguagesEndpoint(tunewsApiBaseUrl, true), dispatch, state.languages, { city, language }),
       fetchData(createLocalNewsEndpoint(cmsApiBaseUrl), dispatch, state.news, { city, language })
     ]
 
     if (!state.tunewsList.data.length) {
-      promises.push(fetchData(createTuNewsEndpoint(tuNewsApiBaseUrl), dispatch, state.tunewsList, { page: 1, language: language || 'en', count: 20 }))
+      promises.push(fetchData(createTunewsEndpoint(tunewsApiBaseUrl), dispatch, state.tunewsList, { page: 1, language: language || 'en', count: 20 }))
     }
 
     await Promise.all(promises)
   }
 }
 
-class TuNewsListRouteConfig implements RouteConfig<TuNewsListRouteParamsType, RequiredPayloadsType> {
+class TunewsListRouteConfig implements RouteConfig<TunewsListRouteParamsType, RequiredPayloadsType> {
   name = TUNEWS_LIST_ROUTE
-  route = tuNewsListRoute
+  route = tunewsListRoute
   isLocationLayoutRoute = true
   requiresHeader = true
   requiresFooter = true
@@ -52,10 +52,10 @@ class TuNewsListRouteConfig implements RouteConfig<TuNewsListRouteParamsType, Re
     this.getRoutePath({ city: location.payload.city, language })
 
   getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType => ({
-    tuNewsList: payloads.tuNewsPayload
+    tunewsList: payloads.tunewsPayload
   })
 
-  getPageTitle = ({ t, payloads, cityName, location }) => t('pageTitles.tuNews')
+  getPageTitle = ({ t, payloads, cityName, location }) => t('pageTitles.tunews')
 
   getRoutePath = ({ city, language }: NewsRouteParamsType): string => `/${city}/${language}/news/tu-news`
 
@@ -64,4 +64,4 @@ class TuNewsListRouteConfig implements RouteConfig<TuNewsListRouteParamsType, Re
   getFeedbackTargetInformation = ({ payloads, location }) => null
 }
 
-export default TuNewsListRouteConfig
+export default TunewsListRouteConfig

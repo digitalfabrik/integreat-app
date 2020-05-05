@@ -16,7 +16,7 @@ const TU_NEWS = 'tu'
 
 type PropsType = {|
   localNews: boolean,
-  tuNews: boolean,
+  tunews: boolean,
   children: any,
   city: string,
   cities: Array<CityModel>,
@@ -30,7 +30,7 @@ type StateType = {|
 
 class Tabs extends React.PureComponent<PropsType, StateType> {
   render () {
-    const { localNews, tuNews, children, city, cities, language, t } = this.props
+    const { localNews, tunews, children, city, cities, language, t } = this.props
     const currentCity: CityModel = cities && cities.find(cityElement => cityElement._code === city)
 
     return (
@@ -40,7 +40,7 @@ class Tabs extends React.PureComponent<PropsType, StateType> {
             currentCity && currentCity._pushNotificationsEnabled && <Tab active={!!localNews} type={LOCAL_NEWS} destination={`/${city}/${language}/news/local`} t={t} />
           }
           {
-            currentCity && currentCity._tunewsEnabled && <Tab active={tuNews} type={TU_NEWS} destination={`/${city}/${language}/news/tu-news`} t={t} />
+            currentCity && currentCity._tunewsEnabled && <Tab active={tunews} type={TU_NEWS} destination={`/${city}/${language}/news/tu-news`} t={t} />
           }
         </StyledTabs>
         {children}

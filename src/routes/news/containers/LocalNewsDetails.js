@@ -22,17 +22,16 @@ type PropsType = {|
 class LocalNewsDetailsPage extends React.PureComponent<PropsType> {
   render () {
     const { localNewsDetails, language, city, path, id } = this.props
-    const localNewsItem: LocalNewsModel | void = localNewsDetails.find(item => item.id && item.id === id)
 
-    if (!localNewsItem) {
+    if (!localNewsDetails) {
       const error = new ContentNotFoundError({ type: 'newsItem', id: path, city, language })
       return <FailureSwitcher error={error} />
     }
 
     return (
       <NewsController>
-        <Page title={localNewsItem._title} content='' language={language} lastUpdate={localNewsItem._timestamp}>
-          {localNewsItem._message}
+        <Page title={localNewsDetails._title} content='' language={language} lastUpdate={localNewsDetails._timestamp}>
+          {localNewsDetails._message}
         </Page>
       </NewsController>
     )

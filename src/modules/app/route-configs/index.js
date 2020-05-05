@@ -9,8 +9,8 @@ import MainDisclaimerRouteConfig, { MAIN_DISCLAIMER_ROUTE } from './MainDisclaim
 import EventsRouteConfig, { EVENTS_ROUTE } from './EventsRouteConfig'
 import NewsRouteConfig, { NEWS_ROUTE } from './NewsRouteConfig'
 import LocalNewsDetailsRouteConfig, { LOCAL_NEWS_DETAILS_ROUTE } from './LocalNewsDetailsRouteConfig'
-import TuNewsDetailsRouteConfig, { TUNEWS_DETAILS_ROUTE } from './TuNewsDetailsRouteConfig'
-import TuNewsListRouteConfig, { TUNEWS_LIST_ROUTE } from './TuNewsListRouteConfig'
+import TunewsDetailsRouteConfig, { TUNEWS_DETAILS_ROUTE } from './TunewsDetailsRouteConfig'
+import TunewsListRouteConfig, { TUNEWS_LIST_ROUTE } from './TunewsListRouteConfig'
 import WohnenRouteConfig, { WOHNEN_ROUTE } from './WohnenRouteConfig'
 import ExtrasRouteConfig, { EXTRAS_ROUTE } from './ExtrasRouteConfig'
 import SearchRouteConfig, { SEARCH_ROUTE } from './SearchRouteConfig'
@@ -27,8 +27,8 @@ const routeConfigs: {[string]: RouteConfig<any, any>} = {
   [EVENTS_ROUTE]: new EventsRouteConfig(),
   [NEWS_ROUTE]: new NewsRouteConfig(),
   [LOCAL_NEWS_DETAILS_ROUTE]: new LocalNewsDetailsRouteConfig(),
-  [TUNEWS_DETAILS_ROUTE]: new TuNewsDetailsRouteConfig(),
-  [TUNEWS_LIST_ROUTE]: new TuNewsListRouteConfig(),
+  [TUNEWS_DETAILS_ROUTE]: new TunewsDetailsRouteConfig(),
+  [TUNEWS_LIST_ROUTE]: new TunewsListRouteConfig(),
   [SPRUNGBRETT_ROUTE]: new SprungbrettRouteConfig(),
   [WOHNEN_ROUTE]: new WohnenRouteConfig(),
   [EXTRAS_ROUTE]: new ExtrasRouteConfig(),
@@ -55,8 +55,8 @@ export const routesMap: {[string]: Route} = {
   [EVENTS_ROUTE]: new EventsRouteConfig().route,
   [NEWS_ROUTE]: new NewsRouteConfig().route,
   [LOCAL_NEWS_DETAILS_ROUTE]: new LocalNewsDetailsRouteConfig().route,
-  [TUNEWS_DETAILS_ROUTE]: new TuNewsDetailsRouteConfig().route,
-  [TUNEWS_LIST_ROUTE]: new TuNewsListRouteConfig().route,
+  [TUNEWS_DETAILS_ROUTE]: new TunewsDetailsRouteConfig().route,
+  [TUNEWS_LIST_ROUTE]: new TunewsListRouteConfig().route,
   [SPRUNGBRETT_ROUTE]: new SprungbrettRouteConfig().route,
   [WOHNEN_ROUTE]: new WohnenRouteConfig().route,
   [EXTRAS_ROUTE]: new ExtrasRouteConfig().route,

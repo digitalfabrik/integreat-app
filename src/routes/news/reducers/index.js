@@ -1,6 +1,6 @@
 // @flow
 
-export const fetchTuNewsRecducer = (state = { data: [] }, action) => {
+export const fetchTunewsRecducer = (state = { data: [] }, action) => {
   switch (action.type) {
     case 'START_FETCH_TUNEWSLIST':
       return {
@@ -31,4 +31,4 @@ export const fetchTuNewsRecducer = (state = { data: [] }, action) => {
   }
 }
 
-export default fetchTuNewsRecducer
+export default fetchTunewsRecducer

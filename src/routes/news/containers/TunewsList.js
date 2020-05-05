@@ -6,30 +6,27 @@ import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 import type { StateType } from '../../../modules/app/StateType'
 import { TFunction } from 'i18next'
-import PaginatedList from './../components/PaginatedList'
-import { fetchTuNews, resetTuNews } from '../actions/fetchTuNews'
-import TuNewsElement from './../components/TuNewsElement'
-import Tabs from './../components/Tabs'
-import {
-  TuNewsModel,
-  TuNewsElementModel
-} from '@integreat-app/integreat-api-client'
+import PaginatedList from '../components/PaginatedList'
+import { fetchTunews, resetTunews } from '../actions/fetchTunews'
+import TunewsElement from '../components/TunewsElement'
+import Tabs from '../components/Tabs'
+import { TunewsModel } from '@integreat-app/integreat-api-client'
 import LoadingSpinner from '../../../modules/common/components/LoadingSpinner'
-import NewsController from './../containers/NewsController'
+import NewsController from './NewsController'
 
 type PropsType = {|
-  tuNewsList: TuNewsModel,
+  tunewsList: TunewsModel,
   language: string,
   city: string,
   path: string,
   t: TFunction
 |}
 
-class TuNewsListPage extends React.PureComponent<PropsType> {
-  renderTuNewsElement = (language: string) => (newsItem: TuNewsElementModel, city: string) => {
+export class TunewsListPage extends React.PureComponent<PropsType> {
+  renderTunewsElement = (language: string) => (newsItem: TunewsModel, city: string) => {
     const { path, t } = this.props
     return (
-      <TuNewsElement
+      <TunewsElement
         newsItem={newsItem}
         key={newsItem.id}
         path={path}
@@ -41,23 +38,23 @@ class TuNewsListPage extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const { tuNewsList, language, city, t, fetchTuNews, hasMore, isFetchingFirstTime, isFetching, resetTuNews, cities } = this.props
+    const { tunewsList, language, city, t, fetchTunews, hasMore, isFetchingFirstTime, isFetching, resetTunews, cities } = this.props
     return (
       <NewsController>
-        <Tabs localNews={false} tuNews city={city} cities={cities} t={t} language={language}>
+        <Tabs localNews={false} tunews city={city} cities={cities} t={t} language={language}>
           {isFetchingFirstTime ? (
             <LoadingSpinner />
           ) : (
             <PaginatedList
-              items={tuNewsList}
-              renderItem={this.renderTuNewsElement(language)}
+              items={tunewsList}
+              renderItem={this.renderTunewsElement(language)}
               city={city}
-              fetchTuNews={fetchTuNews}
-              resetTuNews={resetTuNews}
+              fetchTunews={fetchTunews}
+              resetTunews={resetTunews}
               hasMore={hasMore}
               isFetching={isFetching}
               language={language}
-              noItemsMessage={t('currentlyNoTuNews')}
+              noItemsMessage={t('currentlyNoTunews')}
             />
           )}
         </Tabs>
@@ -77,6 +74,6 @@ const mapStateToProps = (state: StateType) => ({
 })
 
 export default compose(
-  connect<*, *, *, *, *, *>(mapStateToProps, { fetchTuNews, resetTuNews }),
+  connect<*, *, *, *, *, *>(mapStateToProps, { fetchTunews, resetTunews }),
   withTranslation('news')
-)(TuNewsListPage)
+)(TunewsListPage)
