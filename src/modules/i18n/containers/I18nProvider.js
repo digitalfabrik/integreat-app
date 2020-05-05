@@ -8,10 +8,11 @@ import { forEach, reduce } from 'lodash/collection'
 import { Helmet as ReactHelmet } from 'react-helmet'
 import LanguageDetector from 'i18next-browser-languagedetector'
 
-import localesResources from '../../../../locales/locales.json'
+import localesResources from '../../../../locales/locales'
 import setUiDirection from '../actions/setUIDirection'
 import type { Dispatch } from 'redux'
 import type { StoreActionType } from '../../app/StoreActionType'
+import type { UiDirectionType } from '../types/UiDirectionType'
 
 const RTL_LANGUAGES = ['ar', 'fa']
 const FALLBACK_LANGUAGES = ['en', 'de']
@@ -22,7 +23,7 @@ type FontMapType = { [font: 'lateef' | 'openSans' | 'raleway']: boolean }
 type PropsType = {|
   children: React.Node,
   language?: string,
-  setUiDirection: Function
+  setUiDirection: (UiDirectionType) => void
 |}
 
 type StateType = {|
