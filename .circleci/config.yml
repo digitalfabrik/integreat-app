@@ -132,19 +132,19 @@ jobs:
       - checkout
       - attach_workspace:
           at: dist
-      - when:
+      - when: # TODO
           condition: <<parameters.production>>
           steps:
             - run:
                 name: Production release
-                command: tools/deploy/sftp-deploy.sh /integreat.app # TODO
+                command: tools/deploy/sftp-deploy.sh /integreat.app
             - slack/notify:
                 message: Integreat {version_name} has been released successfully to integreat.app!
                 webhook: $SLACK_URL
-      - unless:
+      - unless: # TODO
         condition: <<parameters.production>>
         name: Debug release
-        command: tools/deploy/sftp-deploy.sh /webnext.integreat-app.de # TODO
+        command: tools/deploy/sftp-deploy.sh /webnext.integreat-app.de
 
   bump_version:
     docker:
