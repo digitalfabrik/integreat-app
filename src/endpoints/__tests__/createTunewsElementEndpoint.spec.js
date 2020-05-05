@@ -1,16 +1,16 @@
 // @flow
 
 import moment from 'moment-timezone'
-import createTuNewsElementEndpoint from '../createTuNewsElementEndpoint'
-import TuNewsModel from '../../models/TuNewsModel'
-import type { JsonTuNewsType } from '../../types'
+import createTunewsElementEndpoint from '../createTunewsElementEndpoint'
+import TunewsModel from '../../models/TunewsModel'
+import type { JsonTunewsType } from '../../types'
 import type Moment from 'moment'
 
 describe('tunews', () => {
   const baseUrl = 'https://cms-test.integreat-app.de'
-  const tuNewsElement = createTuNewsElementEndpoint(baseUrl)
+  const tunewsElement = createTunewsElementEndpoint(baseUrl)
 
-  const createNewsItem = (id, date): JsonTuNewsType => ({
+  const createNewsItem = (id, date): JsonTunewsType => ({
     id,
     title: 'Tick bite - What to do?',
     tags: ['8 Gesundheit'],
@@ -21,7 +21,7 @@ describe('tunews', () => {
 
   const item1 = createNewsItem(1, '2020-01-20 12:04:22+00:00')
 
-  const createNewsItemModel = (id, date: Moment): TuNewsModel => new TuNewsModel({
+  const createNewsItemModel = (id, date: Moment): TunewsModel => new TunewsModel({
     id,
     title: 'Tick bite - What to do?',
     tags: ['8 Gesundheit'],
@@ -36,13 +36,13 @@ describe('tunews', () => {
   const params = {id: 1}
 
   it('should map params to url', () => {
-    expect(tuNewsElement.mapParamsToUrl(params)).toEqual(
+    expect(tunewsElement.mapParamsToUrl(params)).toEqual(
       `${baseUrl}/v1/news/${params.id}`
     )
   })
 
   it('should map fetched data to models', () => {
-    const itemModel = tuNewsElement.mapResponse(item1, params)
+    const itemModel = tunewsElement.mapResponse(item1, params)
 
     expect(itemModel).toEqual(itemModel1)
   })

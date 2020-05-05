@@ -2,16 +2,16 @@
 
 import type Moment from 'moment'
 
-class TuNewsModel {
+class TunewsModel {
   _id: number
   _title: string
-  _tags: string[]
+  _tags: Array<string>
   _date: Moment
   _content: string
   _enewsno: string
 
   constructor (params: {| id: number, title: string,
-    date: Moment, tags: string[], content: string, enewsno: string
+    date: Moment, tags: Array<string>, content: string, enewsno: string
     |}) {
     const {id, date, title, tags, content, enewsno} = params
     this._id = id
@@ -34,7 +34,7 @@ class TuNewsModel {
     return this._date
   }
 
-  get tags (): string[] {
+  get tags (): Array<string> {
     return this._tags
   }
 
@@ -47,4 +47,4 @@ class TuNewsModel {
   }
 }
 
-export default TuNewsModel
+export default TunewsModel

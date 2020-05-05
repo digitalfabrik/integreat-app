@@ -24,18 +24,15 @@ export default (baseUrl: string, isTunews: ?boolean): Endpoint<ParamsType, Array
     .withMapper((json: Array<JsonLanguageType>) => {
       return json
         .map(language => {
-          if (isTunews) {
+          if ((isTunews && !language.name) || (!isTunews && !language.native_name)) {
+            throw new ParamMissingError(LANGUAGES_ENDPOINT_NAME, isTunews ? 'name' : 'native_name')
+          } else {
             return new LanguageModel(
               language.code,
-              language.name
+              language.name || language.native_name
             )
           }
-          return new LanguageModel(
-            language.code,
-            language.native_name
-          )
         })
         .sort((lang1, lang2) => lang1.code.localeCompare(lang2.code))
-    }
-    )
+    })
     .build()
