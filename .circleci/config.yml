@@ -86,18 +86,15 @@ jobs:
           paths:
             - ~/.cache/yarn
             - node_modules
-      - run:
-          name: Check linting
-          command: yarn run lint
-      - run:
-          name: Check flow
-          command: yarn run flow:check-now --max-workers $TOTAL_CPUS
+#      - run:
+#          name: Check linting
+#          command: yarn run lint
+#      - run:
+#          name: Check flow
+#          command: yarn run flow:check-now --max-workers $TOTAL_CPUS
 #      - run:
 #          name: Unit tests
 #          command: yarn run test --ci --maxWorkers $TOTAL_CPUS
-      - run:
-          name: debug
-          command: echo <<parameters.production >>
       - when:
           condition: << parameters.production >>
           steps:
@@ -113,7 +110,7 @@ jobs:
       - store_artifacts:
           path: dist/
       - persist_to_workspace:
-          root: dist
+          root: $CIRCLE_WORKING_DIRECTORY
           paths:
             - dist/*
       - run:
