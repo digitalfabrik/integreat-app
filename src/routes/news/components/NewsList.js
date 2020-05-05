@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { View, ActivityIndicator, ScrollView } from 'react-native'
-import type { TFunction } from 'react-i18next'
+import { TFunction, withTranslation } from 'react-i18next'
 import { CityModel, NewsModel } from '@integreat-app/integreat-api-client'
 import ContentNotFoundError from '../../../modules/error/ContentNotFoundError'
 import List from './List'
@@ -11,6 +11,7 @@ import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { LanguageResourceCacheStateType } from '../../../modules/app/StateType'
 import { NavigationScreenProp } from 'react-navigation'
 import type { NavigateToNewsParamsType } from '../../../modules/app/createNavigateToNews'
+import withTheme from '../../../modules/theme/hocs/withTheme'
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
 import NewsListItem from './NewsListItem'
@@ -226,4 +227,6 @@ class NewsList extends React.PureComponent<PropsType> {
   }
 }
 
-export default NewsList
+export default withTranslation('news')(
+  withTheme(props => props.language)(NewsList)
+)
