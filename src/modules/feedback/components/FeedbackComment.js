@@ -16,7 +16,7 @@ const RequiredText = styled.span`
 type PropsType = {|
   comment: string,
   commentMessage: string,
-  required: boolean,
+  required?: boolean,
   onCommentChanged: SyntheticInputEvent<HTMLTextAreaElement> => void
 |}
 
