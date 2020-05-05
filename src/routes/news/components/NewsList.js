@@ -74,6 +74,7 @@ const NewsDetailsContent = styled.Text`
   font-family: ${props => props.theme.fonts.decorativeFontRegular};
   font-size: 16px;
   letter-spacing: 0.5px;
+  line-height: 24px;
   text-align: ${props => contentAlignment(props.language)};
   color: ${props => props.theme.colors.textColor};
 `
