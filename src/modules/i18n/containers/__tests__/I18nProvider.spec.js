@@ -173,17 +173,4 @@ describe('I18nProvider', () => {
       I18nProvider.getSelectedFonts = originalGetSelectedFonts
     })
   })
-
-  it('should add direction style depending on language', () => {
-    const mockSetUiDirection = jest.fn(setUIDirection)
-    const component = mount(<I18nProvider language='en' setUiDirection={mockSetUiDirection}>
-      <div />
-    </I18nProvider>)
-    expect(component.find('div').at(0).prop('style').direction).toEqual('ltr')
-    component.setProps({ language: 'ar' })
-    component.update()
-    await new Promise(r => setTimeout(r, 3000))
-    expect(mockSetUiDirection).toHaveBeenCalledWith('rtl')
-    expect(component.find('div').at(0).prop('style').direction).toEqual('rtl')
-  })
 })
