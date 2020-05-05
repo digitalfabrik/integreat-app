@@ -11,7 +11,7 @@ function * loadCities (
 ): Saga<Array<CityModel>> {
   const citiesAvailable = yield call(() => dataContainer.citiesAvailable())
 
-  if (!citiesAvailable || forceRefresh) {
+  if (!citiesAvailable) {
     throw new Error('When using this mock you should prepare the DataContainer!')
   }
 
