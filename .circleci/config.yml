@@ -92,9 +92,9 @@ jobs:
       - run:
           name: Check flow
           command: yarn run flow:check-now --max-workers $TOTAL_CPUS
-      - run:
-          name: Unit tests
-          command: yarn run test --ci --maxWorkers $TOTAL_CPUS
+#      - run:
+#          name: Unit tests
+#          command: yarn run test --ci --maxWorkers $TOTAL_CPUS
       - when:
           condition: <<parameters.production>>
           name: Production Build
