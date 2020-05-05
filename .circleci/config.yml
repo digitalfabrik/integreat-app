@@ -96,11 +96,11 @@ jobs:
 #          name: Unit tests
 #          command: yarn run test --ci --maxWorkers $TOTAL_CPUS
       - when:
-          condition: <<parameters.production>>
+          condition: << parameters.production >>
           name: Production Build
           command: yarn run build
       - unless:
-          condition: <<parameters.production>>
+          condition: << parameters.production >>
           name: Debug Build
           command: yarn run build:debug
       - store_artifacts:
@@ -133,7 +133,7 @@ jobs:
       - attach_workspace:
           at: dist
 #      - when: # TODO
-#          condition: <<parameters.production>>
+#          condition: << parameters.production >>
 #          steps:
 #            - run:
 #                name: Production release
@@ -142,7 +142,7 @@ jobs:
 #                message: Integreat {version_name} has been released successfully to integreat.app!
 #                webhook: $SLACK_URL
 #      - unless: # TODO
-#        condition: <<parameters.production>>
+#        condition: << parameters.production >>
 #        name: Debug release
 #        command: tools/deploy/sftp-deploy.sh /webnext.integreat-app.de
 
