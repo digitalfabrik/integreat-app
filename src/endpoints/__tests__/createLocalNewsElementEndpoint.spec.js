@@ -44,6 +44,6 @@ describe('localnews', () => {
   it('should map fetched data to models', () => {
     const itemModel = localNewsElement.mapResponse([item], params)
 
-    expect(itemModel).toEqual([itemValue])
+    expect(itemModel).toEqual(itemValue)
   })
 })

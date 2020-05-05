@@ -96,10 +96,10 @@ export type JsonEventType = {
   featured_image: ?JsonFeaturedImageType
 }
 
-export type JsonTuNewsType = {
+export type JsonTunewsType = {
   id: number,
   title: string,
-  tags: string[],
+  tags: Array<string>,
   date: string,
   content: string,
   enewsno: string
@@ -168,7 +168,7 @@ export type OfferType = {
   createdDate: string
 }
 
-export type JsonLanguageType = { code: string, native_name: ?string, name: ?string }
+export type JsonLanguageType = { code: string, native_name: string, name: string }
 
 export type JsonCityType = {
   name: string,
