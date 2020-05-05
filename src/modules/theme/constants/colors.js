@@ -18,7 +18,7 @@ export const brightColors: ColorsType = {
   textSecondaryColor: '#585858',
   textDecorationColor: '#c7c7c7',
   backgroundColor: '#ffffff',
-  tuNewsColor: '#0279a6'
+  tunewsColor: '#0279a6'
 }
 
 export const darkColors: ColorsType = {
@@ -29,5 +29,5 @@ export const darkColors: ColorsType = {
   textSecondaryColor: '#888888',
   textDecorationColor: '#555555',
   backgroundColor: '#222222',
-  tuNewsColor: '#0279a6'
+  tunewsColor: '#0279a6'
 }
