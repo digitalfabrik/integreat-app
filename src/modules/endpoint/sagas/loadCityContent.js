@@ -48,7 +48,7 @@ export default function * loadCityContent (
   const cities = yield call(loadCities, dataContainer, shouldUpdate) // Refresh for flags like eventsEnabled necessary
   const cityModel = cities.find(city => city.code === newCity)
   if (!cityModel) {
-    throw new Error(`City '${newCity}' was not be found.`)
+    throw new Error(`City '${newCity}' was not found.`)
   }
 
   if (criterion.shouldLoadLanguages()) {
