@@ -10,7 +10,9 @@ const cities = [
     eventsEnabled: true,
     extrasEnabled: true,
     sortingName: 'Augsburg',
-    prefix: 'Stadt'
+    prefix: 'Stadt',
+    pushNotificationsEnabled: true,
+    tunewsEnabled: false
   }),
   new CityModel({
     name: 'Oldtown',
@@ -19,7 +21,9 @@ const cities = [
     eventsEnabled: true,
     extrasEnabled: true,
     sortingName: 'Oldtown',
-    prefix: 'GoT'
+    prefix: 'GoT',
+    tunewsEnabled: true,
+    pushNotificationsEnabled: true
   })
 ]
 
