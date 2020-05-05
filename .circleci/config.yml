@@ -110,7 +110,7 @@ jobs:
       - store_artifacts:
           path: dist/
       - persist_to_workspace:
-          root: $CIRCLE_WORKING_DIRECTORY
+          root: ./
           paths:
             - dist/*
       - run:
