@@ -90,9 +90,10 @@ export const Content = styled.Text`
 `
 
 export const ReadMore = styled.Text`
-  font-family: ${props => props.theme.fonts.decorativeFontRegular};
+  font-family: ${props => props.theme.fonts.decorativeFontBold};
   font-size: 12px;
   letter-spacing: 0.5px;
+  margin-top: 5px;
   color: ${props =>
     props.isTuNews
       ? props.theme.colors.tuNewsColor
