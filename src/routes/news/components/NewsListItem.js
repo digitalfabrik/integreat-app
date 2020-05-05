@@ -96,7 +96,7 @@ export const ReadMore = styled.Text`
   margin-top: 5px;
   color: ${props =>
     props.isTuNews
-      ? props.theme.colors.tuNewsColor
+      ? props.theme.colors.tunewsColor
       : props.theme.colors.themeColor};
 `
 
