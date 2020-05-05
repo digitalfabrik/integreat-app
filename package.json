@@ -7,9 +7,9 @@
     "npm": ">=3.8"
   },
   "scripts": {
-    "start": "webpack-dev-server --config tools/webpack.config.babel.js --progress --env.prod=false --env.config_name=integreat",
+    "start": "webpack-dev-server --config tools/webpack.config.babel.js --progress --env.prod=false --env.config_name=integreat-debug",
     "build": "webpack --config tools/webpack.config.babel.js --env.prod=true --env.config_name=integreat",
-    "build:debug": "webpack --config tools/webpack.config.babel.js --env.prod=false --env.config_name=integreat",
+    "build:debug": "webpack --config tools/webpack.config.babel.js --env.prod=false --env.config_name=integreat-debug",
     "build:lib": "webpack --config tools/lib.webpack.config.babel.js --env.prod=true && flow-copy-source -i '**/@(__mocks__|__tests__)/**' ./src ./lib-dist && mv ./lib-dist/lib.js.flow ./lib-dist/index.js.flow",
     "check:built": "yarn es-check es5 ./dist/**/*.js",
     "test": "jest --config jest.config.json",
@@ -22,7 +22,7 @@
     "stylelint": "stylelint --config stylelint.config.js \"src/**/*.{js,css}\"",
     "flow:check-now": "flow check",
     "flow:install-types": "flow-typed install --skip",
-    "locales:missing": "node tools/findMissingLocales"
+    "locales:missing": "node locales/tools/findMissingLocales"
   },
   "dependencies": {
     "@babel/polyfill": "^7.8.3",
