@@ -95,14 +95,21 @@ jobs:
 #      - run:
 #          name: Unit tests
 #          command: yarn run test --ci --maxWorkers $TOTAL_CPUS
+      - run:
+          name: debug
+          command: echo <<parameters.production >>
       - when:
           condition: << parameters.production >>
-          name: Production Build
-          command: yarn run build
+          steps:
+            - run:
+                name: Production Build
+                command: yarn run build
       - unless:
           condition: << parameters.production >>
-          name: Debug Build
-          command: yarn run build:debug
+          steps:
+            - run:
+                name: Debug Build
+                command: yarn run build:debug
       - store_artifacts:
           path: dist/
       - persist_to_workspace:
