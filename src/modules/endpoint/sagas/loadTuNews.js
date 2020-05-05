@@ -1,7 +1,7 @@
 // @flow
 
 import type { Saga } from 'redux-saga'
-import { createTuNewsListEndpoint, TuNewsModel } from '@integreat-app/integreat-api-client'
+import { createTuNewsEndpoint, TuNewsModel } from '@integreat-app/integreat-api-client'
 import { call } from 'redux-saga/effects'
 import { tuNewsApiUrl } from '../constants'
 
@@ -12,7 +12,7 @@ function * loadTuNews (
 ): Saga<Array<TuNewsModel>> {
   console.debug('Fetching tunews')
 
-  const payload = yield call(() => createTuNewsListEndpoint(tuNewsApiUrl).request({ language, page, count }))
+  const payload = yield call(() => createTuNewsEndpoint(tuNewsApiUrl).request({ language, page, count }))
   const newsList: Array<TuNewsModel> = payload.data
 
   return newsList
