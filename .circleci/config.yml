@@ -109,6 +109,9 @@ jobs:
           root: dist
           paths:
             - *
+      - run:
+          name: Echo success
+          command: echo success
 
   deliver:
     parameters:
@@ -136,9 +139,8 @@ jobs:
                 name: Production release
                 command: tools/deploy/sftp-deploy.sh /integreat.app # TODO
             - slack/notify:
-                mentions: 'channel'
-                message: This is a custom message notification
-                webhook: https://hooks.slack.com/services/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
+                message: Integreat {version_name} has been released successfully to integreat.app!
+                webhook: $SLACK_URL
       - unless:
         condition: <<parameters.production>>
         name: Debug release
