@@ -98,9 +98,6 @@ class Header extends React.PureComponent<PropsType> {
   onShare = async () => {
     const { navigation, t } = this.props
     const sharePath: ?string = navigation.getParam('sharePath')
-    if (!sharePath) {
-      return console.error('sharePath is undefined')
-    }
     const url = `https://integreat.app${sharePath}`
     const message = t('shareMessage', { message: url, interpolation: { escapeValue: false } })
 
@@ -155,7 +152,7 @@ class Header extends React.PureComponent<PropsType> {
           this.renderItem(t('search'), 'search', 'always', this.goToSearch, t('search'))}
           {!peeking && goToLanguageChange &&
           this.renderItem(t('changeLanguage'), 'language', 'always', goToLanguageChange, t('changeLanguage'))}
-          {this.renderItem(t('share'), undefined, 'never', sharePath ? this.onShare : undefined, t('share'))}
+          {sharePath && this.renderItem(t('share'), undefined, 'never', this.onShare, t('share'))}
           {this.renderItem(t('changeLocation'), undefined, 'never', this.goToLanding, t('changeLocation'))}
           {this.renderItem(t('settings'), undefined, 'never', this.goToSettings, t('settings'))}
           {this.renderItem(t('disclaimer'), undefined, 'never', this.goToDisclaimer, t('disclaimer'))}
