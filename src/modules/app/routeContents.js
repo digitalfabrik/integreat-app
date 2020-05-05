@@ -19,10 +19,10 @@ import { NEWS_ROUTE } from './route-configs/NewsRouteConfig'
 import NewsPage from '../../routes/news/containers/NewsPage'
 import { LOCAL_NEWS_DETAILS_ROUTE } from './route-configs/LocalNewsDetailsRouteConfig'
 import LocalNewsDetailsPage from '../../routes/news/containers/LocalNewsDetails'
-import { TUNEWS_DETAILS_ROUTE } from './route-configs/TuNewsDetailsRouteConfig'
-import TuNewsDetailsPage from '../../routes/news/containers/TuNewsDetails'
-import { TUNEWS_LIST_ROUTE } from './route-configs/TuNewsListRouteConfig'
-import TuNewsListPage from './../../routes/news/containers/TuNewsList'
+import { TUNEWS_DETAILS_ROUTE } from './route-configs/TunewsDetailsRouteConfig'
+import TunewsDetailsPage from '../../routes/news/containers/TunewsDetails'
+import { TUNEWS_LIST_ROUTE } from './route-configs/TunewsListRouteConfig'
+import TunewsListPage from '../../routes/news/containers/TunewsList'
 import SprungbrettExtraPage from '../../routes/sprungbrett/containers/SprungbrettExtraPage'
 import WohnenExtraPage from '../../routes/wohnen/containers/WohnenExtraPage'
 import ExtrasPage from '../../routes/extras/containers/ExtrasPage'
@@ -43,8 +43,8 @@ const routeContents = {
   [EVENTS_ROUTE]: EventsPage,
   [NEWS_ROUTE]: NewsPage,
   [LOCAL_NEWS_DETAILS_ROUTE]: LocalNewsDetailsPage,
-  [TUNEWS_LIST_ROUTE]: TuNewsListPage,
-  [TUNEWS_DETAILS_ROUTE]: TuNewsDetailsPage,
+  [TUNEWS_LIST_ROUTE]: TunewsListPage,
+  [TUNEWS_DETAILS_ROUTE]: TunewsDetailsPage,
   [SPRUNGBRETT_ROUTE]: SprungbrettExtraPage,
   [WOHNEN_ROUTE]: WohnenExtraPage,
   [EXTRAS_ROUTE]: ExtrasPage,

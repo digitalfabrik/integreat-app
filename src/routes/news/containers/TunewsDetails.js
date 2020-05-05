@@ -2,14 +2,14 @@
 
 import * as React from 'react'
 import styled from 'styled-components'
-import TuNewsIcon from './../assets/tu-news-active.png'
+import TunewsIcon from './../assets/tu-news-active.png'
 import { withTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 import type { StateType } from '../../../modules/app/StateType'
-import TuNewsDetailsFooter from './../components/TuNewsDetailsFooter'
+import TunewsDetailsFooter from '../components/TunewsDetailsFooter'
 import { TFunction } from 'i18next'
-import NewsController from './../containers/NewsController'
+import NewsController from './NewsController'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 
@@ -57,19 +57,19 @@ const Content = styled.p`
   color: ${({ theme }) => (theme.colors.headlineTextColor)};
 `
 type PropsType = {|
-  tuNewsElementDetails: any,
+  tunewsElementDetails: any,
   language: string,
   path: string,
   city: string,
   t: TFunction
 |}
 
-class TuNewsDetailsPage extends React.PureComponent<PropsType> {
+class TunewsDetailsPage extends React.PureComponent<PropsType> {
   render () {
-    const { tuNewsElementDetails, language, path, city, t } = this.props
+    const { tunewsElementDetails, language, path, city, t } = this.props
 
-    if (!tuNewsElementDetails) {
-      const error = new ContentNotFoundError({ type: 'tuNewsItem', id: path, city, language })
+    if (!tunewsElementDetails) {
+      const error = new ContentNotFoundError({ type: 'tunewsItem', id: path, city, language })
       return <FailureSwitcher error={error} />
     }
 
@@ -79,13 +79,13 @@ class TuNewsDetailsPage extends React.PureComponent<PropsType> {
           <StyledWrapper>
             <StyledBanner>
               <StyledTitle>
-                <StyledBannerImage src={TuNewsIcon} alt={t('tu.news')} />
+                <StyledBannerImage src={TunewsIcon} alt={t('tu.news')} />
               </StyledTitle>
             </StyledBanner>
-            <Title>{tuNewsElementDetails && tuNewsElementDetails._title}</Title>
-            <Content>{tuNewsElementDetails && tuNewsElementDetails._content}</Content>
+            <Title>{tunewsElementDetails && tunewsElementDetails._title}</Title>
+            <Content>{tunewsElementDetails && tunewsElementDetails._content}</Content>
           </StyledWrapper>
-          <TuNewsDetailsFooter eNewsNumber={tuNewsElementDetails.enewsno} date={tuNewsElementDetails && tuNewsElementDetails._date} language={language} t={this.props.t} />
+          <TunewsDetailsFooter eNewsNumber={tunewsElementDetails.enewsno} date={tunewsElementDetails && tunewsElementDetails._date} language={language} t={this.props.t} />
         </StyledContainer>
       </NewsController>
     )
@@ -100,5 +100,5 @@ const mapStateToProps = (state: StateType) => ({
 
 export default compose(
   connect<*, *, *, *, *, *>(mapStateToProps),
-  withTranslation('tuNewsDetails')
-)(TuNewsDetailsPage)
+  withTranslation('tunewsDetails')
+)(TunewsDetailsPage)

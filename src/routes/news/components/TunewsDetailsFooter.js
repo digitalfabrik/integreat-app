@@ -32,7 +32,7 @@ type PropsType = {|
   t: TFunction
 |}
 
-class TuNewsDetailsFooter extends React.PureComponent<PropsType> {
+class TunewsDetailsFooter extends React.PureComponent<PropsType> {
   render () {
     const { eNewsNumber, date, language, t } = this.props
     date.locale(language)
@@ -52,4 +52,4 @@ class TuNewsDetailsFooter extends React.PureComponent<PropsType> {
   }
 }
 
-export default TuNewsDetailsFooter
+export default TunewsDetailsFooter

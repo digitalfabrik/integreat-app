@@ -2,8 +2,8 @@
 
 import React from 'react'
 import styled from 'styled-components'
-import tuNewsLogoActive from '../assets/tu-news-active.png'
-import tuNewsLogoInActive from '../assets/tu-news-inactive.png'
+import tunewsLogoActive from '../assets/tu-news-active.png'
+import tunewsLogoInActive from '../assets/tu-news-inactive.png'
 import Link from 'redux-first-router-link'
 
 const TU_NEWS = 'tu'
@@ -33,7 +33,7 @@ const TuStyledTab = styled(StyledTab)`
   background-color: ${({ active, theme }) =>
     active ? '#0179a6' : 'rgba(111, 111, 110, 0.4)'};
   background-image: ${({ active, theme }) =>
-    active ? `url(${tuNewsLogoActive})` : `url(${tuNewsLogoInActive})`};
+    active ? `url(${tunewsLogoActive})` : `url(${tunewsLogoInActive})`};
   background-size: cover;
 `
 

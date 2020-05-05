@@ -16,8 +16,8 @@ import CategoriesRouteConfig, { CATEGORIES_ROUTE } from '../../app/route-configs
 import EventsRouteConfig, { EVENTS_ROUTE } from '../../app/route-configs/EventsRouteConfig'
 import NewsRouteConfig, { NEWS_ROUTE } from '../../app/route-configs/NewsRouteConfig'
 import LocalNewsDetailsRouteConfig, { LOCAL_NEWS_DETAILS_ROUTE } from '../../app/route-configs/LocalNewsDetailsRouteConfig'
-import TuNewsListRouteConfig, { TUNEWS_LIST_ROUTE } from '../../app/route-configs/TuNewsListRouteConfig'
-import TuNewsDetailsRouteConfig, { TUNEWS_DETAILS_ROUTE } from '../../app/route-configs/TuNewsDetailsRouteConfig'
+import TunewsListRouteConfig, { TUNEWS_LIST_ROUTE } from '../../app/route-configs/TunewsListRouteConfig'
+import TunewsDetailsRouteConfig, { TUNEWS_DETAILS_ROUTE } from '../../app/route-configs/TunewsDetailsRouteConfig'
 import SearchRouteConfig from '../../app/route-configs/SearchRouteConfig'
 import type { LocationState } from 'redux-first-router'
 import { EventModel, LocalNewsModel } from '@integreat-app/integreat-api-client'
@@ -98,7 +98,7 @@ export class LocationHeader extends React.Component<PropsType> {
     }
 
     if (isNewsEnabled) {
-      const newsUrl = city.pushNotificationsEnabled ? new NewsRouteConfig().getRoutePath({ city, language }) : new TuNewsListRouteConfig().getRoutePath({ city, language })
+      const newsUrl = city.pushNotificationsEnabled ? new NewsRouteConfig().getRoutePath({ city, language }) : new TunewsListRouteConfig().getRoutePath({ city, language })
       items.push(
         <HeaderNavigationItem
           key='news'

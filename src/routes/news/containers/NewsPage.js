@@ -35,7 +35,7 @@ export class NewsPage extends React.Component<PropsType> {
     const { news, city, cities, language, t } = this.props
     return (
       <NewsController>
-        <Tabs localNews tuNews={false} city={city} cities={cities} t={t} language={language}>
+        <Tabs localNews tunews={false} city={city} cities={cities} t={t} language={language}>
           <NewsList items={news} noItemsMessage={t('currentlyNoLocalNews')} renderItem={this.renderLocalNewsElement(language)} city={city} />
         </Tabs>
       </NewsController>

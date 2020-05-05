@@ -7,8 +7,8 @@ import type { StateType } from '../../../modules/app/StateType'
 import { redirect } from 'redux-first-router'
 import type { Dispatch } from 'redux'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
-import { TUNEWS_LIST_ROUTE } from './../../../modules/app/route-configs/TuNewsListRouteConfig'
-import { TUNEWS_DETAILS_ROUTE } from './../../../modules/app/route-configs/TuNewsDetailsRouteConfig'
+import { TUNEWS_LIST_ROUTE } from './../../../modules/app/route-configs/TunewsListRouteConfig'
+import { TUNEWS_DETAILS_ROUTE } from './../../../modules/app/route-configs/TunewsDetailsRouteConfig'
 import { CATEGORIES_ROUTE } from './../../../modules/app/route-configs/CategoriesRouteConfig'
 import { NEWS_ROUTE } from './../../../modules/app/route-configs/NewsRouteConfig'
 import { LOCAL_NEWS_DETAILS_ROUTE } from './../../../modules/app/route-configs/LocalNewsDetailsRouteConfig'
@@ -46,7 +46,7 @@ export class NewsController extends React.Component<PropsType> {
   }
 
   render () {
-    const { children } = this.props;
+    const { children } = this.props
     return (
       <div>{children}</div>
     )
