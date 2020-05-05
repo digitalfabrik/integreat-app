@@ -17,7 +17,6 @@ import type {
 } from '../../../modules/app/StoreActionType'
 import { NavigationScreenProp } from 'react-navigation'
 import type { StatusPropsType } from '../../../modules/error/hocs/withPayloadProvider'
-import withTheme from '../../../modules/theme/hocs/withTheme'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import * as React from 'react'
 import { mapProps } from 'recompose'
@@ -235,10 +234,6 @@ const mapDispatchToProps = (
   dispatch: Dispatch<StoreActionType>
 ): DispatchPropsType => ({ dispatch })
 
-const ThemedTranslatedNewsList = withTranslation('news')(
-  withTheme(props => props.language)(NewsList)
-)
-
 class NewsContainer extends React.Component<ContainerPropsType> {
   state = {
     selectedNewsType: this.getAvailableNewsType(),
@@ -413,7 +408,7 @@ class NewsContainer extends React.Component<ContainerPropsType> {
     return (
       <View style={{ flex: 1 }}>
         {this.renderHeader()}
-        <ThemedTranslatedNewsList
+        <NewsList
           {...innerProps}
           {...refreshProps}
           dispatch={dispatch}
