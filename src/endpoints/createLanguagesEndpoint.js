@@ -26,7 +26,7 @@ export default (baseUrl: string, isTunews: ?boolean): Endpoint<ParamsType, Array
       return json
         .map(language => {
           if ((isTunews && !language.name) || (!isTunews && !language.native_name)) {
-            throw new MappingError(LANGUAGES_ENDPOINT_NAME, isTunews ? 'name' : 'native_name')
+            throw new MappingError(LANGUAGES_ENDPOINT_NAME, `Unexpected json format. Response did not contain ${isTunews ? 'name' : 'native_name'}`)
           } else {
             return new LanguageModel(
               language.code,
