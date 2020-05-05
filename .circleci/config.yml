@@ -135,12 +135,10 @@ jobs:
             - run:
                 name: Production release
                 command: tools/deploy/sftp-deploy.sh /integreat.app # TODO
-            - slack/notify: # TODO
-                channel: CHANNELID
-                color: '#42e2f4'
-                mentions: 'USERID1,USERID2,'
+            - slack/notify:
+                mentions: 'channel'
                 message: This is a custom message notification
-                webhook: webhook
+                webhook: https://hooks.slack.com/services/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
       - unless:
         condition: <<parameters.production>>
         name: Debug release
@@ -148,12 +146,11 @@ jobs:
 
   bump_version:
     docker:
-      - image: circleci/node:12.16.3
+      - image: circleci/ruby:2.6.2
     resource_class: small
-    shell: /bin/bash -eo pipefail
     steps:
       - checkout
       - run:
           name: Bump version
-          command: bundle exec fastlane github_bump_version
+          command: ruby
 
