@@ -168,7 +168,7 @@ export type OfferType = {
   createdDate: string
 }
 
-export type JsonLanguageType = { code: string, native_name: ?any, name: ?any }
+export type JsonLanguageType = { code: string, native_name: ?string, name: ?string }
 
 export type JsonCityType = {
   name: string,
