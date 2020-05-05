@@ -3,6 +3,7 @@
 import LanguageModel from '../models/LanguageModel'
 import EndpointBuilder from '../EndpointBuilder'
 import ParamMissingError from '../errors/ParamMissingError'
+import MappingError from '../errors/MappingError'
 import type { JsonLanguageType } from '../types'
 import Endpoint from '../Endpoint'
 
@@ -25,7 +26,7 @@ export default (baseUrl: string, isTunews: ?boolean): Endpoint<ParamsType, Array
       return json
         .map(language => {
           if ((isTunews && !language.name) || (!isTunews && !language.native_name)) {
-            throw new ParamMissingError(LANGUAGES_ENDPOINT_NAME, isTunews ? 'name' : 'native_name')
+            throw new MappingError(LANGUAGES_ENDPOINT_NAME, isTunews ? 'name' : 'native_name')
           } else {
             return new LanguageModel(
               language.code,
