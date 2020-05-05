@@ -52,11 +52,7 @@ class Dashboard extends React.Component<PropsType> {
         path: 'categories',
         thumbnail: localInformationIcon,
         isExternalUrl: false,
-        onTilePress: () => navigateToCategory({
-          cityCode,
-          language,
-          path: `/${cityCode}/${language}`
-        }),
+        onTilePress: () => navigateToCategory({ cityCode, language, path: `/${cityCode}/${language}` }),
         notifications: 0
       }),
       cityModel.extrasEnabled && new TileModel({
@@ -64,10 +60,7 @@ class Dashboard extends React.Component<PropsType> {
         path: 'extras',
         thumbnail: offersIcon,
         isExternalUrl: false,
-        onTilePress: () => navigateToExtras({
-          cityCode,
-          language
-        }),
+        onTilePress: () => navigateToExtras({ cityCode, language }),
         notifications: 0
       }),
       cityModel.eventsEnabled && new TileModel({
@@ -75,11 +68,7 @@ class Dashboard extends React.Component<PropsType> {
         path: 'events',
         thumbnail: eventsIcon,
         isExternalUrl: false,
-        onTilePress: () => navigateToEvent({
-          cityCode,
-          language,
-          path: null
-        }),
+        onTilePress: () => navigateToEvent({ cityCode, language, path: null }),
         notifications: 0
       })
     ].filter(tile => !!tile)
