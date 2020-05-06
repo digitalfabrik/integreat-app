@@ -44,7 +44,7 @@ const Row = styled.View`
   border-radius: 5px;
   width: 95%;
   align-self: center;
-  background-color: ${props => props.theme.colors.tuNewsColor};
+  background-color: ${props => props.theme.colors.tunewsColor};
 `
 
 const ExtraInfo = styled.Text`
