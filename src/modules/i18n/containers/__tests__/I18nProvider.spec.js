@@ -93,7 +93,10 @@ describe('I18nProvider', () => {
     const component = mount(<I18nProvider setUiDirection={() => {}}>
       <div />
     </I18nProvider>)
-    const instance = component.instance()
+
+    // https://github.com/facebook/flow/issues/6196
+    // eslint-disable-next-line flowtype/no-weak-types
+    const instance: any = component.instance()
     instance.setLanguage = jest.fn()
 
     component.setProps({ language: 'de' })
