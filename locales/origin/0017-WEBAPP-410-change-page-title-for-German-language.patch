@@ -1,0 +1,29 @@
+From 2d9f24f471a74b3d2b64a28177895d94ad7e79bd Mon Sep 17 00:00:00 2001
+From: Andrew Kud <a-kud@users.noreply.github.com>
+Date: Sun, 27 Jan 2019 00:15:07 +0200
+Subject: [PATCH 17/23] WEBAPP-410: change page title for German language
+
+---
+ src/locales.json | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/src/locales.json b/src/locales.json
+index 62e6c73c..e81042b8 100644
+--- a/src/locales.json
++++ b/src/locales.json
+@@ -209,8 +209,10 @@
+       "searchCity": "البحث عن مكانك"
+     },
+     "de": {
+-      "where": "Wo bist du?",
+-      "searchCity": "Suche nach einem Ort"
++      "where": "",
++      "pageTitle": "Ortsauswahl",
++      "searchCity": "Ort suchen",
++      "metaDescription": "Finde lokale und aktuelle Informationen, Events und werde Teil deiner neuen Stadt. Integreat hilft dir dich mit anderen zu vernetzen und unterstützt mehrere Sprachen."
+     },
+     "en": {
+       "where": "Where are you?",
+-- 
+2.20.1 (Apple Git-117)
+
