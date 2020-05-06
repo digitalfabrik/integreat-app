@@ -1,0 +1,56 @@
+From 53c6c079c62872dacde96631f32b387604f93e2c Mon Sep 17 00:00:00 2001
+From: Steffen Kleinle <klinzo@yahoo.de>
+Date: Thu, 20 Dec 2018 16:53:32 +0100
+Subject: [PATCH 15/23] WEBAPP-209: Fix tests and locales
+
+---
+ src/locales.json | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/src/locales.json b/src/locales.json
+index e8743f4c..a96a177e 100644
+--- a/src/locales.json
++++ b/src/locales.json
+@@ -66,8 +66,8 @@
+       "noLanguages": "غير متوفر بلغات أخرى",
+       "noTranslation": "لا توجد ترجمة متاحة",
+       "search": "البحث",
+-      "changeLocation": "Standort wechseln",
+-      "changeLanguage": "Sprache wechseln"
++      "changeLocation": "تغيير الموقع",
++      "changeLanguage": "تغيير اللغةn"
+     },
+     "de": {
+       "imprintAndContact": "Impressum und Kontakt",
+@@ -79,8 +79,8 @@
+       "noLanguages": "Nicht verfügbar in anderen Sprachen",
+       "noTranslation": "Keine Übersetzung verfügbar",
+       "search": "Suchen",
+-      "changeLocation": "تغيير الموقع",
+-      "changeLanguage": "تغيير اللغةn"
++      "changeLocation": "Standort wechseln",
++      "changeLanguage": "Sprache wechseln"
+     },
+     "en": {
+       "imprintAndContact": "Imprint and contact",
+@@ -339,7 +339,7 @@
+       "nothingFound": "للأسف لم يتم العثور على نتائج مناسبة.",
+       "informationNotFound": "لم يتم العثور على المعلومة المناسبة؟",
+       "wantedInformation": "ما هي المعلومات الناقصة هنا؟",
+-      "thanksMessage": "\"شكرًا على تعليقاتك. فمن خلالها تساعدنا على تطوير محتوياتنا \n وتطوير تطبيق Integreat. تُسعدنا \n تعليقاتك.\"",
++      "thanksMessage": "شكرًا على تعليقاتك. فمن خلالها تساعدنا على تطوير محتوياتنا وتطوير تطبيق Integreat. تُسعدنا تعليقاتك.",
+       "close": "إغلاق"
+     },
+     "de": {
+@@ -404,7 +404,7 @@
+       "nothingFound": "متاسفانه هیچ نتیجه مناسبی پیدا نشد.",
+       "informationNotFound": "آنچه را که جستجو می کردید پیدا نکردید؟",
+       "wantedInformation": "چه اطلاعاتی در اینجا موجود نیست؟",
+-      "thanksMessage": "\"از بازخورد شما سپاسگزاریم. شما با آن به ما کمک می کنید تا مطالب خود و \n اپلیکیشن Integreat را بهتر کنیم. از بازخوردهای بیشتر خوشحال خواهیم \n شد.\"",
++      "thanksMessage": "از بازخورد شما سپاسگزاریم. شما با آن به ما کمک می کنید تا مطالب خود و اپلیکیشن Integreat را بهتر کنیم. از بازخوردهای بیشتر خوشحال خواهیم شد.",
+       "close": "بستن"
+     },
+     "fr": {
+-- 
+2.20.1 (Apple Git-117)
+

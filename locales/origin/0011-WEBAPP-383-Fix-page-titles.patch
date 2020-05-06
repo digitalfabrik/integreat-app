@@ -1,0 +1,25 @@
+From 6abc6753ee5cea66ca3c69eb5aded20146027387 Mon Sep 17 00:00:00 2001
+From: Steffen Kleinle <klinzo@yahoo.de>
+Date: Tue, 20 Nov 2018 11:49:04 +0100
+Subject: [PATCH 11/23] WEBAPP-383: Fix page titles
+
+---
+ src/locales.json | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/src/locales.json b/src/locales.json
+index 96009a32..5940d129 100644
+--- a/src/locales.json
++++ b/src/locales.json
+@@ -16,8 +16,6 @@
+         "extras": "Extras",
+         "landing": "Wo bist du?",
+         "disclaimer": "Impressum und Kontakt",
+-        "wohnen": "Raumfrei",
+-        "sprungbrett": "Sprungbrett",
+         "mainDisclaimer": "Impressum und Datenschutz - Integreat"
+       }
+     },
+-- 
+2.20.1 (Apple Git-117)
+
