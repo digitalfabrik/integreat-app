@@ -49,8 +49,8 @@ post_data="
       }
     }"
 
-curl -X POST https://circleci.com/api/v2/project/github/Integreat/integreat-react-native-app/pipeline \
+curl -X POST https://circleci.com/api/v2/project/github/Integreat/integreat-webapp/pipeline \
   -H "Content-Type: application/json" \
   -H "Accept: application/json" \
   -H "Circle-Token: ${api_token}" \
-   --data $post_data
+  --data "$post_data"
