@@ -171,7 +171,7 @@ jobs:
           steps:
             - run:
                 name: Production release
-                command: sftp web-test@web.integreat-app.de:/integreat.app <<< $'put -r dist/*'
+                command: sftp web-test@web.integreat-app.de:/integreat.app \<<< $'put -r dist/*'
             - slack/notify:
                 message: Integreat {version_name} has been released successfully to integreat.app!
                 webhook: $SLACK_URL
@@ -180,7 +180,7 @@ jobs:
           steps:
             - run:
                 name: Debug release
-                command: sftp web-test@web.integreat-app.de:/webnext.integreat-app.de <<< $'put -r dist/*'
+                command: sftp web-test@web.integreat-app.de:/webnext.integreat-app.de \<<< $'put -r dist/*'
 
   bump_version:
     docker:
