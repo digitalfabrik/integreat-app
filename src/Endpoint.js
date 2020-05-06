@@ -7,6 +7,7 @@ import type { MapParamsToUrlType } from './MapParamsToUrlType'
 import type { MapParamsToBodyType } from './MapParamsToBody'
 import ResponseError from './errors/ResponseError'
 import FetchError from './errors/FetchError'
+import type { RequestOptionsType } from './errors/ResponseError'
 
 /**
  * A Endpoint holds all the relevant information to fetch data from it
@@ -38,12 +39,9 @@ class Endpoint<P, T> {
     return this._stateName
   }
 
-  async getOrPost (url: string, formData: ?FormData): Promise<Response> {
+  async fetchOrThrow (url: string, requestOptions: $Shape<RequestOptions>): Promise<Response> {
     try {
-      return fetch(url, formData ? {
-        method: 'POST',
-        body: formData
-      } : {})
+      return fetch(url, requestOptions)
     } catch (e) {
       throw new FetchError({ endpointName: this.stateName, innerError: e })
     }
@@ -59,11 +57,14 @@ class Endpoint<P, T> {
       return new Payload(false, url, this.responseOverride, null)
     }
 
-    const formData = this.mapParamsToBody ? this.mapParamsToBody(params) : null
-    const response = await this.getOrPost(url, formData)
+    const requestOptions: RequestOptionsType = this.mapParamsToBody ? {
+      method: 'POST',
+      body: this.mapParamsToBody(params)
+    } : { method: 'GET' }
+    const response = await this.fetchOrThrow(url, requestOptions)
 
     if (!response.ok) {
-      throw new ResponseError({ endpointName: this.stateName, response: response, url, formData })
+      throw new ResponseError({ endpointName: this.stateName, response: response, url, requestOptions })
     }
 
     try {
