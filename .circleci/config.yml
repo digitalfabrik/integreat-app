@@ -15,23 +15,46 @@ parameters:
 
 workflows:
   version: 2
-  commit:
+  commit: # Workflow for every commit except on develop: Build job only
     unless: << pipeline.parameters.api_triggered >>
+    filters:
+      branches:
+        ignore:
+          - develop
     jobs:
       - build:
           production: false
 
-  api-triggered:
+  commit-develop: # Workflow for commits on develop: Build, version bump and webnext delivery
+    filters:
+      branches:
+        only:
+          - develop
+    jobs:
+      - build:
+          production: false
+      - bump_version:
+          requires:
+            - build
+      - deliver:
+          production: false
+          requires:
+            - build
+            - bump_version
+
+  api-triggered: # Workflow for manual delivery
     when: << pipeline.parameters.api_triggered >>
     jobs:
       - build:
           production: << pipeline.parameters.production >>
+      - bump_version:
+          requires:
+            - build
       - deliver:
           production: << pipeline.parameters.production >>
           requires:
             - build
             - bump_version
-      - bump_version # TODO requirements
 
   bi-weekly-production-release:
     triggers:
@@ -44,13 +67,15 @@ workflows:
     jobs:
       - build:
           production: true
+      - bump_version:
+          requires:
+            - build
       - deliver:
           type: approval
           production: true
           requires:
             - build
             - bump_version
-      - bump_version
 
 jobs:
   build:
@@ -70,7 +95,7 @@ jobs:
             echo "CPU count is ${TOTAL_CPUS}"
       - add_ssh_keys: # Install
           fingerprints:
-            - "9a:0f:b1:f0:97:c8:db:3f:be:87:a4:9b:09:7f:d3:af"
+            - "30:f4:98:9f:1c:72:d1:c0:17:9f:57:05:74:a6:44:50"
       - checkout
       - restore_cache:
           name: Restore Yarn Package Cache
@@ -102,13 +127,13 @@ jobs:
           condition: << parameters.production >>
           steps:
             - run:
-                name: Production Build
+                name: Production build
                 command: yarn run build
       - unless:
           condition: << parameters.production >>
           steps:
             - run:
-                name: Debug Build
+                name: Debug build
                 command: yarn run build:debug
       - run:
           name: Check build
@@ -124,10 +149,6 @@ jobs:
           command: echo success
 
   deliver:
-    filters:
-      branches:
-        only:
-          - develop
     parameters:
       production:
         description: Whether to release to production.
@@ -143,22 +164,23 @@ jobs:
           name: "Show current CPU count"
           command: |
             echo "CPU count is ${TOTAL_CPUS}"
-      - checkout
       - attach_workspace:
           at: dist
-#      - when: # TODO
-#          condition: << parameters.production >>
-#          steps:
-#            - run:
-#                name: Production release
-#                command: tools/deploy/sftp-deploy.sh /integreat.app
-#            - slack/notify:
-#                message: Integreat {version_name} has been released successfully to integreat.app!
-#                webhook: $SLACK_URL
-#      - unless: # TODO
-#        condition: << parameters.production >>
-#        name: Debug release
-#        command: tools/deploy/sftp-deploy.sh /webnext.integreat-app.de
+      - when:
+          condition: << parameters.production >>
+          steps:
+            - run:
+                name: Production release
+                command: sftp web-test@web.integreat-app.de:/integreat.app <<< $'put -r dist/*'
+            - slack/notify:
+                message: Integreat {version_name} has been released successfully to integreat.app!
+                webhook: $SLACK_URL
+      - unless:
+        condition: << parameters.production >>
+        steps:
+          - run:
+              name: Debug release
+              command: sftp web-test@web.integreat-app.de:/webnext.integreat-app.de <<< $'put -r dist/*'
 
   bump_version:
     docker:
@@ -169,4 +191,3 @@ jobs:
       - run:
           name: Bump version
           command: ruby
-
