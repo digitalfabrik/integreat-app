@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LocalNewsDetails should render and match snapshot 1`] = `
+<Page
+  content=""
+  language="en"
+  lastUpdate="2020-05-02 18:31:25"
+  title="Some title"
+>
+  This a push notifications message
+</Page>
+`;

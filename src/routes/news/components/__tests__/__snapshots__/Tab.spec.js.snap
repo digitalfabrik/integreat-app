@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tab should render and match snapshot 1`] = `
+<Tab__StyledTab
+  active="local"
+  to="/testcity/en/news/local"
+>
+  local
+</Tab__StyledTab>
+`;

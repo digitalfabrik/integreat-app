@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NewsList should render and match snapshot 1`] = `
+<NewsList__StyledList>
+  <NewsList__Wrapper>
+    <NewsElement
+      key="217"
+      language="en"
+      newsItem={
+        LocalNewsModel {
+          "_id": 217,
+          "_message": "In summer there are often ticks in forest and meadows with high grass. These are very small animals. They feed on the blood of people or animals they sting, like mosquitoes. But they stay in the skin longer and can transmit dangerous diseases. If you have been in high grass, you should search your body very thoroughly for ticks. They like to sit in the knees, armpits or in the groin area. If you discover a tick in your skin, you should carefully pull it out with tweezers without crushing it. If the sting inflames, you must see a doctor.",
+          "_timestamp": "2020-03-20T17:50:00.000Z",
+          "_title": "Tick bite - What to do?",
+        }
+      }
+      path="/testumgebung/en/news/local"
+      t={[Function]}
+    />
+    <NewsElement
+      key="218"
+      language="en"
+      newsItem={
+        LocalNewsModel {
+          "_id": 218,
+          "_message": "In summer there are often ticks in forest and meadows with high grass. These are very small animals. They feed on the blood of people or animals they sting, like mosquitoes. But they stay in the skin longer and can transmit dangerous diseases. If you have been in high grass, you should search your body very thoroughly for ticks. They like to sit in the knees, armpits or in the groin area. If you discover a tick in your skin, you should carefully pull it out with tweezers without crushing it. If the sting inflames, you must see a doctor.",
+          "_timestamp": "2020-03-20T17:50:00.000Z",
+          "_title": "Tick bite - What to do?",
+        }
+      }
+      path="/testumgebung/en/news/local"
+      t={[Function]}
+    />
+  </NewsList__Wrapper>
+</NewsList__StyledList>
+`;

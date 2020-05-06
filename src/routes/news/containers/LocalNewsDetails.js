@@ -2,8 +2,6 @@
 
 import * as React from 'react'
 import { connect } from 'react-redux'
-import compose from 'lodash/fp/compose'
-import { withTranslation } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
 import Page from '../../../modules/common/components/Page'
 import { LocalNewsModel } from '@integreat-app/integreat-api-client'
@@ -19,9 +17,9 @@ type PropsType = {|
   path: string
 |}
 
-class LocalNewsDetailsPage extends React.PureComponent<PropsType> {
+export class LocalNewsDetailsPage extends React.PureComponent<PropsType> {
   render () {
-    const { localNewsDetails, language, city, path, id } = this.props
+    const { localNewsDetails, language, city, path } = this.props
 
     if (!localNewsDetails) {
       const error = new ContentNotFoundError({ type: 'newsItem', id: path, city, language })
@@ -42,12 +40,8 @@ const mapStateTypeToProps = (state: StateType) => (
   {
     language: state.location.payload.language,
     city: state.location.payload.city,
-    path: state.location.pathname,
-    id: state.location.payload.id
+    path: state.location.pathname
   }
 )
 
-export default compose(
-  connect<*, *, *, *, *, *>(mapStateTypeToProps),
-  withTranslation('localNewsDetails')
-)(LocalNewsDetailsPage)
+export default connect<*, *, *, *, *, *>(mapStateTypeToProps)(LocalNewsDetailsPage)

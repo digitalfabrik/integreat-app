@@ -8,7 +8,9 @@ import Link from 'redux-first-router-link'
 
 const TU_NEWS = 'tu'
 
-const StyledTab = styled(Link)`
+const NewsLink = ({ active, ...props }) => <Link {...props} />
+
+const StyledTab = styled(NewsLink)`
   cursor: pointer;
   box-sizing: border-box;
   display: flex;

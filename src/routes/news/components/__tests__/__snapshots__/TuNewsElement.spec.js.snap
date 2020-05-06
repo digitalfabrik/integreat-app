@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TunewsElement should render and match snapshot 1`] = `
+<TunewsElement__StyledNewsElement>
+  <TunewsElement__Link
+    to="/testumgebung/en/news/tu-news/1"
+  >
+    <TunewsElement__Description>
+      <TunewsElement__Title>
+        Tick bite - What to do?
+      </TunewsElement__Title>
+      <TunewsElement__Body>
+        In summer there are often ticks in forest and meadows with high grass. These are very small animals. They feed on the blood of people or animals they sting, like...
+      </TunewsElement__Body>
+      <TunewsElement__StyledContainer>
+        <TunewsElement__StyledDate
+          language="en"
+          lastUpdate={"2020-03-20T17:50:00.000Z"}
+          withText={false}
+        />
+        <TunewsElement__ReadMoreLink
+          to="/testumgebung/en/news/tu-news/1"
+        >
+          readMore
+        </TunewsElement__ReadMoreLink>
+      </TunewsElement__StyledContainer>
+    </TunewsElement__Description>
+  </TunewsElement__Link>
+</TunewsElement__StyledNewsElement>
+`;

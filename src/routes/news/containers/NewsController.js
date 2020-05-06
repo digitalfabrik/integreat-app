@@ -58,7 +58,7 @@ const mapStateTypeToProps = (state: StateType) => {
     location: state.location,
     language: state.location.payload.language,
     city: state.location.payload.city,
-    cities: state.cities._data
+    cities: state.cities.data
   }
 }
 
