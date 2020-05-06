@@ -49,8 +49,7 @@ class Page extends React.PureComponent<PropsType> {
         {lastUpdate &&
           <StyledContainer>
             <LastUpdateInfo lastUpdate={lastUpdate} language={language} withText />
-          </StyledContainer>
-        }
+          </StyledContainer>}
       </>
     )
   }

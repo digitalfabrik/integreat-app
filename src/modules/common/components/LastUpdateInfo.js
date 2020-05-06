@@ -18,7 +18,7 @@ type PropsType = {|
   lastUpdate: Moment,
   t: TFunction,
   language: string,
-  withText: string,
+  withText: string
 |}
 
 export class LastUpdateInfo extends React.PureComponent<PropsType> {

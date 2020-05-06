@@ -20,8 +20,7 @@ export const textTruncator = (text, numOfWordsAllowed) => {
 
   const shortenedArrayOfText = splitTextToWords.splice(0, numOfWordsAllowed)
   const joinShorterendArray = shortenedArrayOfText.join(' ')
-  const textTruncated = joinShorterendArray + ellipsis;
+  const textTruncated = joinShorterendArray + ellipsis
 
-  return textTruncated;
+  return textTruncated
 }
-

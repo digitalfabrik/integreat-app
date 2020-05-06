@@ -35,7 +35,6 @@ import FailureSwitcher from '../common/components/FailureSwitcher'
 import CityNotFoundError from './errors/CityNotFoundError'
 import { NOT_FOUND } from 'redux-first-router'
 
-
 const routeContents = {
   [MAIN_DISCLAIMER_ROUTE]: MainDisclaimerPage,
   [I18N_REDIRECT_ROUTE]: I18nRedirectPage,

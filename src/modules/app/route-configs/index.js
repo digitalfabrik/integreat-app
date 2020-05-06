@@ -36,7 +36,7 @@ const routeConfigs: {[string]: RouteConfig<any, any>} = {
   [SEARCH_ROUTE]: new SearchRouteConfig(),
   [POIS_ROUTE]: new PoisRouteConfig(),
   [CATEGORIES_ROUTE]: new CategoriesRouteConfig(),
-  [NOT_FOUND]: new NotFoundRouteConfig(),
+  [NOT_FOUND]: new NotFoundRouteConfig()
 }
 
 export const getRouteConfig = (routeName: string): RouteConfig<*, *> => {
@@ -63,5 +63,5 @@ export const routesMap: {[string]: Route} = {
   [DISCLAIMER_ROUTE]: new DisclaimerRouteConfig().route,
   [SEARCH_ROUTE]: new SearchRouteConfig().route,
   [POIS_ROUTE]: new PoisRouteConfig().route,
-  [CATEGORIES_ROUTE]: new CategoriesRouteConfig().route,
+  [CATEGORIES_ROUTE]: new CategoriesRouteConfig().route
 }
