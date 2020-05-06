@@ -107,6 +107,9 @@ jobs:
             - run:
                 name: Debug Build
                 command: yarn run build:debug
+      - run:
+          name: Check build
+          command: yarn run check:built
       - store_artifacts:
           path: dist/
       - persist_to_workspace:
