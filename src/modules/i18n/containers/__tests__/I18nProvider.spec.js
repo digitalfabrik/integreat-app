@@ -9,11 +9,9 @@ import configureMockStore from 'redux-mock-store'
 import ConnectedI18nProvider, { I18nProvider } from '../I18nProvider'
 import { I18nextProvider } from 'react-i18next'
 import resources from '../../../../../locales/locales.json'
-import setUIDirection from '../../actions/setUIDirection'
 
 const mockStore = configureMockStore()
 
-// eslint-disable-next-line jest/no-disabled-tests
 describe('I18nProvider', () => {
   it('should match snapshot', () => {
     const component = mount(<I18nProvider setUiDirection={() => {}}>
@@ -95,7 +93,7 @@ describe('I18nProvider', () => {
     const component = mount(<I18nProvider setUiDirection={() => {}}>
       <div />
     </I18nProvider>)
-    const instance: any = component.instance()
+    const instance = component.instance()
     instance.setLanguage = jest.fn()
 
     component.setProps({ language: 'de' })
@@ -157,7 +155,6 @@ describe('I18nProvider', () => {
       I18nProvider.getSelectedFonts = jest.fn(I18nProvider.getSelectedFonts)
       i18n.changeLanguage = jest.fn(i18next.changeLanguage)
 
-      component.instance().setLanguage(expectedLanguage)
       await component.instance().setLanguage(expectedLanguage)
 
       // $FlowFixMe

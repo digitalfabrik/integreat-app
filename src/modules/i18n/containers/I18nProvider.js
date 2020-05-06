@@ -81,7 +81,7 @@ export class I18nProvider extends React.Component<PropsType, StateType> {
     )
   }
 
-  setLanguage (language: ?string) {
+  async setLanguage (language: ?string) {
     const targetLanguage = language || this.i18n.languages[0]
 
     // Set i18next language to apps language
