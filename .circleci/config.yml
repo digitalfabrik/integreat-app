@@ -95,6 +95,9 @@ jobs:
 #      - run:
 #          name: Unit tests
 #          command: yarn run test --ci --maxWorkers $TOTAL_CPUS
+#      - run:
+#          name: Test coverage
+#          command: yarn run test:coverage --ci --maxWorkers $TOTAL_CPUS
       - when:
           condition: << parameters.production >>
           steps:
@@ -121,6 +124,10 @@ jobs:
           command: echo success
 
   deliver:
+    filters:
+      branches:
+        only:
+          - develop
     parameters:
       production:
         description: Whether to release to production.
