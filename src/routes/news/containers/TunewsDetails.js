@@ -64,7 +64,7 @@ type PropsType = {|
   t: TFunction
 |}
 
-class TunewsDetailsPage extends React.PureComponent<PropsType> {
+export class TunewsDetailsPage extends React.PureComponent<PropsType> {
   render () {
     const { tunewsElementDetails, language, path, city, t } = this.props
 
@@ -82,10 +82,10 @@ class TunewsDetailsPage extends React.PureComponent<PropsType> {
                 <StyledBannerImage src={TunewsIcon} alt={t('tu.news')} />
               </StyledTitle>
             </StyledBanner>
-            <Title>{tunewsElementDetails && tunewsElementDetails._title}</Title>
-            <Content>{tunewsElementDetails && tunewsElementDetails._content}</Content>
+            <Title>{tunewsElementDetails && tunewsElementDetails.title}</Title>
+            <Content>{tunewsElementDetails && tunewsElementDetails.content}</Content>
           </StyledWrapper>
-          <TunewsDetailsFooter eNewsNumber={tunewsElementDetails.enewsno} date={tunewsElementDetails && tunewsElementDetails._date} language={language} t={this.props.t} />
+          <TunewsDetailsFooter eNewsNumber={tunewsElementDetails.enewsno} date={tunewsElementDetails && tunewsElementDetails.date} language={language} t={t} />
         </StyledContainer>
       </NewsController>
     )

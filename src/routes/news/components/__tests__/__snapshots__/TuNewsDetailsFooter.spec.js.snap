@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TunewsDetailsFooter should render and match snapshot 1`] = `
+<TunewsDetailsFooter__Footer>
+  <TunewsDetailsFooter__StyledContainer>
+    eNewsNo
+    : 
+    tun0000009902
+  </TunewsDetailsFooter__StyledContainer>
+  <TunewsDetailsFooter__StyledContainer>
+    <TunewsDetailsFooter__StyledLink
+      href="http://www.tunews.de"
+      target="_blank"
+    >
+      tunewsInternational
+    </TunewsDetailsFooter__StyledLink>
+  </TunewsDetailsFooter__StyledContainer>
+  <TunewsDetailsFooter__StyledContainer>
+    March 20, 2020
+  </TunewsDetailsFooter__StyledContainer>
+</TunewsDetailsFooter__Footer>
+`;
