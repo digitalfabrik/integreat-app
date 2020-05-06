@@ -64,7 +64,7 @@ class Endpoint<P, T> {
     const response = await this.fetchOrThrow(url, requestOptions)
 
     if (!response.ok) {
-      throw new ResponseError({ endpointName: this.stateName, response: response, url, requestOptions })
+      throw new ResponseError({ endpointName: this.stateName, response, url, requestOptions })
     }
 
     try {
