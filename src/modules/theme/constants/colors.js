@@ -10,7 +10,7 @@ export type ColorsType = {
   textDisabledColor: string,
   headlineTextColor: string,
   backgroundColor: string,
-  secondaryAccentColor: string,
+  secondaryAccentColor: string
 }
 
 export const brightColors: ColorsType = {

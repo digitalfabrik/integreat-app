@@ -12,7 +12,7 @@ import {
   PageModel,
   EventModel,
   LocalNewsModel,
-  TunewsModel,
+  TunewsModel
 } from '@integreat-app/integreat-api-client'
 import type { TFunction } from 'react-i18next'
 

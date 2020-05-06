@@ -13,7 +13,7 @@ import {
   Payload,
   POIS_ENDPOINT_NAME,
   SPRUNGBRETT_JOBS_ENDPOINT_NAME,
-  WOHNEN_ENDPOINT_NAME,
+  WOHNEN_ENDPOINT_NAME
 } from '@integreat-app/integreat-api-client'
 import { handleActions } from 'redux-actions'
 import type { StartFetchActionType } from '../../app/actions/startFetchAction'

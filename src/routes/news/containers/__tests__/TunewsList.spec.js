@@ -3,11 +3,9 @@
 import React from 'react'
 import { mount, shallow } from 'enzyme'
 import moment from 'moment-timezone'
-import { withTranslation } from 'react-i18next'
 import configureMockStore from 'redux-mock-store'
 import ConnectedTunewsListPage, { TunewsListPage } from '../TunewsList'
 import { CityModel, TunewsModel } from '@integreat-app/integreat-api-client'
-import createReduxStore from '../../../../modules/app/createReduxStore'
 import { Provider } from 'react-redux'
 import createLocation from '../../../../createLocation'
 import { TUNEWS_LIST_ROUTE } from '../../../../modules/app/route-configs/TunewsListRouteConfig'
@@ -28,7 +26,7 @@ describe('TunewsListPage', () => {
       prefix: null,
       longitude: 10.89779,
       latitude: 48.3705449,
-      aliases: { 'Gersthofen': { longitude: 10.89779, latitude: 48.3705449 } }
+      aliases: { Gersthofen: { longitude: 10.89779, latitude: 48.3705449 } }
     }),
     new CityModel({
       name: 'Stadt Regensburg',

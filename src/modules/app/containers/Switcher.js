@@ -99,8 +99,7 @@ export class Switcher extends React.Component<PropsType> {
   }
 
   renderLayoutWithContent (): React.Node {
-    const { location, viewportSmall, darkMode, categoriesPayload, citiesPayload, toggleDarkMode, eventsPayload, newsPayload, tunewsPayload, tunewsElementPayload, newsElementPayload } =
-      this.props
+    const { location, viewportSmall, darkMode, categoriesPayload, citiesPayload, toggleDarkMode, eventsPayload, newsPayload } = this.props
 
     const routeConfig = getRouteConfig(location.type)
     const payloads = routeConfig.getRequiredPayloads(this.getAllPayloads())

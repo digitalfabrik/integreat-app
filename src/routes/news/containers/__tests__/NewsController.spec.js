@@ -46,7 +46,6 @@ describe('NewsController', () => {
 
   const city = 'augsburg'
   const language = 'en'
-  const t = (key: ?string): string => key || ''
 
   it('should match snapshot and render NewsController', () => {
     const wrapper = shallow(
