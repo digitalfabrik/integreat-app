@@ -8,8 +8,9 @@ import styled from 'styled-components'
 import ModalHeader from './ModalHeader'
 import FeedbackComment from './FeedbackComment'
 import FeedbackVariant from '../FeedbackVariant'
-import Select from 'react-select'
 import TextButton from '../../common/components/TextButton'
+import type { ThemeType } from '../../theme/constants/theme'
+import Dropdown from '../../common/components/Dropdown'
 
 export const StyledFeedbackBox = styled.div`
   display: flex;
@@ -28,13 +29,6 @@ export const Description = styled.div`
   padding: 10px 0 5px;
 `
 
-const StyledSelect = styled(Select)`
-  &,
-  & * {
-    cursor: pointer !important;
-  }
-`
-
 type PropsType = {|
   isPositiveRatingSelected: boolean,
   feedbackOptions: Array<FeedbackVariant>,
@@ -44,7 +38,8 @@ type PropsType = {|
   onFeedbackOptionChanged: FeedbackVariant => void,
   onSubmit: () => void,
   t: TFunction,
-  closeFeedbackModal: () => void
+  closeFeedbackModal: () => void,
+  theme: ThemeType
 |}
 
 /**
@@ -61,17 +56,18 @@ export class FeedbackBox extends React.PureComponent<PropsType> {
       onCommentChanged,
       onSubmit,
       comment,
-      closeFeedbackModal
+      closeFeedbackModal,
+      theme
     } = this.props
 
     return (
       <StyledFeedbackBox>
         <ModalHeader t={t} closeFeedbackModal={closeFeedbackModal} title={t('feedback')} />
         <Description>{t('feedbackType')}</Description>
-        <StyledSelect
-          value={selectedFeedbackOption}
-          options={feedbackOptions}
-          onChange={onFeedbackOptionChanged} />
+        <Dropdown items={feedbackOptions}
+                  selectedItem={selectedFeedbackOption}
+                  onOptionChanged={onFeedbackOptionChanged}
+                  theme={theme} />
         <FeedbackComment
           comment={comment}
           commentMessage={isPositiveRatingSelected ? t('positiveComment') : t('negativeComment')}
