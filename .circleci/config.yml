@@ -165,6 +165,9 @@ jobs:
 #      - run:
 #          name: Add web.integreat-app.de to known hosts
 #          command: ssh-keyscan -H web.integreat-app.de >> ~/.ssh/known_hosts
+      - run:
+          name: List dist
+          command: ls dist
       - when:
           condition: << parameters.production >>
           steps:
