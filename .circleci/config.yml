@@ -80,8 +80,9 @@ jobs:
         type: boolean
     docker:
       - image: circleci/node:12.16.3
+    resource_class: small
     environment:
-      TOTAL_CPUS: 2 # For resource_class medium
+      TOTAL_CPUS: 1 # For resource_class small
     shell: /bin/bash -eo pipefail
     steps:
       - run:
@@ -156,17 +157,20 @@ jobs:
       TOTAL_CPUS: 1 # For resource_class small
     steps:
       - run:
-          name: "Show current CPU count"
+          name: Show current CPU count
           command: |
             echo "CPU count is ${TOTAL_CPUS}"
       - attach_workspace:
           at: dist
+#      - run:
+#          name: Add web.integreat-app.de to known hosts
+#          command: ssh-keyscan -H web.integreat-app.de >> ~/.ssh/known_hosts
       - when:
           condition: << parameters.production >>
           steps:
             - run:
                 name: Production release
-                command: sftp web-test@web.integreat-app.de:/integreat.app \<<< $'put -r dist/*'
+                command: sftp -o StrictHostKeyChecking=no web-test@web.integreat-app.de:/integreat.app \<<< $'put -r dist/*'
             - slack/notify:
                 message: Integreat {version_name} has been released successfully to integreat.app!
                 webhook: $SLACK_URL
@@ -175,7 +179,7 @@ jobs:
           steps:
             - run:
                 name: Debug release
-                command: sftp web-test@web.integreat-app.de:/webnext.integreat-app.de \<<< $'put -r dist/*'
+                command: sftp -o StrictHostKeyChecking=no web-test@web.integreat-app.de:/webnext.integreat-app.de \<<< $'put -r dist/*'
 
   bump_version:
     docker:
