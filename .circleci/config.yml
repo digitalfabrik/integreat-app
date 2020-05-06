@@ -15,32 +15,27 @@ parameters:
 
 workflows:
   version: 2
-  commit: # Workflow for every commit except on develop: Build job only
+  commit: # Builds every commit. Bumps version and delivers to webnext on develop.
     unless: << pipeline.parameters.api_triggered >>
-    filters:
-      branches:
-        ignore:
-          - develop
-    jobs:
-      - build:
-          production: false
-
-  commit-develop: # Workflow for commits on develop: Build, version bump and webnext delivery
-    filters:
-      branches:
-        only:
-          - develop
     jobs:
       - build:
           production: false
       - bump_version:
           requires:
             - build
+          filters:
+            branches:
+              only:
+                - develop
       - deliver:
           production: false
           requires:
             - build
             - bump_version
+          filters:
+            branches:
+              only:
+                - develop
 
   api-triggered: # Workflow for manual delivery
     when: << pipeline.parameters.api_triggered >>
