@@ -8,18 +8,18 @@ class TunewsModel {
   _tags: Array<string>
   _date: Moment
   _content: string
-  _enewsno: string
+  _eNewsNo: string
 
   constructor (params: {| id: number, title: string,
-    date: Moment, tags: Array<string>, content: string, enewsno: string
+    date: Moment, tags: Array<string>, content: string, eNewsNo: string
     |}) {
-    const {id, date, title, tags, content, enewsno} = params
+    const {id, date, title, tags, content, eNewsNo} = params
     this._id = id
     this._title = title
     this._tags = tags
     this._date = date
     this._content = content
-    this._enewsno = enewsno
+    this._eNewsNo = eNewsNo
   }
 
   get id (): number {
@@ -42,8 +42,8 @@ class TunewsModel {
     return this._content
   }
 
-  get enewsno (): string {
-    return this._enewsno
+  get eNewsNo (): string {
+    return this._eNewsNo
   }
 }
 

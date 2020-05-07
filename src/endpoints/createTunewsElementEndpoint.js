@@ -20,7 +20,7 @@ export default (baseUrl: string): Endpoint<ParamsType, TunewsModel> => new Endpo
     tags: json.tags,
     date: moment.tz(json.date, 'GMT'),
     content: json.content,
-    enewsno: json.enewsno
+    eNewsNo: json.enewsno
   })
   )
   .build()
