@@ -92,6 +92,7 @@ export type PropsType = {|
   selectedNewsType: string,
   contentLanguage: string,
   status: 'loading' | 'ready' | 'error' | 'success' | 'loadingMore',
+  isFetching: bolean,
   setFlatListRef: () => void,
   fetchMoreNews: () => void,
   navigateToNews: () => void,
@@ -150,6 +151,8 @@ class NewsList extends React.PureComponent<PropsType> {
       status,
       fetchMoreNews,
       fetchNews,
+      isFetching,
+      isFetchingMore,
       type: selectedNewsType
     } = this.props
     const isTuNews = selectedNewsType === INTERNATIONAL
@@ -193,7 +196,7 @@ class NewsList extends React.PureComponent<PropsType> {
           </View>
         )
       }
-      if (status === 'loading') {
+      if (isFetching) {
         return <ActivityIndicator style={{ marginTop: 20 }} />
       }
 
@@ -220,8 +223,8 @@ class NewsList extends React.PureComponent<PropsType> {
             setRef={this.props.setFlatListRef}
             renderNotItemsComponent={this.renderNotItemsComponent}
             items={newsList}
-            isFetchingMore={status === 'loadingMore'}
-            isFetching={status === 'loading'}
+            isFetchingMore={isFetchingMore}
+            isFetching={isFetching}
             getMoreItems={fetchMoreNews}
             fetchItems={fetchNews}
             renderItem={this.rendersNewsListItem(cityCode, contentLanguage)}

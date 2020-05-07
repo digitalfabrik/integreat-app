@@ -21,6 +21,7 @@ import { Text } from 'react-native'
 import { LOADING_TIMEOUT } from '../../../../modules/common/constants'
 import TranslatedNewsListItem from '../NewsListItem'
 import List from '../List'
+import TranslatedWithThemeNewsList from '../NewsList'
 
 const mockStore = configureMockStore()
 jest.mock('react-i18next')
@@ -165,7 +166,7 @@ describe('News', () => {
         <NewsContainer navigation={navigation} />
       </Provider>
     )
-    const isFetching = result.root.findByType(List).props.isFetching
+    const isFetching = result.root.findByType(TranslatedWithThemeNewsList).props.isFetching
     expect(isFetching).toBe(true)
   }
 

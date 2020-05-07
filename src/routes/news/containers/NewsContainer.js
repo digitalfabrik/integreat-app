@@ -5,7 +5,7 @@ import type {
   LanguageResourceCacheStateType,
   StateType
 } from '../../../modules/app/StateType'
-import { FetchNewsActionType, FetchMoreNewsActionType } '../../../modules/app/StoreActionType''
+import { FetchNewsActionType, FetchMoreNewsActionType } from '../../../modules/app/StoreActionType'
 import { View, ScrollView, RefreshControl } from 'react-native'
 import { connect } from 'react-redux'
 import { type TFunction, withTranslation } from 'react-i18next'
@@ -418,6 +418,8 @@ class NewsContainer extends React.Component<ContainerPropsType> {
           dispatch={dispatch}
           {...this.state}
           status={status}
+          isFetching={status === 'loading'}
+          isFetchingMore={status === 'loadingMore'}
           setFlatListRef={this.setFlatListRef}
           fetchMoreNews={this.fetchMoreNews}
           fetchNews={this.fetchNews}
