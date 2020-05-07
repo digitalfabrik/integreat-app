@@ -22,13 +22,17 @@ export default (
     .withMapper((localNews: Array<JsonLocalNewsType>): LocalNewsModel => {
       const count = localNews.length
       if (count !== 1) {
-        throw new MappingError(LOCALNEWS_ELEMENT_ENDPOINT_NAME, `Expected count of local news to be one. Received ${count} intsted`)
+        throw new MappingError(
+          LOCALNEWS_ELEMENT_ENDPOINT_NAME,
+          `Expected count of local news to be one. Received ${count} intsted`
+        )
       }
       const { id, timestamp, title, message } = localNews[0]
       return new LocalNewsModel({
         id,
         timestamp: moment.tz(timestamp, 'GMT'),
         title,
-        message})
+        message
+      })
     })
     .build()
