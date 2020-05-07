@@ -23,10 +23,6 @@ type PropsType = {|
   anchorWidth: number
 |}
 
-type State = {|
-  xPosition: number
-|}
-
 const TilesRow = styled.View`
   background-color: ${props => props.theme.colors.backgroundAccentColor};
   display: flex;
@@ -46,7 +42,10 @@ const Icon = styled(MaterialIcon)`
 /**
  * Displays a table of NavigationTiles
  */
-class NavigationTiles extends React.Component<PropsType, State> {
+class NavigationTiles extends React.Component<
+  PropsType,
+  { xPosition: number }
+> {
   state = {
     xPosition: 0
   };
@@ -58,9 +57,13 @@ class NavigationTiles extends React.Component<PropsType, State> {
     const { xPosition } = this.state
 
     if (!xPosition) {
-      this.ref_?.scrollToEnd({ animated: true })
+      this.ref_ && this.ref_.scrollToEnd({ animated: true })
     } else {
-      this.ref_?.scrollTo({ y: 0, x: xPosition - navigationItemWidth, animated: true })
+      this.ref_ && this.ref_.scrollTo({
+        y: 0,
+        x: xPosition - navigationItemWidth,
+        animated: true
+      })
     }
   };
 
@@ -69,9 +72,13 @@ class NavigationTiles extends React.Component<PropsType, State> {
     const { xPosition } = this.state
 
     if (!xPosition) {
-      this.ref_.scrollToEnd({ animated: true })
+      this.ref_ && this.ref_.scrollToEnd({ animated: true })
     } else {
-      this.ref_?.scrollTo({ y: 0, x: xPosition - navigationItemWidth, animated: true })
+      this.ref_ && this.ref_.scrollTo({
+        y: 0,
+        x: xPosition - navigationItemWidth,
+        animated: true
+      })
     }
   };
 
@@ -84,7 +91,14 @@ class NavigationTiles extends React.Component<PropsType, State> {
   };
 
   render () {
-    const { tiles, theme, isWideScreen, navigationItemWidth, scrollViewWidth, anchorWidth } = this.props
+    const {
+      tiles,
+      theme,
+      isWideScreen,
+      navigationItemWidth,
+      scrollViewWidth,
+      anchorWidth
+    } = this.props
     const isMoreThanThreeItems = tiles.length > SMALL_SCREEN_ITEMS_COUNT
 
     return (

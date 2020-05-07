@@ -5,7 +5,10 @@ import type {
   LanguageResourceCacheStateType,
   StateType
 } from '../../../modules/app/StateType'
-import { FetchNewsActionType, FetchMoreNewsActionType } from '../../../modules/app/StoreActionType'
+import {
+  FetchNewsActionType,
+  FetchMoreNewsActionType
+} from '../../../modules/app/StoreActionType'
 import { View, ScrollView, RefreshControl } from 'react-native'
 import { connect } from 'react-redux'
 import { type TFunction, withTranslation } from 'react-i18next'
@@ -18,7 +21,11 @@ import type {
 } from '../../../modules/app/StoreActionType'
 import type { NavigationScreenProp } from 'react-navigation'
 import type { StatusPropsType } from '../../../modules/error/hocs/withPayloadProvider'
-import { CityModel } from '@integreat-app/integreat-api-client'
+import {
+  CityModel,
+  LocalNewsModel,
+  TunewsModel
+} from '@integreat-app/integreat-api-client'
 import * as React from 'react'
 import { mapProps } from 'recompose'
 import TranslatedWithThemeNewsList from '../components/NewsList'
@@ -48,6 +55,20 @@ const newsTabs = [
   }
 ]
 
+const NewsTypeItem = ({ tab, onItemPress, selectedNewsType }) => {
+  function onPress () {
+    onItemPress(tab.type)
+  }
+
+  return (
+    <TouchableWrapper key={tab.type} onPress={onPress}>
+      <NewsTypeIcon
+        source={tab.type === selectedNewsType ? tab.active : tab.inactive}
+      />
+    </TouchableWrapper>
+  )
+}
+
 const NewsTypeIcon = styled.Image`
   align-self: center;
 `
@@ -65,7 +86,7 @@ const TouchableWrapper = styled.TouchableOpacity`
 
 type ContainerPropsType = {|
   path: ?string,
-  news: $ReadOnlyArray<any>,
+  news: $ReadOnlyArray<LocalNewsModel | TunewsModel>,
   cities: $ReadOnlyArray<CityModel>,
   cityCode: string,
   language: string,
@@ -272,7 +293,7 @@ class NewsContainer extends React.Component<ContainerPropsType> {
     return type
   };
 
-  componentDidUpdate (prevProps, prevState) {
+  componentDidUpdate (prevProps: ContainerPropsType) {
     const prevLanguage = prevProps.innerProps.contentLanguage
     const currentLanguage = this.props.innerProps.contentLanguage
 
@@ -315,7 +336,7 @@ class NewsContainer extends React.Component<ContainerPropsType> {
     }
   };
 
-  fetchNews () {
+  fetchNews = () => {
     const { dispatch, ...rest } = this.props
     const { cityCode, navigation, path } = rest.refreshProps
     const { contentLanguage } = rest.innerProps
@@ -332,7 +353,18 @@ class NewsContainer extends React.Component<ContainerPropsType> {
       }
     }
     dispatch(fetchNews)
-  }
+  };
+
+  selectNewsItemAndScrollToTop = type => {
+    this.selectNewsType(type)
+    this.listRef &&
+      requestAnimationFrame(() =>
+        this.listRef.scrollToOffset({
+          animated: false,
+          offset: 0
+        })
+      )
+  };
 
   renderHeader = () => {
     const { innerProps, refreshProps } = this.props
@@ -346,24 +378,11 @@ class NewsContainer extends React.Component<ContainerPropsType> {
         {!path &&
           newsTabs.map(tab =>
             (cityModel || {})[tab.toggleAttr] ? (
-              <TouchableWrapper
-                key={tab.type}
-                onPress={() => {
-                  this.selectNewsType(tab.type)
-                  this.listRef &&
-                    requestAnimationFrame(() =>
-                      this.listRef.scrollToOffset({
-                        animated: false,
-                        offset: 0
-                      })
-                    )
-                }}>
-                <NewsTypeIcon
-                  source={
-                    tab.type === selectedNewsType ? tab.active : tab.inactive
-                  }
-                />
-              </TouchableWrapper>
+              <NewsTypeItem
+                tab={tab}
+                selectedNewsType={selectedNewsType}
+                onItemPress={this.selectNewsItemAndScrollToTop}
+              />
             ) : null
           )}
       </HeaderContainer>
@@ -387,15 +406,12 @@ class NewsContainer extends React.Component<ContainerPropsType> {
       return (
         <ScrollView
           refreshControl={
-            <RefreshControl
-              onRefresh={() => this.fetchNews}
-              refreshing={false}
-            />
+            <RefreshControl onRefresh={this.fetchNews} refreshing={false} />
           }
           contentContainerStyle={{ flexGrow: 1 }}>
           {this.renderHeader()}
           <FailureContainer
-            tryAgain={() => this.fetchNews()}
+            tryAgain={this.fetchNews}
             message={message}
             code={code}
           />
