@@ -14,7 +14,7 @@ const ICON_SIZE = 50
 type PropsType = {|
   tile: TileModel,
   theme: ThemeType,
-  width: Number
+  width: number
 |}
 
 const Circle = styled(View)`

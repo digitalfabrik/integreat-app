@@ -20,7 +20,6 @@ import ErrorCodes from '../../../../modules/error/ErrorCodes'
 import { Text } from 'react-native'
 import { LOADING_TIMEOUT } from '../../../../modules/common/constants'
 import TranslatedNewsListItem from '../NewsListItem'
-import List from '../List'
 import TranslatedWithThemeNewsList from '../NewsList'
 
 const mockStore = configureMockStore()

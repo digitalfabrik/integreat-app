@@ -1,8 +1,7 @@
 // @flow
 
-import type { CityContentStateType, NewsRouteStateType } from '../../app/StateType'
+import type { CityContentStateType } from '../../app/StateType'
 import type { PushNewsActionType } from '../../app/StoreActionType'
-import createReduxStore from '../../app/createReduxStore'
 
 const pushNews = (state: CityContentStateType, action: PushNewsActionType): CityContentStateType => {
   const { newsList, path, key, language, resourceCache, cityLanguages, city, type, page, oldNewsList, hasMoreNews } = action.params
