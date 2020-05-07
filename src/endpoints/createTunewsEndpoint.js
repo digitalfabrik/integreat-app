@@ -22,7 +22,7 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<TunewsModel>> => ne
         tags: tunews.tags,
         date: moment.tz(tunews.date, 'GMT'),
         content: tunews.content,
-        enewsno: tunews.enewsno
+        eNewsNo: tunews.enewsno
       })
     })
   )
