@@ -2,7 +2,7 @@
 
 import type { Saga } from 'redux-saga'
 import { call } from 'redux-saga/effects'
-import { createLanguagesEndpoint, LanguageModel } from '@integreat-app/integreat-api-client'
+import { createLanguagesEndpoint, LanguageModel, createTunewsLanguagesEndpoint } from '@integreat-app/integreat-api-client'
 import type { DataContainer } from '../DataContainer'
 import determineApiUrl from '../determineApiUrl'
 import { tunewsApiUrl } from '../constants'
@@ -13,6 +13,14 @@ export default function * loadLanguages (
   forceRefresh: boolean,
   isTunews: ?boolean
 ): Saga<Array<LanguageModel>> {
+  if (isTunews) {
+    console.debug('Fetching tunews languages')
+
+    const payload = yield call(() => createTunewsLanguagesEndpoint(tunewsApiUrl).request({ city }))
+    const languages: Array<LanguageModel> = payload.data
+
+    return languages
+  }
   const languagesAvailable = yield call(() => dataContainer.languagesAvailable(city))
 
   if (languagesAvailable && !forceRefresh) {
