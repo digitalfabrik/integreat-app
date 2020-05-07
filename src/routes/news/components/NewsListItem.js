@@ -3,13 +3,13 @@
 import * as React from 'react'
 import { NewsModel } from '@integreat-app/integreat-api-client' // TODO: check if we have newsModel
 import styled from 'styled-components/native'
+import { type TFunction, withTranslation } from 'react-i18next'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import { type StyledComponent } from 'styled-components'
 import {
   contentDirection,
   contentAlignment
 } from '../../../modules/i18n/contentDirection'
-import { withTranslation } from 'react-i18next'
 
 const TEXT_MAX_LENGTH = 250
 
@@ -17,7 +17,9 @@ type PropsType = {|
   newsItem: any, // TODO: not sure if there is any NewsItemModel | NewsModel
   language: string,
   navigateToNews: () => void,
-  theme: ThemeType
+  theme: ThemeType,
+  t: TFunction,
+  isTuNews: boolean
 |}
 
 type ListItemViewPropsType = {|
@@ -35,8 +37,8 @@ const ListItemView: StyledComponent<
 `
 
 const ReadMoreWrapper: StyledComponent<
-  ListItemViewPropsType,
-  ThemeType,
+  { language: string, children: React.Node },
+  {},
   *
 > = styled.View`
   flex-direction: ${props => contentDirection(props.language)};
@@ -56,7 +58,7 @@ const StyledTouchableOpacity: StyledComponent<
   flex-direction: column;
 `
 
-const Divider = styled.View`
+const Divider: StyledComponent<{}, {}, *> = styled.View`
   border-top-width: 0.5px;
   border-top-color: rgba(168, 168, 168, 0.7);
   width: 80%;
@@ -65,14 +67,17 @@ const Divider = styled.View`
   align-self: center;
 `
 
-export const Description = styled.View`
+export const Description: StyledComponent<
+  { isTuNews: ?boolean },
+  ThemeType,
+  *
+> = styled.View`
   flex-direction: column;
   font-family: ${props => props.theme.fonts.decorativeFontRegular};
-  padding: ${props =>
-    props.isTuNews ? '15px 5px 0px 0px' : '0px'};
+  padding: ${props => (props.isTuNews ? '15px 5px 0px 0px' : '0px')};
 `
 
-export const Title = styled.Text`
+export const Title: StyledComponent<{}, ThemeType, *> = styled.Text`
   font-weight: 700;
   font-family: ${props => props.theme.fonts.decorativeFontBold};
   color: ${props => props.theme.colors.textColor};
@@ -81,7 +86,11 @@ export const Title = styled.Text`
   margin-top: 8px;
 `
 
-export const Content = styled.Text`
+export const Content: StyledComponent<
+  { language: string },
+  ThemeType,
+  *
+> = styled.Text`
   font-family: ${props => props.theme.fonts.decorativeFontRegular};
   font-size: 14px;
   letter-spacing: 0.5px;
@@ -89,7 +98,7 @@ export const Content = styled.Text`
   color: ${props => props.theme.colors.textColor};
 `
 
-export const ReadMore = styled.Text`
+export const ReadMore: StyledComponent<{ isTuNews: ?boolean }, ThemeType, *> = styled.Text`
   font-family: ${props => props.theme.fonts.decorativeFontBold};
   font-size: 12px;
   letter-spacing: 0.5px;
@@ -139,9 +148,10 @@ class NewsListItem extends React.PureComponent<PropsType> {
             </Description>
           </StyledTouchableOpacity>
           <ReadMoreWrapper language={language}>
-            <ReadMore theme={theme} isTuNews={isTuNews} onPress={navigateToNews}>{`${t(
-              'readMore'
-            )}`}</ReadMore>
+            <ReadMore
+              theme={theme}
+              isTuNews={isTuNews}
+              onPress={navigateToNews}>{`${t('readMore')}`}</ReadMore>
           </ReadMoreWrapper>
         </ListItemWrapper>
       </>

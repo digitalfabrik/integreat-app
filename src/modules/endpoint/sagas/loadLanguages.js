@@ -11,7 +11,7 @@ export default function * loadLanguages (
   city: string,
   dataContainer: DataContainer,
   forceRefresh: boolean,
-  isTunews: boolean
+  isTunews: ?boolean
 ): Saga<Array<LanguageModel>> {
   const languagesAvailable = yield call(() => dataContainer.languagesAvailable(city))
 

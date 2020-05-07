@@ -9,7 +9,7 @@ import List from './List'
 import Failure from '../../../modules/error/components/Failure'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { LanguageResourceCacheStateType } from '../../../modules/app/StateType'
-import { NavigationScreenProp } from 'react-navigation'
+import type { NavigationScreenProp } from 'react-navigation'
 import type { NavigateToNewsParamsType } from '../../../modules/app/createNavigateToNews'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
@@ -20,13 +20,13 @@ import styled from 'styled-components/native'
 import { INTERNATIONAL } from '../containers/NewsContainer'
 import { contentAlignment } from '../../../modules/i18n/contentDirection'
 
-const Container = styled.View`
+const Container: StyledComponent<{}, {}, *> = styled.View`
   align-items: center;
   margin-horizontal: 3%;
   flex: 1;
 `
 
-const HeaderImageWrapper = styled.View`
+const HeaderImageWrapper: StyledComponent<{}, {}, *> = styled.View`
   width: 95%;
   align-self: center;
   align-items: flex-start;
@@ -34,12 +34,12 @@ const HeaderImageWrapper = styled.View`
   border-radius: 5px;
   background-color: rgba(2, 121, 166, 0.4);
 `
-const HeaderImage = styled.Image`
+const HeaderImage: StyledComponent<{}, {}, *> = styled.Image`
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
 `
 
-const Row = styled.View`
+const Row: StyledComponent<{}, ThemeType, *> = styled.View`
   flex-direction: row;
   border-radius: 5px;
   width: 95%;
@@ -47,21 +47,21 @@ const Row = styled.View`
   background-color: ${props => props.theme.colors.tunewsColor};
 `
 
-const ExtraInfo = styled.Text`
+const ExtraInfo: StyledComponent<{}, ThemeType, *> = styled.Text`
   font-family: ${props => props.theme.fonts.decorativeFontBold};
   font-size: 12px;
   color: white;
   padding: 5px;
 `
 
-const NoNews = styled.Text`
+const NoNews: StyledComponent<{}, ThemeType, *> = styled.Text`
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.contentFontRegular};
   align-self: center;
   margin-top: 20px;
 `
 
-const NewsDetailsTitle = styled.Text`
+const NewsDetailsTitle: StyledComponent<{}, ThemeType, *> = styled.Text`
   font-weight: 700;
   font-family: ${props => props.theme.fonts.decorativeFontBold};
   color: ${props => props.theme.colors.textColor};
@@ -70,7 +70,7 @@ const NewsDetailsTitle = styled.Text`
   margin-bottom: 15px;
 `
 
-const NewsDetailsContent = styled.Text`
+const NewsDetailsContent: StyledComponent<{}, ThemeType, *> = styled.Text`
   font-family: ${props => props.theme.fonts.decorativeFontRegular};
   font-size: 16px;
   letter-spacing: 0.5px;
@@ -89,6 +89,12 @@ export type PropsType = {|
   theme: ThemeType,
   t: TFunction,
   navigation: NavigationScreenProp<*>,
+  selectedNewsType: string,
+  contentLanguage: string,
+  status: 'loading' | 'ready' | 'error' | 'success' | 'loadingMore',
+  setFlatListRef: () => void,
+  fetchMoreNews: () => void,
+  navigateToNews: () => void,
   createNavigateToNews: (NavigateToNewsParamsType) => void
 |}
 
@@ -192,7 +198,7 @@ class NewsList extends React.PureComponent<PropsType> {
       }
 
       const error = new ContentNotFoundError({
-        type: 'newsItem',
+        type: 'news',
         id: path,
         city: cityCode,
         language
@@ -228,6 +234,7 @@ class NewsList extends React.PureComponent<PropsType> {
   }
 }
 
-export default withTranslation('news')(
+const TranslatedWithThemeNewsList = withTranslation('news')(
   withTheme(props => props.language)(NewsList)
 )
+export default TranslatedWithThemeNewsList

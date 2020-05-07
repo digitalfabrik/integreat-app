@@ -36,7 +36,8 @@ type ContainerPropsType = {|
   cities: $ReadOnlyArray<CityModel>,
   stateView: CategoriesRouteStateView,
   resourceCache: LanguageResourceCacheStateType,
-  dispatch: Dispatch<StoreActionType>
+  dispatch: Dispatch<StoreActionType>,
+  cityModel: CityModel
 |}
 
 type OwnPropsType = {| navigation: NavigationScreenProp<*>, t: TFunction |}

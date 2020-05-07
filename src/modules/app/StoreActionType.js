@@ -1,6 +1,6 @@
 // @flow
 
-import { CategoriesMapModel, CityModel, EventModel, LanguageModel } from '@integreat-app/integreat-api-client'
+import { CategoriesMapModel, CityModel, EventModel, LanguageModel, TunewsModel, LocalNewsModel } from '@integreat-app/integreat-api-client'
 import type { CategoryRouteConfigType, LanguageResourceCacheStateType } from './StateType'
 import type { ContentLoadCriterionType } from '../endpoint/ContentLoadCriterion'
 import type { TFunction } from 'react-i18next'
@@ -61,6 +61,7 @@ export type FetchMoreNewsActionType = {|
   type: "FETCH_MORE_NEWS",
   +params: {|
     +city: string, +language: string,
+    +oldNewsList: ?$ReadOnlyArray<LocalNewsModel | TunewsModel>,
     +path: ?string, +key: string,
     +criterion: ContentLoadCriterionType,
     +type: ?string,
@@ -77,13 +78,16 @@ export type PushNewsActionType = {|
   type: 'PUSH_NEWS',
   +params: {|
     +newsList: $ReadOnlyArray<any>,
+    +oldNewsList: ?$ReadOnlyArray<any>,
     +path: ?string,
     +key: string,
     +resourceCache: LanguageResourceCacheStateType,
     +cityLanguages: $ReadOnlyArray<LanguageModel>,
     +language: string,
     +city: string,
-    +type: ?string
+    +hasMoreNews: ?boolean,
+    +type: ?string,
+    +page: ?number
   |}
 |}
 
@@ -99,6 +103,13 @@ export type FetchNewsFailedActionType = {|
     +city: string
   |}
 |}
+
+export type NewsActionType =
+  FetchNewsActionType
+  | FetchMoreNewsActionType
+  | FetchNewsFailedActionType
+  | ClearNewsActionType
+  | PushNewsActionType
 
 export type FetchCategoryFailedActionType = {|
   type: 'FETCH_CATEGORY_FAILED',
@@ -235,3 +246,4 @@ export type StoreActionType =
   | CityContentActionType
   | SetContentLanguageActionType
   | ClearResourcesAndCacheActionType
+  | NewsActionType
