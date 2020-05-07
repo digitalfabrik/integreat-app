@@ -292,6 +292,7 @@ describe('morphContentLanguage', () => {
           models: [enThirdEvent]
         }
       },
+      newsRouteMapping: {},
       resourceCache: { status: 'ready', value: {} },
       searchRoute: { categoriesMap: enCategoriesMap }
     })
@@ -329,6 +330,7 @@ describe('morphContentLanguage', () => {
         }
       },
       eventsRouteMapping: expect.any(Object),
+      newsRouteMapping: {},
       resourceCache: { status: 'ready', value: {} },
       searchRoute: { categoriesMap: enCategoriesMap }
     })
@@ -357,6 +359,7 @@ describe('morphContentLanguage', () => {
       switchingLanguage: false,
       languages: { status: 'ready', models: cityLanguages },
       categoriesRouteMapping: expect.any(Object),
+      newsRouteMapping: {},
       eventsRouteMapping: {
         'route-1': {
           status: 'languageNotAvailable',

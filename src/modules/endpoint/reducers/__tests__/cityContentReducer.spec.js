@@ -110,6 +110,7 @@ describe('cityContentReducer', () => {
       eventsRouteMapping: {},
       languages: { status: 'ready', models: [] },
       resourceCache: { status: 'ready', value: {} },
+      newsRouteMapping: {},
       searchRoute: null,
       switchingLanguage: false
     }
@@ -121,6 +122,7 @@ describe('cityContentReducer', () => {
       city: 'augsburg',
       categoriesRouteMapping: {},
       eventsRouteMapping: {},
+      newsRouteMapping: {},
       languages: { status: 'ready', models: [] },
       resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
@@ -134,6 +136,7 @@ describe('cityContentReducer', () => {
       city: 'augsburg',
       categoriesRouteMapping: {},
       eventsRouteMapping: {},
+      newsRouteMapping: {},
       languages: { status: 'ready', models: [] },
       resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
@@ -148,6 +151,7 @@ describe('cityContentReducer', () => {
       city: 'augsburg',
       categoriesRouteMapping: {},
       eventsRouteMapping: {},
+      newsRouteMapping: {},
       languages: { status: 'ready', models: [] },
       resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
@@ -191,6 +195,7 @@ describe('cityContentReducer', () => {
     const prevState: CityContentStateType = {
       city: 'augsburg',
       categoriesRouteMapping: {},
+      newsRouteMapping: {},
       eventsRouteMapping: {
         'route-id-0': {
           status: 'error',
@@ -217,6 +222,7 @@ describe('cityContentReducer', () => {
     const prevState: CityContentStateType = {
       city: 'augsburg',
       categoriesRouteMapping: {},
+      newsRouteMapping: {},
       eventsRouteMapping: {
         'route-id-0': {
           status: 'loading',
@@ -255,6 +261,7 @@ describe('cityContentReducer', () => {
     const prevState: CityContentStateType = {
       city: 'augsburg',
       categoriesRouteMapping: {},
+      newsRouteMapping: {},
       eventsRouteMapping: {
         'route-id-0': {
           status: 'loading',
@@ -333,6 +340,7 @@ describe('cityContentReducer', () => {
         }
       },
       eventsRouteMapping: {},
+      newsRouteMapping: {},
       languages: { status: 'ready', models: ['de', 'en'] },
       resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
@@ -359,6 +367,7 @@ describe('cityContentReducer', () => {
           }
         },
         eventsRouteMapping: {},
+        newsRouteMapping: {},
         languages: { status: 'ready', models: ['de', 'en'] },
         resourceCache: { status: 'ready', value: {} },
         searchRoute: null,
@@ -398,6 +407,7 @@ describe('cityContentReducer', () => {
         }
       },
       eventsRouteMapping: {},
+      newsRouteMapping: {},
       languages: { status: 'ready', models: ['de', 'en'] },
       resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
