@@ -7,7 +7,7 @@ import moment from 'moment-timezone'
 import Endpoint from '../Endpoint'
 import MappingError from '../errors/MappingError'
 
-export const LOCALNEWS_ELEMENT_ENDPOINT_NAME = 'newsElement'
+export const LOCALNEWS_ELEMENT_ENDPOINT_NAME = 'localNewsElement'
 
 type ParamsType = { city: string, language: string, id: number }
 
