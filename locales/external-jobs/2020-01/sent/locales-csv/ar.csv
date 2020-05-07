@@ -1,0 +1,148 @@
+key,source_language,target_language
+app.pageTitles.search,Suche,البحث
+app.pageTitles.events,Veranstaltungen,الأخبار
+app.pageTitles.extras,Angebote,
+app.pageTitles.landing,Ortsauswahl,أين أنت؟
+app.pageTitles.disclaimer,Impressum und Kontakt,هيئة التحرير وجهة الاتصال
+app.pageTitles.mainDisclaimer,Impressum und Kontakt - Integreat,Integreat - هيئة التحرير وجهة الاتصال
+app.pageTitles.pois,Points of Interest,
+app.pageTitles.notFound,Seite nicht gefunden,لم يتم العثور على الصفحة
+app.metaDescription,"Integreat ist Ihr digitaler Guide für Deutschland. Finden Sie lokale Informationen, Events und Beratung. Immer aktuell und in Ihrer Sprache.",تطبيق إنتجريت هو دليلك الرقمي لألمانيا. تجد فيه معلومات وأحداث محلية ويقدم لك المشورة. دائمًا مُحدَّثة وبلغتك.
+categories.createPdf,PDF erstellen,إنشاء ملف PDF
+common.languageNotAvailable,Deine Sprache ist hier leider nicht verfügbar.,للأسف، لغتك ليست متاحة.
+common.chooseALanguage,Wähle eine Sprache.,اختار اللغة.
+common.lastUpdate,Letzte Änderung: ,اخر تحديث: 
+dashboard.localInformation,Lokale Informationen,
+dashboard.offers,Angebote,
+dashboard.events,Veranstaltungen,
+error.notFound.language,Diese Sprache ist hier leider nicht verfügbar.,للأسف، لغتك ليست متاحة.
+error.notFound.city,Diese Stadt wurde leider nicht gefunden.,للأسف، لم يتم العثور على مدينتك.
+error.notFound.category,Diese Seite wurde leider nicht gefunden.,لا يوجد سجَّلات جديدة
+error.notFound.event,Dieses Event wurde leider nicht gefunden.,للأسف، لم يتم العثور على هذا الحدث.
+error.notFound.extra,Dieses Angebot wurde leider nicht gefunden.,
+error.notFound.poi,Dieser Point of Interest wurde leider nicht gefunden.,
+error.pageNotFound,Diese Seite wurde leider nicht gefunden.,
+error.networkConnectionFailed,Die Verbindung zum Server ist fehlgeschlagen.,
+error.networkRequestFailed,Die Anfrage konnte nicht bearbeitet werden.,
+error.responseMappingFailed,Die Antwort des Servers konnte nicht verarbeitet werden.,
+error.unknownError,Ein unbekannter Fehler ist aufgetreten.,
+error.tryAgain,Erneut versuchen,
+error.loadingFailed,Die Seite konnte leider nicht geladen werden.,لقد حصل خطأ خلال تحميل الملفات
+error.chooseALanguage,Wähle eine Sprache:,اختار اللغة:
+error.goTo.start,Zur Startseite,
+error.goTo.categories,Zu den Kategorien,
+error.goTo.events,Zu den Veranstaltungen,
+error.goTo.extras,Zu den Angeboten,
+error.pageTitle,Fehler,خطأ
+error.generalError,Ein Fehler ist aufgetreten,لقد حصل خطأ
+error.languageSwitchFailedTitle,Leider ist der Sprachwechsel fehlgeschlagen.,
+error.languageSwitchFailedMessage,Die ausgewählte Sprache ist nicht offline verfügbar. Eine aktive Internetverbinding ist notwendig.,
+events.location,Standort,الموقع
+events.date,Datum,تاريخ
+events.events,Veranstaltungen,
+events.currentlyNoEvents,Es gibt aktuell keine Veranstaltungen.,ليس هناك فعاليات متوفرة حاليَاً
+extras.offers,Angebote,
+feedback.technicalTopics,Technische Funktionen,وظائف تقنية
+feedback.contentOfCity,Inhalte von {{city}},محتويات
+feedback.contentOfExtra,"Angebot ""{{extra}}""",
+feedback.disclaimer,Kontakt und Impressum,هيئة التحرير وجهة الاتصال
+feedback.searchFor,Suche nach,البحث عن
+feedback.contentOfPage,"Inhalt der Seite ""{{page}}""",محتوى الصفحة
+feedback.contentOfEvent,"Inhalt der Veranstaltung ""{{event}}""",
+feedback.send,Abschicken,إرسال
+feedback.failedSendingFeedback,Beim Senden des Feedbacks ist ein Fehler aufgetreten.,
+feedback.feedback,Feedback,تعليقات
+feedback.positiveComment,Was war hilfreich?,ماذا الذي كان مفيدًا؟
+feedback.negativeComment,Was können wir besser machen?,ما الذي يمكننا تحسينه؟
+feedback.feedbackType,Wofür ist das Feedback?,ما نوع التعليقات؟
+feedback.isThisSiteUseful,Ist diese Seite hilfreich?,
+feedback.useful,Hilfreich,
+feedback.notUseful,Nicht hilfreich,
+feedback.nothingFound,Es wurden leider keine passenden Ergebnisse gefunden.,للأسف لم يتم العثور على نتائج مناسبة.
+feedback.yourFeedback,Ihr Feedback...,
+feedback.informationNotFound,Nicht das Richtige gefunden?,لم يتم العثور على المعلومة المناسبة؟
+feedback.wantedInformation,Welche Informationen fehlen hier?,ما هي المعلومات الناقصة هنا؟
+feedback.feedbackSent,Feedback abgeschickt,
+feedback.thanksMessage,"Vielen Dank für Ihr Feedback. Damit helfen Sie uns, unsere Inhalte und die Integreat-App zu verbessern. Wir würden uns über weiteres Feedback freuen.",شكرًا على تعليقاتك. فمن خلالها تساعدنا على تطوير محتوياتنا وتطوير تطبيق Integreat. تُسعدنا تعليقاتك.
+feedback.close,Schließen,إغلاق
+feedback.negativeRating,Diese Seite ist nicht hilfreich,هذه الصفحة ليست مفيدة
+feedback.positiveRating,Diese Seite ist hilfreich,هذه الصفحة مفيدة
+header.settings,Einstellungen,
+header.share,Teilen,
+header.shareMessage,Gerade gefunden:,
+header.shareFailDefaultMessage,Das Teilen des Inhalts ist leider fehlgeschlagen.,
+header.disclaimer,Impressum,
+intro.search,Suche,
+intro.searchDescription,Anhand von Schlagwörtern schnell die richtige Information finden,
+intro.languageChange,Sprachwechsel,
+intro.languageChangeDescription,Einfaches Umstellen der Sprache einzelner Seiten,
+intro.events,Veranstaltungen,
+intro.eventsDescription,Aktuelle Veranstaltungen und Termine in der Umgebung,
+intro.offers,Angebote,
+intro.offersDescription,"Jobsuche, Praktikasuche und mehr in der Umgebung",
+intro.inquiryTitle,Einstellungen,
+intro.inquiryIntro,"Durch Klicken auf ""{{accept}}"" erlaube ich der Integreat-App, ...",
+intro.sentryTitle,App-Stabilität,
+intro.sentryCondition,... mit dem automatischen Senden von Absturzberichten Integreat zu verbessern,
+intro.pushNewsTitle,Push-Benachrichtigungen,
+intro.pushNewsCondition,... mir Push-Benachrichtigungen zu den neuesten lokalen News zu senden,
+intro.proposeCitiesTitle,Nahegelegene Orte,
+intro.proposeCitiesCondition,... mir mithilfe meines GPS-Standortes nahegelegene Orte vorzuschlagen,
+intro.skip,Überspringen,
+intro.next,Weiter,
+intro.cancel,Abbrechen,
+intro.save,Speichern,
+intro.customize,Anpassen,
+intro.decline,Ablehnen,
+intro.accept,Akzeptieren,
+intro.privacyPolicy,Datenschutzerklärung,
+landing.searchCity,Ort suchen,البحث عن مكانك
+landing.nearbyPlaces,Orte in der Nähe,
+landing.noNearbyPlaces,Keine Orte in der Nähe gefunden.,
+landing.alert,Hinweis,
+landing.locationError,"Um Orte in der Nähe anzeigen zu können, müssen Ortungsdienste aktiviert werden.",
+layout.imprintAndContact,Impressum und Kontakt,هيئة التحرير وجهة الاتصال
+layout.privacy,Datenschutz,حماية المعلومات
+layout.offers,Angebote,
+layout.categories,Kategorien,الفئات
+layout.events,Veranstaltungen,
+layout.noEvents,Keine Veranstaltungen,
+layout.noLanguages,Nicht verfügbar in anderen Sprachen,غير متوفر بلغات أخرى
+layout.noTranslation,Keine Übersetzung verfügbar,لا توجد ترجمة متاحة
+layout.search,Suchen,البحث
+layout.changeLocation,Standort wechseln,تغيير الموقع
+layout.changeLanguage,Sprache wechseln,تغيير اللغةn
+search.searchCategory,Suche nach einer Kategorie,
+settings.sentryTitle,App-Stabilität,
+settings.sentryDescription,Durch das automatische Senden von Absturzberichten die Integreat-App verbessern,
+settings.pushNewsTitle,Push-Benachrichtigungen,
+settings.pushNewsDescription,Push-Benachrichtigungen für die neuesten lokalen News erhalten,
+settings.proposeCitiesTitle,Nahegelegene Orte,
+settings.proposeCitiesDescription,Mithilfe des GPS-Standortes Vorschläge für nahegelegene Orte erhalten,
+settings.about,Über Integreat,
+settings.privacyPolicy,Datenschutzerklärung,
+settings.version,Version: {{version}},الإصدار: {{version}}
+settings.openSourceLicenses,Open-Source-Lizenzen,
+snackbar.grantPermission,Erlauben,
+snackbar.deactivateFeature,Feature deaktivieren,
+sprungbrett.noOffersAvailable,Keine Angebote verfügbar,لا توجد عروض
+wohnen.noOffersAvailable,Keine Angebote verfügbar.,
+wohnen.values.runningServices.heating,Heizung,
+wohnen.values.runningServices.water,Wasser/Abwasser,
+wohnen.values.runningServices.garbage,Müllabfuhr,
+wohnen.values.runningServices.chimney,Kaminkehrer,
+wohnen.values.runningServices.other,Sonstiges,
+wohnen.values.additionalServices.garage,Garage/Stellplatz,
+wohnen.values.additionalServices.other,Sonstiges,
+wohnen.values.rooms.kitchen,Küche,
+wohnen.values.rooms.bath,Bad,
+wohnen.values.rooms.wc,WC,
+wohnen.values.rooms.child1,Kinderzimmer 1,
+wohnen.values.rooms.child2,Kinderzimmer 2,
+wohnen.values.rooms.child3,Kinderzimmer 3,
+wohnen.values.rooms.bed,Schlafzimmer,
+wohnen.values.rooms.livingroom,Wohnzimmer,
+wohnen.values.rooms.hallway,Diele,
+wohnen.values.rooms.store,Abstellraum,
+wohnen.values.rooms.basement,Kellerraum,
+wohnen.values.rooms.balcony,Balkon / Terrasse,

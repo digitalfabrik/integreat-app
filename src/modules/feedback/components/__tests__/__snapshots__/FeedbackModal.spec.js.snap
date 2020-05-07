@@ -10,11 +10,90 @@ exports[`FeedbackModal should match snapshot 1`] = `
   <FeedbackModal__ModalContainer
     aria-modal={true}
     role="dialog"
+    theme={
+      Object {
+        "colors": Object {
+          "backgroundAccentColor": "#fafafa",
+          "backgroundColor": "#ffffff",
+          "textColor": "#000000",
+          "textDecorationColor": "#c7c7c7",
+          "textDisabledColor": "#d0d0d0",
+          "textSecondaryColor": "#585858",
+          "themeColor": "#fbda16",
+          "themeDarkColor": "#c4a900",
+        },
+        "dimensions": Object {
+          "headerHeightLarge": 85,
+          "headerHeightSmall": 55,
+          "maxWidth": 1100,
+          "minMaxWidth": "screen and (min-width: 1100px)",
+          "smallViewport": "(max-width: 750px)",
+          "toolbarWidth": 125,
+        },
+        "fonts": Object {
+          "contentFontFamily": "'Open Sans', 'Lateef', sans-serif",
+          "contentFontSize": "0.95rem",
+          "contentLineHeight": 1.4,
+          "decorativeFontFamily": "'Raleway', 'Lateef', sans-serif",
+          "decorativeFontSize": "0.95rem",
+          "decorativeLineHeight": 1.3,
+          "fontSizeAdjust": 0.55,
+          "standardParagraphMargin": "0.75rem",
+          "subTitleFontSize": "1.8rem",
+        },
+        "helpers": Object {
+          "removeLinkHighlighting": "
+    color: inherit;
+    text-decoration: none;
+  ",
+        },
+      }
+    }
   >
     <FeedbackModal__Overlay
       onClick={[Function]}
     />
-    <FeedbackModal__FeedbackContainer>
+    <FeedbackModal__FeedbackContainer
+      theme={
+        Object {
+          "colors": Object {
+            "backgroundAccentColor": "#fafafa",
+            "backgroundColor": "#ffffff",
+            "textColor": "#000000",
+            "textDecorationColor": "#c7c7c7",
+            "textDisabledColor": "#d0d0d0",
+            "textSecondaryColor": "#585858",
+            "themeColor": "#fbda16",
+            "themeDarkColor": "#c4a900",
+          },
+          "dimensions": Object {
+            "headerHeightLarge": 85,
+            "headerHeightSmall": 55,
+            "maxWidth": 1100,
+            "minMaxWidth": "screen and (min-width: 1100px)",
+            "smallViewport": "(max-width: 750px)",
+            "toolbarWidth": 125,
+          },
+          "fonts": Object {
+            "contentFontFamily": "'Open Sans', 'Lateef', sans-serif",
+            "contentFontSize": "0.95rem",
+            "contentLineHeight": 1.4,
+            "decorativeFontFamily": "'Raleway', 'Lateef', sans-serif",
+            "decorativeFontSize": "0.95rem",
+            "decorativeLineHeight": 1.3,
+            "fontSizeAdjust": 0.55,
+            "standardParagraphMargin": "0.75rem",
+            "subTitleFontSize": "1.8rem",
+          },
+          "helpers": Object {
+            "removeLinkHighlighting": "
+    color: inherit;
+    text-decoration: none;
+  ",
+          },
+        }
+      }
+    >
       <Translate(FeedbackBoxContainer)
         alias="alias"
         cities={
@@ -61,6 +140,45 @@ exports[`FeedbackModal should match snapshot 1`] = `
         onSubmit={[Function]}
         path="path"
         query="ab"
+        theme={
+          Object {
+            "colors": Object {
+              "backgroundAccentColor": "#fafafa",
+              "backgroundColor": "#ffffff",
+              "textColor": "#000000",
+              "textDecorationColor": "#c7c7c7",
+              "textDisabledColor": "#d0d0d0",
+              "textSecondaryColor": "#585858",
+              "themeColor": "#fbda16",
+              "themeDarkColor": "#c4a900",
+            },
+            "dimensions": Object {
+              "headerHeightLarge": 85,
+              "headerHeightSmall": 55,
+              "maxWidth": 1100,
+              "minMaxWidth": "screen and (min-width: 1100px)",
+              "smallViewport": "(max-width: 750px)",
+              "toolbarWidth": 125,
+            },
+            "fonts": Object {
+              "contentFontFamily": "'Open Sans', 'Lateef', sans-serif",
+              "contentFontSize": "0.95rem",
+              "contentLineHeight": 1.4,
+              "decorativeFontFamily": "'Raleway', 'Lateef', sans-serif",
+              "decorativeFontSize": "0.95rem",
+              "decorativeLineHeight": 1.3,
+              "fontSizeAdjust": 0.55,
+              "standardParagraphMargin": "0.75rem",
+              "subTitleFontSize": "1.8rem",
+            },
+            "helpers": Object {
+              "removeLinkHighlighting": "
+    color: inherit;
+    text-decoration: none;
+  ",
+            },
+          }
+        }
         title="title"
       />
     </FeedbackModal__FeedbackContainer>

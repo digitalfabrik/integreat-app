@@ -25,6 +25,7 @@ import { SPRUNGBRETT_ROUTE } from '../../../app/route-configs/SprungbrettRouteCo
 import { SEARCH_ROUTE } from '../../../app/route-configs/SearchRouteConfig'
 import { DISCLAIMER_ROUTE } from '../../../app/route-configs/DisclaimerRouteConfig'
 import createLocation from '../../../../createLocation'
+import theme from '../../../theme/constants/theme'
 
 describe('FeedbackBoxContainer', () => {
   const cities = [
@@ -53,6 +54,7 @@ describe('FeedbackBoxContainer', () => {
         isPositiveRatingSelected
         extras={null}
         t={t}
+        theme={theme}
         onSubmit={() => {}}
         closeFeedbackModal={() => {}} />
     )).toMatchSnapshot()
@@ -72,6 +74,7 @@ describe('FeedbackBoxContainer', () => {
           onSubmit={() => {}}
           closeFeedbackModal={() => {}}
           extras={null}
+          theme={theme}
           t={t} />
       ).instance()
 
@@ -100,6 +103,7 @@ describe('FeedbackBoxContainer', () => {
           onSubmit={() => {}}
           closeFeedbackModal={() => {}}
           extras={null}
+          theme={theme}
           t={t} />
       ).instance()
 
@@ -128,6 +132,7 @@ describe('FeedbackBoxContainer', () => {
           onSubmit={() => {}}
           closeFeedbackModal={() => {}}
           extras={null}
+          theme={theme}
           t={t} />
       ).instance()
 
@@ -163,6 +168,7 @@ describe('FeedbackBoxContainer', () => {
           onSubmit={() => {}}
           closeFeedbackModal={() => {}}
           extras={null}
+          theme={theme}
           t={t} />
       ).instance()
 
@@ -192,6 +198,7 @@ describe('FeedbackBoxContainer', () => {
         onSubmit={() => {}}
         closeFeedbackModal={() => {}}
         extras={null}
+        theme={theme}
         t={t} />
     )
     expect(component.instance().getContentFeedbackOption())
@@ -258,6 +265,7 @@ describe('FeedbackBoxContainer', () => {
         onSubmit={() => {}}
         closeFeedbackModal={() => {}}
         extras={extras}
+        theme={theme}
         t={t} />
     )
 
@@ -322,6 +330,7 @@ describe('FeedbackBoxContainer', () => {
             onSubmit={() => {}}
             closeFeedbackModal={() => {}}
             extras={null}
+            theme={theme}
             t={t} />
   )
 
@@ -346,6 +355,7 @@ describe('FeedbackBoxContainer', () => {
         closeFeedbackModal={() => {}}
         extras={null}
         postFeedbackDataOverride={mockPostFeedbackData}
+        theme={theme}
         t={t} />
     )
 
@@ -366,6 +376,7 @@ describe('FeedbackBoxContainer', () => {
         onSubmit={() => {}}
         closeFeedbackModal={() => {}}
         extras={null}
+        theme={theme}
         t={t} />
     ).instance()
 
@@ -389,6 +400,7 @@ describe('FeedbackBoxContainer', () => {
         onSubmit={() => {}}
         closeFeedbackModal={() => {}}
         extras={null}
+        theme={theme}
         t={t} />
     ).instance()
 
