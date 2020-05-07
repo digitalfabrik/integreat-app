@@ -1084,9 +1084,9 @@
     eslint-plugin-react "^7.18.3"
 
 "@integreat-app/integreat-api-client@^4.2.3":
-  version "4.2.3"
-  resolved "https://registry.yarnpkg.com/@integreat-app/integreat-api-client/-/integreat-api-client-4.2.3.tgz#005aa7f6e8a388a9945a940374209c89efbce500"
-  integrity sha512-9bGy3mzCy9A+4mPBRvx64zhsgMouNuexXROVnCNf1eXSv9/Q5KRubM8C5ZWcArl5M6DvIyBCthfiomKNtfKrfg==
+  version "4.2.4"
+  resolved "https://registry.yarnpkg.com/@integreat-app/integreat-api-client/-/integreat-api-client-4.2.4.tgz#5a2e32e2fa806eeafa42536ac850aaeba62894db"
+  integrity sha512-CWjk2llwfh77yJdExASq1We7m35Qe/Fc18P+FuX4nffA9NPNGHGRLifN6+groRnCEhSo/SLL8x7ENmhlu60dbg==
   dependencies:
     entities "^1.1"
     is-url "^1.2"
@@ -9218,6 +9218,11 @@ react-native-image-zoom-viewer@^2.2.27:
   integrity sha512-BMA8ZGe6dub9mPbGhFn14eAnq8H5ig32nY9vPqTjsJluLTcwjkMjupu47dha1ikK7vFo0zpGDFKlv2WHbtf+EQ==
   dependencies:
     react-native-image-pan-zoom "^2.1.9"
+
+react-native-on-layout@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/react-native-on-layout/-/react-native-on-layout-2.0.2.tgz#158e91d6e2b8d0f1c2ba7caa692d98c430790501"
+  integrity sha1-FY6R1uK40PHCunyqaS2YxDB5BQE=
 
 react-native-pdf@^6.0.1:
   version "6.0.1"
