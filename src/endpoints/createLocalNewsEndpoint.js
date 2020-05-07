@@ -6,7 +6,7 @@ import LocalNewsModel from '../models/LocalNewsModel'
 import moment from 'moment-timezone'
 import Endpoint from '../Endpoint'
 
-export const LOCALNEWS_ENDPOINT_NAME = 'news'
+export const LOCALNEWS_ENDPOINT_NAME = 'localNews'
 
 type ParamsType = { city: string, language: string }
 
