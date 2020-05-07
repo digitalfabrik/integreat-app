@@ -73,12 +73,13 @@ type ContentCityJsonType = {|
   prefix: string,
   extras_enabled: boolean,
   events_enabled: boolean,
-  push_notifications: boolean,
-  tunews: boolean,
   sorting_name: string,
   longitude: number | null,
   latitude: number | null,
-  aliases: { [alias: string]: {|longitude: number, latitude: number|}} | null
+  aliases: { [alias: string]: {|longitude: number, latitude: number|}} | null,
+  pushNotificationsEnabled: boolean,
+  tunewsEnabled: boolean
+
 |}
 
 type CityCodeType = string
@@ -347,8 +348,8 @@ class DatabaseConnector {
       prefix: city.prefix,
       extras_enabled: city.extrasEnabled,
       events_enabled: city.eventsEnabled,
-      pushNotification: city.push_notifications,
-      tunews: city.tunews,
+      pushNotificationsEnabled: city.pushNotificationsEnabled,
+      tunewsEnabled: city.tunewsEnabled,
       sorting_name: city.sortingName,
       longitude: city.longitude,
       latitude: city.latitude,
