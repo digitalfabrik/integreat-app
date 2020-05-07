@@ -1,0 +1,67 @@
+From 7092ba6dd47c091bc2d5c2a9d8b259eaae7c94b0 Mon Sep 17 00:00:00 2001
+From: Steffen Kleinle <klinzo@yahoo.de>
+Date: Thu, 22 Nov 2018 12:48:55 +0100
+Subject: [PATCH 12/23] WEBAPP-383: Fix metaDescription
+
+---
+ src/locales.json | 18 ++++++++----------
+ 1 file changed, 8 insertions(+), 10 deletions(-)
+
+diff --git a/src/locales.json b/src/locales.json
+index 5940d129..526bf5da 100644
+--- a/src/locales.json
++++ b/src/locales.json
+@@ -17,7 +17,8 @@
+         "landing": "Wo bist du?",
+         "disclaimer": "Impressum und Kontakt",
+         "mainDisclaimer": "Impressum und Datenschutz - Integreat"
+-      }
++      },
++      "metaDescription": "Finde lokale und aktuelle Informationen, Events und werde Teil deiner neuen Stadt. Integreat hilft dir dich mit anderen zu vernetzen und unterstützt mehrere Sprachen."
+     },
+     "en": {
+       "pageTitles": {
+@@ -27,7 +28,8 @@
+         "landing": "Where are you?",
+         "disclaimer": "Imprint and contact",
+         "pois": "Points of Interest"
+-      }
++      },
++      "metaDescription": "Find local and relevant content, events and become part of your new city. Integreat helps you to connect to others and supports multiple languages."
+     },
+     "fa": {
+       "pageTitles": {
+@@ -121,12 +123,10 @@
+       "createPdf": "إنشاء ملف PDF"
+     },
+     "de": {
+-      "createPdf": "PDF Erstellen",
+-      "metaDescription": "Finde lokale und aktuelle Informationen, Events und werde Teil deiner neuen Stadt. Integreat hilft dir dich mit anderen zu vernetzen und unterstützt mehrere Sprachen."
++      "createPdf": "PDF Erstellen"
+     },
+     "en": {
+-      "createPdf": "Create PDF",
+-      "metaDescription": "Find local and relevant content, events and become part of your new city. Integreat helps you to connect to others and supports multiple languages."
++      "createPdf": "Create PDF"
+     },
+     "fa": {
+       "createPdf": "Créer PDF"
+@@ -190,13 +190,11 @@
+     },
+     "de": {
+       "where": "Wo bist du?",
+-      "searchCity": "Suche nach deinem Ort",
+-      "metaDescription": "Finde lokale und aktuelle Informationen, Events und werde Teil deiner neuen Stadt. Integreat hilft dir dich mit anderen zu vernetzen und unterstützt mehrere Sprachen."
++      "searchCity": "Suche nach deinem Ort"
+     },
+     "en": {
+       "where": "Where are you?",
+-      "searchCity": "Search for your city",
+-      "metaDescription": "Find local and relevant content, events and become part of your new city. Integreat helps you to connect to others and supports multiple languages."
++      "searchCity": "Search for your city"
+     },
+     "fa": {
+       "where": "تو کجایی؟"
+-- 
+2.20.1 (Apple Git-117)
+
