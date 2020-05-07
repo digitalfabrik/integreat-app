@@ -29,7 +29,7 @@ class LocalNewsModelBuilder {
     return seedrandom(index + this._seed)() * max
   }
 
-  build (): Array<NewsModel> {
+  build (): Array<LocalNewsModel> {
     return this.buildAll().map(all => all.event)
   }
 

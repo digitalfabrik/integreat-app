@@ -1,6 +1,6 @@
 // @flow
 
-import { CategoriesMapModel, CityModel, EventModel, LanguageModel, NewsModel } from '@integreat-app/integreat-api-client'
+import { CategoriesMapModel, CityModel, EventModel, LanguageModel } from '@integreat-app/integreat-api-client'
 import type { LanguageResourceCacheStateType } from '../app/StateType'
 import type Moment from 'moment'
 
