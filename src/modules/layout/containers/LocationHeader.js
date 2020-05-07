@@ -20,7 +20,7 @@ import TunewsListRouteConfig, { TUNEWS_LIST_ROUTE } from '../../app/route-config
 import { TUNEWS_DETAILS_ROUTE } from '../../app/route-configs/TunewsDetailsRouteConfig'
 import SearchRouteConfig from '../../app/route-configs/SearchRouteConfig'
 import type { LocationState } from 'redux-first-router'
-import { EventModel, LocalNewsModel } from '@integreat-app/integreat-api-client'
+import { EventModel } from '@integreat-app/integreat-api-client'
 import { WOHNEN_ROUTE } from '../../app/route-configs/WohnenRouteConfig'
 import { SPRUNGBRETT_ROUTE } from '../../app/route-configs/SprungbrettRouteConfig'
 import LandingRouteConfig from '../../app/route-configs/LandingRouteConfig'
@@ -28,14 +28,12 @@ import type { LanguageChangePathsType } from '../../app/containers/Switcher'
 
 type PropsType = {|
   events: ?Array<EventModel>,
-  news: ?Array<LocalNewsModel>,
   location: LocationState,
   viewportSmall: boolean,
   t: TFunction,
   cityName: string,
   isEventsEnabled: boolean,
   isNewsEnabled: boolean,
-  isNewsActive: boolean,
   isExtrasEnabled: boolean,
   onStickyTopChanged: number => void,
   languageChangePaths: ?LanguageChangePathsType
@@ -63,13 +61,14 @@ export class LocationHeader extends React.Component<PropsType> {
   }
 
   getNavigationItems (): Array<Element<typeof HeaderNavigationItem>> {
-    const { t, isEventsEnabled, isNewsEnabled, isExtrasEnabled, location, events, isNewsActive } = this.props
+    const { t, isEventsEnabled, isNewsEnabled, isExtrasEnabled, location, events } = this.props
 
     const { city, language } = location.payload
     const currentRoute = location.type
 
     const isEventsActive = events ? events.length > 0 : false
     const isCategoriesEnabled = isExtrasEnabled || isEventsEnabled
+    const isNewsActive = true
 
     const items: Array<Element<typeof HeaderNavigationItem>> = []
 
@@ -105,7 +104,7 @@ export class LocationHeader extends React.Component<PropsType> {
           href={newsUrl}
           selected={[NEWS_ROUTE, TUNEWS_LIST_ROUTE, TUNEWS_DETAILS_ROUTE, LOCAL_NEWS_DETAILS_ROUTE, LOCAL_NEWS_DETAILS_ROUTE].includes(currentRoute)}
           text={t('news')}
-          active={isNewsActive || false}
+          active={isNewsActive}
         />
       )
     }

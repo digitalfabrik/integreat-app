@@ -7,7 +7,7 @@ import GeneralFooter from '../components/GeneralFooter'
 import LocationHeader from './LocationHeader'
 import LocationFooter from '../components/LocationFooter'
 import CategoriesToolbar from '../../../routes/categories/containers/CategoriesToolbar'
-import { CategoriesMapModel, CityModel, EventModel, LocalNewsModel } from '@integreat-app/integreat-api-client'
+import { CategoriesMapModel, CityModel, EventModel } from '@integreat-app/integreat-api-client'
 import type { LocationState } from 'redux-first-router'
 import FeedbackModal from '../../feedback/components/FeedbackModal'
 import LocationToolbar from '../components/LocationToolbar'
@@ -29,7 +29,6 @@ type PropsType = {|
   cities: ?Array<CityModel>,
   categories: ?CategoriesMapModel,
   events: ?Array<EventModel>,
-  news: ?Array<LocalNewsModel>,
   viewportSmall: boolean,
   children?: React.Node,
   location: LocationState,
@@ -101,7 +100,7 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
   }
 
   render () {
-    const { viewportSmall, children, location, darkMode, languageChangePaths, events, news } = this.props
+    const { viewportSmall, children, location, darkMode, languageChangePaths, events } = this.props
     const type = location.type
     const { city, language } = location.payload
 
@@ -117,12 +116,10 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
     return <Layout asideStickyTop={this.state.asideStickyTop}
       header={<LocationHeader isEventsEnabled={cityModel && cityModel.eventsEnabled}
                                            isExtrasEnabled={cityModel && cityModel.extrasEnabled}
-                                           isNewsEnabled
-                                           isNewsActive={cityModel && (cityModel.pushNotificationsEnabled || cityModel.tunewsEnabled)}
+                                           isNewsEnabled={cityModel && (cityModel.pushNotificationsEnabled || cityModel.tunewsEnabled)}
                                            languageChangePaths={languageChangePaths}
                                            location={location}
                                            events={events}
-                                           news={news}
                                            cityName={cityModel && cityModel.name}
                                            viewportSmall={viewportSmall}
                                            onStickyTopChanged={this.handleStickyTopChanged} />}

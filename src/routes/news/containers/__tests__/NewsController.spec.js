@@ -11,7 +11,6 @@ import createLocation from '../../../../createLocation'
 import { TUNEWS_LIST_ROUTE } from '../../../../modules/app/route-configs/TunewsListRouteConfig'
 import theme from '../../../../modules/theme/constants/theme'
 import { ThemeProvider } from 'styled-components'
-import { redirect } from 'redux-first-router'
 
 describe('NewsController', () => {
   const cities = [
@@ -54,9 +53,9 @@ describe('NewsController', () => {
         language={language}
         city={city}
         cities={cities}
-        location={location}
+        type={TUNEWS_LIST_ROUTE}
         redirect={() => {}}
-      >
+        >
         <div>dummy child</div>
       </NewsController>
     )
@@ -86,7 +85,7 @@ describe('NewsController', () => {
     expect(tree.find(NewsController).props()).toEqual({
       language,
       city,
-      location,
+      type: TUNEWS_LIST_ROUTE,
       cities,
       redirect: expect.any(Function)
     })

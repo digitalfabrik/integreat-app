@@ -3,6 +3,7 @@
 import * as React from 'react'
 import { isEmpty } from 'lodash/lang'
 import styled from 'styled-components'
+import { LocalNewsModel } from '@integreat-app/integreat-api-client'
 
 const NoItemsMessage = styled.div`
   padding-top: 25px;
@@ -21,7 +22,7 @@ const Wrapper = styled.div`
 type PropsType<T> = {|
   items: Array<T>,
   noItemsMessage: string,
-  renderItem: any,
+  renderItem: (item: LocalNewsModel, city: string) => React.Node,
   city: string
 |}
 

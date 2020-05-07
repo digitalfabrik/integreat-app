@@ -21,6 +21,7 @@ exports[`TunewsDetailsPage should match snapshot and render TunewsDetailsPage 1`
     </TunewsDetails__StyledWrapper>
     <TunewsDetailsFooter
       date={"2020-01-20T12:04:22.000Z"}
+      eNewsNumber="tun0000009902"
       language="en"
       t={[Function]}
     />

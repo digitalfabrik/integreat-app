@@ -15,7 +15,7 @@ import { NEWS_ROUTE } from './../../../modules/app/route-configs/NewsRouteConfig
 import { LOCAL_NEWS_DETAILS_ROUTE } from './../../../modules/app/route-configs/LocalNewsDetailsRouteConfig'
 
 type PropsType = {|
-  location: any,
+  type: string,
   city: string,
   language: string,
   cities: Array<CityModel>,
@@ -29,20 +29,21 @@ export class NewsController extends React.Component<PropsType> {
   }
 
   handleRedirect = () => {
-    const currentCity: any = this.props.cities && this.props.cities.find(cityElement => cityElement._code === this.props.city)
+    const { type, language, city, cities, redirect } = this.props
+    const currentCity: CityModel = cities && cities.find(cityElement => cityElement._code === city)
 
     if (currentCity && !currentCity.pushNotificationsEnabled && !currentCity.tunewsEnabled) {
-      this.props.redirect({ payload: { language: this.props.language, city: this.props.city }, type: CATEGORIES_ROUTE })
+      redirect({ payload: { language: language, city: city }, type: CATEGORIES_ROUTE })
     } else if (currentCity && !currentCity.pushNotificationsEnabled && currentCity.tunewsEnabled) {
-      if (this.props.location.type === TUNEWS_DETAILS_ROUTE) {
+      if (type === TUNEWS_DETAILS_ROUTE) {
         return
       }
-      this.props.redirect({ payload: { language: this.props.language, city: this.props.city }, type: TUNEWS_LIST_ROUTE })
+      redirect({ payload: { language: language, city: city }, type: TUNEWS_LIST_ROUTE })
     } else if (currentCity && currentCity.pushNotificationsEnabled && !currentCity.tunewsEnabled) {
-      if (this.props.location.type === LOCAL_NEWS_DETAILS_ROUTE) {
+      if (type === LOCAL_NEWS_DETAILS_ROUTE) {
         return
       }
-      this.props.redirect({ payload: { language: this.props.language, city: this.props.city }, type: NEWS_ROUTE })
+      redirect({ payload: { language: language, city: city }, type: NEWS_ROUTE })
     }
   }
 
@@ -56,7 +57,7 @@ export class NewsController extends React.Component<PropsType> {
 
 const mapStateTypeToProps = (state: StateType) => {
   return {
-    location: state.location,
+    type: state.location.type,
     language: state.location.payload.language,
     city: state.location.payload.city,
     cities: state.cities.data
