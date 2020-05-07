@@ -47,7 +47,7 @@ describe('loadEvents', () => {
   it('should fetch and set events if events are not available', async () => {
     const dataContainer = new DefaultDataContainer()
 
-    await runSaga({}, loadEvents, city, language, dataContainer, false).toPromise()
+    await runSaga({}, loadEvents, city, language, true, dataContainer, false).toPromise()
 
     expect(await dataContainer.getEvents(city, language)).toStrictEqual(mockEvents)
   })
@@ -56,16 +56,16 @@ describe('loadEvents', () => {
     const dataContainer = new DefaultDataContainer()
     await dataContainer.setEvents(city, language, otherEvents)
 
-    await runSaga({}, loadEvents, city, language, dataContainer, true).toPromise()
+    await runSaga({}, loadEvents, city, language, true, dataContainer, true).toPromise()
 
     expect(await dataContainer.getEvents(city, language)).toStrictEqual(mockEvents)
   })
 
-  it('should use cached events if they are available and should not be update', async () => {
+  it('should use cached events if they are available and should not be updated', async () => {
     const dataContainer = new DefaultDataContainer()
     await dataContainer.setEvents(city, language, otherEvents)
 
-    await runSaga({}, loadEvents, city, language, dataContainer, false).toPromise()
+    await runSaga({}, loadEvents, city, language, true, dataContainer, false).toPromise()
 
     expect(await dataContainer.getEvents(city, language)).toBe(otherEvents)
   })
@@ -75,8 +75,17 @@ describe('loadEvents', () => {
     const path = new DatabaseConnector().getContentPath('events', context)
     await RNFetchBlob.fs.writeFile(path, '{ "i": { "am": "malformatted" } }', 'utf-8')
     const dataContainer = new DefaultDataContainer()
-    const events = await runSaga({}, loadEvents, city, language, dataContainer, false).toPromise()
+    const events = await runSaga({}, loadEvents, city, language, true, dataContainer, false).toPromise()
 
     expect(events).toBe(mockEvents)
+  })
+
+  it('should set empty array if events are disabled', async () => {
+    const dataContainer = new DefaultDataContainer()
+    await dataContainer.setEvents(city, language, otherEvents)
+
+    await runSaga({}, loadEvents, city, language, false, dataContainer, true).toPromise()
+
+    expect(await dataContainer.getEvents(city, language)).toStrictEqual([])
   })
 })

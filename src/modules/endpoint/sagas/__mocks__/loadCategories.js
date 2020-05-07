@@ -6,7 +6,8 @@ import { CategoriesMapModel } from '@integreat-app/integreat-api-client'
 import { call } from 'redux-saga/effects'
 
 export default function * loadCategories (
-  city: string, language: string,
+  city: string,
+  language: string,
   dataContainer: DataContainer,
   forceRefresh: boolean
 ): Saga<CategoriesMapModel> {
