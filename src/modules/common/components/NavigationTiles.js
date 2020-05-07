@@ -7,18 +7,24 @@ import TileModel from '../models/TileModel'
 import type { ThemeType } from '../../theme/constants/theme'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import NavigationTile from './NavigationTile'
-import { ScrollView, Dimensions } from 'react-native'
-const SCREEN_WIDTH = Dimensions.get('window').width
-const isWideScreen = SCREEN_WIDTH >= 375
-const ANCHORS_WIDTH = isWideScreen ? 0 : 60
-const SCROLL_VIEW_WIDTH = SCREEN_WIDTH - ANCHORS_WIDTH
-const ITEM_WIDTH = isWideScreen
-  ? SCROLL_VIEW_WIDTH / 4
-  : SCROLL_VIEW_WIDTH / 3
+import { ScrollView } from 'react-native'
+import OnLayout from 'react-native-on-layout'
+const WIDTH_BREAK_POINT = 375
+const ANCHOR_INITIAL_WIDTH = 60
+const WIDE_SCREEN_ITEMS_COUNT = 4
+const SMALL_SCREEN_ITEMS_COUNT = 3
 
 type PropsType = {|
   tiles: TileModel[],
-  theme: ThemeType
+  theme: ThemeType,
+  navigationItemWidth: number,
+  isWideScreen: boolean,
+  scrollViewWidth: number,
+  anchorWidth: number
+|}
+
+type State = {|
+  xPosition: number
 |}
 
 const TilesRow = styled.View`
@@ -35,12 +41,12 @@ const TilesRow = styled.View`
 `
 const Icon = styled(MaterialIcon)`
   font-size: 30px;
-  width: ${ANCHORS_WIDTH / 2}px;
+  width: ${props => props.width / 2}px;
 `
 /**
  * Displays a table of NavigationTiles
  */
-class NavigationTiles extends React.Component<PropsType> {
+class NavigationTiles extends React.Component<PropsType, State> {
   state = {
     xPosition: 0
   };
@@ -48,20 +54,24 @@ class NavigationTiles extends React.Component<PropsType> {
   ref_ = null;
 
   onRightAnchorPress = () => {
+    const { navigationItemWidth } = this.props
     const { xPosition } = this.state
+
     if (!xPosition) {
-      this.ref_.scrollToEnd({ animated: true })
+      this.ref_?.scrollToEnd({ animated: true })
     } else {
-      this.ref_.scrollTo({ y: 0, x: xPosition - ITEM_WIDTH, animated: true })
+      this.ref_?.scrollTo({ y: 0, x: xPosition - navigationItemWidth, animated: true })
     }
   };
 
   onLeftAnchorPress = () => {
+    const { navigationItemWidth } = this.props
     const { xPosition } = this.state
+
     if (!xPosition) {
       this.ref_.scrollToEnd({ animated: true })
     } else {
-      this.ref_.scrollTo({ y: 0, x: xPosition - ITEM_WIDTH, animated: true })
+      this.ref_?.scrollTo({ y: 0, x: xPosition - navigationItemWidth, animated: true })
     }
   };
 
@@ -74,8 +84,8 @@ class NavigationTiles extends React.Component<PropsType> {
   };
 
   render () {
-    const { tiles, theme } = this.props
-    const isMoreThanThreeItems = tiles.length > 3
+    const { tiles, theme, isWideScreen, navigationItemWidth, scrollViewWidth, anchorWidth } = this.props
+    const isMoreThanThreeItems = tiles.length > SMALL_SCREEN_ITEMS_COUNT
 
     return (
       <TilesRow theme={theme}>
@@ -84,16 +94,20 @@ class NavigationTiles extends React.Component<PropsType> {
             name='keyboard-arrow-left'
             color={theme.colors.black}
             onPress={this.onRightAnchorPress}
+            width={anchorWidth}
           />
         )}
         <ScrollView
           horizontal
           ref={this.setRef}
-          contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between' }}
-          style={{ width: SCROLL_VIEW_WIDTH }}
+          contentContainerStyle={{
+            flexGrow: 1,
+            justifyContent: 'space-between'
+          }}
+          style={{ width: scrollViewWidth }}
           showsHorizontalScrollIndicator={false}
           pagingEnabled
-          snapToInterval={ITEM_WIDTH}
+          snapToInterval={navigationItemWidth}
           decelerationRate='fast'
           bounces={false}
           onMomentumScrollEnd={this.onMomentumScrollEnd}
@@ -103,7 +117,7 @@ class NavigationTiles extends React.Component<PropsType> {
               key={tile.path}
               tile={tile}
               theme={theme}
-              width={ITEM_WIDTH}
+              width={navigationItemWidth}
             />
           ))}
         </ScrollView>
@@ -112,6 +126,7 @@ class NavigationTiles extends React.Component<PropsType> {
             name='keyboard-arrow-right'
             color={theme.colors.black}
             onPress={this.onLeftAnchorPress}
+            width={anchorWidth}
           />
         )}
       </TilesRow>
@@ -119,4 +134,27 @@ class NavigationTiles extends React.Component<PropsType> {
   }
 }
 
-export default NavigationTiles
+const NavigationTilesWithScrollableView = props => (
+  <OnLayout>
+    {({ width }) => {
+      const isWideScreen = width >= WIDTH_BREAK_POINT
+      const ANCHORS_WIDTH = isWideScreen ? 0 : ANCHOR_INITIAL_WIDTH
+      const SCROLL_VIEW_WIDTH = width - ANCHORS_WIDTH
+      const ITEM_WIDTH = isWideScreen
+        ? SCROLL_VIEW_WIDTH / WIDE_SCREEN_ITEMS_COUNT
+        : SCROLL_VIEW_WIDTH / SMALL_SCREEN_ITEMS_COUNT
+
+      return (
+        <NavigationTiles
+          navigationItemWidth={ITEM_WIDTH}
+          isWideScreen={isWideScreen}
+          scrollViewWidth={SCROLL_VIEW_WIDTH}
+          anchorWidth={ANCHORS_WIDTH}
+          {...props}
+        />
+      )
+    }}
+  </OnLayout>
+)
+
+export default NavigationTilesWithScrollableView
