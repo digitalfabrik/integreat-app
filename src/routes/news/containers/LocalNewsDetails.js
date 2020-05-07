@@ -2,19 +2,21 @@
 
 import * as React from 'react'
 import { connect } from 'react-redux'
+import { push } from 'redux-first-router'
+import { LocalNewsModel } from '@integreat-app/integreat-api-client'
+import type { TFunction } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
 import Page from '../../../modules/common/components/Page'
-import { LocalNewsModel } from '@integreat-app/integreat-api-client'
 import NewsController from './../containers/NewsController'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 
 type PropsType = {|
   localNewsDetails: LocalNewsModel,
-  title: string,
   language: string,
   city: string,
-  path: string
+  path: string,
+  t: TFunction
 |}
 
 export class LocalNewsDetailsPage extends React.PureComponent<PropsType> {
@@ -28,8 +30,8 @@ export class LocalNewsDetailsPage extends React.PureComponent<PropsType> {
 
     return (
       <NewsController>
-        <Page title={localNewsDetails._title} content='' language={language} lastUpdate={localNewsDetails._timestamp}>
-          {localNewsDetails._message}
+        <Page title={localNewsDetails.title} content='' language={language} lastUpdate={localNewsDetails.timestamp} onInternalLinkClick={push}>
+          {localNewsDetails.message}
         </Page>
       </NewsController>
     )

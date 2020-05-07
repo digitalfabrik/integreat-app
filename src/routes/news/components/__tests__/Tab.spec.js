@@ -5,8 +5,9 @@ import { shallow } from 'enzyme'
 import Tab from '../Tab'
 
 describe('Tab', () => {
-  const type = true
-  const active = 'local'
+  const TU_NEWS = 'tu'
+  const type = TU_NEWS
+  const active = true
   const destination = '/testcity/en/news/local'
   const t = (key: ?string): string => key || ''
 

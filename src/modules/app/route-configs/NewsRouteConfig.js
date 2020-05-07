@@ -70,7 +70,7 @@ class NewsRouteConfig implements RouteConfig<NewsRouteParamsType, RequiredPayloa
   getFeedbackTargetInformation = ({ payloads, location }) => {
     const news = payloads.news && payloads.news.data
     const newsItem = news && news.find(newsItem => newsItem.path === location.pathname)
-    return newsItem ? { id: newsItem.id, title: newsItem.title } : null
+    return newsItem ? { title: newsItem.title } : null
   }
 }
 

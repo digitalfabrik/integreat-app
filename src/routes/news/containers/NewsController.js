@@ -3,9 +3,10 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { CityModel } from '@integreat-app/integreat-api-client'
-import type { StateType } from '../../../modules/app/StateType'
+import type { ReceivedAction } from 'redux-first-router'
 import { redirect } from 'redux-first-router'
 import type { Dispatch } from 'redux'
+import type { StateType } from '../../../modules/app/StateType'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import { TUNEWS_LIST_ROUTE } from './../../../modules/app/route-configs/TunewsListRouteConfig'
 import { TUNEWS_DETAILS_ROUTE } from './../../../modules/app/route-configs/TunewsDetailsRouteConfig'
@@ -18,7 +19,7 @@ type PropsType = {|
   city: string,
   language: string,
   cities: Array<CityModel>,
-  redirect: any,
+  redirect: ReceivedAction => void,
   children: React.Node
 |}
 

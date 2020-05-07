@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TunewsDetailsPage should match snapshot and render TunewsList 1`] = `
+exports[`TunewsDetailsPage should match snapshot and render TunewsDetailsPage 1`] = `
 <Connect(NewsController)>
   <TunewsDetails__StyledContainer>
     <TunewsDetails__StyledWrapper>
@@ -21,7 +21,6 @@ exports[`TunewsDetailsPage should match snapshot and render TunewsList 1`] = `
     </TunewsDetails__StyledWrapper>
     <TunewsDetailsFooter
       date={"2020-01-20T12:04:22.000Z"}
-      eNewsNumber="tun0000009902"
       language="en"
       t={[Function]}
     />
