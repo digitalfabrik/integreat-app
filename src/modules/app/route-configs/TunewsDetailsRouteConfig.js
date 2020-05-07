@@ -13,7 +13,8 @@ import {
 import fetchData from '../fetchData'
 import { cmsApiBaseUrl, tunewsApiBaseUrl } from '../constants/urls'
 
-type RequiredPayloadsType = {| news: Payload<Array<TunewsModel>> |}
+type TunewsDetailsRouteParamsType = {|city: string, language: string, id: string|}
+type RequiredPayloadsType = {| tunewsElementDetails: Payload<Array<TunewsModel>> |}
 
 export const TUNEWS_DETAILS_ROUTE = 'TUNEWS_DETAILS'
 
@@ -32,7 +33,7 @@ const tunewsDetailsRoute: Route = {
   }
 }
 
-class TunewsDetailsRouteConfig implements RouteConfig<RequiredPayloadsType> {
+class TunewsDetailsRouteConfig implements RouteConfig<TunewsDetailsRouteParamsType, RequiredPayloadsType> {
   name = TUNEWS_DETAILS_ROUTE
   route = tunewsDetailsRoute
   isLocationLayoutRoute = true
@@ -49,7 +50,7 @@ class TunewsDetailsRouteConfig implements RouteConfig<RequiredPayloadsType> {
     return tunewsItemTitle || t('pageTitles.tunews')
   }
 
-  getRoutePath = ({ city, language }): string => null
+  getRoutePath = ({ city, language }): string => ''
 
   getMetaDescription = () => null
 

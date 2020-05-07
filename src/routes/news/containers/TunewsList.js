@@ -10,16 +10,22 @@ import PaginatedList from '../components/PaginatedList'
 import { fetchTunews, resetTunews } from '../actions/fetchTunews'
 import TunewsElement from '../components/TunewsElement'
 import Tabs from '../components/Tabs'
-import { TunewsModel } from '@integreat-app/integreat-api-client'
+import { TunewsModel, CityModel } from '@integreat-app/integreat-api-client'
 import LoadingSpinner from '../../../modules/common/components/LoadingSpinner'
 import NewsController from './NewsController'
 
 type PropsType = {|
-  tunewsList: TunewsModel,
+  tunewsList: Array<TunewsModel>,
   language: string,
   city: string,
+  cities: Array<CityModel>,
   path: string,
-  t: TFunction
+  t: TFunction,
+  isFetching: boolean,
+  isFetchingFirstTime: boolean,
+  hasMore: boolean,
+  fetchTunews: () => void,
+  resetTunews: () => void
 |}
 
 export class TunewsListPage extends React.PureComponent<PropsType> {

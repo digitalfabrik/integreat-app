@@ -2,9 +2,8 @@
 
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { Action } from 'redux-first-router'
 import compose from 'lodash/fp/compose'
-import { LocalNewsModel } from '@integreat-app/integreat-api-client'
+import { LocalNewsModel, CityModel } from '@integreat-app/integreat-api-client'
 import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
@@ -16,10 +15,10 @@ import NewsController from './../containers/NewsController'
 type PropsType = {|
   news: Array<LocalNewsModel>,
   city: string,
+  cities: Array<CityModel>,
   language: string,
   t: TFunction,
-  path: string,
-  redirect: Action
+  path: string
 |}
 
 export class NewsPage extends React.Component<PropsType> {

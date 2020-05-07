@@ -4,6 +4,7 @@ import * as React from 'react'
 import { isEmpty } from 'lodash/lang'
 import styled from 'styled-components'
 import InfiniteScroll from 'react-infinite-scroller'
+import { TunewsModel } from '@integreat-app/integreat-api-client'
 import LoadingSpinner from '../../../modules/common/components/LoadingSpinner'
 
 const LIMIT = 20
@@ -22,20 +23,25 @@ const StyledList = styled.div`
 type PropsType<T> = {|
   items: Array<T>,
   noItemsMessage: string,
-  renderItem: any,
-  city: string
+  renderItem: (item: TunewsModel, city: string) => React.Node,
+  city: string,
+  language: string,
+  isFetching: boolean,
+  hasMore: boolean,
+  fetchTunews: (page: number, count: number) => void,
+  resetTunews: () => void
 |}
 
 class PaginatedList<T> extends React.PureComponent<PropsType<T>> {
-  componentDidUpdate (prevProp: PropsType) {
+  componentDidUpdate (prevProp: PropsType<T>) {
     const { language, resetTunews, fetchTunews } = this.props
     if (prevProp.language !== language) {
       resetTunews()
-      fetchTunews()
+      fetchTunews(1, LIMIT)
     }
   }
 
-  loadItems = async page => {
+  loadItems = async (page: number) => {
     this.props.fetchTunews(page + 1, LIMIT)
   };
 

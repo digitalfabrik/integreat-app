@@ -11,7 +11,7 @@ export default {
   `
 }
 
-export const textTruncator = (text, numOfWordsAllowed) => {
+export const textTruncator = (text: string, numOfWordsAllowed: number): string => {
   const ellipsis = '...'
   const splitTextToWords = text.split(' ')
   if (splitTextToWords.length < numOfWordsAllowed) {

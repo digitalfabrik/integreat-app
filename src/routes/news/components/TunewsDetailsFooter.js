@@ -3,6 +3,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { TFunction } from 'i18next'
+import type Moment from 'moment'
 
 const Footer = styled.footer`
   display: flex;
@@ -27,7 +28,7 @@ const StyledLink = styled.a`
 
 type PropsType = {|
   eNewsNumber: string,
-  date: string,
+  date: Moment,
   language: string,
   t: TFunction
 |}

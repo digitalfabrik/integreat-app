@@ -1,28 +1,37 @@
 // @flow
 
-export const fetchTunewsRecducer = (state = { data: [] }, action) => {
+import { Payload, TunewsModel } from '@integreat-app/integreat-api-client'
+import type { PayloadDataType } from '../../../modules/app/PayloadDataType'
+
+type TuNewsFetchActionType<T: PayloadDataType> = { type: string, payload: Payload<T> }
+
+const defaultState = new Payload(false, false, [])
+console.log('defaultState', defaultState)
+
+export const fetchTunewsRecducer = (
+  state: Payload<Array<TunewsModel>> = defaultState,
+  action: TuNewsFetchActionType<TunewsModel>
+) => {
   switch (action.type) {
     case 'START_FETCH_TUNEWSLIST':
       return {
-        ...state,
-        ...action.payload,
+        data: [...state.data],
+        isFetching: state.isFetching,
         isFetchingFirstTime: state.data.length === 0
       }
     case 'FINISH_FETCH_TUNEWSLIST': {
       return {
-        ...state,
-        ...action.payload,
         data: [...state.data, ...action.payload.data],
+        isFetching: state.isFetching,
         hasMore: action.payload.data.length !== 0,
         isFetchingFirstTime: false
       }
     }
     case 'RESET_TU_NEWS': {
       return {
-        ...state,
-        ...action.payload,
         data: [],
         hasMore: true,
+        isFetching: false,
         isFetchingFirstTime: false
       }
     }

@@ -2,8 +2,9 @@
 
 import React from 'react'
 import styled from 'styled-components'
-import Tab from './Tab'
 import { CityModel } from '@integreat-app/integreat-api-client'
+import type { TFunction } from 'react-i18next'
+import Tab from './Tab'
 
 const StyledTabs = styled.div`
   display: flex;
@@ -20,7 +21,8 @@ type PropsType = {|
   children: any,
   city: string,
   cities: Array<CityModel>,
-  language: string
+  language: string,
+  t: TFunction
 |}
 
 type StateType = {|

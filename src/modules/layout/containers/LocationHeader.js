@@ -105,7 +105,7 @@ export class LocationHeader extends React.Component<PropsType> {
           href={newsUrl}
           selected={[NEWS_ROUTE, TUNEWS_LIST_ROUTE, TUNEWS_DETAILS_ROUTE, LOCAL_NEWS_DETAILS_ROUTE, LOCAL_NEWS_DETAILS_ROUTE].includes(currentRoute)}
           text={t('news')}
-          active={isNewsActive}
+          active={isNewsActive || false}
         />
       )
     }

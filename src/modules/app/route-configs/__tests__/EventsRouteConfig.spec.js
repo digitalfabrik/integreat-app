@@ -43,6 +43,10 @@ describe('EventsRouteConfig', () => {
   it('should get the required payloads', () => {
     const allPayloads = {
       eventsPayload,
+      newsPayload: new Payload(true),
+      newsElementPayload: new Payload(true),
+      tunewsPayload: new Payload(true),
+      tunewsElementPayload: new Payload(true),
       citiesPayload: new Payload(true),
       categoriesPayload: new Payload(true),
       disclaimerPayload: new Payload(true),

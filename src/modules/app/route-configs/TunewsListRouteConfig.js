@@ -7,7 +7,7 @@ import {
   createCitiesEndpoint,
   createEventsEndpoint,
   createTunewsEndpoint,
-  createLanguagesEndpoint,
+  createTunewsLanguagesEndpoint,
   createLocalNewsEndpoint,
   TunewsModel,
   Payload
@@ -16,7 +16,7 @@ import fetchData from '../fetchData'
 import { cmsApiBaseUrl, tunewsApiBaseUrl } from '../constants/urls'
 
 type TunewsListRouteParamsType = {| city: string, language: string |}
-type RequiredPayloadsType = {| news: Payload<Array<TunewsModel>> |}
+type RequiredPayloadsType = {| tunewsList: Payload<Array<TunewsModel>> |}
 
 export const TUNEWS_LIST_ROUTE = 'TUNEWS_LIST'
 
@@ -29,7 +29,7 @@ const tunewsListRoute: Route = {
     const promises = [
       fetchData(createCitiesEndpoint(cmsApiBaseUrl), dispatch, state.cities),
       fetchData(createEventsEndpoint(cmsApiBaseUrl), dispatch, state.events, { city, language }),
-      fetchData(createLanguagesEndpoint(tunewsApiBaseUrl, true), dispatch, state.languages, { city, language }),
+      fetchData(createTunewsLanguagesEndpoint(tunewsApiBaseUrl, true), dispatch, state.languages, { city, language }),
       fetchData(createLocalNewsEndpoint(cmsApiBaseUrl), dispatch, state.news, { city, language })
     ]
 
@@ -57,7 +57,7 @@ class TunewsListRouteConfig implements RouteConfig<TunewsListRouteParamsType, Re
 
   getPageTitle = ({ t, payloads, cityName, location }) => t('pageTitles.tunews')
 
-  getRoutePath = ({ city, language }: NewsRouteParamsType): string => `/${city}/${language}/news/tu-news`
+  getRoutePath = ({ city, language }: TunewsListRouteParamsType): string => `/${city}/${language}/news/tu-news`
 
   getMetaDescription = () => null
 

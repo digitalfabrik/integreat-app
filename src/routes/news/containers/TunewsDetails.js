@@ -85,7 +85,7 @@ export class TunewsDetailsPage extends React.PureComponent<PropsType> {
             <Title>{tunewsElementDetails && tunewsElementDetails.title}</Title>
             <Content>{tunewsElementDetails && tunewsElementDetails.content}</Content>
           </StyledWrapper>
-          <TunewsDetailsFooter eNewsNumber={tunewsElementDetails.enewsno} date={tunewsElementDetails && tunewsElementDetails.date} language={language} t={t} />
+          <TunewsDetailsFooter eNewsNumber={tunewsElementDetails.eNewsNo} date={tunewsElementDetails && tunewsElementDetails.date} language={language} t={t} />
         </StyledContainer>
       </NewsController>
     )

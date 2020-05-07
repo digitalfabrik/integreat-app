@@ -70,6 +70,7 @@ describe('NewsPage', () => {
         city={city}
         cities={cities}
         language={language}
+        path='/path/to/page'
         t={t}
       />
     )

@@ -3,6 +3,7 @@
 import React from 'react'
 import { mount, shallow } from 'enzyme'
 import moment from 'moment-timezone'
+import type Moment from 'moment'
 import { ThemeProvider } from 'styled-components'
 
 import ConnectedLocalNewsDetails, { LocalNewsDetailsPage } from '../LocalNewsDetails'
