@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { View, ActivityIndicator, ScrollView } from 'react-native'
 import { TFunction, withTranslation } from 'react-i18next'
-import { CityModel, NewsModel } from '@integreat-app/integreat-api-client'
+import { CityModel, LocalNewsModel, TunewsModel } from '@integreat-app/integreat-api-client'
 import ContentNotFoundError from '../../../modules/error/ContentNotFoundError'
 import List from './List'
 import Failure from '../../../modules/error/components/Failure'
@@ -81,7 +81,7 @@ const NewsDetailsContent: StyledComponent<{}, ThemeType, *> = styled.Text`
 
 export type PropsType = {|
   path: ?string,
-  newsList: Array<NewsModel | any>,
+  newsList: Array<LocalNewsModel | TunewsModel>,
   cities: Array<CityModel>,
   cityCode: string,
   language: string,
