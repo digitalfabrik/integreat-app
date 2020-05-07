@@ -45,7 +45,7 @@ const TileTitle = styled.Text`
   margin-bottom: 5px;
 `
 
-const TileTouchable: StyledComponent<{}, {}, *> = styled.TouchableOpacity`
+const TileTouchable: StyledComponent<{ width: number }, {}, *> = styled.TouchableOpacity`
   padding: 10px 3px;
   width: ${props => props.width}px;
   align-items: center;

@@ -42,7 +42,7 @@ describe('loadLanguages', () => {
   it('should fetch and set languages if languages are not available', async () => {
     const dataContainer = new DefaultDataContainer()
 
-    await runSaga({}, loadLanguages, city, dataContainer, false).toPromise()
+    await runSaga({}, loadLanguages, city, dataContainer, false, false).toPromise()
 
     expect(await dataContainer.getLanguages(city)).toStrictEqual(mockLanguages)
   })
@@ -60,7 +60,7 @@ describe('loadLanguages', () => {
     const dataContainer = new DefaultDataContainer()
     await dataContainer.setLanguages(city, otherLanguages)
 
-    await runSaga({}, loadLanguages, city, dataContainer, false).toPromise()
+    await runSaga({}, loadLanguages, city, dataContainer, false, false).toPromise()
 
     expect(await dataContainer.getLanguages(city)).toBe(otherLanguages)
   })
@@ -70,7 +70,7 @@ describe('loadLanguages', () => {
     const path = new DatabaseConnector().getContentPath('languages', context)
     await RNFetchBlob.fs.writeFile(path, '{ "i": { "am": "malformatted" } }', 'utf-8')
     const dataContainer = new DefaultDataContainer()
-    const languages = await runSaga({}, loadLanguages, city, dataContainer, false).toPromise()
+    const languages = await runSaga({}, loadLanguages, city, dataContainer, false, false).toPromise()
 
     expect(languages).toBe(mockLanguages)
   })

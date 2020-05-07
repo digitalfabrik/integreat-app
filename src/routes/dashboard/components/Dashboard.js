@@ -17,6 +17,8 @@ import type { TFunction } from 'react-i18next'
 import type { NavigateToCategoryParamsType } from '../../../modules/app/createNavigateToCategory'
 import type { NavigateToIntegreatUrlParamsType } from '../../../modules/app/createNavigateToIntegreatUrl'
 import type { NavigateToEventParamsType } from '../../../modules/app/createNavigateToEvent'
+import type { NavigateToNewsParamsType } from '../../../modules/app/createNavigateToNews'
+
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
 
 export type PropsType = {|
@@ -27,7 +29,9 @@ export type PropsType = {|
   navigateToEvent: NavigateToEventParamsType => void,
   navigateToIntegreatUrl: NavigateToIntegreatUrlParamsType => void,
   navigateToDashboard: NavigateToCategoryParamsType => void,
+  navigateToNews: NavigateToNewsParamsType => void,
   navigateToExtras: ({| cityCode: string, language: string |}) => void,
+  cityModel: CityModel,
   theme: ThemeType,
 
   language: string,

@@ -6,7 +6,8 @@ import type {
   FetchNewsActionType,
   PushNewsActionType,
   FetchNewsFailedActionType,
-  ClearNewsActionType
+  ClearNewsActionType,
+  FetchMoreNewsActionType
 } from '../../app/StoreActionType'
 import type { DataContainer } from '../DataContainer'
 import { ContentLoadCriterion } from '../ContentLoadCriterion'
@@ -112,7 +113,7 @@ export function * fetchNews (
 
 export function * fetchMoreNews (
   dataContainer: DataContainer,
-  action: FetchNewsActionType
+  action: FetchMoreNewsActionType
 ): Saga<void> {
   const {
     city,

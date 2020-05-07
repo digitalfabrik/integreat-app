@@ -43,8 +43,8 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   const languages = state.cityContent?.languages
   // Note: added this to prevent re-rendering when city is there.
   const cities = state.cities.models || []
-  const cityCode = state.cityContent.city
-  const categoriesAvailable = state.cityContent.searchRoute !== null
+  const cityCode = state.cityContent?.city
+  const categoriesAvailable = state.cityContent?.searchRoute !== null
 
   const cityModel = cities.find(city => city.code === cityCode)
 

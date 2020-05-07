@@ -111,12 +111,6 @@ export interface DataContainer {
   /**
    * Clears all in-memory caches
    */
-  clearInMemoryCache (): void,
-
-  /**
-   * Returns an Array of NewsModel.
-   * @throws Will throw an error if the array is null.
-   */
-  getNews: (city: string, language: string) => Promise<Array<NewsModel>>
+  clearInMemoryCache (): void
 
 }

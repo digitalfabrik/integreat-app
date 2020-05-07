@@ -5,6 +5,8 @@ import {
   CategoryModel,
   CityModel,
   EventModel,
+  LocalNewsModel,
+  TunewsModel,
   LanguageModel
 } from '@integreat-app/integreat-api-client'
 import Moment from 'moment'
@@ -54,7 +56,8 @@ export type EventRouteConfigType = {|
 export type NewsRouteConfigType = {|
   +path: ?string, // path is null for the news-lists route
   +language: string,
-  +city: string
+  +city: string,
+  +type: string
 |}
 
 export type EventRouteStateType = {|
@@ -80,16 +83,21 @@ export type EventRouteStateType = {|
 export type NewsRouteStateType = {|
   +status: 'ready',
   ...NewsRouteConfigType,
-  +models: $ReadOnlyArray<NewsModel>, // TODO
+  +models: $ReadOnlyArray<LocalNewsModel | TunewsModel>, // TODO
   +allAvailableLanguages: $ReadOnlyMap<string, ?string> // including the current content language
   |} | {|
   +status: 'languageNotAvailable',
   +language: string,
   +city: string,
+  +page: ?number,
   +allAvailableLanguages: $ReadOnlyMap<string, ?string>
   |} | {|
   +status: 'loading',
   ...NewsRouteConfigType
+  |} | {|
+    +status: 'loadingMore',
+    +page: number,
+    ...NewsRouteConfigType
   |} | {|
   +status: 'error',
   ...NewsRouteConfigType,
@@ -126,6 +134,10 @@ export type CityResourceCacheStateType = $ReadOnly<{
 
 export type CategoriesRouteMappingType = $ReadOnly<{
   [key: string]: CategoryRouteStateType
+}>
+
+export type NewsRouteMappingType = $ReadOnly<{
+  [key: string]: NewsRouteStateType
 }>
 
 export type EventsRouteMappingType = $ReadOnly<{
@@ -173,7 +185,8 @@ export type CityContentStateType = {|
   +categoriesRouteMapping: CategoriesRouteMappingType,
   +eventsRouteMapping: EventsRouteMappingType,
   +resourceCache: ResourceCacheStateType,
-  +searchRoute: SearchRouteType | null
+  +searchRoute: SearchRouteType | null,
+  +newsRouteMapping: NewsRouteMappingType
 |}
 
 export const defaultCityContentState = null
