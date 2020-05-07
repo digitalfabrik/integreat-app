@@ -14,7 +14,7 @@ import fetchData from '../fetchData'
 import { cmsApiBaseUrl, tunewsApiBaseUrl } from '../constants/urls'
 
 type TunewsDetailsRouteParamsType = {|city: string, language: string, id: string|}
-type RequiredPayloadsType = {| tunewsElementDetails: Payload<Array<TunewsModel>> |}
+type RequiredPayloadsType = {| tunewsElementDetails: Payload<TunewsModel> |}
 
 export const TUNEWS_DETAILS_ROUTE = 'TUNEWS_DETAILS'
 

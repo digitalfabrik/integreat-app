@@ -6,9 +6,8 @@ import type { PayloadDataType } from '../../../modules/app/PayloadDataType'
 type TuNewsFetchActionType<T: PayloadDataType> = { type: string, payload: Payload<T> }
 
 const defaultState = new Payload(false, false, [])
-console.log('defaultState', defaultState)
 
-export const fetchTunewsRecducer = (
+const fetchTunewsReducer = (
   state: Payload<Array<TunewsModel>> = defaultState,
   action: TuNewsFetchActionType<TunewsModel>
 ) => {
@@ -40,4 +39,4 @@ export const fetchTunewsRecducer = (
   }
 }
 
-export default fetchTunewsRecducer
+export default fetchTunewsReducer

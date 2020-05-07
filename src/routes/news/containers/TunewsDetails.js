@@ -4,6 +4,7 @@ import * as React from 'react'
 import styled from 'styled-components'
 import TunewsIcon from './../assets/tu-news-active.png'
 import { withTranslation } from 'react-i18next'
+import { TunewsModel } from '@integreat-app/integreat-api-client'
 import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 import type { StateType } from '../../../modules/app/StateType'
@@ -57,7 +58,7 @@ const Content = styled.p`
   color: ${({ theme }) => (theme.colors.headlineTextColor)};
 `
 type PropsType = {|
-  tunewsElementDetails: any,
+  tunewsElementDetails: TunewsModel,
   language: string,
   path: string,
   city: string,

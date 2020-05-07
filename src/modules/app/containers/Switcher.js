@@ -44,7 +44,7 @@ type PropsType = {|
   newsPayload: Payload<Array<LocalNewsModel>>,
   newsElementPayload: Payload<LocalNewsModel>,
   tunewsPayload: Payload<Array<TunewsModel>>,
-  tunewsElementPayload: Payload<Array<TunewsModel>>,
+  tunewsElementPayload: Payload<TunewsModel>,
   extrasPayload: Payload<Array<ExtraModel>>,
   sprungbrettJobsPayload: Payload<Array<SprungbrettExtraPage>>,
   wohnenPayload: Payload<Array<WohnenOfferModel>>,
@@ -99,7 +99,7 @@ export class Switcher extends React.Component<PropsType> {
   }
 
   renderLayoutWithContent (): React.Node {
-    const { location, viewportSmall, darkMode, categoriesPayload, citiesPayload, toggleDarkMode, eventsPayload, newsPayload } = this.props
+    const { location, viewportSmall, darkMode, categoriesPayload, citiesPayload, toggleDarkMode, eventsPayload } = this.props
 
     const routeConfig = getRouteConfig(location.type)
     const payloads = routeConfig.getRequiredPayloads(this.getAllPayloads())
@@ -125,7 +125,6 @@ export class Switcher extends React.Component<PropsType> {
                         categories={categoriesPayload.data}
                         cities={citiesPayload.data}
                         events={eventsPayload.data}
-                        news={newsPayload && newsPayload.data}
                         darkMode={darkMode}
                         viewportSmall={viewportSmall}
                         toggleDarkMode={toggleDarkMode}
