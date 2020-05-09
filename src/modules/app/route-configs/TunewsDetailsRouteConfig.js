@@ -42,19 +42,28 @@ class TunewsDetailsRouteConfig implements RouteConfig<TunewsDetailsRouteParamsTy
 
   getLanguageChangePath = () => null
 
-  getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType => ({ tunewsElementDetails: payloads.tunewsElementPayload })
+  getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType =>
+    ({ tunewsElementDetails: payloads.tunewsElementPayload })
 
-  getPageTitle = ({ t, payloads, cityName, location }) => {
-    const tunewsItem = payloads.tunewsElementDetails.data
-    const tunewsItemTitle = !!tunewsItem && `${t('pageTitles.tunews')} | ${tunewsItem._title}`
-    return tunewsItemTitle || t('pageTitles.tunews')
+  getPageTitle = ({ payloads, cityName }) => {
+    if (!cityName) {
+      return null
+    }
+    const tunewsElementDetails = payloads.tunewsElementDetails.data
+    if (!tunewsElementDetails) {
+      return null
+    }
+    return `${tunewsElementDetails.title} - ${cityName}`
   }
 
-  getRoutePath = ({ city, language }): string => ''
+  getRoutePath = ({ city, language }) => null
 
   getMetaDescription = () => null
 
-  getFeedbackTargetInformation = () => null
+  getFeedbackTargetInformation = ({ payloads }) => {
+    const tunewsElementDetails = payloads.tunewsElementDetails && payloads.tunewsElementDetails.data
+    return tunewsElementDetails ? { title: tunewsElementDetails.title } : null
+  }
 }
 
 export default TunewsDetailsRouteConfig

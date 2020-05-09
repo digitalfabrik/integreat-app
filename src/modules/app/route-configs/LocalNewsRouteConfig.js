@@ -42,36 +42,24 @@ class LocalNewsRouteConfig implements RouteConfig<NewsRouteParamsType, RequiredP
   requiresFooter = true
 
   getLanguageChangePath = ({ location, payloads, language }) => {
-    const { city, newsId } = location.payload
-    const localNews = payloads.localNews.data
-    if (localNews && newsId) {
-      const newsItem = localNews.find(_newsItem => _newsItem.path === location.pathname)
-      return (newsItem && newsItem.availableLanguages.get(language)) || null
-    }
+    const { city } = location.payload
     return this.getRoutePath({ city, language })
   }
 
   getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType => ({ localNews: payloads.localNewsPayload })
 
-  getPageTitle = ({ t, payloads, cityName, location }) => {
+  getPageTitle = ({ t, cityName }) => {
     if (!cityName) {
       return null
     }
-    const pathname = location.pathname
-    const localNews = payloads.localNews.data
-    const newsItem = localNews && localNews.find(newsItem => newsItem.path === pathname)
-    return `${newsItem ? newsItem.title : t('pageTitles.news')} - ${cityName}`
+    return `${t('pageTitles.news')} - ${cityName}`
   }
 
   getRoutePath = ({ city, language }: NewsRouteParamsType): string => `/${city}/${language}/news/local`
 
   getMetaDescription = () => null
 
-  getFeedbackTargetInformation = ({ payloads, location }) => {
-    const localNews = payloads.localNews && payloads.localNews.data
-    const newsItem = localNews && localNews.find(newsItem => newsItem.path === location.pathname)
-    return newsItem ? { title: newsItem.title } : null
-  }
+  getFeedbackTargetInformation = () => null
 }
 
 export default LocalNewsRouteConfig
