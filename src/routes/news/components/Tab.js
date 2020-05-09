@@ -12,23 +12,23 @@ const TU_NEWS = 'tu'
 const NewsLink = ({ active, ...props }) => <Link {...props} />
 
 const StyledTab = styled(NewsLink)`
-  cursor: pointer;
-  box-sizing: border-box;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 160px;
   height: 47px;
-  padding: 13px 15px;
+  box-sizing: border-box;
   flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  margin-right: 30px;
+  cursor: pointer;
+  padding: 13px 15px;
+  color: #ffffff;
   object-fit: contain;
   background-color: ${({ active, theme }) =>
     active ? theme.colors.themeColor : 'rgba(111, 111, 110, 0.4)'};
   border-radius: 11px;
-  margin-right: 30px;
   font-size: 18px;
-  font-weight: bold;
-  color: #ffffff;
-  width: 160px;
+  font-weight: 700;
   text-decoration: none;
 `
 

@@ -16,7 +16,7 @@ const Thumbnail = styled.img`
   object-fit: contain;
 `
 const StyledContainer = styled.div`
-margin-top: 30px !important;
+  margin-top: 30px !important;
 `
 
 type PropsType = {|
