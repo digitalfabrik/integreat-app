@@ -14,7 +14,7 @@ import {
 import fetchData from '../fetchData'
 import { cmsApiBaseUrl } from '../constants/urls'
 
-type LocalNewsDetailsType = {| city: string, language: string |}
+type LocalNewsDetailsType = {| city: string, language: string, id: string | number |}
 type RequiredPayloadsType = {| localNewsDetails: Payload<LocalNewsModel> |}
 
 export const LOCAL_NEWS_DETAILS_ROUTE = 'LOCAL_NEWS_DETAILS'
@@ -43,7 +43,8 @@ class LocalNewsDetailsRouteConfig implements RouteConfig<LocalNewsDetailsType, R
 
   getLanguageChangePath = ({ location, payloads, language }) => null
 
-  getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType => ({ localNewsDetails: payloads.localNewsElementPayload })
+  getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType =>
+    ({ localNewsDetails: payloads.localNewsElementPayload })
 
   getPageTitle = ({ payloads, cityName }) => {
     if (!cityName) {
@@ -56,7 +57,7 @@ class LocalNewsDetailsRouteConfig implements RouteConfig<LocalNewsDetailsType, R
     return `${localNewsDetails.title} - ${cityName}`
   }
 
-  getRoutePath = ({ city, language }: LocalNewsDetailsType): string => ''
+  getRoutePath = ({ city, language, id }: LocalNewsDetailsType): string => `/${city}/${language}/news/local/${id}`
 
   getMetaDescription = () => null
 
