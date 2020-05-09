@@ -36,33 +36,32 @@ const Description = styled.div`
 `
 
 const Title = styled.h3`
-  font-weight: 700;
+  margin-bottom: 0;
+  color: ${({ theme }) => (theme.colors.headlineTextColor)};
   font-family: Raleway;
   font-size: 18px;
-  font-weight: bold;
-  color: ${({ theme }) => (theme.colors.headlineTextColor)};
-  margin-bottom: 0;
+  font-weight: 700;
 `
 const Body = styled.p`
+  color: ${({ theme }) => (theme.colors.headlineTextColor)};
   font-size: 16px;
   line-height: 1.38;
-  color: ${({ theme }) => (theme.colors.headlineTextColor)};
 `
 
 const StyledNewsElement = styled.div`
-  background: linear-gradient(to left, rgba(168, 168, 168, 0.2), #bebebe 51%, rgba(168, 168, 168, 0.2));
   padding-bottom: 2px;
+  background: linear-gradient(to left, rgba(168, 168, 168, 0.2), #bebebe 51%, rgba(168, 168, 168, 0.2));
 `
 
 const StyledContainer = styled.div`
-  width: 100%;
   display: flex;
+  width: 100%;
   justify-content: space-between;
 `
 
 const StyledDate = styled(LastUpdateInfo)`
-  font-size: 12px;
   color: ${({ theme }) => (theme.colors.headlineTextColor)};
+  font-size: 12px;
 `
 
 type PropsType = {|

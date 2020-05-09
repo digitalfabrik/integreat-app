@@ -7,8 +7,8 @@ import type Moment from 'moment'
 import styled from 'styled-components'
 
 const TimeStamp = styled.p`
-  padding: 0;
   margin: 0 !important;
+  padding: 0;
   color: ${props => props.theme.colors.textSecondaryColor};
   font-family: ${props => props.theme.fonts.contentFontFamily};
   font-size: ${props => props.theme.fonts.contentFontSize};

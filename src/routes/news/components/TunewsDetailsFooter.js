@@ -7,11 +7,11 @@ import type Moment from 'moment'
 
 const Footer = styled.footer`
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
   width: 96%;
-  background-color:  #007aa8;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  background-color: #007aa8;
   padding: 0 2% 5px;
   color: white;
   border-radius: 24px;
