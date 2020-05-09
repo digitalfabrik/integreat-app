@@ -13,7 +13,7 @@ import Tabs from '../components/Tabs'
 import NewsController from './../containers/NewsController'
 
 type PropsType = {|
-  news: Array<LocalNewsModel>,
+  localNews: Array<LocalNewsModel>,
   city: string,
   cities: Array<CityModel>,
   language: string,
@@ -31,11 +31,11 @@ export class NewsPage extends React.Component<PropsType> {
   />)
 
   render () {
-    const { news, city, cities, language, t } = this.props
+    const { localNews, city, cities, language, t } = this.props
     return (
       <NewsController>
         <Tabs localNews tunews={false} city={city} cities={cities} t={t} language={language}>
-          <NewsList items={news} noItemsMessage={t('currentlyNoLocalNews')} renderItem={this.renderLocalNewsElement(language)} city={city} />
+          <NewsList items={localNews} noItemsMessage={t('currentlyNoLocalNews')} renderItem={this.renderLocalNewsElement(language)} city={city} />
         </Tabs>
       </NewsController>
     )
@@ -47,7 +47,7 @@ const mapStateTypeToProps = (state: StateType) => {
     language: state.location.payload.language,
     city: state.location.payload.city,
     cities: state.cities.data,
-    news: state.news.data,
+    localNews: state.localNews.data,
     path: state.location.pathname
   }
 }

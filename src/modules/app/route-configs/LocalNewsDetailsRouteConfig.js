@@ -26,7 +26,7 @@ const localNewsDetailsRoute: Route = {
     const { city, language, id } = state.location.payload
 
     await Promise.all([
-      fetchData(createLocalNewsElementEndpoint(cmsApiBaseUrl), dispatch, state.newsElement, { city, language, id }),
+      fetchData(createLocalNewsElementEndpoint(cmsApiBaseUrl), dispatch, state.localNewsElement, { city, language, id }),
       fetchData(createCitiesEndpoint(cmsApiBaseUrl), dispatch, state.cities),
       fetchData(createEventsEndpoint(cmsApiBaseUrl), dispatch, state.events, { city, language }),
       fetchData(createLanguagesEndpoint(cmsApiBaseUrl), dispatch, state.languages, { city, language })
@@ -43,7 +43,7 @@ class LocalNewsDetailsRouteConfig implements RouteConfig<LocalNewsDetailsType, R
 
   getLanguageChangePath = ({ location, payloads, language }) => null
 
-  getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType => ({ localNewsDetails: payloads.newsElementPayload })
+  getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType => ({ localNewsDetails: payloads.localNewsElementPayload })
 
   getPageTitle = ({ t, payloads, cityName, location }) => null
 

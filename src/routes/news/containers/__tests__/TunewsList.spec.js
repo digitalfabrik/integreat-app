@@ -61,7 +61,7 @@ describe('TunewsListPage', () => {
   const tunewsItem3 = createTunewsItemModel(3,
     moment.tz('2020-01-22 11:06:22+00:00', 'GMT'))
 
-  const tunewsList = [tunewsItem1, tunewsItem2, tunewsItem3]
+  const tunews = [tunewsItem1, tunewsItem2, tunewsItem3]
   const city = 'augsburg'
   const language = 'en'
   const t = (key: ?string): string => key || ''
@@ -69,7 +69,7 @@ describe('TunewsListPage', () => {
   it('should match snapshot and render TunewsList', () => {
     const wrapper = shallow(
       <TunewsListPage
-        tunewsList={tunewsList}
+        tunews={tunews}
         language={language}
         city={city}
         path='/path/to/route'
@@ -96,19 +96,19 @@ describe('TunewsListPage', () => {
     const store = mockStore({
       location: location,
       cities: { data: cities },
-      tunewsList: { data: [], hasMore: false }
+      tunews: { data: [], hasMore: false }
     })
 
     const tree = mount(
       <ThemeProvider theme={theme}>
         <Provider store={store}>
-          <ConnectedTunewsListPage tunewsList={tunewsList} cities={cities} />
+          <ConnectedTunewsListPage tunews={tunews} cities={cities} />
         </Provider>
       </ThemeProvider>
     )
 
     expect(tree.find(TunewsListPage).props()).toEqual({
-      tunewsList,
+      tunews,
       cities,
       language,
       path: '/augsburg/en/news/tu-news',

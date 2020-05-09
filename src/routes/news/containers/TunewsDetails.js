@@ -16,46 +16,46 @@ import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 
 const StyledContainer = styled.div`
   display: flex;
-  justify-content: space-between;
   flex-direction: column;
+  justify-content: space-between;
 `
 const StyledWrapper = styled.div`
   padding-bottom: 50px;
 `
 const StyledBanner = styled.div`
+  position: relative;
   display: flex;
+  height: 60px;
+  overflow: hidden;
   align-items: center;
   margin: 25px 0;
-  height: 60px;
   background-color: rgba(0, 122, 168, 0.4);
   border-radius: 11px;
-  overflow: hidden;
-  position: relative;
 `
 const StyledBannerImage = styled.img`
-max-height: 100%;
+  max-height: 100%;
 `
 const StyledTitle = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #007aa8;
-  font-size: 20px;
-  font-weight: bold;
-  color: white;
   width: 205px;
   height: 100%;
+  align-items: center;
+  justify-content: center;
+  background-color: #007aa8;
+  color: white;
+  font-size: 20px;
+  font-weight: 700;
 `
 const Title = styled.h2`
-  font-size: 24px;
-  font-weight: bold;
-  color: ${({ theme }) => (theme.colors.headlineTextColor)};
   margin-bottom: 5px;
+  color: ${({ theme }) => (theme.colors.headlineTextColor)};
+  font-size: 24px;
+  font-weight: 700;
 `
 const Content = styled.p`
+  color: ${({ theme }) => (theme.colors.headlineTextColor)};
   font-size: 16px;
   line-height: 1.38;
-  color: ${({ theme }) => (theme.colors.headlineTextColor)};
 `
 type PropsType = {|
   tunewsElementDetails: TunewsModel,

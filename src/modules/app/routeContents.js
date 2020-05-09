@@ -15,7 +15,7 @@ import MainDisclaimerPage from '../../routes/main-disclaimer/components/MainDisc
 import I18nRedirectPage from '../../routes/i18nRedirect/containers/I18nRedirectPage'
 import LandingPage from '../../routes/landing/containers/LandingPage'
 import EventsPage from '../../routes/events/containers/EventsPage'
-import { NEWS_ROUTE } from './route-configs/NewsRouteConfig'
+import { LOCAL_NEWS_ROUTE } from './route-configs/LocalNewsRouteConfig'
 import NewsPage from '../../routes/news/containers/NewsPage'
 import { LOCAL_NEWS_DETAILS_ROUTE } from './route-configs/LocalNewsDetailsRouteConfig'
 import LocalNewsDetailsPage from '../../routes/news/containers/LocalNewsDetails'
@@ -40,7 +40,7 @@ const routeContents = {
   [I18N_REDIRECT_ROUTE]: I18nRedirectPage,
   [LANDING_ROUTE]: LandingPage,
   [EVENTS_ROUTE]: EventsPage,
-  [NEWS_ROUTE]: NewsPage,
+  [LOCAL_NEWS_ROUTE]: NewsPage,
   [LOCAL_NEWS_DETAILS_ROUTE]: LocalNewsDetailsPage,
   [TUNEWS_LIST_ROUTE]: TunewsListPage,
   [TUNEWS_DETAILS_ROUTE]: TunewsDetailsPage,

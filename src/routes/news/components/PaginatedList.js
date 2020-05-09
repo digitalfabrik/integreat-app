@@ -56,7 +56,7 @@ class PaginatedList<T> extends React.PureComponent<PropsType<T>> {
         <InfiniteScroll
           loadMore={this.loadItems}
           hasMore={!isFetching && hasMore}
-          loader={<LoadingSpinner />}
+          loader={<LoadingSpinner key={0} />}
         >
           <div>{items.map(item => renderItem(item, city))}</div>
         </InfiniteScroll>

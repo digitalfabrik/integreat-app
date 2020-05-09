@@ -11,7 +11,7 @@ import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import { TUNEWS_LIST_ROUTE } from './../../../modules/app/route-configs/TunewsListRouteConfig'
 import { TUNEWS_DETAILS_ROUTE } from './../../../modules/app/route-configs/TunewsDetailsRouteConfig'
 import { CATEGORIES_ROUTE } from './../../../modules/app/route-configs/CategoriesRouteConfig'
-import { NEWS_ROUTE } from './../../../modules/app/route-configs/NewsRouteConfig'
+import { LOCAL_NEWS_ROUTE } from './../../../modules/app/route-configs/LocalNewsRouteConfig'
 import { LOCAL_NEWS_DETAILS_ROUTE } from './../../../modules/app/route-configs/LocalNewsDetailsRouteConfig'
 
 type PropsType = {|
@@ -28,9 +28,13 @@ export class NewsController extends React.Component<PropsType> {
     this.handleRedirect()
   }
 
+  // componentDidUpdate () {
+  //   this.handleRedirect()
+  // }
+
   handleRedirect = () => {
     const { type, language, city, cities, redirect } = this.props
-    const currentCity: CityModel = cities && cities.find(cityElement => cityElement._code === city)
+    const currentCity: CityModel = cities && cities.find(cityElement => cityElement.code === city)
 
     if (currentCity && !currentCity.pushNotificationsEnabled && !currentCity.tunewsEnabled) {
       redirect({ payload: { language: language, city: city }, type: CATEGORIES_ROUTE })
@@ -43,7 +47,7 @@ export class NewsController extends React.Component<PropsType> {
       if (type === LOCAL_NEWS_DETAILS_ROUTE) {
         return
       }
-      redirect({ payload: { language: language, city: city }, type: NEWS_ROUTE })
+      redirect({ payload: { language: language, city: city }, type: LOCAL_NEWS_ROUTE })
     }
   }
 

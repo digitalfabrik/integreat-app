@@ -2,6 +2,7 @@
 
 import { Payload, TunewsModel } from '@integreat-app/integreat-api-client'
 import type { PayloadDataType } from '../../../modules/app/PayloadDataType'
+import { START_FETCH_TUNEWS, FINISH_FETCH_TUNEWS, RESET_TUNEWS } from '../actions/fetchTunews'
 
 type TuNewsFetchActionType<T: PayloadDataType> = { type: string, payload: Payload<T> }
 
@@ -12,13 +13,13 @@ const fetchTunewsReducer = (
   action: TuNewsFetchActionType<TunewsModel>
 ) => {
   switch (action.type) {
-    case 'START_FETCH_TUNEWSLIST':
+    case START_FETCH_TUNEWS:
       return {
         data: [...state.data],
         isFetching: state.isFetching,
         isFetchingFirstTime: state.data.length === 0
       }
-    case 'FINISH_FETCH_TUNEWSLIST': {
+    case FINISH_FETCH_TUNEWS: {
       return {
         data: [...state.data, ...action.payload.data],
         isFetching: state.isFetching,
@@ -26,7 +27,7 @@ const fetchTunewsReducer = (
         isFetchingFirstTime: false
       }
     }
-    case 'RESET_TU_NEWS': {
+    case RESET_TUNEWS: {
       return {
         data: [],
         hasMore: true,
