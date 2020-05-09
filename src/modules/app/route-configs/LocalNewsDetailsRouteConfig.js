@@ -45,13 +45,25 @@ class LocalNewsDetailsRouteConfig implements RouteConfig<LocalNewsDetailsType, R
 
   getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType => ({ localNewsDetails: payloads.localNewsElementPayload })
 
-  getPageTitle = ({ t, payloads, cityName, location }) => null
+  getPageTitle = ({ payloads, cityName }) => {
+    if (!cityName) {
+      return null
+    }
+    const localNewsDetails = payloads.localNewsDetails.data
+    if (!localNewsDetails) {
+      return null
+    }
+    return `${localNewsDetails.title} - ${cityName}`
+  }
 
   getRoutePath = ({ city, language }: LocalNewsDetailsType): string => ''
 
   getMetaDescription = () => null
 
-  getFeedbackTargetInformation = ({ payloads, location }) => null
+  getFeedbackTargetInformation = ({ payloads, location }) => {
+    const localNewsDetails = payloads.localNewsDetails && payloads.localNewsDetails.data
+    return localNewsDetails ? { title: localNewsDetails.title } : null
+  }
 }
 
 export default LocalNewsDetailsRouteConfig

@@ -55,7 +55,12 @@ class TunewsListRouteConfig implements RouteConfig<TunewsListRouteParamsType, Re
     tunews: payloads.tunewsPayload
   })
 
-  getPageTitle = ({ t, payloads, cityName, location }) => t('pageTitles.tunews')
+  getPageTitle = ({ t, cityName }) => {
+    if (!cityName) {
+      return null
+    }
+    return `${t('pageTitles.tunews')} - ${cityName}`
+  }
 
   getRoutePath = ({ city, language }: TunewsListRouteParamsType): string => `/${city}/${language}/news/tu-news`
 

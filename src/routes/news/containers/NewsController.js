@@ -28,10 +28,6 @@ export class NewsController extends React.Component<PropsType> {
     this.handleRedirect()
   }
 
-  // componentDidUpdate () {
-  //   this.handleRedirect()
-  // }
-
   handleRedirect = () => {
     const { type, language, city, cities, redirect } = this.props
     const currentCity: CityModel = cities && cities.find(cityElement => cityElement.code === city)
