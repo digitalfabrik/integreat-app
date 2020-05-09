@@ -40,7 +40,7 @@ const createReduxStore = (initialState: StateType = {}, routesMap: RoutesMap = d
     location: reducer,
     uiDirection: uiDirectionReducer,
     darkMode: toggleDarkModeReducer,
-    tunewsList: fetchTunewsReducer
+    tunews: fetchTunewsReducer
   })
 
   const enhancers = compose(responsiveStoreEnhancer, enhancer, applyMiddleware(...middlewares))

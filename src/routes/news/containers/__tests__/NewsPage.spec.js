@@ -10,7 +10,7 @@ import { LocalNewsModel, CityModel } from '@integreat-app/integreat-api-client'
 import createReduxStore from '../../../../modules/app/createReduxStore'
 import { Provider } from 'react-redux'
 import createLocation from '../../../../createLocation'
-import { NEWS_ROUTE } from '../../../../modules/app/route-configs/NewsRouteConfig'
+import { LOCAL_NEWS_ROUTE } from '../../../../modules/app/route-configs/LocalNewsRouteConfig'
 import theme from '../../../../modules/theme/constants/theme'
 
 describe('NewsPage', () => {
@@ -66,7 +66,7 @@ describe('NewsPage', () => {
   it('should match snapshot and render NewsPage', () => {
     const wrapper = shallow(
       <NewsPage
-        news={localNews}
+        localNews={localNews}
         city={city}
         cities={cities}
         language={language}
@@ -81,17 +81,17 @@ describe('NewsPage', () => {
     const location = createLocation({
       payload: { city: city, language: language },
       pathname: '/augsburg/en/news/local/',
-      type: NEWS_ROUTE
+      type: LOCAL_NEWS_ROUTE
     })
     const store = createReduxStore()
     store.getState().location = location
     store.getState().cities = { data: cities }
-    store.getState().news = { data: localNews }
+    store.getState().localNews = { data: localNews }
 
     const tree = mount(
       <ThemeProvider theme={theme}>
         <Provider store={store}>
-          <ConnectedNewsPage news={localNews} cities={cities} />
+          <ConnectedNewsPage localNews={localNews} cities={cities} />
         </Provider>
       </ThemeProvider>
     )
@@ -101,7 +101,7 @@ describe('NewsPage', () => {
       cities,
       language,
       path: '/augsburg/en/news/local/',
-      news: localNews,
+      localNews,
       t: expect.any(Function),
       i18n: expect.anything(),
       dispatch: expect.any(Function)

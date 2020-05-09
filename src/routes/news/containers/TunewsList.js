@@ -15,7 +15,7 @@ import LoadingSpinner from '../../../modules/common/components/LoadingSpinner'
 import NewsController from './NewsController'
 
 type PropsType = {|
-  tunewsList: Array<TunewsModel>,
+  tunews: Array<TunewsModel>,
   language: string,
   city: string,
   cities: Array<CityModel>,
@@ -44,7 +44,7 @@ export class TunewsListPage extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const { tunewsList, language, city, t, fetchTunews, hasMore, isFetchingFirstTime, isFetching, resetTunews, cities } = this.props
+    const { tunews, language, city, t, fetchTunews, hasMore, isFetchingFirstTime, isFetching, resetTunews, cities } = this.props
     return (
       <NewsController>
         <Tabs localNews={false} tunews city={city} cities={cities} t={t} language={language}>
@@ -52,7 +52,7 @@ export class TunewsListPage extends React.PureComponent<PropsType> {
             <LoadingSpinner />
           ) : (
             <PaginatedList
-              items={tunewsList}
+              items={tunews}
               renderItem={this.renderTunewsElement(language)}
               city={city}
               fetchTunews={fetchTunews}
@@ -74,9 +74,9 @@ const mapStateToProps = (state: StateType) => ({
   city: state.location.payload.city,
   cities: state.cities.data,
   path: state.location.pathname,
-  hasMore: state.tunewsList.hasMore,
-  isFetchingFirstTime: state.tunewsList.isFetchingFirstTime,
-  isFetching: state.tunewsList._isFetching
+  hasMore: state.tunews.hasMore,
+  isFetchingFirstTime: state.tunews.isFetchingFirstTime,
+  isFetching: state.tunews._isFetching
 })
 
 export default compose(

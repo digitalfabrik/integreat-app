@@ -15,9 +15,9 @@ import fetchData from '../fetchData'
 import { cmsApiBaseUrl } from '../constants/urls'
 
 type NewsRouteParamsType = {| city: string, language: string |}
-type RequiredPayloadsType = {| news: Payload<Array<LocalNewsModel>> |}
+type RequiredPayloadsType = {| localNews: Payload<Array<LocalNewsModel>> |}
 
-export const NEWS_ROUTE = 'NEWS'
+export const LOCAL_NEWS_ROUTE = 'NEWS'
 
 const newsRoute: Route = {
   path: '/:city/:language/news/local',
@@ -26,7 +26,7 @@ const newsRoute: Route = {
     const { city, language } = state.location.payload
 
     await Promise.all([
-      fetchData(createLocalNewsEndpoint(cmsApiBaseUrl), dispatch, state.news, { city, language }),
+      fetchData(createLocalNewsEndpoint(cmsApiBaseUrl), dispatch, state.localNews, { city, language }),
       fetchData(createCitiesEndpoint(cmsApiBaseUrl), dispatch, state.cities),
       fetchData(createEventsEndpoint(cmsApiBaseUrl), dispatch, state.events, { city, language }),
       fetchData(createLanguagesEndpoint(cmsApiBaseUrl), dispatch, state.languages, { city, language })
@@ -34,8 +34,8 @@ const newsRoute: Route = {
   }
 }
 
-class NewsRouteConfig implements RouteConfig<NewsRouteParamsType, RequiredPayloadsType> {
-  name = NEWS_ROUTE
+class LocalNewsRouteConfig implements RouteConfig<NewsRouteParamsType, RequiredPayloadsType> {
+  name = LOCAL_NEWS_ROUTE
   route = newsRoute
   isLocationLayoutRoute = true
   requiresHeader = true
@@ -43,23 +43,23 @@ class NewsRouteConfig implements RouteConfig<NewsRouteParamsType, RequiredPayloa
 
   getLanguageChangePath = ({ location, payloads, language }) => {
     const { city, newsId } = location.payload
-    const news = payloads.news.data
-    if (news && newsId) {
-      const newsItem = news.find(_newsItem => _newsItem.path === location.pathname)
+    const localNews = payloads.localNews.data
+    if (localNews && newsId) {
+      const newsItem = localNews.find(_newsItem => _newsItem.path === location.pathname)
       return (newsItem && newsItem.availableLanguages.get(language)) || null
     }
     return this.getRoutePath({ city, language })
   }
 
-  getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType => ({ news: payloads.newsPayload })
+  getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType => ({ localNews: payloads.localNewsPayload })
 
   getPageTitle = ({ t, payloads, cityName, location }) => {
     if (!cityName) {
       return null
     }
     const pathname = location.pathname
-    const news = payloads.news.data
-    const newsItem = news && news.find(newsItem => newsItem.path === pathname)
+    const localNews = payloads.localNews.data
+    const newsItem = localNews && localNews.find(newsItem => newsItem.path === pathname)
     return `${newsItem ? newsItem.title : t('pageTitles.news')} - ${cityName}`
   }
 
@@ -68,10 +68,10 @@ class NewsRouteConfig implements RouteConfig<NewsRouteParamsType, RequiredPayloa
   getMetaDescription = () => null
 
   getFeedbackTargetInformation = ({ payloads, location }) => {
-    const news = payloads.news && payloads.news.data
-    const newsItem = news && news.find(newsItem => newsItem.path === location.pathname)
+    const localNews = payloads.localNews && payloads.localNews.data
+    const newsItem = localNews && localNews.find(newsItem => newsItem.path === location.pathname)
     return newsItem ? { title: newsItem.title } : null
   }
 }
 
-export default NewsRouteConfig
+export default LocalNewsRouteConfig

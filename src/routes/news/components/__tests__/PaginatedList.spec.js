@@ -24,7 +24,7 @@ describe('PaginatedList', () => {
   const date1 = moment.tz('2020-03-20 17:50:00', 'GMT')
   const date2 = moment.tz('2020-04-25 17:50:00', 'GMT')
 
-  const tunewsList = [
+  const tunews = [
     new TunewsModel({
       id: 1,
       title: 'Tick bite - What to do?',
@@ -47,7 +47,7 @@ describe('PaginatedList', () => {
     expect(shallow(
       <PaginatedList
         language={language}
-        items={tunewsList}
+        items={tunews}
         renderItem={renderItem(language)}
         city={city}
         fetchTunews={() => {}}

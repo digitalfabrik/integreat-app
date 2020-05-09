@@ -14,7 +14,7 @@ import HeaderActionItem from '../HeaderActionItem'
 import ExtrasRouteConfig, { EXTRAS_ROUTE } from '../../app/route-configs/ExtrasRouteConfig'
 import CategoriesRouteConfig, { CATEGORIES_ROUTE } from '../../app/route-configs/CategoriesRouteConfig'
 import EventsRouteConfig, { EVENTS_ROUTE } from '../../app/route-configs/EventsRouteConfig'
-import NewsRouteConfig, { NEWS_ROUTE } from '../../app/route-configs/NewsRouteConfig'
+import LocalNewsRouteConfig, { LOCAL_NEWS_ROUTE } from '../../app/route-configs/LocalNewsRouteConfig'
 import { LOCAL_NEWS_DETAILS_ROUTE } from '../../app/route-configs/LocalNewsDetailsRouteConfig'
 import TunewsListRouteConfig, { TUNEWS_LIST_ROUTE } from '../../app/route-configs/TunewsListRouteConfig'
 import { TUNEWS_DETAILS_ROUTE } from '../../app/route-configs/TunewsDetailsRouteConfig'
@@ -97,12 +97,12 @@ export class LocationHeader extends React.Component<PropsType> {
     }
 
     if (isNewsEnabled) {
-      const newsUrl = city.pushNotificationsEnabled ? new NewsRouteConfig().getRoutePath({ city, language }) : new TunewsListRouteConfig().getRoutePath({ city, language })
+      const newsUrl = city.pushNotificationsEnabled ? new LocalNewsRouteConfig().getRoutePath({ city, language }) : new TunewsListRouteConfig().getRoutePath({ city, language })
       items.push(
         <HeaderNavigationItem
           key='news'
           href={newsUrl}
-          selected={[NEWS_ROUTE, TUNEWS_LIST_ROUTE, TUNEWS_DETAILS_ROUTE, LOCAL_NEWS_DETAILS_ROUTE, LOCAL_NEWS_DETAILS_ROUTE].includes(currentRoute)}
+          selected={[LOCAL_NEWS_ROUTE, TUNEWS_LIST_ROUTE, TUNEWS_DETAILS_ROUTE, LOCAL_NEWS_DETAILS_ROUTE, LOCAL_NEWS_DETAILS_ROUTE].includes(currentRoute)}
           text={t('news')}
           active={isNewsActive}
         />
