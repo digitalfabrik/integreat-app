@@ -9,7 +9,6 @@ exports[`Page should render 1`] = `
   <Caption
     title="first Event"
   />
-  <Page__StyledContainer />
   <RemoteContent
     centered={false}
     dangerouslySetInnerHTML={

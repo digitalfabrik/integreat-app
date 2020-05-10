@@ -3,9 +3,9 @@
 import React from 'react'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import { shallow } from 'enzyme'
-import Tabs from '../Tabs'
+import NewsTabs from '../NewsTabs'
 
-describe('Tabs', () => {
+describe('NewsTabs', () => {
   const language = 'en'
   const t = (key: ?string): string => key || ''
   const localNews = true
@@ -65,7 +65,7 @@ describe('Tabs', () => {
 
   it('should render and match snapshot', () => {
     expect(shallow(
-      <Tabs
+      <NewsTabs
         localNews={localNews}
         tunews={false}
         city={city}
@@ -73,7 +73,7 @@ describe('Tabs', () => {
         language={language}
         t={t}>
           <div>dummy test</div>
-      </Tabs>
+      </NewsTabs>
     )).toMatchSnapshot()
   })
 })

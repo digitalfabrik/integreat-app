@@ -2,7 +2,7 @@
 
 exports[`NewsPage should match snapshot and render NewsPage 1`] = `
 <Connect(NewsController)>
-  <Tabs
+  <NewsTabs
     cities={
       Array [
         CityModel {
@@ -59,9 +59,9 @@ exports[`NewsPage should match snapshot and render NewsPage 1`] = `
           },
         ]
       }
-      noItemsMessage="currentlyNoLocalNews"
+      noItemsMessage="currentlyNoNews"
       renderItem={[Function]}
     />
-  </Tabs>
+  </NewsTabs>
 </Connect(NewsController)>
 `;

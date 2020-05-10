@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Tabs should render and match snapshot 1`] = `
+exports[`NewsTabs should render and match snapshot 1`] = `
 <Fragment>
-  <Tabs__StyledTabs />
+  <NewsTabs__StyledTabs />
   <div>
     dummy test
   </div>
