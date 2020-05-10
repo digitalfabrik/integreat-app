@@ -864,8 +864,8 @@
     "ar": {
       "location": "الموقع",
       "date": "التاريخ",
-      "news": "الاخبار",
-      "local": "الاخبار المحلية",
+      "news": "الأخبار",
+      "local": "الأخبار المحلية",
       "currentlyNoNews": "ليست هناك اخبار متوفرة حاليا",
       "readMore": "< المزيد",
       "eNewsNo": "E-news No"
@@ -876,7 +876,7 @@
       "news": "news",
       "local": "LOCAL NEWS",
       "readMore": "Read more >",
-      "currentlyNoNews": "No news are currently available.",
+      "currentlyNoNews": "No news is currently available.",
       "eNewsNo": "E-news No"
     }
   },
