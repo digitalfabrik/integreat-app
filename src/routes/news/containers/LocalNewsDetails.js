@@ -30,9 +30,13 @@ export class LocalNewsDetailsPage extends React.PureComponent<PropsType> {
 
     return (
       <NewsController>
-        <Page title={localNewsDetails.title} content='' language={language} lastUpdate={localNewsDetails.timestamp} onInternalLinkClick={push}>
-          {localNewsDetails.message}
-        </Page>
+        <Page
+          title={localNewsDetails.title}
+          content={localNewsDetails.message}
+          language={language}
+          lastUpdate={localNewsDetails.timestamp}
+          onInternalLinkClick={push}
+        />
       </NewsController>
     )
   }

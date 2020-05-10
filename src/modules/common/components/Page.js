@@ -40,9 +40,7 @@ class Page extends React.PureComponent<PropsType> {
       <>
         {thumbnail && <Thumbnail alt='' src={thumbnail} />}
         <Caption title={title} />
-        <StyledContainer>
-          {children}
-        </StyledContainer>
+        {children}
         <RemoteContent dangerouslySetInnerHTML={{ __html: content }}
                        onInternalLinkClick={onInternalLinkClick}
           hijackRegExp={hijackRegExp} />
