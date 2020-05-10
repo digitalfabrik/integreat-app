@@ -33,13 +33,16 @@ export class NewsController extends React.Component<PropsType> {
     const currentCity: CityModel = cities && cities.find(cityElement => cityElement.code === city)
 
     if (currentCity && !currentCity.pushNotificationsEnabled && !currentCity.tunewsEnabled) {
+      // if both pushNotifications and tunews are not enabled redirect to categories route
       redirect({ payload: { language: language, city: city }, type: CATEGORIES_ROUTE })
     } else if (currentCity && !currentCity.pushNotificationsEnabled && currentCity.tunewsEnabled) {
+      // if tunews only is enabled and it's not tunewsDetails route redirect to tunews route
       if (type === TUNEWS_DETAILS_ROUTE) {
         return
       }
       redirect({ payload: { language: language, city: city }, type: TUNEWS_LIST_ROUTE })
     } else if (currentCity && currentCity.pushNotificationsEnabled && !currentCity.tunewsEnabled) {
+      // if localnews is enabled only and it's not localNewsDetails route redirect to localNews route
       if (type === LOCAL_NEWS_DETAILS_ROUTE) {
         return
       }
