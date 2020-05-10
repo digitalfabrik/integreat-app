@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import styled from 'styled-components'
-import TunewsIcon from './../assets/tu-news-active.png'
+import TunewsIcon from './../assets/TunewsActiveLogo.png'
 import { withTranslation } from 'react-i18next'
 import { TunewsModel } from '@integreat-app/integreat-api-client'
 import { connect } from 'react-redux'

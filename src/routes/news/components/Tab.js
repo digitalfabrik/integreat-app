@@ -4,8 +4,8 @@ import React from 'react'
 import styled from 'styled-components'
 import Link from 'redux-first-router-link'
 import { TFunction } from 'i18next'
-import tunewsLogoActive from '../assets/tu-news-active.png'
-import tunewsLogoInActive from '../assets/tu-news-inactive.png'
+import tunewsLogoActive from '../assets/TunewsActiveLogo.png'
+import tunewsLogoInActive from '../assets/TunewsInactiveLogo.png'
 
 const TU_NEWS = 'tu'
 
