@@ -853,27 +853,18 @@
   },
   "news": {
     "de": {
-      "location": "Standort",
-      "date": "Datum",
-      "news": "Neus",
       "local": "LOKALE NEWS",
       "readMore": "Weiterlesen >",
       "currentlyNoNews": "Es gibt aktuell keine Veranstaltungen.",
       "eNewsNo": "E-news No"
     },
     "ar": {
-      "location": "الموقع",
-      "date": "التاريخ",
-      "news": "الأخبار",
       "local": "الأخبار المحلية",
       "currentlyNoNews": "ليست هناك أخبار متوفرة حاليا",
       "readMore": "< المزيد",
       "eNewsNo": "E-news No"
     },
     "en": {
-      "location": "location",
-      "date": "date",
-      "news": "news",
       "local": "LOCAL NEWS",
       "readMore": "Read more >",
       "currentlyNoNews": "No news is currently available.",
