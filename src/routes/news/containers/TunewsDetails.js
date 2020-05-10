@@ -80,7 +80,7 @@ export class TunewsDetailsPage extends React.PureComponent<PropsType> {
           <StyledWrapper>
             <StyledBanner>
               <StyledTitle>
-                <StyledBannerImage src={TunewsIcon} alt={t('tu.news')} />
+                <StyledBannerImage src={TunewsIcon} alt='' />
               </StyledTitle>
             </StyledBanner>
             <Title>{tunewsElementDetails && tunewsElementDetails.title}</Title>
@@ -101,5 +101,5 @@ const mapStateToProps = (state: StateType) => ({
 
 export default compose(
   connect<*, *, *, *, *, *>(mapStateToProps),
-  withTranslation('tunewsDetails')
+  withTranslation('news')
 )(TunewsDetailsPage)

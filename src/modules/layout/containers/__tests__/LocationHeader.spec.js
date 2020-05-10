@@ -97,6 +97,7 @@ describe('LocationHeader', () => {
                                                 isExtrasEnabled={false}
                                                 isEventsEnabled={false}
                                                 isNewsEnabled={false}
+                                                pushNotificationsEnabled={false}
                                                 viewportSmall
                                                 cityName='Stadt Augsburg'
                                                 events={events}
@@ -111,6 +112,7 @@ describe('LocationHeader', () => {
                                                  isExtrasEnabled
                                                  isEventsEnabled={false}
                                                  isNewsEnabled={false}
+                                                 pushNotificationsEnabled={false}
                                                  viewportSmall
                                                  cityName='Stadt Augsburg'
                                                  events={events}
@@ -121,6 +123,7 @@ describe('LocationHeader', () => {
                                                  isExtrasEnabled={false}
                                                  isEventsEnabled
                                                  isNewsEnabled={false}
+                                                 pushNotificationsEnabled={false}
                                                  viewportSmall
                                                  cityName='Stadt Augsburg'
                                                  events={events}
@@ -137,6 +140,7 @@ describe('LocationHeader', () => {
                                                 isExtrasEnabled
                                                 isEventsEnabled
                                                 isNewsEnabled={false}
+                                                pushNotificationsEnabled={false}
                                                 viewportSmall
                                                 cityName='Stadt Augsburg'
                                                 events={events}
@@ -151,6 +155,7 @@ describe('LocationHeader', () => {
                                                 isExtrasEnabled
                                                 isEventsEnabled
                                                 isNewsEnabled={false}
+                                                pushNotificationsEnabled={false}
                                                 viewportSmall
                                                 cityName='Stadt Augsburg'
                                                 events={events}
@@ -165,6 +170,7 @@ describe('LocationHeader', () => {
                                                 isExtrasEnabled
                                                 isEventsEnabled
                                                 isNewsEnabled={false}
+                                                pushNotificationsEnabled={false}
                                                 viewportSmall
                                                 cityName='Stadt Augsburg'
                                                 events={events}
@@ -179,6 +185,7 @@ describe('LocationHeader', () => {
                                                 isExtrasEnabled
                                                 isEventsEnabled
                                                 isNewsEnabled={false}
+                                                pushNotificationsEnabled={false}
                                                 viewportSmall
                                                 cityName='Stadt Augsburg'
                                                 events={events}
@@ -193,6 +200,7 @@ describe('LocationHeader', () => {
                                                 isExtrasEnabled
                                                 isEventsEnabled
                                                 isNewsEnabled={false}
+                                                pushNotificationsEnabled={false}
                                                 viewportSmall
                                                 cityName='Stadt Augsburg'
                                                 events={events}
@@ -207,6 +215,7 @@ describe('LocationHeader', () => {
                                                 isExtrasEnabled
                                                 isEventsEnabled
                                                 isNewsEnabled={false}
+                                                pushNotificationsEnabled={false}
                                                 viewportSmall
                                                 cityName='Stadt Augsburg'
                                                 events={events}
@@ -223,6 +232,7 @@ describe('LocationHeader', () => {
                                                 isExtrasEnabled
                                                 isEventsEnabled
                                                 isNewsEnabled={false}
+                                                pushNotificationsEnabled={false}
                                                 viewportSmall
                                                 cityName='Stadt Augsburg'
                                                 events={events}
@@ -239,6 +249,7 @@ describe('LocationHeader', () => {
                                               isExtrasEnabled
                                               isEventsEnabled
                                               isNewsEnabled={false}
+                                              pushNotificationsEnabled={false}
                                               viewportSmall
                                               cityName='Stadt Augsburg'
                                               events={events}

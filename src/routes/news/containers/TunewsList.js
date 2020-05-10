@@ -60,7 +60,7 @@ export class TunewsListPage extends React.PureComponent<PropsType> {
               hasMore={hasMore}
               isFetching={isFetching}
               language={language}
-              noItemsMessage={t('currentlyNoTunews')}
+              noItemsMessage={t('currentlyNoNews')}
             />
           )}
         </Tabs>

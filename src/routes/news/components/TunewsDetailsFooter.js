@@ -44,7 +44,7 @@ class TunewsDetailsFooter extends React.PureComponent<PropsType> {
         <StyledContainer>{t('eNewsNo')}: {eNewsNumber}</StyledContainer>
         <StyledContainer>
           <StyledLink href='http://www.tunews.de' target='_blank'>
-            {t('tunewsInternational')}
+            Tunews International
           </StyledLink>
         </StyledContainer>
         <StyledContainer>{timestamp}</StyledContainer>
