@@ -866,7 +866,7 @@
       "date": "التاريخ",
       "news": "الأخبار",
       "local": "الأخبار المحلية",
-      "currentlyNoNews": "ليست هناك اخبار متوفرة حاليا",
+      "currentlyNoNews": "ليست هناك أخبار متوفرة حاليا",
       "readMore": "< المزيد",
       "eNewsNo": "E-news No"
     },
@@ -1829,7 +1829,7 @@
       "offers": "العروض",
       "categories": "الفئات",
       "events": "الفعاليات",
-      "news": "الاخبار",
+      "news": "الأخبار",
       "noEvents": "لا توجد فعاليات",
       "noLanguages": "غير متوفر بلغات أخرى",
       "noTranslation": "لا توجد ترجمة متاحة",
