@@ -9,7 +9,7 @@ import { TFunction } from 'i18next'
 import PaginatedList from '../components/PaginatedList'
 import { fetchTunews, resetTunews } from '../actions/fetchTunews'
 import TunewsElement from '../components/TunewsElement'
-import Tabs from '../components/Tabs'
+import NewsTabs from '../components/NewsTabs'
 import { TunewsModel, CityModel } from '@integreat-app/integreat-api-client'
 import LoadingSpinner from '../../../modules/common/components/LoadingSpinner'
 import NewsController from './NewsController'
@@ -47,7 +47,7 @@ export class TunewsListPage extends React.PureComponent<PropsType> {
     const { tunews, language, city, t, fetchTunews, hasMore, isFetchingFirstTime, isFetching, resetTunews, cities } = this.props
     return (
       <NewsController>
-        <Tabs localNews={false} tunews city={city} cities={cities} t={t} language={language}>
+        <NewsTabs localNews={false} tunews city={city} cities={cities} t={t} language={language}>
           {isFetchingFirstTime ? (
             <LoadingSpinner />
           ) : (
@@ -63,7 +63,7 @@ export class TunewsListPage extends React.PureComponent<PropsType> {
               noItemsMessage={t('currentlyNoNews')}
             />
           )}
-        </Tabs>
+        </NewsTabs>
       </NewsController>
     )
   }

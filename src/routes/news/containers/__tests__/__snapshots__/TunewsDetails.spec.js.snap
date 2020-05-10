@@ -7,7 +7,7 @@ exports[`TunewsDetailsPage should match snapshot and render TunewsDetailsPage 1`
       <TunewsDetails__StyledBanner>
         <TunewsDetails__StyledTitle>
           <TunewsDetails__StyledBannerImage
-            alt="tu.news"
+            alt=""
             src="test-file-stub"
           />
         </TunewsDetails__StyledTitle>

@@ -25,7 +25,7 @@ type PropsType = {|
   t: TFunction
 |}
 
-class Tabs extends React.PureComponent<PropsType> {
+class NewsTabs extends React.PureComponent<PropsType> {
   render () {
     const { localNews, tunews, children, city, cities, language, t } = this.props
     const currentCity: CityModel = cities && cities.find(cityElement => cityElement._code === city)
@@ -46,4 +46,4 @@ class Tabs extends React.PureComponent<PropsType> {
   }
 }
 
-export default Tabs
+export default NewsTabs

@@ -2,7 +2,7 @@
 
 exports[`TunewsListPage should match snapshot and render TunewsList 1`] = `
 <Connect(NewsController)>
-  <Tabs
+  <NewsTabs
     cities={
       Array [
         CityModel {
@@ -86,10 +86,10 @@ exports[`TunewsListPage should match snapshot and render TunewsList 1`] = `
         ]
       }
       language="en"
-      noItemsMessage="currentlyNoTunews"
+      noItemsMessage="currentlyNoNews"
       renderItem={[Function]}
       resetTunews={[Function]}
     />
-  </Tabs>
+  </NewsTabs>
 </Connect(NewsController)>
 `;

@@ -9,7 +9,7 @@ import { withTranslation } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
 import NewsElement from '../components/NewsElement'
 import NewsList from '../components/NewsList'
-import Tabs from '../components/Tabs'
+import NewsTabs from '../components/NewsTabs'
 import NewsController from './../containers/NewsController'
 
 type PropsType = {|
@@ -34,9 +34,9 @@ export class NewsPage extends React.Component<PropsType> {
     const { localNews, city, cities, language, t } = this.props
     return (
       <NewsController>
-        <Tabs localNews tunews={false} city={city} cities={cities} t={t} language={language}>
+        <NewsTabs localNews tunews={false} city={city} cities={cities} t={t} language={language}>
           <NewsList items={localNews} noItemsMessage={t('currentlyNoNews')} renderItem={this.renderLocalNewsElement(language)} city={city} />
-        </Tabs>
+        </NewsTabs>
       </NewsController>
     )
   }
