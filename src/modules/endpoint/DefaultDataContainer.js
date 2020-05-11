@@ -63,7 +63,7 @@ class DefaultDataContainer implements DataContainer {
     }
   }
 
-  getPOI = async (): Promise<Array<PoiModel>> => {
+  getPois = async (): Promise<Array<PoiModel>> => {
     const cache = this.caches.pois
     return cache.get(new DatabaseContext())
   }

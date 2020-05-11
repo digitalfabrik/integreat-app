@@ -99,6 +99,11 @@ export interface DataContainer {
   eventsAvailable (city: string, language: string): Promise<boolean>,
 
   /**
+   * Returns whether the pois have been loaded or not.
+   */
+  poisAvailable (): Promise<boolean>,
+
+  /**
    * Returns whether the city content (events, categories, languages) has been loaded or not.
    * A simple peek won't suffice (since it does not load languages).
    */
