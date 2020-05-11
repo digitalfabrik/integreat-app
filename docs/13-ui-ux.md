@@ -7,4 +7,7 @@ All new design proposals and mockups should be added to the ui-ux folder AND the
 Access to the drive can be requested at one of the members of Integreat mentioned in the [README](../README.md).
 
 ## Icons
-Current icons can be found [here in the drive](https://drive.google.com/drive/folders/1FlSvpC0et0OnFuV-rxV1m2U3hoZO-ufJ).
+The current icons can be found [here in the drive](https://drive.google.com/drive/folders/1FlSvpC0et0OnFuV-rxV1m2U3hoZO-ufJ).
+
+## Color scheme
+The current color schmeme can be found [here](../ui-ux/2017_11_ColorScheme/ColorScheme.png) or in the [drive](https://drive.google.com/drive/folders/19fv7ot0wO8npxHWMQCzGsuCe6Lzndzny).
