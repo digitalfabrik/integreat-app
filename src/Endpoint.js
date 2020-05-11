@@ -7,6 +7,7 @@ import type { MapParamsToUrlType } from './MapParamsToUrlType'
 import type { MapParamsToBodyType } from './MapParamsToBody'
 import ResponseError from './errors/ResponseError'
 import FetchError from './errors/FetchError'
+import type { RequestOptionsType } from './errors/ResponseError'
 
 /**
  * A Endpoint holds all the relevant information to fetch data from it
@@ -38,16 +39,12 @@ class Endpoint<P, T> {
     return this._stateName
   }
 
-  async postFormData (url: string, params: P): Promise<Response> {
-    if (!this.mapParamsToBody) {
-      throw new Error(`The endpoint ${this.stateName} is not able to post form data!`)
+  async fetchOrThrow (url: string, requestOptions: $Shape<RequestOptions>): Promise<Response> {
+    try {
+      return fetch(url, requestOptions)
+    } catch (e) {
+      throw new FetchError({ endpointName: this.stateName, innerError: e })
     }
-    const formattedBody = this.mapParamsToBody(params)
-
-    return fetch(url, {
-      method: 'POST',
-      body: formattedBody
-    })
   }
 
   async request (params: P, overrideUrl?: string): Promise<Payload<T>> {
@@ -60,15 +57,14 @@ class Endpoint<P, T> {
       return new Payload(false, url, this.responseOverride, null)
     }
 
-    let response = null
-    try {
-      response = await (this.mapParamsToBody ? this.postFormData(url, params) : fetch(url))
-    } catch (e) {
-      throw new FetchError({ endpointName: this.stateName, innerError: e })
-    }
+    const requestOptions: RequestOptionsType = this.mapParamsToBody ? {
+      method: 'POST',
+      body: this.mapParamsToBody(params)
+    } : { method: 'GET' }
+    const response = await this.fetchOrThrow(url, requestOptions)
 
     if (!response.ok) {
-      throw new ResponseError({ endpointName: this.stateName, response })
+      throw new ResponseError({ endpointName: this.stateName, response, url, requestOptions })
     }
 
     try {
