@@ -1,8 +1,10 @@
 // @flow
 
-import { Payload, TunewsModel } from '@integreat-app/integreat-api-client'
+import { Payload, TunewsModel, TUNEWS_ENDPOINT_NAME } from '@integreat-app/integreat-api-client'
 import type { PayloadDataType } from '../../../modules/app/PayloadDataType'
-import { START_FETCH_TUNEWS, FINISH_FETCH_TUNEWS, RESET_TUNEWS } from '../actions/fetchTunews'
+import { START_FETCH_TUNEWS, FINISH_FETCH_TUNEWS, RESET_TUNEWS } from '../actions/fetchMoreTunews'
+import { startFetchMoreActionName } from '../actions/startFetchMoreAction'
+import { finishFetchMoreActionName } from '../actions/finishFetchMoreAction'
 
 type TuNewsFetchActionType<T: PayloadDataType> = { type: string, payload: Payload<T> }
 
@@ -15,12 +17,27 @@ const fetchTunewsReducer = (
   switch (action.type) {
     case START_FETCH_TUNEWS:
       return {
+        data: [],
+        requestUrl: action.payload.requestUrl,
+        isFetching: state.isFetching,
+        isFetchingFirstTime: true
+      }
+    case FINISH_FETCH_TUNEWS:
+      return {
+        data: [...action.payload.data],
+        requestUrl: action.payload.requestUrl,
+        isFetching: state.isFetching,
+        hasMore: action.payload.data.length !== 0,
+        isFetchingFirstTime: false
+      }
+    case startFetchMoreActionName(TUNEWS_ENDPOINT_NAME):
+      return {
         data: [...state.data],
         requestUrl: action.payload.requestUrl,
         isFetching: state.isFetching,
-        isFetchingFirstTime: state.data.length === 0
+        isFetchingFirstTime: false
       }
-    case FINISH_FETCH_TUNEWS: {
+    case finishFetchMoreActionName(TUNEWS_ENDPOINT_NAME): {
       return {
         data: [...state.data, ...action.payload.data],
         requestUrl: action.payload.requestUrl,

@@ -7,7 +7,7 @@ import compose from 'lodash/fp/compose'
 import type { StateType } from '../../../modules/app/StateType'
 import { TFunction } from 'i18next'
 import PaginatedList from '../components/PaginatedList'
-import { fetchTunews, resetTunews } from '../actions/fetchTunews'
+import { fetchMoreTunews } from '../actions/fetchMoreTunews'
 import TunewsElement from '../components/TunewsElement'
 import NewsTabs from '../components/NewsTabs'
 import { TunewsModel, CityModel } from '@integreat-app/integreat-api-client'
@@ -44,7 +44,7 @@ export class TunewsListPage extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const { tunews, language, city, t, fetchTunews, hasMore, isFetchingFirstTime, isFetching, resetTunews, cities } = this.props
+    const { tunews, language, city, t, fetchMoreTunews, hasMore, isFetchingFirstTime, isFetching, cities } = this.props
     return (
       <NewsController>
         <NewsTabs localNews={false} tunews city={city} cities={cities} t={t} language={language}>
@@ -55,8 +55,7 @@ export class TunewsListPage extends React.PureComponent<PropsType> {
               items={tunews}
               renderItem={this.renderTunewsElement(language)}
               city={city}
-              fetchTunews={fetchTunews}
-              resetTunews={resetTunews}
+              fetchMoreTunews={fetchMoreTunews}
               hasMore={hasMore}
               isFetching={isFetching}
               language={language}
@@ -80,6 +79,6 @@ const mapStateToProps = (state: StateType) => ({
 })
 
 export default compose(
-  connect<*, *, *, *, *, *>(mapStateToProps, { fetchTunews, resetTunews }),
+  connect<*, *, *, *, *, *>(mapStateToProps, { fetchMoreTunews }),
   withTranslation('news')
 )(TunewsListPage)
