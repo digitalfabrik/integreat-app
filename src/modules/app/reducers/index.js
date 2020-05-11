@@ -66,7 +66,7 @@ export const finishFetchReducer = <T: PayloadDataType> (oldPayload?: Payload<T>,
 const defaultState = new Payload(false)
 
 type ReducerType = Reducer<StateType, StartFetchActionType<PayloadDataType> | FinishFetchActionType<PayloadDataType>>
-const reducers: {[actionName: string]: ReducerType } = endpointNames.reduce(
+const reducers: { [actionName: string]: ReducerType } = endpointNames.reduce(
   (result, endpointName) => {
     result[endpointName] = handleActions(
       {

@@ -16,12 +16,14 @@ const fetchTunewsReducer = (
     case START_FETCH_TUNEWS:
       return {
         data: [...state.data],
+        requestUrl: action.payload.requestUrl,
         isFetching: state.isFetching,
         isFetchingFirstTime: state.data.length === 0
       }
     case FINISH_FETCH_TUNEWS: {
       return {
         data: [...state.data, ...action.payload.data],
+        requestUrl: action.payload.requestUrl,
         isFetching: state.isFetching,
         hasMore: action.payload.data.length !== 0,
         isFetchingFirstTime: false
@@ -31,6 +33,7 @@ const fetchTunewsReducer = (
       return {
         data: [],
         hasMore: true,
+        requestUrl: false,
         isFetching: false,
         isFetchingFirstTime: false
       }
