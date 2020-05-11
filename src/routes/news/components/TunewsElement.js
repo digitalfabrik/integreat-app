@@ -83,7 +83,7 @@ class TunewsElement extends React.PureComponent<PropsType> {
         <Body>{textTruncator(newsItem._content, TRUNCATE_LETTERS_COUNT)}</Body>
         <StyledContainer>
           <StyledDate lastUpdate={newsItem.date} language={language} withText={false} />
-          <ReadMoreLink to={itemPath}>{t('readMore')}</ReadMoreLink>
+          <ReadMoreLink to={itemPath}>{t('readMore')} ></ReadMoreLink>
         </StyledContainer>
       </Description>
     )
