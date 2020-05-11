@@ -3,7 +3,6 @@
 import LanguageModel from '../models/LanguageModel'
 import EndpointBuilder from '../EndpointBuilder'
 import ParamMissingError from '../errors/ParamMissingError'
-import MappingError from '../errors/MappingError'
 import type { JsonLanguageType } from '../types'
 import Endpoint from '../Endpoint'
 
@@ -19,17 +18,11 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<LanguageModel>> =>
       }
       return `${baseUrl}/${params.city}/de/wp-json/extensions/v3/languages`
     })
-    .withMapper((json: Array<JsonLanguageType>) => {
-      return json
-        .map(language => {
-          if (!language.native_name) {
-            throw new MappingError(LANGUAGES_ENDPOINT_NAME, `Unexpected json format. Response did not contain ${language.native_name}`)
-          }
-          return new LanguageModel(
-            language.code,
-            language.native_name
-          )
-        })
-        .sort((lang1, lang2) => lang1.code.localeCompare(lang2.code))
-    })
+    .withMapper((json: Array<JsonLanguageType>) => json
+      .map(language => new LanguageModel(
+        language.code,
+        language.native_name
+      ))
+      .sort((lang1, lang2) => lang1.code.localeCompare(lang2.code))
+    )
     .build()
