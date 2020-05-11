@@ -1,6 +1,6 @@
 // @flow
 
-import { CategoriesMapModel, CityModel, EventModel, LanguageModel } from '@integreat-app/integreat-api-client'
+import { CategoriesMapModel, CityModel, EventModel, LanguageModel, PoiModel } from '@integreat-app/integreat-api-client'
 import DatabaseContext from './DatabaseContext'
 import type {
   CityResourceCacheStateType,
@@ -15,6 +15,7 @@ import RNFetchBlob from 'rn-fetch-blob'
 import Cache from './Cache'
 
 type CacheType = {
+  pois: Cache<Array<PoiModel>>,
   cities: Cache<Array<CityModel>>,
   events: Cache<Array<EventModel>>,
   categories: Cache<CategoriesMapModel>,
@@ -33,6 +34,9 @@ class DefaultDataContainer implements DataContainer {
     this._databaseConnector = new DatabaseConnector()
 
     this.caches = {
+      pois: new Cache<Array<PoiModel>>(this._databaseConnector,
+        (connector: DatabaseConnector) => connector.loadPois(),
+        (value: Array<PoiModel>, connector: DatabaseConnector) => connector.storePois(value)),
       cities: new Cache<Array<CityModel>>(this._databaseConnector,
         (connector: DatabaseConnector) => connector.loadCities(),
         (value: Array<CityModel>, connector: DatabaseConnector) => connector.storeCities(value)),
@@ -57,6 +61,11 @@ class DefaultDataContainer implements DataContainer {
         (value: Moment | null, connector: DatabaseConnector, context: DatabaseContext) =>
           connector.storeLastUpdate(value, context))
     }
+  }
+
+  getPOI = async (): Promise<Array<PoiModel>> => {
+    const cache = this.caches.pois
+    return cache.get(new DatabaseContext())
   }
 
   clearInMemoryCache = () => {
@@ -115,6 +124,11 @@ class DefaultDataContainer implements DataContainer {
     const context = new DatabaseContext(city, language)
     const cache: Cache<CategoriesMapModel> = this.caches.categories
     await cache.cache(categories, context)
+  }
+
+  setPois = async (pois: Array<PoiModel>) => {
+    const cache = this.caches.pois
+    await cache.cache(pois, new DatabaseContext())
   }
 
   setCities = async (cities: Array<CityModel>) => {
@@ -178,6 +192,11 @@ class DefaultDataContainer implements DataContainer {
     const context = new DatabaseContext(city, language)
     const cache: Cache<Moment | null> = this.caches.lastUpdate
     await cache.cache(lastUpdate, context)
+  }
+
+  poisAvailable = async (): Promise<boolean> => {
+    const context = new DatabaseContext()
+    return this.isCached('pois', context) || this._databaseConnector.isPoisPersisted()
   }
 
   citiesAvailable = async (): Promise<boolean> => {

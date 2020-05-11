@@ -7,7 +7,8 @@ import {
   DateModel,
   EventModel,
   LanguageModel,
-  LocationModel
+  LocationModel,
+  PoiModel
 } from '@integreat-app/integreat-api-client'
 import RNFetchBlob from 'rn-fetch-blob'
 import type Moment from 'moment'
@@ -78,6 +79,18 @@ type ContentCityJsonType = {|
   longitude: number | null,
   latitude: number | null,
   aliases: { [alias: string]: {|longitude: number, latitude: number|}} | null
+|}
+
+type ContentPoiJsonType = {|
+  path: string,
+  title: string,
+  content: string,
+  thumbnail: string,
+  availableLanguages: Map<string, string>,
+  excerpt: string,
+  location: LocationModel,
+  lastUpdate: Moment,
+  hash: string
 |}
 
 type CityCodeType = string
@@ -158,6 +171,10 @@ class DatabaseConnector {
 
   getCitiesPath (): string {
     return `${CACHE_DIR_PATH}/cities.json`
+  }
+
+  getPoisPath (): string {
+    return `${CACHE_DIR_PATH}/pois.json`
   }
 
   async deleteAllFiles () {
@@ -338,6 +355,49 @@ class DatabaseConnector {
     await this.writeFile(path, JSON.stringify(languages))
   }
 
+  // TODO: write storePois
+  async storePois (pois: Array<PoiModel>) {
+    const jsonModels = pois.map((poi: PoiModel): ContentPoiJsonType => ({
+      path: poi.path,
+      title: poi.title,
+      content: poi.content,
+      thumbnail: poi.thumbnail,
+      availableLanguages: poi.availableLanguages,
+      excerpt: poi.excerpt,
+      location: poi.location,
+      lastUpdate: poi.lastUpdate,
+      hash: poi.hash
+    }))
+
+    await this.writeFile(this.getPoisPath(), JSON.stringify(jsonModels))
+  }
+
+  // TODO: write loadPois
+  async loadPois (): Promise<Array<PoiModel>> {
+    const path = this.getPoisPath()
+    const fileExists: boolean = await RNFetchBlob.fs.exists(path)
+
+    if (!fileExists) {
+      throw Error(`File ${path} does not exist`)
+    }
+
+    const json = JSON.parse(await this.readFile(path))
+
+    return json.map((jsonObject: ContentPoiJsonType) => {
+      return new PoiModel({
+        path: jsonObject.path,
+        title: jsonObject.title,
+        content: jsonObject.content,
+        thumbnail: jsonObject.thumbnail,
+        availableLanguages: jsonObject.availableLanguages,
+        excerpt: jsonObject.excerpt,
+        location: jsonObject.location,
+        lastUpdate: jsonObject.lastUpdate,
+        hash: jsonObject.hash
+      })
+    })
+  }
+
   async storeCities (cities: Array<CityModel>) {
     const jsonModels = cities.map((city: CityModel): ContentCityJsonType => ({
       name: city.name,
@@ -509,6 +569,10 @@ class DatabaseConnector {
     }))
 
     await this._deleteMetaOfCities(cachesToDelete.map(it => it.city))
+  }
+
+  isPoisPersisted (): Promise<boolean> {
+    return this._isPersisted(this.getPoisPath())
   }
 
   isCitiesPersisted (): Promise<boolean> {
