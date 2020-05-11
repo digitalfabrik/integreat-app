@@ -14,7 +14,7 @@ import {
 import fetchData from '../fetchData'
 import { cmsApiBaseUrl } from '../constants/urls'
 
-type LocalNewsDetailsType = {| city: string, language: string, id: string | number |}
+type LocalNewsDetailsType = {| city: string, language: string, id: number |}
 type RequiredPayloadsType = {| localNewsDetails: Payload<LocalNewsModel> |}
 
 export const LOCAL_NEWS_DETAILS_ROUTE = 'LOCAL_NEWS_DETAILS'
