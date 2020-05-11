@@ -28,21 +28,12 @@ type PropsType<T> = {|
   language: string,
   isFetching: boolean,
   hasMore: boolean,
-  fetchTunews: (page: number, count: number) => void,
-  resetTunews: () => void
+  fetchMoreTunews: (page: number, count: number) => void
 |}
 
 class PaginatedList<T> extends React.PureComponent<PropsType<T>> {
-  componentDidUpdate (prevProp: PropsType<T>) {
-    const { language, resetTunews, fetchTunews } = this.props
-    if (prevProp.language !== language) {
-      resetTunews()
-      fetchTunews(1, LIMIT)
-    }
-  }
-
   loadItems = async (page: number) => {
-    this.props.fetchTunews(page + 1, LIMIT)
+    this.props.fetchMoreTunews(page + 1, LIMIT)
   };
 
   render () {
