@@ -1,0 +1,68 @@
+From 56758fdbe96afe725e3e151ad463b06693d72a92 Mon Sep 17 00:00:00 2001
+From: Andrew Kud <a-kud@users.noreply.github.com>
+Date: Thu, 31 Jan 2019 00:14:52 +0200
+Subject: [PATCH 19/23] WEBAPP-410: Change landing text for all languages
+
+---
+ src/locales.json | 11 +++--------
+ 1 file changed, 3 insertions(+), 8 deletions(-)
+
+diff --git a/src/locales.json b/src/locales.json
+index a5ea110a..0b317139 100644
+--- a/src/locales.json
++++ b/src/locales.json
+@@ -29,7 +29,7 @@
+         "search": "Search",
+         "events": "News",
+         "extras": "Extras",
+-        "landing": "Where are you?",
++        "landing": "Location selection",
+         "disclaimer": "Imprint and contact",
+         "mainDisclaimer": "Imprint and Contact - Integreat",
+         "pois": "Points of Interest",
+@@ -42,7 +42,7 @@
+         "search": "جستجو",
+         "events": "تازه​ها",
+         "extras": "اضافات",
+-        "landing": "تو کجایی؟",
++        "landing": "انتخاب محل",
+         "disclaimer": "مجوز ‎و اطلاعات تماس",
+         "mainDisclaimer": "Integreat - مجوز \u200Eو اطلاعات تماس",
+         "notFound": "صفحه پیدا نشد"
+@@ -54,7 +54,7 @@
+         "search": "Rechercher",
+         "events": "Actualités",
+         "extras": "Extras",
+-        "landing": "Tu es où?",
++        "landing": "Sélection de l'emplacement",
+         "disclaimer": "Mentions légales et contact",
+         "mainDisclaimer": "Mentions Légales - Integreat",
+         "notFound": "Page introuvable"
+@@ -205,24 +205,19 @@
+   },
+   "landing": {
+     "ar": {
+-      "where": "أين أنت؟",
+       "searchCity": "البحث عن مكانك"
+     },
+     "de": {
+-      "where": "",
+       "searchCity": "Ort suchen",
+       "metaDescription": "Finde lokale und aktuelle Informationen, Events und werde Teil deiner neuen Stadt. Integreat hilft dir dich mit anderen zu vernetzen und unterstützt mehrere Sprachen."
+     },
+     "en": {
+-      "where": "Where are you?",
+       "searchCity": "Search for a city"
+     },
+     "fa": {
+-      "where": "تو کجایی؟",
+       "searchCity": "جستجو بر اساس محل شما"
+     },
+     "fr": {
+-      "where": "Tu es où?",
+       "searchCity": "Chercher un lieu"
+     }
+   },
+-- 
+2.20.1 (Apple Git-117)
+

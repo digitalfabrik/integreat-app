@@ -1,0 +1,332 @@
+From f99b689f03d520ad3c2990259bd54998c4724b5e Mon Sep 17 00:00:00 2001
+From: Steffen Kleinle <klinzo@yahoo.de>
+Date: Thu, 20 Dec 2018 16:44:56 +0100
+Subject: [PATCH 14/23] WEBAPP-209: Add missing locales
+
+---
+ src/locales.json | 175 +++++++++++++++++++++++++++++++++++++----------
+ 1 file changed, 137 insertions(+), 38 deletions(-)
+
+diff --git a/src/locales.json b/src/locales.json
+index 5dcafb9f..e8743f4c 100644
+--- a/src/locales.json
++++ b/src/locales.json
+@@ -7,7 +7,8 @@
+         "extras": "إضافات",
+         "landing": "أين أنت؟",
+         "disclaimer": "هيئة التحرير وجهة الاتصال"
+-      }
++      },
++      "metaDescription": "ابحث عن البيانات المحلية والحالية، وكذلك الأحداث، وكن جزءًا من مدينتك الجديدة. تساعدك شركة Integreat على التواصل مع الآخرين وتدعم العديد من اللغات."
+     },
+     "de": {
+       "pageTitles": {
+@@ -40,7 +41,8 @@
+         "extras": "اضافات",
+         "landing": "تو کجایی؟",
+         "disclaimer": "مجوز ‎و اطلاعات تماس"
+-      }
++      },
++      "metaDescription": "آخرین اطلاعات و برنامه های محلی را ببینید و بخشی از شهر جدید خود شوید. Integreat به شما کمک می کند تا با دیگران ارتباط پیدا کنید و چندین زبان را پشتیبانی می کند."
+     },
+     "fr": {
+       "pageTitles": {
+@@ -49,8 +51,8 @@
+         "extras": "Extras",
+         "landing": "Tu es où?",
+         "disclaimer": "Mentions légales et contact"
+-      }
+-
++      },
++      "metaDescription": "Trouve des informations, des événements locaux et actuels et intègre-toi dans ta nouvelle ville. Integreat t'aide à te faire un réseau et te soutient dans plusieurs langues."
+     }
+   },
+   "layout": {
+@@ -63,7 +65,9 @@
+       "noNews": "لا توجد أخبار",
+       "noLanguages": "غير متوفر بلغات أخرى",
+       "noTranslation": "لا توجد ترجمة متاحة",
+-      "search": "البحث"
++      "search": "البحث",
++      "changeLocation": "Standort wechseln",
++      "changeLanguage": "Sprache wechseln"
+     },
+     "de": {
+       "imprintAndContact": "Impressum und Kontakt",
+@@ -75,8 +79,8 @@
+       "noLanguages": "Nicht verfügbar in anderen Sprachen",
+       "noTranslation": "Keine Übersetzung verfügbar",
+       "search": "Suchen",
+-      "changeLocation": "Standort wechseln",
+-      "changeLanguage": "Sprache wechseln"
++      "changeLocation": "تغيير الموقع",
++      "changeLanguage": "تغيير اللغةn"
+     },
+     "en": {
+       "imprintAndContact": "Imprint and contact",
+@@ -93,23 +97,29 @@
+     },
+     "fa": {
+       "imprintAndContact": "مجوز ‎و اطلاعات تماس",
++      "privacy": "محافظت از داده ها",
+       "extras": "اضافات",
+       "categories": "دسته​ها",
+       "news": "تازه​ها",
+       "noNews": "خبری موجود نیست",
+       "noLanguages": "در زبان های دیگر موجود نیست",
+       "noTranslation": "ترجمه موجود نیست",
+-      "search": "جستجو"
++      "search": "جستجو",
++      "changeLocation": "تغییر محل",
++      "changeLanguage": "تغییر زبان"
+     },
+     "fr": {
+       "imprintAndContact": "Mentions légales et contact",
++      "privacy": "Protection des données",
+       "extras": "Extras",
+       "categories": "Catégorie",
+       "news": "Actualités",
+       "noNews": "Aucune news",
+       "noLanguages": "Non disponible dans d'autres langues",
+       "noTranslation": "Aucune traduction disponible",
+-      "search": "Rechercher"
++      "search": "Rechercher",
++      "changeLocation": "Modifier le lieu",
++      "changeLanguage": "Changer la langue"
+     }
+   },
+   "search": {
+@@ -188,43 +198,48 @@
+   },
+   "landing": {
+     "ar": {
+-      "where": "أين أنت؟"
++      "where": "أين أنت؟",
++      "searchCity": "البحث عن مكانك"
+     },
+     "de": {
+       "where": "Wo bist du?",
+-      "searchCity": "Suche nach deinem Ort"
++      "searchCity": "Suche nach einem Ort"
+     },
+     "en": {
+       "where": "Where are you?",
+-      "searchCity": "Search for your city"
++      "searchCity": "Search for a city"
+     },
+     "fa": {
+-      "where": "تو کجایی؟"
++      "where": "تو کجایی؟",
++      "searchCity": "جستجو بر اساس محل شما"
+     },
+     "fr": {
+-      "where": "Tu es où?"
++      "where": "Tu es où?",
++      "searchCity": "Chercher un lieu"
+     }
+   },
+   "error": {
+     "ar": {
+-      "not-found": {
++      "notFound": {
++        "language": "للأسف، لغتك ليست متاحة.",
++        "city": "للأسف، لم يتم العثور على مدينتك.",
+         "category": "لا يوجد سجَّلات جديدة",
+-        "disclaimer": "البيانات الإدارية ليست متوفرة للأسف لهذه المدينة."
++        "event": "للأسف، لم يتم العثور على هذا الحدث.",
++        "extra": "للأسف، لم يتم العثور على هذه الإضافة."
+       },
+       "loadingFailed": "لقد حصل خطأ خلال تحميل الملفات",
+-      "pageTitle": "خطأ"
++      "chooseALanguage": "اختار اللغة:"
+     },
+     "de": {
+-      "not-found": {
+-        "language": "Deine Sprache ist hier leider nicht verfügbar.",
+-        "city": "Deine Stadt wurde leider nicht gefunden.",
++      "notFound": {
++        "language": "Diese Sprache ist hier leider nicht verfügbar.",
++        "city": "Diese Stadt wurde leider nicht gefunden.",
+         "category": "Diese Seite wurde leider nicht gefunden.",
+         "event": "Dieses Event wurde leider nicht gefunden.",
+-        "extra": "Dieses Extra wurde leider nicht gefunden.",
+-        "disclaimer": "Ein Impressum ist leider für diese Stadt nicht verfügbar."
++        "extra": "Dieses Extra wurde leider nicht gefunden."
+       },
+       "loadingFailed": "Die Seite konnte leider nicht geladen werden.",
+-      "chooseYourLanguage": "Wähle deine Sprache:",
++      "chooseALanguage": "Wähle eine Sprache:",
+       "goTo": {
+         "start": "Zur Startseite",
+         "categories": "Zu den Kategorien",
+@@ -233,36 +248,44 @@
+       }
+     },
+     "en": {
+-      "not-found": {
+-        "language": "Sorry, but your language is not available here.",
+-        "city": "Sorry, but your city could not be found.",
++      "notFound": {
++        "language": "Sorry, but this language is not available here.",
++        "city": "Sorry, but this city could not be found.",
+         "category": "Sorry, but the requested page could not be found.",
+         "event": "Sorry, but this event could not be found.",
+         "extra": "Sorry, but this extra could not be found.",
+-        "disclaimer": "Sorry, but there is no disclaimer available for this city.",
+-        "poi": "Sorry, but this Point of Interest could not be found.",
+-        "pageTitle": "Page not found"
++        "poi": "Sorry, but this Point of Interest could not be found."
+       },
+       "loadingFailed": "Sorry, but the requested page could not be loaded.",
+-      "chooseYourLanguage": "Choose your language:",
++      "chooseALanguage": "Choose a language:",
+       "goTo": {
+         "start": "Go to Start",
+         "categories": "Go to Categories",
+         "events": "Go to Events",
+         "extras": "Go to Extras"
+-      },
+-      "pageTitle": "Error"
++      }
+     },
+     "fa": {
+-      "not-found": {
+-        "category": "مدخل مورد نظر ‎یافت نشد.",
+-        "disclaimer": "متاسفانه برای این شهر مجوزی وجود ندارد."
++      "notFound": {
++        "language": "متاسفانه زبان شما در اینجا موجود نیست.",
++        "city": "متاسفانه شهر شما پیدا نشد.",
++        "category": "متاسفانه این صفحه پیدا نشد.",
++        "event": "متاسفانه برنامه شما پیدا نشد.",
++        "extra": "متاسفانه این اضافه، پیدا نشد."
+       },
+       "loadingFailed": "خطایی هنگام بارگیری محتوا رخ داده است.",
+-      "pageTitle": "خطا"
++      "chooseALanguage": "یک زبان را انتخاب کنید"
+     },
+     "fr": {
+-      "chooseYourLanguage": "Choisis ta Langue:"
++      "notFound": {
++        "language": "Malheureusement, ta langue n'est pas disponible ici.",
++        "city": "Malheureusement, ta ville est introuvable.",
++        "category": "Malheureusement, cette page est introuvable.",
++        "event": "Malheureusement, cet événement est introuvable.",
++        "extra": "Malheureusement, cet extra est introuvable."
++      },
++      "loadingFailed": "Malheureusement, la page n'a pas pu être chargée.",
++      "chooseALanguage": "Choisis ta Langue:"
+     }
+   },
+   "wohnen": {
+@@ -298,6 +321,27 @@
+     }
+   },
+   "feedback": {
++    "ar": {
++      "technicalTopics": "وظائف تقنية",
++      "contentOfCity": "محتويات",
++      "extra": "إضافي",
++      "news": "الأخبار",
++      "disclaimer": "هيئة التحرير وجهة الاتصال",
++      "searchFor": "البحث عن",
++      "contentOfPage": "محتوى الصفحة",
++      "send": "إرسال",
++      "feedback": "تعليقات",
++      "positiveComment": "ماذا الذي كان مفيدًا؟",
++      "negativeComment": "ما الذي يمكننا تحسينه؟",
++      "feedbackType": "ما نوع التعليقات؟",
++      "negativeRating": "هذه الصفحة ليست مفيدة",
++      "positiveRating": "هذه الصفحة مفيدة",
++      "nothingFound": "للأسف لم يتم العثور على نتائج مناسبة.",
++      "informationNotFound": "لم يتم العثور على المعلومة المناسبة؟",
++      "wantedInformation": "ما هي المعلومات الناقصة هنا؟",
++      "thanksMessage": "\"شكرًا على تعليقاتك. فمن خلالها تساعدنا على تطوير محتوياتنا \n وتطوير تطبيق Integreat. تُسعدنا \n تعليقاتك.\"",
++      "close": "إغلاق"
++    },
+     "de": {
+       "technicalTopics": "Technische Funktionen",
+       "contentOfCity": "Inhalte von",
+@@ -327,7 +371,7 @@
+       "news": "News",
+       "disclaimer": "Imprint and contact",
+       "searchFor": "Search for",
+-      "contentOfPage": "Content of the site",
++      "contentOfPage": "Content of the page",
+       "send": "Send",
+       "feedback": "Feedback",
+       "positiveComment": "What was helpful?",
+@@ -339,7 +383,50 @@
+       "informationNotFound": "Not found what you were looking for?",
+       "wantedInformation": "What information is missing?",
+       "feedbackSent": "Feedback sent",
++      "thanksMessage": "Thank you for your feedback. This will help us to improve our content and the Integreat app. We would be happy to receive further feedback.",
+       "close": "Close"
++    },
++    "fa": {
++      "technicalTopics": "عملکردهای فنی",
++      "contentOfCity": "محتویاتِ",
++      "extra": "اضافی",
++      "news": "اخبار",
++      "disclaimer": "مجوز \u200Eو اطلاعات تماس",
++      "searchFor": "جستجو برای",
++      "contentOfPage": "محتوای صفحه",
++      "send": "فرستادن",
++      "feedback": "بازخورد",
++      "positiveComment": "چه چیز مفید بود؟",
++      "negativeComment": "چه چیز را می توانیم بهتر کنیم؟",
++      "feedbackType": "بازخورد در چه زمینه ای است؟",
++      "negativeRating": "این صفحه مفید نیست",
++      "positiveRating": "این صفحه مفید است",
++      "nothingFound": "متاسفانه هیچ نتیجه مناسبی پیدا نشد.",
++      "informationNotFound": "آنچه را که جستجو می کردید پیدا نکردید؟",
++      "wantedInformation": "چه اطلاعاتی در اینجا موجود نیست؟",
++      "thanksMessage": "\"از بازخورد شما سپاسگزاریم. شما با آن به ما کمک می کنید تا مطالب خود و \n اپلیکیشن Integreat را بهتر کنیم. از بازخوردهای بیشتر خوشحال خواهیم \n شد.\"",
++      "close": "بستن"
++    },
++    "fr": {
++      "technicalTopics": "Fonctions techniques",
++      "contentOfCity": "Contenu de",
++      "extra": "Extra",
++      "news": "Nouvelles",
++      "disclaimer": "Mentions Légales",
++      "searchFor": "Rechercher pour",
++      "contentOfPage": "Contenu de la page",
++      "send": "Envoyer",
++      "feedback": "Feed-back",
++      "positiveComment": "Qu'est-ce qui a été utile ?",
++      "negativeComment": "Que pouvons-nous faire de mieux ?",
++      "feedbackType": "À quoi sert le feed-back ?",
++      "negativeRating": "Cette page n'est pas utile",
++      "positiveRating": "Cette page est utile",
++      "nothingFound": "Désolé, nous n'avons trouvé aucun résultat.",
++      "informationNotFound": "Nicht das Richtige gefunden?",
++      "wantedInformation": "Quelles sont les informations manquantes ici?",
++      "thanksMessage": "Nous vous remercions de votre rétroaction. Cela nous aidera à améliorer notre contenu et l'application Integreat. Nous serions heureux de recevoir d'autres commentaires.",
++      "close": "Fermer"
+     }
+   },
+   "common": {
+@@ -357,8 +444,20 @@
+     }
+   },
+   "sprungbrett": {
++    "ar": {
++      "noOffersAvailable": "لا توجد عروض"
++    },
+     "de": {
+       "noOffersAvailable": "Keine Angebote verfügbar"
++    },
++    "en": {
++      "noOffersAvailable": "No offers available"
++    },
++    "fa": {
++      "noOffersAvailable": "هیچ اطلاعاتی موجود نیست"
++    },
++    "fr": {
++      "noOffersAvailable": "Aucune offre disponible"
+     }
+   },
+   "pois": {
+-- 
+2.20.1 (Apple Git-117)
+
