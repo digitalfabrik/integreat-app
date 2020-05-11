@@ -1,0 +1,25 @@
+From b677a51ed0fdeccb8c6539b92613c585d9be3ea8 Mon Sep 17 00:00:00 2001
+From: Steffen Kleinle <klinzo@yahoo.de>
+Date: Tue, 13 Nov 2018 11:05:08 +0100
+Subject: [PATCH 08/23] WEBAPP-383: Update locales and remove unused method
+
+---
+ src/locales.json | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/locales.json b/src/locales.json
+index 3c8f802d..cd707ee1 100644
+--- a/src/locales.json
++++ b/src/locales.json
+@@ -218,7 +218,7 @@
+         "event": "Sorry, but this event could not be found.",
+         "extra": "Sorry, but this extra could not be found.",
+         "disclaimer": "Sorry, but there is no disclaimer available for this city.",
+-        "pois": "Points of Interest",
++        "poi": "Sorry, but this Point of Interest could not be found.",
+         "pageTitle": "Page not found"
+       },
+       "loadingFailed": "Sorry, but the requested page could not be loaded.",
+-- 
+2.20.1 (Apple Git-117)
+

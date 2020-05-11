@@ -31,6 +31,7 @@ import { SPRUNGBRETT_ROUTE } from '../../app/route-configs/SprungbrettRouteConfi
 import { SEARCH_ROUTE } from '../../app/route-configs/SearchRouteConfig'
 import { DISCLAIMER_ROUTE } from '../../app/route-configs/DisclaimerRouteConfig'
 import { cmsApiBaseUrl } from '../../app/constants/urls'
+import type { ThemeType } from '../../theme/constants/theme'
 
 type PropsType = {|
   cities: ?Array<CityModel>,
@@ -44,7 +45,8 @@ type PropsType = {|
   postFeedbackDataOverride?: FeedbackParamsType => void,
   closeFeedbackModal: () => void,
   onSubmit: () => void,
-  t: TFunction
+  t: TFunction,
+  theme: ThemeType
 |}
 
 type StateType = {|
@@ -237,12 +239,13 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
   }
 
   render () {
-    const { closeFeedbackModal, isPositiveRatingSelected } = this.props
+    const { closeFeedbackModal, isPositiveRatingSelected, theme } = this.props
     return <FeedbackBox onFeedbackOptionChanged={this.handleFeedbackOptionChanged}
                         onCommentChanged={this.handleCommentChanged}
                         onSubmit={this.handleSubmit}
                         closeFeedbackModal={closeFeedbackModal}
                         isPositiveRatingSelected={isPositiveRatingSelected}
+                        theme={theme}
                         {...this.state} />
   }
 }

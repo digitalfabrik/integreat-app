@@ -3,7 +3,7 @@
 import 'raf/polyfill'
 import { configure } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
-import integreatAppConfig from '../tools/integreat-config'
+import integreatAppDebugConfig from '../tools/integreat-debug-config'
 
 configure({ adapter: new Adapter() })
 
@@ -11,7 +11,7 @@ configure({ adapter: new Adapter() })
 global.fetch = require('jest-fetch-mock')
 
 // Setup config mock
-global.__CONFIG__ = integreatAppConfig
+global.__CONFIG__ = integreatAppDebugConfig
 
 // $FlowFixMe
 console.error = error => {
