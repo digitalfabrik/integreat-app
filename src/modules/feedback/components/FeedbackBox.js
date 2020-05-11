@@ -39,7 +39,8 @@ type PropsType = {|
   onSubmit: () => void,
   t: TFunction,
   closeFeedbackModal: () => void,
-  theme: ThemeType
+  theme: ThemeType,
+  requestError: boolean
 |}
 
 /**
@@ -57,7 +58,8 @@ export class FeedbackBox extends React.PureComponent<PropsType> {
       onSubmit,
       comment,
       closeFeedbackModal,
-      theme
+      theme,
+      requestError
     } = this.props
 
     return (
@@ -73,9 +75,10 @@ export class FeedbackBox extends React.PureComponent<PropsType> {
           commentMessage={isPositiveRatingSelected ? t('positiveComment') : t('negativeComment')}
           onCommentChanged={onCommentChanged}
           required={!isPositiveRatingSelected} />
+        <Description>{requestError ? t('failedSendingFeedback') : null}</Description>
         <TextButton
           disabled={!isPositiveRatingSelected && !comment}
-          onClick={onSubmit}
+          onClick={requestError ? null : onSubmit}
           text={t('send')} />
       </StyledFeedbackBox>
     )

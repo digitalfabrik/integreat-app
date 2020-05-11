@@ -52,7 +52,8 @@ type PropsType = {|
 type StateType = {|
   feedbackOptions: Array<FeedbackVariant>,
   selectedFeedbackOption: FeedbackVariant,
-  comment: string
+  comment: string,
+  requestError: boolean
 |}
 
 /**
@@ -62,7 +63,7 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
   constructor (props: PropsType) {
     super(props)
     const feedbackOptions = this.getFeedbackOptions()
-    this.state = { feedbackOptions, selectedFeedbackOption: feedbackOptions[0], comment: '' }
+    this.state = { feedbackOptions, selectedFeedbackOption: feedbackOptions[0], comment: '', requestError: false }
   }
 
   postFeedbackData = async (feedbackData: FeedbackParamsType) => {
@@ -72,7 +73,8 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
       if (postFeedbackDataOverride) {
         postFeedbackDataOverride(feedbackData)
       } else {
-        await createFeedbackEndpoint(cmsApiBaseUrl).request(feedbackData)
+        const res = await createFeedbackEndpoint(cmsApiBaseUrl).request(feedbackData)
+        if (res) { return res }
       }
     } catch (e) {
       console.error(e)
@@ -232,17 +234,25 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
     }))
   }
 
-  handleSubmit = () => {
+  handleSubmit = async () => {
     const { selectedFeedbackOption, comment } = this.state
-    this.postFeedbackData(this.getFeedbackData(selectedFeedbackOption, comment))
-    this.props.onSubmit()
+    const res = await this.postFeedbackData(this.getFeedbackData(selectedFeedbackOption, comment))
+    if (res) {
+      this.setState({ requestError: false })
+      this.props.onSubmit(true)
+    } else {
+      this.setState({ requestError: true })
+      this.props.onSubmit(false)
+    }
   }
 
   render () {
     const { closeFeedbackModal, isPositiveRatingSelected, theme } = this.props
+    const { requestError } = this.state
     return <FeedbackBox onFeedbackOptionChanged={this.handleFeedbackOptionChanged}
                         onCommentChanged={this.handleCommentChanged}
                         onSubmit={this.handleSubmit}
+                        requestError={requestError}
                         closeFeedbackModal={closeFeedbackModal}
                         isPositiveRatingSelected={isPositiveRatingSelected}
                         theme={theme}
