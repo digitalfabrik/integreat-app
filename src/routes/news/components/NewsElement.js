@@ -81,7 +81,7 @@ class NewsElement extends React.PureComponent<PropsType> {
           <Body>{newsItem && textTruncator(newsItem.message, TRUNCATE_LETTERS_COUNT)}</Body>
           <StyledContainer>
             <StyledDate lastUpdate={newsItem.timestamp} language={language} />
-            <ReadMoreLink to={itemPath}>{t('readMore')}</ReadMoreLink>
+            <ReadMoreLink to={itemPath}>{t('readMore')} ></ReadMoreLink>
           </StyledContainer>
         </Description>
       </>

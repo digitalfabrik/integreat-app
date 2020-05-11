@@ -854,19 +854,19 @@
   "news": {
     "de": {
       "local": "LOKALE NEWS",
-      "readMore": "Weiterlesen >",
+      "readMore": "Weiterlesen",
       "currentlyNoNews": "Es gibt aktuell keine Veranstaltungen.",
       "eNewsNo": "E-news No"
     },
     "ar": {
       "local": "الأخبار المحلية",
       "currentlyNoNews": "ليست هناك أخبار متوفرة حاليا",
-      "readMore": "< المزيد",
+      "readMore": "المزيد",
       "eNewsNo": "E-news No"
     },
     "en": {
       "local": "LOCAL NEWS",
-      "readMore": "Read more >",
+      "readMore": "Read more",
       "currentlyNoNews": "No news is currently available.",
       "eNewsNo": "E-news No"
     }
