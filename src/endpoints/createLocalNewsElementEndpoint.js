@@ -24,7 +24,7 @@ export default (
       if (count !== 1) {
         throw new MappingError(
           LOCALNEWS_ELEMENT_ENDPOINT_NAME,
-          `Expected count of local news to be one. Received ${count} intsted`
+          `Expected count of local news to be one. Received ${count} instead`
         )
       }
       const { id, timestamp, title, message } = localNews[0]
