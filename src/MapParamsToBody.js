@@ -1,3 +1,3 @@
 // @flow
 
-export type MapParamsToBodyType<P> = (params: P) => BodyInit | null
+export type MapParamsToBodyType<P> = (params: P) => FormData
