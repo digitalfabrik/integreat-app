@@ -156,7 +156,7 @@ describe('I18nProvider', () => {
       const originalGetSelectedFonts = I18nProvider.getSelectedFonts
       // $FlowFixMe
       I18nProvider.getSelectedFonts = jest.fn(I18nProvider.getSelectedFonts)
-      i18n.changeLanguage = jest.fn(i18next.changeLanguage)
+      i18n.changeLanguage = jest.fn(i18n.changeLanguage)
 
       component.instance().setLanguage(expectedLanguage)
 
@@ -182,7 +182,6 @@ describe('I18nProvider', () => {
     expect(component.find('div').at(0).prop('style').direction).toEqual('ltr')
     component.setProps({ language: 'ar' })
     component.update()
-
     expect(component.find('div').at(0).prop('style').direction).toEqual('rtl')
     expect(mockSetUiDirection).toHaveBeenCalledWith('rtl')
   })
