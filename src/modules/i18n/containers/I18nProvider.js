@@ -81,11 +81,11 @@ export class I18nProvider extends React.Component<PropsType, StateType> {
     )
   }
 
-  async setLanguage (language: ?string) {
+  setLanguage (language: ?string) {
     const targetLanguage = language || this.i18n.languages[0]
 
     // Set i18next language to apps language
-    this.i18n.changeLanguage(targetLanguage).then(() => {
+    this.i18n.changeLanguage(targetLanguage, () => {
       const fonts = I18nProvider.getSelectedFonts(targetLanguage)
       this.setState(prevState => ({ ...prevState, language: targetLanguage, fonts }))
 

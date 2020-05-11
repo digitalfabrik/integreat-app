@@ -115,7 +115,7 @@ describe('I18nProvider', () => {
   })
 
   describe('setLanguage', () => {
-    it('should take first i18next language if param is undefined', async () => {
+    it('should take first i18next language if param is undefined', () => {
       const component = mount(<I18nProvider setUiDirection={() => {}}>
         <div />
       </I18nProvider>)
@@ -127,13 +127,13 @@ describe('I18nProvider', () => {
       const originalGetSelectedFonts = I18nProvider.getSelectedFonts
       // $FlowFixMe
       I18nProvider.getSelectedFonts = jest.fn(I18nProvider.getSelectedFonts)
-      i18n.changeLanguage = jest.fn(i18next.changeLanguage)
+      i18n.changeLanguage = jest.fn(i18n.changeLanguage)
 
-      await component.instance().setLanguage()
+      component.instance().setLanguage()
 
       // $FlowFixMe
       expect(document.documentElement.lang).toEqual(expectedLanguage)
-      expect(i18n.changeLanguage).toHaveBeenCalledWith(expectedLanguage)
+      expect(i18n.changeLanguage).toHaveBeenCalledWith(expectedLanguage, expect.anything())
       expect(I18nProvider.getSelectedFonts).toHaveBeenCalledWith(expectedLanguage)
       expect(component.state()).toEqual({
         language: expectedLanguage,
@@ -144,7 +144,7 @@ describe('I18nProvider', () => {
       I18nProvider.getSelectedFonts = originalGetSelectedFonts
     })
 
-    it('should take param language if param is defined', async () => {
+    it('should take param language if param is defined', () => {
       const component = mount(<I18nProvider setUiDirection={() => {}}>
         <div />
       </I18nProvider>)
@@ -158,11 +158,11 @@ describe('I18nProvider', () => {
       I18nProvider.getSelectedFonts = jest.fn(I18nProvider.getSelectedFonts)
       i18n.changeLanguage = jest.fn(i18next.changeLanguage)
 
-      await component.instance().setLanguage(expectedLanguage)
+      component.instance().setLanguage(expectedLanguage)
 
       // $FlowFixMe
       expect(document.documentElement.lang).toEqual(expectedLanguage)
-      expect(i18n.changeLanguage).toHaveBeenCalledWith(expectedLanguage)
+      expect(i18n.changeLanguage).toHaveBeenCalledWith(expectedLanguage, expect.anything())
       expect(I18nProvider.getSelectedFonts).toHaveBeenCalledWith(expectedLanguage)
       expect(component.state()).toEqual({
         language: expectedLanguage,
@@ -172,5 +172,18 @@ describe('I18nProvider', () => {
       // $FlowFixMe
       I18nProvider.getSelectedFonts = originalGetSelectedFonts
     })
+  })
+
+  it('should add direction style depending on language', () => {
+    const mockSetUiDirection = jest.fn()
+    const component = mount(<I18nProvider language='en' setUiDirection={mockSetUiDirection}>
+    <div />
+  </I18nProvider>)
+    expect(component.find('div').at(0).prop('style').direction).toEqual('ltr')
+    component.setProps({ language: 'ar' })
+    component.update()
+
+    expect(component.find('div').at(0).prop('style').direction).toEqual('rtl')
+    expect(mockSetUiDirection).toHaveBeenCalledWith('rtl')
   })
 })
