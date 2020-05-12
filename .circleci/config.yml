@@ -134,12 +134,18 @@ jobs:
       - run:
           name: Check build
           command: yarn run check:built
+      - run:
+          name: List
+          command: ls -R dist
+      - run:
+          name: List
+          command: ls
       - store_artifacts:
-          path: dist/
+          path: dist
       - persist_to_workspace:
           root: ./
           paths:
-            - dist/*
+            - dist
       - run:
           name: Echo success
           command: echo success
@@ -167,13 +173,16 @@ jobs:
 #          command: ssh-keyscan -H web.integreat-app.de >> ~/.ssh/known_hosts
       - run:
           name: List dist
-          command: ls dist
+          command: ls -R dist
+      - run:
+          name: List
+          command: ls
       - when:
           condition: << parameters.production >>
           steps:
             - run:
                 name: Production release
-                command: bash -c "sftp -v -o StrictHostKeyChecking=no web-test@web.integreat-app.de:/integreat.app \<<< $'put -r dist/*'"
+                command: sftp -v -o StrictHostKeyChecking=no web-test@web.integreat-app.de:/integreat.app \<<< $'put -r dist/*'
             - slack/notify:
                 message: Integreat {version_name} has been released successfully to integreat.app!
                 webhook: $SLACK_URL
@@ -182,7 +191,7 @@ jobs:
           steps:
             - run:
                 name: Debug release
-                command: bash -c "sftp -v -o StrictHostKeyChecking=no web-test@web.integreat-app.de:/webnext.integreat-app.de \<<< $'put -r dist/*'"
+                command: sftp -v -o StrictHostKeyChecking=no web-test@web.integreat-app.de:/webnext.integreat-app.de \<<< $'put -r dist/*'
 
   bump_version:
     docker:
