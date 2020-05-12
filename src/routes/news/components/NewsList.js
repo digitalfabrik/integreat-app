@@ -16,7 +16,7 @@ const StyledList = styled.div`
   background: linear-gradient(to left, rgba(168, 168, 168, 0.2), #bebebe 51%, rgba(168, 168, 168, 0.2));
 `
 const Wrapper = styled.div`
-  background-color: 'white';
+  background-color: ${({ theme }) => (theme.colors.backgroundColor)};
 `
 
 type PropsType<T> = {|

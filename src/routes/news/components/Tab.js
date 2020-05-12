@@ -22,7 +22,7 @@ const StyledTab = styled(NewsLink)`
   margin-right: 30px;
   cursor: pointer;
   padding: 13px 15px;
-  color: #ffffff;
+  color: ${({ theme }) => (theme.colors.backgroundColor)};
   object-fit: contain;
   background-color: ${({ active, theme }) =>
     active ? theme.colors.themeColor : 'rgba(111, 111, 110, 0.4)'};
