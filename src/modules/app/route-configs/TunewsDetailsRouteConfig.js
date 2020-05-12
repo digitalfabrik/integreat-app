@@ -59,10 +59,7 @@ class TunewsDetailsRouteConfig implements RouteConfig<TunewsDetailsRouteParamsTy
 
   getMetaDescription = () => null
 
-  getFeedbackTargetInformation = ({ payloads }) => {
-    const tunewsElementDetails = payloads.tunewsElementDetails && payloads.tunewsElementDetails.data
-    return tunewsElementDetails ? { title: tunewsElementDetails.title } : null
-  }
+  getFeedbackTargetInformation = () => null
 }
 
 export default TunewsDetailsRouteConfig
