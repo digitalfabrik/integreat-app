@@ -10,7 +10,7 @@ import textTruncator from './../../../modules/common/utils/textTruncator'
 
 const Link = styled(CleanLink)`
   display: flex;
-  background-color: white;
+  background-color: ${({ theme }) => (theme.colors.backgroundColor)};
 `
 
 const ReadMoreLink = styled(CleanLink)`

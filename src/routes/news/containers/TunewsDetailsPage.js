@@ -41,8 +41,8 @@ const StyledTitle = styled.div`
   height: 100%;
   align-items: center;
   justify-content: center;
-  background-color: #007aa8;
-  color: white;
+  background-color: ${({ theme }) => (theme.colors.secondaryAccentColor)};
+  color: ${({ theme }) => (theme.colors.backgroundColor)};
   font-size: 20px;
   font-weight: 700;
 `

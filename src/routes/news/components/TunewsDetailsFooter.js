@@ -11,9 +11,9 @@ const Footer = styled.footer`
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  background-color: #007aa8;
+  background-color: ${({ theme }) => (theme.colors.secondaryAccentColor)};
   padding: 0 2% 5px;
-  color: white;
+  color: ${({ theme }) => (theme.colors.backgroundColor)};
   border-radius: 24px;
 `
 
@@ -22,7 +22,7 @@ const StyledContainer = styled.div`
 `
 
 const StyledLink = styled.a`
-  color: white;
+  color: ${({ theme }) => (theme.colors.backgroundColor)};
   text-decoration: underline;
 `
 
