@@ -44,7 +44,7 @@ type PropsType = {|
   extras: ?Array<ExtraModel>,
   postFeedbackDataOverride?: FeedbackParamsType => void,
   closeFeedbackModal: () => void,
-  onSubmit: () => void,
+  onSubmit: (value?: boolean) => void,
   t: TFunction,
   theme: ThemeType
 |}
