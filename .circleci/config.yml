@@ -159,7 +159,7 @@ jobs:
                 name: Production delivery
                 command: sftp -v -o StrictHostKeyChecking=no web-test@web.integreat-app.de:/integreat.app \<<< $'put -r /tmp/output/dist/*'
             - slack/notify:
-                message: Integreat {version_name} has been delivered successfully to integreat.app!
+                message: A new Integreat version was sucessfully delivered to integreat.app!
                 webhook: $SLACK_URL
       - unless:
           condition: << parameters.production >>
@@ -175,19 +175,19 @@ jobs:
         type: boolean
         default: true
     docker:
-      - image: circleci/ruby:2.6.2
+      - image: circleci/node:12.16.3
     resource_class: small
     steps:
       - checkout
-      - when:
+      - when: # Maybe move conditional to trigger-pipeline param
           condition: << parameters.shouldBumpVersion >>
           steps:
             - run:
                 name: Bump version
-                command: echo "Bump version"
+                command: node .circleci/bump-version.js
       - unless:
           condition: << parameters.shouldBumpVersion >>
           steps:
             - run:
-                name: Skip Bump version
-                command: echo "Skip bump version"
+                name: Skip version bump
+                command: echo "skip version bump"
