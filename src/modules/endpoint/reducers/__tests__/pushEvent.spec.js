@@ -24,6 +24,7 @@ describe('pushEvent', () => {
     const defaultState: CityContentStateType = {
       city: 'augsburg',
       categoriesRouteMapping: {},
+      newsRouteMapping: {},
       eventsRouteMapping: {
         'route-id-0': {
           status: 'ready',
@@ -56,6 +57,7 @@ describe('pushEvent', () => {
   it('should add general events route to eventsRouteMapping', () => {
     const prevState: CityContentStateType = prepareState({
       eventsRouteMapping: {},
+      newsRouteMapping: {},
       resourceCache: { status: 'ready', value: {} }
     })
 

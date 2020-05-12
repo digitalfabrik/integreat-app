@@ -8,7 +8,7 @@ import LanguageModelBuilder from '../../../../testing/builder/LanguageModelBuild
 import watchFetchNews, { fetchNews } from '../watchFetchNews'
 import { expectSaga, testSaga } from 'redux-saga-test-plan'
 import loadCityContent from '../loadCityContent'
-import { LOCAL } from '../../../../routes/news/containers/NewsContainer'
+import { LOCAL } from '../../../../routes/news/containers/WithCustomNewsProvider'
 
 jest.mock('rn-fetch-blob')
 jest.mock('../loadCityContent')
@@ -26,13 +26,11 @@ describe('watchFetchNews', () => {
     const createDataContainer = async (city, language) => {
       const newsBuilder = new LocalNewsModelBuilder('loadCityContent-news', 2, city, language)
       const newsList = newsBuilder.build()
-      const resources = newsBuilder.buildResources()
       const languages = new LanguageModelBuilder(2).build()
 
       const dataContainer = new DefaultDataContainer()
       await dataContainer.setLanguages(city, languages)
-      await dataContainer.setResourceCache(city, language, resources)
-      return { dataContainer, newsList, resources, languages }
+      return { dataContainer, newsList, languages }
     }
 
     it('should put an error action if language is not available for specific news', async () => {

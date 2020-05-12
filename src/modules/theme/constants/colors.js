@@ -7,7 +7,8 @@ export type ColorsType = {
   textColor: string,
   textSecondaryColor: string,
   textDecorationColor: string,
-  backgroundColor: string
+  backgroundColor: string,
+  tunewsColor: string
 }
 
 export const brightColors: ColorsType = {

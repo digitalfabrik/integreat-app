@@ -68,7 +68,7 @@ const cityContentRouteConfigMap: NavigationRouteConfigMap = {
   Events: createNavigationRouteConfig( // $FlowFixMe We don't know why this fails.
     EventsContainer, defaultHeader
   ),
-  News: createNavigationRouteConfig(
+  News: createNavigationRouteConfig( // $FlowFixMe Me either don't know why this fails.
     NewsContainer, defaultHeader
   ),
   PDFViewModal: createNavigationRouteConfig( // $FlowFixMe We don't know why this fails.

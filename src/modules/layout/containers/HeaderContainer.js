@@ -41,6 +41,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 
   const route = state.cityContent?.categoriesRouteMapping[routeKey] || state.cityContent?.eventsRouteMapping[routeKey] || state.cityContent?.newsRouteMapping[routeKey]
   const languages = state.cityContent?.languages
+
   // Note: added this to prevent re-rendering when city is there.
   const cities = state.cities.models || []
   const cityCode = state.cityContent?.city

@@ -1,12 +1,7 @@
 // @flow
 
 import { LocalNewsModel } from '@integreat-app/integreat-api-client'
-import moment from 'moment'
 import seedrandom from 'seedrandom'
-import type { PageResourceCacheStateType } from '../../modules/app/StateType'
-import hashUrl from '../../modules/endpoint/hashUrl'
-import type { FetchMapType } from '../../modules/endpoint/sagas/fetchResourceCache'
-import { createFetchMap } from './util'
 import { difference } from 'lodash'
 
 const MAX_PREDICTABLE_VALUE = 6
@@ -30,29 +25,7 @@ class LocalNewsModelBuilder {
   }
 
   build (): Array<LocalNewsModel> {
-    return this.buildAll().map(all => all.event)
-  }
-
-  buildResources (): { [path: string]: PageResourceCacheStateType } {
-    return this.buildAll().reduce((result, { path, resources }) => {
-      result[path] = resources
-      return result
-    }, {})
-  }
-
-  buildFetchMap (): FetchMapType {
-    return createFetchMap(this.buildResources())
-  }
-
-  createResource (url: string, index: number, lastUpdate: moment): PageResourceCacheStateType {
-    const hash = hashUrl(url)
-    return {
-      [url]: {
-        filePath: `path/to/documentDir/resource-cache/v1/${this._city}/files/${hash}.png`,
-        lastUpdate: moment(lastUpdate).add(this._predictableNumber(index), 'days'),
-        hash
-      }
-    }
+    return this.buildAll().map(all => all.newsItem)
   }
 
   /**
@@ -62,15 +35,15 @@ class LocalNewsModelBuilder {
    *
    * @returns The news and the corresponding resource cache
    */
-  buildAll (): Array<{ path: string, newsIems: LocalNewsModel, resources: { [path: string]: PageResourceCacheStateType } }> {
+  buildAll (): Array<{ path: ?string, newsItem: LocalNewsModel }> {
     return Array.from({ length: this._newsCount }, (x, index) => {
       return {
-        event: new LocalNewsModel({
-          path: null,
+        path: null,
+        newsItem: new LocalNewsModel({
           id: 12,
           title: 'first news item',
           availableLanguages: new Map(difference(LANGUAGES, [this._language]).map(
-            lng => [lng]
+            lng => [lng, null]
           )),
           timestamp: new Date(),
           message: 'This is a sample news'

@@ -13,6 +13,8 @@ import { omit } from 'lodash'
 export default (
   state: CityContentStateType | null = defaultCityContentState, action: StoreActionType
 ): CityContentStateType | null => {
+  console.log(action)
+
   if (action.type === 'FETCH_CATEGORY') {
     const { language, path, depth, key, city } = action.params
     const initializedState = state || createCityContent(city)
@@ -36,6 +38,8 @@ export default (
   } else if (action.type === 'FETCH_NEWS') {
     const { language, path, key, city, type } = action.params
     const initializedState = state || createCityContent(city)
+    console.log({ action })
+
     return {
       ...initializedState,
       newsRouteMapping: {
@@ -74,14 +78,14 @@ export default (
       case 'PUSH_NEWS':
         return pushNews(state, action)
       case 'FETCH_NEWS_FAILED': {
-        const { message, key, allAvailableLanguages, path, ...rest } = action.params
+        const { message, key, allAvailableLanguages, path, type, ...rest } = action.params
         return {
           ...state,
           newsRouteMapping: {
             ...state.newsRouteMapping,
             [key]: allAvailableLanguages
-              ? { status: 'languageNotAvailable', allAvailableLanguages, ...rest }
-              : { status: 'error', message, path, ...rest }
+              ? { status: 'languageNotAvailable', type, allAvailableLanguages, ...rest }
+              : { status: 'error', message, path, type, ...rest }
           }
         }
       }
