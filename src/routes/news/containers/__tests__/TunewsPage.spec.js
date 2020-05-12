@@ -117,7 +117,7 @@ describe('TunewsPage', () => {
       isFetchingFirstTime: undefined,
       t: expect.any(Function),
       i18n: expect.anything(),
-      fetchMoreTunews: expect.any(Function),
+      fetchMoreTunews: expect.any(Function)
     })
   })
 
