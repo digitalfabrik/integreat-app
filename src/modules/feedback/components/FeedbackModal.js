@@ -64,7 +64,7 @@ type StateType = {|
 export class FeedbackModal extends React.Component<PropsType, StateType> {
   state = { feedbackSent: false }
 
-  handleSubmit = (arg: any) => {
+  handleSubmit = (arg: boolean) => {
     this.setState({ feedbackSent: arg })
   }
 
