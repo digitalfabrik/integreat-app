@@ -10,8 +10,6 @@ const bumpVersion = async () => {
 
     const versionFile = await fs.readFile(versionPath)
     const { versionName, versionCode } = JSON.parse(versionFile)
-    console.log(versionName)
-    console.log(versionCode)
 
     const versionNameParts = versionName.split('.')
 
@@ -23,8 +21,6 @@ const bumpVersion = async () => {
     const newVersionName = `${year}.${month}.${versionNameCounter}`
     const newVersionCode = versionCode ? versionCode + 1 : undefined
 
-    console.log(newVersionName)
-    console.log(newVersionCode)
 
     const newVersion = {
       versionName: newVersionName,
@@ -49,8 +45,6 @@ const commitVersionBump = async (path, content, message) => {
   const repo = process.env.CIRCLE_PROJECT_REPONAME
   const branch = process.env.CIRCLE_BRANCH
 
-  console.log('commit')
-
   const appOctokit = new Octokit({
     authStrategy: createAppAuth,
     auth: {
@@ -58,7 +52,6 @@ const commitVersionBump = async (path, content, message) => {
       privateKey
     }
   })
-  console.log('appOctokit')
 
   const installation = await appOctokit.apps.getRepoInstallation({
     owner,
