@@ -133,6 +133,7 @@ jobs:
           root: ./
           paths:
             - dist
+            - node_modules
 
   deliver:
     parameters:
@@ -178,12 +179,8 @@ jobs:
       - image: circleci/node:12.16.3
     resource_class: small
     steps:
-      - checkout
-      - restore_cache:
-          name: Restore Yarn Package Cache
-          keys:
-            - 2-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
-            - 2-yarn-{{ arch }}-
+      - attach_workspace:
+          at: .
       - when: # Maybe move conditional to trigger-pipeline param
           condition: << parameters.shouldBumpVersion >>
           steps:
