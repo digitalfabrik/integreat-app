@@ -1,6 +1,7 @@
 // @flow
 
 import { LocationModel, PoiModel } from '@integreat-app/integreat-api-client'
+import moment from 'moment'
 
 const map = {}
 map.ID1 = 'Farm1'
@@ -14,8 +15,8 @@ const pois = [
     thumbnail: 'test',
     availableLanguages: map,
     excerpt: 'test',
-    location: LocationModel,
-    lastUpdate: require('moment'),
+    location: new LocationModel('name', 'address', 'town', '123456', '15', '15'),
+    lastUpdate: moment.tz('GMT'),
     hash: 'test'
   }),
   new PoiModel({
@@ -25,8 +26,8 @@ const pois = [
     thumbnail: 'test',
     availableLanguages: map,
     excerpt: 'test',
-    location: LocationModel,
-    lastUpdate: require('moment'),
+    location: new LocationModel('name', 'address', 'town', '123456', '15', '15'),
+    lastUpdate: moment.tz('GMT'),
     hash: 'test'
   })
 ]
