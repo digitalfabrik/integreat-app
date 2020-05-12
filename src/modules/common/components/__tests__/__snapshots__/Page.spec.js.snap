@@ -18,12 +18,10 @@ exports[`Page should render 1`] = `
     }
     onInternalLinkClick={[Function]}
   />
-  <Page__StyledContainer>
-    <Translate(LastUpdateInfo)
-      language="en"
-      lastUpdate={"2016-01-07T08:36:24.000Z"}
-      withText={true}
-    />
-  </Page__StyledContainer>
+  <Translate(LastUpdateInfo)
+    language="en"
+    lastUpdate={"2016-01-07T08:36:24.000Z"}
+    withText={true}
+  />
 </Fragment>
 `;

@@ -27,7 +27,7 @@ Object {
     "thunk": [Function],
   },
   "LOCAL_NEWS_DETAILS": Object {
-    "path": "/:city/:language/news/local/:id",
+    "path": "/:city/:language/news/local/:newsId",
     "thunk": [Function],
   },
   "MAIN_DISCLAIMER": "/disclaimer",
