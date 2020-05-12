@@ -179,6 +179,11 @@ jobs:
     resource_class: small
     steps:
       - checkout
+      - restore_cache:
+          name: Restore Yarn Package Cache
+          keys:
+            - 2-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+            - 2-yarn-{{ arch }}-
       - when: # Maybe move conditional to trigger-pipeline param
           condition: << parameters.shouldBumpVersion >>
           steps:
