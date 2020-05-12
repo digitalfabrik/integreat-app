@@ -161,9 +161,6 @@ jobs:
             echo "CPU count is ${TOTAL_CPUS}"
       - attach_workspace:
           at: /tmp/output
-#      - run:
-#          name: Add web.integreat-app.de to known hosts
-#          command: ssh-keyscan -H web.integreat-app.de >> ~/.ssh/known_hosts
       - when:
           condition: << parameters.production >>
           steps:
