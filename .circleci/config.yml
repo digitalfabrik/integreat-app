@@ -29,26 +29,17 @@ workflows:
               only:
                 - develop
 
-  api-triggered-debug-delivery: # Workflow for manual debug delivery without version bump
-    when: << pipeline.parameters.api_triggered >> && !<< pipeline.parameters.production >>
+  api-triggered-delivery: # Workflow for manual delivery
+    when: << pipeline.parameters.api_triggered >>
     jobs:
       - build:
-          production: false
-      - deliver:
-          production: false
-          requires:
-            - build
-
-  api-triggered-production-delivery: # Workflow for manual production delivery
-    when: << pipeline.parameters.api_triggered >> && << pipeline.parameters.production >>
-    jobs:
-      - build:
-          production: true
+          production: << pipeline.parameters.production >>
       - bump_version:
+          shouldBumpVersion: << pipeline.parameters.production >>
           requires:
             - build
       - deliver:
-          production: true
+          production: << pipeline.parameters.production >>
           requires:
             - build
             - bump_version
@@ -178,11 +169,25 @@ jobs:
                 command: sftp -v -o StrictHostKeyChecking=no web-test@web.integreat-app.de:/webnext.integreat-app.de \<<< $'put -r /tmp/output/dist/*'
 
   bump_version:
+    parameters:
+      shouldBumpVersion:
+        description:
+        type: boolean
+        default: true
     docker:
       - image: circleci/ruby:2.6.2
     resource_class: small
     steps:
       - checkout
-      - run: # TODO add production filter
-          name: Bump version
-          command: ruby
+      - when:
+          condition: << parameters.shouldBumpVersion >>
+          steps:
+            - run:
+                name: Bump version
+                command: echo "Bump version"
+      - unless:
+          condition: << parameters.shouldBumpVersion >>
+          steps:
+            - run:
+                name: Skip Bump version
+                command: echo "Skip bump version"
