@@ -22,8 +22,7 @@ const tunewsDetailsRoute: Route = {
   path: '/:city/:language/news/tu-news/:newsId',
   thunk: async (dispatch, getState) => {
     const state = getState()
-    const newsId = state.location.payload.newsId
-    const { city, language } = state.location.payload
+    const { city, language, newsId } = state.location.payload
 
     await Promise.all([
       fetchData(createTunewsElementEndpoint(tunewsApiBaseUrl), dispatch, state.tunewsElement, { id: newsId }),

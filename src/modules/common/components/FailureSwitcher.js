@@ -9,7 +9,7 @@ import CategoriesRouteConfig from '../../app/route-configs/CategoriesRouteConfig
 import EventsRouteConfig from '../../app/route-configs/EventsRouteConfig'
 import ExtrasRouteConfig from '../../app/route-configs/ExtrasRouteConfig'
 import PoisRouteConfig from '../../app/route-configs/PoisRouteConfig'
-import LocalNewsDetailsRouteConfig from '../../app/route-configs/LocalNewsDetailsRouteConfig'
+import LocalNewsRouteConfig from '../../app/route-configs/LocalNewsRouteConfig'
 import TunewsListRouteConfig from '../../app/route-configs/TunewsListRouteConfig'
 
 type PropsType = {|
@@ -24,7 +24,7 @@ export class FailureSwitcher extends React.Component<PropsType> {
    * @return {*}
    */
   static renderContentNotFoundComponent (error: ContentNotFoundError): React.Node {
-    const { city, language, id } = error
+    const { city, language } = error
     switch (error.type) {
       case 'category':
         return <Failure goToPath={new CategoriesRouteConfig().getRoutePath({ city, language })}
@@ -35,7 +35,7 @@ export class FailureSwitcher extends React.Component<PropsType> {
                         goToMessage='goTo.events'
                         errorMessage='notFound.event' />
       case 'newsItem':
-        return <Failure goToPath={new LocalNewsDetailsRouteConfig().getRoutePath({ city, language, id })}
+        return <Failure goToPath={new LocalNewsRouteConfig().getRoutePath({ city, language })}
                         goToMessage='goTo.news'
                         errorMessage='notFound.newsItem' />
       case 'tunewsItem':

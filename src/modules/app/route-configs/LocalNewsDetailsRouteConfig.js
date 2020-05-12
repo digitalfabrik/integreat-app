@@ -20,13 +20,13 @@ type RequiredPayloadsType = {| localNewsDetails: Payload<LocalNewsModel> |}
 export const LOCAL_NEWS_DETAILS_ROUTE = 'LOCAL_NEWS_DETAILS'
 
 const localNewsDetailsRoute: Route = {
-  path: '/:city/:language/news/local/:id',
+  path: '/:city/:language/news/local/:newsId',
   thunk: async (dispatch, getState) => {
     const state = getState()
-    const { city, language, id } = state.location.payload
+    const { city, language, newsId } = state.location.payload
 
     await Promise.all([
-      fetchData(createLocalNewsElementEndpoint(cmsApiBaseUrl), dispatch, state.localNewsElement, { city, language, id }),
+      fetchData(createLocalNewsElementEndpoint(cmsApiBaseUrl), dispatch, state.localNewsElement, { city, language, id: newsId }),
       fetchData(createCitiesEndpoint(cmsApiBaseUrl), dispatch, state.cities),
       fetchData(createEventsEndpoint(cmsApiBaseUrl), dispatch, state.events, { city, language }),
       fetchData(createLanguagesEndpoint(cmsApiBaseUrl), dispatch, state.languages, { city, language })

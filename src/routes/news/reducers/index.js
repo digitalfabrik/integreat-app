@@ -2,7 +2,7 @@
 
 import { Payload, TunewsModel, TUNEWS_ENDPOINT_NAME } from '@integreat-app/integreat-api-client'
 import type { PayloadDataType } from '../../../modules/app/PayloadDataType'
-import { START_FETCH_TUNEWS, FINISH_FETCH_TUNEWS, RESET_TUNEWS } from '../actions/fetchMoreTunews'
+import { START_FETCH_TUNEWS, FINISH_FETCH_TUNEWS } from '../actions/fetchMoreTunews'
 import { startFetchMoreActionName } from '../actions/startFetchMoreAction'
 import { finishFetchMoreActionName } from '../actions/finishFetchMoreAction'
 
@@ -43,15 +43,6 @@ const fetchTunewsReducer = (
         requestUrl: action.payload.requestUrl,
         isFetching: state.isFetching,
         hasMore: action.payload.data.length !== 0,
-        isFetchingFirstTime: false
-      }
-    }
-    case RESET_TUNEWS: {
-      return {
-        data: [],
-        hasMore: true,
-        requestUrl: false,
-        isFetching: false,
         isFetchingFirstTime: false
       }
     }

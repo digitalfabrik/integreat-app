@@ -6,7 +6,6 @@ import type { Route } from 'redux-first-router'
 import {
   createCitiesEndpoint,
   createEventsEndpoint,
-  createLocalNewsEndpoint,
   createLanguagesEndpoint,
   EventModel,
   Payload

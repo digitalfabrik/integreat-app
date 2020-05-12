@@ -6,13 +6,13 @@ import { LocalNewsModel } from '@integreat-app/integreat-api-client'
 import CleanLink from '../../../modules/common/components/CleanLink'
 import LastUpdateInfo from './../../../modules/common/components/LastUpdateInfo'
 import type { TFunction } from 'react-i18next'
-import { textTruncator } from './../../../modules/theme/constants/helpers'
+import textTruncator from './../../../modules/common/utils/textTruncator'
 
 const TRUNCATE_LETTERS_COUNT = 30
 
 const Link = styled(CleanLink)`
   display: flex;
-  background-color: white;
+  background-color: ${({ theme }) => (theme.colors.backgroundColor)};
 `
 
 const ReadMoreLink = styled(CleanLink)`
@@ -75,16 +75,14 @@ class NewsElement extends React.PureComponent<PropsType> {
   renderContent (itemPath: string): React.Node {
     const { newsItem, language, t } = this.props
     return (
-      <>
-        <Description>
-          <Title>{newsItem.title}</Title>
-          <Body>{newsItem && textTruncator(newsItem.message, TRUNCATE_LETTERS_COUNT)}</Body>
-          <StyledContainer>
-            <StyledDate lastUpdate={newsItem.timestamp} language={language} />
-            <ReadMoreLink to={itemPath}>{t('readMore')} ></ReadMoreLink>
-          </StyledContainer>
-        </Description>
-      </>
+      <Description>
+        <Title>{newsItem.title}</Title>
+        <Body>{textTruncator(newsItem.message, TRUNCATE_LETTERS_COUNT)}</Body>
+        <StyledContainer>
+          <StyledDate lastUpdate={newsItem.timestamp} language={language} />
+          <ReadMoreLink to={itemPath}>{t('readMore')} ></ReadMoreLink>
+        </StyledContainer>
+      </Description>
     )
   }
 
@@ -95,7 +93,7 @@ class NewsElement extends React.PureComponent<PropsType> {
     return (
       <StyledNewsElement>
         <Link to={itemPath}>
-          {!!newsItem.title && this.renderContent(itemPath)}
+          {this.renderContent(itemPath)}
         </Link>
       </StyledNewsElement>
     )

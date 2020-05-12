@@ -10,7 +10,6 @@ import {
   createCategoriesEndpoint,
   createCitiesEndpoint,
   createEventsEndpoint,
-  createLocalNewsEndpoint,
   createLanguagesEndpoint,
   Payload
 } from '@integreat-app/integreat-api-client'

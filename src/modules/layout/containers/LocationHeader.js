@@ -68,8 +68,7 @@ export class LocationHeader extends React.Component<PropsType> {
     const currentRoute = location.type
 
     const isEventsActive = events ? events.length > 0 : false
-    const isCategoriesEnabled = isExtrasEnabled || isEventsEnabled
-    const isNewsActive = true
+    const isCategoriesEnabled = isExtrasEnabled || isEventsEnabled || isNewsEnabled
 
     const items: Array<Element<typeof HeaderNavigationItem>> = []
 
@@ -104,9 +103,9 @@ export class LocationHeader extends React.Component<PropsType> {
         <HeaderNavigationItem
           key='news'
           href={newsUrl}
-          selected={[LOCAL_NEWS_ROUTE, TUNEWS_LIST_ROUTE, TUNEWS_DETAILS_ROUTE, LOCAL_NEWS_DETAILS_ROUTE, LOCAL_NEWS_DETAILS_ROUTE].includes(currentRoute)}
+          selected={[LOCAL_NEWS_ROUTE, TUNEWS_LIST_ROUTE, TUNEWS_DETAILS_ROUTE, LOCAL_NEWS_DETAILS_ROUTE].includes(currentRoute)}
           text={t('news')}
-          active={isNewsActive}
+          active
         />
       )
     }
