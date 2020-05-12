@@ -61,10 +61,7 @@ class LocalNewsDetailsRouteConfig implements RouteConfig<LocalNewsDetailsType, R
 
   getMetaDescription = () => null
 
-  getFeedbackTargetInformation = ({ payloads, location }) => {
-    const localNewsDetails = payloads.localNewsDetails && payloads.localNewsDetails.data
-    return localNewsDetails ? { title: localNewsDetails.title } : null
-  }
+  getFeedbackTargetInformation = () => null
 }
 
 export default LocalNewsDetailsRouteConfig

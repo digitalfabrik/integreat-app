@@ -59,7 +59,7 @@ class TunewsRouteConfig implements RouteConfig<TunewsListRouteParamsType, Requir
 
   getMetaDescription = () => null
 
-  getFeedbackTargetInformation = ({ payloads, location }) => null
+  getFeedbackTargetInformation = () => null
 }
 
 export default TunewsRouteConfig
