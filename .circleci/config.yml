@@ -15,19 +15,19 @@ parameters:
 
 workflows:
   version: 2
-  commit: # Builds every commit. Delivers to webnext on develop.
-    unless: << pipeline.parameters.api_triggered >>
-    jobs:
-      - build:
-          production: false
-      - deliver:
-          production: false
-          requires:
-            - build
-          filters:
-            branches:
-              only:
-                - develop
+#  commit: # Builds every commit. Delivers to webnext on develop.
+#    unless: << pipeline.parameters.api_triggered >>
+#    jobs:
+#      - build:
+#          production: false
+#      - deliver:
+#          production: false
+#          requires:
+#            - build
+#          filters:
+#            branches:
+#              only:
+#                - develop
 
   api-triggered-delivery: # Workflow for manual delivery
     when: << pipeline.parameters.api_triggered >>
@@ -179,6 +179,7 @@ jobs:
       - image: circleci/node:12.16.3
     resource_class: small
     steps:
+      - checkout
       - attach_workspace:
           at: .
       - when: # Maybe move conditional to trigger-pipeline param
