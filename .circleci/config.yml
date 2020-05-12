@@ -176,7 +176,7 @@ jobs:
           steps:
             - run:
                 name: Debug release
-                command: sftp -v -o StrictHostKeyChecking=no web-test@web.integreat-app.de:/webnext.integreat-app.de \<<< $'put -r dist/*'
+                command: sftp -v -o StrictHostKeyChecking=no web-test@web.integreat-app.de:/webnext.integreat-app.de \<<< $'put -r /tmp/output/dist/*'
 
   bump_version:
     docker:
