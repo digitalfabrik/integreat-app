@@ -50,8 +50,7 @@ describe('PaginatedList', () => {
         items={tunews}
         renderItem={renderItem(language)}
         city={city}
-        fetchTunews={() => {}}
-        resetTunews={() => {}}
+        fetchMoreTunews={() => {}}
         hasMore
         isFetching={false}
         noItemsMessage={t('currentlyNoTunews')}

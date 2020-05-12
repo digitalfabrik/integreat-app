@@ -7,8 +7,7 @@ import type Moment from 'moment'
 import styled from 'styled-components'
 
 const TimeStamp = styled.p`
-  margin: 0 !important;
-  padding: 0;
+  padding-top: 15px;
   color: ${props => props.theme.colors.textSecondaryColor};
   font-family: ${props => props.theme.fonts.contentFontFamily};
   font-size: ${props => props.theme.fonts.contentFontSize};
@@ -18,7 +17,7 @@ type PropsType = {|
   lastUpdate: Moment,
   t: TFunction,
   language: string,
-  withText?: string
+  withText: boolean
 |}
 
 export class LastUpdateInfo extends React.PureComponent<PropsType> {

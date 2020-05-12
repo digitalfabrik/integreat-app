@@ -6,7 +6,7 @@ import { TunewsModel } from '@integreat-app/integreat-api-client'
 import CleanLink from '../../../modules/common/components/CleanLink'
 import LastUpdateInfo from './../../../modules/common/components/LastUpdateInfo'
 import type { TFunction } from 'react-i18next'
-import { textTruncator } from './../../../modules/theme/constants/helpers'
+import textTruncator from './../../../modules/common/utils/textTruncator'
 
 const Link = styled(CleanLink)`
   display: flex;

@@ -77,8 +77,7 @@ describe('TunewsListPage', () => {
         hasMore
         isFetchingFirstTime={false}
         isFetching={false}
-        resetTunews={() => {}}
-        fetchTunews={() => {}}
+        fetchMoreTunews={() => {}}
         cities={cities}
       />
     )

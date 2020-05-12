@@ -24,8 +24,7 @@ type PropsType = {|
   isFetching: boolean,
   isFetchingFirstTime: boolean,
   hasMore: boolean,
-  fetchTunews: () => void,
-  resetTunews: () => void
+  fetchMoreTunews: () => void
 |}
 
 export class TunewsListPage extends React.PureComponent<PropsType> {

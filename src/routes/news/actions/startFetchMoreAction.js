@@ -2,7 +2,7 @@
 
 import { createAction } from 'redux-actions'
 import { Payload } from '@integreat-app/integreat-api-client'
-import type { PayloadDataType } from '../PayloadDataType'
+import type { PayloadDataType } from '../../../modules/app/PayloadDataType'
 
 export type StartFetchMoreActionType<T: PayloadDataType> = { type: string, payload: Payload<T> }
 

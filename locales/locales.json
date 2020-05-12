@@ -851,26 +851,6 @@
       "currentlyNoEvents": "Güncel bir etkinlik yok."
     }
   },
-  "news": {
-    "de": {
-      "local": "LOKALE NEWS",
-      "readMore": "Weiterlesen",
-      "currentlyNoNews": "Es gibt aktuell keine Veranstaltungen.",
-      "eNewsNo": "E-news No"
-    },
-    "ar": {
-      "local": "الأخبار المحلية",
-      "currentlyNoNews": "ليست هناك أخبار متوفرة حاليا",
-      "readMore": "المزيد",
-      "eNewsNo": "E-news No"
-    },
-    "en": {
-      "local": "LOCAL NEWS",
-      "readMore": "Read more",
-      "currentlyNoNews": "No news is currently available.",
-      "eNewsNo": "E-news No"
-    }
-  },
   "extras": {
     "de": {
       "offers": "Angebote"
@@ -1801,7 +1781,6 @@
       "categories": "Kategorien",
       "events": "Veranstaltungen",
       "noEvents": "Keine Veranstaltungen",
-      "news": "Nachrichten",
       "noLanguages": "Nicht verfügbar in anderen Sprachen",
       "noTranslation": "Keine Übersetzung verfügbar",
       "search": "Suchen",
@@ -1820,7 +1799,6 @@
       "offers": "العروض",
       "categories": "الفئات",
       "events": "الفعاليات",
-      "news": "الأخبار",
       "noEvents": "لا توجد فعاليات",
       "noLanguages": "غير متوفر بلغات أخرى",
       "noTranslation": "لا توجد ترجمة متاحة",
@@ -1840,7 +1818,6 @@
       "offers": "Offers",
       "categories": "Categories",
       "events": "Events",
-      "news": "News",
       "noEvents": "No events",
       "noLanguages": "Not available in other languages",
       "noTranslation": "No translation available",
