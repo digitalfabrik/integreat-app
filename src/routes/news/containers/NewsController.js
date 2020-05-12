@@ -8,7 +8,7 @@ import { redirect } from 'redux-first-router'
 import type { Dispatch } from 'redux'
 import type { StateType } from '../../../modules/app/StateType'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
-import { TUNEWS_LIST_ROUTE } from './../../../modules/app/route-configs/TunewsListRouteConfig'
+import { TUNEWS_ROUTE } from './../../../modules/app/route-configs/TunewsRouteConfig'
 import { TUNEWS_DETAILS_ROUTE } from './../../../modules/app/route-configs/TunewsDetailsRouteConfig'
 import { CATEGORIES_ROUTE } from './../../../modules/app/route-configs/CategoriesRouteConfig'
 import { LOCAL_NEWS_ROUTE } from './../../../modules/app/route-configs/LocalNewsRouteConfig'
@@ -40,7 +40,7 @@ export class NewsController extends React.Component<PropsType> {
       if (type === TUNEWS_DETAILS_ROUTE) {
         return
       }
-      redirect({ payload: { language: language, city: city }, type: TUNEWS_LIST_ROUTE })
+      redirect({ payload: { language: language, city: city }, type: TUNEWS_ROUTE })
     } else if (currentCity && currentCity.pushNotificationsEnabled && !currentCity.tunewsEnabled) {
       // if localnews is enabled only and it's not localNewsDetails route redirect to localNews route
       if (type === LOCAL_NEWS_DETAILS_ROUTE) {

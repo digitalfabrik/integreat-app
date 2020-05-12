@@ -5,15 +5,15 @@ import { mount, shallow } from 'enzyme'
 import moment from 'moment-timezone'
 import type Moment from 'moment'
 import configureMockStore from 'redux-mock-store'
-import ConnectedTunewsListPage, { TunewsListPage } from '../TunewsList'
+import ConnectedTunewsDetailsPage, { TunewsDetailsPage } from '../TunewsDetailsPage'
 import { CityModel, TunewsModel } from '@integreat-app/integreat-api-client'
 import { Provider } from 'react-redux'
 import createLocation from '../../../../createLocation'
-import { TUNEWS_LIST_ROUTE } from '../../../../modules/app/route-configs/TunewsListRouteConfig'
+import { TUNEWS_ROUTE } from '../../../../modules/app/route-configs/TunewsRouteConfig'
 import theme from '../../../../modules/theme/constants/theme'
 import { ThemeProvider } from 'styled-components'
 
-describe('TunewsListPage', () => {
+describe('TunewsDetailsPage', () => {
   const cities = [
     new CityModel({
       name: 'Augsburg',
@@ -54,31 +54,21 @@ describe('TunewsListPage', () => {
     eNewsNo: 'tun0000009902'
   })
 
-  const tunewsItem1 = createTunewsItemModel(1,
+  const tunewsElementDetails = createTunewsItemModel(1,
     moment.tz('2020-01-20 12:04:22+00:00', 'GMT'))
-  const tunewsItem2 = createTunewsItemModel(2,
-    moment.tz('2020-01-24 10:05:22+00:00', 'GMT'))
-  const tunewsItem3 = createTunewsItemModel(3,
-    moment.tz('2020-01-22 11:06:22+00:00', 'GMT'))
 
-  const tunews = [tunewsItem1, tunewsItem2, tunewsItem3]
   const city = 'augsburg'
   const language = 'en'
   const t = (key: ?string): string => key || ''
 
-  it('should match snapshot and render TunewsList', () => {
+  it('should match snapshot and render TunewsDetailsPage', () => {
     const wrapper = shallow(
-      <TunewsListPage
-        tunews={tunews}
+      <TunewsDetailsPage
+        tunewsElementDetails={tunewsElementDetails}
         language={language}
         city={city}
-        path='/path/to/route'
         t={t}
-        hasMore
-        isFetchingFirstTime={false}
-        isFetching={false}
-        fetchMoreTunews={() => {}}
-        cities={cities}
+        path='/path/to/route'
       />
     )
     expect(wrapper).toMatchSnapshot()
@@ -87,37 +77,32 @@ describe('TunewsListPage', () => {
   it('should map state to props', () => {
     const location = createLocation({
       payload: { city: city, language: language },
-      pathname: '/augsburg/en/news/tu-news',
-      type: TUNEWS_LIST_ROUTE
+      pathname: '/augsburg/en/news/tu-news/1',
+      type: TUNEWS_ROUTE
     })
 
     const mockStore = configureMockStore()
     const store = mockStore({
       location: location,
-      cities: { data: cities },
-      tunews: { data: [], hasMore: false }
+      cities: { data: cities }
     })
 
     const tree = mount(
       <ThemeProvider theme={theme}>
         <Provider store={store}>
-          <ConnectedTunewsListPage tunews={tunews} cities={cities} />
+          <ConnectedTunewsDetailsPage tunewsElementDetails={tunewsElementDetails} />
         </Provider>
       </ThemeProvider>
     )
 
-    expect(tree.find(TunewsListPage).props()).toEqual({
-      tunews,
-      cities,
+    expect(tree.find(TunewsDetailsPage).props()).toEqual({
+      tunewsElementDetails,
       language,
-      path: '/augsburg/en/news/tu-news',
+      path: '/augsburg/en/news/tu-news/1',
       city,
-      hasMore: false,
-      isFetching: undefined,
-      isFetchingFirstTime: undefined,
       t: expect.any(Function),
       i18n: expect.anything(),
-      fetchMoreTunews: expect.any(Function),
+      dispatch: expect.any(Function)
     })
   })
 

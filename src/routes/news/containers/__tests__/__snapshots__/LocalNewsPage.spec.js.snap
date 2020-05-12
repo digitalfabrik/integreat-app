@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`NewsPage should match snapshot and render NewsPage 1`] = `
+exports[`LocalNewsPage should match snapshot and render LocalNewsPage 1`] = `
 <Connect(NewsController)>
   <NewsTabs
     cities={

@@ -27,13 +27,13 @@ type PropsType = {|
   fetchMoreTunews: () => void
 |}
 
-export class TunewsListPage extends React.PureComponent<PropsType> {
-  renderTunewsElement = (language: string) => (newsItem: TunewsModel, city: string) => {
+export class TunewsPage extends React.PureComponent<PropsType> {
+  renderTunewsElement = (language: string) => (localNewsItem: TunewsModel, city: string) => {
     const { path, t } = this.props
     return (
       <TunewsElement
-        newsItem={newsItem}
-        key={newsItem.id}
+        newsItem={localNewsItem}
+        key={localNewsItem.id}
         path={path}
         t={t}
         city={city}
@@ -80,4 +80,4 @@ const mapStateToProps = (state: StateType) => ({
 export default compose(
   connect<*, *, *, *, *, *>(mapStateToProps, { fetchMoreTunews }),
   withTranslation('news')
-)(TunewsListPage)
+)(TunewsPage)

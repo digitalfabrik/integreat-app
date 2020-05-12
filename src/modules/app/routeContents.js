@@ -16,13 +16,13 @@ import I18nRedirectPage from '../../routes/i18nRedirect/containers/I18nRedirectP
 import LandingPage from '../../routes/landing/containers/LandingPage'
 import EventsPage from '../../routes/events/containers/EventsPage'
 import { LOCAL_NEWS_ROUTE } from './route-configs/LocalNewsRouteConfig'
-import NewsPage from '../../routes/news/containers/NewsPage'
+import LocalNewsPage from '../../routes/news/containers/LocalNewsPage'
 import { LOCAL_NEWS_DETAILS_ROUTE } from './route-configs/LocalNewsDetailsRouteConfig'
-import LocalNewsDetailsPage from '../../routes/news/containers/LocalNewsDetails'
+import LocalNewsDetailsPage from '../../routes/news/containers/LocalNewsDetailsPage'
 import { TUNEWS_DETAILS_ROUTE } from './route-configs/TunewsDetailsRouteConfig'
-import TunewsDetailsPage from '../../routes/news/containers/TunewsDetails'
-import { TUNEWS_LIST_ROUTE } from './route-configs/TunewsListRouteConfig'
-import TunewsListPage from '../../routes/news/containers/TunewsList'
+import TunewsDetailsPage from '../../routes/news/containers/TunewsDetailsPage'
+import { TUNEWS_ROUTE } from './route-configs/TunewsRouteConfig'
+import TunewsPage from '../../routes/news/containers/TunewsPage'
 import SprungbrettExtraPage from '../../routes/sprungbrett/containers/SprungbrettExtraPage'
 import WohnenExtraPage from '../../routes/wohnen/containers/WohnenExtraPage'
 import ExtrasPage from '../../routes/extras/containers/ExtrasPage'
@@ -40,9 +40,9 @@ const routeContents = {
   [I18N_REDIRECT_ROUTE]: I18nRedirectPage,
   [LANDING_ROUTE]: LandingPage,
   [EVENTS_ROUTE]: EventsPage,
-  [LOCAL_NEWS_ROUTE]: NewsPage,
+  [LOCAL_NEWS_ROUTE]: LocalNewsPage,
   [LOCAL_NEWS_DETAILS_ROUTE]: LocalNewsDetailsPage,
-  [TUNEWS_LIST_ROUTE]: TunewsListPage,
+  [TUNEWS_ROUTE]: TunewsPage,
   [TUNEWS_DETAILS_ROUTE]: TunewsDetailsPage,
   [SPRUNGBRETT_ROUTE]: SprungbrettExtraPage,
   [WOHNEN_ROUTE]: WohnenExtraPage,

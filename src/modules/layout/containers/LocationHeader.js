@@ -16,7 +16,7 @@ import CategoriesRouteConfig, { CATEGORIES_ROUTE } from '../../app/route-configs
 import EventsRouteConfig, { EVENTS_ROUTE } from '../../app/route-configs/EventsRouteConfig'
 import LocalNewsRouteConfig, { LOCAL_NEWS_ROUTE } from '../../app/route-configs/LocalNewsRouteConfig'
 import { LOCAL_NEWS_DETAILS_ROUTE } from '../../app/route-configs/LocalNewsDetailsRouteConfig'
-import TunewsListRouteConfig, { TUNEWS_LIST_ROUTE } from '../../app/route-configs/TunewsListRouteConfig'
+import TunewsRouteConfig, { TUNEWS_ROUTE } from '../../app/route-configs/TunewsRouteConfig'
 import { TUNEWS_DETAILS_ROUTE } from '../../app/route-configs/TunewsDetailsRouteConfig'
 import SearchRouteConfig from '../../app/route-configs/SearchRouteConfig'
 import type { LocationState } from 'redux-first-router'
@@ -97,13 +97,13 @@ export class LocationHeader extends React.Component<PropsType> {
     }
 
     if (isNewsEnabled) {
-      const newsUrl = pushNotificationsEnabled ? new LocalNewsRouteConfig().getRoutePath({ city, language }) : new TunewsListRouteConfig().getRoutePath({ city, language })
+      const newsUrl = pushNotificationsEnabled ? new LocalNewsRouteConfig().getRoutePath({ city, language }) : new TunewsRouteConfig().getRoutePath({ city, language })
 
       items.push(
         <HeaderNavigationItem
           key='news'
           href={newsUrl}
-          selected={[LOCAL_NEWS_ROUTE, TUNEWS_LIST_ROUTE, TUNEWS_DETAILS_ROUTE, LOCAL_NEWS_DETAILS_ROUTE].includes(currentRoute)}
+          selected={[LOCAL_NEWS_ROUTE, TUNEWS_ROUTE, TUNEWS_DETAILS_ROUTE, LOCAL_NEWS_DETAILS_ROUTE].includes(currentRoute)}
           text={t('news')}
           active
         />

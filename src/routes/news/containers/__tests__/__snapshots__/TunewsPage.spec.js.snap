@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TunewsListPage should match snapshot and render TunewsList 1`] = `
+exports[`TunewsPage should match snapshot and render TunewsPage 1`] = `
 <Connect(NewsController)>
   <NewsTabs
     cities={
