@@ -44,7 +44,7 @@ exports[`EventsPage should match snapshot and render EventList 1`] = `
           "_excerpt": "excerpt",
           "_featuredImage": undefined,
           "_hash": "2fe6283485a93932",
-          "_lastUpdate": "2016-01-07T08:36:24.000Z",
+          "_lastUpdate": "2016-01-07T09:36:24.000Z",
           "_location": LocationModel {
             "_address": "address",
             "_latitude": undefined,
@@ -71,7 +71,7 @@ exports[`EventsPage should match snapshot and render EventList 1`] = `
           "_excerpt": "excerpt",
           "_featuredImage": undefined,
           "_hash": "2fe6283485b93932",
-          "_lastUpdate": "2016-01-07T08:36:24.000Z",
+          "_lastUpdate": "2016-01-07T09:36:24.000Z",
           "_location": LocationModel {
             "_address": "address",
             "_latitude": undefined,
@@ -98,7 +98,7 @@ exports[`EventsPage should match snapshot and render EventList 1`] = `
           "_excerpt": "excerpt",
           "_featuredImage": undefined,
           "_hash": "2fe6283485c93932",
-          "_lastUpdate": "2016-01-07T08:36:24.000Z",
+          "_lastUpdate": "2016-01-07T09:36:24.000Z",
           "_location": LocationModel {
             "_address": "address",
             "_latitude": undefined,

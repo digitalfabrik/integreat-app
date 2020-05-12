@@ -112,9 +112,9 @@ exports[`FeedbackModal should match snapshot 1`] = `
               "_longitude": undefined,
               "_name": "Augsburg",
               "_prefix": undefined,
-              "_pushNotificationsEnabled": undefined,
+              "_pushNotificationsEnabled": false,
               "_sortingName": "Augsburg",
-              "_tunewsEnabled": undefined,
+              "_tunewsEnabled": false,
             },
           ]
         }

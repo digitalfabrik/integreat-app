@@ -16,9 +16,9 @@ Array [
     "_longitude": undefined,
     "_name": "Notlive",
     "_prefix": undefined,
-    "_pushNotificationsEnabled": undefined,
+    "_pushNotificationsEnabled": false,
     "_sortingName": "Nonlive",
-    "_tunewsEnabled": undefined,
+    "_tunewsEnabled": false,
   },
 ]
 `;
@@ -35,9 +35,9 @@ Array [
     "_longitude": undefined,
     "_name": "City",
     "_prefix": undefined,
-    "_pushNotificationsEnabled": undefined,
+    "_pushNotificationsEnabled": false,
     "_sortingName": "City",
-    "_tunewsEnabled": undefined,
+    "_tunewsEnabled": false,
   },
   CityModel {
     "_aliases": undefined,
@@ -49,9 +49,9 @@ Array [
     "_longitude": undefined,
     "_name": "Other city",
     "_prefix": undefined,
-    "_pushNotificationsEnabled": undefined,
+    "_pushNotificationsEnabled": false,
     "_sortingName": "OtherCity",
-    "_tunewsEnabled": undefined,
+    "_tunewsEnabled": false,
   },
   CityModel {
     "_aliases": undefined,
@@ -63,9 +63,9 @@ Array [
     "_longitude": undefined,
     "_name": "Yet another city",
     "_prefix": undefined,
-    "_pushNotificationsEnabled": undefined,
+    "_pushNotificationsEnabled": false,
     "_sortingName": "Yetanothercity",
-    "_tunewsEnabled": undefined,
+    "_tunewsEnabled": false,
   },
 ]
 `;
