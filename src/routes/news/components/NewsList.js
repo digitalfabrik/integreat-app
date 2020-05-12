@@ -1,9 +1,12 @@
 // @flow
 
 import * as React from 'react'
-import { View, ActivityIndicator, ScrollView } from 'react-native'
+import { View, ScrollView } from 'react-native'
 import { TFunction, withTranslation } from 'react-i18next'
-import { CityModel, LocalNewsModel, TunewsModel } from '@integreat-app/integreat-api-client'
+import {
+  LocalNewsModel,
+  TunewsModel
+} from '@integreat-app/integreat-api-client'
 import ContentNotFoundError from '../../../modules/error/ContentNotFoundError'
 import List from './List'
 import Failure from '../../../modules/error/components/Failure'
@@ -17,7 +20,8 @@ import ErrorCodes from '../../../modules/error/ErrorCodes'
 import NewsListItem from './NewsListItem'
 import headerImage from '../assets/tu-news-header-details-icon.svg'
 import styled from 'styled-components/native'
-import { INTERNATIONAL } from '../containers/NewsContainer'
+import type { StyledComponent } from 'styled-components'
+import { INTERNATIONAL } from '../containers/WithCustomNewsProvider'
 import { contentAlignment } from '../../../modules/i18n/contentDirection'
 
 const Container: StyledComponent<{}, {}, *> = styled.View`
@@ -70,7 +74,11 @@ const NewsDetailsTitle: StyledComponent<{}, ThemeType, *> = styled.Text`
   margin-bottom: 15px;
 `
 
-const NewsDetailsContent: StyledComponent<{}, ThemeType, *> = styled.Text`
+const NewsDetailsContent: StyledComponent<
+  { language: string },
+  ThemeType,
+  *
+> = styled.Text`
   font-family: ${props => props.theme.fonts.decorativeFontRegular};
   font-size: 16px;
   letter-spacing: 0.5px;
@@ -78,24 +86,22 @@ const NewsDetailsContent: StyledComponent<{}, ThemeType, *> = styled.Text`
   text-align: ${props => contentAlignment(props.language)};
   color: ${props => props.theme.colors.textColor};
 `
-
 export type PropsType = {|
   path: ?string,
   newsList: Array<LocalNewsModel | TunewsModel>,
-  cities: Array<CityModel>,
   cityCode: string,
   language: string,
   resourceCache: LanguageResourceCacheStateType,
   theme: ThemeType,
   t: TFunction,
-  navigation: NavigationScreenProp<*>,
   selectedNewsType: string,
-  contentLanguage: string,
-  status: 'loading' | 'ready' | 'error' | 'success' | 'loadingMore',
-  isFetching: bolean,
+  status: "ready" | "loadingMore",
+  isFetchingMore: boolean,
+  type: string,
   setFlatListRef: () => void,
   fetchMoreNews: () => void,
-  navigateToNews: () => void,
+  fetchNews: () => void,
+  navigateToNews: (navigationOptions: NavigateToNewsParamsType) => void,
   createNavigateToNews: (NavigateToNewsParamsType) => void
 |}
 
@@ -147,18 +153,19 @@ class NewsList extends React.PureComponent<PropsType> {
       language,
       theme,
       t,
-      contentLanguage,
-      status,
       fetchMoreNews,
       fetchNews,
-      isFetching,
       isFetchingMore,
-      type: selectedNewsType
+      selectedNewsType
     } = this.props
+
     const isTuNews = selectedNewsType === INTERNATIONAL
 
     if (path) {
-      const selectedNewsItem = newsList && newsList[0]
+      const selectedNewsItem: LocalNewsModel | TunewsModel = newsList.find(
+        _newsItem => `${_newsItem.id}` === path
+      )
+
       if (selectedNewsItem) {
         const content = selectedNewsItem.content || ''
         const contentFooterIndex = content.indexOf('tünews')
@@ -196,9 +203,6 @@ class NewsList extends React.PureComponent<PropsType> {
           </View>
         )
       }
-      if (isFetching) {
-        return <ActivityIndicator style={{ marginTop: 20 }} />
-      }
 
       const error = new ContentNotFoundError({
         type: 'news',
@@ -224,12 +228,9 @@ class NewsList extends React.PureComponent<PropsType> {
             renderNotItemsComponent={this.renderNotItemsComponent}
             items={newsList}
             isFetchingMore={isFetchingMore}
-            isFetching={isFetching}
             getMoreItems={fetchMoreNews}
             fetchItems={fetchNews}
-            renderItem={this.rendersNewsListItem(cityCode, contentLanguage)}
-            theme={theme}
-            status={status}
+            renderItem={this.rendersNewsListItem(cityCode, language)}
           />
         </View>
       </SpaceBetween>

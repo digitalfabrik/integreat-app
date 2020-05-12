@@ -52,33 +52,19 @@ class NavigationTiles extends React.Component<
 
   ref_ = null;
 
-  onRightAnchorPress = () => {
+  onAnchorPress = () => {
     const { navigationItemWidth } = this.props
     const { xPosition } = this.state
 
     if (!xPosition) {
       this.ref_ && this.ref_.scrollToEnd({ animated: true })
     } else {
-      this.ref_ && this.ref_.scrollTo({
-        y: 0,
-        x: xPosition - navigationItemWidth,
-        animated: true
-      })
-    }
-  };
-
-  onLeftAnchorPress = () => {
-    const { navigationItemWidth } = this.props
-    const { xPosition } = this.state
-
-    if (!xPosition) {
-      this.ref_ && this.ref_.scrollToEnd({ animated: true })
-    } else {
-      this.ref_ && this.ref_.scrollTo({
-        y: 0,
-        x: xPosition - navigationItemWidth,
-        animated: true
-      })
+      this.ref_ &&
+        this.ref_.scrollTo({
+          y: 0,
+          x: xPosition - navigationItemWidth,
+          animated: true
+        })
     }
   };
 
@@ -106,8 +92,7 @@ class NavigationTiles extends React.Component<
         {!isWideScreen && isMoreThanThreeItems && (
           <Icon
             name='keyboard-arrow-left'
-            color={theme.colors.black}
-            onPress={this.onRightAnchorPress}
+            onPress={this.onAnchorPress}
             width={anchorWidth}
           />
         )}
@@ -138,8 +123,7 @@ class NavigationTiles extends React.Component<
         {!isWideScreen && isMoreThanThreeItems && (
           <Icon
             name='keyboard-arrow-right'
-            color={theme.colors.black}
-            onPress={this.onLeftAnchorPress}
+            onPress={this.onAnchorPress}
             width={anchorWidth}
           />
         )}
@@ -148,7 +132,10 @@ class NavigationTiles extends React.Component<
   }
 }
 
-const NavigationTilesWithScrollableView = props => (
+const NavigationTilesWithScrollableView = (props: {
+  tiles: TileModel[],
+  theme: ThemeType
+}) => (
   <OnLayout>
     {({ width }) => {
       const isWideScreen = width >= WIDTH_BREAK_POINT

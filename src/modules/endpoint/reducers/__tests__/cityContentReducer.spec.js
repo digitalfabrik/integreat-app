@@ -184,6 +184,7 @@ describe('cityContentReducer', () => {
           status: 'loading'
         }
       },
+      newsRouteMapping: {},
       languages: { status: 'loading' },
       resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
@@ -318,6 +319,7 @@ describe('cityContentReducer', () => {
       },
       city: 'augsburg',
       eventsRouteMapping: {},
+      newsRouteMapping: {},
       languages: { status: 'loading' },
       resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
@@ -442,6 +444,7 @@ describe('cityContentReducer', () => {
       city: 'augsburg',
       categoriesRouteMapping: {},
       eventsRouteMapping: {},
+      newsRouteMapping: {},
       languages: { status: 'ready', models: ['de', 'en'] },
       resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
@@ -455,6 +458,7 @@ describe('cityContentReducer', () => {
       city: 'augsburg',
       categoriesRouteMapping: {},
       eventsRouteMapping: {},
+      newsRouteMapping: {},
       languages: { status: 'ready', models: ['de', 'en'] },
       resourceCache: { status: 'ready', value: {} },
       searchRoute: null,

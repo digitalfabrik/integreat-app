@@ -13,10 +13,12 @@ import type { DataContainer } from '../DataContainer'
 import { ContentLoadCriterion } from '../ContentLoadCriterion'
 import isPeekingRoute from '../selectors/isPeekingRoute'
 import ErrorCodes, { fromError } from '../../error/ErrorCodes'
-import { LOCAL } from '../../../routes/news/containers/NewsContainer'
+import { LOCAL } from '../../../routes/news/containers/WithCustomNewsProvider'
 import loadLocalNews from './loadLocalNews'
 import loadTuNews from './loadTuNews'
 import loadLanguages from './loadLanguages'
+import loadTuNewsElement from './loadTuNewsElement'
+
 const NEWS_FETCH_COUNT_LIMIT = 20
 const FIRST_PAGE = 1
 
@@ -25,7 +27,6 @@ export function * fetchNews (
   action: FetchNewsActionType
 ): Saga<void> {
   const { city, language, path, key, type } = action.params
-
   try {
     const isNewsLocal = type === LOCAL
     // Note: Update language each time when switching between news
@@ -34,7 +35,7 @@ export function * fetchNews (
       city,
       dataContainer,
       true,
-      !isNewsLocal
+      !isNewsLocal // === isTunews
     )
     const languageValid = languages
       .map(language => language.code)
@@ -46,22 +47,17 @@ export function * fetchNews (
     yield put(pushLanguagesAction)
 
     if (languageValid) {
-      const [newsList, resourceCache] = yield all([
+      const [newsList] = yield all([
         isNewsLocal
           ? call(loadLocalNews, city, language)
-          : call(
-            loadTuNews,
-            language,
-            FIRST_PAGE,
-            NEWS_FETCH_COUNT_LIMIT
-          )
+          : path ? yield all(call(loadTuNewsElement, path)) // a better solution to prevent re-fetching news again from page:1
+            : call(loadTuNews, language, FIRST_PAGE, NEWS_FETCH_COUNT_LIMIT)
       ])
 
       const insert: PushNewsActionType = {
         type: 'PUSH_NEWS',
         params: {
           newsList,
-          resourceCache,
           path,
           cityLanguages: languages,
           key,
@@ -87,6 +83,7 @@ export function * fetchNews (
           allAvailableLanguages,
           path: null,
           key,
+          type,
           language,
           city
         }
@@ -103,6 +100,7 @@ export function * fetchNews (
         key,
         city,
         language,
+        type,
         path,
         allAvailableLanguages: null
       }
@@ -137,20 +135,17 @@ export function * fetchMoreNews (
       ? yield call(dataContainer.getLanguages, city)
       : []
 
-    const [newsList, resourceCache] = yield all([
-      call(
-        loadTuNews,
-        language,
-        page,
-        NEWS_FETCH_COUNT_LIMIT
-      )
-    ])
+    const newsList = yield call(
+      loadTuNews,
+      language,
+      page,
+      NEWS_FETCH_COUNT_LIMIT
+    )
 
     const insert: PushNewsActionType = {
       type: 'PUSH_NEWS',
       params: {
         newsList,
-        resourceCache,
         oldNewsList,
         path,
         hasMoreNews: newsList.length !== 0,
@@ -159,7 +154,7 @@ export function * fetchMoreNews (
         language,
         city,
         type,
-        page: page
+        page
       }
     }
     yield put(insert)
@@ -173,6 +168,7 @@ export function * fetchMoreNews (
         key,
         city,
         language,
+        type,
         path,
         allAvailableLanguages: null
       }
@@ -181,7 +177,7 @@ export function * fetchMoreNews (
   }
 }
 
-// Note: added this function when clearing news in case user clicked on tunews
+// Note: added this function when clearing news in case user clicked on tunews available language should be updated
 export function * updateLanguages (
   dataContainer: DataContainer,
   action: ClearNewsActionType

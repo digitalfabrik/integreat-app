@@ -1,7 +1,10 @@
 // @flow
 
 import * as React from 'react'
-import { LocalNewsModel, TunewModel } from '@integreat-app/integreat-api-client' // TODO: check if we have newsModel
+import {
+  LocalNewsModel,
+  TunewModel
+} from '@integreat-app/integreat-api-client' // TODO: check if we have newsModel
 import styled from 'styled-components/native'
 import { type TFunction, withTranslation } from 'react-i18next'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
@@ -98,7 +101,11 @@ export const Content: StyledComponent<
   color: ${props => props.theme.colors.textColor};
 `
 
-export const ReadMore: StyledComponent<{ isTuNews: ?boolean }, ThemeType, *> = styled.Text`
+export const ReadMore: StyledComponent<
+  { isTuNews: ?boolean },
+  ThemeType,
+  *
+> = styled.Text`
   font-family: ${props => props.theme.fonts.decorativeFontBold};
   font-size: 12px;
   letter-spacing: 0.5px;
@@ -126,11 +133,6 @@ class NewsListItem extends React.PureComponent<PropsType> {
     } = this.props
     const newsContent = content || message || ''
 
-    const contentSplitted =
-      newsContent.length > TEXT_MAX_LENGTH
-        ? `${newsContent.slice(0, TEXT_MAX_LENGTH)}...`
-        : newsContent
-
     return (
       <>
         <Divider />
@@ -141,8 +143,8 @@ class NewsListItem extends React.PureComponent<PropsType> {
                 <Title theme={theme}>{title}</Title>
               </ListItemView>
               <ListItemView language={language} theme={theme}>
-                <Content language={language} theme={theme}>
-                  {contentSplitted}
+                <Content numberOfLines={5} language={language} theme={theme}>
+                  {newsContent}
                 </Content>
               </ListItemView>
             </Description>

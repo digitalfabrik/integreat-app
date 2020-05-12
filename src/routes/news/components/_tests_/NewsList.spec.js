@@ -17,10 +17,11 @@ import type {
 import { Provider } from 'react-redux'
 import { render } from '@testing-library/react-native'
 import ErrorCodes from '../../../../modules/error/ErrorCodes'
-import { Text } from 'react-native'
+import { Text, ActivityIndicator, ScrollView } from 'react-native'
 import { LOADING_TIMEOUT } from '../../../../modules/common/constants'
 import TranslatedNewsListItem from '../NewsListItem'
 import TranslatedWithThemeNewsList from '../NewsList'
+import NewsContainer from '../../containers/NewsContainer'
 
 const mockStore = configureMockStore()
 jest.mock('react-i18next')
@@ -55,8 +56,7 @@ describe('News', () => {
     {
       switchingLanguage,
       cities,
-      languages,
-      resourceCacheState
+      languages
     }: {|
       switchingLanguage?: boolean,
       cities?: CitiesStateType,
@@ -74,8 +74,7 @@ describe('News', () => {
         categoriesRouteMapping: {},
         newsRouteMapping: routeState ? { 'route-id-0': routeState } : {},
         searchRoute: null,
-        language,
-        resourceCache: resourceCacheState || { status: 'ready', value: { file: {} } }
+        resourceCache: { status: 'ready', value: { file: {} } }
       },
       contentLanguage: 'de',
       cities: cities || { status: 'ready', models: [city] }
@@ -86,11 +85,12 @@ describe('News', () => {
     status: 'ready',
     language: language.code,
     path: null,
+    type: 'local',
+    page: 1,
     city: city.code,
-    allAvailableLanguages: new Map(
-      languages.map(lng => [lng.code, `/${city.code}/${lng.code}`])
-    ),
-    models: newsList
+    models: newsList,
+    hasMoreNews: true,
+    allAvailableLanguages: new Map()
   }
 
   it('should display null if the route is not initialized', () => {
@@ -135,6 +135,8 @@ describe('News', () => {
       status: 'error',
       language: language.code,
       city: city.code,
+      path: null,
+      type: 'local',
       message: 'Something went wrong with the route',
       code: ErrorCodes.UnknownError
     })
@@ -157,23 +159,22 @@ describe('News', () => {
     navigation.state.key = 'route-id-0'
     const store = mockStore(state)
     jest.doMock('../NewsList', () => MockNewsList)
-    jest.doMock('../List', () => MockList)
     const NewsContainer = require('../../containers/NewsContainer').default
-    jest.advanceTimersByTime(LOADING_TIMEOUT)
     const result = TestRenderer.create(
-      <Provider store={store}>
-        <NewsContainer navigation={navigation} />
-      </Provider>
+      <Provider store={store}><NewsContainer navigation={navigation} /></Provider>
     )
-    const isFetching = result.root.findByType(TranslatedWithThemeNewsList).props.isFetching
-    expect(isFetching).toBe(true)
+    jest.advanceTimersByTime(LOADING_TIMEOUT)
+    const indicator = result.root.findByType(ActivityIndicator)
+    expect(indicator).toBeTruthy()
   }
 
   it('should display loading indicator if the route is loading long enough', () => {
     const state: StateType = prepareState({
       path: null,
       status: 'loading',
-      type: 'local'
+      type: 'local',
+      language,
+      city
     })
     expectLoadingIndicator(state)
   })

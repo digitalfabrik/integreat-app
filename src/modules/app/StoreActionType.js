@@ -53,7 +53,7 @@ export type FetchNewsActionType = {|
     +city: string, +language: string,
     +path: ?string, +key: string,
     +criterion: ContentLoadCriterionType,
-    +type: ?string
+    +type: string
   |}
 |}
 
@@ -61,11 +61,11 @@ export type FetchMoreNewsActionType = {|
   type: "FETCH_MORE_NEWS",
   +params: {|
     +city: string, +language: string,
-    +oldNewsList: ?$ReadOnlyArray<LocalNewsModel | TunewsModel>,
+    +oldNewsList: $ReadOnlyArray<LocalNewsModel | TunewsModel>, // old newsList is must to concat it with the new list comming from BE
     +path: ?string, +key: string,
     +criterion: ContentLoadCriterionType,
-    +type: ?string,
-    +page: ?number,
+    +type: string,
+    +page: number, // Added to specify the page number that needs to be fetched
     +hasMoreNews: boolean
   |}
 |}
@@ -78,15 +78,14 @@ export type PushNewsActionType = {|
   type: 'PUSH_NEWS',
   +params: {|
     +newsList: $ReadOnlyArray<any>,
-    +oldNewsList: ?$ReadOnlyArray<any>,
+    +oldNewsList?: $ReadOnlyArray<any>, // added here in case if there is old news then [concat old news with new ones]
     +path: ?string,
     +key: string,
-    +resourceCache: LanguageResourceCacheStateType,
     +cityLanguages: $ReadOnlyArray<LanguageModel>,
     +language: string,
     +city: string,
-    +hasMoreNews: ?boolean,
-    +type: ?string,
+    +hasMoreNews: ?boolean, // Added this to stop loading more when no items are in comming in response
+    +type: string,
     +page: ?number
   |}
 |}
@@ -100,6 +99,7 @@ export type FetchNewsFailedActionType = {|
     +allAvailableLanguages: ?$ReadOnlyMap<string, ?string>,
     +language: string,
     +path: ?string,
+    +type: string,
     +city: string
   |}
 |}
