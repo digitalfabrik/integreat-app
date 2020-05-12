@@ -8,7 +8,7 @@ import ConnectedNewsController, { NewsController } from '../NewsController'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import { Provider } from 'react-redux'
 import createLocation from '../../../../createLocation'
-import { TUNEWS_LIST_ROUTE } from '../../../../modules/app/route-configs/TunewsListRouteConfig'
+import { TUNEWS_ROUTE } from '../../../../modules/app/route-configs/TunewsRouteConfig'
 import theme from '../../../../modules/theme/constants/theme'
 import { ThemeProvider } from 'styled-components'
 
@@ -53,7 +53,7 @@ describe('NewsController', () => {
         language={language}
         city={city}
         cities={cities}
-        type={TUNEWS_LIST_ROUTE}
+        type={TUNEWS_ROUTE}
         redirect={() => {}}
         >
         <div>dummy child</div>
@@ -65,7 +65,7 @@ describe('NewsController', () => {
   it('should map state to props', () => {
     const location = createLocation({
       payload: { city: city, language: language },
-      type: TUNEWS_LIST_ROUTE
+      type: TUNEWS_ROUTE
     })
 
     const mockStore = configureMockStore()
@@ -85,7 +85,7 @@ describe('NewsController', () => {
     expect(tree.find(NewsController).props()).toEqual({
       language,
       city,
-      type: TUNEWS_LIST_ROUTE,
+      type: TUNEWS_ROUTE,
       cities,
       redirect: expect.any(Function)
     })

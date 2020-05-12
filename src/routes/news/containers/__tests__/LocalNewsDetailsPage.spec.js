@@ -6,7 +6,7 @@ import moment from 'moment-timezone'
 import type Moment from 'moment'
 import { ThemeProvider } from 'styled-components'
 
-import ConnectedLocalNewsDetails, { LocalNewsDetailsPage } from '../LocalNewsDetails'
+import ConnectedLocalNewsDetailsPage, { LocalNewsDetailsPage } from '../LocalNewsDetailsPage'
 import { LocalNewsModel } from '@integreat-app/integreat-api-client'
 import createReduxStore from '../../../../modules/app/createReduxStore'
 import { Provider } from 'react-redux'
@@ -33,7 +33,7 @@ describe('LocalNewsDetailsPage', () => {
   const t = (key: ?string): string => key || ''
   const path = '/augsburg/en/news/local/1'
 
-  it('should match snapshot and render NewsPage', () => {
+  it('should match snapshot and render LocalNewsDetailsPage', () => {
     const wrapper = shallow(
       <LocalNewsDetailsPage
         localNewsDetails={localNewsDetails}
@@ -58,7 +58,7 @@ describe('LocalNewsDetailsPage', () => {
     const tree = mount(
       <ThemeProvider theme={theme}>
         <Provider store={store}>
-          <ConnectedLocalNewsDetails localNewsDetails={localNewsDetails} />
+          <ConnectedLocalNewsDetailsPage localNewsDetails={localNewsDetails} />
         </Provider>
       </ThemeProvider>
     )

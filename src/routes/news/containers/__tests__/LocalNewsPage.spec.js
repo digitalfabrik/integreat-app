@@ -5,7 +5,7 @@ import { mount, shallow } from 'enzyme'
 import moment from 'moment-timezone'
 import { ThemeProvider } from 'styled-components'
 
-import ConnectedNewsPage, { NewsPage } from '../NewsPage'
+import ConnectedLocalNewsPage, { LocalNewsPage } from '../LocalNewsPage'
 import { LocalNewsModel, CityModel } from '@integreat-app/integreat-api-client'
 import createReduxStore from '../../../../modules/app/createReduxStore'
 import { Provider } from 'react-redux'
@@ -13,7 +13,7 @@ import createLocation from '../../../../createLocation'
 import { LOCAL_NEWS_ROUTE } from '../../../../modules/app/route-configs/LocalNewsRouteConfig'
 import theme from '../../../../modules/theme/constants/theme'
 
-describe('NewsPage', () => {
+describe('LocalNewsPage', () => {
   const cities = [
     new CityModel({
       name: 'Augsburg',
@@ -63,9 +63,9 @@ describe('NewsPage', () => {
   const language = 'en'
   const t = (key: ?string): string => key || ''
 
-  it('should match snapshot and render NewsPage', () => {
+  it('should match snapshot and render LocalNewsPage', () => {
     const wrapper = shallow(
-      <NewsPage
+      <LocalNewsPage
         localNews={localNews}
         city={city}
         cities={cities}
@@ -91,12 +91,12 @@ describe('NewsPage', () => {
     const tree = mount(
       <ThemeProvider theme={theme}>
         <Provider store={store}>
-          <ConnectedNewsPage localNews={localNews} cities={cities} />
+          <ConnectedLocalNewsPage localNews={localNews} cities={cities} />
         </Provider>
       </ThemeProvider>
     )
 
-    expect(tree.find(NewsPage).props()).toEqual({
+    expect(tree.find(LocalNewsPage).props()).toEqual({
       city,
       cities,
       language,

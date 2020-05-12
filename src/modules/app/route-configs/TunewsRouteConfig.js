@@ -17,7 +17,7 @@ import { cmsApiBaseUrl, tunewsApiBaseUrl } from '../constants/urls'
 type TunewsListRouteParamsType = {| city: string, language: string |}
 type RequiredPayloadsType = {| tunews: Payload<Array<TunewsModel>> |}
 
-export const TUNEWS_LIST_ROUTE = 'TUNEWS_LIST'
+export const TUNEWS_ROUTE = 'TUNEWS_LIST'
 
 const tunewsListRoute: Route = {
   path: '/:city/:language/news/tu-news',
@@ -34,8 +34,8 @@ const tunewsListRoute: Route = {
   }
 }
 
-class TunewsListRouteConfig implements RouteConfig<TunewsListRouteParamsType, RequiredPayloadsType> {
-  name = TUNEWS_LIST_ROUTE
+class TunewsRouteConfig implements RouteConfig<TunewsListRouteParamsType, RequiredPayloadsType> {
+  name = TUNEWS_ROUTE
   route = tunewsListRoute
   isLocationLayoutRoute = true
   requiresHeader = true
@@ -62,4 +62,4 @@ class TunewsListRouteConfig implements RouteConfig<TunewsListRouteParamsType, Re
   getFeedbackTargetInformation = ({ payloads, location }) => null
 }
 
-export default TunewsListRouteConfig
+export default TunewsRouteConfig

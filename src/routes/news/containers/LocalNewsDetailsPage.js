@@ -24,7 +24,7 @@ export class LocalNewsDetailsPage extends React.PureComponent<PropsType> {
     const { localNewsDetails, language, city, path } = this.props
 
     if (!localNewsDetails) {
-      const error = new ContentNotFoundError({ type: 'newsItem', id: path, city, language })
+      const error = new ContentNotFoundError({ type: 'localNewsItem', id: path, city, language })
       return <FailureSwitcher error={error} />
     }
 

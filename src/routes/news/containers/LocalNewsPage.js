@@ -21,7 +21,7 @@ type PropsType = {|
   path: string
 |}
 
-export class NewsPage extends React.Component<PropsType> {
+export class LocalNewsPage extends React.Component<PropsType> {
   renderLocalNewsElement = (language: string) => (newsItem: LocalNewsModel, city: string) => (<NewsElement
     newsItem={newsItem}
     key={newsItem.id}
@@ -55,4 +55,4 @@ const mapStateTypeToProps = (state: StateType) => {
 export default compose(
   connect<*, *, *, *, *, *>(mapStateTypeToProps),
   withTranslation('news')
-)(NewsPage)
+)(LocalNewsPage)

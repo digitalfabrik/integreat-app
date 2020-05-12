@@ -2,7 +2,7 @@
 
 import { ResponseError } from '@integreat-app/integreat-api-client'
 
-type NotFoundType = 'category' | 'event' | 'extra' | 'poi' | 'newsItem' | 'tunewsItem'
+type NotFoundType = 'category' | 'event' | 'extra' | 'poi' | 'localNewsItem' | 'tunewsItem'
 
 class ContentNotFoundError extends Error {
   _type: NotFoundType
