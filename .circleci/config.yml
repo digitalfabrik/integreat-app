@@ -134,21 +134,12 @@ jobs:
       - run:
           name: Check build
           command: yarn run check:built
-      - run:
-          name: List
-          command: ls -R dist
-      - run:
-          name: List
-          command: ls
       - store_artifacts:
           path: dist
       - persist_to_workspace:
           root: ./
           paths:
             - dist
-      - run:
-          name: Echo success
-          command: echo success
 
   deliver:
     parameters:
@@ -167,22 +158,16 @@ jobs:
           command: |
             echo "CPU count is ${TOTAL_CPUS}"
       - attach_workspace:
-          at: dist
+          at: /tmp/output
 #      - run:
 #          name: Add web.integreat-app.de to known hosts
 #          command: ssh-keyscan -H web.integreat-app.de >> ~/.ssh/known_hosts
-      - run:
-          name: List dist
-          command: ls -R dist
-      - run:
-          name: List
-          command: ls
       - when:
           condition: << parameters.production >>
           steps:
             - run:
                 name: Production release
-                command: sftp -v -o StrictHostKeyChecking=no web-test@web.integreat-app.de:/integreat.app \<<< $'put -r dist/*'
+                command: sftp -v -o StrictHostKeyChecking=no web-test@web.integreat-app.de:/integreat.app \<<< $'put -r /tmp/output/dist/*'
             - slack/notify:
                 message: Integreat {version_name} has been released successfully to integreat.app!
                 webhook: $SLACK_URL
