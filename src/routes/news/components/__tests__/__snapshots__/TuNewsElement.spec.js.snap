@@ -22,6 +22,7 @@ exports[`TunewsElement should render and match snapshot 1`] = `
           to="/testumgebung/en/news/tu-news/1"
         >
           readMore
+           &gt;
         </TunewsElement__ReadMoreLink>
       </TunewsElement__StyledContainer>
     </TunewsElement__Description>

@@ -48,7 +48,7 @@ exports[`TunewsListPage should match snapshot and render TunewsList 1`] = `
   >
     <PaginatedList
       city="augsburg"
-      fetchTunews={[Function]}
+      fetchMoreTunews={[Function]}
       hasMore={true}
       isFetching={false}
       items={
@@ -88,7 +88,6 @@ exports[`TunewsListPage should match snapshot and render TunewsList 1`] = `
       language="en"
       noItemsMessage="currentlyNoNews"
       renderItem={[Function]}
-      resetTunews={[Function]}
     />
   </NewsTabs>
 </Connect(NewsController)>

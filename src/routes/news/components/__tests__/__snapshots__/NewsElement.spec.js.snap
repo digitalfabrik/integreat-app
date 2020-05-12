@@ -21,6 +21,7 @@ exports[`NewsElement should render and match snapshot 1`] = `
           to="/testumgebung/en/news/local/217"
         >
           readMore
+           &gt;
         </NewsElement__ReadMoreLink>
       </NewsElement__StyledContainer>
     </NewsElement__Description>
