@@ -15,46 +15,48 @@ parameters:
 
 workflows:
   version: 2
-  commit: # Builds every commit. Bumps version and delivers to webnext on develop.
+  commit: # Builds every commit. Delivers to webnext on develop.
     unless: << pipeline.parameters.api_triggered >>
     jobs:
       - build:
           production: false
-      - bump_version:
-          requires:
-            - build
-          filters:
-            branches:
-              only:
-                - develop
       - deliver:
           production: false
           requires:
             - build
-            - bump_version
           filters:
             branches:
               only:
                 - develop
 
-  api-triggered: # Workflow for manual delivery
-    when: << pipeline.parameters.api_triggered >>
+  api-triggered-debug-delivery: # Workflow for manual debug delivery without version bump
+    when: << pipeline.parameters.api_triggered >> && !<< pipeline.parameters.production >>
     jobs:
       - build:
-          production: << pipeline.parameters.production >>
+          production: false
+      - deliver:
+          production: false
+          requires:
+            - build
+
+  api-triggered-production-delivery: # Workflow for manual production delivery
+    when: << pipeline.parameters.api_triggered >> && << pipeline.parameters.production >>
+    jobs:
+      - build:
+          production: true
       - bump_version:
           requires:
             - build
       - deliver:
-          production: << pipeline.parameters.production >>
+          production: true
           requires:
             - build
             - bump_version
 
-  bi-weekly-production-release:
+  bi-weekly-production-delivery:
     triggers:
       - schedule:
-          cron: "0 5 16,21,27 * *" # FIXME "0 5 1,15,28 * *"
+          cron: "0 5 16,21,27 * *" # TODO Fix
           filters:
             branches:
               only:
@@ -144,7 +146,7 @@ jobs:
   deliver:
     parameters:
       production:
-        description: Whether to release to production.
+        description: Whether to deliver to production.
         type: boolean
     docker:
       - image: circleci/node:12.16.3
@@ -166,16 +168,16 @@ jobs:
           condition: << parameters.production >>
           steps:
             - run:
-                name: Production release
+                name: Production delivery
                 command: sftp -v -o StrictHostKeyChecking=no web-test@web.integreat-app.de:/integreat.app \<<< $'put -r /tmp/output/dist/*'
             - slack/notify:
-                message: Integreat {version_name} has been released successfully to integreat.app!
+                message: Integreat {version_name} has been delivered successfully to integreat.app!
                 webhook: $SLACK_URL
       - unless:
           condition: << parameters.production >>
           steps:
             - run:
-                name: Debug release
+                name: Debug delivery
                 command: sftp -v -o StrictHostKeyChecking=no web-test@web.integreat-app.de:/webnext.integreat-app.de \<<< $'put -r /tmp/output/dist/*'
 
   bump_version:
@@ -184,6 +186,6 @@ jobs:
     resource_class: small
     steps:
       - checkout
-      - run:
+      - run: # TODO add production filter
           name: Bump version
           command: ruby
