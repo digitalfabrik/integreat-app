@@ -22,8 +22,7 @@ interface ListPropTypes {
   }) => React$Node,
   isFetchingMore: boolean,
   getMoreItems: () => void,
-  renderNotItemsComponent: () => React$Node,
-  setRef: (ref: React$Node) => void
+  renderNoItemsComponent: () => React$Node
 }
 
 const List = ({
@@ -31,24 +30,19 @@ const List = ({
   renderItem,
   isFetchingMore,
   getMoreItems,
-  renderNotItemsComponent,
+  renderNoItemsComponent,
   setRef
 }: ListPropTypes) => {
-  function setListRef (ref: React$Node) {
-    setRef && setRef(ref)
-  }
-
   return (
     <FlatList
       data={items}
-      ref={setListRef}
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{
         flexGrow: 1,
         paddingHorizontal: 10
       }}
       onEndReached={getMoreItems}
-      ListEmptyComponent={renderNotItemsComponent}
+      ListEmptyComponent={renderNoItemsComponent}
       ListFooterComponent={isFetchingMore && <Loader size='small' />}
       onEndReachedThreshold={1}
       keyExtractor={keyExtractor}

@@ -17,8 +17,6 @@ import LanguageNotAvailableContainer from '../../../modules/common/containers/La
 import styled from 'styled-components/native'
 import activeInternational from '../assets/tu-news-active.svg'
 import inactiveInternational from '../assets/tu-news-inactive.svg'
-import activeLocalNews from '../assets/local-news-active.svg'
-import inactiveLocalNews from '../assets/local-news-inactive.svg'
 import type { NavigationScreenProp } from 'react-navigation'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { StyledComponent } from 'styled-components'
@@ -31,8 +29,6 @@ export const LOCAL = 'local'
 const newsTabs = [
   {
     type: LOCAL,
-    active: activeLocalNews,
-    inactive: inactiveLocalNews,
     toggleAttr: 'pushNotificationsEnabled'
   },
   {
@@ -230,17 +226,6 @@ const withCustomNewsProvider = <
 
       selectNewsItemAndScrollToTop = type => {
         this.selectNewsType(type)
-        requestAnimationFrame(() => {
-          this.listRef &&
-            this.listRef.scrollToOffset({
-              animated: false,
-              offset: 0
-            })
-        })
-      };
-
-      setFlatListRef = ref => {
-        this.listRef = ref
       };
 
       fetchNews = () => {
@@ -360,7 +345,6 @@ const withCustomNewsProvider = <
               {this.renderHeader()}
               <Component
                 {...props.innerProps}
-                setFlatListRef={this.setFlatListRef}
                 dispatch={props.dispatch}
               />
             </View>

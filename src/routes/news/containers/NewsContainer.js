@@ -43,7 +43,6 @@ type ContainerPropsType = {|
   cityModel: CityModel,
 
   // option props that comes from provider
-  setFlatListRef?: (ref: React$Node) => void,
   fetchNews?: () => void,
   selectedNewsType: string,
 
@@ -258,7 +257,6 @@ class NewsContainer extends React.Component<ContainerPropsType> {
         {...this.state}
         status={status}
         isFetchingMore={status === 'loadingMore'}
-        setFlatListRef={this.props.setFlatListRef}
         fetchMoreNews={this.fetchMoreNews}
         fetchNews={this.props.fetchNews}
         navigateToNews={createNavigateToNews(dispatch, rest.navigation)}

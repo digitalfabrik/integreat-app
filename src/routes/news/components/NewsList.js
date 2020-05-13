@@ -118,7 +118,7 @@ class NewsList extends React.PureComponent<PropsType> {
     })
   };
 
-  renderNotItemsComponent = () => {
+  renderNoItemsComponent = () => {
     const { t, theme } = this.props
     return <NoNews theme={theme}>{t('currentlyNoNews')}</NoNews>
   };
@@ -224,7 +224,7 @@ class NewsList extends React.PureComponent<PropsType> {
         <View style={{ flex: 1 }}>
           <List
             setRef={this.props.setFlatListRef}
-            renderNotItemsComponent={this.renderNotItemsComponent}
+            renderNoItemsComponent={this.renderNoItemsComponent}
             items={newsList}
             isFetchingMore={isFetchingMore}
             getMoreItems={fetchMoreNews}
