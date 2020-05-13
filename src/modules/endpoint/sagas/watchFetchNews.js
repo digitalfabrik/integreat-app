@@ -15,9 +15,9 @@ import isPeekingRoute from '../selectors/isPeekingRoute'
 import ErrorCodes, { fromError } from '../../error/ErrorCodes'
 import { LOCAL } from '../../../routes/news/containers/WithCustomNewsProvider'
 import loadLocalNews from './loadLocalNews'
-import loadTuNews from './loadTuNews'
+import loadTunews from './loadTunews'
 import loadLanguages from './loadLanguages'
-import loadTuNewsElement from './loadTuNewsElement'
+import loadTunewsElement from './loadTunewsElement'
 
 const NEWS_FETCH_COUNT_LIMIT = 20
 const FIRST_PAGE = 1
@@ -50,8 +50,8 @@ export function * fetchNews (
       const [newsList] = yield all([
         isNewsLocal
           ? call(loadLocalNews, city, language)
-          : path ? yield all(call(loadTuNewsElement, path)) // a better solution to prevent re-fetching news again from page:1
-            : call(loadTuNews, language, FIRST_PAGE, NEWS_FETCH_COUNT_LIMIT)
+          : path ? yield all(call(loadTunewsElement, path)) // a better solution to prevent re-fetching news again from page:1
+            : call(loadTunews, language, FIRST_PAGE, NEWS_FETCH_COUNT_LIMIT)
       ])
 
       const insert: PushNewsActionType = {
@@ -136,7 +136,7 @@ export function * fetchMoreNews (
       : []
 
     const newsList = yield call(
-      loadTuNews,
+      loadTunews,
       language,
       page,
       NEWS_FETCH_COUNT_LIMIT

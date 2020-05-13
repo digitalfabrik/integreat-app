@@ -224,9 +224,9 @@ class NewsContainer extends React.Component<ContainerPropsType> {
     const { dispatch, selectedNewsType, ...rest } = this.props
     const { cityCode, language, navigation, path, page } = rest
     const { newsList, hasMoreNews } = rest
-    const isTuNews = selectedNewsType === TUNEWS
+    const isTunews = selectedNewsType === TUNEWS
 
-    if (hasMoreNews && isTuNews) {
+    if (hasMoreNews && isTunews) {
       const fetchNews: FetchMoreNewsActionType = {
         type: 'FETCH_MORE_NEWS',
         params: {

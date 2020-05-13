@@ -20,6 +20,10 @@ import inactiveInternational from '../assets/tu-news-inactive.svg'
 import activeLocalNews from '../assets/local-news-active.svg'
 import inactiveLocalNews from '../assets/local-news-inactive.svg'
 import type { NavigationScreenProp } from 'react-navigation'
+import type { ThemeType } from '../../../modules/theme/constants/theme'
+import type { StyledComponent } from 'styled-components'
+import withTheme from '../../../modules/theme/hocs/withTheme'
+import { withTranslation } from 'react-i18next'
 
 export const TUNEWS = 'tunews'
 export const LOCAL = 'local'
@@ -56,6 +60,29 @@ const TouchableWrapper = styled.TouchableOpacity`
 
 const Loader = styled.ActivityIndicator`
   margin-top: 15px;
+`
+const LocalTabWrapper: StyledComponent<
+  { isSelected: boolean },
+  ThemeType,
+  *
+> = styled.View`
+  padding-horizontal: 10px;
+  border-radius: 10px;
+  height: 34px;
+  text-align: center;
+  min-width: 110px;
+  align-items: center;
+  justify-content: center;
+  background-color: ${props =>
+    props.isSelected
+      ? props.theme.colors.themeColor
+      : props.theme.colors.inActiveTunewColor};
+`
+
+const LocalText: StyledComponent<{}, ThemeType, *> = styled.Text`
+  font-size: 18px;
+  font-family: ${props => props.theme.fonts.decorativeFontBold}
+  color: ${props => props.theme.colors.backgroundColor};
 `
 
 export type RouteNotInitializedType = {| status: "routeNotInitialized" |}
@@ -128,19 +155,28 @@ export type PropsType<
   ...ProviderPropType
 |}
 
-const NewsTypeItem = ({ tab, onItemPress, selectedNewsType }) => {
+const NewsTypeItem = ({ tab, onItemPress, selectedNewsType, t, theme }) => {
   function onPress () {
     onItemPress(tab.type)
   }
-
+  const isLocal = tab.type === LOCAL
+  const isSelected = tab.type === selectedNewsType
   return (
     <TouchableWrapper onPress={onPress}>
-      <NewsTypeIcon
-        source={tab.type === selectedNewsType ? tab.active : tab.inactive}
-      />
+      {isLocal ? (
+        <LocalTabWrapper isSelected={isSelected} theme={theme}>
+          <LocalText theme={theme}>{t(tab.type)}</LocalText>
+        </LocalTabWrapper>
+      ) : (
+        <NewsTypeIcon source={isSelected ? tab.active : tab.inactive} />
+      )}
     </TouchableWrapper>
   )
 }
+
+const TranslatedNewsTypeItem = withTranslation('news')(
+  withTheme()(NewsTypeItem)
+)
 
 const withCustomNewsProvider = <
   S: {
@@ -247,7 +283,7 @@ const withCustomNewsProvider = <
             {!path &&
               newsTabs.map(tab =>
                 (cityModel || {})[tab.toggleAttr] ? (
-                  <NewsTypeItem
+                  <TranslatedNewsTypeItem
                     key={tab.type}
                     tab={tab}
                     selectedNewsType={selectedNewsType}

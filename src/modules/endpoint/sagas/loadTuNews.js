@@ -5,7 +5,7 @@ import { createTunewsEndpoint, TunewsModel } from '@integreat-app/integreat-api-
 import { call } from 'redux-saga/effects'
 import { tunewsApiUrl } from '../constants'
 
-function * loadTuNews (
+function * loadTunews (
   language: string,
   page: number,
   count: number
@@ -18,4 +18,4 @@ function * loadTuNews (
   return newsList
 }
 
-export default loadTuNews
+export default loadTunews

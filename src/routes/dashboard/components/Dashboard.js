@@ -92,7 +92,7 @@ class Dashboard extends React.Component<PropsType> {
       navigation, t
     } = this.props
     return <SpaceBetween>
-      <NavigationTiles tiles={this.getNavigationTileModels(cityCode, language)} theme={theme} />
+      <NavigationTiles tiles={this.getNavigationTileModels(cityCode, language)} theme={theme} language={language} />
       <Categories stateView={stateView} cities={cities} resourceCache={resourceCache} language={language}
                   cityCode={cityCode} theme={theme} navigation={navigation} navigateToCategory={navigateToCategory}
                   t={t} navigateToIntegreatUrl={navigateToIntegreatUrl} />
