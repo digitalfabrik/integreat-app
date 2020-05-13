@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TunewsList should render and match snapshot 1`] = `
+<TunewsList__StyledList>
+  <InfiniteScroll
+    element="div"
+    getScrollParent={null}
+    hasMore={true}
+    initialLoad={true}
+    isReverse={false}
+    loadMore={[Function]}
+    loader={<ForwardRef(LoadingSpinner) />}
+    pageStart={0}
+    ref={null}
+    threshold={250}
+    useCapture={false}
+    useWindow={true}
+  >
+    <div>
+      <NewsElement
+        content="In summer there are often ticks in forest and meadows with high grass. These are very small animals. They feed on the blood of people or animals they sting, like mosquitoes. But they stay in the skin longer and can transmit dangerous diseases. If you have been in high grass, you should search your body very thoroughly for ticks. They like to sit in the knees, armpits or in the groin area. If you discover a tick in your skin, you should carefully pull it out with tweezers without crushing it. If the sting inflames, you must see a doctor. tünews INTERNATIONAL"
+        id={1}
+        key="1"
+        language="en"
+        path="/testumgebung/en/news/local"
+        t={[Function]}
+        timestamp={"2020-03-20T17:50:00.000Z"}
+        title="Tick bite - What to do?"
+        type="TUNEWS"
+      />
+      <NewsElement
+        content="In summer there are often ticks in forest and meadows with high grass. These are very small animals. They feed on the blood of people or animals they sting, like mosquitoes. But they stay in the skin longer and can transmit dangerous diseases. If you have been in high grass, you should search your body very thoroughly for ticks. They like to sit in the knees, armpits or in the groin area. If you discover a tick in your skin, you should carefully pull it out with tweezers without crushing it. If the sting inflames, you must see a doctor. tünews INTERNATIONAL"
+        id={2}
+        key="2"
+        language="en"
+        path="/testumgebung/en/news/local"
+        t={[Function]}
+        timestamp={"2020-04-25T17:50:00.000Z"}
+        title="Tick bite - What to do?"
+        type="TUNEWS"
+      />
+    </div>
+  </InfiniteScroll>
+</TunewsList__StyledList>
+`;

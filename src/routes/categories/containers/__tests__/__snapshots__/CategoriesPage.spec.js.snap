@@ -90,7 +90,7 @@ exports[`CategoriesPage should match snapshot and render a Page if page has no c
   <Page
     content="exampleContent0"
     language="en"
-    lastUpdate={"2016-01-07T08:36:24.000Z"}
+    lastUpdate={"2016-01-07T09:36:24.000Z"}
     onInternalLinkClick={[Function]}
     title="asylantrag"
   />

@@ -6,13 +6,14 @@ import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 import type { StateType } from '../../../modules/app/StateType'
 import { TFunction } from 'i18next'
-import PaginatedList from '../components/PaginatedList'
+import TunewsList from '../components/TunewsList'
 import { fetchMoreTunews } from '../actions/fetchMoreTunews'
-import TunewsElement from '../components/TunewsElement'
+import NewsElement from '../components/NewsElement'
 import NewsTabs from '../components/NewsTabs'
 import { TunewsModel, CityModel } from '@integreat-app/integreat-api-client'
 import LoadingSpinner from '../../../modules/common/components/LoadingSpinner'
 import NewsController from './NewsController'
+import { TUNEWS } from '../constants'
 
 type PropsType = {|
   tunews: Array<TunewsModel>,
@@ -28,16 +29,20 @@ type PropsType = {|
 |}
 
 export class TunewsPage extends React.PureComponent<PropsType> {
-  renderTunewsElement = (language: string) => (localNewsItem: TunewsModel, city: string) => {
+  renderTunewsElement = (language: string) => (tunewsItem: TunewsModel, city: string) => {
     const { path, t } = this.props
+    const { id, title, content, date } = tunewsItem
     return (
-      <TunewsElement
-        newsItem={localNewsItem}
-        key={localNewsItem.id}
+      <NewsElement
+        id={id}
+        title={title}
+        content={content}
+        timestamp={date}
+        key={id}
         path={path}
         t={t}
-        city={city}
         language={language}
+        type={TUNEWS}
       />
     )
   }
@@ -46,11 +51,11 @@ export class TunewsPage extends React.PureComponent<PropsType> {
     const { tunews, language, city, t, fetchMoreTunews, hasMore, isFetchingFirstTime, isFetching, cities } = this.props
     return (
       <NewsController>
-        <NewsTabs localNews={false} tunews city={city} cities={cities} t={t} language={language}>
+        <NewsTabs type={TUNEWS} city={city} cities={cities} t={t} language={language}>
           {isFetchingFirstTime ? (
             <LoadingSpinner />
           ) : (
-            <PaginatedList
+            <TunewsList
               items={tunews}
               renderItem={this.renderTunewsElement(language)}
               city={city}
