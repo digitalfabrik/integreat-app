@@ -21,7 +21,7 @@ import NewsListItem from './NewsListItem'
 import headerImage from '../assets/tu-news-header-details-icon.svg'
 import styled from 'styled-components/native'
 import type { StyledComponent } from 'styled-components'
-import { INTERNATIONAL } from '../containers/WithCustomNewsProvider'
+import { TUNEWS } from '../containers/WithCustomNewsProvider'
 import { contentAlignment } from '../../../modules/i18n/contentDirection'
 
 const Container: StyledComponent<{}, {}, *> = styled.View`
@@ -128,7 +128,7 @@ class NewsList extends React.PureComponent<PropsType> {
     item: newsItem
   }) => {
     const { theme, selectedNewsType } = this.props
-    const isTuNews = selectedNewsType === INTERNATIONAL
+    const isTuNews = selectedNewsType === TUNEWS
     return (
       <NewsListItem
         key={newsItem.id}
@@ -159,7 +159,7 @@ class NewsList extends React.PureComponent<PropsType> {
       selectedNewsType
     } = this.props
 
-    const isTuNews = selectedNewsType === INTERNATIONAL
+    const isTuNews = selectedNewsType === TUNEWS
 
     if (path) {
       const selectedNewsItem: LocalNewsModel | TunewsModel = newsList.find(

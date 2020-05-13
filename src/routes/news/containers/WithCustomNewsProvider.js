@@ -21,7 +21,7 @@ import activeLocalNews from '../assets/local-news-active.svg'
 import inactiveLocalNews from '../assets/local-news-inactive.svg'
 import type { NavigationScreenProp } from 'react-navigation'
 
-export const INTERNATIONAL = 'international'
+export const TUNEWS = 'tunews'
 export const LOCAL = 'local'
 
 const newsTabs = [
@@ -32,7 +32,7 @@ const newsTabs = [
     toggleAttr: 'pushNotificationsEnabled'
   },
   {
-    type: INTERNATIONAL,
+    type: TUNEWS,
     active: activeInternational,
     inactive: inactiveInternational,
     toggleAttr: 'tunewsEnabled'
@@ -175,7 +175,7 @@ const withCustomNewsProvider = <
         if (selectedNewsType) {
           type = selectedNewsType
         } else if (tunewsEnabled && !pushNotificationsEnabled) {
-          type = INTERNATIONAL
+          type = TUNEWS
         } else if (pushNotificationsEnabled && !tunewsEnabled) {
           type = LOCAL
         } else {
