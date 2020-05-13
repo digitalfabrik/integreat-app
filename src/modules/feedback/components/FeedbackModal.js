@@ -57,19 +57,21 @@ type PropsType = {|
   theme: ThemeType
 |}
 
+type SendingStatusType = 'IDLE' | 'SUCCESS' | 'ERROR'
+
 type StateType = {|
-  feedbackSent: boolean
+  feedbackSent: SendingStatusType
 |}
 
 export class FeedbackModal extends React.Component<PropsType, StateType> {
-  state = { feedbackSent: false }
+  state = { feedbackSent: 'IDLE' }
 
-  handleSubmit = (arg: boolean) => {
-    this.setState({ feedbackSent: arg })
+  handleSubmit = (value: SendingStatusType) => {
+    this.setState({ feedbackSent: value })
   }
 
   handleOverlayClick = () => {
-    this.setState({ feedbackSent: false })
+    this.setState({ feedbackSent: 'IDLE' })
     this.props.closeFeedbackModal()
   }
 
@@ -77,16 +79,22 @@ export class FeedbackModal extends React.Component<PropsType, StateType> {
     const { theme, feedbackStatus, ...otherProps } = this.props
     const { feedbackSent } = this.state
 
+    let boxContainer
+    if (['IDLE', 'ERROR'].includes(feedbackSent)) {
+      boxContainer = <FeedbackBoxContainer isPositiveRatingSelected={feedbackStatus === POSITIVE_RATING}
+                                   {...otherProps}
+                                   onSubmit={this.handleSubmit}
+                                   feedbackSent={feedbackSent}
+                                   theme={theme} />
+    } else if (['SUCCESS'].includes(feedbackSent)) {
+      boxContainer = <FeedbackThanksMessage closeFeedbackModal={this.props.closeFeedbackModal} />
+    }
+
     return <FocusTrap>
       <ModalContainer role='dialog' aria-modal theme={theme}>
         <Overlay onClick={this.handleOverlayClick} />
         <FeedbackContainer theme={theme}>
-          {
-            feedbackSent
-              ? <FeedbackThanksMessage closeFeedbackModal={this.props.closeFeedbackModal} />
-              : <FeedbackBoxContainer isPositiveRatingSelected={feedbackStatus === POSITIVE_RATING}
-                                      {...otherProps} onSubmit={this.handleSubmit} theme={theme} />
-          }
+          {boxContainer}
         </FeedbackContainer>
       </ModalContainer>
     </FocusTrap>

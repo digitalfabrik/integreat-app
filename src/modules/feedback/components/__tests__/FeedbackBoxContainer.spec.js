@@ -56,7 +56,8 @@ describe('FeedbackBoxContainer', () => {
         t={t}
         theme={theme}
         onSubmit={() => {}}
-        closeFeedbackModal={() => {}} />
+        closeFeedbackModal={() => {}}
+        feedbackSent='SUCCESS' />
     )).toMatchSnapshot()
   })
 
@@ -75,6 +76,7 @@ describe('FeedbackBoxContainer', () => {
           closeFeedbackModal={() => {}}
           extras={null}
           theme={theme}
+          feedbackSent='SUCCESS'
           t={t} />
       ).instance()
 
@@ -104,6 +106,7 @@ describe('FeedbackBoxContainer', () => {
           closeFeedbackModal={() => {}}
           extras={null}
           theme={theme}
+          feedbackSent='SUCCESS'
           t={t} />
       ).instance()
 
@@ -133,6 +136,7 @@ describe('FeedbackBoxContainer', () => {
           closeFeedbackModal={() => {}}
           extras={null}
           theme={theme}
+          feedbackSent='SUCCESS'
           t={t} />
       ).instance()
 
@@ -169,6 +173,7 @@ describe('FeedbackBoxContainer', () => {
           closeFeedbackModal={() => {}}
           extras={null}
           theme={theme}
+          feedbackSent='SUCCESS'
           t={t} />
       ).instance()
 
@@ -199,6 +204,7 @@ describe('FeedbackBoxContainer', () => {
         closeFeedbackModal={() => {}}
         extras={null}
         theme={theme}
+        feedbackSent='SUCCESS'
         t={t} />
     )
     expect(component.instance().getContentFeedbackOption())
@@ -266,6 +272,7 @@ describe('FeedbackBoxContainer', () => {
         closeFeedbackModal={() => {}}
         extras={extras}
         theme={theme}
+        feedbackSent='SUCCESS'
         t={t} />
     )
 
@@ -331,6 +338,7 @@ describe('FeedbackBoxContainer', () => {
             closeFeedbackModal={() => {}}
             extras={null}
             theme={theme}
+            feedbackSent='SUCCESS'
             t={t} />
   )
 
@@ -356,6 +364,7 @@ describe('FeedbackBoxContainer', () => {
         extras={null}
         postFeedbackDataOverride={mockPostFeedbackData}
         theme={theme}
+        feedbackSent='SUCCESS'
         t={t} />
     )
 
@@ -377,6 +386,7 @@ describe('FeedbackBoxContainer', () => {
         closeFeedbackModal={() => {}}
         extras={null}
         theme={theme}
+        feedbackSent='SUCCESS'
         t={t} />
     ).instance()
 
@@ -401,6 +411,7 @@ describe('FeedbackBoxContainer', () => {
         closeFeedbackModal={() => {}}
         extras={null}
         theme={theme}
+        feedbackSent='SUCCESS'
         t={t} />
     ).instance()
 
