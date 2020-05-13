@@ -104,7 +104,7 @@ export type PropsType = {|
 |}
 
 /**
- * Displays a list of news or a single event, matching the route /<location>/<language>/events(/<id>)
+ * Displays a list of news or a single news item, matching the route <id>)
  */
 class NewsList extends React.PureComponent<PropsType> {
   navigateToNews = (cityCode: string, language: string, path: string) => () => {
