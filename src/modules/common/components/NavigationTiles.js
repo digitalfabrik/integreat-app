@@ -9,6 +9,8 @@ import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import NavigationTile from './NavigationTile'
 import { ScrollView } from 'react-native'
 import OnLayout from 'react-native-on-layout'
+import { isContentDirectionReversalRequired } from '../../i18n/contentDirection'
+
 const WIDTH_BREAK_POINT = 375
 const ANCHOR_INITIAL_WIDTH = 60
 const WIDE_SCREEN_ITEMS_COUNT = 4
@@ -20,7 +22,8 @@ type PropsType = {|
   navigationItemWidth: number,
   isWideScreen: boolean,
   scrollViewWidth: number,
-  anchorWidth: number
+  anchorWidth: number,
+  language: string
 |}
 
 const TilesRow = styled.View`
@@ -83,15 +86,17 @@ class NavigationTiles extends React.Component<
       isWideScreen,
       navigationItemWidth,
       scrollViewWidth,
-      anchorWidth
+      anchorWidth,
+      language
     } = this.props
     const isMoreThanThreeItems = tiles.length > SMALL_SCREEN_ITEMS_COUNT
 
     return (
       <TilesRow theme={theme}>
-        {!isWideScreen && isMoreThanThreeItems && (
+        {(!isWideScreen && isMoreThanThreeItems) && (
           <Icon
             name='keyboard-arrow-left'
+            style={{ transform: [{ scaleX: isContentDirectionReversalRequired(language) ? -1 : 1 }] }}
             onPress={this.onAnchorPress}
             width={anchorWidth}
           />
@@ -123,6 +128,7 @@ class NavigationTiles extends React.Component<
         {!isWideScreen && isMoreThanThreeItems && (
           <Icon
             name='keyboard-arrow-right'
+            style={{ transform: [{ scaleX: isContentDirectionReversalRequired(language) ? -1 : 1 }] }}
             onPress={this.onAnchorPress}
             width={anchorWidth}
           />
@@ -134,7 +140,8 @@ class NavigationTiles extends React.Component<
 
 const NavigationTilesWithScrollableView = (props: {
   tiles: TileModel[],
-  theme: ThemeType
+  theme: ThemeType,
+  language: string
 }) => (
   <OnLayout>
     {({ width }) => {
