@@ -61,11 +61,11 @@ export type FetchMoreNewsActionType = {|
   type: "FETCH_MORE_NEWS",
   +params: {|
     +city: string, +language: string,
-    +oldNewsList: $ReadOnlyArray<LocalNewsModel | TunewsModel>, // old newsList is must to concat it with the new list comming from BE
+    +previouslyFetchedNewsList: $ReadOnlyArray<LocalNewsModel | TunewsModel>,
     +path: ?string, +key: string,
     +criterion: ContentLoadCriterionType,
     +type: string,
-    +page: number, // Added to specify the page number that needs to be fetched
+    +page: number,
     +hasMoreNews: boolean
   |}
 |}
@@ -77,16 +77,16 @@ export type ClearNewsActionType = {|
 export type PushNewsActionType = {|
   type: 'PUSH_NEWS',
   +params: {|
-    +newsList: $ReadOnlyArray<any>,
-    +oldNewsList?: $ReadOnlyArray<any>, // added here in case if there is old news then [concat old news with new ones]
+    +newsList: $ReadOnlyArray<LocalNewsModel | TunewsModel>,
+    +previouslyFetchedNewsList?: $ReadOnlyArray<LocalNewsModel | TunewsModel>, // added here in case if there is old news then [concat old news with new ones]
     +path: ?string,
     +key: string,
     +cityLanguages: $ReadOnlyArray<LanguageModel>,
     +language: string,
     +city: string,
-    +hasMoreNews: ?boolean, // Added this to stop loading more when no items are in comming in response
+    +hasMoreNews: boolean, // Added this to stop loading more when no items are in comming in response
     +type: string,
-    +page: ?number
+    +page: number
   |}
 |}
 

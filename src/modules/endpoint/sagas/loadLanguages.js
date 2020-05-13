@@ -11,9 +11,9 @@ export default function * loadLanguages (
   city: string,
   dataContainer: DataContainer,
   forceRefresh: boolean,
-  isTunews: ?boolean
+  isTunewsContext?: boolean
 ): Saga<Array<LanguageModel>> {
-  if (isTunews) {
+  if (isTunewsContext) {
     console.debug('Fetching tunews languages')
 
     const payload = yield call(() => createTunewsLanguagesEndpoint(tunewsApiUrl).request({ city }))
@@ -34,8 +34,8 @@ export default function * loadLanguages (
 
   console.debug('Fetching languages')
 
-  const apiUrl = isTunews ? tunewsApiUrl : yield call(determineApiUrl)
-  const payload = yield call(() => createLanguagesEndpoint(apiUrl, isTunews).request({ city }))
+  const apiUrl = yield call(determineApiUrl)
+  const payload = yield call(() => createLanguagesEndpoint(apiUrl).request({ city }))
   const languages: Array<LanguageModel> = payload.data
 
   yield call(dataContainer.setLanguages, city, languages)
