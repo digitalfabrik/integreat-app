@@ -110,16 +110,11 @@ export const ReadMore: StyledComponent<
   margin-top: 5px;
   color: ${props =>
     props.isTunews
-      ? props.theme.colors.tunewsColor
+      ? '#0279a6'
       : props.theme.colors.themeColor};
 `
 
 class NewsListItem extends React.PureComponent<PropsType> {
-  /**
-   * We have three placeholder thumbnails to display when cities don't provide a thumbnail
-   * @returns {*} The Placeholder Thumbnail
-   */
-
   render () {
     const {
       newsItem: { title, content, message },
@@ -129,7 +124,7 @@ class NewsListItem extends React.PureComponent<PropsType> {
       t,
       isTunews
     } = this.props
-    const newsContent = content || message || ''
+    const newsContent = content || message
 
     return (
       <>
