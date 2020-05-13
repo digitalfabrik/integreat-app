@@ -8,7 +8,7 @@ import type { ThemeType } from '../../theme/constants/theme'
 
 const StyledView: StyledComponent<{}, ThemeType, *> = styled.View`
   margin: 0 10px 0;
-  border-top-width: 2px;	
+  border-top-width: 2px;
   border-top-color: ${props => props.theme.colors.themeColor};
 `
 
