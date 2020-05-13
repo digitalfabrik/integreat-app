@@ -7,9 +7,7 @@ export type ColorsType = {
   textColor: string,
   textSecondaryColor: string,
   textDecorationColor: string,
-  backgroundColor: string,
-  tunewsColor: string,
-  inActiveTunewColor: string
+  backgroundColor: string
 }
 
 export const brightColors: ColorsType = {
@@ -19,9 +17,7 @@ export const brightColors: ColorsType = {
   textColor: '#000000',
   textSecondaryColor: '#585858',
   textDecorationColor: '#c7c7c7',
-  backgroundColor: '#ffffff',
-  tunewsColor: '#0279a6',
-  inActiveTunewColor: '#959595'
+  backgroundColor: '#ffffff'
 }
 
 export const darkColors: ColorsType = {
@@ -31,7 +27,5 @@ export const darkColors: ColorsType = {
   textColor: '#BBBBBB',
   textSecondaryColor: '#888888',
   textDecorationColor: '#555555',
-  backgroundColor: '#222222',
-  tunewsColor: '#0279a6',
-  inActiveTunewColor: '#959595'
+  backgroundColor: '#222222'
 }
