@@ -5,7 +5,7 @@ import { LocalNewsModel } from '@integreat-app/integreat-api-client'
 import moment from 'moment-timezone'
 import { shallow } from 'enzyme'
 import NewsElement from '../NewsElement'
-import { LOCAL_NEWS} from '../../constants'
+import { LOCAL_NEWS } from '../../constants'
 
 describe('NewsElement', () => {
   const language = 'en'
