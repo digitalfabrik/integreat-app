@@ -36,8 +36,7 @@ type ContainerPropsType = {|
   cities: $ReadOnlyArray<CityModel>,
   stateView: CategoriesRouteStateView,
   resourceCache: LanguageResourceCacheStateType,
-  dispatch: Dispatch<StoreActionType>,
-  cityModel: CityModel
+  dispatch: Dispatch<StoreActionType>
 |}
 
 type OwnPropsType = {| navigation: NavigationScreenProp<*>, t: TFunction |}
@@ -108,7 +107,6 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
 
   const cities = state.cities.models
-  const cityModel = cities.find(city => city.code === route.city)
   const stateView = new CategoriesRouteStateView(route.path, route.models, route.children)
   return {
     status: 'success',
@@ -119,7 +117,6 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       language: route.language,
       cities,
       stateView,
-      cityModel,
       resourceCache: resourceCache.value
     }
   }
