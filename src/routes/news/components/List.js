@@ -30,8 +30,7 @@ const List = ({
   renderItem,
   isFetchingMore,
   getMoreItems,
-  renderNoItemsComponent,
-  setRef
+  renderNoItemsComponent
 }: ListPropTypes) => {
   return (
     <FlatList

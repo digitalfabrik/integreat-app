@@ -97,7 +97,6 @@ export type PropsType = {|
   status: "ready" | "loadingMore",
   isFetchingMore: boolean,
   type: string,
-  setFlatListRef: () => void,
   fetchMoreNews: () => void,
   fetchNews: () => void,
   navigateToNews: (navigationOptions: NavigateToNewsParamsType) => void,
@@ -223,7 +222,6 @@ class NewsList extends React.PureComponent<PropsType> {
       <SpaceBetween>
         <View style={{ flex: 1 }}>
           <List
-            setRef={this.props.setFlatListRef}
             renderNoItemsComponent={this.renderNoItemsComponent}
             items={newsList}
             isFetchingMore={isFetchingMore}
