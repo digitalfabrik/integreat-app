@@ -17,9 +17,7 @@ import createNavigateToNews from '../../../modules/app/createNavigateToNews'
 import type { Dispatch } from 'redux'
 
 import type { NavigationScreenProp } from 'react-navigation'
-import withCustomPayloadProvider, {
-  TUNEWS
-} from './WithCustomNewsProvider'
+import withCustomPayloadProvider, { TUNEWS } from './WithCustomNewsProvider'
 import type { StatusPropsType } from './WithCustomNewsProvider'
 import {
   CityModel,
@@ -42,8 +40,7 @@ type ContainerPropsType = {|
   dispatch: Dispatch<StoreActionType>,
   cityModel: CityModel,
 
-  // option props that comes from provider
-  fetchNews?: () => void,
+  // option props that come from provider
   selectedNewsType: string,
 
   // option props that comes from action
@@ -258,7 +255,6 @@ class NewsContainer extends React.Component<ContainerPropsType> {
         status={status}
         isFetchingMore={status === 'loadingMore'}
         fetchMoreNews={this.fetchMoreNews}
-        fetchNews={this.props.fetchNews}
         navigateToNews={createNavigateToNews(dispatch, rest.navigation)}
       />
     )
