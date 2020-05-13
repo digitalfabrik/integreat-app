@@ -18,7 +18,7 @@ import type { Dispatch } from 'redux'
 
 import type { NavigationScreenProp } from 'react-navigation'
 import withCustomPayloadProvider, {
-  INTERNATIONAL
+  TUNEWS
 } from './WithCustomNewsProvider'
 import type { StatusPropsType } from './WithCustomNewsProvider'
 import {
@@ -43,7 +43,7 @@ type ContainerPropsType = {|
   cityModel: CityModel,
 
   // option props that comes from provider
-  setFlatListRef?: (ref: any) => void,
+  setFlatListRef?: (ref: React$Node) => void,
   fetchNews?: () => void,
   selectedNewsType: string,
 
@@ -225,7 +225,7 @@ class NewsContainer extends React.Component<ContainerPropsType> {
     const { dispatch, selectedNewsType, ...rest } = this.props
     const { cityCode, language, navigation, path, page } = rest
     const { newsList, hasMoreNews } = rest
-    const isTuNews = selectedNewsType === INTERNATIONAL
+    const isTuNews = selectedNewsType === TUNEWS
 
     if (hasMoreNews && isTuNews) {
       const fetchNews: FetchMoreNewsActionType = {
@@ -237,7 +237,7 @@ class NewsContainer extends React.Component<ContainerPropsType> {
           type: selectedNewsType,
           key: navigation.state.key,
           page: page + 1,
-          oldNewsList: newsList,
+          previouslyFetchedNewsList: newsList,
           hasMoreNews,
           criterion: {
             forceUpdate: false,
