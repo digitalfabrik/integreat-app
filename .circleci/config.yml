@@ -182,7 +182,7 @@ jobs:
       - checkout
       - attach_workspace:
           at: .
-      - when: # Maybe move conditional to trigger-pipeline param
+      - when:
           condition: << parameters.shouldBumpVersion >>
           steps:
             - run:
