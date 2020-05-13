@@ -13,8 +13,6 @@ import { omit } from 'lodash'
 export default (
   state: CityContentStateType | null = defaultCityContentState, action: StoreActionType
 ): CityContentStateType | null => {
-  console.log(action)
-
   if (action.type === 'FETCH_CATEGORY') {
     const { language, path, depth, key, city } = action.params
     const initializedState = state || createCityContent(city)
@@ -38,7 +36,6 @@ export default (
   } else if (action.type === 'FETCH_NEWS') {
     const { language, path, key, city, type } = action.params
     const initializedState = state || createCityContent(city)
-    console.log({ action })
 
     return {
       ...initializedState,

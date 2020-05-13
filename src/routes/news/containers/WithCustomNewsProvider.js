@@ -308,7 +308,6 @@ const withCustomNewsProvider = <
 
       render () {
         const props = this.props
-        // console.log({ refresh: props.refreshProps, inner: props.innerProps, props: props })
 
         if (props.status === 'routeNotInitialized') {
           return null
