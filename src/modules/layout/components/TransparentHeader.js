@@ -90,7 +90,7 @@ class TransparentHeader extends React.PureComponent<PropsType> {
           <HorizontalLeft>
             <HeaderBackButton onPress={this.goBack} />
           </HorizontalLeft>
-          {shareUrl && <MaterialHeaderButtons>
+          {shareUrl && <MaterialHeaderButtons cancelLabel={t('cancel')} theme={theme}>
             <Item title={t('share')} show='never' onPress={this.onShare} />
           </MaterialHeaderButtons>}
         </Horizontal>

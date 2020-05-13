@@ -1,4 +1,0 @@
-[submodule "locales"]
-	path = locales
-	url = ../integreat-locales.git
-	update = merge

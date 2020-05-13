@@ -1,0 +1,54 @@
+From e5cc461115bdcd2916dfb7fa8de1a3561496fd9d Mon Sep 17 00:00:00 2001
+From: Steffen Kleinle <klinzo@yahoo.de>
+Date: Thu, 18 Oct 2018 18:11:41 +0200
+Subject: [PATCH 03/23] WEBAPP-375: Remove date and location information to
+ PageDetail
+
+---
+ src/locales.json | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/src/locales.json b/src/locales.json
+index 15340eb1..6b80a6bd 100644
+--- a/src/locales.json
++++ b/src/locales.json
+@@ -71,26 +71,36 @@
+   },
+   "events": {
+     "ar": {
++      "location": "الموقع",
++      "date": "تاريخ",
+       "news": "الأخبار",
+       "pageTitle": "الأخبار",
+       "currentlyNoEvents": "ليس هناك فعاليات متوفرة حاليَاً"
+     },
+     "de": {
++      "location": "Standort",
++      "date": "Datum",
+       "news": "News",
+       "pageTitle": "News",
+       "currentlyNoEvents": "Es gibt aktuell keine Veranstaltungen."
+     },
+     "en": {
++      "location": "Location",
++      "date": "Date",
+       "news": "News",
+       "pageTitle": "News",
+       "currentlyNoEvents": "No recent events available."
+     },
+     "fa": {
++      "location": "موقعیت مکانی",
++      "date": "تاریخ",
+       "news": "تازه​ها",
+       "pageTitle": "تازه​ها",
+       "currentlyNoEvents": "هیچ رویداد جدیدی موجود نیست."
+     },
+     "fr": {
++      "location": "Lieu",
++      "date": "Date",
+       "news": "Actualités",
+       "pageTitle": "Actualités",
+       "currentlyNoEvents": "Pas d'événements actuels disponibles."
+-- 
+2.20.1 (Apple Git-117)
+
