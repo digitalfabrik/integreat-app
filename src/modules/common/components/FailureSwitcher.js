@@ -36,7 +36,7 @@ export class FailureSwitcher extends React.Component<PropsType> {
                         errorMessage='notFound.event' />
       case 'localNewsItem':
         return <Failure goToPath={new LocalNewsRouteConfig().getRoutePath({ city, language })}
-                        goToMessage='goTo.news'
+                        goToMessage='goTo.localNews'
                         errorMessage='notFound.localNewsItem' />
       case 'tunewsItem':
         return <Failure goToPath={new TunewsRouteConfig().getRoutePath({ city, language })}

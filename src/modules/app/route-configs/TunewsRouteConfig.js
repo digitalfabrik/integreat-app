@@ -14,12 +14,12 @@ import {
 import fetchData from '../fetchData'
 import { cmsApiBaseUrl, tunewsApiBaseUrl } from '../constants/urls'
 
-type TunewsListRouteParamsType = {| city: string, language: string |}
+type TunewsRouteParamsType = {| city: string, language: string |}
 type RequiredPayloadsType = {| tunews: Payload<Array<TunewsModel>> |}
 
-export const TUNEWS_ROUTE = 'TUNEWS_LIST'
+export const TUNEWS_ROUTE = 'TUNEWS'
 
-const tunewsListRoute: Route = {
+const tunewsRoute: Route = {
   path: '/:city/:language/news/tu-news',
   thunk: async (dispatch, getState) => {
     const state = getState()
@@ -34,9 +34,9 @@ const tunewsListRoute: Route = {
   }
 }
 
-class TunewsRouteConfig implements RouteConfig<TunewsListRouteParamsType, RequiredPayloadsType> {
+class TunewsRouteConfig implements RouteConfig<TunewsRouteParamsType, RequiredPayloadsType> {
   name = TUNEWS_ROUTE
-  route = tunewsListRoute
+  route = tunewsRoute
   isLocationLayoutRoute = true
   requiresHeader = true
   requiresFooter = true
@@ -55,7 +55,7 @@ class TunewsRouteConfig implements RouteConfig<TunewsListRouteParamsType, Requir
     return `${t('pageTitles.tunews')} - ${cityName}`
   }
 
-  getRoutePath = ({ city, language }: TunewsListRouteParamsType): string => `/${city}/${language}/news/tu-news`
+  getRoutePath = ({ city, language }: TunewsRouteParamsType): string => `/${city}/${language}/news/tu-news`
 
   getMetaDescription = () => null
 
