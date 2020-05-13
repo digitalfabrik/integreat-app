@@ -4,7 +4,7 @@ exports[`NewsTabs should render and match snapshot 1`] = `
 <Fragment>
   <NewsTabs__StyledTabs />
   <div>
-    dummy test
+    dummy child
   </div>
 </Fragment>
 `;

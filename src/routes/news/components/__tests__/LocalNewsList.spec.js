@@ -4,17 +4,22 @@ import React from 'react'
 import { LocalNewsModel } from '@integreat-app/integreat-api-client'
 import moment from 'moment-timezone'
 import { shallow } from 'enzyme'
-import NewsList from '../NewsList'
+import LocalNewsList from '../LocalNewsList'
 import NewsElement from '../NewsElement'
+import { LOCAL_NEWS } from '../../constants'
 
-describe('NewsList', () => {
+describe('LocalNewsList', () => {
   const language = 'en'
   const path = '/testumgebung/en/news/local'
   const t = (key: ?string): string => key || ''
   const city = 'testcity'
 
-  const renderItem = (localNews1, city) => <NewsElement
-    newsItem={localNews1}
+  const renderItem = ({ id, title, message, timestamp }, city) => <NewsElement
+    id={id}
+    title={title}
+    content={message}
+    timestamp={timestamp}
+    type={LOCAL_NEWS}
     key={localNews1.id}
     path={path}
     t={t}
@@ -41,7 +46,7 @@ describe('NewsList', () => {
 
   it('should render and match snapshot', () => {
     expect(shallow(
-      <NewsList items={items} renderItem={renderItem} city={city} noItemsMessage='no item' />
+      <LocalNewsList items={items} renderItem={renderItem} city={city} noItemsMessage='no item' />
     )).toMatchSnapshot()
   })
 })

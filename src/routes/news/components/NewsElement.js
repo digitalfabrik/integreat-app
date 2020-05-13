@@ -2,11 +2,12 @@
 
 import * as React from 'react'
 import styled from 'styled-components'
-import { LocalNewsModel } from '@integreat-app/integreat-api-client'
+import type Moment from 'moment'
 import CleanLink from '../../../modules/common/components/CleanLink'
 import LastUpdateInfo from './../../../modules/common/components/LastUpdateInfo'
 import type { TFunction } from 'react-i18next'
 import textTruncator from './../../../modules/common/utils/textTruncator'
+import { LOCAL_NEWS } from '../constants'
 
 const TRUNCATE_LETTERS_COUNT = 30
 
@@ -14,10 +15,10 @@ const Link = styled(CleanLink)`
   display: flex;
   background-color: ${({ theme }) => (theme.colors.backgroundColor)};
 `
-
-const ReadMoreLink = styled(CleanLink)`
+const ReadMoreLink = styled(({ type, ...props }) => <Link {...props} />)`
   align-self: flex-end;
-  color: ${({ theme }) => (theme.colors.themeColor)};
+  color: ${({ theme, type }) => type === LOCAL_NEWS ? theme.colors.themeColor : theme.colors.secondaryAccentColor};
+  color: ${({ theme, type }) => type === LOCAL_NEWS ? theme.colors.themeColor : theme.colors.secondaryAccentColor};
   font-weight: 600;
 `
 
@@ -65,30 +66,34 @@ const StyledDate = styled(LastUpdateInfo)`
 `
 
 type PropsType = {|
-  newsItem: LocalNewsModel,
-  path: string,
+  id: number,
+  title: string,
+  content: string,
+  timestamp: Moment,
   language: string,
+  path: string,
+  type: string,
   t: TFunction
 |}
 
 class NewsElement extends React.PureComponent<PropsType> {
   renderContent (itemPath: string): React.Node {
-    const { newsItem, language, t } = this.props
+    const { title, content, timestamp, language, t, type } = this.props
     return (
       <Description>
-        <Title>{newsItem.title}</Title>
-        <Body>{textTruncator(newsItem.message, TRUNCATE_LETTERS_COUNT)}</Body>
+        <Title>{title}</Title>
+        <Body>{textTruncator(content, TRUNCATE_LETTERS_COUNT)}</Body>
         <StyledContainer>
-          <StyledDate lastUpdate={newsItem.timestamp} language={language} />
-          <ReadMoreLink to={itemPath}>{t('readMore')} ></ReadMoreLink>
+          <StyledDate lastUpdate={timestamp} language={language} />
+          <ReadMoreLink to={itemPath} type={type}>{t('readMore')} ></ReadMoreLink>
         </StyledContainer>
       </Description>
     )
   }
 
   render () {
-    const { path, newsItem } = this.props
-    const itemPath = `${path}/${newsItem.id}`
+    const { path, id } = this.props
+    const itemPath = `${path}/${id}`
 
     return (
       <StyledNewsElement>

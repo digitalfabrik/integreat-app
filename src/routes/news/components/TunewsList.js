@@ -31,7 +31,7 @@ type PropsType<T> = {|
   fetchMoreTunews: (page: number, count: number) => void
 |}
 
-class PaginatedList<T> extends React.PureComponent<PropsType<T>> {
+class TunewsList<T> extends React.PureComponent<PropsType<T>> {
   loadItems = async (page: number) => {
     this.props.fetchMoreTunews(page + 1, LIMIT)
   };
@@ -56,4 +56,4 @@ class PaginatedList<T> extends React.PureComponent<PropsType<T>> {
   }
 }
 
-export default PaginatedList
+export default TunewsList

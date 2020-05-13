@@ -37,11 +37,10 @@ exports[`LocalNewsPage should match snapshot and render LocalNewsPage 1`] = `
     }
     city="augsburg"
     language="en"
-    localNews={true}
     t={[Function]}
-    tunews={false}
+    type="LOCAL_NEWS"
   >
-    <NewsList
+    <LocalNewsList
       city="augsburg"
       items={
         Array [

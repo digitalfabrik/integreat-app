@@ -5,7 +5,7 @@ exports[`EventsPage should match snapshot and render EventDetail 1`] = `
   <Page
     content="content"
     language="en"
-    lastUpdate={"2016-01-07T08:36:24.000Z"}
+    lastUpdate={"2016-01-07T09:36:24.000Z"}
     onInternalLinkClick={[Function]}
     thumbnail="thumbnail"
     title="first Event"

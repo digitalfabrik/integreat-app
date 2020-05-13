@@ -26,7 +26,7 @@ type PropsType<T> = {|
   city: string
 |}
 
-class NewsList<T> extends React.PureComponent<PropsType<T>> {
+class LocalNewsList<T> extends React.PureComponent<PropsType<T>> {
   render () {
     const { items, renderItem, noItemsMessage, city } = this.props
     if (isEmpty(items)) {
@@ -43,4 +43,4 @@ class NewsList<T> extends React.PureComponent<PropsType<T>> {
   }
 }
 
-export default NewsList
+export default LocalNewsList

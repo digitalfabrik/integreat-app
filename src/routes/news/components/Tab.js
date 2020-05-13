@@ -6,8 +6,7 @@ import Link from 'redux-first-router-link'
 import { TFunction } from 'i18next'
 import tunewsLogoActive from '../assets/TunewsActiveLogo.png'
 import tunewsLogoInActive from '../assets/TunewsInactiveLogo.png'
-
-const TU_NEWS = 'tu'
+import { TUNEWS } from '../constants'
 
 const NewsLink = ({ active, ...props }) => <Link {...props} />
 
@@ -34,7 +33,7 @@ const StyledTab = styled(NewsLink)`
 
 const TuStyledTab = styled(StyledTab)`
   background-color: ${({ active, theme }) =>
-    active ? '#0179a6' : 'rgba(111, 111, 110, 0.4)'};
+    active ? theme.colors.secondaryAccentColor : 'rgba(111, 111, 110, 0.4)'};
   background-image: ${({ active, theme }) =>
     active ? `url(${tunewsLogoActive})` : `url(${tunewsLogoInActive})`};
   background-size: cover;
@@ -51,7 +50,7 @@ class Tab extends React.PureComponent<PropsType> {
   render () {
     const { type, active, destination, t } = this.props
 
-    if (type === TU_NEWS) {
+    if (type === TUNEWS) {
       return (
         <div>
           <TuStyledTab active={active} to={destination} />

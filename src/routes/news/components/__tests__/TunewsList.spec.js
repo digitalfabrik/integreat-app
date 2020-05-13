@@ -4,22 +4,26 @@ import React from 'react'
 import { TunewsModel } from '@integreat-app/integreat-api-client'
 import moment from 'moment-timezone'
 import { shallow } from 'enzyme'
-import PaginatedList from '../PaginatedList'
-import TunewsElement from '../TunewsElement'
+import TunewsList from '../TunewsList'
+import NewsElement from '../NewsElement'
+import { TUNEWS } from '../../constants'
 
-describe('PaginatedList', () => {
+describe('TunewsList', () => {
   const language = 'en'
   const path = '/testumgebung/en/news/local'
   const t = (key: ?string): string => key || ''
   const city = 'testcity'
 
-  const renderItem = (language: string) => (item: TunewsModel, city: string) => <TunewsElement
-    newsItem={item}
-    key={item.id}
+  const renderItem = (language: string) => ({ id, title, content, date }: TunewsModel, city: string) => <NewsElement
+    id={id}
+    title={title}
+    content={content}
+    timestamp={date}
+    type={TUNEWS}
+    key={id}
     path={path}
     t={t}
     language={language}
-    city={city}
   />
   const date1 = moment.tz('2020-03-20 17:50:00', 'GMT')
   const date2 = moment.tz('2020-04-25 17:50:00', 'GMT')
@@ -45,7 +49,7 @@ describe('PaginatedList', () => {
 
   it('should render and match snapshot', () => {
     expect(shallow(
-      <PaginatedList
+      <TunewsList
         language={language}
         items={tunews}
         renderItem={renderItem(language)}

@@ -42,11 +42,10 @@ exports[`TunewsPage should match snapshot and render TunewsPage 1`] = `
     }
     city="augsburg"
     language="en"
-    localNews={false}
     t={[Function]}
-    tunews={true}
+    type="TUNEWS"
   >
-    <PaginatedList
+    <TunewsList
       city="augsburg"
       fetchMoreTunews={[Function]}
       hasMore={true}
