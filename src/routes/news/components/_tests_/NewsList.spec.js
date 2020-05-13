@@ -194,7 +194,7 @@ describe('News', () => {
     const result = TestRenderer.create(
       <Provider store={store}><NewsContainer navigation={navigation} /></Provider>
     )
-    const newsListInstance = result.root.findByProps({ newsList: newsList }, { deep: true })
+    const newsListInstance = result.root.findByProps({ newsList: newsList })
 
     expect(newsListInstance).toBeTruthy()
   })
