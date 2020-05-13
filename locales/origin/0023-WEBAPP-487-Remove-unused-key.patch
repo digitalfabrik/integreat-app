@@ -1,0 +1,26 @@
+From cc54f6f13b9d43154acb24faaf3c1f557d6816fa Mon Sep 17 00:00:00 2001
+From: Maximilian Ammann <max@maxammann.org>
+Date: Mon, 23 Sep 2019 14:24:13 +0200
+Subject: [PATCH 23/23] WEBAPP-487: Remove unused key
+
+---
+ src/locales.json | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/src/locales.json b/src/locales.json
+index e59b44c7..85bdb48a 100644
+--- a/src/locales.json
++++ b/src/locales.json
+@@ -206,8 +206,7 @@
+       "searchCity": "البحث عن مكانك"
+     },
+     "de": {
+-      "searchCity": "Ort suchen",
+-      "metaDescription": "Finde lokale und aktuelle Informationen, Events und werde Teil deiner neuen Stadt. Integreat hilft dir dich mit anderen zu vernetzen und unterstützt mehrere Sprachen."
++      "searchCity": "Ort suchen"
+     },
+     "en": {
+       "searchCity": "Search for a city"
+-- 
+2.20.1 (Apple Git-117)
+
