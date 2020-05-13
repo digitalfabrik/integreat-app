@@ -2,7 +2,6 @@
 
 import * as React from 'react'
 import TestRenderer from 'react-test-renderer'
-import { LocalNewsModel } from '@integreat-app/integreat-api-client'
 import configureMockStore from 'redux-mock-store'
 import CityModelBuilder from '../../../../testing/builder/CityModelBuilder'
 import LanguageModelBuilder from '../../../../testing/builder/LanguageModelBuilder'
@@ -19,7 +18,6 @@ import { render } from '@testing-library/react-native'
 import ErrorCodes from '../../../../modules/error/ErrorCodes'
 import { Text, ActivityIndicator } from 'react-native'
 import { LOADING_TIMEOUT } from '../../../../modules/common/constants'
-import TranslatedNewsListItem from '../NewsListItem'
 
 const mockStore = configureMockStore()
 jest.mock('react-i18next')
