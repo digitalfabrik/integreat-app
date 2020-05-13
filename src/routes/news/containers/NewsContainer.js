@@ -93,7 +93,6 @@ const mapStateToProps = (
   } = state.cityContent
 
   const route: ?NewsRouteStateType = newsRouteMapping[navigation.state.key]
-  console.log({ routeline96: route })
 
   if (!route) {
     return { status: 'routeNotInitialized' }
@@ -279,7 +278,6 @@ const refresh = (
   dispatch: Dispatch<StoreActionType>
 ) => {
   const { navigation, cityCode, language, path, selectedNewsType } = refreshProps
-  console.log({ path, selectedNewsType })
 
   const navigateToNews = createNavigateToNews(dispatch, navigation)
   navigateToNews({
