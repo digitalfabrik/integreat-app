@@ -3,8 +3,8 @@
 import * as React from 'react'
 import {
   LocalNewsModel,
-  TunewModel
-} from '@integreat-app/integreat-api-client' // TODO: check if we have newsModel
+  TunewsModel
+} from '@integreat-app/integreat-api-client'
 import styled from 'styled-components/native'
 import { type TFunction, withTranslation } from 'react-i18next'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
@@ -17,7 +17,7 @@ import {
 const TEXT_MAX_LENGTH = 250
 
 type PropsType = {|
-  newsItem: LocalNewsModel | TunewModel,
+  newsItem: LocalNewsModel | TunewsModel,
   language: string,
   navigateToNews: () => void,
   theme: ThemeType,

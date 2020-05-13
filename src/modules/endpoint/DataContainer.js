@@ -112,5 +112,4 @@ export interface DataContainer {
    * Clears all in-memory caches
    */
   clearInMemoryCache (): void
-
 }

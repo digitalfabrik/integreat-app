@@ -74,17 +74,17 @@ export type EventRouteStateType = {|
 |}
 
 export type NewsRouteConfigType = {|
-  +path: ?string, // path is null for the news-lists route
+  +path: ?string, // path is null for the news list
   +language: string,
   +city: string,
-  +type: string // this attr is for checking if whether type is local or international
+  +type: string // this attr is for checking if whether type is local or tunews
 |}
 
 export type NewsRouteStateType = {|
   +status: 'ready',
   +models: $ReadOnlyArray<LocalNewsModel | TunewsModel>,
-  +hasMoreNews: boolean, // for fetching more news
-  +page: number, // for determinding the number of the page we need to fetch
+  +hasMoreNews: boolean,
+  +page: number,
   ...NewsRouteConfigType,
   +allAvailableLanguages: $ReadOnlyMap<string, ?string>
   |} | {|
@@ -98,7 +98,7 @@ export type NewsRouteStateType = {|
   ...NewsRouteConfigType
   |} | {|
     +status: 'loadingMore',
-    +models: $ReadOnlyArray<LocalNewsModel | TunewsModel>, // to keep old newsList available in component while fetching other news
+    +models: $ReadOnlyArray<LocalNewsModel | TunewsModel>,
     ...NewsRouteConfigType
   |} | {|
   +status: 'error',

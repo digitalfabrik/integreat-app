@@ -121,7 +121,7 @@ export function * fetchMoreNews (
     criterion,
     type,
     page,
-    oldNewsList
+    previouslyFetchedNewsList
   } = action.params
   try {
     const peeking = yield select(state =>
@@ -146,7 +146,7 @@ export function * fetchMoreNews (
       type: 'PUSH_NEWS',
       params: {
         newsList,
-        oldNewsList,
+        previouslyFetchedNewsList,
         path,
         hasMoreNews: newsList.length !== 0,
         cityLanguages,

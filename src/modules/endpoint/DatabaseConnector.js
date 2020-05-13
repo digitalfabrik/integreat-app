@@ -79,7 +79,6 @@ type ContentCityJsonType = {|
   aliases: { [alias: string]: {|longitude: number, latitude: number|}} | null,
   pushNotificationsEnabled: boolean,
   tunewsEnabled: boolean
-
 |}
 
 type CityCodeType = string

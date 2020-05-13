@@ -8,11 +8,6 @@ import determineApiUrl from '../determineApiUrl'
 function * loadLocalNews (
   city: string,
   language: string
-  /*
-  Note: no need for these to params as it shouldn't be saved to cache
-  dataContainer: DataContainer,
-  forceRefresh: boolean
-  */
 ): Saga<Array<LocalNewsModel>> {
   console.debug('Fetching news')
 
