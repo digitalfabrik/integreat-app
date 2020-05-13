@@ -89,6 +89,13 @@ export default (
           }
         }
       }
+      case 'CLEAR_NEWS': {
+        const { key } = action.params
+        return {
+          ...state,
+          newsRouteMapping: omit(state.newsRouteMapping, [key])
+        }
+      }
       case 'MORPH_CONTENT_LANGUAGE':
         return morphContentLanguage(state, action)
       case 'CLEAR_EVENT': {
