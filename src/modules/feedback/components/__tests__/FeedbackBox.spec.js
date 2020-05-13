@@ -19,7 +19,6 @@ describe('FeedbackBox', () => {
   const onCommentChanged = (event: SyntheticInputEvent<HTMLTextAreaElement>) => {}
   const onFeedbackOptionChanged = (option: FeedbackVariant) => {}
   const onSubmit = () => {}
-  const requestError = false
 
   it('should match snapshot', () => {
     const component = shallow(
@@ -30,8 +29,8 @@ describe('FeedbackBox', () => {
         selectedFeedbackOption={feedbackOptions[0]}
         onCommentChanged={onCommentChanged}
         onFeedbackOptionChanged={onFeedbackOptionChanged}
-        requestError={requestError}
         onSubmit={onSubmit}
+        feedbackSent='SUCCESS'
         t={t}
         closeFeedbackModal={() => {}}
         theme={theme} />

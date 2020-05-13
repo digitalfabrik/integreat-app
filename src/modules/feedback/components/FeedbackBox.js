@@ -36,20 +36,24 @@ type PropsType = {|
   comment: string,
   onCommentChanged: SyntheticInputEvent<HTMLTextAreaElement> => void,
   onFeedbackOptionChanged: FeedbackVariant => void,
-  onSubmit: (value?: boolean) => void,
+  onSubmit: (value?: string) => void,
   t: TFunction,
   closeFeedbackModal: () => void,
   theme: ThemeType,
-  requestError: boolean
+  feedbackSent: string
 |}
 
 /**
  * Renders all necessary inputs for a Feedback and posts the data to the feedback endpoint
  */
 export class FeedbackBox extends React.PureComponent<PropsType> {
+  constructor (props: PropsType) {
+    super(props)
+    this.handleClick = this.handleClick.bind(this)
+  }
 
   handleClick = () => {
-    this.props.requestError !== false ? '' : this.props.onSubmit()
+    this.props.feedbackSent !== 'ERROR' ? this.props.onSubmit('SUCCESS') : this.props.onSubmit('ERROR')
   }
 
   render () {
@@ -63,8 +67,13 @@ export class FeedbackBox extends React.PureComponent<PropsType> {
       comment,
       closeFeedbackModal,
       theme,
-      requestError
+      feedbackSent
     } = this.props
+
+    let errorMessage
+    if (['ERROR'].includes(feedbackSent)) {
+      errorMessage = <Description>{t('failedSendingFeedback')}</Description>
+    }
 
     return (
       <StyledFeedbackBox>
@@ -79,10 +88,10 @@ export class FeedbackBox extends React.PureComponent<PropsType> {
           commentMessage={isPositiveRatingSelected ? t('positiveComment') : t('negativeComment')}
           onCommentChanged={onCommentChanged}
           required={!isPositiveRatingSelected} />
-        <Description>{requestError ? t('failedSendingFeedback') : null}</Description>
+        {errorMessage}
         <TextButton
           disabled={!isPositiveRatingSelected && !comment}
-          onClick={this.handleClick.bind(this)}
+          onClick={this.handleClick}
           text={t('send')} />
       </StyledFeedbackBox>
     )
