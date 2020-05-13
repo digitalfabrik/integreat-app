@@ -66,7 +66,7 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
   constructor (props: PropsType) {
     super(props)
     const feedbackOptions = this.getFeedbackOptions()
-    this.state = { feedbackOptions, selectedFeedbackOption: feedbackOptions[0], comment: '', requestError: false }
+    this.state = { feedbackOptions, selectedFeedbackOption: feedbackOptions[0], comment: '' }
   }
 
   postFeedbackData = async (feedbackData: FeedbackParamsType) => {
