@@ -42,7 +42,7 @@ export type PropsType = {|
 
 class Dashboard extends React.Component<PropsType> {
   getNavigationTileModels (cityCode: string, language: string): Array<TileModel> {
-    // Note: check if news is enabled to show the menu item
+    // check if news is enabled to show the menu item
     const { navigateToCategory, navigateToEvent, navigateToExtras, t, cities, navigateToNews } = this.props
     const cityModel = cities.find(city => city.code === cityCode)
     if (!cityModel) {
@@ -112,7 +112,7 @@ class Dashboard extends React.Component<PropsType> {
     } = this.props
     return (
       <SpaceBetween>
-        <NavigationTiles tiles={this.getNavigationTileModels(cityCode, language)} theme={theme} />
+        <NavigationTiles tiles={this.getNavigationTileModels(cityCode, language)} theme={theme} language={language} />
         <Categories
           stateView={stateView}
           cities={cities}
