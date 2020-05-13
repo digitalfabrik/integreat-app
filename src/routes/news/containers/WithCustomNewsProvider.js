@@ -255,12 +255,10 @@ const withCustomNewsProvider = <
 
       componentDidUpdate (prevProps: PropsType<S, R>) {
         const { status } = this.props
-        if (status === 'ready') {
-          const prevLanguage = (prevProps.innerProps || {}).language
-          const currentLanguage = (this.props.innerProps || {}).language
-          if (currentLanguage && prevLanguage !== currentLanguage) {
-            this.fetchNews()
-          }
+        const prevLanguage = (prevProps.innerProps || {}).language
+        const currentLanguage = (this.props.innerProps || {}).language
+        if (currentLanguage && prevLanguage !== currentLanguage) {
+          this.fetchNews()
         }
       }
 
@@ -269,7 +267,7 @@ const withCustomNewsProvider = <
         return (
           <HeaderContainer>
             {newsTabs.map(tab =>
-              cityModel[tab.toggleAttr] ? (
+              cityModel[tab.toggleAttr] || true ? (
                 <TranslatedNewsTypeItem
                   key={tab.type}
                   tab={tab}
