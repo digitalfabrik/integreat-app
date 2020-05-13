@@ -37,6 +37,7 @@ const HeaderImageWrapper: StyledComponent<{}, {}, *> = styled.View`
   border-radius: 5px;
   background-color: rgba(2, 121, 166, 0.4);
 `
+
 const HeaderImage: StyledComponent<{}, {}, *> = styled.Image`
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
@@ -47,7 +48,7 @@ const Row: StyledComponent<{}, ThemeType, *> = styled.View`
   border-radius: 5px;
   width: 95%;
   align-self: center;
-  background-color: ${props => props.theme.colors.tunewsColor};
+  background-color: #0279a6;
 `
 
 const ExtraInfo: StyledComponent<{}, ThemeType, *> = styled.Text`
@@ -98,7 +99,6 @@ export type PropsType = {|
   isFetchingMore: boolean,
   type: string,
   fetchMoreNews: () => void,
-  fetchNews: () => void,
   navigateToNews: (navigationOptions: NavigateToNewsParamsType) => void,
   createNavigateToNews: (NavigateToNewsParamsType) => void
 |}
@@ -152,7 +152,6 @@ class NewsList extends React.PureComponent<PropsType> {
       theme,
       t,
       fetchMoreNews,
-      fetchNews,
       isFetchingMore,
       selectedNewsType
     } = this.props
@@ -226,7 +225,6 @@ class NewsList extends React.PureComponent<PropsType> {
             items={newsList}
             isFetchingMore={isFetchingMore}
             getMoreItems={fetchMoreNews}
-            fetchItems={fetchNews}
             renderItem={this.rendersNewsListItem(cityCode, language)}
           />
         </View>
