@@ -20,7 +20,7 @@ type PropsType = {|
   navigateToNews: () => void,
   theme: ThemeType,
   t: TFunction,
-  isTuNews: boolean
+  isTunews: boolean
 |}
 
 type ListItemViewPropsType = {|
@@ -69,13 +69,13 @@ const Divider: StyledComponent<{}, {}, *> = styled.View`
 `
 
 export const Description: StyledComponent<
-  { isTuNews: ?boolean },
+  { isTunews: ?boolean },
   ThemeType,
   *
 > = styled.View`
   flex-direction: column;
   font-family: ${props => props.theme.fonts.decorativeFontRegular};
-  padding: ${props => (props.isTuNews ? '15px 5px 0px 0px' : '0px')};
+  padding: ${props => (props.isTunews ? '15px 5px 0px 0px' : '0px')};
 `
 
 export const Title: StyledComponent<{}, ThemeType, *> = styled.Text`
@@ -100,7 +100,7 @@ export const Content: StyledComponent<
 `
 
 export const ReadMore: StyledComponent<
-  { isTuNews: ?boolean },
+  { isTunews: ?boolean },
   ThemeType,
   *
 > = styled.Text`
@@ -109,7 +109,7 @@ export const ReadMore: StyledComponent<
   letter-spacing: 0.5px;
   margin-top: 5px;
   color: ${props =>
-    props.isTuNews
+    props.isTunews
       ? props.theme.colors.tunewsColor
       : props.theme.colors.themeColor};
 `
@@ -127,7 +127,7 @@ class NewsListItem extends React.PureComponent<PropsType> {
       navigateToNews,
       theme,
       t,
-      isTuNews
+      isTunews
     } = this.props
     const newsContent = content || message || ''
 
@@ -136,7 +136,7 @@ class NewsListItem extends React.PureComponent<PropsType> {
         <Divider />
         <ListItemWrapper>
           <StyledTouchableOpacity onPress={navigateToNews} theme={theme}>
-            <Description theme={theme} isTuNews={isTuNews}>
+            <Description theme={theme} isTunews={isTunews}>
               <ListItemView language={language} theme={theme}>
                 <Title theme={theme}>{title}</Title>
               </ListItemView>
@@ -150,7 +150,7 @@ class NewsListItem extends React.PureComponent<PropsType> {
           <ReadMoreWrapper language={language}>
             <ReadMore
               theme={theme}
-              isTuNews={isTuNews}
+              isTunews={isTunews}
               onPress={navigateToNews}>{`${t('readMore')}`}</ReadMore>
           </ReadMoreWrapper>
         </ListItemWrapper>

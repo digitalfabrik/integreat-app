@@ -127,14 +127,14 @@ class NewsList extends React.PureComponent<PropsType> {
     item: newsItem
   }) => {
     const { theme, selectedNewsType } = this.props
-    const isTuNews = selectedNewsType === TUNEWS
+    const isTunews = selectedNewsType === TUNEWS
     return (
       <NewsListItem
         key={newsItem.id}
         newsItem={newsItem}
         language={language}
         theme={theme}
-        isTuNews={isTuNews}
+        isTunews={isTunews}
         navigateToNews={this.navigateToNews(
           cityCode,
           language,
@@ -158,7 +158,7 @@ class NewsList extends React.PureComponent<PropsType> {
       selectedNewsType
     } = this.props
 
-    const isTuNews = selectedNewsType === TUNEWS
+    const isTunews = selectedNewsType === TUNEWS
 
     if (path) {
       const selectedNewsItem: LocalNewsModel | TunewsModel = newsList.find(
@@ -180,7 +180,7 @@ class NewsList extends React.PureComponent<PropsType> {
                 marginBottom: 10,
                 paddingHorizontal: '5%'
               }}>
-              {isTuNews && (
+              {isTunews && (
                 <HeaderImageWrapper>
                   <HeaderImage source={headerImage} />
                 </HeaderImageWrapper>

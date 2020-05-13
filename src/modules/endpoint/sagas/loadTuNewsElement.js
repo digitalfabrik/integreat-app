@@ -5,7 +5,7 @@ import { createTunewsElementEndpoint, TunewsModel } from '@integreat-app/integre
 import { call } from 'redux-saga/effects'
 import { tunewsApiUrl } from '../constants'
 
-function * loadTuNewsElement (
+function * loadTunewsElement (
   id: string
 ): Saga<Array<TunewsModel>> {
   console.debug('Fetching tunews element')
@@ -16,4 +16,4 @@ function * loadTuNewsElement (
   return [newsItem]
 }
 
-export default loadTuNewsElement
+export default loadTunewsElement
