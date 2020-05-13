@@ -14,12 +14,12 @@ import {
 import fetchData from '../fetchData'
 import { cmsApiBaseUrl } from '../constants/urls'
 
-type NewsRouteParamsType = {| city: string, language: string |}
+type LocalNewsRouteParamsType = {| city: string, language: string |}
 type RequiredPayloadsType = {| localNews: Payload<Array<LocalNewsModel>> |}
 
-export const LOCAL_NEWS_ROUTE = 'NEWS'
+export const LOCAL_NEWS_ROUTE = 'LOCAL_NEWS'
 
-const newsRoute: Route = {
+const localNewsRoute: Route = {
   path: '/:city/:language/news/local',
   thunk: async (dispatch, getState) => {
     const state = getState()
@@ -34,9 +34,9 @@ const newsRoute: Route = {
   }
 }
 
-class LocalNewsRouteConfig implements RouteConfig<NewsRouteParamsType, RequiredPayloadsType> {
+class LocalNewsRouteConfig implements RouteConfig<LocalNewsRouteParamsType, RequiredPayloadsType> {
   name = LOCAL_NEWS_ROUTE
-  route = newsRoute
+  route = localNewsRoute
   isLocationLayoutRoute = true
   requiresHeader = true
   requiresFooter = true
@@ -52,10 +52,10 @@ class LocalNewsRouteConfig implements RouteConfig<NewsRouteParamsType, RequiredP
     if (!cityName) {
       return null
     }
-    return `${t('pageTitles.news')} - ${cityName}`
+    return `${t('pageTitles.localNews')} - ${cityName}`
   }
 
-  getRoutePath = ({ city, language }: NewsRouteParamsType): string => `/${city}/${language}/news/local`
+  getRoutePath = ({ city, language }: LocalNewsRouteParamsType): string => `/${city}/${language}/news/local`
 
   getMetaDescription = () => null
 
