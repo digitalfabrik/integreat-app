@@ -23,7 +23,7 @@ describe('pushNews', () => {
       newsRouteMapping: {
         'route-id-0': {
           status: 'ready',
-          models: [news1],
+          models: [],
           city: 'augsburg',
           language: 'de',
           allAvailableLanguages: new Map([['de', null], ['en', null]]),
