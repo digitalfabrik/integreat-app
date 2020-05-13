@@ -25,11 +25,11 @@ export type PropsType = {|
   navigation: NavigationScreenProp<*>,
   cityCode: string,
 
-  navigateToCategory: (NavigateToCategoryParamsType) => void,
-  navigateToEvent: (NavigateToEventParamsType) => void,
-  navigateToIntegreatUrl: (NavigateToIntegreatUrlParamsType) => void,
-  navigateToDashboard: (NavigateToCategoryParamsType) => void,
-  navigateToNews: (NavigateToNewsParamsType) => void,
+  navigateToCategory: NavigateToCategoryParamsType => void,
+  navigateToEvent: NavigateToEventParamsType => void,
+  navigateToIntegreatUrl: NavigateToIntegreatUrlParamsType => void,
+  navigateToDashboard: NavigateToCategoryParamsType => void,
+  navigateToNews: NavigateToNewsParamsType => void,
   navigateToExtras: ({| cityCode: string, language: string |}) => void,
   theme: ThemeType,
 
@@ -41,19 +41,9 @@ export type PropsType = {|
 |}
 
 class Dashboard extends React.Component<PropsType> {
-  getNavigationTileModels (
-    cityCode: string,
-    language: string
-  ): Array<TileModel> {
+  getNavigationTileModels (cityCode: string, language: string): Array<TileModel> {
     // Note: check if news is enabled to show the menu item
-    const {
-      navigateToCategory,
-      cities,
-      navigateToEvent,
-      navigateToExtras,
-      navigateToNews,
-      t
-    } = this.props
+    const { navigateToCategory, navigateToEvent, navigateToExtras, t, cities, navigateToNews } = this.props
     const cityModel = cities.find(city => city.code === cityCode)
     if (!cityModel) {
       console.error('City model of current cityCode was not found.')
@@ -76,35 +66,32 @@ class Dashboard extends React.Component<PropsType> {
           }),
         notifications: 0
       }),
-      cityModel.extrasEnabled &&
-        new TileModel({
-          title: t('offers'),
-          path: 'extras',
-          thumbnail: offersIcon,
-          isExternalUrl: false,
-          onTilePress: () => navigateToExtras({ cityCode, language }),
-          notifications: 0
-        }),
-      cityModel.eventsEnabled &&
-        new TileModel({
-          title: t('events'),
-          path: 'events',
-          thumbnail: eventsIcon,
-          isExternalUrl: false,
-          onTilePress: () =>
-            navigateToEvent({ cityCode, language, path: null }),
-          notifications: 0
-        }),
-      isNewsEnabled &&
-        new TileModel({
-          title: t('news'),
-          path: 'news',
-          thumbnail: newsIcon,
-          isExternalUrl: false,
-          onTilePress: () =>
-            navigateToNews({ cityCode, language, path: null, type: 'local' }),
-          notifications: 0
-        })
+      cityModel.extrasEnabled && new TileModel({
+        title: t('offers'),
+        path: 'extras',
+        thumbnail: offersIcon,
+        isExternalUrl: false,
+        onTilePress: () => navigateToExtras({ cityCode, language }),
+        notifications: 0
+      }),
+      cityModel.eventsEnabled && new TileModel({
+        title: t('events'),
+        path: 'events',
+        thumbnail: eventsIcon,
+        isExternalUrl: false,
+        onTilePress: () =>
+          navigateToEvent({ cityCode, language, path: null }),
+        notifications: 0
+      }),
+      isNewsEnabled && new TileModel({
+        title: t('news'),
+        path: 'news',
+        thumbnail: newsIcon,
+        isExternalUrl: false,
+        onTilePress: () =>
+          navigateToNews({ cityCode, language, path: null, type: 'local' }),
+        notifications: 0
+      })
     ].filter(tile => !!tile)
   }
 
@@ -125,11 +112,7 @@ class Dashboard extends React.Component<PropsType> {
     } = this.props
     return (
       <SpaceBetween>
-        <NavigationTiles
-          tiles={this.getNavigationTileModels(cityCode, language)}
-          theme={theme}
-          language={language}
-        />
+        <NavigationTiles tiles={this.getNavigationTileModels(cityCode, language)} theme={theme} />
         <Categories
           stateView={stateView}
           cities={cities}
