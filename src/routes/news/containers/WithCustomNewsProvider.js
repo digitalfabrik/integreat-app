@@ -169,7 +169,6 @@ const withCustomNewsProvider = <
 
       getAvailableNewsType (): string {
         const { cityModel, selectedNewsType } = this.props.innerProps || {}
-        console.log({ getAvailableNewsType: this.props })
         const { tunewsEnabled, pushNotificationsEnabled } = cityModel || {}
         let type = LOCAL
         if (selectedNewsType) {
@@ -209,8 +208,6 @@ const withCustomNewsProvider = <
       };
 
       fetchNews = () => {
-        console.log('fetchNews')
-
         const { selectedNewsType } = this.state
         const { cityCode, navigation, path, language } =
           this.props.innerProps || {}
@@ -293,8 +290,6 @@ const withCustomNewsProvider = <
         if (props.status === 'routeNotInitialized') {
           return null
         } else if (props.status === 'error') {
-          console.log({ error: props })
-
           return (
             <ScrollView
               refreshControl={
