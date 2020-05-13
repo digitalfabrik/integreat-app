@@ -196,7 +196,8 @@ describe('News', () => {
     const result = TestRenderer.create(
       <Provider store={store}><NewsContainer navigation={navigation} /></Provider>
     )
-    const newsListInstance = result.root.findByType(TranslatedNewsListItem)
-    expect(new LocalNewsModel(newsListInstance.props.newsItem)).toEqual(newsList[0])
+    const newsListInstance = result.root.findByProps({ newsList: newsList }, { deep: true })
+
+    expect(newsListInstance).toBeTruthy()
   })
 })
