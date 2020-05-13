@@ -1,0 +1,25 @@
+From dadf619a2fc2c7aee3903eb67a1ee7340dcc9a33 Mon Sep 17 00:00:00 2001
+From: Steffen Kleinle <klinzo@yahoo.de>
+Date: Fri, 9 Nov 2018 18:08:15 +0100
+Subject: [PATCH 07/23] WEBAPP-383: Show own error message if a poi is not
+ found
+
+---
+ src/locales.json | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/locales.json b/src/locales.json
+index b565d1bf..3c8f802d 100644
+--- a/src/locales.json
++++ b/src/locales.json
+@@ -218,6 +218,7 @@
+         "event": "Sorry, but this event could not be found.",
+         "extra": "Sorry, but this extra could not be found.",
+         "disclaimer": "Sorry, but there is no disclaimer available for this city.",
++        "pois": "Points of Interest",
+         "pageTitle": "Page not found"
+       },
+       "loadingFailed": "Sorry, but the requested page could not be loaded.",
+-- 
+2.20.1 (Apple Git-117)
+

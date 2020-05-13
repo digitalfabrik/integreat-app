@@ -1,0 +1,46 @@
+From a3af69ab5cf9bd5c12f99a805688c448ab1a9e78 Mon Sep 17 00:00:00 2001
+From: Steffen Kleinle <klinzo@yahoo.de>
+Date: Thu, 18 Oct 2018 18:15:29 +0200
+Subject: [PATCH 04/23] WEBAPP-375: Remove unused locales and translate
+ function
+
+---
+ src/locales.json | 12 ------------
+ 1 file changed, 12 deletions(-)
+
+diff --git a/src/locales.json b/src/locales.json
+index 6b80a6bd..99b7c37e 100644
+--- a/src/locales.json
++++ b/src/locales.json
+@@ -311,28 +311,16 @@
+   },
+   "common": {
+     "ar": {
+-      "location": "الموقع",
+-      "date": "تاريخ",
+       "lastUpdate": "اخر تحديث: "
+     },
+     "de": {
+-      "location": "Standort",
+-      "date": "Datum",
+       "lastUpdate": "Letzte Änderung: "
+     },
+     "en": {
+-      "location": "Location",
+-      "date": "Date",
+       "lastUpdate": "Last Update: "
+     },
+     "fa": {
+-      "location": "موقعیت مکانی",
+-      "date": "تاریخ",
+       "lastUpdate": "آخرین به روزآوری: "
+-    },
+-    "fr": {
+-      "location": "Lieu",
+-      "date": "Date"
+     }
+   }
+ }
+-- 
+2.20.1 (Apple Git-117)
+

@@ -94,7 +94,7 @@ const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R: {}> 
             ? <ScrollView refreshControl={<RefreshControl refreshing />} contentContainerStyle={{ flexGrow: 0 }} />
             : null
         } else { // props.status === 'success'
-          return <ScrollView refreshControl={<RefreshControl onRefresh={this.refresh} refreshing={false} />}
+          return <ScrollView keyboardShouldPersistTaps='always' refreshControl={<RefreshControl onRefresh={this.refresh} refreshing={false} />}
                              contentContainerStyle={{ flexGrow: 1 }}>
             <Component {...props.innerProps} dispatch={props.dispatch} />
           </ScrollView>

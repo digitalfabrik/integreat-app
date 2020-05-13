@@ -1,0 +1,48 @@
+{
+  "native": {
+    "de": {
+      "NSPhotoLibraryAddUsageDescription": "Um Bilder zu speichern, benötigt Integreat Zugriff auf die Galerie.",
+      "NSLocationWhenInUseUsageDescription": "Um nahegelegene Orte zu finden, benötigt Integreat Zugriff auf den Standort."
+    },
+    "ar": {
+      "NSPhotoLibraryAddUsageDescription": "لحفظ الصور، يحتاج تطبيق إنتجريت الوصول إلى المعرض."
+    },
+    "en": {
+      "NSPhotoLibraryAddUsageDescription": "Integreat wants to save photos to your library.",
+      "NSLocationWhenInUseUsageDescription": "Integreat wants to use your location to find nearby cities."
+    },
+    "es": {
+      "NSPhotoLibraryAddUsageDescription": "Para guardar imágenes, Integreat necesita un acceso a la galería."
+    },
+    "fa": {
+      "NSPhotoLibraryAddUsageDescription": "برای ذخیره تصاویر، Integreat نیاز به دسترسی به گالری دارد."
+    },
+    "fr": {
+      "NSPhotoLibraryAddUsageDescription": "Pour enregistrer des photos, Integreat doit accéder à votre galerie."
+    },
+    "hr": {
+      "NSPhotoLibraryAddUsageDescription": "Za pohranjivanje slika Integreat mora imati pristup galeriji."
+    },
+    "ku": {
+      "NSPhotoLibraryAddUsageDescription": "Jibo zexîrekirin anku xwedankirina wêneyan, Integreat hewcetî bi têketina nav Galeriyê heye."
+    },
+    "pl": {
+      "NSPhotoLibraryAddUsageDescription": "Aby zapisać obrazy, Integreat potrzebuje dostępu do galerii."
+    },
+    "ro": {
+      "NSPhotoLibraryAddUsageDescription": "Pentru a stoca imagini, Integreat are nevoie de acces la galerie."
+    },
+    "ru": {
+      "NSPhotoLibraryAddUsageDescription": "Чтобы сохранить снимки, приложению Integreat требуется доступ к галерее изображений."
+    },
+    "so": {
+      "NSPhotoLibraryAddUsageDescription": "Si loo keydiyo sawirada, Integreat waxay u baahan tahay inay marin u hesho keydka sawirada."
+    },
+    "ti": {
+      "NSPhotoLibraryAddUsageDescription": "ስእልታት ንምዕቃብ፡ Integreat ናብቲ ጋለሪ/መኽዘን ስእሊ ናይ ምእታው ፍቓድ የድልዮ።"
+    },
+    "tr": {
+      "NSPhotoLibraryAddUsageDescription": "Resimleri kaydedebilmek için Integreat'in galeriye erişimi gerekmektedir."
+    }
+  }
+}
