@@ -237,7 +237,6 @@ describe('DashboardContainer', () => {
       cities: [city],
       cityCode: city.code,
       language: language.code,
-      cityModel: city,
       navigateToCategory: expect.any(Function),
       navigateToIntegreatUrl: expect.any(Function),
       navigateToEvent: expect.any(Function),
