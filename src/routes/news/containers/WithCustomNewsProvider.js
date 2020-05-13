@@ -70,9 +70,7 @@ const LocalTabWrapper: StyledComponent<
   align-items: center;
   justify-content: center;
   background-color: ${props =>
-    props.isSelected
-      ? props.theme.colors.themeColor
-      : props.theme.colors.inActiveTunewColor};
+    props.isSelected ? props.theme.colors.themeColor : '#959595'};
 `
 
 const LocalText: StyledComponent<{}, ThemeType, *> = styled.Text`
@@ -99,6 +97,7 @@ export type LoadingType = {|
   }
 |}
 export type LoadingMoreType<S: {}> = {| status: "loadingMore", innerProps: S |}
+
 export type ErrorType<R: {}> = {|
   status: "error",
   message: ?string,
@@ -209,8 +208,6 @@ const withCustomNewsProvider = <
           type = TUNEWS
         } else if (pushNotificationsEnabled && !tunewsEnabled) {
           type = LOCAL
-        } else {
-          type = LOCAL
         }
         return type
       }
@@ -230,52 +227,57 @@ const withCustomNewsProvider = <
 
       fetchNews = () => {
         const { selectedNewsType } = this.state
-        const { cityCode, navigation, path, language } =
-          this.props.innerProps || {}
         const { dispatch } = this.props
-        const fetchNews: FetchNewsActionType = {
-          type: 'FETCH_NEWS',
-          params: {
-            city: cityCode,
-            language,
+        if (this.props.innerProps) {
+          const {
+            cityCode,
+            navigation,
             path,
-            type: selectedNewsType,
-            key: navigation.state.key,
-            criterion: {
-              forceUpdate: false,
-              shouldRefreshResources: false
+            language
+          } = this.props.innerProps
+          const fetchNews: FetchNewsActionType = {
+            type: 'FETCH_NEWS',
+            params: {
+              city: cityCode,
+              language,
+              path,
+              type: selectedNewsType,
+              key: navigation.state.key,
+              criterion: {
+                forceUpdate: false,
+                shouldRefreshResources: false
+              }
             }
           }
+          dispatch(fetchNews)
         }
-        dispatch(fetchNews)
       };
 
       componentDidUpdate (prevProps: PropsType<S, R>) {
-        const prevLanguage = (prevProps.innerProps || {}).language
-        const currentLanguage = (this.props.innerProps || {}).language
-
-        if (currentLanguage && prevLanguage !== currentLanguage) {
-          this.fetchNews()
+        const { status } = this.props
+        if (status === 'ready') {
+          const prevLanguage = (prevProps.innerProps || {}).language
+          const currentLanguage = (this.props.innerProps || {}).language
+          if (currentLanguage && prevLanguage !== currentLanguage) {
+            this.fetchNews()
+          }
         }
       }
 
-      renderHeader = () => {
-        const { cityModel, path } = this.props.innerProps || {}
+      renderHeader = (cityModel: CityModel) => {
         const { selectedNewsType } = this.state
-
         return (
           <HeaderContainer>
-            {!path &&
-              newsTabs.map(tab =>
-                (cityModel || {})[tab.toggleAttr] ? (
-                  <TranslatedNewsTypeItem
-                    key={tab.type}
-                    tab={tab}
-                    selectedNewsType={selectedNewsType}
-                    onItemPress={this.selectNewsItemAndScrollToTop}
-                  />
-                ) : null
-              )}
+            {newsTabs.map(tab =>
+              cityModel[tab.toggleAttr] ? (
+                <TranslatedNewsTypeItem
+                  key={tab.type}
+                  tab={tab}
+                  selectedNewsType={selectedNewsType}
+                  onItemPress={this.selectNewsItemAndScrollToTop}
+                />
+              ) : null
+            )}
           </HeaderContainer>
         )
       };
@@ -308,6 +310,8 @@ const withCustomNewsProvider = <
 
       render () {
         const props = this.props
+        // console.log({ refresh: props.refreshProps, inner: props.innerProps, props: props })
+
         if (props.status === 'routeNotInitialized') {
           return null
         } else if (props.status === 'error') {
@@ -334,19 +338,18 @@ const withCustomNewsProvider = <
         } else if (props.status === 'loading') {
           return (
             <View style={{ flex: 1 }}>
-              {this.renderHeader()}
+              {!props.innerProps?.path &&
+                props.innerProps?.cityModel &&
+                this.renderHeader(props.innerProps?.cityModel)}
               <Loader />
             </View>
           )
         } else {
-          // props.status === 'success'|| props.status === 'loadingMore'
           return (
             <View style={{ flex: 1 }}>
-              {this.renderHeader()}
-              <Component
-                {...props.innerProps}
-                dispatch={props.dispatch}
-              />
+              {!props.innerProps.path &&
+                this.renderHeader(props.innerProps.cityModel)}
+              <Component {...props.innerProps} dispatch={props.dispatch} />
             </View>
           )
         }
