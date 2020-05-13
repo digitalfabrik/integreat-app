@@ -249,7 +249,7 @@ const withCustomNewsProvider = <
           <HeaderContainer>
             {!path &&
               newsTabs.map(tab =>
-                (cityModel || {})[tab.toggleAttr] || true ? (
+                (cityModel || {})[tab.toggleAttr] ? (
                   <NewsTypeItem
                     key={tab.type}
                     tab={tab}

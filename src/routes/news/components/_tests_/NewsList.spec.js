@@ -17,11 +17,9 @@ import type {
 import { Provider } from 'react-redux'
 import { render } from '@testing-library/react-native'
 import ErrorCodes from '../../../../modules/error/ErrorCodes'
-import { Text, ActivityIndicator, ScrollView } from 'react-native'
+import { Text, ActivityIndicator } from 'react-native'
 import { LOADING_TIMEOUT } from '../../../../modules/common/constants'
 import TranslatedNewsListItem from '../NewsListItem'
-import TranslatedWithThemeNewsList from '../NewsList'
-import NewsContainer from '../../containers/NewsContainer'
 
 const mockStore = configureMockStore()
 jest.mock('react-i18next')
@@ -30,12 +28,6 @@ jest.useFakeTimers()
 class MockNewsList extends React.Component<{}> {
   render () {
     return <Text>News List</Text>
-  }
-}
-
-class MockList extends React.Component<{}> {
-  render () {
-    return <Text>List</Text>
   }
 }
 

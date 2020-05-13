@@ -3,7 +3,6 @@
 import React from 'react'
 import { FlatList } from 'react-native'
 import styled from 'styled-components/native'
-import type { ThemeType } from '../../../modules/theme/constants/theme'
 import {
   LocalNewsModel,
   TunewsModel

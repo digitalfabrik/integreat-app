@@ -14,8 +14,6 @@ import {
   contentAlignment
 } from '../../../modules/i18n/contentDirection'
 
-const TEXT_MAX_LENGTH = 250
-
 type PropsType = {|
   newsItem: LocalNewsModel | TunewsModel,
   language: string,
