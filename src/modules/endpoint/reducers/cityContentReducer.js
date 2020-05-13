@@ -48,13 +48,13 @@ export default (
       }
     }
   } else if (action.type === 'FETCH_MORE_NEWS') {
-    const { language, path, key, city, type, page, oldNewsList } = action.params
+    const { language, path, key, city, type, page, previouslyFetchedNewsList } = action.params
     const initializedState = state || createCityContent(city)
     return {
       ...initializedState,
       newsRouteMapping: {
         ...initializedState.newsRouteMapping,
-        [key]: { status: 'loadingMore', language, city, path, type, page, models: oldNewsList }
+        [key]: { status: 'loadingMore', language, city, path, type, page, models: previouslyFetchedNewsList }
       }
     }
   } else {
