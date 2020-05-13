@@ -14,12 +14,11 @@ import type { DataContainer } from '../DataContainer'
 import { ContentLoadCriterion } from '../ContentLoadCriterion'
 import isPeekingRoute from '../selectors/isPeekingRoute'
 import ErrorCodes, { fromError } from '../../error/ErrorCodes'
-import { LOCAL, TUNEWS } from '../../../routes/news/containers/WithCustomNewsProvider'
+import { LOCAL } from '../../../routes/news/containers/WithCustomNewsProvider'
 import loadLocalNews from './loadLocalNews'
 import loadTunews from './loadTunews'
 import loadLanguages from './loadLanguages'
 import loadTunewsElement from './loadTunewsElement'
-import createReduxStore from '../../app/createReduxStore'
 
 const TUNEWS_FETCH_COUNT_LIMIT = 20
 const FIRST_PAGE_INDEX = 1
