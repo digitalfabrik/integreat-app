@@ -254,7 +254,6 @@ const withCustomNewsProvider = <
       };
 
       componentDidUpdate (prevProps: PropsType<S, R>) {
-        const { status } = this.props
         const prevLanguage = (prevProps.innerProps || {}).language
         const currentLanguage = (this.props.innerProps || {}).language
         if (currentLanguage && prevLanguage !== currentLanguage) {
@@ -267,7 +266,7 @@ const withCustomNewsProvider = <
         return (
           <HeaderContainer>
             {newsTabs.map(tab =>
-              cityModel[tab.toggleAttr] || true ? (
+              cityModel[tab.toggleAttr] ? (
                 <TranslatedNewsTypeItem
                   key={tab.type}
                   tab={tab}
