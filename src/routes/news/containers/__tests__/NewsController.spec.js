@@ -2,7 +2,6 @@
 
 import React from 'react'
 import { mount, shallow } from 'enzyme'
-import moment from 'moment-timezone'
 import configureMockStore from 'redux-mock-store'
 import ConnectedNewsController, { NewsController } from '../NewsController'
 import { CityModel } from '@integreat-app/integreat-api-client'
@@ -90,6 +89,4 @@ describe('NewsController', () => {
       redirect: expect.any(Function)
     })
   })
-
-  moment.tz.setDefault()
 })
