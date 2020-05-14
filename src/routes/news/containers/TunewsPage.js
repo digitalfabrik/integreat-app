@@ -12,7 +12,7 @@ import NewsElement from '../components/NewsElement'
 import NewsTabs from '../components/NewsTabs'
 import { TunewsModel, CityModel } from '@integreat-app/integreat-api-client'
 import LoadingSpinner from '../../../modules/common/components/LoadingSpinner'
-import NewsController from './NewsController'
+import NewsRedirectController from './NewsRedirectController'
 import { TUNEWS } from '../constants'
 
 type PropsType = {|
@@ -50,7 +50,7 @@ export class TunewsPage extends React.PureComponent<PropsType> {
   render () {
     const { tunews, language, city, t, fetchMoreTunews, hasMore, isFetchingFirstTime, isFetching, cities } = this.props
     return (
-      <NewsController>
+      <NewsRedirectController>
         <NewsTabs type={TUNEWS} city={city} cities={cities} t={t} language={language}>
           {isFetchingFirstTime ? (
             <LoadingSpinner />
@@ -67,7 +67,7 @@ export class TunewsPage extends React.PureComponent<PropsType> {
             />
           )}
         </NewsTabs>
-      </NewsController>
+      </NewsRedirectController>
     )
   }
 }

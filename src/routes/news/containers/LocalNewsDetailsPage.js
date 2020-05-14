@@ -7,7 +7,7 @@ import { LocalNewsModel } from '@integreat-app/integreat-api-client'
 import type { TFunction } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
 import Page from '../../../modules/common/components/Page'
-import NewsController from './../containers/NewsController'
+import NewsRedirectController from './../containers/NewsRedirectController'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 
@@ -29,7 +29,7 @@ export class LocalNewsDetailsPage extends React.PureComponent<PropsType> {
     }
 
     return (
-      <NewsController>
+      <NewsRedirectController>
         <Page
           title={localNewsDetails.title}
           content={localNewsDetails.message}
@@ -37,7 +37,7 @@ export class LocalNewsDetailsPage extends React.PureComponent<PropsType> {
           lastUpdate={localNewsDetails.timestamp}
           onInternalLinkClick={push}
         />
-      </NewsController>
+      </NewsRedirectController>
     )
   }
 }

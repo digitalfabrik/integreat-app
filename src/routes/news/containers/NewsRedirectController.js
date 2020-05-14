@@ -23,7 +23,7 @@ type PropsType = {|
   children: React.Node
 |}
 
-export class NewsController extends React.Component<PropsType> {
+export class NewsRedirectController extends React.Component<PropsType> {
   componentDidMount () {
     this.handleRedirect()
   }
@@ -71,4 +71,4 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>) => ({
   redirect: action => dispatch(redirect(action))
 })
 
-export default connect<PropsType, *, *, *, *, *>(mapStateTypeToProps, mapDispatchToProps)(NewsController)
+export default connect<PropsType, *, *, *, *, *>(mapStateTypeToProps, mapDispatchToProps)(NewsRedirectController)
