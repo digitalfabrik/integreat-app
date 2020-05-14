@@ -8,7 +8,6 @@ Tasks of the API-Client:
 * Fetching data from the cms
 * Mapping of the JSON responses to our internal models
 * Sorting and filtering when necessary
-* Error handling
 * Posting feedback
 
 ## Testing and Debugging
