@@ -30,10 +30,6 @@ class LocalNewsModelBuilder {
 
   /**
    * Builds the requested amount of news. Two builds with an identical seed will yield equal news.
-   * Note that they are not identical. Furthermore instances of external classes like `moment` or `LocalNewsModel` maybe are
-   * not equal when comparing all the properties.
-   *
-   * @returns The news and the corresponding resource cache
    */
   buildAll (): Array<{ path: ?string, newsItem: LocalNewsModel }> {
     return Array.from({ length: this._newsCount }, (x, index) => {

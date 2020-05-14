@@ -77,7 +77,7 @@ export type NewsRouteConfigType = {|
   +path: ?string, // path is null for the news list
   +language: string,
   +city: string,
-  +type: string // this attr is for checking if whether type is local or tunews
+  +type: string // for checking if whether type is local or tunews
 |}
 
 export type NewsRouteStateType = {|
