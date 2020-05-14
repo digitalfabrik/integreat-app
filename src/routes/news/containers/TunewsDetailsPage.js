@@ -41,19 +41,17 @@ const StyledTitle = styled.div`
   height: 100%;
   align-items: center;
   justify-content: center;
-  background-color: ${({ theme }) => (theme.colors.secondaryAccentColor)};
+  background-color: ${({ theme }) => (theme.colors.tunewsThemeColor)};
   color: ${({ theme }) => (theme.colors.backgroundColor)};
   font-size: 20px;
   font-weight: 700;
 `
 const Title = styled.h2`
   margin-bottom: 5px;
-  color: ${({ theme }) => (theme.colors.headlineTextColor)};
   font-size: 24px;
   font-weight: 700;
 `
 const Content = styled.p`
-  color: ${({ theme }) => (theme.colors.headlineTextColor)};
   font-size: 16px;
   line-height: 1.38;
 `
@@ -83,10 +81,10 @@ export class TunewsDetailsPage extends React.PureComponent<PropsType> {
                 <StyledBannerImage src={TunewsIcon} alt='' />
               </StyledTitle>
             </StyledBanner>
-            <Title>{tunewsElementDetails && tunewsElementDetails.title}</Title>
-            <Content>{tunewsElementDetails && tunewsElementDetails.content}</Content>
+            <Title>{tunewsElementDetails.title}</Title>
+            <Content>{tunewsElementDetails.content}</Content>
           </StyledWrapper>
-          <TunewsDetailsFooter eNewsNumber={tunewsElementDetails.eNewsNo} date={tunewsElementDetails && tunewsElementDetails.date} language={language} t={t} />
+          <TunewsDetailsFooter eNewsNo={tunewsElementDetails.eNewsNo} date={tunewsElementDetails && tunewsElementDetails.date} language={language} t={t} />
         </StyledContainer>
       </NewsController>
     )
@@ -100,6 +98,6 @@ const mapStateToProps = (state: StateType) => ({
 })
 
 export default compose(
-  connect<*, *, *, *, *, *>(mapStateToProps),
+  connect<PropsType, *, *, *, *, *>(mapStateToProps),
   withTranslation('news')
 )(TunewsDetailsPage)

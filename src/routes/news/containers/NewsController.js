@@ -71,4 +71,4 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>) => ({
   redirect: action => dispatch(redirect(action))
 })
 
-export default connect<*, *, *, *, *, *>(mapStateTypeToProps, mapDispatchToProps)(NewsController)
+export default connect<PropsType, *, *, *, *, *>(mapStateTypeToProps, mapDispatchToProps)(NewsController)

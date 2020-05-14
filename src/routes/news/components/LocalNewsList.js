@@ -19,14 +19,14 @@ const Wrapper = styled.div`
   background-color: ${({ theme }) => (theme.colors.backgroundColor)};
 `
 
-type PropsType<T> = {|
-  items: Array<T>,
+type PropsType = {|
+  items: Array<LocalNewsModel>,
   noItemsMessage: string,
   renderItem: (item: LocalNewsModel, city: string) => React.Node,
   city: string
 |}
 
-class LocalNewsList<T> extends React.PureComponent<PropsType<T>> {
+class LocalNewsList extends React.PureComponent<PropsType> {
   render () {
     const { items, renderItem, noItemsMessage, city } = this.props
     if (isEmpty(items)) {

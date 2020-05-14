@@ -50,4 +50,4 @@ const mapStateTypeToProps = (state: StateType) => (
   }
 )
 
-export default connect<*, *, *, *, *, *>(mapStateTypeToProps)(LocalNewsDetailsPage)
+export default connect<PropsType, *, *, *, *, *>(mapStateTypeToProps)(LocalNewsDetailsPage)

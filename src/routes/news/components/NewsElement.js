@@ -17,8 +17,8 @@ const Link = styled(CleanLink)`
 `
 const ReadMoreLink = styled(({ type, ...props }) => <Link {...props} />)`
   align-self: flex-end;
-  color: ${({ theme, type }) => type === LOCAL_NEWS ? theme.colors.themeColor : theme.colors.secondaryAccentColor};
-  color: ${({ theme, type }) => type === LOCAL_NEWS ? theme.colors.themeColor : theme.colors.secondaryAccentColor};
+  color: ${({ theme, type }) => type === LOCAL_NEWS ? theme.colors.themeColor : theme.colors.tunewsThemeColor};
+  color: ${({ theme, type }) => type === LOCAL_NEWS ? theme.colors.themeColor : theme.colors.tunewsThemeColor};
   font-weight: 600;
 `
 
@@ -38,13 +38,13 @@ const Description = styled.div`
 
 const Title = styled.h3`
   margin-bottom: 0;
-  color: ${({ theme }) => (theme.colors.headlineTextColor)};
+  color: ${({ theme }) => (theme.colors.newsPageTextColor)};
   font-family: Raleway;
   font-size: 18px;
   font-weight: 700;
 `
 const Body = styled.p`
-  color: ${({ theme }) => (theme.colors.headlineTextColor)};
+  color: ${({ theme }) => (theme.colors.newsPageTextColor)};
   font-size: 16px;
   line-height: 1.38;
 `
@@ -61,7 +61,7 @@ const StyledContainer = styled.div`
 `
 
 const StyledDate = styled(LastUpdateInfo)`
-  color: ${({ theme }) => (theme.colors.headlineTextColor)};
+  color: ${({ theme }) => (theme.colors.newsPageTextColor)};
   font-size: 12px;
 `
 

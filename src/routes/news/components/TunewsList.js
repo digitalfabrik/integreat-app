@@ -20,8 +20,8 @@ const StyledList = styled.div`
   background: linear-gradient(to left, rgba(168, 168, 168, 0.2), #bebebe 51%, rgba(168, 168, 168, 0.2));
 `
 
-type PropsType<T> = {|
-  items: Array<T>,
+type PropsType = {|
+  items: Array<TunewsModel>,
   noItemsMessage: string,
   renderItem: (item: TunewsModel, city: string) => React.Node,
   city: string,
@@ -31,7 +31,7 @@ type PropsType<T> = {|
   fetchMoreTunews: (page: number, count: number) => void
 |}
 
-class TunewsList<T> extends React.PureComponent<PropsType<T>> {
+class TunewsList extends React.PureComponent<PropsType> {
   loadItems = async (page: number) => {
     this.props.fetchMoreTunews(page + 1, LIMIT)
   };
