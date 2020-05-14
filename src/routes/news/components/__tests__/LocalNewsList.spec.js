@@ -49,4 +49,23 @@ describe('LocalNewsList', () => {
       <LocalNewsList items={items} renderItem={renderItem} city={city} noItemsMessage='no item' />
     )).toMatchSnapshot()
   })
+
+  it('should have two NewsElement', () => {
+    const localNewsList = shallow(
+      <LocalNewsList items={items} renderItem={renderItem} city={city} noItemsMessage='no item' />
+    ).dive()
+    const newsElementList = localNewsList.find('NewsElement')
+
+    expect(newsElementList).toHaveLength(2)
+    expect(newsElementList.find({ id: 217 })).toHaveLength(1)
+  })
+
+  it('should render "noItemsMessage" if the items is an empty array', () => {
+    const localNewsList = shallow(
+      <LocalNewsList items={[]} renderItem={renderItem} city={city} noItemsMessage='No items' />
+    ).dive()
+
+    const noItemsMessage = localNewsList.text()
+    expect(noItemsMessage).toEqual('No items')
+  })
 })
