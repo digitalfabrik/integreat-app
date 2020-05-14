@@ -256,7 +256,7 @@
       "fr": {
         "languageNotAvailable": "Malheureusement, ta langue n'est pas disponible ici.",
         "chooseALanguage": "Choisis une langue.",
-        "lastUpdate": "Dernière modification : "
+        "lastUpdate": "Dernière modification : "
       },
       "hr": {
         "languageNotAvailable": "Tvoj jezik ovdje nažalost nije dostupan.",
@@ -528,7 +528,7 @@
         "unknownError": "Une erreur inconnue s'est produite.",
         "tryAgain": "Essayer à nouveau",
         "loadingFailed": "Malheureusement, la page n'a pas pu être chargée.",
-        "chooseALanguage": "Choisis une langue :",
+        "chooseALanguage": "Choisis une langue :",
         "goTo": {
           "start": "Vers la page de démarrage",
           "categories": "Vers les catégories",
@@ -1034,24 +1034,24 @@
       "fr": {
         "technicalTopics": "Fonctions techniques",
         "contentOfCity": "Contenu de {{city}}",
-        "contentOfExtra": "Offre « {{extra}} »",
+        "contentOfExtra": "Offre « {{extra}} »",
         "disclaimer": "Contact et mentions légales",
         "searchFor": "Rechercher",
-        "contentOfPage": "Contenu de la page « {{page}} »",
-        "contentOfEvent": "Contenu de l'événement « {{event}} »",
+        "contentOfPage": "Contenu de la page « {{page}} »",
+        "contentOfEvent": "Contenu de l'événement « {{event}} »",
         "send": "Envoyer",
         "failedSendingFeedback": "Une erreur s'est produite lors de l'envoi de l'avis.",
         "feedback": "Avis",
-        "positiveComment": "Qu'est-ce qui a été utile ?",
-        "negativeComment": "Que pouvons-nous améliorer ?",
-        "feedbackType": "À quoi sert de donner son avis ?",
-        "isThisSiteUseful": "Est-ce que cette page est utile ?",
+        "positiveComment": "Qu'est-ce qui a été utile ?",
+        "negativeComment": "Que pouvons-nous améliorer ?",
+        "feedbackType": "À quoi sert de donner son avis ?",
+        "isThisSiteUseful": "Est-ce que cette page est utile ?",
         "useful": "Utile",
         "notUseful": "Pas utile",
         "nothingFound": "Malheureusement, nous n'avons trouvé aucun résultat.",
         "yourFeedback": "Votre avis...",
-        "informationNotFound": "Vous n'avez pas trouvé ce qu'il vous faut ?",
-        "wantedInformation": "Quelles sont les informations manquantes ici ?",
+        "informationNotFound": "Vous n'avez pas trouvé ce qu'il vous faut ?",
+        "wantedInformation": "Quelles sont les informations manquantes ici ?",
         "feedbackSent": "Avis envoyé",
         "thanksMessage": "Nous vous remercions d'avoir donné votre avis. Cela nous aidera à améliorer notre contenu et l'application Integreat. Nous serions heureux de recevoir d'autres commentaires.",
         "close": "Fermer",
@@ -1428,7 +1428,7 @@
         "offers": "Offres",
         "offersDescription": "Recherche d'emploi, recherche de stage et plus encore dans la région",
         "inquiryTitle": "Paramètres",
-        "inquiryIntro": "En cliquant sur « {{accept}} », j'autorise l'application Integreat...",
+        "inquiryIntro": "En cliquant sur « {{accept}} », j'autorise l'application Integreat...",
         "sentryTitle": "Stabilité de l'application",
         "sentryCondition": "...à améliorer Integreat grâce à l'envoi automatique de rapports d'erreurs",
         "pushNewsTitle": "Notifications push",
@@ -1884,7 +1884,7 @@
         "settings": "Paramètres",
         "share": "Partager",
         "cancel": "Annuler",
-        "shareMessage": "Tout juste trouvé : {{message}}",
+        "shareMessage": "Tout juste trouvé : {{message}}",
         "shareFailDefaultMessage": "Le partage du contenu a malheureusement échoué.",
         "disclaimer": "Mentions légales"
       },
@@ -2155,7 +2155,7 @@
         "proposeCitiesDescription": "Obtenir des propositions des lieux à proximité grâce à la géolocalisation",
         "about": "À propos d'Integreat",
         "privacyPolicy": "Déclaration de confidentialité",
-        "version": "Version : {{version}}",
+        "version": "Version : {{version}}",
         "openSourceLicenses": "Licences en open source"
       },
       "hr": {
@@ -2791,4 +2791,3 @@
       }
     }
   }
-  
