@@ -107,6 +107,4 @@ describe('LocalNewsPage', () => {
       dispatch: expect.any(Function)
     })
   })
-
-  moment.tz.setDefault()
 })

@@ -120,6 +120,4 @@ describe('TunewsPage', () => {
       fetchMoreTunews: expect.any(Function)
     })
   })
-
-  moment.tz.setDefault()
 })

@@ -105,6 +105,4 @@ describe('TunewsDetailsPage', () => {
       dispatch: expect.any(Function)
     })
   })
-
-  moment.tz.setDefault()
 })
