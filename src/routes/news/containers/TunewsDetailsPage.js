@@ -10,7 +10,7 @@ import compose from 'lodash/fp/compose'
 import type { StateType } from '../../../modules/app/StateType'
 import TunewsDetailsFooter from '../components/TunewsDetailsFooter'
 import { TFunction } from 'i18next'
-import NewsController from './NewsController'
+import NewsRedirectController from './NewsRedirectController'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 
@@ -73,7 +73,7 @@ export class TunewsDetailsPage extends React.PureComponent<PropsType> {
     }
 
     return (
-      <NewsController>
+      <NewsRedirectController>
         <StyledContainer>
           <StyledWrapper>
             <StyledBanner>
@@ -86,7 +86,7 @@ export class TunewsDetailsPage extends React.PureComponent<PropsType> {
           </StyledWrapper>
           <TunewsDetailsFooter eNewsNo={tunewsElementDetails.eNewsNo} date={tunewsElementDetails && tunewsElementDetails.date} language={language} t={t} />
         </StyledContainer>
-      </NewsController>
+      </NewsRedirectController>
     )
   }
 }

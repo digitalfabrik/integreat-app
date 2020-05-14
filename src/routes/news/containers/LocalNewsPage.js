@@ -10,7 +10,7 @@ import type { StateType } from '../../../modules/app/StateType'
 import NewsElement from '../components/NewsElement'
 import LocalNewsList from '../components/LocalNewsList'
 import NewsTabs from '../components/NewsTabs'
-import NewsController from './../containers/NewsController'
+import NewsRedirectController from './../containers/NewsRedirectController'
 import { LOCAL_NEWS } from '../constants'
 
 type PropsType = {|
@@ -41,11 +41,11 @@ export class LocalNewsPage extends React.Component<PropsType> {
   render () {
     const { localNews, city, cities, language, t } = this.props
     return (
-      <NewsController>
+      <NewsRedirectController>
         <NewsTabs type={LOCAL_NEWS} city={city} cities={cities} t={t} language={language}>
           <LocalNewsList items={localNews} noItemsMessage={t('currentlyNoNews')} renderItem={this.renderLocalNewsElement(language)} city={city} />
         </NewsTabs>
-      </NewsController>
+      </NewsRedirectController>
     )
   }
 }

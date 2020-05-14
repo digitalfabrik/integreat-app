@@ -3,7 +3,7 @@
 import React from 'react'
 import { mount, shallow } from 'enzyme'
 import configureMockStore from 'redux-mock-store'
-import ConnectedNewsController, { NewsController } from '../NewsController'
+import ConnectedNewsRedirectController, { NewsRedirectController } from '../NewsRedirectController'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import { Provider } from 'react-redux'
 import createLocation from '../../../../createLocation'
@@ -11,7 +11,7 @@ import { TUNEWS_ROUTE } from '../../../../modules/app/route-configs/TunewsRouteC
 import theme from '../../../../modules/theme/constants/theme'
 import { ThemeProvider } from 'styled-components'
 
-describe('NewsController', () => {
+describe('NewsRedirectController', () => {
   const cities = [
     new CityModel({
       name: 'Augsburg',
@@ -46,9 +46,9 @@ describe('NewsController', () => {
   const city = 'augsburg'
   const language = 'en'
 
-  it('should match snapshot and render NewsController', () => {
+  it('should match snapshot and render NewsRedirectController', () => {
     const wrapper = shallow(
-      <NewsController
+      <NewsRedirectController
         language={language}
         city={city}
         cities={cities}
@@ -56,7 +56,7 @@ describe('NewsController', () => {
         redirect={() => {}}
         >
         <div>dummy child</div>
-      </NewsController>
+      </NewsRedirectController>
     )
     expect(wrapper).toMatchSnapshot()
   })
@@ -76,12 +76,12 @@ describe('NewsController', () => {
     const tree = mount(
       <ThemeProvider theme={theme}>
         <Provider store={store}>
-          <ConnectedNewsController />
+          <ConnectedNewsRedirectController />
         </Provider>
       </ThemeProvider>
     )
 
-    expect(tree.find(NewsController).props()).toEqual({
+    expect(tree.find(NewsRedirectController).props()).toEqual({
       language,
       city,
       type: TUNEWS_ROUTE,
