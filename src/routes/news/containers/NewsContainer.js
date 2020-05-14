@@ -43,7 +43,7 @@ type ContainerPropsType = {|
   // option props that come from provider
   selectedNewsType: string,
 
-  // option props that comes from action
+  // option props that come from action
   hasMoreNews?: boolean,
   page?: number
 |}

@@ -78,13 +78,13 @@ export type PushNewsActionType = {|
   type: 'PUSH_NEWS',
   +params: {|
     +newsList: $ReadOnlyArray<LocalNewsModel | TunewsModel>,
-    +previouslyFetchedNewsList?: $ReadOnlyArray<LocalNewsModel | TunewsModel>, // added here in case if there is old news then [concat old news with new ones]
+    +previouslyFetchedNewsList?: $ReadOnlyArray<LocalNewsModel | TunewsModel>, // in case if there is old news then [concat old news with new ones]
     +path: ?string,
     +key: string,
     +cityLanguages: $ReadOnlyArray<LanguageModel>,
     +language: string,
     +city: string,
-    +hasMoreNews: boolean, // Added this to stop loading more when no items are in comming in response
+    +hasMoreNews: boolean, // stop loading more when no items are coming from response
     +type: string,
     +page: number
   |}
