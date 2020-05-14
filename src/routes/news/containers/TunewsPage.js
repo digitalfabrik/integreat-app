@@ -79,10 +79,10 @@ const mapStateToProps = (state: StateType) => ({
   path: state.location.pathname,
   hasMore: state.tunews.hasMore,
   isFetchingFirstTime: state.tunews.isFetchingFirstTime,
-  isFetching: state.tunews._isFetching
+  isFetching: state.tunews.isFetching
 })
 
 export default compose(
-  connect<*, *, *, *, *, *>(mapStateToProps, { fetchMoreTunews }),
+  connect<PropsType, *, *, *, *, *>(mapStateToProps, { fetchMoreTunews }),
   withTranslation('news')
 )(TunewsPage)

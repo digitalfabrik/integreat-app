@@ -61,6 +61,6 @@ const mapStateTypeToProps = (state: StateType) => {
 }
 
 export default compose(
-  connect<*, *, *, *, *, *>(mapStateTypeToProps),
+  connect<PropsType, *, *, *, *, *>(mapStateTypeToProps),
   withTranslation('news')
 )(LocalNewsPage)
