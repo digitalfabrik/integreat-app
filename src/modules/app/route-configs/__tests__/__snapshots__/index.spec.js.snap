@@ -47,12 +47,12 @@ Object {
     "path": "/:city/:language/extras/sprungbrett",
     "thunk": [Function],
   },
-  "TUNEWS": Object {
-    "path": "/:city/:language/news/tu-news",
-    "thunk": [Function],
-  },
   "TUNEWS_DETAILS": Object {
     "path": "/:city/:language/news/tu-news/:newsId",
+    "thunk": [Function],
+  },
+  "TU_NEWS": Object {
+    "path": "/:city/:language/news/tu-news",
     "thunk": [Function],
   },
   "WOHNEN": Object {

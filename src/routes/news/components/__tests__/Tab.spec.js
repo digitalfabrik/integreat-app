@@ -3,9 +3,9 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import Tab from '../Tab'
+import { TU_NEWS } from '../../constants'
 
 describe('Tab', () => {
-  const TU_NEWS = 'tu'
   const type = TU_NEWS
   const active = true
   const destination = '/testcity/en/news/local'

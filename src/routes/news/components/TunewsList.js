@@ -34,7 +34,7 @@ type PropsType = {|
 class TunewsList extends React.PureComponent<PropsType> {
   loadItems = async (page: number) => {
     this.props.fetchMoreTunews(page + 1, LIMIT)
-  };
+  }
 
   render () {
     const { items, renderItem, noItemsMessage, city, hasMore, isFetching } = this.props

@@ -5,8 +5,8 @@ import styled from 'styled-components'
 import Link from 'redux-first-router-link'
 import { TFunction } from 'i18next'
 import tunewsLogoActive from '../assets/TunewsActiveLogo.png'
-import tunewsLogoInActive from '../assets/TunewsInactiveLogo.png'
-import { TUNEWS } from '../constants'
+import tunewsLogoInactive from '../assets/TunewsInactiveLogo.png'
+import { TU_NEWS } from '../constants'
 
 const NewsLink = ({ active, ...props }) => <Link {...props} />
 
@@ -24,7 +24,7 @@ const StyledTab = styled(NewsLink)`
   color: ${({ theme }) => (theme.colors.backgroundColor)};
   object-fit: contain;
   background-color: ${({ active, theme }) =>
-    active ? theme.colors.themeColor : 'rgba(111, 111, 110, 0.4)'};
+    active ? theme.colors.themeColor : theme.colors.textDisabledColor};
   border-radius: 11px;
   font-size: 18px;
   font-weight: 700;
@@ -32,10 +32,10 @@ const StyledTab = styled(NewsLink)`
 `
 
 const TuStyledTab = styled(StyledTab)`
-  background-color: ${({ active, theme }) =>
-    active ? theme.colors.secondaryAccentColor : 'rgba(111, 111, 110, 0.4)'};
   background-image: ${({ active, theme }) =>
-    active ? `url(${tunewsLogoActive})` : `url(${tunewsLogoInActive})`};
+    active ? `url(${tunewsLogoActive})` : `url(${tunewsLogoInactive})`};
+  background-color: ${({ active, theme }) =>
+    active ? theme.colors.tunewsThemeColor : theme.colors.textDisabledColor};
   background-size: cover;
 `
 
@@ -50,11 +50,9 @@ class Tab extends React.PureComponent<PropsType> {
   render () {
     const { type, active, destination, t } = this.props
 
-    if (type === TUNEWS) {
+    if (type === TU_NEWS) {
       return (
-        <div>
-          <TuStyledTab active={active} to={destination} />
-        </div>
+        <TuStyledTab active={active} to={destination} />
       )
     }
 

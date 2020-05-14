@@ -38,13 +38,11 @@ const Description = styled.div`
 
 const Title = styled.h3`
   margin-bottom: 0;
-  color: ${({ theme }) => (theme.colors.newsPageTextColor)};
   font-family: Raleway;
   font-size: 18px;
   font-weight: 700;
 `
 const Body = styled.p`
-  color: ${({ theme }) => (theme.colors.newsPageTextColor)};
   font-size: 16px;
   line-height: 1.38;
 `
@@ -61,7 +59,6 @@ const StyledContainer = styled.div`
 `
 
 const StyledDate = styled(LastUpdateInfo)`
-  color: ${({ theme }) => (theme.colors.newsPageTextColor)};
   font-size: 12px;
 `
 

@@ -17,7 +17,7 @@ import { cmsApiBaseUrl, tunewsApiBaseUrl } from '../constants/urls'
 type TunewsRouteParamsType = {| city: string, language: string |}
 type RequiredPayloadsType = {| tunews: Payload<Array<TunewsModel>> |}
 
-export const TUNEWS_ROUTE = 'TUNEWS'
+export const TUNEWS_ROUTE = 'TU_NEWS'
 
 const tunewsRoute: Route = {
   path: '/:city/:language/news/tu-news',

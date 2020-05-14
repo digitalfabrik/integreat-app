@@ -13,7 +13,7 @@ describe('TunewsDetailsFooter', () => {
   it('should render and match snapshot', () => {
     expect(shallow(
       <TunewsDetailsFooter
-        eNewsNumber='tun0000009902'
+        eNewsNo='tun0000009902'
         date={date}
         language={language}
         t={t}

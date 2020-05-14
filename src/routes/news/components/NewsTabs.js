@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import type { TFunction } from 'react-i18next'
 import Tab from './Tab'
-import { LOCAL_NEWS, TUNEWS } from '../constants'
+import { LOCAL_NEWS, TU_NEWS } from '../constants'
 
 const StyledTabs = styled.div`
   display: flex;
@@ -31,10 +31,24 @@ class NewsTabs extends React.PureComponent<PropsType> {
       <>
         <StyledTabs>
           {
-            currentCity && currentCity.pushNotificationsEnabled && <Tab active={type === LOCAL_NEWS} type={LOCAL_NEWS} destination={`/${city}/${language}/news/local`} t={t} />
+            currentCity && currentCity.pushNotificationsEnabled && (
+              <Tab
+                active={type === LOCAL_NEWS}
+                type={LOCAL_NEWS}
+                destination={`/${city}/${language}/news/local`}
+                t={t}
+              />
+            )
           }
           {
-            currentCity && currentCity.tunewsEnabled && <Tab active={type === TUNEWS} type={TUNEWS} destination={`/${city}/${language}/news/tu-news`} t={t} />
+            currentCity && currentCity.tunewsEnabled && (
+              <Tab
+                active={type === TU_NEWS}
+                type={TU_NEWS}
+                destination={`/${city}/${language}/news/tu-news`}
+                t={t}
+              />
+            )
           }
         </StyledTabs>
         {children}

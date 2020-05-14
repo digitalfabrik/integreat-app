@@ -33,9 +33,9 @@ type PropsType = {|
   t: TFunction,
   cityName: string,
   isEventsEnabled: boolean,
-  isNewsEnabled: boolean,
+  isLocalNewsEnabled: boolean,
+  isTunewsEnabled: boolean,
   isExtrasEnabled: boolean,
-  pushNotificationsEnabled: boolean,
   onStickyTopChanged: number => void,
   languageChangePaths: ?LanguageChangePathsType
 |}
@@ -62,12 +62,13 @@ export class LocationHeader extends React.Component<PropsType> {
   }
 
   getNavigationItems (): Array<Element<typeof HeaderNavigationItem>> {
-    const { t, isEventsEnabled, isNewsEnabled, pushNotificationsEnabled, isExtrasEnabled, location, events } = this.props
+    const { t, isEventsEnabled, isLocalNewsEnabled, isTunewsEnabled, isExtrasEnabled, location, events } = this.props
 
     const { city, language } = location.payload
     const currentRoute = location.type
 
     const isEventsActive = events ? events.length > 0 : false
+    const isNewsEnabled = isLocalNewsEnabled || isTunewsEnabled
     const isCategoriesEnabled = isExtrasEnabled || isEventsEnabled || isNewsEnabled
 
     const items: Array<Element<typeof HeaderNavigationItem>> = []
@@ -97,7 +98,9 @@ export class LocationHeader extends React.Component<PropsType> {
     }
 
     if (isNewsEnabled) {
-      const newsUrl = pushNotificationsEnabled ? new LocalNewsRouteConfig().getRoutePath({ city, language }) : new TunewsRouteConfig().getRoutePath({ city, language })
+      const newsUrl = isLocalNewsEnabled
+        ? new LocalNewsRouteConfig().getRoutePath({ city, language })
+        : new TunewsRouteConfig().getRoutePath({ city, language })
 
       items.push(
         <HeaderNavigationItem

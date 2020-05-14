@@ -37,14 +37,13 @@ exports[`FeedbackBox should match snapshot 1`] = `
         "colors": Object {
           "backgroundAccentColor": "#fafafa",
           "backgroundColor": "#ffffff",
-          "headlineTextColor": "#6f6f6e",
-          "secondaryAccentColor": "#007aa8",
           "textColor": "#000000",
           "textDecorationColor": "#c7c7c7",
           "textDisabledColor": "#d0d0d0",
           "textSecondaryColor": "#585858",
           "themeColor": "#fbda16",
           "themeDarkColor": "#c4a900",
+          "tunewsThemeColor": "#007aa8",
         },
         "dimensions": Object {
           "headerHeightLarge": 85,
