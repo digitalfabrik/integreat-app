@@ -7,18 +7,17 @@ import type Moment from 'moment'
 
 const Footer = styled.footer`
   display: flex;
-  width: 96%;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  background-color: ${({ theme }) => (theme.colors.secondaryAccentColor)};
-  padding: 0 2% 5px;
+  background-color: ${({ theme }) => (theme.colors.tunewsThemeColor)};
+  padding: 5px 0;
   color: ${({ theme }) => (theme.colors.backgroundColor)};
   border-radius: 24px;
 `
 
 const StyledContainer = styled.div`
-  padding: 5px 10px 0;
+  padding: 0 10px;
 `
 
 const StyledLink = styled.a`
@@ -35,16 +34,16 @@ type PropsType = {|
 
 class TunewsDetailsFooter extends React.PureComponent<PropsType> {
   render () {
-    const { eNewsNumber, date, language, t } = this.props
+    const { eNewsNo, date, language, t } = this.props
     date.locale(language)
     const timestamp = date.format('LL')
 
     return (
       <Footer>
-        <StyledContainer>{t('eNewsNo')}: {eNewsNumber}</StyledContainer>
+        <StyledContainer>{t('eNewsNo')}: {eNewsNo}</StyledContainer>
         <StyledContainer>
-          <StyledLink href='http://www.tunews.de' target='_blank'>
-            Tunews International
+          <StyledLink href='https://tunewsinternational.com' target='_blank'>
+            tünews INTERNATIONAL
           </StyledLink>
         </StyledContainer>
         <StyledContainer>{timestamp}</StyledContainer>
