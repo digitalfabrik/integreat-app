@@ -9,10 +9,10 @@ exports[`TunewsDetailsFooter should render and match snapshot 1`] = `
   </TunewsDetailsFooter__StyledContainer>
   <TunewsDetailsFooter__StyledContainer>
     <TunewsDetailsFooter__StyledLink
-      href="http://www.tunews.de"
+      href="https://tunewsinternational.com"
       target="_blank"
     >
-      Tunews International
+      tünews INTERNATIONAL
     </TunewsDetailsFooter__StyledLink>
   </TunewsDetailsFooter__StyledContainer>
   <TunewsDetailsFooter__StyledContainer>

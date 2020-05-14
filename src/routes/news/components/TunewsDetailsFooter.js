@@ -26,7 +26,7 @@ const StyledLink = styled.a`
 `
 
 type PropsType = {|
-  eNewsNumber: string,
+  eNewsNo: string,
   date: Moment,
   language: string,
   t: TFunction

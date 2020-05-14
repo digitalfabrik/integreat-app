@@ -76,7 +76,9 @@ describe('NewsRedirectController', () => {
     const tree = mount(
       <ThemeProvider theme={theme}>
         <Provider store={store}>
-          <ConnectedNewsRedirectController />
+          <ConnectedNewsRedirectController>
+            <div />
+          </ConnectedNewsRedirectController>
         </Provider>
       </ThemeProvider>
     )
@@ -86,7 +88,8 @@ describe('NewsRedirectController', () => {
       city,
       type: TUNEWS_ROUTE,
       cities,
-      redirect: expect.any(Function)
+      redirect: expect.any(Function),
+      children: <div />
     })
   })
 })

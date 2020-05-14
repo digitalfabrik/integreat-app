@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`NewsController should match snapshot and render NewsController 1`] = `
-<div>
-  <div>
-    dummy child
-  </div>
-</div>
-`;

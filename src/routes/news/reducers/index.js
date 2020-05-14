@@ -2,9 +2,10 @@
 
 import { Payload, TunewsModel, TUNEWS_ENDPOINT_NAME } from '@integreat-app/integreat-api-client'
 import type { PayloadDataType } from '../../../modules/app/PayloadDataType'
-import { START_FETCH_TUNEWS, FINISH_FETCH_TUNEWS } from '../actions/fetchMoreTunews'
-import { startFetchMoreActionName } from '../actions/startFetchMoreAction'
-import { finishFetchMoreActionName } from '../actions/finishFetchMoreAction'
+import { startFetchActionName } from '../../../modules/app/actions/startFetchAction'
+import { startFetchMoreActionName } from '../../../modules/app/actions/startFetchMoreAction'
+import { finishFetchActionName } from '../../../modules/app/actions/finishFetchAction'
+import { finishFetchMoreActionName } from '../../../modules/app/actions/finishFetchMoreAction'
 
 type TuNewsFetchActionType<T: PayloadDataType> = { type: string, payload: Payload<T> }
 
@@ -15,14 +16,14 @@ const fetchTunewsReducer = (
   action: TuNewsFetchActionType<TunewsModel>
 ) => {
   switch (action.type) {
-    case START_FETCH_TUNEWS:
+    case startFetchActionName(TUNEWS_ENDPOINT_NAME):
       return {
         data: [],
         requestUrl: action.payload.requestUrl,
         isFetching: state.isFetching,
         isFetchingFirstTime: true
       }
-    case FINISH_FETCH_TUNEWS:
+    case finishFetchActionName(TUNEWS_ENDPOINT_NAME):
       return {
         data: [...action.payload.data],
         requestUrl: action.payload.requestUrl,

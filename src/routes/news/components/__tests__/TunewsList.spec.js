@@ -6,7 +6,7 @@ import moment from 'moment-timezone'
 import { shallow } from 'enzyme'
 import TunewsList from '../TunewsList'
 import NewsElement from '../NewsElement'
-import { TUNEWS } from '../../constants'
+import { TU_NEWS } from '../../constants'
 
 describe('TunewsList', () => {
   const language = 'en'
@@ -19,7 +19,7 @@ describe('TunewsList', () => {
     title={title}
     content={content}
     timestamp={date}
-    type={TUNEWS}
+    type={TU_NEWS}
     key={id}
     path={path}
     t={t}

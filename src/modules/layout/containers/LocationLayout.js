@@ -116,8 +116,8 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
     return <Layout asideStickyTop={this.state.asideStickyTop}
                    header={<LocationHeader isEventsEnabled={cityModel.eventsEnabled}
                                            isExtrasEnabled={cityModel.extrasEnabled}
-                                           isNewsEnabled={(cityModel.pushNotificationsEnabled || cityModel.tunewsEnabled)}
-                                           pushNotificationsEnabled={cityModel.pushNotificationsEnabled}
+                                           isLocalNewsEnabled={cityModel.pushNotificationsEnabled}
+                                           isTunewsEnabled={cityModel.tunewsEnabled}
                                            languageChangePaths={languageChangePaths}
                                            location={location}
                                            events={events}

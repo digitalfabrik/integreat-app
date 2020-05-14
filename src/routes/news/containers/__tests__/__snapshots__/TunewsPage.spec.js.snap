@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TunewsPage should match snapshot and render TunewsPage 1`] = `
-<Connect(NewsController)>
+<Connect(NewsRedirectController)>
   <NewsTabs
     cities={
       Array [
@@ -43,7 +43,7 @@ exports[`TunewsPage should match snapshot and render TunewsPage 1`] = `
     city="augsburg"
     language="en"
     t={[Function]}
-    type="TUNEWS"
+    type="TU_NEWS"
   >
     <TunewsList
       city="augsburg"
@@ -89,5 +89,5 @@ exports[`TunewsPage should match snapshot and render TunewsPage 1`] = `
       renderItem={[Function]}
     />
   </NewsTabs>
-</Connect(NewsController)>
+</Connect(NewsRedirectController)>
 `;

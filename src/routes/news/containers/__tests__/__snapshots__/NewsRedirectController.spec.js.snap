@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NewsRedirectController should match snapshot and render NewsRedirectController 1`] = `
+<div>
+  dummy child
+</div>
+`;

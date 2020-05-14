@@ -2,8 +2,8 @@
 
 import type { Dispatch } from 'redux'
 import { Endpoint, Payload } from '@integreat-app/integreat-api-client'
-import startFetchMoreAction from './actions/startFetchMoreAction'
-import finishFetchMoreAction from './actions/finishFetchMoreAction'
+import startFetchMoreAction from '../../modules/app/actions/startFetchMoreAction'
+import finishFetchMoreAction from '../../modules/app/actions/finishFetchMoreAction'
 import type { StoreActionType } from '../../modules/app/StoreActionType'
 
 async function fetchData<P, T> (
