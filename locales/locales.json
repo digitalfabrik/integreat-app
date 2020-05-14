@@ -256,7 +256,7 @@
     "fr": {
       "languageNotAvailable": "Malheureusement, ta langue n'est pas disponible ici.",
       "chooseALanguage": "Choisis une langue.",
-      "lastUpdate": "Dernière modification : "
+      "lastUpdate": "Dernière modification : "
     },
     "hr": {
       "languageNotAvailable": "Tvoj jezik ovdje nažalost nije dostupan.",
@@ -303,86 +303,72 @@
     "de": {
       "localInformation": "Lokale Informationen",
       "offers": "Angebote",
-      "events": "Veranstaltungen",
-      "news": "Nachrichten"
+      "events": "Veranstaltungen"
     },
     "ar": {
       "localInformation": "معلومات محلية",
       "offers": "العروض",
-      "events": "الفعاليات",
-      "news": "الأخبار"
+      "events": "الفعاليات"
     },
     "en": {
       "localInformation": "Local information",
       "offers": "Offers",
-      "events": "Events",
-      "news": "News"
+      "events": "Events"
     },
     "es": {
       "localInformation": "Información local",
       "offers": "Ofertas",
-      "events": "Actividades",
-      "news": "Noticias"
+      "events": "Actividades"
     },
     "fa": {
       "localInformation": "اطلاعات محلی",
       "offers": "خدمات",
-      "events": "رویدادها",
-      "news": "News"
+      "events": "رویدادها"
     },
     "fr": {
       "localInformation": "Informations locales",
       "offers": "Offres",
-      "events": "Événements",
-      "news": "Nouvelles"
+      "events": "Événements"
     },
     "hr": {
       "localInformation": "Lokalne informacije",
       "offers": "Ponude",
-      "events": "Događanja",
-      "news": "News"
+      "events": "Događanja"
     },
     "ku": {
       "localInformation": "Zanyariyên xwecihî",
       "offers": "Xizmet",
-      "events": "Rûdan",
-      "news": "News"
+      "events": "Rûdan"
     },
     "pl": {
       "localInformation": "Informacje lokalne",
       "offers": "Oferty",
-      "events": "Wydarzenia",
-      "news": "News"
+      "events": "Wydarzenia"
     },
     "ro": {
       "localInformation": "Informații locale",
       "offers": "Oferte",
-      "events": "Evenimente",
-      "news": "News"
+      "events": "Evenimente"
     },
     "ru": {
       "localInformation": "Информация о жизни страны",
       "offers": "Предложения",
-      "events": "Мероприятия",
-      "news": "News"
+      "events": "Мероприятия"
     },
     "so": {
       "localInformation": "Macluumaadka deegaanka",
       "offers": "Heshiisyo",
-      "events": "Dhacdooyinka",
-      "news": "News"
+      "events": "Dhacdooyinka"
     },
     "ti": {
       "localInformation": "ከባብያዊ ሓበሬታ",
       "offers": "ውዕላት",
-      "events": "ኣጋጣሚታት",
-      "news": "News"
+      "events": "ኣጋጣሚታት"
     },
     "tr": {
       "localInformation": "Yerel bilgiler",
       "offers": "Teklifler",
-      "events": "Etkinlikler",
-      "news": "Haberler"
+      "events": "Etkinlikler"
     }
   },
   "error": {
@@ -542,7 +528,7 @@
       "unknownError": "Une erreur inconnue s'est produite.",
       "tryAgain": "Essayer à nouveau",
       "loadingFailed": "Malheureusement, la page n'a pas pu être chargée.",
-      "chooseALanguage": "Choisis une langue :",
+      "chooseALanguage": "Choisis une langue :",
       "goTo": {
         "start": "Vers la page de démarrage",
         "categories": "Vers les catégories",
@@ -865,62 +851,6 @@
       "currentlyNoEvents": "Güncel bir etkinlik yok."
     }
   },
-  "news": {
-    "en": {
-      "local": "LOCAL",
-      "currentlyNoNews": "No news currently available",
-      "readMore": "Read More >"
-    },
-    "ar": {
-      "local": "الأخبار المحلية",
-      "currentlyNoNews": "لا يتوفر حاليا أي أخبار",
-      "readMore": "قراءة المزيد >"
-    },
-    "tr": {
-      "currentlyNoNews": "Şu anda haberler yok",
-      "readMore": "Daha fazla >"
-    },
-    "de": {
-      "currentlyNoNews": "Momenteel geen nieuws",
-      "readMore": "Lees verder >"
-    },
-    "fr": {
-      "currentlyNoNews": "Actuellement Pas de nouvelles",
-      "readMore": "Lire la suite >"
-    },
-    "ti": {
-      "currentlyNoNews": "ไม่มีข่าว ",
-      "readMore": "อ่านเพิ่มเติม >"
-    },
-    "es": {
-      "currentlyNoNews": "Actualmente no hay noticias",
-      "readMore": "Lee mas >"
-    },
-    "hr": {
-      "currentlyNoNews": "Trenutno nema vijesti",
-      "readMore": "Čitaj više >"
-    },
-    "ku": {
-      "currentlyNoNews": "Heya niha nûçe tune",
-      "readMore": "Zêdetir bixwînin >"
-    },
-    "pl": {
-      "currentlyNoNews": "Obecnie brak dostępnych wiadomości",
-      "readMore": "Czytaj więcej >"
-    },
-    "ro": {
-      "currentlyNoNews": "În prezent nu există știri disponibile",
-      "readMore": "Citeste mai mult >"
-    },
-    "ru": {
-      "currentlyNoNews": "На данный момент новостей нет",
-      "readMore": "Читать далее >"
-    },
-    "so": {
-      "currentlyNoNews": "Xilligan wax war ah lama hayo",
-      "readMore": "Akhri wax dheeraad ah >"
-    }
-  },
   "extras": {
     "de": {
       "offers": "Angebote"
@@ -1104,24 +1034,24 @@
     "fr": {
       "technicalTopics": "Fonctions techniques",
       "contentOfCity": "Contenu de {{city}}",
-      "contentOfExtra": "Offre « {{extra}} »",
+      "contentOfExtra": "Offre « {{extra}} »",
       "disclaimer": "Contact et mentions légales",
       "searchFor": "Rechercher",
-      "contentOfPage": "Contenu de la page « {{page}} »",
-      "contentOfEvent": "Contenu de l'événement « {{event}} »",
+      "contentOfPage": "Contenu de la page « {{page}} »",
+      "contentOfEvent": "Contenu de l'événement « {{event}} »",
       "send": "Envoyer",
       "failedSendingFeedback": "Une erreur s'est produite lors de l'envoi de l'avis.",
       "feedback": "Avis",
-      "positiveComment": "Qu'est-ce qui a été utile ?",
-      "negativeComment": "Que pouvons-nous améliorer ?",
-      "feedbackType": "À quoi sert de donner son avis ?",
-      "isThisSiteUseful": "Est-ce que cette page est utile ?",
+      "positiveComment": "Qu'est-ce qui a été utile ?",
+      "negativeComment": "Que pouvons-nous améliorer ?",
+      "feedbackType": "À quoi sert de donner son avis ?",
+      "isThisSiteUseful": "Est-ce que cette page est utile ?",
       "useful": "Utile",
       "notUseful": "Pas utile",
       "nothingFound": "Malheureusement, nous n'avons trouvé aucun résultat.",
       "yourFeedback": "Votre avis...",
-      "informationNotFound": "Vous n'avez pas trouvé ce qu'il vous faut ?",
-      "wantedInformation": "Quelles sont les informations manquantes ici ?",
+      "informationNotFound": "Vous n'avez pas trouvé ce qu'il vous faut ?",
+      "wantedInformation": "Quelles sont les informations manquantes ici ?",
       "feedbackSent": "Avis envoyé",
       "thanksMessage": "Nous vous remercions d'avoir donné votre avis. Cela nous aidera à améliorer notre contenu et l'application Integreat. Nous serions heureux de recevoir d'autres commentaires.",
       "close": "Fermer",
@@ -1498,7 +1428,7 @@
       "offers": "Offres",
       "offersDescription": "Recherche d'emploi, recherche de stage et plus encore dans la région",
       "inquiryTitle": "Paramètres",
-      "inquiryIntro": "En cliquant sur « {{accept}} », j'autorise l'application Integreat...",
+      "inquiryIntro": "En cliquant sur « {{accept}} », j'autorise l'application Integreat...",
       "sentryTitle": "Stabilité de l'application",
       "sentryCondition": "...à améliorer Integreat grâce à l'envoi automatique de rapports d'erreurs",
       "pushNewsTitle": "Notifications push",
@@ -1858,6 +1788,7 @@
       "changeLanguage": "Sprache wechseln",
       "settings": "Einstellungen",
       "share": "Teilen",
+      "cancel": "Abbrechen",
       "shareMessage": "Gerade gefunden: {{message}}",
       "shareFailDefaultMessage": "Das Teilen des Inhalts ist leider fehlgeschlagen.",
       "disclaimer": "Impressum"
@@ -1876,6 +1807,7 @@
       "changeLanguage": "تغيير اللغة",
       "settings": "الإعدادات",
       "share": "المشاركة",
+      "cancel": "إلغاء",
       "shareMessage": "تم حالاً العثور على: {{message}}",
       "shareFailDefaultMessage": "للأسف، فشل في مشاركة المحتوى.",
       "disclaimer": "هيئة التحرير"
@@ -1894,6 +1826,7 @@
       "changeLanguage": "Change language",
       "settings": "Settings",
       "share": "Share",
+      "cancel": "Cancel",
       "shareMessage": "Just found: {{message}}",
       "shareFailDefaultMessage": "Unfortunately an error occurred when sharing the content.",
       "disclaimer": "Imprint"
@@ -1912,6 +1845,7 @@
       "changeLanguage": "Cambiar idioma",
       "settings": "Ajustes",
       "share": "Compartir",
+      "cancel": "Cancelar",
       "shareMessage": "Acabamos de encontrar: {{message}}",
       "shareFailDefaultMessage": "No se ha podido compartir el contenido.",
       "disclaimer": "Aviso legal"
@@ -1930,6 +1864,7 @@
       "changeLanguage": "تغییر زبان",
       "settings": "تنظیمات",
       "share": "به اشتراک گذاری",
+      "cancel": "قطع",
       "shareMessage": "اکنون یافت شد: {{message}}",
       "shareFailDefaultMessage": "متأسفانه به اشتراک گذاشتن محتوا انجام نشد.",
       "disclaimer": "اطلاعات ناشر"
@@ -1948,7 +1883,8 @@
       "changeLanguage": "Modifier la langue",
       "settings": "Paramètres",
       "share": "Partager",
-      "shareMessage": "Tout juste trouvé : {{message}}",
+      "cancel": "Annuler",
+      "shareMessage": "Tout juste trouvé : {{message}}",
       "shareFailDefaultMessage": "Le partage du contenu a malheureusement échoué.",
       "disclaimer": "Mentions légales"
     },
@@ -1966,6 +1902,7 @@
       "changeLanguage": "Promjena jezika",
       "settings": "Postavke",
       "share": "Podijeli",
+      "cancel": "Prekid",
       "shareMessage": "Upravo pronađeno: {{message}}",
       "shareFailDefaultMessage": "Dijeljenje sadržaja nažalost nije uspjelo.",
       "disclaimer": "Impresum"
@@ -1984,6 +1921,7 @@
       "changeLanguage": "Guhertina Ziman",
       "settings": "Eyarkirin",
       "share": "Parvekirin",
+      "cancel": "Qutbûn",
       "shareMessage": "Niha hat dîtin: {{message}}",
       "shareFailDefaultMessage": "Mixabin parvekirina babetên pêk nehat.",
       "disclaimer": "Lêzanînên Weşîner"
@@ -2002,6 +1940,7 @@
       "changeLanguage": "Zmień język",
       "settings": "Ustawienia",
       "share": "Udostępnij",
+      "cancel": "Przerwij",
       "shareMessage": "Właśnie znaleziono: {{message}}",
       "shareFailDefaultMessage": "Niestety udostępnianie treści nie powiodło się.",
       "disclaimer": "Nota prawna"
@@ -2020,6 +1959,7 @@
       "changeLanguage": "Schimbați limba",
       "settings": "Setări",
       "share": "Distribuiți",
+      "cancel": "Întrerupeți",
       "shareMessage": "Tocmai s-a găsit: {{message}}",
       "shareFailDefaultMessage": "Distribuirea conținutului a eșuat.",
       "disclaimer": "Caseta tehnică"
@@ -2038,6 +1978,7 @@
       "changeLanguage": "Изменить язык",
       "settings": "Настройки",
       "share": "Поделиться",
+      "cancel": "Отменить",
       "shareMessage": "Найдено: {{message}}",
       "shareFailDefaultMessage": "К сожалению, не удалось поделиться содержимым.",
       "disclaimer": "Выходные данные"
@@ -2056,6 +1997,7 @@
       "changeLanguage": "Bedel luuqadda",
       "settings": "Dejinta (setting-ka)",
       "share": "La Wadaag",
+      "cancel": "Jooji",
       "shareMessage": "Hada la helay: {{message}}",
       "shareFailDefaultMessage": "Nasiib darro, wadaagista tusmada ayaa lagu guuldaraystay.",
       "disclaimer": "Qoraa"
@@ -2074,6 +2016,7 @@
       "changeLanguage": "ቋንቋ ቀይር",
       "settings": "ምትኽኻላት",
       "share": "ኣካፍል",
+      "cancel": "ደው ኣብል",
       "shareMessage": "ተረኺቡ ኣሎ፥ {{message}}",
       "shareFailDefaultMessage": "ሕማቕ ኣጋጣሚ ኾይኑ፡ ምክፋል እቲ ትሕዝቶ ኣይተዓወተን።",
       "disclaimer": "ደራሲ"
@@ -2092,6 +2035,7 @@
       "changeLanguage": "Dil değiştir",
       "settings": "Ayarlar",
       "share": "Paylaş",
+      "cancel": "İptal",
       "shareMessage": "Şimdi bulundu: {{message}}",
       "shareFailDefaultMessage": "İçeriğin paylaşılması maalesef başarısız.",
       "disclaimer": "Künye"
@@ -2211,7 +2155,7 @@
       "proposeCitiesDescription": "Obtenir des propositions des lieux à proximité grâce à la géolocalisation",
       "about": "À propos d'Integreat",
       "privacyPolicy": "Déclaration de confidentialité",
-      "version": "Version : {{version}}",
+      "version": "Version : {{version}}",
       "openSourceLicenses": "Licences en open source"
     },
     "hr": {
