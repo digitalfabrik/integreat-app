@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import { View, ScrollView } from 'react-native'
+import { View, ScrollView, Linking } from 'react-native'
 import { TFunction, withTranslation } from 'react-i18next'
 import {
   LocalNewsModel,
@@ -21,7 +21,9 @@ import headerImage from '../assets/tu-news-header-details-icon.svg'
 import styled from 'styled-components/native'
 import type { StyledComponent } from 'styled-components'
 import { TUNEWS } from '../containers/WithCustomNewsProvider'
-import { contentAlignment } from '../../../modules/i18n/contentDirection'
+import { contentAlignment, contentDirection } from '../../../modules/i18n/contentDirection'
+import moment from 'moment'
+const tunewsWebsiteUrl = 'https://tunewsinternational.com'
 
 const Container: StyledComponent<{}, {}, *> = styled.View`
   align-items: center;
@@ -43,18 +45,19 @@ const HeaderImage: StyledComponent<{}, {}, *> = styled.Image`
   border-bottom-left-radius: 5px;
 `
 
-const Row: StyledComponent<{}, ThemeType, *> = styled.View`
-  flex-direction: row;
+const Row: StyledComponent<{language: string}, ThemeType, *> = styled.View`
+  flex-direction: ${props => contentDirection(props.language)};
   border-radius: 5px;
   width: 95%;
   align-self: center;
   background-color: #0279a6;
 `
 
-const ExtraInfo: StyledComponent<{}, ThemeType, *> = styled.Text`
+const ExtraInfo: StyledComponent<{ underlined?: boolean }, ThemeType, *> = styled.Text`
   font-family: ${props => props.theme.fonts.decorativeFontBold};
   font-size: 12px;
   color: white;
+  text-decoration-line: ${props => props.underlined ? 'underline' : 'none'};
   padding: 5px;
 `
 
@@ -97,7 +100,6 @@ export type PropsType = {|
   selectedNewsType: string,
   status: "ready" | "loadingMore",
   isFetchingMore: boolean,
-  type: string,
   fetchMoreNews: () => void,
   navigateToNews: (navigationOptions: NavigateToNewsParamsType) => void,
   createNavigateToNews: (NavigateToNewsParamsType) => void
@@ -115,6 +117,13 @@ class NewsList extends React.PureComponent<PropsType> {
       path,
       type: selectedNewsType
     })
+  };
+
+  openTunewsLink = async () => {
+    const supported = await Linking.canOpenURL(tunewsWebsiteUrl)
+    if (supported) {
+      await Linking.openURL(tunewsWebsiteUrl)
+    }
   };
 
   renderNoItemsComponent = () => {
@@ -164,10 +173,7 @@ class NewsList extends React.PureComponent<PropsType> {
       )
 
       if (selectedNewsItem) {
-        const content = selectedNewsItem.content || ''
-        const contentFooterIndex = content.indexOf('tünews')
-        const contentExtraInfo = content.substring(contentFooterIndex)
-        const splittedContent = content.split(contentExtraInfo)[0]
+        const { eNewsNo, date, content, message } = selectedNewsItem
 
         return (
           <View style={{ flex: 1 }}>
@@ -188,12 +194,18 @@ class NewsList extends React.PureComponent<PropsType> {
                   {selectedNewsItem.title}
                 </NewsDetailsTitle>
                 <NewsDetailsContent theme={theme} language={language}>
-                  {splittedContent || selectedNewsItem.message}
+                  {content || message}
                 </NewsDetailsContent>
               </Container>
-              <Row theme={theme}>
-                {contentExtraInfo ? (
-                  <ExtraInfo theme={theme}>{contentExtraInfo}</ExtraInfo>
+              <Row theme={theme} language={language}>
+                {isTunews ? (
+                  <ExtraInfo theme={theme}>
+                    {`${t('eNewsNo')}: ${eNewsNo}`}
+                    {'  '}
+                    <ExtraInfo onPress={this.openTunewsLink} theme={theme} underlined>tünews INTERNATIONAL</ExtraInfo>
+                    {'  '}
+                    {moment(date).format('MMMM DD, YYYY')}
+                  </ExtraInfo>
                 ) : null}
               </Row>
             </ScrollView>
