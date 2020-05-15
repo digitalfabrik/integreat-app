@@ -24,6 +24,14 @@ exports[`FailureSwitcher render component not found failure should render a extr
 />
 `;
 
+exports[`FailureSwitcher render component not found failure should render a poi not found failure and match snapshot 1`] = `
+<Translate(Failure)
+  errorMessage="notFound.poi"
+  goToMessage="goTo.pois"
+  goToPath="/augsburg/de/locations"
+/>
+`;
+
 exports[`FailureSwitcher should render a content not found failure if there is a ContentNotFoundError 1`] = `
 <Translate(Failure)
   errorMessage="notFound.extra"
