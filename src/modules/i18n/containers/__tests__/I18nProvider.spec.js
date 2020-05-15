@@ -93,7 +93,7 @@ describe('I18nProvider', () => {
     const component = mount(<I18nProvider setUiDirection={() => {}}>
       <div />
     </I18nProvider>)
-    
+
     const instance: any = component.instance()
     instance.setLanguage = jest.fn()
 
