@@ -1,10 +1,11 @@
 // @flow
 
 import React from 'react'
-import { shallow } from 'enzyme'
+import { mount } from 'enzyme'
 
 import { FailureSwitcher } from '../FailureSwitcher'
 import ContentNotFoundError from '../../errors/ContentNotFoundError'
+import { Failure } from '../Failure'
 
 describe('FailureSwitcher', () => {
   const city = 'augsburg'
@@ -29,16 +30,28 @@ describe('FailureSwitcher', () => {
       const error = new ContentNotFoundError({ type: 'event', id: '1234', language, city })
       expect(FailureSwitcher.renderContentNotFoundComponent(error)).toMatchSnapshot()
     })
+
+    it('should render a poi not found failure and match snapshot', () => {
+      const error = new ContentNotFoundError({ type: 'poi', id: 'poiId', language, city })
+      expect(FailureSwitcher.renderContentNotFoundComponent(error)).toMatchSnapshot()
+    })
   })
 
   it('should render a content not found failure if there is a ContentNotFoundError', () => {
-    expect(shallow(
-      <FailureSwitcher error={new ContentNotFoundError({ type: 'extra', id: 'sprungbrett', city, language })}
-                       t={mockTranslate} />
-    )).toMatchSnapshot()
+    const error = new ContentNotFoundError({ type: 'extra', id: 'sprungbrett', city, language })
+    FailureSwitcher.renderContentNotFoundComponent = jest.fn(FailureSwitcher.renderContentNotFoundComponent)
+
+    const component = mount(<FailureSwitcher error={error} t={mockTranslate} />)
+
+    expect(FailureSwitcher.renderContentNotFoundComponent).toHaveBeenCalledWith(error)
+    expect(component.find(Failure)).toHaveLength(1)
   })
 
   it('should render a failure as default', () => {
-    expect(shallow(<FailureSwitcher error={new Error('error message')} t={mockTranslate} />)).toMatchSnapshot()
+    const error = new Error('error message')
+    const component = mount(<FailureSwitcher error={new Error('error message')} t={mockTranslate} />)
+
+    expect(component.find(Failure)).toHaveLength(1)
+    expect(component.find(Failure).at(0).props().errorMessage).toEqual(error.message)
   })
 })
