@@ -29,7 +29,7 @@ const StyledBanner = styled.div`
   overflow: hidden;
   align-items: center;
   margin: 25px 0;
-  background-color: rgba(0, 122, 168, 0.4);
+  background-color: ${({ theme }) => (theme.colors.tunewsThemeColorLight)};
   border-radius: 11px;
 `
 const StyledBannerImage = styled.img`

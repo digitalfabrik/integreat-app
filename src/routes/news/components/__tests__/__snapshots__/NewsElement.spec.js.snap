@@ -5,7 +5,7 @@ exports[`NewsElement should render and match snapshot 1`] = `
   <NewsElement__Link
     to="/testumgebung/en/news/local/217"
   >
-    <NewsElement__Description>
+    <ListItem__Description>
       <NewsElement__Title>
         Tick bite - What to do?
       </NewsElement__Title>
@@ -13,7 +13,7 @@ exports[`NewsElement should render and match snapshot 1`] = `
         In summer there are often ticks in forest and meadows with high grass. These are very small animals. They feed on the blood of people or animals they sting, like...
       </NewsElement__Body>
       <NewsElement__StyledContainer>
-        <NewsElement__StyledDate
+        <Translate(LastUpdateInfo)
           language="en"
           lastUpdate={"2020-03-20T17:50:00.000Z"}
         />
@@ -25,7 +25,7 @@ exports[`NewsElement should render and match snapshot 1`] = `
            &gt;
         </NewsElement__ReadMoreLink>
       </NewsElement__StyledContainer>
-    </NewsElement__Description>
+    </ListItem__Description>
   </NewsElement__Link>
 </NewsElement__StyledNewsElement>
 `;

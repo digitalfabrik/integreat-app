@@ -16,7 +16,8 @@ const theme: ThemeType = {
     textDecorationColor: '#c7c7c7',
     textDisabledColor: '#d0d0d0',
     backgroundColor: '#ffffff',
-    tunewsThemeColor: '#007aa8'
+    tunewsThemeColor: '#007aa8',
+    tunewsThemeColorLight: 'rgba(0, 122, 168, 0.4)'
   },
   dimensions: dimensions,
   fonts: fonts,

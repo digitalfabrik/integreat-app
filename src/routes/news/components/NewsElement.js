@@ -5,11 +5,12 @@ import styled from 'styled-components'
 import type Moment from 'moment'
 import CleanLink from '../../../modules/common/components/CleanLink'
 import LastUpdateInfo from './../../../modules/common/components/LastUpdateInfo'
+import { Description } from '../../../modules/common/components/ListItem'
 import type { TFunction } from 'react-i18next'
 import textTruncator from './../../../modules/common/utils/textTruncator'
 import { LOCAL_NEWS } from '../constants'
 
-const TRUNCATE_LETTERS_COUNT = 30
+export const NUM_OF_WORDS_ALLOWED = 30
 
 const Link = styled(CleanLink)`
   display: flex;
@@ -20,20 +21,6 @@ const ReadMoreLink = styled(({ type, ...props }) => <Link {...props} />)`
   color: ${({ theme, type }) => type === LOCAL_NEWS ? theme.colors.themeColor : theme.colors.tunewsThemeColor};
   color: ${({ theme, type }) => type === LOCAL_NEWS ? theme.colors.themeColor : theme.colors.tunewsThemeColor};
   font-weight: 600;
-`
-
-const Description = styled.div`
-  display: flex;
-  height: 100%;
-  min-width: 1px; /* needed to enable line breaks for too long words, exact value doesn't matter */
-  flex-direction: column;
-  flex-grow: 1;
-  padding: 15px 10px 0;
-  word-wrap: break-word;
-
-  > * {
-    padding-bottom: 10px;
-  }
 `
 
 const Title = styled.h3`
@@ -58,10 +45,6 @@ const StyledContainer = styled.div`
   justify-content: space-between;
 `
 
-const StyledDate = styled(LastUpdateInfo)`
-  font-size: 12px;
-`
-
 type PropsType = {|
   id: number,
   title: string,
@@ -79,9 +62,9 @@ class NewsElement extends React.PureComponent<PropsType> {
     return (
       <Description>
         <Title>{title}</Title>
-        <Body>{textTruncator(content, TRUNCATE_LETTERS_COUNT)}</Body>
+        <Body>{textTruncator(content, NUM_OF_WORDS_ALLOWED)}</Body>
         <StyledContainer>
-          <StyledDate lastUpdate={timestamp} language={language} />
+          <LastUpdateInfo lastUpdate={timestamp} language={language} />
           <ReadMoreLink to={itemPath} type={type}>{t('readMore')} ></ReadMoreLink>
         </StyledContainer>
       </Description>

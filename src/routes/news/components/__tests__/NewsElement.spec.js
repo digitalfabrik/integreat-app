@@ -4,7 +4,7 @@ import React from 'react'
 import { LocalNewsModel } from '@integreat-app/integreat-api-client'
 import moment from 'moment-timezone'
 import { shallow } from 'enzyme'
-import NewsElement from '../NewsElement'
+import NewsElement, { NUM_OF_WORDS_ALLOWED } from '../NewsElement'
 import { LOCAL_NEWS } from '../../constants'
 import textTruncator from '../../../../modules/common/utils/textTruncator'
 
@@ -52,6 +52,6 @@ describe('NewsElement', () => {
     ).dive()
 
     expect(wrapper.text()).toContain(newsItem.title)
-    expect(wrapper.text()).toContain(textTruncator(newsItem.message))
+    expect(wrapper.text()).toContain(textTruncator(newsItem.message, NUM_OF_WORDS_ALLOWED))
   })
 })
