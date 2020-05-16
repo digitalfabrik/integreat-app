@@ -43,7 +43,12 @@ export class LocalNewsPage extends React.Component<PropsType> {
     return (
       <NewsRedirectController>
         <NewsTabs type={LOCAL_NEWS} city={city} cities={cities} t={t} language={language}>
-          <LocalNewsList items={localNews} noItemsMessage={t('currentlyNoNews')} renderItem={this.renderLocalNewsElement(language)} city={city} />
+          <LocalNewsList
+            items={localNews}
+            noItemsMessage={t('currentlyNoNews')}
+            renderItem={this.renderLocalNewsElement(language)}
+            city={city}
+          />
         </NewsTabs>
       </NewsRedirectController>
     )

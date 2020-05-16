@@ -24,7 +24,7 @@ const Thumbnail = styled.img`
   object-fit: contain;
 `
 
-const Description = styled.div`
+export const Description = styled.div`
   display: flex;
   height: 100%;
   min-width: 1px; /* needed to enable line breaks for too long words, exact value doesn't matter */

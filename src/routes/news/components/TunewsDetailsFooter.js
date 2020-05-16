@@ -4,6 +4,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { TFunction } from 'i18next'
 import type Moment from 'moment'
+import LastUpdateInfo from '../../../modules/common/components/LastUpdateInfo'
 
 const Footer = styled.footer`
   display: flex;
@@ -24,6 +25,14 @@ const StyledLink = styled.a`
   color: ${({ theme }) => (theme.colors.backgroundColor)};
   text-decoration: underline;
 `
+const CustomLastUpdateInfo = styled(LastUpdateInfo)`
+  padding: 0 10px;
+  color: ${({ theme }) => (theme.colors.backgroundColor)};
+
+  &&& {
+    margin: 0
+  }
+`
 
 type PropsType = {|
   eNewsNo: string,
@@ -35,8 +44,6 @@ type PropsType = {|
 class TunewsDetailsFooter extends React.PureComponent<PropsType> {
   render () {
     const { eNewsNo, date, language, t } = this.props
-    date.locale(language)
-    const timestamp = date.format('LL')
 
     return (
       <Footer>
@@ -46,7 +53,7 @@ class TunewsDetailsFooter extends React.PureComponent<PropsType> {
             tünews INTERNATIONAL
           </StyledLink>
         </StyledContainer>
-        <StyledContainer>{timestamp}</StyledContainer>
+        <CustomLastUpdateInfo lastUpdate={date} language={language} />
       </Footer>
     )
   }

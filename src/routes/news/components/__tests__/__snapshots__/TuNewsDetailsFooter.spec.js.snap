@@ -15,8 +15,9 @@ exports[`TunewsDetailsFooter should render and match snapshot 1`] = `
       tünews INTERNATIONAL
     </TunewsDetailsFooter__StyledLink>
   </TunewsDetailsFooter__StyledContainer>
-  <TunewsDetailsFooter__StyledContainer>
-    March 20, 2020
-  </TunewsDetailsFooter__StyledContainer>
+  <TunewsDetailsFooter__CustomLastUpdateInfo
+    language="en"
+    lastUpdate={"2020-03-20T17:50:00.000Z"}
+  />
 </TunewsDetailsFooter__Footer>
 `;

@@ -17,18 +17,19 @@ type PropsType = {|
   lastUpdate: Moment,
   t: TFunction,
   language: string,
-  withText: boolean
+  withText: boolean,
+  className?: string
 |}
 
 export class LastUpdateInfo extends React.PureComponent<PropsType> {
   render () {
-    const { lastUpdate, t, language, withText } = this.props
+    const { lastUpdate, t, language, withText, className } = this.props
     lastUpdate.locale(language)
 
     // only show day, month and year
     const timestamp = lastUpdate.format('LL')
 
-    return <TimeStamp>{withText && t('lastUpdate')}{timestamp}</TimeStamp>
+    return <TimeStamp className={className}>{withText && t('lastUpdate')}{timestamp}</TimeStamp>
   }
 }
 
