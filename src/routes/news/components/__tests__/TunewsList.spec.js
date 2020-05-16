@@ -61,4 +61,42 @@ describe('TunewsList', () => {
       />
     )).toMatchSnapshot()
   })
+
+  it('should have two NewsElement', () => {
+    const tunewsList = shallow(
+      <TunewsList
+        language={language}
+        items={tunews}
+        renderItem={renderItem(language)}
+        city={city}
+        fetchMoreTunews={() => {}}
+        hasMore
+        isFetching={false}
+        noItemsMessage={t('currentlyNoTunews')}
+      />
+    ).dive()
+
+    const newsElementList = tunewsList.find(NewsElement)
+
+    expect(newsElementList).toHaveLength(2)
+    expect(newsElementList.find({ id: 1 })).toHaveLength(1)
+  })
+
+  it('should render "currentlyNoTunews" if the items is an empty array', () => {
+    const tunewsList = shallow(
+      <TunewsList
+        language={language}
+        items={[]}
+        renderItem={renderItem(language)}
+        city={city}
+        fetchMoreTunews={() => {}}
+        hasMore
+        isFetching={false}
+        noItemsMessage={t('currentlyNoTunews')}
+      />
+    ).dive()
+
+    const noItemsMessage = tunewsList.text()
+    expect(noItemsMessage).toEqual('currentlyNoTunews')
+  })
 })

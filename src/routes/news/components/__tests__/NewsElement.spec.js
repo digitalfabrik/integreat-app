@@ -6,6 +6,7 @@ import moment from 'moment-timezone'
 import { shallow } from 'enzyme'
 import NewsElement from '../NewsElement'
 import { LOCAL_NEWS } from '../../constants'
+import textTruncator from '../../../../modules/common/utils/textTruncator'
 
 describe('NewsElement', () => {
   const language = 'en'
@@ -25,7 +26,32 @@ describe('NewsElement', () => {
 
   it('should render and match snapshot', () => {
     expect(shallow(
-      <NewsElement id={id} type={LOCAL_NEWS} title={title} content={message} timestamp={timestamp} language={language} t={t} path={path} />
+      <NewsElement
+        id={id}
+        type={LOCAL_NEWS}
+        title={title}
+        content={message}
+        timestamp={timestamp}
+        language={language}
+        t={t}
+        path={path} />
     )).toMatchSnapshot()
+  })
+
+  it('should render the right data', () => {
+    const wrapper = shallow(
+      <NewsElement
+        id={id}
+        type={LOCAL_NEWS}
+        title={title}
+        content={message}
+        timestamp={timestamp}
+        language={language}
+        t={t}
+        path={path} />
+    ).dive()
+
+    expect(wrapper.text()).toContain(newsItem.title)
+    expect(wrapper.text()).toContain(textTruncator(newsItem.message))
   })
 })
