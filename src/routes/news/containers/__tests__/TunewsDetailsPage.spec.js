@@ -54,7 +54,7 @@ describe('TunewsDetailsPage', () => {
     eNewsNo: 'tun0000009902'
   })
 
-  const tunewsElementDetails = createTunewsItemModel(1,
+  const tunewsElement = createTunewsItemModel(1,
     moment.tz('2020-01-20 12:04:22+00:00', 'GMT'))
 
   const city = 'augsburg'
@@ -64,7 +64,7 @@ describe('TunewsDetailsPage', () => {
   it('should match snapshot and render TunewsDetailsPage', () => {
     const wrapper = shallow(
       <TunewsDetailsPage
-        tunewsElementDetails={tunewsElementDetails}
+        tunewsElement={tunewsElement}
         language={language}
         city={city}
         t={t}
@@ -90,13 +90,13 @@ describe('TunewsDetailsPage', () => {
     const tree = mount(
       <ThemeProvider theme={theme}>
         <Provider store={store}>
-          <ConnectedTunewsDetailsPage tunewsElementDetails={tunewsElementDetails} />
+          <ConnectedTunewsDetailsPage tunewsElement={tunewsElement} />
         </Provider>
       </ThemeProvider>
     )
 
     expect(tree.find(TunewsDetailsPage).props()).toEqual({
-      tunewsElementDetails,
+      tunewsElement,
       language,
       path: '/augsburg/en/news/tu-news/1',
       city,

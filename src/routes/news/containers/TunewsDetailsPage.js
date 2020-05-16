@@ -56,7 +56,7 @@ const Content = styled.p`
   line-height: 1.38;
 `
 type PropsType = {|
-  tunewsElementDetails: TunewsModel,
+  tunewsElement: TunewsModel,
   language: string,
   path: string,
   city: string,
@@ -65,13 +65,14 @@ type PropsType = {|
 
 export class TunewsDetailsPage extends React.PureComponent<PropsType> {
   render () {
-    const { tunewsElementDetails, language, path, city, t } = this.props
+    const { tunewsElement, language, path, city, t } = this.props
 
-    if (!tunewsElementDetails) {
+    if (!tunewsElement) {
       const error = new ContentNotFoundError({ type: 'tunewsItem', id: path, city, language })
       return <FailureSwitcher error={error} />
     }
 
+    const { title, content, date, eNewsNo } = tunewsElement
     return (
       <NewsRedirectController>
         <StyledContainer>
@@ -81,10 +82,10 @@ export class TunewsDetailsPage extends React.PureComponent<PropsType> {
                 <StyledBannerImage src={TunewsIcon} alt='' />
               </StyledTitle>
             </StyledBanner>
-            <Title>{tunewsElementDetails.title}</Title>
-            <Content>{tunewsElementDetails.content}</Content>
+            <Title>{title}</Title>
+            <Content>{content}</Content>
           </StyledWrapper>
-          <TunewsDetailsFooter eNewsNo={tunewsElementDetails.eNewsNo} date={tunewsElementDetails && tunewsElementDetails.date} language={language} t={t} />
+          <TunewsDetailsFooter eNewsNo={eNewsNo} date={date} language={language} t={t} />
         </StyledContainer>
       </NewsRedirectController>
     )

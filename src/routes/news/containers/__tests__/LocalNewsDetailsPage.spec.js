@@ -24,7 +24,7 @@ describe('LocalNewsDetailsPage', () => {
       'In summer there are often ticks in forest and meadows with high grass. These are very small animals. They feed on the blood of people or animals they sting, like mosquitoes. But they stay in the skin longer and can transmit dangerous diseases. If you have been in high grass, you should search your body very thoroughly for ticks. They like to sit in the knees, armpits or in the groin area. If you discover a tick in your skin, you should carefully pull it out with tweezers without crushing it. If the sting inflames, you must see a doctor.'
     })
 
-  const localNewsDetails = createNewsItemModel(
+  const localNewsElement = createNewsItemModel(
     moment.tz('2020-03-20 17:50:00', 'GMT')
   )
 
@@ -36,7 +36,7 @@ describe('LocalNewsDetailsPage', () => {
   it('should match snapshot and render LocalNewsDetailsPage', () => {
     const wrapper = shallow(
       <LocalNewsDetailsPage
-        localNewsDetails={localNewsDetails}
+        localNewsElement={localNewsElement}
         city={city}
         language={language}
         t={t}
@@ -58,7 +58,7 @@ describe('LocalNewsDetailsPage', () => {
     const tree = mount(
       <ThemeProvider theme={theme}>
         <Provider store={store}>
-          <ConnectedLocalNewsDetailsPage localNewsDetails={localNewsDetails} />
+          <ConnectedLocalNewsDetailsPage localNewsElement={localNewsElement} />
         </Provider>
       </ThemeProvider>
     )
@@ -67,7 +67,7 @@ describe('LocalNewsDetailsPage', () => {
       city,
       language,
       path,
-      localNewsDetails,
+      localNewsElement,
       dispatch: expect.any(Function)
     })
   })

@@ -12,7 +12,7 @@ import ContentNotFoundError from '../../../modules/common/errors/ContentNotFound
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 
 type PropsType = {|
-  localNewsDetails: LocalNewsModel,
+  localNewsElement: LocalNewsModel,
   language: string,
   city: string,
   path: string,
@@ -21,9 +21,9 @@ type PropsType = {|
 
 export class LocalNewsDetailsPage extends React.PureComponent<PropsType> {
   render () {
-    const { localNewsDetails, language, city, path } = this.props
+    const { localNewsElement, language, city, path } = this.props
 
-    if (!localNewsDetails) {
+    if (!localNewsElement) {
       const error = new ContentNotFoundError({ type: 'localNewsItem', id: path, city, language })
       return <FailureSwitcher error={error} />
     }
@@ -31,10 +31,10 @@ export class LocalNewsDetailsPage extends React.PureComponent<PropsType> {
     return (
       <NewsRedirectController>
         <Page
-          title={localNewsDetails.title}
-          content={localNewsDetails.message}
+          title={localNewsElement.title}
+          content={localNewsElement.message}
           language={language}
-          lastUpdate={localNewsDetails.timestamp}
+          lastUpdate={localNewsElement.timestamp}
           onInternalLinkClick={push}
         />
       </NewsRedirectController>

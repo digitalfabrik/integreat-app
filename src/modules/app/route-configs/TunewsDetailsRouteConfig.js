@@ -14,7 +14,7 @@ import fetchData from '../fetchData'
 import { cmsApiBaseUrl, tunewsApiBaseUrl } from '../constants/urls'
 
 type TunewsDetailsRouteParamsType = {| city: string, language: string, id: number |}
-type RequiredPayloadsType = {| tunewsElementDetails: Payload<TunewsModel> |}
+type RequiredPayloadsType = {| tunewsElement: Payload<TunewsModel> |}
 
 export const TUNEWS_DETAILS_ROUTE = 'TUNEWS_DETAILS'
 
@@ -42,17 +42,17 @@ class TunewsDetailsRouteConfig implements RouteConfig<TunewsDetailsRouteParamsTy
   getLanguageChangePath = () => null
 
   getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType =>
-    ({ tunewsElementDetails: payloads.tunewsElementPayload })
+    ({ tunewsElement: payloads.tunewsElementPayload })
 
   getPageTitle = ({ payloads, cityName }) => {
     if (!cityName) {
       return null
     }
-    const tunewsElementDetails = payloads.tunewsElementDetails.data
-    if (!tunewsElementDetails) {
+    const tunewsElement = payloads.tunewsElement.data
+    if (!tunewsElement) {
       return null
     }
-    return `${tunewsElementDetails.title} - ${cityName}`
+    return `${tunewsElement.title} - ${cityName}`
   }
 
   getRoutePath = ({ city, language, id }): string => `/${city}/${language}/news/tu-news/${id}`
