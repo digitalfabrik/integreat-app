@@ -12,7 +12,6 @@ import NewsElement from '../components/NewsElement'
 import NewsTabs from '../components/NewsTabs'
 import { TunewsModel, CityModel } from '@integreat-app/integreat-api-client'
 import LoadingSpinner from '../../../modules/common/components/LoadingSpinner'
-import NewsRedirectController from './NewsRedirectController'
 import { TU_NEWS } from '../constants'
 
 type PropsType = {|
@@ -50,24 +49,22 @@ export class TunewsPage extends React.PureComponent<PropsType> {
   render () {
     const { tunews, language, city, t, fetchMoreTunews, hasMore, isFetchingFirstTime, isFetching, cities } = this.props
     return (
-      <NewsRedirectController>
-        <NewsTabs type={TU_NEWS} city={city} cities={cities} t={t} language={language}>
-          {isFetchingFirstTime ? (
-            <LoadingSpinner />
-          ) : (
-            <TunewsList
-              items={tunews}
-              renderItem={this.renderTunewsElement(language)}
-              city={city}
-              fetchMoreTunews={fetchMoreTunews}
-              hasMore={hasMore}
-              isFetching={isFetching}
-              language={language}
-              noItemsMessage={t('currentlyNoNews')}
-            />
-          )}
-        </NewsTabs>
-      </NewsRedirectController>
+      <NewsTabs type={TU_NEWS} city={city} cities={cities} t={t} language={language}>
+        {isFetchingFirstTime ? (
+          <LoadingSpinner />
+        ) : (
+          <TunewsList
+            items={tunews}
+            renderItem={this.renderTunewsElement(language)}
+            city={city}
+            fetchMoreTunews={fetchMoreTunews}
+            hasMore={hasMore}
+            isFetching={isFetching}
+            language={language}
+            noItemsMessage={t('currentlyNoNews')}
+          />
+        )}
+      </NewsTabs>
     )
   }
 }

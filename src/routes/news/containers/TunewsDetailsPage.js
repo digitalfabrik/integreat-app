@@ -10,7 +10,6 @@ import compose from 'lodash/fp/compose'
 import type { StateType } from '../../../modules/app/StateType'
 import TunewsDetailsFooter from '../components/TunewsDetailsFooter'
 import { TFunction } from 'i18next'
-import NewsRedirectController from './NewsRedirectController'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 
@@ -74,20 +73,18 @@ export class TunewsDetailsPage extends React.PureComponent<PropsType> {
 
     const { title, content, date, eNewsNo } = tunewsElement
     return (
-      <NewsRedirectController>
-        <StyledContainer>
-          <StyledWrapper>
-            <StyledBanner>
-              <StyledTitle>
-                <StyledBannerImage src={TunewsIcon} alt='' />
-              </StyledTitle>
-            </StyledBanner>
-            <Title>{title}</Title>
-            <Content>{content}</Content>
-          </StyledWrapper>
-          <TunewsDetailsFooter eNewsNo={eNewsNo} date={date} language={language} t={t} />
-        </StyledContainer>
-      </NewsRedirectController>
+      <StyledContainer>
+        <StyledWrapper>
+          <StyledBanner>
+            <StyledTitle>
+              <StyledBannerImage src={TunewsIcon} alt='' />
+            </StyledTitle>
+          </StyledBanner>
+          <Title>{title}</Title>
+          <Content>{content}</Content>
+        </StyledWrapper>
+        <TunewsDetailsFooter eNewsNo={eNewsNo} date={date} language={language} t={t} />
+      </StyledContainer>
     )
   }
 }

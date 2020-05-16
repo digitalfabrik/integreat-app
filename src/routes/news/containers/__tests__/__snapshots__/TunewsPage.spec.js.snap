@@ -1,93 +1,91 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TunewsPage should match snapshot and render TunewsPage 1`] = `
-<Connect(NewsRedirectController)>
-  <NewsTabs
-    cities={
-      Array [
-        CityModel {
-          "_aliases": Object {
-            "Gersthofen": Object {
-              "latitude": 48.3705449,
-              "longitude": 10.89779,
-            },
+<NewsTabs
+  cities={
+    Array [
+      CityModel {
+        "_aliases": Object {
+          "Gersthofen": Object {
+            "latitude": 48.3705449,
+            "longitude": 10.89779,
           },
-          "_code": "augsburg",
-          "_eventsEnabled": true,
-          "_extrasEnabled": true,
-          "_latitude": 48.3705449,
-          "_live": true,
-          "_longitude": 10.89779,
-          "_name": "Augsburg",
-          "_prefix": null,
-          "_pushNotificationsEnabled": true,
-          "_sortingName": "Augsburg",
-          "_tunewsEnabled": true,
         },
-        CityModel {
-          "_aliases": null,
-          "_code": "regensburg",
-          "_eventsEnabled": false,
-          "_extrasEnabled": false,
-          "_latitude": null,
-          "_live": true,
-          "_longitude": null,
-          "_name": "Stadt Regensburg",
-          "_prefix": "Stadt",
-          "_pushNotificationsEnabled": false,
-          "_sortingName": "Regensburg",
-          "_tunewsEnabled": false,
+        "_code": "augsburg",
+        "_eventsEnabled": true,
+        "_extrasEnabled": true,
+        "_latitude": 48.3705449,
+        "_live": true,
+        "_longitude": 10.89779,
+        "_name": "Augsburg",
+        "_prefix": null,
+        "_pushNotificationsEnabled": true,
+        "_sortingName": "Augsburg",
+        "_tunewsEnabled": true,
+      },
+      CityModel {
+        "_aliases": null,
+        "_code": "regensburg",
+        "_eventsEnabled": false,
+        "_extrasEnabled": false,
+        "_latitude": null,
+        "_live": true,
+        "_longitude": null,
+        "_name": "Stadt Regensburg",
+        "_prefix": "Stadt",
+        "_pushNotificationsEnabled": false,
+        "_sortingName": "Regensburg",
+        "_tunewsEnabled": false,
+      },
+    ]
+  }
+  city="augsburg"
+  language="en"
+  t={[Function]}
+  type="TU_NEWS"
+>
+  <TunewsList
+    city="augsburg"
+    fetchMoreTunews={[Function]}
+    hasMore={true}
+    isFetching={false}
+    items={
+      Array [
+        TunewsModel {
+          "_content": "In summer there are often ticks in forest and meadows with high grass. These are very small animals. They feed on the blood of people or animals they sting, like mosquitoes. But they stay in the skin longer and can transmit dangerous diseases. If you have been in high grass, you should search your body very thoroughly for ticks. They like to sit in the knees, armpits or in the groin area. If you discover a tick in your skin, you should carefully pull it out with tweezers without crushing it. If the sting inflames, you must see a doctor. tünews INTERNATIONAL",
+          "_date": "2020-01-20T12:04:22.000Z",
+          "_eNewsNo": "tun0000009902",
+          "_id": 1,
+          "_tags": Array [
+            "8 Gesundheit",
+          ],
+          "_title": "Tick bite - What to do?",
+        },
+        TunewsModel {
+          "_content": "In summer there are often ticks in forest and meadows with high grass. These are very small animals. They feed on the blood of people or animals they sting, like mosquitoes. But they stay in the skin longer and can transmit dangerous diseases. If you have been in high grass, you should search your body very thoroughly for ticks. They like to sit in the knees, armpits or in the groin area. If you discover a tick in your skin, you should carefully pull it out with tweezers without crushing it. If the sting inflames, you must see a doctor. tünews INTERNATIONAL",
+          "_date": "2020-01-24T10:05:22.000Z",
+          "_eNewsNo": "tun0000009902",
+          "_id": 2,
+          "_tags": Array [
+            "8 Gesundheit",
+          ],
+          "_title": "Tick bite - What to do?",
+        },
+        TunewsModel {
+          "_content": "In summer there are often ticks in forest and meadows with high grass. These are very small animals. They feed on the blood of people or animals they sting, like mosquitoes. But they stay in the skin longer and can transmit dangerous diseases. If you have been in high grass, you should search your body very thoroughly for ticks. They like to sit in the knees, armpits or in the groin area. If you discover a tick in your skin, you should carefully pull it out with tweezers without crushing it. If the sting inflames, you must see a doctor. tünews INTERNATIONAL",
+          "_date": "2020-01-22T11:06:22.000Z",
+          "_eNewsNo": "tun0000009902",
+          "_id": 3,
+          "_tags": Array [
+            "8 Gesundheit",
+          ],
+          "_title": "Tick bite - What to do?",
         },
       ]
     }
-    city="augsburg"
     language="en"
-    t={[Function]}
-    type="TU_NEWS"
-  >
-    <TunewsList
-      city="augsburg"
-      fetchMoreTunews={[Function]}
-      hasMore={true}
-      isFetching={false}
-      items={
-        Array [
-          TunewsModel {
-            "_content": "In summer there are often ticks in forest and meadows with high grass. These are very small animals. They feed on the blood of people or animals they sting, like mosquitoes. But they stay in the skin longer and can transmit dangerous diseases. If you have been in high grass, you should search your body very thoroughly for ticks. They like to sit in the knees, armpits or in the groin area. If you discover a tick in your skin, you should carefully pull it out with tweezers without crushing it. If the sting inflames, you must see a doctor. tünews INTERNATIONAL",
-            "_date": "2020-01-20T12:04:22.000Z",
-            "_eNewsNo": "tun0000009902",
-            "_id": 1,
-            "_tags": Array [
-              "8 Gesundheit",
-            ],
-            "_title": "Tick bite - What to do?",
-          },
-          TunewsModel {
-            "_content": "In summer there are often ticks in forest and meadows with high grass. These are very small animals. They feed on the blood of people or animals they sting, like mosquitoes. But they stay in the skin longer and can transmit dangerous diseases. If you have been in high grass, you should search your body very thoroughly for ticks. They like to sit in the knees, armpits or in the groin area. If you discover a tick in your skin, you should carefully pull it out with tweezers without crushing it. If the sting inflames, you must see a doctor. tünews INTERNATIONAL",
-            "_date": "2020-01-24T10:05:22.000Z",
-            "_eNewsNo": "tun0000009902",
-            "_id": 2,
-            "_tags": Array [
-              "8 Gesundheit",
-            ],
-            "_title": "Tick bite - What to do?",
-          },
-          TunewsModel {
-            "_content": "In summer there are often ticks in forest and meadows with high grass. These are very small animals. They feed on the blood of people or animals they sting, like mosquitoes. But they stay in the skin longer and can transmit dangerous diseases. If you have been in high grass, you should search your body very thoroughly for ticks. They like to sit in the knees, armpits or in the groin area. If you discover a tick in your skin, you should carefully pull it out with tweezers without crushing it. If the sting inflames, you must see a doctor. tünews INTERNATIONAL",
-            "_date": "2020-01-22T11:06:22.000Z",
-            "_eNewsNo": "tun0000009902",
-            "_id": 3,
-            "_tags": Array [
-              "8 Gesundheit",
-            ],
-            "_title": "Tick bite - What to do?",
-          },
-        ]
-      }
-      language="en"
-      noItemsMessage="currentlyNoNews"
-      renderItem={[Function]}
-    />
-  </NewsTabs>
-</Connect(NewsRedirectController)>
+    noItemsMessage="currentlyNoNews"
+    renderItem={[Function]}
+  />
+</NewsTabs>
 `;
