@@ -15,7 +15,7 @@ import fetchData from '../fetchData'
 import { cmsApiBaseUrl } from '../constants/urls'
 
 type LocalNewsDetailsType = {| city: string, language: string, id: number |}
-type RequiredPayloadsType = {| localNewsDetails: Payload<LocalNewsModel> |}
+type RequiredPayloadsType = {| localNewsElement: Payload<LocalNewsModel> |}
 
 export const LOCAL_NEWS_DETAILS_ROUTE = 'LOCAL_NEWS_DETAILS'
 
@@ -44,17 +44,17 @@ class LocalNewsDetailsRouteConfig implements RouteConfig<LocalNewsDetailsType, R
   getLanguageChangePath = ({ location, payloads, language }) => null
 
   getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType =>
-    ({ localNewsDetails: payloads.localNewsElementPayload })
+    ({ localNewsElement: payloads.localNewsElementPayload })
 
   getPageTitle = ({ payloads, cityName }) => {
     if (!cityName) {
       return null
     }
-    const localNewsDetails = payloads.localNewsDetails.data
-    if (!localNewsDetails) {
+    const localNewsElement = payloads.localNewsElement.data
+    if (!localNewsElement) {
       return null
     }
-    return `${localNewsDetails.title} - ${cityName}`
+    return `${localNewsElement.title} - ${cityName}`
   }
 
   getRoutePath = ({ city, language, id }: LocalNewsDetailsType): string => `/${city}/${language}/news/local/${id}`
