@@ -12,8 +12,7 @@ import resources from '../../../../../locales/locales.json'
 
 const mockStore = configureMockStore()
 
-// eslint-disable-next-line jest/no-disabled-tests
-describe.skip('I18nProvider', () => {
+describe('I18nProvider', () => {
   it('should match snapshot', () => {
     const component = mount(<I18nProvider setUiDirection={() => {}}>
       <div />
@@ -83,13 +82,18 @@ describe.skip('I18nProvider', () => {
 
     const i18n = component.find(I18nextProvider).prop('i18n')
     expect(i18n.language).toEqual('en')
-    expect(component.state()).toEqual({ language: 'en', fonts: { lateef: false, openSans: true, raleway: true } })
+    expect(component.state()).toEqual({
+      language: 'en',
+      i18nLoaded: true,
+      fonts: { lateef: false, openSans: true, raleway: true }
+    })
   })
 
   it('should call setLanguage on property change', () => {
     const component = mount(<I18nProvider setUiDirection={() => {}}>
       <div />
     </I18nProvider>)
+
     const instance: any = component.instance()
     instance.setLanguage = jest.fn()
 
@@ -121,16 +125,17 @@ describe.skip('I18nProvider', () => {
       const originalGetSelectedFonts = I18nProvider.getSelectedFonts
       // $FlowFixMe
       I18nProvider.getSelectedFonts = jest.fn(I18nProvider.getSelectedFonts)
-      i18n.changeLanguage = jest.fn()
+      i18n.changeLanguage = jest.fn(i18n.changeLanguage)
 
       component.instance().setLanguage()
 
       // $FlowFixMe
       expect(document.documentElement.lang).toEqual(expectedLanguage)
-      expect(i18n.changeLanguage).toHaveBeenCalledWith(expectedLanguage)
+      expect(i18n.changeLanguage).toHaveBeenCalledWith(expectedLanguage, expect.any(Function))
       expect(I18nProvider.getSelectedFonts).toHaveBeenCalledWith(expectedLanguage)
       expect(component.state()).toEqual({
         language: expectedLanguage,
+        i18nLoaded: true,
         fonts: { lateef: false, openSans: true, raleway: true }
       })
       // $FlowFixMe
@@ -149,16 +154,17 @@ describe.skip('I18nProvider', () => {
       const originalGetSelectedFonts = I18nProvider.getSelectedFonts
       // $FlowFixMe
       I18nProvider.getSelectedFonts = jest.fn(I18nProvider.getSelectedFonts)
-      i18n.changeLanguage = jest.fn()
+      i18n.changeLanguage = jest.fn(i18n.changeLanguage)
 
       component.instance().setLanguage(expectedLanguage)
 
       // $FlowFixMe
       expect(document.documentElement.lang).toEqual(expectedLanguage)
-      expect(i18n.changeLanguage).toHaveBeenCalledWith(expectedLanguage)
+      expect(i18n.changeLanguage).toHaveBeenCalledWith(expectedLanguage, expect.any(Function))
       expect(I18nProvider.getSelectedFonts).toHaveBeenCalledWith(expectedLanguage)
       expect(component.state()).toEqual({
         language: expectedLanguage,
+        i18nLoaded: true,
         fonts: { lateef: true, openSans: true, raleway: true }
       })
       // $FlowFixMe
