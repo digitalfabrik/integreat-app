@@ -48,15 +48,14 @@ const commitVersionBump = async (path, content, message) => {
   const appId = 59249
 
   const privateKey = Buffer.from(privateKeyBase64, 'base64').toString('ascii')
+  console.log(privateKey.substring(0, 50))
 
   const app = new App({ id: appId, privateKey })
   const webToken = app.getSignedJsonWebToken()
 
   console.log(webToken)
 
-  const octokit = new Octokit()
-
-  await octokit.auth({
+  const octokit = new Octokit({
     type: 'app',
     token: webToken
   })
