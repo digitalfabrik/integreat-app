@@ -45,25 +45,14 @@ const commitVersionBump = async (path, content, message) => {
   const owner = process.env.CIRCLE_PROJECT_USERNAME
   const repo = process.env.CIRCLE_PROJECT_REPONAME
   const branch = process.env.CIRCLE_BRANCH
-  const appId = '59249'
+  const appId = 59249
 
   const privateKey = Buffer.from(privateKeyBase64, 'base64').toString('UTF-8')
 
-  // const app = new App({ id: appId, privateKey: privateKey })
-  // const installationAccessToken = await app.getInstallationAccessToken({
-  //   installationId,
-  // })
+  const app = new App({ id: appId, privateKey: privateKey })
+  const webToken = app.getSignedJsonWebToken()
 
-  // https://github.com/octokit/rest.js/issues/1101#issuecomment-437629072
-  const now = Math.floor(Date.now() / 1000)
-  const payload = {
-    iat: now,
-    exp: now + 60,
-    iss: appId
-  }
-  const webToken = jwt.sign(payload, privateKey, { algorithm: 'RS256' })
   console.log(webToken)
-  console.log(payload)
 
   const octokit = new Octokit()
 
@@ -78,12 +67,13 @@ const commitVersionBump = async (path, content, message) => {
   })
   console.log(installation)
 
-  const { token } = await octokit.apps.createInstallationToken({ installationId: installation.id })
-  console.log(token)
+
+  const installationAccessToken = await app.getInstallationAccessToken({ installationId: installation.id })
+  console.log(installationAccessToken)
 
   await octokit.auth({
     type: 'token',
-    token
+    token: installationAccessToken
   })
 
   await octokit.repos.createOrUpdateFile({
