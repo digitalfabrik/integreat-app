@@ -47,7 +47,7 @@ const commitVersionBump = async (path, content, message) => {
   const branch = process.env.CIRCLE_BRANCH
   const appId = 59249
 
-  const privateKey = new Buffer(privateKeyBase64, 'base64').toString('ascii')
+  const privateKey = Buffer.from(privateKeyBase64, 'base64').toString('ascii')
 
   // const app = new App({ id: appId, privateKey: privateKey })
   // const installationAccessToken = await app.getInstallationAccessToken({
