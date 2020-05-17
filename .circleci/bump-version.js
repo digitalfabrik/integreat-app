@@ -62,8 +62,12 @@ const commitVersionBump = async (path, content, message) => {
     iss: appId
   }
   const webToken = jwt.sign(payload, privateKey, { algorithm: 'RS256' })
+  console.log(webToken)
+  console.log(payload)
 
-  const octokit = new Octokit({
+  const octokit = new Octokit()
+
+  await octokit.auth({
     type: 'app',
     token: webToken
   })
@@ -77,7 +81,7 @@ const commitVersionBump = async (path, content, message) => {
   const { token } = await octokit.apps.createInstallationToken({ installationId: installation.id })
   console.log(token)
 
-  await octokit.authenticate({
+  await octokit.auth({
     type: 'token',
     token
   })
