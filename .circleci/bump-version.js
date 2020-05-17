@@ -45,7 +45,7 @@ const commitVersionBump = async (path, content, message) => {
   const owner = process.env.CIRCLE_PROJECT_USERNAME
   const repo = process.env.CIRCLE_PROJECT_REPONAME
   const branch = process.env.CIRCLE_BRANCH
-  const appId = 59249
+  const appId = '59249'
 
   const privateKey = Buffer.from(privateKeyBase64, 'base64').toString('UTF-8')
 
