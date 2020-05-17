@@ -56,7 +56,7 @@ const commitVersionBump = async (path, content, message) => {
 
   const octokit = new Octokit()
 
-  await octokit.auth({
+  await octokit.authenticate({
     type: 'app',
     token: webToken
   })
