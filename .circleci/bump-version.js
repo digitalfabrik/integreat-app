@@ -41,15 +41,13 @@ const bumpVersion = async () => {
 }
 
 const commitVersionBump = async (path, content, message) => {
-  const privateKeyBase64 = process.env.DELIVERINO_PRIVATE_KEY
+  const privateKey = process.env.DELIVERINO_PRIVATE_KEY_PEM
   const owner = process.env.CIRCLE_PROJECT_USERNAME
   const repo = process.env.CIRCLE_PROJECT_REPONAME
   const branch = process.env.CIRCLE_BRANCH
   const appId = 59249
 
-  const privateKey = Buffer.from(privateKeyBase64, 'base64').toString('UTF-8')
-
-  const app = new App({ id: appId, privateKey: privateKey })
+  const app = new App({ id: appId, privateKey })
   const webToken = app.getSignedJsonWebToken()
 
   console.log(webToken)
