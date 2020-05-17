@@ -6,6 +6,8 @@ import { CityModel } from '@integreat-app/integreat-api-client'
 import type { TFunction } from 'react-i18next'
 import Tab from './Tab'
 import { LOCAL_NEWS, TU_NEWS } from '../constants'
+import LocalNewsRouteConfig from '../../../modules/app/route-configs/LocalNewsRouteConfig'
+import TunewsRouteConfig from '../../../modules/app/route-configs/TunewsRouteConfig'
 
 const StyledTabs = styled.div`
   display: flex;
@@ -26,6 +28,8 @@ class NewsTabs extends React.PureComponent<PropsType> {
   render () {
     const { children, city, cities, language, t, type } = this.props
     const currentCity: CityModel = cities && cities.find(cityElement => cityElement.code === city)
+    const localNewsPath = new LocalNewsRouteConfig().getRoutePath({ city, language })
+    const tunewsPath = new TunewsRouteConfig().getRoutePath({ city, language })
 
     return (
       <>
@@ -35,7 +39,7 @@ class NewsTabs extends React.PureComponent<PropsType> {
               <Tab
                 active={type === LOCAL_NEWS}
                 type={LOCAL_NEWS}
-                destination={`/${city}/${language}/news/local`}
+                destination={localNewsPath}
                 t={t}
               />
             )
@@ -45,7 +49,7 @@ class NewsTabs extends React.PureComponent<PropsType> {
               <Tab
                 active={type === TU_NEWS}
                 type={TU_NEWS}
-                destination={`/${city}/${language}/news/tu-news`}
+                destination={tunewsPath}
                 t={t}
               />
             )
