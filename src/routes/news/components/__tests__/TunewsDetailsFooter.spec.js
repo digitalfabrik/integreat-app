@@ -20,4 +20,16 @@ describe('TunewsDetailsFooter', () => {
       />
     )).toMatchSnapshot()
   })
+
+  it('should render the right data', () => {
+    const wrapper = shallow(
+      <TunewsDetailsFooter
+        eNewsNo='tun0000009902'
+        date={date}
+        language={language}
+        t={t}
+      />
+    )
+    expect(wrapper.text()).toContain('tun0000009902')
+  })
 })

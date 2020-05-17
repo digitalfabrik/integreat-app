@@ -5,11 +5,11 @@ import { CityModel } from '@integreat-app/integreat-api-client'
 import { shallow } from 'enzyme'
 import NewsTabs from '../NewsTabs'
 import { LOCAL_NEWS } from '../../constants'
+import Tab from '../Tab'
 
 describe('NewsTabs', () => {
   const language = 'en'
   const t = (key: ?string): string => key || ''
-  const city = 'testcity'
   const cities = [
     new CityModel({
       aliases: {
@@ -22,14 +22,14 @@ describe('NewsTabs', () => {
           latitude: 48.327677
         }
       },
-      name: 'City',
-      code: 'city',
+      name: 'Test City',
+      code: 'testcity',
       live: true,
       eventsEnabled: false,
       extrasEnabled: false,
-      tunewsEnabled: false,
-      pushNotificationsEnabled: false,
-      sortingName: 'City'
+      tunewsEnabled: true,
+      pushNotificationsEnabled: true,
+      sortingName: 'Test City'
     }),
     new CityModel({
       name: 'Other city',
@@ -67,12 +67,26 @@ describe('NewsTabs', () => {
     expect(shallow(
       <NewsTabs
         type={LOCAL_NEWS}
-        city={city}
+        city='otherCity'
         cities={cities}
         language={language}
         t={t}>
           <div>dummy child</div>
       </NewsTabs>
     )).toMatchSnapshot()
+  })
+
+  it('should render two tabs if both local news and tunews are enabled', () => {
+    const wrapper = shallow(
+      <NewsTabs
+        type={LOCAL_NEWS}
+        city='testcity'
+        cities={cities}
+        language={language}
+        t={t}>
+          <div>dummy child</div>
+      </NewsTabs>
+    )
+    expect(wrapper.find(Tab)).toHaveLength(2)
   })
 })
