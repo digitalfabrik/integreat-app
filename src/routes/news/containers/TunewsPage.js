@@ -13,6 +13,12 @@ import NewsTabs from '../components/NewsTabs'
 import { TunewsModel, CityModel } from '@integreat-app/integreat-api-client'
 import LoadingSpinner from '../../../modules/common/components/LoadingSpinner'
 import { TU_NEWS } from '../constants'
+import styled from 'styled-components'
+
+const NoItemsMessage = styled.div`
+  padding-top: 70px;
+  text-align: center;
+`
 
 type PropsType = {|
   tunews: Array<TunewsModel>,
@@ -48,6 +54,17 @@ export class TunewsPage extends React.PureComponent<PropsType> {
 
   render () {
     const { tunews, language, city, t, fetchMoreTunews, hasMore, isFetchingFirstTime, isFetching, cities } = this.props
+
+    if (this.props.areCitiesFetching) {
+      return <LoadingSpinner />
+    }
+
+    const currentCity: CityModel = cities && cities.find(cityElement => cityElement.code === city)
+
+    if (!currentCity.tunewsEnabled) {
+      return <NoItemsMessage>{t('currentlyNoNews')}</NoItemsMessage>
+    }
+
     return (
       <NewsTabs type={TU_NEWS} city={city} cities={cities} t={t} language={language}>
         {isFetchingFirstTime ? (
@@ -73,6 +90,7 @@ const mapStateToProps = (state: StateType) => ({
   language: state.location.payload.language,
   city: state.location.payload.city,
   cities: state.cities.data,
+  areCitiesFetching: state.cities.isFetching,
   path: state.location.pathname,
   hasMore: state.tunews.hasMore,
   isFetchingFirstTime: state.tunews.isFetchingFirstTime,

@@ -34,14 +34,14 @@ const fetchTunewsReducer = (
     case startFetchMoreActionName(TUNEWS_ENDPOINT_NAME):
       return {
         data: [...state.data],
-        requestUrl: action.payload.requestUrl,
+        requestUrl: state.requestUrl,
         isFetching: state.isFetching,
         isFetchingFirstTime: false
       }
     case finishFetchMoreActionName(TUNEWS_ENDPOINT_NAME): {
       return {
         data: [...state.data, ...action.payload.data],
-        requestUrl: action.payload.requestUrl,
+        requestUrl: state.requestUrl,
         isFetching: state.isFetching,
         hasMore: action.payload.data.length !== 0,
         isFetchingFirstTime: false
