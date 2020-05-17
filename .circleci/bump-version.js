@@ -1,7 +1,8 @@
 #!/usr/bin/node
 
 const { Octokit } = require('@octokit/rest')
-const { createAppAuth } = require("@octokit/auth-app")
+const { App } = require('@octokit/app')
+const jwt = require('jsonwebtoken')
 const fs = require('fs').promises
 
 const bumpVersion = async () => {
@@ -40,35 +41,46 @@ const bumpVersion = async () => {
 }
 
 const commitVersionBump = async (path, content, message) => {
-  const privateKey = process.env.DELIVERINO_PRIVATE_KEY
+  const privateKeyBase64 = process.env.DELIVERINO_PRIVATE_KEY
   const owner = process.env.CIRCLE_PROJECT_USERNAME
   const repo = process.env.CIRCLE_PROJECT_REPONAME
   const branch = process.env.CIRCLE_BRANCH
+  const appId = 59249
 
-  const appOctokit = new Octokit({
-    authStrategy: createAppAuth,
-    auth: {
-      id: 59249,
-      privateKey
-    }
+  const privateKey = new Buffer(privateKeyBase64, 'base64').toString('ascii')
+
+  // const app = new App({ id: appId, privateKey: privateKey })
+  // const installationAccessToken = await app.getInstallationAccessToken({
+  //   installationId,
+  // })
+
+  // https://github.com/octokit/rest.js/issues/1101#issuecomment-437629072
+  const now = Math.floor(Date.now() / 1000)
+  const payload = {
+    iat: now,
+    exp: now + 60,
+    iss: appId
+  }
+  const webToken = jwt.sign(payload, privateKey, { algorithm: 'RS256' })
+
+  const octokit = new Octokit({
+    type: 'app',
+    token: webToken
   })
 
-  const installation = await appOctokit.apps.getRepoInstallation({
+  const installation = await octokit.apps.getRepoInstallation({
     owner,
     repo
   })
-  console.log('installation')
+  console.log(installation)
 
-  const { token } = await appOctokit.auth({
-    type: "installation",
-    installationId: installation.id
-  })
-  console.log('token')
+  const { token } = await octokit.apps.createInstallationToken({ installationId: installation.id })
+  console.log(token)
 
-  const octokit = new Octokit({
-    auth: token
+  await octokit.authenticate({
+    type: 'token',
+    token
   })
-  console.log('octokit')
 
   await octokit.repos.createOrUpdateFile({
     owner,
