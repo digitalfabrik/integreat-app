@@ -13,7 +13,7 @@ const NewsLink = ({ active, ...props }) => <Link {...props} />
 const StyledTab = styled(NewsLink)`
   display: flex;
   width: 160px;
-  height: 47px;
+  height: 49px;
   box-sizing: border-box;
   flex-shrink: 0;
   align-items: center;
@@ -37,6 +37,7 @@ const TuStyledTab = styled(StyledTab)`
   background-color: ${({ active, theme }) =>
     active ? theme.colors.tunewsThemeColor : theme.colors.textDisabledColor};
   background-size: cover;
+  background-position: center center;
 `
 
 type PropsType = {|
@@ -58,7 +59,7 @@ class Tab extends React.PureComponent<PropsType> {
 
     return (
       <StyledTab active={active} to={destination}>
-        {t('local')}
+        {t('local').toUpperCase()}
       </StyledTab>
     )
   }
