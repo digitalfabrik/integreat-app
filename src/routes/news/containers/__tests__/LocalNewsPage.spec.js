@@ -69,6 +69,7 @@ describe('LocalNewsPage', () => {
         localNews={localNews}
         city={city}
         cities={cities}
+        areCitiesFetching={false}
         language={language}
         path='/path/to/page'
         t={t}
@@ -85,7 +86,7 @@ describe('LocalNewsPage', () => {
     })
     const store = createReduxStore()
     store.getState().location = location
-    store.getState().cities = { data: cities }
+    store.getState().cities = { data: cities, isFetching: false }
     store.getState().localNews = { data: localNews }
 
     const tree = mount(
@@ -99,6 +100,7 @@ describe('LocalNewsPage', () => {
     expect(tree.find(LocalNewsPage).props()).toEqual({
       city,
       cities,
+      areCitiesFetching: false,
       language,
       path: '/augsburg/en/news/local/',
       localNews,

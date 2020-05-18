@@ -79,6 +79,7 @@ describe('TunewsPage', () => {
         isFetching={false}
         fetchMoreTunews={() => {}}
         cities={cities}
+        areCitiesFetching={false}
       />
     )
     expect(wrapper).toMatchSnapshot()
@@ -94,7 +95,7 @@ describe('TunewsPage', () => {
     const mockStore = configureMockStore()
     const store = mockStore({
       location: location,
-      cities: { data: cities },
+      cities: { data: cities, isFetching: false },
       tunews: { data: [], hasMore: false }
     })
 
@@ -109,6 +110,7 @@ describe('TunewsPage', () => {
     expect(tree.find(TunewsPage).props()).toEqual({
       tunews,
       cities,
+      areCitiesFetching: false,
       language,
       path: '/augsburg/en/news/tu-news',
       city,
