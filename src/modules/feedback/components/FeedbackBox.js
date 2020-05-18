@@ -68,7 +68,7 @@ export class FeedbackBox extends React.PureComponent<PropsType> {
     } = this.props
 
     let errorMessage
-    if (['ERROR'].includes(feedbackSent)) {
+    if (feedbackSent === 'ERROR') {
       errorMessage = <Description>{t('failedSendingFeedback')}</Description>
     }
 
