@@ -2,9 +2,9 @@ version: 2.1
 
 workflows:
   version: 2
-    commit:
-      jobs:
-        - build:
+  commit:
+    jobs:
+      - build
 
 jobs:
   build:
