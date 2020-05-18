@@ -75,26 +75,28 @@ export class FeedbackModal extends React.Component<PropsType, StateType> {
     this.props.closeFeedbackModal()
   }
 
-  render () {
+  renderBox (): React.Node {
     const { theme, feedbackStatus, ...otherProps } = this.props
     const { feedbackSent } = this.state
 
-    let boxContainer
     if (['IDLE', 'ERROR'].includes(feedbackSent)) {
-      boxContainer = <FeedbackBoxContainer isPositiveRatingSelected={feedbackStatus === POSITIVE_RATING}
-                                   {...otherProps}
-                                   onSubmit={this.handleSubmit}
-                                   feedbackSent={feedbackSent}
-                                   theme={theme} />
-    } else if (['SUCCESS'].includes(feedbackSent)) {
-      boxContainer = <FeedbackThanksMessage closeFeedbackModal={this.props.closeFeedbackModal} />
+      return <FeedbackBoxContainer isPositiveRatingSelected={feedbackStatus === POSITIVE_RATING}
+                              {...otherProps}
+                              onSubmit={this.handleSubmit}
+                              feedbackSent={feedbackSent}
+                              theme={theme} />
+    } else {
+      return <FeedbackThanksMessage closeFeedbackModal={this.props.closeFeedbackModal} />
     }
+  }
 
+  render () {
+    const { theme } = this.props
     return <FocusTrap>
       <ModalContainer role='dialog' aria-modal theme={theme}>
         <Overlay onClick={this.handleOverlayClick} />
         <FeedbackContainer theme={theme}>
-          {boxContainer}
+          {this.renderBox()}
         </FeedbackContainer>
       </ModalContainer>
     </FocusTrap>

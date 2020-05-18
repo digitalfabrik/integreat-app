@@ -33,6 +33,8 @@ import { DISCLAIMER_ROUTE } from '../../app/route-configs/DisclaimerRouteConfig'
 import { cmsApiBaseUrl } from '../../app/constants/urls'
 import type { ThemeType } from '../../theme/constants/theme'
 
+type SendingStatusType = 'IDLE' | 'SUCCESS' | 'ERROR'
+
 type PropsType = {|
   cities: ?Array<CityModel>,
   title?: string,
@@ -44,19 +46,16 @@ type PropsType = {|
   extras: ?Array<ExtraModel>,
   postFeedbackDataOverride?: FeedbackParamsType => void,
   closeFeedbackModal: () => void,
-  onSubmit: (value?: string) => void,
+  feedbackSent: SendingStatusType,
+  onSubmit: (feedbackSent?: SendingStatusType) => void,
   t: TFunction,
-  theme: ThemeType,
-  feedbackSent: string
+  theme: ThemeType
 |}
-
-type SendingStatusType = 'IDLE' | 'SUCCESS' | 'ERROR'
 
 type StateType = {|
   feedbackOptions: Array<FeedbackVariant>,
   selectedFeedbackOption: FeedbackVariant,
-  comment: string,
-  feedbackSent: SendingStatusType
+  comment: string
 |}
 
 /**
