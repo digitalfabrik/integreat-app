@@ -13,18 +13,15 @@ import NewsTabs from '../components/NewsTabs'
 import { TunewsModel, CityModel } from '@integreat-app/integreat-api-client'
 import LoadingSpinner from '../../../modules/common/components/LoadingSpinner'
 import { TU_NEWS } from '../constants'
-import styled from 'styled-components'
-
-const NoItemsMessage = styled.div`
-  padding-top: 70px;
-  text-align: center;
-`
+import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
+import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 
 type PropsType = {|
   tunews: Array<TunewsModel>,
   language: string,
   city: string,
   cities: Array<CityModel>,
+  areCitiesFetching: boolean,
   path: string,
   t: TFunction,
   isFetching: boolean,
@@ -53,16 +50,21 @@ export class TunewsPage extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const { tunews, language, city, t, fetchMoreTunews, hasMore, isFetchingFirstTime, isFetching, cities } = this.props
+    const {
+      tunews, language, city, t, fetchMoreTunews, hasMore,
+      isFetchingFirstTime, isFetching, cities, areCitiesFetching, path
+    } = this.props
 
-    if (this.props.areCitiesFetching) {
+    if (areCitiesFetching) {
       return <LoadingSpinner />
     }
 
     const currentCity: CityModel = cities && cities.find(cityElement => cityElement.code === city)
 
     if (!currentCity.tunewsEnabled) {
-      return <NoItemsMessage>{t('currentlyNoNews')}</NoItemsMessage>
+      const type = currentCity.pushNotificationsEnabled ? 'localNewsItem' : 'category'
+      const error = new ContentNotFoundError({ type, id: path, city: city, language })
+      return <FailureSwitcher error={error} />
     }
 
     return (

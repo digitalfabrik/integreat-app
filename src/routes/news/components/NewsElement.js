@@ -9,7 +9,7 @@ import { Description } from '../../../modules/common/components/ListItem'
 import type { TFunction } from 'react-i18next'
 import textTruncator from './../../../modules/common/utils/textTruncator'
 import { LOCAL_NEWS } from '../constants'
-import type { NewselementType } from '../constants'
+import type { NewsType } from '../constants'
 
 export const NUM_OF_WORDS_ALLOWED = 30
 
@@ -53,7 +53,7 @@ type PropsType = {|
   timestamp: Moment,
   language: string,
   path: string,
-  type: NewselementType,
+  type: NewsType,
   t: TFunction
 |}
 
