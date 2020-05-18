@@ -13,7 +13,7 @@ const NewsLink = ({ active, ...props }) => <Link {...props} />
 const StyledTab = styled(NewsLink)`
   display: flex;
   width: 160px;
-  height: 49px;
+  height: 50px;
   box-sizing: border-box;
   flex-shrink: 0;
   align-items: center;

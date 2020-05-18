@@ -11,11 +11,15 @@ import NewsElement from '../components/NewsElement'
 import LocalNewsList from '../components/LocalNewsList'
 import NewsTabs from '../components/NewsTabs'
 import { LOCAL_NEWS } from '../constants'
+import LoadingSpinner from '../../../modules/common/components/LoadingSpinner'
+import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
+import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 
 type PropsType = {|
   localNews: Array<LocalNewsModel>,
   city: string,
   cities: Array<CityModel>,
+  areCitiesFetching: boolean,
   language: string,
   t: TFunction,
   path: string
@@ -38,7 +42,19 @@ export class LocalNewsPage extends React.Component<PropsType> {
   }
 
   render () {
-    const { localNews, city, cities, language, t } = this.props
+    const { localNews, city, cities, areCitiesFetching, path, language, t } = this.props
+
+    if (areCitiesFetching) {
+      return <LoadingSpinner />
+    }
+
+    const currentCity: CityModel = cities && cities.find(cityElement => cityElement.code === city)
+
+    if (!currentCity.pushNotificationsEnabled) {
+      const type = currentCity.tunewsEnabled ? 'tunewsItem' : 'category'
+      const error = new ContentNotFoundError({ type, id: path, city: city, language })
+      return <FailureSwitcher error={error} />
+    }
     return (
       <NewsTabs type={LOCAL_NEWS} city={city} cities={cities} t={t} language={language}>
         <LocalNewsList
@@ -57,6 +73,7 @@ const mapStateTypeToProps = (state: StateType) => {
     language: state.location.payload.language,
     city: state.location.payload.city,
     cities: state.cities.data,
+    areCitiesFetching: state.cities.isFetching,
     localNews: state.localNews.data,
     path: state.location.pathname
   }
