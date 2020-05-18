@@ -37,7 +37,7 @@ pipeline {
         sh 'yarn'
         sh 'yarn run flow'
         sh 'yarn run lint'
-        sh 'yarn run test --ci'
+        sh 'yarn run test --ci --updateSnapshot'
         sh 'yarn run test:coverage --ci'
       }
     }
