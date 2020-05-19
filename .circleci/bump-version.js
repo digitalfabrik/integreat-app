@@ -59,7 +59,16 @@ const commitVersionBump = async (path, content, message) => {
     token: installationAccessToken
   })
 
-  console.log(branch)
+  const versionFileContent = await octokit.repos.getContents({
+    owner,
+    repo,
+    path,
+    ref: branch
+  })
+
+  console.warn(versionFileContent)
+  console.warn(versionFileContent.sha)
+  console.warn(branch)
 
   await octokit.repos.createOrUpdateFile({
     owner,
@@ -67,7 +76,8 @@ const commitVersionBump = async (path, content, message) => {
     path,
     content,
     branch,
-    message
+    message,
+    sha: versionFileContent.sha
   })
 }
 
