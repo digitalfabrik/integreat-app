@@ -8,3 +8,5 @@
 |Smoke tests|-|Manual tests performed by a single person without strict guidelines|
 |Fastlane|FL|Tool for compiling android and iOS apps|
 |Java Keystore|JKS|Keystore for Android which contains multiple keys|
+|App Store|-|The store for iOS devices|
+|Play Store|-|The store for Android devices|
