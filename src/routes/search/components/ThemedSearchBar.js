@@ -17,6 +17,7 @@ class ThemedSearchBar extends React.Component<PropsType> {
     const { colors } = theme
 
     return <SearchBar
+      accessibilityRole='search'
       allowFontScaling={false}
       containerStyle={{
         flexGrow: 1,

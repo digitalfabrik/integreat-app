@@ -99,7 +99,10 @@ class Header extends React.PureComponent<PropsType> {
     const { navigation, t } = this.props
     const sharePath: string = navigation.getParam('sharePath')
     const url = `https://integreat.app${sharePath}`
-    const message = t('shareMessage', { message: url, interpolation: { escapeValue: false } })
+    const message = t('shareMessage', {
+      message: url,
+      interpolation: { escapeValue: false }
+    })
 
     try {
       await Share.share({
@@ -132,7 +135,7 @@ class Header extends React.PureComponent<PropsType> {
     const buttonStyle = onPress ? {} : { color: theme.colors.textSecondaryColor }
 
     return <Item title={title} accessibilityLabel={accessibilityLabel} iconName={iconName} show={show}
-                 onPress={onPress} buttonStyle={buttonStyle} />
+                 onPress={onPress} buttonStyle={buttonStyle} accessibilityRole={show ? 'none' : 'menuitem'} />
   }
 
   render () {
