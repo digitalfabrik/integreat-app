@@ -46,6 +46,7 @@ const commitVersionBump = async (path, content, message) => {
   const repo = process.env.CIRCLE_PROJECT_REPONAME
   const branch = process.env.CIRCLE_BRANCH
   const appId = 59249
+  const installationId = 7668676
 
   const privateKey = Buffer.from(privateKeyBase64, 'base64').toString('ascii')
 
@@ -57,14 +58,7 @@ const commitVersionBump = async (path, content, message) => {
     token: webToken
   })
 
-  const installation = await octokit.apps.getRepoInstallation({
-    owner,
-    repo
-  })
-  console.log(installation)
-
-
-  const installationAccessToken = await app.getInstallationAccessToken({ installationId: installation.id })
+  const installationAccessToken = await app.getInstallationAccessToken({ installationId })
   console.log(installationAccessToken)
 
   await octokit.auth({
