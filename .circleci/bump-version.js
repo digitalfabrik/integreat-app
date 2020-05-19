@@ -53,10 +53,8 @@ const commitVersionBump = async (path, content, message) => {
   const app = new App({ id: appId, privateKey })
   const installationAccessToken = await app.getInstallationAccessToken({ installationId })
 
-  const octokit = new Octokit()
-  await octokit.auth({
-    type: 'token',
-    token: installationAccessToken
+  const octokit = new Octokit({
+    auth: installationAccessToken
   })
 
   const versionFileContent = await octokit.repos.getContents({
@@ -65,10 +63,6 @@ const commitVersionBump = async (path, content, message) => {
     path,
     ref: branch
   })
-
-  console.warn(versionFileContent)
-  console.warn(versionFileContent.data.sha)
-  console.warn(branch)
 
   const contentBase64 = Buffer.from(content).toString('base64')
 
