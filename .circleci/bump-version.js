@@ -1,7 +1,7 @@
 #!/usr/bin/node
 
 const { Octokit } = require('@octokit/rest')
-import { createAppAuth } from '@octokit/auth-app'
+const { createAppAuth } = require('@octokit/auth-app')
 const fs = require('fs').promises
 
 const bumpVersion = async () => {
