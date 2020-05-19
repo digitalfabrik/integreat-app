@@ -1,8 +1,7 @@
 #!/usr/bin/node
 
 const { Octokit } = require('@octokit/rest')
-const { App } = require('@octokit/app')
-const jwt = require('jsonwebtoken')
+import { createAppAuth } from '@octokit/auth-app'
 const fs = require('fs').promises
 
 const bumpVersion = async () => {
@@ -11,7 +10,6 @@ const bumpVersion = async () => {
 
     const versionFile = await fs.readFile(versionPath)
     const { versionName, versionCode } = JSON.parse(versionFile)
-
     const versionNameParts = versionName.split('.')
 
     const date = new Date()
@@ -21,7 +19,6 @@ const bumpVersion = async () => {
     const versionNameCounter = year === versionNameParts[0] && month === versionNameParts[1] ? versionNameParts[3] + 1 : 0
     const newVersionName = `${year}.${month}.${versionNameCounter}`
     const newVersionCode = versionCode ? versionCode + 1 : undefined
-
 
     const newVersion = {
       versionName: newVersionName,
@@ -45,28 +42,20 @@ const commitVersionBump = async (path, content, message) => {
   const owner = process.env.CIRCLE_PROJECT_USERNAME
   const repo = process.env.CIRCLE_PROJECT_REPONAME
   const branch = process.env.CIRCLE_BRANCH
-  const appId = 59249
-  const installationId = 7668676
+  const appId = 59249 // https://github.com/apps/deliverino
 
   const privateKey = Buffer.from(privateKeyBase64, 'base64').toString('ascii')
 
-  const app = new App({ id: appId, privateKey })
-  const installationAccessToken = await app.getInstallationAccessToken({ installationId })
+  const octokit = new Octokit({ authStrategy: createAppAuth, auth: { id: appId, privateKey: privateKey } })
+  const { data: { id: installation_id } } = await octokit.apps.getRepoInstallation({ owner, repo })
+  const { data: { token: installationToken } } = await octokit.apps.createInstallationToken({ installation_id })
 
-  const octokit = new Octokit({
-    auth: installationAccessToken
-  })
-
-  const versionFileContent = await octokit.repos.getContents({
-    owner,
-    repo,
-    path,
-    ref: branch
-  })
+  const appOctokit = new Octokit({ auth: installationToken })
+  const versionFileContent = await appOctokit.repos.getContents({ owner, repo, path, ref: branch })
 
   const contentBase64 = Buffer.from(content).toString('base64')
 
-  await octokit.repos.createOrUpdateFile({
+  await appOctokit.repos.createOrUpdateFile({
     owner,
     repo,
     path,
