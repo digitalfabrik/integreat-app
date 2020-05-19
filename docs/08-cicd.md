@@ -1,5 +1,10 @@
 # Continuous Integration and Delivery
 
+# Workflows
+
+## commit
+## weekly
+
 # Fastlane
 
 ## Setup
@@ -10,13 +15,61 @@
 
 ### iOS
 
+# Setup Certificates for iOS on Mac
+
+The setup of certificates is demonstrated in section [Manual builds](#manually-building-for-ios).
+
+# Certificates and Apple
+
+The certificate system of Apple seems very complex at first. Therefore, we will briefly explain the types of certificates and what the purpose is.
+
+|Certificate Type|Usable for Development|Usable for Testing|Usable for Production|
+|---|---|---|---|
+|Development|:heavy_check_mark:|:x:|:x:|
+|Ad-hoc|:x:|:heavy_check_mark:|:x:|
+|Enterprise|:x:|:heavy_check_mark:|:heavy_check_mark:|
+|App Store|:x:|:x:|:heavy_check_mark:|
+
+Also, there are various ways to install an iOS app:
+
+* Via a URL which is opened in Safari
+* Via App Store
+* Via XCode
+
+Development certificates are for developers who want to install the app on their devices. You have to select the devices in the Provisioning Profile at [developer.apple.com](https://developer.apple.com/account/resources/profiles/list) you want to install the app on. This means the Device ID (UDID) has to be whitelisted.
+
+Ad-hoc certificates are for public tests with a small amount of users. The difference is that you can provide the testers a URL which they can open on their device to install it. The Device ID (UDID) still has to be whitelisted.
+
+Enterprise certificates allow you to deliver you app within your company or have a bigger public test. It is not possible for small organisation to acquire such a certificate.
+
+App Store certificates allows the upload of the app into the App Store. It is not possible to install a app store signed app directly on your device. It has to be uploaded to App Store Connect.
+
+# Setup Java Keystore for Android
+
+The setup of the JKS is demonstrated in section [Manual builds](#manually-building-for-android).
+
+# Triggering a build in CI
+
+If you decide to do a non-scheduled automatic release of the app the easiest way is to trigger a build in CI/CD.
+First you need to get acquire a ["Personal API token"](https://circleci.com/docs/2.0/managing-api-tokens/).
+Then you can trigger a build using the tool `yarn trigger-pipeline`. If you execute it without parameters you will see the usage.
+
+# Determine the next version
+
+The next version of the app must be determined programmatically. The tool `yarn next-version` can be used. If you execute it without parameters you will see the usage.
+
+As the version number is based on the release date, the first versions of 2020 are `2020.1.0`, `2020.1.1`, `2020.1.2`...
+
+The first release february will have the version number `2020.2.0`. 
+ 
+
 # Environment variables and dependencies
 
 |Variable|Description|Where do I get it from?|Example|Reference|
 |---|---|---|---|---|
 |BROWSERSTACK_ACCESS_KEY|Access Key for BrowserStack|Password Manager|steffen|[Appium REST API](https://www.browserstack.com/app-automate/rest-api)|
 |BROWSERSTACK_USERNAME|Username for BrowserStack|Password Manager|123546|[Appium REST API](https://www.browserstack.com/app-automate/rest-api)|
-|DELIVERINO_PRIVATE_KEY|Base64 encoded PEM private key|Password Manager|[Deliverino Settings](https://github.com/settings/apps/deliverino)|[Deliverino](https://github.com/apps/deliverino)|
+|DELIVERINO_PRIVATE_KEY|Base64 encoded PEM private key|Password Manager|[Deliverino Settings](https://github.com/organizations/Integreat/settings/apps/deliverino)|[Deliverino](https://github.com/apps/deliverino)|
 |SENTRY_AUTH_TOKEN|Auth Token from Sentry for uploading sourcemaps and artifacts|Generate this [in your Sentry account](https://sentry.integreat-app.de/settings/account/api/auth-tokens/) with the scope `project:releases`|deadbeef|[Sentry Authentication](https://docs.sentry.io/cli/configuration/)|
 |SLACK_URL|URL which can be used to send notifications to our Slack. Keep this private!|[Deliverino Settings](https://api.slack.com/apps/A0117F1AAHZ/incoming-webhooks?)|https://hooks.slack.com/...| [Slack API](https://api.slack.com/messaging/webhooks)|
 
@@ -42,13 +95,13 @@
 |FASTLANE_PASSWORD|Password for the Apple Account for delivery|Password Manager|123456|[Credentials](https://github.com/fastlane/fastlane/blob/b121a96e3e2e0bb83392c130cb3a088c773dbbaf/spaceship/docs/Authentication.md#credentials) [Avoid 2FA](https://github.com/fastlane/fastlane/blob/b121a96e3e2e0bb83392c130cb3a088c773dbbaf/spaceship/docs/Authentication.md#avoid-2fa-via-additional-account)|
 |MATCH_PASSWORD|Password for accessing the certificates for the iOS app using [Fastlane Match](https://docs.fastlane.tools/actions/match/)|Password Manager|123456|[Using a Git Repo](https://docs.fastlane.tools/actions/match/#git-repo-encryption-password)|
 
-# Scheduled workflows
+# Manual builds
 
-# Manual deployment
+## Manually building for iOS
 
-## iOS
+## Manually building for Android
 
-## Android
+### Using the production signing key
 
 `export CREDENTIALS_GIT_REPOSITORY_URL=<secret>`
 `export CREDENTIALS_DIRECTORY_PATH=/tmp/credentials`
@@ -66,18 +119,20 @@
 `adb shell am force-stop tuerantuer.app.integreat`
 `adb shell am start -n tuerantuer.app.integreat/.MainActivity`
 
-# Credentials and services
+## Using the test signing key
+
+# Services
 
 ## deliverino (GitHub)
 
-`deliverino` is a GitHub App and can be accessed and installed [here](https://github.com/apps/deliverino). This bot updates the repository when a new release is delivered.
+`deliverino` is a GitHub App and can be accessed and installed [here](https://github.com/apps/deliverino). This bot bumps the version of the app when a new release is delivered.
+A private key in PEM format grants access to the bot. If the `deliverino` is installed for a specific repository then it has access to create commits there.
 
-Access to the Bot is granted by a Private Key in PEM format. This is used to get an access token for an installation. This access_token allows to write content to the repositories/organisations where it was installed.
-
-// PEM is base64 encoded
-// Disable "Include Administrators" in Protected Branches (GitHub App is Admin)
+**`deliverino` has the role of an Administrator. This is important when setting up ["Protected branches"](https://help.github.com/en/github/administering-a-repository/about-branch-restrictions) in GitHub. You have to disable "Include Administrators", else `deliverino` is not allowed to directly commit to the protected branch.**
 
 ## deliverino (Slack)
+
+The Slack bot `deliverino` is responsible to notify Slack channels about releases. It posts a message for iOS and Android individually as soon as the delivery step has finished.
 
 ## Google Play Store
 
@@ -105,10 +160,7 @@ https://github.com/fastlane/fastlane/tree/master/spaceship#2-step-verification
 
 ## BrowserStack
 
-
-
-## Slack Bot "deliverino"
-
+Not: How do E2E tests work?
 
 # Hints and quirks
 
