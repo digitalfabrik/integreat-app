@@ -61,6 +61,7 @@ exports[`FeedbackBoxContainer should match snapshot 1`] = `
       "value": "contentOfCity",
     }
   }
+  sendingStatus="SUCCESS"
   theme={
     Object {
       "colors": Object {

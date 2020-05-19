@@ -30,7 +30,7 @@ describe('FeedbackBox', () => {
         onCommentChanged={onCommentChanged}
         onFeedbackOptionChanged={onFeedbackOptionChanged}
         onSubmit={onSubmit}
-        feedbackSent='SUCCESS'
+        sendingStatus='SUCCESS'
         t={t}
         closeFeedbackModal={() => {}}
         theme={theme} />
