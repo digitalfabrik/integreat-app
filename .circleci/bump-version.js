@@ -67,7 +67,7 @@ const commitVersionBump = async (path, content, message) => {
   })
 
   console.warn(versionFileContent)
-  console.warn(versionFileContent.sha)
+  console.warn(versionFileContent.data.sha)
   console.warn(branch)
 
   await octokit.repos.createOrUpdateFile({
@@ -77,7 +77,7 @@ const commitVersionBump = async (path, content, message) => {
     content,
     branch,
     message,
-    sha: versionFileContent.sha
+    sha: versionFileContent.data.sha
   })
 }
 
