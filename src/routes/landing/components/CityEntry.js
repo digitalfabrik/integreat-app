@@ -59,7 +59,8 @@ class CityEntry extends React.PureComponent<PropType> {
     const aliases = this.getMatchingAliases(city, normalizedFilter)
     return (
       <CityListItem onPress={this.navigateToDashboard}
-                    underlayColor={theme.colors.backgroundAccentColor}>
+                    underlayColor={theme.colors.backgroundAccentColor}
+                    accessibilityRole='button'>
         <View>
           <Label theme={theme} searchWords={[filterText]} textToHighlight={city.name} sanitize={normalizeSearchString}
                  highlightStyle={{ backgroundColor: theme.colors.themeColor }} />
