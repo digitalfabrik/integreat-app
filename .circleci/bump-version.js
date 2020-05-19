@@ -16,7 +16,7 @@ const bumpVersion = async () => {
     const year = date.getFullYear()
     const month = date.getMonth() + 1
 
-    const versionNameCounter = year === versionNameParts[0] && month === versionNameParts[1] ? versionNameParts[3] + 1 : 0
+    const versionNameCounter = year === versionNameParts[0] && month === versionNameParts[1] ? versionNameParts[2] + 1 : 0
     const newVersionName = `${year}.${month}.${versionNameCounter}`
     const newVersionCode = versionCode ? versionCode + 1 : undefined
 
