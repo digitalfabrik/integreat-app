@@ -51,20 +51,15 @@ const commitVersionBump = async (path, content, message) => {
   const privateKey = Buffer.from(privateKeyBase64, 'base64').toString('ascii')
 
   const app = new App({ id: appId, privateKey })
-  const webToken = app.getSignedJsonWebToken()
-
-  const octokit = new Octokit({
-    type: 'token',
-    token: webToken
-  })
-
   const installationAccessToken = await app.getInstallationAccessToken({ installationId })
-  console.log(installationAccessToken)
 
+  const octokit = new Octokit()
   await octokit.auth({
     type: 'token',
     token: installationAccessToken
   })
+
+  console.log(branch)
 
   await octokit.repos.createOrUpdateFile({
     owner,
@@ -74,7 +69,6 @@ const commitVersionBump = async (path, content, message) => {
     branch,
     message
   })
-  console.log('upated')
 }
 
 bumpVersion()
