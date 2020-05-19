@@ -152,8 +152,10 @@ jobs:
           steps:
             - run:
                 name: Production delivery
+                # TODO use web
                 command: sftp -v -o StrictHostKeyChecking=no web-test@web.integreat-app.de:/integreat.app \<<< $'put -r /tmp/output/dist/*'
             - slack/notify:
+                # TODO show version number
                 message: A new Integreat version was sucessfully delivered to integreat.app!
                 webhook: $SLACK_URL
       - unless:
@@ -161,6 +163,7 @@ jobs:
           steps:
             - run:
                 name: Debug delivery
+                # TODO use web
                 command: sftp -v -o StrictHostKeyChecking=no web-test@web.integreat-app.de:/webnext.integreat-app.de \<<< $'put -r /tmp/output/dist/*'
 
   bump_version:
