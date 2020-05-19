@@ -70,11 +70,13 @@ const commitVersionBump = async (path, content, message) => {
   console.warn(versionFileContent.data.sha)
   console.warn(branch)
 
+  const contentBase64 = Buffer.from(content).toString('base64')
+
   await octokit.repos.createOrUpdateFile({
     owner,
     repo,
     path,
-    content,
+    content: contentBase64,
     branch,
     message,
     sha: versionFileContent.data.sha
