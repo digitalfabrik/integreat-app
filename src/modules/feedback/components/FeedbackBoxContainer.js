@@ -33,8 +33,6 @@ import { DISCLAIMER_ROUTE } from '../../app/route-configs/DisclaimerRouteConfig'
 import { cmsApiBaseUrl } from '../../app/constants/urls'
 import type { ThemeType } from '../../theme/constants/theme'
 
-type SendingStatusType = 'IDLE' | 'SUCCESS' | 'ERROR'
-
 type PropsType = {|
   cities: ?Array<CityModel>,
   title?: string,
@@ -46,8 +44,8 @@ type PropsType = {|
   extras: ?Array<ExtraModel>,
   postFeedbackDataOverride?: FeedbackParamsType => void,
   closeFeedbackModal: () => void,
-  feedbackSent: SendingStatusType,
-  onSubmit: (feedbackSent?: SendingStatusType) => void,
+  sendingStatus: SendingStatusType,
+  onSubmit: (sendingStatus?: SendingStatusType) => void,
   t: TFunction,
   theme: ThemeType
 |}
@@ -69,16 +67,11 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
   }
 
   postFeedbackData = async (feedbackData: FeedbackParamsType) => {
-    const { postFeedbackDataOverride, onSubmit } = this.props
-    try {
-      if (postFeedbackDataOverride) {
-        postFeedbackDataOverride(feedbackData)
-      } else {
-        await createFeedbackEndpoint(cmsApiBaseUrl).request(feedbackData)
-        onSubmit('SUCCESS')
-      }
-    } catch (e) {
-      onSubmit('ERROR')
+    const { postFeedbackDataOverride } = this.props
+    if (postFeedbackDataOverride) {
+      postFeedbackDataOverride(feedbackData)
+    } else {
+      await createFeedbackEndpoint(cmsApiBaseUrl).request(feedbackData)
     }
   }
 
@@ -236,17 +229,24 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
   }
 
   handleSubmit = async () => {
+    const { onSubmit } = this.props
     const { selectedFeedbackOption, comment } = this.state
-    await this.postFeedbackData(this.getFeedbackData(selectedFeedbackOption, comment))
+    try {
+      await this.postFeedbackData(this.getFeedbackData(selectedFeedbackOption, comment))
+      onSubmit('SUCCESS')
+    } catch (e) {
+      onSubmit('ERROR')
+      console.log(e)
+    }
   }
 
   render () {
-    const { closeFeedbackModal, isPositiveRatingSelected, theme, feedbackSent } = this.props
+    const { closeFeedbackModal, isPositiveRatingSelected, theme, sendingStatus } = this.props
 
     return <FeedbackBox onFeedbackOptionChanged={this.handleFeedbackOptionChanged}
                         onCommentChanged={this.handleCommentChanged}
                         onSubmit={this.handleSubmit}
-                        feedbackSent={feedbackSent}
+                        sendingStatus={sendingStatus}
                         closeFeedbackModal={closeFeedbackModal}
                         isPositiveRatingSelected={isPositiveRatingSelected}
                         theme={theme}

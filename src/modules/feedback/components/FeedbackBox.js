@@ -28,7 +28,6 @@ export const StyledFeedbackBox = styled.div`
 export const Description = styled.div`
   padding: 10px 0 5px;
 `
-type SendingStatusType = 'IDLE' | 'SUCCESS' | 'ERROR'
 
 type PropsType = {|
   isPositiveRatingSelected: boolean,
@@ -37,22 +36,17 @@ type PropsType = {|
   comment: string,
   onCommentChanged: SyntheticInputEvent<HTMLTextAreaElement> => void,
   onFeedbackOptionChanged: FeedbackVariant => void,
-  feedbackSent: SendingStatusType,
-  onSubmit: (feedbackSent?: SendingStatusType) => void,
+  onSubmit: () => void,
   t: TFunction,
   closeFeedbackModal: () => void,
-  theme: ThemeType
+  theme: ThemeType,
+  sendingStatus: SendingStatusType
 |}
 
 /**
  * Renders all necessary inputs for a Feedback and posts the data to the feedback endpoint
  */
 export class FeedbackBox extends React.PureComponent<PropsType> {
-  handleClick = () => {
-    const { feedbackSent, onSubmit } = this.props
-    feedbackSent !== 'ERROR' ? onSubmit('SUCCESS') : onSubmit('ERROR')
-  }
-
   render () {
     const {
       selectedFeedbackOption,
@@ -61,16 +55,12 @@ export class FeedbackBox extends React.PureComponent<PropsType> {
       isPositiveRatingSelected,
       onFeedbackOptionChanged,
       onCommentChanged,
+      onSubmit,
       comment,
       closeFeedbackModal,
       theme,
-      feedbackSent
+      sendingStatus
     } = this.props
-
-    let errorMessage
-    if (feedbackSent === 'ERROR') {
-      errorMessage = <Description>{t('failedSendingFeedback')}</Description>
-    }
 
     return (
       <StyledFeedbackBox>
@@ -85,10 +75,10 @@ export class FeedbackBox extends React.PureComponent<PropsType> {
           commentMessage={isPositiveRatingSelected ? t('positiveComment') : t('negativeComment')}
           onCommentChanged={onCommentChanged}
           required={!isPositiveRatingSelected} />
-        {errorMessage}
+        {sendingStatus === 'ERROR' && <Description>{t('failedSendingFeedback')}</Description>}
         <TextButton
           disabled={!isPositiveRatingSelected && !comment}
-          onClick={this.handleClick}
+          onClick={onSubmit}
           text={t('send')} />
       </StyledFeedbackBox>
     )
