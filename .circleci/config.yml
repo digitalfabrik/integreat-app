@@ -47,7 +47,7 @@ workflows:
   bi-weekly-production-delivery:
     triggers:
       - schedule:
-          cron: "0 5 16,21,27 * *" # TODO Fix
+          cron: "0 5 1,15 * *" # For sanity checks for this syntax: https://crontab.guru/
           filters:
             branches:
               only:
@@ -144,13 +144,7 @@ jobs:
       - image: circleci/node:12.16.3
     resource_class: small
     shell: /bin/bash -eo pipefail
-    environment:
-      TOTAL_CPUS: 1 # For resource_class small
     steps:
-      - run:
-          name: Show current CPU count
-          command: |
-            echo "CPU count is ${TOTAL_CPUS}"
       - attach_workspace:
           at: /tmp/output
       - when:
