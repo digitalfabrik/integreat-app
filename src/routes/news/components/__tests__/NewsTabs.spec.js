@@ -63,19 +63,6 @@ describe('NewsTabs', () => {
     })
   ]
 
-  it('should render and match snapshot', () => {
-    expect(shallow(
-      <NewsTabs
-        type={LOCAL_NEWS}
-        city='otherCity'
-        cities={cities}
-        language={language}
-        t={t}>
-          <div>dummy child</div>
-      </NewsTabs>
-    )).toMatchSnapshot()
-  })
-
   it('should render two tabs if both local news and tunews are enabled', () => {
     const wrapper = shallow(
       <NewsTabs

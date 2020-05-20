@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react'
-import { mount, shallow } from 'enzyme'
+import { mount } from 'enzyme'
 import moment from 'moment-timezone'
 import type Moment from 'moment'
 import { ThemeProvider } from 'styled-components'
@@ -30,21 +30,7 @@ describe('LocalNewsDetailsPage', () => {
 
   const city = 'augsburg'
   const language = 'en'
-  const t = (key: ?string): string => key || ''
   const path = '/augsburg/en/news/local/1'
-
-  it('should match snapshot and render LocalNewsDetailsPage', () => {
-    const wrapper = shallow(
-      <LocalNewsDetailsPage
-        localNewsElement={localNewsElement}
-        city={city}
-        language={language}
-        t={t}
-        path={path}
-      />
-    )
-    expect(wrapper).toMatchSnapshot()
-  })
 
   it('should map state to props', () => {
     const location = createLocation({
