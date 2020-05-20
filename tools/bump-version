@@ -8,13 +8,13 @@ const { program } = require('commander')
 program
   .option('-d, --debug', 'enable extreme logging')
   .option('--dry-run', 'prevent actual commit of the updated version.json to github')
-  .option('--version-file <version-file>', 'set version file to use', '../version.json')
+  .option('--version-file <version-file>', 'set version file to use', 'version.json')
   .option('--deliverino-private-key <deliverino-private-key>', 'private key of the deliverino github app in pem format with base64 encoding')
   .option('--owner <owner>', 'owner of the current repository, usually "Integreat"')
   .option('--repo <repo>', 'the current repository, usually "integreat-webapp" or "integreat-react-native-app"')
   .option('--branch <branch>', 'the current branch')
 
-const calculateNewVersion = (versionFilePath) => {
+const calculateNewVersion = versionFilePath => {
   const versionFile = fs.readFileSync(versionFilePath)
   // versionCode is just used in the integreat-react-native-app
   const { versionName, versionCode } = JSON.parse(versionFile)
@@ -28,7 +28,6 @@ const calculateNewVersion = (versionFilePath) => {
   const newVersionName = `${year}.${month}.${versionNameCounter}`
   const newVersionCode = versionCode ? versionCode + 1 : undefined
 
-
   console.debug(`New version name: ${newVersionName}`)
   if (newVersionCode) {
     console.debug(`New version name: ${newVersionCode}`)
@@ -41,10 +40,6 @@ const calculateNewVersion = (versionFilePath) => {
 }
 
 const commitVersionBump = async (newVersion, { versionFile, deliverinoPrivateKey, owner, repo, branch }) => {
-  // const privateKeyBase64 = process.env.DELIVERINO-PRIVATE-KEY
-  // const owner = process.env.CIRCLE-PROJECT-USERNAME
-  // const repo = process.env.CIRCLE-PROJECT-REPONAME
-  // const branch = process.env.CIRCLE-BRANCH
   const appId = 59249 // https://github.com/apps/deliverino
   const privateKey = Buffer.from(deliverinoPrivateKey, 'base64').toString('ascii')
 
@@ -71,7 +66,7 @@ const commitVersionBump = async (newVersion, { versionFile, deliverinoPrivateKey
     message,
     sha: versionFileContent.data.sha
   })
-  
+
   console.debug(`Bumped version successfully commited with message "${message}"`)
 }
 
