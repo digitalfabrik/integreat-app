@@ -58,7 +58,7 @@ end
 # new_version_name: The new version name
 # package_name: The name of the app in Sentry
 # sourcemap_path: The path to the sourcemap file to upload
-desc "Upload source map to Sentry"
+desc "Uploads a source map to Sentry"
 private_lane :generic_sentry_upload do |options|
   ensure_env_vars(
       env_vars: ['SENTRY_AUTH_TOKEN']
@@ -84,7 +84,7 @@ private_lane :generic_sentry_upload do |options|
   )
 end
 
-desc "Bump version file in Git repository"
+desc "Bumps version and commits the new version in the GitHub repository"
 lane :github_bump_version do
   ensure_env_vars(
       env_vars: ['DELIVERINO_PRIVATE_KEY']
@@ -100,7 +100,7 @@ lane :github_bump_version do
 end
 
 platform :android do
-  desc "Upload to Browserstack Live"
+  desc "Uploads the APK to BrowserStack Live"
   lane :browserstack_upload_live do
     ensure_env_vars(
         env_vars: ['BROWSERSTACK_USERNAME', 'BROWSERSTACK_ACCESS_KEY']
@@ -113,7 +113,7 @@ platform :android do
     )
   end
 
-  desc "Run E2E tests on BrowserStack"
+  desc "Uploads the APK and runs E2E tests on BrowserStack"
   lane :browserstack_e2e_tests do
     ensure_env_vars(
         env_vars: ['BROWSERSTACK_USERNAME', 'BROWSERSTACK_ACCESS_KEY']
@@ -136,7 +136,7 @@ platform :android do
     )
   end
 
-  desc "Upload source map to Sentry"
+  desc "Uploads the JavaScript source map to Sentry"
   lane :sentry_upload do
     generic_sentry_upload(
         package_name: 'tuerantuer.app.integreat',
@@ -145,7 +145,7 @@ platform :android do
     )
   end
 
-  desc "Upload to Play Store"
+  desc "Delivers the app to Play Store. Depending on the option `production` the update is released to the general public."
   lane :playstore_upload do |options|
     ensure_env_vars(
         env_vars: ['GOOGLE_SERVICE_ACCOUNT_JSON']
@@ -172,7 +172,7 @@ platform :android do
     )
   end
 
-  desc "Notify about the status of this build"
+  desc "Sends a success notification"
   lane :notify_release do
     ensure_env_vars(
         env_vars: ['SLACK_URL']
@@ -194,7 +194,7 @@ end
 
 platform :ios do
 
-  desc "Upload to Browserstack Live"
+  desc "Uploads the IPA to BrowserStack Live"
   lane :browserstack_upload_live do
     ensure_env_vars(
         env_vars: ['BROWSERSTACK_USERNAME', 'BROWSERSTACK_ACCESS_KEY']
@@ -207,7 +207,7 @@ platform :ios do
     )
   end
 
-  desc "Run E2E tests on BrowserStack"
+  desc "Uploads the APK and runs E2E tests on BrowserStack"
   lane :browserstack_e2e_tests do
     ensure_env_vars(
         env_vars: ['BROWSERSTACK_USERNAME', 'BROWSERSTACK_ACCESS_KEY']
@@ -238,7 +238,7 @@ platform :ios do
     )
   end
 
-  desc "Upload to App Store Connect"
+  desc "Delivers the app to App Store Connect. The app is submitted for review and released automatically."
   lane :appstoreconnect_upload do |options|
     ensure_env_vars(
         env_vars: ['FASTLANE_USER', 'FASTLANE_PASSWORD']
@@ -252,7 +252,7 @@ platform :ios do
         ipa: "/tmp/output/Integreat.ipa",
         app_version: version_name,
         submit_for_review: true,
-        automatic_release: false, # TODO: change to `true` if we are sure CD works
+        automatic_release: true,
         force: true,
         skip_screenshots: false,
         skip_metadata: false,
@@ -263,7 +263,7 @@ platform :ios do
     )
   end
 
-  desc "Upload to TestFlight"
+  desc "Delivers the app to TestFlight for Testers."
   lane :testflight_upload do |options|
     ensure_env_vars(
         env_vars: ['FASTLANE_USER', 'FASTLANE_PASSWORD']

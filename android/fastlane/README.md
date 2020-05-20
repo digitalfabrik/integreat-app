@@ -19,17 +19,17 @@ or alternatively using `brew cask install fastlane`
 ```
 fastlane keystore
 ```
-Prepare the keystore
+Downloads and decrypts the JKS
 ### dependencies
 ```
 fastlane dependencies
 ```
-Download Gradle Dependencies
+Downloads Gradle dependencies
 ### build
 ```
 fastlane build
 ```
-Create a build
+Creates an Android build in release mode. Set the environment variable E2E_TEST_IDS if you want a build usable for E2E tests. Set the environment variable TOTAL_CPUS if you run this in a Docker container.
 
 ----
 

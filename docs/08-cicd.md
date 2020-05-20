@@ -43,6 +43,10 @@ Fastlane is a task-runner for triggering build relevant tasks. It offers integra
 
 There are Android and iOS specific lanes. Lanes for Android live in `./android/fastlane` and for iOS in `./ios/fastlane`.
 
+### General 
+
+For an overview of the Fastlane lanes refer to the [auto-generated README](../fastlane/README.md#available-actions). These lanes are responsible for delivering and uploading artifacts, bumping the version using the [deliverino GitHub bot](#deliverino-github) and sending notifications.
+
 ### Android
 
 For an overview of the Fastlane lanes refer to the [auto-generated README](../android/fastlane/README.md#available-actions). These lanes are responsible for setting up the signing keys and building the Android app.
