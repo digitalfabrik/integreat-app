@@ -25,11 +25,11 @@ There are Android and iOS specific lanes. Lanes for Android live in `./android/f
 
 ### Android
 
-For an overview of the Fastlane lanes refer to the [auto-generated README](android/fastlane/README.md#available-actions).
+For an overview of the Fastlane lanes refer to the [auto-generated README](../android/fastlane/README.md#available-actions).
 
 ### iOS
 
-For an overview of the Fastlane lanes refer to the [auto-generated README](ios/fastlane/README.md#available-actions).
+For an overview of the Fastlane lanes refer to the [auto-generated README](../ios/fastlane/README.md#available-actions).
 
 # Setup Certificates for iOS on Mac
 
