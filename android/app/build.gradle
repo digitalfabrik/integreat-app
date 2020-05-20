@@ -143,9 +143,14 @@ android {
                 keyAlias project.KEYSTORE_KEY_ALIAS
                 keyPassword project.KEYSTORE_KEY_PASSWORD
             } else {
-                throw new InvalidUserDataException("You must provide a keystore using the " +
+                storeFile file('test.keystore')
+                storePassword '123456'
+                keyAlias = 'test'
+                keyPassword '123456'
+
+                logger.warn("You should provide a keystore using the " +
                         "KEYSTORE_PATH, KEYSTORE_PASSWORD, KEYSTORE_KEY_ALIAS and KEYSTORE_KEY_PASSWORD " +
-                        "project properties!")
+                        "project properties! Using a keystore for testing!")
             }
         }
     }
