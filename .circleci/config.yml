@@ -86,12 +86,6 @@ jobs:
           fingerprints:
             - "30:f4:98:9f:1c:72:d1:c0:17:9f:57:05:74:a6:44:50"
       - checkout
-      - run:
-          name: Read version number
-          command: echo 'export VERSION_NAME=$(cat version.json | jq .versionName)' >> $BASH_ENV
-      - run:
-          name: Print version number
-          command: echo "${VERSION_NAME}"
       - restore_cache:
           name: Restore Yarn Package Cache
           keys:
@@ -164,7 +158,6 @@ jobs:
                 # TODO use web
                 command: sftp -v -o StrictHostKeyChecking=no web-test@web.integreat-app.de:/integreat.app \<<< $'put -r /tmp/output/dist/*'
             - slack/notify:
-                # TODO show version number
                 message: Integreat WebApp version ${VERSION_NAME} was delivered successfully to integreat.app!
                 webhook: $SLACK_URL
       - unless:
