@@ -59,7 +59,6 @@ describe('TunewsDetailsPage', () => {
 
   const city = 'augsburg'
   const language = 'en'
-  const t = (key: ?string): string => key || ''
 
   it('should match snapshot and render TunewsDetailsPage', () => {
     const wrapper = shallow(
@@ -67,7 +66,6 @@ describe('TunewsDetailsPage', () => {
         tunewsElement={tunewsElement}
         language={language}
         city={city}
-        t={t}
         path='/path/to/route'
       />
     )
@@ -100,8 +98,6 @@ describe('TunewsDetailsPage', () => {
       language,
       path: '/augsburg/en/news/tu-news/1',
       city,
-      t: expect.any(Function),
-      i18n: expect.anything(),
       dispatch: expect.any(Function)
     })
   })

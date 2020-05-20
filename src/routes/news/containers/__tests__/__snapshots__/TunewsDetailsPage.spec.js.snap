@@ -22,7 +22,6 @@ exports[`TunewsDetailsPage should match snapshot and render TunewsDetailsPage 1`
     date={"2020-01-20T12:04:22.000Z"}
     eNewsNo="tun0000009902"
     language="en"
-    t={[Function]}
   />
 </TunewsDetailsPage__StyledContainer>
 `;
