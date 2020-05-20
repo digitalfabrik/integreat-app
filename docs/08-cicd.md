@@ -103,7 +103,7 @@ The first release february will have the version number `2020.2.0`.
 |SENTRY_AUTH_TOKEN|Auth Token from Sentry for uploading sourcemaps and artifacts|Generate this [in your Sentry account](https://sentry.integreat-app.de/settings/account/api/auth-tokens/) with the scope `project:releases`|deadbeef|[Sentry Authentication](https://docs.sentry.io/cli/configuration/)|
 |SLACK_URL|URL which can be used to send notifications to our Slack. Keep this private!|[Deliverino Settings](https://api.slack.com/apps/A0117F1AAHZ/incoming-webhooks?)|https://hooks.slack.com/...| [Slack API](https://api.slack.com/messaging/webhooks)|
 
-## Android
+## Android Variables
 
 |Variable|Description|Where do I get it from?|Example|Reference|
 |---|---|---|---|---|
@@ -117,7 +117,7 @@ The first release february will have the version number `2020.2.0`.
 |KEYSTORE_KEY_PASSWORD|Password of the key within the Java Keystore|Password Manager|123456|-|
 |KEYSTORE_PASSWORD|Password of the JKS which can contain multiple keys|Password Manager|123456|-|
 
-## iOS
+## iOS Variables
 
 |Variable|Description|Where do I get it from?|Example|Reference|
 |---|---|---|---|---|
@@ -140,31 +140,43 @@ The Slack bot `deliverino` is responsible to notify Slack channels about release
 
 ## Google Play Store
 
-### Adding users to 'beta' channel
+You can visit the management website for the Play Store [here](https://play.google.com/apps/publish/). The Google Play Console is the product by Google for managing the App Store presence.
+
+### Adding testers to the beta track
+
+The Play Store has the concept of tracks to manage released versions of the app. The beta track is for public tests. Tests can be added via their Google E-Mail or by signing up at [play.google.com/apps/testing/tuerantuer.app.integreat](https://play.google.com/apps/testing/tuerantuer.app.integreat).
 
 ### Metadata
 
-`bundle exec fastlane supply`
+The CI/CD pipeline uploads and overwrites metadata during the delivery step.
+You can read more about managing metadata for Android [here](https://docs.fastlane.tools/actions/supply/).
 
 ## App Store Connect
 
+You can visit the management website for the Play Store [here](https://appstoreconnect.apple.com/). App Store Connect is the product by Apple for managing the App Store presence.
+
 For delivery an [account without 2FA](https://github.com/fastlane/fastlane/blob/b121a96e3e2e0bb83392c130cb3a088c773dbbaf/spaceship/docs/Authentication.md#avoid-2fa-via-additional-account) is required.
 
-### TestFlight: Adding users to 'beta' channel
+### Adding testers to TestFlight
 
-Add to "App Store Connect Users"
+The [weekly and bi-weekly workflows](#workflows) make the builds directly available to TestFlights "App Store Connect Users". Those should not be confused with "External Tests" which require an approval by apple. Therefore, we currently only use "App Store Connect Users" as testers.
+
+In order to add someone as "App Store Connect User" you have to add the Apple Account to App Store Connect and to TestFlight. This is a two-step process.
 
 ### Metadata
 
-`bundle exec fastlane deliver`
+The CI/CD pipeline uploads and overwrites metadata during the delivery step.
+You can read more about managing metadata for iOS [here](https://docs.fastlane.tools/actions/deliver/).
 
-### Authenticating via spaceauth
-https://docs.fastlane.tools/best-practices/continuous-integration/#environment-variables-to-set
-https://github.com/fastlane/fastlane/tree/master/spaceship#2-step-verification
+### Authenticating
+
+Authentication happens by setting the `FASTLANE_USER` and `FASTLANE_PASSWORD` environment variables as documented [above](#ios-variables). For more information visit the documentation [here](https://docs.fastlane.tools/best-practices/continuous-integration/#environment-variables-to-set) and read about [2-step-verification here](https://github.com/fastlane/fastlane/blob/ee904cd332ab38ca7c1979f0ab58f9389a51fb2d/spaceship/README.md#2-step-verification).
+
 
 ## BrowserStack
 
-Not: How do E2E tests work?
+We are using BrowserStack to run our E2E tests on real iOS and Android devices.
+The general documentation about [E2E tests and BrowserStack can be found here](04-e2e.md). 
 
 # Hints and quirks
 
