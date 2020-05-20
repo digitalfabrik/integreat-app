@@ -45,7 +45,7 @@ class TunewsDetailsFooter extends React.PureComponent<PropsType> {
 
     return (
       <Footer>
-        <StyledContainer>E-news No: {eNewsNo}</StyledContainer>
+        <StyledContainer>{eNewsNo}</StyledContainer>
         <StyledContainer>
           <StyledLink href='https://tunewsinternational.com' target='_blank'>
             tünews INTERNATIONAL
