@@ -62,14 +62,20 @@ export class LocationHeader extends React.Component<PropsType> {
   }
 
   getNavigationItems (): Array<Element<typeof HeaderNavigationItem>> {
+    // eslint-disable-next-line no-unused-vars
     const { t, isEventsEnabled, isLocalNewsEnabled, isTunewsEnabled, isExtrasEnabled, location, events } = this.props
 
     const { city, language } = location.payload
     const currentRoute = location.type
 
     const isEventsActive = events ? events.length > 0 : false
-    const isNewsEnabled = isLocalNewsEnabled || isTunewsEnabled
-    const isCategoriesEnabled = isExtrasEnabled || isEventsEnabled || isNewsEnabled
+
+    /* TODO: replace the next two lines with the ones after to activate news header link
+      const isNewsEnabled = isLocalNewsEnabled || isTunewsEnabled
+      const isCategoriesEnabled = isExtrasEnabled || isEventsEnabled || isNewsEnabled
+    */
+    const isNewsEnabled = false
+    const isCategoriesEnabled = isExtrasEnabled || isEventsEnabled
 
     const items: Array<Element<typeof HeaderNavigationItem>> = []
 

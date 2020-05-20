@@ -3,13 +3,10 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import TunewsIcon from './../assets/TunewsActiveLogo.png'
-import { withTranslation } from 'react-i18next'
 import { TunewsModel } from '@integreat-app/integreat-api-client'
 import { connect } from 'react-redux'
-import compose from 'lodash/fp/compose'
 import type { StateType } from '../../../modules/app/StateType'
 import TunewsDetailsFooter from '../components/TunewsDetailsFooter'
-import { TFunction } from 'i18next'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 
@@ -58,13 +55,12 @@ type PropsType = {|
   tunewsElement: TunewsModel,
   language: string,
   path: string,
-  city: string,
-  t: TFunction
+  city: string
 |}
 
 export class TunewsDetailsPage extends React.PureComponent<PropsType> {
   render () {
-    const { tunewsElement, language, path, city, t } = this.props
+    const { tunewsElement, language, path, city } = this.props
 
     if (!tunewsElement) {
       const error = new ContentNotFoundError({ type: 'tunewsItem', id: path, city, language })
@@ -83,7 +79,7 @@ export class TunewsDetailsPage extends React.PureComponent<PropsType> {
           <Title>{title}</Title>
           <Content>{content}</Content>
         </StyledWrapper>
-        <TunewsDetailsFooter eNewsNo={eNewsNo} date={date} language={language} t={t} />
+        <TunewsDetailsFooter eNewsNo={eNewsNo} date={date} language={language} />
       </StyledContainer>
     )
   }
@@ -95,7 +91,4 @@ const mapStateToProps = (state: StateType) => ({
   city: state.location.payload.city
 })
 
-export default compose(
-  connect<PropsType, *, *, *, *, *>(mapStateToProps),
-  withTranslation('news')
-)(TunewsDetailsPage)
+export default connect<PropsType, *, *, *, *, *>(mapStateToProps)(TunewsDetailsPage)
