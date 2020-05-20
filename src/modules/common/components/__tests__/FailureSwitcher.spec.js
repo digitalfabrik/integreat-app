@@ -12,8 +12,6 @@ describe('FailureSwitcher', () => {
 
   const language = 'de'
 
-  const mockTranslate = key => key || 'null'
-
   describe('render component not found failure', () => {
     it('should render a category not found failure and match snapshot', () => {
       const error = new ContentNotFoundError({ type: 'category', id: 'willkommen', language, city })
@@ -39,17 +37,19 @@ describe('FailureSwitcher', () => {
 
   it('should render a content not found failure if there is a ContentNotFoundError', () => {
     const error = new ContentNotFoundError({ type: 'extra', id: 'sprungbrett', city, language })
-    FailureSwitcher.renderContentNotFoundComponent = jest.fn(FailureSwitcher.renderContentNotFoundComponent)
+    const spy = jest.spyOn(FailureSwitcher, 'renderContentNotFoundComponent')
 
-    const component = mount(<FailureSwitcher error={error} t={mockTranslate} />)
+    const component = mount(<FailureSwitcher error={error} />)
 
-    expect(FailureSwitcher.renderContentNotFoundComponent).toHaveBeenCalledWith(error)
+    expect(spy).toHaveBeenCalledWith(error)
     expect(component.find(Failure)).toHaveLength(1)
+
+    spy.mockRestore()
   })
 
   it('should render a failure as default', () => {
     const error = new Error('error message')
-    const component = mount(<FailureSwitcher error={new Error('error message')} t={mockTranslate} />)
+    const component = mount(<FailureSwitcher error={new Error('error message')} />)
 
     expect(component.find(Failure)).toHaveLength(1)
     expect(component.find(Failure).at(0).props().errorMessage).toEqual(error.message)
