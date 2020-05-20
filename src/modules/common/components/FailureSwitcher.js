@@ -3,7 +3,6 @@
 import * as React from 'react'
 import ContentNotFoundError from '../errors/ContentNotFoundError'
 import Failure from './Failure'
-import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
 import CategoriesRouteConfig from '../../app/route-configs/CategoriesRouteConfig'
 import EventsRouteConfig from '../../app/route-configs/EventsRouteConfig'
@@ -11,8 +10,7 @@ import ExtrasRouteConfig from '../../app/route-configs/ExtrasRouteConfig'
 import PoisRouteConfig from '../../app/route-configs/PoisRouteConfig'
 
 type PropsType = {|
-  error: Error,
-  t: TFunction
+  error: Error
 |}
 
 export class FailureSwitcher extends React.Component<PropsType> {
@@ -55,4 +53,4 @@ export class FailureSwitcher extends React.Component<PropsType> {
   }
 }
 
-export default withTranslation('error')(FailureSwitcher)
+export default FailureSwitcher
