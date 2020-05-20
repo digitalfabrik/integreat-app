@@ -16,16 +16,6 @@ lane :certificates do
   sync_code_signing(type: "appstore", username: ENV['FASTLANE_USER'])
 end
 
-desc "Create a simulator build"
-lane :simulator_build do
-  xcbuild(
-      workspace: "Integreat.xcworkspace",
-      scheme: "Integreat",
-      configuration: "Debug",
-      xcargs: "-sdk iphonesimulator"
-  )
-end
-
 desc "Create a build"
 lane :build do
   ensure_env_vars(

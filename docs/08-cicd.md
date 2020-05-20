@@ -49,7 +49,7 @@ For an overview of the Fastlane lanes refer to the [auto-generated README](../an
 
 ### iOS
 
-For an overview of the Fastlane lanes refer to the [auto-generated README](../ios/fastlane/README.md#available-actions). These lanes are responsible for setting up the certificates and building the iOS app as well as starting an iOS simulator.
+For an overview of the Fastlane lanes refer to the [auto-generated README](../ios/fastlane/README.md#available-actions). These lanes are responsible for setting up the certificates and building the iOS app.
 
 # Setup Certificates for iOS on Mac
 
