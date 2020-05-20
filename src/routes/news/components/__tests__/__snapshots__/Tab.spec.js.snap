@@ -1,8 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Tab should render and match snapshot 1`] = `
-<Tab__TuStyledTab
-  active={true}
-  to="/testcity/en/news/local"
-/>
-`;

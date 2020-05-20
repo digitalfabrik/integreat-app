@@ -47,21 +47,6 @@ describe('TunewsList', () => {
     })
   ]
 
-  it('should render and match snapshot', () => {
-    expect(shallow(
-      <TunewsList
-        language={language}
-        items={tunews}
-        renderItem={renderItem(language)}
-        city={city}
-        fetchMoreTunews={() => {}}
-        hasMore
-        isFetching={false}
-        noItemsMessage={t('currentlyNoTunews')}
-      />
-    )).toMatchSnapshot()
-  })
-
   it('should have two NewsElement', () => {
     const tunewsList = shallow(
       <TunewsList

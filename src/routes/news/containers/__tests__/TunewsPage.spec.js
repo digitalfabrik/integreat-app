@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react'
-import { mount, shallow } from 'enzyme'
+import { mount } from 'enzyme'
 import moment from 'moment-timezone'
 import type Moment from 'moment'
 import configureMockStore from 'redux-mock-store'
@@ -64,26 +64,6 @@ describe('TunewsPage', () => {
   const tunews = [tunewsItem1, tunewsItem2, tunewsItem3]
   const city = 'augsburg'
   const language = 'en'
-  const t = (key: ?string): string => key || ''
-
-  it('should match snapshot and render TunewsPage', () => {
-    const wrapper = shallow(
-      <TunewsPage
-        tunews={tunews}
-        language={language}
-        city={city}
-        path='/path/to/route'
-        t={t}
-        hasMore
-        isFetchingFirstTime={false}
-        isFetching={false}
-        fetchMoreTunews={() => {}}
-        cities={cities}
-        areCitiesFetching={false}
-      />
-    )
-    expect(wrapper).toMatchSnapshot()
-  })
 
   it('should map state to props', () => {
     const location = createLocation({
