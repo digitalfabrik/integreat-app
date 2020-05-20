@@ -30,14 +30,18 @@ type PropsType = {|
  * Our error component, but since the name Error collides with the ES6 class, we've called it Failure
  */
 export class Failure extends React.PureComponent<PropsType> {
+  static defaultProps = {
+    goToMessage: 'goTo.start',
+    goToPath: new I18nRedirectRouteConfig().getRoutePath({})
+  }
+
   render () {
     const { t, errorMessage, goToPath, goToMessage } = this.props
-    const message = t(goToMessage || 'goTo.start')
 
     return <Centered>
       <div>{t(errorMessage)}</div>
       <div><FontAwesomeIcon icon={faFrown} size='5x' /></div>
-      <Link to={goToPath || new I18nRedirectRouteConfig().getRoutePath({})}>{message}</Link>
+      <Link to={goToPath}>{t(goToMessage)}</Link>
     </Centered>
   }
 }
