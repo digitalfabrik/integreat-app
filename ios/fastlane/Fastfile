@@ -6,7 +6,7 @@ before_all do
   setup_circle_ci
 end
 
-desc "Setup certificates"
+desc "Downloads and setups certificates"
 lane :certificates do
   ensure_env_vars(
       env_vars: ['FASTLANE_USER']
@@ -16,7 +16,7 @@ lane :certificates do
   sync_code_signing(type: "appstore", username: ENV['FASTLANE_USER'])
 end
 
-desc "Create a build"
+desc "Creates a release build"
 lane :build do
   ensure_env_vars(
       env_vars: ['FASTLANE_USER']
