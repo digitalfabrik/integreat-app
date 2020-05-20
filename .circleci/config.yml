@@ -121,7 +121,7 @@ jobs:
           name: "Show current CPU count"
           command: |
             echo "CPU count is ${TOTAL_CPUS}"
-      - add_ssh_keys: # Install
+      - add_ssh_keys:
           fingerprints:
             - "9a:0f:b1:f0:97:c8:db:3f:be:87:a4:9b:09:7f:d3:af"
       - checkout
@@ -464,4 +464,3 @@ jobs:
       - run:
           name: [FL] Bump version
           command: bundle exec fastlane github_bump_version
-
