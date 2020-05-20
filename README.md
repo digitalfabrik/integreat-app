@@ -64,8 +64,8 @@ If you want to install an external library which brings native Android/iOS code 
 ### E2E Testing:
 [E2E Testing](docs/04-e2e.md)
 
-### Releasing the app:
-[Releasing](docs/06-releasing.md)
+### Manual builds:
+[Manual builds](docs/06-manual-builds.md)
 
 ### Continuous Integration and Delivery:
 [Continuous Integration and Delivery](docs/08-cicd.md)

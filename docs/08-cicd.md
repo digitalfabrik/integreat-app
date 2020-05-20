@@ -53,7 +53,7 @@ For an overview of the Fastlane lanes refer to the [auto-generated README](../io
 
 # Setup Certificates for iOS on Mac
 
-The setup of certificates is demonstrated in section [Manual builds](#manually-building-for-ios).
+The setup of certificates is demonstrated in section [Manual builds](06-manual-builds.md#manually-building-for-ios).
 
 ## What types of certificates exist?
 
@@ -82,7 +82,7 @@ App Store certificates allows the upload of the app into the App Store. It is no
 
 # Setup Java Keystore for Android
 
-The setup of the JKS is demonstrated in section [Manual builds](#manually-building-for-android).
+The setup of the JKS is demonstrated in section [Manual builds](06-manual-builds.md#manually-building-for-android).
 
 # Determine the next version
 
@@ -124,120 +124,6 @@ The first release february will have the version number `2020.2.0`.
 |FASTLANE_USER|User for an Apple Account without 2FA for delivery|Password Manager|lutz|[Credentials](https://github.com/fastlane/fastlane/blob/b121a96e3e2e0bb83392c130cb3a088c773dbbaf/spaceship/docs/Authentication.md#credentials) [Avoid 2FA](https://github.com/fastlane/fastlane/blob/b121a96e3e2e0bb83392c130cb3a088c773dbbaf/spaceship/docs/Authentication.md#avoid-2fa-via-additional-account)|
 |FASTLANE_PASSWORD|Password for the Apple Account for delivery|Password Manager|123456|[Credentials](https://github.com/fastlane/fastlane/blob/b121a96e3e2e0bb83392c130cb3a088c773dbbaf/spaceship/docs/Authentication.md#credentials) [Avoid 2FA](https://github.com/fastlane/fastlane/blob/b121a96e3e2e0bb83392c130cb3a088c773dbbaf/spaceship/docs/Authentication.md#avoid-2fa-via-additional-account)|
 |MATCH_PASSWORD|Password for accessing the certificates for the iOS app using [Fastlane Match](https://docs.fastlane.tools/actions/match/)|Password Manager|123456|[Using a Git Repo](https://docs.fastlane.tools/actions/match/#git-repo-encryption-password)|
-
-# Manual builds
-
-If you want to create `.ipa` or `.apk` builds for testing purposes you can follow this guide.
-
-## Manually building for iOS
-
-Firstly you have to prepare a few environment variables:
-
-```bash
-export FASTLANE_USER=<secret>
-export FASTLANE_PASSWORD=<secret>
-export MATCH_PASSWORD=<secret>
-```
-
-Setup the certificates locally:
-
-```bash
-cd ios/
-bundle exec fastlane certificates
-```
-
-*Hint: After setting up the certificates you can also star to use XCode to build the app.*
-
-Build the app:
-
-```bash
-cd ios/
-bundle exec fastlane build
-```
-
-Fastlane should report where the build artifacts are. These can be uploaded to App Store Connect.
-
-### Run the app in a simulator
-
-If you want to quickly run the app in an emulator do the following:
-
-```bash
-yarn start
-yarn ios
-```
-
-## Manually building for Android
-
-If you do not have Fastlane installed [skip to the next section](#quick-builds-using-a-test-signing-key).
-Firstly you have to prepare a few environment variables:
-
-```bash
-export CREDENTIALS_GIT_REPOSITORY_URL=<secret>
-export CREDENTIALS_DIRECTORY_PATH=/tmp/credentials
-export CREDENTIALS_KEYSTORE_PASSWORD=<secret>
-export CREDENTIALS_KEYSTORE_PATH=/tmp/credentials/<secret>.enc
-export KEYSTORE_PATH=/tmp/keystore.jks
-```
-
-Setup your JKS now:
-
-```bash
-bundle exec fastlane keystore
-```
-
-Finally, provide some more information about unlocking the JKS:
-
-```bash
-export KEYSTORE_KEY_ALIAS=<secret>
-export KEYSTORE_PASSWORD=<secret>
-export KEYSTORE_KEY_PASSWORD=<secret>
-```
-
-The last step is to build to app:
-
-```bash
-bundle exec fastlane build
-```
-
-Install and run the app using:
-
-```bash
-adb install app/build/outputs/apk/release/app-release.apk
-adb shell am force-stop tuerantuer.app.integreat
-adb shell am start -n tuerantuer.app.integreat/.MainActivity
-```
-
-### Quick builds using a test signing key
-
-If you don't want to deal with the production signing key you can use the test singing JKS. First explicitly set the environment variables:
-
-```bash
-export ORG_GRADLE_PROJECT_KEYSTORE_PATH=test.keystore
-export ORG_GRADLE_PROJECT_KEYSTORE_PASSWORD=123456
-export ORG_GRADLE_PROJECT_KEYSTORE_KEY_ALIAS=test
-export ORG_GRADLE_PROJECT_KEYSTORE_KEY_PASSWORD=123456
-```
-
-Optionally you can also set the version name and code:
-```bash
-export ORG_GRADLE_PROJECT_VERSION_CODE=1
-export ORG_GRADLE_PROJECT_VERSION_NAME=0.1
-```
-
-Then you can create a quick rest build in release mode and run it on your emulator:
-
-```bash
-yarn android:release
-```
-
-### Run the app in an emulator
-
-If you want to quickly run the app in an emulator do the following:
-
-```bash
-yarn start
-yarn android
-```
 
 # Services
 
