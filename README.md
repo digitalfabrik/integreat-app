@@ -31,28 +31,20 @@ Using the latest version (v13) may lead to errors.
 * Own a Mac or another Apple device.
 * Install [XCode](https://developer.apple.com/xcode/).
 
+Note: In order to work with the XCode project, always open `ios/Integreat.xcworkspace`.
+
 ### Project setup
-We suggest **[IntelliJ IDEA Ultimate](https://www.jetbrains.com/idea/)** as IDE. JetBrains provides free licences for students.
+We suggest **[IntelliJ IDEA Ultimate](https://www.jetbrains.com/idea/)** and XCode as IDE. JetBrains provides free licences for students.
 If you are using a different IDE, the steps might differ.
 
 * Import this project (VCS > Get from Version Control).
-* Run `git submodule init` and `git submodule update` to initialize the locales submodule.
 * Run `yarn` in the terminal to install all dependencies.
 * Take a look at package.json to show all available npm scripts.
 * Run `yarn start` to start the bundler.
 
-#### Android
-* Run your Android Emulator or connect a device.
-* Run `yarn android`.
+#### Running the app
 
-#### iOS
-* Install CocoaPods pods: `cd ios && pod install`.
-* // TODO certificates
-* // TODO run
-
-Note: The command `pod install` uses the versions from the Podfile.lock. `pod update` updates the Podfile.lock.
-
-Note: If you are using Xcode, always open `project.xcworkspace`.
+See [here for iOS](docs/06-manual-builds.md#run-the-app-in-a-simulator) and [here for Android](docs/06-manual-builds.md#run-the-app-in-an-emulator) to see how run the app.
 
 #### Additional Configuration
 * Mark the *src* folder as *Source directory*.
