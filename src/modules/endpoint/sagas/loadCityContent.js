@@ -6,8 +6,8 @@ import type { DataContainer } from '../DataContainer'
 import loadCategories from './loadCategories'
 import loadEvents from './loadEvents'
 import fetchResourceCache from './fetchResourceCache'
-import moment from 'moment'
 import type Moment from 'moment'
+import moment from 'moment'
 import type { FetchLanguagesFailedActionType, PushLanguagesActionType } from '../../app/StoreActionType'
 import loadLanguages from './loadLanguages'
 import ResourceURLFinder from '../ResourceURLFinder'
@@ -39,15 +39,17 @@ export default function * loadCityContent (
     yield call(appSettings.setSelectedCity, newCity)
   }
 
-  yield call(loadCities, dataContainer, false) // Never force refresh cities, when loading cityContent
   const lastUpdate: Moment | null = yield call(dataContainer.getLastUpdate, newCity, newLanguage)
-
-  console.debug('Last city content update on ',
-    lastUpdate ? lastUpdate.toISOString() : 'never')
+  console.debug('Last city content update on ', lastUpdate ? lastUpdate.toISOString() : 'never')
 
   const shouldUpdate = criterion.shouldUpdate(lastUpdate)
-
   console.debug('City content should be refreshed: ', shouldUpdate)
+
+  const cities = yield call(loadCities, dataContainer, shouldUpdate) // Refresh for flags like eventsEnabled necessary
+  const cityModel = cities.find(city => city.code === newCity)
+  if (!cityModel) {
+    throw new Error(`City '${newCity}' was not found.`)
+  }
 
   if (criterion.shouldLoadLanguages()) {
     try {
@@ -81,7 +83,7 @@ export default function * loadCityContent (
 
   const [categoriesMap, events] = yield all([
     call(loadCategories, newCity, newLanguage, dataContainer, shouldUpdate),
-    call(loadEvents, newCity, newLanguage, dataContainer, shouldUpdate)
+    call(loadEvents, newCity, newLanguage, cityModel.eventsEnabled, dataContainer, shouldUpdate)
   ])
 
   const netInfo = yield call(NetInfo.fetch)
