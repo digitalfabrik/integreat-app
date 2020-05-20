@@ -851,6 +851,17 @@
       "currentlyNoEvents": "Güncel bir etkinlik yok."
     }
   },
+  "news": {
+    "de": {
+      "news": "Nachrichten",
+      "newsAlternative": "Neuigkeiten",
+      "localNews": "Lokale Nachrichten",
+      "localNewsAlternative": "Lokale Neuigkeiten",
+      "readMore": "Weiterlesen",
+      "currentlyNoNews": "Aktuell gibt es keine Nachrichten.",
+      "currentlyNoNewsAlternative": "Aktuell gibt es keine Neuigkeiten."
+    }
+  },
   "extras": {
     "de": {
       "offers": "Angebote"
@@ -1781,6 +1792,7 @@
       "categories": "Kategorien",
       "events": "Veranstaltungen",
       "noEvents": "Keine Veranstaltungen",
+      "news": "Nachrichten",
       "noLanguages": "Nicht verfügbar in anderen Sprachen",
       "noTranslation": "Keine Übersetzung verfügbar",
       "search": "Suchen",
