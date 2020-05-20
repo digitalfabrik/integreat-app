@@ -6,7 +6,9 @@ import { EventModel } from '@integreat-app/integreat-api-client'
 import { call } from 'redux-saga/effects'
 
 export default function * loadEvents (
-  city: string, language: string,
+  city: string,
+  language: string,
+  eventsEnabled: boolean,
   dataContainer: DataContainer,
   forceRefresh: boolean
 ): Saga<Array<EventModel>> {

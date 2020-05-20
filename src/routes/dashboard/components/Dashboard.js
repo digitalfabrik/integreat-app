@@ -38,7 +38,13 @@ export type PropsType = {|
 
 class Dashboard extends React.Component<PropsType> {
   getNavigationTileModels (cityCode: string, language: string): Array<TileModel> {
-    const { navigateToCategory, navigateToEvent, navigateToExtras, t } = this.props
+    const { navigateToCategory, navigateToEvent, navigateToExtras, t, cities } = this.props
+
+    const cityModel = cities.find(city => city.code === cityCode)
+    if (!cityModel) {
+      console.error('City model of current cityCode was not found.')
+      return []
+    }
 
     return [
       new TileModel({
@@ -49,7 +55,7 @@ class Dashboard extends React.Component<PropsType> {
         onTilePress: () => navigateToCategory({ cityCode, language, path: `/${cityCode}/${language}` }),
         notifications: 0
       }),
-      new TileModel({
+      cityModel.extrasEnabled && new TileModel({
         title: t('offers'),
         path: 'extras',
         thumbnail: offersIcon,
@@ -57,7 +63,7 @@ class Dashboard extends React.Component<PropsType> {
         onTilePress: () => navigateToExtras({ cityCode, language }),
         notifications: 0
       }),
-      new TileModel({
+      cityModel.eventsEnabled && new TileModel({
         title: t('events'),
         path: 'events',
         thumbnail: eventsIcon,
@@ -65,7 +71,7 @@ class Dashboard extends React.Component<PropsType> {
         onTilePress: () => navigateToEvent({ cityCode, language, path: null }),
         notifications: 0
       })
-    ]
+    ].filter(tile => !!tile)
   }
 
   landing = () => this.props.navigation.navigate('Landing')

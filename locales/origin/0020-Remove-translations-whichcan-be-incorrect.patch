@@ -1,0 +1,32 @@
+From 43c8c3a4d6a31db0ea784af3931987dd2e8b10cd Mon Sep 17 00:00:00 2001
+From: Andrew Kud <a-kud@users.noreply.github.com>
+Date: Wed, 6 Feb 2019 11:10:12 +0100
+Subject: [PATCH 20/23] Remove translations whichcan be incorrect
+
+---
+ src/locales.json | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/src/locales.json b/src/locales.json
+index 0b317139..c5f99d7a 100644
+--- a/src/locales.json
++++ b/src/locales.json
+@@ -42,7 +42,6 @@
+         "search": "جستجو",
+         "events": "تازه​ها",
+         "extras": "اضافات",
+-        "landing": "انتخاب محل",
+         "disclaimer": "مجوز ‎و اطلاعات تماس",
+         "mainDisclaimer": "Integreat - مجوز \u200Eو اطلاعات تماس",
+         "notFound": "صفحه پیدا نشد"
+@@ -54,7 +53,6 @@
+         "search": "Rechercher",
+         "events": "Actualités",
+         "extras": "Extras",
+-        "landing": "Sélection de l'emplacement",
+         "disclaimer": "Mentions légales et contact",
+         "mainDisclaimer": "Mentions Légales - Integreat",
+         "notFound": "Page introuvable"
+-- 
+2.20.1 (Apple Git-117)
+
