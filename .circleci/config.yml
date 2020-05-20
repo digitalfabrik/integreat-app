@@ -89,6 +89,9 @@ jobs:
       - run:
           name: Read version number
           command: echo 'export VERSION_NAME=$(cat version.json | jq .versionName)' >> $BASH_ENV
+      - run:
+          name: Print version number
+          command: echo "${VERSION_NAME}"
       - restore_cache:
           name: Restore Yarn Package Cache
           keys:
