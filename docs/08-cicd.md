@@ -11,14 +11,14 @@ Several workflows exist for different purposes. See the table below for an overv
 |bi-weekly|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:x:|:heavy_check_mark:|
 |api-triggered|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:x:|-|
 
-Whether api-triggered is delivered to production depends on the supplied parameters.
+Whether `api-triggered` is delivered to production depends on the supplied parameters.
 
-## api-triggered
+## About the "api-triggered" Workflow 
 
 This workflow can be triggered using the tool `yarn trigger-pipeline` as described [below](#triggering-a-build-in-ci).
 Depending on the supplied parameters a weekly or bi-weekly build is triggered.
 
-### Triggering a build in CI
+### Triggering a Build in CI
 
 If you decide to do a non-scheduled automatic release of the app the easiest way is to trigger a build in CI/CD.
 First you need to get acquire a ["Personal API token"](https://circleci.com/docs/2.0/managing-api-tokens/).
@@ -29,7 +29,7 @@ Then you can trigger a build using the tool `yarn trigger-pipeline`. If you exec
 
 Fastlane is a task-runner for triggering build relevant tasks. It offers integration with XCode and the Android SDK for building and delivering the app.
 
-## Setup
+## Setup of Fastlane
 
 * [Install Ruby >= 2.6.5](https://www.ruby-lang.org/en/documentation/installation/) (The preferred and tested way is using [Ruby Version Manager (RVM)](https://rvm.io/))
   * If using RVM you have to do: `rvm use ruby-2.6.5`
@@ -55,7 +55,7 @@ For an overview of the Fastlane lanes refer to the [auto-generated README](../io
 
 The setup of certificates is demonstrated in section [Manual builds](06-manual-builds.md#manually-building-for-ios).
 
-## What types of certificates exist?
+## What Types of Certificates Exist?
 
 The certificate system of Apple seems very complex at first. Therefore, we will briefly explain the types of certificates and what the purpose is.
 
@@ -84,7 +84,7 @@ App Store certificates allows the upload of the app into the App Store. It is no
 
 The setup of the JKS is demonstrated in section [Manual builds](06-manual-builds.md#manually-building-for-android).
 
-# Determine the next version
+# Determine the Next Version
 
 The next version of the app must be determined programmatically. The tool `yarn bump-version` can be used. If you execute it without parameters you will see the usage.
 
@@ -93,7 +93,7 @@ As the version number is based on the release date, the first versions of 2020 a
 The first release february will have the version number `2020.2.0`. 
  
 
-# Environment variables and dependencies
+# Environment Variables and Dependencies
 
 |Variable|Description|Where do I get it from?|Example|Reference|
 |---|---|---|---|---|
@@ -142,7 +142,7 @@ The Slack bot `deliverino` is responsible to notify Slack channels about release
 
 You can visit the management website for the Play Store [here](https://play.google.com/apps/publish/). The Google Play Console is the product by Google for managing the App Store presence.
 
-### Adding testers to the beta track
+### Adding Testers to the Beta Track
 
 The Play Store has the concept of tracks to manage released versions of the app. The beta track is for public tests. Tests can be added via their Google E-Mail or by signing up at [play.google.com/apps/testing/tuerantuer.app.integreat](https://play.google.com/apps/testing/tuerantuer.app.integreat).
 
@@ -157,7 +157,7 @@ You can visit the management website for the Play Store [here](https://appstorec
 
 For delivery an [account without 2FA](https://github.com/fastlane/fastlane/blob/b121a96e3e2e0bb83392c130cb3a088c773dbbaf/spaceship/docs/Authentication.md#avoid-2fa-via-additional-account) is required.
 
-### Adding testers to TestFlight
+### Adding Testers to TestFlight
 
 The [weekly and bi-weekly workflows](#workflows) make the builds directly available to TestFlights "App Store Connect Users". Those should not be confused with "External Tests" which require an approval by apple. Therefore, we currently only use "App Store Connect Users" as testers.
 
@@ -178,7 +178,7 @@ Authentication happens by setting the `FASTLANE_USER` and `FASTLANE_PASSWORD` en
 We are using BrowserStack to run our E2E tests on real iOS and Android devices.
 The general documentation about [E2E tests and BrowserStack can be found here](04-e2e.md). 
 
-# Hints and quirks
+# Hints and Quirks
 
 ## CPU count aka. $TOTAL_CPUS
 
