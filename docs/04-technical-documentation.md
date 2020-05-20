@@ -1,5 +1,6 @@
 # Technical documentation
 ## Content
+- [Glossary](16-glossary.md)
 * [Technology stack](#technology-stack)
 * [Persistence](11-persistence.md)
 * [Design changes](12-design-changes.md)
