@@ -103,10 +103,10 @@ jobs:
             - node_modules
       - run:
           name: Debug version bump
-          command: .circleci/bump-version bump-version --dry-run
+          command: tools/bump-version bump-version --dry-run
       - run:
           name: Bump version
-          command: .circleci/bump-version bump-version --deliverino-private-key ${DELIVERINO-PRIVATE-KEY} --owner ${CIRCLE-PROJECT-USERNAME} --repo ${CIRCLE-PROJECT-REPONAME} --branch ${CIRCLE-BRANCH}
+          command: tools/bump-version bump-version --deliverino-private-key ${DELIVERINO-PRIVATE-KEY} --owner ${CIRCLE-PROJECT-USERNAME} --repo ${CIRCLE-PROJECT-REPONAME} --branch ${CIRCLE-BRANCH}
       - run:
           name: Check linting
           command: yarn run lint
