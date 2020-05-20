@@ -145,6 +145,6 @@
     "webpack-node-externals": "^1.7.2"
   },
   "jest": {
-    "globalSetup": "<rootDir>/globalSetup.js"
+    "globalSetup": "<rootDir>/global-setup.js"
   }
 }
