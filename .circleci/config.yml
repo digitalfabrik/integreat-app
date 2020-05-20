@@ -106,18 +106,18 @@ jobs:
           paths:
             - ~/.cache/yarn
             - node_modules
-#      - run:
-#          name: Check linting
-#          command: yarn run lint
-#      - run:
-#          name: Check flow
-#          command: yarn run flow:check-now --max-workers $TOTAL_CPUS
-#      - run:
-#          name: Unit tests
-#          command: yarn run test --ci --maxWorkers $TOTAL_CPUS
-#      - run:
-#          name: Test coverage
-#          command: yarn run test:coverage --ci --maxWorkers $TOTAL_CPUS
+      - run:
+          name: Check linting
+          command: yarn run lint
+      - run:
+          name: Check flow
+          command: yarn run flow:check-now --max-workers $TOTAL_CPUS
+      - run:
+          name: Unit tests
+          command: yarn run test --ci --maxWorkers $TOTAL_CPUS
+      - run:
+          name: Test coverage
+          command: yarn run test:coverage --ci --maxWorkers $TOTAL_CPUS
       - when:
           condition: << parameters.production >>
           steps:
