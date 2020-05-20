@@ -100,7 +100,9 @@ adb shell am start -n tuerantuer.app.integreat/.MainActivity
 
 ### Quick builds using a test signing key
 
-If you don't want to deal with the production signing key you can use the test singing JKS. First explicitly set the environment variables:
+If you don't want to deal with the production signing key you can use the test singing JKS.
+
+Optionally, you can explicitly set the environment variables:
 
 ```bash
 export ORG_GRADLE_PROJECT_KEYSTORE_PATH=test.keystore
@@ -109,7 +111,8 @@ export ORG_GRADLE_PROJECT_KEYSTORE_KEY_ALIAS=test
 export ORG_GRADLE_PROJECT_KEYSTORE_KEY_PASSWORD=123456
 ```
 
-Optionally you can also set the version name and code:
+Optionally, you can also set the version name and code:
+
 ```bash
 export ORG_GRADLE_PROJECT_VERSION_CODE=1
 export ORG_GRADLE_PROJECT_VERSION_NAME=0.1
