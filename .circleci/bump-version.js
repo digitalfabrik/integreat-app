@@ -9,6 +9,7 @@ const bumpVersion = async () => {
     const versionPath = 'version.json'
 
     const versionFile = await fs.readFile(versionPath)
+    // VersionCode is just used in the integreat-react-native-app
     const { versionName, versionCode } = JSON.parse(versionFile)
     const versionNameParts = versionName.split('.')
 
