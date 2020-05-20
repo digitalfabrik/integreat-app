@@ -162,7 +162,7 @@ jobs:
                 command: sftp -v -o StrictHostKeyChecking=no web-test@web.integreat-app.de:/integreat.app \<<< $'put -r /tmp/output/dist/*'
             - slack/notify:
                 # TODO show version number
-                message: Integreat WebApp version ${VERSION_NAME} has been delivered successfully to integreat.app!
+                message: Integreat WebApp version ${VERSION_NAME} was delivered successfully to integreat.app!
                 webhook: $SLACK_URL
       - unless:
           condition: << parameters.production >>
