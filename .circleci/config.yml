@@ -76,6 +76,7 @@ jobs:
     resource_class: small
     environment:
       TOTAL_CPUS: 1 # For resource_class small
+      TZ: "Europe/Berlin"
     shell: /bin/bash -eo pipefail
     steps:
       - run:
