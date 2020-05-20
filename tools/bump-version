@@ -98,7 +98,7 @@ program
       return JSON.stringify(newVersion)
     } catch (e) {
       console.error(e)
-      program.exit(1)
+      process.exit(1)
     }
   })
 
