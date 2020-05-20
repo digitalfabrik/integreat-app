@@ -24,20 +24,6 @@ describe('NewsElement', () => {
 
   const { id, title, message, timestamp } = newsItem
 
-  it('should render and match snapshot', () => {
-    expect(shallow(
-      <NewsElement
-        id={id}
-        type={LOCAL_NEWS}
-        title={title}
-        content={message}
-        timestamp={timestamp}
-        language={language}
-        t={t}
-        path={path} />
-    )).toMatchSnapshot()
-  })
-
   it('should render the right data', () => {
     const wrapper = shallow(
       <NewsElement

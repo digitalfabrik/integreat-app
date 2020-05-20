@@ -44,12 +44,6 @@ describe('LocalNewsList', () => {
 
   const items = [localNews1, localNews2]
 
-  it('should render and match snapshot', () => {
-    expect(shallow(
-      <LocalNewsList items={items} renderItem={renderItem} city={city} noItemsMessage='no item' />
-    )).toMatchSnapshot()
-  })
-
   it('should have two NewsElement', () => {
     const localNewsList = shallow(
       <LocalNewsList items={items} renderItem={renderItem} city={city} noItemsMessage='no item' />
