@@ -102,6 +102,12 @@ jobs:
             - ~/.cache/yarn
             - node_modules
       - run:
+          name: Debug version bump
+          command: .circleci/bump-version bump-version --dry-run
+      - run:
+          name: Bump version
+          command: .circleci/bump-version bump-version --deliverino-private-key ${DELIVERINO-PRIVATE-KEY} --owner ${CIRCLE-PROJECT-USERNAME} --repo ${CIRCLE-PROJECT-REPONAME} --branch ${CIRCLE-BRANCH}
+      - run:
           name: Check linting
           command: yarn run lint
       - run:
@@ -187,7 +193,7 @@ jobs:
           steps:
             - run:
                 name: Bump version
-                command: node .circleci/bump-version.js
+                command: .circleci/bump-version bump-version --deliverino-private-key ${DELIVERINO-PRIVATE-KEY} --owner ${CIRCLE-PROJECT-USERNAME} --repo ${CIRCLE-PROJECT-REPONAME} --branch ${CIRCLE-BRANCH}
       - unless:
           condition: << parameters.shouldBumpVersion >>
           steps:
