@@ -7,13 +7,29 @@
 
 # Fastlane
 
+Fastlane is a task-runner for triggering build relevant tasks. It offers integration with XCode and the Android SDK for building and delivering the app.
+
 ## Setup
+
+* [Install Ruby >= 2.6.5](https://www.ruby-lang.org/en/documentation/installation/) (The preferred and tested way is using [Ruby Version Manager (RVM)](https://rvm.io/))
+  * If using RVM you have to do: `rvm use ruby-2.6.5`
+* Make sure `ruby --version` reports the correct version
+* Run `bundle install --path vendor/bundle` in the project root, `./android/` and `./ios/`
+* Run `bundle exec fastlane --version`
+
+*Hint: You can use `export FASTLANE_SKIP_UPDATE_CHECK=true` to skip the changelog output*
 
 ## Lanes
 
+There are Android and iOS specific lanes. Lanes for Android live in `./android/fastlane` and for iOS in `./ios/fastlane`.
+
 ### Android
 
+For an overview of the Fastlane lanes refer to the [auto-generated README](android/fastlane/README.md#available-actions).
+
 ### iOS
+
+For an overview of the Fastlane lanes refer to the [auto-generated README](ios/fastlane/README.md#available-actions).
 
 # Setup Certificates for iOS on Mac
 
