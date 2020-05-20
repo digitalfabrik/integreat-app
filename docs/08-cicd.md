@@ -2,8 +2,28 @@
 
 # Workflows
 
-## commit
-## weekly
+Several workflows exist for different purposes. See the table below for an overview.
+
+|Workflow|Type-checking|Jest tests|Production build|E2E tests|Delivered in production|
+|---|---|---|---|---|---|
+|commit|:heavy_check_mark:|:heavy_check_mark:|:x:|:heavy_check_mark:|:x:|
+|weekly|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:x:|:x:|
+|bi-weekly|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:x:|:heavy_check_mark:|
+|api-triggered|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:x:|-|
+
+Whether api-triggered is delivered to production depends on the supplied parameters.
+
+## api-triggered
+
+This workflow can be triggered using the tool `yarn trigger-pipeline` as described [below](#triggering-a-build-in-ci).
+Depending on the supplied parameters a weekly or bi-weekly build is triggered.
+
+### Triggering a build in CI
+
+If you decide to do a non-scheduled automatic release of the app the easiest way is to trigger a build in CI/CD.
+First you need to get acquire a ["Personal API token"](https://circleci.com/docs/2.0/managing-api-tokens/).
+Then you can trigger a build using the tool `yarn trigger-pipeline`. If you execute it without parameters you will see the usage.
+
 
 # Fastlane
 
@@ -25,11 +45,11 @@ There are Android and iOS specific lanes. Lanes for Android live in `./android/f
 
 ### Android
 
-For an overview of the Fastlane lanes refer to the [auto-generated README](../android/fastlane/README.md#available-actions).
+For an overview of the Fastlane lanes refer to the [auto-generated README](../android/fastlane/README.md#available-actions). These lanes are responsible for setting up the signing keys and building the Android app.
 
 ### iOS
 
-For an overview of the Fastlane lanes refer to the [auto-generated README](../ios/fastlane/README.md#available-actions).
+For an overview of the Fastlane lanes refer to the [auto-generated README](../ios/fastlane/README.md#available-actions). These lanes are responsible for setting up the certificates and building the iOS app as well as starting an iOS simulator.
 
 # Setup Certificates for iOS on Mac
 
@@ -64,15 +84,9 @@ App Store certificates allows the upload of the app into the App Store. It is no
 
 The setup of the JKS is demonstrated in section [Manual builds](#manually-building-for-android).
 
-# Triggering a build in CI
-
-If you decide to do a non-scheduled automatic release of the app the easiest way is to trigger a build in CI/CD.
-First you need to get acquire a ["Personal API token"](https://circleci.com/docs/2.0/managing-api-tokens/).
-Then you can trigger a build using the tool `yarn trigger-pipeline`. If you execute it without parameters you will see the usage.
-
 # Determine the next version
 
-The next version of the app must be determined programmatically. The tool `yarn next-version` can be used. If you execute it without parameters you will see the usage.
+The next version of the app must be determined programmatically. The tool `yarn bump-version` can be used. If you execute it without parameters you will see the usage.
 
 As the version number is based on the release date, the first versions of 2020 are `2020.1.0`, `2020.1.1`, `2020.1.2`...
 
