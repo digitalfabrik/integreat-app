@@ -4,7 +4,8 @@ If you want to create `.ipa` or `.apk` builds for testing purposes you can follo
 
 ## Manually building for iOS
 
-Firstly you have to prepare a few environment variables:
+First setup XCode and [CocoaPods](#setup-of-cocoapods).
+Now you have to prepare a [few environment variables](08-cicd.md#environment-variables-and-dependencies):
 
 ```bash
 export FASTLANE_USER=<secret>
@@ -24,7 +25,9 @@ bundle exec fastlane certificates
 Build the app:
 
 ```bash
+yarn
 cd ios/
+bundle exec pod install
 bundle exec fastlane build
 ```
 
@@ -32,17 +35,29 @@ Fastlane should report where the build artifacts are. These can be uploaded to A
 
 ### Run the app in a simulator
 
+First setup XCode and [CocoaPods](#setup-of-cocoapods).
 If you want to quickly run the app in an emulator do the following:
 
 ```bash
+yarn
+cd ios/
+bundle exec pod install
+cd ..
 yarn start
 yarn ios
 ```
 
+### Setup of CocoaPods
+
+CocoaPods is used for dependency management of the native libraries.
+First you have to make sure that Ruby is working correctly. We advise to use RVM as mentioned in the [setup of Fastlane](08-cicd.md#setup-of-fastlane). After running this setup you should also be able to do `bundle exec pod --version`.
+
+*Note: `bundle exec pod install` uses the versions from the `Podfile.lock`. `bundle exec pod update` updates the `Podfile.lock`.*
+
 ## Manually building for Android
 
 If you do not have Fastlane installed [skip to the next section](#quick-builds-using-a-test-signing-key).
-Firstly you have to prepare a few environment variables:
+Firstly you have to prepare a [few environment variables](08-cicd.md#environment-variables-and-dependencies):
 
 ```bash
 export CREDENTIALS_GIT_REPOSITORY_URL=<secret>
@@ -55,6 +70,7 @@ export KEYSTORE_PATH=/tmp/keystore.jks
 Setup your JKS now:
 
 ```bash
+cd android/
 bundle exec fastlane keystore
 ```
 
@@ -69,6 +85,8 @@ export KEYSTORE_KEY_PASSWORD=<secret>
 The last step is to build to app:
 
 ```bash
+yarn
+cd android/
 bundle exec fastlane build
 ```
 
@@ -100,6 +118,7 @@ export ORG_GRADLE_PROJECT_VERSION_NAME=0.1
 Then you can create a quick rest build in release mode and run it on your emulator:
 
 ```bash
+yarn
 yarn android:release
 ```
 
@@ -108,6 +127,7 @@ yarn android:release
 If you want to quickly run the app in an emulator do the following:
 
 ```bash
+yarn
 yarn start
 yarn android
 ```
