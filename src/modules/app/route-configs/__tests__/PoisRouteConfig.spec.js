@@ -2,7 +2,7 @@
 
 import PoisRouteConfig from '../PoisRouteConfig'
 import { LocationModel, Payload, PoiModel } from '@integreat-app/integreat-api-client'
-import moment from 'moment-timezone'
+import moment from 'moment'
 import createLocation from '../../../../createLocation'
 
 const pois = [

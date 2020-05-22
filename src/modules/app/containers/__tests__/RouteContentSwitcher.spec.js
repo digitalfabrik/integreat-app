@@ -2,7 +2,7 @@
 
 import RouteContentSwitcher from '../RouteContentSwitcher'
 import { CategoriesMapModel, CategoryModel, CityModel, Payload } from '@integreat-app/integreat-api-client'
-import moment from 'moment-timezone'
+import moment from 'moment'
 import { mount, shallow } from 'enzyme'
 import React from 'react'
 import createLocation from '../../../../createLocation'
@@ -22,7 +22,7 @@ describe('RouteContentSwitcher', () => {
       parentPath: 'parent/url',
       order: 4,
       availableLanguages: new Map(),
-      lastUpdate: moment.tz('2017-11-18 09:30:00', 'UTC'),
+      lastUpdate: moment('2017-11-18T09:30:00.000Z'),
       hash: '2fe6283485a93932'
     })
   ])
