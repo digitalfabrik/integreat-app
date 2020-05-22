@@ -6,7 +6,7 @@ import { shallow } from 'enzyme'
 import { Failure } from '../Failure'
 
 describe('Failure', () => {
-  const mockTranslate = key => key || 'null'
+  const mockTranslate = key => key
 
   it('should render a simple failure and match snapshot', () => {
     const errorMessage = 'error message'
