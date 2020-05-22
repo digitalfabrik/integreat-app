@@ -2,7 +2,7 @@
 
 import SearchRouteConfig from '../SearchRouteConfig'
 import { CategoriesMapModel, CategoryModel, CityModel, Payload } from '@integreat-app/integreat-api-client'
-import moment from 'moment-timezone'
+import moment from 'moment'
 import createLocation from '../../../../createLocation'
 
 const categories = new CategoriesMapModel([
@@ -16,7 +16,7 @@ const categories = new CategoriesMapModel([
     parentPath: '',
     order: 0,
     availableLanguages: new Map(),
-    lastUpdate: moment.tz('2017-11-18 09:30:00', 'UTC')
+    lastUpdate: moment('2017-11-18T09:30:00.000Z')
   }),
   new CategoryModel({
     root: false,
@@ -28,7 +28,7 @@ const categories = new CategoriesMapModel([
     parentPath: 'parent/url',
     order: 4,
     availableLanguages: new Map([['en', '/augsburg/en/category01'], ['fr', '/augsburg/fr/fr_category01']]),
-    lastUpdate: moment.tz('2017-11-18 09:30:00', 'UTC')
+    lastUpdate: moment('2017-11-18T09:30:00.000Z')
   })
 ])
 const categoriesPayload = new Payload(false, 'https://random.api.json', categories, null)
