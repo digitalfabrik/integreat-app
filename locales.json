@@ -851,6 +851,17 @@
       "currentlyNoEvents": "Güncel bir etkinlik yok."
     }
   },
+  "news": {
+    "de": {
+      "news": "Nachrichten",
+      "newsAlternative": "Neuigkeiten",
+      "localNews": "Lokale Nachrichten",
+      "localNewsAlternative": "Lokale Neuigkeiten",
+      "readMore": "Weiterlesen",
+      "currentlyNoNews": "Aktuell gibt es keine Nachrichten.",
+      "currentlyNoNewsAlternative": "Aktuell gibt es keine Neuigkeiten."
+    }
+  },
   "extras": {
     "de": {
       "offers": "Angebote"
@@ -1679,7 +1690,8 @@
       "noPermission": "Standortzugriff erforderlich",
       "loading": "Bestimme Standort...",
       "notAvailable": "Standortbestimmung deaktiviert",
-      "timeout": "Standortbestimmung fehlgeschlagen"
+      "timeout": "Standortbestimmung fehlgeschlagen",
+      "refresh": "Aktualisiere Orte in der Nähe"
     },
     "ar": {
       "searchCity": "البحث عن مكان",
@@ -1693,7 +1705,8 @@
       "nearbyPlaces": "Nearby locations",
       "noNearbyPlaces": "No nearby locations found.",
       "alert": "Note",
-      "locationError": "To display nearby locations, location services must be active."
+      "locationError": "To display nearby locations, location services must be active.",
+      "refresh": "Refresh nearby locations"
     },
     "es": {
       "searchCity": "Buscar ubicación",
@@ -1781,6 +1794,7 @@
       "categories": "Kategorien",
       "events": "Veranstaltungen",
       "noEvents": "Keine Veranstaltungen",
+      "news": "Nachrichten",
       "noLanguages": "Nicht verfügbar in anderen Sprachen",
       "noTranslation": "Keine Übersetzung verfügbar",
       "search": "Suchen",
