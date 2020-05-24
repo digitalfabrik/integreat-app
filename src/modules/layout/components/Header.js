@@ -135,7 +135,7 @@ class Header extends React.PureComponent<PropsType> {
     const buttonStyle = onPress ? {} : { color: theme.colors.textSecondaryColor }
 
     return <Item title={title} accessibilityLabel={accessibilityLabel} iconName={iconName} show={show}
-                 onPress={onPress} buttonStyle={buttonStyle} accessibilityRole={show ? 'none' : 'menuitem'} />
+                 onPress={onPress} buttonStyle={buttonStyle} />
   }
 
   render () {
