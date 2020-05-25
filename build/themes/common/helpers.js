@@ -1,8 +1,8 @@
 // @flow
 
-export type HelpersType = {
+export type HelpersType = {|
   removeLinkHighlighting: string
-}
+|}
 
 const helpers = {
   removeLinkHighlighting: `

@@ -1,14 +1,16 @@
 // @flow
 
-export type ColorsType = {
+export type ColorsType = {|
   themeColor: string,
   backgroundAccentColor: string,
   textColor: string,
   textSecondaryColor: string,
   textDecorationColor: string,
   textDisabledColor: string,
-  backgroundColor: string
-}
+  backgroundColor: string,
+  tunewsThemeColor: string,
+  tunewsThemeColorLight: string
+|}
 
 export const commonColors = {
   backgroundAccentColor: '#fafafa',

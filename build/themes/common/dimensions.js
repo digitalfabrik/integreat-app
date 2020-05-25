@@ -1,13 +1,13 @@
 // @flow
 
-export type DimensionsType = {
+export type DimensionsType = {|
   smallViewport: string,
   minMaxWidth: string,
   maxWidth: number,
   toolbarWidth: number,
   headerHeightLarge: number,
   headerHeightSmall: number
-}
+|}
 
 const dimensions = {
   smallViewport: '(max-width: 750px)',

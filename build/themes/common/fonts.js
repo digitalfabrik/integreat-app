@@ -1,6 +1,6 @@
 // @flow
 
-export type FontsType = {
+export type FontsType = {|
   fontSizeAdjust: number,
   decorativeFontFamily: string,
   decorativeFontSize: string,
@@ -10,7 +10,7 @@ export type FontsType = {
   contentLineHeight: number,
   standardParagraphMargin: string,
   subTitleFontSize: string
-}
+|}
 
 export const commonFonts = {
   fontSizeAdjust: 0.55,
