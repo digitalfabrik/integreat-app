@@ -1,13 +1,12 @@
 // @flow
 
-import type { AppConfigType } from '../../src/AppConfigType'
-
-import brightTheme from '../../src/modules/theme/constants/theme'
+import integreatTheme from '../themes/integreat'
+import type { AppConfigType } from '../AppConfigType'
 
 const IntegreatAppConfig: AppConfigType = {
   appTitle: 'Integreat',
   itunesAppId: '1072353915',
-  theme: brightTheme,
+  theme: integreatTheme,
   cmsUrl: 'https://cms.integreat-app.de',
   locationIcon: '/location-big.svg',
   logoWide: '/integreat-app-logo.png',
