@@ -8,19 +8,23 @@ const babelConfig = require('../.babelrc.js')
 const getVersion = require('git-repo-version')
 
 const createConfig = (env = {}) => {
-  if (env.prod === undefined) {
-    throw Error('You need to specify a mode!')
+  const { production, config_name: appConfigName } = env
+  if (!production) {
+    throw new Error('You need to specify whether to build for production!')
+  } else if (!appConfigName) {
+    throw new Error('You need to specify a config name!')
   }
 
-  const isDebug = env.prod === 'false'
-  const appConfigName = env.config_name || 'integreat'
-  const appConfig = require(`./${appConfigName}-config`)
+  console.log('Production: ', production)
+  console.log('Used config: ', appConfigName)
+
+  const appConfig = require(`./${appConfigName}`)
+  const configAssets = path.resolve(__dirname, `../tools/${appConfigName}/assets`)
+
+  const nodeModules = path.resolve('./node_modules')
   const wwwDirectory = path.resolve(__dirname, '../www')
   const distDirectory = path.resolve(__dirname, '../dist')
-  const configAssets = path.resolve(__dirname, `../tools/${appConfigName}-config/assets`)
-
-  console.log('isDebug: ', isDebug)
-  console.log('config_name: ', appConfigName)
+  const srcDirectory = path.resolve(__dirname, '../src')
 
   // Add new polyfills here instead of importing them in the JavaScript code.
   // This way it is ensured that polyfills are loaded before any other code which might require them.
@@ -31,14 +35,12 @@ const createConfig = (env = {}) => {
   ]
 
   const config = {
-    mode: isDebug ? 'development' : 'production',
+    mode: production ? 'production' : 'development',
     resolve: {
-      modules: [
-        path.resolve('./node_modules')
-      ]
+      modules: [nodeModules]
     },
     // The base directory for resolving the entry option
-    context: path.resolve(__dirname, '../src'),
+    context: srcDirectory,
     // The entry point for the bundle
     entry: [
       '!!style-loader!css-loader!normalize.css/normalize.css',
@@ -51,13 +53,13 @@ const createConfig = (env = {}) => {
     output: {
       path: distDirectory,
       publicPath: '/',
-      filename: isDebug ? '[name].js?[hash]' : '[name].[hash].js',
-      chunkFilename: isDebug ? '[id].js?[chunkhash]' : '[id].[chunkhash].js',
+      filename: production ? '[name].[hash].js' : '[name].js?[hash]',
+      chunkFilename: production ? '[id].[chunkhash].js' : '[id].js?[chunkhash]',
       sourcePrefix: '  '
     },
     // Developer tool to enhance debugging, source maps
     // http://webpack.github.io/docs/configuration.html#devtool
-    devtool: isDebug ? 'source-map' : false,
+    devtool: production ? false : 'source-map',
     devServer: {
       contentBase: distDirectory,
       compress: true,
@@ -86,8 +88,8 @@ const createConfig = (env = {}) => {
         { from: configAssets, to: distDirectory }
       ]),
       new webpack.DefinePlugin({
-        'process.env.NODE_ENV': isDebug ? '"development"' : '"production"',
-        __DEV__: isDebug,
+        'process.env.NODE_ENV': production ? '"production"' : '"development"',
+        __DEV__: !production,
         __VERSION__: JSON.stringify(getVersion()),
         __CONFIG__: JSON.stringify(appConfig)
       }),
@@ -99,8 +101,8 @@ const createConfig = (env = {}) => {
         prettyPrint: true
       }),
       new webpack.LoaderOptionsPlugin({
-        debug: isDebug,
-        minimize: !isDebug
+        debug: !production,
+        minimize: production
       })
     ],
     module: {
@@ -135,7 +137,7 @@ const createConfig = (env = {}) => {
             {
               loader: 'img-loader',
               options: {
-                enabled: !isDebug,
+                enabled: production,
                 gifsicle: {
                   interlaced: false
                 },
@@ -167,7 +169,7 @@ const createConfig = (env = {}) => {
   }
 
   // Optimize the bundle in release (production) mode
-  if (!isDebug) {
+  if (production) {
     config.plugins.push(new webpack.optimize.AggressiveMergingPlugin())
   }
 
