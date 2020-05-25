@@ -236,7 +236,7 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
       await this.postFeedbackData(this.getFeedbackData(selectedFeedbackOption, comment))
       onSubmit('SUCCESS')
     } catch (e) {
-      console.log(e)
+      console.error(e)
       onSubmit('ERROR')
     }
   }
