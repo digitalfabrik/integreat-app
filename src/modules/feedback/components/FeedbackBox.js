@@ -11,6 +11,7 @@ import FeedbackVariant from '../FeedbackVariant'
 import TextButton from '../../common/components/TextButton'
 import type { ThemeType } from '../../theme/constants/theme'
 import Dropdown from '../../common/components/Dropdown'
+import type { SendingStatusType } from './FeedbackModal'
 
 export const StyledFeedbackBox = styled.div`
   display: flex;

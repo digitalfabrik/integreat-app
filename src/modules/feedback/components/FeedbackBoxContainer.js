@@ -32,6 +32,7 @@ import { SEARCH_ROUTE } from '../../app/route-configs/SearchRouteConfig'
 import { DISCLAIMER_ROUTE } from '../../app/route-configs/DisclaimerRouteConfig'
 import { cmsApiBaseUrl } from '../../app/constants/urls'
 import type { ThemeType } from '../../theme/constants/theme'
+import type { SendingStatusType } from './FeedbackModal'
 
 type PropsType = {|
   cities: ?Array<CityModel>,
