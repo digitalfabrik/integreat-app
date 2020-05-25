@@ -56,7 +56,7 @@ type PropsType = {|
   theme: ThemeType
 |}
 
-type SendingStatusType = 'IDLE' | 'SUCCESS' | 'ERROR'
+export type SendingStatusType = 'IDLE' | 'SUCCESS' | 'ERROR'
 
 type StateType = {|
   sendingStatus: SendingStatusType
