@@ -3,6 +3,8 @@
 import appConfig from '../../app/constants/appConfig'
 import type { ThemeType } from '../../../../build/themes/ThemeType'
 
+export type { ThemeType }
+
 export const brightTheme: ThemeType = appConfig.theme
 
 export const darkTheme: ThemeType = appConfig.darkTheme
