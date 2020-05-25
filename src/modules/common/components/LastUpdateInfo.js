@@ -16,18 +16,20 @@ const TimeStamp = styled.p`
 type PropsType = {|
   lastUpdate: Moment,
   t: TFunction,
-  language: string
+  language: string,
+  withText: boolean,
+  className?: string
 |}
 
 export class LastUpdateInfo extends React.PureComponent<PropsType> {
   render () {
-    const { lastUpdate, t, language } = this.props
+    const { lastUpdate, t, language, withText, className } = this.props
     lastUpdate.locale(language)
 
     // only show day, month and year
     const timestamp = lastUpdate.format('LL')
 
-    return <TimeStamp>{t('lastUpdate')}{timestamp}</TimeStamp>
+    return <TimeStamp className={className}>{withText && t('lastUpdate')}{timestamp}</TimeStamp>
   }
 }
 
