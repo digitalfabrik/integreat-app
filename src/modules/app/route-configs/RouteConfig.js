@@ -10,7 +10,9 @@ import {
   SprungbrettModel,
   WohnenOfferModel,
   PageModel,
-  EventModel
+  EventModel,
+  LocalNewsModel,
+  TunewsModel
 } from '@integreat-app/integreat-api-client'
 import type { TFunction } from 'react-i18next'
 
@@ -19,6 +21,10 @@ export type AllPayloadsType = {|
   categoriesPayload: Payload<CategoriesMapModel>,
   poisPayload: Payload<Array<PoiModel>>,
   eventsPayload: Payload<Array<EventModel>>,
+  localNewsPayload: Payload<Array<LocalNewsModel>>,
+  localNewsElementPayload: Payload<LocalNewsModel>,
+  tunewsPayload: Payload<Array<TunewsModel>>,
+  tunewsElementPayload: Payload<TunewsModel>,
   extrasPayload: Payload<Array<ExtraModel>>,
   sprungbrettJobsPayload: Payload<Array<SprungbrettModel>>,
   wohnenPayload: Payload<Array<WohnenOfferModel>>,
