@@ -40,7 +40,6 @@ const calculateNewVersion = versionFilePath => {
 }
 
 const commitVersionBump = async (newVersion, { versionFile, deliverinoPrivateKey, owner, repo, branch }) => {
-  console.log(versionFile, owner, repo, branch)
   const appId = 59249 // https://github.com/apps/deliverino
   const privateKey = Buffer.from(deliverinoPrivateKey, 'base64').toString('ascii')
 
@@ -77,8 +76,6 @@ program
   .action(async () => {
     try {
       const { dryRun, versionFile, deliverinoPrivateKey, owner, repo, branch } = program
-      console.log('versionFile', versionFile)
-      console.log('program', program)
       if (!dryRun) {
         if (!deliverinoPrivateKey) {
           throw new Error('deliverino private key not specified')
