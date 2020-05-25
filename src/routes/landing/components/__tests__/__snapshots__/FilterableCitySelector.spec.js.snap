@@ -32,7 +32,9 @@ exports[`FilterableCitySelector should render 1`] = `
             "_longitude": undefined,
             "_name": "City",
             "_prefix": undefined,
+            "_pushNotificationsEnabled": false,
             "_sortingName": "City",
+            "_tunewsEnabled": false,
           },
           CityModel {
             "_aliases": undefined,
@@ -44,7 +46,9 @@ exports[`FilterableCitySelector should render 1`] = `
             "_longitude": undefined,
             "_name": "Other city",
             "_prefix": undefined,
+            "_pushNotificationsEnabled": false,
             "_sortingName": "Other City",
+            "_tunewsEnabled": false,
           },
           CityModel {
             "_aliases": undefined,
@@ -56,7 +60,9 @@ exports[`FilterableCitySelector should render 1`] = `
             "_longitude": undefined,
             "_name": "Not-live",
             "_prefix": undefined,
+            "_pushNotificationsEnabled": false,
             "_sortingName": "Not-live",
+            "_tunewsEnabled": false,
           },
           CityModel {
             "_aliases": undefined,
@@ -68,7 +74,9 @@ exports[`FilterableCitySelector should render 1`] = `
             "_longitude": undefined,
             "_name": "Yet another city",
             "_prefix": undefined,
+            "_pushNotificationsEnabled": false,
             "_sortingName": "Yet another city",
+            "_tunewsEnabled": false,
           },
         ]
       }
@@ -112,7 +120,9 @@ exports[`FilterableCitySelector should update filter text 1`] = `
             "_longitude": undefined,
             "_name": "City",
             "_prefix": undefined,
+            "_pushNotificationsEnabled": false,
             "_sortingName": "City",
+            "_tunewsEnabled": false,
           },
           CityModel {
             "_aliases": undefined,
@@ -124,7 +134,9 @@ exports[`FilterableCitySelector should update filter text 1`] = `
             "_longitude": undefined,
             "_name": "Other city",
             "_prefix": undefined,
+            "_pushNotificationsEnabled": false,
             "_sortingName": "Other City",
+            "_tunewsEnabled": false,
           },
           CityModel {
             "_aliases": undefined,
@@ -136,7 +148,9 @@ exports[`FilterableCitySelector should update filter text 1`] = `
             "_longitude": undefined,
             "_name": "Not-live",
             "_prefix": undefined,
+            "_pushNotificationsEnabled": false,
             "_sortingName": "Not-live",
+            "_tunewsEnabled": false,
           },
           CityModel {
             "_aliases": undefined,
@@ -148,7 +162,9 @@ exports[`FilterableCitySelector should update filter text 1`] = `
             "_longitude": undefined,
             "_name": "Yet another city",
             "_prefix": undefined,
+            "_pushNotificationsEnabled": false,
             "_sortingName": "Yet another city",
+            "_tunewsEnabled": false,
           },
         ]
       }

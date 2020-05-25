@@ -26,6 +26,8 @@ describe('FilterableCitySelector', () => {
       live: true,
       eventsEnabled: false,
       extrasEnabled: false,
+      pushNotificationsEnabled: false,
+      tunewsEnabled: false,
       sortingName: 'City'
     }),
     new CityModel({
@@ -34,6 +36,8 @@ describe('FilterableCitySelector', () => {
       live: true,
       eventsEnabled: false,
       extrasEnabled: false,
+      pushNotificationsEnabled: false,
+      tunewsEnabled: false,
       sortingName: 'Other City'
     }),
     new CityModel({
@@ -42,6 +46,8 @@ describe('FilterableCitySelector', () => {
       live: false,
       eventsEnabled: false,
       extrasEnabled: false,
+      pushNotificationsEnabled: false,
+      tunewsEnabled: false,
       sortingName: 'Not-live'
     }),
     new CityModel({
@@ -50,6 +56,8 @@ describe('FilterableCitySelector', () => {
       live: true,
       eventsEnabled: false,
       extrasEnabled: false,
+      pushNotificationsEnabled: false,
+      tunewsEnabled: false,
       sortingName: 'Yet another city'
     })
   ]
