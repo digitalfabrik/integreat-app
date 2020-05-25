@@ -4,8 +4,8 @@ import IntegreatAppConfig from '../integreat'
 import type { AppConfigType } from '../AppConfigType'
 
 const IntegreatAppDebugConfig: AppConfigType = {
-  cmsUrl: 'https://cms-test.integreat-app.de',
-  ...IntegreatAppConfig
+  ...IntegreatAppConfig,
+  cmsUrl: 'https://cms-test.integreat-app.de'
 }
 
 module.exports = IntegreatAppDebugConfig
