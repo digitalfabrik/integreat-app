@@ -76,14 +76,14 @@ jobs:
     resource_class: small
     environment:
       TOTAL_CPUS: 1 # For resource_class small
-      TZ: "Europe/Berlin"
+      TZ: "Europe/Berlin" # Should be removed in WEBAPP-463
     shell: /bin/bash -eo pipefail
     steps:
       - run:
           name: "Show current CPU count"
           command: |
             echo "CPU count is ${TOTAL_CPUS}"
-      - add_ssh_keys: # Install
+      - add_ssh_keys:
           fingerprints:
             - "30:f4:98:9f:1c:72:d1:c0:17:9f:57:05:74:a6:44:50"
       - checkout
@@ -117,7 +117,7 @@ jobs:
           name: Unit tests
           command: yarn run test --ci --maxWorkers $TOTAL_CPUS
       - run:
-          name: Test coverage
+          name: Test coverage # Results are not used right now. Run it anyway to (possibly) discover more problems.
           command: yarn run test:coverage --ci --maxWorkers $TOTAL_CPUS
       - when:
           condition: << parameters.production >>
@@ -161,9 +161,8 @@ jobs:
                 name: Read version number
                 command: echo 'export VERSION_NAME=$(cat version.json | jq .versionName)' >> $BASH_ENV
             - run:
-                name: Production delivery
-                # TODO use web
-                command: sftp -v -o StrictHostKeyChecking=no web-test@web.integreat-app.de:/integreat.app \<<< $'put -r /tmp/output/dist/*'
+                name: Production delivery # StrictHostKeyChecking=no is not a security problem. The worst that could happen is a delivery to the wrong domain.
+                command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/integreat.app \<<< $'put -r /tmp/output/dist/*'
             - slack/notify:
                 message: Integreat WebApp version ${VERSION_NAME} was delivered successfully to integreat.app!
                 webhook: $SLACK_URL
@@ -172,8 +171,7 @@ jobs:
           steps:
             - run:
                 name: Debug delivery
-                # TODO use web
-                command: sftp -v -o StrictHostKeyChecking=no web-test@web.integreat-app.de:/webnext.integreat-app.de \<<< $'put -r /tmp/output/dist/*'
+                command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.integreat-app.de \<<< $'put -r /tmp/output/dist/*'
 
   bump_version:
     parameters:
