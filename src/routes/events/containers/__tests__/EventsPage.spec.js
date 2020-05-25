@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { mount, shallow } from 'enzyme'
-import moment from 'moment-timezone'
+import moment from 'moment'
 
 import ConnectedEventsPage, { EventsPage } from '../EventsPage'
 import { DateModel, EventModel, LocationModel } from '@integreat-app/integreat-api-client'
@@ -19,8 +19,8 @@ describe('EventsPage', () => {
       availableLanguages: new Map(
         [['de', '/augsburg/de/events/erstes_event'], ['ar', '/augsburg/ar/events/erstes_event']]),
       date: new DateModel({
-        startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
-        endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+        startDate: moment('2017-11-18T09:30:00.000Z'),
+        endDate: moment('2017-11-18T19:30:00.000Z'),
         allDay: true
       }),
       location: new LocationModel({
@@ -40,8 +40,8 @@ describe('EventsPage', () => {
       availableLanguages: new Map(
         [['en', '/augsburg/de/events/zwotes_event'], ['ar', '/augsburg/ar/events/zwotes_event']]),
       date: new DateModel({
-        startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
-        endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+        startDate: moment('2017-11-18T09:30:00.000Z'),
+        endDate: moment('2017-11-18T19:30:00.000Z'),
         allDay: true
       }),
       location: new LocationModel({
@@ -61,8 +61,8 @@ describe('EventsPage', () => {
       availableLanguages: new Map(
         [['de', '/augsburg/de/events/drittes_event'], ['ar', '/augsburg/ar/events/erstes_event']]),
       date: new DateModel({
-        startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
-        endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+        startDate: moment('2017-11-18T09:30:00.000Z'),
+        endDate: moment('2017-11-18T19:30:00.000Z'),
         allDay: true
       }),
       location: new LocationModel({
@@ -145,6 +145,4 @@ describe('EventsPage', () => {
       dispatch: expect.any(Function)
     })
   })
-
-  moment.tz.setDefault()
 })

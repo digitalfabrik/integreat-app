@@ -7,7 +7,7 @@ import { LocationHeader } from '../LocationHeader'
 import { CATEGORIES_ROUTE } from '../../../app/route-configs/CategoriesRouteConfig'
 import { EVENTS_ROUTE } from '../../../app/route-configs/EventsRouteConfig'
 import { EXTRAS_ROUTE } from '../../../app/route-configs/ExtrasRouteConfig'
-import moment from 'moment-timezone'
+import moment from 'moment'
 import { WOHNEN_ROUTE } from '../../../app/route-configs/WohnenRouteConfig'
 import { SPRUNGBRETT_ROUTE } from '../../../app/route-configs/SprungbrettRouteConfig'
 import createLocation from '../../../../createLocation'
@@ -28,8 +28,8 @@ describe('LocationHeader', () => {
       availableLanguages: new Map(
         [['de', '/augsburg/de/events/erstes_event'], ['ar', '/augsburg/ar/events/erstes_event']]),
       date: new DateModel({
-        startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
-        endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+        startDate: moment('2017-11-18T09:30:00.000Z'),
+        endDate: moment('2017-11-18T19:30:00.000Z'),
         allDay: true
       }),
       location: new LocationModel({
@@ -49,8 +49,8 @@ describe('LocationHeader', () => {
       availableLanguages: new Map(
         [['en', '/augsburg/de/events/zwotes_event'], ['ar', '/augsburg/ar/events/zwotes_event']]),
       date: new DateModel({
-        startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
-        endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+        startDate: moment('2017-11-18T09:30:00.000Z'),
+        endDate: moment('2017-11-18T19:30:00.000Z'),
         allDay: true
       }),
       location: new LocationModel({
@@ -70,8 +70,8 @@ describe('LocationHeader', () => {
       availableLanguages: new Map(
         [['de', '/augsburg/de/events/drittes_event'], ['ar', '/augsburg/ar/events/erstes_event']]),
       date: new DateModel({
-        startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
-        endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+        startDate: moment('2017-11-18T09:30:00.000Z'),
+        endDate: moment('2017-11-18T19:30:00.000Z'),
         allDay: true
       }),
       location: new LocationModel({
