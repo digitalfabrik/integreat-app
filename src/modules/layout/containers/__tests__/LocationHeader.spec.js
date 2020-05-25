@@ -96,6 +96,8 @@ describe('LocationHeader', () => {
       const component = shallow(<LocationHeader location={location(CATEGORIES_ROUTE)}
                                                 isExtrasEnabled={false}
                                                 isEventsEnabled={false}
+                                                isLocalNewsEnabled={false}
+                                                isTunewsEnabled={false}
                                                 viewportSmall
                                                 cityName='Stadt Augsburg'
                                                 events={events}
@@ -109,6 +111,8 @@ describe('LocationHeader', () => {
       const extrasComp = shallow(<LocationHeader location={location(CATEGORIES_ROUTE)}
                                                  isExtrasEnabled
                                                  isEventsEnabled={false}
+                                                 isLocalNewsEnabled={false}
+                                                 isTunewsEnabled={false}
                                                  viewportSmall
                                                  cityName='Stadt Augsburg'
                                                  events={events}
@@ -118,6 +122,8 @@ describe('LocationHeader', () => {
       const eventsComp = shallow(<LocationHeader location={location(CATEGORIES_ROUTE)}
                                                  isExtrasEnabled={false}
                                                  isEventsEnabled
+                                                 isLocalNewsEnabled={false}
+                                                 isTunewsEnabled={false}
                                                  viewportSmall
                                                  cityName='Stadt Augsburg'
                                                  events={events}
@@ -133,6 +139,8 @@ describe('LocationHeader', () => {
       const component = shallow(<LocationHeader location={location(CATEGORIES_ROUTE)}
                                                 isExtrasEnabled
                                                 isEventsEnabled
+                                                isLocalNewsEnabled={false}
+                                                isTunewsEnabled={false}
                                                 viewportSmall
                                                 cityName='Stadt Augsburg'
                                                 events={events}
@@ -146,6 +154,8 @@ describe('LocationHeader', () => {
       const component = shallow(<LocationHeader location={location(CATEGORIES_ROUTE)}
                                                 isExtrasEnabled
                                                 isEventsEnabled
+                                                isLocalNewsEnabled={false}
+                                                isTunewsEnabled={false}
                                                 viewportSmall
                                                 cityName='Stadt Augsburg'
                                                 events={events}
@@ -159,6 +169,8 @@ describe('LocationHeader', () => {
       const component = shallow(<LocationHeader location={location(EVENTS_ROUTE)}
                                                 isExtrasEnabled
                                                 isEventsEnabled
+                                                isLocalNewsEnabled={false}
+                                                isTunewsEnabled={false}
                                                 viewportSmall
                                                 cityName='Stadt Augsburg'
                                                 events={events}
@@ -172,6 +184,8 @@ describe('LocationHeader', () => {
       const component = shallow(<LocationHeader location={location(EXTRAS_ROUTE)}
                                                 isExtrasEnabled
                                                 isEventsEnabled
+                                                isLocalNewsEnabled={false}
+                                                isTunewsEnabled={false}
                                                 viewportSmall
                                                 cityName='Stadt Augsburg'
                                                 events={events}
@@ -185,6 +199,8 @@ describe('LocationHeader', () => {
       const component = shallow(<LocationHeader location={location(SPRUNGBRETT_ROUTE)}
                                                 isExtrasEnabled
                                                 isEventsEnabled
+                                                isLocalNewsEnabled={false}
+                                                isTunewsEnabled={false}
                                                 viewportSmall
                                                 cityName='Stadt Augsburg'
                                                 events={events}
@@ -198,6 +214,8 @@ describe('LocationHeader', () => {
       const component = shallow(<LocationHeader location={location(WOHNEN_ROUTE)}
                                                 isExtrasEnabled
                                                 isEventsEnabled
+                                                isLocalNewsEnabled={false}
+                                                isTunewsEnabled={false}
                                                 viewportSmall
                                                 cityName='Stadt Augsburg'
                                                 events={events}
@@ -213,6 +231,8 @@ describe('LocationHeader', () => {
       const component = shallow(<LocationHeader location={location(EXTRAS_ROUTE)}
                                                 isExtrasEnabled
                                                 isEventsEnabled
+                                                isLocalNewsEnabled={false}
+                                                isTunewsEnabled={false}
                                                 viewportSmall
                                                 cityName='Stadt Augsburg'
                                                 events={events}
@@ -228,6 +248,8 @@ describe('LocationHeader', () => {
     const component = shallow(<LocationHeader location={location(EXTRAS_ROUTE)}
                                               isExtrasEnabled
                                               isEventsEnabled
+                                              isLocalNewsEnabled={false}
+                                              isTunewsEnabled={false}
                                               viewportSmall
                                               cityName='Stadt Augsburg'
                                               events={events}

@@ -7,6 +7,8 @@ import {
   CategoriesMapModel,
   CityModel,
   EventModel,
+  LocalNewsModel,
+  TunewsModel,
   ExtraModel,
   LanguageModel,
   PageModel,
@@ -39,6 +41,10 @@ type PropsType = {|
   categoriesPayload: Payload<CategoriesMapModel>,
   poisPayload: Payload<Array<PoiModel>>,
   eventsPayload: Payload<Array<EventModel>>,
+  localNewsPayload: Payload<Array<LocalNewsModel>>,
+  localNewsElementPayload: Payload<LocalNewsModel>,
+  tunewsPayload: Payload<Array<TunewsModel>>,
+  tunewsElementPayload: Payload<TunewsModel>,
   extrasPayload: Payload<Array<ExtraModel>>,
   sprungbrettJobsPayload: Payload<Array<SprungbrettExtraPage>>,
   wohnenPayload: Payload<Array<WohnenOfferModel>>,
@@ -93,8 +99,7 @@ export class Switcher extends React.Component<PropsType> {
   }
 
   renderLayoutWithContent (): React.Node {
-    const { location, viewportSmall, darkMode, categoriesPayload, citiesPayload, toggleDarkMode, eventsPayload } =
-      this.props
+    const { location, viewportSmall, darkMode, categoriesPayload, citiesPayload, toggleDarkMode, eventsPayload } = this.props
 
     const routeConfig = getRouteConfig(location.type)
     const payloads = routeConfig.getRequiredPayloads(this.getAllPayloads())
@@ -144,6 +149,10 @@ const mapStateToProps = (state: StateType) => ({
   citiesPayload: state.cities,
   categoriesPayload: state.categories,
   eventsPayload: state.events,
+  localNewsPayload: state.localNews,
+  localNewsElementPayload: state.localNewsElement,
+  tunewsPayload: state.tunews,
+  tunewsElementPayload: state.tunewsElement,
   poisPayload: state.pois,
   extrasPayload: state.extras,
   sprungbrettJobsPayload: state.sprungbrettJobs,

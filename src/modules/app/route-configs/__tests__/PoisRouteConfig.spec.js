@@ -43,6 +43,10 @@ describe('PoisRouteConfig', () => {
       disclaimerPayload: new Payload(true),
       extrasPayload: new Payload(true),
       eventsPayload: new Payload(true),
+      localNewsPayload: new Payload(true),
+      localNewsElementPayload: new Payload(true),
+      tunewsPayload: new Payload(true),
+      tunewsElementPayload: new Payload(true),
       wohnenPayload: new Payload(true),
       sprungbrettJobsPayload: new Payload(true)
     }

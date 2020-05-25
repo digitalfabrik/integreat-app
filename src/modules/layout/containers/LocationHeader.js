@@ -14,8 +14,11 @@ import HeaderActionItem from '../HeaderActionItem'
 import ExtrasRouteConfig, { EXTRAS_ROUTE } from '../../app/route-configs/ExtrasRouteConfig'
 import CategoriesRouteConfig, { CATEGORIES_ROUTE } from '../../app/route-configs/CategoriesRouteConfig'
 import EventsRouteConfig, { EVENTS_ROUTE } from '../../app/route-configs/EventsRouteConfig'
+import LocalNewsRouteConfig, { LOCAL_NEWS_ROUTE } from '../../app/route-configs/LocalNewsRouteConfig'
+import { LOCAL_NEWS_DETAILS_ROUTE } from '../../app/route-configs/LocalNewsDetailsRouteConfig'
+import TunewsRouteConfig, { TUNEWS_ROUTE } from '../../app/route-configs/TunewsRouteConfig'
+import { TUNEWS_DETAILS_ROUTE } from '../../app/route-configs/TunewsDetailsRouteConfig'
 import SearchRouteConfig from '../../app/route-configs/SearchRouteConfig'
-
 import type { LocationState } from 'redux-first-router'
 import { EventModel } from '@integreat-app/integreat-api-client'
 import { WOHNEN_ROUTE } from '../../app/route-configs/WohnenRouteConfig'
@@ -30,6 +33,8 @@ type PropsType = {|
   t: TFunction,
   cityName: string,
   isEventsEnabled: boolean,
+  isLocalNewsEnabled: boolean,
+  isTunewsEnabled: boolean,
   isExtrasEnabled: boolean,
   onStickyTopChanged: number => void,
   languageChangePaths: ?LanguageChangePathsType
@@ -57,11 +62,19 @@ export class LocationHeader extends React.Component<PropsType> {
   }
 
   getNavigationItems (): Array<Element<typeof HeaderNavigationItem>> {
-    const { t, isEventsEnabled, isExtrasEnabled, location, events } = this.props
+    // eslint-disable-next-line no-unused-vars
+    const { t, isEventsEnabled, isLocalNewsEnabled, isTunewsEnabled, isExtrasEnabled, location, events } = this.props
+
     const { city, language } = location.payload
     const currentRoute = location.type
 
     const isEventsActive = events ? events.length > 0 : false
+
+    /* TODO: replace the next two lines with the ones after to activate news header link
+      const isNewsEnabled = isLocalNewsEnabled || isTunewsEnabled
+      const isCategoriesEnabled = isExtrasEnabled || isEventsEnabled || isNewsEnabled
+    */
+    const isNewsEnabled = false
     const isCategoriesEnabled = isExtrasEnabled || isEventsEnabled
 
     const items: Array<Element<typeof HeaderNavigationItem>> = []
@@ -85,6 +98,22 @@ export class LocationHeader extends React.Component<PropsType> {
           href={new CategoriesRouteConfig().getRoutePath({ city, language })}
           selected={currentRoute === CATEGORIES_ROUTE}
           text={t('categories')}
+          active
+        />
+      )
+    }
+
+    if (isNewsEnabled) {
+      const newsUrl = isLocalNewsEnabled
+        ? new LocalNewsRouteConfig().getRoutePath({ city, language })
+        : new TunewsRouteConfig().getRoutePath({ city, language })
+
+      items.push(
+        <HeaderNavigationItem
+          key='news'
+          href={newsUrl}
+          selected={[LOCAL_NEWS_ROUTE, TUNEWS_ROUTE, TUNEWS_DETAILS_ROUTE, LOCAL_NEWS_DETAILS_ROUTE].includes(currentRoute)}
+          text={t('news')}
           active
         />
       )
