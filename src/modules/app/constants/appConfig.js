@@ -1,6 +1,6 @@
 // @flow
 
-import type { AppConfigType } from '../../../AppConfigType'
+import type { AppConfigType } from '../../../../build/configs/AppConfigType'
 
 const appConfig: AppConfigType = __CONFIG__
 
