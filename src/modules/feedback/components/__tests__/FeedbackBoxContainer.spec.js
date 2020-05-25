@@ -372,6 +372,33 @@ describe('FeedbackBoxContainer', () => {
     expect(mockPostFeedbackData).toHaveBeenCalledTimes(1)
   })
 
+  it('should not post data on submit failure', async () => {
+    const mockOnSubmit = jest.fn()
+    const component = shallow(
+      <FeedbackBoxContainer
+        location={location}
+        cities={cities}
+        isPositiveRatingSelected
+        onSubmit={mockOnSubmit}
+        closeFeedbackModal={() => {}}
+        extras={null}
+        theme={theme}
+        sendingStatus='ERROR'
+        t={t} />
+    )
+    // set as workaround to override: console error to log
+    const prevError = console.error
+    console.error = error => console.log(`Some expected error was thrown: ${error}`)
+
+    const instance = component.instance()
+    instance.postFeedbackData = jest.fn().mockRejectedValue(new Error('Endpoint request failed'))
+
+    await instance.handleSubmit()
+    expect(mockOnSubmit).toHaveBeenCalledWith('ERROR')
+    // reset console error
+    console.error = prevError
+  })
+
   it('should update state onCommentChanged', () => {
     const instance = shallow(
       <FeedbackBoxContainer
