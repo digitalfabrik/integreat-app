@@ -46,7 +46,7 @@ type PropsType = {|
   postFeedbackDataOverride?: FeedbackParamsType => void,
   closeFeedbackModal: () => void,
   sendingStatus: SendingStatusType,
-  onSubmit: (sendingStatus?: SendingStatusType) => void,
+  onSubmit: (sendingStatus: SendingStatusType) => void,
   t: TFunction,
   theme: ThemeType
 |}
@@ -236,8 +236,8 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
       await this.postFeedbackData(this.getFeedbackData(selectedFeedbackOption, comment))
       onSubmit('SUCCESS')
     } catch (e) {
-      onSubmit('ERROR')
       console.log(e)
+      onSubmit('ERROR')
     }
   }
 
