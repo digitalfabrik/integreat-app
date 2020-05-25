@@ -1,14 +1,14 @@
 // @flow
 
 import { PageModel, Payload } from '@integreat-app/integreat-api-client'
-import moment from 'moment-timezone'
+import moment from 'moment'
 import createLocation from '../../../../createLocation'
 import DisclaimerRouteConfig from '../DisclaimerRouteConfig'
 
 const disclaimer = new PageModel({
   title: 'Feedback, Kontakt und mögliches Engagement',
   content: 'this is a test content',
-  lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+  lastUpdate: moment('2017-11-18T19:30:00.000Z'),
   hash: '2fe6283485a93932'
 })
 const disclaimerPayload = new Payload(false, 'https://random.api.json', disclaimer, null)

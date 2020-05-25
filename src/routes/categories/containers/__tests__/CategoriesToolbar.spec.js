@@ -6,7 +6,7 @@ import { shallow } from 'enzyme'
 import { CategoriesToolbar } from '../CategoriesToolbar'
 import { CategoriesMapModel, CategoryModel } from '@integreat-app/integreat-api-client'
 import { CATEGORIES_ROUTE } from '../../../../modules/app/route-configs/CategoriesRouteConfig'
-import moment from 'moment-timezone'
+import moment from 'moment'
 import createLocation from '../../../../createLocation'
 
 describe('CategoriesToolbar', () => {
@@ -21,7 +21,7 @@ describe('CategoriesToolbar', () => {
       thumbnail: 'no_thumbnail',
       parentPath: '',
       hash: '2fe6283485a93932',
-      lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
+      lastUpdate: moment('2017-11-18T19:30:00.000Z')
     }), new CategoryModel({
       root: false,
       path: '/augsburg/de/anlaufstellen',
@@ -32,7 +32,7 @@ describe('CategoriesToolbar', () => {
       availableLanguages: new Map([['en', '4361'], ['ar', '4367'], ['fa', '4368']]),
       thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png',
       hash: '2fe6283485b93932',
-      lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
+      lastUpdate: moment('2017-11-18T19:30:00.000Z')
     }),
     new CategoryModel({
       root: false,
@@ -44,7 +44,7 @@ describe('CategoriesToolbar', () => {
       availableLanguages: new Map([['en', '4361'], ['ar', '4367'], ['fa', '4368']]),
       thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
       hash: '2fe6283485c93932',
-      lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
+      lastUpdate: moment('2017-11-18T19:30:00.000Z')
     }),
     new CategoryModel({
       root: false,
@@ -56,7 +56,7 @@ describe('CategoriesToolbar', () => {
       availableLanguages: new Map([['en', '390'], ['ar', '711'], ['fa', '397']]),
       thumbnail: 'https://cms.integreat-ap…09/heart295-150x150.png',
       hash: '2fe6283485d93932',
-      lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
+      lastUpdate: moment('2017-11-18T19:30:00.000Z')
     })
   ]
 
