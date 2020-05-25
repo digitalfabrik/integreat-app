@@ -18,3 +18,12 @@ export const commonColors = {
   textDisabledColor: '#d0d0d0',
   backgroundColor: '#ffffff'
 }
+
+export const commonDarkColors = {
+  backgroundAccentColor: '#111111',
+  textColor: '#BBBBBB',
+  textSecondaryColor: '#888888',
+  textDecorationColor: '#555555',
+  textDisabledColor: '#444444',
+  backgroundColor: '#222222'
+}
