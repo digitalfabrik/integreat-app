@@ -22,8 +22,8 @@ const createConfig = (env = {}) => {
   console.log('Used config: ', appConfigName)
   console.log('Production: ', production)
 
-  const appConfig = require(`./${appConfigName}`)
-  const configAssets = path.resolve(__dirname, `../tools/${appConfigName}/assets`)
+  const appConfig = require(`./configs/${appConfigName}`)
+  const configAssets = path.resolve(__dirname, `./configs/${appConfigName}/assets`)
 
   const nodeModules = path.resolve('./node_modules')
   const wwwDirectory = path.resolve(__dirname, '../www')
