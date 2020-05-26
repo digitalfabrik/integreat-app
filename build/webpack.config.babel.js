@@ -8,15 +8,19 @@ const babelConfig = require('../.babelrc.js')
 const getVersion = require('git-repo-version')
 
 const createConfig = (env = {}) => {
-  const { production, config_name: appConfigName } = env
-  if (!production) {
-    throw new Error('You need to specify whether to build for production!')
-  } else if (!appConfigName) {
+  const { config_name: appConfigName } = env
+  const validConfigNames = ['integreat', 'integreat-debug', 'malte']
+
+  if (!appConfigName) {
     throw new Error('You need to specify a config name!')
+  } else if (!validConfigNames.includes(appConfigName)) {
+    throw new Error(`Invalid config name! Allowed configs: ${validConfigNames}`)
   }
 
-  console.log('Production: ', production)
+  const production = appConfigName === 'integreat'
+
   console.log('Used config: ', appConfigName)
+  console.log('Production: ', production)
 
   const appConfig = require(`./${appConfigName}`)
   const configAssets = path.resolve(__dirname, `../tools/${appConfigName}/assets`)
