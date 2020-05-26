@@ -12,6 +12,7 @@ import localesResources from '../../../../locales/locales.json'
 import setUiDirection from '../actions/setUIDirection'
 import type { Dispatch } from 'redux'
 import type { StoreActionType } from '../../app/StoreActionType'
+import type { UiDirectionType } from '../types/UiDirectionType'
 
 const RTL_LANGUAGES = ['ar', 'fa']
 const FALLBACK_LANGUAGES = ['en', 'de']
@@ -22,7 +23,7 @@ type FontMapType = { [font: 'lateef' | 'openSans' | 'raleway']: boolean }
 type PropsType = {|
   children: React.Node,
   language?: string,
-  setUiDirection: Function
+  setUiDirection: (UiDirectionType) => void
 |}
 
 type StateType = {|
