@@ -20,6 +20,7 @@ workflows:
     jobs:
       - build:
           production: false
+          build_config: "integreat"
       - deliver:
           production: false
           requires:
@@ -71,6 +72,10 @@ jobs:
       production:
         description: Whether to build for production.
         type: boolean
+      build_config:
+        description: Which build config to use.
+        type: enum
+        enum: ["integreat", "integerat-debug", "malte"]
     docker:
       - image: circleci/node:12.16.3
     resource_class: small
@@ -113,18 +118,9 @@ jobs:
       - run:
           name: Test coverage # Results are not used right now. Run it anyway to (possibly) discover more problems.
           command: yarn run test:coverage --ci --maxWorkers $TOTAL_CPUS
-      - when:
-          condition: << parameters.production >>
-          steps:
-            - run:
-                name: Production build
-                command: yarn run build
-      - unless:
-          condition: << parameters.production >>
-          steps:
-            - run:
-                name: Debug build
-                command: yarn run build:debug
+      - run:
+          name: Build
+          command: yarn run webpack --config build/webpack.config.babel.js --env.production=${<< parameters.production >>} --env.config_name=${<< parameters.build_config >>}
       - run:
           name: Check build
           command: yarn run check:built
