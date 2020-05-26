@@ -13,11 +13,13 @@ describe('FailureSwitcher', () => {
   const language = 'de'
 
   describe.each`
-    type          | id
-    ${'category'} | ${'willkommen'}
-    ${'extra'}    | ${'sprungbrett'}
-    ${'event'}    | ${'1234'}
-    ${'poi'}      | ${'1234'}
+    type                | id
+    ${'category'}       | ${'willkommen'}
+    ${'event'}          | ${'1234'}
+    ${'localNewsItem'}  | ${'/augsburg/en/news/local/1'}
+    ${'tunewsItem'}     | ${'/augsburg/en/news/tu-news/1'}
+    ${'extra'}          | ${'sprungbrett'}
+    ${'poi'}            | ${'1234'}
     `('render $type component not found failure',
   ({ type, id }) => {
     it(`should render a ${type} not found failure and match snapshot`, () => {
