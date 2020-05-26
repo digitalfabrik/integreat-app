@@ -8,7 +8,7 @@ const MalteAppConfig: AppConfigType = {
   appTitle: 'Malteser',
   theme: malteTheme,
   darkTheme: darkMalteTheme,
-  // TODO Add itunesAppId
+  // TODO WEBAPP-567: Add itunesAppId
   cmsUrl: 'https://malteser.tuerantuer.org',
   featureFlags,
   locationIcon: '/location-big.svg',
