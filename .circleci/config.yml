@@ -203,14 +203,14 @@ jobs:
           at: .
       - when:
           condition:
-            equal: [ "integreat", << parameters.deliver_to >> ]
+            equal: [ "integreat", << parameters.build_config >> ]
           steps:
             - run:
                 name: Bump version
                 command: tools/bump-version bump-version --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
       - unless:
           condition:
-            equal: [ "integreat", << parameters.deliver_to >> ]
+            equal: [ "integreat", << parameters.build_config >> ]
           steps:
             - run:
                 name: Skip version bump
