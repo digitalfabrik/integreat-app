@@ -12,6 +12,7 @@ import localesResources from '../../../../locales/locales.json'
 import setUiDirection from '../actions/setUIDirection'
 import type { Dispatch } from 'redux'
 import type { StoreActionType } from '../../app/StoreActionType'
+import type { UiDirectionType } from '../types/UiDirectionType'
 
 const RTL_LANGUAGES = ['ar', 'fa']
 const FALLBACK_LANGUAGES = ['en', 'de']
@@ -22,7 +23,7 @@ type FontMapType = { [font: 'lateef' | 'openSans' | 'raleway']: boolean }
 type PropsType = {|
   children: React.Node,
   language?: string,
-  setUiDirection: Function
+  setUiDirection: (UiDirectionType) => void
 |}
 
 type StateType = {|
@@ -85,7 +86,7 @@ export class I18nProvider extends React.Component<PropsType, StateType> {
     const targetLanguage = language || this.i18n.languages[0]
 
     // Set i18next language to apps language
-    this.i18n.changeLanguage(targetLanguage).then(() => {
+    this.i18n.changeLanguage(targetLanguage, () => {
       const fonts = I18nProvider.getSelectedFonts(targetLanguage)
       this.setState(prevState => ({ ...prevState, language: targetLanguage, fonts }))
 

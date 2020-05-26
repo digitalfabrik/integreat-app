@@ -6,7 +6,7 @@ import { shallow } from 'enzyme'
 import ConnectedCategoriesPage, { CategoriesPage } from '../CategoriesPage'
 import { CategoriesMapModel, CategoryModel, CityModel } from '@integreat-app/integreat-api-client'
 import configureMockStore from 'redux-mock-store'
-import moment from 'moment-timezone'
+import moment from 'moment'
 
 describe('CategoriesPage', () => {
   const categoryModels = [

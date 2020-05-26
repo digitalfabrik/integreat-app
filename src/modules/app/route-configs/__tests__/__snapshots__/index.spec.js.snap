@@ -26,6 +26,14 @@ Object {
     "path": "/landing/:language",
     "thunk": [Function],
   },
+  "LOCAL_NEWS": Object {
+    "path": "/:city/:language/news/local",
+    "thunk": [Function],
+  },
+  "LOCAL_NEWS_DETAILS": Object {
+    "path": "/:city/:language/news/local/:newsId",
+    "thunk": [Function],
+  },
   "MAIN_DISCLAIMER": "/disclaimer",
   "POI": Object {
     "path": "/:city/:language/locations/:poiId?",
@@ -37,6 +45,14 @@ Object {
   },
   "SPRUNGBRETT": Object {
     "path": "/:city/:language/extras/sprungbrett",
+    "thunk": [Function],
+  },
+  "TUNEWS_DETAILS": Object {
+    "path": "/:city/:language/news/tu-news/:newsId",
+    "thunk": [Function],
+  },
+  "TU_NEWS": Object {
+    "path": "/:city/:language/news/tu-news",
     "thunk": [Function],
   },
   "WOHNEN": Object {
