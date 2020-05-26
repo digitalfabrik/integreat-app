@@ -191,7 +191,7 @@ jobs:
   bump_version:
     parameters:
       build_config:
-        description: Which build config to use. Only bump version if build_config is "integreat"
+        description: Which build config to use. Only bump version if build_config is "integreat".
         type: enum
         enum: ["integreat", "integreat-debug", "malte"]
     docker:
