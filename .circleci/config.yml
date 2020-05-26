@@ -134,8 +134,8 @@ jobs:
           name: Test coverage # Results are not used right now. Run it anyway to (possibly) discover more problems.
           command: yarn run test:coverage --ci --maxWorkers $TOTAL_CPUS
       - run:
-          name: Build ${<< parameters.build_config >>}
-          command: yarn run webpack --config build/webpack.config.babel.js --env.config_name=${<< parameters.build_config >>}
+          name: Build << parameters.build_config >>
+          command: yarn run webpack --config build/webpack.config.babel.js --env.config_name="${<< parameters.build_config >>}"
       - run:
           name: Check build
           command: yarn run check:built
