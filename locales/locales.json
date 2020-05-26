@@ -9,9 +9,11 @@
         "disclaimer": "Impressum und Kontakt",
         "mainDisclaimer": "Impressum und Kontakt - Integreat",
         "pois": "Points of Interest",
-        "notFound": "Seite nicht gefunden"
+        "notFound": "Seite nicht gefunden",
+        "tunews": "tünews",
+        "localNews": "Lokale Nachrichten"
       },
-      "metaDescription": "Integreat ist Ihr digitaler Guide für Deutschland. Finden Sie lokale Informationen, Events und Beratung. Immer aktuell und in Ihrer Sprache."
+      "metaDescription": "Integreat ist Ihr digitaler Guide für Deutschland. Finden Sie lokale Informationen, Veranstaltungen und Beratung. Immer aktuell und in Ihrer Sprache."
     },
     "ar": {
       "pageTitles": {
@@ -851,6 +853,17 @@
       "currentlyNoEvents": "Güncel bir etkinlik yok."
     }
   },
+  "news": {
+    "de": {
+      "news": "Nachrichten",
+      "newsAlternative": "Neuigkeiten",
+      "localNews": "Lokale Nachrichten",
+      "localNewsAlternative": "Lokale Neuigkeiten",
+      "readMore": "Weiterlesen",
+      "currentlyNoNews": "Aktuell gibt es keine Nachrichten.",
+      "currentlyNoNewsAlternative": "Aktuell gibt es keine Neuigkeiten."
+    }
+  },
   "extras": {
     "de": {
       "offers": "Angebote"
@@ -1292,7 +1305,7 @@
       "sentryTitle": "App-Stabilität",
       "sentryCondition": "... mit dem automatischen Senden von Absturzberichten Integreat zu verbessern",
       "pushNewsTitle": "Push-Benachrichtigungen",
-      "pushNewsCondition": "... mir Push-Benachrichtigungen zu den neuesten lokalen News zu senden",
+      "pushNewsCondition": "... mir Push-Benachrichtigungen zu den neuesten lokalen Nachrichten zu senden",
       "proposeCitiesTitle": "Nahegelegene Orte",
       "proposeCitiesCondition": "... mir mithilfe meines GPS-Standortes nahegelegene Orte vorzuschlagen",
       "skip": "Überspringen",
@@ -1781,6 +1794,7 @@
       "categories": "Kategorien",
       "events": "Veranstaltungen",
       "noEvents": "Keine Veranstaltungen",
+      "news": "Nachrichten",
       "noLanguages": "Nicht verfügbar in anderen Sprachen",
       "noTranslation": "Keine Übersetzung verfügbar",
       "search": "Suchen",
@@ -2090,7 +2104,7 @@
       "sentryTitle": "App-Stabilität",
       "sentryDescription": "Durch das automatische Senden von Absturzberichten die Integreat-App verbessern",
       "pushNewsTitle": "Push-Benachrichtigungen",
-      "pushNewsDescription": "Push-Benachrichtigungen für die neuesten lokalen News erhalten",
+      "pushNewsDescription": "Push-Benachrichtigungen für die neuesten lokalen Nachrichten erhalten",
       "proposeCitiesTitle": "Nahegelegene Orte",
       "proposeCitiesDescription": "Mithilfe des GPS-Standortes Vorschläge für nahegelegene Orte erhalten",
       "about": "Über Integreat",

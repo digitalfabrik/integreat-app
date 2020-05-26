@@ -2,7 +2,7 @@
 
 import PoisRouteConfig from '../PoisRouteConfig'
 import { LocationModel, Payload, PoiModel } from '@integreat-app/integreat-api-client'
-import moment from 'moment-timezone'
+import moment from 'moment'
 import createLocation from '../../../../createLocation'
 
 const pois = [
@@ -43,6 +43,10 @@ describe('PoisRouteConfig', () => {
       disclaimerPayload: new Payload(true),
       extrasPayload: new Payload(true),
       eventsPayload: new Payload(true),
+      localNewsPayload: new Payload(true),
+      localNewsElementPayload: new Payload(true),
+      tunewsPayload: new Payload(true),
+      tunewsElementPayload: new Payload(true),
       wohnenPayload: new Payload(true),
       sprungbrettJobsPayload: new Payload(true)
     }

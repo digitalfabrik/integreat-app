@@ -22,7 +22,7 @@ import { mount, shallow } from 'enzyme'
 import { CATEGORIES_ROUTE } from '../../route-configs/CategoriesRouteConfig'
 import { LANDING_ROUTE } from '../../route-configs/LandingRouteConfig'
 import { MAIN_DISCLAIMER_ROUTE } from '../../route-configs/MainDisclaimerRouteConfig'
-import moment from 'moment-timezone'
+import moment from 'moment'
 import theme from '../../../theme/constants/theme'
 import { ThemeProvider } from 'styled-components'
 import { Provider } from 'react-redux'
@@ -46,13 +46,13 @@ describe('Switcher', () => {
       order: 4,
       hash: '2fe6283485a93932',
       availableLanguages: new Map(),
-      lastUpdate: moment.tz('2017-11-18 09:30:00', 'UTC')
+      lastUpdate: moment('2017-11-18T08:30:00.000Z')
     })
   ])
   const disclaimer = new PageModel({
     title: 'Feedback, Kontakt und mögliches Engagement',
     content: 'this is a test content',
-    lastUpdate: moment.tz('2017-11-18 09:30:00', 'UTC'),
+    lastUpdate: moment('2017-11-18T08:30:00.000Z'),
     hash: '2fe6283485a93932'
   })
 
@@ -175,6 +175,10 @@ describe('Switcher', () => {
 
   const categoriesPayload = new Payload(false, 'https://random.api.json', categories, null)
   const eventsPayload = new Payload(false, 'https://random.api.json', events, null)
+  const localNewsPayload = new Payload(true)
+  const localNewsElementPayload = new Payload(true)
+  const tunewsPayload = new Payload(true)
+  const tunewsElementPayload = new Payload(true)
   const extrasPayload = new Payload(false, 'https://random.api.json', extras, null)
   const disclaimerPayload = new Payload(false, 'https://random.api.json', disclaimer, null)
   const citiesPayload = new Payload(false, 'https://random.api.json', cities, null)
@@ -197,7 +201,8 @@ describe('Switcher', () => {
     return (
       <Switcher viewportSmall={false} location={location} citiesPayload={citiesPayload}
                 categoriesPayload={categoriesPayload} eventsPayload={eventsPayload} extrasPayload={extrasPayload}
-                poisPayload={poisPayload} disclaimerPayload={disclaimerPayload} languages={languages} t={t}
+                localNewsPayload={localNewsPayload} localNewsElementPayload={localNewsElementPayload} tunewsPayload={tunewsPayload}
+                tunewsElementPayload={tunewsElementPayload} poisPayload={poisPayload} disclaimerPayload={disclaimerPayload} languages={languages} t={t}
                 sprungbrettJobsPayload={sprungbrettPayload} wohnenPayload={wohnenPayload} darkMode
                 toggleDarkMode={toggleDarkMode} />
     )

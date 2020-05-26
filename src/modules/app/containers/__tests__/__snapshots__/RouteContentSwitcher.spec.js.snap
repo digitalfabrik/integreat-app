@@ -38,7 +38,9 @@ exports[`RouteContentSwitcher should render and match snapshot 1`] = `
         "_longitude": undefined,
         "_name": "Mambo No. 5",
         "_prefix": undefined,
+        "_pushNotificationsEnabled": false,
         "_sortingName": "Mambo",
+        "_tunewsEnabled": false,
       },
     ]
   }

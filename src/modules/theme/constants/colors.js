@@ -8,7 +8,9 @@ export type ColorsType = {
   textSecondaryColor: string,
   textDecorationColor: string,
   textDisabledColor: string,
-  backgroundColor: string
+  backgroundColor: string,
+  tunewsThemeColor: string,
+  tunewsThemeColorLight: string
 }
 
 export const brightColors: ColorsType = {
@@ -19,7 +21,9 @@ export const brightColors: ColorsType = {
   textSecondaryColor: '#585858',
   textDecorationColor: '#c7c7c7',
   textDisabledColor: '#d0d0d0',
-  backgroundColor: '#ffffff'
+  backgroundColor: '#ffffff',
+  tunewsThemeColor: '#007aa8',
+  tunewsThemeColorLight: 'rgba(0, 122, 168, 0.4)'
 }
 
 export const darkColors: ColorsType = {
@@ -30,5 +34,7 @@ export const darkColors: ColorsType = {
   textSecondaryColor: '#888888',
   textDecorationColor: '#555555',
   textDisabledColor: '#444444',
-  backgroundColor: '#222222'
+  backgroundColor: '#222222',
+  tunewsThemeColor: '#007aa8',
+  tunewsThemeColorLight: 'rgba(0, 122, 168, 0.4)'
 }
