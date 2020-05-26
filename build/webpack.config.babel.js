@@ -17,7 +17,7 @@ const createConfig = (env = {}) => {
     throw new Error(`Invalid config name! Allowed configs: ${validConfigNames}`)
   }
 
-  const production = appConfigName === 'integreat'
+  const production = ['integreat', 'malte'].includes(appConfigName)
 
   console.log('Used config: ', appConfigName)
   console.log('Production: ', production)
