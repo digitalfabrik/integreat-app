@@ -7,7 +7,7 @@ import Page from '../Page'
 
 describe('Page', () => {
   const title = 'first Event'
-  const lastUpdate = moment('2016-01-07T10:36:24.000Z', moment.ISO_8601)
+  const lastUpdate = moment('2016-01-07T10:36:24.000Z')
   const content = 'content'
   const thumbnail = 'thumbnail'
 

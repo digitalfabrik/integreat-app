@@ -28,9 +28,9 @@ const calculateNewVersion = versionFilePath => {
   const newVersionName = `${year}.${month}.${versionNameCounter}`
   const newVersionCode = versionCode ? versionCode + 1 : undefined
 
-  console.debug(`New version name: ${newVersionName}`)
+  console.warn(`New version name: ${newVersionName}`)
   if (newVersionCode) {
-    console.debug(`New version name: ${newVersionCode}`)
+    console.warn(`New version name: ${newVersionCode}`)
   }
 
   return {
@@ -94,7 +94,7 @@ program
         await commitVersionBump(newVersion, { versionFile, deliverinoPrivateKey, owner, repo, branch })
       }
 
-      return JSON.stringify(newVersion)
+      console.log(JSON.stringify(newVersion))
     } catch (e) {
       console.error(e)
       process.exit(1)
