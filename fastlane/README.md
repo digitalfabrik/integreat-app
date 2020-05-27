@@ -19,7 +19,7 @@ or alternatively using `brew cask install fastlane`
 ```
 fastlane github_bump_version
 ```
-Bumps version and commits the new version in the GitHub repository
+Bump version and commits the new version in the GitHub repository
 
 ----
 
@@ -28,27 +28,27 @@ Bumps version and commits the new version in the GitHub repository
 ```
 fastlane android browserstack_upload_live
 ```
-Uploads the APK to BrowserStack Live
+Upload the APK to BrowserStack Live
 ### android browserstack_e2e_tests
 ```
 fastlane android browserstack_e2e_tests
 ```
-Uploads the APK and runs E2E tests on BrowserStack
+Upload the APK and runs E2E tests on BrowserStack
 ### android sentry_upload
 ```
 fastlane android sentry_upload
 ```
-Uploads the JavaScript source map to Sentry
+Upload the JavaScript source map to Sentry
 ### android playstore_upload
 ```
 fastlane android playstore_upload
 ```
-Delivers the app to Play Store. Depending on the option `production` the update is released to the general public.
+Deliver the app to Play Store. Depending on the option `production` the update is released to the general public.
 ### android notify_release
 ```
 fastlane android notify_release
 ```
-Sends a success notification
+Send a success notification
 
 ----
 
@@ -57,12 +57,12 @@ Sends a success notification
 ```
 fastlane ios browserstack_upload_live
 ```
-Uploads the IPA to BrowserStack Live
+Upload the IPA to BrowserStack Live
 ### ios browserstack_e2e_tests
 ```
 fastlane ios browserstack_e2e_tests
 ```
-Uploads the APK and runs E2E tests on BrowserStack
+Upload the APK and runs E2E tests on BrowserStack
 ### ios sentry_upload
 ```
 fastlane ios sentry_upload
@@ -72,12 +72,12 @@ Upload source map to Sentry
 ```
 fastlane ios appstoreconnect_upload
 ```
-Delivers the app to App Store Connect. The app is submitted for review and released automatically.
+Deliver the app to App Store Connect. The app is submitted for review and released automatically.
 ### ios testflight_upload
 ```
 fastlane ios testflight_upload
 ```
-Delivers the app to TestFlight for Testers.
+Deliver the app to TestFlight for testers
 ### ios notify_release
 ```
 fastlane ios notify_release
