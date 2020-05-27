@@ -4,7 +4,7 @@
 
 Several workflows exist for different purposes. See the table below for an overview.
 
-|Workflow|Type-checking|Jest tests|Production build|E2E tests|Delivered to production|
+|Workflow|Type-checking|Jest tests|Build for E2E tests|E2E tests|Delivered to production|
 |---|---|---|---|---|---|
 |commit|:heavy_check_mark:|:heavy_check_mark:|:x:|:heavy_check_mark:|:x:|
 |weekly|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:x:|:x:|
