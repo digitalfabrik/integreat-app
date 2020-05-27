@@ -20,7 +20,7 @@ cd ios/
 bundle exec fastlane certificates
 ```
 
-*Hint: After setting up the certificates you can also star to use XCode to build the app.*
+*Note: After setting up the certificates you can also start to use XCode to build the app.*
 
 Build the app:
 
@@ -82,7 +82,7 @@ export KEYSTORE_PASSWORD=<secret>
 export KEYSTORE_KEY_PASSWORD=<secret>
 ```
 
-The last step is to build to app:
+The last step is to build the app:
 
 ```bash
 yarn
@@ -118,7 +118,7 @@ export ORG_GRADLE_PROJECT_VERSION_CODE=1
 export ORG_GRADLE_PROJECT_VERSION_NAME=0.1
 ```
 
-Then you can create a quick rest build in release mode and run it on your emulator:
+Then you can create a quick test build in release mode and run it on your emulator:
 
 ```bash
 yarn
