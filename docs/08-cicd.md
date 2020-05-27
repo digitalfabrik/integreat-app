@@ -4,7 +4,7 @@
 
 Several workflows exist for different purposes. See the table below for an overview.
 
-|Workflow|Type-checking|Jest tests|Production build|E2E tests|Delivered in production|
+|Workflow|Type-checking|Jest tests|Production build|E2E tests|Delivered to production|
 |---|---|---|---|---|---|
 |commit|:heavy_check_mark:|:heavy_check_mark:|:x:|:heavy_check_mark:|:x:|
 |weekly|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:x:|:x:|
@@ -31,7 +31,7 @@ Fastlane is a task-runner for triggering build relevant tasks. It offers integra
 
 ## Setup of Fastlane
 
-* [Install Ruby >= 2.6.5](https://www.ruby-lang.org/en/documentation/installation/) (The preferred and tested way is using [Ruby Version Manager (RVM)](https://rvm.io/))
+* Install [Ruby >= 2.6.5](https://www.ruby-lang.org/en/documentation/installation/) (The preferred and tested way is to use [Ruby Version Manager (RVM)](https://rvm.io/)).
   * If using RVM you have to do: `rvm use ruby-2.6.5`
 * Make sure `ruby --version` reports the correct version
 * Run `bundle install --path vendor/bundle` in the project root, `./android/` and `./ios/`
