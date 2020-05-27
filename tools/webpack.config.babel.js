@@ -22,6 +22,12 @@ const createConfig = (env = {}) => {
   console.log('isDebug: ', isDebug)
   console.log('config_name: ', appConfigName)
 
+  const polyfills = [
+    '@babel/polyfill',
+    'whatwg-fetch',
+    'url-polyfill'
+  ]
+
   const config = {
     mode: isDebug ? 'development' : 'production',
     resolve: {
@@ -34,6 +40,7 @@ const createConfig = (env = {}) => {
     // The entry point for the bundle
     entry: [
       '!!style-loader!css-loader!normalize.css/normalize.css',
+      ...polyfills,
       'react-hot-loader/patch',
       /* The main entry point of your JavaScript application */
       './main.js'
