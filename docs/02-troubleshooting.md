@@ -1,8 +1,5 @@
 # Troubleshooting
 
-## Invalid VCS Root
-Initialize and update the locales submodule as stated in the [README](../README.md/#project-setup).
-
 ## Problems with sharp or other node modules
 Use nodejs 12 LTS instead of the latest version.
 
