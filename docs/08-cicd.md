@@ -63,7 +63,7 @@ The certificate system of Apple seems very complex at first. Therefore, we will 
 |Enterprise|:x:|:heavy_check_mark:|:heavy_check_mark:|
 |App Store|:x:|:x:|:heavy_check_mark:|
 
-Also, there are various ways to install an iOS app:
+Also, there are various ways to install an iOS app which require different kinds of signing:
 
 * Via a URL which is opened in Safari
 * Via App Store
