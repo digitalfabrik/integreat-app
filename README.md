@@ -37,13 +37,15 @@ Using the latest version (v13) may lead to errors.
 *Note: In order to work with the XCode project, always open `ios/Integreat.xcworkspace`.*
 
 ### Project setup
-We suggest **[IntelliJ IDEA Ultimate](https://www.jetbrains.com/idea/)** and XCode as IDE. JetBrains provides free licences for students.
+We suggest **[IntelliJ IDEA Ultimate](https://www.jetbrains.com/idea/)** as IDE for editing JavaScript code. JetBrains provides free licences for students.
 If you are using a different IDE, the steps might differ.
 
 * Import this project (VCS > Get from Version Control).
 * Run `yarn` in the terminal to install all dependencies.
 * Take a look at package.json to show all available npm scripts.
 * Run `yarn start` to start the bundler.
+
+*Note: For editing native Java code for Android [Android Studio](https://developer.android.com/studio) is recommended. For native Swift/Objective-C code [XCode](https://developer.apple.com/xcode/) is required.*
 
 #### Running the app
 
