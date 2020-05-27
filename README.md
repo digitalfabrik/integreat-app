@@ -16,7 +16,7 @@ If you want to know more about Integreat or if you want to join us, contact [Max
 
 ## Getting Started
 
-*Note: For setting the project up on Windows you may want to use Chocolatey and [follow this guide](./docs/16-windows-setup.md).*
+*Note: For setting the project up on Windows you may want to use Chocolatey and [follow this guide](docs/09-windows-setup.md).*
 
 ### Prerequisites
 * Install [nodejs](https://nodejs.org/). At least v6 is required, but we recommend the v12 LTS.
@@ -48,7 +48,7 @@ If you are using a different IDE, the steps might differ.
 
 #### Running the app
 
-Take a look at the docs for [iOS](docs/06-manual-builds.md#run-the-app-in-a-simulator) and [Android](docs/06-manual-builds.md#run-the-app-in-an-emulator) to see how to run the app.
+Take a look at the docs for [iOS](docs/06-manual-builds.md#manually-building-for-ios) and [Android](docs/06-manual-builds.md#manually-building-for-android) to see how to run the app.
 
 #### Additional Configuration
 * Mark the *src* folder as *Source directory*.
