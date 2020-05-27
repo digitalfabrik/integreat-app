@@ -14,7 +14,7 @@ import {
 
 import { LocationLayout } from '../LocationLayout'
 import { CATEGORIES_ROUTE } from '../../../app/route-configs/CategoriesRouteConfig'
-import moment from 'moment-timezone'
+import moment from 'moment'
 import { SEARCH_ROUTE } from '../../../app/route-configs/SearchRouteConfig'
 import CategoriesToolbar from '../../../../routes/categories/containers/CategoriesToolbar'
 import LocationToolbar from '../../components/LocationToolbar'
@@ -35,7 +35,7 @@ describe('LocationLayout', () => {
       parentPath: 'parent/url',
       order: 4,
       availableLanguages: new Map(),
-      lastUpdate: moment.tz('2017-11-18 09:30:00', 'UTC')
+      lastUpdate: moment('2017-11-18T09:30:00.000Z')
     })
   ])
 
@@ -46,8 +46,8 @@ describe('LocationLayout', () => {
       availableLanguages: new Map(
         [['de', '/augsburg/de/events/erstes_event'], ['ar', '/augsburg/ar/events/erstes_event']]),
       date: new DateModel({
-        startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
-        endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+        startDate: moment('2017-11-18T09:30:00.000Z'),
+        endDate: moment('2017-11-18T19:30:00.000Z'),
         allDay: true
       }),
       location: new LocationModel({
