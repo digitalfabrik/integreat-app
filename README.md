@@ -49,7 +49,7 @@ If you are using a different IDE, the steps might differ.
 
 #### Running the app
 
-See [here for iOS](docs/06-manual-builds.md#run-the-app-in-a-simulator) and [here for Android](docs/06-manual-builds.md#run-the-app-in-an-emulator) to see how run the app.
+Take a look at the docs for [iOS](docs/06-manual-builds.md#run-the-app-in-a-simulator) and [Android](docs/06-manual-builds.md#run-the-app-in-an-emulator) to see how to run the app.
 
 #### Additional Configuration
 * Mark the *src* folder as *Source directory*.
@@ -70,7 +70,7 @@ If you encounter any problems, have a look at our [troubleshooting section](docs
 For more information on how to debug, have a look at our [debugging section](docs/01-debugging.md)
 
 ## Bug reporting
-You can [view our issues](https://issues.integreat-app.de/projects/WEBAPP) or
+You can [view our issues](https://issues.integreat-app.de/projects/NATIVE) or
  [create new ones](https://issues.integreat-app.de/secure/CreateIssue!default.jspa) on our jira.
 
 ## Pull requests
