@@ -22,6 +22,14 @@ const createConfig = (env = {}) => {
   console.log('isDebug: ', isDebug)
   console.log('config_name: ', appConfigName)
 
+  // Add new polyfills here instead of importing them in the JavaScript code.
+  // This way it is ensured that polyfills are loaded before any other code which might require them.
+  const polyfills = [
+    '@babel/polyfill',
+    'whatwg-fetch',
+    'url-polyfill'
+  ]
+
   const config = {
     mode: isDebug ? 'development' : 'production',
     resolve: {
@@ -34,6 +42,7 @@ const createConfig = (env = {}) => {
     // The entry point for the bundle
     entry: [
       '!!style-loader!css-loader!normalize.css/normalize.css',
+      ...polyfills,
       'react-hot-loader/patch',
       /* The main entry point of your JavaScript application */
       './main.js'
