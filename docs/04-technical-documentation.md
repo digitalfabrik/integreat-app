@@ -15,7 +15,6 @@
 
 ### Frontend framework
 [React](https://facebook.github.io/react/) is used as frontend framework.
-This allows us to build a single-page-application easily.
 
 ### JavaScript compiler
 [Babel](https://babeljs.io/) is used to make the app available to a broader audience while 
