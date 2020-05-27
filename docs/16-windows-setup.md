@@ -22,9 +22,6 @@ You will need the following tools:
   choco install intellijidea-ultimate
   # if you don't have the ultimate licence
   choco install intellijidea-community
-
-  # for the initial setup is android studio a good choice (sdk installation, build tools and emulator)
-  choco install androidstudio
 ````
 
 Reboot after the installation.

@@ -25,10 +25,10 @@ Using the latest version (v13) may lead to errors.
 * Install [yarn](https://yarnpkg.com/).
 
 #### Android
-* Install the Android SDK by installing [Android Studio](https://developer.android.com/studio/).
-* Install the latest stable SDK Platform and Android SDK Tools in the SDK Manager (Android Studio > Tools > SDK Manager)
-* [optional]: If you want to develop using an emulator, also install the Android Emulator in the SDK Manager
-(Android Studio > Tools > SDK Manager)
+* Install the Android SDK by using the [Android Support plugin](https://plugins.jetbrains.com/plugin/1792-android-support) in IntelliJ.
+* Install the latest stable SDK Platform and Android SDK Tools in the SDK Manager (Settings > Appearance & Behaviour > System Settings > Android SDK)
+* \[optional\]: If you want to develop using an emulator, also install the Android Emulator in the Android SDK settings
+
 
 #### iOS
 * Own a Mac or another Apple device.
@@ -45,7 +45,7 @@ If you are using a different IDE, the steps might differ.
 * Take a look at package.json to show all available npm scripts.
 * Run `yarn start` to start the bundler.
 
-*Note: For editing native Java code for Android [Android Studio](https://developer.android.com/studio) is recommended. For native Swift/Objective-C code [XCode](https://developer.apple.com/xcode/) is required.*
+*Note: For editing native Java code for Android IntelliJ with the Android extension is recommended. For native Swift/Objective-C code [XCode](https://developer.apple.com/xcode/) is required.*
 
 #### Running the app
 

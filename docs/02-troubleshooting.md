@@ -15,8 +15,7 @@ Possible solutions:
     * Add the workspace folder
     * Maybe also add user specific configuration locations and appdata folder if required
 * Run the IDE as administrator
-* For first time android developer try to open Android Studio and create and start one of the samples 
-  (there are a lot of hints present)
+* For first time android developer open IntelliJ with the Android Support plugin installed, create an Android project and start the app.
     
 ## `ERROR watch... ENOSPC` when running `yarn start` on Linux
 Increase the number of inotify watches by running  
@@ -29,8 +28,7 @@ There are 2 ways to fix this:
 2. Add `~/Android/sdk/platform-tools/adb` to your $PATH
 
 ## 'adb server version (x) doesn't match this client (y)'
-Make sure you only have one version of adb installed. Probably your system has one and Android Studio installed a second
-one. There are 2 ways to fix this:
+Make sure you only have one version of adb installed. Probably your system has adb installed and another version is available in the Android SDK. There are 2 ways to fix this:
 
 1. Link `/usr/bin/adb` to the adb client you installed (usually the one at `~/Android/sdk/platform-tools/adb`)
 2. Add `~/Android/sdk/platform-tools/adb` to your $PATH
