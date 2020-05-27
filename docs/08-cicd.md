@@ -41,19 +41,12 @@ Fastlane is a task-runner for triggering build relevant tasks. It offers integra
 
 ## Lanes
 
-There are Android and iOS specific lanes. Lanes for Android live in `./android/fastlane` and for iOS in `./ios/fastlane`.
+Lanes for Android live in `./android/fastlane` and for iOS in `./ios/fastlane`. Shared lanes are in `./fastlane`.
 
-### General 
-
-For an overview of the Fastlane lanes refer to the [auto-generated README](../fastlane/README.md#available-actions). These lanes are responsible for delivering and uploading artifacts, bumping the version using the [deliverino GitHub bot](#deliverino-github) and sending notifications.
-
-### Android
-
-For an overview of the Fastlane lanes refer to the [auto-generated README](../android/fastlane/README.md#available-actions). These lanes are responsible for setting up the signing keys and building the Android app.
-
-### iOS
-
-For an overview of the Fastlane lanes refer to the [auto-generated README](../ios/fastlane/README.md#available-actions). These lanes are responsible for setting up the certificates and building the iOS app.
+An overview about FL lanes is available in several documents:
+* [General](../fastlane/README.md#available-actions) - Responsible for delivering and uploading artifacts, bumping the version using the [deliverino GitHub bot](#deliverino-github) and sending notifications.
+* [Android](../android/fastlane/README.md#available-actions) - Responsible for setting up the signing keys and building the Android app.
+* [iOS](../ios/fastlane/README.md#available-actions) - Responsible for setting up the certificates and building the iOS app.
 
 # Setup Certificates for iOS on Mac
 
