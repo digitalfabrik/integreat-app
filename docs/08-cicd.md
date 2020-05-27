@@ -85,9 +85,8 @@ The setup of the JKS is demonstrated in section [Manual builds](06-manual-builds
 
 The next version of the app must be determined programmatically. The tool `yarn bump-version` can be used. If you execute it without parameters you will see the usage.
 
-As the version number is based on the release date, the first versions of 2020 are `2020.1.0`, `2020.1.1`, `2020.1.2`...
-
-The first release february will have the version number `2020.2.0`. 
+The following [schema](https://calver.org/) ![versioning](https://img.shields.io/badge/calver-YYYY.M.PATCH-22bfda.svg) is used for versioning, where `PATCH` is a counter for the number of releases in the corresponding month starting with 0.
+For example the first versions of 2020 are `2020.1.0`, `2020.1.1`, `2020.1.2` etc. The first release february will have the version number `2020.2.0`. 
  
 
 # Environment Variables and Dependencies

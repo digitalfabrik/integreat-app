@@ -1,4 +1,3 @@
-versioning: ![versioning](https://img.shields.io/badge/calver-YYYY.M.PATCH-22bfda.svg)
 # integreat-react-native-app
 ## Contents
 * [Contributing](#contributing)
