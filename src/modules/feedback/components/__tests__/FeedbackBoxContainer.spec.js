@@ -56,7 +56,8 @@ describe('FeedbackBoxContainer', () => {
         t={t}
         theme={theme}
         onSubmit={() => {}}
-        closeFeedbackModal={() => {}} />
+        closeFeedbackModal={() => {}}
+        sendingStatus='SUCCESS' />
     )).toMatchSnapshot()
   })
 
@@ -75,6 +76,7 @@ describe('FeedbackBoxContainer', () => {
           closeFeedbackModal={() => {}}
           extras={null}
           theme={theme}
+          sendingStatus='SUCCESS'
           t={t} />
       ).instance()
 
@@ -104,6 +106,7 @@ describe('FeedbackBoxContainer', () => {
           closeFeedbackModal={() => {}}
           extras={null}
           theme={theme}
+          sendingStatus='SUCCESS'
           t={t} />
       ).instance()
 
@@ -133,6 +136,7 @@ describe('FeedbackBoxContainer', () => {
           closeFeedbackModal={() => {}}
           extras={null}
           theme={theme}
+          sendingStatus='SUCCESS'
           t={t} />
       ).instance()
 
@@ -169,6 +173,7 @@ describe('FeedbackBoxContainer', () => {
           closeFeedbackModal={() => {}}
           extras={null}
           theme={theme}
+          sendingStatus='SUCCESS'
           t={t} />
       ).instance()
 
@@ -199,6 +204,7 @@ describe('FeedbackBoxContainer', () => {
         closeFeedbackModal={() => {}}
         extras={null}
         theme={theme}
+        sendingStatus='SUCCESS'
         t={t} />
     )
     expect(component.instance().getContentFeedbackOption())
@@ -266,6 +272,7 @@ describe('FeedbackBoxContainer', () => {
         closeFeedbackModal={() => {}}
         extras={extras}
         theme={theme}
+        sendingStatus='SUCCESS'
         t={t} />
     )
 
@@ -331,6 +338,7 @@ describe('FeedbackBoxContainer', () => {
             closeFeedbackModal={() => {}}
             extras={null}
             theme={theme}
+            sendingStatus='SUCCESS'
             t={t} />
   )
 
@@ -356,11 +364,41 @@ describe('FeedbackBoxContainer', () => {
         extras={null}
         postFeedbackDataOverride={mockPostFeedbackData}
         theme={theme}
+        sendingStatus='SUCCESS'
         t={t} />
     )
 
     component.instance().handleSubmit()
     expect(mockPostFeedbackData).toHaveBeenCalledTimes(1)
+  })
+
+  it('should not post data on submit failure', async () => {
+    const mockOnSubmit = jest.fn()
+
+    const component = shallow(
+      <FeedbackBoxContainer
+        location={location}
+        cities={cities}
+        isPositiveRatingSelected
+        onSubmit={mockOnSubmit}
+        closeFeedbackModal={() => {}}
+        extras={null}
+        theme={theme}
+        sendingStatus='ERROR'
+        t={t} />
+    )
+    // set as workaround to override: console error to log
+    const prevError = console.error
+    // $FlowFixMe
+    console.error = error => console.log(`Some expected error was thrown: ${error}`)
+
+    const instance = component.instance()
+    instance.postFeedbackData = jest.fn().mockRejectedValue(new Error('Endpoint request failed'))
+
+    await instance.handleSubmit()
+    expect(mockOnSubmit).toHaveBeenCalledWith('ERROR')
+    // $FlowFixMe
+    console.error = prevError
   })
 
   it('should update state onCommentChanged', () => {
@@ -377,6 +415,7 @@ describe('FeedbackBoxContainer', () => {
         closeFeedbackModal={() => {}}
         extras={null}
         theme={theme}
+        sendingStatus='SUCCESS'
         t={t} />
     ).instance()
 
@@ -401,6 +440,7 @@ describe('FeedbackBoxContainer', () => {
         closeFeedbackModal={() => {}}
         extras={null}
         theme={theme}
+        sendingStatus='SUCCESS'
         t={t} />
     ).instance()
 

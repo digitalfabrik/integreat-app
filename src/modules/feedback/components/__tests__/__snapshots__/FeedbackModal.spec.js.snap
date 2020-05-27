@@ -144,6 +144,7 @@ exports[`FeedbackModal should match snapshot 1`] = `
         onSubmit={[Function]}
         path="path"
         query="ab"
+        sendingStatus="IDLE"
         theme={
           Object {
             "colors": Object {
