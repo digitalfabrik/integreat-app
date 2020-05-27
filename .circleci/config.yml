@@ -1,0 +1,194 @@
+version: 2.1
+
+orbs:
+  slack: circleci/slack@3.4.2
+
+parameters:
+  api_triggered:
+    type: boolean
+    description: Whether the pipeline was triggered through the CircleCi API (https://circleci.com/docs/api/v2/?shell#trigger-a-new-pipeline).
+    default: false
+  production:
+    type: boolean
+    description: Whether to deploy to production (integreat.app) or not (webnext.integreat-app.de).
+    default: false
+
+workflows:
+  version: 2
+  commit: # Builds every commit. Delivers to webnext on develop.
+    unless: << pipeline.parameters.api_triggered >>
+    jobs:
+      - build:
+          production: false
+      - deliver:
+          production: false
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - develop
+
+  api-triggered-delivery: # Workflow for manual delivery
+    when: << pipeline.parameters.api_triggered >>
+    jobs:
+      - build:
+          production: << pipeline.parameters.production >>
+      - bump_version:
+          shouldBumpVersion: << pipeline.parameters.production >>
+          requires:
+            - build
+      - deliver:
+          production: << pipeline.parameters.production >>
+          requires:
+            - build
+            - bump_version
+
+  bi-weekly-production-delivery:
+    triggers:
+      - schedule:
+          cron: "0 5 1,15 * *" # For sanity checks for this syntax: https://crontab.guru/
+          filters:
+            branches:
+              only:
+                - develop
+    jobs:
+      - build:
+          production: true
+      - bump_version:
+          requires:
+            - build
+      - deliver:
+          type: approval
+          production: true
+          requires:
+            - build
+            - bump_version
+
+jobs:
+  build:
+    parameters:
+      production:
+        description: Whether to build for production.
+        type: boolean
+    docker:
+      - image: circleci/node:12.16.3
+    resource_class: small
+    environment:
+      TOTAL_CPUS: 1 # For resource_class small
+      TZ: "Europe/Berlin" # Should be removed in WEBAPP-463
+    shell: /bin/bash -eo pipefail
+    steps:
+      - run:
+          name: "Show current CPU count"
+          command: |
+            echo "CPU count is ${TOTAL_CPUS}"
+      - add_ssh_keys:
+          fingerprints:
+            - "30:f4:98:9f:1c:72:d1:c0:17:9f:57:05:74:a6:44:50"
+      - checkout
+      - restore_cache:
+          name: Restore Yarn Package Cache
+          keys:
+            - 2-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+            - 2-yarn-{{ arch }}-
+      - run:
+          name: Install Dependencies
+          command: yarn install --frozen-lockfile
+      - save_cache:
+          name: Save Yarn Package Cache
+          key: 2-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+            - node_modules
+      - run:
+          name: Check linting
+          command: yarn run lint
+      - run:
+          name: Check flow
+          command: yarn run flow:check-now --max-workers $TOTAL_CPUS
+      - run:
+          name: Unit tests
+          command: yarn run test --ci --maxWorkers $TOTAL_CPUS
+      - run:
+          name: Test coverage # Results are not used right now. Run it anyway to (possibly) discover more problems.
+          command: yarn run test:coverage --ci --maxWorkers $TOTAL_CPUS
+      - when:
+          condition: << parameters.production >>
+          steps:
+            - run:
+                name: Production build
+                command: yarn run build
+      - unless:
+          condition: << parameters.production >>
+          steps:
+            - run:
+                name: Debug build
+                command: yarn run build:debug
+      - run:
+          name: Check build
+          command: yarn run check:built
+      - store_artifacts:
+          path: dist
+      - persist_to_workspace:
+          root: ./
+          paths:
+            - dist
+            - node_modules
+
+  deliver:
+    parameters:
+      production:
+        description: Whether to deliver to production.
+        type: boolean
+    docker:
+      - image: circleci/node:12.16.3
+    resource_class: small
+    shell: /bin/bash -eo pipefail
+    steps:
+      - attach_workspace:
+          at: /tmp/output
+      - when:
+          condition: << parameters.production >>
+          steps:
+            - run:
+                name: Read version number
+                command: echo 'export VERSION_NAME=$(cat version.json | jq .versionName)' >> $BASH_ENV
+            - run:
+                name: Production delivery # StrictHostKeyChecking=no is not a security problem. The worst that could happen is a delivery to the wrong domain.
+                command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/integreat.app \<<< $'put -r /tmp/output/dist/*'
+            - slack/notify:
+                message: Integreat WebApp version ${VERSION_NAME} was delivered successfully to integreat.app!
+                webhook: $SLACK_URL
+      - unless:
+          condition: << parameters.production >>
+          steps:
+            - run:
+                name: Debug delivery
+                command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.integreat-app.de \<<< $'put -r /tmp/output/dist/*'
+
+  bump_version:
+    parameters:
+      shouldBumpVersion:
+        description:
+        type: boolean
+        default: true
+    docker:
+      - image: circleci/node:12.16.3
+    resource_class: small
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - when:
+          condition: << parameters.shouldBumpVersion >>
+          steps:
+            - run:
+                name: Bump version
+                command: tools/bump-version bump-version --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
+      - unless:
+          condition: << parameters.shouldBumpVersion >>
+          steps:
+            - run:
+                name: Skip version bump
+                command: echo "skip version bump"

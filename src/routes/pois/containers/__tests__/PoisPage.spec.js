@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { PoiModel, LocationModel } from '@integreat-app/integreat-api-client'
-import moment from 'moment-timezone'
+import moment from 'moment'
 import { PoisPage } from '../PoisPage'
 import { shallow } from 'enzyme'
 import List from '../../../../modules/common/components/List'
