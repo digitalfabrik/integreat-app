@@ -101,7 +101,7 @@ The first release february will have the version number `2020.2.0`.
 
 |Variable|Description|Where do I get it from?|Example|Reference|
 |---|---|---|---|---|
-|BROWSERSTACK_ACCESS_KEY|Access Key for BrowserStack|Password Manager|steffen|[Appium REST API](https://www.browserstack.com/app-automate/rest-api)|
+|BROWSERSTACK_ACCESS_KEY|Access Key for BrowserStack|Password Manager|DEADBEEF|[Appium REST API](https://www.browserstack.com/app-automate/rest-api)|
 |BROWSERSTACK_USERNAME|Username for BrowserStack|Password Manager|123546|[Appium REST API](https://www.browserstack.com/app-automate/rest-api)|
 |DELIVERINO_PRIVATE_KEY|Base64 encoded PEM private key|Password Manager|[Deliverino Settings](https://github.com/organizations/Integreat/settings/apps/deliverino)|[Deliverino](https://github.com/apps/deliverino)|
 |SENTRY_AUTH_TOKEN|Auth Token from Sentry for uploading sourcemaps and artifacts|Generate this [in your Sentry account](https://sentry.integreat-app.de/settings/account/api/auth-tokens/) with the scope `project:releases`|deadbeef|[Sentry Authentication](https://docs.sentry.io/cli/configuration/)|
