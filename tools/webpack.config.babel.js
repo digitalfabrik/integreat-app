@@ -22,6 +22,8 @@ const createConfig = (env = {}) => {
   console.log('isDebug: ', isDebug)
   console.log('config_name: ', appConfigName)
 
+  // Add new polyfills here instead of importing them in the JavaScript code.
+  // This way it is ensured that polyfills are loaded before any other code which might require them.
   const polyfills = [
     '@babel/polyfill',
     'whatwg-fetch',
