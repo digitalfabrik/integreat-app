@@ -16,7 +16,7 @@ Whether `api-triggered` is delivered to production depends on the supplied param
 ## About the "api-triggered" Workflow 
 
 This workflow can be triggered using the tool `yarn trigger-pipeline` as described [below](#triggering-a-build-in-ci).
-Depending on the supplied parameters a weekly or bi-weekly build is triggered.
+Depending on the supplied parameters the build is released to production.
 
 ### Triggering a Build in CI
 
