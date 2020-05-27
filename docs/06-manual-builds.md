@@ -1,6 +1,6 @@
 # Manual builds
 
-If you want to create `.ipa` or `.apk` builds for testing purposes you can follow this guide. If you only want to quickly push an update to the stores then take a look [at the CI/CD documentation](08-cicd.md#triggering-a-build-in-ci).
+If you want to run the app locally or create `.ipa` or `.apk` builds for testing purposes you can follow this guide. If you only want to quickly push an update to the stores then take a look [at the CI/CD documentation](08-cicd.md#triggering-a-build-in-ci).
 
 ## Manually building for iOS
 
