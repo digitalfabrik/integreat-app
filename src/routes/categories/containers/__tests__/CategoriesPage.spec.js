@@ -68,7 +68,7 @@ describe('CategoriesPage', () => {
       code: 'augsburg',
       live: true,
       eventsEnabled: false,
-      extrasEnabled: false,
+      offersEnabled: false,
       sortingName: 'Augsburg'
     }),
     new CityModel({
@@ -76,7 +76,7 @@ describe('CategoriesPage', () => {
       code: 'regensburg',
       live: true,
       eventsEnabled: false,
-      extrasEnabled: false,
+      offersEnabled: false,
       sortingName: 'Regensburg'
     }),
     new CityModel({
@@ -84,7 +84,7 @@ describe('CategoriesPage', () => {
       code: 'werne',
       live: true,
       eventsEnabled: false,
-      extrasEnabled: false,
+      offersEnabled: false,
       sortingName: 'City'
     })
   ]

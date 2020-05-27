@@ -45,7 +45,7 @@ describe('SearchPage', () => {
       code: 'augsburg',
       live: true,
       eventsEnabled: true,
-      extrasEnabled: false,
+      offersEnabled: false,
       sortingName: 'Augsburg'
     })
   ]

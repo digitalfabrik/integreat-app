@@ -1,11 +1,11 @@
 // @flow
 
 import SprungbrettRouteConfig from '../SprungbrettRouteConfig'
-import { ExtraModel, Payload, SprungbrettJobModel } from '@integreat-app/integreat-api-client'
+import { OfferModel, Payload, SprungbrettJobModel } from '@integreat-app/integreat-api-client'
 import createLocation from '../../../../createLocation'
 
-const extras = [
-  new ExtraModel({
+const offers = [
+  new OfferModel({
     alias: 'sprungbrett',
     path: 'path to fetch jobs from',
     title: 'Sprungbrett',
@@ -13,7 +13,7 @@ const extras = [
     postData: null
   })
 ]
-const extrasPayload = new Payload(false, 'https://random.api.json', extras, null)
+const offersPayload = new Payload(false, 'https://random.api.json', offers, null)
 
 const sprungbrettJobs = [
   new SprungbrettJobModel({
@@ -26,7 +26,7 @@ const sprungbrettJobs = [
   })
 ]
 const sprungbrettJobsPayload = new Payload(false, 'https://random.api.json', sprungbrettJobs, null)
-const payloads = { extras: extrasPayload, sprungbrettJobs: sprungbrettJobsPayload }
+const payloads = { offers: offersPayload, sprungbrettJobs: sprungbrettJobsPayload }
 
 const t = (key: ?string): string => key || ''
 
@@ -40,7 +40,7 @@ describe('SprungbrettRouteConfig', () => {
 
   it('should get the required payloads', () => {
     const allPayloads = {
-      extrasPayload,
+      offersPayload,
       citiesPayload: new Payload(true),
       categoriesPayload: new Payload(true),
       disclaimerPayload: new Payload(true),

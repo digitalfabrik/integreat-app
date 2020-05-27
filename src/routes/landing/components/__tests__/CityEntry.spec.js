@@ -13,7 +13,7 @@ describe('CityEntry', () => {
       code: 'augsburg',
       live: true,
       eventsEnabled: false,
-      extrasEnabled: false,
+      offersEnabled: false,
       sortingName: 'Augsburg'
     })
 

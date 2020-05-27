@@ -8,17 +8,17 @@ import Hashids from 'hashids'
 import {
   createCitiesEndpoint,
   createEventsEndpoint,
-  createExtrasEndpoint,
+  createOffersEndpoint,
   createLanguagesEndpoint,
   createWohnenEndpoint,
-  ExtraModel,
+  OfferModel,
   Payload,
   WohnenOfferModel
 } from '@integreat-app/integreat-api-client'
 import { cmsApiBaseUrl, wohnenApiBaseUrl } from '../constants/urls'
 
 type RouteParamsType = {|city: string, language: string, offerHash?: string|}
-type RequiredPayloadsType = {|offers: Payload<Array<WohnenOfferModel>>, extras: Payload<Array<ExtraModel>>|}
+type RequiredPayloadsType = {|offers: Payload<Array<WohnenOfferModel>>, offers: Payload<Array<OfferModel>>|}
 
 export const WOHNEN_ROUTE = 'WOHNEN'
 export const WOHNEN_EXTRA = 'wohnen'
@@ -26,19 +26,19 @@ export const WOHNEN_EXTRA = 'wohnen'
 export const hash = (offer: WohnenOfferModel) =>
   new Hashids().encode(offer.email.length, offer.createdDate.seconds())
 
-const fetchExtras = async (dispatch, getState) => {
+const fetchOffers = async (dispatch, getState) => {
   const state = getState()
   const { city, language } = state.location.payload
-  const extrasPayload = await fetchData(createExtrasEndpoint(cmsApiBaseUrl), dispatch, state.extras, {
+  const offersPayload = await fetchData(createOffersEndpoint(cmsApiBaseUrl), dispatch, state.offers, {
     city,
     language
   })
-  const extras: ?Array<ExtraModel> = extrasPayload.data
+  const offers: ?Array<OfferModel> = offersPayload.data
 
-  if (extras) {
-    const wohnenExtra: ExtraModel | void = extras.find(extra => extra.alias === WOHNEN_EXTRA)
-    if (wohnenExtra && wohnenExtra.postData) {
-      const params = { city: wohnenExtra.postData.get('api-name') }
+  if (offers) {
+    const wohnenOffer: OfferModel | void = offers.find(offer => offer.alias === WOHNEN_EXTRA)
+    if (wohnenOffer && wohnenOffer.postData) {
+      const params = { city: wohnenOffer.postData.get('api-name') }
       await fetchData(createWohnenEndpoint(wohnenApiBaseUrl), dispatch, state.wohnen, params)
     }
   }
@@ -54,7 +54,7 @@ const wohnenRoute: Route = {
       fetchData(createCitiesEndpoint(cmsApiBaseUrl), dispatch, state.cities),
       fetchData(createEventsEndpoint(cmsApiBaseUrl), dispatch, state.events, { city, language }),
       fetchData(createLanguagesEndpoint(cmsApiBaseUrl), dispatch, state.languages, { city, language }),
-      fetchExtras(dispatch, getState)
+      fetchOffers(dispatch, getState)
     ])
   }
 }
@@ -70,7 +70,7 @@ class WohnenRouteConfig implements RouteConfig<RouteParamsType, RequiredPayloads
     `/${city}/${language}/offers/${WOHNEN_EXTRA}${offerHash ? `/${offerHash}` : ''}`
 
   getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType =>
-    ({ offers: payloads.wohnenPayload, extras: payloads.extrasPayload })
+    ({ offers: payloads.wohnenPayload, extras: payloads.offersPayload })
 
   getLanguageChangePath = ({ location, language }) =>
     this.getRoutePath({ city: location.payload.city, language })
@@ -80,22 +80,21 @@ class WohnenRouteConfig implements RouteConfig<RouteParamsType, RequiredPayloads
       return null
     }
     const offerHash = location.payload.offerHash
-    const extras = payloads.extras.data
-    const offers = payloads.offers.data
+    const offers = { ...payloads.offers.data, ...payloads.extras.data }
     const offerModel = offers && offers.find(offer => hash(offer) === offerHash)
     if (offerModel) {
       return `${offerModel.formData.accommodation.title} - ${cityName}`
     }
-    const wohnenExtra = extras && extras.find(extra => extra.alias === WOHNEN_EXTRA)
-    return wohnenExtra ? `${wohnenExtra.title} - ${cityName}` : ''
+    const wohnenOffer = offers && offers.find(offer => offer.alias === WOHNEN_EXTRA)
+    return wohnenOffer ? `${wohnenOffer.title} - ${cityName}` : ''
   }
 
   getMetaDescription = () => null
 
   getFeedbackTargetInformation = ({ payloads }) => {
-    const extras = payloads.extras.data
-    const extra = extras && extras.find(extra => extra.alias === WOHNEN_EXTRA)
-    return ({ alias: WOHNEN_EXTRA, title: extra && extra.title })
+    const offers = payloads.offers.data
+    const offer = offers && offers.find(offer => offer.alias === WOHNEN_EXTRA)
+    return ({ alias: WOHNEN_EXTRA, title: offer && offer.title })
   }
 }
 

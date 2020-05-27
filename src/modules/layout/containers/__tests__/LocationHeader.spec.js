@@ -6,7 +6,7 @@ import { DateModel, EventModel, LocationModel } from '@integreat-app/integreat-a
 import { LocationHeader } from '../LocationHeader'
 import { CATEGORIES_ROUTE } from '../../../app/route-configs/CategoriesRouteConfig'
 import { EVENTS_ROUTE } from '../../../app/route-configs/EventsRouteConfig'
-import { EXTRAS_ROUTE } from '../../../app/route-configs/ExtrasRouteConfig'
+import { OFFERS_ROUTE } from '../../../app/route-configs/OffersRouteConfig'
 import moment from 'moment'
 import { WOHNEN_ROUTE } from '../../../app/route-configs/WohnenRouteConfig'
 import { SPRUNGBRETT_ROUTE } from '../../../app/route-configs/SprungbrettRouteConfig'
@@ -92,9 +92,9 @@ describe('LocationHeader', () => {
   const onStickyTopChanged = (value: number) => {}
 
   describe('NavigationItems', () => {
-    it('should be empty, if extras and news are both disabled', () => {
+    it('should be empty, if offers and news are both disabled', () => {
       const component = shallow(<LocationHeader location={location(CATEGORIES_ROUTE)}
-                                                isExtrasEnabled={false}
+                                                isOffersEnabled={false}
                                                 isEventsEnabled={false}
                                                 isLocalNewsEnabled={false}
                                                 isTunewsEnabled={false}
@@ -107,9 +107,9 @@ describe('LocationHeader', () => {
       expect(component.instance().getNavigationItems()).toMatchSnapshot()
     })
 
-    it('should show categories, if extras or news are enabled', () => {
-      const extrasComp = shallow(<LocationHeader location={location(CATEGORIES_ROUTE)}
-                                                 isExtrasEnabled
+    it('should show categories, if offers or news are enabled', () => {
+      const offersComp = shallow(<LocationHeader location={location(CATEGORIES_ROUTE)}
+                                                 isOffersEnabled
                                                  isEventsEnabled={false}
                                                  isLocalNewsEnabled={false}
                                                  isTunewsEnabled={false}
@@ -120,7 +120,7 @@ describe('LocationHeader', () => {
                                                  onStickyTopChanged={onStickyTopChanged}
                                                  t={t} />)
       const eventsComp = shallow(<LocationHeader location={location(CATEGORIES_ROUTE)}
-                                                 isExtrasEnabled={false}
+                                                 isOffersEnabled={false}
                                                  isEventsEnabled
                                                  isLocalNewsEnabled={false}
                                                  isTunewsEnabled={false}
@@ -131,13 +131,13 @@ describe('LocationHeader', () => {
                                                  onStickyTopChanged={onStickyTopChanged}
                                                  t={t} />)
 
-      expect(extrasComp.instance().getNavigationItems()).toMatchSnapshot()
+      expect(offersComp.instance().getNavigationItems()).toMatchSnapshot()
       expect(eventsComp.instance().getNavigationItems()).toMatchSnapshot()
     })
 
-    it('should show extras, categories, events in this order', () => {
+    it('should show offers, categories, events in this order', () => {
       const component = shallow(<LocationHeader location={location(CATEGORIES_ROUTE)}
-                                                isExtrasEnabled
+                                                isOffersEnabled
                                                 isEventsEnabled
                                                 isLocalNewsEnabled={false}
                                                 isTunewsEnabled={false}
@@ -152,7 +152,7 @@ describe('LocationHeader', () => {
 
     it('should highlight categories if route corresponds', () => {
       const component = shallow(<LocationHeader location={location(CATEGORIES_ROUTE)}
-                                                isExtrasEnabled
+                                                isOffersEnabled
                                                 isEventsEnabled
                                                 isLocalNewsEnabled={false}
                                                 isTunewsEnabled={false}
@@ -167,7 +167,7 @@ describe('LocationHeader', () => {
 
     it('should highlight events if route corresponds', () => {
       const component = shallow(<LocationHeader location={location(EVENTS_ROUTE)}
-                                                isExtrasEnabled
+                                                isOffersEnabled
                                                 isEventsEnabled
                                                 isLocalNewsEnabled={false}
                                                 isTunewsEnabled={false}
@@ -180,9 +180,9 @@ describe('LocationHeader', () => {
       expect(component.instance().getNavigationItems()[2].props.selected).toBe(true)
     })
 
-    it('should highlight extras if extras route is selected', () => {
-      const component = shallow(<LocationHeader location={location(EXTRAS_ROUTE)}
-                                                isExtrasEnabled
+    it('should highlight offers if offers route is selected', () => {
+      const component = shallow(<LocationHeader location={location(OFFERS_ROUTE)}
+                                                isOffersEnabled
                                                 isEventsEnabled
                                                 isLocalNewsEnabled={false}
                                                 isTunewsEnabled={false}
@@ -195,9 +195,9 @@ describe('LocationHeader', () => {
       expect(component.instance().getNavigationItems()[0].props.selected).toBe(true)
     })
 
-    it('should highlight extras if sprungbrett route is selected', () => {
+    it('should highlight offers if sprungbrett route is selected', () => {
       const component = shallow(<LocationHeader location={location(SPRUNGBRETT_ROUTE)}
-                                                isExtrasEnabled
+                                                isOffersEnabled
                                                 isEventsEnabled
                                                 isLocalNewsEnabled={false}
                                                 isTunewsEnabled={false}
@@ -210,9 +210,9 @@ describe('LocationHeader', () => {
       expect(component.instance().getNavigationItems()[0].props.selected).toBe(true)
     })
 
-    it('should highlight extras if wohnen route is selected', () => {
+    it('should highlight offers if wohnen route is selected', () => {
       const component = shallow(<LocationHeader location={location(WOHNEN_ROUTE)}
-                                                isExtrasEnabled
+                                                isOffersEnabled
                                                 isEventsEnabled
                                                 isLocalNewsEnabled={false}
                                                 isTunewsEnabled={false}
@@ -228,8 +228,8 @@ describe('LocationHeader', () => {
 
   describe('ActionItems', () => {
     it('should match snapshot', () => {
-      const component = shallow(<LocationHeader location={location(EXTRAS_ROUTE)}
-                                                isExtrasEnabled
+      const component = shallow(<LocationHeader location={location(OFFERS_ROUTE)}
+                                                isOffersEnabled
                                                 isEventsEnabled
                                                 isLocalNewsEnabled={false}
                                                 isTunewsEnabled={false}
@@ -245,8 +245,8 @@ describe('LocationHeader', () => {
   })
 
   it('should match snapshot', () => {
-    const component = shallow(<LocationHeader location={location(EXTRAS_ROUTE)}
-                                              isExtrasEnabled
+    const component = shallow(<LocationHeader location={location(OFFERS_ROUTE)}
+                                              isOffersEnabled
                                               isEventsEnabled
                                               isLocalNewsEnabled={false}
                                               isTunewsEnabled={false}

@@ -14,7 +14,7 @@ describe('CitySelector', () => {
       code: 'city',
       live: true,
       eventsEnabled: false,
-      extrasEnabled: false,
+      offersEnabled: false,
       pushNotificationsEnabled: false,
       tunewsEnabled: false,
       sortingName: 'City'
@@ -24,7 +24,7 @@ describe('CitySelector', () => {
       code: 'otherCity',
       live: true,
       eventsEnabled: false,
-      extrasEnabled: false,
+      offersEnabled: false,
       pushNotificationsEnabled: false,
       tunewsEnabled: false,
       sortingName: 'OtherCity'
@@ -34,7 +34,7 @@ describe('CitySelector', () => {
       code: 'nonlive',
       live: false,
       eventsEnabled: false,
-      extrasEnabled: false,
+      offersEnabled: false,
       pushNotificationsEnabled: false,
       tunewsEnabled: false,
       sortingName: 'Nonlive'
@@ -44,7 +44,7 @@ describe('CitySelector', () => {
       code: 'yetanothercity',
       live: true,
       eventsEnabled: false,
-      extrasEnabled: false,
+      offersEnabled: false,
       pushNotificationsEnabled: false,
       tunewsEnabled: false,
       sortingName: 'Yetanothercity'

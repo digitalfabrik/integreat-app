@@ -16,7 +16,7 @@ exports[`FailureSwitcher render component not found failure should render a even
 />
 `;
 
-exports[`FailureSwitcher render component not found failure should render a extra not found failure and match snapshot 1`] = `
+exports[`FailureSwitcher render component not found failure should render a offer not found failure and match snapshot 1`] = `
 <Translate(Failure)
   errorMessage="notFound.extra"
   goToMessage="goTo.extras"

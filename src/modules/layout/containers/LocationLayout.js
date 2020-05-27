@@ -19,7 +19,7 @@ import { SPRUNGBRETT_ROUTE } from '../../app/route-configs/SprungbrettRouteConfi
 import { WOHNEN_ROUTE } from '../../app/route-configs/WohnenRouteConfig'
 import { DISCLAIMER_ROUTE } from '../../app/route-configs/DisclaimerRouteConfig'
 import { SEARCH_ROUTE } from '../../app/route-configs/SearchRouteConfig'
-import { EXTRAS_ROUTE } from '../../app/route-configs/ExtrasRouteConfig'
+import { OFFERS_ROUTE } from '../../app/route-configs/OffersRouteConfig'
 import type { FeedbackTargetInformationType } from '../../app/route-configs/RouteConfig'
 import type { LanguageChangePathsType } from '../../app/containers/Switcher'
 
@@ -92,7 +92,7 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
     if (type === CATEGORIES_ROUTE) {
       return <CategoriesToolbar categories={categories} location={location}
                                 openFeedbackModal={this.openFeedbackModal} />
-    } else if ([EXTRAS_ROUTE, EVENTS_ROUTE, LOCAL_NEWS_ROUTE, TUNEWS_ROUTE, DISCLAIMER_ROUTE, WOHNEN_ROUTE, SPRUNGBRETT_ROUTE].includes(type)) {
+    } else if ([OFFERS_ROUTE, EVENTS_ROUTE, LOCAL_NEWS_ROUTE, TUNEWS_ROUTE, DISCLAIMER_ROUTE, WOHNEN_ROUTE, SPRUNGBRETT_ROUTE].includes(type)) {
       return <LocationToolbar openFeedbackModal={this.openFeedbackModal} />
     } else {
       return null
@@ -115,7 +115,7 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
 
     return <Layout asideStickyTop={this.state.asideStickyTop}
                    header={<LocationHeader isEventsEnabled={cityModel.eventsEnabled}
-                                           isExtrasEnabled={cityModel.extrasEnabled}
+                                           isOffersEnabled={cityModel.offersEnabled}
                                            isLocalNewsEnabled={cityModel.pushNotificationsEnabled}
                                            isTunewsEnabled={cityModel.tunewsEnabled}
                                            languageChangePaths={languageChangePaths}

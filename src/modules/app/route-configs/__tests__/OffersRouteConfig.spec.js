@@ -1,11 +1,11 @@
 // @flow
 
-import ExtrasRouteConfig from '../ExtrasRouteConfig'
-import { ExtraModel, Payload } from '@integreat-app/integreat-api-client'
+import OffersRouteConfig from '../OffersRouteConfig'
+import { OfferModel, Payload } from '@integreat-app/integreat-api-client'
 import createLocation from '../../../../createLocation'
 
-const extras = [
-  new ExtraModel({
+const offers = [
+  new OfferModel({
     alias: 'ihk-praktikumsboerse',
     path: 'ihk-pratkitkumsboerse.com',
     title: 'Praktikumsboerse',
@@ -13,13 +13,13 @@ const extras = [
     postData: null
   })
 ]
-const extrasPayload = new Payload(false, 'https://random.api.json', extras, null)
-const payloads = { extras: extrasPayload }
+const offersPayload = new Payload(false, 'https://random.api.json', offers, null)
+const payloads = { offers: offersPayload }
 
 const t = (key: ?string): string => key || ''
 
-describe('ExtrasRouteConfig', () => {
-  const extasRouteConfig = new ExtrasRouteConfig()
+describe('OffersRouteConfig', () => {
+  const extasRouteConfig = new OffersRouteConfig()
 
   it('should get the right path', () => {
     expect(extasRouteConfig.getRoutePath({ city: 'augsburg', language: 'de' })).toBe('/augsburg/de/offers')
@@ -27,7 +27,7 @@ describe('ExtrasRouteConfig', () => {
 
   it('should get the required payloads', () => {
     const allPayloads = {
-      extrasPayload,
+      offersPayload,
       citiesPayload: new Payload(true),
       categoriesPayload: new Payload(true),
       disclaimerPayload: new Payload(true),

@@ -10,7 +10,7 @@ const cities = [
     code: 'city1',
     live: true,
     eventsEnabled: true,
-    extrasEnabled: false,
+    offersEnabled: false,
     sortingName: 'Mambo'
   })
 ]
@@ -36,7 +36,7 @@ describe('LandingRouteConfig', () => {
       tunewsPayload: new Payload(true),
       tunewsElementPayload: new Payload(true),
       disclaimerPayload: new Payload(true),
-      extrasPayload: new Payload(true),
+      offersPayload: new Payload(true),
       poisPayload: new Payload(true),
       wohnenPayload: new Payload(true),
       sprungbrettJobsPayload: new Payload(true)

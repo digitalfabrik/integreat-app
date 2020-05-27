@@ -18,7 +18,7 @@ index c5f99d7a..92b22d4d 100644
          "search": "Suche",
 -        "events": "News",
 +        "events": "Veranstaltungen",
-         "extras": "Extras",
+         "extras": "Offers",
          "landing": "Ortsauswahl",
          "disclaimer": "Impressum und Kontakt",
 @@ -27,7 +27,7 @@
@@ -27,7 +27,7 @@ index c5f99d7a..92b22d4d 100644
          "search": "Search",
 -        "events": "News",
 +        "events": "Events",
-         "extras": "Extras",
+         "extras": "Offers",
          "landing": "Location selection",
          "disclaimer": "Imprint and contact",
 @@ -66,8 +66,8 @@
@@ -43,7 +43,7 @@ index c5f99d7a..92b22d4d 100644
        "search": "البحث",
 @@ -79,8 +79,8 @@
        "privacy": "Datenschutz",
-       "extras": "Extras",
+       "extras": "Offers",
        "categories": "Kategorien",
 -      "news": "News",
 -      "noNews": "Keine News",
@@ -54,7 +54,7 @@ index c5f99d7a..92b22d4d 100644
        "search": "Suchen",
 @@ -92,8 +92,8 @@
        "privacy": "Data Privacy",
-       "extras": "Extras",
+       "extras": "Offers",
        "categories": "Categories",
 -      "news": "News",
 -      "noNews": "No News",
@@ -76,7 +76,7 @@ index c5f99d7a..92b22d4d 100644
        "search": "جستجو",
 @@ -118,8 +118,8 @@
        "privacy": "Protection des données",
-       "extras": "Extras",
+       "extras": "Offers",
        "categories": "Catégorie",
 -      "news": "Actualités",
 -      "noNews": "Aucune news",
@@ -128,7 +128,7 @@ index c5f99d7a..92b22d4d 100644
          "categories": "Zu den Kategorien",
 -        "events": "Zu den News",
 +        "events": "Zu den Veranstaltungen",
-         "extras": "Zu den Extras"
+         "extras": "Zu den Offers"
        }
      },
 @@ -262,7 +262,7 @@
@@ -137,7 +137,7 @@ index c5f99d7a..92b22d4d 100644
          "categories": "Go to Categories",
 -        "events": "Go to Events",
 +        "events": "Go to events",
-         "extras": "Go to Extras"
+         "extras": "Go to Offers"
        }
      },
 @@ -271,7 +271,7 @@
@@ -170,7 +170,7 @@ index c5f99d7a..92b22d4d 100644
 @@ -347,7 +347,7 @@
        "technicalTopics": "Technische Funktionen",
        "contentOfCity": "Inhalte von",
-       "extra": "Extra",
+       "extra": "Offer",
 -      "news": "News",
 +      "news": "Veranstaltungen",
        "disclaimer": "Kontakt und Impressum",
@@ -179,7 +179,7 @@ index c5f99d7a..92b22d4d 100644
 @@ -369,7 +369,7 @@
        "technicalTopics": "Technical topics",
        "contentOfCity": "Contents of",
-       "extra": "Extra",
+       "extra": "Offer",
 -      "news": "News",
 +      "news": "Events",
        "disclaimer": "Imprint and contact",
@@ -197,12 +197,12 @@ index c5f99d7a..92b22d4d 100644
 @@ -412,7 +412,7 @@
        "technicalTopics": "Fonctions techniques",
        "contentOfCity": "Contenu de",
-       "extra": "Extra",
+       "extra": "Offer",
 -      "news": "Nouvelles",
 +      "news": "XXX",
        "disclaimer": "Mentions Légales",
        "searchFor": "Rechercher pour",
        "contentOfPage": "Contenu de la page",
--- 
+--
 2.20.1 (Apple Git-117)
 

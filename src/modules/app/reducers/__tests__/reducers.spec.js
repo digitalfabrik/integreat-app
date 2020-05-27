@@ -88,12 +88,12 @@ describe('endpoint reducers', () => {
         .toEqual(payload)
     })
 
-    it('should reduce extras fetch actions', () => {
+    it('should reduce offers fetch actions', () => {
       const payload = new Payload(false, 'http://example.com', 'data', null)
-      const reducer = reducers.extras
-      expect(reducer(undefined, startFetchAction('extras', 'http://example.com')))
+      const reducer = reducers.offers
+      expect(reducer(undefined, startFetchAction('offers', 'http://example.com')))
         .toEqual(new Payload(true, 'http://example.com'))
-      expect(reducer(new Payload(true, 'http://example.com'), finishFetchAction('extras', payload)))
+      expect(reducer(new Payload(true, 'http://example.com'), finishFetchAction('offers', payload)))
         .toEqual(payload)
     })
 

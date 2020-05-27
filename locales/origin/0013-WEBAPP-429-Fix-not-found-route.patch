@@ -12,7 +12,7 @@ index 526bf5da..09b2d3cf 100644
 --- a/src/locales.json
 +++ b/src/locales.json
 @@ -16,7 +16,8 @@
-         "extras": "Extras",
+         "extras": "Offers",
          "landing": "Wo bist du?",
          "disclaimer": "Impressum und Kontakt",
 -        "mainDisclaimer": "Impressum und Datenschutz - Integreat"
@@ -22,7 +22,7 @@ index 526bf5da..09b2d3cf 100644
        "metaDescription": "Finde lokale und aktuelle Informationen, Events und werde Teil deiner neuen Stadt. Integreat hilft dir dich mit anderen zu vernetzen und unterstützt mehrere Sprachen."
      },
 @@ -27,7 +28,8 @@
-         "extras": "Extras",
+         "extras": "Offers",
          "landing": "Where are you?",
          "disclaimer": "Imprint and contact",
 -        "pois": "Points of Interest"
@@ -34,7 +34,7 @@ index 526bf5da..09b2d3cf 100644
 @@ -219,8 +221,7 @@
          "category": "Diese Seite wurde leider nicht gefunden.",
          "event": "Dieses Event wurde leider nicht gefunden.",
-         "extra": "Dieses Extra wurde leider nicht gefunden.",
+         "extra": "Dieses Offer wurde leider nicht gefunden.",
 -        "disclaimer": "Ein Impressum ist leider für diese Stadt nicht verfügbar.",
 -        "pageTitle": "Seite nicht gefunden"
 +        "disclaimer": "Ein Impressum ist leider für diese Stadt nicht verfügbar."
@@ -44,13 +44,13 @@ index 526bf5da..09b2d3cf 100644
 @@ -229,8 +230,7 @@
          "categories": "Zu den Kategorien",
          "events": "Zu den News",
-         "extras": "Zu den Extras"
+         "extras": "Zu den Offers"
 -      },
 -      "pageTitle": "Fehler"
 +      }
      },
      "en": {
        "not-found": {
--- 
+--
 2.20.1 (Apple Git-117)
 

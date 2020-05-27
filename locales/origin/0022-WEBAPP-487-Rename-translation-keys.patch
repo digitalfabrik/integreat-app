@@ -24,7 +24,7 @@ index 92b22d4d..e59b44c7 100644
        "search": "البحث",
 @@ -79,8 +79,8 @@
        "privacy": "Datenschutz",
-       "extras": "Extras",
+       "extras": "Offers",
        "categories": "Kategorien",
 -      "news": "Veranstaltungen",
 -      "noNews": "Keine Veranstaltungen",
@@ -35,7 +35,7 @@ index 92b22d4d..e59b44c7 100644
        "search": "Suchen",
 @@ -92,8 +92,8 @@
        "privacy": "Data Privacy",
-       "extras": "Extras",
+       "extras": "Offers",
        "categories": "Categories",
 -      "news": "Events",
 -      "noNews": "No events",
@@ -57,7 +57,7 @@ index 92b22d4d..e59b44c7 100644
        "search": "جستجو",
 @@ -118,8 +118,8 @@
        "privacy": "Protection des données",
-       "extras": "Extras",
+       "extras": "Offers",
        "categories": "Catégorie",
 -      "news": "XXX",
 -      "noNews": "XXX",
@@ -115,7 +115,7 @@ index 92b22d4d..e59b44c7 100644
 @@ -347,7 +347,7 @@
        "technicalTopics": "Technische Funktionen",
        "contentOfCity": "Inhalte von",
-       "extra": "Extra",
+       "extra": "Offer",
 -      "news": "Veranstaltungen",
 +      "events": "Veranstaltungen",
        "disclaimer": "Kontakt und Impressum",
@@ -124,7 +124,7 @@ index 92b22d4d..e59b44c7 100644
 @@ -369,7 +369,7 @@
        "technicalTopics": "Technical topics",
        "contentOfCity": "Contents of",
-       "extra": "Extra",
+       "extra": "Offer",
 -      "news": "Events",
 +      "events": "Events",
        "disclaimer": "Imprint and contact",
@@ -142,12 +142,12 @@ index 92b22d4d..e59b44c7 100644
 @@ -412,7 +412,7 @@
        "technicalTopics": "Fonctions techniques",
        "contentOfCity": "Contenu de",
-       "extra": "Extra",
+       "extra": "Offer",
 -      "news": "XXX",
 +      "events": "XXX",
        "disclaimer": "Mentions Légales",
        "searchFor": "Rechercher pour",
        "contentOfPage": "Contenu de la page",
--- 
+--
 2.20.1 (Apple Git-117)
 

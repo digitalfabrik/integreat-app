@@ -20,8 +20,8 @@ describe('FailureSwitcher', () => {
       expect(renderContentNotFoundComponent).toMatchSnapshot()
     })
 
-    it('should render a extra not found failure and match snapshot', () => {
-      const error = new ContentNotFoundError({ type: 'extra', id: 'sprungbrett', language, city })
+    it('should render a offer not found failure and match snapshot', () => {
+      const error = new ContentNotFoundError({ type: 'offer', id: 'sprungbrett', language, city })
       expect(FailureSwitcher.renderContentNotFoundComponent(error)).toMatchSnapshot()
     })
 
@@ -33,7 +33,7 @@ describe('FailureSwitcher', () => {
 
   it('should render a content not found failure if there is a ContentNotFoundError', () => {
     expect(shallow(
-      <FailureSwitcher error={new ContentNotFoundError({ type: 'extra', id: 'sprungbrett', city, language })}
+      <FailureSwitcher error={new ContentNotFoundError({ type: 'offer', id: 'sprungbrett', city, language })}
                        t={mockTranslate} />
     )).toMatchSnapshot()
   })

@@ -2,7 +2,7 @@
 
 import {
   Payload, CategoriesMapModel,
-  ExtraModel,
+  OfferModel,
   EventModel,
   LocalNewsModel,
   TunewsModel,
@@ -21,7 +21,7 @@ export type ViewportType = { +is: { +small: boolean, +large: boolean } }
 export type StateType = {
   location: LocationState,
   categories: Payload<CategoriesMapModel>,
-  extras: Payload<Array<ExtraModel>>,
+  offers: Payload<Array<OfferModel>>,
   events: Payload<Array<EventModel>>,
   localNews: Payload<Array<LocalNewsModel>>,
   localNewsElement: Payload<LocalNewsModel>,

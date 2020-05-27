@@ -5,10 +5,10 @@ import { RouteConfig } from './RouteConfig'
 import {
   createCitiesEndpoint,
   createEventsEndpoint,
-  createExtrasEndpoint,
+  createOffersEndpoint,
   createLanguagesEndpoint,
   createSprungbrettJobsEndpoint,
-  ExtraModel,
+  OfferModel,
   Payload,
   SprungbrettModel
 } from '@integreat-app/integreat-api-client'
@@ -17,26 +17,26 @@ import fetchData from '../fetchData'
 import { cmsApiBaseUrl } from '../constants/urls'
 
 type SprungbrettRouteParamsType = {|city: string, language: string|}
-type RequiredPayloadsType = {|sprungbrettJobs: Payload<Array<SprungbrettModel>>, extras: Payload<Array<ExtraModel>>|}
+type RequiredPayloadsType = {|sprungbrettJobs: Payload<Array<SprungbrettModel>>, offers: Payload<Array<OfferModel>>|}
 
 export const SPRUNGBRETT_ROUTE = 'SPRUNGBRETT'
 export const SPRUNGBRETT_EXTRA = 'sprungbrett'
 
-const fetchExtras = async (dispatch, getState) => {
+const fetchOffers = async (dispatch, getState) => {
   const state = getState()
   const { city, language } = state.location.payload
-  const extrasPayload = await fetchData(createExtrasEndpoint(cmsApiBaseUrl), dispatch, state.extras, {
+  const offersPayload = await fetchData(createOffersEndpoint(cmsApiBaseUrl), dispatch, state.offers, {
     city,
     language
   })
-  const extras: ?Array<ExtraModel> = extrasPayload.data
+  const offers: ?Array<OfferModel> = offersPayload.data
 
-  if (extras) {
-    const sprungbrettExtra: ExtraModel | void = extras.find(extra => extra.alias === SPRUNGBRETT_EXTRA)
-    if (sprungbrettExtra) {
+  if (offers) {
+    const sprungbrettOffer: OfferModel | void = offers.find(offer => offer.alias === SPRUNGBRETT_EXTRA)
+    if (sprungbrettOffer) {
       const params = { city, language }
 
-      await fetchData(createSprungbrettJobsEndpoint(sprungbrettExtra.path), dispatch, state.sprungbrettJobs, params)
+      await fetchData(createSprungbrettJobsEndpoint(sprungbrettOffer.path), dispatch, state.sprungbrettJobs, params)
     }
   }
 }
@@ -51,7 +51,7 @@ const sprungbrettRoute: Route = {
       fetchData(createCitiesEndpoint(cmsApiBaseUrl), dispatch, state.cities),
       fetchData(createEventsEndpoint(cmsApiBaseUrl), dispatch, state.events, { city, language }),
       fetchData(createLanguagesEndpoint(cmsApiBaseUrl), dispatch, state.languages, { city, language }),
-      fetchExtras(dispatch, getState)
+      fetchOffers(dispatch, getState)
     ])
   }
 }
@@ -67,7 +67,7 @@ class SprungbrettRouteConfig implements RouteConfig<SprungbrettRouteParamsType, 
     `/${city}/${language}/offers/${SPRUNGBRETT_EXTRA}`
 
   getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType =>
-    ({ sprungbrettJobs: payloads.sprungbrettJobsPayload, extras: payloads.extrasPayload })
+    ({ sprungbrettJobs: payloads.sprungbrettJobsPayload, offers: payloads.offersPayload })
 
   getLanguageChangePath = ({ location, language }) =>
     this.getRoutePath({ city: location.payload.city, language })
@@ -76,17 +76,17 @@ class SprungbrettRouteConfig implements RouteConfig<SprungbrettRouteParamsType, 
     if (!cityName) {
       return null
     }
-    const extras = payloads.extras.data
-    const sprungbrettExtra = extras && extras.find(extra => extra.alias === SPRUNGBRETT_EXTRA)
-    return sprungbrettExtra ? `${sprungbrettExtra.title} - ${cityName}` : ''
+    const offers = payloads.offers.data
+    const sprungbrettOffer = offers && offers.find(offer => offer.alias === SPRUNGBRETT_EXTRA)
+    return sprungbrettOffer ? `${sprungbrettOffer.title} - ${cityName}` : ''
   }
 
   getMetaDescription = () => null
 
   getFeedbackTargetInformation = ({ payloads }) => {
-    const extras = payloads.extras.data
-    const extra = extras && extras.find(extra => extra.alias === SPRUNGBRETT_EXTRA)
-    return ({ alias: SPRUNGBRETT_EXTRA, title: extra && extra.title })
+    const offers = payloads.offers.data
+    const offer = offers && offers.find(offer => offer.alias === SPRUNGBRETT_EXTRA)
+    return ({ alias: SPRUNGBRETT_EXTRA, title: offer && offer.title })
   }
 }
 

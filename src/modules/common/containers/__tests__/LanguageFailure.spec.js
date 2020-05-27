@@ -13,7 +13,7 @@ describe('LanguageFailure', () => {
       name: 'Augsburg',
       code: 'augsburg',
       eventsEnabled: true,
-      extrasEnabled: false,
+      offersEnabled: false,
       sortingName: 'augsburg',
       live: true
     }),
@@ -21,7 +21,7 @@ describe('LanguageFailure', () => {
       name: 'Stadt Regensburg',
       code: 'regensburg',
       eventsEnabled: true,
-      extrasEnabled: true,
+      offersEnabled: true,
       sortingName: 'regensburg',
       live: true
     }),
@@ -29,7 +29,7 @@ describe('LanguageFailure', () => {
       name: 'Werne',
       code: 'werne',
       eventsEnabled: true,
-      extrasEnabled: true,
+      offersEnabled: true,
       sortingName: 'regensburg',
       live: false
     })

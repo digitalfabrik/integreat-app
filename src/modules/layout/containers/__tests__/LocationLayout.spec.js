@@ -68,7 +68,7 @@ describe('LocationLayout', () => {
     code: 'city1',
     live: true,
     eventsEnabled: true,
-    extrasEnabled: false,
+    offersEnabled: false,
     sortingName: 'Mambo'
   })
   ]

@@ -29,7 +29,7 @@ Decrypting the abbreviations:
   Com = React Component
   SS = Selected state
   ST = Static properties of Com
-  EFO = Extra factory options (used only in connectAdvanced)
+  EFO = Offer factory options (used only in connectAdvanced)
 */
 
 declare module "react-redux" {
