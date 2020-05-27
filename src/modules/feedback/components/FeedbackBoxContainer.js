@@ -81,7 +81,7 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
 
   /**
    * Returns all feedback options which are:
-   * * Feedback for the current page if it isn't the categories/events/extras page
+   * * Feedback for the current page if it isn't the categories/events/offers page
    * * Feedback for the content of the current city if the current route is a LocationRoute
    * * Feedback for all available extras if the current page is the extras page
    * * Feedback for technical topics

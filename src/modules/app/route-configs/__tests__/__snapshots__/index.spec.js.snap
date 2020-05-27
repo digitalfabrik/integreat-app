@@ -15,7 +15,7 @@ Object {
     "thunk": [Function],
   },
   "EXTRAS": Object {
-    "path": "/:city/:language/extras/:extraId?",
+    "path": "/:city/:language/offers/:extraId?",
     "thunk": [Function],
   },
   "I18N_REDIRECT": Object {
@@ -44,7 +44,7 @@ Object {
     "thunk": [Function],
   },
   "SPRUNGBRETT": Object {
-    "path": "/:city/:language/extras/sprungbrett",
+    "path": "/:city/:language/offers/sprungbrett",
     "thunk": [Function],
   },
   "TUNEWS_DETAILS": Object {
@@ -56,7 +56,7 @@ Object {
     "thunk": [Function],
   },
   "WOHNEN": Object {
-    "path": "/:city/:language/extras/wohnen/:offerHash?",
+    "path": "/:city/:language/offers/wohnen/:offerHash?",
     "thunk": [Function],
   },
 }
