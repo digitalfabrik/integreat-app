@@ -106,7 +106,9 @@ const createConfig = (env = {}) => {
         {
           test: /\.jsx?$/,
           // https://github.com/webpack/webpack/issues/2031#issuecomment-219040479
-          exclude: /node_modules\/(?!(strict-uri-encode)\/).*/,
+          // Packages mentioned here probably use ES6 syntax which IE11 does not support. This is a problem because
+          // in development mode webpack bundles the mentioned packages
+          exclude: /node_modules\/(?!(strict-uri-encode|strip-ansi)\/).*/,
           loader: 'babel-loader',
           options: babelConfig
         },
