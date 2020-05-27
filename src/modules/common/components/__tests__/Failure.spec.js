@@ -4,6 +4,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 
 import { Failure } from '../Failure'
+import Link from '../../../../__mocks__/redux-first-router-link'
 
 describe('Failure', () => {
   const mockTranslate = key => key
@@ -17,7 +18,9 @@ describe('Failure', () => {
       t: mockTranslate,
       ...Failure.defaultProps
     })
-    expect(component).toMatchSnapshot()
+    expect(component.childAt(0).text()).toEqual(errorMessage)
+    expect(component.find(Link).prop('to')).toEqual(Failure.defaultProps.goToPath)
+    expect(component.find(Link).childAt(0).text()).toEqual(Failure.defaultProps.goToMessage)
   })
 
   it('should render a failure with goToPath and goToMessage and match snapshot', () => {
@@ -29,6 +32,8 @@ describe('Failure', () => {
     const component = shallow(<Failure {...error} t={mockTranslate} />)
 
     expect(component.instance().props).toEqual({ ...error, t: mockTranslate })
-    expect(component).toMatchSnapshot()
+    expect(component.childAt(0).text()).toEqual(error.errorMessage)
+    expect(component.find(Link).prop('to')).toEqual(error.goToPath)
+    expect(component.find(Link).childAt(0).text()).toEqual(error.goToMessage)
   })
 })

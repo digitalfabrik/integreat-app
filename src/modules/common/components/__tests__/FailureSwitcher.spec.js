@@ -2,7 +2,6 @@
 
 import React from 'react'
 import { mount } from 'enzyme'
-
 import { FailureSwitcher } from '../FailureSwitcher'
 import ContentNotFoundError from '../../errors/ContentNotFoundError'
 import { Failure } from '../Failure'

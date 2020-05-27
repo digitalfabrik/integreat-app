@@ -39,7 +39,6 @@ export class FailureSwitcher extends React.Component<PropsType> {
         return <Failure goToPath={new TunewsRouteConfig().getRoutePath({ city, language })}
                         goToMessage='goTo.tunews'
                         errorMessage='notFound.tunewsItem' />
-
       case 'extra':
         return <Failure goToPath={new ExtrasRouteConfig().getRoutePath({ city, language })}
                         goToMessage='goTo.extras'
