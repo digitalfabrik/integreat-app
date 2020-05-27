@@ -21,6 +21,8 @@ exports[`FeedbackModal should match snapshot 1`] = `
           "textSecondaryColor": "#585858",
           "themeColor": "#fbda16",
           "themeDarkColor": "#c4a900",
+          "tunewsThemeColor": "#007aa8",
+          "tunewsThemeColorLight": "rgba(0, 122, 168, 0.4)",
         },
         "dimensions": Object {
           "headerHeightLarge": 85,
@@ -65,6 +67,8 @@ exports[`FeedbackModal should match snapshot 1`] = `
             "textSecondaryColor": "#585858",
             "themeColor": "#fbda16",
             "themeDarkColor": "#c4a900",
+            "tunewsThemeColor": "#007aa8",
+            "tunewsThemeColorLight": "rgba(0, 122, 168, 0.4)",
           },
           "dimensions": Object {
             "headerHeightLarge": 85,
@@ -108,7 +112,9 @@ exports[`FeedbackModal should match snapshot 1`] = `
               "_longitude": undefined,
               "_name": "Augsburg",
               "_prefix": undefined,
+              "_pushNotificationsEnabled": false,
               "_sortingName": "Augsburg",
+              "_tunewsEnabled": false,
             },
           ]
         }
@@ -150,6 +156,8 @@ exports[`FeedbackModal should match snapshot 1`] = `
               "textSecondaryColor": "#585858",
               "themeColor": "#fbda16",
               "themeDarkColor": "#c4a900",
+              "tunewsThemeColor": "#007aa8",
+              "tunewsThemeColorLight": "rgba(0, 122, 168, 0.4)",
             },
             "dimensions": Object {
               "headerHeightLarge": 85,

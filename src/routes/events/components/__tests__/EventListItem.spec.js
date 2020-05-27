@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { EventModel, LocationModel, DateModel } from '@integreat-app/integreat-api-client'
-import moment from 'moment-timezone'
+import moment from 'moment'
 import { shallow } from 'enzyme'
 import EventListItem from '../EventListItem'
 
@@ -15,8 +15,8 @@ describe('EventListItem', () => {
     availableLanguages: new Map(
       [['de', '/augsburg/de/events/erstes_event'], ['ar', '/augsburg/ar/events/erstes_event']]),
     date: new DateModel({
-      startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
-      endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+      startDate: moment('2017-11-18T09:30:00.000Z'),
+      endDate: moment('2017-11-18T19:30:00.000Z'),
       allDay: true
     }),
     location: new LocationModel({

@@ -2,7 +2,7 @@
 
 import CategoriesRouteConfig from '../CategoriesRouteConfig'
 import { CategoriesMapModel, CategoryModel, CityModel, Payload } from '@integreat-app/integreat-api-client'
-import moment from 'moment-timezone'
+import moment from 'moment'
 import createLocation from '../../../../createLocation'
 
 const categories = new CategoriesMapModel([
@@ -11,7 +11,7 @@ const categories = new CategoriesMapModel([
     hash: '2fe6283485a93932',
     availableLanguages: new Map(),
     content: '',
-    lastUpdate: moment.tz('2017-11-18 09:30:00', 'UTC'),
+    lastUpdate: moment('2017-11-18T08:30:00.000Z'),
     order: 0,
     parentPath: '',
     path: '/augsburg/de',
@@ -23,7 +23,7 @@ const categories = new CategoriesMapModel([
     hash: '2fe6283485b93932',
     availableLanguages: new Map([['en', '/augsburg/en/category01'], ['fr', '/augsburg/fr/fr_category01']]),
     content: 'contnentl',
-    lastUpdate: moment.tz('2017-11-18 09:30:00', 'UTC'),
+    lastUpdate: moment('2017-11-18T08:30:00.000Z'),
     order: 4,
     parentPath: 'parent/url',
     path: '/augsburg/de/categorie01',
@@ -60,6 +60,10 @@ describe('CategoriesRouteConfig', () => {
       categoriesPayload,
       citiesPayload,
       eventsPayload: new Payload(true),
+      localNewsPayload: new Payload(true),
+      localNewsElementPayload: new Payload(true),
+      tunewsPayload: new Payload(true),
+      tunewsElementPayload: new Payload(true),
       disclaimerPayload: new Payload(true),
       extrasPayload: new Payload(true),
       poisPayload: new Payload(true),

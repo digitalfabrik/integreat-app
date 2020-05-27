@@ -16,6 +16,8 @@ describe('LandingPage', () => {
       live: true,
       eventsEnabled: false,
       extrasEnabled: false,
+      pushNotificationsEnabled: false,
+      tunewsEnabled: false,
       sortingName: 'City'
     })
   ]

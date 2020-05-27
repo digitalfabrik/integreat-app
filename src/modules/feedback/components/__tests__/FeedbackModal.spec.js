@@ -18,6 +18,8 @@ describe('FeedbackModal', () => {
         live: true,
         eventsEnabled: true,
         extrasEnabled: false,
+        pushNotificationsEnabled: false,
+        tunewsEnabled: false,
         sortingName: 'Augsburg'
       })
     ]

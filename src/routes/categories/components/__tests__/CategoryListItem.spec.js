@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { shallow } from 'enzyme'
-import moment from 'moment-timezone'
+import moment from 'moment'
 
 import CategoryListItem from '../CategoryListItem'
 import { CategoryModel } from '@integreat-app/integreat-api-client'
@@ -17,7 +17,7 @@ const category = new CategoryModel({
   order: 11,
   availableLanguages: new Map([['en', '4861'], ['ar', '4867'], ['fa', '4868']]),
   thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
-  lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+  lastUpdate: moment('2017-11-18T19:30:00.000Z'),
   hash: 'a36a56'
 })
 const childCategory = new CategoryModel({
@@ -29,7 +29,7 @@ const childCategory = new CategoryModel({
   order: 11,
   availableLanguages: new Map([['en', '4861'], ['ar', '4867'], ['fa', '4868']]),
   thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
-  lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+  lastUpdate: moment('2017-11-18T19:30:00.000Z'),
   hash: 'a36a57'
 })
 const noThumbCategory = new CategoryModel({
@@ -41,7 +41,7 @@ const noThumbCategory = new CategoryModel({
   order: 1,
   availableLanguages: new Map([['en', '390'], ['ar', '711'], ['fa', '397']]),
   thumbnail: '',
-  lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+  lastUpdate: moment('2017-11-18T19:30:00.000Z'),
   hash: 'a36a58'
 })
 
