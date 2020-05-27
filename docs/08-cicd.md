@@ -112,8 +112,8 @@ The first release february will have the version number `2020.2.0`.
 |Variable|Description|Where do I get it from?|Example|Reference|
 |---|---|---|---|---|
 |GOOGLE_SERVICE_ACCOUNT_JSON|JSON for authentication in the Google Play Console as Release Manager. This should expire after two years.|Password Manager|{...}|[Service Account Docu](https://cloud.google.com/iam/docs/creating-managing-service-account-keys?hl=de)|
-|CREDENTIALS_GIT_REPOSITORY_URL|Git remote URL to the credentials repository whihc contains the Java Keystore|-|git@github.com:User/credentials.git|-|
-|CREDENTIALS_DIRECTORY_PATH|Path where the credentials Git repository cloned to|-|/tmp/credentials|-|
+|CREDENTIALS_GIT_REPOSITORY_URL|Git remote URL to the credentials repository which contains the Java Keystore|Ask the team about this secret repository|git@github.com:User/credentials.git|-|
+|CREDENTIALS_DIRECTORY_PATH|Path where the credentials Git repository cloned to automatically by FL|The developer can choose this freely|/tmp/credentials|-|
 |CREDENTIALS_KEYSTORE_PATH|Path to the OpenSSL AES256-CBC encrypted Java Keystore file|-|/tmp/credentials/<secret>.enc|Look for the `openssl enc` command in the Android Fastlane file for more information|
 |KEYSTORE_PATH|Path to the decrypted Java Keystore file|-|/tmp/keystore.jks|-|
 |CREDENTIALS_KEYSTORE_PASSWORD|Password for decrypting the keystore using OpenSSL||password|-|
