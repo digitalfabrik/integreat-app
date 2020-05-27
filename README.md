@@ -16,6 +16,9 @@ If you want to know more about Integreat or if you want to join us, contact [Max
 **Testing and debugging with the live cms instance should be avoided. Instead, [please use the test cms](docs/04-technical-documentation.md#test-cms).**
 
 ## Getting Started
+
+*Note: For setting the project up on Windows you may want to use Chocolatey and [follow this guide](./docs/16-windows-setup.md).*
+
 ### Prerequisites
 * Install [nodejs](https://nodejs.org/). At least v6 is required, but we recommend the v12 LTS.
 Using the latest version (v13) may lead to errors.
@@ -31,7 +34,7 @@ Using the latest version (v13) may lead to errors.
 * Own a Mac or another Apple device.
 * Install [XCode](https://developer.apple.com/xcode/).
 
-Note: In order to work with the XCode project, always open `ios/Integreat.xcworkspace`.
+*Note: In order to work with the XCode project, always open `ios/Integreat.xcworkspace`.*
 
 ### Project setup
 We suggest **[IntelliJ IDEA Ultimate](https://www.jetbrains.com/idea/)** and XCode as IDE. JetBrains provides free licences for students.
