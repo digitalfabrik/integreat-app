@@ -21,7 +21,7 @@ Depending on the supplied parameters a weekly or bi-weekly build is triggered.
 ### Triggering a Build in CI
 
 If you decide to do a non-scheduled automatic release of the app the easiest way is to trigger a build in CI/CD.
-First you need to get acquire a ["Personal API token"](https://circleci.com/docs/2.0/managing-api-tokens/).
+First you need to get a ["Personal API token"](https://circleci.com/docs/2.0/managing-api-tokens/).
 Then you can trigger a build using the tool `yarn trigger-pipeline`. If you execute it without parameters you will see the usage.
 
 
