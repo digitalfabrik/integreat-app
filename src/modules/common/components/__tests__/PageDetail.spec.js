@@ -9,7 +9,8 @@ describe('PageDetail', () => {
   const information = 'May 22, 2020 1:00 AM'
 
   it('should render', () => {
-    expect(shallow(<PageDetail identifier={identifier} information={information} />
-    )).toMatchSnapshot()
+    const component = shallow(<PageDetail identifier={identifier} information={information} />)
+    expect(component.childAt(0).text()).toEqual(`${identifier}: `)
+    expect(component.childAt(1).text()).toEqual(information)
   })
 })
