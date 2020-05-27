@@ -19,12 +19,12 @@ or alternatively using `brew cask install fastlane`
 ```
 fastlane certificates
 ```
-Downloads and setups certificates
+Download and setup certificates
 ### build
 ```
 fastlane build
 ```
-Creates a release build
+Create a release build
 
 ----
 
