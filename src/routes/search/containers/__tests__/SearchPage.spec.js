@@ -6,7 +6,7 @@ import { CategoriesMapModel, CategoryModel, CityModel } from '@integreat-app/int
 import { shallow } from 'enzyme'
 import configureMockStore from 'redux-mock-store'
 import { SEARCH_ROUTE } from '../../../../modules/app/route-configs/SearchRouteConfig'
-import moment from 'moment-timezone'
+import moment from 'moment'
 import createLocation from '../../../../createLocation'
 
 describe('SearchPage', () => {
@@ -91,7 +91,7 @@ describe('SearchPage', () => {
         availableLanguages: new Map(),
         thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
         hash: '2fe6283485a93932',
-        lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
+        lastUpdate: moment('2017-11-18T19:30:00.000Z')
       }),
       // should be 2nd because 'abc' is in the title but it is lexicographically bigger than category 1
       new CategoryModel({
@@ -104,7 +104,7 @@ describe('SearchPage', () => {
         availableLanguages: new Map(),
         thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
         hash: '2fe6283485b93932',
-        lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
+        lastUpdate: moment('2017-11-18T19:30:00.000Z')
       }),
       // should be 3rd because 'abc' is only in the content and the title is lexicographically smaller than category 4
       new CategoryModel({
@@ -117,7 +117,7 @@ describe('SearchPage', () => {
         availableLanguages: new Map(),
         thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
         hash: '2fe6283485c93932',
-        lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
+        lastUpdate: moment('2017-11-18T19:30:00.000Z')
       }),
       // should be 4th because 'abc' is only in the content and the title is lexicographically bigger than category 3
       new CategoryModel({
@@ -130,7 +130,7 @@ describe('SearchPage', () => {
         availableLanguages: new Map(),
         thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
         hash: '2fe6283485d93932',
-        lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
+        lastUpdate: moment('2017-11-18T19:30:00.000Z')
       })
     ]
 
