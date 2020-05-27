@@ -50,7 +50,7 @@ describe('EventsRouteConfig', () => {
       citiesPayload: new Payload(true),
       categoriesPayload: new Payload(true),
       disclaimerPayload: new Payload(true),
-      extrasPayload: new Payload(true),
+      offersPayload: new Payload(true),
       poisPayload: new Payload(true),
       wohnenPayload: new Payload(true),
       sprungbrettJobsPayload: new Payload(true)

@@ -1,16 +1,16 @@
 // @flow
 
 import WohnenRouteConfig, { hash } from '../WohnenRouteConfig'
-import { ExtraModel, Payload, WohnenFormData, WohnenOfferModel } from '@integreat-app/integreat-api-client'
+import { OfferModel, Payload, WohnenFormData, WohnenOfferModel } from '@integreat-app/integreat-api-client'
 import createLocation from '../../../../createLocation'
 import moment from 'moment'
 
-const extras = [
-  new ExtraModel({
+const offers = [
+  new OfferModel({
     alias: 'wohnen', path: 'path to fetch offers from', title: 'Raumfrei', thumbnail: 'xy', postData: null
   })
 ]
-const extrasPayload = new Payload(false, 'https://random.api.json', extras, null)
+const offersPayload = new Payload(false, 'https://random.api.json', offers, null)
 
 const offers = [
   new WohnenOfferModel({
@@ -45,7 +45,7 @@ const offers = [
   })
 ]
 const wohnenPayload = new Payload(false, 'https://random.api.json', offers, null)
-const payloads = { extras: extrasPayload, offers: wohnenPayload }
+const payloads = { offers: offersPayload, offers: wohnenPayload }
 
 const t = (key: ?string): string => key || ''
 
@@ -59,7 +59,7 @@ describe('WohnenRouteConfig', () => {
 
   it('should get the required payloads', () => {
     const allPayloads = {
-      extrasPayload,
+      offersPayload,
       citiesPayload: new Payload(true),
       categoriesPayload: new Payload(true),
       disclaimerPayload: new Payload(true),

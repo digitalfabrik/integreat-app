@@ -34,7 +34,7 @@ describe('DisclaimerRouteConfig', () => {
       tunewsPayload: new Payload(true),
       tunewsElementPayload: new Payload(true),
       categoriesPayload: new Payload(true),
-      extrasPayload: new Payload(true),
+      offersPayload: new Payload(true),
       poisPayload: new Payload(true),
       wohnenPayload: new Payload(true),
       sprungbrettJobsPayload: new Payload(true)

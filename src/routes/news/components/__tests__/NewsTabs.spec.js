@@ -26,7 +26,7 @@ describe('NewsTabs', () => {
       code: 'testcity',
       live: true,
       eventsEnabled: false,
-      extrasEnabled: false,
+      offersEnabled: false,
       tunewsEnabled: true,
       pushNotificationsEnabled: true,
       sortingName: 'Test City'
@@ -36,7 +36,7 @@ describe('NewsTabs', () => {
       code: 'otherCity',
       live: true,
       eventsEnabled: false,
-      extrasEnabled: false,
+      offersEnabled: false,
       tunewsEnabled: false,
       pushNotificationsEnabled: false,
       sortingName: 'Other City'
@@ -46,7 +46,7 @@ describe('NewsTabs', () => {
       code: 'nonlive',
       live: false,
       eventsEnabled: false,
-      extrasEnabled: false,
+      offersEnabled: false,
       tunewsEnabled: false,
       pushNotificationsEnabled: false,
       sortingName: 'Not-live'
@@ -56,7 +56,7 @@ describe('NewsTabs', () => {
       code: 'yetanothercity',
       live: true,
       eventsEnabled: false,
-      extrasEnabled: false,
+      offersEnabled: false,
       tunewsEnabled: false,
       pushNotificationsEnabled: false,
       sortingName: 'Yet another city'

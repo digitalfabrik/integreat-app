@@ -17,7 +17,7 @@ describe('FeedbackModal', () => {
         code: 'augsburg',
         live: true,
         eventsEnabled: true,
-        extrasEnabled: false,
+        offersEnabled: false,
         pushNotificationsEnabled: false,
         tunewsEnabled: false,
         sortingName: 'Augsburg'

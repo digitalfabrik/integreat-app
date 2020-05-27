@@ -25,7 +25,7 @@ describe('FilterableCitySelector', () => {
       code: 'city',
       live: true,
       eventsEnabled: false,
-      extrasEnabled: false,
+      offersEnabled: false,
       pushNotificationsEnabled: false,
       tunewsEnabled: false,
       sortingName: 'City'
@@ -35,7 +35,7 @@ describe('FilterableCitySelector', () => {
       code: 'otherCity',
       live: true,
       eventsEnabled: false,
-      extrasEnabled: false,
+      offersEnabled: false,
       pushNotificationsEnabled: false,
       tunewsEnabled: false,
       sortingName: 'Other City'
@@ -45,7 +45,7 @@ describe('FilterableCitySelector', () => {
       code: 'nonlive',
       live: false,
       eventsEnabled: false,
-      extrasEnabled: false,
+      offersEnabled: false,
       pushNotificationsEnabled: false,
       tunewsEnabled: false,
       sortingName: 'Not-live'
@@ -55,7 +55,7 @@ describe('FilterableCitySelector', () => {
       code: 'yetanothercity',
       live: true,
       eventsEnabled: false,
-      extrasEnabled: false,
+      offersEnabled: false,
       pushNotificationsEnabled: false,
       tunewsEnabled: false,
       sortingName: 'Yet another city'

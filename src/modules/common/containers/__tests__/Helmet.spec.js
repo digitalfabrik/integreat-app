@@ -11,7 +11,7 @@ describe('Helmet', () => {
     code: 'augsburg',
     live: true,
     eventsEnabled: true,
-    extrasEnabled: true,
+    offersEnabled: true,
     sortingName: 'augsburg'
   })
   const hiddenCity = new CityModel({
@@ -19,7 +19,7 @@ describe('Helmet', () => {
     code: 'testinstanz',
     live: false,
     eventsEnabled: true,
-    extrasEnabled: true,
+    offersEnabled: true,
     sortingName: 'Testinstanz'
   })
 

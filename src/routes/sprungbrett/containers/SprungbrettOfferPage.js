@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 
-import { ExtraModel, SprungbrettJobModel } from '@integreat-app/integreat-api-client'
+import { OfferModel, SprungbrettJobModel } from '@integreat-app/integreat-api-client'
 import SprungbrettListItem from '../components/SprungbrettListItem'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import type { TFunction } from 'react-i18next'
@@ -12,24 +12,24 @@ import Caption from '../../../modules/common/components/Caption'
 
 type PropsType = {|
   sprungbrettJobs: Array<SprungbrettJobModel>,
-  extras: Array<ExtraModel>,
+  offers: Array<OfferModel>,
   t: TFunction
 |}
 
-export class SprungbrettExtraPage extends React.Component<PropsType> {
+export class SprungbrettOfferPage extends React.Component<PropsType> {
   renderSprungbrettListItem = (job: SprungbrettJobModel): React.Node => <SprungbrettListItem key={job.id} job={job} />
 
   render () {
-    const { sprungbrettJobs, extras, t } = this.props
-    const extra: ExtraModel | void = extras.find(extra => extra.alias === 'sprungbrett')
+    const { sprungbrettJobs, offers, t } = this.props
+    const offer: OfferModel | void = offers.find(offer => offer.alias === 'sprungbrett')
 
-    if (!extra) {
-      return <FailureSwitcher error={new Error('The Sprunbrett extra is not supported.')} />
+    if (!offer) {
+      return <FailureSwitcher error={new Error('The Sprunbrett offer is not supported.')} />
     }
 
     return (
       <>
-        <Caption title={extra.title} />
+        <Caption title={offer.title} />
         <List noItemsMessage={t('noOffersAvailable')}
               renderItem={this.renderSprungbrettListItem}
               items={sprungbrettJobs} />
@@ -38,4 +38,4 @@ export class SprungbrettExtraPage extends React.Component<PropsType> {
   }
 }
 
-export default withTranslation('sprungbrett')(SprungbrettExtraPage)
+export default withTranslation('sprungbrett')(SprungbrettOfferPage)

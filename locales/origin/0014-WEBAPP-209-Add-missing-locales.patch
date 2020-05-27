@@ -32,7 +32,7 @@ index 5dcafb9f..e8743f4c 100644
      "fr": {
        "pageTitles": {
 @@ -49,8 +51,8 @@
-         "extras": "Extras",
+         "extras": "Offers",
          "landing": "Tu es où?",
          "disclaimer": "Mentions légales et contact"
 -      }
@@ -83,7 +83,7 @@ index 5dcafb9f..e8743f4c 100644
      "fr": {
        "imprintAndContact": "Mentions légales et contact",
 +      "privacy": "Protection des données",
-       "extras": "Extras",
+       "extras": "Offers",
        "categories": "Catégorie",
        "news": "Actualités",
        "noNews": "Aucune news",
@@ -149,9 +149,9 @@ index 5dcafb9f..e8743f4c 100644
 +        "city": "Diese Stadt wurde leider nicht gefunden.",
          "category": "Diese Seite wurde leider nicht gefunden.",
          "event": "Dieses Event wurde leider nicht gefunden.",
--        "extra": "Dieses Extra wurde leider nicht gefunden.",
+-        "extra": "Dieses Offer wurde leider nicht gefunden.",
 -        "disclaimer": "Ein Impressum ist leider für diese Stadt nicht verfügbar."
-+        "extra": "Dieses Extra wurde leider nicht gefunden."
++        "extra": "Dieses Offer wurde leider nicht gefunden."
        },
        "loadingFailed": "Die Seite konnte leider nicht geladen werden.",
 -      "chooseYourLanguage": "Wähle deine Sprache:",
@@ -184,7 +184,7 @@ index 5dcafb9f..e8743f4c 100644
          "start": "Go to Start",
          "categories": "Go to Categories",
          "events": "Go to Events",
-         "extras": "Go to Extras"
+         "extras": "Go to Offers"
 -      },
 -      "pageTitle": "Error"
 +      }
@@ -286,7 +286,7 @@ index 5dcafb9f..e8743f4c 100644
 +    "fr": {
 +      "technicalTopics": "Fonctions techniques",
 +      "contentOfCity": "Contenu de",
-+      "extra": "Extra",
++      "extra": "Offer",
 +      "news": "Nouvelles",
 +      "disclaimer": "Mentions Légales",
 +      "searchFor": "Rechercher pour",
@@ -327,6 +327,6 @@ index 5dcafb9f..e8743f4c 100644
      }
    },
    "pois": {
--- 
+--
 2.20.1 (Apple Git-117)
 

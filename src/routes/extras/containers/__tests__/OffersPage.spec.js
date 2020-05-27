@@ -3,20 +3,20 @@
 import { mount, shallow } from 'enzyme'
 import React from 'react'
 
-import { ExtraModel } from '@integreat-app/integreat-api-client'
-import ConnectedExtrasPage, { ExtrasPage } from '../ExtrasPage'
+import { OfferModel } from '@integreat-app/integreat-api-client'
+import ConnectedOffersPage, { OffersPage } from '../OffersPage'
 import theme from '../../../../modules/theme/constants/theme'
 import createReduxStore from '../../../../modules/app/createReduxStore'
 import { ThemeProvider } from 'styled-components'
 import { Provider } from 'react-redux'
 import createLocation from '../../../../createLocation'
-import { EXTRAS_ROUTE } from '../../../../modules/app/route-configs/ExtrasRouteConfig'
+import { OFFERS_ROUTE } from '../../../../modules/app/route-configs/OffersRouteConfig'
 
-describe('ExtrasPage', () => {
+describe('OffersPage', () => {
   const city = 'augsburg'
   const language = 'de'
 
-  const sprungbrettExtra = new ExtraModel({
+  const sprungbrettOffer = new OfferModel({
     alias: 'sprungbrett', path: 'path to fetch jobs from', title: 'Sprungbrett', thumbnail: 'xy', postData: null
   })
 
@@ -25,16 +25,16 @@ describe('ExtrasPage', () => {
   lehrstellenRadarPostData.set('radius', '50')
   lehrstellenRadarPostData.set('plz', '86150')
 
-  const extras = [
-    sprungbrettExtra,
-    new ExtraModel({
+  const offers = [
+    sprungbrettOffer,
+    new OfferModel({
       alias: 'ihk-lehrstellenboerse',
       path: 'ihk-jobborese.com',
       title: 'Jobboerse',
       thumbnail: 'xy',
       postData: lehrstellenRadarPostData
     }),
-    new ExtraModel({
+    new OfferModel({
       alias: 'ihk-praktikumsboerse',
       path: 'ihk-pratkitkumsboerse.com',
       title: 'Praktikumsboerse',
@@ -45,46 +45,46 @@ describe('ExtrasPage', () => {
 
   const t = (key: ?string): string => key || ''
 
-  it('should render extra tiles if no extra is selected', () => {
-    const extrasPage = shallow(
-      <ExtrasPage city={city}
+  it('should render offer tiles if no offer is selected', () => {
+    const offersPage = shallow(
+      <OffersPage city={city}
                   language={language}
-                  extras={extras}
-                  extraId={undefined}
+                  offers={offers}
+                  offerId={undefined}
                   t={t} />
     )
-    expect(extrasPage).toMatchSnapshot()
+    expect(offersPage).toMatchSnapshot()
   })
 
-  it('should render a ExtraNotFoundError if there is an extraId', () => {
-    const extrasPage = shallow(
-      <ExtrasPage city={city}
+  it('should render a OfferNotFoundError if there is an offerId', () => {
+    const offersPage = shallow(
+      <OffersPage city={city}
                   language={language}
-                  extras={extras}
-                  extraId='invalid_extra'
+                  offers={offers}
+                  offerId='invalid_offer'
                   t={t} />
     )
-    expect(extrasPage).toMatchSnapshot()
+    expect(offersPage).toMatchSnapshot()
   })
 
   it('should map state to props', () => {
-    const location = createLocation({ type: EXTRAS_ROUTE, payload: { language, city, extraId: 'invalid_extra' } })
+    const location = createLocation({ type: OFFERS_ROUTE, payload: { language, city, offerId: 'invalid_offer' } })
     const store = createReduxStore()
     store.getState().location = location
 
     const tree = mount(
       <ThemeProvider theme={theme}>
         <Provider store={store}>
-          <ConnectedExtrasPage extras={extras} />
+          <ConnectedOffersPage offers={offers} />
         </Provider>
       </ThemeProvider>
     )
 
-    expect(tree.find(ExtrasPage).props()).toMatchObject({
+    expect(tree.find(OffersPage).props()).toMatchObject({
       language,
       city,
-      extras,
-      extraId: 'invalid_extra'
+      offers,
+      offerId: 'invalid_offer'
     })
   })
 })

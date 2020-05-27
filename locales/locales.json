@@ -912,7 +912,7 @@
     "de": {
       "technicalTopics": "Technische Funktionen",
       "contentOfCity": "Inhalte von {{city}}",
-      "contentOfExtra": "Angebot \"{{extra}}\"",
+      "contentOfOffer": "Angebot \"{{extra}}\"",
       "disclaimer": "Kontakt und Impressum",
       "searchFor": "Suche nach",
       "contentOfPage": "Inhalt der Seite \"{{page}}\"",
@@ -939,7 +939,7 @@
     "ar": {
       "technicalTopics": "وظائف تقنية",
       "contentOfCity": "محتويات {{city}}",
-      "contentOfExtra": "عرض \"{{extra}}\"",
+      "contentOfOffer": "عرض \"{{extra}}\"",
       "disclaimer": "جهة الاتصال وهيئة التحرير",
       "searchFor": "البحث عن",
       "contentOfPage": "محتوى الصفحة \"{{page}}\"",
@@ -966,7 +966,7 @@
     "en": {
       "technicalTopics": "Technical functions",
       "contentOfCity": "Contents of {{city}}",
-      "contentOfExtra": "Offer \"{{extra}}\"",
+      "contentOfOffer": "Offer \"{{extra}}\"",
       "disclaimer": "Contacts and imprint",
       "searchFor": "Search for",
       "contentOfPage": "Content of the page \"{{page}}\"",
@@ -993,7 +993,7 @@
     "es": {
       "technicalTopics": "Funciones técnicas",
       "contentOfCity": "Contenidos de {{city}}",
-      "contentOfExtra": "Oferta \"{{extra}}\"",
+      "contentOfOffer": "Oferta \"{{extra}}\"",
       "disclaimer": "Contacto y aviso legal",
       "searchFor": "Buscar por",
       "contentOfPage": "Contenido de la página \"{{page}}\"",
@@ -1020,7 +1020,7 @@
     "fa": {
       "technicalTopics": "عملکردهای فنی",
       "contentOfCity": "محتوای {{city}}",
-      "contentOfExtra": "خدمات ‎\"‎{{extra}}‎\"",
+      "contentOfOffer": "خدمات ‎\"‎{{extra}}‎\"",
       "disclaimer": "اطلاعات ناشر و تماس",
       "searchFor": "جستجو برای",
       "contentOfPage": "محتوای صفحه‎\"‎{{page}}‎\"",
@@ -1047,7 +1047,7 @@
     "fr": {
       "technicalTopics": "Fonctions techniques",
       "contentOfCity": "Contenu de {{city}}",
-      "contentOfExtra": "Offre « {{extra}} »",
+      "contentOfOffer": "Offre « {{extra}} »",
       "disclaimer": "Contact et mentions légales",
       "searchFor": "Rechercher",
       "contentOfPage": "Contenu de la page « {{page}} »",
@@ -1074,7 +1074,7 @@
     "hr": {
       "technicalTopics": "Tehničke funkcije",
       "contentOfCity": "Sadržaj za {{city}}",
-      "contentOfExtra": "Ponuda \"{{extra}}\"",
+      "contentOfOffer": "Ponuda \"{{extra}}\"",
       "disclaimer": "Kontakt i impresum",
       "searchFor": "Pretraživanje",
       "contentOfPage": "Sadržaj stranice \"{{page}}\"",
@@ -1101,7 +1101,7 @@
     "ku": {
       "technicalTopics": "Kirdeyên Teknîkî",
       "contentOfCity": "Naverok {{city}}",
-      "contentOfExtra": "Xizmet \"{{extra}}\"",
+      "contentOfOffer": "Xizmet \"{{extra}}\"",
       "disclaimer": "Lêzanînên Weşîner û Têkillî",
       "searchFor": "Lêgerîn sa",
       "contentOfPage": "Naveroka Rûpelê \"{{page}}\"",
@@ -1128,7 +1128,7 @@
     "pl": {
       "technicalTopics": "Funkcje techniczne",
       "contentOfCity": "Treści {{city}}",
-      "contentOfExtra": "Oferta \"{{extra}}\"",
+      "contentOfOffer": "Oferta \"{{extra}}\"",
       "disclaimer": "Kontakt i nota prawna",
       "searchFor": "Wyszukaj",
       "contentOfPage": "Treść strony \"{{page}}\"",
@@ -1155,7 +1155,7 @@
     "ro": {
       "technicalTopics": "Funcții tehnice",
       "contentOfCity": "Conținuturi din {{city}}",
-      "contentOfExtra": "Oferta \"{{extra}}\"",
+      "contentOfOffer": "Oferta \"{{extra}}\"",
       "disclaimer": "Contact și caseta tehnică",
       "searchFor": "Căutare pentru",
       "contentOfPage": "Conținutul paginii \"{{page}}\"",
@@ -1182,7 +1182,7 @@
     "ru": {
       "technicalTopics": "Технические функции",
       "contentOfCity": "Содержимое ресурса {{city}}",
-      "contentOfExtra": "Предложение \"{{extra}}\"",
+      "contentOfOffer": "Предложение \"{{extra}}\"",
       "disclaimer": "Контактная информация и выходные данные",
       "searchFor": "Поиск по",
       "contentOfPage": "Содержимое страницы \"{{page}}\"",
@@ -1209,7 +1209,7 @@
     "so": {
       "technicalTopics": "Hawlaha farsamada",
       "contentOfCity": "Tusmada {{city}}",
-      "contentOfExtra": "Adeegga \"{{extra}}\"",
+      "contentOfOffer": "Adeegga \"{{extra}}\"",
       "disclaimer": "Macluumaadka xiriirka iyo faahfaahinta qoraaga",
       "searchFor": "Raadi",
       "contentOfPage": "Nuxurka bogga \"{{page}}\"",
@@ -1236,7 +1236,7 @@
     "ti": {
       "technicalTopics": "ተክኒካዊ ተግባራት",
       "contentOfCity": "ትሕዝቶታት ናይ {{city}}",
-      "contentOfExtra": "ኣቕርቦት “{{extra}}”",
+      "contentOfOffer": "ኣቕርቦት “{{extra}}”",
       "disclaimer": "ናይ ርክብ ሓበሬታን ናይ ደራሲ ዝርዝራት ሓበሬታን",
       "searchFor": "ነዚ ዝስዕብ ፈትሽ፡",
       "contentOfPage": "ትሕዝቶ ናይቲ ገጽ “{{page}}”",
@@ -1263,7 +1263,7 @@
     "tr": {
       "technicalTopics": "Teknik fonksiyonlar",
       "contentOfCity": "{{city}} içerikleri",
-      "contentOfExtra": "Teklif \"{{extra}}\"",
+      "contentOfOffer": "Teklif \"{{extra}}\"",
       "disclaimer": "İletişim ve künye",
       "searchFor": "Ara",
       "contentOfPage": "Sayfa \"{{page}}\" içeriği",

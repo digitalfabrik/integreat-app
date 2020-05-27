@@ -106,7 +106,7 @@ exports[`FeedbackModal should match snapshot 1`] = `
               "_aliases": undefined,
               "_code": "augsburg",
               "_eventsEnabled": true,
-              "_extrasEnabled": false,
+              "_offersEnabled": false,
               "_latitude": undefined,
               "_live": true,
               "_longitude": undefined,

@@ -49,7 +49,7 @@ Array [
           },
           "query": Object {},
           "routesMap": Object {},
-          "type": "EXTRAS",
+          "type": "OFFERS",
         }
       }
     />,
@@ -58,9 +58,9 @@ Array [
 ]
 `;
 
-exports[`LocationHeader NavigationItems should be empty, if extras and news are both disabled 1`] = `Array []`;
+exports[`LocationHeader NavigationItems should be empty, if offers and news are both disabled 1`] = `Array []`;
 
-exports[`LocationHeader NavigationItems should show categories, if extras or news are enabled 1`] = `
+exports[`LocationHeader NavigationItems should show categories, if offers or news are enabled 1`] = `
 Array [
   <HeaderNavigationItem
     active={true}
@@ -77,7 +77,7 @@ Array [
 ]
 `;
 
-exports[`LocationHeader NavigationItems should show categories, if extras or news are enabled 2`] = `
+exports[`LocationHeader NavigationItems should show categories, if offers or news are enabled 2`] = `
 Array [
   <HeaderNavigationItem
     active={true}
@@ -95,7 +95,7 @@ Array [
 ]
 `;
 
-exports[`LocationHeader NavigationItems should show extras, categories, events in this order 1`] = `
+exports[`LocationHeader NavigationItems should show offers, categories, events in this order 1`] = `
 Array [
   <HeaderNavigationItem
     active={true}

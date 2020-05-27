@@ -46,7 +46,7 @@ exports[`LocationLayout should show GeneralHeader and GeneralFooter if city is n
         ]
       }
       isEventsEnabled={true}
-      isExtrasEnabled={false}
+      isOffersEnabled={false}
       languageChangePaths={
         Array [
           Object {
@@ -178,7 +178,7 @@ exports[`LocationLayout should show LocationHeader and LocationFooter if city is
         ]
       }
       isEventsEnabled={true}
-      isExtrasEnabled={false}
+      isOffersEnabled={false}
       languageChangePaths={
         Array [
           Object {

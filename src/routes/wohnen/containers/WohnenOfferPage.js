@@ -4,7 +4,7 @@ import * as React from 'react'
 
 import type { StateType } from '../../../modules/app/StateType'
 import { connect } from 'react-redux'
-import { ExtraModel, WohnenOfferModel } from '@integreat-app/integreat-api-client'
+import { OfferModel, WohnenOfferModel } from '@integreat-app/integreat-api-client'
 import OfferDetail from '../components/OfferDetail'
 import Caption from '../../../modules/common/components/Caption'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
@@ -20,11 +20,11 @@ type PropsType = {|
   city: string,
   language: string,
   offerHash?: string,
-  extras: Array<ExtraModel>,
+  extras: Array<OfferModel>,
   t: TFunction
 |}
 
-export class WohnenExtraPage extends React.Component<PropsType> {
+export class WohnenOfferPage extends React.Component<PropsType> {
   renderOfferListItem = ({ city, language, hashFunction }: {
     city: string, language: string,
     hashFunction: WohnenOfferModel => string
@@ -37,10 +37,10 @@ export class WohnenExtraPage extends React.Component<PropsType> {
 
   render () {
     const { offers, extras, city, language, offerHash, t } = this.props
-    const extra: ExtraModel | void = extras.find(extra => extra.alias === 'wohnen')
+    const offer: OfferModel | void = offers.find(offer => offer.alias === 'wohnen')
 
-    if (!extra) {
-      return <FailureSwitcher error={new Error('The Wohnen extra is not supported.')} />
+    if (!offer) {
+      return <FailureSwitcher error={new Error('The Wohnen offer is not supported.')} />
     }
 
     if (offerHash) {
@@ -55,7 +55,7 @@ export class WohnenExtraPage extends React.Component<PropsType> {
 
     return (
       <>
-        <Caption title={extra.title} />
+        <Caption title={offer.title} />
         <List noItemsMessage={t('noOffersAvailable')}
               items={offers}
               renderItem={this.renderOfferListItem({ city, language, hashFunction })} />
@@ -73,4 +73,4 @@ const mapStateTypeToProps = (state: StateType) => ({
 export default compose(
   connect<*, *, *, *, *, *>(mapStateTypeToProps),
   withTranslation('wohnen')
-)(WohnenExtraPage)
+)(WohnenOfferPage)

@@ -11,7 +11,7 @@ app.metaDescription,"Integreat ist Ihr digitaler Guide für Deutschland. Finden 
 categories.createPdf,PDF erstellen,پی دی اف بسازید
 common.languageNotAvailable,Deine Sprache ist hier leider nicht verfügbar.,متاسفانه زبان شما در اینجا موجود نیست.
 common.chooseALanguage,Wähle eine Sprache.,یک زبان را انتخاب کنید.
-common.lastUpdate,Letzte Änderung: ,آخرین به روزآوری: 
+common.lastUpdate,Letzte Änderung: ,آخرین به روزآوری:
 dashboard.localInformation,Lokale Informationen,
 dashboard.offers,Angebote,
 dashboard.events,Veranstaltungen,
@@ -44,7 +44,7 @@ events.currentlyNoEvents,Es gibt aktuell keine Veranstaltungen.,هیچ روید�
 extras.offers,Angebote,
 feedback.technicalTopics,Technische Funktionen,عملکردهای فنی
 feedback.contentOfCity,Inhalte von {{city}},محتویاتِ
-feedback.contentOfExtra,"Angebot ""{{extra}}""",
+feedback.contentOfOffer,"Angebot ""{{extra}}""",
 feedback.disclaimer,Kontakt und Impressum,مجوز ‎و اطلاعات تماس
 feedback.searchFor,Suche nach,جستجو برای
 feedback.contentOfPage,"Inhalt der Seite ""{{page}}""",محتوای صفحه

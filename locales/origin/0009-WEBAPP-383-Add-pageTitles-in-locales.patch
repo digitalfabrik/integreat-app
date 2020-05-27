@@ -27,7 +27,7 @@ index cd707ee1..d5aab9f1 100644
 +      "pageTitles": {
 +        "search": "Suche",
 +        "events": "News",
-+        "extras": "Extras",
++        "extras": "Offers",
 +        "landing": "Wo bist du?",
 +        "disclaimer": "Impressum und Kontakt",
 +        "wohnen": "Raumfrei",
@@ -38,7 +38,7 @@ index cd707ee1..d5aab9f1 100644
 +      "pageTitles": {
 +        "search": "Search",
 +        "events": "News",
-+        "extras": "Extras",
++        "extras": "Offers",
 +        "landing": "Where are you?",
 +        "disclaimer": "Imprint and contact",
 +        "pois": "Points of Interest"
@@ -57,7 +57,7 @@ index cd707ee1..d5aab9f1 100644
 +      "pageTitles": {
 +        "search": "Rechercher",
 +        "events": "Actualités",
-+        "extras": "Extras",
++        "extras": "Offers",
 +        "landing": "Tu es où?",
 +        "disclaimer": "Mentions légales et contact"
 +      }
@@ -133,14 +133,14 @@ index cd707ee1..d5aab9f1 100644
 +      "extras": "إضافات"
      },
      "en": {
--      "extras": "Extras",
--      "pageTitle": "Extras"
-+      "extras": "Extras"
+-      "extras": "Offers",
+-      "pageTitle": "Offers"
++      "extras": "Offers"
      },
      "de": {
--      "extras": "Extras",
--      "pageTitle": "Extras"
-+      "extras": "Extras"
+-      "extras": "Offers",
+-      "pageTitle": "Offers"
++      "extras": "Offers"
      },
      "fa": {
 -      "extras": "اضافات",
@@ -148,9 +148,9 @@ index cd707ee1..d5aab9f1 100644
 +      "extras": "اضافات"
      },
      "fr": {
--      "extras": "Extras",
--      "pageTitle": "Extras"
-+      "extras": "Extras"
+-      "extras": "Offers",
+-      "pageTitle": "Offers"
++      "extras": "Offers"
      }
    },
    "landing": {
@@ -217,6 +217,6 @@ index cd707ee1..d5aab9f1 100644
      }
    }
  }
--- 
+--
 2.20.1 (Apple Git-117)
 

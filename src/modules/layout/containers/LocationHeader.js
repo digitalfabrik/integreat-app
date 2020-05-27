@@ -11,7 +11,7 @@ import landingIcon from '../assets/location-icon.svg'
 import Header from '../../../modules/layout/components/Header'
 import HeaderNavigationItem from '../components/HeaderNavigationItem'
 import HeaderActionItem from '../HeaderActionItem'
-import ExtrasRouteConfig, { EXTRAS_ROUTE } from '../../app/route-configs/ExtrasRouteConfig'
+import OffersRouteConfig, { OFFERS_ROUTE } from '../../app/route-configs/OffersRouteConfig'
 import CategoriesRouteConfig, { CATEGORIES_ROUTE } from '../../app/route-configs/CategoriesRouteConfig'
 import EventsRouteConfig, { EVENTS_ROUTE } from '../../app/route-configs/EventsRouteConfig'
 import LocalNewsRouteConfig, { LOCAL_NEWS_ROUTE } from '../../app/route-configs/LocalNewsRouteConfig'
@@ -35,7 +35,7 @@ type PropsType = {|
   isEventsEnabled: boolean,
   isLocalNewsEnabled: boolean,
   isTunewsEnabled: boolean,
-  isExtrasEnabled: boolean,
+  isOffersEnabled: boolean,
   onStickyTopChanged: number => void,
   languageChangePaths: ?LanguageChangePathsType
 |}
@@ -63,7 +63,7 @@ export class LocationHeader extends React.Component<PropsType> {
 
   getNavigationItems (): Array<Element<typeof HeaderNavigationItem>> {
     // eslint-disable-next-line no-unused-vars
-    const { t, isEventsEnabled, isLocalNewsEnabled, isTunewsEnabled, isExtrasEnabled, location, events } = this.props
+    const { t, isEventsEnabled, isLocalNewsEnabled, isTunewsEnabled, isOffersEnabled, location, events } = this.props
 
     const { city, language } = location.payload
     const currentRoute = location.type
@@ -72,19 +72,19 @@ export class LocationHeader extends React.Component<PropsType> {
 
     /* TODO: replace the next two lines with the ones after to activate news header link
       const isNewsEnabled = isLocalNewsEnabled || isTunewsEnabled
-      const isCategoriesEnabled = isExtrasEnabled || isEventsEnabled || isNewsEnabled
+      const isCategoriesEnabled = isOffersEnabled || isEventsEnabled || isNewsEnabled
     */
     const isNewsEnabled = false
-    const isCategoriesEnabled = isExtrasEnabled || isEventsEnabled
+    const isCategoriesEnabled = isOffersEnabled || isEventsEnabled
 
     const items: Array<Element<typeof HeaderNavigationItem>> = []
 
-    if (isExtrasEnabled) {
+    if (isOffersEnabled) {
       items.push(
         <HeaderNavigationItem
-          key='extras'
-          href={new ExtrasRouteConfig().getRoutePath({ city, language })}
-          selected={[EXTRAS_ROUTE, WOHNEN_ROUTE, SPRUNGBRETT_ROUTE].includes(currentRoute)}
+          key='offers'
+          href={new OffersRouteConfig().getRoutePath({ city, language })}
+          selected={[OFFERS_ROUTE, WOHNEN_ROUTE, SPRUNGBRETT_ROUTE].includes(currentRoute)}
           text={t('offers')}
           active
         />

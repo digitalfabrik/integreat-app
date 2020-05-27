@@ -22,11 +22,11 @@ index 0b317139..c5f99d7a 100644
 @@ -54,7 +53,6 @@
          "search": "Rechercher",
          "events": "Actualités",
-         "extras": "Extras",
+         "extras": "Offers",
 -        "landing": "Sélection de l'emplacement",
          "disclaimer": "Mentions légales et contact",
          "mainDisclaimer": "Mentions Légales - Integreat",
          "notFound": "Page introuvable"
--- 
+--
 2.20.1 (Apple Git-117)
 
