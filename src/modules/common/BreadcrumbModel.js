@@ -7,6 +7,11 @@ export default class BreadcrumbModel {
   _node: React.Node
   _link: string
 
+  /**
+   * @param title: the title of the breadcrumb
+   * @param link: needs to be a URL linking to the item.
+   * @param node: the displayed node of the breadcrumb
+   */
   constructor ({ title, link, node }: { title: string, link: string, node: React.Node }) {
     this._title = title
     this._link = link
