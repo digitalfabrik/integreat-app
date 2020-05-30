@@ -9,7 +9,7 @@ export default class BreadcrumbModel {
 
   /**
    * @param title: the title of the breadcrumb
-   * @param link: needs to be a URL linking to the item.
+   * @param link: the URL linking to the item.
    * @param node: the displayed node of the breadcrumb
    */
   constructor ({ title, link, node }: { title: string, link: string, node: React.Node }) {
