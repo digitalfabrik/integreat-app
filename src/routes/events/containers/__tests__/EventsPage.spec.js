@@ -10,6 +10,8 @@ import createReduxStore from '../../../../modules/app/createReduxStore'
 import { Provider } from 'react-redux'
 import createLocation from '../../../../createLocation'
 import { EVENTS_ROUTE } from '../../../../modules/app/route-configs/EventsRouteConfig'
+import EventJsonLd from '../../../../modules/json-ld/components/EventJsonLd'
+import Page from '../../../../modules/common/components/Page'
 
 describe('EventsPage', () => {
   const events = [
@@ -104,7 +106,10 @@ describe('EventsPage', () => {
                   path='/augsburg/en/events/first_event'
                   eventId='first_event' />
     )
-    expect(wrapper).toMatchSnapshot()
+    const jsonLd = wrapper.find(EventJsonLd)
+    expect(jsonLd.props().event).toEqual(events[0])
+    const page = wrapper.find(Page)
+    expect(page).toMatchSnapshot()
   })
 
   it('should match snapshot and render Failure if event does not exist', () => {
