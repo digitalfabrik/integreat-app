@@ -13,11 +13,13 @@ describe('cities', () => {
     live: true,
     events: true,
     extras: true,
+    tunews: true,
+    push_notifications: true,
     name_without_prefix: 'Augsburg',
     prefix: null,
     longitude: 10.89779,
     latitude: 48.3705449,
-    aliases: { 'Gersthofen': { longitude: 10.89779, latitude: 48.3705449 } }
+    aliases: { Gersthofen: { longitude: 10.89779, latitude: 48.3705449 } }
   }
   const city2 = {
     name: 'Stadt Regensburg',
@@ -25,6 +27,8 @@ describe('cities', () => {
     live: true,
     events: false,
     extras: false,
+    tunews: false,
+    push_notifications: false,
     name_without_prefix: 'Regensburg',
     prefix: 'Stadt',
     longitude: null,
@@ -46,11 +50,13 @@ describe('cities', () => {
         live: city1.live,
         eventsEnabled: true,
         extrasEnabled: true,
+        pushNotificationsEnabled: true,
+        tunewsEnabled: true,
         sortingName: 'Augsburg',
         prefix: null,
         longitude: 10.89779,
         latitude: 48.3705449,
-        aliases: { 'Gersthofen': { longitude: 10.89779, latitude: 48.3705449 } }
+        aliases: { Gersthofen: { longitude: 10.89779, latitude: 48.3705449 } }
       }),
       new CityModel({
         name: city2.name,
@@ -58,6 +64,8 @@ describe('cities', () => {
         live: city2.live,
         eventsEnabled: false,
         extrasEnabled: false,
+        pushNotificationsEnabled: false,
+        tunewsEnabled: false,
         sortingName: 'Regensburg',
         prefix: 'Stadt',
         latitude: null,
