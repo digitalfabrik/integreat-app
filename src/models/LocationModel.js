@@ -32,10 +32,6 @@ class LocationModel {
     return this._name
   }
 
-  get name (): ?string {
-    return this._name
-  }
-
   get address (): ?string {
     return this._address
   }
@@ -69,16 +65,13 @@ class LocationModel {
   }
 
   get location (): ?string {
-    if (!this._town) {
+    const town = this._postcode ? `${this._postcode} ${this._town}` : this._town
+    if (!town && !this._address && !this._name) {
       return null
     }
-    const withoutAddress = this._postcode ? `${this._postcode} ${this._town}` : this._town
-    if (!this._address) {
-      return withoutAddress
-    }
-    return `${this._address}, ${withoutAddress}`
-
-    return `${this._name ? `${this._name}, ` : ''}${this._address || ''}, ${this._postcode || ''} ${this._town || ''}`
+    return [this._name, this._address, town]
+      .filter(value => !!value)
+      .join(', ')
   }
 }
 
