@@ -5,7 +5,7 @@ import type { UiDirectionType } from '../../i18n/types/UiDirectionType'
 import styled from 'styled-components'
 import Breadcrumb from './Breadcrumb'
 import BreadcrumbModel from '../BreadcrumbModel'
-import BreadcrumbsJsonLd from '../../json-ld/BreadcrumbsJsonLd'
+import BreadcrumbsJsonLd from '../../json-ld/components/BreadcrumbsJsonLd'
 
 const opposite = (direction: UiDirectionType) => direction === 'ltr' ? 'rtl' : 'ltr'
 
