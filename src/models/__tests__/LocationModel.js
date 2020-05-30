@@ -8,7 +8,7 @@ describe('LocationModel', () => {
       name: 'Café Tür an Tür',
       address: 'Wertachstr. 29',
       town: 'Augsburg',
-      state: 'Bavaria',
+      state: 'Bayern',
       postcode: '86353',
       region: 'Schwaben',
       country: 'DE'
@@ -21,7 +21,7 @@ describe('LocationModel', () => {
       name: null,
       address: 'Wertachstr. 29',
       town: 'Augsburg',
-      state: 'Bavaria',
+      state: 'Bayern',
       postcode: '86353',
       region: 'Schwaben',
       country: 'DE'
