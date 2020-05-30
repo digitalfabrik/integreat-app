@@ -21,7 +21,7 @@ describe('pois', () => {
       name: 'Café Tür an Tür',
       address: 'Wertachstr. 29',
       town: 'Augsburg',
-      state: 'Bavaria',
+      state: 'Bayern',
       postcode: '86353',
       region: 'Schwaben',
       country: 'DE'
@@ -41,7 +41,7 @@ describe('pois', () => {
       name: 'Café Tür an Tür',
       address: 'Wertachstr. 29',
       town: 'Augsburg',
-      state: 'Bavaria',
+      state: 'Bayern',
       postcode: '86353',
       region: 'Schwaben',
       country: 'DE'
