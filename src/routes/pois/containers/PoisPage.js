@@ -39,7 +39,7 @@ export class PoisPage extends React.Component<PropsType> {
 
       if (poi) {
         return (
-          <Page thumbnail={poi.thumbnail}
+          <Page defaultThumbnailSrc={poi.thumbnail}
                 lastUpdate={poi.lastUpdate}
                 content={poi.content}
                 title={poi.title}

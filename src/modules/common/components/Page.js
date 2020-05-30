@@ -7,10 +7,12 @@ import Caption from './Caption'
 import type Moment from 'moment'
 import LastUpdateInfo from './LastUpdateInfo'
 
+export const THUMBNAIL_WIDTH = 300
+
 const Thumbnail = styled.img`
   display: flex;
-  width: 300px;
-  height: 300px;
+  width: ${THUMBNAIL_WIDTH}px;
+  height: ${THUMBNAIL_WIDTH}px;
   margin: 10px auto;
   padding-bottom: 10px;
   object-fit: contain;
@@ -18,7 +20,8 @@ const Thumbnail = styled.img`
 
 type PropsType = {|
   title: string,
-  thumbnail?: string,
+  defaultThumbnailSrc?: string, // necessary for IE11 support
+  thumbnailSrcSet?: string,
   content: string,
   lastUpdate?: Moment,
   language: string,
@@ -32,10 +35,13 @@ type PropsType = {|
  */
 class Page extends React.PureComponent<PropsType> {
   render () {
-    const { title, thumbnail, content, lastUpdate, language, hijackRegExp, children, onInternalLinkClick } = this.props
+    const {
+      title, defaultThumbnailSrc, thumbnailSrcSet, content, lastUpdate, language, hijackRegExp, children,
+      onInternalLinkClick
+    } = this.props
     return (
       <>
-        {thumbnail && <Thumbnail alt='' src={thumbnail} />}
+        {defaultThumbnailSrc && <Thumbnail alt='' src={defaultThumbnailSrc} srcSet={thumbnailSrcSet} />}
         <Caption title={title} />
         {children}
         <RemoteContent dangerouslySetInnerHTML={{ __html: content }}
