@@ -16,6 +16,6 @@ const roundToOneDecimal = number => Math.round(number * ten) / ten
 const featuredImageToSrcSet = (featuredImage: FeaturedImageModel, defaultWidth: number) =>
   [featuredImage.thumbnail, featuredImage.medium, featuredImage.large, featuredImage.full]
     .map(({ url, width }) => `${encodeURI(url)} ${roundToOneDecimal(width / defaultWidth)}x`)
-    .join(',')
+    .join(', ')
 
 export default featuredImageToSrcSet
