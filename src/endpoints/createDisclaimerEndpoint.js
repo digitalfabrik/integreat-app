@@ -6,6 +6,7 @@ import moment from 'moment-timezone'
 import type { JsonDisclaimerType } from '../types'
 import Endpoint from '../Endpoint'
 import sanitizeHtml from 'sanitize-html-react'
+import normalizePath from '../normalizePath'
 
 export const DISCLAIMER_ENDPOINT_NAME = 'disclaimer'
 
@@ -21,6 +22,7 @@ export default (baseUrl: string): Endpoint<ParamsType, PageModel> => new Endpoin
     }
 
     return new PageModel({
+      path: normalizePath(json.path),
       title: json.title,
       content: sanitizeHtml(json.content, {
         allowedSchemes: ['http', 'https', 'data', 'tel', 'mailto'],

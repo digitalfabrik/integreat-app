@@ -25,6 +25,11 @@ class LocationModel {
     this._country = country
     this._latitude = latitude
     this._longitude = longitude
+    this._name = name
+  }
+
+  get name (): ?string {
+    return this._name
   }
 
   get name (): ?string {
@@ -63,7 +68,16 @@ class LocationModel {
     return this._latitude
   }
 
-  get location (): string {
+  get location (): ?string {
+    if (!this._town) {
+      return null
+    }
+    const withoutAddress = this._postcode ? `${this._postcode} ${this._town}` : this._town
+    if (!this._address) {
+      return withoutAddress
+    }
+    return `${this._address}, ${withoutAddress}`
+
     return `${this._name ? `${this._name}, ` : ''}${this._address || ''}, ${this._postcode || ''} ${this._town || ''}`
   }
 }

@@ -8,24 +8,24 @@ describe('createWohnenEndpoint', () => {
 
   const json = [
     {
-      'email': 'markl@integreat-app.de',
-      'formData': {
-        'landlord': {
-          'firstName': 'Michael',
-          'lastName': 'Markl',
-          'phone': '0123 / 456789'
+      email: 'markl@integreat-app.de',
+      formData: {
+        landlord: {
+          firstName: 'Michael',
+          lastName: 'Markl',
+          phone: '0123 / 456789'
         },
-        'accommodation': {
-          'ofRooms': [
+        accommodation: {
+          ofRooms: [
             'kitchen',
             'child1'
           ],
-          'title': '2 ZKB mit Balkon und Garten, WG-geeignet',
-          'location': 'Mittendrin',
-          'totalArea': 123,
-          'totalRooms': 2,
-          'moveInDate': '2019-03-03T17:44:06.000Z',
-          'ofRoomsDiff': [
+          title: '2 ZKB mit Balkon und Garten, WG-geeignet',
+          location: 'Mittendrin',
+          totalArea: 123,
+          totalRooms: 2,
+          moveInDate: '2019-03-03T17:44:06.000Z',
+          ofRoomsDiff: [
             'bath',
             'wc',
             'child2',
@@ -38,27 +38,27 @@ describe('createWohnenEndpoint', () => {
             'balcony'
           ]
         },
-        'costs': {
-          'ofRunningServices': [
+        costs: {
+          ofRunningServices: [
             'heating',
             'chimney'
           ],
-          'ofAdditionalServices': [
+          ofAdditionalServices: [
             'garage'
           ],
-          'baseRent': 300,
-          'runningCosts': 200,
-          'hotWaterInHeatingCosts': false,
-          'additionalCosts': 20,
-          'ofRunningServicesDiff': [
+          baseRent: 300,
+          runningCosts: 200,
+          hotWaterInHeatingCosts: false,
+          additionalCosts: 20,
+          ofRunningServicesDiff: [
             'water',
             'garbage'
           ],
-          'ofAdditionalServicesDiff': []
+          ofAdditionalServicesDiff: []
         },
-        'version': 1
+        version: 1
       },
-      'createdDate': '2019-03-03T17:45:11.050Z'
+      createdDate: '2019-03-03T17:45:11.050Z'
     }
   ]
 
