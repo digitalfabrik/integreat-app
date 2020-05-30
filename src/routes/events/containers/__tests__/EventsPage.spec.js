@@ -87,7 +87,6 @@ describe('EventsPage', () => {
     const wrapper = shallow(
       <EventsPage events={events}
                   city={city}
-                  path='/augsburg/en/events'
                   eventId={undefined}
                   t={t}
                   language={language} />
@@ -101,7 +100,6 @@ describe('EventsPage', () => {
                   city={city}
                   t={t}
                   language={language}
-                  path='/augsburg/en/events/first_event'
                   eventId='first_event' />
     )
     expect(wrapper).toMatchSnapshot()
@@ -113,7 +111,6 @@ describe('EventsPage', () => {
                   city={city}
                   t={t}
                   language={language}
-                  path='/augsburg/en/events/invalid_event'
                   eventId='invalid_event' />
     )
     expect(wrapper).toMatchSnapshot()
@@ -138,7 +135,6 @@ describe('EventsPage', () => {
       city,
       language,
       eventId: 'id',
-      path: '/augsburg/en/events/id',
       events,
       t: expect.any(Function),
       i18n: expect.anything(),

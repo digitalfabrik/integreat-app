@@ -22,8 +22,7 @@ type PropsType = {|
   city: string,
   eventId: ?string,
   language: string,
-  t: TFunction,
-  path: string
+  t: TFunction
 |}
 
 /**
@@ -34,9 +33,9 @@ export class EventsPage extends React.Component<PropsType> {
     <EventListItem event={event} language={language} key={event.path} />
 
   render () {
-    const { events, path, eventId, city, language, t } = this.props
+    const { events, eventId, city, language, t } = this.props
     if (eventId) {
-      const event = events.find(_event => _event.path === decodeURIComponent(path))
+      const event = events.find(_event => _event.path === `/${city}/${language}/events/${eventId}`)
 
       if (event) {
         return <>
@@ -70,8 +69,7 @@ export class EventsPage extends React.Component<PropsType> {
 const mapStateTypeToProps = (state: StateType) => ({
   language: state.location.payload.language,
   city: state.location.payload.city,
-  eventId: state.location.payload.eventId,
-  path: state.location.pathname
+  eventId: state.location.payload.eventId
 })
 
 export default compose(
