@@ -16,6 +16,7 @@ import EventListItem from '../components/EventListItem'
 import List from '../../../modules/common/components/List'
 import Caption from '../../../modules/common/components/Caption'
 import { push } from 'redux-first-router'
+import EventJsonLd from '../../../modules/json-ld/components/EventJsonLd'
 
 type PropsType = {|
   events: Array<EventModel>,
@@ -40,6 +41,7 @@ export class EventsPage extends React.Component<PropsType> {
 
       if (event) {
         return <>
+          <EventJsonLd event={event} />
           <Page thumbnail={event.thumbnail}
                 lastUpdate={event.lastUpdate}
                 content={event.content}
