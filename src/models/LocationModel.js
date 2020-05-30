@@ -65,7 +65,7 @@ class LocationModel {
   }
 
   get location (): ?string {
-    const town = this._postcode ? `${this._postcode} ${this._town}` : this._town
+    const town = this._postcode && this._town ? `${this._postcode} ${this._town}` : this._town
     if (!town && !this._address && !this._name) {
       return null
     }
