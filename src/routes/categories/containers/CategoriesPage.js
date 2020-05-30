@@ -16,6 +16,7 @@ import type { StateType } from '../../../modules/app/StateType'
 import type { UiDirectionType } from '../../../modules/i18n/types/UiDirectionType'
 import Page from '../../../modules/common/components/Page'
 import { push } from 'redux-first-router'
+import BreadcrumbModel from '../../../modules/common/BreadcrumbModel'
 
 type PropsType = {|
   categories: CategoriesMapModel,
@@ -71,12 +72,16 @@ export class CategoriesPage extends React.Component<PropsType> {
                          onInternalLinkClick={push} />
   }
 
-  getBreadcrumbs (categoryModel: CategoryModel): Array<React.Node> {
+  getBreadcrumbs (categoryModel: CategoryModel): Array<BreadcrumbModel> {
     const { cities, categories, city } = this.props
-    return categories.getAncestors(categoryModel)
+    return categories.getAncestors(categoryModel).concat([categoryModel])
       .map(ancestor => {
         const title = ancestor.isRoot() ? CityModel.findCityName(cities, city) : ancestor.title
-        return <Link to={ancestor.path} key={ancestor.path}>{title}</Link>
+        return new BreadcrumbModel({
+          title,
+          link: ancestor.path,
+          node: <Link to={ancestor.path} key={ancestor.path}>{title}</Link>
+        })
       })
   }
 
@@ -86,9 +91,7 @@ export class CategoriesPage extends React.Component<PropsType> {
 
     if (categoryModel) {
       return <div>
-        <Breadcrumbs direction={uiDirection}>
-          {this.getBreadcrumbs(categoryModel)}
-        </Breadcrumbs>
+        <Breadcrumbs direction={uiDirection} breadcrumbs={this.getBreadcrumbs(categoryModel)} />
         {this.getContent(categoryModel)}
       </div>
     } else {

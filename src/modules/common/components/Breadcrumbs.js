@@ -4,6 +4,8 @@ import * as React from 'react'
 import type { UiDirectionType } from '../../i18n/types/UiDirectionType'
 import styled from 'styled-components'
 import Breadcrumb from './Breadcrumb'
+import BreadcrumbModel from '../BreadcrumbModel'
+import BreadcrumbsJsonLd from '../../json-ld/BreadcrumbsJsonLd'
 
 const opposite = (direction: UiDirectionType) => direction === 'ltr' ? 'rtl' : 'ltr'
 
@@ -30,21 +32,26 @@ const OrderedList = styled.ol`
 `
 
 type PropsType = {|
-  children: Array<React.Node>,
+  breadcrumbs: Array<BreadcrumbModel>,
   direction: UiDirectionType
 |}
 
 /**
- * Displays breadcrumbs (Links) for lower category levels
+ * Displays breadcrumbs (Links) for lower category levels and outputs a corresponding JSON-LD for rich search experience
  */
 class Breadcrumbs extends React.PureComponent<PropsType> {
   static defaultProps = { direction: 'ltr' }
 
   render () {
-    const direction = this.props.direction
+    const { direction, breadcrumbs } = this.props
+    // The current page should not be listed in the UI, but should be within the JsonLd.
+    const listedBreadcrumbs = [...breadcrumbs]
+    listedBreadcrumbs.pop()
+
     return <Wrapper direction={direction}>
+      <BreadcrumbsJsonLd breadcrumbs={breadcrumbs} />
       <OrderedList direction={direction}>
-        {this.props.children.map((child, key) => <Breadcrumb key={key}>{child}</Breadcrumb>)}
+        {listedBreadcrumbs.map((breadcrumb, key) => <Breadcrumb key={key}>{breadcrumb.node}</Breadcrumb>)}
       </OrderedList>
     </Wrapper>
   }
