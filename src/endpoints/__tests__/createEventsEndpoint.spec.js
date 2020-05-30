@@ -39,8 +39,8 @@ describe('events', () => {
       town: 'Augsburg',
       postcode: '86353',
       state: 'Bavaria',
-      region: 'Swabia',
-      country: 'Germany',
+      region: 'Schwaben',
+      country: 'DE',
       latitude: null,
       longitude: null
     },
