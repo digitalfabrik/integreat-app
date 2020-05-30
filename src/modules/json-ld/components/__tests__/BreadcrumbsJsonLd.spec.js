@@ -7,7 +7,7 @@ import BreadcrumbsJsonLd from '../BreadcrumbsJsonLd'
 import BreadcrumbModel from '../../../common/BreadcrumbModel'
 import { Helmet } from 'react-helmet'
 
-describe('Breadcrumbs', () => {
+describe('BreadcrumbsJsonLd', () => {
   it('should output valid json-ld', () => {
     const wrapper = shallow(
       <BreadcrumbsJsonLd breadcrumbs={[
