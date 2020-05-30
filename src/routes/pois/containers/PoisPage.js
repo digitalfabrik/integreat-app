@@ -22,8 +22,7 @@ type PropsType = {|
   city: string,
   poiId: ?string,
   language: string,
-  t: TFunction,
-  path: string
+  t: TFunction
 |}
 
 /**
@@ -33,9 +32,9 @@ export class PoisPage extends React.Component<PropsType> {
   renderPoiListItem = (poi: PoiModel) => <PoiListItem key={poi.path} poi={poi} />
 
   render () {
-    const { pois, path, poiId, city, language, t } = this.props
+    const { pois, poiId, city, language, t } = this.props
     if (poiId) {
-      const poi = pois.find(_poi => _poi.path === path)
+      const poi = pois.find(_poi => _poi.path === `/${city}/${language}/locations/${poiId}`)
 
       if (poi) {
         return (
@@ -65,8 +64,7 @@ export class PoisPage extends React.Component<PropsType> {
 const mapStateTypeToProps = (state: StateType) => ({
   language: state.location.payload.language,
   city: state.location.payload.city,
-  poiId: state.location.payload.poiId,
-  path: state.location.pathname
+  poiId: state.location.payload.poiId
 })
 
 export default compose(
