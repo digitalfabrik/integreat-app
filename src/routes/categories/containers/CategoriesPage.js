@@ -17,6 +17,7 @@ import type { UiDirectionType } from '../../../modules/i18n/types/UiDirectionTyp
 import Page from '../../../modules/common/components/Page'
 import { push } from 'redux-first-router'
 import BreadcrumbModel from '../../../modules/common/BreadcrumbModel'
+import urlFromPath from '../../../modules/common/utils/urlFromPath'
 
 type PropsType = {|
   categories: CategoriesMapModel,
@@ -75,12 +76,12 @@ export class CategoriesPage extends React.Component<PropsType> {
   getBreadcrumbs (categoryModel: CategoryModel): Array<BreadcrumbModel> {
     const { cities, categories, city } = this.props
     return categories.getAncestors(categoryModel).concat([categoryModel])
-      .map(ancestor => {
-        const title = ancestor.isRoot() ? CityModel.findCityName(cities, city) : ancestor.title
+      .map(category => {
+        const title = category.isRoot() ? CityModel.findCityName(cities, city) : category.title
         return new BreadcrumbModel({
           title,
-          link: ancestor.path,
-          node: <Link to={ancestor.path} key={ancestor.path}>{title}</Link>
+          link: urlFromPath(category.path),
+          node: <Link to={category.path} key={category.path}>{title}</Link>
         })
       })
   }

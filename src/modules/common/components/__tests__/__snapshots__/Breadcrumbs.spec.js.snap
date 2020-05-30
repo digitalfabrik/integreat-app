@@ -8,7 +8,7 @@ exports[`Breadcrumbs should render and match snapshot 1`] = `
     breadcrumbs={
       Array [
         BreadcrumbModel {
-          "_link": "/",
+          "_link": "https://abc.xyz/",
           "_node": <a
             href="/"
           >
@@ -17,7 +17,7 @@ exports[`Breadcrumbs should render and match snapshot 1`] = `
           "_title": "Home",
         },
         BreadcrumbModel {
-          "_link": "/sub",
+          "_link": "https://abc.xyz/sub",
           "_node": <a
             href="/sub"
           >
@@ -26,7 +26,7 @@ exports[`Breadcrumbs should render and match snapshot 1`] = `
           "_title": "Subcategory",
         },
         BreadcrumbModel {
-          "_link": "/sub/current",
+          "_link": "https://abc.xyz/sub/current",
           "_node": <a
             href="/sub/current"
           >
