@@ -14,6 +14,7 @@ import { LOCAL_NEWS } from '../constants'
 import LoadingSpinner from '../../../modules/common/components/LoadingSpinner'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
+import CityNotFoundError from '../../../modules/app/errors/CityNotFoundError'
 
 type PropsType = {|
   localNews: Array<LocalNewsModel>,
@@ -48,7 +49,11 @@ export class LocalNewsPage extends React.Component<PropsType> {
       return <LoadingSpinner />
     }
 
-    const currentCity: CityModel = cities && cities.find(cityElement => cityElement.code === city)
+    const currentCity: ?CityModel = cities && cities.find(cityElement => cityElement.code === city)
+    if (!currentCity) {
+      return <FailureSwitcher error={new CityNotFoundError()} />
+    }
+
 
     if (!currentCity.pushNotificationsEnabled) {
       const type = currentCity.tunewsEnabled ? 'tunewsItem' : 'category'

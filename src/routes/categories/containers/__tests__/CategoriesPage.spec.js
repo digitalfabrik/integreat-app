@@ -69,7 +69,13 @@ describe('CategoriesPage', () => {
       live: true,
       eventsEnabled: false,
       extrasEnabled: false,
-      sortingName: 'Augsburg'
+      pushNotificationsEnabled: false,
+      tunewsEnabled: false,
+      sortingName: 'Augsburg',
+      aliases: null,
+      prefix: null,
+      longitude: null,
+      latitude: null
     }),
     new CityModel({
       name: 'Stadt Regensburg',
@@ -77,7 +83,13 @@ describe('CategoriesPage', () => {
       live: true,
       eventsEnabled: false,
       extrasEnabled: false,
-      sortingName: 'Regensburg'
+      tunewsEnabled: false,
+      pushNotificationsEnabled: false,
+      sortingName: 'Regensburg',
+      aliases: null,
+      prefix: null,
+      longitude: null,
+      latitude: null,
     }),
     new CityModel({
       name: 'Werne',
@@ -85,7 +97,13 @@ describe('CategoriesPage', () => {
       live: true,
       eventsEnabled: false,
       extrasEnabled: false,
-      sortingName: 'City'
+      tunewsEnabled: false,
+      pushNotificationsEnabled: false,
+      sortingName: 'City',
+      aliases: null,
+      prefix: null,
+      longitude: null,
+      latitude: null
     })
   ]
 

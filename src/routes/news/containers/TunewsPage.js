@@ -61,7 +61,6 @@ export class TunewsPage extends React.PureComponent<PropsType> {
     }
 
     const currentCity: ?CityModel = cities && cities.find(cityElement => cityElement.code === city)
-
     if (!currentCity) {
       return <FailureSwitcher error={new CityNotFoundError()} />
     }
