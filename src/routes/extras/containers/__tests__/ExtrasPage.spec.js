@@ -92,7 +92,7 @@ describe('ExtrasPage', () => {
     const tree = mount(
       <ThemeProvider theme={theme}>
         <Provider store={store}>
-          <ConnectedExtrasPage extras={extras} />
+          <ConnectedExtrasPage extras={extras} cities={cities} />
         </Provider>
       </ThemeProvider>
     )
@@ -101,6 +101,7 @@ describe('ExtrasPage', () => {
       language,
       city,
       extras,
+      cities,
       extraId: 'invalid_extra'
     })
   })
