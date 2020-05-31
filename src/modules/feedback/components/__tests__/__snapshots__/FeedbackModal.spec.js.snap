@@ -103,15 +103,15 @@ exports[`FeedbackModal should match snapshot 1`] = `
         cities={
           Array [
             CityModel {
-              "_aliases": undefined,
+              "_aliases": null,
               "_code": "augsburg",
               "_eventsEnabled": true,
               "_extrasEnabled": false,
-              "_latitude": undefined,
+              "_latitude": null,
               "_live": true,
-              "_longitude": undefined,
+              "_longitude": null,
               "_name": "Augsburg",
-              "_prefix": undefined,
+              "_prefix": null,
               "_pushNotificationsEnabled": false,
               "_sortingName": "Augsburg",
               "_tunewsEnabled": false,
