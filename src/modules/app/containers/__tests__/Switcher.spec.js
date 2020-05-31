@@ -268,6 +268,7 @@ describe('Switcher', () => {
       location,
       pois: poisPayload,
       wohnen: wohnenPayload,
+      tunews: { allData: [], hasMore: true, tunewsPayload },
       sprungbrettJobs: sprungbrettPayload,
       viewport: { is: { small: true } },
       darkMode: true
