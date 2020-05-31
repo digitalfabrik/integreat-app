@@ -3,7 +3,8 @@
 import type {
   CategoryRouteStateType,
   CitiesStateType,
-  LanguageResourceCacheStateType, LanguagesStateType,
+  LanguageResourceCacheStateType,
+  LanguagesStateType,
   ResourceCacheStateType,
   StateType
 } from '../../../../modules/app/StateType'
@@ -82,6 +83,9 @@ describe('CategoriesContainer', () => {
   }
 
   const rootCategory = categoriesMap.findCategoryByPath(`/${city.code}/${language.code}`)
+  if (!rootCategory) {
+    throw Error('The root category was not found. Sth\'s odd.')
+  }
   const models = reduce(categoriesMap.toArray(), (acc, model) => ({ ...acc, [model.path]: model }), {})
   const children = reduce(
     [rootCategory, ...categoriesMap.getChildren(rootCategory)],
