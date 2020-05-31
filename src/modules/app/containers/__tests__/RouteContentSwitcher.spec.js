@@ -36,7 +36,11 @@ describe('RouteContentSwitcher', () => {
       extrasEnabled: false,
       pushNotificationsEnabled: false,
       tunewsEnabled: false,
-      sortingName: 'Mambo'
+      sortingName: 'Mambo',
+      aliases: null,
+      longitude: null,
+      latitude: null,
+      prefix: null
     })
   ]
 

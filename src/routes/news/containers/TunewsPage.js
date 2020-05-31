@@ -10,11 +10,12 @@ import TunewsList from '../components/TunewsList'
 import { fetchMoreTunews } from '../actions/fetchMoreTunews'
 import NewsElement from '../components/NewsElement'
 import NewsTabs from '../components/NewsTabs'
-import { TunewsModel, CityModel } from '@integreat-app/integreat-api-client'
+import { CityModel, TunewsModel } from '@integreat-app/integreat-api-client'
 import LoadingSpinner from '../../../modules/common/components/LoadingSpinner'
 import { TU_NEWS } from '../constants'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
+import CityNotFoundError from '../../../modules/app/errors/CityNotFoundError'
 
 type PropsType = {|
   tunews: Array<TunewsModel>,
@@ -59,7 +60,11 @@ export class TunewsPage extends React.PureComponent<PropsType> {
       return <LoadingSpinner />
     }
 
-    const currentCity: CityModel = cities && cities.find(cityElement => cityElement.code === city)
+    const currentCity: ?CityModel = cities && cities.find(cityElement => cityElement.code === city)
+
+    if (!currentCity) {
+      return <FailureSwitcher error={new CityNotFoundError()} />
+    }
 
     if (!currentCity.tunewsEnabled) {
       const type = currentCity.pushNotificationsEnabled ? 'localNewsItem' : 'category'

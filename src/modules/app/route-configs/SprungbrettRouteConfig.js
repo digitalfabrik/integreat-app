@@ -10,14 +10,14 @@ import {
   createSprungbrettJobsEndpoint,
   ExtraModel,
   Payload,
-  SprungbrettModel
+  SprungbrettJobModel
 } from '@integreat-app/integreat-api-client'
 import type { Route } from 'redux-first-router'
 import fetchData from '../fetchData'
 import { cmsApiBaseUrl } from '../constants/urls'
 
 type SprungbrettRouteParamsType = {|city: string, language: string|}
-type RequiredPayloadsType = {|sprungbrettJobs: Payload<Array<SprungbrettModel>>, extras: Payload<Array<ExtraModel>>|}
+type RequiredPayloadsType = {|sprungbrettJobs: Payload<Array<SprungbrettJobModel>>, extras: Payload<Array<ExtraModel>>|}
 
 export const SPRUNGBRETT_ROUTE = 'SPRUNGBRETT'
 export const SPRUNGBRETT_EXTRA = 'sprungbrett'
@@ -86,7 +86,10 @@ class SprungbrettRouteConfig implements RouteConfig<SprungbrettRouteParamsType, 
   getFeedbackTargetInformation = ({ payloads }) => {
     const extras = payloads.extras.data
     const extra = extras && extras.find(extra => extra.alias === SPRUNGBRETT_EXTRA)
-    return ({ alias: SPRUNGBRETT_EXTRA, title: extra && extra.title })
+    if (extra) {
+      return ({ alias: SPRUNGBRETT_EXTRA, title: extra.title })
+    }
+    return ({ alias: SPRUNGBRETT_EXTRA })
   }
 }
 
