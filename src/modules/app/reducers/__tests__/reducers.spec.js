@@ -4,7 +4,7 @@ import reducers, { finishFetchReducer, startFetchReducer } from '../'
 import startFetchAction from '../../../app/actions/startFetchAction'
 import lolex from 'lolex'
 import finishFetchAction from '../../../app/actions/finishFetchAction'
-import { Payload } from '@integreat-app/integreat-api-client'
+import { CityModel, Payload } from '@integreat-app/integreat-api-client'
 
 describe('endpoint reducers', () => {
   let clock
@@ -27,7 +27,7 @@ describe('endpoint reducers', () => {
   describe('finish fetch reducer', () => {
     it('should return the action payload if the old payload was a fetching payload with the same url', () => {
       const oldPayload = new Payload(true, 'https://url.com')
-      const payload = new Payload(false, 'https://url.com', { someType: 'someValue' }, null)
+      const payload = new Payload<CityModel[]>(false, 'https://url.com', [], null)
       const action = finishFetchAction('endpoint', payload)
       expect(finishFetchReducer(oldPayload, action)).toEqual(action.payload)
     })
@@ -35,8 +35,8 @@ describe('endpoint reducers', () => {
     it('should return the old payload if the old payload was not a fetching payload', () => {
       // this happens if two fetches are initiated and the first one finishes after the second one,
       // in which case we want to keep the data of the second fetch
-      const oldPayload = new Payload(false, 'https://url.com', {}, null)
-      const payload = new Payload(false, 'https://url.com', {}, null)
+      const oldPayload = new Payload<CityModel[]>(false, 'https://url.com', [], null)
+      const payload = new Payload<CityModel[]>(false, 'https://url.com', [], null)
       const action = finishFetchAction('endpoint', payload)
       expect(finishFetchReducer(oldPayload, action)).toEqual(oldPayload)
     })
@@ -44,8 +44,8 @@ describe('endpoint reducers', () => {
     it('should return the old payload if the url has changed', () => {
       // this happens if two fetches are initiated and the first one finishes after the second one was initiated,
       // in which case we don't want to store the data of the first fetch
-      const oldPayload = new Payload(true, 'https://newUrl.com', {}, null)
-      const payload = new Payload(false, 'https://url.com', {}, null)
+      const oldPayload = new Payload<CityModel[]>(true, 'https://newUrl.com', [], null)
+      const payload = new Payload<CityModel[]>(false, 'https://url.com', [], null)
       const action = finishFetchAction('endpoint', payload)
       expect(finishFetchReducer(oldPayload, action)).toEqual(oldPayload)
     })
