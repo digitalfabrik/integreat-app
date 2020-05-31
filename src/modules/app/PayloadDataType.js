@@ -16,4 +16,4 @@ import {
 
 export type PayloadDataType = Array<CityModel> | Array<LanguageModel> | Array<ExtraModel> | Array<EventModel>
   | PageModel | CategoriesMapModel | Array<SprungbrettJobModel> | Array<WohnenOfferModel> | Array<LocalNewsModel>
-  | LocalNewsModel | Array<TunewsModel> | Array<PoiModel>
+  | LocalNewsModel | Array<TunewsModel> | TunewsModel | Array<PoiModel>
