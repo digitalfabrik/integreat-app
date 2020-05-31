@@ -89,9 +89,12 @@ class EventModelBuilder {
             allDay: false
           }),
           location: new LocationModel({
+            name: 'name',
             address: 'address',
             town: 'town',
-            postcode: 'postcode'
+            postcode: 'postcode',
+            latitude: null,
+            longitude: null
           }),
           excerpt: 'excerpt',
           lastUpdate,
@@ -100,6 +103,7 @@ class EventModelBuilder {
                     <p>This is a sample event</p>
                     <img src="${resourceUrl2}"/>`,
           thumbnail,
+          featuredImage: null,
           hash: md5.create().update(Buffer.from([index])).hex()
         }),
         resources: {

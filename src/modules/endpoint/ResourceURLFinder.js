@@ -5,8 +5,13 @@ import { Parser } from 'htmlparser2'
 import type { FetchMapType } from './sagas/fetchResourceCache'
 import { reduce } from 'lodash'
 import hashUrl from './hashUrl'
-import { ExtendedPageModel } from '@integreat-app/integreat-api-client'
 import Url from 'url-parse'
+
+interface InputEntryType {
+  path: string,
+  content: string,
+  thumbnail: string
+}
 
 /**
  * A ResourceURLFinder allows to find resource urls in html source code.
@@ -55,10 +60,10 @@ export default class ResourceURLFinder {
   }
 
   buildFetchMap (
-    inputs: Array<ExtendedPageModel>,
+    inputs: Array<InputEntryType>,
     buildFilePath: (url: string, urlHash: string) => string
   ): FetchMapType {
-    return reduce<Array<ExtendedPageModel>, FetchMapType>(inputs, (fetchMap, input: ExtendedPageModel) => {
+    return reduce<Array<InputEntryType>, FetchMapType>(inputs, (fetchMap, input: InputEntryType) => {
       const path = input.path
 
       this.findResourceUrls(input.content)
@@ -71,7 +76,11 @@ export default class ResourceURLFinder {
       fetchMap[path] = Array.from(urlSet).map(url => {
         const urlHash = hashUrl(url)
         const filePath = buildFilePath(url, urlHash)
-        return { url, urlHash, filePath }
+        return {
+          url,
+          urlHash,
+          filePath
+        }
       })
 
       return fetchMap

@@ -1,7 +1,8 @@
 // @flow
 
 import * as React from 'react'
-import { CategoriesMapModel, CategoryModel } from '@integreat-app/integreat-api-client'
+import { CategoriesMapModel } from '@integreat-app/integreat-api-client'
+import type { ListEntryType } from '../../../modules/categories/components/CategoryList'
 import CategoryList from '../../../modules/categories/components/CategoryList'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
@@ -24,8 +25,6 @@ const Wrapper: StyledComponent<{}, ThemeType, *> = styled.View`
   background-color: ${props => props.theme.colors.backgroundColor};
 `
 
-type CategoryListItemType = {| model: CategoryModel, subCategories: Array<CategoryModel> |}
-
 export type PropsType = {|
   categories: CategoriesMapModel | null,
   navigateToCategory: NavigateToCategoryParamsType => void,
@@ -45,7 +44,7 @@ type StateType = {|
 class SearchModal extends React.Component<PropsType, StateType> {
   state = { query: '' }
 
-  findCategories (categories: CategoriesMapModel): Array<CategoryListItemType> {
+  findCategories (categories: CategoriesMapModel): Array<ListEntryType> {
     const { query } = this.state
     const normalizedFilter = normalizeSearchString(query)
     const categoriesArray = categories.toArray()
@@ -66,7 +65,11 @@ class SearchModal extends React.Component<PropsType, StateType> {
       .filter(category => !category.isRoot())
       .concat(categoriesWithContent)
       .map(category => ({
-        model: category,
+        model: {
+          path: category.path,
+          thumbnail: category.thumbnail,
+          title: category.title
+        },
         subCategories: []
       }))
   }
