@@ -71,7 +71,8 @@ class CitySelector extends React.PureComponent<PropsType> {
           city={city}
           filterText={this.props.filterText}
           navigateToDashboard={this.props.navigateToDashboard}
-          theme={this.props.theme} />)}
+          theme={this.props.theme}
+        />)}
       </React.Fragment>)
     }, [])
   }
@@ -93,7 +94,8 @@ class CitySelector extends React.PureComponent<PropsType> {
             city={city}
             filterText={filterText}
             navigateToDashboard={navigateToDashboard}
-            theme={theme} />)}
+            theme={theme}
+            />)}
         </>
       } else {
         return <>
@@ -109,8 +111,9 @@ class CitySelector extends React.PureComponent<PropsType> {
         <NearbyMessageContainer>
           <NearbyMessage theme={theme}>{t(location.message)}</NearbyMessage>
           {tryAgain &&
-            <Button icon={<Icon name='refresh' size={30} color={theme.colors.textSecondaryColor} style='material' />}
-                    title='' type='clear' onPress={tryAgain} />}
+          <Button icon={<Icon name='refresh' size={30} color={theme.colors.textSecondaryColor} style='material' />}
+                  title='' type='clear' onPress={tryAgain} accessibilityLabel={t('refresh')}
+                  accessibilityRole='button' />}
         </NearbyMessageContainer>
       </>
     }

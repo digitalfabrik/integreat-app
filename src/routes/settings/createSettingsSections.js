@@ -46,6 +46,7 @@ export default ({ setSetting, t, language }: {
           onPress: () => { setSetting(settings => ({ errorTracking: !settings.errorTracking })) }
         },
         {
+          accessibilityRole: 'link',
           title: t('about'),
           onPress: () => {
             if (language === 'de') {
@@ -56,10 +57,12 @@ export default ({ setSetting, t, language }: {
           }
         },
         {
+          accessibilityRole: 'link',
           title: t('privacyPolicy'),
           onPress: () => openPrivacyPolicy(language)
         },
         {
+          accessibilityRole: 'none',
           title: t('version', { version: NativeConstants.appVersion }),
           onPress: () => {
             volatileValues.versionTaps++
