@@ -1,19 +1,19 @@
 // @flow
 
-import { Payload, TunewsModel, TUNEWS_ENDPOINT_NAME } from '@integreat-app/integreat-api-client'
-import type { PayloadDataType } from '../../../modules/app/PayloadDataType'
+import { Payload, TUNEWS_ENDPOINT_NAME, TunewsModel } from '@integreat-app/integreat-api-client'
 import { startFetchActionName } from '../../../modules/app/actions/startFetchAction'
 import { startFetchMoreActionName } from '../../../modules/app/actions/startFetchMoreAction'
 import { finishFetchActionName } from '../../../modules/app/actions/finishFetchAction'
 import { finishFetchMoreActionName } from '../../../modules/app/actions/finishFetchMoreAction'
+import { type ReduxReducer } from 'redux-actions'
 
-type TuNewsFetchActionType<T: PayloadDataType> = { type: string, payload: Payload<T> }
+type TuNewsFetchActionType = { type: string, payload: Payload<Array<TunewsModel>> }
 
-const defaultState = new Payload(false, false, [])
+const defaultState = new Payload(false, null, null, null)
 
-const fetchTunewsReducer = (
+const fetchTunewsReducer: ReduxReducer<Payload<Array<TunewsModel>>, TuNewsFetchActionType> = (
   state: Payload<Array<TunewsModel>> = defaultState,
-  action: TuNewsFetchActionType<TunewsModel>
+  action: TuNewsFetchActionType
 ) => {
   switch (action.type) {
     case startFetchActionName(TUNEWS_ENDPOINT_NAME):

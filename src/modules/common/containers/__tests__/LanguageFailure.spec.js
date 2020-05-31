@@ -10,28 +10,46 @@ import createLocation from '../../../../createLocation'
 describe('LanguageFailure', () => {
   const cities = [
     new CityModel({
-      name: 'Augsburg',
+      name: 'Stadt Augsburg',
       code: 'augsburg',
       eventsEnabled: true,
       extrasEnabled: false,
+      tunewsEnabled: false,
+      pushNotificationsEnabled: false,
       sortingName: 'augsburg',
-      live: true
+      live: true,
+      prefix: 'Stadt',
+      latitude: null,
+      longitude: null,
+      aliases: null
     }),
     new CityModel({
       name: 'Stadt Regensburg',
       code: 'regensburg',
       eventsEnabled: true,
       extrasEnabled: true,
+      tunewsEnabled: false,
+      pushNotificationsEnabled: false,
       sortingName: 'regensburg',
-      live: true
+      live: true,
+      prefix: 'Stadt',
+      latitude: null,
+      longitude: null,
+      aliases: null
     }),
     new CityModel({
       name: 'Werne',
       code: 'werne',
       eventsEnabled: true,
       extrasEnabled: true,
+      tunewsEnabled: false,
+      pushNotificationsEnabled: false,
       sortingName: 'regensburg',
-      live: false
+      live: false,
+      prefix: 'Stadt',
+      latitude: null,
+      longitude: null,
+      aliases: null
     })
   ]
 

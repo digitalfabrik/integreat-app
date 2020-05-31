@@ -16,5 +16,5 @@ export const fetchMoreTunews = (
 ) => (dispatch: Dispatch<StoreActionType>, getState: () => StateType) => {
   const state = getState()
   const { language } = state.location.payload
-  return fetchMoreData(createTunewsEndpoint(tunewsApiBaseUrl), dispatch, state.tunews, { language, page, count })
+  return fetchMoreData<*, *>(createTunewsEndpoint(tunewsApiBaseUrl), dispatch, state.tunews, { language, page, count })
 }
