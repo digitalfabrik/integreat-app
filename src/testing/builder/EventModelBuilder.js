@@ -89,7 +89,7 @@ class EventModelBuilder {
             allDay: false
           }),
           location: new LocationModel({
-            name: 'name',
+            name: null,
             address: 'address',
             town: 'town',
             postcode: 'postcode',
