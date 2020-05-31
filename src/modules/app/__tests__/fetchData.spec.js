@@ -6,7 +6,6 @@ import startFetchAction from '../../app/actions/startFetchAction'
 import finishFetchAction from '../../app/actions/finishFetchAction'
 import { CityModel, EndpointBuilder, MappingError, Payload } from '@integreat-app/integreat-api-client'
 import fetchData from '../fetchData'
-import type { PayloadDataType } from '../PayloadDataType'
 
 describe('fetchData', () => {
   const defaultName = 'endpoint'
@@ -104,7 +103,7 @@ describe('fetchData', () => {
 
   it('should use overrideResponse correctly', async () => {
     const json = []
-    const endpoint = new EndpointBuilder<{ var1: string, var2: string }, CityModel[]>(defaultName)
+    const endpoint = new EndpointBuilder<*, CityModel[]>(defaultName)
       .withParamsToUrlMapper(defaultMapParamsToUrl)
       .withMapper(defaultJsonMapper)
       .withResponseOverride(json)
@@ -115,7 +114,7 @@ describe('fetchData', () => {
     const params = { var1: 'a', var2: 'b' }
 
     const data = await fetchData(endpoint, dispatch, oldPayload, params)
-    const payload = new Payload<CityModel[]>(false, defaultMapParamsToUrl(params), data, null)
+    const payload = new Payload<CityModel[]>(false, defaultMapParamsToUrl(params), data.data, null)
 
     expect(data).toEqual(payload)
     expect(dispatch).toHaveBeenCalledTimes(2)
