@@ -73,7 +73,7 @@ Then you can pull using:
 git pull-locales <branch>
 ```
 
-## manage.js
+## manage
 
 ### Converting to CSV
 
