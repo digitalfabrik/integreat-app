@@ -1,21 +1,18 @@
 // @flow
 
-import type { AllPayloadsType } from './RouteConfig'
 import { RouteConfig } from './RouteConfig'
 import type { Route } from 'redux-first-router'
 import {
   createCitiesEndpoint,
   createEventsEndpoint,
   createTunewsEndpoint,
-  createTunewsLanguagesEndpoint,
-  TunewsModel,
-  Payload
+  createTunewsLanguagesEndpoint
 } from '@integreat-app/integreat-api-client'
 import fetchData from '../fetchData'
 import { cmsApiBaseUrl, tunewsApiBaseUrl } from '../constants/urls'
 
 type TunewsRouteParamsType = {| city: string, language: string |}
-type RequiredPayloadsType = {| tunews: Payload<Array<TunewsModel>> |}
+type RequiredPayloadsType = {} // Loading tunews is handled inside Page
 
 export const TUNEWS_ROUTE = 'TU_NEWS'
 
@@ -29,7 +26,7 @@ const tunewsRoute: Route = {
       fetchData(createCitiesEndpoint(cmsApiBaseUrl), dispatch, state.cities),
       fetchData(createEventsEndpoint(cmsApiBaseUrl), dispatch, state.events, { city, language }),
       fetchData(createTunewsLanguagesEndpoint(tunewsApiBaseUrl), dispatch, state.languages, { city, language }),
-      fetchData(createTunewsEndpoint(tunewsApiBaseUrl), dispatch, state.tunews, { page: 1, language: language, count: 20 })
+      fetchData(createTunewsEndpoint(tunewsApiBaseUrl), dispatch, state.tunews, { page: 1, language, count: 20 })
     ])
   }
 }
@@ -44,9 +41,7 @@ class TunewsRouteConfig implements RouteConfig<TunewsRouteParamsType, RequiredPa
   getLanguageChangePath = ({ location, language }) =>
     this.getRoutePath({ city: location.payload.city, language })
 
-  getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType => ({
-    tunews: payloads.tunewsPayload
-  })
+  getRequiredPayloads = (): RequiredPayloadsType => ({})
 
   getPageTitle = ({ t, cityName }) => {
     if (!cityName) {
