@@ -17,8 +17,8 @@ import {
 } from '@integreat-app/integreat-api-client'
 import { cmsApiBaseUrl, wohnenApiBaseUrl } from '../constants/urls'
 
-type RouteParamsType = {|city: string, language: string, offerHash?: string|}
-type RequiredPayloadsType = {|offers: Payload<Array<WohnenOfferModel>>, extras: Payload<Array<ExtraModel>>|}
+type RouteParamsType = {| city: string, language: string, offerHash?: string |}
+type RequiredPayloadsType = {| offers: Payload<Array<WohnenOfferModel>>, extras: Payload<Array<ExtraModel>> |}
 
 export const WOHNEN_ROUTE = 'WOHNEN'
 export const WOHNEN_EXTRA = 'wohnen'
@@ -95,7 +95,10 @@ class WohnenRouteConfig implements RouteConfig<RouteParamsType, RequiredPayloads
   getFeedbackTargetInformation = ({ payloads }) => {
     const extras = payloads.extras.data
     const extra = extras && extras.find(extra => extra.alias === WOHNEN_EXTRA)
-    return ({ alias: WOHNEN_EXTRA, title: extra && extra.title })
+    if (!extra) {
+      return { alias: WOHNEN_EXTRA }
+    }
+    return ({ alias: WOHNEN_EXTRA, title: extra.title })
   }
 }
 

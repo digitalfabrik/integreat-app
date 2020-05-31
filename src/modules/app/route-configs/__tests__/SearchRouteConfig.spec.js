@@ -40,7 +40,13 @@ const cities = [
     live: true,
     eventsEnabled: true,
     extrasEnabled: false,
-    sortingName: 'Mambo'
+    tunewsEnabled: false,
+    pushNotificationsEnabled: false,
+    sortingName: 'Mambo',
+    longitude: null,
+    latitude: null,
+    prefix: null,
+    aliases: null
   })
 ]
 const citiesPayload = new Payload(false, 'https://random.api.json', cities, null)
