@@ -28,7 +28,7 @@ export const DEFAULT_FEEDBACK_LANGUAGE = 'de'
 
 export type ParamsType = {
   feedbackType: FeedbackType,
-  feedbackCategory: FeedbackCategoryType,
+  feedbackCategory?: FeedbackCategoryType,
   permalink?: string,
   city: string,
   language: string,
