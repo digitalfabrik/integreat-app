@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
-import { LocalNewsModel, CityModel } from '@integreat-app/integreat-api-client'
+import { CityModel, LocalNewsModel } from '@integreat-app/integreat-api-client'
 import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
@@ -53,7 +53,6 @@ export class LocalNewsPage extends React.Component<PropsType> {
     if (!currentCity) {
       return <FailureSwitcher error={new CityNotFoundError()} />
     }
-
 
     if (!currentCity.pushNotificationsEnabled) {
       const type = currentCity.tunewsEnabled ? 'tunewsItem' : 'category'

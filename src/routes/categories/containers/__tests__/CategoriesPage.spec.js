@@ -89,7 +89,7 @@ describe('CategoriesPage', () => {
       aliases: null,
       prefix: null,
       longitude: null,
-      latitude: null,
+      latitude: null
     }),
     new CityModel({
       name: 'Werne',
