@@ -7,10 +7,12 @@ import type { DataContainer } from '../DataContainer'
 import determineApiUrl from '../determineApiUrl'
 
 function * loadPois (
+  city: string,
+  language: string,
   dataContainer: DataContainer,
   forceRefresh: boolean
 ): Saga<Array<PoiModel>> {
-  const poisAvailable = yield call(() => dataContainer.poisAvailable())
+  const poisAvailable = yield call(() => dataContainer.poisAvailable(city, language))
 
   if (poisAvailable && !forceRefresh) {
     try {
@@ -21,10 +23,11 @@ function * loadPois (
     }
   }
 
-  console.debug('Fetching pois')
-
   const apiUrl = yield call(determineApiUrl)
-  const payload = yield call(() => createPOIsEndpoint(apiUrl).request())
+  const payload = yield call(() => createPOIsEndpoint(apiUrl).request({
+    city,
+    language
+  }))
   const pois: Array<PoiModel> = payload.data
 
   yield call(dataContainer.setPois, pois)
