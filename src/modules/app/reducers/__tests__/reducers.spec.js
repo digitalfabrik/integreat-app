@@ -53,7 +53,7 @@ describe('endpoint reducers', () => {
 
   describe('reducers', () => {
     it('should reduce cities fetch actions', () => {
-      const payload = new Payload(false, 'http://example.com', 'data', null)
+      const payload = new Payload<CityModel[]>(false, 'http://example.com', [], null)
       const reducer = reducers.cities
       expect(reducer(undefined, startFetchAction('cities', 'http://example.com')))
         .toEqual(new Payload(true, 'http://example.com'))
@@ -62,7 +62,7 @@ describe('endpoint reducers', () => {
     })
 
     it('should reduce languages fetch actions', () => {
-      const payload = new Payload(false, 'http://example.com', 'data', null)
+      const payload = new Payload<CityModel[]>(false, 'http://example.com', [], null)
       const reducer = reducers.languages
       expect(reducer(undefined, startFetchAction('languages', 'http://example.com')))
         .toEqual(new Payload(true, 'http://example.com'))
@@ -71,7 +71,7 @@ describe('endpoint reducers', () => {
     })
 
     it('should reduce disclaimer fetch actions', () => {
-      const payload = new Payload(false, 'http://example.com', 'data', null)
+      const payload = new Payload<CityModel[]>(false, 'http://example.com', [], null)
       const reducer = reducers.disclaimer
       expect(reducer(undefined, startFetchAction('disclaimer', 'http://example.com')))
         .toEqual(new Payload(true, 'http://example.com'))
@@ -80,7 +80,7 @@ describe('endpoint reducers', () => {
     })
 
     it('should reduce events fetch actions', () => {
-      const payload = new Payload(false, 'http://example.com', 'data', null)
+      const payload = new Payload<CityModel[]>(false, 'http://example.com', [], null)
       const reducer = reducers.events
       expect(reducer(undefined, startFetchAction('events', 'http://example.com')))
         .toEqual(new Payload(true, 'http://example.com'))
@@ -89,7 +89,7 @@ describe('endpoint reducers', () => {
     })
 
     it('should reduce extras fetch actions', () => {
-      const payload = new Payload(false, 'http://example.com', 'data', null)
+      const payload = new Payload<CityModel[]>(false, 'http://example.com', [], null)
       const reducer = reducers.extras
       expect(reducer(undefined, startFetchAction('extras', 'http://example.com')))
         .toEqual(new Payload(true, 'http://example.com'))
@@ -98,7 +98,7 @@ describe('endpoint reducers', () => {
     })
 
     it('should reduce categories fetch actions', () => {
-      const payload = new Payload(false, 'http://example.com', 'data', null)
+      const payload = new Payload<CityModel[]>(false, 'http://example.com', [], null)
       const reducer = reducers.categories
       expect(reducer(undefined, startFetchAction('categories', 'http://example.com')))
         .toEqual(new Payload(true, 'http://example.com'))
@@ -107,7 +107,7 @@ describe('endpoint reducers', () => {
     })
 
     it('should reduce sprungbrettJobs fetch actions', () => {
-      const payload = new Payload(false, 'http://example.com', 'data', null)
+      const payload = new Payload<CityModel[]>(false, 'http://example.com', [], null)
       const reducer = reducers.sprungbrettJobs
       expect(reducer(undefined, startFetchAction('sprungbrettJobs', 'http://example.com')))
         .toEqual(new Payload(true, 'http://example.com'))
