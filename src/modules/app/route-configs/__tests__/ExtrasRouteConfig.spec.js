@@ -81,7 +81,13 @@ describe('ExtrasRouteConfig', () => {
 
     expect(extasRouteConfig.getPageTitle({ payloads, location, cityName: 'Augsburg', t }))
       .toBe('pageTitles.extras - Augsburg')
-    expect(extasRouteConfig.getPageTitle({ payloads, location, cityName: null, t }))
+
+    const wrongLocation = createLocation({
+      payload: { city: 'wrong-location', language: 'de' },
+      pathname: '/wrong-location/de/extras',
+      type: extasRouteConfig.name
+    })
+    expect(extasRouteConfig.getPageTitle({ payloads, cityName: null, location: wrongLocation, t }))
       .toBeNull()
   })
 
