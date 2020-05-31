@@ -355,7 +355,6 @@ class DatabaseConnector {
     await this.writeFile(path, JSON.stringify(languages))
   }
 
-  // TODO: write storePois
   async storePois (pois: Array<PoiModel>) {
     const jsonModels = pois.map((poi: PoiModel): ContentPoiJsonType => ({
       path: poi.path,
@@ -372,7 +371,6 @@ class DatabaseConnector {
     await this.writeFile(this.getPoisPath(), JSON.stringify(jsonModels))
   }
 
-  // TODO: write loadPois
   async loadPois (): Promise<Array<PoiModel>> {
     const path = this.getPoisPath()
     const fileExists: boolean = await RNFetchBlob.fs.exists(path)
