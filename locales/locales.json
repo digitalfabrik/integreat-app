@@ -1691,7 +1691,7 @@
       "loading": "Bestimme Standort...",
       "notAvailable": "Standortbestimmung deaktiviert",
       "timeout": "Standortbestimmung fehlgeschlagen",
-      "refresh": "Aktualisiere Orte in der Nähe"
+      "refresh": "Liste der Orte aktualisieren"
     },
     "ar": {
       "searchCity": "البحث عن مكان",
