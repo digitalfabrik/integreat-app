@@ -1,6 +1,6 @@
 // @flow
 
-import { EventModel, LanguageModel } from '@integreat-app/integreat-api-client'
+import { DateModel, EventModel, LanguageModel, LocationModel } from '@integreat-app/integreat-api-client'
 import moment from 'moment'
 import type { CityContentStateType } from '../../../app/StateType'
 import cityContentReducer from '../cityContentReducer'
@@ -11,14 +11,27 @@ describe('pushEvent', () => {
     path: '/augsburg/de/events/ev1',
     title: 'Event1',
     content: 'lul',
+    excerpt: 'lul',
     thumbnail: '',
-    parentPath: '/augsburg/de',
-    order: 0,
+    featuredImage: null,
     availableLanguages: new Map([['en', '/augsburg/en/events/ev1']]),
     lastUpdate: moment('2017-11-18 19:30:00', moment.ISO_8601),
-    date: moment('2017-11-18 19:30:00', moment.ISO_8601),
-    hash: '123456'
+    date: new DateModel({
+      startDate: moment('2000-01-05T10:10:00.000Z'),
+      endDate: moment('2000-01-05T10:10:00.000Z'),
+      allDay: false
+    }),
+    hash: '123456',
+    location: new LocationModel({
+      name: 'name',
+      address: 'address',
+      town: 'town',
+      postcode: 'postcode',
+      latitude: null,
+      longitude: null
+    })
   })
+  const languageModels = [new LanguageModel('de', 'Deutsch'), new LanguageModel('en', 'English')]
 
   const prepareState = (state: $Shape<CityContentStateType>): CityContentStateType => {
     const defaultState: CityContentStateType = {
@@ -34,7 +47,10 @@ describe('pushEvent', () => {
           allAvailableLanguages: new Map([['en', '/augsburg/en/events/ev1']])
         }
       },
-      languages: { status: 'ready', models: ['de', 'en'] },
+      languages: {
+        status: 'ready',
+        models: languageModels
+      },
       resourceCache: {
         status: 'ready',
         value: {
@@ -56,7 +72,10 @@ describe('pushEvent', () => {
   it('should add general events route to eventsRouteMapping', () => {
     const prevState: CityContentStateType = prepareState({
       eventsRouteMapping: {},
-      resourceCache: { status: 'ready', value: {} }
+      resourceCache: {
+        status: 'ready',
+        value: {}
+      }
     })
 
     const pushEventAction: PushEventActionType = {
@@ -89,7 +108,10 @@ describe('pushEvent', () => {
   it('should add specific event routeMapping', () => {
     const prevState = prepareState({
       eventsRouteMapping: {},
-      resourceCache: { status: 'ready', value: {} }
+      resourceCache: {
+        status: 'ready',
+        value: {}
+      }
     })
 
     const pushEventAction: PushEventActionType = {
@@ -144,8 +166,22 @@ describe('pushEvent', () => {
           path: '/testumgebung/de/events/ev1',
           title: 'T',
           content: 'lul',
+          excerpt: 'lul',
           thumbnail: '',
-          date: moment('2017-11-18 19:30:00', moment.ISO_8601),
+          featuredImage: null,
+          location: new LocationModel({
+            name: 'name',
+            address: 'address',
+            town: 'town',
+            postcode: 'postcode',
+            longitude: null,
+            latitude: null
+          }),
+          date: new DateModel({
+            startDate: moment('2000-01-05T10:10:00.000Z'),
+            endDate: moment('2000-01-05T10:10:00.000Z'),
+            allDay: false
+          }),
           lastUpdate: moment('2017-11-18 19:30:00', moment.ISO_8601),
           availableLanguages: new Map(),
           hash: '123456'
@@ -160,7 +196,10 @@ describe('pushEvent', () => {
 
     expect(cityContentReducer(prevState, pushEventAction)).toEqual(expect.objectContaining({
       city: 'augsburg',
-      resourceCache: { status: 'ready', value: { ...prevResources, ...resourceCache } }
+      resourceCache: {
+        status: 'ready',
+        value: { ...prevResources, ...resourceCache }
+      }
     }))
   })
 })

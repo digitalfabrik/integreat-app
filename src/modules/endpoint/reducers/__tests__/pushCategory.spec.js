@@ -43,6 +43,7 @@ describe('pushCategory', () => {
     hash: '123456'
   })
   const categoriesMap = new CategoriesMapModel([rootCategory, subCategory, subSubCategory])
+  const languageModels = [new LanguageModel('de', 'Deutsch'), new LanguageModel('en', 'English')]
 
   const prepareState = (state: $Shape<CityContentStateType>): CityContentStateType => {
     const defaultState: CityContentStateType = {
@@ -64,7 +65,7 @@ describe('pushCategory', () => {
         }
       },
       eventsRouteMapping: {},
-      languages: { status: 'ready', models: ['de', 'en'] },
+      languages: { status: 'ready', models: languageModels },
       resourceCache: {
         status: 'ready',
         value: {
@@ -77,7 +78,7 @@ describe('pushCategory', () => {
           }
         }
       },
-      searchRoute: categoriesMap,
+      searchRoute: { categoriesMap },
       switchingLanguage: false
     }
     return { ...defaultState, ...state }
@@ -130,7 +131,7 @@ describe('pushCategory', () => {
       params: {
         categoriesMap,
         resourceCache: {},
-        cityLanguages: [new LanguageModel('en'), new LanguageModel('de')],
+        cityLanguages: languageModels,
         city: 'augsburg',
         language: 'de',
         path: '/augsburg/de/sub',
@@ -171,6 +172,7 @@ describe('pushCategory', () => {
       parentPath: '',
       order: 0,
       availableLanguages: new Map(),
+      lastUpdate: moment('2000-01-05T10:10:00.000Z'),
       hash: '123456'
     })
     const testumgebungCategoriesMap = new CategoriesMapModel([testumgebungRootCategory])
