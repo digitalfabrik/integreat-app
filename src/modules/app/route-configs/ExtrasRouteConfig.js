@@ -3,6 +3,7 @@
 import type { AllPayloadsType } from './RouteConfig'
 import { RouteConfig } from './RouteConfig'
 import {
+  CityModel,
   createCitiesEndpoint,
   createEventsEndpoint,
   createExtrasEndpoint,
@@ -14,8 +15,8 @@ import type { Route } from 'redux-first-router'
 import fetchData from '../fetchData'
 import { cmsApiBaseUrl } from '../constants/urls'
 
-type ExtrasRouteParamsType = {|city: string, language: string|}
-type RequiredPayloadsType = {|extras: Payload<Array<ExtraModel>>|}
+type ExtrasRouteParamsType = {| city: string, language: string |}
+type RequiredPayloadsType = {| extras: Payload<Array<ExtraModel>>, cities: Payload<Array<CityModel>> |}
 
 export const EXTRAS_ROUTE = 'EXTRAS'
 
@@ -47,12 +48,23 @@ class ExtrasRouteConfig implements RouteConfig<ExtrasRouteParamsType, RequiredPa
 
   getRoutePath = ({ city, language }: ExtrasRouteParamsType): string => `/${city}/${language}/extras`
 
-  getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType => ({ extras: payloads.extrasPayload })
+  getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType => ({
+    cities: payloads.citiesPayload,
+    extras: payloads.extrasPayload
+  })
 
   getLanguageChangePath = ({ location, language }) =>
     this.getRoutePath({ city: location.payload.city, language })
 
-  getPageTitle = ({ t, cityName }) => cityName ? `${t('pageTitles.extras')} - ${cityName}` : null
+  getPageTitle = ({ t, payloads, location }) => {
+    const cityModel = payloads.cities.data
+      ? payloads.cities.data.find(cityModel => cityModel.code === location.payload.city)
+      : null
+    if (!cityModel || !cityModel.extrasEnabled) {
+      return null
+    }
+    return `${t('pageTitles.extras')} - ${cityModel.name}`
+  }
 
   getMetaDescription = () => null
 
