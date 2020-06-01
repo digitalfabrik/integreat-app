@@ -97,7 +97,7 @@ class WohnenRouteConfig implements RouteConfig<RouteParamsType, RequiredPayloads
     const extras = payloads.extras.data
     const extra = extras && extras.find(extra => extra.alias === WOHNEN_EXTRA)
     if (!extra) {
-      return { alias: WOHNEN_EXTRA }
+      return null
     }
     return ({ alias: WOHNEN_EXTRA, title: extra.title })
   }
