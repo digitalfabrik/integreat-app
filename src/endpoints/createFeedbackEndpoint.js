@@ -9,12 +9,12 @@ export const POSITIVE_RATING = 'up'
 export const NEGATIVE_RATING = 'down'
 
 export const PAGE_FEEDBACK_TYPE = null
-export const EXTRA_FEEDBACK_TYPE = 'extra'
+export const OFFER_FEEDBACK_TYPE = 'extra'
 export const SEARCH_FEEDBACK_TYPE = 'search'
 
 export const CATEGORIES_FEEDBACK_TYPE = 'categories'
 export const EVENTS_FEEDBACK_TYPE = 'events'
-export const EXTRAS_FEEDBACK_TYPE = 'extras'
+export const OFFERS_FEEDBACK_TYPE = 'extras'
 
 export const CONTENT_FEEDBACK_CATEGORY = 'Inhalte'
 export const TECHNICAL_FEEDBACK_CATEGORY = 'Technisches Feedback'

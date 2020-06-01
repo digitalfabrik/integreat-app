@@ -24,7 +24,7 @@ export default (baseUrl: string): Endpoint<void, Array<CityModel>> => new Endpoi
     code: stripSlashes(city.path),
     live: city.live,
     eventsEnabled: city.events,
-    extrasEnabled: city.extras,
+    offersEnabled: city.extras,
     tunewsEnabled: city.tunews,
     pushNotificationsEnabled: city.push_notifications,
     sortingName: city.name_without_prefix,
