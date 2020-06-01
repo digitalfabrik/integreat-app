@@ -90,7 +90,7 @@ class SprungbrettRouteConfig implements RouteConfig<SprungbrettRouteParamsType, 
     if (extra) {
       return ({ alias: SPRUNGBRETT_EXTRA, title: extra.title })
     }
-    return ({ alias: SPRUNGBRETT_EXTRA })
+    return null
   }
 }
 
