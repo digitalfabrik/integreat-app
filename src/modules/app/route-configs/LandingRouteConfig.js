@@ -6,6 +6,7 @@ import { CityModel, createCitiesEndpoint, Payload } from '@integreat-app/integre
 import type { Route } from 'redux-first-router'
 import fetchData from '../fetchData'
 import { cmsApiBaseUrl } from '../constants/urls'
+import type { StateType } from '../StateType'
 
 type LandingRouteParamsType = {|language: string|}
 type RequiredPayloadsType = {|cities: Payload<Array<CityModel>>|}
@@ -19,7 +20,8 @@ export const LANDING_ROUTE = 'LANDING'
 const landingRoute: Route = {
   path: '/landing/:language',
   thunk: async (dispatch, getState) => {
-    await fetchData(createCitiesEndpoint(cmsApiBaseUrl), dispatch, getState().cities)
+    const state: StateType = getState()
+    await fetchData(createCitiesEndpoint(cmsApiBaseUrl), dispatch, state.cities)
   }
 }
 

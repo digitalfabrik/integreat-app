@@ -15,6 +15,7 @@ import {
 import type { Route } from 'redux-first-router'
 import fetchData from '../fetchData'
 import { cmsApiBaseUrl } from '../constants/urls'
+import type { StateType } from '../StateType'
 
 type SprungbrettRouteParamsType = {|city: string, language: string|}
 type RequiredPayloadsType = {|sprungbrettJobs: Payload<Array<SprungbrettJobModel>>, extras: Payload<Array<ExtraModel>>|}
@@ -23,7 +24,7 @@ export const SPRUNGBRETT_ROUTE = 'SPRUNGBRETT'
 export const SPRUNGBRETT_EXTRA = 'sprungbrett'
 
 const fetchExtras = async (dispatch, getState) => {
-  const state = getState()
+  const state: StateType = getState()
   const { city, language } = state.location.payload
   const extrasPayload = await fetchData(createExtrasEndpoint(cmsApiBaseUrl), dispatch, state.extras, {
     city,
@@ -44,7 +45,7 @@ const fetchExtras = async (dispatch, getState) => {
 const sprungbrettRoute: Route = {
   path: `/:city/:language/extras/${SPRUNGBRETT_EXTRA}`,
   thunk: async (dispatch, getState) => {
-    const state = getState()
+    const state: StateType = getState()
     const { city, language } = state.location.payload
 
     await Promise.all([

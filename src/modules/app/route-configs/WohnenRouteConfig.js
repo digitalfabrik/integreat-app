@@ -16,6 +16,7 @@ import {
   WohnenOfferModel
 } from '@integreat-app/integreat-api-client'
 import { cmsApiBaseUrl, wohnenApiBaseUrl } from '../constants/urls'
+import type { StateType } from '../StateType'
 
 type RouteParamsType = {| city: string, language: string, offerHash?: string |}
 type RequiredPayloadsType = {| offers: Payload<Array<WohnenOfferModel>>, extras: Payload<Array<ExtraModel>> |}
@@ -27,7 +28,7 @@ export const hash = (offer: WohnenOfferModel) =>
   new Hashids().encode(offer.email.length, offer.createdDate.seconds())
 
 const fetchExtras = async (dispatch, getState) => {
-  const state = getState()
+  const state: StateType = getState()
   const { city, language } = state.location.payload
   const extrasPayload = await fetchData(createExtrasEndpoint(cmsApiBaseUrl), dispatch, state.extras, {
     city,
@@ -47,7 +48,7 @@ const fetchExtras = async (dispatch, getState) => {
 const wohnenRoute: Route = {
   path: `/:city/:language/extras/${WOHNEN_EXTRA}/:offerHash?`,
   thunk: async (dispatch, getState) => {
-    const state = getState()
+    const state: StateType = getState()
     const { city, language } = state.location.payload
 
     await Promise.all([
