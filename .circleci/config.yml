@@ -11,8 +11,8 @@ parameters:
   build_config:
     type: enum
     description: Which build config to use and where to deploy to.
-    enum: ["integreat", "integreat-debug", "malte"]
-    default: "integreat-debug"
+    enum: ["integreat", "integreat-test-cms", "malte"]
+    default: "integreat-test-cms"
 
 workflows:
   version: 2
@@ -20,13 +20,13 @@ workflows:
     unless: << pipeline.parameters.api_triggered >>
     jobs:
       - build:
-          build_config: "integreat-debug"
+          build_config: "integreat-test-cms"
       - deliver:
           filters:
             branches:
               only:
                 - develop
-          deliver_to: "integreat-debug"
+          deliver_to: "integreat-test-cms"
           requires:
             - build
 
@@ -90,7 +90,7 @@ jobs:
       build_config:
         description: Which build config to use.
         type: enum
-        enum: ["integreat", "integreat-debug", "malte"]
+        enum: ["integreat", "integreat-test-cms", "malte"]
     docker:
       - image: circleci/node:12.16.3
     resource_class: small
@@ -152,7 +152,7 @@ jobs:
       deliver_to:
         description: Where to deliver to.
         type: enum
-        enum: ["integreat", "integreat-debug", "malte"]
+        enum: ["integreat", "integreat-test-cms", "malte"]
     docker:
       - image: circleci/node:12.16.3
     resource_class: small
@@ -175,7 +175,7 @@ jobs:
                 webhook: $SLACK_URL
       - when:
           condition:
-            equal: [ "integreat-debug", << parameters.deliver_to >> ]
+            equal: [ "integreat-test-cms", << parameters.deliver_to >> ]
           steps:
             - run:
                 name: Integreat debug delivery
@@ -193,7 +193,7 @@ jobs:
       build_config:
         description: Which build config to use. Only bump version if build_config is "integreat".
         type: enum
-        enum: ["integreat", "integreat-debug", "malte"]
+        enum: ["integreat", "integreat-test-cms", "malte"]
     docker:
       - image: circleci/node:12.16.3
     resource_class: small

@@ -2,7 +2,7 @@
 
 branch="develop"  # Default branch
 api_token="$CIRCLE_API_USER_TOKEN"  # Default to $CIRCLE_API_USER_TOKEN
-build_config="integreat-debug" # Use "integreat-debug" config by default (delivery to webnext)
+build_config="integreat-test-cms" # Use "integreat-test-cms" config by default (delivery to webnext)
 
 PARAMS=""
 
