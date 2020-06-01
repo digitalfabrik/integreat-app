@@ -12,6 +12,8 @@ import fetchData from '../fetchData'
 import { cmsApiBaseUrl, tunewsApiBaseUrl } from '../constants/urls'
 
 type TunewsRouteParamsType = {| city: string, language: string |}
+
+// This type should be exact, but flow has a bug preventing this: https://github.com/facebook/flow/issues/2977
 type RequiredPayloadsType = {} // Loading tunews is handled inside Page
 
 export const TUNEWS_ROUTE = 'TU_NEWS'
