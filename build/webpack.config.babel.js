@@ -15,7 +15,7 @@ const createConfig = (env = {}) => {
     throw new Error('You need to specify a config name!')
   } else if (!validConfigNames.includes(buildConfigName)) {
     throw new Error(`Invalid config name! Allowed configs: ${validConfigNames}`)
-  } else if (!production) {
+  } else if (production === undefined) {
     throw new Error('You need to specify whether to build using debug or production mode!')
   }
 
