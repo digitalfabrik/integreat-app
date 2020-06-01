@@ -1,10 +1,10 @@
 // @flow
 
 import malteTheme, { darkTheme as darkMalteTheme } from '../../themes/malte'
-import type { AppConfigType } from '../AppConfigType'
+import type { BuildConfigType } from '../BuildConfigType'
 import featureFlags from '../featureFlags'
 
-const MalteAppConfig: AppConfigType = {
+const MalteBuildConfig: BuildConfigType = {
   appTitle: 'Malteser',
   theme: malteTheme,
   darkTheme: darkMalteTheme,
@@ -16,4 +16,4 @@ const MalteAppConfig: AppConfigType = {
   internalLinksHijackPattern: 'https?:\\/\\/malteser\\.tuerantuer\\.org(?!\\/[^/]*\\/(wp-content|wp-admin|wp-json)\\/.*).*'
 }
 
-module.exports = MalteAppConfig
+module.exports = MalteBuildConfig

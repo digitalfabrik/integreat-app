@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { ThemeProvider } from 'styled-components'
-import appConfig from '../../app/constants/appConfig'
+import buildConfig from '../../app/constants/buildConfig'
 
 type PropsType = {|
   children: React.Node,
@@ -12,7 +12,7 @@ type PropsType = {|
 
 class CustomThemeProvider extends React.Component<PropsType> {
   render () {
-    return <ThemeProvider theme={this.props.darkMode ? appConfig.darkTheme : appConfig.theme}>
+    return <ThemeProvider theme={this.props.darkMode ? buildConfig.darkTheme : buildConfig.theme}>
       {this.props.children}
     </ThemeProvider>
   }

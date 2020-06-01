@@ -8,23 +8,23 @@ const babelConfig = require('../.babelrc.js')
 const getVersion = require('git-repo-version')
 
 const createConfig = (env = {}) => {
-  const { config_name: appConfigName, prod } = env
+  const { config_name: buildConfigName, prod } = env
   const validConfigNames = ['integreat', 'integreat-debug', 'malte']
 
-  if (!appConfigName) {
+  if (!buildConfigName) {
     throw new Error('You need to specify a config name!')
-  } else if (!validConfigNames.includes(appConfigName)) {
+  } else if (!validConfigNames.includes(buildConfigName)) {
     throw new Error(`Invalid config name! Allowed configs: ${validConfigNames}`)
   }
 
   // If prod is not specified manually, default to true for 'integreat' and 'malte' configs, false for 'integreat-debug'
-  const production = prod || ['integreat', 'malte'].includes(appConfigName)
+  const production = prod || ['integreat', 'malte'].includes(buildConfigName)
 
-  console.log('Used config: ', appConfigName)
+  console.log('Used config: ', buildConfigName)
   console.log('Production: ', production)
 
-  const appConfig = require(`./configs/${appConfigName}`)
-  const configAssets = path.resolve(__dirname, `./configs/${appConfigName}/assets`)
+  const buildConfig = require(`./configs/${buildConfigName}`)
+  const configAssets = path.resolve(__dirname, `./configs/${buildConfigName}/assets`)
 
   const nodeModules = path.resolve('./node_modules')
   const wwwDirectory = path.resolve(__dirname, '../www')
@@ -81,11 +81,11 @@ const createConfig = (env = {}) => {
     plugins: [
       new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
-        title: appConfig.appTitle,
+        title: buildConfig.appTitle,
         // Load a custom template (lodash by default)
         template: 'index.ejs',
         templateParameters: {
-          config: appConfig
+          config: buildConfig
         }
       }),
       new CopyPlugin([
@@ -96,7 +96,7 @@ const createConfig = (env = {}) => {
         'process.env.NODE_ENV': production ? '"production"' : '"development"',
         __DEV__: !production,
         __VERSION__: JSON.stringify(getVersion()),
-        __CONFIG__: JSON.stringify(appConfig)
+        __CONFIG__: JSON.stringify(buildConfig)
       }),
       // Emit a JSON file with assets paths
       // https://github.com/sporto/assets-webpack-plugin#options
