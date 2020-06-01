@@ -122,9 +122,8 @@ class Events extends React.Component<PropsType> {
           <>
             <PageDetail identifier={t('date')} information={event.date.toFormattedString(language)}
                         theme={theme} language={language} />
-            {location && <PageDetail identifier={t('location')}
-                                                    information={location} theme={theme}
-                                                    language={language} />}
+            {location && <PageDetail identifier={t('location')} information={location} theme={theme}
+                                     language={language} />}
           </>
         </Page>
       }
