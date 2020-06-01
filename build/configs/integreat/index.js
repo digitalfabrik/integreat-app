@@ -1,10 +1,10 @@
 // @flow
 
 import integreatTheme, { darkTheme as darkIntegreatTheme } from '../../themes/integreat'
-import type { AppConfigType } from '../AppConfigType'
+import type { BuildConfigType } from '../BuildConfigType'
 import featureFlags from '../featureFlags'
 
-const IntegreatAppConfig: AppConfigType = {
+const IntegreatBuildConfig: BuildConfigType = {
   appTitle: 'Integreat',
   itunesAppId: '1072353915',
   theme: integreatTheme,
@@ -16,4 +16,4 @@ const IntegreatAppConfig: AppConfigType = {
   internalLinksHijackPattern: 'https?:\\/\\/(cms\\.integreat-app\\.de|web\\.integreat-app\\.de|integreat\\.app)(?!\\/[^/]*\\/(wp-content|wp-admin|wp-json)\\/.*).*'
 }
 
-module.exports = IntegreatAppConfig
+module.exports = IntegreatBuildConfig

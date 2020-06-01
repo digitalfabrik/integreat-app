@@ -25,7 +25,7 @@ import { WOHNEN_ROUTE } from '../../app/route-configs/WohnenRouteConfig'
 import { SPRUNGBRETT_ROUTE } from '../../app/route-configs/SprungbrettRouteConfig'
 import LandingRouteConfig from '../../app/route-configs/LandingRouteConfig'
 import type { LanguageChangePathsType } from '../../app/containers/Switcher'
-import appConfig from '../../app/constants/appConfig'
+import buildConfig from '../../app/constants/buildConfig'
 
 type PropsType = {|
   events: ?Array<EventModel>,
@@ -70,7 +70,7 @@ export class LocationHeader extends React.Component<PropsType> {
 
     const isEventsActive = events ? events.length > 0 : false
 
-    const isNewsEnabled = appConfig.featureFlags.newsStream && (isLocalNewsEnabled || isTunewsEnabled)
+    const isNewsEnabled = buildConfig.featureFlags.newsStream && (isLocalNewsEnabled || isTunewsEnabled)
     const isCategoriesEnabled = isExtrasEnabled || isEventsEnabled || isNewsEnabled
 
     const items: Array<Element<typeof HeaderNavigationItem>> = []
