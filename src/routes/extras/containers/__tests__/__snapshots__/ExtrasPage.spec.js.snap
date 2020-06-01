@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ExtrasPage should render a ExtraNotFoundError if there is an extraId 1`] = `
-<Translate(FailureSwitcher)
+<FailureSwitcher
   error={[Error: The extra invalid_extra does not exist here.]}
 />
 `;
