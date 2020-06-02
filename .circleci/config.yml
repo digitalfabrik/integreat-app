@@ -133,9 +133,6 @@ jobs:
       - run:
           name: Test coverage # Results are not used right now. Run it anyway to (possibly) discover more problems.
           command: yarn run test:coverage --ci --maxWorkers $TOTAL_CPUS
-      - run:
-          name: Build << parameters.build_config >>
-          command: yarn run webpack --config build/webpack.config.babel.js --env.config_name=<< parameters.build_config >>
       - when: # Debug build for integreat-test-cms
           condition:
             equal: [ "integreat-test-cms", << parameters.build_config >> ]
