@@ -136,6 +136,20 @@ jobs:
       - run:
           name: Build << parameters.build_config >>
           command: yarn run webpack --config build/webpack.config.babel.js --env.config_name=<< parameters.build_config >>
+      - when: # Debug build for integreat-test-cms
+          condition:
+            equal: [ "integreat-test-cms", << parameters.build_config >> ]
+          steps:
+            - run:
+                name: Build debug << parameters.build_config >>
+                command: yarn run webpack --config build/webpack.config.babel.js --env.config_name=<< parameters.build_config >> --env.production=false
+      - unless: # Production build for integreat and malte
+          condition:
+            equal: [ "integreat-test-cms", << parameters.build_config >> ]
+          steps:
+            - run:
+                name: Build production << parameters.build_config >>
+                command: yarn run webpack --config build/webpack.config.babel.js --env.config_name=<< parameters.build_config >> --env.production=true
       - run:
           name: Check build
           command: yarn run check:built
