@@ -27,7 +27,7 @@ const moveReleaseNotes = async ({ newVersionName, deliverinoPrivateKey, owner, r
   const releaseNoteTreeSha = rootTree.data.tree.find(it => it.path === RELEASE_NOTE_DIR).sha
   const releaseNoteTree = await appOctokit.git.getTree({ owner, repo, tree_sha: releaseNoteTreeSha })
 
-  // Rename the dir 'unreleased' to <newVersion> and keep everything else
+  // Rename the dir 'unreleased' to <newVersionName> and keep everything else
   const renameUnreleasedDir = releaseNoteTree.data.tree.map(it => {
     const { size, url, ...rest } = it
     if (it.path === UNRELEASED_DIR) {
