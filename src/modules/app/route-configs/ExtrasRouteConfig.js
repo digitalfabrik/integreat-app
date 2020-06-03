@@ -57,9 +57,8 @@ class ExtrasRouteConfig implements RouteConfig<ExtrasRouteParamsType, RequiredPa
     this.getRoutePath({ city: location.payload.city, language })
 
   getPageTitle = ({ t, payloads, location }) => {
-    const cityModel = payloads.cities.data
-      ? payloads.cities.data.find(cityModel => cityModel.code === location.payload.city)
-      : null
+    const cityModel = payloads.cities.data &&
+      payloads.cities.data.find(cityModel => cityModel.code === location.payload.city)
     if (!cityModel || !cityModel.extrasEnabled) {
       return null
     }
