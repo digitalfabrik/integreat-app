@@ -1,0 +1,120 @@
+#!/usr/bin/env node
+
+const { program } = require('commander')
+const fetch = require('node-fetch')
+const OAuth = require('oauth').OAuth
+
+const JIRA_URL = 'https://issues.integreat-app.de'
+const JIRA_PROJECT = 'WEBAPP'
+
+program
+  .option('-d, --debug', 'enable extreme logging')
+  .requiredOption('--version-name <version-name>', 'version name of the new release')
+  .requiredOption('--access-token <access-token>', 'version name of the new release')
+  .requiredOption('--private-key <privateKey>')
+  .requiredOption('--consumer-key <consumer-key>')
+
+const initializeOAuth = (privateKeyBase64, consumerKey) => {
+  const privateKey = Buffer.from(privateKeyBase64, 'base64').toString('ascii')
+
+  return new OAuth(
+    '',
+    '',
+    consumerKey,
+    privateKey,
+    '1.0',
+    '',
+    'RSA-SHA1'
+  )
+}
+
+const postToJira = async (path, body, accessToken, privateKeyBase64, consumerKey) => {
+  const consumer = initializeOAuth(privateKeyBase64, consumerKey)
+
+  await new Promise((resolve, reject) => consumer.post(
+    `${JIRA_URL}${path}`,
+    accessToken,
+    '',
+    JSON.stringify(body),
+    'application/json',
+    (error, response) => error ? reject(error) : resolve(response)
+  ))
+}
+
+const putToJira = async (path, body, accessToken, privateKeyBase64, consumerKey) => {
+  const consumer = initializeOAuth(privateKeyBase64, consumerKey)
+
+  await new Promise((resolve, reject) => consumer.put(
+    `${JIRA_URL}${path}`,
+    accessToken,
+    '',
+    JSON.stringify(body),
+    'application/json',
+    (error, response) => error ? reject(error) : resolve(response)
+  ))
+}
+
+const getFromJira = async path => {
+  const response = await fetch(`${JIRA_URL}${path}`)
+  return response.json()
+}
+
+const createRelease = async (versionName, accessToken, privateKey, consumerKey) => {
+  const date = new Date()
+  const newReleaseDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
+
+  // Create a new jira version
+  await postToJira('/rest/api/2/version', {
+    name: versionName,
+    released: true,
+    releaseDate: newReleaseDate,
+    project: JIRA_PROJECT
+  }, accessToken, privateKey, consumerKey)
+
+  // Get the new and the last release
+  const { values: versions } = await getFromJira(
+    `/rest/api/2/project/${JIRA_PROJECT}/version?orderBy=-releaseDate&maxResults=2`
+  )
+
+  const lastVersion = versions[1]
+  const lastDate = lastVersion.releaseDate
+  const newVersion = versions[0]
+
+  // Get all issues which should be part of the new release
+  const query = `project = integreat-webapp AND fixVersion IS EMPTY AND resolution = Done AND resolutiondate > ${lastDate}`
+  const { issues } = await getFromJira(`/rest/api/2/search?jql=${query}&fields=id`)
+
+  // Set fixVersion for all issues
+  await Promise.all(issues
+    .map(issue => {
+      const issueId = issue.id
+
+      const body = {
+        update: {
+          fixVersions: [{
+            set: [{
+              id: newVersion.id
+            }]
+          }]
+        }
+      }
+      return putToJira(`/rest/api/2/issue/${issueId}?notifyUsers=false`, body, accessToken, privateKey, consumerKey)
+    })
+  )
+}
+
+program
+  .command('createRelease')
+  .description('create a new release on jira and assign all issues resolved since the last release')
+  .action(async () => {
+    try {
+      const { accessToken, versionName, privateKey, consumerKey } = program
+
+      await createRelease(versionName, accessToken, privateKey, consumerKey)
+    } catch (e) {
+      console.error(e)
+      process.exit(1)
+    }
+  })
+
+program.parse(process.argv)
