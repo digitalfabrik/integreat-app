@@ -8,7 +8,6 @@ const UNRELEASED_DIR = 'unreleased'
 
 program
   .option('-d, --debug', 'enable extreme logging')
-  .option('--dry-run', 'prevent actual commit of the updated version.json to github')
   .requiredOption('--deliverino-private-key <deliverino-private-key>', 'private key of the deliverino github app in pem format with base64 encoding')
   .requiredOption('--owner <owner>', 'owner of the current repository, usually "Integreat"')
   .requiredOption('--repo <repo>', 'the current repository, usually "integreat-webapp" or "integreat-react-native-app"')
@@ -16,7 +15,7 @@ program
   .requiredOption('--commit-sha <commit-sha>', 'the sha1 of the current commit')
   .requiredOption('--new-version <new-version>', 'the new version name')
 
-const moveReleaseNotes = async (newVersion, { deliverinoPrivateKey, owner, repo, branch, commitSha }) => {
+const moveReleaseNotes = async ({ newVersion, deliverinoPrivateKey, owner, repo, branch, commitSha }) => {
   const appOctokit = await authenticate({ deliverinoPrivateKey, owner, repo })
   const lastCommit = await appOctokit.git.getCommit({ owner, repo, commit_sha: commitSha })
 
@@ -67,25 +66,10 @@ const moveReleaseNotes = async (newVersion, { deliverinoPrivateKey, owner, repo,
 
 program
   .command('move')
-  .description('move the release notes in <release-note-path> to the subdirectory <new-version>')
+  .description('move the release notes in \'unreleased\' to the subdirectory <new-version>')
   .action(async () => {
     try {
-      const { dryRun, newVersion, deliverinoPrivateKey, owner, repo, branch, commitSha } = program
-      if (!dryRun) {
-        if (!deliverinoPrivateKey) {
-          throw new Error('deliverino private key not specified')
-        } else if (!owner) {
-          throw new Error('owner not specified')
-        } else if (!repo) {
-          throw new Error('repo not specified')
-        } else if (!branch) {
-          throw new Error('branch not specified')
-        }
-      }
-
-      if (!dryRun) {
-        await moveReleaseNotes(newVersion, { deliverinoPrivateKey, owner, repo, branch, commitSha })
-      }
+      await moveReleaseNotes(program)
     } catch (e) {
       console.error(e)
       process.exit(1)
