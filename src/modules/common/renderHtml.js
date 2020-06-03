@@ -182,6 +182,10 @@ const renderHtml = (html: string, files: PageResourceCacheStateType, theme: Them
     details > summary {
       padding: 0;
     }
+
+    pre {
+      overflow-x: auto;
+    }
   </style>
 </head>
 <body dir="${RTL_LANGUAGES.includes(language) ? 'rtl' : 'ltr'}">
