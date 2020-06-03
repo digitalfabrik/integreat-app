@@ -3,7 +3,7 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import TunewsIcon from './../assets/TunewsActiveLogo.png'
-import { TunewsModel } from '@integreat-app/integreat-api-client'
+import { CityModel, TunewsModel } from '@integreat-app/integreat-api-client'
 import { connect } from 'react-redux'
 import type { StateType } from '../../../modules/app/StateType'
 import TunewsDetailsFooter from '../components/TunewsDetailsFooter'
@@ -55,15 +55,19 @@ type PropsType = {|
   tunewsElement: TunewsModel,
   language: string,
   path: string,
-  city: string
+  city: string,
+  cities: Array<CityModel>
 |}
 
 export class TunewsDetailsPage extends React.PureComponent<PropsType> {
   render () {
-    const { tunewsElement, language, path, city } = this.props
+    const { tunewsElement, language, path, city, cities } = this.props
 
-    if (!tunewsElement) {
-      const error = new ContentNotFoundError({ type: 'tunewsItem', id: path, city, language })
+    const currentCity: CityModel = cities && cities.find(cityElement => cityElement.code === city)
+
+    if (!tunewsElement || !currentCity.tunewsEnabled) {
+      const type: string = currentCity.tunewsEnabled ? 'tunewsItem' : 'category'
+      const error = new ContentNotFoundError({ type, id: path, city, language })
       return <FailureSwitcher error={error} />
     }
 
@@ -88,7 +92,8 @@ export class TunewsDetailsPage extends React.PureComponent<PropsType> {
 const mapStateToProps = (state: StateType) => ({
   language: state.location.payload.language,
   path: state.location.pathname,
-  city: state.location.payload.city
+  city: state.location.payload.city,
+  cities: state.cities.data
 })
 
 export default connect<PropsType, *, *, *, *, *>(mapStateToProps)(TunewsDetailsPage)
