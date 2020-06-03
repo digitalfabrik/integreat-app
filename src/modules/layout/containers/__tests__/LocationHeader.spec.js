@@ -33,14 +33,18 @@ describe('LocationHeader', () => {
         allDay: true
       }),
       location: new LocationModel({
+        name: 'name',
         address: 'address',
         town: 'town',
-        postcode: 'postcode'
+        postcode: 'postcode',
+        longitude: null,
+        latitude: null
       }),
       excerpt: 'excerpt',
       lastUpdate: moment('2016-01-07 10:36:24'),
       content: 'content',
-      thumbnail: 'thumbnail'
+      thumbnail: 'thumbnail',
+      featuredImage: null
     }),
     new EventModel({
       hash: '35654fff',
@@ -54,14 +58,18 @@ describe('LocationHeader', () => {
         allDay: true
       }),
       location: new LocationModel({
+        name: 'name',
         address: 'address',
         town: 'town',
-        postcode: 'postcode'
+        postcode: 'postcode',
+        longitude: null,
+        latitude: null
       }),
       content: 'content',
       excerpt: 'excerpt',
       lastUpdate: moment('2016-01-07 10:36:24'),
-      thumbnail: 'thumbnail'
+      thumbnail: 'thumbnail',
+      featuredImage: null
     }),
     new EventModel({
       hash: '23535654fa',
@@ -75,14 +83,18 @@ describe('LocationHeader', () => {
         allDay: true
       }),
       location: new LocationModel({
+        name: 'name',
         address: 'address',
         town: 'town',
-        postcode: 'postcode'
+        postcode: 'postcode',
+        latitude: null,
+        longitude: null
       }),
       content: 'content',
       excerpt: 'excerpt',
       lastUpdate: moment('2016-01-07 10:36:24'),
-      thumbnail: 'thumbnail'
+      thumbnail: 'thumbnail',
+      featuredImage: null
     })
   ]
 
