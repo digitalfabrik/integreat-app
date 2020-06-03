@@ -6,6 +6,7 @@ import RNFetchBlob from '../../../../__mocks__/rn-fetch-blob'
 import DatabaseConnector from '../../DatabaseConnector'
 import PoiModelBuilder from '../../../../testing/builder/PoiModelBuilder'
 import loadPois from '../loadPois'
+import DatabaseContext from '../../DatabaseContext'
 
 let mockPois
 jest.mock('@react-native-community/async-storage')
@@ -44,29 +45,31 @@ describe('loadPois', () => {
     const dataContainer = new DefaultDataContainer()
 
     await runSaga({}, loadPois, city, language, dataContainer, false).toPromise()
-
-    expect(await dataContainer.getPois()).toStrictEqual(mockPois)
+    var test = await dataContainer.getPois(city, language)
+    console.log(test)
+    expect(await dataContainer.getPois(city, language)).toStrictEqual(mockPois)
   })
 
   it('should fetch and set pois if it should update', async () => {
     const dataContainer = new DefaultDataContainer()
-    await dataContainer.setPois(otherPois)
+    await dataContainer.setPois(city, language, otherPois)
 
     await runSaga({}, loadPois, city, language, dataContainer, true).toPromise()
 
-    expect(await dataContainer.getPois()).toStrictEqual(mockPois)
+    expect(await dataContainer.getPois(city, language)).toStrictEqual(mockPois)
   })
 
   it('should use cached pois if they are available and should not update', async () => {
     const dataContainer = new DefaultDataContainer()
-    await dataContainer.setPois(otherPois)
+    await dataContainer.setPois(city, language, otherPois)
     await runSaga({}, loadPois, city, language, dataContainer, false).toPromise()
 
-    expect(await dataContainer.getPois()).toBe(otherPois)
+    expect(await dataContainer.getPois(city, language)).toBe(otherPois)
   })
 
   it('should fetch pois if the stored JSON is malformatted', async () => {
-    const path = new DatabaseConnector().getPoisPath()
+    const context = new DatabaseContext('augsburg', 'de')
+    const path = new DatabaseConnector().getContentPath('pois', context)
     await RNFetchBlob.fs.writeFile(path, '{ "i": { "am": "malformatted" } }', 'utf-8')
     const dataContainer = new DefaultDataContainer()
     const pois = await runSaga({}, loadPois, city, language, dataContainer, false).toPromise()

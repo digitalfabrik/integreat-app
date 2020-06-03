@@ -35,8 +35,9 @@ class DefaultDataContainer implements DataContainer {
 
     this.caches = {
       pois: new Cache<Array<PoiModel>>(this._databaseConnector,
-        (connector: DatabaseConnector) => connector.loadPois(),
-        (value: Array<PoiModel>, connector: DatabaseConnector) => connector.storePois(value)),
+        (connector: DatabaseConnector, context: DatabaseContext) => connector.loadPois(context),
+        (value: Array<PoiModel>, connector: DatabaseConnector, context: DatabaseContext) =>
+          connector.storePois(value, context)),
       cities: new Cache<Array<CityModel>>(this._databaseConnector,
         (connector: DatabaseConnector) => connector.loadCities(),
         (value: Array<CityModel>, connector: DatabaseConnector) => connector.storeCities(value)),
@@ -61,11 +62,6 @@ class DefaultDataContainer implements DataContainer {
         (value: Moment | null, connector: DatabaseConnector, context: DatabaseContext) =>
           connector.storeLastUpdate(value, context))
     }
-  }
-
-  getPois = async (): Promise<Array<PoiModel>> => {
-    const cache = this.caches.pois
-    return cache.get(new DatabaseContext())
   }
 
   clearInMemoryCache = () => {
@@ -94,6 +90,12 @@ class DefaultDataContainer implements DataContainer {
   getEvents = (city: string, language: string): Promise<Array<EventModel>> => {
     const context = new DatabaseContext(city, language)
     const cache: Cache<Array<EventModel>> = this.caches.events
+    return cache.get(context)
+  }
+
+  getPois = (city: string, language: string): Promise<Array<PoiModel>> => {
+    const context = new DatabaseContext(city, language)
+    const cache: Cache<Array<PoiModel>> = this.caches.pois
     return cache.get(context)
   }
 
@@ -126,9 +128,10 @@ class DefaultDataContainer implements DataContainer {
     await cache.cache(categories, context)
   }
 
-  setPois = async (pois: Array<PoiModel>) => {
-    const cache = this.caches.pois
-    await cache.cache(pois, new DatabaseContext())
+  setPois = async (city: string, language: string, pois: Array<PoiModel>) => {
+    const context = new DatabaseContext(city, language)
+    const cache: Cache<Array<PoiModel>> = this.caches.pois
+    await cache.cache(pois, context)
   }
 
   setCities = async (cities: Array<CityModel>) => {
@@ -194,9 +197,9 @@ class DefaultDataContainer implements DataContainer {
     await cache.cache(lastUpdate, context)
   }
 
-  poisAvailable = async (): Promise<boolean> => {
-    const context = new DatabaseContext()
-    return this.isCached('pois', context) || this._databaseConnector.isPoisPersisted()
+  poisAvailable = async (city: string, language: string): Promise<boolean> => {
+    const context = new DatabaseContext(city, language)
+    return this.isCached('pois', context) || this._databaseConnector.isPoisPersisted(context)
   }
 
   citiesAvailable = async (): Promise<boolean> => {

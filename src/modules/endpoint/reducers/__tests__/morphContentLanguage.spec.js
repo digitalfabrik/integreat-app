@@ -292,6 +292,7 @@ describe('morphContentLanguage', () => {
           models: [enThirdEvent]
         }
       },
+      poisRouteMapping: expect.any(Object),
       resourceCache: { status: 'ready', value: {} },
       searchRoute: { categoriesMap: enCategoriesMap }
     })
@@ -329,6 +330,7 @@ describe('morphContentLanguage', () => {
         }
       },
       eventsRouteMapping: expect.any(Object),
+      poisRouteMapping: expect.any(Object),
       resourceCache: { status: 'ready', value: {} },
       searchRoute: { categoriesMap: enCategoriesMap }
     })
@@ -365,6 +367,7 @@ describe('morphContentLanguage', () => {
           allAvailableLanguages: new Map([['de', '/augsburg/de/events/drittes_event']])
         }
       },
+      poisRouteMapping: expect.any(Object),
       resourceCache: { status: 'ready', value: {} },
       searchRoute: { categoriesMap: enCategoriesMap }
     })

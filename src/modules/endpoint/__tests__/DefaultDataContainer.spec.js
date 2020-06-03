@@ -68,8 +68,9 @@ describe('DefaultDataContainer', () => {
   describe('isCached', () => {
     it('should return true if CacheType pois is stored', async () => {
       const defaultDataContainer = new DefaultDataContainer()
-      await defaultDataContainer.setPois(testPois)
-      expect(defaultDataContainer.isCached('pois', new DatabaseContext())).toBe(true)
+      await defaultDataContainer.setPois('testCity', 'de', testPois)
+      const context = new DatabaseContext('testCity', 'de')
+      expect(defaultDataContainer.isCached('pois', context)).toBe(true)
     })
     it('should return false if CacheType pois is not stored', () => {
       const defaultDataContainer = new DefaultDataContainer()
@@ -87,12 +88,14 @@ describe('DefaultDataContainer', () => {
   })
   it('should return persisted pois data if not cached', async () => {
     const defaultDataContainer = new DefaultDataContainer()
-    await defaultDataContainer.setPois(testPois)
+    await defaultDataContainer.setPois('testCity', 'de', [testPois[0]])
+    await defaultDataContainer.setPois('anotherTestCity', 'en', [testPois[1]])
 
-    const anotherDataContainer = new DefaultDataContainer()
+    const receivedTestPois = await defaultDataContainer.getPois('testCity', 'de')
+    const receivedAnotherTestPois = await defaultDataContainer.getPois('anotherTestCity', 'en')
 
-    const pois = await anotherDataContainer.getPois()
-    expect(pois).toEqual(testPois)
+    expect(receivedTestPois).toEqual([testPois[0]])
+    expect(receivedAnotherTestPois).toEqual([testPois[1]])
   })
   it('should return persisted data if not cached', async () => {
     const defaultDataContainer = new DefaultDataContainer()
@@ -136,7 +139,17 @@ describe('DefaultDataContainer', () => {
     expect(receivedTestEvents).toEqual([testEvents[0]])
     expect(receivedAnotherTestEvents).toEqual([testEvents[1]])
   })
+  it('should return the pois associated with the context', async () => {
+    const defaultDataContainer = new DefaultDataContainer()
+    await defaultDataContainer.setPois('testCity', 'de', [testPois[0]])
+    await defaultDataContainer.setPois('anotherTestCity', 'en', [testPois[1]])
 
+    const receivedTestPois = await defaultDataContainer.getPois('testCity', 'de')
+    const receivedAnotherTestPois = await defaultDataContainer.getPois('anotherTestCity', 'en')
+
+    expect(receivedTestPois).toEqual([testPois[0]])
+    expect(receivedAnotherTestPois).toEqual([testPois[1]])
+  })
   it('should return the resources associated with the context', async () => {
     const defaultDataContainer = new DefaultDataContainer()
     await defaultDataContainer.setResourceCache('testCity', 'de', testResources)
@@ -227,8 +240,8 @@ describe('DefaultDataContainer', () => {
   describe('poisAvailable', () => {
     it('should return true, if pois are cached', async () => {
       const defaultDataContainer = new DefaultDataContainer()
-      await defaultDataContainer.setPois(testPois)
-      const isAvailable = await defaultDataContainer.poisAvailable()
+      await defaultDataContainer.setPois('testCity', 'de', testPois)
+      const isAvailable = await defaultDataContainer.poisAvailable('testCity', 'de')
 
       expect(isAvailable).toBe(true)
     })

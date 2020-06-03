@@ -10,12 +10,12 @@ export interface DataContainer {
    * Returns an Array of PoiModels.
    * @throws Will throw an error if the array is null.
    */
-  getPois: () => Promise<Array<PoiModel>>,
+  getPois: (city: string, language: string) => Promise<Array<PoiModel>>,
 
   /**
    * Sets the pois and persist them ?
    */
-  setPois: (pois: Array<PoiModel>) => Promise<void>,
+  setPois: (city: string, language: string, pois: Array<PoiModel>) => Promise<void>,
 
   /**
    * Returns an Array of CityModels.
