@@ -11,7 +11,7 @@ import withPlatform from '../../platform/hocs/withPlatform'
 import Platform from '../../platform/Platform'
 import compose from 'lodash/fp/compose'
 import type { ThemeType } from '../../theme/constants/theme'
-import appConfig from '../../app/constants/appConfig'
+import buildConfig from '../../app/constants/buildConfig'
 
 type PropsType = {|
   navigationItems: React.Node,
@@ -124,7 +124,7 @@ export class Header extends React.PureComponent<PropsType> {
         <HeaderContainer>
           <LogoWide>
             <Link to={logoHref}>
-              <img src={appConfig.logoWide} alt={`Integreat${cityName ? ` - ${cityName}` : ''}`} />
+              <img src={buildConfig.logoWide} alt={`Integreat${cityName ? ` - ${cityName}` : ''}`} />
             </Link>
           </LogoWide>
           <NavigationBar>{navigationItems}</NavigationBar>
