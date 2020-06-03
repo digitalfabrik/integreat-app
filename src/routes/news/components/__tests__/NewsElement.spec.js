@@ -10,7 +10,7 @@ import textTruncator from '../../../../modules/common/utils/textTruncator'
 
 describe('NewsElement', () => {
   const language = 'en'
-  const path = '/testumgebung/en/news/local'
+  const link = '/testumgebung/en/news/local'
   const t = (key: ?string): string => key || ''
 
   const date = moment.tz('2020-03-20 17:50:00', 'GMT')
@@ -34,7 +34,7 @@ describe('NewsElement', () => {
         timestamp={timestamp}
         language={language}
         t={t}
-        path={path} />
+        link={link} />
     ).dive()
 
     expect(wrapper.text()).toContain(newsItem.title)

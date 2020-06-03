@@ -52,34 +52,33 @@ type PropsType = {|
   content: string,
   timestamp: Moment,
   language: string,
-  path: string,
+  link: string,
   type: NewsType,
   t: TFunction
 |}
 
 class NewsElement extends React.PureComponent<PropsType> {
-  renderContent (itemPath: string): React.Node {
-    const { title, content, timestamp, language, t, type } = this.props
+  renderContent (): React.Node {
+    const { title, content, timestamp, language, t, type, link } = this.props
     return (
       <Description>
         <Title>{title}</Title>
         <Body>{textTruncator(content, NUM_OF_WORDS_ALLOWED)}</Body>
         <StyledContainer>
           <LastUpdateInfo lastUpdate={timestamp} language={language} />
-          <ReadMoreLink to={itemPath} type={type}>{t('readMore')} ></ReadMoreLink>
+          <ReadMoreLink to={link} type={type}>{t('readMore')} ></ReadMoreLink>
         </StyledContainer>
       </Description>
     )
   }
 
   render () {
-    const { path, id } = this.props
-    const itemPath = `${path}/${id}`
+    const { link } = this.props
 
     return (
       <StyledNewsElement>
-        <Link to={itemPath}>
-          {this.renderContent(itemPath)}
+        <Link to={link}>
+          {this.renderContent()}
         </Link>
       </StyledNewsElement>
     )
