@@ -13,7 +13,6 @@ program
   .requiredOption('--repo <repo>', 'the current repository, usually "integreat-webapp" or "integreat-react-native-app"')
   .requiredOption('--branch <branch>', 'the current branch')
   .requiredOption('--commit-sha <commit-sha>', 'the sha1 of the current commit')
-  .requiredOption('--new-version-name <new-version-name>', 'the new version name')
 
 const moveReleaseNotes = async ({ newVersionName, deliverinoPrivateKey, owner, repo, branch, commitSha }) => {
   const appOctokit = await authenticate({ deliverinoPrivateKey, owner, repo })
@@ -65,11 +64,11 @@ const moveReleaseNotes = async ({ newVersionName, deliverinoPrivateKey, owner, r
 }
 
 program
-  .command('move')
-  .description('move the release notes in \'unreleased\' to the subdirectory <new-version-name>')
-  .action(async () => {
+  .command('move_to <new-version-name>')
+  .description('move the release notes in \'unreleased\' to a new subdirectory <new-version-name>')
+  .action(async newVersionName => {
     try {
-      await moveReleaseNotes(program)
+      await moveReleaseNotes({ newVersionName, ...program })
     } catch (e) {
       console.error(e)
       process.exit(1)
