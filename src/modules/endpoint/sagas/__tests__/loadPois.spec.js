@@ -35,12 +35,15 @@ describe('loadPois', () => {
     RNFetchBlob.fs._reset()
   })
 
+  const city = 'augsburg'
+  const language = 'de'
+
   const otherPois = new PoiModelBuilder(2).build()
 
   it('should fetch and set pois if pois are not available', async () => {
     const dataContainer = new DefaultDataContainer()
 
-    await runSaga({}, loadPois, dataContainer, false).toPromise()
+    await runSaga({}, loadPois, city, language, dataContainer, false).toPromise()
 
     expect(await dataContainer.getPois()).toStrictEqual(mockPois)
   })
@@ -49,7 +52,7 @@ describe('loadPois', () => {
     const dataContainer = new DefaultDataContainer()
     await dataContainer.setPois(otherPois)
 
-    await runSaga({}, loadPois, dataContainer, true).toPromise()
+    await runSaga({}, loadPois, city, language, dataContainer, true).toPromise()
 
     expect(await dataContainer.getPois()).toStrictEqual(mockPois)
   })
@@ -57,7 +60,7 @@ describe('loadPois', () => {
   it('should use cached pois if they are available and should not update', async () => {
     const dataContainer = new DefaultDataContainer()
     await dataContainer.setPois(otherPois)
-    await runSaga({}, loadPois, dataContainer, false).toPromise()
+    await runSaga({}, loadPois, city, language, dataContainer, false).toPromise()
 
     expect(await dataContainer.getPois()).toBe(otherPois)
   })
@@ -66,7 +69,7 @@ describe('loadPois', () => {
     const path = new DatabaseConnector().getPoisPath()
     await RNFetchBlob.fs.writeFile(path, '{ "i": { "am": "malformatted" } }', 'utf-8')
     const dataContainer = new DefaultDataContainer()
-    const pois = await runSaga({}, loadPois, dataContainer, false).toPromise()
+    const pois = await runSaga({}, loadPois, city, language, dataContainer, false).toPromise()
 
     expect(pois).toBe(mockPois)
   })

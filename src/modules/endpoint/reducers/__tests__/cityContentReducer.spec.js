@@ -108,6 +108,7 @@ describe('cityContentReducer', () => {
       city: 'augsburg',
       categoriesRouteMapping: {},
       eventsRouteMapping: {},
+      poisRouteMapping: {},
       languages: { status: 'ready', models: [] },
       resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
@@ -121,6 +122,7 @@ describe('cityContentReducer', () => {
       city: 'augsburg',
       categoriesRouteMapping: {},
       eventsRouteMapping: {},
+      poisRouteMapping: {},
       languages: { status: 'ready', models: [] },
       resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
@@ -134,6 +136,7 @@ describe('cityContentReducer', () => {
       city: 'augsburg',
       categoriesRouteMapping: {},
       eventsRouteMapping: {},
+      poisRouteMapping: {},
       languages: { status: 'ready', models: [] },
       resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
@@ -148,6 +151,7 @@ describe('cityContentReducer', () => {
       city: 'augsburg',
       categoriesRouteMapping: {},
       eventsRouteMapping: {},
+      poisRouteMapping: {},
       languages: { status: 'ready', models: [] },
       resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
@@ -180,6 +184,7 @@ describe('cityContentReducer', () => {
           status: 'loading'
         }
       },
+      poisRouteMapping: {},
       languages: { status: 'loading' },
       resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
@@ -201,6 +206,7 @@ describe('cityContentReducer', () => {
           code: ErrorCodes.UnknownError
         }
       },
+      poisRouteMapping: {},
       languages: { status: 'ready', models: ['de', 'en'] },
       resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
@@ -225,6 +231,7 @@ describe('cityContentReducer', () => {
           path: null
         }
       },
+      poisRouteMapping: {},
       languages: { status: 'ready', models: ['de', 'en'] },
       resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
@@ -263,6 +270,7 @@ describe('cityContentReducer', () => {
           path: null
         }
       },
+      poisRouteMapping: {},
       languages: { status: 'ready', models: ['de', 'en'] },
       resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
@@ -311,6 +319,7 @@ describe('cityContentReducer', () => {
       },
       city: 'augsburg',
       eventsRouteMapping: {},
+      poisRouteMapping: {},
       languages: { status: 'loading' },
       resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
@@ -333,6 +342,7 @@ describe('cityContentReducer', () => {
         }
       },
       eventsRouteMapping: {},
+      poisRouteMapping: {},
       languages: { status: 'ready', models: ['de', 'en'] },
       resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
@@ -359,6 +369,7 @@ describe('cityContentReducer', () => {
           }
         },
         eventsRouteMapping: {},
+        poisRouteMapping: {},
         languages: { status: 'ready', models: ['de', 'en'] },
         resourceCache: { status: 'ready', value: {} },
         searchRoute: null,
@@ -398,6 +409,7 @@ describe('cityContentReducer', () => {
         }
       },
       eventsRouteMapping: {},
+      poisRouteMapping: {},
       languages: { status: 'ready', models: ['de', 'en'] },
       resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
@@ -432,6 +444,7 @@ describe('cityContentReducer', () => {
       city: 'augsburg',
       categoriesRouteMapping: {},
       eventsRouteMapping: {},
+      poisRouteMapping: {},
       languages: { status: 'ready', models: ['de', 'en'] },
       resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
@@ -445,6 +458,7 @@ describe('cityContentReducer', () => {
       city: 'augsburg',
       categoriesRouteMapping: {},
       eventsRouteMapping: {},
+      poisRouteMapping: {},
       languages: { status: 'ready', models: ['de', 'en'] },
       resourceCache: { status: 'ready', value: {} },
       searchRoute: null,

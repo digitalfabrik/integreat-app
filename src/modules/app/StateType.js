@@ -5,7 +5,7 @@ import {
   CategoryModel,
   CityModel,
   EventModel,
-  LanguageModel
+  LanguageModel, PoiModel
 } from '@integreat-app/integreat-api-client'
 import Moment from 'moment'
 import { DEFAULT_LANGUAGE } from '../i18n/constants'
@@ -43,6 +43,32 @@ export type CategoryRouteStateType = {|
   ...CategoryRouteConfigType,
   +message: string,
   +code: ErrorCodeType
+|}
+
+export type PoiRouteConfigType = {|
+  +path: ?string, // path is null for the poi-lists route
+  +language: string,
+  +city: string
+|}
+
+export type PoiRouteStateType = {|
+  +status: 'ready',
+  ...PoiRouteConfigType,
+  +models: $ReadOnlyArray<PoiModel>,
+  +allAvailableLanguages: $ReadOnlyMap<string, ?string> // including the current content language
+|} | {|
+  +status: 'languageNotAvailable',
+  +language: string,
+  +city: string,
+  +allAvailableLanguages: $ReadOnlyMap<string, ?string>
+|} | {|
+  +status: 'loading',
+  ...PoiRouteConfigType
+|} | {|
+  +status: 'error',
+  ...PoiRouteConfigType,
+  +code: ErrorCodeType,
+  +message: ?string
 |}
 
 export type EventRouteConfigType = {|
@@ -102,6 +128,10 @@ export type CategoriesRouteMappingType = $ReadOnly<{
   [key: string]: CategoryRouteStateType
 }>
 
+export type PoisRouteMappingType = $ReadOnly<{
+  [key: string]: PoiRouteStateType
+}>
+
 export type EventsRouteMappingType = $ReadOnly<{
   [key: string]: EventRouteStateType
 }>
@@ -146,6 +176,7 @@ export type CityContentStateType = {|
   +languages: LanguagesStateType,
   +categoriesRouteMapping: CategoriesRouteMappingType,
   +eventsRouteMapping: EventsRouteMappingType,
+  +poisRouteMapping: PoisRouteMappingType,
   +resourceCache: ResourceCacheStateType,
   +searchRoute: SearchRouteType | null
 |}
