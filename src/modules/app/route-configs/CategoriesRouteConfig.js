@@ -15,8 +15,8 @@ import {
 } from '@integreat-app/integreat-api-client'
 import { cmsApiBaseUrl } from '../constants/urls'
 
-export type CategoriesRouteParamsType = {|city: string, language: string|}
-type RequiredPayloadsType = {|categories: Payload<CategoriesMapModel>, cities: Payload<Array<CityModel>>|}
+export type CategoriesRouteParamsType = {| city: string, language: string |}
+type RequiredPayloadsType = {| categories: Payload<CategoriesMapModel>, cities: Payload<Array<CityModel>> |}
 
 export const CATEGORIES_ROUTE = 'CATEGORIES'
 
@@ -63,7 +63,7 @@ class CategoriesRouteConfig implements RouteConfig<CategoriesRouteParamsType, Re
     return this.getRoutePath({ city, language })
   }
 
-  getPageTitle = ({ t, payloads, cityName, location }) => {
+  getPageTitle = ({ payloads, cityName, location }) => {
     if (!cityName) {
       return null
     }
