@@ -21,6 +21,8 @@ const createConfig = (env = {}) => {
 
   console.log('Used config: ', buildConfigName)
   console.log('Production: ', production)
+  console.log('type', typeof production)
+  console.log('double check', !!production)
 
   const buildConfig = require(`./configs/${buildConfigName}`)
   const configAssets = path.resolve(__dirname, `./configs/${buildConfigName}/assets`)
