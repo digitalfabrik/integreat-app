@@ -43,7 +43,7 @@ export class TunewsPage extends React.PureComponent<PropsType> {
         timestamp={date}
         key={id}
         t={t}
-        link={new TunewsDetailsRouteConfig().getRoutePath({ city, language, id})}
+        link={new TunewsDetailsRouteConfig().getRoutePath({ city, language, id })}
         language={language}
         type={TU_NEWS}
       />
@@ -72,16 +72,16 @@ export class TunewsPage extends React.PureComponent<PropsType> {
 
     return (
       <NewsTabs type={TU_NEWS} city={city} cities={cities} t={t} language={language}>
-          <TunewsList
-            items={tunews}
-            renderItem={this.renderTunewsElement(city, language)}
-            city={city}
-            fetchMoreTunews={fetchTunews}
-            hasMore={hasMore}
-            isFetching={isFetching}
-            language={language}
-            noItemsMessage={t('currentlyNoNews')}
-          />
+        <TunewsList
+          items={tunews}
+          renderItem={this.renderTunewsElement(city, language)}
+          city={city}
+          fetchMoreTunews={fetchTunews}
+          hasMore={hasMore}
+          isFetching={isFetching}
+          language={language}
+          noItemsMessage={t('currentlyNoNews')}
+        />
       </NewsTabs>
     )
   }
