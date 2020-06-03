@@ -32,14 +32,13 @@ const commitAndTag = async (versionName, versionCode, { deliverinoPrivateKey, ow
     sha: versionFileContent.data.sha
   })
   console.warn(`New version successfully commited with message "${message}"`)
-  console.warn(commit)
 
   const commitSha = commit.data.commit.sha
 
   const tag = `${versionName}${versionCode ? ` (version code: ${versionCode})` : ''}`
   const tagMessage = `Release ${tag}. Release notes can be found in 'release-notes/${versionName}`
 
-  const test = await appOctokit.git.createTag({
+  await appOctokit.git.createTag({
     owner,
     repo,
     tag,
@@ -47,7 +46,6 @@ const commitAndTag = async (versionName, versionCode, { deliverinoPrivateKey, ow
     object: commitSha,
     type: 'commit'
   })
-  console.warn(test)
 }
 
 program
