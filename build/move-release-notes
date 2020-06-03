@@ -3,7 +3,7 @@
 const authenticate = require('./github-authentication')
 const { program } = require('commander')
 
-const RELEASE_NOTE_DIR = 'release-notes'
+const RELEASE_NOTES_DIR = 'release-notes'
 const UNRELEASED_DIR = 'unreleased'
 
 program
@@ -23,7 +23,7 @@ const moveReleaseNotes = async ({ newVersionName, deliverinoPrivateKey, owner, r
   const rootTree = await appOctokit.git.getTree({ owner, repo, tree_sha: rootTreeSha })
 
   // Tree of the 'release-notes' folder of the project
-  const releaseNoteTreeSha = rootTree.data.tree.find(it => it.path === RELEASE_NOTE_DIR).sha
+  const releaseNoteTreeSha = rootTree.data.tree.find(it => it.path === RELEASE_NOTES_DIR).sha
   const releaseNoteTree = await appOctokit.git.getTree({ owner, repo, tree_sha: releaseNoteTreeSha })
 
   // Rename the dir 'unreleased' to <newVersionName> and keep everything else
@@ -32,17 +32,17 @@ const moveReleaseNotes = async ({ newVersionName, deliverinoPrivateKey, owner, r
     if (it.path === UNRELEASED_DIR) {
       return { ...rest, path: newVersionName }
     }
-    return it
+    return rest
   })
   const renameUnreleasedTree = await appOctokit.git.createTree({ owner, repo, tree: renameUnreleasedDir })
 
   // Update the root tree with the new 'release-notes' tree
   const rootUpdate = rootTree.data.tree.map(it => {
     const { size, url, ...rest } = it
-    if (it.path === RELEASE_NOTE_DIR) {
+    if (it.path === RELEASE_NOTES_DIR) {
       return { ...rest, sha: renameUnreleasedTree.data.sha }
     }
-    return it
+    return rest
   })
   const updatedRootTree = await appOctokit.git.createTree({ owner, repo, tree: rootUpdate })
 
