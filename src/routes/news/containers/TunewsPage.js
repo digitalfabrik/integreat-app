@@ -7,14 +7,15 @@ import compose from 'lodash/fp/compose'
 import type { StateType } from '../../../modules/app/StateType'
 import { TFunction } from 'i18next'
 import TunewsList from '../components/TunewsList'
-import { fetchMoreTunews } from '../actions/fetchMoreTunews'
 import NewsElement from '../components/NewsElement'
 import NewsTabs from '../components/NewsTabs'
-import { TunewsModel, CityModel } from '@integreat-app/integreat-api-client'
+import { CityModel, TunewsModel } from '@integreat-app/integreat-api-client'
 import LoadingSpinner from '../../../modules/common/components/LoadingSpinner'
 import { TU_NEWS } from '../constants'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
+import CityNotFoundError from '../../../modules/app/errors/CityNotFoundError'
+import { fetchTunews } from '../actions/fetchTunews'
 
 type PropsType = {|
   tunews: Array<TunewsModel>,
@@ -25,9 +26,8 @@ type PropsType = {|
   path: string,
   t: TFunction,
   isFetching: boolean,
-  isFetchingFirstTime: boolean,
   hasMore: boolean,
-  fetchMoreTunews: () => void
+  fetchTunews: () => void
 |}
 
 export class TunewsPage extends React.PureComponent<PropsType> {
@@ -51,15 +51,17 @@ export class TunewsPage extends React.PureComponent<PropsType> {
 
   render () {
     const {
-      tunews, language, city, t, fetchMoreTunews, hasMore,
-      isFetchingFirstTime, isFetching, cities, areCitiesFetching, path
+      tunews, language, city, t, fetchTunews, hasMore, isFetching, cities, areCitiesFetching, path
     } = this.props
 
     if (areCitiesFetching) {
       return <LoadingSpinner />
     }
 
-    const currentCity: CityModel = cities && cities.find(cityElement => cityElement.code === city)
+    const currentCity: ?CityModel = cities && cities.find(cityElement => cityElement.code === city)
+    if (!currentCity) {
+      return <FailureSwitcher error={new CityNotFoundError()} />
+    }
 
     if (!currentCity.tunewsEnabled) {
       const type = currentCity.pushNotificationsEnabled ? 'localNewsItem' : 'category'
@@ -69,20 +71,16 @@ export class TunewsPage extends React.PureComponent<PropsType> {
 
     return (
       <NewsTabs type={TU_NEWS} city={city} cities={cities} t={t} language={language}>
-        {isFetchingFirstTime ? (
-          <LoadingSpinner />
-        ) : (
           <TunewsList
             items={tunews}
             renderItem={this.renderTunewsElement(language)}
             city={city}
-            fetchMoreTunews={fetchMoreTunews}
+            fetchMoreTunews={fetchTunews}
             hasMore={hasMore}
             isFetching={isFetching}
             language={language}
             noItemsMessage={t('currentlyNoNews')}
           />
-        )}
       </NewsTabs>
     )
   }
@@ -95,11 +93,11 @@ const mapStateToProps = (state: StateType) => ({
   areCitiesFetching: state.cities.isFetching,
   path: state.location.pathname,
   hasMore: state.tunews.hasMore,
-  isFetchingFirstTime: state.tunews.isFetchingFirstTime,
-  isFetching: state.tunews.isFetching
+  tunews: state.tunews.allData,
+  isFetching: state.tunews.payload.isFetching
 })
 
 export default compose(
-  connect<PropsType, *, *, *, *, *>(mapStateToProps, { fetchMoreTunews }),
+  connect<PropsType, *, *, *, *, *>(mapStateToProps, { fetchTunews }),
   withTranslation('news')
 )(TunewsPage)

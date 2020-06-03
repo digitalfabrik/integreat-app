@@ -13,6 +13,7 @@ import {
 import type { Route } from 'redux-first-router'
 import fetchData from '../fetchData'
 import { cmsApiBaseUrl } from '../constants/urls'
+import type { StateType } from '../StateType'
 
 type ExtrasRouteParamsType = {|city: string, language: string|}
 type RequiredPayloadsType = {|extras: Payload<Array<ExtraModel>>|}
@@ -26,7 +27,7 @@ export const EXTRAS_ROUTE = 'EXTRAS'
 const extrasRoute: Route = {
   path: '/:city/:language/extras/:extraId?',
   thunk: async (dispatch, getState) => {
-    const state = getState()
+    const state: StateType = getState()
     const { city, language } = state.location.payload
 
     await Promise.all([

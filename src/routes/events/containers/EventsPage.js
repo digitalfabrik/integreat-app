@@ -40,6 +40,7 @@ export class EventsPage extends React.Component<PropsType> {
       const event = events.find(_event => _event.path === decodeURIComponent(path))
 
       if (event) {
+        const location = event.location.location
         return <>
           <EventJsonLd event={event} />
           <Page thumbnail={event.thumbnail}
@@ -50,8 +51,7 @@ export class EventsPage extends React.Component<PropsType> {
                 onInternalLinkClick={push}>
             <>
               <PageDetail identifier={t('date')} information={event.date.toFormattedString(language)} />
-              {event.location.location && <PageDetail identifier={t('location')}
-                                                      information={event.location.location} />}
+              {location && <PageDetail identifier={t('location')} information={location} />}
             </>
           </Page>
         </>

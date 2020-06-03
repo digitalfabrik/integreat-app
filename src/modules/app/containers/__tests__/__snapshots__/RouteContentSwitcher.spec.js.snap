@@ -29,15 +29,15 @@ exports[`RouteContentSwitcher should render and match snapshot 1`] = `
   cities={
     Array [
       CityModel {
-        "_aliases": undefined,
+        "_aliases": null,
         "_code": "city1",
         "_eventsEnabled": true,
         "_extrasEnabled": false,
-        "_latitude": undefined,
+        "_latitude": null,
         "_live": true,
-        "_longitude": undefined,
+        "_longitude": null,
         "_name": "Mambo No. 5",
-        "_prefix": undefined,
+        "_prefix": null,
         "_pushNotificationsEnabled": false,
         "_sortingName": "Mambo",
         "_tunewsEnabled": false,

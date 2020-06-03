@@ -12,6 +12,7 @@ import {
 } from '@integreat-app/integreat-api-client'
 import fetchData from '../fetchData'
 import { cmsApiBaseUrl } from '../constants/urls'
+import type { StateType } from '../StateType'
 
 type EventsRouteParamsType = {|city: string, language: string|}
 type RequiredPayloadsType = {|events: Payload<Array<EventModel>>|}
@@ -25,7 +26,7 @@ export const EVENTS_ROUTE = 'EVENTS'
 const eventsRoute: Route = {
   path: '/:city/:language/events/:eventId?',
   thunk: async (dispatch, getState) => {
-    const state = getState()
+    const state: StateType = getState()
     const { city, language } = state.location.payload
 
     await Promise.all([

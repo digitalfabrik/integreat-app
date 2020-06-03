@@ -10,20 +10,21 @@ import {
   createSprungbrettJobsEndpoint,
   ExtraModel,
   Payload,
-  SprungbrettModel
+  SprungbrettJobModel
 } from '@integreat-app/integreat-api-client'
 import type { Route } from 'redux-first-router'
 import fetchData from '../fetchData'
 import { cmsApiBaseUrl } from '../constants/urls'
+import type { StateType } from '../StateType'
 
 type SprungbrettRouteParamsType = {|city: string, language: string|}
-type RequiredPayloadsType = {|sprungbrettJobs: Payload<Array<SprungbrettModel>>, extras: Payload<Array<ExtraModel>>|}
+type RequiredPayloadsType = {|sprungbrettJobs: Payload<Array<SprungbrettJobModel>>, extras: Payload<Array<ExtraModel>>|}
 
 export const SPRUNGBRETT_ROUTE = 'SPRUNGBRETT'
 export const SPRUNGBRETT_EXTRA = 'sprungbrett'
 
 const fetchExtras = async (dispatch, getState) => {
-  const state = getState()
+  const state: StateType = getState()
   const { city, language } = state.location.payload
   const extrasPayload = await fetchData(createExtrasEndpoint(cmsApiBaseUrl), dispatch, state.extras, {
     city,
@@ -44,7 +45,7 @@ const fetchExtras = async (dispatch, getState) => {
 const sprungbrettRoute: Route = {
   path: `/:city/:language/extras/${SPRUNGBRETT_EXTRA}`,
   thunk: async (dispatch, getState) => {
-    const state = getState()
+    const state: StateType = getState()
     const { city, language } = state.location.payload
 
     await Promise.all([
@@ -86,7 +87,10 @@ class SprungbrettRouteConfig implements RouteConfig<SprungbrettRouteParamsType, 
   getFeedbackTargetInformation = ({ payloads }) => {
     const extras = payloads.extras.data
     const extra = extras && extras.find(extra => extra.alias === SPRUNGBRETT_EXTRA)
-    return ({ alias: SPRUNGBRETT_EXTRA, title: extra && extra.title })
+    if (extra) {
+      return ({ alias: SPRUNGBRETT_EXTRA, title: extra.title })
+    }
+    return null
   }
 }
 
