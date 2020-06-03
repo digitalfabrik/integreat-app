@@ -75,12 +75,14 @@ workflows:
       - bump_version:
           requires:
             - build
-      - deliver:
+      - await-approval:
           type: approval
+          requires:
+            - bump_version
+      - deliver:
           deliver_to: "integreat"
           requires:
-            - build
-            - bump_version
+            - await-approval
 
 jobs:
   build:
