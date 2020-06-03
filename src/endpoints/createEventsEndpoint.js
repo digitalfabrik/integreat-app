@@ -45,7 +45,10 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<EventModel>> => new
           name: event.location.name,
           address: event.location.address,
           town: event.location.town,
+          state: event.location.state,
           postcode: event.location.postcode,
+          region: event.location.region,
+          country: event.location.country,
           latitude: event.location.latitude,
           longitude: event.location.longitude
         }),
