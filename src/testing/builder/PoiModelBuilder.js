@@ -15,7 +15,14 @@ const pois = [
     thumbnail: 'test',
     availableLanguages: map,
     excerpt: 'test',
-    location: new LocationModel('name', 'address', 'town', '123456', '15', '15'),
+    location: new LocationModel({
+      address: 'address',
+      town: 'town',
+      postcode: 'postcode',
+      latitude: '15',
+      longitude: '15',
+      name: 'name'
+    }),
     lastUpdate: moment('2011-02-04T00:00:00.000Z'),
     hash: 'test'
   }),
@@ -26,7 +33,14 @@ const pois = [
     thumbnail: 'test',
     availableLanguages: map,
     excerpt: 'test',
-    location: new LocationModel('name', 'address', 'town', '123456', '15', '15'),
+    location: new LocationModel({
+      address: 'address',
+      town: 'town',
+      postcode: 'postcode',
+      latitude: '15',
+      longitude: '15',
+      name: 'name'
+    }),
     lastUpdate: moment('2011-02-04T00:00:00.000Z'),
     hash: 'test'
   })

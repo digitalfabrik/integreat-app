@@ -173,10 +173,6 @@ class DatabaseConnector {
     return `${CACHE_DIR_PATH}/cities.json`
   }
 
-  getPoisPath (): string {
-    return `${CACHE_DIR_PATH}/pois.json`
-  }
-
   async deleteAllFiles () {
     await RNFetchBlob.fs.unlink(CACHE_DIR_PATH)
   }
@@ -355,7 +351,34 @@ class DatabaseConnector {
     await this.writeFile(path, JSON.stringify(languages))
   }
 
-  async storePois (pois: Array<PoiModel>) {
+  async storeEvents (events: Array<EventModel>, context: DatabaseContext) {
+    const jsonModels = events.map((event: EventModel): ContentEventJsonType => ({
+      path: event.path,
+      title: event.title,
+      content: event.content,
+      last_update: event.lastUpdate.toISOString(),
+      thumbnail: event.thumbnail,
+      available_languages: mapToObject(event.availableLanguages),
+      hash: event.hash,
+      excerpt: event.excerpt,
+      date: {
+        start_date: event.date.startDate.toISOString(),
+        end_date: event.date.endDate.toISOString(),
+        all_day: event.date.allDay
+      },
+      location: {
+        address: event.location.address,
+        town: event.location.town,
+        postcode: event.location.postcode,
+        latitude: event.location.latitude,
+        longitude: event.location.longitude
+      }
+    }))
+
+    await this.writeFile(this.getContentPath('events', context), JSON.stringify(jsonModels))
+  }
+
+  async storePois (pois: Array<PoiModel>, context: DatabaseContext) {
     const jsonModels = pois.map((poi: PoiModel): ContentPoiJsonType => ({
       path: poi.path,
       title: poi.title,
@@ -368,11 +391,11 @@ class DatabaseConnector {
       hash: poi.hash
     }))
 
-    await this.writeFile(this.getPoisPath(), JSON.stringify(jsonModels))
+    await this.writeFile(this.getContentPath('pois', context), JSON.stringify(jsonModels))
   }
 
-  async loadPois (): Promise<Array<PoiModel>> {
-    const path = this.getPoisPath()
+  async loadPois (context: DatabaseContext): Promise<Array<PoiModel>> {
+    const path = this.getContentPath('pois', context)
     const fileExists: boolean = await RNFetchBlob.fs.exists(path)
 
     if (!fileExists) {
@@ -569,8 +592,8 @@ class DatabaseConnector {
     await this._deleteMetaOfCities(cachesToDelete.map(it => it.city))
   }
 
-  isPoisPersisted (): Promise<boolean> {
-    return this._isPersisted(this.getPoisPath())
+  isPoisPersisted (context: DatabaseContext): Promise<boolean> {
+    return this._isPersisted(this.getContentPath('pois', context))
   }
 
   isCitiesPersisted (): Promise<boolean> {

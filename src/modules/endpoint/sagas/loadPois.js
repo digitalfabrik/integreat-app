@@ -17,7 +17,7 @@ function * loadPois (
   if (poisAvailable && !forceRefresh) {
     try {
       console.debug('Using cached pois')
-      return yield call(dataContainer.getPois)
+      return yield call(dataContainer.getPois, city, language)
     } catch (e) {
       console.warn('An error occurred while loading pois from JSON', e)
     }
@@ -30,7 +30,7 @@ function * loadPois (
   }))
   const pois: Array<PoiModel> = payload.data
 
-  yield call(dataContainer.setPois, pois)
+  yield call(dataContainer.setPois, city, language, pois)
   return pois
 }
 
