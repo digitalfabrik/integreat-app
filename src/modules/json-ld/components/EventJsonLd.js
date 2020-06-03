@@ -8,7 +8,7 @@ const createJsonLd = (event: EventModel) => {
   const date = event.date
 
   // https://developers.google.com/search/docs/data-types/event
-  const jsonLd: { endDate?: string, image?: string[], location: {} } = {
+  const jsonLd: { endDate?: string, image?: string[] } = {
     '@context': 'https://schema.org',
     '@type': 'Event',
     name: event.title,
