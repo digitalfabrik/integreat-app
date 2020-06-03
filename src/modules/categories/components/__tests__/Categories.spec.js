@@ -30,6 +30,9 @@ describe('Categories', () => {
     const categoriesMapModel = new CategoriesMapModelBuilder(cities[0].code, languages[0].code).build()
     const navigation = createNavigationScreenPropMock()
     const categoryLeaf = categoriesMapModel.toArray().find(category => category.isLeaf(categoriesMapModel))
+    if (!categoryLeaf) {
+      throw Error('There should be a leaf!')
+    }
     const stateView = new CategoriesRouteStateView(
       categoryLeaf.path,
       { [categoryLeaf.path]: categoryLeaf },

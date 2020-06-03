@@ -84,6 +84,8 @@ describe('cityContentReducer', () => {
     params: { message: 'Some error', code: ErrorCodes.UnknownError }
   }
 
+  const languageModels = [new LanguageModel('de', 'Deutsch'), new LanguageModel('en', 'English')]
+
   // these actions should not thrown an error if then state is unitialized
   const softUnsupportedActionsOnUnitializedState: Array<CityContentActionType> = [
     pushCategoryAction,
@@ -201,7 +203,7 @@ describe('cityContentReducer', () => {
           code: ErrorCodes.UnknownError
         }
       },
-      languages: { status: 'ready', models: ['de', 'en'] },
+      languages: { status: 'ready', models: languageModels },
       resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
       switchingLanguage: false
@@ -225,7 +227,7 @@ describe('cityContentReducer', () => {
           path: null
         }
       },
-      languages: { status: 'ready', models: ['de', 'en'] },
+      languages: { status: 'ready', models: languageModels },
       resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
       switchingLanguage: false
@@ -263,7 +265,7 @@ describe('cityContentReducer', () => {
           path: null
         }
       },
-      languages: { status: 'ready', models: ['de', 'en'] },
+      languages: { status: 'ready', models: languageModels },
       resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
       switchingLanguage: false
@@ -333,7 +335,7 @@ describe('cityContentReducer', () => {
         }
       },
       eventsRouteMapping: {},
-      languages: { status: 'ready', models: ['de', 'en'] },
+      languages: { status: 'ready', models: languageModels },
       resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
       switchingLanguage: false
@@ -359,7 +361,7 @@ describe('cityContentReducer', () => {
           }
         },
         eventsRouteMapping: {},
-        languages: { status: 'ready', models: ['de', 'en'] },
+        languages: { status: 'ready', models: languageModels },
         resourceCache: { status: 'ready', value: {} },
         searchRoute: null,
         switchingLanguage: false
@@ -398,7 +400,7 @@ describe('cityContentReducer', () => {
         }
       },
       eventsRouteMapping: {},
-      languages: { status: 'ready', models: ['de', 'en'] },
+      languages: { status: 'ready', models: languageModels },
       resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
       switchingLanguage: false
@@ -432,7 +434,7 @@ describe('cityContentReducer', () => {
       city: 'augsburg',
       categoriesRouteMapping: {},
       eventsRouteMapping: {},
-      languages: { status: 'ready', models: ['de', 'en'] },
+      languages: { status: 'ready', models: languageModels },
       resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
       switchingLanguage: false
@@ -445,7 +447,7 @@ describe('cityContentReducer', () => {
       city: 'augsburg',
       categoriesRouteMapping: {},
       eventsRouteMapping: {},
-      languages: { status: 'ready', models: ['de', 'en'] },
+      languages: { status: 'ready', models: languageModels },
       resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
       switchingLanguage: false
