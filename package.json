@@ -7,10 +7,11 @@
     "npm": ">=3.8"
   },
   "scripts": {
-    "start": "webpack-dev-server --config tools/webpack.config.babel.js --progress --env.prod=false --env.config_name=integreat-debug",
-    "build": "webpack --config tools/webpack.config.babel.js --env.prod=true --env.config_name=integreat",
-    "build:debug": "webpack --config tools/webpack.config.babel.js --env.prod=false --env.config_name=integreat-debug",
-    "build:lib": "webpack --config tools/lib.webpack.config.babel.js --env.prod=true && flow-copy-source -i '**/@(__mocks__|__tests__)/**' ./src ./lib-dist && mv ./lib-dist/lib.js.flow ./lib-dist/index.js.flow",
+    "start": "webpack-dev-server --config build/webpack.config.babel.js --progress --env.config_name=integreat-test-cms --env.debug",
+    "start:malte": "webpack-dev-server --config build/webpack.config.babel.js --progress --env.config_name=malte --env.debug",
+    "build": "webpack --config build/webpack.config.babel.js --env.config_name=integreat --env.production",
+    "build:malte": "webpack --config build/webpack.config.babel.js --env.config_name=malte --env.production",
+    "build:debug": "webpack --config build/webpack.config.babel.js --env.config_name=integreat-test-cms --env.debug",
     "check:built": "yarn es-check es5 ./dist/**/*.js",
     "test": "jest --config jest.config.json",
     "test:coverage": "jest --config jest.config.json --coverage",
