@@ -16,7 +16,7 @@ const pois = [
     availableLanguages: map,
     excerpt: 'test',
     location: new LocationModel('name', 'address', 'town', '123456', '15', '15'),
-    lastUpdate: moment.tz('GMT'),
+    lastUpdate: moment('2011-02-04T00:00:00.000Z'),
     hash: 'test'
   }),
   new PoiModel({
@@ -27,7 +27,7 @@ const pois = [
     availableLanguages: map,
     excerpt: 'test',
     location: new LocationModel('name', 'address', 'town', '123456', '15', '15'),
-    lastUpdate: moment.tz('GMT'),
+    lastUpdate: moment('2011-02-04T00:00:00.000Z'),
     hash: 'test'
   })
 ]

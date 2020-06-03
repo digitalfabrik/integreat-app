@@ -73,6 +73,7 @@ describe('CategoriesContainer', () => {
         languages: languages || { status: 'ready', models: [language] },
         categoriesRouteMapping: routeState ? { 'route-id-0': routeState } : {},
         eventsRouteMapping: {},
+        poisRouteMapping: {},
         resourceCache: resourceCacheState || { status: 'ready', value: resourceCache },
         searchRoute: null
       },

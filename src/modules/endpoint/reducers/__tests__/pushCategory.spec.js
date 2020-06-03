@@ -64,6 +64,7 @@ describe('pushCategory', () => {
         }
       },
       eventsRouteMapping: {},
+      poisRouteMapping: {},
       languages: { status: 'ready', models: ['de', 'en'] },
       resourceCache: {
         status: 'ready',
