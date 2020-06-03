@@ -9,9 +9,11 @@
         "disclaimer": "Impressum und Kontakt",
         "mainDisclaimer": "Impressum und Kontakt - Integreat",
         "pois": "Points of Interest",
-        "notFound": "Seite nicht gefunden"
+        "notFound": "Seite nicht gefunden",
+        "tunews": "tünews",
+        "localNews": "Lokale Nachrichten"
       },
-      "metaDescription": "Integreat ist Ihr digitaler Guide für Deutschland. Finden Sie lokale Informationen, Events und Beratung. Immer aktuell und in Ihrer Sprache."
+      "metaDescription": "Integreat ist Ihr digitaler Guide für Deutschland. Finden Sie lokale Informationen, Veranstaltungen und Beratung. Immer aktuell und in Ihrer Sprache."
     },
     "ar": {
       "pageTitles": {
@@ -1303,7 +1305,7 @@
       "sentryTitle": "App-Stabilität",
       "sentryCondition": "... mit dem automatischen Senden von Absturzberichten Integreat zu verbessern",
       "pushNewsTitle": "Push-Benachrichtigungen",
-      "pushNewsCondition": "... mir Push-Benachrichtigungen zu den neuesten lokalen News zu senden",
+      "pushNewsCondition": "... mir Push-Benachrichtigungen zu den neuesten lokalen Nachrichten zu senden",
       "proposeCitiesTitle": "Nahegelegene Orte",
       "proposeCitiesCondition": "... mir mithilfe meines GPS-Standortes nahegelegene Orte vorzuschlagen",
       "skip": "Überspringen",
@@ -2057,46 +2059,7 @@
   },
   "search": {
     "de": {
-      "searchCategory": "Suche nach einer Kategorie"
-    },
-    "ar": {
-      "searchCategory": "البحث عن فئة"
-    },
-    "en": {
-      "searchCategory": "Search for a category"
-    },
-    "es": {
-      "searchCategory": "Buscar por categoría"
-    },
-    "fa": {
-      "searchCategory": "جستجو بر اساس دسته"
-    },
-    "fr": {
-      "searchCategory": "Chercher une catégorie"
-    },
-    "hr": {
-      "searchCategory": "Pretraga po kategoriji"
-    },
-    "ku": {
-      "searchCategory": "Lêgerîn li gorî Desteyê"
-    },
-    "pl": {
-      "searchCategory": "Szukaj według kategorii"
-    },
-    "ro": {
-      "searchCategory": "Căutați după o categorie"
-    },
-    "ru": {
-      "searchCategory": "Поиск по категории"
-    },
-    "so": {
-      "searchCategory": "Ka raadi qeybta"
-    },
-    "ti": {
-      "searchCategory": "ምድብ ፈትሽ"
-    },
-    "tr": {
-      "searchCategory": "Bir kategori ara"
+      "searchPlaceholder": "Suche"
     }
   },
   "settings": {
@@ -2104,7 +2067,7 @@
       "sentryTitle": "App-Stabilität",
       "sentryDescription": "Durch das automatische Senden von Absturzberichten die Integreat-App verbessern",
       "pushNewsTitle": "Push-Benachrichtigungen",
-      "pushNewsDescription": "Push-Benachrichtigungen für die neuesten lokalen News erhalten",
+      "pushNewsDescription": "Push-Benachrichtigungen für die neuesten lokalen Nachrichten erhalten",
       "proposeCitiesTitle": "Nahegelegene Orte",
       "proposeCitiesDescription": "Mithilfe des GPS-Standortes Vorschläge für nahegelegene Orte erhalten",
       "about": "Über Integreat",
