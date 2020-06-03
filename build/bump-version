@@ -12,15 +12,15 @@ program
   .requiredOption('--repo <repo>', 'the current repository, usually "integreat-webapp" or "integreat-react-native-app"')
   .requiredOption('--branch <branch>', 'the current branch')
 
-const commitAndTag = async (newVersionName, newVersionCode, { deliverinoPrivateKey, owner, repo, branch }) => {
+const commitAndTag = async (versionName, versionCode, { deliverinoPrivateKey, owner, repo, branch }) => {
   const appOctokit = await authenticate({ deliverinoPrivateKey, owner, repo })
   const versionFileContent = await appOctokit.repos.getContents({ owner, repo, path: VERSION_FILE, ref: branch })
 
-  const contentBase64 = Buffer.from(JSON.stringify({ newVersionName, newVersionCode })).toString('base64')
+  const contentBase64 = Buffer.from(JSON.stringify({ versionName, versionCode })).toString('base64')
 
-  const message = newVersionCode
-    ? `Bump version name to ${newVersionName} and version code to ${newVersionCode}\n[skip ci]`
-    : `Bump version name to ${newVersionName}\n[skip ci]`
+  const message = versionCode
+    ? `Bump version name to ${versionName} and version code to ${versionCode}\n[skip ci]`
+    : `Bump version name to ${versionName}\n[skip ci]`
 
   const commit = await appOctokit.repos.createOrUpdateFile({
     owner,
@@ -36,8 +36,8 @@ const commitAndTag = async (newVersionName, newVersionCode, { deliverinoPrivateK
 
   const commitSha = commit.data.commit.sha
 
-  const tag = `${newVersionName}${newVersionCode ? ` (version code: ${newVersionCode})` : ''}`
-  const tagMessage = `Release ${tag}. Release notes can be found in 'release-notes/${newVersionName}`
+  const tag = `${versionName}${versionCode ? ` (version code: ${versionCode})` : ''}`
+  const tagMessage = `Release ${tag}. Release notes can be found in 'release-notes/${versionName}`
 
   const test = await appOctokit.git.createTag({
     owner,
