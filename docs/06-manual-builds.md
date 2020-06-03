@@ -82,49 +82,15 @@ If you do not have Fastlane installed [you can skip to the next section](#quick-
 
 #### Prerequisites
 * Setup the Android SDK
-* [Setup Fastlane](08-cicd.md#setup-of-fastlane) (Necessary for production keystore management)
 
-### Building the App for Play Store
+### Run the app in an Emulator
 
-Firstly you have to prepare a [few environment variables](08-cicd.md#environment-variables-and-dependencies):
-
-```bash
-export CREDENTIALS_GIT_REPOSITORY_URL=<secret>
-export CREDENTIALS_DIRECTORY_PATH=/tmp/credentials
-export CREDENTIALS_KEYSTORE_PASSWORD=<secret>
-export CREDENTIALS_KEYSTORE_PATH=/tmp/credentials/<secret>.enc
-export KEYSTORE_PATH=/tmp/keystore.jks
-```
-
-Setup your JKS now:
-
-```bash
-cd android/
-bundle exec fastlane keystore
-```
-
-Finally, provide some more information about unlocking the JKS:
-
-```bash
-export KEYSTORE_KEY_ALIAS=<secret>
-export KEYSTORE_PASSWORD=<secret>
-export KEYSTORE_KEY_PASSWORD=<secret>
-```
-
-The last step is to build the app:
+If you want to quickly run the app in an emulator do the following:
 
 ```bash
 yarn
-cd android/
-bundle exec fastlane build
-```
-
-Install and run the app using:
-
-```bash
-adb install app/build/outputs/apk/release/app-release.apk
-adb shell am force-stop tuerantuer.app.integreat
-adb shell am start -n tuerantuer.app.integreat/.MainActivity
+yarn start
+yarn android
 ```
 
 ### Quick builds using a test signing key
@@ -154,12 +120,52 @@ yarn
 yarn android:release
 ```
 
-### Run the app in an Emulator
+### Building the App for Play Store
 
-If you want to quickly run the app in an emulator do the following:
+Firstly you have to [setup Fastlane](08-cicd.md#setup-of-fastlane) which used as build tool.
+
+#### Setup Production Keystore
+
+For decrypting the keystore, you have to prepare a [few environment variables](08-cicd.md#environment-variables-and-dependencies):
+
+```bash
+export CREDENTIALS_GIT_REPOSITORY_URL=<secret>
+export CREDENTIALS_DIRECTORY_PATH=/tmp/credentials
+export CREDENTIALS_KEYSTORE_PASSWORD=<secret>
+export CREDENTIALS_KEYSTORE_PATH=/tmp/credentials/<secret>.enc
+export KEYSTORE_PATH=/tmp/keystore.jks
+```
+
+Setup the production JKS now:
+
+```bash
+cd android/
+bundle exec fastlane keystore
+```
+
+Finally, provide some more information about unlocking the JKS:
+
+```bash
+export KEYSTORE_KEY_ALIAS=<secret>
+export KEYSTORE_PASSWORD=<secret>
+export KEYSTORE_KEY_PASSWORD=<secret>
+```
+
+#### Build the App
+
+After the setup you can build the app using the production keystore:
 
 ```bash
 yarn
-yarn start
-yarn android
+cd android/
+bundle exec fastlane build
 ```
+
+Install and run the app using:
+
+```bash
+adb install app/build/outputs/apk/release/app-release.apk
+adb shell am force-stop tuerantuer.app.integreat
+adb shell am start -n tuerantuer.app.integreat/.MainActivity
+```
+
