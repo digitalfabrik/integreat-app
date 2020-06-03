@@ -4,7 +4,7 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 
-import { EventModel } from '@integreat-app/integreat-api-client'
+import { CityModel, EventModel } from '@integreat-app/integreat-api-client'
 import Page from '../../../modules/common/components/Page'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
@@ -17,9 +17,12 @@ import List from '../../../modules/common/components/List'
 import Caption from '../../../modules/common/components/Caption'
 import { push } from 'redux-first-router'
 import EventJsonLd from '../../../modules/json-ld/components/EventJsonLd'
+import Failure from '../../../modules/common/components/Failure'
+import CategoriesRouteConfig from '../../../modules/app/route-configs/CategoriesRouteConfig'
 
 type PropsType = {|
   events: Array<EventModel>,
+  cities: Array<CityModel>,
   city: string,
   eventId: ?string,
   language: string,
@@ -35,7 +38,12 @@ export class EventsPage extends React.Component<PropsType> {
     <EventListItem event={event} language={language} key={event.path} />
 
   render () {
-    const { events, path, eventId, city, language, t } = this.props
+    const { events, path, eventId, city, language, t, cities } = this.props
+    const cityModel = cities.find(_cityModel => _cityModel.code === city)
+    if (!cityModel || !cityModel.eventsEnabled) {
+      return <Failure errorMessage='notFound.category' goToMessage='goTo.categories'
+                      goToPath={new CategoriesRouteConfig().getRoutePath({ city, language })} />
+    }
     if (eventId) {
       const event = events.find(_event => _event.path === decodeURIComponent(path))
 

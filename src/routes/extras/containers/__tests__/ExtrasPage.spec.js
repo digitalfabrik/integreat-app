@@ -3,7 +3,7 @@
 import { mount, shallow } from 'enzyme'
 import React from 'react'
 
-import { ExtraModel } from '@integreat-app/integreat-api-client'
+import { CityModel, ExtraModel } from '@integreat-app/integreat-api-client'
 import ConnectedExtrasPage, { ExtrasPage } from '../ExtrasPage'
 import theme from '../../../../modules/theme/constants/theme'
 import createReduxStore from '../../../../modules/app/createReduxStore'
@@ -43,6 +43,21 @@ describe('ExtrasPage', () => {
     })
   ]
 
+  const cities = [new CityModel({
+    name: 'Augsburg',
+    code: 'augsburg',
+    live: true,
+    eventsEnabled: true,
+    extrasEnabled: true,
+    pushNotificationsEnabled: true,
+    tunewsEnabled: true,
+    sortingName: 'Augsburg',
+    prefix: null,
+    latitude: null,
+    longitude: null,
+    aliases: null
+  })]
+
   const t = (key: ?string): string => key || ''
 
   it('should render extra tiles if no extra is selected', () => {
@@ -51,7 +66,8 @@ describe('ExtrasPage', () => {
                   language={language}
                   extras={extras}
                   extraId={undefined}
-                  t={t} />
+                  t={t}
+                  cities={cities} />
     )
     expect(extrasPage).toMatchSnapshot()
   })
@@ -62,7 +78,8 @@ describe('ExtrasPage', () => {
                   language={language}
                   extras={extras}
                   extraId='invalid_extra'
-                  t={t} />
+                  t={t}
+                  cities={cities} />
     )
     expect(extrasPage).toMatchSnapshot()
   })
@@ -75,7 +92,7 @@ describe('ExtrasPage', () => {
     const tree = mount(
       <ThemeProvider theme={theme}>
         <Provider store={store}>
-          <ConnectedExtrasPage extras={extras} />
+          <ConnectedExtrasPage extras={extras} cities={cities} />
         </Provider>
       </ThemeProvider>
     )
@@ -84,6 +101,7 @@ describe('ExtrasPage', () => {
       language,
       city,
       extras,
+      cities,
       extraId: 'invalid_extra'
     })
   })
