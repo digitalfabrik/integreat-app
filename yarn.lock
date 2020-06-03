@@ -4175,7 +4175,7 @@ es-abstract@^1.17.0-next.1, es-abstract@^1.17.5:
     string.prototype.trimleft "^2.1.1"
     string.prototype.trimright "^2.1.1"
 
-es-check@^5.0.0:
+es-check@^5.1.0:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/es-check/-/es-check-5.1.0.tgz#764af622e0c6efc16298eada829348e4cf8fa6fd"
   integrity sha512-QlRhlUmEpdnleBFYWRFROm8u9cNPOWdE1iXQPWiQXnwmlJZ0hSxWpLOXwpFLyRrwnTmt5xqYM/5OR8Ao0MYa8w==
@@ -5139,18 +5139,6 @@ getpass@^0.1.1:
   integrity sha1-Xv+OPmhNVprkyysSgmBOi6YhSfo=
   dependencies:
     assert-plus "^1.0.0"
-
-git-repo-info@^1.4.1:
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/git-repo-info/-/git-repo-info-1.4.1.tgz#2a072823254aaf62fcf0766007d7b6651bd41943"
-  integrity sha1-KgcoIyVKr2L88HZgB9e2ZRvUGUM=
-
-git-repo-version@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/git-repo-version/-/git-repo-version-1.0.2.tgz#2c8e9bee5d970cafc0dd58480f9dc56d9afe8e4f"
-  integrity sha512-OPtwtHx9E8/rTMcWT+BU6GNj6Kq/O40bHJZaZAGy+pN2RXGmeKcfr0ix4M+SQuFY8vl5L/wfPSGOAtvUT/e3Qg==
-  dependencies:
-    git-repo-info "^1.4.1"
 
 glob-parent@^3.1.0:
   version "3.1.0"
