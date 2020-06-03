@@ -12,7 +12,7 @@
     "build": "webpack --config build/webpack.config.babel.js --env.config_name=integreat --env.production",
     "build:malte": "webpack --config build/webpack.config.babel.js --env.config_name=malte --env.production",
     "build:debug": "webpack --config build/webpack.config.babel.js --env.config_name=integreat-test-cms --env.debug",
-    "check:built": "yarn es-check --verbose es5 ./dist/**/*.js",
+    "check:built": "yarn es-check es5 ./dist/**/*.js --verbose",
     "test": "jest --config jest.config.json",
     "test:coverage": "jest --config jest.config.json --coverage",
     "test:watch": "jest --config jest.config.json --watchAll",
