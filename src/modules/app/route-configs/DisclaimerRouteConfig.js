@@ -13,6 +13,7 @@ import {
   Payload
 } from '@integreat-app/integreat-api-client'
 import { cmsApiBaseUrl } from '../constants/urls'
+import type { StateType } from '../StateType'
 
 type DisclaimerRouteParamsType = {|city: string, language: string|}
 type RequiredPayloadsType = {|disclaimer: Payload<PageModel>|}
@@ -26,7 +27,7 @@ export const DISCLAIMER_ROUTE = 'DISCLAIMER'
 const disclaimerRoute: Route = {
   path: '/:city/:language/disclaimer',
   thunk: async (dispatch, getState) => {
-    const state = getState()
+    const state: StateType = getState()
     const { city, language } = state.location.payload
 
     await Promise.all([

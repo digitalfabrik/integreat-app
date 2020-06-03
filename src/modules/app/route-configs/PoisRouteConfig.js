@@ -13,6 +13,7 @@ import {
   PoiModel
 } from '@integreat-app/integreat-api-client'
 import { cmsApiBaseUrl } from '../constants/urls'
+import type { StateType } from '../StateType'
 
 type PoisRouteParamsType = {|city: string, language: string|}
 type RequiredPayloadsType = {|pois: Payload<Array<PoiModel>>|}
@@ -22,7 +23,7 @@ export const POIS_ROUTE = 'POI'
 const poisRoute: Route = {
   path: '/:city/:language/locations/:poiId?',
   thunk: async (dispatch, getState) => {
-    const state = getState()
+    const state: StateType = getState()
     const { city, language } = state.location.payload
 
     await Promise.all([

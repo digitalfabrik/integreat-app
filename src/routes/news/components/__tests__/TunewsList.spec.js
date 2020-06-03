@@ -67,7 +67,7 @@ describe('TunewsList', () => {
     expect(newsElementList.find({ id: 1 })).toHaveLength(1)
   })
 
-  it('should render "currentlyNoTunews" if the items is an empty array', () => {
+  it('should render "currentlyNoTunews" if the items is an empty array and hasMore is false', () => {
     const tunewsList = shallow(
       <TunewsList
         language={language}
@@ -75,7 +75,7 @@ describe('TunewsList', () => {
         renderItem={renderItem(language)}
         city={city}
         fetchMoreTunews={() => {}}
-        hasMore
+        hasMore={false}
         isFetching={false}
         noItemsMessage={t('currentlyNoTunews')}
       />

@@ -5,7 +5,7 @@ exports[`SearchPage should match snapshot 1`] = `
   <SearchInput
     filterText=""
     onFilterTextChange={[Function]}
-    placeholderText="searchCategory"
+    placeholderText="searchPlaceholder"
     spaceSearch={true}
   />
   <CategoryList

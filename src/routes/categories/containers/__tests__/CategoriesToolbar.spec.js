@@ -75,7 +75,7 @@ describe('CategoriesToolbar', () => {
                          openFeedbackModal={() => {}} />
     )
 
-    expect(component.equals(null)).toBe(true)
+    expect(component.getElement()).toBeNull()
   })
 
   it('should render Toolbar, if category can be found', () => {

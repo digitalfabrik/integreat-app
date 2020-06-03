@@ -1,22 +1,25 @@
 // @flow
 
 import {
-  Payload, CategoriesMapModel,
-  ExtraModel,
-  EventModel,
-  LocalNewsModel,
-  TunewsModel,
+  CategoriesMapModel,
   CityModel,
+  EventModel,
+  ExtraModel,
   LanguageModel,
+  LocalNewsModel,
   PageModel,
+  Payload,
+  PoiModel,
   SprungbrettJobModel,
-  WohnenOfferModel,
-  PoiModel
+  TunewsModel,
+  WohnenOfferModel
 } from '@integreat-app/integreat-api-client'
 import type { LocationState } from 'redux-first-router'
 import type { UiDirectionType } from '../i18n/types/UiDirectionType'
 
 export type ViewportType = { +is: { +small: boolean, +large: boolean } }
+
+export type TunewsStateType = { allData: TunewsModel[], hasMore: boolean, payload: Payload<TunewsModel[]> }
 
 export type StateType = {
   location: LocationState,
@@ -25,7 +28,7 @@ export type StateType = {
   events: Payload<Array<EventModel>>,
   localNews: Payload<Array<LocalNewsModel>>,
   localNewsElement: Payload<LocalNewsModel>,
-  tunews: Payload<Array<TunewsModel>>,
+  tunews: TunewsStateType,
   tunewsElement: Payload<TunewsModel>,
   cities: Payload<Array<CityModel>>,
   languages: Payload<Array<LanguageModel>>,
