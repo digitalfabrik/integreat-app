@@ -17,7 +17,7 @@ exports[`PoisPage should render a Page if a poi is selected 1`] = `
 >
   <PageDetail
     identifier="location"
-    information="address, postcode town"
+    information="name, address, postcode town"
   />
 </Page>
 `;
@@ -41,13 +41,13 @@ exports[`PoisPage should render a list of pois if no poi is selected 1`] = `
           "_lastUpdate": "2016-01-07T09:36:24.000Z",
           "_location": LocationModel {
             "_address": "address",
-            "_country": undefined,
+            "_country": "country",
             "_latitude": null,
             "_longitude": null,
             "_name": "name",
             "_postcode": "postcode",
-            "_region": undefined,
-            "_state": undefined,
+            "_region": "region",
+            "_state": "state",
             "_town": "town",
           },
           "_path": "/augsburg/en/locations/first_poi",
@@ -65,13 +65,13 @@ exports[`PoisPage should render a list of pois if no poi is selected 1`] = `
           "_lastUpdate": "2016-01-07T09:36:24.000Z",
           "_location": LocationModel {
             "_address": "address",
-            "_country": undefined,
+            "_country": "country",
             "_latitude": null,
             "_longitude": null,
             "_name": "name",
             "_postcode": "postcode",
-            "_region": undefined,
-            "_state": undefined,
+            "_region": "region",
+            "_state": "state",
             "_town": "town",
           },
           "_path": "/augsburg/en/locations/second_poi",
@@ -89,13 +89,13 @@ exports[`PoisPage should render a list of pois if no poi is selected 1`] = `
           "_lastUpdate": "2016-01-07T09:36:24.000Z",
           "_location": LocationModel {
             "_address": "address",
-            "_country": undefined,
+            "_country": "country",
             "_latitude": null,
             "_longitude": null,
             "_name": "name",
             "_postcode": "postcode",
-            "_region": undefined,
-            "_state": undefined,
+            "_region": "region",
+            "_state": "state",
             "_town": "town",
           },
           "_path": "/augsburg/en/locations/third_poi",
