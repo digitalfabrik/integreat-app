@@ -1692,7 +1692,8 @@
       "noPermission": "Standortzugriff erforderlich",
       "loading": "Bestimme Standort...",
       "notAvailable": "Standortbestimmung deaktiviert",
-      "timeout": "Standortbestimmung fehlgeschlagen"
+      "timeout": "Standortbestimmung fehlgeschlagen",
+      "refresh": "Liste der Orte aktualisieren"
     },
     "ar": {
       "searchCity": "البحث عن مكان",
@@ -1706,7 +1707,8 @@
       "nearbyPlaces": "Nearby locations",
       "noNearbyPlaces": "No nearby locations found.",
       "alert": "Note",
-      "locationError": "To display nearby locations, location services must be active."
+      "locationError": "To display nearby locations, location services must be active.",
+      "refresh": "Refresh nearby locations"
     },
     "es": {
       "searchCity": "Buscar ubicación",
@@ -2057,46 +2059,7 @@
   },
   "search": {
     "de": {
-      "searchCategory": "Suche nach einer Kategorie"
-    },
-    "ar": {
-      "searchCategory": "البحث عن فئة"
-    },
-    "en": {
-      "searchCategory": "Search for a category"
-    },
-    "es": {
-      "searchCategory": "Buscar por categoría"
-    },
-    "fa": {
-      "searchCategory": "جستجو بر اساس دسته"
-    },
-    "fr": {
-      "searchCategory": "Chercher une catégorie"
-    },
-    "hr": {
-      "searchCategory": "Pretraga po kategoriji"
-    },
-    "ku": {
-      "searchCategory": "Lêgerîn li gorî Desteyê"
-    },
-    "pl": {
-      "searchCategory": "Szukaj według kategorii"
-    },
-    "ro": {
-      "searchCategory": "Căutați după o categorie"
-    },
-    "ru": {
-      "searchCategory": "Поиск по категории"
-    },
-    "so": {
-      "searchCategory": "Ka raadi qeybta"
-    },
-    "ti": {
-      "searchCategory": "ምድብ ፈትሽ"
-    },
-    "tr": {
-      "searchCategory": "Bir kategori ara"
+      "searchPlaceholder": "Suche"
     }
   },
   "settings": {
