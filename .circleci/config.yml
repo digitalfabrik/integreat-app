@@ -21,17 +21,18 @@ workflows:
     jobs:
       - build:
           build_config: "integreat-test-cms"
-      - prepare_integreat_delivery:
+      - prepare-integreat-delivery:
           requires:
             - build
-#      - deliver:
+      - deliver:
 #          filters:
 #            branches:
 #              only:
 #                - develop
-#          deliver_to: "integreat-test-cms"
-#          requires:
-#            - build
+          deliver_to: "integreat"
+          requires:
+            - build
+            - prepare-integreat-delivery
 
   api-triggered-integreat-delivery: # Workflow for manual delivery of integreat which also bumps the version, moves the release notes, ...
     when:
@@ -41,14 +42,14 @@ workflows:
     jobs:
       - build:
           build_config: << pipeline.parameters.build_config >>
-      - prepare_integreat_delivery:
+      - prepare-integreat-delivery:
           requires:
             - build
       - deliver:
           deliver_to: << pipeline.parameters.build_config >>
           requires:
             - build
-            - prepare_integreat_delivery
+            - prepare-integreat-delivery
 
   api-triggered-delivery: # Workflow for manual delivery of integreat-test-cms and malte
     when:
@@ -75,13 +76,13 @@ workflows:
     jobs:
       - build:
           build_config: "integreat"
-      - prepare_integreat_delivery:
+      - prepare-integreat-delivery:
           requires:
             - build
       - await-approval:
           type: approval
           requires:
-            - prepare_integreat_delivery
+            - prepare-integreat-delivery
       - deliver:
           deliver_to: "integreat"
           requires:
@@ -150,9 +151,9 @@ jobs:
             - run:
                 name: Production << parameters.build_config >> build
                 command: yarn run webpack --config build/webpack.config.babel.js --env.config_name << parameters.build_config >> --env.production
-      - run:
-          name: Check build
-          command: yarn run check:built
+#      - run:
+#          name: Check build
+#          command: yarn run check:built
       - store_artifacts:
           path: dist
       - persist_to_workspace:
@@ -161,7 +162,7 @@ jobs:
             - dist
             - node_modules
 
-  prepare_integreat_delivery: # Move release notes, bump version and tag commit
+  prepare-integreat-delivery: # Move release notes, bump version and tag commit
     docker:
       - image: circleci/node:12.16.3
     resource_class: small
