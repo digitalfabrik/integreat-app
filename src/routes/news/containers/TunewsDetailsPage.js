@@ -64,7 +64,6 @@ export class TunewsDetailsPage extends React.PureComponent<PropsType> {
     const { tunewsElement, language, path, city, cities } = this.props
 
     const currentCity: CityModel = cities && cities.find(cityElement => cityElement.code === city)
-
     if (!tunewsElement || !currentCity.tunewsEnabled) {
       const type: string = currentCity.tunewsEnabled ? 'tunewsItem' : 'category'
       const error = new ContentNotFoundError({ type, id: path, city, language })

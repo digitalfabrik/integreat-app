@@ -49,12 +49,11 @@ export class LocalNewsPage extends React.Component<PropsType> {
     }
 
     const currentCity: CityModel = cities && cities.find(cityElement => cityElement.code === city)
-
     if (!currentCity.pushNotificationsEnabled) {
-      const type = currentCity.tunewsEnabled ? 'tunewsItem' : 'category'
-      const error = new ContentNotFoundError({ type, id: path, city: city, language })
+      const error = new ContentNotFoundError({ type: 'category', id: path, city: city, language })
       return <FailureSwitcher error={error} />
     }
+
     return (
       <NewsTabs type={LOCAL_NEWS} city={city} cities={cities} t={t} language={language}>
         <LocalNewsList
