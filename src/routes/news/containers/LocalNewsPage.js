@@ -15,7 +15,6 @@ import LoadingSpinner from '../../../modules/common/components/LoadingSpinner'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import CityNotFoundError from '../../../modules/app/errors/CityNotFoundError'
-import LocalNewsRouteConfig from '../../../modules/app/route-configs/LocalNewsRouteConfig'
 import LocalNewsDetailsRouteConfig from '../../../modules/app/route-configs/LocalNewsDetailsRouteConfig'
 
 type PropsType = {|
