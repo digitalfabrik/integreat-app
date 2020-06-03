@@ -9,13 +9,16 @@ import {
   createLocalNewsElementEndpoint,
   createLanguagesEndpoint,
   LocalNewsModel,
-  Payload
+  Payload, CityModel
 } from '@integreat-app/integreat-api-client'
 import fetchData from '../fetchData'
 import { cmsApiBaseUrl } from '../constants/urls'
 
 type LocalNewsDetailsType = {| city: string, language: string, id: number |}
-type RequiredPayloadsType = {| localNewsElement: Payload<LocalNewsModel> |}
+type RequiredPayloadsType = {|
+  localNewsElement: Payload<LocalNewsModel>,
+  cities: Payload<Array<CityModel>>
+|}
 
 export const LOCAL_NEWS_DETAILS_ROUTE = 'LOCAL_NEWS_DETAILS'
 
@@ -26,7 +29,11 @@ const localNewsDetailsRoute: Route = {
     const { city, language, newsId } = state.location.payload
 
     await Promise.all([
-      fetchData(createLocalNewsElementEndpoint(cmsApiBaseUrl), dispatch, state.localNewsElement, { city, language, id: newsId }),
+      fetchData(createLocalNewsElementEndpoint(cmsApiBaseUrl), dispatch, state.localNewsElement, {
+        city,
+        language,
+        id: newsId
+      }),
       fetchData(createCitiesEndpoint(cmsApiBaseUrl), dispatch, state.cities),
       fetchData(createEventsEndpoint(cmsApiBaseUrl), dispatch, state.events, { city, language }),
       fetchData(createLanguagesEndpoint(cmsApiBaseUrl), dispatch, state.languages, { city, language })
@@ -43,15 +50,22 @@ class LocalNewsDetailsRouteConfig implements RouteConfig<LocalNewsDetailsType, R
 
   getLanguageChangePath = ({ location, payloads, language }) => null
 
-  getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType =>
-    ({ localNewsElement: payloads.localNewsElementPayload })
+  getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType => ({
+    localNewsElement: payloads.localNewsElementPayload,
+    cities: payloads.citiesPayload
+  })
 
-  getPageTitle = ({ payloads, cityName }) => {
+  getPageTitle = ({ payloads, cityName, location }) => {
     if (!cityName) {
       return null
     }
     const localNewsElement = payloads.localNewsElement.data
     if (!localNewsElement) {
+      return null
+    }
+    const cityModel = payloads.cities.data &&
+      payloads.cities.data.find(cityModel => cityModel.code === location.payload.city)
+    if (!cityModel || !cityModel.pushNotificationsEnabled) {
       return null
     }
     return `${localNewsElement.title} - ${cityName}`
