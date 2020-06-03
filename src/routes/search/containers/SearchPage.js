@@ -66,7 +66,7 @@ export class SearchPage extends React.Component<PropsType, LocalStateType> {
     return (
       <div>
         <SearchInput filterText={this.state.filterText}
-                     placeholderText={t('searchCategory')}
+                     placeholderText={t('searchPlaceholder')}
                      onFilterTextChange={this.handleFilterTextChanged}
                      spaceSearch />
         <CategoryList categories={categories} query={this.state.filterText} onInternalLinkClick={noop} />
