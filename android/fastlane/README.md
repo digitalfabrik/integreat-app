@@ -19,7 +19,7 @@ or alternatively using `brew cask install fastlane`
 ```
 fastlane keystore
 ```
-Download and decrypts the JKS
+Download and decrypt the JKS
 ### dependencies
 ```
 fastlane dependencies

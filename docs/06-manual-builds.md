@@ -77,8 +77,8 @@ Fastlane should report where the build artifacts are. These can be uploaded to A
 If you do not have Fastlane installed [you can skip to the next section](#quick-builds-using-a-test-signing-key), which does not require FL.
 
 ### Prerequisites
-* Setup of the Android SDK
-* In order to set up production keystores you also need [to set up Fastlane](08-cicd.md#setup-of-fastlane).
+* Setup the Android SDK
+* [Setup Fastlane](08-cicd.md#setup-of-fastlane).
 
 ### Building the App for Play Store
 

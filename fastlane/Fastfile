@@ -84,7 +84,7 @@ private_lane :generic_sentry_upload do |options|
   )
 end
 
-desc "Bump version and commits the new version in the GitHub repository"
+desc "Bump version and commit the new version in the GitHub repository"
 lane :github_bump_version do
   ensure_env_vars(
       env_vars: ['DELIVERINO_PRIVATE_KEY']
@@ -113,7 +113,7 @@ platform :android do
     )
   end
 
-  desc "Upload the APK and runs E2E tests on BrowserStack"
+  desc "Upload the APK and run E2E tests on BrowserStack"
   lane :browserstack_e2e_tests do
     ensure_env_vars(
         env_vars: ['BROWSERSTACK_USERNAME', 'BROWSERSTACK_ACCESS_KEY']
@@ -207,7 +207,7 @@ platform :ios do
     )
   end
 
-  desc "Upload the APK and runs E2E tests on BrowserStack"
+  desc "Upload the APK and run E2E tests on BrowserStack"
   lane :browserstack_e2e_tests do
     ensure_env_vars(
         env_vars: ['BROWSERSTACK_USERNAME', 'BROWSERSTACK_ACCESS_KEY']

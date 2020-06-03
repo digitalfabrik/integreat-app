@@ -16,7 +16,7 @@ If you want to know more about Integreat or if you want to join us, contact [Max
 
 ## Getting Started
 
-*Note: For setting the project up on Windows you may want to use Chocolatey and [follow this guide](docs/09-windows-setup.md).*
+*Note: For the setup of the project on Windows you may want to use Chocolatey and [follow this guide](docs/09-windows-setup.md).*
 
 ### Prerequisites
 * Install [nodejs](https://nodejs.org/). At least v6 is required, but we recommend the v12 LTS.

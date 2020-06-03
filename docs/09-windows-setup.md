@@ -26,6 +26,6 @@ You will need the following tools:
 
 Reboot after the installation.
 
-## Windows Defender Settings
+## Troubleshooting
 
-Have a look to our [trouble shooting guide](02-troubleshooting.md) as well to fix some common windows issues.
+Have a look at our [trouble shooting guide](02-troubleshooting.md) as well for information on how to fix some common windows issues.
