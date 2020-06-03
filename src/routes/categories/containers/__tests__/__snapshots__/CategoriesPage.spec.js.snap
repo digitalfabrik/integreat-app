@@ -3,18 +3,17 @@
 exports[`CategoriesPage should match snapshot and render CategoryTiles if the path is the root category 1`] = `
 <div>
   <Breadcrumbs
-    breadcrumbs={
-      Array [
-        BreadcrumbModel {
-          "_link": "http://localhost/augsburg/de",
-          "_node": <Connect(Link)
-            to="/augsburg/de"
-          >
-            Augsburg
-          </Connect(Link)>,
-          "_title": "Augsburg",
-        },
-      ]
+    ancestorBreadcrumbs={Array []}
+    currentBreadcrumb={
+      BreadcrumbModel {
+        "_link": "http://localhost/augsburg/de",
+        "_node": <Connect(Link)
+          to="/augsburg/de"
+        >
+          Augsburg
+        </Connect(Link)>,
+        "_title": "Augsburg",
+      }
     }
     direction="ltr"
   />
@@ -45,7 +44,7 @@ exports[`CategoriesPage should match snapshot and render CategoryTiles if the pa
 exports[`CategoriesPage should match snapshot and render a CategoryList if the category is neither the root but has children 1`] = `
 <div>
   <Breadcrumbs
-    breadcrumbs={
+    ancestorBreadcrumbs={
       Array [
         BreadcrumbModel {
           "_link": "http://localhost/augsburg/de",
@@ -56,16 +55,18 @@ exports[`CategoriesPage should match snapshot and render a CategoryList if the c
           </Connect(Link)>,
           "_title": "Augsburg",
         },
-        BreadcrumbModel {
-          "_link": "http://localhost/augsburg/de/erste-schritte",
-          "_node": <Connect(Link)
-            to="/augsburg/de/erste-schritte"
-          >
-            erste-schritte
-          </Connect(Link)>,
-          "_title": "erste-schritte",
-        },
       ]
+    }
+    currentBreadcrumb={
+      BreadcrumbModel {
+        "_link": "http://localhost/augsburg/de/erste-schritte",
+        "_node": <Connect(Link)
+          to="/augsburg/de/erste-schritte"
+        >
+          erste-schritte
+        </Connect(Link)>,
+        "_title": "erste-schritte",
+      }
     }
     direction="ltr"
   />
@@ -100,7 +101,7 @@ exports[`CategoriesPage should match snapshot and render a CategoryList if the c
 exports[`CategoriesPage should match snapshot and render a Page if page has no children 1`] = `
 <div>
   <Breadcrumbs
-    breadcrumbs={
+    ancestorBreadcrumbs={
       Array [
         BreadcrumbModel {
           "_link": "http://localhost/augsburg/de",
@@ -120,16 +121,18 @@ exports[`CategoriesPage should match snapshot and render a Page if page has no c
           </Connect(Link)>,
           "_title": "erste-schritte",
         },
-        BreadcrumbModel {
-          "_link": "http://localhost/augsburg/de/erste-schritte/asylantrag",
-          "_node": <Connect(Link)
-            to="/augsburg/de/erste-schritte/asylantrag"
-          >
-            asylantrag
-          </Connect(Link)>,
-          "_title": "asylantrag",
-        },
       ]
+    }
+    currentBreadcrumb={
+      BreadcrumbModel {
+        "_link": "http://localhost/augsburg/de/erste-schritte/asylantrag",
+        "_node": <Connect(Link)
+          to="/augsburg/de/erste-schritte/asylantrag"
+        >
+          asylantrag
+        </Connect(Link)>,
+        "_title": "asylantrag",
+      }
     }
     direction="ltr"
   />
