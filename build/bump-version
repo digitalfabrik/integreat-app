@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
-const { Octokit } = require('@octokit/rest')
-const { createAppAuth } = require('@octokit/auth-app')
+const authenticate = require('./github-authentication')
 const fs = require('fs')
 const { program } = require('commander')
 
@@ -40,14 +39,7 @@ const calculateNewVersion = versionFilePath => {
 }
 
 const commitVersionBump = async (newVersion, { versionFile, deliverinoPrivateKey, owner, repo, branch }) => {
-  const appId = 59249 // https://github.com/apps/deliverino
-  const privateKey = Buffer.from(deliverinoPrivateKey, 'base64').toString('ascii')
-
-  const octokit = new Octokit({ authStrategy: createAppAuth, auth: { id: appId, privateKey: privateKey } })
-  const { data: { id: installationId } } = await octokit.apps.getRepoInstallation({ owner, repo })
-  const { data: { token } } = await octokit.apps.createInstallationToken({ installation_id: installationId })
-
-  const appOctokit = new Octokit({ auth: token })
+  const appOctokit = await authenticate({ deliverinoPrivateKey, owner, repo })
   const versionFileContent = await appOctokit.repos.getContents({ owner, repo, path: versionFile, ref: branch })
 
   const { versionCode, versionName } = newVersion
@@ -67,7 +59,7 @@ const commitVersionBump = async (newVersion, { versionFile, deliverinoPrivateKey
     sha: versionFileContent.data.sha
   })
 
-  console.debug(`Bumped version successfully commited with message "${message}"`)
+  console.warn(`Bumped version successfully commited with message "${message}"`)
 }
 
 program
