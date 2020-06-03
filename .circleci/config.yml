@@ -11,7 +11,7 @@ parameters:
   build_config:
     type: enum
     description: Which build config to use and where to deploy to.
-    enum: ["integreat", "integreat-test-cms", "malte"]
+    enum: ["integreat", "integreat-test-cms"]
     default: "integreat-test-cms"
 
 workflows:
@@ -81,23 +81,6 @@ workflows:
           requires:
             - build
             - bump_version
-
-  bi-weekly-malte-delivery:
-    triggers:
-      - schedule:
-          cron: "0 5 1,15 * *" # For sanity checks for this syntax: https://crontab.guru/
-          filters:
-            branches:
-              only:
-                - develop
-    jobs:
-      - build:
-          build_config: "malte"
-      - deliver:
-          type: approval
-          deliver_to: "malte"
-          requires:
-            - build
 
 jobs:
   build:
