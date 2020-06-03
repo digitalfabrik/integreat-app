@@ -112,14 +112,15 @@ class SearchModal extends React.Component<PropsType, StateType> {
   }
 
   render () {
-    const { theme, closeModal } = this.props
+    const { theme, closeModal, t } = this.props
     const { query } = this.state
     return (
       <Wrapper theme={theme}>
         <SearchHeader theme={theme}
                       query={query}
                       closeSearchBar={closeModal}
-                      onSearchChanged={this.onSearchChanged} />
+                      onSearchChanged={this.onSearchChanged}
+                      t={t} />
         {this.renderContent()}
       </Wrapper>
     )
