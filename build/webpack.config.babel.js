@@ -16,13 +16,13 @@ const createConfig = (env = {}) => {
   } else if (!validConfigNames.includes(buildConfigName)) {
     throw new Error(`Invalid config name! Allowed configs: ${validConfigNames}`)
   } else if ((!production && !debug) || (production && debug)) {
-    throw new Error('You need to specify whether to build using debug or production mode!')
+    throw new Error('You need to set the build mode by either passing production or debug flag!')
   }
 
+  const isProductionBuild = production || !debug
+
   console.log('Used config: ', buildConfigName)
-  console.log('Production: ', production)
-  console.log(typeof production, !!production)
-  console.log(typeof debug, !!debug)
+  console.log('Production: ', isProductionBuild)
 
   const buildConfig = require(`./configs/${buildConfigName}`)
   const configAssets = path.resolve(__dirname, `./configs/${buildConfigName}/assets`)
@@ -41,7 +41,7 @@ const createConfig = (env = {}) => {
   ]
 
   const config = {
-    mode: production ? 'production' : 'development',
+    mode: isProductionBuild ? 'production' : 'development',
     resolve: {
       modules: [nodeModules]
     },
@@ -59,13 +59,13 @@ const createConfig = (env = {}) => {
     output: {
       path: distDirectory,
       publicPath: '/',
-      filename: production ? '[name].[hash].js' : '[name].js?[hash]',
-      chunkFilename: production ? '[id].[chunkhash].js' : '[id].js?[chunkhash]',
+      filename: isProductionBuild ? '[name].[hash].js' : '[name].js?[hash]',
+      chunkFilename: isProductionBuild ? '[id].[chunkhash].js' : '[id].js?[chunkhash]',
       sourcePrefix: '  '
     },
     // Developer tool to enhance debugging, source maps
     // http://webpack.github.io/docs/configuration.html#devtool
-    devtool: production ? false : 'source-map',
+    devtool: isProductionBuild ? false : 'source-map',
     devServer: {
       contentBase: distDirectory,
       compress: true,
@@ -94,8 +94,8 @@ const createConfig = (env = {}) => {
         { from: configAssets, to: distDirectory }
       ]),
       new webpack.DefinePlugin({
-        'process.env.NODE_ENV': production ? '"production"' : '"development"',
-        __DEV__: !production,
+        'process.env.NODE_ENV': isProductionBuild ? '"production"' : '"development"',
+        __DEV__: !isProductionBuild,
         __VERSION__: JSON.stringify(getVersion()),
         __CONFIG__: JSON.stringify(buildConfig)
       }),
@@ -107,8 +107,8 @@ const createConfig = (env = {}) => {
         prettyPrint: true
       }),
       new webpack.LoaderOptionsPlugin({
-        debug: !production,
-        minimize: production
+        debug: !isProductionBuild,
+        minimize: isProductionBuild
       })
     ],
     module: {
@@ -143,7 +143,7 @@ const createConfig = (env = {}) => {
             {
               loader: 'img-loader',
               options: {
-                enabled: production,
+                enabled: isProductionBuild,
                 gifsicle: {
                   interlaced: false
                 },
@@ -174,8 +174,8 @@ const createConfig = (env = {}) => {
     }
   }
 
-  // Optimize the bundle in release (production) mode
-  if (production) {
+  // Optimize the bundle in production mode
+  if (isProductionBuild) {
     config.plugins.push(new webpack.optimize.AggressiveMergingPlugin())
   }
 
