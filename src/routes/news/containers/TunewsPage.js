@@ -60,10 +60,8 @@ export class TunewsPage extends React.PureComponent<PropsType> {
     }
 
     const currentCity: CityModel = cities && cities.find(cityElement => cityElement.code === city)
-
     if (!currentCity.tunewsEnabled) {
-      const type = currentCity.pushNotificationsEnabled ? 'localNewsItem' : 'category'
-      const error = new ContentNotFoundError({ type, id: path, city: city, language })
+      const error = new ContentNotFoundError({ type: 'category', id: path, city: city, language })
       return <FailureSwitcher error={error} />
     }
 
