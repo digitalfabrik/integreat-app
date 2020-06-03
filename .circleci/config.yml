@@ -173,20 +173,17 @@ jobs:
       - run:
           name: Calculate next version
           command: |
-            echo "export NEW_VERSION_NAME=$(build/next-version calc | jq .versionName)" >> $BASH_ENV
-            source $BASH_ENV
+            echo "export NEW_VERSION_NAME=$(build/next-version calc | jq .versionName)" >> ${BASH_ENV}
+            source ${BASH_ENV}
       - run:
-          name: Print version
-          command: echo $NEW_VERSION_NAME
-#      - run:
-#          name: Create jira release
-#          command: build/create-jira-release ${NEW_VERSION_NAME} --private-key ${JIRA_PRIVATE_KEY} --access-token ${JIRA_OAUTH_TOKEN} --consumer-key ${JIRA_CONSUMER_KEY}
-#      - run:
-#          name: Move release notes
-#          command: build/move-release-notes move --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH} --new-version ${NEW_VERSION_NAME} --commit-sha ${CIRCLE_SHA1}
-#      - run:
-#          name: Bump version
-#          command: build/bump-version bump_to ${NEW_VERSION} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
+          name: Create jira release
+          command: build/create-jira-release createRelease ${NEW_VERSION_NAME} --private-key ${JIRA_PRIVATE_KEY} --access-token ${JIRA_OAUTH_TOKEN} --consumer-key ${JIRA_CONSUMER_KEY}
+      - run:
+          name: Move release notes
+          command: build/move-release-notes move --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH} --new-version-name ${NEW_VERSION_NAME} --commit-sha ${CIRCLE_SHA1}
+      - run:
+          name: Bump version
+          command: build/bump-version bump_to ${NEW_VERSION_NAME} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
 
   deliver:
     parameters:
@@ -207,12 +204,12 @@ jobs:
           steps:
             - run:
                 name: Print version
-                command: echo ${NEW_VERSION} | jq .versionName && echo ${NEW_VERSION} && echo ${NEW_VERSION_NAME}
+                command: echo ${NEW_VERSION_NAME}
 #            - run:
 #                name: Integreat production delivery # StrictHostKeyChecking=no is not a security problem. The worst that could happen is a delivery to the wrong domain.
 #                command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/integreat.app \<<< $'put -r /tmp/output/dist/*'
 #            - slack/notify:
-#                message: Integreat WebApp version ${VERSION_NAME} was delivered successfully to integreat.app!
+#                message: Integreat WebApp version $NEW_VERSION_NAME was delivered successfully to integreat.app!
 #                webhook: ${SLACK_URL}
       - when:
           condition:
