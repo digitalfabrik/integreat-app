@@ -13,9 +13,9 @@ program
   .requiredOption('--repo <repo>', 'the current repository, usually "integreat-webapp" or "integreat-react-native-app"')
   .requiredOption('--branch <branch>', 'the current branch')
   .requiredOption('--commit-sha <commit-sha>', 'the sha1 of the current commit')
-  .requiredOption('--new-version <new-version>', 'the new version name')
+  .requiredOption('--new-version-name <new-version-name>', 'the new version name')
 
-const moveReleaseNotes = async ({ newVersion, deliverinoPrivateKey, owner, repo, branch, commitSha }) => {
+const moveReleaseNotes = async ({ newVersionName, deliverinoPrivateKey, owner, repo, branch, commitSha }) => {
   const appOctokit = await authenticate({ deliverinoPrivateKey, owner, repo })
   const lastCommit = await appOctokit.git.getCommit({ owner, repo, commit_sha: commitSha })
 
@@ -31,7 +31,7 @@ const moveReleaseNotes = async ({ newVersion, deliverinoPrivateKey, owner, repo,
   const renameUnreleasedDir = releaseNoteTree.data.tree.map(it => {
     const { size, url, ...rest } = it
     if (it.path === UNRELEASED_DIR) {
-      return { ...rest, path: newVersion }
+      return { ...rest, path: newVersionName }
     }
     return it
   })
@@ -51,7 +51,7 @@ const moveReleaseNotes = async ({ newVersion, deliverinoPrivateKey, owner, repo,
   const renameCommit = await appOctokit.git.createCommit({
     owner,
     repo,
-    message: `Move release notes to ${newVersion}\n[skip ci]`,
+    message: `Move release notes to ${newVersionName}\n[skip ci]`,
     tree: updatedRootTree.data.sha,
     parents: [commitSha]
   })
@@ -66,7 +66,7 @@ const moveReleaseNotes = async ({ newVersion, deliverinoPrivateKey, owner, repo,
 
 program
   .command('move')
-  .description('move the release notes in \'unreleased\' to the subdirectory <new-version>')
+  .description('move the release notes in \'unreleased\' to the subdirectory <new-version-name>')
   .action(async () => {
     try {
       await moveReleaseNotes(program)

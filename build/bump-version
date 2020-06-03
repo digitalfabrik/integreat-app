@@ -12,18 +12,15 @@ program
   .requiredOption('--repo <repo>', 'the current repository, usually "integreat-webapp" or "integreat-react-native-app"')
   .requiredOption('--branch <branch>', 'the current branch')
 
-const commitAndTag = async (stringifiedNewVersion, { deliverinoPrivateKey, owner, repo, branch }) => {
+const commitAndTag = async (newVersionName, newVersionCode, { deliverinoPrivateKey, owner, repo, branch }) => {
   const appOctokit = await authenticate({ deliverinoPrivateKey, owner, repo })
   const versionFileContent = await appOctokit.repos.getContents({ owner, repo, path: VERSION_FILE, ref: branch })
 
-  const newVersion = JSON.parse(stringifiedNewVersion)
-  const { versionCode, versionName } = newVersion
+  const contentBase64 = Buffer.from(JSON.stringify({ newVersionName, newVersionCode })).toString('base64')
 
-  const contentBase64 = Buffer.from(stringifiedNewVersion).toString('base64')
-
-  const message = versionCode
-    ? `Bump version name to ${versionName} and version code to ${versionCode}\n[skip ci]`
-    : `Bump version name to ${versionName}\n[skip ci]`
+  const message = newVersionCode
+    ? `Bump version name to ${newVersionName} and version code to ${newVersionCode}\n[skip ci]`
+    : `Bump version name to ${newVersionName}\n[skip ci]`
 
   const commit = await appOctokit.repos.createOrUpdateFile({
     owner,
@@ -39,8 +36,8 @@ const commitAndTag = async (stringifiedNewVersion, { deliverinoPrivateKey, owner
 
   const commitSha = commit.data.commit.sha
 
-  const tag = `${versionName}${versionCode ? ` (version code: ${versionCode})` : ''}`
-  const tagMessage = `Release ${tag}. Release notes can be found in 'release-notes/${versionName}`
+  const tag = `${newVersionName}${newVersionCode ? ` (version code: ${newVersionCode})` : ''}`
+  const tagMessage = `Release ${tag}. Release notes can be found in 'release-notes/${newVersionName}`
 
   const test = await appOctokit.git.createTag({
     owner,
@@ -54,10 +51,11 @@ const commitAndTag = async (stringifiedNewVersion, { deliverinoPrivateKey, owner
 }
 
 program
-  .command('bump_to <next-version>')
-  .description('commits the supplied (stringified) version to github and tags the commit')
-  .action(async newVersion => {
+  .command('bump_to <new-version-name> [new-version-code]')
+  .description('commits the supplied version name and code to github and tags the commit')
+  .action(async (newVersionName, newVersionCode) => {
     try {
+      const newVersion = JSON.stringify({ newVersionName, newVersionCode })
       await commitAndTag(newVersion, { ...program })
     } catch (e) {
       console.error(e)
