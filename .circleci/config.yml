@@ -173,12 +173,11 @@ jobs:
       - run:
           name: Calculate next version
           command: |
-            echo "export NEW_VERSION=$(build/next-version calc)" >> $BASH_ENV
-            echo "export NEW_VERSION_NAME=$(echo NEW_VERSION | jq .versionName)" >> $BASH_ENV
+            echo "export NEW_VERSION_NAME=$(build/next-version calc | jq .versionName)" >> $BASH_ENV
             source $BASH_ENV
       - run:
           name: Print version
-          command: echo ${NEW_VERSION} | jq .versionName && echo ${NEW_VERSION} && echo ${NEW_VERSION_NAME}
+          command: echo $NEW_VERSION_NAME
 #      - run:
 #          name: Create jira release
 #          command: build/create-jira-release ${NEW_VERSION_NAME} --private-key ${JIRA_PRIVATE_KEY} --access-token ${JIRA_OAUTH_TOKEN} --consumer-key ${JIRA_CONSUMER_KEY}

@@ -58,13 +58,13 @@ const getFromJira = async path => {
   return response.json()
 }
 
-const createRelease = async (versionName, accessToken, privateKey, consumerKey) => {
+const createRelease = async (newVersionName, accessToken, privateKey, consumerKey) => {
   const date = new Date()
   const newReleaseDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
 
   // Create a new jira version
   await postToJira('/rest/api/2/version', {
-    name: versionName,
+    name: newVersionName,
     released: true,
     releaseDate: newReleaseDate,
     project: JIRA_PROJECT
@@ -104,13 +104,13 @@ const createRelease = async (versionName, accessToken, privateKey, consumerKey) 
 }
 
 program
-  .command('createRelease <version-name>')
-  .description('create a new release with the name <version-name> on jira and assign all issues resolved since the last release')
-  .action(async versionName => {
+  .command('createRelease <new-version-name>')
+  .description('create a new release with the name <new-version-name> on jira and assign all issues resolved since the last release')
+  .action(async newVersionName => {
     try {
       const { accessToken, privateKey, consumerKey } = program
 
-      await createRelease(versionName, accessToken, privateKey, consumerKey)
+      await createRelease(newVersionName, accessToken, privateKey, consumerKey)
     } catch (e) {
       console.error(e)
       process.exit(1)
