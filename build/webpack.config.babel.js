@@ -110,7 +110,7 @@ const createConfig = (env = {}) => {
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': isProductionBuild ? '"production"' : '"development"',
         __DEV__: !isProductionBuild,
-        __VERSION__: version,
+        __VERSION__: JSON.stringify(version),
         __CONFIG__: JSON.stringify(buildConfig)
       }),
       // Emit a JSON file with assets paths
