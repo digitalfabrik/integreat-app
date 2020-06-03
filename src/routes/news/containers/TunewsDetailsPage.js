@@ -54,16 +54,16 @@ const Content = styled.p`
 type PropsType = {|
   tunewsElement: TunewsModel,
   language: string,
-  path: string,
+  id: number,
   city: string
 |}
 
 export class TunewsDetailsPage extends React.PureComponent<PropsType> {
   render () {
-    const { tunewsElement, language, path, city } = this.props
+    const { tunewsElement, language, id, city } = this.props
 
     if (!tunewsElement) {
-      const error = new ContentNotFoundError({ type: 'tunewsItem', id: path, city, language })
+      const error = new ContentNotFoundError({ type: 'tunewsItem', id, city, language })
       return <FailureSwitcher error={error} />
     }
 
@@ -87,7 +87,7 @@ export class TunewsDetailsPage extends React.PureComponent<PropsType> {
 
 const mapStateToProps = (state: StateType) => ({
   language: state.location.payload.language,
-  path: state.location.pathname,
+  id: state.location.payload.id,
   city: state.location.payload.city
 })
 

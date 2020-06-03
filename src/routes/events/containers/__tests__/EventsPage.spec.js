@@ -114,7 +114,6 @@ describe('EventsPage', () => {
       <EventsPage events={events}
                   cities={cities}
                   city={city}
-                  path='/augsburg/en/events'
                   eventId={undefined}
                   t={t}
                   language={language} />
@@ -129,7 +128,6 @@ describe('EventsPage', () => {
                   city={city}
                   t={t}
                   language={language}
-                  path='/augsburg/en/events/first_event'
                   eventId='first_event' />
     )
     expect(wrapper).toMatchSnapshot()
@@ -142,7 +140,6 @@ describe('EventsPage', () => {
                   city={city}
                   t={t}
                   language={language}
-                  path='/augsburg/en/events/invalid_event'
                   eventId='invalid_event' />
     )
     expect(wrapper).toMatchSnapshot()
@@ -167,7 +164,6 @@ describe('EventsPage', () => {
       city,
       language,
       eventId: 'id',
-      path: '/augsburg/en/events/id',
       events,
       cities,
       t: expect.any(Function),

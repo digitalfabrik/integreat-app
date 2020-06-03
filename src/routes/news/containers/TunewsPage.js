@@ -16,6 +16,7 @@ import ContentNotFoundError from '../../../modules/common/errors/ContentNotFound
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import CityNotFoundError from '../../../modules/app/errors/CityNotFoundError'
 import { fetchTunews } from '../actions/fetchTunews'
+import TunewsDetailsRouteConfig from '../../../modules/app/route-configs/TunewsDetailsRouteConfig'
 
 type PropsType = {|
   tunews: Array<TunewsModel>,
@@ -31,8 +32,8 @@ type PropsType = {|
 |}
 
 export class TunewsPage extends React.PureComponent<PropsType> {
-  renderTunewsElement = (language: string) => (tunewsItem: TunewsModel, city: string) => {
-    const { path, t } = this.props
+  renderTunewsElement = (city: string, language: string) => (tunewsItem: TunewsModel, city: string) => {
+    const { t } = this.props
     const { id, title, content, date } = tunewsItem
     return (
       <NewsElement
@@ -41,8 +42,8 @@ export class TunewsPage extends React.PureComponent<PropsType> {
         content={content}
         timestamp={date}
         key={id}
-        path={path}
         t={t}
+        link={new TunewsDetailsRouteConfig().getRoutePath({ city, language, id })}
         language={language}
         type={TU_NEWS}
       />
@@ -71,16 +72,16 @@ export class TunewsPage extends React.PureComponent<PropsType> {
 
     return (
       <NewsTabs type={TU_NEWS} city={city} cities={cities} t={t} language={language}>
-          <TunewsList
-            items={tunews}
-            renderItem={this.renderTunewsElement(language)}
-            city={city}
-            fetchMoreTunews={fetchTunews}
-            hasMore={hasMore}
-            isFetching={isFetching}
-            language={language}
-            noItemsMessage={t('currentlyNoNews')}
-          />
+        <TunewsList
+          items={tunews}
+          renderItem={this.renderTunewsElement(city, language)}
+          city={city}
+          fetchMoreTunews={fetchTunews}
+          hasMore={hasMore}
+          isFetching={isFetching}
+          language={language}
+          noItemsMessage={t('currentlyNoNews')}
+        />
       </NewsTabs>
     )
   }

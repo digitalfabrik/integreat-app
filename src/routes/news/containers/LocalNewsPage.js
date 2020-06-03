@@ -15,6 +15,7 @@ import LoadingSpinner from '../../../modules/common/components/LoadingSpinner'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import CityNotFoundError from '../../../modules/app/errors/CityNotFoundError'
+import LocalNewsDetailsRouteConfig from '../../../modules/app/route-configs/LocalNewsDetailsRouteConfig'
 
 type PropsType = {|
   localNews: Array<LocalNewsModel>,
@@ -27,7 +28,7 @@ type PropsType = {|
 |}
 
 export class LocalNewsPage extends React.Component<PropsType> {
-  renderLocalNewsElement = (language: string) => (localNewsItem: LocalNewsModel, city: string) => {
+  renderLocalNewsElement = (city: string, language: string) => (localNewsItem: LocalNewsModel) => {
     const { id, title, message, timestamp } = localNewsItem
     return <NewsElement
       id={id}
@@ -35,7 +36,7 @@ export class LocalNewsPage extends React.Component<PropsType> {
       content={message}
       timestamp={timestamp}
       key={id}
-      path={this.props.path}
+      link={new LocalNewsDetailsRouteConfig().getRoutePath({ city, language, id })}
       t={this.props.t}
       language={language}
       type={LOCAL_NEWS}
@@ -64,7 +65,7 @@ export class LocalNewsPage extends React.Component<PropsType> {
         <LocalNewsList
           items={localNews}
           noItemsMessage={t('currentlyNoNews')}
-          renderItem={this.renderLocalNewsElement(language)}
+          renderItem={this.renderLocalNewsElement(city, language)}
           city={city}
         />
       </NewsTabs>

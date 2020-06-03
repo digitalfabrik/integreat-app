@@ -78,7 +78,6 @@ describe('PoisPage', () => {
                 t={t}
                 city={city}
                 language={language}
-                path='/augsburg/en/locations/third_poi'
                 poiId='third_poi' />
     )).toMatchSnapshot()
   })
@@ -89,7 +88,6 @@ describe('PoisPage', () => {
                 t={t}
                 city={city}
                 language={language}
-                path='/augsburg/en/locations/invalid_poi'
                 poiId='invalid_poi' />
     )).toMatchSnapshot()
   })
@@ -100,7 +98,6 @@ describe('PoisPage', () => {
                 t={t}
                 city={city}
                 language={language}
-                path='/augsburg/en/locations'
                 poiId={undefined} />
     )).toMatchSnapshot()
   })
@@ -111,7 +108,6 @@ describe('PoisPage', () => {
                 t={t}
                 city={city}
                 language={language}
-                path='/augsburg/en/locations'
                 poiId={undefined} />
     )
 

@@ -31,10 +31,11 @@ describe('LocalNewsDetailsPage', () => {
   const city = 'augsburg'
   const language = 'en'
   const path = '/augsburg/en/news/local/1'
+  const id = 1
 
   it('should map state to props', () => {
     const location = createLocation({
-      payload: { city: city, language: language },
+      payload: { city: city, language: language, id },
       pathname: path,
       type: LOCAL_NEWS_DETAILS_ROUTE
     })
@@ -52,7 +53,7 @@ describe('LocalNewsDetailsPage', () => {
     expect(tree.find(LocalNewsDetailsPage).props()).toEqual({
       city,
       language,
-      path,
+      id,
       localNewsElement,
       dispatch: expect.any(Function)
     })
