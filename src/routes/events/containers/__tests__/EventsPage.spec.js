@@ -5,7 +5,7 @@ import { mount, shallow } from 'enzyme'
 import moment from 'moment'
 
 import ConnectedEventsPage, { EventsPage } from '../EventsPage'
-import { DateModel, EventModel, LocationModel } from '@integreat-app/integreat-api-client'
+import { CityModel, DateModel, EventModel, LocationModel } from '@integreat-app/integreat-api-client'
 import createReduxStore from '../../../../modules/app/createReduxStore'
 import { Provider } from 'react-redux'
 import createLocation from '../../../../createLocation'
@@ -100,6 +100,20 @@ describe('EventsPage', () => {
       hash: '2fe6283485c93932'
     })
   ]
+  const cities = [new CityModel({
+    name: 'Augsburg',
+    code: 'augsburg',
+    live: true,
+    eventsEnabled: true,
+    extrasEnabled: true,
+    pushNotificationsEnabled: true,
+    tunewsEnabled: true,
+    sortingName: 'Augsburg',
+    prefix: null,
+    latitude: null,
+    longitude: null,
+    aliases: null
+  })]
 
   const city = 'augsburg'
 
@@ -109,6 +123,7 @@ describe('EventsPage', () => {
   it('should match snapshot and render EventList', () => {
     const wrapper = shallow(
       <EventsPage events={events}
+                  cities={cities}
                   city={city}
                   path='/augsburg/en/events'
                   eventId={undefined}
@@ -121,6 +136,7 @@ describe('EventsPage', () => {
   it('should match snapshot and render EventDetail', () => {
     const wrapper = shallow(
       <EventsPage events={events}
+                  cities={cities}
                   city={city}
                   t={t}
                   language={language}
@@ -136,6 +152,7 @@ describe('EventsPage', () => {
   it('should match snapshot and render Failure if event does not exist', () => {
     const wrapper = shallow(
       <EventsPage events={events}
+                  cities={cities}
                   city={city}
                   t={t}
                   language={language}
@@ -156,7 +173,7 @@ describe('EventsPage', () => {
 
     const tree = mount(
       <Provider store={store}>
-        <ConnectedEventsPage events={events} />
+        <ConnectedEventsPage events={events} cities={cities} />
       </Provider>
     )
 
@@ -166,6 +183,7 @@ describe('EventsPage', () => {
       eventId: 'id',
       path: '/augsburg/en/events/id',
       events,
+      cities,
       t: expect.any(Function),
       i18n: expect.anything(),
       dispatch: expect.any(Function)
