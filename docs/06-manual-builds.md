@@ -4,7 +4,6 @@ If you want to run the app locally or create `.ipa` or `.apk` builds for testing
 
 ## Manually building for iOS
 
-
 ### Setup
 
 #### Prerequisites
