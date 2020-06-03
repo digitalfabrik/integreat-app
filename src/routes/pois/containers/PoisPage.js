@@ -38,6 +38,7 @@ export class PoisPage extends React.Component<PropsType> {
       const poi = pois.find(_poi => _poi.path === path)
 
       if (poi) {
+        const location = poi.location.location
         return (
           <Page thumbnail={poi.thumbnail}
                 lastUpdate={poi.lastUpdate}
@@ -45,7 +46,7 @@ export class PoisPage extends React.Component<PropsType> {
                 title={poi.title}
                 language={language}
                 onInternalLinkClick={push}>
-            {poi.location.location && <PageDetail identifier={t('location')} information={poi.location.location} />}
+            {location && <PageDetail identifier={t('location')} information={location} />}
           </Page>
         )
       } else {

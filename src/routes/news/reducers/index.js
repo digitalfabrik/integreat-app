@@ -1,50 +1,39 @@
 // @flow
 
-import { Payload, TunewsModel, TUNEWS_ENDPOINT_NAME } from '@integreat-app/integreat-api-client'
-import type { PayloadDataType } from '../../../modules/app/PayloadDataType'
+import { Payload, TUNEWS_ENDPOINT_NAME, TunewsModel } from '@integreat-app/integreat-api-client'
 import { startFetchActionName } from '../../../modules/app/actions/startFetchAction'
-import { startFetchMoreActionName } from '../../../modules/app/actions/startFetchMoreAction'
 import { finishFetchActionName } from '../../../modules/app/actions/finishFetchAction'
-import { finishFetchMoreActionName } from '../../../modules/app/actions/finishFetchMoreAction'
+import { type ReduxReducer } from 'redux-actions'
+import type { TunewsStateType } from '../../../modules/app/StateType'
 
-type TuNewsFetchActionType<T: PayloadDataType> = { type: string, payload: Payload<T> }
+type TunewsFetchActionType = { type: string, payload: Payload<Array<TunewsModel>> }
 
-const defaultState = new Payload(false, false, [])
+const defaultState = { allData: [], hasMore: true, payload: new Payload(false, null, null, null) }
 
-const fetchTunewsReducer = (
-  state: Payload<Array<TunewsModel>> = defaultState,
-  action: TuNewsFetchActionType<TunewsModel>
+const fetchTunewsReducer: ReduxReducer<TunewsStateType, TunewsFetchActionType> = (
+  state: TunewsStateType = defaultState,
+  action: TunewsFetchActionType
 ) => {
   switch (action.type) {
     case startFetchActionName(TUNEWS_ENDPOINT_NAME):
       return {
-        data: [],
-        requestUrl: action.payload.requestUrl,
-        isFetching: state.isFetching,
-        isFetchingFirstTime: true
+        allData: state.allData,
+        hasMore: state.hasMore,
+        payload: action.payload
       }
-    case finishFetchActionName(TUNEWS_ENDPOINT_NAME):
-      return {
-        data: [...action.payload.data],
-        requestUrl: action.payload.requestUrl,
-        isFetching: state.isFetching,
-        hasMore: action.payload.data.length !== 0,
-        isFetchingFirstTime: false
+    case finishFetchActionName(TUNEWS_ENDPOINT_NAME): {
+      const data = action.payload.data
+      if (!data) {
+        return {
+          allData: state.allData,
+          hasMore: state.hasMore,
+          payload: action.payload
+        }
       }
-    case startFetchMoreActionName(TUNEWS_ENDPOINT_NAME):
       return {
-        data: [...state.data],
-        requestUrl: state.requestUrl,
-        isFetching: state.isFetching,
-        isFetchingFirstTime: false
-      }
-    case finishFetchMoreActionName(TUNEWS_ENDPOINT_NAME): {
-      return {
-        data: [...state.data, ...action.payload.data],
-        requestUrl: state.requestUrl,
-        isFetching: state.isFetching,
-        hasMore: action.payload.data.length !== 0,
-        isFetchingFirstTime: false
+        allData: [...state.allData, ...data],
+        hasMore: data.length !== 0,
+        payload: action.payload
       }
     }
     default:

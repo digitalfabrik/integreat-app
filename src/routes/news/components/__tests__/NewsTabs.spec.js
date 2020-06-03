@@ -29,7 +29,10 @@ describe('NewsTabs', () => {
       extrasEnabled: false,
       tunewsEnabled: true,
       pushNotificationsEnabled: true,
-      sortingName: 'Test City'
+      sortingName: 'Test City',
+      longitude: null,
+      latitude: null,
+      prefix: null
     }),
     new CityModel({
       name: 'Other city',
@@ -39,7 +42,11 @@ describe('NewsTabs', () => {
       extrasEnabled: false,
       tunewsEnabled: false,
       pushNotificationsEnabled: false,
-      sortingName: 'Other City'
+      sortingName: 'Other City',
+      longitude: null,
+      latitude: null,
+      aliases: null,
+      prefix: null
     }),
     new CityModel({
       name: 'Not-live',
@@ -49,7 +56,11 @@ describe('NewsTabs', () => {
       extrasEnabled: false,
       tunewsEnabled: false,
       pushNotificationsEnabled: false,
-      sortingName: 'Not-live'
+      sortingName: 'Not-live',
+      longitude: null,
+      latitude: null,
+      aliases: null,
+      prefix: null
     }),
     new CityModel({
       name: 'Yet another city',
@@ -59,7 +70,11 @@ describe('NewsTabs', () => {
       extrasEnabled: false,
       tunewsEnabled: false,
       pushNotificationsEnabled: false,
-      sortingName: 'Yet another city'
+      sortingName: 'Yet another city',
+      longitude: null,
+      latitude: null,
+      aliases: null,
+      prefix: null
     })
   ]
 

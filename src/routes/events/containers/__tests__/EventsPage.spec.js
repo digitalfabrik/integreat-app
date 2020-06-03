@@ -26,14 +26,18 @@ describe('EventsPage', () => {
         allDay: true
       }),
       location: new LocationModel({
+        name: 'name',
         address: 'address',
         town: 'town',
-        postcode: 'postcode'
+        postcode: 'postcode',
+        longitude: null,
+        latitude: null
       }),
       excerpt: 'excerpt',
       lastUpdate: moment('2016-01-07 10:36:24'),
       content: 'content',
       thumbnail: 'thumbnail',
+      featuredImage: null,
       hash: '2fe6283485a93932'
     }),
     new EventModel({
@@ -47,14 +51,18 @@ describe('EventsPage', () => {
         allDay: true
       }),
       location: new LocationModel({
+        name: 'name',
         address: 'address',
         town: 'town',
-        postcode: 'postcode'
+        postcode: 'postcode',
+        latitude: null,
+        longitude: null
       }),
       content: 'content',
       excerpt: 'excerpt',
       lastUpdate: moment('2016-01-07 10:36:24'),
       thumbnail: 'thumbnail',
+      featuredImage: null,
       hash: '2fe6283485b93932'
     }),
     new EventModel({
@@ -68,14 +76,18 @@ describe('EventsPage', () => {
         allDay: true
       }),
       location: new LocationModel({
+        name: 'name',
         address: 'address',
         town: 'town',
-        postcode: 'postcode'
+        postcode: 'postcode',
+        latitude: null,
+        longitude: null
       }),
       content: 'content',
       excerpt: 'excerpt',
       lastUpdate: moment('2016-01-07 10:36:24'),
       thumbnail: 'thumbnail',
+      featuredImage: null,
       hash: '2fe6283485c93932'
     })
   ]
