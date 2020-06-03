@@ -3,7 +3,7 @@
 import React from 'react'
 
 import styled, { css } from 'styled-components'
-import appConfig from '../../app/constants/appConfig'
+import buildConfig from '../../app/constants/buildConfig'
 
 const SandBox = styled.div`
   font-family: ${props => props.theme.fonts.contentFontFamily};
@@ -68,7 +68,7 @@ type PropsType = {|
   centered: boolean
 |}
 
-const HIJACK = new RegExp(appConfig.internalLinksHijackPattern)
+const HIJACK = new RegExp(buildConfig.internalLinksHijackPattern)
 
 class RemoteContent extends React.Component<PropsType> {
   static defaultProps = {
