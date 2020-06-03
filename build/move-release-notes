@@ -1,0 +1,95 @@
+#!/usr/bin/env node
+
+const authenticate = require('./github-authentication')
+const { program } = require('commander')
+
+const RELEASE_NOTE_DIR = 'release-notes'
+const UNRELEASED_DIR = 'unreleased'
+
+program
+  .option('-d, --debug', 'enable extreme logging')
+  .option('--dry-run', 'prevent actual commit of the updated version.json to github')
+  .requiredOption('--deliverino-private-key <deliverino-private-key>', 'private key of the deliverino github app in pem format with base64 encoding')
+  .requiredOption('--owner <owner>', 'owner of the current repository, usually "Integreat"')
+  .requiredOption('--repo <repo>', 'the current repository, usually "integreat-webapp" or "integreat-react-native-app"')
+  .requiredOption('--branch <branch>', 'the current branch')
+  .requiredOption('--commit-sha <commit-sha>', 'the sha1 of the current commit')
+  .requiredOption('--new-version <new-version>', 'the new version name')
+
+const moveReleaseNotes = async (newVersion, { deliverinoPrivateKey, owner, repo, branch, commitSha }) => {
+  const appOctokit = await authenticate({ deliverinoPrivateKey, owner, repo })
+  const lastCommit = await appOctokit.git.getCommit({ owner, repo, commit_sha: commitSha })
+
+  // Tree of the root folder of the project
+  const rootTreeSha = lastCommit.data.tree.sha
+  const rootTree = await appOctokit.git.getTree({ owner, repo, tree_sha: rootTreeSha })
+
+  // Tree of the 'release-notes' folder of the project
+  const releaseNoteTreeSha = rootTree.data.tree.find(it => it.path === RELEASE_NOTE_DIR).sha
+  const releaseNoteTree = await appOctokit.git.getTree({ owner, repo, tree_sha: releaseNoteTreeSha })
+
+  // Rename the dir 'unreleased' to <newVersion> and keep everything else
+  const renameUnreleasedDir = releaseNoteTree.data.tree.map(it => {
+    const { size, url, ...rest } = it
+    if (it.path === UNRELEASED_DIR) {
+      return { ...rest, path: newVersion }
+    }
+    return it
+  })
+  const renameUnreleasedTree = await appOctokit.git.createTree({ owner, repo, tree: renameUnreleasedDir })
+
+  // Update the root tree with the new 'release-notes' tree
+  const rootUpdate = rootTree.data.tree.map(it => {
+    const { size, url, ...rest } = it
+    if (it.path === RELEASE_NOTE_DIR) {
+      return { ...rest, sha: renameUnreleasedTree.data.sha }
+    }
+    return it
+  })
+  const updatedRootTree = await appOctokit.git.createTree({ owner, repo, tree: rootUpdate })
+
+  // Commit the changes in the tree
+  const renameCommit = await appOctokit.git.createCommit({
+    owner,
+    repo,
+    message: `Move release notes to ${newVersion}\n[skip ci]`,
+    tree: updatedRootTree.data.sha,
+    parents: [commitSha]
+  })
+
+  await appOctokit.git.updateRef({
+    owner,
+    repo,
+    ref: `heads/${branch}`,
+    sha: renameCommit.data.sha
+  })
+}
+
+program
+  .command('move')
+  .description('move the release notes in <release-note-path> to the subdirectory <new-version>')
+  .action(async () => {
+    try {
+      const { dryRun, newVersion, deliverinoPrivateKey, owner, repo, branch, commitSha } = program
+      if (!dryRun) {
+        if (!deliverinoPrivateKey) {
+          throw new Error('deliverino private key not specified')
+        } else if (!owner) {
+          throw new Error('owner not specified')
+        } else if (!repo) {
+          throw new Error('repo not specified')
+        } else if (!branch) {
+          throw new Error('branch not specified')
+        }
+      }
+
+      if (!dryRun) {
+        await moveReleaseNotes(newVersion, { deliverinoPrivateKey, owner, repo, branch, commitSha })
+      }
+    } catch (e) {
+      console.error(e)
+      process.exit(1)
+    }
+  })
+
+program.parse(process.argv)
