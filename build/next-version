@@ -18,6 +18,9 @@ const calculateNewVersion = () => {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
 
+  console.warn(versionName)
+  console.warn(year)
+  console.warn(month)
   const versionNameCounter = year === versionNameParts[0] && month === versionNameParts[1] ? versionNameParts[2] + 1 : 0
   const newVersionName = `${year}.${month}.${versionNameCounter}`
   const newVersionCode = versionCode ? versionCode + 1 : undefined
