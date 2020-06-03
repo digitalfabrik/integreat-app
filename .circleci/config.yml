@@ -30,13 +30,15 @@ workflows:
           requires:
             - build
 
-  api-triggered-delivery: # Workflow for manual delivery
-    when: << pipeline.parameters.api_triggered >>
+  api-triggered-integreat-delivery: # Workflow for manual delivery of integreat which also bumps the version
+    when:
+      and:
+        - << pipeline.parameters.api_triggered >>
+        - equal: [ "integreat", << pipeline.parameters.build_config >> ]
     jobs:
       - build:
           build_config: << pipeline.parameters.build_config >>
       - bump_version:
-          build_config: << pipeline.parameters.build_config >>
           requires:
             - build
       - deliver:
@@ -44,6 +46,20 @@ workflows:
           requires:
             - build
             - bump_version
+
+  api-triggered-delivery: # Workflow for manual delivery of integreat-test-cms and malte
+    when:
+      and:
+        - << pipeline.parameters.api_triggered >>
+        - not:
+          equal: [ "integreat", << pipeline.parameters.build_config >> ]
+    jobs:
+      - build:
+          build_config: << pipeline.parameters.build_config >>
+      - deliver:
+          deliver_to: << pipeline.parameters.build_config >>
+          requires:
+            - build
 
   bi-weekly-integreat-delivery:
     triggers:
@@ -57,7 +73,6 @@ workflows:
       - build:
           build_config: "integreat"
       - bump_version:
-          build_config: "integreat"
           requires:
             - build
       - deliver:
@@ -200,11 +215,6 @@ jobs:
                 command: echo "Skip delivery"
 
   bump_version:
-    parameters:
-      build_config:
-        description: Which build config to use. Only bump version if build_config is "integreat".
-        type: enum
-        enum: ["integreat", "integreat-test-cms", "malte"]
     docker:
       - image: circleci/node:12.16.3
     resource_class: small
@@ -212,17 +222,6 @@ jobs:
       - checkout
       - attach_workspace:
           at: .
-      - when:
-          condition:
-            equal: [ "integreat", << parameters.build_config >> ]
-          steps:
-            - run:
-                name: Bump version
-                command: tools/bump-version bump-version --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
-      - unless:
-          condition:
-            equal: [ "integreat", << parameters.build_config >> ]
-          steps:
-            - run:
-                name: Skip version bump
-                command: echo "skip version bump"
+      - run:
+          name: Bump version
+          command: tools/bump-version bump-version --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
