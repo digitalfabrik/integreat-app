@@ -82,9 +82,9 @@ If you do not have Fastlane installed [you can skip to the next section](#quick-
 #### Prerequisites
 * Setup the Android SDK
 
-### Run the app in an Emulator
+### Run the app in an Emulator or Device
 
-If you want to quickly run the app in an emulator do the following:
+If you want to quickly run the app in an emulator or connected device do the following:
 
 ```bash
 yarn
