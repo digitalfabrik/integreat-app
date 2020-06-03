@@ -1,7 +1,7 @@
 // @flow
 
 import EventsRouteConfig from '../EventsRouteConfig'
-import { DateModel, EventModel, LocationModel, Payload } from '@integreat-app/integreat-api-client'
+import { CityModel, DateModel, EventModel, LocationModel, Payload } from '@integreat-app/integreat-api-client'
 import moment from 'moment'
 import createLocation from '../../../../createLocation'
 
@@ -32,8 +32,23 @@ const events = [
     thumbnail: 'thumbnail'
   })
 ]
+const cities = [new CityModel({
+  name: 'Augsburg',
+  code: 'augsburg',
+  live: true,
+  eventsEnabled: true,
+  extrasEnabled: true,
+  pushNotificationsEnabled: true,
+  tunewsEnabled: true,
+  sortingName: 'Augsburg',
+  prefix: null,
+  latitude: null,
+  longitude: null,
+  aliases: null
+})]
 const eventsPayload = new Payload(false, 'https://random.api.json', events, null)
-const payloads = { events: eventsPayload }
+const citiesPayload = new Payload(false, 'https://random.api.json', cities, null)
+const payloads = { events: eventsPayload, cities: citiesPayload }
 
 const t = (key: ?string): string => key || ''
 
@@ -51,7 +66,7 @@ describe('EventsRouteConfig', () => {
       localNewsElementPayload: new Payload(true),
       tunewsPayload: new Payload(true),
       tunewsElementPayload: new Payload(true),
-      citiesPayload: new Payload(true),
+      citiesPayload: citiesPayload,
       categoriesPayload: new Payload(true),
       disclaimerPayload: new Payload(true),
       extrasPayload: new Payload(true),
@@ -132,10 +147,10 @@ describe('EventsRouteConfig', () => {
         .toBe('pageTitles.events - Augsburg')
     })
 
-    it('the city name is null', () => {
+    it('the city is wrong', () => {
       const rootLocation = createLocation({
-        payload: { city: 'augsburg', language: 'de' },
-        pathname: '/augsburg/de/',
+        payload: { city: 'doesnt-exist', language: 'de' },
+        pathname: '/doesnt-exist/de/',
         type: eventsRouteConfig.name
       })
 

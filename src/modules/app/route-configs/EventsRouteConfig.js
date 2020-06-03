@@ -4,6 +4,7 @@ import type { AllPayloadsType } from './RouteConfig'
 import { RouteConfig } from './RouteConfig'
 import type { Route } from 'redux-first-router'
 import {
+  CityModel,
   createCitiesEndpoint,
   createEventsEndpoint,
   createLanguagesEndpoint,
@@ -14,8 +15,8 @@ import fetchData from '../fetchData'
 import { cmsApiBaseUrl } from '../constants/urls'
 import type { StateType } from '../StateType'
 
-type EventsRouteParamsType = {|city: string, language: string|}
-type RequiredPayloadsType = {|events: Payload<Array<EventModel>>|}
+type EventsRouteParamsType = {| city: string, language: string |}
+type RequiredPayloadsType = {| events: Payload<Array<EventModel>>, cities: Payload<Array<CityModel>> |}
 
 export const EVENTS_ROUTE = 'EVENTS'
 
@@ -36,6 +37,7 @@ const eventsRoute: Route = {
     ])
   }
 }
+
 class EventsRouteConfig implements RouteConfig<EventsRouteParamsType, RequiredPayloadsType> {
   name = EVENTS_ROUTE
   route = eventsRoute
@@ -53,16 +55,20 @@ class EventsRouteConfig implements RouteConfig<EventsRouteParamsType, RequiredPa
     return this.getRoutePath({ city, language })
   }
 
-  getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType => ({ events: payloads.eventsPayload })
+  getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType => ({
+    cities: payloads.citiesPayload,
+    events: payloads.eventsPayload
+  })
 
-  getPageTitle = ({ t, payloads, cityName, location }) => {
-    if (!cityName) {
+  getPageTitle = ({ t, payloads, location }) => {
+    const city = payloads.cities.data && payloads.cities.data.find(_city => _city.code === location.payload.city)
+    if (!city || !city.eventsEnabled) {
       return null
     }
     const pathname = location.pathname
     const events = payloads.events.data
     const event = events && events.find(event => event.path === pathname)
-    return `${event ? event.title : t('pageTitles.events')} - ${cityName}`
+    return `${event ? event.title : t('pageTitles.events')} - ${city.name}`
   }
 
   getRoutePath = ({ city, language }: EventsRouteParamsType): string => `/${city}/${language}/events`

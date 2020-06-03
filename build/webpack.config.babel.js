@@ -5,10 +5,17 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 const babelConfig = require('../.babelrc.js')
-const getVersion = require('git-repo-version')
+const fs = require('fs')
+
+const SHORT_COMMIT_SHA_LENGTH = 8
+
+const readVersionName = () => {
+  const versionFile = fs.readFileSync(path.resolve(__dirname, '../version.json'))
+  return JSON.parse(versionFile).versionName
+}
 
 const createConfig = (env = {}) => {
-  const { config_name: buildConfigName, production, debug } = env
+  const { config_name: buildConfigName, production, debug, commit_sha: commitSha, version_name: versionName } = env
   const validConfigNames = ['integreat', 'integreat-test-cms', 'malte']
 
   if (!buildConfigName) {
@@ -21,8 +28,15 @@ const createConfig = (env = {}) => {
 
   const isProductionBuild = production || !debug
 
+  // If version_name is not supplied read it from version file
+  let version = versionName || readVersionName()
+  if (commitSha) {
+    version = `${version}+${commitSha.substring(0, SHORT_COMMIT_SHA_LENGTH)}`
+  }
+
   console.log('Used config: ', buildConfigName)
   console.log('Production: ', isProductionBuild)
+  console.log('Version: ', version)
 
   const buildConfig = require(`./configs/${buildConfigName}`)
   const configAssets = path.resolve(__dirname, `./configs/${buildConfigName}/assets`)
@@ -96,7 +110,7 @@ const createConfig = (env = {}) => {
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': isProductionBuild ? '"production"' : '"development"',
         __DEV__: !isProductionBuild,
-        __VERSION__: JSON.stringify(getVersion()),
+        __VERSION__: JSON.stringify(version),
         __CONFIG__: JSON.stringify(buildConfig)
       }),
       // Emit a JSON file with assets paths
