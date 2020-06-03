@@ -2,7 +2,7 @@
 
 import finishFetchAction, { finishFetchActionName } from '../finishFetchAction'
 import lolex from 'lolex'
-import { Payload } from '@integreat-app/integreat-api-client'
+import { CityModel, Payload } from '@integreat-app/integreat-api-client'
 
 describe('finishFetchAction', () => {
   let clock
@@ -21,7 +21,7 @@ describe('finishFetchAction', () => {
   })
 
   it('should create the right action', () => {
-    const payload = new Payload(false, 'https://random_api.json', 'data', null)
+    const payload = new Payload<CityModel[]>(false, 'https://random_api.json', [], null)
     expect(finishFetchAction('endpoint', payload)).toEqual({
       type: finishFetchActionName('endpoint'),
       payload: payload

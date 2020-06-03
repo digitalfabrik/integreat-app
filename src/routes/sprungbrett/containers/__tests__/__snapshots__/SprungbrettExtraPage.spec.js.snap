@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SprungbrettExtraPage should render error if extra is not supported 1`] = `
-<Translate(FailureSwitcher)
+<FailureSwitcher
   error={[Error: The Sprunbrett extra is not supported.]}
 />
 `;

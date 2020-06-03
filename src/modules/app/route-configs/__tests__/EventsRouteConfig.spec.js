@@ -17,10 +17,14 @@ const events = [
       endDate: moment('2017-11-18T19:30:00.000Z'),
       allDay: true
     }),
+    featuredImage: null,
     location: new LocationModel({
+      name: 'name',
       address: 'address',
       town: 'town',
-      postcode: 'postcode'
+      postcode: 'postcode',
+      latitude: null,
+      longitude: null
     }),
     excerpt: 'excerpt',
     lastUpdate: moment('2016-01-07 10:36:24'),
