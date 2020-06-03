@@ -10,7 +10,7 @@ import { TU_NEWS } from '../../constants'
 
 describe('TunewsList', () => {
   const language = 'en'
-  const path = '/testumgebung/en/news/local'
+  const link = '/testumgebung/en/news/local'
   const t = (key: ?string): string => key || ''
   const city = 'testcity'
 
@@ -21,7 +21,7 @@ describe('TunewsList', () => {
     timestamp={date}
     type={TU_NEWS}
     key={id}
-    path={path}
+    link={link}
     t={t}
     language={language}
   />
