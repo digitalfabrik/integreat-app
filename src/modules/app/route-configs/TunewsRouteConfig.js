@@ -9,13 +9,16 @@ import {
   createTunewsEndpoint,
   createTunewsLanguagesEndpoint,
   TunewsModel,
-  Payload
+  Payload, CityModel
 } from '@integreat-app/integreat-api-client'
 import fetchData from '../fetchData'
 import { cmsApiBaseUrl, tunewsApiBaseUrl } from '../constants/urls'
 
 type TunewsRouteParamsType = {| city: string, language: string |}
-type RequiredPayloadsType = {| tunews: Payload<Array<TunewsModel>> |}
+type RequiredPayloadsType = {|
+  tunews: Payload<Array<TunewsModel>>,
+  cities: Payload<Array<CityModel>>
+|}
 
 export const TUNEWS_ROUTE = 'TU_NEWS'
 
@@ -29,7 +32,11 @@ const tunewsRoute: Route = {
       fetchData(createCitiesEndpoint(cmsApiBaseUrl), dispatch, state.cities),
       fetchData(createEventsEndpoint(cmsApiBaseUrl), dispatch, state.events, { city, language }),
       fetchData(createTunewsLanguagesEndpoint(tunewsApiBaseUrl, true), dispatch, state.languages, { city, language }),
-      fetchData(createTunewsEndpoint(tunewsApiBaseUrl), dispatch, state.tunews, { page: 1, language: language, count: 20 })
+      fetchData(createTunewsEndpoint(tunewsApiBaseUrl), dispatch, state.tunews, {
+        page: 1,
+        language: language,
+        count: 20
+      })
     ])
   }
 }
@@ -45,11 +52,17 @@ class TunewsRouteConfig implements RouteConfig<TunewsRouteParamsType, RequiredPa
     this.getRoutePath({ city: location.payload.city, language })
 
   getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType => ({
-    tunews: payloads.tunewsPayload
+    tunews: payloads.tunewsPayload,
+    cities: payloads.citiesPayload
   })
 
-  getPageTitle = ({ t, cityName }) => {
+  getPageTitle = ({ t, cityName, payloads, location }) => {
     if (!cityName) {
+      return null
+    }
+    const cityModel = payloads.cities.data &&
+      payloads.cities.data.find(cityModel => cityModel.code === location.payload.city)
+    if (!cityModel || !cityModel.tunewsEnabled) {
       return null
     }
     return `${t('pageTitles.tunews')} - ${cityName}`
