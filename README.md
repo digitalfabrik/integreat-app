@@ -16,6 +16,9 @@ If you want to know more about Integreat or if you want to join us, contact [Max
 
 ## Getting Started
 
+We suggest **[IntelliJ IDEA Ultimate](https://www.jetbrains.com/idea/)** as IDE for editing JavaScript code. JetBrains provides free licences for students.
+If you are using a different IDE, the steps might differ.
+
 *Note: For the setup of the project on Windows you may want to use Chocolatey and [follow this guide](docs/09-windows-setup.md).*
 
 ### Prerequisites
@@ -36,8 +39,8 @@ Using the latest version (v13) may lead to errors.
 *Note: In order to work with the XCode project, always open `ios/Integreat.xcworkspace`.*
 
 ### Project setup
-We suggest **[IntelliJ IDEA Ultimate](https://www.jetbrains.com/idea/)** as IDE for editing JavaScript code. JetBrains provides free licences for students.
-If you are using a different IDE, the steps might differ.
+
+If using IntelliJ IDEA Ultimate you can import the project easily:
 
 * Import this project (VCS > Get from Version Control).
 * Run `yarn` in the terminal to install all dependencies.
