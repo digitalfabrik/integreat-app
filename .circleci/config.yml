@@ -192,7 +192,9 @@ jobs:
           steps:
             - run:
                 name: Read version number
-                command: echo 'export VERSION_NAME=$(cat version.json | jq .versionName)' >> $BASH_ENV
+                command: |
+                  echo "export VERSION_NAME=$(cat version.json | jq .versionName)" >> $BASH_ENV
+                  source $BASH_ENV
             - run:
                 name: Integreat production delivery # StrictHostKeyChecking=no is not a security problem. The worst that could happen is a delivery to the wrong domain.
                 command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/integreat.app \<<< $'put -r /tmp/output/dist/*'
