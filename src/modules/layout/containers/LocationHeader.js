@@ -25,6 +25,7 @@ import { WOHNEN_ROUTE } from '../../app/route-configs/WohnenRouteConfig'
 import { SPRUNGBRETT_ROUTE } from '../../app/route-configs/SprungbrettRouteConfig'
 import LandingRouteConfig from '../../app/route-configs/LandingRouteConfig'
 import type { LanguageChangePathsType } from '../../app/containers/Switcher'
+import buildConfig from '../../app/constants/buildConfig'
 
 type PropsType = {|
   events: ?Array<EventModel>,
@@ -62,7 +63,6 @@ export class LocationHeader extends React.Component<PropsType> {
   }
 
   getNavigationItems (): Array<Element<typeof HeaderNavigationItem>> {
-    // eslint-disable-next-line no-unused-vars
     const { t, isEventsEnabled, isLocalNewsEnabled, isTunewsEnabled, isExtrasEnabled, location, events } = this.props
 
     const { city, language } = location.payload
@@ -70,12 +70,8 @@ export class LocationHeader extends React.Component<PropsType> {
 
     const isEventsActive = events ? events.length > 0 : false
 
-    /* TODO: replace the next two lines with the ones after to activate news header link
-      const isNewsEnabled = isLocalNewsEnabled || isTunewsEnabled
-      const isCategoriesEnabled = isExtrasEnabled || isEventsEnabled || isNewsEnabled
-    */
-    const isNewsEnabled = false
-    const isCategoriesEnabled = isExtrasEnabled || isEventsEnabled
+    const isNewsEnabled = buildConfig.featureFlags.newsStream && (isLocalNewsEnabled || isTunewsEnabled)
+    const isCategoriesEnabled = isExtrasEnabled || isEventsEnabled || isNewsEnabled
 
     const items: Array<Element<typeof HeaderNavigationItem>> = []
 
