@@ -8,7 +8,7 @@ exports[`PoiListItem should render and match snapshot 1`] = `
   title="first Event"
 >
   <div>
-    address, postcode town
+    name, address, postcode town
   </div>
 </ListItem>
 `;

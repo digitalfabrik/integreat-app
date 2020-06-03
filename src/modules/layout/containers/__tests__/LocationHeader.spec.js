@@ -38,7 +38,10 @@ describe('LocationHeader', () => {
         town: 'town',
         postcode: 'postcode',
         longitude: null,
-        latitude: null
+        latitude: null,
+        state: 'state',
+        region: 'region',
+        country: 'country'
       }),
       excerpt: 'excerpt',
       lastUpdate: moment('2016-01-07 10:36:24'),
@@ -63,7 +66,10 @@ describe('LocationHeader', () => {
         town: 'town',
         postcode: 'postcode',
         longitude: null,
-        latitude: null
+        latitude: null,
+        state: 'state',
+        region: 'region',
+        country: 'country'
       }),
       content: 'content',
       excerpt: 'excerpt',
@@ -88,7 +94,10 @@ describe('LocationHeader', () => {
         town: 'town',
         postcode: 'postcode',
         latitude: null,
-        longitude: null
+        longitude: null,
+        state: 'state',
+        region: 'region',
+        country: 'country'
       }),
       content: 'content',
       excerpt: 'excerpt',
