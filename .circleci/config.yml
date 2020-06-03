@@ -21,18 +21,14 @@ workflows:
     jobs:
       - build:
           build_config: "integreat-test-cms"
-      - prepare-integreat-delivery:
-          requires:
-            - build
       - deliver:
-#          filters:
-#            branches:
-#              only:
-#                - develop
-          deliver_to: "integreat"
+          filters:
+            branches:
+              only:
+                - develop
+          deliver_to: "integreat-test-cms"
           requires:
             - build
-            - prepare-integreat-delivery
 
   api-triggered-integreat-delivery: # Workflow for manual delivery of integreat which also bumps the version, moves the release notes, ...
     when:
@@ -125,18 +121,18 @@ jobs:
           paths:
             - ~/.cache/yarn
             - node_modules
-#      - run:
-#          name: Check linting
-#          command: yarn run lint
-#      - run:
-#          name: Check flow
-#          command: yarn run flow:check-now --max-workers $TOTAL_CPUS
-#      - run:
-#          name: Unit tests
-#          command: yarn run test --ci --maxWorkers $TOTAL_CPUS
-#      - run:
-#          name: Test coverage # Results are not used right now. Run it anyway to (possibly) discover more problems.
-#          command: yarn run test:coverage --ci --maxWorkers $TOTAL_CPUS
+      - run:
+          name: Check linting
+          command: yarn run lint
+      - run:
+          name: Check flow
+          command: yarn run flow:check-now --max-workers $TOTAL_CPUS
+      - run:
+          name: Unit tests
+          command: yarn run test --ci --maxWorkers $TOTAL_CPUS
+      - run:
+          name: Test coverage # Results are not used right now. Run it anyway to (possibly) discover more problems.
+          command: yarn run test:coverage --ci --maxWorkers $TOTAL_CPUS
       - when: # Debug build for integreat-test-cms
           condition:
             equal: [ "integreat-test-cms", << parameters.build_config >> ]
@@ -151,9 +147,9 @@ jobs:
             - run:
                 name: Production << parameters.build_config >> build
                 command: yarn run webpack --config build/webpack.config.babel.js --env.config_name << parameters.build_config >> --env.production
-#      - run:
-#          name: Check build
-#          command: yarn run check:built
+      - run:
+          name: Check build
+          command: yarn run check:built
       - store_artifacts:
           path: dist
       - persist_to_workspace:
@@ -200,19 +196,19 @@ jobs:
           condition:
             equal: [ "integreat", << parameters.deliver_to >> ]
           steps:
-#            - run:
-#                name: Integreat production delivery # StrictHostKeyChecking=no is not a security problem. The worst that could happen is a delivery to the wrong domain.
-#                command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/integreat.app \<<< $'put -r /tmp/output/dist/*'
-#            - slack/notify:
-#                message: Integreat WebApp version $NEW_VERSION_NAME was delivered successfully to integreat.app!
-#                webhook: ${SLACK_URL}
+            - run:
+                name: Integreat production delivery # StrictHostKeyChecking=no is not a security problem. The worst that could happen is a delivery to the wrong domain.
+                command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/integreat.app \<<< $'put -r /tmp/output/dist/*'
+            - slack/notify:
+                message: Integreat WebApp version $NEW_VERSION_NAME was delivered successfully to integreat.app!
+                webhook: ${SLACK_URL}
       - when:
           condition:
             equal: [ "integreat-test-cms", << parameters.deliver_to >> ]
           steps:
-#            - run:
-#                name: Integreat debug delivery
-#                command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.integreat-app.de \<<< $'put -r /tmp/output/dist/*'
+            - run:
+                name: Integreat debug delivery
+                command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.integreat-app.de \<<< $'put -r /tmp/output/dist/*'
       - when:
           condition:
             equal: [ "malte", << parameters.deliver_to >> ]
