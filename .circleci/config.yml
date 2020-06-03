@@ -38,14 +38,14 @@ workflows:
     jobs:
       - build:
           build_config: << pipeline.parameters.build_config >>
-      - bump_version:
+      - prepare_integreat_delivery:
           requires:
             - build
       - deliver:
           deliver_to: << pipeline.parameters.build_config >>
           requires:
             - build
-            - bump_version
+            - prepare_integreat_delivery
 
   api-triggered-delivery: # Workflow for manual delivery of integreat-test-cms and malte
     when:
@@ -72,13 +72,13 @@ workflows:
     jobs:
       - build:
           build_config: "integreat"
-      - bump_version:
+      - prepare_integreat_delivery:
           requires:
             - build
       - await-approval:
           type: approval
           requires:
-            - bump_version
+            - prepare_integreat_delivery
       - deliver:
           deliver_to: "integreat"
           requires:
@@ -121,42 +121,58 @@ jobs:
           paths:
             - ~/.cache/yarn
             - node_modules
+#      - run:
+#          name: Check linting
+#          command: yarn run lint
+#      - run:
+#          name: Check flow
+#          command: yarn run flow:check-now --max-workers $TOTAL_CPUS
+#      - run:
+#          name: Unit tests
+#          command: yarn run test --ci --maxWorkers $TOTAL_CPUS
+#      - run:
+#          name: Test coverage # Results are not used right now. Run it anyway to (possibly) discover more problems.
+#          command: yarn run test:coverage --ci --maxWorkers $TOTAL_CPUS
+#      - when: # Debug build for integreat-test-cms
+#          condition:
+#            equal: [ "integreat-test-cms", << parameters.build_config >> ]
+#          steps:
+#            - run:
+#                name: Debug << parameters.build_config >> build
+#                command: yarn run webpack --config build/webpack.config.babel.js --env.config_name=<< parameters.build_config >> --env.production=false
+#      - unless: # Production build for integreat and malte
+#          condition:
+#            equal: [ "integreat-test-cms", << parameters.build_config >> ]
+#          steps:
+#            - run:
+#                name: Production << parameters.build_config >> build
+#                command: yarn run webpack --config build/webpack.config.babel.js --env.config_name=<< parameters.build_config >> --env.production=true
+#      - run:
+#          name: Check build
+#          command: yarn run check:built
+#      - store_artifacts:
+#          path: dist
+#      - persist_to_workspace:
+#          root: ./
+#          paths:
+#            - dist
+#            - node_modules
+
+  prepare_integreat_delivery: # Move release notes, bump version and tag commit
+    docker:
+      - image: circleci/node:12.16.3
+    resource_class: small
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
       - run:
-          name: Check linting
-          command: yarn run lint
+          name: Move release notes
+           # TODO use right version
+          command: build/move-release-notes move --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH} --new-version=2020.6.1 --commit-sha=${CIRCLE_SHA1}
       - run:
-          name: Check flow
-          command: yarn run flow:check-now --max-workers $TOTAL_CPUS
-      - run:
-          name: Unit tests
-          command: yarn run test --ci --maxWorkers $TOTAL_CPUS
-      - run:
-          name: Test coverage # Results are not used right now. Run it anyway to (possibly) discover more problems.
-          command: yarn run test:coverage --ci --maxWorkers $TOTAL_CPUS
-      - when: # Debug build for integreat-test-cms
-          condition:
-            equal: [ "integreat-test-cms", << parameters.build_config >> ]
-          steps:
-            - run:
-                name: Debug << parameters.build_config >> build
-                command: yarn run webpack --config build/webpack.config.babel.js --env.config_name=<< parameters.build_config >> --env.debug
-      - unless: # Production build for integreat and malte
-          condition:
-            equal: [ "integreat-test-cms", << parameters.build_config >> ]
-          steps:
-            - run:
-                name: Production << parameters.build_config >> build
-                command: yarn run webpack --config build/webpack.config.babel.js --env.config_name=<< parameters.build_config >> --env.production
-      - run:
-          name: Check build
-          command: yarn run check:built
-      - store_artifacts:
-          path: dist
-      - persist_to_workspace:
-          root: ./
-          paths:
-            - dist
-            - node_modules
+          name: Bump version
+          command: build/bump-version bump-version --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
 
   deliver:
     parameters:
@@ -200,15 +216,3 @@ jobs:
             - run:
                 name: Malte delivery (Nothing here yet) # Will be done in WEBAPP-558
                 command: echo "Skip delivery"
-
-  bump_version:
-    docker:
-      - image: circleci/node:12.16.3
-    resource_class: small
-    steps:
-      - checkout
-      - attach_workspace:
-          at: .
-      - run:
-          name: Bump version
-          command: tools/bump-version bump-version --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
