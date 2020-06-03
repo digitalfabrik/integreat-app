@@ -4,21 +4,23 @@ If you want to run the app locally or create `.ipa` or `.apk` builds for testing
 
 ## Manually building for iOS
 
-### Prerequisites
-* First setup XCode and [CocoaPods](#setup-of-cocoapods).
-* In order to set up certificates you also need [to set up Fastlane](08-cicd.md#setup-of-fastlane).
+
+### Setup
+
+#### Prerequisites
+* Install and setup XCode
+* [Install and setup Fastlane](08-cicd.md#setup-of-fastlane)  (Necessary for certificate management)
 * Read about [Apple Certificates](10-apple-certifcates.md)
-* Setup CocoaPods
 
-  CocoaPods is used for dependency management of the native libraries.
-  First you have to make sure that Ruby is working correctly. We advise to use RVM as mentioned in the [setup of Fastlane](08-cicd.md#setup-of-fastlane). After running this setup you should also be able to do `bundle exec pod --version`.
+#### Setup CocoaPods
+
+CocoaPods is used for dependency management of the native libraries.
+First you have to make sure that Ruby is working correctly. We advise to use RVM as mentioned in the [setup of Fastlane](08-cicd.md#setup-of-fastlane). After running this setup you should also be able to do `bundle exec pod --version`.
     
-  *Note: `bundle exec pod install` uses the versions from the `Podfile.lock`. `bundle exec pod update` updates the `Podfile.lock`.*
+*Note: `bundle exec pod install` uses the versions from the `Podfile.lock`. `bundle exec pod update` updates the `Podfile.lock`.*
 
 
-### Setup Certificates
-
-*Note: This step is required in order to build the project for iOS*
+#### Setup Certificates
 
 First you have to prepare a [few environment variables](08-cicd.md#environment-variables-and-dependencies):
 
@@ -76,9 +78,11 @@ Fastlane should report where the build artifacts are. These can be uploaded to A
 
 If you do not have Fastlane installed [you can skip to the next section](#quick-builds-using-a-test-signing-key), which does not require FL.
 
-### Prerequisites
+### Setup
+
+#### Prerequisites
 * Setup the Android SDK
-* [Setup Fastlane](08-cicd.md#setup-of-fastlane).
+* [Setup Fastlane](08-cicd.md#setup-of-fastlane) (Necessary for production keystore management)
 
 ### Building the App for Play Store
 
