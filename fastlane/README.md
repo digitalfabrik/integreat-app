@@ -19,7 +19,7 @@ or alternatively using `brew cask install fastlane`
 ```
 fastlane github_bump_version
 ```
-Bump version and commits the new version in the GitHub repository
+Bump version and commit the new version in the GitHub repository
 
 ----
 
@@ -33,7 +33,7 @@ Upload the APK to BrowserStack Live
 ```
 fastlane android browserstack_e2e_tests
 ```
-Upload the APK and runs E2E tests on BrowserStack
+Upload the APK and run E2E tests on BrowserStack
 ### android sentry_upload
 ```
 fastlane android sentry_upload
@@ -62,7 +62,7 @@ Upload the IPA to BrowserStack Live
 ```
 fastlane ios browserstack_e2e_tests
 ```
-Upload the APK and runs E2E tests on BrowserStack
+Upload the APK and run E2E tests on BrowserStack
 ### ios sentry_upload
 ```
 fastlane ios sentry_upload

@@ -144,7 +144,7 @@ Authentication happens by setting the `FASTLANE_USER` and `FASTLANE_PASSWORD` en
 ## BrowserStack
 
 We are using BrowserStack to run our E2E tests on real iOS and Android devices.
-The general documentation about [E2E tests and BrowserStack can be found here](04-e2e.md). 
+The general documentation about E2E tests and BrowserStack can be found [here](04-e2e.md). 
 
 # Hints and Quirks
 

@@ -11,7 +11,7 @@ KEYSTORE_KEY_ALIAS = ENV['KEYSTORE_KEY_ALIAS']
 KEYSTORE_PASSWORD = ENV['KEYSTORE_PASSWORD']
 KEYSTORE_KEY_PASSWORD = ENV['KEYSTORE_KEY_PASSWORD']
 
-desc "Download and decrypts the JKS"
+desc "Download and decrypt the JKS"
 lane :keystore do
   ensure_env_vars(
       env_vars: ['CREDENTIALS_GIT_REPOSITORY_URL', 'CREDENTIALS_KEYSTORE_PATH', 'CREDENTIALS_DIRECTORY_PATH', 'CREDENTIALS_KEYSTORE_PASSWORD']
@@ -67,4 +67,3 @@ lane :build do
       print_command: false
   )
 end
-
