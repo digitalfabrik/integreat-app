@@ -34,7 +34,7 @@ Fastlane is a task-runner for triggering build relevant tasks. It offers integra
 * Install [Ruby >= 2.6.5](https://www.ruby-lang.org/en/documentation/installation/) (The preferred and tested way is to use [Ruby Version Manager (RVM)](https://rvm.io/)).
   * If using RVM you have to do: `rvm use ruby-2.6.5`
 * Make sure `ruby --version` reports the correct version
-* Run `bundle install --path vendor/bundle` in the project root, `./android/` and `./ios/`
+* Run `bundle install --path vendor/bundle` in the project root, in `./android/` and in `./ios/`
 * Run `bundle exec fastlane --version`
 
 *Hint: You can use `export FASTLANE_SKIP_UPDATE_CHECK=true` to skip the changelog output*
