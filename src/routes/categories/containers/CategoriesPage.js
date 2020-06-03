@@ -73,26 +73,27 @@ export class CategoriesPage extends React.Component<PropsType> {
                          onInternalLinkClick={push} />
   }
 
-  getBreadcrumbs (categoryModel: CategoryModel): Array<BreadcrumbModel> {
-    const { cities, categories, city } = this.props
-    return categories.getAncestors(categoryModel).concat([categoryModel])
-      .map(category => {
-        const title = category.isRoot() ? CityModel.findCityName(cities, city) : category.title
-        return new BreadcrumbModel({
-          title,
-          link: urlFromPath(category.path),
-          node: <Link to={category.path} key={category.path}>{title}</Link>
-        })
+  renderBreadcrumbs (categoryModel: CategoryModel): React.Node {
+    const { cities, categories, city, uiDirection } = this.props
+    const getBreadcrumb = category => {
+      const title = category.isRoot() ? CityModel.findCityName(cities, city) : category.title
+      return new BreadcrumbModel({
+        title,
+        link: urlFromPath(category.path),
+        node: <Link to={category.path} key={category.path}>{title}</Link>
       })
+    }
+    return <Breadcrumbs ancestorBreadcrumbs={categories.getAncestors(categoryModel).map(getBreadcrumb)}
+                        currentBreadcrumb={getBreadcrumb(categoryModel)} direction={uiDirection} />
   }
 
   render () {
-    const { categories, path, city, language, uiDirection } = this.props
+    const { categories, path, city, language } = this.props
     const categoryModel = categories.findCategoryByPath(path)
 
     if (categoryModel) {
       return <div>
-        <Breadcrumbs direction={uiDirection} breadcrumbs={this.getBreadcrumbs(categoryModel)} />
+        {this.renderBreadcrumbs(categoryModel)}
         {this.getContent(categoryModel)}
       </div>
     } else {
