@@ -25,7 +25,10 @@ describe('EventListItem', () => {
       town: 'town',
       postcode: 'postcode',
       longitude: null,
-      latitude: null
+      latitude: null,
+      state: 'state',
+      region: 'region',
+      country: 'country'
     }),
     excerpt: 'very loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong excerpt',
     lastUpdate: moment('2016-01-07 10:36:24'),

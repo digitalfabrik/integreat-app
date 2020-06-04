@@ -10,6 +10,8 @@ import createReduxStore from '../../../../modules/app/createReduxStore'
 import { Provider } from 'react-redux'
 import createLocation from '../../../../createLocation'
 import { EVENTS_ROUTE } from '../../../../modules/app/route-configs/EventsRouteConfig'
+import EventJsonLd from '../../../../modules/json-ld/components/EventJsonLd'
+import Page from '../../../../modules/common/components/Page'
 
 describe('EventsPage', () => {
   const events = [
@@ -29,7 +31,10 @@ describe('EventsPage', () => {
         town: 'town',
         postcode: 'postcode',
         longitude: null,
-        latitude: null
+        latitude: null,
+        state: 'state',
+        region: 'region',
+        country: 'country'
       }),
       excerpt: 'excerpt',
       lastUpdate: moment('2016-01-07 10:36:24'),
@@ -54,7 +59,10 @@ describe('EventsPage', () => {
         town: 'town',
         postcode: 'postcode',
         latitude: null,
-        longitude: null
+        longitude: null,
+        state: 'state',
+        region: 'region',
+        country: 'country'
       }),
       content: 'content',
       excerpt: 'excerpt',
@@ -79,7 +87,10 @@ describe('EventsPage', () => {
         town: 'town',
         postcode: 'postcode',
         latitude: null,
-        longitude: null
+        longitude: null,
+        state: 'state',
+        region: 'region',
+        country: 'country'
       }),
       content: 'content',
       excerpt: 'excerpt',
@@ -130,7 +141,10 @@ describe('EventsPage', () => {
                   language={language}
                   eventId='first_event' />
     )
-    expect(wrapper).toMatchSnapshot()
+    const jsonLd = wrapper.find(EventJsonLd)
+    expect(jsonLd.props().event).toEqual(events[0])
+    const page = wrapper.find(Page)
+    expect(page).toMatchSnapshot()
   })
 
   it('should match snapshot and render Failure if event does not exist', () => {
