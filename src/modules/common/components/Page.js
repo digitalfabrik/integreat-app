@@ -21,7 +21,7 @@ const Thumbnail = styled.img`
 type PropsType = {|
   title: string,
   defaultThumbnailSrc?: string, // necessary for IE11 support
-  thumbnailSrcSet?: string,
+  thumbnailSrcSet?: ?string,
   content: string,
   lastUpdate?: Moment,
   language: string,
