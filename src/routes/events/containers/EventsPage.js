@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 
 import { CityModel, EventModel } from '@integreat-app/integreat-api-client'
-import Page from '../../../modules/common/components/Page'
+import Page, { THUMBNAIL_WIDTH } from '../../../modules/common/components/Page'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import type { TFunction } from 'react-i18next'
@@ -19,6 +19,7 @@ import { push } from 'redux-first-router'
 import EventJsonLd from '../../../modules/json-ld/components/EventJsonLd'
 import Failure from '../../../modules/common/components/Failure'
 import CategoriesRouteConfig from '../../../modules/app/route-configs/CategoriesRouteConfig'
+import featuredImageToSrcSet from '../../../modules/common/utils/featuredImageToSrcSet'
 
 type PropsType = {|
   events: Array<EventModel>,
@@ -48,9 +49,11 @@ export class EventsPage extends React.Component<PropsType> {
 
       if (event) {
         const location = event.location.location
+        const defaultThumbnail = event.featuredImage ? event.featuredImage.medium.url : event.thumbnail
         return <>
           <EventJsonLd event={event} />
-          <Page thumbnail={event.thumbnail}
+          <Page defaultThumbnailSrc={defaultThumbnail}
+                thumbnailSrcSet={event.featuredImage && featuredImageToSrcSet(event.featuredImage, THUMBNAIL_WIDTH)}
                 lastUpdate={event.lastUpdate}
                 content={event.content}
                 title={event.title}
