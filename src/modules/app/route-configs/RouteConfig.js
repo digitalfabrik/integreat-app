@@ -7,7 +7,7 @@ import {
   ExtraModel,
   PoiModel,
   CategoriesMapModel,
-  SprungbrettModel,
+  SprungbrettJobModel,
   WohnenOfferModel,
   PageModel,
   EventModel,
@@ -26,7 +26,7 @@ export type AllPayloadsType = {|
   tunewsPayload: Payload<Array<TunewsModel>>,
   tunewsElementPayload: Payload<TunewsModel>,
   extrasPayload: Payload<Array<ExtraModel>>,
-  sprungbrettJobsPayload: Payload<Array<SprungbrettModel>>,
+  sprungbrettJobsPayload: Payload<Array<SprungbrettJobModel>>,
   wohnenPayload: Payload<Array<WohnenOfferModel>>,
   disclaimerPayload: Payload<PageModel>
 |}

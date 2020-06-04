@@ -8,10 +8,11 @@ parameters:
     type: boolean
     description: Whether the pipeline was triggered through the CircleCi API (https://circleci.com/docs/api/v2/?shell#trigger-a-new-pipeline).
     default: false
-  production:
-    type: boolean
-    description: Whether to deploy to production (integreat.app) or not (webnext.integreat-app.de).
-    default: false
+  build_config:
+    type: enum
+    description: Which build config to use and where to deploy to.
+    enum: ["integreat", "integreat-test-cms"]
+    default: "integreat-test-cms"
 
 workflows:
   version: 2
@@ -19,32 +20,48 @@ workflows:
     unless: << pipeline.parameters.api_triggered >>
     jobs:
       - build:
-          production: false
+          build_config: "integreat-test-cms"
       - deliver:
-          production: false
-          requires:
-            - build
           filters:
             branches:
               only:
                 - develop
+          deliver_to: "integreat-test-cms"
+          requires:
+            - build
 
-  api-triggered-delivery: # Workflow for manual delivery
-    when: << pipeline.parameters.api_triggered >>
+  api-triggered-integreat-delivery: # Workflow for manual delivery of integreat which also bumps the version
+    when:
+      and:
+        - << pipeline.parameters.api_triggered >>
+        - equal: [ "integreat", << pipeline.parameters.build_config >> ]
     jobs:
       - build:
-          production: << pipeline.parameters.production >>
+          build_config: << pipeline.parameters.build_config >>
       - bump_version:
-          shouldBumpVersion: << pipeline.parameters.production >>
           requires:
             - build
       - deliver:
-          production: << pipeline.parameters.production >>
+          deliver_to: << pipeline.parameters.build_config >>
           requires:
             - build
             - bump_version
 
-  bi-weekly-production-delivery:
+  api-triggered-delivery: # Workflow for manual delivery of integreat-test-cms and malte
+    when:
+      and:
+        - << pipeline.parameters.api_triggered >>
+        - not:
+          equal: [ "integreat", << pipeline.parameters.build_config >> ]
+    jobs:
+      - build:
+          build_config: << pipeline.parameters.build_config >>
+      - deliver:
+          deliver_to: << pipeline.parameters.build_config >>
+          requires:
+            - build
+
+  bi-weekly-integreat-delivery:
     triggers:
       - schedule:
           cron: "0 5 1,15 * *" # For sanity checks for this syntax: https://crontab.guru/
@@ -54,23 +71,26 @@ workflows:
                 - develop
     jobs:
       - build:
-          production: true
+          build_config: "integreat"
       - bump_version:
           requires:
             - build
-      - deliver:
+      - await-approval:
           type: approval
-          production: true
           requires:
-            - build
             - bump_version
+      - deliver:
+          deliver_to: "integreat"
+          requires:
+            - await-approval
 
 jobs:
   build:
     parameters:
-      production:
-        description: Whether to build for production.
-        type: boolean
+      build_config:
+        description: Which build config to use.
+        type: enum
+        enum: ["integreat", "integreat-test-cms", "malte"]
     docker:
       - image: circleci/node:12.16.3
     resource_class: small
@@ -113,18 +133,20 @@ jobs:
       - run:
           name: Test coverage # Results are not used right now. Run it anyway to (possibly) discover more problems.
           command: yarn run test:coverage --ci --maxWorkers $TOTAL_CPUS
-      - when:
-          condition: << parameters.production >>
+      - when: # Debug build for integreat-test-cms
+          condition:
+            equal: [ "integreat-test-cms", << parameters.build_config >> ]
           steps:
             - run:
-                name: Production build
-                command: yarn run build
-      - unless:
-          condition: << parameters.production >>
+                name: Debug << parameters.build_config >> build
+                command: yarn run webpack --config build/webpack.config.babel.js --env.config_name=<< parameters.build_config >> --env.debug
+      - unless: # Production build for integreat and malte
+          condition:
+            equal: [ "integreat-test-cms", << parameters.build_config >> ]
           steps:
             - run:
-                name: Debug build
-                command: yarn run build:debug
+                name: Production << parameters.build_config >> build
+                command: yarn run webpack --config build/webpack.config.babel.js --env.config_name=<< parameters.build_config >> --env.production
       - run:
           name: Check build
           command: yarn run check:built
@@ -138,9 +160,10 @@ jobs:
 
   deliver:
     parameters:
-      production:
-        description: Whether to deliver to production.
-        type: boolean
+      deliver_to:
+        description: Where to deliver to.
+        type: enum
+        enum: ["integreat", "integreat-test-cms", "malte"]
     docker:
       - image: circleci/node:12.16.3
     resource_class: small
@@ -149,30 +172,36 @@ jobs:
       - attach_workspace:
           at: /tmp/output
       - when:
-          condition: << parameters.production >>
+          condition:
+            equal: [ "integreat", << parameters.deliver_to >> ]
           steps:
             - run:
                 name: Read version number
-                command: echo 'export VERSION_NAME=$(cat version.json | jq .versionName)' >> $BASH_ENV
+                command: |
+                  echo "export VERSION_NAME=$(cat version.json | jq .versionName)" >> $BASH_ENV
+                  source $BASH_ENV
             - run:
-                name: Production delivery # StrictHostKeyChecking=no is not a security problem. The worst that could happen is a delivery to the wrong domain.
+                name: Integreat production delivery # StrictHostKeyChecking=no is not a security problem. The worst that could happen is a delivery to the wrong domain.
                 command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/integreat.app \<<< $'put -r /tmp/output/dist/*'
             - slack/notify:
                 message: Integreat WebApp version ${VERSION_NAME} was delivered successfully to integreat.app!
                 webhook: $SLACK_URL
-      - unless:
-          condition: << parameters.production >>
+      - when:
+          condition:
+            equal: [ "integreat-test-cms", << parameters.deliver_to >> ]
           steps:
             - run:
-                name: Debug delivery
+                name: Integreat debug delivery
                 command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.integreat-app.de \<<< $'put -r /tmp/output/dist/*'
+      - when:
+          condition:
+            equal: [ "malte", << parameters.deliver_to >> ]
+          steps:
+            - run:
+                name: Malte delivery (Nothing here yet) # Will be done in WEBAPP-558
+                command: echo "Skip delivery"
 
   bump_version:
-    parameters:
-      shouldBumpVersion:
-        description:
-        type: boolean
-        default: true
     docker:
       - image: circleci/node:12.16.3
     resource_class: small
@@ -180,15 +209,6 @@ jobs:
       - checkout
       - attach_workspace:
           at: .
-      - when:
-          condition: << parameters.shouldBumpVersion >>
-          steps:
-            - run:
-                name: Bump version
-                command: tools/bump-version bump-version --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
-      - unless:
-          condition: << parameters.shouldBumpVersion >>
-          steps:
-            - run:
-                name: Skip version bump
-                command: echo "skip version bump"
+      - run:
+          name: Bump version
+          command: tools/bump-version bump-version --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}

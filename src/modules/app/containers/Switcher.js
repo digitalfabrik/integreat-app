@@ -95,7 +95,7 @@ export class Switcher extends React.Component<PropsType> {
   isLanguageInvalid (): boolean {
     const { location, citiesPayload, languages } = this.props
     const { city, language } = location.payload
-    return language && city && citiesPayload.data && !!languages && !languages.find(lang => lang.code === language)
+    return language && city && !!citiesPayload.data && !!languages && !languages.find(lang => lang.code === language)
   }
 
   renderLayoutWithContent (): React.Node {
@@ -151,7 +151,7 @@ const mapStateToProps = (state: StateType) => ({
   eventsPayload: state.events,
   localNewsPayload: state.localNews,
   localNewsElementPayload: state.localNewsElement,
-  tunewsPayload: state.tunews,
+  tunewsPayload: state.tunews.payload,
   tunewsElementPayload: state.tunewsElement,
   poisPayload: state.pois,
   extrasPayload: state.extras,
