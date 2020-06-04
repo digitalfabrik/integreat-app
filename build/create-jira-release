@@ -5,10 +5,10 @@ const fetch = require('node-fetch')
 const OAuth = require('oauth').OAuth
 
 const JIRA_URL = 'https://issues.integreat-app.de'
-const JIRA_PROJECT = 'WEBAPP'
 
 program
   .option('-d, --debug', 'enable extreme logging')
+  .requiredOption('--project-name <project-name>', 'the name of the jira project, e.g. integreat-webapp')
   .requiredOption('--access-token <access-token>', 'version name of the new release')
   .requiredOption('--private-key <privateKey>')
   .requiredOption('--consumer-key <consumer-key>')
@@ -58,30 +58,38 @@ const getFromJira = async path => {
   return response.json()
 }
 
-const createRelease = async (newVersionName, accessToken, privateKey, consumerKey) => {
+const createRelease = async ({ newVersionName, accessToken, privateKey, consumerKey, projectName }) => {
   const date = new Date()
   const newReleaseDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
+
+  const projects = await getFromJira('/rest/api/2/project')
+  const project = projects.find(project => project.name === projectName)
+  const projectKey = project.key
 
   // Create a new jira version
   await postToJira('/rest/api/2/version', {
     name: newVersionName,
     released: true,
     releaseDate: newReleaseDate,
-    project: JIRA_PROJECT
+    project: projectKey
   }, accessToken, privateKey, consumerKey)
 
   // Get the new and the last release
   const { values: versions } = await getFromJira(
-    `/rest/api/2/project/${JIRA_PROJECT}/version?orderBy=-releaseDate&maxResults=2`
+    `/rest/api/2/project/${projectKey}/version?orderBy=-releaseDate&maxResults=2`
   )
 
   const lastVersion = versions[1]
   const lastDate = lastVersion.releaseDate
   const newVersion = versions[0]
 
+  if (newVersion.name !== newVersionName) {
+    throw Error(`There is already a release ${newVersion.name} with a later release date in the project!`)
+  }
+
   // Get all issues which should be part of the new release
-  // TODO Make project configurable
-  const query = `project = integreat-webapp AND fixVersion IS EMPTY AND resolution = Done AND resolutiondate > ${lastDate}`
+  const query =
+    `project = ${projectName} AND fixVersion IS EMPTY AND resolution = Done AND resolutiondate > ${lastDate}`
   const { issues } = await getFromJira(`/rest/api/2/search?jql=${query}&fields=id`)
 
   // Set fixVersion for all issues
@@ -104,13 +112,11 @@ const createRelease = async (newVersionName, accessToken, privateKey, consumerKe
 }
 
 program
-  .command('createRelease <new-version-name>')
+  .command('create_release <new-version-name>')
   .description('create a new release with the name <new-version-name> on jira and assign all issues resolved since the last release')
   .action(async newVersionName => {
     try {
-      const { accessToken, privateKey, consumerKey } = program
-
-      await createRelease(newVersionName, accessToken, privateKey, consumerKey)
+      await createRelease({ newVersionName, ...program })
     } catch (e) {
       console.error(e)
       process.exit(1)
