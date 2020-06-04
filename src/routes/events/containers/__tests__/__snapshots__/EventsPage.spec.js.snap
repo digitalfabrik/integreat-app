@@ -1,25 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`EventsPage should match snapshot and render EventDetail 1`] = `
-<Fragment>
-  <Page
-    content="content"
-    language="en"
-    lastUpdate={"2016-01-07T09:36:24.000Z"}
-    onInternalLinkClick={[Function]}
-    thumbnail="thumbnail"
-    title="first Event"
-  >
-    <PageDetail
-      identifier="date"
-      information="November 18, 2017"
-    />
-    <PageDetail
-      identifier="location"
-      information="address, postcode town"
-    />
-  </Page>
-</Fragment>
+<Page
+  content="content"
+  language="en"
+  lastUpdate={"2016-01-07T09:36:24.000Z"}
+  onInternalLinkClick={[Function]}
+  thumbnail="thumbnail"
+  title="first Event"
+>
+  <PageDetail
+    identifier="date"
+    information="November 18, 2017"
+  />
+  <PageDetail
+    identifier="location"
+    information="name, address, postcode town"
+  />
+</Page>
 `;
 
 exports[`EventsPage should match snapshot and render EventList 1`] = `
@@ -47,10 +45,13 @@ exports[`EventsPage should match snapshot and render EventList 1`] = `
           "_lastUpdate": "2016-01-07T09:36:24.000Z",
           "_location": LocationModel {
             "_address": "address",
+            "_country": "country",
             "_latitude": null,
             "_longitude": null,
             "_name": "name",
             "_postcode": "postcode",
+            "_region": "region",
+            "_state": "state",
             "_town": "town",
           },
           "_path": "/augsburg/en/events/first_event",
@@ -74,10 +75,13 @@ exports[`EventsPage should match snapshot and render EventList 1`] = `
           "_lastUpdate": "2016-01-07T09:36:24.000Z",
           "_location": LocationModel {
             "_address": "address",
+            "_country": "country",
             "_latitude": null,
             "_longitude": null,
             "_name": "name",
             "_postcode": "postcode",
+            "_region": "region",
+            "_state": "state",
             "_town": "town",
           },
           "_path": "/augsburg/en/events/second_event",
@@ -101,10 +105,13 @@ exports[`EventsPage should match snapshot and render EventList 1`] = `
           "_lastUpdate": "2016-01-07T09:36:24.000Z",
           "_location": LocationModel {
             "_address": "address",
+            "_country": "country",
             "_latitude": null,
             "_longitude": null,
             "_name": "name",
             "_postcode": "postcode",
+            "_region": "region",
+            "_state": "state",
             "_town": "town",
           },
           "_path": "/augsburg/en/events/third_event",

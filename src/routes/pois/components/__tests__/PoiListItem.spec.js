@@ -19,7 +19,10 @@ describe('PoiListItem', () => {
       town: 'town',
       postcode: 'postcode',
       latitude: null,
-      longitude: null
+      longitude: null,
+      state: 'state',
+      region: 'region',
+      country: 'country'
     }),
     excerpt: 'excerpt',
     lastUpdate: moment('2016-01-07 10:36:24'),

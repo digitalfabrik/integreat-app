@@ -93,7 +93,10 @@ describe('Switcher', () => {
         address: 'Adresse 0',
         postcode: 'postcode',
         latitude: null,
-        longitude: null
+        longitude: null,
+        state: 'state',
+        region: 'region',
+        country: 'country'
       }),
       availableLanguages: new Map(
         [['de', '/augsburg/de/events/nulltes_event'], ['ar', '/augsburg/ar/events/nulltes_event']]),
@@ -178,7 +181,10 @@ describe('Switcher', () => {
         town: 'town',
         postcode: 'postcode',
         longitude: null,
-        latitude: null
+        latitude: null,
+        state: 'state',
+        region: 'region',
+        country: 'country'
       }),
       excerpt: 'excerpt',
       lastUpdate: moment('2016-01-07 10:36:24'),

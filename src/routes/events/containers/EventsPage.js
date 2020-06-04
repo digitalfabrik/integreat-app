@@ -16,6 +16,7 @@ import EventListItem from '../components/EventListItem'
 import List from '../../../modules/common/components/List'
 import Caption from '../../../modules/common/components/Caption'
 import { push } from 'redux-first-router'
+import EventJsonLd from '../../../modules/json-ld/components/EventJsonLd'
 import Failure from '../../../modules/common/components/Failure'
 import CategoriesRouteConfig from '../../../modules/app/route-configs/CategoriesRouteConfig'
 
@@ -48,6 +49,7 @@ export class EventsPage extends React.Component<PropsType> {
       if (event) {
         const location = event.location.location
         return <>
+          <EventJsonLd event={event} />
           <Page thumbnail={event.thumbnail}
                 lastUpdate={event.lastUpdate}
                 content={event.content}
