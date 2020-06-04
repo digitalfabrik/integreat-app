@@ -4,7 +4,7 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 
-import { EventModel } from '@integreat-app/integreat-api-client'
+import { CityModel, EventModel } from '@integreat-app/integreat-api-client'
 import Page, { THUMBNAIL_WIDTH } from '../../../modules/common/components/Page'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
@@ -16,15 +16,18 @@ import EventListItem from '../components/EventListItem'
 import List from '../../../modules/common/components/List'
 import Caption from '../../../modules/common/components/Caption'
 import { push } from 'redux-first-router'
+import EventJsonLd from '../../../modules/json-ld/components/EventJsonLd'
+import Failure from '../../../modules/common/components/Failure'
+import CategoriesRouteConfig from '../../../modules/app/route-configs/CategoriesRouteConfig'
 import featuredImageToSrcSet from '../../../modules/common/utils/featuredImageToSrcSet'
 
 type PropsType = {|
   events: Array<EventModel>,
+  cities: Array<CityModel>,
   city: string,
   eventId: ?string,
   language: string,
-  t: TFunction,
-  path: string
+  t: TFunction
 |}
 
 /**
@@ -35,13 +38,20 @@ export class EventsPage extends React.Component<PropsType> {
     <EventListItem event={event} language={language} key={event.path} />
 
   render () {
-    const { events, path, eventId, city, language, t } = this.props
+    const { events, eventId, city, language, t, cities } = this.props
+    const cityModel = cities.find(_cityModel => _cityModel.code === city)
+    if (!cityModel || !cityModel.eventsEnabled) {
+      return <Failure errorMessage='notFound.category' goToMessage='goTo.categories'
+                      goToPath={new CategoriesRouteConfig().getRoutePath({ city, language })} />
+    }
     if (eventId) {
-      const event = events.find(_event => _event.path === decodeURIComponent(path))
+      const event = events.find(_event => _event.path === `/${city}/${language}/events/${eventId}`)
 
       if (event) {
+        const location = event.location.location
         const defaultThumbnail = event.featuredImage ? event.featuredImage.medium.url : event.thumbnail
         return <>
+          <EventJsonLd event={event} />
           <Page defaultThumbnailSrc={defaultThumbnail}
                 thumbnailSrcSet={event.featuredImage && featuredImageToSrcSet(event.featuredImage, THUMBNAIL_WIDTH)}
                 lastUpdate={event.lastUpdate}
@@ -51,8 +61,7 @@ export class EventsPage extends React.Component<PropsType> {
                 onInternalLinkClick={push}>
             <>
               <PageDetail identifier={t('date')} information={event.date.toFormattedString(language)} />
-              {event.location.location && <PageDetail identifier={t('location')}
-                                                      information={event.location.location} />}
+              {location && <PageDetail identifier={t('location')} information={location} />}
             </>
           </Page>
         </>
@@ -73,8 +82,7 @@ export class EventsPage extends React.Component<PropsType> {
 const mapStateTypeToProps = (state: StateType) => ({
   language: state.location.payload.language,
   city: state.location.payload.city,
-  eventId: state.location.payload.eventId,
-  path: state.location.pathname
+  eventId: state.location.payload.eventId
 })
 
 export default compose(

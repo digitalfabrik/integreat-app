@@ -6,9 +6,10 @@ import { CityModel, createCitiesEndpoint, Payload } from '@integreat-app/integre
 import type { Route } from 'redux-first-router'
 import fetchData from '../fetchData'
 import { cmsApiBaseUrl } from '../constants/urls'
+import type { StateType } from '../StateType'
 
-type I18nRedirectRouteParamsType = {|param?: string|}
-type RequiredPayloadsType = {|cities: Payload<Array<CityModel>>|}
+type I18nRedirectRouteParamsType = {| param?: string |}
+type RequiredPayloadsType = {| cities: Payload<Array<CityModel>> |}
 
 export const I18N_REDIRECT_ROUTE = 'I18N_REDIRECT'
 
@@ -20,7 +21,7 @@ export const I18N_REDIRECT_ROUTE = 'I18N_REDIRECT'
 const i18nRedirectRoute: Route = {
   path: '/:param?',
   thunk: async (dispatch, getState) => {
-    const state = getState()
+    const state: StateType = getState()
 
     await fetchData(createCitiesEndpoint(cmsApiBaseUrl), dispatch, state.cities)
   }

@@ -12,7 +12,7 @@ exports[`EventListItem should render and match snapshot 1`] = `
       18. November 2017
     </div>
     <div>
-      address, postcode town
+      name, address, postcode town
     </div>
   </div>
   <div>

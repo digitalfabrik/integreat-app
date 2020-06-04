@@ -11,7 +11,6 @@ import {
   EXTRA_FEEDBACK_TYPE,
   ExtraModel,
   EXTRAS_FEEDBACK_TYPE,
-  type FeedbackParamsType,
   INTEGREAT_INSTANCE,
   PAGE_FEEDBACK_TYPE,
   SEARCH_FEEDBACK_TYPE,
@@ -33,6 +32,7 @@ import { DISCLAIMER_ROUTE } from '../../app/route-configs/DisclaimerRouteConfig'
 import { cmsApiBaseUrl } from '../../app/constants/urls'
 import type { ThemeType } from '../../theme/constants/theme'
 import type { SendingStatusType } from './FeedbackModal'
+import type { FeedbackParamsType } from '@integreat-app/integreat-api-client'
 
 type PropsType = {|
   cities: ?Array<CityModel>,
@@ -205,7 +205,7 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
     const { city, language } = location.payload
 
     const isExtraOptionSelected = selectedFeedbackOption.feedbackType === EXTRA_FEEDBACK_TYPE
-    const feedbackAlias = alias || (isExtraOptionSelected ? selectedFeedbackOption.alias : '')
+    const feedbackAlias = alias || (isExtraOptionSelected && selectedFeedbackOption.alias) || ''
 
     return {
       feedbackType: selectedFeedbackOption.feedbackType,

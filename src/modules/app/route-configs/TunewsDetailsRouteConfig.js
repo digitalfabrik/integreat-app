@@ -12,6 +12,7 @@ import {
 } from '@integreat-app/integreat-api-client'
 import fetchData from '../fetchData'
 import { cmsApiBaseUrl, tunewsApiBaseUrl } from '../constants/urls'
+import type { StateType } from '../StateType'
 
 type TunewsDetailsRouteParamsType = {| city: string, language: string, id: number |}
 type RequiredPayloadsType = {| tunewsElement: Payload<TunewsModel> |}
@@ -21,7 +22,7 @@ export const TUNEWS_DETAILS_ROUTE = 'TUNEWS_DETAILS'
 const tunewsDetailsRoute: Route = {
   path: '/:city/:language/news/tu-news/:newsId',
   thunk: async (dispatch, getState) => {
-    const state = getState()
+    const state: StateType = getState()
     const { city, language, newsId } = state.location.payload
 
     await Promise.all([
