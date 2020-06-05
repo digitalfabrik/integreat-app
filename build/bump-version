@@ -55,7 +55,7 @@ const commitAndTag = async (versionName, versionCode, { deliverinoPrivateKey, ow
   const ref = await appOctokit.git.createRef({
     owner,
     repo,
-    ref: `tags/${tagName}`,
+    ref: `refs/tags/${tagName}`,
     sha: tagSha
   })
   console.log(ref)
