@@ -14,37 +14,52 @@ program
 
 const commitAndTag = async (versionName, versionCode, { deliverinoPrivateKey, owner, repo, branch }) => {
   const appOctokit = await authenticate({ deliverinoPrivateKey, owner, repo })
-  const versionFileContent = await appOctokit.repos.getContents({ owner, repo, path: VERSION_FILE, ref: branch })
+  // const versionFileContent = await appOctokit.repos.getContents({ owner, repo, path: VERSION_FILE, ref: branch })
+  //
+  // const contentBase64 = Buffer.from(JSON.stringify({ versionName, versionCode })).toString('base64')
+  //
+  // const message = versionCode
+  //   ? `Bump version name to ${versionName} and version code to ${versionCode}\n[skip ci]`
+  //   : `Bump version name to ${versionName}\n[skip ci]`
+  //
+  // const commit = await appOctokit.repos.createOrUpdateFile({
+  //   owner,
+  //   repo,
+  //   path: VERSION_FILE,
+  //   content: contentBase64,
+  //   branch,
+  //   message,
+  //   sha: versionFileContent.data.sha
+  // })
+  // console.warn(`New version successfully commited with message "${message}"`)
+  //
+  // const commitSha = commit.data.commit.sha
+  const commitSha = 'a6bad45c61cf06a26c71b5c998d1933ce09bc89c'
 
-  const contentBase64 = Buffer.from(JSON.stringify({ versionName, versionCode })).toString('base64')
+  const tagName = `${versionName}${versionCode ? ` (version code: ${versionCode})` : ''}`
+  const releaseNotesUrl = `https://github.com/${owner}/${repo}/tree/${branch}/release-notes/${versionName}`
+  const tagMessage = `Release ${tagName}. Release notes can be found [here](${releaseNotesUrl}).`
 
-  const message = versionCode
-    ? `Bump version name to ${versionName} and version code to ${versionCode}\n[skip ci]`
-    : `Bump version name to ${versionName}\n[skip ci]`
-
-  const commit = await appOctokit.repos.createOrUpdateFile({
+  const tag = await appOctokit.git.createTag({
     owner,
     repo,
-    path: VERSION_FILE,
-    content: contentBase64,
-    branch,
-    message,
-    sha: versionFileContent.data.sha
-  })
-  console.warn(`New version successfully commited with message "${message}"`)
-
-  const commitSha = commit.data.commit.sha
-
-  const tag = `${versionName}${versionCode ? ` (version code: ${versionCode})` : ''}`
-  const tagMessage = `Release ${tag}. Release notes can be found in 'release-notes/${versionName}`
-
-  await appOctokit.git.createTag({
-    owner,
-    repo,
-    tag,
+    tag: tagName,
     message: tagMessage,
     object: commitSha,
     type: 'commit'
+  })
+
+  await appOctokit.git.createRef({
+    owner,
+    repo,
+    ref: `tags/${tagName}`,
+    sha: tag.sha
+  })
+
+  await appOctokit.repos.createRelease({
+    owner,
+    repo,
+    tag_name: tagName
   })
 }
 
