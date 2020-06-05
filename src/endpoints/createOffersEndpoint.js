@@ -8,7 +8,11 @@ import Endpoint from '../Endpoint'
 
 export const OFFERS_ENDPOINT_NAME = 'extras'
 
-const createPostMap = (jsonPost: JsonOfferPostType): Map<string, string> => new Map(Object.entries(jsonPost))
+const createPostMap = (jsonPost: JsonOfferPostType): Map<string, string> => {
+  const map = new Map()
+  Object.keys(jsonPost).forEach(key => map.set(key, jsonPost[key]))
+  return map
+}
 
 type ParamsType = { city: string, language: string }
 
