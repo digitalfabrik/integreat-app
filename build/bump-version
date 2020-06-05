@@ -37,24 +37,26 @@ const commitAndTag = async (versionName, versionCode, { deliverinoPrivateKey, ow
   const commitSha = 'a6bad45c61cf06a26c71b5c998d1933ce09bc89c'
 
   const tagName = `${versionName}${versionCode ? ` (version code: ${versionCode})` : ''}`
-  const releaseNotesUrl = `https://github.com/${owner}/${repo}/tree/${branch}/release-notes/${versionName}`
-  const tagMessage = `Release ${tagName}. Release notes can be found [here](${releaseNotesUrl}).`
+  // const releaseNotesUrl = `https://github.com/${owner}/${repo}/tree/${branch}/release-notes/${versionName}`
+  // const tagMessage = `Release ${tagName}. Release notes can be found [here](${releaseNotesUrl}).`
+  //
+  // const tag = await appOctokit.git.createTag({
+  //   owner,
+  //   repo,
+  //   tag: tagName,
+  //   message: tagMessage,
+  //   object: commitSha,
+  //   type: 'commit'
+  // })
+  // const tagSha = tag.data.sha
 
-  const tag = await appOctokit.git.createTag({
-    owner,
-    repo,
-    tag: tagName,
-    message: tagMessage,
-    object: commitSha,
-    type: 'commit'
-  })
-  console.log(tag)
+  const tagSha = '94fc29444ecab6f97e66c07f8665b40d8e5fdde1'
 
   const ref = await appOctokit.git.createRef({
     owner,
     repo,
     ref: `tags/${tagName}`,
-    sha: tag.sha
+    sha: tagSha
   })
   console.log(ref)
 
