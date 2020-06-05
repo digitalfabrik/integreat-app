@@ -12,7 +12,7 @@ exports[`ExtrasPage should render extra tiles if no extra is selected 1`] = `
     Array [
       TileModel {
         "_isExternalUrl": false,
-        "_path": "/augsburg/de/extras/sprungbrett",
+        "_path": "/augsburg/de/offers/sprungbrett",
         "_postData": null,
         "_thumbnail": "xy",
         "_title": "Sprungbrett",

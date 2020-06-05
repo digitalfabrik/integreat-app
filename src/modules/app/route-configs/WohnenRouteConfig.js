@@ -46,7 +46,7 @@ const fetchExtras = async (dispatch, getState) => {
 }
 
 const wohnenRoute: Route = {
-  path: `/:city/:language/extras/${WOHNEN_EXTRA}/:offerHash?`,
+  path: `/:city/:language/offers/${WOHNEN_EXTRA}/:offerHash?`,
   thunk: async (dispatch, getState) => {
     const state: StateType = getState()
     const { city, language } = state.location.payload
@@ -68,7 +68,7 @@ class WohnenRouteConfig implements RouteConfig<RouteParamsType, RequiredPayloads
   requiresFooter = true
 
   getRoutePath = ({ city, language, offerHash }: RouteParamsType): string =>
-    `/${city}/${language}/extras/${WOHNEN_EXTRA}${offerHash ? `/${offerHash}` : ''}`
+    `/${city}/${language}/offers/${WOHNEN_EXTRA}${offerHash ? `/${offerHash}` : ''}`
 
   getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType =>
     ({ offers: payloads.wohnenPayload, extras: payloads.extrasPayload })
