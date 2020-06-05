@@ -126,13 +126,13 @@ jobs:
           command: yarn run lint
       - run:
           name: Check flow
-          command: yarn run flow:check-now --max-workers $TOTAL_CPUS
+          command: yarn run flow:check-now --max-workers ${TOTAL_CPUS}
       - run:
           name: Unit tests
-          command: yarn run test --ci --maxWorkers $TOTAL_CPUS
+          command: yarn run test --ci --maxWorkers ${TOTAL_CPUS}
       - run:
           name: Test coverage # Results are not used right now. Run it anyway to (possibly) discover more problems.
-          command: yarn run test:coverage --ci --maxWorkers $TOTAL_CPUS
+          command: yarn run test:coverage --ci --maxWorkers ${TOTAL_CPUS}
       - when: # Debug build for integreat-test-cms
           condition:
             equal: [ "integreat-test-cms", << parameters.build_config >> ]
@@ -200,7 +200,7 @@ jobs:
                 name: Integreat production delivery # StrictHostKeyChecking=no is not a security problem. The worst that could happen is a delivery to the wrong domain.
                 command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/integreat.app \<<< $'put -r /tmp/output/dist/*'
             - slack/notify:
-                message: Integreat WebApp version $NEW_VERSION_NAME was delivered successfully to integreat.app!
+                message: Integreat WebApp version ${NEW_VERSION_NAME} was delivered successfully to integreat.app!
                 webhook: ${SLACK_URL}
       - when:
           condition:

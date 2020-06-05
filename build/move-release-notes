@@ -24,6 +24,9 @@ const moveReleaseNotes = async ({ newVersionName, deliverinoPrivateKey, owner, r
 
   // Tree of the 'release-notes' folder of the project
   const releaseNoteTreeSha = rootTree.data.tree.find(it => it.path === RELEASE_NOTES_DIR).sha
+  if (!releaseNoteTreeSha && rootTree.data.truncated) {
+    throw new Error('Root tree does not contain release notes tree since the response was truncated.')
+  }
   const releaseNoteTree = await appOctokit.git.getTree({ owner, repo, tree_sha: releaseNoteTreeSha })
 
   // Rename the dir 'unreleased' to <newVersionName> and keep everything else
