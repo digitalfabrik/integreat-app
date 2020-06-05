@@ -54,7 +54,7 @@ describe('WohnenRouteConfig', () => {
 
   it('should get the right path', () => {
     expect(wohnenRouteConfig.getRoutePath({ city: 'augsburg', language: 'de' }))
-      .toBe('/augsburg/de/extras/wohnen')
+      .toBe('/augsburg/de/offers/wohnen')
   })
 
   it('should get the required payloads', () => {
@@ -79,20 +79,20 @@ describe('WohnenRouteConfig', () => {
   it('should get the right language change path', () => {
     const location = createLocation({
       payload: { city: 'augsburg', language: 'de' },
-      pathname: '/augsburg/de/extras/wohnen',
+      pathname: '/augsburg/de/offers/wohnen',
       type: wohnenRouteConfig.name
     })
 
     expect(wohnenRouteConfig.getLanguageChangePath({ payloads, language: 'en', location }))
-      .toBe('/augsburg/en/extras/wohnen')
+      .toBe('/augsburg/en/offers/wohnen')
     expect(wohnenRouteConfig.getLanguageChangePath({ payloads, language: 'ar', location }))
-      .toBe('/augsburg/ar/extras/wohnen')
+      .toBe('/augsburg/ar/offers/wohnen')
   })
 
   it('should get the right page title', () => {
     const location = createLocation({
       payload: { city: 'augsburg', language: 'de' },
-      pathname: '/augsburg/de/extras/wohnen',
+      pathname: '/augsburg/de/offers/wohnen',
       type: wohnenRouteConfig.name
     })
 
@@ -101,7 +101,7 @@ describe('WohnenRouteConfig', () => {
 
     const offerLocation = createLocation({
       payload: { city: 'augsburg', language: 'de', offerHash: hash(offers[0]) },
-      pathname: `/augsburg/de/extras/wohnen/${hash(offers[0])}`,
+      pathname: `/augsburg/de/offers/wohnen/${hash(offers[0])}`,
       type: wohnenRouteConfig.name
     })
 
@@ -119,7 +119,7 @@ describe('WohnenRouteConfig', () => {
   it('should return the right feedback target information', () => {
     const location = createLocation({
       payload: { city: 'augsburg', language: 'de' },
-      pathname: '/augsburg/de/extras/wohnen',
+      pathname: '/augsburg/de/offers/wohnen',
       type: wohnenRouteConfig.name
     })
 
