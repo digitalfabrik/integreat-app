@@ -34,16 +34,15 @@ const commitAndTag = async (versionName, versionCode, { deliverinoPrivateKey, ow
   console.warn(`New version successfully commited with message "${message}"`)
 
   const commitSha = commit.data.commit.sha
+  const commitMessage = commit.data.message
 
   const releaseName = `${versionName}${versionCode ? ` (version code: ${versionCode})` : ''}`
-  const releaseNotesUrl = `https://github.com/${owner}/${repo}/tree/${branch}/release-notes/${versionName}`
-  const releaseMessage = `Release ${releaseName}. Release notes can be found here: ${releaseNotesUrl}.`
 
   const tag = await appOctokit.git.createTag({
     owner,
     repo,
     tag: releaseName,
-    message: releaseMessage,
+    message: commitMessage,
     object: commitSha,
     type: 'commit'
   })
@@ -55,6 +54,9 @@ const commitAndTag = async (versionName, versionCode, { deliverinoPrivateKey, ow
     ref: `refs/tags/${releaseName}`,
     sha: tagSha
   })
+
+  const releaseNotesUrl = `https://github.com/${owner}/${repo}/tree/${branch}/release-notes/${versionName}`
+  const releaseMessage = `Release ${releaseName}. Release notes can be found here: ${releaseNotesUrl}.`
 
   await appOctokit.repos.createRelease({
     owner,
