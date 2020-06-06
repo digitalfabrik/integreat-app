@@ -36,7 +36,7 @@ export function * fetchPoi (dataContainer: DataContainer, action: FetchPoiAction
       const failed: FetchPoiFailedActionType = {
         type: 'FETCH_POI_FAILED',
         params: {
-          message: 'Could not load event.',
+          message: 'Could not load poi.',
           code: ErrorCodes.PageNotFound,
           allAvailableLanguages,
           path: null,
