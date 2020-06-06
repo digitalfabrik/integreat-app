@@ -99,7 +99,10 @@ class Header extends React.PureComponent<PropsType> {
     const { navigation, t } = this.props
     const sharePath: string = navigation.getParam('sharePath')
     const url = `https://integreat.app${sharePath}`
-    const message = t('shareMessage', { message: url, interpolation: { escapeValue: false } })
+    const message = t('shareMessage', {
+      message: url,
+      interpolation: { escapeValue: false }
+    })
 
     try {
       await Share.share({

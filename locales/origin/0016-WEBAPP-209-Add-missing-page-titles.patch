@@ -1,0 +1,66 @@
+From ddfeef7cd6dc28d8e9ad6ca2102329b25872a18e Mon Sep 17 00:00:00 2001
+From: Steffen Kleinle <klinzo@yahoo.de>
+Date: Fri, 21 Dec 2018 12:00:29 +0100
+Subject: [PATCH 16/23] WEBAPP-209: Add missing page titles
+
+---
+ src/locales.json | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
+
+diff --git a/src/locales.json b/src/locales.json
+index a96a177e..62e6c73c 100644
+--- a/src/locales.json
++++ b/src/locales.json
+@@ -6,7 +6,9 @@
+         "events": "الأخبار",
+         "extras": "إضافات",
+         "landing": "أين أنت؟",
+-        "disclaimer": "هيئة التحرير وجهة الاتصال"
++        "disclaimer": "هيئة التحرير وجهة الاتصال",
++        "mainDisclaimer": "Integreat - هيئة التحرير وجهة الاتصال",
++        "notFound": "لم يتم العثور على الصفحة"
+       },
+       "metaDescription": "ابحث عن البيانات المحلية والحالية، وكذلك الأحداث، وكن جزءًا من مدينتك الجديدة. تساعدك شركة Integreat على التواصل مع الآخرين وتدعم العديد من اللغات."
+     },
+@@ -17,7 +19,7 @@
+         "extras": "Extras",
+         "landing": "Wo bist du?",
+         "disclaimer": "Impressum und Kontakt",
+-        "mainDisclaimer": "Impressum und Datenschutz - Integreat",
++        "mainDisclaimer": "Impressum und Kontakt - Integreat",
+         "notFound": "Seite nicht gefunden"
+       },
+       "metaDescription": "Finde lokale und aktuelle Informationen, Events und werde Teil deiner neuen Stadt. Integreat hilft dir dich mit anderen zu vernetzen und unterstützt mehrere Sprachen."
+@@ -29,6 +31,7 @@
+         "extras": "Extras",
+         "landing": "Where are you?",
+         "disclaimer": "Imprint and contact",
++        "mainDisclaimer": "Imprint and Contact - Integreat",
+         "pois": "Points of Interest",
+         "notFound": "Page not found"
+       },
+@@ -40,7 +43,9 @@
+         "events": "تازه​ها",
+         "extras": "اضافات",
+         "landing": "تو کجایی؟",
+-        "disclaimer": "مجوز ‎و اطلاعات تماس"
++        "disclaimer": "مجوز ‎و اطلاعات تماس",
++        "mainDisclaimer": "Integreat - مجوز \u200Eو اطلاعات تماس",
++        "notFound": "صفحه پیدا نشد"
+       },
+       "metaDescription": "آخرین اطلاعات و برنامه های محلی را ببینید و بخشی از شهر جدید خود شوید. Integreat به شما کمک می کند تا با دیگران ارتباط پیدا کنید و چندین زبان را پشتیبانی می کند."
+     },
+@@ -50,7 +55,9 @@
+         "events": "Actualités",
+         "extras": "Extras",
+         "landing": "Tu es où?",
+-        "disclaimer": "Mentions légales et contact"
++        "disclaimer": "Mentions légales et contact",
++        "mainDisclaimer": "Mentions Légales - Integreat",
++        "notFound": "Page introuvable"
+       },
+       "metaDescription": "Trouve des informations, des événements locaux et actuels et intègre-toi dans ta nouvelle ville. Integreat t'aide à te faire un réseau et te soutient dans plusieurs langues."
+     }
+-- 
+2.20.1 (Apple Git-117)
+

@@ -32,7 +32,7 @@ export const RESOURCE_CACHE_DIR_PATH = `${CACHE_DIR_PATH}/resource-cache/${RESOU
 const MAX_STORED_CITIES = 3
 
 type ContentCategoryJsonType = {|
-  root: string,
+  root: boolean,
   path: string,
   title: string,
   content: string,
@@ -60,8 +60,8 @@ type ContentEventJsonType = {|
     all_day: boolean
   |},
   location: {|
-    address: string,
-    town: string,
+    address: ?string,
+    town: ?string,
     postcode: ?string,
     latitude: ?string,
     longitude: ?string
@@ -72,7 +72,7 @@ type ContentCityJsonType = {|
   name: string,
   live: boolean,
   code: string,
-  prefix: string,
+  prefix: ?string,
   extras_enabled: boolean,
   events_enabled: boolean,
   sorting_name: string,
@@ -319,6 +319,8 @@ class DatabaseConnector {
     const json = JSON.parse(await this.readFile(path))
 
     return new CategoriesMapModel(json.map((jsonObject: ContentCategoryJsonType) => {
+      // $FlowFixMe https://github.com/facebook/flow/issues/5838
+      const availableLanguages = new Map<string, string>(Object.entries(jsonObject.available_languages))
       return new CategoryModel({
         root: jsonObject.root,
         path: jsonObject.path,
@@ -327,7 +329,7 @@ class DatabaseConnector {
         thumbnail: jsonObject.thumbnail,
         parentPath: jsonObject.parent_path,
         order: jsonObject.order,
-        availableLanguages: new Map(Object.entries(jsonObject.available_languages)),
+        availableLanguages,
         lastUpdate: moment(jsonObject.last_update, moment.ISO_8601),
         hash: jsonObject.hash
       })
@@ -453,6 +455,8 @@ class DatabaseConnector {
         live: jsonObject.live,
         eventsEnabled: jsonObject.events_enabled,
         extrasEnabled: jsonObject.extras_enabled,
+        tunewsEnabled: false, // todo: NATIVE-549
+        pushNotificationsEnabled: false, // todo: NATIVE-549
         sortingName: jsonObject.sorting_name,
         prefix: jsonObject.prefix,
         longitude: jsonObject.longitude,
@@ -502,12 +506,15 @@ class DatabaseConnector {
     return json.map((jsonObject: ContentEventJsonType) => {
       const jsonDate = jsonObject.date
       const jsonLocation = jsonObject.location
+      // $FlowFixMe https://github.com/facebook/flow/issues/5838
+      const availableLanguages = new Map<string, string>(Object.entries(jsonObject.available_languages))
       return new EventModel({
         path: jsonObject.path,
         title: jsonObject.title,
         content: jsonObject.content,
         thumbnail: jsonObject.thumbnail,
-        availableLanguages: new Map(Object.entries(jsonObject.available_languages)),
+        featuredImage: null, // todo: NATIVE-549
+        availableLanguages,
         lastUpdate: moment(jsonObject.last_update, moment.ISO_8601),
         hash: jsonObject.hash,
         excerpt: jsonObject.excerpt,
@@ -517,6 +524,7 @@ class DatabaseConnector {
           allDay: jsonDate.all_day
         }),
         location: new LocationModel({
+          name: null, // todo: NATIVE-549
           address: jsonLocation.address,
           latitude: jsonLocation.latitude,
           longitude: jsonLocation.longitude,

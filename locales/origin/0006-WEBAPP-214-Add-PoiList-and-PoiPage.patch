@@ -1,0 +1,30 @@
+From 76bc88e369f15aa88369b1212ad1fec4a40d50b1 Mon Sep 17 00:00:00 2001
+From: Steffen Kleinle <klinzo@yahoo.de>
+Date: Tue, 23 Oct 2018 13:33:42 +0200
+Subject: [PATCH 06/23] WEBAPP-214: Add PoiList and PoiPage
+
+---
+ src/locales.json | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/src/locales.json b/src/locales.json
+index b409adde..a4342356 100644
+--- a/src/locales.json
++++ b/src/locales.json
+@@ -327,5 +327,13 @@
+     "de": {
+       "noOffersAvailable": "Keine Angebote verfügbar"
+     }
++  },
++  "pois": {
++    "en": {
++      "location": "Location",
++      "noPois": "No Points of Interest available",
++      "pois": "Points of Interest",
++      "pageTitle": "Points of Interest"
++    }
+   }
+ }
+-- 
+2.20.1 (Apple Git-117)
+
