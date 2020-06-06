@@ -1,0 +1,44 @@
+From d3a55d3c4412387339879d9f03657be706e809a9 Mon Sep 17 00:00:00 2001
+From: Steffen Kleinle <klinzo@yahoo.de>
+Date: Tue, 9 Oct 2018 12:29:38 +0200
+Subject: [PATCH] WEBAPP-375: Create PageDetail
+
+---
+ src/locales.json | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
+
+diff --git a/src/locales.json b/src/locales.json
+index dc9f475f..90956f8e 100644
+--- a/src/locales.json
++++ b/src/locales.json
+@@ -316,5 +316,27 @@
+       "feedbackSent": "Feedback sent",
+       "close": "Close"
+     }
++  },
++  "common": {
++    "ar": {
++      "location": "الموقع",
++      "date": "تاريخ"
++    },
++    "de": {
++      "location": "Standort",
++      "date": "Datum"
++    },
++    "en": {
++      "location": "Location",
++      "date": "Date"
++    },
++    "fa": {
++      "location": "موقعیت مکانی",
++      "date": "تاریخ"
++    },
++    "fr": {
++      "location": "Lieu",
++      "date": "Date"
++    }
+   }
+ }
+--
+2.20.1 (Apple Git-117)
+

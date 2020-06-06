@@ -14,6 +14,7 @@ import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { NavigationScreenProp } from 'react-navigation'
 import FailureContainer from '../../../modules/error/containers/FailureContainer'
 import { LOADING_TIMEOUT } from '../../../modules/common/constants'
+import ErrorCodes from '../../../modules/error/ErrorCodes'
 
 type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
 
@@ -32,7 +33,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   const extras: Array<ExtraModel> = ownProps.navigation.getParam('extras')
   const offerHash: string = ownProps.navigation.getParam('offerHash')
 
-  const extra: ExtraModel | void = extras.find(extra => extra.alias === WOHNEN_EXTRA)
+  const extra: ?ExtraModel = extras.find(extra => extra.alias === WOHNEN_EXTRA)
 
   const navigateToOffer = (offerHash: string) => {
     const params = { offerHash: offerHash, extras: extras }
@@ -79,8 +80,8 @@ class WohnenExtraContainer extends React.Component<WohnenPropsType, WohnenStateT
 
   loadWohnen = async () => {
     const { extra } = this.props
-
-    if (!extra) {
+    const apiName = extra && extra.postData && extra.postData.get('api-name')
+    if (!extra || !apiName) {
       this.setState({ error: new Error('The Wohnen extra is not supported.'), offers: null })
       return
     }
@@ -89,8 +90,8 @@ class WohnenExtraContainer extends React.Component<WohnenPropsType, WohnenStateT
     setTimeout(() => this.setState({ timeoutExpired: true }), LOADING_TIMEOUT)
 
     try {
-      const payload: Payload<Array<ExtraModel>> = await createWohnenEndpoint(wohnenApiBaseUrl).request(
-        { city: extra.postData.get('api-name') }
+      const payload: Payload<Array<WohnenOfferModel>> = await createWohnenEndpoint(wohnenApiBaseUrl).request(
+        { city: apiName }
       )
 
       if (payload.error) {
@@ -114,6 +115,12 @@ class WohnenExtraContainer extends React.Component<WohnenPropsType, WohnenStateT
       </ScrollView>
     }
 
+    if (!extra) {
+      return <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <FailureContainer code={ErrorCodes.UnknownError} />
+      </ScrollView>
+    }
+
     if (!offers) {
       return timeoutExpired
         ? <ScrollView refreshControl={<RefreshControl refreshing />} contentContainerStyle={{ flexGrow: 1 }} />
@@ -122,7 +129,7 @@ class WohnenExtraContainer extends React.Component<WohnenPropsType, WohnenStateT
 
     return <ScrollView refreshControl={<RefreshControl onRefresh={this.loadWohnen} refreshing={false} />}
                        contentContainerStyle={{ flexGrow: 1 }}>
-      return <WohnenExtra wohnenExtra={extra} offerHash={offerHash} navigateToOffer={navigateToOffer} offers={offers}
+      <WohnenExtra wohnenExtra={extra} offerHash={offerHash} navigateToOffer={navigateToOffer} offers={offers}
                           t={t} theme={theme} language={language} />
     </ScrollView>
   }

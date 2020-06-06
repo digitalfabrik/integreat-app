@@ -1,0 +1,98 @@
+From 418e3fa95222aaa9270a3052fb0d12ced1c53a7b Mon Sep 17 00:00:00 2001
+From: Steffen Kleinle <klinzo@yahoo.de>
+Date: Wed, 17 Oct 2018 16:58:48 +0200
+Subject: [PATCH 02/23] WEBAPP-268: Add tooltip to all image buttons
+
+---
+ src/locales.json | 37 ++++++++++++++++++++++++++++++-------
+ 1 file changed, 30 insertions(+), 7 deletions(-)
+
+diff --git a/src/locales.json b/src/locales.json
+index dc9f475f..1abcd8cd 100644
+--- a/src/locales.json
++++ b/src/locales.json
+@@ -5,7 +5,11 @@
+       "privacy": "حماية المعلومات",
+       "extras": "إضافات",
+       "categories": "الفئات",
+-      "news": "الأخبار"
++      "news": "الأخبار",
++      "noNews": "لا توجد أخبار",
++      "noLanguages": "غير متوفر بلغات أخرى",
++      "noTranslation": "لا توجد ترجمة متاحة",
++      "search": "البحث"
+     },
+     "de": {
+       "imprintAndContact": "Impressum und Kontakt",
+@@ -15,7 +19,10 @@
+       "news": "News",
+       "noNews": "Keine News",
+       "noLanguages": "Nicht verfügbar in anderen Sprachen",
+-      "noTranslation": "Keine Übersetzung verfügbar"
++      "noTranslation": "Keine Übersetzung verfügbar",
++      "search": "Suchen",
++      "changeLocation": "Standort wechseln",
++      "changeLanguage": "Sprache wechseln"
+     },
+     "en": {
+       "imprintAndContact": "Imprint and contact",
+@@ -25,19 +32,30 @@
+       "news": "News",
+       "noNews": "No News",
+       "noLanguages": "Not available in other languages",
+-      "noTranslation": "No translation available"
++      "noTranslation": "No translation available",
++      "search": "Search",
++      "changeLocation": "Change location",
++      "changeLanguage": "Change language"
+     },
+     "fa": {
+       "imprintAndContact": "مجوز ‎و اطلاعات تماس",
+       "extras": "اضافات",
+       "categories": "دسته​ها",
+-      "news": "تازه​ها"
++      "news": "تازه​ها",
++      "noNews": "خبری موجود نیست",
++      "noLanguages": "در زبان های دیگر موجود نیست",
++      "noTranslation": "ترجمه موجود نیست",
++      "search": "جستجو"
+     },
+     "fr": {
+       "imprintAndContact": "Mentions légales et contact",
+       "extras": "Extras",
+       "categories": "Catégorie",
+-      "news": "Actualités"
++      "news": "Actualités",
++      "noNews": "Aucune news",
++      "noLanguages": "Non disponible dans d'autres langues",
++      "noTranslation": "Aucune traduction disponible",
++      "search": "Rechercher"
+     }
+   },
+   "search": {
+@@ -61,7 +79,8 @@
+   },
+   "categories": {
+     "ar": {
+-      "lastUpdate": "اخر تحديث: "
++      "lastUpdate": "اخر تحديث: ",
++      "createPdf": "إنشاء ملف PDF"
+     },
+     "de": {
+       "createPdf": "PDF Erstellen",
+@@ -74,7 +93,11 @@
+       "metaDescription": "Find local and relevant content, events and become part of your new city. Integreat helps you to connect to others and supports multiple languages."
+     },
+     "fa": {
+-      "lastUpdate": "آخرین به روزآوری: "
++      "lastUpdate": "آخرین به روزآوری: ",
++      "createPdf": "Créer PDF"
++    },
++    "fr": {
++      "createPdf": "پی دی اف بسازید"
+     }
+   },
+   "events": {
+-- 
+2.20.1 (Apple Git-117)
+

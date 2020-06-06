@@ -9,11 +9,13 @@ import styled from 'styled-components/native'
 import Image from '../../common/components/Image'
 import CategoryListCaption from '../../../modules/common/components/CategoryListCaption'
 
+export type ListEntryType = {|
+  model: { title: string, thumbnail: string, path: string },
+  subCategories: Array<{ title: string, thumbnail: string, path: string }>
+|}
+
 type PropsType = {|
-  categories: Array<{|
-    model: { title: string, thumbnail: string, path: string },
-    subCategories: Array<{ title: string, thumbnail: string, path: string }>
-  |}>,
+  categories: Array<ListEntryType>,
   title?: string,
   content?: string,
   /** A search query to highlight in the categories titles */

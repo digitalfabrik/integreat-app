@@ -31,7 +31,8 @@ type ItemType = {
   title: string, description: string,
   hasSwitch?: true,
   getSettingValue: (settings: SettingsType) => boolean,
-  onPress?: () => void
+  onPress?: () => void,
+  accessibilityRole?: string
 }
 
 type SectionType = SectionBase<ItemType> & {title: ?string}
@@ -86,11 +87,11 @@ export default class Settings extends React.Component<PropsType, StateType> {
 
   renderItem = ({ item }: { item: ItemType }) => {
     const { theme } = this.props
-    const { title, description, hasSwitch, onPress, getSettingValue } = item
+    const { title, description, hasSwitch, onPress, getSettingValue, accessibilityRole } = item
     const value = getSettingValue ? getSettingValue(this.state.settings) : false
 
     return (
-      <SettingItem title={title} description={description}
+      <SettingItem accessibilityRole={accessibilityRole} title={title} description={description}
                    onPress={onPress} theme={theme}>
         {hasSwitch && <Switch thumbColor={theme.colors.themeColor} trackColor={{ true: theme.colors.themeColor }}
                               value={value} onValueChange={onPress} />}

@@ -24,7 +24,16 @@ describe('morphContentLanguage', () => {
   const createCategory = ({ root, path, order, availableLanguages, parentPath }: {|
     root: boolean, path: string, order: number, availableLanguages: Map<string, string>, parentPath: string
   |}) => new CategoryModel({
-    root, path, order, availableLanguages, parentPath, title: '', content: '', thumbnail: 'no_thumbnail', hash: ''
+    root,
+    path,
+    order,
+    availableLanguages,
+    parentPath,
+    title: '',
+    content: '',
+    thumbnail: 'no_thumbnail',
+    hash: '',
+    lastUpdate: moment('2011-02-04T00:00:00.000Z')
   })
 
   const rootEnCategory = createCategory({
@@ -109,14 +118,19 @@ describe('morphContentLanguage', () => {
         allDay: true
       }),
       location: new LocationModel({
+        name: 'name',
         address: 'address',
         town: 'town',
-        postcode: 'postcode'
+        postcode: 'postcode',
+        longitude: null,
+        latitude: null
       }),
       excerpt: 'excerpt',
       lastUpdate: moment('2016-01-07 10:36:24', moment.ISO_8601),
       content: 'content',
-      thumbnail: 'thumbnail'
+      thumbnail: 'thumbnail',
+      featuredImage: null,
+      hash: '12345'
     })
 
   const enFirstEvent = createEvent({
@@ -202,7 +216,12 @@ describe('morphContentLanguage', () => {
       }
     }
 
-    const previous = prepareState({ path: '/augsburg/de/willkommen', eventPath: null, events, categoriesMap })
+    const previous = prepareState({
+      path: '/augsburg/de/willkommen',
+      eventPath: null,
+      events,
+      categoriesMap
+    })
 
     const newState = morphContentLanguage(previous, action)
 
@@ -257,7 +276,10 @@ describe('morphContentLanguage', () => {
     expect(newState).toEqual({
       city: 'augsburg',
       switchingLanguage: false,
-      languages: { status: 'ready', models: cityLanguages },
+      languages: {
+        status: 'ready',
+        models: cityLanguages
+      },
       categoriesRouteMapping: {
         'route-0': {
           status: 'ready',
@@ -293,7 +315,10 @@ describe('morphContentLanguage', () => {
         }
       },
       poisRouteMapping: expect.any(Object),
-      resourceCache: { status: 'ready', value: {} },
+      resourceCache: {
+        status: 'ready',
+        value: {}
+      },
       searchRoute: { categoriesMap: enCategoriesMap }
     })
   })
@@ -319,7 +344,10 @@ describe('morphContentLanguage', () => {
     expect(morphContentLanguage(previous, action)).toEqual({
       city: 'augsburg',
       switchingLanguage: false,
-      languages: { status: 'ready', models: cityLanguages },
+      languages: {
+        status: 'ready',
+        models: cityLanguages
+      },
       categoriesRouteMapping: {
         'route-0': {
           status: 'languageNotAvailable',
@@ -331,7 +359,10 @@ describe('morphContentLanguage', () => {
       },
       eventsRouteMapping: expect.any(Object),
       poisRouteMapping: expect.any(Object),
-      resourceCache: { status: 'ready', value: {} },
+      resourceCache: {
+        status: 'ready',
+        value: {}
+      },
       searchRoute: { categoriesMap: enCategoriesMap }
     })
   })
@@ -357,7 +388,10 @@ describe('morphContentLanguage', () => {
     expect(morphContentLanguage(previous, action)).toEqual({
       city: 'augsburg',
       switchingLanguage: false,
-      languages: { status: 'ready', models: cityLanguages },
+      languages: {
+        status: 'ready',
+        models: cityLanguages
+      },
       categoriesRouteMapping: expect.any(Object),
       eventsRouteMapping: {
         'route-1': {
@@ -368,7 +402,10 @@ describe('morphContentLanguage', () => {
         }
       },
       poisRouteMapping: expect.any(Object),
-      resourceCache: { status: 'ready', value: {} },
+      resourceCache: {
+        status: 'ready',
+        value: {}
+      },
       searchRoute: { categoriesMap: enCategoriesMap }
     })
   })
