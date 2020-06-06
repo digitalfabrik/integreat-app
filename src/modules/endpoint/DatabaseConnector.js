@@ -352,34 +352,7 @@ class DatabaseConnector {
     const path = this.getContentPath('languages', context)
     await this.writeFile(path, JSON.stringify(languages))
   }
-
-  async storeEvents (events: Array<EventModel>, context: DatabaseContext) {
-    const jsonModels = events.map((event: EventModel): ContentEventJsonType => ({
-      path: event.path,
-      title: event.title,
-      content: event.content,
-      last_update: event.lastUpdate.toISOString(),
-      thumbnail: event.thumbnail,
-      available_languages: mapToObject(event.availableLanguages),
-      hash: event.hash,
-      excerpt: event.excerpt,
-      date: {
-        start_date: event.date.startDate.toISOString(),
-        end_date: event.date.endDate.toISOString(),
-        all_day: event.date.allDay
-      },
-      location: {
-        address: event.location.address,
-        town: event.location.town,
-        postcode: event.location.postcode,
-        latitude: event.location.latitude,
-        longitude: event.location.longitude
-      }
-    }))
-
-    await this.writeFile(this.getContentPath('events', context), JSON.stringify(jsonModels))
-  }
-
+  
   async storePois (pois: Array<PoiModel>, context: DatabaseContext) {
     const jsonModels = pois.map((poi: PoiModel): ContentPoiJsonType => ({
       path: poi.path,
@@ -392,7 +365,6 @@ class DatabaseConnector {
       lastUpdate: poi.lastUpdate,
       hash: poi.hash
     }))
-
     await this.writeFile(this.getContentPath('pois', context), JSON.stringify(jsonModels))
   }
 
