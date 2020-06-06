@@ -8,6 +8,8 @@ import HeaderActionItem from '../HeaderActionItem'
 import styled from 'styled-components'
 
 const ActionItems = styled.div`
+  display: flex;
+  align-items: center;
   justify-content: flex-end;
 
   & > *,

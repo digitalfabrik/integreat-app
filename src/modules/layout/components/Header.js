@@ -32,16 +32,15 @@ const HeaderContainer = styled.header`
   box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.2);
   background-color: ${props => props.theme.colors.backgroundAccentColor};
   user-select: none;
+  flex-wrap: wrap;
+
 
   & > div {
     display: flex;
     height: ${props => props.theme.dimensions.headerHeightLarge}px;
-    align-items: center;
   }
 
   @media ${props => props.theme.dimensions.smallViewport} {
-    flex-wrap: wrap;
-
     & > div {
       height: ${props => props.theme.dimensions.headerHeightSmall}px;
     }
@@ -58,6 +57,8 @@ const LogoWide = styled.div`
   flex: 1 1 100px;
   order: 0;
   padding: 0 10px;
+  display: flex;
+  align-items: center;
 
   & a {
     width: 100%;
@@ -88,13 +89,9 @@ const ActionBar = styled(HeaderActionBar)`
 `
 
 const NavigationBar = styled(HeaderNavigationBar)`
-  flex: 2 1 100px;
-  order: 1;
-
-  @media ${props => props.theme.dimensions.smallViewport} {
     flex: 1 0 100%;
     order: 3;
-  }
+    align-items: stretch;
 `
 
 /**

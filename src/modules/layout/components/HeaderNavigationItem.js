@@ -5,39 +5,81 @@ import ReactTooltip from 'react-tooltip'
 import styled from 'styled-components'
 import Link from 'redux-first-router-link'
 
-const NavigationItem = styled(Link)`
+const StyledLink = styled(Link)`
   ${props => props.theme.helpers.removeLinkHighlighting};
   flex: 1;
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.colors.textSecondaryColor};
   font-size: .9em;
-  font-weight: 400;
+  font-weight: 800;
   text-align: center;
-  text-transform: uppercase;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+  display: flex;
+  transition: color 0.2s;
 
   @media ${props => props.theme.dimensions.smallViewport} {
     font-size: 0.9em;
   }
+
+  &:hover > div:first-child {
+      box-shadow: 0 0px 0px 0px rgba(0, 0, 0, 0.3);
+      border-color: #fbda16;
+  }
+
+  &:hover {
+    color: ${props => props.theme.colors.textColor}
+  }
+
+  &:hover > div > img {
+    opacity: 1;
+  }
+
+  ${props => props.active ? `
+      color: ${props.theme.colors.textColor};
+
+      & img {
+        opacity: 1;
+      }
+
+      & > div:first-child {
+        box-shadow: 0 0px 0px 0px rgba(0, 0, 0, 0.3);
+        border-color: #fbda16;
+      }
+   ` : '' }
+
 `
 
-const DisabledNavigationItem = styled(NavigationItem.withComponent('span'))`
-  color: ${props => props.theme.colors.textDisabledColor};
-`
+const ICON_SIZE = 50
+const PADDING_CIRCLE = 8
 
-const ActiveNavigationItem = styled(NavigationItem)`
-  ${
-  props => props.selected
-    ? 'font-weight: 700;'
-    : `:hover {
-        font-weight: 700;
-       }`}
+const Circle = styled.div`
+  background-color: white;
+  box-sizing: border-box;
+  border-radius: 100%;
+  height: ${ICON_SIZE}px;
+  width: ${ICON_SIZE}px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.7);
+  transition: box-shadow 0.2s, border 0.2s;
+  border: white 2px solid;
+
+  & img {
+    opacity: 0.7;
+    transition: opacity 0.2s;
+    height: ${ICON_SIZE / Math.sqrt(2) - PADDING_CIRCLE}px;
+  }
 `
 
 type PropsType = {|
   text: string,
   href: string,
-  selected: boolean,
   active: boolean,
-  tooltip?: string
+  enabled: boolean,
+  tooltip?: string,
+  icon: string
 |}
 
 /**
@@ -50,17 +92,11 @@ class HeaderNavigationItem extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const { active, text, tooltip, selected, href } = this.props
-    if (active) {
-      return <ActiveNavigationItem key={text} to={href} selected={selected}>
-        {text}
-      </ActiveNavigationItem>
-    } else {
-      return <DisabledNavigationItem role='link' aria-disabled key={text} data-tip={tooltip}
-                                     aria-label={`${text}${tooltip ? ` - ${tooltip}` : ''}`}>
-        {text}
-      </DisabledNavigationItem>
-    }
+    const { active, text, href, icon} = this.props
+    return <StyledLink to={href} active={active}>
+      <Circle><img src={icon} alt='' /></Circle>
+      <div>{text}</div>
+    </StyledLink>
   }
 }
 
