@@ -25,7 +25,12 @@ import { WOHNEN_ROUTE } from '../../app/route-configs/WohnenRouteConfig'
 import { SPRUNGBRETT_ROUTE } from '../../app/route-configs/SprungbrettRouteConfig'
 import LandingRouteConfig from '../../app/route-configs/LandingRouteConfig'
 import type { LanguageChangePathsType } from '../../app/containers/Switcher'
-import buildConfig from '../../app/constants/buildConfig'
+import offersIcon from '../assets/offers.svg'
+import localInformationIcon from '../assets/local_information.svg'
+import eventsIcon from '../assets/events.svg'
+import newsIcon from '../assets/news.svg'
+import poisIcon from '../assets/pois.svg'
+import PoisRouteConfig, { POIS_ROUTE } from '../../app/route-configs/PoisRouteConfig'
 
 type PropsType = {|
   events: ?Array<EventModel>,
@@ -68,33 +73,47 @@ export class LocationHeader extends React.Component<PropsType> {
     const { city, language } = location.payload
     const currentRoute = location.type
 
-    const isEventsActive = events ? events.length > 0 : false
+    const isEventsButtonEnabled = events ? events.length > 0 : false
 
-    const isNewsEnabled = buildConfig.featureFlags.newsStream && (isLocalNewsEnabled || isTunewsEnabled)
-    const isCategoriesEnabled = isExtrasEnabled || isEventsEnabled || isNewsEnabled
+    const isNewsEnabled = (isLocalNewsEnabled || isTunewsEnabled)
+    const isCategoriesEnabled = isExtrasEnabled || isEventsButtonEnabled || isNewsEnabled
 
     const items: Array<Element<typeof HeaderNavigationItem>> = []
-
-    if (isExtrasEnabled) {
-      items.push(
-        <HeaderNavigationItem
-          key='extras'
-          href={new ExtrasRouteConfig().getRoutePath({ city, language })}
-          selected={[EXTRAS_ROUTE, WOHNEN_ROUTE, SPRUNGBRETT_ROUTE].includes(currentRoute)}
-          text={t('offers')}
-          active
-        />
-      )
-    }
 
     if (isCategoriesEnabled) {
       items.push(
         <HeaderNavigationItem
           key='categories'
           href={new CategoriesRouteConfig().getRoutePath({ city, language })}
-          selected={currentRoute === CATEGORIES_ROUTE}
-          text={t('categories')}
-          active
+          active={currentRoute === CATEGORIES_ROUTE}
+          text={t('localInformation')}
+          icon={localInformationIcon}
+          enabled
+        />
+      )
+    }
+
+    if (true) {
+      items.push(
+        <HeaderNavigationItem
+          key='pois'
+          href={new PoisRouteConfig().getRoutePath({ city, language })}
+          active={currentRoute === POIS_ROUTE}
+          text={t('pois')}
+          icon={poisIcon}
+          enabled
+        />)
+    }
+
+    if (isExtrasEnabled) {
+      items.push(
+        <HeaderNavigationItem
+          key='extras'
+          href={new ExtrasRouteConfig().getRoutePath({ city, language })}
+          active={[EXTRAS_ROUTE, WOHNEN_ROUTE, SPRUNGBRETT_ROUTE].includes(currentRoute)}
+          text={t('offers')}
+          icon={offersIcon}
+          enabled
         />
       )
     }
@@ -108,22 +127,24 @@ export class LocationHeader extends React.Component<PropsType> {
         <HeaderNavigationItem
           key='news'
           href={newsUrl}
-          selected={[LOCAL_NEWS_ROUTE, TUNEWS_ROUTE, TUNEWS_DETAILS_ROUTE, LOCAL_NEWS_DETAILS_ROUTE].includes(currentRoute)}
+          active={[LOCAL_NEWS_ROUTE, TUNEWS_ROUTE, TUNEWS_DETAILS_ROUTE, LOCAL_NEWS_DETAILS_ROUTE].includes(currentRoute)}
           text={t('news')}
-          active
+          icon={newsIcon} // todo: This should be replaced with a corresponding news icon
+          enabled
         />
       )
     }
 
-    if (isEventsEnabled) {
+    if (isEventsButtonEnabled) {
       items.push(
         <HeaderNavigationItem
           key='events'
           href={new EventsRouteConfig().getRoutePath({ city, language })}
-          selected={currentRoute === EVENTS_ROUTE}
+          active={currentRoute === EVENTS_ROUTE}
           text={t('events')}
           tooltip={t('noEvents')}
-          active={isEventsActive}
+          icon={eventsIcon}
+          enabled
         />
       )
     }
