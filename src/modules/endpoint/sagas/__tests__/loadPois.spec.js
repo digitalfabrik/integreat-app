@@ -45,8 +45,6 @@ describe('loadPois', () => {
     const dataContainer = new DefaultDataContainer()
 
     await runSaga({}, loadPois, city, language, dataContainer, false).toPromise()
-    var test = await dataContainer.getPois(city, language)
-    console.log(test)
     expect(await dataContainer.getPois(city, language)).toStrictEqual(mockPois)
   })
 
