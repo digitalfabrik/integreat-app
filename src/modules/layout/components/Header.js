@@ -35,7 +35,7 @@ const HeaderContainer = styled.header`
   user-select: none;
   flex-direction: column;
 
-  & > div {
+  & > div > div {
     display: flex;
     height: ${props => props.theme.dimensions.headerHeightLarge}px;
   }
