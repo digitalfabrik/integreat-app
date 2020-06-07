@@ -135,7 +135,7 @@ export class LocationHeader extends React.Component<PropsType> {
       )
     }
 
-    if (isEventsButtonEnabled) {
+    if (isEventsEnabled) {
       items.push(
         <HeaderNavigationItem
           key='events'
@@ -144,7 +144,7 @@ export class LocationHeader extends React.Component<PropsType> {
           text={t('events')}
           tooltip={t('noEvents')}
           icon={eventsIcon}
-          enabled
+          enabled={isEventsButtonEnabled}
         />
       )
     }
