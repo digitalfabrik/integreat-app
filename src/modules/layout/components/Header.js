@@ -28,12 +28,12 @@ const HeaderContainer = styled.header`
   display: flex;
   width: 100%;
   box-sizing: border-box;
-  align-items: center;
+  align-items: stretch;
+
   box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.2);
   background-color: ${props => props.theme.colors.backgroundAccentColor};
   user-select: none;
-  flex-wrap: wrap;
-
+  flex-direction: column;
 
   & > div {
     display: flex;
@@ -42,6 +42,11 @@ const HeaderContainer = styled.header`
 
   @media ${props => props.theme.dimensions.smallViewport} {
     & > div {
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    & > div > div {
       height: ${props => props.theme.dimensions.headerHeightSmall}px;
     }
   }
@@ -52,13 +57,39 @@ const HeaderContainer = styled.header`
   }
 `
 
+const CityName = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: ${props => props.long ? '1.5rem' : '1.8rem'};
+  font-weight: 800;
+  flex: 1;
+  order: 2;
+
+  & span {
+    padding-left: 5px;
+    padding-bottom: 10px;
+  }
+
+  @media ${props => props.theme.dimensions.smallViewport} {
+    font-size: 1.2rem;
+    order: 3;
+    min-width: 100%;
+    justify-content: center;
+
+    & span {
+      padding-bottom: 0px;
+    }
+  }
+`
+
 const LogoWide = styled.div`
   box-sizing: border-box;
-  flex: 1 1 100px;
-  order: 0;
+  flex-shrink: 1;
+  height: 100%;
   padding: 0 10px;
   display: flex;
   align-items: center;
+  order: 1;
 
   & a {
     width: 100%;
@@ -71,27 +102,36 @@ const LogoWide = styled.div`
   }
 
   @media ${props => props.theme.dimensions.smallViewport} {
-    flex: 1 1 100px;
-
     & a {
       max-height: 75%;
     }
   }
 `
 
+const Row = styled.div`
+  display: flex;
+  flex: 1;
+  max-width: 100%;
+  overflow-x: auto;
+  height: ${props => props.theme.dimensions.headerHeightLarge}px;
+  flex-direction: row;
+`
+
 const ActionBar = styled(HeaderActionBar)`
-  flex: 1 1 100px;
-  order: 2;
+  flex-shrink: 1;
+  order: 3;
 
   @media ${props => props.theme.dimensions.smallViewport} {
-    flex: 1 1 100px;
+    order: 2;
   }
 `
 
 const NavigationBar = styled(HeaderNavigationBar)`
-    flex: 1 0 100%;
-    order: 3;
+    padding: 0 10px;
+    flex-grow: 1;
+    flex-shrink: 0;
     align-items: stretch;
+    justify-content: center;
 `
 
 /**
@@ -111,21 +151,26 @@ export class Header extends React.PureComponent<PropsType> {
       theme, viewportSmall, onStickyTopChanged, actionItems, logoHref, navigationItems, platform, cityName
     } = this.props
     const { headerHeightSmall, headerHeightLarge } = theme.dimensions
-    const height = viewportSmall ? headerHeightSmall : headerHeightLarge
-    const scrollHeight = viewportSmall ? headerHeightSmall : headerHeightLarge
+    const height = viewportSmall ? 3 * headerHeightSmall : 2 * headerHeightLarge
+    const scrollHeight = viewportSmall ? 2 * headerHeightSmall : headerHeightLarge
     return (
       <Headroom onStickyTopChanged={onStickyTopChanged}
                 scrollHeight={scrollHeight}
                 height={height}
                 positionStickyDisabled={platform.positionStickyDisabled}>
         <HeaderContainer>
-          <LogoWide>
-            <Link to={logoHref}>
-              <img src={buildConfig.logoWide} alt={`Integreat${cityName ? ` - ${cityName}` : ''}`} />
-            </Link>
-          </LogoWide>
-          <NavigationBar>{navigationItems}</NavigationBar>
-          <ActionBar items={actionItems} />
+          <Row>
+            <LogoWide>
+              <Link to={logoHref}>
+                <img src={buildConfig.logoWide} alt={`Integreat${cityName ? ` - ${cityName}` : ''}`} />
+              </Link>
+            </LogoWide>
+            <CityName long={cityName?.length >= 25}><span>{cityName}</span></CityName>
+            <ActionBar items={actionItems} />
+          </Row>
+          <Row>
+            <NavigationBar>{navigationItems}</NavigationBar>
+          </Row>
         </HeaderContainer>
       </Headroom>
     )

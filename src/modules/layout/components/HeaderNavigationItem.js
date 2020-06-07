@@ -19,7 +19,8 @@ const StyledLink = styled(Link)`
   transition: color 0.2s;
 
   @media ${props => props.theme.dimensions.smallViewport} {
-    font-size: 0.9em;
+    font-size: 0.8em;
+    min-width: 135px;
   }
 
   &:hover > div:first-child {
@@ -38,7 +39,7 @@ const StyledLink = styled(Link)`
   ${props => props.active ? `
       color: ${props.theme.colors.textColor};
 
-      & img {
+      & > div > img {
         opacity: 1;
       }
 
@@ -50,15 +51,16 @@ const StyledLink = styled(Link)`
 
 `
 
-const ICON_SIZE = 50
+const ICON_SIZE_LARGE = 50
+const ICON_SIZE_SMALL = 35
 const PADDING_CIRCLE = 8
 
 const Circle = styled.div`
   background-color: white;
   box-sizing: border-box;
   border-radius: 100%;
-  height: ${ICON_SIZE}px;
-  width: ${ICON_SIZE}px;
+  height: ${ICON_SIZE_LARGE}px;
+  width: ${ICON_SIZE_LARGE}px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -69,7 +71,18 @@ const Circle = styled.div`
   & img {
     opacity: 0.7;
     transition: opacity 0.2s;
-    height: ${ICON_SIZE / Math.sqrt(2) - PADDING_CIRCLE}px;
+    height: ${ICON_SIZE_LARGE / Math.sqrt(2) - PADDING_CIRCLE}px;
+    width: ${ICON_SIZE_LARGE / Math.sqrt(2) - PADDING_CIRCLE}px;
+  }
+
+  @media ${props => props.theme.dimensions.smallViewport} {
+    height: ${ICON_SIZE_SMALL}px;
+    width: ${ICON_SIZE_SMALL}px;
+
+    & img {
+      height: ${ICON_SIZE_SMALL / Math.sqrt(2) - PADDING_CIRCLE / 2}px;
+      width: ${ICON_SIZE_SMALL / Math.sqrt(2) - PADDING_CIRCLE / 2}px;
+    }
   }
 `
 

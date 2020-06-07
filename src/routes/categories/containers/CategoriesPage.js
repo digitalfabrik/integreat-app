@@ -63,7 +63,7 @@ export class CategoriesPage extends React.Component<PropsType> {
     } else if (category.isRoot()) {
       // first level, we want to display a table with all first order categories
       return <Tiles tiles={this.getTileModels(children)}
-                    title={CityModel.findCityName(cities, category.title)} />
+                    title={'Lokale Informationen'} />
     }
     // some level between, we want to display a list
     return <CategoryList categories={children.map(model => ({ model, subCategories: categories.getChildren(model) }))}

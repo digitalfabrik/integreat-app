@@ -86,7 +86,7 @@ export class LocationHeader extends React.Component<PropsType> {
           key='categories'
           href={new CategoriesRouteConfig().getRoutePath({ city, language })}
           active={currentRoute === CATEGORIES_ROUTE}
-          text={t('localInformation')}
+          text={'Lokale Informationen'}
           icon={localInformationIcon}
           enabled
         />
@@ -99,7 +99,7 @@ export class LocationHeader extends React.Component<PropsType> {
           key='pois'
           href={new PoisRouteConfig().getRoutePath({ city, language })}
           active={currentRoute === POIS_ROUTE}
-          text={t('pois')}
+          text={'Karte'}
           icon={poisIcon}
           enabled
         />)
