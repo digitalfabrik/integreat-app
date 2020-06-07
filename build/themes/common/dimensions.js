@@ -14,8 +14,8 @@ const dimensions = {
   minMaxWidth: 'screen and (min-width: 1100px)',
   maxWidth: 1100,
   toolbarWidth: 125,
-  headerHeightLarge: 85,
-  headerHeightSmall: 55
+  headerHeightLarge: 90,
+  headerHeightSmall: 70
 }
 
 export default dimensions
