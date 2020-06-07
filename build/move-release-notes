@@ -46,9 +46,14 @@ const moveReleaseNotes = async ({ newVersionName, deliverinoPrivateKey, owner, r
   const newVersionTree = await appOctokit.git.createTree({ owner, repo, tree: unreleasedReleaseNotes })
   const newUnreleasedTree = await appOctokit.git.createTree({ owner, repo, tree: [keepFile] })
 
-  const newReleaseNotesContent = releaseNoteTree.data.tree
-    .map(it => it.path === UNRELEASED_DIR ? newUnreleasedTree : it)
-  newReleaseNotesContent.push(newVersionTree)
+  const newReleaseNotesContent = releaseNoteTree.data.tree.map(it => {
+    const { size, url, ...rest } = it
+    if (it.path === UNRELEASED_DIR) {
+      return { ...rest, sha: newUnreleasedTree.data.sha }
+    }
+    return rest
+  })
+  newReleaseNotesContent.push({ path: newVersionName, sha: newVersionTree.data.sha, type: 'tree', mode: '040000' })
 
   const newReleaseNotesTree = await appOctokit.git.createTree({ owner, repo, tree: newReleaseNotesContent })
 
