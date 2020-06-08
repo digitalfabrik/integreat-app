@@ -40,7 +40,7 @@ bower_components
 .lock-wscript
 
 # Compiled binary addons (http://nodejs.org/api/addons.html)
-build-configs/Release
+build/Release
 
 # Dependency directories
 node_modules/
@@ -138,7 +138,7 @@ www/workbox-sw.prod.v*.js
 www/workbox-sw.prod.v*.js.map
 
 # VPN config
-/build-configs/deploy/openconnect.*.config
+/build/deploy/openconnect.*.config
 
 # Jest testing
 /__coverage__/
