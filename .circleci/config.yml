@@ -162,7 +162,7 @@ jobs:
   deliver:
     parameters:
       production_delivery:
-        description: Whether to deliver to production (integreat.app and malteapp.de) or not (webnext.integreat.app and webnext.malteapp.de)
+        description: Whether to deliver to production (integreat.app and malteapp.de) or not (webnext.integreat.app and webnext.malteapp.de).
         type: boolean
     docker:
       - image: circleci/node:12.16.3

@@ -2,7 +2,7 @@
 
 branch="develop"  # Default branch
 api-token="$CIRCLE_API_USER_TOKEN"  # Default to $CIRCLE_API_USER_TOKEN
-production-delivery="false" # Do not deliver to produciton by default
+production-delivery="false" # Do not deliver to production by default
 
 PARAMS=""
 
@@ -44,8 +44,8 @@ post-data="
     {
       \"branch\": \"$branch\",
       \"parameters\": {
-        \"api-triggered\": true,
-        \"production-delivery\": ${production-delivery}
+        \"api_triggered\": true,
+        \"production_delivery\": ${production-delivery}
       }
     }"
 
