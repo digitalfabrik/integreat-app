@@ -43,7 +43,7 @@ const createConfig = (env = {}) => {
 
   const nodeModules = path.resolve('./node_modules')
   const wwwDirectory = path.resolve(__dirname, '../www')
-  const distDirectory = path.resolve(__dirname, '../dist')
+  const distDirectory = path.resolve(__dirname, `../dist/${buildConfigName}`)
   const srcDirectory = path.resolve(__dirname, '../src')
 
   // Add new polyfills here instead of importing them in the JavaScript code.
