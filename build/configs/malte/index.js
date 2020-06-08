@@ -9,7 +9,7 @@ const MalteBuildConfig: BuildConfigType = {
   theme: malteTheme,
   darkTheme: darkMalteTheme,
   // TODO WEBAPP-567: Add itunesAppId
-  cmsUrl: 'https://malteser.tuerantuer.org',
+  cmsUrl: 'https://cms.malteapp.de',
   featureFlags,
   locationIcon: '/location-big.svg',
   logoWide: '/malteser-logo.png',
