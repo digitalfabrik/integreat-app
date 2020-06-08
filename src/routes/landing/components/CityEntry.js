@@ -10,6 +10,8 @@ import normalizeSearchString from '../../../modules/common/normalizeSearchString
 import { View } from 'react-native'
 import Highlighter from 'react-native-highlight-words'
 
+const MAX_NUMBER_OF_ALIASES_SHOWN = 3
+
 const CityListItem: StyledComponent<{}, {}, *> = styled.TouchableHighlight`
   padding: 7px;
   width: 100%;
@@ -64,9 +66,9 @@ class CityEntry extends React.PureComponent<PropType> {
           <Label theme={theme} searchWords={[filterText]} textToHighlight={city.name} sanitize={normalizeSearchString}
                  highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }} />
           {aliases.length > 0 && <Aliases>
-            {aliases.map(
+            {aliases.slice(0, MAX_NUMBER_OF_ALIASES_SHOWN).map(
               (alias, index) => <AliasLabel key={alias} theme={theme} searchWords={[filterText]}
-                                            textToHighlight={index === aliases.length - 1 ? alias : `${alias}, `}
+                                            textToHighlight={index !== aliases.slice(0, MAX_NUMBER_OF_ALIASES_SHOWN).length - 1 ? `${alias}, ` : aliases.length <= MAX_NUMBER_OF_ALIASES_SHOWN ? alias : `${alias},...`}
                                             sanitize={normalizeSearchString}
                                             highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }} />
             )}
