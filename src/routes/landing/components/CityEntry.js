@@ -49,14 +49,14 @@ class CityEntry extends React.PureComponent<PropsType> {
     const { city, language, filterText } = this.props
     const normalizedFilter = normalizeSearchString(filterText)
     const aliases = this.getMatchedAliases(city, normalizedFilter)
-
+    const MAX_NUMBER_OF_ALIASES = 3
     return (
       <CityListItem to={new CategoriesRouteConfig().getRoutePath({ city: city.code, language })}>
         <Highlighter searchWords={[filterText]} sanitize={normalizeSearchString} aria-label={city.name}
                      textToHighlight={city.name} highlightStyle={{ backgroundColor: 'white', fontWeight: 'bold' }} />
         <div style={{ margin: '0 5px', fontSize: '12px' }}>
           {
-            aliases.map((alias, index) => (
+            aliases.slice(0, MAX_NUMBER_OF_ALIASES).map((alias, index) => (
               <>
                 <AliasItem key={alias} aria-label={alias} searchWords={[filterText]} sanitize={normalizeSearchString}
                            textToHighlight={alias} highlightStyle={{ backgroundColor: 'white', fontWeight: 'bold' }} />
@@ -64,6 +64,7 @@ class CityEntry extends React.PureComponent<PropsType> {
               </>
             ))
           }
+          {aliases.length > MAX_NUMBER_OF_ALIASES && <span> ... </span>}
         </div>
       </CityListItem>
     )
