@@ -8,7 +8,7 @@ exports[`CityEntry should match snapshot 1`] = `
     aria-label="Augsburg"
     highlightStyle={
       Object {
-        "backgroundColor": "white",
+        "backgroundColor": "#ffffff",
         "fontWeight": "bold",
       }
     }
