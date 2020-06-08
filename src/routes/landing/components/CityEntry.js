@@ -10,6 +10,8 @@ import Link from 'redux-first-router-link'
 import CategoriesRouteConfig from '../../../modules/app/route-configs/CategoriesRouteConfig'
 import type { ThemeType } from '../../../../build/themes/ThemeType'
 
+const MAX_NUMBER_OF_ALIASES = 3
+
 const CityListItem = styled(Link)`
   display: flex;
   flex-direction: column;
@@ -49,7 +51,6 @@ class CityEntry extends React.PureComponent<PropsType> {
     const { city, language, filterText, theme } = this.props
     const normalizedFilter = normalizeSearchString(filterText)
     const aliases = this.getMatchedAliases(city, normalizedFilter)
-    const MAX_NUMBER_OF_ALIASES = 3
     return (
       <CityListItem to={new CategoriesRouteConfig().getRoutePath({ city: city.code, language })}>
         <Highlighter searchWords={[filterText]} sanitize={normalizeSearchString} aria-label={city.name}
