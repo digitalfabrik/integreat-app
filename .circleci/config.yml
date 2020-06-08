@@ -120,13 +120,13 @@ jobs:
           command: yarn run test:coverage --ci --maxWorkers ${TOTAL_CPUS}
       - run:
           name: Debug integreat-test-cms build
-          command: yarn run webpack --config build/webpack.config.babel.js --env.config_name integreat-test-cms --env.debug
+          command: yarn run webpack --config tools/webpack.config.babel.js --env.config_name integreat-test-cms --env.debug
       - run:
           name: Production integreat build
-          command: yarn run webpack --config build/webpack.config.babel.js --env.config_name integreat --env.production
+          command: yarn run webpack --config tools/webpack.config.babel.js --env.config_name integreat --env.production
       - run:
           name: Production malte build
-          command: yarn run webpack --config build/webpack.config.babel.js --env.config_name malte --env.production
+          command: yarn run webpack --config tools/webpack.config.babel.js --env.config_name malte --env.production
       - run:
           name: Check build
           command: yarn run check:build
@@ -148,16 +148,16 @@ jobs:
           at: .
       - run:
           name: Calculate next version
-          command: echo "export NEW_VERSION_NAME=$(build/next-version calc | jq .versionName)" >> ${BASH_ENV}
+          command: echo "export NEW_VERSION_NAME=$(tools/next-version calc | jq .versionName)" >> ${BASH_ENV}
       - run:
           name: Create jira release # The jira project has to have the same name as the github project. Otherwise this has to be configured.
-          command: build/create-jira-release create_release ${NEW_VERSION_NAME} --private-key ${JIRA_PRIVATE_KEY} --access-token ${JIRA_OAUTH_TOKEN} --consumer-key ${JIRA_CONSUMER_KEY} --projectName ${CIRCLE_PROJECT_REPONAME}
+          command: tools/create-jira-release create_release ${NEW_VERSION_NAME} --private-key ${JIRA_PRIVATE_KEY} --access-token ${JIRA_OAUTH_TOKEN} --consumer-key ${JIRA_CONSUMER_KEY} --projectName ${CIRCLE_PROJECT_REPONAME}
       - run:
           name: Move release notes
-          command: build/move-release-notes move_to ${NEW_VERSION_NAME} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH} --commit-sha ${CIRCLE_SHA1}
+          command: tools/move-release-notes move_to ${NEW_VERSION_NAME} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH} --commit-sha ${CIRCLE_SHA1}
       - run:
           name: Bump version
-          command: build/bump-version bump_to ${NEW_VERSION_NAME} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
+          command: tools/bump-version bump_to ${NEW_VERSION_NAME} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
 
   deliver:
     parameters:

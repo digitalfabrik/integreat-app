@@ -1,7 +1,7 @@
 // @flow
 
 import buildConfig from '../../app/constants/buildConfig'
-import type { ThemeType } from '../../../../build/themes/ThemeType'
+import type { ThemeType } from '../../../../build-configs/themes/ThemeType'
 
 export type { ThemeType }
 
