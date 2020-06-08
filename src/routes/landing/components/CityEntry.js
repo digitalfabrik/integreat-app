@@ -8,7 +8,7 @@ import { CityModel } from '@integreat-app/integreat-api-client'
 import styled, { withTheme } from 'styled-components'
 import Link from 'redux-first-router-link'
 import CategoriesRouteConfig from '../../../modules/app/route-configs/CategoriesRouteConfig'
-import type { ThemeType } from '../../../modules/theme/constants/theme'
+import type { ThemeType } from '../../../../build/themes/ThemeType'
 
 const CityListItem = styled(Link)`
   display: flex;
@@ -46,20 +46,20 @@ class CityEntry extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const { city, language, filterText, theme } = this.props
+    const { city, language, filterText } = this.props
     const normalizedFilter = normalizeSearchString(filterText)
     const aliases = this.getMatchedAliases(city, normalizedFilter)
 
     return (
       <CityListItem to={new CategoriesRouteConfig().getRoutePath({ city: city.code, language })}>
         <Highlighter searchWords={[filterText]} sanitize={normalizeSearchString} aria-label={city.name}
-                     textToHighlight={city.name} highlightStyle={{ backgroundColor: theme.colors.themeColor }} />
+                     textToHighlight={city.name} highlightStyle={{ backgroundColor: 'white', fontWeight: 'bold' }} />
         <div style={{ margin: '0 5px', fontSize: '12px' }}>
           {
             aliases.map((alias, index) => (
               <>
                 <AliasItem key={alias} aria-label={alias} searchWords={[filterText]} sanitize={normalizeSearchString}
-                           textToHighlight={alias} highlightStyle={{ backgroundColor: theme.colors.themeColor }} />
+                           textToHighlight={alias} highlightStyle={{ backgroundColor: 'white', fontWeight: 'bold' }} />
                 {index !== aliases.length - 1 && <span>, </span>}
               </>
             ))
