@@ -4,6 +4,7 @@ import * as React from 'react'
 import onClickOutside from 'react-onclickoutside'
 import styled from 'styled-components'
 import ReactTooltip from 'react-tooltip'
+import type { ThemeType } from '../../../../build/themes/ThemeType'
 
 export const Container = styled.div`
   width: calc(0.8 * ${props => props.theme.dimensions.headerHeightLarge}px);
@@ -63,6 +64,7 @@ export const DropDownContainer = styled.div`
 
 type PropsType = {|
   children: React.Element<*>,
+  theme: ThemeType,
   iconSrc: string,
   text: string
 |}
@@ -85,8 +87,6 @@ export class HeaderActionItemDropDown extends React.Component<PropsType, StateTy
   constructor (props: PropsType) {
     super(props)
     this.state = { dropDownActive: false }
-    const self: any = this // https://github.com/facebook/flow/issues/5874
-    self.handleClickOutside = this.handleClickOutside.bind(this)
   }
 
   toggleDropDown = () => {
@@ -99,20 +99,20 @@ export class HeaderActionItemDropDown extends React.Component<PropsType, StateTy
     }
   }
 
-  handleClickOutside () {
+  handleClickOutside = () => {
     this.closeDropDown()
   }
 
   render () {
-    const { iconSrc, text, children } = this.props
+    const { iconSrc, text, children, theme } = this.props
     const { dropDownActive } = this.state
 
     return (
-      <Container>
+      <Container theme={theme}>
         <button selector='button' data-tip={text} aria-label={text} onClick={this.toggleDropDown}>
           <img alt='' src={iconSrc} />
         </button>
-        <DropDownContainer active={dropDownActive}>
+        <DropDownContainer active={dropDownActive} theme={theme}>
           {React.cloneElement(children, {
             closeDropDownCallback: this.closeDropDown
           })}

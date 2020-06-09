@@ -6,7 +6,7 @@ import GeneralHeader from '../GeneralHeader'
 
 describe('GeneralHeader', () => {
   it('should match snapshot', () => {
-    const component = shallow(<GeneralHeader viewportSmall />)
+    const component = shallow(<GeneralHeader viewportSmall />).dive()
     expect(component).toMatchSnapshot()
   })
 })
