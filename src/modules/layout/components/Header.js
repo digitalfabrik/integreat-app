@@ -24,32 +24,17 @@ type PropsType = {|
   platform: Platform
 |}
 
+const LONG_TITLE_LENGTH = 25
+const CITY_NAME_HEIGHT = 50
+
 const HeaderContainer = styled.header`
   display: flex;
   width: 100%;
   box-sizing: border-box;
-  align-items: stretch;
-
   box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.2);
   background-color: ${props => props.theme.colors.backgroundAccentColor};
   user-select: none;
   flex-direction: column;
-
-  & > div > div {
-    display: flex;
-    height: ${props => props.theme.dimensions.headerHeightLarge}px;
-  }
-
-  @media ${props => props.theme.dimensions.smallViewport} {
-    & > div {
-      justify-content: space-between;
-      flex-wrap: wrap;
-    }
-
-    & > div > div {
-      height: ${props => props.theme.dimensions.headerHeightSmall}px;
-    }
-  }
 
   @media ${props => props.theme.dimensions.minMaxWidth} {
     padding-right: calc((200% - 100vw - ${props => props.theme.dimensions.maxWidth}px) / 2);
@@ -57,35 +42,64 @@ const HeaderContainer = styled.header`
   }
 `
 
+const Row = styled.div`
+  display: flex;
+  flex: 1;
+  max-width: 100%;
+  overflow-x: auto;
+  align-items: stretch;
+  min-height: ${props => props.theme.dimensions.headerHeightLarge}px;
+  flex-direction: row;
+
+  @media ${props => props.theme.dimensions.smallViewport} {
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+`
+
 const CityName = styled.div`
   display: flex;
   align-items: center;
-  font-size: ${props => props.long ? '1.5rem' : '1.8rem'};
+  font-size: ${props => props.long ? '1.3rem' : '1.8rem'};
+  max-height: ${props => props.theme.dimensions.headerHeightLarge};
   font-weight: 800;
   flex: 1;
   order: 2;
+  padding: 0 10px;
+  box-sizing: border-box;
 
-  & span {
-    padding-left: 5px;
-    padding-bottom: 10px;
+  @media ${props => props.theme.dimensions.minMaxWidth} {
+    font-size: ${props => props.long ? '1.5rem' : '1.8rem'};
   }
 
   @media ${props => props.theme.dimensions.smallViewport} {
-    font-size: 1.2rem;
+    font-size: ${props => props.long ? '1.2rem' : '1.5rem'};
+    height: ${CITY_NAME_HEIGHT}px;
     order: 3;
     min-width: 100%;
     justify-content: center;
+    padding: 0 10px;
+    text-align: center;
+  }
+`
 
-    & span {
-      padding-bottom: 0px;
-    }
+const Separator = styled.div`
+  align-self: center;
+  height: ${props => props.theme.dimensions.headerHeightLarge / 2}px;
+  width: 2px;
+  margin: 0 5px;
+  background-color: ${props => props.theme.colors.textDecorationColor};
+  order: 2;
+
+  @media ${props => props.theme.dimensions.smallViewport} {
+      display: none;
   }
 `
 
 const LogoWide = styled.div`
   box-sizing: border-box;
   flex-shrink: 1;
-  height: 100%;
+  height: ${props => props.theme.dimensions.headerHeightLarge}px;
   padding: 0 10px;
   display: flex;
   align-items: center;
@@ -102,19 +116,12 @@ const LogoWide = styled.div`
   }
 
   @media ${props => props.theme.dimensions.smallViewport} {
+    height: ${props => props.theme.dimensions.headerHeightSmall}px;
+
     & a {
       max-height: 75%;
     }
   }
-`
-
-const Row = styled.div`
-  display: flex;
-  flex: 1;
-  max-width: 100%;
-  overflow-x: auto;
-  height: ${props => props.theme.dimensions.headerHeightLarge}px;
-  flex-direction: row;
 `
 
 const ActionBar = styled(HeaderActionBar)`
@@ -125,7 +132,6 @@ const ActionBar = styled(HeaderActionBar)`
     order: 2;
   }
 `
-
 const NavigationBar = styled(HeaderNavigationBar)`
     padding: 0 10px;
     flex-grow: 1;
@@ -151,8 +157,13 @@ export class Header extends React.PureComponent<PropsType> {
       theme, viewportSmall, onStickyTopChanged, actionItems, logoHref, navigationItems, platform, cityName
     } = this.props
     const { headerHeightSmall, headerHeightLarge } = theme.dimensions
-    const height = viewportSmall ? 3 * headerHeightSmall : 2 * headerHeightLarge
-    const scrollHeight = viewportSmall ? 2 * headerHeightSmall : headerHeightLarge
+    const hasNavigationBar = navigationItems?.length > 0
+    const height = viewportSmall
+      ? (1 + (hasNavigationBar ? 1 : 0)) * headerHeightSmall + (cityName ? CITY_NAME_HEIGHT : 0)
+      : (1 + (hasNavigationBar ? 1 : 0)) * headerHeightLarge
+    const scrollHeight = viewportSmall
+      ? (hasNavigationBar ? 1 : 0) * headerHeightSmall + (cityName ? CITY_NAME_HEIGHT : 0)
+      : (hasNavigationBar ? 1 : 0) * headerHeightLarge
     return (
       <Headroom onStickyTopChanged={onStickyTopChanged}
                 scrollHeight={scrollHeight}
@@ -162,15 +173,14 @@ export class Header extends React.PureComponent<PropsType> {
           <Row>
             <LogoWide>
               <Link to={logoHref}>
-                <img src={buildConfig.logoWide} alt={`Integreat${cityName ? ` - ${cityName}` : ''}`} />
+                <img src={buildConfig.logoWide} alt='Integreat' />
               </Link>
             </LogoWide>
-            <CityName long={cityName?.length >= 25}><span>{cityName}</span></CityName>
+            {!viewportSmall && cityName && <Separator theme={theme} />}
+            {cityName && <CityName long={cityName.length >= LONG_TITLE_LENGTH}>{cityName}</CityName>}
             <ActionBar items={actionItems} />
           </Row>
-          <Row>
-            <NavigationBar>{navigationItems}</NavigationBar>
-          </Row>
+          {hasNavigationBar && <Row><NavigationBar>{navigationItems}</NavigationBar></Row>}
         </HeaderContainer>
       </Headroom>
     )

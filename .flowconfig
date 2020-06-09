@@ -17,6 +17,7 @@
 
 [options]
 module.system.node.resolve_dirname=node_modules
+esproposal.optional_chaining=true
 
 module.file_ext=.js
 module.file_ext=.jsx
