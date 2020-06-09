@@ -51,7 +51,7 @@ export function * fetchNews (
         isLocalNews
           ? call(loadLocalNews, city, language)
           : newsId
-            ? yield call(loadTunewsElement, newsId) // a better solution to prevent re-fetching news again from page 1
+            ? yield call(loadTunewsElement, parseInt(newsId, 0)) // A better solution to prevent re-fetching news again from page 1
             : call(
               loadTunews,
               language,
