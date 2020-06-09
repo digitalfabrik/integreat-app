@@ -13,7 +13,8 @@ type PropType = {
   onPress: ?() => void,
   children: ?React.Node,
   theme: ThemeType,
-  bigTitle?: boolean
+  bigTitle?: boolean,
+  accessibilityRole?: string
 }
 
 const PadView: StyledComponent<{}, ThemeType, *> = styled.View`
@@ -47,9 +48,9 @@ const Description = styled.Text`
 
 export default class SettingItem extends React.Component<PropType> {
   render () {
-    const { title, description, onPress, children, bigTitle, theme } = this.props
+    const { title, description, onPress, children, bigTitle, theme, accessibilityRole } = this.props
 
-    return <Touchable onPress={onPress}>
+    return <Touchable onPress={onPress} accessibilityRole={accessibilityRole}>
       <PadView theme={theme}>
         <ContentContainer>
           <View><Title theme={theme} bigTitle={bigTitle || false}>{title}</Title></View>

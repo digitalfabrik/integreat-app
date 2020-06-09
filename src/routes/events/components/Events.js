@@ -104,9 +104,10 @@ class Events extends React.Component<PropsType> {
     const { events, path, cityCode, language, resourceCache, theme, navigateToIntegreatUrl, t, navigation } = this.props
 
     if (path) {
-      const event: EventModel = events.find(_event => _event.path === path)
+      const event: ?EventModel = events.find(_event => _event.path === path)
 
       if (event) {
+        const location = event.location.location
         const files = resourceCache[event.path] || {}
         return <Page content={event.content}
                      title={event.title}
@@ -121,9 +122,8 @@ class Events extends React.Component<PropsType> {
           <>
             <PageDetail identifier={t('date')} information={event.date.toFormattedString(language)}
                         theme={theme} language={language} />
-            {event.location.location && <PageDetail identifier={t('location')}
-                                                    information={event.location.location} theme={theme}
-                                                    language={language} />}
+            {location && <PageDetail identifier={t('location')} information={location} theme={theme}
+                                     language={language} />}
           </>
         </Page>
       }

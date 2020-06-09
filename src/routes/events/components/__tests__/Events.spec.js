@@ -24,11 +24,17 @@ describe('Events', () => {
   it('should pass an empty object to Page if the resource cache doesnt contain an appropriate entry', () => {
     const cities = new CityModelBuilder(1).build()
     const languages = new LanguageModelBuilder(1).build()
-    const events = new EventModelBuilder('Events-component', 1, cities[0].cityCode, languages[0].code).build()
+    const city = cities[0]
+    const language = languages[0]
+    const events = new EventModelBuilder('Events-component', 1, city.code, language.code).build()
+    const event = events[0]
+    if (!city || !language || !event) {
+      throw Error('Something went wrong with the builder')
+    }
     const navigation = createNavigationScreenPropMock()
     const result = TestRenderer.create(
-      <Events path={events[0].path} events={events} cities={cities} cityCode={cities[0]}
-              language={languages[0].code} resourceCache={{ notAvailable: {} }} theme={brightTheme} t={key => key}
+      <Events path={event.path} events={events} cities={cities} cityCode={city.code}
+              language={language.code} resourceCache={{ notAvailable: {} }} theme={brightTheme} t={key => key}
               navigation={navigation} navigateToEvent={() => {}} navigateToIntegreatUrl={() => {}} />
     )
     const pageInstance = result.root.findByType(Page)
