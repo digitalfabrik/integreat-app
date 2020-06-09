@@ -179,23 +179,13 @@ const withCustomNewsProvider = <
   R: {}
 >(
     refresh: (refreshProps: R, dispatch: Dispatch<StoreActionType>) => void
-  ): ((
-  Component: React.ComponentType<S>
-) => React.ComponentType<PropsType<S, R>>) => {
-  return (
-    Component: React.ComponentType<S>
-  ): React.ComponentType<PropsType<S, R>> => {
-    return class extends React.Component<
-      PropsType<S, R>,
-      {| selectedNewsType: NewsType |}
+  ):: ((Component: React.ComponentType<S>) => React.ComponentType<PropsType<S, R>>) => {
+  return (Component: React.ComponentType<S>): React.ComponentType<PropsType<S, R>> => {
+    return class extends React.Component<PropsType<S, R>,{| selectedNewsType: NewsType |}
     > {
       static displayName = wrapDisplayName(Component, 'withCustomNewsProvider');
 
-      state = {
-        selectedNewsType: this.getAvailableNewsType()
-      };
-
-      listRef = null;
+      state = { selectedNewsType: this.getAvailableNewsType() };
 
       getAvailableNewsType (): NewsType {
         const { cityModel, selectedNewsType } = this.props.innerProps || {}
@@ -209,18 +199,9 @@ const withCustomNewsProvider = <
         return type
       }
 
-      selectNewsType = type => {
-        this.setState(
-          {
-            selectedNewsType: type
-          },
-          this.fetchNews
-        )
-      };
+      selectNewsType = type => { this.setState({ selectedNewsType: type }, this.fetchNews) };
 
-      selectNewsItemAndScrollToTop = type => {
-        this.selectNewsType(type)
-      };
+      selectNewsItemAndScrollToTop = type => {this.selectNewsType(type) };
 
       fetchNews = () => {
         const { selectedNewsType } = this.state
@@ -264,7 +245,8 @@ const withCustomNewsProvider = <
           <HeaderContainer>
             {newsTabs.map(tab =>
               cityModel[tab.toggleAttr]
-               ? <TranslatedNewsTypeItem key={tab.type} tab={tab} selectedNewsType={selectedNewsType} onItemPress={this.selectNewsItemAndScrollToTop} />
+               ? <TranslatedNewsTypeItem key={tab.type} tab={tab} selectedNewsType={selectedNewsType}
+                                        onItemPress={this.selectNewsItemAndScrollToTop} />
                : null
             )}
           </HeaderContainer>
@@ -275,11 +257,9 @@ const withCustomNewsProvider = <
         const props = this.props
 
         if (
-          props.status === 'routeNotInitialized' ||
-          props.status === 'loading' ||
-          props.status === 'languageNotAvailable'
-        ) {
-          throw Error('Refreshing is not possible because the route is not yet initialized or already loading.')
+          props.status === 'routeNotInitialized' || props.status === 'loading' ||
+          props.status === 'languageNotAvailable') {
+            throw Error('Refreshing is not possible because the route is not yet initialized or already loading.')
         }
         if (props.refreshProps) {
           refresh(props.refreshProps, props.dispatch)
@@ -302,8 +282,7 @@ const withCustomNewsProvider = <
           return (
             <ScrollView
               refreshControl={<RefreshControl onRefresh={this.refresh} refreshing={false} />}
-              contentContainerStyle={{ flexGrow: 1 }}
-              >
+                                            contentContainerStyle={{ flexGrow: 1 }}>
               <FailureContainer tryAgain={this.refresh} message={props.message} code={props.code} />
             </ScrollView>
           )
