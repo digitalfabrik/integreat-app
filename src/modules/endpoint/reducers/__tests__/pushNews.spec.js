@@ -5,16 +5,19 @@ import type { CityContentStateType } from '../../../app/StateType'
 import cityContentReducer from '../cityContentReducer'
 import type { PushNewsActionType } from '../../../app/StoreActionType'
 import { LOCAL } from '../../../../routes/news/containers/WithCustomNewsProvider'
+import moment from 'moment'
 
 jest.mock('@react-native-community/async-storage')
 
 describe('pushNews', () => {
   const news1: LocalNewsModel = new LocalNewsModel({
-    newsId: null,
     id: 12,
     title: 'Local News 1',
-    content: 'cotent'
+    timestamp: moment('2017-11-18 19:30:00', moment.ISO_8601),
+    message: 'message'
   })
+
+  const languageModels = [new LanguageModel('de', 'Deutsch'), new LanguageModel('en', 'English')]
 
   const prepareState = (state: $Shape<CityContentStateType>): CityContentStateType => {
     const defaultState: CityContentStateType = {
@@ -35,7 +38,7 @@ describe('pushNews', () => {
         }
       },
       resourceCache: { status: 'ready', value: { files: {} } },
-      languages: { status: 'ready', models: ['de', 'en'] },
+      languages: { status: 'ready', models: languageModels },
       searchRoute: null,
       switchingLanguage: false
     }
