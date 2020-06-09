@@ -41,23 +41,17 @@ const LogoContainer = styled.div`
 `
 
 /**
- * The standard header which can supplied to a Layout. Displays a logo left, a HeaderMenuBar in the middle and a
- * HeaderActionBar at the right (RTL: vice versa). On small viewports the HeaderMenuBar is shown underneath the rest
- * of the Header.
- * Uses Headroom to save space when scrolling.
+ * A logo component designed for the Header.
  */
 export class HeaderLogo extends React.PureComponent<PropsType> {
 
   render () {
-    const {
-      theme, link, src, alt
-    } = this.props
-    return (<LogoContainer>
-        <Link to={link} theme={theme}>
-          <img src={src} alt={alt} />
-        </Link>
-      </LogoContainer>
-    )
+    const { theme, link, src, alt } = this.props
+    return <LogoContainer>
+      <Link to={link} theme={theme}>
+        <img src={src} alt={alt} />
+      </Link>
+    </LogoContainer>
   }
 }
 
