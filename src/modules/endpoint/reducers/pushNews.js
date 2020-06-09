@@ -67,14 +67,13 @@ const pushNews = (
       }
     }
 
-    const allAvailableLanguages = new Map(newsItem.availableLanguages)
-    allAvailableLanguages.set(language, newsId)
+    const allAvailableLanguages = cityLanguages.filter(languageModel => languageModel.code === language)
 
     return {
       status: 'ready',
       newsId,
       models: [newsItem],
-      allAvailableLanguages,
+      allAvailableLanguages: new Map(allAvailableLanguages.map(language => [language.code, null])),
       language,
       city,
       type,
