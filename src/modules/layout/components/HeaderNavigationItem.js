@@ -25,7 +25,7 @@ const StyledLink = styled(Link)`
 
   &:hover > div:first-child {
       box-shadow: 0 0px 0px 0px rgba(0, 0, 0, 0.3);
-      border-color: #fbda16;
+      border-color: ${props => props.theme.colors.themeColor};
   }
 
   &:hover {
