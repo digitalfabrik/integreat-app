@@ -18,12 +18,15 @@ import Page from '../../../modules/common/components/Page'
 import { push } from 'redux-first-router'
 import BreadcrumbModel from '../../../modules/common/BreadcrumbModel'
 import urlFromPath from '../../../modules/common/utils/urlFromPath'
+import { withTranslation } from 'react-i18next'
+import { TFunction } from 'i18next'
 
 type PropsType = {|
   categories: CategoriesMapModel,
   cities: Array<CityModel>,
   path: string,
   city: string,
+  t: TFunction,
   language: string,
   uiDirection: UiDirectionType
 |}
@@ -51,7 +54,7 @@ export class CategoriesPage extends React.Component<PropsType> {
    * @return {*} The content to be displayed
    */
   getContent (category: CategoryModel): React.Node {
-    const { categories, cities, language } = this.props
+    const { categories, language, t } = this.props
     const children = categories.getChildren(category)
     if (category.isLeaf(categories)) {
       // last level, our category is a simple page
@@ -63,7 +66,7 @@ export class CategoriesPage extends React.Component<PropsType> {
     } else if (category.isRoot()) {
       // first level, we want to display a table with all first order categories
       return <Tiles tiles={this.getTileModels(children)}
-                    title={'Lokale Informationen'} />
+                    title={t('localInformation')} />
     }
     // some level between, we want to display a list
     return <CategoryList categories={children.map(model => ({ model, subCategories: categories.getChildren(model) }))}
@@ -110,4 +113,4 @@ const mapStateToProps = (state: StateType) => ({
   path: state.location.pathname
 })
 
-export default connect<*, *, *, *, *, *>(mapStateToProps)(CategoriesPage)
+export default withTranslation('layout')(connect<*, *, *, *, *, *>(mapStateToProps)(CategoriesPage))
