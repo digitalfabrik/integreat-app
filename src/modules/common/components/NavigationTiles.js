@@ -112,7 +112,7 @@ class NavigationTiles extends React.PureComponent<
 
     this.setState({
       xPosition: nativeEvent.contentOffset.x,
-      contentSizeDiff: contentSizeDiff.toFixed(2)
+      contentSizeDiff: contentSizeDiff.toFixed(0)
     })
   };
 
