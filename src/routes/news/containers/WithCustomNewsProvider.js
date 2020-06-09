@@ -84,7 +84,7 @@ export type ProviderRefreshPropType = {|
   cityModel?: CityModel,
   navigation: NavigationScreenProp<*>,
   cityCode: string,
-  language: LanguageModel
+  language: string
 |}
 
 export type LoadingType = {|
@@ -238,13 +238,16 @@ const withCustomNewsProvider = <
         }
       }
 
-      renderHeader = (cityModel: CityModel) => {
+      renderHeader = (cityModel?: CityModel) => {
         const { selectedNewsType } = this.state
         return (
           <HeaderContainer>
-            {newsTabs.map(tab =>
-              cityModel[tab.toggleAttr]
-               ? <TranslatedNewsTypeItem key={tab.type} tab={tab} selectedNewsType={selectedNewsType}
+            {newsTabs.map((tab, index) =>
+             cityModel && cityModel.pushNotificationsEnabled
+               ? <TranslatedNewsTypeItem key={index} tab={newsTabs[0]} selectedNewsType={selectedNewsType}
+                                        onItemPress={this.selectNewsItemAndScrollToTop} />
+               : cityModel && cityModel.tunewsEnabled
+               ? <TranslatedNewsTypeItem key={index} tab={newsTabs[1]} selectedNewsType={selectedNewsType}
                                         onItemPress={this.selectNewsItemAndScrollToTop} />
                : null
             )}
