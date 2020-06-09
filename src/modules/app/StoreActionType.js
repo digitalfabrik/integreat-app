@@ -61,7 +61,7 @@ export type FetchMoreNewsActionType = {|
   type: 'FETCH_MORE_NEWS',
   +params: {|
     +city: string, +language: string,
-    +previouslyFetchedNews: $ReadOnlyArray<LocalNewsModel> | $ReadOnlyArray<TunewsModel>,
+    +previouslyFetchedNews: $ReadOnlyArray<LocalNewsModel | TunewsModel>,
     +newsId: ?string, +key: string,
     +criterion: ContentLoadCriterionType,
     +type: NewsType,
