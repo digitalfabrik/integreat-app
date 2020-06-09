@@ -20,9 +20,6 @@ class LocalNewsModelBuilder {
     this._language = language
   }
 
-  _predictableNumber (index: number, max: number = MAX_PREDICTABLE_VALUE): number {
-    return seedrandom(index + this._seed)() * max
-  }
 
   build (): Array<LocalNewsModel> {
     return this.buildAll().map(all => all.newsItem)

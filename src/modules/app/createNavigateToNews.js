@@ -2,15 +2,16 @@
 
 import type { Dispatch } from 'redux'
 import type { FetchNewsActionType, StoreActionType } from './StoreActionType'
+import type { NewsType } from './StateType'
 import type { NavigationScreenProp } from 'react-navigation'
 import { generateKey } from './generateRouteKey'
 
 export type NavigateToNewsParamsType =
-  {| cityCode: string, language: string, path: ?string, key?: string, forceRefresh?: boolean, type: string |}
+  {| cityCode: string, language: string, newsId: ?string, key?: string, forceRefresh?: boolean, type: NewsType |}
 
 export default (dispatch: Dispatch<StoreActionType>, navigation: NavigationScreenProp<*>) => (
   {
-    cityCode, type, language, path, key = generateKey(), forceRefresh = false
+    cityCode, type, language, newsId, key = generateKey(), forceRefresh = false
   }: NavigateToNewsParamsType) => {
   navigation.navigate({
     routeName: 'News',
@@ -24,7 +25,7 @@ export default (dispatch: Dispatch<StoreActionType>, navigation: NavigationScree
     params: {
       city: cityCode,
       language,
-      path,
+      newsId,
       type,
       key,
       criterion: { forceUpdate: forceRefresh, shouldRefreshResources: forceRefresh }

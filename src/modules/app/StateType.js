@@ -73,32 +73,35 @@ export type EventRouteStateType = {|
   +message: ?string
 |}
 
+export type TUNEWS = 'tunews'
+export type LOCAL = 'local'
+export type NewsType = TUNEWS | LOCAL
+
 export type NewsRouteConfigType = {|
-  +path: ?string, // path is null for the news list
+  +newsId: ?string, // Path is null for the news list
   +language: string,
   +city: string,
-  +type: string // for checking whether type is local or tunews
+  +type: NewsType // For checking whether type is local or tunews
 |}
 
+export type NewsModelsType = $ReadOnlyArray<LocalNewsModel | TunewsModel>
 export type NewsRouteStateType = {|
   +status: 'ready',
-  +models: $ReadOnlyArray<LocalNewsModel | TunewsModel>,
+  +models: NewsModelsType,
   +hasMoreNews: boolean,
   +page: number,
   ...NewsRouteConfigType,
   +allAvailableLanguages: $ReadOnlyMap<string, ?string>
   |} | {|
   +status: 'languageNotAvailable',
-  +language: string,
-  +city: string,
-  +type: string,
+  ...NewsRouteConfigType,
   +allAvailableLanguages: $ReadOnlyMap<string, ?string>
   |} | {|
   +status: 'loading',
   ...NewsRouteConfigType
   |} | {|
     +status: 'loadingMore',
-    +models: $ReadOnlyArray<LocalNewsModel | TunewsModel>,
+    +models: NewsModelsType,
     ...NewsRouteConfigType
   |} | {|
   +status: 'error',

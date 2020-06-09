@@ -18,6 +18,7 @@ import { render } from '@testing-library/react-native'
 import ErrorCodes from '../../../../modules/error/ErrorCodes'
 import { Text, ActivityIndicator } from 'react-native'
 import { LOADING_TIMEOUT } from '../../../../modules/common/constants'
+import { LOCAL } from '../../containers/WithCustomNewsProvider'
 
 const mockStore = configureMockStore()
 jest.mock('react-i18next')
@@ -30,11 +31,11 @@ class MockNewsList extends React.Component<{}> {
 }
 
 describe('News', () => {
-  const [city] = new CityModelBuilder(1).build()
   const cities = new CityModelBuilder(1).build()
+  const city = cities[0]
   const languages = new LanguageModelBuilder(1).build()
   const language = languages[0]
-  const newsList = new LocalNewsModelBuilder(
+  const news = new LocalNewsModelBuilder(
     'NewsList-Component',
     1,
     cities[0].cityCode,
@@ -74,11 +75,11 @@ describe('News', () => {
   const successfulRouteState: NewsRouteStateType = {
     status: 'ready',
     language: language.code,
-    path: null,
-    type: 'local',
+    newsId: null,
+    type: LOCAL,
     page: 1,
     city: city.code,
-    models: newsList,
+    models: news,
     hasMoreNews: true,
     allAvailableLanguages: new Map()
   }
@@ -106,10 +107,7 @@ describe('News', () => {
     const store = mockStore(state)
     const navigation = createNavigationScreenPropMock()
     navigation.state.key = 'route-id-0'
-    jest.mock('../NewsList', () => {
-      const Text = require('react-native').Text
-      return () => <Text>News List</Text>
-    })
+    jest.mock('../NewsList', () => MockNewsList)
     const NewsContainer = require('../../containers/NewsContainer').default
 
     const { getByText } = render(
@@ -125,8 +123,8 @@ describe('News', () => {
       status: 'error',
       language: language.code,
       city: city.code,
-      path: null,
-      type: 'local',
+      newsId: null,
+      type: LOCAL,
       message: 'Something went wrong with the route',
       code: ErrorCodes.UnknownError
     })
@@ -160,9 +158,9 @@ describe('News', () => {
 
   it('should display loading indicator if the route is loading long enough', () => {
     const state: StateType = prepareState({
-      path: null,
+      newsId: null,
       status: 'loading',
-      type: 'local',
+      type: LOCAL,
       language,
       city
     })
@@ -194,8 +192,8 @@ describe('News', () => {
     const result = TestRenderer.create(
       <Provider store={store}><NewsContainer navigation={navigation} /></Provider>
     )
-    const newsListInstance = result.root.findByProps({ newsList: newsList })
+    const newsInstance = result.root.findByProps({ news: news })
 
-    expect(newsListInstance).toBeTruthy()
+    expect(newsInstance).toBeTruthy()
   })
 })

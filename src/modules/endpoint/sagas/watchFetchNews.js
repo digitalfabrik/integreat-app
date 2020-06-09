@@ -27,7 +27,7 @@ export function * fetchNews (
   dataContainer: DataContainer,
   action: FetchNewsActionType
 ): Saga<void> {
-  const { city, language, path, key, type } = action.params
+  const { city, language, newsId, key, type } = action.params
   try {
     const isLocalNews = type === LOCAL
     // Update language each time when switching between news
@@ -48,18 +48,25 @@ export function * fetchNews (
     yield put(pushLanguagesAction)
 
     if (languageValid) {
-      const [newsList] = yield all([
+      const [news] = yield all([
         isLocalNews
           ? call(loadLocalNews, city, language)
-          : path ? yield all(call(loadTunewsElement, path)) // a better solution to prevent re-fetching news again from page 1
-            : call(loadTunews, language, FIRST_PAGE_INDEX, TUNEWS_FETCH_COUNT_LIMIT)
+          : newsId
+            ? yield call(loadTunewsElement, newsId) // a better solution to prevent re-fetching news again from page 1
+            : call(
+              loadTunews,
+              language,
+              FIRST_PAGE_INDEX,
+              TUNEWS_FETCH_COUNT_LIMIT
+            )
       ])
+      console.log({ news })
 
       const insert: PushNewsActionType = {
         type: 'PUSH_NEWS',
         params: {
-          newsList,
-          path,
+          news,
+          newsId,
           cityLanguages: languages,
           key,
           language,
@@ -71,10 +78,7 @@ export function * fetchNews (
       }
       yield put(insert)
     } else {
-      const allAvailableLanguages =
-        path === null
-          ? new Map(languages.map(language => [language.code, null]))
-          : null
+      const allAvailableLanguages = newsId ? new Map(languages.map(language => [language.code, null])) : null
 
       const failed: FetchNewsFailedActionType = {
         type: 'FETCH_NEWS_FAILED',
@@ -82,7 +86,7 @@ export function * fetchNews (
           message: 'Could not load news.',
           code: ErrorCodes.PageNotFound,
           allAvailableLanguages,
-          path: null,
+          newsId: null,
           key,
           type,
           language,
@@ -102,7 +106,7 @@ export function * fetchNews (
         city,
         language,
         type,
-        path,
+        newsId,
         allAvailableLanguages: null
       }
     }
@@ -117,12 +121,12 @@ export function * fetchMoreNews (
   const {
     city,
     language,
-    path,
+    newsId,
     key,
     criterion,
     type,
     page,
-    previouslyFetchedNewsList
+    previouslyFetchedNews
   } = action.params
   try {
     const peeking = yield select(state =>
@@ -136,7 +140,7 @@ export function * fetchMoreNews (
       ? yield call(dataContainer.getLanguages, city)
       : []
 
-    const newsList = yield call(
+    const news = yield call(
       loadTunews,
       language,
       page,
@@ -146,10 +150,10 @@ export function * fetchMoreNews (
     const insert: PushNewsActionType = {
       type: 'PUSH_NEWS',
       params: {
-        newsList,
-        previouslyFetchedNewsList,
-        path,
-        hasMoreNews: newsList.length !== 0,
+        news,
+        previouslyFetchedNews,
+        newsId,
+        hasMoreNews: news.length === TUNEWS_FETCH_COUNT_LIMIT,
         cityLanguages,
         key,
         language,
@@ -170,7 +174,7 @@ export function * fetchMoreNews (
         city,
         language,
         type,
-        path,
+        newsId,
         allAvailableLanguages: null
       }
     }

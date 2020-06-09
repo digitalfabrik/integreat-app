@@ -8,7 +8,7 @@ import type {
   StoreActionType,
   FetchNewsActionType
 } from '../../../modules/app/StoreActionType'
-
+import type { NewsType } from '../../../modules/app/StateType'
 import { type Dispatch } from 'redux'
 import { wrapDisplayName } from 'recompose'
 import type { ErrorCodeType } from '../../../modules/error/ErrorCodes'
@@ -22,7 +22,6 @@ import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { StyledComponent } from 'styled-components'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import { withTranslation } from 'react-i18next'
-
 export const TUNEWS = 'tunews'
 export const LOCAL = 'local'
 
@@ -91,8 +90,8 @@ export type ProviderRefreshPropType = {|
 export type LoadingType = {|
   status: "loading",
   innerProps?: {
-    path: ?string,
-    selectedNewsType: string,
+    newsId: ?string,
+    selectedNewsType: NewsType,
     ...ProviderRefreshPropType
   }
 |}
@@ -107,8 +106,8 @@ export type ErrorType<R: {}> = {|
 
 export type ProviderPropType = {|
   dispatch: Dispatch<StoreActionType>,
-  path: ?string,
-  selectedNewsType: string,
+  newsId: ?string,
+  selectedNewsType: NewsType,
   ...ProviderRefreshPropType
 |}
 
@@ -120,8 +119,8 @@ export type LanguageNotAvailableType = {|
     newLanguage: string
   ) => void,
   innerProps: {
-    path?: string,
-    selectedNewsType: string,
+    newsId?: string,
+    selectedNewsType: NewsType,
     ...ProviderRefreshPropType
   }
 |}
@@ -188,7 +187,7 @@ const withCustomNewsProvider = <
   ): React.ComponentType<PropsType<S, R>> => {
     return class extends React.Component<
       PropsType<S, R>,
-      {| selectedNewsType: string |}
+      {| selectedNewsType: NewsType |}
     > {
       static displayName = wrapDisplayName(Component, 'withCustomNewsProvider');
 
@@ -198,7 +197,7 @@ const withCustomNewsProvider = <
 
       listRef = null;
 
-      getAvailableNewsType (): string {
+      getAvailableNewsType (): NewsType {
         const { cityModel, selectedNewsType } = this.props.innerProps || {}
         const { tunewsEnabled, pushNotificationsEnabled } = cityModel || {}
         let type = LOCAL
@@ -206,8 +205,6 @@ const withCustomNewsProvider = <
           type = selectedNewsType
         } else if (tunewsEnabled && !pushNotificationsEnabled) {
           type = TUNEWS
-        } else if (pushNotificationsEnabled && !tunewsEnabled) {
-          type = LOCAL
         }
         return type
       }
@@ -232,7 +229,7 @@ const withCustomNewsProvider = <
           const {
             cityCode,
             navigation,
-            path,
+            newsId,
             language
           } = this.props.innerProps
           const fetchNews: FetchNewsActionType = {
@@ -240,7 +237,7 @@ const withCustomNewsProvider = <
             params: {
               city: cityCode,
               language,
-              path,
+              newsId,
               type: selectedNewsType,
               key: navigation.state.key,
               criterion: {
@@ -266,14 +263,9 @@ const withCustomNewsProvider = <
         return (
           <HeaderContainer>
             {newsTabs.map(tab =>
-              cityModel[tab.toggleAttr] ? (
-                <TranslatedNewsTypeItem
-                  key={tab.type}
-                  tab={tab}
-                  selectedNewsType={selectedNewsType}
-                  onItemPress={this.selectNewsItemAndScrollToTop}
-                />
-              ) : null
+              cityModel[tab.toggleAttr] ? 
+                ? <TranslatedNewsTypeItem key={tab.type} tab={tab} selectedNewsType={selectedNewsType} onItemPress={this.selectNewsItemAndScrollToTop} />
+               : null
             )}
           </HeaderContainer>
         )
@@ -281,16 +273,14 @@ const withCustomNewsProvider = <
 
       refresh = () => {
         const props = this.props
+
         if (
           props.status === 'routeNotInitialized' ||
           props.status === 'loading' ||
           props.status === 'languageNotAvailable'
         ) {
-          throw Error(
-            'Refreshing is not possible because the route is not yet initialized or already loading.'
-          )
+          throw Error('Refreshing is not possible because the route is not yet initialized or already loading.')
         }
-
         if (props.refreshProps) {
           refresh(props.refreshProps, props.dispatch)
         }
@@ -298,9 +288,7 @@ const withCustomNewsProvider = <
 
       changeUnavailableLanguage = (newLanguage: string) => {
         if (this.props.status !== 'languageNotAvailable') {
-          throw Error(
-            'Call of changeUnavailableLanguage is only possible when language is not available.'
-          )
+          throw Error('Call of changeUnavailableLanguage is only possible when language is not available.')
         }
         this.props.changeUnavailableLanguage(this.props.dispatch, newLanguage)
       };
@@ -313,38 +301,27 @@ const withCustomNewsProvider = <
         } else if (props.status === 'error') {
           return (
             <ScrollView
-              refreshControl={
-                <RefreshControl onRefresh={this.refresh} refreshing={false} />
-              }
-              contentContainerStyle={{ flexGrow: 1 }}>
-              <FailureContainer
-                tryAgain={this.refresh}
-                message={props.message}
-                code={props.code}
-              />
+              refreshControl={<RefreshControl onRefresh={this.refresh} refreshing={false} />}
+              contentContainerStyle={{ flexGrow: 1 }}
+              >
+              <FailureContainer tryAgain={this.refresh} message={props.message} code={props.code} />
             </ScrollView>
           )
         } else if (props.status === 'languageNotAvailable') {
           return (
-            <LanguageNotAvailableContainer
-              languages={props.availableLanguages}
-              changeLanguage={this.changeUnavailableLanguage}
-            />
+            <LanguageNotAvailableContainer languages={props.availableLanguages} changeLanguage={this.changeUnavailableLanguage} />
           )
         } else if (props.status === 'loading') {
           return (
             <View style={{ flex: 1 }}>
-              {!props.innerProps?.path &&
-                props.innerProps?.cityModel &&
-                this.renderHeader(props.innerProps?.cityModel)}
+              {!props.innerProps?.newsId && props.innerProps?.cityModel && this.renderHeader(props.innerProps?.cityModel)}
               <Loader />
             </View>
           )
         } else {
           return (
             <View style={{ flex: 1 }}>
-              {!props.innerProps.path &&
-                this.renderHeader(props.innerProps.cityModel)}
+              {!props.innerProps.newsId && this.renderHeader(props.innerProps.cityModel)}
               <Component {...props.innerProps} dispatch={props.dispatch} />
             </View>
           )

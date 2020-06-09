@@ -9,71 +9,70 @@ import {
   LocalNewsModel,
   TunewsModel
 } from '@integreat-app/integreat-api-client'
+import ErrorCodes from '../../error/ErrorCodes'
 
 const pushNews = (
   state: CityContentStateType,
   action: PushNewsActionType
 ): CityContentStateType => {
   const {
-    newsList,
-    path,
+    news,
+    newsId,
     key,
     language,
     cityLanguages,
     city,
     type,
     page,
-    previouslyFetchedNewsList,
+    previouslyFetchedNews,
     hasMoreNews
   } = action.params
   if (!key) {
     throw new Error('You need to specify a key!')
   }
   const getNewsRoute = (): NewsRouteStateType => {
-    if (!path) {
+    if (!newsId) {
       const allAvailableLanguages = new Map(
         cityLanguages.map(language => [language.code, null])
       )
-      if (page && previouslyFetchedNewsList) {
-        return {
-          status: 'ready',
-          path: null,
-          models: [...previouslyFetchedNewsList, ...newsList],
-          hasMoreNews,
-          allAvailableLanguages,
-          language,
-          city,
-          type,
-          page
-        }
-      }
+      const models = (page && previouslyFetchedNews)
+        ? { models: [...previouslyFetchedNews, ...news] }
+        : { models: news }
+
       return {
         status: 'ready',
-        path: null,
-        models: newsList,
+        newsId: null,
+        hasMoreNews,
         allAvailableLanguages,
         language,
         city,
         type,
         page,
-        hasMoreNews
+        ...models
       }
     }
-    const newsItem: ?LocalNewsModel | TunewsModel = newsList.find(
-      newsItem => `${newsItem.id}` === path
+    const newsItem: ?LocalNewsModel | TunewsModel = news.find(
+      newsItem => newsItem.id.toString() === '2435'
     )
 
     if (!newsItem) {
-      throw new Error(
-        `newsItem with path ${path} was not found in supplied models.`
-      )
+      return {
+        status: 'error',
+        message: `News Item with newsId ${newsId} was not found in supplied models.`,
+        code: ErrorCodes.PageNotFound,
+        city,
+        language,
+        type,
+        newsId: null
+      }
     }
+
     const allAvailableLanguages = new Map(newsItem.availableLanguages)
-    allAvailableLanguages.set(language, path)
+    allAvailableLanguages.set(language, newsId)
 
     return {
       status: 'ready',
-      path,
+      newsId,
       models: [newsItem],
       allAvailableLanguages,
       language,

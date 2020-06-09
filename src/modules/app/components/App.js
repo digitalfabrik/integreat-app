@@ -13,6 +13,7 @@ import type { StoreActionType } from '../StoreActionType'
 import DefaultDataContainer from '../../endpoint/DefaultDataContainer'
 import type { DataContainer } from '../../endpoint/DataContainer'
 import NavigatorContainer from '../containers/NavigatorContainer'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 class App extends React.Component<{||}> {
   dataContainer: DataContainer = new DefaultDataContainer()
@@ -22,12 +23,14 @@ class App extends React.Component<{||}> {
     return (
       <Provider store={this.store}>
         <I18nProviderContainer>
+          <SafeAreaProvider>
           <>
             <AndroidStatusBarContainer />
             <IOSSafeAreaView>
               <NavigatorContainer />
             </IOSSafeAreaView>
           </>
+          </SafeAreaProvider>
         </I18nProviderContainer>
       </Provider>
     )

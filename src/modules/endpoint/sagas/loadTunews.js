@@ -13,9 +13,9 @@ function * loadTunews (
   console.debug('Fetching tunews')
 
   const payload = yield call(() => createTunewsEndpoint(tunewsApiUrl).request({ language, page, count }))
-  const newsList: Array<TunewsModel> = payload.data
+  const news: Array<TunewsModel> = payload.data
 
-  return newsList
+  return news
 }
 
 export default loadTunews
