@@ -3,20 +3,23 @@
 import * as React from 'react'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import { SearchBar } from 'react-native-elements'
+import type { TFunction } from 'react-i18next'
 
 type PropsType = {|
   theme: ThemeType,
   onChangeText: (text: string) => void,
   value: string,
-  autofocus: boolean
+  autofocus: boolean,
+  t: TFunction
 |}
 
 class ThemedSearchBar extends React.Component<PropsType> {
   render () {
-    const { theme, onChangeText, value, autofocus } = this.props
+    const { theme, onChangeText, value, autofocus, t } = this.props
     const { colors } = theme
 
     return <SearchBar
+      accessibilityRole='search'
       allowFontScaling={false}
       containerStyle={{
         flexGrow: 1,
@@ -33,6 +36,7 @@ class ThemedSearchBar extends React.Component<PropsType> {
       onChangeText={onChangeText}
       value={value}
       autoFocus={autofocus}
+      placeholder={t('searchPlaceholder')}
     />
   }
 }

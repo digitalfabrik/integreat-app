@@ -6,7 +6,7 @@ import { Provider } from 'react-redux'
 import I18nProviderContainer from '../../i18n/containers/I18nProviderContainer'
 import createReduxStore from '../createReduxStore'
 import IOSSafeAreaView from '../../../modules/platform/components/IOSSafeAreaView'
-import AndroidStatusBarContainer from '../../platform/containers/AndroidStatusBarContainer'
+import StatusBarContainer from '../containers/StatusBarContainer'
 import type { Store } from 'redux'
 import type { StateType } from '../StateType'
 import type { StoreActionType } from '../StoreActionType'
@@ -25,7 +25,7 @@ class App extends React.Component<{||}> {
         <I18nProviderContainer>
           <SafeAreaProvider>
           <>
-            <AndroidStatusBarContainer />
+            <StatusBarContainer />
             <IOSSafeAreaView>
               <NavigatorContainer />
             </IOSSafeAreaView>
