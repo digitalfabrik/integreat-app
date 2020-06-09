@@ -177,12 +177,16 @@ class NewsList extends React.PureComponent<PropsType> {
     const isTunews = selectedNewsType === TUNEWS
 
     if (newsId) {
-      const selectedNewsItem: LocalNewsModel | TunewsModel = news.find(
+      const selectedNewsItem: LocalNewsModel | TunewsModel | typeof undefined = news.find(
         _newsItem => _newsItem.id.toString() === newsId
       )
 
       if (selectedNewsItem) {
-        const { eNewsNo, date, content, message } = selectedNewsItem
+        const isInstanceOfTunews = selectedNewsItem instanceof TunewsModel
+        let content, eNewsNo
+        if (selectedNewsItem.content) { content = selectedNewsItem.content }
+        if (selectedNewsItem.message) { content = selectedNewsItem.message }
+        if (selectedNewsItem.eNewsNo) { eNewsNo = selectedNewsItem.eNewsNo }
 
         return (
           <View style={{ flex: 1 }}>
@@ -203,14 +207,14 @@ class NewsList extends React.PureComponent<PropsType> {
                   {selectedNewsItem.title}
                 </NewsHeadLine>
                 <NewsDetailsContent theme={theme} language={language}>
-                  {content || message}
+                  {content}
                 </NewsDetailsContent>
               </Container>
                 {isTunews && (
               <Row theme={theme} language={language}>
-                <TunewsFooter theme={theme} rightMargin={3}>
+                {eNewsNo && typeof eNewsNo === 'string' && <TunewsFooter theme={theme} rightMargin={3}>
                   {`${t('eNewsNo')}: ${eNewsNo}`}
-                </TunewsFooter>
+                </TunewsFooter>}
                 <TunewsFooter
                   rightMargin={3}
                   onPress={this.openTunewsLink}
@@ -218,13 +222,14 @@ class NewsList extends React.PureComponent<PropsType> {
                   underlined>
                   tünews INTERNATIONAL
                 </TunewsFooter>
-                <MomentContext.Consumer>
-                  {formatter => (
-                    <TunewsFooter theme={theme} rightMargin={3}>
-                      {formatter(date, { format: 'LL', locale: language })}
-                    </TunewsFooter>
-                  )}
-                </MomentContext.Consumer>
+                {isInstanceOfTunews && <MomentContext.Consumer>
+                    {formatter => (
+                      <TunewsFooter theme={theme} rightMargin={3}>
+                        {/* $FlowFixMe this keeps failing no matter the fix is */}
+                        {formatter(selectedNewsItem.date, { format: 'LL', locale: language })}
+                      </TunewsFooter>
+                    )}
+                  </MomentContext.Consumer>}
               </Row>
                 )}
             </ScrollView>

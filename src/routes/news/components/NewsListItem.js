@@ -119,14 +119,18 @@ export const ReadMore: StyledComponent<
 class NewsListItem extends React.PureComponent<PropsType> {
   render () {
     const {
-      newsItem: { title, content, message },
+      newsItem,
+      newsItem: { title },
       language,
       navigateToNews,
       theme,
       t,
       isTunews
     } = this.props
-    const newsContent = content || message
+
+    let content = ''
+    if (newsItem.content) { content = newsItem.content }
+    if (newsItem.message) { content = newsItem.message }
 
     return (
       <>
@@ -139,7 +143,7 @@ class NewsListItem extends React.PureComponent<PropsType> {
               </ListItemView>
               <ListItemView language={language} theme={theme}>
                 <Content numberOfLines={5} language={language} theme={theme}>
-                  {newsContent}
+                  {content}
                 </Content>
               </ListItemView>
             </Description>
