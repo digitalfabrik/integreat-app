@@ -69,6 +69,7 @@ const Circle = styled.div`
   border: white 2px solid;
 
   & img {
+    position: relative;
     opacity: 0.7;
     transition: opacity 0.2s;
     height: ${ICON_SIZE_LARGE / Math.sqrt(2) - PADDING_CIRCLE}px;

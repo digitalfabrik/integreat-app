@@ -4,7 +4,6 @@ import * as React from 'react'
 import HeaderNavigationBar from './HeaderNavigationBar'
 import HeaderActionBar from './HeaderActionBar'
 import HeaderActionItem from '../HeaderActionItem'
-import Link from 'redux-first-router-link'
 import Headroom from '@integreat-app/react-sticky-headroom'
 import styled, { withTheme } from 'styled-components'
 import withPlatform from '../../platform/hocs/withPlatform'
@@ -12,6 +11,8 @@ import Platform from '../../platform/Platform'
 import compose from 'lodash/fp/compose'
 import type { ThemeType } from '../../theme/constants/theme'
 import buildConfig from '../../app/constants/buildConfig'
+import HeaderTitle, { HEADER_TITLE_HEIGHT } from './HeaderTitle'
+import HeaderLogo from './HeaderLogo'
 
 type PropsType = {|
   navigationItems: React.Node,
@@ -23,9 +24,6 @@ type PropsType = {|
   onStickyTopChanged: number => void,
   platform: Platform
 |}
-
-const LONG_TITLE_LENGTH = 25
-const CITY_NAME_HEIGHT = 50
 
 const HeaderContainer = styled.header`
   display: flex;
@@ -51,39 +49,17 @@ const Row = styled.div`
   min-height: ${props => props.theme.dimensions.headerHeightLarge}px;
   flex-direction: row;
 
+  :first-child {
+    z-index: 1; /* Necessary to make the LanguageFlyout cover the NavigationItems as they have opacity set */
+  }
+
   @media ${props => props.theme.dimensions.smallViewport} {
     justify-content: space-between;
     flex-wrap: wrap;
   }
 `
 
-const CityName = styled.div`
-  display: flex;
-  align-items: center;
-  font-size: ${props => props.long ? '1.3rem' : '1.8rem'};
-  max-height: ${props => props.theme.dimensions.headerHeightLarge};
-  font-weight: 800;
-  flex: 1;
-  order: 2;
-  padding: 0 10px;
-  box-sizing: border-box;
-
-  @media ${props => props.theme.dimensions.minMaxWidth} {
-    font-size: ${props => props.long ? '1.5rem' : '1.8rem'};
-  }
-
-  @media ${props => props.theme.dimensions.smallViewport} {
-    font-size: ${props => props.long ? '1.2rem' : '1.5rem'};
-    height: ${CITY_NAME_HEIGHT}px;
-    order: 3;
-    min-width: 100%;
-    justify-content: center;
-    padding: 0 10px;
-    text-align: center;
-  }
-`
-
-const Separator = styled.div`
+const HeaderSeparator = styled.div`
   align-self: center;
   height: ${props => props.theme.dimensions.headerHeightLarge / 2}px;
   width: 2px;
@@ -93,34 +69,6 @@ const Separator = styled.div`
 
   @media ${props => props.theme.dimensions.smallViewport} {
       display: none;
-  }
-`
-
-const LogoWide = styled.div`
-  box-sizing: border-box;
-  flex-shrink: 1;
-  height: ${props => props.theme.dimensions.headerHeightLarge}px;
-  padding: 0 10px;
-  display: flex;
-  align-items: center;
-  order: 1;
-
-  & a {
-    width: 100%;
-    height: 60%;
-  }
-
-  & img {
-    max-width: 100%;
-    max-height: 100%;
-  }
-
-  @media ${props => props.theme.dimensions.smallViewport} {
-    height: ${props => props.theme.dimensions.headerHeightSmall}px;
-
-    & a {
-      max-height: 75%;
-    }
   }
 `
 
@@ -159,10 +107,10 @@ export class Header extends React.PureComponent<PropsType> {
     const { headerHeightSmall, headerHeightLarge } = theme.dimensions
     const hasNavigationBar = navigationItems?.length > 0
     const height = viewportSmall
-      ? (1 + (hasNavigationBar ? 1 : 0)) * headerHeightSmall + (cityName ? CITY_NAME_HEIGHT : 0)
+      ? (1 + (hasNavigationBar ? 1 : 0)) * headerHeightSmall + (cityName ? HEADER_TITLE_HEIGHT : 0)
       : (1 + (hasNavigationBar ? 1 : 0)) * headerHeightLarge
     const scrollHeight = viewportSmall
-      ? (hasNavigationBar ? 1 : 0) * headerHeightSmall + (cityName ? CITY_NAME_HEIGHT : 0)
+      ? (hasNavigationBar ? 1 : 0) * headerHeightSmall + (cityName ? HEADER_TITLE_HEIGHT : 0)
       : (hasNavigationBar ? 1 : 0) * headerHeightLarge
     return (
       <Headroom onStickyTopChanged={onStickyTopChanged}
@@ -171,13 +119,9 @@ export class Header extends React.PureComponent<PropsType> {
                 positionStickyDisabled={platform.positionStickyDisabled}>
         <HeaderContainer>
           <Row>
-            <LogoWide>
-              <Link to={logoHref}>
-                <img src={buildConfig.logoWide} alt='Integreat' />
-              </Link>
-            </LogoWide>
-            {!viewportSmall && cityName && <Separator theme={theme} />}
-            {cityName && <CityName long={cityName.length >= LONG_TITLE_LENGTH}>{cityName}</CityName>}
+            <HeaderLogo theme={theme} link={logoHref} src={buildConfig.logoWide} alt={buildConfig.appTitle} />
+            {!viewportSmall && cityName && <HeaderSeparator theme={theme} />}
+            {cityName && <HeaderTitle theme={theme}>{cityName}</HeaderTitle>}
             <ActionBar items={actionItems} />
           </Row>
           {hasNavigationBar && <Row><NavigationBar>{navigationItems}</NavigationBar></Row>}
