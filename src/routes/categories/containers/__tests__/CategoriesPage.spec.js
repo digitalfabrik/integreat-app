@@ -111,12 +111,15 @@ describe('CategoriesPage', () => {
 
   const language = 'en'
 
+  const t = key => key
+
   it('should match snapshot and render a Page if page has no children', () => {
     const wrapper = shallow(
       <CategoriesPage categories={categories}
                       cities={cities}
                       city={city}
                       language={language}
+                      t={t}
                       path={categoryModels[3].path}
                       uiDirection='ltr' />
     )
@@ -131,6 +134,7 @@ describe('CategoriesPage', () => {
                       city={city}
                       language={language}
                       uiDirection='ltr'
+                      t={t}
                       path={categoryModels[2].path} />
     )
 
@@ -144,6 +148,7 @@ describe('CategoriesPage', () => {
                       city={city}
                       language={language}
                       uiDirection='ltr'
+                      t={t}
                       path='/augsburg/de' />
     )
 
@@ -156,6 +161,7 @@ describe('CategoriesPage', () => {
                       cities={cities}
                       city={city}
                       uiDirection='ltr'
+                      t={t}
                       language={language}
                       path='/augsburg/de/not/valid' />
     )
@@ -181,12 +187,13 @@ describe('CategoriesPage', () => {
       <ConnectedCategoriesPage store={store} cities={cities} categories={categories} />
     )
 
-    expect(categoriesPage.find(CategoriesPage).props()).toMatchObject({
+    expect(categoriesPage.dive().find(CategoriesPage).props()).toMatchObject({
       city,
       language,
       path: pathname,
       categories,
-      cities
+      cities,
+      t: expect.any(Function)
     })
   })
 })
