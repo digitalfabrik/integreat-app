@@ -1,10 +1,11 @@
 // @flow
 
 import { CategoriesMapModel, CityModel, EventModel, LanguageModel, TunewsModel, LocalNewsModel } from '@integreat-app/integreat-api-client'
-import type { CategoryRouteConfigType, LanguageResourceCacheStateType } from './StateType'
+import type { CategoryRouteConfigType, LanguageResourceCacheStateType, NewsType, NewsModelsType } from './StateType'
 import type { ContentLoadCriterionType } from '../endpoint/ContentLoadCriterion'
 import type { TFunction } from 'react-i18next'
 import type { ErrorCodeType } from '../error/ErrorCodes'
+import { TUNEWS, LOCAL } from '../../routes/news/containers/WithCustomNewsProvider'
 
 export type FetchCitiesActionType = {|
   type: 'FETCH_CITIES',
@@ -48,23 +49,23 @@ export type FetchCategoryActionType = {|
 |}
 
 export type FetchNewsActionType = {|
-  type: "FETCH_NEWS",
+  type: 'FETCH_NEWS',
   +params: {|
     +city: string, +language: string,
-    +path: ?string, +key: string,
+    +newsId: ?string, +key: string,
     +criterion: ContentLoadCriterionType,
-    +type: string
+    +type: NewsType
   |}
 |}
 
 export type FetchMoreNewsActionType = {|
-  type: "FETCH_MORE_NEWS",
+  type: 'FETCH_MORE_NEWS',
   +params: {|
     +city: string, +language: string,
-    +previouslyFetchedNewsList: $ReadOnlyArray<LocalNewsModel | TunewsModel>,
-    +path: ?string, +key: string,
+    +previouslyFetchedNews: $ReadOnlyArray<LocalNewsModel> | $ReadOnlyArray<TunewsModel>,
+    +newsId: ?string, +key: string,
     +criterion: ContentLoadCriterionType,
-    +type: string,
+    +type: NewsType,
     +page: number,
     +hasMoreNews: boolean
   |}
@@ -77,15 +78,15 @@ export type ClearNewsActionType = {|
 export type PushNewsActionType = {|
   type: 'PUSH_NEWS',
   +params: {|
-    +newsList: $ReadOnlyArray<LocalNewsModel | TunewsModel>,
-    +previouslyFetchedNewsList?: $ReadOnlyArray<LocalNewsModel | TunewsModel>, // in case if there is old news then [concat old news with new ones]
-    +path: ?string,
+    +news: NewsModelsType,
+    +previouslyFetchedNews?: NewsModelsType, // in case if there is old news then concat old news with new ones
+    +newsId: ?string,
     +key: string,
     +cityLanguages: $ReadOnlyArray<LanguageModel>,
     +language: string,
     +city: string,
     +hasMoreNews: boolean, // stop loading more when no items are coming from response
-    +type: string,
+    +type: NewsType,
     +page: number
   |}
 |}
@@ -98,8 +99,8 @@ export type FetchNewsFailedActionType = {|
     +key: string,
     +allAvailableLanguages: ?$ReadOnlyMap<string, ?string>,
     +language: string,
-    +path: ?string,
-    +type: string,
+    +newsId: ?string,
+    +type: NewsType,
     +city: string
   |}
 |}
@@ -231,6 +232,7 @@ export type CityContentActionType =
   | PushLanguagesActionType
   | FetchLanguagesFailedActionType
   | ResourcesFetchFailedActionType
+  | NewsActionType
 
 export type ToggleDarkModeActionType = {|
   type: 'TOGGLE_DARK_MODE'
@@ -246,4 +248,3 @@ export type StoreActionType =
   | CityContentActionType
   | SetContentLanguageActionType
   | ClearResourcesAndCacheActionType
-  | NewsActionType

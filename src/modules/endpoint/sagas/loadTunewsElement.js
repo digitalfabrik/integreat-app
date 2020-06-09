@@ -10,10 +10,10 @@ function * loadTunewsElement (
 ): Saga<Array<TunewsModel>> {
   console.debug('Fetching tunews element')
 
-  const payload = yield call(() => createTunewsElementEndpoint(`${tunewsApiUrl}`).request({ id }))
-  const newsItem: Array<TunewsModel> = payload.data
+  const payload = yield call(() => createTunewsElementEndpoint(tunewsApiUrl).request({ id }))
+  const tunews: Array<TunewsModel> = [payload.data]
 
-  return [newsItem]
+  return tunews
 }
 
 export default loadTunewsElement

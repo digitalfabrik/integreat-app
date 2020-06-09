@@ -11,7 +11,11 @@ import ContentNotFoundError from '../../../modules/error/ContentNotFoundError'
 import List from './List'
 import Failure from '../../../modules/error/components/Failure'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
-import type { LanguageResourceCacheStateType } from '../../../modules/app/StateType'
+import type {
+  LanguageResourceCacheStateType,
+  NewsModelsType,
+  NewsType
+} from '../../../modules/app/StateType'
 import type { NavigateToNewsParamsType } from '../../../modules/app/createNavigateToNews'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
@@ -21,8 +25,11 @@ import headerImage from '../assets/tu-news-header-details-icon.svg'
 import styled from 'styled-components/native'
 import type { StyledComponent } from 'styled-components'
 import { TUNEWS } from '../containers/WithCustomNewsProvider'
-import { contentAlignment, contentDirection } from '../../../modules/i18n/contentDirection'
-import moment from 'moment'
+import {
+  contentAlignment,
+  contentDirection
+} from '../../../modules/i18n/contentDirection'
+import MomentContext from '../../../modules/i18n/context/MomentContext'
 const tunewsWebsiteUrl = 'https://tunewsinternational.com'
 
 const Container: StyledComponent<{}, {}, *> = styled.View`
@@ -45,20 +52,26 @@ const HeaderImage: StyledComponent<{}, {}, *> = styled.Image`
   border-bottom-left-radius: 5px;
 `
 
-const Row: StyledComponent<{language: string}, ThemeType, *> = styled.View`
+const Row: StyledComponent<{ language: string }, ThemeType, *> = styled.View`
   flex-direction: ${props => contentDirection(props.language)};
   border-radius: 5px;
   width: 95%;
+  flex-wrap: wrap;
   align-self: center;
-  background-color: #0279a6;
+  padding: 5px;
+  background-color: ${props => props.theme.colors.tunewsThemeColor};
 `
 
-const ExtraInfo: StyledComponent<{ underlined?: boolean }, ThemeType, *> = styled.Text`
+const TunewsFooter: StyledComponent<
+  { underlined?: boolean, rightMargin: number },
+  ThemeType,
+  *
+> = styled.Text`
   font-family: ${props => props.theme.fonts.decorativeFontBold};
   font-size: 12px;
   color: white;
-  text-decoration-line: ${props => props.underlined ? 'underline' : 'none'};
-  padding: 5px;
+  margin-right: ${props => props.rightMargin || 0}px;
+  text-decoration-line: ${props => (props.underlined ? 'underline' : 'none')};
 `
 
 const NoNews: StyledComponent<{}, ThemeType, *> = styled.Text`
@@ -68,7 +81,7 @@ const NoNews: StyledComponent<{}, ThemeType, *> = styled.Text`
   margin-top: 20px;
 `
 
-const NewsDetailsTitle: StyledComponent<{}, ThemeType, *> = styled.Text`
+const NewsHeadLine: StyledComponent<{}, ThemeType, *> = styled.Text`
   font-weight: 700;
   font-family: ${props => props.theme.fonts.decorativeFontBold};
   color: ${props => props.theme.colors.textColor};
@@ -90,14 +103,14 @@ const NewsDetailsContent: StyledComponent<
   color: ${props => props.theme.colors.textColor};
 `
 export type PropsType = {|
-  path: ?string,
-  newsList: Array<LocalNewsModel | TunewsModel>,
+  newsId: ?string,
+  news: NewsModelsType,
   cityCode: string,
   language: string,
   resourceCache: LanguageResourceCacheStateType,
   theme: ThemeType,
   t: TFunction,
-  selectedNewsType: string,
+  selectedNewsType: NewsType,
   status: "ready" | "loadingMore",
   isFetchingMore: boolean,
   fetchMoreNews: () => void,
@@ -109,12 +122,12 @@ export type PropsType = {|
  * Displays a list of news or a single news item, matching the route <id>)
  */
 class NewsList extends React.PureComponent<PropsType> {
-  navigateToNews = (cityCode: string, language: string, path: string) => () => {
+  navigateToNews = (cityCode: string, language: string, newsId: string) => () => {
     const { selectedNewsType } = this.props
     this.props.navigateToNews({
       cityCode,
       language,
-      path,
+      newsId,
       type: selectedNewsType
     })
   };
@@ -143,19 +156,15 @@ class NewsList extends React.PureComponent<PropsType> {
         language={language}
         theme={theme}
         isTunews={isTunews}
-        navigateToNews={this.navigateToNews(
-          cityCode,
-          language,
-          `${newsItem.id}`
-        )}
+        navigateToNews={this.navigateToNews(cityCode, language, newsItem.id.toString())}
       />
     )
   };
 
   render () {
     const {
-      newsList,
-      path,
+      news,
+      newsId,
       cityCode,
       language,
       theme,
@@ -167,9 +176,9 @@ class NewsList extends React.PureComponent<PropsType> {
 
     const isTunews = selectedNewsType === TUNEWS
 
-    if (path) {
-      const selectedNewsItem: LocalNewsModel | TunewsModel = newsList.find(
-        _newsItem => `${_newsItem.id}` === path
+    if (newsId) {
+      const selectedNewsItem: LocalNewsModel | TunewsModel = news.find(
+        _newsItem => _newsItem.id.toString() === newsId
       )
 
       if (selectedNewsItem) {
@@ -190,24 +199,34 @@ class NewsList extends React.PureComponent<PropsType> {
                 </HeaderImageWrapper>
               )}
               <Container>
-                <NewsDetailsTitle theme={theme}>
+                <NewsHeadLine theme={theme}>
                   {selectedNewsItem.title}
-                </NewsDetailsTitle>
+                </NewsHeadLine>
                 <NewsDetailsContent theme={theme} language={language}>
                   {content || message}
                 </NewsDetailsContent>
               </Container>
+                {isTunews && (
               <Row theme={theme} language={language}>
-                {isTunews ? (
-                  <ExtraInfo theme={theme}>
-                    {`${t('eNewsNo')}: ${eNewsNo}`}
-                    {'  '}
-                    <ExtraInfo onPress={this.openTunewsLink} theme={theme} underlined>tünews INTERNATIONAL</ExtraInfo>
-                    {'  '}
-                    {moment(date).format('MMMM DD, YYYY')}
-                  </ExtraInfo>
-                ) : null}
+                <TunewsFooter theme={theme} rightMargin={3}>
+                  {`${t('eNewsNo')}: ${eNewsNo}`}
+                </TunewsFooter>
+                <TunewsFooter
+                  rightMargin={3}
+                  onPress={this.openTunewsLink}
+                  theme={theme}
+                  underlined>
+                  tünews INTERNATIONAL
+                </TunewsFooter>
+                <MomentContext.Consumer>
+                  {formatter => (
+                    <TunewsFooter theme={theme} rightMargin={3}>
+                      {formatter(date, { format: 'LL', locale: language })}
+                    </TunewsFooter>
+                  )}
+                </MomentContext.Consumer>
               </Row>
+                )}
             </ScrollView>
           </View>
         )
@@ -215,7 +234,7 @@ class NewsList extends React.PureComponent<PropsType> {
 
       const error = new ContentNotFoundError({
         type: 'news',
-        id: path,
+        id: newsId,
         city: cityCode,
         language
       })
@@ -234,9 +253,9 @@ class NewsList extends React.PureComponent<PropsType> {
         <View style={{ flex: 1 }}>
           <List
             renderNoItemsComponent={this.renderNoItemsComponent}
-            items={newsList}
+            items={news}
             isFetchingMore={isFetchingMore}
-            getMoreItems={fetchMoreNews}
+            fetchMoreItems={fetchMoreNews}
             renderItem={this.rendersNewsListItem(cityCode, language)}
           />
         </View>

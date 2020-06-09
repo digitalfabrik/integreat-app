@@ -3,7 +3,9 @@
 import type {
   NewsRouteStateType,
   LanguageResourceCacheStateType,
-  StateType
+  StateType,
+  NewsModelsType,
+  NewsType
 } from '../../../modules/app/StateType'
 import type {
   FetchMoreNewsActionType,
@@ -29,8 +31,8 @@ import { mapProps } from 'recompose'
 import TranslatedWithThemeNewsList from '../components/NewsList'
 
 type ContainerPropsType = {|
-  path: ?string,
-  newsList: $ReadOnlyArray<LocalNewsModel | TunewsModel>,
+  newsId: ?string,
+  news: NewsModelsType,
   cities: $ReadOnlyArray<CityModel>,
   cityCode: string,
   language: string,
@@ -40,10 +42,10 @@ type ContainerPropsType = {|
   dispatch: Dispatch<StoreActionType>,
   cityModel: CityModel,
 
-  // option props that come from provider
-  selectedNewsType: string,
+  // Option props that come from provider
+  selectedNewsType: NewsType,
 
-  // option props that come from action
+  // Option props that come from action
   hasMoreNews?: boolean,
   page?: number
 |}
@@ -52,8 +54,8 @@ type RefreshPropsType = {|
   navigation: NavigationScreenProp<*>,
   cityCode: string,
   language: string,
-  path: ?string,
-  selectedNewsType: string
+  newsId: ?string,
+  selectedNewsType: NewsType
 |}
 
 type OwnPropsType = {| navigation: NavigationScreenProp<*>, t: TFunction |}
@@ -129,7 +131,7 @@ const mapStateToProps = (
   }
 
   const refreshProps = {
-    path: route.path,
+    newsId: route.newsId,
     cityCode: route.city,
     language: state.contentLanguage,
     navigation: ownProps.navigation,
@@ -173,7 +175,7 @@ const mapStateToProps = (
       innerProps: {
         cityModel,
         language: state.contentLanguage,
-        path: route.path,
+        newsId: route.newsId,
         navigation,
         selectedNewsType: route.type,
         cityCode: route.city
@@ -182,11 +184,11 @@ const mapStateToProps = (
   }
 
   const innerProps = {
-    path: route.path,
+    newsId: route.newsId,
     cities: cities,
     cityCode: route.city,
     language: state.contentLanguage,
-    newsList: route.models,
+    news: route.models,
     resourceCache: resourceCache.value,
     selectedNewsType: route.type,
     status: route.status,
@@ -218,8 +220,9 @@ const mapDispatchToProps = (
 class NewsContainer extends React.Component<ContainerPropsType> {
   fetchMoreNews = async () => {
     const { dispatch, selectedNewsType, ...rest } = this.props
-    const { cityCode, language, navigation, path, page } = rest
-    const { newsList, hasMoreNews } = rest
+    const { news, hasMoreNews, cityCode, language, navigation, newsId, page } = rest
+    console.log({page});
+    
     const isTunews = selectedNewsType === TUNEWS
 
     if (hasMoreNews && isTunews) {
@@ -228,11 +231,11 @@ class NewsContainer extends React.Component<ContainerPropsType> {
         params: {
           city: cityCode,
           language,
-          path,
-          type: selectedNewsType,
+          newsId,
+          type: TUNEWS,
           key: navigation.state.key,
           page: page + 1,
-          previouslyFetchedNewsList: newsList,
+          previouslyFetchedNews: news,
           hasMoreNews,
           criterion: {
             forceUpdate: false,
@@ -245,7 +248,7 @@ class NewsContainer extends React.Component<ContainerPropsType> {
   };
 
   render () {
-    const { dispatch, status, ...rest } = this.props
+    const { dispatch, status, ...rest } = this.props    
 
     return (
       <TranslatedWithThemeNewsList
@@ -271,14 +274,14 @@ const refresh = (
   refreshProps: RefreshPropsType,
   dispatch: Dispatch<StoreActionType>
 ) => {
-  const { navigation, cityCode, language, path, selectedNewsType } = refreshProps
+  const { navigation, cityCode, language, newsId, selectedNewsType } = refreshProps
 
   const navigateToNews = createNavigateToNews(dispatch, navigation)
   navigateToNews({
     cityCode,
     type: selectedNewsType,
     language,
-    path,
+    newsId,
     forceRefresh: true,
     key: navigation.state.key
   })

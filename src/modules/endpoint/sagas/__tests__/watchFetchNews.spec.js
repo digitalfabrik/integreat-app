@@ -25,12 +25,12 @@ describe('watchFetchNews', () => {
   describe('fetch news', () => {
     const createDataContainer = async (city, language) => {
       const newsBuilder = new LocalNewsModelBuilder('loadCityContent-news', 2, city, language)
-      const newsList = newsBuilder.build()
+      const news = newsBuilder.build()
       const languages = new LanguageModelBuilder(2).build()
 
       const dataContainer = new DefaultDataContainer()
       await dataContainer.setLanguages(city, languages)
-      return { dataContainer, newsList, languages }
+      return { dataContainer, news, languages }
     }
 
     it('should put an error action if language is not available for specific news', async () => {
@@ -42,7 +42,7 @@ describe('watchFetchNews', () => {
         params: {
           city,
           language: invalidLanguage,
-          path: null,
+          newsId: null,
           type: LOCAL,
           key: 'route-0',
           criterion: {
@@ -66,7 +66,7 @@ describe('watchFetchNews', () => {
         params: {
           city,
           language,
-          path: null,
+          newsId: null,
           type: LOCAL,
           key: 'news-key',
           criterion: {

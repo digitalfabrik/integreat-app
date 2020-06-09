@@ -34,24 +34,24 @@ export default (
       }
     }
   } else if (action.type === 'FETCH_NEWS') {
-    const { language, path, key, city, type } = action.params
+    const { language, newsId, key, city, type } = action.params
     const initializedState = state || createCityContent(city)
 
     return {
       ...initializedState,
       newsRouteMapping: {
         ...initializedState.newsRouteMapping,
-        [key]: { status: 'loading', language, city, path, type }
+        [key]: { status: 'loading', language, city, newsId, type }
       }
     }
   } else if (action.type === 'FETCH_MORE_NEWS') {
-    const { language, path, key, city, type, page, previouslyFetchedNewsList } = action.params
+    const { language, newsId, key, city, type, page, previouslyFetchedNews } = action.params
     const initializedState = state || createCityContent(city)
     return {
       ...initializedState,
       newsRouteMapping: {
         ...initializedState.newsRouteMapping,
-        [key]: { status: 'loadingMore', language, city, path, type, page, models: previouslyFetchedNewsList }
+        [key]: { status: 'loadingMore', language, city, newsId, type, page, models: previouslyFetchedNews }
       }
     }
   } else {
@@ -75,14 +75,14 @@ export default (
       case 'PUSH_NEWS':
         return pushNews(state, action)
       case 'FETCH_NEWS_FAILED': {
-        const { message, key, allAvailableLanguages, path, type, ...rest } = action.params
+        const { message, key, allAvailableLanguages, newsId, type, ...rest } = action.params
         return {
           ...state,
           newsRouteMapping: {
             ...state.newsRouteMapping,
             [key]: allAvailableLanguages
               ? { status: 'languageNotAvailable', type, allAvailableLanguages, ...rest }
-              : { status: 'error', message, path, type, ...rest }
+              : { status: 'error', message, newsId, type, ...rest }
           }
         }
       }

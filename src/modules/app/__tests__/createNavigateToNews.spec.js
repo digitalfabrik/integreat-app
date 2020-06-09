@@ -2,6 +2,7 @@
 
 import createNavigationScreenPropMock from '../../test-utils/createNavigationScreenPropMock'
 import createNavigateToNews from '../createNavigateToNews'
+import { LOCAL } from '../../../routes/news/containers/WithCustomNewsProvider'
 
 describe('createNavigateToNews', () => {
   it('should generate key if not supplied with at least 6 chars and use it for both navigation and redux actions', () => {
@@ -9,7 +10,7 @@ describe('createNavigateToNews', () => {
     const navigation = createNavigationScreenPropMock()
 
     const navigateToNews = createNavigateToNews(dispatch, navigation)
-    navigateToNews({ cityCode: 'augsburg', language: 'de', path: null, type: 'local' })
+    navigateToNews({ cityCode: 'augsburg', language: 'de', newsId: null, type: LOCAL })
 
     expect(navigation.navigate).toHaveBeenCalledWith(expect.objectContaining({
       key: expect.stringMatching(/^.{6,}$/) // at least 6 chars but no newline
@@ -26,10 +27,10 @@ describe('createNavigateToNews', () => {
     const navigation = createNavigationScreenPropMock()
 
     const navigateToNews = createNavigateToNews(dispatch, navigation)
-    navigateToNews({ cityCode: 'augsburg', language: 'de', path: null, type: 'local' })
+    navigateToNews({ cityCode: 'augsburg', language: 'de', newsId: null, type: LOCAL })
 
     expect(navigation.navigate).toHaveBeenCalledWith(expect.objectContaining({
-      key: expect.any(String), // at least 6 chars but no newline
+      key: expect.stringMatching(/^.{6,}$/), // at least 6 chars but no newline
       params: expect.objectContaining({
         onRouteClose: expect.any(Function)
       })
@@ -50,7 +51,7 @@ describe('createNavigateToNews', () => {
 
     const navigateToNews = createNavigateToNews(dispatch, navigation)
     navigateToNews({
-      cityCode: 'augsburg', type: 'local', language: 'de', path: '12', key: 'route-id-1', forceRefresh: true
+      cityCode: 'augsburg', type: LOCAL, language: 'de', newsId: '12', key: 'route-id-1', forceRefresh: true
     })
 
     expect(dispatch).toHaveBeenCalledWith({
@@ -58,9 +59,9 @@ describe('createNavigateToNews', () => {
       params: {
         city: 'augsburg',
         language: 'de',
-        path: '12',
+        newsId: '12',
         key: 'route-id-1',
-        type: 'local',
+        type: LOCAL,
         criterion: { forceUpdate: true, shouldRefreshResources: true }
       }
     })

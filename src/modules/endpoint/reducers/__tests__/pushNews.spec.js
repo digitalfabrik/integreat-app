@@ -4,12 +4,13 @@ import { LocalNewsModel, LanguageModel } from '@integreat-app/integreat-api-clie
 import type { CityContentStateType } from '../../../app/StateType'
 import cityContentReducer from '../cityContentReducer'
 import type { PushNewsActionType } from '../../../app/StoreActionType'
+import { LOCAL } from '../../../../routes/news/containers/WithCustomNewsProvider'
 
 jest.mock('@react-native-community/async-storage')
 
 describe('pushNews', () => {
-  const news1 = new LocalNewsModel({
-    path: null,
+  const news1: LocalNewsModel = new LocalNewsModel({
+    newsId: null,
     id: 12,
     title: 'Local News 1',
     content: 'cotent'
@@ -23,14 +24,14 @@ describe('pushNews', () => {
       newsRouteMapping: {
         'route-id-0': {
           status: 'ready',
-          models: [],
           city: 'augsburg',
           language: 'de',
+          models: [news1],
           allAvailableLanguages: new Map([['de', null], ['en', null]]),
-          path: null,
+          newsId: null,
           page: 1,
           hasMoreNews: false,
-          type: 'local'
+          type: LOCAL
         }
       },
       resourceCache: { status: 'ready', value: { files: {} } },
@@ -50,14 +51,14 @@ describe('pushNews', () => {
     const pushNewsAction: PushNewsActionType = {
       type: 'PUSH_NEWS',
       params: {
-        newsList: [news1],
-        path: null,
+        news: [news1],
+        newsId: null,
         key: 'route-id-0',
         cityLanguages: [new LanguageModel('de', 'Deutsch'), new LanguageModel('en', 'English')],
         language: 'de',
         city: 'augsburg',
         hasMoreNews: false,
-        type: 'local',
+        type: LOCAL,
         page: 1
       }
     }
@@ -66,12 +67,12 @@ describe('pushNews', () => {
       newsRouteMapping: {
         'route-id-0': {
           status: 'ready',
-          path: null,
+          newsId: null,
           allAvailableLanguages: new Map([['en', null], ['de', null]]),
           city: 'augsburg',
           language: 'de',
           hasMoreNews: false,
-          type: 'local',
+          type: LOCAL,
           page: 1,
           models: [news1]
         }
@@ -87,14 +88,14 @@ describe('pushNews', () => {
     const pushNewsAction: PushNewsActionType = {
       type: 'PUSH_NEWS',
       params: {
-        newsList: [news1],
-        path: '12',
+        news: [news1],
+        newsId: '12',
         key: 'route-id-0',
         cityLanguages: [new LanguageModel('de', 'Deutsch'), new LanguageModel('en', 'English')],
         language: 'de',
         hasMoreNews: true,
         page: 1,
-        type: 'local',
+        type: LOCAL,
         city: 'augsburg'
       }
     }
@@ -103,13 +104,13 @@ describe('pushNews', () => {
       newsRouteMapping: {
         'route-id-0': {
           status: 'ready',
-          path: '12',
+          newsId: '12',
           allAvailableLanguages: new Map([['en', null], ['de', null]]),
           city: 'augsburg',
           language: 'de',
           hasMoreNews: true,
           page: 1,
-          type: 'local',
+          type: LOCAL,
           models: [news1]
         }
       }

@@ -20,6 +20,7 @@ import type { NavigateToEventParamsType } from '../../../modules/app/createNavig
 import type { NavigateToNewsParamsType } from '../../../modules/app/createNavigateToNews'
 
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
+import { LOCAL } from '../../news/containers/WithCustomNewsProvider'
 
 export type PropsType = {|
   navigation: NavigationScreenProp<*>,
@@ -42,7 +43,7 @@ export type PropsType = {|
 
 class Dashboard extends React.Component<PropsType> {
   getNavigationTileModels (cityCode: string, language: string): Array<TileModel> {
-    // check if news is enabled to show the menu item
+    // Check if news is enabled to show the menu item
     const { navigateToCategory, navigateToEvent, navigateToExtras, t, cities, navigateToNews } = this.props
     const cityModel = cities.find(city => city.code === cityCode)
     if (!cityModel) {
@@ -89,13 +90,13 @@ class Dashboard extends React.Component<PropsType> {
         thumbnail: newsIcon,
         isExternalUrl: false,
         onTilePress: () =>
-          navigateToNews({ cityCode, language, path: null, type: 'local' }),
+          navigateToNews({ cityCode, language, newsId: null, type: LOCAL }),
         notifications: 0
       })
     ].filter(tile => !!tile)
   }
 
-  landing = () => this.props.navigation.navigate('Landing');
+  landing = () => this.props.navigation.navigate('Landing')
 
   render () {
     const {

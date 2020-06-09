@@ -7,31 +7,32 @@ import {
   LocalNewsModel,
   TunewsModel
 } from '@integreat-app/integreat-api-client'
+import type { NewsModelsType } from '../../../modules/app/StateType'
 
 const Loader = styled.ActivityIndicator`
   margin-top: 7px;
 `
 const keyExtractor = (item, index) => `${index}`
 
-interface ListPropTypes {
-  items: Array<LocalNewsModel | TunewsModel>,
+type PropType = {|
+  items: NewsModelsType,
   renderItem: ({
     cityCode: string,
     language: string,
-    item: LocalNewsModel
+    item: LocalNewsModel | TunewsModel
   }) => React$Node,
   isFetchingMore: boolean,
-  getMoreItems: () => void,
+  fetchMoreItems: () => void,
   renderNoItemsComponent: () => React$Node
-}
+|}
 
 const List = ({
   items,
   renderItem,
   isFetchingMore,
-  getMoreItems,
+  fetchMoreItems,
   renderNoItemsComponent
-}: ListPropTypes) => {
+}: PropType) => {
   return (
     <FlatList
       data={items}
@@ -40,7 +41,7 @@ const List = ({
         flexGrow: 1,
         paddingHorizontal: 10
       }}
-      onEndReached={getMoreItems}
+      onEndReached={fetchMoreItems}
       ListEmptyComponent={renderNoItemsComponent}
       ListFooterComponent={isFetchingMore && <Loader size='small' />}
       onEndReachedThreshold={1}
