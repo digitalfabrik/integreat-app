@@ -39,8 +39,7 @@ export function * fetchNews (
       !isLocalNews
     )
     const languageValid = languages
-      .map(language => language.code)
-      .includes(language)
+      .find(languageModel => languageModel.code === language)
     const pushLanguagesAction = {
       type: 'PUSH_LANGUAGES',
       params: { languages: languages }
