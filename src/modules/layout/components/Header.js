@@ -65,7 +65,7 @@ const HeaderSeparator = styled.div`
   order: 2;
 
   @media ${props => props.theme.dimensions.smallViewport} {
-      display: none;
+    display: none;
   }
 `
 
@@ -82,12 +82,12 @@ const ActionBar = styled.div`
 `
 
 const NavigationBar = styled.div`
-    display: flex;
-    padding: 0 10px;
-    flex-grow: 1;
-    flex-shrink: 0;
-    align-items: stretch;
-    justify-content: center;
+  display: flex;
+  padding: 0 10px;
+  flex-grow: 1;
+  flex-shrink: 0;
+  align-items: stretch;
+  justify-content: center;
 `
 
 /**
