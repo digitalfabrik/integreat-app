@@ -7,7 +7,7 @@ exports[`RouteContentSwitcher should render a FailureSwitcher if a payload conta
 `;
 
 exports[`RouteContentSwitcher should render and match snapshot 1`] = `
-<Connect(CategoriesPage)
+<Translate(Connect(CategoriesPage))
   categories={
     CategoriesMapModel {
       "_categories": Map {
