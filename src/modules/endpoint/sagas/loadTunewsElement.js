@@ -6,7 +6,7 @@ import { call } from 'redux-saga/effects'
 import { tunewsApiUrl } from '../constants'
 
 function * loadTunewsElement (
-  id: string
+  id: number
 ): Saga<Array<TunewsModel>> {
   console.debug('Fetching tunews element')
 
