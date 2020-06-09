@@ -5,9 +5,34 @@ import onClickOutside from 'react-onclickoutside'
 import styled from 'styled-components'
 import ReactTooltip from 'react-tooltip'
 
-export const StyledButton = styled.button`
-  background-color: ${props => props.theme.colors.backgroundAccentColor};
-  border: none;
+export const Container = styled.div`
+  width: calc(0.8 * ${props => props.theme.dimensions.headerHeightLarge}px);
+  height: calc(0.8 * ${props => props.theme.dimensions.headerHeightLarge}px);
+  box-sizing: border-box;
+
+  @media ${props => props.theme.dimensions.smallViewport} {
+    width: calc(0.8 * ${props => props.theme.dimensions.headerHeightSmall}px);
+    height: calc(0.8 * ${props => props.theme.dimensions.headerHeightSmall}px);
+  }
+
+  & > button {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+    background-color: ${props => props.theme.colors.backgroundAccentColor};
+    border: none;
+
+  }
+
+  & > button > img {
+    box-sizing: border-box;
+    padding: 22%;
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+  }
 `
 
 export const DropDownContainer = styled.div`
@@ -83,16 +108,16 @@ export class HeaderActionItemDropDown extends React.Component<PropsType, StateTy
     const { dropDownActive } = this.state
 
     return (
-      <div>
-        <StyledButton selector='button' data-tip={text} aria-label={text} onClick={this.toggleDropDown}>
+      <Container>
+        <button selector='button' data-tip={text} aria-label={text} onClick={this.toggleDropDown}>
           <img alt='' src={iconSrc} />
-        </StyledButton>
+        </button>
         <DropDownContainer active={dropDownActive}>
           {React.cloneElement(children, {
             closeDropDownCallback: this.closeDropDown
           })}
         </DropDownContainer>
-      </div>
+      </Container>
     )
   }
 }
