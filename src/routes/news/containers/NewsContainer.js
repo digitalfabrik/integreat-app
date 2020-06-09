@@ -36,7 +36,7 @@ type ContainerPropsType = {|
   resourceCache: LanguageResourceCacheStateType,
   navigation: NavigationScreenProp<*>,
   dispatch: Dispatch<StoreActionType>,
-  cityModel: CityModel,
+  cityModel: CityModel | typeof undefined,
 
   // Option props that come from provider
   selectedNewsType: NewsType,
@@ -164,7 +164,7 @@ const mapStateToProps = (
     }
   }
   const cities = state.cities.models
-  const cityModel = cities.find(city => city.code === route.city) || {}
+  const cityModel = cities.find(city => city.code === route.city)
   if (route.status === 'loading') {
     return {
       status: 'loading',
