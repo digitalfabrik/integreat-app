@@ -2,8 +2,6 @@
 
 import React from 'react'
 import { shallow } from 'enzyme'
-
-import HeaderActionItem from '../../HeaderActionItem'
 import HeaderNavigationItem from '../HeaderNavigationItem'
 import { Header } from '../Header'
 import { darkTheme } from '../../../theme/constants/theme'
