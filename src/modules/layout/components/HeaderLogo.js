@@ -44,7 +44,6 @@ const LogoContainer = styled.div`
  * A logo component designed for the Header.
  */
 export class HeaderLogo extends React.PureComponent<PropsType> {
-
   render () {
     const { theme, link, src, alt } = this.props
     return <LogoContainer>
