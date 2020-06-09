@@ -18,6 +18,7 @@ import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { NavigationScreenProp } from 'react-navigation'
 import FailureContainer from '../../../modules/error/containers/FailureContainer'
 import { LOADING_TIMEOUT } from '../../../modules/common/constants'
+import ErrorCodes from '../../../modules/error/ErrorCodes'
 
 type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
 
@@ -71,7 +72,7 @@ class SprungbrettExtraContainer extends React.Component<SprungbrettPropsType, Sp
     setTimeout(() => this.setState({ timeoutExpired: true }), LOADING_TIMEOUT)
 
     try {
-      const payload: Payload<Array<ExtraModel>> = await createSprungbrettJobsEndpoint(extra.path).request()
+      const payload: Payload<Array<SprungbrettJobModel>> = await createSprungbrettJobsEndpoint(extra.path).request()
 
       if (payload.error) {
         this.setState({ error: payload.error, jobs: null })
@@ -91,6 +92,12 @@ class SprungbrettExtraContainer extends React.Component<SprungbrettPropsType, Sp
       return <ScrollView refreshControl={<RefreshControl onRefresh={this.loadSprungbrett} refreshing={false} />}
                          contentContainerStyle={{ flexGrow: 1 }}>
         <FailureContainer errorMessage={error.message} tryAgain={this.loadSprungbrett} />
+      </ScrollView>
+    }
+
+    if (!extra) {
+      return <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <FailureContainer code={ErrorCodes.UnknownError} />
       </ScrollView>
     }
 

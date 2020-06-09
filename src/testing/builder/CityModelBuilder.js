@@ -9,10 +9,20 @@ const cities = [
     live: true,
     eventsEnabled: true,
     extrasEnabled: true,
+    pushNotificationsEnabled: false,
+    tunewsEnabled: false,
     sortingName: 'Augsburg',
     prefix: 'Stadt',
     pushNotificationsEnabled: true,
-    tunewsEnabled: false
+    tunewsEnabled: false,
+    latitude: 48.369696,
+    longitude: 10.892578,
+    aliases: {
+      Konigsbrunn: {
+        latitude: 48.267499,
+        longitude: 10.889586
+      }
+    }
   }),
   new CityModel({
     name: 'Oldtown',
@@ -20,10 +30,15 @@ const cities = [
     live: false,
     eventsEnabled: true,
     extrasEnabled: true,
+    pushNotificationsEnabled: false,
+    tunewsEnabled: false,
     sortingName: 'Oldtown',
     prefix: 'GoT',
     tunewsEnabled: true,
-    pushNotificationsEnabled: true
+    pushNotificationsEnabled: true,
+    latitude: null,
+    longitude: null,
+    aliases: null
   })
 ]
 

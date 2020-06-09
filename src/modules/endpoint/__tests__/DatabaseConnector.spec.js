@@ -57,7 +57,7 @@ describe('DatabaseConnector', () => {
       expect(isPersisted).toBe(false)
     })
     it('should return true if cities are persisted', async () => {
-      await databaseConnector.storeCities([testCities])
+      await databaseConnector.storeCities(testCities)
 
       const isPersisted = await databaseConnector.isCitiesPersisted()
       expect(isPersisted).toBe(true)

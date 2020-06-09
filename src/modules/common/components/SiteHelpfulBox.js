@@ -49,7 +49,7 @@ const Circle: StyledComponent<{}, ThemeType, *> = styled(View)`
   border-radius: ${ICON_SIZE}px;
   height: ${ICON_SIZE}px;
   width: ${ICON_SIZE}px;
-  background-color: ${props => props.theme.colors.themeColor};
+  background-color: ${props => props.theme.colors.backgroundColor};
   align-items: center;
   justify-content: center;
 `
