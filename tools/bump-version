@@ -22,7 +22,7 @@ const commitAndTag = async (versionName, versionCode, { deliverinoPrivateKey, ow
     ? `Bump version name to ${versionName} and version code to ${versionCode}\n[skip ci]`
     : `Bump version name to ${versionName}\n[skip ci]`
 
-  const commit = await appOctokit.repos.createOrUpdateFile({
+  const commit = await appOctokit.repos.createOrUpdateFileContents({
     owner,
     repo,
     path: VERSION_FILE,
