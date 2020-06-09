@@ -1,9 +1,7 @@
 // @flow
 
 import { LocalNewsModel } from '@integreat-app/integreat-api-client'
-import { difference } from 'lodash'
-
-const LANGUAGES = ['de', 'en', 'ar']
+import moment from 'moment'
 
 class LocalNewsModelBuilder {
   _newsCount: number
@@ -32,10 +30,7 @@ class LocalNewsModelBuilder {
         newsItem: new LocalNewsModel({
           id: 12,
           title: 'first news item',
-          availableLanguages: new Map(difference(LANGUAGES, [this._language]).map(
-            lng => [lng, null]
-          )),
-          timestamp: new Date(),
+          timestamp: moment('2017-11-18 19:30:00', moment.ISO_8601),
           message: 'This is a sample news'
         })
 
