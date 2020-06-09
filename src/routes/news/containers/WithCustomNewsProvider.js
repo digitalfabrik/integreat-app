@@ -263,8 +263,8 @@ const withCustomNewsProvider = <
         return (
           <HeaderContainer>
             {newsTabs.map(tab =>
-              cityModel[tab.toggleAttr] ? 
-                ? <TranslatedNewsTypeItem key={tab.type} tab={tab} selectedNewsType={selectedNewsType} onItemPress={this.selectNewsItemAndScrollToTop} />
+              cityModel[tab.toggleAttr]
+               ? <TranslatedNewsTypeItem key={tab.type} tab={tab} selectedNewsType={selectedNewsType} onItemPress={this.selectNewsItemAndScrollToTop} />
                : null
             )}
           </HeaderContainer>
