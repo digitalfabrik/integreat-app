@@ -15,7 +15,7 @@ import {
 import { isRTL } from '../../i18n/contentDirection'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-const WIDTH_BREAK_POINT = 375
+const widthBreakPoint = 375
 const anchorWidth = 30
 const wideScreenItemsCount = 4
 const smallScreenItemsCount = 3
@@ -97,7 +97,6 @@ class NavigationTiles extends React.PureComponent<
   };
 
   renderAnchorIcon = (name: string, language: string) => {
-    const { anchorWidth } = this.props
     return <Icon
     name={name}
     style={{ transform: [{ scaleX: isRTL(language) ? -1 : 1 }] }}
@@ -162,7 +161,7 @@ const NavigationTilesWithScrollableView = (props: {
   const { left, right } = useSafeAreaInsets()
   const { width } = Dimensions.get('screen')
   const layoutWidth = (left && right) ? width - (left + right) : width
-  const isWideScreen = layoutWidth >= WIDTH_BREAK_POINT
+  const isWideScreen = layoutWidth >= widthBreakPoint
   const scrollviewWidth = layoutWidth - (anchorWidth * 2)
   const itemWidth = isWideScreen
     ? scrollviewWidth / wideScreenItemsCount
