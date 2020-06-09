@@ -13,8 +13,6 @@ const cities = [
     tunewsEnabled: false,
     sortingName: 'Augsburg',
     prefix: 'Stadt',
-    pushNotificationsEnabled: true,
-    tunewsEnabled: false,
     latitude: 48.369696,
     longitude: 10.892578,
     aliases: {
@@ -34,8 +32,6 @@ const cities = [
     tunewsEnabled: false,
     sortingName: 'Oldtown',
     prefix: 'GoT',
-    tunewsEnabled: true,
-    pushNotificationsEnabled: true,
     latitude: null,
     longitude: null,
     aliases: null
