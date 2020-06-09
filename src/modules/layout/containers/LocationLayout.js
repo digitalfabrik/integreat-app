@@ -112,6 +112,7 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
         {children}
       </Layout>
     }
+    console.error('loiu')
 
     return <Layout asideStickyTop={this.state.asideStickyTop}
                    header={<LocationHeader isEventsEnabled={cityModel.eventsEnabled}

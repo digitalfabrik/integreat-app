@@ -3,16 +3,21 @@
 import React from 'react'
 import HeaderActionBar from '../HeaderActionBar'
 import { shallow } from 'enzyme'
-import HeaderActionItem from '../../HeaderActionItem'
+import HeaderActionItemLink from '../HeaderActionItemLink'
+import { HeaderActionItemDropDown } from '../HeaderActionItemDropDown'
 
 describe('HeaderActionBar', () => {
   it('should match snapshot', () => {
     const component = shallow(
-      <HeaderActionBar className='testClass' items={[
-        new HeaderActionItem({ iconSrc: 'icon1', href: '/random_route' }),
-        new HeaderActionItem({ node: <div id='2' /> }),
-        new HeaderActionItem({ node: <div id='3' /> })
-      ]} />
+      <HeaderActionBar className='testClass'>
+        <HeaderActionItemLink text='text1' iconSrc='icon1' href='/random_route' />,
+        <HeaderActionItemDropDown iconSrc='icon2' text='text2'>
+          <div id='2' />
+        </HeaderActionItemDropDown>,
+        <HeaderActionItemDropDown iconSrc='icon3' text='text3'>
+          <div id='2' />
+        </HeaderActionItemDropDown>,
+      </HeaderActionBar>
     )
     expect(component).toMatchSnapshot()
   })

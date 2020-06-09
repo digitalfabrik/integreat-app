@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`HeaderDropDown should match snapshot 1`] = `
+exports[`HeaderActionItemDropDown should match snapshot 1`] = `
 <div>
-  <HeaderDropDown__StyledButton
+  <HeaderActionItemDropDown__StyledButton
     aria-label="some text"
     data-tip="some text"
     onClick={[Function]}
@@ -12,13 +12,13 @@ exports[`HeaderDropDown should match snapshot 1`] = `
       alt=""
       src="/someImg"
     />
-  </HeaderDropDown__StyledButton>
-  <HeaderDropDown__DropDownContainer
+  </HeaderActionItemDropDown__StyledButton>
+  <HeaderActionItemDropDown__DropDownContainer
     active={false}
   >
     <MockNode
       closeDropDownCallback={[Function]}
     />
-  </HeaderDropDown__DropDownContainer>
+  </HeaderActionItemDropDown__DropDownContainer>
 </div>
 `;

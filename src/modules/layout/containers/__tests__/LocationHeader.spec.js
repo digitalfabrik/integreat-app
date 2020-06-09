@@ -156,7 +156,8 @@ describe('LocationHeader', () => {
       expect(eventsComp.instance().getNavigationItems()).toMatchSnapshot()
     })
 
-    it('should show extras, categories, events in this order', () => {
+    it('should show categories, events, offers in this order', () => {
+      // todo: Adjust order to categories, news, events, pois, offers when feature flags enabled
       const component = shallow(<LocationHeader location={location(CATEGORIES_ROUTE)}
                                                 isExtrasEnabled
                                                 isEventsEnabled
@@ -171,7 +172,7 @@ describe('LocationHeader', () => {
       expect(component.instance().getNavigationItems()).toMatchSnapshot()
     })
 
-    it('should highlight categories if route corresponds', () => {
+    it('should highlight localInformation if route corresponds', () => {
       const component = shallow(<LocationHeader location={location(CATEGORIES_ROUTE)}
                                                 isExtrasEnabled
                                                 isEventsEnabled
@@ -183,7 +184,8 @@ describe('LocationHeader', () => {
                                                 languageChangePaths={languageChangePaths}
                                                 onStickyTopChanged={onStickyTopChanged}
                                                 t={t} />)
-      expect(component.instance().getNavigationItems()[1].props.selected).toBe(true)
+      const navItem = component.instance().getNavigationItems().find(item => item.props.text === 'localInformation')
+      expect(navItem?.props.active).toBe(true)
     })
 
     it('should highlight events if route corresponds', () => {
@@ -198,10 +200,11 @@ describe('LocationHeader', () => {
                                                 languageChangePaths={languageChangePaths}
                                                 onStickyTopChanged={onStickyTopChanged}
                                                 t={t} />)
-      expect(component.instance().getNavigationItems()[2].props.selected).toBe(true)
+      const navItem = component.instance().getNavigationItems().find(item => item.props.text === 'events')
+      expect(navItem?.props.active).toBe(true)
     })
 
-    it('should highlight extras if extras route is selected', () => {
+    it('should highlight offers if offers route is active', () => {
       const component = shallow(<LocationHeader location={location(EXTRAS_ROUTE)}
                                                 isExtrasEnabled
                                                 isEventsEnabled
@@ -213,10 +216,11 @@ describe('LocationHeader', () => {
                                                 languageChangePaths={languageChangePaths}
                                                 onStickyTopChanged={onStickyTopChanged}
                                                 t={t} />)
-      expect(component.instance().getNavigationItems()[0].props.selected).toBe(true)
+      const navItem = component.instance().getNavigationItems().find(item => item.props.text === 'offers')
+      expect(navItem?.props.active).toBe(true)
     })
 
-    it('should highlight extras if sprungbrett route is selected', () => {
+    it('should highlight offers if sprungbrett route is selected', () => {
       const component = shallow(<LocationHeader location={location(SPRUNGBRETT_ROUTE)}
                                                 isExtrasEnabled
                                                 isEventsEnabled
@@ -228,10 +232,11 @@ describe('LocationHeader', () => {
                                                 languageChangePaths={languageChangePaths}
                                                 onStickyTopChanged={onStickyTopChanged}
                                                 t={t} />)
-      expect(component.instance().getNavigationItems()[0].props.selected).toBe(true)
+      const navItem = component.instance().getNavigationItems().find(item => item.props.text === 'offers')
+      expect(navItem?.props.active).toBe(true)
     })
 
-    it('should highlight extras if wohnen route is selected', () => {
+    it('should highlight offers if wohnen route is selected', () => {
       const component = shallow(<LocationHeader location={location(WOHNEN_ROUTE)}
                                                 isExtrasEnabled
                                                 isEventsEnabled
@@ -243,7 +248,8 @@ describe('LocationHeader', () => {
                                                 languageChangePaths={languageChangePaths}
                                                 onStickyTopChanged={onStickyTopChanged}
                                                 t={t} />)
-      expect(component.instance().getNavigationItems()[0].props.selected).toBe(true)
+      const navItem = component.instance().getNavigationItems().find(item => item.props.text === 'offers')
+      expect(navItem?.props.active).toBe(true)
     })
   })
 
@@ -279,6 +285,4 @@ describe('LocationHeader', () => {
                                               t={t} />)
     expect(component).toMatchSnapshot()
   })
-
-  // fixme: Test the events enabled functionality. Especially isEventsActive()
 })

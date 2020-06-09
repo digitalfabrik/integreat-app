@@ -2,10 +2,10 @@
 
 import React from 'react'
 import { shallow } from 'enzyme'
-import ClickOutsideHeaderDropDown, { DropDownContainer, HeaderDropDown } from '../HeaderDropDown'
+import ClickOutsideHeaderDropDown, { DropDownContainer, HeaderActionItemDropDown } from '../HeaderActionItemDropDown'
 import fileMock from '../../../../__mocks__/fileMock'
 
-describe('HeaderDropDown', () => {
+describe('HeaderActionItemDropDown', () => {
   const MockNode = () => <div>Here comes the DropDown</div>
   let wrapperComponent
 
@@ -84,7 +84,7 @@ describe('HeaderDropDown', () => {
   })
 
   it('should add class if active', () => {
-    const component = shallow(<HeaderDropDown iconSrc={fileMock} text='some text'><MockNode /></HeaderDropDown>)
+    const component = shallow(<HeaderActionItemDropDown iconSrc={fileMock} text='some text'><MockNode /></HeaderActionItemDropDown>)
     expect(component.find(DropDownContainer).prop('active')).toBe(false)
     component.setState({ dropDownActive: true })
     expect(component.find(DropDownContainer).prop('active')).toBe(true)

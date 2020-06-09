@@ -51,7 +51,7 @@ type StateType = {|
  * Header. Once the user clicks outside, the node is hidden again. Additionally, the inner node gets a
  * closeDropDownCallback through its props to close the dropDown and hide itself.
  */
-export class HeaderDropDown extends React.Component<PropsType, StateType> {
+export class HeaderActionItemDropDown extends React.Component<PropsType, StateType> {
   componentDidUpdate () {
     /* https://www.npmjs.com/package/react-tooltip#1-using-tooltip-within-the-modal-eg-react-modal- */
     ReactTooltip.rebuild()
@@ -97,4 +97,4 @@ export class HeaderDropDown extends React.Component<PropsType, StateType> {
   }
 }
 
-export default onClickOutside<PropsType, HeaderDropDown>(HeaderDropDown)
+export default onClickOutside<PropsType, HeaderActionItemDropDown>(HeaderActionItemDropDown)

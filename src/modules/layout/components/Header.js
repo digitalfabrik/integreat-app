@@ -3,7 +3,6 @@
 import * as React from 'react'
 import HeaderNavigationBar from './HeaderNavigationBar'
 import HeaderActionBar from './HeaderActionBar'
-import HeaderActionItem from '../HeaderActionItem'
 import Headroom from '@integreat-app/react-sticky-headroom'
 import styled, { withTheme } from 'styled-components'
 import withPlatform from '../../platform/hocs/withPlatform'
@@ -15,8 +14,8 @@ import HeaderTitle, { HEADER_TITLE_HEIGHT } from './HeaderTitle'
 import HeaderLogo from './HeaderLogo'
 
 type PropsType = {|
-  navigationItems: React.Node,
-  actionItems: Array<HeaderActionItem>,
+  navigationItems: Array<React.Node>,
+  actionItems: Array<React.Node>,
   logoHref: string,
   viewportSmall: boolean,
   theme: ThemeType,
@@ -96,7 +95,7 @@ const NavigationBar = styled(HeaderNavigationBar)`
  */
 export class Header extends React.PureComponent<PropsType> {
   static defaultProps = {
-    navigationItems: null,
+    navigationItems: [],
     actionItems: []
   }
 
@@ -105,7 +104,7 @@ export class Header extends React.PureComponent<PropsType> {
       theme, viewportSmall, onStickyTopChanged, actionItems, logoHref, navigationItems, platform, cityName
     } = this.props
     const { headerHeightSmall, headerHeightLarge } = theme.dimensions
-    const hasNavigationBar = navigationItems?.length > 0
+    const hasNavigationBar = navigationItems.length > 0
     const height = viewportSmall
       ? (1 + (hasNavigationBar ? 1 : 0)) * headerHeightSmall + (cityName ? HEADER_TITLE_HEIGHT : 0)
       : (1 + (hasNavigationBar ? 1 : 0)) * headerHeightLarge
@@ -122,7 +121,7 @@ export class Header extends React.PureComponent<PropsType> {
             <HeaderLogo theme={theme} link={logoHref} src={buildConfig.logoWide} alt={buildConfig.appTitle} />
             {!viewportSmall && cityName && <HeaderSeparator theme={theme} />}
             {cityName && <HeaderTitle theme={theme}>{cityName}</HeaderTitle>}
-            <ActionBar items={actionItems} />
+            <ActionBar>{actionItems}</ActionBar>
           </Row>
           {hasNavigationBar && <Row><NavigationBar>{navigationItems}</NavigationBar></Row>}
         </HeaderContainer>
@@ -133,6 +132,5 @@ export class Header extends React.PureComponent<PropsType> {
 
 export default compose(
   withPlatform,
-  // $FlowFixMe https://github.com/styled-components/styled-components/issues/1785
   withTheme
 )(Header)
