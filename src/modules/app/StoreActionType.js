@@ -5,7 +5,6 @@ import type { CategoryRouteConfigType, LanguageResourceCacheStateType, NewsType,
 import type { ContentLoadCriterionType } from '../endpoint/ContentLoadCriterion'
 import type { TFunction } from 'react-i18next'
 import type { ErrorCodeType } from '../error/ErrorCodes'
-import { TUNEWS, LOCAL } from '../../routes/news/containers/WithCustomNewsProvider'
 
 export type FetchCitiesActionType = {|
   type: 'FETCH_CITIES',

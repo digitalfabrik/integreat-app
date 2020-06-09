@@ -41,7 +41,7 @@ const TilesRow: StyledComponent<{}, ThemeType, *> = styled.View`
   shadow-radius: 1px;
   shadow-offset: 1px;
 `
-const Icon: StyledComponent<{ width: number }, {}, *>  = styled(MaterialIcon)`
+const Icon: StyledComponent<{ width: number }, {}, *> = styled(MaterialIcon)`
   font-size: 30px;
   width: ${props => props.width}px;
 `

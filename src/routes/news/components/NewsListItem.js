@@ -31,30 +31,18 @@ type ListItemViewPropsType = {|
   theme: ThemeType
 |}
 
-const ListItemView: StyledComponent<
-  ListItemViewPropsType,
-  ThemeType,
-  *
-> = styled.View`
+const ListItemView: StyledComponent<ListItemViewPropsType, ThemeType, *> = styled.View`
   flex-direction: ${props => contentDirection(props.language)};
 `
 
-const ReadMoreWrapper: StyledComponent<
-  { language: string, children: React.Node },
-  {},
-  *
-> = styled.View`
+const ReadMoreWrapper: StyledComponent<{ language: string, children: React.Node }, {}, *> = styled.View`
   flex-direction: ${props => contentDirection(props.language)};
   justify-content: flex-end;
   width: 100%;
   align-self: center;
 `
 
-const Icon: StyledComponent<
-  { isTunews: ?boolean },
-  ThemeType,
-  *
-  > = styled(MaterialIcon)`
+const Icon: StyledComponent<{ isTunews: ?boolean }, ThemeType, *> = styled(MaterialIcon)`
   font-size: 20px;
   color: black;
   top: 4px;

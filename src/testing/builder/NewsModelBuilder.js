@@ -1,10 +1,8 @@
 // @flow
 
 import { LocalNewsModel } from '@integreat-app/integreat-api-client'
-import seedrandom from 'seedrandom'
 import { difference } from 'lodash'
 
-const MAX_PREDICTABLE_VALUE = 6
 const LANGUAGES = ['de', 'en', 'ar']
 
 class LocalNewsModelBuilder {
@@ -19,7 +17,6 @@ class LocalNewsModelBuilder {
     this._city = city
     this._language = language
   }
-
 
   build (): Array<LocalNewsModel> {
     return this.buildAll().map(all => all.newsItem)
