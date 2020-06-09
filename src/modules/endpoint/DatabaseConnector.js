@@ -380,8 +380,6 @@ class DatabaseConnector {
         pushNotificationsEnabled: jsonObject.pushNotificationsEnabled,
         tunewsEnabled: jsonObject.tunewsEnabled,
         extrasEnabled: jsonObject.extras_enabled,
-        tunewsEnabled: false, // todo: NATIVE-549
-        pushNotificationsEnabled: false, // todo: NATIVE-549
         sortingName: jsonObject.sorting_name,
         prefix: jsonObject.prefix,
         longitude: jsonObject.longitude,
