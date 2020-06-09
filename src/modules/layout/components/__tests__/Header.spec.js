@@ -9,6 +9,7 @@ import { Header } from '../Header'
 import { darkTheme } from '../../../theme/constants/theme'
 import Headroom from '@integreat-app/react-sticky-headroom'
 import Platform from '../../../platform/Platform'
+import HeaderActionItemLink from '../HeaderActionItemLink'
 
 describe('Header', () => {
   const onStickyTopChanged = (value: number) => undefined
@@ -18,11 +19,11 @@ describe('Header', () => {
         theme={darkTheme}
         platform={new Platform()}
         logoHref='/random_route'
-        actionItems={[new HeaderActionItem({ href: '/random_route' })]}
+        actionItems={[<HeaderActionItemLink key={0} href='/random_route' text='random route' iconSrc='/icon.jpg' />]}
         onStickyTopChanged={onStickyTopChanged}
-        navigationItems={
-          <HeaderNavigationItem href='/another_route' text='text1' active selected tooltip='tooltip1' />
-        }
+        navigationItems={[
+          <HeaderNavigationItem key={0} href='/another_route' text='text1' icon='icon.jpg' active tooltip='tooltip1' />
+        ]}
         viewportSmall />
     )
     expect(component).toMatchSnapshot()
@@ -34,11 +35,11 @@ describe('Header', () => {
         theme={darkTheme}
         platform={new Platform()}
         logoHref='/random_route'
-        actionItems={[new HeaderActionItem({ href: '/random_route' })]}
+        actionItems={[<HeaderActionItemLink key={0} href='/random_route' iconSrc='icon' text='text' />]}
         onStickyTopChanged={onStickyTopChanged}
-        navigationItems={
-          <HeaderNavigationItem href='/another_route' text='text1' active selected tooltip='tooltip1' />
-        }
+        navigationItems={[
+          <HeaderNavigationItem key={0} href='/another_route' icon='icon.jpg' text='text1' active tooltip='tooltip1' />
+        ]}
         viewportSmall={false} />
     )
     expect(component).toMatchSnapshot()
@@ -52,10 +53,10 @@ describe('Header', () => {
         theme={darkTheme}
         platform={new Platform()}
         logoHref='/random_route'
-        actionItems={[new HeaderActionItem({ href: '/random_route' })]}
-        navigationItems={
-          <HeaderNavigationItem href='/another_route' text='text1' active selected tooltip='tooltip1' />
-        }
+        actionItems={[<HeaderActionItemLink key={0} href='/random_route' iconSrc='icon.jpg' text='text' />]}
+        navigationItems={[
+          <HeaderNavigationItem key={0} href='/another_route' text='text1' icon='icon' active tooltip='tooltip1' />
+        ]}
         viewportSmall={false}
         onStickyTopChanged={callback}
       />

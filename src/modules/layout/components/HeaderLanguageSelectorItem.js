@@ -2,12 +2,13 @@
 
 import React from 'react'
 import SelectorItemModel from '../../common/models/SelectorItemModel'
-import HeaderDropDown from './HeaderDropDown'
+import HeaderActionItemDropDown from './HeaderActionItemDropDown'
 import Selector from '../../common/components/Selector'
 import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
 import languageIcon from '../assets/language-icon.svg'
 import ReactTooltip from 'react-tooltip'
+import HeaderActionBarItemLink from './HeaderActionItemLink'
 
 type PropsType = {|
   selectorItems: Array<SelectorItemModel>,
@@ -31,15 +32,13 @@ class HeaderLanguageSelectorItem extends React.Component<PropsType> {
     const noLanguagesHint = t('noLanguages')
 
     return selectorItems && selectorItems.length > 0
-      ? <HeaderDropDown iconSrc={languageIcon} text={t('changeLanguage')}>
+      ? <HeaderActionItemDropDown iconSrc={languageIcon} text={t('changeLanguage')}>
         <Selector verticalLayout={false}
                   items={selectorItems}
                   activeItemCode={activeItemCode}
                   disabledItemTooltip={t('noTranslation')} />
-      </HeaderDropDown>
-      : <span>
-        <img data-tip={noLanguagesHint} aria-label={noLanguagesHint} src={languageIcon} data-place='bottom' />
-      </span>
+      </HeaderActionItemDropDown>
+      : <HeaderActionBarItemLink text={noLanguagesHint} iconSrc={languageIcon} />
   }
 }
 

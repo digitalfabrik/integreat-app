@@ -221,8 +221,9 @@ describe('Switcher', () => {
     return (
       <Switcher viewportSmall={false} location={location} citiesPayload={citiesPayload}
                 categoriesPayload={categoriesPayload} eventsPayload={eventsPayload} extrasPayload={extrasPayload}
-                localNewsPayload={localNewsPayload} localNewsElementPayload={localNewsElementPayload} tunewsPayload={tunewsPayload}
-                tunewsElementPayload={tunewsElementPayload} poisPayload={poisPayload} disclaimerPayload={disclaimerPayload} languages={languages} t={t}
+                localNewsPayload={localNewsPayload} localNewsElementPayload={localNewsElementPayload}
+                tunewsPayload={tunewsPayload} tunewsElementPayload={tunewsElementPayload} poisPayload={poisPayload}
+                disclaimerPayload={disclaimerPayload} languages={languages} t={t}
                 sprungbrettJobsPayload={sprungbrettPayload} wohnenPayload={wohnenPayload} darkMode
                 toggleDarkMode={toggleDarkMode} />
     )

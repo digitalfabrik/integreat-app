@@ -11,7 +11,7 @@ describe('HeaderNavigationItem', () => {
 
   it('should render an ActiveNavigationItem', () => {
     const headerNavigationItem = shallow(
-      <HeaderNavigationItem text={text} selected active href={href} />
+      <HeaderNavigationItem text={text} active href={href} icon='icon' />
     )
 
     expect(headerNavigationItem).toMatchSnapshot()
@@ -19,7 +19,7 @@ describe('HeaderNavigationItem', () => {
 
   it('should render an InactiveNavigationItem', () => {
     const headerNavigationItem = shallow(
-      <HeaderNavigationItem text={text} href={href} active={false} selected={false} tooltip={tooltip} />
+      <HeaderNavigationItem text={text} href={href} active={false} icon='icon' tooltip={tooltip} />
     )
 
     expect(headerNavigationItem).toMatchSnapshot()

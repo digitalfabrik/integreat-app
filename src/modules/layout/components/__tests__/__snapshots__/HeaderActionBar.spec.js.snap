@@ -4,20 +4,29 @@ exports[`HeaderActionBar should match snapshot 1`] = `
 <HeaderActionBar__ActionItems
   className="testClass"
 >
-  <Connect(Link)
-    key="0"
-    to="/random_route"
+  <HeaderActionItemLink
+    href="/random_route"
+    iconSrc="icon1"
+    text="text1"
+  />
+  ,
+  <HeaderActionItemDropDown
+    iconSrc="icon2"
+    text="text2"
   >
-    <img
-      alt=""
-      src="icon1"
+    <div
+      id="2"
     />
-  </Connect(Link)>
-  <div
-    id="2"
-  />
-  <div
-    id="3"
-  />
+  </HeaderActionItemDropDown>
+  ,
+  <HeaderActionItemDropDown
+    iconSrc="icon3"
+    text="text3"
+  >
+    <div
+      id="2"
+    />
+  </HeaderActionItemDropDown>
+  ,
 </HeaderActionBar__ActionItems>
 `;

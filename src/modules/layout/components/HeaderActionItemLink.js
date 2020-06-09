@@ -1,18 +1,14 @@
 // @flow
 
-import * as React from 'react'
+import React from 'react'
+import Link from 'redux-first-router-link'
 
 import ReactTooltip from 'react-tooltip'
 import styled from 'styled-components'
 
-const ActionItems = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-
-  & > *,
-  & img,
-  button {
+const StyledLink = styled(Link)`
+  &,
+  & img {
     width: calc(0.8 * ${props => props.theme.dimensions.headerHeightLarge}px);
     height: calc(0.8 * ${props => props.theme.dimensions.headerHeightLarge}px);
     box-sizing: border-box;
@@ -33,29 +29,31 @@ const ActionItems = styled.div`
   }
 `
 
+const StyledSpan = StyledLink.withComponent('span')
+
 type PropsType = {|
-  className?: string,
-  children: Array<React.Node>
+  href?: string,
+  text: string,
+  iconSrc: string
 |}
 
 /**
  * Designed to work with Header. In the ActionBar you can display icons as link or dropDown involving actions like
  * 'Change language', 'Change location' and similar items.
  */
-class HeaderActionBar extends React.PureComponent<PropsType> {
+class HeaderActionItemLink extends React.PureComponent<PropsType> {
   componentDidMount () {
     /* https://www.npmjs.com/package/react-tooltip#1-using-tooltip-within-the-modal-eg-react-modal- */
     ReactTooltip.rebuild()
   }
 
   render () {
-    const { children, className } = this.props
-    return (
-      <ActionItems className={className}>
-        {children}
-      </ActionItems>
-    )
+    const { href, text, iconSrc } = this.props
+    const img = <img alt='' src={iconSrc} />
+    return href
+      ? <StyledLink to={href} data-tip={text} aria-label={text}>{img}</StyledLink>
+      : <StyledSpan data-tip={text} aria-label={text}>{img}</StyledSpan>
   }
 }
 
-export default HeaderActionBar
+export default HeaderActionItemLink

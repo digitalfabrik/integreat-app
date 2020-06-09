@@ -91,7 +91,6 @@ type PropsType = {|
   text: string,
   href: string,
   active: boolean,
-  enabled: boolean,
   tooltip?: string,
   icon: string
 |}
@@ -106,8 +105,8 @@ class HeaderNavigationItem extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const { active, text, href, icon} = this.props
-    return <StyledLink to={href} active={active}>
+    const { active, text, tooltip, href, icon } = this.props
+    return <StyledLink to={href} data-tip={tooltip} active={active}>
       <Circle><img src={icon} alt='' /></Circle>
       <div>{text}</div>
     </StyledLink>
