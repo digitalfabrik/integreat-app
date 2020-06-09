@@ -97,7 +97,7 @@
     "@integreat-app/eslint-config-node": "^0.6.0",
     "@integreat-app/eslint-config-react": "^0.6.1",
     "@octokit/auth-app": "^2.4.5",
-    "@octokit/rest": "^17.9.0",
+    "@octokit/rest": "^17.11.0",
     "assets-webpack-plugin": "^3.9.10",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^24.9.0",
