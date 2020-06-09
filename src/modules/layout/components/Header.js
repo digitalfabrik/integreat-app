@@ -1,8 +1,6 @@
 // @flow
 
 import * as React from 'react'
-import HeaderNavigationBar from './HeaderNavigationBar'
-import HeaderActionBar from './HeaderActionBar'
 import Headroom from '@integreat-app/react-sticky-headroom'
 import styled, { withTheme } from 'styled-components'
 import withPlatform from '../../platform/hocs/withPlatform'
@@ -71,15 +69,20 @@ const HeaderSeparator = styled.div`
   }
 `
 
-const ActionBar = styled(HeaderActionBar)`
+const ActionBar = styled.div`
   flex-shrink: 1;
   order: 3;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 
   @media ${props => props.theme.dimensions.smallViewport} {
     order: 2;
   }
 `
-const NavigationBar = styled(HeaderNavigationBar)`
+
+const NavigationBar = styled.div`
+    display: flex;
     padding: 0 10px;
     flex-grow: 1;
     flex-shrink: 0;
