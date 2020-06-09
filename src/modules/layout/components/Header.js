@@ -109,8 +109,8 @@ export class Header extends React.PureComponent<PropsType> {
       ? (1 + (hasNavigationBar ? 1 : 0)) * headerHeightSmall + (cityName ? HEADER_TITLE_HEIGHT : 0)
       : (1 + (hasNavigationBar ? 1 : 0)) * headerHeightLarge
     const scrollHeight = viewportSmall
-      ? (hasNavigationBar ? 1 : 0) * headerHeightSmall + (cityName ? HEADER_TITLE_HEIGHT : 0)
-      : (hasNavigationBar ? 1 : 0) * headerHeightLarge
+      ? headerHeightSmall + (cityName ? HEADER_TITLE_HEIGHT : 0)
+      : headerHeightLarge
     return (
       <Headroom onStickyTopChanged={onStickyTopChanged}
                 scrollHeight={scrollHeight}
