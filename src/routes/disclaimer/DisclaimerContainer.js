@@ -61,7 +61,7 @@ class DisclaimerContainer extends React.Component<DisclaimerPropsType, Disclaime
     try {
       const apiUrl = await determineApiUrl()
       const disclaimerEndpoint = createDisclaimerEndpoint(apiUrl)
-      const payload: Payload<Array<PageModel>> = await disclaimerEndpoint.request({ city, language })
+      const payload: Payload<PageModel> = await disclaimerEndpoint.request({ city, language })
 
       if (payload.error) {
         this.setState({ error: payload.error, disclaimer: null })

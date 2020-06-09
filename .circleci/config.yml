@@ -47,7 +47,7 @@ workflows:
   weekly:
     triggers:
       - schedule:
-          cron: "0 0 18,20,24 * *" # FIXME "0 0 * * 3"
+          cron: "0 3 * * 4" # For sanity checks for this syntax: https://crontab.guru/
           filters:
             branches:
               only:
@@ -76,7 +76,7 @@ workflows:
   bi-weekly:
     triggers:
       - schedule:
-          cron: "0 5 16,21,27 * *" # FIXME "0 5 1,15,28 * *"
+          cron: "0 5 1,15 * *" # For sanity checks for this syntax: https://crontab.guru/
           filters:
             branches:
               only:

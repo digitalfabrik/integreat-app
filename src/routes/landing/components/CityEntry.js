@@ -41,7 +41,7 @@ type PropType = {|
 |}
 
 class CityEntry extends React.PureComponent<PropType> {
-  getMatchingAliases = (city: CityModel, normalizedFilter: string): Array<CityModel> => {
+  getMatchingAliases = (city: CityModel, normalizedFilter: string): Array<string> => {
     if (city.aliases && normalizedFilter.length >= 2) {
       return Object.keys(city.aliases)
         .filter(alias => normalizeSearchString(alias).includes(normalizedFilter))
