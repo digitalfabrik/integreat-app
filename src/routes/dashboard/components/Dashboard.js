@@ -96,15 +96,17 @@ class Dashboard extends React.Component<PropsType> {
       }))
     }
 
-   if (isNewsEnabled){
-    tiles.push(new TileModel({
-      title: t('news'),
-      path: 'news',
-      thumbnail: newsIcon,
-      isExternalUrl: false,
-      onTilePress: () =>
-        navigateToNews({ cityCode, language, newsId: null, type: LOCAL }),  
-    }))
+    if (isNewsEnabled) {
+      tiles.push(new TileModel({
+        title: t('news'),
+        path: 'news',
+        thumbnail: newsIcon,
+        isExternalUrl: false,
+        onTilePress: () =>
+          navigateToNews({ cityCode, language, newsId: null, type: LOCAL })
+      }))
+    }
+    return tiles
   }
 
   landing = () => this.props.navigation.navigate('Landing')
