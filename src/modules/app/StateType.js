@@ -73,9 +73,9 @@ export type EventRouteStateType = {|
   +message: ?string
 |}
 
-export type TUNEWS = 'tunews'
-export type LOCAL = 'local'
-export type NewsType = TUNEWS | LOCAL
+export type TunewsType = 'tunews'
+export type LocalNewsType = 'local'
+export type NewsType = TunewsType | LocalNewsType
 
 export type NewsRouteConfigType = {|
   +newsId: ?string, // Path is null for the news list

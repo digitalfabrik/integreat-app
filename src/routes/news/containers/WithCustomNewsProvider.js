@@ -180,8 +180,8 @@ const withCustomNewsProvider = <
 >(
     refresh: (refreshProps: R, dispatch: Dispatch<StoreActionType>) => void
   ): ((Component: React.ComponentType<S>) => React.ComponentType<PropsType<S, R>>) => {
-    return (Component: React.ComponentType<S>): React.ComponentType<PropsType<S, R>> => {
-      return class extends React.Component<PropsType<S, R>,{| selectedNewsType: NewsType |}> {
+  return (Component: React.ComponentType<S>): React.ComponentType<PropsType<S, R>> => {
+    return class extends React.Component<PropsType<S, R>, {| selectedNewsType: NewsType |}> {
       static displayName = wrapDisplayName(Component, 'withCustomNewsProvider');
 
       state = { selectedNewsType: this.getAvailableNewsType() };
@@ -200,7 +200,7 @@ const withCustomNewsProvider = <
 
       selectNewsType = type => { this.setState({ selectedNewsType: type }, this.fetchNews) };
 
-      selectNewsItemAndScrollToTop = type => {this.selectNewsType(type) };
+      selectNewsItemAndScrollToTop = type => { this.selectNewsType(type) };
 
       fetchNews = () => {
         const { selectedNewsType } = this.state
@@ -258,7 +258,7 @@ const withCustomNewsProvider = <
         if (
           props.status === 'routeNotInitialized' || props.status === 'loading' ||
           props.status === 'languageNotAvailable') {
-            throw Error('Refreshing is not possible because the route is not yet initialized or already loading.')
+          throw Error('Refreshing is not possible because the route is not yet initialized or already loading.')
         }
         if (props.refreshProps) {
           refresh(props.refreshProps, props.dispatch)

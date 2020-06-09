@@ -21,11 +21,7 @@ import type { Dispatch } from 'redux'
 import type { NavigationScreenProp } from 'react-navigation'
 import withCustomPayloadProvider, { TUNEWS } from './WithCustomNewsProvider'
 import type { StatusPropsType } from './WithCustomNewsProvider'
-import {
-  CityModel,
-  LocalNewsModel,
-  TunewsModel
-} from '@integreat-app/integreat-api-client'
+import { CityModel } from '@integreat-app/integreat-api-client'
 import * as React from 'react'
 import { mapProps } from 'recompose'
 import TranslatedWithThemeNewsList from '../components/NewsList'
@@ -221,8 +217,7 @@ class NewsContainer extends React.Component<ContainerPropsType> {
   fetchMoreNews = async () => {
     const { dispatch, selectedNewsType, ...rest } = this.props
     const { news, hasMoreNews, cityCode, language, navigation, newsId, page } = rest
-    console.log({page});
-    
+
     const isTunews = selectedNewsType === TUNEWS
 
     if (hasMoreNews && isTunews) {
@@ -248,7 +243,7 @@ class NewsContainer extends React.Component<ContainerPropsType> {
   };
 
   render () {
-    const { dispatch, status, ...rest } = this.props    
+    const { dispatch, status, ...rest } = this.props
 
     return (
       <TranslatedWithThemeNewsList
