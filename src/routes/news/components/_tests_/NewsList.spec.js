@@ -38,7 +38,7 @@ describe('News', () => {
   const news = new LocalNewsModelBuilder(
     'NewsList-Component',
     1,
-    cities[0].cityCode,
+    cities[0].code,
     languages[0].code
   ).build()
 
@@ -161,8 +161,8 @@ describe('News', () => {
       newsId: null,
       status: 'loading',
       type: LOCAL,
-      language,
-      city
+      language: language.code,
+      city: city.code
     })
     expectLoadingIndicator(state)
   })
