@@ -52,7 +52,7 @@ const pushNews = (
       }
     }
     const newsItem: ?LocalNewsModel | TunewsModel = news.find(
-      newsItem => newsItem.id.toString() === '2435'
+      newsItem => newsItem.id.toString() === newsId
     )
 
     if (!newsItem) {
