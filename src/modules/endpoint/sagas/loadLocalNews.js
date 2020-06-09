@@ -12,7 +12,7 @@ function * loadLocalNews (
   console.debug('Fetching news')
 
   const apiUrl = yield call(determineApiUrl)
-  const payload = yield call(() => createLocalNewsEndpoint(apiUrl).request({ city: 'testumgebung' , language }))
+  const payload = yield call(() => createLocalNewsEndpoint(apiUrl).request({ city, language }))
 
   const news: Array<LocalNewsModel> = payload.data
 
