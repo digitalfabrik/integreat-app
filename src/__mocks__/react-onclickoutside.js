@@ -8,13 +8,14 @@ import * as React from 'react'
 const onClickOutside = <T> (WrappedComponent: React.ComponentType<T>) => class extends React.Component<T> {
   static displayName = `OnClickOutside(${WrappedComponent.displayName || WrappedComponent.name || typeof WrappedComponent})`
 
-  render () {
-    const component = <WrappedComponent {...this.props} />
-    // $FlowFixMe
-    if (typeof component.type.prototype.handleClickOutside !== 'function') {
+  checkRef = (instance: mixed) => {
+    if (!instance || typeof instance.handleClickOutside !== 'function') {
       throw new Error('WrappedComponent has no handleClickOutside handler.')
     }
-    return component
+  }
+
+  render () {
+    return <WrappedComponent ref={this.checkRef} {...this.props} />
   }
 }
 

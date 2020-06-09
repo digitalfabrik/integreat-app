@@ -7,8 +7,9 @@ import LanguageSelector from '../../../modules/common/containers/LanguageSelecto
 import { CityModel } from '@integreat-app/integreat-api-client'
 import Caption from '../../../modules/common/components/Caption'
 import type { LocationState } from 'redux-first-router'
-import styled from 'styled-components'
+import styled, { withTheme } from 'styled-components'
 import type { LanguageChangePathsType } from '../../app/containers/Switcher'
+import type { ThemeType } from '../../../../build/themes/ThemeType'
 
 const ChooseLanguage = styled.p`
   margin: 25px 0;
@@ -17,6 +18,7 @@ const ChooseLanguage = styled.p`
 
 type PropsType = {|
   cities: Array<CityModel>,
+  theme: ThemeType,
   location: LocationState,
   languageChangePaths: LanguageChangePathsType,
   t: TFunction
@@ -24,14 +26,15 @@ type PropsType = {|
 
 export class LanguageFailure extends React.PureComponent<PropsType> {
   render () {
-    const { t, location, cities, languageChangePaths } = this.props
+    const { t, location, cities, languageChangePaths, theme } = this.props
     const title = cities && CityModel.findCityName(cities, location.payload.city)
     return <>
       {title && <Caption title={title} />}
       <ChooseLanguage>{`${t('notFound.language')} ${t('chooseALanguage')}`}</ChooseLanguage>
-      <LanguageSelector isHeaderActionItem={false} location={location} languageChangePaths={languageChangePaths} />
+      <LanguageSelector isHeaderActionItem={false} location={location} languageChangePaths={languageChangePaths}
+                        theme={theme} />
     </>
   }
 }
 
-export default withTranslation('error')(LanguageFailure)
+export default withTheme(withTranslation('error')(LanguageFailure))

@@ -1,3 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`GeneralHeader should match snapshot 1`] = `<Component />`;
+exports[`GeneralHeader should match snapshot 1`] = `
+<withPlatform(WithTheme(Header))
+  actionItems={
+    Array [
+      <HeaderActionItemLink
+        href="/"
+        iconSrc="test-file-stub"
+        text="layout:changeLocation"
+      />,
+    ]
+  }
+  logoHref="/"
+  viewportSmall={true}
+/>
+`;

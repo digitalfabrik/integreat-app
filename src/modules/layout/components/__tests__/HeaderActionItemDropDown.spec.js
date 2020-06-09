@@ -1,35 +1,31 @@
 // @flow
 
 import React from 'react'
-import { shallow } from 'enzyme'
+import { mount } from 'enzyme'
 import ClickOutsideHeaderDropDown, { DropDownContainer, HeaderActionItemDropDown } from '../HeaderActionItemDropDown'
 import fileMock from '../../../../__mocks__/fileMock'
+import brightTheme from '../../../theme/constants/theme'
 
 describe('HeaderActionItemDropDown', () => {
   const MockNode = () => <div>Here comes the DropDown</div>
   let wrapperComponent
 
   beforeEach(() => {
-    wrapperComponent = shallow(<ClickOutsideHeaderDropDown iconSrc='/someImg' text='some text'>
+    wrapperComponent = mount(<ClickOutsideHeaderDropDown theme={brightTheme} iconSrc='/someImg' text='some text'>
       <MockNode />
     </ClickOutsideHeaderDropDown>)
   })
 
-  it('should match snapshot', () => {
-    expect(wrapperComponent.dive()).toMatchSnapshot()
-  })
-
   it('should pass correct closeDropDown callback', () => {
-    const component = wrapperComponent.dive()
-    const instance: any = component.instance()
-    expect(component.find('MockNode')).toHaveLength(1)
-    const callback = component.find('MockNode').prop('closeDropDownCallback')
-    expect(callback).toEqual(instance.closeDropDown)
+    const component = wrapperComponent.find(HeaderActionItemDropDown)
+    const instance = component.instance()
+    const callback = wrapperComponent.find('MockNode').prop('closeDropDownCallback')
+    expect(callback).toEqual(instance?.closeDropDown)
   })
 
   describe('closeDropDown()', () => {
     it('should close DropDown if active', () => {
-      const component = wrapperComponent.dive()
+      const component = wrapperComponent.find(HeaderActionItemDropDown)
       component.setState({ dropDownActive: true })
       const instance: any = component.instance()
       instance.closeDropDown()
@@ -37,7 +33,7 @@ describe('HeaderActionItemDropDown', () => {
     })
 
     it('shouldnt open DropDown if inactive', () => {
-      const component = wrapperComponent.dive()
+      const component = wrapperComponent.find(HeaderActionItemDropDown)
       const instance: any = component.instance()
       instance.closeDropDown()
       instance.closeDropDown()
@@ -47,7 +43,7 @@ describe('HeaderActionItemDropDown', () => {
 
   describe('toggleDropDown()', () => {
     it('should close DropDown if active', () => {
-      const component = wrapperComponent.dive()
+      const component = wrapperComponent.find(HeaderActionItemDropDown)
       component.setState({ dropDownActive: true })
       const instance: any = component.instance()
       instance.toggleDropDown()
@@ -55,7 +51,7 @@ describe('HeaderActionItemDropDown', () => {
     })
 
     it('should open DropDown if inactive', () => {
-      const component = wrapperComponent.dive()
+      const component = wrapperComponent.find(HeaderActionItemDropDown)
       const instance: any = component.instance()
       instance.toggleDropDown()
       expect(instance.state.dropDownActive).toBe(true)
@@ -63,14 +59,14 @@ describe('HeaderActionItemDropDown', () => {
   })
 
   it('should toggle when user clicks on button', () => {
-    const component = wrapperComponent.dive()
+    const component = wrapperComponent.find(HeaderActionItemDropDown)
     const instance: any = component.instance()
     const onClick = component.find({ selector: 'button' }).prop('onClick')
     expect(onClick).toBe(instance.toggleDropDown)
   })
 
   it('should call closeDropDown when handleClickOutside is called', () => {
-    const component = wrapperComponent.dive()
+    const component = wrapperComponent.find(HeaderActionItemDropDown)
     const instance: any = component.instance()
     instance.closeDropDown = jest.fn()
     instance.handleClickOutside()
@@ -78,13 +74,14 @@ describe('HeaderActionItemDropDown', () => {
   })
 
   it('should be closed from the beginning', () => {
-    const component = wrapperComponent.dive()
+    const component = wrapperComponent.find(HeaderActionItemDropDown)
     const instance: any = component.instance()
     expect(instance.state.dropDownActive).toBe(false)
   })
 
   it('should add class if active', () => {
-    const component = shallow(<HeaderActionItemDropDown iconSrc={fileMock} text='some text'><MockNode /></HeaderActionItemDropDown>)
+    const component = mount(<HeaderActionItemDropDown theme={brightTheme} iconSrc={fileMock}
+                                                      text='some text'><MockNode /></HeaderActionItemDropDown>)
     expect(component.find(DropDownContainer).prop('active')).toBe(false)
     component.setState({ dropDownActive: true })
     expect(component.find(DropDownContainer).prop('active')).toBe(true)
