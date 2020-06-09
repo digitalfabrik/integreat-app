@@ -9228,11 +9228,6 @@ react-native-image-zoom-viewer@^2.2.27:
   dependencies:
     react-native-image-pan-zoom "^2.1.9"
 
-react-native-on-layout@^2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/react-native-on-layout/-/react-native-on-layout-2.0.2.tgz#158e91d6e2b8d0f1c2ba7caa692d98c430790501"
-  integrity sha1-FY6R1uK40PHCunyqaS2YxDB5BQE=
-
 react-native-pdf@^6.0.1:
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/react-native-pdf/-/react-native-pdf-6.0.1.tgz#a7991846d276b1564c53525bd777d61a8e75a7e2"
@@ -9277,10 +9272,22 @@ react-native-render-html@^4.2.0:
     html-entities "^1.2.0"
     htmlparser2 "^4.0.0"
 
+react-native-safe-area-context@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-safe-area-context/-/react-native-safe-area-context-1.0.0.tgz#8b4d79b06d6a9ed5ff3b2c3f0ba25d85538a3149"
+  integrity sha512-8Poo0FHSS/KE0fP6JUH9Mnjg2KQ5MfZAJN3G8/gW2HoFSypWSfFmDp5msETU0Ix3OnRsmBZTJpmgHFEl9OfNAg==
+
 react-native-safe-area-view@^0.14.1:
   version "0.14.3"
   resolved "https://registry.yarnpkg.com/react-native-safe-area-view/-/react-native-safe-area-view-0.14.3.tgz#3cc34d2fcc8886bc8a8bd1ab226d4345d02c23b0"
   integrity sha512-TNs2aJ9HZs4adWRo8ICVyggyqqu72VqTbkxVSS8utlI4VTQ0ERxY6PlFEYRkO3/OcSwV8X/fifWJWiVp+r/NCg==
+  dependencies:
+    hoist-non-react-statics "^2.3.1"
+
+react-native-safe-area-view@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-safe-area-view/-/react-native-safe-area-view-1.1.1.tgz#9833e34c384d0513f4831afcd1e54946f13897b2"
+  integrity sha512-bbLCtF+tqECyPWlgkWbIwx4vDPb0GEufx/ZGcSS4UljMcrpwluachDXoW9DBxhbMCc6k1V0ccqHWN7ntbRdERQ==
   dependencies:
     hoist-non-react-statics "^2.3.1"
 
