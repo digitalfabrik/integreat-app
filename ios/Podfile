@@ -35,6 +35,8 @@ target 'Integreat' do
 
   pod 'Permission-LocationWhenInUse', :path => '../node_modules/react-native-permissions/ios/LocationWhenInUse.podspec'
 
+  pod 'react-native-safe-area-context', :path => '../node_modules/react-native-safe-area-context'
+
   target 'IntegreatTests' do
     inherit! :search_paths
     # Pods for testing
