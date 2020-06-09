@@ -15,6 +15,9 @@ export const DropDownContainer = styled.div`
   top: ${props => props.theme.dimensions.headerHeightLarge}px;
   right: 0;
   width: 100%;
+  box-sizing: border-box;
+  opacity: ${props => props.active ? '1' : '0'};
+
   transform: scale(${props => props.active ? '1' : '0.9'});
   transform-origin: center top;
   justify-content: center;
@@ -25,6 +28,11 @@ export const DropDownContainer = styled.div`
 
   @media ${props => props.theme.dimensions.smallViewport} {
     top: ${props => props.theme.dimensions.headerHeightSmall}px;
+  }
+
+  @media ${props => props.theme.dimensions.minMaxWidth} {
+    padding-right: calc((200% - 100vw - ${props => props.theme.dimensions.maxWidth}px) / 2);
+    padding-left: calc((100vw - ${props => props.theme.dimensions.maxWidth}px) / 2);
   }
 `
 
