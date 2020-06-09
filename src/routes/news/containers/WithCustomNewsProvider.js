@@ -179,10 +179,9 @@ const withCustomNewsProvider = <
   R: {}
 >(
     refresh: (refreshProps: R, dispatch: Dispatch<StoreActionType>) => void
-  ):: ((Component: React.ComponentType<S>) => React.ComponentType<PropsType<S, R>>) => {
-  return (Component: React.ComponentType<S>): React.ComponentType<PropsType<S, R>> => {
-    return class extends React.Component<PropsType<S, R>,{| selectedNewsType: NewsType |}
-    > {
+  ): ((Component: React.ComponentType<S>) => React.ComponentType<PropsType<S, R>>) => {
+    return (Component: React.ComponentType<S>): React.ComponentType<PropsType<S, R>> => {
+      return class extends React.Component<PropsType<S, R>,{| selectedNewsType: NewsType |}> {
       static displayName = wrapDisplayName(Component, 'withCustomNewsProvider');
 
       state = { selectedNewsType: this.getAvailableNewsType() };
