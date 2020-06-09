@@ -64,13 +64,13 @@ class CityEntry extends React.PureComponent<PropType> {
                     underlayColor={theme.colors.backgroundAccentColor}>
         <View>
           <Label theme={theme} searchWords={[filterText]} textToHighlight={city.name} sanitize={normalizeSearchString}
-                 highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }} />
+                 highlightStyle={{ fontWeight: 'bold' }} />
           {aliases.length > 0 && <Aliases>
             {aliases.slice(0, MAX_NUMBER_OF_ALIASES_SHOWN).map(
               (alias, index) => <AliasLabel key={alias} theme={theme} searchWords={[filterText]}
                                             textToHighlight={index !== aliases.slice(0, MAX_NUMBER_OF_ALIASES_SHOWN).length - 1 ? `${alias}, ` : aliases.length <= MAX_NUMBER_OF_ALIASES_SHOWN ? alias : `${alias},...`}
                                             sanitize={normalizeSearchString}
-                                            highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }} />
+                                            highlightStyle={{ fontWeight: 'bold' }} />
             )}
           </Aliases>}
         </View>
