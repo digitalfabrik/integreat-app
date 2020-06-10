@@ -10,7 +10,7 @@ import { TU_NEWS } from '../../constants'
 
 describe('TunewsList', () => {
   const language = 'en'
-  const path = '/testumgebung/en/news/local'
+  const link = '/testumgebung/en/news/local'
   const t = (key: ?string): string => key || ''
   const city = 'testcity'
 
@@ -21,7 +21,7 @@ describe('TunewsList', () => {
     timestamp={date}
     type={TU_NEWS}
     key={id}
-    path={path}
+    link={link}
     t={t}
     language={language}
   />
@@ -67,7 +67,7 @@ describe('TunewsList', () => {
     expect(newsElementList.find({ id: 1 })).toHaveLength(1)
   })
 
-  it('should render "currentlyNoTunews" if the items is an empty array', () => {
+  it('should render "currentlyNoTunews" if the items is an empty array and hasMore is false', () => {
     const tunewsList = shallow(
       <TunewsList
         language={language}
@@ -75,7 +75,7 @@ describe('TunewsList', () => {
         renderItem={renderItem(language)}
         city={city}
         fetchMoreTunews={() => {}}
-        hasMore
+        hasMore={false}
         isFetching={false}
         noItemsMessage={t('currentlyNoTunews')}
       />

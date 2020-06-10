@@ -5,11 +5,13 @@ import { mount, shallow } from 'enzyme'
 import moment from 'moment'
 
 import ConnectedEventsPage, { EventsPage } from '../EventsPage'
-import { DateModel, EventModel, LocationModel } from '@integreat-app/integreat-api-client'
+import { CityModel, DateModel, EventModel, LocationModel } from '@integreat-app/integreat-api-client'
 import createReduxStore from '../../../../modules/app/createReduxStore'
 import { Provider } from 'react-redux'
 import createLocation from '../../../../createLocation'
 import { EVENTS_ROUTE } from '../../../../modules/app/route-configs/EventsRouteConfig'
+import EventJsonLd from '../../../../modules/json-ld/components/EventJsonLd'
+import Page from '../../../../modules/common/components/Page'
 
 describe('EventsPage', () => {
   const events = [
@@ -24,14 +26,21 @@ describe('EventsPage', () => {
         allDay: true
       }),
       location: new LocationModel({
+        name: 'name',
         address: 'address',
         town: 'town',
-        postcode: 'postcode'
+        postcode: 'postcode',
+        longitude: null,
+        latitude: null,
+        state: 'state',
+        region: 'region',
+        country: 'country'
       }),
       excerpt: 'excerpt',
       lastUpdate: moment('2016-01-07 10:36:24'),
       content: 'content',
       thumbnail: 'thumbnail',
+      featuredImage: null,
       hash: '2fe6283485a93932'
     }),
     new EventModel({
@@ -45,14 +54,21 @@ describe('EventsPage', () => {
         allDay: true
       }),
       location: new LocationModel({
+        name: 'name',
         address: 'address',
         town: 'town',
-        postcode: 'postcode'
+        postcode: 'postcode',
+        latitude: null,
+        longitude: null,
+        state: 'state',
+        region: 'region',
+        country: 'country'
       }),
       content: 'content',
       excerpt: 'excerpt',
       lastUpdate: moment('2016-01-07 10:36:24'),
       thumbnail: 'thumbnail',
+      featuredImage: null,
       hash: '2fe6283485b93932'
     }),
     new EventModel({
@@ -66,17 +82,38 @@ describe('EventsPage', () => {
         allDay: true
       }),
       location: new LocationModel({
+        name: 'name',
         address: 'address',
         town: 'town',
-        postcode: 'postcode'
+        postcode: 'postcode',
+        latitude: null,
+        longitude: null,
+        state: 'state',
+        region: 'region',
+        country: 'country'
       }),
       content: 'content',
       excerpt: 'excerpt',
       lastUpdate: moment('2016-01-07 10:36:24'),
       thumbnail: 'thumbnail',
+      featuredImage: null,
       hash: '2fe6283485c93932'
     })
   ]
+  const cities = [new CityModel({
+    name: 'Augsburg',
+    code: 'augsburg',
+    live: true,
+    eventsEnabled: true,
+    extrasEnabled: true,
+    pushNotificationsEnabled: true,
+    tunewsEnabled: true,
+    sortingName: 'Augsburg',
+    prefix: null,
+    latitude: null,
+    longitude: null,
+    aliases: null
+  })]
 
   const city = 'augsburg'
 
@@ -86,8 +123,8 @@ describe('EventsPage', () => {
   it('should match snapshot and render EventList', () => {
     const wrapper = shallow(
       <EventsPage events={events}
+                  cities={cities}
                   city={city}
-                  path='/augsburg/en/events'
                   eventId={undefined}
                   t={t}
                   language={language} />
@@ -98,22 +135,25 @@ describe('EventsPage', () => {
   it('should match snapshot and render EventDetail', () => {
     const wrapper = shallow(
       <EventsPage events={events}
+                  cities={cities}
                   city={city}
                   t={t}
                   language={language}
-                  path='/augsburg/en/events/first_event'
                   eventId='first_event' />
     )
-    expect(wrapper).toMatchSnapshot()
+    const jsonLd = wrapper.find(EventJsonLd)
+    expect(jsonLd.props().event).toEqual(events[0])
+    const page = wrapper.find(Page)
+    expect(page).toMatchSnapshot()
   })
 
   it('should match snapshot and render Failure if event does not exist', () => {
     const wrapper = shallow(
       <EventsPage events={events}
+                  cities={cities}
                   city={city}
                   t={t}
                   language={language}
-                  path='/augsburg/en/events/invalid_event'
                   eventId='invalid_event' />
     )
     expect(wrapper).toMatchSnapshot()
@@ -130,7 +170,7 @@ describe('EventsPage', () => {
 
     const tree = mount(
       <Provider store={store}>
-        <ConnectedEventsPage events={events} />
+        <ConnectedEventsPage events={events} cities={cities} />
       </Provider>
     )
 
@@ -138,8 +178,8 @@ describe('EventsPage', () => {
       city,
       language,
       eventId: 'id',
-      path: '/augsburg/en/events/id',
       events,
+      cities,
       t: expect.any(Function),
       i18n: expect.anything(),
       dispatch: expect.any(Function)

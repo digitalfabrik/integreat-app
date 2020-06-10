@@ -1,5 +1,5 @@
-// flow-typed signature: d27e8d860d7f10896908c023574a6bd4
-// flow-typed version: e56c0337dc/moment_v2.x.x/flow_>=v0.104.x
+// flow-typed signature: 0d126f47f5358304e3a7f505a3ad94d2
+// flow-typed version: 8687adfbcb/moment_v2.x.x/flow_>=v0.104.x
 
 type moment$MomentOptions = {
   y?: number | string,
@@ -375,6 +375,13 @@ declare class moment$Moment {
   static isDuration(obj: any): boolean;
   static normalizeUnits(unit: string): string;
   static invalid(object: any): moment$Moment;
+  static relativeTimeRounding(): (value: number) => number;
+  static relativeTimeRounding(fn: (value: number) => number): void;
+  static relativeTimeThreshold(unit: "ss" | "s" | "m" | "h" | "d" | "M"): number;
+  static relativeTimeThreshold(
+    unit: "ss" | "s" | "m" | "h" | "d" | "M",
+    limit: number,
+  ): void;
 }
 
 declare module "moment" {

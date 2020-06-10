@@ -54,21 +54,21 @@ const Content = styled.p`
 type PropsType = {|
   tunewsElement: TunewsModel,
   language: string,
-  path: string,
+  id: number,
   city: string,
   cities: Array<CityModel>
 |}
 
 export class TunewsDetailsPage extends React.PureComponent<PropsType> {
   render () {
-    const { tunewsElement, language, path, city, cities } = this.props
+    const { tunewsElement, language, id, city, cities } = this.props
 
     const currentCity: CityModel = cities && cities.find(cityElement => cityElement.code === city)
     if (!currentCity.tunewsEnabled) {
-      const error = new ContentNotFoundError({ type: 'category', id: path, city, language })
+      const error = new ContentNotFoundError({ type: 'category', id, city, language })
       return <FailureSwitcher error={error} />
     } else if (!tunewsElement) {
-      const error = new ContentNotFoundError({ type: 'tunewsItem', id: path, city, language })
+      const error = new ContentNotFoundError({ type: 'tunewsItem', id, city, language })
       return <FailureSwitcher error={error} />
     }
 
@@ -92,7 +92,7 @@ export class TunewsDetailsPage extends React.PureComponent<PropsType> {
 
 const mapStateToProps = (state: StateType) => ({
   language: state.location.payload.language,
-  path: state.location.pathname,
+  id: state.location.payload.id,
   city: state.location.payload.city,
   cities: state.cities.data
 })

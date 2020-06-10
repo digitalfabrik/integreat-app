@@ -6,7 +6,7 @@ import moment from 'moment-timezone'
 import { ThemeProvider } from 'styled-components'
 
 import ConnectedLocalNewsPage, { LocalNewsPage } from '../LocalNewsPage'
-import { LocalNewsModel, CityModel } from '@integreat-app/integreat-api-client'
+import { CityModel, LocalNewsModel, Payload } from '@integreat-app/integreat-api-client'
 import createReduxStore from '../../../../modules/app/createReduxStore'
 import { Provider } from 'react-redux'
 import createLocation from '../../../../createLocation'
@@ -50,13 +50,13 @@ describe('LocalNewsPage', () => {
     title: 'Tick bite - What to do?',
     timestamp: moment.tz('2020-03-20 17:50:00', 'GMT'),
     message:
-    'In summer there are often ticks in forest and meadows with high grass. These are very small animals. They feed on the blood of people or animals they sting, like mosquitoes. But they stay in the skin longer and can transmit dangerous diseases. If you have been in high grass, you should search your body very thoroughly for ticks. They like to sit in the knees, armpits or in the groin area. If you discover a tick in your skin, you should carefully pull it out with tweezers without crushing it. If the sting inflames, you must see a doctor.'
+      'In summer there are often ticks in forest and meadows with high grass. These are very small animals. They feed on the blood of people or animals they sting, like mosquitoes. But they stay in the skin longer and can transmit dangerous diseases. If you have been in high grass, you should search your body very thoroughly for ticks. They like to sit in the knees, armpits or in the groin area. If you discover a tick in your skin, you should carefully pull it out with tweezers without crushing it. If the sting inflames, you must see a doctor.'
   }), new LocalNewsModel({
     id: 2,
     title: 'Tick bite - What to do?',
     timestamp: moment.tz('2020-03-25 17:50:00', 'GMT'),
     message:
-    'In summer there are often ticks in forest and meadows with high grass. These are very small animals. They feed on the blood of people or animals they sting, like mosquitoes. But they stay in the skin longer and can transmit dangerous diseases. If you have been in high grass, you should search your body very thoroughly for ticks. They like to sit in the knees, armpits or in the groin area. If you discover a tick in your skin, you should carefully pull it out with tweezers without crushing it. If the sting inflames, you must see a doctor.'
+      'In summer there are often ticks in forest and meadows with high grass. These are very small animals. They feed on the blood of people or animals they sting, like mosquitoes. But they stay in the skin longer and can transmit dangerous diseases. If you have been in high grass, you should search your body very thoroughly for ticks. They like to sit in the knees, armpits or in the groin area. If you discover a tick in your skin, you should carefully pull it out with tweezers without crushing it. If the sting inflames, you must see a doctor.'
   })]
 
   const city = 'augsburg'
@@ -70,8 +70,8 @@ describe('LocalNewsPage', () => {
     })
     const store = createReduxStore()
     store.getState().location = location
-    store.getState().cities = { data: cities, isFetching: false }
-    store.getState().localNews = { data: localNews }
+    store.getState().cities = new Payload(false, null, cities)
+    store.getState().localNews = new Payload(false, null, localNews)
 
     const tree = mount(
       <ThemeProvider theme={theme}>

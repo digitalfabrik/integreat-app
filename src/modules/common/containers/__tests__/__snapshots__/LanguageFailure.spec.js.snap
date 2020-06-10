@@ -3,7 +3,7 @@
 exports[`LanguageFailure should match snapshot 1`] = `
 <Fragment>
   <Caption
-    title="Augsburg"
+    title="Stadt Augsburg"
   />
   <LanguageFailure__ChooseLanguage>
     notFound.language chooseALanguage

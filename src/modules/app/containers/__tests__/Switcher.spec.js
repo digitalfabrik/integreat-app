@@ -50,6 +50,7 @@ describe('Switcher', () => {
     })
   ])
   const disclaimer = new PageModel({
+    path: '/disclaimer',
     title: 'Feedback, Kontakt und mögliches Engagement',
     content: 'this is a test content',
     lastUpdate: moment('2017-11-18T08:30:00.000Z'),
@@ -85,10 +86,17 @@ describe('Switcher', () => {
       content: 'Huiiii',
       excerpt: 'Buuuuh',
       thumbnail: 'Ich hab deine Nase!',
+      featuredImage: null,
       location: new LocationModel({
+        name: 'Schloss',
         town: 'Schloss Burgeck',
         address: 'Adresse 0',
-        postcode: 'postcode'
+        postcode: 'postcode',
+        latitude: null,
+        longitude: null,
+        state: 'state',
+        region: 'region',
+        country: 'country'
       }),
       availableLanguages: new Map(
         [['de', '/augsburg/de/events/nulltes_event'], ['ar', '/augsburg/ar/events/nulltes_event']]),
@@ -104,7 +112,13 @@ describe('Switcher', () => {
       live: true,
       eventsEnabled: true,
       extrasEnabled: false,
-      sortingName: 'Mambo'
+      tunewsEnabled: false,
+      pushNotificationsEnabled: false,
+      sortingName: 'Mambo',
+      prefix: 'Stadt',
+      latitude: null,
+      longitude: null,
+      aliases: null
     })
   ]
   const languages = [
@@ -162,9 +176,15 @@ describe('Switcher', () => {
       availableLanguages: new Map(
         [['de', '/augsburg/de/locations/erster_poi'], ['ar', '/augsburg/ar/locations/erster_poi']]),
       location: new LocationModel({
+        name: 'name',
         address: 'address',
         town: 'town',
-        postcode: 'postcode'
+        postcode: 'postcode',
+        longitude: null,
+        latitude: null,
+        state: 'state',
+        region: 'region',
+        country: 'country'
       }),
       excerpt: 'excerpt',
       lastUpdate: moment('2016-01-07 10:36:24'),
@@ -254,6 +274,7 @@ describe('Switcher', () => {
       location,
       pois: poisPayload,
       wohnen: wohnenPayload,
+      tunews: { allData: [], hasMore: true, tunewsPayload },
       sprungbrettJobs: sprungbrettPayload,
       viewport: { is: { small: true } },
       darkMode: true

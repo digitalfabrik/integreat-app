@@ -13,9 +13,15 @@ const pois = [
     availableLanguages: new Map(
       [['en', '/augsburg/en/locations/first_poi'], ['ar', '/augsburg/ar/locations/erster_poi']]),
     location: new LocationModel({
+      name: 'name',
       address: 'address',
       town: 'town',
-      postcode: 'postcode'
+      postcode: 'postcode',
+      latitude: null,
+      longitude: null,
+      state: 'state',
+      region: 'region',
+      country: 'country'
     }),
     excerpt: 'excerpt',
     lastUpdate: moment('2016-01-07 10:36:24'),

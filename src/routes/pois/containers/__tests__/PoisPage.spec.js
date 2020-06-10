@@ -15,9 +15,15 @@ describe('PoisPage', () => {
       availableLanguages: new Map(
         [['de', '/augsburg/de/locations/erster_poi'], ['ar', '/augsburg/ar/locations/erster_poi']]),
       location: new LocationModel({
+        name: 'name',
         address: 'address',
         town: 'town',
-        postcode: 'postcode'
+        postcode: 'postcode',
+        latitude: null,
+        longitude: null,
+        state: 'state',
+        region: 'region',
+        country: 'country'
       }),
       excerpt: 'excerpt',
       lastUpdate: moment('2016-01-07 10:36:24'),
@@ -32,9 +38,15 @@ describe('PoisPage', () => {
       availableLanguages: new Map(
         [['en', '/augsburg/de/locations/zwoter_poi'], ['ar', '/augsburg/ar/locations/zwoter_poi']]),
       location: new LocationModel({
+        name: 'name',
         address: 'address',
         town: 'town',
-        postcode: 'postcode'
+        postcode: 'postcode',
+        longitude: null,
+        latitude: null,
+        state: 'state',
+        region: 'region',
+        country: 'country'
       }),
       content: 'content',
       excerpt: 'excerpt',
@@ -48,9 +60,15 @@ describe('PoisPage', () => {
       availableLanguages: new Map(
         [['de', '/augsburg/de/locations/dritter_poi'], ['ar', '/augsburg/ar/locations/dritter_poi']]),
       location: new LocationModel({
+        name: 'name',
         address: 'address',
         town: 'town',
-        postcode: 'postcode'
+        postcode: 'postcode',
+        latitude: null,
+        longitude: null,
+        state: 'state',
+        region: 'region',
+        country: 'country'
       }),
       content: 'content',
       excerpt: 'excerpt',
@@ -69,7 +87,6 @@ describe('PoisPage', () => {
                 t={t}
                 city={city}
                 language={language}
-                path='/augsburg/en/locations/third_poi'
                 poiId='third_poi' />
     )).toMatchSnapshot()
   })
@@ -80,7 +97,6 @@ describe('PoisPage', () => {
                 t={t}
                 city={city}
                 language={language}
-                path='/augsburg/en/locations/invalid_poi'
                 poiId='invalid_poi' />
     )).toMatchSnapshot()
   })
@@ -91,7 +107,6 @@ describe('PoisPage', () => {
                 t={t}
                 city={city}
                 language={language}
-                path='/augsburg/en/locations'
                 poiId={undefined} />
     )).toMatchSnapshot()
   })
@@ -102,7 +117,6 @@ describe('PoisPage', () => {
                 t={t}
                 city={city}
                 language={language}
-                path='/augsburg/en/locations'
                 poiId={undefined} />
     )
 
