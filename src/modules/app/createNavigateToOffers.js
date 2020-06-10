@@ -7,10 +7,10 @@ import type { NavigationScreenProp } from 'react-navigation'
 export default (dispatch: Dispatch<StoreActionType>, navigation: NavigationScreenProp<*>) =>
   ({ cityCode, language }: {| cityCode: string, language: string |}) => {
     navigation.navigate({
-      routeName: 'Extras',
+      routeName: 'Offers',
       params: {
         cityCode,
-        sharePath: `/${cityCode}/${language}/extras`
+        sharePath: `/${cityCode}/${language}/offers`
       }
     })
   }

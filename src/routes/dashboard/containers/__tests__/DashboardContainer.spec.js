@@ -243,7 +243,7 @@ describe('DashboardContainer', () => {
       navigateToCategory: expect.any(Function),
       navigateToIntegreatUrl: expect.any(Function),
       navigateToEvent: expect.any(Function),
-      navigateToExtras: expect.any(Function),
+      navigateToOffers: expect.any(Function),
       navigateToDashboard: expect.any(Function),
       navigation,
       resourceCache,

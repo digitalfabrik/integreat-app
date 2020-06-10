@@ -5,9 +5,9 @@ import { RefreshControl, ScrollView } from 'react-native'
 import type { StateType } from '../../../modules/app/StateType'
 import { connect } from 'react-redux'
 import { type TFunction, withTranslation } from 'react-i18next'
-import WohnenExtra from '../components/WohnenExtra'
-import { createWohnenEndpoint, ExtraModel, Payload, WohnenOfferModel } from '@integreat-app/integreat-api-client'
-import { WOHNEN_EXTRA, WOHNEN_ROUTE } from '../../extras/constants'
+import WohnenOffer from '../components/WohnenOffer'
+import { createWohnenEndpoint, OfferModel, Payload, WohnenOfferModel } from '@integreat-app/integreat-api-client'
+import { WOHNEN_OFFER, WOHNEN_ROUTE } from '../../offers/constants'
 import { wohnenApiBaseUrl } from '../../../modules/endpoint/constants'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
@@ -20,7 +20,7 @@ type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
 
 type StatePropsType = {|
   city: string,
-  extra: ?ExtraModel,
+  offer: ?OfferModel,
   language: string,
   offerHash: string,
   navigateToOffer: (offerHash: string) => void
@@ -30,13 +30,13 @@ type PropsType = { ...OwnPropsType, ...StatePropsType }
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const city: string = ownProps.navigation.getParam('city')
-  const extras: Array<ExtraModel> = ownProps.navigation.getParam('extras')
+  const offers: Array<OfferModel> = ownProps.navigation.getParam('offers')
   const offerHash: string = ownProps.navigation.getParam('offerHash')
 
-  const extra: ?ExtraModel = extras.find(extra => extra.alias === WOHNEN_EXTRA)
+  const offer: ?OfferModel = offers.find(offer => offer.alias === WOHNEN_OFFER)
 
   const navigateToOffer = (offerHash: string) => {
-    const params = { offerHash: offerHash, extras: extras }
+    const params = { offerHash: offerHash, offers: offers }
     if (ownProps.navigation.push) {
       ownProps.navigation.push(WOHNEN_ROUTE, params)
     }
@@ -46,14 +46,14 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     city,
     language: state.contentLanguage,
     offerHash,
-    extra,
+    offer,
     navigateToOffer
   }
 }
 
 type WohnenPropsType = {|
   city: string,
-  extra: ?ExtraModel,
+  offer: ?OfferModel,
   offerHash?: WohnenOfferModel,
   navigateToOffer: (offerHash: string) => void,
   theme: ThemeType,
@@ -68,7 +68,7 @@ type WohnenStateType = {|
 |}
 
 // HINT: If you are copy-pasting this container think about generalizing this way of fetching
-class WohnenExtraContainer extends React.Component<WohnenPropsType, WohnenStateType> {
+class WohnenOfferContainer extends React.Component<WohnenPropsType, WohnenStateType> {
   constructor (props: WohnenPropsType) {
     super(props)
     this.state = { offers: null, error: null, timeoutExpired: false }
@@ -79,10 +79,10 @@ class WohnenExtraContainer extends React.Component<WohnenPropsType, WohnenStateT
   }
 
   loadWohnen = async () => {
-    const { extra } = this.props
-    const apiName = extra && extra.postData && extra.postData.get('api-name')
-    if (!extra || !apiName) {
-      this.setState({ error: new Error('The Wohnen extra is not supported.'), offers: null })
+    const { offer } = this.props
+    const apiName = offer && offer.postData && offer.postData.get('api-name')
+    if (!offer || !apiName) {
+      this.setState({ error: new Error('The Wohnen offer is not supported.'), offers: null })
       return
     }
 
@@ -105,7 +105,7 @@ class WohnenExtraContainer extends React.Component<WohnenPropsType, WohnenStateT
   }
 
   render () {
-    const { language, extra, offerHash, navigateToOffer, t, theme } = this.props
+    const { language, offer, offerHash, navigateToOffer, t, theme } = this.props
     const { offers, error, timeoutExpired } = this.state
 
     if (error) {
@@ -115,7 +115,7 @@ class WohnenExtraContainer extends React.Component<WohnenPropsType, WohnenStateT
       </ScrollView>
     }
 
-    if (!extra) {
+    if (!offer) {
       return <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <FailureContainer code={ErrorCodes.UnknownError} />
       </ScrollView>
@@ -129,7 +129,7 @@ class WohnenExtraContainer extends React.Component<WohnenPropsType, WohnenStateT
 
     return <ScrollView refreshControl={<RefreshControl onRefresh={this.loadWohnen} refreshing={false} />}
                        contentContainerStyle={{ flexGrow: 1 }}>
-      <WohnenExtra wohnenExtra={extra} offerHash={offerHash} navigateToOffer={navigateToOffer} offers={offers}
+      <WohnenOffer wohnenOffer={offer} offerHash={offerHash} navigateToOffer={navigateToOffer} offers={offers}
                           t={t} theme={theme} language={language} />
     </ScrollView>
   }
@@ -138,5 +138,5 @@ class WohnenExtraContainer extends React.Component<WohnenPropsType, WohnenStateT
 export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(
   withTranslation('wohnen')(
     withTheme()(
-      WohnenExtraContainer
+      WohnenOfferContainer
     )))
