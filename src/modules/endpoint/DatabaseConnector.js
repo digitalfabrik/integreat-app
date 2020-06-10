@@ -346,7 +346,7 @@ class DatabaseConnector {
       live: city.live,
       code: city.code,
       prefix: city.prefix,
-      extras_enabled: city.extrasEnabled,
+      extras_enabled: city.offersEnabled,
       events_enabled: city.eventsEnabled,
       sorting_name: city.sortingName,
       longitude: city.longitude,
@@ -373,7 +373,7 @@ class DatabaseConnector {
         code: jsonObject.code,
         live: jsonObject.live,
         eventsEnabled: jsonObject.events_enabled,
-        extrasEnabled: jsonObject.extras_enabled,
+        offersEnabled: jsonObject.extras_enabled,
         tunewsEnabled: false, // todo: NATIVE-549
         pushNotificationsEnabled: false, // todo: NATIVE-549
         sortingName: jsonObject.sorting_name,

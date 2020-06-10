@@ -12,7 +12,7 @@ export type PropsType = {|
   postData: ?Map<string, string>
 |}
 
-class ExternalExtra extends React.Component<PropsType> {
+class ExternalOffer extends React.Component<PropsType> {
   render () {
     const { url, postData } = this.props
 
@@ -32,4 +32,4 @@ class ExternalExtra extends React.Component<PropsType> {
   }
 }
 
-export default ExternalExtra
+export default ExternalOffer

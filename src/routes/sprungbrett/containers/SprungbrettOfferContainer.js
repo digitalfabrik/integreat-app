@@ -3,16 +3,16 @@
 import * as React from 'react'
 import { RefreshControl, ScrollView } from 'react-native'
 import { type TFunction, withTranslation } from 'react-i18next'
-import SprungbrettExtra from '../components/SprungbrettExtra'
+import SprungbrettOffer from '../components/SprungbrettOffer'
 import { connect } from 'react-redux'
 import type { StateType } from '../../../modules/app/StateType'
 import {
   createSprungbrettJobsEndpoint,
-  ExtraModel,
+  OfferModel,
   Payload,
   SprungbrettJobModel
 } from '@integreat-app/integreat-api-client'
-import { SPRUNGBRETT_EXTRA } from '../../extras/constants'
+import { SPRUNGBRETT_OFFER } from '../../offers/constants'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { NavigationScreenProp } from 'react-navigation'
@@ -22,22 +22,22 @@ import ErrorCodes from '../../../modules/error/ErrorCodes'
 
 type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
 
-type StatePropsType = {| extra: ?ExtraModel, language: string |}
+type StatePropsType = {| offer: ?OfferModel, language: string |}
 
 type PropsType = { ...OwnPropsType, ...StatePropsType }
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
-  const extras: Array<ExtraModel> = ownProps.navigation.getParam('extras')
+  const offers: Array<OfferModel> = ownProps.navigation.getParam('offers')
 
   return {
     language: state.contentLanguage,
-    extra: extras.find(extra => extra.alias === SPRUNGBRETT_EXTRA)
+    offer: offers.find(offer => offer.alias === SPRUNGBRETT_OFFER)
   }
 }
 
 type SprungbrettPropsType = {|
   navigation: NavigationScreenProp<*>,
-  extra: ?ExtraModel,
+  offer: ?OfferModel,
   language: string,
   theme: ThemeType,
   t: TFunction
@@ -50,7 +50,7 @@ type SprungbrettStateType = {|
 |}
 
 // HINT: If you are copy-pasting this container think about generalizing this way of fetching
-class SprungbrettExtraContainer extends React.Component<SprungbrettPropsType, SprungbrettStateType> {
+class SprungbrettOfferContainer extends React.Component<SprungbrettPropsType, SprungbrettStateType> {
   constructor (props: SprungbrettPropsType) {
     super(props)
     this.state = { jobs: null, error: null, timeoutExpired: false }
@@ -61,10 +61,10 @@ class SprungbrettExtraContainer extends React.Component<SprungbrettPropsType, Sp
   }
 
   loadSprungbrett = async () => {
-    const { extra } = this.props
+    const { offer } = this.props
 
-    if (!extra) {
-      this.setState({ error: new Error('The Sprungbrett extra is not supported.'), jobs: null })
+    if (!offer) {
+      this.setState({ error: new Error('The Sprungbrett offer is not supported.'), jobs: null })
       return
     }
 
@@ -72,7 +72,7 @@ class SprungbrettExtraContainer extends React.Component<SprungbrettPropsType, Sp
     setTimeout(() => this.setState({ timeoutExpired: true }), LOADING_TIMEOUT)
 
     try {
-      const payload: Payload<Array<SprungbrettJobModel>> = await createSprungbrettJobsEndpoint(extra.path).request()
+      const payload: Payload<Array<SprungbrettJobModel>> = await createSprungbrettJobsEndpoint(offer.path).request()
 
       if (payload.error) {
         this.setState({ error: payload.error, jobs: null })
@@ -85,7 +85,7 @@ class SprungbrettExtraContainer extends React.Component<SprungbrettPropsType, Sp
   }
 
   render () {
-    const { extra, t, theme, language } = this.props
+    const { offer, t, theme, language } = this.props
     const { jobs, error, timeoutExpired } = this.state
 
     if (error) {
@@ -95,7 +95,7 @@ class SprungbrettExtraContainer extends React.Component<SprungbrettPropsType, Sp
       </ScrollView>
     }
 
-    if (!extra) {
+    if (!offer) {
       return <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <FailureContainer code={ErrorCodes.UnknownError} />
       </ScrollView>
@@ -109,7 +109,7 @@ class SprungbrettExtraContainer extends React.Component<SprungbrettPropsType, Sp
 
     return <ScrollView refreshControl={<RefreshControl onRefresh={this.loadSprungbrett} refreshing={false} />}
                        contentContainerStyle={{ flexGrow: 1 }}>
-      <SprungbrettExtra sprungbrettExtra={extra} sprungbrettJobs={jobs} t={t} theme={theme} language={language} />
+      <SprungbrettOffer sprungbrettOffer={offer} sprungbrettJobs={jobs} t={t} theme={theme} language={language} />
     </ScrollView>
   }
 }
@@ -117,5 +117,5 @@ class SprungbrettExtraContainer extends React.Component<SprungbrettPropsType, Sp
 export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(
   withTranslation('sprungbrett')(
     withTheme()(
-      SprungbrettExtraContainer
+      SprungbrettOfferContainer
     )))
