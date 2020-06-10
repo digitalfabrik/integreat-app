@@ -30,7 +30,7 @@ describe('NotFoundRouteConfig', () => {
       sprungbrettJobsPayload: new Payload(true)
     }
 
-    expect(notFoundRouteConfig.getRequiredPayloads(allPayloads)).toBeUndefined()
+    expect(notFoundRouteConfig.getRequiredPayloads(allPayloads)).toEqual({})
   })
 
   it('should return the right page title', () => {

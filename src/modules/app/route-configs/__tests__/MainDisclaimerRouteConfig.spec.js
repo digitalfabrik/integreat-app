@@ -29,7 +29,7 @@ describe('MainDisclaimerRouteConfig', () => {
       sprungbrettJobsPayload: new Payload(true)
     }
 
-    expect(mainDisclaimerRouteConfig.getRequiredPayloads(allPayloads)).toBeUndefined()
+    expect(mainDisclaimerRouteConfig.getRequiredPayloads(allPayloads)).toEqual({})
   })
 
   it('should return the right page title', () => {
