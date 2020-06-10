@@ -45,8 +45,8 @@ export class FailureSwitcher extends React.Component<PropsType> {
 
       case 'offer':
         return <Failure goToPath={new OffersRouteConfig().getRoutePath({ city, language })}
-                        goToMessage='goTo.extras'
-                        errorMessage='notFound.extra' />
+                        goToMessage='goTo.offers'
+                        errorMessage='notFound.offer' />
       case 'poi':
         return <Failure goToPath={new PoisRouteConfig().getRoutePath({ city, language })}
                         goToMessage='goTo.pois'
