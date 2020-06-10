@@ -4,10 +4,9 @@
   "private": true,
   "scripts": {
     "start": "react-native start",
-    "bundle": "react-native bundle --entry-file index.js --bundle-output bundle.js",
     "start:reset": "react-native start --reset-cache",
     "android": "react-native run-android --no-packager",
-    "android:release": "yarn android --variant=release",
+    "android:release": "react-native run-android --no-packager --variant=release",
     "android:reload": "adb shell input text RR",
     "android:menu": "adb shell input keyevent 82",
     "android:reverse": "adb reverse tcp:8081 tcp:8081",
@@ -24,7 +23,9 @@
     "flow:install-types": "flow-typed install --ignoreDeps dev",
     "flow:install-types:all": "flow-typed install",
     "postinstall": "jetifier",
-    "proxy": "node tools/metro-proxy.js"
+    "trigger-pipeline": ".circleci/trigger-pipeline.sh",
+    "bump-version": "false",
+    "locales:missing": "node locales/tools/findMissingLocales"
   },
   "dependencies": {
     "@integreat-app/integreat-api-client": "^4.3.1",
