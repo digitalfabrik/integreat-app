@@ -12,9 +12,9 @@ import { type StyledComponent } from 'styled-components'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import {
   contentDirection,
-  contentAlignment,
-  isRTL
+  contentAlignment
 } from '../../../modules/i18n/contentDirection'
+import { RTL_LANGUAGES } from '../../../modules/i18n/constants'
 
 type PropsType = {|
   newsItem: LocalNewsModel | TunewsModel,
@@ -156,14 +156,8 @@ class NewsListItem extends React.PureComponent<PropsType> {
                   theme={theme}
                   isTunews={isTunews}
                   name='keyboard-arrow-right'
-                  style={{
-                    transform: [
-                      {
-                        scaleX: isRTL(language) ? -1 : 1
-                      }
-                    ]
-                  }}
-          />
+                  style={{ transform: [{ scaleX: RTL_LANGUAGES.includes(language) ? -1 : 1 }] }}
+                />
           </ReadMoreWrapper>
           </StyledTouchableOpacity>
         </ListItemWrapper>

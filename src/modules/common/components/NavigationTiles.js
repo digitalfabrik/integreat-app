@@ -99,7 +99,7 @@ class NavigationTiles extends React.PureComponent<
   renderAnchorIcon = (name: string, language: string) => {
     return <Icon
     name={name}
-    style={{ transform: [{ scaleX: isRTL(language) ? -1 : 1 }] }}
+    style={{ transform: [{ scaleX: isRTL() ? -1 : 1 }] }}
     onPress={this.onAnchorPress}
     width={anchorWidth}
     />

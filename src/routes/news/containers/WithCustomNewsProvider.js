@@ -242,17 +242,13 @@ const withCustomNewsProvider = <
         const { selectedNewsType } = this.state
         return (
           <HeaderContainer>
-            {newsTabs.map((tab, index) =>
-             cityModel && cityModel.pushNotificationsEnabled
-               ? <TranslatedNewsTypeItem key={index} tab={newsTabs[0]} selectedNewsType={selectedNewsType}
-                                        onItemPress={this.selectNewsItemAndScrollToTop} />
-               : cityModel && cityModel.tunewsEnabled
-               ? <TranslatedNewsTypeItem key={index} tab={newsTabs[1]} selectedNewsType={selectedNewsType}
-                                        onItemPress={this.selectNewsItemAndScrollToTop} />
-               : null
-            )}
-          </HeaderContainer>
-        )
+            {cityModel && cityModel.pushNotificationsEnabled &&
+              <TranslatedNewsTypeItem key='pushNotificationsEnabled' tab={newsTabs[0]} selectedNewsType={selectedNewsType}
+                                  onItemPress={this.selectNewsItemAndScrollToTop} />}
+            {cityModel && cityModel.tunewsEnabled &&
+              <TranslatedNewsTypeItem key='tunewsEnabled' tab={newsTabs[1]} selectedNewsType={selectedNewsType}
+                                  onItemPress={this.selectNewsItemAndScrollToTop} />}
+          </HeaderContainer>)
       };
 
       refresh = () => {
