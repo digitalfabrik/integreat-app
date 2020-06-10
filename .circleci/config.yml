@@ -121,7 +121,7 @@ jobs:
           name: "Show current CPU count"
           command: |
             echo "CPU count is ${TOTAL_CPUS}"
-      - add_ssh_keys: # Install
+      - add_ssh_keys:
           fingerprints:
             - "9a:0f:b1:f0:97:c8:db:3f:be:87:a4:9b:09:7f:d3:af"
       - checkout
@@ -165,7 +165,7 @@ jobs:
           name: Ruby version
           command: ruby --version
       - run:
-          name: Fastlane Prepare Android Keystore
+          name: "[FL] Prepare Android Keystore"
           command: bundle exec fastlane keystore
           working_directory: android
       - restore_cache:
@@ -173,7 +173,7 @@ jobs:
             - 1-gradle-{{ checksum "android/build.gradle" }}-{{ checksum "android/app/build.gradle" }}-{{ checksum "android/settings.gradle" }}
             - 1-gradle-
       - run:
-          name: Download Dependencies
+          name: "[FL] Download Dependencies"
           command: bundle exec fastlane dependencies
           working_directory: android
       - save_cache:
@@ -181,7 +181,7 @@ jobs:
             - ~/.gradle
           key: 1-gradle-{{ checksum "android/build.gradle" }}-{{ checksum "android/app/build.gradle" }}-{{ checksum "android/settings.gradle" }}
       - run:
-          name: Fastlane Build
+          name: "[FL] Build"
           command: bundle exec fastlane build
           working_directory: android
       - store_artifacts:
@@ -248,7 +248,7 @@ jobs:
             - 1-pods-{{ arch }}-{{ checksum "ios/Podfile.lock" }}
             - 1-pods-{{ arch }}-
       - run:
-          name: Install CocoaPods
+          name: "[CP] Install CocoaPods"
           command: bundle exec pod install --deployment
           working_directory: ios
       - save_cache:
@@ -260,7 +260,7 @@ jobs:
           name: Ruby version
           command: ruby --version
       - run:
-          name: Fastlane Build
+          name: "[FL] Build"
           command: bundle exec fastlane build
           working_directory: ios
       - store_artifacts:
@@ -319,16 +319,16 @@ jobs:
             - ~/.cache/yarn
             - node_modules
       - run:
-          name: Fastlane Browserstack Upload Live
+          name: "[FL] Browserstack Upload Live"
           command: bundle exec fastlane android browserstack_upload_live
       - run:
-          name: Fastlane Play Store Upload
+          name: "[FL] Play Store Upload"
           command: bundle exec fastlane android playstore_upload production:"<< parameters.production >>"
       - run:
-          name: Fastlane Upload to Sentry
+          name: "[FL] Upload to Sentry"
           command: bundle exec fastlane android sentry_upload
       - run:
-          name: Notify
+          name: "[FL] Notify about delivery"
           command: bundle exec fastlane android notify_release
 
   deliver_ios:
@@ -365,25 +365,25 @@ jobs:
           name: Ruby version
           command: ruby --version
       - run:
-          name: Fastlane Browserstack Upload Live
+          name: "[FL] Browserstack Upload Live"
           command: bundle exec fastlane ios browserstack_upload_live
       - when:
           condition: <<parameters.production>>
           steps:
             - run:
-                name: Fastlane App Store Connect Upload
+                name: "[FL] App Store Connect Upload"
                 command: bundle exec fastlane ios appstoreconnect_upload
       - unless:
           condition: <<parameters.production>>
           steps:
             - run:
-                name: Fastlane TestFlight Upload
+                name: "[FL] TestFlight Upload"
                 command: bundle exec fastlane ios testflight_upload
       - run:
-          name: Fastlane Upload to Sentry
+          name: "[FL] Upload to Sentry"
           command: bundle exec fastlane ios sentry_upload
       - run:
-          name: Notify
+          name: "[FL] Notify about delivery"
           command: bundle exec fastlane ios notify_release
 
   e2e:
@@ -426,10 +426,10 @@ jobs:
             - ~/.cache/yarn
             - node_modules
       - run:
-          name: Fastlane E2E Tests on Browserstack
+          name: "[FL] E2E Tests on Browserstack"
           command: bundle exec fastlane android browserstack_e2e_tests
       - run:
-          name: Fastlane E2E Tests on Browserstack
+          name: "[FL] E2E Tests on Browserstack"
           command: bundle exec fastlane ios browserstack_e2e_tests
 
   bump_version:
@@ -452,6 +452,5 @@ jobs:
           paths:
             - vendor/bundle
       - run:
-          name: Bump version
+          name: "[FL] Bump version"
           command: bundle exec fastlane github_bump_version
-

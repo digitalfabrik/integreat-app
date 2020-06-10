@@ -1,108 +1,83 @@
-versioning: ![versioning](https://img.shields.io/badge/calver-YYYY.M.PATCH-22bfda.svg)
 # integreat-react-native-app
+## Contents
+* [Contributing](#contributing)
+* [Getting Started](#getting-started)
+* [Conventions](docs/03-conventions.md)
+* [Technical Documentation](docs/04-technical-documentation.md)
+* [Manual builds](docs/06-manual-builds.md)
+* [Continuous Integration and Delivery](docs/08-cicd.md)
 
-## Development
+## Contributing
+If you want to know more about Integreat or if you want to join us, contact [Max](mailto:ammann@integreat-app.de), 
+[Steffen](mailto:kleinle@integreat-app.de) or [our info mail](mailto:info@integreat-app.de) and visit our [website](https://integreat-app.de).
+[Pull requests](#pull-requests) and [bug reports](#bug-reporting) are also very much appreciated.
 
-### Setup
+**Testing and debugging with the live cms instance should be avoided. Instead, [please use the test cms](docs/04-technical-documentation.md#test-cms).**
 
-* Clone the repository
-* Install Android Studio and try to setup a test project
-* If you plan to use an Emulator try to run it with the test project and make sure it works
-* Open the project with an IDE of your choice
-* Run `yarn`
+## Getting Started
 
-### Running the App for development
+We suggest **[IntelliJ IDEA Ultimate](https://www.jetbrains.com/idea/)** as IDE for editing JavaScript code. JetBrains provides free licences for students.
+If you are using a different IDE, the steps might differ.
 
-* Run `yarn start` to start the bundler
+*Note: For the setup of the project on Windows you may want to use Chocolatey and [follow this guide](docs/09-windows-setup.md).*
+
+### Prerequisites
+* Install [nodejs](https://nodejs.org/). At least v6 is required, but we recommend the v12 LTS.
+Using the latest version (v13) may lead to errors.
+* Install [yarn](https://yarnpkg.com/).
 
 #### Android
+* Install the Android SDK by using the [Android Support plugin](https://plugins.jetbrains.com/plugin/1792-android-support) in IntelliJ.
+* Install the latest stable SDK Platform and Android SDK Tools in the SDK Manager (Settings > Appearance & Behaviour > System Settings > Android SDK)
+* \[optional\]: If you want to develop using an emulator, also install the Android Emulator in the Android SDK settings
 
-* Run your Android Emulator or connect a device
-* Run `yarn android`
 
 #### iOS
-* Install CocoaPods pods: `cd ios && pod install`
-* Run `yarn ios`
+* Own a Mac or another Apple device.
+* Install [XCode](https://developer.apple.com/xcode/).
 
-Note: The command `pod install` uses the versions from the Podfile.lock. `pod update` updates the Podfile.lock 
+*Note: In order to work with the XCode project, always open `ios/Integreat.xcworkspace`.*
 
-Note: All dependencies are handled by CocoaPods. The versions in node_modules/ should not be used!
+### Project setup
 
-Note: If you are using Xcode, always open `project.xcworkspace`
+If using IntelliJ IDEA Ultimate you can import the project easily:
 
-### IDE setup
-**Make sure you have at least [nodejs 6](https://nodejs.org/) installed**
+* Import this project (VCS > Get from Version Control).
+* Run `yarn` in the terminal to install all dependencies.
+* Take a look at package.json to show all available npm scripts.
+* Run `yarn start` to start the bundler.
 
-We suggest IntellJ IDEA Ultimate as IDE. Just import this project (from existing sources).
-Run **yarn** in Terminal and right-click on package.json to show the npm scripts. 
+*Note: For editing native Java code for Android IntelliJ with the Android extension is recommended. For native Swift/Objective-C code [XCode](https://developer.apple.com/xcode/) is required.*
 
-Install the following plugins:
-* ESLint
-* Styled Components
+#### Running the app
+
+Take a look at the docs for [iOS](docs/06-manual-builds.md#manually-building-for-ios) and [Android](docs/06-manual-builds.md#manually-building-for-android) to see how to run the app.
+
+#### Additional Configuration
+* Mark the *src* folder as *Source directory*.
+* Run > Edit Configurations > Defaults > Jest  
+   to set *Configuration file* to *jest.config.json*
    
-If you want you can associate the *.snap files with the file type JavaScript.
+* Settings > Languages & Frameworks > JavaScript and
+    * choose *Flow* as Language version
+    * set *Flow package or executable* to *<project_dir>/node_modules/flow-bin*
+   
+* [optional] Associate the *\*.snap* files with the file type *JavaScript*.
+* [optional] Install the following plugins: *Styled Components*.
 
-### Installing libraries with native code
+### Troubleshooting
+If you encounter any problems, have a look at our [troubleshooting section](docs/02-troubleshooting.md)
 
-If you want to install an external library which brings native Android/iOS code you have to check several things:
-* Edit `Podfile` and `build.gradle` to include the native parts. DO NOT RUN `yarn react-native link`!
-* Run `pod update` in the `ios/` folder
-* Make sure the app still compiles on Android and iOS
+### Debugging
+For more information on how to debug, have a look at our [debugging section](docs/01-debugging.md)
 
-### Debugging:
-[Debugging](docs/01-debugging.md)
+## Bug reporting
+You can [view our issues](https://issues.integreat-app.de/projects/NATIVE) or
+ [create new ones](https://issues.integreat-app.de/secure/CreateIssue!default.jspa) on our jira.
 
-### If you encounter problems:
-[Common Problems](docs/02-common-problems.md)
+## Pull requests
+Please take a look at our [conventions](docs/03-conventions.md).
 
-# Technical documentation:
-[Technical documentation](docs/10-technical-documentation.md)
-
-# Conventions:
-[Conventions](docs/03-conventions.md)
-
-### E2E Testing:
-[E2E Testing](docs/04-e2e.md)
-
-### Releasing:
-[Releasing](docs/06-releasing.md)
-
-## Technology stack
-
-### Bundler
-[Metro](https://facebook.github.io/metro/) is used to compile and bundle the app.
-
-### Frontend framework
-[React](https://facebook.github.io/react/) is used as frontend framework.
-This allows us to build a single-page-application easily.
-
-### JavaScript compiler
-[Babel](https://babeljs.io/) is used to make the app available to a broader audience while 
-allowing the developers to use many new language features. We use flow for type safety.
-
-### Application state
-[Redux](http://redux.js.org/) is used for the global application state. 
-The data which is received through the restful api of the CMS is "cached" and stored in this state container.
-
-### Testing
-* [Jest](https://facebook.github.io/jest/) is used for testing.
-* [<img src="docs/figures/browserstack-logo.png" width="150">](https://www.browserstack.com) is used for testing cross-platform compatibility
-* The [React Native Testing Library](https://github.com/callstack/react-native-testing-library) is used to test React Native Components
-
-### Linting
-* The linter for JavaScript is [eslint](http://eslint.org/)
-
-You can run the linter by calling **yarn run lint**. Some issues can be fixed automatically by running **yarn run lint:fix**
-
-### Type checking
-[Flow](https://flow.org/) is used for static type checking.
-
-Go to Settings > Languages & Frameworks > JavaScript and
-* choose **Flow** as Language version
-* set *Flow package or executable* to **<project_dir>/node_modules/flow-bin**
-
-You can run flow using **yarn flow**. 
-
-# Issue Tracker
-
-You can [view our issues](https://issues.integreat-app.de/projects/NATIVE) or [create new ones](https://issues.integreat-app.de/secure/CreateIssue!default.jspa) on our jira.
+To merge a pull request, 
+* at least two approvals are required.
+* Tests, linting and flow have to succeed.
