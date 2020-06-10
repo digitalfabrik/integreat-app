@@ -12,7 +12,7 @@ class NotFoundRouteConfig implements RouteConfig<void, void> {
 
   getRoutePath = (): string => NOT_FOUND
 
-  getRequiredPayloads = () => {}
+  getRequiredPayloads = () => ({})
 
   getLanguageChangePath = () => null
 
