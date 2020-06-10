@@ -9,6 +9,7 @@ import type { StateType } from '../../../modules/app/StateType'
 import TunewsDetailsFooter from '../components/TunewsDetailsFooter'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
+import CityNotFoundError from '../../../modules/app/errors/CityNotFoundError'
 
 const StyledContainer = styled.div`
   display: flex;
@@ -63,8 +64,10 @@ export class TunewsDetailsPage extends React.PureComponent<PropsType> {
   render () {
     const { tunewsElement, language, id, city, cities } = this.props
 
-    const currentCity: CityModel = cities && cities.find(cityElement => cityElement.code === city)
-    if (!currentCity.tunewsEnabled) {
+    const currentCity: ?CityModel = cities && cities.find(cityElement => cityElement.code === city)
+    if (!currentCity) {
+      return <FailureSwitcher error={new CityNotFoundError()} />
+    } else if (!currentCity.tunewsEnabled) {
       const error = new ContentNotFoundError({ type: 'category', id, city, language })
       return <FailureSwitcher error={error} />
     } else if (!tunewsElement) {
