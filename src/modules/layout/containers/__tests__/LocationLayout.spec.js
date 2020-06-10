@@ -51,14 +51,21 @@ describe('LocationLayout', () => {
         allDay: true
       }),
       location: new LocationModel({
+        name: 'name',
         address: 'address',
         town: 'town',
-        postcode: 'postcode'
+        postcode: 'postcode',
+        latitude: null,
+        longitude: null,
+        state: 'state',
+        region: 'region',
+        country: 'country'
       }),
       excerpt: 'excerpt',
       lastUpdate: moment('2016-01-07 10:36:24'),
       content: 'content',
       thumbnail: 'thumbnail',
+      featuredImage: null,
       hash: '2fe6283485a93932'
     })
   ]
@@ -69,7 +76,13 @@ describe('LocationLayout', () => {
     live: true,
     eventsEnabled: true,
     extrasEnabled: false,
-    sortingName: 'Mambo'
+    pushNotificationsEnabled: false,
+    tunewsEnabled: false,
+    sortingName: 'Mambo',
+    longitude: null,
+    latitude: null,
+    prefix: null,
+    aliases: null
   })
   ]
 

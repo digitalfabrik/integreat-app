@@ -35,7 +35,13 @@ describe('FeedbackBoxContainer', () => {
       live: true,
       eventsEnabled: true,
       extrasEnabled: false,
-      sortingName: 'Augsburg'
+      pushNotificationsEnabled: false,
+      tunewsEnabled: false,
+      sortingName: 'Augsburg',
+      aliases: null,
+      longitude: null,
+      latitude: null,
+      prefix: null
     })
   ]
   const t = (key: ?string): string => key || ''

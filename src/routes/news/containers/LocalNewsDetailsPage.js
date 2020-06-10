@@ -14,21 +14,21 @@ type PropsType = {|
   localNewsElement: LocalNewsModel,
   language: string,
   city: string,
-  path: string,
+  id: number,
   cities: Array<CityModel>,
   t: TFunction
 |}
 
 export class LocalNewsDetailsPage extends React.PureComponent<PropsType> {
   render () {
-    const { localNewsElement, language, city, path, cities } = this.props
+    const { localNewsElement, language, city, cities, id } = this.props
 
     const currentCity: CityModel = cities && cities.find(cityElement => cityElement.code === city)
     if (!currentCity.pushNotificationsEnabled) {
-      const error = new ContentNotFoundError({ type: 'category', id: path, city, language })
+      const error = new ContentNotFoundError({ type: 'category', id, city, language })
       return <FailureSwitcher error={error} />
     } else if (!localNewsElement) {
-      const error = new ContentNotFoundError({ type: 'localNewsItem', id: path, city, language })
+      const error = new ContentNotFoundError({ type: 'localNewsItem', id, city, language })
       return <FailureSwitcher error={error} />
     }
 
@@ -48,7 +48,7 @@ const mapStateTypeToProps = (state: StateType) => (
   {
     language: state.location.payload.language,
     city: state.location.payload.city,
-    path: state.location.pathname,
+    id: state.location.payload.id,
     cities: state.cities.data
   }
 )

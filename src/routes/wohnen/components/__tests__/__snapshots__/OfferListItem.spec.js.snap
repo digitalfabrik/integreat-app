@@ -3,7 +3,7 @@
 exports[`OfferListItem should render and match snapshot 1`] = `
 <ListItem
   isExternalUrl={false}
-  path="/Augsburg/de/extras/wohnen/mail@mail.com"
+  path="/Augsburg/de/offers/wohnen/mail@mail.com"
   title="Test Angebot"
 >
   <OfferListItem__Description>

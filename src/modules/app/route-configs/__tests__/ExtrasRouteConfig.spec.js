@@ -1,7 +1,7 @@
 // @flow
 
 import ExtrasRouteConfig from '../ExtrasRouteConfig'
-import { ExtraModel, Payload } from '@integreat-app/integreat-api-client'
+import { CityModel, ExtraModel, Payload } from '@integreat-app/integreat-api-client'
 import createLocation from '../../../../createLocation'
 
 const extras = [
@@ -13,8 +13,23 @@ const extras = [
     postData: null
   })
 ]
+const cities = [new CityModel({
+  name: 'Augsburg',
+  code: 'augsburg',
+  live: true,
+  eventsEnabled: true,
+  extrasEnabled: true,
+  pushNotificationsEnabled: true,
+  tunewsEnabled: true,
+  sortingName: 'Augsburg',
+  prefix: null,
+  latitude: null,
+  longitude: null,
+  aliases: null
+})]
 const extrasPayload = new Payload(false, 'https://random.api.json', extras, null)
-const payloads = { extras: extrasPayload }
+const citiesPayload = new Payload(false, 'https://random.api.json', cities, null)
+const payloads = { extras: extrasPayload, cities: citiesPayload }
 
 const t = (key: ?string): string => key || ''
 
@@ -22,13 +37,13 @@ describe('ExtrasRouteConfig', () => {
   const extasRouteConfig = new ExtrasRouteConfig()
 
   it('should get the right path', () => {
-    expect(extasRouteConfig.getRoutePath({ city: 'augsburg', language: 'de' })).toBe('/augsburg/de/extras')
+    expect(extasRouteConfig.getRoutePath({ city: 'augsburg', language: 'de' })).toBe('/augsburg/de/offers')
   })
 
   it('should get the required payloads', () => {
     const allPayloads = {
       extrasPayload,
-      citiesPayload: new Payload(true),
+      citiesPayload,
       categoriesPayload: new Payload(true),
       disclaimerPayload: new Payload(true),
       eventsPayload: new Payload(true),
@@ -47,26 +62,32 @@ describe('ExtrasRouteConfig', () => {
   it('should get the right language change path', () => {
     const location = createLocation({
       payload: { city: 'augsburg', language: 'de' },
-      pathname: '/augsburg/de/extras',
+      pathname: '/augsburg/de/offers',
       type: extasRouteConfig.name
     })
 
     expect(extasRouteConfig.getLanguageChangePath({ payloads, language: 'en', location }))
-      .toBe('/augsburg/en/extras')
+      .toBe('/augsburg/en/offers')
     expect(extasRouteConfig.getLanguageChangePath({ payloads, language: 'ar', location }))
-      .toBe('/augsburg/ar/extras')
+      .toBe('/augsburg/ar/offers')
   })
 
   it('should get the right page title', () => {
     const location = createLocation({
       payload: { city: 'augsburg', language: 'de' },
-      pathname: '/augsburg/de/extras',
+      pathname: '/augsburg/de/offers',
       type: extasRouteConfig.name
     })
 
     expect(extasRouteConfig.getPageTitle({ payloads, location, cityName: 'Augsburg', t }))
       .toBe('pageTitles.extras - Augsburg')
-    expect(extasRouteConfig.getPageTitle({ payloads, location, cityName: null, t }))
+
+    const wrongLocation = createLocation({
+      payload: { city: 'wrong-location', language: 'de' },
+      pathname: '/wrong-location/de/extras',
+      type: extasRouteConfig.name
+    })
+    expect(extasRouteConfig.getPageTitle({ payloads, cityName: null, location: wrongLocation, t }))
       .toBeNull()
   })
 
@@ -77,7 +98,7 @@ describe('ExtrasRouteConfig', () => {
   it('should return the right feedback target information', () => {
     const location = createLocation({
       payload: { city: 'augsburg', language: 'de' },
-      pathname: '/augsburg/de/extras',
+      pathname: '/augsburg/de/offers',
       type: extasRouteConfig.name
     })
 

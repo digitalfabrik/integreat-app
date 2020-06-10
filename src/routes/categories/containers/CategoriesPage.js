@@ -16,6 +16,8 @@ import type { StateType } from '../../../modules/app/StateType'
 import type { UiDirectionType } from '../../../modules/i18n/types/UiDirectionType'
 import Page from '../../../modules/common/components/Page'
 import { push } from 'redux-first-router'
+import BreadcrumbModel from '../../../modules/common/BreadcrumbModel'
+import urlFromPath from '../../../modules/common/utils/urlFromPath'
 
 type PropsType = {|
   categories: CategoriesMapModel,
@@ -71,24 +73,27 @@ export class CategoriesPage extends React.Component<PropsType> {
                          onInternalLinkClick={push} />
   }
 
-  getBreadcrumbs (categoryModel: CategoryModel): Array<React.Node> {
-    const { cities, categories, city } = this.props
-    return categories.getAncestors(categoryModel)
-      .map(ancestor => {
-        const title = ancestor.isRoot() ? CityModel.findCityName(cities, city) : ancestor.title
-        return <Link to={ancestor.path} key={ancestor.path}>{title}</Link>
+  renderBreadcrumbs (categoryModel: CategoryModel): React.Node {
+    const { cities, categories, city, uiDirection } = this.props
+    const getBreadcrumb = category => {
+      const title = category.isRoot() ? CityModel.findCityName(cities, city) : category.title
+      return new BreadcrumbModel({
+        title,
+        link: urlFromPath(category.path),
+        node: <Link to={category.path} key={category.path}>{title}</Link>
       })
+    }
+    return <Breadcrumbs ancestorBreadcrumbs={categories.getAncestors(categoryModel).map(getBreadcrumb)}
+                        currentBreadcrumb={getBreadcrumb(categoryModel)} direction={uiDirection} />
   }
 
   render () {
-    const { categories, path, city, language, uiDirection } = this.props
+    const { categories, path, city, language } = this.props
     const categoryModel = categories.findCategoryByPath(path)
 
     if (categoryModel) {
       return <div>
-        <Breadcrumbs direction={uiDirection}>
-          {this.getBreadcrumbs(categoryModel)}
-        </Breadcrumbs>
+        {this.renderBreadcrumbs(categoryModel)}
         {this.getContent(categoryModel)}
       </div>
     } else {

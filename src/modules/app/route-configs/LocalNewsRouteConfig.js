@@ -14,6 +14,7 @@ import {
 } from '@integreat-app/integreat-api-client'
 import fetchData from '../fetchData'
 import { cmsApiBaseUrl } from '../constants/urls'
+import type { StateType } from '../StateType'
 
 type LocalNewsRouteParamsType = {| city: string, language: string |}
 type RequiredPayloadsType = {|
@@ -26,7 +27,7 @@ export const LOCAL_NEWS_ROUTE = 'LOCAL_NEWS'
 const localNewsRoute: Route = {
   path: '/:city/:language/news/local',
   thunk: async (dispatch, getState) => {
-    const state = getState()
+    const state: StateType = getState()
     const { city, language } = state.location.payload
 
     await Promise.all([

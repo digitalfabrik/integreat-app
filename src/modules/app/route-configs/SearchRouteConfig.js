@@ -14,6 +14,7 @@ import {
   Payload
 } from '@integreat-app/integreat-api-client'
 import { cmsApiBaseUrl } from '../constants/urls'
+import type { StateType } from '../StateType'
 
 type SearchRouteParamsType = {|city: string, language: string|}
 type RequiredPayloadsType = {|categories: Payload<CategoriesMapModel>, cities: Payload<Array<CityModel>>|}
@@ -27,7 +28,7 @@ export const SEARCH_ROUTE = 'SEARCH'
 const searchRoute: Route = {
   path: '/:city/:language/search',
   thunk: async (dispatch, getState) => {
-    const state = getState()
+    const state: StateType = getState()
     const { city, language } = state.location.payload
 
     await Promise.all([
