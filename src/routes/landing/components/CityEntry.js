@@ -17,6 +17,12 @@ const CityListItem: StyledComponent<{}, {}, *> = styled.TouchableHighlight`
   width: 100%;
 `
 
+const Labels = styled(View)`
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: flex-start;
+`
+
 const Label = styled(Highlighter)`
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.decorativeFontRegular};
@@ -68,7 +74,7 @@ class CityEntry extends React.PureComponent<PropType> {
     return (
       <CityListItem onPress={this.navigateToDashboard}
                     underlayColor={theme.colors.backgroundAccentColor}>
-        <View>
+        <Labels>
           <Label theme={theme} searchWords={[filterText]} textToHighlight={city.name} sanitize={normalizeSearchString}
                  highlightStyle={{ fontWeight: 'bold' }} />
           {aliases.length > 0 && <Aliases>
@@ -79,17 +85,17 @@ class CityEntry extends React.PureComponent<PropType> {
                             sanitize={normalizeSearchString}
                             highlightStyle={{ fontWeight: 'bold' }} />
                 {index !== aliases.slice(0, MAX_NUMBER_OF_ALIASES_SHOWN).length - 1 && <>
-                <Separator theme={theme}>,</Separator>
-                <Separator theme={theme}> </Separator></>}
+                  <Separator theme={theme}>,</Separator>
+                  <Separator theme={theme}> </Separator></>}
               </>
             )}
             {aliases.length > MAX_NUMBER_OF_ALIASES_SHOWN && <>
-            <Separator theme={theme}>,</Separator>
-            <Separator theme={theme}> </Separator>
-            <Separator theme={theme}>...</Separator>
+              <Separator theme={theme}>,</Separator>
+              <Separator theme={theme}> </Separator>
+              <Separator theme={theme}>...</Separator>
             </>}
           </Aliases>}
-        </View>
+        </Labels>
       </CityListItem>
     )
   }
