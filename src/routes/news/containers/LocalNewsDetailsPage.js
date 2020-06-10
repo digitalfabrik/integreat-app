@@ -24,9 +24,11 @@ export class LocalNewsDetailsPage extends React.PureComponent<PropsType> {
     const { localNewsElement, language, city, path, cities } = this.props
 
     const currentCity: CityModel = cities && cities.find(cityElement => cityElement.code === city)
-    if (!localNewsElement || !currentCity.pushNotificationsEnabled) {
-      const type: string = currentCity.pushNotificationsEnabled ? 'localNewsItem' : 'category'
-      const error = new ContentNotFoundError({ type, id: path, city, language })
+    if (!currentCity.pushNotificationsEnabled) {
+      const error = new ContentNotFoundError({ type: 'category', id: path, city, language })
+      return <FailureSwitcher error={error} />
+    } else if (!localNewsElement) {
+      const error = new ContentNotFoundError({ type: 'localNewsItem', id: path, city, language })
       return <FailureSwitcher error={error} />
     }
 
