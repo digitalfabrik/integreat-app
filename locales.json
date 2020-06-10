@@ -4,7 +4,7 @@
       "pageTitles": {
         "search": "Suche",
         "events": "Veranstaltungen",
-        "extras": "Angebote",
+        "offers": "Angebote",
         "landing": "Ortsauswahl",
         "disclaimer": "Impressum und Kontakt",
         "mainDisclaimer": "Impressum und Kontakt - Integreat",
@@ -19,7 +19,7 @@
       "pageTitles": {
         "search": "البحث",
         "events": "الفعاليات",
-        "extras": "العروض",
+        "offers": "العروض",
         "landing": "اختيار المكان",
         "disclaimer": "هيئة التحرير وجهة الاتصال",
         "mainDisclaimer": "هيئة التحرير وجهة الاتصال لتطبيق إنتجريت",
@@ -32,7 +32,7 @@
       "pageTitles": {
         "search": "Search",
         "events": "Events",
-        "extras": "Offers",
+        "offers": "Offers",
         "landing": "Location selection",
         "disclaimer": "Imprint and contacts",
         "mainDisclaimer": "Imprint and contacts - Integreat",
@@ -45,7 +45,7 @@
       "pageTitles": {
         "search": "Buscar",
         "events": "Actividades",
-        "extras": "Ofertas",
+        "offers": "Ofertas",
         "landing": "Elegir ubicación",
         "disclaimer": "Aviso legal y contacto",
         "mainDisclaimer": "Aviso legal y contacto - Integreat",
@@ -58,7 +58,7 @@
       "pageTitles": {
         "search": "جستجو",
         "events": "رویدادها",
-        "extras": "خدمات",
+        "offers": "خدمات",
         "landing": "انتخاب محل",
         "disclaimer": "اطلاعات ناشر و تماس",
         "mainDisclaimer": "اطلاعات ناشر و تماس - Integreat",
@@ -71,7 +71,7 @@
       "pageTitles": {
         "search": "Recherche",
         "events": "Événements",
-        "extras": "Offres",
+        "offers": "Offres",
         "landing": "Sélection du lieu",
         "disclaimer": "Mentions légales et contact",
         "mainDisclaimer": "Mentions légales et contact - Integreat",
@@ -84,7 +84,7 @@
       "pageTitles": {
         "search": "Pretraživanje",
         "events": "Događanja",
-        "extras": "Ponude",
+        "offers": "Ponude",
         "landing": "Odabir mjesta",
         "disclaimer": "Impresum i kontakt",
         "mainDisclaimer": "Impresum i kontakt - Integreat",
@@ -97,7 +97,7 @@
       "pageTitles": {
         "search": "Lêgerîn",
         "events": "Rûdan",
-        "extras": "Xizmet",
+        "offers": "Xizmet",
         "landing": "Bijartina cih",
         "disclaimer": "Lêzanînên Weşîner û Têkillî",
         "mainDisclaimer": "Lêzanînên Weşanîner û Têkillî – 'Integreat'",
@@ -110,7 +110,7 @@
       "pageTitles": {
         "search": "Wyszukiwarka",
         "events": "Wydarzenia",
-        "extras": "Oferty",
+        "offers": "Oferty",
         "landing": "Wybór lokalizacji",
         "disclaimer": "Nota prawna i kontakt",
         "mainDisclaimer": "Nota prawna i kontakt - Integreat",
@@ -123,7 +123,7 @@
       "pageTitles": {
         "search": "Căutare",
         "events": "Evenimente",
-        "extras": "Oferte",
+        "offers": "Oferte",
         "landing": "Alegerea locației",
         "disclaimer": "Caseta tehnică și contact",
         "mainDisclaimer": "Caseta tehnică și contact - Integreat",
@@ -136,7 +136,7 @@
       "pageTitles": {
         "search": "Поиск",
         "events": "Мероприятия",
-        "extras": "Предложения",
+        "offers": "Предложения",
         "landing": "Выбор места",
         "disclaimer": "Выходные данные и контактная информация",
         "mainDisclaimer": "Выходные данные и контактная информация — Integreat",
@@ -149,7 +149,7 @@
       "pageTitles": {
         "search": "Raadin",
         "events": "Dhacdooyinka",
-        "extras": "Heshiisyo",
+        "offers": "Heshiisyo",
         "landing": "Doorashada goobta",
         "disclaimer": "Faahfaahinta qoraaga iyo macaluumaadkiisa xiriirka",
         "mainDisclaimer": "Faahfaahinta qoraaga iyo macaluumaadkiisa xiriirka - integreat",
@@ -162,7 +162,7 @@
       "pageTitles": {
         "search": "ፈትሽ",
         "events": "ኣጋጣሚታት",
-        "extras": "ውዕላት",
+        "offers": "ውዕላት",
         "landing": "ምምራጽ ቦታ",
         "disclaimer": "ናይ ደራሲ ዝርዝራት ሓበሬታን ናይ ርክብን",
         "mainDisclaimer": "ናይ ደራሲ ዝርዝራት ሓበሬታን ናይ ርክብን - integreat",
@@ -175,7 +175,7 @@
       "pageTitles": {
         "search": "Arama",
         "events": "Etkinlikler",
-        "extras": "Teklifler",
+        "offers": "Teklifler",
         "landing": "Konum seçimi",
         "disclaimer": "Künye ve iletişim",
         "mainDisclaimer": "Künye ve iletişim - Integreat",
@@ -380,7 +380,7 @@
         "city": "Diese Stadt wurde leider nicht gefunden.",
         "category": "Diese Seite wurde leider nicht gefunden.",
         "event": "Dieses Event wurde leider nicht gefunden.",
-        "extra": "Dieses Angebot wurde leider nicht gefunden.",
+        "offer": "Dieses Angebot wurde leider nicht gefunden.",
         "poi": "Dieser Point of Interest wurde leider nicht gefunden."
       },
       "pageNotFound": "Diese Seite wurde leider nicht gefunden.",
@@ -395,7 +395,7 @@
         "start": "Zur Startseite",
         "categories": "Zu den Kategorien",
         "events": "Zu den Veranstaltungen",
-        "extras": "Zu den Angeboten"
+        "offers": "Zu den Angeboten"
       },
       "pageTitle": "Fehler",
       "generalError": "Ein Fehler ist aufgetreten",
@@ -408,7 +408,7 @@
         "city": "للأسف، تعذر العثور على هذه المدينة.",
         "category": "للأسف، تعذر العثور على هذه الصفحة.",
         "event": "للأسف، تعذر العثور على هذا الحدث.",
-        "extra": "للأسف، تعذر العثور على هذا العرض.",
+        "offer": "للأسف، تعذر العثور على هذا العرض.",
         "poi": "للأسف، تعذر العثور على هذه النقطة المثيرة للاهتمام."
       },
       "pageNotFound": "للأسف، تعذر العثور على هذه الصفحة.",
@@ -423,7 +423,7 @@
         "start": "إلى الصفحة الرئيسية",
         "categories": "إلى الفئات",
         "events": "إلى الفعاليات",
-        "extras": "إلى العروض"
+        "offers": "إلى العروض"
       },
       "pageTitle": "خطأ",
       "generalError": "حدث خطأ ما",
@@ -436,7 +436,7 @@
         "city": "Sorry, but this city could not be found.",
         "category": "Sorry, but the requested page could not be found.",
         "event": "Sorry, but this event could not be found.",
-        "extra": "Sorry, but this offer could not be found.",
+        "offer": "Sorry, but this offer could not be found.",
         "poi": "Sorry, but this point of interest could not be found."
       },
       "pageNotFound": "Sorry, but the requested page could not be found.",
@@ -451,7 +451,7 @@
         "start": "Go to the homepage",
         "categories": "Go to categories",
         "events": "Go to events",
-        "extras": "Go to offers"
+        "offers": "Go to offers"
       },
       "pageTitle": "Error",
       "generalError": "An error occurred",
@@ -464,7 +464,7 @@
         "city": "No se ha encontrado esta ciudad.",
         "category": "No se ha encontrado esta página.",
         "event": "No se ha encontrado este evento.",
-        "extra": "No se ha encontrado esta oferta.",
+        "offer": "No se ha encontrado esta oferta.",
         "poi": "No se ha encontrado este punto de interés."
       },
       "pageNotFound": "No se ha encontrado esta página.",
@@ -479,7 +479,7 @@
         "start": "Ir a la página de inicio",
         "categories": "Ir a las categorías",
         "events": "Ir a las actividades",
-        "extras": "Ir a las ofertas"
+        "offers": "Ir a las ofertas"
       },
       "pageTitle": "Error",
       "generalError": "Se ha producido un error",
@@ -492,7 +492,7 @@
         "city": "متاسفانه این شهر یافت نشد.",
         "category": "متاسفانه این صفحه یافت نشد.",
         "event": "متأسفانه این رویداد یافت نشد.",
-        "extra": "متأسفانه این خدمات یافت نشد.",
+        "offer": "متأسفانه این خدمات یافت نشد.",
         "poi": "متأسفانه این موارد مورد علاقه یافت نشد."
       },
       "pageNotFound": "متاسفانه این صفحه یافت نشد.",
@@ -507,7 +507,7 @@
         "start": "به سوی صفحه اصلی",
         "categories": "به سوی دسته بندی ها",
         "events": "به سوی رویدادها",
-        "extras": "به سوی خدمات"
+        "offers": "به سوی خدمات"
       },
       "pageTitle": "خطا",
       "generalError": "خطایی رخ داده است",
@@ -520,7 +520,7 @@
         "city": "Malheureusement, cette ville est introuvable.",
         "category": "Malheureusement, cette page est introuvable.",
         "event": "Malheureusement, cet événement est introuvable.",
-        "extra": "Malheureusement, cette offre est introuvable.",
+        "offer": "Malheureusement, cette offre est introuvable.",
         "poi": "Malheureusement, ce point of interest est introuvable."
       },
       "pageNotFound": "Malheureusement, cette page est introuvable.",
@@ -535,7 +535,7 @@
         "start": "Vers la page de démarrage",
         "categories": "Vers les catégories",
         "events": "Vers les événements",
-        "extras": "Vers les offres"
+        "offers": "Vers les offres"
       },
       "pageTitle": "Erreur",
       "generalError": "Une erreur s'est produite",
@@ -548,7 +548,7 @@
         "city": "Ovaj grad nažalost nije pronađen.",
         "category": "Ova stranica nažalost nije pronađena.",
         "event": "Ovo događanje nažalost nije pronađeno.",
-        "extra": "Ova ponuda nažalost nije pronađena.",
+        "offer": "Ova ponuda nažalost nije pronađena.",
         "poi": "Ova zanimljiva točka nažalost nije pronađena."
       },
       "pageNotFound": "Ova stranica nažalost nije pronađena.",
@@ -563,7 +563,7 @@
         "start": "Na početnu stranicu",
         "categories": "Na kategorije",
         "events": "Na događanja",
-        "extras": "Na ponude"
+        "offers": "Na ponude"
       },
       "pageTitle": "Pogreške",
       "generalError": "Došlo je do pogreške",
@@ -576,7 +576,7 @@
         "city": "Mixabin ev bajar nehat vedîtin.",
         "category": "Mixabin ev rûpel peyde nebû.",
         "event": "Mixabin ev rûdan peyde nebû.",
-        "extra": "Mixabin ev xizmet peyde nebû.",
+        "offer": "Mixabin ev xizmet peyde nebû.",
         "poi": "Mixabin ev babetên balkêş peyde nebûn."
       },
       "pageNotFound": "Mixabin ev rûpel peyde nebû.",
@@ -591,7 +591,7 @@
         "start": "Ber bi Rûpela Sereke va",
         "categories": "Ber bi destebendiyan va",
         "events": "Ber bi rûdanan va",
-        "extras": "Ber bi xizmetan va"
+        "offers": "Ber bi xizmetan va"
       },
       "pageTitle": "Şaşitî (Eror)",
       "generalError": "Şaşitiyek qewimiye",
@@ -604,7 +604,7 @@
         "city": "Niestety nie znaleziono tego miasta.",
         "category": "Niestety nie znaleziono tej strony.",
         "event": "Niestety nie znaleziono tego wydarzenia.",
-        "extra": "Niestety nie znaleziono tej oferty.",
+        "offer": "Niestety nie znaleziono tej oferty.",
         "poi": "Niestety nie znaleziono tego Point of Interest."
       },
       "pageNotFound": "Niestety nie znaleziono tej strony.",
@@ -619,7 +619,7 @@
         "start": "Do strony startowej",
         "categories": "Do kategorii",
         "events": "Do wydarzeń",
-        "extras": "Do ofert"
+        "offers": "Do ofert"
       },
       "pageTitle": "Błąd",
       "generalError": "Wystąpił błąd",
@@ -632,7 +632,7 @@
         "city": "Acest oraș nu a fost găsit, din păcate.",
         "category": "Această pagină nu a fost găsită, din păcate.",
         "event": "Acest eveniment nu a fost găsit, din păcate.",
-        "extra": "Această ofertă nu a fost găsită, din păcate.",
+        "offer": "Această ofertă nu a fost găsită, din păcate.",
         "poi": "Acest Point of Interest nu a fost găsit, din păcate."
       },
       "pageNotFound": "Această pagină nu a fost găsită, din păcate.",
@@ -647,7 +647,7 @@
         "start": "Spre pagina de start",
         "categories": "Spre categorii",
         "events": "Spre evenimente",
-        "extras": "Spre oferte"
+        "offers": "Spre oferte"
       },
       "pageTitle": "Erori",
       "generalError": "A apărut o eroare",
@@ -660,7 +660,7 @@
         "city": "К сожалению, этот город не найден.",
         "category": "К сожалению, эта страница не найдена.",
         "event": "К сожалению, это событие не найдено.",
-        "extra": "К сожалению, это предложение не найдено.",
+        "offer": "К сожалению, это предложение не найдено.",
         "poi": "К сожалению, эта достопримечательность не найдена."
       },
       "pageNotFound": "К сожалению, эта страница не найдена.",
@@ -675,7 +675,7 @@
         "start": "К начальной странице",
         "categories": "К категориям",
         "events": "К мероприятиям",
-        "extras": "К предложениям"
+        "offers": "К предложениям"
       },
       "pageTitle": "Ошибка",
       "generalError": "Произошла ошибка",
@@ -688,7 +688,7 @@
         "city": "Nasiib darro, magaaladan lama helin.",
         "category": "Nasiib darro, boggan lama helin.",
         "event": "Nasiib darro, dhacdadan lama helin.",
-        "extra": "Nasiib darro, dalabkan lama helin.",
+        "offer": "Nasiib darro, dalabkan lama helin.",
         "poi": "Nasiib darro, qodobkaan xiisaha leh lama helin."
       },
       "pageNotFound": "Nasiib darro, boggan lama helin.",
@@ -703,7 +703,7 @@
         "start": "Aad bogga koowaad",
         "categories": "Aad Qaybaha",
         "events": "Aad dhacdooyinka",
-        "extras": "Ku saabsan dalabyada"
+        "offers": "Ku saabsan dalabyada"
       },
       "pageTitle": "Qalad",
       "generalError": "Khalad ayaa dhacay",
@@ -716,7 +716,7 @@
         "city": "ሕማቕ ኣጋጣሚ ኮይኑ፡ እዛ ከተማ እዚኣ ኣይተረኽበትን።",
         "category": "ሕማቕ ኣጋጣሚ ኮይኑ፡ እዚ ገጽ’ዚ ኣይተረኽበን።",
         "event": "ሕማቕ ኣጋጣሚ ኮይኑ፡ እዚ ኣጋጣሚ እዚ ኣይተረኽበን።",
-        "extra": "ሕማቕ ኣጋጣሚ ኮይኑ፡ እዚ ኣቕርቦት’ዚ ኣይተረኽበን።",
+        "offer": "ሕማቕ ኣጋጣሚ ኮይኑ፡ እዚ ኣቕርቦት’ዚ ኣይተረኽበን።",
         "poi": "ሕማቕ ኣጋጣሚ ኮይኑ፡ እዚ ዘገድስ ነጥቢ እዚ ኣይተረኽበን።"
       },
       "pageNotFound": "ሕማቕ ኣጋጣሚ ኮይኑ፡ እዚ ገጽ’ዚ ኣይተረኽበን።",
@@ -731,7 +731,7 @@
         "start": "ናብ ቀዳማይ ገጽ",
         "categories": "ናብቶም ምድባት",
         "events": "ናብቶም ኣጋጣሚታት",
-        "extras": "ብዛዕባ እቶም ኣቕርቦታት"
+        "offers": "ብዛዕባ እቶም ኣቕርቦታት"
       },
       "pageTitle": "ጌጋ",
       "generalError": "ሓደ ጌጋ ተኸሲቱ ኣሎ",
@@ -744,7 +744,7 @@
         "city": "Bu şehir maalesef bulunamadı.",
         "category": "Bu sayfa maalesef bulunamadı.",
         "event": "Bu etkinlik maalesef bulunamadı.",
-        "extra": "Bu teklif maalesef bulunamadı.",
+        "offer": "Bu teklif maalesef bulunamadı.",
         "poi": "Bu ilgi alanı maalesef bulunamadı."
       },
       "pageNotFound": "Bu sayfa maalesef bulunamadı.",
@@ -759,7 +759,7 @@
         "start": "Ana sayfaya git",
         "categories": "Kategorilere git",
         "events": "Etkinliklere git",
-        "extras": "Tekliflere git"
+        "offers": "Tekliflere git"
       },
       "pageTitle": "Hata",
       "generalError": "Bir hata oluştu",
@@ -864,7 +864,7 @@
       "currentlyNoNewsAlternative": "Aktuell gibt es keine Neuigkeiten."
     }
   },
-  "extras": {
+  "offers": {
     "de": {
       "offers": "Angebote"
     },
@@ -912,7 +912,7 @@
     "de": {
       "technicalTopics": "Technische Funktionen",
       "contentOfCity": "Inhalte von {{city}}",
-      "contentOfExtra": "Angebot \"{{extra}}\"",
+      "contentOfOffer": "Angebot \"{{offer}}\"",
       "disclaimer": "Kontakt und Impressum",
       "searchFor": "Suche nach",
       "contentOfPage": "Inhalt der Seite \"{{page}}\"",
@@ -939,7 +939,7 @@
     "ar": {
       "technicalTopics": "وظائف تقنية",
       "contentOfCity": "محتويات {{city}}",
-      "contentOfExtra": "عرض \"{{extra}}\"",
+      "contentOfOffer": "عرض \"{{offer}}\"",
       "disclaimer": "جهة الاتصال وهيئة التحرير",
       "searchFor": "البحث عن",
       "contentOfPage": "محتوى الصفحة \"{{page}}\"",
@@ -966,7 +966,7 @@
     "en": {
       "technicalTopics": "Technical functions",
       "contentOfCity": "Contents of {{city}}",
-      "contentOfExtra": "Offer \"{{extra}}\"",
+      "contentOfOffer": "Offer \"{{offer}}\"",
       "disclaimer": "Contacts and imprint",
       "searchFor": "Search for",
       "contentOfPage": "Content of the page \"{{page}}\"",
@@ -993,7 +993,7 @@
     "es": {
       "technicalTopics": "Funciones técnicas",
       "contentOfCity": "Contenidos de {{city}}",
-      "contentOfExtra": "Oferta \"{{extra}}\"",
+      "contentOfOffer": "Oferta \"{{offer}}\"",
       "disclaimer": "Contacto y aviso legal",
       "searchFor": "Buscar por",
       "contentOfPage": "Contenido de la página \"{{page}}\"",
@@ -1020,7 +1020,7 @@
     "fa": {
       "technicalTopics": "عملکردهای فنی",
       "contentOfCity": "محتوای {{city}}",
-      "contentOfExtra": "خدمات ‎\"‎{{extra}}‎\"",
+      "contentOfOffer": "خدمات ‎\"‎{{offer}}‎\"",
       "disclaimer": "اطلاعات ناشر و تماس",
       "searchFor": "جستجو برای",
       "contentOfPage": "محتوای صفحه‎\"‎{{page}}‎\"",
@@ -1047,7 +1047,7 @@
     "fr": {
       "technicalTopics": "Fonctions techniques",
       "contentOfCity": "Contenu de {{city}}",
-      "contentOfExtra": "Offre « {{extra}} »",
+      "contentOfOffer": "Offre « {{offer}} »",
       "disclaimer": "Contact et mentions légales",
       "searchFor": "Rechercher",
       "contentOfPage": "Contenu de la page « {{page}} »",
@@ -1074,7 +1074,7 @@
     "hr": {
       "technicalTopics": "Tehničke funkcije",
       "contentOfCity": "Sadržaj za {{city}}",
-      "contentOfExtra": "Ponuda \"{{extra}}\"",
+      "contentOfOffer": "Ponuda \"{{offer}}\"",
       "disclaimer": "Kontakt i impresum",
       "searchFor": "Pretraživanje",
       "contentOfPage": "Sadržaj stranice \"{{page}}\"",
@@ -1101,7 +1101,7 @@
     "ku": {
       "technicalTopics": "Kirdeyên Teknîkî",
       "contentOfCity": "Naverok {{city}}",
-      "contentOfExtra": "Xizmet \"{{extra}}\"",
+      "contentOfOffer": "Xizmet \"{{offer}}\"",
       "disclaimer": "Lêzanînên Weşîner û Têkillî",
       "searchFor": "Lêgerîn sa",
       "contentOfPage": "Naveroka Rûpelê \"{{page}}\"",
@@ -1128,7 +1128,7 @@
     "pl": {
       "technicalTopics": "Funkcje techniczne",
       "contentOfCity": "Treści {{city}}",
-      "contentOfExtra": "Oferta \"{{extra}}\"",
+      "contentOfOffer": "Oferta \"{{offer}}\"",
       "disclaimer": "Kontakt i nota prawna",
       "searchFor": "Wyszukaj",
       "contentOfPage": "Treść strony \"{{page}}\"",
@@ -1155,7 +1155,7 @@
     "ro": {
       "technicalTopics": "Funcții tehnice",
       "contentOfCity": "Conținuturi din {{city}}",
-      "contentOfExtra": "Oferta \"{{extra}}\"",
+      "contentOfOffer": "Oferta \"{{offer}}\"",
       "disclaimer": "Contact și caseta tehnică",
       "searchFor": "Căutare pentru",
       "contentOfPage": "Conținutul paginii \"{{page}}\"",
@@ -1182,7 +1182,7 @@
     "ru": {
       "technicalTopics": "Технические функции",
       "contentOfCity": "Содержимое ресурса {{city}}",
-      "contentOfExtra": "Предложение \"{{extra}}\"",
+      "contentOfOffer": "Предложение \"{{offer}}\"",
       "disclaimer": "Контактная информация и выходные данные",
       "searchFor": "Поиск по",
       "contentOfPage": "Содержимое страницы \"{{page}}\"",
@@ -1209,7 +1209,7 @@
     "so": {
       "technicalTopics": "Hawlaha farsamada",
       "contentOfCity": "Tusmada {{city}}",
-      "contentOfExtra": "Adeegga \"{{extra}}\"",
+      "contentOfOffer": "Adeegga \"{{offer}}\"",
       "disclaimer": "Macluumaadka xiriirka iyo faahfaahinta qoraaga",
       "searchFor": "Raadi",
       "contentOfPage": "Nuxurka bogga \"{{page}}\"",
@@ -1236,7 +1236,7 @@
     "ti": {
       "technicalTopics": "ተክኒካዊ ተግባራት",
       "contentOfCity": "ትሕዝቶታት ናይ {{city}}",
-      "contentOfExtra": "ኣቕርቦት “{{extra}}”",
+      "contentOfOffer": "ኣቕርቦት “{{offer}}”",
       "disclaimer": "ናይ ርክብ ሓበሬታን ናይ ደራሲ ዝርዝራት ሓበሬታን",
       "searchFor": "ነዚ ዝስዕብ ፈትሽ፡",
       "contentOfPage": "ትሕዝቶ ናይቲ ገጽ “{{page}}”",
@@ -1263,7 +1263,7 @@
     "tr": {
       "technicalTopics": "Teknik fonksiyonlar",
       "contentOfCity": "{{city}} içerikleri",
-      "contentOfExtra": "Teklif \"{{extra}}\"",
+      "contentOfOffer": "Teklif \"{{offer}}\"",
       "disclaimer": "İletişim ve künye",
       "searchFor": "Ara",
       "contentOfPage": "Sayfa \"{{page}}\" içeriği",
