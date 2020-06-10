@@ -13,6 +13,7 @@ import {
 import fetchData from '../fetchData'
 import { cmsApiBaseUrl, tunewsApiBaseUrl } from '../constants/urls'
 import type { StateType } from '../StateType'
+import type { AllPayloadsType } from './RouteConfig'
 
 type TunewsRouteParamsType = {| city: string, language: string |}
 type RequiredPayloadsType = {| cities: Payload<Array<CityModel>> |} // Loading tunews is handled inside Page
