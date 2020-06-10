@@ -65,7 +65,7 @@ describe('OffersRouteConfig', () => {
     })
 
     expect(extasRouteConfig.getPageTitle({ payloads, location, cityName: 'Augsburg', t }))
-      .toBe('pageTitles.extras - Augsburg')
+      .toBe('pageTitles.offers - Augsburg')
     expect(extasRouteConfig.getPageTitle({ payloads, location, cityName: null, t }))
       .toBeNull()
   })

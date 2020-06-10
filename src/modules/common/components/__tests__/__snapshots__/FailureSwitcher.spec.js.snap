@@ -18,16 +18,16 @@ exports[`FailureSwitcher render component not found failure should render a even
 
 exports[`FailureSwitcher render component not found failure should render a offer not found failure and match snapshot 1`] = `
 <Translate(Failure)
-  errorMessage="notFound.extra"
-  goToMessage="goTo.extras"
+  errorMessage="notFound.offer"
+  goToMessage="goTo.offers"
   goToPath="/augsburg/de/offers"
 />
 `;
 
 exports[`FailureSwitcher should render a content not found failure if there is a ContentNotFoundError 1`] = `
 <Translate(Failure)
-  errorMessage="notFound.extra"
-  goToMessage="goTo.extras"
+  errorMessage="notFound.offer"
+  goToMessage="goTo.offers"
   goToPath="/augsburg/de/offers"
 />
 `;

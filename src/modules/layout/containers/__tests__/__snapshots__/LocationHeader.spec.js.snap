@@ -170,7 +170,7 @@ exports[`LocationHeader should match snapshot 1`] = `
               },
               "query": Object {},
               "routesMap": Object {},
-              "type": "EXTRAS",
+              "type": "OFFERS",
             }
           }
         />,
