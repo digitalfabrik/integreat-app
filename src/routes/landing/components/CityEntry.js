@@ -7,7 +7,7 @@ import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import normalizeSearchString from '../../../modules/common/normalizeSearchString'
-import { View } from 'react-native'
+import { Text, View } from 'react-native'
 import Highlighter from 'react-native-highlight-words'
 
 const MAX_NUMBER_OF_ALIASES_SHOWN = 3
@@ -23,6 +23,12 @@ const Label = styled(Highlighter)`
 `
 
 const AliasLabel = styled(Highlighter)`
+  font-size: 11px;
+  font-family: ${props => props.theme.fonts.decorativeFontRegular};
+  color: ${props => props.theme.colors.textSecondaryColor};
+`
+
+const Separator = styled(Text)`
   font-size: 11px;
   font-family: ${props => props.theme.fonts.decorativeFontRegular};
   color: ${props => props.theme.colors.textSecondaryColor};
@@ -67,11 +73,21 @@ class CityEntry extends React.PureComponent<PropType> {
                  highlightStyle={{ fontWeight: 'bold' }} />
           {aliases.length > 0 && <Aliases>
             {aliases.slice(0, MAX_NUMBER_OF_ALIASES_SHOWN).map(
-              (alias, index) => <AliasLabel key={alias} theme={theme} searchWords={[filterText]}
-                                            textToHighlight={index !== aliases.slice(0, MAX_NUMBER_OF_ALIASES_SHOWN).length - 1 ? `${alias}, ` : aliases.length <= MAX_NUMBER_OF_ALIASES_SHOWN ? alias : `${alias},...`}
-                                            sanitize={normalizeSearchString}
-                                            highlightStyle={{ fontWeight: 'bold' }} />
+              (alias, index) => <>
+                <AliasLabel key={alias} theme={theme} searchWords={[filterText]}
+                            textToHighlight={alias}
+                            sanitize={normalizeSearchString}
+                            highlightStyle={{ fontWeight: 'bold' }} />
+                {index !== aliases.slice(0, MAX_NUMBER_OF_ALIASES_SHOWN).length - 1 && <>
+                <Separator theme={theme}>,</Separator>
+                <Separator theme={theme}> </Separator></>}
+              </>
             )}
+            {aliases.length > MAX_NUMBER_OF_ALIASES_SHOWN && <>
+            <Separator theme={theme}>,</Separator>
+            <Separator theme={theme}> </Separator>
+            <Separator theme={theme}>...</Separator>
+            </>}
           </Aliases>}
         </View>
       </CityListItem>
