@@ -184,6 +184,7 @@ class NewsList extends React.PureComponent<PropsType> {
       if (selectedNewsItem) {
         const isInstanceOfTunews = selectedNewsItem instanceof TunewsModel
         let content, eNewsNo
+        // To handle flow type failure
         if (selectedNewsItem.content) { content = selectedNewsItem.content }
         if (selectedNewsItem.message) { content = selectedNewsItem.message }
         if (selectedNewsItem.eNewsNo) { eNewsNo = selectedNewsItem.eNewsNo }
