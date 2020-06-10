@@ -2,11 +2,14 @@
 
 import { RouteConfig } from './RouteConfig'
 
+// This type should be exact, but flow has a bug preventing this: https://github.com/facebook/flow/issues/2977
+type RequiredPayloadsType = {}
+
 export const MAIN_DISCLAIMER_ROUTE = 'MAIN_DISCLAIMER'
 
 const mainDisclaimerRoute = '/disclaimer'
 
-class MainDisclaimerRouteConfig implements RouteConfig<void, void> {
+class MainDisclaimerRouteConfig implements RouteConfig<void, RequiredPayloadsType> {
   name = MAIN_DISCLAIMER_ROUTE
   route = mainDisclaimerRoute
   isLocationLayoutRoute = false
@@ -15,7 +18,7 @@ class MainDisclaimerRouteConfig implements RouteConfig<void, void> {
 
   getRoutePath = (): string => mainDisclaimerRoute
 
-  getRequiredPayloads = () => ({})
+  getRequiredPayloads = (): RequiredPayloadsType => ({})
 
   getLanguageChangePath = () => null
 
