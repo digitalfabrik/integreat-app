@@ -15,7 +15,7 @@ class MainDisclaimerRouteConfig implements RouteConfig<void, void> {
 
   getRoutePath = (): string => mainDisclaimerRoute
 
-  getRequiredPayloads = () => {}
+  getRequiredPayloads = () => ({})
 
   getLanguageChangePath = () => null
 
