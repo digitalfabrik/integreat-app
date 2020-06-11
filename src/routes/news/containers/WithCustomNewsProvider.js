@@ -41,7 +41,6 @@ const newsTabs = [
 const NewsTypeIcon = styled.Image`
   align-self: center;
 `
-
 const HeaderContainer = styled.View`
   flex-direction: row;
   align-items: center;
@@ -52,7 +51,6 @@ const TouchableWrapper = styled.TouchableOpacity`
   margin-bottom: 5px;
   margin-horizontal: 10px;
 `
-
 const Loader = styled.ActivityIndicator`
   margin-top: 15px;
 `
@@ -77,7 +75,6 @@ const LocalText: StyledComponent<{}, ThemeType, *> = styled.Text`
   font-family: ${props => props.theme.fonts.decorativeFontBold}
   color: ${props => props.theme.colors.backgroundColor};
 `
-
 export type RouteNotInitializedType = {| status: "routeNotInitialized" |}
 
 export type ProviderRefreshPropType = {|
@@ -95,6 +92,7 @@ export type LoadingType = {|
     ...ProviderRefreshPropType
   }
 |}
+
 export type LoadingMoreType<S: {}> = {| status: "loadingMore", innerProps: S |}
 
 export type ErrorType<R: {}> = {|
