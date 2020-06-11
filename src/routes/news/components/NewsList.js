@@ -89,7 +89,7 @@ const NewsHeadLine: StyledComponent<{}, ThemeType, *> = styled.Text`
   margin-bottom: 15px;
 `
 
-const NewsDetailsContent: StyledComponent<
+const NewsContent: StyledComponent<
   { language: string },
   ThemeType,
   *
@@ -206,9 +206,9 @@ class NewsList extends React.PureComponent<PropsType> {
                 <NewsHeadLine theme={theme}>
                   {selectedNewsItem.title}
                 </NewsHeadLine>
-                <NewsDetailsContent theme={theme} language={language}>
+                <NewsContent theme={theme} language={language}>
                   {content}
-                </NewsDetailsContent>
+                </NewsContent>
               </Container>
                 {isTunews && (
               <Row theme={theme} language={language}>
