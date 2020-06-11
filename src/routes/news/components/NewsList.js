@@ -255,7 +255,6 @@ class NewsList extends React.PureComponent<PropsType> {
     }
 
     return (
-      <SpaceBetween>
         <View style={{ flex: 1 }}>
           <List
             renderNoItemsComponent={this.renderNoItemsComponent}
@@ -265,7 +264,6 @@ class NewsList extends React.PureComponent<PropsType> {
             renderItem={this.rendersNewsListItem(cityCode, language)}
           />
         </View>
-      </SpaceBetween>
     )
   }
 }
