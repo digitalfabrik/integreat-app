@@ -18,7 +18,6 @@ import type {
 } from '../../../modules/app/StateType'
 import type { NavigateToNewsParamsType } from '../../../modules/app/createNavigateToNews'
 import withTheme from '../../../modules/theme/hocs/withTheme'
-import SpaceBetween from '../../../modules/common/components/SpaceBetween'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
 import NewsListItem from './NewsListItem'
 import headerImage from '../assets/tu-news-header-details-icon.svg'
