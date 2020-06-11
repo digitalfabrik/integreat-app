@@ -3,9 +3,9 @@
 import * as React from 'react'
 
 /**
- * Since enzyme shallow rendering doesn't work with react-onclickoutside, here's a mock:
+ * Since enzyme rendering doesn't work with react-onclickoutside, here's a mock:
  */
-const onClickOutside = <T> (WrappedComponent: React.ComponentType<T>) => class extends React.Component<T> {
+const onClickOutside = <P> (WrappedComponent: React.ComponentType<P>) => class extends React.Component<P> {
   static displayName = `OnClickOutside(${WrappedComponent.displayName || WrappedComponent.name || typeof WrappedComponent})`
 
   checkRef = (instance: mixed) => {
