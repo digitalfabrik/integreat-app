@@ -59,7 +59,6 @@ export function * fetchNews (
               TUNEWS_FETCH_COUNT_LIMIT
             )
       ])
-      console.log({ news })
 
       const insert: PushNewsActionType = {
         type: 'PUSH_NEWS',
