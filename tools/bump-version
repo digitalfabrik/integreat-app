@@ -14,7 +14,7 @@ program
 
 const commitAndTag = async (versionName, versionCode, { deliverinoPrivateKey, owner, repo, branch }) => {
   const appOctokit = await authenticate({ deliverinoPrivateKey, owner, repo })
-  const versionFileContent = await appOctokit.repos.getContents({ owner, repo, path: VERSION_FILE, ref: branch })
+  const versionFileContent = await appOctokit.repos.getContent({ owner, repo, path: VERSION_FILE, ref: branch })
 
   const contentBase64 = Buffer.from(JSON.stringify({ versionName, versionCode })).toString('base64')
 
@@ -68,7 +68,7 @@ const commitAndTag = async (versionName, versionCode, { deliverinoPrivateKey, ow
 }
 
 program
-  .command('bump_to <new-version-name> [new-version-code]')
+  .command('bump-to <new-version-name> [new-version-code]')
   .description('commits the supplied version name and code to github and tags the commit')
   .action(async (newVersionName, newVersionCode) => {
     try {

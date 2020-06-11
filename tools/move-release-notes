@@ -85,7 +85,7 @@ const moveReleaseNotes = async ({ newVersionName, deliverinoPrivateKey, owner, r
 }
 
 program
-  .command('move_to <new-version-name>')
+  .command('move-to <new-version-name>')
   .description('move the release notes in \'unreleased\' to a new subdirectory <new-version-name>')
   .action(async newVersionName => {
     try {

@@ -115,7 +115,7 @@ const createRelease = async ({ newVersionName, accessToken, privateKey, consumer
 }
 
 program
-  .command('create_release <new-version-name>')
+  .command('create-release <new-version-name>')
   .description('create a new release with the name <new-version-name> on jira and assign all issues resolved since the last release')
   .action(async newVersionName => {
     try {
