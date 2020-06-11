@@ -45,7 +45,7 @@ const StyledLink = styled(Link)`
 
       & > div:first-child {
         box-shadow: 0 0px 0px 0px rgba(0, 0, 0, 0.3);
-        border-color: #fbda16;
+        border-color: ${props.theme.colors.themeColor};
       }
    ` : ''}
 
