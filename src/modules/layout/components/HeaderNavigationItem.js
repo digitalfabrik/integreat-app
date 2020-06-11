@@ -7,7 +7,7 @@ import Link from 'redux-first-router-link'
 
 const StyledLink = styled(Link)`
   ${props => props.theme.helpers.removeLinkHighlighting};
-  flex: 1;
+  flex: 1 1 135px;
   color: ${props => props.theme.colors.textSecondaryColor};
   font-size: .9em;
   font-weight: 800;

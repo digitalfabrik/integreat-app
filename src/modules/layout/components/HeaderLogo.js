@@ -14,11 +14,12 @@ type PropsType = {|
 
 const LogoContainer = styled.div`
   box-sizing: border-box;
-  flex-shrink: 1;
   height: ${props => props.theme.dimensions.headerHeightLarge}px;
   padding: 0 10px;
   display: flex;
+  justify-content: start;
   align-items: center;
+  flex: 0 1 220px;
   order: 1;
 
   & a {
@@ -27,12 +28,14 @@ const LogoContainer = styled.div`
   }
 
   & img {
+    height: 100%;
     max-width: 100%;
-    max-height: 100%;
+    object-fit: contain;
   }
 
   @media ${props => props.theme.dimensions.smallViewport} {
     height: ${props => props.theme.dimensions.headerHeightSmall}px;
+    flex: 1 1 0;
 
     & a {
       max-height: 75%;

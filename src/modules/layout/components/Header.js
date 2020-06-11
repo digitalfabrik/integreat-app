@@ -70,7 +70,6 @@ const HeaderSeparator = styled.div`
 `
 
 const ActionBar = styled.div`
-  flex-shrink: 1;
   order: 3;
   display: flex;
   align-items: center;
@@ -78,14 +77,14 @@ const ActionBar = styled.div`
 
   @media ${props => props.theme.dimensions.smallViewport} {
     order: 2;
+    flex: 1 1 0;
   }
 `
 
 const NavigationBar = styled.div`
   display: flex;
   padding: 0 10px;
-  flex-grow: 1;
-  flex-shrink: 0;
+  flex: 1 1 0;
   align-items: stretch;
   justify-content: center;
 `
