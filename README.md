@@ -13,6 +13,7 @@ versioning: ![versioning](https://img.shields.io/badge/calver-YYYY.MM.PATCH-22bf
 * [Technology Stack](docs/02-technology-stack.md)
 * [Deployment](docs/03-deployment.md)
 * [I18N](docs/14-i18n.md)
+* [Glossary](https://wiki.integreat-app.de/glossary)
 
 ## Contributing
 If you want to know more about Integreat or if you want to join us, contact [Max](mailto:ammann@integreat-app.de), 
