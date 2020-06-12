@@ -89,11 +89,7 @@ const NewsHeadLine: StyledComponent<{}, ThemeType, *> = styled.Text`
   margin-bottom: 15px;
 `
 
-const NewsContent: StyledComponent<
-  { language: string },
-  ThemeType,
-  *
-> = styled.Text`
+const NewsContent: StyledComponent<{ language: string }, ThemeType, *> = styled.Text`
   font-family: ${props => props.theme.fonts.decorativeFontRegular};
   font-size: 16px;
   letter-spacing: 0.5px;
