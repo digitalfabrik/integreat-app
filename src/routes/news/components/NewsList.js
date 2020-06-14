@@ -240,12 +240,7 @@ class NewsList extends React.PureComponent<PropsType> {
         language
       })
       return (
-        <Failure
-          errorMessage={error.message}
-          code={ErrorCodes.PageNotFound}
-          t={t}
-          theme={theme}
-        />
+        <Failure errorMessage={error.message} code={ErrorCodes.PageNotFound} t={t} theme={theme} />
       )
     }
 
