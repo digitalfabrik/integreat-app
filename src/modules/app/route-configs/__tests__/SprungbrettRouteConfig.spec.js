@@ -35,7 +35,7 @@ describe('SprungbrettRouteConfig', () => {
 
   it('should get the right path', () => {
     expect(sprungbrettRouteConfig.getRoutePath({ city: 'augsburg', language: 'de' }))
-      .toBe('/augsburg/de/extras/sprungbrett')
+      .toBe('/augsburg/de/offers/sprungbrett')
   })
 
   it('should get the required payloads', () => {
@@ -60,20 +60,20 @@ describe('SprungbrettRouteConfig', () => {
   it('should get the right language change path', () => {
     const location = createLocation({
       payload: { city: 'augsburg', language: 'de' },
-      pathname: '/augsburg/de/extras/sprungbrett',
+      pathname: '/augsburg/de/offers/sprungbrett',
       type: sprungbrettRouteConfig.name
     })
 
     expect(sprungbrettRouteConfig.getLanguageChangePath({ payloads, language: 'en', location }))
-      .toBe('/augsburg/en/extras/sprungbrett')
+      .toBe('/augsburg/en/offers/sprungbrett')
     expect(sprungbrettRouteConfig.getLanguageChangePath({ payloads, language: 'ar', location }))
-      .toBe('/augsburg/ar/extras/sprungbrett')
+      .toBe('/augsburg/ar/offers/sprungbrett')
   })
 
   it('should get the right page title', () => {
     const location = createLocation({
       payload: { city: 'augsburg', language: 'de' },
-      pathname: '/augsburg/de/extras/sprungbrett',
+      pathname: '/augsburg/de/offers/sprungbrett',
       type: sprungbrettRouteConfig.name
     })
 
@@ -90,7 +90,7 @@ describe('SprungbrettRouteConfig', () => {
   it('should return the right feedback target information', () => {
     const location = createLocation({
       payload: { city: 'augsburg', language: 'de' },
-      pathname: '/augsburg/de/extras/sprungbrett',
+      pathname: '/augsburg/de/offers/sprungbrett',
       type: sprungbrettRouteConfig.name
     })
 

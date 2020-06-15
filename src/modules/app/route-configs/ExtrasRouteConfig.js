@@ -22,11 +22,11 @@ type RequiredPayloadsType = {| extras: Payload<Array<ExtraModel>>, cities: Paylo
 export const EXTRAS_ROUTE = 'EXTRAS'
 
 /**
- * ExtrasRoute, matches /augsburg/de/extras and /augsburg/de/extras
+ * ExtrasRoute, matches /augsburg/de/offers and /augsburg/de/offers
  * @type {{path: string, thunk: function(Dispatch, GetState)}}
  */
 const extrasRoute: Route = {
-  path: '/:city/:language/extras/:extraId?',
+  path: '/:city/:language/offers/:offerId?',
   thunk: async (dispatch, getState) => {
     const state: StateType = getState()
     const { city, language } = state.location.payload
@@ -47,7 +47,7 @@ class ExtrasRouteConfig implements RouteConfig<ExtrasRouteParamsType, RequiredPa
   requiresHeader = true
   requiresFooter = true
 
-  getRoutePath = ({ city, language }: ExtrasRouteParamsType): string => `/${city}/${language}/extras`
+  getRoutePath = ({ city, language }: ExtrasRouteParamsType): string => `/${city}/${language}/offers`
 
   getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType => ({
     cities: payloads.citiesPayload,

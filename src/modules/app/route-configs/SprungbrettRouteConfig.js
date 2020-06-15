@@ -43,7 +43,7 @@ const fetchExtras = async (dispatch, getState) => {
 }
 
 const sprungbrettRoute: Route = {
-  path: `/:city/:language/extras/${SPRUNGBRETT_EXTRA}`,
+  path: `/:city/:language/offers/${SPRUNGBRETT_EXTRA}`,
   thunk: async (dispatch, getState) => {
     const state: StateType = getState()
     const { city, language } = state.location.payload
@@ -65,7 +65,7 @@ class SprungbrettRouteConfig implements RouteConfig<SprungbrettRouteParamsType, 
   requiresFooter = true
 
   getRoutePath = ({ city, language }: SprungbrettRouteParamsType): string =>
-    `/${city}/${language}/extras/${SPRUNGBRETT_EXTRA}`
+    `/${city}/${language}/offers/${SPRUNGBRETT_EXTRA}`
 
   getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType =>
     ({ sprungbrettJobs: payloads.sprungbrettJobsPayload, extras: payloads.extrasPayload })
