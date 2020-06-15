@@ -4,10 +4,36 @@ import * as React from 'react'
 import onClickOutside from 'react-onclickoutside'
 import styled from 'styled-components'
 import ReactTooltip from 'react-tooltip'
+import type { ThemeType } from '../../../../build/themes/ThemeType'
 
-export const StyledButton = styled.button`
-  background-color: ${props => props.theme.colors.backgroundAccentColor};
-  border: none;
+export const Container = styled.div`
+  width: calc(0.8 * ${props => props.theme.dimensions.headerHeightLarge}px);
+  height: calc(0.8 * ${props => props.theme.dimensions.headerHeightLarge}px);
+  box-sizing: border-box;
+
+  @media ${props => props.theme.dimensions.smallViewport} {
+    width: calc(0.8 * ${props => props.theme.dimensions.headerHeightSmall}px);
+    height: calc(0.8 * ${props => props.theme.dimensions.headerHeightSmall}px);
+  }
+
+  & > button {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+    background-color: ${props => props.theme.colors.backgroundAccentColor};
+    border: none;
+
+  }
+
+  & > button > img {
+    box-sizing: border-box;
+    padding: 22%;
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+  }
 `
 
 export const DropDownContainer = styled.div`
@@ -15,6 +41,9 @@ export const DropDownContainer = styled.div`
   top: ${props => props.theme.dimensions.headerHeightLarge}px;
   right: 0;
   width: 100%;
+  box-sizing: border-box;
+  opacity: ${props => props.active ? '1' : '0'};
+
   transform: scale(${props => props.active ? '1' : '0.9'});
   transform-origin: center top;
   justify-content: center;
@@ -26,10 +55,16 @@ export const DropDownContainer = styled.div`
   @media ${props => props.theme.dimensions.smallViewport} {
     top: ${props => props.theme.dimensions.headerHeightSmall}px;
   }
+
+  @media ${props => props.theme.dimensions.minMaxWidth} {
+    padding-right: calc((200% - 100vw - ${props => props.theme.dimensions.maxWidth}px) / 2);
+    padding-left: calc((100vw - ${props => props.theme.dimensions.maxWidth}px) / 2);
+  }
 `
 
 type PropsType = {|
   children: React.Element<*>,
+  theme: ThemeType,
   iconSrc: string,
   text: string
 |}
@@ -43,7 +78,7 @@ type StateType = {|
  * Header. Once the user clicks outside, the node is hidden again. Additionally, the inner node gets a
  * closeDropDownCallback through its props to close the dropDown and hide itself.
  */
-export class HeaderDropDown extends React.Component<PropsType, StateType> {
+export class HeaderActionItemDropDown extends React.Component<PropsType, StateType> {
   componentDidUpdate () {
     /* https://www.npmjs.com/package/react-tooltip#1-using-tooltip-within-the-modal-eg-react-modal- */
     ReactTooltip.rebuild()
@@ -52,8 +87,6 @@ export class HeaderDropDown extends React.Component<PropsType, StateType> {
   constructor (props: PropsType) {
     super(props)
     this.state = { dropDownActive: false }
-    const self: any = this // https://github.com/facebook/flow/issues/5874
-    self.handleClickOutside = this.handleClickOutside.bind(this)
   }
 
   toggleDropDown = () => {
@@ -66,27 +99,27 @@ export class HeaderDropDown extends React.Component<PropsType, StateType> {
     }
   }
 
-  handleClickOutside () {
+  handleClickOutside = () => {
     this.closeDropDown()
   }
 
   render () {
-    const { iconSrc, text, children } = this.props
+    const { iconSrc, text, children, theme } = this.props
     const { dropDownActive } = this.state
 
     return (
-      <div>
-        <StyledButton selector='button' data-tip={text} aria-label={text} onClick={this.toggleDropDown}>
+      <Container theme={theme}>
+        <button selector='button' data-tip={text} aria-label={text} onClick={this.toggleDropDown}>
           <img alt='' src={iconSrc} />
-        </StyledButton>
-        <DropDownContainer active={dropDownActive}>
+        </button>
+        <DropDownContainer active={dropDownActive} theme={theme}>
           {React.cloneElement(children, {
             closeDropDownCallback: this.closeDropDown
           })}
         </DropDownContainer>
-      </div>
+      </Container>
     )
   }
 }
 
-export default onClickOutside<PropsType, HeaderDropDown>(HeaderDropDown)
+export default onClickOutside<PropsType, HeaderActionItemDropDown>(HeaderActionItemDropDown)

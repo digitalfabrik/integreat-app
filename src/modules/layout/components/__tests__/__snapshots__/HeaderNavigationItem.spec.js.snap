@@ -1,23 +1,36 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`HeaderNavigationItem should render an ActiveNavigationItem 1`] = `
-<HeaderNavigationItem__ActiveNavigationItem
-  key="Kategorien"
-  selected={true}
+<HeaderNavigationItem__StyledLink
+  active={true}
   to="/augsburg/de"
 >
-  Kategorien
-</HeaderNavigationItem__ActiveNavigationItem>
+  <HeaderNavigationItem__Circle>
+    <img
+      alt=""
+      src="icon"
+    />
+  </HeaderNavigationItem__Circle>
+  <div>
+    Kategorien
+  </div>
+</HeaderNavigationItem__StyledLink>
 `;
 
 exports[`HeaderNavigationItem should render an InactiveNavigationItem 1`] = `
-<HeaderNavigationItem__DisabledNavigationItem
-  aria-disabled={true}
-  aria-label="Kategorien - random tooltip"
+<HeaderNavigationItem__StyledLink
+  active={false}
   data-tip="random tooltip"
-  key="Kategorien"
-  role="link"
+  to="/augsburg/de"
 >
-  Kategorien
-</HeaderNavigationItem__DisabledNavigationItem>
+  <HeaderNavigationItem__Circle>
+    <img
+      alt=""
+      src="icon"
+    />
+  </HeaderNavigationItem__Circle>
+  <div>
+    Kategorien
+  </div>
+</HeaderNavigationItem__StyledLink>
 `;
