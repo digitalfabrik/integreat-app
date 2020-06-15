@@ -46,8 +46,8 @@ exports[`FeedbackBox should match snapshot 1`] = `
           "tunewsThemeColorLight": "rgba(0, 122, 168, 0.4)",
         },
         "dimensions": Object {
-          "headerHeightLarge": 85,
-          "headerHeightSmall": 55,
+          "headerHeightLarge": 90,
+          "headerHeightSmall": 70,
           "maxWidth": 1100,
           "minMaxWidth": "screen and (min-width: 1100px)",
           "smallViewport": "(max-width: 750px)",

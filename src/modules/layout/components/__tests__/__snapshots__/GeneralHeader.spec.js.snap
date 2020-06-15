@@ -4,12 +4,11 @@ exports[`GeneralHeader should match snapshot 1`] = `
 <withPlatform(WithTheme(Header))
   actionItems={
     Array [
-      HeaderActionItem {
-        "_href": "/",
-        "_iconSrc": "test-file-stub",
-        "_node": undefined,
-        "_text": undefined,
-      },
+      <HeaderActionItemLink
+        href="/"
+        iconSrc="test-file-stub"
+        text="layout:changeLocation"
+      />,
     ]
   }
   logoHref="/"
