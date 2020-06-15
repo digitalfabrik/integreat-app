@@ -20,7 +20,7 @@ exports[`FailureSwitcher render extra component not found failure should render 
 <Translate(Failure)
   errorMessage="notFound.extra"
   goToMessage="goTo.extras"
-  goToPath="/augsburg/de/extras"
+  goToPath="/augsburg/de/offers"
 />
 `;
 

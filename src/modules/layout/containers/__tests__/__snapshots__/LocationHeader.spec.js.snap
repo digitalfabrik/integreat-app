@@ -64,7 +64,7 @@ exports[`LocationHeader NavigationItems should show categories, if extras or new
 Array [
   <HeaderNavigationItem
     active={true}
-    href="/augsburg/de/extras"
+    href="/augsburg/de/offers"
     selected={false}
     text="offers"
   />,
@@ -99,7 +99,7 @@ exports[`LocationHeader NavigationItems should show extras, categories, events i
 Array [
   <HeaderNavigationItem
     active={true}
-    href="/augsburg/de/extras"
+    href="/augsburg/de/offers"
     selected={false}
     text="offers"
   />,
@@ -184,7 +184,7 @@ exports[`LocationHeader should match snapshot 1`] = `
     Array [
       <HeaderNavigationItem
         active={true}
-        href="/augsburg/de/extras"
+        href="/augsburg/de/offers"
         selected={true}
         text="offers"
       />,
