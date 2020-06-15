@@ -11,6 +11,7 @@ versioning: ![versioning](https://img.shields.io/badge/calver-YYYY.MM.PATCH-22bf
 * [Pull requests](#pull-requests)
 * [Conventions](docs/01-conventions.md)
 * [Technology Stack](docs/02-technology-stack.md)
+* [Browser Stack](docs/05-browser-stack.md)
 * [Deployment](docs/03-deployment.md)
 * [I18N](docs/14-i18n.md)
 
