@@ -122,7 +122,7 @@ export class Header extends React.PureComponent<PropsType> {
           <Row>
             <HeaderLogo theme={theme} link={logoHref} src={buildConfig.logoWide} alt={buildConfig.appTitle} />
             {!viewportSmall && cityName && <HeaderSeparator theme={theme} />}
-            {cityName && <HeaderTitle theme={theme}>{cityName}</HeaderTitle>}
+            {(!viewportSmall || cityName) && <HeaderTitle theme={theme}>{cityName}</HeaderTitle>}
             <ActionBar>{actionItems}</ActionBar>
           </Row>
           {hasNavigationBar && <Row><NavigationBar>{navigationItems}</NavigationBar></Row>}
