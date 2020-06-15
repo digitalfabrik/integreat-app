@@ -84,7 +84,7 @@ const ActionBar = styled.div`
 const NavigationBar = styled.div`
   display: flex;
   padding: 0 10px;
-  flex: 1 1 0;
+  flex: 1 1 0px; /* The px unit is necessary for IE11 */
   align-items: stretch;
   justify-content: center;
 `
