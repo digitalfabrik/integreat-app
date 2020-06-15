@@ -44,7 +44,7 @@ const HeaderTitleDiv = styled.div`
 class HeaderTitle extends React.PureComponent<PropsType> {
   render () {
     const { theme, children } = this.props
-    return <HeaderTitleDiv theme={theme} long={children?.length >= LONG_TITLE_LENGTH}>{children}</HeaderTitleDiv>
+    return <HeaderTitleDiv theme={theme} long={(children?.length || 0) >= LONG_TITLE_LENGTH}>{children}</HeaderTitleDiv>
   }
 }
 
