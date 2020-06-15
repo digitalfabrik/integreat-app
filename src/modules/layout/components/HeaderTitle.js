@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import type { ThemeType } from '../../../../build/themes/ThemeType'
 
 type PropsType = {|
-  children: string,
+  children: ?string,
   theme: ThemeType
 |}
 
@@ -44,7 +44,7 @@ const HeaderTitleDiv = styled.div`
 class HeaderTitle extends React.PureComponent<PropsType> {
   render () {
     const { theme, children } = this.props
-    return <HeaderTitleDiv theme={theme} long={children.length >= LONG_TITLE_LENGTH}>{children}</HeaderTitleDiv>
+    return <HeaderTitleDiv theme={theme} long={children?.length >= LONG_TITLE_LENGTH}>{children}</HeaderTitleDiv>
   }
 }
 
