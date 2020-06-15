@@ -53,6 +53,7 @@ const Row = styled.div`
   @media ${props => props.theme.dimensions.smallViewport} {
     justify-content: space-between;
     flex-wrap: wrap;
+    min-height: ${props => props.theme.dimensions.headerHeightSmall}px;
   }
 `
 
