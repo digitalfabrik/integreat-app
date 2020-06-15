@@ -5,7 +5,7 @@ import * as React from 'react'
 import iconPlaceholder from '../assets/IconPlaceholder.png'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
-import type { ThemeType } from '../../../modules/theme/constants/theme'
+import type { ThemeType } from '../../theme/constants/theme'
 import StyledLink from './StyledLink'
 import SubCategoryListItem from './SubCategoryListItem'
 import Image from '../../common/components/Image'
@@ -83,7 +83,7 @@ class CategoryListItem extends React.Component<PropsType> {
     return <CategoryTitleContainer theme={theme} language={language}>
       <CategoryTitle theme={theme} textToHighlight={category.title} sanitize={normalizeSearchString}
                      searchWords={query ? [query] : []}
-                     highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }} />
+                     highlightStyle={{ fontWeight: 'bold' }} />
     </CategoryTitleContainer>
   }
 
