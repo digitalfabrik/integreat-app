@@ -15,10 +15,5 @@ global.__CONFIG__ = integreatTestCmsBuildConfig
 
 // $FlowFixMe
 console.error = error => {
-  throw Error(error)
-}
-
-// $FlowFixMe
-console.warn = warn => {
-  throw Error(warn)
+  console.log(error)
 }
