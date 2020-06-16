@@ -6,7 +6,6 @@ import { type StyledComponent } from 'styled-components'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 
 const GroupText: StyledComponent<{}, ThemeType, *> = styled.Text`
-  width: 100%;
   margin-top: 5px;
   padding: 10px 0;
   background-color: ${props => props.theme.colors.backgroundColor};
@@ -18,6 +17,9 @@ const GroupText: StyledComponent<{}, ThemeType, *> = styled.Text`
 const BorderWrapper: StyledComponent<{}, ThemeType, *> = styled.View`
   border-bottom-width: 1px;
   border-bottom-color: ${props => props.theme.colors.themeColor};
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: flex-start;
 `
 
 type PropsType = {|
@@ -28,8 +30,8 @@ type PropsType = {|
 class CityGroup extends React.Component<PropsType> {
   render () {
     return <BorderWrapper theme={this.props.theme}>
-      <GroupText theme={this.props.theme}>{this.props.children}</GroupText>
-    </BorderWrapper>
+        <GroupText theme={this.props.theme}>{this.props.children}</GroupText>
+      </BorderWrapper>
   }
 }
 
