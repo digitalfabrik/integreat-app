@@ -21,7 +21,7 @@ const RichLayout = styled.div`
 
 const Body = styled.div`
   width: 100%;
-  max-width: ${props => props.theme.dimensions.maxWidth}px;
+  box-sizing: border-box;
   flex-grow: 1;
   margin: 0 auto;
   background-color: ${props => props.theme.colors.backgroundColor};
