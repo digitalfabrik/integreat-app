@@ -70,7 +70,9 @@ class CityEntry extends React.PureComponent<PropType> {
   render () {
     const { city, theme, filterText } = this.props
     const normalizedFilter = normalizeSearchString(filterText)
-    const aliases = this.getMatchingAliases(city, normalizedFilter)
+    let aliases = this.getMatchingAliases(city, normalizedFilter)
+    const sliceNeeded = aliases.length > MAX_NUMBER_OF_ALIASES_SHOWN
+    aliases = sliceNeeded ? aliases.slice(0, MAX_NUMBER_OF_ALIASES_SHOWN) : aliases
     return (
       <CityListItem onPress={this.navigateToDashboard}
                     underlayColor={theme.colors.backgroundAccentColor}>
@@ -78,18 +80,18 @@ class CityEntry extends React.PureComponent<PropType> {
           <Label theme={theme} searchWords={[filterText]} textToHighlight={city.name} sanitize={normalizeSearchString}
                  highlightStyle={{ fontWeight: 'bold' }} />
           {aliases.length > 0 && <Aliases>
-            {aliases.slice(0, MAX_NUMBER_OF_ALIASES_SHOWN).map(
+            {aliases.map(
               (alias, index) => <>
                 <AliasLabel key={alias} theme={theme} searchWords={[filterText]}
                             textToHighlight={alias}
                             sanitize={normalizeSearchString}
                             highlightStyle={{ fontWeight: 'bold' }} />
-                {index !== aliases.slice(0, MAX_NUMBER_OF_ALIASES_SHOWN).length - 1 && <>
+                {index !== aliases.length - 1 && <>
                   <Separator theme={theme}>,</Separator>
                   <Separator theme={theme}> </Separator></>}
               </>
             )}
-            {aliases.length > MAX_NUMBER_OF_ALIASES_SHOWN && <>
+            {sliceNeeded && <>
               <Separator theme={theme}>,</Separator>
               <Separator theme={theme}> </Separator>
               <Separator theme={theme}>...</Separator>
