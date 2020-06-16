@@ -70,9 +70,8 @@ class CityEntry extends React.PureComponent<PropType> {
   render () {
     const { city, theme, filterText } = this.props
     const normalizedFilter = normalizeSearchString(filterText)
-    let aliases = this.getMatchingAliases(city, normalizedFilter)
+    const aliases = this.getMatchingAliases(city, normalizedFilter).slice(0, MAX_NUMBER_OF_ALIASES_SHOWN)
     const sliceNeeded = aliases.length > MAX_NUMBER_OF_ALIASES_SHOWN
-    aliases = sliceNeeded ? aliases.slice(0, MAX_NUMBER_OF_ALIASES_SHOWN) : aliases
     return (
       <CityListItem onPress={this.navigateToDashboard}
                     underlayColor={theme.colors.backgroundAccentColor}>
