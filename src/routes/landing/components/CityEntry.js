@@ -8,7 +8,9 @@ import { CityModel } from '@integreat-app/integreat-api-client'
 import styled, { withTheme } from 'styled-components'
 import Link from 'redux-first-router-link'
 import CategoriesRouteConfig from '../../../modules/app/route-configs/CategoriesRouteConfig'
-import type { ThemeType } from '../../../modules/theme/constants/theme'
+import type { ThemeType } from '../../../../build/themes/ThemeType'
+
+const MAX_NUMBER_OF_ALIASES = 3
 
 const CityListItem = styled(Link)`
   display: flex;
@@ -38,7 +40,7 @@ type PropsType = {|
 
 class CityEntry extends React.PureComponent<PropsType> {
   getMatchedAliases = (city: CityModel, normalizedFilter: string): Array<string> => {
-    if (city.aliases && normalizedFilter.length >= 2) {
+    if (city.aliases && normalizedFilter.length >= 1) {
       return Object.keys(city.aliases)
         .filter(alias => normalizeSearchString(alias).includes(normalizedFilter))
     }
@@ -49,21 +51,23 @@ class CityEntry extends React.PureComponent<PropsType> {
     const { city, language, filterText, theme } = this.props
     const normalizedFilter = normalizeSearchString(filterText)
     const aliases = this.getMatchedAliases(city, normalizedFilter)
-
     return (
       <CityListItem to={new CategoriesRouteConfig().getRoutePath({ city: city.code, language })}>
         <Highlighter searchWords={[filterText]} sanitize={normalizeSearchString} aria-label={city.name}
-                     textToHighlight={city.name} highlightStyle={{ backgroundColor: theme.colors.themeColor }} />
+                     textToHighlight={city.name}
+                     highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }} />
         <div style={{ margin: '0 5px', fontSize: '12px' }}>
           {
-            aliases.map((alias, index) => (
+            aliases.slice(0, MAX_NUMBER_OF_ALIASES).map((alias, index) => (
               <>
                 <AliasItem key={alias} aria-label={alias} searchWords={[filterText]} sanitize={normalizeSearchString}
-                           textToHighlight={alias} highlightStyle={{ backgroundColor: theme.colors.themeColor }} />
+                           textToHighlight={alias}
+                           highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }} />
                 {index !== aliases.length - 1 && <span>, </span>}
               </>
             ))
           }
+          {aliases.length > MAX_NUMBER_OF_ALIASES && <span> ... </span>}
         </div>
       </CityListItem>
     )
