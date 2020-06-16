@@ -82,14 +82,14 @@ const ActionBar = styled.div`
 
   @media ${props => props.theme.dimensions.smallViewport} {
     order: 2;
-    flex: 1 1 0px; /* stylelint-disable-line length-zero-no-unit */ /* The px unit is necessary for IE11 */
+    flex: 1 1 0%; /* The % unit is necessary for IE11 */
   }
 `
 
 const NavigationBar = styled.div`
   display: flex;
   padding: 0 10px;
-  flex: 1 1 0px; /* stylelint-disable-line length-zero-no-unit */ /* The px unit is necessary for IE11 */
+  flex: 1 1 0%; /* The % unit is necessary for IE11 */
   align-items: stretch;
   justify-content: center;
 `
