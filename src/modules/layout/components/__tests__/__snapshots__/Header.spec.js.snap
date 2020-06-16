@@ -9,7 +9,9 @@ exports[`Header should match snapshot with largeViewport 1`] = `
   scrollHeight={90}
 >
   <Header__HeaderContainer>
-    <Header__Row>
+    <Header__Row
+      hasTitle={false}
+    >
       <HeaderLogo
         alt="Integreat"
         link="/random_route"
@@ -131,7 +133,9 @@ exports[`Header should match snapshot with smallViewport 1`] = `
   scrollHeight={70}
 >
   <Header__HeaderContainer>
-    <Header__Row>
+    <Header__Row
+      hasTitle={false}
+    >
       <HeaderLogo
         alt="Integreat"
         link="/random_route"
