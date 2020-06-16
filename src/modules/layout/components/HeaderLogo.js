@@ -35,7 +35,7 @@ const LogoContainer = styled.div`
 
   @media ${props => props.theme.dimensions.smallViewport} {
     height: ${props => props.theme.dimensions.headerHeightSmall}px;
-    flex: 1 1 0px;  /* stylelint-disable-line length-zero-no-unit */ /* The px unit is necessary for IE11 */
+    flex: 1 1 0%; /* The % unit is necessary for IE11 */
 
     & a {
       max-height: 75%;
