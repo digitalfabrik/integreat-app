@@ -81,15 +81,15 @@ class CityEntry extends React.PureComponent<PropType> {
                  highlightStyle={{ fontWeight: 'bold' }} />
           {aliases.length > 0 && <Aliases>
             {aliases.map(
-              (alias, index) => <>
-                <AliasLabel key={alias} theme={theme} searchWords={[filterText]}
+              (alias, index) => <React.Fragment key={alias}>
+                <AliasLabel theme={theme} searchWords={[filterText]}
                             textToHighlight={alias}
                             sanitize={normalizeSearchString}
                             highlightStyle={{ fontWeight: 'bold' }} />
                 {index !== aliases.length - 1 && <>
                   <Separator theme={theme}>,</Separator>
                   <Separator theme={theme}> </Separator></>}
-              </>
+              </React.Fragment>
             )}
             {sliceNeeded && <>
               <Separator theme={theme}>,</Separator>
