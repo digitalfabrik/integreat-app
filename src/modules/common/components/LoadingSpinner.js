@@ -8,9 +8,11 @@ const lineScaleParty = keyframes`
   0% {
     transform: scale(1);
   }
+
   50% {
     transform: scale(0.5);
   }
+
   100% {
     transform: scale(1);
   }
@@ -20,21 +22,25 @@ const Spinner = styled.div`
   margin-top: 50px;
   text-align: center;
   animation-name: ${lineScaleParty};
+
   > div:nth-child(1) {
-      animation-delay: 0.48s;
-      animation-duration: 0.54s;
+    animation-delay: 0.48s;
+    animation-duration: 0.54s;
   }
+
   > div:nth-child(2) {
-      animation-delay: -0.15s;
-      animation-duration: 1.15s;
+    animation-delay: -0.15s;
+    animation-duration: 1.15s;
   }
+
   > div:nth-child(3) {
-      animation-delay: -0.04s;
-      animation-duration: 0.77s;
+    animation-delay: -0.04s;
+    animation-duration: 0.77s;
   }
+
   > div:nth-child(4) {
-      animation-delay: -0.12s;
-      animation-duration: 0.61s;
+    animation-delay: -0.12s;
+    animation-duration: 0.61s;
   }
 
   > div {
