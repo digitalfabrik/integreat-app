@@ -75,13 +75,10 @@ const createRelease = async ({ newVersionName, accessToken, privateKey, consumer
   }, accessToken, privateKey, consumerKey)
 
   // Get the new and the last release
-  const { values: versions } = await getFromJira(
+  const { values: [newVersion, lastVersion] } = await getFromJira(
     `/rest/api/2/project/${projectKey}/version?orderBy=-releaseDate&maxResults=2`
   )
-
-  const lastVersion = versions[1]
   const lastDate = lastVersion.releaseDate
-  const newVersion = versions[0]
 
   if (newVersion.name !== newVersionName) {
     throw Error(`There is already a release ${newVersion.name} with a later release date in the project!`)
