@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import styled from 'styled-components'
-import type { ThemeType } from '../../../../build/themes/ThemeType'
+import type { ThemeType } from '../../theme/constants/theme'
 
 type PropsType = {|
   children: ?string,

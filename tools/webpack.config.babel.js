@@ -38,12 +38,12 @@ const createConfig = (env = {}) => {
   console.log('Production: ', isProductionBuild)
   console.log('Version: ', version)
 
-  const buildConfig = require(`./configs/${buildConfigName}`)
-  const configAssets = path.resolve(__dirname, `./configs/${buildConfigName}/assets`)
+  const buildConfig = require(`../build-configs/configs/${buildConfigName}`)
+  const configAssets = path.resolve(__dirname, `../build-configs/configs/${buildConfigName}/assets`)
 
   const nodeModules = path.resolve('./node_modules')
   const wwwDirectory = path.resolve(__dirname, '../www')
-  const distDirectory = path.resolve(__dirname, '../dist')
+  const distDirectory = path.resolve(__dirname, `../dist/${buildConfigName}`)
   const srcDirectory = path.resolve(__dirname, '../src')
 
   // Add new polyfills here instead of importing them in the JavaScript code.

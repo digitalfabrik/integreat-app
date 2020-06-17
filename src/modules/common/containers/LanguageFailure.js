@@ -9,7 +9,7 @@ import Caption from '../../../modules/common/components/Caption'
 import type { LocationState } from 'redux-first-router'
 import styled, { withTheme } from 'styled-components'
 import type { LanguageChangePathsType } from '../../app/containers/Switcher'
-import type { ThemeType } from '../../../../build/themes/ThemeType'
+import type { ThemeType } from '../../theme/constants/theme'
 
 const ChooseLanguage = styled.p`
   margin: 25px 0;
