@@ -2,7 +2,6 @@
 
 import * as React from 'react'
 import { connect } from 'react-redux'
-import compose from 'lodash/fp/compose'
 
 import Page from '../../../modules/common/components/Page'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
@@ -68,7 +67,7 @@ const mapStateTypeToProps = (state: StateType) => ({
   poiId: state.location.payload.poiId
 })
 
-export default compose(
-  connect<*, *, *, *, *, *>(mapStateTypeToProps),
-  withTranslation('pois')
-)(PoisPage)
+export default connect<*, *, *, *, *, *>(mapStateTypeToProps)(
+  withTranslation('pois')(
+    PoisPage
+  ))
