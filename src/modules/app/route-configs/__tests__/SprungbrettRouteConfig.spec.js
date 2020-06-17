@@ -50,7 +50,7 @@ describe('SprungbrettRouteConfig', () => {
       tunewsPayload: new Payload(true),
       tunewsElementPayload: new Payload(true),
       poisPayload: new Payload(true),
-      wohnenPayload: new Payload(true),
+      wohnenOffersPayload: new Payload(true),
       sprungbrettJobsPayload
     }
 

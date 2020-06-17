@@ -30,8 +30,8 @@ class RouteContentSwitcher extends React.PureComponent<PropsType> {
     return null
   }
 
-  isWaitingForOffer = (offerType: 'offers' | 'sprungbrettJobs', payloads: {[string]: Payload<any>}): boolean => {
-    const alias = offerType === 'offers' ? WOHNEN_EXTRA : SPRUNGBRETT_EXTRA
+  isWaitingForOffer = (offerType: 'wohnenOffer' | 'sprungbrettJobs', payloads: {[string]: Payload<any>}): boolean => {
+    const alias = offerType === 'wohnenOffer' ? WOHNEN_EXTRA : SPRUNGBRETT_EXTRA
     return payloads[offerType] && !find(payloads.offers.data, offer => offer.alias === alias)
   }
 

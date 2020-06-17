@@ -60,7 +60,7 @@ describe('RouteContentSwitcher', () => {
     tunewsElementPayload: fetchingPayload(),
     offersPayload: fetchingPayload(),
     sprungbrettJobsPayload: fetchingPayload(),
-    wohnenPayload: fetchingPayload(),
+    wohnenOffersPayload: fetchingPayload(),
     disclaimerPayload: fetchingPayload()
   }
 
@@ -75,7 +75,7 @@ describe('RouteContentSwitcher', () => {
     tunewsElementPayload: fetchingPayload(),
     offersPayload: fetchingPayload(),
     sprungbrettJobsPayload: fetchingPayload(),
-    wohnenPayload: fetchingPayload(),
+    wohnenOffersPayload: fetchingPayload(),
     disclaimerPayload: fetchingPayload()
   }
 

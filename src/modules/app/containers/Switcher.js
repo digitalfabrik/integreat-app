@@ -47,7 +47,7 @@ type PropsType = {|
   tunewsElementPayload: Payload<TunewsModel>,
   offersPayload: Payload<Array<OfferModel>>,
   sprungbrettJobsPayload: Payload<Array<SprungbrettOfferPage>>,
-  wohnenOfferPayload: Payload<Array<WohnenOfferModel>>,
+  wohnenOffersPayload: Payload<Array<WohnenOfferModel>>,
   disclaimerPayload: Payload<PageModel>,
   languages: ?Array<LanguageModel>,
   viewportSmall: boolean,

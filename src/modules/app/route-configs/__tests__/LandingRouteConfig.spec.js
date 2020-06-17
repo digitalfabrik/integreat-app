@@ -44,7 +44,7 @@ describe('LandingRouteConfig', () => {
       disclaimerPayload: new Payload(true),
       offersPayload: new Payload(true),
       poisPayload: new Payload(true),
-      wohnenPayload: new Payload(true),
+      wohnenOffersPayload: new Payload(true),
       sprungbrettJobsPayload: new Payload(true)
     }
 
