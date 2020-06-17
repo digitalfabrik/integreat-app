@@ -1,8 +1,7 @@
 // @flow
 
-import { compose } from 'lodash/fp'
 import normalizePath from 'normalize-path'
 
-const normalize = compose([decodeURIComponent, normalizePath])
+const normalize = (value: string) => decodeURIComponent(normalizePath(value))
 
 export default normalize
