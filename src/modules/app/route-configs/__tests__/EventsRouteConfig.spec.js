@@ -40,7 +40,7 @@ const cities = [new CityModel({
   code: 'augsburg',
   live: true,
   eventsEnabled: true,
-  extrasEnabled: true,
+  offersEnabled: true,
   pushNotificationsEnabled: true,
   tunewsEnabled: true,
   sortingName: 'Augsburg',

@@ -224,7 +224,7 @@ describe('Switcher', () => {
                 localNewsPayload={localNewsPayload} localNewsElementPayload={localNewsElementPayload}
                 tunewsPayload={tunewsPayload} tunewsElementPayload={tunewsElementPayload} poisPayload={poisPayload}
                 disclaimerPayload={disclaimerPayload} languages={languages} t={t}
-                sprungbrettJobsPayload={sprungbrettPayload} wohnenOfferPayload={wohnenOffersPayload} darkMode
+                sprungbrettJobsPayload={sprungbrettPayload} wohnenOffersPayload={wohnenOffersPayload} darkMode
                 toggleDarkMode={toggleDarkMode} />
     )
   }

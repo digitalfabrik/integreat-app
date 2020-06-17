@@ -387,7 +387,7 @@ describe('FeedbackBoxContainer', () => {
         isPositiveRatingSelected
         onSubmit={mockOnSubmit}
         closeFeedbackModal={() => {}}
-        extras={null}
+        offers={null}
         theme={theme}
         sendingStatus='ERROR'
         t={t} />
