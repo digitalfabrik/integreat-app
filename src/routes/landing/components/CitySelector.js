@@ -1,8 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import { transform } from 'lodash/object'
-import { groupBy } from 'lodash/collection'
+import { transform, groupBy } from 'lodash'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import CityEntry from './CityEntry'
 import withPlatform from '../../../modules/platform/hocs/withPlatform'
