@@ -3,8 +3,7 @@
 import { NOT_FOUND } from 'redux-first-router'
 import type { RouteConfig } from './RouteConfig'
 
-// This type should be exact, but flow has a bug preventing this: https://github.com/facebook/flow/issues/2977
-type RequiredPayloadsType = {}
+type RequiredPayloadsType = {||}
 
 class NotFoundRouteConfig implements RouteConfig<void, RequiredPayloadsType> {
   name = NOT_FOUND
@@ -15,6 +14,7 @@ class NotFoundRouteConfig implements RouteConfig<void, RequiredPayloadsType> {
 
   getRoutePath = (): string => NOT_FOUND
 
+  // $FlowFixMe Flow has a bug preventing exact return types: https://github.com/facebook/flow/issues/2977
   getRequiredPayloads = (): RequiredPayloadsType => ({})
 
   getLanguageChangePath = () => null
