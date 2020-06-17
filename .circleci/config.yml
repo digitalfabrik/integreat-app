@@ -49,12 +49,12 @@ workflows:
             - build_android
             - build_ios
       - deliver_android:
-          production: << pipeline.parameters.production >>
+          production: << pipeline.parameters.production_delivery >>
           requires:
             - build_android
             - bump_version
       - deliver_ios:
-          production: << pipeline.parameters.production >>
+          production: << pipeline.parameters.production_delivery >>
           requires:
             - build_ios
             - bump_version
@@ -108,6 +108,10 @@ workflows:
           e2e_build: false
           requires:
             - calculate_new_version
+      - bump_version:
+          requires: # Bump version should only depend on build_ and not delivery_. Sometimes upload to the stores fails only for iOS or Android. Then we still should bump the version
+            - build_android
+            - build_ios
       - await_production_approval:
           type: approval
           requires:
@@ -120,10 +124,7 @@ workflows:
           production: true
           requires:
             - await_production_approval
-      - bump_version:
-          requires: # Bump version should only depend on build_ and not delivery_. Sometimes upload to the stores fails only for iOS or Android. Then we still should bump the version
-            - build_android
-            - build_ios
+
 jobs:
   calculate_new_version:
     docker:
@@ -214,7 +215,7 @@ jobs:
           key: 1-gradle-{{ checksum "android/build.gradle" }}-{{ checksum "android/app/build.gradle" }}-{{ checksum "android/settings.gradle" }}
       - run:
           name: "[FL] Build"
-          command: bundle exec fastlane build version_name:$NEW_VERSION_NAME version_code:$NEW_VERSION_CODE
+          command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
           working_directory: android
       - store_artifacts:
           path: android/app/build/outputs/apk/release/
@@ -290,7 +291,7 @@ jobs:
             - ~/Library/Caches/CocoaPods/
       - run:
           name: "[FL] Build"
-          command: bundle exec fastlane build version_name:$NEW_VERSION_NAME version_code:$NEW_VERSION_CODE
+          command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
           working_directory: ios
       - store_artifacts:
           path: ios/output/gym/
@@ -365,10 +366,10 @@ jobs:
           command: bundle exec fastlane android browserstack_upload_live
       - run:
           name: "[FL] Play Store Upload"
-          command: bundle exec fastlane android playstore_upload production:"<< parameters.production >>" version_name:$NEW_VERSION_NAME version_code:$NEW_VERSION_CODE
+          command: bundle exec fastlane android playstore_upload production:"<< parameters.production >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
       - run:
           name: "[FL] Upload to Sentry"
-          command: bundle exec fastlane android sentry_upload version_name:$NEW_VERSION_NAME version_code:$NEW_VERSION_CODE
+          command: bundle exec fastlane android sentry_upload version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
       - slack/notify:
           message: Integreat ${NEW_VERSION_NAME} has been released successfully on Android!
           webhook: ${SLACK_URL}
@@ -420,11 +421,11 @@ jobs:
           steps:
             - run:
                 name: "[FL] TestFlight Upload"
-                command: bundle exec fastlane ios testflight_upload version_name:$NEW_VERSION_NAME
+                command: bundle exec fastlane ios testflight_upload version_name:${NEW_VERSION_NAME}
       - run:
           name: "[FL] Upload to Sentry"
-          command: bundle exec fastlane ios sentry_upload version_name:$NEW_VERSION_NAME version_code:$NEW_VERSION_CODE
-     - slack/notify:
+          command: bundle exec fastlane ios sentry_upload version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
+      - slack/notify:
          message: Integreat ${NEW_VERSION_NAME} has been released successfully on iOS!
          webhook: ${SLACK_URL}
 
