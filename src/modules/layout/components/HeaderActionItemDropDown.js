@@ -4,7 +4,7 @@ import * as React from 'react'
 import onClickOutside from 'react-onclickoutside'
 import styled from 'styled-components'
 import ReactTooltip from 'react-tooltip'
-import type { ThemeType } from '../../../../build/themes/ThemeType'
+import type { ThemeType } from '../../theme/constants/theme'
 
 export const Container = styled.div`
   width: calc(0.8 * ${props => props.theme.dimensions.headerHeightLarge}px);

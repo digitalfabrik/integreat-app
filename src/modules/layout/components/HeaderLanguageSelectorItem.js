@@ -9,7 +9,7 @@ import { withTranslation } from 'react-i18next'
 import languageIcon from '../assets/language-icon.svg'
 import ReactTooltip from 'react-tooltip'
 import HeaderActionBarItemLink from './HeaderActionItemLink'
-import type { ThemeType } from '../../../../build/themes/ThemeType'
+import type { ThemeType } from '../../theme/constants/theme'
 
 type PropsType = {|
   selectorItems: Array<SelectorItemModel>,
