@@ -52,7 +52,7 @@ class OffersRouteConfig implements RouteConfig<OffersRouteParamsType, RequiredPa
   getLanguageChangePath = ({ location, language }) =>
     this.getRoutePath({ city: location.payload.city, language })
 
-  getPageTitle = ({ t, cityName }) => cityName ? `${t('pageTitles.extras')} - ${cityName}` : null
+  getPageTitle = ({ t, cityName }) => cityName ? `${t('pageTitles.offers')} - ${cityName}` : null
 
   getMetaDescription = () => null
 
