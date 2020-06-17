@@ -4,6 +4,11 @@ The Integreat Web-App has been tested on several OS environments with different 
 It can be used with most of the modern browsers that have been released in the last six years.
 
 #### Explicitly Tested
+##### Cases
+* Layout
+* Responsibility (Mobile, Desktop)
+* Functionality (Navigation, Search, Language change, Location change, Mailing, PDF generation)
+
 |OS            |IE |Edge|Chrome|Firefox|UC Browser|Safari|
 |--------------|---|----|------|-------|----------|---|
 |Android 7+    |   |    |80+   |       |10+       ||         
