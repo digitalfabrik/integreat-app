@@ -16,8 +16,14 @@ lane :certificates do
   sync_code_signing(type: "appstore", username: ENV['FASTLANE_USER'])
 end
 
+
+
+# version_name: The version name the build should use
+# version_code: The version code the build should use
 desc "Create a release build"
-lane :build do
+lane :build do |options|
+  version_code = options[:version_code]
+  version_name = options[:version_name]
   ensure_env_vars(
       env_vars: ['FASTLANE_USER']
   )
@@ -25,18 +31,16 @@ lane :build do
   ENV["BUNDLE_CONFIG"] = "./metro.config.ci.js"
   ENV["EXTRA_PACKAGER_ARGS"] = "--sourcemap-output /Users/distiller/project/ios/index.ios.bundle.map"
 
-  next_version = next_version()
-
   # https://docs.fastlane.tools/actions/match/
   sync_code_signing(type: "development", username: ENV['FASTLANE_USER'])
   sync_code_signing(type: "appstore", username: ENV['FASTLANE_USER'])
 
   increment_build_number(
-      build_number: next_version[:new_version_code]
+      build_number: version_code
   )
 
   increment_version_number(
-      version_number: next_version[:new_version_name]
+      version_number: version_name
   )
 
   build_app(
