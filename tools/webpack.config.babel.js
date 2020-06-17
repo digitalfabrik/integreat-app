@@ -38,7 +38,7 @@ const createConfig = (env = {}) => {
   console.log('Production: ', isProductionBuild)
   console.log('Version: ', version)
 
-  const buildConfig = require(`./configs/${buildConfigName}`)
+  const buildConfig = require(`../build-configs/configs/${buildConfigName}`)
   const configAssets = path.resolve(__dirname, `../build-configs/configs/${buildConfigName}/assets`)
 
   const nodeModules = path.resolve('./node_modules')
