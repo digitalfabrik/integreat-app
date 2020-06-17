@@ -74,5 +74,5 @@ const mapStateToProps = (state: StateType) => ({
 
 export default compose(
   connect<*, *, *, *, *, *>(mapStateToProps),
-  withTranslation('extras')
+  withTranslation('offers')
 )(OffersPage)

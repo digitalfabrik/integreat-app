@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`OffersPage should render a OfferNotFoundError if there is an extraId 1`] = `
+exports[`OffersPage should render a OfferNotFoundError if there is an offerId 1`] = `
 <Translate(FailureSwitcher)
-  error={[Error: The extra invalid_extra does not exist here.]}
+  error={[Error: The offer invalid_offer does not exist here.]}
 />
 `;
 
@@ -12,7 +12,7 @@ exports[`OffersPage should render a OfferNotFoundError if there is an offerId 1`
 />
 `;
 
-exports[`OffersPage should render extra tiles if no extra is selected 1`] = `
+exports[`OffersPage should render offer tiles if no offer is selected 1`] = `
 <Tiles
   tiles={
     Array [

@@ -37,7 +37,7 @@ class RouteContentSwitcher extends React.PureComponent<PropsType> {
 
   renderOfferFailure = (payloads: {[string]: Payload<any>}, location: LocationState): React.Node => {
     if (payloads.offers && !payloads.offers.isFetching && payloads.offers.data && !payloads.offers.error) {
-      if (this.isWaitingForOffer('offers', payloads) || this.isWaitingForOffer('sprungbrettJobs', payloads)) {
+      if (this.isWaitingForOffer('wohnenOffer', payloads) || this.isWaitingForOffer('sprungbrettJobs', payloads)) {
         return <FailureSwitcher error={new ContentNotFoundError({
           type: 'offer',
           id: location.pathname,

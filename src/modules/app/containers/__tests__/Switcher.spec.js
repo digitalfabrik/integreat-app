@@ -184,7 +184,7 @@ describe('Switcher', () => {
   const citiesPayload = new Payload(false, 'https://random.api.json', cities, null)
   const languagesPayload = new Payload(false, 'https://random.api.json', languages, null)
   const sprungbrettPayload = new Payload(false, 'https://random.api.json', sprungbrettJobs, null)
-  const wohnenPayload = new Payload(false, 'https://random.api.json', wohnenOffers, null)
+  const wohnenOffersPayload = new Payload(false, 'https://random.api.json', wohnenOffers, null)
   const poisPayload = new Payload(false, 'https://random.api.json', pois, null)
 
   const t = (key: ?string): string => key || ''
@@ -201,9 +201,10 @@ describe('Switcher', () => {
     return (
       <Switcher viewportSmall={false} location={location} citiesPayload={citiesPayload}
                 categoriesPayload={categoriesPayload} eventsPayload={eventsPayload} offersPayload={offersPayload}
-                localNewsPayload={localNewsPayload} localNewsElementPayload={localNewsElementPayload} tunewsPayload={tunewsPayload}
-                tunewsElementPayload={tunewsElementPayload} poisPayload={poisPayload} disclaimerPayload={disclaimerPayload} languages={languages} t={t}
-                sprungbrettJobsPayload={sprungbrettPayload} wohnenPayload={wohnenPayload} darkMode
+                localNewsPayload={localNewsPayload} localNewsElementPayload={localNewsElementPayload}
+                tunewsPayload={tunewsPayload} tunewsElementPayload={tunewsElementPayload} poisPayload={poisPayload}
+                disclaimerPayload={disclaimerPayload} languages={languages} t={t}
+                sprungbrettJobsPayload={sprungbrettPayload} wohnenOfferPayload={wohnenOffersPayload} darkMode
                 toggleDarkMode={toggleDarkMode} />
     )
   }
@@ -253,7 +254,7 @@ describe('Switcher', () => {
       languages: languagesPayload,
       location,
       pois: poisPayload,
-      wohnen: wohnenPayload,
+      wohnen: wohnenOffersPayload,
       sprungbrettJobs: sprungbrettPayload,
       viewport: { is: { small: true } },
       darkMode: true
@@ -282,7 +283,7 @@ describe('Switcher', () => {
       t: expect.any(Function),
       toggleDarkMode: expect.any(Function),
       viewportSmall: true,
-      wohnenPayload
+      wohnenOffersPayload
     })
   })
 })
