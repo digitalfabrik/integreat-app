@@ -105,7 +105,7 @@ platform :android do
         skip_upload_images: false,
         skip_upload_screenshots: false,
         skip_upload_metadata: false,
-        release_status: "draft",  # TODO: change to `completed` if we are sure CD works
+        release_status: 'completed',
         apk: '/tmp/output/app-release.apk',
         json_key_data: ENV["GOOGLE_SERVICE_ACCOUNT_JSON"]
     )
