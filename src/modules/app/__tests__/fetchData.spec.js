@@ -18,21 +18,15 @@ describe('fetchData', () => {
 
   let clock
   const mockedTime = 0
-  let prevError
 
   beforeEach(() => {
     clock = lolex.install({ now: mockedTime, toFake: [] })
-    prevError = console.error // todo: Find better way of allowing console.error
-    // $FlowFixMe
-    console.error = error => console.log(`Some expected error was thrown: ${error}`)
   })
 
   afterEach(() => {
     // $FlowFixMe
     fetch.resetMocks()
     clock.uninstall()
-    // $FlowFixMe
-    console.error = prevError
   })
 
   it('should fetch correctly if the data has not been fetched yet', async () => {

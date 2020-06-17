@@ -12,13 +12,3 @@ global.fetch = require('jest-fetch-mock')
 
 // Setup config mock
 global.__CONFIG__ = integreatTestCmsBuildConfig
-
-// $FlowFixMe
-console.error = error => {
-  throw Error(error)
-}
-
-// $FlowFixMe
-console.warn = warn => {
-  throw Error(warn)
-}
