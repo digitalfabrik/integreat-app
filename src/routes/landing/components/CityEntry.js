@@ -8,7 +8,7 @@ import { CityModel } from '@integreat-app/integreat-api-client'
 import styled, { withTheme } from 'styled-components'
 import Link from 'redux-first-router-link'
 import CategoriesRouteConfig from '../../../modules/app/route-configs/CategoriesRouteConfig'
-import type { ThemeType } from '../../../../build/themes/ThemeType'
+import type { ThemeType } from '../../../modules/theme/constants/theme'
 
 const MAX_NUMBER_OF_ALIASES = 3
 

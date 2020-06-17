@@ -8,7 +8,7 @@ import type { LocationState } from 'redux-first-router'
 import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
 import type { LanguageChangePathsType } from '../../app/containers/Switcher'
-import type { ThemeType } from '../../../../build/themes/ThemeType'
+import type { ThemeType } from '../../theme/constants/theme'
 
 type PropsType = {|
   location: LocationState,

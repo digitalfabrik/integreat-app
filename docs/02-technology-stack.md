@@ -1,7 +1,6 @@
 # Technology stack
 ## Build tools
 [Webpack](https://webpack.github.io/) is used to compile and bundle the app.
-You can find documentation about this in [tools](build/README.md).
 
 ## Frontend framework
 [React](https://facebook.github.io/react/) is used as frontend framework.

@@ -4,7 +4,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import HeaderNavigationItem from '../HeaderNavigationItem'
 import { Header } from '../Header'
-import { darkTheme } from '../../../theme/constants/theme'
+import theme from '../../../theme/constants/theme'
 import Headroom from '@integreat-app/react-sticky-headroom'
 import Platform from '../../../platform/Platform'
 import HeaderActionItemLink from '../HeaderActionItemLink'
@@ -14,7 +14,7 @@ describe('Header', () => {
   it('should match snapshot with smallViewport', () => {
     const component = shallow(
       <Header
-        theme={darkTheme}
+        theme={theme}
         platform={new Platform()}
         logoHref='/random_route'
         actionItems={[<HeaderActionItemLink key={0} href='/random_route' text='random route' iconSrc='/icon.jpg' />]}
@@ -30,7 +30,7 @@ describe('Header', () => {
   it('should match snapshot with largeViewport', () => {
     const component = shallow(
       <Header
-        theme={darkTheme}
+        theme={theme}
         platform={new Platform()}
         logoHref='/random_route'
         actionItems={[<HeaderActionItemLink key={0} href='/random_route' iconSrc='icon' text='text' />]}
@@ -48,7 +48,7 @@ describe('Header', () => {
 
     const component = shallow(
       <Header
-        theme={darkTheme}
+        theme={theme}
         platform={new Platform()}
         logoHref='/random_route'
         actionItems={[<HeaderActionItemLink key={0} href='/random_route' iconSrc='icon.jpg' text='text' />]}
