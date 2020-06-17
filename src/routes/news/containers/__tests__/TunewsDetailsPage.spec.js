@@ -86,6 +86,7 @@ describe('TunewsDetailsPage', () => {
       language,
       id: 1,
       city,
+      cities,
       dispatch: expect.any(Function)
     })
   })
