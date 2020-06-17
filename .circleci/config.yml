@@ -133,6 +133,20 @@ jobs:
     shell: /bin/bash -eo pipefail
     steps:
       - checkout
+      - restore_cache:
+          name: Restore Yarn Package Cache
+          keys:
+            - 2-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+            - 2-yarn-{{ arch }}-
+      - run:
+          name: Install Dependencies
+          command: yarn install --frozen-lockfile
+      - save_cache:
+          name: Save Yarn Package Cache
+          key: 2-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+            - node_modules
       - run:
           name: Calculate next version name
           command: echo "export NEW_VERSION_NAME=$(tools/next-version calc | jq .versionName)" >> ${BASH_ENV}
