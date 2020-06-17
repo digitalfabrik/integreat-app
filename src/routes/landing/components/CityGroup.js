@@ -30,8 +30,8 @@ type PropsType = {|
 class CityGroup extends React.Component<PropsType> {
   render () {
     return <BorderWrapper theme={this.props.theme}>
-        <GroupText theme={this.props.theme}>{this.props.children}</GroupText>
-      </BorderWrapper>
+      <GroupText theme={this.props.theme}>{this.props.children}</GroupText>
+    </BorderWrapper>
   }
 }
 
