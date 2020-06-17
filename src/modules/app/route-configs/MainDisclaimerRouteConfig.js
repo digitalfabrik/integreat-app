@@ -2,11 +2,13 @@
 
 import { RouteConfig } from './RouteConfig'
 
+type RequiredPayloadsType = {||}
+
 export const MAIN_DISCLAIMER_ROUTE = 'MAIN_DISCLAIMER'
 
 const mainDisclaimerRoute = '/disclaimer'
 
-class MainDisclaimerRouteConfig implements RouteConfig<void, void> {
+class MainDisclaimerRouteConfig implements RouteConfig<void, RequiredPayloadsType> {
   name = MAIN_DISCLAIMER_ROUTE
   route = mainDisclaimerRoute
   isLocationLayoutRoute = false
@@ -15,7 +17,8 @@ class MainDisclaimerRouteConfig implements RouteConfig<void, void> {
 
   getRoutePath = (): string => mainDisclaimerRoute
 
-  getRequiredPayloads = () => {}
+  // $FlowFixMe Flow has a bug preventing exact return types: https://github.com/facebook/flow/issues/2977
+  getRequiredPayloads = (): RequiredPayloadsType => ({})
 
   getLanguageChangePath = () => null
 

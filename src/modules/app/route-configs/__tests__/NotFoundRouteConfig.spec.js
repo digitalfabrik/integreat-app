@@ -30,7 +30,7 @@ describe('NotFoundRouteConfig', () => {
       sprungbrettJobsPayload: new Payload(true)
     }
 
-    expect(notFoundRouteConfig.getRequiredPayloads(allPayloads)).toBeUndefined()
+    expect(notFoundRouteConfig.getRequiredPayloads(allPayloads)).toEqual({})
   })
 
   it('should return the right page title', () => {
@@ -39,7 +39,7 @@ describe('NotFoundRouteConfig', () => {
       pathname: NOT_FOUND,
       type: notFoundRouteConfig.name
     })
-    expect(notFoundRouteConfig.getPageTitle({ t, payloads: undefined, location, cityName: null }))
+    expect(notFoundRouteConfig.getPageTitle({ t, payloads: {}, location, cityName: null }))
       .toBe('pageTitles.notFound')
   })
 
@@ -53,7 +53,7 @@ describe('NotFoundRouteConfig', () => {
       pathname: NOT_FOUND,
       type: notFoundRouteConfig.name
     })
-    expect(notFoundRouteConfig.getLanguageChangePath({ payloads: undefined, location, language: 'de' })).toBeNull()
+    expect(notFoundRouteConfig.getLanguageChangePath({ payloads: {}, location, language: 'de' })).toBeNull()
   })
 
   it('all functions should return the right feedback target information', () => {
@@ -62,6 +62,6 @@ describe('NotFoundRouteConfig', () => {
       pathname: NOT_FOUND,
       type: notFoundRouteConfig.name
     })
-    expect(notFoundRouteConfig.getFeedbackTargetInformation({ payloads: undefined, location })).toBeNull()
+    expect(notFoundRouteConfig.getFeedbackTargetInformation({ payloads: {}, location })).toBeNull()
   })
 })

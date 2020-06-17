@@ -29,7 +29,7 @@ describe('MainDisclaimerRouteConfig', () => {
       sprungbrettJobsPayload: new Payload(true)
     }
 
-    expect(mainDisclaimerRouteConfig.getRequiredPayloads(allPayloads)).toBeUndefined()
+    expect(mainDisclaimerRouteConfig.getRequiredPayloads(allPayloads)).toEqual({})
   })
 
   it('should return the right page title', () => {
@@ -38,7 +38,7 @@ describe('MainDisclaimerRouteConfig', () => {
       pathname: '/disclaimer',
       type: mainDisclaimerRouteConfig.name
     })
-    expect(mainDisclaimerRouteConfig.getPageTitle({ t, payloads: undefined, location, cityName: null }))
+    expect(mainDisclaimerRouteConfig.getPageTitle({ t, payloads: {}, location, cityName: null }))
       .toBe('pageTitles.mainDisclaimer')
   })
 
@@ -53,7 +53,7 @@ describe('MainDisclaimerRouteConfig', () => {
       type: mainDisclaimerRouteConfig.name
     })
     expect(mainDisclaimerRouteConfig.getLanguageChangePath({
-      payloads: undefined,
+      payloads: {},
       location,
       language: 'de'
     })).toBeNull()
@@ -65,6 +65,6 @@ describe('MainDisclaimerRouteConfig', () => {
       pathname: '/disclaimer',
       type: mainDisclaimerRouteConfig.name
     })
-    expect(mainDisclaimerRouteConfig.getFeedbackTargetInformation({ payloads: undefined, location })).toBeNull()
+    expect(mainDisclaimerRouteConfig.getFeedbackTargetInformation({ payloads: {}, location })).toBeNull()
   })
 })
