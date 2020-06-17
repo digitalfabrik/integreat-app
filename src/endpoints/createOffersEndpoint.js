@@ -7,7 +7,7 @@ import ParamMissingError from '../errors/ParamMissingError'
 import type { JsonOfferPostType, JsonOfferType } from '../types'
 import Endpoint from '../Endpoint'
 
-export const OFFERS_ENDPOINT_NAME = 'extras'
+export const OFFERS_ENDPOINT_NAME = 'offers'
 
 const createPostMap = (jsonPost: JsonOfferPostType): Map<string, string> => {
   const map = new Map()
