@@ -1,5 +1,3 @@
-require_relative '../../fastlane/version'
-
 fastlane_version "2.143.0"
 
 before_all do
