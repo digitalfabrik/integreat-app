@@ -53,6 +53,11 @@ const Row = styled.div`
   @media ${props => props.theme.dimensions.smallViewport} {
     justify-content: space-between;
     flex-wrap: wrap;
+    min-height: ${props => props.theme.dimensions.headerHeightSmall}px;
+
+    :first-child { /* this is only necessary for IE11 */
+      min-height: ${props => props.theme.dimensions.headerHeightSmall + (props.hasTitle ? HEADER_TITLE_HEIGHT : 0)}px;
+    }
   }
 `
 
@@ -77,14 +82,14 @@ const ActionBar = styled.div`
 
   @media ${props => props.theme.dimensions.smallViewport} {
     order: 2;
-    flex: 1 1 0;
+    flex: 1 1 0%; /* The % unit is necessary for IE11 */
   }
 `
 
 const NavigationBar = styled.div`
   display: flex;
   padding: 0 10px;
-  flex: 1 1 0;
+  flex: 1 1 0%; /* The % unit is necessary for IE11 */
   align-items: stretch;
   justify-content: center;
 `
@@ -119,10 +124,10 @@ export class Header extends React.PureComponent<PropsType> {
                 height={height}
                 positionStickyDisabled={platform.positionStickyDisabled}>
         <HeaderContainer>
-          <Row>
+          <Row hasTitle={!!cityName}>
             <HeaderLogo theme={theme} link={logoHref} src={buildConfig.logoWide} alt={buildConfig.appTitle} />
             {!viewportSmall && cityName && <HeaderSeparator theme={theme} />}
-            {cityName && <HeaderTitle theme={theme}>{cityName}</HeaderTitle>}
+            {(!viewportSmall || cityName) && <HeaderTitle theme={theme}>{cityName}</HeaderTitle>}
             <ActionBar>{actionItems}</ActionBar>
           </Row>
           {hasNavigationBar && <Row><NavigationBar>{navigationItems}</NavigationBar></Row>}
