@@ -16,11 +16,11 @@ import compose from 'lodash/fp/compose'
 import { hash as hashFunction } from '../../../modules/app/route-configs/WohnenRouteConfig'
 
 type PropsType = {|
-  offers: Array<WohnenOfferModel>,
+  wohnenOffers: Array<WohnenOfferModel>,
   city: string,
   language: string,
-  offerHash?: string,
-  extras: Array<OfferModel>,
+  wohnenOfferHash?: string,
+  offers: Array<OfferModel>,
   t: TFunction
 |}
 
@@ -36,28 +36,28 @@ export class WohnenOfferPage extends React.Component<PropsType> {
                    hashFunction={hashFunction} />
 
   render () {
-    const { offers, extras, city, language, offerHash, t } = this.props
+    const { wohnenOffers, offers, city, language, wohnenOfferHash, t } = this.props
     const offer: OfferModel | void = offers.find(offer => offer.alias === 'wohnen')
 
     if (!offer) {
       return <FailureSwitcher error={new Error('The Wohnen offer is not supported.')} />
     }
 
-    if (offerHash) {
-      const offer = offers.find(_offer => hashFunction(_offer) === offerHash)
+    if (wohnenOfferHash) {
+      const wohnenOffer = wohnenOffers.find(_wohnenOffer => hashFunction(_wohnenOffer) === wohnenOfferHash)
 
-      if (!offer) {
+      if (!wohnenOffer) {
         return <FailureSwitcher error={new Error('Angebot nicht gefunden.')} />
       }
 
-      return <OfferDetail offer={offer} />
+      return <OfferDetail offer={wohnenOffer} />
     }
 
     return (
       <>
         <Caption title={offer.title} />
         <List noItemsMessage={t('noOffersAvailable')}
-              items={offers}
+              items={wohnenOffers}
               renderItem={this.renderOfferListItem({ city, language, hashFunction })} />
       </>
     )
@@ -67,7 +67,7 @@ export class WohnenOfferPage extends React.Component<PropsType> {
 const mapStateTypeToProps = (state: StateType) => ({
   city: state.location.payload.city,
   language: state.location.payload.language,
-  offerHash: state.location.payload.offerHash
+  wohnenOfferHash: state.location.payload.offerHash
 })
 
 export default compose(

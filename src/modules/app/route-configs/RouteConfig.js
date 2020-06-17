@@ -27,7 +27,7 @@ export type AllPayloadsType = {|
   tunewsElementPayload: Payload<TunewsModel>,
   offersPayload: Payload<Array<OfferModel>>,
   sprungbrettJobsPayload: Payload<Array<SprungbrettModel>>,
-  wohnenPayload: Payload<Array<WohnenOfferModel>>,
+  wohnenOffersPayload: Payload<Array<WohnenOfferModel>>,
   disclaimerPayload: Payload<PageModel>
 |}
 

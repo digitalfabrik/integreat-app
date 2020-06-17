@@ -12,7 +12,7 @@ const offers = [
 ]
 const offersPayload = new Payload(false, 'https://random.api.json', offers, null)
 
-const offers = [
+const wohnenOffers = [
   new WohnenOfferModel({
     email: 'mail@mail.com',
     createdDate: moment('2018-07-24T00:00:00.000Z'),
@@ -44,8 +44,8 @@ const offers = [
       })
   })
 ]
-const wohnenPayload = new Payload(false, 'https://random.api.json', offers, null)
-const payloads = { offers: offersPayload, offers: wohnenPayload }
+const wohnenOffersPayload = new Payload(false, 'https://random.api.json', wohnenOffers, null)
+const payloads = { offers: offersPayload, wohnenOffers: wohnenOffersPayload }
 
 const t = (key: ?string): string => key || ''
 
@@ -69,7 +69,7 @@ describe('WohnenRouteConfig', () => {
       tunewsPayload: new Payload(true),
       tunewsElementPayload: new Payload(true),
       poisPayload: new Payload(true),
-      wohnenPayload,
+      wohnenOffersPayload,
       sprungbrettJobsPayload: new Payload(true)
     }
 
@@ -100,8 +100,8 @@ describe('WohnenRouteConfig', () => {
       .toBe('Raumfrei - Augsburg')
 
     const offerLocation = createLocation({
-      payload: { city: 'augsburg', language: 'de', offerHash: hash(offers[0]) },
-      pathname: `/augsburg/de/offers/wohnen/${hash(offers[0])}`,
+      payload: { city: 'augsburg', language: 'de', offerHash: hash(wohnenOffers[0]) },
+      pathname: `/augsburg/de/offers/wohnen/${hash(wohnenOffers[0])}`,
       type: wohnenRouteConfig.name
     })
 

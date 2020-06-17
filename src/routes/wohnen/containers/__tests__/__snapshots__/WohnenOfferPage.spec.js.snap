@@ -62,7 +62,7 @@ exports[`WohnenOfferPage should render detailed offer if hash is supplied 1`] = 
 
 exports[`WohnenOfferPage should render failure city does not support offer 1`] = `
 <Translate(FailureSwitcher)
-  error={[Error: The Wohnen extra is not supported.]}
+  error={[Error: The Wohnen offer is not supported.]}
 />
 `;
 

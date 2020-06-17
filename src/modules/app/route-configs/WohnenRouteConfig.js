@@ -18,7 +18,7 @@ import {
 import { cmsApiBaseUrl, wohnenApiBaseUrl } from '../constants/urls'
 
 type RouteParamsType = {|city: string, language: string, offerHash?: string|}
-type RequiredPayloadsType = {|offers: Payload<Array<WohnenOfferModel>>, offers: Payload<Array<OfferModel>>|}
+type RequiredPayloadsType = {|wohnenOffers: Payload<Array<WohnenOfferModel>>, offers: Payload<Array<OfferModel>>|}
 
 export const WOHNEN_ROUTE = 'WOHNEN'
 export const WOHNEN_EXTRA = 'wohnen'
@@ -36,9 +36,9 @@ const fetchOffers = async (dispatch, getState) => {
   const offers: ?Array<OfferModel> = offersPayload.data
 
   if (offers) {
-    const wohnenOffer: OfferModel | void = offers.find(offer => offer.alias === WOHNEN_EXTRA)
-    if (wohnenOffer && wohnenOffer.postData) {
-      const params = { city: wohnenOffer.postData.get('api-name') }
+    const offer: OfferModel | void = offers.find(offer => offer.alias === WOHNEN_EXTRA)
+    if (offer && offer.postData) {
+      const params = { city: offer.postData.get('api-name') }
       await fetchData(createWohnenEndpoint(wohnenApiBaseUrl), dispatch, state.wohnen, params)
     }
   }
@@ -70,7 +70,7 @@ class WohnenRouteConfig implements RouteConfig<RouteParamsType, RequiredPayloads
     `/${city}/${language}/offers/${WOHNEN_EXTRA}${offerHash ? `/${offerHash}` : ''}`
 
   getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType =>
-    ({ offers: payloads.wohnenPayload, extras: payloads.offersPayload })
+    ({ wohnenOffers: payloads.wohnenOffersPayload, offers: payloads.offersPayload })
 
   getLanguageChangePath = ({ location, language }) =>
     this.getRoutePath({ city: location.payload.city, language })
@@ -79,14 +79,15 @@ class WohnenRouteConfig implements RouteConfig<RouteParamsType, RequiredPayloads
     if (!cityName) {
       return null
     }
-    const offerHash = location.payload.offerHash
-    const offers = { ...payloads.offers.data, ...payloads.extras.data }
-    const offerModel = offers && offers.find(offer => hash(offer) === offerHash)
-    if (offerModel) {
-      return `${offerModel.formData.accommodation.title} - ${cityName}`
+    const wohnenOfferHash = location.payload.offerHash
+    const wohnenOffers = payloads.wohnenOffers.data
+    const offers = payloads.offers.data
+    const wohnenOfferModel = wohnenOffers && wohnenOffers.find(wohnenOffer => hash(wohnenOffer) === wohnenOfferHash)
+    if (wohnenOfferModel) {
+      return `${wohnenOfferModel.formData.accommodation.title} - ${cityName}`
     }
-    const wohnenOffer = offers && offers.find(offer => offer.alias === WOHNEN_EXTRA)
-    return wohnenOffer ? `${wohnenOffer.title} - ${cityName}` : ''
+    const offer = offers && offers.find(offer => offer.alias === WOHNEN_EXTRA)
+    return offer ? `${offer.title} - ${cityName}` : ''
   }
 
   getMetaDescription = () => null
