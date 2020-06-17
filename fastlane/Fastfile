@@ -4,58 +4,8 @@ require_relative 'version'
 #
 # `options` contains several parameter:
 #
-# private_key: a base64 encoded PEM encoded private key for authentication as GitHub App
-# app_id: The GitHub App app id
-# version_yml_path: absolute path to the version.yml in the GitHub repo
-# new_version_code: The new version code
-# new_version_name: The new version name
-# repo: The repo like Integreat/integreat-react-native-app
-desc "Commit version file"
-private_lane :github_commit_version do |options|
-  require 'openssl'
-  require 'jwt'
-  require 'octokit'
-  require 'base64'
-
-  branch = git_branch() # Commit to current branch
-  version_yml_path = options[:version_yml_path]
-  repo = options[:repo]
-  new_version_code = options[:new_version_code]
-  new_version_name = options[:new_version_name]
-  app_id = options[:app_id]
-  private_key = OpenSSL::PKey::RSA.new(Base64.decode64(options[:private_key]))
-
-  payload = {
-      iat: Time.now.to_i,
-      exp: Time.now.to_i + (5 * 60),
-      iss: app_id
-  }
-
-  jwt = JWT.encode(payload, private_key, 'RS256')
-  client = Octokit::Client.new(:bearer_token => jwt)
-
-  installation = client.find_repository_installation(repo)
-  token = client.create_app_installation_access_token(installation.id).token
-  client = Octokit::Client.new(:access_token => token)
-
-  version_yml_content = client.contents(repo, path: version_yml_path, query: {ref: branch})
-  version_yml = YAML.load(Base64.decode64(version_yml_content.content))
-  version_yml['version_code'] = new_version_code
-  version_yml['version_name'] = new_version_name
-
-  client.update_contents(repo,
-                         version_yml_path,
-                         "Bump version name to #{new_version_name} and version code to #{new_version_code}\n[skip ci]",
-                         version_yml_content.sha,
-                         YAML.dump(version_yml),
-                         :branch => branch)
-end
-
-#
-# `options` contains several parameter:
-#
-# new_version_code: The new version code
-# new_version_name: The new version name
+# version_code: The new version code
+# version_name: The new version name
 # package_name: The name of the app in Sentry
 # sourcemap_path: The path to the sourcemap file to upload
 desc "Upload a source map to Sentry"
@@ -64,38 +14,23 @@ private_lane :generic_sentry_upload do |options|
       env_vars: ['SENTRY_AUTH_TOKEN']
   )
 
-  new_version_code = options[:new_version_code]
-  new_version_name = options[:new_version_name]
+  version_code = options[:version_code]
+  version_name = options[:version_name]
   package_name = options[:package_name]
   sourcemap_path = options[:sourcemap_path]
 
   sentry_create_release(
-      version: new_version_name,
+      version: version_name,
       app_identifier: package_name,
       finalize: true
   )
 
   sentry_upload_sourcemap(
-      version: new_version_name,
+      version: version_name,
       app_identifier: package_name,
-      dist: new_version_code.to_s,
+      dist: version_code.to_s,
       sourcemap: sourcemap_path,
       rewrite: true
-  )
-end
-
-desc "Bump version and commit the new version in the GitHub repository"
-lane :github_bump_version do
-  ensure_env_vars(
-      env_vars: ['DELIVERINO_PRIVATE_KEY']
-  )
-
-  github_commit_version(
-      app_id: 59249,
-      private_key: ENV['DELIVERINO_PRIVATE_KEY'],
-      repo: "Integreat/integreat-react-native-app",
-      version_yml_path: 'version.yml',
-      **next_version
   )
 end
 
@@ -137,28 +72,33 @@ platform :android do
   end
 
   desc "Upload the JavaScript source map to Sentry"
-  lane :sentry_upload do
+  lane :sentry_upload do |options|
+    version_code = options[:version_code]
+    version_name = options[:version_name]
+
     generic_sentry_upload(
         package_name: 'tuerantuer.app.integreat',
         sourcemap_path: '/tmp/output/index.android.bundle.map',
-        **next_version
+        version_name: version_name,
+        version_code: version_code
     )
   end
 
   desc "Deliver the app to Play Store. Depending on the option `production` the update is released to the general public."
   lane :playstore_upload do |options|
+    version_code = options[:version_code]
+    version_name = options[:version_name]
+
     ensure_env_vars(
         env_vars: ['GOOGLE_SERVICE_ACCOUNT_JSON']
     )
-
-    next_version = next_version()
 
     track = options[:production] === true ? 'production' : 'beta'
 
     # https://docs.fastlane.tools/actions/supply/
     upload_to_play_store(
-        version_code: next_version[:new_version_code],
-        version_name: next_version[:new_version_name],
+        version_code: version_code,
+        version_name: version_name,
         package_name: "tuerantuer.app.integreat",
         metadata_path: "./android/fastlane/metadata/android",
         track: track,
@@ -169,25 +109,6 @@ platform :android do
         release_status: "draft",  # TODO: change to `completed` if we are sure CD works
         apk: '/tmp/output/app-release.apk',
         json_key_data: ENV["GOOGLE_SERVICE_ACCOUNT_JSON"]
-    )
-  end
-
-  desc "Send a success notification"
-  lane :notify_release do
-    ensure_env_vars(
-        env_vars: ['SLACK_URL']
-    )
-
-    next_version = next_version()
-    version_code = next_version[:new_version_code]
-    version_name = next_version[:new_version_name]
-    slack(
-        message: "Integreat #{version_name} has been released successfully on Android!",
-        payload: {
-            "Version Name" => version_name,
-            "Version Code" => version_code,
-        },
-        default_payloads: []
     )
   end
 end
@@ -230,11 +151,15 @@ platform :ios do
   end
 
   desc "Upload source map to Sentry"
-  lane :sentry_upload do
+  lane :sentry_upload do |options|
+    version_code = options[:version_code]
+    version_name = options[:version_name]
+
     generic_sentry_upload(
         package_name: 'de.integreat-app',
         sourcemap_path: '/tmp/output/index.ios.bundle.map',
-        **next_version
+        version_code: version_code,
+        version_name: version_name
     )
   end
 
@@ -244,8 +169,7 @@ platform :ios do
         env_vars: ['FASTLANE_USER', 'FASTLANE_PASSWORD']
     )
 
-    next_version = next_version()
-    version_name = next_version[:new_version_name]
+    version_name = options[:version_name]
 
     # https://docs.fastlane.tools/actions/deliver/
     deliver(
@@ -264,7 +188,7 @@ platform :ios do
   end
 
   desc "Deliver the app to TestFlight for testers"
-  lane :testflight_upload do |options|
+  lane :testflight_upload do
     ensure_env_vars(
         env_vars: ['FASTLANE_USER', 'FASTLANE_PASSWORD']
     )
@@ -275,25 +199,6 @@ platform :ios do
         apple_id: "1072353915",
         ipa: "/tmp/output/Integreat.ipa",
         distribute_external: false
-    )
-  end
-
-  desc "Notify a the Slack channel #app about a release"
-  lane :notify_release do
-    ensure_env_vars(
-        env_vars: ['SLACK_URL']
-    )
-
-    next_version = next_version()
-    version_code = next_version[:new_version_code]
-    version_name = next_version[:new_version_name]
-    slack(
-        message: "Integreat #{version_name} has been released successfully on iOS!",
-        payload: {
-            "Version Name" => version_name,
-            "Version Code" => version_code,
-        },
-        default_payloads: []
     )
   end
 end
