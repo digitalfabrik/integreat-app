@@ -5,8 +5,9 @@ import { Endpoint, Payload } from '@integreat-app/integreat-api-client'
 import startFetchAction from './actions/startFetchAction'
 import finishFetchAction from './actions/finishFetchAction'
 import type { StoreActionType } from './StoreActionType'
+import type { PayloadDataType } from './PayloadDataType'
 
-async function fetchData<P, T> (
+async function fetchData<P, T: PayloadDataType> (
   endpoint: Endpoint<P, T>,
   dispatch: Dispatch<StoreActionType>,
   oldPayload: Payload<T>,

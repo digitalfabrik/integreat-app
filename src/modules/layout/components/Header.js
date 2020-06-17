@@ -1,21 +1,19 @@
 // @flow
 
 import * as React from 'react'
-import HeaderNavigationBar from './HeaderNavigationBar'
-import HeaderActionBar from './HeaderActionBar'
-import HeaderActionItem from '../HeaderActionItem'
-import Link from 'redux-first-router-link'
 import Headroom from '@integreat-app/react-sticky-headroom'
 import styled, { withTheme } from 'styled-components'
 import withPlatform from '../../platform/hocs/withPlatform'
 import Platform from '../../platform/Platform'
 import compose from 'lodash/fp/compose'
 import type { ThemeType } from '../../theme/constants/theme'
-import appConfig from '../../app/constants/appConfig'
+import buildConfig from '../../app/constants/buildConfig'
+import HeaderTitle, { HEADER_TITLE_HEIGHT } from './HeaderTitle'
+import HeaderLogo from './HeaderLogo'
 
 type PropsType = {|
-  navigationItems: React.Node,
-  actionItems: Array<HeaderActionItem>,
+  navigationItems: Array<React.Node>,
+  actionItems: Array<React.Node>,
   logoHref: string,
   viewportSmall: boolean,
   theme: ThemeType,
@@ -28,24 +26,10 @@ const HeaderContainer = styled.header`
   display: flex;
   width: 100%;
   box-sizing: border-box;
-  align-items: center;
   box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.2);
   background-color: ${props => props.theme.colors.backgroundAccentColor};
   user-select: none;
-
-  & > div {
-    display: flex;
-    height: ${props => props.theme.dimensions.headerHeightLarge}px;
-    align-items: center;
-  }
-
-  @media ${props => props.theme.dimensions.smallViewport} {
-    flex-wrap: wrap;
-
-    & > div {
-      height: ${props => props.theme.dimensions.headerHeightSmall}px;
-    }
-  }
+  flex-direction: column;
 
   @media ${props => props.theme.dimensions.minMaxWidth} {
     padding-right: calc((200% - 100vw - ${props => props.theme.dimensions.maxWidth}px) / 2);
@@ -53,48 +37,61 @@ const HeaderContainer = styled.header`
   }
 `
 
-const LogoWide = styled.div`
-  box-sizing: border-box;
-  flex: 1 1 100px;
-  order: 0;
-  padding: 0 10px;
+const Row = styled.div`
+  display: flex;
+  flex: 1;
+  max-width: 100%;
+  overflow-x: auto;
+  align-items: stretch;
+  min-height: ${props => props.theme.dimensions.headerHeightLarge}px;
+  flex-direction: row;
 
-  & a {
-    width: 100%;
-    height: 60%;
-  }
-
-  & img {
-    max-width: 100%;
-    max-height: 100%;
+  :first-child {
+    z-index: 1; /* Necessary to make the LanguageFlyout cover the NavigationItems as they have opacity set */
   }
 
   @media ${props => props.theme.dimensions.smallViewport} {
-    flex: 1 1 100px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    min-height: ${props => props.theme.dimensions.headerHeightSmall}px;
 
-    & a {
-      max-height: 75%;
+    :first-child { /* this is only necessary for IE11 */
+      min-height: ${props => props.theme.dimensions.headerHeightSmall + (props.hasTitle ? HEADER_TITLE_HEIGHT : 0)}px;
     }
   }
 `
 
-const ActionBar = styled(HeaderActionBar)`
-  flex: 1 1 100px;
+const HeaderSeparator = styled.div`
+  align-self: center;
+  height: ${props => props.theme.dimensions.headerHeightLarge / 2}px;
+  width: 2px;
+  margin: 0 5px;
+  background-color: ${props => props.theme.colors.textDecorationColor};
   order: 2;
 
   @media ${props => props.theme.dimensions.smallViewport} {
-    flex: 1 1 100px;
+    display: none;
   }
 `
 
-const NavigationBar = styled(HeaderNavigationBar)`
-  flex: 2 1 100px;
-  order: 1;
+const ActionBar = styled.div`
+  order: 3;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 
   @media ${props => props.theme.dimensions.smallViewport} {
-    flex: 1 0 100%;
-    order: 3;
+    order: 2;
+    flex: 1 1 0%; /* The % unit is necessary for IE11 */
   }
+`
+
+const NavigationBar = styled.div`
+  display: flex;
+  padding: 0 10px;
+  flex: 1 1 0%; /* The % unit is necessary for IE11 */
+  align-items: stretch;
+  justify-content: center;
 `
 
 /**
@@ -105,7 +102,7 @@ const NavigationBar = styled(HeaderNavigationBar)`
  */
 export class Header extends React.PureComponent<PropsType> {
   static defaultProps = {
-    navigationItems: null,
+    navigationItems: [],
     actionItems: []
   }
 
@@ -114,21 +111,26 @@ export class Header extends React.PureComponent<PropsType> {
       theme, viewportSmall, onStickyTopChanged, actionItems, logoHref, navigationItems, platform, cityName
     } = this.props
     const { headerHeightSmall, headerHeightLarge } = theme.dimensions
-    const height = viewportSmall ? headerHeightSmall : headerHeightLarge
-    const scrollHeight = viewportSmall ? headerHeightSmall : headerHeightLarge
+    const hasNavigationBar = navigationItems.length > 0
+    const height = viewportSmall
+      ? (1 + (hasNavigationBar ? 1 : 0)) * headerHeightSmall + (cityName ? HEADER_TITLE_HEIGHT : 0)
+      : (1 + (hasNavigationBar ? 1 : 0)) * headerHeightLarge
+    const scrollHeight = viewportSmall
+      ? headerHeightSmall + (cityName ? HEADER_TITLE_HEIGHT : 0)
+      : headerHeightLarge
     return (
       <Headroom onStickyTopChanged={onStickyTopChanged}
                 scrollHeight={scrollHeight}
                 height={height}
                 positionStickyDisabled={platform.positionStickyDisabled}>
         <HeaderContainer>
-          <LogoWide>
-            <Link to={logoHref}>
-              <img src={appConfig.logoWide} alt={`Integreat${cityName ? ` - ${cityName}` : ''}`} />
-            </Link>
-          </LogoWide>
-          <NavigationBar>{navigationItems}</NavigationBar>
-          <ActionBar items={actionItems} />
+          <Row hasTitle={!!cityName}>
+            <HeaderLogo theme={theme} link={logoHref} src={buildConfig.logoWide} alt={buildConfig.appTitle} />
+            {!viewportSmall && cityName && <HeaderSeparator theme={theme} />}
+            {(!viewportSmall || cityName) && <HeaderTitle theme={theme}>{cityName}</HeaderTitle>}
+            <ActionBar>{actionItems}</ActionBar>
+          </Row>
+          {hasNavigationBar && <Row><NavigationBar>{navigationItems}</NavigationBar></Row>}
         </HeaderContainer>
       </Headroom>
     )
@@ -137,6 +139,5 @@ export class Header extends React.PureComponent<PropsType> {
 
 export default compose(
   withPlatform,
-  // $FlowFixMe https://github.com/styled-components/styled-components/issues/1785
   withTheme
 )(Header)

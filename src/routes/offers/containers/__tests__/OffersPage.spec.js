@@ -3,7 +3,7 @@
 import { mount, shallow } from 'enzyme'
 import React from 'react'
 
-import { OfferModel } from '@integreat-app/integreat-api-client'
+import { OfferModel, CityModel } from '@integreat-app/integreat-api-client'
 import ConnectedOffersPage, { OffersPage } from '../OffersPage'
 import theme from '../../../../modules/theme/constants/theme'
 import createReduxStore from '../../../../modules/app/createReduxStore'
@@ -43,6 +43,21 @@ describe('OffersPage', () => {
     })
   ]
 
+  const cities = [new CityModel({
+    name: 'Augsburg',
+    code: 'augsburg',
+    live: true,
+    eventsEnabled: true,
+    offersEnabled: true,
+    pushNotificationsEnabled: true,
+    tunewsEnabled: true,
+    sortingName: 'Augsburg',
+    prefix: null,
+    latitude: null,
+    longitude: null,
+    aliases: null
+  })]
+
   const t = (key: ?string): string => key || ''
 
   it('should render offer tiles if no offer is selected', () => {
@@ -51,7 +66,8 @@ describe('OffersPage', () => {
                   language={language}
                   offers={offers}
                   offerId={undefined}
-                  t={t} />
+                  t={t}
+                  cities={cities} />
     )
     expect(offersPage).toMatchSnapshot()
   })
@@ -62,7 +78,8 @@ describe('OffersPage', () => {
                   language={language}
                   offers={offers}
                   offerId='invalid_offer'
-                  t={t} />
+                  t={t}
+                  cities={cities} />
     )
     expect(offersPage).toMatchSnapshot()
   })
@@ -75,7 +92,7 @@ describe('OffersPage', () => {
     const tree = mount(
       <ThemeProvider theme={theme}>
         <Provider store={store}>
-          <ConnectedOffersPage offers={offers} />
+          <ConnectedOffersPage offers={offers} cities={cities} />
         </Provider>
       </ThemeProvider>
     )
@@ -84,6 +101,7 @@ describe('OffersPage', () => {
       language,
       city,
       offers,
+      cities,
       offerId: 'invalid_offer'
     })
   })

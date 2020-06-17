@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 
 import TileModel from '../../../modules/common/models/TileModel'
 import Tiles from '../../../modules/common/components/Tiles'
-import { OfferModel } from '@integreat-app/integreat-api-client'
+import { CityModel, OfferModel } from '@integreat-app/integreat-api-client'
 import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
@@ -14,13 +14,16 @@ import SprungbrettRouteConfig, { SPRUNGBRETT_EXTRA } from '../../../modules/app/
 import WohnenRouteConfig, { WOHNEN_EXTRA } from '../../../modules/app/route-configs/WohnenRouteConfig'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
+import Failure from '../../../modules/common/components/Failure'
+import CategoriesRouteConfig from '../../../modules/app/route-configs/CategoriesRouteConfig'
 
 type PropsType = {|
   city: string,
   language: string,
   offers: Array<OfferModel>,
   offerId: ?string,
-  t: TFunction
+  t: TFunction,
+  cities: Array<CityModel>
 |}
 
 /**
@@ -52,7 +55,14 @@ export class OffersPage extends React.Component<PropsType> {
   }
 
   render () {
-    const { city, offers, offerId, language, t } = this.props
+    const { city, offers, offerId, language, t, cities } = this.props
+
+    const cityModel = cities.find(cityModel => cityModel.code === city)
+
+    if (!cityModel || !cityModel.offersEnabled) {
+      return <Failure errorMessage='notFound.category' goToMessage='goTo.categories'
+                      goToPath={new CategoriesRouteConfig().getRoutePath({ city, language })} />
+    }
 
     if (offerId) {
       // If there is an offerId, the route is invalid, because every internal offer has a separate route

@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PoisPage should render a Failure if poi is invalid 1`] = `
-<Translate(FailureSwitcher)
+<FailureSwitcher
   error={[Error: The poi invalid_poi does not exist here.]}
 />
 `;
@@ -9,15 +9,15 @@ exports[`PoisPage should render a Failure if poi is invalid 1`] = `
 exports[`PoisPage should render a Page if a poi is selected 1`] = `
 <Page
   content="content"
+  defaultThumbnailSrc="thumbnail"
   language="en"
   lastUpdate={"2016-01-07T09:36:24.000Z"}
   onInternalLinkClick={[Function]}
-  thumbnail="thumbnail"
   title="third Event"
 >
   <PageDetail
     identifier="location"
-    information="address, postcode town"
+    information="name, address, postcode town"
   />
 </Page>
 `;
@@ -41,10 +41,13 @@ exports[`PoisPage should render a list of pois if no poi is selected 1`] = `
           "_lastUpdate": "2016-01-07T09:36:24.000Z",
           "_location": LocationModel {
             "_address": "address",
-            "_latitude": undefined,
-            "_longitude": undefined,
-            "_name": undefined,
+            "_country": "country",
+            "_latitude": null,
+            "_longitude": null,
+            "_name": "name",
             "_postcode": "postcode",
+            "_region": "region",
+            "_state": "state",
             "_town": "town",
           },
           "_path": "/augsburg/en/locations/first_poi",
@@ -62,10 +65,13 @@ exports[`PoisPage should render a list of pois if no poi is selected 1`] = `
           "_lastUpdate": "2016-01-07T09:36:24.000Z",
           "_location": LocationModel {
             "_address": "address",
-            "_latitude": undefined,
-            "_longitude": undefined,
-            "_name": undefined,
+            "_country": "country",
+            "_latitude": null,
+            "_longitude": null,
+            "_name": "name",
             "_postcode": "postcode",
+            "_region": "region",
+            "_state": "state",
             "_town": "town",
           },
           "_path": "/augsburg/en/locations/second_poi",
@@ -83,10 +89,13 @@ exports[`PoisPage should render a list of pois if no poi is selected 1`] = `
           "_lastUpdate": "2016-01-07T09:36:24.000Z",
           "_location": LocationModel {
             "_address": "address",
-            "_latitude": undefined,
-            "_longitude": undefined,
-            "_name": undefined,
+            "_country": "country",
+            "_latitude": null,
+            "_longitude": null,
+            "_name": "name",
             "_postcode": "postcode",
+            "_region": "region",
+            "_state": "state",
             "_town": "town",
           },
           "_path": "/augsburg/en/locations/third_poi",

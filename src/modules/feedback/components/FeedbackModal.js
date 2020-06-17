@@ -44,47 +44,58 @@ const FeedbackContainer = styled.div`
     justify-content: center;
   }
 `
-
 type PropsType = {|
   cities: ?Array<CityModel>,
   title?: string,
   path?: string,
   alias?: string,
   query?: string,
-  feedbackStatus: FeedbackRatingType,
+  feedbackRating: FeedbackRatingType,
   closeFeedbackModal: () => void,
   location: LocationState,
   theme: ThemeType
 |}
 
+export type SendingStatusType = 'IDLE' | 'SUCCESS' | 'ERROR'
+
 type StateType = {|
-  feedbackSent: boolean
+  sendingStatus: SendingStatusType
 |}
 
 export class FeedbackModal extends React.Component<PropsType, StateType> {
-  state = { feedbackSent: false }
+  state = { sendingStatus: 'IDLE' }
 
-  handleSubmit = () => this.setState({ feedbackSent: true })
+  handleSubmit = (sendingStatus: SendingStatusType) => {
+    this.setState({ sendingStatus: sendingStatus })
+  }
 
   handleOverlayClick = () => {
-    this.setState({ feedbackSent: false })
+    this.setState({ sendingStatus: 'IDLE' })
     this.props.closeFeedbackModal()
   }
 
-  render () {
-    const { theme, feedbackStatus, ...otherProps } = this.props
-    const { feedbackSent } = this.state
+  renderContent (): React.Node {
+    const { theme, feedbackRating, ...otherProps } = this.props
+    const { sendingStatus } = this.state
 
+    if (['IDLE', 'ERROR'].includes(sendingStatus)) {
+      return <FeedbackBoxContainer isPositiveRatingSelected={feedbackRating === POSITIVE_RATING}
+                              {...otherProps}
+                              onSubmit={this.handleSubmit}
+                              sendingStatus={sendingStatus}
+                              theme={theme} />
+    } else {
+      return <FeedbackThanksMessage closeFeedbackModal={this.props.closeFeedbackModal} />
+    }
+  }
+
+  render () {
+    const { theme } = this.props
     return <FocusTrap>
       <ModalContainer role='dialog' aria-modal theme={theme}>
         <Overlay onClick={this.handleOverlayClick} />
         <FeedbackContainer theme={theme}>
-          {
-            feedbackSent
-              ? <FeedbackThanksMessage closeFeedbackModal={this.props.closeFeedbackModal} />
-              : <FeedbackBoxContainer isPositiveRatingSelected={feedbackStatus === POSITIVE_RATING}
-                                      {...otherProps} onSubmit={this.handleSubmit} theme={theme} />
-          }
+          {this.renderContent()}
         </FeedbackContainer>
       </ModalContainer>
     </FocusTrap>

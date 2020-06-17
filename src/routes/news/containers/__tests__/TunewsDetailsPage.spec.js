@@ -62,7 +62,7 @@ describe('TunewsDetailsPage', () => {
 
   it('should map state to props', () => {
     const location = createLocation({
-      payload: { city: city, language: language },
+      payload: { city: city, language: language, id: 1 },
       pathname: '/augsburg/en/news/tu-news/1',
       type: TUNEWS_ROUTE
     })
@@ -84,8 +84,9 @@ describe('TunewsDetailsPage', () => {
     expect(tree.find(TunewsDetailsPage).props()).toEqual({
       tunewsElement,
       language,
-      path: '/augsburg/en/news/tu-news/1',
+      id: 1,
       city,
+      cities,
       dispatch: expect.any(Function)
     })
   })

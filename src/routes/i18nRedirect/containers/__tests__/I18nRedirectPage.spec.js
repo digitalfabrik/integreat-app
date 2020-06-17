@@ -20,7 +20,13 @@ describe('I18nRedirectPage', () => {
       live: true,
       eventsEnabled: false,
       offersEnabled: false,
-      sortingName: 'City'
+      tunewsEnabled: false,
+      pushNotificationsEnabled: false,
+      sortingName: 'City',
+      latitude: null,
+      longitude: null,
+      aliases: null,
+      prefix: null
     })
   ]
 

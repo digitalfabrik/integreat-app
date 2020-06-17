@@ -61,6 +61,7 @@ exports[`FeedbackBoxContainer should match snapshot 1`] = `
       "value": "contentOfCity",
     }
   }
+  sendingStatus="SUCCESS"
   theme={
     Object {
       "colors": Object {
@@ -71,13 +72,12 @@ exports[`FeedbackBoxContainer should match snapshot 1`] = `
         "textDisabledColor": "#d0d0d0",
         "textSecondaryColor": "#585858",
         "themeColor": "#fbda16",
-        "themeDarkColor": "#c4a900",
         "tunewsThemeColor": "#007aa8",
         "tunewsThemeColorLight": "rgba(0, 122, 168, 0.4)",
       },
       "dimensions": Object {
-        "headerHeightLarge": 85,
-        "headerHeightSmall": 55,
+        "headerHeightLarge": 90,
+        "headerHeightSmall": 70,
         "maxWidth": 1100,
         "minMaxWidth": "screen and (min-width: 1100px)",
         "smallViewport": "(max-width: 750px)",

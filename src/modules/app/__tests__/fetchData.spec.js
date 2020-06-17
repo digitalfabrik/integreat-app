@@ -4,7 +4,7 @@ import lolex from 'lolex'
 
 import startFetchAction from '../../app/actions/startFetchAction'
 import finishFetchAction from '../../app/actions/finishFetchAction'
-import { EndpointBuilder, MappingError, Payload } from '@integreat-app/integreat-api-client'
+import { CityModel, EndpointBuilder, MappingError, Payload } from '@integreat-app/integreat-api-client'
 import fetchData from '../fetchData'
 
 describe('fetchData', () => {
@@ -18,25 +18,19 @@ describe('fetchData', () => {
 
   let clock
   const mockedTime = 0
-  let prevError
 
   beforeEach(() => {
     clock = lolex.install({ now: mockedTime, toFake: [] })
-    prevError = console.error // todo: Find better way of allowing console.error
-    // $FlowFixMe
-    console.error = error => console.log(`Some expected error was thrown: ${error}`)
   })
 
   afterEach(() => {
     // $FlowFixMe
     fetch.resetMocks()
     clock.uninstall()
-    // $FlowFixMe
-    console.error = prevError
   })
 
   it('should fetch correctly if the data has not been fetched yet', async () => {
-    const json = { test: 'random' }
+    const json = []
     const dispatch = jest.fn()
     const oldPayload = new Payload(false)
     const params = { var1: 'a', var2: 'b' }
@@ -44,7 +38,7 @@ describe('fetchData', () => {
     fetch.mockResponse(JSON.stringify(json))
 
     const data = await fetchData(endpoint, dispatch, oldPayload, params)
-    const payload = new Payload(false, defaultMapParamsToUrl(params), json, null)
+    const payload = new Payload<Array<CityModel>>(false, defaultMapParamsToUrl(params), json, null)
 
     expect(data).toEqual(payload)
     expect(dispatch).toHaveBeenCalledTimes(2)
@@ -53,15 +47,15 @@ describe('fetchData', () => {
   })
 
   it('should fetch correctly if the fetched data is outdated', async () => {
-    const json = { test: 'random' }
+    const json = []
     const dispatch = jest.fn()
-    const oldPayload = new Payload(false, 'https://weird-endpoint/old-url/api.json', {}, null)
+    const oldPayload = new Payload<CityModel[]>(false, 'https://weird-endpoint/old-url/api.json', [], null)
     const params = { var1: 'a', var2: 'b' }
     // $FlowFixMe
     fetch.mockResponse(JSON.stringify(json))
 
     const data = await fetchData(endpoint, dispatch, oldPayload, params)
-    const payload = new Payload(false, defaultMapParamsToUrl(params), json, null)
+    const payload = new Payload<Array<CityModel>>(false, defaultMapParamsToUrl(params), json, null)
 
     expect(data).toEqual(payload)
     expect(dispatch).toHaveBeenCalledTimes(2)
@@ -72,7 +66,7 @@ describe('fetchData', () => {
   it('should fail if json is malformed', async () => {
     const malformedJSON = 'I\'m so mean!'
     const dispatch = jest.fn()
-    const oldPayload = new Payload(false, 'https://weird-endpoint/old-url/api.json', {}, null)
+    const oldPayload = new Payload<CityModel[]>(false, 'https://weird-endpoint/old-url/api.json', [], null)
     const params = { var1: 'a', var2: 'b' }
     // $FlowFixMe
     fetch.mockResponse(malformedJSON)
@@ -93,7 +87,7 @@ describe('fetchData', () => {
   it('should not fetch if data has already been fetched', async () => {
     const dispatch = jest.fn()
     const params = { var1: 'a', var2: 'b' }
-    const oldPayload = new Payload(false, defaultMapParamsToUrl(params), {}, null)
+    const oldPayload = new Payload(false, defaultMapParamsToUrl(params), [], null)
 
     const data = await fetchData(endpoint, dispatch, oldPayload, params)
 
@@ -102,19 +96,19 @@ describe('fetchData', () => {
   })
 
   it('should use overrideResponse correctly', async () => {
-    const json = { test: 'random' }
-    const endpoint = new EndpointBuilder(defaultName)
+    const json = []
+    const endpoint = new EndpointBuilder<*, CityModel[]>(defaultName)
       .withParamsToUrlMapper(defaultMapParamsToUrl)
       .withMapper(defaultJsonMapper)
       .withResponseOverride(json)
       .build()
 
     const dispatch = jest.fn()
-    const oldPayload = new Payload(false)
+    const oldPayload = new Payload<CityModel[]>(false)
     const params = { var1: 'a', var2: 'b' }
 
     const data = await fetchData(endpoint, dispatch, oldPayload, params)
-    const payload = new Payload(false, defaultMapParamsToUrl(params), json, null)
+    const payload = new Payload<CityModel[]>(false, defaultMapParamsToUrl(params), data.data, null)
 
     expect(data).toEqual(payload)
     expect(dispatch).toHaveBeenCalledTimes(2)
@@ -124,15 +118,15 @@ describe('fetchData', () => {
 
   it('should use overrideError correctly', async () => {
     const error = new Error('fake news')
-    const endpoint = new EndpointBuilder(defaultName)
+    const endpoint = new EndpointBuilder<*, CityModel[]>(defaultName)
       .withParamsToUrlMapper(defaultMapParamsToUrl)
       .withMapper(defaultJsonMapper)
-      .withResponseOverride(null)
+      .withResponseOverride([])
       .withErrorOverride(error)
       .build()
 
     const dispatch = jest.fn()
-    const oldPayload = new Payload(false)
+    const oldPayload = new Payload<CityModel[]>(false)
     const params = { var1: 'a', var2: 'b' }
 
     const data = await fetchData(endpoint, dispatch, oldPayload, params)

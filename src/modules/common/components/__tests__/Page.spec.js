@@ -17,7 +17,7 @@ describe('Page', () => {
     expect(shallow(<Page title={title}
                          lastUpdate={lastUpdate}
                          content={content}
-                         thumbnail={thumbnail}
+                         defaultThumbnailSrc={thumbnail}
                          language={language}
                          onInternalLinkClick={() => {}} />
     )).toMatchSnapshot()

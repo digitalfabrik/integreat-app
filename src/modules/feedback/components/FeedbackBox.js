@@ -11,6 +11,7 @@ import FeedbackVariant from '../FeedbackVariant'
 import TextButton from '../../common/components/TextButton'
 import type { ThemeType } from '../../theme/constants/theme'
 import Dropdown from '../../common/components/Dropdown'
+import type { SendingStatusType } from './FeedbackModal'
 
 export const StyledFeedbackBox = styled.div`
   display: flex;
@@ -39,7 +40,8 @@ type PropsType = {|
   onSubmit: () => void,
   t: TFunction,
   closeFeedbackModal: () => void,
-  theme: ThemeType
+  theme: ThemeType,
+  sendingStatus: SendingStatusType
 |}
 
 /**
@@ -57,7 +59,8 @@ export class FeedbackBox extends React.PureComponent<PropsType> {
       onSubmit,
       comment,
       closeFeedbackModal,
-      theme
+      theme,
+      sendingStatus
     } = this.props
 
     return (
@@ -73,6 +76,7 @@ export class FeedbackBox extends React.PureComponent<PropsType> {
           commentMessage={isPositiveRatingSelected ? t('positiveComment') : t('negativeComment')}
           onCommentChanged={onCommentChanged}
           required={!isPositiveRatingSelected} />
+        {sendingStatus === 'ERROR' && <Description>{t('failedSendingFeedback')}</Description>}
         <TextButton
           disabled={!isPositiveRatingSelected && !comment}
           onClick={onSubmit}

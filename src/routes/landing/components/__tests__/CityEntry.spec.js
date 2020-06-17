@@ -14,7 +14,13 @@ describe('CityEntry', () => {
       live: true,
       eventsEnabled: false,
       offersEnabled: false,
-      sortingName: 'Augsburg'
+      pushNotificationsEnabled: false,
+      tunewsEnabled: false,
+      sortingName: 'Augsburg',
+      latitude: null,
+      longitude: null,
+      prefix: null,
+      aliases: null
     })
 
     const component = shallow(<CityEntry theme={brightTheme} language='de' city={city} filterText='' />).dive()

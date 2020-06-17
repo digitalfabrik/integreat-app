@@ -3,8 +3,6 @@
 import * as React from 'react'
 import ContentNotFoundError from '../errors/ContentNotFoundError'
 import Failure from './Failure'
-import type { TFunction } from 'react-i18next'
-import { withTranslation } from 'react-i18next'
 import CategoriesRouteConfig from '../../app/route-configs/CategoriesRouteConfig'
 import EventsRouteConfig from '../../app/route-configs/EventsRouteConfig'
 import OffersRouteConfig from '../../app/route-configs/OffersRouteConfig'
@@ -13,8 +11,7 @@ import LocalNewsRouteConfig from '../../app/route-configs/LocalNewsRouteConfig'
 import TunewsRouteConfig from '../../app/route-configs/TunewsRouteConfig'
 
 type PropsType = {|
-  error: Error,
-  t: TFunction
+  error: Error
 |}
 
 export class FailureSwitcher extends React.Component<PropsType> {
@@ -42,7 +39,6 @@ export class FailureSwitcher extends React.Component<PropsType> {
         return <Failure goToPath={new TunewsRouteConfig().getRoutePath({ city, language })}
                         goToMessage='goTo.tunews'
                         errorMessage='notFound.tunewsItem' />
-
       case 'offer':
         return <Failure goToPath={new OffersRouteConfig().getRoutePath({ city, language })}
                         goToMessage='goTo.offers'
@@ -66,4 +62,4 @@ export class FailureSwitcher extends React.Component<PropsType> {
   }
 }
 
-export default withTranslation('error')(FailureSwitcher)
+export default FailureSwitcher

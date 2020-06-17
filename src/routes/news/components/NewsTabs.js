@@ -27,7 +27,7 @@ type PropsType = {|
 class NewsTabs extends React.PureComponent<PropsType> {
   render () {
     const { children, city, cities, language, t, type } = this.props
-    const currentCity: CityModel = cities && cities.find(cityElement => cityElement.code === city)
+    const currentCity: ?CityModel = cities && cities.find(cityElement => cityElement.code === city)
     const localNewsPath = new LocalNewsRouteConfig().getRoutePath({ city, language })
     const tunewsPath = new TunewsRouteConfig().getRoutePath({ city, language })
 

@@ -20,15 +20,22 @@ describe('EventListItem', () => {
       allDay: true
     }),
     location: new LocationModel({
+      name: 'name',
       address: 'address',
       town: 'town',
-      postcode: 'postcode'
+      postcode: 'postcode',
+      longitude: null,
+      latitude: null,
+      state: 'state',
+      region: 'region',
+      country: 'country'
     }),
     excerpt: 'very loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong excerpt',
     lastUpdate: moment('2016-01-07 10:36:24'),
     content: 'content',
     thumbnail: 'thumbnail',
-    hash: '2fe6283485a93932'
+    hash: '2fe6283485a93932',
+    featuredImage: null
   })
 
   it('should render and match snapshot', () => {

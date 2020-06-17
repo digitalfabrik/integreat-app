@@ -61,13 +61,13 @@ exports[`WohnenOfferPage should render detailed offer if hash is supplied 1`] = 
 `;
 
 exports[`WohnenOfferPage should render failure city does not support offer 1`] = `
-<Translate(FailureSwitcher)
+<FailureSwitcher
   error={[Error: The Wohnen offer is not supported.]}
 />
 `;
 
 exports[`WohnenOfferPage should render failure offer if offer is not found 1`] = `
-<Translate(FailureSwitcher)
+<FailureSwitcher
   error={[Error: Angebot nicht gefunden.]}
 />
 `;

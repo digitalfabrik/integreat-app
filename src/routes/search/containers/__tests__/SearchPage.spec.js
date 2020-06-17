@@ -41,12 +41,18 @@ describe('SearchPage', () => {
 
   const cities = [
     new CityModel({
-      name: 'Augsburg',
+      name: 'Stadt Augsburg',
       code: 'augsburg',
       live: true,
       eventsEnabled: true,
       offersEnabled: false,
-      sortingName: 'Augsburg'
+      tunewsEnabled: false,
+      pushNotificationsEnabled: false,
+      sortingName: 'Augsburg',
+      aliases: null,
+      latitude: null,
+      longitude: null,
+      prefix: 'Stadt'
     })
   ]
 

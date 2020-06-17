@@ -1,7 +1,7 @@
 // @flow
 
 import OffersRouteConfig from '../OffersRouteConfig'
-import { OfferModel, Payload } from '@integreat-app/integreat-api-client'
+import { CityModel, OfferModel, Payload } from '@integreat-app/integreat-api-client'
 import createLocation from '../../../../createLocation'
 
 const offers = [
@@ -13,8 +13,23 @@ const offers = [
     postData: null
   })
 ]
+const cities = [new CityModel({
+  name: 'Augsburg',
+  code: 'augsburg',
+  live: true,
+  eventsEnabled: true,
+  offersEnabled: true,
+  pushNotificationsEnabled: true,
+  tunewsEnabled: true,
+  sortingName: 'Augsburg',
+  prefix: null,
+  latitude: null,
+  longitude: null,
+  aliases: null
+})]
 const offersPayload = new Payload(false, 'https://random.api.json', offers, null)
-const payloads = { offers: offersPayload }
+const citiesPayload = new Payload(false, 'https://random.api.json', cities, null)
+const payloads = { offers: offersPayload, cities: citiesPayload }
 
 const t = (key: ?string): string => key || ''
 
@@ -28,7 +43,7 @@ describe('OffersRouteConfig', () => {
   it('should get the required payloads', () => {
     const allPayloads = {
       offersPayload,
-      citiesPayload: new Payload(true),
+      citiesPayload,
       categoriesPayload: new Payload(true),
       disclaimerPayload: new Payload(true),
       eventsPayload: new Payload(true),
@@ -66,7 +81,13 @@ describe('OffersRouteConfig', () => {
 
     expect(extasRouteConfig.getPageTitle({ payloads, location, cityName: 'Augsburg', t }))
       .toBe('pageTitles.offers - Augsburg')
-    expect(extasRouteConfig.getPageTitle({ payloads, location, cityName: null, t }))
+
+    const wrongLocation = createLocation({
+      payload: { city: 'wrong-location', language: 'de' },
+      pathname: '/wrong-location/de/offers',
+      type: extasRouteConfig.name
+    })
+    expect(extasRouteConfig.getPageTitle({ payloads, cityName: null, location: wrongLocation, t }))
       .toBeNull()
   })
 

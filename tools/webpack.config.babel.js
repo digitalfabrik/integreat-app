@@ -5,35 +5,66 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 const babelConfig = require('../.babelrc.js')
-const getVersion = require('git-repo-version')
+const fs = require('fs')
+
+const SHORT_COMMIT_SHA_LENGTH = 8
+
+const readVersionName = () => {
+  const versionFile = fs.readFileSync(path.resolve(__dirname, '../version.json'))
+  return JSON.parse(versionFile).versionName
+}
 
 const createConfig = (env = {}) => {
-  if (env.prod === undefined) {
-    throw Error('You need to specify a mode!')
+  const { config_name: buildConfigName, production, debug, commit_sha: commitSha, version_name: versionName } = env
+  const validConfigNames = ['integreat', 'integreat-test-cms', 'malte']
+
+  if (!buildConfigName) {
+    throw new Error('You need to specify a config name!')
+  } else if (!validConfigNames.includes(buildConfigName)) {
+    throw new Error(`Invalid config name! Allowed configs: ${validConfigNames}`)
+  } else if ((!production && !debug) || (production && debug)) {
+    throw new Error('You need to set the build mode by either passing production or debug flag!')
   }
 
-  const isDebug = env.prod === 'false'
-  const appConfigName = env.config_name || 'integreat'
-  const appConfig = require(`./${appConfigName}-config`)
-  const wwwDirectory = path.resolve(__dirname, '../www')
-  const distDirectory = path.resolve(__dirname, '../dist')
-  const configAssets = path.resolve(__dirname, `../tools/${appConfigName}-config/assets`)
+  const isProductionBuild = production || !debug
 
-  console.log('isDebug: ', isDebug)
-  console.log('config_name: ', appConfigName)
+  // If version_name is not supplied read it from version file
+  let version = versionName || readVersionName()
+  if (commitSha) {
+    version = `${version}+${commitSha.substring(0, SHORT_COMMIT_SHA_LENGTH)}`
+  }
+
+  console.log('Used config: ', buildConfigName)
+  console.log('Production: ', isProductionBuild)
+  console.log('Version: ', version)
+
+  const buildConfig = require(`../build-configs/configs/${buildConfigName}`)
+  const configAssets = path.resolve(__dirname, `../build-configs/configs/${buildConfigName}/assets`)
+
+  const nodeModules = path.resolve('./node_modules')
+  const wwwDirectory = path.resolve(__dirname, '../www')
+  const distDirectory = path.resolve(__dirname, `../dist/${buildConfigName}`)
+  const srcDirectory = path.resolve(__dirname, '../src')
+
+  // Add new polyfills here instead of importing them in the JavaScript code.
+  // This way it is ensured that polyfills are loaded before any other code which might require them.
+  const polyfills = [
+    '@babel/polyfill',
+    'whatwg-fetch',
+    'url-polyfill'
+  ]
 
   const config = {
-    mode: isDebug ? 'development' : 'production',
+    mode: isProductionBuild ? 'production' : 'development',
     resolve: {
-      modules: [
-        path.resolve('./node_modules')
-      ]
+      modules: [nodeModules]
     },
     // The base directory for resolving the entry option
-    context: path.resolve(__dirname, '../src'),
+    context: srcDirectory,
     // The entry point for the bundle
     entry: [
       '!!style-loader!css-loader!normalize.css/normalize.css',
+      ...polyfills,
       'react-hot-loader/patch',
       /* The main entry point of your JavaScript application */
       './main.js'
@@ -42,13 +73,13 @@ const createConfig = (env = {}) => {
     output: {
       path: distDirectory,
       publicPath: '/',
-      filename: isDebug ? '[name].js?[hash]' : '[name].[hash].js',
-      chunkFilename: isDebug ? '[id].js?[chunkhash]' : '[id].[chunkhash].js',
+      filename: isProductionBuild ? '[name].[hash].js' : '[name].js?[hash]',
+      chunkFilename: isProductionBuild ? '[id].[chunkhash].js' : '[id].js?[chunkhash]',
       sourcePrefix: '  '
     },
     // Developer tool to enhance debugging, source maps
     // http://webpack.github.io/docs/configuration.html#devtool
-    devtool: isDebug ? 'source-map' : false,
+    devtool: isProductionBuild ? false : 'source-map',
     devServer: {
       contentBase: distDirectory,
       compress: true,
@@ -65,11 +96,11 @@ const createConfig = (env = {}) => {
     plugins: [
       new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
-        title: appConfig.appTitle,
+        title: buildConfig.appTitle,
         // Load a custom template (lodash by default)
         template: 'index.ejs',
         templateParameters: {
-          config: appConfig
+          config: buildConfig
         }
       }),
       new CopyPlugin([
@@ -77,10 +108,10 @@ const createConfig = (env = {}) => {
         { from: configAssets, to: distDirectory }
       ]),
       new webpack.DefinePlugin({
-        'process.env.NODE_ENV': isDebug ? '"development"' : '"production"',
-        __DEV__: isDebug,
-        __VERSION__: JSON.stringify(getVersion()),
-        __CONFIG__: JSON.stringify(appConfig)
+        'process.env.NODE_ENV': isProductionBuild ? '"production"' : '"development"',
+        __DEV__: !isProductionBuild,
+        __VERSION__: JSON.stringify(version),
+        __CONFIG__: JSON.stringify(buildConfig)
       }),
       // Emit a JSON file with assets paths
       // https://github.com/sporto/assets-webpack-plugin#options
@@ -90,8 +121,8 @@ const createConfig = (env = {}) => {
         prettyPrint: true
       }),
       new webpack.LoaderOptionsPlugin({
-        debug: isDebug,
-        minimize: !isDebug
+        debug: !isProductionBuild,
+        minimize: isProductionBuild
       })
     ],
     module: {
@@ -99,7 +130,9 @@ const createConfig = (env = {}) => {
         {
           test: /\.jsx?$/,
           // https://github.com/webpack/webpack/issues/2031#issuecomment-219040479
-          exclude: /node_modules\/(?!(strict-uri-encode)\/).*/,
+          // Packages mentioned here probably use ES6 syntax which IE11 does not support. This is a problem because
+          // in development mode webpack bundles the mentioned packages
+          exclude: /node_modules\/(?!(strict-uri-encode|strip-ansi)\/).*/,
           loader: 'babel-loader',
           options: babelConfig
         },
@@ -124,7 +157,7 @@ const createConfig = (env = {}) => {
             {
               loader: 'img-loader',
               options: {
-                enabled: !isDebug,
+                enabled: isProductionBuild,
                 gifsicle: {
                   interlaced: false
                 },
@@ -155,8 +188,8 @@ const createConfig = (env = {}) => {
     }
   }
 
-  // Optimize the bundle in release (production) mode
-  if (!isDebug) {
+  // Optimize the bundle in production mode
+  if (isProductionBuild) {
     config.plugins.push(new webpack.optimize.AggressiveMergingPlugin())
   }
 
