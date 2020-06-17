@@ -193,7 +193,7 @@ jobs:
           steps:
             - run:
                 name: Integreat debug delivery
-                command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.integreat-app.de \<<< $'put -r /tmp/output/dist/integreat-test-cms/*'
+                command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.integreat.app \<<< $'put -r /tmp/output/dist/integreat-test-cms/*'
             - run:
                 name: Malte debug delivery
                 command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.malteapp.de \<<< $'put -r /tmp/output/dist/malte/*'
