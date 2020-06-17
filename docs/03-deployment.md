@@ -3,7 +3,7 @@
 ## Deployment to web.
 1. Create new release on Jira (should be empty)
 2. Update old issues to use the created release as Fix Version
-   * Query to find issues which haven't been released: `project = "integreat-webapp" AND issuetype = Task AND Sprint IS NOT EMPTY AND fixVersion IS EMPTY AND resolution = Done`
+   * Query to find issues which haven't been released: `project = integreat-webapp AND fixVersion IS EMPTY AND resolution = Done AND resolutiondate > <last release date>`
 3. Release the Jira release
 4. Generate release notes in Jira
 
