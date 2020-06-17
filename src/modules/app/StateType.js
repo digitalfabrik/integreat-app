@@ -18,7 +18,7 @@ import type { UiDirectionType } from '../i18n/types/UiDirectionType'
 
 export type ViewportType = { +is: { +small: boolean, +large: boolean } }
 
-export type StateType = {
+export type StateType = {|
   location: LocationState,
   categories: Payload<CategoriesMapModel>,
   offers: Payload<Array<OfferModel>>,
@@ -36,4 +36,4 @@ export type StateType = {
   uiDirection: UiDirectionType,
   darkMode: boolean,
   pois: Payload<Array<PoiModel>>
-}
+|}
