@@ -18,7 +18,7 @@ workflows:
   commit: # Builds every commit. Delivers to webnext.integreat.app and webnext.malteapp.de on develop.
     unless: << pipeline.parameters.api_triggered >>
     jobs:
-      - test_and_build
+      - build
       - deliver:
           filters:
             branches:
@@ -26,7 +26,7 @@ workflows:
                 - develop
           production_delivery: false
           requires:
-            - test_and_build
+            - build
 
   api_triggered_production_delivery: # Workflow for manual delivery to integreat.app and malteapp.de which also bumps the version, moves the release notes, ...
     when:
@@ -34,10 +34,10 @@ workflows:
         - << pipeline.parameters.api_triggered >>
         - << pipeline.parameters.production_delivery >>
     jobs:
-      - test_and_build
+      - build
       - prepare_production_delivery:
           requires:
-            - test_and_build
+            - build
       - deliver:
           production_delivery: true
           requires:
@@ -49,11 +49,11 @@ workflows:
         - << pipeline.parameters.api_triggered >>
         - not: << pipeline.parameters.production_delivery >>
     jobs:
-      - test_and_build
+      - build
       - deliver:
           production_delivery: false
           requires:
-            - test_and_build
+            - build
 
   bi_weekly_prduction_delivery:
     triggers:
@@ -64,10 +64,10 @@ workflows:
               only:
                 - develop
     jobs:
-      - test_and_build
+      - build
       - prepare_production_delivery:
           requires:
-            - test_and_build
+            - build
       - await_approval:
           type: approval
           requires:
@@ -78,7 +78,7 @@ workflows:
             - await_approval
 
 jobs:
-  test_and_build:
+  build:
     parameters:
     docker:
       - image: circleci/node:12.16.3
