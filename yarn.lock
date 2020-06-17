@@ -1221,10 +1221,10 @@
     eslint-config-standard-react "^9.2.0"
     eslint-plugin-react "^7.18.3"
 
-"@integreat-app/integreat-api-client@^4.3.0":
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/@integreat-app/integreat-api-client/-/integreat-api-client-4.3.0.tgz#957ad448168283871f25b49b0d64fef314cf672a"
-  integrity sha512-xVEyuho30mSZ/jab86OuJD6pSciJKc/E2PuDYGPLnWLNUTyT8HlL81kf8S0wE4ITm8dfdl62qnm68h0gpE/rXA==
+"@integreat-app/integreat-api-client@^5.0.0":
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/@integreat-app/integreat-api-client/-/integreat-api-client-5.0.0.tgz#5ae3afdf51bead3725aca841711e68e15e760041"
+  integrity sha512-fXZ5pOYgEXTWOUxWldxXTgxZ86CKWurRlpBxg6vBYUMQLRRwKYSppc37duSuw6CmpMWlKmh3x499MIMI6XY68A==
   dependencies:
     entities "^2.0.0"
     is-url "^1.2"

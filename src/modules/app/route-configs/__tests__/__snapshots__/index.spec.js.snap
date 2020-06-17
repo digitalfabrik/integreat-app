@@ -14,10 +14,6 @@ Object {
     "path": "/:city/:language/events/:eventId?",
     "thunk": [Function],
   },
-  "EXTRAS": Object {
-    "path": "/:city/:language/offers/:extraId?",
-    "thunk": [Function],
-  },
   "I18N_REDIRECT": Object {
     "path": "/:param?",
     "thunk": [Function],
@@ -35,6 +31,10 @@ Object {
     "thunk": [Function],
   },
   "MAIN_DISCLAIMER": "/disclaimer",
+  "OFFERS": Object {
+    "path": "/:city/:language/offers/:offerId?",
+    "thunk": [Function],
+  },
   "POI": Object {
     "path": "/:city/:language/locations/:poiId?",
     "thunk": [Function],

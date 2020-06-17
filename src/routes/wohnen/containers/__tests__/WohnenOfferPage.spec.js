@@ -18,11 +18,11 @@ describe('WohnenOfferPage', () => {
   const city = 'augsburg'
   const language = 'de'
 
-  const wohnenExtra = new OfferModel({
+  const offer = new OfferModel({
     alias: 'wohnen', path: 'path to fetch offers from', title: 'Raumfrei', thumbnail: 'xy', postData: null
   })
 
-  const extras = [wohnenExtra]
+  const offers = [offer]
 
   const wohnenOffer = new WohnenOfferModel({
     email: 'mail@mail.com',
@@ -54,17 +54,17 @@ describe('WohnenOfferPage', () => {
         ofAdditionalServicesDiff: []
       })
   })
-  const offerHash = new Hashids().encode(wohnenOffer.email.length, wohnenOffer.createdDate.milliseconds())
+  const wohnenOfferHash = new Hashids().encode(wohnenOffer.email.length, wohnenOffer.createdDate.milliseconds())
 
-  const offers = [wohnenOffer]
+  const wohnenOffers = [wohnenOffer]
   const t = (key: ?string): string => key || ''
 
   it('should render list if no hash is supplied', () => {
     const wohnenPage = shallow(
-      <WohnenOfferPage offers={offers}
+      <WohnenOfferPage wohnenOffers={wohnenOffers}
                        city={city}
                        language={language}
-                       extras={extras}
+                       offers={offers}
                        t={t} />
     )
     expect(wohnenPage).toMatchSnapshot()
@@ -72,11 +72,11 @@ describe('WohnenOfferPage', () => {
 
   it('should render detailed offer if hash is supplied', () => {
     const wohnenPage = shallow(
-      <WohnenOfferPage offers={offers}
+      <WohnenOfferPage wohnenOffers={wohnenOffers}
                        city={city}
                        language={language}
-                       offerHash={offerHash}
-                       extras={[wohnenExtra]}
+                       wohnenOfferHash={wohnenOfferHash}
+                       offers={[offer]}
                        t={t} />
     )
     expect(wohnenPage).toMatchSnapshot()
@@ -84,11 +84,11 @@ describe('WohnenOfferPage', () => {
 
   it('should render failure offer if offer is not found', () => {
     const offersPage = shallow(
-      <WohnenOfferPage offers={offers}
+      <WohnenOfferPage wohnenOffers={wohnenOffers}
                        city={city}
                        language={language}
-                       offerHash='invalid hash'
-                       extras={[wohnenExtra]}
+                       wohnenOfferHash='invalid hash'
+                       offers={[offer]}
                        t={t} />
     )
     expect(offersPage).toMatchSnapshot()
@@ -96,11 +96,11 @@ describe('WohnenOfferPage', () => {
 
   it('should render failure city does not support offer', () => {
     const wohnenPage = shallow(
-      <WohnenOfferPage offers={offers}
+      <WohnenOfferPage wohnenOffers={wohnenOffers}
                        city={city}
                        language={language}
-                       offerHash={offerHash}
-                       extras={[]}
+                       wohnenOfferHash={wohnenOfferHash}
+                       offers={[]}
                        t={t} />
     )
     expect(wohnenPage).toMatchSnapshot()
@@ -118,7 +118,7 @@ describe('WohnenOfferPage', () => {
     const tree = mount(
       <ThemeProvider theme={theme}>
         <Provider store={store}>
-          <ConnectedWohnenOfferPage offers={offers} extras={extras} />
+          <ConnectedWohnenOfferPage wohnenOffers={wohnenOffers} offers={offers} />
         </Provider>
       </ThemeProvider>
     )
@@ -127,9 +127,9 @@ describe('WohnenOfferPage', () => {
       language,
       city,
       i18n: expect.anything(),
-      offerHash,
+      wohnenOfferHash: offerHash,
+      wohnenOffers,
       offers,
-      extras,
       dispatch: expect.any(Function),
       t: expect.any(Function)
     })
