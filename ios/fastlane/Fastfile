@@ -14,8 +14,6 @@ lane :certificates do
   sync_code_signing(type: "appstore", username: ENV['FASTLANE_USER'])
 end
 
-
-
 # version_name: The version name the build should use
 # version_code: The version code the build should use
 desc "Create a release build"
