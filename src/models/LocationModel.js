@@ -4,15 +4,25 @@ class LocationModel {
   _name: ?string
   _address: ?string
   _town: ?string
+  _state: ?string
   _postcode: ?string
+  _region: ?string
+  _country: ?string
   _latitude: ?string
   _longitude: ?string
 
-  constructor ({ name, address, town, postcode, latitude, longitude }: {| name: ?string, address: ?string,
-    town: ?string, postcode: ?string, latitude: ?string, longitude: ?string |}) {
+  constructor ({ name, address, town, state, postcode, region, country, latitude, longitude }: {|
+                 name: ?string, address: ?string, town: ?string, state: ?string, postcode: ?string, region: ?string,
+                 country: ?string, latitude?: ?string, longitude?: ?string
+               |}
+  ) {
+    this._name = name
     this._address = address
     this._town = town
+    this._state = state
     this._postcode = postcode
+    this._region = region
+    this._country = country
     this._latitude = latitude
     this._longitude = longitude
     this._name = name
@@ -30,8 +40,20 @@ class LocationModel {
     return this._town
   }
 
+  get state (): ?string {
+    return this._state
+  }
+
   get postcode (): ?string {
     return this._postcode
+  }
+
+  get region (): ?string {
+    return this._region
+  }
+
+  get country (): ?string {
+    return this._country
   }
 
   get longitude (): ?string {
@@ -43,14 +65,13 @@ class LocationModel {
   }
 
   get location (): ?string {
-    if (!this._town) {
+    const town = this._postcode && this._town ? `${this._postcode} ${this._town}` : this._town
+    if (!town && !this._address && !this._name) {
       return null
     }
-    const withoutAddress = this._postcode ? `${this._postcode} ${this._town}` : this._town
-    if (!this._address) {
-      return withoutAddress
-    }
-    return `${this._address}, ${withoutAddress}`
+    return [this._name, this._address, town]
+      .filter(value => !!value)
+      .join(', ')
   }
 }
 

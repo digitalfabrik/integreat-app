@@ -36,7 +36,7 @@ const transpileES6 = task('transpile-es6', () => {
 const copyFlowSource = task('flow-copy', async () => {
   await flowCopySource(['src'], 'dist', { ignore: ['**/*.spec.js'] })
 
-  fs.copyFileSync('dist/index.js.flow', 'dist/index.umd.js.flow')
+  fs.copyFileSync('dist/index.js.flow', 'dist/index-umd.js.flow')
 })
 
 module.exports = task('build', () => {
