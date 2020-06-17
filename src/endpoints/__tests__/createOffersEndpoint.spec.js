@@ -68,14 +68,6 @@ describe('endpoint', () => {
     )
   })
 
-  it('should throw if the city to map the url are missing', () => {
-    expect(() => offers.mapParamsToUrl({city: undefined, language: 'de'})).toThrowErrorMatchingSnapshot()
-  })
-
-  it('should throw if the language to map the url are missing', () => {
-    expect(() => offers.mapParamsToUrl({city: 'city', language: undefined})).toThrowErrorMatchingSnapshot()
-  })
-
   it('should map json to models', () => {
     const disclaimerModel = offers.mapResponse(pageJson, params)
     expect(disclaimerModel).toEqual(offerModels)

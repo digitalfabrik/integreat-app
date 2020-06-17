@@ -30,7 +30,7 @@ const bundleUmd = task('bundle-umd', () => {
 })
 
 const transpileES6 = task('transpile-es6', () => {
-  shell.exec('node node_modules/.bin/babel src --out-dir dist/ --source-maps --ignore \'**/*.spec.js\'')
+  shell.exec('yarn babel src --out-dir dist/ --source-maps --ignore \'**/*.spec.js\'')
 })
 
 const copyFlowSource = task('flow-copy', async () => {
