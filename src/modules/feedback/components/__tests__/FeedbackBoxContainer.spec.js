@@ -393,18 +393,12 @@ describe('FeedbackBoxContainer', () => {
         sendingStatus='ERROR'
         t={t} />
     )
-    // set as workaround to override: console error to log
-    const prevError = console.error
-    // $FlowFixMe
-    console.error = error => console.log(`Some expected error was thrown: ${error}`)
 
     const instance = component.instance()
     instance.postFeedbackData = jest.fn().mockRejectedValue(new Error('Endpoint request failed'))
 
     await instance.handleSubmit()
     expect(mockOnSubmit).toHaveBeenCalledWith('ERROR')
-    // $FlowFixMe
-    console.error = prevError
   })
 
   it('should update state onCommentChanged', () => {
