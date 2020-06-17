@@ -6,6 +6,7 @@ import createLocation from '../../../../createLocation'
 import DisclaimerRouteConfig from '../DisclaimerRouteConfig'
 
 const disclaimer = new PageModel({
+  path: '/disclaimer',
   title: 'Feedback, Kontakt und mögliches Engagement',
   content: 'this is a test content',
   lastUpdate: moment('2017-11-18T19:30:00.000Z'),

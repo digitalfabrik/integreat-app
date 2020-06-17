@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`OffersPage should render a OfferNotFoundError if there is an offerId 1`] = `
-<Translate(FailureSwitcher)
+<FailureSwitcher
   error={[Error: The offer invalid_offer does not exist here.]}
 />
 `;
 
 exports[`OffersPage should render a OfferNotFoundError if there is an offerId 1`] = `
-<Translate(FailureSwitcher)
+<FailureSwitcher
   error={[Error: The offer invalid_offer does not exist here.]}
 />
 `;

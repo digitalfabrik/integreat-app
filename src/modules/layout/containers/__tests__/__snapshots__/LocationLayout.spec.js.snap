@@ -28,15 +28,18 @@ exports[`LocationLayout should show GeneralHeader and GeneralFooter if city is n
               "_startDate": "2017-11-18T09:30:00.000Z",
             },
             "_excerpt": "excerpt",
-            "_featuredImage": undefined,
+            "_featuredImage": null,
             "_hash": "2fe6283485a93932",
             "_lastUpdate": "2016-01-07T09:36:24.000Z",
             "_location": LocationModel {
               "_address": "address",
-              "_latitude": undefined,
-              "_longitude": undefined,
-              "_name": undefined,
+              "_country": "country",
+              "_latitude": null,
+              "_longitude": null,
+              "_name": "name",
               "_postcode": "postcode",
+              "_region": "region",
+              "_state": "state",
               "_town": "town",
             },
             "_path": "/augsburg/en/events/first_event",
@@ -46,7 +49,9 @@ exports[`LocationLayout should show GeneralHeader and GeneralFooter if city is n
         ]
       }
       isEventsEnabled={true}
+      isLocalNewsEnabled={false}
       isOffersEnabled={false}
+      isTunewsEnabled={false}
       languageChangePaths={
         Array [
           Object {
@@ -160,15 +165,18 @@ exports[`LocationLayout should show LocationHeader and LocationFooter if city is
               "_startDate": "2017-11-18T09:30:00.000Z",
             },
             "_excerpt": "excerpt",
-            "_featuredImage": undefined,
+            "_featuredImage": null,
             "_hash": "2fe6283485a93932",
             "_lastUpdate": "2016-01-07T09:36:24.000Z",
             "_location": LocationModel {
               "_address": "address",
-              "_latitude": undefined,
-              "_longitude": undefined,
-              "_name": undefined,
+              "_country": "country",
+              "_latitude": null,
+              "_longitude": null,
+              "_name": "name",
               "_postcode": "postcode",
+              "_region": "region",
+              "_state": "state",
               "_town": "town",
             },
             "_path": "/augsburg/en/events/first_event",
@@ -178,7 +186,9 @@ exports[`LocationLayout should show LocationHeader and LocationFooter if city is
         ]
       }
       isEventsEnabled={true}
+      isLocalNewsEnabled={false}
       isOffersEnabled={false}
+      isTunewsEnabled={false}
       languageChangePaths={
         Array [
           Object {

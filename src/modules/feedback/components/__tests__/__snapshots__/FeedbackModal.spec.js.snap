@@ -20,13 +20,12 @@ exports[`FeedbackModal should match snapshot 1`] = `
           "textDisabledColor": "#d0d0d0",
           "textSecondaryColor": "#585858",
           "themeColor": "#fbda16",
-          "themeDarkColor": "#c4a900",
           "tunewsThemeColor": "#007aa8",
           "tunewsThemeColorLight": "rgba(0, 122, 168, 0.4)",
         },
         "dimensions": Object {
-          "headerHeightLarge": 85,
-          "headerHeightSmall": 55,
+          "headerHeightLarge": 90,
+          "headerHeightSmall": 70,
           "maxWidth": 1100,
           "minMaxWidth": "screen and (min-width: 1100px)",
           "smallViewport": "(max-width: 750px)",
@@ -66,13 +65,12 @@ exports[`FeedbackModal should match snapshot 1`] = `
             "textDisabledColor": "#d0d0d0",
             "textSecondaryColor": "#585858",
             "themeColor": "#fbda16",
-            "themeDarkColor": "#c4a900",
             "tunewsThemeColor": "#007aa8",
             "tunewsThemeColorLight": "rgba(0, 122, 168, 0.4)",
           },
           "dimensions": Object {
-            "headerHeightLarge": 85,
-            "headerHeightSmall": 55,
+            "headerHeightLarge": 90,
+            "headerHeightSmall": 70,
             "maxWidth": 1100,
             "minMaxWidth": "screen and (min-width: 1100px)",
             "smallViewport": "(max-width: 750px)",
@@ -103,15 +101,15 @@ exports[`FeedbackModal should match snapshot 1`] = `
         cities={
           Array [
             CityModel {
-              "_aliases": undefined,
+              "_aliases": null,
               "_code": "augsburg",
               "_eventsEnabled": true,
-              "_latitude": undefined,
+              "_latitude": null,
               "_live": true,
-              "_longitude": undefined,
+              "_longitude": null,
               "_name": "Augsburg",
               "_offersEnabled": false,
-              "_prefix": undefined,
+              "_prefix": null,
               "_pushNotificationsEnabled": false,
               "_sortingName": "Augsburg",
               "_tunewsEnabled": false,
@@ -144,6 +142,7 @@ exports[`FeedbackModal should match snapshot 1`] = `
         onSubmit={[Function]}
         path="path"
         query="ab"
+        sendingStatus="IDLE"
         theme={
           Object {
             "colors": Object {
@@ -154,13 +153,12 @@ exports[`FeedbackModal should match snapshot 1`] = `
               "textDisabledColor": "#d0d0d0",
               "textSecondaryColor": "#585858",
               "themeColor": "#fbda16",
-              "themeDarkColor": "#c4a900",
               "tunewsThemeColor": "#007aa8",
               "tunewsThemeColorLight": "rgba(0, 122, 168, 0.4)",
             },
             "dimensions": Object {
-              "headerHeightLarge": 85,
-              "headerHeightSmall": 55,
+              "headerHeightLarge": 90,
+              "headerHeightSmall": 70,
               "maxWidth": 1100,
               "minMaxWidth": "screen and (min-width: 1100px)",
               "smallViewport": "(max-width: 750px)",

@@ -34,7 +34,13 @@ describe('FeedbackBoxContainer', () => {
       live: true,
       eventsEnabled: true,
       offersEnabled: false,
-      sortingName: 'Augsburg'
+      pushNotificationsEnabled: false,
+      tunewsEnabled: false,
+      sortingName: 'Augsburg',
+      aliases: null,
+      longitude: null,
+      latitude: null,
+      prefix: null
     })
   ]
   const t = (key: ?string): string => key || ''
@@ -55,7 +61,8 @@ describe('FeedbackBoxContainer', () => {
         t={t}
         theme={theme}
         onSubmit={() => {}}
-        closeFeedbackModal={() => {}} />
+        closeFeedbackModal={() => {}}
+        sendingStatus='SUCCESS' />
     )).toMatchSnapshot()
   })
 
@@ -74,6 +81,7 @@ describe('FeedbackBoxContainer', () => {
           closeFeedbackModal={() => {}}
           offers={null}
           theme={theme}
+          sendingStatus='SUCCESS'
           t={t} />
       ).instance()
 
@@ -103,6 +111,7 @@ describe('FeedbackBoxContainer', () => {
           closeFeedbackModal={() => {}}
           offers={null}
           theme={theme}
+          sendingStatus='SUCCESS'
           t={t} />
       ).instance()
 
@@ -132,6 +141,7 @@ describe('FeedbackBoxContainer', () => {
           closeFeedbackModal={() => {}}
           offers={null}
           theme={theme}
+          sendingStatus='SUCCESS'
           t={t} />
       ).instance()
 
@@ -168,6 +178,7 @@ describe('FeedbackBoxContainer', () => {
           closeFeedbackModal={() => {}}
           offers={null}
           theme={theme}
+          sendingStatus='SUCCESS'
           t={t} />
       ).instance()
 
@@ -198,6 +209,7 @@ describe('FeedbackBoxContainer', () => {
         closeFeedbackModal={() => {}}
         offers={null}
         theme={theme}
+        sendingStatus='SUCCESS'
         t={t} />
     )
     expect(component.instance().getContentFeedbackOption())
@@ -265,6 +277,7 @@ describe('FeedbackBoxContainer', () => {
         closeFeedbackModal={() => {}}
         offers={offers}
         theme={theme}
+        sendingStatus='SUCCESS'
         t={t} />
     )
 
@@ -330,6 +343,7 @@ describe('FeedbackBoxContainer', () => {
             closeFeedbackModal={() => {}}
             offers={null}
             theme={theme}
+            sendingStatus='SUCCESS'
             t={t} />
   )
 
@@ -355,11 +369,35 @@ describe('FeedbackBoxContainer', () => {
         offers={null}
         postFeedbackDataOverride={mockPostFeedbackData}
         theme={theme}
+        sendingStatus='SUCCESS'
         t={t} />
     )
 
     component.instance().handleSubmit()
     expect(mockPostFeedbackData).toHaveBeenCalledTimes(1)
+  })
+
+  it('should not post data on submit failure', async () => {
+    const mockOnSubmit = jest.fn()
+
+    const component = shallow(
+      <FeedbackBoxContainer
+        location={location}
+        cities={cities}
+        isPositiveRatingSelected
+        onSubmit={mockOnSubmit}
+        closeFeedbackModal={() => {}}
+        extras={null}
+        theme={theme}
+        sendingStatus='ERROR'
+        t={t} />
+    )
+
+    const instance = component.instance()
+    instance.postFeedbackData = jest.fn().mockRejectedValue(new Error('Endpoint request failed'))
+
+    await instance.handleSubmit()
+    expect(mockOnSubmit).toHaveBeenCalledWith('ERROR')
   })
 
   it('should update state onCommentChanged', () => {
@@ -376,6 +414,7 @@ describe('FeedbackBoxContainer', () => {
         closeFeedbackModal={() => {}}
         offers={null}
         theme={theme}
+        sendingStatus='SUCCESS'
         t={t} />
     ).instance()
 
@@ -400,6 +439,7 @@ describe('FeedbackBoxContainer', () => {
         closeFeedbackModal={() => {}}
         offers={null}
         theme={theme}
+        sendingStatus='SUCCESS'
         t={t} />
     ).instance()
 

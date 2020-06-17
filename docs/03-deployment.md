@@ -1,14 +1,9 @@
 # Deployment
-## Deployment of shared content
-Some components are used in [neuburg-frontend](https://github.com/Integreat/neuburg-frontend).
-These are listed in [lib.js](src/lib.js) and are available through the npm package [@integreat-app/shared](https://www.npmjs.com/package/@integreat-app/shared).
-To publish the npm package, use `yarn run build:lib`, move to `/dist` and run `npm publish --access=public` (after logging into your npm account registered to integreat-app).
-You'll  also have to bump the version in [`lib.build.js`](tools/lib.build.js).
 
 ## Deployment to web.
 1. Create new release on Jira (should be empty)
 2. Update old issues to use the created release as Fix Version
-   * Query to find issues which haven't been released: `project = "integreat-webapp" AND issuetype = Task AND Sprint IS NOT EMPTY AND fixVersion IS EMPTY AND resolution = Done`
+   * Query to find issues which haven't been released: `project = integreat-webapp AND fixVersion IS EMPTY AND resolution = Done AND resolutiondate > <last release date>`
 3. Release the Jira release
 4. Generate release notes in Jira
 

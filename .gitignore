@@ -138,7 +138,7 @@ www/workbox-sw.prod.v*.js
 www/workbox-sw.prod.v*.js.map
 
 # VPN config
-/tools/deploy/openconnect.*.config
+/build/deploy/openconnect.*.config
 
 # Jest testing
 /__coverage__/

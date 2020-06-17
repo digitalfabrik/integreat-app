@@ -18,7 +18,11 @@ describe('LandingPage', () => {
       offersEnabled: false,
       pushNotificationsEnabled: false,
       tunewsEnabled: false,
-      sortingName: 'City'
+      sortingName: 'City',
+      aliases: null,
+      prefix: null,
+      longitude: null,
+      latitude: null
     })
   ]
 

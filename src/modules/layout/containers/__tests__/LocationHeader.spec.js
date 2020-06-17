@@ -33,14 +33,21 @@ describe('LocationHeader', () => {
         allDay: true
       }),
       location: new LocationModel({
+        name: 'name',
         address: 'address',
         town: 'town',
-        postcode: 'postcode'
+        postcode: 'postcode',
+        longitude: null,
+        latitude: null,
+        state: 'state',
+        region: 'region',
+        country: 'country'
       }),
       excerpt: 'excerpt',
       lastUpdate: moment('2016-01-07 10:36:24'),
       content: 'content',
-      thumbnail: 'thumbnail'
+      thumbnail: 'thumbnail',
+      featuredImage: null
     }),
     new EventModel({
       hash: '35654fff',
@@ -54,14 +61,21 @@ describe('LocationHeader', () => {
         allDay: true
       }),
       location: new LocationModel({
+        name: 'name',
         address: 'address',
         town: 'town',
-        postcode: 'postcode'
+        postcode: 'postcode',
+        longitude: null,
+        latitude: null,
+        state: 'state',
+        region: 'region',
+        country: 'country'
       }),
       content: 'content',
       excerpt: 'excerpt',
       lastUpdate: moment('2016-01-07 10:36:24'),
-      thumbnail: 'thumbnail'
+      thumbnail: 'thumbnail',
+      featuredImage: null
     }),
     new EventModel({
       hash: '23535654fa',
@@ -75,14 +89,21 @@ describe('LocationHeader', () => {
         allDay: true
       }),
       location: new LocationModel({
+        name: 'name',
         address: 'address',
         town: 'town',
-        postcode: 'postcode'
+        postcode: 'postcode',
+        latitude: null,
+        longitude: null,
+        state: 'state',
+        region: 'region',
+        country: 'country'
       }),
       content: 'content',
       excerpt: 'excerpt',
       lastUpdate: moment('2016-01-07 10:36:24'),
-      thumbnail: 'thumbnail'
+      thumbnail: 'thumbnail',
+      featuredImage: null
     })
   ]
 
@@ -135,7 +156,8 @@ describe('LocationHeader', () => {
       expect(eventsComp.instance().getNavigationItems()).toMatchSnapshot()
     })
 
-    it('should show offers, categories, events in this order', () => {
+    it('should show categories, events, offers in this order', () => {
+      // todo: Adjust order to categories, news, events, pois, offers when feature flags enabled
       const component = shallow(<LocationHeader location={location(CATEGORIES_ROUTE)}
                                                 isOffersEnabled
                                                 isEventsEnabled
@@ -150,7 +172,7 @@ describe('LocationHeader', () => {
       expect(component.instance().getNavigationItems()).toMatchSnapshot()
     })
 
-    it('should highlight categories if route corresponds', () => {
+    it('should highlight localInformation if route corresponds', () => {
       const component = shallow(<LocationHeader location={location(CATEGORIES_ROUTE)}
                                                 isOffersEnabled
                                                 isEventsEnabled
@@ -162,7 +184,8 @@ describe('LocationHeader', () => {
                                                 languageChangePaths={languageChangePaths}
                                                 onStickyTopChanged={onStickyTopChanged}
                                                 t={t} />)
-      expect(component.instance().getNavigationItems()[1].props.selected).toBe(true)
+      const navItem = component.instance().getNavigationItems().find(item => item.props.text === 'localInformation')
+      expect(navItem?.props.active).toBe(true)
     })
 
     it('should highlight events if route corresponds', () => {
@@ -177,10 +200,11 @@ describe('LocationHeader', () => {
                                                 languageChangePaths={languageChangePaths}
                                                 onStickyTopChanged={onStickyTopChanged}
                                                 t={t} />)
-      expect(component.instance().getNavigationItems()[2].props.selected).toBe(true)
+      const navItem = component.instance().getNavigationItems().find(item => item.props.text === 'events')
+      expect(navItem?.props.active).toBe(true)
     })
 
-    it('should highlight offers if offers route is selected', () => {
+    it('should highlight offers if offers route is active', () => {
       const component = shallow(<LocationHeader location={location(OFFERS_ROUTE)}
                                                 isOffersEnabled
                                                 isEventsEnabled
@@ -192,7 +216,8 @@ describe('LocationHeader', () => {
                                                 languageChangePaths={languageChangePaths}
                                                 onStickyTopChanged={onStickyTopChanged}
                                                 t={t} />)
-      expect(component.instance().getNavigationItems()[0].props.selected).toBe(true)
+      const navItem = component.instance().getNavigationItems().find(item => item.props.text === 'offers')
+      expect(navItem?.props.active).toBe(true)
     })
 
     it('should highlight offers if sprungbrett route is selected', () => {
@@ -207,7 +232,8 @@ describe('LocationHeader', () => {
                                                 languageChangePaths={languageChangePaths}
                                                 onStickyTopChanged={onStickyTopChanged}
                                                 t={t} />)
-      expect(component.instance().getNavigationItems()[0].props.selected).toBe(true)
+      const navItem = component.instance().getNavigationItems().find(item => item.props.text === 'offers')
+      expect(navItem?.props.active).toBe(true)
     })
 
     it('should highlight offers if wohnen route is selected', () => {
@@ -222,7 +248,8 @@ describe('LocationHeader', () => {
                                                 languageChangePaths={languageChangePaths}
                                                 onStickyTopChanged={onStickyTopChanged}
                                                 t={t} />)
-      expect(component.instance().getNavigationItems()[0].props.selected).toBe(true)
+      const navItem = component.instance().getNavigationItems().find(item => item.props.text === 'offers')
+      expect(navItem?.props.active).toBe(true)
     })
   })
 
@@ -258,6 +285,4 @@ describe('LocationHeader', () => {
                                               t={t} />)
     expect(component).toMatchSnapshot()
   })
-
-  // fixme: Test the events enabled functionality. Especially isEventsActive()
 })

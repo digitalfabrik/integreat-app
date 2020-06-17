@@ -6,7 +6,7 @@ import moment from 'moment-timezone'
 import type Moment from 'moment'
 import configureMockStore from 'redux-mock-store'
 import ConnectedTunewsPage, { TunewsPage } from '../TunewsPage'
-import { CityModel, TunewsModel } from '@integreat-app/integreat-api-client'
+import { CityModel, TunewsModel, Payload } from '@integreat-app/integreat-api-client'
 import { Provider } from 'react-redux'
 import createLocation from '../../../../createLocation'
 import { TUNEWS_ROUTE } from '../../../../modules/app/route-configs/TunewsRouteConfig'
@@ -76,13 +76,13 @@ describe('TunewsPage', () => {
     const store = mockStore({
       location: location,
       cities: { data: cities, isFetching: false },
-      tunews: { data: [], hasMore: false }
+      tunews: { allData: tunews, hasMore: false, payload: new Payload(false, null, []) }
     })
 
     const tree = mount(
       <ThemeProvider theme={theme}>
         <Provider store={store}>
-          <ConnectedTunewsPage tunews={tunews} cities={cities} />
+          <ConnectedTunewsPage cities={cities} />
         </Provider>
       </ThemeProvider>
     )
@@ -95,11 +95,10 @@ describe('TunewsPage', () => {
       path: '/augsburg/en/news/tu-news',
       city,
       hasMore: false,
-      isFetching: undefined,
-      isFetchingFirstTime: undefined,
+      isFetching: false,
       t: expect.any(Function),
       i18n: expect.anything(),
-      fetchMoreTunews: expect.any(Function)
+      fetchTunews: expect.any(Function)
     })
   })
 })

@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`RouteContentSwitcher should render a FailureSwitcher if a payload contains an error 1`] = `
-<Translate(FailureSwitcher)
+<FailureSwitcher
   error={[Error: error]}
 />
 `;
 
 exports[`RouteContentSwitcher should render and match snapshot 1`] = `
-<Connect(CategoriesPage)
+<Translate(Connect(CategoriesPage))
   categories={
     CategoriesMapModel {
       "_categories": Map {
@@ -29,15 +29,15 @@ exports[`RouteContentSwitcher should render and match snapshot 1`] = `
   cities={
     Array [
       CityModel {
-        "_aliases": undefined,
+        "_aliases": null,
         "_code": "city1",
         "_eventsEnabled": true,
-        "_latitude": undefined,
+        "_latitude": null,
         "_live": true,
-        "_longitude": undefined,
+        "_longitude": null,
         "_name": "Mambo No. 5",
         "_offersEnabled": false,
-        "_prefix": undefined,
+        "_prefix": null,
         "_pushNotificationsEnabled": false,
         "_sortingName": "Mambo",
         "_tunewsEnabled": false,

@@ -16,12 +16,17 @@ import type { StateType } from '../../../modules/app/StateType'
 import type { UiDirectionType } from '../../../modules/i18n/types/UiDirectionType'
 import Page from '../../../modules/common/components/Page'
 import { push } from 'redux-first-router'
+import BreadcrumbModel from '../../../modules/common/BreadcrumbModel'
+import urlFromPath from '../../../modules/common/utils/urlFromPath'
+import { withTranslation } from 'react-i18next'
+import { TFunction } from 'i18next'
 
 type PropsType = {|
   categories: CategoriesMapModel,
   cities: Array<CityModel>,
   path: string,
   city: string,
+  t: TFunction,
   language: string,
   uiDirection: UiDirectionType
 |}
@@ -49,7 +54,7 @@ export class CategoriesPage extends React.Component<PropsType> {
    * @return {*} The content to be displayed
    */
   getContent (category: CategoryModel): React.Node {
-    const { categories, cities, language } = this.props
+    const { categories, language, t } = this.props
     const children = categories.getChildren(category)
     if (category.isLeaf(categories)) {
       // last level, our category is a simple page
@@ -61,7 +66,7 @@ export class CategoriesPage extends React.Component<PropsType> {
     } else if (category.isRoot()) {
       // first level, we want to display a table with all first order categories
       return <Tiles tiles={this.getTileModels(children)}
-                    title={CityModel.findCityName(cities, category.title)} />
+                    title={t('localInformation')} />
     }
     // some level between, we want to display a list
     return <CategoryList categories={children.map(model => ({ model, subCategories: categories.getChildren(model) }))}
@@ -71,24 +76,27 @@ export class CategoriesPage extends React.Component<PropsType> {
                          onInternalLinkClick={push} />
   }
 
-  getBreadcrumbs (categoryModel: CategoryModel): Array<React.Node> {
-    const { cities, categories, city } = this.props
-    return categories.getAncestors(categoryModel)
-      .map(ancestor => {
-        const title = ancestor.isRoot() ? CityModel.findCityName(cities, city) : ancestor.title
-        return <Link to={ancestor.path} key={ancestor.path}>{title}</Link>
+  renderBreadcrumbs (categoryModel: CategoryModel): React.Node {
+    const { cities, categories, city, uiDirection } = this.props
+    const getBreadcrumb = category => {
+      const title = category.isRoot() ? CityModel.findCityName(cities, city) : category.title
+      return new BreadcrumbModel({
+        title,
+        link: urlFromPath(category.path),
+        node: <Link to={category.path} key={category.path}>{title}</Link>
       })
+    }
+    return <Breadcrumbs ancestorBreadcrumbs={categories.getAncestors(categoryModel).map(getBreadcrumb)}
+                        currentBreadcrumb={getBreadcrumb(categoryModel)} direction={uiDirection} />
   }
 
   render () {
-    const { categories, path, city, language, uiDirection } = this.props
+    const { categories, path, city, language } = this.props
     const categoryModel = categories.findCategoryByPath(path)
 
     if (categoryModel) {
       return <div>
-        <Breadcrumbs direction={uiDirection}>
-          {this.getBreadcrumbs(categoryModel)}
-        </Breadcrumbs>
+        {this.renderBreadcrumbs(categoryModel)}
         {this.getContent(categoryModel)}
       </div>
     } else {
@@ -105,4 +113,4 @@ const mapStateToProps = (state: StateType) => ({
   path: state.location.pathname
 })
 
-export default connect<*, *, *, *, *, *>(mapStateToProps)(CategoriesPage)
+export default withTranslation('layout')(connect<*, *, *, *, *, *>(mapStateToProps)(CategoriesPage))

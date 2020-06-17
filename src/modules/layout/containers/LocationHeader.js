@@ -1,7 +1,7 @@
 // @flow
 
 import type { Element } from 'react'
-import React from 'react'
+import * as React from 'react'
 import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
 
@@ -10,7 +10,6 @@ import searchIcon from '../assets/magnifier.svg'
 import landingIcon from '../assets/location-icon.svg'
 import Header from '../../../modules/layout/components/Header'
 import HeaderNavigationItem from '../components/HeaderNavigationItem'
-import HeaderActionItem from '../HeaderActionItem'
 import OffersRouteConfig, { OFFERS_ROUTE } from '../../app/route-configs/OffersRouteConfig'
 import CategoriesRouteConfig, { CATEGORIES_ROUTE } from '../../app/route-configs/CategoriesRouteConfig'
 import EventsRouteConfig, { EVENTS_ROUTE } from '../../app/route-configs/EventsRouteConfig'
@@ -25,6 +24,17 @@ import { WOHNEN_ROUTE } from '../../app/route-configs/WohnenRouteConfig'
 import { SPRUNGBRETT_ROUTE } from '../../app/route-configs/SprungbrettRouteConfig'
 import LandingRouteConfig from '../../app/route-configs/LandingRouteConfig'
 import type { LanguageChangePathsType } from '../../app/containers/Switcher'
+import offersIcon from '../assets/offers.svg'
+import localInformationIcon from '../assets/local_information.svg'
+import eventsIcon from '../assets/events.svg'
+import newsIcon from '../assets/news.svg'
+import poisIcon from '../assets/pois.svg'
+import PoisRouteConfig, { POIS_ROUTE } from '../../app/route-configs/PoisRouteConfig'
+import HeaderActionBarItemLink from '../components/HeaderActionItemLink'
+import buildConfig from '../../../modules/app/constants/buildConfig'
+
+const newsRoutes = [LOCAL_NEWS_ROUTE, TUNEWS_ROUTE, TUNEWS_DETAILS_ROUTE, LOCAL_NEWS_DETAILS_ROUTE]
+const extrasRoutes = [OFFERS_ROUTE, WOHNEN_ROUTE, SPRUNGBRETT_ROUTE]
 
 type PropsType = {|
   events: ?Array<EventModel>,
@@ -41,69 +51,46 @@ type PropsType = {|
 |}
 
 export class LocationHeader extends React.Component<PropsType> {
-  getActionItems (): Array<HeaderActionItem> {
+  getActionItems (): Array<React.Node> {
     const { location, languageChangePaths, t } = this.props
     const { city, language } = location.payload
     return [
-      new HeaderActionItem({
-        href: new SearchRouteConfig().getRoutePath({ city, language }),
-        iconSrc: searchIcon,
-        text: t('search')
-      }),
-      new HeaderActionItem({
-        href: new LandingRouteConfig().getRoutePath({ language }),
-        iconSrc: landingIcon,
-        text: t('changeLocation')
-      }),
-      new HeaderActionItem({
-        node: <LanguageSelector languageChangePaths={languageChangePaths} isHeaderActionItem location={location} />
-      })
+      <HeaderActionBarItemLink key='search' href={new SearchRouteConfig().getRoutePath({ city, language })}
+                               text={t('search')} iconSrc={searchIcon} />,
+      <HeaderActionBarItemLink key='location' href={new LandingRouteConfig().getRoutePath({ language })}
+                               text={t('changeLocation')} iconSrc={landingIcon} />,
+      <LanguageSelector key='language' languageChangePaths={languageChangePaths} isHeaderActionItem
+                        location={location} />
     ]
   }
 
   getNavigationItems (): Array<Element<typeof HeaderNavigationItem>> {
-    // eslint-disable-next-line no-unused-vars
     const { t, isEventsEnabled, isLocalNewsEnabled, isTunewsEnabled, isOffersEnabled, location, events } = this.props
 
     const { city, language } = location.payload
     const currentRoute = location.type
 
-    const isEventsActive = events ? events.length > 0 : false
+    const isNewsVisible = buildConfig.featureFlags.newsStream && (isLocalNewsEnabled || isTunewsEnabled)
+    const isEventsVisible = isEventsEnabled
+    const isMapVisible = buildConfig.featureFlags.pois // todo: check for flag from cms
+    const isOffersVisible = isOffersEnabled
 
-    /* TODO: replace the next two lines with the ones after to activate news header link
-      const isNewsEnabled = isLocalNewsEnabled || isTunewsEnabled
-      const isCategoriesEnabled = isOffersEnabled || isEventsEnabled || isNewsEnabled
-    */
-    const isNewsEnabled = false
-    const isCategoriesEnabled = isOffersEnabled || isEventsEnabled
-
-    const items: Array<Element<typeof HeaderNavigationItem>> = []
-
-    if (isOffersEnabled) {
-      items.push(
-        <HeaderNavigationItem
-          key='offers'
-          href={new OffersRouteConfig().getRoutePath({ city, language })}
-          selected={[OFFERS_ROUTE, WOHNEN_ROUTE, SPRUNGBRETT_ROUTE].includes(currentRoute)}
-          text={t('offers')}
-          active
-        />
-      )
+    const showNavBar = isNewsVisible || isEventsVisible || isMapVisible || isOffersVisible
+    if (!showNavBar) {
+      return []
     }
 
-    if (isCategoriesEnabled) {
-      items.push(
-        <HeaderNavigationItem
-          key='categories'
-          href={new CategoriesRouteConfig().getRoutePath({ city, language })}
-          selected={currentRoute === CATEGORIES_ROUTE}
-          text={t('categories')}
-          active
-        />
-      )
-    }
+    const items: Array<Element<typeof HeaderNavigationItem>> = [
+      <HeaderNavigationItem
+        key='categories'
+        href={new CategoriesRouteConfig().getRoutePath({ city, language })}
+        active={currentRoute === CATEGORIES_ROUTE}
+        text={t('localInformation')}
+        icon={localInformationIcon}
+      />
+    ]
 
-    if (isNewsEnabled) {
+    if (isNewsVisible) {
       const newsUrl = isLocalNewsEnabled
         ? new LocalNewsRouteConfig().getRoutePath({ city, language })
         : new TunewsRouteConfig().getRoutePath({ city, language })
@@ -112,22 +99,45 @@ export class LocationHeader extends React.Component<PropsType> {
         <HeaderNavigationItem
           key='news'
           href={newsUrl}
-          selected={[LOCAL_NEWS_ROUTE, TUNEWS_ROUTE, TUNEWS_DETAILS_ROUTE, LOCAL_NEWS_DETAILS_ROUTE].includes(currentRoute)}
+          active={newsRoutes.includes(currentRoute)}
           text={t('news')}
-          active
+          icon={newsIcon}
         />
       )
     }
 
-    if (isEventsEnabled) {
+    if (isEventsVisible) {
       items.push(
         <HeaderNavigationItem
           key='events'
           href={new EventsRouteConfig().getRoutePath({ city, language })}
-          selected={currentRoute === EVENTS_ROUTE}
+          active={currentRoute === EVENTS_ROUTE}
           text={t('events')}
-          tooltip={t('noEvents')}
-          active={isEventsActive}
+          tooltip={events?.length === 0 ? t('noEvents') : ''}
+          icon={eventsIcon}
+        />
+      )
+    }
+
+    if (isMapVisible) {
+      items.push(
+        <HeaderNavigationItem
+          key='pois'
+          href={new PoisRouteConfig().getRoutePath({ city, language })}
+          active={currentRoute === POIS_ROUTE}
+          text={t('pois')}
+          icon={poisIcon}
+        />)
+    }
+
+    if (isOffersVisible) {
+      items.push(
+        <HeaderNavigationItem
+          key='offers'
+          href={new OffersRouteConfig().getRoutePath({ city, language })}
+          active={extrasRoutes.includes(currentRoute)}
+          text={t('offers')}
+          icon={offersIcon}
         />
       )
     }

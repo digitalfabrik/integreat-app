@@ -10,7 +10,7 @@ import { LOCAL_NEWS } from '../../constants'
 
 describe('LocalNewsList', () => {
   const language = 'en'
-  const path = '/testumgebung/en/news/local'
+  const link = '/testumgebung/en/news/local'
   const t = (key: ?string): string => key || ''
   const city = 'testcity'
 
@@ -21,7 +21,7 @@ describe('LocalNewsList', () => {
     timestamp={timestamp}
     type={LOCAL_NEWS}
     key={localNews1.id}
-    path={path}
+    link={link}
     t={t}
     language={language}
   />

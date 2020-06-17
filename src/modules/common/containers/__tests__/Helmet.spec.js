@@ -12,7 +12,13 @@ describe('Helmet', () => {
     live: true,
     eventsEnabled: true,
     offersEnabled: true,
-    sortingName: 'augsburg'
+    tunewsEnabled: false,
+    pushNotificationsEnabled: false,
+    sortingName: 'augsburg',
+    prefix: 'Stadt',
+    latitude: null,
+    longitude: null,
+    aliases: null
   })
   const hiddenCity = new CityModel({
     name: 'Testinstanz',
@@ -20,7 +26,13 @@ describe('Helmet', () => {
     live: false,
     eventsEnabled: true,
     offersEnabled: true,
-    sortingName: 'Testinstanz'
+    tunewsEnabled: false,
+    pushNotificationsEnabled: false,
+    sortingName: 'Testinstanz',
+    prefix: 'Stadt',
+    latitude: null,
+    longitude: null,
+    aliases: null
   })
 
   const languageChangePaths = [

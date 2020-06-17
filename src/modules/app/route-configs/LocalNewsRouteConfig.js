@@ -9,20 +9,25 @@ import {
   createLocalNewsEndpoint,
   createLanguagesEndpoint,
   LocalNewsModel,
-  Payload
+  Payload,
+  CityModel
 } from '@integreat-app/integreat-api-client'
 import fetchData from '../fetchData'
 import { cmsApiBaseUrl } from '../constants/urls'
+import type { StateType } from '../StateType'
 
 type LocalNewsRouteParamsType = {| city: string, language: string |}
-type RequiredPayloadsType = {| localNews: Payload<Array<LocalNewsModel>> |}
+type RequiredPayloadsType = {|
+  localNews: Payload<Array<LocalNewsModel>>,
+  cities: Payload<Array<CityModel>>
+|}
 
 export const LOCAL_NEWS_ROUTE = 'LOCAL_NEWS'
 
 const localNewsRoute: Route = {
   path: '/:city/:language/news/local',
   thunk: async (dispatch, getState) => {
-    const state = getState()
+    const state: StateType = getState()
     const { city, language } = state.location.payload
 
     await Promise.all([
@@ -46,10 +51,18 @@ class LocalNewsRouteConfig implements RouteConfig<LocalNewsRouteParamsType, Requ
     return this.getRoutePath({ city, language })
   }
 
-  getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType => ({ localNews: payloads.localNewsPayload })
+  getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType => ({
+    localNews: payloads.localNewsPayload,
+    cities: payloads.citiesPayload
+  })
 
-  getPageTitle = ({ t, cityName }) => {
+  getPageTitle = ({ payloads, t, cityName, location }) => {
     if (!cityName) {
+      return null
+    }
+    const cityModel = payloads.cities.data &&
+      payloads.cities.data.find(cityModel => cityModel.code === location.payload.city)
+    if (!cityModel || !cityModel.pushNotificationsEnabled) {
       return null
     }
     return `${t('pageTitles.localNews')} - ${cityName}`

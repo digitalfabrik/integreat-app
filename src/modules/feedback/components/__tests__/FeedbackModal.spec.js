@@ -20,7 +20,11 @@ describe('FeedbackModal', () => {
         offersEnabled: false,
         pushNotificationsEnabled: false,
         tunewsEnabled: false,
-        sortingName: 'Augsburg'
+        sortingName: 'Augsburg',
+        latitude: null,
+        longitude: null,
+        aliases: null,
+        prefix: null
       })
     ]
 
@@ -36,7 +40,7 @@ describe('FeedbackModal', () => {
                      title='title'
                      alias='alias'
                      closeFeedbackModal={() => {}}
-                     feedbackStatus='up'
+                     feedbackRating='up'
                      theme={theme} />
     )).toMatchSnapshot()
   })

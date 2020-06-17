@@ -6,32 +6,51 @@ import { shallow } from 'enzyme'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import { LanguageFailure } from '../LanguageFailure'
 import createLocation from '../../../../createLocation'
+import { brightTheme } from '../../../theme/constants/theme'
 
 describe('LanguageFailure', () => {
   const cities = [
     new CityModel({
-      name: 'Augsburg',
+      name: 'Stadt Augsburg',
       code: 'augsburg',
       eventsEnabled: true,
       offersEnabled: false,
+      tunewsEnabled: false,
+      pushNotificationsEnabled: false,
       sortingName: 'augsburg',
-      live: true
+      live: true,
+      prefix: 'Stadt',
+      latitude: null,
+      longitude: null,
+      aliases: null
     }),
     new CityModel({
       name: 'Stadt Regensburg',
       code: 'regensburg',
       eventsEnabled: true,
       offersEnabled: true,
+      tunewsEnabled: false,
+      pushNotificationsEnabled: false,
       sortingName: 'regensburg',
-      live: true
+      live: true,
+      prefix: 'Stadt',
+      latitude: null,
+      longitude: null,
+      aliases: null
     }),
     new CityModel({
       name: 'Werne',
       code: 'werne',
       eventsEnabled: true,
       offersEnabled: true,
+      tunewsEnabled: false,
+      pushNotificationsEnabled: false,
       sortingName: 'regensburg',
-      live: false
+      live: false,
+      prefix: 'Stadt',
+      latitude: null,
+      longitude: null,
+      aliases: null
     })
   ]
 
@@ -46,6 +65,7 @@ describe('LanguageFailure', () => {
   it('should match snapshot', () => {
     const wrapper = shallow(
       <LanguageFailure cities={cities}
+                       theme={brightTheme}
                        location={location}
                        languageChangePaths={languageChangePaths}
                        t={key => key || 'null'} />

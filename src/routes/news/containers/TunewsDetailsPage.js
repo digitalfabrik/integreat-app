@@ -3,12 +3,13 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import TunewsIcon from './../assets/TunewsActiveLogo.png'
-import { TunewsModel } from '@integreat-app/integreat-api-client'
+import { CityModel, TunewsModel } from '@integreat-app/integreat-api-client'
 import { connect } from 'react-redux'
 import type { StateType } from '../../../modules/app/StateType'
 import TunewsDetailsFooter from '../components/TunewsDetailsFooter'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
+import CityNotFoundError from '../../../modules/app/errors/CityNotFoundError'
 
 const StyledContainer = styled.div`
   display: flex;
@@ -54,16 +55,23 @@ const Content = styled.p`
 type PropsType = {|
   tunewsElement: TunewsModel,
   language: string,
-  path: string,
-  city: string
+  id: number,
+  city: string,
+  cities: Array<CityModel>
 |}
 
 export class TunewsDetailsPage extends React.PureComponent<PropsType> {
   render () {
-    const { tunewsElement, language, path, city } = this.props
+    const { tunewsElement, language, id, city, cities } = this.props
 
-    if (!tunewsElement) {
-      const error = new ContentNotFoundError({ type: 'tunewsItem', id: path, city, language })
+    const currentCity: ?CityModel = cities && cities.find(cityElement => cityElement.code === city)
+    if (!currentCity) {
+      return <FailureSwitcher error={new CityNotFoundError()} />
+    } else if (!currentCity.tunewsEnabled) {
+      const error = new ContentNotFoundError({ type: 'category', id, city, language })
+      return <FailureSwitcher error={error} />
+    } else if (!tunewsElement) {
+      const error = new ContentNotFoundError({ type: 'tunewsItem', id, city, language })
       return <FailureSwitcher error={error} />
     }
 
@@ -87,8 +95,9 @@ export class TunewsDetailsPage extends React.PureComponent<PropsType> {
 
 const mapStateToProps = (state: StateType) => ({
   language: state.location.payload.language,
-  path: state.location.pathname,
-  city: state.location.payload.city
+  id: state.location.payload.id,
+  city: state.location.payload.city,
+  cities: state.cities.data
 })
 
 export default connect<PropsType, *, *, *, *, *>(mapStateToProps)(TunewsDetailsPage)
