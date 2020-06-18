@@ -57,6 +57,7 @@ const mapDispatchToProps = (dispatch: DispatchType, ownProps: OwnPropsType) => (
 })
 
 export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
-  withTheme(props => props.language)(
+  withTheme(
     withTranslation('search')(SearchModal)
-  ))
+  )
+)
