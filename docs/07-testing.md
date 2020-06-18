@@ -33,7 +33,7 @@ class Failure extends React.Component<PropsType> {
 
 ```js
 // FailureContainer.js
-export default withTheme()(withTranslation('error')(Failure))
+export default withTheme(withTranslation('error')(Failure))
 ```
 
 The most important part is to test the specific units using `@testing-library/react-native` and `react-test-renderer`. The following test is for the `Failure` component.
@@ -68,7 +68,6 @@ To make the tests simpler HOCs were mocked using:
 
 ```js
 jest.mock('react-i18next')
-jest.mock('../../../theme/hocs/withTheme')
 ```
 
 For complex HOCs it is probably easier to use the real implementation (e.g. connect()).

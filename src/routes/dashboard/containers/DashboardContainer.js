@@ -124,9 +124,8 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsType => ({ dispatch })
 
 const ThemedTranslatedDashboard = withTranslation('dashboard')(
-  withTheme(props => props.language)(
-    Dashboard
-  ))
+  withTheme(Dashboard)
+)
 
 const DashboardContainer = (props: ContainerPropsType) => {
   const { dispatch, ...rest } = props
