@@ -35,7 +35,8 @@ module.exports = {
     'src'
   ],
   globals: {
-    __DEV__: false
+    __DEV__: false,
+    __CONFIG_NAME__: 'integreat-test-cms'
   },
   collectCoverageFrom: [
     '**/*.{js,jsx}'
