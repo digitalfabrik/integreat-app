@@ -9,7 +9,6 @@ import { CityModel, ExtraModel } from '@integreat-app/integreat-api-client'
 import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
-import { compose } from 'recompose'
 import SprungbrettRouteConfig, { SPRUNGBRETT_EXTRA } from '../../../modules/app/route-configs/SprungbrettRouteConfig'
 import WohnenRouteConfig, { WOHNEN_EXTRA } from '../../../modules/app/route-configs/WohnenRouteConfig'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
@@ -82,7 +81,7 @@ const mapStateToProps = (state: StateType) => ({
   extraId: state.location.payload.extraId
 })
 
-export default compose(
-  connect<*, *, *, *, *, *>(mapStateToProps),
-  withTranslation('extras')
-)(ExtrasPage)
+export default connect<*, *, *, *, *, *>(mapStateToProps)(
+  withTranslation('extras')(
+    ExtrasPage
+  ))
