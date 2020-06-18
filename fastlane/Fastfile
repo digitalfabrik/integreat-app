@@ -43,7 +43,7 @@ platform :android do
     upload_to_browserstack_app_live(
         browserstack_username: ENV["BROWSERSTACK_USERNAME"],
         browserstack_access_key: ENV["BROWSERSTACK_ACCESS_KEY"],
-        file_path: "/tmp/output/app-release.apk"
+        file_path: "./app-release.apk"
     )
   end
 
@@ -56,7 +56,7 @@ platform :android do
     upload_to_browserstack_app_automate(
         browserstack_username: ENV["BROWSERSTACK_USERNAME"],
         browserstack_access_key: ENV["BROWSERSTACK_ACCESS_KEY"],
-        file_path: "/tmp/output/app-release.apk"
+        file_path: "./app-release.apk"
     )
 
     ENV["E2E_CONFIG"] = 'browserstack_ci_android'
@@ -77,7 +77,7 @@ platform :android do
 
     generic_sentry_upload(
         package_name: 'tuerantuer.app.integreat',
-        sourcemap_path: '/tmp/output/index.android.bundle.map',
+        sourcemap_path: './index.android.bundle.map',
         version_name: version_name,
         version_code: version_code
     )
@@ -106,7 +106,7 @@ platform :android do
         skip_upload_screenshots: false,
         skip_upload_metadata: false,
         release_status: 'completed',
-        apk: '/tmp/output/app-release.apk',
+        apk: './app-release.apk',
         json_key_data: ENV["GOOGLE_SERVICE_ACCOUNT_JSON"]
     )
   end
@@ -123,7 +123,7 @@ platform :ios do
     upload_to_browserstack_app_live(
         browserstack_username: ENV["BROWSERSTACK_USERNAME"],
         browserstack_access_key: ENV["BROWSERSTACK_ACCESS_KEY"],
-        file_path: "/tmp/output/Integreat.ipa"
+        file_path: "./Integreat.ipa"
     )
   end
 
@@ -136,7 +136,7 @@ platform :ios do
     upload_to_browserstack_app_automate(
         browserstack_username: ENV["BROWSERSTACK_USERNAME"],
         browserstack_access_key: ENV["BROWSERSTACK_ACCESS_KEY"],
-        file_path: "/tmp/output/Integreat.ipa"
+        file_path: "./Integreat.ipa"
     )
 
     ENV["E2E_CONFIG"] = 'browserstack_ci_ios'
@@ -156,7 +156,7 @@ platform :ios do
 
     generic_sentry_upload(
         package_name: 'de.integreat-app',
-        sourcemap_path: '/tmp/output/index.ios.bundle.map',
+        sourcemap_path: './index.ios.bundle.map',
         version_code: version_code,
         version_name: version_name
     )
@@ -172,7 +172,7 @@ platform :ios do
 
     # https://docs.fastlane.tools/actions/deliver/
     deliver(
-        ipa: "/tmp/output/Integreat.ipa",
+        ipa: "./Integreat.ipa",
         app_version: version_name,
         submit_for_review: true,
         automatic_release: true,
@@ -196,7 +196,7 @@ platform :ios do
     upload_to_testflight(
         skip_waiting_for_build_processing: true,
         apple_id: "1072353915",
-        ipa: "/tmp/output/Integreat.ipa",
+        ipa: "./Integreat.ipa",
         distribute_external: false
     )
   end
