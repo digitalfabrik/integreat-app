@@ -1,12 +1,13 @@
 // @flow
 
 import * as React from 'react'
+import wrapDisplayName from '../modules/common/utils/wrapDisplayName'
 
 /**
  * Since enzyme rendering doesn't work with react-onclickoutside, here's a mock:
  */
 const onClickOutside = <P> (WrappedComponent: React.ComponentType<P>) => class extends React.Component<P> {
-  static displayName = `OnClickOutside(${WrappedComponent.displayName || WrappedComponent.name || typeof WrappedComponent})`
+  static displayName = wrapDisplayName(WrappedComponent, 'OnClickOutside')
 
   checkRef = (instance: mixed) => {
     if (!instance || typeof instance.handleClickOutside !== 'function') {
