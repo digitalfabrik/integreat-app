@@ -210,7 +210,7 @@ jobs:
             - android/vendor/bundle
       - restore_cache:
           name: Restore Yarn Package Cache
-          keys: # Integer Prefix used for manually invalidating caches by incrementing.
+          keys:
             - 2-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
             - 2-yarn-{{ arch }}-
       - run:
@@ -368,19 +368,6 @@ jobs:
           key: 1-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
-      - restore_cache:
-          name: Restore Yarn Package Cache
-          keys:
-            - 2-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
-      - run:
-          name: Install Dependencies
-          command: yarn install --frozen-lockfile
-      - save_cache:
-          name: Save Yarn Package Cache
-          key: 2-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
-          paths:
-            - ~/.cache/yarn
-            - node_modules
       - run:
           name: "[FL] Browserstack Upload Live"
           command: bundle exec fastlane android browserstack_upload_live
@@ -420,9 +407,6 @@ jobs:
           key: 1-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
-      - run:
-          name: Ruby version
-          command: ruby --version
       - run:
           name: "[FL] Browserstack Upload Live"
           command: bundle exec fastlane ios browserstack_upload_live
