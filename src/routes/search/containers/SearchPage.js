@@ -2,7 +2,6 @@
 
 import * as React from 'react'
 import { connect } from 'react-redux'
-import compose from 'lodash/fp/compose'
 
 import SearchInput from '../../../modules/common/components/SearchInput'
 
@@ -83,7 +82,7 @@ const mapStateToProps = (state: StateType) => ({
   location: state.location
 })
 
-export default compose(
-  connect<*, *, *, *, *, *>(mapStateToProps),
-  withTranslation('search')
-)(SearchPage)
+export default connect<*, *, *, *, *, *>(mapStateToProps)(
+  withTranslation('search')(
+    SearchPage
+  ))

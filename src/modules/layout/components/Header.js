@@ -5,7 +5,6 @@ import Headroom from '@integreat-app/react-sticky-headroom'
 import styled, { withTheme } from 'styled-components'
 import withPlatform from '../../platform/hocs/withPlatform'
 import Platform from '../../platform/Platform'
-import compose from 'lodash/fp/compose'
 import type { ThemeType } from '../../theme/constants/theme'
 import buildConfig from '../../app/constants/buildConfig'
 import HeaderTitle, { HEADER_TITLE_HEIGHT } from './HeaderTitle'
@@ -137,7 +136,7 @@ export class Header extends React.PureComponent<PropsType> {
   }
 }
 
-export default compose(
-  withPlatform,
-  withTheme
-)(Header)
+export default withPlatform(
+  withTheme(
+    Header
+  ))
