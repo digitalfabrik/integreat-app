@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import { isEmpty } from 'lodash/lang'
+import { isEmpty } from 'lodash'
 import styled from 'styled-components'
 import InfiniteScroll from 'react-infinite-scroller'
 import { TunewsModel } from '@integreat-app/integreat-api-client'

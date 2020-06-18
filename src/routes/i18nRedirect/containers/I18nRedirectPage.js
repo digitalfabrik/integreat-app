@@ -8,7 +8,6 @@ import type { Dispatch } from 'redux'
 import type { StateType } from '../../../modules/app/StateType'
 import { withTranslation } from 'react-i18next'
 import i18n from 'i18next'
-import { compose } from 'recompose'
 import { routesMap } from '../../../modules/app/route-configs/index'
 import LandingRouteConfig from '../../../modules/app/route-configs/LandingRouteConfig'
 import CategoriesRouteConfig from '../../../modules/app/route-configs/CategoriesRouteConfig'
@@ -58,7 +57,7 @@ const mapStateToProps = (state: StateType) => ({
   param: state.location.payload.param
 })
 
-export default compose(
-  withTranslation(),
-  connect(mapStateToProps, mapDispatchToProps)
-)(I18nRedirectPage)
+export default withTranslation()(
+  connect(mapStateToProps, mapDispatchToProps)(
+    I18nRedirectPage
+  ))

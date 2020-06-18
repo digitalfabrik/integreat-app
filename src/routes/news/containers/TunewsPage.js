@@ -3,7 +3,6 @@
 import * as React from 'react'
 import { withTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
-import compose from 'lodash/fp/compose'
 import type { StateType } from '../../../modules/app/StateType'
 import { TFunction } from 'i18next'
 import TunewsList from '../components/TunewsList'
@@ -97,7 +96,7 @@ const mapStateToProps = (state: StateType) => ({
   isFetching: state.tunews.payload.isFetching
 })
 
-export default compose(
-  connect<PropsType, *, *, *, *, *>(mapStateToProps, { fetchTunews }),
-  withTranslation('news')
-)(TunewsPage)
+export default connect<PropsType, *, *, *, *, *>(mapStateToProps, { fetchTunews })(
+  withTranslation('news')(
+    TunewsPage
+  ))
