@@ -24,21 +24,20 @@ commands:
           name: Restore environment variables
           command: cat environment_variables >> ${BASH_ENV}
 
-
 workflows:
   version: 2
   commit:
     unless: << pipeline.parameters.api_triggered >>
     jobs:
-      - calculate_new_version
+      - prepare_build
       - build_android:
           e2e_build: true
           requires:
-            - calculate_new_version
+            - prepare_build
       - build_ios:
           e2e_build: true
           requires:
-            - calculate_new_version
+            - prepare_build
       - e2e:
           requires:
             - build_ios
@@ -47,15 +46,15 @@ workflows:
   api_triggered:
     when: << pipeline.parameters.api_triggered >>
     jobs:
-      - calculate_new_version
+      - prepare_build
       - build_android:
           e2e_build: false
           requires:
-            - calculate_new_version
+            - prepare_build
       - build_ios:
           e2e_build: false
           requires:
-            - calculate_new_version
+            - prepare_build
       - bump_version:
           requires: # Bump version should only depend on build_ and not delivery_. Sometimes upload to the stores fails only for iOS or Android. Then we still should bump the version.
             - build_android
@@ -80,15 +79,15 @@ workflows:
               only:
                 - develop
     jobs:
-      - calculate_new_version
+      - prepare_build
       - build_android:
           e2e_build: false
           requires:
-            - calculate_new_version
+            - prepare_build
       - build_ios:
           e2e_build: false
           requires:
-            - calculate_new_version
+            - prepare_build
       - bump_version:
           requires: # Bump version should only depend on build_ and not delivery_. Sometimes upload to the stores fails only for iOS or Android. Then we still should bump the version.
             - build_android
@@ -111,17 +110,17 @@ workflows:
               only:
                 - develop
     jobs:
-      - calculate_new_version
+      - prepare_build
       - build_android:
           e2e_build: false
           requires:
-            - calculate_new_version
+            - prepare_build
       - build_ios:
           e2e_build: false
           requires:
-            - calculate_new_version
+            - prepare_build
       - bump_version:
-          requires: # Bump version should only depend on build_ and not delivery_. Sometimes upload to the stores fails only for iOS or Android. Then we still should bump the version
+          requires: # Bump version should only depend on build_ and not delivery_. Sometimes upload to the stores fails only for iOS or Android. Then we should still bump the version.
             - build_android
             - build_ios
       - await_production_approval:
@@ -138,16 +137,18 @@ workflows:
             - await_production_approval
 
 jobs:
-  calculate_new_version:
+  prepare_build:
     docker:
       - image: circleci/android:api-28-node
     resource_class: small
+    environment:
+      TOTAL_CPUS: 1 # For resource_class small
     shell: /bin/bash -eo pipefail
     steps:
       - checkout
       - restore_cache:
           name: Restore Yarn Package Cache
-          keys:
+          keys: # Integer Prefix used for manually invalidating caches by incrementing.
             - 2-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
             - 2-yarn-{{ arch }}-
       - run:
@@ -159,6 +160,15 @@ jobs:
           paths:
             - ~/.cache/yarn
             - node_modules
+      - run:
+          name: Linting check
+          command: yarn run lint
+      - run:
+          name: Flow-type check
+          command: yarn run flow:check-now --max-workers ${TOTAL_CPUS}
+      - run:
+          name: Unit tests
+          command: yarn run test --maxWorkers ${TOTAL_CPUS}
       - run:
           name: Calculate next version name
           command: echo "export NEW_VERSION_NAME=$(tools/next-version calc | jq .versionName)" >> environment_variables
@@ -180,31 +190,14 @@ jobs:
       - image: circleci/android:api-28-node
     resource_class: medium
     environment:
-      TOTAL_CPUS: 2 # For resource_class medium
       E2E_TEST_IDS: <<# parameters.e2e_build >>1<</ parameters.e2e_build >> # Empty string equals to false in JS
       FASTLANE_SKIP_UPDATE_CHECK: true
     shell: /bin/bash -eo pipefail
     steps:
-      - run:
-          name: "Show current CPU count"
-          command: |
-            echo "CPU count is ${TOTAL_CPUS}"
-      - add_ssh_keys:
-          fingerprints:
-            - "9a:0f:b1:f0:97:c8:db:3f:be:87:a4:9b:09:7f:d3:af"
       - checkout
       - attach_workspace:
           at: .
       - restore_environment_variables
-      - run:
-          name: Version name
-          command: echo ${NEW_VERSION_NAME}
-      - run:
-          name: Version code
-          command: echo ${NEW_VERSION_CODE}
-      - run:
-          name: ls
-          command: ls -A
       - restore_cache:
           keys:
             - 1-gems-{{ arch }}-{{ checksum "android/Gemfile.lock" }}
@@ -216,17 +209,6 @@ jobs:
           key: 1-gems-{{ arch }}-{{ checksum "android/Gemfile.lock" }}
           paths:
             - android/vendor/bundle
-      - run:
-          name: Linting check
-          command: yarn run lint
-      - run:
-          name: Flow-type check
-          command: yarn run flow:check-now --max-workers $TOTAL_CPUS
-      - run:
-          name: Unit tests
-          environment:
-            E2E_TEST_IDS: '' # Empty string equals to false in JS
-          command: yarn run test --maxWorkers $TOTAL_CPUS
       - run:
           name: "[FL] Prepare Android Keystore"
           command: bundle exec fastlane keystore
@@ -268,17 +250,9 @@ jobs:
     environment:
       FL_OUTPUT_DIR: output
       FASTLANE_SKIP_UPDATE_CHECK: true
-      TOTAL_CPUS: 4 # For mac with resource_class medium
       E2E_TEST_IDS: <<# parameters.e2e_build >>1<</ parameters.e2e_build >> # Empty string equals to false in JS
     shell: /bin/bash --login -o pipefail
     steps:
-      - run:
-          name: "Show current CPU count"
-          command: |
-            echo "CPU count is ${TOTAL_CPUS}"
-      - add_ssh_keys:
-          fingerprints:
-            - "9a:0f:b1:f0:97:c8:db:3f:be:87:a4:9b:09:7f:d3:af"
       - checkout
       - attach_workspace:
           at: .
@@ -362,12 +336,10 @@ jobs:
     shell: /bin/bash -eo pipefail
     environment:
       FASTLANE_SKIP_UPDATE_CHECK: true
-      TOTAL_CPUS: 1 # For resource_class small
     steps:
-      - run:
-          name: "Show current CPU count"
-          command: |
-            echo "CPU count is ${TOTAL_CPUS}"
+      - add_ssh_keys:
+          fingerprints:
+            - "9a:0f:b1:f0:97:c8:db:3f:be:87:a4:9b:09:7f:d3:af"
       - run: 'curl -sL https://sentry.io/get-cli/ | bash'
       - checkout
       - attach_workspace:
@@ -418,13 +390,11 @@ jobs:
       xcode: 11.2.0
     environment:
       FASTLANE_SKIP_UPDATE_CHECK: true
-      TOTAL_CPUS: 4 # For mac with resource_class medium
     shell: /bin/bash --login -o pipefail
     steps:
-      - run:
-          name: "Show current CPU count"
-          command: |
-            echo "CPU count is ${TOTAL_CPUS}"
+      - add_ssh_keys:
+          fingerprints:
+            - "9a:0f:b1:f0:97:c8:db:3f:be:87:a4:9b:09:7f:d3:af"
       - run: 'curl -sL https://sentry.io/get-cli/ | bash'
       - checkout
       - attach_workspace:
@@ -472,12 +442,10 @@ jobs:
     shell: /bin/bash -eo pipefail
     environment:
       FASTLANE_SKIP_UPDATE_CHECK: true
-      TOTAL_CPUS: 1 # For resource_class small
     steps:
-      - run:
-          name: "Show current CPU count"
-          command: |
-            echo "CPU count is ${TOTAL_CPUS}"
+      - add_ssh_keys:
+          fingerprints:
+            - "9a:0f:b1:f0:97:c8:db:3f:be:87:a4:9b:09:7f:d3:af"
       - checkout
       - attach_workspace:
           at: .
@@ -492,19 +460,6 @@ jobs:
           key: 1-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
-      - restore_cache:
-          name: Restore Yarn Package Cache
-          keys:
-            - 2-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
-      - run:
-          name: Install Dependencies
-          command: yarn install --frozen-lockfile
-      - save_cache:
-          name: Save Yarn Package Cache
-          key: 2-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
-          paths:
-            - ~/.cache/yarn
-            - node_modules
       - run:
           name: "[FL] E2E Tests on Browserstack"
           command: bundle exec fastlane android browserstack_e2e_tests
