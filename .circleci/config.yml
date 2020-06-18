@@ -120,7 +120,7 @@ jobs:
           command: yarn run test:coverage --ci --maxWorkers ${TOTAL_CPUS}
       - run:
           name: Debug integreat-test-cms build
-          command: yarn build:debug
+          command: yarn build:integreat-test-cms
       - run:
           name: Production integreat build
           command: yarn build:integreat
