@@ -120,13 +120,13 @@ jobs:
           command: yarn run test:coverage --ci --maxWorkers ${TOTAL_CPUS}
       - run:
           name: Debug integreat-test-cms build
-          command: yarn run webpack --config tools/webpack.config.babel.js --env.config_name integreat-test-cms --env.debug
+          command: yarn build:debug
       - run:
           name: Production integreat build
-          command: yarn run webpack --config tools/webpack.config.babel.js --env.config_name integreat --env.production
+          command: yarn build:integreat
       - run:
           name: Production malte build
-          command: yarn run webpack --config tools/webpack.config.babel.js --env.config_name malte --env.production
+          command: yarn build:malte
       - run:
           name: Check build
           command: yarn run check:build
