@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "react-native start",
-    "start:reset": "react-native start --reset-cache",
+    "start": "__CONFIG_NAME__='integreat-test-cms' react-native start",
+    "start:reset": "__CONFIG_NAME__='integreat-test-cms' react-native start --reset-cache",
+    "start:malte": "__CONFIG_NAME__='malte' react-native start",
     "android": "react-native run-android --no-packager",
     "android:release": "react-native run-android --no-packager --variant=release",
     "android:reload": "adb shell input text RR",

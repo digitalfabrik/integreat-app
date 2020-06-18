@@ -13,6 +13,12 @@ module.exports = {
   },
   plugins: [
     [
+      'transform-inline-environment-variables',
+      {
+        include: ['__CONFIG_NAME__']
+      }
+    ],
+    [
       'module-resolver',
       {
         extensions: [
