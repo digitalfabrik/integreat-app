@@ -12,8 +12,8 @@ const theme: ThemeType = {
 }
 
 export const darkTheme: ThemeType = {
-  ...theme,
-  colors: malteDarkColors
+  colors: malteDarkColors,
+  ...theme
 }
 
 export default theme
