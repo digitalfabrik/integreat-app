@@ -245,7 +245,7 @@ jobs:
       - run:
           name: "[FL] Build"
           environment:
-            __CONFIG_NAME__: integreat-test-cms
+            __CONFIG_NAME__: malte
           command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
           working_directory: android
       - store_artifacts:
