@@ -14,7 +14,7 @@ index e81042b8..a5ea110a 100644
 @@ -17,7 +17,7 @@
          "search": "Suche",
          "events": "News",
-         "extras": "Offers",
+         "extras": "Extras",
 -        "landing": "Wo bist du?",
 +        "landing": "Ortsauswahl",
          "disclaimer": "Impressum und Kontakt",
@@ -28,6 +28,6 @@ index e81042b8..a5ea110a 100644
        "searchCity": "Ort suchen",
        "metaDescription": "Finde lokale und aktuelle Informationen, Events und werde Teil deiner neuen Stadt. Integreat hilft dir dich mit anderen zu vernetzen und unterstützt mehrere Sprachen."
      },
---
+-- 
 2.20.1 (Apple Git-117)
 

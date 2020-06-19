@@ -59,7 +59,7 @@ index dc9f475f..1abcd8cd 100644
      },
      "fr": {
        "imprintAndContact": "Mentions légales et contact",
-       "extras": "Offers",
+       "extras": "Extras",
        "categories": "Catégorie",
 -      "news": "Actualités"
 +      "news": "Actualités",
@@ -93,6 +93,6 @@ index dc9f475f..1abcd8cd 100644
      }
    },
    "events": {
---
+-- 
 2.20.1 (Apple Git-117)
 

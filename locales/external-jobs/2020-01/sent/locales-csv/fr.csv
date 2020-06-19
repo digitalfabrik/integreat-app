@@ -44,7 +44,7 @@ events.currentlyNoEvents,Es gibt aktuell keine Veranstaltungen.,Pas d'événemen
 extras.offers,Angebote,
 feedback.technicalTopics,Technische Funktionen,Fonctions techniques
 feedback.contentOfCity,Inhalte von {{city}},Contenu de
-feedback.contentOfOffer,"Angebot ""{{extra}}""",
+feedback.contentOfExtra,"Angebot ""{{extra}}""",
 feedback.disclaimer,Kontakt und Impressum,Mentions Légales
 feedback.searchFor,Suche nach,Rechercher pour
 feedback.contentOfPage,"Inhalt der Seite ""{{page}}""",Contenu de la page
