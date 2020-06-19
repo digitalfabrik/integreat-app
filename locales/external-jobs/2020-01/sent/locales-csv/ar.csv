@@ -1,7 +1,7 @@
 key,source_language,target_language
 app.pageTitles.search,Suche,البحث
 app.pageTitles.events,Veranstaltungen,الأخبار
-app.pageTitles.offers,Angebote,
+app.pageTitles.extras,Angebote,
 app.pageTitles.landing,Ortsauswahl,أين أنت؟
 app.pageTitles.disclaimer,Impressum und Kontakt,هيئة التحرير وجهة الاتصال
 app.pageTitles.mainDisclaimer,Impressum und Kontakt - Integreat,Integreat - هيئة التحرير وجهة الاتصال
@@ -11,7 +11,7 @@ app.metaDescription,"Integreat ist Ihr digitaler Guide für Deutschland. Finden 
 categories.createPdf,PDF erstellen,إنشاء ملف PDF
 common.languageNotAvailable,Deine Sprache ist hier leider nicht verfügbar.,للأسف، لغتك ليست متاحة.
 common.chooseALanguage,Wähle eine Sprache.,اختار اللغة.
-common.lastUpdate,Letzte Änderung: ,اخر تحديث:
+common.lastUpdate,Letzte Änderung: ,اخر تحديث: 
 dashboard.localInformation,Lokale Informationen,
 dashboard.offers,Angebote,
 dashboard.events,Veranstaltungen,
@@ -44,7 +44,7 @@ events.currentlyNoEvents,Es gibt aktuell keine Veranstaltungen.,ليس هناك 
 extras.offers,Angebote,
 feedback.technicalTopics,Technische Funktionen,وظائف تقنية
 feedback.contentOfCity,Inhalte von {{city}},محتويات
-feedback.contentOfOffer,"Angebot ""{{extra}}""",
+feedback.contentOfExtra,"Angebot ""{{extra}}""",
 feedback.disclaimer,Kontakt und Impressum,هيئة التحرير وجهة الاتصال
 feedback.searchFor,Suche nach,البحث عن
 feedback.contentOfPage,"Inhalt der Seite ""{{page}}""",محتوى الصفحة

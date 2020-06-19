@@ -11,7 +11,7 @@ app.metaDescription,"Integreat ist Ihr digitaler Guide für Deutschland. Finden 
 categories.createPdf,PDF erstellen,Create PDF
 common.languageNotAvailable,Deine Sprache ist hier leider nicht verfügbar.,"Sorry, but your language is not available here."
 common.chooseALanguage,Wähle eine Sprache.,Choose a language.
-common.lastUpdate,Letzte Änderung: ,Last Update:
+common.lastUpdate,Letzte Änderung: ,Last Update: 
 dashboard.localInformation,Lokale Informationen,Local Information
 dashboard.offers,Angebote,Offers
 dashboard.events,Veranstaltungen,Events
@@ -44,7 +44,7 @@ events.currentlyNoEvents,Es gibt aktuell keine Veranstaltungen.,No recent events
 extras.offers,Angebote,Offers
 feedback.technicalTopics,Technische Funktionen,Technical topics
 feedback.contentOfCity,Inhalte von {{city}},Contents of {{city}}
-feedback.contentOfOffer,"Angebot ""{{extra}}""",
+feedback.contentOfExtra,"Angebot ""{{extra}}""",
 feedback.disclaimer,Kontakt und Impressum,Imprint and contact
 feedback.searchFor,Suche nach,Search for
 feedback.contentOfPage,"Inhalt der Seite ""{{page}}""",Content of the site '{{page}}'

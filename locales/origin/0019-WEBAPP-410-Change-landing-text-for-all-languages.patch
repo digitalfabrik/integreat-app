@@ -14,7 +14,7 @@ index a5ea110a..0b317139 100644
 @@ -29,7 +29,7 @@
          "search": "Search",
          "events": "News",
-         "extras": "Offers",
+         "extras": "Extras",
 -        "landing": "Where are you?",
 +        "landing": "Location selection",
          "disclaimer": "Imprint and contact",
@@ -32,7 +32,7 @@ index a5ea110a..0b317139 100644
 @@ -54,7 +54,7 @@
          "search": "Rechercher",
          "events": "Actualités",
-         "extras": "Offers",
+         "extras": "Extras",
 -        "landing": "Tu es où?",
 +        "landing": "Sélection de l'emplacement",
          "disclaimer": "Mentions légales et contact",
@@ -63,6 +63,6 @@ index a5ea110a..0b317139 100644
        "searchCity": "Chercher un lieu"
      }
    },
---
+-- 
 2.20.1 (Apple Git-117)
 
