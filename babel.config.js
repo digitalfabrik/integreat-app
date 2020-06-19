@@ -15,7 +15,7 @@ module.exports = {
     [
       'transform-inline-environment-variables',
       {
-        include: ['__CONFIG_NAME__']
+        include: ['__CONFIG_NAME__', 'E2E_TEST_IDS']
       }
     ],
     [
