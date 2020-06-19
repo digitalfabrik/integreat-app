@@ -2,7 +2,6 @@
 
 import * as React from 'react'
 import { connect } from 'react-redux'
-import compose from 'lodash/fp/compose'
 
 import { CityModel, EventModel } from '@integreat-app/integreat-api-client'
 import Page, { THUMBNAIL_WIDTH } from '../../../modules/common/components/Page'
@@ -85,7 +84,7 @@ const mapStateTypeToProps = (state: StateType) => ({
   eventId: state.location.payload.eventId
 })
 
-export default compose(
-  connect<*, *, *, *, *, *>(mapStateTypeToProps),
-  withTranslation('events')
-)(EventsPage)
+export default connect<*, *, *, *, *, *>(mapStateTypeToProps)(
+  withTranslation('events')(
+    EventsPage
+  ))

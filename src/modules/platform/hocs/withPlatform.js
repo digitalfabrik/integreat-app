@@ -1,12 +1,12 @@
 // @flow
 
 import * as React from 'react'
-import { wrapDisplayName } from 'recompose'
 
 import PlatformContext from '../PlatformContext'
 import Platform from '../Platform'
+import wrapDisplayName from '../../common/utils/wrapDisplayName'
 
-const withPlatform = <Props: { platform: Platform }>(
+const withPlatform = <Props: { platform: Platform }> (
   WrappedComponent: React.AbstractComponent<Props>
 ): React.AbstractComponent<$Diff<Props, {| platform: Platform |}>> => {
   return class extends React.Component<$Diff<Props, {| platform: Platform |}>> {
@@ -14,8 +14,8 @@ const withPlatform = <Props: { platform: Platform }>(
 
     render () {
       return <PlatformContext.Consumer>
-          {platform => <WrappedComponent {...this.props} platform={platform} />}
-        </PlatformContext.Consumer>
+        {platform => <WrappedComponent {...this.props} platform={platform} />}
+      </PlatformContext.Consumer>
     }
   }
 }

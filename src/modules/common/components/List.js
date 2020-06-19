@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import { isEmpty } from 'lodash/lang'
+import { isEmpty } from 'lodash'
 import styled from 'styled-components'
 
 const StyledList = styled.div`
