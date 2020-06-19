@@ -7,13 +7,13 @@ import {
   CategoriesMapModel,
   CityModel,
   EventModel,
-  LocalNewsModel,
-  TunewsModel,
   OfferModel,
   LanguageModel,
+  LocalNewsModel,
   PageModel,
   Payload,
   PoiModel,
+  TunewsModel,
   WohnenOfferModel
 } from '@integreat-app/integreat-api-client'
 import Layout from '../../layout/components/Layout'
@@ -27,14 +27,13 @@ import type { Dispatch } from 'redux'
 import type { LocationState } from 'redux-first-router'
 import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
-import compose from 'lodash/fp/compose'
 import type { RouteConfig } from '../route-configs/RouteConfig'
 import toggleDarkModeAction from '../../theme/actions/toggleDarkMode'
 import LanguageFailure from '../../common/containers/LanguageFailure'
 import RouteContentSwitcher from './RouteContentSwitcher'
 import type { StoreActionType } from '../StoreActionType'
 
-export type LanguageChangePathsType = Array<{code: string, path: string | null, name: string}>
+export type LanguageChangePathsType = Array<{ code: string, path: string | null, name: string }>
 
 type PropsType = {|
   citiesPayload: Payload<Array<CityModel>>,
@@ -168,7 +167,7 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>) => ({
   toggleDarkMode: () => dispatch(toggleDarkModeAction())
 })
 
-export default compose(
-  connect<*, *, *, *, *, *>(mapStateToProps, mapDispatchToProps),
-  withTranslation('app')
-)(Switcher)
+export default connect<*, *, *, *, *, *>(mapStateToProps, mapDispatchToProps)(
+  withTranslation('app')(
+    Switcher
+  ))

@@ -4,7 +4,7 @@ import i18next from 'i18next'
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { I18nextProvider } from 'react-i18next'
-import { forEach, reduce } from 'lodash/collection'
+import { forEach, reduce } from 'lodash'
 import { Helmet as ReactHelmet } from 'react-helmet'
 import LanguageDetector from 'i18next-browser-languagedetector'
 

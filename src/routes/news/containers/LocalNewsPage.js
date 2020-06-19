@@ -2,7 +2,6 @@
 
 import * as React from 'react'
 import { connect } from 'react-redux'
-import compose from 'lodash/fp/compose'
 import { CityModel, LocalNewsModel } from '@integreat-app/integreat-api-client'
 import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
@@ -82,7 +81,7 @@ const mapStateTypeToProps = (state: StateType) => {
   }
 }
 
-export default compose(
-  connect<PropsType, *, *, *, *, *>(mapStateTypeToProps),
-  withTranslation('news')
-)(LocalNewsPage)
+export default connect<PropsType, *, *, *, *, *>(mapStateTypeToProps)(
+  withTranslation('news')(
+    LocalNewsPage
+  ))
