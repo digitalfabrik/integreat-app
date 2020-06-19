@@ -12,7 +12,6 @@ import OfferListItem from '../components/OfferListItem'
 import List from '../../../modules/common/components/List'
 import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
-import compose from 'lodash/fp/compose'
 import { hash as hashFunction } from '../../../modules/app/route-configs/WohnenRouteConfig'
 
 type PropsType = {|
@@ -70,7 +69,7 @@ const mapStateTypeToProps = (state: StateType) => ({
   wohnenOfferHash: state.location.payload.offerHash
 })
 
-export default compose(
-  connect<*, *, *, *, *, *>(mapStateTypeToProps),
-  withTranslation('wohnen')
-)(WohnenOfferPage)
+export default connect<*, *, *, *, *, *>(mapStateTypeToProps)(
+  withTranslation('wohnen')(
+    WohnenOfferPage
+  ))
