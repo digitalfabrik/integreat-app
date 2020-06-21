@@ -11,6 +11,10 @@ const fs = require('fs')
 
 const SHORT_COMMIT_SHA_LENGTH = 8
 
+// A first performance budget, which should be improved (= reduced) in the future: Maximum bundle size in MiB
+// eslint-disable-next-line no-magic-numbers
+const MAX_BUNDLE_SIZE = 1.5 * Math.pow(2, 20)
+
 const readJson = path => JSON.parse(fs.readFileSync(path))
 
 const readVersionName = () => {
@@ -104,6 +108,11 @@ const createConfig = (env = {}) => {
     },
     // What information should be printed to the console
     stats: 'minimal',
+    performance: {
+      hints: isProductionBuild ? 'error' : false,
+      maxEntrypointSize: MAX_BUNDLE_SIZE,
+      maxAssetSize: MAX_BUNDLE_SIZE
+    },
     // The list of plugins for Webpack compiler
     plugins: [
       new CleanWebpackPlugin(),
