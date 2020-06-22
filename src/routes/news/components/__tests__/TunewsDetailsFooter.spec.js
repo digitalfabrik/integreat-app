@@ -2,12 +2,12 @@
 
 import React from 'react'
 import { shallow } from 'enzyme'
-import moment from 'moment-timezone'
+import moment from 'moment'
 import TunewsDetailsFooter from '../TunewsDetailsFooter'
 
 describe('TunewsDetailsFooter', () => {
   const language = 'en'
-  const date = moment.tz('2020-03-20 17:50:00', 'GMT')
+  const date = moment('2020-03-20T17:50:00.000Z')
 
   it('should render the right data', () => {
     const wrapper = shallow(
