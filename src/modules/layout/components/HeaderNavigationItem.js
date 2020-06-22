@@ -106,7 +106,7 @@ class HeaderNavigationItem extends React.PureComponent<PropsType> {
 
   render () {
     const { active, text, tooltip, href, icon } = this.props
-    return <StyledLink to={href} data-tip={tooltip} active={active}>
+    return <StyledLink to={href} data-tip={tooltip} data-event='mouseover' data-event-off='click mouseout' active={active}>
       <Circle><img src={icon} alt='' /></Circle>
       <div>{text}</div>
     </StyledLink>
