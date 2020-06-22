@@ -12,13 +12,13 @@ const buildConfigs = {
 }
 
 const buildConfig = (): BuildConfigType => {
-  const buildConfigName = process.env.__CONFIG_NAME__
+  const buildConfigName = process.env.BUILD_CONFIG_NAME
   if (!buildConfigName) {
-    throw Error('No __CONFIG_NAME__ supplied!')
+    throw Error('No BUILD_CONFIG_NAME supplied!')
   }
   const buildConfig: ?BuildConfigType = buildConfigs[buildConfigName]
   if (!buildConfig) {
-    throw Error('Invalid __CONFIG_NAME__ supplied!')
+    throw Error('Invalid BUILD_CONFIG_NAME supplied!')
   }
   return buildConfig
 }
