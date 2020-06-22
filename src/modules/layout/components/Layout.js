@@ -20,6 +20,7 @@ const RichLayout = styled.div`
 
   & a, button {
    outline: none !important;
+   cursor: pointer;
   }
 `
 
