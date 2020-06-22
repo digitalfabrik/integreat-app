@@ -253,12 +253,24 @@ jobs:
           paths:
             - ~/.gradle
           key: 1-gradle-{{ checksum "android/build.gradle" }}-{{ checksum "android/app/build.gradle" }}-{{ checksum "android/settings.gradle" }}
-      - run:
-          name: "[FL] Build"
-          environment:
-            BUILD_CONFIG_NAME: integreat
-          command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
-          working_directory: android
+      - when:
+          condition: << parameters.production_delivery >>
+          steps:
+            - run:
+                name: "[FL] integreat build"
+                environment:
+                  BUILD_CONFIG_NAME: integreat
+                command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
+                working_directory: android
+      - unless:
+          condition: << parameters.production_delivery >>
+          steps:
+            - run:
+                name: "[FL] integreat-test-cms build"
+                environment:
+                  BUILD_CONFIG_NAME: integreat-test-cms
+                command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
+                working_directory: android
       - store_artifacts:
           path: android/app/build/outputs/apk/release/
       - persist_to_workspace:
@@ -333,12 +345,23 @@ jobs:
           key: 1-pods-{{ arch }}-{{ checksum "ios/Podfile.lock" }}
           paths:
             - ~/Library/Caches/CocoaPods/
-      - run:
-          name: "[FL] Build"
-          environment:
-            BUILD_CONFIG_NAME: integreat
-          command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
-          working_directory: ios
+      - when:
+          condition: << parameters.production_delivery >>
+          steps:
+            - run:
+                name: "[FL] integreat build"
+                environment:
+                  BUILD_CONFIG_NAME: integreat
+                command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
+                working_directory: ios
+      - unless:
+          condition: << parameters.production_delivery >>
+          steps:
+            - run:
+                name: "[FL] integreat-test-cms build"
+                  BUILD_CONFIG_NAME: integreat-test-cms
+                command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
+                working_directory: ios
       - store_artifacts:
           path: ios/output/gym/
       - persist_to_workspace:
@@ -413,7 +436,7 @@ jobs:
           command: bundle exec fastlane android browserstack_upload_live
       - run:
           name: "[FL] Play Store Upload"
-          command: bundle exec fastlane android playstore_upload production:"<< parameters.production_delivery >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
+          command: bundle exec fastlane android playstore_upload production_delivery:"<< parameters.production_delivery >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
       - run:
           name: "[FL] Upload to Sentry"
           command: bundle exec fastlane android sentry_upload version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
