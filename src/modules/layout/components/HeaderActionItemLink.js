@@ -46,8 +46,8 @@ class HeaderActionItemLink extends React.PureComponent<PropsType> {
     const { href, text, iconSrc } = this.props
     const img = <img alt='' src={iconSrc} />
     return href
-      ? <StyledLink to={href} data-tip={text} aria-label={text}>{img}</StyledLink>
-      : <StyledSpan data-tip={text} aria-label={text}>{img}</StyledSpan>
+      ? <StyledLink to={href} data-tip={text} data-event='mouseover' data-event-off='click mouseout' aria-label={text}>{img}</StyledLink>
+      : <StyledSpan data-tip={text} data-event='mouseover' data-event-off='click mouseout' aria-label={text}>{img}</StyledSpan>
   }
 }
 

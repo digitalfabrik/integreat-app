@@ -110,7 +110,7 @@ export class HeaderActionItemDropDown extends React.Component<PropsType, StateTy
 
     return (
       <Container theme={theme}>
-        <button selector='button' data-tip={text} aria-label={text} onClick={this.toggleDropDown}>
+        <button selector='button' data-tip={text} data-event='mouseover' data-event-off='click mouseout' aria-label={text} onClick={this.toggleDropDown}>
           <img alt='' src={iconSrc} />
         </button>
         <DropDownContainer active={dropDownActive} theme={theme}>

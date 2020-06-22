@@ -98,7 +98,7 @@ class Selector extends React.PureComponent<PropsType> {
         )
       } else {
         return (
-          <DisabledElement data-tip={disabledItemTooltip} key={item.code}>
+          <DisabledElement data-tip={disabledItemTooltip} data-event='mouseover' data-event-off='click mouseout' key={item.code}>
             {item.name}
           </DisabledElement>
         )
