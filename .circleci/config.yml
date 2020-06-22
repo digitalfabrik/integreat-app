@@ -122,7 +122,7 @@ workflows:
           production_delivery: true
           requires:
             - prepare_build
-      - production_delivery:
+      - build_ios:
           e2e_build: false
           production_delivery: true
           requires:
@@ -359,6 +359,7 @@ jobs:
           steps:
             - run:
                 name: "[FL] integreat-test-cms build"
+                environment:
                   BUILD_CONFIG_NAME: integreat-test-cms
                 command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
                 working_directory: ios
