@@ -83,7 +83,7 @@ platform :android do
     )
   end
 
-  desc "Deliver the app to Play Store. Depending on the option `production` the update is released to the general public."
+  desc "Deliver the app to Play Store. Depending on the option `production_delivery` the update is released to the general public."
   lane :playstore_upload do |options|
     version_code = options[:version_code]
     version_name = options[:version_name]
@@ -92,7 +92,7 @@ platform :android do
         env_vars: ['GOOGLE_SERVICE_ACCOUNT_JSON']
     )
 
-    track = options[:production] === true ? 'production' : 'beta'
+    track = options[:production_delivery] === true ? 'production' : 'beta'
 
     # https://docs.fastlane.tools/actions/supply/
     upload_to_play_store(
