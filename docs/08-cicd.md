@@ -13,7 +13,7 @@
 The easiest way to deliver a new build to production or development is to trigger the corresponding CircleCI workflow *api_triggered_delivery*.
 
 * Get a CircleCI [Personal API Token](https://circleci.com/docs/2.0/managing-pi-tokens/).
-* Trigger a build using the tool [trigger-pipeline.sh](.circleci/trigger-pipeline.sh).
+* Trigger a build using the tool [trigger-pipeline.sh](../.circleci/trigger-pipeline.sh).
 * For more information on how to use it, execute it without parameters to see usage information.
 
 ## Workflows
@@ -71,7 +71,7 @@ Therefore, you can follow the documentation for Manual Builds to set up [certifi
 
 ## Determining the Next Version
 
-The next version of the app must be determined programmatically. The tool [next-version](tools/next-version) can be used.
+The next version of the app must be determined programmatically. The tool [next-version](../tools/next-version) can be used.
 
 Versions consist of a version name and a version code.
 
