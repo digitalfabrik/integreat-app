@@ -12,7 +12,8 @@ const MalteBuildConfig: BuildConfigType = {
   allowedHostNames: ['cms.malteapp.de'],
   featureFlags,
   iosBuildOptions: {
-    BUILD_CONFIG_APP_NAME: 'Malte'
+    BUILD_CONFIG_APP_NAME: 'Malte',
+    BUILD_CONFIG_BUNDLE_IDENTIFIER: 'de.malte-app'
   }
 }
 

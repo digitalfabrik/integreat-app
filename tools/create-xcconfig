@@ -8,8 +8,8 @@ program
 
 const createXcconfig = async buildConfigName => {
   const { iosBuildOptions } = loadBuildConfig(buildConfigName)
-  const xy = iosBuildOptions.map((key, value) => `${key} = ${value}`)
-  console.log(xy)
+  const content = Object.keys(iosBuildOptions).map(key => `${key} = ${iosBuildOptions[key]}`).join('\n')
+  console.log(content)
 }
 
 program
