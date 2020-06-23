@@ -93,9 +93,7 @@ export default function * loadCityContent (
   // loadLanguages did not update the dataContainer this is needed. In case the previous call to fetchResourceCache
   // failed to download some resources an other call could fix this and download missing files.
   if (criterion.shouldRefreshResources() && !isCellularConnection) {
-    const { cmsUrl, switchCmsUrl } = buildConfig()
-    const allowedHostNames = switchCmsUrl ? [cmsUrl, switchCmsUrl] : [cmsUrl]
-    const resourceURLFinder = new ResourceURLFinder(allowedHostNames)
+    const resourceURLFinder = new ResourceURLFinder(buildConfig().allowedHostNames)
     resourceURLFinder.init()
 
     const fetchMap = resourceURLFinder.buildFetchMap(
