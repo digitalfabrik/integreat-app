@@ -387,7 +387,7 @@ class DatabaseConnector {
         availableLanguages: jsonObject.availableLanguages,
         excerpt: jsonObject.excerpt,
         location: jsonObject.location,
-        lastUpdate: jsonObject.lastUpdate,
+        lastUpdate: moment(jsonObject.last_update, moment.ISO_8601),
         hash: jsonObject.hash
       })
     })

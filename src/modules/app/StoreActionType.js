@@ -107,7 +107,7 @@ export type FetchPoiFailedActionType = {|
     +message: string,
     +code: ErrorCodeType,
     +key: string,
-    +allAvailableLanguages: ?$ReadOnlyMap<string, ?string>,
+    +allAvailableLanguages: ?$ReadOnlyMap<string, string>,
     +language: string,
     +path: ?string,
     +city: string
