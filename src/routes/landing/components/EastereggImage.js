@@ -55,7 +55,7 @@ class EastereggImage extends React.Component<PropsType, StateType> {
     if (prevClickCount + 1 >= API_URL_OVERRIDE_MIN_CLICKS && clickedInTimeInterval) {
       const appSettings = new AppSettings()
       const apiUrlOverride = await appSettings.loadApiUrlOverride()
-      const newApiUrl = !apiUrlOverride || apiUrlOverride === cmsUrl ? switchCmsUrl : cmsUrl
+      const newApiUrl = (!apiUrlOverride || apiUrlOverride === cmsUrl) ? switchCmsUrl : cmsUrl
 
       await appSettings.setApiUrlOverride(newApiUrl)
       this.setState({ clickCount: 0, clickStart: null })
