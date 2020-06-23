@@ -444,6 +444,9 @@ class DatabaseConnector {
         }),
         location: new LocationModel({
           name: null, // todo: NATIVE-549
+          region: null, // todo: NATIVE-549
+          state: null, // todo: NATIVE-549
+          country: null, // todo: NATIVE-549
           address: jsonLocation.address,
           latitude: jsonLocation.latitude,
           longitude: jsonLocation.longitude,
