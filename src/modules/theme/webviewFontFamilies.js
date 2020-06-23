@@ -1,6 +1,6 @@
 // @flow
 
-import type { ThemeType } from './theme'
+import type { ThemeType } from './constants/theme'
 
 const ARABIC_LANGUAGES = ['ar', 'fa', 'ku']
 

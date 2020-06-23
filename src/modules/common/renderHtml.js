@@ -4,7 +4,7 @@ import { getFontFaceSource, URL_PREFIX } from '../platform/constants/webview'
 import type { PageResourceCacheStateType } from '../app/StateType'
 import type { ThemeType } from '../theme/constants/theme'
 import { RTL_LANGUAGES } from '../i18n/constants'
-import webviewFontFamilies from '../theme/constants/webviewFontFamilies'
+import webviewFontFamilies from '../theme/webviewFontFamilies'
 
 // language=JavaScript
 const renderJS = (files: PageResourceCacheStateType) => `
