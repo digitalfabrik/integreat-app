@@ -87,115 +87,113 @@ const renderJS = (files: PageResourceCacheStateType) => `
 `
 
 // language=HTML
-const renderHtml = (html: string, files: PageResourceCacheStateType, theme: ThemeType, language: string) => {
-  return `
-    <!-- The lang attribute makes TalkBack use the appropriate language. -->
-    <html lang="${language}">
-    <head>
-      <!-- disables zooming https://stackoverflow.com/questions/44625680/disable-zoom-on-web-view-react-native -->
-      <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0">
-      <style>
-        @font-face {
-          font-family: 'OpenSans';
-          font-style: normal;
-          font-weight: 400;
-          src: ${getFontFaceSource('OpenSans-Regular')};
-        }
-        @font-face {
-          font-family: 'OpenSans';
-          font-style: normal;
-          font-weight: 700;
-          src: ${getFontFaceSource('OpenSans-Bold')};
-        }
-        @font-face {
-          font-family: 'Raleway';
-          font-style: normal;
-          font-weight: 400;
-          src: ${getFontFaceSource('Raleway-Regular')};
-        }
-        @font-face {
-          font-family: 'Raleway';
-          font-style: normal;
-          font-weight: 700;
-          src: ${getFontFaceSource('Raleway-Bold')};
-        }
-        @font-face {
-          font-family: 'Lateef';
-          font-style: normal;
-          font-weight: 400;
-          src: ${getFontFaceSource('Lateef')};
-        }
+const renderHtml = (html: string, files: PageResourceCacheStateType, theme: ThemeType, language: string) => `
+<!-- The lang attribute makes TalkBack use the appropriate language. -->
+<html lang="${language}">
+<head>
+  <!-- disables zooming https://stackoverflow.com/questions/44625680/disable-zoom-on-web-view-react-native -->
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0">
+  <style>
+    @font-face {
+      font-family: 'OpenSans';
+      font-style: normal;
+      font-weight: 400;
+      src: ${getFontFaceSource('OpenSans-Regular')};
+    }
+    @font-face {
+      font-family: 'OpenSans';
+      font-style: normal;
+      font-weight: 700;
+      src: ${getFontFaceSource('OpenSans-Bold')};
+    }
+    @font-face {
+      font-family: 'Raleway';
+      font-style: normal;
+      font-weight: 400;
+      src: ${getFontFaceSource('Raleway-Regular')};
+    }
+    @font-face {
+      font-family: 'Raleway';
+      font-style: normal;
+      font-weight: 700;
+      src: ${getFontFaceSource('Raleway-Bold')};
+    }
+    @font-face {
+      font-family: 'Lateef';
+      font-style: normal;
+      font-weight: 400;
+      src: ${getFontFaceSource('Lateef')};
+    }
 
-        html, body {
-            margin: 0;
-            padding: 0;
+    html, body {
+        margin: 0;
+        padding: 0;
 
-            font-family: ${(webviewFontFamilies(theme, language))};
-            font-size: ${theme.fonts.contentFontSize};
-            line-height: ${theme.fonts.contentLineHeight};
-            font-size-adjust: ${theme.fonts.fontSizeAdjust};
-            background-color: ${theme.colors.backgroundColor};
-            /*\${props => props.centered && css\`
-            text-align: center;
-            list-style-position: inside;
-            \`} */
-        }
+        font-family: ${(webviewFontFamilies(theme, language))};
+        font-size: ${theme.fonts.contentFontSize};
+        line-height: ${theme.fonts.contentLineHeight};
+        font-size-adjust: ${theme.fonts.fontSizeAdjust};
+        background-color: ${theme.colors.backgroundColor};
+        /*\${props => props.centered && css\`
+        text-align: center;
+        list-style-position: inside;
+        \`} */
+    }
 
-        p {
-          margin: ${theme.fonts.standardParagraphMargin} 0;
-        }
+    p {
+      margin: ${theme.fonts.standardParagraphMargin} 0;
+    }
 
-        img {
-          max-width: 100%;
-          max-height: 100%;
-          object-fit: contain;
-        }
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
 
-        table {
-          display: block;
-          width: 100% !important;
-          height: auto !important; /* need important because of bad-formatted remote-content */
-          overflow: auto;
-        }
+    table {
+      display: block;
+      width: 100% !important;
+      height: auto !important; /* need important because of bad-formatted remote-content */
+      overflow: auto;
+    }
 
-        tbody,
-        thead {
-          display: table; /* little bit hacky, but works in all browsers, even IE11 :O */
-          width: 100%;
-          box-sizing: border-box;
-          border-collapse: collapse;
-        }
+    tbody,
+    thead {
+      display: table; /* little bit hacky, but works in all browsers, even IE11 :O */
+      width: 100%;
+      box-sizing: border-box;
+      border-collapse: collapse;
+    }
 
-        tbody,
-        thead,
-        th,
-        td {
-          border: 1px solid ${theme.colors.backgroundAccentColor};
-        }
+    tbody,
+    thead,
+    th,
+    td {
+      border: 1px solid ${theme.colors.backgroundAccentColor};
+    }
 
-        a {
-          overflow-wrap: break-word;
-        }
+    a {
+      overflow-wrap: break-word;
+    }
 
-        details > * {
-          padding: 0 25px;
-        }
+    details > * {
+      padding: 0 25px;
+    }
 
-        details > summary {
-          padding: 0;
-        }
+    details > summary {
+      padding: 0;
+    }
 
-        pre {
-          overflow-x: auto;
-        }
-      </style>
-    </head>
-    <body dir="${RTL_LANGUAGES.includes(language) ? 'rtl' : 'ltr'}">
-      <div id="measure-container">${html}</div>
-      <script>${renderJS(files)}</script>
-    </body>
-    </html>
-  `
-}
+    pre {
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body dir="${RTL_LANGUAGES.includes(language) ? 'rtl' : 'ltr'}">
+  <div id="measure-container">${html}</div>
+  <script>${renderJS(files)}</script>
+</body>
+</html>
+`
 
 export default renderHtml
