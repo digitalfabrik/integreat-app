@@ -6,9 +6,10 @@
 * [Technical Documentation](docs/04-technical-documentation.md)
 * [Manual builds](docs/06-manual-builds.md)
 * [Continuous Integration and Delivery](docs/08-cicd.md)
+* [Glossary](https://wiki.integreat-app.de/glossary)
 
 ## Contributing
-If you want to know more about Integreat or if you want to join us, contact [Max](mailto:ammann@integreat-app.de), 
+If you want to know more about Integreat or if you want to join us, contact [Max](mailto:ammann@integreat-app.de),
 [Steffen](mailto:kleinle@integreat-app.de) or [our info mail](mailto:info@integreat-app.de) and visit our [website](https://integreat-app.de).
 [Pull requests](#pull-requests) and [bug reports](#bug-reporting) are also very much appreciated.
 
@@ -55,13 +56,13 @@ Take a look at the docs for [iOS](docs/06-manual-builds.md#manually-building-for
 
 #### Additional Configuration
 * Mark the *src* folder as *Source directory*.
-* Run > Edit Configurations > Defaults > Jest  
+* Run > Edit Configurations > Defaults > Jest
    to set *Configuration file* to *jest.config.json*
-   
+
 * Settings > Languages & Frameworks > JavaScript and
     * choose *Flow* as Language version
     * set *Flow package or executable* to *<project_dir>/node_modules/flow-bin*
-   
+
 * [optional] Associate the *\*.snap* files with the file type *JavaScript*.
 * [optional] Install the following plugins: *Styled Components*.
 
@@ -78,6 +79,6 @@ You can [view our issues](https://issues.integreat-app.de/projects/NATIVE) or
 ## Pull requests
 Please take a look at our [conventions](docs/03-conventions.md).
 
-To merge a pull request, 
+To merge a pull request,
 * at least two approvals are required.
 * Tests, linting and flow have to succeed.
