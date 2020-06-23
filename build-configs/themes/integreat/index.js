@@ -1,19 +1,17 @@
 // @flow
 
-import integreatColors, { darkColors as integreatDarkColors } from './colors'
+import { lightColors, darkColors } from './colors'
 import integreatFonts from './fonts'
 import dimensions from '../common/dimensions'
 import type { ThemeType } from '../ThemeType'
 
-const theme: ThemeType = {
-  colors: integreatColors,
+export const lightTheme: ThemeType = {
+  colors: lightColors,
   fonts: integreatFonts,
   dimensions
 }
 
 export const darkTheme: ThemeType = {
-  colors: integreatDarkColors,
-  ...theme
+  colors: darkColors,
+  ...lightTheme
 }
-
-export default theme

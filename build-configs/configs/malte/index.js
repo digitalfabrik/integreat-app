@@ -1,14 +1,15 @@
 // @flow
 
-import malteTheme, { darkTheme as darkMalteTheme } from '../../themes/malte'
+import { lightTheme, darkTheme } from '../../themes/malte'
 import type { BuildConfigType } from '../BuildConfigType'
 import featureFlags from '../featureFlags'
 
 const MalteBuildConfig: BuildConfigType = {
   appName: 'Malteser',
-  lightTheme: malteTheme,
-  darkTheme: darkMalteTheme,
+  lightTheme,
+  darkTheme,
   cmsUrl: 'https://cms.malteapp.de',
+  allowedHostNames: ['cms.malteapp.de'],
   featureFlags
 }
 

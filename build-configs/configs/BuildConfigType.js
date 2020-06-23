@@ -7,6 +7,7 @@ export type BuildConfigType = {|
   appName: string,
   cmsUrl: string,
   switchCmsUrl?: string,
+  allowedHostNames: Array<string>,
   featureFlags: FeatureFlagsType,
   lightTheme: ThemeType,
   darkTheme: ThemeType
