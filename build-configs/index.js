@@ -1,10 +1,12 @@
 // @flow
 
+const integreatBuildConfig = require('../build-configs/configs/integreat')
+const integreatTestCmsBuildConfig = require('../build-configs/configs/integreat-test-cms')
 const malteBuildConfig = require('../build-configs/configs/malte')
 
 const buildConfigs = {
-  integreat: null,
-  'integreat-test-cms': null,
+  integreat: integreatBuildConfig,
+  'integreat-test-cms': integreatTestCmsBuildConfig,
   malte: malteBuildConfig
 }
 
