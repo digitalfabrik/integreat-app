@@ -3,9 +3,7 @@
 import { LocationModel, PoiModel } from '@integreat-app/integreat-api-client'
 import moment from 'moment'
 
-const map = {}
-map.ID1 = 'Farm1'
-map.ID2 = 'Farm2'
+const map = {ID1: 'Farm1', ID2: 'Farm2'}
 
 const pois = [
   new PoiModel({
