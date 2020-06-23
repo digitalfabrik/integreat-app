@@ -5,8 +5,8 @@ import type { BuildConfigType } from '../BuildConfigType'
 import featureFlags from '../featureFlags'
 
 const IntegreatBuildConfig: BuildConfigType = {
-  appTitle: 'Integreat',
-  theme: integreatTheme,
+  appName: 'Integreat',
+  lightTheme: integreatTheme,
   darkTheme: darkIntegreatTheme,
   cmsUrl: 'https://cms.integreat-app.de',
   switchCmsUrl: 'https://cms-test.integreat-app.de',

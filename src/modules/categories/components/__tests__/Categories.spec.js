@@ -8,7 +8,7 @@ import Page from '../../../common/components/Page'
 import createNavigationScreenPropMock from '../../../test-utils/createNavigationScreenPropMock'
 import CategoriesMapModelBuilder from '../../../../testing/builder/CategoriesMapModelBuilder'
 import Categories from '../Categories'
-import brightTheme from '../../../theme/constants/theme'
+import lightTheme from '../../../theme/constants/theme'
 import CategoriesRouteStateView from '../../../app/CategoriesRouteStateView'
 
 jest.mock('../../../../modules/common/components/Page', () => {
@@ -41,7 +41,7 @@ describe('Categories', () => {
     const result = TestRenderer.create(
       <Categories cities={cities} language={languages[0].code} stateView={stateView} cityCode={cities[0].code}
                   navigateToCategory={() => {}} navigateToIntegreatUrl={() => {}} navigation={navigation}
-                  resourceCache={{ notAvailable: {} }} theme={brightTheme} t={key => key} />
+                  resourceCache={{ notAvailable: {} }} theme={lightTheme} t={key => key} />
     )
     const pageInstance = result.root.findByType(Page)
     expect(pageInstance.props).toEqual(expect.objectContaining({

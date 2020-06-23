@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { wrapDisplayName } from 'recompose'
 import type { ThemeType } from '../constants/theme'
-import { brightTheme } from '../constants/theme'
+import { lightTheme } from '../constants/theme'
 
 function withTheme<Props: { theme: ThemeType }> (
   Component: React.AbstractComponent<Props>
@@ -12,7 +12,7 @@ function withTheme<Props: { theme: ThemeType }> (
       static displayName = wrapDisplayName(Component, 'withTheme')
 
       render () {
-        return <Component {...this.props} theme={brightTheme} />
+        return <Component {...this.props} theme={lightTheme} />
       }
   }
 }

@@ -5,8 +5,8 @@ import type { BuildConfigType } from '../BuildConfigType'
 import featureFlags from '../featureFlags'
 
 const MalteBuildConfig: BuildConfigType = {
-  appTitle: 'Malteser',
-  theme: malteTheme,
+  appName: 'Malteser',
+  lightTheme: malteTheme,
   darkTheme: darkMalteTheme,
   cmsUrl: 'https://cms.malteapp.de',
   featureFlags

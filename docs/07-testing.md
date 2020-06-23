@@ -40,7 +40,7 @@ The most important part is to test the specific units using `@testing-library/re
 
 ```js
   it('should not render a retry button if tryAgain is not passed', () => {
-    const { queryByTestId } = render(<Failure theme={brightTheme} t={key => key} />)
+    const { queryByTestId } = render(<Failure theme={lightTheme} t={key => key} />)
 
     expect(queryByTestId('button-tryAgain')).toBeNull()
   })
@@ -81,7 +81,7 @@ Apart from unit tests it can also be beneficial to test the integration between 
     const tryAgain = () => {}
 
     const { asJSON: asJSONFailure } =
-      render(<Failure theme={brightTheme} tryAgain={tryAgain} t={t} />)
+      render(<Failure theme={lightTheme} tryAgain={tryAgain} t={t} />)
     const { asJSON: asJSONFailureContainer } =
       render(<FailureContainer tryAgain={tryAgain} />)
 
