@@ -362,7 +362,7 @@ class DatabaseConnector {
       availableLanguages: poi.availableLanguages,
       excerpt: poi.excerpt,
       location: poi.location,
-      lastUpdate: poi.lastUpdate,
+      lastUpdate: poi.lastUpdate.toISOString(),
       hash: poi.hash
     }))
     await this.writeFile(this.getContentPath('pois', context), JSON.stringify(jsonModels))
