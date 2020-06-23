@@ -27,6 +27,9 @@ const createConfig = (env = {}) => {
   }
 
   const isProductionBuild = production || !debug
+  // We have to override the env of the current process, such that babel-loader works with that.
+  const NODE_ENV = isProductionBuild ? '"production"' : '"development"'
+  process.env.NODE_ENV = NODE_ENV
 
   // If version_name is not supplied read it from version file
   let version = versionName || readVersionName()
@@ -108,7 +111,7 @@ const createConfig = (env = {}) => {
         { from: configAssets, to: distDirectory }
       ]),
       new webpack.DefinePlugin({
-        'process.env.NODE_ENV': isProductionBuild ? '"production"' : '"development"',
+        'process.env.NODE_ENV': NODE_ENV,
         __DEV__: !isProductionBuild,
         __VERSION__: JSON.stringify(version),
         __CONFIG__: JSON.stringify(buildConfig)
