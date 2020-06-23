@@ -11,7 +11,10 @@ const IntegreatBuildConfig: BuildConfigType = {
   cmsUrl: 'https://cms.integreat-app.de',
   switchCmsUrl: 'https://cms-test.integreat-app.de',
   allowedHostNames: ['cms.integreat-app.de', 'cms-test.integreat-app.de'],
-  featureFlags
+  featureFlags,
+  iosBuildOptions: {
+    BUILD_CONFIG_APP_NAME: 'Integreat'
+  }
 }
 
 module.exports = IntegreatBuildConfig

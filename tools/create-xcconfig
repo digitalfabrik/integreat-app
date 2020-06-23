@@ -1,0 +1,27 @@
+#!/usr/bin/env node
+
+const { program } = require('commander')
+const loadBuildConfig = require('../build-configs')
+
+program
+  .option('-d, --debug', 'enable extreme logging')
+
+const createXcconfig = async buildConfigName => {
+  const { iosBuildOptions } = loadBuildConfig(buildConfigName)
+  const xy = iosBuildOptions.map((key, value) => `${key} = ${value}`)
+  console.log(xy)
+}
+
+program
+  .command('from <build-config-name>')
+  .description('commits the supplied version name and code to github and tags the commit')
+  .action(async buildConfigName => {
+    try {
+      await createXcconfig(buildConfigName)
+    } catch (e) {
+      console.error(e)
+      process.exit(1)
+    }
+  })
+
+program.parse(process.argv)

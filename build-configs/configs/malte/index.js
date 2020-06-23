@@ -10,7 +10,10 @@ const MalteBuildConfig: BuildConfigType = {
   darkTheme,
   cmsUrl: 'https://cms.malteapp.de',
   allowedHostNames: ['cms.malteapp.de'],
-  featureFlags
+  featureFlags,
+  iosBuildOptions: {
+    BUILD_CONFIG_APP_NAME: 'Malte'
+  }
 }
 
 module.exports = MalteBuildConfig
