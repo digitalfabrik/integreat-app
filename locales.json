@@ -1692,7 +1692,8 @@
       "noPermission": "Standortzugriff erforderlich",
       "loading": "Bestimme Standort...",
       "notAvailable": "Standortbestimmung deaktiviert",
-      "timeout": "Standortbestimmung fehlgeschlagen"
+      "timeout": "Standortbestimmung fehlgeschlagen",
+      "refresh": "Liste der Orte aktualisieren"
     },
     "ar": {
       "searchCity": "البحث عن مكان",
@@ -1706,7 +1707,8 @@
       "nearbyPlaces": "Nearby locations",
       "noNearbyPlaces": "No nearby locations found.",
       "alert": "Note",
-      "locationError": "To display nearby locations, location services must be active."
+      "locationError": "To display nearby locations, location services must be active.",
+      "refresh": "Refresh nearby locations"
     },
     "es": {
       "searchCity": "Buscar ubicación",
@@ -1791,7 +1793,7 @@
       "imprintAndContact": "Impressum und Kontakt",
       "privacy": "Datenschutz",
       "offers": "Angebote",
-      "categories": "Kategorien",
+      "localInformation": "Lokale Informationen",
       "events": "Veranstaltungen",
       "noEvents": "Keine Veranstaltungen",
       "news": "Nachrichten",
@@ -1811,7 +1813,7 @@
       "imprintAndContact": "هيئة التحرير وجهة الاتصال",
       "privacy": "حماية البيانات",
       "offers": "العروض",
-      "categories": "الفئات",
+      "localInformation": "معلومات محلية",
       "events": "الفعاليات",
       "noEvents": "لا توجد فعاليات",
       "noLanguages": "غير متوفر بلغات أخرى",
@@ -1830,7 +1832,7 @@
       "imprintAndContact": "Imprint and contacts",
       "privacy": "Data protection",
       "offers": "Offers",
-      "categories": "Categories",
+      "localInformation": "Local information",
       "events": "Events",
       "noEvents": "No events",
       "noLanguages": "Not available in other languages",
@@ -1849,7 +1851,7 @@
       "imprintAndContact": "Aviso legal y contacto",
       "privacy": "Privacidad",
       "offers": "Ofertas",
-      "categories": "Categorías",
+      "localInformation": "Información local",
       "events": "Actividades",
       "noEvents": "No hay actividades",
       "noLanguages": "No disponible en otros idiomas",
@@ -1868,7 +1870,7 @@
       "imprintAndContact": "اطلاعات ناشر و تماس",
       "privacy": "حفاظت از داده ها",
       "offers": "خدمات",
-      "categories": "دسته‎​ها",
+      "localInformation": "اطلاعات محلی",
       "events": "رویدادها",
       "noEvents": "رویدادی وجود ندارد",
       "noLanguages": "به زبان های دیگر موجود نیست",
@@ -1887,7 +1889,7 @@
       "imprintAndContact": "Mentions légales et contact",
       "privacy": "Protection des données",
       "offers": "Offres",
-      "categories": "Catégories",
+      "localInformation": "Informations locales",
       "events": "Événements",
       "noEvents": "Aucun événement",
       "noLanguages": "Non disponible dans d'autres langues",
@@ -1906,7 +1908,7 @@
       "imprintAndContact": "Impresum i kontakt",
       "privacy": "Zaštita podataka",
       "offers": "Ponude",
-      "categories": "Kategorije",
+      "localInformation": "Lokalne informacije",
       "events": "Događanja",
       "noEvents": "Nema događanja",
       "noLanguages": "Nije dostupno na drugim jezicima",
@@ -1925,7 +1927,7 @@
       "imprintAndContact": "Lêzanînên Weşîner û Têkillî",
       "privacy": "Parastina daneyan",
       "offers": "Xizmet",
-      "categories": "Deste",
+      "localInformation": "Zanyariyên xwecihî",
       "events": "Rûdan",
       "noEvents": "Tu rûdanek tuneye",
       "noLanguages": "Bi zimanên din tuneye",
@@ -1944,7 +1946,7 @@
       "imprintAndContact": "Nota prawna i kontakt",
       "privacy": "Ochrona danych",
       "offers": "Oferty",
-      "categories": "Kategorie",
+      "localInformation": "Informacje lokalne",
       "events": "Wydarzenia",
       "noEvents": "Brak wydarzeń",
       "noLanguages": "Niedostępne w innych językach",
@@ -1963,7 +1965,7 @@
       "imprintAndContact": "Caseta tehnică și contact",
       "privacy": "Confidențialitate",
       "offers": "Oferte",
-      "categories": "Categorii",
+      "localInformation": "Informații locale",
       "events": "Evenimente",
       "noEvents": "Nici un fel de evenimente",
       "noLanguages": "Indisponibil în alte limbi",
@@ -1982,7 +1984,7 @@
       "imprintAndContact": "Выходные данные и контактная информация",
       "privacy": "Защита данных",
       "offers": "Предложения",
-      "categories": "Категории",
+      "localInformation": "Информация о жизни страны",
       "events": "Мероприятия",
       "noEvents": "Нет мероприятий",
       "noLanguages": "Недоступно на других языках",
@@ -2001,7 +2003,7 @@
       "imprintAndContact": "Faahfaahinta qoraaga iyo macaluumaadkiisa xiriirka",
       "privacy": "Asturnaanta",
       "offers": "Heshiisyo",
-      "categories": "Qeybaha",
+      "localInformation": "Macluumaadka deegaanka",
       "events": "Dhacdooyinka",
       "noEvents": "Ma jiraan dhacdooyin",
       "noLanguages": "Luuqad kale laguma heli karo",
@@ -2020,7 +2022,7 @@
       "imprintAndContact": "ናይ ደራሲ ዝርዝራት ሓበሬታን ናይ ርክብን",
       "privacy": "ምስጢርነት",
       "offers": "ውዕላት",
-      "categories": "ምድባት",
+      "localInformation": "ከባብያዊ ሓበሬታ",
       "events": "ኣጋጣሚታት",
       "noEvents": "ኣጋጣሚታት የለዉን",
       "noLanguages": "ብኻልእ ቋንቋታት የለን",
@@ -2039,7 +2041,7 @@
       "imprintAndContact": "Künye ve iletişim",
       "privacy": "Kişisel verilerin korunması",
       "offers": "Teklifler",
-      "categories": "Kategoriler",
+      "localInformation": "Yerel bilgiler",
       "events": "Etkinlikler",
       "noEvents": "Etkinlik yok",
       "noLanguages": "Diğer dillerde mevcut değil",
@@ -2057,46 +2059,7 @@
   },
   "search": {
     "de": {
-      "searchCategory": "Suche nach einer Kategorie"
-    },
-    "ar": {
-      "searchCategory": "البحث عن فئة"
-    },
-    "en": {
-      "searchCategory": "Search for a category"
-    },
-    "es": {
-      "searchCategory": "Buscar por categoría"
-    },
-    "fa": {
-      "searchCategory": "جستجو بر اساس دسته"
-    },
-    "fr": {
-      "searchCategory": "Chercher une catégorie"
-    },
-    "hr": {
-      "searchCategory": "Pretraga po kategoriji"
-    },
-    "ku": {
-      "searchCategory": "Lêgerîn li gorî Desteyê"
-    },
-    "pl": {
-      "searchCategory": "Szukaj według kategorii"
-    },
-    "ro": {
-      "searchCategory": "Căutați după o categorie"
-    },
-    "ru": {
-      "searchCategory": "Поиск по категории"
-    },
-    "so": {
-      "searchCategory": "Ka raadi qeybta"
-    },
-    "ti": {
-      "searchCategory": "ምድብ ፈትሽ"
-    },
-    "tr": {
-      "searchCategory": "Bir kategori ara"
+      "searchPlaceholder": "Suche"
     }
   },
   "settings": {
