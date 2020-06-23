@@ -1,19 +1,17 @@
 // @flow
 
-import malteColors, { darkColors as malteDarkColors } from './colors'
+import { lightColors, darkColors } from './colors'
 import malteFonts from './fonts'
 import dimensions from '../common/dimensions'
 import type { ThemeType } from '../ThemeType'
 
-const theme: ThemeType = {
-  colors: malteColors,
+export const lightTheme: ThemeType = {
+  colors: lightColors,
   fonts: malteFonts,
   dimensions
 }
 
 export const darkTheme: ThemeType = {
-  colors: malteDarkColors,
-  ...theme
+  colors: darkColors,
+  ...lightTheme
 }
-
-export default theme

@@ -1,15 +1,16 @@
 // @flow
 
-import integreatTheme, { darkTheme as darkIntegreatTheme } from '../../themes/integreat'
+import { lightTheme, darkTheme } from '../../themes/integreat'
 import type { BuildConfigType } from '../BuildConfigType'
 import featureFlags from '../featureFlags'
 
 const IntegreatBuildConfig: BuildConfigType = {
   appName: 'Integreat',
-  lightTheme: integreatTheme,
-  darkTheme: darkIntegreatTheme,
+  lightTheme,
+  darkTheme,
   cmsUrl: 'https://cms.integreat-app.de',
   switchCmsUrl: 'https://cms-test.integreat-app.de',
+  allowedHostNames: ['cms.integreat-app.de', 'cms-test.integreat-app.de'],
   featureFlags
 }
 
