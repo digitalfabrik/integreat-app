@@ -13,7 +13,7 @@ describe('pushNews', () => {
   const news1: LocalNewsModel = new LocalNewsModel({
     id: 12,
     title: 'Local News 1',
-    timestamp: moment('2017-11-18 19:30:00', moment.ISO_8601),
+    timestamp: moment('2017-11-18T19:30:00.000Z'),
     message: 'message'
   })
 
