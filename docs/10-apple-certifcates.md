@@ -2,7 +2,7 @@
 
 ## How do I setup certificates?
 
-Refer to the [Manual Builds documentation](06-manual-builds.md#manually-building-for-ios) for a guide on how to set up certificates.
+Refer to the [Manual Builds documentation](06-manual-builds.md#ios) for a guide on how to set up certificates.
 
 ## What Types of Certificates Exist?
 

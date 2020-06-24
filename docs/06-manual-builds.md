@@ -74,7 +74,7 @@ cd ios && bundle exec fastlane build
 
 Fastlane should report where the build artifacts are. These can be uploaded to App Store Connect or distributed via another way.
 
-## Manually building for Android
+## Android
 ### Setup on Android
 #### Prerequisites
 * Install and setup the Android SDK.
