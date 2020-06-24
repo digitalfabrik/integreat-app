@@ -4,14 +4,27 @@ const AssetsPlugin = require('assets-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
+const MomentTimezoneDataPlugin = require('moment-timezone-data-webpack-plugin')
+const MomentLocalesPlugin = require('moment-locales-webpack-plugin')
 const babelConfig = require('../.babelrc.js')
 const fs = require('fs')
 
 const SHORT_COMMIT_SHA_LENGTH = 8
 
+// A first performance budget, which should be improved in the future: Maximum bundle size in Bytes; 2^20 = 1 MiB
+// eslint-disable-next-line no-magic-numbers
+const MAX_BUNDLE_SIZE = 1.5 * Math.pow(2, 20)
+
+const readJson = path => JSON.parse(fs.readFileSync(path))
+
 const readVersionName = () => {
-  const versionFile = fs.readFileSync(path.resolve(__dirname, '../version.json'))
-  return JSON.parse(versionFile).versionName
+  const versionFile = readJson(path.resolve(__dirname, '../version.json'))
+  return versionFile.versionName
+}
+
+const getSupportedLocales = () => {
+  const localesConfig = readJson(path.resolve(__dirname, '../locales/config.json'))
+  return [localesConfig.sourceLanguage, ...localesConfig.targetLanguages]
 }
 
 const createConfig = (env = {}) => {
@@ -95,6 +108,11 @@ const createConfig = (env = {}) => {
     },
     // What information should be printed to the console
     stats: 'minimal',
+    performance: {
+      hints: isProductionBuild ? 'error' : false,
+      maxEntrypointSize: MAX_BUNDLE_SIZE,
+      maxAssetSize: MAX_BUNDLE_SIZE
+    },
     // The list of plugins for Webpack compiler
     plugins: [
       new CleanWebpackPlugin(),
@@ -126,7 +144,11 @@ const createConfig = (env = {}) => {
       new webpack.LoaderOptionsPlugin({
         debug: !isProductionBuild,
         minimize: isProductionBuild
-      })
+      }),
+      // We only use moment-timezone for parsing GMT time-zoned data in the integreat-api-client
+      new MomentTimezoneDataPlugin({ matchZones: 'GMT' }),
+      // moment has no support for 'ti' (Tigrinya) and 'so' (Somali), hence we have to use the ignoreInvalidLocales flag
+      new MomentLocalesPlugin({ localesToKeep: getSupportedLocales(), ignoreInvalidLocales: true })
     ],
     module: {
       rules: [
