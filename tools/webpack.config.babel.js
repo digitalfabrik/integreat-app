@@ -99,7 +99,7 @@ const createConfig = (env = {}) => {
     plugins: [
       new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
-        title: buildConfig.appTitle,
+        title: buildConfig.appName,
         // Load a custom template (lodash by default)
         template: 'index.ejs',
         templateParameters: {
