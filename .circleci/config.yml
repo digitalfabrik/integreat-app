@@ -376,13 +376,9 @@ jobs:
 
   bump_version:
     docker:
-      - image: circleci/android:api-28-node
+      - image: circleci/node:12.16.3
     resource_class: small
-    shell: /bin/bash -eo pipefail
     steps:
-      - add_ssh_keys:
-          fingerprints:
-            - "9a:0f:b1:f0:97:c8:db:3f:be:87:a4:9b:09:7f:d3:af"
       - checkout
       - attach_workspace:
           at: .
@@ -403,7 +399,7 @@ jobs:
             - node_modules
       - run:
           name: Bump version
-          command: tools/bump-version bump-to ${NEW_VERSION_NAME} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
+          command: tools/bump-version bump-to ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
 
   deliver_android:
     parameters:
