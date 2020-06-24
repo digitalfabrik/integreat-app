@@ -74,6 +74,13 @@ yarn start
 * Option 2: Run the app in a simulator or on a real device via XCode:
     * Start XCode and open `ios/Integreat.xcworkspace`.
     * Run the app.
+    
+    
+#### Trouble Shooting
+* `Failed to get "locale" from native side!` in the simulator:
+    * Go to `(Device) Settings` > `General` > `Language and Region`.
+    * Change `iPhone Language` and `Region`.
+    * Reload the app.
 
 ### Building the App with a Distribution Certificate
 * Build the app:
