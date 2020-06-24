@@ -34,7 +34,6 @@ const commitAndTag = async (versionName, versionCode, { deliverinoPrivateKey, ow
   console.warn(`New version successfully commited with message "${message}"`)
 
   const commitSha = commit.data.commit.sha
-  const commitMessage = commit.data.message
 
   const releaseName = `${versionName}${versionCode ? ` (version code: ${versionCode})` : ''}`
 
@@ -42,7 +41,7 @@ const commitAndTag = async (versionName, versionCode, { deliverinoPrivateKey, ow
     owner,
     repo,
     tag: releaseName,
-    message: commitMessage,
+    message: releaseName,
     object: commitSha,
     type: 'commit'
   })
