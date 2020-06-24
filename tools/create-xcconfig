@@ -2,6 +2,7 @@
 
 const { program } = require('commander')
 const loadBuildConfig = require('../build-configs')
+const fs = require('fs')
 
 program
   .option('-d, --debug', 'enable extreme logging')
@@ -9,7 +10,7 @@ program
 const createXcconfig = async buildConfigName => {
   const { iosBuildOptions } = loadBuildConfig(buildConfigName)
   const content = Object.keys(iosBuildOptions).map(key => `${key} = ${iosBuildOptions[key]}`).join('\n')
-  console.log(content)
+  fs.writeFileSync('ios/buildConfig.xcconfig', content)
 }
 
 program
