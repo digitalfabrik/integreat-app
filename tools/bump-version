@@ -35,12 +35,12 @@ const commitAndTag = async (versionName, versionCode, { deliverinoPrivateKey, ow
 
   const commitSha = commit.data.commit.sha
 
-  const releaseName = `${versionName}${versionCode ? ` (version code: ${versionCode})` : ''}`
+  const releaseName = `${versionName}${versionCode ? ` - version code: ${versionCode}` : ''}`
 
   const tag = await appOctokit.git.createTag({
     owner,
     repo,
-    tag: releaseName,
+    tag: versionName,
     message: releaseName,
     object: commitSha,
     type: 'commit'
