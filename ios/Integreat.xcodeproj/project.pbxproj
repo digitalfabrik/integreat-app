@@ -44,7 +44,9 @@
 		00E356EE1AD99517003FC87E /* IntegreatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IntegreatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* IntegreatTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntegreatTests.m; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* Integreat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Integreat.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0518B741B48590C7AE9330F0 /* Pods-IntegreatTests.integreat-test-cms.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IntegreatTests.integreat-test-cms.xcconfig"; path = "Target Support Files/Pods-IntegreatTests/Pods-IntegreatTests.integreat-test-cms.xcconfig"; sourceTree = "<group>"; };
+		07CD12FA3D7CB27526D44E55 /* Pods-IntegreatTests.malte.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IntegreatTests.malte.xcconfig"; path = "Target Support Files/Pods-IntegreatTests/Pods-IntegreatTests.malte.xcconfig"; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* Integreat Test Cms.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Integreat Test Cms.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Integreat/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Integreat/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -53,8 +55,10 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Integreat/main.m; sourceTree = "<group>"; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		402A5479E2DCF9E7D5AD48AD /* libPods-Integreat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Integreat.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		41F4682A920316F66FAD98FD /* Pods-Integreat.integreat.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Integreat.integreat.xcconfig"; path = "Target Support Files/Pods-Integreat/Pods-Integreat.integreat.xcconfig"; sourceTree = "<group>"; };
 		49EED0C36D66FA4AB70F7809 /* Pods-Integreat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Integreat.debug.xcconfig"; path = "Target Support Files/Pods-Integreat/Pods-Integreat.debug.xcconfig"; sourceTree = "<group>"; };
 		51D2BB149A2F2631F8307746 /* libPods-IntegreatTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-IntegreatTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		51E3BF838D07C33E3D15D75F /* Pods-Integreat.integreat-test-cms.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Integreat.integreat-test-cms.xcconfig"; path = "Target Support Files/Pods-Integreat/Pods-Integreat.integreat-test-cms.xcconfig"; sourceTree = "<group>"; };
 		616E1B062370E00100136B38 /* ConstantsModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ConstantsModule.swift; path = Integreat/constants/ConstantsModule.swift; sourceTree = "<group>"; };
 		616E1B082370E07D00136B38 /* ConstantsModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ConstantsModule.m; path = Integreat/constants/ConstantsModule.m; sourceTree = "<group>"; };
 		7B0E54CE2369C1480016A7C1 /* de */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -78,11 +82,16 @@
 		7BF11490226F4E6D0031D233 /* FetcherModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FetcherModule.m; sourceTree = "<group>"; };
 		7C8DD44CFCE2FC5F9B25BF31 /* Pods-IntegreatTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IntegreatTests.release.xcconfig"; path = "Target Support Files/Pods-IntegreatTests/Pods-IntegreatTests.release.xcconfig"; sourceTree = "<group>"; };
 		809608C146679CE57F1752BF /* Pods-IntegreatTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IntegreatTests.debug.xcconfig"; path = "Target Support Files/Pods-IntegreatTests/Pods-IntegreatTests.debug.xcconfig"; sourceTree = "<group>"; };
+		8CFB53651338802966AF7476 /* Pods-Integreat.malte.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Integreat.malte.xcconfig"; path = "Target Support Files/Pods-Integreat/Pods-Integreat.malte.xcconfig"; sourceTree = "<group>"; };
 		A330D32E22AA9F54005736D0 /* Raleway-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Regular.ttf"; sourceTree = "<group>"; };
 		A330D32F22AA9F54005736D0 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
 		A330D33022AA9F54005736D0 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		A330D33122AA9F54005736D0 /* Lateef.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Lateef.ttf; sourceTree = "<group>"; };
 		A330D33222AA9F54005736D0 /* Raleway-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Bold.ttf"; sourceTree = "<group>"; };
+		B81116A224A3A96000794D75 /* integreat-test-cms.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "integreat-test-cms.xcconfig"; sourceTree = "<group>"; };
+		B81116A324A3A96F00794D75 /* integreat.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = integreat.xcconfig; sourceTree = "<group>"; };
+		B81116A424A3A97E00794D75 /* malte.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = malte.xcconfig; sourceTree = "<group>"; };
+		BCE07220C56B492D6ABF304B /* Pods-IntegreatTests.integreat.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IntegreatTests.integreat.xcconfig"; path = "Target Support Files/Pods-IntegreatTests/Pods-IntegreatTests.integreat.xcconfig"; sourceTree = "<group>"; };
 		DD14BEF1244BF70E95AA783F /* Pods-Integreat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Integreat.release.xcconfig"; path = "Target Support Files/Pods-Integreat/Pods-Integreat.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
@@ -151,6 +160,12 @@
 				DD14BEF1244BF70E95AA783F /* Pods-Integreat.release.xcconfig */,
 				809608C146679CE57F1752BF /* Pods-IntegreatTests.debug.xcconfig */,
 				7C8DD44CFCE2FC5F9B25BF31 /* Pods-IntegreatTests.release.xcconfig */,
+				51E3BF838D07C33E3D15D75F /* Pods-Integreat.integreat-test-cms.xcconfig */,
+				41F4682A920316F66FAD98FD /* Pods-Integreat.integreat.xcconfig */,
+				8CFB53651338802966AF7476 /* Pods-Integreat.malte.xcconfig */,
+				0518B741B48590C7AE9330F0 /* Pods-IntegreatTests.integreat-test-cms.xcconfig */,
+				BCE07220C56B492D6ABF304B /* Pods-IntegreatTests.integreat.xcconfig */,
+				07CD12FA3D7CB27526D44E55 /* Pods-IntegreatTests.malte.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -191,6 +206,9 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				B81116A424A3A97E00794D75 /* malte.xcconfig */,
+				B81116A324A3A96F00794D75 /* integreat.xcconfig */,
+				B81116A224A3A96000794D75 /* integreat-test-cms.xcconfig */,
 				7B7EDC2C2428EE0900E64563 /* fastlane */,
 				13B07FAE1A68108700A75B9A /* Integreat */,
 				00E356EF1AD99517003FC87E /* IntegreatTests */,
@@ -207,7 +225,7 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* Integreat.app */,
+				13B07F961A680F5B00A75B9A /* Integreat Test Cms.app */,
 				00E356EE1AD99517003FC87E /* IntegreatTests.xctest */,
 			);
 			name = Products;
@@ -261,6 +279,7 @@
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Integreat" */;
 			buildPhases = (
 				4E0737C9637838E514D4241E /* [CP] Check Pods Manifest.lock */,
+				B81116A524A3A9BF00794D75 /* Make buildConfigs available */,
 				B8C49AA223E1E8B9001C7A0A /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
@@ -274,7 +293,7 @@
 			);
 			name = Integreat;
 			productName = "Hello World";
-			productReference = 13B07F961A680F5B00A75B9A /* Integreat.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* Integreat Test Cms.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -284,7 +303,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 940;
-				ORGANIZATIONNAME = Facebook;
+				ORGANIZATIONNAME = "Tür an Tür - Digitalfabrik";
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
@@ -391,6 +410,24 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		B81116A524A3A9BF00794D75 /* Make buildConfigs available */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Make buildConfigs available";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd ${PROJECT_DIR}/.. && npx babel-node tools/create-xcconfigs\n";
 		};
 		B8C49AA223E1E8B9001C7A0A /* Start Packager */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -550,9 +587,9 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		00E356F61AD99517003FC87E /* Debug */ = {
+		00E356F61AD99517003FC87E /* integreat-test-cms */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 809608C146679CE57F1752BF /* Pods-IntegreatTests.debug.xcconfig */;
+			baseConfigurationReference = 0518B741B48590C7AE9330F0 /* Pods-IntegreatTests.integreat-test-cms.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -575,11 +612,11 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Integreat.app/Integreat";
 			};
-			name = Debug;
+			name = "integreat-test-cms";
 		};
-		00E356F71AD99517003FC87E /* Release */ = {
+		00E356F71AD99517003FC87E /* integreat */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7C8DD44CFCE2FC5F9B25BF31 /* Pods-IntegreatTests.release.xcconfig */;
+			baseConfigurationReference = BCE07220C56B492D6ABF304B /* Pods-IntegreatTests.integreat.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -599,11 +636,11 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Integreat.app/Integreat";
 			};
-			name = Release;
+			name = integreat;
 		};
-		13B07F941A680F5B00A75B9A /* Debug */ = {
+		13B07F941A680F5B00A75B9A /* integreat-test-cms */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 49EED0C36D66FA4AB70F7809 /* Pods-Integreat.debug.xcconfig */;
+			baseConfigurationReference = 51E3BF838D07C33E3D15D75F /* Pods-Integreat.integreat-test-cms.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -632,7 +669,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "de.integreat-app";
-				PRODUCT_NAME = Integreat;
+				PRODUCT_NAME = "$(BUILD_CONFIG_APP_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development de.integreat-app";
 				SWIFT_OBJC_BRIDGING_HEADER = "Integreat/Integreat-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -640,11 +677,11 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
-			name = Debug;
+			name = "integreat-test-cms";
 		};
-		13B07F951A680F5B00A75B9A /* Release */ = {
+		13B07F951A680F5B00A75B9A /* integreat */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DD14BEF1244BF70E95AA783F /* Pods-Integreat.release.xcconfig */;
+			baseConfigurationReference = 41F4682A920316F66FAD98FD /* Pods-Integreat.integreat.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -672,17 +709,18 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "de.integreat-app";
-				PRODUCT_NAME = Integreat;
+				PRODUCT_NAME = "$(BUILD_CONFIG_APP_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development de.integreat-app";
 				SWIFT_OBJC_BRIDGING_HEADER = "Integreat/Integreat-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
-			name = Release;
+			name = integreat;
 		};
-		83CBBA201A601CBA00E9B192 /* Debug */ = {
+		83CBBA201A601CBA00E9B192 /* integreat-test-cms */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B81116A224A3A96000794D75 /* integreat-test-cms.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -733,10 +771,11 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
-			name = Debug;
+			name = "integreat-test-cms";
 		};
-		83CBBA211A601CBA00E9B192 /* Release */ = {
+		83CBBA211A601CBA00E9B192 /* integreat */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B81116A324A3A96F00794D75 /* integreat.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -780,7 +819,118 @@
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
-			name = Release;
+			name = integreat;
+		};
+		B811169F24A3A3D600794D75 /* malte */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B81116A424A3A97E00794D75 /* malte.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = malte;
+		};
+		B81116A024A3A3D600794D75 /* malte */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8CFB53651338802966AF7476 /* Pods-Integreat.malte.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7272KE28TJ;
+				ENABLE_BITCODE = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/rn-fetch-blob/ios/**",
+				);
+				INFOPLIST_FILE = Integreat/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "de.integreat-app";
+				PRODUCT_NAME = "$(BUILD_CONFIG_APP_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development de.integreat-app";
+				SWIFT_OBJC_BRIDGING_HEADER = "Integreat/Integreat-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = malte;
+		};
+		B81116A124A3A3D600794D75 /* malte */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 07CD12FA3D7CB27526D44E55 /* Pods-IntegreatTests.malte.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COPY_PHASE_STRIP = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/rn-fetch-blob/ios/**",
+				);
+				INFOPLIST_FILE = IntegreatTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "de.integreat-app";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Integreat.app/Integreat";
+			};
+			name = malte;
 		};
 /* End XCBuildConfiguration section */
 
@@ -788,29 +938,32 @@
 		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "IntegreatTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				00E356F61AD99517003FC87E /* Debug */,
-				00E356F71AD99517003FC87E /* Release */,
+				00E356F61AD99517003FC87E /* integreat-test-cms */,
+				00E356F71AD99517003FC87E /* integreat */,
+				B81116A124A3A3D600794D75 /* malte */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = integreat;
 		};
 		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Integreat" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				13B07F941A680F5B00A75B9A /* Debug */,
-				13B07F951A680F5B00A75B9A /* Release */,
+				13B07F941A680F5B00A75B9A /* integreat-test-cms */,
+				13B07F951A680F5B00A75B9A /* integreat */,
+				B81116A024A3A3D600794D75 /* malte */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = integreat;
 		};
 		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "Integreat" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				83CBBA201A601CBA00E9B192 /* Debug */,
-				83CBBA211A601CBA00E9B192 /* Release */,
+				83CBBA201A601CBA00E9B192 /* integreat-test-cms */,
+				83CBBA211A601CBA00E9B192 /* integreat */,
+				B811169F24A3A3D600794D75 /* malte */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = integreat;
 		};
 /* End XCConfigurationList section */
 	};
