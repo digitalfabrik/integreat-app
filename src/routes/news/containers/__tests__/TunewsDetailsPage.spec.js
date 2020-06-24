@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { mount } from 'enzyme'
-import moment from 'moment-timezone'
+import moment from 'moment'
 import type Moment from 'moment'
 import configureMockStore from 'redux-mock-store'
 import ConnectedTunewsDetailsPage, { TunewsDetailsPage } from '../TunewsDetailsPage'
@@ -54,8 +54,7 @@ describe('TunewsDetailsPage', () => {
     eNewsNo: 'tun0000009902'
   })
 
-  const tunewsElement = createTunewsItemModel(1,
-    moment.tz('2020-01-20 12:04:22+00:00', 'GMT'))
+  const tunewsElement = createTunewsItemModel(1, moment('2020-01-20T12:04:22.000Z'))
 
   const city = 'augsburg'
   const language = 'en'
