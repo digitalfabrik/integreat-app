@@ -427,7 +427,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd ${PROJECT_DIR}/.. && npx babel-node tools/create-xcconfigs\n";
+			shellScript = "cd ${PROJECT_DIR}/.. && yarn babel-node tools/create-xcconfigs\n";
 		};
 		B8C49AA223E1E8B9001C7A0A /* Start Packager */ = {
 			isa = PBXShellScriptBuildPhase;
