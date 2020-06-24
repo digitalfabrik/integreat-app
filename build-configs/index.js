@@ -4,7 +4,7 @@ const integreatBuildConfig = require('../build-configs/configs/integreat')
 const integreatTestCmsBuildConfig = require('../build-configs/configs/integreat-test-cms')
 const malteBuildConfig = require('../build-configs/configs/malte')
 
-const buildConfigs = {
+export const buildConfigs = {
   integreat: integreatBuildConfig,
   'integreat-test-cms': integreatTestCmsBuildConfig,
   malte: malteBuildConfig
@@ -21,4 +21,4 @@ const loadBuildConfig = buildConfigName => {
   return buildConfig
 }
 
-module.exports = loadBuildConfig
+export default loadBuildConfig
