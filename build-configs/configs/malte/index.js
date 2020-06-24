@@ -5,7 +5,7 @@ import type { BuildConfigType } from '../BuildConfigType'
 import featureFlags from '../featureFlags'
 
 const MalteBuildConfig: BuildConfigType = {
-  appTitle: 'Malteser',
+  appName: 'Malte',
   theme: malteTheme,
   darkTheme: darkMalteTheme,
   // TODO WEBAPP-567: Add itunesAppId
