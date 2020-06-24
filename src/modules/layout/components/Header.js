@@ -124,7 +124,7 @@ export class Header extends React.PureComponent<PropsType> {
                 positionStickyDisabled={platform.positionStickyDisabled}>
         <HeaderContainer>
           <Row hasTitle={!!cityName}>
-            <HeaderLogo theme={theme} link={logoHref} src={buildConfig.logoWide} alt={buildConfig.appTitle} />
+            <HeaderLogo theme={theme} link={logoHref} src={buildConfig.logoWide} alt={buildConfig.appName} />
             {!viewportSmall && cityName && <HeaderSeparator theme={theme} />}
             {(!viewportSmall || cityName) && <HeaderTitle theme={theme}>{cityName}</HeaderTitle>}
             <ActionBar>{actionItems}</ActionBar>
