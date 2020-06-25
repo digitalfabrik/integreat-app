@@ -57,7 +57,7 @@
     "react-native-progress": "^4.0.3",
     "react-native-render-html": "^4.2.0",
     "react-native-safe-area-context": "^1.0.0",
-    "react-native-safe-area-view": "^1.1.1",
+    "react-native-safe-area-view": "2.0.0",
     "react-native-share": "^3.0.0",
     "react-native-vector-icons": "^6.6.0",
     "react-native-webview": "^5.3.1",
