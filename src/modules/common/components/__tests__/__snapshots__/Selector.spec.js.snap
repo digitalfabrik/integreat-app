@@ -21,6 +21,8 @@ exports[`Selector should be vertical and match snapshot 1`] = `
     Deutsch
   </Selector__ActiveElement>
   <Selector__DisabledElement
+    data-event="mouseover"
+    data-event-off="click mouseout"
     data-tip="random tooltip"
     key="fr"
   >
@@ -50,6 +52,8 @@ exports[`Selector should match snapshot 1`] = `
     Deutsch
   </Selector__ActiveElement>
   <Selector__DisabledElement
+    data-event="mouseover"
+    data-event-off="click mouseout"
     data-tip="random tooltip"
     key="fr"
   >
