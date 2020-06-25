@@ -1,7 +1,7 @@
 // @flow
 
 import type { Saga } from 'redux-saga'
-import { all, call, put, select, takeLatest } from 'redux-saga/effects'
+import { call, put, select, takeLatest } from 'redux-saga/effects'
 import type {
   FetchNewsActionType,
   PushNewsActionType,
@@ -11,13 +11,16 @@ import type {
   FetchLanguagesFailedActionType
 } from '../../app/StoreActionType'
 import type { DataContainer } from '../DataContainer'
+import type Moment from 'moment'
 import { ContentLoadCriterion } from '../ContentLoadCriterion'
 import isPeekingRoute from '../selectors/isPeekingRoute'
 import ErrorCodes, { fromError } from '../../error/ErrorCodes'
-import { LOCAL } from '../../../routes/news/containers/WithCustomNewsProvider'
+import { LOCAL } from '../../../modules/error/hocs/withCustomNewsProvider'
 import loadLocalNews from './loadLocalNews'
 import loadTunews from './loadTunews'
 import loadLanguages from './loadLanguages'
+import loadTunewsLanguages from './loadTunewsLanguages'
+
 import loadTunewsElement from './loadTunewsElement'
 
 const TUNEWS_FETCH_COUNT_LIMIT = 20
@@ -27,17 +30,24 @@ export function * fetchNews (
   dataContainer: DataContainer,
   action: FetchNewsActionType
 ): Saga<void> {
-  const { city, language, newsId, key, type } = action.params
+  const { city, language, newsId, key, type, criterion } = action.params
   try {
     const isLocalNews = type === LOCAL
+
+    const peeking = yield select(state => isPeekingRoute(state, { routeCity: city }))
+
+    const lastUpdate: Moment | null = yield call(dataContainer.getLastUpdate, city, language)
+    const loadCriterion = new ContentLoadCriterion(criterion, peeking)
+
+    const shouldUpdate = loadCriterion.shouldUpdate(lastUpdate)
     // Update language each time when switching between news
-    const languages = yield call(
-      loadLanguages,
-      city,
-      dataContainer,
-      true,
-      !isLocalNews
-    )
+    const languages = !isLocalNews
+      ? yield call(loadTunewsLanguages, city) : yield call(
+        loadLanguages,
+        city,
+        dataContainer,
+        shouldUpdate
+      )
     const languageValid = languages
       .find(languageModel => languageModel.code === language)
     const pushLanguagesAction = {
@@ -47,18 +57,17 @@ export function * fetchNews (
     yield put(pushLanguagesAction)
 
     if (languageValid) {
-      const [news] = yield all([
-        isLocalNews
-          ? call(loadLocalNews, city, language)
-          : newsId
-            ? yield call(loadTunewsElement, parseInt(newsId, 0)) // A better solution to prevent re-fetching news again from page 1
-            : call(
-              loadTunews,
-              language,
-              FIRST_PAGE_INDEX,
-              TUNEWS_FETCH_COUNT_LIMIT
-            )
-      ])
+      const news =
+      (isLocalNews
+        ? yield call(loadLocalNews, city, language)
+        : newsId
+          ? yield call(loadTunewsElement, parseInt(newsId, 0)) // A better solution to prevent re-fetching news again from page 1
+          : yield call(
+            loadTunews,
+            language,
+            FIRST_PAGE_INDEX,
+            TUNEWS_FETCH_COUNT_LIMIT
+          ))
 
       const insert: PushNewsActionType = {
         type: 'PUSH_NEWS',
@@ -76,7 +85,7 @@ export function * fetchNews (
       }
       yield put(insert)
     } else {
-      const allAvailableLanguages = newsId ? new Map(languages.map(language => [language.code, null])) : null
+      const allAvailableLanguages = !newsId ? new Map(languages.map(language => [language.code, null])) : new Map()
 
       const failed: FetchNewsFailedActionType = {
         type: 'FETCH_NEWS_FAILED',
@@ -105,7 +114,7 @@ export function * fetchNews (
         language,
         type,
         newsId,
-        allAvailableLanguages: null
+        allAvailableLanguages: new Map()
       }
     }
     yield put(failed)
@@ -173,7 +182,7 @@ export function * fetchMoreNews (
         language,
         type,
         newsId,
-        allAvailableLanguages: null
+        allAvailableLanguages: new Map()
       }
     }
     yield put(failed)

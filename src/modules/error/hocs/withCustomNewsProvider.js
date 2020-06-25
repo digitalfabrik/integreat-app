@@ -14,67 +14,13 @@ import { wrapDisplayName } from 'recompose'
 import type { ErrorCodeType } from '../../../modules/error/ErrorCodes'
 import FailureContainer from '../../../modules/error/containers/FailureContainer'
 import LanguageNotAvailableContainer from '../../../modules/common/containers/LanguageNotAvailableContainer'
-import styled from 'styled-components/native'
-import activeInternational from '../assets/tu-news-active.svg'
-import inactiveInternational from '../assets/tu-news-inactive.svg'
 import type { NavigationScreenProp } from 'react-navigation'
-import type { ThemeType } from '../../../modules/theme/constants/theme'
-import type { StyledComponent } from 'styled-components'
-import withTheme from '../../../modules/theme/hocs/withTheme'
-import { withTranslation } from 'react-i18next'
+
+import LoadingSpinner from '../../common/components/LoadingSpinner'
+import NewsHeader from '../../common/NewsHeader'
 export const TUNEWS = 'tunews'
 export const LOCAL = 'local'
 
-const newsTabs = [
-  {
-    type: LOCAL,
-    toggleAttr: 'pushNotificationsEnabled'
-  },
-  {
-    type: TUNEWS,
-    active: activeInternational,
-    inactive: inactiveInternational,
-    toggleAttr: 'tunewsEnabled'
-  }
-]
-
-const NewsTypeIcon = styled.Image`
-  align-self: center;
-`
-const HeaderContainer = styled.View`
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-`
-const TouchableWrapper = styled.TouchableOpacity`
-  margin-top: 17px;
-  margin-bottom: 5px;
-  margin-horizontal: 10px;
-`
-const Loader = styled.ActivityIndicator`
-  margin-top: 15px;
-`
-const LocalTabWrapper: StyledComponent<
-  { isSelected: boolean },
-  ThemeType,
-  *
-> = styled.View`
-  padding-horizontal: 10px;
-  border-radius: 10px;
-  height: 34px;
-  text-align: center;
-  min-width: 110px;
-  align-items: center;
-  justify-content: center;
-  background-color: ${props =>
-    props.isSelected ? props.theme.colors.themeColor : '#959595'};
-`
-
-const LocalText: StyledComponent<{}, ThemeType, *> = styled.Text`
-  font-size: 18px;
-  font-family: ${props => props.theme.fonts.decorativeFontBold}
-  color: ${props => props.theme.colors.backgroundColor};
-`
 export type RouteNotInitializedType = {| status: "routeNotInitialized" |}
 
 export type ProviderRefreshPropType = {|
@@ -147,29 +93,6 @@ export type PropsType<
   ...ProviderPropType
 |}
 
-const NewsTypeItem = ({ tab, onItemPress, selectedNewsType, t, theme }) => {
-  function onPress () {
-    onItemPress(tab.type)
-  }
-  const isLocal = tab.type === LOCAL
-  const isSelected = tab.type === selectedNewsType
-  return (
-    <TouchableWrapper onPress={onPress}>
-      {isLocal ? (
-        <LocalTabWrapper isSelected={isSelected} theme={theme}>
-          <LocalText theme={theme}>{t(tab.type)}</LocalText>
-        </LocalTabWrapper>
-      ) : (
-        <NewsTypeIcon source={isSelected ? tab.active : tab.inactive} />
-      )}
-    </TouchableWrapper>
-  )
-}
-
-const TranslatedNewsTypeItem = withTranslation('news')(
-  withTheme()(NewsTypeItem)
-)
-
 const withCustomNewsProvider = <
   S: {
     ...ProviderPropType
@@ -187,18 +110,15 @@ const withCustomNewsProvider = <
       getAvailableNewsType (): NewsType {
         const { cityModel, selectedNewsType } = this.props.innerProps || {}
         const { tunewsEnabled, pushNotificationsEnabled } = cityModel || {}
-        let type = LOCAL
         if (selectedNewsType) {
-          type = selectedNewsType
+          return selectedNewsType
         } else if (tunewsEnabled && !pushNotificationsEnabled) {
-          type = TUNEWS
+          return TUNEWS
         }
-        return type
+        return LOCAL
       }
 
-      selectNewsType = type => { this.setState({ selectedNewsType: type }, this.fetchNews) };
-
-      selectNewsItemAndScrollToTop = type => { this.selectNewsType(type) };
+      selectAndFetchNews = type => { this.setState({ selectedNewsType: type }, this.fetchNews) };
 
       fetchNews = () => {
         const { selectedNewsType } = this.state
@@ -235,19 +155,6 @@ const withCustomNewsProvider = <
           this.fetchNews()
         }
       }
-
-      renderHeader = (cityModel?: CityModel) => {
-        const { selectedNewsType } = this.state
-        return (
-          <HeaderContainer>
-            {cityModel && cityModel.pushNotificationsEnabled &&
-              <TranslatedNewsTypeItem key='pushNotificationsEnabled' tab={newsTabs[0]} selectedNewsType={selectedNewsType}
-                                  onItemPress={this.selectNewsItemAndScrollToTop} />}
-            {cityModel && cityModel.tunewsEnabled &&
-              <TranslatedNewsTypeItem key='tunewsEnabled' tab={newsTabs[1]} selectedNewsType={selectedNewsType}
-                                  onItemPress={this.selectNewsItemAndScrollToTop} />}
-          </HeaderContainer>)
-      };
 
       refresh = () => {
         const props = this.props
@@ -289,14 +196,19 @@ const withCustomNewsProvider = <
         } else if (props.status === 'loading') {
           return (
             <View style={{ flex: 1 }}>
-              {!props.innerProps?.newsId && props.innerProps?.cityModel && this.renderHeader(props.innerProps?.cityModel)}
-              <Loader />
+              {!props.innerProps?.newsId && props.innerProps?.cityModel &&
+              <NewsHeader selectedNewsType={this.state.selectedNewsType}
+                            cityModel={props.innerProps?.cityModel}
+                              selectAndFetchNews={this.selectAndFetchNews} />}
+              <LoadingSpinner />
             </View>
           )
         } else {
           return (
             <View style={{ flex: 1 }}>
-              {!props.innerProps.newsId && this.renderHeader(props.innerProps.cityModel)}
+              {!props.innerProps.newsId && <NewsHeader selectedNewsType={this.state.selectedNewsType}
+                                                        cityModel={props.innerProps.cityModel}
+                                                          selectAndFetchNews={this.selectAndFetchNews} />}
               <Component {...props.innerProps} dispatch={props.dispatch} />
             </View>
           )

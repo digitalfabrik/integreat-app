@@ -4,7 +4,7 @@ import { LocalNewsModel, LanguageModel } from '@integreat-app/integreat-api-clie
 import type { CityContentStateType } from '../../../app/StateType'
 import cityContentReducer from '../cityContentReducer'
 import type { PushNewsActionType } from '../../../app/StoreActionType'
-import { LOCAL } from '../../../../routes/news/containers/WithCustomNewsProvider'
+import { LOCAL } from '../../../../modules/error/hocs/withCustomNewsProvider'
 import moment from 'moment'
 
 jest.mock('@react-native-community/async-storage')
