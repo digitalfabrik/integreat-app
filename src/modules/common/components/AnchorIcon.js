@@ -41,6 +41,7 @@ class AnchorIcon extends React.Component<PropsType> {
           x: navigationItemWidth,
           animated: true
         })
+        // When we reach the last element
       } else if (didReachLastItem) {
         _scrollView.scrollTo({
           y: 0,
