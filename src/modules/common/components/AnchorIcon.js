@@ -36,7 +36,6 @@ class AnchorIcon extends React.Component<PropsType> {
     if (!_scrollView) {
     } else {
       if (!xPosition) {
-        console.log({ props: this.props, ff: Math.round })
         _scrollView.scrollTo({
           y: 0,
           x: navigationItemWidth,

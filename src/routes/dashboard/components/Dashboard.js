@@ -81,34 +81,6 @@ class Dashboard extends React.Component<PropsType> {
       }))
     }
 
-    if (cityModel.extrasEnabled) {
-      tiles.push(new TileModel({
-        title: t('offers'),
-        path: 'extras',
-        thumbnail: offersIcon,
-        isExternalUrl: false,
-        onTilePress: () => navigateToExtras({
-          cityCode,
-          language
-        }),
-        notifications: 0
-      }))
-    }
-
-    if (cityModel.extrasEnabled) {
-      tiles.push(new TileModel({
-        title: t('offers'),
-        path: 'extras',
-        thumbnail: offersIcon,
-        isExternalUrl: false,
-        onTilePress: () => navigateToExtras({
-          cityCode,
-          language
-        }),
-        notifications: 0
-      }))
-    }
-
     if (cityModel.eventsEnabled) {
       tiles.push(new TileModel({
         title: t('events'),
