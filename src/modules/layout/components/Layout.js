@@ -18,9 +18,10 @@ const RichLayout = styled.div`
   background-color: ${props => props.theme.colors.backgroundColor};
   line-height: ${props => props.theme.fonts.decorativeLineHeight};
 
-  & a, button {
-   outline: none;
-   cursor: pointer;
+  & a,
+  button {
+    outline: none;
+    cursor: pointer;
   }
 `
 
