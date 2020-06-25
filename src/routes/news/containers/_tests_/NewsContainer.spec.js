@@ -18,7 +18,7 @@ import { render } from '@testing-library/react-native'
 import ErrorCodes from '../../../../modules/error/ErrorCodes'
 import { Text, ActivityIndicator } from 'react-native'
 import { LOADING_TIMEOUT } from '../../../../modules/common/constants'
-import { LOCAL } from '../../containers/WithCustomNewsProvider'
+import { LOCAL } from '../../../../modules/error/hocs/withCustomNewsProvider'
 
 const mockStore = configureMockStore()
 jest.mock('react-i18next')
@@ -89,8 +89,8 @@ describe('News', () => {
     const store = mockStore(state)
     const navigation = createNavigationScreenPropMock()
     navigation.state.key = 'route-id-0'
-    jest.mock('../NewsList', () => MockNewsList)
-    const NewsContainer = require('../../containers/NewsContainer').default
+    jest.mock('../../components/NewsList', () => MockNewsList)
+    const NewsContainer = require('../NewsContainer').default
 
     const result = TestRenderer.create(
       <Provider store={store}>
@@ -104,8 +104,8 @@ describe('News', () => {
     const store = mockStore(state)
     const navigation = createNavigationScreenPropMock()
     navigation.state.key = 'route-id-0'
-    jest.mock('../NewsList', () => MockNewsList)
-    const NewsContainer = require('../../containers/NewsContainer').default
+    jest.mock('../../components/NewsList', () => MockNewsList)
+    const NewsContainer = require('../NewsContainer').default
 
     const { getByText } = render(
       <Provider store={store}>
@@ -143,8 +143,8 @@ describe('News', () => {
     const navigation = createNavigationScreenPropMock()
     navigation.state.key = 'route-id-0'
     const store = mockStore(state)
-    jest.doMock('../NewsList', () => MockNewsList)
-    const NewsContainer = require('../../containers/NewsContainer').default
+    jest.doMock('../../components/NewsList', () => MockNewsList)
+    const NewsContainer = require('../NewsContainer').default
     const result = TestRenderer.create(
       <Provider store={store}><NewsContainer navigation={navigation} /></Provider>
     )
@@ -184,8 +184,8 @@ describe('News', () => {
     const store = mockStore(state)
     const navigation = createNavigationScreenPropMock()
     navigation.state.key = 'route-id-0'
-    jest.doMock('../NewsList', () => MockNewsList)
-    const NewsContainer = require('../../containers/NewsContainer').default
+    jest.doMock('../../components/NewsList', () => MockNewsList)
+    const NewsContainer = require('../NewsContainer').default
     const result = TestRenderer.create(
       <Provider store={store}><NewsContainer navigation={navigation} /></Provider>
     )
