@@ -102,7 +102,7 @@ const NewsHeader = (props: PropsType) => {
           onItemPress={selectAndFetchNews}
         />
       )}
-      {cityModel && !cityModel.tunewsEnabled && (
+      {cityModel && cityModel.tunewsEnabled && (
         <TranslatedNewsTypeItem
           key='tunewsEnabled'
           tab={newsTabs[1]}
