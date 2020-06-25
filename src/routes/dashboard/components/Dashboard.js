@@ -20,7 +20,7 @@ import type { NavigateToEventParamsType } from '../../../modules/app/createNavig
 import type { NavigateToNewsParamsType } from '../../../modules/app/createNavigateToNews'
 
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
-import { LOCAL } from '../../news/containers/WithCustomNewsProvider'
+import { LOCAL } from '../../../modules/error/hocs/withCustomNewsProvider'
 
 export type PropsType = {|
   navigation: NavigationScreenProp<*>,
@@ -43,13 +43,13 @@ export type PropsType = {|
 
 class Dashboard extends React.Component<PropsType> {
   getNavigationTileModels (cityCode: string, language: string): Array<TileModel> {
-    // Check if news is enabled to show the menu item
     const { navigateToCategory, navigateToEvent, navigateToExtras, t, cities, navigateToNews } = this.props
     const cityModel = cities.find(city => city.code === cityCode)
     if (!cityModel) {
       console.error('City model of current cityCode was not found.')
       return []
     }
+    // Check if news is enabled to show the menu item
     const { tunewsEnabled, pushNotificationsEnabled } = cityModel
     const isNewsEnabled = tunewsEnabled || pushNotificationsEnabled
 
@@ -66,6 +66,34 @@ class Dashboard extends React.Component<PropsType> {
         }),
         notifications: 0
       })]
+
+    if (cityModel.extrasEnabled) {
+      tiles.push(new TileModel({
+        title: t('offers'),
+        path: 'extras',
+        thumbnail: offersIcon,
+        isExternalUrl: false,
+        onTilePress: () => navigateToExtras({
+          cityCode,
+          language
+        }),
+        notifications: 0
+      }))
+    }
+
+    if (cityModel.extrasEnabled) {
+      tiles.push(new TileModel({
+        title: t('offers'),
+        path: 'extras',
+        thumbnail: offersIcon,
+        isExternalUrl: false,
+        onTilePress: () => navigateToExtras({
+          cityCode,
+          language
+        }),
+        notifications: 0
+      }))
+    }
 
     if (cityModel.extrasEnabled) {
       tiles.push(new TileModel({
