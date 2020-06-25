@@ -4,7 +4,7 @@ import type { ThemeType } from '../themes/ThemeType'
 import type { FeatureFlagsType } from './featureFlags'
 
 export type BuildConfigType = {|
-  appTitle: string,
+  appName: string,
   cmsUrl: string,
   featureFlags: FeatureFlagsType,
   theme: ThemeType,

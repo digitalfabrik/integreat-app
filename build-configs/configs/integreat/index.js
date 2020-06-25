@@ -5,7 +5,7 @@ import type { BuildConfigType } from '../BuildConfigType'
 import featureFlags from '../featureFlags'
 
 const IntegreatBuildConfig: BuildConfigType = {
-  appTitle: 'Integreat',
+  appName: 'Integreat',
   itunesAppId: '1072353915',
   theme: integreatTheme,
   darkTheme: darkIntegreatTheme,
