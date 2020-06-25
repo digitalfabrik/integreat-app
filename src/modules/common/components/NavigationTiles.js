@@ -5,15 +5,11 @@ import type { NativeSyntheticEvent, NativeScrollEvent } from 'react-native'
 import styled from 'styled-components/native'
 import TileModel from '../models/TileModel'
 import type { ThemeType } from '../../theme/constants/theme'
-import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import NavigationTile from './NavigationTile'
 import type { StyledComponent } from 'styled-components'
-import {
-  ScrollView,
-  Dimensions
-} from 'react-native'
-import { isRTL } from '../../i18n/contentDirection'
+import { ScrollView, Dimensions } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import AnchorIcon from './AnchorIcon'
 
 const widthBreakPoint = 375
 const anchorWidth = 30
@@ -41,69 +37,22 @@ const TilesRow: StyledComponent<{}, ThemeType, *> = styled.View`
   shadow-radius: 1px;
   shadow-offset: 1px;
 `
-const Icon: StyledComponent<{ width: number }, {}, *> = styled(MaterialIcon)`
-  font-size: 30px;
-  width: ${props => props.width}px;
-`
-
 /**
  * Displays a table of NavigationTiles
-*/
+ */
 
-type StateType = {| xPosition: number, contentSizeDiff: string |}
+type StateType = {| xPosition: number, contentSizeDiff: number, _scrollView: ?React$ElementRef<typeof ScrollView> |}
 
-class NavigationTiles extends React.PureComponent<
-  PropsType,
-  StateType
-  > {
+class NavigationTiles extends React.PureComponent<PropsType, StateType> {
   state = {
     xPosition: 0,
-    contentSizeDiff: '0'
-  }
-
-  _scrollview: React$ElementRef<typeof ScrollView>
-
-  onAnchorPress = () => {
-    const { navigationItemWidth } = this.props
-    const { xPosition, contentSizeDiff } = this.state
-    const didReachLastItem = xPosition.toFixed() === contentSizeDiff
-
-    if (!xPosition) {
-      this._scrollview &&
-        this._scrollview.scrollTo({
-          y: 0,
-          x: navigationItemWidth,
-          animated: true
-        })
-    } else if (didReachLastItem) {
-      this._scrollview &&
-        this._scrollview.scrollTo({
-          y: 0,
-          x: -1,
-          animated: true
-        })
-    } else {
-      this._scrollview &&
-        this._scrollview.scrollTo({
-          y: 0,
-          x: xPosition + navigationItemWidth,
-          animated: true
-        })
-    }
+    contentSizeDiff: 0,
+    _scrollView: null
   };
 
   setScrollViewRef = (ref: React$ElementRef<typeof ScrollView>) => {
-    this._scrollview = ref
+    this.setState({ _scrollView: ref })
   };
-
-  renderAnchorIcon = (name: string, language: string) => {
-    return <Icon
-    name={name}
-    style={{ transform: [{ scaleX: isRTL() ? -1 : 1 }] }}
-    onPress={this.onAnchorPress}
-    width={anchorWidth}
-    />
-  }
 
   onMomentumScrollEnd = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const { nativeEvent } = event
@@ -112,7 +61,7 @@ class NavigationTiles extends React.PureComponent<
 
     this.setState({
       xPosition: nativeEvent.contentOffset.x,
-      contentSizeDiff: contentSizeDiff.toFixed(0)
+      contentSizeDiff: parseInt(contentSizeDiff.toFixed(0))
     })
   };
 
@@ -125,10 +74,20 @@ class NavigationTiles extends React.PureComponent<
       language,
       isScrollable
     } = this.props
+    const { xPosition, contentSizeDiff } = this.state
 
     return (
       <TilesRow theme={theme}>
-        {isScrollable && this.renderAnchorIcon('keyboard-arrow-left', language)}
+        {isScrollable && (
+          <AnchorIcon
+            name='keyboard-arrow-left'
+            language={language}
+            navigationItemWidth={navigationItemWidth}
+            _scrollView={this.state._scrollView}
+            xPosition={xPosition}
+            contentSizeDiff={contentSizeDiff}
+          />
+        )}
         <ScrollView
           horizontal
           ref={this.setScrollViewRef}
@@ -147,7 +106,16 @@ class NavigationTiles extends React.PureComponent<
           snapToAlignment='center'>
           {tiles.map(tile => <NavigationTile key={tile.path} tile={tile} theme={theme} width={navigationItemWidth} />)}
         </ScrollView>
-        {isScrollable && this.renderAnchorIcon('keyboard-arrow-right', language)}
+        {isScrollable && (
+          <AnchorIcon
+            name='keyboard-arrow-right'
+            language={language}
+            navigationItemWidth={navigationItemWidth}
+            _scrollView={this.state._scrollView}
+            xPosition={xPosition}
+            contentSizeDiff={contentSizeDiff}
+          />
+        )}
       </TilesRow>
     )
   }
@@ -160,9 +128,9 @@ const NavigationTilesWithScrollableView = (props: {
 }) => {
   const { left, right } = useSafeAreaInsets()
   const { width } = Dimensions.get('screen')
-  const layoutWidth = (left && right) ? width - (left + right) : width
+  const layoutWidth = left && right ? width - (left + right) : width
   const isWideScreen = layoutWidth >= widthBreakPoint
-  const scrollviewWidth = layoutWidth - (anchorWidth * 2)
+  const scrollviewWidth = layoutWidth - anchorWidth * 2
   const itemWidth = isWideScreen
     ? scrollviewWidth / wideScreenItemsCount
     : scrollviewWidth / smallScreenItemsCount
