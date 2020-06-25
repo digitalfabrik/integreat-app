@@ -37,6 +37,8 @@ export class FeedbackToolbarItem extends React.PureComponent<PropsType> {
         <FontAwesomeIcon
           className={className}
           data-tip={dataTip}
+          data-event='mouseover'
+          data-event-off='click mouseout'
           icon={isPositiveRatingLink ? faSmile : faFrown} />
       </StyledFeedbackToolbarItem>
     )
