@@ -2,16 +2,13 @@
 
 import React from 'react'
 import { FlatList } from 'react-native'
-import styled from 'styled-components/native'
 import {
   LocalNewsModel,
   TunewsModel
 } from '@integreat-app/integreat-api-client'
 import type { NewsModelsType } from '../../../modules/app/StateType'
+import LoadingSpinner from '../../../modules/common/components/LoadingSpinner'
 
-const Loader = styled.ActivityIndicator`
-  margin-top: 7px;
-`
 const keyExtractor = (item, index) => `${index}`
 
 type PropType = {|
@@ -43,7 +40,7 @@ const List = ({
       }}
       onEndReached={fetchMoreItems}
       ListEmptyComponent={renderNoItemsComponent}
-      ListFooterComponent={isFetchingMore && <Loader size='small' />}
+      ListFooterComponent={isFetchingMore && <LoadingSpinner />}
       onEndReachedThreshold={1}
       keyExtractor={keyExtractor}
       renderItem={renderItem}

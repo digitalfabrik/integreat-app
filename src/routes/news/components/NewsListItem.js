@@ -44,7 +44,6 @@ const ReadMoreWrapper: StyledComponent<{ language: string, children: React.Node 
 
 const Icon: StyledComponent<{ isTunews: ?boolean }, ThemeType, *> = styled(MaterialIcon)`
   font-size: 20px;
-  color: black;
   top: 4px;
   right: 5px;
   left: 0px;
@@ -128,10 +127,6 @@ class NewsListItem extends React.PureComponent<PropsType> {
       isTunews
     } = this.props
 
-    let content = ''
-    if (newsItem.content) { content = newsItem.content }
-    if (newsItem.message) { content = newsItem.message }
-
     return (
       <>
         <Divider />
@@ -143,7 +138,8 @@ class NewsListItem extends React.PureComponent<PropsType> {
               </ListItemView>
               <ListItemView language={language} theme={theme}>
                 <Content numberOfLines={5} language={language} theme={theme}>
-                  {content}
+                  {newsItem.content ? newsItem.content : null}
+                  {newsItem.message ? newsItem.message : null}
                 </Content>
               </ListItemView>
             </Description>
