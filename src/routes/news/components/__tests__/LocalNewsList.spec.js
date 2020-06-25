@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { LocalNewsModel } from '@integreat-app/integreat-api-client'
-import moment from 'moment-timezone'
+import moment from 'moment'
 import { shallow } from 'enzyme'
 import LocalNewsList from '../LocalNewsList'
 import NewsElement from '../NewsElement'
@@ -25,7 +25,7 @@ describe('LocalNewsList', () => {
     t={t}
     language={language}
   />
-  const date = moment.tz('2020-03-20 17:50:00', 'GMT')
+  const date = moment('2017-11-18T09:30:00.000Z')
   const localNews1 = new LocalNewsModel({
     id: 217,
     title: 'Tick bite - What to do?',

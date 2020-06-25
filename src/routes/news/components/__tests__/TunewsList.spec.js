@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { TunewsModel } from '@integreat-app/integreat-api-client'
-import moment from 'moment-timezone'
+import moment from 'moment'
 import { shallow } from 'enzyme'
 import TunewsList from '../TunewsList'
 import NewsElement from '../NewsElement'
@@ -25,8 +25,8 @@ describe('TunewsList', () => {
     t={t}
     language={language}
   />
-  const date1 = moment.tz('2020-03-20 17:50:00', 'GMT')
-  const date2 = moment.tz('2020-04-25 17:50:00', 'GMT')
+  const date1 = moment('2018-07-24T00:00:00.000Z')
+  const date2 = moment('2018-07-24T00:00:00.000Z')
 
   const tunews = [
     new TunewsModel({
