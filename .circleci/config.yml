@@ -32,10 +32,12 @@ workflows:
       - prepare_build
       - build_android:
           e2e_build: true
+          production_delivery: false
           requires:
             - prepare_build
       - build_ios:
           e2e_build: true
+          production_delivery: false
           requires:
             - prepare_build
       - e2e:
@@ -49,10 +51,12 @@ workflows:
       - prepare_build
       - build_android:
           e2e_build: false
+          production_delivery: << pipeline.parameters.production_delivery >>
           requires:
             - prepare_build
       - build_ios:
           e2e_build: false
+          production_delivery: << pipeline.parameters.production_delivery >>
           requires:
             - prepare_build
       - bump_version:
@@ -60,12 +64,12 @@ workflows:
             - build_android
             - build_ios
       - deliver_android:
-          production: << pipeline.parameters.production_delivery >>
+          production_delivery: << pipeline.parameters.production_delivery >>
           requires:
             - build_android
             - bump_version
       - deliver_ios:
-          production: << pipeline.parameters.production_delivery >>
+          production_delivery: << pipeline.parameters.production_delivery >>
           requires:
             - build_ios
             - bump_version
@@ -82,10 +86,12 @@ workflows:
       - prepare_build
       - build_android:
           e2e_build: false
+          production_delivery: false
           requires:
             - prepare_build
       - build_ios:
           e2e_build: false
+          production_delivery: false
           requires:
             - prepare_build
       - bump_version:
@@ -93,11 +99,11 @@ workflows:
             - build_android
             - build_ios
       - deliver_android:
-          production: false
+          production_delivery: false
           requires:
             - bump_version
       - deliver_ios:
-          production: false
+          production_delivery: false
           requires:
             - bump_version
 
@@ -113,10 +119,12 @@ workflows:
       - prepare_build
       - build_android:
           e2e_build: false
+          production_delivery: true
           requires:
             - prepare_build
       - build_ios:
           e2e_build: false
+          production_delivery: true
           requires:
             - prepare_build
       - bump_version:
@@ -128,11 +136,11 @@ workflows:
           requires:
             - bump_version
       - deliver_android:
-          production: true
+          production_delivery: true
           requires:
             - await_production_approval
       - deliver_ios:
-          production: true
+          production_delivery: true
           requires:
             - await_production_approval
 
@@ -183,7 +191,10 @@ jobs:
   build_android:
     parameters:
       e2e_build:
-        description: Whether to create a build for E2E testing
+        description: Whether to create a build for E2E testing.
+        type: boolean
+      production_delivery:
+        description: Whether the build is delivered to production. If true, the 'integreat' build config will be used or 'integreat-test-cms' if false.
         type: boolean
     docker:
       - image: circleci/android:api-28-node
@@ -242,10 +253,24 @@ jobs:
           paths:
             - ~/.gradle
           key: 1-gradle-{{ checksum "android/build.gradle" }}-{{ checksum "android/app/build.gradle" }}-{{ checksum "android/settings.gradle" }}
-      - run:
-          name: "[FL] Build"
-          command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
-          working_directory: android
+      - when:
+          condition: << parameters.production_delivery >>
+          steps:
+            - run:
+                name: "[FL] integreat build"
+                environment:
+                  BUILD_CONFIG_NAME: integreat
+                command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
+                working_directory: android
+      - unless:
+          condition: << parameters.production_delivery >>
+          steps:
+            - run:
+                name: "[FL] integreat-test-cms build"
+                environment:
+                  BUILD_CONFIG_NAME: integreat-test-cms
+                command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
+                working_directory: android
       - store_artifacts:
           path: android/app/build/outputs/apk/release/
       - persist_to_workspace:
@@ -261,6 +286,9 @@ jobs:
     parameters:
       e2e_build:
         description: Whether to create a build for E2E testing
+        type: boolean
+      production_delivery:
+        description: Whether the build is delivered to production. If true, the 'integreat' build config will be used or 'integreat-test-cms' if false.
         type: boolean
     macos:
       xcode: 11.2.0
@@ -317,10 +345,24 @@ jobs:
           key: 1-pods-{{ arch }}-{{ checksum "ios/Podfile.lock" }}
           paths:
             - ~/Library/Caches/CocoaPods/
-      - run:
-          name: "[FL] Build"
-          command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
-          working_directory: ios
+      - when:
+          condition: << parameters.production_delivery >>
+          steps:
+            - run:
+                name: "[FL] integreat build"
+                environment:
+                  BUILD_CONFIG_NAME: integreat
+                command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
+                working_directory: ios
+      - unless:
+          condition: << parameters.production_delivery >>
+          steps:
+            - run:
+                name: "[FL] integreat-test-cms build"
+                environment:
+                  BUILD_CONFIG_NAME: integreat-test-cms
+                command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
+                working_directory: ios
       - store_artifacts:
           path: ios/output/gym/
       - persist_to_workspace:
@@ -334,13 +376,9 @@ jobs:
 
   bump_version:
     docker:
-      - image: circleci/android:api-28-node
+      - image: circleci/node:12.16.3
     resource_class: small
-    shell: /bin/bash -eo pipefail
     steps:
-      - add_ssh_keys:
-          fingerprints:
-            - "9a:0f:b1:f0:97:c8:db:3f:be:87:a4:9b:09:7f:d3:af"
       - checkout
       - attach_workspace:
           at: .
@@ -361,12 +399,12 @@ jobs:
             - node_modules
       - run:
           name: Bump version
-          command: tools/bump-version bump-to ${NEW_VERSION_NAME} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
+          command: tools/bump-version bump-to ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
 
   deliver_android:
     parameters:
-      production:
-        description: Whether to roll out the build to production
+      production_delivery:
+        description: Whether to deliver the build to production.
         type: boolean
     docker:
       - image: circleci/android:api-28-node
@@ -395,7 +433,7 @@ jobs:
           command: bundle exec fastlane android browserstack_upload_live
       - run:
           name: "[FL] Play Store Upload"
-          command: bundle exec fastlane android playstore_upload production:"<< parameters.production >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
+          command: bundle exec fastlane android playstore_upload production_delivery:"<< parameters.production_delivery >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
       - run:
           name: "[FL] Upload to Sentry"
           command: bundle exec fastlane android sentry_upload version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
@@ -405,8 +443,8 @@ jobs:
 
   deliver_ios:
     parameters:
-      production:
-        description: Whether to roll out the build to production
+      production_delivery:
+        description: Whether to deliver the build to production.
         type: boolean
     macos:
       xcode: 11.2.0
@@ -433,13 +471,13 @@ jobs:
           name: "[FL] Browserstack Upload Live"
           command: bundle exec fastlane ios browserstack_upload_live
       - when:
-          condition: <<parameters.production>>
+          condition: << parameters.production_delivery >>
           steps:
             - run:
                 name: "[FL] App Store Connect Upload"
                 command: bundle exec fastlane ios appstoreconnect_upload
       - unless:
-          condition: <<parameters.production>>
+          condition: << parameters.production_delivery >>
           steps:
             - run:
                 name: "[FL] TestFlight Upload"

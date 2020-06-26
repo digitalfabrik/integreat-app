@@ -54,9 +54,8 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsT
 })
 
 const ThemedTranslatedLanding = withTranslation('landing')(
-  withTheme(props => props.language)(
-    Landing
-  ))
+  withTheme(Landing)
+)
 
 class LandingContainer extends React.Component<ContainerPropsType> {
   navigateToDashboard = (cityCode: string, language: string) => {

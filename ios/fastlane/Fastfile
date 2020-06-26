@@ -11,7 +11,7 @@ lane :certificates do
   )
 
   # https://docs.fastlane.tools/actions/match/
-  sync_code_signing(type: "appstore", username: ENV['FASTLANE_USER'])
+  sync_code_signing(type: "appstore", username: ENV['FASTLANE_USER'], verbose: true)
 end
 
 # version_name: The version name the build should use

@@ -34,15 +34,14 @@ const commitAndTag = async (versionName, versionCode, { deliverinoPrivateKey, ow
   console.warn(`New version successfully commited with message "${message}"`)
 
   const commitSha = commit.data.commit.sha
-  const commitMessage = commit.data.message
 
-  const releaseName = `${versionName}${versionCode ? ` (version code: ${versionCode})` : ''}`
+  const releaseName = `${versionName}${versionCode ? ` - version code: ${versionCode}` : ''}`
 
   const tag = await appOctokit.git.createTag({
     owner,
     repo,
-    tag: releaseName,
-    message: commitMessage,
+    tag: versionName,
+    message: releaseName,
     object: commitSha,
     type: 'commit'
   })
@@ -51,7 +50,7 @@ const commitAndTag = async (versionName, versionCode, { deliverinoPrivateKey, ow
   await appOctokit.git.createRef({
     owner,
     repo,
-    ref: `refs/tags/${releaseName}`,
+    ref: `refs/tags/${versionName}`,
     sha: tagSha
   })
 
@@ -61,8 +60,8 @@ const commitAndTag = async (versionName, versionCode, { deliverinoPrivateKey, ow
   await appOctokit.repos.createRelease({
     owner,
     repo,
-    tag_name: releaseName,
-    name: releaseName,
+    tag_name: versionName,
+    name: versionName,
     body: releaseMessage
   })
 }

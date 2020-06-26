@@ -35,6 +35,15 @@ More information about the necessary environment variables can be found [here](0
 cd ios && bundle exec fastlane certificates
 ```
 
+##### Trouble Shooting
+* `bundle exec fastlane certificates` hangs on `Cloning remote git repo...`:
+Copy the last command printed to the console (`git clone ...`) and execute it manually for more information, errors or password prompts.
+    * Make sure to have read and write access to the app-credentials repo.
+    * Make sure to have git properly set up on the machine (using **ssh** protocol instead of https).
+    * The ssh key has to be added permanently in order for the command to work: `cd ~/.ssh/; ssh-add`.
+* Secrets containing `'`: Exporting as environment variable is possible as follows: `export SECRET='<prefix>'"'"'<suffix>'`.
+* 2FA prompt: Message @Max or @Steffen.
+
 #### Dependency Management
 CocoaPods is used for dependency management of the native libraries.
 It should be usable after setting up Fastlane.
@@ -65,6 +74,13 @@ yarn start
 * Option 2: Run the app in a simulator or on a real device via XCode:
     * Start XCode and open `ios/Integreat.xcworkspace`.
     * Run the app.
+    
+    
+#### Trouble Shooting
+* `Failed to get "locale" from native side!` in the simulator:
+    * Go to `(Device) Settings` > `General` > `Language and Region`.
+    * Change `iPhone Language` and `Region`.
+    * Reload the app.
 
 ### Building the App with a Distribution Certificate
 * Build the app:

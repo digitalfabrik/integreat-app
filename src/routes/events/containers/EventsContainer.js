@@ -115,9 +115,8 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsType => ({ dispatch })
 
 const ThemedTranslatedEvents = withTranslation('events')(
-  withTheme(props => props.language)(
-    Events
-  ))
+  withTheme(Events)
+)
 
 class EventsContainer extends React.Component<ContainerPropsType> {
   render () {

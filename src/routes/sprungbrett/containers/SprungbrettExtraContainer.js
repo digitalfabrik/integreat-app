@@ -116,6 +116,5 @@ class SprungbrettExtraContainer extends React.Component<SprungbrettPropsType, Sp
 
 export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(
   withTranslation('sprungbrett')(
-    withTheme()(
-      SprungbrettExtraContainer
-    )))
+    withTheme(SprungbrettExtraContainer)
+  ))
