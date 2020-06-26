@@ -175,8 +175,7 @@ jobs:
       - attach_workspace:
           at: /tmp/output
       - when:
-          condition:
-            << parameters.production_delivery >>
+          condition: << parameters.production_delivery >>
           steps:
             - run:
                 name: Integreat production delivery # StrictHostKeyChecking=no is not a security problem. The worst that could happen is a delivery to the wrong domain.
@@ -188,8 +187,7 @@ jobs:
                 message: WebApp version ${NEW_VERSION_NAME} was delivered successfully to integreat.app and malteapp.de!
                 webhook: ${SLACK_URL}
       - unless:
-          condition:
-            << parameters.production_delivery >>
+          condition: << parameters.production_delivery >>
           steps:
             - run:
                 name: Integreat development delivery
