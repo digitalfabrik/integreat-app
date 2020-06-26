@@ -119,7 +119,7 @@ jobs:
           name: Test coverage # Results are not used right now. Run it anyway to (possibly) discover more problems.
           command: yarn run test:coverage --ci --maxWorkers ${TOTAL_CPUS}
       - run:
-          name: Debug integreat-test-cms build
+          name: Development integreat-test-cms build
           command: yarn build:integreat-test-cms
       - run:
           name: Production integreat build
