@@ -9,11 +9,14 @@
 * [Glossary](https://wiki.integreat-app.de/glossary)
 
 ## Contributing
-If you want to know more about Integreat or if you want to join us, contact [Max](mailto:ammann@integreat-app.de),
-[Steffen](mailto:kleinle@integreat-app.de) or [our info mail](mailto:info@integreat-app.de) and visit our [website](https://integreat-app.de).
-[Pull requests](#pull-requests) and [bug reports](#bug-reporting) are also very much appreciated.
+You can contribute by:
+* [Creating Pull requests](#pull-requests)
+* [Reporting bugs](#bug-reporting)
 
-**Testing and debugging with the live cms instance should be avoided. Instead, [please use the test cms](docs/04-technical-documentation.md#test-cms).**
+**Testing with the live cms instance should be avoided. Instead, [please use the test cms](docs/04-technical-documentation.md#test-cms).**
+
+If you want to know more about Integreat or if you want to join us, contact [Max](mailto:ammann@integreat-app.de), 
+[Steffen](mailto:kleinle@integreat-app.de) or [our info mail](mailto:info@integreat-app.de) and visit our [website](https://integreat-app.de).
 
 ## Getting Started
 
@@ -23,6 +26,8 @@ If you are using a different IDE, the steps might differ.
 *Note: For the setup of the project on Windows you may want to use Chocolatey and [follow this guide](docs/09-windows-setup.md).*
 
 ### Prerequisites
+* Rate our Integreat app in the [PlayStore](https://play.google.com/store/apps/details?id=tuerantuer.app.integreat)
+and the [Apple App Store](https://apps.apple.com/ae/app/integreat/id1072353915).
 * Install [nodejs](https://nodejs.org/). At least v10 is required, but we recommend the v12 LTS.
 Using the latest version (v13) may lead to errors.
 * Install [yarn](https://yarnpkg.com/).
@@ -64,7 +69,9 @@ Take a look at the docs for [iOS](docs/06-manual-builds.md#ios) and [Android](do
     * set *Flow package or executable* to *<project_dir>/node_modules/flow-bin*
 
 * [optional] Associate the *\*.snap* files with the file type *JavaScript*.
-* [optional] Install the following plugins: *Styled Components*.
+* [optional] Install the following plugins:
+    * [Styled Components](https://plugins.jetbrains.com/plugin/9997-styled-components--styled-jsx/)
+    * [Ruby](https://plugins.jetbrains.com/plugin/1293-ruby) (if working with Fastlane)
 
 ### Troubleshooting
 If you encounter any problems, have a look at our [troubleshooting section](docs/02-troubleshooting.md)
