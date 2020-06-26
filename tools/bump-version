@@ -1,0 +1,82 @@
+#!/usr/bin/env node
+
+const authenticate = require('./github-authentication')
+const { program } = require('commander')
+
+const VERSION_FILE = 'version.json'
+
+program
+  .option('-d, --debug', 'enable extreme logging')
+  .requiredOption('--deliverino-private-key <deliverino-private-key>', 'private key of the deliverino github app in pem format with base64 encoding')
+  .requiredOption('--owner <owner>', 'owner of the current repository, usually "Integreat"')
+  .requiredOption('--repo <repo>', 'the current repository, usually "integreat-webapp" or "integreat-react-native-app"')
+  .requiredOption('--branch <branch>', 'the current branch')
+
+const commitAndTag = async (versionName, versionCode, { deliverinoPrivateKey, owner, repo, branch }) => {
+  const appOctokit = await authenticate({ deliverinoPrivateKey, owner, repo })
+  const versionFileContent = await appOctokit.repos.getContent({ owner, repo, path: VERSION_FILE, ref: branch })
+
+  const contentBase64 = Buffer.from(JSON.stringify({ versionName, versionCode })).toString('base64')
+
+  const message = versionCode
+    ? `Bump version name to ${versionName} and version code to ${versionCode}\n[skip ci]`
+    : `Bump version name to ${versionName}\n[skip ci]`
+
+  const commit = await appOctokit.repos.createOrUpdateFileContents({
+    owner,
+    repo,
+    path: VERSION_FILE,
+    content: contentBase64,
+    branch,
+    message,
+    sha: versionFileContent.data.sha
+  })
+  console.warn(`New version successfully commited with message "${message}"`)
+
+  const commitSha = commit.data.commit.sha
+  const commitMessage = commit.data.message
+
+  const releaseName = `${versionName}${versionCode ? ` (version code: ${versionCode})` : ''}`
+
+  const tag = await appOctokit.git.createTag({
+    owner,
+    repo,
+    tag: releaseName,
+    message: commitMessage,
+    object: commitSha,
+    type: 'commit'
+  })
+  const tagSha = tag.data.sha
+
+  await appOctokit.git.createRef({
+    owner,
+    repo,
+    ref: `refs/tags/${releaseName}`,
+    sha: tagSha
+  })
+
+  const releaseNotesUrl = `https://github.com/${owner}/${repo}/tree/${branch}/release-notes/${versionName}`
+  const releaseMessage = `Release ${releaseName}. Release notes can be found here: ${releaseNotesUrl}.`
+
+  await appOctokit.repos.createRelease({
+    owner,
+    repo,
+    tag_name: releaseName,
+    name: releaseName,
+    body: releaseMessage
+  })
+}
+
+program
+  .command('bump-to <new-version-name> [new-version-code]')
+  .description('commits the supplied version name and code to github and tags the commit')
+  .action(async (newVersionName, newVersionCode) => {
+    try {
+      await commitAndTag(newVersionName, newVersionCode, program)
+    } catch (e) {
+      console.error(e)
+      process.exit(1)
+    }
+  })
+
+program.parse(process.argv)
