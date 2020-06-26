@@ -32,6 +32,9 @@ in the console of your web browser.
 * Reload the page.
 This is not required when testing locally on localhost since the test cms is used as default here.
 
+### Hidden cities
+Hidden cities can be viewed on the landing page by entering the search query `wirschaffendas`.
+
 ## Linting
 * The linter for JavaScript is [eslint](http://eslint.org/)
 * The linter for CSS is [stylelint](https://stylelint.io/)
