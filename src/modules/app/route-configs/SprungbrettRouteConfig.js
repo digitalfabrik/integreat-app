@@ -21,7 +21,7 @@ type SprungbrettRouteParamsType = {|city: string, language: string|}
 type RequiredPayloadsType = {|sprungbrettJobs: Payload<Array<SprungbrettJobModel>>, offers: Payload<Array<OfferModel>>|}
 
 export const SPRUNGBRETT_ROUTE = 'SPRUNGBRETT'
-export const SPRUNGBRETT_EXTRA = 'sprungbrett'
+export const SPRUNGBRETT_OFFER = 'sprungbrett'
 
 const fetchOffers = async (dispatch, getState) => {
   const state: StateType = getState()
@@ -33,7 +33,7 @@ const fetchOffers = async (dispatch, getState) => {
   const offers: ?Array<OfferModel> = offersPayload.data
 
   if (offers) {
-    const sprungbrettOffer: OfferModel | void = offers.find(offer => offer.alias === SPRUNGBRETT_EXTRA)
+    const sprungbrettOffer: OfferModel | void = offers.find(offer => offer.alias === SPRUNGBRETT_OFFER)
     if (sprungbrettOffer) {
       const params = { city, language }
 
@@ -43,7 +43,7 @@ const fetchOffers = async (dispatch, getState) => {
 }
 
 const sprungbrettRoute: Route = {
-  path: `/:city/:language/offers/${SPRUNGBRETT_EXTRA}`,
+  path: `/:city/:language/offers/${SPRUNGBRETT_OFFER}`,
   thunk: async (dispatch, getState) => {
     const state: StateType = getState()
     const { city, language } = state.location.payload
@@ -65,7 +65,7 @@ class SprungbrettRouteConfig implements RouteConfig<SprungbrettRouteParamsType, 
   requiresFooter = true
 
   getRoutePath = ({ city, language }: SprungbrettRouteParamsType): string =>
-    `/${city}/${language}/offers/${SPRUNGBRETT_EXTRA}`
+    `/${city}/${language}/offers/${SPRUNGBRETT_OFFER}`
 
   getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType =>
     ({ sprungbrettJobs: payloads.sprungbrettJobsPayload, offers: payloads.offersPayload })
@@ -78,7 +78,7 @@ class SprungbrettRouteConfig implements RouteConfig<SprungbrettRouteParamsType, 
       return null
     }
     const offers = payloads.offers.data
-    const sprungbrettOffer = offers && offers.find(offer => offer.alias === SPRUNGBRETT_EXTRA)
+    const sprungbrettOffer = offers && offers.find(offer => offer.alias === SPRUNGBRETT_OFFER)
     return sprungbrettOffer ? `${sprungbrettOffer.title} - ${cityName}` : ''
   }
 
@@ -86,9 +86,9 @@ class SprungbrettRouteConfig implements RouteConfig<SprungbrettRouteParamsType, 
 
   getFeedbackTargetInformation = ({ payloads }) => {
     const offers = payloads.offers.data
-    const offer = offers && offers.find(offer => offer.alias === SPRUNGBRETT_EXTRA)
+    const offer = offers && offers.find(offer => offer.alias === SPRUNGBRETT_OFFER)
     if (offer) {
-      return ({ alias: SPRUNGBRETT_EXTRA, title: offer.title })
+      return ({ alias: SPRUNGBRETT_OFFER, title: offer.title })
     }
     return null
   }

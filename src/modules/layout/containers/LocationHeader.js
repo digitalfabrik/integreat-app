@@ -34,7 +34,7 @@ import HeaderActionBarItemLink from '../components/HeaderActionItemLink'
 import buildConfig from '../../../modules/app/constants/buildConfig'
 
 const newsRoutes = [LOCAL_NEWS_ROUTE, TUNEWS_ROUTE, TUNEWS_DETAILS_ROUTE, LOCAL_NEWS_DETAILS_ROUTE]
-const extrasRoutes = [OFFERS_ROUTE, WOHNEN_ROUTE, SPRUNGBRETT_ROUTE]
+const offersRoutes = [OFFERS_ROUTE, WOHNEN_ROUTE, SPRUNGBRETT_ROUTE]
 
 type PropsType = {|
   events: ?Array<EventModel>,
@@ -135,7 +135,7 @@ export class LocationHeader extends React.Component<PropsType> {
         <HeaderNavigationItem
           key='offers'
           href={new OffersRouteConfig().getRoutePath({ city, language })}
-          active={extrasRoutes.includes(currentRoute)}
+          active={offersRoutes.includes(currentRoute)}
           text={t('offers')}
           icon={offersIcon}
         />
