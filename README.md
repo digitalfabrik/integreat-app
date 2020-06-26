@@ -7,22 +7,24 @@ versioning: ![versioning](https://img.shields.io/badge/calver-YYYY.MM.PATCH-22bf
 ## Contents
 * [Contributing](#contributing)
 * [Getting Started](#getting-started)
-* [Bug reporting](#bug-reporting)
-* [Pull requests](#pull-requests)
 * [Conventions](docs/01-conventions.md)
 * [Technology Stack](docs/02-technology-stack.md)
 * [Browser Stack](docs/05-browser-stack.md)
-* [Deployment](docs/03-deployment.md)
+* [Delivery](docs/03-delivery.md)
+* [CI/CD](docs/06-cicd.md)
 * [I18N](docs/14-i18n.md)
 * [Glossary](https://wiki.integreat-app.de/glossary)
 
 ## Contributing
-If you want to know more about Integreat or if you want to join us, contact [Max](mailto:ammann@integreat-app.de), 
-[Steffen](mailto:kleinle@integreat-app.de) or [our info mail](mailto:info@integreat-app.de) and visit our [website](https://integreat-app.de).
-[Pull requests](#pull-requests) and [bug reports](#bug-reporting) are also very much appreciated.
+You can contribute by:
+* [Creating Pull requests](#pull-requests)
+* [Reporting bugs](#bug-reporting)
 
 **Testing with the live cms instance should be avoided. Instead, [please use the test cms](docs/02-technology-stack.md/#test-cms).**
- 
+
+If you want to know more about Integreat or if you want to join us, contact [Max](mailto:ammann@integreat-app.de), 
+[Steffen](mailto:kleinle@integreat-app.de) or [our info mail](mailto:info@integreat-app.de) and visit our [website](https://integreat-app.de).
+
 ## Getting Started
 ### Prerequisites
 * Install [nodejs](https://nodejs.org/). At least v6 is required, but we recommend the v12 LTS.
