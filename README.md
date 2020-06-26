@@ -52,7 +52,7 @@ If using IntelliJ IDEA Ultimate you can import the project easily:
 
 #### Running the app
 
-Take a look at the docs for [iOS](docs/06-manual-builds.md#manually-building-for-ios) and [Android](docs/06-manual-builds.md#manually-building-for-android) to see how to run the app.
+Take a look at the docs for [iOS](docs/06-manual-builds.md#ios) and [Android](docs/06-manual-builds.md#android) to see how to run the app.
 
 #### Additional Configuration
 * Mark the *src* folder as *Source directory*.
