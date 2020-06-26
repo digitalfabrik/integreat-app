@@ -23,7 +23,7 @@ If you are using a different IDE, the steps might differ.
 *Note: For the setup of the project on Windows you may want to use Chocolatey and [follow this guide](docs/09-windows-setup.md).*
 
 ### Prerequisites
-* Install [nodejs](https://nodejs.org/). At least v6 is required, but we recommend the v12 LTS.
+* Install [nodejs](https://nodejs.org/). At least v10 is required, but we recommend the v12 LTS.
 Using the latest version (v13) may lead to errors.
 * Install [yarn](https://yarnpkg.com/).
 
