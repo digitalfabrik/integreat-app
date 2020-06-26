@@ -22,7 +22,7 @@ type RouteParamsType = {| city: string, language: string, offerHash?: string |}
 type RequiredPayloadsType = {| wohnenOffers: Payload<Array<WohnenOfferModel>>, offers: Payload<Array<OfferModel>> |}
 
 export const WOHNEN_ROUTE = 'WOHNEN'
-export const WOHNEN_EXTRA = 'wohnen'
+export const WOHNEN_OFFER = 'wohnen'
 
 export const hash = (offer: WohnenOfferModel) =>
   new Hashids().encode(offer.email.length, offer.createdDate.seconds())
@@ -37,7 +37,7 @@ const fetchOffers = async (dispatch, getState) => {
   const offers: ?Array<OfferModel> = offersPayload.data
 
   if (offers) {
-    const offer: OfferModel | void = offers.find(offer => offer.alias === WOHNEN_EXTRA)
+    const offer: OfferModel | void = offers.find(offer => offer.alias === WOHNEN_OFFER)
     if (offer && offer.postData) {
       const params = { city: offer.postData.get('api-name') }
       await fetchData(createWohnenEndpoint(wohnenApiBaseUrl), dispatch, state.wohnen, params)
@@ -46,7 +46,7 @@ const fetchOffers = async (dispatch, getState) => {
 }
 
 const wohnenRoute: Route = {
-  path: `/:city/:language/offers/${WOHNEN_EXTRA}/:offerHash?`,
+  path: `/:city/:language/offers/${WOHNEN_OFFER}/:offerHash?`,
   thunk: async (dispatch, getState) => {
     const state: StateType = getState()
     const { city, language } = state.location.payload
@@ -68,7 +68,7 @@ class WohnenRouteConfig implements RouteConfig<RouteParamsType, RequiredPayloads
   requiresFooter = true
 
   getRoutePath = ({ city, language, offerHash }: RouteParamsType): string =>
-    `/${city}/${language}/offers/${WOHNEN_EXTRA}${offerHash ? `/${offerHash}` : ''}`
+    `/${city}/${language}/offers/${WOHNEN_OFFER}${offerHash ? `/${offerHash}` : ''}`
 
   getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType =>
     ({ wohnenOffers: payloads.wohnenOffersPayload, offers: payloads.offersPayload })
@@ -87,7 +87,7 @@ class WohnenRouteConfig implements RouteConfig<RouteParamsType, RequiredPayloads
     if (wohnenOfferModel) {
       return `${wohnenOfferModel.formData.accommodation.title} - ${cityName}`
     }
-    const offer = offers && offers.find(offer => offer.alias === WOHNEN_EXTRA)
+    const offer = offers && offers.find(offer => offer.alias === WOHNEN_OFFER)
     return offer ? `${offer.title} - ${cityName}` : ''
   }
 
@@ -95,11 +95,11 @@ class WohnenRouteConfig implements RouteConfig<RouteParamsType, RequiredPayloads
 
   getFeedbackTargetInformation = ({ payloads }) => {
     const offers = payloads.offers.data
-    const offer = offers && offers.find(offer => offer.alias === WOHNEN_EXTRA)
+    const offer = offers && offers.find(offer => offer.alias === WOHNEN_OFFER)
     if (!offer) {
       return null
     }
-    return ({ alias: WOHNEN_EXTRA, title: offer.title })
+    return ({ alias: WOHNEN_OFFER, title: offer.title })
   }
 }
 
