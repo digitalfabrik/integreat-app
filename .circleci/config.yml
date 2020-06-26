@@ -43,7 +43,7 @@ workflows:
           requires:
             - prepare_production_delivery
 
-  api_triggered_debug_delivery: # Workflow for manual delivery to webnext.integreat.app and webnext.malteapp.de
+  api_triggered_development_delivery: # Workflow for manual delivery to webnext.integreat.app and webnext.malteapp.de
     when:
       and:
         - << pipeline.parameters.api_triggered >>
@@ -192,8 +192,8 @@ jobs:
             << parameters.production_delivery >>
           steps:
             - run:
-                name: Integreat debug delivery
+                name: Integreat development delivery
                 command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.integreat.app \<<< $'put -r /tmp/output/dist/integreat-test-cms/*'
             - run:
-                name: Malte debug delivery
+                name: Malte development delivery
                 command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.malteapp.de \<<< $'put -r /tmp/output/dist/malte/*'
