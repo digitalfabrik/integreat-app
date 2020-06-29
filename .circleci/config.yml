@@ -31,13 +31,11 @@ workflows:
     jobs:
       - prepare_build
       - build_android:
-          e2e_build: true
-          production_delivery: false
+          build_for_delivery: false
           requires:
             - prepare_build
       - build_ios:
-          e2e_build: true
-          production_delivery: false
+          build_for_delivery: false
           requires:
             - prepare_build
       - e2e:
@@ -50,13 +48,11 @@ workflows:
     jobs:
       - prepare_build
       - build_android:
-          e2e_build: false
-          production_delivery: << pipeline.parameters.production_delivery >>
+          build_for_delivery: true
           requires:
             - prepare_build
       - build_ios:
-          e2e_build: false
-          production_delivery: << pipeline.parameters.production_delivery >>
+          build_for_delivery: true
           requires:
             - prepare_build
       - bump_version:
@@ -85,13 +81,11 @@ workflows:
     jobs:
       - prepare_build
       - build_android:
-          e2e_build: false
-          production_delivery: false
+          build_for_delivery: true
           requires:
             - prepare_build
       - build_ios:
-          e2e_build: false
-          production_delivery: false
+          build_for_delivery: true
           requires:
             - prepare_build
       - bump_version:
@@ -118,13 +112,11 @@ workflows:
     jobs:
       - prepare_build
       - build_android:
-          e2e_build: false
-          production_delivery: true
+          build_for_delivery: true
           requires:
             - prepare_build
       - build_ios:
-          e2e_build: false
-          production_delivery: true
+          build_for_delivery: true
           requires:
             - prepare_build
       - bump_version:
@@ -190,18 +182,14 @@ jobs:
 
   build_android:
     parameters:
-      e2e_build:
-        description: Whether to create a build for E2E testing.
-        type: boolean
-      production_delivery:
-        description: Whether the build is delivered to production. If true, the 'integreat' build config will be used or 'integreat-test-cms' if false.
+      build_for_delivery:
+        description: Whether builds are delivered to the store. If true, integreat and malte builds are created.
         type: boolean
     docker:
       - image: circleci/android:api-28-node
     resource_class: medium
     environment:
       TOTAL_CPUS: 2 # For resource_class medium, used in metro.config.ci.js.
-      E2E_TEST_IDS: <<# parameters.e2e_build >>1<</ parameters.e2e_build >> # Empty string equals to false in JS
       FASTLANE_SKIP_UPDATE_CHECK: true
     shell: /bin/bash -eo pipefail
     steps:
@@ -254,7 +242,7 @@ jobs:
             - ~/.gradle
           key: 1-gradle-{{ checksum "android/build.gradle" }}-{{ checksum "android/app/build.gradle" }}-{{ checksum "android/settings.gradle" }}
       - when:
-          condition: << parameters.production_delivery >>
+          condition: << parameters.build_for_delivery >>
           steps:
             - run:
                 name: "[FL] integreat build"
@@ -262,33 +250,56 @@ jobs:
                   BUILD_CONFIG_NAME: integreat
                 command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
                 working_directory: android
-      - unless:
-          condition: << parameters.production_delivery >>
-          steps:
             - run:
-                name: "[FL] integreat-test-cms build"
+                name: Rename apk
+                command: mv android/app/build/outputs/apk/release/app-release.apk android/output/apk/integreat.apk
+            - run:
+                name: Rename sourcemap
+                command: mv android/app/build/generated/sourcemaps/react/release/index.android.bundle.map android/output/integreat.android.bundle.map
+            - run:
+                name: "[FL] malte build"
                 environment:
-                  BUILD_CONFIG_NAME: integreat-test-cms
+                  BUILD_CONFIG_NAME: malte
                 command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
                 working_directory: android
+            - run:
+                name: Rename apk
+                command: mv android/app/build/outputs/apk/release/app-release.apk android/output/apk/malte.apk
+            - run:
+                name: Rename sourcemap
+                command: mv android/app/build/generated/sourcemaps/react/release/index.android.bundle.map android/output/malte.android.bundle.map
+      - run:
+          name: "[FL] integreat-test-cms build"
+          environment:
+            BUILD_CONFIG_NAME: integreat-test-cms
+            E2E_TEST_IDS: 1
+          command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
+          working_directory: android
+      - run:
+          name: Rename apk
+          command: mv android/app/build/outputs/apk/release/app-release.apk android/output/apk/integreat-test-cms.apk
+      - run:
+          name: Rename sourcemap
+          command: mv android/app/build/generated/sourcemaps/react/release/index.android.bundle.map android/output/integreat-test-cms.android.bundle.map
       - store_artifacts:
-          path: android/app/build/outputs/apk/release/
+          path: android/output/apk
       - persist_to_workspace:
-          root: android/app/build/generated/sourcemaps/react/release/
+          root: android/output
           paths:
-            - index.android.bundle.map
+            - integreat.android.bundle.map
+            - malte.android.bundle.map
+            - integreat-test-cms.android.bundle.map
       - persist_to_workspace:
-          root: android/app/build/outputs/apk/release/
+          root: android/output/apk
           paths:
-            - app-release.apk
+            - integreat.apk
+            - malte.apk
+            - integreat-test-cms.apk
 
   build_ios:
     parameters:
-      e2e_build:
-        description: Whether to create a build for E2E testing
-        type: boolean
-      production_delivery:
-        description: Whether the build is delivered to production. If true, the 'integreat' build config will be used or 'integreat-test-cms' if false.
+      build_for_delivery:
+        description: Whether builds are delivered to the store. If true, integreat and malte builds are created.
         type: boolean
     macos:
       xcode: 11.2.0
@@ -296,7 +307,6 @@ jobs:
       FL_OUTPUT_DIR: output
       FASTLANE_SKIP_UPDATE_CHECK: true
       TOTAL_CPUS: 4 # For mac with resource_class medium, used in metro.config.ci.js.
-      E2E_TEST_IDS: <<# parameters.e2e_build >>1<</ parameters.e2e_build >> # Empty string equals to false in JS
     shell: /bin/bash --login -o pipefail
     steps:
       - add_ssh_keys:
@@ -346,7 +356,7 @@ jobs:
           paths:
             - ~/Library/Caches/CocoaPods/
       - when:
-          condition: << parameters.production_delivery >>
+          condition: << parameters.build_for_delivery >>
           steps:
             - run:
                 name: "[FL] integreat build"
@@ -354,27 +364,42 @@ jobs:
                   BUILD_CONFIG_NAME: integreat
                 command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} scheme:${BUILD_CONFIG_NAME}
                 working_directory: ios
-      - unless:
-          condition: << parameters.production_delivery >>
-          steps:
             - run:
-                name: "[FL] integreat-test-cms build"
+                name: Rename sourcemap
+                command: mv ios/index.ios.bundle.map ios/output/integreat.ios.bundle.map
+            - run:
+                name: "[FL] malte build"
                 environment:
-                  BUILD_CONFIG_NAME: integreat-test-cms
+                  BUILD_CONFIG_NAME: malte
                 command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} scheme:${BUILD_CONFIG_NAME}
                 working_directory: ios
+            - run:
+                name: Rename sourcemap
+                command: mv ios/index.ios.bundle.map ios/output/malte.ios.bundle.map
+      - run:
+          name: "[FL] integreat-test-cms build"
+          environment:
+            BUILD_CONFIG_NAME: integreat-test-cms
+            E2E_TEST_IDS: 1
+          command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} scheme:${BUILD_CONFIG_NAME}
+          working_directory: ios
+      - run:
+          name: Rename sourcemap
+          command: mv ios/index.ios.bundlemap ios/output/integreat-test-cms.ios.bundle.map
       - store_artifacts:
           path: ios/output/gym/
       - persist_to_workspace:
-          root: ios/
+          root: ios/output
           paths:
-            - index.ios.bundle.map
+            - integreat.ios.bundle.map
+            - malte.ios.bundle.map
+            - integreat-test-cms.ios.bundle.map
       - persist_to_workspace:
           root: ios/output/gym/
           paths:
             - integreat.ipa
-            - integreat-test-cms.ipa
             - malte.ipa
+            - integreat-test-cms.ipa
 
   bump_version:
     docker:
