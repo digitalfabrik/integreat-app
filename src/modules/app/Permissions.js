@@ -2,6 +2,7 @@
 
 import { check, PERMISSIONS, request, RESULTS } from 'react-native-permissions'
 import { Platform } from 'react-native'
+import * as NotificationsManager from '../../modules/notifications/NotificationsManager'
 
 export const locationPermissionStatus = async (): RESULTS => {
   return check(Platform.OS === 'ios'
@@ -24,5 +25,6 @@ export const requestLocationPermission = async (): RESULTS => {
 
 export const requestPushNotificationPermission = async (): RESULTS => {
   // TODO NATIVE-399 Really request push notification permissions
-  return RESULTS.GRANTED
+  NotificationsManager.requestUserPermissionForPushNotifications()
 }
+

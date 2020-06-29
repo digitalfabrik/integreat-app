@@ -6,7 +6,7 @@ import AppSettings from '../settings/AppSettings'
 
 export function * clearCity (): Saga<void> {
   const appSettings = new AppSettings()
-  yield call(appSettings.clearSelectedCity)
+  // yield call(appSettings.clearSelectedCity)
 }
 
 export default function * (): Saga<void> {
