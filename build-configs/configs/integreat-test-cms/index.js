@@ -8,7 +8,7 @@ const IntegreatTestCmsBuildConfig: BuildConfigType = {
   cmsUrl: 'https://cms-test.integreat-app.de',
   switchCmsUrl: 'https://cms.integreat-app.de',
   iosBuildOptions: {
-    BUILD_CONFIG_APP_NAME: 'Integreat Test Cms'
+    BUILD_CONFIG_APP_NAME: 'IntegreatTestCms'
   }
 }
 
