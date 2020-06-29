@@ -27,6 +27,7 @@
 		A330D33722AA9F54005736D0 /* Raleway-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A330D33222AA9F54005736D0 /* Raleway-Bold.ttf */; };
 		BD76ADC3539E38A350FA5E94 /* libPods-IntegreatTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 51D2BB149A2F2631F8307746 /* libPods-IntegreatTests.a */; };
 		ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
+		EE11BEA724A4D93400C6F209 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EE11BEA624A4D93400C6F209 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +87,10 @@
 		DD14BEF1244BF70E95AA783F /* Pods-Integreat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Integreat.release.xcconfig"; path = "Target Support Files/Pods-Integreat/Pods-Integreat.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
+		EE11BE9E24A4D56D00C6F209 /* Integreat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Integreat.entitlements; path = Integreat/Integreat.entitlements; sourceTree = "<group>"; };
+		EE11BE9F24A4D65F00C6F209 /* FIRAnalyticsConnector.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FIRAnalyticsConnector.framework; path = Pods/FirebaseAnalytics/Frameworks/FIRAnalyticsConnector.framework; sourceTree = "<group>"; };
+		EE11BEA324A4D68000C6F209 /* GoogleAppMeasurement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleAppMeasurement.framework; path = Pods/GoogleAppMeasurement/Frameworks/GoogleAppMeasurement.framework; sourceTree = "<group>"; };
+		EE11BEA624A4D93400C6F209 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "Integreat/GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +134,7 @@
 		13B07FAE1A68108700A75B9A /* Integreat */ = {
 			isa = PBXGroup;
 			children = (
+				EE11BE9E24A4D56D00C6F209 /* Integreat.entitlements */,
 				616E1ACC2370DFCF00136B38 /* constants */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -159,6 +165,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
+				EE11BEA324A4D68000C6F209 /* GoogleAppMeasurement.framework */,
+				EE11BE9F24A4D65F00C6F209 /* FIRAnalyticsConnector.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
 				402A5479E2DCF9E7D5AD48AD /* libPods-Integreat.a */,
@@ -191,6 +199,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				EE11BEA624A4D93400C6F209 /* GoogleService-Info.plist */,
 				7B7EDC2C2428EE0900E64563 /* fastlane */,
 				13B07FAE1A68108700A75B9A /* Integreat */,
 				00E356EF1AD99517003FC87E /* IntegreatTests */,
@@ -292,7 +301,7 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = 7272KE28TJ;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -348,6 +357,7 @@
 				A330D33322AA9F54005736D0 /* Raleway-Regular.ttf in Resources */,
 				A330D33422AA9F54005736D0 /* OpenSans-Bold.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				EE11BEA724A4D93400C6F209 /* GoogleService-Info.plist in Resources */,
 				7B9749D322DC7A940078B456 /* InfoPlist.strings in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 			);
@@ -608,13 +618,17 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_ENTITLEMENTS = Integreat/Integreat.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 7272KE28TJ;
 				ENABLE_BITCODE = YES;
-				FRAMEWORK_SEARCH_PATHS = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/Pods/FirebaseAnalytics/Frameworks",
+					"$(PROJECT_DIR)/Pods/GoogleAppMeasurement/Frameworks",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/rn-fetch-blob/ios/**",
@@ -633,7 +647,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "de.integreat-app";
 				PRODUCT_NAME = Integreat;
-				PROVISIONING_PROFILE_SPECIFIER = "match Development de.integreat-app";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Integreat/Integreat-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -649,12 +663,16 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_ENTITLEMENTS = Integreat/Integreat.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7272KE28TJ;
+				DEVELOPMENT_TEAM = J345U77L2G;
 				ENABLE_BITCODE = YES;
-				FRAMEWORK_SEARCH_PATHS = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/Pods/FirebaseAnalytics/Frameworks",
+					"$(PROJECT_DIR)/Pods/GoogleAppMeasurement/Frameworks",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/rn-fetch-blob/ios/**",
@@ -673,7 +691,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "de.integreat-app";
 				PRODUCT_NAME = Integreat;
-				PROVISIONING_PROFILE_SPECIFIER = "match Development de.integreat-app";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Integreat/Integreat-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

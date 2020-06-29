@@ -2,6 +2,7 @@
 
 import type { Saga } from 'redux-saga'
 import { all, call, put } from 'redux-saga/effects'
+import messaging from '@react-native-firebase/messaging'
 import type { DataContainer } from '../DataContainer'
 import loadCategories from './loadCategories'
 import loadEvents from './loadEvents'
@@ -18,6 +19,7 @@ import NetInfo from '@react-native-community/netinfo'
 import loadCities from './loadCities'
 import { allowedResourceHostNames } from '../constants'
 import { fromError } from '../../error/ErrorCodes'
+import * as NotificationsManager from '../../../modules/notifications/NotificationsManager'
 
 /**
  *
@@ -36,6 +38,11 @@ export default function * loadCityContent (
 
   if (!criterion.peeking()) {
     const appSettings = new AppSettings()
+    const previousSelectedCity = yield call(appSettings.loadSelectedCity)
+    const previousContentLanguage = yield call(appSettings.loadContentLanguage)
+    // TODO: something supposed to happen when failing to subscribe
+    yield NotificationsManager.unSubscribeToPreviousCityTopic(previousSelectedCity, previousContentLanguage)
+    yield NotificationsManager.subscribeToNewCityTopic(newCity, newLanguage)
     yield call(appSettings.setSelectedCity, newCity)
   }
 
