@@ -16,12 +16,15 @@ end
 
 # version_name: The version name the build should use
 # version_code: The version code the build should use
+# scheme: The scheme the build should use (Integreat, IntegreatTestCms, Malte)
 desc "Create a release build"
 lane :build do |options|
   version_code = options[:version_code]
   version_name = options[:version_name]
+  scheme = options[:scheme]
+
   ensure_env_vars(
-      env_vars: ['FASTLANE_USER']
+      env_vars: ['FASTLANE_USER', 'BUILD_CONFIG_NAME']
   )
 
   ENV["BUNDLE_CONFIG"] = "./metro.config.ci.js"
@@ -40,9 +43,9 @@ lane :build do |options|
   )
 
   build_app(
-      workspace: "Integreat.xcworkspace",
-      scheme: "Integreat",
-      output_name: "Integreat.ipa",
+      workspace: "#{scheme}.xcworkspace",
+      scheme: scheme,
+      output_name: "#{scheme}.ipa",
       export_method: "app-store",
       include_bitcode: false # Uploading to BrowserStack does not work when including Bitcode
   )

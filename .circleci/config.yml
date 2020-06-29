@@ -352,7 +352,7 @@ jobs:
                 name: "[FL] integreat build"
                 environment:
                   BUILD_CONFIG_NAME: integreat
-                command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
+                command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} scheme:${BUILD_CONFIG_NAME}
                 working_directory: ios
       - unless:
           condition: << parameters.production_delivery >>
@@ -361,7 +361,7 @@ jobs:
                 name: "[FL] integreat-test-cms build"
                 environment:
                   BUILD_CONFIG_NAME: integreat-test-cms
-                command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
+                command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} scheme:${BUILD_CONFIG_NAME}
                 working_directory: ios
       - store_artifacts:
           path: ios/output/gym/
@@ -372,7 +372,9 @@ jobs:
       - persist_to_workspace:
           root: ios/output/gym/
           paths:
-            - Integreat.ipa
+            - integreat.ipa
+            - integreat-test-cms.ipa
+            - malte.ipa
 
   bump_version:
     docker:
