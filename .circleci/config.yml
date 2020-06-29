@@ -248,6 +248,9 @@ jobs:
           paths:
             - ~/.gradle
           key: 1-gradle-{{ checksum "android/build.gradle" }}-{{ checksum "android/app/build.gradle" }}-{{ checksum "android/settings.gradle" }}
+      - run:
+          name: Create output dir
+          command: mkdir --parents android/output/apk
       - when:
           condition: << parameters.build_for_delivery >>
           steps:
