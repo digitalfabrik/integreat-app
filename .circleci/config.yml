@@ -55,19 +55,20 @@ workflows:
           build_for_delivery: true
           requires:
             - prepare_build
+      - e2e:
+          requires:
+            - build_ios
+            - build_android
       - bump_version:
           requires: # Bump version should only depend on build_ and not delivery_. Sometimes upload to the stores fails only for iOS or Android. Then we still should bump the version.
-            - build_android
-            - build_ios
+            - e2e
       - deliver_android:
           production_delivery: << pipeline.parameters.production_delivery >>
           requires:
-            - build_android
             - bump_version
       - deliver_ios:
           production_delivery: << pipeline.parameters.production_delivery >>
           requires:
-            - build_ios
             - bump_version
 
   weekly_development_delivery:
@@ -88,10 +89,13 @@ workflows:
           build_for_delivery: true
           requires:
             - prepare_build
+      - e2e:
+          requires:
+            - build_ios
+            - build_android
       - bump_version:
           requires: # Bump version should only depend on build_ and not delivery_. Sometimes upload to the stores fails only for iOS or Android. Then we still should bump the version.
-            - build_android
-            - build_ios
+            - e2e
       - deliver_android:
           production_delivery: false
           requires:
@@ -119,10 +123,13 @@ workflows:
           build_for_delivery: true
           requires:
             - prepare_build
+      - e2e:
+          requires:
+            - build_ios
+            - build_android
       - bump_version:
           requires: # Bump version should only depend on build_ and not delivery_. Sometimes upload to the stores fails only for iOS or Android. Then we should still bump the version.
-            - build_android
-            - build_ios
+            - e2e
       - await_production_approval:
           type: approval
           requires:
@@ -457,13 +464,13 @@ jobs:
             - vendor/bundle
       - run:
           name: "[FL] Browserstack Upload Live"
-          command: bundle exec fastlane android browserstack_upload_live
+          command: bundle exec fastlane android browserstack_upload_live app_name:integrat
       - run:
           name: "[FL] Play Store Upload"
-          command: bundle exec fastlane android playstore_upload production_delivery:"<< parameters.production_delivery >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
+          command: bundle exec fastlane android playstore_upload app_name:integreat production_delivery:"<< parameters.production_delivery >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
       - run:
           name: "[FL] Upload to Sentry"
-          command: bundle exec fastlane android sentry_upload version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
+          command: bundle exec fastlane android sentry_upload app_name:integreat version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
       - slack/notify:
           message: Integreat ${NEW_VERSION_NAME} has been released successfully on Android!
           webhook: ${SLACK_URL}
@@ -496,22 +503,22 @@ jobs:
             - vendor/bundle
       - run:
           name: "[FL] Browserstack Upload Live"
-          command: bundle exec fastlane ios browserstack_upload_live
+          command: bundle exec fastlane ios browserstack_upload_live app_name:integreat
       - when:
           condition: << parameters.production_delivery >>
           steps:
             - run:
                 name: "[FL] App Store Connect Upload"
-                command: bundle exec fastlane ios appstoreconnect_upload
+                command: bundle exec fastlane ios appstoreconnect_upload app_name:integreat
       - unless:
           condition: << parameters.production_delivery >>
           steps:
             - run:
                 name: "[FL] TestFlight Upload"
-                command: bundle exec fastlane ios testflight_upload version_name:${NEW_VERSION_NAME}
+                command: bundle exec fastlane ios testflight_upload app_name:integreat version_name:${NEW_VERSION_NAME}
       - run:
           name: "[FL] Upload to Sentry"
-          command: bundle exec fastlane ios sentry_upload version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
+          command: bundle exec fastlane ios sentry_upload app_name:integreat version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
       - slack/notify:
          message: Integreat ${NEW_VERSION_NAME} has been released successfully on iOS!
          webhook: ${SLACK_URL}
@@ -552,8 +559,8 @@ jobs:
             - ~/.cache/yarn
             - node_modules
       - run:
-          name: "[FL] E2E Tests on Browserstack"
-          command: bundle exec fastlane android browserstack_e2e_tests
+          name: "[FL] Android E2E Tests on Browserstack"
+          command: bundle exec fastlane android browserstack_e2e_tests app_name:integreat-test-cms
       - run:
-          name: "[FL] E2E Tests on Browserstack"
-          command: bundle exec fastlane ios browserstack_e2e_tests
+          name: "[FL] iOS E2E Tests on Browserstack"
+          command: bundle exec fastlane ios browserstack_e2e_tests app_name:integreat-test-cms
