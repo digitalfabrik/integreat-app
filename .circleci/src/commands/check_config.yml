@@ -2,8 +2,11 @@ description: This command builds the circle config from the files in src and val
 
 steps:
   - run:
+      name: Install CircleCI CLI
+      command: curl -fLSs https://raw.githubusercontent.com/CircleCI-Public/circleci-cli/master/install.sh | sudo bash
+  - run:
       name: Debug
-      comand: circleci config pack .circleci/src
+      command: circleci config pack .circleci/src
   - run:
       name: Build circle config
       command: echo $(circleci config pack .circleci/src) > .circleci/config.yml
