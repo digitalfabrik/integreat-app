@@ -1,37 +1,35 @@
 // @flow
 
-export type ColorsType = {
+export type ColorsType = {|
   themeColor: string,
-  themeDarkColor: string,
   backgroundAccentColor: string,
   textColor: string,
   textSecondaryColor: string,
   textDecorationColor: string,
+  textDisabledColor: string,
   backgroundColor: string,
   tunewsThemeColor: string,
-  inActiveTunewsColor: string
-}
+  tunewsThemeColorLight: string
+|}
 
-export const brightColors: ColorsType = {
-  themeColor: '#fbda16',
-  themeDarkColor: '#c4a900',
+export const commonLightColors = {
   backgroundAccentColor: '#fafafa',
   textColor: '#000000',
   textSecondaryColor: '#585858',
   textDecorationColor: '#c7c7c7',
+  textDisabledColor: '#d0d0d0',
   backgroundColor: '#ffffff',
-  tunewsThemeColor: '#0279a6',
-  inActiveTunewsColor: '#959595'
+  tunewsThemeColor: '#007aa8',
+  tunewsThemeColorLight: 'rgba(0, 122, 168, 0.4)'
 }
 
-export const darkColors: ColorsType = {
-  themeColor: '#fbda16',
-  themeDarkColor: '#c4a900',
+export const commonDarkColors = {
   backgroundAccentColor: '#111111',
   textColor: '#BBBBBB',
   textSecondaryColor: '#888888',
   textDecorationColor: '#555555',
+  textDisabledColor: '#444444',
   backgroundColor: '#222222',
-  tunewsThemeColor: '#0279a6',
-  inActiveTunewsColor: '#959595'
+  tunewsThemeColor: '#007aa8',
+  tunewsThemeColorLight: 'rgba(0, 122, 168, 0.4)'
 }

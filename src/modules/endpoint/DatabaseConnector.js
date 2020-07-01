@@ -20,7 +20,7 @@ import type {
 } from '../app/StateType'
 import DatabaseContext from './DatabaseContext'
 import { map, mapValues } from 'lodash'
-import { CONTENT_VERSION, RESOURCE_CACHE_VERSION } from '../endpoint/persistentVersions'
+import { CONTENT_VERSION, RESOURCE_CACHE_VERSION } from './persistentVersions'
 import deleteIfExists from './deleteIfExists'
 
 // Our pdf view can only load from DocumentDir. Therefore we need to use that

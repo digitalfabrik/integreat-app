@@ -261,3 +261,7 @@ Temporary Items
 
 # Sentry
 sentry.properties
+
+# Ruby Gems
+.bundle/
+vendor/

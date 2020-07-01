@@ -1,1 +1,5 @@
 /Pods/
+
+# Ruby Gems
+.bundle/
+vendor/
