@@ -35,6 +35,9 @@ In debug builds the test cms is used as default, so it is **only required for re
 To switch between test and live cms, click the location image on the landing page 10 times.
 On iOS it may be required to close and reopen the app after changing the cms instance.
 
+### Hidden cities
+Hidden cities can be viewed on the landing page by entering the search query `wirschaffendas`.
+
 ### Linting
 * The linter for JavaScript is [eslint](http://eslint.org/)
 

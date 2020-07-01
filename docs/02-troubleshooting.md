@@ -3,6 +3,9 @@
 ## Problems with sharp or other node modules
 Use nodejs 12 LTS instead of the latest version.
 
+## Incompatible Gradle Version
+The current gradle version may not work with Java 14. Switch to a lower java version (e.g. v11) or try to fix the issue.
+
 ## java.io.IOException: Unable to delete the directory on Windows 10
 Possible solutions:
 * Switch to Linux :)

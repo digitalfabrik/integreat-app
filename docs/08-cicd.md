@@ -10,10 +10,11 @@
 
 ## Triggering a Delivery using the CI
 
-The easiest way to deliver a new build to production or development is to trigger the corresponding CircleCI workflow *api_triggered_delivery*.
+The easiest way to deliver a new build to production or development is to trigger the corresponding CircleCI workflow *api_triggered_delivery*:
 
 * Get a CircleCI [Personal API Token](https://circleci.com/docs/2.0/managing-pi-tokens/).
-* Trigger a build using the tool [trigger-pipeline.sh](../.circleci/trigger-pipeline.sh).
+* Trigger a delivery using the tool [trigger-pipeline.sh](.circleci/trigger-pipeline).
+If no branch is specified, develop is used as default.
 * For more information on how to use it, execute it without parameters to see usage information.
 
 ## Workflows
@@ -27,18 +28,23 @@ Several workflows exist for different purposes:
 
 See the table below for a more detailed overview:
 
-|Workflow|Checks|E2E tests|Delivery|integreat build|integreat-test-cms build|malte build|
-|---|---|---|---|---|---|---|
-|commit|:heavy_check_mark:|:heavy_check_mark:|:x:|:x:|:heavy_check_mark:|:heavy_check_mark:|
-|weekly_development_delivery|:heavy_check_mark:|:x:|Development|:x:|:heavy_check_mark:|:heavy_check_mark:|
-|bi_weekly_production_delivery|:heavy_check_mark:|:x:|Production|:heavy_check_mark:|:x:|:heavy_check_mark:|
-|api_triggered_delivery|:heavy_check_mark:|:x:|Depends|Depends|Depends|:heavy_check_mark:|
+|Workflow|Checks|E2E tests|Delivery|integreat build|integreat-test-cms build|malte build|Version bump|
+|---|---|---|---|---|---|---|---|
+|commit|:heavy_check_mark:|:heavy_check_mark:|:x:|:x:|:heavy_check_mark:|:heavy_check_mark:|:x:|
+|weekly_development_delivery|:heavy_check_mark:|:x:|Development|:x:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
+|bi_weekly_production_delivery|:heavy_check_mark:|:x:|Production|:heavy_check_mark:|:x:|:heavy_check_mark:|:heavy_check_mark:|
+|api_triggered_delivery|:heavy_check_mark:|:x:|Depends|Depends|Depends|:heavy_check_mark:|:heavy_check_mark:|
 
 Steps executed if *Checks* is checked :heavy_check_mark::
 * Linting
 * Flow type checking
 * Unit testing with jest
 * Building the app
+
+Steps executed if *Version bump* is checked :heavy_check_mark::
+* TODO: Jira releases
+* TODO: Move release notes
+* Bump version: Bump the version(s) and create a tag and release on github
 
 ## Fastlane
 
@@ -72,20 +78,7 @@ Therefore, you can follow the documentation for Manual Builds to set up [certifi
 ## Determining the Next Version
 
 The next version of the app must be determined programmatically. The tool [next-version](../tools/next-version) can be used.
-
-Versions consist of a version name and a version code.
-
-### Version Name
-
-The following [schema](https://calver.org/) ![versioning](https://img.shields.io/badge/calver-YYYY.M.PATCH-22bfda.svg) is used for versioning, where `PATCH` is a counter for the number of releases in the corresponding month starting with 0.
-
-Examples:
-* First versions of 2020: `2020.1.0`, `2020.1.1`, `2020.1.2`.
-* First version of February 2020: `2020.2.0`. 
-
-### Version Code
-
-The version code is incremented for every build uploaded to the stores. The first version code was `100000` 
+More information on the version naming schema used can be found [here](03-conventions.md#versioning).
 
 ## Environment Variables and Dependencies
 
