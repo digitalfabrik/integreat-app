@@ -31,7 +31,7 @@ const LocalTabWrapper: StyledComponent<
   align-items: center;
   justify-content: center;
   background-color: ${props =>
-    props.isSelected ? props.theme.colors.themeColor : props.theme.colors.inActiveTunewsColor};
+    props.isSelected ? props.theme.colors.themeColor : props.theme.colors.textDisabledColor};
 `
 
 const LocalText: StyledComponent<{}, ThemeType, *> = styled.Text`
@@ -64,7 +64,7 @@ const NewsTypeItem = ({ tab, onItemPress, selectedNewsType, t, theme }) => {
 }
 
 const TranslatedNewsTypeItem = withTranslation('news')(
-  withTheme()(NewsTypeItem)
+  withTheme(NewsTypeItem)
 )
 
 type PropsType = {|
