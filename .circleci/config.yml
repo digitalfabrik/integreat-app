@@ -11,10 +11,7 @@ commands:
           | sudo bash
         name: Install CircleCI CLI
     - run:
-        command: circleci config pack .circleci/src
-        name: Debug
-    - run:
-        command: echo $(circleci config pack .circleci/src) > .circleci/config.yml
+        command: yarn run circleci:update-config
         name: Build circle config
     - run:
         command: |
