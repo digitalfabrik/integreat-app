@@ -1,2 +1,0 @@
-NSPhotoLibraryAddUsageDescription = "Um Bilder zu speichern, benötigt Integreat Zugriff auf die Galerie.";
-NSLocationWhenInUseUsageDescription = "Um nahegelegene Orte zu finden, benötigt Integreat Zugriff auf den Standort.";
