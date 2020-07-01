@@ -1,108 +1,96 @@
-versioning: ![versioning](https://img.shields.io/badge/calver-YYYY.M.PATCH-22bfda.svg)
-# integreat-react-native-app
+# Locales for the Integreat frontend
 
-## Development
+## Usage
 
-### Setup
+This repository should be included as a [git subtree](https://raw.githubusercontent.com/git/git/master/contrib/subtree/git-subtree.txt). 
 
-* Clone the repository
-* Install Android Studio and try to setup a test project
-* If you plan to use an Emulator try to run it with the test project and make sure it works
-* Open the project with an IDE of your choice
-* Run `yarn`
+For easier management of the subtrees, you should add the `integreat-locales` repository as a remote
+(otherwise the whole repo url has to be used for each command):
 
-### Running the App for development
+```bash
+git remote add locales git@github.com:Integreat/integreat-locales.git
+```
 
-* Run `yarn start` to start the bundler
+Initially, if the locales directory **does not exist**, you have to do:
 
-#### Android
+```bash
+git subtree add --prefix locales locales master --squash
+```
 
-* Run your Android Emulator or connect a device
-* Run `yarn android`
+The `--squash` command creates only a single commit for all the changes. After adding the subtree the log of your repository will look like this:
 
-#### iOS
-* Install CocoaPods pods: `cd ios && pod install`
-* Run `yarn ios`
+```txt
+*   b7ecd2f Merge commit '61d6a7d61de73a29e15ed08acad0a8eb3364c042' as 'locales'
+|\
+| * 61d6a7d Squashed 'locales/' content from commit 64908a1
+* d518e01 Initial commit
+```
 
-Note: The command `pod install` uses the versions from the Podfile.lock. `pod update` updates the Podfile.lock 
+### Pulling Changes
 
-Note: All dependencies are handled by CocoaPods. The versions in node_modules/ should not be used!
+**No action should cause a merge conflict! If there is a conflict then you are using subtrees wrong!**
 
-Note: If you are using Xcode, always open `project.xcworkspace`
+Pulling is required if you want to fetch commits from `integreat-locales`.
+This can happen because the project is shared between multiple people and branches as well as to pull your own changes made in the locales repo.
+To pull from `<branch>` of the locales, execute the following command (or the alias described in [Tips & Tricks](#tips-&-tricks):
 
-### IDE setup
-**Make sure you have at least [nodejs 6](https://nodejs.org/) installed**
+```bash
+git subtree pull --prefix locales locales <branch> --squash -m "Merging squashed locales for branch $(git rev-parse --abbrev-ref HEAD)"
+```
 
-We suggest IntellJ IDEA Ultimate as IDE. Just import this project (from existing sources).
-Run **yarn** in Terminal and right-click on package.json to show the npm scripts. 
+Note that we are using the `--squash` command which will create a merge commit:
 
-Install the following plugins:
-* ESLint
-* Styled Components
-   
-If you want you can associate the *.snap files with the file type JavaScript.
+```
+*   dc053771 (HEAD -> NATIVE-497-subtree) Merging squashed locales for branch NATIVE-497-subtree
+|\  
+| * 3d386e7c Squashed 'locales/' changes from b0db264d..2f2d7443
+| * 850eada7 Squashed 'locales/' content from commit b0db264d
+* | 7053596b NATIVE-Y: Some change
+* | 7053596b NATIVE-Y: Some other change
+```
 
-### Installing libraries with native code
+### Pushing Changes
 
-If you want to install an external library which brings native Android/iOS code you have to check several things:
-* Edit `Podfile` and `build.gradle` to include the native parts. DO NOT RUN `yarn react-native link`!
-* Run `pod update` in the `ios/` folder
-* Make sure the app still compiles on Android and iOS
+**No action should cause a merge conflict! If there is a conflict then you are using subtrees wrong!**
 
-### Debugging:
-[Debugging](docs/01-debugging.md)
+Modifications on the locales files should **only be made directly in the `integreat-locales` repository**.
+Just create a branch and a PR in the `integreat-locales` repo and pull the corresponding branch using the command mentioned in [Pulling Changes](#pulling-changes).
 
-### If you encounter problems:
-[Common Problems](docs/02-common-problems.md)
+**Note that you should not rebase the new branch after you pulled it into another repository.**
 
-# Technical documentation:
-[Technical documentation](docs/10-technical-documentation.md)
+After merging `<branch>` into `master` it is possible for anyone to pull again from `master` like described in [Pulling Changes](#pushing-changes). This step is optional for you right now as it will be pulled by the next person which creates a PR.
 
-# Conventions:
-[Conventions](docs/03-conventions.md)
+### Tips & Tricks
 
-### E2E Testing:
-[E2E Testing](docs/04-e2e.md)
+As the pull command is quite long you can define an alias:
+```bash
+git config alias.pull-locales '!f() { git subtree pull --prefix locales locales $1 --squash -m "Merging squashed locales for branch $(git rev-parse --abbrev-ref HEAD)"; }; f'
+```
 
-### Releasing:
-[Releasing](docs/06-releasing.md)
+Then you can pull using:
 
-## Technology stack
+```bash
+git pull-locales <branch>
+```
 
-### Bundler
-[Metro](https://facebook.github.io/metro/) is used to compile and bundle the app.
+## manage
 
-### Frontend framework
-[React](https://facebook.github.io/react/) is used as frontend framework.
-This allows us to build a single-page-application easily.
+### Converting to CSV
 
-### JavaScript compiler
-[Babel](https://babeljs.io/) is used to make the app available to a broader audience while 
-allowing the developers to use many new language features. We use flow for type safety.
+Example: `./manage convert locales.json csv csv`
 
-### Application state
-[Redux](http://redux.js.org/) is used for the global application state. 
-The data which is received through the restful api of the CMS is "cached" and stored in this state container.
+Notes:
+* The module keys in the CSVs are sorted
 
-### Testing
-* [Jest](https://facebook.github.io/jest/) is used for testing.
-* [<img src="docs/figures/browserstack-logo.png" width="150">](https://www.browserstack.com) is used for testing cross-platform compatibility
-* The [React Native Testing Library](https://github.com/callstack/react-native-testing-library) is used to test React Native Components
+### Converting to JSON
 
-### Linting
-* The linter for JavaScript is [eslint](http://eslint.org/)
+Example: `./manage convert csv locales.json json`
+ 
+Notes:
+* The module and language keys in the JSON are sorted
+* The source language is always the first language
 
-You can run the linter by calling **yarn run lint**. Some issues can be fixed automatically by running **yarn run lint:fix**
+## Origin of the locales
 
-### Type checking
-[Flow](https://flow.org/) is used for static type checking.
-
-Go to Settings > Languages & Frameworks > JavaScript and
-* choose **Flow** as Language version
-* set *Flow package or executable* to **<project_dir>/node_modules/flow-bin**
-
-You can run flow using **yarn flow**. 
-
-# Issue Tracker
-
-You can [view our issues](https://issues.integreat-app.de/projects/NATIVE) or [create new ones](https://issues.integreat-app.de/secure/CreateIssue!default.jspa) on our jira.
+This repository is the result of a merge of the locales between the webapp project and the react-native project. The base for the locales is the file `src/locales` from the integreat-react-native project. It was copied on on 04-09-2018 the from the integreat-webapp project.
+All changes after 04-09-2018 have been reapplied to the locales.json such that no locale changes are missing. The patches can be found in `origin`.
