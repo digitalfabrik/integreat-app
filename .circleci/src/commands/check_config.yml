@@ -2,6 +2,9 @@ description: This command builds the circle config from the files in src and val
 
 steps:
   - run:
+      name: Debug
+      comand: circleci config pack .circleci/src
+  - run:
       name: Build circle config
       command: echo $(circleci config pack .circleci/src) > .circleci/config.yml
   - run: # Taken from https://github.com/roopakv/orbs/blob/master/src/commands/fail_if_dirty.yml
