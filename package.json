@@ -82,8 +82,8 @@
   },
   "dependencies": {
     "entities": "^2.0.0",
+    "normalize-path": "^3.0.0",
     "is-url": "^1.2",
-    "lodash": "^4.17",
     "moment": "^2.24",
     "moment-timezone": "^0.5",
     "sanitize-html-react": "^1.13"
