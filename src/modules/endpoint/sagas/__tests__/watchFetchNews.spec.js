@@ -8,7 +8,7 @@ import LanguageModelBuilder from '../../../../testing/builder/LanguageModelBuild
 import watchFetchNews, { fetchNews } from '../watchFetchNews'
 import { expectSaga, testSaga } from 'redux-saga-test-plan'
 import loadCityContent from '../loadCityContent'
-import { LOCAL } from '../../../../modules/error/hocs/withCustomNewsProvider'
+import { LOCAL } from '../../../error/NewsTabs'
 
 jest.mock('rn-fetch-blob')
 jest.mock('../loadCityContent')

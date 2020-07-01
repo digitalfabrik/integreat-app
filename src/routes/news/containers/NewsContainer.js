@@ -19,12 +19,13 @@ import createNavigateToNews from '../../../modules/app/createNavigateToNews'
 import type { Dispatch } from 'redux'
 
 import type { NavigationScreenProp } from 'react-navigation'
-import withCustomPayloadProvider, { TUNEWS } from '../../../modules/error/hocs/withCustomNewsProvider'
+import withCustomPayloadProvider  from '../../../modules/error/hocs/withCustomNewsProvider'
 import type { StatusPropsType } from '../../../modules/error/hocs/withCustomNewsProvider'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import * as React from 'react'
 import { mapProps } from 'recompose'
 import TranslatedWithThemeNewsList from '../components/NewsList'
+import { TUNEWS } from '../../../modules/error/NewsTabs'
 
 type ContainerPropsType = {|
   newsId: ?string,

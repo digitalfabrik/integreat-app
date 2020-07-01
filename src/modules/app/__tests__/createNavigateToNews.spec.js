@@ -2,7 +2,7 @@
 
 import createNavigationScreenPropMock from '../../test-utils/createNavigationScreenPropMock'
 import createNavigateToNews from '../createNavigateToNews'
-import { LOCAL } from '../../../modules/error/hocs/withCustomNewsProvider'
+import { LOCAL } from '../../error/NewsTabs'
 
 describe('createNavigateToNews', () => {
   it('should generate key if not supplied with at least 6 chars and use it for both navigation and redux actions', () => {

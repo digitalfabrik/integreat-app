@@ -20,7 +20,7 @@ import type { NavigateToEventParamsType } from '../../../modules/app/createNavig
 import type { NavigateToNewsParamsType } from '../../../modules/app/createNavigateToNews'
 
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
-import { LOCAL } from '../../../modules/error/hocs/withCustomNewsProvider'
+import { LOCAL } from '../../../modules/error/NewsTabs'
 
 export type PropsType = {|
   navigation: NavigationScreenProp<*>,
