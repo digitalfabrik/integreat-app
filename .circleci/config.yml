@@ -209,13 +209,13 @@ jobs:
       - restore_environment_variables
       - restore_cache:
           keys:
-            - 1-gems-{{ arch }}-{{ checksum "android/Gemfile.lock" }}
-            - 1-gems-{{ arch }}-
+            - 2-gems-{{ arch }}-{{ checksum "android/Gemfile.lock" }}
+            - 2-gems-{{ arch }}-
       - run:
           command: bundle check || bundle install --path vendor/bundle
           working_directory: android
       - save_cache:
-          key: 1-gems-{{ arch }}-{{ checksum "android/Gemfile.lock" }}
+          key: 2-gems-{{ arch }}-{{ checksum "android/Gemfile.lock" }}
           paths:
             - android/vendor/bundle
       - restore_cache:
@@ -328,13 +328,13 @@ jobs:
       - restore_environment_variables
       - restore_cache:
           keys:
-            - 1-gems-{{ arch }}-{{ checksum "ios/Gemfile.lock" }}
-            - 1-gems-{{ arch }}-
+            - 2-gems-{{ arch }}-{{ checksum "ios/Gemfile.lock" }}
+            - 2-gems-{{ arch }}-
       - run:
           command: bundle check || bundle install --path vendor/bundle
           working_directory: ios
       - save_cache:
-          key: 1-gems-{{ arch }}-{{ checksum "ios/Gemfile.lock" }}
+          key: 2-gems-{{ arch }}-{{ checksum "ios/Gemfile.lock" }}
           paths:
             - ios/vendor/bundle
       - restore_cache:
@@ -354,15 +354,15 @@ jobs:
       - restore_cache:
           name: Restore CocoaPods Cache
           keys:
-            - 1-pods-{{ arch }}-{{ checksum "ios/Podfile.lock" }}
-            - 1-pods-{{ arch }}-
+            - 2-pods-{{ arch }}-{{ checksum "ios/Podfile.lock" }}
+            - 2-pods-{{ arch }}-
       - run:
           name: "[CP] Install CocoaPods"
           command: bundle exec pod install --deployment
           working_directory: ios
       - save_cache:
           name: Save CocoaPods Cache
-          key: 1-pods-{{ arch }}-{{ checksum "ios/Podfile.lock" }}
+          key: 2-pods-{{ arch }}-{{ checksum "ios/Podfile.lock" }}
           paths:
             - ~/Library/Caches/CocoaPods/
       - when:
@@ -457,12 +457,12 @@ jobs:
       - restore_environment_variables
       - restore_cache:
           keys:
-            - 1-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
-            - 1-gems-{{ arch }}-
+            - 2-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
+            - 2-gems-{{ arch }}-
       - run:
           command: bundle check || bundle install --path vendor/bundle
       - save_cache:
-          key: 1-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
+          key: 2-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
       - run:
@@ -496,12 +496,12 @@ jobs:
       - restore_environment_variables
       - restore_cache:
           keys:
-            - 1-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
-            - 1-gems-{{ arch }}-
+            - 2-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
+            - 2-gems-{{ arch }}-
       - run:
           command: bundle check || bundle install --path vendor/bundle
       - save_cache:
-          key: 1-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
+          key: 2-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
       - run:
@@ -540,12 +540,12 @@ jobs:
       - restore_environment_variables
       - restore_cache:
           keys:
-            - 1-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
-            - 1-gems-{{ arch }}-
+            - 2-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
+            - 2-gems-{{ arch }}-
       - run:
           command: bundle check || bundle install --path vendor/bundle
       - save_cache:
-          key: 1-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
+          key: 2-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
       - restore_cache:
