@@ -22,8 +22,8 @@ import ErrorCodes from '../../../modules/error/ErrorCodes'
 import NewsListItem from './NewsListItem'
 import styled from 'styled-components/native'
 import type { StyledComponent } from 'styled-components'
-import { TUNEWS } from '../../../modules/error/hocs/withCustomNewsProvider'
 import NewsItemsDetails from './NewsItemDetails'
+import { TUNEWS } from '../../../modules/error/NewsTabs'
 const tunewsWebsiteUrl = 'https://tunewsinternational.com'
 
 const NoNews: StyledComponent<{}, ThemeType, *> = styled.Text`

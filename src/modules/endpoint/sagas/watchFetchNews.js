@@ -15,13 +15,13 @@ import type Moment from 'moment'
 import { ContentLoadCriterion } from '../ContentLoadCriterion'
 import isPeekingRoute from '../selectors/isPeekingRoute'
 import ErrorCodes, { fromError } from '../../error/ErrorCodes'
-import { LOCAL } from '../../../modules/error/hocs/withCustomNewsProvider'
 import loadLocalNews from './loadLocalNews'
 import loadTunews from './loadTunews'
 import loadLanguages from './loadLanguages'
 import loadTunewsLanguages from './loadTunewsLanguages'
 
 import loadTunewsElement from './loadTunewsElement'
+import { LOCAL } from '../../error/NewsTabs'
 
 const TUNEWS_FETCH_COUNT_LIMIT = 20
 const FIRST_PAGE_INDEX = 1
