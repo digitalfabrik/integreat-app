@@ -162,6 +162,6 @@ class NewsList extends React.PureComponent<PropsType> {
 }
 
 const TranslatedWithThemeNewsList = withTranslation('news')(
-  withTheme(props => props.language)(NewsList)
+  withTheme(NewsList)
 )
 export default TranslatedWithThemeNewsList
