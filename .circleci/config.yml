@@ -43,7 +43,7 @@ workflows:
           requires:
             - prepare_production_delivery
 
-  api_triggered_debug_delivery: # Workflow for manual delivery to webnext.integreat.app and webnext.malteapp.de
+  api_triggered_development_delivery: # Workflow for manual delivery to webnext.integreat.app and webnext.malteapp.de
     when:
       and:
         - << pipeline.parameters.api_triggered >>
@@ -119,7 +119,7 @@ jobs:
           name: Test coverage # Results are not used right now. Run it anyway to (possibly) discover more problems.
           command: yarn run test:coverage --ci --maxWorkers ${TOTAL_CPUS}
       - run:
-          name: Debug integreat-test-cms build
+          name: Development integreat-test-cms build
           command: yarn build:integreat-test-cms
       - run:
           name: Production integreat build
@@ -175,8 +175,7 @@ jobs:
       - attach_workspace:
           at: /tmp/output
       - when:
-          condition:
-            << parameters.production_delivery >>
+          condition: << parameters.production_delivery >>
           steps:
             - run:
                 name: Integreat production delivery # StrictHostKeyChecking=no is not a security problem. The worst that could happen is a delivery to the wrong domain.
@@ -188,12 +187,11 @@ jobs:
                 message: WebApp version ${NEW_VERSION_NAME} was delivered successfully to integreat.app and malteapp.de!
                 webhook: ${SLACK_URL}
       - unless:
-          condition:
-            << parameters.production_delivery >>
+          condition: << parameters.production_delivery >>
           steps:
             - run:
-                name: Integreat debug delivery
+                name: Integreat development delivery
                 command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.integreat.app \<<< $'put -r /tmp/output/dist/integreat-test-cms/*'
             - run:
-                name: Malte debug delivery
+                name: Malte development delivery
                 command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.malteapp.de \<<< $'put -r /tmp/output/dist/malte/*'

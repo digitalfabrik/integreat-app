@@ -7,24 +7,28 @@ versioning: ![versioning](https://img.shields.io/badge/calver-YYYY.MM.PATCH-22bf
 ## Contents
 * [Contributing](#contributing)
 * [Getting Started](#getting-started)
-* [Bug reporting](#bug-reporting)
-* [Pull requests](#pull-requests)
 * [Conventions](docs/01-conventions.md)
 * [Technology Stack](docs/02-technology-stack.md)
 * [Browser Stack](docs/05-browser-stack.md)
-* [Deployment](docs/03-deployment.md)
+* [Delivery](docs/03-delivery.md)
+* [CI/CD](docs/06-cicd.md)
 * [I18N](docs/14-i18n.md)
 * [Glossary](https://wiki.integreat-app.de/glossary)
 
 ## Contributing
+You can contribute by:
+* [Creating Pull requests](.github/CONTRIBUTING.md#pull-requests)
+* [Reporting bugs](#bug-reporting)
+
+**Testing with the live cms instance should be avoided. Instead, [please use the test cms](docs/02-technology-stack.md#test-cms).**
+
 If you want to know more about Integreat or if you want to join us, contact [Max](mailto:ammann@integreat-app.de), 
 [Steffen](mailto:kleinle@integreat-app.de) or [our info mail](mailto:info@integreat-app.de) and visit our [website](https://integreat-app.de).
-[Pull requests](#pull-requests) and [bug reports](#bug-reporting) are also very much appreciated.
 
-**Testing with the live cms instance should be avoided. Instead, [please use the test cms](docs/02-technology-stack.md/#test-cms).**
- 
 ## Getting Started
 ### Prerequisites
+* Rate our Integreat app in the [PlayStore](https://play.google.com/store/apps/details?id=tuerantuer.app.integreat)
+and the [Apple App Store](https://apps.apple.com/ae/app/integreat/id1072353915).
 * Install [nodejs](https://nodejs.org/). At least v6 is required, but we recommend the v12 LTS.
 Using the latest version (v13) may lead to errors.
 * Install [yarn](https://yarnpkg.com/)
@@ -41,15 +45,16 @@ If you are using a different IDE, the steps might differ.
 
 #### Additional Configuration
 * Mark the *src* and *www* folder as *Source directory*.
-* Run > Edit Configurations > Defaults > Jest  
-   to set *Configuration file* to *jest.config.json*
+* Run > Edit Configurations > Defaults > Jest and set *Configuration file* to *jest.config.json*
    
 * Settings > Languages & Frameworks > JavaScript and
-    * choose *Flow* as Language version
-    * set *Flow package or executable* to *<project_dir>/node_modules/flow-bin*
+    * Choose *Flow* as Language version
+    * Set *Flow package or executable* to *<project_dir>/node_modules/flow-bin*
    
 * [optional] Associate the *\*.snap* files with the file type *JavaScript*.
-* [optional] Install the following plugins: *Styled Components*, *EJS*.
+* [optional] Install the following plugins:
+    * [Styled Components](https://plugins.jetbrains.com/plugin/9997-styled-components--styled-jsx/)
+    * [EJS](https://plugins.jetbrains.com/plugin/index?xmlId=com.jetbrains.lang.ejs)
 
 ### Trouble shooting
 * Use nodejs 12 LTS instead of the latest version.
