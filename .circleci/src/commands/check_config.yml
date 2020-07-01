@@ -3,10 +3,7 @@ description: This command builds the circle config from the files in src and val
 steps:
   - run:
       name: Build circle config
-      command: circleci config pack .circleci/src > .circleci/config.yml
-  - run:
-      name: Validate circle config
-      command: circleci config validate
+      command: echo $(circleci config pack .circleci/src) > .circleci/config.yml
   - run: # Taken from https://github.com/roopakv/orbs/blob/master/src/commands/fail_if_dirty.yml
       name: CircleCI config up to date
       command: |
@@ -23,3 +20,6 @@ steps:
           echo "The CircleCI config is not up to date. Rebuild it from .circleci/config"
           exit 1;
         fi
+  - run:
+      name: Validate circle config
+      command: circleci config validate
