@@ -121,6 +121,6 @@ class ExtrasContainer extends React.Component<ExtrasPropsType, ExtrasStateType> 
 
 export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(
   withTranslation('extras')(
-    withTheme(props => props.language)(
-      ExtrasContainer
-    )))
+    withTheme(ExtrasContainer)
+  )
+)

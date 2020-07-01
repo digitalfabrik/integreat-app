@@ -1,33 +1,25 @@
-require_relative '../../fastlane/version'
-
 fastlane_version "2.143.0"
 
 before_all do
   setup_circle_ci
 end
 
-desc "Setup certificates"
+desc "Download and setup certificates"
 lane :certificates do
   ensure_env_vars(
       env_vars: ['FASTLANE_USER']
   )
 
   # https://docs.fastlane.tools/actions/match/
-  sync_code_signing(type: "appstore", username: ENV['FASTLANE_USER'])
+  sync_code_signing(type: "appstore", username: ENV['FASTLANE_USER'], verbose: true)
 end
 
-desc "Create a simulator build"
-lane :simulator_build do
-  xcbuild(
-      workspace: "Integreat.xcworkspace",
-      scheme: "Integreat",
-      configuration: "Debug",
-      xcargs: "-sdk iphonesimulator"
-  )
-end
-
-desc "Create a build"
-lane :build do
+# version_name: The version name the build should use
+# version_code: The version code the build should use
+desc "Create a release build"
+lane :build do |options|
+  version_code = options[:version_code]
+  version_name = options[:version_name]
   ensure_env_vars(
       env_vars: ['FASTLANE_USER']
   )
@@ -35,18 +27,16 @@ lane :build do
   ENV["BUNDLE_CONFIG"] = "./metro.config.ci.js"
   ENV["EXTRA_PACKAGER_ARGS"] = "--sourcemap-output /Users/distiller/project/ios/index.ios.bundle.map"
 
-  next_version = next_version()
-
   # https://docs.fastlane.tools/actions/match/
   sync_code_signing(type: "development", username: ENV['FASTLANE_USER'])
   sync_code_signing(type: "appstore", username: ENV['FASTLANE_USER'])
 
   increment_build_number(
-      build_number: next_version[:new_version_code]
+      build_number: version_code
   )
 
   increment_version_number(
-      version_number: next_version[:new_version_name]
+      version_number: version_name
   )
 
   build_app(
