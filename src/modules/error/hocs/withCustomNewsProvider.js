@@ -18,8 +18,7 @@ import type { NavigationScreenProp } from 'react-navigation'
 
 import LoadingSpinner from '../../common/components/LoadingSpinner'
 import NewsHeader from '../../common/NewsHeader'
-export const TUNEWS = 'tunews'
-export const LOCAL = 'local'
+import { LOCAL, TUNEWS } from '../NewsTabs'
 
 export type RouteNotInitializedType = {| status: "routeNotInitialized" |}
 

@@ -6,23 +6,9 @@ import type { StyledComponent } from 'styled-components'
 import styled from 'styled-components/native'
 import { withTranslation } from 'react-i18next'
 import withTheme from '../../modules/theme/hocs/withTheme'
-import { LOCAL, TUNEWS } from '../error/hocs/withCustomNewsProvider'
 import type { ThemeType } from '../theme/constants/theme'
-import activeInternational from '../../routes/news/assets/tu-news-active.svg'
-import inactiveInternational from '../../routes/news/assets/tu-news-inactive.svg'
 import type { NewsType } from '../app/StateType'
-
-const localNewsTab = {
-  type: LOCAL,
-  toggleAttrribute: 'pushNotificationsEnabled'
-}
-
-const tunewsTab = {
-  type: TUNEWS,
-  active: activeInternational,
-  inactive: inactiveInternational,
-  toggleAttrribute: 'tunewsEnabled'
-}
+import { LOCAL, LOCAL_NEWS_TAB, TUNEWS_TAB } from '../error/NewsTabs'
 
 const NewsTypeIcon = styled.Image`
   align-self: center;
@@ -50,7 +36,8 @@ const LocalTabWrapper: StyledComponent<
 
 const LocalText: StyledComponent<{}, ThemeType, *> = styled.Text`
   font-size: 18px;
-  font-family: ${props => props.theme.fonts.decorativeFontBold}
+  font-family: ${props => props.theme.fonts.decorativeFontBold};
+  text-transform: uppercase;
   color: ${props => props.theme.colors.backgroundColor};
 `
 
@@ -94,7 +81,7 @@ const NewsHeader = (props: PropsType) => {
       {cityModel && cityModel.pushNotificationsEnabled && (
         <TranslatedNewsTypeItem
           key='pushNotificationsEnabled'
-          tab={localNewsTab}
+          tab={LOCAL_NEWS_TAB}
           selectedNewsType={selectedNewsType}
           onItemPress={selectAndFetchLocalNews}
         />
@@ -102,7 +89,7 @@ const NewsHeader = (props: PropsType) => {
       {cityModel && cityModel.tunewsEnabled && (
         <TranslatedNewsTypeItem
           key='tunewsEnabled'
-          tab={tunewsTab}
+          tab={TUNEWS_TAB}
           selectedNewsType={selectedNewsType}
           onItemPress={selectAndFetchTunews}
         />
