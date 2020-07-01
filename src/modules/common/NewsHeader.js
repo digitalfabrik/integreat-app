@@ -7,23 +7,22 @@ import styled from 'styled-components/native'
 import { withTranslation } from 'react-i18next'
 import withTheme from '../../modules/theme/hocs/withTheme'
 import { LOCAL, TUNEWS } from '../error/hocs/withCustomNewsProvider'
-import type { ThemeType } from '../../modules/theme/constants/theme'
+import type { ThemeType } from '../theme/constants/theme'
 import activeInternational from '../../routes/news/assets/tu-news-active.svg'
 import inactiveInternational from '../../routes/news/assets/tu-news-inactive.svg'
-import type { NewsType } from '../../modules/app/StateType'
+import type { NewsType } from '../app/StateType'
 
-const newsTabs = [
-  {
-    type: LOCAL,
-    toggleAttrribute: 'pushNotificationsEnabled'
-  },
-  {
-    type: TUNEWS,
-    active: activeInternational,
-    inactive: inactiveInternational,
-    toggleAttrribute: 'tunewsEnabled'
-  }
-]
+const localNewsTab = {
+  type: LOCAL,
+  toggleAttrribute: 'pushNotificationsEnabled'
+}
+
+const tunewsTab = {
+  type: TUNEWS,
+  active: activeInternational,
+  inactive: inactiveInternational,
+  toggleAttrribute: 'tunewsEnabled'
+}
 
 const NewsTypeIcon = styled.Image`
   align-self: center;
@@ -62,13 +61,10 @@ const HeaderContainer: StyledComponent<{}, ThemeType, *> = styled.View`
 `
 
 const NewsTypeItem = ({ tab, onItemPress, selectedNewsType, t, theme }) => {
-  function onPress () {
-    onItemPress(tab.type)
-  }
   const isLocal = tab.type === LOCAL
   const isSelected = tab.type === selectedNewsType
   return (
-    <TouchableWrapper onPress={onPress}>
+    <TouchableWrapper onPress={onItemPress}>
       {isLocal ? (
         <LocalTabWrapper isSelected={isSelected} theme={theme}>
           <LocalText theme={theme}>{t(tab.type)}</LocalText>
@@ -87,27 +83,28 @@ const TranslatedNewsTypeItem = withTranslation('news')(
 type PropsType = {|
   cityModel?: CityModel,
   selectedNewsType: NewsType,
-  selectAndFetchNews: () => void
+  selectAndFetchLocalNews: () => void,
+  selectAndFetchTunews: () => void
 |}
 
 const NewsHeader = (props: PropsType) => {
-  const { cityModel, selectedNewsType, selectAndFetchNews } = props
+  const { cityModel, selectedNewsType, selectAndFetchLocalNews, selectAndFetchTunews } = props
   return (
     <HeaderContainer>
       {cityModel && cityModel.pushNotificationsEnabled && (
         <TranslatedNewsTypeItem
           key='pushNotificationsEnabled'
-          tab={newsTabs[0]}
+          tab={localNewsTab}
           selectedNewsType={selectedNewsType}
-          onItemPress={selectAndFetchNews}
+          onItemPress={selectAndFetchLocalNews}
         />
       )}
       {cityModel && cityModel.tunewsEnabled && (
         <TranslatedNewsTypeItem
           key='tunewsEnabled'
-          tab={newsTabs[1]}
+          tab={tunewsTab}
           selectedNewsType={selectedNewsType}
-          onItemPress={selectAndFetchNews}
+          onItemPress={selectAndFetchTunews}
         />
       )}
     </HeaderContainer>

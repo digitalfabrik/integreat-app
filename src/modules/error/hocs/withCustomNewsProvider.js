@@ -118,7 +118,8 @@ const withCustomNewsProvider = <
         return LOCAL
       }
 
-      selectAndFetchNews = type => { this.setState({ selectedNewsType: type }, this.fetchNews) };
+      selectAndFetchTunews = () => { this.setState({ selectedNewsType: TUNEWS }, this.fetchNews) };
+      selectAndFetchLocalNews = () => { this.setState({ selectedNewsType: LOCAL }, this.fetchNews) };
 
       fetchNews = () => {
         const { selectedNewsType } = this.state
@@ -198,8 +199,10 @@ const withCustomNewsProvider = <
             <View style={{ flex: 1 }}>
               {!props.innerProps?.newsId && props.innerProps?.cityModel &&
               <NewsHeader selectedNewsType={this.state.selectedNewsType}
-                            cityModel={props.innerProps?.cityModel}
-                              selectAndFetchNews={this.selectAndFetchNews} />}
+                          cityModel={props.innerProps?.cityModel}
+                          selectAndFetchLocalNews={this.selectAndFetchLocalNews}
+                          selectAndFetchTunews={this.selectAndFetchTunews}
+              />}
               <LoadingSpinner />
             </View>
           )
@@ -207,8 +210,9 @@ const withCustomNewsProvider = <
           return (
             <View style={{ flex: 1 }}>
               {!props.innerProps.newsId && <NewsHeader selectedNewsType={this.state.selectedNewsType}
-                                                        cityModel={props.innerProps.cityModel}
-                                                          selectAndFetchNews={this.selectAndFetchNews} />}
+                                                       cityModel={props.innerProps.cityModel}
+                                                       selectAndFetchLocalNews={this.selectAndFetchLocalNews}
+                                                       selectAndFetchTunews={this.selectAndFetchTunews} />}
               <Component {...props.innerProps} dispatch={props.dispatch} />
             </View>
           )
