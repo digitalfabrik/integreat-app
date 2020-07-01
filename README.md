@@ -10,7 +10,7 @@
 
 ## Contributing
 You can contribute by:
-* [Creating Pull requests](#pull-requests)
+* [Creating Pull requests](.github/CONTRIBUTING.md#pull-requests)
 * [Reporting bugs](#bug-reporting)
 
 **Testing with the live cms instance should be avoided. Instead, [please use the test cms](docs/04-technical-documentation.md#test-cms).**
@@ -82,10 +82,3 @@ For more information on how to debug, have a look at our [debugging section](doc
 ## Bug reporting
 You can [view our issues](https://issues.integreat-app.de/projects/NATIVE) or
  [create new ones](https://issues.integreat-app.de/secure/CreateIssue!default.jspa) on our jira.
-
-## Pull requests
-Please take a look at our [conventions](docs/03-conventions.md).
-
-To merge a pull request,
-* at least two approvals are required.
-* Tests, linting and flow have to succeed.
