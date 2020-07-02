@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import TestRenderer from 'react-test-renderer'
-import brightTheme from '../../../../modules/theme/constants/theme'
+import lightTheme from '../../../../modules/theme/constants/theme'
 import Events from '../Events'
 import EventModelBuilder from '../../../../testing/builder/EventModelBuilder'
 import CityModelBuilder from '../../../../testing/builder/CityModelBuilder'
@@ -34,7 +34,7 @@ describe('Events', () => {
     const navigation = createNavigationScreenPropMock()
     const result = TestRenderer.create(
       <Events path={event.path} events={events} cities={cities} cityCode={city.code}
-              language={language.code} resourceCache={{ notAvailable: {} }} theme={brightTheme} t={key => key}
+              language={language.code} resourceCache={{ notAvailable: {} }} theme={lightTheme} t={key => key}
               navigation={navigation} navigateToEvent={() => {}} navigateToIntegreatUrl={() => {}} />
     )
     const pageInstance = result.root.findByType(Page)
