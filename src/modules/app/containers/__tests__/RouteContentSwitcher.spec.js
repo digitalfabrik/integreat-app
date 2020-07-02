@@ -34,7 +34,7 @@ describe('RouteContentSwitcher', () => {
       code: 'city1',
       live: true,
       eventsEnabled: true,
-      extrasEnabled: false,
+      offersEnabled: false,
       pushNotificationsEnabled: false,
       tunewsEnabled: false,
       sortingName: 'Mambo',
@@ -58,9 +58,9 @@ describe('RouteContentSwitcher', () => {
     localNewsElementPayload: fetchingPayload(),
     tunewsPayload: fetchingPayload(),
     tunewsElementPayload: fetchingPayload(),
-    extrasPayload: fetchingPayload(),
+    offersPayload: fetchingPayload(),
     sprungbrettJobsPayload: fetchingPayload(),
-    wohnenPayload: fetchingPayload(),
+    wohnenOffersPayload: fetchingPayload(),
     disclaimerPayload: fetchingPayload()
   }
 
@@ -73,9 +73,9 @@ describe('RouteContentSwitcher', () => {
     localNewsElementPayload: fetchingPayload(),
     tunewsPayload: fetchingPayload(),
     tunewsElementPayload: fetchingPayload(),
-    extrasPayload: fetchingPayload(),
+    offersPayload: fetchingPayload(),
     sprungbrettJobsPayload: fetchingPayload(),
-    wohnenPayload: fetchingPayload(),
+    wohnenOffersPayload: fetchingPayload(),
     disclaimerPayload: fetchingPayload()
   }
 

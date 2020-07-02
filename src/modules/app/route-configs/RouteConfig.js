@@ -4,7 +4,7 @@ import type { LocationState, Route } from 'redux-first-router'
 import {
   CityModel,
   Payload,
-  ExtraModel,
+  OfferModel,
   PoiModel,
   CategoriesMapModel,
   SprungbrettJobModel,
@@ -25,9 +25,9 @@ export type AllPayloadsType = {|
   localNewsElementPayload: Payload<LocalNewsModel>,
   tunewsPayload: Payload<Array<TunewsModel>>,
   tunewsElementPayload: Payload<TunewsModel>,
-  extrasPayload: Payload<Array<ExtraModel>>,
+  offersPayload: Payload<Array<OfferModel>>,
   sprungbrettJobsPayload: Payload<Array<SprungbrettJobModel>>,
-  wohnenPayload: Payload<Array<WohnenOfferModel>>,
+  wohnenOffersPayload: Payload<Array<WohnenOfferModel>>,
   disclaimerPayload: Payload<PageModel>
 |}
 

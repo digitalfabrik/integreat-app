@@ -10,7 +10,7 @@ import searchIcon from '../assets/magnifier.svg'
 import landingIcon from '../assets/location-icon.svg'
 import Header from '../../../modules/layout/components/Header'
 import HeaderNavigationItem from '../components/HeaderNavigationItem'
-import ExtrasRouteConfig, { EXTRAS_ROUTE } from '../../app/route-configs/ExtrasRouteConfig'
+import OffersRouteConfig, { OFFERS_ROUTE } from '../../app/route-configs/OffersRouteConfig'
 import CategoriesRouteConfig, { CATEGORIES_ROUTE } from '../../app/route-configs/CategoriesRouteConfig'
 import EventsRouteConfig, { EVENTS_ROUTE } from '../../app/route-configs/EventsRouteConfig'
 import LocalNewsRouteConfig, { LOCAL_NEWS_ROUTE } from '../../app/route-configs/LocalNewsRouteConfig'
@@ -34,7 +34,7 @@ import HeaderActionBarItemLink from '../components/HeaderActionItemLink'
 import buildConfig from '../../../modules/app/constants/buildConfig'
 
 const newsRoutes = [LOCAL_NEWS_ROUTE, TUNEWS_ROUTE, TUNEWS_DETAILS_ROUTE, LOCAL_NEWS_DETAILS_ROUTE]
-const extrasRoutes = [EXTRAS_ROUTE, WOHNEN_ROUTE, SPRUNGBRETT_ROUTE]
+const offersRoutes = [OFFERS_ROUTE, WOHNEN_ROUTE, SPRUNGBRETT_ROUTE]
 
 type PropsType = {|
   events: ?Array<EventModel>,
@@ -45,7 +45,7 @@ type PropsType = {|
   isEventsEnabled: boolean,
   isLocalNewsEnabled: boolean,
   isTunewsEnabled: boolean,
-  isExtrasEnabled: boolean,
+  isOffersEnabled: boolean,
   onStickyTopChanged: number => void,
   languageChangePaths: ?LanguageChangePathsType
 |}
@@ -65,7 +65,7 @@ export class LocationHeader extends React.Component<PropsType> {
   }
 
   getNavigationItems (): Array<Element<typeof HeaderNavigationItem>> {
-    const { t, isEventsEnabled, isLocalNewsEnabled, isTunewsEnabled, isExtrasEnabled, location, events } = this.props
+    const { t, isEventsEnabled, isLocalNewsEnabled, isTunewsEnabled, isOffersEnabled, location, events } = this.props
 
     const { city, language } = location.payload
     const currentRoute = location.type
@@ -73,10 +73,9 @@ export class LocationHeader extends React.Component<PropsType> {
     const isNewsVisible = buildConfig.featureFlags.newsStream && (isLocalNewsEnabled || isTunewsEnabled)
     const isEventsVisible = isEventsEnabled
     const isMapVisible = buildConfig.featureFlags.pois // todo: check for flag from cms
-    const isExtrasVisible = isExtrasEnabled
+    const isOffersVisible = isOffersEnabled
 
-    const showNavBar = isNewsVisible || isEventsVisible || isMapVisible || isExtrasVisible
-
+    const showNavBar = isNewsVisible || isEventsVisible || isMapVisible || isOffersVisible
     if (!showNavBar) {
       return []
     }
@@ -131,12 +130,12 @@ export class LocationHeader extends React.Component<PropsType> {
         />)
     }
 
-    if (isExtrasEnabled) {
+    if (isOffersVisible) {
       items.push(
         <HeaderNavigationItem
-          key='extras'
-          href={new ExtrasRouteConfig().getRoutePath({ city, language })}
-          active={extrasRoutes.includes(currentRoute)}
+          key='offers'
+          href={new OffersRouteConfig().getRoutePath({ city, language })}
+          active={offersRoutes.includes(currentRoute)}
           text={t('offers')}
           icon={offersIcon}
         />

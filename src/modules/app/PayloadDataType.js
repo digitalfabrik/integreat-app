@@ -4,7 +4,7 @@ import {
   CategoriesMapModel,
   CityModel,
   EventModel,
-  ExtraModel,
+  OfferModel,
   LanguageModel,
   LocalNewsModel,
   PageModel,
@@ -14,6 +14,6 @@ import {
   WohnenOfferModel
 } from '@integreat-app/integreat-api-client'
 
-export type PayloadDataType = Array<CityModel> | Array<LanguageModel> | Array<ExtraModel> | Array<EventModel>
+export type PayloadDataType = Array<CityModel> | Array<LanguageModel> | Array<OfferModel> | Array<EventModel>
   | PageModel | CategoriesMapModel | Array<SprungbrettJobModel> | Array<WohnenOfferModel> | Array<LocalNewsModel>
   | LocalNewsModel | Array<TunewsModel> | TunewsModel | Array<PoiModel>

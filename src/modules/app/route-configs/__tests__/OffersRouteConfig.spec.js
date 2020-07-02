@@ -1,11 +1,11 @@
 // @flow
 
-import ExtrasRouteConfig from '../ExtrasRouteConfig'
-import { CityModel, ExtraModel, Payload } from '@integreat-app/integreat-api-client'
+import OffersRouteConfig from '../OffersRouteConfig'
+import { CityModel, OfferModel, Payload } from '@integreat-app/integreat-api-client'
 import createLocation from '../../../../createLocation'
 
-const extras = [
-  new ExtraModel({
+const offers = [
+  new OfferModel({
     alias: 'ihk-praktikumsboerse',
     path: 'ihk-pratkitkumsboerse.com',
     title: 'Praktikumsboerse',
@@ -18,7 +18,7 @@ const cities = [new CityModel({
   code: 'augsburg',
   live: true,
   eventsEnabled: true,
-  extrasEnabled: true,
+  offersEnabled: true,
   pushNotificationsEnabled: true,
   tunewsEnabled: true,
   sortingName: 'Augsburg',
@@ -27,14 +27,14 @@ const cities = [new CityModel({
   longitude: null,
   aliases: null
 })]
-const extrasPayload = new Payload(false, 'https://random.api.json', extras, null)
+const offersPayload = new Payload(false, 'https://random.api.json', offers, null)
 const citiesPayload = new Payload(false, 'https://random.api.json', cities, null)
-const payloads = { extras: extrasPayload, cities: citiesPayload }
+const payloads = { offers: offersPayload, cities: citiesPayload }
 
 const t = (key: ?string): string => key || ''
 
-describe('ExtrasRouteConfig', () => {
-  const extasRouteConfig = new ExtrasRouteConfig()
+describe('OffersRouteConfig', () => {
+  const extasRouteConfig = new OffersRouteConfig()
 
   it('should get the right path', () => {
     expect(extasRouteConfig.getRoutePath({ city: 'augsburg', language: 'de' })).toBe('/augsburg/de/offers')
@@ -42,7 +42,7 @@ describe('ExtrasRouteConfig', () => {
 
   it('should get the required payloads', () => {
     const allPayloads = {
-      extrasPayload,
+      offersPayload,
       citiesPayload,
       categoriesPayload: new Payload(true),
       disclaimerPayload: new Payload(true),
@@ -52,7 +52,7 @@ describe('ExtrasRouteConfig', () => {
       tunewsPayload: new Payload(true),
       tunewsElementPayload: new Payload(true),
       poisPayload: new Payload(true),
-      wohnenPayload: new Payload(true),
+      wohnenOffersPayload: new Payload(true),
       sprungbrettJobsPayload: new Payload(true)
     }
 
@@ -80,11 +80,11 @@ describe('ExtrasRouteConfig', () => {
     })
 
     expect(extasRouteConfig.getPageTitle({ payloads, location, cityName: 'Augsburg', t }))
-      .toBe('pageTitles.extras - Augsburg')
+      .toBe('pageTitles.offers - Augsburg')
 
     const wrongLocation = createLocation({
       payload: { city: 'wrong-location', language: 'de' },
-      pathname: '/wrong-location/de/extras',
+      pathname: '/wrong-location/de/offers',
       type: extasRouteConfig.name
     })
     expect(extasRouteConfig.getPageTitle({ payloads, cityName: null, location: wrongLocation, t }))

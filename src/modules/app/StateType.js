@@ -4,7 +4,7 @@ import {
   CategoriesMapModel,
   CityModel,
   EventModel,
-  ExtraModel,
+  OfferModel,
   LanguageModel,
   LocalNewsModel,
   PageModel,
@@ -24,7 +24,7 @@ export type TunewsStateType = { allData: TunewsModel[], hasMore: boolean, payloa
 export type StateType = {
   location: LocationState,
   categories: Payload<CategoriesMapModel>,
-  extras: Payload<Array<ExtraModel>>,
+  offers: Payload<Array<OfferModel>>,
   events: Payload<Array<EventModel>>,
   localNews: Payload<Array<LocalNewsModel>>,
   localNewsElement: Payload<LocalNewsModel>,
