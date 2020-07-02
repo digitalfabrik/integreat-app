@@ -1,11 +1,11 @@
 // @flow
 
-import createExtrasEndpoint from '../createExtrasEndpoint'
-import ExtraModel from '../../models/ExtraModel'
+import createOffersEndpoint from '../createOffersEndpoint'
+import OfferModel from '../../models/OfferModel'
 
 describe('endpoint', () => {
   const baseUrl = 'https://integreat-api-url.de'
-  const extras = createExtrasEndpoint(baseUrl)
+  const offers = createOffersEndpoint(baseUrl)
 
   const pageJson = [
     {
@@ -36,22 +36,22 @@ describe('endpoint', () => {
   lehrstellenRadarPostData.set('radius', '50')
   lehrstellenRadarPostData.set('plz', '86150')
 
-  const extraModels = [
-    new ExtraModel({
+  const offerModels = [
+    new OfferModel({
       alias: 'serlo-abc',
       thumbnail: 'some_thumbnail',
       title: 'Serlo ABC',
       path: 'https://abc-app.serlo.org/',
       postData: null
     }),
-    new ExtraModel({
+    new OfferModel({
       alias: 'sprungbrett',
       thumbnail: 'some_other_thumbnail',
       title: 'Sprungbrett',
       path: 'https://web.integreat-app.de/proxy/sprungbrett/app-search-internships?location=augsburg',
       postData: null
     }),
-    new ExtraModel({
+    new OfferModel({
       alias: 'lehrstellen-radar',
       thumbnail: 'some_other_thumbnail',
       title: 'Lehrstellenradar',
@@ -63,21 +63,13 @@ describe('endpoint', () => {
   const params = {city: 'bad-toelz', language: 'en'}
 
   it('should map router to url', () => {
-    expect(extras.mapParamsToUrl(params)).toEqual(
+    expect(offers.mapParamsToUrl(params)).toEqual(
       'https://integreat-api-url.de/bad-toelz/en/wp-json/extensions/v3/extras'
     )
   })
 
-  it('should throw if the city to map the url are missing', () => {
-    expect(() => extras.mapParamsToUrl({city: undefined, language: 'de'})).toThrowErrorMatchingSnapshot()
-  })
-
-  it('should throw if the language to map the url are missing', () => {
-    expect(() => extras.mapParamsToUrl({city: 'city', language: undefined})).toThrowErrorMatchingSnapshot()
-  })
-
   it('should map json to models', () => {
-    const disclaimerModel = extras.mapResponse(pageJson, params)
-    expect(disclaimerModel).toEqual(extraModels)
+    const disclaimerModel = offers.mapResponse(pageJson, params)
+    expect(disclaimerModel).toEqual(offerModels)
   })
 })

@@ -1,5 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`endpoint should throw if the city to map the url are missing 1`] = `"ParamMissingError: Failed to load the extras endpoint because the city is missing"`;
-
-exports[`endpoint should throw if the language to map the url are missing 1`] = `"ParamMissingError: Failed to load the extras endpoint because the language is missing"`;
