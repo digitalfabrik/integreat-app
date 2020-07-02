@@ -1,25 +1,24 @@
 #!/usr/bin/env node
 
+const loadBuildConfig = require('../build-configs')
 const { program } = require('commander')
-const { buildConfigs } = require('../build-configs')
 const fs = require('fs')
 
 program
   .option('-d, --debug', 'enable extreme logging')
 
-const createXcconfigs = async () => {
-  Object.keys(buildConfigs).forEach(key => {
-    const { iosBuildOptions } = buildConfigs[key]
-    const content = Object.keys(iosBuildOptions).map(key => `${key} = ${iosBuildOptions[key]}`).join('\n')
-    fs.writeFileSync(`ios/${key}.tmp.xcconfig`, content)
-  })
+const createXcconfigs = async buildConfigName => {
+  const { iosBuildOptions } = loadBuildConfig(buildConfigName)
+  const content = Object.keys(iosBuildOptions).map(key => `${key} = ${iosBuildOptions[key]}`).join('\n')
+  fs.writeFileSync('ios/buildConfig.tmp.xcconfig', content)
 }
 
 program
-  .description('commits the supplied version name and code to github and tags the commit')
-  .action(async () => {
+  .command('config <build_config_name>')
+  .description('creates and writes')
+  .action(async buildConfigName => {
     try {
-      await createXcconfigs()
+      await createXcconfigs(buildConfigName)
     } catch (e) {
       console.error(e)
       process.exit(1)

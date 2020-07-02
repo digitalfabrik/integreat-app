@@ -395,7 +395,7 @@ jobs:
           working_directory: ios
       - run:
           name: Rename sourcemap
-          command: mv ios/index.ios.bundlemap ios/output/integreat-test-cms.ios.bundle.map
+          command: mv ios/index.ios.bundle.map ios/output/integreat-test-cms.ios.bundle.map
       - store_artifacts:
           path: ios/output/gym/
       - persist_to_workspace:

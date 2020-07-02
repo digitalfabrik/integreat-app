@@ -46,7 +46,7 @@
 		00E356F21AD99517003FC87E /* IntegreatTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntegreatTests.m; sourceTree = "<group>"; };
 		0518B741B48590C7AE9330F0 /* Pods-IntegreatTests.integreat-test-cms.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IntegreatTests.integreat-test-cms.xcconfig"; path = "Target Support Files/Pods-IntegreatTests/Pods-IntegreatTests.integreat-test-cms.xcconfig"; sourceTree = "<group>"; };
 		07CD12FA3D7CB27526D44E55 /* Pods-IntegreatTests.malte.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IntegreatTests.malte.xcconfig"; path = "Target Support Files/Pods-IntegreatTests/Pods-IntegreatTests.malte.xcconfig"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* IntegreatTestCms.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IntegreatTestCms.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* .app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = .app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Integreat/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Integreat/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -88,9 +88,7 @@
 		A330D33022AA9F54005736D0 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		A330D33122AA9F54005736D0 /* Lateef.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Lateef.ttf; sourceTree = "<group>"; };
 		A330D33222AA9F54005736D0 /* Raleway-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Bold.ttf"; sourceTree = "<group>"; };
-		B81116A224A3A96000794D75 /* integreat-test-cms.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "integreat-test-cms.xcconfig"; sourceTree = "<group>"; };
-		B81116A324A3A96F00794D75 /* integreat.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = integreat.xcconfig; sourceTree = "<group>"; };
-		B81116A424A3A97E00794D75 /* malte.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = malte.xcconfig; sourceTree = "<group>"; };
+		B8F3AC7E24ADE7E10010125F /* buildConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = buildConfig.xcconfig; sourceTree = "<group>"; };
 		BCE07220C56B492D6ABF304B /* Pods-IntegreatTests.integreat.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IntegreatTests.integreat.xcconfig"; path = "Target Support Files/Pods-IntegreatTests/Pods-IntegreatTests.integreat.xcconfig"; sourceTree = "<group>"; };
 		DD14BEF1244BF70E95AA783F /* Pods-Integreat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Integreat.release.xcconfig"; path = "Target Support Files/Pods-Integreat/Pods-Integreat.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -206,9 +204,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				B81116A424A3A97E00794D75 /* malte.xcconfig */,
-				B81116A324A3A96F00794D75 /* integreat.xcconfig */,
-				B81116A224A3A96000794D75 /* integreat-test-cms.xcconfig */,
+				B8F3AC7E24ADE7E10010125F /* buildConfig.xcconfig */,
 				7B7EDC2C2428EE0900E64563 /* fastlane */,
 				13B07FAE1A68108700A75B9A /* Integreat */,
 				00E356EF1AD99517003FC87E /* IntegreatTests */,
@@ -225,7 +221,7 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* IntegreatTestCms.app */,
+				13B07F961A680F5B00A75B9A /* .app */,
 				00E356EE1AD99517003FC87E /* IntegreatTests.xctest */,
 			);
 			name = Products;
@@ -292,7 +288,7 @@
 			);
 			name = Integreat;
 			productName = "Hello World";
-			productReference = 13B07F961A680F5B00A75B9A /* IntegreatTestCms.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* .app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -701,7 +697,7 @@
 		};
 		83CBBA201A601CBA00E9B192 /* integreat-test-cms */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B81116A224A3A96000794D75 /* integreat-test-cms.xcconfig */;
+			baseConfigurationReference = B8F3AC7E24ADE7E10010125F /* buildConfig.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -756,7 +752,7 @@
 		};
 		83CBBA211A601CBA00E9B192 /* integreat */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B81116A324A3A96F00794D75 /* integreat.xcconfig */;
+			baseConfigurationReference = B8F3AC7E24ADE7E10010125F /* buildConfig.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -804,7 +800,7 @@
 		};
 		B811169F24A3A3D600794D75 /* malte */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B81116A424A3A97E00794D75 /* malte.xcconfig */;
+			baseConfigurationReference = B8F3AC7E24ADE7E10010125F /* buildConfig.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
