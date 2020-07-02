@@ -1083,16 +1083,16 @@
     eslint-config-standard-react "^9.2.0"
     eslint-plugin-react "^7.18.3"
 
-"@integreat-app/integreat-api-client@^4.3.1":
-  version "4.3.1"
-  resolved "https://registry.yarnpkg.com/@integreat-app/integreat-api-client/-/integreat-api-client-4.3.1.tgz#2ed66d99a9f6702365e88655e708c98e979e652c"
-  integrity sha512-Ufgle7f58M0D0gFjZRksgCjNF9acwNcxchaiJDCd3jIMtQiA/sgNodrKpl44NxE/FqJFSSY8zxSk0hhyCcBHkg==
+"@integreat-app/integreat-api-client@^5.0.3":
+  version "5.0.3"
+  resolved "https://registry.yarnpkg.com/@integreat-app/integreat-api-client/-/integreat-api-client-5.0.3.tgz#5686a01c985401ad0a64cd8aacce4eaabb83beab"
+  integrity sha512-Kohtyl2oo8ht7+DOqlY1PERaHjHLsub2yfX1P+MvjczZL1H7yIvh8gm9Ha5dC84ubZelNKGNnylZg4q/gPpDpQ==
   dependencies:
     entities "^2.0.0"
     is-url "^1.2"
-    lodash "^4.17"
     moment "^2.24"
     moment-timezone "^0.5"
+    normalize-path "^3.0.0"
     sanitize-html-react "^1.13"
 
 "@jest/console@^24.7.1", "@jest/console@^24.9.0":
@@ -7528,7 +7528,7 @@ lodash@^3.1.0, lodash@^3.3.1:
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
   integrity sha1-W/Rejkm6QYnhfUgnid/RW9FAt7Y=
 
-lodash@^4.0.0, lodash@^4.17, lodash@^4.17.13, lodash@^4.17.2, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.3.0:
+lodash@^4.0.0, lodash@^4.17.13, lodash@^4.17.2, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.3.0:
   version "4.17.13"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.13.tgz#0bdc3a6adc873d2f4e0c4bac285df91b64fc7b93"
   integrity sha512-vm3/XWXfWtRua0FkUyEHBZy8kCPjErNBT9fJx8Zvs+U6zjqPbTUOpkaoum3O5uiA8sm+yNMHXfYkTUHFoMxFNA==
@@ -9524,10 +9524,10 @@ react-native-status-bar-height@^2.2.0:
   resolved "https://registry.yarnpkg.com/react-native-status-bar-height/-/react-native-status-bar-height-2.4.0.tgz#de8cee4bb733a196167210d2d0bc1fa10acba3e3"
   integrity sha512-pWvZFlyIHiuxLugLioq97vXiaGSovFXEyxt76wQtbq0gxv4dGXMPqYow46UmpwOgeJpBhqL1E0EKxnfJRrFz5w==
 
-react-native-svg-asset-plugin@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/react-native-svg-asset-plugin/-/react-native-svg-asset-plugin-0.3.0.tgz#d978d6566b5ddf660be0557f310432e84bea3904"
-  integrity sha512-CNsNJ+CuJCbWw3U6WypLUdejTYnLSp6mIHPra4S0uKd4Sx4lgENBeloGSl6/I7DWNPCE6HlD2e/e5+Ueeikmpw==
+react-native-svg-asset-plugin@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/react-native-svg-asset-plugin/-/react-native-svg-asset-plugin-0.4.0.tgz#d2e24fc4f467876b62734ebef117543c509e57ca"
+  integrity sha512-hOH9SSkZncu82vuTzmY0Jcm4DhyafPmFYyNgSSuGIdK4yfBpyFQ2uZb4tFhrczKNQ+YVrdJwI5Yz2m/UR5akbA==
   dependencies:
     fs-extra ">=3.0.0"
     sharp ">=0.14.0"
@@ -10562,19 +10562,18 @@ shallowequal@^1.1.0:
   integrity sha512-y0m1JoUZSlPAjXVtPPW70aZWfIL/dSP7AFkRnniLCrK/8MDKog3TySTBmckD+RObVxH0v4Tox67+F14PdED2oQ==
 
 sharp@>=0.14.0:
-  version "0.22.1"
-  resolved "https://registry.yarnpkg.com/sharp/-/sharp-0.22.1.tgz#a67c0e75567f03dd5a7861b901fec04072c5b0f4"
-  integrity sha512-lXzSk/FL5b/MpWrT1pQZneKe25stVjEbl6uhhJcTULm7PhmJgKKRbTDM/vtjyUuC/RLqL2PRyC4rpKwbv3soEw==
+  version "0.25.4"
+  resolved "https://registry.yarnpkg.com/sharp/-/sharp-0.25.4.tgz#1a8e542144a07ab7e9316ab89de80182b827c363"
+  integrity sha512-umSzJJ1oBwIOfwFFt/fJ7JgCva9FvrEU2cbbm7u/3hSDZhXvkME8WE5qpaJqLIe2Har5msF5UG4CzYlEg5o3BQ==
   dependencies:
-    color "^3.1.1"
+    color "^3.1.2"
     detect-libc "^1.0.3"
-    fs-copy-file-sync "^1.1.1"
-    nan "^2.13.2"
+    node-addon-api "^3.0.0"
     npmlog "^4.1.2"
-    prebuild-install "^5.3.0"
-    semver "^6.0.0"
-    simple-get "^3.0.3"
-    tar "^4.4.8"
+    prebuild-install "^5.3.4"
+    semver "^7.3.2"
+    simple-get "^4.0.0"
+    tar "^6.0.2"
     tunnel-agent "^0.6.0"
 
 shebang-command@^1.2.0:
