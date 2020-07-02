@@ -295,7 +295,6 @@ jobs:
           paths:
             - integreat.android.bundle.map
             - malte.android.bundle.map
-            - integreat-test-cms.android.bundle.map
       - persist_to_workspace:
           root: android/output/apk
           paths:
@@ -397,7 +396,6 @@ jobs:
           paths:
             - integreat.ios.bundle.map
             - malte.ios.bundle.map
-            - integreat-test-cms.ios.bundle.map
       - persist_to_workspace:
           root: ios/output/gym/
           paths:
