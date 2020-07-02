@@ -35,10 +35,8 @@ yarn-error.log*
 # CocoaPods
 /ios/Pods/
 
-# Temp buildConfig files
-/ios/integreat.tmp.xcconfig
-/ios/integreat-test-cms.tmp.xcconfig
-/ios/malte.tmp.xcconfig
+# Temp buildConfig file
+/ios/buildConfig.tmp.xcconfig
 
 # Runtime data
 pids
