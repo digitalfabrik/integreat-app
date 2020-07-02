@@ -131,10 +131,9 @@ class CategoriesContainer extends React.Component<ContainerPropsType> {
   }
 }
 
-const ThemedTranslatedCategories = withTheme(props => props.language)(
-  withTranslation('categories')(
-    Categories
-  ))
+const ThemedTranslatedCategories = withTheme(
+  withTranslation('categories')(Categories)
+)
 
 type RestType = $Diff<PropsType, OwnPropsType>
 const removeOwnProps = (props: PropsType): RestType => {

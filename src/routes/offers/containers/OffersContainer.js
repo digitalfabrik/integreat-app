@@ -121,6 +121,6 @@ class OffersContainer extends React.Component<OffersPropsType, OffersStateType> 
 
 export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(
   withTranslation('offers')(
-    withTheme(props => props.language)(
-      OffersContainer
-    )))
+    withTheme(OffersContainer)
+  )
+)

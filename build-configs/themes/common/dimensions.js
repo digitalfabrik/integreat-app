@@ -1,15 +1,15 @@
 // @flow
 
-export type DimensionsType = {
+export type DimensionsType = {|
   headerHeight: number,
   modalHeaderHeight: number,
-  categoryListItem: {
+  categoryListItem: {|
     iconSize: number,
     margin: number
-  }
-}
+  |}
+|}
 
-export default {
+const dimensions = {
   headerHeight: 60,
   modalHeaderHeight: 40,
   categoryListItem: {
@@ -17,3 +17,5 @@ export default {
     margin: 10
   }
 }
+
+export default dimensions

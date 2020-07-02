@@ -13,6 +13,12 @@ module.exports = {
   },
   plugins: [
     [
+      'transform-inline-environment-variables',
+      {
+        include: ['BUILD_CONFIG_NAME', 'E2E_TEST_IDS']
+      }
+    ],
+    [
       'module-resolver',
       {
         extensions: [

@@ -8,13 +8,14 @@ import { type TFunction, withTranslation } from 'react-i18next'
 import WohnenOffer from '../components/WohnenOffer'
 import { createWohnenEndpoint, OfferModel, Payload, WohnenOfferModel } from '@integreat-app/integreat-api-client'
 import { WOHNEN_OFFER, WOHNEN_ROUTE } from '../../offers/constants'
-import { wohnenApiBaseUrl } from '../../../modules/endpoint/constants'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { NavigationScreenProp } from 'react-navigation'
 import FailureContainer from '../../../modules/error/containers/FailureContainer'
 import { LOADING_TIMEOUT } from '../../../modules/common/constants'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
+
+const WOHNEN_API_URL = 'https://api.wohnen.integreat-app.de/v0'
 
 type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
 
@@ -90,7 +91,7 @@ class WohnenOfferContainer extends React.Component<WohnenPropsType, WohnenStateT
     setTimeout(() => this.setState({ timeoutExpired: true }), LOADING_TIMEOUT)
 
     try {
-      const payload: Payload<Array<WohnenOfferModel>> = await createWohnenEndpoint(wohnenApiBaseUrl).request(
+      const payload: Payload<Array<WohnenOfferModel>> = await createWohnenEndpoint(WOHNEN_API_URL).request(
         { city: apiName }
       )
 
@@ -137,6 +138,5 @@ class WohnenOfferContainer extends React.Component<WohnenPropsType, WohnenStateT
 
 export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(
   withTranslation('wohnen')(
-    withTheme()(
-      WohnenOfferContainer
-    )))
+    withTheme(WohnenOfferContainer)
+  ))

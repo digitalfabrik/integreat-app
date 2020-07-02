@@ -1,28 +1,12 @@
 // @flow
 
-import type { ColorsType } from './colors'
-import { brightColors, darkColors } from './colors'
-import type { DimensionsType } from './dimensions'
-import dimensions from './dimensions'
-import type { FontsType } from './fonts'
-import { defaultFonts } from './fonts'
+import buildConfig from '../../app/constants/buildConfig'
+import type { ThemeType } from '../../../../build-configs/themes/ThemeType'
 
-export type ThemeType = {
-  colors: ColorsType,
-  dimensions: DimensionsType,
-  fonts: FontsType
-}
+export type { ThemeType }
 
-export const brightTheme: ThemeType = {
-  colors: brightColors,
-  dimensions,
-  fonts: defaultFonts
-}
+export const lightTheme: ThemeType = buildConfig().lightTheme
 
-export const darkTheme: ThemeType = {
-  colors: darkColors,
-  dimensions,
-  fonts: defaultFonts
-}
+export const darkTheme: ThemeType = buildConfig().darkTheme
 
-export default brightTheme
+export default lightTheme

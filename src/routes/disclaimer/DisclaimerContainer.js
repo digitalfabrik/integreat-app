@@ -98,6 +98,5 @@ class DisclaimerContainer extends React.Component<DisclaimerPropsType, Disclaime
 }
 
 export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(
-  withTheme(props => props.language)(
-    DisclaimerContainer
-  ))
+  withTheme(DisclaimerContainer)
+)
