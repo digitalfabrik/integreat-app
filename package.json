@@ -28,7 +28,7 @@
     "locales:missing": "node locales/tools/findMissingLocales"
   },
   "dependencies": {
-    "@integreat-app/integreat-api-client": "^5.0.2",
+    "@integreat-app/integreat-api-client": "^5.0.3",
     "@react-native-community/art": "^1.1.2",
     "@react-native-community/async-storage": "^1.9.0",
     "@react-native-community/geolocation": "^2.0.2",
