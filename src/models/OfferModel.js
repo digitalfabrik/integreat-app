@@ -1,6 +1,6 @@
 // @flow
 
-export default class ExtraModel {
+export default class OfferModel {
   _alias: string
   _title: string
   _path: string

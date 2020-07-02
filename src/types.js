@@ -112,16 +112,16 @@ export type JsonLocalNewsType = {
   message: string
 }
 
-export type JsonExtraPostType = {
+export type JsonOfferPostType = {
   [key: string]: string
 }
 
-export type JsonExtraType = {
+export type JsonOfferType = {
   alias: string,
   name: string,
   url: string,
   thumbnail: string,
-  post: ?JsonExtraPostType
+  post: ?JsonOfferPostType
 }
 
 export type JsonSprungbrettJobType = {

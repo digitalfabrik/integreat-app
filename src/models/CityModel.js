@@ -5,7 +5,7 @@ class CityModel {
   _code: string
   _live: boolean
   _eventsEnabled: boolean
-  _extrasEnabled: boolean
+  _offersEnabled: boolean
   _pushNotificationsEnabled: boolean
   _tunewsEnabled: boolean
   _sortingName: string
@@ -15,7 +15,8 @@ class CityModel {
   _aliases: { [alias: string]: {| longitude: number, latitude: number |} } | null
 
   constructor (params: {|
-    name: string, code: string, live: boolean, eventsEnabled: boolean, extrasEnabled: boolean, pushNotificationsEnabled: boolean, tunewsEnabled: boolean,
+    name: string, code: string, live: boolean, eventsEnabled: boolean,
+    offersEnabled: boolean, pushNotificationsEnabled: boolean, tunewsEnabled: boolean,
     sortingName: string, prefix: ?string, latitude: number | null, longitude: number | null,
     aliases: { [alias: string]: {| longitude: number, latitude: number |} } | null
   |}) {
@@ -23,7 +24,7 @@ class CityModel {
     this._code = params.code
     this._live = params.live
     this._eventsEnabled = params.eventsEnabled
-    this._extrasEnabled = params.extrasEnabled
+    this._offersEnabled = params.offersEnabled
     this._pushNotificationsEnabled = params.pushNotificationsEnabled
     this._tunewsEnabled = params.tunewsEnabled
     this._sortingName = params.sortingName
@@ -53,8 +54,8 @@ class CityModel {
     return this._eventsEnabled
   }
 
-  get extrasEnabled (): boolean {
-    return this._extrasEnabled
+  get offersEnabled (): boolean {
+    return this._offersEnabled
   }
 
   get pushNotificationsEnabled (): boolean {
