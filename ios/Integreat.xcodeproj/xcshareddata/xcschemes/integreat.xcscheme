@@ -24,29 +24,15 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "Integreat.app"
+               BuildableName = ".app"
                BlueprintName = "Integreat"
-               ReferencedContainer = "container:Integreat.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "IntegreatTests.xctest"
-               BlueprintName = "IntegreatTests"
                ReferencedContainer = "container:Integreat.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
-      buildConfiguration = "integreat-test-cms"
+      buildConfiguration = "integreat"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
@@ -54,22 +40,12 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "Integreat.app"
+            BuildableName = ".app"
             BlueprintName = "Integreat"
             ReferencedContainer = "container:Integreat.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "IntegreatTests.xctest"
-               BlueprintName = "IntegreatTests"
-               ReferencedContainer = "container:Integreat.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
@@ -87,7 +63,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "Integreat.app"
+            BuildableName = ".app"
             BlueprintName = "Integreat"
             ReferencedContainer = "container:Integreat.xcodeproj">
          </BuildableReference>
@@ -104,7 +80,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "Integreat.app"
+            BuildableName = ".app"
             BlueprintName = "Integreat"
             ReferencedContainer = "container:Integreat.xcodeproj">
          </BuildableReference>
