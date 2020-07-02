@@ -2,12 +2,12 @@
 
 import * as React from 'react'
 import type { TFunction } from 'react-i18next'
-import { ExtraModel, WohnenOfferModel } from '@integreat-app/integreat-api-client'
+import { OfferModel, WohnenOfferModel } from '@integreat-app/integreat-api-client'
 import OfferDetail from './OfferDetail'
 import Caption from '../../../modules/common/components/Caption'
 import OfferListItem from './OfferListItem'
 import List from '../../../modules/common/components/List'
-import { hashWohnenOffer } from '../../extras/hashWohnenOffer'
+import { hashWohnenOffer } from '../../offers/hashWohnenOffer'
 import Failure from '../../../modules/error/components/Failure'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
@@ -15,14 +15,14 @@ import ErrorCodes from '../../../modules/error/ErrorCodes'
 type PropsType = {|
   offers: Array<WohnenOfferModel>,
   offerHash?: WohnenOfferModel,
-  wohnenExtra: ExtraModel,
+  wohnenOffer: OfferModel,
   language: string,
   navigateToOffer: (offerHash: string) => void,
   t: TFunction,
   theme: ThemeType
 |}
 
-class WohnenExtra extends React.Component<PropsType> {
+class WohnenOffer extends React.Component<PropsType> {
   renderOfferListItem = (offer: WohnenOfferModel) => {
     const hashedOffer = hashWohnenOffer(offer)
     return (
@@ -38,7 +38,7 @@ class WohnenExtra extends React.Component<PropsType> {
   }
 
   render () {
-    const { offers, wohnenExtra, offerHash, t, theme } = this.props
+    const { offers, wohnenOffer, offerHash, t, theme } = this.props
 
     if (offerHash) {
       const offer = offers.find(_offer => hashWohnenOffer(_offer) === offerHash)
@@ -55,7 +55,7 @@ class WohnenExtra extends React.Component<PropsType> {
 
     return (
       <>
-        <Caption title={wohnenExtra.title} theme={theme} />
+        <Caption title={wohnenOffer.title} theme={theme} />
         <List noItemsMessage={t('noOffersAvailable')}
               items={offers}
               renderItem={this.renderOfferListItem}
@@ -65,4 +65,4 @@ class WohnenExtra extends React.Component<PropsType> {
   }
 }
 
-export default WohnenExtra
+export default WohnenOffer
