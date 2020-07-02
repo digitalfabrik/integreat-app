@@ -8,7 +8,7 @@ import {
   CityModel,
   DateModel,
   EventModel,
-  ExtraModel,
+  OfferModel,
   LanguageModel,
   LocationModel,
   PageModel,
@@ -57,15 +57,15 @@ describe('Switcher', () => {
     hash: '2fe6283485a93932'
   })
 
-  const extras = [
-    new ExtraModel({
+  const offers = [
+    new OfferModel({
       alias: 'ihk-lehrstellenboerse',
       path: 'ihk-jobborese.com',
       title: 'Jobboerse',
       thumbnail: 'xy',
       postData: null
     }),
-    new ExtraModel({
+    new OfferModel({
       alias: 'ihk-praktikumsboerse',
       path: 'ihk-pratkitkumsboerse.com',
       title: 'Praktikumsboerse',
@@ -111,7 +111,7 @@ describe('Switcher', () => {
       code: 'city1',
       live: true,
       eventsEnabled: true,
-      extrasEnabled: false,
+      offersEnabled: false,
       tunewsEnabled: false,
       pushNotificationsEnabled: false,
       sortingName: 'Mambo',
@@ -199,12 +199,12 @@ describe('Switcher', () => {
   const localNewsElementPayload = new Payload(true)
   const tunewsPayload = new Payload(true)
   const tunewsElementPayload = new Payload(true)
-  const extrasPayload = new Payload(false, 'https://random.api.json', extras, null)
+  const offersPayload = new Payload(false, 'https://random.api.json', offers, null)
   const disclaimerPayload = new Payload(false, 'https://random.api.json', disclaimer, null)
   const citiesPayload = new Payload(false, 'https://random.api.json', cities, null)
   const languagesPayload = new Payload(false, 'https://random.api.json', languages, null)
   const sprungbrettPayload = new Payload(false, 'https://random.api.json', sprungbrettJobs, null)
-  const wohnenPayload = new Payload(false, 'https://random.api.json', wohnenOffers, null)
+  const wohnenOffersPayload = new Payload(false, 'https://random.api.json', wohnenOffers, null)
   const poisPayload = new Payload(false, 'https://random.api.json', pois, null)
 
   const t = (key: ?string): string => key || ''
@@ -220,11 +220,11 @@ describe('Switcher', () => {
     })
     return (
       <Switcher viewportSmall={false} location={location} citiesPayload={citiesPayload}
-                categoriesPayload={categoriesPayload} eventsPayload={eventsPayload} extrasPayload={extrasPayload}
+                categoriesPayload={categoriesPayload} eventsPayload={eventsPayload} offersPayload={offersPayload}
                 localNewsPayload={localNewsPayload} localNewsElementPayload={localNewsElementPayload}
                 tunewsPayload={tunewsPayload} tunewsElementPayload={tunewsElementPayload} poisPayload={poisPayload}
                 disclaimerPayload={disclaimerPayload} languages={languages} t={t}
-                sprungbrettJobsPayload={sprungbrettPayload} wohnenPayload={wohnenPayload} darkMode
+                sprungbrettJobsPayload={sprungbrettPayload} wohnenOffersPayload={wohnenOffersPayload} darkMode
                 toggleDarkMode={toggleDarkMode} />
     )
   }
@@ -270,11 +270,11 @@ describe('Switcher', () => {
       cities: citiesPayload,
       categories: categoriesPayload,
       disclaimer: disclaimerPayload,
-      extras: extrasPayload,
+      offers: offersPayload,
       languages: languagesPayload,
       location,
       pois: poisPayload,
-      wohnen: wohnenPayload,
+      wohnen: wohnenOffersPayload,
       tunews: { allData: [], hasMore: true, tunewsPayload },
       sprungbrettJobs: sprungbrettPayload,
       viewport: { is: { small: true } },
@@ -296,7 +296,7 @@ describe('Switcher', () => {
       darkMode: true,
       disclaimerPayload,
       eventsPayload,
-      extrasPayload,
+      offersPayload,
       i18n: expect.anything(),
       languages,
       poisPayload,
@@ -304,7 +304,7 @@ describe('Switcher', () => {
       t: expect.any(Function),
       toggleDarkMode: expect.any(Function),
       viewportSmall: true,
-      wohnenPayload
+      wohnenOffersPayload
     })
   })
 })

@@ -6,9 +6,9 @@ import {
   CityModel,
   createCitiesEndpoint,
   createEventsEndpoint,
-  createExtrasEndpoint,
+  createOffersEndpoint,
   createLanguagesEndpoint,
-  ExtraModel,
+  OfferModel,
   Payload
 } from '@integreat-app/integreat-api-client'
 import type { Route } from 'redux-first-router'
@@ -16,16 +16,16 @@ import fetchData from '../fetchData'
 import { cmsApiBaseUrl } from '../constants/urls'
 import type { StateType } from '../StateType'
 
-type ExtrasRouteParamsType = {| city: string, language: string |}
-type RequiredPayloadsType = {| extras: Payload<Array<ExtraModel>>, cities: Payload<Array<CityModel>> |}
+type OffersRouteParamsType = {| city: string, language: string |}
+type RequiredPayloadsType = {| offers: Payload<Array<OfferModel>>, cities: Payload<Array<CityModel>> |}
 
-export const EXTRAS_ROUTE = 'EXTRAS'
+export const OFFERS_ROUTE = 'OFFERS'
 
 /**
- * ExtrasRoute, matches /augsburg/de/offers and /augsburg/de/offers
+ * OffersRoute, matches /augsburg/de/offers and /augsburg/de/offers
  * @type {{path: string, thunk: function(Dispatch, GetState)}}
  */
-const extrasRoute: Route = {
+const offersRoute: Route = {
   path: '/:city/:language/offers/:offerId?',
   thunk: async (dispatch, getState) => {
     const state: StateType = getState()
@@ -35,23 +35,23 @@ const extrasRoute: Route = {
       fetchData(createCitiesEndpoint(cmsApiBaseUrl), dispatch, state.cities),
       fetchData(createEventsEndpoint(cmsApiBaseUrl), dispatch, state.events, { city, language }),
       fetchData(createLanguagesEndpoint(cmsApiBaseUrl), dispatch, state.languages, { city, language }),
-      fetchData(createExtrasEndpoint(cmsApiBaseUrl), dispatch, state.extras, { city, language })
+      fetchData(createOffersEndpoint(cmsApiBaseUrl), dispatch, state.offers, { city, language })
     ])
   }
 }
 
-class ExtrasRouteConfig implements RouteConfig<ExtrasRouteParamsType, RequiredPayloadsType> {
-  name = EXTRAS_ROUTE
-  route = extrasRoute
+class OffersRouteConfig implements RouteConfig<OffersRouteParamsType, RequiredPayloadsType> {
+  name = OFFERS_ROUTE
+  route = offersRoute
   isLocationLayoutRoute = true
   requiresHeader = true
   requiresFooter = true
 
-  getRoutePath = ({ city, language }: ExtrasRouteParamsType): string => `/${city}/${language}/offers`
+  getRoutePath = ({ city, language }: OffersRouteParamsType): string => `/${city}/${language}/offers`
 
   getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType => ({
     cities: payloads.citiesPayload,
-    extras: payloads.extrasPayload
+    offers: payloads.offersPayload
   })
 
   getLanguageChangePath = ({ location, language }) =>
@@ -60,10 +60,10 @@ class ExtrasRouteConfig implements RouteConfig<ExtrasRouteParamsType, RequiredPa
   getPageTitle = ({ t, payloads, location }) => {
     const cityModel = payloads.cities.data &&
       payloads.cities.data.find(cityModel => cityModel.code === location.payload.city)
-    if (!cityModel || !cityModel.extrasEnabled) {
+    if (!cityModel || !cityModel.offersEnabled) {
       return null
     }
-    return `${t('pageTitles.extras')} - ${cityModel.name}`
+    return `${t('pageTitles.offers')} - ${cityModel.name}`
   }
 
   getMetaDescription = () => null
@@ -71,4 +71,4 @@ class ExtrasRouteConfig implements RouteConfig<ExtrasRouteParamsType, RequiredPa
   getFeedbackTargetInformation = () => null
 }
 
-export default ExtrasRouteConfig
+export default OffersRouteConfig

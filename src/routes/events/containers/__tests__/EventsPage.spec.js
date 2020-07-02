@@ -105,7 +105,7 @@ describe('EventsPage', () => {
     code: 'augsburg',
     live: true,
     eventsEnabled: true,
-    extrasEnabled: true,
+    offersEnabled: true,
     pushNotificationsEnabled: true,
     tunewsEnabled: true,
     sortingName: 'Augsburg',

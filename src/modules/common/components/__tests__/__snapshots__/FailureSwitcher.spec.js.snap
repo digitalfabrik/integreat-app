@@ -16,19 +16,19 @@ exports[`FailureSwitcher render event component not found failure should render 
 />
 `;
 
-exports[`FailureSwitcher render extra component not found failure should render a extra not found failure and match snapshot 1`] = `
-<Translate(Failure)
-  errorMessage="notFound.extra"
-  goToMessage="goTo.extras"
-  goToPath="/augsburg/de/offers"
-/>
-`;
-
 exports[`FailureSwitcher render localNewsItem component not found failure should render a localNewsItem not found failure and match snapshot 1`] = `
 <Translate(Failure)
   errorMessage="notFound.localNewsItem"
   goToMessage="goTo.localNews"
   goToPath="/augsburg/de/news/local"
+/>
+`;
+
+exports[`FailureSwitcher render offer component not found failure should render a offer not found failure and match snapshot 1`] = `
+<Translate(Failure)
+  errorMessage="notFound.offer"
+  goToMessage="goTo.offers"
+  goToPath="/augsburg/de/offers"
 />
 `;
 

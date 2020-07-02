@@ -5,7 +5,7 @@ import ContentNotFoundError from '../errors/ContentNotFoundError'
 import Failure from './Failure'
 import CategoriesRouteConfig from '../../app/route-configs/CategoriesRouteConfig'
 import EventsRouteConfig from '../../app/route-configs/EventsRouteConfig'
-import ExtrasRouteConfig from '../../app/route-configs/ExtrasRouteConfig'
+import OffersRouteConfig from '../../app/route-configs/OffersRouteConfig'
 import PoisRouteConfig from '../../app/route-configs/PoisRouteConfig'
 import LocalNewsRouteConfig from '../../app/route-configs/LocalNewsRouteConfig'
 import TunewsRouteConfig from '../../app/route-configs/TunewsRouteConfig'
@@ -39,10 +39,10 @@ export class FailureSwitcher extends React.Component<PropsType> {
         return <Failure goToPath={new TunewsRouteConfig().getRoutePath({ city, language })}
                         goToMessage='goTo.tunews'
                         errorMessage='notFound.tunewsItem' />
-      case 'extra':
-        return <Failure goToPath={new ExtrasRouteConfig().getRoutePath({ city, language })}
-                        goToMessage='goTo.extras'
-                        errorMessage='notFound.extra' />
+      case 'offer':
+        return <Failure goToPath={new OffersRouteConfig().getRoutePath({ city, language })}
+                        goToMessage='goTo.offers'
+                        errorMessage='notFound.offer' />
       case 'poi':
         return <Failure goToPath={new PoisRouteConfig().getRoutePath({ city, language })}
                         goToMessage='goTo.pois'

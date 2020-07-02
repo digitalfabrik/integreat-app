@@ -1,27 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`FeedbackBoxContainer getExtrasFeedbackOptions should return the right options 1`] = `
+exports[`FeedbackBoxContainer getOffersFeedbackOptions should return the right options 1`] = `
 Array [
   FeedbackVariant {
     "alias": "serlo-abc",
     "feedbackCategory": "Inhalte",
     "feedbackType": "extra",
-    "label": "extra 'Serlo ABC'",
-    "value": "extra 'Serlo ABC'",
+    "label": "offer 'Serlo ABC'",
+    "value": "offer 'Serlo ABC'",
   },
   FeedbackVariant {
     "alias": "sprungbrett",
     "feedbackCategory": "Inhalte",
     "feedbackType": "extra",
-    "label": "extra 'Sprungbrett'",
-    "value": "extra 'Sprungbrett'",
+    "label": "offer 'Sprungbrett'",
+    "value": "offer 'Sprungbrett'",
   },
   FeedbackVariant {
     "alias": "lehrstellen-radar",
     "feedbackCategory": "Inhalte",
     "feedbackType": "extra",
-    "label": "extra 'Lehrstellenradar'",
-    "value": "extra 'Lehrstellenradar'",
+    "label": "offer 'Lehrstellenradar'",
+    "value": "offer 'Lehrstellenradar'",
   },
 ]
 `;

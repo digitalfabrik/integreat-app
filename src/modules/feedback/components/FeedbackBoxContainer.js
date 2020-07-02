@@ -8,9 +8,8 @@ import {
   createFeedbackEndpoint,
   DEFAULT_FEEDBACK_LANGUAGE,
   EVENTS_FEEDBACK_TYPE,
-  EXTRA_FEEDBACK_TYPE,
-  ExtraModel,
-  EXTRAS_FEEDBACK_TYPE,
+  OfferModel,
+  OFFER_FEEDBACK_TYPE,
   INTEGREAT_INSTANCE,
   PAGE_FEEDBACK_TYPE,
   SEARCH_FEEDBACK_TYPE,
@@ -23,7 +22,7 @@ import type { LocationState } from 'redux-first-router'
 import FeedbackVariant from '../FeedbackVariant'
 import FeedbackBox from './FeedbackBox'
 import { EVENTS_ROUTE } from '../../app/route-configs/EventsRouteConfig'
-import { EXTRAS_ROUTE } from '../../app/route-configs/ExtrasRouteConfig'
+import { OFFERS_ROUTE } from '../../app/route-configs/OffersRouteConfig'
 import { CATEGORIES_ROUTE } from '../../app/route-configs/CategoriesRouteConfig'
 import { WOHNEN_ROUTE } from '../../app/route-configs/WohnenRouteConfig'
 import { SPRUNGBRETT_ROUTE } from '../../app/route-configs/SprungbrettRouteConfig'
@@ -42,7 +41,7 @@ type PropsType = {|
   query?: string,
   isPositiveRatingSelected: boolean,
   location: LocationState,
-  extras: ?Array<ExtraModel>,
+  offers: ?Array<OfferModel>,
   postFeedbackDataOverride?: FeedbackParamsType => void,
   closeFeedbackModal: () => void,
   sendingStatus: SendingStatusType,
@@ -78,9 +77,9 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
 
   /**
    * Returns all feedback options which are:
-   * * Feedback for the current page if it isn't the categories/events/extras page
+   * * Feedback for the current page if it isn't the categories/events/offers page
    * * Feedback for the content of the current city if the current route is a LocationRoute
-   * * Feedback for all available extras if the current page is the extras page
+   * * Feedback for all available offers if the current page is the offers page
    * * Feedback for technical topics
    */
   getFeedbackOptions = (): Array<FeedbackVariant> => {
@@ -95,7 +94,7 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
       options.push(contentFeedbackOption)
     }
 
-    this.getExtrasFeedbackOptions().forEach(option => options.push(option))
+    this.getOffersFeedbackOptions().forEach(option => options.push(option))
     options.push(this.getTechnicalFeedbackVariant())
 
     return options
@@ -122,13 +121,13 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
       const label = t('contentOfCity', { city: cityTitle })
       const feedbackCategory = CONTENT_FEEDBACK_CATEGORY
 
-      // We don't want to differ between the content of categories, extras and events for the user, but we want to know
+      // We don't want to differ between the content of categories, offers and events for the user, but we want to know
       // from which route the feedback was sent
       switch (currentRoute) {
         case EVENTS_ROUTE:
           return new FeedbackVariant({ label, feedbackType: EVENTS_FEEDBACK_TYPE, feedbackCategory })
-        case EXTRAS_ROUTE:
-          return new FeedbackVariant({ label, feedbackType: EXTRAS_FEEDBACK_TYPE, feedbackCategory })
+        case OFFERS_ROUTE:
+          return new FeedbackVariant({ label, feedbackType: OFFER_FEEDBACK_TYPE, feedbackCategory })
         default:
           return new FeedbackVariant({ label, feedbackType: CATEGORIES_FEEDBACK_TYPE, feedbackCategory })
       }
@@ -136,18 +135,18 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
   }
 
   /**
-   * Returns a feedback option for every available extra
+   * Returns a feedback option for every available offer
    */
-  getExtrasFeedbackOptions = (): Array<FeedbackVariant> => {
-    const { extras, location, t } = this.props
+  getOffersFeedbackOptions = (): Array<FeedbackVariant> => {
+    const { offers, location, t } = this.props
     const currentRoute = location.type
-    if (extras && currentRoute === EXTRAS_ROUTE) {
-      return extras.map(extra =>
+    if (offers && currentRoute === OFFERS_ROUTE) {
+      return offers.map(offer =>
         new FeedbackVariant({
-          label: `${t('extra')} '${extra.title}'`,
-          feedbackType: EXTRA_FEEDBACK_TYPE,
+          label: `${t('offer')} '${offer.title}'`,
+          feedbackType: OFFER_FEEDBACK_TYPE,
           feedbackCategory: CONTENT_FEEDBACK_CATEGORY,
-          alias: extra.alias
+          alias: offer.alias
         })
       )
     }
@@ -176,8 +175,8 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
       })
     } else if (([WOHNEN_ROUTE, SPRUNGBRETT_ROUTE].includes(type)) && alias && title) {
       return new FeedbackVariant({
-        label: t('contentOfExtra', { extra: title }),
-        feedbackType: EXTRA_FEEDBACK_TYPE,
+        label: t('contentOfOffer', { offer: title }),
+        feedbackType: OFFER_FEEDBACK_TYPE,
         feedbackCategory
       })
     } else if (type === SEARCH_ROUTE && query) {
@@ -204,8 +203,8 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
     const { location, query, isPositiveRatingSelected, path, alias } = this.props
     const { city, language } = location.payload
 
-    const isExtraOptionSelected = selectedFeedbackOption.feedbackType === EXTRA_FEEDBACK_TYPE
-    const feedbackAlias = alias || (isExtraOptionSelected && selectedFeedbackOption.alias) || ''
+    const isOfferOptionSelected = selectedFeedbackOption.feedbackType === OFFER_FEEDBACK_TYPE
+    const feedbackAlias = alias || (isOfferOptionSelected && selectedFeedbackOption.alias) || ''
 
     return {
       feedbackType: selectedFeedbackOption.feedbackType,

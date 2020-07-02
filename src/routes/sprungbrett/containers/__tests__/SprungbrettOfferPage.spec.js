@@ -2,11 +2,11 @@
 
 import { shallow } from 'enzyme'
 import React from 'react'
-import { ExtraModel, SprungbrettJobModel } from '@integreat-app/integreat-api-client'
-import { SprungbrettExtraPage } from '../SprungbrettExtraPage'
+import { OfferModel, SprungbrettJobModel } from '@integreat-app/integreat-api-client'
+import { SprungbrettOfferPage } from '../SprungbrettOfferPage'
 
-describe('SprungbrettExtraPage', () => {
-  const sprungbrettExtra = new ExtraModel({
+describe('SprungbrettOfferPage', () => {
+  const sprungbrettOffer = new OfferModel({
     alias: 'sprungbrett', path: 'path to fetch jobs from', title: 'Sprungbrett', thumbnail: 'xy', postData: null
   })
 
@@ -41,17 +41,17 @@ describe('SprungbrettExtraPage', () => {
 
   it('should render list', () => {
     const sprunbrettPage = shallow(
-      <SprungbrettExtraPage sprungbrettJobs={sprungbrettJobs}
-                            extras={[sprungbrettExtra]}
+      <SprungbrettOfferPage sprungbrettJobs={sprungbrettJobs}
+                            offers={[sprungbrettOffer]}
                             t={t} />
     )
     expect(sprunbrettPage).toMatchSnapshot()
   })
 
-  it('should render error if extra is not supported', () => {
+  it('should render error if offer is not supported', () => {
     const sprunbrettPage = shallow(
-      <SprungbrettExtraPage sprungbrettJobs={sprungbrettJobs}
-                            extras={[]}
+      <SprungbrettOfferPage sprungbrettJobs={sprungbrettJobs}
+                            offers={[]}
                             t={t} />
     )
     expect(sprunbrettPage).toMatchSnapshot()

@@ -9,16 +9,15 @@ import {
   CATEGORIES_FEEDBACK_TYPE,
   CityModel,
   EVENTS_FEEDBACK_TYPE,
-  EXTRA_FEEDBACK_TYPE,
-  ExtraModel,
-  EXTRAS_FEEDBACK_TYPE,
+  OFFER_FEEDBACK_TYPE,
+  OfferModel,
   PAGE_FEEDBACK_TYPE,
   SEARCH_FEEDBACK_TYPE,
   CONTENT_FEEDBACK_CATEGORY,
   TECHNICAL_FEEDBACK_CATEGORY
 } from '@integreat-app/integreat-api-client'
 import FeedbackVariant from '../../FeedbackVariant'
-import { EXTRAS_ROUTE } from '../../../app/route-configs/ExtrasRouteConfig'
+import { OFFERS_ROUTE } from '../../../app/route-configs/OffersRouteConfig'
 import { EVENTS_ROUTE } from '../../../app/route-configs/EventsRouteConfig'
 import { WOHNEN_ROUTE } from '../../../app/route-configs/WohnenRouteConfig'
 import { SPRUNGBRETT_ROUTE } from '../../../app/route-configs/SprungbrettRouteConfig'
@@ -34,7 +33,7 @@ describe('FeedbackBoxContainer', () => {
       code: 'augsburg',
       live: true,
       eventsEnabled: true,
-      extrasEnabled: false,
+      offersEnabled: false,
       pushNotificationsEnabled: false,
       tunewsEnabled: false,
       sortingName: 'Augsburg',
@@ -58,7 +57,7 @@ describe('FeedbackBoxContainer', () => {
         title='title'
         alias='alias'
         isPositiveRatingSelected
-        extras={null}
+        offers={null}
         t={t}
         theme={theme}
         onSubmit={() => {}}
@@ -80,7 +79,7 @@ describe('FeedbackBoxContainer', () => {
           isPositiveRatingSelected
           onSubmit={() => {}}
           closeFeedbackModal={() => {}}
-          extras={null}
+          offers={null}
           theme={theme}
           sendingStatus='SUCCESS'
           t={t} />
@@ -88,7 +87,7 @@ describe('FeedbackBoxContainer', () => {
 
       const option = new FeedbackVariant({
         label: 'value',
-        feedbackType: EXTRAS_FEEDBACK_TYPE,
+        feedbackType: OFFER_FEEDBACK_TYPE,
         feedbackCategory: CONTENT_FEEDBACK_CATEGORY
       })
       instance.getCurrentPageFeedbackOption = jest.fn(() => option)
@@ -110,7 +109,7 @@ describe('FeedbackBoxContainer', () => {
           isPositiveRatingSelected
           onSubmit={() => {}}
           closeFeedbackModal={() => {}}
-          extras={null}
+          offers={null}
           theme={theme}
           sendingStatus='SUCCESS'
           t={t} />
@@ -118,7 +117,7 @@ describe('FeedbackBoxContainer', () => {
 
       const option = new FeedbackVariant({
         label: 'another value',
-        feedbackType: EXTRAS_FEEDBACK_TYPE,
+        feedbackType: OFFER_FEEDBACK_TYPE,
         feedbackCategory: CONTENT_FEEDBACK_CATEGORY
       })
       instance.getContentFeedbackOption = jest.fn(() => option)
@@ -128,7 +127,7 @@ describe('FeedbackBoxContainer', () => {
       expect(instance.getFeedbackOptions()).not.toContain(null)
     })
 
-    it('should add all options returned by getExtrasFeedbackOptions', () => {
+    it('should add all options returned by getOffersFeedbackOptions', () => {
       const instance = shallow(
         <FeedbackBoxContainer
           location={location}
@@ -140,7 +139,7 @@ describe('FeedbackBoxContainer', () => {
           isPositiveRatingSelected
           onSubmit={() => {}}
           closeFeedbackModal={() => {}}
-          extras={null}
+          offers={null}
           theme={theme}
           sendingStatus='SUCCESS'
           t={t} />
@@ -149,18 +148,18 @@ describe('FeedbackBoxContainer', () => {
       const options = [
         new FeedbackVariant({
           label: 'value1',
-          feedbackType: EXTRA_FEEDBACK_TYPE,
+          feedbackType: OFFER_FEEDBACK_TYPE,
           feedbackCategory: CONTENT_FEEDBACK_CATEGORY,
           alias: 'alias1'
         }),
         new FeedbackVariant({
           label: 'value2',
-          feedbackType: EXTRA_FEEDBACK_TYPE,
+          feedbackType: OFFER_FEEDBACK_TYPE,
           feedbackCategory: CONTENT_FEEDBACK_CATEGORY,
           alias: 'alias2'
         })
       ]
-      instance.getExtrasFeedbackOptions = jest.fn(() => options)
+      instance.getOffersFeedbackOptions = jest.fn(() => options)
       expect(instance.getFeedbackOptions()).toContain(options[0])
       expect(instance.getFeedbackOptions()).toContain(options[1])
     })
@@ -177,7 +176,7 @@ describe('FeedbackBoxContainer', () => {
           isPositiveRatingSelected
           onSubmit={() => {}}
           closeFeedbackModal={() => {}}
-          extras={null}
+          offers={null}
           theme={theme}
           sendingStatus='SUCCESS'
           t={t} />
@@ -194,7 +193,7 @@ describe('FeedbackBoxContainer', () => {
 
   it('getContentFeedbackOption should return the right option', () => {
     const categoriesLocation = createLocation({ type: CATEGORIES_ROUTE, payload: { city: 'augsburg', language: 'de' } })
-    const extrasLocation = createLocation({ type: EXTRAS_ROUTE, payload: { city: 'augsburg', language: 'de' } })
+    const offersLocation = createLocation({ type: OFFERS_ROUTE, payload: { city: 'augsburg', language: 'de' } })
     const eventsLocation = createLocation({ type: EVENTS_ROUTE, payload: { city: 'augsburg', language: 'de' } })
 
     const component = shallow(
@@ -208,7 +207,7 @@ describe('FeedbackBoxContainer', () => {
         isPositiveRatingSelected
         onSubmit={() => {}}
         closeFeedbackModal={() => {}}
-        extras={null}
+        offers={null}
         theme={theme}
         sendingStatus='SUCCESS'
         t={t} />
@@ -220,11 +219,11 @@ describe('FeedbackBoxContainer', () => {
         feedbackCategory: CONTENT_FEEDBACK_CATEGORY
       }))
 
-    component.setProps({ location: extrasLocation })
+    component.setProps({ location: offersLocation })
     expect(component.instance().getContentFeedbackOption())
       .toEqual(new FeedbackVariant({
         label: 'contentOfCity',
-        feedbackType: EXTRAS_FEEDBACK_TYPE,
+        feedbackType: OFFER_FEEDBACK_TYPE,
         feedbackCategory: CONTENT_FEEDBACK_CATEGORY
       }))
 
@@ -240,24 +239,24 @@ describe('FeedbackBoxContainer', () => {
     expect(component.instance().getContentFeedbackOption()).toBeUndefined()
   })
 
-  it('getExtrasFeedbackOptions should return the right options', () => {
-    const extrasLocation = createLocation({ type: EXTRAS_ROUTE, payload: { city: 'augsburg', language: 'de' } })
-    const extras = [
-      new ExtraModel({
+  it('getOffersFeedbackOptions should return the right options', () => {
+    const offersLocation = createLocation({ type: OFFERS_ROUTE, payload: { city: 'augsburg', language: 'de' } })
+    const offers = [
+      new OfferModel({
         alias: 'serlo-abc',
         thumbnail: 'some_thumbnail',
         title: 'Serlo ABC',
         path: 'https://abc-app.serlo.org/',
         postData: null
       }),
-      new ExtraModel({
+      new OfferModel({
         alias: 'sprungbrett',
         thumbnail: 'some_other_thumbnail',
         title: 'Sprungbrett',
         path: 'https://integreat.app/proxy/sprungbrett/app-search-internships?location=augsburg',
         postData: null
       }),
-      new ExtraModel({
+      new OfferModel({
         alias: 'lehrstellen-radar',
         thumbnail: 'some_other_thumbnail',
         title: 'Lehrstellenradar',
@@ -267,7 +266,7 @@ describe('FeedbackBoxContainer', () => {
     ]
     const component = shallow(
       <FeedbackBoxContainer
-        location={extrasLocation}
+        location={offersLocation}
         query='ab'
         cities={cities}
         path='path'
@@ -276,13 +275,13 @@ describe('FeedbackBoxContainer', () => {
         isPositiveRatingSelected
         onSubmit={() => {}}
         closeFeedbackModal={() => {}}
-        extras={extras}
+        offers={offers}
         theme={theme}
         sendingStatus='SUCCESS'
         t={t} />
     )
 
-    expect(component.instance().getExtrasFeedbackOptions()).toMatchSnapshot()
+    expect(component.instance().getOffersFeedbackOptions()).toMatchSnapshot()
   })
 
   describe('getCurrentPageFeedbackOption', () => {
@@ -298,13 +297,13 @@ describe('FeedbackBoxContainer', () => {
       feedbackCategory: CONTENT_FEEDBACK_CATEGORY
     })
     const wohnenOption = new FeedbackVariant({
-      label: 'contentOfExtra',
-      feedbackType: EXTRA_FEEDBACK_TYPE,
+      label: 'contentOfOffer',
+      feedbackType: OFFER_FEEDBACK_TYPE,
       feedbackCategory: CONTENT_FEEDBACK_CATEGORY
     })
     const sprungbrettOption = new FeedbackVariant({
-      label: 'contentOfExtra',
-      feedbackType: EXTRA_FEEDBACK_TYPE,
+      label: 'contentOfOffer',
+      feedbackType: OFFER_FEEDBACK_TYPE,
       feedbackCategory: CONTENT_FEEDBACK_CATEGORY
     })
     const searchOption = new FeedbackVariant({
@@ -317,7 +316,7 @@ describe('FeedbackBoxContainer', () => {
       feedbackType: PAGE_FEEDBACK_TYPE,
       feedbackCategory: CONTENT_FEEDBACK_CATEGORY
     })
-    const extrasOption = null
+    const offersOption = null
 
     it.each`
     type                 | path       | alias           | title              | query         | result
@@ -328,7 +327,7 @@ describe('FeedbackBoxContainer', () => {
     ${SPRUNGBRETT_ROUTE} | ${null}    | ${'sprungbrett'}| ${'Sprungbrett'}   | ${''}         | ${sprungbrettOption}
     ${SEARCH_ROUTE}      | ${null}    | ${''}           | ${''}              | ${'my query'} | ${searchOption}
     ${DISCLAIMER_ROUTE}  | ${null}    | ${''}           | ${''}              | ${''}         | ${disclaimerOption}
-    ${EXTRAS_ROUTE}      | ${null}    | ${''}           | ${''}              | ${''}         | ${extrasOption}
+    ${OFFERS_ROUTE}      | ${null}    | ${''}           | ${''}              | ${''}         | ${offersOption}
     `('should return the right option', ({ type, path, alias, title, query, result }) => {
   const location = createLocation({ type, payload: { city: 'augsburg', language: 'de', categoryPath: path } })
   const component = shallow(
@@ -342,7 +341,7 @@ describe('FeedbackBoxContainer', () => {
             isPositiveRatingSelected
             onSubmit={() => {}}
             closeFeedbackModal={() => {}}
-            extras={null}
+            offers={null}
             theme={theme}
             sendingStatus='SUCCESS'
             t={t} />
@@ -367,7 +366,7 @@ describe('FeedbackBoxContainer', () => {
         isPositiveRatingSelected
         onSubmit={() => {}}
         closeFeedbackModal={() => {}}
-        extras={null}
+        offers={null}
         postFeedbackDataOverride={mockPostFeedbackData}
         theme={theme}
         sendingStatus='SUCCESS'
@@ -388,7 +387,7 @@ describe('FeedbackBoxContainer', () => {
         isPositiveRatingSelected
         onSubmit={mockOnSubmit}
         closeFeedbackModal={() => {}}
-        extras={null}
+        offers={null}
         theme={theme}
         sendingStatus='ERROR'
         t={t} />
@@ -413,7 +412,7 @@ describe('FeedbackBoxContainer', () => {
         isPositiveRatingSelected
         onSubmit={() => {}}
         closeFeedbackModal={() => {}}
-        extras={null}
+        offers={null}
         theme={theme}
         sendingStatus='SUCCESS'
         t={t} />
@@ -438,7 +437,7 @@ describe('FeedbackBoxContainer', () => {
         isPositiveRatingSelected
         onSubmit={() => {}}
         closeFeedbackModal={() => {}}
-        extras={null}
+        offers={null}
         theme={theme}
         sendingStatus='SUCCESS'
         t={t} />

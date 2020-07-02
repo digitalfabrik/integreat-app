@@ -24,9 +24,9 @@ describe('NotFoundRouteConfig', () => {
       tunewsPayload: new Payload(true),
       tunewsElementPayload: new Payload(true),
       disclaimerPayload: new Payload(true),
-      extrasPayload: new Payload(true),
+      offersPayload: new Payload(true),
       poisPayload: new Payload(true),
-      wohnenPayload: new Payload(true),
+      wohnenOffersPayload: new Payload(true),
       sprungbrettJobsPayload: new Payload(true)
     }
 

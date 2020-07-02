@@ -17,7 +17,7 @@ describe('FailureSwitcher', () => {
     ${'event'}          | ${'1234'}
     ${'localNewsItem'}  | ${'/augsburg/en/news/local/1'}
     ${'tunewsItem'}     | ${'/augsburg/en/news/tu-news/1'}
-    ${'extra'}          | ${'sprungbrett'}
+    ${'offer'}          | ${'sprungbrett'}
     ${'poi'}            | ${'1234'}
     `('render $type component not found failure',
   ({ type, id }) => {

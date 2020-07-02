@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`WohnenExtraPage should render detailed offer if hash is supplied 1`] = `
+exports[`WohnenOfferPage should render detailed offer if hash is supplied 1`] = `
 <Translate(OfferDetail)
   offer={
     WohnenOfferModel {
@@ -60,19 +60,19 @@ exports[`WohnenExtraPage should render detailed offer if hash is supplied 1`] = 
 />
 `;
 
-exports[`WohnenExtraPage should render failure city does not support offer 1`] = `
+exports[`WohnenOfferPage should render failure city does not support offer 1`] = `
 <FailureSwitcher
-  error={[Error: The Wohnen extra is not supported.]}
+  error={[Error: The Wohnen offer is not supported.]}
 />
 `;
 
-exports[`WohnenExtraPage should render failure offer if offer is not found 1`] = `
+exports[`WohnenOfferPage should render failure offer if offer is not found 1`] = `
 <FailureSwitcher
   error={[Error: Angebot nicht gefunden.]}
 />
 `;
 
-exports[`WohnenExtraPage should render list if no hash is supplied 1`] = `
+exports[`WohnenOfferPage should render list if no hash is supplied 1`] = `
 <Fragment>
   <Caption
     title="Raumfrei"

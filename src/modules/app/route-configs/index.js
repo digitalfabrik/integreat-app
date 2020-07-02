@@ -12,7 +12,7 @@ import LocalNewsDetailsRouteConfig, { LOCAL_NEWS_DETAILS_ROUTE } from './LocalNe
 import TunewsDetailsRouteConfig, { TUNEWS_DETAILS_ROUTE } from './TunewsDetailsRouteConfig'
 import TunewsRouteConfig, { TUNEWS_ROUTE } from './TunewsRouteConfig'
 import WohnenRouteConfig, { WOHNEN_ROUTE } from './WohnenRouteConfig'
-import ExtrasRouteConfig, { EXTRAS_ROUTE } from './ExtrasRouteConfig'
+import OffersRouteConfig, { OFFERS_ROUTE } from './OffersRouteConfig'
 import SearchRouteConfig, { SEARCH_ROUTE } from './SearchRouteConfig'
 import PoisRouteConfig, { POIS_ROUTE } from './PoisRouteConfig'
 import DisclaimerRouteConfig, { DISCLAIMER_ROUTE } from './DisclaimerRouteConfig'
@@ -31,7 +31,7 @@ const routeConfigs: {[string]: RouteConfig<any, any>} = {
   [TUNEWS_ROUTE]: new TunewsRouteConfig(),
   [SPRUNGBRETT_ROUTE]: new SprungbrettRouteConfig(),
   [WOHNEN_ROUTE]: new WohnenRouteConfig(),
-  [EXTRAS_ROUTE]: new ExtrasRouteConfig(),
+  [OFFERS_ROUTE]: new OffersRouteConfig(),
   [DISCLAIMER_ROUTE]: new DisclaimerRouteConfig(),
   [SEARCH_ROUTE]: new SearchRouteConfig(),
   [POIS_ROUTE]: new PoisRouteConfig(),
@@ -59,7 +59,7 @@ export const routesMap: {[string]: Route} = {
   [TUNEWS_ROUTE]: new TunewsRouteConfig().route,
   [SPRUNGBRETT_ROUTE]: new SprungbrettRouteConfig().route,
   [WOHNEN_ROUTE]: new WohnenRouteConfig().route,
-  [EXTRAS_ROUTE]: new ExtrasRouteConfig().route,
+  [OFFERS_ROUTE]: new OffersRouteConfig().route,
   [DISCLAIMER_ROUTE]: new DisclaimerRouteConfig().route,
   [SEARCH_ROUTE]: new SearchRouteConfig().route,
   [POIS_ROUTE]: new PoisRouteConfig().route,

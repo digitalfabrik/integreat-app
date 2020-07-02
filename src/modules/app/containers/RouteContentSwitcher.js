@@ -9,8 +9,8 @@ import LoadingSpinner from '../../common/components/LoadingSpinner'
 import FailureSwitcher from '../../common/components/FailureSwitcher'
 import { getRouteConfig } from '../route-configs'
 import { getRouteContent } from '../routeContents'
-import { SPRUNGBRETT_EXTRA } from '../route-configs/SprungbrettRouteConfig'
-import { WOHNEN_EXTRA } from '../route-configs/WohnenRouteConfig'
+import { SPRUNGBRETT_OFFER } from '../route-configs/SprungbrettRouteConfig'
+import { WOHNEN_OFFER } from '../route-configs/WohnenRouteConfig'
 import ContentNotFoundError from '../../common/errors/ContentNotFoundError'
 
 type PropsType = {|
@@ -29,16 +29,16 @@ class RouteContentSwitcher extends React.PureComponent<PropsType> {
     return null
   }
 
-  isWaitingForExtra = (extraType: 'offers' | 'sprungbrettJobs', payloads: {[string]: Payload<any>}): boolean => {
-    const alias = extraType === 'offers' ? WOHNEN_EXTRA : SPRUNGBRETT_EXTRA
-    return payloads[extraType] && !find(payloads.extras.data, extra => extra.alias === alias)
+  isWaitingForOffer = (offerType: 'wohnenOffer' | 'sprungbrettJobs', payloads: {[string]: Payload<any>}): boolean => {
+    const alias = offerType === 'wohnenOffer' ? WOHNEN_OFFER : SPRUNGBRETT_OFFER
+    return payloads[offerType] && !find(payloads.offers.data, offer => offer.alias === alias)
   }
 
-  renderExtraFailure = (payloads: {[string]: Payload<any>}, location: LocationState): React.Node => {
-    if (payloads.extras && !payloads.extras.isFetching && payloads.extras.data && !payloads.extras.error) {
-      if (this.isWaitingForExtra('offers', payloads) || this.isWaitingForExtra('sprungbrettJobs', payloads)) {
+  renderOfferFailure = (payloads: {[string]: Payload<any>}, location: LocationState): React.Node => {
+    if (payloads.offers && !payloads.offers.isFetching && payloads.offers.data && !payloads.offers.error) {
+      if (this.isWaitingForOffer('wohnenOffer', payloads) || this.isWaitingForOffer('sprungbrettJobs', payloads)) {
         return <FailureSwitcher error={new ContentNotFoundError({
-          type: 'extra',
+          type: 'offer',
           id: location.pathname,
           city: location.payload.city,
           language: location.payload.language
@@ -53,7 +53,7 @@ class RouteContentSwitcher extends React.PureComponent<PropsType> {
     const currentRoute = location.type
     const RouteContent = getRouteContent(currentRoute)
     const payloads = getRouteConfig(currentRoute).getRequiredPayloads(allPayloads)
-    return this.renderExtraFailure(payloads, location) ||
+    return this.renderOfferFailure(payloads, location) ||
       this.renderFailureLoadingComponents(payloads) ||
       <RouteContent {...reduce(payloads, (result, value, key: string) => ({ [key]: value.data, ...result }), {})} />
   }

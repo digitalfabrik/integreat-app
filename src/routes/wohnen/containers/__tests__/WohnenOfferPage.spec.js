@@ -3,8 +3,8 @@
 import { mount, shallow } from 'enzyme'
 import React from 'react'
 
-import { ExtraModel, WohnenFormData, WohnenOfferModel } from '@integreat-app/integreat-api-client'
-import ConnectedWohnenExtraPage, { WohnenExtraPage } from '../WohnenExtraPage'
+import { OfferModel, WohnenFormData, WohnenOfferModel } from '@integreat-app/integreat-api-client'
+import ConnectedWohnenOfferPage, { WohnenOfferPage } from '../WohnenOfferPage'
 import moment from 'moment'
 import Hashids from 'hashids'
 import { Provider } from 'react-redux'
@@ -14,17 +14,17 @@ import createLocation from '../../../../createLocation'
 import { WOHNEN_ROUTE } from '../../../../modules/app/route-configs/WohnenRouteConfig'
 import configureMockStore from 'redux-mock-store'
 
-describe('WohnenExtraPage', () => {
+describe('WohnenOfferPage', () => {
   const city = 'augsburg'
   const language = 'de'
 
-  const wohnenExtra = new ExtraModel({
+  const offer = new OfferModel({
     alias: 'wohnen', path: 'path to fetch offers from', title: 'Raumfrei', thumbnail: 'xy', postData: null
   })
 
-  const extras = [wohnenExtra]
+  const offers = [offer]
 
-  const offer = new WohnenOfferModel({
+  const wohnenOffer = new WohnenOfferModel({
     email: 'mail@mail.com',
     createdDate: moment('2018-07-24T00:00:00.000Z'),
     formDataType: WohnenFormData,
@@ -54,17 +54,17 @@ describe('WohnenExtraPage', () => {
         ofAdditionalServicesDiff: []
       })
   })
-  const offerHash = new Hashids().encode(offer.email.length, offer.createdDate.milliseconds())
+  const wohnenOfferHash = new Hashids().encode(wohnenOffer.email.length, wohnenOffer.createdDate.milliseconds())
 
-  const offers = [offer]
+  const wohnenOffers = [wohnenOffer]
   const t = (key: ?string): string => key || ''
 
   it('should render list if no hash is supplied', () => {
     const wohnenPage = shallow(
-      <WohnenExtraPage offers={offers}
+      <WohnenOfferPage wohnenOffers={wohnenOffers}
                        city={city}
                        language={language}
-                       extras={[wohnenExtra]}
+                       offers={offers}
                        t={t} />
     )
     expect(wohnenPage).toMatchSnapshot()
@@ -72,35 +72,35 @@ describe('WohnenExtraPage', () => {
 
   it('should render detailed offer if hash is supplied', () => {
     const wohnenPage = shallow(
-      <WohnenExtraPage offers={offers}
+      <WohnenOfferPage wohnenOffers={wohnenOffers}
                        city={city}
                        language={language}
-                       offerHash={offerHash}
-                       extras={[wohnenExtra]}
+                       wohnenOfferHash={wohnenOfferHash}
+                       offers={[offer]}
                        t={t} />
     )
     expect(wohnenPage).toMatchSnapshot()
   })
 
   it('should render failure offer if offer is not found', () => {
-    const extrasPage = shallow(
-      <WohnenExtraPage offers={offers}
+    const offersPage = shallow(
+      <WohnenOfferPage wohnenOffers={wohnenOffers}
                        city={city}
                        language={language}
-                       offerHash='invalid hash'
-                       extras={[wohnenExtra]}
+                       wohnenOfferHash='invalid hash'
+                       offers={[offer]}
                        t={t} />
     )
-    expect(extrasPage).toMatchSnapshot()
+    expect(offersPage).toMatchSnapshot()
   })
 
   it('should render failure city does not support offer', () => {
     const wohnenPage = shallow(
-      <WohnenExtraPage offers={offers}
+      <WohnenOfferPage wohnenOffers={wohnenOffers}
                        city={city}
                        language={language}
-                       offerHash={offerHash}
-                       extras={[]}
+                       wohnenOfferHash={wohnenOfferHash}
+                       offers={[]}
                        t={t} />
     )
     expect(wohnenPage).toMatchSnapshot()
@@ -118,17 +118,17 @@ describe('WohnenExtraPage', () => {
     const tree = mount(
       <ThemeProvider theme={theme}>
         <Provider store={store}>
-          <ConnectedWohnenExtraPage extras={extras} offers={offers} />
+          <ConnectedWohnenOfferPage wohnenOffers={wohnenOffers} offers={offers} />
         </Provider>
       </ThemeProvider>
     )
 
-    expect(tree.find(WohnenExtraPage).props()).toEqual({
+    expect(tree.find(WohnenOfferPage).props()).toEqual({
       language,
       city,
       i18n: expect.anything(),
-      offerHash,
-      extras,
+      wohnenOfferHash: offerHash,
+      wohnenOffers,
       offers,
       dispatch: expect.any(Function),
       t: expect.any(Function)

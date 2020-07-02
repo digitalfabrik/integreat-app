@@ -2,12 +2,12 @@
 
 import * as React from 'react'
 import { connect } from 'react-redux'
-import SprungbrettExtraPage from '../../../routes/sprungbrett/containers/SprungbrettExtraPage'
+import SprungbrettOfferPage from '../../../routes/sprungbrett/containers/SprungbrettOfferPage'
 import {
   CategoriesMapModel,
   CityModel,
   EventModel,
-  ExtraModel,
+  OfferModel,
   LanguageModel,
   LocalNewsModel,
   PageModel,
@@ -44,9 +44,9 @@ type PropsType = {|
   localNewsElementPayload: Payload<LocalNewsModel>,
   tunewsPayload: Payload<Array<TunewsModel>>,
   tunewsElementPayload: Payload<TunewsModel>,
-  extrasPayload: Payload<Array<ExtraModel>>,
-  sprungbrettJobsPayload: Payload<Array<SprungbrettExtraPage>>,
-  wohnenPayload: Payload<Array<WohnenOfferModel>>,
+  offersPayload: Payload<Array<OfferModel>>,
+  sprungbrettJobsPayload: Payload<Array<SprungbrettOfferPage>>,
+  wohnenOffersPayload: Payload<Array<WohnenOfferModel>>,
   disclaimerPayload: Payload<PageModel>,
   languages: ?Array<LanguageModel>,
   viewportSmall: boolean,
@@ -153,9 +153,9 @@ const mapStateToProps = (state: StateType) => ({
   tunewsPayload: state.tunews.payload,
   tunewsElementPayload: state.tunewsElement,
   poisPayload: state.pois,
-  extrasPayload: state.extras,
+  offersPayload: state.offers,
   sprungbrettJobsPayload: state.sprungbrettJobs,
-  wohnenPayload: state.wohnen,
+  wohnenOffersPayload: state.wohnen,
   disclaimerPayload: state.disclaimer,
   languages: state.languages.data,
   viewportSmall: state.viewport.is.small,

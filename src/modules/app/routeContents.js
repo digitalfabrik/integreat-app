@@ -7,7 +7,7 @@ import { SEARCH_ROUTE } from './route-configs/SearchRouteConfig'
 import { I18N_REDIRECT_ROUTE } from './route-configs/I18nRedirectRouteConfig'
 import { EVENTS_ROUTE } from './route-configs/EventsRouteConfig'
 import { POIS_ROUTE } from './route-configs/PoisRouteConfig'
-import { EXTRAS_ROUTE } from './route-configs/ExtrasRouteConfig'
+import { OFFERS_ROUTE } from './route-configs/OffersRouteConfig'
 import { LANDING_ROUTE } from './route-configs/LandingRouteConfig'
 import { DISCLAIMER_ROUTE } from './route-configs/DisclaimerRouteConfig'
 import { CATEGORIES_ROUTE } from './route-configs/CategoriesRouteConfig'
@@ -23,9 +23,9 @@ import { TUNEWS_DETAILS_ROUTE } from './route-configs/TunewsDetailsRouteConfig'
 import TunewsDetailsPage from '../../routes/news/containers/TunewsDetailsPage'
 import { TUNEWS_ROUTE } from './route-configs/TunewsRouteConfig'
 import TunewsPage from '../../routes/news/containers/TunewsPage'
-import SprungbrettExtraPage from '../../routes/sprungbrett/containers/SprungbrettExtraPage'
-import WohnenExtraPage from '../../routes/wohnen/containers/WohnenExtraPage'
-import ExtrasPage from '../../routes/extras/containers/ExtrasPage'
+import SprungbrettOfferPage from '../../routes/sprungbrett/containers/SprungbrettOfferPage'
+import WohnenOfferPage from '../../routes/wohnen/containers/WohnenOfferPage'
+import OffersPage from '../../routes/offers/containers/OffersPage'
 import DisclaimerPage from '../../routes/disclaimer/containers/DisclaimerPage'
 import SearchPage from '../../routes/search/containers/SearchPage'
 import PoisPage from '../../routes/pois/containers/PoisPage'
@@ -44,9 +44,9 @@ const routeContents = {
   [LOCAL_NEWS_DETAILS_ROUTE]: LocalNewsDetailsPage,
   [TUNEWS_ROUTE]: TunewsPage,
   [TUNEWS_DETAILS_ROUTE]: TunewsDetailsPage,
-  [SPRUNGBRETT_ROUTE]: SprungbrettExtraPage,
-  [WOHNEN_ROUTE]: WohnenExtraPage,
-  [EXTRAS_ROUTE]: ExtrasPage,
+  [SPRUNGBRETT_ROUTE]: SprungbrettOfferPage,
+  [WOHNEN_ROUTE]: WohnenOfferPage,
+  [OFFERS_ROUTE]: OffersPage,
   [DISCLAIMER_ROUTE]: DisclaimerPage,
   [SEARCH_ROUTE]: SearchPage,
   [POIS_ROUTE]: PoisPage,
