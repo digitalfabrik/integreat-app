@@ -129,7 +129,7 @@ platform :ios do
   end
 
   desc "Upload the APK and run E2E tests on BrowserStack"
-  lane :browserstack_e2e_tests do
+  lane :browserstack_e2e_tests do |options|
     ensure_env_vars(
         env_vars: ["BROWSERSTACK_USERNAME", "BROWSERSTACK_ACCESS_KEY"]
     )
