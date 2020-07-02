@@ -288,9 +288,6 @@ jobs:
       - run:
           name: Rename apk
           command: mv android/app/build/outputs/apk/release/app-release.apk android/output/apk/integreat-test-cms.apk
-      - run:
-          name: Rename sourcemap
-          command: mv android/app/build/generated/sourcemaps/react/release/index.android.bundle.map android/output/integreat-test-cms.android.bundle.map
       - store_artifacts:
           path: android/output/apk
       - persist_to_workspace:
@@ -393,9 +390,6 @@ jobs:
             E2E_TEST_IDS: 1
           command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} scheme:${BUILD_CONFIG_NAME}
           working_directory: ios
-      - run:
-          name: Rename sourcemap
-          command: mv ios/index.ios.bundle.map ios/output/integreat-test-cms.ios.bundle.map
       - store_artifacts:
           path: ios/output/gym/
       - persist_to_workspace:
