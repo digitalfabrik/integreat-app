@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const loadBuildConfig = require('../build-configs')
+const loadBuildConfig = require('../build-configs').default
 const { program } = require('commander')
 const fs = require('fs')
 
