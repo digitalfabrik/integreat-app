@@ -43,6 +43,11 @@ const moveReleaseNotes = async ({ newVersionName, deliverinoPrivateKey, owner, r
   const unreleasedReleaseNotes = unreleasedTree.data.tree.filter(it => it.path !== GITKEEP_FILE)
   const keepFile = unreleasedTree.data.tree.find(it => it.path === GITKEEP_FILE)
 
+  // Creating an empty tree is not possible
+  if (unreleasedReleaseNotes.length === 0) {
+    return
+  }
+
   const newVersionTree = await appOctokit.git.createTree({ owner, repo, tree: unreleasedReleaseNotes })
   const newUnreleasedTree = await appOctokit.git.createTree({ owner, repo, tree: [keepFile] })
 
