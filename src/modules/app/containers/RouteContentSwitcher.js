@@ -9,8 +9,8 @@ import LoadingSpinner from '../../common/components/LoadingSpinner'
 import FailureSwitcher from '../../common/components/FailureSwitcher'
 import { getRouteConfig } from '../route-configs'
 import { getRouteContent } from '../routeContents'
-import { SPRUNGBRETT_EXTRA } from '../route-configs/SprungbrettRouteConfig'
-import { WOHNEN_EXTRA } from '../route-configs/WohnenRouteConfig'
+import { SPRUNGBRETT_OFFER } from '../route-configs/SprungbrettRouteConfig'
+import { WOHNEN_OFFER } from '../route-configs/WohnenRouteConfig'
 import ContentNotFoundError from '../../common/errors/ContentNotFoundError'
 
 type PropsType = {|
@@ -30,7 +30,7 @@ class RouteContentSwitcher extends React.PureComponent<PropsType> {
   }
 
   isWaitingForOffer = (offerType: 'wohnenOffer' | 'sprungbrettJobs', payloads: {[string]: Payload<any>}): boolean => {
-    const alias = offerType === 'wohnenOffer' ? WOHNEN_EXTRA : SPRUNGBRETT_EXTRA
+    const alias = offerType === 'wohnenOffer' ? WOHNEN_OFFER : SPRUNGBRETT_OFFER
     return payloads[offerType] && !find(payloads.offers.data, offer => offer.alias === alias)
   }
 

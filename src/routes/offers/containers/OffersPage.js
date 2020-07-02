@@ -9,8 +9,8 @@ import { CityModel, OfferModel } from '@integreat-app/integreat-api-client'
 import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
-import SprungbrettRouteConfig, { SPRUNGBRETT_EXTRA } from '../../../modules/app/route-configs/SprungbrettRouteConfig'
-import WohnenRouteConfig, { WOHNEN_EXTRA } from '../../../modules/app/route-configs/WohnenRouteConfig'
+import SprungbrettRouteConfig, { SPRUNGBRETT_OFFER } from '../../../modules/app/route-configs/SprungbrettRouteConfig'
+import WohnenRouteConfig, { WOHNEN_OFFER } from '../../../modules/app/route-configs/WohnenRouteConfig'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import Failure from '../../../modules/common/components/Failure'
@@ -34,9 +34,9 @@ export class OffersPage extends React.Component<PropsType> {
     return offers.map(
       offer => {
         let path = offer.path
-        if (offer.alias === SPRUNGBRETT_EXTRA) {
+        if (offer.alias === SPRUNGBRETT_OFFER) {
           path = new SprungbrettRouteConfig().getRoutePath({ city, language })
-        } else if (offer.alias === WOHNEN_EXTRA) {
+        } else if (offer.alias === WOHNEN_OFFER) {
           path = new WohnenRouteConfig().getRoutePath({ city, language })
         }
 
@@ -82,6 +82,6 @@ const mapStateToProps = (state: StateType) => ({
 })
 
 export default connect<*, *, *, *, *, *>(mapStateToProps)(
-  withTranslation('extras')(
+  withTranslation('offers')(
     OffersPage
   ))
