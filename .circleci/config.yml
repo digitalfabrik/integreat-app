@@ -290,11 +290,14 @@ jobs:
           command: mv android/app/build/outputs/apk/release/app-release.apk android/output/apk/integreat-test-cms.apk
       - store_artifacts:
           path: android/output/apk
-      - persist_to_workspace:
-          root: android/output
-          paths:
-            - integreat.android.bundle.map
-            - malte.android.bundle.map
+      - when:
+          condition: << parameters.build_for_delivery >>
+          steps:
+            - persist_to_workspace:
+                root: android/output
+                paths:
+                  - integreat.android.bundle.map
+                  - malte.android.bundle.map
       - persist_to_workspace:
           root: android/output/apk
           paths:
@@ -391,11 +394,14 @@ jobs:
           working_directory: ios
       - store_artifacts:
           path: ios/output/gym/
-      - persist_to_workspace:
-          root: ios/output
-          paths:
-            - integreat.ios.bundle.map
-            - malte.ios.bundle.map
+      - when:
+          condition: << parameters.build_for_delivery >>
+          steps:
+            - persist_to_workspace:
+                root: ios/output
+                paths:
+                  - integreat.ios.bundle.map
+                  - malte.ios.bundle.map
       - persist_to_workspace:
           root: ios/output/gym/
           paths:
