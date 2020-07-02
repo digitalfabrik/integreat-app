@@ -30,8 +30,6 @@
 
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
-		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* IntegreatTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntegreatTests.m; sourceTree = "<group>"; };
 		0518B741B48590C7AE9330F0 /* Pods-IntegreatTests.integreat-test-cms.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IntegreatTests.integreat-test-cms.xcconfig"; path = "Target Support Files/Pods-IntegreatTests/Pods-IntegreatTests.integreat-test-cms.xcconfig"; sourceTree = "<group>"; };
 		07CD12FA3D7CB27526D44E55 /* Pods-IntegreatTests.malte.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IntegreatTests.malte.xcconfig"; path = "Target Support Files/Pods-IntegreatTests/Pods-IntegreatTests.malte.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* Integreat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Integreat.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -96,23 +94,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00E356EF1AD99517003FC87E /* IntegreatTests */ = {
-			isa = PBXGroup;
-			children = (
-				00E356F21AD99517003FC87E /* IntegreatTests.m */,
-				00E356F01AD99517003FC87E /* Supporting Files */,
-			);
-			path = IntegreatTests;
-			sourceTree = "<group>";
-		};
-		00E356F01AD99517003FC87E /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				00E356F11AD99517003FC87E /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		13B07FAE1A68108700A75B9A /* Integreat */ = {
 			isa = PBXGroup;
 			children = (
@@ -187,7 +168,6 @@
 				B8F3AC7E24ADE7E10010125F /* buildConfig.xcconfig */,
 				7B7EDC2C2428EE0900E64563 /* fastlane */,
 				13B07FAE1A68108700A75B9A /* Integreat */,
-				00E356EF1AD99517003FC87E /* IntegreatTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				975CC54057294CA8AC99AA8B /* Resources */,
