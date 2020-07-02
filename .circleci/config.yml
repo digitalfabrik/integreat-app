@@ -149,7 +149,7 @@ jobs:
     - run:
         command: tools/create-jira-release create-release ${NEW_VERSION_NAME} --private-key
           ${JIRA_PRIVATE_KEY} --access-token ${JIRA_OAUTH_TOKEN} --consumer-key ${JIRA_CONSUMER_KEY}
-          --projectName ${CIRCLE_PROJECT_REPONAME}
+          --project-name ${CIRCLE_PROJECT_REPONAME}
         name: Create jira release
     - run:
         command: tools/move-release-notes move-to ${NEW_VERSION_NAME} --deliverino-private-key

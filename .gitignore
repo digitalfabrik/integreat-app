@@ -79,6 +79,7 @@ typings/
 .idea/**/workspace.xml
 .idea/**/tasks.xml
 .idea/dictionaries
+.idea/terminal.xml
 
 # Sensitive or high-churn files:
 .idea/**/dataSources/
