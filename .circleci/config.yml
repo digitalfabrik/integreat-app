@@ -193,7 +193,7 @@ jobs:
         description: Whether builds are delivered to the store. If true, integreat and malte builds are created.
         type: boolean
     docker:
-      - image: circleci/node:12.16.3
+      - image: circleci/android:api-28-node
     resource_class: medium
     environment:
       TOTAL_CPUS: 2 # For resource_class medium, used in metro.config.ci.js.
