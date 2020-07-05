@@ -20,7 +20,7 @@ import type { NavigateToEventParamsType } from '../../../modules/app/createNavig
 import type { NavigateToNewsParamsType } from '../../../modules/app/createNavigateToNews'
 
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
-import { LOCAL } from '../../../modules/error/NewsTabs'
+import { LOCAL, TUNEWS } from '../../../modules/error/NewsTabs'
 
 export type PropsType = {|
   navigation: NavigationScreenProp<*>,
@@ -103,7 +103,7 @@ class Dashboard extends React.Component<PropsType> {
         thumbnail: newsIcon,
         isExternalUrl: false,
         onTilePress: () =>
-          navigateToNews({ cityCode, language, newsId: null, type: LOCAL })
+          navigateToNews({ cityCode, language, newsId: null, type: pushNotificationsEnabled ? LOCAL : TUNEWS })
       }))
     }
     return tiles
