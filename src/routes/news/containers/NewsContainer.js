@@ -19,7 +19,7 @@ import createNavigateToNews from '../../../modules/app/createNavigateToNews'
 import type { Dispatch } from 'redux'
 
 import type { NavigationScreenProp } from 'react-navigation'
-import withCustomPayloadProvider  from '../../../modules/error/hocs/withCustomNewsProvider'
+import withCustomPayloadProvider from '../../../modules/error/hocs/withCustomNewsProvider'
 import type { StatusPropsType } from '../../../modules/error/hocs/withCustomNewsProvider'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import * as React from 'react'
