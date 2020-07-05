@@ -8,7 +8,7 @@ import pushEvent from './pushEvent'
 import pushNews from './pushNews'
 import type { StoreActionType } from '../../app/StoreActionType'
 import createCityContent from './createCityContent'
-import { omit } from 'lodash'
+import { omit, isEmpty } from 'lodash'
 
 export default (
   state: CityContentStateType | null = defaultCityContentState, action: StoreActionType
@@ -36,7 +36,6 @@ export default (
   } else if (action.type === 'FETCH_NEWS') {
     const { language, newsId, key, city, type } = action.params
     const initializedState = state || createCityContent(city)
-
     return {
       ...initializedState,
       newsRouteMapping: {
@@ -80,7 +79,7 @@ export default (
           ...state,
           newsRouteMapping: {
             ...state.newsRouteMapping,
-            [key]: allAvailableLanguages
+            [key]: allAvailableLanguages && !isEmpty(allAvailableLanguages)
               ? { status: 'languageNotAvailable', type, allAvailableLanguages, ...rest }
               : { status: 'error', message, newsId, type, ...rest }
           }
