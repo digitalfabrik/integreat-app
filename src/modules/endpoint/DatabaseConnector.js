@@ -20,7 +20,7 @@ import type {
 } from '../app/StateType'
 import DatabaseContext from './DatabaseContext'
 import { map, mapValues } from 'lodash'
-import { CONTENT_VERSION, RESOURCE_CACHE_VERSION } from '../endpoint/persistentVersions'
+import { CONTENT_VERSION, RESOURCE_CACHE_VERSION } from './persistentVersions'
 import deleteIfExists from './deleteIfExists'
 
 // Our pdf view can only load from DocumentDir. Therefore we need to use that
@@ -346,7 +346,7 @@ class DatabaseConnector {
       live: city.live,
       code: city.code,
       prefix: city.prefix,
-      extras_enabled: city.extrasEnabled,
+      extras_enabled: city.offersEnabled,
       events_enabled: city.eventsEnabled,
       sorting_name: city.sortingName,
       longitude: city.longitude,
@@ -373,7 +373,7 @@ class DatabaseConnector {
         code: jsonObject.code,
         live: jsonObject.live,
         eventsEnabled: jsonObject.events_enabled,
-        extrasEnabled: jsonObject.extras_enabled,
+        offersEnabled: jsonObject.extras_enabled,
         tunewsEnabled: false, // todo: NATIVE-549
         pushNotificationsEnabled: false, // todo: NATIVE-549
         sortingName: jsonObject.sorting_name,
@@ -444,6 +444,9 @@ class DatabaseConnector {
         }),
         location: new LocationModel({
           name: null, // todo: NATIVE-549
+          region: null, // todo: NATIVE-549
+          state: null, // todo: NATIVE-549
+          country: null, // todo: NATIVE-549
           address: jsonLocation.address,
           latitude: jsonLocation.latitude,
           longitude: jsonLocation.longitude,

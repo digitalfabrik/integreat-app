@@ -18,7 +18,7 @@ import React from 'react'
 import createNavigateToCategory from '../../../modules/app/createNavigateToCategory'
 import createNavigateToEvent from '../../../modules/app/createNavigateToEvent'
 import createNavigateToIntegreatUrl from '../../../modules/app/createNavigateToIntegreatUrl'
-import createNavigateToExtras from '../../../modules/app/createNavigateToExtras'
+import createNavigateToOffers from '../../../modules/app/createNavigateToOffers'
 import { mapProps } from 'recompose'
 
 type RefreshPropsType = {|
@@ -124,9 +124,8 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsType => ({ dispatch })
 
 const ThemedTranslatedDashboard = withTranslation('dashboard')(
-  withTheme(props => props.language)(
-    Dashboard
-  ))
+  withTheme(Dashboard)
+)
 
 const DashboardContainer = (props: ContainerPropsType) => {
   const { dispatch, ...rest } = props
@@ -136,7 +135,7 @@ const DashboardContainer = (props: ContainerPropsType) => {
     navigateToEvent={createNavigateToEvent(dispatch, rest.navigation)}
     navigateToIntegreatUrl={createNavigateToIntegreatUrl(dispatch, rest.navigation)}
     navigateToDashboard={createNavigateToCategory('Dashboard', dispatch, rest.navigation)}
-    navigateToExtras={createNavigateToExtras(dispatch, rest.navigation)} />
+    navigateToOffers={createNavigateToOffers(dispatch, rest.navigation)} />
 }
 
 type RestType = $Diff<PropsType, OwnPropsType>

@@ -1,19 +1,34 @@
 # Conventions
 ## Naming
-For naming, we follow the airbnb style: https://github.com/airbnb/javascript/tree/master/react
+We follow the [airbnb style](https://github.com/airbnb/javascript/tree/master/react) for naming.
 
 ## Code style
-For the JavasScript code style we use the standard style: https://standardjs.com/
+We mainly follow the [standard style](https://standardjs.com/rules) for JavaScript, although there may be smaller deviations.
+Run the linter (`yarn lint`) to show problems. Our eslint config can be found [here](https://github.com/Integreat/eslint-config-integreat).
 
-## Git commit messages
-For git commit messages: https://github.com/erlang/otp/wiki/Writing-good-commit-messages
+## Git commit messages and Pull request names
+See [this guide](https://github.com/erlang/otp/wiki/Writing-good-commit-messages) for a general reference on how to write
+good commit messages.
+Commit messages should have the following schema:
+**`<Issue key>: Your commit message`**, e.g. `WEBAPP-612: Add commit message documentation`
 
+The same applies for PR names.
 
 ## Versioning
-![versioning](https://img.shields.io/badge/calver-YYYY.MM.PATCH-22bfda.svg) with:
-* **`YYYY`** - Full year - 2006, 2016
-* **`MM`** - Short month - 1, 2 ... 11, 12
-* **`Minor`** - The third number in the version. For feature and bugfix releases.
+Versions consist of a version name and a version code.
+
+### Version name
+The following [schema](https://calver.org/) ![versioning](https://img.shields.io/badge/calver-YYYY.M.PATCH-22bfda.svg) is used for versioning.
+`PATCH` is a counter for the number of releases in the corresponding month starting with 0.
+
+Examples:
+* First versions of 2020: `2020.1.0`, `2020.1.1`, `2020.1.2`.
+* First version of February 2020: `2020.2.0`. 
+
+### Version code
+An additional consecutive version code is used for unique identification in the app stores.
+The version code is incremented for every build uploaded to the stores.
+The first version code was `100000`.
 
 ## Folder structure
 ```
