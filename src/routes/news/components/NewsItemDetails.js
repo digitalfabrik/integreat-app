@@ -122,7 +122,6 @@ class NewsItemsDetails extends React.Component<PropsType> {
           {isTunews && (
             <Row theme={theme} language={language}>
               <TunewsFooter theme={theme} rightMargin={3}>
-                {`${t('eNewsNo')}: `}
                 {selectedNewsItem.eNewsNo ? selectedNewsItem.eNewsNo : null}
               </TunewsFooter>
               <TunewsFooter
