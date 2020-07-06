@@ -85,7 +85,7 @@ export function * fetchNews (
       }
       yield put(insert)
     } else {
-      const allAvailableLanguages = !newsId ? new Map(languages.map(language => [language.code, null])) : new Map()
+      const allAvailableLanguages = !newsId ? new Map(languages.map(language => [language.code, null])) : null
 
       const failed: FetchNewsFailedActionType = {
         type: 'FETCH_NEWS_FAILED',
@@ -114,7 +114,7 @@ export function * fetchNews (
         language,
         type,
         newsId,
-        allAvailableLanguages: new Map()
+        allAvailableLanguages: null
       }
     }
     yield put(failed)
@@ -182,7 +182,7 @@ export function * fetchMoreNews (
         language,
         type,
         newsId,
-        allAvailableLanguages: new Map()
+        allAvailableLanguages: null
       }
     }
     yield put(failed)
