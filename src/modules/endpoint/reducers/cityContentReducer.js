@@ -12,7 +12,6 @@ import { omit } from 'lodash'
 export default (
   state: CityContentStateType | null = defaultCityContentState, action: StoreActionType
 ): CityContentStateType | null => {
-  console.log({ ...action })
   if (action.type === 'FETCH_CATEGORY') {
     const { language, path, depth, key, city } = action.params
     const initializedState = state || createCityContent(city)
