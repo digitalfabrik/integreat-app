@@ -6,7 +6,6 @@ import TestRenderer from 'react-test-renderer'
 import typeof FailureContainer from '../FailureContainer'
 
 jest.mock('react-i18next')
-jest.mock('../../../theme/hocs/withTheme')
 
 describe('FailureContainer', () => {
   beforeEach(() => {

@@ -1,5 +1,3 @@
-require_relative '../../fastlane/version'
-
 fastlane_version "2.143.0"
 
 CREDENTIALS_GIT_REPOSITORY_URL = ENV['CREDENTIALS_GIT_REPOSITORY_URL']
@@ -36,8 +34,9 @@ lane :dependencies do
 end
 
 desc "Create an Android build in release mode. Set the environment variable E2E_TEST_IDS if you want a build usable for E2E tests. Set the environment variable TOTAL_CPUS if you run this in a Docker container."
-lane :build do
-  next_version = next_version()
+lane :build do |options|
+  version_code = options[:version_code]
+  version_name = options[:version_name]
 
   ENV["BUNDLE_CONFIG"] = "./metro.config.ci.js"
 
@@ -56,8 +55,8 @@ lane :build do
   gradle(
       task: "assembleRelease",
       properties: {
-          :VERSION_CODE => next_version[:new_version_code],
-          :VERSION_NAME => next_version[:new_version_name],
+          :VERSION_CODE => version_code,
+          :VERSION_NAME => version_name,
           :KEYSTORE_PATH => KEYSTORE_PATH,
           :KEYSTORE_KEY_ALIAS => KEYSTORE_KEY_ALIAS,
           :KEYSTORE_PASSWORD => KEYSTORE_PASSWORD,

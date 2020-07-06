@@ -6,9 +6,9 @@
       <sourceFolder url="file://$MODULE_DIR$/e2e" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/flow-typed/custom" isTestSource="false" />
-      <excludeFolder url="file://$MODULE_DIR$/android" />
+      <sourceFolder url="file://$MODULE_DIR$/ios" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/android" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/flow-typed/npm" />
-      <excludeFolder url="file://$MODULE_DIR$/ios" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

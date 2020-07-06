@@ -143,7 +143,5 @@ class PermissionSnackbarContainer extends React.Component<PropsType, StateType> 
 }
 
 export default withTranslation('snackbar')(
-  withTheme()(
-    PermissionSnackbarContainer
-  )
+  withTheme(PermissionSnackbarContainer)
 )

@@ -26,7 +26,7 @@ export type PropsType = {|
   navigateToEvent: NavigateToEventParamsType => void,
   navigateToIntegreatUrl: NavigateToIntegreatUrlParamsType => void,
   navigateToDashboard: NavigateToCategoryParamsType => void,
-  navigateToExtras: ({| cityCode: string, language: string |}) => void,
+  navigateToOffers: ({| cityCode: string, language: string |}) => void,
   theme: ThemeType,
 
   language: string,
@@ -38,7 +38,7 @@ export type PropsType = {|
 
 class Dashboard extends React.Component<PropsType> {
   getNavigationTileModels (cityCode: string, language: string): Array<TileModel> {
-    const { navigateToCategory, navigateToEvent, navigateToExtras, t, cities } = this.props
+    const { navigateToCategory, navigateToEvent, navigateToOffers, t, cities } = this.props
 
     const cityModel = cities.find(city => city.code === cityCode)
     if (!cityModel) {
@@ -60,13 +60,13 @@ class Dashboard extends React.Component<PropsType> {
         notifications: 0
       })]
 
-    if (cityModel.extrasEnabled) {
+    if (cityModel.offersEnabled) {
       tiles.push(new TileModel({
         title: t('offers'),
-        path: 'extras',
+        path: 'offers',
         thumbnail: offersIcon,
         isExternalUrl: false,
-        onTilePress: () => navigateToExtras({
+        onTilePress: () => navigateToOffers({
           cityCode,
           language
         }),
