@@ -48,7 +48,6 @@ class AppSettings {
   loadSettings = async (): Promise<SettingsType> => {
     const settingsKeys = Object.keys(defaultSettings)
     const settingsArray = await this.asyncStorage.multiGet(settingsKeys)
-    console.log({ settingsArray })
     return mapValues(fromPairs(settingsArray), (value, key) => {
       const parsed = JSON.parse(value)
 

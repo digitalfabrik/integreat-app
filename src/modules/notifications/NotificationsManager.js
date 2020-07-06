@@ -4,7 +4,6 @@ import messaging from '@react-native-firebase/messaging'
 
 const requestUserPermissionForPushNotifications = async () => {
   const authStatus = await messaging().requestPermission()
-  console.log({ messaging })
 
   const enabled =
     authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
