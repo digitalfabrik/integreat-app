@@ -34,6 +34,7 @@ target 'Integreat' do
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
   pod 'Permission-LocationWhenInUse', :path => '../node_modules/react-native-permissions/ios/LocationWhenInUse.podspec'
+  pod 'Permission-Notifications', :path => '../node_modules/react-native-permissions/ios/Notifications.podspec'
 
   target 'IntegreatTests' do
     inherit! :search_paths
