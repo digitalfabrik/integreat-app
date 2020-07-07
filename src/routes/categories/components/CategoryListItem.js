@@ -9,6 +9,7 @@ import Highlighter from 'react-highlight-words'
 import normalizeSearchString from '../../../modules/common/utils/normalizeSearchString'
 import Link from 'redux-first-router-link'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
+import CategoryMatch from './CategoryMatch'
 
 const Row = styled.div`
   margin: 12px 0;
@@ -81,10 +82,12 @@ class CategoryListItem extends React.PureComponent<PropsType> {
 
   renderTitle (): React.Node {
     const { query, category, theme } = this.props
-    return <CategoryCaption searchWords={query ? [query] : []} aria-label={category.title}
+    return <div><CategoryCaption searchWords={query ? [query] : []} aria-label={category.title}
                             sanitize={normalizeSearchString}
                             highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }}
                             textToHighlight={category.title} />
+      <CategoryMatch category={category} filterText={query} theme={theme} />
+    </div>
   }
 
   render () {
