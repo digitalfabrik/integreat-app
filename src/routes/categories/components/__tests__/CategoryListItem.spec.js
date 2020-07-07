@@ -4,7 +4,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import moment from 'moment'
 
-import CategoryListItem from '../CategoryEntry'
+import CategoryEntry from '../CategoryEntry'
 import { CategoryModel } from '@integreat-app/integreat-api-client'
 import { brightTheme } from '../../../../modules/theme/constants/theme'
 
@@ -48,14 +48,14 @@ const noThumbCategory = new CategoryModel({
 describe('CategoryListItem', () => {
   it('should render and match snapshot', () => {
     const wrapper = shallow(
-      <CategoryListItem theme={brightTheme} category={category} subCategories={[childCategory]} />
+      <CategoryEntry theme={brightTheme} category={category} subCategories={[childCategory]} />
     ).dive()
     expect(wrapper).toMatchSnapshot()
   })
 
   it('should replace empty thumbnail', () => {
     const wrapper = shallow(
-      <CategoryListItem theme={brightTheme} category={noThumbCategory} subCategories={[noThumbCategory]} />
+      <CategoryEntry theme={brightTheme} category={noThumbCategory} subCategories={[noThumbCategory]} />
     ).dive()
     expect(wrapper).toMatchSnapshot()
   })
