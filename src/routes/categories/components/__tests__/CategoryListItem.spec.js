@@ -4,7 +4,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import moment from 'moment'
 
-import CategoryListItem from '../CategoryListItem'
+import CategoryListItem from '../CategoryEntry'
 import { CategoryModel } from '@integreat-app/integreat-api-client'
 import { brightTheme } from '../../../../modules/theme/constants/theme'
 

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CategoryListItem should render and match snapshot 1`] = `
+exports[`CategoryEntry should render and match snapshot 1`] = `
 <CategoryListItem__Row>
   <CategoryListItem__StyledLink
     to="/augsburg/de/willkommen"
@@ -38,7 +38,7 @@ exports[`CategoryListItem should render and match snapshot 1`] = `
 </CategoryListItem__Row>
 `;
 
-exports[`CategoryListItem should replace empty thumbnail 1`] = `
+exports[`CategoryEntry should replace empty thumbnail 1`] = `
 <CategoryListItem__Row>
   <CategoryListItem__StyledLink
     to="/augsburg/de/willkommen/willkommen-in-augsburg"

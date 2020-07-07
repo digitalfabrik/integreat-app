@@ -45,7 +45,7 @@ export class SearchPage extends React.Component<PropsType, LocalStateType> {
     // find all categories whose contents but not titles include the filter text and sort them lexicographically
     const categoriesWithContent = categories.toArray()
       .filter(category => !normalizeSearchString(category.title).includes(filterText))
-      .filter(category => normalizeSearchString(category.content).includes(filterText))
+      .filter(category => normalizeSearchString(category.content).replace(/(<([^>]+)>)/ig, '').includes(filterText))
       .sort((category1, category2) => category1.title.localeCompare(category2.title))
 
     // return all categories from above and remove the root category

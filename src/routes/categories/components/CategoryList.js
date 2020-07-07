@@ -4,7 +4,7 @@ import React from 'react'
 
 import RemoteContent from '../../../modules/common/components/RemoteContent'
 import Caption from '../../../modules/common/components/Caption'
-import CategoryListItem from './CategoryListItem'
+import CategoryListItem from './CategoryEntry'
 import { CategoryModel } from '@integreat-app/integreat-api-client'
 import styled from 'styled-components'
 
