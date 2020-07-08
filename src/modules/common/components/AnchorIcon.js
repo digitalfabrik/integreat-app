@@ -6,6 +6,7 @@ import type { StyledComponent } from 'styled-components'
 import { ScrollView } from 'react-native'
 import styled from 'styled-components/native'
 import { isRTL } from '../../i18n/contentDirection'
+
 const anchorWidth = 30
 const widthThreshold = 10
 
@@ -56,7 +57,7 @@ class AnchorIcon extends React.Component<PropsType> {
         })
       }
     }
-  };
+  }
 
   render () {
     const { name } = this.props
@@ -70,4 +71,5 @@ class AnchorIcon extends React.Component<PropsType> {
     )
   }
 }
+
 export default AnchorIcon

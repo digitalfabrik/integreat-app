@@ -57,11 +57,9 @@ const ListItemWrapper = styled.View`
   padding-horizontal: 5%;
 `
 
-const StyledTouchableOpacity: StyledComponent<
-  {},
+const StyledTouchableOpacity: StyledComponent<{},
   ThemeType,
-  *
-> = styled.TouchableOpacity`
+  *> = styled.TouchableOpacity`
   flex-direction: column;
 `
 
@@ -88,11 +86,9 @@ export const Title: StyledComponent<{}, ThemeType, *> = styled.Text`
   margin-top: 8px;
 `
 
-export const Content: StyledComponent<
-  { language: string },
+export const Content: StyledComponent<{ language: string },
   ThemeType,
-  *
-> = styled.Text`
+  *> = styled.Text`
   font-family: ${props => props.theme.fonts.decorativeFontRegular};
   font-size: 14px;
   letter-spacing: 0.5px;
@@ -100,11 +96,9 @@ export const Content: StyledComponent<
   color: ${props => props.theme.colors.textColor};
 `
 
-export const ReadMore: StyledComponent<
-  { isTunews: ?boolean },
+export const ReadMore: StyledComponent<{ isTunews: ?boolean },
   ThemeType,
-  *
-> = styled.Text`
+  *> = styled.Text`
   font-family: ${props => props.theme.fonts.decorativeFontBold};
   font-size: 12px;
   letter-spacing: 0.5px;
@@ -144,17 +138,17 @@ class NewsListItem extends React.PureComponent<PropsType> {
               </ListItemView>
             </Description>
             <ReadMoreWrapper language={language}>
-            <ReadMore
-              theme={theme}
-              isTunews={isTunews}
-              onPress={navigateToNews}>{`${t('readMore')}`}</ReadMore>
-                <Icon
-                  theme={theme}
-                  isTunews={isTunews}
-                  name='keyboard-arrow-right'
-                  style={{ transform: [{ scaleX: RTL_LANGUAGES.includes(language) ? -1 : 1 }] }}
-                />
-          </ReadMoreWrapper>
+              <ReadMore
+                theme={theme}
+                isTunews={isTunews}
+                onPress={navigateToNews}>{`${t('readMore')}`}</ReadMore>
+              <Icon
+                theme={theme}
+                isTunews={isTunews}
+                name='keyboard-arrow-right'
+                style={{ transform: [{ scaleX: RTL_LANGUAGES.includes(language) ? -1 : 1 }] }}
+              />
+            </ReadMoreWrapper>
           </StyledTouchableOpacity>
         </ListItemWrapper>
       </>

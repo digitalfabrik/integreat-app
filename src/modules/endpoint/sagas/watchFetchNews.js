@@ -21,7 +21,7 @@ import loadLanguages from './loadLanguages'
 import loadTunewsLanguages from './loadTunewsLanguages'
 
 import loadTunewsElement from './loadTunewsElement'
-import { LOCAL } from '../../error/NewsTabs'
+import { LOCAL } from '../../../routes/news/NewsTabs'
 
 const TUNEWS_FETCH_COUNT_LIMIT = 20
 const FIRST_PAGE_INDEX = 1
@@ -58,16 +58,17 @@ export function * fetchNews (
 
     if (languageValid) {
       const news =
-      (isLocalNews
-        ? yield call(loadLocalNews, city, language)
-        : newsId
-          ? yield call(loadTunewsElement, parseInt(newsId, 0)) // A better solution to prevent re-fetching news again from page 1
-          : yield call(
-            loadTunews,
-            language,
-            FIRST_PAGE_INDEX,
-            TUNEWS_FETCH_COUNT_LIMIT
-          ))
+        (isLocalNews
+          ? yield call(loadLocalNews, city, language)
+          : newsId
+            // A better solution to prevent re-fetching news again from page 1
+            ? yield call(loadTunewsElement, parseInt(newsId, 0))
+            : yield call(
+              loadTunews,
+              language,
+              FIRST_PAGE_INDEX,
+              TUNEWS_FETCH_COUNT_LIMIT
+            ))
 
       const insert: PushNewsActionType = {
         type: 'PUSH_NEWS',
