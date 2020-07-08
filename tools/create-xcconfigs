@@ -15,7 +15,7 @@ const createXcconfigs = async buildConfigName => {
 
 program
   .command('config <build_config_name>')
-  .description('creates and writes')
+  .description('create and write a new .xcconfig from the iosBuildOptions of the specified build config')
   .action(async buildConfigName => {
     try {
       await createXcconfigs(buildConfigName)
