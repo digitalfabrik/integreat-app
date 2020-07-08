@@ -60,10 +60,10 @@ workflows:
           requires:
             - bump_version
 
-  weekly_development_delivery:
+  bi_weekly_development_delivery:
     triggers:
       - schedule:
-          cron: "0 3 * * 4" # For sanity checks for this syntax: https://crontab.guru/
+          cron: "0 3 8,22 * *" # For sanity checks for this syntax: https://crontab.guru/
           filters:
             branches:
               only:
@@ -97,7 +97,7 @@ workflows:
   bi_weekly_production_delivery:
     triggers:
       - schedule:
-          cron: "0 5 1,15 * *" # For sanity checks for this syntax: https://crontab.guru/
+          cron: "0 3 1,15 * *" # For sanity checks for this syntax: https://crontab.guru/
           filters:
             branches:
               only:

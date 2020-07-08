@@ -21,7 +21,8 @@ If no branch is specified, develop is used as default.
 
 Several workflows exist for different purposes:
 * **commit**: Run for all commit of a PR to ensure good code quality and working code.
-* **weekly_development_delivery**: Delivers 'integreat-test-cms' builds to development (Testflight and Beta channel) once a week.
+* **bi_weekly_development_delivery**: Delivers 'integreat-test-cms' builds to development (Testflight and Beta channel)
+twice a month if no production build is delivered.
 * **bi_weekly_production_delivery**: Delivers 'integreat' builds to production.
 * **api_triggered_delivery**: [Manually triggerable](#triggering-a-delivery-using-the-ci) workflow which delivers either 'integreat-test-cms' builds to development
  or 'integreat' builds to production.
@@ -31,7 +32,7 @@ See the table below for a more detailed overview:
 |Workflow|Checks|E2E tests|Delivery|integreat build|integreat-test-cms build|malte build|Version bump|
 |---|---|---|---|---|---|---|---|
 |commit|:heavy_check_mark:|:heavy_check_mark:|:x:|:x:|:heavy_check_mark:|:heavy_check_mark:|:x:|
-|weekly_development_delivery|:heavy_check_mark:|:x:|Development|:x:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
+|bi_weekly_development_delivery|:heavy_check_mark:|:x:|Development|:x:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
 |bi_weekly_production_delivery|:heavy_check_mark:|:x:|Production|:heavy_check_mark:|:x:|:heavy_check_mark:|:heavy_check_mark:|
 |api_triggered_delivery|:heavy_check_mark:|:x:|Depends|Depends|Depends|:heavy_check_mark:|:heavy_check_mark:|
 
@@ -146,7 +147,7 @@ For delivery an [account without 2FA](https://github.com/fastlane/fastlane/blob/
 
 #### Adding Testers to TestFlight
 
-The [weekly and bi-weekly workflows](#workflows) make the builds directly available to TestFlights "App Store Connect Users". Those should not be confused with "External Tests" which require an approval by apple. Therefore, we currently only use "App Store Connect Users" as testers.
+The [bi_weekly_development_delivery workflow](#workflows) makes the builds directly available to TestFlights "App Store Connect Users". Those should not be confused with "External Tests" which require an approval by apple. Therefore, we currently only use "App Store Connect Users" as testers.
 
 In order to add someone as "App Store Connect User" you have to add the Apple Account to App Store Connect and to TestFlight. This is a two-step process.
 
