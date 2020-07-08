@@ -40,9 +40,10 @@ export default function * loadCityContent (
     const appSettings = new AppSettings()
     const previousSelectedCity = yield call(appSettings.loadSelectedCity)
     const previousContentLanguage = yield call(appSettings.loadContentLanguage)
-    // TODO: something supposed to happen when failing to subscribe
-    yield NotificationsManager.unSubscribeToPreviousCityTopic(previousSelectedCity, previousContentLanguage)
-    yield NotificationsManager.subscribeToNewCityTopic(newCity, newLanguage)
+    try {
+      yield NotificationsManager.unSubscribeToPreviousCityTopic(previousSelectedCity, previousContentLanguage)
+      yield NotificationsManager.subscribeToNewCityTopic(newCity, newLanguage)
+    } catch (e) { console.debug(e) }
     yield call(appSettings.setSelectedCity, newCity)
   }
 
