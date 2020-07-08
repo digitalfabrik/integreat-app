@@ -18,7 +18,7 @@
     "test:coverage": "cross-env BUILD_CONFIG_NAME='integreat-test-cms' jest --config ./jest.config.js --coverage",
     "test:watch": "cross-env BUILD_CONFIG_NAME='integreat-test-cms' jest --config ./jest.config.js --watchAll",
     "test:update": "cross-env BUILD_CONFIG_NAME='integreat-test-cms' jest --config ./jest.config.js -u",
-    "test:e2e": "cross-env BUILD_CONFIG_NAME='integreat-test-cms' jest --config jest.e2e.config.js --maxWorkers=4",
+    "test:e2e": "cross-env BUILD_CONFIG_NAME='integreat-e2e' jest --config jest.e2e.config.js --maxWorkers=4",
     "lint": "eslint .",
     "flow:check-now": "flow check",
     "flow:install-types": "flow-typed install --ignoreDeps dev",
