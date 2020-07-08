@@ -26,5 +26,5 @@ export const requestLocationPermission = async (): RESULTS => {
 
 export const requestPushNotificationPermission = async (): RESULTS => {
   // TODO NATIVE-399 Really request push notification permissions
-  return NotificationsManager.requestUserPermissionForPushNotifications()
+  return NotificationsManager.requestPushNotificationPermission()
 }
