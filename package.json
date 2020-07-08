@@ -24,12 +24,10 @@
     "flow:install-types": "flow-typed install --ignoreDeps dev",
     "flow:install-types:all": "flow-typed install",
     "postinstall": "jetifier",
-    "trigger-pipeline": ".circleci/trigger-pipeline.sh",
-    "bump-version": "false",
     "locales:missing": "node locales/tools/findMissingLocales"
   },
   "dependencies": {
-    "@integreat-app/integreat-api-client": "^4.3.1",
+    "@integreat-app/integreat-api-client": "^5.0.3",
     "@react-native-community/art": "^1.1.2",
     "@react-native-community/async-storage": "^1.9.0",
     "@react-native-community/geolocation": "^2.0.2",
@@ -58,6 +56,8 @@
     "react-native-permissions": "2.0.9",
     "react-native-progress": "^4.0.3",
     "react-native-render-html": "^4.2.0",
+    "react-native-safe-area-context": "^1.0.0",
+    "react-native-safe-area-view": "2.0.0",
     "react-native-share": "^3.0.0",
     "react-native-vector-icons": "^6.6.0",
     "react-native-webview": "^5.3.1",

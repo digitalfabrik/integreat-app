@@ -64,14 +64,14 @@ class Selector extends React.Component<PropsType> {
         return (
           <TouchTarget key={item.code} onPress={item.onPress}>
             <ItemWrapper selected={isSelected} theme={theme}>
-                <Element theme={theme} enabled>{item.name}</Element>
+              <Element theme={theme} enabled>{item.name}</Element>
             </ItemWrapper>
           </TouchTarget>
         )
       }
       return (
         <ItemWrapper key={item.code} selected={isSelected} theme={theme}>
-            <Element theme={theme} enabled={false}>{item.name}</Element>
+          <Element theme={theme} enabled={false}>{item.name}</Element>
         </ItemWrapper>
       )
     })
