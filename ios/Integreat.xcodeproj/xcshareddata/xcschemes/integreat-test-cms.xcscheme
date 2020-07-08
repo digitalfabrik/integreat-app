@@ -15,7 +15,7 @@
                   <BuildableReference
                      BuildableIdentifier = "primary"
                      BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-                     BuildableName = "Integreat.app"
+                     BuildableName = "IntegreatTestCms.app"
                      BlueprintName = "Integreat"
                      ReferencedContainer = "container:Integreat.xcodeproj">
                   </BuildableReference>
@@ -33,7 +33,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "Integreat.app"
+               BuildableName = "IntegreatTestCms.app"
                BlueprintName = "Integreat"
                ReferencedContainer = "container:Integreat.xcodeproj">
             </BuildableReference>
@@ -41,7 +41,7 @@
       </BuildActionEntries>
    </BuildAction>
    <TestAction
-      buildConfiguration = "integreat"
+      buildConfiguration = "Development"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
@@ -49,7 +49,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "Integreat.app"
+            BuildableName = "IntegreatTestCms.app"
             BlueprintName = "Integreat"
             ReferencedContainer = "container:Integreat.xcodeproj">
          </BuildableReference>
@@ -58,7 +58,7 @@
       </Testables>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "integreat"
+      buildConfiguration = "Development"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
@@ -72,14 +72,14 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "Integreat.app"
+            BuildableName = "IntegreatTestCms.app"
             BlueprintName = "Integreat"
             ReferencedContainer = "container:Integreat.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
-      buildConfiguration = "integreat"
+      buildConfiguration = "Development"
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
@@ -89,17 +89,17 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "Integreat.app"
+            BuildableName = "IntegreatTestCms.app"
             BlueprintName = "Integreat"
             ReferencedContainer = "container:Integreat.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
-      buildConfiguration = "integreat">
+      buildConfiguration = "Development">
    </AnalyzeAction>
    <ArchiveAction
-      buildConfiguration = "integreat"
+      buildConfiguration = "Development"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>
