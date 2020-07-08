@@ -51,6 +51,11 @@ class Navigator extends React.Component<PropsType, StateType> {
       throw Error('The contentLanguage has not been set correctly by I18nProvider!')
     }
 
+    if (!buildConfig().featureFlags.introSlides) {
+      await appSettings.setIntroShown()
+      await appSettings.setSettings({ errorTracking: false, allowPushNotifications: false, proposeNearbyCities: false })
+    }
+
     if (buildConfig().featureFlags.introSlides && !introShown) {
       this._appNavigationContainer = createAppContainer({ initialRouteName: 'Intro' })
     } else {
