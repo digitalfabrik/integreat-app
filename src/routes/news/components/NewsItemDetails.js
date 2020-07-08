@@ -2,7 +2,6 @@
 
 import React from 'react'
 import { ScrollView, View } from 'react-native'
-import { TFunction } from 'react-i18next'
 import {
   LocalNewsModel,
   TunewsModel
