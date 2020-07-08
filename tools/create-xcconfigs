@@ -3,13 +3,19 @@
 const loadBuildConfig = require('../build-configs').default
 const { program } = require('commander')
 const fs = require('fs')
+const flat = require('flat')
+const decamelize = require('decamelize')
 
 program
   .option('-d, --debug', 'enable extreme logging')
 
 const createXcconfigs = async buildConfigName => {
-  const { iosBuildOptions } = loadBuildConfig(buildConfigName)
-  const content = Object.keys(iosBuildOptions).map(key => `${key} = ${iosBuildOptions[key]}`).join('\n')
+  const buildConfig = loadBuildConfig(buildConfigName)
+  const xcconfigOptions = flat(buildConfig, {
+    delimiter: '_',
+    transformKey: key => decamelize(key).toUpperCase()
+  })
+  const content = Object.keys(xcconfigOptions).map(key => `BUILD_CONFIG_${key} = ${xcconfigOptions[key]}`).join('\n')
   fs.writeFileSync('ios/buildConfig.tmp.xcconfig', content)
 }
 
