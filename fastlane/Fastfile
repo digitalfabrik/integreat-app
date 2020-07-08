@@ -1,5 +1,10 @@
 require "yaml"
 
+# The following parameters have to be passed:
+# version_code: The version code of the app
+# version_name: The version name of the app
+# package_name: The name of the app in Sentry
+# sourcemap_path: The path to the sourcemap file to upload
 desc "Upload source map to Sentry"
 private_lane :generic_sentry_upload do |options|
   ensure_env_vars(
@@ -27,6 +32,8 @@ private_lane :generic_sentry_upload do |options|
 end
 
 platform :android do
+  # The following parameters have to be passed:
+  # app_name: The name of the app
   desc "Upload the APK to BrowserStack Live"
   lane :browserstack_upload_live do |options|
     ensure_env_vars(
@@ -42,6 +49,8 @@ platform :android do
     )
   end
 
+  # The following parameters have to be passed:
+  # app_name: The name of the app
   desc "Upload the APK and run E2E tests on BrowserStack"
   lane :browserstack_e2e_tests do |options|
     ensure_env_vars(
@@ -67,6 +76,10 @@ platform :android do
     )
   end
 
+  # The following parameters have to be passed:
+  # version_code: The version code of the app
+  # version_name: The version name of the app
+  # app_name: The name of the app
   desc "Upload the JavaScript source map to Sentry"
   lane :sentry_upload do |options|
     version_code = options[:version_code]
@@ -81,6 +94,10 @@ platform :android do
     )
   end
 
+  # The following parameters have to be passed:
+  # version_code: The version code of the app
+  # version_name: The version name of the app
+  # app_name: The name of the app
   desc "Deliver the app to Play Store. Depending on the option `production_delivery` the update is released to the general public."
   lane :playstore_upload do |options|
     version_code = options[:version_code]
@@ -112,7 +129,8 @@ platform :android do
 end
 
 platform :ios do
-
+  # The following parameters have to be passed:
+  # app_name: The name of the app
   desc "Upload the IPA to BrowserStack Live"
   lane :browserstack_upload_live do |options|
     ensure_env_vars(
@@ -128,6 +146,8 @@ platform :ios do
     )
   end
 
+  # The following parameters have to be passed:
+  # app_name: The name of the app
   desc "Upload the APK and run E2E tests on BrowserStack"
   lane :browserstack_e2e_tests do |options|
     ensure_env_vars(
@@ -152,6 +172,10 @@ platform :ios do
     )
   end
 
+  # The following parameters have to be passed:
+  # version_code: The version code of the app
+  # version_name: The version name of the app
+  # app_name: The name of the app
   desc "Upload source map to Sentry"
   lane :sentry_upload do |options|
     version_code = options[:version_code]
@@ -166,6 +190,9 @@ platform :ios do
     )
   end
 
+  # The following parameters have to be passed:
+  # version_name: The version name of the app
+  # app_name: The name of the app
   desc "Deliver the app to App Store Connect. The app is submitted for review and released automatically."
   lane :appstoreconnect_upload do |options|
     ensure_env_vars(
@@ -191,6 +218,8 @@ platform :ios do
     )
   end
 
+  # The following parameters have to be passed:
+  # app_name: The name of the app
   desc "Deliver the app to TestFlight for testers"
   lane :testflight_upload do |options|
     ensure_env_vars(
