@@ -11,15 +11,16 @@ import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateV
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import { type TFunction, withTranslation } from 'react-i18next'
 import type { NavigationScreenProp } from 'react-navigation'
-import type { StatusPropsType } from '../../../modules/error/hocs/withPayloadProvider'
-import withPayloadProvider from '../../../modules/error/hocs/withPayloadProvider'
+import type { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
+import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvider'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import React from 'react'
 import createNavigateToCategory from '../../../modules/app/createNavigateToCategory'
 import createNavigateToEvent from '../../../modules/app/createNavigateToEvent'
 import createNavigateToIntegreatUrl from '../../../modules/app/createNavigateToIntegreatUrl'
-import createNavigateToExtras from '../../../modules/app/createNavigateToExtras'
+import createNavigateToOffers from '../../../modules/app/createNavigateToOffers'
 import { mapProps } from 'recompose'
+import createNavigateToNews from '../../../modules/app/createNavigateToNews'
 
 type RefreshPropsType = {|
   cityCode: string,
@@ -133,9 +134,10 @@ const DashboardContainer = (props: ContainerPropsType) => {
     {...rest}
     navigateToCategory={createNavigateToCategory('Categories', dispatch, rest.navigation)}
     navigateToEvent={createNavigateToEvent(dispatch, rest.navigation)}
+    navigateToNews={createNavigateToNews(dispatch, rest.navigation)}
     navigateToIntegreatUrl={createNavigateToIntegreatUrl(dispatch, rest.navigation)}
     navigateToDashboard={createNavigateToCategory('Dashboard', dispatch, rest.navigation)}
-    navigateToExtras={createNavigateToExtras(dispatch, rest.navigation)} />
+    navigateToOffers={createNavigateToOffers(dispatch, rest.navigation)} />
 }
 
 type RestType = $Diff<PropsType, OwnPropsType>

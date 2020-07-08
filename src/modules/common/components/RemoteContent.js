@@ -33,7 +33,10 @@ type PropType = {|
 |}
 
 class RemoteContent extends React.Component<PropType, StateType> {
-  state = { webViewHeight: 0, webViewWidth: 0 }
+  state = {
+    webViewHeight: 0,
+    webViewWidth: 0
+  }
 
   onLayout = (event: ViewLayoutEvent) => {
     const { width } = event.nativeEvent.layout
@@ -89,7 +92,10 @@ class RemoteContent extends React.Component<PropType, StateType> {
         scrollEnabled={false} // to disable scrolling in iOS
 
         onMessage={this.onMessage}
-        style={{ height, width }}
+        style={{
+          height,
+          width
+        }}
         renderError={this.renderError}
         onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
       />

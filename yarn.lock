@@ -1108,16 +1108,16 @@
     eslint-config-standard-react "^9.2.0"
     eslint-plugin-react "^7.18.3"
 
-"@integreat-app/integreat-api-client@^4.3.1":
-  version "4.3.1"
-  resolved "https://registry.yarnpkg.com/@integreat-app/integreat-api-client/-/integreat-api-client-4.3.1.tgz#2ed66d99a9f6702365e88655e708c98e979e652c"
-  integrity sha512-Ufgle7f58M0D0gFjZRksgCjNF9acwNcxchaiJDCd3jIMtQiA/sgNodrKpl44NxE/FqJFSSY8zxSk0hhyCcBHkg==
+"@integreat-app/integreat-api-client@^5.0.3":
+  version "5.0.3"
+  resolved "https://registry.yarnpkg.com/@integreat-app/integreat-api-client/-/integreat-api-client-5.0.3.tgz#5686a01c985401ad0a64cd8aacce4eaabb83beab"
+  integrity sha512-Kohtyl2oo8ht7+DOqlY1PERaHjHLsub2yfX1P+MvjczZL1H7yIvh8gm9Ha5dC84ubZelNKGNnylZg4q/gPpDpQ==
   dependencies:
     entities "^2.0.0"
     is-url "^1.2"
-    lodash "^4.17"
     moment "^2.24"
     moment-timezone "^0.5"
+    normalize-path "^3.0.0"
     sanitize-html-react "^1.13"
 
 "@jest/console@^24.7.1", "@jest/console@^24.9.0":
@@ -7599,7 +7599,7 @@ lodash@^3.1.0, lodash@^3.3.1:
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
   integrity sha1-W/Rejkm6QYnhfUgnid/RW9FAt7Y=
 
-lodash@^4.0.0, lodash@^4.17, lodash@^4.17.13, lodash@^4.17.2, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.3.0:
+lodash@^4.0.0, lodash@^4.17.13, lodash@^4.17.2, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.3.0:
   version "4.17.13"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.13.tgz#0bdc3a6adc873d2f4e0c4bac285df91b64fc7b93"
   integrity sha512-vm3/XWXfWtRua0FkUyEHBZy8kCPjErNBT9fJx8Zvs+U6zjqPbTUOpkaoum3O5uiA8sm+yNMHXfYkTUHFoMxFNA==
@@ -9603,6 +9603,18 @@ react-native-render-html@^4.2.0:
     events "^1.1.0"
     html-entities "^1.2.0"
     htmlparser2 "^4.0.0"
+
+react-native-safe-area-context@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-safe-area-context/-/react-native-safe-area-context-1.0.0.tgz#8b4d79b06d6a9ed5ff3b2c3f0ba25d85538a3149"
+  integrity sha512-8Poo0FHSS/KE0fP6JUH9Mnjg2KQ5MfZAJN3G8/gW2HoFSypWSfFmDp5msETU0Ix3OnRsmBZTJpmgHFEl9OfNAg==
+
+react-native-safe-area-view@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-safe-area-view/-/react-native-safe-area-view-2.0.0.tgz#98fc9bb1bf3cb8c97ba684efb7dd897765afff3b"
+  integrity sha512-tGlGZwRoZpTQ0gEdSSRgbkeyyKC50ZsEv2H/LQKjXhc00IHffbU0BA5chSzTqNwDrs5MFXfTG1ooRQK+0FVTjw==
+  dependencies:
+    hoist-non-react-statics "^2.3.1"
 
 react-native-safe-area-view@^0.14.1:
   version "0.14.3"
