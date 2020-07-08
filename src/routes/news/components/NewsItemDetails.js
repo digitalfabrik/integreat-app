@@ -77,7 +77,6 @@ const TunewsFooter: StyledComponent<{ underlined?: boolean, rightMargin: number 
 
 export type PropsType = {|
   theme: ThemeType,
-  t: TFunction,
   language: string,
   selectedNewsItem: TunewsModel | LocalNewsModel,
   isTunews: boolean,
