@@ -3,7 +3,6 @@
 import AsyncStorage from '@react-native-community/async-storage'
 import { mapValues, toPairs } from 'lodash/object'
 import { fromPairs } from 'lodash/array'
-import { ASYNC_STORAGE_VERSION } from './constants'
 
 export type SettingsType = {|
   storageVersion: string | null,
@@ -16,18 +15,7 @@ export type SettingsType = {|
   apiUrlOverride: string | null
 |}
 
-const e2eSettings = {
-  storageVersion: ASYNC_STORAGE_VERSION,
-  contentLanguage: null,
-  selectedCity: null,
-  introShown: true,
-  errorTracking: false,
-  allowPushNotifications: false,
-  proposeNearbyCities: false,
-  apiUrlOverride: null
-}
-
-export const defaultSettings: SettingsType = (process.env.E2E_TEST_IDS) ? e2eSettings : {
+export const defaultSettings: SettingsType = {
   storageVersion: null,
   contentLanguage: null,
   selectedCity: null,
