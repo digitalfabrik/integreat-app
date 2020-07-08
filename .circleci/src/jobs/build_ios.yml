@@ -78,10 +78,9 @@ steps:
             name: Rename sourcemap
             command: mv ios/index.ios.bundle.map ios/output/malte.ios.bundle.map
   - run:
-      name: "[FL] integreat-test-cms build"
+      name: "[FL] integreat-e2e build"
       environment:
-        BUILD_CONFIG_NAME: integreat-test-cms
-        E2E_TEST_IDS: 1
+        BUILD_CONFIG_NAME: integreat-e2e
       command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} scheme:${BUILD_CONFIG_NAME}
       working_directory: ios
   - store_artifacts:
@@ -99,4 +98,4 @@ steps:
       paths:
         - integreat.ipa
         - malte.ipa
-        - integreat-test-cms.ipa
+        - integreat-e2e.ipa
