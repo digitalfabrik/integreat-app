@@ -18,6 +18,7 @@ import type { NavigateToCategoryParamsType } from '../../../modules/app/createNa
 import type { NavigateToIntegreatUrlParamsType } from '../../../modules/app/createNavigateToIntegreatUrl'
 import type { NavigateToEventParamsType } from '../../../modules/app/createNavigateToEvent'
 import type { NavigateToNewsParamsType } from '../../../modules/app/createNavigateToNews'
+import buildConfig from '../../../modules/app/constants/buildConfig'
 
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
 import { LOCAL, TUNEWS } from '../../news/NewsTabs'
@@ -44,7 +45,9 @@ export type PropsType = {|
 class Dashboard extends React.Component<PropsType> {
   getNavigationTileModels (cityCode: string, language: string): Array<TileModel> {
     const { navigateToCategory, navigateToEvent, navigateToOffers, t, cities, navigateToNews } = this.props
+    const { featureFlags } = buildConfig()
     const cityModel = cities.find(city => city.code === cityCode)
+
     if (!cityModel) {
       console.error('City model of current cityCode was not found.')
       return []
@@ -96,7 +99,7 @@ class Dashboard extends React.Component<PropsType> {
       }))
     }
 
-    if (isNewsEnabled) {
+    if (featureFlags.newsStream && isNewsEnabled) {
       tiles.push(new TileModel({
         title: t('news'),
         path: 'news',
