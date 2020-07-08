@@ -8,9 +8,11 @@ const IntegreatTestCmsBuildConfig: BuildConfigType = {
   appName: 'IntegreatTestCms',
   cmsUrl: 'https://cms-test.integreat-app.de',
   switchCmsUrl: 'https://cms.integreat-app.de',
+  development: true,
   featureFlags: {
     pois: true,
-    newsStream: true
+    newsStream: true,
+    introSlides: true
   }
 }
 

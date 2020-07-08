@@ -8,6 +8,7 @@ import createAppContainer from '../createAppContainer'
 import { Text } from 'react-native'
 import initSentry from '../initSentry'
 import { ASYNC_STORAGE_VERSION } from '../../settings/constants'
+import buildConfig from '../constants/buildConfig'
 
 type PropsType = {|
   fetchCategory: (cityCode: string, language: string, key: string) => void,
@@ -50,7 +51,7 @@ class Navigator extends React.Component<PropsType, StateType> {
       throw Error('The contentLanguage has not been set correctly by I18nProvider!')
     }
 
-    if (!introShown) {
+    if (buildConfig().featureFlags.introSlides && !introShown) {
       this._appNavigationContainer = createAppContainer({ initialRouteName: 'Intro' })
     } else {
       if (errorTracking) {
