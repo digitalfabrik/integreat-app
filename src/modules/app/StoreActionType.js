@@ -1,7 +1,7 @@
 // @flow
 
-import { CategoriesMapModel, CityModel, EventModel, LanguageModel } from '@integreat-app/integreat-api-client'
-import type { CategoryRouteConfigType, LanguageResourceCacheStateType } from './StateType'
+import { CategoriesMapModel, CityModel, EventModel, LanguageModel, TunewsModel, LocalNewsModel } from '@integreat-app/integreat-api-client'
+import type { CategoryRouteConfigType, LanguageResourceCacheStateType, NewsType, NewsModelsType } from './StateType'
 import type { ContentLoadCriterionType } from '../endpoint/ContentLoadCriterion'
 import type { TFunction } from 'react-i18next'
 import type { ErrorCodeType } from '../error/ErrorCodes'
@@ -46,6 +46,71 @@ export type FetchCategoryActionType = {|
     +criterion: ContentLoadCriterionType
   |}
 |}
+
+export type FetchNewsActionType = {|
+  type: 'FETCH_NEWS',
+  +params: {|
+    +city: string, +language: string,
+    +newsId: ?string, +key: string,
+    +criterion: ContentLoadCriterionType,
+    +type: NewsType
+  |}
+|}
+
+export type FetchMoreNewsActionType = {|
+  type: 'FETCH_MORE_NEWS',
+  +params: {|
+    +city: string, +language: string,
+    +previouslyFetchedNews: $ReadOnlyArray<LocalNewsModel | TunewsModel>,
+    +newsId: ?string, +key: string,
+    +criterion: ContentLoadCriterionType,
+    +type: NewsType,
+    +page: number,
+    +hasMoreNews: boolean
+  |}
+|}
+
+export type ClearNewsActionType = {|
+  type: 'CLEAR_NEWS', +params: {| +key: string, +city: string |}
+|}
+
+export type PushNewsActionType = {|
+  type: 'PUSH_NEWS',
+  +params: {|
+    +news: NewsModelsType,
+    +previouslyFetchedNews?: NewsModelsType, // in case if there is old news then concat old news with new ones
+    +newsId: ?string,
+    +key: string,
+    +cityLanguages: $ReadOnlyArray<LanguageModel>,
+    +language: string,
+    +city: string,
+    +hasMoreNews: boolean, // stop loading more when no items are coming from response
+    +type: NewsType,
+    +page: number
+  |}
+|}
+
+export type FetchNewsFailedActionType = {|
+  type: 'FETCH_NEWS_FAILED',
+  +params: {|
+    +message: string,
+    +code: ErrorCodeType,
+    +key: string,
+    +allAvailableLanguages: ?$ReadOnlyMap<string, ?string>,
+    +language: string,
+    +newsId: ?string,
+    +type: NewsType,
+    +city: string
+  |}
+|}
+
+export type NewsActionType =
+  FetchNewsActionType
+  | FetchMoreNewsActionType
+  | FetchNewsFailedActionType
+  | ClearNewsActionType
+  | PushNewsActionType
+
 export type FetchCategoryFailedActionType = {|
   type: 'FETCH_CATEGORY_FAILED',
   +params: {|
@@ -84,9 +149,11 @@ export type FetchEventActionType = {|
     +criterion: ContentLoadCriterionType
   |}
 |}
+
 export type ClearEventActionType = {|
   type: 'CLEAR_EVENT', +params: {| +key: string |}
 |}
+
 export type PushEventActionType = {|
   type: 'PUSH_EVENT',
   +params: {|
@@ -99,6 +166,7 @@ export type PushEventActionType = {|
     +city: string
   |}
 |}
+
 export type FetchEventFailedActionType = {|
   type: 'FETCH_EVENT_FAILED',
   +params: {|
@@ -163,6 +231,7 @@ export type CityContentActionType =
   | PushLanguagesActionType
   | FetchLanguagesFailedActionType
   | ResourcesFetchFailedActionType
+  | NewsActionType
 
 export type ToggleDarkModeActionType = {|
   type: 'TOGGLE_DARK_MODE'

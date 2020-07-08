@@ -13,7 +13,8 @@ const ICON_SIZE = 50
 
 type PropsType = {|
   tile: TileModel,
-  theme: ThemeType
+  theme: ThemeType,
+  width: number
 |}
 
 const Circle = styled(View)`
@@ -44,9 +45,9 @@ const TileTitle = styled.Text`
   margin-bottom: 5px;
 `
 
-const TileTouchable: StyledComponent<{}, {}, *> = styled.TouchableOpacity`
-  padding: 10px 0;
-  flex: 1;
+const TileTouchable: StyledComponent<{ width: number }, {}, *> = styled.TouchableOpacity`
+  padding: 10px 3px;
+  width: ${props => props.width}px;
   align-items: center;
 `
 
@@ -93,9 +94,9 @@ class NavigationTile extends React.Component<PropsType> {
   }
 
   render () {
-    const { tile, theme } = this.props
+    const { tile, theme, width } = this.props
     return (
-      <TileTouchable theme={theme} onPress={tile.onTilePress}>
+      <TileTouchable theme={theme} onPress={tile.onTilePress} width={width}>
         {this.getTileContent()}
       </TileTouchable>
     )

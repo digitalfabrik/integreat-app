@@ -6,7 +6,7 @@ import { mapValues, reduce } from 'lodash'
 
 export const createFetchMap = (resources: { [path: string]: PageResourceCacheStateType }): FetchMapType =>
   mapValues(resources, (files: PageResourceCacheEntryStateType) =>
-    reduce<PageResourceCacheEntryStateType, Array<FetchMapTargetType>>(files, (fetchMapEntry, file, url) => {
+    reduce<PageResourceCacheEntryStateType, Array<FetchMapTargetType>>(files, (fetchMapEntry, file, url: string) => {
       fetchMapEntry.push({ url, filePath: file.filePath, urlHash: file.hash })
       return fetchMapEntry
     }, [])

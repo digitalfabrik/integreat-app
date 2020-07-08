@@ -34,6 +34,7 @@ import React from 'react'
 import DisclaimerContainer from '../../routes/disclaimer/DisclaimerContainer'
 import IntroContainer from '../../routes/intro/IntroContainer'
 import PermissionSnackbarContainer from '../layout/containers/PermissionSnackbarContainer'
+import NewsContainer from '../../routes/news/containers/NewsContainer'
 
 const LayoutedDashboardContainer = withLayout(DashboardContainer)
 const LayoutedCategoriesContainer = withLayout(CategoriesContainer)
@@ -66,6 +67,9 @@ const cityContentRouteConfigMap: NavigationRouteConfigMap = {
   [EXTERNAL_OFFER_ROUTE]: createNavigationRouteConfig(ExternalOfferContainer, defaultHeader),
   Events: createNavigationRouteConfig( // $FlowFixMe We don't know why this fails.
     EventsContainer, defaultHeader
+  ),
+  News: createNavigationRouteConfig( // $FlowFixMe Me either don't know why this fails.
+    NewsContainer, defaultHeader
   ),
   PDFViewModal: createNavigationRouteConfig( // $FlowFixMe We don't know why this fails.
     PDFViewModal, transparentFloatingHeader
