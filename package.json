@@ -24,12 +24,10 @@
     "flow:install-types": "flow-typed install --ignoreDeps dev",
     "flow:install-types:all": "flow-typed install",
     "postinstall": "jetifier",
-    "trigger-pipeline": ".circleci/trigger-pipeline.sh",
-    "bump-version": "false",
     "locales:missing": "node locales/tools/findMissingLocales"
   },
   "dependencies": {
-    "@integreat-app/integreat-api-client": "^4.3.1",
+    "@integreat-app/integreat-api-client": "^5.0.3",
     "@react-native-community/art": "^1.1.2",
     "@react-native-community/async-storage": "^1.9.0",
     "@react-native-community/geolocation": "^2.0.2",
@@ -111,7 +109,7 @@
     "metro-react-native-babel-preset": "^0.58.0",
     "node-fetch": "^2.6.0",
     "react-native-git-upgrade": "^0.2.7",
-    "react-native-svg-asset-plugin": "^0.3.0",
+    "react-native-svg-asset-plugin": "^0.4.0",
     "react-test-renderer": "16.12.0",
     "redux-devtools-extension": "^2.13.8",
     "redux-mock-store": "^1.5.4",
