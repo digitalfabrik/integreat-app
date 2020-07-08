@@ -12,7 +12,6 @@ export const locationPermissionStatus = async (): RESULTS => {
 }
 
 export const pushNotificationPermissionStatus = async (): RESULTS => {
-  // TODO NATIVE-399 Really check for push notification permissions
   const { status } = await checkNotifications()
   return status
 }
