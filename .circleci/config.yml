@@ -286,7 +286,7 @@ jobs:
           working_directory: android
       - run:
           name: Rename apk
-          command: mv android/app/build/outputs/apk/release/app-release.apk android/output/apk/integreat-test-cms.apk
+          command: mv android/app/build/outputs/apk/release/app-release.apk android/output/apk/integreat-e2e.apk
       - store_artifacts:
           path: android/output/apk
       - when:
@@ -302,7 +302,7 @@ jobs:
           paths:
             - integreat.apk
             - malte.apk
-            - integreat-test-cms.apk
+            - integreat-e2e.apk
 
   build_ios:
     parameters:
@@ -405,7 +405,7 @@ jobs:
           paths:
             - integreat.ipa
             - malte.ipa
-            - integreat-test-cms.ipa
+            - integreat-e2e.ipa
 
   bump_version:
     docker:
@@ -559,7 +559,7 @@ jobs:
             - node_modules
       - run:
           name: "[FL] Android E2E Tests on Browserstack"
-          command: bundle exec fastlane android browserstack_e2e_tests app_name:integreat-test-cms
+          command: bundle exec fastlane android browserstack_e2e_tests app_name:integreat-e2e
       - run:
           name: "[FL] iOS E2E Tests on Browserstack"
-          command: bundle exec fastlane ios browserstack_e2e_tests app_name:integreat-test-cms
+          command: bundle exec fastlane ios browserstack_e2e_tests app_name:integreat-e2e
