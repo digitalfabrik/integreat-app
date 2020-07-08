@@ -19,13 +19,13 @@ import createNavigateToNews from '../../../modules/app/createNavigateToNews'
 import type { Dispatch } from 'redux'
 
 import type { NavigationScreenProp } from 'react-navigation'
-import withCustomPayloadProvider from '../../../modules/error/hocs/withCustomNewsProvider'
-import type { StatusPropsType } from '../../../modules/error/hocs/withCustomNewsProvider'
+import withCustomPayloadProvider from '../../../modules/endpoint/hocs/withCustomNewsProvider'
+import type { StatusPropsType } from '../../../modules/endpoint/hocs/withCustomNewsProvider'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import * as React from 'react'
 import { mapProps } from 'recompose'
 import TranslatedWithThemeNewsList from '../components/NewsList'
-import { TUNEWS } from '../../../modules/error/NewsTabs'
+import { TUNEWS } from '../NewsTabs'
 
 type ContainerPropsType = {|
   newsId: ?string,
@@ -62,7 +62,11 @@ const createChangeUnavailableLanguage = (city: string, t: TFunction) => (
 ) => {
   const switchContentLanguage: SwitchContentLanguageActionType = {
     type: 'SWITCH_CONTENT_LANGUAGE',
-    params: { newLanguage, city, t }
+    params: {
+      newLanguage,
+      city,
+      t
+    }
   }
   dispatch(switchContentLanguage)
 }
@@ -237,7 +241,7 @@ class NewsContainer extends React.Component<ContainerPropsType> {
       }
       dispatch(fetchNews)
     }
-  };
+  }
 
   render () {
     const { dispatch, status, ...rest } = this.props

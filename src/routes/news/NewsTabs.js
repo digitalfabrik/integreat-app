@@ -1,7 +1,7 @@
 // @flow
 
-import activeInternational from '../../routes/news/assets/tu-news-active.svg'
-import inactiveInternational from '../../routes/news/assets/tu-news-inactive.svg'
+import activeInternational from './assets/tu-news-active.svg'
+import inactiveInternational from './assets/tu-news-inactive.svg'
 
 export const TUNEWS = 'tunews'
 export const LOCAL = 'local'

@@ -7,18 +7,18 @@ import { RefreshControl, ScrollView, View } from 'react-native'
 import type {
   StoreActionType,
   FetchNewsActionType
-} from '../../../modules/app/StoreActionType'
-import type { NewsType } from '../../../modules/app/StateType'
+} from '../../app/StoreActionType'
+import type { NewsType } from '../../app/StateType'
 import { type Dispatch } from 'redux'
 import { wrapDisplayName } from 'recompose'
-import type { ErrorCodeType } from '../../../modules/error/ErrorCodes'
-import FailureContainer from '../../../modules/error/containers/FailureContainer'
-import LanguageNotAvailableContainer from '../../../modules/common/containers/LanguageNotAvailableContainer'
+import type { ErrorCodeType } from '../../error/ErrorCodes'
+import FailureContainer from '../../error/containers/FailureContainer'
+import LanguageNotAvailableContainer from '../../common/containers/LanguageNotAvailableContainer'
 import type { NavigationScreenProp } from 'react-navigation'
 
 import LoadingSpinner from '../../common/components/LoadingSpinner'
-import NewsHeader from '../../common/NewsHeader'
-import { LOCAL, TUNEWS } from '../NewsTabs'
+import NewsHeader from '../../common/components/NewsHeader'
+import { LOCAL, TUNEWS } from '../../../routes/news/NewsTabs'
 
 export type RouteNotInitializedType = {| status: "routeNotInitialized" |}
 

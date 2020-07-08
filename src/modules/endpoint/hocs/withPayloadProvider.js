@@ -8,9 +8,9 @@ import LanguageNotAvailableContainer from '../../common/containers/LanguageNotAv
 import type { StoreActionType } from '../../app/StoreActionType'
 import { type Dispatch } from 'redux'
 import { wrapDisplayName } from 'recompose'
-import FailureContainer from '../containers/FailureContainer'
+import FailureContainer from '../../error/containers/FailureContainer'
 import { LOADING_TIMEOUT } from '../../common/constants'
-import type { ErrorCodeType } from '../ErrorCodes'
+import type { ErrorCodeType } from '../../error/ErrorCodes'
 
 export type RouteNotInitializedType = {| status: 'routeNotInitialized' |}
 export type LoadingType = {| status: 'loading' |}

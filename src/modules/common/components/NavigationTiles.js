@@ -48,11 +48,11 @@ class NavigationTiles extends React.PureComponent<PropsType, StateType> {
     xPosition: 0,
     contentSizeDiff: 0,
     _scrollView: null
-  };
+  }
 
   setScrollViewRef = (ref: React$ElementRef<typeof ScrollView>) => {
     this.setState({ _scrollView: ref })
-  };
+  }
 
   onMomentumScrollEnd = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const { nativeEvent } = event
@@ -63,7 +63,7 @@ class NavigationTiles extends React.PureComponent<PropsType, StateType> {
       xPosition: nativeEvent.contentOffset.x,
       contentSizeDiff: parseInt(contentSizeDiff.toFixed(0))
     })
-  };
+  }
 
   render () {
     const {

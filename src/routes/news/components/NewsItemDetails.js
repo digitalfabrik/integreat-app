@@ -55,11 +55,9 @@ const NewsHeadLine: StyledComponent<{}, ThemeType, *> = styled.Text`
   margin-bottom: 15px;
 `
 
-const NewsContent: StyledComponent<
-  { language: string },
+const NewsContent: StyledComponent<{ language: string },
   ThemeType,
-  *
-> = styled.Text`
+  *> = styled.Text`
   font-family: ${props => props.theme.fonts.decorativeFontRegular};
   font-size: 16px;
   letter-spacing: 0.5px;
@@ -67,11 +65,9 @@ const NewsContent: StyledComponent<
   text-align: ${props => contentAlignment(props.language)};
   color: ${props => props.theme.colors.textColor};
 `
-const TunewsFooter: StyledComponent<
-  { underlined?: boolean, rightMargin: number },
+const TunewsFooter: StyledComponent<{ underlined?: boolean, rightMargin: number },
   ThemeType,
-  *
-> = styled.Text`
+  *> = styled.Text`
   font-family: ${props => props.theme.fonts.decorativeFontBold};
   font-size: 12px;
   color: white;
@@ -92,12 +88,12 @@ class NewsItemsDetails extends React.Component<PropsType> {
   render () {
     const {
       theme,
-      t,
       selectedNewsItem,
       isTunews,
       language,
       openTunewsLink
     } = this.props
+
     return (
       <View style={{ flex: 1 }}>
         <ScrollView

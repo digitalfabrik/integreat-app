@@ -5,10 +5,10 @@ import { CityModel } from '@integreat-app/integreat-api-client'
 import type { StyledComponent } from 'styled-components'
 import styled from 'styled-components/native'
 import { withTranslation } from 'react-i18next'
-import withTheme from '../../modules/theme/hocs/withTheme'
-import type { ThemeType } from '../theme/constants/theme'
-import type { NewsType } from '../app/StateType'
-import { LOCAL, LOCAL_NEWS_TAB, TUNEWS_TAB } from '../error/NewsTabs'
+import withTheme from '../../theme/hocs/withTheme'
+import type { ThemeType } from '../../theme/constants/theme'
+import type { NewsType } from '../../app/StateType'
+import { LOCAL, LOCAL_NEWS_TAB, TUNEWS_TAB } from '../../../routes/news/NewsTabs'
 
 const NewsTypeIcon = styled.Image`
   align-self: center;

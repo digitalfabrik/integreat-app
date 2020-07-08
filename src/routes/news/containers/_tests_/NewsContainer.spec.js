@@ -18,7 +18,7 @@ import { render } from '@testing-library/react-native'
 import ErrorCodes from '../../../../modules/error/ErrorCodes'
 import { Text, ActivityIndicator } from 'react-native'
 import { LOADING_TIMEOUT } from '../../../../modules/common/constants'
-import { LOCAL } from '../../../../modules/error/NewsTabs'
+import { LOCAL } from '../../NewsTabs'
 
 const mockStore = configureMockStore()
 jest.mock('react-i18next')
@@ -60,15 +60,24 @@ describe('News', () => {
         city: city.code,
         switchingLanguage:
           switchingLanguage !== undefined ? switchingLanguage : false,
-        languages: languages || { status: 'ready', models: [language] },
+        languages: languages || {
+          status: 'ready',
+          models: [language]
+        },
         eventsRouteMapping: {},
         categoriesRouteMapping: {},
         newsRouteMapping: routeState ? { 'route-id-0': routeState } : {},
         searchRoute: null,
-        resourceCache: { status: 'ready', value: { file: {} } }
+        resourceCache: {
+          status: 'ready',
+          value: { file: {} }
+        }
       },
       contentLanguage: 'de',
-      cities: cities || { status: 'ready', models: [city] }
+      cities: cities || {
+        status: 'ready',
+        models: [city]
+      }
     }
   }
 

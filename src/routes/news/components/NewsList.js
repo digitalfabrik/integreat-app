@@ -23,7 +23,8 @@ import NewsListItem from './NewsListItem'
 import styled from 'styled-components/native'
 import type { StyledComponent } from 'styled-components'
 import NewsItemsDetails from './NewsItemDetails'
-import { TUNEWS } from '../../../modules/error/NewsTabs'
+import { TUNEWS } from '../NewsTabs'
+
 const tunewsWebsiteUrl = 'https://tunewsinternational.com'
 
 const NoNews: StyledComponent<{}, ThemeType, *> = styled.Text`
@@ -42,7 +43,7 @@ export type PropsType = {|
   theme: ThemeType,
   t: TFunction,
   selectedNewsType: NewsType,
-  status: "ready" | "loadingMore",
+  status: 'ready' | 'loadingMore',
   isFetchingMore: boolean,
   fetchMoreNews: () => void,
   navigateToNews: (navigationOptions: NavigateToNewsParamsType) => void,
@@ -65,19 +66,19 @@ class NewsList extends React.PureComponent<PropsType> {
       newsId,
       type: selectedNewsType
     })
-  };
+  }
 
   openTunewsLink = async () => {
     const supported = await Linking.canOpenURL(tunewsWebsiteUrl)
     if (supported) {
       await Linking.openURL(tunewsWebsiteUrl)
     }
-  };
+  }
 
   renderNoItemsComponent = () => {
     const { t, theme } = this.props
     return <NoNews theme={theme}>{t('currentlyNoNews')}</NoNews>
-  };
+  }
 
   rendersNewsListItem = (cityCode: string, language: string) => ({
     item: newsItem
@@ -98,7 +99,7 @@ class NewsList extends React.PureComponent<PropsType> {
         )}
       />
     )
-  };
+  }
 
   render () {
     const {
@@ -120,14 +121,13 @@ class NewsList extends React.PureComponent<PropsType> {
       )
       if (selectedNewsItem) {
         return (
-            <NewsItemsDetails
-              selectedNewsItem={selectedNewsItem}
-              theme={theme}
-              t={t}
-              isTunews={isTunews}
-              language={language}
-              openTunewsLink={this.openTunewsLink}
-            />
+          <NewsItemsDetails
+            selectedNewsItem={selectedNewsItem}
+            theme={theme}
+            isTunews={isTunews}
+            language={language}
+            openTunewsLink={this.openTunewsLink}
+          />
         )
       } else {
         const error = new ContentNotFoundError({
@@ -137,12 +137,12 @@ class NewsList extends React.PureComponent<PropsType> {
           language
         })
         return (
-            <Failure
-              errorMessage={error.message}
-              code={ErrorCodes.PageNotFound}
-              t={t}
-              theme={theme}
-            />
+          <Failure
+            errorMessage={error.message}
+            code={ErrorCodes.PageNotFound}
+            t={t}
+            theme={theme}
+          />
         )
       }
     }
