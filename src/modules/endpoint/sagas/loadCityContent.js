@@ -41,7 +41,7 @@ export default function * loadCityContent (
     const previousSelectedCity = yield call(appSettings.loadSelectedCity)
     const previousContentLanguage = yield call(appSettings.loadContentLanguage)
     try {
-      yield NotificationsManager.unSubscribeToPreviousCityTopic(previousSelectedCity, previousContentLanguage)
+      yield NotificationsManager.unsubscribeFromPreviousCity(previousSelectedCity, previousContentLanguage)
       yield NotificationsManager.subscribeToNewCityTopic(newCity, newLanguage)
     } catch (e) { console.debug(e) }
     yield call(appSettings.setSelectedCity, newCity)
