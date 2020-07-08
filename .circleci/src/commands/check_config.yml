@@ -1,0 +1,27 @@
+description: This command builds the circle config from the files in src and validates that it is up-to-date and valid.
+steps:
+  - run:
+      name: Install CircleCI CLI
+      command: curl -fLSs https://raw.githubusercontent.com/CircleCI-Public/circleci-cli/master/install.sh | sudo bash
+  - run:
+      name: Build circle config
+      command: yarn run circleci:update-config
+  - run: # Taken from https://github.com/roopakv/orbs/blob/master/src/commands/fail_if_dirty.yml
+      name: CircleCI config up to date
+      command: |
+        FILES_MODIFIED=""
+        setcommit () {
+          FILES_MODIFIED=$(git status -s | grep -i -E '.*circleci/config.yml')
+        }
+        setcommit || true
+        if [ -z "$FILES_MODIFIED" ]
+        then
+          echo "The CircleCI config is up to date."
+          exit 0;
+        else
+          echo "The CircleCI config is not up to date. Rebuild it from .circleci/config"
+          exit 1;
+        fi
+  - run:
+      name: Validate circle config
+      command: circleci config validate
