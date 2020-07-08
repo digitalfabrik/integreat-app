@@ -20,7 +20,7 @@ const unSubscribeToPreviousCityTopic = async (prevCity, prevLanguage) => {
     .then(() => console.debug(`Unsubscribed from ${prevCity}-${prevLanguage}-news topic!`))
 }
 
-const subscribeToNewCityTopic = async (newCity, newLanguage) => {
+const subscribeToCity = async (newCity, newLanguage) => {
   messaging()
     .subscribeToTopic(`${newCity}-${newLanguage}-news`)
     .then(() => console.debug(`Subscribed to ${newCity}-${newLanguage}-news topic!`))
