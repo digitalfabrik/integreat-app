@@ -3,7 +3,7 @@
 import * as React from 'react'
 
 import { Linking } from 'react-native'
-import { SprungbrettJobModel, ExtraModel } from '@integreat-app/integreat-api-client'
+import { SprungbrettJobModel, OfferModel } from '@integreat-app/integreat-api-client'
 import SprungbrettListItem from './SprungbrettListItem'
 import type { TFunction } from 'react-i18next'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
@@ -15,10 +15,10 @@ type PropsType = {|
   t: TFunction,
   theme: ThemeType,
   language: string,
-  sprungbrettExtra: ExtraModel
+  sprungbrettOffer: OfferModel
 |}
 
-class SprungbrettExtra extends React.Component<PropsType> {
+class SprungbrettOffer extends React.Component<PropsType> {
   openJobInBrowser = (url: string) => () => {
     Linking.openURL(url)
   }
@@ -29,10 +29,10 @@ class SprungbrettExtra extends React.Component<PropsType> {
   )
 
   render () {
-    const { sprungbrettExtra, sprungbrettJobs, t, theme } = this.props
+    const { sprungbrettOffer, sprungbrettJobs, t, theme } = this.props
 
     return <>
-        <Caption title={sprungbrettExtra.title} theme={theme} />
+        <Caption title={sprungbrettOffer.title} theme={theme} />
         <List noItemsMessage={t('noOffersAvailable')}
               renderItem={this.renderSprungbrettListItem}
               items={sprungbrettJobs}
@@ -41,4 +41,4 @@ class SprungbrettExtra extends React.Component<PropsType> {
   }
 }
 
-export default SprungbrettExtra
+export default SprungbrettOffer

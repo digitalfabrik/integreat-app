@@ -348,7 +348,7 @@ class DatabaseConnector {
       live: city.live,
       code: city.code,
       prefix: city.prefix,
-      extras_enabled: city.extrasEnabled,
+      extras_enabled: city.offersEnabled,
       events_enabled: city.eventsEnabled,
       pushNotificationsEnabled: city.pushNotificationsEnabled,
       tunewsEnabled: city.tunewsEnabled,
@@ -379,7 +379,7 @@ class DatabaseConnector {
         eventsEnabled: jsonObject.events_enabled,
         pushNotificationsEnabled: jsonObject.pushNotificationsEnabled,
         tunewsEnabled: jsonObject.tunewsEnabled,
-        extrasEnabled: jsonObject.extras_enabled,
+        offersEnabled: jsonObject.extras_enabled,
         sortingName: jsonObject.sorting_name,
         prefix: jsonObject.prefix,
         longitude: jsonObject.longitude,
@@ -448,6 +448,9 @@ class DatabaseConnector {
         }),
         location: new LocationModel({
           name: null, // todo: NATIVE-549
+          region: null, // todo: NATIVE-549
+          state: null, // todo: NATIVE-549
+          country: null, // todo: NATIVE-549
           address: jsonLocation.address,
           latitude: jsonLocation.latitude,
           longitude: jsonLocation.longitude,
