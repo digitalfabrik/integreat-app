@@ -370,17 +370,17 @@
     esutils "^2.0.2"
     js-tokens "^4.0.0"
 
-"@babel/node@^7.8.4":
-  version "7.10.4"
-  resolved "https://registry.yarnpkg.com/@babel/node/-/node-7.10.4.tgz#f246ac8a63dddbd5f084fd90be58ee0b904378b7"
-  integrity sha512-U41uyQkG0J1ezCb8KCdhDJotQF68Z/OsUbcgdxaC0M4JoXKZVdaKQJ+ecnr7aaWjNLt0Vee6Vddj6VL4JEMJnQ==
+"@babel/node@7.8.4":
+  version "7.8.4"
+  resolved "https://registry.yarnpkg.com/@babel/node/-/node-7.8.4.tgz#59b2ed7e5a9df2224592f83292d77d616fbf1ab8"
+  integrity sha512-MlczXI/VYRnoaWHjicqrzq2z4DhRPaWQIC+C3ISEQs5z+mEccBsn7IAI5Q97ZDTnFYw6ts5IUTzqArilC/g7nw==
   dependencies:
-    "@babel/register" "^7.10.4"
+    "@babel/register" "^7.8.3"
     commander "^4.0.1"
     core-js "^3.2.1"
     lodash "^4.17.13"
     node-environment-flags "^1.0.5"
-    regenerator-runtime "^0.13.4"
+    regenerator-runtime "^0.13.3"
     resolve "^1.13.1"
     v8flags "^3.1.1"
 
@@ -821,7 +821,7 @@
     pirates "^4.0.0"
     source-map-support "^0.5.9"
 
-"@babel/register@^7.10.4":
+"@babel/register@^7.8.3":
   version "7.10.4"
   resolved "https://registry.yarnpkg.com/@babel/register/-/register-7.10.4.tgz#53004ba8b04c4af3cbd84508e03ad150669746e4"
   integrity sha512-whHmgGiWNVyTVnYTSawtDWhaeYsc+noeU8Rmi+MPnbGhDYmr5QpEDMrQcIA07D2RUv0BlThPcN89XcHCqq/O4g==
@@ -10032,6 +10032,11 @@ regenerator-runtime@^0.13.2:
   version "0.13.2"
   resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.2.tgz#32e59c9a6fb9b1a4aff09b4930ca2d4477343447"
   integrity sha512-S/TQAZJO+D3m9xeN1WTI8dLKBBiRgXBlTJvbWjCThHWZj9EvHK70Ff50/tYj2J/fvBY6JtFVwRuazHN2E7M9BA==
+
+regenerator-runtime@^0.13.3:
+  version "0.13.5"
+  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.5.tgz#d878a1d094b4306d10b9096484b33ebd55e26697"
+  integrity sha512-ZS5w8CpKFinUzOwW3c83oPeVXoNsrLsaCoLtJvAClH135j/R77RuymhiSErhm2lKcwSCIpmvIWSbDkIfAqKQlA==
 
 regenerator-runtime@^0.13.4:
   version "0.13.4"
