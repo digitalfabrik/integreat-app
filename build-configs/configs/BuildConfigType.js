@@ -10,8 +10,5 @@ export type BuildConfigType = {|
   allowedHostNames: Array<string>,
   featureFlags: FeatureFlagsType,
   lightTheme: ThemeType,
-  darkTheme: ThemeType,
-  iosBuildOptions: {|
-    BUILD_CONFIG_APP_NAME: string
-  |}
+  darkTheme: ThemeType
 |}
