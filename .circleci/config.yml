@@ -142,12 +142,11 @@ jobs:
     - run:
         command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
         environment:
-          BUILD_CONFIG_NAME: integreat-test-cms
-          E2E_TEST_IDS: 1
-        name: '[FL] integreat-test-cms build'
+          BUILD_CONFIG_NAME: integreat-e2e
+        name: '[FL] integreat-e2e build'
         working_directory: android
     - run:
-        command: mv android/app/build/outputs/apk/release/app-release.apk android/output/apk/integreat-test-cms.apk
+        command: mv android/app/build/outputs/apk/release/app-release.apk android/output/apk/integreat-e2e.apk
         name: Rename apk
     - store_artifacts:
         path: android/output/apk
@@ -163,7 +162,7 @@ jobs:
         paths:
         - integreat.apk
         - malte.apk
-        - integreat-test-cms.apk
+        - integreat-e2e.apk
         root: android/output/apk
   build_ios:
     environment:
@@ -252,9 +251,8 @@ jobs:
         command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
           scheme:${BUILD_CONFIG_NAME}
         environment:
-          BUILD_CONFIG_NAME: integreat-test-cms
-          E2E_TEST_IDS: 1
-        name: '[FL] integreat-test-cms build'
+          BUILD_CONFIG_NAME: integreat-e2e
+        name: '[FL] integreat-e2e build'
         working_directory: ios
     - store_artifacts:
         path: ios/output/gym/
@@ -270,7 +268,7 @@ jobs:
         paths:
         - integreat.ipa
         - malte.ipa
-        - integreat-test-cms.ipa
+        - integreat-e2e.ipa
         root: ios/output/gym/
   bump_version:
     docker:
@@ -427,10 +425,10 @@ jobs:
         - ~/.cache/yarn
         - node_modules
     - run:
-        command: bundle exec fastlane android browserstack_e2e_tests app_name:integreat-test-cms
+        command: bundle exec fastlane android browserstack_e2e_tests app_name:integreat-e2e
         name: '[FL] Android E2E Tests on Browserstack'
     - run:
-        command: bundle exec fastlane ios browserstack_e2e_tests app_name:integreat-test-cms
+        command: bundle exec fastlane ios browserstack_e2e_tests app_name:integreat-e2e
         name: '[FL] iOS E2E Tests on Browserstack'
   prepare_build:
     docker:
