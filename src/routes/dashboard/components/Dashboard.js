@@ -11,12 +11,17 @@ import NavigationTiles from '../../../modules/common/components/NavigationTiles'
 import TileModel from '../../../modules/common/models/TileModel'
 import eventsIcon from '../assets/events.svg'
 import offersIcon from '../assets/offers.svg'
+import newsIcon from '../assets/news.svg'
 import localInformationIcon from '../assets/local_information.svg'
 import type { TFunction } from 'react-i18next'
 import type { NavigateToCategoryParamsType } from '../../../modules/app/createNavigateToCategory'
 import type { NavigateToIntegreatUrlParamsType } from '../../../modules/app/createNavigateToIntegreatUrl'
 import type { NavigateToEventParamsType } from '../../../modules/app/createNavigateToEvent'
+import type { NavigateToNewsParamsType } from '../../../modules/app/createNavigateToNews'
+import buildConfig from '../../../modules/app/constants/buildConfig'
+
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
+import { LOCAL, TUNEWS } from '../../news/NewsTabs'
 
 export type PropsType = {|
   navigation: NavigationScreenProp<*>,
@@ -26,6 +31,7 @@ export type PropsType = {|
   navigateToEvent: NavigateToEventParamsType => void,
   navigateToIntegreatUrl: NavigateToIntegreatUrlParamsType => void,
   navigateToDashboard: NavigateToCategoryParamsType => void,
+  navigateToNews: NavigateToNewsParamsType => void,
   navigateToOffers: ({| cityCode: string, language: string |}) => void,
   theme: ThemeType,
 
@@ -38,13 +44,17 @@ export type PropsType = {|
 
 class Dashboard extends React.Component<PropsType> {
   getNavigationTileModels (cityCode: string, language: string): Array<TileModel> {
-    const { navigateToCategory, navigateToEvent, navigateToOffers, t, cities } = this.props
-
+    const { navigateToCategory, navigateToEvent, navigateToOffers, t, cities, navigateToNews } = this.props
+    const { featureFlags } = buildConfig()
     const cityModel = cities.find(city => city.code === cityCode)
+
     if (!cityModel) {
       console.error('City model of current cityCode was not found.')
       return []
     }
+    // Check if news is enabled to show the menu item
+    const { tunewsEnabled, pushNotificationsEnabled } = cityModel
+    const isNewsEnabled = tunewsEnabled || pushNotificationsEnabled
 
     const tiles = [
       new TileModel({
@@ -88,6 +98,17 @@ class Dashboard extends React.Component<PropsType> {
         notifications: 0
       }))
     }
+
+    if (featureFlags.newsStream && isNewsEnabled) {
+      tiles.push(new TileModel({
+        title: t('news'),
+        path: 'news',
+        thumbnail: newsIcon,
+        isExternalUrl: false,
+        onTilePress: () =>
+          navigateToNews({ cityCode, language, newsId: null, type: pushNotificationsEnabled ? LOCAL : TUNEWS })
+      }))
+    }
     return tiles
   }
 
@@ -106,10 +127,9 @@ class Dashboard extends React.Component<PropsType> {
       navigation,
       t
     } = this.props
-
     return (
       <SpaceBetween>
-        <NavigationTiles tiles={this.getNavigationTileModels(cityCode, language)} theme={theme} />
+        <NavigationTiles tiles={this.getNavigationTileModels(cityCode, language)} theme={theme} language={language} />
         <Categories
           stateView={stateView}
           cities={cities}

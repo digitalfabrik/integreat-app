@@ -317,6 +317,7 @@ describe('morphContentLanguage', () => {
           models: [enThirdEvent]
         }
       },
+      newsRouteMapping: {},
       resourceCache: {
         status: 'ready',
         value: {}
@@ -360,6 +361,7 @@ describe('morphContentLanguage', () => {
         }
       },
       eventsRouteMapping: expect.any(Object),
+      newsRouteMapping: {},
       resourceCache: {
         status: 'ready',
         value: {}
@@ -394,6 +396,7 @@ describe('morphContentLanguage', () => {
         models: cityLanguages
       },
       categoriesRouteMapping: expect.any(Object),
+      newsRouteMapping: {},
       eventsRouteMapping: {
         'route-1': {
           status: 'languageNotAvailable',

@@ -65,6 +65,7 @@ describe('pushCategory', () => {
         }
       },
       eventsRouteMapping: {},
+      newsRouteMapping: {},
       languages: { status: 'ready', models: languageModels },
       resourceCache: {
         status: 'ready',
@@ -87,6 +88,7 @@ describe('pushCategory', () => {
   it('should add rootCategory to categoriesRouteMapping with depth 1', () => {
     const prevState: CityContentStateType = prepareState({
       categoriesRouteMapping: {},
+      newsRouteMapping: {},
       resourceCache: { status: 'ready', value: {} }
     })
 
@@ -209,6 +211,7 @@ describe('pushCategory', () => {
   it('should add categoriesMap to the searchRoute', () => {
     const prevState: CityContentStateType = prepareState({
       categoriesRouteMapping: {},
+      newsRouteMapping: {},
       searchRoute: null,
       resourceCache: { status: 'ready', value: {} }
     })

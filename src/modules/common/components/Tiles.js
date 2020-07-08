@@ -11,7 +11,7 @@ import { contentDirection } from '../../i18n/contentDirection'
 
 type PropsType = {|
   title?: string,
-  tiles: TileModel[],
+  tiles: Array<TileModel>,
   onTilePress: (tile: TileModel) => void,
   theme: ThemeType,
   language: string

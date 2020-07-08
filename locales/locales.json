@@ -305,7 +305,9 @@
     "de": {
       "localInformation": "Lokale Informationen",
       "offers": "Angebote",
-      "events": "Veranstaltungen"
+      "events": "Veranstaltungen",
+      "news": "Nachrichten",
+      "newsAlternative": "Neuigkeiten"
     },
     "ar": {
       "localInformation": "معلومات محلية",
@@ -859,6 +861,7 @@
       "newsAlternative": "Neuigkeiten",
       "localNews": "Lokale Nachrichten",
       "localNewsAlternative": "Lokale Neuigkeiten",
+      "local": "Lokal",
       "readMore": "Weiterlesen",
       "currentlyNoNews": "Aktuell gibt es keine Nachrichten.",
       "currentlyNoNewsAlternative": "Aktuell gibt es keine Neuigkeiten."

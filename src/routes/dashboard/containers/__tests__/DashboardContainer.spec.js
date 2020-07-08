@@ -74,6 +74,7 @@ describe('DashboardContainer', () => {
         languages: languages || { status: 'ready', models: [language] },
         categoriesRouteMapping: routeState ? { 'route-id-0': routeState } : {},
         eventsRouteMapping: {},
+        newsRouteMapping: {},
         resourceCache: resourceCacheState || { status: 'ready', value: resourceCache },
         searchRoute: null
       },
@@ -245,6 +246,7 @@ describe('DashboardContainer', () => {
       navigateToEvent: expect.any(Function),
       navigateToOffers: expect.any(Function),
       navigateToDashboard: expect.any(Function),
+      navigateToNews: expect.any(Function),
       navigation,
       resourceCache,
       stateView: expect.any(CategoriesRouteStateView),
