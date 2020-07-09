@@ -38,10 +38,7 @@ export default function * loadCityContent (
 
   if (!criterion.peeking()) {
     const appSettings = new AppSettings()
-    const previousSelectedCity = yield call(appSettings.loadSelectedCity)
-    const previousContentLanguage = yield call(appSettings.loadContentLanguage)
     try {
-      yield NotificationsManager.unsubscribeFromPreviousCity(previousSelectedCity, previousContentLanguage)
       yield NotificationsManager.subscribeToCity(newCity, newLanguage)
     } catch (e) { console.error(e) }
     yield call(appSettings.setSelectedCity, newCity)
