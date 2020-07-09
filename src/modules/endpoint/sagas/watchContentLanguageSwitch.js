@@ -13,6 +13,7 @@ import loadCityContent from './loadCityContent'
 import { ContentLoadCriterion } from '../ContentLoadCriterion'
 import AppSettings from '../../settings/AppSettings'
 import { Alert } from 'react-native'
+import * as NotificationsManager from '../../../modules/notifications/NotificationsManager'
 
 export function * switchContentLanguage (dataContainer: DataContainer, action: SwitchContentLanguageActionType): Saga<void> {
   const { newLanguage, city, t } = action.params
@@ -36,6 +37,13 @@ export function * switchContentLanguage (dataContainer: DataContainer, action: S
     // Only set new language after fetch succeeded
     const appSettings = new AppSettings()
     yield call(appSettings.setContentLanguage, newLanguage)
+
+    // Unsubscribe from prev. city notifications
+    const previousSelectedCity = yield call(appSettings.loadSelectedCity)
+    const previousContentLanguage = yield call(appSettings.loadContentLanguage)
+    try {
+      yield NotificationsManager.unsubscribeFromPreviousCity(previousSelectedCity, previousContentLanguage)
+    } catch (e) { console.error(e) }
 
     const setContentLanguage: SetContentLanguageActionType = {
       type: 'SET_CONTENT_LANGUAGE', params: { contentLanguage: newLanguage }
