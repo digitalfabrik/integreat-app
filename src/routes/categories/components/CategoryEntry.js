@@ -9,8 +9,10 @@ import Highlighter from 'react-highlight-words'
 import normalizeSearchString from '../../../modules/common/utils/normalizeSearchString'
 import Link from 'redux-first-router-link'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
+import { fromString as htmlToText } from 'html-to-text'
 
 const NUM_WORDS_SURROUNDING_MATCH = 3
+const MAX_SEARCH_LENGTH = 100
 
 const Row = styled.div`
   margin: 12px 0;
@@ -95,38 +97,53 @@ class CategoryEntry extends React.PureComponent<PropsType> {
     )
   }
 
+  getWords (content: string): Array<string> {
+    return content.split(/\s+/).filter(Boolean)
+  }
+
   getMatchedContent (category: CategoryModel): ContentMatchItem {
     const { query, theme } = this.props
-    if (query && query.length >= 1) {
-      const normalizedFilter = normalizeSearchString(query)
-      const contentWithoutHtml = category.content.replace(/(<([^>]+)>)/ig, '')
-      const matchIdx = contentWithoutHtml.toLowerCase().indexOf(normalizedFilter)
-      if (matchIdx !== -1) {
-        const wordsBeforeMatch = contentWithoutHtml
-          .slice(0, matchIdx)
-          .split(/[\s,]+/)
-        const wordsAfterMatch = contentWithoutHtml
-          .slice(matchIdx)
-          .split(/[\s,]+/)
-        const matchedWord = (wordsBeforeMatch.slice(-NUM_WORDS_SURROUNDING_MATCH, wordsBeforeMatch.length).join(' ')) +
-          (wordsAfterMatch.slice(0, NUM_WORDS_SURROUNDING_MATCH).join(' '))
-        return <ContentMatchItem aria-label={matchedWord} searchWords={[query]}
-                                 sanitize={normalizeSearchString} textToHighlight={matchedWord} highlightStyle={{
-          backgroundColor: theme.colors.backgroundColor,
-          fontWeight: 'bold'
-        }} />
-      }
+    if (!query || !query.length || query.length > MAX_SEARCH_LENGTH || !category.content) {
+      return null
     }
-    return null
+    const normalizedFilter = normalizeSearchString(query)
+    const contentWithoutHtml = htmlToText(category.content, {
+      ignoreHref: true,
+      ignoreImage: true,
+      wordwrap: false,
+      singleNewLineParagraphs: true
+    })
+
+    const matchIdx = contentWithoutHtml.toLowerCase().indexOf(normalizedFilter)
+    if (matchIdx === -1) {
+      return null
+    }
+
+    // get the words before and after the search index (including the match) as lists of words
+    const wordsBeforeMatch = this.getWords(contentWithoutHtml.slice(0, matchIdx))
+    const wordsAfterMatch = this.getWords(contentWithoutHtml.slice(matchIdx))
+
+    // limit the words that are displayed around the matched filter
+    const limitedMatchBefore = wordsBeforeMatch
+      .slice(-NUM_WORDS_SURROUNDING_MATCH, wordsBeforeMatch.length)
+      .join(' ')
+    const limitedMatchAfter = wordsAfterMatch
+      .slice(0, NUM_WORDS_SURROUNDING_MATCH)
+      .join(' ')
+    return <ContentMatchItem aria-label={limitedMatchBefore + limitedMatchAfter}
+                             searchWords={[query]}
+                             sanitize={normalizeSearchString}
+                             textToHighlight={limitedMatchBefore + limitedMatchAfter}
+                             highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }} />
   }
 
   renderTitle (): React.Node {
     const { query, category, theme } = this.props
     return <CategoryListItem>
       <Highlighter searchWords={query ? [query] : []} aria-label={category.title}
-                       sanitize={normalizeSearchString}
-                       highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }}
-                       textToHighlight={category.title} />
+                   sanitize={normalizeSearchString}
+                   highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }}
+                   textToHighlight={category.title} />
       <div style={{ margin: '0 5px', fontSize: '12px' }}>
         {this.getMatchedContent(category)}
       </div>
