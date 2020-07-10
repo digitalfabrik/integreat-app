@@ -10,6 +10,8 @@ import normalizeSearchString from '../../../modules/common/utils/normalizeSearch
 import Link from 'redux-first-router-link'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 
+const NUM_WORDS_SURROUNDING_MATCH = 3
+
 const Row = styled.div`
   margin: 12px 0;
 
@@ -35,7 +37,7 @@ const CategoryThumbnail = styled.img`
   object-fit: contain;
 `
 
-const CategoryListItem = styled(Highlighter)`
+const CategoryListItem = styled.div`
   display: flex;
   flex-direction: column;
   padding: 15px 5px;
@@ -45,7 +47,7 @@ const CategoryListItem = styled(Highlighter)`
   min-width: 1px; /* needed to enable line breaks for too long words, exact value doesn't matter */
   flex-grow: 1;
   word-wrap: break-word;
-  border-bottom: 2px solid ${props => props.theme.colors.themeColor};
+  border-bottom: 1px solid ${props => props.theme.colors.themeColor};
 `
 
 const SubCategoryCaption = styled(CategoryListItem)`
@@ -106,7 +108,8 @@ class CategoryEntry extends React.PureComponent<PropsType> {
         const wordsAfterMatch = contentWithoutHtml
           .slice(matchIdx)
           .split(/[\s,]+/)
-        const matchedWord = (wordsBeforeMatch.pop() ?? '') + (wordsAfterMatch.shift() ?? '')
+        const matchedWord = (wordsBeforeMatch.slice(-NUM_WORDS_SURROUNDING_MATCH, wordsBeforeMatch.length).join(' ')) +
+          (wordsAfterMatch.slice(0, NUM_WORDS_SURROUNDING_MATCH).join(' '))
         return <ContentMatchItem aria-label={matchedWord} searchWords={[query]}
                                  sanitize={normalizeSearchString} textToHighlight={matchedWord} highlightStyle={{
           backgroundColor: theme.colors.backgroundColor,
@@ -119,7 +122,7 @@ class CategoryEntry extends React.PureComponent<PropsType> {
 
   renderTitle (): React.Node {
     const { query, category, theme } = this.props
-    return <>
+    return <CategoryListItem>
       <Highlighter searchWords={query ? [query] : []} aria-label={category.title}
                        sanitize={normalizeSearchString}
                        highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }}
@@ -127,7 +130,7 @@ class CategoryEntry extends React.PureComponent<PropsType> {
       <div style={{ margin: '0 5px', fontSize: '12px' }}>
         {this.getMatchedContent(category)}
       </div>
-    </>
+    </CategoryListItem>
   }
 
   render () {
