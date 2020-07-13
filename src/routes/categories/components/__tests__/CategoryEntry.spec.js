@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react'
-import { shallow, type ReactWrapper } from 'enzyme'
+import { shallow, type ShallowWrapper } from 'enzyme'
 import moment from 'moment'
 import CategoryEntry from '../CategoryEntry'
 import { CategoryModel } from '@integreat-app/integreat-api-client'
@@ -59,7 +59,7 @@ const noThumbCategory = new CategoryModel({
 })
 
 // helper to find StyledComponents without importing them
-function findComponent (wrapper: ReactWrapper, name: string): ReactWrapper {
+function findComponent (wrapper: ShallowWrapper<*>, name: string): ShallowWrapper<*> {
   return wrapper.findWhere(n => n.name().endsWith(name))
 }
 
