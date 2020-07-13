@@ -12,7 +12,6 @@ import type { ThemeType } from '../../../modules/theme/constants/theme'
 import { fromString as htmlToText } from 'html-to-text'
 
 const NUM_WORDS_SURROUNDING_MATCH = 3
-const MAX_SEARCH_LENGTH = 100
 
 const Row = styled.div`
   margin: 12px 0;
@@ -74,13 +73,13 @@ const StyledLink = styled(Link)`
   }
 `
 
-type PropsType = {
+type PropsType = {|
   category: CategoryModel,
   subCategories: Array<CategoryModel>,
   /** A search query to highlight in the category title */
   query?: string,
   theme: ThemeType
-}
+|}
 
 /**
  * Displays a single CategoryEntry
@@ -101,9 +100,9 @@ class CategoryEntry extends React.PureComponent<PropsType> {
     return content.split(/\s+/).filter(Boolean)
   }
 
-  getMatchedContent (category: CategoryModel): ContentMatchItem {
-    const { query, theme } = this.props
-    if (!query || !query.length || query.length > MAX_SEARCH_LENGTH || !category.content) {
+  getMatchedContent (): ContentMatchItem {
+    const { query, theme, category } = this.props
+    if (!query || !query.length || !category.content) {
       return null
     }
     const normalizedFilter = normalizeSearchString(query)
@@ -111,7 +110,8 @@ class CategoryEntry extends React.PureComponent<PropsType> {
       ignoreHref: true,
       ignoreImage: true,
       wordwrap: false,
-      singleNewLineParagraphs: true
+      singleNewLineParagraphs: true,
+      unorderedListItemPrefix: ' '
     })
 
     const matchIdx = contentWithoutHtml.toLowerCase().indexOf(normalizedFilter)
@@ -119,33 +119,37 @@ class CategoryEntry extends React.PureComponent<PropsType> {
       return null
     }
 
-    // get the words before and after the search index (including the match) as lists of words
     const wordsBeforeMatch = this.getWords(contentWithoutHtml.slice(0, matchIdx))
     const wordsAfterMatch = this.getWords(contentWithoutHtml.slice(matchIdx))
 
+    const queryMatchesStartOfWord = !contentWithoutHtml.charAt(matchIdx - 1).trim()
+
     // limit the words that are displayed around the matched filter
     const limitedMatchBefore = wordsBeforeMatch
-      .slice(-NUM_WORDS_SURROUNDING_MATCH, wordsBeforeMatch.length)
+      .slice(-NUM_WORDS_SURROUNDING_MATCH - !queryMatchesStartOfWord, wordsBeforeMatch.length)
       .join(' ')
     const limitedMatchAfter = wordsAfterMatch
       .slice(0, NUM_WORDS_SURROUNDING_MATCH)
       .join(' ')
-    return <ContentMatchItem aria-label={limitedMatchBefore + limitedMatchAfter}
+
+    const textToHighlight = limitedMatchBefore + (queryMatchesStartOfWord ? ' ' : '') + limitedMatchAfter
+    return <ContentMatchItem aria-label={textToHighlight}
                              searchWords={[query]}
                              sanitize={normalizeSearchString}
-                             textToHighlight={limitedMatchBefore + limitedMatchAfter}
+                             textToHighlight={textToHighlight}
                              highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }} />
   }
 
   renderTitle (): React.Node {
     const { query, category, theme } = this.props
     return <CategoryListItem>
-      <Highlighter searchWords={query ? [query] : []} aria-label={category.title}
+      <Highlighter searchWords={query ? [query] : []}
+                   aria-label={category.title}
                    sanitize={normalizeSearchString}
                    highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }}
                    textToHighlight={category.title} />
       <div style={{ margin: '0 5px', fontSize: '12px' }}>
-        {this.getMatchedContent(category)}
+        {this.getMatchedContent()}
       </div>
     </CategoryListItem>
   }

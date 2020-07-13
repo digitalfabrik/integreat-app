@@ -50,7 +50,7 @@ export class SearchPage extends React.Component<PropsType, LocalStateType> {
       : categories.toArray()
         .filter(category => !normalizeSearchString(category.title).includes(filterText))
         .filter(category => normalizeSearchString(htmlToText(category.content,
-          { ignoreHref: true, ignoreImage: true })).includes(filterText))
+          { ignoreHref: true, ignoreImage: true, unorderedListItemPrefix: ' ' })).includes(filterText))
         .sort((category1, category2) => category1.title.localeCompare(category2.title))
 
     // return all categories from above and remove the root category
