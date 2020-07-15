@@ -50,4 +50,4 @@ class PDFViewModal extends React.Component<PropsType, StateType> {
   }
 }
 
-export default withTheme<PropsType>()(PDFViewModal)
+export default withTheme<PropsType>(PDFViewModal)

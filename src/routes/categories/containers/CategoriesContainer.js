@@ -8,8 +8,8 @@ import type { StoreActionType, SwitchContentLanguageActionType } from '../../../
 import createNavigateToCategory from '../../../modules/app/createNavigateToCategory'
 import createNavigateToIntegreatUrl from '../../../modules/app/createNavigateToIntegreatUrl'
 import type { NavigationScreenProp } from 'react-navigation'
-import type { StatusPropsType } from '../../../modules/error/hocs/withPayloadProvider'
-import withPayloadProvider from '../../../modules/error/hocs/withPayloadProvider'
+import type { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
+import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvider'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import { withTranslation } from 'react-i18next'
@@ -131,10 +131,9 @@ class CategoriesContainer extends React.Component<ContainerPropsType> {
   }
 }
 
-const ThemedTranslatedCategories = withTheme(props => props.language)(
-  withTranslation('categories')(
-    Categories
-  ))
+const ThemedTranslatedCategories = withTheme(
+  withTranslation('categories')(Categories)
+)
 
 type RestType = $Diff<PropsType, OwnPropsType>
 const removeOwnProps = (props: PropsType): RestType => {
