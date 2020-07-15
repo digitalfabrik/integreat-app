@@ -75,7 +75,6 @@ yarn start
     * Start XCode and open `ios/Integreat.xcworkspace`.
     * Run the app.
     
-    
 #### Trouble Shooting
 * `Failed to get "locale" from native side!` in the simulator:
     * Go to `(Device) Settings` > `General` > `Language and Region`.

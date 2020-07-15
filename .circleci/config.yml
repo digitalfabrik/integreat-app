@@ -31,13 +31,11 @@ workflows:
     jobs:
       - prepare_build
       - build_android:
-          e2e_build: true
-          production_delivery: false
+          build_for_delivery: false
           requires:
             - prepare_build
       - build_ios:
-          e2e_build: true
-          production_delivery: false
+          build_for_delivery: false
           requires:
             - prepare_build
       - e2e:
@@ -50,28 +48,27 @@ workflows:
     jobs:
       - prepare_build
       - build_android:
-          e2e_build: false
-          production_delivery: << pipeline.parameters.production_delivery >>
+          build_for_delivery: true
           requires:
             - prepare_build
       - build_ios:
-          e2e_build: false
-          production_delivery: << pipeline.parameters.production_delivery >>
+          build_for_delivery: true
           requires:
             - prepare_build
+      - e2e:
+          requires:
+            - build_ios
+            - build_android
       - bump_version:
           requires: # Bump version should only depend on build_ and not delivery_. Sometimes upload to the stores fails only for iOS or Android. Then we still should bump the version.
-            - build_android
-            - build_ios
+            - e2e
       - deliver_android:
           production_delivery: << pipeline.parameters.production_delivery >>
           requires:
-            - build_android
             - bump_version
       - deliver_ios:
           production_delivery: << pipeline.parameters.production_delivery >>
           requires:
-            - build_ios
             - bump_version
 
   weekly_development_delivery:
@@ -85,19 +82,20 @@ workflows:
     jobs:
       - prepare_build
       - build_android:
-          e2e_build: false
-          production_delivery: false
+          build_for_delivery: true
           requires:
             - prepare_build
       - build_ios:
-          e2e_build: false
-          production_delivery: false
+          build_for_delivery: true
           requires:
             - prepare_build
+      - e2e:
+          requires:
+            - build_ios
+            - build_android
       - bump_version:
           requires: # Bump version should only depend on build_ and not delivery_. Sometimes upload to the stores fails only for iOS or Android. Then we still should bump the version.
-            - build_android
-            - build_ios
+            - e2e
       - deliver_android:
           production_delivery: false
           requires:
@@ -118,19 +116,20 @@ workflows:
     jobs:
       - prepare_build
       - build_android:
-          e2e_build: false
-          production_delivery: true
+          build_for_delivery: true
           requires:
             - prepare_build
       - build_ios:
-          e2e_build: false
-          production_delivery: true
+          build_for_delivery: true
           requires:
             - prepare_build
+      - e2e:
+          requires:
+            - build_ios
+            - build_android
       - bump_version:
           requires: # Bump version should only depend on build_ and not delivery_. Sometimes upload to the stores fails only for iOS or Android. Then we should still bump the version.
-            - build_android
-            - build_ios
+            - e2e
       - await_production_approval:
           type: approval
           requires:
@@ -157,14 +156,14 @@ jobs:
       - restore_cache:
           name: Restore Yarn Package Cache
           keys: # Integer Prefix used for manually invalidating caches by incrementing.
-            - 2-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
-            - 2-yarn-{{ arch }}-
+            - 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+            - 3-yarn-{{ arch }}-
       - run:
           name: Install Dependencies
           command: yarn install --frozen-lockfile
       - save_cache:
           name: Save Yarn Package Cache
-          key: 2-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+          key: 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
             - node_modules
@@ -190,18 +189,14 @@ jobs:
 
   build_android:
     parameters:
-      e2e_build:
-        description: Whether to create a build for E2E testing.
-        type: boolean
-      production_delivery:
-        description: Whether the build is delivered to production. If true, the 'integreat' build config will be used or 'integreat-test-cms' if false.
+      build_for_delivery:
+        description: Whether builds are delivered to the store. If true, integreat and malte builds are created.
         type: boolean
     docker:
       - image: circleci/android:api-28-node
     resource_class: medium
     environment:
       TOTAL_CPUS: 2 # For resource_class medium, used in metro.config.ci.js.
-      E2E_TEST_IDS: <<# parameters.e2e_build >>1<</ parameters.e2e_build >> # Empty string equals to false in JS
       FASTLANE_SKIP_UPDATE_CHECK: true
     shell: /bin/bash -eo pipefail
     steps:
@@ -214,26 +209,26 @@ jobs:
       - restore_environment_variables
       - restore_cache:
           keys:
-            - 1-gems-{{ arch }}-{{ checksum "android/Gemfile.lock" }}
-            - 1-gems-{{ arch }}-
+            - 2-gems-{{ arch }}-{{ checksum "android/Gemfile.lock" }}
+            - 2-gems-{{ arch }}-
       - run:
           command: bundle check || bundle install --path vendor/bundle
           working_directory: android
       - save_cache:
-          key: 1-gems-{{ arch }}-{{ checksum "android/Gemfile.lock" }}
+          key: 2-gems-{{ arch }}-{{ checksum "android/Gemfile.lock" }}
           paths:
             - android/vendor/bundle
       - restore_cache:
           name: Restore Yarn Package Cache
           keys:
-            - 2-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
-            - 2-yarn-{{ arch }}-
+            - 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+            - 3-yarn-{{ arch }}-
       - run:
           name: Install Dependencies
           command: yarn install --frozen-lockfile
       - save_cache:
           name: Save Yarn Package Cache
-          key: 2-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+          key: 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
             - node_modules
@@ -253,8 +248,11 @@ jobs:
           paths:
             - ~/.gradle
           key: 1-gradle-{{ checksum "android/build.gradle" }}-{{ checksum "android/app/build.gradle" }}-{{ checksum "android/settings.gradle" }}
+      - run:
+          name: Create output dir
+          command: mkdir --parents android/output/apk
       - when:
-          condition: << parameters.production_delivery >>
+          condition: << parameters.build_for_delivery >>
           steps:
             - run:
                 name: "[FL] integreat build"
@@ -262,41 +260,61 @@ jobs:
                   BUILD_CONFIG_NAME: integreat
                 command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
                 working_directory: android
-      - unless:
-          condition: << parameters.production_delivery >>
-          steps:
             - run:
-                name: "[FL] integreat-test-cms build"
+                name: Rename apk
+                command: mv android/app/build/outputs/apk/release/app-release.apk android/output/apk/integreat.apk
+            - run:
+                name: Rename sourcemap
+                command: mv android/app/build/generated/sourcemaps/react/release/index.android.bundle.map android/output/integreat.android.bundle.map
+            - run:
+                name: "[FL] malte build"
                 environment:
-                  BUILD_CONFIG_NAME: integreat-test-cms
+                  BUILD_CONFIG_NAME: malte
                 command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
                 working_directory: android
+            - run:
+                name: Rename apk
+                command: mv android/app/build/outputs/apk/release/app-release.apk android/output/apk/malte.apk
+            - run:
+                name: Rename sourcemap
+                command: mv android/app/build/generated/sourcemaps/react/release/index.android.bundle.map android/output/malte.android.bundle.map
+      - run:
+          name: "[FL] integreat-e2e build"
+          environment:
+            BUILD_CONFIG_NAME: integreat-e2e
+          command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
+          working_directory: android
+      - run:
+          name: Rename apk
+          command: mv android/app/build/outputs/apk/release/app-release.apk android/output/apk/integreat-e2e.apk
       - store_artifacts:
-          path: android/app/build/outputs/apk/release/
+          path: android/output/apk
+      - when:
+          condition: << parameters.build_for_delivery >>
+          steps:
+            - persist_to_workspace:
+                root: android/output
+                paths:
+                  - integreat.android.bundle.map
+                  - malte.android.bundle.map
       - persist_to_workspace:
-          root: android/app/build/generated/sourcemaps/react/release/
+          root: android/output/apk
           paths:
-            - index.android.bundle.map
-      - persist_to_workspace:
-          root: android/app/build/outputs/apk/release/
-          paths:
-            - app-release.apk
+            - integreat.apk
+            - malte.apk
+            - integreat-e2e.apk
 
   build_ios:
     parameters:
-      e2e_build:
-        description: Whether to create a build for E2E testing
-        type: boolean
-      production_delivery:
-        description: Whether the build is delivered to production. If true, the 'integreat' build config will be used or 'integreat-test-cms' if false.
+      build_for_delivery:
+        description: Whether builds are delivered to the store. If true, integreat and malte builds are created.
         type: boolean
     macos:
-      xcode: 11.2.0
+      xcode: 11.5.0
     environment:
       FL_OUTPUT_DIR: output
       FASTLANE_SKIP_UPDATE_CHECK: true
       TOTAL_CPUS: 4 # For mac with resource_class medium, used in metro.config.ci.js.
-      E2E_TEST_IDS: <<# parameters.e2e_build >>1<</ parameters.e2e_build >> # Empty string equals to false in JS
     shell: /bin/bash --login -o pipefail
     steps:
       - add_ssh_keys:
@@ -308,71 +326,86 @@ jobs:
       - restore_environment_variables
       - restore_cache:
           keys:
-            - 1-gems-{{ arch }}-{{ checksum "ios/Gemfile.lock" }}
-            - 1-gems-{{ arch }}-
+            - 2-gems-{{ arch }}-{{ checksum "ios/Gemfile.lock" }}
+            - 2-gems-{{ arch }}-
       - run:
           command: bundle check || bundle install --path vendor/bundle
           working_directory: ios
       - save_cache:
-          key: 1-gems-{{ arch }}-{{ checksum "ios/Gemfile.lock" }}
+          key: 2-gems-{{ arch }}-{{ checksum "ios/Gemfile.lock" }}
           paths:
             - ios/vendor/bundle
       - restore_cache:
           name: Restore Yarn Package Cache
           keys:
-            - 4-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
-            - 4-yarn-{{ arch }}-
+            - 5-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+            - 5-yarn-{{ arch }}-
       - run:
           name: Install Dependencies
           command: yarn install --frozen-lockfile
       - save_cache:
           name: Save Yarn Package Cache
-          key: 4-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+          key: 5-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
           paths:
             - ~/Library/Caches/Yarn/
             - node_modules
       - restore_cache:
           name: Restore CocoaPods Cache
           keys:
-            - 1-pods-{{ arch }}-{{ checksum "ios/Podfile.lock" }}
-            - 1-pods-{{ arch }}-
+            - 2-pods-{{ arch }}-{{ checksum "ios/Podfile.lock" }}
+            - 2-pods-{{ arch }}-
       - run:
           name: "[CP] Install CocoaPods"
           command: bundle exec pod install --deployment
           working_directory: ios
       - save_cache:
           name: Save CocoaPods Cache
-          key: 1-pods-{{ arch }}-{{ checksum "ios/Podfile.lock" }}
+          key: 2-pods-{{ arch }}-{{ checksum "ios/Podfile.lock" }}
           paths:
             - ~/Library/Caches/CocoaPods/
       - when:
-          condition: << parameters.production_delivery >>
+          condition: << parameters.build_for_delivery >>
           steps:
             - run:
                 name: "[FL] integreat build"
                 environment:
                   BUILD_CONFIG_NAME: integreat
-                command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
+                command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} scheme:${BUILD_CONFIG_NAME}
                 working_directory: ios
-      - unless:
-          condition: << parameters.production_delivery >>
-          steps:
             - run:
-                name: "[FL] integreat-test-cms build"
+                name: Rename sourcemap
+                command: mv ios/index.ios.bundle.map ios/output/integreat.ios.bundle.map
+            - run:
+                name: "[FL] malte build"
                 environment:
-                  BUILD_CONFIG_NAME: integreat-test-cms
-                command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
+                  BUILD_CONFIG_NAME: malte
+                command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} scheme:${BUILD_CONFIG_NAME}
                 working_directory: ios
+            - run:
+                name: Rename sourcemap
+                command: mv ios/index.ios.bundle.map ios/output/malte.ios.bundle.map
+      - run:
+          name: "[FL] integreat-e2e build"
+          environment:
+            BUILD_CONFIG_NAME: integreat-e2e
+          command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} scheme:${BUILD_CONFIG_NAME}
+          working_directory: ios
       - store_artifacts:
           path: ios/output/gym/
-      - persist_to_workspace:
-          root: ios/
-          paths:
-            - index.ios.bundle.map
+      - when:
+          condition: << parameters.build_for_delivery >>
+          steps:
+            - persist_to_workspace:
+                root: ios/output
+                paths:
+                  - integreat.ios.bundle.map
+                  - malte.ios.bundle.map
       - persist_to_workspace:
           root: ios/output/gym/
           paths:
-            - Integreat.ipa
+            - integreat.ipa
+            - malte.ipa
+            - integreat-e2e.ipa
 
   bump_version:
     docker:
@@ -386,14 +419,14 @@ jobs:
       - restore_cache:
           name: Restore Yarn Package Cache
           keys:
-            - 2-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
-            - 2-yarn-{{ arch }}-
+            - 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+            - 3-yarn-{{ arch }}-
       - run:
           name: Install Dependencies
           command: yarn install --frozen-lockfile
       - save_cache:
           name: Save Yarn Package Cache
-          key: 2-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+          key: 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
             - node_modules
@@ -420,23 +453,23 @@ jobs:
       - restore_environment_variables
       - restore_cache:
           keys:
-            - 1-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
-            - 1-gems-{{ arch }}-
+            - 2-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
+            - 2-gems-{{ arch }}-
       - run:
           command: bundle check || bundle install --path vendor/bundle
       - save_cache:
-          key: 1-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
+          key: 2-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
       - run:
           name: "[FL] Browserstack Upload Live"
-          command: bundle exec fastlane android browserstack_upload_live
+          command: bundle exec fastlane android browserstack_upload_live app_name:integrat
       - run:
           name: "[FL] Play Store Upload"
-          command: bundle exec fastlane android playstore_upload production_delivery:"<< parameters.production_delivery >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
+          command: bundle exec fastlane android playstore_upload app_name:integreat production_delivery:"<< parameters.production_delivery >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
       - run:
           name: "[FL] Upload to Sentry"
-          command: bundle exec fastlane android sentry_upload version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
+          command: bundle exec fastlane android sentry_upload app_name:integreat version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
       - slack/notify:
           message: Integreat ${NEW_VERSION_NAME} has been released successfully on Android!
           webhook: ${SLACK_URL}
@@ -459,32 +492,32 @@ jobs:
       - restore_environment_variables
       - restore_cache:
           keys:
-            - 1-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
-            - 1-gems-{{ arch }}-
+            - 2-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
+            - 2-gems-{{ arch }}-
       - run:
           command: bundle check || bundle install --path vendor/bundle
       - save_cache:
-          key: 1-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
+          key: 2-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
       - run:
           name: "[FL] Browserstack Upload Live"
-          command: bundle exec fastlane ios browserstack_upload_live
+          command: bundle exec fastlane ios browserstack_upload_live app_name:integreat
       - when:
           condition: << parameters.production_delivery >>
           steps:
             - run:
                 name: "[FL] App Store Connect Upload"
-                command: bundle exec fastlane ios appstoreconnect_upload
+                command: bundle exec fastlane ios appstoreconnect_upload app_name:integreat
       - unless:
           condition: << parameters.production_delivery >>
           steps:
             - run:
                 name: "[FL] TestFlight Upload"
-                command: bundle exec fastlane ios testflight_upload version_name:${NEW_VERSION_NAME}
+                command: bundle exec fastlane ios testflight_upload app_name:integreat version_name:${NEW_VERSION_NAME}
       - run:
           name: "[FL] Upload to Sentry"
-          command: bundle exec fastlane ios sentry_upload version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
+          command: bundle exec fastlane ios sentry_upload app_name:integreat version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
       - slack/notify:
          message: Integreat ${NEW_VERSION_NAME} has been released successfully on iOS!
          webhook: ${SLACK_URL}
@@ -503,30 +536,30 @@ jobs:
       - restore_environment_variables
       - restore_cache:
           keys:
-            - 1-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
-            - 1-gems-{{ arch }}-
+            - 2-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
+            - 2-gems-{{ arch }}-
       - run:
           command: bundle check || bundle install --path vendor/bundle
       - save_cache:
-          key: 1-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
+          key: 2-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
       - restore_cache:
           name: Restore Yarn Package Cache
           keys:
-            - 2-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+            - 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
       - run:
           name: Install Dependencies
           command: yarn install --frozen-lockfile
       - save_cache:
           name: Save Yarn Package Cache
-          key: 2-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+          key: 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
             - node_modules
       - run:
-          name: "[FL] E2E Tests on Browserstack"
-          command: bundle exec fastlane android browserstack_e2e_tests
+          name: "[FL] Android E2E Tests on Browserstack"
+          command: bundle exec fastlane android browserstack_e2e_tests app_name:integreat-e2e
       - run:
-          name: "[FL] E2E Tests on Browserstack"
-          command: bundle exec fastlane ios browserstack_e2e_tests
+          name: "[FL] iOS E2E Tests on Browserstack"
+          command: bundle exec fastlane ios browserstack_e2e_tests app_name:integreat-e2e

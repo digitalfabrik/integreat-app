@@ -1,7 +1,12 @@
 // @flow
 
 import type { ThemeType } from '../themes/ThemeType'
-import type { FeatureFlagsType } from './featureFlags'
+
+export type FeatureFlagsType = {|
+  pois: boolean,
+  newsStream: boolean,
+  introSlides: boolean
+|}
 
 export type BuildConfigType = {|
   appName: string,
@@ -10,5 +15,7 @@ export type BuildConfigType = {|
   allowedHostNames: Array<string>,
   featureFlags: FeatureFlagsType,
   lightTheme: ThemeType,
-  darkTheme: ThemeType
+  darkTheme: ThemeType,
+  development?: boolean,
+  e2e?: boolean
 |}
