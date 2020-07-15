@@ -1,6 +1,6 @@
 // @flow
 
-import { check, PERMISSIONS, request, checkNotifications } from 'react-native-permissions'
+import { check, PERMISSIONS, request, checkNotifications, RESULTS } from 'react-native-permissions'
 import { Platform } from 'react-native'
 import * as NotificationsManager from '../../modules/notifications/NotificationsManager'
 

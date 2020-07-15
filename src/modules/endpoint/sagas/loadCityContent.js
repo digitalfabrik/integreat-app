@@ -2,7 +2,6 @@
 
 import type { Saga } from 'redux-saga'
 import { all, call, put } from 'redux-saga/effects'
-import messaging from '@react-native-firebase/messaging'
 import type { DataContainer } from '../DataContainer'
 import loadCategories from './loadCategories'
 import loadEvents from './loadEvents'
@@ -38,11 +37,8 @@ export default function * loadCityContent (
 
   if (!criterion.peeking()) {
     const appSettings = new AppSettings()
-    try {
-      yield NotificationsManager.subscribeToCity(newCity, newLanguage)
-    } catch (e) { 
-      console.error(e) 
-    }
+    yield call(() => NotificationsManager.subscribeToCity(newCity, newLanguage))
+
     yield call(appSettings.setSelectedCity, newCity)
   }
 
@@ -69,7 +65,10 @@ export default function * loadCityContent (
                                                                         language AND the city */
       const languages = yield call(dataContainer.getLanguages, newCity)
 
-      const pushLanguages: PushLanguagesActionType = { type: 'PUSH_LANGUAGES', params: { languages } }
+      const pushLanguages: PushLanguagesActionType = {
+        type: 'PUSH_LANGUAGES',
+        params: { languages }
+      }
       yield put(pushLanguages)
 
       if (!languages.map(language => language.code).includes(newLanguage)) {
