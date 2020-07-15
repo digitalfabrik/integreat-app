@@ -10,6 +10,7 @@ import LanguageDetector from '../LanguageDetector'
 import MomentContext, { createMomentFormatter } from '../context/MomentContext'
 import AppSettings from '../../settings/AppSettings'
 import { Text } from 'react-native'
+import buildConfig from '../../app/constants/buildConfig'
 
 export const RTL_LANGUAGES = ['ar', 'fa']
 export const DEFAULT_LANGUAGE = 'de'
@@ -82,7 +83,7 @@ class I18nProvider extends React.Component<PropsType, StateType> {
           resources: i18nextResources,
           fallbackLng: FALLBACK_LANGUAGES,
           load: 'languageOnly',
-          debug: __DEV__
+          debug: buildConfig().development
         })
 
       await this.initContentLanguage()

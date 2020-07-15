@@ -7,16 +7,10 @@ The `e2e-tests/config/configs.js` contains the urls to the Appium servers and th
 
 To run the tests locally you first need to setup an Appium server. You can [read here](https://github.com/appium/appium/blob/master/docs/en/about-appium/getting-started.md) how to do this. Start `appium` and an emulator/simulator.
 
-### Compiling the app with test ids
+### Building the app for e2e tests
 
-To include test ids in the bundle you need to set the environment variable `E2E_TEST_IDS` to `1` before bundling or create a debug bundle.
+To build for e2e tests, use the [corresponding build config](../build-configs/configs/integreat-e2e).
 
-All of these commands would produce a bundle with test ids:
-```bash
-yarn bundle --reset-cache
-yarn start --reset-cache
-E2E_TEST_IDS=1 yarn android:release
-```
 
 ### Using appium-desktop
 

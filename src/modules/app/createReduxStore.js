@@ -22,6 +22,7 @@ import watchContentLanguageSwitch from '../endpoint/sagas/watchContentLanguageSw
 import contentLanguageReducer from '../i18n/reducers/contentLanguageReducer'
 import watchClearCity from '../i18n/watchClearCity'
 import watchClearResourcesAndCache from '../endpoint/sagas/watchClearResourcesAndCache'
+import buildConfig from './constants/buildConfig'
 
 function * rootSaga (dataContainer: DataContainer): Saga<void> {
   yield all([
@@ -55,7 +56,7 @@ const createReduxStore = (
   })
 
   const middleware = applyMiddleware(sagaMiddleware)
-  const enhancer = __DEV__ ? composeWithDevTools(middleware) : middleware
+  const enhancer = buildConfig().development ? composeWithDevTools(middleware) : middleware
   const store = createStore(rootReducer, initialState, enhancer)
 
   sagaMiddleware.run(rootSaga, dataContainer)
