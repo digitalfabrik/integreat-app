@@ -17,11 +17,13 @@ import watchFetchCategory from '../endpoint/sagas/watchFetchCategory'
 import watchFetchCities from '../endpoint/sagas/watchFetchCities'
 import cityContentReducer from '../endpoint/reducers/cityContentReducer'
 import watchFetchEvent from '../endpoint/sagas/watchFetchEvent'
+import watchFetchNews from '../endpoint/sagas/watchFetchNews'
 import watchContentLanguageSwitch from '../endpoint/sagas/watchContentLanguageSwitch'
 import contentLanguageReducer from '../i18n/reducers/contentLanguageReducer'
 import watchClearCity from '../i18n/watchClearCity'
 import watchClearResourcesAndCache from '../endpoint/sagas/watchClearResourcesAndCache'
 import watchFetchPoi from '../endpoint/sagas/watchFetchPoi'
+import buildConfig from './constants/buildConfig'
 
 function * rootSaga (dataContainer: DataContainer): Saga<void> {
   yield all([
@@ -29,6 +31,7 @@ function * rootSaga (dataContainer: DataContainer): Saga<void> {
     call(watchFetchEvent, dataContainer),
     call(watchFetchPoi, dataContainer),
     call(watchFetchCities, dataContainer),
+    call(watchFetchNews, dataContainer),
     call(watchClearCity),
     call(watchContentLanguageSwitch, dataContainer),
     call(watchClearResourcesAndCache, dataContainer)
@@ -55,7 +58,7 @@ const createReduxStore = (
   })
 
   const middleware = applyMiddleware(sagaMiddleware)
-  const enhancer = __DEV__ ? composeWithDevTools(middleware) : middleware
+  const enhancer = buildConfig().development ? composeWithDevTools(middleware) : middleware
   const store = createStore(rootReducer, initialState, enhancer)
 
   sagaMiddleware.run(rootSaga, dataContainer)

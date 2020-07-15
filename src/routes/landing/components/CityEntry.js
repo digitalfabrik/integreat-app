@@ -7,12 +7,20 @@ import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import normalizeSearchString from '../../../modules/common/normalizeSearchString'
-import { View } from 'react-native'
+import { Text, View } from 'react-native'
 import Highlighter from 'react-native-highlight-words'
+
+const MAX_NUMBER_OF_ALIASES_SHOWN = 3
 
 const CityListItem: StyledComponent<{}, {}, *> = styled.TouchableHighlight`
   padding: 7px;
   width: 100%;
+`
+
+const Labels = styled(View)`
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: flex-start;
 `
 
 const Label = styled(Highlighter)`
@@ -21,6 +29,12 @@ const Label = styled(Highlighter)`
 `
 
 const AliasLabel = styled(Highlighter)`
+  font-size: 11px;
+  font-family: ${props => props.theme.fonts.decorativeFontRegular};
+  color: ${props => props.theme.colors.textSecondaryColor};
+`
+
+const Separator = styled(Text)`
   font-size: 11px;
   font-family: ${props => props.theme.fonts.decorativeFontRegular};
   color: ${props => props.theme.colors.textSecondaryColor};
@@ -42,7 +56,7 @@ type PropType = {|
 
 class CityEntry extends React.PureComponent<PropType> {
   getMatchingAliases = (city: CityModel, normalizedFilter: string): Array<string> => {
-    if (city.aliases && normalizedFilter.length >= 2) {
+    if (city.aliases && normalizedFilter.length >= 1) {
       return Object.keys(city.aliases)
         .filter(alias => normalizeSearchString(alias).includes(normalizedFilter))
     }
@@ -56,22 +70,33 @@ class CityEntry extends React.PureComponent<PropType> {
   render () {
     const { city, theme, filterText } = this.props
     const normalizedFilter = normalizeSearchString(filterText)
-    const aliases = this.getMatchingAliases(city, normalizedFilter)
+    const aliases = this.getMatchingAliases(city, normalizedFilter).slice(0, MAX_NUMBER_OF_ALIASES_SHOWN)
+    const sliceNeeded = aliases.length > MAX_NUMBER_OF_ALIASES_SHOWN
     return (
       <CityListItem onPress={this.navigateToDashboard}
                     underlayColor={theme.colors.backgroundAccentColor}>
-        <View>
+        <Labels>
           <Label theme={theme} searchWords={[filterText]} textToHighlight={city.name} sanitize={normalizeSearchString}
-                 highlightStyle={{ backgroundColor: theme.colors.themeColor }} />
+                 highlightStyle={{ fontWeight: 'bold' }} />
           {aliases.length > 0 && <Aliases>
             {aliases.map(
-              (alias, index) => <AliasLabel key={alias} theme={theme} searchWords={[filterText]}
-                                            textToHighlight={index === aliases.length - 1 ? alias : `${alias}, `}
-                                            sanitize={normalizeSearchString}
-                                            highlightStyle={{ backgroundColor: theme.colors.themeColor }} />
+              (alias, index) => <React.Fragment key={alias}>
+                <AliasLabel theme={theme} searchWords={[filterText]}
+                            textToHighlight={alias}
+                            sanitize={normalizeSearchString}
+                            highlightStyle={{ fontWeight: 'bold' }} />
+                {index !== aliases.length - 1 && <>
+                  <Separator theme={theme}>,</Separator>
+                  <Separator theme={theme}> </Separator></>}
+              </React.Fragment>
             )}
+            {sliceNeeded && <>
+              <Separator theme={theme}>,</Separator>
+              <Separator theme={theme}> </Separator>
+              <Separator theme={theme}>...</Separator>
+            </>}
           </Aliases>}
-        </View>
+        </Labels>
       </CityListItem>
     )
   }

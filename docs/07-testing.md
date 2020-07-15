@@ -33,14 +33,14 @@ class Failure extends React.Component<PropsType> {
 
 ```js
 // FailureContainer.js
-export default withTheme()(withTranslation('error')(Failure))
+export default withTheme(withTranslation('error')(Failure))
 ```
 
 The most important part is to test the specific units using `@testing-library/react-native` and `react-test-renderer`. The following test is for the `Failure` component.
 
 ```js
   it('should not render a retry button if tryAgain is not passed', () => {
-    const { queryByTestId } = render(<Failure theme={brightTheme} t={key => key} />)
+    const { queryByTestId } = render(<Failure theme={lightTheme} t={key => key} />)
 
     expect(queryByTestId('button-tryAgain')).toBeNull()
   })
@@ -68,7 +68,6 @@ To make the tests simpler HOCs were mocked using:
 
 ```js
 jest.mock('react-i18next')
-jest.mock('../../../theme/hocs/withTheme')
 ```
 
 For complex HOCs it is probably easier to use the real implementation (e.g. connect()).
@@ -82,7 +81,7 @@ Apart from unit tests it can also be beneficial to test the integration between 
     const tryAgain = () => {}
 
     const { asJSON: asJSONFailure } =
-      render(<Failure theme={brightTheme} tryAgain={tryAgain} t={t} />)
+      render(<Failure theme={lightTheme} tryAgain={tryAgain} t={t} />)
     const { asJSON: asJSONFailureContainer } =
       render(<FailureContainer tryAgain={tryAgain} />)
 

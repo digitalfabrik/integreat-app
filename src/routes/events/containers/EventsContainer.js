@@ -9,8 +9,8 @@ import createNavigateToEvent from '../../../modules/app/createNavigateToEvent'
 import type { Dispatch } from 'redux'
 import type { StoreActionType, SwitchContentLanguageActionType } from '../../../modules/app/StoreActionType'
 import type { NavigationScreenProp } from 'react-navigation'
-import type { StatusPropsType } from '../../../modules/error/hocs/withPayloadProvider'
-import withPayloadProvider from '../../../modules/error/hocs/withPayloadProvider'
+import type { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
+import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvider'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import { CityModel, EventModel } from '@integreat-app/integreat-api-client'
 import * as React from 'react'
@@ -115,9 +115,8 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsType => ({ dispatch })
 
 const ThemedTranslatedEvents = withTranslation('events')(
-  withTheme(props => props.language)(
-    Events
-  ))
+  withTheme(Events)
+)
 
 class EventsContainer extends React.Component<ContainerPropsType> {
   render () {

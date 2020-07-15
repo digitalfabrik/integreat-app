@@ -50,6 +50,6 @@ const mapDispatchToProps = (dispatch: DispatchType, ownProps: OwnPropsType): Dis
 
 export default withTranslation('error')(
   connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
-    withTheme(props => props.currentLanguage)(ChangeLanguageModal)
+    withTheme(ChangeLanguageModal)
   )
 )
