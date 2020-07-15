@@ -3,6 +3,7 @@ const jestPreset = require('@testing-library/react-native/jest-preset')
 const transformNodeModules = [
   'react-native',
   '@react-native-community/async-storage',
+  '@react-native-firebase/messaging',
   '@react-navigation/native/dist', // for integration tests including react-navigation
   'react-navigation-stack', // for integration tests including react-navigation
   'react-navigation-header-buttons', // for integration tests including react-navigation
