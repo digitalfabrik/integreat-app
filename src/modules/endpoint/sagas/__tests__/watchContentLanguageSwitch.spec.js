@@ -13,6 +13,7 @@ import AppSettings from '../../../settings/AppSettings'
 import EventModelBuilder from '../../../../testing/builder/EventModelBuilder'
 
 jest.mock('rn-fetch-blob')
+jest.mock('../../../notifications/NotificationsManager')
 jest.mock('../loadCityContent')
 jest.mock('@react-native-community/async-storage')
 

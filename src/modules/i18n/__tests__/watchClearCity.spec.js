@@ -4,6 +4,7 @@ import { runSaga } from 'redux-saga'
 import { clearCity } from '../watchClearCity'
 import AppSettings from '../../settings/AppSettings'
 
+jest.mock('../../../notifications/NotificationsManager')
 jest.mock('@react-native-community/async-storage')
 
 describe('watchClearCity', () => {
