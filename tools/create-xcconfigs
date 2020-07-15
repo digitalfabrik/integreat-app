@@ -1,0 +1,35 @@
+#!/usr/bin/env node
+
+const loadBuildConfig = require('../build-configs').default
+const { program } = require('commander')
+const fs = require('fs')
+const flat = require('flat')
+const decamelize = require('decamelize')
+
+program
+  .option('-d, --debug', 'enable extreme logging')
+
+const createXcconfigs = async buildConfigName => {
+  const buildConfig = loadBuildConfig(buildConfigName)
+  const xcconfigOptions = flat(buildConfig, {
+    delimiter: '_',
+    transformKey: key => decamelize(key).toUpperCase()
+  })
+  const prefixed = Object.keys(xcconfigOptions).map(key => `BUILD_CONFIG_${key} = ${xcconfigOptions[key]}`)
+  prefixed.push('BUILD_CONFIG_NAME = ' + buildConfigName)
+  fs.writeFileSync('ios/buildConfig.tmp.xcconfig', prefixed.join('\n'))
+}
+
+program
+  .command('config <build_config_name>')
+  .description('create and write a new .xcconfig from the iosBuildOptions of the specified build config')
+  .action(async buildConfigName => {
+    try {
+      await createXcconfigs(buildConfigName)
+    } catch (e) {
+      console.error(e)
+      process.exit(1)
+    }
+  })
+
+program.parse(process.argv)

@@ -38,11 +38,6 @@ target 'Integreat' do
   pod 'Permission-LocationWhenInUse', :path => '../node_modules/react-native-permissions/ios/LocationWhenInUse.podspec'
   pod 'Permission-Notifications', :path => '../node_modules/react-native-permissions/ios/Notifications.podspec'
 
-  target 'IntegreatTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
   use_native_modules!
 end
 
