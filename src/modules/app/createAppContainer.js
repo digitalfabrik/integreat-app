@@ -17,11 +17,11 @@ import { createAppContainer, createStackNavigator, createSwitchNavigator } from 
 import TransparentHeaderContainer from '../layout/containers/TransparentHeaderContainer'
 import SettingsHeaderContainer from '../layout/containers/SettingsHeaderContainer'
 import HeaderContainer from '../layout/containers/HeaderContainer'
-import ExtrasContainer from '../../routes/extras/containers/ExtrasContainer'
-import { EXTERNAL_EXTRA_ROUTE, SPRUNGBRETT_ROUTE, WOHNEN_ROUTE } from '../../routes/extras/constants'
-import WohnenExtraContainer from '../../routes/wohnen/containers/WohnenExtraContainer'
-import SprungbrettExtraContainer from '../../routes/sprungbrett/containers/SprungbrettExtraContainer'
-import ExternalExtraContainer from '../../routes/external-extra/containers/ExternalExtraContainer'
+import OffersContainer from '../../routes/offers/containers/OffersContainer'
+import { EXTERNAL_OFFER_ROUTE, SPRUNGBRETT_ROUTE, WOHNEN_ROUTE } from '../../routes/offers/constants'
+import WohnenOfferContainer from '../../routes/wohnen/containers/WohnenOfferContainer'
+import SprungbrettOfferContainer from '../../routes/sprungbrett/containers/SprungbrettOfferContainer'
+import ExternalOfferContainer from '../../routes/external-offer/containers/ExternalOfferContainer'
 import EventsContainer from '../../routes/events/containers/EventsContainer'
 import SettingsContainer from '../../routes/settings/container/SettingsContainer'
 import ChangeLanguageModalContainer from '../../routes/language/containers/ChangeLanguageModalContainer'
@@ -34,6 +34,7 @@ import React from 'react'
 import DisclaimerContainer from '../../routes/disclaimer/DisclaimerContainer'
 import IntroContainer from '../../routes/intro/IntroContainer'
 import PermissionSnackbarContainer from '../layout/containers/PermissionSnackbarContainer'
+import NewsContainer from '../../routes/news/containers/NewsContainer'
 
 const LayoutedDashboardContainer = withLayout(DashboardContainer)
 const LayoutedCategoriesContainer = withLayout(CategoriesContainer)
@@ -60,12 +61,15 @@ const defaultHeader = (headerProps: HeaderProps) =>
 const cityContentRouteConfigMap: NavigationRouteConfigMap = {
   Dashboard: createNavigationRouteConfig(LayoutedDashboardContainer, defaultHeader),
   Categories: createNavigationRouteConfig(LayoutedCategoriesContainer, defaultHeader),
-  Extras: createNavigationRouteConfig(ExtrasContainer, defaultHeader),
-  [WOHNEN_ROUTE]: createNavigationRouteConfig(WohnenExtraContainer, defaultHeader),
-  [SPRUNGBRETT_ROUTE]: createNavigationRouteConfig(SprungbrettExtraContainer, defaultHeader),
-  [EXTERNAL_EXTRA_ROUTE]: createNavigationRouteConfig(ExternalExtraContainer, defaultHeader),
+  Offers: createNavigationRouteConfig(OffersContainer, defaultHeader),
+  [WOHNEN_ROUTE]: createNavigationRouteConfig(WohnenOfferContainer, defaultHeader),
+  [SPRUNGBRETT_ROUTE]: createNavigationRouteConfig(SprungbrettOfferContainer, defaultHeader),
+  [EXTERNAL_OFFER_ROUTE]: createNavigationRouteConfig(ExternalOfferContainer, defaultHeader),
   Events: createNavigationRouteConfig( // $FlowFixMe We don't know why this fails.
     EventsContainer, defaultHeader
+  ),
+  News: createNavigationRouteConfig( // $FlowFixMe Me either don't know why this fails.
+    NewsContainer, defaultHeader
   ),
   PDFViewModal: createNavigationRouteConfig( // $FlowFixMe We don't know why this fails.
     PDFViewModal, transparentFloatingHeader

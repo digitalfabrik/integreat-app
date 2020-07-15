@@ -4,6 +4,7 @@ import { getFontFaceSource, URL_PREFIX } from '../platform/constants/webview'
 import type { PageResourceCacheStateType } from '../app/StateType'
 import type { ThemeType } from '../theme/constants/theme'
 import { RTL_LANGUAGES } from '../i18n/constants'
+import webviewFontFamilies from '../theme/webviewFontFamilies'
 
 // language=JavaScript
 const renderJS = (files: PageResourceCacheStateType) => `
@@ -128,7 +129,7 @@ const renderHtml = (html: string, files: PageResourceCacheStateType, theme: Them
         margin: 0;
         padding: 0;
 
-        font-family: ${theme.fonts.webviewFontFamilies};
+        font-family: ${(webviewFontFamilies(theme, language))};
         font-size: ${theme.fonts.contentFontSize};
         line-height: ${theme.fonts.contentLineHeight};
         font-size-adjust: ${theme.fonts.fontSizeAdjust};

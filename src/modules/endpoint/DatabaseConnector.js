@@ -21,7 +21,7 @@ import type {
 } from '../app/StateType'
 import DatabaseContext from './DatabaseContext'
 import { map, mapValues } from 'lodash'
-import { CONTENT_VERSION, RESOURCE_CACHE_VERSION } from '../endpoint/persistentVersions'
+import { CONTENT_VERSION, RESOURCE_CACHE_VERSION } from './persistentVersions'
 import deleteIfExists from './deleteIfExists'
 
 // Our pdf view can only load from DocumentDir. Therefore we need to use that
@@ -78,7 +78,9 @@ type ContentCityJsonType = {|
   sorting_name: string,
   longitude: number | null,
   latitude: number | null,
-  aliases: { [alias: string]: {|longitude: number, latitude: number|}} | null
+  aliases: { [alias: string]: {|longitude: number, latitude: number|}} | null,
+  pushNotificationsEnabled: boolean,
+  tunewsEnabled: boolean
 |}
 
 type ContentPoiJsonType = {|
@@ -399,8 +401,10 @@ class DatabaseConnector {
       live: city.live,
       code: city.code,
       prefix: city.prefix,
-      extras_enabled: city.extrasEnabled,
+      extras_enabled: city.offersEnabled,
       events_enabled: city.eventsEnabled,
+      pushNotificationsEnabled: city.pushNotificationsEnabled,
+      tunewsEnabled: city.tunewsEnabled,
       sorting_name: city.sortingName,
       longitude: city.longitude,
       latitude: city.latitude,
@@ -426,9 +430,9 @@ class DatabaseConnector {
         code: jsonObject.code,
         live: jsonObject.live,
         eventsEnabled: jsonObject.events_enabled,
-        extrasEnabled: jsonObject.extras_enabled,
-        tunewsEnabled: false, // todo: NATIVE-549
-        pushNotificationsEnabled: false, // todo: NATIVE-549
+        pushNotificationsEnabled: jsonObject.pushNotificationsEnabled,
+        tunewsEnabled: jsonObject.tunewsEnabled,
+        offersEnabled: jsonObject.extras_enabled,
         sortingName: jsonObject.sorting_name,
         prefix: jsonObject.prefix,
         longitude: jsonObject.longitude,
@@ -497,6 +501,9 @@ class DatabaseConnector {
         }),
         location: new LocationModel({
           name: null, // todo: NATIVE-549
+          region: null, // todo: NATIVE-549
+          state: null, // todo: NATIVE-549
+          country: null, // todo: NATIVE-549
           address: jsonLocation.address,
           latitude: jsonLocation.latitude,
           longitude: jsonLocation.longitude,

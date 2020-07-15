@@ -19,17 +19,12 @@ or alternatively using `brew cask install fastlane`
 ```
 fastlane certificates
 ```
-Setup certificates
-### simulator_build
-```
-fastlane simulator_build
-```
-Create a simulator build
+Download and setup certificates
 ### build
 ```
 fastlane build
 ```
-Create a build
+Create a release build
 
 ----
 

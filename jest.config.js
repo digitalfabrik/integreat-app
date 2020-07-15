@@ -34,9 +34,6 @@ module.exports = {
     'node_modules',
     'src'
   ],
-  globals: {
-    __DEV__: false
-  },
   collectCoverageFrom: [
     '**/*.{js,jsx}'
   ],

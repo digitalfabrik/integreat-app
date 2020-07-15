@@ -9,6 +9,7 @@
       <excludeFolder url="file://$MODULE_DIR$/android" />
       <excludeFolder url="file://$MODULE_DIR$/flow-typed/npm" />
       <excludeFolder url="file://$MODULE_DIR$/ios" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
