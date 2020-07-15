@@ -40,7 +40,9 @@ export default function * loadCityContent (
     const appSettings = new AppSettings()
     try {
       yield NotificationsManager.subscribeToCity(newCity, newLanguage)
-    } catch (e) { console.error(e) }
+    } catch (e) { 
+      console.error(e) 
+    }
     yield call(appSettings.setSelectedCity, newCity)
   }
 
