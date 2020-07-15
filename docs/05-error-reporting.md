@@ -17,7 +17,7 @@ None are known so far.
 ## Android Native crashes
 
 * sentry-java buffers events when it fails to send them right after the crash. This usually happens when the app crashes the first time. In that case the event is buffered in the `cache` directory of the app (You can configure by [using these settings](https://docs.sentry.io/clients/java/config/#buffering-events-to-disk)).
-* Native crashes are only sent if the app container crashes. If only an exception within JavaScript is thrown the App does not really stop. Therefore native crashes are only reported if the app is built in release mode.
+* Native crashes are only sent if the app container crashes. If only an exception within JavaScript is thrown the App does not really stop. Therefore, native crashes are only reported if the app is built in release mode.
 
 ## iOS Native crashes
 
@@ -29,14 +29,12 @@ Only proper releases should be handled correctly by sentry. This means we do no 
 
 ## Upload of source maps
 
-Sentry wants source maps in order to display stack traces properly. We are not uploading them automatically. Instead you can [use the cli](https://docs.sentry.io/platforms/javascript/sourcemaps/#uploading-source-maps-to-sentry) to upload source maps.
-You need a `sentry.properties` with a valid authentication key for this to work!
-You can generate this with the cli:
+Sentry needs source maps in order to display stack traces properly. These are automatically uploaded in our CI/CD pipeline. If you want to do this manually, you can [use the cli](https://docs.sentry.io/platforms/javascript/sourcemaps/#uploading-source-maps-to-sentry) to upload source maps. 
+You need a `sentry.properties` with a valid authentication key for this to work.
+You can generate it using the cli:
 ```bash
-yarn sentry-cli --url=https://sentry.integreat-app.de login
+yarn sentry-cli login
 ```
-
-
 
 You can read [here](https://docs.sentry.io/clients/react-native/sourcemaps/) about generating sourcemaps for react-native projects or just use these commands:
 

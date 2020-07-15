@@ -20,7 +20,7 @@ import { ScrollView, Text } from 'react-native'
 import TestRenderer from 'react-test-renderer'
 import { render } from '@testing-library/react-native'
 import CategoriesRouteStateView from '../../../../modules/app/CategoriesRouteStateView'
-import brightTheme from '../../../../modules/theme/constants/theme'
+import lightTheme from '../../../../modules/theme/constants/theme'
 import moment from 'moment'
 import { LOADING_TIMEOUT } from '../../../../modules/common/constants'
 import ErrorCodes from '../../../../modules/error/ErrorCodes'
@@ -75,6 +75,7 @@ describe('CategoriesContainer', () => {
         categoriesRouteMapping: routeState ? { 'route-id-0': routeState } : {},
         eventsRouteMapping: {},
         poisRouteMapping: {},
+        newsRouteMapping: {},
         resourceCache: resourceCacheState || { status: 'ready', value: resourceCache },
         searchRoute: null
       },
@@ -247,7 +248,7 @@ describe('CategoriesContainer', () => {
       resourceCache,
       stateView: expect.any(CategoriesRouteStateView),
       t: expect.any(Function),
-      theme: brightTheme
+      theme: lightTheme
     })
     const stateView = categoriesInstance.props.stateView
     expect([stateView.root(), stateView.children()]).toEqual([rootCategory, categoriesMap.getChildren(rootCategory)])

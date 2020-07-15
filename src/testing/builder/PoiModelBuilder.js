@@ -3,7 +3,7 @@
 import { LocationModel, PoiModel } from '@integreat-app/integreat-api-client'
 import moment from 'moment'
 
-const map = {ID1: 'Farm1', ID2: 'Farm2'}
+const availableLanguages = { de: '/de/test', en: '/en/test' }
 
 const pois = [
   new PoiModel({
@@ -11,7 +11,7 @@ const pois = [
     title: 'test',
     content: 'test',
     thumbnail: 'test',
-    availableLanguages: map,
+    availableLanguages: availableLanguages,
     excerpt: 'test',
     location: new LocationModel({
       address: 'address',
@@ -29,7 +29,7 @@ const pois = [
     title: 'test',
     content: 'test',
     thumbnail: 'test',
-    availableLanguages: map,
+    availableLanguages: availableLanguages,
     excerpt: 'test',
     location: new LocationModel({
       address: 'address',

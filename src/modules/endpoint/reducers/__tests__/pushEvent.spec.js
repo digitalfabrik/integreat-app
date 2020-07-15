@@ -26,7 +26,10 @@ describe('pushEvent', () => {
       name: 'name',
       address: 'address',
       town: 'town',
+      state: 'state',
       postcode: 'postcode',
+      region: 'region',
+      country: 'country',
       latitude: null,
       longitude: null
     })
@@ -37,6 +40,7 @@ describe('pushEvent', () => {
     const defaultState: CityContentStateType = {
       city: 'augsburg',
       categoriesRouteMapping: {},
+      newsRouteMapping: {},
       eventsRouteMapping: {
         'route-id-0': {
           status: 'ready',
@@ -73,6 +77,7 @@ describe('pushEvent', () => {
   it('should add general events route to eventsRouteMapping', () => {
     const prevState: CityContentStateType = prepareState({
       eventsRouteMapping: {},
+      newsRouteMapping: {},
       resourceCache: {
         status: 'ready',
         value: {}
@@ -174,7 +179,10 @@ describe('pushEvent', () => {
             name: 'name',
             address: 'address',
             town: 'town',
+            state: 'state',
             postcode: 'postcode',
+            region: 'region',
+            country: 'country',
             longitude: null,
             latitude: null
           }),

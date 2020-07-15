@@ -39,21 +39,22 @@ type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const routeKey = ownProps.navigation.state.key
 
-  const route = state.cityContent?.categoriesRouteMapping[routeKey] || state.cityContent?.eventsRouteMapping[routeKey]
+  const route = state.cityContent?.categoriesRouteMapping[routeKey] || state.cityContent?.eventsRouteMapping[routeKey] || state.cityContent?.newsRouteMapping[routeKey]
   const languages = state.cityContent?.languages
+
+  // prevent re-rendering when city is there.
+  const cities = state.cities.models || []
+  const cityCode = state.cityContent?.city
+  const categoriesAvailable = state.cityContent?.searchRoute !== null
+
+  const cityModel = cities.find(city => city.code === cityCode)
 
   if (!route || route.status !== 'ready' || state.cities.status !== 'ready' || !state.cityContent ||
     !languages || languages.status !== 'ready') {
     // Route does not exist yet. In this case it is not really defined whether we are peek or not because
     // we do not yet know the city of the route.
-    return { language: state.contentLanguage, peeking: false, categoriesAvailable: false }
+    return { language: state.contentLanguage, cityModel, peeking: false, categoriesAvailable: false }
   }
-
-  const cities = state.cities.models
-  const cityCode = state.cityContent.city
-  const categoriesAvailable = state.cityContent.searchRoute !== null
-
-  const cityModel = cities.find(city => city.code === cityCode)
 
   const goToLanguageChange = () => {
     ownProps.navigation.navigate({
@@ -78,6 +79,7 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps: OwnPr
 export default withNavigation(
   withTranslation('layout')(
     connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
-      withTheme(props => props.language)(
-        Header
-      ))))
+      withTheme(Header)
+    )
+  )
+)
