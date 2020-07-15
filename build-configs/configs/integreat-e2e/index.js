@@ -5,6 +5,7 @@ import type { BuildConfigType } from '../BuildConfigType'
 
 const IntegreatE2eBuildConfig: BuildConfigType = {
   ...IntegreatTestCmsBuildConfig,
+  appName: 'IntegreatE2E',
   e2e: true,
   development: false,
   featureFlags: {

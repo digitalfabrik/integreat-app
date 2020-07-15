@@ -15,8 +15,9 @@ const createXcconfigs = async buildConfigName => {
     delimiter: '_',
     transformKey: key => decamelize(key).toUpperCase()
   })
-  const content = Object.keys(xcconfigOptions).map(key => `BUILD_CONFIG_${key} = ${xcconfigOptions[key]}`).join('\n')
-  fs.writeFileSync('ios/buildConfig.tmp.xcconfig', content)
+  const prefixed = Object.keys(xcconfigOptions).map(key => `BUILD_CONFIG_${key} = ${xcconfigOptions[key]}`)
+  prefixed.push('BUILD_CONFIG_NAME = ' + buildConfigName)
+  fs.writeFileSync('ios/buildConfig.tmp.xcconfig', prefixed.join('\n'))
 }
 
 program
