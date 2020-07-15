@@ -12,6 +12,7 @@ versioning: ![versioning](https://img.shields.io/badge/calver-YYYY.MM.PATCH-22bf
 * [Browser Stack](docs/05-browser-stack.md)
 * [Delivery](docs/03-delivery.md)
 * [CI/CD](docs/06-cicd.md)
+* [WSL Setup](docs/07-wsl-setup.md)
 * [I18N](docs/14-i18n.md)
 * [Glossary](https://wiki.integreat-app.de/glossary)
 
@@ -22,7 +23,7 @@ You can contribute by:
 
 **Testing with the live cms instance should be avoided. Instead, [please use the test cms](docs/02-technology-stack.md#test-cms).**
 
-If you want to know more about Integreat or if you want to join us, contact [Max](mailto:ammann@integreat-app.de), 
+If you want to know more about Integreat or if you want to join us, contact [Max](mailto:ammann@integreat-app.de),
 [Steffen](mailto:kleinle@integreat-app.de) or [our info mail](mailto:info@integreat-app.de) and visit our [website](https://integreat-app.de).
 
 ## Getting Started
@@ -46,11 +47,11 @@ If you are using a different IDE, the steps might differ.
 #### Additional Configuration
 * Mark the *src* and *www* folder as *Source directory*.
 * Run > Edit Configurations > Defaults > Jest and set *Configuration file* to *jest.config.json*
-   
+
 * Settings > Languages & Frameworks > JavaScript and
     * Choose *Flow* as Language version
     * Set *Flow package or executable* to *<project_dir>/node_modules/flow-bin*
-   
+
 * [optional] Associate the *\*.snap* files with the file type *JavaScript*.
 * [optional] Install the following plugins:
     * [Styled Components](https://plugins.jetbrains.com/plugin/9997-styled-components--styled-jsx/)
@@ -66,6 +67,6 @@ You can [view our issues](https://issues.integreat-app.de/projects/WEBAPP) or
 ## Pull requests
 Please take a look at our [conventions](docs/01-conventions.md).
 
-To merge a pull request, 
+To merge a pull request,
 * at least two approvals are required.
 * tests, linting and flow have to succeed.
