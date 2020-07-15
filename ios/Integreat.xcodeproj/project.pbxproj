@@ -28,6 +28,7 @@
 		ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
 		EE11BEA724A4D93400C6F209 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EE11BEA624A4D93400C6F209 /* GoogleService-Info.plist */; };
 		EEB70CF524BF8DFF004E8312 /* FIRAnalyticsConnector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE11BE9F24A4D65F00C6F209 /* FIRAnalyticsConnector.framework */; };
+		EEB70CF624BF9A1C004E8312 /* GoogleAppMeasurement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE11BEA324A4D68000C6F209 /* GoogleAppMeasurement.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -97,6 +98,7 @@
 			files = (
 				ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */,
 				EEB70CF524BF8DFF004E8312 /* FIRAnalyticsConnector.framework in Frameworks */,
+				EEB70CF624BF9A1C004E8312 /* GoogleAppMeasurement.framework in Frameworks */,
 				3083DDC92A72AA436042F7F6 /* libPods-Integreat.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -584,7 +586,10 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7272KE28TJ;
 				ENABLE_BITCODE = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Pods/FirebaseAnalytics/Frameworks";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/Pods/FirebaseAnalytics/Frameworks",
+					"$(PROJECT_DIR)/Pods/GoogleAppMeasurement/Frameworks",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/rn-fetch-blob/ios/**",
