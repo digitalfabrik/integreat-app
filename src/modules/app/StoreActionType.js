@@ -181,6 +181,7 @@ export type MorphContentLanguageActionType = {|
     +newCategoriesMap: CategoriesMapModel,
     +newResourceCache: LanguageResourceCacheStateType,
     +newEvents: $ReadOnlyArray<EventModel>,
+    +newPois: $ReadOnlyArray<PoiModel>,
     +newLanguage: string
   |}
 |}

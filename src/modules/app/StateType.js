@@ -51,11 +51,14 @@ export type PoiRouteConfigType = {|
   +city: string
 |}
 
+type LanguageKey = string
+type Path = ?string // Path can be falsy if the current displayed view is a list of events or POIs
+type AllAvailableLanguagesType = $ReadOnlyMap<LanguageKey, Path>
 export type PoiRouteStateType = {|
   +status: 'ready',
   ...PoiRouteConfigType,
   +models: $ReadOnlyArray<PoiModel>,
-  +allAvailableLanguages: $ReadOnlyMap<string, ?string> // including the current content language
+  +allAvailableLanguages: AllAvailableLanguagesType // including the current content language
 |} | {|
   +status: 'languageNotAvailable',
   +language: string,
