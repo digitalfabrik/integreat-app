@@ -224,6 +224,6 @@ type ConnectType = {| language: string, dispatch: () => void |}
 
 export default connect<ConnectType, {||}, _, _, _, _>(mapStateToProps)(
   withTranslation(['intro', 'settings'])(
-    withTheme()(
-      Intro
-    )))
+    withTheme(Intro)
+  )
+)

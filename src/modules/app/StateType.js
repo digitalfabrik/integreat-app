@@ -5,7 +5,10 @@ import {
   CategoryModel,
   CityModel,
   EventModel,
-  LanguageModel, PoiModel
+  PoiModel,
+  LocalNewsModel,
+  TunewsModel,
+  LanguageModel
 } from '@integreat-app/integreat-api-client'
 import Moment from 'moment'
 import { DEFAULT_LANGUAGE } from '../i18n/constants'
@@ -97,6 +100,43 @@ export type EventRouteStateType = {|
   +message: ?string
 |}
 
+export type TunewsType = 'tunews'
+export type LocalNewsType = 'local'
+export type NewsType = TunewsType | LocalNewsType
+
+export type NewsRouteConfigType = {|
+  +newsId: ?string, // Path is null for the news list
+  +language: string,
+  +city: string,
+  +type: NewsType // For checking whether type is local or tunews
+|}
+
+export type NewsModelsType = $ReadOnlyArray<LocalNewsModel | TunewsModel>
+export type NewsRouteStateType = {|
+  +status: 'ready',
+  +models: NewsModelsType,
+  +hasMoreNews: boolean,
+  +page: number,
+  ...NewsRouteConfigType,
+  +allAvailableLanguages: $ReadOnlyMap<string, ?string>
+  |} | {|
+  +status: 'languageNotAvailable',
+  ...NewsRouteConfigType,
+  +allAvailableLanguages: $ReadOnlyMap<string, ?string>
+  |} | {|
+  +status: 'loading',
+  ...NewsRouteConfigType
+  |} | {|
+    +status: 'loadingMore',
+    +models: NewsModelsType,
+    ...NewsRouteConfigType
+  |} | {|
+  +status: 'error',
+  ...NewsRouteConfigType,
+  +code: ErrorCodeType,
+  +message: ?string
+  |}
+
 export type PageResourceCacheEntryStateType = {|
   +filePath: string,
   +lastUpdate: Moment,
@@ -130,6 +170,10 @@ export type CategoriesRouteMappingType = $ReadOnly<{
 
 export type PoisRouteMappingType = $ReadOnly<{
   [key: string]: PoiRouteStateType
+}>
+  
+export type NewsRouteMappingType = $ReadOnly<{
+  [key: string]: NewsRouteStateType
 }>
 
 export type EventsRouteMappingType = $ReadOnly<{
@@ -178,7 +222,8 @@ export type CityContentStateType = {|
   +eventsRouteMapping: EventsRouteMappingType,
   +poisRouteMapping: PoisRouteMappingType,
   +resourceCache: ResourceCacheStateType,
-  +searchRoute: SearchRouteType | null
+  +searchRoute: SearchRouteType | null,
+  +newsRouteMapping: NewsRouteMappingType
 |}
 
 export const defaultCityContentState = null

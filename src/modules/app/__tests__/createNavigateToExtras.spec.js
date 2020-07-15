@@ -1,19 +1,19 @@
 // @flow
 
 import createNavigationScreenPropMock from '../../test-utils/createNavigationScreenPropMock'
-import createNavigateToExtras from '../createNavigateToExtras'
+import createNavigateToOffers from '../createNavigateToOffers'
 
-describe('createNavigateToExtras', () => {
-  it('should navigate to the Extras route with correct parameters', () => {
+describe('createNavigateToOffers', () => {
+  it('should navigate to the Offers route with correct parameters', () => {
     const dispatch = jest.fn()
     const navigation = createNavigationScreenPropMock()
 
-    const navigateToExtras = createNavigateToExtras(dispatch, navigation)
-    navigateToExtras({ cityCode: 'augsburg', language: 'de' })
+    const navigateToOffers = createNavigateToOffers(dispatch, navigation)
+    navigateToOffers({ cityCode: 'augsburg', language: 'de' })
     expect(navigation.navigate).toHaveBeenCalledWith({
-      routeName: 'Extras',
+      routeName: 'Offers',
       params: {
-        sharePath: '/augsburg/de/extras',
+        sharePath: '/augsburg/de/offers',
         cityCode: 'augsburg'
       }
     })
