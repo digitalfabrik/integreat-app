@@ -25,7 +25,10 @@ export function * switchContentLanguage (dataContainer: DataContainer, action: S
     // We never want to force a refresh when switching languages
     yield call(
       loadCityContent, dataContainer, city, newLanguage,
-      new ContentLoadCriterion({ forceUpdate: false, shouldRefreshResources: true }, false)
+      new ContentLoadCriterion({
+        forceUpdate: false,
+        shouldRefreshResources: true
+      }, false)
     )
 
     const [categories, resourceCache, events] = yield all([
@@ -41,12 +44,12 @@ export function * switchContentLanguage (dataContainer: DataContainer, action: S
     // Unsubscribe from prev. city notifications
     const previousSelectedCity = yield call(appSettings.loadSelectedCity)
     const previousContentLanguage = yield call(appSettings.loadContentLanguage)
-    try {
-      yield NotificationsManager.unsubscribeFromPreviousCity(previousSelectedCity, previousContentLanguage)
-    } catch (e) { console.error(e) }
+
+    yield call(() => NotificationsManager.unsubscribeFromPreviousCity(previousSelectedCity, previousContentLanguage))
 
     const setContentLanguage: SetContentLanguageActionType = {
-      type: 'SET_CONTENT_LANGUAGE', params: { contentLanguage: newLanguage }
+      type: 'SET_CONTENT_LANGUAGE',
+      params: { contentLanguage: newLanguage }
     }
     yield put(setContentLanguage)
 
