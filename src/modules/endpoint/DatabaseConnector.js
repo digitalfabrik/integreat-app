@@ -77,7 +77,9 @@ type ContentCityJsonType = {|
   sorting_name: string,
   longitude: number | null,
   latitude: number | null,
-  aliases: { [alias: string]: {|longitude: number, latitude: number|}} | null
+  aliases: { [alias: string]: {|longitude: number, latitude: number|}} | null,
+  pushNotificationsEnabled: boolean,
+  tunewsEnabled: boolean
 |}
 
 type CityCodeType = string
@@ -348,6 +350,8 @@ class DatabaseConnector {
       prefix: city.prefix,
       extras_enabled: city.offersEnabled,
       events_enabled: city.eventsEnabled,
+      pushNotificationsEnabled: city.pushNotificationsEnabled,
+      tunewsEnabled: city.tunewsEnabled,
       sorting_name: city.sortingName,
       longitude: city.longitude,
       latitude: city.latitude,
@@ -373,9 +377,9 @@ class DatabaseConnector {
         code: jsonObject.code,
         live: jsonObject.live,
         eventsEnabled: jsonObject.events_enabled,
+        pushNotificationsEnabled: jsonObject.pushNotificationsEnabled,
+        tunewsEnabled: jsonObject.tunewsEnabled,
         offersEnabled: jsonObject.extras_enabled,
-        tunewsEnabled: false, // todo: NATIVE-549
-        pushNotificationsEnabled: false, // todo: NATIVE-549
         sortingName: jsonObject.sorting_name,
         prefix: jsonObject.prefix,
         longitude: jsonObject.longitude,
