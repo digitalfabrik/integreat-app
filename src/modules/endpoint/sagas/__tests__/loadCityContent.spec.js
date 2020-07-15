@@ -49,7 +49,7 @@ const prepareDataContainer = async (dataContainer: DataContainer, city: string, 
 
 describe('loadCityContent', () => {
   const lastUpdate = moment('2000-01-05T10:10:00.000Z')
-  const mockedDate = moment('2000-01-05T11:10:00.000Z', moment.ISO_8601)
+  const mockedDate = moment('2000-01-05T11:10:00.000Z')
   let restoreMockedDate
 
   beforeEach(async () => {
@@ -211,7 +211,7 @@ describe('loadCityContent', () => {
         shouldRefreshResources: true
       }, false)
     )
-      .call(fetchResourceCache, city, language, fetchMap, dataContainer)
+      .call.like(fetchResourceCache, city, language, fetchMap, dataContainer)
       .run()
 
     expect(await dataContainer.getLastUpdate(city, language)).toBe(lastUpdate)

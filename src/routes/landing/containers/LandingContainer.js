@@ -9,8 +9,8 @@ import Landing from '../components/Landing'
 import type { NavigationScreenProp } from 'react-navigation'
 import { type NavigationReplaceAction, StackActions } from 'react-navigation'
 import { generateKey } from '../../../modules/app/generateRouteKey'
-import type { StatusPropsType } from '../../../modules/error/hocs/withPayloadProvider'
-import withPayloadProvider from '../../../modules/error/hocs/withPayloadProvider'
+import type { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
+import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvider'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import * as React from 'react'
 import { connect } from 'react-redux'
@@ -54,9 +54,8 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsT
 })
 
 const ThemedTranslatedLanding = withTranslation('landing')(
-  withTheme(props => props.language)(
-    Landing
-  ))
+  withTheme(Landing)
+)
 
 class LandingContainer extends React.Component<ContainerPropsType> {
   navigateToDashboard = (cityCode: string, language: string) => {

@@ -1,15 +1,15 @@
 // @flow
 
 import determineApiUrl from '../determineApiUrl'
-import { baseUrl } from '../constants'
 import AppSettings from '../../settings/AppSettings'
+import buildConfig from '../../app/constants/buildConfig'
 
 jest.mock('@react-native-community/async-storage')
 
 describe('determineApiUrl', () => {
   it('should return the default baseURL if no overrideApiUrl is set', async () => {
     const apiUrl = await determineApiUrl()
-    expect(apiUrl).toEqual(baseUrl)
+    expect(apiUrl).toEqual(buildConfig().cmsUrl)
   })
 
   it('should return the overrideApiUrl if it is set', async () => {

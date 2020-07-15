@@ -9,4 +9,4 @@ const IOSSafeAreaView = styled(SafeAreaView)`
   background-color: ${props => props.theme.colors.backgroundAccentColor};
 `
 
-export default withTheme()(IOSSafeAreaView)
+export default withTheme(IOSSafeAreaView)
