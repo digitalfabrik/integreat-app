@@ -52,7 +52,10 @@ class Page extends React.Component<PropType, StateType> {
     } else if (url.includes('.png') || url.includes('.jpg')) {
       navigation.navigate('ImageViewModal', { url })
     } else if (navigateToIntegreatUrl && HIJACK.test(url)) {
-      navigateToIntegreatUrl({ url, language })
+      navigateToIntegreatUrl({
+        url,
+        language
+      })
     } else {
       Linking.openURL(url).catch(err => console.error('An error occurred', err))
     }
