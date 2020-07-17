@@ -17,6 +17,7 @@ import AppSettings from '../../settings/AppSettings'
 import NetInfo from '@react-native-community/netinfo'
 import loadCities from './loadCities'
 import { fromError } from '../../error/ErrorCodes'
+import * as NotificationsManager from '../../../modules/notifications/NotificationsManager'
 import buildConfig from '../../app/constants/buildConfig'
 
 /**
@@ -36,6 +37,8 @@ export default function * loadCityContent (
 
   if (!criterion.peeking()) {
     const appSettings = new AppSettings()
+    yield call(() => NotificationsManager.subscribeToCity(newCity, newLanguage))
+
     yield call(appSettings.setSelectedCity, newCity)
   }
 
@@ -62,7 +65,10 @@ export default function * loadCityContent (
                                                                         language AND the city */
       const languages = yield call(dataContainer.getLanguages, newCity)
 
-      const pushLanguages: PushLanguagesActionType = { type: 'PUSH_LANGUAGES', params: { languages } }
+      const pushLanguages: PushLanguagesActionType = {
+        type: 'PUSH_LANGUAGES',
+        params: { languages }
+      }
       yield put(pushLanguages)
 
       if (!languages.map(language => language.code).includes(newLanguage)) {

@@ -13,6 +13,7 @@ import loadCityContent from './loadCityContent'
 import { ContentLoadCriterion } from '../ContentLoadCriterion'
 import AppSettings from '../../settings/AppSettings'
 import { Alert } from 'react-native'
+import * as NotificationsManager from '../../../modules/notifications/NotificationsManager'
 
 export function * switchContentLanguage (dataContainer: DataContainer, action: SwitchContentLanguageActionType): Saga<void> {
   const { newLanguage, city, t } = action.params
@@ -24,7 +25,10 @@ export function * switchContentLanguage (dataContainer: DataContainer, action: S
     // We never want to force a refresh when switching languages
     yield call(
       loadCityContent, dataContainer, city, newLanguage,
-      new ContentLoadCriterion({ forceUpdate: false, shouldRefreshResources: true }, false)
+      new ContentLoadCriterion({
+        forceUpdate: false,
+        shouldRefreshResources: true
+      }, false)
     )
 
     const [categories, resourceCache, events] = yield all([
@@ -37,8 +41,17 @@ export function * switchContentLanguage (dataContainer: DataContainer, action: S
     const appSettings = new AppSettings()
     yield call(appSettings.setContentLanguage, newLanguage)
 
+    // Unsubscribe from prev. city notifications
+    const previousSelectedCity = yield call(appSettings.loadSelectedCity)
+    const previousContentLanguage = yield call(appSettings.loadContentLanguage)
+
+    if (previousContentLanguage !== newLanguage) {
+      yield call(() => NotificationsManager.unsubscribeFromPreviousCity(previousSelectedCity, previousContentLanguage))
+    }
+
     const setContentLanguage: SetContentLanguageActionType = {
-      type: 'SET_CONTENT_LANGUAGE', params: { contentLanguage: newLanguage }
+      type: 'SET_CONTENT_LANGUAGE',
+      params: { contentLanguage: newLanguage }
     }
     yield put(setContentLanguage)
 
