@@ -1,7 +1,8 @@
 // @flow
 
-import { check, PERMISSIONS, request, RESULTS } from 'react-native-permissions'
+import { check, PERMISSIONS, request, checkNotifications, RESULTS } from 'react-native-permissions'
 import { Platform } from 'react-native'
+import * as NotificationsManager from '../../modules/notifications/NotificationsManager'
 
 export const locationPermissionStatus = async (): RESULTS => {
   return check(Platform.OS === 'ios'
@@ -11,8 +12,8 @@ export const locationPermissionStatus = async (): RESULTS => {
 }
 
 export const pushNotificationPermissionStatus = async (): RESULTS => {
-  // TODO NATIVE-399 Really check for push notification permissions
-  return RESULTS.GRANTED
+  const { status } = await checkNotifications()
+  return status
 }
 
 export const requestLocationPermission = async (): RESULTS => {
@@ -23,6 +24,5 @@ export const requestLocationPermission = async (): RESULTS => {
 }
 
 export const requestPushNotificationPermission = async (): RESULTS => {
-  // TODO NATIVE-399 Really request push notification permissions
-  return RESULTS.GRANTED
+  return NotificationsManager.requestPushNotificationPermission()
 }
