@@ -39,7 +39,7 @@
     "i18next": "^19.1.0",
     "is-url": "^1.2.4",
     "js-md5": "^0.7.3",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "moment": "2.24.0",
     "normalize-path": "^3.0.0",
     "normalize-strings": "^1.1.0",
