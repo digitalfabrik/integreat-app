@@ -39,7 +39,7 @@ steps:
       command: yarn run test:coverage --ci --maxWorkers ${TOTAL_CPUS}
   - run:
       name: Development integreat-test-cms build
-      command: yarn build:integreat-test-cms
+      command: yarn build:integreat-test-cms --env.commit_sha=${CIRCLE_SHA1}
   - run:
       name: Production integreat build
       command: yarn build:integreat
