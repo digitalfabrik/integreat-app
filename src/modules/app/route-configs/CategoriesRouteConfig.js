@@ -14,6 +14,7 @@ import {
   Payload
 } from '@integreat-app/integreat-api-client'
 import { cmsApiBaseUrl } from '../constants/urls'
+import buildConfig from '../constants/buildConfig'
 
 export type CategoriesRouteParamsType = {| city: string, language: string |}
 type RequiredPayloadsType = {| categories: Payload<CategoriesMapModel>, cities: Payload<Array<CityModel>> |}
@@ -22,7 +23,7 @@ export const CATEGORIES_ROUTE = 'CATEGORIES'
 
 /**
  * CategoriesRoute, matches /augsburg/de*
- * @type {{path: string, thunk: function(Dispatch, GetState)}}
+ * @type {{path: string, thunk: function(Dispatch, getState)}}
  */
 const categoriesRoute: Route = {
   path: '/:city/:language/:categoryPath*',
@@ -73,7 +74,7 @@ class CategoriesRouteConfig implements RouteConfig<CategoriesRouteParamsType, Re
     return `${category && !category.isRoot() ? `${category.title} - ` : ''}${cityName}`
   }
 
-  getMetaDescription = t => t('metaDescription')
+  getMetaDescription = t => t('metaDescription', { appName: buildConfig.appName })
 
   getFeedbackTargetInformation = ({ location, payloads }) => {
     const categories = payloads.categories.data
