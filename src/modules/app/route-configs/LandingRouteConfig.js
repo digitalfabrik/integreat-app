@@ -7,6 +7,7 @@ import type { Route } from 'redux-first-router'
 import fetchData from '../fetchData'
 import { cmsApiBaseUrl } from '../constants/urls'
 import type { StateType } from '../StateType'
+import buildConfig from '../constants/buildConfig'
 
 type LandingRouteParamsType = {|language: string|}
 type RequiredPayloadsType = {|cities: Payload<Array<CityModel>>|}
@@ -15,7 +16,7 @@ export const LANDING_ROUTE = 'LANDING'
 
 /**
  * LandingRoute, matches /landing/de
- * @type {{path: string, thunk: function(Dispatch, GetState)}}
+ * @type {{path: string, thunk: function(Dispatch, getState)}}
  */
 const landingRoute: Route = {
   path: '/landing/:language',
@@ -40,7 +41,7 @@ class LandingRouteConfig implements RouteConfig<LandingRouteParamsType, Required
 
   getLanguageChangePath = () => null
 
-  getMetaDescription = t => t('metaDescription')
+  getMetaDescription = t => t('metaDescription', { appName: buildConfig.appName })
 
   getFeedbackTargetInformation = () => null
 }
