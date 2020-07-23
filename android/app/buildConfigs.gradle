@@ -1,0 +1,66 @@
+def createConfig () {
+    if (!System.env["BUILD_CONFIG_NAME"]) {
+        println("**************************")
+        println("*** Missing BUILD_CONFIG_NAME ****")
+        println("**************************")
+        return
+    }
+    def buildConfigName = System.env['BUILD_CONFIG_NAME']
+    println("Using build config $buildConfigName")
+
+    def command = "yarn babel-node tools/create-xcconfigs config $buildConfigName --directory android"
+    def proc = command.execute()
+    proc.waitFor()
+
+    if (proc.exitValue() != 0) {
+        println("Failed to create xcconfig file: $proc.err.text")
+        return
+    }
+    println("Created xcconfg file: $proc.in.text")
+
+    def buildConfig = [:]
+
+    File f = new File("$project.rootDir/../buildConfig.tmp.xcconfig");
+
+    f.eachLine { line ->
+        def parts = line.split(" = ")
+        buildConfig.put(parts[0], parts[1])
+    }
+
+    println("Build config: $buildConfig")
+    project.ext.set("buildConfig", buildConfig)
+}
+
+createConfig()
+
+//android {
+//    defaultConfig {
+//        project.env.each { k, v ->
+//            def escaped = v.replaceAll("%","\\\\u0025")
+//            buildConfigField "String", k, "\"$v\""
+//            resValue "string", k, "\"$escaped\""
+//        }
+//    }
+//}
+//
+//tasks.whenTaskAdded { task ->
+//    if (project.hasProperty("envConfigFiles")) {
+//        project.envConfigFiles.each { envConfigName, envConfigFile ->
+//            if (task.name.toLowerCase() == "generate"+envConfigName+"buildconfig") {
+//                task.doFirst() {
+//                    android.applicationVariants.all { variant ->
+//                        def variantConfigString = variant.getVariantData().getName()
+//                        if (envConfigName.contains(variantConfigString.toLowerCase())) {
+//                            loadDotEnv(envConfigName)
+//                            project.env.each { k, v ->
+//                                def escaped = v.replaceAll("%","\\\\u0025")
+//                                variant.buildConfigField "String", k, "\"$v\""
+//                                variant.resValue "string", k, "\"$escaped\""
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
+//}
