@@ -19,7 +19,7 @@ const loadBuildConfig = (buildConfigName: ?string): BuildConfigType => {
   }
   const buildConfig = buildConfigs[buildConfigName]
   if (!buildConfig) {
-    throw Error('Invalid BUILD_CONFIG_NAME supplied!')
+    throw Error(`Invalid BUILD_CONFIG_NAME supplied: ${buildConfigName}`)
   }
   return buildConfig
 }

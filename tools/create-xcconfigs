@@ -8,16 +8,17 @@ const decamelize = require('decamelize')
 
 program
   .option('-d, --debug', 'enable extreme logging')
+  .requiredOption('--directory <directory>', 'the directory to put the created xcconfig file in')
 
-const createXcconfigs = async buildConfigName => {
+const createXcconfigs = async (buildConfigName, directory) => {
   const buildConfig = loadBuildConfig(buildConfigName)
   const xcconfigOptions = flat(buildConfig, {
     delimiter: '_',
     transformKey: key => decamelize(key).toUpperCase()
   })
   const prefixed = Object.keys(xcconfigOptions).map(key => `BUILD_CONFIG_${key} = ${xcconfigOptions[key]}`)
-  prefixed.push('BUILD_CONFIG_NAME = ' + buildConfigName)
-  fs.writeFileSync('ios/buildConfig.tmp.xcconfig', prefixed.join('\n'))
+  prefixed.push(`BUILD_CONFIG_NAME = ${buildConfigName}`)
+  fs.writeFileSync(`${directory}/buildConfig.tmp.xcconfig`, prefixed.join('\n'))
 }
 
 program
@@ -25,7 +26,7 @@ program
   .description('create and write a new .xcconfig from the iosBuildOptions of the specified build config')
   .action(async buildConfigName => {
     try {
-      await createXcconfigs(buildConfigName)
+      await createXcconfigs(buildConfigName, program.directory)
     } catch (e) {
       console.error(e)
       process.exit(1)
