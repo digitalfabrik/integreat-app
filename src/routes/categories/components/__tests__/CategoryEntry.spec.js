@@ -121,7 +121,10 @@ describe('CategoryListItem', () => {
   describe('getMatchedContent', () => {
     it('should return null for undefined query', () => {
       const wrapper = shallow(
-        <CategoryEntry theme={brightTheme} category={noThumbCategory} subCategories={[]} />
+        <CategoryEntry theme={brightTheme}
+                       category={noThumbCategory}
+                       contentWithoutHtml={noThumbCategory.content}
+                       subCategories={[]} />
       ).dive()
       const categoryEntry = wrapper.instance()
       expect(categoryEntry.getMatchedContent()).toBeNull()
@@ -137,15 +140,11 @@ describe('CategoryListItem', () => {
 
     it('should return null for empty query', () => {
       const wrapper = shallow(
-        <CategoryEntry theme={brightTheme} category={noContentCategory} query='' subCategories={[]} />
-      ).dive()
-      const categoryEntry = wrapper.instance()
-      expect(categoryEntry.getMatchedContent()).toBeNull()
-    })
-
-    it('should return null if category does not contain content', () => {
-      const wrapper = shallow(
-        <CategoryEntry theme={brightTheme} category={category} query='abc' subCategories={[]} />
+        <CategoryEntry theme={brightTheme}
+                       category={noThumbCategory}
+                       contentWithoutHtml={noThumbCategory.content}
+                       query=''
+                       subCategories={[]} />
       ).dive()
       const categoryEntry = wrapper.instance()
       expect(categoryEntry.getMatchedContent()).toBeNull()
@@ -155,7 +154,11 @@ describe('CategoryListItem', () => {
       const query = 'test'
       const selectedSection = 'this is a test content which'
       const wrapper = shallow(
-        <CategoryEntry theme={brightTheme} category={category} query={query} subCategories={[]} />
+        <CategoryEntry theme={brightTheme}
+                       category={category}
+                       contentWithoutHtml={category.content}
+                       query={query}
+                       subCategories={[]} />
       ).dive()
       const categoryEntry = wrapper.instance()
       const contentMatchItem = shallow(categoryEntry.getMatchedContent())
@@ -171,14 +174,22 @@ describe('CategoryListItem', () => {
       const completeWordQuery = 'test'
       const inBetweenWordQuery = 'es'
       const wrapper = shallow(
-        <CategoryEntry theme={brightTheme} category={category} query={completeWordQuery} subCategories={[]} />
+        <CategoryEntry theme={brightTheme}
+                       category={category}
+                       contentWithoutHtml={category.content}
+                       query={completeWordQuery}
+                       subCategories={[]} />
       ).dive()
       const categoryEntry = wrapper.instance()
       const contentMatchItem = shallow(categoryEntry.getMatchedContent())
       const contentMatchProps = contentMatchItem.props()
 
       const wrapperWithDifferentQuery = shallow(
-        <CategoryEntry theme={brightTheme} category={category} query={inBetweenWordQuery} subCategories={[]} />
+        <CategoryEntry theme={brightTheme}
+                       category={category}
+                       contentWithoutHtml={category.content}
+                       query={inBetweenWordQuery}
+                       subCategories={[]} />
       ).dive()
       const categoryEntryWithDifferentQuery = wrapperWithDifferentQuery.instance()
       const contentMatchItemWithDifferentQuery = shallow(categoryEntryWithDifferentQuery.getMatchedContent())
