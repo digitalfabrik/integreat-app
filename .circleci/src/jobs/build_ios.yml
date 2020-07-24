@@ -61,27 +61,21 @@ steps:
       steps:
         - run:
             name: "[FL] integreat build"
-            environment:
-              BUILD_CONFIG_NAME: integreat
-            command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} scheme:${BUILD_CONFIG_NAME}
+            command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat
             working_directory: ios
         - run:
             name: Rename sourcemap
             command: mv ios/index.ios.bundle.map ios/output/integreat.ios.bundle.map
         - run:
             name: "[FL] malte build"
-            environment:
-              BUILD_CONFIG_NAME: malte
-            command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} scheme:${BUILD_CONFIG_NAME}
+            command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:malte
             working_directory: ios
         - run:
             name: Rename sourcemap
             command: mv ios/index.ios.bundle.map ios/output/malte.ios.bundle.map
   - run:
       name: "[FL] integreat-e2e build"
-      environment:
-        BUILD_CONFIG_NAME: integreat-e2e
-      command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} scheme:${BUILD_CONFIG_NAME}
+      command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat-e2e
       working_directory: ios
   - store_artifacts:
       path: ios/output/gym/
