@@ -129,7 +129,8 @@ android {
     }
 
     defaultConfig {
-        applicationId "tuerantuer.app.integreat"
+        // TODO Add application id to build configs
+        applicationId project.buildConfig.getOrDefault("BUILD_CONFIG_APPLICTION_ID", "tuerantuer.app.integreat")
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         if (project.hasProperty('VERSION_CODE')) {

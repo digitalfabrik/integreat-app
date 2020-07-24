@@ -1,10 +1,19 @@
+// See https://github.com/luggit/react-native-config/blob/master/android/dotenv.gradle for reference
+
 def createConfig () {
+    def buildConfig = [:]
+
     if (!System.env["BUILD_CONFIG_NAME"]) {
-        println("**************************")
+        println("*****************++++++++*********")
         println("*** Missing BUILD_CONFIG_NAME ****")
-        println("**************************")
+        println("************************++++++++**")
+
+        // Set to empty array to prevent failing for other tasks
+        project.ext.set("buildConfig", buildConfig)
+
         return
     }
+
     def buildConfigName = System.env['BUILD_CONFIG_NAME']
     println("Using build config $buildConfigName")
 
@@ -18,9 +27,8 @@ def createConfig () {
     }
     println("Created xcconfg file: $proc.in.text")
 
-    def buildConfig = [:]
 
-    File f = new File("$project.rootDir/../buildConfig.tmp.xcconfig");
+    File f = new File("$project.rootDir/buildConfig.tmp.xcconfig");
 
     f.eachLine { line ->
         def parts = line.split(" = ")
@@ -33,34 +41,12 @@ def createConfig () {
 
 createConfig()
 
-//android {
-//    defaultConfig {
-//        project.env.each { k, v ->
-//            def escaped = v.replaceAll("%","\\\\u0025")
-//            buildConfigField "String", k, "\"$v\""
-//            resValue "string", k, "\"$escaped\""
-//        }
-//    }
-//}
-//
-//tasks.whenTaskAdded { task ->
-//    if (project.hasProperty("envConfigFiles")) {
-//        project.envConfigFiles.each { envConfigName, envConfigFile ->
-//            if (task.name.toLowerCase() == "generate"+envConfigName+"buildconfig") {
-//                task.doFirst() {
-//                    android.applicationVariants.all { variant ->
-//                        def variantConfigString = variant.getVariantData().getName()
-//                        if (envConfigName.contains(variantConfigString.toLowerCase())) {
-//                            loadDotEnv(envConfigName)
-//                            project.env.each { k, v ->
-//                                def escaped = v.replaceAll("%","\\\\u0025")
-//                                variant.buildConfigField "String", k, "\"$v\""
-//                                variant.resValue "string", k, "\"$escaped\""
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
-//}
+android {
+    defaultConfig {
+        project.buildConfig.each { k, v ->
+            def escaped = v.replaceAll("%","\\\\u0025")
+            // Make build config values available as string resource, e.g. for use in AndroidManifest
+            resValue "string", k, "\"$escaped\""
+        }
+    }
+}
