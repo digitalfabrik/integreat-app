@@ -9,7 +9,6 @@ import Highlighter from 'react-highlight-words'
 import normalizeSearchString from '../../../modules/common/utils/normalizeSearchString'
 import Link from 'redux-first-router-link'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
-import { fromString as htmlToText } from 'html-to-text'
 
 const NUM_WORDS_SURROUNDING_MATCH = 3
 
@@ -75,6 +74,7 @@ const StyledLink = styled(Link)`
 
 type PropsType = {|
   category: CategoryModel,
+  contentWithoutHtml: string,
   subCategories: Array<CategoryModel>,
   /** A search query to highlight in the category title */
   query?: string,
@@ -100,39 +100,37 @@ class CategoryEntry extends React.PureComponent<PropsType> {
     return content.split(/\s+/).filter(Boolean)
   }
 
+  getContentBeforeMatchIdx (content: string, matchIdx: number, queryMatchesStartOfWord: boolean): string {
+    const wordsBeforeMatch = this.getWords(content.slice(0, matchIdx))
+    const limitedMatchBefore = wordsBeforeMatch
+      .slice(-NUM_WORDS_SURROUNDING_MATCH - !queryMatchesStartOfWord, wordsBeforeMatch.length)
+      .join(' ')
+    return limitedMatchBefore + (queryMatchesStartOfWord ? ' ' : '')
+  }
+
+  getContentAfterMatchIdx (content: string, matchIdx: number): string {
+    const wordsAfterMatch = this.getWords(content.slice(matchIdx))
+    return wordsAfterMatch
+      .slice(0, NUM_WORDS_SURROUNDING_MATCH)
+      .join(' ')
+  }
+
   getMatchedContent (): ContentMatchItem {
-    const { query, theme, category } = this.props
-    if (!query || !query.length || !category.content) {
+    const { query, theme, contentWithoutHtml } = this.props
+    if (!query || !query.length || !contentWithoutHtml) {
       return null
     }
     const normalizedFilter = normalizeSearchString(query)
-    const contentWithoutHtml = htmlToText(category.content, {
-      ignoreHref: true,
-      ignoreImage: true,
-      wordwrap: false,
-      singleNewLineParagraphs: true,
-      unorderedListItemPrefix: ' '
-    })
 
     const matchIdx = contentWithoutHtml.toLowerCase().indexOf(normalizedFilter)
     if (matchIdx === -1) {
       return null
     }
 
-    const wordsBeforeMatch = this.getWords(contentWithoutHtml.slice(0, matchIdx))
-    const wordsAfterMatch = this.getWords(contentWithoutHtml.slice(matchIdx))
-
     const queryMatchesStartOfWord = !contentWithoutHtml.charAt(matchIdx - 1).trim()
 
-    // limit the words that are displayed around the matched filter
-    const limitedMatchBefore = wordsBeforeMatch
-      .slice(-NUM_WORDS_SURROUNDING_MATCH - !queryMatchesStartOfWord, wordsBeforeMatch.length)
-      .join(' ')
-    const limitedMatchAfter = wordsAfterMatch
-      .slice(0, NUM_WORDS_SURROUNDING_MATCH)
-      .join(' ')
-
-    const textToHighlight = limitedMatchBefore + (queryMatchesStartOfWord ? ' ' : '') + limitedMatchAfter
+    const textToHighlight = this.getContentBeforeMatchIdx(contentWithoutHtml, matchIdx, queryMatchesStartOfWord) +
+      this.getContentAfterMatchIdx(contentWithoutHtml, matchIdx)
     return <ContentMatchItem aria-label={textToHighlight}
                              searchWords={[query]}
                              sanitize={normalizeSearchString}

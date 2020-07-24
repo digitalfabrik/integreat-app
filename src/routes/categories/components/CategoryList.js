@@ -27,7 +27,7 @@ const CategoryIcon = styled.img`
 `
 
 type PropsType = {|
-  categories: Array<{| model: CategoryModel, subCategories: Array<CategoryModel> |}>,
+  categories: Array<{| model: CategoryModel, contentWithoutHtml?: string, subCategories: Array<CategoryModel> |}>,
   title?: string,
   content?: string,
   /** A search query to highlight in the categories titles */
@@ -49,10 +49,11 @@ class CategoryList extends React.PureComponent<PropsType> {
         {content && <RemoteContent centered dangerouslySetInnerHTML={{ __html: content }}
                                    onInternalLinkClick={onInternalLinkClick} />}
         <List>
-          {categories.map(({ model, subCategories }) =>
-            <CategoryListItem key={model.hash}
-                              category={model}
-                              subCategories={subCategories}
+          {categories.map(categoryItem =>
+            <CategoryListItem key={categoryItem.model.hash}
+                              category={categoryItem.model}
+                              contentWithoutHtml={categoryItem.contentWithoutHtml}
+                              subCategories={categoryItem.subCategories}
                               query={query} />
           )}
         </List>

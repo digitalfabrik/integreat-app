@@ -15,7 +15,7 @@ import type { LocationState } from 'redux-first-router'
 import normalizeSearchString from '../../../modules/common/utils/normalizeSearchString'
 import { fromString as htmlToText } from 'html-to-text'
 
-type CategoryListItemType = {| model: CategoryModel, subCategories: Array<CategoryModel> |}
+type CategoryListItemType = {| model: CategoryModel, contentWithoutHtml?: string, subCategories: Array<CategoryModel> |}
 
 type PropsType = {|
   categories: CategoriesMapModel,
@@ -28,7 +28,6 @@ type LocalStateType = {|
 |}
 
 const noop = () => {}
-const CONTENT_MIN_FILTER_LENGTH = 3
 
 export class SearchPage extends React.Component<PropsType, LocalStateType> {
   state = {
@@ -46,18 +45,26 @@ export class SearchPage extends React.Component<PropsType, LocalStateType> {
 
     // find all categories whose contents but not titles include the filter text and sort them lexicographically
     // only filter content if the filter text is at least 3 characters long due to performance issues
-    const categoriesWithContent = filterText.length < CONTENT_MIN_FILTER_LENGTH ? []
-      : categories.toArray()
-        .filter(category => !normalizeSearchString(category.title).includes(filterText))
-        .filter(category => normalizeSearchString(htmlToText(category.content,
-          { ignoreHref: true, ignoreImage: true, unorderedListItemPrefix: ' ' })).includes(filterText))
-        .sort((category1, category2) => category1.title.localeCompare(category2.title))
+    const categoriesWithContent = categories.toArray()
+      .filter(category => !normalizeSearchString(category.title).includes(filterText))
+      .map((category: CategoryModel): CategoryListItemType => ({
+        model: category,
+        contentWithoutHtml: htmlToText(category.content, {
+          ignoreHref: true,
+          ignoreImage: true,
+          wordwrap: false,
+          singleLineParagraph: true,
+          unorderedListItemPrefix: ' '
+        }),
+        subCategories: []
+      })).filter(categoryListItem => normalizeSearchString(categoryListItem.contentWithoutHtml).includes(filterText))
+      .sort((category1, category2) => category1.model.title.localeCompare(category2.model.title))
 
     // return all categories from above and remove the root category
     return categoriesWithTitle
       .filter(category => !category._root)
-      .concat(categoriesWithContent)
       .map(category => ({ model: category, subCategories: [] }))
+      .concat(categoriesWithContent)
   }
 
   handleFilterTextChanged = (filterText: string) => this.setState({ filterText: filterText })
