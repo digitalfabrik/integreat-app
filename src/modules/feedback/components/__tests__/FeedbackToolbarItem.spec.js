@@ -13,7 +13,8 @@ describe('FeedbackToolbarItem', () => {
       <FeedbackToolbarItem
         openFeedbackModal={() => {}}
         t={t}
-        isPositiveRatingLink />
+        isPositiveRatingLink
+        viewportSmall />
     )
     expect(component.find(faSmile)).not.toBeNull()
   })
@@ -23,7 +24,8 @@ describe('FeedbackToolbarItem', () => {
       <FeedbackToolbarItem
         openFeedbackModal={() => {}}
         t={t}
-        isPositiveRatingLink={false} />
+        isPositiveRatingLink={false}
+        viewportSmall />
     )
     expect(component.find(faFrown)).not.toBeNull()
   })
