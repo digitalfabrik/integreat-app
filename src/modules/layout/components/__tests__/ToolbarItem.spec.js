@@ -2,8 +2,10 @@
 
 import React from 'react'
 import { mount } from 'enzyme'
-import { faSmile } from '../../../../modules/app/constants/icons'
+import createReduxStore from '../../../app/createReduxStore'
+import { Provider } from 'react-redux'
 
+import { faSmile } from '../../../../modules/app/constants/icons'
 import ToolbarItem from '../ToolbarItem'
 import ReactTooltip from 'react-tooltip'
 import { ThemeProvider } from 'styled-components'
@@ -11,12 +13,15 @@ import theme from '../../../theme/constants/theme'
 
 describe('ToolbarItem', () => {
   it('should rebuild tooltip items on mount', () => {
+    const store = createReduxStore()
     const original = ReactTooltip.rebuild
     ReactTooltip.rebuild = jest.fn()
 
     mount(
       <ThemeProvider theme={theme}>
-        <ToolbarItem href='http://example.com' icon={faSmile} text='Click here!' />
+        <Provider store={store}>
+          <ToolbarItem href='http://example.com' icon={faSmile} text='Click here!' />
+        </Provider>
       </ThemeProvider>
     )
     expect(ReactTooltip.rebuild).toHaveBeenCalled()
