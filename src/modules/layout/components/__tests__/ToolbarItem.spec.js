@@ -2,14 +2,16 @@
 
 import React from 'react'
 import { mount } from 'enzyme'
-import createReduxStore from '../../../app/createReduxStore'
-import { Provider } from 'react-redux'
-
 import { faSmile } from '../../../../modules/app/constants/icons'
+
 import ToolbarItem from '../ToolbarItem'
 import ReactTooltip from 'react-tooltip'
 import { ThemeProvider } from 'styled-components'
 import theme from '../../../theme/constants/theme'
+
+import { Provider } from 'react-redux'
+
+import createReduxStore from '../../../app/createReduxStore'
 
 describe('ToolbarItem', () => {
   it('should rebuild tooltip items on mount', () => {
