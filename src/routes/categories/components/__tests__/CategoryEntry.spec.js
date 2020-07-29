@@ -63,7 +63,7 @@ function findComponent (wrapper: ShallowWrapper<*>, name: string): ShallowWrappe
   return wrapper.findWhere(n => n.name().endsWith(name))
 }
 
-describe('CategoryListItem', () => {
+describe('CategoryEntry', () => {
   it('should render and match snapshot', () => {
     const wrapper = shallow(<CategoryEntry
       theme={brightTheme}
@@ -119,15 +119,77 @@ describe('CategoryListItem', () => {
   })
 
   describe('getMatchedContent', () => {
+    const numWords = 3
+
+    describe('getContentBeforeMatchIdx', () => {
+      it('should return 3 words before the specified index an start of the word', () => {
+        const content = 'This is some test content'
+        const matchIdx = 15
+        const wrapper = shallow(
+            <CategoryEntry theme={brightTheme}
+                           category={category}
+                           contentWithoutHtml={category.content}
+                           subCategories={[]} />
+        ).dive()
+        const categoryEntry = wrapper.instance()
+        expect(categoryEntry.getContentBeforeMatchIdx(content, matchIdx, false, numWords))
+          .toBe('This is some te')
+      })
+
+      it('should return 3 words before the specified index', () => {
+        const content = 'This is some test content'
+        const matchIdx = 13
+        const wrapper = shallow(
+          <CategoryEntry theme={brightTheme}
+                         category={category}
+                         contentWithoutHtml={category.content}
+                         subCategories={[]} />
+        ).dive()
+        const categoryEntry = wrapper.instance()
+        expect(categoryEntry.getContentBeforeMatchIdx(content, matchIdx, true, numWords))
+          .toBe('This is some ')
+      })
+    })
+
+    describe('getMatchedContentAfterMatchIdx', () => {
+      it('should return 3 words before the specified index an start of the word', () => {
+        const content = 'This is some test content'
+        const matchIdx = 1
+        const wrapper = shallow(
+          <CategoryEntry theme={brightTheme}
+                         category={category}
+                         contentWithoutHtml={category.content}
+                         subCategories={[]} />
+        ).dive()
+        const categoryEntry = wrapper.instance()
+        expect(categoryEntry.getContentAfterMatchIdx(content, matchIdx, numWords))
+          .toBe('his is some test')
+      })
+
+      it('should return 3 words before the specified index', () => {
+        const content = 'This is some test content'
+        const matchIdx = 0
+        const wrapper = shallow(
+          <CategoryEntry theme={brightTheme}
+                         category={category}
+                         contentWithoutHtml={category.content}
+                         subCategories={[]} />
+        ).dive()
+        const categoryEntry = wrapper.instance()
+        expect(categoryEntry.getContentAfterMatchIdx(content, matchIdx, numWords))
+          .toBe('This is some test')
+      })
+    })
+
     it('should return null for undefined query', () => {
       const wrapper = shallow(
         <CategoryEntry theme={brightTheme}
                        category={noThumbCategory}
-                       contentWithoutHtml={noThumbCategory.content}
+                       contentWithoutHptml={noThumbCategory.content}
                        subCategories={[]} />
       ).dive()
       const categoryEntry = wrapper.instance()
-      expect(categoryEntry.getMatchedContent()).toBeNull()
+      expect(categoryEntry.getMatchedContent(numWords)).toBeNull()
     })
 
     it('should return null for categories without content', () => {
@@ -135,7 +197,7 @@ describe('CategoryListItem', () => {
         <CategoryEntry theme={brightTheme} category={noContentCategory} query='abc' subCategories={[]} />
       ).dive()
       const categoryEntry = wrapper.instance()
-      expect(categoryEntry.getMatchedContent()).toBeNull()
+      expect(categoryEntry.getMatchedContent(numWords)).toBeNull()
     })
 
     it('should return null for empty query', () => {
@@ -147,12 +209,13 @@ describe('CategoryListItem', () => {
                        subCategories={[]} />
       ).dive()
       const categoryEntry = wrapper.instance()
-      expect(categoryEntry.getMatchedContent()).toBeNull()
+      expect(categoryEntry.getMatchedContent(numWords)).toBeNull()
     })
 
     it('should return the match with query starting at the beginning of a word', () => {
       const query = 'test'
-      const selectedSection = 'this is a test content which'
+      const selectedSection = 'this is a test content which is'
+      const numWords = 3
       const wrapper = shallow(
         <CategoryEntry theme={brightTheme}
                        category={category}
@@ -161,7 +224,7 @@ describe('CategoryListItem', () => {
                        subCategories={[]} />
       ).dive()
       const categoryEntry = wrapper.instance()
-      const contentMatchItem = shallow(categoryEntry.getMatchedContent())
+      const contentMatchItem = shallow(categoryEntry.getMatchedContent(numWords))
       const contentMatchProps = contentMatchItem.props()
       expect(contentMatchProps['aria-label']).toEqual(selectedSection)
       expect(contentMatchProps.sanitize).toEqual(normalizeSearchString)
@@ -181,7 +244,7 @@ describe('CategoryListItem', () => {
                        subCategories={[]} />
       ).dive()
       const categoryEntry = wrapper.instance()
-      const contentMatchItem = shallow(categoryEntry.getMatchedContent())
+      const contentMatchItem = shallow(categoryEntry.getMatchedContent(numWords))
       const contentMatchProps = contentMatchItem.props()
 
       const wrapperWithDifferentQuery = shallow(
@@ -192,7 +255,7 @@ describe('CategoryListItem', () => {
                        subCategories={[]} />
       ).dive()
       const categoryEntryWithDifferentQuery = wrapperWithDifferentQuery.instance()
-      const contentMatchItemWithDifferentQuery = shallow(categoryEntryWithDifferentQuery.getMatchedContent())
+      const contentMatchItemWithDifferentQuery = shallow(categoryEntryWithDifferentQuery.getMatchedContent(numWords))
       const contentMatchPropsWithDifferentQuery = contentMatchItemWithDifferentQuery.props()
 
       expect(contentMatchPropsWithDifferentQuery.searchWords).toHaveLength(1)

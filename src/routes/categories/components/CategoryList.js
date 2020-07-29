@@ -4,7 +4,7 @@ import React from 'react'
 
 import RemoteContent from '../../../modules/common/components/RemoteContent'
 import Caption from '../../../modules/common/components/Caption'
-import CategoryListItem from './CategoryEntry'
+import CategoryEntry from './CategoryEntry'
 import { CategoryModel } from '@integreat-app/integreat-api-client'
 import styled from 'styled-components'
 
@@ -50,7 +50,7 @@ class CategoryList extends React.PureComponent<PropsType> {
                                    onInternalLinkClick={onInternalLinkClick} />}
         <List>
           {categories.map(categoryItem =>
-            <CategoryListItem key={categoryItem.model.hash}
+            <CategoryEntry key={categoryItem.model.hash}
                               category={categoryItem.model}
                               contentWithoutHtml={categoryItem.contentWithoutHtml}
                               subCategories={categoryItem.subCategories}
