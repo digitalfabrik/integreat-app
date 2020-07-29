@@ -24,6 +24,7 @@ describe('pushNews', () => {
       city: 'augsburg',
       categoriesRouteMapping: {},
       eventsRouteMapping: {},
+      poisRouteMapping: {},
       newsRouteMapping: {
         'route-id-0': {
           status: 'ready',

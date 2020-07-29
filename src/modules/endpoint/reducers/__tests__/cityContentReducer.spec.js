@@ -46,6 +46,7 @@ describe('cityContentReducer', () => {
       newCategoriesMap: new CategoriesMapModel([]),
       newResourceCache: {},
       newEvents: [],
+      newPois: [],
       newLanguage: 'de'
     }
   }

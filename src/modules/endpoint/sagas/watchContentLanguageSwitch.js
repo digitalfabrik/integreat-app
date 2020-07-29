@@ -27,10 +27,11 @@ export function * switchContentLanguage (dataContainer: DataContainer, action: S
       new ContentLoadCriterion({ forceUpdate: false, shouldRefreshResources: true }, false)
     )
 
-    const [categories, resourceCache, events] = yield all([
+    const [categories, resourceCache, events, pois] = yield all([
       call(dataContainer.getCategoriesMap, city, newLanguage),
       call(dataContainer.getResourceCache, city, newLanguage),
-      call(dataContainer.getEvents, city, newLanguage)
+      call(dataContainer.getEvents, city, newLanguage),
+      call(dataContainer.getPois, city, newLanguage)
     ])
 
     // Only set new language after fetch succeeded
@@ -48,6 +49,7 @@ export function * switchContentLanguage (dataContainer: DataContainer, action: S
         newCategoriesMap: categories,
         newResourceCache: resourceCache,
         newEvents: events,
+        newPois: pois,
         newLanguage
       }
     }

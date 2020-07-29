@@ -88,10 +88,16 @@ type ContentPoiJsonType = {|
   title: string,
   content: string,
   thumbnail: string,
-  availableLanguages: Map<string, string>,
+  availableLanguages: { [code: string]: string },
   excerpt: string,
-  location: LocationModel,
-  lastUpdate: Moment,
+  location: {|
+    address: ?string,
+    town: ?string,
+    postcode: ?string,
+    latitude: ?string,
+    longitude: ?string
+  |},
+  lastUpdate: string,
   hash: string
 |}
 
@@ -354,16 +360,22 @@ class DatabaseConnector {
     const path = this.getContentPath('languages', context)
     await this.writeFile(path, JSON.stringify(languages))
   }
-  
+
   async storePois (pois: Array<PoiModel>, context: DatabaseContext) {
     const jsonModels = pois.map((poi: PoiModel): ContentPoiJsonType => ({
       path: poi.path,
       title: poi.title,
       content: poi.content,
       thumbnail: poi.thumbnail,
-      availableLanguages: poi.availableLanguages,
+      availableLanguages: mapToObject(poi.availableLanguages),
       excerpt: poi.excerpt,
-      location: poi.location,
+      location: {
+        address: poi.location.address,
+        town: poi.location.town,
+        postcode: poi.location.postcode,
+        latitude: poi.location.latitude,
+        longitude: poi.location.longitude
+      },
       lastUpdate: poi.lastUpdate.toISOString(),
       hash: poi.hash
     }))
@@ -381,15 +393,28 @@ class DatabaseConnector {
     const json = JSON.parse(await this.readFile(path))
 
     return json.map((jsonObject: ContentPoiJsonType) => {
+      const jsonLocation = jsonObject.location
+      // $FlowFixMe https://github.com/facebook/flow/issues/5838
+      const availableLanguages = new Map<string, string>(Object.entries(jsonObject.availableLanguages))
       return new PoiModel({
         path: jsonObject.path,
         title: jsonObject.title,
         content: jsonObject.content,
         thumbnail: jsonObject.thumbnail,
-        availableLanguages: jsonObject.availableLanguages,
+        availableLanguages,
         excerpt: jsonObject.excerpt,
-        location: jsonObject.location,
-        lastUpdate: moment(jsonObject.last_update, moment.ISO_8601),
+        location: new LocationModel({
+          name: null, // todo: NATIVE-549
+          region: null, // todo: NATIVE-549
+          state: null, // todo: NATIVE-549
+          country: null, // todo: NATIVE-549
+          address: jsonLocation.address,
+          latitude: jsonLocation.latitude,
+          longitude: jsonLocation.longitude,
+          postcode: jsonLocation.postcode,
+          town: jsonLocation.town
+        }),
+        lastUpdate: moment(jsonObject.lastUpdate, moment.ISO_8601),
         hash: jsonObject.hash
       })
     })
