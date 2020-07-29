@@ -1,0 +1,25 @@
+docker:
+  - image: circleci/node:12.16.3
+resource_class: small
+steps:
+  - checkout
+  - attach_workspace:
+      at: .
+  - restore_environment_variables
+  - restore_cache:
+      name: Restore Yarn Package Cache
+      keys:
+        - 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+        - 3-yarn-{{ arch }}-
+  - run:
+      name: Install Dependencies
+      command: yarn install --frozen-lockfile
+  - save_cache:
+      name: Save Yarn Package Cache
+      key: 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+      paths:
+        - ~/.cache/yarn
+        - node_modules
+  - run:
+      name: Bump version
+      command: tools/bump-version bump-to ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
