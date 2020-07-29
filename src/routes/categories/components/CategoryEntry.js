@@ -10,7 +10,7 @@ import normalizeSearchString from '../../../modules/common/utils/normalizeSearch
 import Link from 'redux-first-router-link'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 
-const NUM_WORDS_SURROUNDING_MATCH = 3
+const NUM_WORDS_SURROUNDING_MATCH = 10
 
 const Row = styled.div`
   margin: 12px 0;
@@ -100,22 +100,23 @@ class CategoryEntry extends React.PureComponent<PropsType> {
     return content.split(/\s+/).filter(Boolean)
   }
 
-  getContentBeforeMatchIdx (content: string, matchIdx: number, queryMatchesStartOfWord: boolean): string {
+  getContentBeforeMatchIdx (content: string, matchIdx: number, startOfWord: boolean, numWords: number): string {
     const wordsBeforeMatch = this.getWords(content.slice(0, matchIdx))
+    const additionalWordBefore = startOfWord ? 0 : 1
     const limitedMatchBefore = wordsBeforeMatch
-      .slice(-NUM_WORDS_SURROUNDING_MATCH - !queryMatchesStartOfWord, wordsBeforeMatch.length)
+      .slice(-numWords - additionalWordBefore, wordsBeforeMatch.length)
       .join(' ')
-    return limitedMatchBefore + (queryMatchesStartOfWord ? ' ' : '')
+    return limitedMatchBefore + (startOfWord ? ' ' : '')
   }
 
-  getContentAfterMatchIdx (content: string, matchIdx: number): string {
+  getContentAfterMatchIdx (content: string, matchIdx: number, numWords: number): string {
     const wordsAfterMatch = this.getWords(content.slice(matchIdx))
     return wordsAfterMatch
-      .slice(0, NUM_WORDS_SURROUNDING_MATCH)
+      .slice(0, numWords + 1)
       .join(' ')
   }
 
-  getMatchedContent (): ContentMatchItem {
+  getMatchedContent (numWordsSurrounding: number): ContentMatchItem {
     const { query, theme, contentWithoutHtml } = this.props
     if (!query || !query.length || !contentWithoutHtml) {
       return null
@@ -128,9 +129,14 @@ class CategoryEntry extends React.PureComponent<PropsType> {
     }
 
     const queryMatchesStartOfWord = !contentWithoutHtml.charAt(matchIdx - 1).trim()
+    const contentBefore = this.getContentBeforeMatchIdx(
+      contentWithoutHtml,
+      matchIdx,
+      queryMatchesStartOfWord,
+      numWordsSurrounding)
+    const contentAfter = this.getContentAfterMatchIdx(contentWithoutHtml, matchIdx, numWordsSurrounding)
+    const textToHighlight = contentBefore + contentAfter
 
-    const textToHighlight = this.getContentBeforeMatchIdx(contentWithoutHtml, matchIdx, queryMatchesStartOfWord) +
-      this.getContentAfterMatchIdx(contentWithoutHtml, matchIdx)
     return <ContentMatchItem aria-label={textToHighlight}
                              searchWords={[query]}
                              sanitize={normalizeSearchString}
@@ -147,7 +153,7 @@ class CategoryEntry extends React.PureComponent<PropsType> {
                    highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }}
                    textToHighlight={category.title} />
       <div style={{ margin: '0 5px', fontSize: '12px' }}>
-        {this.getMatchedContent()}
+        {this.getMatchedContent(NUM_WORDS_SURROUNDING_MATCH)}
       </div>
     </CategoryListItem>
   }
