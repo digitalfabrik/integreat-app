@@ -16,7 +16,6 @@ export interface DataContainer {
    * Sets the pois and persist them ?
    */
   setPois: (city: string, language: string, pois: Array<PoiModel>) => Promise<void>,
-
   /**
    * Returns an Array of CityModels.
    * @throws Will throw an error if the array is null.
@@ -97,7 +96,6 @@ export interface DataContainer {
    * Returns whether the events have been loaded or not.
    */
   eventsAvailable (city: string, language: string): Promise<boolean>,
-
   /**
    * Returns whether the pois have been loaded or not.
    */
