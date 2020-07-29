@@ -102,7 +102,6 @@ const eventRouteTranslator = (newEvents: $ReadOnlyArray<EventModel>, newLanguage
     }
   }
 
-
 const poiRouteTranslator = (newPois: $ReadOnlyArray<PoiModel>, newLanguage: string) =>
   (route: PoiRouteStateType): PoiRouteStateType => {
     if (route.status !== 'ready') {
