@@ -54,7 +54,9 @@ export type PoiRouteConfigType = {|
   +city: string
 |}
 
+// eslint-disable-next-line flowtype/type-id-match
 type LanguageKey = string
+// eslint-disable-next-line flowtype/type-id-match
 type Path = ?string // Path can be falsy if the current displayed view is a list of events or POIs
 type AllAvailableLanguagesType = $ReadOnlyMap<LanguageKey, Path>
 export type PoiRouteStateType = {|
@@ -174,7 +176,7 @@ export type CategoriesRouteMappingType = $ReadOnly<{
 export type PoisRouteMappingType = $ReadOnly<{
   [key: string]: PoiRouteStateType
 }>
-  
+
 export type NewsRouteMappingType = $ReadOnly<{
   [key: string]: NewsRouteStateType
 }>
