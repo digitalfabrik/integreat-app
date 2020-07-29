@@ -27,12 +27,11 @@ def createConfig () {
     }
     println("Created xcconfg file: $proc.in.text")
 
+    def buildConfigProperties = new Properties()
+    buildConfigProperties.load(new FileInputStream("$project.rootDir/buildConfig.tmp.xcconfig"))
 
-    File f = new File("$project.rootDir/buildConfig.tmp.xcconfig");
-
-    f.eachLine { line ->
-        def parts = line.split(" = ")
-        buildConfig.put(parts[0], parts[1])
+    buildConfigProperties.each {
+        buildConfig.put(it.getKey(), it.getValue())
     }
 
     println("Build config: $buildConfig")
