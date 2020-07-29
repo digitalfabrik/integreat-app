@@ -121,7 +121,7 @@ const poiRouteTranslator = (newPois: $ReadOnlyArray<PoiModel>, newLanguage: stri
     }
 
     const translatedPath = allAvailableLanguages.get(newLanguage)
-    if (!translatedPath) { // Route is a list of all events
+    if (!translatedPath) { // Route is a list of all pois
       return {
         status: 'ready',
         path: translatedPath,
