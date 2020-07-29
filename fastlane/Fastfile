@@ -215,7 +215,8 @@ platform :ios do
         metadata_path: "./ios/fastlane/metadata",
         screenshots_path: "./ios/fastlane/screenshots",
         precheck_include_in_app_purchases: false, # We do not have inapp purchases
-        submission_information: { add_id_info_uses_idfa: false }
+        submission_information: { add_id_info_uses_idfa: false }  # https://firebase.google.com/docs/analytics/configure-data-collection?platform=ios
+                                                                  # https://support.google.com/firebase/answer/6318039?hl=en
     )
   end
 
