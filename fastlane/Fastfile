@@ -214,7 +214,8 @@ platform :ios do
         skip_app_version_update: false,
         metadata_path: "./ios/fastlane/metadata",
         screenshots_path: "./ios/fastlane/screenshots",
-        precheck_include_in_app_purchases: false # We do not have inapp purchases
+        precheck_include_in_app_purchases: false, # We do not have inapp purchases
+        submission_information: { add_id_info_uses_idfa: false }
     )
   end
 
