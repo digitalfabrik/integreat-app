@@ -15,8 +15,7 @@ export default (baseUrl: string): Endpoint<*, Array<LanguageModel>> =>
     .withMapper((json: Array<JsonTunewsLanguageType>) => json
       .map((language: JsonTunewsLanguageType) => new LanguageModel(
         language.code,
-        language.name,
-        language.direction
+        language.name
       ))
       .sort((lang1, lang2) => lang1.code.localeCompare(lang2.code))
     )

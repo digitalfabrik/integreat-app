@@ -10,13 +10,15 @@ describe('tunews language', () => {
   const languagesJson = [
     {
       code: 'en',
-      name: 'English',
-      direction: 'ltr'
+      name: 'English'
     },
     {
       code: 'de',
-      name: 'Deutsch',
-      direction: 'ltr'
+      name: 'Deutsch'
+    },
+    {
+      code: 'ar',
+      name: '\u0627\u0644\u0639\u0631\u0628\u064a\u0629'
     }
   ]
 
@@ -29,8 +31,9 @@ describe('tunews language', () => {
   it('should map fetched data to models', () => {
     const languageModels = tunewsElement.mapResponse(languagesJson)
     expect(languageModels).toEqual([
-      new LanguageModel('de', 'Deutsch', 'ltr'),
-      new LanguageModel('en', 'English', 'ltr')
+      new LanguageModel('ar', '\u0627\u0644\u0639\u0631\u0628\u064a\u0629', undefined),
+      new LanguageModel('de', 'Deutsch', undefined),
+      new LanguageModel('en', 'English', undefined)
     ])
   })
 })

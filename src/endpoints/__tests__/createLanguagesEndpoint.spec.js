@@ -17,6 +17,11 @@ describe('languages', () => {
       code: 'de',
       native_name: 'Deutsch',
       dir: 'ltr'
+    },
+    {
+      code: 'ar',
+      native_name: '\u0627\u0644\u0639\u0631\u0628\u064a\u0629',
+      dir: 'rtl'
     }
   ]
 
@@ -35,6 +40,7 @@ describe('languages', () => {
   it('should map fetched data to models', () => {
     const languageModels = languages.mapResponse(languagesJson, params)
     expect(languageModels).toEqual([
+      new LanguageModel('ar', '\u0627\u0644\u0639\u0631\u0628\u064a\u0629', 'rtl'),
       new LanguageModel('de', 'Deutsch', 'ltr'),
       new LanguageModel('en', 'English', 'ltr')
     ])
