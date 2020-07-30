@@ -1,0 +1,104 @@
+#!/usr/bin/env node
+
+const authenticate = require('./github-authentication')
+const { program } = require('commander')
+
+const RELEASE_NOTES_DIR = 'release-notes'
+const UNRELEASED_DIR = 'unreleased'
+const GITKEEP_FILE = '.gitkeep'
+
+program
+  .option('-d, --debug', 'enable extreme logging')
+  .requiredOption('--deliverino-private-key <deliverino-private-key>', 'private key of the deliverino github app in pem format with base64 encoding')
+  .requiredOption('--owner <owner>', 'owner of the current repository, usually "Integreat"')
+  .requiredOption('--repo <repo>', 'the current repository, usually "integreat-webapp" or "integreat-react-native-app"')
+  .requiredOption('--branch <branch>', 'the current branch')
+  .requiredOption('--commit-sha <commit-sha>', 'the sha1 of the current commit')
+
+const moveReleaseNotes = async ({ newVersionName, deliverinoPrivateKey, owner, repo, branch, commitSha }) => {
+  const appOctokit = await authenticate({ deliverinoPrivateKey, owner, repo })
+  const lastCommit = await appOctokit.git.getCommit({ owner, repo, commit_sha: commitSha })
+
+  // Tree of the root folder of the project
+  const rootTreeSha = lastCommit.data.tree.sha
+  const rootTree = await appOctokit.git.getTree({ owner, repo, tree_sha: rootTreeSha })
+
+  // Tree of the 'release-notes' folder of the project
+  const releaseNoteTreeObject = rootTree.data.tree.find(it => it.path === RELEASE_NOTES_DIR)
+  if (!releaseNoteTreeObject) {
+    console.error(rootTree)
+    throw new Error('Root tree does not contain release notes tree, probably since the response is truncated.')
+  }
+  const releaseNoteTree = await appOctokit.git.getTree({ owner, repo, tree_sha: releaseNoteTreeObject.sha })
+
+  // Tree of the unreleased release notes
+  const unreleasedTreeObject = releaseNoteTree.data.tree.find(it => it.path === UNRELEASED_DIR)
+  if (!unreleasedTreeObject) {
+    console.error(releaseNoteTree)
+    throw new Error('Release note tree does not contain unreleased tree, probably since the response is truncated.')
+  }
+  const unreleasedTree = await appOctokit.git.getTree({ owner, repo, tree_sha: unreleasedTreeObject.sha })
+
+  // Only keep file '.gitkeep' in 'unreleased' tree, move everything else to '<new-version-name>'
+  const unreleasedReleaseNotes = unreleasedTree.data.tree.filter(it => it.path !== GITKEEP_FILE)
+  const keepFile = unreleasedTree.data.tree.find(it => it.path === GITKEEP_FILE)
+
+  // Creating an empty tree is not possible
+  if (unreleasedReleaseNotes.length === 0) {
+    return
+  }
+
+  const newVersionTree = await appOctokit.git.createTree({ owner, repo, tree: unreleasedReleaseNotes })
+  const newUnreleasedTree = await appOctokit.git.createTree({ owner, repo, tree: [keepFile] })
+
+  const newReleaseNotesContent = releaseNoteTree.data.tree.map(it => {
+    const { size, url, ...rest } = it
+    if (it.path === UNRELEASED_DIR) {
+      return { ...rest, sha: newUnreleasedTree.data.sha }
+    }
+    return rest
+  })
+  newReleaseNotesContent.push({ path: newVersionName, sha: newVersionTree.data.sha, type: 'tree', mode: '040000' })
+
+  const newReleaseNotesTree = await appOctokit.git.createTree({ owner, repo, tree: newReleaseNotesContent })
+
+  // Update the root tree with the new 'release-notes' tree
+  const rootUpdate = rootTree.data.tree.map(it => {
+    const { size, url, ...rest } = it
+    if (it.path === RELEASE_NOTES_DIR) {
+      return { ...rest, sha: newReleaseNotesTree.data.sha }
+    }
+    return rest
+  })
+  const updatedRootTree = await appOctokit.git.createTree({ owner, repo, tree: rootUpdate })
+
+  // Commit the changes in the tree
+  const renameCommit = await appOctokit.git.createCommit({
+    owner,
+    repo,
+    message: `Move release notes to ${newVersionName}\n[skip ci]`,
+    tree: updatedRootTree.data.sha,
+    parents: [commitSha]
+  })
+
+  await appOctokit.git.updateRef({
+    owner,
+    repo,
+    ref: `heads/${branch}`,
+    sha: renameCommit.data.sha
+  })
+}
+
+program
+  .command('move-to <new-version-name>')
+  .description('move the release notes in \'unreleased\' to a new subdirectory <new-version-name>')
+  .action(async newVersionName => {
+    try {
+      await moveReleaseNotes({ newVersionName, ...program })
+    } catch (e) {
+      console.error(e)
+      process.exit(1)
+    }
+  })
+
+program.parse(process.argv)
