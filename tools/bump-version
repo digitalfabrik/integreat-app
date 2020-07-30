@@ -16,7 +16,8 @@ const commitAndTag = async (versionName, versionCode, { deliverinoPrivateKey, ow
   const appOctokit = await authenticate({ deliverinoPrivateKey, owner, repo })
   const versionFileContent = await appOctokit.repos.getContent({ owner, repo, path: VERSION_FILE, ref: branch })
 
-  const contentBase64 = Buffer.from(JSON.stringify({ versionName, versionCode })).toString('base64')
+  const contentBase64 = Buffer.from(JSON.stringify({ versionName, versionCode: parseInt(versionCode) }))
+    .toString('base64')
 
   const message = versionCode
     ? `Bump version name to ${versionName} and version code to ${versionCode}\n[skip ci]`
