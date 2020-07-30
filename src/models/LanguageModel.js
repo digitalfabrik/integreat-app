@@ -5,9 +5,9 @@ import type { LanguageDirectionType } from '../types'
 class LanguageModel {
   _code: string
   _name: string
-  _direction: LanguageDirectionType
+  _direction: ?LanguageDirectionType
 
-  constructor (code: string, name: string, direction: LanguageDirectionType) {
+  constructor (code: string, name: string, direction?: LanguageDirectionType) {
     this._code = code
     this._name = name
     this._direction = direction
@@ -21,7 +21,7 @@ class LanguageModel {
     return this._name
   }
 
-  get direction (): LanguageDirectionType {
+  get direction (): ?LanguageDirectionType {
     return this._direction
   }
 }
