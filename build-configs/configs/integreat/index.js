@@ -10,6 +10,7 @@ const IntegreatBuildConfig: BuildConfigType = {
   theme: integreatTheme,
   darkTheme: darkIntegreatTheme,
   cmsUrl: 'https://cms.integreat-app.de',
+  manifestUrl: '/manifest.json',
   featureFlags,
   locationIcon: '/location-big.svg',
   logoWide: '/integreat-app-logo.png',
