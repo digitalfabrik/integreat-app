@@ -56,7 +56,7 @@
 
   <link rel="mask-icon" href="/safari-pinned-tab.svg" color="<%= config.theme.colors.themeColor %>">
 
-  <style>
+  <style><% if (config.splashScreen) { %>
     @keyframes show {
       0% {
         opacity: 0;
@@ -83,7 +83,7 @@
     }
 
     #splash > div {
-      background-color: <%= config.theme.colors.themeColor %>;
+      background-color: <%= config.splashScreen.backgroundColor %>;
       width: 100%;
       height: 100%;
       display: flex;
@@ -106,7 +106,7 @@
       max-width: 100%;
       object-fit: contain;
     }
-
+    <% } %>
     .no-js {
       position: fixed;
       z-index: 2;
@@ -118,10 +118,10 @@
     }
   </style>
 </head>
-<body>
+<body><% if (config.splashScreen) { %>
 <div id="splash">
-  <div><img src="/progressive-logo.jpg" alt=""></div>
-</div>
+  <div><img src="<%= config.splashScreen.imageUrl %>" alt=""></div>
+</div><% } %>
 <noscript>
   <div class="no-js">
     <p>Please enable JavaScript to use this page!</p>

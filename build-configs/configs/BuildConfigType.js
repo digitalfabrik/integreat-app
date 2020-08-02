@@ -12,5 +12,6 @@ export type BuildConfigType = {|
   itunesAppId?: string,
   logoWide: string,
   locationIcon: string,
-  internalLinksHijackPattern: string
+  internalLinksHijackPattern: string,
+  splashScreen?: {| backgroundColor: string, imageUrl: string |}
 |}
