@@ -55,11 +55,11 @@ workflows:
       - deliver_android:
           production_delivery: << pipeline.parameters.production_delivery >>
           requires:
-            - bump_version
+            - prepare_delivery
       - deliver_ios:
           production_delivery: << pipeline.parameters.production_delivery >>
           requires:
-            - bump_version
+            - prepare_delivery
 
   bi_weekly_development_delivery:
     triggers:
@@ -83,17 +83,18 @@ workflows:
           requires:
             - build_ios
             - build_android
-      - bump_version:
+      - prepare_delivery:
+          production_delivery: << pipeline.parameters.production_delivery >>
           requires: # Bump version should only depend on build_ and not delivery_. Sometimes upload to the stores fails only for iOS or Android. Then we still should bump the version.
             - e2e
       - deliver_android:
           production_delivery: false
           requires:
-            - bump_version
+            - prepare_delivery
       - deliver_ios:
           production_delivery: false
           requires:
-            - bump_version
+            - prepare_delivery
 
   bi_weekly_production_delivery:
     triggers:
@@ -117,13 +118,14 @@ workflows:
           requires:
             - build_ios
             - build_android
-      - bump_version:
+      - prepare_delivery:
+          production_delivery: << pipeline.parameters.production_delivery >>
           requires: # Bump version should only depend on build_ and not delivery_. Sometimes upload to the stores fails only for iOS or Android. Then we should still bump the version.
             - e2e
       - await_production_approval:
           type: approval
           requires:
-            - bump_version
+            - prepare_delivery
       - deliver_android:
           production_delivery: true
           requires:
