@@ -108,7 +108,7 @@ jobs:
                 condition: << parameters.build_for_delivery >>
                 steps:
                     - run:
-                        command: ./gradlew clean | bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
+                        command: ./gradlew clean & bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
                         environment:
                             BUILD_CONFIG_NAME: integreat
                         name: '[FL] integreat build'
@@ -120,7 +120,7 @@ jobs:
                         command: mv android/app/build/generated/sourcemaps/react/release/index.android.bundle.map android/output/integreat.android.bundle.map
                         name: Rename sourcemap
                     - run:
-                        command: ./gradlew clean | bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
+                        command: ./gradlew clean && bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
                         environment:
                             BUILD_CONFIG_NAME: malte
                         name: '[FL] malte build'
@@ -132,7 +132,7 @@ jobs:
                         command: mv android/app/build/generated/sourcemaps/react/release/index.android.bundle.map android/output/malte.android.bundle.map
                         name: Rename sourcemap
             - run:
-                command: ./gradlew clean | bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
+                command: ./gradlew clean && bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
                 environment:
                     BUILD_CONFIG_NAME: integreat-e2e
                 name: '[FL] integreat-e2e build'

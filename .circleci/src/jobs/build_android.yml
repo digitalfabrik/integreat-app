@@ -68,8 +68,7 @@ steps:
             name: "[FL] integreat build"
             environment:
               BUILD_CONFIG_NAME: integreat
-            command: ./gradlew clean
-              | bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
+            command: ./gradlew clean && bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
             working_directory: android
         - run:
             name: Rename apk
@@ -81,8 +80,7 @@ steps:
             name: "[FL] malte build"
             environment:
               BUILD_CONFIG_NAME: malte
-            command: ./gradlew clean
-              | bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
+            command: ./gradlew clean && bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
             working_directory: android
         - run:
             name: Rename apk
@@ -94,8 +92,7 @@ steps:
       name: "[FL] integreat-e2e build"
       environment:
         BUILD_CONFIG_NAME: integreat-e2e
-      command: ./gradlew clean
-        | bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
+      command: ./gradlew clean && bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
       working_directory: android
   - run:
       name: Rename apk
