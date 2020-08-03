@@ -99,7 +99,8 @@ type PropsType = {|
   toolbar?: Node,
   modal?: Node,
   children?: Node,
-  darkMode?: boolean
+  darkMode?: boolean,
+  viewportSmall?: boolean
 |}
 
 /**

@@ -72,7 +72,8 @@ describe('CategoriesToolbar', () => {
       <CategoriesToolbar categories={categories}
                          location={createLocation({ type: 'INVALID_ROUTE', payload: {}, pathname: 'invalid_path' })}
                          t={t}
-                         openFeedbackModal={() => {}} />
+                         openFeedbackModal={() => {}}
+                         viewportSmall />
     )
 
     expect(component.getElement()).toBeNull()
@@ -81,6 +82,7 @@ describe('CategoriesToolbar', () => {
   it('should render Toolbar, if category can be found', () => {
     const component = shallow(
       <CategoriesToolbar
+        viewportSmall
         categories={categories}
         location={createLocation({
           pathname: categoryModels[2].path,
@@ -97,6 +99,7 @@ describe('CategoriesToolbar', () => {
   it('should render root-url for pdf endpoint', () => {
     const component = shallow(
       <CategoriesToolbar
+        viewportSmall
         categories={categories}
         location={createLocation({
           pathname: categoryModels[0].path,

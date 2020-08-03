@@ -3,7 +3,7 @@
 import styled from 'styled-components'
 import CleanAnchor from '../../common/components/CleanAnchor'
 
-export const StyledToolbarItem = styled(CleanAnchor)`
+const StyledToolbarItem = styled(CleanAnchor)`
   display: inline-block;
   margin: 0 10px;
   padding: 8px;
@@ -13,8 +13,5 @@ export const StyledToolbarItem = styled(CleanAnchor)`
   background-color: ${props => props.theme.colors.backgroundColor};
   text-align: center;
 `
-export const SmallViewTip = styled.p`
-  display: block;
-  font-size: 12px;
-  font-weight: bold;
-`
+
+export default StyledToolbarItem
