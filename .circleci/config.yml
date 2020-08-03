@@ -490,11 +490,11 @@ workflows:
             - deliver_android:
                 production_delivery: << pipeline.parameters.production_delivery >>
                 requires:
-                    - bump_version
+                    - prepare_delivery
             - deliver_ios:
                 production_delivery: << pipeline.parameters.production_delivery >>
                 requires:
-                    - bump_version
+                    - prepare_delivery
         when: << pipeline.parameters.api_triggered >>
     bi_weekly_development_delivery:
         jobs:
@@ -511,17 +511,18 @@ workflows:
                 requires:
                     - build_ios
                     - build_android
-            - bump_version:
+            - prepare_delivery:
+                production_delivery: << pipeline.parameters.production_delivery >>
                 requires:
                     - e2e
             - deliver_android:
                 production_delivery: false
                 requires:
-                    - bump_version
+                    - prepare_delivery
             - deliver_ios:
                 production_delivery: false
                 requires:
-                    - bump_version
+                    - prepare_delivery
         triggers:
             - schedule:
                 cron: 0 3 8,22 * *
@@ -544,12 +545,13 @@ workflows:
                 requires:
                     - build_ios
                     - build_android
-            - bump_version:
+            - prepare_delivery:
+                production_delivery: << pipeline.parameters.production_delivery >>
                 requires:
                     - e2e
             - await_production_approval:
                 requires:
-                    - bump_version
+                    - prepare_delivery
                 type: approval
             - deliver_android:
                 production_delivery: true
