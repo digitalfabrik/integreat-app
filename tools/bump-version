@@ -11,8 +11,11 @@ program
   .requiredOption('--owner <owner>', 'owner of the current repository, usually "Integreat"')
   .requiredOption('--repo <repo>', 'the current repository, usually "integreat-webapp" or "integreat-react-native-app"')
   .requiredOption('--branch <branch>', 'the current branch')
+  .option('--release-candidate', 'whether the release is a development release which is not delivered to production')
 
-const commitAndTag = async (versionName, versionCode, { deliverinoPrivateKey, owner, repo, branch }) => {
+const commitAndTag = async (versionName, versionCode, {
+  deliverinoPrivateKey, owner, repo, branch, releaseCandidate
+}) => {
   const appOctokit = await authenticate({ deliverinoPrivateKey, owner, repo })
   const versionFileContent = await appOctokit.repos.getContent({ owner, repo, path: VERSION_FILE, ref: branch })
 
@@ -36,7 +39,7 @@ const commitAndTag = async (versionName, versionCode, { deliverinoPrivateKey, ow
 
   const commitSha = commit.data.commit.sha
 
-  const releaseName = `${versionName}${versionCode ? ` - version code: ${versionCode}` : ''}`
+  const releaseName = `${releaseCandidate ? 'rc' : ''}${versionName}${versionCode ? `-${versionCode}` : ''}`
 
   const tag = await appOctokit.git.createTag({
     owner,
@@ -56,7 +59,9 @@ const commitAndTag = async (versionName, versionCode, { deliverinoPrivateKey, ow
   })
 
   const releaseNotesUrl = `https://github.com/${owner}/${repo}/tree/${branch}/release-notes/${versionName}`
-  const releaseMessage = `Release ${releaseName}. Release notes can be found here: ${releaseNotesUrl}.`
+  const releaseMessage = releaseCandidate
+    ? `Release Candidate ${releaseName}. This release is not delivered to production.`
+    : `Release ${releaseName}. Release notes can be found here: ${releaseNotesUrl}.`
 
   await appOctokit.repos.createRelease({
     owner,
