@@ -246,32 +246,6 @@ jobs:
                     - malte.ipa
                     - integreat-e2e.ipa
                 root: ios/output/gym/
-    bump_version:
-        docker:
-            - image: circleci/node:12.16.3
-        resource_class: small
-        steps:
-            - checkout
-            - attach_workspace:
-                at: .
-            - restore_environment_variables
-            - restore_cache:
-                keys:
-                    - 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
-                    - 3-yarn-{{ arch }}-
-                name: Restore Yarn Package Cache
-            - run:
-                command: yarn install --frozen-lockfile
-                name: Install Dependencies
-            - save_cache:
-                key: 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
-                name: Save Yarn Package Cache
-                paths:
-                    - ~/.cache/yarn
-                    - node_modules
-            - run:
-                command: tools/bump-version bump-to ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
-                name: Bump version
     deliver_android:
         docker:
             - image: circleci/android:api-28-node
@@ -442,6 +416,45 @@ jobs:
                 paths:
                     - environment_variables
                 root: ./
+    prepare_delivery:
+        docker:
+            - image: circleci/node:12.16.3
+        parameters:
+            production_delivery:
+                description: Whether builds are delivered to the production store. If set to true, jira and github releases are created.
+                type: boolean
+        resource_class: small
+        steps:
+            - checkout
+            - attach_workspace:
+                at: .
+            - restore_environment_variables
+            - restore_cache:
+                keys:
+                    - 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+                    - 3-yarn-{{ arch }}-
+                name: Restore Yarn Package Cache
+            - run:
+                command: yarn install --frozen-lockfile
+                name: Install Dependencies
+            - save_cache:
+                key: 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+                name: Save Yarn Package Cache
+                paths:
+                    - ~/.cache/yarn
+                    - node_modules
+            - when:
+                condition: << parameters.production_delivery >>
+                steps:
+                    - run:
+                        command: tools/create-jira-release create-release ${NEW_VERSION_NAME} --private-key ${JIRA_PRIVATE_KEY} --access-token ${JIRA_OAUTH_TOKEN} --consumer-key ${JIRA_CONSUMER_KEY} --project-name ${CIRCLE_PROJECT_REPONAME}
+                        name: Create jira release
+                    - run:
+                        command: tools/move-release-notes move-to ${NEW_VERSION_NAME} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH} --commit-sha ${CIRCLE_SHA1}
+                        name: Move release notes
+            - run:
+                command: tools/bump-version bump-to ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH} <<# parameters.production_delivery >> --release-candidate <</ parameters.production_delivery >>
+                name: Bump version
 orbs:
     slack: circleci/slack@3.4.2
 parameters:
@@ -470,7 +483,8 @@ workflows:
                 requires:
                     - build_ios
                     - build_android
-            - bump_version:
+            - prepare_delivery:
+                production_delivery: << pipeline.parameters.production_delivery >>
                 requires:
                     - e2e
             - deliver_android:
