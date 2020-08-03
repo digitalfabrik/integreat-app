@@ -2,8 +2,6 @@
 
 import type { Node } from 'react'
 import React from 'react'
-import { connect } from 'react-redux'
-import type { StateType } from '../../app/StateType'
 import styled from 'styled-components'
 import { withTranslation } from 'react-i18next'
 import type { TFunction } from 'react-i18next'
@@ -34,7 +32,7 @@ const ToolbarContainer = styled.div`
 `
 
 const Headline = styled.h5`
-  width:100vw;
+  width: 100vw;
   margin: 0;
   text-align: center;
   font-size: 90%;
@@ -47,19 +45,14 @@ type PropsType = {|
   t: TFunction
 |}
 
-const mapStateToProps = (state: StateType) => ({
-  viewportSmall: state.viewport.is.small
-})
-
 class Toolbar extends React.PureComponent<PropsType> {
   render () {
     const { viewportSmall, t } = this.props
-    console.log('switcher', viewportSmall)
-    return <ToolbarContainer className={this.props.className}>
+    return <ToolbarContainer className={this.props.className} viewportSmall={viewportSmall}>
       {viewportSmall && <Headline>{t('isThisSiteUseful')}</Headline>}
       {this.props.children}
     </ToolbarContainer>
   }
 }
 
-export default withTranslation('feedback')(connect<*, *, *, *, *, *>(mapStateToProps)(Toolbar))
+export default withTranslation('feedback')(Toolbar)

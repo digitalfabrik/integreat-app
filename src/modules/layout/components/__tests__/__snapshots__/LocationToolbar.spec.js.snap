@@ -1,17 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`LocationToolbar should match snapshot 1`] = `
-<Translate(Connect(Toolbar))>
+<Translate(Toolbar)
+  viewportSmall={true}
+>
   <div>
     MockNode
   </div>
-  <Translate(Connect(FeedbackToolbarItem))
+  <Translate(FeedbackToolbarItem)
     isPositiveRatingLink={true}
     openFeedbackModal={[Function]}
+    viewportSmall={true}
   />
-  <Translate(Connect(FeedbackToolbarItem))
+  <Translate(FeedbackToolbarItem)
     isPositiveRatingLink={false}
     openFeedbackModal={[Function]}
+    viewportSmall={true}
   />
-</Translate(Connect(Toolbar))>
+</Translate(Toolbar)>
 `;

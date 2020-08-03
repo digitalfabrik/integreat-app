@@ -130,8 +130,10 @@ exports[`LocationLayout should show GeneralHeader and GeneralFooter if city is n
         }
       }
       openFeedbackModal={[Function]}
+      viewportSmall={true}
     />
   }
+  viewportSmall={true}
 >
   <MockNode />
 </Layout>
@@ -267,8 +269,10 @@ exports[`LocationLayout should show LocationHeader and LocationFooter if city is
         }
       }
       openFeedbackModal={[Function]}
+      viewportSmall={true}
     />
   }
+  viewportSmall={true}
 >
   <MockNode />
 </Layout>

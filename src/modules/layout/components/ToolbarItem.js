@@ -1,11 +1,10 @@
 // @flow
 
 import React from 'react'
-import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import type { StateType } from '../../app/StateType'
 import ReactTooltip from 'react-tooltip'
-import { StyledToolbarItem, SmallViewTip } from './StyledToolbarItem'
+import StyledToolbarItem from './StyledToolbarItem'
+import StyledSmallViewTip from './StyledSmallViewTip'
 
 type PropsType = {|
   href: string,
@@ -13,10 +12,6 @@ type PropsType = {|
   text: string,
   viewportSmall: boolean
 |}
-
-const mapStateToProps = (state: StateType) => ({
-  viewportSmall: state.viewport.is.small
-})
 
 class ToolbarItem extends React.PureComponent<PropsType> {
   componentDidMount () {
@@ -29,10 +24,10 @@ class ToolbarItem extends React.PureComponent<PropsType> {
     return (
       <StyledToolbarItem href={href} ariaLabel={text}>
         <FontAwesomeIcon icon={icon} data-tip={text} data-event='mouseover' data-event-off='click mouseout' />
-        {viewportSmall && <SmallViewTip>{text}</SmallViewTip>}
+        {viewportSmall && <StyledSmallViewTip>{text}</StyledSmallViewTip>}
       </StyledToolbarItem>
     )
   }
 }
 
-export default connect<*, *, *, *, *, *>(mapStateToProps)(ToolbarItem)
+export default ToolbarItem
