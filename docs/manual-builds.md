@@ -75,12 +75,7 @@ cd ios && bundle exec pod install
 yarn start
 ```
 
-* Option 1: Run the app in a simulator:
-```bash
-yarn start
-```
-
-* Option 2: Run the app in a simulator or on a real device via XCode:
+* Run the app in a simulator or on a real device via XCode:
     * Start XCode and open `ios/Integreat.xcworkspace`.
     * Run the app.
     
