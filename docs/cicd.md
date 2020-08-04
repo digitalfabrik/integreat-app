@@ -23,19 +23,18 @@ If no branch is specified, develop is used as default.
 
 Several workflows exist for different purposes:
 * **commit**: Run for all commit of a PR to ensure good code quality and working code.
-* **weekly_development_delivery**: Delivers 'integreat-test-cms' builds to development (Testflight and Beta channel) once a week.
+* **bi_weekly_development_delivery**: Delivers 'integreat' builds to development (Testflight and Beta channel) once a week.
 * **bi_weekly_production_delivery**: Delivers 'integreat' builds to production.
-* **api_triggered_delivery**: [Manually triggerable](#triggering-a-delivery-using-the-ci) workflow which delivers either 'integreat-test-cms' builds to development
- or 'integreat' builds to production.
+* **api_triggered_delivery**: [Manually triggerable](#triggering-a-delivery-using-the-ci) workflow which delivers 'integreat' builds to development or production.
 
 See the table below for a more detailed overview:
 
-|Workflow|Checks|E2E tests|Delivery|integreat build|integreat-test-cms build|malte build|Version bump|
-|---|---|---|---|---|---|---|---|
-|commit|:heavy_check_mark:|:heavy_check_mark:|:x:|:x:|:heavy_check_mark:|:heavy_check_mark:|:x:|
-|weekly_development_delivery|:heavy_check_mark:|:x:|Development|:x:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
-|bi_weekly_production_delivery|:heavy_check_mark:|:x:|Production|:heavy_check_mark:|:x:|:heavy_check_mark:|:heavy_check_mark:|
-|api_triggered_delivery|:heavy_check_mark:|:x:|Depends|Depends|Depends|:heavy_check_mark:|:heavy_check_mark:|
+|Workflow|Checks|E2E tests|Delivery|integreat build|malte build|Version bump|
+|---|---|---|---|---|---|---|
+|commit|:heavy_check_mark:|:heavy_check_mark:|:x:|:x:|:x:|:x:|
+|bi_weekly_development_delivery|:heavy_check_mark:|:heavy_check_mark:|Development|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
+|bi_weekly_production_delivery|:heavy_check_mark:|:heavy_check_mark:|Production|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
+|api_triggered_delivery|:heavy_check_mark:|:heavy_check_mark:|Depends|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
 
 Steps executed if *Checks* is checked :heavy_check_mark::
 * Linting
