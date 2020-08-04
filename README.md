@@ -6,6 +6,7 @@
 * [Getting Started](#getting-started)
 * [Conventions](docs/conventions.md)
 * [Technical Documentation](docs/technical-documentation.md)
+* [Build configs](docs/build-configs.md)
 * [Manual builds](docs/manual-builds.md)
 * [Continuous Integration and Delivery](docs/cicd.md)
 * [Glossary](https://wiki.integreat-app.de/glossary)

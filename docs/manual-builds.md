@@ -17,6 +17,8 @@ If you only want to quickly push an update to the stores then take a look at the
 
 ## iOS
 
+**NOTE: This section just covers the use of the integreat-test-cms build config. More information can be found [here](build-configs.md).**
+
 ### Setup on iOS
 
 #### Prerequisites
@@ -96,6 +98,8 @@ cd ios && bundle exec fastlane build
 Fastlane should report where the build artifacts are. These can be uploaded to App Store Connect or distributed via another way.
 
 ## Android
+
+**NOTE: This section just covers the use of the integreat-test-cms build config. More information can be found [here](build-configs.md).**
 
 ### Setup on Android
 
