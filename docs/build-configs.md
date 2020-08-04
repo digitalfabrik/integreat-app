@@ -14,6 +14,8 @@ The concept of build configs is used to build different versions of the app. A b
 * **malte**: Build config for the Malte-App which uses a different design, name and cms.
 * **integreat-e2e**: Build config for [E2E-Tests](e2e-testing.md), primarily used in the [CI](cicd.md).
 
+**NOTE: Testing and developing with the live cms instance should be avoided. Therefore, the `integreat-test-cms` build config should be used primarily.**
+
 ## Using a Build Config
 
 Build configs are used in two different places: In the javascript code during runtime and in gradle and XCode during the build process.

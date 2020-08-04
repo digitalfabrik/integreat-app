@@ -17,7 +17,6 @@ You can contribute by:
 * [Creating Pull requests](.github/CONTRIBUTING.md#pull-requests)
 * [Reporting bugs](#bug-reporting)
 
-**Testing with the live cms instance should be avoided. Instead, [please use the test cms](docs/technical-documentation.md#test-cms).**
 
 If you want to know more about Integreat or if you want to join us, contact [Max](mailto:ammann@integreat-app.de), 
 [Steffen](mailto:kleinle@integreat-app.de) or [our info mail](mailto:info@integreat-app.de) and visit our [website](https://integreat-app.de).
