@@ -23,7 +23,7 @@ commands:
                       echo "The CircleCI config is up to date."
                       exit 0;
                     else
-                      echo "The CircleCI config is not up to date. Rebuild it from .circleci/config"
+                      echo "The CircleCI config is not up to date. You can update it by running `yarn run circleci:update-config`.
                       exit 1;
                     fi
                 name: CircleCI config up to date
