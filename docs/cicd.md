@@ -1,5 +1,7 @@
 # Continuous Integration and Delivery
+
 ## Content
+
 * [Deliver a new release](#triggering-a-delivery-using-the-ci)
 * [Workflows](#workflows)
 * [Fastlane](#fastlane)
@@ -73,12 +75,12 @@ An overview about FL lanes is available in several documents:
 ## Apple Certificates and Android Keystore
 
 Fastlane is used to setup certificates and keystores. The detailed steps of the CI/CD pipeline are the same as those when manually building the app.
-Therefore, you can follow the documentation for Manual Builds to set up [certificates for iOS](06-manual-builds.md#certificates-setup) and [keystores for android](06-manual-builds.md#keystore-setup).
+Therefore, you can follow the documentation for Manual Builds to set up [certificates for iOS](docs/manual-builds.md#certificates-setup) and [keystores for android](docs/manual-builds.md#keystore-setup).
 
 ## Determining the Next Version
 
 The next version of the app must be determined programmatically. The tool [next-version](../tools/next-version) can be used.
-More information on the version naming schema used can be found [here](03-conventions.md#versioning).
+More information on the version naming schema used can be found [here](docs/conventions.md#versioning).
 
 ## Environment Variables and Dependencies
 
