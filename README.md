@@ -81,11 +81,11 @@ Take a look at the docs for [iOS](docs/manual-builds.md#ios) and [Android](docs/
 
 ### Troubleshooting
 
-If you encounter any problems, have a look at our [troubleshooting section](docs/troubleshooting.md)
+If you encounter any problems, have a look at our [troubleshooting section](docs/troubleshooting.md).
 
 ### Debugging
 
-For more information on how to debug, have a look at our [debugging section](docs/debugging.md)
+For more information on how to debug, have a look at our [debugging section](docs/debugging.md).
 
 ## Bug reporting
 
