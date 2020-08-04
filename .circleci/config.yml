@@ -108,7 +108,7 @@ jobs:
                 condition: << parameters.build_for_delivery >>
                 steps:
                     - run:
-                        command: ./gradlew clean & bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
+                        command: ./gradlew clean && bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
                         environment:
                             BUILD_CONFIG_NAME: integreat
                         name: '[FL] integreat build'
