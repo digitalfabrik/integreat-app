@@ -16,7 +16,8 @@ type PropsType = {|
   categories: ?CategoriesMapModel,
   location: LocationState,
   openFeedbackModal: FeedbackRatingType => void,
-  t: TFunction
+  t: TFunction,
+  viewportSmall: boolean
 |}
 
 export class CategoriesToolbar extends React.PureComponent<PropsType> {
@@ -31,14 +32,14 @@ export class CategoriesToolbar extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const { t, location, categories, openFeedbackModal } = this.props
+    const { t, location, categories, openFeedbackModal, viewportSmall } = this.props
     const category = categories && categories.findCategoryByPath(location.pathname)
     if (!category) {
       return null
     }
     return (
-      <LocationToolbar openFeedbackModal={openFeedbackModal}>
-        <ToolbarItem icon={faFilePdf} text={t('createPdf')} href={this.getPdfUrl(category)} />
+      <LocationToolbar openFeedbackModal={openFeedbackModal} viewportSmall={viewportSmall}>
+        <ToolbarItem icon={faFilePdf} text={t('createPdf')} href={this.getPdfUrl(category)} viewportSmall={viewportSmall} />
       </LocationToolbar>
     )
   }
