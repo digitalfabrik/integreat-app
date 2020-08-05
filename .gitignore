@@ -35,8 +35,9 @@ yarn-error.log*
 # CocoaPods
 /ios/Pods/
 
-# Temp buildConfig file
+# Temp buildConfig files
 /ios/buildConfig.tmp.xcconfig
+/android/buildConfig.tmp.xcconfig
 
 # Runtime data
 pids

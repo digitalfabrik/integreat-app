@@ -108,9 +108,7 @@ jobs:
                 condition: << parameters.build_for_delivery >>
                 steps:
                     - run:
-                        command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
-                        environment:
-                            BUILD_CONFIG_NAME: integreat
+                        command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat
                         name: '[FL] integreat build'
                         working_directory: android
                     - run:
@@ -120,9 +118,7 @@ jobs:
                         command: mv android/app/build/generated/sourcemaps/react/release/index.android.bundle.map android/output/integreat.android.bundle.map
                         name: Rename sourcemap
                     - run:
-                        command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
-                        environment:
-                            BUILD_CONFIG_NAME: malte
+                        command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:malte
                         name: '[FL] malte build'
                         working_directory: android
                     - run:
@@ -132,9 +128,7 @@ jobs:
                         command: mv android/app/build/generated/sourcemaps/react/release/index.android.bundle.map android/output/malte.android.bundle.map
                         name: Rename sourcemap
             - run:
-                command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
-                environment:
-                    BUILD_CONFIG_NAME: integreat-e2e
+                command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat-e2e
                 name: '[FL] integreat-e2e build'
                 working_directory: android
             - run:
@@ -219,27 +213,21 @@ jobs:
                 condition: << parameters.build_for_delivery >>
                 steps:
                     - run:
-                        command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} scheme:${BUILD_CONFIG_NAME}
-                        environment:
-                            BUILD_CONFIG_NAME: integreat
+                        command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat
                         name: '[FL] integreat build'
                         working_directory: ios
                     - run:
                         command: mv ios/index.ios.bundle.map ios/output/integreat.ios.bundle.map
                         name: Rename sourcemap
                     - run:
-                        command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} scheme:${BUILD_CONFIG_NAME}
-                        environment:
-                            BUILD_CONFIG_NAME: malte
+                        command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:malte
                         name: '[FL] malte build'
                         working_directory: ios
                     - run:
                         command: mv ios/index.ios.bundle.map ios/output/malte.ios.bundle.map
                         name: Rename sourcemap
             - run:
-                command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} scheme:${BUILD_CONFIG_NAME}
-                environment:
-                    BUILD_CONFIG_NAME: integreat-e2e
+                command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat-e2e
                 name: '[FL] integreat-e2e build'
                 working_directory: ios
             - store_artifacts:
