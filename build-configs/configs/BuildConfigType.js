@@ -9,8 +9,10 @@ export type BuildConfigType = {|
   featureFlags: FeatureFlagsType,
   theme: ThemeType,
   darkTheme: ThemeType,
+  manifestUrl?: string,
   itunesAppId?: string,
   logoWide: string,
   locationIcon: string,
-  internalLinksHijackPattern: string
+  internalLinksHijackPattern: string,
+  splashScreen?: {| backgroundColor: string, imageUrl: string |}
 |}

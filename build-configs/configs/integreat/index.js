@@ -10,9 +10,14 @@ const IntegreatBuildConfig: BuildConfigType = {
   theme: integreatTheme,
   darkTheme: darkIntegreatTheme,
   cmsUrl: 'https://cms.integreat-app.de',
+  manifestUrl: '/manifest.json',
   featureFlags,
   locationIcon: '/location-big.svg',
   logoWide: '/integreat-app-logo.png',
+  splashScreen: {
+    backgroundColor: integreatTheme.colors.themeColor,
+    imageUrl: '/progressive-logo.jpg'
+  },
   internalLinksHijackPattern: 'https?:\\/\\/(cms\\.integreat-app\\.de|web\\.integreat-app\\.de|integreat\\.app)(?!\\/[^/]*\\/(wp-content|wp-admin|wp-json)\\/.*).*'
 }
 

@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom'
 
 import App from './modules/app/containers/App'
 import { hot } from 'react-hot-loader'
+import buildConfig from './modules/app/constants/buildConfig'
 
 const container = document.getElementById('container')
 
@@ -16,10 +17,12 @@ const HMRApp = hot(module)(App)
 
 ReactDOM.render(<HMRApp />, container)
 
+if (buildConfig.splashScreen) {
 // Sets the splash to hidden when the page is rendered
-const splash = document.getElementById('splash')
-if (splash) {
-  splash.className += ' splash-hidden'
+  const splash = document.getElementById('splash')
+  if (splash) {
+    splash.className += ' splash-hidden'
+  }
 }
 
 // Currently we do not have service workers. Unregister all previous ones:
