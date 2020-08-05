@@ -11,6 +11,7 @@ import type { TFunction } from 'react-i18next'
 import FeedbackVariant from '../FeedbackVariant'
 import Caption from '../../../modules/common/components/Caption'
 import type { FeedbackParamsType } from '@integreat-app/integreat-api-client/index'
+import buildConfig from '../../../modules/app/constants/buildConfig'
 
 const Input = styled(TextInput)`
   margin-bottom: 15px;
@@ -108,7 +109,7 @@ class FeedbackModal extends React.Component<PropsType, StateType> {
     } else { // sendingStatus === 'successful') {
       return <>
         <Caption theme={theme} title={t('feedback:feedbackSent')} />
-        <Description theme={theme}>{t('feedback:thanksMessage')}</Description>
+        <Description theme={theme}>{t('feedback:thanksMessage', { appName: buildConfig().appName })}</Description>
       </>
     }
   }
