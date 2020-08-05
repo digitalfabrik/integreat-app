@@ -14,6 +14,9 @@ const IntegreatTestCmsBuildConfig: BuildConfigType = {
     pois: true,
     newsStream: true,
     introSlides: true
+  },
+  android: {
+    googleServices: false
   }
 }
 
