@@ -4,6 +4,7 @@ import { lightTheme, darkTheme } from '../../themes/integreat'
 import type { BuildConfigType } from '../BuildConfigType'
 
 const IntegreatBuildConfig: BuildConfigType = {
+  applicationId: 'tuerantuer.app.integreat',
   appName: 'Integreat',
   lightTheme,
   darkTheme,
