@@ -23,7 +23,8 @@ If no branch is specified, develop is used as default.
 
 Several workflows exist for different purposes:
 * **commit**: Run for all commit of a PR to ensure good code quality and working code.
-* **bi_weekly_development_delivery**: Delivers 'integreat' builds to development (Testflight and Beta channel) once a week.
+* **bi_weekly_development_delivery**: Delivers 'integreat' builds to development (Testflight and Beta channel)
+twice a month if no production build is delivered.
 * **bi_weekly_production_delivery**: Delivers 'integreat' builds to production.
 * **api_triggered_delivery**: [Manually triggerable](#triggering-a-delivery-using-the-ci) workflow which delivers 'integreat' builds to development or production.
 
@@ -147,7 +148,7 @@ For delivery an [account without 2FA](https://github.com/fastlane/fastlane/blob/
 
 #### Adding Testers to TestFlight
 
-The [weekly and bi-weekly workflows](#workflows) make the builds directly available to TestFlights "App Store Connect Users". Those should not be confused with "External Tests" which require an approval by apple. Therefore, we currently only use "App Store Connect Users" as testers.
+The [bi_weekly_development_delivery workflow](#workflows) makes the builds directly available to TestFlights "App Store Connect Users". Those should not be confused with "External Tests" which require an approval by apple. Therefore, we currently only use "App Store Connect Users" as testers.
 
 In order to add someone as "App Store Connect User" you have to add the Apple Account to App Store Connect and to TestFlight. This is a two-step process.
 

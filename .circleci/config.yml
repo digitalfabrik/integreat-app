@@ -482,6 +482,39 @@ workflows:
                 requires:
                     - bump_version
         when: << pipeline.parameters.api_triggered >>
+    bi_weekly_development_delivery:
+        jobs:
+            - prepare_build
+            - build_android:
+                build_for_delivery: true
+                requires:
+                    - prepare_build
+            - build_ios:
+                build_for_delivery: true
+                requires:
+                    - prepare_build
+            - e2e:
+                requires:
+                    - build_ios
+                    - build_android
+            - bump_version:
+                requires:
+                    - e2e
+            - deliver_android:
+                production_delivery: false
+                requires:
+                    - bump_version
+            - deliver_ios:
+                production_delivery: false
+                requires:
+                    - bump_version
+        triggers:
+            - schedule:
+                cron: 0 3 8,22 * *
+                filters:
+                    branches:
+                        only:
+                            - develop
     bi_weekly_production_delivery:
         jobs:
             - prepare_build
@@ -514,7 +547,7 @@ workflows:
                     - await_production_approval
         triggers:
             - schedule:
-                cron: 0 5 1,15 * *
+                cron: 0 3 1,15 * *
                 filters:
                     branches:
                         only:
@@ -536,37 +569,4 @@ workflows:
                     - build_android
         unless: << pipeline.parameters.api_triggered >>
     version: 2
-    weekly_development_delivery:
-        jobs:
-            - prepare_build
-            - build_android:
-                build_for_delivery: true
-                requires:
-                    - prepare_build
-            - build_ios:
-                build_for_delivery: true
-                requires:
-                    - prepare_build
-            - e2e:
-                requires:
-                    - build_ios
-                    - build_android
-            - bump_version:
-                requires:
-                    - e2e
-            - deliver_android:
-                production_delivery: false
-                requires:
-                    - bump_version
-            - deliver_ios:
-                production_delivery: false
-                requires:
-                    - bump_version
-        triggers:
-            - schedule:
-                cron: 0 3 * * 4
-                filters:
-                    branches:
-                        only:
-                            - develop
 
