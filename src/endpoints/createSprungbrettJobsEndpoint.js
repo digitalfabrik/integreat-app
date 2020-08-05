@@ -7,6 +7,8 @@ import type { JsonSprungbrettJobType } from '../types'
 
 export const SPRUNGBRETT_JOBS_ENDPOINT_NAME = 'sprungbrettJobs'
 
+export const SPRUNGBRETT_OFFER = 'sprungbrett'
+
 export default (baseUrl: string): Endpoint<*, Array<SprungbrettJobModel>> =>
   new EndpointBuilder(SPRUNGBRETT_JOBS_ENDPOINT_NAME)
     .withParamsToUrlMapper(() => {
