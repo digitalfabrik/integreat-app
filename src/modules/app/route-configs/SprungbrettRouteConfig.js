@@ -8,6 +8,7 @@ import {
   createOffersEndpoint,
   createLanguagesEndpoint,
   createSprungbrettJobsEndpoint,
+  SPRUNGBRETT_OFFER,
   OfferModel,
   Payload,
   SprungbrettJobModel
@@ -21,7 +22,6 @@ type SprungbrettRouteParamsType = {|city: string, language: string|}
 type RequiredPayloadsType = {|sprungbrettJobs: Payload<Array<SprungbrettJobModel>>, offers: Payload<Array<OfferModel>>|}
 
 export const SPRUNGBRETT_ROUTE = 'SPRUNGBRETT'
-export const SPRUNGBRETT_OFFER = 'sprungbrett'
 
 const fetchOffers = async (dispatch, getState) => {
   const state: StateType = getState()
