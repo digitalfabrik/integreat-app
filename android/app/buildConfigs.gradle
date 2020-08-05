@@ -4,9 +4,9 @@ def createConfig () {
     def buildConfig = [:]
 
     if (!System.env["BUILD_CONFIG_NAME"]) {
-        println("*****************++++++++*********")
-        println("*** Missing BUILD_CONFIG_NAME ****")
-        println("************************++++++++**")
+        logger.warn("*******************************************************")
+        logger.warn("**** Missing BUILD_CONFIG_NAME, using empty config ****")
+        logger.warn("*******************************************************")
 
         // Set to empty array to prevent failing for other tasks
         project.ext.set("buildConfig", buildConfig)
@@ -15,17 +15,17 @@ def createConfig () {
     }
 
     def buildConfigName = System.env['BUILD_CONFIG_NAME']
-    println("Using build config $buildConfigName")
+    logger.quiet("Using build config $buildConfigName")
 
     def command = "yarn babel-node tools/create-xcconfigs config $buildConfigName --directory android"
     def proc = command.execute()
     proc.waitFor()
 
     if (proc.exitValue() != 0) {
-        println("Failed to create xcconfig file: $proc.err.text")
+        logger.error("Failed to create xcconfig file: $proc.err.text")
         return
     }
-    println("Created xcconfg file: $proc.in.text")
+    logger.debug("Created xcconfg file: $proc.in.text")
 
     def buildConfigProperties = new Properties()
     buildConfigProperties.load(new FileInputStream("$project.rootDir/buildConfig.tmp.xcconfig"))
@@ -35,8 +35,7 @@ def createConfig () {
     buildConfigProperties.each {
         buildConfig.put(it.getKey(), it.getValue())
     }
-
-    println("Build config: $buildConfig")
+    logger.info("Build config: $buildConfig")
     project.ext.set("buildConfig", buildConfig)
 }
 
