@@ -9,6 +9,7 @@ export type FeatureFlagsType = {|
 |}
 
 export type BuildConfigType = {|
+  applicationId: string,
   appName: string,
   cmsUrl: string,
   switchCmsUrl?: string,
