@@ -5,7 +5,7 @@ import type { BuildConfigType } from '../BuildConfigType'
 
 const IntegreatTestCmsBuildConfig: BuildConfigType = {
   ...IntegreatBuildConfig,
-  applicationId: 'app.integreat.test',
+
   appName: 'IntegreatTestCms',
   cmsUrl: 'https://cms-test.integreat-app.de',
   switchCmsUrl: 'https://cms.integreat-app.de',
@@ -16,7 +16,11 @@ const IntegreatTestCmsBuildConfig: BuildConfigType = {
     introSlides: true
   },
   android: {
+    applicationId: 'app.integreat.test',
     googleServices: false
+  },
+  ios: {
+    bundleIdentifier: 'app.integreat.test'
   }
 }
 

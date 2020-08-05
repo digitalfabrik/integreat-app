@@ -4,7 +4,6 @@ import { lightTheme, darkTheme } from '../../themes/integreat'
 import type { BuildConfigType } from '../BuildConfigType'
 
 const IntegreatBuildConfig: BuildConfigType = {
-  applicationId: 'tuerantuer.app.integreat',
   appName: 'Integreat',
   lightTheme,
   darkTheme,
@@ -17,7 +16,11 @@ const IntegreatBuildConfig: BuildConfigType = {
     introSlides: true
   },
   android: {
+    applicationId: 'tuerantuer.app.integreat',
     googleServices: true
+  },
+  ios: {
+    bundleIdentifier: 'de.integreat-app'
   }
 }
 
