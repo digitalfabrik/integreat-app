@@ -47,7 +47,6 @@ if (Boolean.parseBoolean(project.buildConfig.get('BUILD_CONFIG_ANDROID_GOOGLE_SE
 
 android {
     defaultConfig {
-        // TODO Add application id to build configs and throw if not found
         applicationId project.buildConfig.getOrDefault("BUILD_CONFIG_ANDROID_APPLICATION_ID", "app.integreat.unknown")
         project.buildConfig.each { k, v ->
             def escaped = v.replaceAll("%","\\\\u0025")
