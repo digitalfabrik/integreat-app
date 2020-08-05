@@ -12,6 +12,7 @@ const StyledToolbarItem = styled(CleanAnchor)`
   color: ${props => props.theme.colors.textColor};
   background-color: ${props => props.theme.colors.backgroundColor};
   text-align: center;
+
   @media ${props => props.theme.dimensions.smallViewport} {
     line-height: 1.15;
   }
