@@ -133,7 +133,6 @@ exports[`LocationLayout should show GeneralHeader and GeneralFooter if city is n
       viewportSmall={true}
     />
   }
-  viewportSmall={true}
 >
   <MockNode />
 </Layout>
@@ -272,7 +271,6 @@ exports[`LocationLayout should show LocationHeader and LocationFooter if city is
       viewportSmall={true}
     />
   }
-  viewportSmall={true}
 >
   <MockNode />
 </Layout>
