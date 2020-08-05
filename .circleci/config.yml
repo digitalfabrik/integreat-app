@@ -23,7 +23,7 @@ commands:
                       echo "The CircleCI config is up to date."
                       exit 0;
                     else
-                      echo "The CircleCI config is not up to date. Rebuild it from .circleci/config"
+                      echo "The CircleCI config is not up to date. You can update it by running `yarn run circleci:update-config`."
                       exit 1;
                     fi
                 name: CircleCI config up to date
@@ -108,7 +108,7 @@ jobs:
                 condition: << parameters.build_for_delivery >>
                 steps:
                     - run:
-                        command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat
+                        command: ./gradlew clean && bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat
                         name: '[FL] integreat build'
                         working_directory: android
                     - run:
@@ -118,7 +118,7 @@ jobs:
                         command: mv android/app/build/generated/sourcemaps/react/release/index.android.bundle.map android/output/integreat.android.bundle.map
                         name: Rename sourcemap
                     - run:
-                        command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:malte
+                        command: ./gradlew clean && bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:malte
                         name: '[FL] malte build'
                         working_directory: android
                     - run:
@@ -128,7 +128,7 @@ jobs:
                         command: mv android/app/build/generated/sourcemaps/react/release/index.android.bundle.map android/output/malte.android.bundle.map
                         name: Rename sourcemap
             - run:
-                command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat-e2e
+                command: ./gradlew clean && bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat-e2e
                 name: '[FL] integreat-e2e build'
                 working_directory: android
             - run:
