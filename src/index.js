@@ -58,8 +58,12 @@ export {DEFAULT_FEEDBACK_LANGUAGE} from './endpoints/createFeedbackEndpoint'
 export {default as createLanguagesEndpoint, LANGUAGES_ENDPOINT_NAME} from './endpoints/createLanguagesEndpoint'
 export {default as createTunewsLanguagesEndpoint, TUNEWS_LANGUAGES_ENDPOINT_NAME} from './endpoints/createTunewsLanguagesEndpoint'
 export {default as createPOIsEndpoint, POIS_ENDPOINT_NAME} from './endpoints/createPOIsEndpoint'
+
 export {default as createSprungbrettJobsEndpoint, SPRUNGBRETT_JOBS_ENDPOINT_NAME} from './endpoints/createSprungbrettJobsEndpoint'
+export {SPRUNGBRETT_OFFER} from './endpoints/createSprungbrettJobsEndpoint'
+
 export {default as createWohnenEndpoint, WOHNEN_ENDPOINT_NAME} from './endpoints/createWohnenEndpoint'
+export {WOHNEN_OFFER} from './endpoints/createWohnenEndpoint'
 
 export {default as CategoriesMapModel} from './models/CategoriesMapModel'
 export {default as CategoryModel} from './models/CategoryModel'

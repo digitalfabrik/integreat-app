@@ -10,6 +10,8 @@ import Endpoint from '../Endpoint'
 
 export const WOHNEN_ENDPOINT_NAME = 'wohnen'
 
+export const WOHNEN_OFFER = 'wohnen'
+
 type ParamsType = { city: ?string }
 
 export default (baseUrl: string): Endpoint<ParamsType, Array<WohnenOfferModel>> =>
