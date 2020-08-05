@@ -15,6 +15,9 @@ const IntegreatBuildConfig: BuildConfigType = {
     pois: false,
     newsStream: false,
     introSlides: true
+  },
+  android: {
+    googleServices: true
   }
 }
 

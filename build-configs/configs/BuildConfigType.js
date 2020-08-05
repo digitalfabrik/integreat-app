@@ -18,5 +18,8 @@ export type BuildConfigType = {|
   lightTheme: ThemeType,
   darkTheme: ThemeType,
   development?: boolean,
-  e2e?: boolean
+  e2e?: boolean,
+  android: {|
+    googleServices: boolean
+  |}
 |}

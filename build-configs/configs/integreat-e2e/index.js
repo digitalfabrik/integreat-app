@@ -13,6 +13,9 @@ const IntegreatE2eBuildConfig: BuildConfigType = {
     pois: true,
     newsStream: true,
     introSlides: false
+  },
+  android: {
+    googleServices: false
   }
 }
 
