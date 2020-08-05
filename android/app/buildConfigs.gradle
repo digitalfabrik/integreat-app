@@ -41,7 +41,7 @@ def createConfig () {
 
 createConfig()
 
-if (project.buildConfig.get('BUILD_CONFIG_ANDROID_GOOGLE_SERVICES')) {
+if (Boolean.parseBoolean(project.buildConfig.get('BUILD_CONFIG_ANDROID_GOOGLE_SERVICES', "false"))) {
     apply plugin: 'com.google.gms.google-services'
 }
 
