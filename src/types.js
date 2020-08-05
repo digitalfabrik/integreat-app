@@ -168,7 +168,9 @@ export type OfferType = {
   createdDate: string
 }
 
-export type JsonLanguageType = { code: string, native_name: string }
+export type LanguageDirectionType = 'ltr' | 'rtl'
+
+export type JsonLanguageType = { code: string, native_name: string, dir: LanguageDirectionType }
 
 export type JsonTunewsLanguageType = { code: string, name: string }
 
