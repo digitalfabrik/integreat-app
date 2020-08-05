@@ -49,6 +49,8 @@ To use a build config in XCode, select the corresponding xcscheme and hit run or
 Before running the app, make sure to start the packager with the right build config as specified [above](#runtime-javascript)
 as the packager started by XCode per default does not select a build config.
 
+Not doing this will lead to [this error](troubleshooting.md#no-build_config_name-supplied).
+
 ## Technical Information
 
 The concept and technical implementation of build configs is inspired by the library [react-native-config](https://github.com/luggit/react-native-config).
