@@ -1,0 +1,58 @@
+// See https://github.com/luggit/react-native-config/blob/master/android/dotenv.gradle for reference
+
+def createConfig () {
+    def buildConfig = [:]
+
+    if (!System.env["BUILD_CONFIG_NAME"]) {
+        println("*****************++++++++*********")
+        println("*** Missing BUILD_CONFIG_NAME ****")
+        println("************************++++++++**")
+
+        // Set to empty array to prevent failing for other tasks
+        project.ext.set("buildConfig", buildConfig)
+
+        return
+    }
+
+    def buildConfigName = System.env['BUILD_CONFIG_NAME']
+    println("Using build config $buildConfigName")
+
+    def command = "yarn babel-node tools/create-xcconfigs config $buildConfigName --directory android"
+    def proc = command.execute()
+    proc.waitFor()
+
+    if (proc.exitValue() != 0) {
+        println("Failed to create xcconfig file: $proc.err.text")
+        return
+    }
+    println("Created xcconfg file: $proc.in.text")
+
+    def buildConfigProperties = new Properties()
+    def buildConfigInputStream = new FileInputStream("$project.rootDir/buildConfig.tmp.xcconfig")
+    buildConfigProperties.load(buildConfigInputStream)
+
+    // Java properties use the same syntax as xcconfig files
+    // https://docs.oracle.com/javase/7/docs/api/java/util/Properties.html
+    buildConfigProperties.each {
+        buildConfig.put(it.getKey(), it.getValue())
+    }
+
+    buildConfigInputStream.close()
+
+    println("Build config: $buildConfig")
+    project.ext.set("buildConfig", buildConfig)
+}
+
+createConfig()
+
+android {
+    defaultConfig {
+        // TODO Add application id to build configs and throw if not found
+        applicationId project.buildConfig.getOrDefault("BUILD_CONFIG_APPLICTION_ID", "tuerantuer.app.integreat")
+        project.buildConfig.each { k, v ->
+            def escaped = v.replaceAll("%","\\\\u0025")
+            // Make build config values available as string resource, e.g. for use in AndroidManifest
+            resValue "string", k, "\"$escaped\""
+        }
+    }
+}

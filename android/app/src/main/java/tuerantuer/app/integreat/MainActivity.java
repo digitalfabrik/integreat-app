@@ -60,6 +60,7 @@ public class MainActivity extends ReactActivity {
     /**
      * Returns the name of the main component registered from JavaScript.
      * This is used to schedule rendering of the component.
+     * It is used in integreat-react-native-app/src/index.js.
      */
     @Override
     protected String getMainComponentName() {
