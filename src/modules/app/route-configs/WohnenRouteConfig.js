@@ -11,6 +11,7 @@ import {
   createOffersEndpoint,
   createLanguagesEndpoint,
   createWohnenEndpoint,
+  WOHNEN_OFFER,
   OfferModel,
   Payload,
   WohnenOfferModel
@@ -22,7 +23,6 @@ type RouteParamsType = {| city: string, language: string, offerHash?: string |}
 type RequiredPayloadsType = {| wohnenOffers: Payload<Array<WohnenOfferModel>>, offers: Payload<Array<OfferModel>> |}
 
 export const WOHNEN_ROUTE = 'WOHNEN'
-export const WOHNEN_OFFER = 'wohnen'
 
 export const hash = (offer: WohnenOfferModel) =>
   new Hashids().encode(offer.email.length, offer.createdDate.seconds())
