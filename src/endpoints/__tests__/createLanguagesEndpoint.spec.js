@@ -10,11 +10,18 @@ describe('languages', () => {
   const languagesJson = [
     {
       code: 'en',
-      native_name: 'English'
+      native_name: 'English',
+      dir: 'ltr'
     },
     {
       code: 'de',
-      native_name: 'Deutsch'
+      native_name: 'Deutsch',
+      dir: 'ltr'
+    },
+    {
+      code: 'ar',
+      native_name: '\u0627\u0644\u0639\u0631\u0628\u064a\u0629',
+      dir: 'rtl'
     }
   ]
 
@@ -33,8 +40,9 @@ describe('languages', () => {
   it('should map fetched data to models', () => {
     const languageModels = languages.mapResponse(languagesJson, params)
     expect(languageModels).toEqual([
-      new LanguageModel('de', 'Deutsch'),
-      new LanguageModel('en', 'English')
+      new LanguageModel('ar', '\u0627\u0644\u0639\u0631\u0628\u064a\u0629', 'rtl'),
+      new LanguageModel('de', 'Deutsch', 'ltr'),
+      new LanguageModel('en', 'English', 'ltr')
     ])
   })
 })
