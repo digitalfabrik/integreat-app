@@ -42,6 +42,80 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:164298278764:android:898c93a47f456b646fd549",
+        "android_client_info": {
+          "package_name": "de.malteapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "164298278764-hhup7orh5rvg0oumhbabqvp5giudaste.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvc08_Cqww8z2Dh-EXtwHW98HXBk8T7V4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "164298278764-hhup7orh5rvg0oumhbabqvp5giudaste.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "164298278764-pemn49q7v283m0tqml3q8q0ltr5h8pni.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "de.integreat-app",
+                "app_store_id": "1072353915"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:164298278764:android:3fc1f67f3883df306fd549",
+        "android_client_info": {
+          "package_name": "tuerantuer.app.integreat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "164298278764-hhup7orh5rvg0oumhbabqvp5giudaste.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvc08_Cqww8z2Dh-EXtwHW98HXBk8T7V4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "164298278764-hhup7orh5rvg0oumhbabqvp5giudaste.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "164298278764-pemn49q7v283m0tqml3q8q0ltr5h8pni.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "de.integreat-app",
+                "app_store_id": "1072353915"
+              }
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"
