@@ -81,6 +81,7 @@ project.ext.react = [
 
 apply from: "../../node_modules/react-native/react.gradle"
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
+apply from: "buildConfigs.gradle"
 
 
 /**
@@ -128,7 +129,6 @@ android {
     }
 
     defaultConfig {
-        applicationId "tuerantuer.app.integreat"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         if (project.hasProperty('VERSION_CODE')) {
