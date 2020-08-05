@@ -28,13 +28,16 @@ def createConfig () {
     println("Created xcconfg file: $proc.in.text")
 
     def buildConfigProperties = new Properties()
-    buildConfigProperties.load(new FileInputStream("$project.rootDir/buildConfig.tmp.xcconfig"))
+    def buildConfigInputStream = new FileInputStream("$project.rootDir/buildConfig.tmp.xcconfig")
+    buildConfigProperties.load(buildConfigInputStream)
 
     // Java properties use the same syntax as xcconfig files
     // https://docs.oracle.com/javase/7/docs/api/java/util/Properties.html
     buildConfigProperties.each {
         buildConfig.put(it.getKey(), it.getValue())
     }
+
+    buildConfigInputStream.close()
 
     println("Build config: $buildConfig")
     project.ext.set("buildConfig", buildConfig)
