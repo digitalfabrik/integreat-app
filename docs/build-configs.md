@@ -19,7 +19,7 @@ The concept of build configs is used to build different versions of the app. A b
 ## Using a Build Config
 
 Build configs are used in two different places: In the javascript code during runtime and in gradle and XCode during the build process.
-Therefore, the build config has to be defined when running the bundler AND when building the app.
+Therefore, the build config has to be defined when compiling the javascript bundle AND when building the native container.
 
 ### Runtime (Javascript)
 
@@ -30,7 +30,7 @@ yarn start:<build config name>
 
 For the standard development build config `integreat-test-cms` there is also the shortcut `yarn start`.
 
-To access the values of the build config use [this method](../src/modules/app/constants/buildConfig.js).
+To access the values of the build config import [buildConfig.js](../src/modules/app/constants/buildConfig.js).
 
 ### Gradle (Android Build)
 
@@ -65,7 +65,7 @@ If the env is not set or not a valid name, an error is thrown.
 
 To access the values of the build config use [this method](../src/modules/app/constants/buildConfig.js).
 
-### Builds
+### Native Containers (Gradle and XCode)
 
 To make the build config available to XCode and Gradle, [xcconfig files](https://nshipster.com/xcconfig/) (simple `<key> = <value>` syntax) are used as this is not possible with .js files.
 Also, XCode has built in support for xcconfig files (and uses them). [Java properties](https://docs.oracle.com/javase/tutorial/essential/environment/properties.html)
