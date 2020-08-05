@@ -4,6 +4,7 @@ import { lightTheme, darkTheme } from '../../themes/malte'
 import type { BuildConfigType } from '../BuildConfigType'
 
 const MalteBuildConfig: BuildConfigType = {
+  applicationId: 'de.malteapp',
   appName: 'Malte',
   lightTheme,
   darkTheme,
