@@ -3,6 +3,8 @@
 import type { Node } from 'react'
 import React from 'react'
 import styled from 'styled-components'
+import { withTranslation } from 'react-i18next'
+import type { TFunction } from 'react-i18next'
 
 const ToolbarContainer = styled.div`
   display: flex;
@@ -11,7 +13,7 @@ const ToolbarContainer = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 15px 0;
-  
+
   & > * {
     opacity: 0.7;
     font-size: 1.5rem;
@@ -24,22 +26,33 @@ const ToolbarContainer = styled.div`
 
   @media ${props => props.theme.dimensions.smallViewport} {
     width: 100%;
-    flex-direction: row;
+    flex-flow: row wrap;
     justify-content: center;
   }
 `
 
+const Headline = styled.h5`
+  width: 100vw;
+  margin: 0;
+  text-align: center;
+  font-size: 90%;
+`
+
 type PropsType = {|
   className?: string,
-  children?: Node
+  children?: Node,
+  viewportSmall: boolean,
+  t: TFunction
 |}
 
 class Toolbar extends React.PureComponent<PropsType> {
   render () {
-    return <ToolbarContainer className={this.props.className}>
+    const { viewportSmall, t } = this.props
+    return <ToolbarContainer className={this.props.className} viewportSmall={viewportSmall}>
+      {viewportSmall && <Headline>{t('isThisSiteUseful')}</Headline>}
       {this.props.children}
     </ToolbarContainer>
   }
 }
 
-export default Toolbar
+export default withTranslation('feedback')(Toolbar)

@@ -86,14 +86,16 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
   closeFeedbackModal = () => this.setState({ feedbackModalRating: null })
 
   renderToolbar = (): React.Node => {
-    const { location, categories } = this.props
+    const { viewportSmall, location, categories } = this.props
     const type = location.type
 
     if (type === CATEGORIES_ROUTE) {
-      return <CategoriesToolbar categories={categories} location={location}
-                                openFeedbackModal={this.openFeedbackModal} />
+      return <CategoriesToolbar categories={categories}
+                                location={location}
+                                openFeedbackModal={this.openFeedbackModal}
+                                viewportSmall={viewportSmall} />
     } else if ([OFFERS_ROUTE, EVENTS_ROUTE, LOCAL_NEWS_ROUTE, TUNEWS_ROUTE, DISCLAIMER_ROUTE, WOHNEN_ROUTE, SPRUNGBRETT_ROUTE].includes(type)) {
-      return <LocationToolbar openFeedbackModal={this.openFeedbackModal} />
+      return <LocationToolbar openFeedbackModal={this.openFeedbackModal} viewportSmall={viewportSmall} />
     } else {
       return null
     }
