@@ -1,11 +1,8 @@
 #!/usr/bin/env node
 
 const authenticate = require('./github-authentication')
+const { GITKEEP_FILE, UNRELEASED_DIR, RELEASE_NOTES_DIR } = require('./constants')
 const { program } = require('commander')
-
-const RELEASE_NOTES_DIR = 'release-notes'
-const UNRELEASED_DIR = 'unreleased'
-const GITKEEP_FILE = '.gitkeep'
 
 program
   .option('-d, --debug', 'enable extreme logging')

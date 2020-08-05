@@ -1,0 +1,69 @@
+#!/usr/bin/env node
+
+const fs = require('fs')
+const { GITKEEP_FILE, UNRELEASED_DIR, RELEASE_NOTES_DIR } = require('./constants')
+const { program } = require('commander')
+const yaml = require('js-yaml')
+
+program
+  .option('-d, --debug', 'enable extreme logging')
+  .option('--with-issue-key', 'include the issue key in the output')
+  .option('--platform <platform>', 'the release notes of which platform should be parsed')
+  .requiredOption('--language <language>', 'the language of the release notes to parse', 'en')
+
+const reduceNotes = ({ notes, language, withIssueKey }) => {
+  return notes.map(note => withIssueKey ? `${note.issue_key}: ${note[language]}` : note[language])
+}
+
+const parseReleaseNotes = ({ language, platform, withIssueKey }) => {
+  if (platform && platform !== 'ios' && platform !== 'android') {
+    throw new Error('Platform must either be omitted or have the value \'android\' or \'ios\'!')
+  }
+
+  const unreleasedReleaseNotesDir = `${RELEASE_NOTES_DIR}/${UNRELEASED_DIR}`
+  const fileNames = fs.readdirSync(unreleasedReleaseNotesDir)
+
+  const notes = fileNames
+    .filter(fileName => fileName !== GITKEEP_FILE)
+    .map(fileName => yaml.safeLoad(fs.readFileSync(`${unreleasedReleaseNotesDir}/${fileName}`)))
+
+  // If no platform is specified, we want to have information about which note is for which platform
+  if (!platform) {
+    return {
+      common: reduceNotes({ notes: notes.filter(note => note.platforms.length > 1), language, withIssueKey }),
+      android: reduceNotes({
+        notes: notes.filter(note => note.platforms.length === 1 && note.platforms.includes('android')),
+        language,
+        withIssueKey
+      }),
+      ios: reduceNotes({
+        notes: notes.filter(note => note.platforms.length === 1 && note.platforms.includes('ios')),
+        language,
+        withIssueKey
+      })
+    }
+  }
+
+  return reduceNotes({
+    notes: notes.filter(note => !platform || note.platforms.includes(platform)),
+    language,
+    withIssueKey
+  })
+}
+
+program
+  .command('parse')
+  .description('parse the release notes')
+  .action(() => {
+    try {
+      const notes = parseReleaseNotes({ ...program })
+
+      // Log stringified version to enable bash piping
+      console.log(JSON.stringify(notes))
+    } catch (e) {
+      console.error(e)
+      process.exit(1)
+    }
+  })
+
+program.parse(process.argv)
