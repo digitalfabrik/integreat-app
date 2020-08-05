@@ -5,7 +5,6 @@ import type { BuildConfigType } from '../BuildConfigType'
 
 const IntegreatE2eBuildConfig: BuildConfigType = {
   ...IntegreatTestCmsBuildConfig,
-  applicationId: 'app.integreat.e2e',
   appName: 'IntegreatE2E',
   e2e: true,
   development: false,
@@ -15,7 +14,11 @@ const IntegreatE2eBuildConfig: BuildConfigType = {
     introSlides: false
   },
   android: {
+    applicationId: 'app.integreat.e2e',
     googleServices: false
+  },
+  ios: {
+    bundleIdentifier: 'app.integreat.e2e'
   }
 }
 

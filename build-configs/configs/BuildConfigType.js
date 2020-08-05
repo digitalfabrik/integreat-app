@@ -9,7 +9,6 @@ export type FeatureFlagsType = {|
 |}
 
 export type BuildConfigType = {|
-  applicationId: string,
   appName: string,
   cmsUrl: string,
   switchCmsUrl?: string,
@@ -20,6 +19,10 @@ export type BuildConfigType = {|
   development?: boolean,
   e2e?: boolean,
   android: {|
+    applicationId: string,
     googleServices: boolean
+  |},
+  ios: {|
+    bundleIdentifier: string
   |}
 |}

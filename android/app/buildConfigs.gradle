@@ -48,7 +48,7 @@ if (project.buildConfig.get('BUILD_CONFIG_ANDROID_GOOGLE_SERVICES')) {
 android {
     defaultConfig {
         // TODO Add application id to build configs and throw if not found
-        applicationId project.buildConfig.getOrDefault("BUILD_CONFIG_APPLICATION_ID", "app.integreat.unknown")
+        applicationId project.buildConfig.getOrDefault("BUILD_CONFIG_ANDROID_APPLICATION_ID", "app.integreat.unknown")
         project.buildConfig.each { k, v ->
             def escaped = v.replaceAll("%","\\\\u0025")
             // Make build config values available as string resource, e.g. for use in AndroidManifest
