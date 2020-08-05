@@ -129,8 +129,7 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
                    footer={<LocationFooter onClick={this.handleFooterClicked} city={city} language={language} />}
                    toolbar={this.renderToolbar()}
                    modal={type !== SEARCH_ROUTE && this.renderFeedbackModal()}
-                   darkMode={darkMode}
-                   viewportSmall={viewportSmall}>
+                   darkMode={darkMode}>
       {children}
     </Layout>
   }
