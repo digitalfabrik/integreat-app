@@ -26,7 +26,7 @@ def createConfig() {
 
     logger.quiet("Using build config $buildConfigName")
 
-    def command = "yarn --silent babel-node tools/dump-build-config dump $buildConfigName --directory android"
+    def command = "yarn --silent babel-node tools/build-config to-json $buildConfigName"
     def proc = command.execute()
     proc.waitFor()
 
