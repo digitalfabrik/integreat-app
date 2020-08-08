@@ -6,9 +6,6 @@ const fs = require('fs')
 const flat = require('flat')
 const decamelize = require('decamelize')
 
-program
-  .requiredOption('--directory <directory>', 'the directory to put the created xcconfig file in')
-
 const createXcconfigs = async (buildConfigName, directory) => {
   const buildConfig = loadBuildConfig(buildConfigName)
   const xcconfigOptions = flat(buildConfig, {
@@ -21,15 +18,23 @@ const createXcconfigs = async (buildConfigName, directory) => {
 }
 
 program
-  .command('config <build_config_name>')
+  .command('to-xcconfig <build_config_name>')
+  .requiredOption('--directory <directory>', 'the directory to put the created xcconfig file in')
   .description('create and write a new .xcconfig from the iosBuildOptions of the specified build config')
-  .action(async buildConfigName => {
+  .action(async (buildConfigName, cmdObj) => {
     try {
-      await createXcconfigs(buildConfigName, program.directory)
+      await createXcconfigs(buildConfigName, cmdObj.directory)
     } catch (e) {
       console.error(e)
       process.exit(1)
     }
+  })
+
+program.command('to-json <build_config_name>')
+  .description('outputs the specified build config as JSON')
+  .action(async buildConfigName => {
+    const buildConfig = loadBuildConfig(buildConfigName)
+    console.log(JSON.stringify(buildConfig))
   })
 
 program.parse(process.argv)
