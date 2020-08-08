@@ -16,10 +16,11 @@ const MalteBuildConfig: BuildConfigType = {
   },
   android: {
     applicationId: 'de.malteapp',
-    googleServices: true
+    googleServicesConfig: null
   },
   ios: {
-    bundleIdentifier: 'de.malteapp'
+    bundleIdentifier: 'de.malteapp',
+    googleServicesConfig: null
   }
 }
 
