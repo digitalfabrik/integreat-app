@@ -7,7 +7,6 @@ const flat = require('flat')
 const decamelize = require('decamelize')
 
 program
-  .option('-d, --debug', 'enable extreme logging')
   .requiredOption('--directory <directory>', 'the directory to put the created xcconfig file in')
 
 const createXcconfigs = async (buildConfigName, directory) => {
