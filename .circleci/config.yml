@@ -23,7 +23,7 @@ commands:
                       echo "The CircleCI config is up to date."
                       exit 0;
                     else
-                      echo "The CircleCI config is not up to date. Rebuild it from .circleci/config"
+                      echo "The CircleCI config is not up to date. You can update it by running `yarn run circleci:update-config`."
                       exit 1;
                     fi
                 name: CircleCI config up to date
@@ -108,7 +108,7 @@ jobs:
                 condition: << parameters.build_for_delivery >>
                 steps:
                     - run:
-                        command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat
+                        command: ./gradlew clean && bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat
                         name: '[FL] integreat build'
                         working_directory: android
                     - run:
@@ -118,7 +118,7 @@ jobs:
                         command: mv android/app/build/generated/sourcemaps/react/release/index.android.bundle.map android/output/integreat.android.bundle.map
                         name: Rename sourcemap
                     - run:
-                        command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:malte
+                        command: ./gradlew clean && bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:malte
                         name: '[FL] malte build'
                         working_directory: android
                     - run:
@@ -128,7 +128,7 @@ jobs:
                         command: mv android/app/build/generated/sourcemaps/react/release/index.android.bundle.map android/output/malte.android.bundle.map
                         name: Rename sourcemap
             - run:
-                command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat-e2e
+                command: ./gradlew clean && bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat-e2e
                 name: '[FL] integreat-e2e build'
                 working_directory: android
             - run:
@@ -300,7 +300,7 @@ jobs:
                 paths:
                     - vendor/bundle
             - run:
-                command: bundle exec fastlane android browserstack_upload_live app_name:integrat
+                command: bundle exec fastlane android browserstack_upload_live app_name:integreat
                 name: '[FL] Browserstack Upload Live'
             - run:
                 command: bundle exec fastlane android playstore_upload app_name:integreat production_delivery:"<< parameters.production_delivery >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
@@ -482,6 +482,39 @@ workflows:
                 requires:
                     - bump_version
         when: << pipeline.parameters.api_triggered >>
+    bi_weekly_development_delivery:
+        jobs:
+            - prepare_build
+            - build_android:
+                build_for_delivery: true
+                requires:
+                    - prepare_build
+            - build_ios:
+                build_for_delivery: true
+                requires:
+                    - prepare_build
+            - e2e:
+                requires:
+                    - build_ios
+                    - build_android
+            - bump_version:
+                requires:
+                    - e2e
+            - deliver_android:
+                production_delivery: false
+                requires:
+                    - bump_version
+            - deliver_ios:
+                production_delivery: false
+                requires:
+                    - bump_version
+        triggers:
+            - schedule:
+                cron: 0 3 8,22 * *
+                filters:
+                    branches:
+                        only:
+                            - develop
     bi_weekly_production_delivery:
         jobs:
             - prepare_build
@@ -514,7 +547,7 @@ workflows:
                     - await_production_approval
         triggers:
             - schedule:
-                cron: 0 5 1,15 * *
+                cron: 0 3 1,15 * *
                 filters:
                     branches:
                         only:
@@ -536,37 +569,4 @@ workflows:
                     - build_android
         unless: << pipeline.parameters.api_triggered >>
     version: 2
-    weekly_development_delivery:
-        jobs:
-            - prepare_build
-            - build_android:
-                build_for_delivery: true
-                requires:
-                    - prepare_build
-            - build_ios:
-                build_for_delivery: true
-                requires:
-                    - prepare_build
-            - e2e:
-                requires:
-                    - build_ios
-                    - build_android
-            - bump_version:
-                requires:
-                    - e2e
-            - deliver_android:
-                production_delivery: false
-                requires:
-                    - bump_version
-            - deliver_ios:
-                production_delivery: false
-                requires:
-                    - bump_version
-        triggers:
-            - schedule:
-                cron: 0 3 * * 4
-                filters:
-                    branches:
-                        only:
-                            - develop
 
