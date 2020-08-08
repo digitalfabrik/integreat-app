@@ -1,61 +1,117 @@
-// See https://github.com/luggit/react-native-config/blob/master/android/dotenv.gradle for reference
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath group: 'org.apache.commons', name: 'commons-lang3', version: '3.11'
+    }
+}
 
-def createConfig () {
-    def buildConfig = [:]
+import groovy.json.JsonSlurper
+
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.stream.Collectors
+import org.apache.commons.lang3.StringUtils
+
+def createConfig() {
+    def buildConfigName
 
     if (!System.env["BUILD_CONFIG_NAME"]) {
-        logger.warn("*******************************************************")
-        logger.warn("**** Missing BUILD_CONFIG_NAME, using empty config ****")
-        logger.warn("*******************************************************")
-
-        // Set to empty array to prevent failing for other tasks
-        project.ext.set("buildConfig", buildConfig)
-
-        return
+        buildConfigName = 'integreat'
+    } else {
+        logger.warn("WARNING: No build config specified. Using the build config 'integreat'!")
+        buildConfigName = System.env['BUILD_CONFIG_NAME']
     }
 
-    def buildConfigName = System.env['BUILD_CONFIG_NAME']
     logger.quiet("Using build config $buildConfigName")
 
-    def command = "yarn babel-node tools/create-xcconfigs config $buildConfigName --directory android"
+    def command = "yarn --silent babel-node tools/dump-build-config dump $buildConfigName --directory android"
     def proc = command.execute()
     proc.waitFor()
 
     if (proc.exitValue() != 0) {
-        logger.error("Failed to create xcconfig file: $proc.err.text")
+        logger.error("Failed to get build config: $proc.err.text")
         return
     }
-    logger.debug("Created xcconfg file: $proc.in.text")
+    def json = proc.in.text
+    logger.quiet("Build Config as JSON: $json")
 
-    def buildConfigProperties = new Properties()
-    def buildConfigInputStream = new FileInputStream("$project.rootDir/buildConfig.tmp.xcconfig")
-    buildConfigProperties.load(buildConfigInputStream)
+    def buildConfig = new JsonSlurper().parseText(json)
 
-    // Java properties use the same syntax as xcconfig files
-    // https://docs.oracle.com/javase/7/docs/api/java/util/Properties.html
-    buildConfigProperties.each {
-        buildConfig.put(it.getKey(), it.getValue())
-    }
-
-    buildConfigInputStream.close()
-
-    logger.info("Build config: $buildConfig")
     project.ext.set("buildConfig", buildConfig)
 }
 
 createConfig()
 
-if (Boolean.parseBoolean(project.buildConfig.get('BUILD_CONFIG_ANDROID_GOOGLE_SERVICES', "false"))) {
-    apply plugin: 'com.google.gms.google-services'
+def joinKeys(List<String> keys) {
+    return String.join("_", keys.stream().map({ key -> decamelize(key) }).collect(Collectors.toList())).toUpperCase()
+}
+
+def decamelize(String key) {
+    return String.join("_", StringUtils.splitByCharacterTypeCamelCase(key))
+}
+
+def flattenBuildConfig(keys, buildConfig, resValue) {
+    if (buildConfig == null) {
+        resValue("string", joinKeys(keys), "null")
+    }
+
+    if (buildConfig instanceof String) {
+        resValue("string", joinKeys(keys), "\"${buildConfig.replaceAll("%", "\\\\u0025")}\"")
+    } else if (buildConfig instanceof Number) {
+        resValue("integer", joinKeys(keys), Integer.toString(buildConfig.intValue()))
+    } else if (buildConfig instanceof Boolean) {
+        resValue("bool", joinKeys(keys), buildConfig.toString())
+    } else if (buildConfig instanceof Date) {
+        TimeZone tz = TimeZone.getTimeZone("UTC");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'");
+        df.setTimeZone(tz);
+        resValue("string", joinKeys(keys), df.format(buildConfig))
+    } else if (buildConfig instanceof Map) {
+        buildConfig.each {
+            def newKeys = new ArrayList<String>(keys)
+            newKeys.add(it.key.toString())
+            flattenBuildConfig(newKeys, it.value, resValue)
+        }
+    } else if (buildConfig instanceof List) {
+        buildConfig.eachWithIndex { Object value, int i ->
+            def newKeys = new ArrayList(keys)
+            newKeys.add(Integer.toString(i))
+            flattenBuildConfig(newKeys, value, resValue)
+        }
+    }
+}
+
+def setupGoogleServices(buildConfig, resValue) {
+    def gs = buildConfig.android.googleServicesConfig
+
+    if (gs == null) {
+        logger.warn("WARNING: Google Services are not used in this build!")
+        return
+    }
+
+    resValue("string", "google_app_id", gs.google_app_id)
+    resValue("string", "gcm_defaultSenderId", gs.gcm_defaultSenderId)
+    resValue("string", "default_web_client_id", gs.default_web_client_id)
+    if (gs.ga_trackingId != null) {
+        resValue("string", "ga_trackingId", gs.ga_trackingId)
+    }
+    resValue("string", "firebase_database_url", gs.firebase_database_url)
+    resValue("string", "google_api_key", gs.google_api_key)
+    resValue("string", "google_crash_reporting_api_key", gs.google_crash_reporting_api_key)
+    resValue("string", "project_id", gs.project_id)
 }
 
 android {
     defaultConfig {
-        applicationId project.buildConfig.getOrDefault("BUILD_CONFIG_ANDROID_APPLICATION_ID", "app.integreat.unknown")
-        project.buildConfig.each { k, v ->
-            def escaped = v.replaceAll("%","\\\\u0025")
-            // Make build config values available as string resource, e.g. for use in AndroidManifest
-            resValue "string", k, "\"$escaped\""
-        }
+        applicationId project.buildConfig.android.applicationId ?: "tuerantuer.app.integreat"
+        flattenBuildConfig([], project.buildConfig, {
+            String type, String name, String value -> resValue(type, "BUILD_CONFIG_$name", value)
+        })
+
+        setupGoogleServices(project.buildConfig, {
+            String type, String name, String value -> resValue(type, name, value)
+        })
     }
 }
