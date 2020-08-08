@@ -10,7 +10,7 @@
             ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
             <ActionContent
                title = "Run Script"
-               scriptText = "cd ${PROJECT_DIR} &amp;&amp; yarn babel-node tools/create-xcconfigs config &quot;integreat-e2e&quot; --directory ios&#10;">
+               scriptText = "cd ${PROJECT_DIR} &amp;&amp; yarn babel-node tools/build-config to-xcconfig &quot;integreat-e2e&quot; --directory ios&#10;">
                <EnvironmentBuildable>
                   <BuildableReference
                      BuildableIdentifier = "primary"
