@@ -1,4 +1,5 @@
 require "yaml"
+require_relative "read_build_config"
 
 # The following parameters have to be passed:
 # version_code: The version code of the app
@@ -125,6 +126,12 @@ platform :android do
         apk: "./#{app_name}.apk",
         json_key_data: ENV["GOOGLE_SERVICE_ACCOUNT_JSON"]
     )
+  end
+
+  desc "Test"
+  lane :test do |options|
+    buildConfig = read_build_config('integreat')
+    puts(buildConfig['appName'])
   end
 end
 
