@@ -300,7 +300,7 @@ jobs:
                 paths:
                     - vendor/bundle
             - run:
-                command: bundle exec fastlane android browserstack_upload_live app_name:integrat
+                command: bundle exec fastlane android browserstack_upload_live app_name:integreat
                 name: '[FL] Browserstack Upload Live'
             - run:
                 command: bundle exec fastlane android playstore_upload app_name:integreat production_delivery:"<< parameters.production_delivery >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
