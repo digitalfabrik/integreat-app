@@ -121,7 +121,7 @@ describe('CategoryEntry', () => {
   describe('getMatchedContent', () => {
     const numWords = 3
 
-    describe('getContentBeforeMatchIdx', () => {
+    describe('getContentBeforeMatchIndex', () => {
       it('should return 3 words before the specified index an start of the word', () => {
         const content = 'This is some test content'
         const matchIdx = 15
@@ -132,7 +132,7 @@ describe('CategoryEntry', () => {
                            subCategories={[]} />
         ).dive()
         const categoryEntry = wrapper.instance()
-        expect(categoryEntry.getContentBeforeMatchIdx(content, matchIdx, false, numWords))
+        expect(categoryEntry.getContentBeforeMatchIndex(content, matchIdx, false, numWords))
           .toBe('This is some te')
       })
 
@@ -146,12 +146,12 @@ describe('CategoryEntry', () => {
                          subCategories={[]} />
         ).dive()
         const categoryEntry = wrapper.instance()
-        expect(categoryEntry.getContentBeforeMatchIdx(content, matchIdx, true, numWords))
+        expect(categoryEntry.getContentBeforeMatchIndex(content, matchIdx, true, numWords))
           .toBe('This is some ')
       })
     })
 
-    describe('getMatchedContentAfterMatchIdx', () => {
+    describe('getMatchedContentAfterMatchIndex', () => {
       it('should return 3 words before the specified index an start of the word', () => {
         const content = 'This is some test content'
         const matchIdx = 1
@@ -162,7 +162,7 @@ describe('CategoryEntry', () => {
                          subCategories={[]} />
         ).dive()
         const categoryEntry = wrapper.instance()
-        expect(categoryEntry.getContentAfterMatchIdx(content, matchIdx, numWords))
+        expect(categoryEntry.getContentAfterMatchIndex(content, matchIdx, numWords))
           .toBe('his is some test')
       })
 
@@ -176,7 +176,7 @@ describe('CategoryEntry', () => {
                          subCategories={[]} />
         ).dive()
         const categoryEntry = wrapper.instance()
-        expect(categoryEntry.getContentAfterMatchIdx(content, matchIdx, numWords))
+        expect(categoryEntry.getContentAfterMatchIndex(content, matchIdx, numWords))
           .toBe('This is some test')
       })
     })
