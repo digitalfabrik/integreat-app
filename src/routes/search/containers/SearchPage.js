@@ -13,7 +13,7 @@ import type { StateType } from '../../../modules/app/StateType'
 import SearchFeedback from '../components/SearchFeedback'
 import type { LocationState } from 'redux-first-router'
 import normalizeSearchString from '../../../modules/common/utils/normalizeSearchString'
-import { fromString as htmlToText } from 'html-to-text'
+import { Parser } from 'htmlparser2'
 
 type CategoryEntryType = {| model: CategoryModel, contentWithoutHtml?: string, subCategories: Array<CategoryModel> |}
 
@@ -44,19 +44,20 @@ export class SearchPage extends React.Component<PropsType, LocalStateType> {
       .sort((category1, category2) => category1.title.localeCompare(category2.title))
 
     // find all categories whose contents but not titles include the filter text and sort them lexicographically
+    let contentWithoutHtml = []
+    const parser = new Parser({ ontext (text: string) { contentWithoutHtml.push(text) } })
     const categoriesWithContent = categories.toArray()
       .filter(category => !normalizeSearchString(category.title).includes(filterText))
-      .map((category: CategoryModel): CategoryEntryType => ({
-        model: category,
-        contentWithoutHtml: htmlToText(category.content, {
-          ignoreHref: true,
-          ignoreImage: true,
-          wordwrap: false,
-          singleLineParagraph: true,
-          unorderedListItemPrefix: ' '
-        }),
-        subCategories: []
-      })).filter(categoryListItem =>
+      .map((category: CategoryModel): CategoryEntryType => {
+        contentWithoutHtml = []
+        parser.write(category.content)
+        parser.end()
+        return {
+          model: category,
+          contentWithoutHtml: contentWithoutHtml.join(' '),
+          subCategories: []
+        }
+      }).filter(categoryListItem =>
         categoryListItem.contentWithoutHtml &&
         normalizeSearchString(categoryListItem.contentWithoutHtml).includes(filterText))
       .sort((category1, category2) => category1.model.title.localeCompare(category2.model.title))
