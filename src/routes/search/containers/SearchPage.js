@@ -57,9 +57,9 @@ export class SearchPage extends React.Component<PropsType, LocalStateType> {
           contentWithoutHtml: contentWithoutHtml.join(' '),
           subCategories: []
         }
-      }).filter(categoryListItem =>
-        categoryListItem.contentWithoutHtml &&
-        normalizeSearchString(categoryListItem.contentWithoutHtml).includes(filterText))
+      }).filter(categoryEntry =>
+        categoryEntry.contentWithoutHtml &&
+        normalizeSearchString(categoryEntry.contentWithoutHtml).includes(filterText))
       .sort((category1, category2) => category1.model.title.localeCompare(category2.model.title))
 
     // return all categories from above and remove the root category

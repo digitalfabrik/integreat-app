@@ -100,7 +100,7 @@ class CategoryEntry extends React.PureComponent<PropsType> {
     return content.split(/\s+/).filter(Boolean)
   }
 
-  getContentBeforeMatchIdx (content: string, matchIdx: number, startOfWord: boolean, numWords: number): string {
+  getContentBeforeMatchIndex (content: string, matchIdx: number, startOfWord: boolean, numWords: number): string {
     const wordsBeforeMatch = this.getWords(content.slice(0, matchIdx))
     const additionalWordBefore = startOfWord ? 0 : 1
     const limitedMatchBefore = wordsBeforeMatch
@@ -109,7 +109,7 @@ class CategoryEntry extends React.PureComponent<PropsType> {
     return limitedMatchBefore + (startOfWord ? ' ' : '')
   }
 
-  getContentAfterMatchIdx (content: string, matchIdx: number, numWords: number): string {
+  getContentAfterMatchIndex (content: string, matchIdx: number, numWords: number): string {
     const wordsAfterMatch = this.getWords(content.slice(matchIdx))
     return wordsAfterMatch
       .slice(0, numWords + 1)
@@ -129,12 +129,12 @@ class CategoryEntry extends React.PureComponent<PropsType> {
     }
 
     const queryMatchesStartOfWord = !contentWithoutHtml.charAt(matchIdx - 1).trim()
-    const contentBefore = this.getContentBeforeMatchIdx(
+    const contentBefore = this.getContentBeforeMatchIndex(
       contentWithoutHtml,
       matchIdx,
       queryMatchesStartOfWord,
       numWordsSurrounding)
-    const contentAfter = this.getContentAfterMatchIdx(contentWithoutHtml, matchIdx, numWordsSurrounding)
+    const contentAfter = this.getContentAfterMatchIndex(contentWithoutHtml, matchIdx, numWordsSurrounding)
     const textToHighlight = contentBefore + contentAfter
 
     return <ContentMatchItem aria-label={textToHighlight}
