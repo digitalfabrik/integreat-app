@@ -8,6 +8,7 @@ import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { TFunction } from 'react-i18next'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
+import buildConfig from '../../../modules/app/constants/buildConfig'
 
 const Input = styled(TextInput)`
   margin-bottom: 15px;
@@ -76,7 +77,7 @@ class NothingFoundFeedbackBox extends React.Component<PropsType, StateType> {
     } else { // sendingStatus === 'successful'
       return <>
         <TitleText theme={theme}>{t('feedback:feedbackSent')}</TitleText>
-        <DescriptionText theme={theme}>{t('feedback:thanksMessage')}</DescriptionText>
+        <DescriptionText theme={theme}>{t('feedback:thanksMessage', { appName: buildConfig().appName })}</DescriptionText>
       </>
     }
   }

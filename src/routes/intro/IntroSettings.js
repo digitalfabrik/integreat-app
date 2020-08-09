@@ -7,6 +7,7 @@ import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
 import openPrivacyPolicy from '../settings/openPrivacyPolicy'
 import { View } from 'react-native'
+import buildConfig from '../../modules/app/constants/buildConfig'
 
 const Padding: StyledComponent<{}, ThemeType, *> = styled.View`
   flex: 1;
@@ -57,10 +58,10 @@ class IntroSettings extends React.Component<PropsType> {
     const { theme, t } = this.props
     return <Padding>
       <View>
-        <MainText theme={theme}>{t('inquiryIntro', { accept: t('accept') })}</MainText>
+        <MainText theme={theme}>{t('inquiryIntro', { accept: t('accept'), appName: buildConfig().appName })}</MainText>
         {this.renderItem(t('settings:pushNewsTitle'), t('pushNewsCondition'))}
         {this.renderItem(t('settings:proposeCitiesTitle'), t('proposeCitiesCondition'))}
-        {this.renderItem(t('settings:sentryTitle'), t('sentryCondition'))}
+        {this.renderItem(t('settings:sentryTitle'), t('sentryCondition', { appName: buildConfig().appName }))}
       </View>
       <View>
         <Link onPress={this.showPrivacyPolicy}>{t('privacyPolicy')}</Link>
