@@ -28,6 +28,7 @@ electron .
 To run tests locally do: `E2E_CONFIG=local_android yarn test:e2e`
 
 ### Running tests on browserstack
+
 You can find your browserstack `user` and `key` here: https://app-automate.browserstack.com/
 
 #### Uploading the app
