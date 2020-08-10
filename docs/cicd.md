@@ -2,7 +2,7 @@
 
 ## Content
 
-* [Deliver a new release by triggering the ci](#triggering-a-delivery-using-the-ci)
+* [Deliver a new release by triggering the CI](#triggering-a-delivery-using-the-ci)
 * [Workflows](#workflows)
 * [Fastlane](#fastlane)
 * [Determining the next version](#determining-the-next-version)

@@ -47,7 +47,7 @@ To build `integreat` and `malte` in **production** mode, use the commands `yarn 
 
 To use a build config in XCode, select the corresponding xcscheme and hit run or archive as specified in the [manual builds doc](manual-builds.md#ios).
 Before running the app, make sure to start the packager with the right build config as specified [above](#runtime-javascript)
-as the packager started by XCode per default does not select a build config.
+as the packager started by XCode does not select a build config per default.
 
 Not doing this will lead to [this error](troubleshooting.md#no-build_config_name-supplied).
 
@@ -57,7 +57,7 @@ The concept and technical implementation of build configs is inspired by the lib
 
 Each build config is a set of javascript files (possibly including common files) that can be found in the [corresponding directory](../build-configs/configs).
 The javascript and gradle build config utilities are reading the environment variable `BUILD_CONFIG_NAME` to select the right build config,
-whereas for XCode xccschemes are used as we don't have a bash command to build and install the app there.
+whereas for XCode xcschemes are used as we don't have a bash command to build and install the app there.
 
 ### Javascript
 
