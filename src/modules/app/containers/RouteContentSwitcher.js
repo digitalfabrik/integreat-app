@@ -3,14 +3,12 @@
 import * as React from 'react'
 import type { LocationState } from 'redux-first-router'
 import type { AllPayloadsType } from '../route-configs/RouteConfig'
-import { Payload } from '@integreat-app/integreat-api-client'
+import { Payload, SPRUNGBRETT_OFFER, WOHNEN_OFFER } from '@integreat-app/integreat-api-client'
 import { find, reduce } from 'lodash'
 import LoadingSpinner from '../../common/components/LoadingSpinner'
 import FailureSwitcher from '../../common/components/FailureSwitcher'
 import { getRouteConfig } from '../route-configs'
 import { getRouteContent } from '../routeContents'
-import { SPRUNGBRETT_OFFER } from '../route-configs/SprungbrettRouteConfig'
-import { WOHNEN_OFFER } from '../route-configs/WohnenRouteConfig'
 import ContentNotFoundError from '../../common/errors/ContentNotFoundError'
 
 type PropsType = {|
