@@ -13,13 +13,18 @@ program
   .requiredOption('--branch <branch>', 'the current branch')
   .option('--release-candidate', 'whether the release is a development release which is not delivered to production')
 
-const commitAndTag = async (versionName, versionCode, {
+const commitAndTag = async (versionName, versionCodeString, {
   deliverinoPrivateKey, owner, repo, branch, releaseCandidate
 }) => {
   const appOctokit = await authenticate({ deliverinoPrivateKey, owner, repo })
   const versionFileContent = await appOctokit.repos.getContent({ owner, repo, path: VERSION_FILE, ref: branch })
 
-  const contentBase64 = Buffer.from(JSON.stringify({ versionName, versionCode: parseInt(versionCode) }))
+  const versionCode = parseInt(versionCodeString)
+  if (isNaN(versionCode)) {
+    throw new Error(`Failed to parse version code string: ${versionCodeString}`)
+  }
+
+  const contentBase64 = Buffer.from(JSON.stringify({ versionName, versionCode }))
     .toString('base64')
 
   const message = versionCode
