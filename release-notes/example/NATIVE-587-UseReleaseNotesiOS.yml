@@ -1,0 +1,6 @@
+issue_key: NATIVE-587
+show_in_stores: true
+platforms:
+  - ios
+en: Release Notes are now published to the iOS store.
+de: Release Notes werden nun in den iOS Store hochgeladen.

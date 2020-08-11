@@ -1,0 +1,6 @@
+issue_key: NATIVE-587
+show_in_stores: true
+platforms:
+  - android
+en: Release Notes are now published to the Android store.
+de: Release Notes werden nun in den Android Store hochgeladen.
