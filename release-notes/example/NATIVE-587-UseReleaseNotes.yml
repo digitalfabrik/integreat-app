@@ -1,0 +1,7 @@
+issue_key: NATIVE-587
+show_in_stores: false
+platforms:
+  - ios
+  - android
+en: Release Notes are now published to the stores but don't tell anybody.
+de: Release Notes werden nun in die Stores hochgeladen aber psssssssssst.
