@@ -9,6 +9,7 @@ import Highlighter from 'react-highlight-words'
 import normalizeSearchString from '../../../modules/common/utils/normalizeSearchString'
 import Link from 'redux-first-router-link'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
+import ContentMatcher from './ContentMatcher'
 
 const NUM_WORDS_SURROUNDING_MATCH = 10
 
@@ -85,6 +86,8 @@ type PropsType = {|
  * Displays a single CategoryEntry
  */
 class CategoryEntry extends React.PureComponent<PropsType> {
+  contentMatcher = new ContentMatcher()
+
   renderSubCategories (): Array<React.Node> {
     const { subCategories } = this.props
     return subCategories.map(subCategory =>
@@ -96,46 +99,12 @@ class CategoryEntry extends React.PureComponent<PropsType> {
     )
   }
 
-  getWords (content: string): Array<string> {
-    return content.split(/\s+/).filter(Boolean)
-  }
-
-  getContentBeforeMatchIndex (content: string, matchIdx: number, startOfWord: boolean, numWords: number): string {
-    const wordsBeforeMatch = this.getWords(content.slice(0, matchIdx))
-    const additionalWordBefore = startOfWord ? 0 : 1
-    const limitedMatchBefore = wordsBeforeMatch
-      .slice(-numWords - additionalWordBefore, wordsBeforeMatch.length)
-      .join(' ')
-    return limitedMatchBefore + (startOfWord ? ' ' : '')
-  }
-
-  getContentAfterMatchIndex (content: string, matchIdx: number, numWords: number): string {
-    const wordsAfterMatch = this.getWords(content.slice(matchIdx))
-    return wordsAfterMatch
-      .slice(0, numWords + 1)
-      .join(' ')
-  }
-
   getMatchedContent (numWordsSurrounding: number): ContentMatchItem {
     const { query, theme, contentWithoutHtml } = this.props
-    if (!query || !query.length || !contentWithoutHtml) {
+    const textToHighlight = this.contentMatcher.getMatchedContent(query, contentWithoutHtml, numWordsSurrounding)
+    if (textToHighlight == null) {
       return null
     }
-    const normalizedFilter = normalizeSearchString(query)
-
-    const matchIdx = contentWithoutHtml.toLowerCase().indexOf(normalizedFilter)
-    if (matchIdx === -1) {
-      return null
-    }
-
-    const queryMatchesStartOfWord = !contentWithoutHtml.charAt(matchIdx - 1).trim()
-    const contentBefore = this.getContentBeforeMatchIndex(
-      contentWithoutHtml,
-      matchIdx,
-      queryMatchesStartOfWord,
-      numWordsSurrounding)
-    const contentAfter = this.getContentAfterMatchIndex(contentWithoutHtml, matchIdx, numWordsSurrounding)
-    const textToHighlight = contentBefore + contentAfter
 
     return <ContentMatchItem aria-label={textToHighlight}
                              searchWords={[query]}
