@@ -35,8 +35,9 @@ target 'Integreat' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
-  pod 'Permission-LocationWhenInUse', :path => '../node_modules/react-native-permissions/ios/LocationWhenInUse.podspec'
-  pod 'Permission-Notifications', :path => '../node_modules/react-native-permissions/ios/Notifications.podspec'
+  permissions_path = '../node_modules/react-native-permissions/ios'
+  pod 'Permission-LocationWhenInUse', :path => "#{permissions_path}/LocationWhenInUse.podspec"
+  pod 'Permission-Notifications', :path => "#{permissions_path}/Notifications.podspec"
 
   use_native_modules!
 end
