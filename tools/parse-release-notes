@@ -5,6 +5,9 @@ const { GITKEEP_FILE, UNRELEASED_DIR, RELEASE_NOTES_DIR } = require('./constants
 const { program } = require('commander')
 const yaml = require('js-yaml')
 
+const defaultReleaseNotesEn = 'We’ve been working hard behind the scenes to make sure everything is working as it should. If you notice anything that does not work, let us know!\n'
+const defaultReleaseNotesDe = 'Wir haben hinter den Kulissen hart gearbeitet, um sicherzustellen, dass alles so funktioniert, wie es sollte. Wenn Sie etwas bemerken, das nicht funktioniert, lassen Sie es uns wissen!\n'
+
 program
   .option('-d, --debug', 'enable extreme logging')
   .option('--ios', 'include release notes for ios')
@@ -15,7 +18,7 @@ program
   .requiredOption('--language <language>', 'the language of the release notes to parse', 'en')
 
 const reduceNotes = ({ notes, language, development }) => {
-  return notes.map(note => development ? `${note.issue_key}: ${note[language]}` : note[language])
+  return notes.map(note => development ? `* ${note.issue_key}: ${note[language]}` : `* ${note[language]}`)
 }
 
 const parseReleaseNotes = ({ language, source, android, ios, development }) => {
@@ -58,11 +61,11 @@ const parseReleaseNotes = ({ language, source, android, ios, development }) => {
     .filter(note => note.show_in_stores)
     .filter(note => (android && ios) || note.platforms.includes(android ? 'android' : 'ios'))
 
-  return reduceNotes({
-    notes,
-    language,
-    development
-  }).join('\n')
+  if (notes.length > 0) {
+    return reduceNotes({ notes, language, development }).join('\n')
+  }
+
+  return language === 'de' ? defaultReleaseNotesDe : defaultReleaseNotesEn
 }
 
 program
