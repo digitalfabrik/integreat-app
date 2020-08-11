@@ -34,7 +34,7 @@ const parseReleaseNotes = ({ language, source, android, ios, development }) => {
     .filter(fileName => fileName !== GITKEEP_FILE)
     .map(fileName => yaml.safeLoad(fs.readFileSync(`${source}/${fileName}`)))
 
-  // If the development flag is set, return the notes as object with platforms as key
+  // If the development flag is set, return nicely formatted release notes categorized by relevant platforms.
   if (development) {
     const notesObject = {
       common: reduceNotes({
