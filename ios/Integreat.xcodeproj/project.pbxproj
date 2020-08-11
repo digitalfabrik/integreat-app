@@ -539,7 +539,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "$(BUILD_CONFIG_BUNDLE_IDENTIFIER)";
+				PRODUCT_BUNDLE_IDENTIFIER = "de.integreat-app";
 				PRODUCT_NAME = "$(BUILD_CONFIG_APP_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development de.integreat-app";
 				SWIFT_OBJC_BRIDGING_HEADER = "Integreat/Integreat-Bridging-Header.h";
