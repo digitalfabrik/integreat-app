@@ -83,7 +83,7 @@ program
       }
 
       // Log to enable bash piping
-      console.log(notes)
+      console.log(JSON.stringify(notes))
     } catch (e) {
       console.error(e)
       process.exit(1)
