@@ -9,35 +9,39 @@ program
   .option('-d, --debug', 'enable extreme logging')
   .option('--with-issue-key', 'include the issue key in the output')
   .option('--platform <platform>', 'the release notes of which platform should be parsed')
+  .option('--all', 'also include release notes that should not be shown in the stores')
+  .requiredOption('--directory <directory>', 'the directory of the release notes to parse', `${RELEASE_NOTES_DIR}/${UNRELEASED_DIR}`)
   .requiredOption('--language <language>', 'the language of the release notes to parse', 'en')
 
 const reduceNotes = ({ notes, language, withIssueKey }) => {
   return notes.map(note => withIssueKey ? `${note.issue_key}: ${note[language]}` : note[language])
 }
 
-const parseReleaseNotes = ({ language, platform, withIssueKey }) => {
+const parseReleaseNotes = ({ language, platform, withIssueKey, all, directory }) => {
   if (platform && platform !== 'ios' && platform !== 'android') {
     throw new Error('Platform must either be omitted or have the value \'android\' or \'ios\'!')
   }
 
-  const unreleasedReleaseNotesDir = `${RELEASE_NOTES_DIR}/${UNRELEASED_DIR}`
-  const fileNames = fs.readdirSync(unreleasedReleaseNotesDir)
+  const fileNames = fs.readdirSync(directory)
 
   const notes = fileNames
     .filter(fileName => fileName !== GITKEEP_FILE)
-    .map(fileName => yaml.safeLoad(fs.readFileSync(`${unreleasedReleaseNotesDir}/${fileName}`)))
+    .map(fileName => yaml.safeLoad(fs.readFileSync(`${directory}/${fileName}`)))
+
+  // Only include notes with set flag 'show_in_stores' if flag 'all' has not been set
+  const notesToShow = all ? notes : notes.filter(note => note.show_in_stores)
 
   // If no platform is specified, we want to have information about which note is for which platform
   if (!platform) {
     return {
-      common: reduceNotes({ notes: notes.filter(note => note.platforms.length > 1), language, withIssueKey }),
+      common: reduceNotes({ notes: notesToShow.filter(note => note.platforms.length > 1), language, withIssueKey }),
       android: reduceNotes({
-        notes: notes.filter(note => note.platforms.length === 1 && note.platforms.includes('android')),
+        notes: notesToShow.filter(note => note.platforms.length === 1 && note.platforms.includes('android')),
         language,
         withIssueKey
       }),
       ios: reduceNotes({
-        notes: notes.filter(note => note.platforms.length === 1 && note.platforms.includes('ios')),
+        notes: notesToShow.filter(note => note.platforms.length === 1 && note.platforms.includes('ios')),
         language,
         withIssueKey
       })
@@ -45,7 +49,7 @@ const parseReleaseNotes = ({ language, platform, withIssueKey }) => {
   }
 
   return reduceNotes({
-    notes: notes.filter(note => !platform || note.platforms.includes(platform)),
+    notes: notesToShow.filter(note => !platform || note.platforms.includes(platform)),
     language,
     withIssueKey
   })
