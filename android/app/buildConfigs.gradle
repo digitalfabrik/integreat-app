@@ -84,7 +84,7 @@ def flattenBuildConfig(keys, buildConfig, resValue) {
 }
 
 def setupGoogleServices(buildConfig, resValue) {
-    def gs = buildConfig.android.googleServicesConfig
+    def gs = buildConfig.android.googleServices
 
     if (gs == null) {
         logger.warn("WARNING: Google Services are not used in this build!")

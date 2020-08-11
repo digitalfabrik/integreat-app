@@ -17,11 +17,11 @@ const IntegreatTestCmsBuildConfig: BuildConfigType = {
   },
   android: {
     applicationId: 'app.integreat.test',
-    googleServicesConfig: null
+    googleServices: null
   },
   ios: {
     bundleIdentifier: 'app.integreat.test',
-    googleServicesConfig: null
+    googleServices: null
   }
 }
 

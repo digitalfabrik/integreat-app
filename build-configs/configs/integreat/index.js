@@ -17,7 +17,7 @@ const IntegreatBuildConfig: BuildConfigType = {
   },
   android: {
     applicationId: 'tuerantuer.app.integreat',
-    googleServicesConfig: {
+    googleServices: {
       google_app_id: '1:164298278764:android:3fc1f67f3883df306fd549',
       gcm_defaultSenderId: '164298278764',
       default_web_client_id: '164298278764-hhup7orh5rvg0oumhbabqvp5giudaste.apps.googleusercontent.com',
@@ -30,7 +30,7 @@ const IntegreatBuildConfig: BuildConfigType = {
   },
   ios: {
     bundleIdentifier: 'de.integreat-app',
-    googleServicesConfig: {
+    googleServices: {
       CLIENT_ID: '164298278764-pemn49q7v283m0tqml3q8q0ltr5h8pni.apps.googleusercontent.com',
       REVERSED_CLIENT_ID: 'com.googleusercontent.apps.164298278764-pemn49q7v283m0tqml3q8q0ltr5h8pni',
       API_KEY: 'AIzaSyBSnGYrUWfIAPcEsFya1OYvTMbjvfUyOEU',

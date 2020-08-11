@@ -49,10 +49,10 @@ export type BuildConfigType = {|
   android: {|
     applicationId: string,
     // According to https://developers.google.com/android/guides/google-services-plugin#processing_the_json_file
-    googleServicesConfig: ?AndroidGoogleServicesConfig
+    googleServices: ?AndroidGoogleServicesConfig
   |},
   ios: {|
     bundleIdentifier: string,
-    googleServicesConfig: ?AppleGoogleServicesConfig
+    googleServices: ?AppleGoogleServicesConfig
   |}
 |}
