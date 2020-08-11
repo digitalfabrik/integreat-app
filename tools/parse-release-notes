@@ -18,7 +18,9 @@ program
   .requiredOption('--language <language>', 'the language of the release notes to parse', 'en')
 
 const reduceNotes = ({ notes, language, development }) => {
-  return notes.map(note => development ? `* ${note.issue_key}: ${note[language]}` : `* ${note[language]}`)
+  return notes
+    .map(note => development ? `* ${note.issue_key}: ${note[language]}` : `* ${note[language]}`)
+    .join('\n')
 }
 
 const parseReleaseNotes = ({ language, source, android, ios, development }) => {
@@ -34,7 +36,7 @@ const parseReleaseNotes = ({ language, source, android, ios, development }) => {
 
   // If the development flag is set, return the notes as object with platforms as key
   if (development) {
-    return JSON.stringify({
+    const notesObject = {
       common: reduceNotes({
         notes: allNotes.filter(note => note.platforms.includes('android') && note.platforms.includes('ios')),
         language,
@@ -54,7 +56,8 @@ const parseReleaseNotes = ({ language, source, android, ios, development }) => {
           development
         })
         : undefined
-    })
+    }
+    return `Release Notes:\n${notesObject.common}\nAndroid:\n${notesObject.android}\niOS:\n${notesObject.ios}`
   }
 
   const notes = allNotes
@@ -62,7 +65,7 @@ const parseReleaseNotes = ({ language, source, android, ios, development }) => {
     .filter(note => (android && ios) || note.platforms.includes(android ? 'android' : 'ios'))
 
   if (notes.length > 0) {
-    return reduceNotes({ notes, language, development }).join('\n')
+    return reduceNotes({ notes, language, development })
   }
 
   return language === 'de' ? defaultReleaseNotesDe : defaultReleaseNotesEn
