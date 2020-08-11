@@ -10,23 +10,25 @@ program
   .option('--with-issue-key', 'include the issue key in the output')
   .option('--platform <platform>', 'the release notes of which platform should be parsed')
   .option('--all', 'also include release notes that should not be shown in the stores')
-  .requiredOption('--directory <directory>', 'the directory of the release notes to parse', `${RELEASE_NOTES_DIR}/${UNRELEASED_DIR}`)
+  .option('--destination <destination>', 'if specified the parsed notes are saved to the directory')
+  .option('--stringify', 'return stringified json')
+  .requiredOption('--source <source>', 'the directory of the release notes to parse', `${RELEASE_NOTES_DIR}/${UNRELEASED_DIR}`)
   .requiredOption('--language <language>', 'the language of the release notes to parse', 'en')
 
 const reduceNotes = ({ notes, language, withIssueKey }) => {
   return notes.map(note => withIssueKey ? `${note.issue_key}: ${note[language]}` : note[language])
 }
 
-const parseReleaseNotes = ({ language, platform, withIssueKey, all, directory }) => {
+const parseReleaseNotes = ({ language, platform, withIssueKey, all, source }) => {
   if (platform && platform !== 'ios' && platform !== 'android') {
     throw new Error('Platform must either be omitted or have the value \'android\' or \'ios\'!')
   }
 
-  const fileNames = fs.readdirSync(directory)
+  const fileNames = fs.readdirSync(source)
 
   const notes = fileNames
     .filter(fileName => fileName !== GITKEEP_FILE)
-    .map(fileName => yaml.safeLoad(fs.readFileSync(`${directory}/${fileName}`)))
+    .map(fileName => yaml.safeLoad(fs.readFileSync(`${source}/${fileName}`)))
 
   // Only include notes with set flag 'show_in_stores' if flag 'all' has not been set
   const notesToShow = all ? notes : notes.filter(note => note.show_in_stores)
@@ -52,7 +54,7 @@ const parseReleaseNotes = ({ language, platform, withIssueKey, all, directory })
     notes: notesToShow.filter(note => !platform || note.platforms.includes(platform)),
     language,
     withIssueKey
-  })
+  }).join('\n')
 }
 
 program
@@ -60,10 +62,15 @@ program
   .description('parse the release notes')
   .action(() => {
     try {
-      const notes = parseReleaseNotes({ ...program })
+      const parsedNotes = parseReleaseNotes({ ...program })
+      const notes = program.stringify ? JSON.stringify(parsedNotes) : parsedNotes
+
+      if (program.destination) {
+        fs.writeFileSync(program.destination, notes)
+      }
 
       // Log stringified version to enable bash piping
-      console.log(JSON.stringify(notes))
+      console.log(notes)
     } catch (e) {
       console.error(e)
       process.exit(1)
