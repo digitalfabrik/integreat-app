@@ -65,7 +65,7 @@ const commitAndTag = async (versionName, versionCodeString, {
 
   const releaseNotesUrl = `https://github.com/${owner}/${repo}/tree/${branch}/release-notes/${versionName}`
   const releaseMessage = releaseCandidate
-    ? `Release Candidate ${releaseName}. This release is not delivered to production.`
+    ? `Development release ${releaseName}. This release is only delivered to development (Testflight and Beta channel).`
     : `Release ${releaseName}. Release notes can be found here: ${releaseNotesUrl}.`
 
   await appOctokit.repos.createRelease({
