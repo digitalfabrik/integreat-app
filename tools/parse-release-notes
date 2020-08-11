@@ -7,53 +7,61 @@ const yaml = require('js-yaml')
 
 program
   .option('-d, --debug', 'enable extreme logging')
-  .option('--with-issue-key', 'include the issue key in the output')
-  .option('--platform <platform>', 'the release notes of which platform should be parsed')
-  .option('--all', 'also include release notes that should not be shown in the stores')
+  .option('--ios', 'include release notes for ios')
+  .option('--android', 'include release notes for android')
+  .option('--development', 'whether to show extra information, e.g. issue keys, hidden notes and platforms')
   .option('--destination <destination>', 'if specified the parsed notes are saved to the directory')
-  .option('--stringify', 'return stringified json')
   .requiredOption('--source <source>', 'the directory of the release notes to parse', `${RELEASE_NOTES_DIR}/${UNRELEASED_DIR}`)
   .requiredOption('--language <language>', 'the language of the release notes to parse', 'en')
 
-const reduceNotes = ({ notes, language, withIssueKey }) => {
-  return notes.map(note => withIssueKey ? `${note.issue_key}: ${note[language]}` : note[language])
+const reduceNotes = ({ notes, language, development }) => {
+  return notes.map(note => development ? `${note.issue_key}: ${note[language]}` : note[language])
 }
 
-const parseReleaseNotes = ({ language, platform, withIssueKey, all, source }) => {
-  if (platform && platform !== 'ios' && platform !== 'android') {
-    throw new Error('Platform must either be omitted or have the value \'android\' or \'ios\'!')
+const parseReleaseNotes = ({ language, source, android, ios, development }) => {
+  if (!android && !ios) {
+    throw new Error('No platforms selected! Use --ios and/or --android flags.')
   }
 
   const fileNames = fs.readdirSync(source)
 
-  const notes = fileNames
+  const allNotes = fileNames
     .filter(fileName => fileName !== GITKEEP_FILE)
     .map(fileName => yaml.safeLoad(fs.readFileSync(`${source}/${fileName}`)))
 
-  // Only include notes with set flag 'show_in_stores' if flag 'all' has not been set
-  const notesToShow = all ? notes : notes.filter(note => note.show_in_stores)
-
-  // If no platform is specified, we want to have information about which note is for which platform
-  if (!platform) {
-    return {
-      common: reduceNotes({ notes: notesToShow.filter(note => note.platforms.length > 1), language, withIssueKey }),
-      android: reduceNotes({
-        notes: notesToShow.filter(note => note.platforms.length === 1 && note.platforms.includes('android')),
+  // If the development flag is set, return the notes as object with platforms as key
+  if (development) {
+    return JSON.stringify({
+      common: reduceNotes({
+        notes: allNotes.filter(note => note.platforms.includes('android') && note.platforms.includes('ios')),
         language,
-        withIssueKey
+        development
       }),
-      ios: reduceNotes({
-        notes: notesToShow.filter(note => note.platforms.length === 1 && note.platforms.includes('ios')),
-        language,
-        withIssueKey
-      })
-    }
+      android: android
+        ? reduceNotes({
+          notes: allNotes.filter(note => note.platforms.includes('android') && note.platforms.length === 1),
+          language,
+          development
+        })
+        : undefined,
+      ios: ios
+        ? reduceNotes({
+          notes: allNotes.filter(note => note.platforms.includes('ios') && note.platforms.length === 1),
+          language,
+          development
+        })
+        : undefined
+    })
   }
 
+  const notes = allNotes
+    .filter(note => note.show_in_stores)
+    .filter(note => (android && ios) || note.platforms.includes(android ? 'android' : 'ios'))
+
   return reduceNotes({
-    notes: notesToShow.filter(note => !platform || note.platforms.includes(platform)),
+    notes,
     language,
-    withIssueKey
+    development
   }).join('\n')
 }
 
@@ -62,14 +70,13 @@ program
   .description('parse the release notes')
   .action(() => {
     try {
-      const parsedNotes = parseReleaseNotes({ ...program })
-      const notes = program.stringify ? JSON.stringify(parsedNotes) : parsedNotes
+      const notes = parseReleaseNotes({ ...program })
 
       if (program.destination) {
         fs.writeFileSync(program.destination, notes)
       }
 
-      // Log stringified version to enable bash piping
+      // Log to enable bash piping
       console.log(notes)
     } catch (e) {
       console.error(e)
