@@ -15,11 +15,11 @@ const IntegreatE2eBuildConfig: BuildConfigType = {
   },
   android: {
     applicationId: 'app.integreat.e2e',
-    googleServicesConfig: null
+    googleServices: null
   },
   ios: {
     bundleIdentifier: 'app.integreat.e2e',
-    googleServicesConfig: null
+    googleServices: null
   }
 }
 
