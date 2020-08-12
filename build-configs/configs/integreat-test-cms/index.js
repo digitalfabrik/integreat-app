@@ -16,11 +16,11 @@ const IntegreatTestCmsBuildConfig: BuildConfigType = {
     introSlides: true
   },
   android: {
-    applicationId: 'app.integreat.test',
+    applicationId: 'tuerantuer.app.integreat',
     googleServices: null
   },
   ios: {
-    bundleIdentifier: 'app.integreat.test',
+    bundleIdentifier: 'de.integreat-app',
     googleServices: null
   }
 }

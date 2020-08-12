@@ -14,11 +14,11 @@ const IntegreatE2eBuildConfig: BuildConfigType = {
     introSlides: false
   },
   android: {
-    applicationId: 'app.integreat.e2e',
+    applicationId: 'tuerantuer.app.integreat',
     googleServices: null
   },
   ios: {
-    bundleIdentifier: 'app.integreat.e2e',
+    bundleIdentifier: 'de.integreat-app',
     googleServices: null
   }
 }
