@@ -17,33 +17,42 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  FIROptions *options = [[FIROptions alloc]
-                         initWithGoogleAppID:@BUILD_CONFIG_IOS_GOOGLE_SERVICES_GOOGLE_APP_ID
-                         GCMSenderID:@BUILD_CONFIG_IOS_GOOGLE_SERVICES_GCM_SENDER_ID
-                         ];
-
-  if (options) {
-    options.APIKey = @BUILD_CONFIG_IOS_GOOGLE_SERVICES_API_KEY;
-    options.bundleID = @BUILD_CONFIG_IOS_GOOGLE_SERVICES_BUNDLE_ID;
-    options.clientID = @BUILD_CONFIG_IOS_GOOGLE_SERVICES_CLIENT_ID;
-    // options.trackingID = ??
-    options.projectID = @BUILD_CONFIG_IOS_GOOGLE_SERVICES_PROJECT_ID;
-    options.androidClientID = @BUILD_CONFIG_IOS_GOOGLE_SERVICES_REVERSED_CLIENT_ID; // ?
-    options.databaseURL = @BUILD_CONFIG_IOS_GOOGLE_SERVICES_DATABASE_URL;
-    // options.deepLinkURLScheme = ??
-    options.storageBucket = @BUILD_CONFIG_IOS_GOOGLE_SERVICES_STORAGE_BUCKET;
-    // options.appGroupID = ??
-    
-    // Unused info from .plist
-    // ?? = BUILD_CONFIG_IOS_GOOGLE_SERVICES_PLIST_VERSION;
-    // ?? = BUILD_CONFIG_IOS_GOOGLE_SERVICES_IS_ADS_ENABLED;
-    // ?? = BUILD_CONFIG_IOS_GOOGLE_SERVICES_IS_ANALYTICS_ENABLED;
-    // ?? = BUILD_CONFIG_IOS_GOOGLE_SERVICES_IS_APPINVITE_ENABLED;
-    // ?? = BUILD_CONFIG_IOS_GOOGLE_SERVICES_IS_GCM_ENABLED;
-    // ?? = BUILD_CONFIG_IOS_GOOGLE_SERVICES_IS_SIGNIN_ENABLED;
-    
-    [FIRApp configureWithOptions:options];
+  if ([@BUILD_CONFIG_IOS_GOOGLE_SERVICES_GOOGLE_APP_ID length] > 0 &&
+      [@BUILD_CONFIG_IOS_GOOGLE_SERVICES_GCM_SENDER_ID length] > 0 &&
+      [@BUILD_CONFIG_IOS_GOOGLE_SERVICES_API_KEY length] > 0 &&
+      [@BUILD_CONFIG_IOS_GOOGLE_SERVICES_BUNDLE_ID length] > 0 &&
+      [@BUILD_CONFIG_IOS_GOOGLE_SERVICES_CLIENT_ID length] > 0 &&
+      [@BUILD_CONFIG_IOS_GOOGLE_SERVICES_PROJECT_ID length] > 0 &&
+      [@BUILD_CONFIG_IOS_GOOGLE_SERVICES_REVERSED_CLIENT_ID length] > 0 &&
+      [@BUILD_CONFIG_IOS_GOOGLE_SERVICES_DATABASE_URL length] > 0 &&
+      [@BUILD_CONFIG_IOS_GOOGLE_SERVICES_STORAGE_BUCKET length] > 0) {
+    FIROptions *options = [[FIROptions alloc]
+                           initWithGoogleAppID:@BUILD_CONFIG_IOS_GOOGLE_SERVICES_GOOGLE_APP_ID
+                           GCMSenderID:@BUILD_CONFIG_IOS_GOOGLE_SERVICES_GCM_SENDER_ID];
+    if (options) {
+      options.APIKey = @BUILD_CONFIG_IOS_GOOGLE_SERVICES_API_KEY;
+      options.bundleID = @BUILD_CONFIG_IOS_GOOGLE_SERVICES_BUNDLE_ID;
+      options.clientID = @BUILD_CONFIG_IOS_GOOGLE_SERVICES_CLIENT_ID;
+      // options.trackingID = ??
+      options.projectID = @BUILD_CONFIG_IOS_GOOGLE_SERVICES_PROJECT_ID;
+      options.androidClientID = @BUILD_CONFIG_IOS_GOOGLE_SERVICES_REVERSED_CLIENT_ID;
+      options.databaseURL = @BUILD_CONFIG_IOS_GOOGLE_SERVICES_DATABASE_URL;
+      // options.deepLinkURLScheme = ??
+      options.storageBucket = @BUILD_CONFIG_IOS_GOOGLE_SERVICES_STORAGE_BUCKET;
+      // options.appGroupID = ??
+      
+      // Unused info from GoogleService-Info.plist
+      // ?? = BUILD_CONFIG_IOS_GOOGLE_SERVICES_PLIST_VERSION;
+      // ?? = BUILD_CONFIG_IOS_GOOGLE_SERVICES_IS_ADS_ENABLED;
+      // ?? = BUILD_CONFIG_IOS_GOOGLE_SERVICES_IS_ANALYTICS_ENABLED;
+      // ?? = BUILD_CONFIG_IOS_GOOGLE_SERVICES_IS_APPINVITE_ENABLED;
+      // ?? = BUILD_CONFIG_IOS_GOOGLE_SERVICES_IS_GCM_ENABLED;
+      // ?? = BUILD_CONFIG_IOS_GOOGLE_SERVICES_IS_SIGNIN_ENABLED;
+      
+      [FIRApp configureWithOptions:options];
+    }
   }
+  
   
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
   RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
