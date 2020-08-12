@@ -95,7 +95,11 @@ type ContentPoiJsonType = {|
     town: ?string,
     postcode: ?string,
     latitude: ?string,
-    longitude: ?string
+    longitude: ?string,
+    country: ?string,
+    region: ?string,
+    state: ?string,
+    name: ?string
   |},
   lastUpdate: string,
   hash: string
@@ -374,7 +378,11 @@ class DatabaseConnector {
         town: poi.location.town,
         postcode: poi.location.postcode,
         latitude: poi.location.latitude,
-        longitude: poi.location.longitude
+        longitude: poi.location.longitude,
+        country: poi.location.country,
+        region: poi.location.region,
+        state: poi.location.state,
+        name: poi.location.name
       },
       lastUpdate: poi.lastUpdate.toISOString(),
       hash: poi.hash
@@ -404,10 +412,10 @@ class DatabaseConnector {
         availableLanguages,
         excerpt: jsonObject.excerpt,
         location: new LocationModel({
-          name: null, // todo: NATIVE-549
-          region: null, // todo: NATIVE-549
-          state: null, // todo: NATIVE-549
-          country: null, // todo: NATIVE-549
+          name: jsonLocation.name, // todo: NATIVE-549
+          region: jsonLocation.region, // todo: NATIVE-549
+          state: jsonLocation.state, // todo: NATIVE-549
+          country: jsonLocation.country, // todo: NATIVE-549
           address: jsonLocation.address,
           latitude: jsonLocation.latitude,
           longitude: jsonLocation.longitude,
