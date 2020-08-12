@@ -15,11 +15,11 @@ const MalteBuildConfig: BuildConfigType = {
     introSlides: true
   },
   android: {
-    applicationId: 'de.malteapp',
+    applicationId: 'tuerantuer.app.integreat',
     googleServices: null
   },
   ios: {
-    bundleIdentifier: 'de.malteapp',
+    bundleIdentifier: 'de.integreat-app',
     googleServices: null
   }
 }
