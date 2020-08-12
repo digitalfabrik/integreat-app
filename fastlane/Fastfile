@@ -88,7 +88,7 @@ platform :android do
     app_name = options[:app_name]
 
     generic_sentry_upload(
-        package_name: "tuerantuer.app.integreat", # FIXME
+        package_name: "tuerantuer.app.integreat", # FIXME: bundle id
         sourcemap_path: "./#{app_name}.android.bundle.map",
         version_name: version_name,
         version_code: version_code
@@ -115,7 +115,7 @@ platform :android do
     upload_to_play_store(
         version_code: version_code,
         version_name: version_name,
-        package_name: "tuerantuer.app.integreat", # FIXME
+        package_name: "tuerantuer.app.integreat", # FIXME: bundle id
         metadata_path: "./android/fastlane/metadata/android",
         track: track,
         skip_upload_changelogs: false,
@@ -190,7 +190,7 @@ platform :ios do
     app_name = options[:app_name]
 
     generic_sentry_upload(
-        package_name: "de.integreat-app", # FIXME
+        package_name: "de.integreat-app", # FIXME: bundle id
         sourcemap_path: "./#{app_name}.ios.bundle.map",
         version_code: version_code,
         version_name: version_name
