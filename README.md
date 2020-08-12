@@ -1,19 +1,22 @@
 # integreat-react-native-app
+
 ## Contents
+
 * [Contributing](#contributing)
 * [Getting Started](#getting-started)
-* [Conventions](docs/03-conventions.md)
-* [Technical Documentation](docs/04-technical-documentation.md)
-* [Manual builds](docs/06-manual-builds.md)
-* [Continuous Integration and Delivery](docs/08-cicd.md)
+* [Conventions](docs/conventions.md)
+* [Technical Documentation](docs/technical-documentation.md)
+* [Build configs](docs/build-configs.md)
+* [Manual builds](docs/manual-builds.md)
+* [Continuous Integration and Delivery](docs/cicd.md)
 * [Glossary](https://wiki.integreat-app.de/glossary)
 
 ## Contributing
+
 You can contribute by:
 * [Creating Pull requests](.github/CONTRIBUTING.md#pull-requests)
 * [Reporting bugs](#bug-reporting)
 
-**Testing with the live cms instance should be avoided. Instead, [please use the test cms](docs/04-technical-documentation.md#test-cms).**
 
 If you want to know more about Integreat or if you want to join us, contact [Max](mailto:ammann@integreat-app.de), 
 [Steffen](mailto:kleinle@integreat-app.de) or [our info mail](mailto:info@integreat-app.de) and visit our [website](https://integreat-app.de).
@@ -23,9 +26,10 @@ If you want to know more about Integreat or if you want to join us, contact [Max
 We suggest **[IntelliJ IDEA Ultimate](https://www.jetbrains.com/idea/)** as IDE for editing JavaScript code. JetBrains provides free licences for students.
 If you are using a different IDE, the steps might differ.
 
-*Note: For the setup of the project on Windows you may want to use Chocolatey and [follow this guide](docs/09-windows-setup.md).*
+*Note: For the setup of the project on Windows you may want to use Chocolatey and [follow this guide](docs/windows-setup.md).*
 
 ### Prerequisites
+
 * Rate our Integreat app in the [PlayStore](https://play.google.com/store/apps/details?id=tuerantuer.app.integreat)
 and the [Apple App Store](https://apps.apple.com/ae/app/integreat/id1072353915).
 * Install [nodejs](https://nodejs.org/). At least v10 is required, but we recommend the v12 LTS.
@@ -33,12 +37,13 @@ Using the latest version (v13) may lead to errors.
 * Install [yarn](https://yarnpkg.com/).
 
 #### Android
+
 * Install the Android SDK by using the [Android Support plugin](https://plugins.jetbrains.com/plugin/1792-android-support) in IntelliJ.
 * Install the latest stable SDK Platform and Android SDK Tools in the SDK Manager (Settings > Appearance & Behaviour > System Settings > Android SDK)
 * \[optional\]: If you want to develop using an emulator, also install the Android Emulator in the Android SDK settings
 
-
 #### iOS
+
 * Own a Mac or another Apple device.
 * Install [XCode](https://developer.apple.com/xcode/).
 
@@ -57,9 +62,10 @@ If using IntelliJ IDEA Ultimate you can import the project easily:
 
 #### Running the app
 
-Take a look at the docs for [iOS](docs/06-manual-builds.md#ios) and [Android](docs/06-manual-builds.md#android) to see how to run the app.
+Take a look at the docs for [iOS](docs/manual-builds.md#ios) and [Android](docs/manual-builds.md#android) to see how to run the app.
 
 #### Additional Configuration
+
 * Mark the *src* folder as *Source directory*.
 * Run > Edit Configurations > Defaults > Jest
    to set *Configuration file* to *jest.config.json*
@@ -74,11 +80,14 @@ Take a look at the docs for [iOS](docs/06-manual-builds.md#ios) and [Android](do
     * [Ruby](https://plugins.jetbrains.com/plugin/1293-ruby) (if working with Fastlane)
 
 ### Troubleshooting
-If you encounter any problems, have a look at our [troubleshooting section](docs/02-troubleshooting.md)
+
+If you encounter any problems, have a look at our [troubleshooting section](docs/troubleshooting.md).
 
 ### Debugging
-For more information on how to debug, have a look at our [debugging section](docs/01-debugging.md)
+
+For more information on how to debug, have a look at our [debugging section](docs/debugging.md).
 
 ## Bug reporting
+
 You can [view our issues](https://issues.integreat-app.de/projects/NATIVE) or
  [create new ones](https://issues.integreat-app.de/secure/CreateIssue!default.jspa) on our jira.

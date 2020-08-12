@@ -5,6 +5,7 @@ import { Linking } from 'react-native'
 import NativeConstants from '../../modules/native-constants/NativeConstants'
 import type { SettingsType } from '../../modules/settings/AppSettings'
 import openPrivacyPolicy from './openPrivacyPolicy'
+import buildConfig from '../../modules/app/constants/buildConfig'
 
 export type ChangeSettingFunctionType = SettingsType => $Shape<SettingsType>
 
@@ -40,14 +41,14 @@ export default ({ setSetting, t, language }: {
         },
         {
           title: t('sentryTitle'),
-          description: t('sentryDescription'),
+          description: t('sentryDescription', { appName: buildConfig().appName }),
           hasSwitch: true,
           getSettingValue: (settings: SettingsType) => settings.errorTracking,
           onPress: () => { setSetting(settings => ({ errorTracking: !settings.errorTracking })) }
         },
         {
           accessibilityRole: 'link',
-          title: t('about'),
+          title: t('about', { appName: buildConfig().appName }),
           onPress: () => {
             if (language === 'de') {
               Linking.openURL('https://integreat-app.de/about/')

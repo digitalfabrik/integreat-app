@@ -1,6 +1,8 @@
 # Continuous Integration and Delivery
+
 ## Content
-* [Deliver a new release](#triggering-a-delivery-using-the-ci)
+
+* [Deliver a new release by triggering the CI](#triggering-a-delivery-using-the-ci)
 * [Workflows](#workflows)
 * [Fastlane](#fastlane)
 * [Determining the next version](#determining-the-next-version)
@@ -21,20 +23,19 @@ If no branch is specified, develop is used as default.
 
 Several workflows exist for different purposes:
 * **commit**: Run for all commit of a PR to ensure good code quality and working code.
-* **bi_weekly_development_delivery**: Delivers 'integreat-test-cms' builds to development (Testflight and Beta channel)
+* **bi_weekly_development_delivery**: Delivers 'integreat' builds to development (Testflight and Beta channel)
 twice a month if no production build is delivered.
 * **bi_weekly_production_delivery**: Delivers 'integreat' builds to production.
-* **api_triggered_delivery**: [Manually triggerable](#triggering-a-delivery-using-the-ci) workflow which delivers either 'integreat-test-cms' builds to development
- or 'integreat' builds to production.
+* **api_triggered_delivery**: [Manually triggerable](#triggering-a-delivery-using-the-ci) workflow which delivers 'integreat' builds to development or production.
 
 See the table below for a more detailed overview:
 
-|Workflow|Checks|E2E tests|Delivery|integreat build|integreat-test-cms build|malte build|Version bump|
-|---|---|---|---|---|---|---|---|
-|commit|:heavy_check_mark:|:heavy_check_mark:|:x:|:x:|:heavy_check_mark:|:heavy_check_mark:|:x:|
-|bi_weekly_development_delivery|:heavy_check_mark:|:x:|Development|:x:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
-|bi_weekly_production_delivery|:heavy_check_mark:|:x:|Production|:heavy_check_mark:|:x:|:heavy_check_mark:|:heavy_check_mark:|
-|api_triggered_delivery|:heavy_check_mark:|:x:|Depends|Depends|Depends|:heavy_check_mark:|:heavy_check_mark:|
+|Workflow|Checks|E2E tests|Delivery|integreat build|malte build|Version bump|
+|---|---|---|---|---|---|---|
+|commit|:heavy_check_mark:|:heavy_check_mark:|:x:|:x:|:x:|:x:|
+|bi_weekly_development_delivery|:heavy_check_mark:|:heavy_check_mark:|Development|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
+|bi_weekly_production_delivery|:heavy_check_mark:|:heavy_check_mark:|Production|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
+|api_triggered_delivery|:heavy_check_mark:|:heavy_check_mark:|Depends|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
 
 Steps executed if *Checks* is checked :heavy_check_mark::
 * Linting
@@ -74,12 +75,12 @@ An overview about FL lanes is available in several documents:
 ## Apple Certificates and Android Keystore
 
 Fastlane is used to setup certificates and keystores. The detailed steps of the CI/CD pipeline are the same as those when manually building the app.
-Therefore, you can follow the documentation for Manual Builds to set up [certificates for iOS](06-manual-builds.md#certificates-setup) and [keystores for android](06-manual-builds.md#keystore-setup).
+Therefore, you can follow the documentation for Manual Builds to set up [certificates for iOS](docs/manual-builds.md#certificates-setup) and [keystores for android](docs/manual-builds.md#keystore-setup).
 
 ## Determining the Next Version
 
 The next version of the app must be determined programmatically. The tool [next-version](../tools/next-version) can be used.
-More information on the version naming schema used can be found [here](03-conventions.md#versioning).
+More information on the version naming schema used can be found [here](docs/conventions.md#versioning).
 
 ## Environment Variables and Dependencies
 
