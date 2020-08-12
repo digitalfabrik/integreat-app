@@ -33,15 +33,18 @@
       options.APIKey = @BUILD_CONFIG_IOS_GOOGLE_SERVICES_API_KEY;
       options.bundleID = @BUILD_CONFIG_IOS_GOOGLE_SERVICES_BUNDLE_ID;
       options.clientID = @BUILD_CONFIG_IOS_GOOGLE_SERVICES_CLIENT_ID;
-      // options.trackingID = ??
       options.projectID = @BUILD_CONFIG_IOS_GOOGLE_SERVICES_PROJECT_ID;
       options.androidClientID = @BUILD_CONFIG_IOS_GOOGLE_SERVICES_REVERSED_CLIENT_ID;
       options.databaseURL = @BUILD_CONFIG_IOS_GOOGLE_SERVICES_DATABASE_URL;
-      // options.deepLinkURLScheme = ??
       options.storageBucket = @BUILD_CONFIG_IOS_GOOGLE_SERVICES_STORAGE_BUCKET;
+      
+      // The following values are unset as they are probably not relevant for Messsaging:
+      // options.deepLinkURLScheme = ??
+      // options.trackingID = ??
       // options.appGroupID = ??
       
-      // Unused info from GoogleService-Info.plist
+      // Unused info from GoogleService-Info.plist:
+      // These exist in the .plist file but I was not able to add them to the FIROptions. They are probably not important.
       // ?? = BUILD_CONFIG_IOS_GOOGLE_SERVICES_PLIST_VERSION;
       // ?? = BUILD_CONFIG_IOS_GOOGLE_SERVICES_IS_ADS_ENABLED;
       // ?? = BUILD_CONFIG_IOS_GOOGLE_SERVICES_IS_ANALYTICS_ENABLED;
