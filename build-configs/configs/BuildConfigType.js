@@ -19,7 +19,7 @@ type AndroidGoogleServicesConfig = {|
   project_id: string
 |}
 
-type AppleGoogleServicesConfig = {
+type AppleGoogleServicesConfig = {|
   CLIENT_ID: string,
   REVERSED_CLIENT_ID: string,
   API_KEY: string,
@@ -35,7 +35,8 @@ type AppleGoogleServicesConfig = {
   IS_SIGNIN_ENABLED: boolean,
   GOOGLE_APP_ID: string,
   DATABASE_URL: string
-}
+|}
+
 export type BuildConfigType = {|
   appName: string,
   cmsUrl: string,
