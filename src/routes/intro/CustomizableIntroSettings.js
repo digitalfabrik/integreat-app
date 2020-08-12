@@ -5,6 +5,7 @@ import type { ThemeType } from '../../modules/theme/constants/theme'
 import type TFunction from 'react-i18next'
 import SettingItem from '../settings/components/SettingItem'
 import { Switch } from 'react-native'
+import buildConfig from '../../modules/app/constants/buildConfig'
 
 type PropsType = {|
   theme: ThemeType,
@@ -38,7 +39,7 @@ class CustomizableIntroSettings extends React.Component<PropsType> {
         <Switch thumbColor={themeColor} trackColor={{ true: themeColor }} value={proposeNearbyCities}
                 onValueChange={toggleProposeNearbyCities} />
       </SettingItem>
-      <SettingItem bigTitle title={t('settings:sentryTitle')} description={t('settings:sentryDescription')}
+      <SettingItem bigTitle title={t('settings:sentryTitle')} description={t('settings:sentryDescription', { appName: buildConfig().appName })}
                    onPress={toggleErrorTracking} theme={theme}>
         <Switch thumbColor={themeColor} trackColor={{ true: themeColor }} value={errorTracking}
                 onValueChange={toggleErrorTracking} />
