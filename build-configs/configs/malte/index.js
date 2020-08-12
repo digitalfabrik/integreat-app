@@ -28,7 +28,8 @@ const MalteBuildConfig: BuildConfigType = {
     }
   },
   ios: {
-    bundleIdentifier: 'de.integreat-app',
+    bundleIdentifier: 'de.malteapp',
+    provisioningProfileSpecifier: 'match Development de.malteapp',
     googleServices: {
       REVERSED_CLIENT_ID: 'com.googleusercontent.apps.146599424234-b6rfm4skhbsv4qvob3ieh34s2chjm54k',
       API_KEY: 'AIzaSyAWOaqdFwZ7-tbwiQ79dwMyzpmR_g1cBbI',
