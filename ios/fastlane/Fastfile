@@ -11,7 +11,7 @@ lane :certificates do
   )
 
   # https://docs.fastlane.tools/actions/match/
-  match(type: "appstore", app_identifier: 'de.integreat-app', username: ENV['FASTLANE_USER'], readonly: true)
+  match(type: "appstore", app_identifier: 'de.integreat-app', username: ENV['FASTLANE_USER'], readonly: true) # FIXME: bundle id
 end
 
 # The following parameters have to be passed:
@@ -33,7 +33,7 @@ lane :build do |options|
   ENV["BUILD_CONFIG_NAME"] = build_config_name
 
   # https://docs.fastlane.tools/actions/match/
-  match(type: "appstore", app_identifier: 'de.integreat-app', username: ENV['FASTLANE_USER'], readonly: true)
+  match(type: "appstore", app_identifier: 'de.integreat-app', username: ENV['FASTLANE_USER'], readonly: true) # FIXME: bundle id
 
   increment_build_number(
       build_number: version_code
