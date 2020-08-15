@@ -68,7 +68,7 @@ type PropsType = {|
   centered: boolean
 |}
 
-const HIJACK = new RegExp(buildConfig.internalLinksHijackPattern)
+const HIJACK = new RegExp(buildConfig().internalLinksHijackPattern)
 
 class RemoteContent extends React.Component<PropsType> {
   static defaultProps = {

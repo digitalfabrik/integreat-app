@@ -70,9 +70,9 @@ export class LocationHeader extends React.Component<PropsType> {
     const { city, language } = location.payload
     const currentRoute = location.type
 
-    const isNewsVisible = buildConfig.featureFlags.newsStream && (isLocalNewsEnabled || isTunewsEnabled)
+    const isNewsVisible = buildConfig().featureFlags.newsStream && (isLocalNewsEnabled || isTunewsEnabled)
     const isEventsVisible = isEventsEnabled
-    const isMapVisible = buildConfig.featureFlags.pois // todo: check for flag from cms
+    const isMapVisible = buildConfig().featureFlags.pois // todo: check for flag from cms
     const isOffersVisible = isOffersEnabled
 
     const showNavBar = isNewsVisible || isEventsVisible || isMapVisible || isOffersVisible
