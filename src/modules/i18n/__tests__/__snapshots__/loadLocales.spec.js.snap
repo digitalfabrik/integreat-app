@@ -1,0 +1,211 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`loadLocales should correctly merge and transform locales 1`] = `
+Object {
+  "ar": Object {
+    "app": Object {
+      "metaDescription": "تطبيق إنتجريت هو دليلك الرقمي لألمانيا. تجد فيه معلومات وفعاليات محلية ويقدم لك المشورة. دائمًا مُحدَّثة وبلغتك.",
+      "pageTitles": Object {
+        "notFound": "تعذر العثور على الصفحة",
+      },
+    },
+    "dashboard": Object {
+      "events": "الفعاليات",
+      "localInformation": "معلومات محلية",
+      "offers": "العروض",
+    },
+    "events": Object {
+      "currentlyNoEvents": "ليست هناك فعاليات متوفرة حاليًا.",
+      "date": "التاريخ",
+      "events": "الفعاليات",
+      "location": "الموقع",
+    },
+  },
+  "de": Object {
+    "app": Object {
+      "metaDescription": "Integreat ist Ihr digitaler Guide für Deutschland. Finden Sie lokale Informationen, Veranstaltungen und Beratung. Immer aktuell und in Ihrer Sprache.",
+      "pageTitles": Object {
+        "localNews": "Lokale Nachrichten",
+        "notFound": "Seite nicht gefunden",
+        "tunews": "tünews",
+      },
+    },
+    "dashboard": Object {
+      "events": "Veranstaltungen",
+      "localInformation": "Malte Informationen",
+      "news": "Malte Nachrichten",
+      "newsAlternative": "Neuigkeiten",
+      "offers": "Malte Angebote",
+    },
+    "events": Object {
+      "currentlyNoEvents": "Es gibt aktuell keine Malte Veranstaltungen.",
+      "date": "Datum",
+      "events": "Veranstaltungen",
+      "location": "Standort",
+    },
+  },
+  "en": Object {
+    "app": Object {
+      "metaDescription": "Integreat is your digital guide to life in Germany. Discover local information, events and advice. Always up to date and available in your own language.",
+      "pageTitles": Object {
+        "notFound": "Page not located",
+      },
+    },
+    "dashboard": Object {
+      "events": "Malte Events",
+      "localInformation": "Malte information",
+      "offers": "Malte Offers",
+    },
+    "events": Object {
+      "currentlyNoEvents": "No events are currently available.",
+      "date": "Date",
+      "events": "Events",
+      "location": "Location",
+    },
+  },
+  "es": Object {
+    "app": Object {
+      "metaDescription": "Integreat es su guía digital para Alemania. Encuentre información local, eventos y consejos. Siempre actualizados y en su idioma.",
+      "pageTitles": Object {
+        "notFound": "No se ha encontrado la página",
+      },
+    },
+    "events": Object {
+      "currentlyNoEvents": "Actualmente no hay actividades.",
+      "date": "Fecha",
+      "events": "Actividades",
+      "location": "Ubicación",
+    },
+  },
+  "fa": Object {
+    "app": Object {
+      "metaDescription": "Integreat راهنمای دیجیتالی شما در مورد آلمان است. اطلاعات، رویدادها و مشاوره محلی را بیابید. همیشه به روز و به زبان شما.",
+      "pageTitles": Object {
+        "notFound": "صفحه پیدا نشد",
+      },
+    },
+    "events": Object {
+      "currentlyNoEvents": "در حال حاضر هیچ رویدادی وجود ندارد.",
+      "date": "تاریخ",
+      "events": "رویدادها",
+      "location": "محل",
+    },
+  },
+  "fr": Object {
+    "events": Object {
+      "currentlyNoEvents": "Il n'y a actuellement aucun événement.",
+      "date": "Date",
+      "events": "Événements",
+      "location": "Lieu",
+    },
+    "offers": Object {
+      "offers": "Offres Malte",
+    },
+  },
+}
+`;
+
+exports[`loadLocales should correctly transform locales 1`] = `
+Object {
+  "ar": Object {
+    "app": Object {
+      "metaDescription": "تطبيق إنتجريت هو دليلك الرقمي لألمانيا. تجد فيه معلومات وفعاليات محلية ويقدم لك المشورة. دائمًا مُحدَّثة وبلغتك.",
+      "pageTitles": Object {
+        "notFound": "تعذر العثور على الصفحة",
+      },
+    },
+    "dashboard": Object {
+      "events": "الفعاليات",
+      "localInformation": "معلومات محلية",
+      "offers": "العروض",
+    },
+    "events": Object {
+      "currentlyNoEvents": "ليست هناك فعاليات متوفرة حاليًا.",
+      "date": "التاريخ",
+      "events": "الفعاليات",
+      "location": "الموقع",
+    },
+  },
+  "de": Object {
+    "app": Object {
+      "metaDescription": "Integreat ist Ihr digitaler Guide für Deutschland. Finden Sie lokale Informationen, Veranstaltungen und Beratung. Immer aktuell und in Ihrer Sprache.",
+      "pageTitles": Object {
+        "localNews": "Lokale Nachrichten",
+        "notFound": "Seite nicht gefunden",
+        "tunews": "tünews",
+      },
+    },
+    "dashboard": Object {
+      "events": "Veranstaltungen",
+      "localInformation": "Lokale Informationen",
+      "news": "Nachrichten",
+      "newsAlternative": "Neuigkeiten",
+      "offers": "Angebote",
+    },
+    "events": Object {
+      "currentlyNoEvents": "Es gibt aktuell keine Veranstaltungen.",
+      "date": "Datum",
+      "events": "Veranstaltungen",
+      "location": "Standort",
+    },
+  },
+  "en": Object {
+    "app": Object {
+      "metaDescription": "Integreat is your digital guide to life in Germany. Discover local information, events and advice. Always up to date and available in your own language.",
+      "pageTitles": Object {
+        "notFound": "Page not located",
+      },
+    },
+    "dashboard": Object {
+      "events": "Events",
+      "localInformation": "Local information",
+      "offers": "Offers",
+    },
+    "events": Object {
+      "currentlyNoEvents": "No events are currently available.",
+      "date": "Date",
+      "events": "Events",
+      "location": "Location",
+    },
+  },
+  "es": Object {
+    "app": Object {
+      "metaDescription": "Integreat es su guía digital para Alemania. Encuentre información local, eventos y consejos. Siempre actualizados y en su idioma.",
+      "pageTitles": Object {
+        "notFound": "No se ha encontrado la página",
+      },
+    },
+    "events": Object {
+      "currentlyNoEvents": "Actualmente no hay actividades.",
+      "date": "Fecha",
+      "events": "Actividades",
+      "location": "Ubicación",
+    },
+  },
+  "fa": Object {
+    "app": Object {
+      "metaDescription": "Integreat راهنمای دیجیتالی شما در مورد آلمان است. اطلاعات، رویدادها و مشاوره محلی را بیابید. همیشه به روز و به زبان شما.",
+      "pageTitles": Object {
+        "notFound": "صفحه پیدا نشد",
+      },
+    },
+    "events": Object {
+      "currentlyNoEvents": "در حال حاضر هیچ رویدادی وجود ندارد.",
+      "date": "تاریخ",
+      "events": "رویدادها",
+      "location": "محل",
+    },
+  },
+  "fr": Object {
+    "events": Object {
+      "currentlyNoEvents": "Il n'y a actuellement aucun événement.",
+      "date": "Date",
+      "events": "Événements",
+      "location": "Lieu",
+    },
+    "offers": Object {
+      "offers": "Offres",
+    },
+  },
+}
+`;
