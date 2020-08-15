@@ -59,7 +59,6 @@ const parseReleaseNotes = ({ language, source, android, ios, web, production }) 
 
   const fileNames = fs.readdirSync(source)
 
-  // Load all notes not belonging to a release
   const allNotes = fileNames
     .filter(fileName => fileName !== GITKEEP_FILE)
     .map(fileName => yaml.safeLoad(fs.readFileSync(`${source}/${fileName}`)))
