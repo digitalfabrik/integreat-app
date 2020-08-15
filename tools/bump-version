@@ -20,8 +20,8 @@ const commitAndTag = async (versionName, versionCodeString, {
   const appOctokit = await authenticate({ deliverinoPrivateKey, owner, repo })
   const versionFileContent = await appOctokit.repos.getContent({ owner, repo, path: VERSION_FILE, ref: branch })
 
-  const versionCode = parseInt(versionCodeString)
-  if (isNaN(versionCode)) {
+  const versionCode = versionCodeString ? parseInt(versionCodeString) : null
+  if (versionCode && isNaN(versionCode)) {
     throw new Error(`Failed to parse version code string: ${versionCodeString}`)
   }
 
