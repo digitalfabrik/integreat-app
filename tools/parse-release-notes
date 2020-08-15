@@ -1,0 +1,93 @@
+#!/usr/bin/env node
+
+const fs = require('fs')
+const { GITKEEP_FILE, UNRELEASED_DIR, RELEASE_NOTES_DIR } = require('./constants')
+const { program } = require('commander')
+const yaml = require('js-yaml')
+
+const defaultReleaseNotesEn = 'We’ve been working hard behind the scenes to make sure everything is working as it should. If you notice anything that does not work, let us know!\n'
+const defaultReleaseNotesDe = 'Wir haben hinter den Kulissen hart gearbeitet, um sicherzustellen, dass alles so funktioniert, wie es sollte. Wenn Sie etwas bemerken, das nicht funktioniert, lassen Sie es uns wissen!\n'
+
+program
+  .option('-d, --debug', 'enable extreme logging')
+  .option('--ios', 'include release notes for ios')
+  .option('--android', 'include release notes for android')
+  .option('--development', 'whether to show extra information, e.g. issue keys, hidden notes and platforms')
+  .option('--destination <destination>', 'if specified the parsed notes are saved to the directory')
+  .requiredOption('--source <source>', 'the directory of the release notes to parse', `${RELEASE_NOTES_DIR}/${UNRELEASED_DIR}`)
+  .requiredOption('--language <language>', 'the language of the release notes to parse', 'en')
+
+const reduceNotes = ({ notes, language, development }) => {
+  return notes
+    .map(note => development ? `* ${note.issue_key}: ${note[language]}` : `* ${note[language]}`)
+    .join('\n')
+}
+
+const parseReleaseNotes = ({ language, source, android, ios, development }) => {
+  if (!android && !ios) {
+    throw new Error('No platforms selected! Use --ios and/or --android flags.')
+  }
+
+  const fileNames = fs.readdirSync(source)
+
+  const allNotes = fileNames
+    .filter(fileName => fileName !== GITKEEP_FILE)
+    .map(fileName => yaml.safeLoad(fs.readFileSync(`${source}/${fileName}`)))
+
+  // If the development flag is set, return nicely formatted release notes categorized by relevant platforms.
+  if (development) {
+    const notesObject = {
+      common: reduceNotes({
+        notes: allNotes.filter(note => note.platforms.includes('android') && note.platforms.includes('ios')),
+        language,
+        development
+      }),
+      android: android
+        ? reduceNotes({
+          notes: allNotes.filter(note => note.platforms.includes('android') && note.platforms.length === 1),
+          language,
+          development
+        })
+        : undefined,
+      ios: ios
+        ? reduceNotes({
+          notes: allNotes.filter(note => note.platforms.includes('ios') && note.platforms.length === 1),
+          language,
+          development
+        })
+        : undefined
+    }
+    return `Release Notes:\n${notesObject.common}\nAndroid:\n${notesObject.android}\niOS:\n${notesObject.ios}`
+  }
+
+  const notes = allNotes
+    .filter(note => note.show_in_stores)
+    .filter(note => (android && ios) || note.platforms.includes(android ? 'android' : 'ios'))
+
+  if (notes.length > 0) {
+    return reduceNotes({ notes, language, development })
+  }
+
+  return language === 'de' ? defaultReleaseNotesDe : defaultReleaseNotesEn
+}
+
+program
+  .command('parse')
+  .description('parse the release notes')
+  .action(() => {
+    try {
+      const notes = parseReleaseNotes({ ...program })
+
+      if (program.destination) {
+        fs.writeFileSync(program.destination, notes)
+      }
+
+      // Log to enable bash piping
+      console.log(JSON.stringify(notes))
+    } catch (e) {
+      console.error(e)
+      process.exit(1)
+    }
+  })
+
+program.parse(process.argv)
