@@ -26,19 +26,20 @@ steps:
         - node_modules
   - run:
       name: Parse github release notes
-      command: export GITHUB_RELEASE_NOTES=$(tools/parse-release-notes parse --ios --android --development)
+      command: export GITHUB_RELEASE_NOTES=$(tools/parse-release-notes parse --ios --android)
   - run:
       name: Parse german android release notes
-      command: tools/parse-release-notes parse --android --destination android/fastlane/metadata/android/de-DE/changelogs/default.txt --language de
+      command: tools/parse-release-notes parse --android --destination android/fastlane/metadata/android/de-DE/changelogs/default.txt --language de --production
   - run:
       name: Parse english android release notes
-      command: tools/parse-release-notes parse --android --destination android/fastlane/metadata/android/en-GB/changelogs/default.txt --language en && tools/parse-release-notes parse --android --destination android/fastlane/metadata/android/en-US/changelogs/default.txt --language en
+      command: tools/parse-release-notes parse --android --destination android/fastlane/metadata/android/en-GB/changelogs/default.txt --language en --production
+        && tools/parse-release-notes parse --android --destination android/fastlane/metadata/android/en-US/changelogs/default.txt --language en --production
   - run:
       name: Parse german ios release notes
-      command: tools/parse-release-notes parse --ios --destination ios/fastlane/metadata/de-DE/release_notes.txt --language de
+      command: tools/parse-release-notes parse --ios --destination ios/fastlane/metadata/de-DE/release_notes.txt --language de --production
   - run:
       name: Parse english ios release notes
-      command: tools/parse-release-notes parse --ios --destination ios/fastlane/metadata/en-US/release_notes.txt --language en
+      command: tools/parse-release-notes parse --ios --destination ios/fastlane/metadata/en-US/release_notes.txt --language en --production
   - when:
       condition: << parameters.production_delivery >>
       steps:
