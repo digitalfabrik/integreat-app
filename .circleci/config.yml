@@ -30,6 +30,15 @@ commands:
             - run:
                 command: circleci config validate
                 name: Validate circle config
+    restore_environment_variables:
+        description: Sets the environment variables specified in the file 'environment_variables'. Make sure the file is persisted and has been attached.
+        steps:
+            - run:
+                command: cat environment_variables
+                name: List environment variables
+            - run:
+                command: cat environment_variables >> ${BASH_ENV}
+                name: Restore environment variables
 jobs:
     build:
         docker:
@@ -72,6 +81,9 @@ jobs:
                 command: yarn run test:coverage --ci --maxWorkers ${TOTAL_CPUS}
                 name: Test coverage
             - run:
+                command: echo "export NEW_VERSION_NAME=$(tools/next-version calc | jq .versionName)" >> environment_variables
+                name: Calculate next version
+            - run:
                 command: yarn build:integreat-test-cms --env.commit_sha=${CIRCLE_SHA1}
                 name: Development integreat-test-cms build
             - run:
@@ -89,6 +101,7 @@ jobs:
                 paths:
                     - dist
                     - node_modules
+                    - environment_variables
                 root: ./
     deliver:
         docker:
@@ -105,6 +118,7 @@ jobs:
                     - 30:f4:98:9f:1c:72:d1:c0:17:9f:57:05:74:a6:44:50
             - attach_workspace:
                 at: /tmp/output
+            - restore_environment_variables
             - when:
                 condition: << parameters.production_delivery >>
                 steps:
@@ -134,9 +148,7 @@ jobs:
             - checkout
             - attach_workspace:
                 at: .
-            - run:
-                command: echo "export NEW_VERSION_NAME=$(tools/next-version calc | jq .versionName)" >> ${BASH_ENV}
-                name: Calculate next version
+            - restore_environment_variables
             - run:
                 command: tools/create-jira-release create-release ${NEW_VERSION_NAME} --private-key ${JIRA_PRIVATE_KEY} --access-token ${JIRA_OAUTH_TOKEN} --consumer-key ${JIRA_CONSUMER_KEY} --project-name ${CIRCLE_PROJECT_REPONAME}
                 name: Create jira release

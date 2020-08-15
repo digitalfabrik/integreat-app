@@ -12,6 +12,7 @@ steps:
         - "30:f4:98:9f:1c:72:d1:c0:17:9f:57:05:74:a6:44:50"
   - attach_workspace:
       at: /tmp/output
+  - restore_environment_variables
   - when:
       condition: << parameters.production_delivery >>
       steps:
