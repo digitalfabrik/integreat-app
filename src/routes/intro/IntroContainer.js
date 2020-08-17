@@ -7,7 +7,6 @@ import Language from './assets/Language.svg'
 import Offers from './assets/Offers.svg'
 import Search from './assets/Search.svg'
 import Events from './assets/Events.svg'
-import AppLogo from '../../../assets/app-logo.png'
 import type { ThemeType } from '../../modules/theme/constants/theme'
 import withTheme from '../../modules/theme/hocs/withTheme'
 import { FlatList, Dimensions } from 'react-native'
@@ -33,7 +32,7 @@ const Container: StyledComponent<{ width: number }, {}, *> = styled.View`
   justify-content: space-between;
 `
 
-const IntegreatImage = styled.Image`
+const AppLogo = styled.Image`
   justify-content: center;
   align-self: center;
   flex: 1;
@@ -95,7 +94,7 @@ class Intro extends React.Component<PropsType, StateType> {
     )
   }
 
-  renderIntegreatImage = () => (): React.Node => <IntegreatImage source={AppLogo} />
+  renderIntegreatImage = () => (): React.Node => <AppLogo source={buildConfig().appLogo} />
   renderImageContent = (image: string) => (): React.Node => <ImageContent source={image} />
 
   slides = (): Array<SlideContentType> => {
