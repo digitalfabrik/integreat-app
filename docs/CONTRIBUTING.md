@@ -9,13 +9,13 @@ If you don't know where to start or if you want to know more about Integreat, co
 [Steffen](mailto:kleinle@integreat-app.de) or [our info mail](mailto:info@integreat-app.de) and visit our [website](https://integreat-app.de).
 
 Other team members you can contact are 
-[Lutz](mailto:lonnemann@integreat-app.de)
-, [Sarah](mailto:sporck@integreat-app.de)
-, [Michi](mailto:markl@integreat-app.de)
-, [Simon](mailto:vortkamp@integreat-app.de)
-, [Nick](mailto:klug@integreat-app.de)
-, [Anja](mailto:stricker@integreat-app.de)
-and [Sven](mailto:seeberg@integreat-app.de).
+[Lutz](mailto:lonnemann@integreat-app.de),
+[Sarah](mailto:sporck@integreat-app.de),
+[Michi](mailto:markl@integreat-app.de),
+[Simon](mailto:vortkamp@integreat-app.de),
+[Nick](mailto:klug@integreat-app.de),
+[Anja](mailto:stricker@integreat-app.de) and
+[Sven](mailto:seeberg@integreat-app.de).
 
 ## Pull requests
 
