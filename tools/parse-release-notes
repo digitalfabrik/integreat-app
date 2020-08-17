@@ -5,8 +5,10 @@ const { GITKEEP_FILE, UNRELEASED_DIR, RELEASE_NOTES_DIR } = require('./constants
 const { program } = require('commander')
 const yaml = require('js-yaml')
 
-const defaultReleaseNotesEn = 'We’ve been working hard behind the scenes to make sure everything is working as it should. If you notice anything that does not work, let us know!\n'
-const defaultReleaseNotesDe = 'Wir haben hinter den Kulissen hart gearbeitet, um sicherzustellen, dass alles so funktioniert, wie es sollte. Wenn Sie etwas bemerken, das nicht funktioniert, lassen Sie es uns wissen!\n'
+const DEFAULT_LANGUAGE = 'en'
+
+const DEFAULT_NOTE_EN = 'We’ve been working hard behind the scenes to make sure everything is working as it should. If you notice anything that does not work, let us know!\n'
+const DEFAULT_NOTE_DE = 'Wir haben hinter den Kulissen hart gearbeitet, um sicherzustellen, dass alles so funktioniert, wie es soll. Wenn Sie bemerken, dass etwas nicht funktioniert, lassen Sie es uns wissen!\n'
 
 const PLATFORM_ANDROID = 'android'
 const PLATFORM_IOS = 'ios'
@@ -20,7 +22,7 @@ program
   .option('--production', 'whether to hide extra information, e.g. issue keys, hidden notes and platforms and prepare the notes for a store. may not be used with multiple platforms.')
   .option('--destination <destination>', 'if specified the parsed notes are saved to the directory')
   .requiredOption('--source <source>', 'the directory of the release notes to parse', `${RELEASE_NOTES_DIR}/${UNRELEASED_DIR}`)
-  .requiredOption('--language <language>', 'the language of the release notes to parse', 'en')
+  .requiredOption('--language <language>', 'the language of the release notes to parse', DEFAULT_LANGUAGE)
 
 const formatNotes = ({ notes, language, production, platformName }) => {
   if (notes.length === 0) {
@@ -28,10 +30,13 @@ const formatNotes = ({ notes, language, production, platformName }) => {
   }
 
   const formattedNotes = notes
-    .map(note => production ? `* ${note[language]}` : `* ${note.issue_key}: ${note[language]}`)
+    .map(note => {
+      const localizedNote = note[language] || note[DEFAULT_LANGUAGE]
+      return production ? `* ${localizedNote}` : `* ${note.issue_key}: ${localizedNote}`
+    })
     .join('\n')
 
-  return platformName ? `${platformName}:\n${formattedNotes}` : `${formattedNotes}`
+  return platformName ? `\n${platformName}:\n${formattedNotes}` : `\n${formattedNotes}`
 }
 
 const isNoteRelevant = ({ note, platforms }) => platforms.some(platform => note.platforms.includes(platform))
@@ -51,7 +56,7 @@ const parseReleaseNotes = ({ language, source, android, ios, web, production }) 
 
   if (platforms.length === 0) {
     throw new Error('No platforms selected! Use --ios, --android and --web flags.')
-  } else if (platforms.length === 3) {
+  } else if (web && (ios || android)) {
     throw new Error('Usage of --ios or --android together with --web flag is not supported.')
   } else if (platforms.length > 1 && production) {
     throw new Error('Usage of multiple platforms in production mode is not supported.')
@@ -59,31 +64,33 @@ const parseReleaseNotes = ({ language, source, android, ios, web, production }) 
 
   const fileNames = fs.readdirSync(source)
 
-  const allNotes = fileNames
+  // Load all notes not belonging to a release
+  const relevantNotes = fileNames
     .filter(fileName => fileName !== GITKEEP_FILE)
     .map(fileName => yaml.safeLoad(fs.readFileSync(`${source}/${fileName}`)))
+    .filter(note => isNoteRelevant({ note, platforms }))
 
   // If the production flag is set, hide information that is irrelevant for users
   if (production) {
-    const notes = allNotes
-      .filter(note => note.show_in_stores)
-      .filter(note => isNoteRelevant({ note, platforms }))
+    const productionNotes = relevantNotes.filter(note => note.show_in_stores)
 
-    if (notes.length > 0) {
-      return formatNotes({ notes, language, production })
+    if (productionNotes.length > 0) {
+      return formatNotes({ notes: productionNotes, language, production })
     }
 
-    return language === 'de' ? defaultReleaseNotesDe : defaultReleaseNotesEn
+    return language === 'de' ? DEFAULT_NOTE_DE : DEFAULT_NOTE_EN
   }
 
   // Group notes by platform
-  const notesMap = allNotes.reduce((notesMap, note) => {
+  const notesMap = relevantNotes.reduce((notesMap, note) => {
     if (isNoteCommon({ note, platforms })) {
       notesMap.common.push(note)
-    } else if (isNoteRelevant(PLATFORM_ANDROID)) {
+    } else if (isNoteRelevant({ note, platforms: [PLATFORM_ANDROID] })) {
       notesMap.android.push(note)
-    } else if (isNoteRelevant(PLATFORM_IOS)) {
+    } else if (isNoteRelevant({ note, platforms: [PLATFORM_IOS] })) {
       notesMap.ios.push(note)
+    } else if (isNoteRelevant({ note, platforms: [PLATFORM_WEB] })) {
+      notesMap.web.push(note)
     }
     return notesMap
   }, { common: [], android: [], ios: [], web: [] })
@@ -91,8 +98,10 @@ const parseReleaseNotes = ({ language, source, android, ios, web, production }) 
   const commonNotes = formatNotes({ notes: notesMap.common, language, production })
   const androidNotes = formatNotes({ notes: notesMap.android, language, production, platformName: PLATFORM_ANDROID })
   const iosNotes = formatNotes({ notes: notesMap.ios, language, production, platformName: PLATFORM_IOS })
+  const webNotes = formatNotes({ notes: notesMap.web, language, production, platformName: PLATFORM_WEB })
 
-  return `Release Notes:\n${commonNotes}${androidNotes}${iosNotes}`
+  const releaseNotes = `${commonNotes}${androidNotes}${iosNotes}${webNotes}`
+  return `Release Notes:${releaseNotes || 'No release notes found. Looks like nothing happened for a while.'}`
 }
 
 program

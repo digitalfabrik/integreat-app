@@ -4,4 +4,5 @@ platforms: # relevant platforms, possible values: android and ios
   - <platform1>
   - <platform2>
 en: <your note> # english version of the note
+# optional: the note in other languages:
 de: <your german note> # german version of the note
