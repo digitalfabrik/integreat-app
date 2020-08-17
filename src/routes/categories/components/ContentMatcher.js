@@ -23,7 +23,7 @@ class ContentMatcher {
       .join(' ')
   }
 
-  getMatchedContent (query: string, content: string, numWordsSurrounding: number): string {
+  getMatchedContent (query: ?string, content: ?string, numWordsSurrounding: number): ?string {
     if (!query || !query.length || !content) {
       return null
     }
