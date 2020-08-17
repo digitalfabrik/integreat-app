@@ -7,8 +7,8 @@ class ContentMatcher {
     return content.split(/\s+/).filter(Boolean)
   }
 
-  getContentBeforeMatchIndex (content: string, matchIdx: number, startOfWord: boolean, numWords: number): string {
-    const wordsBeforeMatch = this.getWords(content.slice(0, matchIdx))
+  getContentBeforeMatchIndex (content: string, matchIndex: number, startOfWord: boolean, numWords: number): string {
+    const wordsBeforeMatch = this.getWords(content.slice(0, matchIndex))
     const additionalWordBefore = startOfWord ? 0 : 1
     const limitedMatchBefore = wordsBeforeMatch
       .slice(-numWords - additionalWordBefore, wordsBeforeMatch.length)
@@ -16,8 +16,8 @@ class ContentMatcher {
     return limitedMatchBefore + (startOfWord ? ' ' : '')
   }
 
-  getContentAfterMatchIndex (content: string, matchIdx: number, numWords: number): string {
-    const wordsAfterMatch = this.getWords(content.slice(matchIdx))
+  getContentAfterMatchIndex (content: string, matchIndex: number, numWords: number): string {
+    const wordsAfterMatch = this.getWords(content.slice(matchIndex))
     return wordsAfterMatch
       .slice(0, numWords + 1)
       .join(' ')
@@ -29,18 +29,18 @@ class ContentMatcher {
     }
     const normalizedFilter = normalizeSearchString(query)
 
-    const matchIdx = content.toLowerCase().indexOf(normalizedFilter)
-    if (matchIdx === -1) {
+    const matchIndex = content.toLowerCase().indexOf(normalizedFilter)
+    if (matchIndex === -1) {
       return null
     }
 
-    const queryMatchesStartOfWord = !content.charAt(matchIdx - 1).trim()
+    const queryMatchesStartOfWord = !content.charAt(matchIndex - 1).trim()
     const contentBefore = this.getContentBeforeMatchIndex(
       content,
-      matchIdx,
+      matchIndex,
       queryMatchesStartOfWord,
       numWordsSurrounding)
-    const contentAfter = this.getContentAfterMatchIndex(content, matchIdx, numWordsSurrounding)
+    const contentAfter = this.getContentAfterMatchIndex(content, matchIndex, numWordsSurrounding)
     return contentBefore + contentAfter
   }
 }
