@@ -17,7 +17,6 @@ You can contribute by:
 * [Creating Pull requests](.github/CONTRIBUTING.md#pull-requests)
 * [Reporting bugs](#bug-reporting)
 
-
 If you want to know more about Integreat or if you want to join us, contact [Max](mailto:ammann@integreat-app.de), 
 [Steffen](mailto:kleinle@integreat-app.de) or [our info mail](mailto:info@integreat-app.de) and visit our [website](https://integreat-app.de).
 
@@ -87,7 +86,3 @@ If you encounter any problems, have a look at our [troubleshooting section](docs
 
 For more information on how to debug, have a look at our [debugging section](docs/debugging.md).
 
-## Bug reporting
-
-You can [view our issues](https://issues.integreat-app.de/projects/NATIVE) or
- [create new ones](https://issues.integreat-app.de/secure/CreateIssue!default.jspa) on our jira.
