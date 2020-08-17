@@ -94,7 +94,7 @@ class Intro extends React.Component<PropsType, StateType> {
     )
   }
 
-  renderIntegreatImage = () => (): React.Node => <AppLogo source={buildConfig().appLogo} />
+  renderAppLogo = () => (): React.Node => <AppLogo source={buildConfig().appLogo} />
   renderImageContent = (image: string) => (): React.Node => <ImageContent source={image} />
 
   slides = (): Array<SlideContentType> => {
@@ -103,7 +103,7 @@ class Intro extends React.Component<PropsType, StateType> {
       key: 'integerat',
       title: t('integreat', { appName: buildConfig().appName }),
       description: t('integreatDescription', { appName: buildConfig().appName }),
-      renderContent: this.renderIntegreatImage()
+      renderContent: this.renderAppLogo()
     }, {
       key: 'search',
       title: t('search'),
