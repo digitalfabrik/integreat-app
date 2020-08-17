@@ -13,8 +13,9 @@ import type { StateType } from '../../../modules/app/StateType'
 import SearchFeedback from '../components/SearchFeedback'
 import type { LocationState } from 'redux-first-router'
 import normalizeSearchString from '../../../modules/common/utils/normalizeSearchString'
+import { Parser } from 'htmlparser2'
 
-type CategoryListItemType = {| model: CategoryModel, subCategories: Array<CategoryModel> |}
+type CategoryEntryType = {| model: CategoryModel, contentWithoutHtml?: string, subCategories: Array<CategoryModel> |}
 
 type PropsType = {|
   categories: CategoriesMapModel,
@@ -33,7 +34,7 @@ export class SearchPage extends React.Component<PropsType, LocalStateType> {
     filterText: ''
   }
 
-  findCategories (): Array<CategoryListItemType> {
+  findCategories (): Array<CategoryEntryType> {
     const categories = this.props.categories
     const filterText = normalizeSearchString(this.state.filterText)
 
@@ -43,16 +44,29 @@ export class SearchPage extends React.Component<PropsType, LocalStateType> {
       .sort((category1, category2) => category1.title.localeCompare(category2.title))
 
     // find all categories whose contents but not titles include the filter text and sort them lexicographically
+    let contentWithoutHtml = []
+    const parser = new Parser({ ontext (text: string) { contentWithoutHtml.push(text) } })
     const categoriesWithContent = categories.toArray()
       .filter(category => !normalizeSearchString(category.title).includes(filterText))
-      .filter(category => normalizeSearchString(category.content).includes(filterText))
-      .sort((category1, category2) => category1.title.localeCompare(category2.title))
+      .map((category: CategoryModel): CategoryEntryType => {
+        contentWithoutHtml = []
+        parser.write(category.content)
+        parser.end()
+        return {
+          model: category,
+          contentWithoutHtml: contentWithoutHtml.join(' '),
+          subCategories: []
+        }
+      }).filter(categoryEntry =>
+        categoryEntry.contentWithoutHtml &&
+        normalizeSearchString(categoryEntry.contentWithoutHtml).includes(filterText))
+      .sort((category1, category2) => category1.model.title.localeCompare(category2.model.title))
 
     // return all categories from above and remove the root category
     return categoriesWithTitle
       .filter(category => !category._root)
+      .map((category): CategoryEntryType => ({ model: category, subCategories: [] }))
       .concat(categoriesWithContent)
-      .map(category => ({ model: category, subCategories: [] }))
   }
 
   handleFilterTextChanged = (filterText: string) => this.setState({ filterText: filterText })

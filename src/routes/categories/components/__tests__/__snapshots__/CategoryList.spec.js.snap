@@ -15,7 +15,7 @@ exports[`CategoryList should render and display a caption 1`] = `
     onInternalLinkClick={[Function]}
   />
   <CategoryList__List>
-    <WithTheme(CategoryListItem)
+    <WithTheme(CategoryEntry)
       category={
         CategoryModel {
           "_availableLanguages": Map {},
@@ -60,7 +60,7 @@ exports[`CategoryList should render and display a caption 1`] = `
         ]
       }
     />
-    <WithTheme(CategoryListItem)
+    <WithTheme(CategoryEntry)
       category={
         CategoryModel {
           "_availableLanguages": Map {},
@@ -100,7 +100,7 @@ exports[`CategoryList should render and display a caption 1`] = `
 exports[`CategoryList should render and not display a caption 1`] = `
 <div>
   <CategoryList__List>
-    <WithTheme(CategoryListItem)
+    <WithTheme(CategoryEntry)
       category={
         CategoryModel {
           "_availableLanguages": Map {},
@@ -145,7 +145,7 @@ exports[`CategoryList should render and not display a caption 1`] = `
         ]
       }
     />
-    <WithTheme(CategoryListItem)
+    <WithTheme(CategoryEntry)
       category={
         CategoryModel {
           "_availableLanguages": Map {},
