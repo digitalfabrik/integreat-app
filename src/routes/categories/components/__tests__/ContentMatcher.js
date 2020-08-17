@@ -22,17 +22,17 @@ describe('ContentMatcher', () => {
   describe('getContentBeforeMatchIndex', () => {
     it('should return 3 words before the specified index an start of the word', () => {
       const content = 'This is some test content'
-      const matchIdx = 15
+      const matchIndex = 15
       const matcher = new ContentMatcher()
-      expect(matcher.getContentBeforeMatchIndex(content, matchIdx, false, numWords))
+      expect(matcher.getContentBeforeMatchIndex(content, matchIndex, false, numWords))
         .toBe('This is some te')
     })
 
     it('should return 3 words before the specified index', () => {
       const content = 'This is some test content'
-      const matchIdx = 13
+      const matchIndex = 13
       const matcher = new ContentMatcher()
-      expect(matcher.getContentBeforeMatchIndex(content, matchIdx, true, numWords))
+      expect(matcher.getContentBeforeMatchIndex(content, matchIndex, true, numWords))
         .toBe('This is some ')
     })
   })
@@ -40,17 +40,17 @@ describe('ContentMatcher', () => {
   describe('getMatchedContentAfterMatchIndex', () => {
     it('should return 3 words before the specified index an start of the word', () => {
       const content = 'This is some test content'
-      const matchIdx = 1
+      const matchIndex = 1
       const matcher = new ContentMatcher()
-      expect(matcher.getContentAfterMatchIndex(content, matchIdx, numWords))
+      expect(matcher.getContentAfterMatchIndex(content, matchIndex, numWords))
         .toBe('his is some test')
     })
 
     it('should return 3 words before the specified index', () => {
       const content = 'This is some test content'
-      const matchIdx = 0
+      const matchIndex = 0
       const matcher = new ContentMatcher()
-      expect(matcher.getContentAfterMatchIndex(content, matchIdx, numWords))
+      expect(matcher.getContentAfterMatchIndex(content, matchIndex, numWords))
         .toBe('This is some test')
     })
   })
