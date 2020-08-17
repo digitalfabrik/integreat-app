@@ -23,6 +23,8 @@ function * loadPois (
     }
   }
 
+  console.debug('Fetching pois')
+
   const apiUrl = yield call(determineApiUrl)
   const payload = yield call(() => createPOIsEndpoint(apiUrl).request({
     city,
