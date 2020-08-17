@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { TouchableOpacity } from 'react-native'
-import LocationBig from '../assets/LocationBig.png'
+import locationMarker from '../../../../build-configs/configs/integreat/assets/location-marker.svg'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
@@ -95,7 +95,7 @@ class EastereggImage extends React.Component<PropsType, StateType> {
     return (
       <>
         <TouchableOpacity activeOpacity={1} onPress={this.onImagePress}>
-          <LocationImage source={LocationBig} />
+          <LocationImage source={locationMarker} />
         </TouchableOpacity>
         {this.renderApiUrlText()}
       </>
