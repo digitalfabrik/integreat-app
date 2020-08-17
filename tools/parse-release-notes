@@ -36,7 +36,7 @@ const formatNotes = ({ notes, language, production, platformName }) => {
     })
     .join('\n')
 
-  return platformName ? `\n${platformName}:\n${formattedNotes}` : `\n${formattedNotes}`
+  return platformName ? `\n${platformName}:\n${formattedNotes}` : `${formattedNotes}`
 }
 
 const isNoteRelevant = ({ note, platforms }) => platforms.some(platform => note.platforms.includes(platform))
@@ -101,7 +101,7 @@ const parseReleaseNotes = ({ language, source, android, ios, web, production }) 
   const webNotes = formatNotes({ notes: notesMap.web, language, production, platformName: PLATFORM_WEB })
 
   const releaseNotes = `${commonNotes}${androidNotes}${iosNotes}${webNotes}`
-  return `Release Notes:${releaseNotes || 'No release notes found. Looks like nothing happened for a while.'}`
+  return `Release Notes:\n${releaseNotes || 'No release notes found. Looks like nothing happened for a while.'}`
 }
 
 program
