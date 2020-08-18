@@ -412,10 +412,10 @@ class DatabaseConnector {
         availableLanguages,
         excerpt: jsonObject.excerpt,
         location: new LocationModel({
-          name: jsonLocation.name, // todo: NATIVE-549
-          region: jsonLocation.region, // todo: NATIVE-549
-          state: jsonLocation.state, // todo: NATIVE-549
-          country: jsonLocation.country, // todo: NATIVE-549
+          name: jsonLocation.name,
+          region: jsonLocation.region,
+          state: jsonLocation.state,
+          country: jsonLocation.country,
           address: jsonLocation.address,
           latitude: jsonLocation.latitude,
           longitude: jsonLocation.longitude,
