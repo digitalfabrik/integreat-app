@@ -12,6 +12,10 @@ import Image from '../../common/components/Image'
 import { contentDirection } from '../../i18n/contentDirection'
 import Highlighter from 'react-native-highlight-words'
 import normalizeSearchString from '../../common/normalizeSearchString'
+import type { SimpleModelType } from './CategoryList'
+import ContentMatcher from './ContentMatcher'
+
+const NUM_WORDS_SURROUNDING_MATCH = 10
 
 const FlexStyledLink: StyledComponent<{}, ThemeType, *> = styled(StyledLink)`
   display: flex;
@@ -40,6 +44,9 @@ const CategoryTitle = styled(Highlighter)`
   font-family: ${props => props.theme.fonts.decorativeFontRegular};
   color: ${props => props.theme.colors.textColor};
 `
+const ContentMatchItem = styled(Highlighter)`
+  display: inline-block;
+`
 
 const CategoryThumbnail = styled(Image)`
   align-self: center;
@@ -50,7 +57,7 @@ const CategoryThumbnail = styled(Image)`
 `
 
 type PropsType = {
-  category: { title: string, thumbnail: string, path: string },
+  category: SimpleModelType,
   subCategories: Array<{ title: string, thumbnail: string, path: string }>,
   /** A search query to highlight in the category title */
   query?: string,
@@ -63,6 +70,8 @@ type PropsType = {
  * Displays a single CategoryListItem
  */
 class CategoryListItem extends React.Component<PropsType> {
+  contentMatcher = new ContentMatcher()
+
   onCategoryPress = () => {
     this.props.onItemPress(this.props.category)
   }
@@ -78,12 +87,25 @@ class CategoryListItem extends React.Component<PropsType> {
     )
   }
 
+  getMatchedContent (numWordsSurrounding: number): ContentMatchItem {
+    const { query, theme, category } = this.props
+    const textToHighlight = this.contentMatcher.getMatchedContent(query, category.contentWithoutHtml, numWordsSurrounding)
+    if (textToHighlight == null) {
+      return null
+    }
+    return <ContentMatchItem aria-label={textToHighlight}
+                             searchWords={[query]}
+                             sanitize={normalizeSearchString}
+                             textToHighlight={textToHighlight}
+                             highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }} />
+  }
+
   renderTitle (): React.Node {
     const { query, theme, category, language } = this.props
     return <CategoryTitleContainer theme={theme} language={language}>
       <CategoryTitle theme={theme} textToHighlight={category.title} sanitize={normalizeSearchString}
                      searchWords={query ? [query] : []}
-                     highlightStyle={{ fontWeight: 'bold' }} />
+                     highlightStyle={{ fontWeight: 'bold' }} />{this.getMatchedContent(NUM_WORDS_SURROUNDING_MATCH)}
     </CategoryTitleContainer>
   }
 
