@@ -31,10 +31,11 @@ export function * switchContentLanguage (dataContainer: DataContainer, action: S
       }, false)
     )
 
-    const [categories, resourceCache, events] = yield all([
+    const [categories, resourceCache, events, pois] = yield all([
       call(dataContainer.getCategoriesMap, city, newLanguage),
       call(dataContainer.getResourceCache, city, newLanguage),
-      call(dataContainer.getEvents, city, newLanguage)
+      call(dataContainer.getEvents, city, newLanguage),
+      call(dataContainer.getPois, city, newLanguage)
     ])
 
     const appSettings = new AppSettings()
@@ -61,6 +62,7 @@ export function * switchContentLanguage (dataContainer: DataContainer, action: S
         newCategoriesMap: categories,
         newResourceCache: resourceCache,
         newEvents: events,
+        newPois: pois,
         newLanguage
       }
     }

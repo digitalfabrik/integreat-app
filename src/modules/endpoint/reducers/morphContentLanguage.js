@@ -1,8 +1,8 @@
 // @flow
 
-import type { CategoryRouteStateType, CityContentStateType, EventRouteStateType } from '../../app/StateType'
+import type { CategoryRouteStateType, CityContentStateType, EventRouteStateType, PoiRouteStateType } from '../../app/StateType'
 import { mapValues } from 'lodash/object'
-import { CategoriesMapModel, EventModel } from '@integreat-app/integreat-api-client'
+import { CategoriesMapModel, EventModel, PoiModel } from '@integreat-app/integreat-api-client'
 import type { MorphContentLanguageActionType } from '../../app/StoreActionType'
 import forEachTreeNode from '../../common/forEachTreeNode'
 
@@ -102,11 +102,58 @@ const eventRouteTranslator = (newEvents: $ReadOnlyArray<EventModel>, newLanguage
     }
   }
 
+const poiRouteTranslator = (newPois: $ReadOnlyArray<PoiModel>, newLanguage: string) =>
+  (route: PoiRouteStateType): PoiRouteStateType => {
+    if (route.status !== 'ready') {
+      console.warn('Route was not ready when translating. Will not translate this route.')
+      return route
+    }
+    const { allAvailableLanguages, city } = route
+
+    if (!allAvailableLanguages.has(newLanguage)) {
+      return {
+        status: 'languageNotAvailable',
+        allAvailableLanguages,
+        language: newLanguage,
+        city
+      }
+    }
+
+    const translatedPath = allAvailableLanguages.get(newLanguage)
+    if (!translatedPath) { // Route is a list of all pois
+      return {
+        status: 'ready',
+        path: translatedPath,
+        models: newPois,
+        allAvailableLanguages,
+        language: newLanguage,
+        city
+      }
+    }
+
+    const translatedPoi = newPois.find(newPoi => translatedPath === newPoi.path)
+
+    if (!translatedPoi) {
+      console.warn(`Inconsistent data detected: ${translatedPath} does not exist,
+                    but is referenced as translation for ${newLanguage}.`)
+      return route
+    }
+
+    return {
+      status: 'ready',
+      path: translatedPath,
+      models: [translatedPoi],
+      allAvailableLanguages,
+      language: newLanguage,
+      city
+    }
+  }
+
 const morphContentLanguage = (
   state: CityContentStateType, action: MorphContentLanguageActionType
 ): CityContentStateType => {
-  const { newCategoriesMap, newResourceCache, newEvents, newLanguage } = action.params
-  const { categoriesRouteMapping, eventsRouteMapping, city } = state
+  const { newCategoriesMap, newResourceCache, newEvents, newPois, newLanguage } = action.params
+  const { categoriesRouteMapping, eventsRouteMapping, poisRouteMapping, city } = state
 
   const translatedCategoriesRouteMapping = mapValues(
     categoriesRouteMapping,
@@ -118,12 +165,18 @@ const morphContentLanguage = (
     eventRouteTranslator(newEvents, newLanguage)
   )
 
+  const translatedPoisRouteMapping = mapValues(
+    poisRouteMapping,
+    poiRouteTranslator(newPois, newLanguage)
+  )
+
   return {
     ...state,
     resourceCache: { status: 'ready', value: newResourceCache },
     searchRoute: { categoriesMap: newCategoriesMap },
     categoriesRouteMapping: translatedCategoriesRouteMapping,
     eventsRouteMapping: translatedEventsRouteMapping,
+    poisRouteMapping: translatedPoisRouteMapping,
     switchingLanguage: false
   }
 }

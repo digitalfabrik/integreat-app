@@ -11,6 +11,7 @@ import watchContentLanguageSwitch, { switchContentLanguage } from '../watchConte
 import AsyncStorage from '@react-native-community/async-storage'
 import AppSettings from '../../../settings/AppSettings'
 import EventModelBuilder from '../../../../testing/builder/EventModelBuilder'
+import PoiModelBuilder from '../../../../testing/builder/PoiModelBuilder'
 
 jest.mock('rn-fetch-blob')
 jest.mock('../../../notifications/NotificationsManager')
@@ -32,7 +33,9 @@ describe('watchContentLanguageSwitch', () => {
       const categoriesBuilder = new CategoriesMapModelBuilder(city, newLanguage)
       const categories = categoriesBuilder.build()
       const eventsBuilder = new EventModelBuilder('fetchCategory-events', 2, city, newLanguage)
+      const poisBuilder = new PoiModelBuilder(2)
       const events = eventsBuilder.build()
+      const pois = poisBuilder.build()
       const resources = { ...categoriesBuilder.buildResources(), ...eventsBuilder.buildResources() }
 
       const dataContainer = new DefaultDataContainer()
@@ -40,6 +43,7 @@ describe('watchContentLanguageSwitch', () => {
       await dataContainer.setLanguages(city, languages)
       await dataContainer.setResourceCache(city, newLanguage, resources)
       await dataContainer.setEvents(city, newLanguage, events)
+      await dataContainer.setPois(city, newLanguage, pois)
 
       const action: SwitchContentLanguageActionType = {
         type: 'SWITCH_CONTENT_LANGUAGE',
@@ -55,6 +59,7 @@ describe('watchContentLanguageSwitch', () => {
             newCategoriesMap: categories,
             newResourceCache: resources,
             newEvents: events,
+            newPois: pois,
             newLanguage
           }
         })
