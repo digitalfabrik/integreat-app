@@ -51,6 +51,7 @@ describe('pushEvent', () => {
           allAvailableLanguages: new Map([['en', '/augsburg/en/events/ev1']])
         }
       },
+      poisRouteMapping: {},
       languages: {
         status: 'ready',
         models: languageModels

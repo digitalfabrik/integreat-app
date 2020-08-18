@@ -1,11 +1,21 @@
 // @flow
 
-import { CategoriesMapModel, CityModel, EventModel, LanguageModel } from '@integreat-app/integreat-api-client'
+import { CategoriesMapModel, CityModel, EventModel, LanguageModel, PoiModel } from '@integreat-app/integreat-api-client'
 import type { LanguageResourceCacheStateType } from '../app/StateType'
 import type Moment from 'moment'
 
 export interface DataContainer {
 
+  /**
+   * Returns an Array of PoiModels.
+   * @throws Will throw an error if the array is null.
+   */
+  getPois: (city: string, language: string) => Promise<Array<PoiModel>>,
+
+  /**
+   * Sets the pois and persist them ?
+   */
+  setPois: (city: string, language: string, pois: Array<PoiModel>) => Promise<void>,
   /**
    * Returns an Array of CityModels.
    * @throws Will throw an error if the array is null.
@@ -86,6 +96,10 @@ export interface DataContainer {
    * Returns whether the events have been loaded or not.
    */
   eventsAvailable (city: string, language: string): Promise<boolean>,
+  /**
+   * Returns whether the pois have been loaded or not.
+   */
+  poisAvailable (city: string, language: string): Promise<boolean>,
 
   /**
    * Returns whether the city content (events, categories, languages) has been loaded or not.
