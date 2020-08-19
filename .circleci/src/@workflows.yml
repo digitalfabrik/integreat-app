@@ -67,7 +67,7 @@ workflows:
           filters:
             branches:
               only:
-                - develop
+                - main
     jobs:
       - prepare_build
       - build_android:
@@ -101,7 +101,7 @@ workflows:
           filters:
             branches:
               only:
-                - develop
+                - main
     jobs:
       - prepare_build
       - build_android:
