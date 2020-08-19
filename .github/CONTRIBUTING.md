@@ -21,4 +21,4 @@ Please take a look at our [conventions](docs/03-conventions.md).
 Before you can merge the code has to be reviewed and the status checks need to pass.
 The CI runs the linter, type-checks, e2e tests and all unit tests. So better run these locally first before pushing.
 
-When you merge to develop a debug release is deployed on [webnext.integreat-app.de](https://webnext.integreat-app.de/).
+When you merge to main a debug release is deployed on [webnext.integreat-app.de](https://webnext.integreat-app.de/).
