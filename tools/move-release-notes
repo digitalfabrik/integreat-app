@@ -55,6 +55,9 @@ const moveReleaseNotes = async ({ newVersionName, deliverinoPrivateKey, owner, r
     }
     return rest
   })
+
+  // mode: '040000' means subdirectory(tree)
+  // See https://developer.github.com/v3/git/trees/#create-a-tree
   newReleaseNotesContent.push({ path: newVersionName, sha: newVersionTree.data.sha, type: 'tree', mode: '040000' })
 
   const newReleaseNotesTree = await appOctokit.git.createTree({ owner, repo, tree: newReleaseNotesContent })
