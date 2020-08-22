@@ -307,7 +307,8 @@
       "offers": "Angebote",
       "events": "Veranstaltungen",
       "news": "Nachrichten",
-      "newsAlternative": "Neuigkeiten"
+      "newsAlternative": "Neuigkeiten",
+      "pois": "Points of Interest"
     },
     "ar": {
       "localInformation": "معلومات محلية",
@@ -317,7 +318,8 @@
     "en": {
       "localInformation": "Local information",
       "offers": "Offers",
-      "events": "Events"
+      "events": "Events",
+      "pois": "Points of Interest"
     },
     "es": {
       "localInformation": "Información local",
