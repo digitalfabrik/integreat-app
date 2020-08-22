@@ -9,6 +9,7 @@ import pushNews from './pushNews'
 import type { StoreActionType } from '../../app/StoreActionType'
 import createCityContent from './createCityContent'
 import { omit } from 'lodash'
+import pushPoi from './pushPoi'
 
 export default (
   state: CityContentStateType | null = defaultCityContentState, action: StoreActionType
@@ -53,6 +54,16 @@ export default (
         [key]: { status: 'loadingMore', language, city, newsId, type, page, models: previouslyFetchedNews }
       }
     }
+  } else if (action.type === 'FETCH_POI') {
+    const { language, path, key, city } = action.params
+    const initializedState = state || createCityContent(city)
+    return {
+      ...initializedState,
+      poisRouteMapping: {
+        ...initializedState.poisRouteMapping,
+        [key]: { status: 'loading', language, city, path }
+      }
+    }
   } else {
     if (state === null) {
       return null
@@ -69,6 +80,8 @@ export default (
         return { ...state, languages: { status: 'error', ...action.params } }
       case 'PUSH_CATEGORY':
         return pushCategory(state, action)
+      case 'PUSH_POI':
+        return pushPoi(state, action)
       case 'PUSH_EVENT':
         return pushEvent(state, action)
       case 'PUSH_NEWS':
