@@ -102,9 +102,9 @@ class Pois extends React.Component<PropsType> {
 
   render () {
     const { pois, path, cityCode, language, resourceCache, theme, navigateToIntegreatUrl, t, navigation } = this.props
-
+    const sortedPois = pois.sort((poi1, poi2) => poi1.title.localeCompare(poi2.title))
     if (path) {
-      const poi: ?PoiModel = pois.find(_poi => _poi.path === path)
+      const poi: ?PoiModel = sortedPois.find(_poi => _poi.path === path)
       if (poi) {
         const location = poi.location.location
         const files = resourceCache[poi.path] || {}
@@ -134,7 +134,7 @@ class Pois extends React.Component<PropsType> {
       <View>
         <Caption title={t('poi')} theme={theme} />
         <List noItemsMessage={t('currentlyNoPois')}
-              items={pois}
+              items={sortedPois}
               renderItem={this.renderPoiListItem(cityCode, language)}
               theme={theme} />
       </View>
