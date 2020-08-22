@@ -11,6 +11,7 @@ import NavigationTiles from '../../../modules/common/components/NavigationTiles'
 import TileModel from '../../../modules/common/models/TileModel'
 import eventsIcon from '../assets/events.svg'
 import offersIcon from '../assets/offers.svg'
+import poisIcon from '../assets/pois.svg'
 import newsIcon from '../assets/news.svg'
 import localInformationIcon from '../assets/local_information.svg'
 import type { TFunction } from 'react-i18next'
@@ -104,7 +105,7 @@ class Dashboard extends React.Component<PropsType> {
     tiles.push(new TileModel({
       title: t('pois'),
       path: 'pois',
-      thumbnail: eventsIcon,
+      thumbnail: poisIcon,
       isExternalUrl: false,
       onTilePress: () => navigateToPoi({
         cityCode,
