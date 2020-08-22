@@ -120,7 +120,6 @@ const ThemedTranslatedPois = withTranslation('pois')(
 class PoisContainer extends React.Component<ContainerPropsType> {
   render () {
     const { dispatch, ...rest } = this.props
-    console.log(rest)
     return <ThemedTranslatedPois {...rest}
                                    navigateToPoi={createNavigateToPoi(dispatch, rest.navigation)}
                                    navigateToIntegreatUrl={createNavigateToIntegreatUrl(dispatch, rest.navigation)}
