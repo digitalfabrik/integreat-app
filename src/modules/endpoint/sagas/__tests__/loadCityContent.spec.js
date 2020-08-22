@@ -33,7 +33,7 @@ jest.mock('../../../notifications/NotificationsManager')
 const prepareDataContainer = async (dataContainer: DataContainer, city: string, language: string) => {
   const categoriesBuilder = new CategoriesMapModelBuilder(city, language, 2, 2)
   const eventsBuilder = new EventModelBuilder('loadCityContent-events', 2, city, language)
-  const poisBuilder = new PoiModelBuilder('loadCityContent-events', 2, city, language)
+  const poisBuilder = new PoiModelBuilder(2)
   const categories = categoriesBuilder.build()
   const cities = new CityModelBuilder(1).build()
   const languages = new LanguageModelBuilder(2).build()
@@ -47,7 +47,7 @@ const prepareDataContainer = async (dataContainer: DataContainer, city: string, 
   await dataContainer.setLanguages(city, languages)
   await dataContainer.setResourceCache(city, language, resources)
   await dataContainer.setCities(cities)
-  await dataContainer.setPois(pois)
+  await dataContainer.setPois(city, language, pois)
 
   return { languages, cities, categories, events, pois, resources, fetchMap }
 }
