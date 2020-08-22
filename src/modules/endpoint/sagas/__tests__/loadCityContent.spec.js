@@ -12,6 +12,7 @@ import LanguageModelBuilder from '../../../../testing/builder/LanguageModelBuild
 import CityModelBuilder from '../../../../testing/builder/CityModelBuilder'
 import moment from 'moment'
 import EventModelBuilder from '../../../../testing/builder/EventModelBuilder'
+import PoiModelBuilder from '../../../../testing/builder/PoiModelBuilder'
 import AsyncStorage from '@react-native-community/async-storage'
 import fetchResourceCache from '../fetchResourceCache'
 import NetInfo from '@react-native-community/netinfo'
@@ -26,16 +27,18 @@ jest.mock('../loadCategories')
 jest.mock('../loadEvents')
 jest.mock('../loadCities')
 jest.mock('../loadLanguages')
+jest.mock('../loadPois')
 jest.mock('../../../notifications/NotificationsManager')
 
 const prepareDataContainer = async (dataContainer: DataContainer, city: string, language: string) => {
   const categoriesBuilder = new CategoriesMapModelBuilder(city, language, 2, 2)
   const eventsBuilder = new EventModelBuilder('loadCityContent-events', 2, city, language)
-
+  const poisBuilder = new PoiModelBuilder('loadCityContent-events', 2, city, language)
   const categories = categoriesBuilder.build()
   const cities = new CityModelBuilder(1).build()
   const languages = new LanguageModelBuilder(2).build()
   const events = eventsBuilder.build()
+  const pois = poisBuilder.build()
   const resources = { ...categoriesBuilder.buildResources(), ...eventsBuilder.buildResources() }
   const fetchMap = { ...categoriesBuilder.buildFetchMap(), ...eventsBuilder.buildFetchMap() }
 
@@ -44,8 +47,9 @@ const prepareDataContainer = async (dataContainer: DataContainer, city: string, 
   await dataContainer.setLanguages(city, languages)
   await dataContainer.setResourceCache(city, language, resources)
   await dataContainer.setCities(cities)
+  await dataContainer.setPois(pois)
 
-  return { languages, cities, categories, events, resources, fetchMap }
+  return { languages, cities, categories, events, pois, resources, fetchMap }
 }
 
 describe('loadCityContent', () => {
