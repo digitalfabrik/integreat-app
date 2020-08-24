@@ -37,39 +37,39 @@
       options.androidClientID = @BUILD_CONFIG_IOS_GOOGLE_SERVICES_REVERSED_CLIENT_ID;
       options.databaseURL = @BUILD_CONFIG_IOS_GOOGLE_SERVICES_DATABASE_URL;
       options.storageBucket = @BUILD_CONFIG_IOS_GOOGLE_SERVICES_STORAGE_BUCKET;
-      
+
       // The following values are unset as they are probably not relevant for Messsaging:
       // options.deepLinkURLScheme = ??
       // options.trackingID = ??
       // options.appGroupID = ??
-      
+
       // Unused info from GoogleService-Info.plist:
-      // These exist in the .plist file but I was not able to add them to the FIROptions. They are probably not important.
+      // These existed in the .plist file but I was not able to add them to the FIROptions. They are probably not important.
       // ?? = BUILD_CONFIG_IOS_GOOGLE_SERVICES_PLIST_VERSION;
       // ?? = BUILD_CONFIG_IOS_GOOGLE_SERVICES_IS_ADS_ENABLED;
       // ?? = BUILD_CONFIG_IOS_GOOGLE_SERVICES_IS_ANALYTICS_ENABLED;
       // ?? = BUILD_CONFIG_IOS_GOOGLE_SERVICES_IS_APPINVITE_ENABLED;
       // ?? = BUILD_CONFIG_IOS_GOOGLE_SERVICES_IS_GCM_ENABLED;
       // ?? = BUILD_CONFIG_IOS_GOOGLE_SERVICES_IS_SIGNIN_ENABLED;
-      
+
       [FIRApp configureWithOptions:options];
     }
   }
-  
-  
+
+
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
   RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
                                                    moduleName:@"Integreat"
                                             initialProperties:nil];
-  
+
   rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
-  
+
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
-  
+
   [self clearStorage];
   return YES;
 }
@@ -87,12 +87,12 @@
 {
   NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
   NSString *lastLanguageKey = @"last_location";
-  
+
   if ([preferences objectForKey:lastLanguageKey] != nil)
   {
     //clear preferences
     [self resetDefaults];
-    
+
     //clear storage
     [self removeCache];
   }
