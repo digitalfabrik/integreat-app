@@ -1,3 +1,5 @@
+fastlane_version "2.156.1"
+
 require "yaml"
 require_relative "read_build_config"
 
