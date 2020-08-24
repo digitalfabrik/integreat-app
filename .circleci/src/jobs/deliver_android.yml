@@ -29,10 +29,10 @@ steps:
       command: bundle exec fastlane android browserstack_upload_live app_name:integreat
   - run:
       name: "[FL] Play Store Upload"
-      command: bundle exec fastlane android playstore_upload app_name:integreat production_delivery:"<< parameters.production_delivery >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
+      command: bundle exec fastlane android playstore_upload app_name:integreat production_delivery:"<< parameters.production_delivery >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}  build_config_name:integreat
   - run:
       name: "[FL] Upload to Sentry"
-      command: bundle exec fastlane android sentry_upload app_name:integreat version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
+      command: bundle exec fastlane android sentry_upload app_name:integreat version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat
   - slack/notify:
       message: Integreat ${NEW_VERSION_NAME} has been released successfully on Android!
       webhook: ${SLACK_URL}
