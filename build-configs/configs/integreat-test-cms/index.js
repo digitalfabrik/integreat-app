@@ -5,7 +5,6 @@ import type { BuildConfigType } from '../BuildConfigType'
 
 const IntegreatTestCmsBuildConfig: BuildConfigType = {
   ...IntegreatBuildConfig,
-
   appName: 'IntegreatTestCms',
   cmsUrl: 'https://cms-test.integreat-app.de',
   switchCmsUrl: 'https://cms.integreat-app.de',
