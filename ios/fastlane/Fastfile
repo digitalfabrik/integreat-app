@@ -1,17 +1,23 @@
 fastlane_version "2.143.0"
 
+require_relative "../../fastlane/read_build_config"
+
 before_all do
   setup_circle_ci
 end
 
 desc "Download and setup certificates"
-lane :certificates do
+lane :certificates do |options|
   ensure_env_vars(
       env_vars: ['FASTLANE_USER']
   )
 
+  build_config_name = options[:build_config_name]
+
+  build_config = read_build_config(build_config_name, '../')
+
   # https://docs.fastlane.tools/actions/match/
-  match(type: "appstore", app_identifier: 'de.integreat-app', username: ENV['FASTLANE_USER'], readonly: true) # FIXME: bundle id
+  match(type: "appstore", app_identifier: build_config['ios']['bundleIdentifier'], username: ENV['FASTLANE_USER'], readonly: true)
 end
 
 # The following parameters have to be passed:
@@ -32,8 +38,10 @@ lane :build do |options|
   ENV["EXTRA_PACKAGER_ARGS"] = "--sourcemap-output /Users/distiller/project/ios/index.ios.bundle.map"
   ENV["BUILD_CONFIG_NAME"] = build_config_name
 
+  build_config = read_build_config(build_config_name, '../')
+
   # https://docs.fastlane.tools/actions/match/
-  match(type: "appstore", app_identifier: 'de.integreat-app', username: ENV['FASTLANE_USER'], readonly: true) # FIXME: bundle id
+  match(type: "appstore", app_identifier: build_config['ios']['bundleIdentifier'], username: ENV['FASTLANE_USER'], readonly: true)
 
   increment_build_number(
       build_number: version_code
