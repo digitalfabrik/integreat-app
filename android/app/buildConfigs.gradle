@@ -18,9 +18,9 @@ def createConfig() {
     def buildConfigName
 
     if (!System.env["BUILD_CONFIG_NAME"]) {
+        logger.warn("WARNING: No build config specified. Using the build config 'integreat'!")
         buildConfigName = 'integreat'
     } else {
-        logger.warn("WARNING: No build config specified. Using the build config 'integreat'!")
         buildConfigName = System.env['BUILD_CONFIG_NAME']
     }
 
