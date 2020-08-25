@@ -16,7 +16,7 @@ describe('ToolbarItem', () => {
 
     mount(
       <ThemeProvider theme={theme}>
-        <ToolbarItem href='http://example.com' icon={faSmile} text='Click here!' />
+        <ToolbarItem href='http://example.com' icon={faSmile} text='Click here!' viewportSmall />
       </ThemeProvider>
     )
     expect(ReactTooltip.rebuild).toHaveBeenCalled()

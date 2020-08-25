@@ -8,9 +8,14 @@ const StyledToolbarItem = styled(CleanAnchor)`
   margin: 0 10px;
   padding: 8px;
   cursor: pointer;
-  color: ${props => props.theme.colors.textColor};
   border: none;
+  color: ${props => props.theme.colors.textColor};
   background-color: ${props => props.theme.colors.backgroundColor};
+  text-align: center;
+
+  @media ${props => props.theme.dimensions.smallViewport} {
+    line-height: 1.15;
+  }
 `
 
 export default StyledToolbarItem

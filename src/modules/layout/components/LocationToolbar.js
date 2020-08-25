@@ -9,18 +9,19 @@ import type { FeedbackRatingType } from '../containers/LocationLayout'
 
 type PropsType = {|
   openFeedbackModal: FeedbackRatingType => void,
-  children?: Node
+  children?: Node,
+  viewportSmall: boolean
 |}
 
 class LocationToolbar extends React.PureComponent<PropsType> {
   render () {
-    const { children, openFeedbackModal } = this.props
+    const { viewportSmall, children, openFeedbackModal } = this.props
 
     return (
-      <Toolbar>
+      <Toolbar viewportSmall={viewportSmall}>
         {children}
-        <FeedbackToolbarItem isPositiveRatingLink openFeedbackModal={openFeedbackModal} />
-        <FeedbackToolbarItem isPositiveRatingLink={false} openFeedbackModal={openFeedbackModal} />
+        <FeedbackToolbarItem isPositiveRatingLink openFeedbackModal={openFeedbackModal} viewportSmall={viewportSmall} />
+        <FeedbackToolbarItem isPositiveRatingLink={false} openFeedbackModal={openFeedbackModal} viewportSmall={viewportSmall} />
         {/* todo: Add these functionalities:
                 <ToolbarItem name='bookmark-o' text='Merken'href={this.getPdfFetchPath()} />
                 <ToolbarItem name='share' text='Teilen' href={this.getPdfFetchPath()} />
