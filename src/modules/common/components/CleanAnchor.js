@@ -23,14 +23,11 @@ class CleanAnchor extends React.PureComponent<PropsType> {
 
   render () {
     const { newTab, href, children, className, ariaLabel } = this.props
-
-    if (newTab) {
-      return <StyledAnchor aria-label={ariaLabel} className={className} href={href} target='_blank' rel='noreferrer'>
+    return (
+      <StyledAnchor aria-label={ariaLabel} className={className} href={href} {...newTab ? { target: '_blank', rel: 'noreferrer' } : {}}>
         {children}
       </StyledAnchor>
-    } else {
-      return <StyledAnchor aria-label={ariaLabel} className={className} href={href}>{children}</StyledAnchor>
-    }
+    )
   }
 }
 

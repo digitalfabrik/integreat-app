@@ -8,7 +8,7 @@ import LocationToolbar from '../LocationToolbar'
 describe('LocationToolbar', () => {
   it('should match snapshot', () => {
     const component = shallow(
-      <LocationToolbar openFeedbackModal={() => {}}>
+      <LocationToolbar openFeedbackModal={() => {}} viewportSmall>
         <div>MockNode</div>
       </LocationToolbar>
     )
