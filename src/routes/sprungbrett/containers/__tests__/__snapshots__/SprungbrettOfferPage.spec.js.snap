@@ -43,5 +43,14 @@ exports[`SprungbrettOfferPage should render list 1`] = `
     noItemsMessage="noOffersAvailable"
     renderItem={[Function]}
   />
+  <a
+    href="https://www.sprungbrett-intowork.de"
+    rel="noopener noreferrer"
+    target="_blank"
+  >
+    <img
+      src="xy"
+    />
+  </a>
 </Fragment>
 `;

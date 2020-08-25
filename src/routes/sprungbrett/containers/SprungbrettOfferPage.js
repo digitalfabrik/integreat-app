@@ -33,6 +33,9 @@ export class SprungbrettOfferPage extends React.Component<PropsType> {
         <List noItemsMessage={t('noOffersAvailable')}
               renderItem={this.renderSprungbrettListItem}
               items={sprungbrettJobs} />
+        <a target='_blank' rel='noopener noreferrer' href='https://www.sprungbrett-intowork.de'>
+          <img src={offer.thumbnail} />
+        </a>
       </>
     )
   }
