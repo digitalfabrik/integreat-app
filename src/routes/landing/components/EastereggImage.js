@@ -9,7 +9,7 @@ import type Moment from 'moment'
 import AppSettings from '../../../modules/settings/AppSettings'
 import moment from 'moment'
 import { Button } from 'react-native-elements'
-import buildConfig from '../../../modules/app/constants/buildConfig'
+import buildConfig, { buildConfigIconSet } from '../../../modules/app/constants/buildConfig'
 
 const API_URL_OVERRIDE_MIN_CLICKS = 10
 const CLICK_TIMEOUT = 8
@@ -94,7 +94,7 @@ class EastereggImage extends React.Component<PropsType, StateType> {
     return (
       <>
         <TouchableOpacity activeOpacity={1} onPress={this.onImagePress}>
-          <LocationImage source={buildConfig().locationMarker} />
+          <LocationImage source={buildConfigIconSet().locationMarker} />
         </TouchableOpacity>
         {this.renderApiUrlText()}
       </>
