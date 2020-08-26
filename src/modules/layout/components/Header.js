@@ -11,7 +11,7 @@ import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { TFunction } from 'react-i18next'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import MaterialHeaderButtons from './MaterialHeaderButtons'
-import buildConfig from '../../app/constants/buildConfig'
+import buildConfig, { buildConfigIconSet } from '../../app/constants/buildConfig'
 
 const Horizontal = styled.View`
   flex: 1;
@@ -146,7 +146,7 @@ class Header extends React.PureComponent<PropsType> {
       <Horizontal>
         <HorizontalLeft>
           {this.canGoBackInStack() ? <HeaderBackButton onPress={this.goBackInStack} />
-            : <Logo source={buildConfig().appLogo} />}
+            : <Logo source={buildConfigIconSet().appLogo} />}
           {cityModel &&
           <HeaderText allowFontScaling={false} theme={theme}>{this.cityDisplayName(cityModel)}</HeaderText>}
         </HorizontalLeft>
