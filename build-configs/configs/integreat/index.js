@@ -18,14 +18,14 @@ const IntegreatBuildConfig: BuildConfigType = {
   android: {
     applicationId: 'tuerantuer.app.integreat',
     googleServices: {
-      google_app_id: '1:164298278764:android:3fc1f67f3883df306fd549',
-      gcm_defaultSenderId: '164298278764',
-      default_web_client_id: '164298278764-hhup7orh5rvg0oumhbabqvp5giudaste.apps.googleusercontent.com',
-      ga_trackingId: null,
-      firebase_database_url: 'https://integreat-2020.firebaseio.com',
-      google_api_key: 'AIzaSyBvc08_Cqww8z2Dh-EXtwHW98HXBk8T7V4',
-      google_crash_reporting_api_key: 'AIzaSyBvc08_Cqww8z2Dh-EXtwHW98HXBk8T7V4',
-      project_id: 'integreat-2020'
+      googleAppId: '1:164298278764:android:3fc1f67f3883df306fd549',
+      gcmDefaultSenderId: '164298278764',
+      defaultWebClientId: '164298278764-hhup7orh5rvg0oumhbabqvp5giudaste.apps.googleusercontent.com',
+      gaTrackingId: null,
+      firebaseDatabaseUrl: 'https://integreat-2020.firebaseio.com',
+      googleApiKey: 'AIzaSyBvc08_Cqww8z2Dh-EXtwHW98HXBk8T7V4',
+      googleCrashReportingApiKey: 'AIzaSyBvc08_Cqww8z2Dh-EXtwHW98HXBk8T7V4',
+      projectId: 'integreat-2020'
     }
   },
   ios: {
@@ -43,7 +43,7 @@ const IntegreatBuildConfig: BuildConfigType = {
       isAnalyticsEnabled: false,
       isAppInviteEnabled: true,
       isGCMEnabled: true,
-      isSigninEnabled: true,
+      isSignInEnabled: true,
       googleAppId: '1:164298278764:ios:2a69672da4d117116fd549',
       databaseUrl: 'https://integreat-2020.firebaseio.com'
     }
