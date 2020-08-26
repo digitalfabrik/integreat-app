@@ -10,15 +10,5 @@
       "offers": "Malte Offers",
       "events": "Malte Events"
     }
-  },
-  "events": {
-    "de": {
-      "currentlyNoEvents": "Es gibt aktuell keine Malte Veranstaltungen."
-    }
-  },
-  "offers": {
-    "fr": {
-      "offers": "Offres Malte"
-    }
   }
 }
