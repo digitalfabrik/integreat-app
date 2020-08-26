@@ -2,7 +2,6 @@
 
 import * as React from 'react'
 import { Share } from 'react-native'
-import logo from '../assets/integreat-app-logo.png'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
 import { Item } from 'react-navigation-header-buttons'
@@ -12,6 +11,7 @@ import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { TFunction } from 'react-i18next'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import MaterialHeaderButtons from './MaterialHeaderButtons'
+import { buildConfigIconSet } from '../../app/constants/buildConfig'
 
 const Horizontal = styled.View`
   flex: 1;
@@ -146,7 +146,7 @@ class Header extends React.PureComponent<PropsType> {
       <Horizontal>
         <HorizontalLeft>
           {this.canGoBackInStack() ? <HeaderBackButton onPress={this.goBackInStack} />
-            : <Logo source={logo} />}
+            : <Logo source={buildConfigIconSet().appLogo} />}
           {cityModel &&
           <HeaderText allowFontScaling={false} theme={theme}>{this.cityDisplayName(cityModel)}</HeaderText>}
         </HorizontalLeft>

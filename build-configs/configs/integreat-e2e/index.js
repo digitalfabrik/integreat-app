@@ -15,4 +15,4 @@ const IntegreatE2eBuildConfig: BuildConfigType = {
   }
 }
 
-module.exports = IntegreatE2eBuildConfig
+export default IntegreatE2eBuildConfig
