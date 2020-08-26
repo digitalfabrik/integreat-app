@@ -11,7 +11,7 @@ import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { TFunction } from 'react-i18next'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import MaterialHeaderButtons from './MaterialHeaderButtons'
-import buildConfig, { buildConfigIconSet } from '../../app/constants/buildConfig'
+import { buildConfigIconSet } from '../../app/constants/buildConfig'
 
 const Horizontal = styled.View`
   flex: 1;
