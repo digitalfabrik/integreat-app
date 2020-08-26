@@ -27,7 +27,7 @@ const transformLocales = (locales: LocalesType): TransformedLocalesType => reduc
 )
 
 const loadLocales = (): TransformedLocalesType => {
-  // TODO NATIVE-615: Uncomment this section
+  // TODO WEBAPP-640: Uncomment this section
   // const localesOverride = buildConfig().localesOverride
   // // If keys are missing in 'defaultLocales', merge does not include those
   // // https://lodash.com/docs/4.17.15#merge
