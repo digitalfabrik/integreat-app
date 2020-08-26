@@ -11,6 +11,6 @@ const Logo = styled.img`
   margin: 0 auto;
 `
 
-const Heading = () => <Logo src={buildConfig.locationIcon} alt='' />
+const Heading = () => <Logo src={buildConfig().locationIcon} alt='' />
 
 export default Heading

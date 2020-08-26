@@ -4,15 +4,13 @@ import i18next from 'i18next'
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { I18nextProvider } from 'react-i18next'
-import { forEach, reduce } from 'lodash'
 import { Helmet as ReactHelmet } from 'react-helmet'
 import LanguageDetector from 'i18next-browser-languagedetector'
-
-import localesResources from '../../../../locales/locales.json'
 import setUiDirection from '../actions/setUIDirection'
 import type { Dispatch } from 'redux'
 import type { StoreActionType } from '../../app/StoreActionType'
 import type { UiDirectionType } from '../types/UiDirectionType'
+import loadLocales from '../loadLocales'
 
 const RTL_LANGUAGES = ['ar', 'fa']
 const FALLBACK_LANGUAGES = ['en', 'de']
@@ -38,7 +36,7 @@ export class I18nProvider extends React.Component<PropsType, StateType> {
   constructor () {
     super()
 
-    const i18nextResources = I18nProvider.transformResources(localesResources)
+    const i18nextResources = loadLocales()
     this.i18n = i18next.createInstance()
       .use(LanguageDetector)
     this.i18n.init({
@@ -56,30 +54,6 @@ export class I18nProvider extends React.Component<PropsType, StateType> {
 
   componentDidMount () {
     this.setLanguage(this.props.language)
-  }
-
-  /**
-   * Transform locale resources to the structure: languageCode -> namespace -> key:value
-   * And not: namespace -> languageCode -> key:value
-   * @param {object} resources
-   * @returns {object} transformed resources suplliable to i18next instance
-   */
-  static transformResources (resources: {
-    [namespace: string]: { [language: string]: { [key: string]: string } }
-  }): { key: string, value: string } {
-    return reduce(
-      resources,
-      (accumulator, namespace, namespaceName) => {
-        forEach(namespace, (language, languageCode) => {
-          accumulator[languageCode] = {
-            ...accumulator[languageCode],
-            [namespaceName]: language
-          }
-        })
-        return accumulator
-      },
-      {}
-    )
   }
 
   setLanguage (language: ?string) {
