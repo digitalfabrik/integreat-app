@@ -68,24 +68,3 @@ exports[`I18nProvider should match snapshot 1`] = `
   <div />
 </div>
 `;
-
-exports[`I18nProvider should transform the resources correctly 1`] = `
-Object {
-  "language1": Object {
-    "module1": Object {
-      "key1": "lang1-translated1",
-    },
-    "module2": Object {
-      "key2": "lang1-translated2",
-    },
-  },
-  "language2": Object {
-    "module1": Object {
-      "key1": "lang2-translated1",
-    },
-    "module2": Object {
-      "key2": "lang2-translated2",
-    },
-  },
-}
-`;
