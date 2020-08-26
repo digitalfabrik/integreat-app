@@ -19,22 +19,22 @@ type AndroidGoogleServicesConfig = {|
   project_id: string
 |}
 
-type AppleGoogleServicesConfig = {
-  CLIENT_ID: string,
-  REVERSED_CLIENT_ID: string,
-  API_KEY: string,
-  GCM_SENDER_ID: string,
-  PLIST_VERSION: string,
-  BUNDLE_ID: string,
-  PROJECT_ID: string,
-  STORAGE_BUCKET: string,
-  IS_ADS_ENABLED: boolean,
-  IS_ANALYTICS_ENABLED: boolean,
-  IS_APPINVITE_ENABLED: boolean,
-  IS_GCM_ENABLED: boolean,
-  IS_SIGNIN_ENABLED: boolean,
-  GOOGLE_APP_ID: string,
-  DATABASE_URL: string
+type iOSGoogleServicesConfig = {
+  clientId: string,
+  reverseClientId: string,
+  apiKey: string,
+  gcmSenderId: string,
+  plistVersion: string,
+  bundleId: string,
+  projectId: string,
+  storageBucket: string,
+  isAdsEnabled: boolean,
+  isAnalyticsEnabled: boolean,
+  isAppInviteEnabled: boolean,
+  isGCMEnabled: boolean,
+  isSigninEnabled: boolean,
+  googleAppId: string,
+  databaseUrl: string
 }
 export type BuildConfigType = {|
   appName: string,
@@ -53,6 +53,6 @@ export type BuildConfigType = {|
   |},
   ios: {|
     bundleIdentifier: string,
-    googleServices: ?AppleGoogleServicesConfig
+    googleServices: ?iOSGoogleServicesConfig
   |}
 |}
