@@ -204,7 +204,7 @@ workflows:
                 filters:
                     branches:
                         only:
-                            - develop
+                            - main
     commit:
         jobs:
             - build
@@ -212,7 +212,7 @@ workflows:
                 filters:
                     branches:
                         only:
-                            - develop
+                            - main
                 production_delivery: false
                 requires:
                     - build

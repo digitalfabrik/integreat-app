@@ -15,7 +15,7 @@ parameters:
 
 workflows:
   version: 2
-  commit: # Builds every commit. Delivers to webnext.integreat.app and webnext.malteapp.de on develop.
+  commit: # Builds every commit. Delivers to webnext.integreat.app and webnext.malteapp.de on main.
     unless: << pipeline.parameters.api_triggered >>
     jobs:
       - build
@@ -23,7 +23,7 @@ workflows:
           filters:
             branches:
               only:
-                - develop
+                - main
           production_delivery: false
           requires:
             - build
@@ -62,7 +62,7 @@ workflows:
           filters:
             branches:
               only:
-                - develop
+                - main
     jobs:
       - build
       - prepare_production_delivery:

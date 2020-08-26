@@ -1,6 +1,4 @@
 [![Dependency Status](https://gemnasium.com/badges/github.com/Integreat/integreat-webapp.svg)](https://gemnasium.com/github.com/Integreat/integreat-webapp)
-develop: ![develop build state](https://api.travis-ci.org/Integreat/integreat-webapp.svg?branch=develop)
-master: ![develop build state](https://api.travis-ci.org/Integreat/integreat-webapp.svg?branch=master)
 versioning: ![versioning](https://img.shields.io/badge/calver-YYYY.MM.PATCH-22bfda.svg)
 
 # integreat-webapp

@@ -13,7 +13,7 @@ The easiest way to deliver a new build to production or development is to trigge
 
 * Get a CircleCI [Personal API Token](https://circleci.com/docs/2.0/managing-pi-tokens/).
 * Trigger a build using the tool [trigger-pipeline.sh](../.circleci/trigger-pipeline).
-If no branch is specified, develop is used as default.
+If no branch is specified, main is used as default.
 * For more information on how to use it, execute it without parameters to see usage information.
 
 ## Workflows
@@ -22,7 +22,7 @@ See the table below for a detailed overview of all existing workflows:
 
 |Workflow|Trigger|Checks|Builds|Bump version|Delivery|
 |---|---|---|---|---|---|
-|commit|Every PR-commit|:heavy_check_mark:|:heavy_check_mark:|:x:|Development (develop only)|
+|commit|Every PR-commit|:heavy_check_mark:|:heavy_check_mark:|:x:|Development (main only)|
 |bi_weekly_production_delivery|Bi weekly cron|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|Production|
 |api_triggered_development_delivery|[Manually](#triggering-a-delivery-using-the-ci)|:heavy_check_mark:|:heavy_check_mark:|:x:|Development|
 |api_triggered_production_delivery|[Manually](#triggering-a-delivery-using-the-ci)|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|Production|
