@@ -1,8 +1,8 @@
 // @flow
 
-import { reduce, forEach, merge } from 'lodash'
+import { reduce, forEach } from 'lodash'
 import defaultLocales from '../../../locales/locales.json'
-import buildConfig from '../app/constants/buildConfig'
+// import buildConfig from '../app/constants/buildConfig'
 import type { LocalesType } from '../../../build-configs/configs/BuildConfigType'
 
 type TransformedLocalesType = { [language: string]: { [namespace: string]: { [key: string]: string } } }
@@ -27,10 +27,13 @@ const transformLocales = (locales: LocalesType): TransformedLocalesType => reduc
 )
 
 const loadLocales = (): TransformedLocalesType => {
-  const localesOverride = buildConfig().localesOverride
-  // If keys are missing in 'defaultLocales', merge does not include those
-  // https://lodash.com/docs/4.17.15#merge
-  const locales = localesOverride ? merge(defaultLocales, localesOverride) : defaultLocales
+  // TODO NATIVE-615: Uncomment this section
+  // const localesOverride = buildConfig().localesOverride
+  // // If keys are missing in 'defaultLocales', merge does not include those
+  // // https://lodash.com/docs/4.17.15#merge
+  // const locales = localesOverride ? merge(defaultLocales, localesOverride) : defaultLocales
+
+  const locales = defaultLocales
   return transformLocales(locales)
 }
 
