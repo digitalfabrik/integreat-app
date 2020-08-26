@@ -443,6 +443,18 @@ jobs:
                 paths:
                     - ~/.cache/yarn
                     - node_modules
+            - run:
+                command: tools/parse-release-notes parse --android --destination android/fastlane/metadata/android/de-DE/changelogs/default.txt --language de --production
+                name: Parse german android release notes
+            - run:
+                command: tools/parse-release-notes parse --android --destination android/fastlane/metadata/android/en-GB/changelogs/default.txt --language en --production && tools/parse-release-notes parse --android --destination android/fastlane/metadata/android/en-US/changelogs/default.txt --language en --production
+                name: Parse english android release notes
+            - run:
+                command: tools/parse-release-notes parse --ios --destination ios/fastlane/metadata/de-DE/release_notes.txt --language de --production
+                name: Parse german ios release notes
+            - run:
+                command: tools/parse-release-notes parse --ios --destination ios/fastlane/metadata/en-US/release_notes.txt --language en --production
+                name: Parse english ios release notes
             - when:
                 condition: << parameters.production_delivery >>
                 steps:
@@ -453,7 +465,7 @@ jobs:
                         command: tools/move-release-notes move-to ${NEW_VERSION_NAME} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH} --commit-sha ${CIRCLE_SHA1}
                         name: Move release notes
             - run:
-                command: tools/bump-version bump-to ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH} <<# parameters.production_delivery >> --development-release <</ parameters.production_delivery >>
+                command: tools/bump-version bump-to ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH} --release-notes "${tools/parse-release-notes parse --ios --android}" <<# parameters.production_delivery >> --development-release <</ parameters.production_delivery >>
                 name: Bump version
 orbs:
     slack: circleci/slack@3.4.2
