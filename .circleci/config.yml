@@ -299,6 +299,20 @@ jobs:
                 key: 2-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
                 paths:
                     - vendor/bundle
+            - restore_cache:
+                keys:
+                    - 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+                    - 3-yarn-{{ arch }}-
+                name: Restore Yarn Package Cache
+            - run:
+                command: yarn install --frozen-lockfile
+                name: Install Dependencies
+            - save_cache:
+                key: 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+                name: Save Yarn Package Cache
+                paths:
+                    - ~/.cache/yarn
+                    - node_modules
             - run:
                 command: bundle exec fastlane android browserstack_upload_live app_name:integreat
                 name: '[FL] Browserstack Upload Live'
@@ -337,6 +351,20 @@ jobs:
                 key: 2-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
                 paths:
                     - vendor/bundle
+            - restore_cache:
+                keys:
+                    - 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+                    - 3-yarn-{{ arch }}-
+                name: Restore Yarn Package Cache
+            - run:
+                command: yarn install --frozen-lockfile
+                name: Install Dependencies
+            - save_cache:
+                key: 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+                name: Save Yarn Package Cache
+                paths:
+                    - ~/.cache/yarn
+                    - node_modules
             - run:
                 command: bundle exec fastlane ios browserstack_upload_live app_name:integreat
                 name: '[FL] Browserstack Upload Live'
