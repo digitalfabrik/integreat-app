@@ -28,6 +28,8 @@ const transformLocales = (locales: LocalesType): TransformedLocalesType => reduc
 
 const loadLocales = (): TransformedLocalesType => {
   const localesOverride = buildConfig().localesOverride
+  // If keys are missing in 'defaultLocales', merge does not include those
+  // https://lodash.com/docs/4.17.15#merge
   const locales = localesOverride ? merge(defaultLocales, localesOverride) : defaultLocales
   return transformLocales(locales)
 }
