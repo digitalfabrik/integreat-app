@@ -37,7 +37,7 @@
       options.androidClientID = @BUILD_CONFIG_IOS_GOOGLE_SERVICES_REVERSED_CLIENT_ID;
       options.databaseURL = @BUILD_CONFIG_IOS_GOOGLE_SERVICES_DATABASE_URL;
       options.storageBucket = @BUILD_CONFIG_IOS_GOOGLE_SERVICES_STORAGE_BUCKET;
-      
+
       // The following values are unset as they are probably not relevant for Messsaging:
       // options.deepLinkURLScheme = ??
       // options.trackingID = ??
@@ -55,8 +55,7 @@
       [FIRApp configureWithOptions:options];
     }
   }
-  
-  
+
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
   RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
                                                    moduleName:@"Integreat"
@@ -87,12 +86,12 @@
 {
   NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
   NSString *lastLanguageKey = @"last_location";
-  
+
   if ([preferences objectForKey:lastLanguageKey] != nil)
   {
     //clear preferences
     [self resetDefaults];
-    
+
     //clear storage
     [self removeCache];
   }
