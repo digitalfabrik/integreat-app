@@ -66,7 +66,7 @@ const createRelease = async ({ newVersionName, accessToken, privateKey, consumer
   const project = projects.find(project => project.name === projectName)
   const projectKey = project.key
 
-  // Create a new jira version
+  // Create a new version in jira
   await postToJira('/rest/api/2/version', {
     name: newVersionName,
     released: true,

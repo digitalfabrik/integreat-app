@@ -21,7 +21,7 @@ const calculateNewVersion = () => {
   const versionNameCounter = year === versionNameParts[0] && month === versionNameParts[1] ? versionNameParts[2] + 1 : 0
   const newVersionName = `${year}.${month}.${versionNameCounter}`
 
-  if (typeof versionCode !== 'number') {
+  if (versionCode && typeof versionCode !== 'number') {
     throw new Error(`Version code must be a number, but is of type ${typeof versionCode}.`)
   }
   const newVersionCode = versionCode ? versionCode + 1 : undefined
