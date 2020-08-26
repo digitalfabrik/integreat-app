@@ -1,8 +1,6 @@
 import groovy.json.JsonSlurper
 
 def determineBuildConfigName() {
-    def buildConfigName
-
     if (!System.getenv()["BUILD_CONFIG_NAME"]) {
         logger.warn("WARNING: No build config specified. Using the build config 'integreat'!")
         return 'integreat'
