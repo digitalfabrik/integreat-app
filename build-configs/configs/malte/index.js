@@ -31,7 +31,7 @@ const MalteBuildConfig: BuildConfigType = {
     bundleIdentifier: 'de.integreat-app',
     googleServices: {
       clientId: '146599424234-b6rfm4skhbsv4qvob3ieh34s2chjm54k.apps.googleusercontent.com',
-      reverseClientId: 'com.googleusercontent.apps.146599424234-b6rfm4skhbsv4qvob3ieh34s2chjm54k',
+      reversedClientId: 'com.googleusercontent.apps.146599424234-b6rfm4skhbsv4qvob3ieh34s2chjm54k',
       apiKey: 'AIzaSyAWOaqdFwZ7-tbwiQ79dwMyzpmR_g1cBbI',
       googleAppId: '1:146599424234:ios:56dde1442250260651a793',
       gcmSenderId: '146599424234',
@@ -44,7 +44,7 @@ const MalteBuildConfig: BuildConfigType = {
       isAnalyticsEnabled: false,
       isAppInviteEnabled: true,
       isGCMEnabled: true,
-      isSignInEnabled: true
+      isSigninEnabled: true
     }
   }
 }
