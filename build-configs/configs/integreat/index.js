@@ -31,21 +31,21 @@ const IntegreatBuildConfig: BuildConfigType = {
   ios: {
     bundleIdentifier: 'de.integreat-app',
     googleServices: {
-      CLIENT_ID: '164298278764-pemn49q7v283m0tqml3q8q0ltr5h8pni.apps.googleusercontent.com',
-      REVERSED_CLIENT_ID: 'com.googleusercontent.apps.164298278764-pemn49q7v283m0tqml3q8q0ltr5h8pni',
-      API_KEY: 'AIzaSyBSnGYrUWfIAPcEsFya1OYvTMbjvfUyOEU',
-      GCM_SENDER_ID: '164298278764',
-      PLIST_VERSION: '1',
-      BUNDLE_ID: 'de.integreat-app',
-      PROJECT_ID: 'integreat-2020',
-      STORAGE_BUCKET: 'integreat-2020.appspot.com',
-      IS_ADS_ENABLED: false,
-      IS_ANALYTICS_ENABLED: false,
-      IS_APPINVITE_ENABLED: true,
-      IS_GCM_ENABLED: true,
-      IS_SIGNIN_ENABLED: true,
-      GOOGLE_APP_ID: '1:164298278764:ios:2a69672da4d117116fd549',
-      DATABASE_URL: 'https://integreat-2020.firebaseio.com'
+      clientId: '164298278764-pemn49q7v283m0tqml3q8q0ltr5h8pni.apps.googleusercontent.com',
+      reverseClientId: 'com.googleusercontent.apps.164298278764-pemn49q7v283m0tqml3q8q0ltr5h8pni',
+      apiKey: 'AIzaSyBSnGYrUWfIAPcEsFya1OYvTMbjvfUyOEU',
+      gcmSenderId: '164298278764',
+      plistVersion: '1',
+      bundleId: 'de.integreat-app',
+      projectId: 'integreat-2020',
+      storageBucket: 'integreat-2020.appspot.com',
+      isAdsEnabled: false,
+      isAnalyticsEnabled: false,
+      isAppInviteEnabled: true,
+      isGCMEnabled: true,
+      isSigninEnabled: true,
+      googleAppId: '1:164298278764:ios:2a69672da4d117116fd549',
+      databaseUrl: 'https://integreat-2020.firebaseio.com'
     }
   }
 }
