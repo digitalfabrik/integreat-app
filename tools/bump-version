@@ -11,12 +11,22 @@ program
   .requiredOption('--owner <owner>', 'owner of the current repository, usually "Integreat"')
   .requiredOption('--repo <repo>', 'the current repository, usually "integreat-webapp" or "integreat-react-native-app"')
   .requiredOption('--branch <branch>', 'the current branch')
+  .requiredOption('--release-notes <release-notes>', 'the release notes as stringified json')
+  .option('--development-release', 'whether the release is a development release which is not delivered to production')
 
-const commitAndTag = async (versionName, versionCode, { deliverinoPrivateKey, owner, repo, branch }) => {
+const commitAndTag = async (versionName, versionCodeString, {
+  deliverinoPrivateKey, owner, repo, branch, developmentRelease, releaseNotes
+}) => {
   const appOctokit = await authenticate({ deliverinoPrivateKey, owner, repo })
   const versionFileContent = await appOctokit.repos.getContent({ owner, repo, path: VERSION_FILE, ref: branch })
 
-  const contentBase64 = Buffer.from(JSON.stringify({ versionName, versionCode })).toString('base64')
+  const versionCode = versionCodeString ? parseInt(versionCodeString) : null
+  if (versionCode && isNaN(versionCode)) {
+    throw new Error(`Failed to parse version code string: ${versionCodeString}`)
+  }
+
+  const contentBase64 = Buffer.from(JSON.stringify({ versionName, versionCode }))
+    .toString('base64')
 
   const message = versionCode
     ? `Bump version name to ${versionName} and version code to ${versionCode}\n[skip ci]`
@@ -35,7 +45,7 @@ const commitAndTag = async (versionName, versionCode, { deliverinoPrivateKey, ow
 
   const commitSha = commit.data.commit.sha
 
-  const releaseName = `${versionName}${versionCode ? ` - version code: ${versionCode}` : ''}`
+  const releaseName = `${developmentRelease ? '[Development release] ' : ''}${versionName}${versionCode ? ` - ${versionCode}` : ''}`
 
   const tag = await appOctokit.git.createTag({
     owner,
@@ -54,15 +64,18 @@ const commitAndTag = async (versionName, versionCode, { deliverinoPrivateKey, ow
     sha: tagSha
   })
 
-  const releaseNotesUrl = `https://github.com/${owner}/${repo}/tree/${branch}/release-notes/${versionName}`
-  const releaseMessage = `Release ${releaseName}. Release notes can be found here: ${releaseNotesUrl}.`
+  const releaseMessage = developmentRelease
+    ? `Development release ${releaseName}. This release is only delivered to development (Testflight and Beta channel).`
+    : `Release ${releaseName}.`
+
+  const body = `${releaseMessage}\n${JSON.parse(releaseNotes)}`
 
   await appOctokit.repos.createRelease({
     owner,
     repo,
     tag_name: versionName,
     name: versionName,
-    body: releaseMessage
+    body
   })
 }
 

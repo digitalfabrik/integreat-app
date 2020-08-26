@@ -1,11 +1,8 @@
 #!/usr/bin/env node
 
 const authenticate = require('./github-authentication')
+const { GITKEEP_FILE, UNRELEASED_DIR, RELEASE_NOTES_DIR } = require('./constants')
 const { program } = require('commander')
-
-const RELEASE_NOTES_DIR = 'release-notes'
-const UNRELEASED_DIR = 'unreleased'
-const GITKEEP_FILE = '.gitkeep'
 
 program
   .option('-d, --debug', 'enable extreme logging')
@@ -58,6 +55,9 @@ const moveReleaseNotes = async ({ newVersionName, deliverinoPrivateKey, owner, r
     }
     return rest
   })
+
+  // mode: '040000' means subdirectory(tree)
+  // See https://developer.github.com/v3/git/trees/#create-a-tree
   newReleaseNotesContent.push({ path: newVersionName, sha: newVersionTree.data.sha, type: 'tree', mode: '040000' })
 
   const newReleaseNotesTree = await appOctokit.git.createTree({ owner, repo, tree: newReleaseNotesContent })
