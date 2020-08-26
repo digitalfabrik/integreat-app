@@ -24,7 +24,7 @@ type AndroidGoogleServicesConfig = {|
 // These values can be retrieved from the GoogleService-Info.plist.
 type iOSGoogleServicesConfig = {|
   clientId: string,
-  reverseClientId: string,
+  reversedClientId: string,
   apiKey: string,
   gcmSenderId: string,
   plistVersion: string,
@@ -35,7 +35,7 @@ type iOSGoogleServicesConfig = {|
   isAnalyticsEnabled: boolean,
   isAppInviteEnabled: boolean,
   isGCMEnabled: boolean,
-  isSignInEnabled: boolean,
+  isSigninEnabled: boolean,
   googleAppId: string,
   databaseUrl: string
 |}
