@@ -541,7 +541,7 @@ workflows:
                 filters:
                     branches:
                         only:
-                            - develop
+                            - main
     bi_weekly_production_delivery:
         jobs:
             - prepare_build
@@ -579,7 +579,7 @@ workflows:
                 filters:
                     branches:
                         only:
-                            - develop
+                            - main
     commit:
         jobs:
             - prepare_build
