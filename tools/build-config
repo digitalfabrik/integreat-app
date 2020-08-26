@@ -6,7 +6,7 @@ const fs = require('fs')
 const flat = require('flat')
 const decamelize = require('decamelize')
 
-const createXcconfigs = async (buildConfigName, directory) => {
+const loadBuildConfigAsXCConfig = (buildConfigName, directory) => {
   const buildConfig = loadBuildConfig(buildConfigName)
   const xcconfigOptions = flat(buildConfig, {
     delimiter: '_',
@@ -14,23 +14,38 @@ const createXcconfigs = async (buildConfigName, directory) => {
   })
   const prefixed = Object.keys(xcconfigOptions).map(key => `BUILD_CONFIG_${key} = ${xcconfigOptions[key]}`)
   prefixed.push(`BUILD_CONFIG_NAME = ${buildConfigName}`)
-  fs.writeFileSync(`${directory}/buildConfig.tmp.xcconfig`, prefixed.join('\n'))
+  return prefixed.join('\n')
 }
 
 program
-  .command('to-xcconfig <build_config_name>')
+  .command('write-xcconfig <build_config_name>')
   .requiredOption('--directory <directory>', 'the directory to put the created xcconfig file in')
   .description('create and write a new .xcconfig from the iosBuildOptions of the specified build config')
-  .action(async (buildConfigName, cmdObj) => {
+  .action((buildConfigName, cmdObj) => {
     try {
-      await createXcconfigs(buildConfigName, cmdObj.directory)
+      const xcconfig = loadBuildConfigAsXCConfig(buildConfigName)
+      fs.writeFileSync(`${cmdObj.directory}/buildConfig.tmp.xcconfig`, xcconfig)
     } catch (e) {
       console.error(e)
       process.exit(1)
     }
   })
 
-program.command('to-json <build_config_name>')
+program
+  .command('to-xcconfig <build_config_name>')
+  .description('outputs the specified build config as XConfig')
+  .action((buildConfigName, cmdObj) => {
+    try {
+      const xcconfig = loadBuildConfigAsXCConfig(buildConfigName, cmdObj.directory)
+      console.log(xcconfig)
+    } catch (e) {
+      console.error(e)
+      process.exit(1)
+    }
+  })
+
+program
+  .command('to-json <build_config_name>')
   .description('outputs the specified build config as JSON')
   .action(async buildConfigName => {
     const buildConfig = loadBuildConfig(buildConfigName)
