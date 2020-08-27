@@ -101,20 +101,20 @@ class Dashboard extends React.Component<PropsType> {
         notifications: 0
       }))
     }
-
-    tiles.push(new TileModel({
-      title: t('pois'),
-      path: 'pois',
-      thumbnail: poisIcon,
-      isExternalUrl: false,
-      onTilePress: () => navigateToPoi({
-        cityCode,
-        language,
-        path: null
-      }),
-      notifications: 0
-    }))
-
+    if (featureFlags.pois) {
+      tiles.push(new TileModel({
+        title: t('pois'),
+        path: 'pois',
+        thumbnail: poisIcon,
+        isExternalUrl: false,
+        onTilePress: () => navigateToPoi({
+          cityCode,
+          language,
+          path: null
+        }),
+        notifications: 0
+      }))
+    }
     if (featureFlags.newsStream && isNewsEnabled) {
       tiles.push(new TileModel({
         title: t('news'),
