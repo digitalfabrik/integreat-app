@@ -51,9 +51,6 @@ export type PropsType = {|
  * Displays a list of events or a single event, matching the route /<location>/<language>/events(/<id>)
  */
 class Pois extends React.Component<PropsType> {
-  navigateToPoi = (cityCode: string, language: string, path: string) => () => {
-    this.props.navigateToPoi({ cityCode, language, path })
-  }
 
   renderPoiListItem = (cityCode: string, language: string) => (poi: PoiModel) => {
     const { theme } = this.props
