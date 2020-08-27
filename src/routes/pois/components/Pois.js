@@ -32,6 +32,7 @@ import type {
 } from '@integreat-app/integreat-api-client/endpoints/createFeedbackEndpoint'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
 import PoiListItem from './PoiListItem'
+import type { NavigateToPoiParamsType } from '../../../modules/app/createNavigateToPoi'
 
 export type PropsType = {|
   path: ?string,
@@ -43,14 +44,18 @@ export type PropsType = {|
   theme: ThemeType,
   t: TFunction,
   navigation: NavigationScreenProp<*>,
-  navigateToPoi: NavigateToEventParamsType => void,
+  navigateToPoi: NavigateToPoiParamsType => void,
   navigateToIntegreatUrl: NavigateToIntegreatUrlParamsType => void
 |}
 
 /**
- * Displays a list of events or a single event, matching the route /<location>/<language>/events(/<id>)
+ * Displays a list of pois or a single poi, matching the route /<location>/<language>/pois(/<id>)
+ * cityCode: string, language: string, path: ?string, key?: string, forceRefresh?: boolean
  */
 class Pois extends React.Component<PropsType> {
+  navigateToPoi = (cityCode: string, language: string, path: string) => () => {
+    this.props.navigateToPoi({ cityCode, language, path })
+  }
 
   renderPoiListItem = (cityCode: string, language: string) => (poi: PoiModel) => {
     const { theme } = this.props
@@ -58,8 +63,7 @@ class Pois extends React.Component<PropsType> {
                           poi={poi}
                           language={language}
                           theme={theme}
-                          navigateToPoi={this.props.navigateToPoi({ cityCode, language, path: poi.path })} />
-
+                          navigateToPoi={this.navigateToPoi(cityCode, language, poi.path)} />
   }
 
   createNavigateToFeedbackForPoi = (poi: PoiModel) => (isPositiveFeedback: boolean) => {
