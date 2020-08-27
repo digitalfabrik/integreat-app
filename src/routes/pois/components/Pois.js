@@ -58,7 +58,8 @@ class Pois extends React.Component<PropsType> {
                           poi={poi}
                           language={language}
                           theme={theme}
-                          navigateToPoi={this.navigateToPoi(cityCode, language, poi.path)} />
+                          navigateToPoi={this.props.navigateToPoi({ cityCode, language, path: poi.path })} />
+
   }
 
   createNavigateToFeedbackForPoi = (poi: PoiModel) => (isPositiveFeedback: boolean) => {
