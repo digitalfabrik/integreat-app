@@ -8,6 +8,7 @@ import Footer from './Footer'
 import DisclaimerRouteConfig from '../../app/route-configs/DisclaimerRouteConfig'
 import CleanLink from '../../common/components/CleanLink'
 import CleanAnchor from '../../common/components/CleanAnchor'
+import buildConfig from '../../app/constants/buildConfig'
 
 type PropsType = {|
   city: string,
@@ -24,8 +25,12 @@ export class LocationFooter extends React.PureComponent<PropsType> {
       <CleanLink to={new DisclaimerRouteConfig().getRoutePath({ city, language })}>
         {t('imprintAndContact')}
       </CleanLink>
-      <CleanAnchor href={`https://integreat-app.de${language === 'de' ? '/about/' : '/en/about/'}`}>{t('settings:about')}</CleanAnchor>
-      <CleanAnchor href={`https://integreat-app.de${language === 'de' ? '/datenschutz/' : '/en/privacy/'}`}>{t('privacy')}</CleanAnchor>
+      <CleanAnchor href={`https://integreat-app.de${language === 'de' ? '/about/' : '/en/about/'}`}>
+        {t('settings:about', { appName: buildConfig.appName })}
+      </CleanAnchor>
+      <CleanAnchor href={`https://integreat-app.de${language === 'de' ? '/datenschutz/' : '/en/privacy/'}`}>
+        {t('privacy')}
+      </CleanAnchor>
     </Footer>
   }
 }

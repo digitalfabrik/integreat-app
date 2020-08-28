@@ -10,6 +10,7 @@ import { Description, StyledFeedbackBox } from '../../../modules/feedback/compon
 import FeedbackComment from '../../../modules/feedback/components/FeedbackComment'
 import { cmsApiBaseUrl } from '../../../modules/app/constants/urls'
 import TextButton from '../../../modules/common/components/TextButton'
+import buildConfig from '../../../modules/app/constants/buildConfig'
 
 type PropsType = {|
   query?: string,
@@ -54,7 +55,7 @@ export class NothingFoundFeedbackBox extends React.Component<PropsType, StateTyp
     return <StyledFeedbackBox>
       {
         feedbackSent
-          ? <Description>{t('thanksMessage')}</Description>
+          ? <Description>{t('thanksMessage', { appName: buildConfig.appName })}</Description>
           : <>
             <FeedbackComment
               comment={comment}

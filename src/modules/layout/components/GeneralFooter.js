@@ -8,6 +8,7 @@ import Footer from './Footer'
 import MainDisclaimerRouteConfig from '../../app/route-configs/MainDisclaimerRouteConfig'
 import CleanAnchor from '../../common/components/CleanAnchor'
 import CleanLink from '../../common/components/CleanLink'
+import buildConfig from '../../app/constants/buildConfig'
 
 type PropsType = {|
   t: TFunction
@@ -19,8 +20,12 @@ class GeneralFooter extends React.PureComponent<PropsType> {
     return (
       <Footer>
         <CleanLink to={new MainDisclaimerRouteConfig().getRoutePath()}>{t('imprintAndContact')}</CleanLink>
-        <CleanAnchor href='https://integreat-app.de/about/'>{t('settings:about')}</CleanAnchor>
-        <CleanAnchor href='https://integreat-app.de/datenschutz/'>{t('privacy')}</CleanAnchor>
+        <CleanAnchor href='https://integreat-app.de/about/'>
+          {t('settings:about', { appName: buildConfig.appName })}
+        </CleanAnchor>
+        <CleanAnchor href='https://integreat-app.de/datenschutz/'>
+          {t('privacy')}
+        </CleanAnchor>
       </Footer>
     )
   }
