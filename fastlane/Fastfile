@@ -1,3 +1,5 @@
+fastlane_version "2.156.1"
+
 require "yaml"
 
 # The following parameters have to be passed:
@@ -85,9 +87,12 @@ platform :android do
     version_code = options[:version_code]
     version_name = options[:version_name]
     app_name = options[:app_name]
+    build_config_name = options[:build_config_name]
+
+    build_config = read_build_config(build_config_name)
 
     generic_sentry_upload(
-        package_name: "tuerantuer.app.integreat", # FIXME: bundle id
+        package_name: build_config['android']['applicationId'],
         sourcemap_path: "./#{app_name}.android.bundle.map",
         version_name: version_name,
         version_code: version_code
@@ -103,6 +108,9 @@ platform :android do
     version_code = options[:version_code]
     version_name = options[:version_name]
     app_name = options[:app_name]
+    build_config_name = options[:build_config_name]
+
+    build_config = read_build_config(build_config_name)
 
     ensure_env_vars(
         env_vars: ["GOOGLE_SERVICE_ACCOUNT_JSON"]
@@ -114,7 +122,7 @@ platform :android do
     upload_to_play_store(
         version_code: version_code,
         version_name: version_name,
-        package_name: "tuerantuer.app.integreat", # FIXME: bundle id
+        package_name: build_config['android']['applicationId'],
         metadata_path: "./android/fastlane/metadata/android",
         track: track,
         skip_upload_changelogs: false,
@@ -181,9 +189,12 @@ platform :ios do
     version_code = options[:version_code]
     version_name = options[:version_name]
     app_name = options[:app_name]
+    build_config_name = options[:build_config_name]
+
+    build_config = read_build_config(build_config_name)
 
     generic_sentry_upload(
-        package_name: "de.integreat-app", # FIXME: bundle id
+        package_name: build_config['ios']['bundleIdentifier'],
         sourcemap_path: "./#{app_name}.ios.bundle.map",
         version_code: version_code,
         version_name: version_name
