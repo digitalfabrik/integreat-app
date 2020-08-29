@@ -20,6 +20,7 @@ const IntegreatTestCmsBuildConfig: BuildConfigType = {
   },
   ios: {
     bundleIdentifier: 'de.integreat-app',
+    provisioningProfileSpecifier: 'match Development de.integreat-app',
     googleServices: null
   }
 }

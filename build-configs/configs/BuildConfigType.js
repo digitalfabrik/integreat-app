@@ -56,6 +56,7 @@ export type BuildConfigType = {|
   |},
   ios: {|
     bundleIdentifier: string,
+    provisioningProfileSpecifier: string,
     googleServices: ?iOSGoogleServicesConfig
   |}
 |}
