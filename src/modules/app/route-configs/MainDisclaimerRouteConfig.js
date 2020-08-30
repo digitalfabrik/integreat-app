@@ -1,6 +1,7 @@
 // @flow
 
 import { RouteConfig } from './RouteConfig'
+import buildConfig from '../constants/buildConfig'
 
 type RequiredPayloadsType = {||}
 
@@ -22,7 +23,7 @@ class MainDisclaimerRouteConfig implements RouteConfig<void, RequiredPayloadsTyp
 
   getLanguageChangePath = () => null
 
-  getPageTitle = ({ t }) => t('pageTitles.mainDisclaimer')
+  getPageTitle = ({ t }) => t('pageTitles.mainDisclaimer', { appName: buildConfig.appName })
 
   getMetaDescription = () => null
 

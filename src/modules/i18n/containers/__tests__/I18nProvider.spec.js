@@ -8,7 +8,7 @@ import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
 import ConnectedI18nProvider, { I18nProvider } from '../I18nProvider'
 import { I18nextProvider } from 'react-i18next'
-import resources from '../../../../../locales/locales.json'
+import loadLocales from '../../loadLocales'
 
 const mockStore = configureMockStore()
 
@@ -22,28 +22,6 @@ describe('I18nProvider', () => {
     const i18nextProvider = component.children().at(0)
     expect(i18nextProvider.name()).toEqual('I18nextProvider')
     expect(i18nextProvider.children()).toMatchSnapshot()
-  })
-
-  it('should transform the resources correctly', () => {
-    const input = {
-      module1: {
-        language1: {
-          key1: 'lang1-translated1'
-        },
-        language2: {
-          key1: 'lang2-translated1'
-        }
-      },
-      module2: {
-        language1: {
-          key2: 'lang1-translated2'
-        },
-        language2: {
-          key2: 'lang2-translated2'
-        }
-      }
-    }
-    expect(I18nProvider.transformResources(input)).toMatchSnapshot()
   })
 
   it('should initialize correct i18next instance', () => {
@@ -68,7 +46,7 @@ describe('I18nProvider', () => {
     expect(i18nInstance.init.mock.calls[0]).toHaveLength(1)
     const options = i18nInstance.init.mock.calls[0][0]
 
-    expect(options.resources).toEqual(I18nProvider.transformResources(resources))
+    expect(options.resources).toEqual(loadLocales())
     delete options.resources
 
     expect(options).toMatchSnapshot()

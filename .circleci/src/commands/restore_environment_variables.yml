@@ -1,0 +1,8 @@
+description: Sets the environment variables specified in the file 'environment_variables'. Make sure the file is persisted and has been attached.
+steps:
+  - run:
+      name: List environment variables
+      command: cat environment_variables
+  - run:
+      name: Restore environment variables
+      command: cat environment_variables >> ${BASH_ENV}
