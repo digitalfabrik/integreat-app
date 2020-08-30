@@ -132,7 +132,7 @@ const createConfig = (env = {}) => {
         'process.env.NODE_ENV': NODE_ENV,
         __DEV__: !isProductionBuild,
         __VERSION__: JSON.stringify(version),
-        __CONFIG__: JSON.stringify(buildConfig)
+        __BUILD_CONFIG__: JSON.stringify(buildConfig)
       }),
       // Emit a JSON file with assets paths
       // https://github.com/sporto/assets-webpack-plugin#options
