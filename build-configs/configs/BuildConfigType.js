@@ -12,7 +12,10 @@ export type BuildConfigType = {|
   manifestUrl?: string,
   itunesAppId?: string,
   logoWide: string,
-  locationIcon: string,
+  iconSet: {
+    locationIcon: string,
+    logoWide: string,
+  },
   internalLinksHijackPattern: string,
   splashScreen?: {| backgroundColor: string, imageUrl: string |}
 |}
