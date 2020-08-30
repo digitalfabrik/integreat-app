@@ -12,7 +12,7 @@ const IntegreatBuildConfig: BuildConfigType = {
   cmsUrl: 'https://cms.integreat-app.de',
   manifestUrl: '/manifest.json',
   featureFlags,
-  iconSet: {
+  icons: {
     locationIcon: '/location-big.svg',
     logoWide: '/integreat-app-logo.png'
   },

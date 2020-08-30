@@ -14,8 +14,10 @@ const MalteBuildConfig: BuildConfigType = {
   featureFlags,
   // TODO WEBAPP-640: Uncomment this
   // localesOverride: malteOverrideLocales,
-  locationIcon: '/location-big.svg',
-  logoWide: '/malteser-logo.png',
+  icons: {
+    locationIcon: '/location-big.svg',
+    logoWide: '/malteser-logo.png'
+  },
   internalLinksHijackPattern: 'https?:\\/\\/malteapp\\.de(?!\\/[^/]*\\/(wp-content|wp-admin|wp-json)\\/.*).*'
 }
 
