@@ -12,8 +12,10 @@ const IntegreatBuildConfig: BuildConfigType = {
   cmsUrl: 'https://cms.integreat-app.de',
   manifestUrl: '/manifest.json',
   featureFlags,
-  locationIcon: '/location-big.svg',
-  logoWide: '/integreat-app-logo.png',
+  iconSet: {
+    locationIcon: '/location-big.svg',
+    logoWide: '/integreat-app-logo.png'
+  },
   splashScreen: {
     backgroundColor: integreatTheme.colors.themeColor,
     imageUrl: '/progressive-logo.jpg'

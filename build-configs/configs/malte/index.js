@@ -11,8 +11,10 @@ const MalteBuildConfig: BuildConfigType = {
   // TODO WEBAPP-567: Add itunesAppId
   cmsUrl: 'https://cms.malteapp.de',
   featureFlags,
-  locationIcon: '/location-big.svg',
-  logoWide: '/malteser-logo.png',
+  iconSet: {
+    locationIcon: '/location-big.svg',
+    logoWide: '/malteser-logo.png'
+  },
   internalLinksHijackPattern: 'https?:\\/\\/malteapp\\.de(?!\\/[^/]*\\/(wp-content|wp-admin|wp-json)\\/.*).*'
 }
 
