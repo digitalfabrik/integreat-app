@@ -15,7 +15,7 @@ export type BuildConfigType = {|
   itunesAppId?: string,
   localesOverride?: LocalesType,
   logoWide: string,
-  iconSet: {
+  icons: {
     locationIcon: string,
     logoWide: string,
   },
