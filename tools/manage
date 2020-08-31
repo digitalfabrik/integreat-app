@@ -8,7 +8,7 @@ const {unflatten} = flat
 const stringify = require('csv-stringify')
 const parse = require('csv-parse/lib/sync')
 
-const {isEmpty, without, isString, merge, fromPairs, toPairs, zip, sortBy, mapValues} = require('lodash')
+const {isEmpty, without, isString, merge, fromPairs, toPairs, zip, sortBy, mapValues, isEqual} = require('lodash')
 
 program
   .version('0.1.0')
@@ -126,7 +126,7 @@ const loadModules = (csvFile, csvColumn) => {
     skip_empty_lines: true
   })
 
-  const flattened = fromPairs(records.map(record => [record['key'], record[csvColumn]]))
+  const flattened = fromPairs(records.map(record => [record['key'], record[csvColumn]]).filter(([key, translation]) => !!translation))
 
   return unflatten(flattened)
 }
@@ -138,13 +138,30 @@ const writeJsonFromCsv = (locales, toPath, sourceLanguage) => {
     }
 
     const csvs = files.map(file => `${locales}/${file}`).filter(file => path.extname(file) === '.csv')
-    const byLanguageModules = fromPairs(csvs.map(csvFile => [path.basename(csvFile, '.csv'), loadModules(csvFile, 'target_language')]))
 
-    if (!csvs) {
+    if (isEmpty(csvs)) {
       throw  new Error('A minimum of one CSV is required in order to build a JSON!')
     }
 
+    const byLanguageModules = fromPairs(csvs.map(csvFile => [path.basename(csvFile, '.csv'), loadModules(csvFile, 'target_language')]))
+
     const sourceModules = loadModules(csvs[0], 'source_language')
+
+    // Show which source languages differ
+    csvs.forEach((csv, index) => {
+      if (!isEqual(loadModules(csv, 'source_language'), sourceModules)) {
+        console.log('source language 1', sourceModules)
+        console.log()
+        console.log()
+        console.log()
+        console.log('index', index)
+        console.log('source language 2', loadModules(csv, 'source_language'))
+      }
+    })
+
+    if (!csvs.every(csv => isEqual(loadModules(csv, 'source_language'), sourceModules))) {
+      throw new Error('The \'source_language\' column must be the same in every CSV!')
+    }
 
     const byLanguageModulesWithSourceLanguage = {...byLanguageModules, [sourceLanguage]: sourceModules}
 
@@ -160,7 +177,7 @@ const writeJsonFromCsv = (locales, toPath, sourceLanguage) => {
 
     fs.writeFileSync(toPath, JSON.stringify(json, null, 2) + '\n', 'utf-8')
 
-    const logMessages = Object.entries(json).map(([moduleKey, module]) => `Languages is module ${moduleKey}: ${Object.keys(module).length}`)
+    const logMessages = Object.entries(json).map(([moduleKey, module]) => `Languages in module ${moduleKey}: ${Object.keys(module).length}`)
 
     logMessages.forEach(message => console.log(message))
   })
