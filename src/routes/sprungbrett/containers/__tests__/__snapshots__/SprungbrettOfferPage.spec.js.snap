@@ -48,7 +48,7 @@ exports[`SprungbrettOfferPage should render list 1`] = `
     rel="noopener noreferrer"
     target="_blank"
   >
-    <img
+    <SprungbrettOfferPage__Image
       src="xy"
     />
   </a>
