@@ -100,9 +100,9 @@ class Intro extends React.Component<PropsType, StateType> {
   slides = (): Array<SlideContentType> => {
     const { t } = this.props
     return [{
-      key: 'integerat',
-      title: t('integreat', { appName: buildConfig().appName }),
-      description: t('integreatDescription', { appName: buildConfig().appName }),
+      key: 'integreat',
+      title: t('appName', { appName: buildConfig().appName }),
+      description: t('appDescription', { appName: buildConfig().appName }),
       renderContent: this.renderAppLogo()
     }, {
       key: 'search',
