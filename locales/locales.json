@@ -7,13 +7,13 @@
         "offers": "Angebote",
         "landing": "Ortsauswahl",
         "disclaimer": "Impressum und Kontakt",
-        "mainDisclaimer": "Impressum und Kontakt - Integreat",
+        "mainDisclaimer": "Impressum und Kontakt - {{appName}}",
         "pois": "Points of Interest",
         "notFound": "Seite nicht gefunden",
         "tunews": "tünews",
         "localNews": "Lokale Nachrichten"
       },
-      "metaDescription": "Integreat ist Ihr digitaler Guide für Deutschland. Finden Sie lokale Informationen, Veranstaltungen und Beratung. Immer aktuell und in Ihrer Sprache."
+      "metaDescription": "{{appName}} ist Ihr digitaler Guide für Deutschland. Finden Sie lokale Informationen, Veranstaltungen und Beratung. Immer aktuell und in Ihrer Sprache."
     },
     "ar": {
       "pageTitles": {
@@ -22,11 +22,13 @@
         "offers": "العروض",
         "landing": "اختيار المكان",
         "disclaimer": "هيئة التحرير وجهة الاتصال",
-        "mainDisclaimer": "هيئة التحرير وجهة الاتصال لتطبيق إنتجريت",
+        "mainDisclaimer": "هيئة التحرير وجهة الاتصال - {{appName}}",
         "pois": "النقاط المثيرة للاهتمام",
-        "notFound": "تعذر العثور على الصفحة"
+        "notFound": "تعذر العثور على الصفحة",
+        "tunews": "tünews",
+        "localNews": "الأخبار المحلية"
       },
-      "metaDescription": "تطبيق إنتجريت هو دليلك الرقمي لألمانيا. تجد فيه معلومات وفعاليات محلية ويقدم لك المشورة. دائمًا مُحدَّثة وبلغتك."
+      "metaDescription": "تطبيق{{appName}} هو دليلك الرقمي لألمانيا. اعثر على المعلومات والفعاليات والمشورة المحلية. مُحدَّثة دائمًا وبلغتك."
     },
     "en": {
       "pageTitles": {
@@ -35,11 +37,13 @@
         "offers": "Offers",
         "landing": "Location selection",
         "disclaimer": "Imprint and contacts",
-        "mainDisclaimer": "Imprint and contacts - Integreat",
+        "mainDisclaimer": "Imprint and contacts - {{appName}}",
         "pois": "Points of interest",
-        "notFound": "Page not located"
+        "notFound": "Page not located",
+        "tunews": "tünews",
+        "localNews": "Local news"
       },
-      "metaDescription": "Integreat is your digital guide to life in Germany. Discover local information, events and advice. Always up to date and available in your own language."
+      "metaDescription": "{{appName}} is your digital guide to life in Germany. Discover local information, events and advice. Always up to date and available in your own language."
     },
     "es": {
       "pageTitles": {
@@ -48,11 +52,13 @@
         "offers": "Ofertas",
         "landing": "Elegir ubicación",
         "disclaimer": "Aviso legal y contacto",
-        "mainDisclaimer": "Aviso legal y contacto - Integreat",
+        "mainDisclaimer": "Aviso legal y contacto - {{appName}}",
         "pois": "Puntos de interés",
-        "notFound": "No se ha encontrado la página"
+        "notFound": "No se ha encontrado la página",
+        "tunews": "tünews",
+        "localNews": "Noticias locales"
       },
-      "metaDescription": "Integreat es su guía digital para Alemania. Encuentre información local, eventos y consejos. Siempre actualizados y en su idioma."
+      "metaDescription": "{{appName}} es su guía digital para Alemania. Encuentre información local, eventos y consejos. Siempre actualizados y en su idioma."
     },
     "fa": {
       "pageTitles": {
@@ -61,11 +67,13 @@
         "offers": "خدمات",
         "landing": "انتخاب محل",
         "disclaimer": "اطلاعات ناشر و تماس",
-        "mainDisclaimer": "اطلاعات ناشر و تماس - Integreat",
+        "mainDisclaimer": "اطلاعات ناشر و تماس - {{appName}}",
         "pois": "موارد مورد علاقه",
-        "notFound": "صفحه پیدا نشد"
+        "notFound": "صفحه پیدا نشد",
+        "tunews": "tünews",
+        "localNews": "اخبار محلی"
       },
-      "metaDescription": "Integreat راهنمای دیجیتالی شما در مورد آلمان است. اطلاعات، رویدادها و مشاوره محلی را بیابید. همیشه به روز و به زبان شما."
+      "metaDescription": "{{appName}} راهنمای دیجیتالی شما در مورد آلمان است. اطلاعات، رویدادها و مشاوره محلی را بیابید. همیشه به روز و به زبان شما."
     },
     "fr": {
       "pageTitles": {
@@ -74,11 +82,13 @@
         "offers": "Offres",
         "landing": "Sélection du lieu",
         "disclaimer": "Mentions légales et contact",
-        "mainDisclaimer": "Mentions légales et contact - Integreat",
-        "pois": "Points of Interest",
-        "notFound": "Page introuvable"
+        "mainDisclaimer": "Mentions légales et contact - {{appName}}",
+        "pois": "Points d'intérêt",
+        "notFound": "Page introuvable",
+        "tunews": "tünews",
+        "localNews": "Nouvelles locales"
       },
-      "metaDescription": "Integreat est votre guide numérique pour l'Allemagne. Vous y trouverez des informations locales, des événements et des conseils, toujours à jour et dans votre langue."
+      "metaDescription": "{{appName}} est votre guide numérique pour l'Allemagne. Vous y trouverez des informations locales, des événements et des conseils, toujours à jour et dans votre langue."
     },
     "hr": {
       "pageTitles": {
@@ -87,11 +97,12 @@
         "offers": "Ponude",
         "landing": "Odabir mjesta",
         "disclaimer": "Impresum i kontakt",
-        "mainDisclaimer": "Impresum i kontakt - Integreat",
+        "mainDisclaimer": "Impresum i kontakt - {{appName}}",
         "pois": "Zanimljive točke",
-        "notFound": "Stranica nije pronađena"
+        "notFound": "Stranica nije pronađena",
+        "tunews": "tünews"
       },
-      "metaDescription": "Integreat je vaš digitalni vodič za Njemačku. Pronađite lokalne informacije, događanja i savjetovanje. Uvijek s najaktualnijim podatcima i na vašem jeziku."
+      "metaDescription": "{{appName}} je vaš digitalni vodič za Njemačku. Pronađite lokalne informacije, događanja i savjetovanje. Uvijek s najaktualnijim podatcima i na vašem jeziku."
     },
     "ku": {
       "pageTitles": {
@@ -100,11 +111,13 @@
         "offers": "Xizmet",
         "landing": "Bijartina cih",
         "disclaimer": "Lêzanînên Weşîner û Têkillî",
-        "mainDisclaimer": "Lêzanînên Weşanîner û Têkillî – 'Integreat'",
+        "mainDisclaimer": "Lêzanînên Weşanîner û Têkillî – '{{appName}}'",
         "pois": "Babetên balkêş",
-        "notFound": "Rûpel nehat dîtin"
+        "notFound": "Rûpel nehat dîtin",
+        "tunews": "tünews",
+        "localNews": "Nûçeyên herêmî"
       },
-      "metaDescription": "'Integreat' rêbera te ya dîcîtal li Almanyayê ye. Zzanyarî, rûdan û şêwirîna xwecihî peyde bike. Hertim birojkirî û bi zimanê te bixwe."
+      "metaDescription": "{{appName}}' rêbera te ya dîcîtal li Almanyayê ye. Zzanyarî, rûdan û şêwirîna xwecihî peyde bike. Hertim birojkirî û bi zimanê te bixwe."
     },
     "pl": {
       "pageTitles": {
@@ -113,11 +126,27 @@
         "offers": "Oferty",
         "landing": "Wybór lokalizacji",
         "disclaimer": "Nota prawna i kontakt",
-        "mainDisclaimer": "Nota prawna i kontakt - Integreat",
+        "mainDisclaimer": "Nota prawna i kontakt - {{appName}}",
         "pois": "Points of Interest",
-        "notFound": "Nie znaleziono strony"
+        "notFound": "Nie znaleziono strony",
+        "tunews": "tünews"
       },
-      "metaDescription": "Integreat to e-przewodnik po Niemczech. Znajdziesz tu aktualne informacje, najnowsze wydarzenia i porady. Zawsze aktualne i w Twoim języku."
+      "metaDescription": "{{appName}} to e-przewodnik po Niemczech. Znajdziesz tu aktualne informacje, najnowsze wydarzenia i porady. Zawsze aktualne i w Twoim języku."
+    },
+    "ps": {
+      "pageTitles": {
+        "search": "لټون",
+        "events": "غونډې",
+        "offers": "وړاندیزونه",
+        "landing": "د ځای انتخاب",
+        "disclaimer": "خپروونکی او تماس",
+        "mainDisclaimer": "خپروونکی او تماس - {{appName}}",
+        "pois": "د علاقې نکتې",
+        "notFound": "پاڼه پیدا نشوه",
+        "tunews": "تو نیوز",
+        "localNews": "سیمه ییز خبرونه"
+      },
+      "metaDescription": "{{appName}} آلمان لپاره ستاسو ډیجیټال لارښود دی. په دې کې تاسو سیمه ییز معلومات، غونډې او مشورې موندلی شئ. همېشه تازه معلومات ستاسو په ژبه کې."
     },
     "ro": {
       "pageTitles": {
@@ -126,11 +155,12 @@
         "offers": "Oferte",
         "landing": "Alegerea locației",
         "disclaimer": "Caseta tehnică și contact",
-        "mainDisclaimer": "Caseta tehnică și contact - Integreat",
+        "mainDisclaimer": "Caseta tehnică și contact - {{appName}}",
         "pois": "Points of Interest",
-        "notFound": "Pagină nu a fost găsită"
+        "notFound": "Pagină nu a fost găsită",
+        "tunews": "tünews"
       },
-      "metaDescription": "Integreat este ghidul dvs. digital pentru Germania. Găsiți informații locale, evenimente și consiliere. Acestea sunt întotdeauna la zi și în limba dvs."
+      "metaDescription": "{{appName}} este ghidul dvs. digital pentru Germania. Găsiți informații locale, evenimente și consiliere. Acestea sunt întotdeauna la zi și în limba dvs."
     },
     "ru": {
       "pageTitles": {
@@ -139,11 +169,13 @@
         "offers": "Предложения",
         "landing": "Выбор места",
         "disclaimer": "Выходные данные и контактная информация",
-        "mainDisclaimer": "Выходные данные и контактная информация — Integreat",
+        "mainDisclaimer": "Выходные данные и контактная информация – {{appName}}",
         "pois": "Достопримечательности",
-        "notFound": "Страница не найдена"
+        "notFound": "Страница не найдена",
+        "tunews": "tünews",
+        "localNews": "Местные новости"
       },
-      "metaDescription": "Integreat — это ваш виртуальный гид по Германии. Здесь вы узнаете информацию о жизни страны и о проводимых здесь мероприятиях, а также сможете получить консультации — всегда в актуальном виде и на вашем языке."
+      "metaDescription": "{{appName}} – это ваш виртуальный гид по Германии. Здесь вы узнаете местную информацию и информацию о мероприятиях, а также сможете получить консультации – всегда актуально и на вашем языке."
     },
     "so": {
       "pageTitles": {
@@ -152,11 +184,28 @@
         "offers": "Heshiisyo",
         "landing": "Doorashada goobta",
         "disclaimer": "Faahfaahinta qoraaga iyo macaluumaadkiisa xiriirka",
-        "mainDisclaimer": "Faahfaahinta qoraaga iyo macaluumaadkiisa xiriirka - integreat",
+        "mainDisclaimer": "Faahfaahinta qoraaga iyo macaluumaadkiisa xiriirka - {{appName}}",
         "pois": "Qodobbada xiisaha leh",
-        "notFound": "Bogga lama helin"
+        "notFound": "Bogga lama helin",
+        "tunews": "tünews",
+        "localNews": "Wararka deegaanka"
       },
-      "metaDescription": "Integreat waa tusahaaga dijitaalka ah ee Jarmalka. Raadi macluumaadka deegaanka, dhacdooyin iyo talobixino. Had iyo jeer cusbooneysan/casriyeysan oo luuqadaada ah."
+      "metaDescription": "{{appName}} waa tusahaaga dijitaalka ah ee Jarmalka. Raadi macluumaadka deegaanka, dhacdooyin iyo talobixino. Had iyo jeer cusbooneysan/casriyeysan oo luuqadaada ah."
+    },
+    "sr": {
+      "pageTitles": {
+        "search": "Pretraga",
+        "events": "Manifestacije",
+        "offers": "Ponude",
+        "landing": "Odabir mesta",
+        "disclaimer": "Impresum i kontakt",
+        "mainDisclaimer": "Impresum i kontakt - {{appName}}",
+        "pois": "Points of Interest",
+        "notFound": "Stranica nije pronađena",
+        "tunews": "tünews",
+        "localNews": "Lokalne vesti"
+      },
+      "metaDescription": "{{appName}} je vaš digitalni vodič za Nemačku. Pronađite lokalne informacije, manifestacije i savetovanje. Uvek aktuelno i na vašem jeziku."
     },
     "ti": {
       "pageTitles": {
@@ -165,11 +214,13 @@
         "offers": "ውዕላት",
         "landing": "ምምራጽ ቦታ",
         "disclaimer": "ናይ ደራሲ ዝርዝራት ሓበሬታን ናይ ርክብን",
-        "mainDisclaimer": "ናይ ደራሲ ዝርዝራት ሓበሬታን ናይ ርክብን - integreat",
+        "mainDisclaimer": "ናይ ደራሲ ዝርዝራት ሓበሬታን ናይ ርክብን - {{appName}}",
         "pois": "ዘገድሱ ነጥብታት",
-        "notFound": "ገጽ ኣይተረኽበን"
+        "notFound": "ገጽ ኣይተረኽበን",
+        "tunews": "tünews",
+        "localNews": "ዜና ውሽጢ  ዓዲ"
       },
-      "metaDescription": "Integreat ናይ ጀርመን ዲጂታላዊ መምርሒኻ እዩ። ከባብያዊ ሓበሬታ፡ ኣጋጣሚታትን ምኽርን ርኸብ። ኩሉግዜ ዝተሓደሰን ብቋንቋኻን።"
+      "metaDescription": "{{appName}} ናይ ጀርመን ዲጂታላዊ መምርሒኻ እዩ። ከባብያዊ ሓበሬታ፡ ኣጋጣሚታትን ምኽርን ርኸብ። ኩሉግዜ ዝተሓደሰን ብቋንቋኻን።"
     },
     "tr": {
       "pageTitles": {
@@ -178,11 +229,13 @@
         "offers": "Teklifler",
         "landing": "Konum seçimi",
         "disclaimer": "Künye ve iletişim",
-        "mainDisclaimer": "Künye ve iletişim - Integreat",
+        "mainDisclaimer": "Künye ve iletişim - {{appName}}",
         "pois": "İlgi alanı",
-        "notFound": "Sayfa bulunamadı"
+        "notFound": "Sayfa bulunamadı",
+        "tunews": "tünews",
+        "localNews": "yerel bildirimler"
       },
-      "metaDescription": "Integreat, Almanya'daki dijital rehberinizdir. Burada yerel bilgiler, etkinlikler ve öneriler bulabilirsiniz. Her zaman günceldir ve kendi dilinizdedir."
+      "metaDescription": "{{appName}}, Almanya'daki dijital rehberinizdir. Burada yerel bilgiler, etkinlikler ve öneriler bulabilirsiniz. Her zaman günceldir ve kendi dilinizdedir."
     }
   },
   "categories": {
@@ -213,6 +266,9 @@
     "pl": {
       "createPdf": "Wygeneruj PDF"
     },
+    "ps": {
+      "createPdf": "پي ډي ایف جوړول"
+    },
     "ro": {
       "createPdf": "Creați PDF"
     },
@@ -221,6 +277,9 @@
     },
     "so": {
       "createPdf": "Abuur PDF"
+    },
+    "sr": {
+      "createPdf": "Izradite PDF"
     },
     "ti": {
       "createPdf": "PDF ፍጠር"
@@ -233,7 +292,7 @@
     "de": {
       "languageNotAvailable": "Deine Sprache ist hier leider nicht verfügbar.",
       "chooseALanguage": "Wähle eine Sprache.",
-      "lastUpdate": "Letzte Änderung: "
+      "lastUpdate": "Letzte Änderung:"
     },
     "ar": {
       "languageNotAvailable": "للأسف، لغتك ليست متاحة.",
@@ -243,22 +302,22 @@
     "en": {
       "languageNotAvailable": "Sorry, but your language is not available here.",
       "chooseALanguage": "Choose a language.",
-      "lastUpdate": "Last update: "
+      "lastUpdate": "Last update:"
     },
     "es": {
       "languageNotAvailable": "Tu idioma no está disponible aquí.",
       "chooseALanguage": "Selecciona un idioma.",
-      "lastUpdate": "Última modificación: "
+      "lastUpdate": "Última modificación:"
     },
     "fa": {
       "languageNotAvailable": "متاسفانه زبان شما در اینجا در دسترس نیست.",
       "chooseALanguage": "یک زبان را انتخاب کنید.",
-      "lastUpdate": "آخرین تغییرات: "
+      "lastUpdate": "آخرین تغییرات:"
     },
     "fr": {
       "languageNotAvailable": "Malheureusement, ta langue n'est pas disponible ici.",
       "chooseALanguage": "Choisis une langue.",
-      "lastUpdate": "Dernière modification : "
+      "lastUpdate": "Dernière modification :"
     },
     "hr": {
       "languageNotAvailable": "Tvoj jezik ovdje nažalost nije dostupan.",
@@ -268,12 +327,17 @@
     "ku": {
       "languageNotAvailable": "Mixabin zimanê te li vir li ber dest nîne.",
       "chooseALanguage": "Zimanekî bibijêre.",
-      "lastUpdate": "Guhertinên herî dawî: "
+      "lastUpdate": "Guhertinên herî dawî:"
     },
     "pl": {
       "languageNotAvailable": "Niestety Twój język nie jest tutaj dostępny.",
       "chooseALanguage": "Wybierz język.",
       "lastUpdate": "Ostania zmiana: "
+    },
+    "ps": {
+      "languageNotAvailable": "له بده مرغه ستا ژبه دلته موجوده نده.",
+      "chooseALanguage": "یوه ژبه انتخاب کړه.",
+      "lastUpdate": "آخري تغیر:"
     },
     "ro": {
       "languageNotAvailable": "Din păcate, aici nu este disponibilă limba ta.",
@@ -283,22 +347,27 @@
     "ru": {
       "languageNotAvailable": "К сожалению, ваш язык здесь не используется.",
       "chooseALanguage": "Выбор языка.",
-      "lastUpdate": "Последнее изменение: "
+      "lastUpdate": "Последнее изменение:"
     },
     "so": {
       "languageNotAvailable": "Nasiib darro, luqaddaada halkan lagama heli karo.",
       "chooseALanguage": "Dooro luuqad.",
-      "lastUpdate": "Bedelkii ugu dambeeyay: "
+      "lastUpdate": "Bedelkii ugu dambeeyay:"
+    },
+    "sr": {
+      "languageNotAvailable": "Tvoj jezik nažalost ovde nije dostupan.",
+      "chooseALanguage": "Odaberi jezik.",
+      "lastUpdate": "Zadnja promena:"
     },
     "ti": {
       "languageNotAvailable": "ሕማቕ ኣጋጣሚ ኮይኑ፡ ቋንቋኻ ኣብዚ የለን።",
       "chooseALanguage": "ቋንቋ ምረጽ።",
-      "lastUpdate": "ናይ መወዳእታ እዋን ለውጢ፥ "
+      "lastUpdate": "ናይ መወዳእታ እዋን ለውጢ፥"
     },
     "tr": {
       "languageNotAvailable": "Senin dilin burada maalesef yok.",
       "chooseALanguage": "Bir dil seçin.",
-      "lastUpdate": "Son değişiklik: "
+      "lastUpdate": "Son değişiklik:"
     }
   },
   "dashboard": {
@@ -312,27 +381,37 @@
     "ar": {
       "localInformation": "معلومات محلية",
       "offers": "العروض",
-      "events": "الفعاليات"
+      "events": "الفعاليات",
+      "news": "الأخبار",
+      "newsAlternative": "المستجدات"
     },
     "en": {
       "localInformation": "Local information",
       "offers": "Offers",
-      "events": "Events"
+      "events": "Events",
+      "news": "News",
+      "newsAlternative": "News"
     },
     "es": {
       "localInformation": "Información local",
       "offers": "Ofertas",
-      "events": "Actividades"
+      "events": "Actividades",
+      "news": "Noticias",
+      "newsAlternative": "Novedades"
     },
     "fa": {
       "localInformation": "اطلاعات محلی",
       "offers": "خدمات",
-      "events": "رویدادها"
+      "events": "رویدادها",
+      "news": "اخبار",
+      "newsAlternative": "تازه‌ها"
     },
     "fr": {
       "localInformation": "Informations locales",
       "offers": "Offres",
-      "events": "Événements"
+      "events": "Événements",
+      "news": "Nouvelles",
+      "newsAlternative": "Nouveautés"
     },
     "hr": {
       "localInformation": "Lokalne informacije",
@@ -342,12 +421,21 @@
     "ku": {
       "localInformation": "Zanyariyên xwecihî",
       "offers": "Xizmet",
-      "events": "Rûdan"
+      "events": "Rûdan",
+      "news": "Nûçe",
+      "newsAlternative": "Nûçe"
     },
     "pl": {
       "localInformation": "Informacje lokalne",
       "offers": "Oferty",
       "events": "Wydarzenia"
+    },
+    "ps": {
+      "localInformation": "سیمه ییز معلومات",
+      "offers": "وړاندیزونه",
+      "events": "غونډې",
+      "news": "خبرونه",
+      "newsAlternative": "نوې زړې"
     },
     "ro": {
       "localInformation": "Informații locale",
@@ -355,24 +443,39 @@
       "events": "Evenimente"
     },
     "ru": {
-      "localInformation": "Информация о жизни страны",
+      "localInformation": "Местная информация",
       "offers": "Предложения",
-      "events": "Мероприятия"
+      "events": "Мероприятия",
+      "news": "Новости",
+      "newsAlternative": "Новое"
     },
     "so": {
       "localInformation": "Macluumaadka deegaanka",
       "offers": "Heshiisyo",
-      "events": "Dhacdooyinka"
+      "events": "Dhacdooyinka",
+      "news": "war",
+      "newsAlternative": "war"
+    },
+    "sr": {
+      "localInformation": "Lokalne informacije",
+      "offers": "Ponude",
+      "events": "Manifestacije",
+      "news": "Vesti",
+      "newsAlternative": "Novosti"
     },
     "ti": {
       "localInformation": "ከባብያዊ ሓበሬታ",
       "offers": "ውዕላት",
-      "events": "ኣጋጣሚታት"
+      "events": "ኣጋጣሚታት",
+      "news": "ዜና",
+      "newsAlternative": "ዜና"
     },
     "tr": {
       "localInformation": "Yerel bilgiler",
       "offers": "Teklifler",
-      "events": "Etkinlikler"
+      "events": "Etkinlikler",
+      "news": "Mesajlar",
+      "newsAlternative": "Yenilikler"
     }
   },
   "error": {
@@ -523,7 +626,7 @@
         "category": "Malheureusement, cette page est introuvable.",
         "event": "Malheureusement, cet événement est introuvable.",
         "offer": "Malheureusement, cette offre est introuvable.",
-        "poi": "Malheureusement, ce point of interest est introuvable."
+        "poi": "Malheureusement, ce point d'intérêt est introuvable."
       },
       "pageNotFound": "Malheureusement, cette page est introuvable.",
       "networkConnectionFailed": "Échec de la connexion au serveur.",
@@ -628,6 +731,34 @@
       "languageSwitchFailedTitle": "Niestety zmiana języka się nie powiodła.",
       "languageSwitchFailedMessage": "Wybrany język nie jest dostępny offline. Konieczne jest aktywne połączenie z Internetem."
     },
+    "ps": {
+      "notFound": {
+        "language": "دا ژبه له بده مرغه دلته موجوده نده.",
+        "city": "دا ښار له بده مرغه پیدا نشو.",
+        "category": "دا پاڼه له بده مرغه پیدا نشوه.",
+        "event": "دا غونډه له بده مرغه پیدا نشوه.",
+        "offer": "دا وړاندیز له بده مرغه پیدا نشو.",
+        "poi": "دا د علاقې نکته له بده مرغه پیدا نشوه."
+      },
+      "pageNotFound": "دا پاڼه له بده مرغه پیدا نشوه.",
+      "networkConnectionFailed": "له سرور سره پیوستون ناکام شو.",
+      "networkRequestFailed": "دا غوښتنه پروسس نکړی شوه.",
+      "responseMappingFailed": "د سرور ځواب پروسس نکړی شو.",
+      "unknownError": "یوه نامعلومه اشتباه رامینځته شوه.",
+      "tryAgain": "یو ځل بیا کوښښ کول",
+      "loadingFailed": "له بده مرغه پاڼه ډاونلوډ نکړی شوه.",
+      "chooseALanguage": "یوه ژبه انتخاب کړه:",
+      "goTo": {
+        "start": "مخپاڼې ته تلل",
+        "categories": "کټګوریو ته تلل",
+        "events": "غونډو ته تلل",
+        "offers": "وړاندیزونو ته تلل"
+      },
+      "pageTitle": "اشتباه",
+      "generalError": "یوه اشتباه رامینځته شوه",
+      "languageSwitchFailedTitle": "له بده مرغه د ژبې انتخاب ناکام شو.",
+      "languageSwitchFailedMessage": "انتخاب شوې ژبه آفلاین موجوده نده. د انټرنیټ فعال پیوستون اړین دی."
+    },
     "ro": {
       "notFound": {
         "language": "Aici nu este disponibilă această limbă, din păcate.",
@@ -658,7 +789,7 @@
     },
     "ru": {
       "notFound": {
-        "language": "К сожалению, этот язык здесь не используется.",
+        "language": "К сожалению, этот язык не поддерживается.",
         "city": "К сожалению, этот город не найден.",
         "category": "К сожалению, эта страница не найдена.",
         "event": "К сожалению, это событие не найдено.",
@@ -666,7 +797,7 @@
         "poi": "К сожалению, эта достопримечательность не найдена."
       },
       "pageNotFound": "К сожалению, эта страница не найдена.",
-      "networkConnectionFailed": "Соединение с сервером прервано.",
+      "networkConnectionFailed": "Не удалось соединиться с сервером.",
       "networkRequestFailed": "Не удалось обработать запрос.",
       "responseMappingFailed": "Не удалось обработать ответ сервера.",
       "unknownError": "Произошла неизвестная ошибка.",
@@ -711,6 +842,34 @@
       "generalError": "Khalad ayaa dhacay",
       "languageSwitchFailedTitle": "Nasiib darro, bedelidda luqadda ayaa lagu guuldareystay.",
       "languageSwitchFailedMessage": "Luqadda aad dooratay laguma heli karo ofleen(offline) ahaan. Xiriir internet oo shaqeeya ayaa loo baahan yahay."
+    },
+    "sr": {
+      "notFound": {
+        "language": "Ovaj jezik nažalost ovde nije dostupan.",
+        "city": "Ovaj grad nažalost nije pronađen.",
+        "category": "Ova stranica nažalost nije pronađena.",
+        "event": "Ovaj događaj nažalost nije pronađen.",
+        "offer": "Ova ponuda nažalost nije pronađena.",
+        "poi": "Ovaj Point of Interest nažalost nije pronađen."
+      },
+      "pageNotFound": "Ova stranica nažalost nije pronađena.",
+      "networkConnectionFailed": "Veza sa serverom nije uspela.",
+      "networkRequestFailed": "Upit nije mogao da bude obrađen.",
+      "responseMappingFailed": "Odgovor servera nije mogao da bude obrađen.",
+      "unknownError": "Pojavila se nepoznata greška.",
+      "tryAgain": "Pokušajte ponovo",
+      "loadingFailed": "Stranica nažalost nije mogla da bude učitana.",
+      "chooseALanguage": "Odaberi jezik:",
+      "goTo": {
+        "start": "Na početnu stranicu",
+        "categories": "Na kategorije",
+        "events": "Na manifestacije",
+        "offers": "Na ponude"
+      },
+      "pageTitle": "Greška",
+      "generalError": "Pojavila se greška",
+      "languageSwitchFailedTitle": "Promena jezika nažalost nije uspela.",
+      "languageSwitchFailedMessage": "Odabrani jezik nažalost nije dostupan oflajn. Potrebna je aktivna internetska veza."
     },
     "ti": {
       "notFound": {
@@ -813,7 +972,7 @@
       "currentlyNoEvents": "Trenutačno nema događanja."
     },
     "ku": {
-      "location": "Cih",
+      "location": "Mekan",
       "date": "Roj",
       "events": "Rûdan",
       "currentlyNoEvents": "Di dema nika da tu rûdanek tuneye."
@@ -824,6 +983,12 @@
       "events": "Wydarzenia",
       "currentlyNoEvents": "Obecnie nie ma żadnych wydarzeń."
     },
+    "ps": {
+      "location": "ځای",
+      "date": "نېټه",
+      "events": "غونډې",
+      "currentlyNoEvents": "دا مهال کومې غونډې نشته."
+    },
     "ro": {
       "location": "Locație",
       "date": "Data",
@@ -831,7 +996,7 @@
       "currentlyNoEvents": "Actualmente nu există nici un fel de eveniment."
     },
     "ru": {
-      "location": "Местоположение",
+      "location": "Место",
       "date": "Дата",
       "events": "Мероприятия",
       "currentlyNoEvents": "Актуальные мероприятия отсутствуют."
@@ -841,6 +1006,12 @@
       "date": "taariikhda",
       "events": "Dhacdooyinka",
       "currentlyNoEvents": "Waqti xaadirkan dhacdooyin ma jiraan."
+    },
+    "sr": {
+      "location": "Lokacija",
+      "date": "Datum",
+      "events": "Manifestacije",
+      "currentlyNoEvents": "Trenutno nema manifestacija."
     },
     "ti": {
       "location": "ቦታ",
@@ -853,62 +1024,6 @@
       "date": "Tarih",
       "events": "Etkinlikler",
       "currentlyNoEvents": "Güncel bir etkinlik yok."
-    }
-  },
-  "news": {
-    "de": {
-      "news": "Nachrichten",
-      "newsAlternative": "Neuigkeiten",
-      "localNews": "Lokale Nachrichten",
-      "localNewsAlternative": "Lokale Neuigkeiten",
-      "local": "Lokal",
-      "readMore": "Weiterlesen",
-      "currentlyNoNews": "Aktuell gibt es keine Nachrichten.",
-      "currentlyNoNewsAlternative": "Aktuell gibt es keine Neuigkeiten."
-    }
-  },
-  "offers": {
-    "de": {
-      "offers": "Angebote"
-    },
-    "ar": {
-      "offers": "العروض"
-    },
-    "en": {
-      "offers": "Offers"
-    },
-    "es": {
-      "offers": "Ofertas"
-    },
-    "fa": {
-      "offers": "خدمات"
-    },
-    "fr": {
-      "offers": "Offres"
-    },
-    "hr": {
-      "offers": "Ponude"
-    },
-    "ku": {
-      "offers": "Xizmet"
-    },
-    "pl": {
-      "offers": "Oferty"
-    },
-    "ro": {
-      "offers": "Oferte"
-    },
-    "ru": {
-      "offers": "Предложения"
-    },
-    "so": {
-      "offers": "Heshiisyo"
-    },
-    "ti": {
-      "offers": "ውዕላት"
-    },
-    "tr": {
-      "offers": "Teklifler"
     }
   },
   "feedback": {
@@ -934,7 +1049,7 @@
       "informationNotFound": "Nicht das Richtige gefunden?",
       "wantedInformation": "Welche Informationen fehlen hier?",
       "feedbackSent": "Feedback abgeschickt",
-      "thanksMessage": "Vielen Dank für Ihr Feedback. Damit helfen Sie uns, unsere Inhalte und die Integreat-App zu verbessern. Wir würden uns über weiteres Feedback freuen.",
+      "thanksMessage": "Vielen Dank für Ihr Feedback. Damit helfen Sie uns, unsere Inhalte und die {{appName}}-App zu verbessern. Wir würden uns über weiteres Feedback freuen.",
       "close": "Schließen",
       "negativeRating": "Diese Seite ist nicht hilfreich",
       "positiveRating": "Diese Seite ist hilfreich"
@@ -961,7 +1076,7 @@
       "informationNotFound": "لم يتم العثور على المعلومة المناسبة؟",
       "wantedInformation": "ما هي المعلومات المفقودة هنا؟",
       "feedbackSent": "تم إرسال الملاحظة",
-      "thanksMessage": "شكرًا على ملاحظاتك. فمن خلالها تساعدنا على تطوير محتوياتنا وتطوير تطبيق إنتجريت. يُسعدنا تقديمك لمزيد من الملاحظات.",
+      "thanksMessage": "شكرًا جزيلاً على ملاحظاتك. فأنت تساعدنا بذلك على تطوير أنفسنا ومحتوياتنا وتطوير تطبيق {{appName}}. يُسعدنا تلقي المزيد من الملاحظات.",
       "close": "إغلاق",
       "negativeRating": "هذه الصفحة ليست مفيدة",
       "positiveRating": "هذه الصفحة مفيدة"
@@ -988,7 +1103,7 @@
       "informationNotFound": "Not found what you were looking for?",
       "wantedInformation": "What information is missing?",
       "feedbackSent": "Feedback sent",
-      "thanksMessage": "Thank you for your feedback. This will help us to improve our content and the Integreat app. We would be happy to receive further feedback.",
+      "thanksMessage": "Thank you for your feedback. This will help us to improve our content and the {{appName}} app. We would be happy to receive further feedback.",
       "close": "Close",
       "negativeRating": "This site is not useful",
       "positiveRating": "This site is useful"
@@ -1015,7 +1130,7 @@
       "informationNotFound": "¿No ha encontrado lo que buscaba?",
       "wantedInformation": "¿Qué información falta aquí?",
       "feedbackSent": "Comentarios enviados",
-      "thanksMessage": "Muchas gracias por sus comentarios. Con ellos nos ayuda a mejorar nuestros contenidos y la app Integreat. Le invitamos a enviarnos más comentarios.",
+      "thanksMessage": "Muchas gracias por sus comentarios. Con ellos nos ayuda a mejorar nuestros contenidos y la app {{appName}}. Le invitamos a enviarnos más comentarios.",
       "close": "Cerrar",
       "negativeRating": "Esta página no sirve de ayuda",
       "positiveRating": "Esta página sirve de ayuda"
@@ -1042,7 +1157,7 @@
       "informationNotFound": "آنچه را که جستجو می کردید پیدا نکردید؟",
       "wantedInformation": "چه اطلاعاتی در اینجا موجود نیست؟",
       "feedbackSent": "بازخورد ارسال شد",
-      "thanksMessage": "از بازخورد شما سپاسگزاریم. شما با این کار به ما کمک می کنید تا مطالب خود و اپلیکیشن Integreat را بهبود بخشیم. از بازخوردهای بیشتر خوشحال خواهیم شد.",
+      "thanksMessage": "از بازخورد شما سپاسگزاریم. شما با این کار به ما کمک می کنید تا مطالب خود و اپلیکیشن {{appName}} را بهبود بخشیم. از بازخوردهای بیشتر خوشحال خواهیم شد.",
       "close": "بستن",
       "negativeRating": "این صفحه مفید نیست",
       "positiveRating": "این صفحه مفید است"
@@ -1069,7 +1184,7 @@
       "informationNotFound": "Vous n'avez pas trouvé ce qu'il vous faut ?",
       "wantedInformation": "Quelles sont les informations manquantes ici ?",
       "feedbackSent": "Avis envoyé",
-      "thanksMessage": "Nous vous remercions d'avoir donné votre avis. Cela nous aidera à améliorer notre contenu et l'application Integreat. Nous serions heureux de recevoir d'autres commentaires.",
+      "thanksMessage": "Nous vous remercions d'avoir donné votre avis. Cela nous aidera à améliorer notre contenu et l'application {{appName}}. Nous serions heureux de recevoir d'autres commentaires.",
       "close": "Fermer",
       "negativeRating": "Cette page n'est pas utile",
       "positiveRating": "Cette page est utile"
@@ -1096,7 +1211,7 @@
       "informationNotFound": "Niste pronašli pravu stvar?",
       "wantedInformation": "Koje informacije nedostaju?",
       "feedbackSent": "Feedback poslan",
-      "thanksMessage": "Zahvaljujemo na slanju feedbacka. Time nam pomažete da poboljšamo naše sadržaje i aplikaciju Integreat. Razveselili bi ste nas i dodatnim feedbackom.",
+      "thanksMessage": "Zahvaljujemo na slanju feedbacka. Time nam pomažete da poboljšamo naše sadržaje i aplikaciju {{appName}}. Razveselili bi ste nas i dodatnim feedbackom.",
       "close": "Zatvori",
       "negativeRating": "Ova stranica nije korisna",
       "positiveRating": "Ova stranica je korisna"
@@ -1119,11 +1234,11 @@
       "useful": "Sûdewer",
       "notUseful": "Bêkêr (Ne-Sûdewer)",
       "nothingFound": "Mixabin tu encameka guncan peyde nebû.",
-      "yourFeedback": "'Feedback'a te…",
+      "yourFeedback": "'Feedback'a te...",
       "informationNotFound": "Gelo tiştê ku lê digeriyayî, nehat dîtin?",
       "wantedInformation": "Çi cûre zanyarî li vir tunene?",
       "feedbackSent": "'Feedback' hat şandin",
-      "thanksMessage": "Em ji 'Feedback'a te sipasdar in. Tu bi vî karê xwe alîkariya me dikî da ku em babetên xwe û Appa 'Integreat'ê baştir bikin. Emê ji Feedback'ên zêdetir kêfxweş bibin.",
+      "thanksMessage": "Em ji 'Feedback'a te sipasdar in. Tu bi vî karê xwe alîkariya me dikî da ku em babetên xwe û Appa '{{appName}}'ê baştir bikin. Emê ji Feedback'ên zêdetir kêfxweş bibin.",
       "close": "Girêdan",
       "negativeRating": "Ev rûpel sûdmend nîne",
       "positiveRating": "Ev rûpel sûdmend e"
@@ -1150,10 +1265,36 @@
       "informationNotFound": "Nie znalazłeś właściwej rzeczy?",
       "wantedInformation": "Jakich informacji tutaj brakuje?",
       "feedbackSent": "Wysłano opinię",
-      "thanksMessage": "Bardzo dziękujemy za opinię. Dzięki temu pomagasz nam ulepszać nasze treści i aplikację Integreat. Mamy nadzieję na dalsze informacje zwrotne.",
+      "thanksMessage": "Bardzo dziękujemy za opinię. Dzięki temu pomagasz nam ulepszać nasze treści i aplikację {{appName}}. Mamy nadzieję na dalsze informacje zwrotne.",
       "close": "Zamknij",
       "negativeRating": "Ta strona nie jest pomocna",
       "positiveRating": "Ta strona jest pomocna"
+    },
+    "ps": {
+      "technicalTopics": "تخنیکي فعالیت",
+      "contentOfCity": "د {{city}} منځپانګه",
+      "contentOfOffer": "\"{{offer}}\" وړاندیز",
+      "disclaimer": "د لټون",
+      "contentOfPage": "د \"{{page}}\" پاڼې منځپانګه",
+      "contentOfEvent": "د \"{{event}}\" غونډې منځپانګه",
+      "send": "لېږل",
+      "failedSendingFeedback": "د تبصرې په لېږلو کې یوه اشتباه رامینځته شوه.",
+      "feedback": "تبصره",
+      "positiveComment": "څشی ګټور وو؟",
+      "negativeComment": "مونږ څشی بهترولی شو؟",
+      "feedbackType": "تبصره د څه لپاره ده؟",
+      "isThisSiteUseful": "آیا دا پاڼه ګټوره ده؟",
+      "useful": "ګټوره ده",
+      "notUseful": "ګټوره نده",
+      "nothingFound": "له بده مرغه مناسبې نتیجې پیدا نشوې.",
+      "yourFeedback": "ستاسو تبصره...",
+      "informationNotFound": "آیا صحیح پیدا نشو؟",
+      "wantedInformation": "کوم معلومات پکې نشته؟",
+      "feedbackSent": "تبصره ولېږل شوه",
+      "thanksMessage": "ستاسو د تبصرې لپاره ډېره مننه. په دې توګه تاسو مونږ سره مرسته کوئ چې مونږ خپل ایپ--{{appName}} او د هغې منځپانګه بهتره کړو. مونږ ستاسو نورو تبصرو او نظرونو ته سترګې په لار یُو.",
+      "close": "پای ته رسول",
+      "negativeRating": "دا پاڼه ګټوره نده",
+      "positiveRating": "دا پاڼه ګټوره ده"
     },
     "ro": {
       "technicalTopics": "Funcții tehnice",
@@ -1177,7 +1318,7 @@
       "informationNotFound": "Nu ați găsit ce ați căutat?",
       "wantedInformation": "Ce informații lipsesc aici?",
       "feedbackSent": "Feedback expediat",
-      "thanksMessage": "Multe mulțumiri pentru feedback. Prin aceasta ne ajutați să îmbunătățim conținuturile noastre și Integreat-App. Ne-am bucura pentru un următor feedback.",
+      "thanksMessage": "Multe mulțumiri pentru feedback. Prin aceasta ne ajutați să îmbunătățim conținuturile noastre și {{appName}}-App. Ne-am bucura pentru un următor feedback.",
       "close": "Închideți",
       "negativeRating": "Această pagină nu este utilă",
       "positiveRating": "Această pagină este utilă"
@@ -1192,19 +1333,19 @@
       "contentOfEvent": "Содержимое мероприятия \"{{event}}\"",
       "send": "Отправить",
       "failedSendingFeedback": "При отправке отзыва произошла ошибка.",
-      "feedback": "Отзывы",
+      "feedback": "Отзыв",
       "positiveComment": "Что вам помогло?",
       "negativeComment": "Что мы можем улучшить?",
-      "feedbackType": "На что оставлен этот отзыв?",
+      "feedbackType": "Чего касается этот отзыв?",
       "isThisSiteUseful": "Содержит ли эта страница полезную информацию?",
       "useful": "Да",
       "notUseful": "Нет",
       "nothingFound": "К сожалению, подходящие результаты не найдены.",
-      "yourFeedback": "Ваш отзывы...",
-      "informationNotFound": "Не нашли, что искали?",
+      "yourFeedback": "Ваш отзыв...",
+      "informationNotFound": "Не нашли того, что искали?",
       "wantedInformation": "Какая информация здесь отсутствует?",
       "feedbackSent": "Отзыв отправлен",
-      "thanksMessage": "Большое спасибо за отзыв. Ваши отзывы помогают нам улучшать содержимое и функции приложения Integreat. Мы будем рады получению дополнительной обратной связи.",
+      "thanksMessage": "Большое спасибо за отзыв. Ваши отзывы помогают нам улучшать содержимое и функции приложения {{appName}}. Мы будем рады получить дополнительную обратную связь.",
       "close": "Закрыть",
       "negativeRating": "Эта страница не содержит полезной информации",
       "positiveRating": "Эта страница содержит полезную информацию"
@@ -1231,10 +1372,37 @@
       "informationNotFound": "Ma aanan helin midka saxda ah?",
       "wantedInformation": "Macluumaad noocee ah ayaa halkan ka maqan?",
       "feedbackSent": "Jawaab celinta waa la diray",
-      "thanksMessage": "Waad ku mahadsan tahay jawaab-celintaada. Waxaad naga caawineysaa inaan hagaajino waxyaabaha ku jira aalada Integreat. Waxaan ku farxi laheyn inaan helno jawaab celin dheeraad ah.",
+      "thanksMessage": "Waad ku mahadsan tahay jawaab-celintaada. Waxaad naga caawineysaa inaan hagaajino waxyaabaha ku jira aalada {{appName}}. Waxaan ku farxi laheyn inaan helno jawaab celin dheeraad ah.",
       "close": "Xidh",
       "negativeRating": "Boggan waxtar ma leh",
       "positiveRating": "Boggan waa mid waxtar badan"
+    },
+    "sr": {
+      "technicalTopics": "Tehničke funkcije",
+      "contentOfCity": "Sadržaji u gradu {{city}}",
+      "contentOfOffer": "Ponuda \"{{offer}}\"",
+      "disclaimer": "Kontakt i impresum",
+      "searchFor": "Pretraga za",
+      "contentOfPage": "Sadržaj stranice \"{{page}}\"",
+      "contentOfEvent": "Sadržaj manifestacije \"{{event}}\"",
+      "send": "Pošaljite",
+      "failedSendingFeedback": "Prilikom slanja povratnih informacija pojavila se greška.",
+      "feedback": "Povratne informacije",
+      "positiveComment": "Da li vam je bilo od pomoći?",
+      "negativeComment": "Šta možemo bolje da uradimo?",
+      "feedbackType": "Čemu služi povratna informacija?",
+      "isThisSiteUseful": "Da li je ova stranica od pomoći?",
+      "useful": "Od pomoći",
+      "notUseful": "Nije od pomoći",
+      "nothingFound": "Nažalost nisu pronađeni odgovarajući razultati.",
+      "yourFeedback": "Vaše povratne informacije...",
+      "informationNotFound": "Niste pronašli ono pravo?",
+      "wantedInformation": "Koje informacije ovde nedostaju?",
+      "feedbackSent": "Povratne informacije poslane",
+      "thanksMessage": "Puno vam hvala za povratne informacije. Time nam pomažete da poboljšamo sadržaje i aplikaciju {{appName}}. Radovali bismo se vašim dodatnim povratnim informacijama.",
+      "close": "Zatvorite",
+      "negativeRating": "Ova stranica nije od pomoći",
+      "positiveRating": "Ova stranica je od pomoći"
     },
     "ti": {
       "technicalTopics": "ተክኒካዊ ተግባራት",
@@ -1254,11 +1422,11 @@
       "useful": "ሓጋዚ",
       "notUseful": "ሓጋዚ ኣይኮነን",
       "nothingFound": "ሕማቕ ኣጋጣሚ ኾይኑ ዝኾኑ ዝሰማምዑ ውጺኢታት ኣይተረኽቡን።",
-      "yourFeedback": "መልሰ-ሓበሬታኻ…",
+      "yourFeedback": "መልሰ-ሓበሬታኻ...",
       "informationNotFound": "ነቲ ቅኑዕ ኣይረኸቦን፧",
       "wantedInformation": "እንታይ ሓበሬታ እዩ ኣብዚ ጎዲሉ ዘሎ፧",
       "feedbackSent": "መልሰ-ሓበሬታ ተሰዲዱ",
-      "thanksMessage": "ንመልሰ-ሓበሬታኻ ነመስግን። ንትሕዝቶና ከምኡ ድማ ነቲ ኣፕሊከሽን/ናይ ሞባይል ሶፍትዌር Integreat ንምምሕያሽ ትሕግዘና ኣለኻ። ተወሳኺ መልሰ-ሓበሬታ ደስ እናበለና ምተቐበልና።",
+      "thanksMessage": "ንመልሰ-ሓበሬታኻ ነመስግን። ንትሕዝቶና ከምኡ ድማ ነቲ ኣፕሊከሽን/ናይ ሞባይል ሶፍትዌር {{appName}} ንምምሕያሽ ትሕግዘና ኣለኻ። ተወሳኺ መልሰ-ሓበሬታ ደስ እናበለና ምተቐበልና።",
       "close": "ዕጾ",
       "negativeRating": "እዚ ገጽ’ዚ ሓጋዚ ኣይኮነን",
       "positiveRating": "እዚ ገጽ’ዚ ሓጋዚ እዩ"
@@ -1285,7 +1453,7 @@
       "informationNotFound": "Doğru şeyi bulamadınız mı?",
       "wantedInformation": "Burada hangi bilgiler eksik?",
       "feedbackSent": "Geri bildirim gönderildi",
-      "thanksMessage": "Geri bildiriminiz için çok teşekkürler. Bu sayede içeriklerimizi ve Integreat uygulamasını geliştirmemize yardımcı olacaksınız. Daha fazla geri bildirim almaktan memnuniyet duyarız.",
+      "thanksMessage": "Geri bildiriminiz için çok teşekkürler. Bu sayede içeriklerimizi ve {{appName}} uygulamasını geliştirmemize yardımcı olacaksınız. Daha fazla geri bildirim almaktan memnuniyet duyarız.",
       "close": "Kapat",
       "negativeRating": "Bu sayfa yardımcı olmadı",
       "positiveRating": "Bu sayfa yardımcı oldu"
@@ -1293,8 +1461,8 @@
   },
   "intro": {
     "de": {
-      "integreat": "Integreat",
-      "integreatDescription": "Integreat ist Ihr digitaler Guide für Deutschland",
+      "appName": "{{appName}}",
+      "appDescription": "{{appName}} ist Ihr digitaler Guide für Deutschland",
       "search": "Suche",
       "searchDescription": "Anhand von Schlagwörtern schnell die richtige Information finden",
       "languageChange": "Sprachwechsel",
@@ -1304,9 +1472,9 @@
       "offers": "Angebote",
       "offersDescription": "Jobsuche, Praktikasuche und mehr in der Umgebung",
       "inquiryTitle": "Einstellungen",
-      "inquiryIntro": "Durch Klicken auf \"{{accept}}\" erlaube ich der Integreat-App, ...",
+      "inquiryIntro": "Durch Klicken auf \"{{accept}}\" erlaube ich der {{appName}}-App, ...",
       "sentryTitle": "App-Stabilität",
-      "sentryCondition": "... mit dem automatischen Senden von Absturzberichten Integreat zu verbessern",
+      "sentryCondition": "... mit dem automatischen Senden von Absturzberichten {{appName}} zu verbessern",
       "pushNewsTitle": "Push-Benachrichtigungen",
       "pushNewsCondition": "... mir Push-Benachrichtigungen zu den neuesten lokalen Nachrichten zu senden",
       "proposeCitiesTitle": "Nahegelegene Orte",
@@ -1321,8 +1489,8 @@
       "privacyPolicy": "Datenschutzerklärung"
     },
     "ar": {
-      "integreat": "Integreat",
-      "integreatDescription": "تطبيق إنتجريت هو دليلك الرقمي لألمانيا",
+      "appName": "{{appName}}",
+      "appDescription": "تطبيق{{appName}} هو دليلك الرقمي لألمانيا",
       "search": "البحث",
       "searchDescription": "استخدام الكلمات الرئيسية للعثور بسرعة على المعلومات الصحيحة",
       "languageChange": "تغيير اللغة",
@@ -1332,9 +1500,9 @@
       "offers": "العروض",
       "offersDescription": "البحث عن عمل، البحث عن تدريب والكثير من الأمور الأخرى في المنطقة المحيطة",
       "inquiryTitle": "الإعدادات",
-      "inquiryIntro": "من خلال النقر على \"{{accept}}\" أسمح لتطبيق إنتجريت، ...",
+      "inquiryIntro": "سمح لتطبيق {{appName}} من خلال الضغط على \"{{accept}}\"",
       "sentryTitle": "استقرار التطبيق",
-      "sentryCondition": "... من خلال الإرسال التلقائي، بتحسين تقارير الأعطال الخاصة بتطبيق إنتجريت",
+      "sentryCondition": "... بتحسين تطبيق {{appName}} من خلال الإرسال التلقائي لتقارير الأعطال",
       "pushNewsTitle": "الإخطارات اللحظية",
       "pushNewsCondition": "... إرسال الإخطارات اللحظية الخاصة بأحدث الأخبار المحلية لي",
       "proposeCitiesTitle": "الأماكن القريبة",
@@ -1349,8 +1517,8 @@
       "privacyPolicy": "بيان الخصوصية"
     },
     "en": {
-      "integreat": "Integreat",
-      "integreatDescription": "Integreat is your digital guide to life in Germany",
+      "appName": "{{appName}}",
+      "appDescription": "{{appName}} is your digital guide to life in Germany",
       "search": "Search",
       "searchDescription": "Find the right information based on keywords",
       "languageChange": "Changing the language",
@@ -1360,9 +1528,9 @@
       "offers": "Offers",
       "offersDescription": "Job search, internship search and more in the area",
       "inquiryTitle": "Settings",
-      "inquiryIntro": "By clicking on \"{{accept}}\" I accept the Integreat app, ...",
+      "inquiryIntro": "By clicking on \"{{accept}}\" I accept the {{appName}} app, ...",
       "sentryTitle": "App stability",
-      "sentryCondition": "...improving Integreat by automatically sending crash reports",
+      "sentryCondition": "...improving {{appName}} by automatically sending crash reports",
       "pushNewsTitle": "Push notifications",
       "pushNewsCondition": "...send me push notifications on the latest local news",
       "proposeCitiesTitle": "Nearby locations",
@@ -1377,8 +1545,8 @@
       "privacyPolicy": "Data protection policy"
     },
     "es": {
-      "integreat": "Integreat",
-      "integreatDescription": "Integreat es su guía digital para Alemania",
+      "appName": "{{appName}}",
+      "appDescription": "{{appName}} es su guía digital para Alemania",
       "search": "Buscar",
       "searchDescription": "Encuentre rápidamente la información correcta utilizando palabras clave",
       "languageChange": "Cambio de idioma",
@@ -1388,9 +1556,9 @@
       "offers": "Ofertas",
       "offersDescription": "Búsqueda de trabajo, búsqueda de prácticas y más en la zona",
       "inquiryTitle": "Ajustes",
-      "inquiryIntro": "Haciendo clic en \"{{accept}}\", acepto que la app Integreat...",
+      "inquiryIntro": "Haciendo clic en \"{{accept}}\", acepto que la app {{appName}}...",
       "sentryTitle": "Estabilidad de la app",
-      "sentryCondition": "...mejore Integreat mediante el envío automático de informes de interrupciones del servicio",
+      "sentryCondition": "...mejore {{appName}} mediante el envío automático de informes de interrupciones del servicio",
       "pushNewsTitle": "Notificaciones push",
       "pushNewsCondition": "...me envíe notificaciones push con las últimas noticias locales",
       "proposeCitiesTitle": "Ubicaciones cercanas",
@@ -1405,8 +1573,8 @@
       "privacyPolicy": "Declaración de privacidad"
     },
     "fa": {
-      "integreat": "Integreat",
-      "integreatDescription": "Integreat\u200F راهنمای دیجیتالی شما در مورد آلمان است",
+      "appName": "{{appName}}",
+      "appDescription": "{{appName}}‏ راهنمای دیجیتالی شما در مورد آلمان است",
       "search": "جستجو",
       "searchDescription": "با استفاده از کلمات کلیدی، اطلاعات صحیح را به سرعت پیدا کنید",
       "languageChange": "تغییر زبان",
@@ -1416,9 +1584,9 @@
       "offers": "خدمات",
       "offersDescription": "جستجوی کار، جستجوی کارورزی و بیشتر در محیط اطراف",
       "inquiryTitle": "تنظیمات",
-      "inquiryIntro": "با کلیک بر روی \"{{accept}}\" به اپلیکیشن Integreat اجازه می دهم،...",
+      "inquiryIntro": "با کلیک بر روی \"{{accept}}\" به اپلیکیشن {{appName}} اجازه می دهم،...",
       "sentryTitle": "پایداری اپلیکیشن",
-      "sentryCondition": "... با ارسال خودکار گزارش خرابی، Integreat را بهبود یابد",
+      "sentryCondition": "... با ارسال خودکار گزارش خرابی، {{appName}} را بهبود یابد",
       "pushNewsTitle": "پیام های فوری",
       "pushNewsCondition": "... پیام های فوری مربوط به اخبار محلی جدید، برای من ارسال شود",
       "proposeCitiesTitle": "مکان های نزدیک",
@@ -1433,8 +1601,8 @@
       "privacyPolicy": "بیانیه حفاظت از داده ها"
     },
     "fr": {
-      "integreat": "Integreat",
-      "integreatDescription": "Integreat est votre guide numérique pour l'Allemagne",
+      "appName": "{{appName}}",
+      "appDescription": "{{appName}} est votre guide numérique pour l'Allemagne",
       "search": "Recherche",
       "searchDescription": "Trouvez rapidement la bonne information à l'aide de mots-clés",
       "languageChange": "Changement de langue",
@@ -1444,9 +1612,9 @@
       "offers": "Offres",
       "offersDescription": "Recherche d'emploi, recherche de stage et plus encore dans la région",
       "inquiryTitle": "Paramètres",
-      "inquiryIntro": "En cliquant sur « {{accept}} », j'autorise l'application Integreat...",
+      "inquiryIntro": "En cliquant sur « {{accept}} », j'autorise l'application {{appName}}...",
       "sentryTitle": "Stabilité de l'application",
-      "sentryCondition": "...à améliorer Integreat grâce à l'envoi automatique de rapports d'erreurs",
+      "sentryCondition": "...à améliorer {{appName}} grâce à l'envoi automatique de rapports d'erreurs",
       "pushNewsTitle": "Notifications push",
       "pushNewsCondition": "...à envoyer des notifications push sur l'actualité locale",
       "proposeCitiesTitle": "Lieux proches",
@@ -1461,8 +1629,8 @@
       "privacyPolicy": "Déclaration de confidentialité"
     },
     "hr": {
-      "integreat": "Integreat",
-      "integreatDescription": "Integreat je vaš digitalni vodič za Njemačku",
+      "appName": "{{appName}}",
+      "appDescription": "{{appName}} je vaš digitalni vodič za Njemačku",
       "search": "Pretraživanje",
       "searchDescription": "Na temelju ključnih riječi brzo ćete pronaći odgovarajuću informaciju",
       "languageChange": "Promjena jezika",
@@ -1472,9 +1640,9 @@
       "offers": "Ponude",
       "offersDescription": "Traženje posla, traženje pripravništva i još puno toga u okolici",
       "inquiryTitle": "Postavke",
-      "inquiryIntro": "Klikom na \"{{accept}}\" dozvoljavam aplikaciji Integreat da...",
+      "inquiryIntro": "Klikom na \"{{accept}}\" dozvoljavam aplikaciji {{appName}} da...",
       "sentryTitle": "Stabilnost aplikacije",
-      "sentryCondition": "... automatskim slanjem izvještaja o padu sustava poboljšava Integreat",
+      "sentryCondition": "... automatskim slanjem izvještaja o padu sustava poboljšava {{appName}}",
       "pushNewsTitle": "Push obavijesti",
       "pushNewsCondition": "... mi šalje push obavijesti o najnovijim lokalni vijestima",
       "proposeCitiesTitle": "Mjesta u blizini",
@@ -1489,8 +1657,8 @@
       "privacyPolicy": "Izjava o zaštiti podataka"
     },
     "ku": {
-      "integreat": "Integreat",
-      "integreatDescription": "Integreat rêbera te ya dîcîtal derbarê Almanyayê ye",
+      "appName": "{{appName}}",
+      "appDescription": "{{appName}} rêbera te ya dîcîtal derbarê Almanyayê ye",
       "search": "Lêgerîn",
       "searchDescription": "Bi bikaranîna Peyvên Kilîtî, lêzanînên esseh û durust bilez peyde bike",
       "languageChange": "Guhertina Ziman",
@@ -1500,13 +1668,13 @@
       "offers": "Xizmet",
       "offersDescription": "Lêgerîna li Şolê, Lêgerîna li Kursa Şola Ceribandinî û zêdetir li hawîrdorê",
       "inquiryTitle": "Eyarkirin",
-      "inquiryIntro": "Bi pelandina li ser\"{{accept}}\" ez rê didim Appa 'Integreat'ê, …",
+      "inquiryIntro": "Bi pelandina li ser\"{{accept}}\" ez rê didim Appa '{{appName}}'ê, ...",
       "sentryTitle": "Mayîndetiya App'ê",
-      "sentryCondition": "... bi şandina xwebixwe ya rapora xerabûnê, Integreat'ê baştir bike",
+      "sentryCondition": "... bi şandina xwebixwe ya rapora xerabûnê, {{appName}}'ê baştir bike",
       "pushNewsTitle": "Peyamên bilez",
       "pushNewsCondition": "... peyamên bilez ên têkildarî nûçeyên xwecihî yên nû, sa min ra bê şandin",
       "proposeCitiesTitle": "Cihên Nêzik",
-      "proposeCitiesCondition": ".... bi alîkariya Mekanbîna 'GPS'ê ya min, cihên nêzikî min bo min bê pêşniyarkirin",
+      "proposeCitiesCondition": ".... bi alîkariya Mekanbîna 'GPS'ê ya min, mekanên nêzikî min bo min bê pêşniyarkirin",
       "skip": "Nepejirandin",
       "next": "Berdewam",
       "cancel": "Qutbûn",
@@ -1517,8 +1685,8 @@
       "privacyPolicy": "Daxuyaniya Parastina Daneyan"
     },
     "pl": {
-      "integreat": "Integreat",
-      "integreatDescription": "Integreat to e-przewodnik po Niemczech",
+      "appName": "{{appName}}",
+      "appDescription": "{{appName}} to e-przewodnik po Niemczech",
       "search": "Wyszukiwarka",
       "searchDescription": "Szybko znajdź odpowiednią informację za pomocą haseł",
       "languageChange": "Zmiana języka",
@@ -1530,7 +1698,7 @@
       "inquiryTitle": "Ustawienia",
       "inquiryIntro": "Naciskając \"{{accept}}„, zezwalam aplikacji App,...",
       "sentryTitle": "Stabilność aplikacji",
-      "sentryCondition": "... na ulepszanie Integreat dzięki automatycznemu przesyłaniu raportów o awariach",
+      "sentryCondition": "... na ulepszanie {{appName}} dzięki automatycznemu przesyłaniu raportów o awariach",
       "pushNewsTitle": "Powiadomienia typu push",
       "pushNewsCondition": "...na wysyłanie powiadomień push o aktualnościach lokalnych",
       "proposeCitiesTitle": "Lokalizacje w pobliżu",
@@ -1544,9 +1712,37 @@
       "accept": "Akceptuj",
       "privacyPolicy": "Oświadczenie o ochronie danych"
     },
+    "ps": {
+      "appName": "{{appName}}",
+      "appDescription": "{{appName}} آلمان لپاره ستاسو ډیجیټال لارښود دی.",
+      "search": "لټون",
+      "searchDescription": "د کلیدي ټکو په مرسته زر صحیح معلومات موندل",
+      "languageChange": "د ژبې تغیر",
+      "languageChangeDescription": "د انفرادي پاڼو ژبې ته په اسانۍ تغیر ورکول",
+      "events": "غونډې",
+      "eventsDescription": "دا مهال په دې شاوخوا کې غونډې او ملاقاتونه",
+      "offers": "وړاندیزونه",
+      "offersDescription": "دې شاوخوا کې د وظیفې لټون، د ستاژ لټون او نور",
+      "inquiryTitle": "تنظیمات",
+      "inquiryIntro": "په \"{{accept}}\" باندې کلیک کولو سره زه {{appName}}--ایپ ته اجازه ورکوم، ...",
+      "sentryTitle": "د ایپ ثبات",
+      "sentryCondition": "... په اتومات ډول د {{appName}} د خرابېدو د پېغامونو لېږل بهتر کړي",
+      "pushNewsTitle": "فشاري خبرتیاوې",
+      "pushNewsCondition": "... په فشاري خبرتیاو سره تر ټولو تازه سیمه ییز خبرونه ولېږي",
+      "proposeCitiesTitle": "نږدې ځایونه",
+      "proposeCitiesCondition": "... ماته زما د جي پي ایس-استاندارد ځایونو په مرسته نږدې ځایونه وړاندیز کړي",
+      "skip": "اووښتل",
+      "next": "مخته",
+      "cancel": "ختمول",
+      "save": "خوندي کول",
+      "customize": "تغیرول",
+      "decline": "رد کول",
+      "accept": "قبلول",
+      "privacyPolicy": "د ډاټا د حفاظت بیانیه"
+    },
     "ro": {
-      "integreat": "Integreat",
-      "integreatDescription": "Integreat constituie ghidul dvs. digital pentru Germania",
+      "appName": "{{appName}}",
+      "appDescription": "{{appName}} constituie ghidul dvs. digital pentru Germania",
       "search": "Căutare",
       "searchDescription": "Folosind cuvinte cheie, găsiți rapid informațiile importante",
       "languageChange": "Schimbarea limbii",
@@ -1556,9 +1752,9 @@
       "offers": "Oferte",
       "offersDescription": "Căutare loc de muncă, căutare loc de practică și multe altele în împrejurimi",
       "inquiryTitle": "Setări",
-      "inquiryIntro": "Prin clic pe \"{{accept}}\" permit Integreat-App...",
+      "inquiryIntro": "Prin clic pe \"{{accept}}\" permit {{appName}}-App...",
       "sentryTitle": "Stabilitate app",
-      "sentryCondition": "... să îmbunătățească Integreat prin transmiterea automată a rapoartelor de blocare",
+      "sentryCondition": "... să îmbunătățească {{appName}} prin transmiterea automată a rapoartelor de blocare",
       "pushNewsTitle": "Notificări push",
       "pushNewsCondition": "... să-mi transmiteți notificări push referitoare la cele mai recente noutăți locale",
       "proposeCitiesTitle": "Locații aflate în apropiere",
@@ -1573,8 +1769,8 @@
       "privacyPolicy": "Declarație privind confidențialitatea"
     },
     "ru": {
-      "integreat": "Integreat",
-      "integreatDescription": "Integreat — это ваш цифровой гид по Германии",
+      "appName": "{{appName}}",
+      "appDescription": "{{appName}} – это ваш цифровой гид по Германии",
       "search": "Поиск",
       "searchDescription": "Быстрый поиск необходимой информации по ключевым словам",
       "languageChange": "Смена языка",
@@ -1584,13 +1780,13 @@
       "offers": "Предложения",
       "offersDescription": "Поиск работы, поиск стажировки и многое другое рядом с вами",
       "inquiryTitle": "Настройки",
-      "inquiryIntro": "Нажав на кнопку \"{{accept}}\", я разрешаю приложению Integreat...",
+      "inquiryIntro": "Нажав на кнопку \"{{accept}}\", я разрешаю приложению {{appName}}...",
       "sentryTitle": "Стабильность приложения",
-      "sentryCondition": "... улучшать приложение Integreat при помощи автоматической отправки сообщений о сбоях",
+      "sentryCondition": "... улучшать приложение {{appName}} при помощи автоматической отправки сообщений о сбоях",
       "pushNewsTitle": "Push-уведомления",
-      "pushNewsCondition": "... отправлять актуальные местные новости при помощи Push-уведомлений",
-      "proposeCitiesTitle": "Места поблизости",
-      "proposeCitiesCondition": "... предлагать места поблизости при помощи моих GPS-координат",
+      "pushNewsCondition": "... отправлять мне актуальные местные новости при помощи push-уведомлений",
+      "proposeCitiesTitle": "Близлежащие населенные пункты",
+      "proposeCitiesCondition": "... предлагать близлежащие населенные пункты на основе моих GPS-координат",
       "skip": "Пропустить",
       "next": "Далее",
       "cancel": "Отменить",
@@ -1601,8 +1797,8 @@
       "privacyPolicy": "Политика конфиденциальности"
     },
     "so": {
-      "integreat": "Integreat",
-      "integreatDescription": "Integreat waa tilmaamahaaga dhijitaalka ah ee Jarmalka",
+      "appName": "{{appName}}",
+      "appDescription": "{{appName}} waa tilmaamahaaga dhijitaalka ah ee Jarmalka",
       "search": "Raadin",
       "searchDescription": "U hel macluumaadka saxda ah si dhakhso leh adoo isticmaalaya ereyada furaha ah",
       "languageChange": "Bedelka luqadda",
@@ -1612,9 +1808,9 @@
       "offers": "Heshiisyo",
       "offersDescription": "Raadin shaqo, raadin shaqo-barasho iyo inbadan oo ka jira deegaanka",
       "inquiryTitle": "Dejinta (setting-ka)",
-      "inquiryIntro": "Adigoo gujinaya \"{{accept}}\" Waxaan u oggolaanayaa aalada Integreat inay...",
+      "inquiryIntro": "Adigoo gujinaya \"{{accept}}\" Waxaan u oggolaanayaa aalada {{appName}} inay...",
       "sentryTitle": "Deganaanshaha Aaladda",
-      "sentryCondition": "... si looga hagaajiyo Integreat dhanka diritaanka otomatigga ah ee warbixinnada ciladeynta",
+      "sentryCondition": "... si looga hagaajiyo {{appName}} dhanka diritaanka otomatigga ah ee warbixinnada ciladeynta",
       "pushNewsTitle": "Ogaysiisyada",
       "pushNewsCondition": "... ii soo dirto ogeysiisyada saabsan wararkii ugu dambeeyay ee deegaanka",
       "proposeCitiesTitle": "Meelaha dhaw",
@@ -1628,9 +1824,37 @@
       "accept": "Aqbal",
       "privacyPolicy": "Ilaalinta xogta"
     },
+    "sr": {
+      "appName": "{{appName}}",
+      "appDescription": "{{appName}} je vaš digitalni vodič za Nemačku",
+      "search": "Pretraga",
+      "searchDescription": "Pomoću ključnih reči brzo pronađite pravu informaciju",
+      "languageChange": "Promena jezika",
+      "languageChangeDescription": "Jednostavna promena jezika pojedinih stranica",
+      "events": "Manifestacije",
+      "eventsDescription": "Aktuelne manifestacije i termini u blizini",
+      "offers": "Ponude",
+      "offersDescription": "Traženje posla, traženje mesta za praksu i još toga u blizini",
+      "inquiryTitle": "Podešavanja",
+      "inquiryIntro": "klikom na \"{{accept}}\" dozvoljavam aplikaciji {{appName}} ...",
+      "sentryTitle": "Stabilnost aplikacije",
+      "sentryCondition": "... automatskim slanjem izveštaja o padu sistema da se poboljša {{appName}}",
+      "pushNewsTitle": "Push notifikacije",
+      "pushNewsCondition": "... da mi se šalju push notifikacije o najnovijim lokalnim vestima",
+      "proposeCitiesTitle": "Mesta u blizini",
+      "proposeCitiesCondition": "... da mi se predlažu mesta u blizini pomoću moje GPS lokacije",
+      "skip": "Preskočite",
+      "next": "Nastavite",
+      "cancel": "Prekinite",
+      "save": "Sačuvajte",
+      "customize": "Prilagodite",
+      "decline": "Odbacite",
+      "accept": "Prihvatite",
+      "privacyPolicy": "Izjava o zaštiti podataka"
+    },
     "ti": {
-      "integreat": "Integreat",
-      "integreatDescription": "Integreat ናብ ጅርመን እትትኸድሉ መምርሒ እዩ።",
+      "appName": "{{appName}}",
+      "appDescription": "{{appName}} ናብ ጅርመን እትትኸድሉ መምርሒ እዩ።",
       "search": "ፈትሽ",
       "searchDescription": "ቁልፊ-ቃላት ብምጥቃም ነቲ ቅኑዕ ሓበሬታ ብቕልጡፍ ርኸብ",
       "languageChange": "ምቕያር ቋንቋ",
@@ -1640,13 +1864,13 @@
       "offers": "ውዕላት",
       "offersDescription": "ፍተሻ ስራሕ፡ ናይ ተልምዴንነት ስራሕን ካልእ ተወሳኽን ኣብቲ ከባቢ",
       "inquiryTitle": "ምትኽኻላት",
-      "inquiryIntro": "ኣብ \"{{accept}}\" ብምጥዋቕ እቲ ኣፕ/ናይ ሞባይል ሶፍትዌር Integreat … ንኽገብር የፍቅደሉ ኣለኹ",
+      "inquiryIntro": "ኣብ \"{{accept}}\" ብምጥዋቕ እቲ ኣፕ/ናይ ሞባይል ሶፍትዌር {{appName}} ... ንኽገብር የፍቅደሉ ኣለኹ",
       "sentryTitle": "ናይ ኣፕ ርጉእነት",
-      "sentryCondition": "… ናይ ብልሽት/ውድቀት ጸብጻባት ብኣውቶማቲካዊ መንገዲ ብምስዳድ ንIntegreat ምምሕያሽ",
+      "sentryCondition": "... ናይ ብልሽት/ውድቀት ጸብጻባት ብኣውቶማቲካዊ መንገዲ ብምስዳድ ን{{appName}} ምምሕያሽ",
       "pushNewsTitle": "ምልክታታት መልእኽቲ",
-      "pushNewsCondition": "…ብዛዕባ እቲ ሓድሽ ዜና ምልክታታት መልእኽቲ ክሰደለይ",
+      "pushNewsCondition": "...ብዛዕባ እቲ ሓድሽ ዜና ምልክታታት መልእኽቲ ክሰደለይ",
       "proposeCitiesTitle": "ኣብ ጥቓኻ ዘለዎ ቦታታት",
-      "proposeCitiesCondition": "… ናተይ ናይ GPS (ጂፒኤስ) ቦታ ብምጥቃም ብዛዕባ ኣብ ጥቓይ ዘለዉ ቦታታት ሓሳብ ምሃብ",
+      "proposeCitiesCondition": "... ናተይ ናይ GPS (ጂፒኤስ) ቦታ ብምጥቃም ብዛዕባ ኣብ ጥቓይ ዘለዉ ቦታታት ሓሳብ ምሃብ",
       "skip": "ስገር",
       "next": "ተወሳኺ",
       "cancel": "ደው ኣብል",
@@ -1657,8 +1881,8 @@
       "privacyPolicy": "ሓለዋ ዳታ/ሓበሬታ"
     },
     "tr": {
-      "integreat": "Integreat",
-      "integreatDescription": "Integreat, Almanya'daki dijital rehberinizdir",
+      "appName": "{{appName}}",
+      "appDescription": "{{appName}}, Almanya'daki dijital rehberinizdir",
       "search": "Arama",
       "searchDescription": "Anahtar kelimeler kullanarak doğru bilgileri hızlıca bulun",
       "languageChange": "Dil değişimi",
@@ -1668,9 +1892,9 @@
       "offers": "Teklifler",
       "offersDescription": "Çevrenizde iş arama, staj arama ve daha fazlası",
       "inquiryTitle": "Ayarlar",
-      "inquiryIntro": "\"{{accept}}\" üzerine tıklayarak Integreat uygulamasına, ...",
+      "inquiryIntro": "\"{{accept}}\" üzerine tıklayarak {{appName}} uygulamasına, ...",
       "sentryTitle": "Uygulama stabilitesi",
-      "sentryCondition": "... hata raporlarının otomatik olarak gönderilmesiyle, Integreat'in geliştirilmesine izin veriyorum",
+      "sentryCondition": "... hata raporlarının otomatik olarak gönderilmesiyle, {{appName}}'in geliştirilmesine izin veriyorum",
       "pushNewsTitle": "Push bildirimleri",
       "pushNewsCondition": "... bana en son yerel haberler hakkında Push bildirimleri göndermesine izin veriyorum",
       "proposeCitiesTitle": "Yakındaki konumlar",
@@ -1703,7 +1927,12 @@
       "nearbyPlaces": "الأماكن القريبة",
       "noNearbyPlaces": "لم يتم العثور على أماكن قريبة.",
       "alert": "ملاحظة",
-      "locationError": "يتعين تفعيل خدمات تحديد الموقع، حتى يُمكن عرض الأماكن القريبة."
+      "locationError": "يتعين تفعيل خدمات تحديد الموقع، حتى يُمكن عرض الأماكن القريبة.",
+      "noPermission": "مطلوب إذن بالوصول إلى الموقع",
+      "loading": "جار تحديد الموقع...",
+      "notAvailable": "تحديد الموقع غير مُفعَّل",
+      "timeout": "فشل في تحديد الموقع",
+      "refresh": "تحديث قائمة الأماكن"
     },
     "en": {
       "searchCity": "Search for a city",
@@ -1711,6 +1940,10 @@
       "noNearbyPlaces": "No nearby locations found.",
       "alert": "Note",
       "locationError": "To display nearby locations, location services must be active.",
+      "noPermission": "Location access required",
+      "loading": "Determining location...",
+      "notAvailable": "Location determination is deactivated",
+      "timeout": "Location determination failed",
       "refresh": "Refresh nearby locations"
     },
     "es": {
@@ -1718,21 +1951,36 @@
       "nearbyPlaces": "Ubicaciones cercanas",
       "noNearbyPlaces": "No se han encontrado ubicaciones cercanas.",
       "alert": "Aviso",
-      "locationError": "Para poder mostrar ubicaciones cercanas tiene que activarse la ubicación del dispositivo."
+      "locationError": "Para poder mostrar ubicaciones cercanas tiene que activarse la ubicación del dispositivo.",
+      "noPermission": "Se requiere acceso a la ubicación",
+      "loading": "Determine ubicación",
+      "notAvailable": "Localización desactivada",
+      "timeout": "La localización falló",
+      "refresh": "Actualizar lista de ubicaciones"
     },
     "fa": {
       "searchCity": "جستجوی مکان",
       "nearbyPlaces": "مکان های نزدیک",
       "noNearbyPlaces": "هیچ مکانی در این نزدیکی یافت نشد.",
       "alert": "راهنمایی",
-      "locationError": "برای مشاهده مکان های نزدیک باید خدمات موقعیت مکانی فعال شوند."
+      "locationError": "برای مشاهده مکان های نزدیک باید خدمات موقعیت مکانی فعال شوند.",
+      "noPermission": "دسترسی به مکان موفقیت‌آمیز بود",
+      "loading": "موقعیت مکانی را مشخص کنید...",
+      "notAvailable": "تعیین موقعیت مکانی غیرفعال شده است",
+      "timeout": "تعیین موقعیت مکانی انجام نشد",
+      "refresh": "به روز رسانی فهرست مکان‌ها"
     },
     "fr": {
       "searchCity": "Chercher un lieu",
       "nearbyPlaces": "Lieux à proximité",
       "noNearbyPlaces": "Aucun lieu trouvé à proximité.",
       "alert": "Remarque",
-      "locationError": "Afin de pouvoir afficher les lieux à proximité, la géolocalisation doit être activée."
+      "locationError": "Afin de pouvoir afficher les lieux à proximité, la géolocalisation doit être activée.",
+      "noPermission": "Accès au lieu requis",
+      "loading": "Définis le lieu ...",
+      "notAvailable": "Localisation désactivée",
+      "timeout": "Échec de la localisation",
+      "refresh": "Actualiser la liste des lieux"
     },
     "hr": {
       "searchCity": "Traži mjesto",
@@ -1746,7 +1994,12 @@
       "nearbyPlaces": "Cihên nêzik",
       "noNearbyPlaces": "Tu cihek li vê nêzikatiyê nehat dîtin.",
       "alert": "Rênîşandan",
-      "locationError": "Jibo dîtina cihên nêzik divê xizmeta Mekanbînê were çalakkirin."
+      "locationError": "Jibo dîtina cihên nêzik divê xizmeta Mekanbînê were çalakkirin.",
+      "noPermission": "Destgihîştina mekanê hewce ye",
+      "loading": "Mekan diyar bike...",
+      "notAvailable": "Diyarkirina mekan neçalak e",
+      "timeout": "Diyarkirinê mekanê serketî nebû",
+      "refresh": "Lîsta mekanan nûve bike"
     },
     "pl": {
       "searchCity": "Znajdź lokalizację",
@@ -1754,6 +2007,18 @@
       "noNearbyPlaces": "Nie znaleziono lokalizacji w pobliżu.",
       "alert": "Wskazówka",
       "locationError": "Usługi lokalizacyjne muszą być włączone, aby wyświetlić lokalizacje w pobliżu."
+    },
+    "ps": {
+      "searchCity": "ځای لټول",
+      "nearbyPlaces": "شاوخوا نږدې ځایونه",
+      "noNearbyPlaces": "شاوخوا کې نږدې ځایونه پیدا نشول.",
+      "alert": "یادونه",
+      "locationError": "ددې لپاره چې شاوخوا نږدې ځایونه وښودل شي، د ځای خدمت باید فعال کړی شوی وي.",
+      "noPermission": "موقعیت ته لاسرسی لازمي دی",
+      "loading": "موقعیت تعین کړه...",
+      "notAvailable": "د موقعیت تعینول غیر فعال شوي",
+      "timeout": "د موقعیت تعینول ناکام شو",
+      "refresh": "د ځایونو لیسټ تازه کول"
     },
     "ro": {
       "searchCity": "Căutare locație",
@@ -1763,32 +2028,64 @@
       "locationError": "Pentru a putea să arătăm locații în apropiere, trebuie să se activeze servicii de localizare."
     },
     "ru": {
-      "searchCity": "Поиск места",
-      "nearbyPlaces": "Места рядом со мной",
-      "noNearbyPlaces": "Мест рядом с вами не найдено.",
+      "searchCity": "Поиск населенного пункта",
+      "nearbyPlaces": "Близлежащие населенные пункты",
+      "noNearbyPlaces": "Близлежащих населенных пунктов не найдено.",
       "alert": "Примечание",
-      "locationError": "Для отображения мест рядом с вами активируйте службу геолокации."
+      "locationError": "Для отображения близлежащих населенных пунктов активируйте службу геолокации.",
+      "noPermission": "Необходим доступ к данным о местоположении",
+      "loading": "Определить местоположение...",
+      "notAvailable": "Определение местоположения деактивировано",
+      "timeout": "Не удалось определить местоположение",
+      "refresh": "Обновить список населенных пунктов"
     },
     "so": {
       "searchCity": "Raadi Magaalo",
       "nearbyPlaces": "Meelaha dhaw",
       "noNearbyPlaces": "Ma jirin meel ku dhowdhow oo la heley.",
       "alert": "Ogeysiis",
-      "locationError": "Adeegyada goobta waa in laga shaqeysiiyaa si loo arko meelaha kuu dhow."
+      "locationError": "Adeegyada goobta waa in laga shaqeysiiyaa si loo arko meelaha kuu dhow.",
+      "noPermission": "Marin u helida goobta ayaa loo  baahan yahay",
+      "loading": "Raadinaya goobta...",
+      "notAvailable": "Helitaanka goobta waa la demiyey",
+      "timeout": "Helitaanka goobta waa lagu guuldareystay",
+      "refresh": "Cusbooneysii liiska goobaha"
+    },
+    "sr": {
+      "searchCity": "Tražite mesto",
+      "nearbyPlaces": "Mesta u blizini",
+      "noNearbyPlaces": "Nije pronađeno nijedno mesto u blizini.",
+      "alert": "Napomena",
+      "locationError": "Da biste mogli da prikazujte mesta u blizini, moraju da se aktiviraju usluge lociranja.",
+      "noPermission": "Potreban je pristup lokaciji",
+      "loading": "Odredi lokaciju...",
+      "notAvailable": "Deaktivirano je određivanje lokacije",
+      "timeout": "Nije uspelo određivanje lokacije",
+      "refresh": "Ažurirajte spisak mesta"
     },
     "ti": {
       "searchCity": "ከተማ ርኸብ",
       "nearbyPlaces": "ኣብ ጥቓኻ ዘለዎ ቦታታት",
       "noNearbyPlaces": "ኣብ ጥቓኻ ቦታታት ኣይተረኽቡን።",
       "alert": "መዘኻኸሪ",
-      "locationError": "ኣብ ጥቓኻ ዘለዉ ቦታታት ንምርኣይ ናይ ቦታ ኣገልግሎታት ከምዝሰርሕ ክግበር ኣለዎ።"
+      "locationError": "ኣብ ጥቓኻ ዘለዉ ቦታታት ንምርኣይ ናይ ቦታ ኣገልግሎታት ከምዝሰርሕ ክግበር ኣለዎ።",
+      "noPermission": "ናብ ቦታ ናይ ምእታው ዕድል ይሕተት",
+      "loading": "ቦታ ኣብ ምርካብ ኣሎ ...",
+      "notAvailable": "ምርካብ ቦታ ጠፊኡ ኣሎ",
+      "timeout": "ምርካብ ቦታ ዕዉት ኣይነበረን",
+      "refresh": "ንአቲ ዝርዝር ናይ ቦታታት ኣሐድሶ"
     },
     "tr": {
       "searchCity": "Konum ara",
       "nearbyPlaces": "Yakındaki konumlar",
       "noNearbyPlaces": "Yakında herhangi bir konum bulunamadı.",
       "alert": "Uyarı",
-      "locationError": "Yakındaki konumları görüntüleyebilmek için konum servislerini etkinleştirmeniz gerekir."
+      "locationError": "Yakındaki konumları görüntüleyebilmek için konum servislerini etkinleştirmeniz gerekir.",
+      "noPermission": "Konum erişimi gerekli",
+      "loading": "Konum belirle...",
+      "notAvailable": "Konum belirlemeyi devre dışı bırak",
+      "timeout": "Konum belirleme başarısız",
+      "refresh": "Konum listesini güncelle"
     }
   },
   "layout": {
@@ -1819,6 +2116,7 @@
       "localInformation": "معلومات محلية",
       "events": "الفعاليات",
       "noEvents": "لا توجد فعاليات",
+      "news": "الأخبار",
       "noLanguages": "غير متوفر بلغات أخرى",
       "noTranslation": "لا توجد ترجمة متاحة",
       "search": "البحث",
@@ -1838,6 +2136,7 @@
       "localInformation": "Local information",
       "events": "Events",
       "noEvents": "No events",
+      "news": "News",
       "noLanguages": "Not available in other languages",
       "noTranslation": "No translation available",
       "search": "Search",
@@ -1857,6 +2156,7 @@
       "localInformation": "Información local",
       "events": "Actividades",
       "noEvents": "No hay actividades",
+      "news": "Noticias",
       "noLanguages": "No disponible en otros idiomas",
       "noTranslation": "No hay traducción disponible",
       "search": "Buscar",
@@ -1876,6 +2176,7 @@
       "localInformation": "اطلاعات محلی",
       "events": "رویدادها",
       "noEvents": "رویدادی وجود ندارد",
+      "news": "اخبار",
       "noLanguages": "به زبان های دیگر موجود نیست",
       "noTranslation": "ترجمه موجود نیست",
       "search": "جستجو",
@@ -1895,6 +2196,7 @@
       "localInformation": "Informations locales",
       "events": "Événements",
       "noEvents": "Aucun événement",
+      "news": "Nouvelles",
       "noLanguages": "Non disponible dans d'autres langues",
       "noTranslation": "Aucune traduction disponible",
       "search": "Rechercher",
@@ -1933,11 +2235,12 @@
       "localInformation": "Zanyariyên xwecihî",
       "events": "Rûdan",
       "noEvents": "Tu rûdanek tuneye",
+      "news": "Nûçe",
       "noLanguages": "Bi zimanên din tuneye",
       "noTranslation": "Werger tuneye",
       "search": "Lêgerîn",
-      "changeLocation": "Guhertina Cih",
-      "changeLanguage": "Guhertina Ziman",
+      "changeLocation": "Guhertina mekan",
+      "changeLanguage": "Guhertina ziman",
       "settings": "Eyarkirin",
       "share": "Parvekirin",
       "cancel": "Qutbûn",
@@ -1964,6 +2267,26 @@
       "shareFailDefaultMessage": "Niestety udostępnianie treści nie powiodło się.",
       "disclaimer": "Nota prawna"
     },
+    "ps": {
+      "imprintAndContact": "خپروونکی او تماس",
+      "privacy": "د ډاټا حفاظت",
+      "offers": "وړاندیزونه",
+      "localInformation": "سیمه ییز معلومات",
+      "events": "غونډې",
+      "noEvents": "غونډې نشته",
+      "news": "خبرونه",
+      "noLanguages": "په نورو ژبو کې موجود ندی",
+      "noTranslation": "ترجمه موجود نده",
+      "search": "لټول",
+      "changeLocation": "موقعیت بدلول",
+      "changeLanguage": "ژبه بدلول",
+      "settings": "تنظیمات",
+      "share": "شریکول",
+      "cancel": "ختمول",
+      "shareMessage": "همدا اوس پیدا شو: {{message}}",
+      "shareFailDefaultMessage": "د منځپانګو شریکول له بده مرغه ناکام شول.",
+      "disclaimer": "خپروونکی"
+    },
     "ro": {
       "imprintAndContact": "Caseta tehnică și contact",
       "privacy": "Confidențialitate",
@@ -1987,9 +2310,10 @@
       "imprintAndContact": "Выходные данные и контактная информация",
       "privacy": "Защита данных",
       "offers": "Предложения",
-      "localInformation": "Информация о жизни страны",
+      "localInformation": "Местная информация",
       "events": "Мероприятия",
-      "noEvents": "Нет мероприятий",
+      "noEvents": "Мероприятия отсутствуют",
+      "news": "Новости",
       "noLanguages": "Недоступно на других языках",
       "noTranslation": "Перевод недоступен",
       "search": "Поиск",
@@ -2009,6 +2333,7 @@
       "localInformation": "Macluumaadka deegaanka",
       "events": "Dhacdooyinka",
       "noEvents": "Ma jiraan dhacdooyin",
+      "news": "war",
       "noLanguages": "Luuqad kale laguma heli karo",
       "noTranslation": "Turjumaad lama heli karo",
       "search": "Raadin",
@@ -2021,6 +2346,26 @@
       "shareFailDefaultMessage": "Nasiib darro, wadaagista tusmada ayaa lagu guuldaraystay.",
       "disclaimer": "Qoraa"
     },
+    "sr": {
+      "imprintAndContact": "Impresum i kontakt",
+      "privacy": "Zaštita podataka",
+      "offers": "Ponude",
+      "localInformation": "Lokalne informacije",
+      "events": "Manifestacije",
+      "noEvents": "Nema manifestacija",
+      "news": "Vesti",
+      "noLanguages": "Nije dostupno na drugim jezicima",
+      "noTranslation": "Nije dostupan prevod",
+      "search": "Tražite",
+      "changeLocation": "Promenite lokaciju",
+      "changeLanguage": "Promenite jezik",
+      "settings": "Podešavanja",
+      "share": "Podelite",
+      "cancel": "Prekinite",
+      "shareMessage": "Upravo pronađeno: {{message}}",
+      "shareFailDefaultMessage": "Delenje sadržaja nažalost nije uspelo.",
+      "disclaimer": "Impresum"
+    },
     "ti": {
       "imprintAndContact": "ናይ ደራሲ ዝርዝራት ሓበሬታን ናይ ርክብን",
       "privacy": "ምስጢርነት",
@@ -2028,6 +2373,7 @@
       "localInformation": "ከባብያዊ ሓበሬታ",
       "events": "ኣጋጣሚታት",
       "noEvents": "ኣጋጣሚታት የለዉን",
+      "news": "ዜና",
       "noLanguages": "ብኻልእ ቋንቋታት የለን",
       "noTranslation": "ትርጉም የለን",
       "search": "ፈትሽ",
@@ -2047,6 +2393,7 @@
       "localInformation": "Yerel bilgiler",
       "events": "Etkinlikler",
       "noEvents": "Etkinlik yok",
+      "news": "Bildirimler",
       "noLanguages": "Diğer dillerde mevcut değil",
       "noTranslation": "Çeviri yok",
       "search": "Ara",
@@ -2060,176 +2407,417 @@
       "disclaimer": "Künye"
     }
   },
+  "news": {
+    "de": {
+      "news": "Nachrichten",
+      "newsAlternative": "Neuigkeiten",
+      "localNews": "Lokale Nachrichten",
+      "localNewsAlternative": "Lokale Neuigkeiten",
+      "local": "Lokal",
+      "readMore": "Weiterlesen",
+      "currentlyNoNews": "Aktuell gibt es keine Nachrichten.",
+      "currentlyNoNewsAlternative": "Aktuell gibt es keine Neuigkeiten."
+    },
+    "ar": {
+      "news": "الأخبار",
+      "newsAlternative": "المستجدات",
+      "localNews": "اخبار محلية",
+      "localNewsAlternative": "المستجدات المحلية",
+      "local": "محلي",
+      "readMore": "متابعة القراءة",
+      "currentlyNoNews": "لا تُوجد أخبار حاليًا.",
+      "currentlyNoNewsAlternative": "لا تُوجد مستجدات حاليًا."
+    },
+    "en": {
+      "news": "News",
+      "newsAlternative": "News",
+      "localNews": "Local news",
+      "localNewsAlternative": "Local news",
+      "local": "Local",
+      "readMore": "Continue",
+      "currentlyNoNews": "There is no news at the moment.",
+      "currentlyNoNewsAlternative": "Currently there are no news."
+    },
+    "es": {
+      "news": "Noticias",
+      "newsAlternative": "Novedades",
+      "localNews": "Noticias locales",
+      "localNewsAlternative": "Novedades locales",
+      "local": "Local  ",
+      "readMore": "Seguir leyendo",
+      "currentlyNoNews": "En la actualidad no hay noticias",
+      "currentlyNoNewsAlternative": "En la actualidad no hay novedades"
+    },
+    "fa": {
+      "news": "اخبار",
+      "newsAlternative": "تازه‌ها",
+      "localNews": "اخبار محلی",
+      "localNewsAlternative": "تازه‌های محلی",
+      "local": "محل",
+      "readMore": "ادامه",
+      "currentlyNoNews": "در حال حاضر هیچ اخباری وجود ندارد.",
+      "currentlyNoNewsAlternative": "در حال حاضر هیچ تازه‌ای وجود ندارد."
+    },
+    "fr": {
+      "news": "Nouvelles",
+      "newsAlternative": "Nouvelles",
+      "localNews": "Nouvelles locales",
+      "localNewsAlternative": "Nouvelles locales",
+      "local": "Localement",
+      "readMore": "Poursuivre la lecture",
+      "currentlyNoNews": "Aucune nouvelle pour l'instant",
+      "currentlyNoNewsAlternative": "Aucune nouveauté pour l'instant"
+    },
+    "ku": {
+      "news": "Nûçe",
+      "newsAlternative": "Nûçe",
+      "localNews": "Nûçeyên herêmî",
+      "localNewsAlternative": "Nûçeyên herêmî",
+      "local": "Herêmî",
+      "readMore": "Xwendina xwe bidomîne",
+      "currentlyNoNews": "Niha nûçe tune.",
+      "currentlyNoNewsAlternative": "Niha nûçe tune."
+    },
+    "ps": {
+      "news": "خبرونه",
+      "newsAlternative": "نوې زړې",
+      "localNews": "سیمه ییز خبرونه",
+      "localNewsAlternative": "سیمه ییزې نوې زړې",
+      "local": "سیمه ییز",
+      "readMore": "مخته لوستل",
+      "currentlyNoNews": "دا مهال کوم خبرونه نشته.",
+      "currentlyNoNewsAlternative": "دا مهال کومې نوې زړې نشته."
+    },
+    "ru": {
+      "news": "Новости",
+      "newsAlternative": "Новое",
+      "localNews": "Местные новости",
+      "localNewsAlternative": "Новое рядом с вами",
+      "local": "Местная информация",
+      "readMore": "Подробнее",
+      "currentlyNoNews": "В настоящий момент новости отсутствуют.",
+      "currentlyNoNewsAlternative": "В настоящий момент ничего нового."
+    },
+    "so": {
+      "news": "War",
+      "newsAlternative": "War",
+      "localNews": "Wararka deegaanka",
+      "localNewsAlternative": "Wararka deegaanka",
+      "local": "Deegaanka",
+      "readMore": "Sii wad akhriska",
+      "currentlyNoNews": "Hada wax war ah ma jiraan.",
+      "currentlyNoNewsAlternative": "Hada wax war ah ma jiraan."
+    },
+    "sr": {
+      "news": "Vesti",
+      "newsAlternative": "Novosti",
+      "localNews": "Lokalne vesti",
+      "localNewsAlternative": "Lokalne novosti",
+      "local": "Lokalno",
+      "readMore": "Nastavite sa čitanjem",
+      "currentlyNoNews": "Trenutno nema nikakvih vesti.",
+      "currentlyNoNewsAlternative": "Trenutno nema nikakvih novosti."
+    },
+    "ti": {
+      "news": "ዜና",
+      "newsAlternative": "ዜና",
+      "localNews": "ዜና ውሽጢ  ዓዲ",
+      "localNewsAlternative": "ዜና ውሽጢ  ዓዲ",
+      "local": "ውሽጢ ዓዲ",
+      "readMore": "ምንባብ ቀጽል",
+      "currentlyNoNews": "ኣብዚ እዋን’ዚ ዜና የለን።",
+      "currentlyNoNewsAlternative": "ኣብዚ እዋን’ዚ ዜና የለን።"
+    },
+    "tr": {
+      "news": "Bildirimler",
+      "newsAlternative": "Yenilikler",
+      "localNews": "yerel bildirimler",
+      "localNewsAlternative": "Yerel yenilikler",
+      "local": "Yerel",
+      "readMore": "Okumaya devam edin",
+      "currentlyNoNews": "Şu an bildirim bulunmamaktadır.",
+      "currentlyNoNewsAlternative": "Şu an yenilik bulunmamaktadır."
+    }
+  },
+  "offers": {
+    "de": {
+      "offers": "Angebote"
+    },
+    "ar": {
+      "offers": "العروض"
+    },
+    "en": {
+      "offers": "Offers"
+    },
+    "es": {
+      "offers": "Ofertas"
+    },
+    "fa": {
+      "offers": "خدمات"
+    },
+    "fr": {
+      "offers": "Offres"
+    },
+    "hr": {
+      "offers": "Ponude"
+    },
+    "ku": {
+      "offers": "Xizmet"
+    },
+    "pl": {
+      "offers": "Oferty"
+    },
+    "ps": {
+      "offers": "وړاندیزونه"
+    },
+    "ro": {
+      "offers": "Oferte"
+    },
+    "ru": {
+      "offers": "Предложения"
+    },
+    "so": {
+      "offers": "Heshiisyo"
+    },
+    "sr": {
+      "offers": "Ponude"
+    },
+    "ti": {
+      "offers": "ውዕላት"
+    },
+    "tr": {
+      "offers": "Teklifler"
+    }
+  },
   "search": {
     "de": {
       "searchPlaceholder": "Suche"
+    },
+    "ar": {
+      "searchPlaceholder": "بحث"
+    },
+    "en": {
+      "searchPlaceholder": "Search"
+    },
+    "es": {
+      "searchPlaceholder": "Búsqueda   "
+    },
+    "fa": {
+      "searchPlaceholder": "جستجو"
+    },
+    "fr": {
+      "searchPlaceholder": "Recherche"
+    },
+    "ku": {
+      "searchPlaceholder": "Lêgerîn"
+    },
+    "ps": {
+      "searchPlaceholder": "لټون"
+    },
+    "ru": {
+      "searchPlaceholder": "Поиск"
+    },
+    "so": {
+      "searchPlaceholder": "Raadin"
+    },
+    "sr": {
+      "searchPlaceholder": "Pretraga"
+    },
+    "ti": {
+      "searchPlaceholder": "ፈትሽ"
+    },
+    "tr": {
+      "searchPlaceholder": "Arama"
     }
   },
   "settings": {
     "de": {
       "sentryTitle": "App-Stabilität",
-      "sentryDescription": "Durch das automatische Senden von Absturzberichten die Integreat-App verbessern",
+      "sentryDescription": "Durch das automatische Senden von Absturzberichten die {{appName}}-App verbessern",
       "pushNewsTitle": "Push-Benachrichtigungen",
       "pushNewsDescription": "Push-Benachrichtigungen für die neuesten lokalen Nachrichten erhalten",
       "proposeCitiesTitle": "Nahegelegene Orte",
       "proposeCitiesDescription": "Mithilfe des GPS-Standortes Vorschläge für nahegelegene Orte erhalten",
-      "about": "Über Integreat",
+      "about": "Über {{appName}}",
       "privacyPolicy": "Datenschutzerklärung",
       "version": "Version: {{version}}",
       "openSourceLicenses": "Open-Source-Lizenzen"
     },
     "ar": {
       "sentryTitle": "استقرار التطبيق",
-      "sentryDescription": "تطوير تطبيق إنتجريت من خلال الإرسال التلقائي لتقارير الأعطال",
+      "sentryDescription": "تحسين تطبيق {{appName}} من خلال الإرسال التلقائي لتقارير الأعطال",
       "pushNewsTitle": "الإخطارات اللحظية",
       "pushNewsDescription": "تلقي الإخطارات اللحظية لأحدث الأخبار المحلية",
       "proposeCitiesTitle": "الأماكن القريبة",
       "proposeCitiesDescription": "تلقي اقتراحات الأماكن القريبة بمساعدة موقع الـGPS",
-      "about": "حول تطبيق إنتجريت",
+      "about": "حول تطبيق {{appName}}",
       "privacyPolicy": "بيان الخصوصية",
       "version": "الإصدار: {{version}}",
       "openSourceLicenses": "تراخيص مفتوحة المصدر"
     },
     "en": {
       "sentryTitle": "App stability",
-      "sentryDescription": "Improve the Integreat app by automatically sending crash reports",
+      "sentryDescription": "Improve the {{appName}} app by automatically sending crash reports",
       "pushNewsTitle": "Push notifications",
       "pushNewsDescription": "Receive push notifications for the latest local news",
       "proposeCitiesTitle": "Nearby locations",
       "proposeCitiesDescription": "Receive suggestions for nearby locations with the help of GPS location services",
-      "about": "About Integreat",
+      "about": "About {{appName}}",
       "privacyPolicy": "Data protection policy",
       "version": "Version: {{version}}",
       "openSourceLicenses": "Open source licences"
     },
     "es": {
       "sentryTitle": "Estabilidad de la app",
-      "sentryDescription": "Mejorar la app Integreat mediante el envío automático de informes de interrupciones del servicio",
+      "sentryDescription": "Mejorar la app {{appName}} mediante el envío automático de informes de interrupciones del servicio",
       "pushNewsTitle": "Notificaciones push",
       "pushNewsDescription": "Recibir notificaciones push con las últimas noticias locales",
       "proposeCitiesTitle": "Ubicaciones cercanas",
       "proposeCitiesDescription": "Recibir recomendaciones de ubicaciones cercanas empleando la ubicación GPS",
-      "about": "Acerca de Integreat",
+      "about": "Acerca de {{appName}}",
       "privacyPolicy": "Declaración de privacidad",
       "version": "Versión: {{version}}",
       "openSourceLicenses": "Licencias de fuente abierta"
     },
     "fa": {
       "sentryTitle": "پایداری اپلیکیشن",
-      "sentryDescription": "با ارسال خودکار گزارش های خرابی، اپلیکیشن‎ Integreat را بهبود بخشید",
+      "sentryDescription": "با ارسال خودکار گزارش های خرابی، اپلیکیشن‎ {{appName}} را بهبود بخشید",
       "pushNewsTitle": "پیام های فوری",
       "pushNewsDescription": "دریافت پیام های فوری برای آخرین اخبار محلی جدید",
       "proposeCitiesTitle": "مکان های نزدیک",
       "proposeCitiesDescription": "با استفاده از موقعیت GPS، پیشنهادات برای مکان های نزدیک را دریافت کنید",
-      "about": "از طریق اینترنت",
       "privacyPolicy": "بیانیه حفاظت از داده ها",
       "version": "نسخه: {{version}}",
       "openSourceLicenses": "لیسانس منبع باز"
     },
     "fr": {
       "sentryTitle": "Stabilité de l'application",
-      "sentryDescription": "Améliorer l'application Integreat grâce à l'envoi automatique de rapports d'erreur",
+      "sentryDescription": "Améliorer l'application {{appName}} grâce à l'envoi automatique de rapports d'erreur",
       "pushNewsTitle": "Notifications push",
       "pushNewsDescription": "Recevoir des notifications push sur l'actualité locale",
       "proposeCitiesTitle": "Lieux proches",
       "proposeCitiesDescription": "Obtenir des propositions des lieux à proximité grâce à la géolocalisation",
-      "about": "À propos d'Integreat",
+      "about": "À propos d'{{appName}}",
       "privacyPolicy": "Déclaration de confidentialité",
       "version": "Version : {{version}}",
       "openSourceLicenses": "Licences en open source"
     },
     "hr": {
       "sentryTitle": "Stabilnost aplikacije",
-      "sentryDescription": "Automatskim slanjem izvještaja o padu sustava aplikacija Integreat se poboljšava",
+      "sentryDescription": "Automatskim slanjem izvještaja o padu sustava aplikacija {{appName}} se poboljšava",
       "pushNewsTitle": "Push obavijesti",
       "pushNewsDescription": "Primaj push obavijesti s najnovijim lokalnim vijestima",
       "proposeCitiesTitle": "Mjesta u blizini",
       "proposeCitiesDescription": "Primaj prijedloge za mjesta u blizini putem GPS lokacije",
-      "about": "O aplikaciji Integreat",
+      "about": "O aplikaciji {{appName}}",
       "privacyPolicy": "Izjava o zaštiti podataka",
       "version": "Verzija: {{version}}",
       "openSourceLicenses": "Licencije otvorenog koda"
     },
     "ku": {
       "sentryTitle": "Mayîndetiya App'ê",
-      "sentryDescription": "Bi şandina xwebixwe ya raporên xerabûnê, Appa 'Integreat'ê baştir bike",
+      "sentryDescription": "Bi şandina xwebixwe ya raporên xerabûnê, Appa '{{appName}}'ê baştir bike",
       "pushNewsTitle": "Peyamên bilez",
       "pushNewsDescription": "Wergirtina peyamên bilez sa dawîn nûçeyên xwecihî yên nû",
       "proposeCitiesTitle": "Cihên Nêzik",
       "proposeCitiesDescription": "Bi bikaranîna Mekanbîna 'GPS'ê, pêşniyaran jibo mekanên nêzik werbigire",
-      "about": "Bi rêya Înternetê",
+      "about": "Bi rêya {{appName}}",
       "privacyPolicy": "Daxuyaniya Parastina Daneyan",
       "version": "Versiyon: {{version}}",
       "openSourceLicenses": "Lîsansa Çavkanî-Vekirî"
     },
     "pl": {
       "sentryTitle": "Stabilność aplikacji",
-      "sentryDescription": "Ulepszanie aplikacji Integreat przez automatycznie wysyłanie raportów o awariach",
+      "sentryDescription": "Ulepszanie aplikacji {{appName}} przez automatycznie wysyłanie raportów o awariach",
       "pushNewsTitle": "Powiadomienia typu push",
       "pushNewsDescription": "Otrzymywanie powiadomień typu push o aktualnościach lokalnych",
       "proposeCitiesTitle": "Lokalizacje w pobliżu",
       "proposeCitiesDescription": "Uzyskiwanie sugestii dotyczących lokalizacji w pobliżu za pomocą lokalizacji GPS",
-      "about": "O Integreat",
+      "about": "O {{appName}}",
       "privacyPolicy": "Oświadczenie o ochronie danych",
       "version": "Wersja: {{version}}",
       "openSourceLicenses": "Licencje open source"
     },
+    "ps": {
+      "sentryTitle": "د ایپ ثبات",
+      "sentryDescription": "په اتومات ډول د خرابي د پېغامونو په لېږلو سره د {{appName}}--ایپ بهترول",
+      "pushNewsTitle": "فشاري خبرتیاوې",
+      "pushNewsDescription": "د تازه سیمه ییزو خبرونو لپاره فشاري خبرتیاوې ترلاسه کول",
+      "proposeCitiesTitle": "نږدې ځایونه",
+      "proposeCitiesDescription": "نږدې ځایونو لپاره د جي پي ایس-موقعیتونو په مرسته وړاندیزونه ترلاسه کول",
+      "about": "د {{appName}} په اړه",
+      "privacyPolicy": "د ډاټا د حفاظت بیانیه",
+      "version": "بڼه: {{version}}",
+      "openSourceLicenses": "د آزادې-سرچینې لیسنس"
+    },
     "ro": {
       "sentryTitle": "Stabilitate app",
-      "sentryDescription": "Îmbunătățiți Integreat-App prin trimiterea automată a rapoartelor de blocare",
+      "sentryDescription": "Îmbunătățiți {{appName}}-App prin trimiterea automată a rapoartelor de blocare",
       "pushNewsTitle": "Notificări push",
       "pushNewsDescription": "Primiți notificări push pentru cele mai recente noutăți locale",
       "proposeCitiesTitle": "Locații aflate în apropiere",
       "proposeCitiesDescription": "Primiți pe baza locației GPS propuneri pentru locații aflate în apropiere",
-      "about": "Prin intermediul Integreat",
+      "about": "Prin intermediul {{appName}}",
       "privacyPolicy": "Declarație privind confidențialitatea",
       "version": "Versiune: {{version}}",
       "openSourceLicenses": "Licențe open source"
     },
     "ru": {
       "sentryTitle": "Стабильность приложения",
-      "sentryDescription": "Повышение стабильности работы приложения Integreat путем автоматической отправки сообщений о сбоях",
+      "sentryDescription": "Повышение стабильности работы приложения {{appName}} путем автоматической отправки сообщений о сбоях",
       "pushNewsTitle": "Push-уведомления",
       "pushNewsDescription": "Push-уведомления необходимы для получения самых актуальных местных новостей",
-      "proposeCitiesTitle": "Места поблизости",
-      "proposeCitiesDescription": "При помощи GPS-координат вы будете узнавать о предложениях в находящихся поблизости местах",
-      "about": "Что такое Integreat",
+      "proposeCitiesTitle": "Близлежащие населенные пункты",
+      "proposeCitiesDescription": "При помощи GPS-координат вы будете узнавать о предложениях в близлежащих населенных пунктах",
+      "about": "Информация о приложении {{appName}}",
       "privacyPolicy": "Политика конфиденциальности",
       "version": "Версия: {{version}}",
       "openSourceLicenses": "Лицензии на ПО с открытым исходным кодом"
     },
     "so": {
       "sentryTitle": "Deganaanshaha Aaladda",
-      "sentryDescription": "Hagaaji Integreat adigoo si otomatigga ah u diraya warbixinnada ciladaha",
+      "sentryDescription": "Hagaaji {{appName}} adigoo si otomatigga ah u diraya warbixinnada ciladaha",
       "pushNewsTitle": "Ogaysiisyada",
       "pushNewsDescription": "Hel ogeysiisyada ku saabsan warbixinada deegaanka ee ugu dambeeyey",
       "proposeCitiesTitle": "Meelaha dhaw",
       "proposeCitiesDescription": "Hel soo jeedino ah goobaha ugu dhow adigoo isticmaalaya GPS",
-      "about": "Ku saabsan Integreat",
+      "about": "Ku saabsan {{appName}}",
       "privacyPolicy": "Ilaalinta xogta",
       "version": "Nooca: {{version}}",
       "openSourceLicenses": "Ruqsadaha-il-furan"
     },
+    "sr": {
+      "sentryTitle": "Stabilnost aplikacije",
+      "sentryDescription": "Automatskim slanjem izveštaja o padu sistema da se poboljša {{appName}",
+      "pushNewsTitle": "Push notifikacije",
+      "pushNewsDescription": "Dobijati push notifikacije za najnovije lokalne vesti",
+      "proposeCitiesTitle": "Mesta u blizini",
+      "proposeCitiesDescription": "Dobivati predloge za mesta u blizini pomoću moje GPS lokacije",
+      "about": "Preko {{appName}}",
+      "privacyPolicy": "Izjava o zaštiti podataka",
+      "version": "Verzija: {{version}}",
+      "openSourceLicenses": "Open source licence"
+    },
     "ti": {
       "sentryTitle": "ናይ ኣፕ ርጉእነት",
-      "sentryDescription": "ናይ ብልሽት/ውድቀት ጸብጻባት ብኣውቶማቲካዊ መንገዲ ብምስዳድ ንኣፕ Integreat ኣመሓይሾ",
+      "sentryDescription": "ናይ ብልሽት/ውድቀት ጸብጻባት ብኣውቶማቲካዊ መንገዲ ብምስዳድ ንኣፕ {{appName}} ኣመሓይሾ",
       "pushNewsTitle": "ምልክታታት መልእኽቲ",
       "pushNewsDescription": "ነቲ ሓድሽ ከባብያዊ ዜና ዝኾኑ ምልክታታት መልእኽቲ ተቐበል",
       "proposeCitiesTitle": "ኣብ ጥቓኻ ዘለዎ ቦታታት",
       "proposeCitiesDescription": "ነቲ ናይ GPS (ጂፒኤስ) ቦታ ብምጥቃም ብዛዕባ ኣብ ጥቓኻ ዘለዉ ቦታታት ሓሳብ ተቐበል",
-      "about": "ብዛዕባ Integreat",
+      "about": "ብዛዕባ {{appName}}",
       "privacyPolicy": "ሓለዋ ዳታ/ሓበሬታ",
       "version": "ዓይነት፥ {{version}}",
       "openSourceLicenses": "ናጻ-ዝምንጮም ፍቓዳት ስራሕ"
     },
     "tr": {
       "sentryTitle": "Uygulama stabilitesi",
-      "sentryDescription": "Hata raporlarını otomatik olarak göndererek Integreat uygulamasını geliştirin",
+      "sentryDescription": "Hata raporlarını otomatik olarak göndererek {{appName}} uygulamasını geliştirin",
       "pushNewsTitle": "Push bildirimleri",
       "pushNewsDescription": "En son yerel haberler için Push bildirimleri alın",
       "proposeCitiesTitle": "Yakındaki konumlar",
       "proposeCitiesDescription": "GPS konumunu kullanarak yakındaki konumlar için öneriler alın",
-      "about": "Integreat hakkında",
+      "about": "{{appName}} hakkında",
       "privacyPolicy": "Gizlilik politikası",
       "version": "Versiyon: {{version}}",
       "openSourceLicenses": "Açık kaynak lisansları"
@@ -2249,11 +2837,21 @@
     },
     "ar": {
       "grantPermission": "السماح",
-      "deactivateFeature": "إلغاء تنشيط الخدمة"
+      "deactivateFeature": "إلغاء تنشيط الخدمة",
+      "locationPermissionMissing": "مطلوب إذن بالوصول إلى الموقع لاقتراح المواقع القريبة  ",
+      "pushNotificationPermissionMissing": "مطلوب تصاريح لإرسال إشعارات لحظية ",
+      "deactivate": "إلغاء التفعيل",
+      "coronaMessage": "تجد معلومات علمية مُحدَّثة لدى المراكز الاتحادية للتوعية الصحية.",
+      "coronaUrl": "https://www.infektionsschutz.de/coronavirus/",
+      "learnMore": "مزيد من المعلومات",
+      "dismiss": "إغلاق"
     },
     "en": {
       "grantPermission": "Allow",
       "deactivateFeature": "Deactivate feature",
+      "locationPermissionMissing": "Location access required to suggest nearby locations",
+      "pushNotificationPermissionMissing": "Permissions required to send push notifications",
+      "deactivate": "Deactivate   ",
       "coronaMessage": "Get the latest information from the WHO about coronavirus.",
       "coronaUrl": "https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public",
       "learnMore": "Learn more",
@@ -2261,15 +2859,36 @@
     },
     "es": {
       "grantPermission": "Permitir",
-      "deactivateFeature": "Desactivar función"
+      "deactivateFeature": "Desactivar función",
+      "locationPermissionMissing": "Se requiere acceso a la ubicación para sugerir lugares cercanos",
+      "pushNotificationPermissionMissing": "Permisos necesarios para enviar notificaciones push",
+      "deactivate": "Desactivar  ",
+      "coronaMessage": "Las informaciones actuales, científicas se encuentran en el Centro Federal de Educación para la Salud.",
+      "coronaUrl": "https://www.infektionsschutz.de/coronavirus/",
+      "learnMore": "Más información",
+      "dismiss": "Cerrar"
     },
     "fa": {
       "grantPermission": "اجازه دادن",
-      "deactivateFeature": "غیرفعال کردن ویژگی"
+      "deactivateFeature": "غیرفعال کردن ویژگی",
+      "locationPermissionMissing": "دسترسی به موقعیت مکانی برای پرای ارائه پیشنهادات موجود در نزدیکی الزامی است",
+      "pushNotificationPermissionMissing": "دادن حق دسترسی برای ارسال پیام‌های پوش الزامی است",
+      "deactivate": "غیرفعال کردن",
+      "coronaMessage": "اطلاعات علمی به روز را می‌توانید در مرکز فدرال برای اطلاع‌رسانی بهداشتی بیابید.",
+      "coronaUrl": "https://www.infektionsschutz.de/coronavirus/",
+      "learnMore": "اطلاعات بیشتر",
+      "dismiss": "بستن"
     },
     "fr": {
       "grantPermission": "Autoriser",
-      "deactivateFeature": "Désactiver fonction"
+      "deactivateFeature": "Désactiver fonction",
+      "locationPermissionMissing": "Accès au lieu nécessaire pour proposer des lieux situés à proximité",
+      "pushNotificationPermissionMissing": "Autorisations requises pour envoyer des notifications push",
+      "deactivate": "Désactiver",
+      "coronaMessage": "Vous trouverez des informations scientifiques récentes auprès du Centre fédéral pour l’éducation à la santé.",
+      "coronaUrl": "https://www.infektionsschutz.de/coronavirus/",
+      "learnMore": "Plus d'informations",
+      "dismiss": "Fermer"
     },
     "hr": {
       "grantPermission": "Dozvoli",
@@ -2277,11 +2896,29 @@
     },
     "ku": {
       "grantPermission": "Rêdan",
-      "deactivateFeature": "Neçalakkirina Taybetmendiyê"
+      "deactivateFeature": "Neçalakkirina taybetmendiyê",
+      "locationPermissionMissing": "Destûr hewce ye ji bo pêşniyarkirina mekanên nû",
+      "pushNotificationPermissionMissing": "Destûr hewce ye ji bo şandina agahdayin",
+      "deactivate": "Neçalak bike",
+      "coronaMessage": "Hûn dikarin agahdariya nûyên zanistî li Navenda Federal a Perwerdehiya Tenduristiyê bibênin.",
+      "coronaUrl": "https://www.infektionsschutz.de/coronavirus/",
+      "learnMore": "Agahdariya bêtir",
+      "dismiss": "Qedandin"
     },
     "pl": {
       "grantPermission": "Zezwól",
       "deactivateFeature": "Deaktywuj funkcje"
+    },
+    "ps": {
+      "grantPermission": "اجازه ورکول",
+      "deactivateFeature": "فیچر غیر فعالول",
+      "locationPermissionMissing": "د نږدې ځایونو د وړاندیز لپاره موقعیت ته لاسرسی اړین دی",
+      "pushNotificationPermissionMissing": "د فشاري خبرتیاو لپاره اختیارات ورکول اړین دي",
+      "deactivate": "غیر فعالول",
+      "coronaMessage": "تازه، علمي معلومات تاسو روغتیايي ښوونې لپاره فدرالي مرکز سره موندلی شئ.",
+      "coronaUrl": "https://www.infektionsschutz.de/coronavirus/",
+      "learnMore": "نور معلومات",
+      "dismiss": "پای ته رسول"
     },
     "ro": {
       "grantPermission": "Permiteți",
@@ -2289,19 +2926,58 @@
     },
     "ru": {
       "grantPermission": "Разрешить",
-      "deactivateFeature": "Отключить функцию"
+      "deactivateFeature": "Отключить функцию",
+      "locationPermissionMissing": "Необходим доступ к местоположению для поиска близлежащих населенных пунктов",
+      "pushNotificationPermissionMissing": "Необходимы права на отправку push-уведомлений",
+      "deactivate": "Деактивировать",
+      "coronaMessage": "Актуальную научную информацию вы найдете в Федеральном центре медицинского просвещения.",
+      "coronaUrl": "https://www.infektionsschutz.de/coronavirus/",
+      "learnMore": "Подробнее",
+      "dismiss": "Закрыть"
     },
     "so": {
       "grantPermission": "U oggolow",
-      "deactivateFeature": "Demi adeegga"
+      "deactivateFeature": "Demi adeegga",
+      "locationPermissionMissing": "Wuxuu u baahan yahay oggolaansha goobta si uu usoo jeediyo meelaha aggagaarka ah",
+      "pushNotificationPermissionMissing": "Ogolaansho ayaa loo baahan yahay si loo soo diro ogeysiiska isla markiiba ah",
+      "deactivate": "Ka demi shaqeysiinta",
+      "coronaMessage": "Macluumaad saynis oo cusbooneysiisan ayaa laga heli karaa Xarunta Federalka ee Barashada Caafimaadka.",
+      "coronaUrl": "https://www.infektionsschutz.de/coronavirus/",
+      "learnMore": "Macluumaad dheeraad ah",
+      "dismiss": "Gunaanad"
+    },
+    "sr": {
+      "grantPermission": "Dozvolite",
+      "deactivateFeature": "Deaktivirajte značajke",
+      "locationPermissionMissing": "Pristup lokaciji za predlaganje mesta u blizini",
+      "pushNotificationPermissionMissing": "Potrebna su ovlašćenja za slanje push notifikacija",
+      "deactivate": "Deaktivirajte",
+      "coronaMessage": "Aktuelne, naučne informacije ćete naći u Saveznoj centrali za pružanje informacija o zdravlju",
+      "coronaUrl": "https://www.infektionsschutz.de/coronavirus/",
+      "learnMore": "Dodatne informacije",
+      "dismiss": "Zatvorite"
     },
     "ti": {
       "grantPermission": "ኣፍቅድ",
-      "deactivateFeature": "እቲ ጠባይ ንጡፍ ከምዘይከውን ግበር"
+      "deactivateFeature": "እቲ ጠባይ ንጡፍ ከምዘይከውን ግበር",
+      "locationPermissionMissing": "ኣብ  ጥቃኹም ንዘለዉ ቦታታት ሓሳብ ንምሃብ ዘለኽሞ ቦታ ናይ ምፍላጥ ዕድል ክውሃቦ ይጠልብ",
+      "pushNotificationPermissionMissing": "ናይ ምድፋእ መፍለጢታት ንምስዳድ ፍቓድ ይጥለብ",
+      "deactivate": "ዘይንጡፍ ከምዝኸውን ግበር",
+      "coronaMessage": "ሓድሽ ስነ-ፍልጠታዊ ሓበሬታ ኣብቲ ፈደራላዊ ማእከል ንትምህርቲ ጥዕና ክርከብ ይኽእል Aufklärung.",
+      "coronaUrl": "https://www.infektionsschutz.de/coronavirus/",
+      "learnMore": "ተወሳኺ ሓበሬታ",
+      "dismiss": "መደምደምታ"
     },
     "tr": {
       "grantPermission": "İzin ver",
-      "deactivateFeature": "Özelliği devre dışı bırak"
+      "deactivateFeature": "Özelliği devre dışı bırak",
+      "locationPermissionMissing": "Yakındaki konum önerileri için konum erişimi gerekli",
+      "pushNotificationPermissionMissing": "Anlık bildirim göndermek için izin gerekli",
+      "deactivate": "Devre dışı bırak",
+      "coronaMessage": "Güncel bilimsel bilgiler Federal Sağlık Eğitimi Merkezinde bulunabilir.",
+      "coronaUrl": "https://www.infektionsschutz.de/coronavirus/",
+      "learnMore": "Daha fazla bilgi",
+      "dismiss": "Kapat"
     }
   },
   "sprungbrett": {
@@ -2332,6 +3008,9 @@
     "pl": {
       "noOffersAvailable": "Brak dostępnych ofert"
     },
+    "ps": {
+      "noOffersAvailable": "کوم وړاندیز موجود ندی"
+    },
     "ro": {
       "noOffersAvailable": "Nicio ofertă disponibilă"
     },
@@ -2340,6 +3019,9 @@
     },
     "so": {
       "noOffersAvailable": "Wax adeeg ah oo la heli karo ma jiraan"
+    },
+    "sr": {
+      "noOffersAvailable": "Nema dosutpnih ponuda"
     },
     "ti": {
       "noOffersAvailable": "ዝኾኑ ኣቕርቦታት የለዉን"
@@ -2525,7 +3207,7 @@
           "hallway": "Parquet",
           "store": "Débarras",
           "basement": "Cave",
-          "balcony": "Balcon / Terrasse"
+          "balcony": "Balcon/Terrasse"
         }
       }
     },
@@ -2675,7 +3357,7 @@
           "hallway": "Прихожая",
           "store": "Кладовая",
           "basement": "Подвал",
-          "balcony": "Балкон / терраса"
+          "balcony": "Балкон/терраса"
         }
       }
     },
