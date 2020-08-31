@@ -26,7 +26,7 @@ export class LocationFooter extends React.PureComponent<PropsType> {
         {t('imprintAndContact')}
       </CleanLink>
       <CleanAnchor href={`https://integreat-app.de${language === 'de' ? '/about/' : '/en/about/'}`}>
-        {t('settings:about', { appName: buildConfig.appName })}
+        {t('settings:about', { appName: buildConfig().appName })}
       </CleanAnchor>
       <CleanAnchor href={`https://integreat-app.de${language === 'de' ? '/datenschutz/' : '/en/privacy/'}`}>
         {t('privacy')}

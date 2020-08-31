@@ -18,7 +18,7 @@ export class FeedbackThanksMessage extends React.PureComponent<PropsType> {
     return (
       <StyledFeedbackBox>
         <ModalHeader t={t} closeFeedbackModal={closeFeedbackModal} title={t('feedbackSent')} />
-        <Description>{t('thanksMessage', { appName: buildConfig.appName })}</Description>
+        <Description>{t('thanksMessage', { appName: buildConfig().appName })}</Description>
       </StyledFeedbackBox>
     )
   }

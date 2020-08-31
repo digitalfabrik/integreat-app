@@ -74,7 +74,7 @@ class CategoriesRouteConfig implements RouteConfig<CategoriesRouteParamsType, Re
     return `${category && !category.isRoot() ? `${category.title} - ` : ''}${cityName}`
   }
 
-  getMetaDescription = t => t('metaDescription', { appName: buildConfig.appName })
+  getMetaDescription = t => t('metaDescription', { appName: buildConfig().appName })
 
   getFeedbackTargetInformation = ({ location, payloads }) => {
     const categories = payloads.categories.data
