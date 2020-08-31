@@ -9,6 +9,12 @@ import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
 import List from '../../../modules/common/components/List'
 import Caption from '../../../modules/common/components/Caption'
+import styled from 'styled-components'
+
+const Image = styled.img`
+  display: block;
+  margin: 0 auto;
+`
 
 type PropsType = {|
   sprungbrettJobs: Array<SprungbrettJobModel>,
@@ -34,7 +40,7 @@ export class SprungbrettOfferPage extends React.Component<PropsType> {
               renderItem={this.renderSprungbrettListItem}
               items={sprungbrettJobs} />
         <a target='_blank' rel='noopener noreferrer' href='https://www.sprungbrett-intowork.de'>
-          <img src={offer.thumbnail} />
+          <Image src={offer.thumbnail} />
         </a>
       </>
     )
