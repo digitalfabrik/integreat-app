@@ -8,13 +8,38 @@ import integreatAppLogo from '../../../../build-configs/configs/integreat/assets
 import integreatLocationMarker from '../../../../build-configs/configs/integreat/assets/location-marker.svg'
 import malteAppLogo from '../../../../build-configs/configs/malte/assets/app-logo.svg'
 import malteLocationMarker from '../../../../build-configs/configs/malte/assets/location-marker.svg'
+import integreatIntroLanguageIcon from '../../../../build-configs/iconsSets/integreat/Language.svg'
+import integreatIntroEventsIcon from '../../../../build-configs/iconsSets/integreat/Events.svg'
+import integreatIntroOffersIcon from '../../../../build-configs/iconsSets/integreat/Offers.svg'
+import integreatIntroSearchIcon from '../../../../build-configs/iconsSets/integreat/Search.svg'
+import malteIntroLanguageIcon from '../../../../build-configs/iconsSets/malte/Language.svg'
+import malteIntroEventsIcon from '../../../../build-configs/iconsSets/malte/Events.svg'
+import malteIntroOffersIcon from '../../../../build-configs/iconsSets/malte/Offers.svg'
+import malteIntroSearchIcon from '../../../../build-configs/iconsSets/malte/Search.svg'
 
-export const buildConfigIconSet = (): {| appLogo: string, locationMarker: string |} => {
+type IconSetType = {|
+  appLogo: string,
+  locationMarker: string,
+  intro: {
+    events: string,
+    language: string,
+    offers: string,
+    search: string
+  }
+|}
+
+export const buildConfigIconSet = (): IconSetType => {
   const iconSetString = buildConfig().iconSet
   if (iconSetString === INTEGREAT_ICONS) {
     return {
       appLogo: integreatAppLogo,
-      locationMarker: integreatLocationMarker
+      locationMarker: integreatLocationMarker,
+      intro: {
+        events: integreatIntroEventsIcon,
+        language: integreatIntroLanguageIcon,
+        offers: integreatIntroOffersIcon,
+        search: integreatIntroSearchIcon
+      }
     }
   } else if (iconSetString === MALTE_ICONS) {
     return {
