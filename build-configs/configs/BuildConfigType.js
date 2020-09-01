@@ -48,7 +48,7 @@ export type BuildConfigType = {|
   featureFlags: FeatureFlagsType,
   lightTheme: ThemeType,
   darkTheme: ThemeType,
-  iconSet: string,
+  assets: string,
   development?: boolean,
   e2e?: boolean,
   android: {|
