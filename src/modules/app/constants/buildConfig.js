@@ -44,7 +44,13 @@ export const buildConfigIconSet = (): IconSetType => {
   } else if (iconSetString === MALTE_ICONS) {
     return {
       appLogo: malteAppLogo,
-      locationMarker: malteLocationMarker
+      locationMarker: malteLocationMarker,
+      intro: {
+        events: malteIntroEventsIcon,
+        language: malteIntroLanguageIcon,
+        offers: malteIntroOffersIcon,
+        search: malteIntroSearchIcon
+      }
     }
   }
   throw new Error(`Unknown icon set ${iconSetString}. Check your build config!`)
