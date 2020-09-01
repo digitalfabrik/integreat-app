@@ -93,7 +93,7 @@ class CategoryEntry extends React.PureComponent<PropsType> {
     return subCategories.map(subCategory =>
       <SubCategory key={subCategory.hash}>
         <StyledLink to={subCategory.path}>
-          <SubCategoryCaption searchWords={[]} aria-label={subCategory.title} textToHighlight={subCategory.title} />
+          <SubCategoryCaption aria-label={subCategory.title}>{subCategory.title}</SubCategoryCaption>
         </StyledLink>
       </SubCategory>
     )
