@@ -246,32 +246,6 @@ jobs:
                     - malte.ipa
                     - integreat-e2e.ipa
                 root: ios/output/gym/
-    bump_version:
-        docker:
-            - image: circleci/node:12.16.3
-        resource_class: small
-        steps:
-            - checkout
-            - attach_workspace:
-                at: .
-            - restore_environment_variables
-            - restore_cache:
-                keys:
-                    - 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
-                    - 3-yarn-{{ arch }}-
-                name: Restore Yarn Package Cache
-            - run:
-                command: yarn install --frozen-lockfile
-                name: Install Dependencies
-            - save_cache:
-                key: 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
-                name: Save Yarn Package Cache
-                paths:
-                    - ~/.cache/yarn
-                    - node_modules
-            - run:
-                command: tools/bump-version bump-to ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
-                name: Bump version
     deliver_android:
         docker:
             - image: circleci/android:api-28-node
@@ -470,6 +444,57 @@ jobs:
                 paths:
                     - environment_variables
                 root: ./
+    prepare_delivery:
+        docker:
+            - image: circleci/node:12.16.3
+        parameters:
+            production_delivery:
+                description: Whether builds are delivered to the production store. If set to true, jira and github releases are created.
+                type: boolean
+        resource_class: small
+        steps:
+            - checkout
+            - attach_workspace:
+                at: .
+            - restore_environment_variables
+            - restore_cache:
+                keys:
+                    - 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+                    - 3-yarn-{{ arch }}-
+                name: Restore Yarn Package Cache
+            - run:
+                command: yarn install --frozen-lockfile
+                name: Install Dependencies
+            - save_cache:
+                key: 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+                name: Save Yarn Package Cache
+                paths:
+                    - ~/.cache/yarn
+                    - node_modules
+            - run:
+                command: tools/parse-release-notes parse --android --destination android/fastlane/metadata/android/de-DE/changelogs/default.txt --language de --production
+                name: Parse german android release notes
+            - run:
+                command: tools/parse-release-notes parse --android --destination android/fastlane/metadata/android/en-GB/changelogs/default.txt --language en --production && tools/parse-release-notes parse --android --destination android/fastlane/metadata/android/en-US/changelogs/default.txt --language en --production
+                name: Parse english android release notes
+            - run:
+                command: tools/parse-release-notes parse --ios --destination ios/fastlane/metadata/de-DE/release_notes.txt --language de --production
+                name: Parse german ios release notes
+            - run:
+                command: tools/parse-release-notes parse --ios --destination ios/fastlane/metadata/en-US/release_notes.txt --language en --production
+                name: Parse english ios release notes
+            - when:
+                condition: << parameters.production_delivery >>
+                steps:
+                    - run:
+                        command: tools/create-jira-release create-release ${NEW_VERSION_NAME} --private-key ${JIRA_PRIVATE_KEY} --access-token ${JIRA_OAUTH_TOKEN} --consumer-key ${JIRA_CONSUMER_KEY} --project-name ${CIRCLE_PROJECT_REPONAME}
+                        name: Create jira release
+                    - run:
+                        command: tools/move-release-notes move-to ${NEW_VERSION_NAME} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH} --commit-sha ${CIRCLE_SHA1}
+                        name: Move release notes
+            - run:
+                command: tools/bump-version bump-to ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH} --release-notes "${tools/parse-release-notes parse --ios --android}" <<# parameters.production_delivery >> --development-release <</ parameters.production_delivery >>
+                name: Bump version
 orbs:
     slack: circleci/slack@3.4.2
 parameters:
@@ -498,17 +523,18 @@ workflows:
                 requires:
                     - build_ios
                     - build_android
-            - bump_version:
+            - prepare_delivery:
+                production_delivery: << pipeline.parameters.production_delivery >>
                 requires:
                     - e2e
             - deliver_android:
                 production_delivery: << pipeline.parameters.production_delivery >>
                 requires:
-                    - bump_version
+                    - prepare_delivery
             - deliver_ios:
                 production_delivery: << pipeline.parameters.production_delivery >>
                 requires:
-                    - bump_version
+                    - prepare_delivery
         when: << pipeline.parameters.api_triggered >>
     bi_weekly_development_delivery:
         jobs:
@@ -525,24 +551,25 @@ workflows:
                 requires:
                     - build_ios
                     - build_android
-            - bump_version:
+            - prepare_delivery:
+                production_delivery: << pipeline.parameters.production_delivery >>
                 requires:
                     - e2e
             - deliver_android:
                 production_delivery: false
                 requires:
-                    - bump_version
+                    - prepare_delivery
             - deliver_ios:
                 production_delivery: false
                 requires:
-                    - bump_version
+                    - prepare_delivery
         triggers:
             - schedule:
                 cron: 0 3 8,22 * *
                 filters:
                     branches:
                         only:
-                            - develop
+                            - main
     bi_weekly_production_delivery:
         jobs:
             - prepare_build
@@ -558,12 +585,13 @@ workflows:
                 requires:
                     - build_ios
                     - build_android
-            - bump_version:
+            - prepare_delivery:
+                production_delivery: << pipeline.parameters.production_delivery >>
                 requires:
                     - e2e
             - await_production_approval:
                 requires:
-                    - bump_version
+                    - prepare_delivery
                 type: approval
             - deliver_android:
                 production_delivery: true
@@ -579,7 +607,7 @@ workflows:
                 filters:
                     branches:
                         only:
-                            - develop
+                            - main
     commit:
         jobs:
             - prepare_build

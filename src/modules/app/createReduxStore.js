@@ -22,12 +22,14 @@ import watchContentLanguageSwitch from '../endpoint/sagas/watchContentLanguageSw
 import contentLanguageReducer from '../i18n/reducers/contentLanguageReducer'
 import watchClearCity from '../i18n/watchClearCity'
 import watchClearResourcesAndCache from '../endpoint/sagas/watchClearResourcesAndCache'
+import watchFetchPoi from '../endpoint/sagas/watchFetchPoi'
 import buildConfig from './constants/buildConfig'
 
 function * rootSaga (dataContainer: DataContainer): Saga<void> {
   yield all([
     call(watchFetchCategory, dataContainer),
     call(watchFetchEvent, dataContainer),
+    call(watchFetchPoi, dataContainer),
     call(watchFetchCities, dataContainer),
     call(watchFetchNews, dataContainer),
     call(watchClearCity),

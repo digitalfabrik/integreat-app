@@ -46,6 +46,7 @@ describe('cityContentReducer', () => {
       newCategoriesMap: new CategoriesMapModel([]),
       newResourceCache: {},
       newEvents: [],
+      newPois: [],
       newLanguage: 'de'
     }
   }
@@ -110,6 +111,7 @@ describe('cityContentReducer', () => {
       city: 'augsburg',
       categoriesRouteMapping: {},
       eventsRouteMapping: {},
+      poisRouteMapping: {},
       languages: { status: 'ready', models: [] },
       resourceCache: { status: 'ready', value: {} },
       newsRouteMapping: {},
@@ -124,6 +126,7 @@ describe('cityContentReducer', () => {
       city: 'augsburg',
       categoriesRouteMapping: {},
       eventsRouteMapping: {},
+      poisRouteMapping: {},
       newsRouteMapping: {},
       languages: { status: 'ready', models: [] },
       resourceCache: { status: 'ready', value: {} },
@@ -138,6 +141,7 @@ describe('cityContentReducer', () => {
       city: 'augsburg',
       categoriesRouteMapping: {},
       eventsRouteMapping: {},
+      poisRouteMapping: {},
       newsRouteMapping: {},
       languages: { status: 'ready', models: [] },
       resourceCache: { status: 'ready', value: {} },
@@ -153,6 +157,7 @@ describe('cityContentReducer', () => {
       city: 'augsburg',
       categoriesRouteMapping: {},
       eventsRouteMapping: {},
+      poisRouteMapping: {},
       newsRouteMapping: {},
       languages: { status: 'ready', models: [] },
       resourceCache: { status: 'ready', value: {} },
@@ -186,6 +191,7 @@ describe('cityContentReducer', () => {
           status: 'loading'
         }
       },
+      poisRouteMapping: {},
       newsRouteMapping: {},
       languages: { status: 'loading' },
       resourceCache: { status: 'ready', value: {} },
@@ -209,6 +215,7 @@ describe('cityContentReducer', () => {
           code: ErrorCodes.UnknownError
         }
       },
+      poisRouteMapping: {},
       languages: { status: 'ready', models: languageModels },
       resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
@@ -234,6 +241,7 @@ describe('cityContentReducer', () => {
           path: null
         }
       },
+      poisRouteMapping: {},
       languages: { status: 'ready', models: languageModels },
       resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
@@ -273,6 +281,7 @@ describe('cityContentReducer', () => {
           path: null
         }
       },
+      poisRouteMapping: {},
       languages: { status: 'ready', models: languageModels },
       resourceCache: { status: 'ready', value: {} },
       searchRoute: null,
@@ -321,6 +330,7 @@ describe('cityContentReducer', () => {
       },
       city: 'augsburg',
       eventsRouteMapping: {},
+      poisRouteMapping: {},
       newsRouteMapping: {},
       languages: { status: 'loading' },
       resourceCache: { status: 'ready', value: {} },
@@ -344,6 +354,7 @@ describe('cityContentReducer', () => {
         }
       },
       eventsRouteMapping: {},
+      poisRouteMapping: {},
       newsRouteMapping: {},
       languages: { status: 'ready', models: languageModels },
       resourceCache: { status: 'ready', value: {} },
@@ -371,6 +382,7 @@ describe('cityContentReducer', () => {
           }
         },
         eventsRouteMapping: {},
+        poisRouteMapping: {},
         newsRouteMapping: {},
         languages: { status: 'ready', models: languageModels },
         resourceCache: { status: 'ready', value: {} },
@@ -411,6 +423,7 @@ describe('cityContentReducer', () => {
         }
       },
       eventsRouteMapping: {},
+      poisRouteMapping: {},
       newsRouteMapping: {},
       languages: { status: 'ready', models: languageModels },
       resourceCache: { status: 'ready', value: {} },
@@ -446,6 +459,7 @@ describe('cityContentReducer', () => {
       city: 'augsburg',
       categoriesRouteMapping: {},
       eventsRouteMapping: {},
+      poisRouteMapping: {},
       newsRouteMapping: {},
       languages: { status: 'ready', models: languageModels },
       resourceCache: { status: 'ready', value: {} },
@@ -460,6 +474,7 @@ describe('cityContentReducer', () => {
       city: 'augsburg',
       categoriesRouteMapping: {},
       eventsRouteMapping: {},
+      poisRouteMapping: {},
       newsRouteMapping: {},
       languages: { status: 'ready', models: languageModels },
       resourceCache: { status: 'ready', value: {} },
