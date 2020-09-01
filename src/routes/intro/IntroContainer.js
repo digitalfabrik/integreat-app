@@ -7,7 +7,6 @@ import Language from './assets/Language.svg'
 import Offers from './assets/Offers.svg'
 import Search from './assets/Search.svg'
 import Events from './assets/Events.svg'
-import AppLogo from '../../../assets/app-logo.png'
 import type { ThemeType } from '../../modules/theme/constants/theme'
 import withTheme from '../../modules/theme/hocs/withTheme'
 import { FlatList, Dimensions } from 'react-native'
@@ -23,7 +22,7 @@ import IntroSettings from './IntroSettings'
 import type { StateType as ReduxStateType } from '../../modules/app/StateType'
 import { connect } from 'react-redux'
 import { requestLocationPermission, requestPushNotificationPermission } from '../../modules/app/Permissions'
-import buildConfig from '../../modules/app/constants/buildConfig'
+import buildConfig, { buildConfigIconSet } from '../../modules/app/constants/buildConfig'
 
 const Container: StyledComponent<{ width: number }, {}, *> = styled.View`
   display: flex;
@@ -33,7 +32,7 @@ const Container: StyledComponent<{ width: number }, {}, *> = styled.View`
   justify-content: space-between;
 `
 
-const IntegreatImage = styled.Image`
+const AppLogo = styled.Image`
   justify-content: center;
   align-self: center;
   flex: 1;
@@ -95,7 +94,7 @@ class Intro extends React.Component<PropsType, StateType> {
     )
   }
 
-  renderIntegreatImage = () => (): React.Node => <IntegreatImage source={AppLogo} />
+  renderAppLogo = () => (): React.Node => <AppLogo source={buildConfigIconSet().appLogo} />
   renderImageContent = (image: string) => (): React.Node => <ImageContent source={image} />
 
   slides = (): Array<SlideContentType> => {
@@ -104,7 +103,7 @@ class Intro extends React.Component<PropsType, StateType> {
       key: 'integerat',
       title: t('integreat', { appName: buildConfig().appName }),
       description: t('integreatDescription', { appName: buildConfig().appName }),
-      renderContent: this.renderIntegreatImage()
+      renderContent: this.renderAppLogo()
     }, {
       key: 'search',
       title: t('search'),

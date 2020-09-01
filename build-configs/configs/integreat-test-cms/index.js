@@ -25,4 +25,4 @@ const IntegreatTestCmsBuildConfig: BuildConfigType = {
   }
 }
 
-module.exports = IntegreatTestCmsBuildConfig
+export default IntegreatTestCmsBuildConfig
