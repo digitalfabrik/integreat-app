@@ -51,6 +51,7 @@ export type BuildConfigType = {|
   iconSet: string,
   development?: boolean,
   e2e?: boolean,
+  splashScreen: boolean,
   android: {|
     applicationId: string,
     googleServices: ?AndroidGoogleServicesConfig
