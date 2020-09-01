@@ -22,7 +22,7 @@ type AndroidGoogleServicesConfig = {|
 |}
 
 // These values can be retrieved from the GoogleService-Info.plist.
-type iOSGoogleServicesConfig = {
+type iOSGoogleServicesConfig = {|
   clientId: string,
   reversedClientId: string,
   apiKey: string,
@@ -38,7 +38,8 @@ type iOSGoogleServicesConfig = {
   isSigninEnabled: boolean,
   googleAppId: string,
   databaseUrl: string
-}
+|}
+
 export type BuildConfigType = {|
   appName: string,
   cmsUrl: string,
@@ -55,6 +56,7 @@ export type BuildConfigType = {|
   |},
   ios: {|
     bundleIdentifier: string,
+    provisioningProfileSpecifier: string,
     googleServices: ?iOSGoogleServicesConfig
   |}
 |}

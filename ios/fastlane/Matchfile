@@ -3,5 +3,4 @@
 git_url("git@github.com:Integreat/app-credentials.git")
 storage_mode("git")
 
-app_identifier("de.integreat-app")
 username("app-team@integreat-app.de")
