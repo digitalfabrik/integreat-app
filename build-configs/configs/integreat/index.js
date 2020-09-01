@@ -18,6 +18,7 @@ const IntegreatBuildConfig: BuildConfigType = {
     newsStream: false,
     introSlides: true
   },
+  splashScreen: true,
   android: {
     applicationId: 'tuerantuer.app.integreat',
     googleServices: {
