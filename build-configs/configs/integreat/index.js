@@ -2,14 +2,13 @@
 
 import { lightTheme, darkTheme } from '../../themes/integreat'
 import type { BuildConfigType } from '../BuildConfigType'
-
-export const INTEGREAT_ICONS = 'INTEGREAT'
+import { INTEGREAT_ASSETS } from '../../assets/AssetsType'
 
 const IntegreatBuildConfig: BuildConfigType = {
   appName: 'Integreat',
   lightTheme,
   darkTheme,
-  iconSet: INTEGREAT_ICONS,
+  assets: INTEGREAT_ASSETS,
   cmsUrl: 'https://cms.integreat-app.de',
   switchCmsUrl: 'https://cms-test.integreat-app.de',
   allowedHostNames: ['cms.integreat-app.de', 'cms-test.integreat-app.de'],

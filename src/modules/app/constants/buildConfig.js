@@ -2,20 +2,19 @@
 
 import type { BuildConfigType } from '../../../../build-configs/configs/BuildConfigType'
 import loadBuildConfig from '../../../../build-configs'
-import { INTEGREAT_ICONS } from '../../../../build-configs/configs/integreat'
-import { MALTE_ICONS } from '../../../../build-configs/configs/malte'
-import integreatAppLogo from '../../../../build-configs/iconsSets/integreat/app-logo.png'
-import integreatLocationMarker from '../../../../build-configs/iconsSets/integreat/location-marker.svg'
-import malteAppLogo from '../../../../build-configs/iconsSets/malte/app-logo.svg'
-import malteLocationMarker from '../../../../build-configs/iconsSets/malte/location-marker.svg'
-import integreatIntroLanguageIcon from '../../../../build-configs/iconsSets/integreat/Language.svg'
-import integreatIntroEventsIcon from '../../../../build-configs/iconsSets/integreat/Events.svg'
-import integreatIntroOffersIcon from '../../../../build-configs/iconsSets/integreat/Offers.svg'
-import integreatIntroSearchIcon from '../../../../build-configs/iconsSets/integreat/Search.svg'
-import malteIntroLanguageIcon from '../../../../build-configs/iconsSets/malte/Language.svg'
-import malteIntroEventsIcon from '../../../../build-configs/iconsSets/malte/Events.svg'
-import malteIntroOffersIcon from '../../../../build-configs/iconsSets/malte/Offers.svg'
-import malteIntroSearchIcon from '../../../../build-configs/iconsSets/malte/Search.svg'
+import integreatAppLogo from '../../../../build-configs/assets/integreat/app-logo.png'
+import integreatLocationMarker from '../../../../build-configs/assets/integreat/location-marker.svg'
+import malteAppLogo from '../../../../build-configs/assets/malte/app-logo.svg'
+import malteLocationMarker from '../../../../build-configs/assets/malte/location-marker.svg'
+import integreatIntroLanguageIcon from '../../../../build-configs/assets/integreat/Language.svg'
+import integreatIntroEventsIcon from '../../../../build-configs/assets/integreat/Events.svg'
+import integreatIntroOffersIcon from '../../../../build-configs/assets/integreat/Offers.svg'
+import integreatIntroSearchIcon from '../../../../build-configs/assets/integreat/Search.svg'
+import malteIntroLanguageIcon from '../../../../build-configs/assets/malte/Language.svg'
+import malteIntroEventsIcon from '../../../../build-configs/assets/malte/Events.svg'
+import malteIntroOffersIcon from '../../../../build-configs/assets/malte/Offers.svg'
+import malteIntroSearchIcon from '../../../../build-configs/assets/malte/Search.svg'
+import { INTEGREAT_ASSETS, MALTE_ASSETS } from '../../../../build-configs/assets/AssetsType'
 
 type IconSetType = {|
   appLogo: string,
@@ -29,8 +28,8 @@ type IconSetType = {|
 |}
 
 export const buildConfigIconSet = (): IconSetType => {
-  const iconSetString = buildConfig().iconSet
-  if (iconSetString === INTEGREAT_ICONS) {
+  const iconSetString = buildConfig().assets
+  if (iconSetString === INTEGREAT_ASSETS) {
     return {
       appLogo: integreatAppLogo,
       locationMarker: integreatLocationMarker,
@@ -41,7 +40,7 @@ export const buildConfigIconSet = (): IconSetType => {
         search: integreatIntroSearchIcon
       }
     }
-  } else if (iconSetString === MALTE_ICONS) {
+  } else if (iconSetString === MALTE_ASSETS) {
     return {
       appLogo: malteAppLogo,
       locationMarker: malteLocationMarker,

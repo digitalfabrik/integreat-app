@@ -2,14 +2,13 @@
 
 import { lightTheme, darkTheme } from '../../themes/malte'
 import type { BuildConfigType } from '../BuildConfigType'
-
-export const MALTE_ICONS = 'MALTE'
+import { MALTE_ASSETS } from '../../assets/AssetsType'
 
 const MalteBuildConfig: BuildConfigType = {
   appName: 'Malte',
   lightTheme,
   darkTheme,
-  iconSet: MALTE_ICONS,
+  assets: MALTE_ASSETS,
   cmsUrl: 'https://cms.malteapp.de',
   allowedHostNames: ['cms.malteapp.de'],
   featureFlags: {
