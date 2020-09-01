@@ -1,4 +1,3 @@
-apply plugin: 'com.google.gms.google-services'
 apply plugin: "com.android.application"
 
 import com.android.build.OutputFile
@@ -83,7 +82,6 @@ apply from: "../../node_modules/react-native/react.gradle"
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 apply from: "buildConfigs.gradle"
 
-
 /**
  * Set this to true to create two separate APKs instead of one:
  *   - An APK that only works on ARM devices
@@ -128,7 +126,20 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    def buildConfigName = determineBuildConfigName()
+    def buildConfig = createBuildConfig(buildConfigName)
+
     defaultConfig {
+        applicationId buildConfig.android.applicationId ?: "tuerantuer.app.integreat"
+
+        setupResourceValues(buildConfigName, {
+            String type, String name, String value -> resValue(type, name, value)
+        })
+
+        setupGoogleServices(buildConfig, {
+            String type, String name, String value -> resValue(type, name, value)
+        })
+
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         if (project.hasProperty('VERSION_CODE')) {
