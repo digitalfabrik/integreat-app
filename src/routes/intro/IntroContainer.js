@@ -3,10 +3,6 @@
 import { withTranslation, type TFunction } from 'react-i18next'
 import * as React from 'react'
 import type { NavigationScreenProp } from 'react-navigation'
-import Language from './assets/Language.svg'
-import Offers from './assets/Offers.svg'
-import Search from './assets/Search.svg'
-import Events from './assets/Events.svg'
 import type { ThemeType } from '../../modules/theme/constants/theme'
 import withTheme from '../../modules/theme/hocs/withTheme'
 import { FlatList, Dimensions } from 'react-native'
@@ -98,6 +94,8 @@ class Intro extends React.Component<PropsType, StateType> {
   renderImageContent = (image: string) => (): React.Node => <ImageContent source={image} />
 
   slides = (): Array<SlideContentType> => {
+    const icons = buildConfigIconSet().intro
+
     const { t } = this.props
     return [{
       key: 'integerat',
@@ -108,22 +106,22 @@ class Intro extends React.Component<PropsType, StateType> {
       key: 'search',
       title: t('search'),
       description: t('searchDescription'),
-      renderContent: this.renderImageContent(Search)
+      renderContent: this.renderImageContent(icons.search)
     }, {
       key: 'events',
       title: t('events'),
       description: t('eventsDescription'),
-      renderContent: this.renderImageContent(Events)
+      renderContent: this.renderImageContent(icons.events)
     }, {
       key: 'offers',
       title: t('offers'),
       description: t('offersDescription'),
-      renderContent: this.renderImageContent(Offers)
+      renderContent: this.renderImageContent(icons.offers)
     }, {
       key: 'languageChange',
       title: t('languageChange'),
       description: t('languageChangeDescription'),
-      renderContent: this.renderImageContent(Language)
+      renderContent: this.renderImageContent(icons.language)
     }, {
       key: 'inquiry',
       title: t('inquiryTitle'),
