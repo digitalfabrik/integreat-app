@@ -273,14 +273,28 @@ jobs:
                 key: 2-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
                 paths:
                     - vendor/bundle
+            - restore_cache:
+                keys:
+                    - 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+                    - 3-yarn-{{ arch }}-
+                name: Restore Yarn Package Cache
+            - run:
+                command: yarn install --frozen-lockfile
+                name: Install Dependencies
+            - save_cache:
+                key: 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+                name: Save Yarn Package Cache
+                paths:
+                    - ~/.cache/yarn
+                    - node_modules
             - run:
                 command: bundle exec fastlane android browserstack_upload_live app_name:integreat
                 name: '[FL] Browserstack Upload Live'
             - run:
-                command: bundle exec fastlane android playstore_upload app_name:integreat production_delivery:"<< parameters.production_delivery >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
+                command: bundle exec fastlane android playstore_upload app_name:integreat production_delivery:"<< parameters.production_delivery >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}  build_config_name:integreat
                 name: '[FL] Play Store Upload'
             - run:
-                command: bundle exec fastlane android sentry_upload app_name:integreat version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
+                command: bundle exec fastlane android sentry_upload app_name:integreat version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat
                 name: '[FL] Upload to Sentry'
             - slack/notify:
                 message: Integreat ${NEW_VERSION_NAME} has been released successfully on Android!
@@ -311,6 +325,20 @@ jobs:
                 key: 2-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
                 paths:
                     - vendor/bundle
+            - restore_cache:
+                keys:
+                    - 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+                    - 3-yarn-{{ arch }}-
+                name: Restore Yarn Package Cache
+            - run:
+                command: yarn install --frozen-lockfile
+                name: Install Dependencies
+            - save_cache:
+                key: 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+                name: Save Yarn Package Cache
+                paths:
+                    - ~/.cache/yarn
+                    - node_modules
             - run:
                 command: bundle exec fastlane ios browserstack_upload_live app_name:integreat
                 name: '[FL] Browserstack Upload Live'
@@ -327,7 +355,7 @@ jobs:
                         command: bundle exec fastlane ios testflight_upload app_name:integreat version_name:${NEW_VERSION_NAME}
                         name: '[FL] TestFlight Upload'
             - run:
-                command: bundle exec fastlane ios sentry_upload app_name:integreat version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
+                command: bundle exec fastlane ios sentry_upload app_name:integreat version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}  build_config_name:integreat
                 name: '[FL] Upload to Sentry'
             - slack/notify:
                 message: Integreat ${NEW_VERSION_NAME} has been released successfully on iOS!
