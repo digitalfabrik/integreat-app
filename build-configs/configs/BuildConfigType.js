@@ -51,12 +51,13 @@ export type BuildConfigType = {|
   iconSet: string,
   development?: boolean,
   e2e?: boolean,
-  splashScreen: boolean,
   android: {|
+    splashScreen: boolean,
     applicationId: string,
     googleServices: ?AndroidGoogleServicesConfig
   |},
   ios: {|
+    launchImage?: string,
     bundleIdentifier: string,
     provisioningProfileSpecifier: string,
     googleServices: ?iOSGoogleServicesConfig

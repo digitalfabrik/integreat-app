@@ -18,8 +18,8 @@ const IntegreatBuildConfig: BuildConfigType = {
     newsStream: false,
     introSlides: true
   },
-  splashScreen: true,
   android: {
+    splashScreen: true,
     applicationId: 'tuerantuer.app.integreat',
     googleServices: {
       googleAppId: '1:164298278764:android:3fc1f67f3883df306fd549',
@@ -33,6 +33,7 @@ const IntegreatBuildConfig: BuildConfigType = {
     }
   },
   ios: {
+    launchImage: 'LaunchImage',
     bundleIdentifier: 'de.integreat-app',
     provisioningProfileSpecifier: 'match Development de.integreat-app',
     googleServices: {

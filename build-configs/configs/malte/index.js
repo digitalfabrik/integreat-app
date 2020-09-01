@@ -17,8 +17,8 @@ const MalteBuildConfig: BuildConfigType = {
     newsStream: false,
     introSlides: true
   },
-  splashScreen: false,
   android: {
+    splashScreen: false,
     applicationId: 'de.malteapp',
     googleServices: {
       googleAppId: '1:146599424234:android:b110d70b79ff7ce351a793',
