@@ -30,6 +30,7 @@ const IntegreatBuildConfig: BuildConfigType = {
   },
   ios: {
     bundleIdentifier: 'de.integreat-app',
+    provisioningProfileSpecifier: 'match Development de.integreat-app',
     googleServices: {
       clientId: '164298278764-pemn49q7v283m0tqml3q8q0ltr5h8pni.apps.googleusercontent.com',
       reversedClientId: 'com.googleusercontent.apps.164298278764-pemn49q7v283m0tqml3q8q0ltr5h8pni',
