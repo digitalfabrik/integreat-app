@@ -42,6 +42,7 @@ type iOSGoogleServicesConfig = {|
 
 export type BuildConfigType = {|
   appName: string,
+  appIcon: string,
   cmsUrl: string,
   switchCmsUrl?: string,
   allowedHostNames: Array<string>,

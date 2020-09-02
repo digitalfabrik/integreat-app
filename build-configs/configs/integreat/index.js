@@ -7,6 +7,7 @@ export const INTEGREAT_ICONS = 'INTEGREAT'
 
 const IntegreatBuildConfig: BuildConfigType = {
   appName: 'Integreat',
+  appIcon: 'app_icon_integreat',
   lightTheme,
   darkTheme,
   iconSet: INTEGREAT_ICONS,
