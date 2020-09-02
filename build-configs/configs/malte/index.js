@@ -50,7 +50,8 @@ const MalteBuildConfig: BuildConfigType = {
       isAppInviteEnabled: true,
       isGCMEnabled: true,
       isSigninEnabled: true
-    }
+    },
+    launchScreen: 'LaunchScreenDefault'
   }
 }
 
