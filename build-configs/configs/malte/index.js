@@ -5,7 +5,7 @@ import type { BuildConfigType } from '../BuildConfigType'
 import featureFlags from '../featureFlags'
 // import malteOverrideLocales from '../../../locales/malte-locales.json'
 
-const MalteBuildConfig: BuildConfigType = {
+const MalteBuildConfig: () => BuildConfigType = () => ({
   appName: 'Malte',
   theme: malteTheme,
   darkTheme: darkMalteTheme,
@@ -16,9 +16,9 @@ const MalteBuildConfig: BuildConfigType = {
   // localesOverride: malteOverrideLocales,
   icons: {
     locationIcon: '/location-big.svg',
-    logoWide: '/malteser-logo.png'
+    headerLogo: '/malteser-logo.png'
   },
   internalLinksHijackPattern: 'https?:\\/\\/malteapp\\.de(?!\\/[^/]*\\/(wp-content|wp-admin|wp-json)\\/.*).*'
-}
+})
 
 module.exports = MalteBuildConfig
