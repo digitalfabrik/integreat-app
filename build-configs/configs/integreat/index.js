@@ -33,7 +33,6 @@ const IntegreatBuildConfig: BuildConfigType = {
     }
   },
   ios: {
-    launchImage: 'LaunchImage',
     bundleIdentifier: 'de.integreat-app',
     provisioningProfileSpecifier: 'match Development de.integreat-app',
     googleServices: {
@@ -52,7 +51,8 @@ const IntegreatBuildConfig: BuildConfigType = {
       isSigninEnabled: true,
       googleAppId: '1:164298278764:ios:2a69672da4d117116fd549',
       databaseUrl: 'https://integreat-2020.firebaseio.com'
-    }
+    },
+    launchScreen: 'LaunchScreenIntegreat'
   }
 }
 

@@ -57,7 +57,7 @@ export type BuildConfigType = {|
     googleServices: ?AndroidGoogleServicesConfig
   |},
   ios: {|
-    launchImage?: string,
+    launchScreen: string,
     bundleIdentifier: string,
     provisioningProfileSpecifier: string,
     googleServices: ?iOSGoogleServicesConfig
