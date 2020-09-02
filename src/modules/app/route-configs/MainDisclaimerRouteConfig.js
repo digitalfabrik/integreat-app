@@ -23,7 +23,7 @@ class MainDisclaimerRouteConfig implements RouteConfig<void, RequiredPayloadsTyp
 
   getLanguageChangePath = () => null
 
-  getPageTitle = ({ t }) => t('pageTitles.mainDisclaimer', { appName: buildConfig.appName })
+  getPageTitle = ({ t }) => t('pageTitles.mainDisclaimer', { appName: buildConfig().appName })
 
   getMetaDescription = () => null
 
