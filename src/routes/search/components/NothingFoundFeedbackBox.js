@@ -55,7 +55,7 @@ export class NothingFoundFeedbackBox extends React.Component<PropsType, StateTyp
     return <StyledFeedbackBox>
       {
         feedbackSent
-          ? <Description>{t('thanksMessage', { appName: buildConfig.appName })}</Description>
+          ? <Description>{t('thanksMessage', { appName: buildConfig().appName })}</Description>
           : <>
             <FeedbackComment
               comment={comment}
