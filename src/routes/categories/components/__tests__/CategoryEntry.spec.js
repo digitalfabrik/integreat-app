@@ -48,7 +48,7 @@ const noThumbCategory = new CategoryModel({
 
 // helper to find StyledComponents without importing them
 function findComponent (wrapper: ShallowWrapper<*>, name: string): ShallowWrapper<*> {
-  return wrapper.findWhere(n => n.name().endsWith(name))
+  return wrapper.findWhere(n => n.name()?.endsWith(name))
 }
 
 describe('CategoryEntry', () => {
@@ -73,8 +73,7 @@ describe('CategoryEntry', () => {
     expect(findComponent(wrapper, 'StyledLink').at(1).prop('to')).toEqual(childCategory.path)
     expect(findComponent(wrapper, 'SubCategoryCaption').props()).toEqual({
       'aria-label': childCategory.title,
-      searchWords: [],
-      textToHighlight: childCategory.title
+      children: childCategory.title
     })
   })
 
