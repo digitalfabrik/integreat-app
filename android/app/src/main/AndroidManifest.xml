@@ -9,8 +9,8 @@
         tools:replace="android:label"
         android:name=".MainApplication"
         android:label="@string/BUILD_CONFIG_APP_NAME"
-        android:icon="@mipmap/ic_launcher"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:icon="@mipmap/${icon}"
+        android:roundIcon="@mipmap/${icon}_round"
         android:allowBackup="false"
         android:theme="${theme}"
         android:usesCleartextTraffic="true">
