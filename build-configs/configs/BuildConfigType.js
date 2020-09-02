@@ -16,7 +16,7 @@ export type BuildConfigType = {|
   localesOverride?: LocalesType,
   icons: {
     locationIcon: string,
-    logoWide: string,
+    headerLogo: string,
   },
   internalLinksHijackPattern: string,
   splashScreen?: {| backgroundColor: string, imageUrl: string |}
