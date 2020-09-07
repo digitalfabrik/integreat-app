@@ -4,7 +4,7 @@ import integreatTheme, { darkTheme as darkIntegreatTheme } from '../../themes/in
 import type { BuildConfigType } from '../BuildConfigType'
 import featureFlags from '../featureFlags'
 
-const IntegreatBuildConfig: BuildConfigType = {
+const IntegreatBuildConfig: () => BuildConfigType = () => ({
   appName: 'Integreat',
   itunesAppId: '1072353915',
   theme: integreatTheme,
@@ -12,13 +12,15 @@ const IntegreatBuildConfig: BuildConfigType = {
   cmsUrl: 'https://cms.integreat-app.de',
   manifestUrl: '/manifest.json',
   featureFlags,
-  locationIcon: '/location-big.svg',
-  logoWide: '/integreat-app-logo.png',
+  icons: {
+    locationIcon: '/location-big.svg',
+    headerLogo: '/integreat-app-logo.png'
+  },
   splashScreen: {
     backgroundColor: integreatTheme.colors.themeColor,
     imageUrl: '/progressive-logo.jpg'
   },
   internalLinksHijackPattern: 'https?:\\/\\/(cms\\.integreat-app\\.de|web\\.integreat-app\\.de|integreat\\.app)(?!\\/[^/]*\\/(wp-content|wp-admin|wp-json)\\/.*).*'
-}
+})
 
 module.exports = IntegreatBuildConfig
