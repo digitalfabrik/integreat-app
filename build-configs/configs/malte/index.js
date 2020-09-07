@@ -3,7 +3,7 @@
 import malteTheme, { darkTheme as darkMalteTheme } from '../../themes/malte'
 import type { BuildConfigType } from '../BuildConfigType'
 import featureFlags from '../featureFlags'
-// import malteOverrideLocales from '../../../locales/malte-locales.json'
+import malteOverrideLocales from '../../../locales/override-locales/malte.json'
 
 const MalteBuildConfig: () => BuildConfigType = () => ({
   appName: 'Malte',
@@ -12,8 +12,7 @@ const MalteBuildConfig: () => BuildConfigType = () => ({
   // TODO WEBAPP-567: Add itunesAppId
   cmsUrl: 'https://cms.malteapp.de',
   featureFlags,
-  // TODO WEBAPP-640: Uncomment this
-  // localesOverride: malteOverrideLocales,
+  localesOverride: malteOverrideLocales,
   icons: {
     locationIcon: '/location-big.svg',
     headerLogo: '/malteser-logo.png'
