@@ -60,3 +60,10 @@ steps:
         - dist
         - node_modules
         - environment_variables
+  - run: exit 0
+  - run: exit 1
+  - slack/status:
+      fail_only: true
+      mentions: 'maxammann'
+#      only_for_branches: main
+      webhook: ${SLACK_URL}

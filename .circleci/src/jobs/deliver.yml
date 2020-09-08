@@ -34,3 +34,8 @@ steps:
         - run:
             name: Malte development delivery
             command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.malteapp.de \<<< $'put -r dist/malte/*'
+  - slack/status:
+      fail_only: true
+      mentions: 'maxammann'
+#      only_for_branches: main
+      webhook: ${SLACK_URL}
