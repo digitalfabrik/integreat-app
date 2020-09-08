@@ -65,6 +65,7 @@ describe('pushCategory', () => {
         }
       },
       eventsRouteMapping: {},
+      poisRouteMapping: {},
       newsRouteMapping: {},
       languages: { status: 'ready', models: languageModels },
       resourceCache: {

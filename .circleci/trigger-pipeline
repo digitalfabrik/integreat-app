@@ -1,6 +1,6 @@
 #!/bin/bash
 
-branch="develop"  # Default branch
+branch="main"  # Default branch
 api_token="$CIRCLE_API_USER_TOKEN"  # Default to $CIRCLE_API_USER_TOKEN
 production_delivery="false" # Do not deliver to production by default
 
@@ -26,7 +26,7 @@ while (( "$#" )); do
       ;;
     -*|--*=) # unsupported flags
       echo "Error: Unsupported flag $1" >&2
-      echo "Usage: trigger-pipeline.sh --branch develop --api_token <user_token> --production_delivery false $1" >&2
+      echo "Usage: trigger-pipeline.sh --branch main --api_token <user_token> --production_delivery false $1" >&2
       exit 1
       ;;
     *) # preserve positional arguments

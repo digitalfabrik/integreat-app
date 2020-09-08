@@ -1,58 +1,78 @@
-// See https://github.com/luggit/react-native-config/blob/master/android/dotenv.gradle for reference
+import groovy.json.JsonSlurper
 
-def createConfig () {
-    def buildConfig = [:]
-
-    if (!System.env["BUILD_CONFIG_NAME"]) {
-        println("*****************++++++++*********")
-        println("*** Missing BUILD_CONFIG_NAME ****")
-        println("************************++++++++**")
-
-        // Set to empty array to prevent failing for other tasks
-        project.ext.set("buildConfig", buildConfig)
-
-        return
+def determineBuildConfigName() {
+    if (!System.getenv()["BUILD_CONFIG_NAME"]) {
+        logger.warn("WARNING: No build config specified. Using the build config 'integreat'!")
+        return 'integreat'
+    } else {
+        return System.getenv()['BUILD_CONFIG_NAME']
     }
+}
 
-    def buildConfigName = System.env['BUILD_CONFIG_NAME']
-    println("Using build config $buildConfigName")
+def createBuildConfig(buildConfigName) {
+    logger.quiet("Using build config $buildConfigName")
 
-    def command = "yarn babel-node tools/create-xcconfigs config $buildConfigName --directory android"
+    def command = "yarn --silent babel-node tools/build-config to-json $buildConfigName"
     def proc = command.execute()
     proc.waitFor()
 
     if (proc.exitValue() != 0) {
-        println("Failed to create xcconfig file: $proc.err.text")
+        logger.error("Failed to get build config: $proc.err.text")
         return
     }
-    println("Created xcconfg file: $proc.in.text")
+    def json = proc.in.text
+    logger.quiet("Build Config as JSON: $json")
 
+    def buildConfig = new JsonSlurper().parseText(json)
+    return buildConfig
+}
+
+def setupGoogleServices(buildConfig, resValue) {
+    def gs = buildConfig.android.googleServices
+
+    if (gs == null) {
+        logger.warn("WARNING: Google Services are not used in this build!")
+        return
+    }
+
+    resValue("string", "google_app_id", gs.googleAppId)
+    resValue("string", "gcm_defaultSenderId", gs.gcmDefaultSenderId)
+    resValue("string", "default_web_client_id", gs.defaultWebClientId)
+    if (gs.ga_trackingId != null) {
+        resValue("string", "ga_trackingId", gs.gaTrackingId)
+    }
+    resValue("string", "firebase_database_url", gs.firebaseDatabaseUrl)
+    resValue("string", "google_api_key", gs.googleApiKey)
+    resValue("string", "google_crash_reporting_api_key", gs.googleCrashReportingApiKey)
+    resValue("string", "project_id", gs.projectId)
+}
+
+def setupResourceValues(buildConfigName, resValue) {
+    def command = "yarn --silent babel-node tools/build-config to-xcconfig $buildConfigName"
+    def proc = command.execute()
+    proc.waitFor()
+
+    if (proc.exitValue() != 0) {
+        println("Failed to get xcconfig file: $proc.err.text")
+        return
+    }
     def buildConfigProperties = new Properties()
-    def buildConfigInputStream = new FileInputStream("$project.rootDir/buildConfig.tmp.xcconfig")
-    buildConfigProperties.load(buildConfigInputStream)
+    def xcconfig = proc.in.text
+    logger.quiet("Build Config as XCConfig: $xcconfig")
+    buildConfigProperties.load(new StringReader(xcconfig))
 
     // Java properties use the same syntax as xcconfig files
     // https://docs.oracle.com/javase/7/docs/api/java/util/Properties.html
     buildConfigProperties.each {
-        buildConfig.put(it.getKey(), it.getValue())
+        def escaped = it.value.replaceAll("%", "\\\\u0025")
+        // Make build config values available as string resource, e.g. for use in AndroidManifest
+        resValue "string", it.key, "\"$escaped\""
     }
-
-    buildConfigInputStream.close()
-
-    println("Build config: $buildConfig")
-    project.ext.set("buildConfig", buildConfig)
 }
 
-createConfig()
-
-android {
-    defaultConfig {
-        // TODO Add application id to build configs and throw if not found
-        applicationId project.buildConfig.getOrDefault("BUILD_CONFIG_APPLICTION_ID", "tuerantuer.app.integreat")
-        project.buildConfig.each { k, v ->
-            def escaped = v.replaceAll("%","\\\\u0025")
-            // Make build config values available as string resource, e.g. for use in AndroidManifest
-            resValue "string", k, "\"$escaped\""
-        }
-    }
+ext {
+    determineBuildConfigName = this.&determineBuildConfigName
+    createBuildConfig = this.&createBuildConfig
+    setupGoogleServices = this.&setupGoogleServices
+    setupResourceValues = this.&setupResourceValues
 }

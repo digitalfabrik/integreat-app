@@ -2,7 +2,6 @@
 
 import * as React from 'react'
 import { TouchableOpacity } from 'react-native'
-import LocationBig from '../assets/LocationBig.png'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
@@ -10,7 +9,7 @@ import type Moment from 'moment'
 import AppSettings from '../../../modules/settings/AppSettings'
 import moment from 'moment'
 import { Button } from 'react-native-elements'
-import buildConfig from '../../../modules/app/constants/buildConfig'
+import buildConfig, { buildConfigIconSet } from '../../../modules/app/constants/buildConfig'
 
 const API_URL_OVERRIDE_MIN_CLICKS = 10
 const CLICK_TIMEOUT = 8
@@ -95,7 +94,7 @@ class EastereggImage extends React.Component<PropsType, StateType> {
     return (
       <>
         <TouchableOpacity activeOpacity={1} onPress={this.onImagePress}>
-          <LocationImage source={LocationBig} />
+          <LocationImage source={buildConfigIconSet().locationMarker} />
         </TouchableOpacity>
         {this.renderApiUrlText()}
       </>

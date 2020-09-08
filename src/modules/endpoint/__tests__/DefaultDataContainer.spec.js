@@ -9,6 +9,7 @@ import LanguageModelBuilder from '../../../testing/builder/LanguageModelBuilder'
 import CategoriesMapModelBuilder from '../../../testing/builder/CategoriesMapModelBuilder'
 import EventModelBuilder from '../../../testing/builder/EventModelBuilder'
 import DatabaseConnector from '../DatabaseConnector'
+import PoiModelBuilder from '../../../testing/builder/PoiModelBuilder'
 
 jest.mock('rn-fetch-blob')
 
@@ -57,6 +58,7 @@ describe('DefaultDataContainer', () => {
   const city = 'augsburg'
   const language = 'de'
 
+  const testPois = new PoiModelBuilder(2).build()
   const testCities = new CityModelBuilder(2).build()
   const testLanguages = new LanguageModelBuilder(2).build()
   const testCategoriesMap = new CategoriesMapModelBuilder(city, language).build()
@@ -64,6 +66,16 @@ describe('DefaultDataContainer', () => {
   const testEvents = new EventModelBuilder('seed', 2, city, language).build()
 
   describe('isCached', () => {
+    it('should return true if CacheType pois is stored', async () => {
+      const defaultDataContainer = new DefaultDataContainer()
+      await defaultDataContainer.setPois('testCity', 'de', testPois)
+      const context = new DatabaseContext('testCity', 'de')
+      expect(defaultDataContainer.isCached('pois', context)).toBe(true)
+    })
+    it('should return false if CacheType pois is not stored', () => {
+      const defaultDataContainer = new DefaultDataContainer()
+      expect(defaultDataContainer.isCached('pois', new DatabaseContext())).toBe(false)
+    })
     it('should return true if CacheType is stored', async () => {
       const defaultDataContainer = new DefaultDataContainer()
       await defaultDataContainer.setCities(testCities)
@@ -74,7 +86,17 @@ describe('DefaultDataContainer', () => {
       expect(defaultDataContainer.isCached('cities', new DatabaseContext())).toBe(false)
     })
   })
+  it('should return persisted pois data if not cached', async () => {
+    const defaultDataContainer = new DefaultDataContainer()
+    await defaultDataContainer.setPois('testCity', 'de', [testPois[0]])
+    await defaultDataContainer.setPois('anotherTestCity', 'en', [testPois[1]])
 
+    const receivedTestPois = await defaultDataContainer.getPois('testCity', 'de')
+    const receivedAnotherTestPois = await defaultDataContainer.getPois('anotherTestCity', 'en')
+
+    expect(receivedTestPois).toEqual([testPois[0]])
+    expect(receivedAnotherTestPois).toEqual([testPois[1]])
+  })
   it('should return persisted data if not cached', async () => {
     const defaultDataContainer = new DefaultDataContainer()
     await defaultDataContainer.setCities(testCities)
@@ -117,7 +139,17 @@ describe('DefaultDataContainer', () => {
     expect(receivedTestEvents).toEqual([testEvents[0]])
     expect(receivedAnotherTestEvents).toEqual([testEvents[1]])
   })
+  it('should return the pois associated with the context', async () => {
+    const defaultDataContainer = new DefaultDataContainer()
+    await defaultDataContainer.setPois('testCity', 'de', [testPois[0]])
+    await defaultDataContainer.setPois('anotherTestCity', 'en', [testPois[1]])
 
+    const receivedTestPois = await defaultDataContainer.getPois('testCity', 'de')
+    const receivedAnotherTestPois = await defaultDataContainer.getPois('anotherTestCity', 'en')
+
+    expect(receivedTestPois).toEqual([testPois[0]])
+    expect(receivedAnotherTestPois).toEqual([testPois[1]])
+  })
   it('should return the resources associated with the context', async () => {
     const defaultDataContainer = new DefaultDataContainer()
     await defaultDataContainer.setResourceCache('testCity', 'de', testResources)
@@ -201,6 +233,15 @@ describe('DefaultDataContainer', () => {
       const defaultDataContainer = new DefaultDataContainer()
       await defaultDataContainer.setEvents('testCity', 'de', testEvents)
       const isAvailable = await defaultDataContainer.eventsAvailable('testCity', 'de')
+
+      expect(isAvailable).toBe(true)
+    })
+  })
+  describe('poisAvailable', () => {
+    it('should return true, if pois are cached', async () => {
+      const defaultDataContainer = new DefaultDataContainer()
+      await defaultDataContainer.setPois('testCity', 'de', testPois)
+      const isAvailable = await defaultDataContainer.poisAvailable('testCity', 'de')
 
       expect(isAvailable).toBe(true)
     })

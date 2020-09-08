@@ -26,7 +26,6 @@
 		A330D33622AA9F54005736D0 /* Lateef.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A330D33122AA9F54005736D0 /* Lateef.ttf */; };
 		A330D33722AA9F54005736D0 /* Raleway-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A330D33222AA9F54005736D0 /* Raleway-Bold.ttf */; };
 		ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
-		EE11BEA724A4D93400C6F209 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EE11BEA624A4D93400C6F209 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -85,7 +84,6 @@
 		EE11BE9E24A4D56D00C6F209 /* Integreat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Integreat.entitlements; path = Integreat/Integreat.entitlements; sourceTree = "<group>"; };
 		EE11BE9F24A4D65F00C6F209 /* FIRAnalyticsConnector.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FIRAnalyticsConnector.framework; path = Pods/FirebaseAnalytics/Frameworks/FIRAnalyticsConnector.framework; sourceTree = "<group>"; };
 		EE11BEA324A4D68000C6F209 /* GoogleAppMeasurement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleAppMeasurement.framework; path = Pods/GoogleAppMeasurement/Frameworks/GoogleAppMeasurement.framework; sourceTree = "<group>"; };
-		EE11BEA624A4D93400C6F209 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "Integreat/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EF8A7F69761F16408DBAB89A /* Pods-Integreat.development.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Integreat.development.xcconfig"; path = "Target Support Files/Pods-Integreat/Pods-Integreat.development.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -179,7 +177,6 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				EE11BEA624A4D93400C6F209 /* GoogleService-Info.plist */,
 				B8F3AC7E24ADE7E10010125F /* buildConfig.xcconfig */,
 				7B7EDC2C2428EE0900E64563 /* fastlane */,
 				13B07FAE1A68108700A75B9A /* Integreat */,
@@ -306,7 +303,6 @@
 				A330D33322AA9F54005736D0 /* Raleway-Regular.ttf in Resources */,
 				A330D33422AA9F54005736D0 /* OpenSans-Bold.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				EE11BEA724A4D93400C6F209 /* GoogleService-Info.plist in Resources */,
 				7B9749D322DC7A940078B456 /* InfoPlist.strings in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 			);
@@ -499,6 +495,30 @@
 					"$(PROJECT_DIR)/Pods/FirebaseAnalytics/Frameworks",
 					"$(PROJECT_DIR)/Pods/GoogleAppMeasurement/Frameworks",
 				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"GPB_USE_PROTOBUF_FRAMEWORK_IMPORTS=1",
+					"SD_WEBP=1",
+					"PB_FIELD_32BIT=1",
+					"PB_NO_PACKED_STRUCTS=1",
+					"PB_ENABLE_MALLOC=1",
+					"BUILD_CONFIG_IOS_GOOGLE_SERVICES_CLIENT_ID=\\\"$(BUILD_CONFIG_IOS_GOOGLE_SERVICES_CLIENT_ID)\\\"",
+					"BUILD_CONFIG_IOS_GOOGLE_SERVICES_REVERSED_CLIENT_ID=\\\"$(BUILD_CONFIG_IOS_GOOGLE_SERVICES_REVERSED_CLIENT_ID)\\\"",
+					"BUILD_CONFIG_IOS_GOOGLE_SERVICES_API_KEY=\\\"$(BUILD_CONFIG_IOS_GOOGLE_SERVICES_API_KEY)\\\"",
+					"BUILD_CONFIG_IOS_GOOGLE_SERVICES_GCM_SENDER_ID=\\\"$(BUILD_CONFIG_IOS_GOOGLE_SERVICES_GCM_SENDER_ID)\\\"",
+					"BUILD_CONFIG_IOS_GOOGLE_SERVICES_PLIST_VERSION=\\\"$(BUILD_CONFIG_IOS_GOOGLE_SERVICES_PLIST_VERSION)\\\"",
+					"BUILD_CONFIG_IOS_GOOGLE_SERVICES_BUNDLE_ID=\\\"$(BUILD_CONFIG_IOS_GOOGLE_SERVICES_BUNDLE_ID)\\\"",
+					"BUILD_CONFIG_IOS_GOOGLE_SERVICES_PROJECT_ID=\\\"$(BUILD_CONFIG_IOS_GOOGLE_SERVICES_PROJECT_ID)\\\"",
+					"BUILD_CONFIG_IOS_GOOGLE_SERVICES_STORAGE_BUCKET=\\\"$(BUILD_CONFIG_IOS_GOOGLE_SERVICES_STORAGE_BUCKET)\\\"",
+					"BUILD_CONFIG_IOS_GOOGLE_SERVICES_IS_ADS_ENABLED=\\\"$(BUILD_CONFIG_IOS_GOOGLE_SERVICES_IS_ADS_ENABLED)\\\"",
+					"BUILD_CONFIG_IOS_GOOGLE_SERVICES_IS_ANALYTICS_ENABLED=\\\"$(BUILD_CONFIG_IOS_GOOGLE_SERVICES_IS_ANALYTICS_ENABLED)\\\"",
+					"BUILD_CONFIG_IOS_GOOGLE_SERVICES_IS_APPINVITE_ENABLED=\\\"$(BUILD_CONFIG_IOS_GOOGLE_SERVICES_IS_APPINVITE_ENABLED)\\\"",
+					"BUILD_CONFIG_IOS_GOOGLE_SERVICES_IS_GCM_ENABLED=\\\"$(BUILD_CONFIG_IOS_GOOGLE_SERVICES_IS_GCM_ENABLED)\\\"",
+					"BUILD_CONFIG_IOS_GOOGLE_SERVICES_IS_SIGNIN_ENABLED=\\\"$(BUILD_CONFIG_IOS_GOOGLE_SERVICES_IS_SIGNIN_ENABLED)\\\"",
+					"BUILD_CONFIG_IOS_GOOGLE_SERVICES_GOOGLE_APP_ID=\\\"$(BUILD_CONFIG_IOS_GOOGLE_SERVICES_GOOGLE_APP_ID)\\\"",
+					"BUILD_CONFIG_IOS_GOOGLE_SERVICES_DATABASE_URL=\\\"$(BUILD_CONFIG_IOS_GOOGLE_SERVICES_DATABASE_URL)\\\"",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/rn-fetch-blob/ios/**",
@@ -515,9 +535,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "de.integreat-app";
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BUILD_CONFIG_IOS_BUNDLE_IDENTIFIER)";
 				PRODUCT_NAME = "$(BUILD_CONFIG_APP_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "match Development de.integreat-app";
+				PROVISIONING_PROFILE_SPECIFIER = "$(BUILD_CONFIG_IOS_PROVISIONING_PROFILE_SPECIFIER)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Integreat/Integreat-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -558,9 +578,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "de.integreat-app";
-				PRODUCT_NAME = Integreat;
-				PROVISIONING_PROFILE_SPECIFIER = "match Development de.integreat-app";
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BUILD_CONFIG_IOS_BUNDLE_IDENTIFIER)";
+				PRODUCT_NAME = "$(BUILD_CONFIG_APP_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "$(BUILD_CONFIG_IOS_PROVISIONING_PROFILE_SPECIFIER)";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_OBJC_BRIDGING_HEADER = "Integreat/Integreat-Bridging-Header.h";
@@ -586,6 +606,30 @@
 					"$(PROJECT_DIR)/Pods/FirebaseAnalytics/Frameworks",
 					"$(PROJECT_DIR)/Pods/GoogleAppMeasurement/Frameworks",
 				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"GPB_USE_PROTOBUF_FRAMEWORK_IMPORTS=1",
+					"SD_WEBP=1",
+					"PB_FIELD_32BIT=1",
+					"PB_NO_PACKED_STRUCTS=1",
+					"PB_ENABLE_MALLOC=1",
+					"BUILD_CONFIG_IOS_GOOGLE_SERVICES_CLIENT_ID=\\\"$(BUILD_CONFIG_IOS_GOOGLE_SERVICES_CLIENT_ID)\\\"",
+					"BUILD_CONFIG_IOS_GOOGLE_SERVICES_REVERSED_CLIENT_ID=\\\"$(BUILD_CONFIG_IOS_GOOGLE_SERVICES_REVERSED_CLIENT_ID)\\\"",
+					"BUILD_CONFIG_IOS_GOOGLE_SERVICES_API_KEY=\\\"$(BUILD_CONFIG_IOS_GOOGLE_SERVICES_API_KEY)\\\"",
+					"BUILD_CONFIG_IOS_GOOGLE_SERVICES_GCM_SENDER_ID=\\\"$(BUILD_CONFIG_IOS_GOOGLE_SERVICES_GCM_SENDER_ID)\\\"",
+					"BUILD_CONFIG_IOS_GOOGLE_SERVICES_PLIST_VERSION=\\\"$(BUILD_CONFIG_IOS_GOOGLE_SERVICES_PLIST_VERSION)\\\"",
+					"BUILD_CONFIG_IOS_GOOGLE_SERVICES_BUNDLE_ID=\\\"$(BUILD_CONFIG_IOS_GOOGLE_SERVICES_BUNDLE_ID)\\\"",
+					"BUILD_CONFIG_IOS_GOOGLE_SERVICES_PROJECT_ID=\\\"$(BUILD_CONFIG_IOS_GOOGLE_SERVICES_PROJECT_ID)\\\"",
+					"BUILD_CONFIG_IOS_GOOGLE_SERVICES_STORAGE_BUCKET=\\\"$(BUILD_CONFIG_IOS_GOOGLE_SERVICES_STORAGE_BUCKET)\\\"",
+					"BUILD_CONFIG_IOS_GOOGLE_SERVICES_IS_ADS_ENABLED=\\\"$(BUILD_CONFIG_IOS_GOOGLE_SERVICES_IS_ADS_ENABLED)\\\"",
+					"BUILD_CONFIG_IOS_GOOGLE_SERVICES_IS_ANALYTICS_ENABLED=\\\"$(BUILD_CONFIG_IOS_GOOGLE_SERVICES_IS_ANALYTICS_ENABLED)\\\"",
+					"BUILD_CONFIG_IOS_GOOGLE_SERVICES_IS_APPINVITE_ENABLED=\\\"$(BUILD_CONFIG_IOS_GOOGLE_SERVICES_IS_APPINVITE_ENABLED)\\\"",
+					"BUILD_CONFIG_IOS_GOOGLE_SERVICES_IS_GCM_ENABLED=\\\"$(BUILD_CONFIG_IOS_GOOGLE_SERVICES_IS_GCM_ENABLED)\\\"",
+					"BUILD_CONFIG_IOS_GOOGLE_SERVICES_IS_SIGNIN_ENABLED=\\\"$(BUILD_CONFIG_IOS_GOOGLE_SERVICES_IS_SIGNIN_ENABLED)\\\"",
+					"BUILD_CONFIG_IOS_GOOGLE_SERVICES_GOOGLE_APP_ID=\\\"$(BUILD_CONFIG_IOS_GOOGLE_SERVICES_GOOGLE_APP_ID)\\\"",
+					"BUILD_CONFIG_IOS_GOOGLE_SERVICES_DATABASE_URL=\\\"$(BUILD_CONFIG_IOS_GOOGLE_SERVICES_DATABASE_URL)\\\"",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/rn-fetch-blob/ios/**",
@@ -602,9 +646,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "de.integreat-app";
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BUILD_CONFIG_IOS_BUNDLE_IDENTIFIER)";
 				PRODUCT_NAME = "$(BUILD_CONFIG_APP_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "match Development de.integreat-app";
+				PROVISIONING_PROFILE_SPECIFIER = "$(BUILD_CONFIG_IOS_PROVISIONING_PROFILE_SPECIFIER)";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_OBJC_BRIDGING_HEADER = "Integreat/Integreat-Bridging-Header.h";

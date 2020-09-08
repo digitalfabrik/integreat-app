@@ -66,6 +66,7 @@ describe('News', () => {
         },
         eventsRouteMapping: {},
         categoriesRouteMapping: {},
+        poisRouteMapping: {},
         newsRouteMapping: routeState ? { 'route-id-0': routeState } : {},
         searchRoute: null,
         resourceCache: {
