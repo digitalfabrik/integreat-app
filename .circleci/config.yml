@@ -30,6 +30,16 @@ commands:
             - run:
                 command: circleci config validate
                 name: Validate circle config
+    nofify_failed:
+        description: Notifies about jobs which have failed
+        steps:
+            - slack/status:
+                fail_only: true
+                failure_message: ':fire: The $CIRCLE_JOB job has failed on the main branch! :fire:'
+                include_job_number_field: false
+                mentions: maxammann,st,UUZS7CMV0,UV99P8ETW
+                only_for_branches: main
+                webhook: ${SLACK_URL}
     restore_environment_variables:
         description: Sets the environment variables specified in the file 'environment_variables'. Make sure the file is persisted and has been attached.
         steps:
@@ -49,6 +59,7 @@ jobs:
         resource_class: small
         shell: /bin/bash -eo pipefail
         steps:
+            - run: exit 1
             - run:
                 command: echo "CPU count is ${TOTAL_CPUS}"
                 name: Show current CPU count
@@ -103,13 +114,7 @@ jobs:
                     - node_modules
                     - environment_variables
                 root: ./
-            - slack/status:
-                fail_only: true
-                failure_message: ':fire: The $CIRCLE_JOB job has failed on the main branch! :fire:'
-                include_job_number_field: false
-                mentions: maxammann,st,UUZS7CMV0,UV99P8ETW
-                only_for_branches: main
-                webhook: ${SLACK_URL}
+            - notify_failed
     deliver:
         docker:
             - image: circleci/node:12.16.3
@@ -147,13 +152,7 @@ jobs:
                     - run:
                         command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.malteapp.de \<<< $'put -r dist/malte/*'
                         name: Malte development delivery
-            - slack/status:
-                fail_only: true
-                failure_message: ':fire: The $CIRCLE_JOB job has failed on the main branch! :fire:'
-                include_job_number_field: false
-                mentions: maxammann,st,UUZS7CMV0,UV99P8ETW
-                only_for_branches: main
-                webhook: ${SLACK_URL}
+            - notify_failed
     prepare_production_delivery:
         docker:
             - image: circleci/node:12.16.3
@@ -172,13 +171,7 @@ jobs:
             - run:
                 command: tools/bump-version bump-to ${NEW_VERSION_NAME} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH} --release-notes "$(tools/parse-release-notes parse --web)"
                 name: Bump version
-            - slack/status:
-                fail_only: true
-                failure_message: ':fire: The $CIRCLE_JOB job has failed on the main branch! :fire:'
-                include_job_number_field: false
-                mentions: maxammann,st,UUZS7CMV0,UV99P8ETW
-                only_for_branches: main
-                webhook: ${SLACK_URL}
+            - notify_failed
 orbs:
     slack: circleci/slack@3.4.2
 parameters:
