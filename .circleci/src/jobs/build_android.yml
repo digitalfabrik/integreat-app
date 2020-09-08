@@ -107,3 +107,4 @@ steps:
         - integreat.apk
         - malte.apk
         - integreat-e2e.apk
+  - notify_failed

@@ -58,3 +58,4 @@ steps:
   - slack/notify:
       message: Integreat ${NEW_VERSION_NAME} has been released successfully on iOS!
       webhook: ${SLACK_URL}
+  - notify_failed
