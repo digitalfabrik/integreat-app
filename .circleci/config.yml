@@ -30,7 +30,7 @@ commands:
             - run:
                 command: circleci config validate
                 name: Validate circle config
-    nofify_failed:
+    notify_failed:
         description: Notifies about jobs which have failed
         steps:
             - slack/status:
