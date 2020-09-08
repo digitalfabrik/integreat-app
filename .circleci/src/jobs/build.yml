@@ -63,7 +63,7 @@ steps:
         - environment_variables
   - slack/status:
       fail_only: true
-      mentions: 'maxammann,st,UUZS7CMV0'
+      mentions: 'maxammann,st,UUZS7CMV0,UV99P8ETW'
       failure_message: ':fire: The $CIRCLE_JOB job has failed on the main branch! :fire:'
       include_job_number_field: false
 #      only_for_branches: main
