@@ -33,7 +33,7 @@ const DirectionContainer: StyledComponent<DirectionContainerPropsType, ThemeType
 
 const CategoryTitleContainer: StyledComponent<DirectionContainerPropsType, ThemeType, *> = styled.View`
   flex: 1;
-  flex-direction: ${props => contentDirection(props.language)};
+  flex-direction: column;
   align-self: center;
   padding: 15px 5px;
   border-bottom-width: 2px;
@@ -41,11 +41,12 @@ const CategoryTitleContainer: StyledComponent<DirectionContainerPropsType, Theme
 `
 
 const CategoryTitle = styled(Highlighter)`
+  flex-direction: ${props => contentDirection(props.language)};
   font-family: ${props => props.theme.fonts.decorativeFontRegular};
   color: ${props => props.theme.colors.textColor};
 `
 const ContentMatchItem = styled(Highlighter)`
-  display: inline-block;
+  flex-direction: ${props => contentDirection(props.language)};
 `
 
 const CategoryThumbnail = styled(Image)`
@@ -106,7 +107,7 @@ class CategoryListItem extends React.Component<PropsType> {
       <CategoryTitle theme={theme} textToHighlight={category.title} sanitize={normalizeSearchString}
                      searchWords={query ? [query] : []}
                      highlightStyle={{ fontWeight: 'bold' }} />
-                     {this.getMatchedContent(NUM_WORDS_SURROUNDING_MATCH)}
+      {this.getMatchedContent(NUM_WORDS_SURROUNDING_MATCH)}
     </CategoryTitleContainer>)
   }
 
