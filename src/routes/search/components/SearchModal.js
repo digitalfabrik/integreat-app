@@ -79,7 +79,7 @@ class SearchModal extends React.Component<PropsType, StateType> {
             path: category.path,
             thumbnail: category.thumbnail,
             title: category.title,
-            contentWithoutHtml: contentWithoutHtml.join(' '),
+            contentWithoutHtml: contentWithoutHtml.join(' ')
           },
           subCategories: []
         }
