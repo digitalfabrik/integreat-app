@@ -19,6 +19,7 @@ import loadCities from './loadCities'
 import { fromError } from '../../error/ErrorCodes'
 import * as NotificationsManager from '../../../modules/notifications/NotificationsManager'
 import buildConfig from '../../app/constants/buildConfig'
+import loadPois from './loadPois'
 
 /**
  *
@@ -87,9 +88,11 @@ export default function * loadCityContent (
     }
   }
 
+  const { featureFlags } = buildConfig()
   const [categoriesMap, events] = yield all([
     call(loadCategories, newCity, newLanguage, dataContainer, shouldUpdate),
-    call(loadEvents, newCity, newLanguage, cityModel.eventsEnabled, dataContainer, shouldUpdate)
+    call(loadEvents, newCity, newLanguage, cityModel.eventsEnabled, dataContainer, shouldUpdate),
+    call(loadPois, newCity, newLanguage, featureFlags.pois, dataContainer, shouldUpdate)
   ])
 
   const netInfo = yield call(NetInfo.fetch)

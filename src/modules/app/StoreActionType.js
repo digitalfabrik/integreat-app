@@ -1,6 +1,6 @@
 // @flow
 
-import { CategoriesMapModel, CityModel, EventModel, LanguageModel, TunewsModel, LocalNewsModel } from '@integreat-app/integreat-api-client'
+import { CategoriesMapModel, CityModel, EventModel, LanguageModel, TunewsModel, LocalNewsModel, PoiModel } from '@integreat-app/integreat-api-client'
 import type { CategoryRouteConfigType, LanguageResourceCacheStateType, NewsType, NewsModelsType } from './StateType'
 import type { ContentLoadCriterionType } from '../endpoint/ContentLoadCriterion'
 import type { TFunction } from 'react-i18next'
@@ -142,6 +142,49 @@ export type CategoriesActionType =
   | PushCategoryActionType
   | FetchCategoryFailedActionType
 
+export type FetchPoiActionType = {|
+  type: 'FETCH_POI', +params: {|
+    +city: string, +language: string,
+    +path: ?string, +key: string,
+    +criterion: ContentLoadCriterionType
+  |}
+|}
+
+export type ClearPoiActionType = {|
+  type: 'CLEAR_POI', +params: {| +key: string |}
+|}
+
+export type PushPoiActionType = {|
+  type: 'PUSH_POI',
+  +params: {|
+    +pois: $ReadOnlyArray<PoiModel>,
+    +path: ?string,
+    +key: string,
+    +resourceCache: LanguageResourceCacheStateType,
+    +cityLanguages: $ReadOnlyArray<LanguageModel>,
+    +language: string,
+    +city: string
+  |}
+|}
+export type FetchPoiFailedActionType = {|
+  type: 'FETCH_POI_FAILED',
+  +params: {|
+    +message: string,
+    +code: ErrorCodeType,
+    +key: string,
+    +allAvailableLanguages: ?$ReadOnlyMap<string, ?string>,
+    +language: string,
+    +path: ?string,
+    +city: string
+  |}
+|}
+
+export type PoisActionType =
+  ClearPoiActionType
+  | FetchPoiActionType
+  | PushPoiActionType
+  | FetchPoiFailedActionType
+
 export type FetchEventActionType = {|
   type: 'FETCH_EVENT', +params: {|
     +city: string, +language: string,
@@ -206,6 +249,7 @@ export type MorphContentLanguageActionType = {|
     +newCategoriesMap: CategoriesMapModel,
     +newResourceCache: LanguageResourceCacheStateType,
     +newEvents: $ReadOnlyArray<EventModel>,
+    +newPois: $ReadOnlyArray<PoiModel>,
     +newLanguage: string
   |}
 |}
@@ -225,6 +269,7 @@ export type ResourcesFetchFailedActionType = {|
 export type CityContentActionType =
   CategoriesActionType
   | EventsActionType
+  | PoisActionType
   | MorphContentLanguageActionType
   | ContentLanguageActionType
   | ClearCityActionType

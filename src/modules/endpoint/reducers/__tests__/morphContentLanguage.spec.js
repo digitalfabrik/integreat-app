@@ -6,7 +6,7 @@ import {
   DateModel,
   EventModel,
   LanguageModel,
-  LocationModel
+  LocationModel, PoiModel
 } from '@integreat-app/integreat-api-client'
 import moment from 'moment'
 import morphContentLanguage from '../morphContentLanguage'
@@ -136,6 +136,29 @@ describe('morphContentLanguage', () => {
       hash: '12345'
     })
 
+  const createPoi = ({ path, availableLanguages }: {| path: string, availableLanguages: Map<string, string> |}) =>
+    new PoiModel({
+      path: 'test',
+      title: 'test',
+      content: 'test',
+      thumbnail: 'test',
+      availableLanguages: availableLanguages,
+      excerpt: 'test',
+      location: new LocationModel({
+        country: 'country',
+        region: 'region',
+        state: 'state',
+        address: 'address',
+        town: 'town',
+        postcode: 'postcode',
+        latitude: '15',
+        longitude: '15',
+        name: 'name'
+      }),
+      lastUpdate: moment('2011-02-04T00:00:00.000Z'),
+      hash: 'test'
+    })
+
   const enFirstEvent = createEvent({
     path: '/augsburg/en/events/first_event',
     availableLanguages: new Map([['de', '/augsburg/de/events/erstes_event']])
@@ -163,6 +186,36 @@ describe('morphContentLanguage', () => {
     createEvent({
       path: '/augsburg/de/events/drittes_event',
       availableLanguages: new Map(translatable ? [['en', '/augsburg/en/events/third_event']] : [])
+    })
+  ]
+
+  const enFirstPoi = createPoi({
+    path: '/augsburg/en/events/first_event',
+    availableLanguages: new Map([['de', '/augsburg/de/events/erstes_event']])
+  })
+  const enSecondPoi = createPoi({
+    path: '/augsburg/en/events/second_event',
+    availableLanguages: new Map([['en', '/augsburg/de/events/zweites_event']])
+  })
+  const enThirdPoi = createPoi({
+    path: '/augsburg/en/events/third_event',
+    availableLanguages: new Map([['de', '/augsburg/de/events/drittes_event']])
+  })
+
+  const enPois = [enFirstPoi, enSecondPoi, enThirdPoi]
+
+  const createGermanPois = ({ translatable }: { translatable: boolean } = { translatable: true }) => [
+    createPoi({
+      path: '/augsburg/de/poi/erstes_poi',
+      availableLanguages: new Map(translatable ? [['de', '/augsburg/en/poi/first_poi']] : [])
+    }),
+    createPoi({
+      path: '/augsburg/de/poi/zweites_poi',
+      availableLanguages: new Map(translatable ? [['en', '/augsburg/en/poi/second_poi']] : [])
+    }),
+    createPoi({
+      path: '/augsburg/de/poi/dritter_poi',
+      availableLanguages: new Map(translatable ? [['en', '/augsburg/en/poi/third_poi']] : [])
     })
   ]
 
@@ -209,12 +262,14 @@ describe('morphContentLanguage', () => {
   it('should not change when language is equal', () => {
     const categoriesMap = createGermanCategoriesMap()
     const events = createGermanEvents()
+    const pois = createGermanPois()
     const action: MorphContentLanguageActionType = {
       type: 'MORPH_CONTENT_LANGUAGE',
       params: {
         newCategoriesMap: categoriesMap,
         newResourceCache: {},
         newEvents: events,
+        newPois: pois,
         newLanguage: 'de'
       }
     }
@@ -240,6 +295,7 @@ describe('morphContentLanguage', () => {
         newCategoriesMap: new CategoriesMapModel([]),
         newResourceCache: {},
         newEvents: enEvents,
+        newPois: enPois,
         newLanguage: 'en'
       }
     }
@@ -263,6 +319,7 @@ describe('morphContentLanguage', () => {
         newCategoriesMap: enCategoriesMap,
         newResourceCache: {},
         newEvents: enEvents,
+        newPois: enPois,
         newLanguage: 'en'
       }
     }
@@ -317,6 +374,7 @@ describe('morphContentLanguage', () => {
           models: [enThirdEvent]
         }
       },
+      poisRouteMapping: expect.any(Object),
       newsRouteMapping: {},
       resourceCache: {
         status: 'ready',
@@ -333,6 +391,7 @@ describe('morphContentLanguage', () => {
         newCategoriesMap: enCategoriesMap,
         newResourceCache: {},
         newEvents: enEvents,
+        newPois: enPois,
         newLanguage: 'en'
       }
     }
@@ -361,6 +420,7 @@ describe('morphContentLanguage', () => {
         }
       },
       eventsRouteMapping: expect.any(Object),
+      poisRouteMapping: expect.any(Object),
       newsRouteMapping: {},
       resourceCache: {
         status: 'ready',
@@ -377,6 +437,7 @@ describe('morphContentLanguage', () => {
         newCategoriesMap: enCategoriesMap,
         newResourceCache: {},
         newEvents: enEvents,
+        newPois: enPois,
         newLanguage: 'en'
       }
     }
@@ -405,6 +466,7 @@ describe('morphContentLanguage', () => {
           allAvailableLanguages: new Map([['de', '/augsburg/de/events/drittes_event']])
         }
       },
+      poisRouteMapping: expect.any(Object),
       resourceCache: {
         status: 'ready',
         value: {}

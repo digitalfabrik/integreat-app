@@ -7,7 +7,8 @@ import {
   DateModel,
   EventModel,
   LanguageModel,
-  LocationModel
+  LocationModel,
+  PoiModel
 } from '@integreat-app/integreat-api-client'
 import RNFetchBlob from 'rn-fetch-blob'
 import type Moment from 'moment'
@@ -80,6 +81,28 @@ type ContentCityJsonType = {|
   aliases: { [alias: string]: {|longitude: number, latitude: number|}} | null,
   pushNotificationsEnabled: boolean,
   tunewsEnabled: boolean
+|}
+
+type ContentPoiJsonType = {|
+  path: string,
+  title: string,
+  content: string,
+  thumbnail: string,
+  availableLanguages: { [code: string]: string },
+  excerpt: string,
+  location: {|
+    address: ?string,
+    town: ?string,
+    postcode: ?string,
+    latitude: ?string,
+    longitude: ?string,
+    country: ?string,
+    region: ?string,
+    state: ?string,
+    name: ?string
+  |},
+  lastUpdate: string,
+  hash: string
 |}
 
 type CityCodeType = string
@@ -342,6 +365,69 @@ class DatabaseConnector {
     await this.writeFile(path, JSON.stringify(languages))
   }
 
+  async storePois (pois: Array<PoiModel>, context: DatabaseContext) {
+    const jsonModels = pois.map((poi: PoiModel): ContentPoiJsonType => ({
+      path: poi.path,
+      title: poi.title,
+      content: poi.content,
+      thumbnail: poi.thumbnail,
+      availableLanguages: mapToObject(poi.availableLanguages),
+      excerpt: poi.excerpt,
+      location: {
+        address: poi.location.address,
+        town: poi.location.town,
+        postcode: poi.location.postcode,
+        latitude: poi.location.latitude,
+        longitude: poi.location.longitude,
+        country: poi.location.country,
+        region: poi.location.region,
+        state: poi.location.state,
+        name: poi.location.name
+      },
+      lastUpdate: poi.lastUpdate.toISOString(),
+      hash: poi.hash
+    }))
+    await this.writeFile(this.getContentPath('pois', context), JSON.stringify(jsonModels))
+  }
+
+  async loadPois (context: DatabaseContext): Promise<Array<PoiModel>> {
+    const path = this.getContentPath('pois', context)
+    const fileExists: boolean = await RNFetchBlob.fs.exists(path)
+
+    if (!fileExists) {
+      throw Error(`File ${path} does not exist`)
+    }
+
+    const json = JSON.parse(await this.readFile(path))
+
+    return json.map((jsonObject: ContentPoiJsonType) => {
+      const jsonLocation = jsonObject.location
+      // $FlowFixMe https://github.com/facebook/flow/issues/5838
+      const availableLanguages = new Map<string, string>(Object.entries(jsonObject.availableLanguages))
+      return new PoiModel({
+        path: jsonObject.path,
+        title: jsonObject.title,
+        content: jsonObject.content,
+        thumbnail: jsonObject.thumbnail,
+        availableLanguages,
+        excerpt: jsonObject.excerpt,
+        location: new LocationModel({
+          name: jsonLocation.name,
+          region: jsonLocation.region,
+          state: jsonLocation.state,
+          country: jsonLocation.country,
+          address: jsonLocation.address,
+          latitude: jsonLocation.latitude,
+          longitude: jsonLocation.longitude,
+          postcode: jsonLocation.postcode,
+          town: jsonLocation.town
+        }),
+        lastUpdate: moment(jsonObject.lastUpdate, moment.ISO_8601),
+        hash: jsonObject.hash
+      })
+    })
+  }
+
   async storeCities (cities: Array<CityModel>) {
     const jsonModels = cities.map((city: CityModel): ContentCityJsonType => ({
       name: city.name,
@@ -524,6 +610,10 @@ class DatabaseConnector {
     }))
 
     await this._deleteMetaOfCities(cachesToDelete.map(it => it.city))
+  }
+
+  isPoisPersisted (context: DatabaseContext): Promise<boolean> {
+    return this._isPersisted(this.getContentPath('pois', context))
   }
 
   isCitiesPersisted (): Promise<boolean> {
