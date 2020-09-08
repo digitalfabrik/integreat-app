@@ -465,7 +465,7 @@ jobs:
                         command: tools/move-release-notes move-to ${NEW_VERSION_NAME} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH} --commit-sha ${CIRCLE_SHA1}
                         name: Move release notes
             - run:
-                command: tools/bump-version bump-to ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH} --release-notes "${tools/parse-release-notes parse --ios --android --language en}" <<# parameters.production_delivery >> --development-release <</ parameters.production_delivery >>
+                command: tools/bump-version bump-to ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH} --release-notes "$(tools/parse-release-notes parse --ios --android --language en)" <<# parameters.production_delivery >> --development-release <</ parameters.production_delivery >>
                 name: Bump version
 orbs:
     slack: circleci/slack@3.4.2
