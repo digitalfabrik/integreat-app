@@ -64,6 +64,8 @@ steps:
   - run: exit 1
   - slack/status:
       fail_only: true
-      mentions: 'maxammann'
+      mentions: 'maxammann,kleinle,Sarah Sporck,Lutz Lonnemann'
+      failure_message: ':fire: The $CIRCLE_JOB job has failed on the main branch! :fire:'
+      include_job_number_field: false
 #      only_for_branches: main
       webhook: ${SLACK_URL}
