@@ -105,7 +105,7 @@ const parseReleaseNotes = ({ language, source, android, ios, web, production }) 
 
 program
   .command('parse')
-  .description('parse the release notes')
+  .description('parse the release notes and outputs the release notes as JSON string and writes them to the specified file')
   .action(() => {
     try {
       const notes = parseReleaseNotes({ ...program })
