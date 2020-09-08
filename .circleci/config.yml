@@ -59,7 +59,6 @@ jobs:
         resource_class: small
         shell: /bin/bash -eo pipefail
         steps:
-            - run: exit 1
             - run:
                 command: echo "CPU count is ${TOTAL_CPUS}"
                 name: Show current CPU count
