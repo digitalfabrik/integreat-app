@@ -18,7 +18,7 @@ export type SimpleModelType = {|
 
 export type ListEntryType = {|
   model: SimpleModelType,
-  subCategories: Array<{ title: string, thumbnail: string, path: string }>
+  subCategories: Array<SimpleModelType>
 |}
 
 type PropsType = {|

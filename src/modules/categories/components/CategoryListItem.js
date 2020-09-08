@@ -58,7 +58,7 @@ const CategoryThumbnail = styled(Image)`
 
 type PropsType = {
   category: SimpleModelType,
-  subCategories: Array<{ title: string, thumbnail: string, path: string }>,
+  subCategories: Array<SimpleModelType>,
   /** A search query to highlight in the category title */
   query?: string,
   theme: ThemeType,
@@ -87,7 +87,7 @@ class CategoryListItem extends React.Component<PropsType> {
     )
   }
 
-  getMatchedContent (numWordsSurrounding: number): ContentMatchItem {
+  getMatchedContent (numWordsSurrounding: number): ?ContentMatchItem {
     const { query, theme, category } = this.props
     const textToHighlight = this.contentMatcher.getMatchedContent(query, category.contentWithoutHtml, numWordsSurrounding)
     if (textToHighlight == null) {
@@ -102,11 +102,12 @@ class CategoryListItem extends React.Component<PropsType> {
 
   renderTitle (): React.Node {
     const { query, theme, category, language } = this.props
-    return <CategoryTitleContainer theme={theme} language={language}>
+    return (<CategoryTitleContainer theme={theme} language={language}>
       <CategoryTitle theme={theme} textToHighlight={category.title} sanitize={normalizeSearchString}
                      searchWords={query ? [query] : []}
-                     highlightStyle={{ fontWeight: 'bold' }} />{this.getMatchedContent(NUM_WORDS_SURROUNDING_MATCH)}
-    </CategoryTitleContainer>
+                     highlightStyle={{ fontWeight: 'bold' }} />
+                     {this.getMatchedContent(NUM_WORDS_SURROUNDING_MATCH)}
+    </CategoryTitleContainer>)
   }
 
   render () {
