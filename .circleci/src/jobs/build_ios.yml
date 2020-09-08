@@ -93,3 +93,4 @@ steps:
         - integreat.ipa
         - malte.ipa
         - integreat-e2e.ipa
+  - notify_failed
