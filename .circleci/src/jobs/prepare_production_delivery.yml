@@ -17,6 +17,8 @@ steps:
       command: tools/bump-version bump-to ${NEW_VERSION_NAME} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH} --release-notes "$(tools/parse-release-notes parse --web)"
   - slack/status:
       fail_only: true
-      mentions: 'maxammann'
-      #      only_for_branches: main
+      mentions: 'maxammann,st,UUZS7CMV0,UV99P8ETW'
+      failure_message: ':fire: The $CIRCLE_JOB job has failed on the main branch! :fire:'
+      include_job_number_field: false
+      only_for_branches: main
       webhook: ${SLACK_URL}

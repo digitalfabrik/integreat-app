@@ -6,7 +6,6 @@ environment:
   TZ: "Europe/Berlin" # Should be removed in WEBAPP-463
 shell: /bin/bash -eo pipefail
 steps:
-  - run: exit 1
   - run:
       name: "Show current CPU count"
       command: echo "CPU count is ${TOTAL_CPUS}"
@@ -66,5 +65,5 @@ steps:
       mentions: 'maxammann,st,UUZS7CMV0,UV99P8ETW'
       failure_message: ':fire: The $CIRCLE_JOB job has failed on the main branch! :fire:'
       include_job_number_field: false
-#      only_for_branches: main
+      only_for_branches: main
       webhook: ${SLACK_URL}
