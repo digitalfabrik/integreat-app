@@ -11,17 +11,17 @@ steps:
       fingerprints:
         - "30:f4:98:9f:1c:72:d1:c0:17:9f:57:05:74:a6:44:50"
   - attach_workspace:
-      at: /tmp/output
+      at: .
   - restore_environment_variables
   - when:
       condition: << parameters.production_delivery >>
       steps:
         - run:
             name: Integreat production delivery # StrictHostKeyChecking=no is not a security problem. The worst that could happen is a delivery to the wrong domain.
-            command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/integreat.app \<<< $'put -r /tmp/output/dist/integreat/*'
+            command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/integreat.app \<<< $'put -r dist/integreat/*'
         - run:
             name: Malte production delivery
-            command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/malteapp.de \<<< $'put -r /tmp/output/dist/malte/*'
+            command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/malteapp.de \<<< $'put -r dist/malte/*'
         - slack/notify:
             message: WebApp version ${NEW_VERSION_NAME} was delivered successfully to integreat.app and malteapp.de!
             webhook: ${SLACK_URL}
@@ -30,7 +30,7 @@ steps:
       steps:
         - run:
             name: Integreat development delivery
-            command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.integreat.app \<<< $'put -r /tmp/output/dist/integreat-test-cms/*'
+            command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.integreat.app \<<< $'put -r dist/integreat-test-cms/*'
         - run:
             name: Malte development delivery
-            command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.malteapp.de \<<< $'put -r /tmp/output/dist/malte/*'
+            command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.malteapp.de \<<< $'put -r dist/malte/*'
