@@ -14,6 +14,7 @@ import MomentContext from '../../i18n/context/MomentContext'
 import RemoteContent from './RemoteContent'
 import SiteHelpfulBox from './SiteHelpfulBox'
 import SpaceBetween from './SpaceBetween'
+import buildConfig from '../../app/constants/buildConfig'
 
 const HORIZONTAL_MARGIN = 8
 
@@ -36,10 +37,11 @@ type PropType = {|
   children?: React.Node,
   language: string,
   cityCode: string,
-  lastUpdate: Moment
+  lastUpdate: Moment,
+  hijackRegExp?: RegExp
 |}
 
-const HIJACK = /https?:\/\/(cms(-test)?\.integreat-app\.de|web\.integreat-app\.de|integreat\.app)(?!\/[^/]*\/(wp-content|wp-admin|wp-json)\/.*).*/
+const HIJACK = new RegExp(buildConfig().internalLinksHijackPattern)
 
 class Page extends React.Component<PropType, StateType> {
   state = { loading: true }
