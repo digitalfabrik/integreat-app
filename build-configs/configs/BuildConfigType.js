@@ -45,6 +45,7 @@ export type BuildConfigType = {|
   cmsUrl: string,
   switchCmsUrl?: string,
   allowedHostNames: Array<string>,
+  internalLinksHijackPattern: string,
   featureFlags: FeatureFlagsType,
   lightTheme: ThemeType,
   darkTheme: ThemeType,
