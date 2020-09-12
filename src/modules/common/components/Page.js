@@ -26,7 +26,6 @@ type PropsType = {|
   lastUpdate?: Moment,
   language: string,
   onInternalLinkClick: string => void,
-  hijackRegExp?: RegExp,
   children?: React.Node
 |}
 
@@ -36,7 +35,7 @@ type PropsType = {|
 class Page extends React.PureComponent<PropsType> {
   render () {
     const {
-      title, defaultThumbnailSrc, thumbnailSrcSet, content, lastUpdate, language, hijackRegExp, children,
+      title, defaultThumbnailSrc, thumbnailSrcSet, content, lastUpdate, language, children,
       onInternalLinkClick
     } = this.props
     return (
@@ -45,8 +44,7 @@ class Page extends React.PureComponent<PropsType> {
         <Caption title={title} />
         {children}
         <RemoteContent dangerouslySetInnerHTML={{ __html: content }}
-                       onInternalLinkClick={onInternalLinkClick}
-                       hijackRegExp={hijackRegExp} />
+                       onInternalLinkClick={onInternalLinkClick} />
         {lastUpdate && <LastUpdateInfo lastUpdate={lastUpdate} language={language} withText />}
       </>
     )
