@@ -14,7 +14,7 @@ import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvi
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import { CityModel, EventModel } from '@integreat-app/integreat-api-client'
 import * as React from 'react'
-import createNavigateToIntegreatUrl from '../../../modules/app/createNavigateToIntegreatUrl'
+import createNavigateToInternalLink from '../../../modules/app/createNavigateToInternalLink'
 import { mapProps } from 'recompose'
 
 type ContainerPropsType = {|
@@ -123,7 +123,7 @@ class EventsContainer extends React.Component<ContainerPropsType> {
     const { dispatch, ...rest } = this.props
     return <ThemedTranslatedEvents {...rest}
                                    navigateToEvent={createNavigateToEvent(dispatch, rest.navigation)}
-                                   navigateToIntegreatUrl={createNavigateToIntegreatUrl(dispatch, rest.navigation)}
+                                   navigateToInternalLink={createNavigateToInternalLink(dispatch, rest.navigation)}
     />
   }
 }
