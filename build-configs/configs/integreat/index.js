@@ -12,6 +12,7 @@ const IntegreatBuildConfig: BuildConfigType = {
   iconSet: INTEGREAT_ICONS,
   cmsUrl: 'https://cms.integreat-app.de',
   switchCmsUrl: 'https://cms-test.integreat-app.de',
+  shareBaseUrl: 'https://integreat.app',
   allowedHostNames: ['cms.integreat-app.de', 'cms-test.integreat-app.de'],
   featureFlags: {
     pois: false,
