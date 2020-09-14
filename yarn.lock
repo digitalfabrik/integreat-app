@@ -1950,6 +1950,19 @@
   resolved "https://registry.yarnpkg.com/@react-native-community/netinfo/-/netinfo-5.5.1.tgz#6433d4d9d5fbe836f019e5a88a6a24b6e2dc50b9"
   integrity sha512-6NKX/WzzC5FP2RSzoq+7CW/iIiRL2S6yN0JKiGvZ8EWAzJ43dbX5KG4kRa1JiKopAal5Vyh80dymbygeylwekQ==
 
+"@react-native-community/progress-bar-android@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@react-native-community/progress-bar-android/-/progress-bar-android-1.0.3.tgz#a6adc7be7a531269869d653ad9e0cd3d093d7c1c"
+  integrity sha512-Xy+nTCibCLQ6Jy0YNlVwrO+m/j2el6PN8nVQcdgVqp+Jm1XTguq7xjxUV5spzYmVDIVx+zW7WKfkeSbhUk91Tg==
+
+"@react-native-community/progress-view@^1.0.3":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@react-native-community/progress-view/-/progress-view-1.1.1.tgz#f1bdc46839addade6dd7224f807c2a8889382293"
+  integrity sha512-D87BwWYn/Gb0Hw7/kAXlcIoP1iKsIIweR8BbKqGRQIQd52Ls55Hup8jAA4iDM/3bLs5AHpyGFnKkKSV9k8JDaQ==
+  dependencies:
+    babel "^6.23.0"
+    babel-runtime "^6.26.0"
+
 "@react-native-firebase/app-types@6.7.2":
   version "6.7.2"
   resolved "https://registry.yarnpkg.com/@react-native-firebase/app-types/-/app-types-6.7.2.tgz#d2e1530af5702e00578914b41468898c10d3289c"
@@ -3327,6 +3340,11 @@ babel-types@^6.24.1, babel-types@^6.26.0:
     lodash "^4.17.4"
     to-fast-properties "^1.0.3"
 
+babel@^6.23.0:
+  version "6.23.0"
+  resolved "https://registry.yarnpkg.com/babel/-/babel-6.23.0.tgz#d0d1e7d803e974765beea3232d4e153c0efb90f4"
+  integrity sha1-0NHn2APpdHZb7qMjLU4VPA77kPQ=
+
 babylon@^6.18.0:
   version "6.18.0"
   resolved "https://registry.yarnpkg.com/babylon/-/babylon-6.18.0.tgz#af2f3b88fa6f5c1e4c634d1a0f8eac4f55b395e3"
@@ -4326,7 +4344,7 @@ crypt@~0.0.1:
   resolved "https://registry.yarnpkg.com/crypt/-/crypt-0.0.2.tgz#88d7ff7ec0dfb86f713dc87bbb42d044d3e6c41b"
   integrity sha1-iNf/fsDfuG9xPch7u0LQRNPmxBs=
 
-crypto-js@^3.1.9-1:
+crypto-js@^3.2.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/crypto-js/-/crypto-js-3.3.0.tgz#846dd1cce2f68aacfa156c8578f926a609b7976b"
   integrity sha512-DIT51nX0dCfKltpRiXV+/TVZq+Qq2NgF4644+K7Ttnla7zEzqc+kjJyiB96BHNyUTBxyjzRcZYpUdZa+QAqi6Q==
@@ -10431,13 +10449,15 @@ react-native-image-zoom-viewer@^2.2.27:
   dependencies:
     react-native-image-pan-zoom "^2.1.9"
 
-react-native-pdf@^6.0.1:
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/react-native-pdf/-/react-native-pdf-6.0.1.tgz#a7991846d276b1564c53525bd777d61a8e75a7e2"
-  integrity sha512-Hom5h11Hrtp+S0OzPQxSxzJ5MNQ9nT2iMl4SWBrNND240KSOh1x4eKRSWvRYbsxaXCCBr9F3zJdcsrbYVx043g==
+react-native-pdf@^6.2.0:
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/react-native-pdf/-/react-native-pdf-6.2.0.tgz#e6da125b407338b7bca15d7f776b70773c37304f"
+  integrity sha512-OSgF3+PryUl0GIPvZhCXT7VDv9LbvjC7LJgH3aFObCq0WRiiSGf9W1yrhaYmNV3FvL7ZARKF08h+k4LuFcTPNg==
   dependencies:
-    crypto-js "^3.1.9-1"
-    prop-types "^15.5.10"
+    "@react-native-community/progress-bar-android" "^1.0.3"
+    "@react-native-community/progress-view" "^1.0.3"
+    crypto-js "^3.2.0"
+    prop-types "^15.7.2"
 
 react-native-permissions@2.0.9:
   version "2.0.9"
@@ -10548,10 +10568,10 @@ react-native-webview@^5.3.1:
     escape-string-regexp "1.0.5"
     invariant "2.2.4"
 
-react-native@0.63.0:
-  version "0.63.0"
-  resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.63.0.tgz#1444aa04c34b65ca1dce589db166bd112e982b96"
-  integrity sha512-486RaRKKw35+DgZwdbCUQJsjSRflG5JC4w5T9ZfKqUjlyDDQHgew2berQanYAFbgO4Qh/2mAvAMJe6EhUESufQ==
+react-native@0.63.2:
+  version "0.63.2"
+  resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.63.2.tgz#eaebf3430577b37fbd66ef228a86b3408259ef8e"
+  integrity sha512-MkxHeJorUDzmQwKJrTfrFYMDRLyu9GSBpsFFMDX7X+HglVnaZi3CTzW2mRv1eIcazoseBOP2eJe+bnkyLl8Y2A==
   dependencies:
     "@babel/runtime" "^7.0.0"
     "@react-native-community/cli" "^4.7.0"
