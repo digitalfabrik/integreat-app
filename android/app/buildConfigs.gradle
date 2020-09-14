@@ -12,7 +12,12 @@ def determineBuildConfigName() {
 def createBuildConfig(buildConfigName) {
     logger.quiet("Using build config $buildConfigName")
 
-    def command = "yarn --silent babel-node tools/build-config to-json $buildConfigName"
+    def command
+    if (System.properties['os.name'].toLowerCase().contains('windows')) {
+        command = ["cmd", "/c", "yarn --silent babel-node tools/build-config to-json $buildConfigName"]
+    } else {
+        command = "yarn --silent babel-node tools/build-config to-json $buildConfigName"
+    }
     def proc = command.execute()
     proc.waitFor()
 
@@ -48,7 +53,12 @@ def setupGoogleServices(buildConfig, resValue) {
 }
 
 def setupResourceValues(buildConfigName, resValue) {
-    def command = "yarn --silent babel-node tools/build-config to-xcconfig $buildConfigName"
+    def command
+    if (System.properties['os.name'].toLowerCase().contains('windows')) {
+        command = ["cmd", "/c", "yarn --silent babel-node tools/build-config to-xcconfig $buildConfigName"]
+    } else {
+        command = "yarn --silent babel-node tools/build-config to-xcconfig $buildConfigName"
+    }
     def proc = command.execute()
     proc.waitFor()
 
