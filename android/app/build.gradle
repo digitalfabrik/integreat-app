@@ -151,6 +151,9 @@ android {
             versionCode project.VERSION_CODE.toInteger()
             versionName project.VERSION_NAME
         }
+
+        // https://rnfirebase.io/enabling-multidex
+        multiDexEnabled true
     }
     signingConfigs {
         release {
@@ -219,6 +222,9 @@ android {
 }
 
 dependencies {
+    // https://rnfirebase.io/enabling-multidex
+    implementation 'androidx.multidex:multidex:2.0.1'
+
     implementation 'com.squareup.okio:okio:2.8.0'
     implementation 'com.squareup.okhttp3:okhttp:4.9.0'
     implementation 'com.squareup.okhttp3:okhttp-urlconnection:4.9.0'
