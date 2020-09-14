@@ -27,7 +27,7 @@ type StatePropsType = {|
   goToLanguageChange?: () => void,
   peeking: boolean,
   categoriesAvailable: boolean,
-  cityModel?: CityModel
+  routeCityModel?: CityModel
 |}
 
 type DispatchPropsType = {|
@@ -47,13 +47,11 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   const cityCode = state.cityContent?.city
   const categoriesAvailable = state.cityContent?.searchRoute !== null
 
-  const cityModel = cities.find(city => city.code === cityCode)
-
   if (!route || route.status !== 'ready' || state.cities.status !== 'ready' || !state.cityContent ||
     !languages || languages.status !== 'ready') {
     // Route does not exist yet. In this case it is not really defined whether we are peek or not because
     // we do not yet know the city of the route.
-    return { language: state.contentLanguage, cityModel, peeking: false, categoriesAvailable: false }
+    return { language: state.contentLanguage, peeking: false, categoriesAvailable: false }
   }
 
   const goToLanguageChange = () => {
@@ -68,8 +66,9 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     })
   }
   const peeking = isPeekingRoute(state, { routeCity: route.city })
+  const routeCityModel = cities.find(city => city.code === route.city)
 
-  return { peeking, cityModel, language: route.language, goToLanguageChange, categoriesAvailable }
+  return { peeking, routeCityModel, language: route.language, goToLanguageChange, categoriesAvailable }
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps: OwnPropsType): DispatchPropsType => ({
