@@ -4,9 +4,12 @@ const AssetsPlugin = require('assets-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
+const MomentTimezoneDataPlugin = require('moment-timezone-data-webpack-plugin')
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin')
 const babelConfig = require('../.babelrc.js')
 const fs = require('fs')
+
+const currentYear = new Date().getFullYear()
 
 const SHORT_COMMIT_SHA_LENGTH = 8
 
@@ -144,6 +147,8 @@ const createConfig = (env = {}) => {
         debug: !isProductionBuild,
         minimize: isProductionBuild
       }),
+      // We only use moment-timezone for parsing GMT time-zoned data in the integreat-api-client
+      new MomentTimezoneDataPlugin({ startYear: currentYear, endYear: currentYear + 2 }),
       // moment has no support for 'ti' (Tigrinya) and 'so' (Somali), hence we have to use the ignoreInvalidLocales flag
       new MomentLocalesPlugin({ localesToKeep: getSupportedLocales(), ignoreInvalidLocales: true })
     ],
