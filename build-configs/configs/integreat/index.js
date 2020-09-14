@@ -9,6 +9,8 @@ const IntegreatBuildConfig: BuildConfigType = {
   appName: 'Integreat',
   lightTheme,
   darkTheme,
+  development: false,
+  sentry: true,
   iconSet: INTEGREAT_ICONS,
   cmsUrl: 'https://cms.integreat-app.de',
   switchCmsUrl: 'https://cms-test.integreat-app.de',

@@ -9,6 +9,8 @@ const MalteBuildConfig: BuildConfigType = {
   appName: 'Malte',
   lightTheme,
   darkTheme,
+  development: false,
+  sentry: true,
   iconSet: MALTE_ICONS,
   cmsUrl: 'https://cms.malteapp.de',
   allowedHostNames: ['cms.malteapp.de'],

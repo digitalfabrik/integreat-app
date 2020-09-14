@@ -49,7 +49,8 @@ export type BuildConfigType = {|
   lightTheme: ThemeType,
   darkTheme: ThemeType,
   iconSet: string,
-  development?: boolean,
+  development: boolean,
+  sentry: boolean,
   e2e?: boolean,
   android: {|
     applicationId: string,

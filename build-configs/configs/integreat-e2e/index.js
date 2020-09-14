@@ -8,6 +8,7 @@ const IntegreatE2eBuildConfig: BuildConfigType = {
   appName: 'IntegreatE2E',
   e2e: true,
   development: false,
+  sentry: false,
   featureFlags: {
     pois: true,
     newsStream: true,
