@@ -6,8 +6,12 @@ import NativeConstants from '../../modules/native-constants/NativeConstants'
 import type { SettingsType } from '../../modules/settings/AppSettings'
 import openPrivacyPolicy from './openPrivacyPolicy'
 import buildConfig from '../../modules/app/constants/buildConfig'
+import * as NotificationsManager from '../../modules/notifications/NotificationsManager'
 
-export type ChangeSettingFunctionType = SettingsType => $Shape<SettingsType>
+export type SetSettingFunctionType = (
+  changeSetting: (settings: SettingsType) => $Shape<SettingsType>,
+  changeAction?: (newSettings: SettingsType) => Promise<void>
+) => Promise<void>
 
 const volatileValues = {
   versionTaps: 0
@@ -15,13 +19,15 @@ const volatileValues = {
 
 const TRIGGER_VERSION_TAPS = 25
 
-export default ({ setSetting, t, language }: {
-                  setSetting: (changeSetting: ChangeSettingFunctionType) => Promise<void>,
-                  t: TFunction,
-                  language: string
-                }
-) => {
-  return ([
+type CreateSettingsSectionsPropsType = {|
+  setSetting: SetSettingFunctionType,
+  t: TFunction,
+  language: string,
+  city: ?string
+|}
+
+const createSettingsSections = ({ setSetting, t, language, city }: CreateSettingsSectionsPropsType) => (
+  [
     {
       title: null,
       data: [
@@ -30,7 +36,22 @@ export default ({ setSetting, t, language }: {
           description: t('pushNewsDescription'),
           hasSwitch: true,
           getSettingValue: (settings: SettingsType) => settings.allowPushNotifications,
-          onPress: () => { setSetting(settings => ({ allowPushNotifications: !settings.allowPushNotifications })) }
+          onPress: () => {
+            setSetting(
+              settings => ({ allowPushNotifications: !settings.allowPushNotifications }),
+              async newSettings => {
+                if (!city) {
+                  // No city selected, so nothing to do here
+                  return
+                }
+                if (newSettings.allowPushNotifications) {
+                  await NotificationsManager.subscribeNews(city, language)
+                } else {
+                  await NotificationsManager.unsubscribeNews(city, language)
+                }
+              }
+            )
+          }
         },
         {
           title: t('proposeCitiesTitle'),
@@ -75,5 +96,7 @@ export default ({ setSetting, t, language }: {
         }
       ]
     }
-  ])
-}
+  ]
+)
+
+export default createSettingsSections
