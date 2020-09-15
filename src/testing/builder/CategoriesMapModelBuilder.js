@@ -2,7 +2,7 @@
 
 import { CategoriesMapModel, CategoryModel } from '@integreat-app/integreat-api-client'
 import moment from 'moment'
-import type { PageResourceCacheStateType } from '../../modules/app/StateType'
+import type { PageResourceCacheEntryStateType, PageResourceCacheStateType } from '../../modules/app/StateType'
 import seedrandom from 'seedrandom'
 import hashUrl from '../../modules/endpoint/hashUrl'
 import type { FetchMapType } from '../../modules/endpoint/sagas/fetchResourceCache'
@@ -37,14 +37,12 @@ class CategoriesMapModelBuilder {
     return seedrandom(`${index}-seed`)() * max
   }
 
-  createResource (url: string, index: number, lastUpdate: moment): PageResourceCacheStateType {
+  createResource (url: string, index: number, lastUpdate: moment): PageResourceCacheEntryStateType {
     const hash = hashUrl(url)
     return {
-      [url]: {
-        filePath: `path/to/documentDir/resource-cache/v1/${this._city}/files/${hash}.png`,
-        lastUpdate: moment(lastUpdate).add(this._predictableNumber(index), 'days'),
-        hash
-      }
+      filePath: `path/to/documentDir/resource-cache/v1/${this._city}/files/${hash}.png`,
+      lastUpdate: moment(lastUpdate).add(this._predictableNumber(index), 'days'),
+      hash
     }
   }
 
@@ -86,9 +84,9 @@ class CategoriesMapModelBuilder {
       })
 
       this._resourceCache[path] = {
-        ...this.createResource(resourceUrl1, id, lastUpdate),
-        ...this.createResource(resourceUrl2, id, lastUpdate),
-        ...this.createResource(thumbnail, id, lastUpdate)
+        [resourceUrl1]: this.createResource(resourceUrl1, id, lastUpdate),
+        [resourceUrl2]: this.createResource(resourceUrl2, id, lastUpdate),
+        [thumbnail]: this.createResource(thumbnail, id, lastUpdate)
       }
 
       this._addChildren(newChild, depth + 1)
@@ -126,7 +124,10 @@ class CategoriesMapModelBuilder {
       hash: md5.create().update(path).hex()
     }), 0)
 
-    return { categories: new CategoriesMapModel(this._categories), resourceCache: this._resourceCache }
+    return {
+      categories: new CategoriesMapModel(this._categories),
+      resourceCache: this._resourceCache
+    }
   }
 }
 

@@ -8,10 +8,10 @@ import type {
   ViewStyleProp
 } from 'react-native/Libraries/StyleSheet/StyleSheet'
 
-const Loader: StyledComponent<{}, ThemeType, *> = styled.ActivityIndicator`
+type PropsType = {| style?: ViewStyleProp |}
+
+const Loader: StyledComponent<PropsType, ThemeType, *> = styled.ActivityIndicator`
   margin-top: 15px;
 `
-
-type PropsType = {| style?: ViewStyleProp |}
 
 export default (props: PropsType) => <Loader {...props} />
