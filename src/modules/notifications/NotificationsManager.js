@@ -7,20 +7,24 @@ export const requestPushNotificationPermission = async (): Promise<void> => {
   console.debug('Authorization status:', authStatus)
 }
 
-export const unsubscribeFromPreviousCity = async (prevCity: string, prevLanguage: string): Promise<void> => {
+const newsTopic = (city: string, language: string): string => `${city}-${language}-news`
+
+export const unsubscribeNews = async (city: string, language: string): Promise<void> => {
+  const topic = newsTopic(city, language)
   try {
-    await messaging().unsubscribeFromTopic(`${prevCity}-${prevLanguage}-news`)
+    await messaging().unsubscribeFromTopic(topic)
   } catch (e) {
     console.error(e)
   }
-  console.debug(`Unsubscribed from ${prevCity}-${prevLanguage}-news topic!`)
+  console.debug(`Unsubscribed from ${topic} topic!`)
 }
 
-export const subscribeToCity = async (newCity: string, newLanguage: string): Promise<void> => {
+export const subscribeNews = async (city: string, language: string): Promise<void> => {
+  const topic = newsTopic(city, language)
   try {
-    await messaging().subscribeToTopic(`${newCity}-${newLanguage}-news`)
+    await messaging().subscribeToTopic(topic)
   } catch (e) {
     console.error(e)
   }
-  console.debug(`Subscribed to ${newCity}-${newLanguage}-news topic!`)
+  console.debug(`Subscribed to ${topic} topic!`)
 }

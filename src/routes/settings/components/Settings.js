@@ -10,13 +10,13 @@ import type { TFunction } from 'react-i18next'
 import type { NavigationScreenProp } from 'react-navigation'
 import type { SettingsType } from '../../../modules/settings/AppSettings'
 import createSettingsSections from '../createSettingsSections'
-import type { ChangeSettingFunctionType } from '../createSettingsSections'
 import AppSettings, { defaultSettings } from '../../../modules/settings/AppSettings'
 import type { SectionBase } from 'react-native/Libraries/Lists/SectionList'
 
 type PropsType = {|
   theme: ThemeType,
   language: string,
+  city: ?string,
   t: TFunction,
   navigation: NavigationScreenProp<*>,
   dispatch: () => {}
@@ -69,15 +69,22 @@ export default class Settings extends React.Component<PropsType, StateType> {
     }
   }
 
-  setSetting = async (changeSetting: ChangeSettingFunctionType) => {
+  setSetting = async (
+    changeSetting: (settings: SettingsType) => $Shape<SettingsType>,
+    changeAction?: (settings: SettingsType) => Promise<void>
+  ) => {
     this.setState(
       state => {
         const newSettings = changeSetting(state.settings)
         return { settings: { ...state.settings, ...newSettings } }
       },
       async () => {
+        const newSettings = this.state.settings
         try {
-          await this.appSettings.setSettings(this.state.settings)
+          if (changeAction) {
+            await changeAction(newSettings)
+          }
+          await this.appSettings.setSettings(newSettings)
         } catch (e) {
           console.error('Failed to persist settings.')
         }
@@ -113,14 +120,17 @@ export default class Settings extends React.Component<PropsType, StateType> {
   ThemedItemSeparator = () => <ItemSeparator theme={this.props.theme} />
 
   render () {
-    if (!this.state.settingsLoaded) {
+    const { t, language, city } = this.props
+    const { settings, settingsLoaded } = this.state
+
+    if (!settingsLoaded) {
       return null
     }
 
     return <SectionList
         keyExtractor={this.keyExtractor}
-        sections={createSettingsSections({ setSetting: this.setSetting, ...this.props })}
-        extraData={this.state.settings}
+        sections={createSettingsSections({ setSetting: this.setSetting, t, language, city })}
+        extraData={settings}
         renderItem={this.renderItem}
         renderSectionHeader={this.renderSectionHeader}
         ItemSeparatorComponent={this.ThemedItemSeparator}
