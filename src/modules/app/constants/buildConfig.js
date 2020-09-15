@@ -9,7 +9,7 @@ import integreatLocationMarker from '../../../../build-configs/configs/integreat
 import malteAppLogo from '../../../../build-configs/configs/malte/assets/app-logo.svg'
 import malteLocationMarker from '../../../../build-configs/configs/malte/assets/location-marker.svg'
 
-export const buildConfigIconSet = (): {| appLogo: string, locationMarker: string |} => {
+export const buildConfigIconSet = (): {| appLogo: number, locationMarker: number |} => {
   const iconSetString = buildConfig().iconSet
   if (iconSetString === INTEGREAT_ICONS) {
     return {

@@ -18,7 +18,7 @@ const SearchBar = styled.View`
   padding: 0 10%;
 `
 
-type PropsType = {
+type PropsType = {|
   cities: Array<CityModel>,
   navigateToDashboard: (city: CityModel) => void,
   t: TFunction,
@@ -26,7 +26,7 @@ type PropsType = {
   location: LocationType,
   proposeNearbyCities: boolean,
   tryAgain: null | () => void
-}
+|}
 
 type StateType = {
   filterText: string

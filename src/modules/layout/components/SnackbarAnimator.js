@@ -87,7 +87,8 @@ class SnackbarAnimator extends React.Component<PropsType, StateType> {
 
   render () {
     const { translate, height, displayed } = this.state
-    const interpolated = translate.interpolate({ inputRange: [0, 1], outputRange: [0, height || MAX_HEIGHT] })
+    const outputRange: number[] = [0, height || MAX_HEIGHT]
+    const interpolated = translate.interpolate({ inputRange: [0, 1], outputRange: outputRange })
     return <Container onLayout={this.onLayout} style={{ transform: [{ translateY: interpolated }] }}>
       {displayed}
     </Container>
