@@ -335,6 +335,10 @@ PODS:
     - React
   - react-native-pdf (6.2.0):
     - React
+  - react-native-progress-bar-android (1.0.3):
+    - React
+  - react-native-progress-view (1.1.1):
+    - React
   - react-native-safe-area-context (1.0.0):
     - React
   - react-native-webview (5.12.1):
@@ -483,6 +487,8 @@ DEPENDENCIES:
   - "react-native-geolocation (from `../node_modules/@react-native-community/geolocation`)"
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
   - react-native-pdf (from `../node_modules/react-native-pdf`)
+  - "react-native-progress-bar-android (from `../node_modules/@react-native-community/progress-bar-android`)"
+  - "react-native-progress-view (from `../node_modules/@react-native-community/progress-view`)"
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-webview (from `../node_modules/react-native-webview`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
@@ -581,6 +587,10 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-community/netinfo"
   react-native-pdf:
     :path: "../node_modules/react-native-pdf"
+  react-native-progress-bar-android:
+    :path: "../node_modules/@react-native-community/progress-bar-android"
+  react-native-progress-view:
+    :path: "../node_modules/@react-native-community/progress-view"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-webview:
@@ -676,6 +686,8 @@ SPEC CHECKSUMS:
   react-native-geolocation: c956aeb136625c23e0dce0467664af2c437888c9
   react-native-netinfo: 3bf235d94cc291cf0673ad9fd9eaae82f84ed8a9
   react-native-pdf: 909cd849e6a806731b2135263189fea39494b55e
+  react-native-progress-bar-android: d1ec460350b7c0d27418b0c0b9ebf073646db016
+  react-native-progress-view: 8529425acbb93f918f3675bbece48f6b551b1384
   react-native-safe-area-context: a346c75f2288147527365ce27b59ca6d38c27805
   react-native-webview: 5036ed4a973ad1deeeff118262d2df7b60b3419d
   React-RCTActionSheet: 910163b6b09685a35c4ebbc52b66d1bfbbe39fc5
