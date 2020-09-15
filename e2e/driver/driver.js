@@ -122,7 +122,7 @@ const getGitHeadReference = () => {
   return childProcess.execSync('git rev-parse --short HEAD').toString().trim()
 }
 
-export const setupDriver = async (additionalCaps: {} = {}) => {
+export const setupDriver = async (additionalCaps: any = {}) => {
   const config = getConfig()
 
   if (!config) {

@@ -3,7 +3,7 @@
 import { DateModel, EventModel, LocationModel } from '@integreat-app/integreat-api-client'
 import moment from 'moment'
 import seedrandom from 'seedrandom'
-import type { PageResourceCacheStateType } from '../../modules/app/StateType'
+import type { PageResourceCacheEntryStateType, PageResourceCacheStateType } from '../../modules/app/StateType'
 import hashUrl from '../../modules/endpoint/hashUrl'
 import md5 from 'js-md5'
 import type { FetchMapType } from '../../modules/endpoint/sagas/fetchResourceCache'
@@ -45,14 +45,12 @@ class EventModelBuilder {
     return createFetchMap(this.buildResources())
   }
 
-  createResource (url: string, index: number, lastUpdate: moment): PageResourceCacheStateType {
+  createResource (url: string, index: number, lastUpdate: moment): PageResourceCacheEntryStateType {
     const hash = hashUrl(url)
     return {
-      [url]: {
-        filePath: `path/to/documentDir/resource-cache/v1/${this._city}/files/${hash}.png`,
-        lastUpdate: moment(lastUpdate).add(this._predictableNumber(index), 'days'),
-        hash
-      }
+      filePath: `path/to/documentDir/resource-cache/v1/${this._city}/files/${hash}.png`,
+      lastUpdate: moment(lastUpdate).add(this._predictableNumber(index), 'days'),
+      hash
     }
   }
 
@@ -110,9 +108,9 @@ class EventModelBuilder {
           hash: md5.create().update(Buffer.from([index])).hex()
         }),
         resources: {
-          ...this.createResource(resourceUrl1, index, lastUpdate),
-          ...this.createResource(resourceUrl2, index, lastUpdate),
-          ...this.createResource(thumbnail, index, lastUpdate)
+          [resourceUrl1]: this.createResource(resourceUrl1, index, lastUpdate),
+          [resourceUrl2]: this.createResource(resourceUrl2, index, lastUpdate),
+          [thumbnail]: this.createResource(thumbnail, index, lastUpdate)
         }
       }
     })

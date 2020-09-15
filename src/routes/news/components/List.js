@@ -14,10 +14,8 @@ const keyExtractor = (item, index) => `${index}`
 type PropType = {|
   items: NewsModelsType,
   renderItem: ({
-    cityCode: string,
-    language: string,
     item: LocalNewsModel | TunewsModel
-  }) => React$Node,
+}) => React$Node,
   isFetchingMore: boolean,
   fetchMoreItems: () => void,
   renderNoItemsComponent: () => React$Node
@@ -40,7 +38,7 @@ const List = ({
       }}
       onEndReached={fetchMoreItems}
       ListEmptyComponent={renderNoItemsComponent}
-      ListFooterComponent={isFetchingMore && <LoadingSpinner />}
+      ListFooterComponent={isFetchingMore ? <LoadingSpinner /> : null}
       onEndReachedThreshold={1}
       keyExtractor={keyExtractor}
       renderItem={renderItem}
