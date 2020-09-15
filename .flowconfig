@@ -19,15 +19,19 @@ node_modules/warning/.*
 .*/node_modules/@react-native-community/geolocation/lib/commonjs/implementation.js.flow
 
 ; Ignore native directories as they may contain JSONs
-.*/ios/.*
-.*/android/.*
+ios/.*
+android/.*
+
 ; Ignore ruby gems
-.*/vendor/.*
+ios/vendor/.*
+android/vendor/.*
+vendor/.*
 
 [untyped]
 .*/node_modules/@react-native-community/cli/.*/.*
 .*/node_modules/react-native-share/.*
 .*/node_modules/react-native-webview/.*
+.*/node_modules/react-navigation-header-buttons/.*
 
 [include]
 
