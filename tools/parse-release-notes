@@ -38,7 +38,7 @@ const formatNotes = ({ notes, language, production, platformName }) => {
     })
     .join('\n')
 
-  const notesWithDefault = `${defaultNote}\n${formattedNotes}`
+  const notesWithDefault = `${defaultNote}${formattedNotes}`
 
   return platformName ? `\n${platformName}:\n${notesWithDefault}` : `${notesWithDefault}`
 }
