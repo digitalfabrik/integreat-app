@@ -344,8 +344,7 @@
 			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
+				"${PODS_ROOT}/Manifest.lock",			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputFileListPaths = (
 			);
