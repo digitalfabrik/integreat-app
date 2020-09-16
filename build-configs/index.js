@@ -24,11 +24,10 @@ const loadBuildConfig = (buildConfigName: ?string): BuildConfigType => {
 
   const { featureFlags: { pushNotifications }, android, ios } = buildConfig
 
-  // GS should be configured for both platforms if push notifications are enabled
-  if ((pushNotifications && (!android.googleServices || !ios.googleServices)) ||
-    // GS should not be configured for a platform if push notifications are disabled
-    (!pushNotifications && (android.googleServices || ios.googleServices))) {
-    throw Error('Inconsistent build config!')
+  if (android.googleServices === null !== ios.googleServices === null) {
+    console.warn('Google services should be configured for both or no platform!')
+  } else if (pushNotifications === (android.googleServices === null)) {
+    console.warn('Push notification feature flag does not match google service configuration!')
   }
 
   return buildConfig
