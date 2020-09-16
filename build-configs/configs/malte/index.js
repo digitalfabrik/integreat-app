@@ -10,7 +10,6 @@ const MalteBuildConfig: BuildConfigType = {
   lightTheme,
   darkTheme,
   development: false,
-  sentry: true,
   iconSet: MALTE_ICONS,
   cmsUrl: 'https://cms.malteapp.de',
   allowedHostNames: ['cms.malteapp.de'],
@@ -18,7 +17,8 @@ const MalteBuildConfig: BuildConfigType = {
   featureFlags: {
     pois: false,
     newsStream: false,
-    introSlides: true
+    introSlides: true,
+    sentry: true
   },
   android: {
     applicationId: 'tuerantuer.app.integreat',
