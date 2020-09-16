@@ -50,3 +50,4 @@ steps:
   - slack/notify:
       message: Integreat ${NEW_VERSION_NAME} has been released successfully on Android!
       webhook: ${SLACK_URL}
+  - notify_failed

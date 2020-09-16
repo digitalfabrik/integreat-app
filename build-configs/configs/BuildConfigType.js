@@ -44,6 +44,7 @@ export type BuildConfigType = {|
   appName: string,
   cmsUrl: string,
   switchCmsUrl?: string,
+  shareBaseUrl: string,
   allowedHostNames: Array<string>,
   featureFlags: FeatureFlagsType,
   lightTheme: ThemeType,

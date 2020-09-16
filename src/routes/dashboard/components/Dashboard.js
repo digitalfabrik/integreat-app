@@ -11,6 +11,7 @@ import NavigationTiles from '../../../modules/common/components/NavigationTiles'
 import TileModel from '../../../modules/common/models/TileModel'
 import eventsIcon from '../assets/events.svg'
 import offersIcon from '../assets/offers.svg'
+import poisIcon from '../assets/pois.svg'
 import newsIcon from '../assets/news.svg'
 import localInformationIcon from '../assets/local_information.svg'
 import type { TFunction } from 'react-i18next'
@@ -21,12 +22,14 @@ import type { NavigateToNewsParamsType } from '../../../modules/app/createNaviga
 import buildConfig from '../../../modules/app/constants/buildConfig'
 
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
+import type { NavigateToPoiParamsType } from '../../../modules/app/createNavigateToPoi'
 import { LOCAL, TUNEWS } from '../../news/NewsTabs'
 
 export type PropsType = {|
   navigation: NavigationScreenProp<*>,
   cityCode: string,
 
+  navigateToPoi: NavigateToPoiParamsType => void,
   navigateToCategory: NavigateToCategoryParamsType => void,
   navigateToEvent: NavigateToEventParamsType => void,
   navigateToIntegreatUrl: NavigateToIntegreatUrlParamsType => void,
@@ -44,7 +47,7 @@ export type PropsType = {|
 
 class Dashboard extends React.Component<PropsType> {
   getNavigationTileModels (cityCode: string, language: string): Array<TileModel> {
-    const { navigateToCategory, navigateToEvent, navigateToOffers, t, cities, navigateToNews } = this.props
+    const { navigateToCategory, navigateToEvent, navigateToPoi, navigateToOffers, t, cities, navigateToNews } = this.props
     const { featureFlags } = buildConfig()
     const cityModel = cities.find(city => city.code === cityCode)
 
@@ -98,7 +101,20 @@ class Dashboard extends React.Component<PropsType> {
         notifications: 0
       }))
     }
-
+    if (featureFlags.pois) {
+      tiles.push(new TileModel({
+        title: t('pois'),
+        path: 'pois',
+        thumbnail: poisIcon,
+        isExternalUrl: false,
+        onTilePress: () => navigateToPoi({
+          cityCode,
+          language,
+          path: null
+        }),
+        notifications: 0
+      }))
+    }
     if (featureFlags.newsStream && isNewsEnabled) {
       tiles.push(new TileModel({
         title: t('news'),
