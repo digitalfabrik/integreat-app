@@ -10,6 +10,7 @@ const IntegreatBuildConfig: BuildConfigType = {
   appIcon: 'app_icon_integreat',
   lightTheme,
   darkTheme,
+  development: false,
   iconSet: INTEGREAT_ICONS,
   cmsUrl: 'https://cms.integreat-app.de',
   switchCmsUrl: 'https://cms-test.integreat-app.de',
@@ -19,7 +20,8 @@ const IntegreatBuildConfig: BuildConfigType = {
   featureFlags: {
     pois: false,
     newsStream: false,
-    introSlides: true
+    introSlides: true,
+    sentry: true
   },
   android: {
     splashScreen: true,

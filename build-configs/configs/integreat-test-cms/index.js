@@ -12,7 +12,8 @@ const IntegreatTestCmsBuildConfig: BuildConfigType = {
   featureFlags: {
     pois: true,
     newsStream: true,
-    introSlides: true
+    introSlides: true,
+    sentry: false
   },
   android: {
     ...IntegreatBuildConfig.android,

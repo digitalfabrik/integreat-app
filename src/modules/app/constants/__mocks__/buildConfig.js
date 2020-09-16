@@ -15,6 +15,7 @@ const buildConfig = jest.fn<[], BuildConfigType>((): BuildConfigType => ({
   appIcon: 'app_icon_integreat',
   lightTheme,
   darkTheme,
+  development: false,
   iconSet: INTEGREAT_ICONS,
   cmsUrl: 'https://cms.integreat-app.de',
   switchCmsUrl: 'https://cms-test.integreat-app.de',
@@ -24,11 +25,12 @@ const buildConfig = jest.fn<[], BuildConfigType>((): BuildConfigType => ({
   featureFlags: {
     pois: false,
     newsStream: false,
-    introSlides: true
+    introSlides: true,
+    sentry: true
   },
   android: {
-    applicationId: 'tuerantuer.app.integreat',
     splashScreen: true,
+    applicationId: 'tuerantuer.app.integreat',
     googleServices: {
       googleAppId: '1:164298278764:android:3fc1f67f3883df306fd549',
       gcmDefaultSenderId: '164298278764',
