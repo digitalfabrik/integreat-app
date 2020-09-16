@@ -7,7 +7,8 @@ export type LocalesType = { [namespace: string]: { [language: string]: { [key: s
 export type FeatureFlagsType = {|
   pois: boolean,
   newsStream: boolean,
-  introSlides: boolean
+  introSlides: boolean,
+  sentry: boolean
 |}
 
 // These values can be retrieved from the google-services.json according to this guide:
@@ -55,7 +56,7 @@ export type BuildConfigType = {|
   darkTheme: ThemeType,
   localesOverride?: LocalesType,
   iconSet: string,
-  development?: boolean,
+  development: boolean,
   e2e?: boolean,
   android: {|
     splashScreen: boolean,

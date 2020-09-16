@@ -11,6 +11,7 @@ const MalteBuildConfig: BuildConfigType = {
   appIcon: 'app_icon_malte',
   lightTheme,
   darkTheme,
+  development: false,
   iconSet: MALTE_ICONS,
   cmsUrl: 'https://cms.malteapp.de',
   allowedHostNames: ['cms.malteapp.de'],
@@ -20,7 +21,8 @@ const MalteBuildConfig: BuildConfigType = {
   featureFlags: {
     pois: false,
     newsStream: false,
-    introSlides: true
+    introSlides: true,
+    sentry: true
   },
   android: {
     splashScreen: false,

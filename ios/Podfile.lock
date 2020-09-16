@@ -126,8 +126,8 @@ PODS:
     - RNPermissions
   - Permission-Notifications (2.0.9):
     - RNPermissions
-  - PromisesObjC (1.2.9)
-  - Protobuf (3.12.0)
+  - PromisesObjC (1.2.10)
+  - Protobuf (3.13.0)
   - RCTRequired (0.61.5)
   - RCTTypeSafety (0.61.5):
     - FBLazyVector (= 0.61.5)
@@ -358,22 +358,22 @@ PODS:
     - React
   - RNPermissions (2.0.9):
     - React
-  - RNSentry (1.3.3):
+  - RNSentry (1.7.2):
     - React
-    - Sentry (~> 4.4.0)
+    - Sentry (~> 5.2.0)
   - RNShare (3.0.0):
     - React
   - RNVectorIcons (6.6.0):
     - React
-  - SDWebImage (5.8.3):
-    - SDWebImage/Core (= 5.8.3)
-  - SDWebImage/Core (5.8.3)
+  - SDWebImage (5.9.1):
+    - SDWebImage/Core (= 5.9.1)
+  - SDWebImage/Core (5.9.1)
   - SDWebImageWebPCoder (0.2.5):
     - libwebp (~> 1.0)
     - SDWebImage/Core (~> 5.0)
-  - Sentry (4.4.3):
-    - Sentry/Core (= 4.4.3)
-  - Sentry/Core (4.4.3)
+  - Sentry (5.2.2):
+    - Sentry/Core (= 5.2.2)
+  - Sentry/Core (5.2.2)
   - Yoga (1.14.0)
 
 DEPENDENCIES:
@@ -557,8 +557,8 @@ SPEC CHECKSUMS:
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
   Permission-LocationWhenInUse: 9133db2ae6ce48da6ca513ec44a24ccce613fe4f
   Permission-Notifications: 1e03f5c43612ac4f9cdcaf6504695fc4e15f33d9
-  PromisesObjC: b48e0338dbbac2207e611750777895f7a5811b75
-  Protobuf: 2793fcd0622a00b546c60e7cbbcc493e043e9bb9
+  PromisesObjC: b14b1c6b68e306650688599de8a45e49fae81151
+  Protobuf: 3dac39b34a08151c6d949560efe3f86134a3f748
   RCTRequired: b153add4da6e7dbc44aebf93f3cf4fcae392ddf1
   RCTTypeSafety: 9aa1b91d7f9310fc6eadc3cf95126ffe818af320
   React: b6a59ef847b2b40bb6e0180a97d0ca716969ac78
@@ -591,12 +591,12 @@ SPEC CHECKSUMS:
   RNFBMessaging: d884c58a92ce90687ae8b5a5772cf5d3d5223dfb
   RNGestureHandler: 911d3b110a7a233a34c4f800e7188a84b75319c6
   RNPermissions: 2f74237e97b08beda01e914301e12524ddddf5b8
-  RNSentry: 86baf0c87120cd5eb491d073989f8cbc1a2174c6
+  RNSentry: 2d4a0e18c6dfe93b647c360e0d15c9391d24e9d1
   RNShare: 0e19ddb0bf338b62702ce1d9e001ee14effa68a8
   RNVectorIcons: 0bb4def82230be1333ddaeee9fcba45f0b288ed4
-  SDWebImage: 112503ec94a5a2a41869503844a15e8d8f1ead5c
+  SDWebImage: a990c053fff71e388a10f3357edb0be17929c9c5
   SDWebImageWebPCoder: 947093edd1349d820c40afbd9f42acb6cdecd987
-  Sentry: 14bdd673870e8cf64932b149fad5bbbf39a9b390
+  Sentry: 8fa58a051237554f22507fb483b9a1de0171a2dc
   Yoga: f2a7cd4280bfe2cca5a7aed98ba0eb3d1310f18b
 
 PODFILE CHECKSUM: bf1afcf3cc7e7e9e123883f39fab5e1faa953e93
