@@ -70,9 +70,18 @@ def setupResourceValues(buildConfigName, resValue) {
     }
 }
 
+def determineTheme(buildConfig) {
+    if (buildConfig.android.splashScreen) {
+        return [theme: "@style/SplashScreenTheme"]
+    } else {
+        return [theme: "@style/AppTheme"]
+    }
+}
+
 ext {
     determineBuildConfigName = this.&determineBuildConfigName
     createBuildConfig = this.&createBuildConfig
     setupGoogleServices = this.&setupGoogleServices
     setupResourceValues = this.&setupResourceValues
+    determineTheme = this.&determineTheme
 }
