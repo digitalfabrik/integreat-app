@@ -5,7 +5,6 @@ import React from 'react'
 import PageDetail from '../PageDetail'
 import lightTheme from '../../../theme/constants/theme'
 import { I18nManager } from 'react-native'
-import { expectToHaveForwardDirection, expectToHaveReverseDirection } from '../../../../testing/jest-extend-utils'
 
 describe('PageDetail', () => {
   it('should display the given identifier followed by a colon', () => {
