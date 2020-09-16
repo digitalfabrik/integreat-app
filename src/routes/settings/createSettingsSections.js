@@ -22,11 +22,11 @@ const TRIGGER_VERSION_TAPS = 25
 type CreateSettingsSectionsPropsType = {|
   setSetting: SetSettingFunctionType,
   t: TFunction,
-  language: string,
-  city: ?string
+  languageCode: string,
+  cityCode: ?string
 |}
 
-const createSettingsSections = ({ setSetting, t, language, city }: CreateSettingsSectionsPropsType) => (
+const createSettingsSections = ({ setSetting, t, languageCode, cityCode }: CreateSettingsSectionsPropsType) => (
   [
     {
       title: null,
@@ -40,14 +40,14 @@ const createSettingsSections = ({ setSetting, t, language, city }: CreateSetting
             setSetting(
               settings => ({ allowPushNotifications: !settings.allowPushNotifications }),
               async newSettings => {
-                if (!city) {
+                if (!cityCode) {
                   // No city selected, so nothing to do here
                   return
                 }
                 if (newSettings.allowPushNotifications) {
-                  await NotificationsManager.subscribeNews(city, language)
+                  await NotificationsManager.subscribeNews(cityCode, languageCode)
                 } else {
-                  await NotificationsManager.unsubscribeNews(city, language)
+                  await NotificationsManager.unsubscribeNews(cityCode, languageCode)
                 }
               }
             )
@@ -71,7 +71,7 @@ const createSettingsSections = ({ setSetting, t, language, city }: CreateSetting
           accessibilityRole: 'link',
           title: t('about', { appName: buildConfig().appName }),
           onPress: () => {
-            if (language === 'de') {
+            if (languageCode === 'de') {
               Linking.openURL('https://integreat-app.de/about/')
             } else {
               Linking.openURL('https://integreat-app.de/en/about/')
@@ -81,7 +81,7 @@ const createSettingsSections = ({ setSetting, t, language, city }: CreateSetting
         {
           accessibilityRole: 'link',
           title: t('privacyPolicy'),
-          onPress: () => openPrivacyPolicy(language)
+          onPress: () => openPrivacyPolicy(languageCode)
         },
         {
           accessibilityRole: 'none',
