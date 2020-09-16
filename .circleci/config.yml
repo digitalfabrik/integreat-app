@@ -569,7 +569,7 @@ workflows:
                     - build_ios
                     - build_android
             - prepare_delivery:
-                production_delivery: << pipeline.parameters.production_delivery >>
+                production_delivery: false
                 requires:
                     - e2e
             - deliver_android:
@@ -603,7 +603,7 @@ workflows:
                     - build_ios
                     - build_android
             - prepare_delivery:
-                production_delivery: << pipeline.parameters.production_delivery >>
+                production_delivery: true
                 requires:
                     - e2e
             - await_production_approval:
