@@ -6,7 +6,10 @@ const transformNodeModules = [
   'react-navigation-header-buttons', // for integration tests including react-navigation
   'rn-fetch-blob',
   '@integreat-app/integreat-api-client',
-  '@sentry/react-native'
+  '@sentry/react-native',
+  'hashids',
+  '@react-native-community/progress-bar-android',
+  '@react-native-community/progress-view'
 ]
 
 module.exports = {
