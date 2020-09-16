@@ -10,7 +10,7 @@ export const buildConfigIconSet = (): {| appLogo: string, locationMarker: string
   throw new Error('Mock not yet implemented!')
 }
 
-const buildConfig = (): BuildConfigType => ({
+const buildConfig = jest.fn((): BuildConfigType => ({
   appName: 'Integreat',
   lightTheme,
   darkTheme,
@@ -23,6 +23,6 @@ const buildConfig = (): BuildConfigType => ({
     newsStream: false,
     introSlides: true
   }
-})
+}))
 
 export default buildConfig

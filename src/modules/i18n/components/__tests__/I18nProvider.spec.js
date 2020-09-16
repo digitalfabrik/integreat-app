@@ -82,8 +82,8 @@ describe('I18nProvider', () => {
   it('should show error if loading fails', async () => {
     const I18nProvider = require('../I18nProvider').default
 
-    const previous = AsyncStorage.multiGet
-    previous.mockImplementation(() => {
+    const mock = AsyncStorage.multiGet
+    mock.mockImplementation(() => {
       throw Error('An Error occurred while getting settings!')
     })
 
@@ -92,14 +92,14 @@ describe('I18nProvider', () => {
         <></>
       </I18nProvider>)
 
-    await waitForExpect(async () => {
+    await waitForExpect(() => {
       expect(queryByText('An Error occurred while getting settings!')).not.toBeNull()
     })
 
-    previous.mockImplementation(previous)
+    mock.mockRestore()
   })
 
-  it('should use fallback if language is invalid or unknown', () => {
+  it('should use fallback if language is invalid or unknown', async () => {
     const I18nProvider = require('../I18nProvider').default
 
     const ReceivingComponent = withTranslation('app')(
@@ -114,6 +114,6 @@ describe('I18nProvider', () => {
       </I18nProvider>
     )
 
-    waitForExpect(async () => expect(queryByText('Integreat ist Ihr digitaler Guide für Deutschland. Finden Sie lokale Informationen, Veranstaltungen und Beratung. Immer aktuell und in Ihrer Sprache.')).toBeTruthy())
+    await waitForExpect(() => expect(queryByText('Integreat ist Ihr digitaler Guide für Deutschland. Finden Sie lokale Informationen, Veranstaltungen und Beratung. Immer aktuell und in Ihrer Sprache.')).toBeTruthy())
   })
 })
