@@ -63,7 +63,6 @@ type PropsType = {|
   dangerouslySetInnerHTML: {
     __html: string
   },
-  hijackRegExp?: RegExp,
   onInternalLinkClick: string => void,
   centered: boolean
 |}
@@ -100,7 +99,7 @@ class RemoteContent extends React.Component<PropsType> {
     }
     const collection: HTMLCollection<HTMLAnchorElement> = this.sandBoxRef.current.getElementsByTagName('a')
     Array.from(collection).forEach(node => {
-      if ((this.props.hijackRegExp || HIJACK).test(node.href)) {
+      if (HIJACK.test(node.href)) {
         node.addEventListener('click', this.handleClick)
       }
     })
