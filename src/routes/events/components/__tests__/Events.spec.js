@@ -35,7 +35,7 @@ describe('Events', () => {
     const result = TestRenderer.create(
       <Events path={event.path} events={events} cities={cities} cityCode={city.code}
               language={language.code} resourceCache={{ notAvailable: {} }} theme={lightTheme} t={key => key}
-              navigation={navigation} navigateToEvent={() => {}} navigateToIntegreatUrl={() => {}} />
+              navigation={navigation} navigateToEvent={() => {}} navigateToInternalLink={() => {}} />
     )
     const pageInstance = result.root.findByType(Page)
     expect(pageInstance.props).toEqual(expect.objectContaining({

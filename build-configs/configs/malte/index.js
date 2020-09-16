@@ -2,17 +2,21 @@
 
 import { lightTheme, darkTheme } from '../../themes/malte'
 import type { BuildConfigType } from '../BuildConfigType'
+import malteOverrideLocales from '../../../locales/override-locales/malte.json'
 
 export const MALTE_ICONS = 'MALTE'
 
 const MalteBuildConfig: BuildConfigType = {
   appName: 'Malte',
+  appIcon: 'app_icon_malte',
   lightTheme,
   darkTheme,
   development: false,
   iconSet: MALTE_ICONS,
   cmsUrl: 'https://cms.malteapp.de',
   allowedHostNames: ['cms.malteapp.de'],
+  localesOverride: malteOverrideLocales,
+  internalLinksHijackPattern: 'https?:\\/\\/malteapp\\.de(?!\\/[^/]*\\/(wp-content|wp-admin|wp-json)\\/.*).*',
   shareBaseUrl: 'https://malteapp.de',
   featureFlags: {
     pois: false,
@@ -21,7 +25,8 @@ const MalteBuildConfig: BuildConfigType = {
     sentry: true
   },
   android: {
-    applicationId: 'tuerantuer.app.integreat',
+    splashScreen: false,
+    applicationId: 'de.malteapp',
     googleServices: {
       googleAppId: '1:146599424234:android:b110d70b79ff7ce351a793',
       gcmDefaultSenderId: '146599424234',
@@ -52,7 +57,8 @@ const MalteBuildConfig: BuildConfigType = {
       isAppInviteEnabled: true,
       isGCMEnabled: true,
       isSigninEnabled: true
-    }
+    },
+    launchScreen: 'LaunchScreenDefault'
   }
 }
 
