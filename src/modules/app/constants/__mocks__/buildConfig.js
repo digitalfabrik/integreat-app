@@ -2,9 +2,9 @@
 
 import type {
   BuildConfigType
-} from '../../../../../build-configs/configs/BuildConfigType'
-import { darkTheme, lightTheme } from '../../../../../build-configs/themes/integreat'
-import { INTEGREAT_ICONS } from '../../../../../build-configs/configs/integreat'
+} from '../../../../../build-configs/BuildConfigType'
+import { darkTheme, lightTheme } from '../../../../../build-configs/integreat/theme'
+import { INTEGREAT_ASSETS } from '../../../../../build-configs/AssetsType'
 
 export const buildConfigIconSet = (): {| appLogo: string, locationMarker: string |} => {
   throw new Error('Mock not yet implemented!')
@@ -15,8 +15,8 @@ const buildConfig = jest.fn<[], BuildConfigType>((): BuildConfigType => ({
   appIcon: 'app_icon_integreat',
   lightTheme,
   darkTheme,
+  assets: INTEGREAT_ASSETS,
   development: false,
-  iconSet: INTEGREAT_ICONS,
   cmsUrl: 'https://cms.integreat-app.de',
   switchCmsUrl: 'https://cms-test.integreat-app.de',
   shareBaseUrl: 'https://integreat.app',

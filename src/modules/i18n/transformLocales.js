@@ -1,6 +1,6 @@
 // @flow
 
-import type { LocalesType } from '../../../build-configs/configs/BuildConfigType'
+import type { LocalesType } from '../../../build-configs/BuildConfigType'
 import { forEach, reduce } from 'lodash'
 import type { TransformedLocalesType } from './loadLocales'
 
