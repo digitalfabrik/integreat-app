@@ -1,6 +1,6 @@
 // @flow
 
-import type { ThemeType } from '../themes/ThemeType'
+import type { ThemeType } from './ThemeType'
 
 export type LocalesType = { [namespace: string]: { [language: string]: { [key: string]: string } } }
 
@@ -55,7 +55,7 @@ export type BuildConfigType = {|
   lightTheme: ThemeType,
   darkTheme: ThemeType,
   localesOverride?: LocalesType,
-  iconSet: string,
+  assets: string,
   development: boolean,
   e2e?: boolean,
   android: {|

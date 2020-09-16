@@ -1,17 +1,16 @@
 // @flow
 
-import { lightTheme, darkTheme } from '../../themes/integreat'
+import { lightTheme, darkTheme } from './theme'
 import type { BuildConfigType } from '../BuildConfigType'
-
-export const INTEGREAT_ICONS = 'INTEGREAT'
+import { INTEGREAT_ASSETS } from '../AssetsType'
 
 const IntegreatBuildConfig: BuildConfigType = {
   appName: 'Integreat',
   appIcon: 'app_icon_integreat',
   lightTheme,
   darkTheme,
+  assets: INTEGREAT_ASSETS,
   development: false,
-  iconSet: INTEGREAT_ICONS,
   cmsUrl: 'https://cms.integreat-app.de',
   switchCmsUrl: 'https://cms-test.integreat-app.de',
   shareBaseUrl: 'https://integreat.app',
