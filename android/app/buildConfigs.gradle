@@ -71,7 +71,7 @@ def setupResourceValues(buildConfigName, resValue) {
 }
 
 def determineTheme(buildConfig) {
-    if (buildConfig.splashScreen) {
+    if (buildConfig.android.splashScreen) {
         return [theme: "@style/SplashScreenTheme"]
     } else {
         return [theme: "@style/AppTheme"]
