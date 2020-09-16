@@ -9,6 +9,7 @@ import determineApiUrl from '../determineApiUrl'
 function * loadPois (
   city: string,
   language: string,
+  poisEnabled: boolean,
   dataContainer: DataContainer,
   forceRefresh: boolean
 ): Saga<Array<PoiModel>> {
@@ -21,6 +22,12 @@ function * loadPois (
     } catch (e) {
       console.warn('An error occurred while loading pois from JSON', e)
     }
+  }
+
+  if (!poisEnabled) {
+    console.debug('Pois disabled')
+    yield call(dataContainer.setPois, city, language, [])
+    return []
   }
 
   console.debug('Fetching pois')
