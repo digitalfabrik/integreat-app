@@ -17,7 +17,7 @@ import { CityModel } from '@integreat-app/integreat-api-client'
 import React from 'react'
 import createNavigateToCategory from '../../../modules/app/createNavigateToCategory'
 import createNavigateToEvent from '../../../modules/app/createNavigateToEvent'
-import createNavigateToIntegreatUrl from '../../../modules/app/createNavigateToIntegreatUrl'
+import createNavigateToInternalLink from '../../../modules/app/createNavigateToInternalLink'
 import createNavigateToPoi from '../../../modules/app/createNavigateToPoi'
 import createNavigateToOffers from '../../../modules/app/createNavigateToOffers'
 import { mapProps } from 'recompose'
@@ -137,7 +137,7 @@ const DashboardContainer = (props: ContainerPropsType) => {
     navigateToCategory={createNavigateToCategory('Categories', dispatch, rest.navigation)}
     navigateToEvent={createNavigateToEvent(dispatch, rest.navigation)}
     navigateToNews={createNavigateToNews(dispatch, rest.navigation)}
-    navigateToIntegreatUrl={createNavigateToIntegreatUrl(dispatch, rest.navigation)}
+    navigateToInternalLink={createNavigateToInternalLink(dispatch, rest.navigation)}
     navigateToDashboard={createNavigateToCategory('Dashboard', dispatch, rest.navigation)}
     navigateToOffers={createNavigateToOffers(dispatch, rest.navigation)} />
 }

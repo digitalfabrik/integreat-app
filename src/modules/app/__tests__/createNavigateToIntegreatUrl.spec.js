@@ -1,6 +1,6 @@
 // @flow
 
-import { createNavigateToIntegreatUrl } from '../createNavigateToIntegreatUrl'
+import { createNavigateToInternalLink } from '../createNavigateToInternalLink'
 
 const instantiate = () => {
   const mocks = {
@@ -9,8 +9,8 @@ const instantiate = () => {
     navigateToCategory: jest.fn(),
     navigateToDashboard: jest.fn()
   }
-  const navigateToIntegreatUrl = createNavigateToIntegreatUrl(mocks)
-  return { navigateToIntegreatUrl, mocks }
+  const navigateToInternalLink = createNavigateToInternalLink(mocks)
+  return { navigateToInternalLink, mocks }
 }
 
 const expectExactlyOneHit = (mocks: {
@@ -27,10 +27,10 @@ const expectExactlyOneHit = (mocks: {
   ]).toHaveLength(1)
 }
 
-describe('createNavigateToIntegreatUrl', () => {
+describe('createNavigateToInternalLink', () => {
   it('should ignore trailing and double slashes', () => {
-    const { navigateToIntegreatUrl, mocks } = instantiate()
-    navigateToIntegreatUrl({ url: 'https://integreat.app/augsburg/de//events/integrationskurs/', language: 'en' })
+    const { navigateToInternalLink, mocks } = instantiate()
+    navigateToInternalLink({ url: 'https://integreat.app/augsburg/de//events/integrationskurs/', language: 'en' })
 
     expect(mocks.navigateToEvent).toHaveBeenCalledWith({
       cityCode: 'augsburg',
@@ -41,16 +41,16 @@ describe('createNavigateToIntegreatUrl', () => {
   })
 
   it('should navigate to Landing', () => {
-    const { navigateToIntegreatUrl, mocks } = instantiate()
-    navigateToIntegreatUrl({ url: 'https://integreat.app', language: 'en' })
+    const { navigateToInternalLink, mocks } = instantiate()
+    navigateToInternalLink({ url: 'https://integreat.app', language: 'en' })
 
     expect(mocks.navigateToLanding).toHaveBeenCalled()
     expectExactlyOneHit(mocks)
   })
 
   it('should navigate to Dashboard with current language if url only contains city', () => {
-    const { navigateToIntegreatUrl, mocks } = instantiate()
-    navigateToIntegreatUrl({ url: 'https://integreat.app/augsburg', language: 'en' })
+    const { navigateToInternalLink, mocks } = instantiate()
+    navigateToInternalLink({ url: 'https://integreat.app/augsburg', language: 'en' })
 
     expect(mocks.navigateToDashboard).toHaveBeenCalledWith({
       cityCode: 'augsburg',
@@ -61,8 +61,8 @@ describe('createNavigateToIntegreatUrl', () => {
   })
 
   it('should navigate to Dashboard if url only contains city and language', () => {
-    const { navigateToIntegreatUrl, mocks } = instantiate()
-    navigateToIntegreatUrl({ url: 'https://integreat.app/augsburg/de', language: 'en' })
+    const { navigateToInternalLink, mocks } = instantiate()
+    navigateToInternalLink({ url: 'https://integreat.app/augsburg/de', language: 'en' })
 
     expect(mocks.navigateToDashboard).toHaveBeenCalledWith({
       cityCode: 'augsburg',
@@ -73,8 +73,8 @@ describe('createNavigateToIntegreatUrl', () => {
   })
 
   it('should navigate to Category if url only matches a subcategory', () => {
-    const { navigateToIntegreatUrl, mocks } = instantiate()
-    navigateToIntegreatUrl({ url: 'https://integreat.app/augsburg/de/sub-category', language: 'en' })
+    const { navigateToInternalLink, mocks } = instantiate()
+    navigateToInternalLink({ url: 'https://integreat.app/augsburg/de/sub-category', language: 'en' })
 
     expect(mocks.navigateToCategory).toHaveBeenCalledWith({
       cityCode: 'augsburg',
@@ -85,8 +85,8 @@ describe('createNavigateToIntegreatUrl', () => {
   })
 
   it('should navigate to events', () => {
-    const { navigateToIntegreatUrl, mocks } = instantiate()
-    navigateToIntegreatUrl({ url: 'https://integreat.app/augsburg/de/events', language: 'en' })
+    const { navigateToInternalLink, mocks } = instantiate()
+    navigateToInternalLink({ url: 'https://integreat.app/augsburg/de/events', language: 'en' })
 
     expect(mocks.navigateToEvent).toHaveBeenCalledWith({
       cityCode: 'augsburg',
@@ -97,8 +97,8 @@ describe('createNavigateToIntegreatUrl', () => {
   })
 
   it('should navigate to a special event', () => {
-    const { navigateToIntegreatUrl, mocks } = instantiate()
-    navigateToIntegreatUrl({ url: 'https://integreat.app/augsburg/de/events/integrationskurs', language: 'en' })
+    const { navigateToInternalLink, mocks } = instantiate()
+    navigateToInternalLink({ url: 'https://integreat.app/augsburg/de/events/integrationskurs', language: 'en' })
 
     expect(mocks.navigateToEvent).toHaveBeenCalledWith({
       cityCode: 'augsburg',
