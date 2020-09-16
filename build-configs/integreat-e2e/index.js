@@ -11,6 +11,7 @@ const IntegreatE2eBuildConfig: BuildConfigType = {
   featureFlags: {
     pois: true,
     newsStream: true,
+    pushNotifications: false,
     introSlides: false,
     sentry: false
   },
