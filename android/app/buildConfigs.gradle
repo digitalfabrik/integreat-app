@@ -1,7 +1,11 @@
 import groovy.json.JsonSlurper
 
 def isWindows() {
-    System.properties['os.name'].toLowerCase().contains('windows') ? "true" : "false"
+    System.properties['os.name'].toLowerCase().contains('windows')
+}
+
+def execCommand(command) {
+    isWindows() ? ["cmd", "/c", command] : command
 }
 
 def determineBuildConfigName() {
@@ -13,17 +17,12 @@ def determineBuildConfigName() {
     }
 }
 
+
 def createBuildConfig(buildConfigName) {
     logger.quiet("Using build config $buildConfigName")
 
-    def command
-    def baseCommand = "yarn --silent babel-node tools/build-config to-json $buildConfigName"
-    if (isWindows() == "true") {
-        command = ["cmd", "/c", baseCommand]
-    } else {
-        command = baseCommand
-    }
-    def proc = command.execute()
+    def command = "yarn --silent babel-node tools/build-config to-json $buildConfigName"
+    def proc = execCommand(command).execute()
     proc.waitFor()
 
     if (proc.exitValue() != 0) {
@@ -58,14 +57,9 @@ def setupGoogleServices(buildConfig, resValue) {
 }
 
 def setupResourceValues(buildConfigName, resValue) {
-    def command
-    def baseCommand = "yarn --silent babel-node tools/build-config to-xcconfig $buildConfigName"
-    if (isWindows() == "true") {
-        command = ["cmd", "/c", baseCommand]
-    } else {
-        command = baseCommand
-    }
-    def proc = command.execute()
+
+    def command = "yarn --silent babel-node tools/build-config to-xcconfig $buildConfigName"
+    def proc = execCommand(command).execute()
     proc.waitFor()
 
     if (proc.exitValue() != 0) {
