@@ -13,6 +13,15 @@ const IntegreatTestCmsBuildConfig: BuildConfigType = {
     pois: true,
     newsStream: true,
     introSlides: true
+  },
+  android: {
+    applicationId: 'tuerantuer.app.integreat',
+    googleServices: null
+  },
+  ios: {
+    bundleIdentifier: 'de.integreat-app',
+    provisioningProfileSpecifier: 'match Development de.integreat-app',
+    googleServices: null
   }
 }
 

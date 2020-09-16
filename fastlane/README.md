@@ -12,17 +12,9 @@ Install _fastlane_ using
 ```
 [sudo] gem install fastlane -NV
 ```
-or alternatively using `brew cask install fastlane`
+or alternatively using `brew install fastlane`
 
 # Available Actions
-### github_bump_version
-```
-fastlane github_bump_version
-```
-Bump version and commit the new version in the GitHub repository
-
-----
-
 ## Android
 ### android browserstack_upload_live
 ```
@@ -43,12 +35,7 @@ Upload the JavaScript source map to Sentry
 ```
 fastlane android playstore_upload
 ```
-Deliver the app to Play Store. Depending on the option `production` the update is released to the general public.
-### android notify_release
-```
-fastlane android notify_release
-```
-Send a success notification
+Deliver the app to Play Store. Depending on the option `production_delivery` the update is released to the general public.
 
 ----
 
@@ -78,11 +65,6 @@ Deliver the app to App Store Connect. The app is submitted for review and releas
 fastlane ios testflight_upload
 ```
 Deliver the app to TestFlight for testers
-### ios notify_release
-```
-fastlane ios notify_release
-```
-Notify a the Slack channel #app about a release
 
 ----
 

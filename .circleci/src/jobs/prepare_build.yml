@@ -40,3 +40,4 @@ steps:
       root: ./
       paths:
         - environment_variables
+  - notify_failed

@@ -12,6 +12,15 @@ const IntegreatE2eBuildConfig: BuildConfigType = {
     pois: true,
     newsStream: true,
     introSlides: false
+  },
+  android: {
+    applicationId: 'tuerantuer.app.integreat',
+    googleServices: null
+  },
+  ios: {
+    bundleIdentifier: 'de.integreat-app',
+    provisioningProfileSpecifier: 'match Development de.integreat-app',
+    googleServices: null
   }
 }
 

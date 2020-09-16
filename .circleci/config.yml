@@ -30,6 +30,16 @@ commands:
             - run:
                 command: circleci config validate
                 name: Validate circle config
+    notify_failed:
+        description: Notifies about jobs which have failed
+        steps:
+            - slack/status:
+                fail_only: true
+                failure_message: ':fire: The $CIRCLE_JOB job has failed on the main branch! :fire:'
+                include_job_number_field: false
+                mentions: maxammann,st,UUZS7CMV0,UV99P8ETW
+                only_for_branches: main
+                webhook: ${SLACK_URL}
     restore_environment_variables:
         description: Sets the environment variables specified in the file 'environment_variables'. Make sure the file is persisted and has been attached.
         steps:
@@ -150,6 +160,7 @@ jobs:
                     - malte.apk
                     - integreat-e2e.apk
                 root: android/output/apk
+            - notify_failed
     build_ios:
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
@@ -246,6 +257,7 @@ jobs:
                     - malte.ipa
                     - integreat-e2e.ipa
                 root: ios/output/gym/
+            - notify_failed
     deliver_android:
         docker:
             - image: circleci/android:api-28-node
@@ -273,18 +285,33 @@ jobs:
                 key: 2-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
                 paths:
                     - vendor/bundle
+            - restore_cache:
+                keys:
+                    - 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+                    - 3-yarn-{{ arch }}-
+                name: Restore Yarn Package Cache
+            - run:
+                command: yarn install --frozen-lockfile
+                name: Install Dependencies
+            - save_cache:
+                key: 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+                name: Save Yarn Package Cache
+                paths:
+                    - ~/.cache/yarn
+                    - node_modules
             - run:
                 command: bundle exec fastlane android browserstack_upload_live app_name:integreat
                 name: '[FL] Browserstack Upload Live'
             - run:
-                command: bundle exec fastlane android playstore_upload app_name:integreat production_delivery:"<< parameters.production_delivery >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
+                command: bundle exec fastlane android playstore_upload app_name:integreat production_delivery:"<< parameters.production_delivery >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}  build_config_name:integreat
                 name: '[FL] Play Store Upload'
             - run:
-                command: bundle exec fastlane android sentry_upload app_name:integreat version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
+                command: bundle exec fastlane android sentry_upload app_name:integreat version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat
                 name: '[FL] Upload to Sentry'
             - slack/notify:
                 message: Integreat ${NEW_VERSION_NAME} has been released successfully on Android!
                 webhook: ${SLACK_URL}
+            - notify_failed
     deliver_ios:
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
@@ -311,6 +338,20 @@ jobs:
                 key: 2-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
                 paths:
                     - vendor/bundle
+            - restore_cache:
+                keys:
+                    - 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+                    - 3-yarn-{{ arch }}-
+                name: Restore Yarn Package Cache
+            - run:
+                command: yarn install --frozen-lockfile
+                name: Install Dependencies
+            - save_cache:
+                key: 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+                name: Save Yarn Package Cache
+                paths:
+                    - ~/.cache/yarn
+                    - node_modules
             - run:
                 command: bundle exec fastlane ios browserstack_upload_live app_name:integreat
                 name: '[FL] Browserstack Upload Live'
@@ -327,11 +368,12 @@ jobs:
                         command: bundle exec fastlane ios testflight_upload app_name:integreat version_name:${NEW_VERSION_NAME}
                         name: '[FL] TestFlight Upload'
             - run:
-                command: bundle exec fastlane ios sentry_upload app_name:integreat version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
+                command: bundle exec fastlane ios sentry_upload app_name:integreat version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}  build_config_name:integreat
                 name: '[FL] Upload to Sentry'
             - slack/notify:
                 message: Integreat ${NEW_VERSION_NAME} has been released successfully on iOS!
                 webhook: ${SLACK_URL}
+            - notify_failed
     e2e:
         docker:
             - image: circleci/android:api-28-node
@@ -373,6 +415,7 @@ jobs:
             - run:
                 command: bundle exec fastlane ios browserstack_e2e_tests app_name:integreat-e2e
                 name: '[FL] iOS E2E Tests on Browserstack'
+            - notify_failed
     prepare_build:
         docker:
             - image: circleci/node:12.16.3
@@ -416,6 +459,7 @@ jobs:
                 paths:
                     - environment_variables
                 root: ./
+            - notify_failed
     prepare_delivery:
         docker:
             - image: circleci/node:12.16.3
@@ -465,8 +509,9 @@ jobs:
                         command: tools/move-release-notes move-to ${NEW_VERSION_NAME} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH} --commit-sha ${CIRCLE_SHA1}
                         name: Move release notes
             - run:
-                command: tools/bump-version bump-to ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH} --release-notes "${tools/parse-release-notes parse --ios --android}" <<# parameters.production_delivery >> --development-release <</ parameters.production_delivery >>
+                command: tools/bump-version bump-to ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH} --release-notes "$(tools/parse-release-notes parse --ios --android --language en)" <<# parameters.production_delivery >> --development-release <</ parameters.production_delivery >>
                 name: Bump version
+            - notify_failed
 orbs:
     slack: circleci/slack@3.4.2
 parameters:
