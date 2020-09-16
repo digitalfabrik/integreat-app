@@ -70,7 +70,7 @@ const createSettingsSections = ({ setSetting, t, languageCode, cityCode }: Creat
           onPress: () => {
             setSetting(
               settings => ({ errorTracking: !settings.errorTracking }),
-              newSettings => {
+              async newSettings => {
                 if (newSettings.errorTracking && !Sentry.getCurrentHub().getClient()) {
                   initSentry()
                 } else {
