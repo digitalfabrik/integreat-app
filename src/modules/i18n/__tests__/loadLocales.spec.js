@@ -2,27 +2,22 @@
 
 import loadLocales from '../loadLocales'
 import malteOverrideLocales from '../__mocks__/malte-locales.json'
+import buildConfig from '../../app/constants/buildConfig'
 
 jest.mock(
   '../../../../locales/locales.json',
-  () => require('../__mocks__/locales.json'),
-  { virtual: true }
+  () => require('../__mocks__/locales.json')
 )
-
-let mockBuildConfig
-jest.mock('../../app/constants/buildConfig', () => {
-  mockBuildConfig = jest.fn()
-  return mockBuildConfig
-})
+jest.mock('../../app/constants/buildConfig')
 
 describe('loadLocales', () => {
   it('should correctly transform locales', () => {
-    mockBuildConfig.mockImplementation(() => ({}))
     expect(loadLocales()).toMatchSnapshot()
   })
 
   it('should correctly merge and transform locales', () => {
-    mockBuildConfig.mockImplementation(() => ({ localesOverride: malteOverrideLocales }))
+    const previousBuildConfig = buildConfig()
+    buildConfig.mockImplementation(() => ({ ...previousBuildConfig, localesOverride: malteOverrideLocales }))
     expect(loadLocales()).toMatchSnapshot()
   })
 })
