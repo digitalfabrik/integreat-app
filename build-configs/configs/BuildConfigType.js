@@ -2,6 +2,8 @@
 
 import type { ThemeType } from '../themes/ThemeType'
 
+export type LocalesType = { [namespace: string]: { [language: string]: { [key: string]: string } } }
+
 export type FeatureFlagsType = {|
   pois: boolean,
   newsStream: boolean,
@@ -43,21 +45,26 @@ type iOSGoogleServicesConfig = {|
 
 export type BuildConfigType = {|
   appName: string,
+  appIcon: string,
   cmsUrl: string,
   switchCmsUrl?: string,
   shareBaseUrl: string,
   allowedHostNames: Array<string>,
+  internalLinksHijackPattern: string,
   featureFlags: FeatureFlagsType,
   lightTheme: ThemeType,
   darkTheme: ThemeType,
+  localesOverride?: LocalesType,
   iconSet: string,
   development: boolean,
   e2e?: boolean,
   android: {|
+    splashScreen: boolean,
     applicationId: string,
     googleServices: ?AndroidGoogleServicesConfig
   |},
   ios: {|
+    launchScreen: string,
     bundleIdentifier: string,
     provisioningProfileSpecifier: string,
     googleServices: ?iOSGoogleServicesConfig
