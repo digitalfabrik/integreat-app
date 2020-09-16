@@ -12,13 +12,16 @@ const IntegreatTestCmsBuildConfig: BuildConfigType = {
   featureFlags: {
     pois: true,
     newsStream: true,
-    introSlides: true
+    introSlides: true,
+    sentry: false
   },
   android: {
+    ...IntegreatBuildConfig.android,
     applicationId: 'tuerantuer.app.integreat',
     googleServices: null
   },
   ios: {
+    ...IntegreatBuildConfig.ios,
     bundleIdentifier: 'de.integreat-app',
     provisioningProfileSpecifier: 'match Development de.integreat-app',
     googleServices: null
