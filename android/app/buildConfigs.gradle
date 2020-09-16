@@ -18,7 +18,6 @@ def determineBuildConfigName() {
     }
 }
 
-
 def createBuildConfig(buildConfigName) {
     logger.quiet("Using build config $buildConfigName")
 
