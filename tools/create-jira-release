@@ -4,7 +4,7 @@ const { program } = require('commander')
 const fetch = require('node-fetch')
 const OAuth = require('oauth').OAuth
 
-const JIRA_URL = 'https://issues.integreat-app.de'
+const JIRA_URL = 'https://issues.tuerantuer.org'
 
 program
   .option('-d, --debug', 'enable extreme logging')
