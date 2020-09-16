@@ -4,4 +4,4 @@ platforms:
   - ios
   - android
 en: Error reports were not sent corrently. This is fixed now.
-de: Autoamtische Fehlerberichte haben nicht funktioniert. Dies ist nun behoben.
+de: Automatische Fehlerberichte haben nicht funktioniert. Dies ist nun behoben.
