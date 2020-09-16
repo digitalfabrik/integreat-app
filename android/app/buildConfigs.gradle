@@ -66,15 +66,14 @@ def setupResourceValues(buildConfigName, resValue) {
         command = baseCommand
     }
     def proc = command.execute()
-    def xcconfig = proc.in.text
-    // the waitFor doesn't fit on Windows OS here
-    // proc.waitFor()
+    proc.waitFor()
 
     if (proc.exitValue() != 0) {
         println("Failed to get xcconfig file: $proc.err.text")
         return
     }
     def buildConfigProperties = new Properties()
+    def xcconfig = proc.in.text
     logger.quiet("Build Config as XCConfig: $xcconfig")
     buildConfigProperties.load(new StringReader(xcconfig))
 
