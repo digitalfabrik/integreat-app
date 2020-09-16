@@ -17,6 +17,7 @@ describe('loadLocales', () => {
 
   it('should correctly merge and transform locales', () => {
     const previousBuildConfig = buildConfig()
+    // $FlowFixMe flow is not aware that buildConfig is a mock funciton
     buildConfig.mockImplementation(() => ({ ...previousBuildConfig, localesOverride: malteOverrideLocales }))
     expect(loadLocales()).toMatchSnapshot()
   })
