@@ -44,14 +44,16 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 
   // prevent re-rendering when city is there.
   const cities = state.cities.models || []
-  const cityCode = state.cityContent?.city
+  const stateCityCode = state.cityContent?.city
   const categoriesAvailable = state.cityContent?.searchRoute !== null
+
+  const routeCityModel = route ? cities.find(city => city.code === route.city) : undefined
 
   if (!route || route.status !== 'ready' || state.cities.status !== 'ready' || !state.cityContent ||
     !languages || languages.status !== 'ready') {
     // Route does not exist yet. In this case it is not really defined whether we are peek or not because
     // we do not yet know the city of the route.
-    return { language: state.contentLanguage, peeking: false, categoriesAvailable: false }
+    return { language: state.contentLanguage, routeCityModel, peeking: false, categoriesAvailable: false }
   }
 
   const goToLanguageChange = () => {
@@ -60,13 +62,12 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       params: {
         currentLanguage: route.language,
         languages: languages.models,
-        cityCode,
+        cityCode: stateCityCode,
         availableLanguages: Array.from(route.allAvailableLanguages.keys())
       }
     })
   }
   const peeking = isPeekingRoute(state, { routeCity: route.city })
-  const routeCityModel = cities.find(city => city.code === route.city)
 
   return { peeking, routeCityModel, language: route.language, goToLanguageChange, categoriesAvailable }
 }
