@@ -14,10 +14,12 @@ const IntegreatE2eBuildConfig: BuildConfigType = {
     introSlides: false
   },
   android: {
+    ...IntegreatTestCmsBuildConfig.android,
     applicationId: 'tuerantuer.app.integreat',
     googleServices: null
   },
   ios: {
+    ...IntegreatTestCmsBuildConfig.ios,
     bundleIdentifier: 'de.integreat-app',
     provisioningProfileSpecifier: 'match Development de.integreat-app',
     googleServices: null

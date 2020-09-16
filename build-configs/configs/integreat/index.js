@@ -7,6 +7,7 @@ export const INTEGREAT_ICONS = 'INTEGREAT'
 
 const IntegreatBuildConfig: BuildConfigType = {
   appName: 'Integreat',
+  appIcon: 'app_icon_integreat',
   lightTheme,
   darkTheme,
   iconSet: INTEGREAT_ICONS,
@@ -14,12 +15,14 @@ const IntegreatBuildConfig: BuildConfigType = {
   switchCmsUrl: 'https://cms-test.integreat-app.de',
   shareBaseUrl: 'https://integreat.app',
   allowedHostNames: ['cms.integreat-app.de', 'cms-test.integreat-app.de'],
+  internalLinksHijackPattern: 'https?:\\/\\/(cms(-test)?\\.integreat-app\\.de|web\\.integreat-app\\.de|integreat\\.app)(?!\\/[^/]*\\/(wp-content|wp-admin|wp-json)\\/.*).*',
   featureFlags: {
     pois: false,
     newsStream: false,
     introSlides: true
   },
   android: {
+    splashScreen: true,
     applicationId: 'tuerantuer.app.integreat',
     googleServices: {
       googleAppId: '1:164298278764:android:3fc1f67f3883df306fd549',
@@ -51,7 +54,8 @@ const IntegreatBuildConfig: BuildConfigType = {
       isSigninEnabled: true,
       googleAppId: '1:164298278764:ios:2a69672da4d117116fd549',
       databaseUrl: 'https://integreat-2020.firebaseio.com'
-    }
+    },
+    launchScreen: 'LaunchScreenIntegreat'
   }
 }
 
