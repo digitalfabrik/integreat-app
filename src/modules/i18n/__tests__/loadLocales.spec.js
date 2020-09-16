@@ -8,7 +8,6 @@ jest.mock(
   '../../../../locales/locales.json',
   () => require('../__mocks__/locales.json')
 )
-jest.mock('../../app/constants/buildConfig')
 
 describe('loadLocales', () => {
   it('should correctly transform locales', () => {
