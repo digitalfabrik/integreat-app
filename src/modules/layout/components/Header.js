@@ -11,7 +11,8 @@ import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { TFunction } from 'react-i18next'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import MaterialHeaderButtons from './MaterialHeaderButtons'
-import { buildConfigIconSet } from '../../app/constants/buildConfig'
+import buildConfig, { buildConfigIconSet } from '../../app/constants/buildConfig'
+import Url from 'url-parse'
 
 const Horizontal = styled.View`
   flex: 1;
@@ -98,9 +99,10 @@ class Header extends React.PureComponent<PropsType> {
   onShare = async () => {
     const { navigation, t } = this.props
     const sharePath: string = navigation.getParam('sharePath')
-    const url = `https://integreat.app${sharePath}`
+    const shareBaseUrl = new Url(buildConfig().shareBaseUrl)
+    shareBaseUrl.set('pathname', sharePath)
     const message = t('shareMessage', {
-      message: url,
+      message: shareBaseUrl.href,
       interpolation: { escapeValue: false }
     })
 
