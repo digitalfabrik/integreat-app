@@ -5,7 +5,7 @@ import TestRenderer from 'react-test-renderer'
 import configureMockStore from 'redux-mock-store'
 import CityModelBuilder from '../../../../testing/builder/CityModelBuilder'
 import LanguageModelBuilder from '../../../../testing/builder/LanguageModelBuilder'
-import createNavigationScreenPropMock from '../../../../modules/test-utils/createNavigationScreenPropMock'
+import createNavigationScreenPropMock from '../../../../testing/createNavigationScreenPropMock'
 import LocalNewsModelBuilder from '../../../../testing/builder/NewsModelBuilder'
 import type {
   NewsRouteStateType,
@@ -114,6 +114,7 @@ describe('News', () => {
     const store = mockStore(state)
     const navigation = createNavigationScreenPropMock()
     navigation.state.key = 'route-id-0'
+    navigation.setParams('onRouteClose', () => {})
     jest.mock('../../components/NewsList', () => MockNewsList)
     const NewsContainer = require('../NewsContainer').default
 

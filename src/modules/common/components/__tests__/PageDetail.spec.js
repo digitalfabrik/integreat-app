@@ -13,45 +13,53 @@ describe('PageDetail', () => {
       <PageDetail identifier='Test Identifier' information='Some important information' theme={lightTheme}
                   language='de' />
     )
-    expect(queryByText('Test Identifier', { exact: false })).toBeTruthy()
-    expect(queryByText('Some important information', { exact: false })).toBeTruthy()
+    expect(queryByText(/Test Identifier/)).toBeTruthy()
+    expect(queryByText(/Some important information/)).toBeTruthy()
   })
 
   describe('should manually reverse if content language doesnt have the same direction as system language', () => {
     it('if system language is not rtl', () => {
       I18nManager.forceRTL(false)
 
-      const { container } = render(
+      const { queryAllByText } = render(
         <PageDetail identifier='Test Identifier' information='Some important information' theme={lightTheme}
                     language='de' />
       )
 
-      expectToHaveForwardDirection(container)
+      queryAllByText(/Some important information/).forEach(element => {
+        expect(element).toHaveStyle({ flexDirection: 'row' })
+      })
 
-      const { container: arabicContainer } = render(
+      const { queryAllByText: queryAllByTextReverse } = render(
         <PageDetail identifier='Test Identifier' information='Some important information' theme={lightTheme}
                     language='ar' />
       )
 
-      expectToHaveReverseDirection(arabicContainer)
+      queryAllByTextReverse(/Some important information/).forEach(element => {
+        expect(element).toHaveStyle({ flexDirection: 'row-reverse' })
+      })
     })
 
     it('if system language is rtl', () => {
       I18nManager.forceRTL(true)
 
-      const { container } = render(
+      const { queryAllByText: queryAllByTextReverse } = render(
         <PageDetail identifier='Test Identifier' information='Some important information' theme={lightTheme}
                     language='de' />
       )
 
-      expectToHaveReverseDirection(container)
+      queryAllByTextReverse(/Some important information/).forEach(element => {
+        expect(element).toHaveStyle({ flexDirection: 'row-reverse' })
+      })
 
-      const { container: arabicContainer } = render(
+      const { queryAllByText } = render(
         <PageDetail identifier='Test Identifier' information='Some important information' theme={lightTheme}
                     language='ar' />
       )
 
-      expectToHaveForwardDirection(arabicContainer)
+      queryAllByText(/Some important information/).forEach(element => {
+        expect(element).toHaveStyle({ flexDirection: 'row' })
+      })
     })
   })
 })
