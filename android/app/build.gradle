@@ -140,6 +140,8 @@ android {
             String type, String name, String value -> resValue(type, name, value)
         })
 
+        manifestPlaceholders = [*:determineTheme(buildConfig)]
+
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         if (project.hasProperty('VERSION_CODE')) {

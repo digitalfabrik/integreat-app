@@ -20,7 +20,8 @@ const MalteBuildConfig: BuildConfigType = {
     introSlides: true
   },
   android: {
-    applicationId: 'tuerantuer.app.integreat',
+    splashScreen: false,
+    applicationId: 'de.malteapp',
     googleServices: {
       googleAppId: '1:146599424234:android:b110d70b79ff7ce351a793',
       gcmDefaultSenderId: '146599424234',
@@ -51,7 +52,8 @@ const MalteBuildConfig: BuildConfigType = {
       isAppInviteEnabled: true,
       isGCMEnabled: true,
       isSigninEnabled: true
-    }
+    },
+    launchScreen: 'LaunchScreenDefault'
   }
 }
 
