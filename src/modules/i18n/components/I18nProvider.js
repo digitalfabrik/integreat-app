@@ -3,16 +3,13 @@
 import i18n from 'i18next'
 import * as React from 'react'
 import { I18nextProvider, initReactI18next } from 'react-i18next'
-import { forEach, reduce } from 'lodash/collection'
-
-import localesResources from '../../../../locales/locales.json'
+import loadLocales from '../loadLocales'
 import LanguageDetector from '../LanguageDetector'
 import MomentContext, { createMomentFormatter } from '../context/MomentContext'
 import AppSettings from '../../settings/AppSettings'
 import { Text } from 'react-native'
 import buildConfig from '../../app/constants/buildConfig'
 
-export const RTL_LANGUAGES = ['ar', 'fa']
 export const DEFAULT_LANGUAGE = 'de'
 const FALLBACK_LANGUAGES = [DEFAULT_LANGUAGE]
 
@@ -39,32 +36,6 @@ class I18nProvider extends React.Component<PropsType, StateType> {
     this.appSettings = new AppSettings()
   }
 
-  /**
-   * Transform locale resources to the structure: languageCode -> namespace -> key:value
-   * And not: namespace -> languageCode -> key:value
-   * @param {object} resources
-   * @returns {object} transformed resources that can be supplied to i18next instance
-   */
-  static transformResources (resources: {
-    [namespace: string]: { [language: string]: { [key: string]: string } }
-  }): {
-    [language: string]: { [namespace: string]: { [key: string]: string } }
-  } {
-    return reduce(
-      resources,
-      (accumulator, namespace, namespaceName) => {
-        forEach(namespace, (language, languageCode) => {
-          accumulator[languageCode] = {
-            ...accumulator[languageCode],
-            [namespaceName]: language
-          }
-        })
-        return accumulator
-      },
-      {}
-    )
-  }
-
   getI18nextLanguage = (): string => {
     if (this.i18n.languages && this.i18n.languages.length > 0) {
       return this.i18n.languages[0]
@@ -75,7 +46,7 @@ class I18nProvider extends React.Component<PropsType, StateType> {
 
   initI18n = async () => {
     try {
-      const i18nextResources = I18nProvider.transformResources(localesResources)
+      const i18nextResources = loadLocales()
       await this.i18n
         .use(LanguageDetector)
         .use(initReactI18next)
