@@ -16,7 +16,7 @@ import malteIntroOffersIcon from '../../../../build-configs/malte/assets/Offers.
 import malteIntroSearchIcon from '../../../../build-configs/malte/assets/Search.svg'
 import { INTEGREAT_ASSETS, MALTE_ASSETS } from '../../../../build-configs/AssetsType'
 
-type IconSetType = {|
+type AssetsType = {|
   appLogo: string,
   locationMarker: string,
   intro: {
@@ -27,9 +27,9 @@ type IconSetType = {|
   }
 |}
 
-export const buildConfigIconSet = (): IconSetType => {
-  const iconSetString = buildConfig().assets
-  if (iconSetString === INTEGREAT_ASSETS) {
+export const buildConfigAssets = (): AssetsType => {
+  const assetsName = buildConfig().assets
+  if (assetsName === INTEGREAT_ASSETS) {
     return {
       appLogo: integreatAppLogo,
       locationMarker: integreatLocationMarker,
@@ -40,7 +40,7 @@ export const buildConfigIconSet = (): IconSetType => {
         search: integreatIntroSearchIcon
       }
     }
-  } else if (iconSetString === MALTE_ASSETS) {
+  } else if (assetsName === MALTE_ASSETS) {
     return {
       appLogo: malteAppLogo,
       locationMarker: malteLocationMarker,
@@ -52,7 +52,7 @@ export const buildConfigIconSet = (): IconSetType => {
       }
     }
   }
-  throw new Error(`Unknown icon set ${iconSetString}. Check your build config!`)
+  throw new Error(`Unknown icon set ${assetsName}. Check your build config!`)
 }
 
 const buildConfig = (): BuildConfigType => loadBuildConfig(process.env.BUILD_CONFIG_NAME)

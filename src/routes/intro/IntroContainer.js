@@ -18,7 +18,7 @@ import IntroSettings from './IntroSettings'
 import type { StateType as ReduxStateType } from '../../modules/app/StateType'
 import { connect } from 'react-redux'
 import { requestLocationPermission, requestPushNotificationPermission } from '../../modules/app/Permissions'
-import buildConfig, { buildConfigIconSet } from '../../modules/app/constants/buildConfig'
+import buildConfig, { buildConfigAssets } from '../../modules/app/constants/buildConfig'
 
 const Container: StyledComponent<{ width: number }, {}, *> = styled.View`
   display: flex;
@@ -90,11 +90,11 @@ class Intro extends React.Component<PropsType, StateType> {
     )
   }
 
-  renderAppLogo = () => (): React.Node => <AppLogo source={buildConfigIconSet().appLogo} />
+  renderAppLogo = () => (): React.Node => <AppLogo source={buildConfigAssets().appLogo} />
   renderImageContent = (image: string) => (): React.Node => <ImageContent source={image} />
 
   slides = (): Array<SlideContentType> => {
-    const icons = buildConfigIconSet().intro
+    const icons = buildConfigAssets().intro
 
     const { t } = this.props
     return [{
