@@ -86,6 +86,7 @@ export default class Settings extends React.Component<PropsType, StateType> {
           }
           await this.appSettings.setSettings(newSettings)
         } catch (e) {
+          console.error(e)
           console.error('Failed to persist settings.')
         }
       }

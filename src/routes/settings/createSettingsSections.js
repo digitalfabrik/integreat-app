@@ -6,7 +6,9 @@ import NativeConstants from '../../modules/native-constants/NativeConstants'
 import type { SettingsType } from '../../modules/settings/AppSettings'
 import openPrivacyPolicy from './openPrivacyPolicy'
 import buildConfig from '../../modules/app/constants/buildConfig'
+import * as Sentry from '@sentry/react-native'
 import * as NotificationsManager from '../../modules/notifications/NotificationsManager'
+import initSentry from '../../modules/app/initSentry'
 
 export type SetSettingFunctionType = (
   changeSetting: (settings: SettingsType) => $Shape<SettingsType>,
@@ -65,7 +67,18 @@ const createSettingsSections = ({ setSetting, t, languageCode, cityCode }: Creat
           description: t('sentryDescription', { appName: buildConfig().appName }),
           hasSwitch: true,
           getSettingValue: (settings: SettingsType) => settings.errorTracking,
-          onPress: () => { setSetting(settings => ({ errorTracking: !settings.errorTracking })) }
+          onPress: () => {
+            setSetting(
+              settings => ({ errorTracking: !settings.errorTracking }),
+              newSettings => {
+                if (newSettings.errorTracking && !Sentry.getCurrentHub().getClient()) {
+                  initSentry()
+                } else {
+                  Sentry.getCurrentHub().getClient().getOptions().enabled = newSettings.errorTracking
+                }
+              }
+            )
+          }
         },
         {
           accessibilityRole: 'link',
