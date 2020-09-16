@@ -7,6 +7,7 @@ export type LocalesType = { [namespace: string]: { [language: string]: { [key: s
 export type FeatureFlagsType = {|
   pois: boolean,
   newsStream: boolean,
+  pushNotifications: boolean,
   introSlides: boolean,
   sentry: boolean
 |}

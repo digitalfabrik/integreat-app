@@ -171,7 +171,7 @@ class Intro extends React.Component<PropsType, StateType> {
         await requestLocationPermission()
       }
 
-      if (allowPushNotifications) {
+      if (allowPushNotifications && buildConfig().featureFlags.pushNotifications) {
         await requestPushNotificationPermission()
       }
     } catch (e) {

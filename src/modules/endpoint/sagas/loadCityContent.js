@@ -38,7 +38,9 @@ export default function * loadCityContent (
 
   if (!criterion.peeking()) {
     const appSettings = new AppSettings()
-    yield call(() => NotificationsManager.subscribeNews(newCity, newLanguage))
+    if (buildConfig().featureFlags.pushNotifications) {
+      yield call(NotificationsManager.subscribeNews, newCity, newLanguage)
+    }
 
     yield call(appSettings.setSelectedCity, newCity)
   }

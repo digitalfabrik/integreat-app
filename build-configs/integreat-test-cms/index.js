@@ -12,6 +12,7 @@ const IntegreatTestCmsBuildConfig: BuildConfigType = {
   featureFlags: {
     pois: true,
     newsStream: true,
+    pushNotifications: false,
     introSlides: true,
     sentry: false
   },
