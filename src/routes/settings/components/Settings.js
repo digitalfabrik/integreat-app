@@ -15,8 +15,8 @@ import type { SectionBase } from 'react-native/Libraries/Lists/SectionList'
 
 type PropsType = {|
   theme: ThemeType,
-  language: string,
-  city: ?string,
+  languageCode: string,
+  cityCode: ?string,
   t: TFunction,
   navigation: NavigationScreenProp<*>,
   dispatch: () => {}
@@ -120,7 +120,7 @@ export default class Settings extends React.Component<PropsType, StateType> {
   ThemedItemSeparator = () => <ItemSeparator theme={this.props.theme} />
 
   render () {
-    const { t, language, city } = this.props
+    const { t, languageCode, cityCode } = this.props
     const { settings, settingsLoaded } = this.state
 
     if (!settingsLoaded) {
@@ -129,7 +129,7 @@ export default class Settings extends React.Component<PropsType, StateType> {
 
     return <SectionList
         keyExtractor={this.keyExtractor}
-        sections={createSettingsSections({ setSetting: this.setSetting, t, language, city })}
+        sections={createSettingsSections({ setSetting: this.setSetting, t, languageCode, cityCode })}
         extraData={settings}
         renderItem={this.renderItem}
         renderSectionHeader={this.renderSectionHeader}
