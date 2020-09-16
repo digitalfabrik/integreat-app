@@ -40,7 +40,7 @@ describe('Categories', () => {
     )
     const result = TestRenderer.create(
       <Categories cities={cities} language={languages[0].code} stateView={stateView} cityCode={cities[0].code}
-                  navigateToCategory={() => {}} navigateToIntegreatUrl={() => {}} navigation={navigation}
+                  navigateToCategory={() => {}} navigateToInternalLink={() => {}} navigation={navigation}
                   resourceCache={{ notAvailable: {} }} theme={lightTheme} t={key => key} />
     )
     const pageInstance = result.root.findByType(Page)
