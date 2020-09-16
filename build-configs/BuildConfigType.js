@@ -2,10 +2,13 @@
 
 import type { ThemeType } from './ThemeType'
 
+export type LocalesType = { [namespace: string]: { [language: string]: { [key: string]: string } } }
+
 export type FeatureFlagsType = {|
   pois: boolean,
   newsStream: boolean,
-  introSlides: boolean
+  introSlides: boolean,
+  sentry: boolean
 |}
 
 // These values can be retrieved from the google-services.json according to this guide:
@@ -42,21 +45,26 @@ type iOSGoogleServicesConfig = {|
 
 export type BuildConfigType = {|
   appName: string,
+  appIcon: string,
   cmsUrl: string,
   switchCmsUrl?: string,
   shareBaseUrl: string,
   allowedHostNames: Array<string>,
+  internalLinksHijackPattern: string,
   featureFlags: FeatureFlagsType,
   lightTheme: ThemeType,
   darkTheme: ThemeType,
+  localesOverride?: LocalesType,
   assets: string,
-  development?: boolean,
+  development: boolean,
   e2e?: boolean,
   android: {|
+    splashScreen: boolean,
     applicationId: string,
     googleServices: ?AndroidGoogleServicesConfig
   |},
   ios: {|
+    launchScreen: string,
     bundleIdentifier: string,
     provisioningProfileSpecifier: string,
     googleServices: ?iOSGoogleServicesConfig

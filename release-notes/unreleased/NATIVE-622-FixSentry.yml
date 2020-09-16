@@ -1,0 +1,7 @@
+issue_key: NATIVE-622
+show_in_stores: true
+platforms:
+  - ios
+  - android
+en: Error reports were not sent corrently. This is fixed now.
+de: Autoamtische Fehlerberichte haben nicht funktioniert. Dies ist nun behoben.
