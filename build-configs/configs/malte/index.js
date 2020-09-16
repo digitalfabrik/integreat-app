@@ -12,6 +12,7 @@ const MalteBuildConfig: BuildConfigType = {
   iconSet: MALTE_ICONS,
   cmsUrl: 'https://cms.malteapp.de',
   allowedHostNames: ['cms.malteapp.de'],
+  shareBaseUrl: 'https://malteapp.de',
   featureFlags: {
     pois: false,
     newsStream: false,
