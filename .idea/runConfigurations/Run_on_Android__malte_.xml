@@ -1,9 +1,9 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Start and reset packager" type="js.build_tools.npm" factoryName="npm">
+  <configuration default="false" name="Run on Android (malte)" type="js.build_tools.npm">
     <package-json value="$PROJECT_DIR$/package.json" />
     <command value="run" />
     <scripts>
-      <script value="start:reset" />
+      <script value="android:malte" />
     </scripts>
     <node-interpreter value="project" />
     <envs />

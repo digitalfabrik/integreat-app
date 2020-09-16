@@ -1,9 +1,9 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Start packager for Integreat" type="js.build_tools.npm">
+  <configuration default="false" name="Run on Android (integreat-test-cms)" type="js.build_tools.npm">
     <package-json value="$PROJECT_DIR$/package.json" />
     <command value="run" />
     <scripts>
-      <script value="start" />
+      <script value="android:integreat-test-cms" />
     </scripts>
     <node-interpreter value="project" />
     <envs />
