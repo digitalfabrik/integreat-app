@@ -13,6 +13,7 @@ const MalteBuildConfig: BuildConfigType = {
   cmsUrl: 'https://cms.malteapp.de',
   allowedHostNames: ['cms.malteapp.de'],
   internalLinksHijackPattern: 'https?:\\/\\/malteapp\\.de(?!\\/[^/]*\\/(wp-content|wp-admin|wp-json)\\/.*).*',
+  shareBaseUrl: 'https://malteapp.de',
   featureFlags: {
     pois: false,
     newsStream: false,
