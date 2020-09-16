@@ -6,7 +6,7 @@ import { type Dispatch } from 'redux'
 import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
 import type { StoreActionType, SwitchContentLanguageActionType } from '../../../modules/app/StoreActionType'
 import createNavigateToCategory from '../../../modules/app/createNavigateToCategory'
-import createNavigateToIntegreatUrl from '../../../modules/app/createNavigateToIntegreatUrl'
+import createNavigateToInternalLink from '../../../modules/app/createNavigateToInternalLink'
 import type { NavigationScreenProp } from 'react-navigation'
 import type { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
 import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvider'
@@ -127,7 +127,7 @@ class CategoriesContainer extends React.Component<ContainerPropsType> {
     return <ThemedTranslatedCategories
       {...rest}
       navigateToCategory={createNavigateToCategory('Categories', dispatch, rest.navigation)}
-      navigateToIntegreatUrl={createNavigateToIntegreatUrl(dispatch, rest.navigation)} />
+      navigateToInternalLink={createNavigateToInternalLink(dispatch, rest.navigation)} />
   }
 }
 
