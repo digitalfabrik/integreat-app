@@ -1,7 +1,7 @@
 // @flow
 
-import type { FontsType } from '../common/fonts'
-import { commonFonts } from '../common/fonts'
+import type { FontsType } from '../../common/fonts'
+import { commonFonts } from '../../common/fonts'
 
 const fonts: FontsType = {
   decorativeFontBold: 'Raleway-Bold',

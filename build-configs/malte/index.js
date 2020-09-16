@@ -1,18 +1,17 @@
 // @flow
 
-import { lightTheme, darkTheme } from '../../themes/malte'
+import { lightTheme, darkTheme } from './theme'
 import type { BuildConfigType } from '../BuildConfigType'
-import malteOverrideLocales from '../../../locales/override-locales/malte.json'
-
-export const MALTE_ICONS = 'MALTE'
+import { MALTE_ASSETS } from '../AssetsType'
+import malteOverrideLocales from '../../locales/override-locales/malte.json'
 
 const MalteBuildConfig: BuildConfigType = {
   appName: 'Malte',
   appIcon: 'app_icon_malte',
   lightTheme,
   darkTheme,
+  assets: MALTE_ASSETS,
   development: false,
-  iconSet: MALTE_ICONS,
   cmsUrl: 'https://cms.malteapp.de',
   allowedHostNames: ['cms.malteapp.de'],
   localesOverride: malteOverrideLocales,
