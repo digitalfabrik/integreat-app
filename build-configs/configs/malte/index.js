@@ -7,6 +7,7 @@ export const MALTE_ICONS = 'MALTE'
 
 const MalteBuildConfig: BuildConfigType = {
   appName: 'Malte',
+  appIcon: 'app_icon_malte',
   lightTheme,
   darkTheme,
   iconSet: MALTE_ICONS,

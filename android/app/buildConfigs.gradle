@@ -78,10 +78,15 @@ def determineTheme(buildConfig) {
     }
 }
 
+def determineIcon(buildConfig) {
+    return [icon: "${buildConfig.appIcon}"]
+}
+
 ext {
     determineBuildConfigName = this.&determineBuildConfigName
     createBuildConfig = this.&createBuildConfig
     setupGoogleServices = this.&setupGoogleServices
     setupResourceValues = this.&setupResourceValues
     determineTheme = this.&determineTheme
+    determineIcon = this.&determineIcon
 }
