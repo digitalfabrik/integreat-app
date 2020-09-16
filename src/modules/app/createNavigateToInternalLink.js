@@ -9,14 +9,14 @@ import type { StoreActionType } from './StoreActionType'
 import createNavigateToLanding from './createNavigateToLanding'
 import type { Dispatch } from 'redux'
 
-export type NavigateToIntegreatUrlParamsType = {| url: string, language: string |}
+export type NavigateToInternalLinkParamsType = {| url: string, language: string |}
 
-export const createNavigateToIntegreatUrl = ({ navigateToLanding, navigateToEvent, navigateToCategory, navigateToDashboard }: {
+export const createNavigateToInternalLink = ({ navigateToLanding, navigateToEvent, navigateToCategory, navigateToDashboard }: {
   navigateToLanding: () => void,
   navigateToEvent: NavigateToEventParamsType => void,
   navigateToCategory: NavigateToCategoryParamsType => void,
   navigateToDashboard: NavigateToCategoryParamsType => void
-}) => ({ url, language }: NavigateToIntegreatUrlParamsType) => {
+}) => ({ url, language }: NavigateToInternalLinkParamsType) => {
   const parts = url.split('/').filter(segment => segment)
   const pathnameParts = parts.splice(2)
   const newCity = pathnameParts[0]
@@ -44,5 +44,5 @@ export default (dispatch: Dispatch<StoreActionType>, navigation: NavigationScree
   const navigateToDashboard = createNavigateToCategory('Dashboard', dispatch, navigation)
   const navigateToEvent = createNavigateToEvent(dispatch, navigation)
   const navigateToLanding = createNavigateToLanding(dispatch, navigation)
-  return createNavigateToIntegreatUrl({ navigateToLanding, navigateToEvent, navigateToCategory, navigateToDashboard })
+  return createNavigateToInternalLink({ navigateToLanding, navigateToEvent, navigateToCategory, navigateToDashboard })
 }

@@ -46,6 +46,7 @@ export type BuildConfigType = {|
   switchCmsUrl?: string,
   shareBaseUrl: string,
   allowedHostNames: Array<string>,
+  internalLinksHijackPattern: string,
   featureFlags: FeatureFlagsType,
   lightTheme: ThemeType,
   darkTheme: ThemeType,

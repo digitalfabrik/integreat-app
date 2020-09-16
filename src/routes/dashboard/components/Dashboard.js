@@ -16,7 +16,7 @@ import newsIcon from '../assets/news.svg'
 import localInformationIcon from '../assets/local_information.svg'
 import type { TFunction } from 'react-i18next'
 import type { NavigateToCategoryParamsType } from '../../../modules/app/createNavigateToCategory'
-import type { NavigateToIntegreatUrlParamsType } from '../../../modules/app/createNavigateToIntegreatUrl'
+import type { NavigateToInternalLinkParamsType } from '../../../modules/app/createNavigateToInternalLink'
 import type { NavigateToEventParamsType } from '../../../modules/app/createNavigateToEvent'
 import type { NavigateToNewsParamsType } from '../../../modules/app/createNavigateToNews'
 import buildConfig from '../../../modules/app/constants/buildConfig'
@@ -32,7 +32,7 @@ export type PropsType = {|
   navigateToPoi: NavigateToPoiParamsType => void,
   navigateToCategory: NavigateToCategoryParamsType => void,
   navigateToEvent: NavigateToEventParamsType => void,
-  navigateToIntegreatUrl: NavigateToIntegreatUrlParamsType => void,
+  navigateToInternalLink: NavigateToInternalLinkParamsType => void,
   navigateToDashboard: NavigateToCategoryParamsType => void,
   navigateToNews: NavigateToNewsParamsType => void,
   navigateToOffers: ({| cityCode: string, language: string |}) => void,
@@ -136,7 +136,7 @@ class Dashboard extends React.Component<PropsType> {
       stateView,
       theme,
       resourceCache,
-      navigateToIntegreatUrl,
+      navigateToInternalLink,
       language,
       cityCode,
       navigateToCategory,
@@ -156,7 +156,7 @@ class Dashboard extends React.Component<PropsType> {
           navigation={navigation}
           navigateToCategory={navigateToCategory}
           t={t}
-          navigateToIntegreatUrl={navigateToIntegreatUrl}
+          navigateToInternalLink={navigateToInternalLink}
         />
       </SpaceBetween>
     )

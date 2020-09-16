@@ -14,6 +14,7 @@ const IntegreatBuildConfig: BuildConfigType = {
   switchCmsUrl: 'https://cms-test.integreat-app.de',
   shareBaseUrl: 'https://integreat.app',
   allowedHostNames: ['cms.integreat-app.de', 'cms-test.integreat-app.de'],
+  internalLinksHijackPattern: 'https?:\\/\\/(cms(-test)?\\.integreat-app\\.de|web\\.integreat-app\\.de|integreat\\.app)(?!\\/[^/]*\\/(wp-content|wp-admin|wp-json)\\/.*).*',
   featureFlags: {
     pois: false,
     newsStream: false,
