@@ -1,8 +1,8 @@
 // @flow
 
-import { lightTheme, darkTheme } from '../../themes/integreat'
+import { lightTheme, darkTheme } from './theme'
 import type { BuildConfigType } from '../BuildConfigType'
-import { INTEGREAT_ASSETS } from '../../assets/AssetsType'
+import { INTEGREAT_ASSETS } from '../AssetsType'
 
 const IntegreatBuildConfig: BuildConfigType = {
   appName: 'Integreat',

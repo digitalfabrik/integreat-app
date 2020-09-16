@@ -1,6 +1,6 @@
 // @flow
 
-import type { ThemeType } from '../themes/ThemeType'
+import type { ThemeType } from './ThemeType'
 
 export type FeatureFlagsType = {|
   pois: boolean,

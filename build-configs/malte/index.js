@@ -1,8 +1,8 @@
 // @flow
 
-import { lightTheme, darkTheme } from '../../themes/malte'
+import { lightTheme, darkTheme } from './theme'
 import type { BuildConfigType } from '../BuildConfigType'
-import { MALTE_ASSETS } from '../../assets/AssetsType'
+import { MALTE_ASSETS } from '../AssetsType'
 
 const MalteBuildConfig: BuildConfigType = {
   appName: 'Malte',
