@@ -11,6 +11,7 @@ const MalteBuildConfig: BuildConfigType = {
   assets: MALTE_ASSETS,
   cmsUrl: 'https://cms.malteapp.de',
   allowedHostNames: ['cms.malteapp.de'],
+  shareBaseUrl: 'https://malteapp.de',
   featureFlags: {
     pois: false,
     newsStream: false,
