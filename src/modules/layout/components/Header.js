@@ -64,7 +64,7 @@ type PropsType = {|
   categoriesAvailable: boolean,
   navigateToLanding: () => void,
   goToLanguageChange?: () => void,
-  cityModel?: CityModel
+  routeCityModel?: CityModel
 |}
 
 class Header extends React.PureComponent<PropsType> {
@@ -141,7 +141,7 @@ class Header extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const { cityModel, navigation, t, theme, goToLanguageChange, peeking, categoriesAvailable } = this.props
+    const { routeCityModel, navigation, t, theme, goToLanguageChange, peeking, categoriesAvailable } = this.props
     const sharePath = navigation.getParam('sharePath')
 
     return <BoxShadow theme={theme}>
@@ -149,8 +149,8 @@ class Header extends React.PureComponent<PropsType> {
         <HorizontalLeft>
           {this.canGoBackInStack() ? <HeaderBackButton onPress={this.goBackInStack} />
             : <Logo source={buildConfigIconSet().appLogo} />}
-          {cityModel &&
-          <HeaderText allowFontScaling={false} theme={theme}>{this.cityDisplayName(cityModel)}</HeaderText>}
+          {routeCityModel &&
+          <HeaderText allowFontScaling={false} theme={theme}>{this.cityDisplayName(routeCityModel)}</HeaderText>}
         </HorizontalLeft>
         <MaterialHeaderButtons cancelLabel={t('cancel')} theme={theme}>
           {!peeking && categoriesAvailable &&
