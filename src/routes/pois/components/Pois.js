@@ -21,7 +21,7 @@ import Failure from '../../../modules/error/components/Failure'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { LanguageResourceCacheStateType } from '../../../modules/app/StateType'
 import type { NavigationScreenProp } from 'react-navigation'
-import type { NavigateToIntegreatUrlParamsType } from '../../../modules/app/createNavigateToIntegreatUrl'
+import type { NavigateToInternalLinkParamsType } from '../../../modules/app/createNavigateToInternalLink'
 import FeedbackVariant from '../../feedback/FeedbackVariant'
 import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
@@ -44,7 +44,7 @@ export type PropsType = {|
   t: TFunction,
   navigation: NavigationScreenProp<*>,
   navigateToPoi: NavigateToPoiParamsType => void,
-  navigateToIntegreatUrl: NavigateToIntegreatUrlParamsType => void
+  navigateToInternalLink: NavigateToInternalLinkParamsType => void
 |}
 
 /**
@@ -102,7 +102,7 @@ class Pois extends React.Component<PropsType> {
   }
 
   render () {
-    const { pois, path, cityCode, language, resourceCache, theme, navigateToIntegreatUrl, t, navigation } = this.props
+    const { pois, path, cityCode, language, resourceCache, theme, navigateToInternalLink, t, navigation } = this.props
     const sortedPois = pois.sort((poi1, poi2) => poi1.title.localeCompare(poi2.title))
     if (path) {
       const poi: ?PoiModel = sortedPois.find(_poi => _poi.path === path)
@@ -117,7 +117,7 @@ class Pois extends React.Component<PropsType> {
                      theme={theme}
                      cityCode={cityCode}
                      navigation={navigation}
-                     navigateToIntegreatUrl={navigateToIntegreatUrl}
+                     navigateToInternalLink={navigateToInternalLink}
                      navigateToFeedback={this.createNavigateToFeedbackForPoi(poi)}>
           <>
             {location && <PageDetail identifier={t('location')}

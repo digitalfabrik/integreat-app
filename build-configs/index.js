@@ -1,10 +1,10 @@
 // @flow
 
-import type { BuildConfigType } from './configs/BuildConfigType'
-import integreatBuildConfig from '../build-configs/configs/integreat'
-import integreatTestCmsBuildConfig from '../build-configs/configs/integreat-test-cms'
-import integreatE2eBuildConfig from '../build-configs/configs/integreat-e2e'
-import malteBuildConfig from '../build-configs/configs/malte'
+import type { BuildConfigType } from './BuildConfigType'
+import integreatBuildConfig from './integreat'
+import integreatTestCmsBuildConfig from './integreat-test-cms'
+import integreatE2eBuildConfig from './integreat-e2e'
+import malteBuildConfig from './malte'
 
 export const buildConfigs: { [string]: BuildConfigType } = {
   integreat: integreatBuildConfig,
