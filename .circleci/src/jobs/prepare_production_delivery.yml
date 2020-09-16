@@ -15,3 +15,4 @@ steps:
   - run:
       name: Bump version
       command: tools/bump-version bump-to ${NEW_VERSION_NAME} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH} --release-notes "$(tools/parse-release-notes parse --web --language en)"
+  - notify_failed
