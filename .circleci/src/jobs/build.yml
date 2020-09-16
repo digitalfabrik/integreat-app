@@ -60,3 +60,4 @@ steps:
         - dist
         - node_modules
         - environment_variables
+  - notify_failed

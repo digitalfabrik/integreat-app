@@ -34,3 +34,4 @@ steps:
         - run:
             name: Malte development delivery
             command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.malteapp.de \<<< $'put -r dist/malte/*'
+  - notify_failed
