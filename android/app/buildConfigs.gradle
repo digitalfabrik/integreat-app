@@ -5,7 +5,8 @@ def isWindows() {
 }
 
 def execCommand(command) {
-    isWindows() ? ["cmd", "/c", command] : command
+    def cmdLine = isWindows() ? ["cmd", "/c", command] : command
+    cmdLine.execute()
 }
 
 def determineBuildConfigName() {
@@ -22,7 +23,7 @@ def createBuildConfig(buildConfigName) {
     logger.quiet("Using build config $buildConfigName")
 
     def command = "yarn --silent babel-node tools/build-config to-json $buildConfigName"
-    def proc = execCommand(command).execute()
+    def proc = execCommand(command)
     proc.waitFor()
 
     if (proc.exitValue() != 0) {
@@ -59,7 +60,7 @@ def setupGoogleServices(buildConfig, resValue) {
 def setupResourceValues(buildConfigName, resValue) {
 
     def command = "yarn --silent babel-node tools/build-config to-xcconfig $buildConfigName"
-    def proc = execCommand(command).execute()
+    def proc = execCommand(command)
     proc.waitFor()
 
     if (proc.exitValue() != 0) {
