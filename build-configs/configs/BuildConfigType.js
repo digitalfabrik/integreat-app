@@ -5,7 +5,8 @@ import type { ThemeType } from '../themes/ThemeType'
 export type FeatureFlagsType = {|
   pois: boolean,
   newsStream: boolean,
-  introSlides: boolean
+  introSlides: boolean,
+  sentry: boolean
 |}
 
 // These values can be retrieved from the google-services.json according to this guide:
@@ -51,7 +52,6 @@ export type BuildConfigType = {|
   darkTheme: ThemeType,
   iconSet: string,
   development: boolean,
-  sentry: boolean,
   e2e?: boolean,
   android: {|
     applicationId: string,

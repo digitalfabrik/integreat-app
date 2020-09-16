@@ -8,11 +8,11 @@ const IntegreatE2eBuildConfig: BuildConfigType = {
   appName: 'IntegreatE2E',
   e2e: true,
   development: false,
-  sentry: false,
   featureFlags: {
     pois: true,
     newsStream: true,
-    introSlides: false
+    introSlides: false,
+    sentry: false
   },
   android: {
     applicationId: 'tuerantuer.app.integreat',

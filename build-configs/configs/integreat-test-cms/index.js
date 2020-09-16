@@ -9,11 +9,11 @@ const IntegreatTestCmsBuildConfig: BuildConfigType = {
   cmsUrl: 'https://cms-test.integreat-app.de',
   switchCmsUrl: 'https://cms.integreat-app.de',
   development: true,
-  sentry: false,
   featureFlags: {
     pois: true,
     newsStream: true,
-    introSlides: true
+    introSlides: true,
+    sentry: false
   },
   android: {
     applicationId: 'tuerantuer.app.integreat',

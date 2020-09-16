@@ -10,7 +10,6 @@ const IntegreatBuildConfig: BuildConfigType = {
   lightTheme,
   darkTheme,
   development: false,
-  sentry: true,
   iconSet: INTEGREAT_ICONS,
   cmsUrl: 'https://cms.integreat-app.de',
   switchCmsUrl: 'https://cms-test.integreat-app.de',
@@ -19,7 +18,8 @@ const IntegreatBuildConfig: BuildConfigType = {
   featureFlags: {
     pois: false,
     newsStream: false,
-    introSlides: true
+    introSlides: true,
+    sentry: true
   },
   android: {
     applicationId: 'tuerantuer.app.integreat',
