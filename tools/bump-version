@@ -11,7 +11,7 @@ program
   .requiredOption('--owner <owner>', 'owner of the current repository, usually "Integreat"')
   .requiredOption('--repo <repo>', 'the current repository, usually "integreat-webapp" or "integreat-react-native-app"')
   .requiredOption('--branch <branch>', 'the current branch')
-  .requiredOption('--release-notes <release-notes>', 'the release notes as stringified json')
+  .requiredOption('--release-notes <release-notes>', 'the release notes as JSON string')
   .option('--development-release', 'whether the release is a development release which is not delivered to production')
 
 const commitAndTag = async (versionName, versionCodeString, {

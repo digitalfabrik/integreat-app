@@ -30,6 +30,16 @@ commands:
             - run:
                 command: circleci config validate
                 name: Validate circle config
+    notify_failed:
+        description: Notifies about jobs which have failed
+        steps:
+            - slack/status:
+                fail_only: true
+                failure_message: ':fire: The $CIRCLE_JOB job has failed on the main branch! :fire:'
+                include_job_number_field: false
+                mentions: maxammann,st,UUZS7CMV0,UV99P8ETW
+                only_for_branches: main
+                webhook: ${SLACK_URL}
     restore_environment_variables:
         description: Sets the environment variables specified in the file 'environment_variables'. Make sure the file is persisted and has been attached.
         steps:
@@ -150,6 +160,7 @@ jobs:
                     - malte.apk
                     - integreat-e2e.apk
                 root: android/output/apk
+            - notify_failed
     build_ios:
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
@@ -246,6 +257,7 @@ jobs:
                     - malte.ipa
                     - integreat-e2e.ipa
                 root: ios/output/gym/
+            - notify_failed
     deliver_android:
         docker:
             - image: circleci/android:api-28-node
@@ -299,6 +311,7 @@ jobs:
             - slack/notify:
                 message: Integreat ${NEW_VERSION_NAME} has been released successfully on Android!
                 webhook: ${SLACK_URL}
+            - notify_failed
     deliver_ios:
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
@@ -360,6 +373,7 @@ jobs:
             - slack/notify:
                 message: Integreat ${NEW_VERSION_NAME} has been released successfully on iOS!
                 webhook: ${SLACK_URL}
+            - notify_failed
     e2e:
         docker:
             - image: circleci/android:api-28-node
@@ -401,6 +415,7 @@ jobs:
             - run:
                 command: bundle exec fastlane ios browserstack_e2e_tests app_name:integreat-e2e
                 name: '[FL] iOS E2E Tests on Browserstack'
+            - notify_failed
     prepare_build:
         docker:
             - image: circleci/node:12.16.3
@@ -444,6 +459,7 @@ jobs:
                 paths:
                     - environment_variables
                 root: ./
+            - notify_failed
     prepare_delivery:
         docker:
             - image: circleci/node:12.16.3
@@ -493,8 +509,9 @@ jobs:
                         command: tools/move-release-notes move-to ${NEW_VERSION_NAME} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH} --commit-sha ${CIRCLE_SHA1}
                         name: Move release notes
             - run:
-                command: tools/bump-version bump-to ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH} --release-notes "${tools/parse-release-notes parse --ios --android}" <<# parameters.production_delivery >> --development-release <</ parameters.production_delivery >>
+                command: tools/bump-version bump-to ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH} --release-notes "$(tools/parse-release-notes parse --ios --android --language en)" <<# parameters.production_delivery >> --development-release <</ parameters.production_delivery >>
                 name: Bump version
+            - notify_failed
 orbs:
     slack: circleci/slack@3.4.2
 parameters:

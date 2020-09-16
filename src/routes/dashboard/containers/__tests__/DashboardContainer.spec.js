@@ -248,6 +248,7 @@ describe('DashboardContainer', () => {
       navigateToOffers: expect.any(Function),
       navigateToDashboard: expect.any(Function),
       navigateToNews: expect.any(Function),
+      navigateToPoi: expect.any(Function),
       navigation,
       resourceCache,
       stateView: expect.any(CategoriesRouteStateView),

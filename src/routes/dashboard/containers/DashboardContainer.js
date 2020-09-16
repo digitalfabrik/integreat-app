@@ -18,6 +18,7 @@ import React from 'react'
 import createNavigateToCategory from '../../../modules/app/createNavigateToCategory'
 import createNavigateToEvent from '../../../modules/app/createNavigateToEvent'
 import createNavigateToIntegreatUrl from '../../../modules/app/createNavigateToIntegreatUrl'
+import createNavigateToPoi from '../../../modules/app/createNavigateToPoi'
 import createNavigateToOffers from '../../../modules/app/createNavigateToOffers'
 import { mapProps } from 'recompose'
 import createNavigateToNews from '../../../modules/app/createNavigateToNews'
@@ -132,6 +133,7 @@ const DashboardContainer = (props: ContainerPropsType) => {
   const { dispatch, ...rest } = props
   return <ThemedTranslatedDashboard
     {...rest}
+    navigateToPoi={createNavigateToPoi(dispatch, rest.navigation)}
     navigateToCategory={createNavigateToCategory('Categories', dispatch, rest.navigation)}
     navigateToEvent={createNavigateToEvent(dispatch, rest.navigation)}
     navigateToNews={createNavigateToNews(dispatch, rest.navigation)}

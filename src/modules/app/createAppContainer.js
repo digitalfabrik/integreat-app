@@ -35,6 +35,7 @@ import DisclaimerContainer from '../../routes/disclaimer/DisclaimerContainer'
 import IntroContainer from '../../routes/intro/IntroContainer'
 import PermissionSnackbarContainer from '../layout/containers/PermissionSnackbarContainer'
 import NewsContainer from '../../routes/news/containers/NewsContainer'
+import PoisContainer from '../../routes/pois/containers/PoisContainer'
 
 const LayoutedDashboardContainer = withLayout(DashboardContainer)
 const LayoutedCategoriesContainer = withLayout(CategoriesContainer)
@@ -65,6 +66,8 @@ const cityContentRouteConfigMap: NavigationRouteConfigMap = {
   [WOHNEN_ROUTE]: createNavigationRouteConfig(WohnenOfferContainer, defaultHeader),
   [SPRUNGBRETT_ROUTE]: createNavigationRouteConfig(SprungbrettOfferContainer, defaultHeader),
   [EXTERNAL_OFFER_ROUTE]: createNavigationRouteConfig(ExternalOfferContainer, defaultHeader),
+  Pois: createNavigationRouteConfig(// $FlowFixMe We don't know why this fails.
+    PoisContainer, defaultHeader),
   Events: createNavigationRouteConfig( // $FlowFixMe We don't know why this fails.
     EventsContainer, defaultHeader
   ),
