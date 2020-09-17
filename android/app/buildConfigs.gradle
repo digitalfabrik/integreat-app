@@ -1,5 +1,14 @@
 import groovy.json.JsonSlurper
 
+def isWindows() {
+    System.properties['os.name'].toLowerCase().contains('windows')
+}
+
+def execCommand(command) {
+    def cmdLine = isWindows() ? ["cmd", "/c", command] : command
+    cmdLine.execute()
+}
+
 def determineBuildConfigName() {
     if (!System.getenv()["BUILD_CONFIG_NAME"]) {
         logger.warn("WARNING: No build config specified. Using the build config 'integreat'!")
@@ -13,7 +22,7 @@ def createBuildConfig(buildConfigName) {
     logger.quiet("Using build config $buildConfigName")
 
     def command = "yarn --silent babel-node tools/build-config to-json $buildConfigName"
-    def proc = command.execute()
+    def proc = execCommand(command)
     proc.waitFor()
 
     if (proc.exitValue() != 0) {
@@ -48,8 +57,9 @@ def setupGoogleServices(buildConfig, resValue) {
 }
 
 def setupResourceValues(buildConfigName, resValue) {
+
     def command = "yarn --silent babel-node tools/build-config to-xcconfig $buildConfigName"
-    def proc = command.execute()
+    def proc = execCommand(command)
     proc.waitFor()
 
     if (proc.exitValue() != 0) {
