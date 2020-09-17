@@ -9,11 +9,13 @@ const MomentLocalesPlugin = require('moment-locales-webpack-plugin')
 const babelConfig = require('../.babelrc.js')
 const fs = require('fs')
 
+const currentYear = new Date().getFullYear()
+
 const SHORT_COMMIT_SHA_LENGTH = 8
 
 // A first performance budget, which should be improved in the future: Maximum bundle size in Bytes; 2^20 = 1 MiB
 // eslint-disable-next-line no-magic-numbers
-const MAX_BUNDLE_SIZE = 1.5 * Math.pow(2, 20)
+const MAX_BUNDLE_SIZE = 1.55 * Math.pow(2, 20)
 
 const readJson = path => JSON.parse(fs.readFileSync(path))
 
@@ -145,8 +147,8 @@ const createConfig = (env = {}) => {
         debug: !isProductionBuild,
         minimize: isProductionBuild
       }),
-      // We only use moment-timezone for parsing GMT time-zoned data in the integreat-api-client
-      new MomentTimezoneDataPlugin({ matchZones: 'GMT' }),
+      // We use moment-timezone for parsing a limited range of years here with GTM data in the integreat-api-client
+      new MomentTimezoneDataPlugin({ startYear: currentYear, endYear: currentYear + 2 }),
       // moment has no support for 'ti' (Tigrinya) and 'so' (Somali), hence we have to use the ignoreInvalidLocales flag
       new MomentLocalesPlugin({ localesToKeep: getSupportedLocales(), ignoreInvalidLocales: true })
     ],
