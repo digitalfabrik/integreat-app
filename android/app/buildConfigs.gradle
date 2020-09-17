@@ -1,5 +1,7 @@
 import groovy.json.JsonSlurper
 
+import java.nio.Buffer
+
 def isWindows() {
     System.properties['os.name'].toLowerCase().contains('windows')
 }
@@ -60,14 +62,13 @@ def setupResourceValues(buildConfigName, resValue) {
 
     def command = "yarn --silent babel-node tools/build-config to-xcconfig $buildConfigName"
     def proc = execCommand(command)
-    proc.waitFor()
+    def xcconfig = proc.in.text
 
     if (proc.exitValue() != 0) {
         println("Failed to get xcconfig file: $proc.err.text")
         return
     }
     def buildConfigProperties = new Properties()
-    def xcconfig = proc.in.text
     logger.quiet("Build Config as XCConfig: $xcconfig")
     buildConfigProperties.load(new StringReader(xcconfig))
 
