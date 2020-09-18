@@ -31,7 +31,7 @@ const DirectionContainer: StyledComponent<DirectionContainerPropsType, ThemeType
   flex-direction: ${props => contentDirection(props.language)};
 `
 
-const CategoryTitleContainer: StyledComponent<DirectionContainerPropsType, ThemeType, *> = styled.View`
+const CategoryEntryContainer: StyledComponent<DirectionContainerPropsType, ThemeType, *> = styled.View`
   flex: 1;
   flex-direction: column;
   align-self: center;
@@ -44,9 +44,6 @@ const CategoryTitle = styled(Highlighter)`
   flex-direction: ${props => contentDirection(props.language)};
   font-family: ${props => props.theme.fonts.decorativeFontRegular};
   color: ${props => props.theme.colors.textColor};
-`
-const ContentMatchItem = styled(Highlighter)`
-  flex-direction: ${props => contentDirection(props.language)};
 `
 
 const CategoryThumbnail = styled(Image)`
@@ -88,29 +85,33 @@ class CategoryListItem extends React.Component<PropsType> {
     )
   }
 
-  getMatchedContent (numWordsSurrounding: number): ?ContentMatchItem {
+  getMatchedContent (numWordsSurrounding: number): ?Highlighter {
     const { query, theme, category } = this.props
     const textToHighlight = this.contentMatcher.getMatchedContent(query, category.contentWithoutHtml, numWordsSurrounding)
     if (textToHighlight == null) {
       return null
     }
-    return <ContentMatchItem theme={theme}
-                             searchWords={[query]}
-                             sanitize={normalizeSearchString}
-                             textToHighlight={textToHighlight}
-                             highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }} />
+    return <Highlighter theme={theme}
+                        searchWords={[query]}
+                        sanitize={normalizeSearchString}
+                        textToHighlight={textToHighlight}
+                        highlightStyle={{
+                          backgroundColor: theme.colors.backgroundColor,
+                          fontWeight: 'bold'
+                        }} />
   }
 
   renderTitle (): React.Node {
     const { query, theme, category, language } = this.props
-    return (<CategoryTitleContainer theme={theme} language={language}>
+    return (<CategoryEntryContainer theme={theme} language={language}>
       <CategoryTitle theme={theme}
+                     language={language}
                      textToHighlight={category.title}
                      sanitize={normalizeSearchString}
                      searchWords={query ? [query] : []}
                      highlightStyle={{ fontWeight: 'bold' }} />
       {this.getMatchedContent(NUM_WORDS_SURROUNDING_MATCH)}
-    </CategoryTitleContainer>)
+    </CategoryEntryContainer>)
   }
 
   render () {
