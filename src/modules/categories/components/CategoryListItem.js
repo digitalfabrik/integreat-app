@@ -94,7 +94,7 @@ class CategoryListItem extends React.Component<PropsType> {
     if (textToHighlight == null) {
       return null
     }
-    return <ContentMatchItem aria-label={textToHighlight}
+    return <ContentMatchItem theme={theme}
                              searchWords={[query]}
                              sanitize={normalizeSearchString}
                              textToHighlight={textToHighlight}
@@ -104,7 +104,9 @@ class CategoryListItem extends React.Component<PropsType> {
   renderTitle (): React.Node {
     const { query, theme, category, language } = this.props
     return (<CategoryTitleContainer theme={theme} language={language}>
-      <CategoryTitle theme={theme} textToHighlight={category.title} sanitize={normalizeSearchString}
+      <CategoryTitle theme={theme}
+                     textToHighlight={category.title}
+                     sanitize={normalizeSearchString}
                      searchWords={query ? [query] : []}
                      highlightStyle={{ fontWeight: 'bold' }} />
       {this.getMatchedContent(NUM_WORDS_SURROUNDING_MATCH)}
