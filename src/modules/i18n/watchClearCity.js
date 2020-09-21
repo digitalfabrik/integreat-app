@@ -10,9 +10,12 @@ export function * clearCity (): Saga<void> {
   const appSettings = new AppSettings()
   const previousSelectedCity = yield call(appSettings.loadSelectedCity)
   const previousContentLanguage = yield call(appSettings.loadContentLanguage)
-  if (buildConfig().featureFlags.pushNotifications) {
-    yield call(NotificationsManager.unsubscribeNews, previousSelectedCity, previousContentLanguage)
-  }
+  yield call(
+    NotificationsManager.unsubscribeNews,
+    previousSelectedCity,
+    previousContentLanguage,
+    buildConfig().featureFlags
+  )
   yield call(appSettings.clearSelectedCity)
 }
 

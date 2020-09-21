@@ -42,14 +42,14 @@ const createSettingsSections = ({ setSetting, t, languageCode, cityCode }: Creat
             setSetting(
               settings => ({ allowPushNotifications: !settings.allowPushNotifications }),
               async newSettings => {
-                if (!cityCode || !buildConfig().featureFlags.pushNotifications) {
-                  // No city selected or push notifications disabled, so nothing to do here
+                if (!cityCode) {
+                  // No city selected so nothing to do here
                   return
                 }
                 if (newSettings.allowPushNotifications) {
-                  await NotificationsManager.subscribeNews(cityCode, languageCode)
+                  await NotificationsManager.subscribeNews(cityCode, languageCode, buildConfig().featureFlags)
                 } else {
-                  await NotificationsManager.unsubscribeNews(cityCode, languageCode)
+                  await NotificationsManager.unsubscribeNews(cityCode, languageCode, buildConfig().featureFlags)
                 }
               }
             )
