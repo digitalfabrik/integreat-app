@@ -6,8 +6,14 @@ import NativeConstants from '../../modules/native-constants/NativeConstants'
 import type { SettingsType } from '../../modules/settings/AppSettings'
 import openPrivacyPolicy from './openPrivacyPolicy'
 import buildConfig from '../../modules/app/constants/buildConfig'
+import * as Sentry from '@sentry/react-native'
+import * as NotificationsManager from '../../modules/notifications/NotificationsManager'
+import initSentry from '../../modules/app/initSentry'
 
-export type ChangeSettingFunctionType = SettingsType => $Shape<SettingsType>
+export type SetSettingFunctionType = (
+  changeSetting: (settings: SettingsType) => $Shape<SettingsType>,
+  changeAction?: (newSettings: SettingsType) => Promise<void>
+) => Promise<void>
 
 const volatileValues = {
   versionTaps: 0
@@ -15,13 +21,15 @@ const volatileValues = {
 
 const TRIGGER_VERSION_TAPS = 25
 
-export default ({ setSetting, t, language }: {
-                  setSetting: (changeSetting: ChangeSettingFunctionType) => Promise<void>,
-                  t: TFunction,
-                  language: string
-                }
-) => {
-  return ([
+type CreateSettingsSectionsPropsType = {|
+  setSetting: SetSettingFunctionType,
+  t: TFunction,
+  languageCode: string,
+  cityCode: ?string
+|}
+
+const createSettingsSections = ({ setSetting, t, languageCode, cityCode }: CreateSettingsSectionsPropsType) => (
+  [
     {
       title: null,
       data: [
@@ -30,7 +38,22 @@ export default ({ setSetting, t, language }: {
           description: t('pushNewsDescription'),
           hasSwitch: true,
           getSettingValue: (settings: SettingsType) => settings.allowPushNotifications,
-          onPress: () => { setSetting(settings => ({ allowPushNotifications: !settings.allowPushNotifications })) }
+          onPress: () => {
+            setSetting(
+              settings => ({ allowPushNotifications: !settings.allowPushNotifications }),
+              async newSettings => {
+                if (!cityCode) {
+                  // No city selected, so nothing to do here
+                  return
+                }
+                if (newSettings.allowPushNotifications) {
+                  await NotificationsManager.subscribeNews(cityCode, languageCode)
+                } else {
+                  await NotificationsManager.unsubscribeNews(cityCode, languageCode)
+                }
+              }
+            )
+          }
         },
         {
           title: t('proposeCitiesTitle'),
@@ -44,13 +67,24 @@ export default ({ setSetting, t, language }: {
           description: t('sentryDescription', { appName: buildConfig().appName }),
           hasSwitch: true,
           getSettingValue: (settings: SettingsType) => settings.errorTracking,
-          onPress: () => { setSetting(settings => ({ errorTracking: !settings.errorTracking })) }
+          onPress: () => {
+            setSetting(
+              settings => ({ errorTracking: !settings.errorTracking }),
+              async newSettings => {
+                if (newSettings.errorTracking && !Sentry.getCurrentHub().getClient()) {
+                  initSentry()
+                } else {
+                  Sentry.getCurrentHub().getClient().getOptions().enabled = newSettings.errorTracking
+                }
+              }
+            )
+          }
         },
         {
           accessibilityRole: 'link',
           title: t('about', { appName: buildConfig().appName }),
           onPress: () => {
-            if (language === 'de') {
+            if (languageCode === 'de') {
               Linking.openURL('https://integreat-app.de/about/')
             } else {
               Linking.openURL('https://integreat-app.de/en/about/')
@@ -60,7 +94,7 @@ export default ({ setSetting, t, language }: {
         {
           accessibilityRole: 'link',
           title: t('privacyPolicy'),
-          onPress: () => openPrivacyPolicy(language)
+          onPress: () => openPrivacyPolicy(languageCode)
         },
         {
           accessibilityRole: 'none',
@@ -75,5 +109,7 @@ export default ({ setSetting, t, language }: {
         }
       ]
     }
-  ])
-}
+  ]
+)
+
+export default createSettingsSections
