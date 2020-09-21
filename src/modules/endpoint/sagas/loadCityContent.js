@@ -17,7 +17,7 @@ import AppSettings from '../../settings/AppSettings'
 import NetInfo from '@react-native-community/netinfo'
 import loadCities from './loadCities'
 import { fromError } from '../../error/ErrorCodes'
-import * as NotificationsManager from '../../../modules/notifications/NotificationsManager'
+import * as NotificationsManager from '../../push-notifications/PushNotificationsManager'
 import buildConfig from '../../app/constants/buildConfig'
 import loadPois from './loadPois'
 
