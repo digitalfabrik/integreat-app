@@ -183,13 +183,13 @@ jobs:
             - restore_environment_variables
             - restore_cache:
                 keys:
-                    - 2-gems-{{ arch }}-{{ checksum "ios/Gemfile.lock" }}
-                    - 2-gems-{{ arch }}-
+                    - 3-gems-{{ arch }}-{{ checksum "ios/Gemfile.lock" }}
+                    - 3-gems-{{ arch }}-
             - run:
                 command: bundle check || bundle install --path vendor/bundle
                 working_directory: ios
             - save_cache:
-                key: 2-gems-{{ arch }}-{{ checksum "ios/Gemfile.lock" }}
+                key: 3-gems-{{ arch }}-{{ checksum "ios/Gemfile.lock" }}
                 paths:
                     - ios/vendor/bundle
             - restore_cache:
