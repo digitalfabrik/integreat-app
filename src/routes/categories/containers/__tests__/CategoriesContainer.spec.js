@@ -123,7 +123,7 @@ describe('CategoriesContainer', () => {
     const store = mockStore(state)
     const navigation = createNavigationScreenPropMock()
     navigation.state.key = 'route-id-0'
-    navigation.setParams('onRouteClose', () => {})
+    navigation.setParams({ onRouteClose: () => {} })
     jest.doMock('../../../../modules/categories/components/Categories', () => MockCategories)
     const CategoriesContainer = require('../CategoriesContainer').default
 
