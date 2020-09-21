@@ -114,7 +114,7 @@ describe('News', () => {
     const store = mockStore(state)
     const navigation = createNavigationScreenPropMock()
     navigation.state.key = 'route-id-0'
-    navigation.setParams('onRouteClose', () => {})
+    navigation.setParams({ onRouteClose: () => {} })
     jest.mock('../../components/NewsList', () => MockNewsList)
     const NewsContainer = require('../NewsContainer').default
 

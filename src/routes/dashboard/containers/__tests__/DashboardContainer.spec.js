@@ -123,7 +123,7 @@ describe('DashboardContainer', () => {
     const store = mockStore(state)
     const navigation = createNavigationScreenPropMock()
     navigation.state.key = 'route-id-0'
-    navigation.setParams('onRouteClose', () => {})
+    navigation.setParams({ onRouteClose: () => {} })
     jest.doMock('../../components/Dashboard', () => MockDashboard)
     const DashboardContainer = require('../DashboardContainer').default
 

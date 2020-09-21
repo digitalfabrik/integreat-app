@@ -2,10 +2,23 @@
 
 import type { NavigationScreenProp } from 'react-navigation'
 
-const params = {}
+type NavigationParamsType = { [key: string]: mixed, ... }
+
+let params: NavigationParamsType = {}
+
+// $FlowFixMe
+const getParam: GetParamType = jest.fn<[string, *], *>((paramName: string, fallback: *) => {
+  if (params[paramName]) {
+    return params[paramName]
+  }
+  return fallback
+})
 
 export default (): NavigationScreenProp<*> => ({
-  state: { params: {}, key: '' },
+  state: {
+    params: {},
+    key: ''
+  },
   dispatch: jest.fn(),
   goBack: jest.fn(),
   dangerouslyGetParent: jest.fn(),
@@ -14,8 +27,14 @@ export default (): NavigationScreenProp<*> => ({
   openDrawer: jest.fn(),
   closeDrawer: jest.fn(),
   toggleDrawer: jest.fn(),
-  getParam: jest.fn((key: string, fallback: any) => params[key]),
-  setParams: jest.fn((key: string, value: any) => params[key] = value),
+  getParam,
+  setParams: jest.fn((newParams: NavigationParamsType) => {
+    params = {
+      ...params,
+      ...newParams
+    }
+    return true
+  }),
   addListener: jest.fn(),
   push: jest.fn(),
   replace: jest.fn(),
