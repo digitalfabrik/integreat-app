@@ -30,11 +30,7 @@ lane :build do |options|
   version_name = options[:version_name]
   build_config_name = options[:build_config_name]
 
-  ensure_env_vars(
-      env_vars: ['FASTLANE_USER']
-  )
-
-  ENV["BUNDLE_CONFIG"] = "./metro.config.ci.js"
+  ENV["BUNDLE_CONFIG"] = "../metro.config.ci.js"
   ENV["EXTRA_PACKAGER_ARGS"] = "--sourcemap-output /Users/distiller/project/ios/index.ios.bundle.map"
   ENV["BUILD_CONFIG_NAME"] = build_config_name
 
