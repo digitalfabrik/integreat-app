@@ -33,7 +33,7 @@ describe('watchClearResourcesAndCache', () => {
     const dataContainer = new DefaultDataContainer()
 
     await expectSaga(clearResourcesAndCache, dataContainer, action).run()
-    expect((await RNFetchBlob.fs.ls(CACHE_DIR_PATH)).length).toBe(0)
+    expect((await RNFetchBlob.fs.ls(CACHE_DIR_PATH)).length).toHaveLength(0)
   })
 
   it('should delete all data in in-memory caches', async () => {
