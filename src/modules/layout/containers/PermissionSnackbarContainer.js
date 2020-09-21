@@ -8,12 +8,14 @@ import { type TFunction, withTranslation } from 'react-i18next'
 import withTheme from '../../theme/hocs/withTheme'
 import AppSettings from '../../settings/AppSettings'
 import { openSettings, RESULTS } from 'react-native-permissions'
-import {
-  locationPermissionStatus,
-  pushNotificationPermissionStatus,
-  requestLocationPermission, requestPushNotificationPermission
-} from '../../app/Permissions'
+import { locationPermissionStatus, requestLocationPermission } from '../../app/LocationPermissionManager'
 import SnackbarAnimator from '../components/SnackbarAnimator'
+import buildConfig from '../../app/constants/buildConfig'
+import {
+  pushNotificationPermissionStatus,
+  requestPushNotificationPermission
+} from '../../push-notifications/PushNotificationsManager'
+import type { FeatureFlagsType } from '../../../../build-configs/BuildConfigType'
 
 type PropsType = {|
   navigation: NavigationScreenProp<*>,
@@ -72,12 +74,12 @@ class PermissionSnackbarContainer extends React.Component<PropsType, StateType> 
     this.updateSettingsAndPermissions()
   }
 
-  requestOrOpenSettings = async (status: () => Promise<RESULTS>, request: () => Promise<RESULTS>) => {
+  requestOrOpenSettings = async (status: () => Promise<RESULTS>, request: FeatureFlagsType => Promise<void>) => {
     const permissionStatus = await status()
     if (permissionStatus === RESULTS.BLOCKED) {
       await openSettings()
     } else {
-      await request()
+      await request(buildConfig().featureFlags)
     }
     this.updateSettingsAndPermissions()
   }
