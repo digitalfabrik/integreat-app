@@ -7,7 +7,7 @@ import type { SettingsType } from '../../modules/settings/AppSettings'
 import openPrivacyPolicy from './openPrivacyPolicy'
 import buildConfig from '../../modules/app/constants/buildConfig'
 import * as Sentry from '@sentry/react-native'
-import * as NotificationsManager from '../../modules/notifications/NotificationsManager'
+import * as NotificationsManager from '../../modules/push-notifications/PushNotificationsManager'
 import initSentry from '../../modules/app/initSentry'
 
 export type SetSettingFunctionType = (

@@ -13,7 +13,7 @@ import loadCityContent from './loadCityContent'
 import { ContentLoadCriterion } from '../ContentLoadCriterion'
 import AppSettings from '../../settings/AppSettings'
 import { Alert } from 'react-native'
-import * as NotificationsManager from '../../../modules/notifications/NotificationsManager'
+import * as NotificationsManager from '../../push-notifications/PushNotificationsManager'
 import buildConfig from '../../app/constants/buildConfig'
 
 export function * switchContentLanguage (

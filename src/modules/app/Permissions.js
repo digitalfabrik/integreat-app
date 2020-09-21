@@ -2,7 +2,7 @@
 
 import { check, PERMISSIONS, request, checkNotifications, RESULTS } from 'react-native-permissions'
 import { Platform } from 'react-native'
-import * as NotificationsManager from '../../modules/notifications/NotificationsManager'
+import * as NotificationsManager from '../push-notifications/PushNotificationsManager'
 
 export const locationPermissionStatus = async (): RESULTS => {
   return check(Platform.OS === 'ios'
