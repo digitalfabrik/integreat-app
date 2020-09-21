@@ -1,0 +1,7 @@
+issue_key: NATIVE-601
+show_in_stores: true
+platforms:
+  - ios
+  - android
+en: Disabling and enabling of the App stability setting has an instant effect now.
+de: Das Aktivieren und Deaktivieren der App-Stabilität Einstellung hat nun einen sofortigen Effekt.
