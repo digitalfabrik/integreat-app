@@ -61,13 +61,7 @@ def setupResourceValues(buildConfigName, resValue) {
 
     def command = "yarn --silent babel-node tools/build-config to-xcconfig $buildConfigName"
     def proc = execCommand(command)
-
     def xcconfig = proc.in.text
-
-    if (proc.exitValue() != 0) {
-        logger.error("Failed to get build config: $proc.err.text")
-        return
-    }
     logger.quiet("Build Config as XCConfig: $xcconfig")
     def buildConfigProperties = new Properties()
     buildConfigProperties.load(new StringReader(xcconfig))

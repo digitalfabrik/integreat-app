@@ -1,0 +1,6 @@
+issue_key: NATIVE-623
+show_in_stores: false
+platforms:
+  - ios
+  - android
+en: For Windows OS development environment some gradle configuration processes have had to be refactored
