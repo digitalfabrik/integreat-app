@@ -25,7 +25,7 @@ export class ContentLoadCriterion {
   }
 
   shouldUpdate (lastUpdate: ?moment): boolean {
-    // The last update was more than 24h ago or a refresh should be forced
+    // If an update is forced or the last update was more than 24h ago it should update
     return this._forceUpdate || !lastUpdate ||
       lastUpdate.isBefore(moment.utc().subtract(MAX_CONTENT_AGE, 'hours'))
   }
