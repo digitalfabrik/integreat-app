@@ -18,7 +18,7 @@ const IntegreatBuildConfig: BuildConfigType = {
   internalLinksHijackPattern: 'https?:\\/\\/(cms(-test)?\\.integreat-app\\.de|web\\.integreat-app\\.de|integreat\\.app)(?!\\/[^/]*\\/(wp-content|wp-admin|wp-json)\\/.*).*',
   featureFlags: {
     pois: false,
-    newsStream: false,
+    newsStream: true,
     introSlides: true,
     sentry: true
   },
