@@ -7,7 +7,7 @@ export type FeatureFlagsType = {|
 
 const featureFlags: FeatureFlagsType = {
   pois: false,
-  newsStream: false
+  newsStream: true
 }
 
 export default featureFlags
