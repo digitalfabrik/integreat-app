@@ -39,7 +39,8 @@ lane :build do |options|
   version_name = options[:version_name]
   build_config_name = options[:build_config_name]
 
-  ENV["BUNDLE_CONFIG"] = "./metro.config.ci.js"
+  # DO NOT OVERWRITE THE BUNDLE_CONFIG ENV VARIABLE! This is used by ruby bundle.
+  ENV["EXTRA_PACKAGER_ARGS"] = "--config ./metro.config.ci.js"
   ENV["BUILD_CONFIG_NAME"] = build_config_name
 
   gradle_system_properties = {
