@@ -19,7 +19,7 @@ const MalteBuildConfig: BuildConfigType = {
   shareBaseUrl: 'https://malteapp.de',
   featureFlags: {
     pois: false,
-    newsStream: false,
+    newsStream: true,
     introSlides: true,
     sentry: true
   },
