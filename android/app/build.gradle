@@ -78,7 +78,7 @@ import com.android.build.OutputFile
  */
 
 project.ext.react = [
-        bundleConfig: System.getenv('BUNDLE_CONFIG'),
+        extraPackagerArgs: System.getenv('EXTRA_PACKAGER_ARGS'),
         enableHermes: false,  // clean and rebuild if changing
 ]
 
