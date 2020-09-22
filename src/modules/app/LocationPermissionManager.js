@@ -11,7 +11,7 @@ export const locationPermissionStatus = async (): Promise<RESULTS> => {
 }
 
 export const requestLocationPermission = async (): Promise<void> => {
-  request(Platform.OS === 'ios'
+  await request(Platform.OS === 'ios'
     ? PERMISSIONS.IOS.LOCATION_WHEN_IN_USE
     : PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION
   )
