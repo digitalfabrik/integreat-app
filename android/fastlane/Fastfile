@@ -39,7 +39,7 @@ lane :build do |options|
   version_name = options[:version_name]
   build_config_name = options[:build_config_name]
 
-  # DO NOT OVERWRITE THE BUNDLE_CONFIG ENV VARIABLE! This is used by ruby bundle.
+  # DO NOT OVERWRITE THE BUNDLE_CONFIG ENV VARIABLE! It is used by ruby bundle.
   ENV["EXTRA_PACKAGER_ARGS"] = "--config ./metro.config.ci.js"
   ENV["BUILD_CONFIG_NAME"] = build_config_name
 
