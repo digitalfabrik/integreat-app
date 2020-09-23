@@ -23,11 +23,11 @@ def createBuildConfig(buildConfigName) {
 
     def command = "yarn --silent babel-node tools/build-config to-json $buildConfigName"
     def proc = execCommand(command)
-    proc.waitFor()
 
     def json = proc.in.text
+    def err = proc.err.text
 
-    if (proc.exitValue() != 0) {
+    if (err) {
         logger.error("Failed to get build config: $proc.err.text")
         return
     }
@@ -63,11 +63,11 @@ def setupResourceValues(buildConfigName, resValue) {
 
     def command = "yarn --silent babel-node tools/build-config to-xcconfig $buildConfigName"
     def proc = execCommand(command)
-    proc.waitFor()
 
     def xcconfig = proc.in.text
+    def err = proc.err.text
 
-    if (proc.exitValue() != 0) {
+    if (err) {
         logger.error("Failed to get build config: $proc.err.text")
         return
     }
