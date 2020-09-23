@@ -23,14 +23,14 @@ def createBuildConfig(buildConfigName) {
 
     def command = "yarn --silent babel-node tools/build-config to-json $buildConfigName"
     def proc = execCommand(command)
-    proc.waitFor()
 
-    if (proc.exitValue() != 0) {
-        logger.error("Failed to get build config: $proc.err.text")
-        return
-    }
     def json = proc.in.text
     logger.quiet("Build Config as JSON: $json")
+
+    if (proc.exitValue() != 0) {
+        logger.error("Failed to get build Config as JSON: $proc.err.text")
+        return
+    }
 
     def buildConfig = new JsonSlurper().parseText(json)
     return buildConfig
@@ -60,8 +60,15 @@ def setupResourceValues(buildConfigName, resValue) {
 
     def command = "yarn --silent babel-node tools/build-config to-xcconfig $buildConfigName"
     def proc = execCommand(command)
+
     def xcconfig = proc.in.text
     logger.quiet("Build Config as XCConfig: $xcconfig")
+
+    if (proc.exitValue() != 0) {
+        logger.error("Failed to get build XCConfig: $proc.err.text")
+        return
+    }
+
     def buildConfigProperties = new Properties()
     buildConfigProperties.load(new StringReader(xcconfig))
 
