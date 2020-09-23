@@ -1,0 +1,7 @@
+issue_key: NATIVE-384
+show_in_stores: true
+platforms:
+  - ios
+  - android
+en: Show the corrent city name after clicking on an internal link
+de: Zeige den richtigen Stadtnamen an beim Klicken auf einen internen Link

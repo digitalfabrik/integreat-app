@@ -44,7 +44,7 @@ export function * switchContentLanguage (dataContainer: DataContainer, action: S
     const previousSelectedCity = yield call(appSettings.loadSelectedCity)
     const previousContentLanguage = yield call(appSettings.loadContentLanguage)
     if (previousContentLanguage !== newLanguage) {
-      yield call(() => NotificationsManager.unsubscribeFromPreviousCity(previousSelectedCity, previousContentLanguage))
+      yield call(() => NotificationsManager.unsubscribeNews(previousSelectedCity, previousContentLanguage))
     }
 
     // Only set new language after fetch succeeded

@@ -243,7 +243,7 @@ describe('CategoriesContainer', () => {
       cityCode: city.code,
       language: language.code,
       navigateToCategory: expect.any(Function),
-      navigateToIntegreatUrl: expect.any(Function),
+      navigateToInternalLink: expect.any(Function),
       navigation,
       resourceCache,
       stateView: expect.any(CategoriesRouteStateView),
