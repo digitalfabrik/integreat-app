@@ -29,7 +29,7 @@ class ContentMatcher {
     }
     const normalizedFilter = normalizeSearchString(query)
 
-    const matchIndex = content.toLowerCase().indexOf(normalizedFilter)
+    const matchIndex = normalizeSearchString(content).indexOf(normalizedFilter)
     if (matchIndex === -1) {
       return null
     }

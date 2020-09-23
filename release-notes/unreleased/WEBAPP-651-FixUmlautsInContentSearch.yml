@@ -1,0 +1,6 @@
+issue_key: WEBAPP-651
+show_in_stores: true
+platforms:
+  - web
+en: Search queries containing Umlauts are now highlighted in content search.
+de: Suchanfragen, die Umlaute enthalten, werden nun auch in der Inhalt-Suche hervorgehoben.
