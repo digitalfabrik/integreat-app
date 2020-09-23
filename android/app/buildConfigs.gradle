@@ -1,10 +1,10 @@
 import groovy.json.JsonSlurper
 
-def isWindows() {
+static def isWindows() {
     System.properties['os.name'].toLowerCase().contains('windows')
 }
 
-def execCommand(command) {
+static def execCommand(command) {
     def cmdLine = isWindows() ? ["cmd", "/c", command] : command
     cmdLine.execute()
 }
@@ -23,13 +23,14 @@ def createBuildConfig(buildConfigName) {
 
     def command = "yarn --silent babel-node tools/build-config to-json $buildConfigName"
     def proc = execCommand(command)
-    proc.waitFor()
+
+    def json = proc.in.text
 
     if (proc.exitValue() != 0) {
         logger.error("Failed to get build config: $proc.err.text")
         return
     }
-    def json = proc.in.text
+
     logger.quiet("Build Config as JSON: $json")
 
     def buildConfig = new JsonSlurper().parseText(json)
@@ -57,11 +58,20 @@ def setupGoogleServices(buildConfig, resValue) {
 }
 
 def setupResourceValues(buildConfigName, resValue) {
+    logger.quiet("Using build config $buildConfigName")
 
     def command = "yarn --silent babel-node tools/build-config to-xcconfig $buildConfigName"
     def proc = execCommand(command)
+
     def xcconfig = proc.in.text
+
+    if (proc.exitValue() != 0) {
+        logger.error("Failed to get build config: $proc.err.text")
+        return
+    }
+
     logger.quiet("Build Config as XCConfig: $xcconfig")
+
     def buildConfigProperties = new Properties()
     buildConfigProperties.load(new StringReader(xcconfig))
 
