@@ -23,7 +23,7 @@ import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { LanguageResourceCacheStateType } from '../../../modules/app/StateType'
 import type { NavigationScreenProp } from 'react-navigation'
 import type { NavigateToEventParamsType } from '../../../modules/app/createNavigateToEvent'
-import type { NavigateToIntegreatUrlParamsType } from '../../../modules/app/createNavigateToIntegreatUrl'
+import type { NavigateToInternalLinkParamsType } from '../../../modules/app/createNavigateToInternalLink'
 import FeedbackVariant from '../../feedback/FeedbackVariant'
 import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
@@ -44,7 +44,7 @@ export type PropsType = {|
   t: TFunction,
   navigation: NavigationScreenProp<*>,
   navigateToEvent: NavigateToEventParamsType => void,
-  navigateToIntegreatUrl: NavigateToIntegreatUrlParamsType => void
+  navigateToInternalLink: NavigateToInternalLinkParamsType => void
 |}
 
 /**
@@ -101,7 +101,7 @@ class Events extends React.Component<PropsType> {
   }
 
   render () {
-    const { events, path, cityCode, language, resourceCache, theme, navigateToIntegreatUrl, t, navigation } = this.props
+    const { events, path, cityCode, language, resourceCache, theme, navigateToInternalLink, t, navigation } = this.props
 
     if (path) {
       const event: ?EventModel = events.find(_event => _event.path === path)
@@ -117,7 +117,7 @@ class Events extends React.Component<PropsType> {
                      theme={theme}
                      cityCode={cityCode}
                      navigation={navigation}
-                     navigateToIntegreatUrl={navigateToIntegreatUrl}
+                     navigateToInternalLink={navigateToInternalLink}
                      navigateToFeedback={this.createNavigateToFeedbackForEvent(event)}>
           <>
             <PageDetail identifier={t('date')} information={event.date.toFormattedString(language)}
