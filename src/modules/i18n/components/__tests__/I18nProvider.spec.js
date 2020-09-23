@@ -2,10 +2,8 @@
 
 import { render } from '@testing-library/react-native'
 import React from 'react'
-import I18nProvider from '../I18nProvider'
 import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
-import localesResources from '../../../../../locales/locales.json'
 import waitForExpect from 'wait-for-expect'
 import AppSettings from '../../../settings/AppSettings'
 import AsyncStorage from '@react-native-community/async-storage'
@@ -13,35 +11,17 @@ import { Text } from 'react-native'
 
 jest.mock('@react-native-community/async-storage')
 jest.mock('../../../i18n/LanguageDetector')
+jest.mock('../../loadLocales')
+jest.mock('../../../app/constants/buildConfig')
 
 describe('I18nProvider', () => {
   beforeEach(async () => {
     await AsyncStorage.clear()
   })
 
-  it('should transform the resources correctly', () => {
-    const input = {
-      module1: {
-        language1: {
-          key1: 'lang1-translated1'
-        },
-        language2: {
-          key1: 'lang2-translated1'
-        }
-      },
-      module2: {
-        language1: {
-          key2: 'lang1-translated2'
-        },
-        language2: {
-          key2: 'lang2-translated2'
-        }
-      }
-    }
-    expect(I18nProvider.transformResources(input)).toMatchSnapshot()
-  })
-
   it('should set content language if not yet set', async () => {
+    const I18nProvider = require('../I18nProvider').default
+
     const appSettings = new AppSettings()
     const mockSetContentLanguage = jest.fn()
 
@@ -54,6 +34,8 @@ describe('I18nProvider', () => {
   })
 
   it('should not use ui language as content language if already set', async () => {
+    const I18nProvider = require('../I18nProvider').default
+
     const appSettings = new AppSettings()
     await appSettings.setContentLanguage('de')
     const mockSetContentLanguage = jest.fn()
@@ -66,10 +48,12 @@ describe('I18nProvider', () => {
     })
   })
 
-  it('should initialize correct i18next instance', () => {
-    const ReceivingComponent = withTranslation('common')(
+  it('should initialize correct i18next instance', async () => {
+    const I18nProvider = require('../I18nProvider').default
+
+    const ReceivingComponent = withTranslation('app')(
       ({ t, i18n }) => {
-        const transformedResources = I18nProvider.transformResources(localesResources)
+        const transformedResources = require('../../loadLocales').default()
         const languages = Object.keys(transformedResources)
 
         const resources = languages.reduce((resources, language: string) => {
@@ -80,7 +64,7 @@ describe('I18nProvider', () => {
         expect(resources).toEqual(transformedResources)
         expect(i18n.language).toEqual('en')
         expect(i18n.languages).toEqual(['en', 'de'])
-        return <Text>{t('chooseALanguage')}</Text>
+        return <Text>{t('metaDescription')}</Text>
       }
     )
 
@@ -90,12 +74,16 @@ describe('I18nProvider', () => {
       </I18nProvider>
     )
 
-    waitForExpect(async () => expect(queryByText('Choose a language.')).toBeTruthy())
+    await waitForExpect(async () => expect(
+      queryByText('Integreat ist Ihr digitaler Guide für Deutschland. Finden Sie lokale Informationen, ' +
+        'Veranstaltungen und Beratung. Immer aktuell und in Ihrer Sprache.')).toBeTruthy())
   })
 
   it('should show error if loading fails', async () => {
-    const previous = AsyncStorage.multiGet
-    previous.mockImplementation(() => {
+    const I18nProvider = require('../I18nProvider').default
+
+    const mock = AsyncStorage.multiGet
+    mock.mockImplementation(() => {
       throw Error('An Error occurred while getting settings!')
     })
 
@@ -104,17 +92,19 @@ describe('I18nProvider', () => {
         <></>
       </I18nProvider>)
 
-    await waitForExpect(async () => {
+    await waitForExpect(() => {
       expect(queryByText('An Error occurred while getting settings!')).not.toBeNull()
     })
 
-    previous.mockImplementation(previous)
+    mock.mockRestore()
   })
 
-  it('should use fallback if language is invalid or unknown', () => {
-    const ReceivingComponent = withTranslation('common')(
+  it('should use fallback if language is invalid or unknown', async () => {
+    const I18nProvider = require('../I18nProvider').default
+
+    const ReceivingComponent = withTranslation('app')(
       ({ t }: { t: TFunction }) => {
-        return <Text>{t('chooseALanguage', { lng: 'XX' })}</Text>
+        return <Text>{t('metaDescription', { lng: 'XX' })}</Text>
       }
     )
 
@@ -124,6 +114,6 @@ describe('I18nProvider', () => {
       </I18nProvider>
     )
 
-    waitForExpect(async () => expect(queryByText('Choose a language.')).toBeTruthy())
+    await waitForExpect(() => expect(queryByText('Integreat ist Ihr digitaler Guide für Deutschland. Finden Sie lokale Informationen, Veranstaltungen und Beratung. Immer aktuell und in Ihrer Sprache.')).toBeTruthy())
   })
 })

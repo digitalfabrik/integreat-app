@@ -11,7 +11,8 @@ import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { TFunction } from 'react-i18next'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import MaterialHeaderButtons from './MaterialHeaderButtons'
-import { buildConfigIconSet } from '../../app/constants/buildConfig'
+import buildConfig, { buildConfigAssets } from '../../app/constants/buildConfig'
+import Url from 'url-parse'
 
 const Horizontal = styled.View`
   flex: 1;
@@ -63,7 +64,7 @@ type PropsType = {|
   categoriesAvailable: boolean,
   navigateToLanding: () => void,
   goToLanguageChange?: () => void,
-  cityModel?: CityModel
+  routeCityModel?: CityModel
 |}
 
 class Header extends React.PureComponent<PropsType> {
@@ -98,9 +99,10 @@ class Header extends React.PureComponent<PropsType> {
   onShare = async () => {
     const { navigation, t } = this.props
     const sharePath: string = navigation.getParam('sharePath')
-    const url = `https://integreat.app${sharePath}`
+    const shareBaseUrl = new Url(buildConfig().shareBaseUrl)
+    shareBaseUrl.set('pathname', sharePath)
     const message = t('shareMessage', {
-      message: url,
+      message: shareBaseUrl.href,
       interpolation: { escapeValue: false }
     })
 
@@ -139,16 +141,16 @@ class Header extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const { cityModel, navigation, t, theme, goToLanguageChange, peeking, categoriesAvailable } = this.props
+    const { routeCityModel, navigation, t, theme, goToLanguageChange, peeking, categoriesAvailable } = this.props
     const sharePath = navigation.getParam('sharePath')
 
     return <BoxShadow theme={theme}>
       <Horizontal>
         <HorizontalLeft>
           {this.canGoBackInStack() ? <HeaderBackButton onPress={this.goBackInStack} />
-            : <Logo source={buildConfigIconSet().appLogo} />}
-          {cityModel &&
-          <HeaderText allowFontScaling={false} theme={theme}>{this.cityDisplayName(cityModel)}</HeaderText>}
+            : <Logo source={buildConfigAssets().appLogo} />}
+          {routeCityModel &&
+          <HeaderText allowFontScaling={false} theme={theme}>{this.cityDisplayName(routeCityModel)}</HeaderText>}
         </HorizontalLeft>
         <MaterialHeaderButtons cancelLabel={t('cancel')} theme={theme}>
           {!peeking && categoriesAvailable &&

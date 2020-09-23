@@ -9,11 +9,12 @@ import Caption from './Caption'
 import TimeStamp from './TimeStamp'
 import type Moment from 'moment'
 import type { PageResourceCacheStateType } from '../../app/StateType'
-import type { NavigateToIntegreatUrlParamsType } from '../../app/createNavigateToIntegreatUrl'
+import type { NavigateToInternalLinkParamsType } from '../../app/createNavigateToInternalLink'
 import MomentContext from '../../i18n/context/MomentContext'
 import RemoteContent from './RemoteContent'
 import SiteHelpfulBox from './SiteHelpfulBox'
 import SpaceBetween from './SpaceBetween'
+import buildConfig from '../../app/constants/buildConfig'
 
 const HORIZONTAL_MARGIN = 8
 
@@ -30,29 +31,30 @@ type PropType = {|
   content: string,
   theme: ThemeType,
   navigation: NavigationScreenProp<*>,
-  navigateToIntegreatUrl?: NavigateToIntegreatUrlParamsType => void,
+  navigateToInternalLink?: NavigateToInternalLinkParamsType => void,
   navigateToFeedback?: (positive: boolean) => void,
   files: PageResourceCacheStateType,
   children?: React.Node,
   language: string,
   cityCode: string,
-  lastUpdate: Moment
+  lastUpdate: Moment,
+  hijackRegExp?: RegExp
 |}
 
-const HIJACK = /https?:\/\/(cms(-test)?\.integreat-app\.de|web\.integreat-app\.de|integreat\.app)(?!\/[^/]*\/(wp-content|wp-admin|wp-json)\/.*).*/
+const HIJACK = new RegExp(buildConfig().internalLinksHijackPattern)
 
 class Page extends React.Component<PropType, StateType> {
   state = { loading: true }
 
   onLinkPress = (url: string) => {
-    const { navigation, language, navigateToIntegreatUrl } = this.props
+    const { navigation, language, navigateToInternalLink } = this.props
 
     if (url.includes('.pdf')) {
       navigation.navigate('PDFViewModal', { url })
     } else if (url.includes('.png') || url.includes('.jpg')) {
       navigation.navigate('ImageViewModal', { url })
-    } else if (navigateToIntegreatUrl && HIJACK.test(url)) {
-      navigateToIntegreatUrl({
+    } else if (navigateToInternalLink && HIJACK.test(url)) {
+      navigateToInternalLink({
         url,
         language
       })

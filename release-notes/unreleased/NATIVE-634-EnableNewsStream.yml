@@ -1,0 +1,7 @@
+issue_key: NATIVE-634
+show_in_stores: false
+platforms:
+  - ios
+  - android
+en: News stream feature and push notifications are now enabled and ready for testing.
+de: Das NewsStream-Feature und Push Notifications sind nun aktiviert und bereit zum Testen.
