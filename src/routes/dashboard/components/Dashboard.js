@@ -47,7 +47,15 @@ export type PropsType = {|
 
 class Dashboard extends React.Component<PropsType> {
   getNavigationTileModels (cityCode: string, language: string): Array<TileModel> {
-    const { navigateToCategory, navigateToEvent, navigateToPoi, navigateToOffers, t, cities, navigateToNews } = this.props
+    const {
+      navigateToCategory,
+      navigateToEvent,
+      navigateToPoi,
+      navigateToOffers,
+      navigateToNews,
+      cities,
+      t
+    } = this.props
     const { featureFlags } = buildConfig()
     const cityModel = cities.find(city => city.code === cityCode)
 
@@ -73,15 +81,17 @@ class Dashboard extends React.Component<PropsType> {
         notifications: 0
       })]
 
-    if (cityModel.offersEnabled) {
+    if (featureFlags.newsStream && isNewsEnabled) {
       tiles.push(new TileModel({
-        title: t('offers'),
-        path: 'offers',
-        thumbnail: offersIcon,
+        title: t('news'),
+        path: 'news',
+        thumbnail: newsIcon,
         isExternalUrl: false,
-        onTilePress: () => navigateToOffers({
+        onTilePress: () => navigateToNews({
           cityCode,
-          language
+          language,
+          newsId: null,
+          type: pushNotificationsEnabled ? LOCAL : TUNEWS
         }),
         notifications: 0
       }))
@@ -101,6 +111,21 @@ class Dashboard extends React.Component<PropsType> {
         notifications: 0
       }))
     }
+
+    if (cityModel.offersEnabled) {
+      tiles.push(new TileModel({
+        title: t('offers'),
+        path: 'offers',
+        thumbnail: offersIcon,
+        isExternalUrl: false,
+        onTilePress: () => navigateToOffers({
+          cityCode,
+          language
+        }),
+        notifications: 0
+      }))
+    }
+
     if (featureFlags.pois) {
       tiles.push(new TileModel({
         title: t('pois'),
@@ -115,16 +140,7 @@ class Dashboard extends React.Component<PropsType> {
         notifications: 0
       }))
     }
-    if (featureFlags.newsStream && isNewsEnabled) {
-      tiles.push(new TileModel({
-        title: t('news'),
-        path: 'news',
-        thumbnail: newsIcon,
-        isExternalUrl: false,
-        onTilePress: () =>
-          navigateToNews({ cityCode, language, newsId: null, type: pushNotificationsEnabled ? LOCAL : TUNEWS })
-      }))
-    }
+
     return tiles
   }
 
