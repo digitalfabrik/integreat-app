@@ -19,7 +19,7 @@ const IntegreatBuildConfig: BuildConfigType = {
   featureFlags: {
     pois: false,
     newsStream: true,
-    pushNotifications: false,
+    pushNotifications: true,
     introSlides: true,
     sentry: true
   },
