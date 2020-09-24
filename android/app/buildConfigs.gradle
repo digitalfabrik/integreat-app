@@ -4,9 +4,27 @@ static def isWindows() {
     System.properties['os.name'].toLowerCase().contains('windows')
 }
 
-static def execCommand(command) {
+def execCommand(command) {
     def cmdLine = isWindows() ? ["cmd", "/c", command] : command
-    cmdLine.execute()
+    logger.quiet("Build Config Command: $command")
+
+    def process = cmdLine.execute()
+    def (out, err) = new StringWriter().with {
+        o -> new StringWriter().with {
+            e -> process.waitForProcessOutput(o, e)
+                [o,e]*.toString()
+        }
+    }
+
+    logger.quiet("Build Config exitValue: ${process.exitValue()}")
+
+    if (process.exitValue() != 0) {
+        logger.error("Failed to get build config for $command: $err")
+        return
+    }
+    logger.quiet(out)
+
+    return out
 }
 
 def determineBuildConfigName() {
@@ -23,18 +41,7 @@ def createBuildConfig(buildConfigName) {
 
     def command = "yarn --silent babel-node tools/build-config to-json $buildConfigName"
     def proc = execCommand(command)
-    proc.waitFor()
-
-    def json = proc.in.text
-
-    if (proc.exitValue() != 0) {
-        logger.error("Failed to get build config: $proc.err.text")
-        return
-    }
-
-    logger.quiet("Build Config as JSON: $json")
-
-    def buildConfig = new JsonSlurper().parseText(json)
+    def buildConfig = new JsonSlurper().parseText(proc)
     return buildConfig
 }
 
@@ -63,19 +70,8 @@ def setupResourceValues(buildConfigName, resValue) {
 
     def command = "yarn --silent babel-node tools/build-config to-xcconfig $buildConfigName"
     def proc = execCommand(command)
-    proc.waitFor()
-
-    def xcconfig = proc.in.text
-
-    if (proc.exitValue() != 0) {
-        logger.error("Failed to get build config: $proc.err.text")
-        return
-    }
-
-    logger.quiet("Build Config as XCConfig: $xcconfig")
-
     def buildConfigProperties = new Properties()
-    buildConfigProperties.load(new StringReader(xcconfig))
+    buildConfigProperties.load(new StringReader(proc))
 
     // Java properties use the same syntax as xcconfig files
     // https://docs.oracle.com/javase/7/docs/api/java/util/Properties.html
