@@ -3,7 +3,7 @@
 import * as React from 'react'
 import SlideButton from './SlideButton'
 import Pagination from './Pagination'
-import type { ThemeType } from '../../../modules/theme/constants/theme'
+import type { ThemeType } from '../../../modules/theme/constants'
 import type { TFunction } from 'react-i18next'
 import type { IntroSettingsType } from '../IntroContainer'
 import { ButtonContainer } from './StandardFooter'

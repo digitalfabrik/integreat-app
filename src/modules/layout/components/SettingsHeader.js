@@ -4,7 +4,7 @@ import * as React from 'react'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
 import HeaderBackButton from 'react-navigation-stack/lib/module/views/Header/HeaderBackButton'
-import type { ThemeType } from '../../../modules/theme/constants/theme'
+import type { ThemeType } from '../../theme/constants'
 import type { TFunction } from 'react-i18next'
 import type { NavigationScreenProp } from 'react-navigation'
 

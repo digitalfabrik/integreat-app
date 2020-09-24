@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import type { ThemeType } from '../../../modules/theme/constants/theme'
+import type { ThemeType } from '../../../modules/theme/constants'
 import { SearchBar } from 'react-native-elements'
 import type { TFunction } from 'react-i18next'
 

@@ -3,7 +3,7 @@
 import Failure from '../Failure'
 import { fireEvent, render } from '@testing-library/react-native'
 import * as React from 'react'
-import { lightTheme } from '../../../theme/constants/theme'
+import { lightTheme } from '../../../theme/constants'
 import ErrorCodes from '../../ErrorCodes'
 
 describe('Failure', () => {

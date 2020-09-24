@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import Snackbar from '../components/Snackbar'
-import type { ThemeType } from '../../theme/constants/theme'
+import type { ThemeType } from '../../theme/constants'
 import { type NavigationScreenProp } from 'react-navigation'
 import { type TFunction, withTranslation } from 'react-i18next'
 import withTheme from '../../theme/hocs/withTheme'

@@ -4,7 +4,7 @@ import * as React from 'react'
 import { Text } from 'react-native'
 import { SprungbrettJobModel } from '@integreat-app/integreat-api-client'
 import ListItem from '../../../modules/common/components/ListItem'
-import type { ThemeType } from '../../../modules/theme/constants/theme'
+import type { ThemeType } from '../../../modules/theme/constants'
 
 type PropsType = {|
   job: SprungbrettJobModel,
