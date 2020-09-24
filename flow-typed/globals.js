@@ -1,4 +1,4 @@
-import type { BuildConfigType } from '../build-configs/configs/BuildConfigType'
+import type { BuildConfigType } from '../build-configs/BuildConfigType'
 
 declare var __DEV__: boolean
 declare var __VERSION__: string

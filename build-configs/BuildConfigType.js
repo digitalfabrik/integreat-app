@@ -1,14 +1,16 @@
 // @flow
 
-import type { ThemeType } from '../themes/ThemeType'
-import type { FeatureFlagsType } from './featureFlags'
+import type { ThemeType } from './ThemeType'
 
 export type LocalesType = { [namespace: string]: { [language: string]: { [key: string]: string } } }
 
 export type BuildConfigType = {|
   appName: string,
   cmsUrl: string,
-  featureFlags: FeatureFlagsType,
+  featureFlags: {|
+    pois: boolean,
+    newsStream: boolean
+  |},
   theme: ThemeType,
   darkTheme: ThemeType,
   manifestUrl?: string,
