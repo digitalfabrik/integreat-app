@@ -6,7 +6,7 @@ import SelectorItemModel from '../models/SelectorItemModel'
 import styled from 'styled-components/native'
 import { css, type StyledComponent } from 'styled-components'
 import { TouchableHighlight } from 'react-native'
-import type { ThemeType } from '../../../modules/theme/constants/theme'
+import type { ThemeType } from '../../theme/constants'
 
 const ItemWrapper = styled.View`
   justify-content: center;

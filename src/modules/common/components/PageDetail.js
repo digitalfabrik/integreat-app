@@ -3,7 +3,7 @@
 import * as React from 'react'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
-import type { ThemeType } from '../../theme/constants/theme'
+import type { ThemeType } from '../../theme/constants'
 import { contentDirection } from '../../i18n/contentDirection'
 
 const Identifier: StyledComponent<{}, ThemeType, *> = styled.Text`

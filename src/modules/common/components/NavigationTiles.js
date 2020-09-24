@@ -3,7 +3,7 @@
 import React from 'react'
 import styled from 'styled-components/native'
 import TileModel from '../models/TileModel'
-import type { ThemeType } from '../../theme/constants/theme'
+import type { ThemeType } from '../../theme/constants'
 import NavigationTile from './NavigationTile'
 import type { StyledComponent } from 'styled-components'
 import { ScrollView, Dimensions } from 'react-native'

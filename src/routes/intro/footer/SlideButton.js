@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { Button } from 'react-native-elements'
-import type { ThemeType } from '../../../modules/theme/constants/theme'
+import type { ThemeType } from '../../../modules/theme/constants'
 
 type PropsType = {|
   label: string,

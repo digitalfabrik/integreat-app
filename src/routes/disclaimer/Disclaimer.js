@@ -2,7 +2,7 @@
 
 import Page from '../../modules/common/components/Page'
 import { PageModel } from '@integreat-app/integreat-api-client'
-import type { ThemeType } from '../../modules/theme/constants/theme'
+import type { ThemeType } from '../../modules/theme/constants'
 import React from 'react'
 import type { NavigationScreenProp } from 'react-navigation'
 

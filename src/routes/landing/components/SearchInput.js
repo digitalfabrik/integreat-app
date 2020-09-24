@@ -5,7 +5,7 @@ import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
 
 import Icon from 'react-native-vector-icons/MaterialIcons'
-import type { ThemeType } from '../../../modules/theme/constants/theme'
+import type { ThemeType } from '../../../modules/theme/constants'
 import testID from '../../../modules/e2e/testID'
 
 export const Input: StyledComponent<{}, ThemeType, *> = styled.TextInput.attrs((props: { theme: ThemeType }) => ({

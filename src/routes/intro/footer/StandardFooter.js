@@ -5,7 +5,7 @@ import SlideButton from './SlideButton'
 import Pagination from './Pagination'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
-import type { ThemeType } from '../../../modules/theme/constants/theme'
+import type { ThemeType } from '../../../modules/theme/constants'
 import type { TFunction } from 'react-i18next'
 import { View } from 'react-native'
 

@@ -3,7 +3,7 @@
 import Caption from '../Caption'
 import { render } from '@testing-library/react-native'
 import React from 'react'
-import { darkTheme } from '../../../theme/constants/theme'
+import { darkTheme } from '../../../theme/constants'
 
 describe('Caption', () => {
   it('should render and display a Caption', () => {

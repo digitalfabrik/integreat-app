@@ -4,7 +4,7 @@ import * as React from 'react'
 
 import CategoryListItem from './CategoryListItem'
 import Html from 'react-native-render-html'
-import type { ThemeType } from '../../../modules/theme/constants/theme'
+import type { ThemeType } from '../../theme/constants'
 import styled from 'styled-components/native'
 import Image from '../../common/components/Image'
 import CategoryListCaption from '../../../modules/common/components/CategoryListCaption'

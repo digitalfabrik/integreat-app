@@ -10,7 +10,7 @@ import {
 import ContentNotFoundError from '../../../modules/error/ContentNotFoundError'
 import List from './List'
 import Failure from '../../../modules/error/components/Failure'
-import type { ThemeType } from '../../../modules/theme/constants/theme'
+import type { ThemeType } from '../../../modules/theme/constants'
 import type {
   LanguageResourceCacheStateType,
   NewsModelsType,

@@ -7,7 +7,7 @@ import {
   TunewsModel
 } from '@integreat-app/integreat-api-client'
 import MomentContext from '../../../modules/i18n/context/MomentContext'
-import type { ThemeType } from '../../../modules/theme/constants/theme'
+import type { ThemeType } from '../../../modules/theme/constants'
 import {
   contentDirection,
   contentAlignment

@@ -4,7 +4,7 @@ import * as React from 'react'
 import { View } from 'react-native'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
-import type { ThemeType } from '../../../modules/theme/constants/theme'
+import type { ThemeType } from '../../../modules/theme/constants'
 import Touchable from '../../../modules/platform/components/Touchable'
 import type { AccessibilityRole } from 'react-native/Libraries/Components/View/ViewAccessibility'
 

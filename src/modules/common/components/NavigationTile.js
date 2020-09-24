@@ -5,7 +5,7 @@ import { View } from 'react-native'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
 import TileModel from '../models/TileModel'
-import type { ThemeType } from '../../theme/constants/theme'
+import type { ThemeType } from '../../theme/constants'
 import Image from './Image'
 
 const NEWS_DOT_RADIUS = 20

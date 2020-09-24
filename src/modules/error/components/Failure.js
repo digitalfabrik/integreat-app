@@ -6,7 +6,7 @@ import { type StyledComponent } from 'styled-components'
 import { Text } from 'react-native'
 import type { TFunction } from 'react-i18next'
 import FailureIcon from '../assets/FailureIcon.svg'
-import type { ThemeType } from '../../theme/constants/theme'
+import type { ThemeType } from '../../theme/constants'
 import { Button } from 'react-native-elements'
 import type { ErrorCodeType } from '../ErrorCodes'
 

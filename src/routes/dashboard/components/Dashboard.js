@@ -3,7 +3,7 @@
 import * as React from 'react'
 import type { NavigationScreenProp } from 'react-navigation'
 import Categories from '../../../modules/categories/components/Categories'
-import type { ThemeType } from '../../../modules/theme/constants/theme'
+import type { ThemeType } from '../../../modules/theme/constants'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
 import type { LanguageResourceCacheStateType } from '../../../modules/app/StateType'
