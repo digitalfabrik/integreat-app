@@ -1,7 +1,7 @@
 // @flow
 
-import type { FontsType } from '../common/fonts'
-import { commonFonts } from '../common/fonts'
+import type { FontsType } from '../../common/theme/fonts'
+import { commonFonts } from '../../common/theme/fonts'
 
 const fonts: FontsType = {
   decorativeFontFamily: '\'Raleway\', \'Lateef\', sans-serif',
