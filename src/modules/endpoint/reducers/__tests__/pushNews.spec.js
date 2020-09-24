@@ -5,7 +5,7 @@ import type { CityContentStateType } from '../../../app/StateType'
 import cityContentReducer from '../cityContentReducer'
 import type { PushNewsActionType } from '../../../app/StoreActionType'
 import moment from 'moment'
-import { LOCAL } from '../../../../routes/news/NewsTabs'
+import { LOCAL_NEWS } from '../../constants'
 
 jest.mock('@react-native-community/async-storage')
 
@@ -35,7 +35,7 @@ describe('pushNews', () => {
           newsId: null,
           page: 1,
           hasMoreNews: false,
-          type: LOCAL
+          type: LOCAL_NEWS
         }
       },
       resourceCache: { status: 'ready', value: { files: {} } },
@@ -62,7 +62,7 @@ describe('pushNews', () => {
         language: 'de',
         city: 'augsburg',
         hasMoreNews: false,
-        type: LOCAL,
+        type: LOCAL_NEWS,
         page: 1
       }
     }
@@ -76,7 +76,7 @@ describe('pushNews', () => {
           city: 'augsburg',
           language: 'de',
           hasMoreNews: false,
-          type: LOCAL,
+          type: LOCAL_NEWS,
           page: 1,
           models: [news1]
         }
@@ -99,7 +99,7 @@ describe('pushNews', () => {
         language: 'de',
         hasMoreNews: true,
         page: 1,
-        type: LOCAL,
+        type: LOCAL_NEWS,
         city: 'augsburg'
       }
     }
@@ -114,7 +114,7 @@ describe('pushNews', () => {
           language: 'de',
           hasMoreNews: true,
           page: 1,
-          type: LOCAL,
+          type: LOCAL_NEWS,
           models: [news1]
         }
       }
