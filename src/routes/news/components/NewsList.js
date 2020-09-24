@@ -23,7 +23,7 @@ import NewsListItem from './NewsListItem'
 import styled from 'styled-components/native'
 import type { StyledComponent } from 'styled-components'
 import NewsItemsDetails from './NewsItemDetails'
-import { TUNEWS } from '../NewsTabs'
+import { TUNEWS } from '../../../modules/endpoint/constants'
 
 const tunewsWebsiteUrl = 'https://tunewsinternational.com'
 

@@ -21,7 +21,7 @@ import loadLanguages from './loadLanguages'
 import loadTunewsLanguages from './loadTunewsLanguages'
 
 import loadTunewsElement from './loadTunewsElement'
-import { LOCAL } from '../../../routes/news/NewsTabs'
+import { LOCAL_NEWS } from '../constants'
 
 const TUNEWS_FETCH_COUNT_LIMIT = 20
 const FIRST_PAGE_INDEX = 1
@@ -32,7 +32,7 @@ export function * fetchNews (
 ): Saga<void> {
   const { city, language, newsId, key, type, criterion } = action.params
   try {
-    const isLocalNews = type === LOCAL
+    const isLocalNews = type === LOCAL_NEWS
 
     const peeking = yield select(state => isPeekingRoute(state, { routeCity: city }))
 

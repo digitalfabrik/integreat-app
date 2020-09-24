@@ -25,7 +25,7 @@ import { CityModel } from '@integreat-app/integreat-api-client'
 import * as React from 'react'
 import { mapProps } from 'recompose'
 import TranslatedWithThemeNewsList from '../components/NewsList'
-import { TUNEWS } from '../NewsTabs'
+import { TUNEWS } from '../../../modules/endpoint/constants'
 
 type ContainerPropsType = {|
   newsId: ?string,

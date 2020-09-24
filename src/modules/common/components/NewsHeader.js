@@ -6,9 +6,12 @@ import type { StyledComponent } from 'styled-components'
 import styled from 'styled-components/native'
 import { withTranslation } from 'react-i18next'
 import withTheme from '../../theme/hocs/withTheme'
-import type { ThemeType } from '../../theme/constants/theme'
+import type { ThemeType } from '../../theme/constants'
 import type { NewsType } from '../../app/StateType'
-import { LOCAL, LOCAL_NEWS_TAB, TUNEWS_TAB } from '../../../routes/news/NewsTabs'
+import { LOCAL_NEWS, TUNEWS } from '../../endpoint/constants'
+import activeInternational from '../../../routes/news/assets/tu-news-active.svg'
+import inactiveInternational from '../../../routes/news/assets/tu-news-inactive.svg'
+import { TFunction } from 'i18next'
 
 const NewsTypeIcon = styled.Image`
   align-self: center;
@@ -47,54 +50,38 @@ const HeaderContainer: StyledComponent<{}, ThemeType, *> = styled.View`
   justify-content: center;
 `
 
-const NewsTypeItem = ({ tab, onItemPress, selectedNewsType, t, theme }) => {
-  const isLocal = tab.type === LOCAL
-  const isSelected = tab.type === selectedNewsType
-  return (
-    <TouchableWrapper onPress={onItemPress}>
-      {isLocal ? (
-        <LocalTabWrapper isSelected={isSelected} theme={theme}>
-          <LocalText theme={theme}>{t(tab.type)}</LocalText>
-        </LocalTabWrapper>
-      ) : (
-        <NewsTypeIcon source={isSelected ? tab.active : tab.inactive} />
-      )}
-    </TouchableWrapper>
-  )
-}
-
-const TranslatedNewsTypeItem = withTranslation('news')(
-  withTheme(NewsTypeItem)
-)
-
 type PropsType = {|
-  cityModel?: CityModel,
+  cityModel: CityModel,
   selectedNewsType: NewsType,
   selectAndFetchLocalNews: () => void,
-  selectAndFetchTunews: () => void
+  selectAndFetchTunews: () => void,
+  theme: ThemeType,
+  t: TFunction
 |}
 
-const NewsHeader = (props: PropsType) => {
-  const { cityModel, selectedNewsType, selectAndFetchLocalNews, selectAndFetchTunews } = props
-  return (
-    <HeaderContainer>
-      {cityModel && cityModel.pushNotificationsEnabled && (
-        <TranslatedNewsTypeItem
-          key='pushNotificationsEnabled'
-          tab={LOCAL_NEWS_TAB}
-          selectedNewsType={selectedNewsType}
-          onItemPress={selectAndFetchLocalNews}
-        />
-      )}
-      {cityModel && cityModel.tunewsEnabled && (
-        <TranslatedNewsTypeItem
-          key='tunewsEnabled'
-          tab={TUNEWS_TAB}
-          selectedNewsType={selectedNewsType}
-          onItemPress={selectAndFetchTunews}
-        />
-      )}
-    </HeaderContainer>
-  )
+class NewsHeader extends React.PureComponent<PropsType> {
+  render () {
+    const { cityModel, selectedNewsType, selectAndFetchLocalNews, selectAndFetchTunews, theme, t } = this.props
+
+    return (
+      <HeaderContainer>
+        {cityModel.pushNotificationsEnabled ? (
+          <TouchableWrapper onPress={selectAndFetchLocalNews}>
+            <LocalTabWrapper isSelected={selectedNewsType === LOCAL_NEWS} theme={theme}>
+              <LocalText theme={theme}>{t('local')}</LocalText>
+            </LocalTabWrapper>
+          </TouchableWrapper>
+        ) : null}
+        {cityModel.tunewsEnabled ? (
+          <TouchableWrapper onPress={selectAndFetchTunews}>
+            <NewsTypeIcon source={selectedNewsType === TUNEWS ? activeInternational : inactiveInternational} />
+          </TouchableWrapper>
+        ) : null}
+      </HeaderContainer>
+    )
+  }
 }
-export default NewsHeader
+
+export default withTranslation('news')(
+  withTheme(NewsHeader)
+)

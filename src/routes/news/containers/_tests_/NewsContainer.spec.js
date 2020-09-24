@@ -18,7 +18,7 @@ import { render } from '@testing-library/react-native'
 import ErrorCodes from '../../../../modules/error/ErrorCodes'
 import { Text, ActivityIndicator } from 'react-native'
 import { LOADING_TIMEOUT } from '../../../../modules/common/constants'
-import { LOCAL } from '../../NewsTabs'
+import { LOCAL_NEWS } from '../../../../modules/endpoint/constants'
 
 const mockStore = configureMockStore()
 jest.mock('react-i18next')
@@ -86,7 +86,7 @@ describe('News', () => {
     status: 'ready',
     language: language.code,
     newsId: null,
-    type: LOCAL,
+    type: LOCAL_NEWS,
     page: 1,
     city: city.code,
     models: news,
@@ -132,7 +132,7 @@ describe('News', () => {
       language: language.code,
       city: city.code,
       newsId: null,
-      type: LOCAL,
+      type: LOCAL_NEWS,
       message: 'Something went wrong with the route',
       code: ErrorCodes.UnknownError
     })
@@ -168,7 +168,7 @@ describe('News', () => {
     const state: StateType = prepareState({
       newsId: null,
       status: 'loading',
-      type: LOCAL,
+      type: LOCAL_NEWS,
       language: language.code,
       city: city.code
     })
