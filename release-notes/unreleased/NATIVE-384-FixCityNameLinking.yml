@@ -3,5 +3,5 @@ show_in_stores: true
 platforms:
   - ios
   - android
-en: Show the corrent city name after clicking on an internal link
-de: Zeige den richtigen Stadtnamen an beim Klicken auf einen internen Link
+en: A bug showing a wrong city name has been removed.
+de: Das Anzeigen eines falschen Stadtnamens wurde behoben.
