@@ -1,8 +1,7 @@
 // @flow
 
-import integreatTheme, { darkTheme as darkIntegreatTheme } from '../../themes/integreat'
+import integreatTheme, { darkTheme as darkIntegreatTheme } from './theme'
 import type { BuildConfigType } from '../BuildConfigType'
-import featureFlags from '../featureFlags'
 
 const IntegreatBuildConfig: () => BuildConfigType = () => ({
   appName: 'Integreat',
@@ -11,7 +10,10 @@ const IntegreatBuildConfig: () => BuildConfigType = () => ({
   darkTheme: darkIntegreatTheme,
   cmsUrl: 'https://cms.integreat-app.de',
   manifestUrl: '/manifest.json',
-  featureFlags,
+  featureFlags: {
+    pois: false,
+    newsStream: true
+  },
   icons: {
     locationIcon: '/location-big.svg',
     headerLogo: '/integreat-app-logo.png'
