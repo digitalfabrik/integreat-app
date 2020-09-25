@@ -63,7 +63,7 @@ export default class ResourceURLFinder {
     inputs: Array<InputEntryType>,
     buildFilePath: (url: string, urlHash: string) => string
   ): FetchMapType {
-    return reduce<Array<InputEntryType>, FetchMapType>(inputs, (fetchMap, input: InputEntryType) => {
+    return reduce<InputEntryType, FetchMapType>(inputs, (fetchMap, input: InputEntryType) => {
       const path = input.path
 
       this.findResourceUrls(input.content)

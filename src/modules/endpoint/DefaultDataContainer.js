@@ -152,8 +152,10 @@ class DefaultDataContainer implements DataContainer {
   }
 
   getFilePathsFromLanguageResourceCache (languageResourceCache: LanguageResourceCacheStateType): Array<string> {
+    // $FlowFixMe https://github.com/facebook/flow/issues/2221
+    const pageResourceCaches: Array<PageResourceCacheStateType> = Object.values(languageResourceCache)
     return flatMap(
-      Object.values(languageResourceCache),
+      pageResourceCaches,
       (file: PageResourceCacheStateType): Array<string> => map(file, ({ filePath }) => filePath)
     )
   }
@@ -177,8 +179,12 @@ class DefaultDataContainer implements DataContainer {
       const newPaths = this.getFilePathsFromLanguageResourceCache(resourceCache)
       const removedPaths = difference(oldPaths, newPaths)
       if (!isEmpty(removedPaths)) {
+        const collection: CityResourceCacheStateType = omitBy(
+          previousResourceCache,
+          (val, key: string) => key === language
+        )
         const pathsOfOtherLanguages = flatMap(
-          omitBy(previousResourceCache, (val, key: string) => key === language),
+          collection,
           (languageCache: LanguageResourceCacheStateType) => this.getFilePathsFromLanguageResourceCache(languageCache)
         )
         const pathsToClean = difference(removedPaths, pathsOfOtherLanguages)

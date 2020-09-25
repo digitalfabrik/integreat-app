@@ -33,3 +33,5 @@ walkDir(mocksPath, name => {
 jest.doMock('react-native/Libraries/ReactNative/I18nManager',
   () => require('testing/I18nManagerMock.js')
 )
+
+jest.doMock('modules/app/constants/buildConfig')

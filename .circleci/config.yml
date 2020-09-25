@@ -167,7 +167,7 @@ jobs:
             FL_OUTPUT_DIR: output
             TOTAL_CPUS: 4
         macos:
-            xcode: 11.5.0
+            xcode: 11.7.0
         parameters:
             build_for_delivery:
                 description: Whether builds are delivered to the store. If true, integreat and malte builds are created.
@@ -183,13 +183,13 @@ jobs:
             - restore_environment_variables
             - restore_cache:
                 keys:
-                    - 2-gems-{{ arch }}-{{ checksum "ios/Gemfile.lock" }}
-                    - 2-gems-{{ arch }}-
+                    - 3-gems-{{ arch }}-{{ checksum "ios/Gemfile.lock" }}
+                    - 3-gems-{{ arch }}-
             - run:
                 command: bundle check || bundle install --path vendor/bundle
                 working_directory: ios
             - save_cache:
-                key: 2-gems-{{ arch }}-{{ checksum "ios/Gemfile.lock" }}
+                key: 3-gems-{{ arch }}-{{ checksum "ios/Gemfile.lock" }}
                 paths:
                     - ios/vendor/bundle
             - restore_cache:
@@ -316,7 +316,7 @@ jobs:
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         macos:
-            xcode: 11.2.0
+            xcode: 11.7.0
         parameters:
             production_delivery:
                 description: Whether to deliver the build to production.

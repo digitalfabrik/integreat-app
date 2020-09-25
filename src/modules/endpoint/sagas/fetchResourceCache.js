@@ -27,7 +27,7 @@ export default function * fetchResourceCache (
 ): Saga<void> {
   try {
     const fetchMapTargets = flatten<FetchMapTargetType, FetchMapTargetType>(values(fetchMap))
-    const targetFilePaths = reduce<Array<FetchMapTargetType>, TargetFilePathsType>(fetchMapTargets, (acc, value) => {
+    const targetFilePaths = reduce<FetchMapTargetType, TargetFilePathsType>(fetchMapTargets, (acc, value) => {
       acc[value.filePath] = value.url
       return acc
     }, {})
@@ -43,7 +43,7 @@ export default function * fetchResourceCache (
     }
 
     const resourceCache: LanguageResourceCacheStateType = mapValues(fetchMap, fetchMapEntry =>
-      reduce<Array<FetchMapTargetType>, PageResourceCacheStateType>(
+      reduce<FetchMapTargetType, PageResourceCacheStateType>(
         fetchMapEntry, (acc: {}, fetchMapTarget: FetchMapTargetType) => {
           const filePath = fetchMapTarget.filePath
           const downloadResult = successResults[filePath]
