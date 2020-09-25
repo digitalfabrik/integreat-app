@@ -1,4 +1,4 @@
-# Whitelabelling
+# Whitelabeling
 
 The aim of this document is to provide a (preferably) complete overview about the process of creating a new whitelabelled app.
 
@@ -39,7 +39,7 @@ Information necessary for the creation of a new build config.
 
 Information necessary for the setup of the store and webapp presences.
 
-* WebApp domain
+* WebApp domain (DF or own?)
 * Apple app store:
     * DF account or own?
     * App title
@@ -64,7 +64,7 @@ Information necessary for the setup of the store and webapp presences.
     * Feature graphic (image displayed in google play store app on top)
     * Privacy policy url
     * Support email (maybe use DF?)
-    * Website (= apple marketing url, maybe use DF?)
+    * Website (= same as apple marketing url, maybe use DF?)
     * Address (maybe use DF?)
     * [optional] Adaptive app icon
     * [optional] Promo video
