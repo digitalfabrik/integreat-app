@@ -9,7 +9,7 @@ import styled from 'styled-components/native'
 import Image from '../../common/components/Image'
 import CategoryListCaption from '../../../modules/common/components/CategoryListCaption'
 
-export type SimpleModelType = {|
+export type CategoryListModelType = {|
   title: string,
   thumbnail: string,
   path: string,
@@ -17,8 +17,8 @@ export type SimpleModelType = {|
 |}
 
 export type ListEntryType = {|
-  model: SimpleModelType,
-  subCategories: Array<SimpleModelType>
+  model: CategoryListModelType,
+  subCategories: Array<CategoryListModelType>
 |}
 
 type PropsType = {|

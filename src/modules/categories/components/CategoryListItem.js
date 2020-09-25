@@ -12,7 +12,7 @@ import Image from '../../common/components/Image'
 import { contentDirection } from '../../i18n/contentDirection'
 import Highlighter from 'react-native-highlight-words'
 import normalizeSearchString from '../../common/normalizeSearchString'
-import type { SimpleModelType } from './CategoryList'
+import type { CategoryListModelType } from './CategoryList'
 import ContentMatcher from './ContentMatcher'
 
 const NUM_WORDS_SURROUNDING_MATCH = 10
@@ -55,8 +55,8 @@ const CategoryThumbnail = styled(Image)`
 `
 
 type PropsType = {
-  category: SimpleModelType,
-  subCategories: Array<SimpleModelType>,
+  category: CategoryListModelType,
+  subCategories: Array<CategoryListModelType>,
   /** A search query to highlight in the category title */
   query?: string,
   theme: ThemeType,
