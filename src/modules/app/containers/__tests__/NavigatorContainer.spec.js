@@ -44,6 +44,8 @@ describe('NavigatorContainer', () => {
 
   beforeEach(() => {
     jest.resetModules()
+    // Reimporting these modules fixes the following issue:
+    // Invalid hook call https://github.com/facebook/jest/issues/8987
     TestRenderer = require('react-test-renderer')
     render = require('@testing-library/react-native').render
     Provider = require('react-redux').Provider
