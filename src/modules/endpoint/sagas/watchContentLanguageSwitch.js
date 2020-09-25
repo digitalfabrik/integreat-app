@@ -13,9 +13,13 @@ import loadCityContent from './loadCityContent'
 import { ContentLoadCriterion } from '../ContentLoadCriterion'
 import AppSettings from '../../settings/AppSettings'
 import { Alert } from 'react-native'
-import * as NotificationsManager from '../../../modules/notifications/NotificationsManager'
+import * as NotificationsManager from '../../push-notifications/PushNotificationsManager'
+import buildConfig from '../../app/constants/buildConfig'
 
-export function * switchContentLanguage (dataContainer: DataContainer, action: SwitchContentLanguageActionType): Saga<void> {
+export function * switchContentLanguage (
+  dataContainer: DataContainer,
+  action: SwitchContentLanguageActionType
+): Saga<void> {
   const { newLanguage, city, t } = action.params
   try {
     // todo Use netinfo to decide whether offline and language not yet downloaded
@@ -44,7 +48,12 @@ export function * switchContentLanguage (dataContainer: DataContainer, action: S
     const previousSelectedCity = yield call(appSettings.loadSelectedCity)
     const previousContentLanguage = yield call(appSettings.loadContentLanguage)
     if (previousContentLanguage !== newLanguage) {
-      yield call(() => NotificationsManager.unsubscribeNews(previousSelectedCity, previousContentLanguage))
+      yield call(
+        NotificationsManager.unsubscribeNews,
+        previousSelectedCity,
+        previousContentLanguage,
+        buildConfig().featureFlags
+      )
     }
 
     // Only set new language after fetch succeeded

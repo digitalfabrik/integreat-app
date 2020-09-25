@@ -3,7 +3,7 @@
 import { withTranslation, type TFunction } from 'react-i18next'
 import * as React from 'react'
 import type { NavigationScreenProp } from 'react-navigation'
-import type { ThemeType } from '../../modules/theme/constants/theme'
+import type { ThemeType } from '../../../build-configs/ThemeType'
 import withTheme from '../../modules/theme/hocs/withTheme'
 import { FlatList, Dimensions } from 'react-native'
 import styled from 'styled-components/native'
@@ -17,8 +17,9 @@ import CustomizableIntroSettings from './CustomizableIntroSettings'
 import IntroSettings from './IntroSettings'
 import type { StateType as ReduxStateType } from '../../modules/app/StateType'
 import { connect } from 'react-redux'
-import { requestLocationPermission, requestPushNotificationPermission } from '../../modules/app/Permissions'
+import { requestLocationPermission } from '../../modules/app/LocationPermissionManager'
 import buildConfig, { buildConfigAssets } from '../../modules/app/constants/buildConfig'
+import { requestPushNotificationPermission } from '../../modules/push-notifications/PushNotificationsManager'
 
 const Container: StyledComponent<{ width: number }, {}, *> = styled.View`
   display: flex;
@@ -172,7 +173,7 @@ class Intro extends React.Component<PropsType, StateType> {
       }
 
       if (allowPushNotifications) {
-        await requestPushNotificationPermission()
+        await requestPushNotificationPermission(buildConfig().featureFlags)
       }
     } catch (e) {
       console.warn(e)

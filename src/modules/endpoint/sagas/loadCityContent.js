@@ -17,7 +17,7 @@ import AppSettings from '../../settings/AppSettings'
 import NetInfo from '@react-native-community/netinfo'
 import loadCities from './loadCities'
 import { fromError } from '../../error/ErrorCodes'
-import * as NotificationsManager from '../../../modules/notifications/NotificationsManager'
+import * as NotificationsManager from '../../push-notifications/PushNotificationsManager'
 import buildConfig from '../../app/constants/buildConfig'
 import loadPois from './loadPois'
 
@@ -38,7 +38,7 @@ export default function * loadCityContent (
 
   if (!criterion.peeking()) {
     const appSettings = new AppSettings()
-    yield call(() => NotificationsManager.subscribeNews(newCity, newLanguage))
+    yield call(NotificationsManager.subscribeNews, newCity, newLanguage, buildConfig().featureFlags)
 
     yield call(appSettings.setSelectedCity, newCity)
   }

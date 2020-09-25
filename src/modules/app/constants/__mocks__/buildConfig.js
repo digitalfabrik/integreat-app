@@ -25,6 +25,7 @@ const buildConfig = jest.fn<[], BuildConfigType>((): BuildConfigType => ({
   featureFlags: {
     pois: false,
     newsStream: false,
+    pushNotifications: false,
     introSlides: true,
     sentry: true
   },

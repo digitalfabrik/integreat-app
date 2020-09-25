@@ -3,9 +3,11 @@
 import type { DataContainer } from '../DataContainer'
 import type { Saga } from 'redux-saga'
 import { takeLatest, call, put } from 'redux-saga/effects'
-import type { FetchEventActionType } from '../../app/StoreActionType'
+import type { ClearResourcesAndCacheActionType } from '../../app/StoreActionType'
 
-export function * clearResourcesAndCache (dataContainer: DataContainer, action: FetchEventActionType): Saga<void> {
+export function * clearResourcesAndCache (
+  dataContainer: DataContainer, action: ClearResourcesAndCacheActionType
+): Saga<void> {
   console.debug('Clearing Resource Cache')
   dataContainer.clearInMemoryCache()
   yield call(dataContainer.clearOfflineCache)
