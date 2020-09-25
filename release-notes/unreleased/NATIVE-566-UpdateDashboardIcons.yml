@@ -1,0 +1,7 @@
+issue_key: NATIVE-566
+show_in_stores: true
+platforms:
+  - ios
+  - android
+en: The icons on the dashboard have been replaced with prettier ones.
+de: Die Icons auf dem Dashboard wurden durch schönere Icons ersetzt.
