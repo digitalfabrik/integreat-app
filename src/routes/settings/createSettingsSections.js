@@ -7,7 +7,7 @@ import type { SettingsType } from '../../modules/settings/AppSettings'
 import openPrivacyPolicy from './openPrivacyPolicy'
 import buildConfig from '../../modules/app/constants/buildConfig'
 import * as Sentry from '@sentry/react-native'
-import * as NotificationsManager from '../../modules/notifications/NotificationsManager'
+import * as NotificationsManager from '../../modules/push-notifications/PushNotificationsManager'
 import initSentry from '../../modules/app/initSentry'
 
 export type SetSettingFunctionType = (
@@ -43,13 +43,13 @@ const createSettingsSections = ({ setSetting, t, languageCode, cityCode }: Creat
               settings => ({ allowPushNotifications: !settings.allowPushNotifications }),
               async newSettings => {
                 if (!cityCode) {
-                  // No city selected, so nothing to do here
+                  // No city selected so nothing to do here
                   return
                 }
                 if (newSettings.allowPushNotifications) {
-                  await NotificationsManager.subscribeNews(cityCode, languageCode)
+                  await NotificationsManager.subscribeNews(cityCode, languageCode, buildConfig().featureFlags)
                 } else {
-                  await NotificationsManager.unsubscribeNews(cityCode, languageCode)
+                  await NotificationsManager.unsubscribeNews(cityCode, languageCode, buildConfig().featureFlags)
                 }
               }
             )

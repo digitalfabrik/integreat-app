@@ -8,12 +8,14 @@ import { type TFunction, withTranslation } from 'react-i18next'
 import withTheme from '../../theme/hocs/withTheme'
 import AppSettings from '../../settings/AppSettings'
 import { openSettings, RESULTS } from 'react-native-permissions'
-import {
-  locationPermissionStatus,
-  pushNotificationPermissionStatus,
-  requestLocationPermission, requestPushNotificationPermission
-} from '../../app/Permissions'
+import { checkLocationPermission, requestLocationPermission } from '../../app/LocationPermissionManager'
 import SnackbarAnimator from '../components/SnackbarAnimator'
+import buildConfig from '../../app/constants/buildConfig'
+import {
+  checkPushNotificationPermission,
+  requestPushNotificationPermission
+} from '../../push-notifications/PushNotificationsManager'
+import type { FeatureFlagsType } from '../../../../build-configs/BuildConfigType'
 
 type PropsType = {|
   navigation: NavigationScreenProp<*>,
@@ -47,8 +49,8 @@ class PermissionSnackbarContainer extends React.Component<PropsType, StateType> 
 
   updateSettingsAndPermissions = async () => {
     const settings = await new AppSettings().loadSettings()
-    const locationStatus = await locationPermissionStatus()
-    const pushNotificationStatus = await pushNotificationPermissionStatus()
+    const locationStatus = await checkLocationPermission()
+    const pushNotificationStatus = await checkPushNotificationPermission()
 
     const showLocationSnackbar = settings && settings.proposeNearbyCities === true &&
       [RESULTS.BLOCKED, RESULTS.DENIED].includes(locationStatus) && this.landingRoute()
@@ -72,22 +74,22 @@ class PermissionSnackbarContainer extends React.Component<PropsType, StateType> 
     this.updateSettingsAndPermissions()
   }
 
-  requestOrOpenSettings = async (status: () => Promise<RESULTS>, request: () => Promise<RESULTS>) => {
+  requestOrOpenSettings = async (status: () => Promise<RESULTS>, request: FeatureFlagsType => Promise<void>) => {
     const permissionStatus = await status()
     if (permissionStatus === RESULTS.BLOCKED) {
       await openSettings()
     } else {
-      await request()
+      await request(buildConfig().featureFlags)
     }
     this.updateSettingsAndPermissions()
   }
 
   requestLocationPermissionOrSettings = async () => {
-    this.requestOrOpenSettings(locationPermissionStatus, requestLocationPermission)
+    this.requestOrOpenSettings(checkLocationPermission, requestLocationPermission)
   }
 
   requestPushNotificationPermissionOrSettings = async () => {
-    this.requestOrOpenSettings(pushNotificationPermissionStatus, requestPushNotificationPermission)
+    this.requestOrOpenSettings(checkPushNotificationPermission, requestPushNotificationPermission)
   }
 
   landingRoute = (): boolean => {

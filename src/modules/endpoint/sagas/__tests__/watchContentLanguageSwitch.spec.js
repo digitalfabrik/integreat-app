@@ -14,7 +14,7 @@ import EventModelBuilder from '../../../../testing/builder/EventModelBuilder'
 import PoiModelBuilder from '../../../../testing/builder/PoiModelBuilder'
 
 jest.mock('rn-fetch-blob')
-jest.mock('../../../notifications/NotificationsManager')
+jest.mock('../../../push-notifications/PushNotificationsManager')
 jest.mock('../loadCityContent')
 jest.mock('@react-native-community/async-storage')
 
