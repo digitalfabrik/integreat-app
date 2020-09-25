@@ -9,6 +9,7 @@
 * [I18n](docs/i18n.md)
 * [Error reporting](docs/error-reporting.md)
 * [React Native Upgrades](docs/react-native-upgrades.md)
+* [Whitelabelling](docs/whitelabelling.md)
 
 ## Technology Stack
 
