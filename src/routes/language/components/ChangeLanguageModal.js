@@ -10,14 +10,8 @@ import SelectorItemModel from '../../../modules/common/models/SelectorItemModel'
 import { InteractionManager } from 'react-native'
 import type { NavigationScreenProp } from 'react-navigation'
 
-const Wrapper: StyledComponent<{}, ThemeType, *> = styled.View`
-  position: absolute;  
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+const Wrapper: StyledComponent<{}, ThemeType, *> = styled.ScrollView`
   background-color: ${props => props.theme.colors.backgroundColor};
-  justifyContent: center;
 `
 
 type PropsType = {
@@ -44,7 +38,7 @@ class ChangeLanguageModal extends React.Component<PropsType> {
   render () {
     const { theme, languages, availableLanguages, currentLanguage } = this.props
 
-    return <Wrapper theme={theme}>
+    return <Wrapper theme={theme} contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}>
       <Selector theme={theme} selectedItemCode={currentLanguage} verticalLayout
                 items={languages.map(languageModel => {
                   const isLanguageAvailable = availableLanguages.includes(languageModel.code)
