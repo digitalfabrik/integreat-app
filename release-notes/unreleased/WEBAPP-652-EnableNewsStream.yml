@@ -1,0 +1,5 @@
+issue_key: WEBAPP-652
+show_in_stores: false
+platforms:
+  - web
+en: News stream feature and push notifications are now enabled and ready for testing.

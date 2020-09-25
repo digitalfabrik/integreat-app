@@ -1,6 +1,6 @@
 // @flow
 
-import type { BuildConfigType } from '../../../../build-configs/configs/BuildConfigType'
+import type { BuildConfigType } from '../../../../build-configs/BuildConfigType'
 
 const buildConfig = (): BuildConfigType => __BUILD_CONFIG__
 

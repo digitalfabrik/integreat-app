@@ -1,9 +1,8 @@
 // @flow
 
-import malteTheme, { darkTheme as darkMalteTheme } from '../../themes/malte'
+import malteTheme, { darkTheme as darkMalteTheme } from './theme'
 import type { BuildConfigType } from '../BuildConfigType'
-import featureFlags from '../featureFlags'
-import malteOverrideLocales from '../../../locales/override-locales/malte.json'
+import malteOverrideLocales from '../../locales/override-locales/malte.json'
 
 const MalteBuildConfig: () => BuildConfigType = () => ({
   appName: 'Malte',
@@ -11,7 +10,10 @@ const MalteBuildConfig: () => BuildConfigType = () => ({
   darkTheme: darkMalteTheme,
   // TODO WEBAPP-567: Add itunesAppId
   cmsUrl: 'https://cms.malteapp.de',
-  featureFlags,
+  featureFlags: {
+    pois: false,
+    newsStream: true
+  },
   localesOverride: malteOverrideLocales,
   icons: {
     locationIcon: '/location-big.svg',
