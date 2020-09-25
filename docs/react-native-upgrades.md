@@ -2,7 +2,7 @@
 
 ## From 0.61.5 to 0.63.2
 
-This upgrade was needed in order to get to API level 29.
+This upgrade was needed in order to get to android API level 29.
 The following patches were applied manually: [Online diff](https://react-native-community.github.io/upgrade-helper/?from=0.61.5&to=0.63.0)
 
 ### What to do after upgrade?
