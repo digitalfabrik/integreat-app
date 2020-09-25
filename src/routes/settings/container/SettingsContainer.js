@@ -11,14 +11,19 @@ import type { StoreActionType } from '../../../modules/app/StoreActionType'
 
 type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
 
+type StatePropsType = {|
+  languageCode: string,
+  cityCode: ?string
+|}
+
 type PropsType = {|
-  navigation: NavigationScreenProp<*>,
-  language: string,
+  ...OwnPropsType,
+  ...StatePropsType,
   dispatch: Dispatch<StoreActionType>
 |}
 
-const mapStateToProps = (state: StateType) => {
-  return { language: state.contentLanguage }
+const mapStateToProps = (state: StateType): StatePropsType => {
+  return { languageCode: state.contentLanguage, cityCode: state.cityContent?.city }
 }
 
 export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(

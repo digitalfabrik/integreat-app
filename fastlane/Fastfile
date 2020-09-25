@@ -1,5 +1,7 @@
 fastlane_version "2.156.1"
 
+require_relative "read_build_config"
+
 require "yaml"
 
 # The following parameters have to be passed:

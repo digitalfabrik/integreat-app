@@ -13,6 +13,13 @@
     "ru",
     "so",
     "hr",
-    "es"
+    "es",
+    "sr",
+    "ps"
+  ],
+  "rtlLanguages": [
+    "ar",
+    "fa",
+    "ps"
   ]
 }
