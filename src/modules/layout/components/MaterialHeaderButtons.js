@@ -22,12 +22,12 @@ const onOverflowMenuPress = (cancelButtonLabel: string) => ({ overflowButtonRef,
   })
 
 const MaterialHeaderButtons = (props: {| cancelLabel: string, children: React.Node, theme: ThemeType |}) => {
-  const { cancelLabel, theme } = props
+  const { cancelLabel, theme, ...otherProps } = props
   return (
     <HeaderButtons HeaderButtonComponent={MaterialHeaderButton}
                    OverflowIcon={<MaterialIcon name='more-vert' size={23} color={theme.colors.textColor} />}
                    onOverflowMenuPress={onOverflowMenuPress(cancelLabel)}
-
+                   {...otherProps}
     />
   )
 }

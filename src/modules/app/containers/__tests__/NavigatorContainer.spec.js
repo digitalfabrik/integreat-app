@@ -37,11 +37,11 @@ class MockNavigator extends React.Component<{}> {
   render () { return null }
 }
 
-let TestRenderer
-let render
-let Provider
-
 describe('NavigatorContainer', () => {
+  let TestRenderer
+  let render
+  let Provider
+
   beforeEach(() => {
     jest.resetModules()
     TestRenderer = require('react-test-renderer')
@@ -71,6 +71,8 @@ describe('NavigatorContainer', () => {
         }
       }
     }])
+
+    jest.dontMock('../../components/Navigator')
   })
 
   it('should pass clearCategory to Navigator', () => {
@@ -85,6 +87,7 @@ describe('NavigatorContainer', () => {
       type: 'CLEAR_CATEGORY',
       params: { key: 'route-key-0' }
     }])
+    jest.dontMock('../../components/Navigator')
   })
 
   it('should pass fetchCities to Navigator', () => {
@@ -99,6 +102,7 @@ describe('NavigatorContainer', () => {
       type: 'FETCH_CITIES',
       params: { forceRefresh: true }
     }])
+    jest.dontMock('../../components/Navigator')
   })
 
   it('should render the IntroContainer if it has not been shown previously', async () => {
@@ -108,6 +112,7 @@ describe('NavigatorContainer', () => {
     const appSettings = new AppSettings()
     await appSettings.setContentLanguage('de')
     const result = render(<Provider store={store}><NavigatorContainer /></Provider>)
+
     await waitForExpect(() => {
       expect(result.getByText('Intro')).toBeTruthy()
     })
