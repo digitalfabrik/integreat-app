@@ -24,7 +24,7 @@ const loadBuildConfig = (buildConfigName: ?string): BuildConfigType => {
 
   const { featureFlags: { pushNotifications }, android, ios } = buildConfig
 
-  if (android.googleServices === null !== ios.googleServices === null) {
+  if ((android.googleServices === null) !== (ios.googleServices === null)) {
     console.warn('Google services should be configured for both or no platform!')
   } else if (pushNotifications === (android.googleServices === null)) {
     console.warn('Push notification feature flag does not match google service configuration!')
