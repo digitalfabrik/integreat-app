@@ -3,7 +3,7 @@
 The aim of this document is to provide a (preferably) complete overview about the process of creating a new whitelabelled app.
 
 ## Contents
-* [Necessary information from city](#from-city)
+* [Necessary information from customer](#from-customer)
 * [Necessary information from CMS](#from-cms)
 * [AppTeam TODOs](#appteam-todos)
 
@@ -11,9 +11,9 @@ The aim of this document is to provide a (preferably) complete overview about th
 
 A list of necessary information to build and deliver a whitelabelled app.
 
-### From City
+### From Customer
 
-Information the city needs to provide for their own whitelabelled app.
+Information the customer needs to provide for their own whitelabelled app.
 Some points may overlap and are therefore duplicated.
 
 #### For build config
@@ -32,7 +32,7 @@ Information necessary for the creation of a new build config.
 * Privacy policy link
 * Languages of the app
 * Different translations for locales (especially metadata)
-* Deactivated features: pois, news stream, push notifications, offers, ...
+* (De)activated features: pois, news stream, push notifications, offers, ...
 * Fonts (Content, UI only at own risk)
 
 #### For Stores/WebApp
