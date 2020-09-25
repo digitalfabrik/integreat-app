@@ -4,7 +4,7 @@ import messaging from '@react-native-firebase/messaging'
 import type { FeatureFlagsType } from '../../../build-configs/BuildConfigType'
 import { checkNotifications, RESULTS } from 'react-native-permissions'
 
-export const pushNotificationPermissionStatus = async (): RESULTS => {
+export const checkPushNotificationPermission = async (): RESULTS => {
   const { status } = await checkNotifications()
   return status
 }
