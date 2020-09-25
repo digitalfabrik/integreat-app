@@ -18,7 +18,7 @@ import { URL_PREFIX } from '../../platform/constants/webview'
 import CategoriesRouteStateView from '../../app/CategoriesRouteStateView'
 import type { PageResourceCacheStateType, LanguageResourceCacheStateType } from '../../app/StateType'
 import type { NavigateToCategoryParamsType } from '../../app/createNavigateToCategory'
-import type { NavigateToIntegreatUrlParamsType } from '../../app/createNavigateToIntegreatUrl'
+import type { NavigateToInternalLinkParamsType } from '../../app/createNavigateToInternalLink'
 import type { NavigationScreenProp } from 'react-navigation'
 import FeedbackVariant from '../../../routes/feedback/FeedbackVariant'
 import { type TFunction } from 'react-i18next'
@@ -41,7 +41,7 @@ type PropsType = {|
   stateView: CategoriesRouteStateView,
   cityCode: string,
   navigateToCategory: NavigateToCategoryParamsType => void,
-  navigateToIntegreatUrl: NavigateToIntegreatUrlParamsType => void,
+  navigateToInternalLink: NavigateToInternalLinkParamsType => void,
 
   navigation: NavigationScreenProp<*>,
   resourceCache: LanguageResourceCacheStateType,
@@ -139,7 +139,7 @@ class Categories extends React.Component<PropsType> {
    * @return {*} The content to be displayed
    */
   render () {
-    const { stateView, navigateToIntegreatUrl, theme, navigation, language, cityCode, t } = this.props
+    const { stateView, navigateToInternalLink, theme, navigation, language, cityCode, t } = this.props
 
     const category = stateView.root()
     const children = stateView.children()
@@ -156,7 +156,7 @@ class Categories extends React.Component<PropsType> {
                    cityCode={cityCode}
                    navigation={navigation}
                    navigateToFeedback={this.navigateToFeedback}
-                   navigateToIntegreatUrl={navigateToIntegreatUrl} />
+                   navigateToInternalLink={navigateToInternalLink} />
     } else if (category.isRoot()) {
       // first level, we want to display a table with all first order categories
 
