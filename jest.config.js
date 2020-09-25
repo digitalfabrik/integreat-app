@@ -22,8 +22,7 @@ module.exports = {
   ],
   setupFilesAfterEnv: [
     'jest-extended',
-    '@testing-library/jest-native/extend-expect',
-    '<rootDir>/jest.setup.afterenv.js'
+    '@testing-library/jest-native/extend-expect'
   ],
   transformIgnorePatterns: [
     `node_modules/(?!${transformNodeModules.join('|')})`
