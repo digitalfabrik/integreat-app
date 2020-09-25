@@ -33,7 +33,7 @@ jest.mock('rn-fetch-blob')
 
 const mockStore = configureMockStore()
 
-const MockNavigator = class extends React.Component<{}> {
+class MockNavigator extends React.Component<{}> {
   render () { return null }
 }
 
