@@ -1,5 +1,3 @@
-const jestPreset = require('@testing-library/react-native/jest-preset')
-
 const transformNodeModules = [
   'react-native',
   '@react-native-community/async-storage',
@@ -8,20 +6,23 @@ const transformNodeModules = [
   'react-navigation-header-buttons', // for integration tests including react-navigation
   'rn-fetch-blob',
   '@integreat-app/integreat-api-client',
-  '@sentry/react-native'
+  '@sentry/react-native',
+  'hashids',
+  '@react-native-community/progress-bar-android',
+  '@react-native-community/progress-view'
 ]
 
 module.exports = {
-  preset: '@testing-library/react-native',
+  preset: 'react-native',
   verbose: true,
   automock: false, /* Always explicitly mock modules. Also automocking seems to be broken right now:
                         https://github.com/facebook/jest/issues/6127 */
   setupFiles: [
-    ...jestPreset.setupFiles,
     '<rootDir>/jest.setup.js'
   ],
-  setupFilesAfterEnv: ['jest-extended',
-    '<rootDir>/jest.setup.afterenv.js'
+  setupFilesAfterEnv: [
+    'jest-extended',
+    '@testing-library/jest-native/extend-expect'
   ],
   transformIgnorePatterns: [
     `node_modules/(?!${transformNodeModules.join('|')})`

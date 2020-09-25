@@ -21,7 +21,7 @@ const onOverflowMenuPress = (cancelButtonLabel: string) => ({ overflowButtonRef,
     cancelButtonLabel
   })
 
-const MaterialHeaderButtons = (props: { cancelLabel: string, children: React.Node, theme: ThemeType }) => {
+const MaterialHeaderButtons = (props: {| cancelLabel: string, children: React.Node, theme: ThemeType |}) => {
   const { cancelLabel, theme, ...otherProps } = props
   return (
     <HeaderButtons HeaderButtonComponent={MaterialHeaderButton}

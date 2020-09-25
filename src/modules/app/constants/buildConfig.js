@@ -17,13 +17,13 @@ import malteIntroSearchIcon from '../../../../build-configs/malte/assets/Search.
 import { INTEGREAT_ASSETS, MALTE_ASSETS } from '../../../../build-configs/AssetsType'
 
 type AssetsType = {|
-  appLogo: string,
-  locationMarker: string,
+  appLogo: number,
+  locationMarker: number,
   intro: {
-    events: string,
-    language: string,
-    offers: string,
-    search: string
+    events: number,
+    language: number,
+    offers: number,
+    search: number
   }
 |}
 

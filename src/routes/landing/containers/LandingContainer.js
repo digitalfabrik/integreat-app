@@ -73,9 +73,9 @@ class LandingContainer extends React.Component<ContainerPropsType> {
       newKey: key
     })
 
+    // $FlowFixMe For some reason action is not allowed to be a StackAction
     navigation.navigate({
       routeName: 'CityContent',
-      // $FlowFixMe For some reason action is not allowed to be a StackAction
       action: action
     })
 

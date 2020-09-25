@@ -12,7 +12,6 @@ import { Text } from 'react-native'
 jest.mock('@react-native-community/async-storage')
 jest.mock('../../../i18n/LanguageDetector')
 jest.mock('../../loadLocales')
-jest.mock('../../../app/constants/buildConfig')
 
 describe('I18nProvider', () => {
   beforeEach(async () => {

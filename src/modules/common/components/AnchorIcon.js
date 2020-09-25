@@ -17,7 +17,7 @@ const Icon: StyledComponent<{ width: number }, {}, *> = styled(MaterialIcon)`
 type PropsType = {|
   navigationItemWidth: number,
   name: string,
-  _scrollView: React$ElementRef<typeof ScrollView>,
+  _scrollView: ?React$ElementRef<typeof ScrollView>,
   language: string,
   xPosition: number,
   contentSizeDiff: number

@@ -50,9 +50,17 @@ class SnackbarAnimator extends React.Component<PropsType, StateType> {
     }
   }
 
-  show = () => Animated.timing(this.state.translate, { toValue: 0, duration: ANIMATION_DURATION }).start(this.onShowEnd)
+  show = () => Animated.timing(this.state.translate, {
+    toValue: 0,
+    duration: ANIMATION_DURATION,
+    useNativeDriver: true
+  }).start(this.onShowEnd)
 
-  hide = () => Animated.timing(this.state.translate, { toValue: 1, duration: ANIMATION_DURATION }).start(this.onHideEnd)
+  hide = () => Animated.timing(this.state.translate, {
+    toValue: 1,
+    duration: ANIMATION_DURATION,
+    useNativeDriver: true
+  }).start(this.onHideEnd)
 
   onShowEnd = () => {
     this.setState({ status: 'in' })
@@ -79,7 +87,8 @@ class SnackbarAnimator extends React.Component<PropsType, StateType> {
 
   render () {
     const { translate, height, displayed } = this.state
-    const interpolated = translate.interpolate({ inputRange: [0, 1], outputRange: [0, height || MAX_HEIGHT] })
+    const outputRange: number[] = [0, height || MAX_HEIGHT]
+    const interpolated = translate.interpolate({ inputRange: [0, 1], outputRange: outputRange })
     return <Container onLayout={this.onLayout} style={{ transform: [{ translateY: interpolated }] }}>
       {displayed}
     </Container>

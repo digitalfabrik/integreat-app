@@ -132,8 +132,10 @@ class NewsListItem extends React.PureComponent<PropsType> {
               </ListItemView>
               <ListItemView language={language} theme={theme}>
                 <Content numberOfLines={5} language={language} theme={theme}>
-                  {newsItem.content ? newsItem.content : null}
-                  {newsItem.message ? newsItem.message : null}
+                  {[
+                    ...(newsItem.content ? [newsItem.content] : []),
+                    ...(newsItem.message ? [newsItem.message] : [])
+                  ]}
                 </Content>
               </ListItemView>
             </Description>

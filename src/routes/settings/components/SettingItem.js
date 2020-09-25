@@ -6,6 +6,7 @@ import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import Touchable from '../../../modules/platform/components/Touchable'
+import type { AccessibilityRole } from 'react-native/Libraries/Components/View/ViewAccessibility'
 
 type PropType = {
   title: string,
@@ -14,7 +15,7 @@ type PropType = {
   children: ?React.Node,
   theme: ThemeType,
   bigTitle?: boolean,
-  accessibilityRole?: string
+  accessibilityRole?: AccessibilityRole
 }
 
 const PadView: StyledComponent<{}, ThemeType, *> = styled.View`

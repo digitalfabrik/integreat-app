@@ -15,7 +15,7 @@ import { reduce } from 'lodash'
 import configureMockStore from 'redux-mock-store'
 import React from 'react'
 import { Provider } from 'react-redux'
-import createNavigationScreenPropMock from '../../../../modules/test-utils/createNavigationScreenPropMock'
+import createNavigationScreenPropMock from '../../../../testing/createNavigationScreenPropMock'
 import { ScrollView, Text } from 'react-native'
 import TestRenderer from 'react-test-renderer'
 import { render } from '@testing-library/react-native'
@@ -123,6 +123,7 @@ describe('DashboardContainer', () => {
     const store = mockStore(state)
     const navigation = createNavigationScreenPropMock()
     navigation.state.key = 'route-id-0'
+    navigation.setParams({ onRouteClose: () => {} })
     jest.doMock('../../components/Dashboard', () => MockDashboard)
     const DashboardContainer = require('../DashboardContainer').default
 

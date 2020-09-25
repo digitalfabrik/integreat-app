@@ -1,12 +1,28 @@
 # Upgrades
 
+## From 0.61.5 to 0.63.2
+
+This upgrade was needed in order to get to android API level 29.
+The following patches were applied manually: [Online diff](https://react-native-community.github.io/upgrade-helper/?from=0.61.5&to=0.63.0)
+
+### What to do after upgrade?
+* Run `./gradlew clean` in `android/`
+* Run Clean in XCode
+
+### Noteworthy Features
+
+* [0.62](https://reactnative.dev/blog/2020/03/26/version-0.62)
+  * Better Dark Mode Support
+  * Flipper support
+* [0.63](https://reactnative.dev/blog/2020/07/06/version-0.63)
+  * New LogBox
+  * New Pressable
+
 ## From 0.59.9 to 0.61.5
 
 The following patches were applied manually: [Online diff](https://react-native-community.github.io/upgrade-helper/?from=0.59.9&to=0.61.5)
 
 ## From 0.56.0 to 0.59.9
-
-[Patch file](upgrade-diffs/0.56.0-0.59.9.diff) (Only for a reference. This was not applied directly!)
 
 [Original patch file](https://raw.githubusercontent.com/react-native-community/rn-diff-purge/diffs/diffs/0.56.0..0.59.9.diff)
 

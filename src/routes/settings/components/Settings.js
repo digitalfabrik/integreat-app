@@ -12,6 +12,7 @@ import type { SettingsType } from '../../../modules/settings/AppSettings'
 import createSettingsSections from '../createSettingsSections'
 import AppSettings, { defaultSettings } from '../../../modules/settings/AppSettings'
 import type { SectionBase } from 'react-native/Libraries/Lists/SectionList'
+import type { AccessibilityRole } from 'react-native/Libraries/Components/View/ViewAccessibility'
 
 type PropsType = {|
   theme: ThemeType,
@@ -28,11 +29,11 @@ type StateType = {
 }
 
 type ItemType = {
-  title: string, description: string,
+  title: string, description?: string,
   hasSwitch?: true,
-  getSettingValue: (settings: SettingsType) => boolean,
+  getSettingValue?: (settings: SettingsType) => boolean | null,
   onPress?: () => void,
-  accessibilityRole?: string
+  accessibilityRole?: AccessibilityRole
 }
 
 type SectionType = SectionBase<ItemType> & {title: ?string}
