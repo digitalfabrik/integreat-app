@@ -1,0 +1,7 @@
+issue_key: NATIVE-566
+show_in_stores: true
+platforms:
+  - ios
+  - android
+en: You can now scroll the language selection, if there are many languages available.
+de: Sie können nun in der Sprachauswahl scrollen, falls viele Sprachen verfügbar sind.
