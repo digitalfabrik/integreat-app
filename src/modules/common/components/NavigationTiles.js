@@ -1,7 +1,6 @@
 // @flow
 
 import React from 'react'
-import type { NativeSyntheticEvent, NativeScrollEvent } from 'react-native'
 import styled from 'styled-components/native'
 import TileModel from '../models/TileModel'
 import type { ThemeType } from '../../theme/constants/theme'
@@ -10,6 +9,7 @@ import type { StyledComponent } from 'styled-components'
 import { ScrollView, Dimensions } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import AnchorIcon from './AnchorIcon'
+import type { ScrollEvent } from 'react-native/Libraries/Types/CoreEventTypes'
 
 const widthBreakPoint = 375
 const anchorWidth = 30
@@ -50,11 +50,11 @@ class NavigationTiles extends React.PureComponent<PropsType, StateType> {
     _scrollView: null
   }
 
-  setScrollViewRef = (ref: React$ElementRef<typeof ScrollView>) => {
+  setScrollViewRef = (ref: ?React$ElementRef<typeof ScrollView>) => {
     this.setState({ _scrollView: ref })
   }
 
-  onMomentumScrollEnd = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+  onMomentumScrollEnd = (event: ScrollEvent) => {
     const { nativeEvent } = event
     const contentSizeDiff =
       nativeEvent.contentSize.width - nativeEvent.layoutMeasurement.width
@@ -121,16 +121,16 @@ class NavigationTiles extends React.PureComponent<PropsType, StateType> {
   }
 }
 
-const NavigationTilesWithScrollableView = (props: {
+const NavigationTilesWithScrollableView = (props: {|
   tiles: Array<TileModel>,
   theme: ThemeType,
   language: string
-}) => {
+|}) => {
   const { left, right } = useSafeAreaInsets()
   const { width } = Dimensions.get('screen')
   const layoutWidth = left && right ? width - (left + right) : width
   const isWideScreen = layoutWidth >= widthBreakPoint
-  const scrollviewWidth = layoutWidth - anchorWidth * 2
+  const scrollviewWidth: number = layoutWidth - anchorWidth * 2
   const itemWidth = isWideScreen
     ? scrollviewWidth / wideScreenItemsCount
     : scrollviewWidth / smallScreenItemsCount

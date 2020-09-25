@@ -109,8 +109,10 @@ class NewsItemsDetails extends React.Component<PropsType> {
           <Container>
             <NewsHeadLine theme={theme}>{selectedNewsItem.title}</NewsHeadLine>
             <NewsContent theme={theme} language={language}>
-              {selectedNewsItem.content ? selectedNewsItem.content : null}
-              {selectedNewsItem.message ? selectedNewsItem.message : null}
+              {[
+                ...(selectedNewsItem.content ? [selectedNewsItem.content] : []),
+                ...(selectedNewsItem.message ? [selectedNewsItem.message] : [])
+              ]}
             </NewsContent>
           </Container>
           {isTunews && (

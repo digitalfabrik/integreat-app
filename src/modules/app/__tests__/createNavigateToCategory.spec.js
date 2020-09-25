@@ -1,7 +1,7 @@
 // @flow
 
 import createNavigateToCategory from '../createNavigateToCategory'
-import createNavigationScreenPropMock from '../../test-utils/createNavigationScreenPropMock'
+import createNavigationScreenPropMock from '../../../testing/createNavigationScreenPropMock'
 
 describe('createNavigateToCategory', () => {
   it('should navigate to the specified route as in the supplied routeName', () => {

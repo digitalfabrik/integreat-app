@@ -34,8 +34,8 @@ lane :build do |options|
       env_vars: ['FASTLANE_USER']
   )
 
-  ENV["BUNDLE_CONFIG"] = "./metro.config.ci.js"
-  ENV["EXTRA_PACKAGER_ARGS"] = "--sourcemap-output /Users/distiller/project/ios/index.ios.bundle.map"
+  # DO NOT OVERWRITE THE BUNDLE_CONFIG ENV VARIABLE! It is used by ruby bundle.
+  ENV["EXTRA_PACKAGER_ARGS"] = "--sourcemap-output /Users/distiller/project/ios/index.ios.bundle.map --config ../metro.config.ci.js"
   ENV["BUILD_CONFIG_NAME"] = build_config_name
 
   build_config = read_build_config(build_config_name, '../')
@@ -60,4 +60,3 @@ lane :build do |options|
       include_bitcode: false # Uploading to BrowserStack does not work when including Bitcode
   )
 end
-

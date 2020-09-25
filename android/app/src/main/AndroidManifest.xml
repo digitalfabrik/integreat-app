@@ -17,7 +17,8 @@
     <activity
             android:name=".MainActivity"
             android:label="@string/BUILD_CONFIG_APP_NAME"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|layoutDirection|locale"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|layoutDirection|locale|uiMode"
+            android:launchMode="singleTask"
             android:windowSoftInputMode="adjustResize">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />

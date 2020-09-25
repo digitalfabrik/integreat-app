@@ -1,6 +1,6 @@
 // @flow
 
-import createNavigationScreenPropMock from '../../test-utils/createNavigationScreenPropMock'
+import createNavigationScreenPropMock from '../../../testing/createNavigationScreenPropMock'
 import createNavigateToEvent from '../createNavigateToEvent'
 
 describe('createNavigateToEvent', () => {
