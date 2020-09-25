@@ -131,4 +131,17 @@ describe('NavigatorContainer', () => {
       expect(result.getByText('Dashboard')).toBeTruthy()
     })
   })
+
+  it('should render the LandingContainer if no city is selected and the intro has already been shown', async () => {
+    const NavigatorContainer = require('../NavigatorContainer').default
+    const AppSettings = require('../../../settings/AppSettings').default
+    const store = mockStore({})
+    const appSettings = new AppSettings()
+    await appSettings.setContentLanguage('de')
+    await appSettings.setIntroShown()
+    const result = render(<Provider store={store}><NavigatorContainer /></Provider>)
+    await waitForExpect(() => {
+      expect(result.getByText('Landing')).toBeTruthy()
+    })
+  })
 })
