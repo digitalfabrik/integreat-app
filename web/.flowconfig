@@ -2,7 +2,6 @@
 .*/node_modules/config-chain/test/broken.json
 <PROJECT_ROOT>/dist/.*
 <PROJECT_ROOT>/lib-dist/.*
-.*/integreat-app/native/.*
 
 [untyped]
 .*/node_modules/react-select/src/.*
@@ -11,7 +10,6 @@
 .*/node_modules/redux-first-router/dist/pure-utils/actionToPath.js.flow.*
 
 [include]
-../node_modules/
 
 [libs]
 
