@@ -83,18 +83,20 @@ jobs:
                     - android/vendor/bundle
             - restore_cache:
                 keys:
-                    - 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+                    - 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
                     - 3-yarn-{{ arch }}-
                 name: Restore Yarn Package Cache
             - run:
                 command: yarn install --frozen-lockfile
                 name: Install Dependencies
             - save_cache:
-                key: 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+                key: 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
                 name: Save Yarn Package Cache
                 paths:
                     - ~/.cache/yarn
                     - node_modules
+                    - native/node_modules
+                    - web/node_modules
             - run:
                 command: bundle exec fastlane keystore
                 name: '[FL] Prepare Android Keystore'
@@ -194,18 +196,20 @@ jobs:
                     - ios/vendor/bundle
             - restore_cache:
                 keys:
-                    - 5-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+                    - 5-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
                     - 5-yarn-{{ arch }}-
                 name: Restore Yarn Package Cache
             - run:
                 command: yarn install --frozen-lockfile
                 name: Install Dependencies
             - save_cache:
-                key: 5-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+                key: 5-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
                 name: Save Yarn Package Cache
                 paths:
                     - ~/Library/Caches/Yarn/
                     - node_modules
+                    - native/node_modules
+                    - web/node_modules
             - restore_cache:
                 keys:
                     - 2-pods-{{ arch }}-{{ checksum "ios/Podfile.lock" }}
@@ -287,18 +291,20 @@ jobs:
                     - vendor/bundle
             - restore_cache:
                 keys:
-                    - 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+                    - 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
                     - 3-yarn-{{ arch }}-
                 name: Restore Yarn Package Cache
             - run:
                 command: yarn install --frozen-lockfile
                 name: Install Dependencies
             - save_cache:
-                key: 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+                key: 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
                 name: Save Yarn Package Cache
                 paths:
                     - ~/.cache/yarn
                     - node_modules
+                    - native/node_modules
+                    - web/node_modules
             - run:
                 command: bundle exec fastlane android browserstack_upload_live app_name:integreat
                 name: '[FL] Browserstack Upload Live'
@@ -340,18 +346,20 @@ jobs:
                     - vendor/bundle
             - restore_cache:
                 keys:
-                    - 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+                    - 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
                     - 3-yarn-{{ arch }}-
                 name: Restore Yarn Package Cache
             - run:
                 command: yarn install --frozen-lockfile
                 name: Install Dependencies
             - save_cache:
-                key: 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+                key: 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
                 name: Save Yarn Package Cache
                 paths:
                     - ~/.cache/yarn
                     - node_modules
+                    - native/node_modules
+                    - web/node_modules
             - run:
                 command: bundle exec fastlane ios browserstack_upload_live app_name:integreat
                 name: '[FL] Browserstack Upload Live'
@@ -398,17 +406,19 @@ jobs:
                     - vendor/bundle
             - restore_cache:
                 keys:
-                    - 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+                    - 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
                 name: Restore Yarn Package Cache
             - run:
                 command: yarn install --frozen-lockfile
                 name: Install Dependencies
             - save_cache:
-                key: 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+                key: 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
                 name: Save Yarn Package Cache
                 paths:
                     - ~/.cache/yarn
                     - node_modules
+                    - native/node_modules
+                    - web/node_modules
             - run:
                 command: bundle exec fastlane android browserstack_e2e_tests app_name:integreat-e2e
                 name: '[FL] Android E2E Tests on Browserstack'
@@ -428,18 +438,20 @@ jobs:
             - check_config
             - restore_cache:
                 keys:
-                    - 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+                    - 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
                     - 3-yarn-{{ arch }}-
                 name: Restore Yarn Package Cache
             - run:
                 command: yarn install --frozen-lockfile
                 name: Install Dependencies
             - save_cache:
-                key: 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+                key: 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
                 name: Save Yarn Package Cache
                 paths:
                     - ~/.cache/yarn
                     - node_modules
+                    - native/node_modules
+                    - web/node_modules
             - run:
                 command: yarn workspace native lint
                 name: Linting check
@@ -475,18 +487,20 @@ jobs:
             - restore_environment_variables
             - restore_cache:
                 keys:
-                    - 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+                    - 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
                     - 3-yarn-{{ arch }}-
                 name: Restore Yarn Package Cache
             - run:
                 command: yarn install --frozen-lockfile
                 name: Install Dependencies
             - save_cache:
-                key: 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+                key: 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
                 name: Save Yarn Package Cache
                 paths:
                     - ~/.cache/yarn
                     - node_modules
+                    - native/node_modules
+                    - web/node_modules
             - run:
                 command: tools/parse-release-notes parse --android --destination android/fastlane/metadata/android/de-DE/changelogs/default.txt --language de --production
                 name: Parse german android release notes
@@ -528,18 +542,20 @@ jobs:
             - check_config
             - restore_cache:
                 keys:
-                    - 2-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+                    - 2-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
                     - 2-yarn-{{ arch }}-
                 name: Restore Yarn Package Cache
             - run:
                 command: yarn install --frozen-lockfile
                 name: Install Dependencies
             - save_cache:
-                key: 2-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+                key: 2-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
                 name: Save Yarn Package Cache
                 paths:
                     - ~/.cache/yarn
                     - node_modules
+                    - native/node_modules
+                    - web/node_modules
             - run:
                 command: yarn workspace web lint
                 name: Check linting
