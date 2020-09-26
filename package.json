@@ -1,8 +1,7 @@
 {
   "name": "integreat-app",
   "private": true,
-  "workspaces":
-  {
+  "workspaces": {
     "packages": ["native", "web"],
     "nohoist": ["**/jetifier"]
   },
