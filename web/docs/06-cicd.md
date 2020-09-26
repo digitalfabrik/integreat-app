@@ -12,7 +12,7 @@ The easiest way to deliver a new build to production or development is to trigge
 (*api_triggered_development_delivery* and *api_triggered_production_delivery* depending on the `production_delivery` parameter):
 
 * Get a CircleCI [Personal API Token](https://circleci.com/docs/2.0/managing-pi-tokens/).
-* Trigger a build using the tool [trigger-pipeline.sh](../.circleci/trigger-pipeline).
+* Trigger a build using the tool [trigger-pipeline.sh](../../.circleci/trigger-pipeline).
 If no branch is specified, main is used as default.
 * For more information on how to use it, execute it without parameters to see usage information.
 
