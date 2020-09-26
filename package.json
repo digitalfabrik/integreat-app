@@ -5,5 +5,5 @@
   "devDependencies": {
     "lerna": "^3.22.1"
   },
-  "packages":  ["web", "native"]
+  "packages":  ["./*", "web", "native"]
 }
