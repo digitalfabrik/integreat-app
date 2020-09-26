@@ -1,0 +1,7 @@
+issue_key: NATIVE-577
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: The search now also highlights the matching category content.
+de: Die Suche hebt nun auch den Inhalt hervor, der mit dem Filter übereinstimmt.

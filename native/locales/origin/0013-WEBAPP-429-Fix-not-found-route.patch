@@ -1,0 +1,56 @@
+From 5e6c536cffbbb82bc01b12a736910b6285a7eaaf Mon Sep 17 00:00:00 2001
+From: Steffen Kleinle <klinzo@yahoo.de>
+Date: Fri, 30 Nov 2018 11:19:13 +0100
+Subject: [PATCH 13/23] WEBAPP-429: Fix not found route
+
+---
+ src/locales.json | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/src/locales.json b/src/locales.json
+index 526bf5da..09b2d3cf 100644
+--- a/src/locales.json
++++ b/src/locales.json
+@@ -16,7 +16,8 @@
+         "extras": "Extras",
+         "landing": "Wo bist du?",
+         "disclaimer": "Impressum und Kontakt",
+-        "mainDisclaimer": "Impressum und Datenschutz - Integreat"
++        "mainDisclaimer": "Impressum und Datenschutz - Integreat",
++        "notFound": "Seite nicht gefunden"
+       },
+       "metaDescription": "Finde lokale und aktuelle Informationen, Events und werde Teil deiner neuen Stadt. Integreat hilft dir dich mit anderen zu vernetzen und unterstützt mehrere Sprachen."
+     },
+@@ -27,7 +28,8 @@
+         "extras": "Extras",
+         "landing": "Where are you?",
+         "disclaimer": "Imprint and contact",
+-        "pois": "Points of Interest"
++        "pois": "Points of Interest",
++        "notFound": "Fehler"
+       },
+       "metaDescription": "Find local and relevant content, events and become part of your new city. Integreat helps you to connect to others and supports multiple languages."
+     },
+@@ -219,8 +221,7 @@
+         "category": "Diese Seite wurde leider nicht gefunden.",
+         "event": "Dieses Event wurde leider nicht gefunden.",
+         "extra": "Dieses Extra wurde leider nicht gefunden.",
+-        "disclaimer": "Ein Impressum ist leider für diese Stadt nicht verfügbar.",
+-        "pageTitle": "Seite nicht gefunden"
++        "disclaimer": "Ein Impressum ist leider für diese Stadt nicht verfügbar."
+       },
+       "loadingFailed": "Die Seite konnte leider nicht geladen werden.",
+       "chooseYourLanguage": "Wähle deine Sprache:",
+@@ -229,8 +230,7 @@
+         "categories": "Zu den Kategorien",
+         "events": "Zu den News",
+         "extras": "Zu den Extras"
+-      },
+-      "pageTitle": "Fehler"
++      }
+     },
+     "en": {
+       "not-found": {
+-- 
+2.20.1 (Apple Git-117)
+

@@ -1,0 +1,4 @@
+# More information: https://docs.fastlane.tools/advanced/#appfile
+
+apple_id "app-team@integreat-app.de"
+team_id "7272KE28TJ" # Developer Portal Team ID

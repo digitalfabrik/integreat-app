@@ -1,0 +1,33 @@
+From 4ce7e4e230495a7e5a113d45466c0ad98cfcfbe0 Mon Sep 17 00:00:00 2001
+From: Andrew Kud <a-kud@users.noreply.github.com>
+Date: Sun, 27 Jan 2019 00:27:41 +0200
+Subject: [PATCH 18/23] WEBAPP-410: Move title
+
+---
+ src/locales.json | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/src/locales.json b/src/locales.json
+index e81042b8..a5ea110a 100644
+--- a/src/locales.json
++++ b/src/locales.json
+@@ -17,7 +17,7 @@
+         "search": "Suche",
+         "events": "News",
+         "extras": "Extras",
+-        "landing": "Wo bist du?",
++        "landing": "Ortsauswahl",
+         "disclaimer": "Impressum und Kontakt",
+         "mainDisclaimer": "Impressum und Kontakt - Integreat",
+         "notFound": "Seite nicht gefunden"
+@@ -210,7 +210,6 @@
+     },
+     "de": {
+       "where": "",
+-      "pageTitle": "Ortsauswahl",
+       "searchCity": "Ort suchen",
+       "metaDescription": "Finde lokale und aktuelle Informationen, Events und werde Teil deiner neuen Stadt. Integreat hilft dir dich mit anderen zu vernetzen und unterstützt mehrere Sprachen."
+     },
+-- 
+2.20.1 (Apple Git-117)
+
