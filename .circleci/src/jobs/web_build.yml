@@ -28,9 +28,9 @@ steps:
   - run:
       name: Check linting
       command: yarn workspace web lint
-#  - run:
-#      name: Check flow
-#      command: yarn workspace web flow:check-now --max-workers ${TOTAL_CPUS}
+  - run:
+      name: Check flow
+      command: yarn workspace web flow:check-now --max-workers ${TOTAL_CPUS}
   - run:
       name: Unit tests
       command: yarn workspace web test --ci --maxWorkers ${TOTAL_CPUS}
