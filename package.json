@@ -1,5 +1,8 @@
 {
   "name": "integreat-app",
   "private": true,
-  "workspaces": ["native", "web"]
+  "workspaces": ["native", "web"],
+  "resolutions": {
+    "@react-native-community/progress-bar-android/@react-native-community/progress-view": "1.0.3"
+  }
 }
