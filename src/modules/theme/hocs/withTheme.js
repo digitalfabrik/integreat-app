@@ -2,8 +2,8 @@
 
 import * as React from 'react'
 import { wrapDisplayName } from 'recompose'
-import type { ThemeType } from '../constants/theme'
-import { lightTheme } from '../constants/theme'
+import type { ThemeType } from '../constants'
+import { lightTheme } from '../constants'
 
 function withTheme<Props: { theme: ThemeType }> (
   Component: React.AbstractComponent<Props>

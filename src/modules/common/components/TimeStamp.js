@@ -6,7 +6,7 @@ import { withTranslation } from 'react-i18next'
 import type Moment from 'moment'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
-import type { ThemeType } from '../../theme/constants/theme'
+import type { ThemeType } from '../../theme/constants'
 import type { MomentFormatterType } from '../../i18n/context/MomentContext'
 import { contentDirection } from '../../i18n/contentDirection'
 

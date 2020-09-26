@@ -5,10 +5,10 @@ import {
   CategoryModel,
   CityModel,
   EventModel,
-  PoiModel,
+  LanguageModel,
   LocalNewsModel,
-  TunewsModel,
-  LanguageModel
+  PoiModel,
+  TunewsModel
 } from '@integreat-app/integreat-api-client'
 import Moment from 'moment'
 import { DEFAULT_LANGUAGE } from '../i18n/constants'

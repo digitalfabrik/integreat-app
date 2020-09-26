@@ -6,7 +6,7 @@ import Tile from './Tile'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
 import TileModel from '../models/TileModel'
-import type { ThemeType } from '../../theme/constants/theme'
+import type { ThemeType } from '../../theme/constants'
 import { contentDirection } from '../../i18n/contentDirection'
 
 type PropsType = {|

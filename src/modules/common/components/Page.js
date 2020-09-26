@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { Linking } from 'react-native'
 import styled from 'styled-components/native'
-import type { ThemeType } from '../../theme/constants/theme'
+import type { ThemeType } from '../../theme/constants'
 import type { NavigationScreenProp } from 'react-navigation'
 import Caption from './Caption'
 import TimeStamp from './TimeStamp'

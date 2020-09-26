@@ -6,7 +6,7 @@ import { WohnenOfferModel, WohnenFormData } from '@integreat-app/integreat-api-c
 import ListItem from '../../../modules/common/components/ListItem'
 import styled from 'styled-components/native'
 import { formatPrice } from './OfferDetail'
-import type { ThemeType } from '../../../modules/theme/constants/theme'
+import type { ThemeType } from '../../../modules/theme/constants'
 
 const Description = styled.View`
   flex: 1;

@@ -4,7 +4,7 @@ import * as React from 'react'
 import { PoiModel } from '@integreat-app/integreat-api-client'
 import ListItem from '../../../modules/common/components/ListItem'
 import styled from 'styled-components/native'
-import type { ThemeType } from '../../../modules/theme/constants/theme'
+import type { ThemeType } from '../../../modules/theme/constants'
 
 type PropsType = {|
   poi: PoiModel,

@@ -2,7 +2,7 @@
 
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
-import type { ThemeType } from '../../theme/constants/theme'
+import type { ThemeType } from '../../theme/constants'
 
 const StyledLink: StyledComponent<{}, ThemeType, *> = styled.TouchableHighlight`
   display: flex;

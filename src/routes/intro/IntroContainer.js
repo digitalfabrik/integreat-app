@@ -3,7 +3,7 @@
 import { withTranslation, type TFunction } from 'react-i18next'
 import * as React from 'react'
 import type { NavigationScreenProp } from 'react-navigation'
-import type { ThemeType } from '../../../build-configs/ThemeType'
+import type { ThemeType } from '../../modules/theme/constants'
 import withTheme from '../../modules/theme/hocs/withTheme'
 import { FlatList, Dimensions } from 'react-native'
 import styled from 'styled-components/native'

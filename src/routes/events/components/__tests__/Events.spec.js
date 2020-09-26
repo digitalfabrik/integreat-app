@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import TestRenderer from 'react-test-renderer'
-import lightTheme from '../../../../modules/theme/constants/theme'
+import lightTheme from '../../../../modules/theme/constants'
 import Events from '../Events'
 import EventModelBuilder from '../../../../testing/builder/EventModelBuilder'
 import CityModelBuilder from '../../../../testing/builder/CityModelBuilder'

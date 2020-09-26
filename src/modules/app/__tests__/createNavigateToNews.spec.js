@@ -2,15 +2,15 @@
 
 import createNavigationScreenPropMock from '../../../testing/createNavigationScreenPropMock'
 import createNavigateToNews from '../createNavigateToNews'
-import { LOCAL } from '../../../routes/news/NewsTabs'
+import { LOCAL_NEWS } from '../../endpoint/constants'
 
 describe('createNavigateToNews', () => {
-  it('should generate key if not supplied with at least 6 chars and use it for both navigation and redux actions', () => {
+  it('should generate key if not supplied with at least 6 chars and use it for navigation and redux actions', () => {
     const dispatch = jest.fn()
     const navigation = createNavigationScreenPropMock()
 
     const navigateToNews = createNavigateToNews(dispatch, navigation)
-    navigateToNews({ cityCode: 'augsburg', language: 'de', newsId: null, type: LOCAL })
+    navigateToNews({ cityCode: 'augsburg', language: 'de', newsId: null, type: LOCAL_NEWS })
 
     expect(navigation.navigate).toHaveBeenCalledWith(expect.objectContaining({
       key: expect.stringMatching(/^.{6,}$/) // at least 6 chars but no newline
@@ -27,7 +27,7 @@ describe('createNavigateToNews', () => {
     const navigation = createNavigationScreenPropMock()
 
     const navigateToNews = createNavigateToNews(dispatch, navigation)
-    navigateToNews({ cityCode: 'augsburg', language: 'de', newsId: null, type: LOCAL })
+    navigateToNews({ cityCode: 'augsburg', language: 'de', newsId: null, type: LOCAL_NEWS })
 
     expect(navigation.navigate).toHaveBeenCalledWith(expect.objectContaining({
       key: expect.stringMatching(/^.{6,}$/), // at least 6 chars but no newline
@@ -51,7 +51,7 @@ describe('createNavigateToNews', () => {
 
     const navigateToNews = createNavigateToNews(dispatch, navigation)
     navigateToNews({
-      cityCode: 'augsburg', type: LOCAL, language: 'de', newsId: '12', key: 'route-id-1', forceRefresh: true
+      cityCode: 'augsburg', type: LOCAL_NEWS, language: 'de', newsId: '12', key: 'route-id-1', forceRefresh: true
     })
 
     expect(dispatch).toHaveBeenCalledWith({
@@ -61,7 +61,7 @@ describe('createNavigateToNews', () => {
         language: 'de',
         newsId: '12',
         key: 'route-id-1',
-        type: LOCAL,
+        type: LOCAL_NEWS,
         criterion: { forceUpdate: true, shouldRefreshResources: true }
       }
     })
