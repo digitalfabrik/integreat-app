@@ -544,6 +544,9 @@ jobs:
                 command: yarn workspace web lint
                 name: Check linting
             - run:
+                command: yarn workspace web flow:check-now --max-workers ${TOTAL_CPUS}
+                name: Check flow
+            - run:
                 command: yarn workspace web test --ci --maxWorkers ${TOTAL_CPUS}
                 name: Unit tests
             - run:
