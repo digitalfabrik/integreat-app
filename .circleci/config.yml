@@ -441,13 +441,13 @@ jobs:
                     - ~/.cache/yarn
                     - node_modules
             - run:
-                command: yarn run lint
+                command: yarn workspace native lint
                 name: Linting check
             - run:
-                command: yarn run flow:check-now --max-workers ${TOTAL_CPUS}
+                command: yarn workspace native flow:check-now --max-workers ${TOTAL_CPUS}
                 name: Flow-type check
             - run:
-                command: yarn run test --maxWorkers ${TOTAL_CPUS}
+                command: yarn workspace native test --maxWorkers ${TOTAL_CPUS}
                 name: Unit tests
             - run:
                 command: echo "export NEW_VERSION_NAME=$(tools/next-version calc | jq .versionName)" >> environment_variables
@@ -541,31 +541,28 @@ jobs:
                     - ~/.cache/yarn
                     - node_modules
             - run:
-                command: yarn run lint
+                command: yarn workspace web lint
                 name: Check linting
             - run:
-                command: yarn run flow:check-now --max-workers ${TOTAL_CPUS}
-                name: Check flow
-            - run:
-                command: yarn run test --ci --maxWorkers ${TOTAL_CPUS}
+                command: yarn workspace web test --ci --maxWorkers ${TOTAL_CPUS}
                 name: Unit tests
             - run:
-                command: yarn run test:coverage --ci --maxWorkers ${TOTAL_CPUS}
+                command: yarn workspace web test:coverage --ci --maxWorkers ${TOTAL_CPUS}
                 name: Test coverage
             - run:
                 command: echo "export NEW_VERSION_NAME=$(tools/next-version calc | jq .versionName)" >> environment_variables
                 name: Calculate next version
             - run:
-                command: yarn build:integreat-test-cms --env.commit_sha=${CIRCLE_SHA1}
+                command: yarn workspace web build:integreat-test-cms --env.commit_sha=${CIRCLE_SHA1}
                 name: Development integreat-test-cms build
             - run:
-                command: yarn build:integreat
+                command: yarn workspace web build:integreat
                 name: Production integreat build
             - run:
-                command: yarn build:malte
+                command: yarn workspace web build:malte
                 name: Production malte build
             - run:
-                command: yarn run check:build
+                command: yarn workspace web check:build
                 name: Check build
             - store_artifacts:
                 path: dist
