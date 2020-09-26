@@ -1,7 +1,7 @@
 // @flow
 
 import { reduce, forEach, merge } from 'lodash'
-import defaultLocales from '../../../locales/locales.json'
+import defaultLocales from 'locales/locales.json'
 import buildConfig from '../app/constants/buildConfig'
 import type { LocalesType } from '../../../build-configs/BuildConfigType'
 
