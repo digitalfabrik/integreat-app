@@ -2,8 +2,14 @@
   "name": "integreat-app",
   "private": true,
   "workspaces": {
-    "packages": ["native", "web"],
-    "nohoist": ["**/jetifier"]
+    "packages": ["native", "web", "locales"],
+    "nohoist": [
+      "native/**",
+      "**/jetifier"
+    ]
+  },
+  "resolutions": {
+    "@react-native-community/progress-bar-android/@react-native-community/progress-view": "1.0.3"
   },
   "scripts": {
     "locales:missing": "node locales/tools/findMissingLocales",
