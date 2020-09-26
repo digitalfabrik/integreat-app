@@ -3,7 +3,7 @@
 import { render } from '@testing-library/react-native'
 import React from 'react'
 import PageDetail from '../PageDetail'
-import lightTheme from '../../../theme/constants/theme'
+import lightTheme from '../../../theme/constants'
 import { I18nManager } from 'react-native'
 
 describe('PageDetail', () => {

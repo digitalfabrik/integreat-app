@@ -18,7 +18,7 @@ import type { NavigationScreenProp } from 'react-navigation'
 
 import LoadingSpinner from '../../common/components/LoadingSpinner'
 import NewsHeader from '../../common/components/NewsHeader'
-import { LOCAL, TUNEWS } from '../../../routes/news/NewsTabs'
+import { LOCAL_NEWS, TUNEWS } from '../constants'
 
 export type RouteNotInitializedType = {| status: "routeNotInitialized" |}
 
@@ -92,19 +92,14 @@ export type PropsType<
   ...ProviderPropType
 |}
 
-const withCustomNewsProvider = <
-  S: {
-    ...ProviderPropType
-  },
-  R: {}
->(
-    refresh: (refreshProps: R, dispatch: Dispatch<StoreActionType>) => void
-  ): ((Component: React.ComponentType<S>) => React.ComponentType<PropsType<S, R>>) => {
+const withCustomNewsProvider = <S: { ...ProviderPropType }, R: {}>(
+  refresh: (refreshProps: R, dispatch: Dispatch<StoreActionType>) => void
+): ((Component: React.ComponentType<S>) => React.ComponentType<PropsType<S, R>>) => {
   return (Component: React.ComponentType<S>): React.ComponentType<PropsType<S, R>> => {
     return class extends React.Component<PropsType<S, R>, {| selectedNewsType: NewsType |}> {
-      static displayName = wrapDisplayName(Component, 'withCustomNewsProvider');
+      static displayName = wrapDisplayName(Component, 'withCustomNewsProvider')
 
-      state = { selectedNewsType: this.getAvailableNewsType() };
+      state = { selectedNewsType: this.getAvailableNewsType() }
 
       getAvailableNewsType (): NewsType {
         const { cityModel, selectedNewsType } = this.props.innerProps || {}
@@ -114,11 +109,11 @@ const withCustomNewsProvider = <
         } else if (tunewsEnabled && !pushNotificationsEnabled) {
           return TUNEWS
         }
-        return LOCAL
+        return LOCAL_NEWS
       }
 
-      selectAndFetchTunews = () => { this.setState({ selectedNewsType: TUNEWS }, this.fetchNews) };
-      selectAndFetchLocalNews = () => { this.setState({ selectedNewsType: LOCAL }, this.fetchNews) };
+      selectAndFetchTunews = () => { this.setState({ selectedNewsType: TUNEWS }, this.fetchNews) }
+      selectAndFetchLocalNews = () => { this.setState({ selectedNewsType: LOCAL_NEWS }, this.fetchNews) }
 
       fetchNews = () => {
         const { selectedNewsType } = this.state
@@ -146,7 +141,7 @@ const withCustomNewsProvider = <
           }
           dispatch(fetchNews)
         }
-      };
+      }
 
       componentDidUpdate (prevProps: PropsType<S, R>) {
         const prevLanguage = (prevProps.innerProps || {}).language
@@ -167,14 +162,14 @@ const withCustomNewsProvider = <
         if (props.refreshProps) {
           refresh(props.refreshProps, props.dispatch)
         }
-      };
+      }
 
       changeUnavailableLanguage = (newLanguage: string) => {
         if (this.props.status !== 'languageNotAvailable') {
           throw Error('Call of changeUnavailableLanguage is only possible when language is not available.')
         }
         this.props.changeUnavailableLanguage(this.props.dispatch, newLanguage)
-      };
+      }
 
       render () {
         const props = this.props
@@ -191,7 +186,8 @@ const withCustomNewsProvider = <
           )
         } else if (props.status === 'languageNotAvailable') {
           return (
-            <LanguageNotAvailableContainer languages={props.availableLanguages} changeLanguage={this.changeUnavailableLanguage} />
+            <LanguageNotAvailableContainer languages={props.availableLanguages}
+                                           changeLanguage={this.changeUnavailableLanguage} />
           )
         } else if (props.status === 'loading') {
           return (

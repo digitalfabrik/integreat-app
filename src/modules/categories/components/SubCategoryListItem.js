@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 
-import type { ThemeType } from '../../../modules/theme/constants/theme'
+import type { ThemeType } from '../../theme/constants'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
 import { contentDirection } from '../../i18n/contentDirection'

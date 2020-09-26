@@ -7,7 +7,7 @@ import {
   HeaderButtons
 } from 'react-navigation-header-buttons'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
-import type { ThemeType } from '../../theme/constants/theme'
+import type { ThemeType } from '../../theme/constants'
 
 const MaterialHeaderButton = (props: {
   title: string, onPress: () => void, getButtonElement: () => React.Element<*>

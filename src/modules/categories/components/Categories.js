@@ -13,7 +13,7 @@ import {
   CityModel,
   PAGE_FEEDBACK_TYPE
 } from '@integreat-app/integreat-api-client'
-import type { ThemeType } from '../../theme/constants/theme'
+import type { ThemeType } from '../../theme/constants'
 import { URL_PREFIX } from '../../platform/constants/webview'
 import CategoriesRouteStateView from '../../app/CategoriesRouteStateView'
 import type { PageResourceCacheStateType, LanguageResourceCacheStateType } from '../../app/StateType'

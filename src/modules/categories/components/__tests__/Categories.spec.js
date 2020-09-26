@@ -8,7 +8,7 @@ import Page from '../../../common/components/Page'
 import createNavigationScreenPropMock from '../../../../testing/createNavigationScreenPropMock'
 import CategoriesMapModelBuilder from '../../../../testing/builder/CategoriesMapModelBuilder'
 import Categories from '../Categories'
-import lightTheme from '../../../theme/constants/theme'
+import lightTheme from '../../../theme/constants'
 import CategoriesRouteStateView from '../../../app/CategoriesRouteStateView'
 
 jest.mock('../../../../modules/common/components/Page', () => {

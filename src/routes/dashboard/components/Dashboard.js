@@ -3,7 +3,7 @@
 import * as React from 'react'
 import type { NavigationScreenProp } from 'react-navigation'
 import Categories from '../../../modules/categories/components/Categories'
-import type { ThemeType } from '../../../modules/theme/constants/theme'
+import type { ThemeType } from '../../../modules/theme/constants'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
 import type { LanguageResourceCacheStateType } from '../../../modules/app/StateType'
@@ -20,10 +20,9 @@ import type { NavigateToInternalLinkParamsType } from '../../../modules/app/crea
 import type { NavigateToEventParamsType } from '../../../modules/app/createNavigateToEvent'
 import type { NavigateToNewsParamsType } from '../../../modules/app/createNavigateToNews'
 import buildConfig from '../../../modules/app/constants/buildConfig'
-
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
 import type { NavigateToPoiParamsType } from '../../../modules/app/createNavigateToPoi'
-import { LOCAL, TUNEWS } from '../../news/NewsTabs'
+import { LOCAL_NEWS, TUNEWS } from '../../../modules/endpoint/constants'
 
 export type PropsType = {|
   navigation: NavigationScreenProp<*>,
@@ -91,7 +90,7 @@ class Dashboard extends React.Component<PropsType> {
           cityCode,
           language,
           newsId: null,
-          type: pushNotificationsEnabled ? LOCAL : TUNEWS
+          type: pushNotificationsEnabled ? LOCAL_NEWS : TUNEWS
         }),
         notifications: 0
       }))

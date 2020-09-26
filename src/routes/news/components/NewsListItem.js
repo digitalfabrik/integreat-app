@@ -7,7 +7,7 @@ import {
 } from '@integreat-app/integreat-api-client'
 import styled from 'styled-components/native'
 import { type TFunction, withTranslation } from 'react-i18next'
-import type { ThemeType } from '../../../modules/theme/constants/theme'
+import type { ThemeType } from '../../../modules/theme/constants'
 import { type StyledComponent } from 'styled-components'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import {

@@ -6,7 +6,7 @@ import { Linking } from 'react-native'
 import { SprungbrettJobModel, OfferModel } from '@integreat-app/integreat-api-client'
 import SprungbrettListItem from './SprungbrettListItem'
 import type { TFunction } from 'react-i18next'
-import type { ThemeType } from '../../../modules/theme/constants/theme'
+import type { ThemeType } from '../../../modules/theme/constants'
 import List from '../../../modules/common/components/List'
 import Caption from '../../../modules/common/components/Caption'
 

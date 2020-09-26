@@ -10,7 +10,7 @@ import {
 import ContentNotFoundError from '../../../modules/error/ContentNotFoundError'
 import List from './List'
 import Failure from '../../../modules/error/components/Failure'
-import type { ThemeType } from '../../../modules/theme/constants/theme'
+import type { ThemeType } from '../../../modules/theme/constants'
 import type {
   LanguageResourceCacheStateType,
   NewsModelsType,
@@ -23,7 +23,7 @@ import NewsListItem from './NewsListItem'
 import styled from 'styled-components/native'
 import type { StyledComponent } from 'styled-components'
 import NewsItemsDetails from './NewsItemDetails'
-import { TUNEWS } from '../NewsTabs'
+import { TUNEWS } from '../../../modules/endpoint/constants'
 
 const tunewsWebsiteUrl = 'https://tunewsinternational.com'
 

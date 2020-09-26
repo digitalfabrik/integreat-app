@@ -4,7 +4,7 @@ import React from 'react'
 import { Animated } from 'react-native'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
-import type { ThemeType } from '../../theme/constants/theme'
+import type { ThemeType } from '../../theme/constants'
 
 const Container: StyledComponent<{}, ThemeType, *> = styled(Animated.View)`
   background-color: ${props => props.theme.colors.textSecondaryColor};
