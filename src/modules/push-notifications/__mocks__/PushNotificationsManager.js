@@ -11,3 +11,7 @@ export const unsubscribeNews = async (prevCity: string, prevLanguage: string): P
 export const subscribeNews = async (newCity: string, newLanguage: string): Promise<void> => {
   console.debug(`Subscribed to ${newCity}-${newLanguage}-news topic!`)
 }
+
+export const checkPushNotificationPermission = async (): Promise<string> => {
+  return 'blocked'
+}
