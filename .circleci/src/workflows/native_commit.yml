@@ -1,0 +1,15 @@
+unless: << pipeline.parameters.api_triggered >>
+jobs:
+  - prepare_build
+  - build_android:
+      build_for_delivery: false
+      requires:
+        - prepare_build
+  - build_ios:
+      build_for_delivery: false
+      requires:
+        - prepare_build
+  - e2e:
+      requires:
+        - build_ios
+        - build_android

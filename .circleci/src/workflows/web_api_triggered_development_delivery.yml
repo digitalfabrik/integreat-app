@@ -1,0 +1,10 @@
+when:
+  and:
+    - << pipeline.parameters.api_triggered >>
+    - not: << pipeline.parameters.production_delivery >>
+jobs:
+  - build
+  - deliver:
+      production_delivery: false
+      requires:
+        - build

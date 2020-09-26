@@ -1,0 +1,20 @@
+triggers:
+  - schedule:
+      cron: "0 5 1,15 * *" # For sanity checks for this syntax: https://crontab.guru/
+      filters:
+        branches:
+          only:
+            - main
+jobs:
+  - build
+  - prepare_production_delivery:
+      requires:
+        - build
+  - await_approval:
+      type: approval
+      requires:
+        - prepare_production_delivery
+  - deliver:
+      production_delivery: true
+      requires:
+        - await_approval
