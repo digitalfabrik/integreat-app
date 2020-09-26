@@ -1,5 +1,7 @@
 const transformNodeModules = [
   'react-native',
+  '@react-native-firebase/messaging',
+  '@react-native-firebase/app',
   '@react-native-community/async-storage',
   '@react-navigation/native/dist', // for integration tests including react-navigation
   'react-navigation-stack', // for integration tests including react-navigation
