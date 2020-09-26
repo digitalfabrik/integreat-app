@@ -10747,6 +10747,14 @@ loader-utils@^2.0.0:
     emojis-list "^3.0.0"
     json5 "^2.1.2"
 
+"locales@file:./locales":
+  version "0.0.1"
+  dependencies:
+    commander "^4.0.1"
+    csv "^5.3.0"
+    flat "^5.0.0"
+    lodash "^4.17.19"
+
 localforage@1.8.1:
   version "1.8.1"
   resolved "https://registry.yarnpkg.com/localforage/-/localforage-1.8.1.tgz#f6c0a24b41ab33b10e4dc84342dd696f6f3e3433"
