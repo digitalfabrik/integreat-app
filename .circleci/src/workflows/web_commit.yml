@@ -1,0 +1,11 @@
+unless: << pipeline.parameters.api_triggered >>
+jobs:
+  - build
+  - deliver:
+      filters:
+        branches:
+          only:
+            - main
+      production_delivery: false
+      requires:
+        - build

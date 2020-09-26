@@ -1,0 +1,37 @@
+triggers:
+  - schedule:
+      cron: "0 3 1,15 * *" # For sanity checks for this syntax: https://crontab.guru/
+      filters:
+        branches:
+          only:
+            - main
+jobs:
+  - prepare_build
+  - build_android:
+      build_for_delivery: true
+      requires:
+        - prepare_build
+  - build_ios:
+      build_for_delivery: true
+      requires:
+        - prepare_build
+  - e2e:
+      requires:
+        - build_ios
+        - build_android
+  - prepare_delivery:
+      production_delivery: true
+      requires: # Bump version should only depend on build_ and not delivery_. Sometimes upload to the stores fails only for iOS or Android. Then we should still bump the version.
+        - e2e
+  - await_production_approval:
+      type: approval
+      requires:
+        - prepare_delivery
+  - deliver_android:
+      production_delivery: true
+      requires:
+        - await_production_approval
+  - deliver_ios:
+      production_delivery: true
+      requires:
+        - await_production_approval

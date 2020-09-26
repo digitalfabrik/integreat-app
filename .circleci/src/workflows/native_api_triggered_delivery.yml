@@ -1,0 +1,27 @@
+when: << pipeline.parameters.api_triggered >>
+jobs:
+  - prepare_build
+  - build_android:
+      build_for_delivery: true
+      requires:
+        - prepare_build
+  - build_ios:
+      build_for_delivery: true
+      requires:
+        - prepare_build
+  - e2e:
+      requires:
+        - build_ios
+        - build_android
+  - prepare_delivery:
+      production_delivery: << pipeline.parameters.production_delivery >>
+      requires: # Prepare delivery (including bump version) should only depend on build_ and not delivery_. Sometimes upload to the stores fails only for iOS or Android. Then we still should bump the version.
+        - e2e
+  - deliver_android:
+      production_delivery: << pipeline.parameters.production_delivery >>
+      requires:
+        - prepare_delivery
+  - deliver_ios:
+      production_delivery: << pipeline.parameters.production_delivery >>
+      requires:
+        - prepare_delivery
