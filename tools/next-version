@@ -1,12 +1,8 @@
 #!/usr/bin/env node
 
 const fs = require('fs')
+const { VERSION_FILE } = require("./constants")
 const { program } = require('commander')
-
-const VERSION_FILE = 'version.json'
-
-program
-  .option('-d, --debug', 'enable extreme logging')
 
 const calculateNewVersion = () => {
   const versionFile = fs.readFileSync(VERSION_FILE)
