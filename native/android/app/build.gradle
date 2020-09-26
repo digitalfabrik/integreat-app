@@ -83,8 +83,8 @@ project.ext.react = [
         enableHermes: false,  // clean and rebuild if changing
 ]
 
-apply from: "../../../node_modules/react-native/react.gradle"
-apply from: "../../../node_modules/react-native-vector-icons/fonts.gradle"
+apply from: "../../node_modules/react-native/react.gradle"
+apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 apply from: "buildConfigs.gradle"
 
 /**
@@ -252,7 +252,7 @@ dependencies {
     }
 
     if (enableHermes) {
-        def hermesPath = "../../../node_modules/hermes-engine/android/";
+        def hermesPath = "../../node_modules/hermes-engine/android/";
         debugImplementation files(hermesPath + "hermes-debug.aar")
         releaseImplementation files(hermesPath + "hermes-release.aar")
     } else {
