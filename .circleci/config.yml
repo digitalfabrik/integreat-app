@@ -611,24 +611,31 @@ jobs:
                         command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.malteapp.de \<<< $'put -r dist/malte/*'
                         name: Malte development delivery
             - notify_failed
-    web_prepare_production_delivery:
+    web_prepare_delivery:
         docker:
             - image: circleci/node:12.16.3
+        parameters:
+            production_delivery:
+                description: Whether builds are delivered to the production domain. If set to true, jira and github releases are created.
+                type: boolean
         resource_class: small
         steps:
             - checkout
             - attach_workspace:
                 at: .
             - restore_environment_variables
-            - run:
-                command: tools/create-jira-release create-release ${NEW_VERSION_NAME} --private-key ${JIRA_PRIVATE_KEY} --access-token ${JIRA_OAUTH_TOKEN} --consumer-key ${JIRA_CONSUMER_KEY} --project-name ${CIRCLE_PROJECT_REPONAME}
-                name: Create jira release
-            - run:
-                command: tools/move-release-notes move-to ${NEW_VERSION_NAME} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH} --commit-sha ${CIRCLE_SHA1}
-                name: Move release notes
-            - run:
-                command: tools/bump-version bump-to ${NEW_VERSION_NAME} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH} --release-notes "$(tools/parse-release-notes parse --web --language en)"
-                name: Bump version
+            - when:
+                condition: << parameters.production_delivery >>
+                steps:
+                    - run:
+                        command: tools/create-jira-release create-release ${NEW_VERSION_NAME} --private-key ${JIRA_PRIVATE_KEY} --access-token ${JIRA_OAUTH_TOKEN} --consumer-key ${JIRA_CONSUMER_KEY} --project-name ${CIRCLE_PROJECT_REPONAME}
+                        name: Create jira release
+                    - run:
+                        command: tools/move-release-notes move-to ${NEW_VERSION_NAME} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH} --commit-sha ${CIRCLE_SHA1}
+                        name: Move release notes
+                    - run:
+                        command: tools/bump-version bump-to ${NEW_VERSION_NAME} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH} --release-notes "$(tools/parse-release-notes parse --web --language en)"
+                        name: Bump version
             - notify_failed
 orbs:
     slack: circleci/slack@3.4.2
@@ -649,6 +656,31 @@ parameters:
         type: enum
 version: 2.1
 workflows:
+    commit:
+        jobs:
+            - web_build
+            - web_deliver:
+                filters:
+                    branches:
+                        only:
+                            - main
+                production_delivery: false
+                requires:
+                    - web_build
+            - native_prepare_build
+            - native_build_android:
+                build_for_delivery: false
+                requires:
+                    - native_prepare_build
+            - native_build_ios:
+                build_for_delivery: false
+                requires:
+                    - native_prepare_build
+            - native_e2e:
+                requires:
+                    - native_build_ios
+                    - native_build_android
+        unless: << pipeline.parameters.api_triggered >>
     native_api_triggered_delivery:
         jobs:
             - native_prepare_build
@@ -679,27 +711,6 @@ workflows:
         when:
             and:
                 - << pipeline.parameters.api_triggered >>
-                - equal:
-                    - native
-                    - << pipeline.parameters.project >>
-    native_commit:
-        jobs:
-            - native_prepare_build
-            - native_build_android:
-                build_for_delivery: false
-                requires:
-                    - native_prepare_build
-            - native_build_ios:
-                build_for_delivery: false
-                requires:
-                    - native_prepare_build
-            - native_e2e:
-                requires:
-                    - native_build_ios
-                    - native_build_android
-        when:
-            and:
-                - not: << pipeline.parameters.api_triggered >>
                 - equal:
                     - native
                     - << pipeline.parameters.project >>
@@ -737,8 +748,21 @@ workflows:
                     branches:
                         only:
                             - main
-    native_scheduled_production_delivery:
+    scheduled_production_delivery:
         jobs:
+            - web_build
+            - web_prepare_delivery:
+                production_delivery: true
+                requires:
+                    - web_build
+            - await_approval:
+                requires:
+                    - web_prepare_delivery
+                type: approval
+            - web_deliver:
+                production_delivery: true
+                requires:
+                    - await_approval
             - native_prepare_build
             - native_build_android:
                 build_for_delivery: true
@@ -770,79 +794,27 @@ workflows:
                     - await_production_approval
         triggers:
             - schedule:
-                cron: 0 3 1,15 * *
-                filters:
-                    branches:
-                        only:
-                            - main
-    version: 2
-    web_api_triggered_development_delivery:
-        jobs:
-            - web_build
-            - web_deliver:
-                production_delivery: false
-                requires:
-                    - web_build
-        when:
-            and:
-                - << pipeline.parameters.api_triggered >>
-                - not: << pipeline.parameters.production_delivery >>
-                - equal:
-                    - web
-                    - << pipeline.parameters.project >>
-    web_api_triggered_production_delivery:
-        jobs:
-            - web_build
-            - web_prepare_production_delivery:
-                requires:
-                    - web_build
-            - web_deliver:
-                production_delivery: true
-                requires:
-                    - web_prepare_production_deliver
-        when:
-            and:
-                - << pipeline.parameters.api_triggered >>
-                - << pipeline.parameters.production_delivery >>
-                - equal:
-                    - web
-                    - << pipeline.parameters.project >>
-    web_commit:
-        jobs:
-            - web_build
-            - web_deliver:
-                filters:
-                    branches:
-                        only:
-                            - main
-                production_delivery: false
-                requires:
-                    - web_build
-        when:
-            and:
-                - not: << pipeline.parameters.api_triggered >>
-                - equal:
-                    - web
-                    - << pipeline.parameters.project >>
-    web_scheduled_production_delivery:
-        jobs:
-            - web_build
-            - web_prepare_production_delivery:
-                requires:
-                    - web_build
-            - await_approval:
-                requires:
-                    - web_prepare_production_delivery
-                type: approval
-            - web_deliver:
-                production_delivery: true
-                requires:
-                    - await_approval
-        triggers:
-            - schedule:
                 cron: 0 5 1,15 * *
                 filters:
                     branches:
                         only:
                             - main
+    version: 2
+    web_api_triggered_delivery:
+        jobs:
+            - web_build
+            - web_prepare_delivery:
+                production_delivery: << pipeline.parameters.production_delivery >>
+                requires:
+                    - web_build
+            - web_deliver:
+                production_delivery: << pipeline.parameters.production_delivery >>
+                requires:
+                    - web_prepare_delivery
+        when:
+            and:
+                - << pipeline.parameters.api_triggered >>
+                - equal:
+                    - web
+                    - << pipeline.parameters.project >>
 
