@@ -1,0 +1,99 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tile should render a Link if path is not an external url 1`] = `
+<Tile__TileContainer
+  md={3}
+  sm={4}
+  xs={6}
+>
+  <CleanLink___default
+    to="/augsburg/de/willkommen"
+  >
+    <Tile__ThumbnailSizer>
+      <Tile__Thumbnail>
+        <img
+          alt=""
+          src="https://cms.integreat-ap…03/Beratung-150x150.png"
+        />
+      </Tile__Thumbnail>
+    </Tile__ThumbnailSizer>
+    <Tile__TileTitle>
+      Willkommen
+    </Tile__TileTitle>
+  </CleanLink___default>
+</Tile__TileContainer>
+`;
+
+exports[`Tile should render a a-Tag if path is not an external url 1`] = `
+<Tile__TileContainer
+  md={3}
+  sm={4}
+  xs={6}
+>
+  <CleanAnchor
+    href="https://example.com"
+    newTab={true}
+  >
+    <Tile__ThumbnailSizer>
+      <Tile__Thumbnail>
+        <img
+          alt=""
+          src="https://cms.integreat-ap…03/Beratung-150x150.png"
+        />
+      </Tile__Thumbnail>
+    </Tile__ThumbnailSizer>
+    <Tile__TileTitle>
+      Example
+    </Tile__TileTitle>
+  </CleanAnchor>
+</Tile__TileContainer>
+`;
+
+exports[`Tile should render a form-Tag if path is not an external url and has postData 1`] = `
+<Tile__TileContainer
+  md={3}
+  sm={4}
+  xs={6}
+>
+  <form
+    action="https://example.com"
+    method="POST"
+    target="_blank"
+  >
+    <input
+      key="plz"
+      name="plz"
+      type="hidden"
+      value="86150"
+    />
+    <input
+      key="radius"
+      name="radius"
+      type="hidden"
+      value="50"
+    />
+    <input
+      key="partner"
+      name="partner"
+      type="hidden"
+      value="0006"
+    />
+    <button
+      role="link"
+      type="submit"
+    >
+      <Tile__ThumbnailSizer>
+        <Tile__Thumbnail>
+          <img
+            alt=""
+            src="https://cms.integreat-ap…03/Beratung-150x150.png"
+          />
+        </Tile__Thumbnail>
+      </Tile__ThumbnailSizer>
+      <Tile__TileTitle>
+        Example
+      </Tile__TileTitle>
+    </button>
+  </form>
+</Tile__TileContainer>
+`;

@@ -1,0 +1,5 @@
+issue_key: WEBAPP-627
+show_in_stores: false
+platforms:
+  - web
+en: Release Notes are now published to github.

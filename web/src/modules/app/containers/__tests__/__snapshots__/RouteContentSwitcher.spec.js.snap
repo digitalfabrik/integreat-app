@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RouteContentSwitcher should render a FailureSwitcher if a payload contains an error 1`] = `
+<FailureSwitcher
+  error={[Error: error]}
+/>
+`;
+
+exports[`RouteContentSwitcher should render and match snapshot 1`] = `
+<Translate(Connect(CategoriesPage))
+  categories={
+    CategoriesMapModel {
+      "_categories": Map {
+        "path01" => CategoryModel {
+          "_availableLanguages": Map {},
+          "_content": "contnentl",
+          "_hash": "2fe6283485a93932",
+          "_lastUpdate": "2017-11-18T09:30:00.000Z",
+          "_order": 4,
+          "_parentPath": "parent/url",
+          "_path": "path01",
+          "_root": true,
+          "_thumbnail": "thumb/nail",
+          "_title": "Title10",
+        },
+      },
+    }
+  }
+  cities={
+    Array [
+      CityModel {
+        "_aliases": null,
+        "_code": "city1",
+        "_eventsEnabled": true,
+        "_latitude": null,
+        "_live": true,
+        "_longitude": null,
+        "_name": "Mambo No. 5",
+        "_offersEnabled": false,
+        "_prefix": null,
+        "_pushNotificationsEnabled": false,
+        "_sortingName": "Mambo",
+        "_tunewsEnabled": false,
+      },
+    ]
+  }
+/>
+`;

@@ -1,0 +1,92 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LanguageFailure should match snapshot 1`] = `
+<Fragment>
+  <Caption
+    title="Stadt Augsburg"
+  />
+  <LanguageFailure__ChooseLanguage>
+    notFound.language chooseALanguage
+  </LanguageFailure__ChooseLanguage>
+  <Translate(LanguageSelector)
+    isHeaderActionItem={false}
+    languageChangePaths={
+      Array [
+        Object {
+          "code": "de",
+          "name": "Deutsch",
+          "path": "/augsburg/de",
+        },
+        Object {
+          "code": "en",
+          "name": "English",
+          "path": "/augsburg/en",
+        },
+        Object {
+          "code": "ar",
+          "name": "Arabic",
+          "path": "/augsburg/ar",
+        },
+      ]
+    }
+    location={
+      Object {
+        "history": undefined,
+        "kind": undefined,
+        "pathname": "/random_pathname",
+        "payload": Object {
+          "city": "augsburg",
+        },
+        "prev": Object {
+          "pathname": "/random_prev_pathname",
+          "payload": Object {},
+          "type": "RANDOM_PREV_TYPE",
+        },
+        "query": Object {},
+        "routesMap": Object {},
+        "type": "CATEGORIES",
+      }
+    }
+    theme={
+      Object {
+        "colors": Object {
+          "backgroundAccentColor": "#fafafa",
+          "backgroundColor": "#ffffff",
+          "textColor": "#000000",
+          "textDecorationColor": "#c7c7c7",
+          "textDisabledColor": "#d0d0d0",
+          "textSecondaryColor": "#585858",
+          "themeColor": "#fbda16",
+          "tunewsThemeColor": "#007aa8",
+          "tunewsThemeColorLight": "rgba(0, 122, 168, 0.4)",
+        },
+        "dimensions": Object {
+          "headerHeightLarge": 90,
+          "headerHeightSmall": 70,
+          "maxWidth": 1100,
+          "minMaxWidth": "screen and (min-width: 1100px)",
+          "smallViewport": "(max-width: 750px)",
+          "toolbarWidth": 125,
+        },
+        "fonts": Object {
+          "contentFontFamily": "'Open Sans', 'Lateef', sans-serif",
+          "contentFontSize": "0.95rem",
+          "contentLineHeight": 1.4,
+          "decorativeFontFamily": "'Raleway', 'Lateef', sans-serif",
+          "decorativeFontSize": "0.95rem",
+          "decorativeLineHeight": 1.3,
+          "fontSizeAdjust": 0.55,
+          "standardParagraphMargin": "0.75rem",
+          "subTitleFontSize": "1.8rem",
+        },
+        "helpers": Object {
+          "removeLinkHighlighting": "
+    color: inherit;
+    text-decoration: none;
+  ",
+        },
+      }
+    }
+  />
+</Fragment>
+`;

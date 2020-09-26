@@ -1,0 +1,134 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EventsPage should match snapshot and render EventDetail 1`] = `
+<Page
+  content="content"
+  defaultThumbnailSrc="thumbnail"
+  language="en"
+  lastUpdate={"2016-01-07T09:36:24.000Z"}
+  onInternalLinkClick={[Function]}
+  thumbnailSrcSet={null}
+  title="first Event"
+>
+  <PageDetail
+    identifier="date"
+    information="November 18, 2017"
+  />
+  <PageDetail
+    identifier="location"
+    information="name, address, postcode town"
+  />
+</Page>
+`;
+
+exports[`EventsPage should match snapshot and render EventList 1`] = `
+<Fragment>
+  <Caption
+    title="events"
+  />
+  <List
+    items={
+      Array [
+        EventModel {
+          "_availableLanguages": Map {
+            "de" => "/augsburg/de/events/erstes_event",
+            "ar" => "/augsburg/ar/events/erstes_event",
+          },
+          "_content": "content",
+          "_date": DateModel {
+            "_allDay": true,
+            "_endDate": "2017-11-18T19:30:00.000Z",
+            "_startDate": "2017-11-18T09:30:00.000Z",
+          },
+          "_excerpt": "excerpt",
+          "_featuredImage": null,
+          "_hash": "2fe6283485a93932",
+          "_lastUpdate": "2016-01-07T09:36:24.000Z",
+          "_location": LocationModel {
+            "_address": "address",
+            "_country": "country",
+            "_latitude": null,
+            "_longitude": null,
+            "_name": "name",
+            "_postcode": "postcode",
+            "_region": "region",
+            "_state": "state",
+            "_town": "town",
+          },
+          "_path": "/augsburg/en/events/first_event",
+          "_thumbnail": "thumbnail",
+          "_title": "first Event",
+        },
+        EventModel {
+          "_availableLanguages": Map {
+            "en" => "/augsburg/de/events/zwotes_event",
+            "ar" => "/augsburg/ar/events/zwotes_event",
+          },
+          "_content": "content",
+          "_date": DateModel {
+            "_allDay": true,
+            "_endDate": "2017-11-18T19:30:00.000Z",
+            "_startDate": "2017-11-18T09:30:00.000Z",
+          },
+          "_excerpt": "excerpt",
+          "_featuredImage": null,
+          "_hash": "2fe6283485b93932",
+          "_lastUpdate": "2016-01-07T09:36:24.000Z",
+          "_location": LocationModel {
+            "_address": "address",
+            "_country": "country",
+            "_latitude": null,
+            "_longitude": null,
+            "_name": "name",
+            "_postcode": "postcode",
+            "_region": "region",
+            "_state": "state",
+            "_town": "town",
+          },
+          "_path": "/augsburg/en/events/second_event",
+          "_thumbnail": "thumbnail",
+          "_title": "second Event",
+        },
+        EventModel {
+          "_availableLanguages": Map {
+            "de" => "/augsburg/de/events/drittes_event",
+            "ar" => "/augsburg/ar/events/erstes_event",
+          },
+          "_content": "content",
+          "_date": DateModel {
+            "_allDay": true,
+            "_endDate": "2017-11-18T19:30:00.000Z",
+            "_startDate": "2017-11-18T09:30:00.000Z",
+          },
+          "_excerpt": "excerpt",
+          "_featuredImage": null,
+          "_hash": "2fe6283485c93932",
+          "_lastUpdate": "2016-01-07T09:36:24.000Z",
+          "_location": LocationModel {
+            "_address": "address",
+            "_country": "country",
+            "_latitude": null,
+            "_longitude": null,
+            "_name": "name",
+            "_postcode": "postcode",
+            "_region": "region",
+            "_state": "state",
+            "_town": "town",
+          },
+          "_path": "/augsburg/en/events/third_event",
+          "_thumbnail": "thumbnail",
+          "_title": "third Event",
+        },
+      ]
+    }
+    noItemsMessage="currentlyNoEvents"
+    renderItem={[Function]}
+  />
+</Fragment>
+`;
+
+exports[`EventsPage should match snapshot and render Failure if event does not exist 1`] = `
+<FailureSwitcher
+  error={[Error: The event invalid_event does not exist here.]}
+/>
+`;

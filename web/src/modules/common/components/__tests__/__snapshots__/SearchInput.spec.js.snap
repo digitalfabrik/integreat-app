@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchInput connect should render 1`] = `
+<SearchInput__Spacer
+  space={false}
+>
+  <SearchInput__Wrapper>
+    <SearchInput__SearchIcon />
+    <SearchInput__TextInput
+      aria-label="Placeholder"
+      autoFocus={true}
+      defaultValue="Test"
+      onChange={[Function]}
+      placeholder="Placeholder"
+    />
+  </SearchInput__Wrapper>
+</SearchInput__Spacer>
+`;
+
+exports[`SearchInput should render 1`] = `
+<SearchInput__Spacer
+  space={false}
+>
+  <SearchInput__Wrapper>
+    <SearchInput__SearchIcon />
+    <SearchInput__TextInput
+      aria-label="Placeholder"
+      autoFocus={true}
+      defaultValue="Test"
+      onChange={[Function]}
+      placeholder="Placeholder"
+    />
+  </SearchInput__Wrapper>
+</SearchInput__Spacer>
+`;
+
+exports[`SearchInput should render and space search 1`] = `
+<SearchInput__Spacer
+  space={true}
+>
+  <SearchInput__Wrapper>
+    <SearchInput__SearchIcon />
+    <SearchInput__TextInput
+      aria-label="Placeholder"
+      autoFocus={true}
+      defaultValue="Test"
+      onChange={[Function]}
+      placeholder="Placeholder"
+    />
+  </SearchInput__Wrapper>
+</SearchInput__Spacer>
+`;

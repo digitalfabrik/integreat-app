@@ -1,0 +1,177 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FilterableCitySelector should render 1`] = `
+<FilterableCitySelector__Container>
+  <Heading />
+  <ScrollingSearchBox
+    filterText=""
+    onFilterTextChange={[Function]}
+    onStickyTopChanged={[Function]}
+    placeholderText="searchCity"
+    spaceSearch={false}
+  >
+    <CitySelector
+      cities={
+        Array [
+          CityModel {
+            "_aliases": Object {
+              "Allmendingen": Object {
+                "latitude": 48.330714,
+                "longitude": 9.72429,
+              },
+              "Altheim": Object {
+                "latitude": 48.327677,
+                "longitude": 9.770679,
+              },
+            },
+            "_code": "city",
+            "_eventsEnabled": false,
+            "_latitude": null,
+            "_live": true,
+            "_longitude": null,
+            "_name": "City",
+            "_offersEnabled": false,
+            "_prefix": null,
+            "_pushNotificationsEnabled": false,
+            "_sortingName": "City",
+            "_tunewsEnabled": false,
+          },
+          CityModel {
+            "_aliases": null,
+            "_code": "otherCity",
+            "_eventsEnabled": false,
+            "_latitude": null,
+            "_live": true,
+            "_longitude": null,
+            "_name": "Other city",
+            "_offersEnabled": false,
+            "_prefix": null,
+            "_pushNotificationsEnabled": false,
+            "_sortingName": "Other City",
+            "_tunewsEnabled": false,
+          },
+          CityModel {
+            "_aliases": null,
+            "_code": "nonlive",
+            "_eventsEnabled": false,
+            "_latitude": null,
+            "_live": false,
+            "_longitude": null,
+            "_name": "Not-live",
+            "_offersEnabled": false,
+            "_prefix": null,
+            "_pushNotificationsEnabled": false,
+            "_sortingName": "Not-live",
+            "_tunewsEnabled": false,
+          },
+          CityModel {
+            "_aliases": null,
+            "_code": "yetanothercity",
+            "_eventsEnabled": false,
+            "_latitude": null,
+            "_live": true,
+            "_longitude": null,
+            "_name": "Yet another city",
+            "_offersEnabled": false,
+            "_prefix": null,
+            "_pushNotificationsEnabled": false,
+            "_sortingName": "Yet another city",
+            "_tunewsEnabled": false,
+          },
+        ]
+      }
+      filterText=""
+      language="de"
+      stickyTop={0}
+    />
+  </ScrollingSearchBox>
+</FilterableCitySelector__Container>
+`;
+
+exports[`FilterableCitySelector should update filter text 1`] = `
+<FilterableCitySelector__Container>
+  <Heading />
+  <ScrollingSearchBox
+    filterText="City"
+    onFilterTextChange={[Function]}
+    onStickyTopChanged={[Function]}
+    placeholderText="searchCity"
+    spaceSearch={false}
+  >
+    <CitySelector
+      cities={
+        Array [
+          CityModel {
+            "_aliases": Object {
+              "Allmendingen": Object {
+                "latitude": 48.330714,
+                "longitude": 9.72429,
+              },
+              "Altheim": Object {
+                "latitude": 48.327677,
+                "longitude": 9.770679,
+              },
+            },
+            "_code": "city",
+            "_eventsEnabled": false,
+            "_latitude": null,
+            "_live": true,
+            "_longitude": null,
+            "_name": "City",
+            "_offersEnabled": false,
+            "_prefix": null,
+            "_pushNotificationsEnabled": false,
+            "_sortingName": "City",
+            "_tunewsEnabled": false,
+          },
+          CityModel {
+            "_aliases": null,
+            "_code": "otherCity",
+            "_eventsEnabled": false,
+            "_latitude": null,
+            "_live": true,
+            "_longitude": null,
+            "_name": "Other city",
+            "_offersEnabled": false,
+            "_prefix": null,
+            "_pushNotificationsEnabled": false,
+            "_sortingName": "Other City",
+            "_tunewsEnabled": false,
+          },
+          CityModel {
+            "_aliases": null,
+            "_code": "nonlive",
+            "_eventsEnabled": false,
+            "_latitude": null,
+            "_live": false,
+            "_longitude": null,
+            "_name": "Not-live",
+            "_offersEnabled": false,
+            "_prefix": null,
+            "_pushNotificationsEnabled": false,
+            "_sortingName": "Not-live",
+            "_tunewsEnabled": false,
+          },
+          CityModel {
+            "_aliases": null,
+            "_code": "yetanothercity",
+            "_eventsEnabled": false,
+            "_latitude": null,
+            "_live": true,
+            "_longitude": null,
+            "_name": "Yet another city",
+            "_offersEnabled": false,
+            "_prefix": null,
+            "_pushNotificationsEnabled": false,
+            "_sortingName": "Yet another city",
+            "_tunewsEnabled": false,
+          },
+        ]
+      }
+      filterText="City"
+      language="de"
+      stickyTop={0}
+    />
+  </ScrollingSearchBox>
+</FilterableCitySelector__Container>
+`;

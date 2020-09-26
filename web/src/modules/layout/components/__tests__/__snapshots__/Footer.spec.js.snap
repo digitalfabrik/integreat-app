@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Footer should insert items 1`] = `
+<Footer__FooterContainer>
+  <div>
+    MockNode
+  </div>
+  <div>
+    AnotherMockNode
+  </div>
+</Footer__FooterContainer>
+`;
+
+exports[`Footer should show Version on dev builds 1`] = `
+<Footer__FooterContainer>
+  <div>
+    MockNode
+  </div>
+  <div>
+    AnotherMockNode
+  </div>
+  <span>
+    vX.X
+  </span>
+</Footer__FooterContainer>
+`;

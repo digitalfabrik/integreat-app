@@ -1,0 +1,35 @@
+[ignore]
+.*/node_modules/config-chain/test/broken.json
+<PROJECT_ROOT>/dist/.*
+<PROJECT_ROOT>/lib-dist/.*
+
+[untyped]
+.*/node_modules/react-select/src/.*
+.*/node_modules/redux-first-router/dist/connectRoutes.js.flow.*
+.*/node_modules/redux-first-router/dist/pure-utils/pathToAction.js.flow.*
+.*/node_modules/redux-first-router/dist/pure-utils/actionToPath.js.flow.*
+
+[include]
+
+[libs]
+
+[lints]
+
+[options]
+module.system.node.resolve_dirname=node_modules
+esproposal.optional_chaining=enable
+
+module.file_ext=.js
+module.file_ext=.jsx
+module.file_ext=.json
+
+suppress_type=$FlowIssue
+suppress_type=$FlowFixMe
+suppress_type=$FlowFixMeProps
+suppress_type=$FlowFixMeState
+
+suppress_comment=\\(.\\|\n\\)*\\$FlowFixMe\\($\\|[^(]\\|(\\(<VERSION>\\)? *\\(site=[a-z,_]*react_native\\(_ios\\)?_\\(oss\\|fb\\)[a-z,_]*\\)?)\\)
+suppress_comment=\\(.\\|\n\\)*\\$FlowIssue\\((\\(<VERSION>\\)? *\\(site=[a-z,_]*react_native\\(_ios\\)?_\\(oss\\|fb\\)[a-z,_]*\\)?)\\)?:? #[0-9]+
+suppress_comment=\\(.\\|\n\\)*\\$FlowExpectedError
+
+[strict]

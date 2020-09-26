@@ -1,0 +1,183 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CategoryList should render and display a caption 1`] = `
+<div>
+  <Caption
+    title="Willkommen"
+  />
+  <RemoteContent
+    centered={true}
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "test content",
+      }
+    }
+    onInternalLinkClick={[Function]}
+  />
+  <CategoryList__List>
+    <WithTheme(CategoryEntry)
+      category={
+        CategoryModel {
+          "_availableLanguages": Map {},
+          "_content": "exampleContent0",
+          "_hash": "91d435afbc7aa83496137e81fd2832e3",
+          "_lastUpdate": "2016-01-07T09:36:24.000Z",
+          "_order": 0,
+          "_parentPath": "",
+          "_path": "/augsburg/de",
+          "_root": true,
+          "_thumbnail": "thumb-nail",
+          "_title": "augsburg",
+        }
+      }
+      key="91d435afbc7aa83496137e81fd2832e3"
+      subCategories={
+        Array [
+          CategoryModel {
+            "_availableLanguages": Map {},
+            "_content": "exampleContent0",
+            "_hash": "91d435afbc7aa83496137e81fd2832e3",
+            "_lastUpdate": "2016-01-07T09:36:24.000Z",
+            "_order": 1,
+            "_parentPath": "/augsburg/de",
+            "_path": "/augsburg/de/willkommen",
+            "_root": false,
+            "_thumbnail": "thumb-nail",
+            "_title": "willkommen",
+          },
+          CategoryModel {
+            "_availableLanguages": Map {},
+            "_content": "exampleContent0",
+            "_hash": "91d435afbc7aa83496137e81fd2832e3",
+            "_lastUpdate": "2016-01-07T09:36:24.000Z",
+            "_order": 2,
+            "_parentPath": "/augsburg/de",
+            "_path": "/augsburg/de/erste-schritte",
+            "_root": false,
+            "_thumbnail": "thumb-nail",
+            "_title": "erste-schritte",
+          },
+        ]
+      }
+    />
+    <WithTheme(CategoryEntry)
+      category={
+        CategoryModel {
+          "_availableLanguages": Map {},
+          "_content": "exampleContent0",
+          "_hash": "91d435afbc7aa83496137e81fd2832e3",
+          "_lastUpdate": "2016-01-07T09:36:24.000Z",
+          "_order": 2,
+          "_parentPath": "/augsburg/de",
+          "_path": "/augsburg/de/erste-schritte",
+          "_root": false,
+          "_thumbnail": "thumb-nail",
+          "_title": "erste-schritte",
+        }
+      }
+      key="91d435afbc7aa83496137e81fd2832e3"
+      subCategories={
+        Array [
+          CategoryModel {
+            "_availableLanguages": Map {},
+            "_content": "exampleContent0",
+            "_hash": "91d435afbc7aa83496137e81fd2832e3",
+            "_lastUpdate": "2016-01-07T09:36:24.000Z",
+            "_order": 3,
+            "_parentPath": "/augsburg/de/erste-schritte",
+            "_path": "/augsburg/de/erste-schritte/asylantrag",
+            "_root": false,
+            "_thumbnail": "thumb-nail",
+            "_title": "asylantrag",
+          },
+        ]
+      }
+    />
+  </CategoryList__List>
+</div>
+`;
+
+exports[`CategoryList should render and not display a caption 1`] = `
+<div>
+  <CategoryList__List>
+    <WithTheme(CategoryEntry)
+      category={
+        CategoryModel {
+          "_availableLanguages": Map {},
+          "_content": "exampleContent0",
+          "_hash": "91d435afbc7aa83496137e81fd2832e3",
+          "_lastUpdate": "2016-01-07T09:36:24.000Z",
+          "_order": 0,
+          "_parentPath": "",
+          "_path": "/augsburg/de",
+          "_root": true,
+          "_thumbnail": "thumb-nail",
+          "_title": "augsburg",
+        }
+      }
+      key="91d435afbc7aa83496137e81fd2832e3"
+      subCategories={
+        Array [
+          CategoryModel {
+            "_availableLanguages": Map {},
+            "_content": "exampleContent0",
+            "_hash": "91d435afbc7aa83496137e81fd2832e3",
+            "_lastUpdate": "2016-01-07T09:36:24.000Z",
+            "_order": 1,
+            "_parentPath": "/augsburg/de",
+            "_path": "/augsburg/de/willkommen",
+            "_root": false,
+            "_thumbnail": "thumb-nail",
+            "_title": "willkommen",
+          },
+          CategoryModel {
+            "_availableLanguages": Map {},
+            "_content": "exampleContent0",
+            "_hash": "91d435afbc7aa83496137e81fd2832e3",
+            "_lastUpdate": "2016-01-07T09:36:24.000Z",
+            "_order": 2,
+            "_parentPath": "/augsburg/de",
+            "_path": "/augsburg/de/erste-schritte",
+            "_root": false,
+            "_thumbnail": "thumb-nail",
+            "_title": "erste-schritte",
+          },
+        ]
+      }
+    />
+    <WithTheme(CategoryEntry)
+      category={
+        CategoryModel {
+          "_availableLanguages": Map {},
+          "_content": "exampleContent0",
+          "_hash": "91d435afbc7aa83496137e81fd2832e3",
+          "_lastUpdate": "2016-01-07T09:36:24.000Z",
+          "_order": 2,
+          "_parentPath": "/augsburg/de",
+          "_path": "/augsburg/de/erste-schritte",
+          "_root": false,
+          "_thumbnail": "thumb-nail",
+          "_title": "erste-schritte",
+        }
+      }
+      key="91d435afbc7aa83496137e81fd2832e3"
+      subCategories={
+        Array [
+          CategoryModel {
+            "_availableLanguages": Map {},
+            "_content": "exampleContent0",
+            "_hash": "91d435afbc7aa83496137e81fd2832e3",
+            "_lastUpdate": "2016-01-07T09:36:24.000Z",
+            "_order": 3,
+            "_parentPath": "/augsburg/de/erste-schritte",
+            "_path": "/augsburg/de/erste-schritte/asylantrag",
+            "_root": false,
+            "_thumbnail": "thumb-nail",
+            "_title": "asylantrag",
+          },
+        ]
+      }
+    />
+  </CategoryList__List>
+</div>
+`;

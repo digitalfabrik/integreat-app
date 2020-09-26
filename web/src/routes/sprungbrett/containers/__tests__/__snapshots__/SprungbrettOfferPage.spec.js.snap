@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SprungbrettOfferPage should render error if offer is not supported 1`] = `
+<FailureSwitcher
+  error={[Error: The Sprunbrett offer is not supported.]}
+/>
+`;
+
+exports[`SprungbrettOfferPage should render list 1`] = `
+<Fragment>
+  <Caption
+    title="Sprungbrett"
+  />
+  <List
+    items={
+      Array [
+        SprungbrettModel {
+          "_id": 0,
+          "_isApprenticeship": true,
+          "_isEmployment": true,
+          "_location": "Augsburg",
+          "_title": "WebDeveloper",
+          "_url": "http://awesome-jobs.domain",
+        },
+        SprungbrettModel {
+          "_id": 1,
+          "_isApprenticeship": false,
+          "_isEmployment": true,
+          "_location": "Augsburg",
+          "_title": "BackendDeveloper",
+          "_url": "http://awesome-jobs.domain",
+        },
+        SprungbrettModel {
+          "_id": 2,
+          "_isApprenticeship": true,
+          "_isEmployment": false,
+          "_location": "Augsburg",
+          "_title": "Freelancer",
+          "_url": "http://awesome-jobs.domain",
+        },
+      ]
+    }
+    noItemsMessage="noOffersAvailable"
+    renderItem={[Function]}
+  />
+  <a
+    href="https://www.sprungbrett-intowork.de"
+    rel="noopener noreferrer"
+    target="_blank"
+  >
+    <SprungbrettOfferPage__Image
+      src="xy"
+    />
+  </a>
+</Fragment>
+`;

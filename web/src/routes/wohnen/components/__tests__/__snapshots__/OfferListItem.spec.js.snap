@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OfferListItem should render and match snapshot 1`] = `
+<ListItem
+  isExternalUrl={false}
+  path="/Augsburg/de/offers/wohnen/mail@mail.com"
+  title="Test Angebot"
+>
+  <OfferListItem__Description>
+    <div>
+      120
+       m²
+    </div>
+    <div>
+      4
+       Zimmer
+    </div>
+    <OfferListItem__Price>
+      1000
+       €
+    </OfferListItem__Price>
+  </OfferListItem__Description>
+</ListItem>
+`;
