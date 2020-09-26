@@ -22,17 +22,17 @@ exports[`ScrollingSearchBox should render 1`] = `
 exports[`ScrollingSearchBox should set correct reference 1`] = `
 <div>
   <div
-    class="Headroom__HeaderWrapper-sc-16d3zk-0 eGAHH"
+    class="Headroom__HeaderWrapper-sc-16d3zk-0 dAYSiv"
   >
     <div
-      class="SearchInput__Spacer-sc-18knujq-0 kWZBvt"
+      class="SearchInput__Spacer-sc-1brkyza-0"
     >
       <div
-        class="SearchInput__Wrapper-sc-18knujq-2 dpmJUo"
+        class="SearchInput__Wrapper-sc-1brkyza-2 imfdds"
       >
         <svg
           aria-hidden="true"
-          class="svg-inline--fa fa-search fa-w-16 SearchInput__SearchIcon-sc-18knujq-3 jiSVEr"
+          class="svg-inline--fa fa-search fa-w-16 SearchInput__SearchIcon-sc-1brkyza-3 fJfrLf"
           data-icon="search"
           data-prefix="fas"
           focusable="false"
@@ -47,7 +47,7 @@ exports[`ScrollingSearchBox should set correct reference 1`] = `
         </svg>
         <input
           aria-label="Placeholder"
-          class="SearchInput__TextInput-sc-18knujq-1 jnaLtY"
+          class="SearchInput__TextInput-sc-1brkyza-1 cUSkzY"
           placeholder="Placeholder"
           type="text"
           value="Test"
