@@ -3,7 +3,7 @@
   "private": true,
   "workspaces": {
     "nohoist": [
-      "**/jetifier"
+      "native/**"
     ],
     "packages": ["native", "web", "locales"]
   },
