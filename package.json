@@ -29,7 +29,9 @@
       "**/@react-native-community/progress-bar-android",
       "**/@react-native-firebase/app",
       "**/@react-native-firebase/messaging",
-      "**/@sentry/react-native"
+      "**/@sentry/react-native",
+      "**/react-redux",
+      "**/styled-components"
     ],
     "packages": ["native", "web"]
   },
