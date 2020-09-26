@@ -59,7 +59,7 @@ const createConfig = (env = {}) => {
   const buildConfig = require(`../build-configs/${buildConfigName}`)
   const configAssets = path.resolve(__dirname, `../build-configs/${buildConfigName}/assets`)
 
-  const nodeModules = path.resolve('./node_modules')
+  const nodeModules = path.resolve('../node_modules')
   const wwwDirectory = path.resolve(__dirname, '../www')
   const distDirectory = path.resolve(__dirname, `../dist/${buildConfigName}`)
   const srcDirectory = path.resolve(__dirname, '../src')
@@ -75,7 +75,7 @@ const createConfig = (env = {}) => {
   const config = {
     mode: isProductionBuild ? 'production' : 'development',
     resolve: {
-      modules: [nodeModules]
+      modules: [nodeModules, '../../node_modules']
     },
     // The base directory for resolving the entry option
     context: srcDirectory,
