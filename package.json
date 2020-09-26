@@ -5,5 +5,8 @@
   {
     "packages": ["native", "web"],
     "nohoist": ["**/jetifier"]
+  },
+  "scripts": {
+    "locales:missing": "node locales/tools/findMissingLocales"
   }
 }
