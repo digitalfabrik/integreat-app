@@ -6,32 +6,32 @@ triggers:
           only:
             - main
 jobs:
-  - prepare_build
-  - build_android:
+  - native_prepare_build
+  - native_build_android:
       build_for_delivery: true
       requires:
-        - prepare_build
-  - build_ios:
+        - native_prepare_build
+  - native_build_ios:
       build_for_delivery: true
       requires:
-        - prepare_build
-  - e2e:
+        - native_prepare_build
+  - native_e2e:
       requires:
-        - build_ios
-        - build_android
-  - prepare_delivery:
+        - native_build_ios
+        - native_build_android
+  - native_prepare_delivery:
       production_delivery: true
       requires: # Bump version should only depend on build_ and not delivery_. Sometimes upload to the stores fails only for iOS or Android. Then we should still bump the version.
-        - e2e
+        - native_e2e
   - await_production_approval:
       type: approval
       requires:
-        - prepare_delivery
-  - deliver_android:
+        - native_prepare_delivery
+  - native_deliver_android:
       production_delivery: true
       requires:
         - await_production_approval
-  - deliver_ios:
+  - native_deliver_ios:
       production_delivery: true
       requires:
         - await_production_approval

@@ -258,7 +258,7 @@ jobs:
                     - integreat-e2e.ipa
                 root: ios/output/gym/
             - notify_failed
-    native_delivery_android:
+    native_deliver_android:
         docker:
             - image: circleci/android:api-28-node
         environment:
@@ -312,7 +312,7 @@ jobs:
                 message: Integreat ${NEW_VERSION_NAME} has been released successfully on Android!
                 webhook: ${SLACK_URL}
             - notify_failed
-    native_delivery_ios:
+    native_deliver_ios:
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         macos:
@@ -576,7 +576,7 @@ jobs:
                     - environment_variables
                 root: ./
             - notify_failed
-    web_delivery:
+    web_deliver:
         docker:
             - image: circleci/node:12.16.3
         parameters:
@@ -640,33 +640,212 @@ parameters:
         default: false
         description: Whether the pipeline was triggered through the CircleCi API (https://circleci.com/docs/api/v2/?shell#trigger-a-new-pipeline).
         type: boolean
-    platform:
+    production_delivery:
+        default: false
+        description: Whether to deliver to production or not.
+        type: boolean
+    project:
         default: web
         enum:
             - web
             - native
         type: enum
-    production_delivery:
-        default: false
-        description: Whether to deliver to production or not (beta channel and testflight).
-        type: boolean
 version: 2.1
 workflows:
+    native_api_triggered_delivery:
+        jobs:
+            - native_prepare_build
+            - native_build_android:
+                build_for_delivery: true
+                requires:
+                    - native_prepare_build
+            - native_build_ios:
+                build_for_delivery: true
+                requires:
+                    - native_prepare_build
+            - native_e2e:
+                requires:
+                    - native_build_ios
+                    - native_build_android
+            - native_prepare_delivery:
+                production_delivery: << pipeline.parameters.production_delivery >>
+                requires:
+                    - native_e2e
+            - native_deliver_android:
+                production_delivery: << pipeline.parameters.production_delivery >>
+                requires:
+                    - native_prepare_delivery
+            - native_deliver_ios:
+                production_delivery: << pipeline.parameters.production_delivery >>
+                requires:
+                    - native_prepare_delivery
+        when:
+            and:
+                - << pipeline.parameters.api_triggered >>
+                - equal:
+                    - native
+                    - << pipeline.parameters.project >>
     native_commit:
         jobs:
-            - prepare_build
-            - build_android:
+            - native_prepare_build
+            - native_build_android:
                 build_for_delivery: false
                 requires:
-                    - prepare_build
-            - build_ios:
+                    - native_prepare_build
+            - native_build_ios:
                 build_for_delivery: false
                 requires:
-                    - prepare_build
-            - e2e:
+                    - native_prepare_build
+            - native_e2e:
                 requires:
-                    - build_ios
-                    - build_android
-        unless: << pipeline.parameters.api_triggered >>
+                    - native_build_ios
+                    - native_build_android
+        when:
+            and:
+                - not: << pipeline.parameters.api_triggered >>
+                - equal:
+                    - native
+                    - << pipeline.parameters.project >>
+    native_scheduled_development_delivery:
+        jobs:
+            - native_prepare_build
+            - native_build_android:
+                build_for_delivery: true
+                requires:
+                    - native_prepare_build
+            - native_build_ios:
+                build_for_delivery: true
+                requires:
+                    - native_prepare_build
+            - native_e2e:
+                requires:
+                    - native_build_ios
+                    - native_build_android
+            - native_prepare_delivery:
+                production_delivery: false
+                requires:
+                    - native_e2e
+            - native_deliver_android:
+                production_delivery: false
+                requires:
+                    - native_prepare_delivery
+            - native_deliver_ios:
+                production_delivery: false
+                requires:
+                    - native_prepare_delivery
+        triggers:
+            - schedule:
+                cron: 0 3 8,22 * *
+                filters:
+                    branches:
+                        only:
+                            - main
+    native_scheduled_production_delivery:
+        jobs:
+            - native_prepare_build
+            - native_build_android:
+                build_for_delivery: true
+                requires:
+                    - native_prepare_build
+            - native_build_ios:
+                build_for_delivery: true
+                requires:
+                    - native_prepare_build
+            - native_e2e:
+                requires:
+                    - native_build_ios
+                    - native_build_android
+            - native_prepare_delivery:
+                production_delivery: true
+                requires:
+                    - native_e2e
+            - await_production_approval:
+                requires:
+                    - native_prepare_delivery
+                type: approval
+            - native_deliver_android:
+                production_delivery: true
+                requires:
+                    - await_production_approval
+            - native_deliver_ios:
+                production_delivery: true
+                requires:
+                    - await_production_approval
+        triggers:
+            - schedule:
+                cron: 0 3 1,15 * *
+                filters:
+                    branches:
+                        only:
+                            - main
     version: 2
+    web_api_triggered_development_delivery:
+        jobs:
+            - web_build
+            - web_deliver:
+                production_delivery: false
+                requires:
+                    - web_build
+        when:
+            and:
+                - << pipeline.parameters.api_triggered >>
+                - not: << pipeline.parameters.production_delivery >>
+                - equal:
+                    - web
+                    - << pipeline.parameters.project >>
+    web_api_triggered_production_delivery:
+        jobs:
+            - web_build
+            - web_prepare_production_delivery:
+                requires:
+                    - web_build
+            - web_deliver:
+                production_delivery: true
+                requires:
+                    - web_prepare_production_deliver
+        when:
+            and:
+                - << pipeline.parameters.api_triggered >>
+                - << pipeline.parameters.production_delivery >>
+                - equal:
+                    - web
+                    - << pipeline.parameters.project >>
+    web_commit:
+        jobs:
+            - web_build
+            - web_deliver:
+                filters:
+                    branches:
+                        only:
+                            - main
+                production_delivery: false
+                requires:
+                    - web_build
+        when:
+            and:
+                - not: << pipeline.parameters.api_triggered >>
+                - equal:
+                    - web
+                    - << pipeline.parameters.project >>
+    web_scheduled_production_delivery:
+        jobs:
+            - web_build
+            - web_prepare_production_delivery:
+                requires:
+                    - web_build
+            - await_approval:
+                requires:
+                    - web_prepare_production_delivery
+                type: approval
+            - web_deliver:
+                production_delivery: true
+                requires:
+                    - await_approval
+        triggers:
+            - schedule:
+                cron: 0 5 1,15 * *
+                filters:
+                    branches:
+                        only:
+                            - main
 

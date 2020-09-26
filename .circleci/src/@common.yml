@@ -12,7 +12,7 @@ parameters:
     type: boolean
     description: Whether to deliver to production or not.
     default: false
-  platform:
+  project:
     type: enum
     enum: ["web", "native"]
     default: "web"
