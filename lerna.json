@@ -1,6 +1,7 @@
 {
   "packages": [
-    "./*"
+    "web",
+    "native"
   ],
   "npmClient": "yarn",
   "version": "2020.9.4"
