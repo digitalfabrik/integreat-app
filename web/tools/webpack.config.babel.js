@@ -20,7 +20,7 @@ const MAX_BUNDLE_SIZE = 1.55 * Math.pow(2, 20)
 const readJson = path => JSON.parse(fs.readFileSync(path))
 
 const readVersionName = () => {
-  const versionFile = readJson(path.resolve(__dirname, '../version.json'))
+  const versionFile = readJson(path.resolve(__dirname, '../../version.json'))
   return versionFile.versionName
 }
 
