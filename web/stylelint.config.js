@@ -91,7 +91,7 @@ module.exports = {
     'selector-max-specificity': '0,3,3',
     'shorthand-property-no-redundant-values': true,
     'string-quotes': 'single',
-    'unit-blacklist': [
+    'unit-disallowed-list': [
       'ch',
       'cm',
       'ex',
