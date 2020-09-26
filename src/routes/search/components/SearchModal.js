@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import { CategoriesMapModel } from '@integreat-app/integreat-api-client'
+import { CategoriesMapModel, CategoryModel } from '@integreat-app/integreat-api-client'
 import type { ListEntryType } from '../../../modules/categories/components/CategoryList'
 import CategoryList from '../../../modules/categories/components/CategoryList'
 import styled from 'styled-components/native'
@@ -15,6 +15,7 @@ import type { TFunction } from 'react-i18next'
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
 import SearchFeedbackBox from './SearchFeedbackBox'
 import normalizeSearchString from '../../../modules/common/normalizeSearchString'
+import { Parser } from 'htmlparser2'
 
 const Wrapper: StyledComponent<{}, ThemeType, *> = styled.View`
   position: absolute;  
@@ -51,27 +52,44 @@ class SearchModal extends React.Component<PropsType, StateType> {
 
     // find all categories whose titles include the filter text and sort them lexicographically
     const categoriesWithTitle = categoriesArray
-      .filter(category => normalizeSearchString(category.title).includes(normalizedFilter))
-      .sort((category1, category2) => category1.title.localeCompare(category2.title))
+      .filter(category => normalizeSearchString(category.title).includes(normalizedFilter) && !category.isRoot())
+      .map((category: CategoryModel): ListEntryType => ({
+        model: {
+          title: category.title,
+          thumbnail: category.thumbnail,
+          path: category.path
+        },
+        subCategories: []
+      })
+
+      )
+      .sort((category1, category2) => category1.model.title.localeCompare(category2.model.title))
 
     // find all categories whose contents but not titles include the filter text and sort them lexicographically
     const categoriesWithContent = categoriesArray
-      .filter(category => !normalizeSearchString(category.title).includes(normalizedFilter))
-      .filter(category => normalizeSearchString(category.content).includes(normalizedFilter))
-      .sort((category1, category2) => category1.title.localeCompare(category2.title))
+      .filter(category => !normalizeSearchString(category.title).includes(normalizedFilter) && !category.isRoot())
+      .map((category: CategoryModel): ListEntryType => {
+        const contentWithoutHtml = []
+        const parser = new Parser({ ontext (data: string) { contentWithoutHtml.push(data) } })
+        parser.write(category.content)
+        parser.end()
+        return {
+          model: {
+            path: category.path,
+            thumbnail: category.thumbnail,
+            title: category.title,
+            contentWithoutHtml: contentWithoutHtml.join(' ')
+          },
+          subCategories: []
+        }
+      })
+      .filter(category => category.model.contentWithoutHtml && category.model.contentWithoutHtml.length > 0 &&
+        normalizeSearchString(category.model.contentWithoutHtml).includes(normalizedFilter))
+      .sort((category1, category2) => category1.model.title.localeCompare(category2.model.title))
 
     // return all categories from above and remove the root category
     return categoriesWithTitle
-      .filter(category => !category.isRoot())
       .concat(categoriesWithContent)
-      .map(category => ({
-        model: {
-          path: category.path,
-          thumbnail: category.thumbnail,
-          title: category.title
-        },
-        subCategories: []
-      }))
   }
 
   onItemPress = (category: { path: string }) => {

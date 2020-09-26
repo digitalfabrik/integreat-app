@@ -9,9 +9,16 @@ import styled from 'styled-components/native'
 import Image from '../../common/components/Image'
 import CategoryListCaption from '../../../modules/common/components/CategoryListCaption'
 
+export type CategoryListModelType = {|
+  title: string,
+  thumbnail: string,
+  path: string,
+  contentWithoutHtml?: string
+|}
+
 export type ListEntryType = {|
-  model: { title: string, thumbnail: string, path: string },
-  subCategories: Array<{ title: string, thumbnail: string, path: string }>
+  model: CategoryListModelType,
+  subCategories: Array<CategoryListModelType>
 |}
 
 type PropsType = {|
