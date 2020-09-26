@@ -1,0 +1,7 @@
+issue_key: NATIVE-384
+show_in_stores: true
+platforms:
+  - ios
+  - android
+en: A bug showing a wrong city name has been removed.
+de: Das Anzeigen eines falschen Stadtnamens wurde behoben.

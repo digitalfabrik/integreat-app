@@ -1,0 +1,62 @@
+fastlane_version "2.156.1"
+
+require_relative "../../fastlane/read_build_config"
+
+before_all do
+  setup_circle_ci
+end
+
+desc "Download and setup certificates"
+lane :certificates do |options|
+  ensure_env_vars(
+      env_vars: ['FASTLANE_USER']
+  )
+
+  build_config_name = options[:build_config_name]
+
+  build_config = read_build_config(build_config_name, '../')
+
+  # https://docs.fastlane.tools/actions/match/
+  match(type: "appstore", app_identifier: build_config['ios']['bundleIdentifier'], username: ENV['FASTLANE_USER'], readonly: true)
+end
+
+# The following parameters have to be passed:
+# version_name: The version name the build should use
+# version_code: The version code the build should use
+# build_config_name: The build config which should be used
+desc "Create a release build"
+lane :build do |options|
+  version_code = options[:version_code]
+  version_name = options[:version_name]
+  build_config_name = options[:build_config_name]
+
+  ensure_env_vars(
+      env_vars: ['FASTLANE_USER']
+  )
+
+  # DO NOT OVERWRITE THE BUNDLE_CONFIG ENV VARIABLE! It is used by ruby bundle.
+  ENV["EXTRA_PACKAGER_ARGS"] = "--sourcemap-output /Users/distiller/project/ios/index.ios.bundle.map --config ../metro.config.ci.js"
+  ENV["BUILD_CONFIG_NAME"] = build_config_name
+
+  build_config = read_build_config(build_config_name, '../')
+
+  # https://docs.fastlane.tools/actions/match/
+  match(type: "development", app_identifier: build_config['ios']['bundleIdentifier'], username: ENV['FASTLANE_USER'], readonly: true)
+  match(type: "appstore", app_identifier: build_config['ios']['bundleIdentifier'], username: ENV['FASTLANE_USER'], readonly: true)
+
+  increment_build_number(
+      build_number: version_code
+  )
+
+  increment_version_number(
+      version_number: version_name
+  )
+
+  build_app(
+      workspace: "Integreat.xcworkspace",
+      scheme: build_config_name,
+      output_name: "#{build_config_name}.ipa",
+      export_method: "app-store",
+      include_bitcode: false # Uploading to BrowserStack does not work when including Bitcode
+  )
+end
