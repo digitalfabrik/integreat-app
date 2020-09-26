@@ -1,5 +1,12 @@
 {
   "name": "integreat-app",
   "private": true,
-  "workspaces": ["native", "web"]
+  "workspaces":
+  {
+    "packages": ["native", "web"],
+    "nohoist": ["**/jetifier"]
+  },
+  "scripts": {
+    "locales:missing": "node locales/tools/findMissingLocales"
+  }
 }
