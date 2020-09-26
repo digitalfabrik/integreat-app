@@ -1,7 +1,5 @@
-when:
-  and:
-    - not: << pipeline.parameters.api_triggered >>
-    - equal: [ native, << pipeline.parameters.project >> ]
+unless:
+    - << pipeline.parameters.api_triggered >>
 jobs:
   - native_prepare_build
   - native_build_android:

@@ -1,7 +1,5 @@
-when:
-  and:
-    - not: << pipeline.parameters.api_triggered >>
-    - equal: [ web, << pipeline.parameters.project >> ]
+unless:
+    - << pipeline.parameters.api_triggered >>
 jobs:
   - web_build
   - web_deliver:
