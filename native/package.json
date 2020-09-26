@@ -28,8 +28,7 @@
     "flow:check-now": "flow check",
     "flow:install-types": "flow-typed install --ignoreDeps dev",
     "flow:install-types:all": "flow-typed install",
-    "postinstall": "jetifier",
-    "locales:missing": "node locales/tools/findMissingLocales"
+    "postinstall": "jetifier"
   },
   "dependencies": {
     "@integreat-app/integreat-api-client": "^5.0.3",
