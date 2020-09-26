@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SprungbrettListItem should render and match snapshot 1`] = `
+<ListItem
+  isExternalUrl={true}
+  path="http://awesome-jobs.domain"
+  title="WebDeveloper"
+>
+  <div>
+    Augsburg
+  </div>
+</ListItem>
+`;

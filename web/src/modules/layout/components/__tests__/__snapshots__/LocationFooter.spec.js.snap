@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LocationFooter should match snapshot 1`] = `
+<Footer
+  onClick={[Function]}
+>
+  <CleanLink___default
+    to="/augsburg/de/disclaimer"
+  >
+    imprintAndContact
+  </CleanLink___default>
+  <CleanAnchor
+    href="https://integreat-app.de/about/"
+    newTab={true}
+  >
+    settings:about
+  </CleanAnchor>
+  <CleanAnchor
+    href="https://integreat-app.de/datenschutz/"
+    newTab={true}
+  >
+    privacy
+  </CleanAnchor>
+</Footer>
+`;

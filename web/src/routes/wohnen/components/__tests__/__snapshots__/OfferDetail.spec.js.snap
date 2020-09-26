@@ -1,0 +1,86 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OfferDetail should render detail view 1`] = `
+<OfferDetail
+  i18n={
+    I18n {
+      "logger": Logger {
+        "debug": undefined,
+        "logger": Object {
+          "error": [Function],
+          "log": [Function],
+          "output": [Function],
+          "type": "logger",
+          "warn": [Function],
+        },
+        "options": Object {},
+        "prefix": "i18next:",
+      },
+      "modules": Object {
+        "external": Array [],
+      },
+      "observers": Object {},
+      "options": Object {},
+      "services": Object {},
+    }
+  }
+  offer={
+    WohnenOfferModel {
+      "_createdDate": "2018-07-24T00:00:00.000Z",
+      "_email": "mail@mail.com",
+      "_formData": WohnenFormData {
+        "_accommodation": Object {
+          "location": "Augsburg",
+          "moveInDate": "2018-07-19T15:35:12.000Z",
+          "ofRooms": Array [
+            "kitchen",
+            "child2",
+            "child1",
+            "bed",
+          ],
+          "ofRoomsDiff": Array [
+            "bath",
+            "wc",
+            "child3",
+            "livingroom",
+            "hallway",
+            "store",
+            "basement",
+            "balcony",
+          ],
+          "title": "Test Angebot",
+          "totalArea": 120,
+          "totalRooms": 4,
+        },
+        "_costs": Object {
+          "additionalCosts": 200,
+          "baseRent": 1000,
+          "hotWaterInHeatingCosts": true,
+          "ofAdditionalServices": Array [
+            "garage",
+          ],
+          "ofAdditionalServicesDiff": Array [],
+          "ofRunningServices": Array [
+            "chimney",
+            "other",
+          ],
+          "ofRunningServicesDiff": Array [
+            "heating",
+            "water",
+            "garbage",
+          ],
+          "runningCosts": 0,
+        },
+        "_landlord": Object {
+          "firstName": "Max",
+          "lastName": "Ammann",
+          "phone": "",
+        },
+      },
+    }
+  }
+  t={[Function]}
+/>
+`;
+
+exports[`OfferDetail should throw error if form is not renderable 1`] = `"Failed to render form {} because it is not supported!"`;

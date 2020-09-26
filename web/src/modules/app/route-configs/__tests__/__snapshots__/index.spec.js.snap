@@ -1,0 +1,84 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Route Configs routesMap should match snapshot 1`] = `
+Object {
+  "CATEGORIES": Object {
+    "path": "/:city/:language/:categoryPath*",
+    "thunk": [Function],
+  },
+  "DISCLAIMER": Object {
+    "path": "/:city/:language/disclaimer",
+    "thunk": [Function],
+  },
+  "EVENTS": Object {
+    "path": "/:city/:language/events/:eventId?",
+    "thunk": [Function],
+  },
+  "I18N_REDIRECT": Object {
+    "path": "/:param?",
+    "thunk": [Function],
+  },
+  "LANDING": Object {
+    "path": "/landing/:language",
+    "thunk": [Function],
+  },
+  "LOCAL_NEWS": Object {
+    "path": "/:city/:language/news/local",
+    "thunk": [Function],
+  },
+  "LOCAL_NEWS_DETAILS": Object {
+    "path": "/:city/:language/news/local/:newsId",
+    "thunk": [Function],
+  },
+  "MAIN_DISCLAIMER": "/disclaimer",
+  "OFFERS": Object {
+    "path": "/:city/:language/offers/:offerId?",
+    "thunk": [Function],
+  },
+  "POI": Object {
+    "path": "/:city/:language/locations/:poiId?",
+    "thunk": [Function],
+  },
+  "SEARCH": Object {
+    "path": "/:city/:language/search",
+    "thunk": [Function],
+  },
+  "SPRUNGBRETT": Object {
+    "path": "/:city/:language/offers/sprungbrett",
+    "thunk": [Function],
+  },
+  "TUNEWS_DETAILS": Object {
+    "path": "/:city/:language/news/tu-news/:newsId",
+    "thunk": [Function],
+  },
+  "TU_NEWS": Object {
+    "path": "/:city/:language/news/tu-news",
+    "thunk": [Function],
+  },
+  "WOHNEN": Object {
+    "path": "/:city/:language/offers/wohnen/:offerHash?",
+    "thunk": [Function],
+  },
+}
+`;
+
+exports[`Route Configs should return route configs 1`] = `
+CategoriesRouteConfig {
+  "getFeedbackTargetInformation": [Function],
+  "getLanguageChangePath": [Function],
+  "getMetaDescription": [Function],
+  "getPageTitle": [Function],
+  "getRequiredPayloads": [Function],
+  "getRoutePath": [Function],
+  "isLocationLayoutRoute": true,
+  "name": "CATEGORIES",
+  "requiresFooter": true,
+  "requiresHeader": true,
+  "route": Object {
+    "path": "/:city/:language/:categoryPath*",
+    "thunk": [Function],
+  },
+}
+`;
+
+exports[`Route Configs should return route configs 2`] = `"There is no route config with the name INVALID_NAME. Did you forget to add it in the routes index?"`;

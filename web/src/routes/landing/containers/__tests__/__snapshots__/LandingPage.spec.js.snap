@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LandingPage should match snapshot 1`] = `
+<Translate(FilterableCitySelector)
+  cities={
+    Array [
+      CityModel {
+        "_aliases": null,
+        "_code": "city",
+        "_eventsEnabled": false,
+        "_latitude": null,
+        "_live": true,
+        "_longitude": null,
+        "_name": "City",
+        "_offersEnabled": false,
+        "_prefix": null,
+        "_pushNotificationsEnabled": false,
+        "_sortingName": "City",
+        "_tunewsEnabled": false,
+      },
+    ]
+  }
+  language="de"
+/>
+`;

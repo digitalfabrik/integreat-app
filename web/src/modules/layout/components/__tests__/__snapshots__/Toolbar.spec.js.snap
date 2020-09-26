@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Toolbar should render 1`] = `
+<Toolbar
+  className="sample"
+  i18n={
+    I18n {
+      "logger": Logger {
+        "debug": undefined,
+        "logger": Object {
+          "error": [Function],
+          "log": [Function],
+          "output": [Function],
+          "type": "logger",
+          "warn": [Function],
+        },
+        "options": Object {},
+        "prefix": "i18next:",
+      },
+      "modules": Object {
+        "external": Array [],
+      },
+      "observers": Object {},
+      "options": Object {},
+      "services": Object {},
+    }
+  }
+  t={[Function]}
+>
+  <p>
+    test item
+  </p>
+</Toolbar>
+`;

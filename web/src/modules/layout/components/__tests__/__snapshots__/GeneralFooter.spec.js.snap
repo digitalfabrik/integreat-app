@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GeneralFooter should match snapshot 1`] = `
+<Footer>
+  <CleanLink___default
+    to="/disclaimer"
+  >
+    layout,settings:imprintAndContact
+  </CleanLink___default>
+  <CleanAnchor
+    href="https://integreat-app.de/about/"
+    newTab={true}
+  >
+    layout,settings:settings:about
+  </CleanAnchor>
+  <CleanAnchor
+    href="https://integreat-app.de/datenschutz/"
+    newTab={true}
+  >
+    layout,settings:privacy
+  </CleanAnchor>
+</Footer>
+`;

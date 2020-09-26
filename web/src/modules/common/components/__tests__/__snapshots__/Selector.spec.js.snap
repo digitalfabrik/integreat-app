@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Selector should be vertical and match snapshot 1`] = `
+<Selector__Wrapper
+  vertical={true}
+>
+  <Selector__ActiveElement
+    key="en"
+    onClick={[Function]}
+    selected={false}
+    to="/augsburg/en/"
+  >
+    English
+  </Selector__ActiveElement>
+  <Selector__ActiveElement
+    key="de"
+    onClick={[Function]}
+    selected={true}
+    to="/augsburg/de/"
+  >
+    Deutsch
+  </Selector__ActiveElement>
+  <Selector__DisabledElement
+    data-event="mouseover"
+    data-event-off="click mouseout"
+    data-tip="random tooltip"
+    key="fr"
+  >
+    Französisch
+  </Selector__DisabledElement>
+</Selector__Wrapper>
+`;
+
+exports[`Selector should match snapshot 1`] = `
+<Selector__Wrapper
+  vertical={false}
+>
+  <Selector__ActiveElement
+    key="en"
+    onClick={[Function]}
+    selected={false}
+    to="/augsburg/en/"
+  >
+    English
+  </Selector__ActiveElement>
+  <Selector__ActiveElement
+    key="de"
+    onClick={[Function]}
+    selected={true}
+    to="/augsburg/de/"
+  >
+    Deutsch
+  </Selector__ActiveElement>
+  <Selector__DisabledElement
+    data-event="mouseover"
+    data-event-off="click mouseout"
+    data-tip="random tooltip"
+    key="fr"
+  >
+    Französisch
+  </Selector__DisabledElement>
+</Selector__Wrapper>
+`;

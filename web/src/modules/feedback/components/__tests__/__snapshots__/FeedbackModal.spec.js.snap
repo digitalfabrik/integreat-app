@@ -1,0 +1,191 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FeedbackModal should match snapshot 1`] = `
+<FocusTrap
+  _createFocusTrap={[Function]}
+  active={true}
+  focusTrapOptions={Object {}}
+  paused={false}
+>
+  <FeedbackModal__ModalContainer
+    aria-modal={true}
+    role="dialog"
+    theme={
+      Object {
+        "colors": Object {
+          "backgroundAccentColor": "#fafafa",
+          "backgroundColor": "#ffffff",
+          "textColor": "#000000",
+          "textDecorationColor": "#c7c7c7",
+          "textDisabledColor": "#d0d0d0",
+          "textSecondaryColor": "#585858",
+          "themeColor": "#fbda16",
+          "tunewsThemeColor": "#007aa8",
+          "tunewsThemeColorLight": "rgba(0, 122, 168, 0.4)",
+        },
+        "dimensions": Object {
+          "headerHeightLarge": 90,
+          "headerHeightSmall": 70,
+          "maxWidth": 1100,
+          "minMaxWidth": "screen and (min-width: 1100px)",
+          "smallViewport": "(max-width: 750px)",
+          "toolbarWidth": 125,
+        },
+        "fonts": Object {
+          "contentFontFamily": "'Open Sans', 'Lateef', sans-serif",
+          "contentFontSize": "0.95rem",
+          "contentLineHeight": 1.4,
+          "decorativeFontFamily": "'Raleway', 'Lateef', sans-serif",
+          "decorativeFontSize": "0.95rem",
+          "decorativeLineHeight": 1.3,
+          "fontSizeAdjust": 0.55,
+          "standardParagraphMargin": "0.75rem",
+          "subTitleFontSize": "1.8rem",
+        },
+        "helpers": Object {
+          "removeLinkHighlighting": "
+    color: inherit;
+    text-decoration: none;
+  ",
+        },
+      }
+    }
+  >
+    <FeedbackModal__Overlay
+      onClick={[Function]}
+    />
+    <FeedbackModal__FeedbackContainer
+      theme={
+        Object {
+          "colors": Object {
+            "backgroundAccentColor": "#fafafa",
+            "backgroundColor": "#ffffff",
+            "textColor": "#000000",
+            "textDecorationColor": "#c7c7c7",
+            "textDisabledColor": "#d0d0d0",
+            "textSecondaryColor": "#585858",
+            "themeColor": "#fbda16",
+            "tunewsThemeColor": "#007aa8",
+            "tunewsThemeColorLight": "rgba(0, 122, 168, 0.4)",
+          },
+          "dimensions": Object {
+            "headerHeightLarge": 90,
+            "headerHeightSmall": 70,
+            "maxWidth": 1100,
+            "minMaxWidth": "screen and (min-width: 1100px)",
+            "smallViewport": "(max-width: 750px)",
+            "toolbarWidth": 125,
+          },
+          "fonts": Object {
+            "contentFontFamily": "'Open Sans', 'Lateef', sans-serif",
+            "contentFontSize": "0.95rem",
+            "contentLineHeight": 1.4,
+            "decorativeFontFamily": "'Raleway', 'Lateef', sans-serif",
+            "decorativeFontSize": "0.95rem",
+            "decorativeLineHeight": 1.3,
+            "fontSizeAdjust": 0.55,
+            "standardParagraphMargin": "0.75rem",
+            "subTitleFontSize": "1.8rem",
+          },
+          "helpers": Object {
+            "removeLinkHighlighting": "
+    color: inherit;
+    text-decoration: none;
+  ",
+          },
+        }
+      }
+    >
+      <Translate(FeedbackBoxContainer)
+        alias="alias"
+        cities={
+          Array [
+            CityModel {
+              "_aliases": null,
+              "_code": "augsburg",
+              "_eventsEnabled": true,
+              "_latitude": null,
+              "_live": true,
+              "_longitude": null,
+              "_name": "Augsburg",
+              "_offersEnabled": false,
+              "_prefix": null,
+              "_pushNotificationsEnabled": false,
+              "_sortingName": "Augsburg",
+              "_tunewsEnabled": false,
+            },
+          ]
+        }
+        closeFeedbackModal={[Function]}
+        isPositiveRatingSelected={true}
+        location={
+          Object {
+            "history": undefined,
+            "kind": undefined,
+            "pathname": "/random_pathname",
+            "payload": Object {
+              "city": "augsburg",
+              "language": "de",
+            },
+            "prev": Object {
+              "pathname": "/random_prev_pathname",
+              "payload": Object {},
+              "type": "RANDOM_PREV_TYPE",
+            },
+            "query": Object {
+              "feedback": "up",
+            },
+            "routesMap": Object {},
+            "type": "CATEGORIES",
+          }
+        }
+        onSubmit={[Function]}
+        path="path"
+        query="ab"
+        sendingStatus="IDLE"
+        theme={
+          Object {
+            "colors": Object {
+              "backgroundAccentColor": "#fafafa",
+              "backgroundColor": "#ffffff",
+              "textColor": "#000000",
+              "textDecorationColor": "#c7c7c7",
+              "textDisabledColor": "#d0d0d0",
+              "textSecondaryColor": "#585858",
+              "themeColor": "#fbda16",
+              "tunewsThemeColor": "#007aa8",
+              "tunewsThemeColorLight": "rgba(0, 122, 168, 0.4)",
+            },
+            "dimensions": Object {
+              "headerHeightLarge": 90,
+              "headerHeightSmall": 70,
+              "maxWidth": 1100,
+              "minMaxWidth": "screen and (min-width: 1100px)",
+              "smallViewport": "(max-width: 750px)",
+              "toolbarWidth": 125,
+            },
+            "fonts": Object {
+              "contentFontFamily": "'Open Sans', 'Lateef', sans-serif",
+              "contentFontSize": "0.95rem",
+              "contentLineHeight": 1.4,
+              "decorativeFontFamily": "'Raleway', 'Lateef', sans-serif",
+              "decorativeFontSize": "0.95rem",
+              "decorativeLineHeight": 1.3,
+              "fontSizeAdjust": 0.55,
+              "standardParagraphMargin": "0.75rem",
+              "subTitleFontSize": "1.8rem",
+            },
+            "helpers": Object {
+              "removeLinkHighlighting": "
+    color: inherit;
+    text-decoration: none;
+  ",
+            },
+          }
+        }
+        title="title"
+      />
+    </FeedbackModal__FeedbackContainer>
+  </FeedbackModal__ModalContainer>
+</FocusTrap>
+`;

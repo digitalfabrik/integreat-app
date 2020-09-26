@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App should render 1`] = `
+<StrictMode>
+  <Provider
+    store={
+      Object {
+        "clearActions": [Function],
+        "dispatch": [Function],
+        "getActions": [Function],
+        "getState": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+      }
+    }
+  >
+    <Provider>
+      <Connect(I18nProvider)>
+        <Connect(CustomThemeProvider)>
+          <Connect(Translate(Switcher)) />
+        </Connect(CustomThemeProvider)>
+      </Connect(I18nProvider)>
+    </Provider>
+  </Provider>
+</StrictMode>
+`;

@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Breadcrumbs should render and match snapshot 1`] = `
+<Breadcrumbs__Wrapper
+  direction="rtl"
+>
+  <BreadcrumbsJsonLd
+    breadcrumbs={
+      Array [
+        BreadcrumbModel {
+          "_link": "https://abc.xyz/",
+          "_node": <a
+            href="/"
+          >
+            Home
+          </a>,
+          "_title": "Home",
+        },
+        BreadcrumbModel {
+          "_link": "https://abc.xyz/sub",
+          "_node": <a
+            href="/sub"
+          >
+            Subcategory
+          </a>,
+          "_title": "Subcategory",
+        },
+        BreadcrumbModel {
+          "_link": "https://abc.xyz/sub/current",
+          "_node": <a
+            href="/sub/current"
+          >
+            ThisSite
+          </a>,
+          "_title": "ThisSite",
+        },
+      ]
+    }
+  />
+  <Breadcrumbs__OrderedList
+    direction="rtl"
+  >
+    <Breadcrumb
+      key="0"
+    >
+      <a
+        href="/"
+      >
+        Home
+      </a>
+    </Breadcrumb>
+    <Breadcrumb
+      key="1"
+    >
+      <a
+        href="/sub"
+      >
+        Subcategory
+      </a>
+    </Breadcrumb>
+  </Breadcrumbs__OrderedList>
+</Breadcrumbs__Wrapper>
+`;
