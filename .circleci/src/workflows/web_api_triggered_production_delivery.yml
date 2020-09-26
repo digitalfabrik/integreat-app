@@ -2,12 +2,13 @@ when:
   and:
     - << pipeline.parameters.api_triggered >>
     - << pipeline.parameters.production_delivery >>
+    - equal: [ web, << pipeline.parameters.project >> ]
 jobs:
-  - build
-  - prepare_production_delivery:
+  - web_build
+  - web_prepare_production_delivery:
       requires:
-        - build
-  - deliver:
+        - web_build
+  - web_deliver:
       production_delivery: true
       requires:
-        - prepare_production_deliver
+        - web_prepare_production_deliver

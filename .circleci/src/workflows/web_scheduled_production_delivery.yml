@@ -6,15 +6,15 @@ triggers:
           only:
             - main
 jobs:
-  - build
-  - prepare_production_delivery:
+  - web_build
+  - web_prepare_production_delivery:
       requires:
-        - build
+        - web_build
   - await_approval:
       type: approval
       requires:
-        - prepare_production_delivery
-  - deliver:
+        - web_prepare_production_delivery
+  - web_deliver:
       production_delivery: true
       requires:
         - await_approval
