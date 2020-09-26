@@ -78,19 +78,18 @@ import com.android.build.OutputFile
  */
 
 project.ext.react = [
-        root: "../../",
         extraPackagerArgs: (System.getenv('EXTRA_PACKAGER_ARGS') ?: "").split("\\s+"),
         enableHermes: false,  // clean and rebuild if changing
 ]
 
-apply from: "../../../node_modules/react-native/react.gradle"
+apply from: "../../node_modules/react-native/react.gradle"
 apply from: "buildConfigs.gradle"
 
 project.ext.vectoricons = [
         iconFontNames: [ 'MaterialIcons.ttf', 'MaterialIconsCommunity.ttf' ] // Name of the font files you want to copy
 ]
 
-apply from: "../../../node_modules/react-native-vector-icons/fonts.gradle"
+apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 
 /**
  * Set this to true to create two separate APKs instead of one:
@@ -257,7 +256,7 @@ dependencies {
     }
 
     if (enableHermes) {
-        def hermesPath = "../../../node_modules/hermes-engine/android/";
+        def hermesPath = "../../node_modules/hermes-engine/android/";
         debugImplementation files(hermesPath + "hermes-debug.aar")
         releaseImplementation files(hermesPath + "hermes-release.aar")
     } else {
@@ -272,4 +271,4 @@ task copyDownloadableDepsToLibs(type: Copy) {
     into 'libs'
 }
 
-apply from: file("../../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
+apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
