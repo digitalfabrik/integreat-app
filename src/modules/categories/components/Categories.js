@@ -32,6 +32,7 @@ import {
   CONTENT_FEEDBACK_CATEGORY,
   TECHNICAL_FEEDBACK_CATEGORY
 } from '@integreat-app/integreat-api-client/endpoints/createFeedbackEndpoint'
+import type { CategoryListModelType } from './CategoryList'
 
 type PropsType = {|
   cities: Array<CityModel>,
@@ -118,7 +119,7 @@ class Categories extends React.Component<PropsType> {
     return this.props.resourceCache[category.path] || {}
   }
 
-  getListModel (category: CategoryModel): { title: string, thumbnail: string, path: string } {
+  getListModel (category: CategoryModel): CategoryListModelType {
     return {
       title: category.title,
       path: category.path,
@@ -126,9 +127,7 @@ class Categories extends React.Component<PropsType> {
     }
   }
 
-  getListModels (categories: Array<CategoryModel>): Array<{
-    title: string, thumbnail: string, path: string
-  }> {
+  getListModels (categories: Array<CategoryModel>): Array<CategoryListModelType> {
     return categories.map(category => this.getListModel(category))
   }
 
