@@ -1,7 +1,5 @@
 {
   "name": "integreat-app",
   "private": true,
-  "devDependencies": {
-    "lerna": "^3.22.1"
-  }
+  "workspaces": ["native", "web"]
 }
