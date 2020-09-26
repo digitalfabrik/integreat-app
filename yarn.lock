@@ -10759,7 +10759,7 @@ loader-utils@^2.0.0:
     emojis-list "^3.0.0"
     json5 "^2.1.2"
 
-"locales@file:./locales":
+"locales@file:locales":
   version "0.0.1"
   dependencies:
     commander "^4.0.1"
