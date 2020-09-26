@@ -1,6 +1,15 @@
-unless:
-    - << pipeline.parameters.api_triggered >>
-jobs:
+unless: << pipeline.parameters.api_triggered >>
+jobs: # TODO only build changed projects
+  - web_build
+  - web_deliver:
+      filters:
+        branches:
+          only:
+            - main
+      production_delivery: false
+      requires:
+        - web_build
+
   - native_prepare_build
   - native_build_android:
       build_for_delivery: false

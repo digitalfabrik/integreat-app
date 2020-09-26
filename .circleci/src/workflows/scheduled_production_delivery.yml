@@ -1,11 +1,25 @@
 triggers:
   - schedule:
-      cron: "0 3 1,15 * *" # For sanity checks for this syntax: https://crontab.guru/
+      cron: "0 5 1,15 * *" # For sanity checks for this syntax: https://crontab.guru/
       filters:
         branches:
           only:
             - main
 jobs:
+  - web_build
+  - web_prepare_delivery:
+      production_delivery: true
+      requires:
+        - web_build
+  - await_approval:
+      type: approval
+      requires:
+        - web_prepare_delivery
+  - web_deliver:
+      production_delivery: true
+      requires:
+        - await_approval
+
   - native_prepare_build
   - native_build_android:
       build_for_delivery: true
