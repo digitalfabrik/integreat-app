@@ -16,12 +16,22 @@ steps:
       at: .
   - restore_environment_variables
   - run:
-      name: Bump version
-      command: tools/bump-version bump-to ${NEW_VERSION_NAME} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH} --release-notes "$(tools/parse-release-notes parse --web --language en)"
+      name: Calculate next version name
+      command: echo "export NEW_VERSION_NAME=$(tools/next-version calc | jq .versionName)" >> environment_variables
+  - run:
+      name: Calculate next version code
+      command: echo "export NEW_VERSION_CODE=$(tools/next-version calc | jq .versionCode)" >> environment_variables
+  - run:
+      name: Bump git version
+      command: tools/git-version bump-to $(tools/next-version calc | jq .versionName) $(tools/next-version calc | jq .versionCode) --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
   - when:
       condition: << parameters.production_delivery >>
       steps:
         - run:
             name: Create jira release # The jira project has to have the same name as the github project. Otherwise this has to be configured.
             command: tools/create-jira-release create-release ${NEW_VERSION_NAME} --private-key ${JIRA_PRIVATE_KEY} --access-token ${JIRA_OAUTH_TOKEN} --consumer-key ${JIRA_CONSUMER_KEY} --project-name ${CIRCLE_PROJECT_REPONAME}
+  - persist_to_workspace:
+      root: ./
+      paths:
+        - environment_variables
   - notify_failed
