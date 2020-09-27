@@ -21,7 +21,7 @@ module.exports = {
                         https://github.com/facebook/jest/issues/6127 */
   moduleNameMapper: {
     '.+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$': 'jest-transform-stub',
-    '\\.(css|less)$': 'identity-obj-proxy',
+    '\\.(css|less)$': 'identity-obj-proxy'
   },
   setupFiles: [
     '<rootDir>/jest.setup.js'
