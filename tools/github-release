@@ -1,0 +1,57 @@
+#!/usr/bin/env node
+
+const authenticate = require('./github-authentication')
+const { program } = require('commander')
+
+program
+  .requiredOption('--deliverino-private-key <deliverino-private-key>', 'private key of the deliverino github app in pem format with base64 encoding')
+  .requiredOption('--owner <owner>', 'owner of the current repository, usually "Integreat"')
+  .requiredOption('--repo <repo>', 'the current repository, should be integreat-app')
+  .requiredOption('--release-notes <release-notes>', 'the release notes (for the selected platform) as JSON string')
+  .option('--development-release', 'whether the release is a development release which is not delivered to production')
+  .option('--dry-run', 'dry run without actually creating a release on github')
+
+const githubRelease = async (platform, newVersionName, newVersionCode, {
+  deliverinoPrivateKey, owner, repo, releaseNotes, developmentRelease, dryRun
+}) => {
+  const versionCode = parseInt(newVersionCode)
+  if (isNaN(versionCode)) {
+    throw new Error(`Failed to parse version code string: ${newVersionCode}`)
+  }
+
+  const releaseName = `[${platform}${developmentRelease ? ' development release' : ''}] ${newVersionName} - ${versionCode}`
+  console.warn('Creating release with name ', releaseName)
+
+  const developmentMessage = developmentRelease ? 'This release is only delivered to development and not yet visible for users.' : ''
+
+  const body = `${developmentMessage}\n\n${JSON.parse(releaseNotes)}`
+  console.warn('and body ', body)
+
+  if (dryRun) {
+    return
+  }
+
+  const appOctokit = await authenticate({ deliverinoPrivateKey, owner, repo })
+
+  await appOctokit.repos.createRelease({
+    owner,
+    repo,
+    tag_name: newVersionName,
+    name: releaseName,
+    body
+  })
+}
+
+program
+  .command('create <platform> <new-version-name> <new-version-code>')
+  .description('creates a new release for the specified platform')
+  .action(async (platform, newVersionName, newVersionCode) => {
+    try {
+      await githubRelease(platform, newVersionName, newVersionCode, program)
+    } catch (e) {
+      console.error(e)
+      process.exit(1)
+    }
+  })
+
+program.parse(process.argv)

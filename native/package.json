@@ -119,7 +119,6 @@
     "jest-react-native": "^18.0.0",
     "jest-transform-stub": "^2.0.0",
     "jetifier": "^1.6.5",
-    "js-yaml": "^3.14.0",
     "metro-react-native-babel-preset": "^0.59.0",
     "react-native-git-upgrade": "^0.2.7",
     "react-native-svg-asset-plugin": "^0.4.0",
