@@ -30,21 +30,7 @@ steps:
       key: 2-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
       paths:
         - vendor/bundle
-  - restore_cache:
-      name: Restore Yarn Package Cache
-      keys:
-        - 6-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
-  - run:
-      name: Install Dependencies
-      command: yarn install --frozen-lockfile
-  - save_cache:
-      name: Save Yarn Package Cache
-      key: 6-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
-      paths:
-        - ~/.cache/yarn
-        - node_modules
-        - native/node_modules
-        - web/node_modules
+  - restore_yarn_cache
   - run:
       name: Parse german android release notes
       command: tools/parse-release-notes parse --android --destination android/fastlane/metadata/android/de-DE/changelogs/default.txt --language de --production
