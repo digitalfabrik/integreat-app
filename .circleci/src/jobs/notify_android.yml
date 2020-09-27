@@ -5,6 +5,9 @@ parameters:
 docker:
   - image: circleci/node:12.16.3
 resource_class: small
+context:
+  - slack-app
+  - deliverino
 steps:
   - checkout
   - attach_workspace:
@@ -28,5 +31,5 @@ steps:
 # TODO create github release and slack alert
   - slack/notify:
       message: Integreat ${NEW_VERSION_NAME} has been released successfully on Android!
-      webhook: ${SLACK_URL
+      webhook: ${SLACK_URL}
   - notify_failed

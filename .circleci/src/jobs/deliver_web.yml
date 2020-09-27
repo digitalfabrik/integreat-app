@@ -5,11 +5,12 @@ parameters:
 docker:
   - image: circleci/node:12.16.3
 resource_class: small
+  - slack-app
 shell: /bin/bash -eo pipefail
 steps:
   - add_ssh_keys:
       fingerprints:
-        - "30:f4:98:9f:1c:72:d1:c0:17:9f:57:05:74:a6:44:50"
+        - "68:a3:fe:e7:94:f7:a4:13:35:5c:63:30:2f:07:7d:02"
   - attach_workspace:
       at: .
   - restore_environment_variables
