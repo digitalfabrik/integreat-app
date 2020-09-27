@@ -26,17 +26,18 @@ steps:
   - restore_cache:
       name: Restore Yarn Package Cache
       keys:
-        - 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
-        - 3-yarn-{{ arch }}-
+        - 6-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
   - run:
       name: Install Dependencies
       command: yarn install --frozen-lockfile
   - save_cache:
       name: Save Yarn Package Cache
-      key: 3-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+      key: 6-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
       paths:
         - ~/.cache/yarn
         - node_modules
+        - native/node_modules
+        - web/node_modules
   - run:
       name: "[FL] Browserstack Upload Live"
       command: bundle exec fastlane ios browserstack_upload_live app_name:integreat

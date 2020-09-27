@@ -5,11 +5,8 @@
     "packages": ["native", "web", "locales"],
     "nohoist": [
       "native/**",
-      "**/jetifier"
+      "web/**"
     ]
-  },
-  "resolutions": {
-    "@react-native-community/progress-bar-android/@react-native-community/progress-view": "1.0.3"
   },
   "scripts": {
     "locales:missing": "node locales/tools/findMissingLocales",

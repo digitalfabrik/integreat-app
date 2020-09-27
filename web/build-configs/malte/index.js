@@ -2,7 +2,7 @@
 
 import malteTheme, { darkTheme as darkMalteTheme } from './theme'
 import type { BuildConfigType } from '../BuildConfigType'
-import malteOverrideLocales from '../../locales/override-locales/malte.json'
+import malteOverrideLocales from 'locales/override-locales/malte.json'
 
 const MalteBuildConfig: () => BuildConfigType = () => ({
   appName: 'Malte',
