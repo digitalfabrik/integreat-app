@@ -9,9 +9,6 @@ context:
   - browserstack
 steps:
   - checkout
-  - attach_workspace:
-      at: .
-  - restore_environment_variables
   - restore_cache:
       keys:
         - 2-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
