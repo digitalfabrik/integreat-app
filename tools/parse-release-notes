@@ -60,7 +60,7 @@ const parseReleaseNotes = ({ language, source, android, ios, web, production }) 
 
   if (platforms.length === 0) {
     throw new Error('No platforms selected! Use --ios, --android and --web flags.')
-  } else if (production && platforms.length === 3) {
+  } else if (platforms.length > 1 && production) { // e.g. play store release notes should not contain ios release infos
     throw new Error('Usage of multiple platforms in production mode is not supported.')
   }
 
