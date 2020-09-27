@@ -19,7 +19,7 @@ const PLATFORM_WEB = 'web'
 program
   .option('--ios', 'include release notes for ios')
   .option('--android', 'include release notes for android')
-  .option('--web', 'include release notes for web. may not be used with --android or --ios flags')
+  .option('--web', 'include release notes for web.')
   .option('--production', 'whether to hide extra information, e.g. issue keys, hidden notes and platforms and prepare the notes for a store. may not be used with multiple platforms.')
   .option('--destination <destination>', 'if specified the parsed notes are saved to the directory')
   .requiredOption('--source <source>', 'the directory of the release notes to parse', `${RELEASE_NOTES_DIR}/${UNRELEASED_DIR}`)
@@ -60,9 +60,7 @@ const parseReleaseNotes = ({ language, source, android, ios, web, production }) 
 
   if (platforms.length === 0) {
     throw new Error('No platforms selected! Use --ios, --android and --web flags.')
-  } else if (web && (ios || android)) {
-    throw new Error('Usage of --ios or --android together with --web flag is not supported.')
-  } else if (platforms.length > 1 && production) {
+  } else if (platforms.length > 1 && production) { // e.g. play store release notes should not contain ios release infos
     throw new Error('Usage of multiple platforms in production mode is not supported.')
   }
 
