@@ -8,11 +8,12 @@ resource_class: medium
 environment:
   TOTAL_CPUS: 2 # For resource_class medium, used in metro.config.ci.js.
   FASTLANE_SKIP_UPDATE_CHECK: true
+context:
+  - slack-app
+  - tuerantuer-google-play
+  - tuerantuer-android
 shell: /bin/bash -eo pipefail
 steps:
-  - add_ssh_keys:
-      fingerprints:
-        - "9a:0f:b1:f0:97:c8:db:3f:be:87:a4:9b:09:7f:d3:af"
   - checkout
   - attach_workspace:
       at: .
