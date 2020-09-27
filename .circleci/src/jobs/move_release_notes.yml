@@ -1,12 +1,10 @@
-parameters:
-  production_delivery:
-    description: Whether builds are delivered to the production store. If set to true, jira and github releases are created.
-    type: boolean
+# Last step of a production delivery. Move all unreleased release notes to a new directory.
 docker:
   - image: circleci/node:12.16.3
 resource_class: small
 context:
   - deliverino
+  - slack-app
 steps:
   - checkout
   - attach_workspace:
