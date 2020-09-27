@@ -39,6 +39,12 @@ steps:
         - native/node_modules
         - web/node_modules
   - run:
+      name: Parse german ios release notes
+      command: tools/parse-release-notes parse --ios --destination ios/fastlane/metadata/de-DE/release_notes.txt --language de --production
+  - run:
+      name: Parse english ios release notes
+      command: tools/parse-release-notes parse --ios --destination ios/fastlane/metadata/en-US/release_notes.txt --language en --production
+  - run:
       name: "[FL] Browserstack Upload Live"
       command: bundle exec fastlane ios browserstack_upload_live app_name:integreat
   - when:
@@ -56,7 +62,4 @@ steps:
   - run:
       name: "[FL] Upload to Sentry"
       command: bundle exec fastlane ios sentry_upload app_name:integreat version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}  build_config_name:integreat
-  - slack/notify:
-      message: Integreat ${NEW_VERSION_NAME} has been released successfully on iOS!
-      webhook: ${SLACK_URL}
   - notify_failed

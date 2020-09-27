@@ -31,14 +31,4 @@ steps:
   - run:
       name: Unit tests
       command: yarn workspace native test --maxWorkers ${TOTAL_CPUS}
-  - run:
-      name: Calculate next version name
-      command: echo "export NEW_VERSION_NAME=$(tools/next-version calc | jq .versionName)" >> environment_variables
-  - run:
-      name: Calculate next version code
-      command: echo "export NEW_VERSION_CODE=$(tools/next-version calc | jq .versionCode)" >> environment_variables
-  - persist_to_workspace:
-      root: ./
-      paths:
-        - environment_variables
   - notify_failed

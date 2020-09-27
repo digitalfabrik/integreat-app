@@ -35,9 +35,6 @@ steps:
         - native/node_modules
         - web/node_modules
   - run:
-      name: "[FL] Android E2E Tests on Browserstack"
-      command: bundle exec fastlane android browserstack_e2e_tests app_name:integreat-e2e
-  - run:
       name: "[FL] iOS E2E Tests on Browserstack"
       command: bundle exec fastlane ios browserstack_e2e_tests app_name:integreat-e2e
   - notify_failed
