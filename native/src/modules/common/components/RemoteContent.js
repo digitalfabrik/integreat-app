@@ -84,7 +84,6 @@ class RemoteContent extends React.Component<PropType, StateType> {
         originWhitelist={['*']} // Needed by iOS to load the initial html
         javaScriptEnabled
         useWebKit={false}
-
         dataDetectorTypes='all'
         domStorageEnabled={false}
         showsVerticalScrollIndicator={false}

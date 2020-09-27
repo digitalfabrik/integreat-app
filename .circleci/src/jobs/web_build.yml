@@ -14,23 +14,24 @@ steps:
   - restore_cache:
       name: Restore Yarn Package Cache
       keys:
-        - 2-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
-        - 2-yarn-{{ arch }}-
+        - 6-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
   - run:
       name: Install Dependencies
       command: yarn install --frozen-lockfile
   - save_cache:
       name: Save Yarn Package Cache
-      key: 2-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+      key: 6-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
       paths:
         - ~/.cache/yarn
         - node_modules
+        - native/node_modules
+        - web/node_modules
   - run:
       name: Check linting
       command: yarn workspace web lint
-#  - run:
-#      name: Check flow
-#      command: yarn workspace web flow:check-now --max-workers ${TOTAL_CPUS}
+  - run:
+      name: Check flow
+      command: yarn workspace web flow:check-now --max-workers ${TOTAL_CPUS}
   - run:
       name: Unit tests
       command: yarn workspace web test --ci --maxWorkers ${TOTAL_CPUS}

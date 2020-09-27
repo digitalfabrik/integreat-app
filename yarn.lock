@@ -1977,7 +1977,7 @@
   resolved "https://registry.yarnpkg.com/@react-native-community/netinfo/-/netinfo-5.9.7.tgz#769c6b306ea6bbaa1c4a3fffdd183d0cfc30ed7e"
   integrity sha512-NAkkT68oF+M9o6El2xeUqZK7magPjG/tAcEbvCbqyhlh3yElKWnI1e1vpbVvFXzTefy67FwYFWOJqBN6U7Mnkg==
 
-"@react-native-community/progress-bar-android@^1.0.3":
+"@react-native-community/progress-bar-android@1.0.3", "@react-native-community/progress-bar-android@^1.0.3":
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@react-native-community/progress-bar-android/-/progress-bar-android-1.0.3.tgz#a6adc7be7a531269869d653ad9e0cd3d093d7c1c"
   integrity sha512-Xy+nTCibCLQ6Jy0YNlVwrO+m/j2el6PN8nVQcdgVqp+Jm1XTguq7xjxUV5spzYmVDIVx+zW7WKfkeSbhUk91Tg==
@@ -10759,7 +10759,7 @@ loader-utils@^2.0.0:
     emojis-list "^3.0.0"
     json5 "^2.1.2"
 
-"locales@file:./locales":
+"locales@file:locales":
   version "0.0.1"
   dependencies:
     commander "^4.0.1"
@@ -13811,10 +13811,10 @@ react-native-image-zoom-viewer@^2.2.27:
   dependencies:
     react-native-image-pan-zoom "^2.1.9"
 
-react-native-pdf@^6.2.0:
-  version "6.2.1"
-  resolved "https://registry.yarnpkg.com/react-native-pdf/-/react-native-pdf-6.2.1.tgz#138db1fee35742d7357d53e58d8c9277cde112a5"
-  integrity sha512-ax+ZK3lVZk4g5Ra/g0O1jzKI3ypD/UwEmcBKrtiNFPuM2WgTgWBB1/biDIFR95jms6xe1WoxhokfuxHH5pq/WA==
+react-native-pdf@6.2.0:
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/react-native-pdf/-/react-native-pdf-6.2.0.tgz#e6da125b407338b7bca15d7f776b70773c37304f"
+  integrity sha512-OSgF3+PryUl0GIPvZhCXT7VDv9LbvjC7LJgH3aFObCq0WRiiSGf9W1yrhaYmNV3FvL7ZARKF08h+k4LuFcTPNg==
   dependencies:
     "@react-native-community/progress-bar-android" "^1.0.3"
     "@react-native-community/progress-view" "^1.0.3"
