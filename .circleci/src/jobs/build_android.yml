@@ -29,21 +29,7 @@ steps:
       key: 2-gems-{{ arch }}-{{ checksum "android/Gemfile.lock" }}
       paths:
         - android/vendor/bundle
-  - restore_cache:
-      name: Restore Yarn Package Cache
-      keys:
-        - 6-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
-  - run:
-      name: Install Dependencies
-      command: yarn install --frozen-lockfile
-  - save_cache:
-      name: Save Yarn Package Cache
-      key: 6-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
-      paths:
-        - ~/.cache/yarn
-        - node_modules
-        - native/node_modules
-        - web/node_modules
+  - restore_yarn_cache
   - run:
       name: "[FL] Prepare Android Keystore"
       command: bundle exec fastlane keystore
