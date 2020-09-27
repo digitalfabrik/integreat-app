@@ -1,0 +1,32 @@
+parameters:
+  production_delivery:
+    description: Whether builds are delivered to the production store. If set to true, jira and github releases are created.
+    type: boolean
+docker:
+  - image: circleci/node:12.16.3
+resource_class: small
+steps:
+  - checkout
+  - attach_workspace:
+      at: .
+  - restore_environment_variables
+  - restore_cache:
+      name: Restore Yarn Package Cache
+      keys:
+        - 6-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
+  - run:
+      name: Install Dependencies
+      command: yarn install --frozen-lockfile
+  - save_cache:
+      name: Save Yarn Package Cache
+      key: 6-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
+      paths:
+        - ~/.cache/yarn
+        - node_modules
+        - native/node_modules
+        - web/node_modules
+  # TODO create github release and slack alert
+  - slack/notify:
+      message: WebApp version ${NEW_VERSION_NAME} was delivered successfully to integreat.app and malteapp.de!
+      webhook: ${SLACK_URL}
+  - notify_failed
