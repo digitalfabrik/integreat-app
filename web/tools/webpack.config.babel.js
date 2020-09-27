@@ -25,7 +25,7 @@ const readVersionName = () => {
 }
 
 const getSupportedLocales = () => {
-  const localesConfig = readJson(path.resolve(__dirname, '../locales/config.json'))
+  const localesConfig = readJson(path.resolve(__dirname, '../../locales/config.json'))
   return [localesConfig.sourceLanguage, ...localesConfig.targetLanguages]
 }
 
