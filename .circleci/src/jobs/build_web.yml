@@ -25,9 +25,6 @@ steps:
       name: Test coverage # Results are not used right now. Run it anyway to (possibly) discover more problems.
       command: yarn workspace web test:coverage --ci --maxWorkers ${TOTAL_CPUS}
   - run:
-      name: Calculate next version
-      command: echo "export NEW_VERSION_NAME=$(tools/next-version calc | jq .versionName)" >> environment_variables
-  - run:
       name: Development integreat-test-cms build
       command: yarn workspace web build:integreat-test-cms --env.commit_sha=${CIRCLE_SHA1}
   - run:
@@ -46,5 +43,4 @@ steps:
       paths:
         - dist
         - node_modules
-        - environment_variables
   - notify_failed

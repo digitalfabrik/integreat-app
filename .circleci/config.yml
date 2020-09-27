@@ -49,8 +49,30 @@ commands:
             - run:
                 command: cat environment_variables >> ${BASH_ENV}
                 name: Restore environment variables
+    restore_yarn_cache:
+        description: Restores and saves the node_modules directories of the monorepo.
+        steps:
+            - restore_cache:
+                keys:
+                    - 6-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
+                name: Restore Yarn Package Cache
+            - run:
+                command: yarn install --frozen-lockfile
+                name: Install Dependencies
+            - save_cache:
+                key: 6-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
+                name: Save Yarn Package Cache
+                paths:
+                    - ~/.cache/yarn
+                    - node_modules
+                    - native/node_modules
+                    - web/node_modules
 jobs:
-    native_build_android:
+    build_android:
+        context:
+            - slack-app
+            - tuerantuer-google-play
+            - tuerantuer-android
         docker:
             - image: circleci/android:api-28-node
         environment:
@@ -63,9 +85,6 @@ jobs:
         resource_class: medium
         shell: /bin/bash -eo pipefail
         steps:
-            - add_ssh_keys:
-                fingerprints:
-                    - 9a:0f:b1:f0:97:c8:db:3f:be:87:a4:9b:09:7f:d3:af
             - checkout
             - attach_workspace:
                 at: .
@@ -81,21 +100,7 @@ jobs:
                 key: 2-gems-{{ arch }}-{{ checksum "android/Gemfile.lock" }}
                 paths:
                     - android/vendor/bundle
-            - restore_cache:
-                keys:
-                    - 6-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
-                name: Restore Yarn Package Cache
-            - run:
-                command: yarn install --frozen-lockfile
-                name: Install Dependencies
-            - save_cache:
-                key: 6-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
-                name: Save Yarn Package Cache
-                paths:
-                    - ~/.cache/yarn
-                    - node_modules
-                    - native/node_modules
-                    - web/node_modules
+            - restore_yarn_cache
             - run:
                 command: bundle exec fastlane keystore
                 name: '[FL] Prepare Android Keystore'
@@ -162,7 +167,11 @@ jobs:
                     - integreat-e2e.apk
                 root: android/output/apk
             - notify_failed
-    native_build_ios:
+    build_ios:
+        context:
+            - slack-app
+            - tuerantuer-apple
+            - tuerantuer-ios
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
             FL_OUTPUT_DIR: output
@@ -175,9 +184,6 @@ jobs:
                 type: boolean
         shell: /bin/bash --login -o pipefail
         steps:
-            - add_ssh_keys:
-                fingerprints:
-                    - 9a:0f:b1:f0:97:c8:db:3f:be:87:a4:9b:09:7f:d3:af
             - checkout
             - attach_workspace:
                 at: .
@@ -193,21 +199,7 @@ jobs:
                 key: 3-gems-{{ arch }}-{{ checksum "ios/Gemfile.lock" }}
                 paths:
                     - ios/vendor/bundle
-            - restore_cache:
-                keys:
-                    - 6-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
-                name: Restore Yarn Package Cache
-            - run:
-                command: yarn install --frozen-lockfile
-                name: Install Dependencies
-            - save_cache:
-                key: 6-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
-                name: Save Yarn Package Cache
-                paths:
-                    - ~/Library/Caches/Yarn/
-                    - node_modules
-                    - native/node_modules
-                    - web/node_modules
+            - restore_yarn_cache
             - restore_cache:
                 keys:
                     - 2-pods-{{ arch }}-{{ checksum "ios/Podfile.lock" }}
@@ -260,7 +252,118 @@ jobs:
                     - integreat-e2e.ipa
                 root: ios/output/gym/
             - notify_failed
-    native_deliver_android:
+    build_web:
+        docker:
+            - image: circleci/node:12.16.3
+        environment:
+            TOTAL_CPUS: 1
+            TZ: Europe/Berlin
+        resource_class: small
+        shell: /bin/bash -eo pipefail
+        steps:
+            - run:
+                command: echo "CPU count is ${TOTAL_CPUS}"
+                name: Show current CPU count
+            - checkout
+            - check_config
+            - restore_yarn_cache
+            - run:
+                command: yarn workspace web lint
+                name: Check linting
+            - run:
+                command: yarn workspace web flow:check-now --max-workers ${TOTAL_CPUS}
+                name: Check flow
+            - run:
+                command: yarn workspace web test --ci --maxWorkers ${TOTAL_CPUS}
+                name: Unit tests
+            - run:
+                command: yarn workspace web test:coverage --ci --maxWorkers ${TOTAL_CPUS}
+                name: Test coverage
+            - run:
+                command: yarn workspace web build:integreat-test-cms --env.commit_sha=${CIRCLE_SHA1}
+                name: Development integreat-test-cms build
+            - run:
+                command: yarn workspace web build:integreat
+                name: Production integreat build
+            - run:
+                command: yarn workspace web build:malte
+                name: Production malte build
+            - run:
+                command: yarn workspace web check:build
+                name: Check build
+            - store_artifacts:
+                path: dist
+            - persist_to_workspace:
+                paths:
+                    - dist
+                    - node_modules
+                root: ./
+            - notify_failed
+    bump_version:
+        context:
+            - slack-app
+            - deliverino
+            - jira
+        docker:
+            - image: circleci/node:12.16.3
+        parameters:
+            production_delivery:
+                description: Whether builds are delivered to production.
+                type: boolean
+        resource_class: small
+        steps:
+            - checkout
+            - attach_workspace:
+                at: .
+            - restore_environment_variables
+            - run:
+                command: echo "export NEW_VERSION_NAME=$(tools/next-version calc | jq .versionName)" >> environment_variables
+                name: Calculate next version name
+            - run:
+                command: echo "export NEW_VERSION_CODE=$(tools/next-version calc | jq .versionCode)" >> environment_variables
+                name: Calculate next version code
+            - run:
+                command: tools/git-version bump-to $(tools/next-version calc | jq .versionName) $(tools/next-version calc | jq .versionCode) --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
+                name: Bump git version
+            - when:
+                condition: << parameters.production_delivery >>
+                steps:
+                    - run:
+                        command: tools/create-jira-release create-release ${NEW_VERSION_NAME} --private-key ${JIRA_PRIVATE_KEY} --access-token ${JIRA_OAUTH_TOKEN} --consumer-key ${JIRA_CONSUMER_KEY} --project-name ${CIRCLE_PROJECT_REPONAME}
+                        name: Create jira release
+            - persist_to_workspace:
+                paths:
+                    - environment_variables
+                root: ./
+            - notify_failed
+    check_native:
+        docker:
+            - image: circleci/node:12.16.3
+        environment:
+            TOTAL_CPUS: 1
+        resource_class: small
+        shell: /bin/bash -eo pipefail
+        steps:
+            - checkout
+            - check_config
+            - restore_yarn_cache
+            - run:
+                command: yarn workspace native lint
+                name: Linting check
+            - run:
+                command: yarn workspace native flow:check-now --max-workers ${TOTAL_CPUS}
+                name: Flow-type check
+            - run:
+                command: yarn workspace native test --maxWorkers ${TOTAL_CPUS}
+                name: Unit tests
+            - notify_failed
+    deliver_android:
+        context:
+            - slack-app
+            - sentry
+            - browserstack
+            - tuerantuer-google-play
+            - tuerantuer-android
         docker:
             - image: circleci/android:api-28-node
         environment:
@@ -287,21 +390,13 @@ jobs:
                 key: 2-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
                 paths:
                     - vendor/bundle
-            - restore_cache:
-                keys:
-                    - 6-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
-                name: Restore Yarn Package Cache
+            - restore_yarn_cache
             - run:
-                command: yarn install --frozen-lockfile
-                name: Install Dependencies
-            - save_cache:
-                key: 6-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
-                name: Save Yarn Package Cache
-                paths:
-                    - ~/.cache/yarn
-                    - node_modules
-                    - native/node_modules
-                    - web/node_modules
+                command: tools/parse-release-notes parse --android --destination android/fastlane/metadata/android/de-DE/changelogs/default.txt --language de --production
+                name: Parse german android release notes
+            - run:
+                command: tools/parse-release-notes parse --android --destination android/fastlane/metadata/android/en-GB/changelogs/default.txt --language en --production && tools/parse-release-notes parse --android --destination android/fastlane/metadata/android/en-US/changelogs/default.txt --language en --production
+                name: Parse english android release notes
             - run:
                 command: bundle exec fastlane android browserstack_upload_live app_name:integreat
                 name: '[FL] Browserstack Upload Live'
@@ -311,11 +406,8 @@ jobs:
             - run:
                 command: bundle exec fastlane android sentry_upload app_name:integreat version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat
                 name: '[FL] Upload to Sentry'
-            - slack/notify:
-                message: Integreat ${NEW_VERSION_NAME} has been released successfully on Android!
-                webhook: ${SLACK_URL}
             - notify_failed
-    native_deliver_ios:
+    deliver_ios:
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         macos:
@@ -341,21 +433,13 @@ jobs:
                 key: 2-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
                 paths:
                     - vendor/bundle
-            - restore_cache:
-                keys:
-                    - 6-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
-                name: Restore Yarn Package Cache
+            - restore_yarn_cache
             - run:
-                command: yarn install --frozen-lockfile
-                name: Install Dependencies
-            - save_cache:
-                key: 6-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
-                name: Save Yarn Package Cache
-                paths:
-                    - ~/.cache/yarn
-                    - node_modules
-                    - native/node_modules
-                    - web/node_modules
+                command: tools/parse-release-notes parse --ios --destination ios/fastlane/metadata/de-DE/release_notes.txt --language de --production
+                name: Parse german ios release notes
+            - run:
+                command: tools/parse-release-notes parse --ios --destination ios/fastlane/metadata/en-US/release_notes.txt --language en --production
+                name: Parse english ios release notes
             - run:
                 command: bundle exec fastlane ios browserstack_upload_live app_name:integreat
                 name: '[FL] Browserstack Upload Live'
@@ -374,11 +458,45 @@ jobs:
             - run:
                 command: bundle exec fastlane ios sentry_upload app_name:integreat version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}  build_config_name:integreat
                 name: '[FL] Upload to Sentry'
-            - slack/notify:
-                message: Integreat ${NEW_VERSION_NAME} has been released successfully on iOS!
-                webhook: ${SLACK_URL}
             - notify_failed
-    native_e2e:
+    deliver_web:
+        docker:
+            - image: circleci/node:12.16.3
+        parameters:
+            production_delivery:
+                description: Whether to deliver to production (integreat.app and malteapp.de) or not (webnext.integreat.app and webnext.malteapp.de).
+                type: boolean
+        resource_class: small - slack-app
+        shell: /bin/bash -eo pipefail
+        steps:
+            - add_ssh_keys:
+                fingerprints:
+                    - 68:a3:fe:e7:94:f7:a4:13:35:5c:63:30:2f:07:7d:02
+            - attach_workspace:
+                at: .
+            - when:
+                condition: << parameters.production_delivery >>
+                steps:
+                    - run:
+                        command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/integreat.app \<<< $'put -r web/dist/integreat/*'
+                        name: Integreat production delivery
+                    - run:
+                        command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/malteapp.de \<<< $'put -r web/dist/malte/*'
+                        name: Malte production delivery
+            - unless:
+                condition: << parameters.production_delivery >>
+                steps:
+                    - run:
+                        command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.integreat.app \<<< $'put -r web/dist/integreat-test-cms/*'
+                        name: Integreat development delivery
+                    - run:
+                        command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.malteapp.de \<<< $'put -r web/dist/malte/*'
+                        name: Malte development delivery
+            - notify_failed
+    e2e_android:
+        context:
+            - slack-app
+            - browserstack
         docker:
             - image: circleci/android:api-28-node
         environment:
@@ -387,9 +505,6 @@ jobs:
         shell: /bin/bash -eo pipefail
         steps:
             - checkout
-            - attach_workspace:
-                at: .
-            - restore_environment_variables
             - restore_cache:
                 keys:
                     - 2-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
@@ -400,74 +515,41 @@ jobs:
                 key: 2-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
                 paths:
                     - vendor/bundle
-            - restore_cache:
-                keys:
-                    - 6-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
-                name: Restore Yarn Package Cache
-            - run:
-                command: yarn install --frozen-lockfile
-                name: Install Dependencies
-            - save_cache:
-                key: 6-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
-                name: Save Yarn Package Cache
-                paths:
-                    - ~/.cache/yarn
-                    - node_modules
-                    - native/node_modules
-                    - web/node_modules
+            - restore_yarn_cache
             - run:
                 command: bundle exec fastlane android browserstack_e2e_tests app_name:integreat-e2e
                 name: '[FL] Android E2E Tests on Browserstack'
-            - run:
-                command: bundle exec fastlane ios browserstack_e2e_tests app_name:integreat-e2e
-                name: '[FL] iOS E2E Tests on Browserstack'
             - notify_failed
-    native_prepare_build:
+    e2e_ios:
+        context:
+            - slack-app
+            - browserstack
         docker:
-            - image: circleci/node:12.16.3
+            - image: circleci/android:api-28-node
         environment:
-            TOTAL_CPUS: 1
+            FASTLANE_SKIP_UPDATE_CHECK: true
         resource_class: small
         shell: /bin/bash -eo pipefail
         steps:
             - checkout
-            - check_config
             - restore_cache:
                 keys:
-                    - 6-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
-                name: Restore Yarn Package Cache
+                    - 2-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
+                    - 2-gems-{{ arch }}-
             - run:
-                command: yarn install --frozen-lockfile
-                name: Install Dependencies
+                command: bundle check || bundle install --path vendor/bundle
             - save_cache:
-                key: 6-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
-                name: Save Yarn Package Cache
+                key: 2-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
                 paths:
-                    - ~/.cache/yarn
-                    - node_modules
-                    - native/node_modules
-                    - web/node_modules
+                    - vendor/bundle
+            - restore_yarn_cache
             - run:
-                command: yarn workspace native lint
-                name: Linting check
-            - run:
-                command: yarn workspace native flow:check-now --max-workers ${TOTAL_CPUS}
-                name: Flow-type check
-            - run:
-                command: yarn workspace native test --maxWorkers ${TOTAL_CPUS}
-                name: Unit tests
-            - run:
-                command: echo "export NEW_VERSION_NAME=$(tools/next-version calc | jq .versionName)" >> environment_variables
-                name: Calculate next version name
-            - run:
-                command: echo "export NEW_VERSION_CODE=$(tools/next-version calc | jq .versionCode)" >> environment_variables
-                name: Calculate next version code
-            - persist_to_workspace:
-                paths:
-                    - environment_variables
-                root: ./
+                command: bundle exec fastlane ios browserstack_e2e_tests app_name:integreat-e2e
+                name: '[FL] iOS E2E Tests on Browserstack'
             - notify_failed
-    native_prepare_delivery:
+    move_release_notes:
+        context:
+            - deliverino
         docker:
             - image: circleci/node:12.16.3
         parameters:
@@ -480,155 +562,20 @@ jobs:
             - attach_workspace:
                 at: .
             - restore_environment_variables
-            - restore_cache:
-                keys:
-                    - 6-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
-                name: Restore Yarn Package Cache
+            - restore_yarn_cache
             - run:
-                command: yarn install --frozen-lockfile
-                name: Install Dependencies
-            - save_cache:
-                key: 6-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
-                name: Save Yarn Package Cache
-                paths:
-                    - ~/.cache/yarn
-                    - node_modules
-                    - native/node_modules
-                    - web/node_modules
-            - run:
-                command: tools/parse-release-notes parse --android --destination android/fastlane/metadata/android/de-DE/changelogs/default.txt --language de --production
-                name: Parse german android release notes
-            - run:
-                command: tools/parse-release-notes parse --android --destination android/fastlane/metadata/android/en-GB/changelogs/default.txt --language en --production && tools/parse-release-notes parse --android --destination android/fastlane/metadata/android/en-US/changelogs/default.txt --language en --production
-                name: Parse english android release notes
-            - run:
-                command: tools/parse-release-notes parse --ios --destination ios/fastlane/metadata/de-DE/release_notes.txt --language de --production
-                name: Parse german ios release notes
-            - run:
-                command: tools/parse-release-notes parse --ios --destination ios/fastlane/metadata/en-US/release_notes.txt --language en --production
-                name: Parse english ios release notes
-            - when:
-                condition: << parameters.production_delivery >>
-                steps:
-                    - run:
-                        command: tools/create-jira-release create-release ${NEW_VERSION_NAME} --private-key ${JIRA_PRIVATE_KEY} --access-token ${JIRA_OAUTH_TOKEN} --consumer-key ${JIRA_CONSUMER_KEY} --project-name ${CIRCLE_PROJECT_REPONAME}
-                        name: Create jira release
-                    - run:
-                        command: tools/move-release-notes move-to ${NEW_VERSION_NAME} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH} --commit-sha ${CIRCLE_SHA1}
-                        name: Move release notes
-            - run:
-                command: tools/bump-version bump-to ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH} --release-notes "$(tools/parse-release-notes parse --ios --android --language en)"<<^ parameters.production_delivery >> --development-release<</ parameters.production_delivery >>
-                name: Bump version
+                command: tools/move-release-notes move-to ${NEW_VERSION_NAME} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH} --commit-sha ${CIRCLE_SHA1}
+                name: Move release notes
             - notify_failed
-    web_build:
-        docker:
-            - image: circleci/node:12.16.3
-        environment:
-            TOTAL_CPUS: 1
-            TZ: Europe/Berlin
-        resource_class: small
-        shell: /bin/bash -eo pipefail
-        steps:
-            - run:
-                command: echo "CPU count is ${TOTAL_CPUS}"
-                name: Show current CPU count
-            - checkout
-            - check_config
-            - restore_cache:
-                keys:
-                    - 6-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
-                name: Restore Yarn Package Cache
-            - run:
-                command: yarn install --frozen-lockfile
-                name: Install Dependencies
-            - save_cache:
-                key: 6-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
-                name: Save Yarn Package Cache
-                paths:
-                    - ~/.cache/yarn
-                    - node_modules
-                    - native/node_modules
-                    - web/node_modules
-            - run:
-                command: yarn workspace web lint
-                name: Check linting
-            - run:
-                command: yarn workspace web flow:check-now --max-workers ${TOTAL_CPUS}
-                name: Check flow
-            - run:
-                command: yarn workspace web test --ci --maxWorkers ${TOTAL_CPUS}
-                name: Unit tests
-            - run:
-                command: yarn workspace web test:coverage --ci --maxWorkers ${TOTAL_CPUS}
-                name: Test coverage
-            - run:
-                command: echo "export NEW_VERSION_NAME=$(tools/next-version calc | jq .versionName)" >> environment_variables
-                name: Calculate next version
-            - run:
-                command: yarn workspace web build:integreat-test-cms --env.commit_sha=${CIRCLE_SHA1}
-                name: Development integreat-test-cms build
-            - run:
-                command: yarn workspace web build:integreat
-                name: Production integreat build
-            - run:
-                command: yarn workspace web build:malte
-                name: Production malte build
-            - run:
-                command: yarn workspace web check:build
-                name: Check build
-            - store_artifacts:
-                path: dist
-            - persist_to_workspace:
-                paths:
-                    - dist
-                    - node_modules
-                    - environment_variables
-                root: ./
-            - notify_failed
-    web_deliver:
+    notify_android:
+        context:
+            - slack-app
+            - deliverino
         docker:
             - image: circleci/node:12.16.3
         parameters:
             production_delivery:
-                description: Whether to deliver to production (integreat.app and malteapp.de) or not (webnext.integreat.app and webnext.malteapp.de).
-                type: boolean
-        resource_class: small
-        shell: /bin/bash -eo pipefail
-        steps:
-            - add_ssh_keys:
-                fingerprints:
-                    - 30:f4:98:9f:1c:72:d1:c0:17:9f:57:05:74:a6:44:50
-            - attach_workspace:
-                at: .
-            - restore_environment_variables
-            - when:
-                condition: << parameters.production_delivery >>
-                steps:
-                    - run:
-                        command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/integreat.app \<<< $'put -r dist/integreat/*'
-                        name: Integreat production delivery
-                    - run:
-                        command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/malteapp.de \<<< $'put -r dist/malte/*'
-                        name: Malte production delivery
-                    - slack/notify:
-                        message: WebApp version ${NEW_VERSION_NAME} was delivered successfully to integreat.app and malteapp.de!
-                        webhook: ${SLACK_URL}
-            - unless:
-                condition: << parameters.production_delivery >>
-                steps:
-                    - run:
-                        command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.integreat.app \<<< $'put -r dist/integreat-test-cms/*'
-                        name: Integreat development delivery
-                    - run:
-                        command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.malteapp.de \<<< $'put -r dist/malte/*'
-                        name: Malte development delivery
-            - notify_failed
-    web_prepare_delivery:
-        docker:
-            - image: circleci/node:12.16.3
-        parameters:
-            production_delivery:
-                description: Whether builds are delivered to the production domain. If set to true, jira and github releases are created.
+                description: Whether builds are delivered to the production store. If set to true, jira and github releases are created.
                 type: boolean
         resource_class: small
         steps:
@@ -636,18 +583,61 @@ jobs:
             - attach_workspace:
                 at: .
             - restore_environment_variables
-            - when:
-                condition: << parameters.production_delivery >>
-                steps:
-                    - run:
-                        command: tools/create-jira-release create-release ${NEW_VERSION_NAME} --private-key ${JIRA_PRIVATE_KEY} --access-token ${JIRA_OAUTH_TOKEN} --consumer-key ${JIRA_CONSUMER_KEY} --project-name ${CIRCLE_PROJECT_REPONAME}
-                        name: Create jira release
-                    - run:
-                        command: tools/move-release-notes move-to ${NEW_VERSION_NAME} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH} --commit-sha ${CIRCLE_SHA1}
-                        name: Move release notes
-                    - run:
-                        command: tools/bump-version bump-to ${NEW_VERSION_NAME} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH} --release-notes "$(tools/parse-release-notes parse --web --language en)"
-                        name: Bump version
+            - restore_yarn_cache
+            - run:
+                command: tools/github-release create Android ${NEW_VERSION_NAME} ${NEW_VERSION_NAME} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(tools/parse-release-notes parse --android --language en)"<<^ parameters.production_delivery >> --development-release<</ parameters.production_delivery >>
+                name: Create github release
+            - slack/notify:
+                message: Integreat ${NEW_VERSION_NAME} has been released successfully on Android!
+                webhook: ${SLACK_URL}
+            - notify_failed
+    notify_ios:
+        context:
+            - slack-app
+            - deliverino
+        docker:
+            - image: circleci/node:12.16.3
+        parameters:
+            production_delivery:
+                description: Whether builds are delivered to the production store. If set to true, jira and github releases are created.
+                type: boolean
+        resource_class: small
+        steps:
+            - checkout
+            - attach_workspace:
+                at: .
+            - restore_environment_variables
+            - restore_yarn_cache
+            - run:
+                command: tools/github-release create iOS ${NEW_VERSION_NAME} ${NEW_VERSION_NAME} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(tools/parse-release-notes parse --ios --language en)"<<^ parameters.production_delivery >> --development-release<</ parameters.production_delivery >>
+                name: Create github release
+            - slack/notify:
+                message: Integreat ${NEW_VERSION_NAME} has been released successfully on iOS!
+                webhook: ${SLACK_URL}
+            - notify_failed
+    notify_web:
+        context:
+            - slack-app
+            - deliverino
+        docker:
+            - image: circleci/node:12.16.3
+        parameters:
+            production_delivery:
+                description: Whether builds are delivered to the production store. If set to true, jira and github releases are created.
+                type: boolean
+        resource_class: small
+        steps:
+            - checkout
+            - attach_workspace:
+                at: .
+            - restore_environment_variables
+            - restore_yarn_cache
+            - run:
+                command: tools/github-release create Web ${NEW_VERSION_NAME} ${NEW_VERSION_NAME} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(tools/parse-release-notes parse --web --language en)"<<^ parameters.production_delivery >> --development-release<</ parameters.production_delivery >>
+                name: Create github release
+            - slack/notify:
+                message: WebApp version ${NEW_VERSION_NAME} was delivered successfully to integreat.app and malteapp.de!
+                webhook: ${SLACK_URL}
             - notify_failed
 orbs:
     slack: circleci/slack@3.4.2
