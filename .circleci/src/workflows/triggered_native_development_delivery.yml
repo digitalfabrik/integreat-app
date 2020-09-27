@@ -1,0 +1,41 @@
+when:
+  and:
+    - << pipeline.parameters.api_triggered >>
+    - not: << pipeline.parameters.production_delivery >>
+jobs:
+  - bump_version
+  - check_native:
+      requires:
+        - bump_version
+
+  - build_android:
+      build_for_delivery: true
+      requires:
+        - check_native
+  - e2e_android:
+      requires:
+        - build_android
+  - deliver_android:
+      production_delivery: false
+      requiers:
+        - e2e_android
+  - notify_android:
+      production_delivery: false
+      requires:
+        - deliver_android
+
+  - build_ios:
+      build_for_delivery: false
+      requires:
+        - check_native
+  - e2e_ios:
+      requires:
+        - build_ios
+  - deliver_ios:
+      production_delivery: false
+      requiers:
+        - e2e_ios
+  - notify_ios:
+      production_delivery: false
+      requires:
+        - deliver_ios
