@@ -1,3 +1,4 @@
+# Deliver integreat and malte. If it is not a production delivery, deliver to webnext.
 parameters:
   production_delivery:
     description: Whether to deliver to production (integreat.app and malteapp.de) or not (webnext.integreat.app and webnext.malteapp.de).
@@ -5,6 +6,7 @@ parameters:
 docker:
   - image: circleci/node:12.16.3
 resource_class: small
+context:
   - slack-app
 shell: /bin/bash -eo pipefail
 steps:

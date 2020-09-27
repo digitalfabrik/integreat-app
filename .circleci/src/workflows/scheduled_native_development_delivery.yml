@@ -1,24 +1,12 @@
 triggers:
   - schedule:
-      cron: "0 5 1,15 * *" # For sanity checks for this syntax: https://crontab.guru/
+      cron: "0 5 8,22 * *" # For sanity checks for this syntax: https://crontab.guru/
       filters:
         branches:
           only:
             - main
 jobs:
   - bump_version
-
-  - build_web:
-      requires:
-        - bump_version
-  - deliver_web:
-      production_delivery: true
-      requires:
-        - build_web
-  - notify_web:
-      requires:
-        - deliver_web
-
   - check_native:
       requires:
         - bump_version
@@ -31,11 +19,11 @@ jobs:
       requires:
         - build_android
   - deliver_android:
-      production_delivery: true
+      production_delivery: false
       requiers:
         - e2e_android
   - notify_android:
-      production_delivery: true
+      production_delivery: false
       requires:
         - deliver_android
 
@@ -47,16 +35,10 @@ jobs:
       requires:
         - build_ios
   - deliver_ios:
-      production_delivery: true
+      production_delivery: false
       requiers:
         - e2e_ios
   - notify_ios:
-      production_delivery: true
+      production_delivery: false
       requires:
         - deliver_ios
-
-  - move_release_notes:
-      requires:
-        - notify_web
-        - notify_android
-        - notify_ios
