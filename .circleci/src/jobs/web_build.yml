@@ -14,14 +14,13 @@ steps:
   - restore_cache:
       name: Restore Yarn Package Cache
       keys:
-        - 2-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
-        - 2-yarn-{{ arch }}-
+        - 6-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
   - run:
       name: Install Dependencies
       command: yarn install --frozen-lockfile
   - save_cache:
       name: Save Yarn Package Cache
-      key: 2-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
+      key: 6-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
       paths:
         - ~/.cache/yarn
         - node_modules
