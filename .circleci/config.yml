@@ -253,6 +253,8 @@ jobs:
                 root: ios/output/gym/
             - notify_failed
     build_web:
+        context:
+            - slack-app
         docker:
             - image: circleci/node:12.16.3
         environment:
@@ -337,6 +339,8 @@ jobs:
                 root: ./
             - notify_failed
     check_native:
+        context:
+            - slack-app
         docker:
             - image: circleci/node:12.16.3
         environment:
@@ -408,6 +412,8 @@ jobs:
                 name: '[FL] Upload to Sentry'
             - notify_failed
     deliver_ios:
+        context:
+            - slack-app
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         macos:
@@ -460,13 +466,15 @@ jobs:
                 name: '[FL] Upload to Sentry'
             - notify_failed
     deliver_web:
+        context:
+            - slack-app
         docker:
             - image: circleci/node:12.16.3
         parameters:
             production_delivery:
                 description: Whether to deliver to production (integreat.app and malteapp.de) or not (webnext.integreat.app and webnext.malteapp.de).
                 type: boolean
-        resource_class: small - slack-app
+        resource_class: small
         shell: /bin/bash -eo pipefail
         steps:
             - add_ssh_keys:
@@ -550,12 +558,9 @@ jobs:
     move_release_notes:
         context:
             - deliverino
+            - slack-app
         docker:
             - image: circleci/node:12.16.3
-        parameters:
-            production_delivery:
-                description: Whether builds are delivered to the production store. If set to true, jira and github releases are created.
-                type: boolean
         resource_class: small
         steps:
             - checkout
@@ -621,10 +626,6 @@ jobs:
             - deliverino
         docker:
             - image: circleci/node:12.16.3
-        parameters:
-            production_delivery:
-                description: Whether builds are delivered to the production store. If set to true, jira and github releases are created.
-                type: boolean
         resource_class: small
         steps:
             - checkout
@@ -633,7 +634,7 @@ jobs:
             - restore_environment_variables
             - restore_yarn_cache
             - run:
-                command: tools/github-release create Web ${NEW_VERSION_NAME} ${NEW_VERSION_NAME} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(tools/parse-release-notes parse --web --language en)"<<^ parameters.production_delivery >> --development-release<</ parameters.production_delivery >>
+                command: tools/github-release create Web ${NEW_VERSION_NAME} ${NEW_VERSION_NAME} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(tools/parse-release-notes parse --web --language en)"
                 name: Create github release
             - slack/notify:
                 message: WebApp version ${NEW_VERSION_NAME} was delivered successfully to integreat.app and malteapp.de!
@@ -660,140 +661,125 @@ version: 2.1
 workflows:
     commit:
         jobs:
-            - web_build
-            - web_deliver:
+            - build_web
+            - deliver_web:
                 filters:
                     branches:
                         only:
                             - main
                 production_delivery: false
                 requires:
-                    - web_build
-            - native_prepare_build
-            - native_build_android:
+                    - build_web
+            - check_native
+            - build_android:
                 build_for_delivery: false
                 requires:
-                    - native_prepare_build
-            - native_build_ios:
+                    - check_native
+            - e2e_android:
+                requires:
+                    - build_android
+            - build_ios:
                 build_for_delivery: false
                 requires:
-                    - native_prepare_build
-            - native_e2e:
+                    - check_native
+            - e2e_ios:
                 requires:
-                    - native_build_ios
-                    - native_build_android
+                    - build_ios
         unless: << pipeline.parameters.api_triggered >>
-    native_api_triggered_delivery:
+    scheduled_native_development_delivery:
         jobs:
-            - native_prepare_build
-            - native_build_android:
+            - bump_version
+            - check_native:
+                requires:
+                    - bump_version
+            - build_android:
                 build_for_delivery: true
                 requires:
-                    - native_prepare_build
-            - native_build_ios:
-                build_for_delivery: true
+                    - check_native
+            - e2e_android:
                 requires:
-                    - native_prepare_build
-            - native_e2e:
-                requires:
-                    - native_build_ios
-                    - native_build_android
-            - native_prepare_delivery:
-                production_delivery: << pipeline.parameters.production_delivery >>
-                requires:
-                    - native_e2e
-            - native_deliver_android:
-                production_delivery: << pipeline.parameters.production_delivery >>
-                requires:
-                    - native_prepare_delivery
-            - native_deliver_ios:
-                production_delivery: << pipeline.parameters.production_delivery >>
-                requires:
-                    - native_prepare_delivery
-        when:
-            and:
-                - << pipeline.parameters.api_triggered >>
-                - equal:
-                    - native
-                    - << pipeline.parameters.project >>
-    native_scheduled_development_delivery:
-        jobs:
-            - native_prepare_build
-            - native_build_android:
-                build_for_delivery: true
-                requires:
-                    - native_prepare_build
-            - native_build_ios:
-                build_for_delivery: true
-                requires:
-                    - native_prepare_build
-            - native_e2e:
-                requires:
-                    - native_build_ios
-                    - native_build_android
-            - native_prepare_delivery:
+                    - build_android
+            - deliver_android:
+                production_delivery: false
+                requiers:
+                    - e2e_android
+            - notify_android:
                 production_delivery: false
                 requires:
-                    - native_e2e
-            - native_deliver_android:
+                    - deliver_android
+            - build_ios:
+                build_for_delivery: true
+                requires:
+                    - check_native
+            - e2e_ios:
+                requires:
+                    - build_ios
+            - deliver_ios:
+                production_delivery: false
+                requiers:
+                    - e2e_ios
+            - notify_ios:
                 production_delivery: false
                 requires:
-                    - native_prepare_delivery
-            - native_deliver_ios:
-                production_delivery: false
-                requires:
-                    - native_prepare_delivery
+                    - deliver_ios
         triggers:
             - schedule:
-                cron: 0 3 8,22 * *
+                cron: 0 5 8,22 * *
                 filters:
                     branches:
                         only:
                             - main
     scheduled_production_delivery:
         jobs:
-            - web_build
-            - web_prepare_delivery:
+            - bump_version
+            - build_web:
+                requires:
+                    - bump_version
+            - deliver_web:
                 production_delivery: true
                 requires:
-                    - web_build
-            - await_approval:
+                    - build_web
+            - notify_web:
                 requires:
-                    - web_prepare_delivery
-                type: approval
-            - web_deliver:
-                production_delivery: true
+                    - deliver_web
+            - check_native:
                 requires:
-                    - await_approval
-            - native_prepare_build
-            - native_build_android:
+                    - bump_version
+            - build_android:
                 build_for_delivery: true
                 requires:
-                    - native_prepare_build
-            - native_build_ios:
+                    - check_native
+            - e2e_android:
+                requires:
+                    - build_android
+            - deliver_android:
+                production_delivery: true
+                requiers:
+                    - e2e_android
+            - notify_android:
+                production_delivery: true
+                requires:
+                    - deliver_android
+            - build_ios:
                 build_for_delivery: true
                 requires:
-                    - native_prepare_build
-            - native_e2e:
+                    - check_native
+            - e2e_ios:
                 requires:
-                    - native_build_ios
-                    - native_build_android
-            - native_prepare_delivery:
+                    - build_ios
+            - deliver_ios:
+                production_delivery: true
+                requiers:
+                    - e2e_ios
+            - notify_ios:
                 production_delivery: true
                 requires:
-                    - native_e2e
-            - await_production_approval:
+                    - deliver_ios
+            - move_release_notes:
                 requires:
-                    - native_prepare_delivery
-                type: approval
-            - native_deliver_android:
-                production_delivery: true
-                requires:
-                    - await_production_approval
-            - native_deliver_ios:
-                production_delivery: true
-                requires:
-                    - await_production_approval
+                    - notify_web
+                    - notify_android
+                    - notify_ios
         triggers:
             - schedule:
                 cron: 0 5 1,15 * *
@@ -801,22 +787,100 @@ workflows:
                     branches:
                         only:
                             - main
-    version: 2
-    web_api_triggered_delivery:
+    triggered_native_development_delivery:
         jobs:
-            - web_build
-            - web_prepare_delivery:
-                production_delivery: << pipeline.parameters.production_delivery >>
+            - bump_version
+            - check_native:
                 requires:
-                    - web_build
-            - web_deliver:
-                production_delivery: << pipeline.parameters.production_delivery >>
+                    - bump_version
+            - build_android:
+                build_for_delivery: true
                 requires:
-                    - web_prepare_delivery
+                    - check_native
+            - e2e_android:
+                requires:
+                    - build_android
+            - deliver_android:
+                production_delivery: false
+                requiers:
+                    - e2e_android
+            - notify_android:
+                production_delivery: false
+                requires:
+                    - deliver_android
+            - build_ios:
+                build_for_delivery: false
+                requires:
+                    - check_native
+            - e2e_ios:
+                requires:
+                    - build_ios
+            - deliver_ios:
+                production_delivery: false
+                requiers:
+                    - e2e_ios
+            - notify_ios:
+                production_delivery: false
+                requires:
+                    - deliver_ios
         when:
             and:
                 - << pipeline.parameters.api_triggered >>
-                - equal:
-                    - web
-                    - << pipeline.parameters.project >>
+                - not: << pipeline.parameters.production_delivery >>
+    triggered_production_delivery:
+        jobs:
+            - bump_version
+            - build_web:
+                requires:
+                    - bump_version
+            - deliver_web:
+                production_delivery: true
+                requires:
+                    - build_web
+            - notify_web:
+                requires:
+                    - deliver_web
+            - check_native:
+                requires:
+                    - bump_version
+            - build_android:
+                build_for_delivery: true
+                requires:
+                    - check_native
+            - e2e_android:
+                requires:
+                    - build_android
+            - deliver_android:
+                production_delivery: true
+                requiers:
+                    - e2e_android
+            - notify_android:
+                production_delivery: true
+                requires:
+                    - deliver_android
+            - build_ios:
+                build_for_delivery: true
+                requires:
+                    - check_native
+            - e2e_ios:
+                requires:
+                    - build_ios
+            - deliver_ios:
+                production_delivery: true
+                requiers:
+                    - e2e_ios
+            - notify_ios:
+                production_delivery: true
+                requires:
+                    - deliver_ios
+            - move_release_notes:
+                requires:
+                    - notify_web
+                    - notify_android
+                    - notify_ios
+        when:
+            and:
+                - << pipeline.parameters.api_triggered >>
+                - << pipeline.parameters.production_delivery >>
+    version: 2
 
