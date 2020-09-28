@@ -13,6 +13,15 @@ steps:
   - checkout
   - attach_workspace:
       at: .
+  - unless: # If not building for delivery, the bump version job has never been executed and therefore no env variables are available
+      condition: << parameters.build_for_delivery >>
+      steps:
+        - run:
+            name: Calculate next version name
+            command: echo "export NEW_VERSION_NAME=$(tools/next-version calc | jq .versionName)" >> environment_variables
+        - run:
+            name: Calculate next version code
+            command: echo "export NEW_VERSION_CODE=$(tools/next-version calc | jq .versionCode)" >> environment_variables
   - restore_environment_variables
   - restore_cache:
       keys:
