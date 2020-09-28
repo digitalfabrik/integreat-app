@@ -84,6 +84,15 @@ jobs:
             - checkout
             - attach_workspace:
                 at: .
+            - unlewss:
+                condition: << parameters.build_for_delivery >>
+                steps:
+                    - run:
+                        command: echo "export NEW_VERSION_NAME=$(tools/next-version calc | jq .versionName)" >> environment_variables
+                        name: Calculate next version name
+                    - run:
+                        command: echo "export NEW_VERSION_CODE=$(tools/next-version calc | jq .versionCode)" >> environment_variables
+                        name: Calculate next version code
             - restore_environment_variables
             - restore_cache:
                 keys:
@@ -179,6 +188,15 @@ jobs:
             - checkout
             - attach_workspace:
                 at: .
+            - unlewss:
+                condition: << parameters.build_for_delivery >>
+                steps:
+                    - run:
+                        command: echo "export NEW_VERSION_NAME=$(tools/next-version calc | jq .versionName)" >> environment_variables
+                        name: Calculate next version name
+                    - run:
+                        command: echo "export NEW_VERSION_CODE=$(tools/next-version calc | jq .versionCode)" >> environment_variables
+                        name: Calculate next version code
             - restore_environment_variables
             - restore_cache:
                 keys:
