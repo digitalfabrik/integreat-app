@@ -5,8 +5,6 @@ resource_class: small
 environment:
   TOTAL_CPUS: 1 # For resource_class small
 shell: /bin/bash -eo pipefail
-context:
-  - slack-app
 steps:
   - checkout
   - check_config

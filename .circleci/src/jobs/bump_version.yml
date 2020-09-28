@@ -5,10 +5,6 @@ parameters:
     type: boolean
 docker:
   - image: circleci/node:12.16.3
-context:
-  - slack-app
-  - deliverino
-  - jira
 resource_class: small
 steps:
   - checkout
