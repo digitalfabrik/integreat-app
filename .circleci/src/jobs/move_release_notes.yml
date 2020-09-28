@@ -2,9 +2,6 @@
 docker:
   - image: circleci/node:12.16.3
 resource_class: small
-context:
-  - deliverino
-  - slack-app
 steps:
   - checkout
   - attach_workspace:

@@ -8,8 +8,6 @@ macos:
 environment:
   FASTLANE_SKIP_UPDATE_CHECK: true
 shell: /bin/bash --login -o pipefail
-context:
-  - slack-app
 steps:
   - run: 'curl -sL https://sentry.io/get-cli/ | bash'
   - checkout

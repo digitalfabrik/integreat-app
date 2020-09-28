@@ -5,8 +5,6 @@ environment:
   TOTAL_CPUS: 1 # For resource_class small
   TZ: "Europe/Berlin" # Should be removed in WEBAPP-463
 shell: /bin/bash -eo pipefail
-context:
-  - slack-app
 steps:
   - run:
       name: "Show current CPU count"
