@@ -9,12 +9,6 @@ resource_class: small
 shell: /bin/bash -eo pipefail
 environment:
   FASTLANE_SKIP_UPDATE_CHECK: true
-context:
-  - slack-app
-  - sentry
-  - browserstack
-  - tuerantuer-google-play
-  - tuerantuer-android
 steps:
   - run: 'curl -sL https://sentry.io/get-cli/ | bash'
   - checkout
