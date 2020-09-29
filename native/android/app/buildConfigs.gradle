@@ -28,11 +28,13 @@ def execCommand(command) {
 }
 
 def determineBuildConfigName() {
-    if (!System.getenv()["BUILD_CONFIG_NAME"]) {
+    if (project.hasProperty('BUILD_CONFIG_NAME')) {
+        return project.BUILD_CONFIG_NAME
+    } else if (System.getenv()["BUILD_CONFIG_NAME"]) {
+        return System.getenv()['BUILD_CONFIG_NAME']
+    } else {
         logger.warn("WARNING: No build config specified. Using the build config 'integreat'!")
         return 'integreat'
-    } else {
-        return System.getenv()['BUILD_CONFIG_NAME']
     }
 }
 
