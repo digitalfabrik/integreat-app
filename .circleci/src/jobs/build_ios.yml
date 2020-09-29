@@ -25,28 +25,31 @@ steps:
   - restore_environment_variables
   - restore_cache:
       keys:
-        - 3-gems-{{ arch }}-{{ checksum "ios/Gemfile.lock" }}
+        - 3-gems-{{ arch }}-{{ checksum "native/ios/Gemfile.lock" }}
         - 3-gems-{{ arch }}-
   - run:
-      command: bundle check || bundle install --path vendor/bundle
-      working_directory: ios
+      command: bundle config set path 'vendor/bundle'
+      working_directoy: native/ios
+  - run:
+      command: bundle check || bundle install
+      working_directory: native/ios
   - save_cache:
-      key: 3-gems-{{ arch }}-{{ checksum "ios/Gemfile.lock" }}
+      key: 3-gems-{{ arch }}-{{ checksum "native/ios/Gemfile.lock" }}
       paths:
-        - ios/vendor/bundle
+        - native/ios/vendor/bundle
   - restore_yarn_cache
   - restore_cache:
       name: Restore CocoaPods Cache
       keys:
-        - 2-pods-{{ arch }}-{{ checksum "ios/Podfile.lock" }}
+        - 2-pods-{{ arch }}-{{ checksum "native/ios/Podfile.lock" }}
         - 2-pods-{{ arch }}-
   - run:
       name: "[CP] Install CocoaPods"
       command: bundle exec pod install --deployment
-      working_directory: ios
+      working_directory: native/ios
   - save_cache:
       name: Save CocoaPods Cache
-      key: 2-pods-{{ arch }}-{{ checksum "ios/Podfile.lock" }}
+      key: 2-pods-{{ arch }}-{{ checksum "native/ios/Podfile.lock" }}
       paths:
         - ~/Library/Caches/CocoaPods/
   - when:
@@ -55,33 +58,35 @@ steps:
         - run:
             name: "[FL] integreat build"
             command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat
-            working_directory: ios
+            working_directory: native/ios
         - run:
             name: Rename sourcemap
-            command: mv ios/index.ios.bundle.map ios/output/integreat.ios.bundle.map
+            command: mv index.ios.bundle.map output/integreat.ios.bundle.map
+            working_directory: native/ios
         - run:
             name: "[FL] malte build"
             command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:malte
-            working_directory: ios
+            working_directory: native/ios
         - run:
             name: Rename sourcemap
-            command: mv ios/index.ios.bundle.map ios/output/malte.ios.bundle.map
+            command: mv index.ios.bundle.map output/malte.ios.bundle.map
+            working_directory: native/ios
   - run:
       name: "[FL] integreat-e2e build"
       command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat-e2e
-      working_directory: ios
+      working_directory: native/ios
   - store_artifacts:
-      path: ios/output/gym/
+      path: native/ios/output/gym/
   - when:
       condition: << parameters.build_for_delivery >>
       steps:
         - persist_to_workspace:
-            root: ios/output
+            root: native/ios/output
             paths:
               - integreat.ios.bundle.map
               - malte.ios.bundle.map
   - persist_to_workspace:
-      root: ios/output/gym/
+      root: native/ios/output/gym
       paths:
         - integreat.ipa
         - malte.ipa
