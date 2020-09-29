@@ -18,8 +18,8 @@ steps:
       name: Calculate next version code
       command: echo "export NEW_VERSION_CODE=$(tools/next-version calc | jq .versionCode)" >> environment_variables
   - run:
-    name: Set environment varibales
-    command: cat environment_variables >> ${BASH_ENV}
+      name: Set environment varibales
+      command: cat environment_variables >> ${BASH_ENV}
   - run:
       name: Bump git version
       command: tools/git-version bump-to ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
