@@ -39,7 +39,7 @@ steps:
   - store_artifacts:
       path: dist
   - persist_to_workspace:
-      root: ./
+      root: web
       paths:
         - dist
         - node_modules
