@@ -10,6 +10,9 @@ environment:
   FASTLANE_SKIP_UPDATE_CHECK: true
 shell: /bin/bash -eo pipefail
 steps:
+  - add_ssh_keys: # Needed for credentials repo
+      fingerprints:
+        - "68:a3:fe:e7:94:f7:a4:13:35:5c:63:30:2f:07:7d:02"
   - checkout
   - attach_workspace:
       at: .
