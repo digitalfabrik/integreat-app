@@ -96,34 +96,37 @@ jobs:
             - restore_environment_variables
             - restore_cache:
                 keys:
-                    - 2-gems-{{ arch }}-{{ checksum "android/Gemfile.lock" }}
+                    - 2-gems-{{ arch }}-{{ checksum "native/android/Gemfile.lock" }}
                     - 2-gems-{{ arch }}-
             - run:
-                command: bundle check || bundle install --path vendor/bundle
-                working_directory: android
+                command: bundle config set path 'vendor/bundle'
+                working_directoy: native/android
+            - run:
+                command: bundle check || bundle install
+                working_directory: native/android
             - save_cache:
-                key: 2-gems-{{ arch }}-{{ checksum "android/Gemfile.lock" }}
+                key: 2-gems-{{ arch }}-{{ checksum "native/android/Gemfile.lock" }}
                 paths:
-                    - android/vendor/bundle
+                    - native/android/vendor/bundle
             - restore_yarn_cache
             - run:
                 command: bundle exec fastlane keystore
                 name: '[FL] Prepare Android Keystore'
-                working_directory: android
+                working_directory: native/android
             - restore_cache:
                 keys:
-                    - 1-gradle-{{ checksum "android/build.gradle" }}-{{ checksum "android/app/build.gradle" }}-{{ checksum "android/settings.gradle" }}
+                    - 1-gradle-{{ checksum "native/android/build.gradle" }}-{{ checksum "native/android/app/build.gradle" }}-{{ checksum "native/android/settings.gradle" }}
                     - 1-gradle-
             - run:
                 command: bundle exec fastlane dependencies
                 name: '[FL] Download Dependencies'
-                working_directory: android
+                working_directory: native/android
             - save_cache:
-                key: 1-gradle-{{ checksum "android/build.gradle" }}-{{ checksum "android/app/build.gradle" }}-{{ checksum "android/settings.gradle" }}
+                key: 1-gradle-{{ checksum "native/android/build.gradle" }}-{{ checksum "native/android/app/build.gradle" }}-{{ checksum "native/android/settings.gradle" }}
                 paths:
                     - ~/.gradle
             - run:
-                command: mkdir --parents android/output/apk
+                command: mkdir --parents native/android/output/apk
                 name: Create output dir
             - when:
                 condition: << parameters.build_for_delivery >>
@@ -131,32 +134,37 @@ jobs:
                     - run:
                         command: ./gradlew clean && bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat
                         name: '[FL] integreat build'
-                        working_directory: android
+                        working_directory: native/android
                     - run:
-                        command: mv android/app/build/outputs/apk/release/app-release.apk android/output/apk/integreat.apk
+                        command: mv app/build/outputs/apk/release/app-release.apk output/apk/integreat.apk
                         name: Rename apk
+                        working_directory: native/android
                     - run:
-                        command: mv android/app/build/generated/sourcemaps/react/release/index.android.bundle.map android/output/integreat.android.bundle.map
+                        command: mv app/build/generated/sourcemaps/react/release/index.android.bundle.map output/integreat.android.bundle.map
                         name: Rename sourcemap
+                        working_directory: native/android
                     - run:
                         command: ./gradlew clean && bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:malte
                         name: '[FL] malte build'
-                        working_directory: android
+                        working_directory: native/android
                     - run:
-                        command: mv android/app/build/outputs/apk/release/app-release.apk android/output/apk/malte.apk
+                        command: mv app/build/outputs/apk/release/app-release.apk output/apk/malte.apk
                         name: Rename apk
+                        working_directory: native/android
                     - run:
-                        command: mv android/app/build/generated/sourcemaps/react/release/index.android.bundle.map android/output/malte.android.bundle.map
+                        command: mv app/build/generated/sourcemaps/react/release/index.android.bundle.map output/malte.android.bundle.map
                         name: Rename sourcemap
+                        working_directory: native/android
             - run:
                 command: ./gradlew clean && bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat-e2e
                 name: '[FL] integreat-e2e build'
-                working_directory: android
+                working_directory: native/android
             - run:
-                command: mv android/app/build/outputs/apk/release/app-release.apk android/output/apk/integreat-e2e.apk
+                command: mv app/build/outputs/apk/release/app-release.apk output/apk/integreat-e2e.apk
                 name: Rename apk
+                working_directory: native/android
             - store_artifacts:
-                path: android/output/apk
+                path: native/android/output/apk
             - when:
                 condition: << parameters.build_for_delivery >>
                 steps:
@@ -164,13 +172,13 @@ jobs:
                         paths:
                             - integreat.android.bundle.map
                             - malte.android.bundle.map
-                        root: android/output
+                        root: native/android/output
             - persist_to_workspace:
                 paths:
                     - integreat.apk
                     - malte.apk
                     - integreat-e2e.apk
-                root: android/output/apk
+                root: native/android/output/apk
             - notify_failed
     build_ios:
         environment:
@@ -200,27 +208,30 @@ jobs:
             - restore_environment_variables
             - restore_cache:
                 keys:
-                    - 3-gems-{{ arch }}-{{ checksum "ios/Gemfile.lock" }}
+                    - 3-gems-{{ arch }}-{{ checksum "native/ios/Gemfile.lock" }}
                     - 3-gems-{{ arch }}-
             - run:
-                command: bundle check || bundle install --path vendor/bundle
-                working_directory: ios
+                command: bundle config set path 'vendor/bundle'
+                working_directoy: native/ios
+            - run:
+                command: bundle check || bundle install
+                working_directory: native/ios
             - save_cache:
-                key: 3-gems-{{ arch }}-{{ checksum "ios/Gemfile.lock" }}
+                key: 3-gems-{{ arch }}-{{ checksum "native/ios/Gemfile.lock" }}
                 paths:
-                    - ios/vendor/bundle
+                    - native/ios/vendor/bundle
             - restore_yarn_cache
             - restore_cache:
                 keys:
-                    - 2-pods-{{ arch }}-{{ checksum "ios/Podfile.lock" }}
+                    - 2-pods-{{ arch }}-{{ checksum "native/ios/Podfile.lock" }}
                     - 2-pods-{{ arch }}-
                 name: Restore CocoaPods Cache
             - run:
                 command: bundle exec pod install --deployment
                 name: '[CP] Install CocoaPods'
-                working_directory: ios
+                working_directory: native/ios
             - save_cache:
-                key: 2-pods-{{ arch }}-{{ checksum "ios/Podfile.lock" }}
+                key: 2-pods-{{ arch }}-{{ checksum "native/ios/Podfile.lock" }}
                 name: Save CocoaPods Cache
                 paths:
                     - ~/Library/Caches/CocoaPods/
@@ -230,23 +241,25 @@ jobs:
                     - run:
                         command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat
                         name: '[FL] integreat build'
-                        working_directory: ios
+                        working_directory: native/ios
                     - run:
-                        command: mv ios/index.ios.bundle.map ios/output/integreat.ios.bundle.map
+                        command: mv index.ios.bundle.map output/integreat.ios.bundle.map
                         name: Rename sourcemap
+                        working_directory: native/ios
                     - run:
                         command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:malte
                         name: '[FL] malte build'
-                        working_directory: ios
+                        working_directory: native/ios
                     - run:
-                        command: mv ios/index.ios.bundle.map ios/output/malte.ios.bundle.map
+                        command: mv index.ios.bundle.map output/malte.ios.bundle.map
                         name: Rename sourcemap
+                        working_directory: native/ios
             - run:
                 command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat-e2e
                 name: '[FL] integreat-e2e build'
-                working_directory: ios
+                working_directory: native/ios
             - store_artifacts:
-                path: ios/output/gym/
+                path: native/ios/output/gym/
             - when:
                 condition: << parameters.build_for_delivery >>
                 steps:
@@ -254,13 +267,13 @@ jobs:
                         paths:
                             - integreat.ios.bundle.map
                             - malte.ios.bundle.map
-                        root: ios/output
+                        root: native/ios/output
             - persist_to_workspace:
                 paths:
                     - integreat.ipa
                     - malte.ipa
                     - integreat-e2e.ipa
-                root: ios/output/gym/
+                root: native/ios/output/gym
             - notify_failed
     build_web:
         docker:
@@ -307,7 +320,7 @@ jobs:
                 paths:
                     - dist
                     - node_modules
-                root: ./
+                root: web
             - notify_failed
     bump_version:
         docker:
@@ -329,7 +342,10 @@ jobs:
                 command: echo "export NEW_VERSION_CODE=$(tools/next-version calc | jq .versionCode)" >> environment_variables
                 name: Calculate next version code
             - run:
-                command: tools/git-version bump-to $(tools/next-version calc | jq .versionName) $(tools/next-version calc | jq .versionCode) --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
+                command: cat environment_variables >> ${BASH_ENV}
+                name: Set environment varibales
+            - run:
+                command: tools/git-version bump-to ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
                 name: Bump git version
             - when:
                 condition: << parameters.production_delivery >>
@@ -382,30 +398,37 @@ jobs:
             - restore_environment_variables
             - restore_cache:
                 keys:
-                    - 2-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
+                    - 2-gems-{{ arch }}-{{ checksum "native/Gemfile.lock" }}
                     - 2-gems-{{ arch }}-
             - run:
-                command: bundle check || bundle install --path vendor/bundle
+                command: bundle config set path 'vendor/bundle'
+                working_directoy: native
+            - run:
+                command: bundle check || bundle install
+                working_directory: native
             - save_cache:
-                key: 2-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
+                key: 2-gems-{{ arch }}-{{ checksum "native/Gemfile.lock" }}
                 paths:
                     - vendor/bundle
             - restore_yarn_cache
             - run:
-                command: tools/parse-release-notes parse --android --destination android/fastlane/metadata/android/de-DE/changelogs/default.txt --language de --production
+                command: tools/parse-release-notes parse --android --destination native/android/fastlane/metadata/android/de-DE/changelogs/default.txt --language de --production
                 name: Parse german android release notes
             - run:
-                command: tools/parse-release-notes parse --android --destination android/fastlane/metadata/android/en-GB/changelogs/default.txt --language en --production && tools/parse-release-notes parse --android --destination android/fastlane/metadata/android/en-US/changelogs/default.txt --language en --production
+                command: tools/parse-release-notes parse --android --destination native/android/fastlane/metadata/android/en-GB/changelogs/default.txt --language en --production && tools/parse-release-notes parse --android --destination native/android/fastlane/metadata/android/en-US/changelogs/default.txt --language en --production
                 name: Parse english android release notes
             - run:
                 command: bundle exec fastlane android browserstack_upload_live app_name:integreat
                 name: '[FL] Browserstack Upload Live'
+                working_directory: native
             - run:
                 command: bundle exec fastlane android playstore_upload app_name:integreat production_delivery:"<< parameters.production_delivery >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}  build_config_name:integreat
                 name: '[FL] Play Store Upload'
+                working_directory: native
             - run:
                 command: bundle exec fastlane android sentry_upload app_name:integreat version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat
                 name: '[FL] Upload to Sentry'
+                working_directory: native
             - notify_failed
     deliver_ios:
         environment:
@@ -425,39 +448,47 @@ jobs:
             - restore_environment_variables
             - restore_cache:
                 keys:
-                    - 2-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
+                    - 2-gems-{{ arch }}-{{ checksum "native/Gemfile.lock" }}
                     - 2-gems-{{ arch }}-
             - run:
-                command: bundle check || bundle install --path vendor/bundle
+                command: bundle config set path 'vendor/bundle'
+                working_directoy: native
+            - run:
+                command: bundle check || bundle install
+                working_directoy: native
             - save_cache:
-                key: 2-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
+                key: 2-gems-{{ arch }}-{{ checksum "native/Gemfile.lock" }}
                 paths:
                     - vendor/bundle
             - restore_yarn_cache
             - run:
-                command: tools/parse-release-notes parse --ios --destination ios/fastlane/metadata/de-DE/release_notes.txt --language de --production
+                command: tools/parse-release-notes parse --ios --destination native/ios/fastlane/metadata/de-DE/release_notes.txt --language de --production
                 name: Parse german ios release notes
             - run:
-                command: tools/parse-release-notes parse --ios --destination ios/fastlane/metadata/en-US/release_notes.txt --language en --production
+                command: tools/parse-release-notes parse --ios --destination native/ios/fastlane/metadata/en-US/release_notes.txt --language en --production
                 name: Parse english ios release notes
             - run:
                 command: bundle exec fastlane ios browserstack_upload_live app_name:integreat
                 name: '[FL] Browserstack Upload Live'
+                working_directoy: native
             - when:
                 condition: << parameters.production_delivery >>
                 steps:
                     - run:
                         command: bundle exec fastlane ios appstoreconnect_upload app_name:integreat
                         name: '[FL] App Store Connect Upload'
+                        working_directoy: native
             - unless:
                 condition: << parameters.production_delivery >>
                 steps:
                     - run:
                         command: bundle exec fastlane ios testflight_upload app_name:integreat version_name:${NEW_VERSION_NAME}
                         name: '[FL] TestFlight Upload'
+                        working_directoy: native
             - run:
                 command: bundle exec fastlane ios sentry_upload app_name:integreat version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}  build_config_name:integreat
                 name: '[FL] Upload to Sentry'
+                working_directoy: native
             - notify_failed
     deliver_web:
         docker:
@@ -478,19 +509,19 @@ jobs:
                 condition: << parameters.production_delivery >>
                 steps:
                     - run:
-                        command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/integreat.app \<<< $'put -r web/dist/integreat/*'
+                        command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/integreat.app \<<< $'put -r dist/integreat/*'
                         name: Integreat production delivery
                     - run:
-                        command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/malteapp.de \<<< $'put -r web/dist/malte/*'
+                        command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/malteapp.de \<<< $'put -r dist/malte/*'
                         name: Malte production delivery
             - unless:
                 condition: << parameters.production_delivery >>
                 steps:
                     - run:
-                        command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.integreat.app \<<< $'put -r web/dist/integreat-test-cms/*'
+                        command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.integreat.app \<<< $'put -r dist/integreat-test-cms/*'
                         name: Integreat development delivery
                     - run:
-                        command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.malteapp.de \<<< $'put -r web/dist/malte/*'
+                        command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.malteapp.de \<<< $'put -r dist/malte/*'
                         name: Malte development delivery
             - notify_failed
     e2e_android:
@@ -504,18 +535,23 @@ jobs:
             - checkout
             - restore_cache:
                 keys:
-                    - 2-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
+                    - 2-gems-{{ arch }}-{{ checksum "native/Gemfile.lock" }}
                     - 2-gems-{{ arch }}-
             - run:
-                command: bundle check || bundle install --path vendor/bundle
+                command: bundle config set path 'vendor/bundle'
+                working_directoy: native
+            - run:
+                command: bundle check || bundle install
+                working_directoy: native
             - save_cache:
-                key: 2-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
+                key: 2-gems-{{ arch }}-{{ checksum "native/Gemfile.lock" }}
                 paths:
                     - vendor/bundle
             - restore_yarn_cache
             - run:
                 command: bundle exec fastlane android browserstack_e2e_tests app_name:integreat-e2e
                 name: '[FL] Android E2E Tests on Browserstack'
+                working_directoy: native
             - notify_failed
     e2e_ios:
         docker:
@@ -531,15 +567,20 @@ jobs:
                     - 2-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
                     - 2-gems-{{ arch }}-
             - run:
-                command: bundle check || bundle install --path vendor/bundle
+                command: bundle config set path 'vendor/bundle'
+                working_directoy: native
+            - run:
+                command: bundle check || bundle install
+                working_directoy: native
             - save_cache:
-                key: 2-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
+                key: 2-gems-{{ arch }}-{{ checksum "native/Gemfile.lock" }}
                 paths:
                     - vendor/bundle
             - restore_yarn_cache
             - run:
                 command: bundle exec fastlane ios browserstack_e2e_tests app_name:integreat-e2e
                 name: '[FL] iOS E2E Tests on Browserstack'
+                working_directoy: native
             - notify_failed
     move_release_notes:
         docker:
