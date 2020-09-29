@@ -81,6 +81,9 @@ jobs:
         resource_class: medium
         shell: /bin/bash -eo pipefail
         steps:
+            - add_ssh_keys:
+                fingerprints:
+                    - 68:a3:fe:e7:94:f7:a4:13:35:5c:63:30:2f:07:7d:02
             - checkout
             - attach_workspace:
                 at: .
@@ -193,6 +196,9 @@ jobs:
                 type: boolean
         shell: /bin/bash --login -o pipefail
         steps:
+            - add_ssh_keys:
+                fingerprints:
+                    - 68:a3:fe:e7:94:f7:a4:13:35:5c:63:30:2f:07:7d:02
             - checkout
             - attach_workspace:
                 at: .
