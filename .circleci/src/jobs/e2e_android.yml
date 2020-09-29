@@ -8,16 +8,21 @@ steps:
   - checkout
   - restore_cache:
       keys:
-        - 2-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
+        - 2-gems-{{ arch }}-{{ checksum "native/Gemfile.lock" }}
         - 2-gems-{{ arch }}-
   - run:
-      command: bundle check || bundle install --path vendor/bundle
+      command: bundle config set path 'vendor/bundle'
+      working_directoy: native
+  - run:
+      command: bundle check || bundle install
+      working_directoy: native
   - save_cache:
-      key: 2-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
+      key: 2-gems-{{ arch }}-{{ checksum "native/Gemfile.lock" }}
       paths:
         - vendor/bundle
   - restore_yarn_cache
   - run:
       name: "[FL] Android E2E Tests on Browserstack"
       command: bundle exec fastlane android browserstack_e2e_tests app_name:integreat-e2e
+      working_directoy: native
   - notify_failed
