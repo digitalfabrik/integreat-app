@@ -10,6 +10,9 @@ environment:
   TOTAL_CPUS: 4 # For mac with resource_class medium, used in metro.config.ci.js.
 shell: /bin/bash --login -o pipefail
 steps:
+  - add_ssh_keys: # Needed for credentials repo
+      fingerprints:
+        - "68:a3:fe:e7:94:f7:a4:13:35:5c:63:30:2f:07:7d:02"
   - checkout
   - attach_workspace:
       at: .
