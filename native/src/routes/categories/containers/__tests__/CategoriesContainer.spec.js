@@ -68,6 +68,7 @@ describe('CategoriesContainer', () => {
   ): StateType => {
     return {
       darkMode: false,
+      resourceCacheUrl: 'http://localhost:8080',
       cityContent: {
         city: city.code,
         switchingLanguage: switchingLanguage !== undefined ? switchingLanguage : false,
