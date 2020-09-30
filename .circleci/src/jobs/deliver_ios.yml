@@ -20,10 +20,10 @@ steps:
         - 2-gems-{{ arch }}-
   - run:
       command: bundle config set path 'vendor/bundle'
-      working_directoy: native
+      working_directory: native
   - run:
       command: bundle check || bundle install
-      working_directoy: native
+      working_directory: native
   - save_cache:
       key: 2-gems-{{ arch }}-{{ checksum "native/Gemfile.lock" }}
       paths:
@@ -38,23 +38,23 @@ steps:
   - run:
       name: "[FL] Browserstack Upload Live"
       command: bundle exec fastlane ios browserstack_upload_live app_name:integreat
-      working_directoy: native
+      working_directory: native
   - when:
       condition: << parameters.production_delivery >>
       steps:
         - run:
             name: "[FL] App Store Connect Upload"
             command: bundle exec fastlane ios appstoreconnect_upload app_name:integreat
-            working_directoy: native
+            working_directory: native
   - unless:
       condition: << parameters.production_delivery >>
       steps:
         - run:
             name: "[FL] TestFlight Upload"
             command: bundle exec fastlane ios testflight_upload app_name:integreat version_name:${NEW_VERSION_NAME}
-            working_directoy: native
+            working_directory: native
   - run:
       name: "[FL] Upload to Sentry"
       command: bundle exec fastlane ios sentry_upload app_name:integreat version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}  build_config_name:integreat
-      working_directoy: native
+      working_directory: native
   - notify_failed
