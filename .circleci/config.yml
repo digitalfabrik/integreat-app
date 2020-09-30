@@ -552,7 +552,7 @@ jobs:
             - save_cache:
                 key: 2-gems-{{ arch }}-{{ checksum "native/Gemfile.lock" }}
                 paths:
-                    - vendor/bundle
+                    - native/vendor/bundle
             - restore_yarn_cache
             - run:
                 command: bundle exec fastlane android browserstack_e2e_tests app_name:integreat-e2e
@@ -570,7 +570,7 @@ jobs:
             - checkout
             - restore_cache:
                 keys:
-                    - 2-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
+                    - 2-gems-{{ arch }}-{{ checksum "native/Gemfile.lock" }}
                     - 2-gems-{{ arch }}-
             - run:
                 command: bundle config set path 'vendor/bundle'
@@ -581,7 +581,7 @@ jobs:
             - save_cache:
                 key: 2-gems-{{ arch }}-{{ checksum "native/Gemfile.lock" }}
                 paths:
-                    - vendor/bundle
+                    - native/vendor/bundle
             - restore_yarn_cache
             - run:
                 command: bundle exec fastlane ios browserstack_e2e_tests app_name:integreat-e2e
