@@ -21,7 +21,7 @@ steps:
         - 2-gems-{{ arch }}-
   - run:
       command: bundle config set path 'vendor/bundle'
-      working_directoy: native
+      working_directory: native
   - run:
       command: bundle check || bundle install
       working_directory: native

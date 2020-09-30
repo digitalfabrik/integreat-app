@@ -32,7 +32,7 @@ steps:
         - 3-gems-{{ arch }}-
   - run:
       command: bundle config set path 'vendor/bundle'
-      working_directoy: native/ios
+      working_directory: native/ios
   - run:
       command: bundle check || bundle install
       working_directory: native/ios
