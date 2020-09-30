@@ -24,7 +24,7 @@ import watchClearCity from '../i18n/watchClearCity'
 import watchClearResourcesAndCache from '../endpoint/sagas/watchClearResourcesAndCache'
 import watchFetchPoi from '../endpoint/sagas/watchFetchPoi'
 import buildConfig from './constants/buildConfig'
-import resourceCacheUrlReducer from "../static-server/reducers/resourceCacheUrlReducer";
+import resourceCacheUrlReducer from '../static-server/reducers/resourceCacheUrlReducer'
 
 function * rootSaga (dataContainer: DataContainer): Saga<void> {
   yield all([

@@ -98,8 +98,8 @@ const mapStateToProps = (
   if (
     state.cities.status === 'loading' ||
     switchingLanguage ||
-    languages.status === 'loading'
-    || resourceCacheUrl === null
+    languages.status === 'loading' ||
+    resourceCacheUrl === null
   ) {
     return { status: 'loading' }
   }
