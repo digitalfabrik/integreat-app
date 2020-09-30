@@ -51,6 +51,7 @@ describe('DashboardContainer', () => {
       }
     }
   }
+  const resourceCacheUrl = 'http://localhost:8080'
 
   const prepareState = (
     routeState: ?CategoryRouteStateType,
@@ -68,7 +69,7 @@ describe('DashboardContainer', () => {
   ): StateType => {
     return {
       darkMode: false,
-      resourceCacheUrl: 'http://localhost:8080',
+      resourceCacheUrl,
       cityContent: {
         city: city.code,
         switchingLanguage: switchingLanguage !== undefined ? switchingLanguage : false,
@@ -253,6 +254,7 @@ describe('DashboardContainer', () => {
       navigateToPoi: expect.any(Function),
       navigation,
       resourceCache,
+      resourceCacheUrl,
       stateView: expect.any(CategoriesRouteStateView),
       t: expect.any(Function),
       theme: lightTheme
