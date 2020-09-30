@@ -7,7 +7,7 @@ environment:
 steps:
   - checkout
   - attach_workspace:
-      at: .
+      at: ./native
   - restore_cache:
       keys:
         - 2-gems-{{ arch }}-{{ checksum "native/Gemfile.lock" }}
