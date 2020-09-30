@@ -5,7 +5,7 @@ import { Text } from 'react-native'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
 import type { ThemeType } from '../../theme/constants'
-import { createHtmlSource, getResourceCacheFilesDirPath, URL_PREFIX } from '../../platform/constants/webview'
+import { createHtmlSource } from '../../platform/constants/webview'
 import renderHtml from '../renderHtml'
 import { WebView, type WebViewMessageEvent } from 'react-native-webview'
 import type { PageResourceCacheStateType } from '../../app/StateType'
@@ -27,7 +27,7 @@ type PropType = {|
   theme: ThemeType,
   files: PageResourceCacheStateType,
   language: string,
-  cityCode: string,
+  resourceCacheUrl: string,
   onLinkPress: string => void,
   onLoad: void => void
 |}
@@ -59,10 +59,6 @@ class RemoteContent extends React.Component<PropType, StateType> {
 
   onShouldStartLoadWithRequest = (event: WebViewNavigation) => {
     const url = event.url
-    // Needed on iOS for the initial load
-    if (url === URL_PREFIX + getResourceCacheFilesDirPath(this.props.cityCode)) {
-      return true
-    }
 
     this.props.onLinkPress(url)
     return false
@@ -73,14 +69,12 @@ class RemoteContent extends React.Component<PropType, StateType> {
   }
 
   render () {
-    const { content, files, theme, cityCode, language } = this.props
+    const { content, files, theme, resourceCacheUrl, language } = this.props
     const height = this.state.webViewHeight
     const width = this.state.webViewWidth
     return <StyledView onLayout={this.onLayout}>
       <WebView
-        source={createHtmlSource(renderHtml(content, files, theme, language),
-          URL_PREFIX + getResourceCacheFilesDirPath(cityCode))}
-        allowFileAccessFromFileURLs // Needed by android to access file:// urls
+        source={createHtmlSource(renderHtml(content, files, theme, language, resourceCacheUrl), resourceCacheUrl)}
         originWhitelist={['*']} // Needed by iOS to load the initial html
         javaScriptEnabled
         dataDetectorTypes='all'
