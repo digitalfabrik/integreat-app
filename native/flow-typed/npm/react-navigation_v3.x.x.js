@@ -1,5 +1,5 @@
-// flow-typed signature: c42f0cec370b12d98c16672216f01404
-// flow-typed version: 036cb66b1b/react-navigation_v3.x.x/flow_>=v0.104.x
+// flow-typed signature: 8bb34d57ebf7c5ca68d2ec7905154f99
+// flow-typed version: 4c0299d5b5/react-navigation_v3.x.x/flow_>=v0.104.x
 
 // @flow
 
@@ -159,6 +159,7 @@ declare module 'react-navigation' {
   declare export type NavigationPopToTopAction = {|
     +type: 'Navigation/POP_TO_TOP',
     +immediate?: boolean,
+    +key?: string,
   |};
   declare export type NavigationPushAction = {|
     +type: 'Navigation/PUSH',
@@ -907,7 +908,11 @@ declare module 'react-navigation' {
       immediate?: boolean,
       ...
     }) => NavigationPopAction,
-    popToTop: (payload: { immediate?: boolean, ... }) => NavigationPopToTopAction,
+    popToTop: (payload: {
+      immediate?: boolean,
+      key?: string,
+      ...
+    }) => NavigationPopToTopAction,
     push: (payload: {
       routeName: string,
       params?: NavigationParams,
