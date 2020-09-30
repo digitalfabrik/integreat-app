@@ -32,7 +32,7 @@ steps:
         - 2-gems-{{ arch }}-
   - run:
       command: bundle config set path 'vendor/bundle'
-      working_directoy: native/android
+      working_directory: native/android
   - run:
       command: bundle check || bundle install
       working_directory: native/android
