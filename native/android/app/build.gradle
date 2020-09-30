@@ -155,6 +155,7 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         if (project.hasProperty('VERSION_CODE')) {
+            logger.warn(project.VERSION_CODE)
             versionCode project.VERSION_CODE.toInteger()
             versionName project.VERSION_NAME
         }
