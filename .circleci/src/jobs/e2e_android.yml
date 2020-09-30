@@ -19,7 +19,7 @@ steps:
   - save_cache:
       key: 2-gems-{{ arch }}-{{ checksum "native/Gemfile.lock" }}
       paths:
-        - vendor/bundle
+        - native/vendor/bundle
   - restore_yarn_cache
   - run:
       name: "[FL] Android E2E Tests on Browserstack"

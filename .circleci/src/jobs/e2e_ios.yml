@@ -8,7 +8,7 @@ steps:
   - checkout
   - restore_cache:
       keys:
-        - 2-gems-{{ arch }}-{{ checksum "Gemfile.lock" }}
+        - 2-gems-{{ arch }}-{{ checksum "native/Gemfile.lock" }}
         - 2-gems-{{ arch }}-
   - run:
       command: bundle config set path 'vendor/bundle'
@@ -19,7 +19,7 @@ steps:
   - save_cache:
       key: 2-gems-{{ arch }}-{{ checksum "native/Gemfile.lock" }}
       paths:
-        - vendor/bundle
+        - native/vendor/bundle
   - restore_yarn_cache
   - run:
       name: "[FL] iOS E2E Tests on Browserstack"
