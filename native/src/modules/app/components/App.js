@@ -17,27 +17,27 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 import StaticServerProvider from '../../static-server/containers/StaticServerProvider'
 
 class App extends React.Component<{||}> {
-    dataContainer: DataContainer = new DefaultDataContainer()
-    store: Store<StateType, StoreActionType> = createReduxStore(this.dataContainer)
+  dataContainer: DataContainer = new DefaultDataContainer()
+  store: Store<StateType, StoreActionType> = createReduxStore(this.dataContainer)
 
-    render () {
-      return (
-            <Provider store={this.store}>
-                <StaticServerProvider>
-                    <I18nProviderContainer>
-                        <SafeAreaProvider>
-                            <>
-                                <StatusBarContainer />
-                                <IOSSafeAreaView>
-                                    <NavigatorContainer />
-                                </IOSSafeAreaView>
-                            </>
-                        </SafeAreaProvider>
-                    </I18nProviderContainer>
-                </StaticServerProvider>
-            </Provider>
-      )
-    }
+  render () {
+    return (
+      <Provider store={this.store}>
+        <StaticServerProvider>
+          <I18nProviderContainer>
+            <SafeAreaProvider>
+              <>
+                <StatusBarContainer />
+                <IOSSafeAreaView>
+                  <NavigatorContainer />
+                </IOSSafeAreaView>
+              </>
+            </SafeAreaProvider>
+          </I18nProviderContainer>
+        </StaticServerProvider>
+      </Provider>
+    )
+  }
 }
 
 export default App
