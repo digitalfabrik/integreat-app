@@ -103,7 +103,7 @@ jobs:
                     - 2-gems-{{ arch }}-
             - run:
                 command: bundle config set path 'vendor/bundle'
-                working_directoy: native/android
+                working_directory: native/android
             - run:
                 command: bundle check || bundle install
                 working_directory: native/android
@@ -218,7 +218,7 @@ jobs:
                     - 3-gems-{{ arch }}-
             - run:
                 command: bundle config set path 'vendor/bundle'
-                working_directoy: native/ios
+                working_directory: native/ios
             - run:
                 command: bundle check || bundle install
                 working_directory: native/ios
@@ -408,7 +408,7 @@ jobs:
                     - 2-gems-{{ arch }}-
             - run:
                 command: bundle config set path 'vendor/bundle'
-                working_directoy: native
+                working_directory: native
             - run:
                 command: bundle check || bundle install
                 working_directory: native
@@ -458,10 +458,10 @@ jobs:
                     - 2-gems-{{ arch }}-
             - run:
                 command: bundle config set path 'vendor/bundle'
-                working_directoy: native
+                working_directory: native
             - run:
                 command: bundle check || bundle install
-                working_directoy: native
+                working_directory: native
             - save_cache:
                 key: 2-gems-{{ arch }}-{{ checksum "native/Gemfile.lock" }}
                 paths:
@@ -476,25 +476,25 @@ jobs:
             - run:
                 command: bundle exec fastlane ios browserstack_upload_live app_name:integreat
                 name: '[FL] Browserstack Upload Live'
-                working_directoy: native
+                working_directory: native
             - when:
                 condition: << parameters.production_delivery >>
                 steps:
                     - run:
                         command: bundle exec fastlane ios appstoreconnect_upload app_name:integreat
                         name: '[FL] App Store Connect Upload'
-                        working_directoy: native
+                        working_directory: native
             - unless:
                 condition: << parameters.production_delivery >>
                 steps:
                     - run:
                         command: bundle exec fastlane ios testflight_upload app_name:integreat version_name:${NEW_VERSION_NAME}
                         name: '[FL] TestFlight Upload'
-                        working_directoy: native
+                        working_directory: native
             - run:
                 command: bundle exec fastlane ios sentry_upload app_name:integreat version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}  build_config_name:integreat
                 name: '[FL] Upload to Sentry'
-                working_directoy: native
+                working_directory: native
             - notify_failed
     deliver_web:
         docker:
@@ -539,19 +539,16 @@ jobs:
         shell: /bin/bash -eo pipefail
         steps:
             - checkout
-            - run:
-                command: ls -A
-                name: Debug
             - restore_cache:
                 keys:
                     - 2-gems-{{ arch }}-{{ checksum "native/Gemfile.lock" }}
                     - 2-gems-{{ arch }}-
             - run:
                 command: bundle config set path 'vendor/bundle'
-                working_directoy: native
+                working_directory: native
             - run:
-                command: ls -A || bundle check || bundle install
-                working_directoy: native
+                command: bundle check || bundle install
+                working_directory: native
             - save_cache:
                 key: 2-gems-{{ arch }}-{{ checksum "native/Gemfile.lock" }}
                 paths:
@@ -560,7 +557,7 @@ jobs:
             - run:
                 command: bundle exec fastlane android browserstack_e2e_tests app_name:integreat-e2e
                 name: '[FL] Android E2E Tests on Browserstack'
-                working_directoy: native
+                working_directory: native
             - notify_failed
     e2e_ios:
         docker:
@@ -577,10 +574,10 @@ jobs:
                     - 2-gems-{{ arch }}-
             - run:
                 command: bundle config set path 'vendor/bundle'
-                working_directoy: native
+                working_directory: native
             - run:
                 command: bundle check || bundle install
-                working_directoy: native
+                working_directory: native
             - save_cache:
                 key: 2-gems-{{ arch }}-{{ checksum "native/Gemfile.lock" }}
                 paths:
@@ -589,7 +586,7 @@ jobs:
             - run:
                 command: bundle exec fastlane ios browserstack_e2e_tests app_name:integreat-e2e
                 name: '[FL] iOS E2E Tests on Browserstack'
-                working_directoy: native
+                working_directory: native
             - notify_failed
     move_release_notes:
         docker:

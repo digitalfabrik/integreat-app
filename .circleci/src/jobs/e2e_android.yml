@@ -6,19 +6,16 @@ environment:
   FASTLANE_SKIP_UPDATE_CHECK: true
 steps:
   - checkout
-  - run:
-      command: ls -A
-      name: Debug
   - restore_cache:
       keys:
         - 2-gems-{{ arch }}-{{ checksum "native/Gemfile.lock" }}
         - 2-gems-{{ arch }}-
   - run:
       command: bundle config set path 'vendor/bundle'
-      working_directoy: native
+      working_directory: native
   - run:
-      command: ls -A || bundle check || bundle install
-      working_directoy: native
+      command: bundle check || bundle install
+      working_directory: native
   - save_cache:
       key: 2-gems-{{ arch }}-{{ checksum "native/Gemfile.lock" }}
       paths:
@@ -27,5 +24,5 @@ steps:
   - run:
       name: "[FL] Android E2E Tests on Browserstack"
       command: bundle exec fastlane android browserstack_e2e_tests app_name:integreat-e2e
-      working_directoy: native
+      working_directory: native
   - notify_failed
