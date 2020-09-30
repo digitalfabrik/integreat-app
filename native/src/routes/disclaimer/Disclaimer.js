@@ -16,7 +16,7 @@ type PropsType = {|
 
 class Disclaimer extends React.Component<PropsType> {
   render () {
-    const { disclaimer, theme, city, navigation, language } = this.props
+    const { disclaimer, theme, navigation, language } = this.props
     const { title, content, lastUpdate } = disclaimer
 
     return <Page title={title}

@@ -5,8 +5,8 @@ import type { PageResourceCacheEntryStateType, PageResourceCacheStateType } from
 import type { ThemeType } from '../theme/constants'
 import { RTL_LANGUAGES } from '../i18n/constants'
 import webviewFontFamilies from '../theme/webviewFontFamilies'
-import { RESOURCE_CACHE_DIR_PATH } from "../endpoint/DatabaseConnector";
-import { mapValues } from "lodash";
+import { RESOURCE_CACHE_DIR_PATH } from '../endpoint/DatabaseConnector'
+import { mapValues } from 'lodash'
 
 // language=JavaScript
 const renderJS = (cacheDictionary: { [remoteUrl: string]: string }) => `
@@ -90,12 +90,12 @@ const renderJS = (cacheDictionary: { [remoteUrl: string]: string }) => `
 
 // language=HTML
 const renderHtml = (html: string, files: PageResourceCacheStateType, theme: ThemeType, language: string, resourceCacheUrl: string) => {
-    const cacheDictionary = mapValues(files, (file: PageResourceCacheEntryStateType) => {
-        file.filePath.startsWith(RESOURCE_CACHE_DIR_PATH)
-            ? file.filePath.replace(RESOURCE_CACHE_DIR_PATH, resourceCacheUrl)
-            : file.filePath
-    })
-    return `
+  const cacheDictionary = mapValues(files, (file: PageResourceCacheEntryStateType) => {
+    return file.filePath.startsWith(RESOURCE_CACHE_DIR_PATH)
+      ? file.filePath.replace(RESOURCE_CACHE_DIR_PATH, resourceCacheUrl)
+      : file.filePath
+  })
+  return `
 <!-- The lang attribute makes TalkBack use the appropriate language. -->
 <html lang="${language}">
 <head>

@@ -73,8 +73,8 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     return { status: 'routeNotInitialized' }
   }
 
-  if (state.resourceCacheUrl === null || state.cities.status === 'loading' || switchingLanguage
-      || route.status === 'loading' || languages.status === 'loading') {
+  if (state.resourceCacheUrl === null || state.cities.status === 'loading' || switchingLanguage ||
+      route.status === 'loading' || languages.status === 'loading') {
     return { status: 'loading' }
   }
 
@@ -120,7 +120,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       cities,
       stateView,
       resourceCacheUrl: state.resourceCacheUrl,
-      resourceCache: resourceCache.value,
+      resourceCache: resourceCache.value
     }
   }
 }

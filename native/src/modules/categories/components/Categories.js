@@ -157,7 +157,7 @@ class Categories extends React.Component<PropsType> {
                    navigation={navigation}
                    navigateToFeedback={this.navigateToFeedback}
                    navigateToInternalLink={navigateToInternalLink}
-                   resourceCacheUrl={resourceCacheUrl}/>
+                   resourceCacheUrl={resourceCacheUrl} />
     } else if (category.isRoot()) {
       // first level, we want to display a table with all first order categories
 
