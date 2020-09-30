@@ -6,6 +6,9 @@ environment:
   FASTLANE_SKIP_UPDATE_CHECK: true
 steps:
   - checkout
+  - run:
+      command: ls -A
+      name: Debug
   - restore_cache:
       keys:
         - 2-gems-{{ arch }}-{{ checksum "native/Gemfile.lock" }}
@@ -14,7 +17,7 @@ steps:
       command: bundle config set path 'vendor/bundle'
       working_directoy: native
   - run:
-      command: bundle check || bundle install
+      command: ls -A || bundle check || bundle install
       working_directoy: native
   - save_cache:
       key: 2-gems-{{ arch }}-{{ checksum "native/Gemfile.lock" }}
