@@ -21,10 +21,10 @@ steps:
       steps:
         - run:
             name: Calculate next version name
-            command: echo "export NEW_VERSION_NAME=$(tools/next-version calc | jq .versionName)" >> environment_variables
+            command: echo "export NEW_VERSION_NAME=$(cat version.json | jq .versionName)" >> environment_variables
         - run:
             name: Calculate next version code
-            command: echo "export NEW_VERSION_CODE=$(tools/next-version calc | jq .versionCode)" >> environment_variables
+            command: echo "export NEW_VERSION_CODE=$(cat version.json | jq .versionCode)" >> environment_variables
   - restore_environment_variables
   - restore_cache:
       keys:
