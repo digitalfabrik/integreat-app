@@ -1,7 +1,7 @@
 // @flow
 
 import { getFontFaceSource } from '../platform/constants/webview'
-import type { PageResourceCacheStateType } from '../app/StateType'
+import type { PageResourceCacheEntryStateType, PageResourceCacheStateType } from '../app/StateType'
 import type { ThemeType } from '../theme/constants'
 import { RTL_LANGUAGES } from '../i18n/constants'
 import webviewFontFamilies from '../theme/webviewFontFamilies'
