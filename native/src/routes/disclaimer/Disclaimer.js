@@ -25,7 +25,7 @@ class Disclaimer extends React.Component<PropsType> {
                  navigation={navigation}
                  files={{}}
                  language={language}
-                 cityCode={city}
+                 resourceCacheUrl='http://localhost:8080'
                  lastUpdate={lastUpdate} />
   }
 }

@@ -40,6 +40,7 @@ export type PropsType = {|
   cityCode: string,
   language: string,
   resourceCache: LanguageResourceCacheStateType,
+  resourceCacheUrl: string,
   theme: ThemeType,
   t: TFunction,
   navigation: NavigationScreenProp<*>,
@@ -101,7 +102,9 @@ class Events extends React.Component<PropsType> {
   }
 
   render () {
-    const { events, path, cityCode, language, resourceCache, theme, navigateToInternalLink, t, navigation } = this.props
+    const {
+      events, path, cityCode, language, resourceCache, resourceCacheUrl, theme, navigateToInternalLink, t, navigation
+    } = this.props
 
     if (path) {
       const event: ?EventModel = events.find(_event => _event.path === path)
@@ -115,7 +118,7 @@ class Events extends React.Component<PropsType> {
                      language={language}
                      files={files}
                      theme={theme}
-                     cityCode={cityCode}
+                     resourceCacheUrl={resourceCacheUrl}
                      navigation={navigation}
                      navigateToInternalLink={navigateToInternalLink}
                      navigateToFeedback={this.createNavigateToFeedbackForEvent(event)}>
