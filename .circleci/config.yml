@@ -539,6 +539,8 @@ jobs:
         shell: /bin/bash -eo pipefail
         steps:
             - checkout
+            - attach_workspace:
+                at: .
             - restore_cache:
                 keys:
                     - 2-gems-{{ arch }}-{{ checksum "native/Gemfile.lock" }}
@@ -568,6 +570,8 @@ jobs:
         shell: /bin/bash -eo pipefail
         steps:
             - checkout
+            - attach_workspace:
+                at: .
             - restore_cache:
                 keys:
                     - 2-gems-{{ arch }}-{{ checksum "native/Gemfile.lock" }}

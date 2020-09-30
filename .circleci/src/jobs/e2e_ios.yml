@@ -6,6 +6,8 @@ environment:
   FASTLANE_SKIP_UPDATE_CHECK: true
 steps:
   - checkout
+  - attach_workspace:
+      at: .
   - restore_cache:
       keys:
         - 2-gems-{{ arch }}-{{ checksum "native/Gemfile.lock" }}
