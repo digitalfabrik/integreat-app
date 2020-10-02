@@ -11,12 +11,13 @@ type PropsType = {|
   city: string,
   language: string,
   theme: ThemeType,
+  resourceCacheUrl: string,
   navigation: NavigationScreenProp<*>
 |}
 
 class Disclaimer extends React.Component<PropsType> {
   render () {
-    const { disclaimer, theme, navigation, language } = this.props
+    const { disclaimer, theme, navigation, language, resourceCacheUrl } = this.props
     const { title, content, lastUpdate } = disclaimer
 
     return <Page title={title}
@@ -25,7 +26,7 @@ class Disclaimer extends React.Component<PropsType> {
                  navigation={navigation}
                  files={{}}
                  language={language}
-                 resourceCacheUrl='http://localhost:8080'
+                 resourceCacheUrl={resourceCacheUrl}
                  lastUpdate={lastUpdate} />
   }
 }
