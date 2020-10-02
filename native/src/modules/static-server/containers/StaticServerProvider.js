@@ -45,7 +45,7 @@ class StaticServerProvider extends React.Component<PropsType, {| errorMessage: s
   }
 
   render () {
-    if (this.state.errorMessage != null) {
+    if (this.state.errorMessage !== null) {
       return <Text>{this.state.errorMessage}</Text>
     }
     return this.props.children
