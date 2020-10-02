@@ -45,7 +45,7 @@ const renderJS = (cacheDictionary: { [remoteUrl: string]: string }) => `
   var srcs = document.querySelectorAll('[src]')
   var cacheDictionary = ${JSON.stringify(cacheDictionary)}
 
-  console.debug('Resources to inject:') // TODO: remove
+  console.debug('Resources to inject:')
   console.debug(cacheDictionary)
 
   for (var i = 0; i < hrefs.length; i++) {
