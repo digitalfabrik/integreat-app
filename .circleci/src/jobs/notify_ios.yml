@@ -1,0 +1,21 @@
+# Create a release (with release notes) on github and send a slack notification.
+parameters:
+  production_delivery:
+    description: Whether builds are delivered to the production store. If set to true, jira and github releases are created.
+    type: boolean
+docker:
+  - image: circleci/node:12.16.3
+resource_class: small
+steps:
+  - checkout
+  - attach_workspace:
+      at: .
+  - restore_environment_variables
+  - restore_yarn_cache
+  - run:
+      name: Create github release
+      command: tools/github-release create iOS ${NEW_VERSION_NAME} ${NEW_VERSION_NAME} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(tools/parse-release-notes parse --ios --language en)"<<^ parameters.production_delivery >> --development-release<</ parameters.production_delivery >>
+  - slack/notify:
+      message: Integreat ${NEW_VERSION_NAME} has been released successfully on iOS!
+      webhook: ${SLACK_URL}
+  - notify_failed
