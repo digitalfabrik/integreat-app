@@ -70,7 +70,7 @@ commands:
 jobs:
     build_android:
         docker:
-            - image: circleci/android:api-28-node
+            - image: circleci/android:api-29-node
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
             TOTAL_CPUS: 2
@@ -387,7 +387,7 @@ jobs:
             - notify_failed
     deliver_android:
         docker:
-            - image: circleci/android:api-28-node
+            - image: circleci/node:12.16.3
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         parameters:
@@ -532,7 +532,7 @@ jobs:
             - notify_failed
     e2e_android:
         docker:
-            - image: circleci/android:api-28-node
+            - image: circleci/node:12.16.3
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         resource_class: small
@@ -563,7 +563,7 @@ jobs:
             - notify_failed
     e2e_ios:
         docker:
-            - image: circleci/android:api-28-node
+            - image: circleci/node:12.16.3
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         resource_class: small
