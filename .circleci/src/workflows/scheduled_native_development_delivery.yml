@@ -1,6 +1,6 @@
 triggers:
   - schedule:
-      cron: "0 5 1,15 * *" # For sanity checks for this syntax: https://crontab.guru/
+      cron: "0 5 8,22 * *" # For sanity checks for this syntax: https://crontab.guru/
       filters:
         branches:
           only:
@@ -11,26 +11,7 @@ jobs:
         - slack-app
         - deliverino
         - jira
-      production_delivery: true
-
-  - build_web:
-      context:
-        - slack-app
-      requires:
-        - bump_version
-  - deliver_web:
-      context:
-        - slack-app
-      production_delivery: true
-      requires:
-        - build_web
-  - notify_web:
-      context:
-        - slack-app
-        - deliverino
-      requires:
-        - deliver_web
-
+      production_delivery: false
   - check_native:
       context:
         - slack-app
@@ -58,14 +39,14 @@ jobs:
         - browserstack
         - tuerantuer-google-play
         - tuerantuer-android
-      production_delivery: true
+      production_delivery: false
       requires:
         - e2e_android
   - notify_android:
       context:
         - slack-app
         - deliverino
-      production_delivery: true
+      production_delivery: false
       requires:
         - deliver_android
 
@@ -90,22 +71,13 @@ jobs:
         - browserstack
         - tuerantuer-apple
         - tuerantuer-ios
-      production_delivery: true
+      production_delivery: false
       requires:
         - e2e_ios
   - notify_ios:
       context:
         - slack-app
         - deliverino
-      production_delivery: true
+      production_delivery: false
       requires:
         - deliver_ios
-
-  - move_release_notes:
-      context:
-        - slack-app
-        - deliverino
-      requires:
-        - notify_web
-        - notify_android
-        - notify_ios
