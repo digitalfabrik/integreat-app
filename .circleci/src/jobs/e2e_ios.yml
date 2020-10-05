@@ -1,5 +1,5 @@
-macos:
-  xcode: 11.7.0
+docker:
+  - image: circleci/android:api-29-node
 resource_class: small
 shell: /bin/bash -eo pipefail
 environment:
