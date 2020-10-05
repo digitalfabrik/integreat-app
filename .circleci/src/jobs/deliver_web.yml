@@ -1,3 +1,4 @@
+# Deliver integreat and malte. If it is not a production delivery, deliver to webnext.
 parameters:
   production_delivery:
     description: Whether to deliver to production (integreat.app and malteapp.de) or not (webnext.integreat.app and webnext.malteapp.de).
@@ -9,10 +10,9 @@ shell: /bin/bash -eo pipefail
 steps:
   - add_ssh_keys:
       fingerprints:
-        - "30:f4:98:9f:1c:72:d1:c0:17:9f:57:05:74:a6:44:50"
+        - "68:a3:fe:e7:94:f7:a4:13:35:5c:63:30:2f:07:7d:02"
   - attach_workspace:
       at: .
-  - restore_environment_variables
   - when:
       condition: << parameters.production_delivery >>
       steps:
@@ -22,9 +22,6 @@ steps:
         - run:
             name: Malte production delivery
             command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/malteapp.de \<<< $'put -r dist/malte/*'
-        - slack/notify:
-            message: WebApp version ${NEW_VERSION_NAME} was delivered successfully to integreat.app and malteapp.de!
-            webhook: ${SLACK_URL}
   - unless:
       condition: << parameters.production_delivery >>
       steps:

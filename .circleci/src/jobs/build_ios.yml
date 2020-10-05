@@ -10,51 +10,49 @@ environment:
   TOTAL_CPUS: 4 # For mac with resource_class medium, used in metro.config.ci.js.
 shell: /bin/bash --login -o pipefail
 steps:
-  - add_ssh_keys:
+  - add_ssh_keys: # Needed for credentials repo
       fingerprints:
-        - "9a:0f:b1:f0:97:c8:db:3f:be:87:a4:9b:09:7f:d3:af"
+        - "61:d8:94:00:53:5f:3b:19:fd:88:6b:fa:cd:ca:df:5d"
   - checkout
   - attach_workspace:
       at: .
+  - unless: # If not building for delivery, the bump version job has never been executed and therefore no env variables are available
+      condition: << parameters.build_for_delivery >>
+      steps:
+        - run:
+            name: Calculate next version name
+            command: echo "export NEW_VERSION_NAME=$(cat version.json | jq .versionName)" >> environment_variables
+        - run:
+            name: Calculate next version code
+            command: echo "export NEW_VERSION_CODE=$(cat version.json | jq .versionCode)" >> environment_variables
   - restore_environment_variables
   - restore_cache:
       keys:
-        - 3-gems-{{ arch }}-{{ checksum "ios/Gemfile.lock" }}
+        - 3-gems-{{ arch }}-{{ checksum "native/ios/Gemfile.lock" }}
         - 3-gems-{{ arch }}-
   - run:
-      command: bundle check || bundle install --path vendor/bundle
-      working_directory: ios
-  - save_cache:
-      key: 3-gems-{{ arch }}-{{ checksum "ios/Gemfile.lock" }}
-      paths:
-        - ios/vendor/bundle
-  - restore_cache:
-      name: Restore Yarn Package Cache
-      keys:
-        - 6-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
+      command: bundle config set path 'vendor/bundle'
+      working_directory: native/ios
   - run:
-      name: Install Dependencies
-      command: yarn install --frozen-lockfile
+      command: bundle check || bundle install
+      working_directory: native/ios
   - save_cache:
-      name: Save Yarn Package Cache
-      key: 6-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
+      key: 3-gems-{{ arch }}-{{ checksum "native/ios/Gemfile.lock" }}
       paths:
-        - ~/Library/Caches/Yarn/
-        - node_modules
-        - native/node_modules
-        - web/node_modules
+        - native/ios/vendor/bundle
+  - restore_yarn_cache
   - restore_cache:
       name: Restore CocoaPods Cache
       keys:
-        - 2-pods-{{ arch }}-{{ checksum "ios/Podfile.lock" }}
+        - 2-pods-{{ arch }}-{{ checksum "native/ios/Podfile.lock" }}
         - 2-pods-{{ arch }}-
   - run:
       name: "[CP] Install CocoaPods"
       command: bundle exec pod install --deployment
-      working_directory: ios
+      working_directory: native/ios
   - save_cache:
       name: Save CocoaPods Cache
-      key: 2-pods-{{ arch }}-{{ checksum "ios/Podfile.lock" }}
+      key: 2-pods-{{ arch }}-{{ checksum "native/ios/Podfile.lock" }}
       paths:
         - ~/Library/Caches/CocoaPods/
   - when:
@@ -63,33 +61,35 @@ steps:
         - run:
             name: "[FL] integreat build"
             command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat
-            working_directory: ios
+            working_directory: native/ios
         - run:
             name: Rename sourcemap
-            command: mv ios/index.ios.bundle.map ios/output/integreat.ios.bundle.map
+            command: mv index.ios.bundle.map output/integreat.ios.bundle.map
+            working_directory: native/ios
         - run:
             name: "[FL] malte build"
             command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:malte
-            working_directory: ios
+            working_directory: native/ios
         - run:
             name: Rename sourcemap
-            command: mv ios/index.ios.bundle.map ios/output/malte.ios.bundle.map
+            command: mv index.ios.bundle.map output/malte.ios.bundle.map
+            working_directory: native/ios
   - run:
       name: "[FL] integreat-e2e build"
       command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat-e2e
-      working_directory: ios
+      working_directory: native/ios
   - store_artifacts:
-      path: ios/output/gym/
+      path: native/ios/output/gym/
   - when:
       condition: << parameters.build_for_delivery >>
       steps:
         - persist_to_workspace:
-            root: ios/output
+            root: native/ios/output
             paths:
               - integreat.ios.bundle.map
               - malte.ios.bundle.map
   - persist_to_workspace:
-      root: ios/output/gym/
+      root: native/ios/output/gym
       paths:
         - integreat.ipa
         - malte.ipa

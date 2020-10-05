@@ -1,0 +1,114 @@
+parameters:
+  build_for_delivery:
+    description: Whether builds are delivered to the store. If true, integreat and malte builds are created.
+    type: boolean
+docker:
+  - image: circleci/android:api-29-node
+resource_class: medium
+environment:
+  TOTAL_CPUS: 2 # For resource_class medium, used in metro.config.ci.js.
+  FASTLANE_SKIP_UPDATE_CHECK: true
+shell: /bin/bash -eo pipefail
+steps:
+  - add_ssh_keys: # Needed for credentials repo
+      fingerprints:
+        - "61:d8:94:00:53:5f:3b:19:fd:88:6b:fa:cd:ca:df:5d"
+  - checkout
+  - attach_workspace:
+      at: .
+  - unless: # If not building for delivery, the bump version job has never been executed and therefore no env variables are available
+      condition: << parameters.build_for_delivery >>
+      steps:
+        - run:
+            name: Calculate next version name
+            command: echo "export NEW_VERSION_NAME=$(cat version.json | jq .versionCode)" >> environment_variables
+        - run:
+            name: Calculate next version code
+            command: echo "export NEW_VERSION_CODE=$(cat version.json | jq .versionCode)" >> environment_variables
+  - restore_environment_variables
+  - restore_cache:
+      keys:
+        - 2-gems-{{ arch }}-{{ checksum "native/android/Gemfile.lock" }}
+        - 2-gems-{{ arch }}-
+  - run:
+      command: bundle config set path 'vendor/bundle'
+      working_directory: native/android
+  - run:
+      command: bundle check || bundle install
+      working_directory: native/android
+  - save_cache:
+      key: 2-gems-{{ arch }}-{{ checksum "native/android/Gemfile.lock" }}
+      paths:
+        - native/android/vendor/bundle
+  - restore_yarn_cache
+  - run:
+      name: "[FL] Prepare Android Keystore"
+      command: bundle exec fastlane keystore
+      working_directory: native/android
+  - restore_cache:
+      keys:
+        - 1-gradle-{{ checksum "native/android/build.gradle" }}-{{ checksum "native/android/app/build.gradle" }}-{{ checksum "native/android/settings.gradle" }}
+        - 1-gradle-
+  - run:
+      name: "[FL] Download Dependencies"
+      command: bundle exec fastlane dependencies
+      working_directory: native/android
+  - save_cache:
+      paths:
+        - ~/.gradle
+      key: 1-gradle-{{ checksum "native/android/build.gradle" }}-{{ checksum "native/android/app/build.gradle" }}-{{ checksum "native/android/settings.gradle" }}
+  - run:
+      name: Create output dir
+      command: mkdir --parents native/android/output/apk
+  - when:
+      condition: << parameters.build_for_delivery >>
+      steps:
+        - run:
+            name: "[FL] integreat build"
+            command: ./gradlew clean && bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat
+            working_directory: native/android
+        - run:
+            name: Rename apk
+            command: mv app/build/outputs/apk/release/app-release.apk output/apk/integreat.apk
+            working_directory: native/android
+        - run:
+            name: Rename sourcemap
+            command: mv app/build/generated/sourcemaps/react/release/index.android.bundle.map output/integreat.android.bundle.map
+            working_directory: native/android
+        - run:
+            name: "[FL] malte build"
+            command: ./gradlew clean && bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:malte
+            working_directory: native/android
+        - run:
+            name: Rename apk
+            command: mv app/build/outputs/apk/release/app-release.apk output/apk/malte.apk
+            working_directory: native/android
+        - run:
+            name: Rename sourcemap
+            command: mv app/build/generated/sourcemaps/react/release/index.android.bundle.map output/malte.android.bundle.map
+            working_directory: native/android
+  - run:
+      name: "[FL] integreat-e2e build"
+      command: ./gradlew clean && bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat-e2e
+      working_directory: native/android
+  - run:
+      name: Rename apk
+      command: mv app/build/outputs/apk/release/app-release.apk output/apk/integreat-e2e.apk
+      working_directory: native/android
+  - store_artifacts:
+      path: native/android/output/apk
+  - when:
+      condition: << parameters.build_for_delivery >>
+      steps:
+        - persist_to_workspace:
+            root: native/android/output
+            paths:
+              - integreat.android.bundle.map
+              - malte.android.bundle.map
+  - persist_to_workspace:
+      root: native/android/output/apk
+      paths:
+        - integreat.apk
+        - malte.apk
+        - integreat-e2e.apk
+  - notify_failed
