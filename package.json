@@ -2,10 +2,11 @@
   "name": "integreat-app",
   "private": true,
   "workspaces": {
-    "packages": ["native", "web", "locales"],
+    "packages": ["native", "web", "locales", "integreat-api-client"],
     "nohoist": [
       "native/**",
-      "web/**"
+      "web/**",
+      "integreat-api-client/**"
     ]
   },
   "scripts": {

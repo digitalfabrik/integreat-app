@@ -1,6 +1,7 @@
 {
-  "name": "@integreat-app/integreat-api-client",
-  "version": "5.1.0",
+  "name": "integreat-api-client",
+  "version": "0.0.1",
+  "private": true,
   "engines": {
     "node": ">=6.9",
     "npm": ">=3.8"
