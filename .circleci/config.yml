@@ -562,10 +562,10 @@ jobs:
                 working_directory: native
             - notify_failed
     e2e_ios:
+        docker:
+            - image: circleci/android:api-29-node
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
-        macos:
-            xcode: 11.7.0
         resource_class: small
         shell: /bin/bash -eo pipefail
         steps:
