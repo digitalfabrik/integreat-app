@@ -1,5 +1,5 @@
-docker:
-  - image: circleci/node:12.16.3
+macos:
+  xcode: 11.7.0
 resource_class: small
 shell: /bin/bash -eo pipefail
 environment:
