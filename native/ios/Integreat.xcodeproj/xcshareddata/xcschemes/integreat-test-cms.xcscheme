@@ -10,7 +10,7 @@
             ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
             <ActionContent
                title = "Run Script"
-               scriptText = "cd ${PROJECT_DIR} &amp;&amp; yarn babel-node tools/build-config write-xcconfig &quot;integreat-test-cms&quot; --directory ios &amp;&amp; yarn tools/native-locales setup IntegreatTestCms&#10;">
+               scriptText = "cd ${PROJECT_DIR} &amp;&amp; yarn babel-node tools/build-config write-xcconfig &quot;integreat-test-cms&quot; --directory ios &amp;&amp; tools/native-locales setup IntegreatTestCms&#10;">
                <EnvironmentBuildable>
                   <BuildableReference
                      BuildableIdentifier = "primary"
