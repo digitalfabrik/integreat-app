@@ -1,8 +1,7 @@
 // @flow
 
 import React from 'react'
-import { shallow } from 'enzyme'
-
+import { render } from '@testing-library/react'
 import {
   CategoriesMapModel,
   CategoryModel,
@@ -11,16 +10,26 @@ import {
   EventModel,
   LocationModel
 } from '@integreat-app/integreat-api-client'
-
 import { LocationLayout } from '../LocationLayout'
 import { CATEGORIES_ROUTE } from '../../../app/route-configs/CategoriesRouteConfig'
 import moment from 'moment'
-import { SEARCH_ROUTE } from '../../../app/route-configs/SearchRouteConfig'
-import CategoriesToolbar from '../../../../routes/categories/containers/CategoriesToolbar'
-import LocationToolbar from '../../components/LocationToolbar'
 import createLocation from '../../../../createLocation'
-import LocationHeader from '../LocationHeader'
-import LocationFooter from '../../components/LocationFooter'
+import { ThemeProvider } from 'styled-components'
+import theme from '../../../theme/constants/theme'
+import { EVENTS_ROUTE } from '../../../app/route-configs/EventsRouteConfig'
+
+jest.mock('../../components/LocationFooter', () => {
+  return () => <div>LocationFooter</div>
+})
+jest.mock('../LocationHeader', () => {
+  return () => <div>LocationHeader</div>
+})
+jest.mock('../../components/LocationToolbar', () => {
+  return () => <div>LocationToolbar</div>
+})
+jest.mock('../../../../routes/categories/containers/CategoriesToolbar', () => {
+  return () => <div>CategoriesToolbar</div>
+})
 
 describe('LocationLayout', () => {
   const city = 'city1'
@@ -110,21 +119,29 @@ describe('LocationLayout', () => {
     it('should render a CategoriesToolbar if current route is categories', () => {
       const location = {
         payload: { city, language },
-        type: '/augsburg/de/willkommen',
-        pathname: CATEGORIES_ROUTE
+        type: CATEGORIES_ROUTE,
+        pathname: '/augsburg/de/willkommen'
       }
-      const component = shallow(renderLocationLayout(location, false))
-      expect(component.find(CategoriesToolbar)).not.toBeNull()
+      const { getByText } = render(
+        <ThemeProvider theme={theme}>
+          {renderLocationLayout(location, false)}
+        </ThemeProvider>
+      )
+      expect(getByText('CategoriesToolbar')).toBeTruthy()
     })
 
-    it('should not render a LocationToolbar if current route is not categories', () => {
+    it('should render a LocationToolbar if current route is not categories', () => {
       const location = {
         payload: { city, language },
-        type: SEARCH_ROUTE,
-        pathname: '/augsburg/de/search'
+        type: EVENTS_ROUTE,
+        pathname: '/augsburg/de/events'
       }
-      const component = shallow(renderLocationLayout(location, false))
-      expect(component.find(LocationToolbar)).not.toBeNull()
+      const { getByText } = render(
+        <ThemeProvider theme={theme}>
+          {renderLocationLayout(location, false)}
+        </ThemeProvider>
+      )
+      expect(getByText('LocationToolbar')).toBeTruthy()
     })
   })
 
@@ -134,19 +151,28 @@ describe('LocationLayout', () => {
       type: CATEGORIES_ROUTE,
       pathname: '/augsburg/de/willkommen'
     }
-    const component = shallow(renderLocationLayout(location, false))
-    expect(component.find(LocationHeader)).not.toBeNull()
-    expect(component.find(LocationFooter)).not.toBeNull()
+    const { getByText } = render(
+      <ThemeProvider theme={theme}>
+        {renderLocationLayout(location, false)}
+      </ThemeProvider>
+    )
+    expect(getByText('LocationHeader')).toBeTruthy()
+    expect(getByText('LocationFooter')).toBeTruthy()
   })
 
-  it('should not render LocationHeader and LocationFooter if loading', () => {
+  it('should not render LocationFooter if loading', () => {
     const location = {
       payload: { city, language },
       type: CATEGORIES_ROUTE,
       pathname: '/augsburg/de/willkommen'
     }
-    const component = shallow(renderLocationLayout(location, true))
-    expect(component.find(LocationHeader)).not.toBeNull()
-    expect(component.find(LocationFooter)).not.toBeNull()
+
+    const { getByText } = render(
+      <ThemeProvider theme={theme}>
+        {renderLocationLayout(location, true)}
+      </ThemeProvider>
+    )
+    expect(getByText('LocationHeader')).toBeTruthy()
+    expect(() => getByText('LocationFooter')).toThrow()
   })
 })
