@@ -35,7 +35,8 @@ type PropsType = {|
   toggleDarkMode: () => void,
   darkMode: boolean,
   feedbackTargetInformation: FeedbackTargetInformationType,
-  languageChangePaths: ?LanguageChangePathsType
+  languageChangePaths: ?LanguageChangePathsType,
+  isLoading: boolean
 |}
 
 type LocalStateType = {|
@@ -102,17 +103,14 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
   }
 
   render () {
-    const { viewportSmall, children, location, darkMode, languageChangePaths, events } = this.props
+    const { viewportSmall, children, location, darkMode, languageChangePaths, events, isLoading } = this.props
     const type = location.type
     const { city, language } = location.payload
 
     const cityModel = this.getCurrentCity()
 
-    if (!cityModel) {
-      return <Layout header={<GeneralHeader viewportSmall={viewportSmall} />}
-                     footer={<GeneralFooter />}>
-        {children}
-      </Layout>
+    if (isLoading || !cityModel) {
+      return <>{children}</>
     }
 
     return <Layout asideStickyTop={this.state.asideStickyTop}
