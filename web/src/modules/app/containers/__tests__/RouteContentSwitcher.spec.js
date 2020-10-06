@@ -10,7 +10,7 @@ import { CATEGORIES_ROUTE } from '../../route-configs/CategoriesRouteConfig'
 import LoadingSpinner from '../../../common/components/LoadingSpinner'
 import theme from '../../../theme/constants/theme'
 import { ThemeProvider } from 'styled-components'
-import FailureSwitcher from "../../../common/components/FailureSwitcher";
+import FailureSwitcher from '../../../common/components/FailureSwitcher'
 
 describe('RouteContentSwitcher', () => {
   const categories = new CategoriesMapModel([
@@ -50,13 +50,13 @@ describe('RouteContentSwitcher', () => {
   const errorPayload = new Payload(false, 'https://random.api.json', null, new Error('error'))
   const payloads = {
     categories: categoriesPayload,
-    cities: citiesPayload,
+    cities: citiesPayload
   }
 
   it('should render a FailureSwitcher if a payload contains an error', () => {
     const location = createLocation({ type: CATEGORIES_ROUTE, payload: { city: 'augsburg', language: 'de' } })
     const routeContentSwitcher = shallow(
-      <RouteContentSwitcher payloads={{payload: errorPayload}} isLoading={false} location={location} />
+      <RouteContentSwitcher payloads={{ payload: errorPayload }} isLoading={false} location={location} />
     )
 
     expect(routeContentSwitcher.find(FailureSwitcher)).not.toBeNull()
@@ -67,7 +67,7 @@ describe('RouteContentSwitcher', () => {
 
     expect(mount(
       <ThemeProvider theme={theme}>
-        <RouteContentSwitcher payloads={payloads} isLoading={true} location={location} />
+        <RouteContentSwitcher payloads={payloads} isLoading location={location} />
       </ThemeProvider>
     ).find(LoadingSpinner)).not.toBeUndefined()
   })
