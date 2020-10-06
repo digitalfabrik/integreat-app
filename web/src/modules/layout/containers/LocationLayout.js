@@ -107,8 +107,8 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
 
     const cityModel = this.getCurrentCity()
 
-    if (isLoading || !cityModel) {
-      return <>{children}</>
+    if (!cityModel) {
+      return null
     }
 
     return <Layout asideStickyTop={this.state.asideStickyTop}
@@ -122,7 +122,7 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
                                            cityName={cityModel.name}
                                            viewportSmall={viewportSmall}
                                            onStickyTopChanged={this.handleStickyTopChanged} />}
-                   footer={<LocationFooter onClick={this.handleFooterClicked} city={city} language={language} />}
+                   footer={isLoading ? null : <LocationFooter onClick={this.handleFooterClicked} city={city} language={language} />}
                    toolbar={this.renderToolbar()}
                    modal={type !== SEARCH_ROUTE && this.renderFeedbackModal()}
                    darkMode={darkMode}>
