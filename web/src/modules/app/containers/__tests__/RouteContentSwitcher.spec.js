@@ -10,7 +10,7 @@ import { CATEGORIES_ROUTE } from '../../route-configs/CategoriesRouteConfig'
 import LoadingSpinner from '../../../common/components/LoadingSpinner'
 import theme from '../../../theme/constants/theme'
 import { ThemeProvider } from 'styled-components'
-import type { AllPayloadsType } from '../../route-configs/RouteConfig'
+import FailureSwitcher from "../../../common/components/FailureSwitcher";
 
 describe('RouteContentSwitcher', () => {
   const categories = new CategoriesMapModel([
@@ -47,45 +47,19 @@ describe('RouteContentSwitcher', () => {
 
   const categoriesPayload = new Payload(false, 'https://random.api.json', categories, null)
   const citiesPayload = new Payload(false, 'https://random.api.json', cities, null)
-  const fetchingPayload = <T> (): Payload<T> => new Payload<T>(true)
   const errorPayload = new Payload(false, 'https://random.api.json', null, new Error('error'))
-  const allPayloads: AllPayloadsType = {
-    categoriesPayload,
-    citiesPayload,
-    poisPayload: fetchingPayload(),
-    eventsPayload: fetchingPayload(),
-    localNewsPayload: fetchingPayload(),
-    localNewsElementPayload: fetchingPayload(),
-    tunewsPayload: fetchingPayload(),
-    tunewsElementPayload: fetchingPayload(),
-    offersPayload: fetchingPayload(),
-    sprungbrettJobsPayload: fetchingPayload(),
-    wohnenOffersPayload: fetchingPayload(),
-    disclaimerPayload: fetchingPayload()
-  }
-
-  const fetchingPayloads: AllPayloadsType = {
-    categoriesPayload: fetchingPayload(),
-    citiesPayload: fetchingPayload(),
-    poisPayload: fetchingPayload(),
-    eventsPayload: fetchingPayload(),
-    localNewsPayload: fetchingPayload(),
-    localNewsElementPayload: fetchingPayload(),
-    tunewsPayload: fetchingPayload(),
-    tunewsElementPayload: fetchingPayload(),
-    offersPayload: fetchingPayload(),
-    sprungbrettJobsPayload: fetchingPayload(),
-    wohnenOffersPayload: fetchingPayload(),
-    disclaimerPayload: fetchingPayload()
+  const payloads = {
+    categories: categoriesPayload,
+    cities: citiesPayload,
   }
 
   it('should render a FailureSwitcher if a payload contains an error', () => {
     const location = createLocation({ type: CATEGORIES_ROUTE, payload: { city: 'augsburg', language: 'de' } })
-    const renderFailureLoadingComponents = shallow(
-      <RouteContentSwitcher allPayloads={allPayloads} location={location} />
-    ).instance().renderFailureLoadingComponents
+    const routeContentSwitcher = shallow(
+      <RouteContentSwitcher payloads={{payload: errorPayload}} isLoading={false} location={location} />
+    )
 
-    expect(renderFailureLoadingComponents({ payload: errorPayload })).toMatchSnapshot()
+    expect(routeContentSwitcher.find(FailureSwitcher)).not.toBeNull()
   })
 
   it('should render a Spinner if data has not been fetched yet', () => {
@@ -93,7 +67,7 @@ describe('RouteContentSwitcher', () => {
 
     expect(mount(
       <ThemeProvider theme={theme}>
-        <RouteContentSwitcher allPayloads={fetchingPayloads} location={location} />
+        <RouteContentSwitcher payloads={payloads} isLoading={true} location={location} />
       </ThemeProvider>
     ).find(LoadingSpinner)).not.toBeUndefined()
   })
@@ -101,6 +75,8 @@ describe('RouteContentSwitcher', () => {
   it('should render and match snapshot', () => {
     const location = createLocation({ type: CATEGORIES_ROUTE, payload: { city: 'augsburg', language: 'de' } })
 
-    expect(shallow(<RouteContentSwitcher location={location} allPayloads={allPayloads} />)).toMatchSnapshot()
+    expect(shallow(
+      <RouteContentSwitcher location={location} payloads={payloads} isLoading={false} />)
+    ).toMatchSnapshot()
   })
 })
