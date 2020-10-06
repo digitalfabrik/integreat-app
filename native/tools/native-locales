@@ -1,0 +1,41 @@
+#!/usr/bin/env node
+
+const fs = require('fs')
+const { program } = require('commander')
+
+const setupNativeLocales = (appName) => {
+  const { native: nativeLocales } = JSON.parse(fs.readFileSync('../locales/locales.json'))
+  const languageCodes = Object.keys(nativeLocales)
+  console.warn('Creating InfoPlist.strings for the languages ', languageCodes)
+
+  languageCodes.forEach(language => {
+    const locales = nativeLocales[language]
+    const keys = Object.keys(locales)
+
+    const content = keys.map((key) => {
+      const regex = /{\{appName}}/gi
+      const value = locales[key].replace(regex, appName)
+      return `${key} = ${value}`
+    }).join('\n')
+
+    const path = `ios/Integreat/${language}.lproj/`
+    fs.mkdirSync(path, { recursive: true })
+    fs.writeFileSync(`${path}InfoPlist.strings`, content)
+  })
+
+  console.warn('InfoPlist.strings successfully created.')
+}
+
+program
+  .command('setup <appName>')
+  .description('setup native locales for ios')
+  .action((appName) => {
+    try {
+      setupNativeLocales(appName)
+    } catch (e) {
+      console.error(e)
+      process.exit(1)
+    }
+  })
+
+program.parse(process.argv)
