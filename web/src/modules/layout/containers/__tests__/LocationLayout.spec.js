@@ -19,6 +19,8 @@ import { SEARCH_ROUTE } from '../../../app/route-configs/SearchRouteConfig'
 import CategoriesToolbar from '../../../../routes/categories/containers/CategoriesToolbar'
 import LocationToolbar from '../../components/LocationToolbar'
 import createLocation from '../../../../createLocation'
+import LocationHeader from '../LocationHeader'
+import LocationFooter from '../../components/LocationFooter'
 
 describe('LocationLayout', () => {
   const city = 'city1'
@@ -94,13 +96,15 @@ describe('LocationLayout', () => {
   const feedbackTargetInformation = { path: '/path/to/category', title: 'Category_Title' }
 
   const MockNode = () => <div />
-  const renderLocationLayout = location => <LocationLayout location={createLocation({ ...location })}
-                                                           categories={categories} cities={cities}
-                                                           events={events} languageChangePaths={languageChangePaths}
-                                                           feedbackTargetInformation={feedbackTargetInformation}
-                                                           viewportSmall toggleDarkMode={() => {}} darkMode>
-    <MockNode />
-  </LocationLayout>
+  const renderLocationLayout = (location, isLoading) =>
+    <LocationLayout location={createLocation({ ...location })}
+                    categories={categories} cities={cities}
+                    events={events} languageChangePaths={languageChangePaths}
+                    feedbackTargetInformation={feedbackTargetInformation}
+                    viewportSmall toggleDarkMode={() => {}} darkMode
+                    isLoading={isLoading}>
+      <MockNode />
+    </LocationLayout>
 
   describe('renderToolbar', () => {
     it('should render a CategoriesToolbar if current route is categories', () => {
@@ -109,7 +113,7 @@ describe('LocationLayout', () => {
         type: '/augsburg/de/willkommen',
         pathname: CATEGORIES_ROUTE
       }
-      const component = shallow(renderLocationLayout(location))
+      const component = shallow(renderLocationLayout(location, false))
       expect(component.find(CategoriesToolbar)).not.toBeNull()
     })
 
@@ -119,28 +123,30 @@ describe('LocationLayout', () => {
         type: SEARCH_ROUTE,
         pathname: '/augsburg/de/search'
       }
-      const component = shallow(renderLocationLayout(location))
+      const component = shallow(renderLocationLayout(location, false))
       expect(component.find(LocationToolbar)).not.toBeNull()
     })
   })
 
-  it('should show LocationHeader and LocationFooter if city is available', () => {
+  it('should show LocationHeader and LocationFooter if not loading', () => {
     const location = {
       payload: { city, language },
       type: CATEGORIES_ROUTE,
       pathname: '/augsburg/de/willkommen'
     }
-    const component = shallow(renderLocationLayout(location))
-    expect(component).toMatchSnapshot()
+    const component = shallow(renderLocationLayout(location, false))
+    expect(component.find(LocationHeader)).not.toBeNull()
+    expect(component.find(LocationFooter)).not.toBeNull()
   })
 
-  it('should show GeneralHeader and GeneralFooter if city is not available', () => {
+  it('should not render LocationHeader and LocationFooter if loading', () => {
     const location = {
       payload: { city, language },
       type: CATEGORIES_ROUTE,
       pathname: '/augsburg/de/willkommen'
     }
-    const component = shallow(renderLocationLayout(location))
-    expect(component).toMatchSnapshot()
+    const component = shallow(renderLocationLayout(location, true))
+    expect(component.find(LocationHeader)).not.toBeNull()
+    expect(component.find(LocationFooter)).not.toBeNull()
   })
 })
