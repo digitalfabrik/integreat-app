@@ -9,7 +9,7 @@
          <ExecutionAction
             ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
             <ActionContent
-               title = "Run Script"
+               title = "Setup build config"
                scriptText = "cd ${PROJECT_DIR} &amp;&amp; yarn babel-node tools/build-config write-xcconfig &quot;integreat-test-cms&quot; --directory ios &amp;&amp; tools/native-locales setup IntegreatTestCms&#10;">
                <EnvironmentBuildable>
                   <BuildableReference
@@ -20,6 +20,13 @@
                      ReferencedContainer = "container:Integreat.xcodeproj">
                   </BuildableReference>
                </EnvironmentBuildable>
+            </ActionContent>
+         </ExecutionAction>
+         <ExecutionAction
+            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
+            <ActionContent
+               title = "Setup native locales"
+               scriptText = "cd ${PROJECT_DIR} &amp;&amp; tools/native-locales setup IntegreatTestCms&#10;">
             </ActionContent>
          </ExecutionAction>
       </PreActions>
