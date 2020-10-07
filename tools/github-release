@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const authenticate = require('./github-authentication')
+const { tagId } = require('./constants')
 const { program } = require('commander')
 
 program
@@ -36,7 +37,7 @@ const githubRelease = async (platform, newVersionName, newVersionCode, {
   await appOctokit.repos.createRelease({
     owner,
     repo,
-    tag_name: newVersionName,
+    tag_name: tagId({ versionName: newVersionName, platform }),
     name: releaseName,
     body
   })
