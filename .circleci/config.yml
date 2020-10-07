@@ -618,14 +618,9 @@ jobs:
             - checkout
             - attach_workspace:
                 at: .
-            - restore_environment_variables
-            - restore_yarn_cache
-            - run:
-                command: tools/github-release create android ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(tools/parse-release-notes parse --android --language en)"<<^ parameters.production_delivery >> --development-release<</ parameters.production_delivery >>
-                name: Create github release
             - slack/notify:
-                message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat ${NEW_VERSION_NAME} has been released successfully on Android!\nNew:\n$(tools/parse-release-notes parse --ios --language en)
-                webhook: ${SLACK_URL}
+                message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat 2020.10.0 has been released successfully on Android!\nNew:\n$(tools/parse-release-notes parse --ios --language en)
+                webhook: https://hooks.slack.com/services/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
             - notify_failed
     notify_ios:
         docker:
@@ -686,50 +681,11 @@ version: 2.1
 workflows:
     commit:
         jobs:
-            - build_web:
+            - notify_android:
                 context:
                     - slack-app
-            - deliver_web:
-                context:
-                    - slack-app
-                filters:
-                    branches:
-                        only:
-                            - main
+                    - deliverino
                 production_delivery: false
-                requires:
-                    - build_web
-            - check_native:
-                context:
-                    - slack-app
-            - build_android:
-                build_for_delivery: false
-                context:
-                    - slack-app
-                    - tuerantuer-google-play
-                    - tuerantuer-android
-                requires:
-                    - check_native
-            - e2e_android:
-                context:
-                    - slack-app
-                    - browserstack
-                requires:
-                    - build_android
-            - build_ios:
-                build_for_delivery: false
-                context:
-                    - slack-app
-                    - tuerantuer-apple
-                    - tuerantuer-ios
-                requires:
-                    - check_native
-            - e2e_ios:
-                context:
-                    - slack-app
-                    - browserstack
-                requires:
-                    - build_ios
         unless: << pipeline.parameters.api_triggered >>
     scheduled_native_development_delivery:
         jobs:
