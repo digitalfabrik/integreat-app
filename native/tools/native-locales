@@ -4,7 +4,7 @@ const fs = require('fs')
 const { program } = require('commander')
 
 const setupNativeLocales = (appName) => {
-  const { native: nativeLocales } = JSON.parse(fs.readFileSync('../locales/locales.json'))
+  const { native: nativeLocales } = JSON.parse(fs.readFileSync('../../locales/locales.json'))
   const languageCodes = Object.keys(nativeLocales)
   console.warn('Creating InfoPlist.strings for the languages ', languageCodes)
 
@@ -15,10 +15,10 @@ const setupNativeLocales = (appName) => {
     const content = keys.map((key) => {
       const regex = /{\{appName}}/gi
       const value = locales[key].replace(regex, appName)
-      return `${key} = ${value}`
+      return `${key} = "${value}";`
     }).join('\n')
 
-    const path = `ios/Integreat/${language}.lproj/`
+    const path = `Integreat/${language}.lproj/`
     fs.mkdirSync(path, { recursive: true })
     fs.writeFileSync(`${path}InfoPlist.strings`, content)
   })
