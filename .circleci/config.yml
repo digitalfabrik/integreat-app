@@ -621,7 +621,7 @@ jobs:
             - restore_yarn_cache
             - slack/notify:
                 message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat 2020.10.0 has been released successfully on Android!\nNew:\n$(tools/parse-release-notes parse --ios --language en)
-                webhook: ${SLACK_URl_STEFFEN}
+                webhook: ${SLACK_URL_STEFFEN}
             - notify_failed
     notify_ios:
         docker:
