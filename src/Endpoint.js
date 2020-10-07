@@ -40,11 +40,9 @@ class Endpoint<P, T> {
   }
 
   async fetchOrThrow (url: string, requestOptions: $Shape<RequestOptions>): Promise<Response> {
-    try {
-      return fetch(url, requestOptions)
-    } catch (e) {
+    return fetch(url, requestOptions).catch((e: Error) => {
       throw new FetchError({ endpointName: this.stateName, innerError: e })
-    }
+    })
   }
 
   async request (params: P, overrideUrl?: string): Promise<Payload<T>> {
