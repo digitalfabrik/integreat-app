@@ -12,6 +12,6 @@ steps:
       name: Create github release
       command: tools/github-release create web ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(tools/parse-release-notes parse --web --language en)"
   - slack/notify:
-      message: WebApp version ${NEW_VERSION_NAME} was delivered successfully to integreat.app and malteapp.de!
+      message: WebApp version ${NEW_VERSION_NAME} was delivered successfully to integreat.app and malteapp.de!\n$(tools/parse-release-notes parse --web --language en)\nNew:$(tools/parse-release-notes parse --ios --language en)
       webhook: ${SLACK_URL}
   - notify_failed
