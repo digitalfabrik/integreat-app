@@ -16,6 +16,6 @@ steps:
 #      name: Create github release
 #      command: tools/github-release create android ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(tools/parse-release-notes parse --android --language en)"<<^ parameters.production_delivery >> --development-release<</ parameters.production_delivery >>
   - slack/notify:
-      message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat 2020.10.0 has been released successfully on Android!\nNew
-      webhook: ${SLACK_URL}
+      message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat 2020.10.0 has been released successfully on Android!\nNew:\n
+      webhook: ${SLACK_URL_STEFFEN}
   - notify_failed

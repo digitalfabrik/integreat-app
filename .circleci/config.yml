@@ -620,8 +620,8 @@ jobs:
                 at: .
             - restore_yarn_cache
             - slack/notify:
-                message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat 2020.10.0 has been released successfully on Android!\nNew
-                webhook: ${SLACK_URL}
+                message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat 2020.10.0 has been released successfully on Android!\nNew:\n
+                webhook: ${SLACK_URL_STEFFEN}
             - notify_failed
     notify_ios:
         docker:
