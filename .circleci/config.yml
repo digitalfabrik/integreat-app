@@ -624,7 +624,7 @@ jobs:
                 command: tools/github-release create android ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(tools/parse-release-notes parse --android --language en)"<<^ parameters.production_delivery >> --development-release<</ parameters.production_delivery >>
                 name: Create github release
             - slack/notify:
-                message: Integreat ${NEW_VERSION_NAME} has been released successfully on Android!\nNew:\n$(tools/parse-release-notes parse --ios --language en)
+                message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat ${NEW_VERSION_NAME} has been released successfully on Android!\nNew:\n$(tools/parse-release-notes parse --ios --language en)
                 webhook: ${SLACK_URL}
             - notify_failed
     notify_ios:
@@ -645,7 +645,7 @@ jobs:
                 command: tools/github-release create ios ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(tools/parse-release-notes parse --ios --language en)"<<^ parameters.production_delivery >> --development-release<</ parameters.production_delivery >>
                 name: Create github release
             - slack/notify:
-                message: Integreat ${NEW_VERSION_NAME} has been released successfully on iOS!\nNew:\n$(tools/parse-release-notes parse --ios --language en)
+                message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat ${NEW_VERSION_NAME} has been released successfully on iOS!\nNew:\n$(tools/parse-release-notes parse --ios --language en)
                 webhook: ${SLACK_URL}
             - notify_failed
     notify_web:
