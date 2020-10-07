@@ -9,7 +9,7 @@ versioning: ![versioning](https://img.shields.io/badge/calver-YYYY.MM.PATCH-22bf
 * [Technology Stack](docs/02-technology-stack.md)
 * [Browser Stack](docs/05-browser-stack.md)
 * [Delivery](docs/03-delivery.md)
-* [CI/CD](docs/06-cicd.md)
+* [CI/CD](docs/deliverino.md)
 * [I18N](docs/14-i18n.md)
 * [Glossary](https://wiki.integreat-app.de/glossary)
 
