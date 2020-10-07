@@ -619,8 +619,11 @@ jobs:
             - attach_workspace:
                 at: .
             - restore_yarn_cache
+            - run:
+                name: Create github release notes
+                run: echo "export GITHUB_RELEASE_NOTES=$(tools/parse-release-notes parse --android --language en)" >> ${BASH_ENV}
             - slack/notify:
-                message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat 2020.10.0 has been released successfully on Android!\nNew:\n($tools/parse-release-notes parse --android --language en)
+                message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat 2020.10.0 has been released successfully on Android!\nNew:\n${GITHUB_RELEASE_NOTES}
                 webhook: ${SLACK_URL_STEFFEN}
             - notify_failed
     notify_ios:
