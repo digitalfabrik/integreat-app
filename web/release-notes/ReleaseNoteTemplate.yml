@@ -1,7 +1,0 @@
-issue_key: <jira issue key> # e.g. NATIVE-587, WEBAPP-42
-show_in_stores: <boolean> # whether this note should be shown in the stores, either true or false
-platforms: # relevant platforms, possible values: web
-  - <platform1>
-en: <your note> # english version of the note
-# optional: the note in other languages:
-de: <your german note> # german version of the note

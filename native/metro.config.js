@@ -5,7 +5,10 @@
  * @format
  */
 
+const path = require('path')
+
 module.exports = {
+  watchFolders: [path.resolve(__dirname, '../')],
   transformer: {
     assetPlugins: ['react-native-svg-asset-plugin'],
     getTransformOptions: async () => ({

@@ -1,0 +1,8 @@
+issue_key: <jira issue key> # e.g. IGAPP-123 (NATIVE-587, WEBAPP-42)
+show_in_stores: <boolean> # whether this note should be shown in the stores, either true or false
+platforms: # relevant platforms, possible values: web, android and ios
+  - <platform1>
+  - <platform2>
+en: <your note> # english version of the note
+# optional: the note in other languages:
+de: <your german note> # german version of the note

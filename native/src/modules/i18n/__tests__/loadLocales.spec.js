@@ -5,7 +5,7 @@ import malteOverrideLocales from '../__mocks__/malte-locales.json'
 import buildConfig from '../../app/constants/buildConfig'
 
 jest.mock(
-  '../../../../locales/locales.json',
+  'locales/locales.json',
   () => require('../__mocks__/locales.json')
 )
 

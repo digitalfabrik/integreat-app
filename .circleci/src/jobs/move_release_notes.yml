@@ -1,0 +1,14 @@
+# Last step of a production delivery. Move all unreleased release notes to a new directory.
+docker:
+  - image: circleci/node:12.16.3
+resource_class: small
+steps:
+  - checkout
+  - attach_workspace:
+      at: .
+  - restore_environment_variables
+  - restore_yarn_cache
+  - run:
+      name: Move release notes
+      command: tools/move-release-notes move-to ${NEW_VERSION_NAME} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH} --commit-sha ${CIRCLE_SHA1}
+  - notify_failed

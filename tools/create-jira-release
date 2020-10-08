@@ -8,7 +8,7 @@ const JIRA_URL = 'https://issues.tuerantuer.org'
 
 program
   .option('-d, --debug', 'enable extreme logging')
-  .requiredOption('--project-name <project-name>', 'the name of the jira project, e.g. integreat-webapp')
+  .requiredOption('--project-name <project-name>', 'the name of the jira project, e.g. integreat-app')
   .requiredOption('--access-token <access-token>', 'version name of the new release')
   .requiredOption('--private-key <privateKey>')
   .requiredOption('--consumer-key <consumer-key>')

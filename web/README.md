@@ -15,7 +15,7 @@ versioning: ![versioning](https://img.shields.io/badge/calver-YYYY.MM.PATCH-22bf
 
 ## Contributing
 You can contribute by:
-* [Creating Pull requests](.github/CONTRIBUTING.md#pull-requests)
+* [Creating Pull requests](../.github/CONTRIBUTING.md#pull-requests)
 * [Reporting bugs](#bug-reporting)
 
 **Testing with the live cms instance should be avoided. Instead, [please use the test cms](docs/technology-stack.md#test-cms).**

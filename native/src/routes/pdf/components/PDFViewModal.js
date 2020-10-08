@@ -37,6 +37,7 @@ class PDFViewModal extends React.Component<PropsType, StateType> {
     return (
       <View style={{ flex: 1 }}>
         <Pdf
+          singlePage={false}
           style={{ flex: 1 }}
           activityIndicatorProps={{
             color: theme.colors.themeColor,

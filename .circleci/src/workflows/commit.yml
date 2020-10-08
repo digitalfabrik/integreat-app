@@ -1,25 +1,49 @@
 unless: << pipeline.parameters.api_triggered >>
-jobs: # TODO only build changed projects
-  - web_build
-  - web_deliver:
+jobs:
+  - build_web:
+      context:
+        - slack-app
+  - deliver_web:
       filters:
         branches:
           only:
             - main
+      context:
+        - slack-app
       production_delivery: false
       requires:
-        - web_build
+        - build_web
 
-  - native_prepare_build
-  - native_build_android:
+  - check_native:
+      context:
+        - slack-app
+
+  - build_android:
+      context:
+        - slack-app
+        - tuerantuer-google-play
+        - tuerantuer-android
       build_for_delivery: false
       requires:
-        - native_prepare_build
-  - native_build_ios:
+        - check_native
+  - e2e_android:
+      context:
+        - slack-app
+        - browserstack
+      requires:
+        - build_android
+
+  - build_ios:
+      context:
+        - slack-app
+        - tuerantuer-apple
+        - tuerantuer-ios
       build_for_delivery: false
       requires:
-        - native_prepare_build
-  - native_e2e:
+        - check_native
+  - e2e_ios:
+      context:
+        - slack-app
+        - browserstack
       requires:
-        - native_build_ios
-        - native_build_android
+        - build_ios
