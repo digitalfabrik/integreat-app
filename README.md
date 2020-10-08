@@ -5,7 +5,9 @@ versioning: ![versioning](https://img.shields.io/badge/calver-YYYY.MM.PATCH-22bf
 ## Contents
 * [Contributing](#contributing)
 * [Getting Started](#getting-started)
-* [Conventions](conventions.md)
+* [Bug Reporting](#bug-reporting)
+* [Pull Requests](#pull-requests)
+* [Further Reading](#further-reading)
 * [Glossary](https://wiki.integreat-app.de/glossary)
 
 ## Contributing
@@ -90,5 +92,6 @@ To merge a pull request,
 * at least two approvals are required.
 * tests, linting and flow have to succeed.
 
-## Hints
+## Further Reading
 More information on both the webapp and the native app specifically can be found in the [web documentation](web/docs) and the [app documentation](native/docs).
+Documentation on [ci](docs/cicd.md), [contributing](docs/contributing.md) and our [conventions](docs/conventions.md) can be found [here](docs).
