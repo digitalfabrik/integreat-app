@@ -3,7 +3,7 @@
 import { lightTheme, darkTheme } from './theme'
 import type { BuildConfigType } from '../BuildConfigType'
 import { MALTE_ASSETS } from '../AssetsType'
-import malteOverrideLocales from '../../locales/override-locales/malte.json'
+import malteOverrideLocales from 'locales/override-locales/malte.json'
 
 const MalteBuildConfig: BuildConfigType = {
   appName: 'Malte',

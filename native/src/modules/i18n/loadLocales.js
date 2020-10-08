@@ -1,7 +1,7 @@
 // @flow
 
 import { merge } from 'lodash'
-import defaultLocales from '../../../locales/locales.json'
+import defaultLocales from 'locales/locales.json'
 import buildConfig from '../app/constants/buildConfig'
 import transformLocales from './transformLocales'
 

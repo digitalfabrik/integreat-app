@@ -15,7 +15,7 @@ const SHORT_COMMIT_SHA_LENGTH = 8
 
 // A first performance budget, which should be improved in the future: Maximum bundle size in Bytes; 2^20 = 1 MiB
 // eslint-disable-next-line no-magic-numbers
-const MAX_BUNDLE_SIZE = 1.55 * Math.pow(2, 20)
+const MAX_BUNDLE_SIZE = 1.56 * Math.pow(2, 20)
 
 const readJson = path => JSON.parse(fs.readFileSync(path))
 
@@ -25,7 +25,7 @@ const readVersionName = () => {
 }
 
 const getSupportedLocales = () => {
-  const localesConfig = readJson(path.resolve(__dirname, '../locales/config.json'))
+  const localesConfig = readJson(path.resolve(__dirname, '../../locales/config.json'))
   return [localesConfig.sourceLanguage, ...localesConfig.targetLanguages]
 }
 
@@ -59,7 +59,8 @@ const createConfig = (env = {}) => {
   const buildConfig = require(`../build-configs/${buildConfigName}`)
   const configAssets = path.resolve(__dirname, `../build-configs/${buildConfigName}/assets`)
 
-  const nodeModules = path.resolve('../node_modules')
+  const nodeModules = path.resolve(__dirname, '../node_modules')
+  const rootNodeModules = path.resolve(__dirname, '../../node_modules')
   const wwwDirectory = path.resolve(__dirname, '../www')
   const distDirectory = path.resolve(__dirname, `../dist/${buildConfigName}`)
   const srcDirectory = path.resolve(__dirname, '../src')
@@ -75,7 +76,7 @@ const createConfig = (env = {}) => {
   const config = {
     mode: isProductionBuild ? 'production' : 'development',
     resolve: {
-      modules: [nodeModules, '../../node_modules']
+      modules: [nodeModules, rootNodeModules]
     },
     // The base directory for resolving the entry option
     context: srcDirectory,

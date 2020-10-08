@@ -1,0 +1,34 @@
+# Deliver integreat and malte. If it is not a production delivery, deliver to webnext.
+parameters:
+  production_delivery:
+    description: Whether to deliver to production (integreat.app and malteapp.de) or not (webnext.integreat.app and webnext.malteapp.de).
+    type: boolean
+docker:
+  - image: circleci/node:12.16.3
+resource_class: small
+shell: /bin/bash -eo pipefail
+steps:
+  - add_ssh_keys:
+      fingerprints:
+        - "68:a3:fe:e7:94:f7:a4:13:35:5c:63:30:2f:07:7d:02"
+  - attach_workspace:
+      at: .
+  - when:
+      condition: << parameters.production_delivery >>
+      steps:
+        - run:
+            name: Integreat production delivery # StrictHostKeyChecking=no is not a security problem. The worst that could happen is a delivery to the wrong domain.
+            command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/integreat.app \<<< $'put -r dist/integreat/*'
+        - run:
+            name: Malte production delivery
+            command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/malteapp.de \<<< $'put -r dist/malte/*'
+  - unless:
+      condition: << parameters.production_delivery >>
+      steps:
+        - run:
+            name: Integreat development delivery
+            command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.integreat.app \<<< $'put -r dist/integreat-test-cms/*'
+        - run:
+            name: Malte development delivery
+            command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.malteapp.de \<<< $'put -r dist/malte/*'
+  - notify_failed

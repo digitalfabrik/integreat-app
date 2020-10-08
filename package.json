@@ -2,8 +2,11 @@
   "name": "integreat-app",
   "private": true,
   "workspaces": {
-    "packages": ["native", "web"],
-    "nohoist": ["**/jetifier"]
+    "packages": ["native", "web", "locales"],
+    "nohoist": [
+      "native/**",
+      "web/**"
+    ]
   },
   "scripts": {
     "locales:missing": "node locales/tools/findMissingLocales",
@@ -14,6 +17,7 @@
     "@octokit/rest": "^17.11.0",
     "commander": "^5.1.0",
     "node-fetch": "^2.6.1",
-    "oauth": "^0.9.15"
+    "oauth": "^0.9.15",
+    "js-yaml": "^3.14.0"
   }
 }

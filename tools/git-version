@@ -1,0 +1,76 @@
+#!/usr/bin/env node
+
+const authenticate = require('./github-authentication')
+const { VERSION_FILE } = require("./constants")
+const { program } = require('commander')
+
+program
+  .requiredOption('--deliverino-private-key <deliverino-private-key>', 'private key of the deliverino github app in pem format with base64 encoding')
+  .requiredOption('--owner <owner>', 'owner of the current repository, usually "Integreat"')
+  .requiredOption('--repo <repo>', 'the current repository, should be integreat-app')
+  .requiredOption('--branch <branch>', 'the current branch')
+
+const commitAndTag = async (versionName, versionCodeString, {
+  deliverinoPrivateKey, owner, repo, branch
+}) => {
+  const appOctokit = await authenticate({ deliverinoPrivateKey, owner, repo })
+  const versionFileContent = await appOctokit.repos.getContent({ owner, repo, path: VERSION_FILE, ref: branch })
+
+  const versionCode = parseInt(versionCodeString)
+  if (isNaN(versionCode)) {
+    throw new Error(`Failed to parse version code string: ${versionCodeString}`)
+  }
+
+  const contentBase64 = Buffer.from(JSON.stringify({ versionName, versionCode }))
+    .toString('base64')
+
+  const commitMessage = `Bump version name to ${versionName} and version code to ${versionCode}\n[skip ci]`
+
+  const commit = await appOctokit.repos.createOrUpdateFileContents({
+    owner,
+    repo,
+    path: VERSION_FILE,
+    content: contentBase64,
+    branch,
+    message: commitMessage,
+    sha: versionFileContent.data.sha
+  })
+  console.warn(`New version successfully commited with message "${message}".`)
+
+  const commitSha = commit.data.commit.sha
+
+  const tagMessage = `${versionName} - ${versionCode}`
+
+  const tag = await appOctokit.git.createTag({
+    owner,
+    repo,
+    tag: versionName,
+    message: tagMessage,
+    object: commitSha,
+    type: 'commit'
+  })
+  const tagSha = tag.data.sha
+  console.warn(`New tag with name ${versionName} successfully created.`)
+
+  await appOctokit.git.createRef({
+    owner,
+    repo,
+    ref: `refs/tags/${versionName}`,
+    sha: tagSha
+  })
+  console.warn(`New ref with name ${versionName} successfully created.`)
+}
+
+program
+  .command('bump-to <new-version-name> <new-version-code>')
+  .description('commits the supplied version name and code to github and tags the commit')
+  .action(async (newVersionName, newVersionCode) => {
+    try {
+      await commitAndTag(newVersionName, newVersionCode, program)
+    } catch (e) {
+      console.error(e)
+      process.exit(1)
+    }
+  })
+
+program.parse(process.argv)
