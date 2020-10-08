@@ -4,7 +4,7 @@
 
 * [Contributing](#contributing)
 * [Getting Started](#getting-started)
-* [Conventions](docs/conventions.md)
+* [Conventions](../docs/conventions.md)
 * [Technical Documentation](docs/technical-documentation.md)
 * [Build configs](docs/build-configs.md)
 * [Manual builds](docs/manual-builds.md)
@@ -14,8 +14,8 @@
 ## Contributing
 
 You can contribute by:
-* [creating pull requests](docs/contributing.md#pull-requests)
-* [reporting bugs](docs/contributing.md#bug-reporting)
+* [creating pull requests](../docs/contributing.md#pull-requests)
+* [reporting bugs](../docs/contributing.md#bug-reporting)
 
 If you want to know more about Integreat or if you want to join us, contact [Max](mailto:ammann@integreat-app.de), 
 [Steffen](mailto:kleinle@integreat-app.de) or [our info mail](mailto:info@integreat-app.de) and visit our [website](https://integreat-app.de).

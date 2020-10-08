@@ -4,10 +4,10 @@
 
 * [Deliver a new release by triggering the CI](#triggering-a-delivery-using-the-ci)
 * [Workflows](#workflows)
+* [Services](#services)
 * [Fastlane](#fastlane)
 * [Determining the next version](#determining-the-next-version)
 * [Environment variables](#environment-variables-and-dependencies)
-* [Used services](#services)
 * [Hints and quirks](#hints-and-quirks)
 
 ## Triggering a Delivery using the CI
@@ -82,7 +82,7 @@ For delivery an [account without 2FA](https://github.com/fastlane/fastlane/blob/
 
 #### Adding Testers to TestFlight
 
-The [bi_weekly_development_delivery workflow](#workflows) makes the builds directly available to TestFlights "App Store Connect Users". Those should not be confused with "External Tests" which require an approval by apple. Therefore, we currently only use "App Store Connect Users" as testers.
+The [scheduled_native_production_workflow](#workflows) makes the builds directly available to TestFlights "App Store Connect Users". Those should not be confused with "External Tests" which require an approval by apple. Therefore, we currently only use "App Store Connect Users" as testers.
 
 In order to add someone as "App Store Connect User" you have to add the Apple Account to App Store Connect and to TestFlight. This is a two-step process.
 
@@ -99,13 +99,73 @@ Authentication happens by setting the `FASTLANE_USER` and `FASTLANE_PASSWORD` en
 ### BrowserStack
 
 We are using BrowserStack to run our E2E tests on real iOS and Android devices.
-The general documentation about E2E tests and BrowserStack can be found [here](./native/docs/e2e-testing.md). 
+The general documentation about E2E tests and BrowserStack for native development can be found [here](../native/docs/e2e-testing.md). 
 
+## Fastlane
+
+Fastlane is a task-runner for triggering build relevant tasks. It offers integration with XCode and the Android SDK for building and delivering the app.
+
+### Fastlane Setup
+
+* Install [Ruby >= 2.6.5](https://www.ruby-lang.org/en/documentation/installation/)
+  * The preferred and tested way is to use the [Ruby Version Manager (RVM)](https://rvm.io/).
+  * If using RVM you have to run: `rvm use ruby-2.6.5`.
+* Make sure `ruby --version` reports the correct version.
+* Run `bundle install --path vendor/bundle` in the project root **AND** in `./android/` **AND** in `./ios/`.
+* Run `bundle exec fastlane --version`.
+
+*Hint: You can run `export FASTLANE_SKIP_UPDATE_CHECK=true` to skip the changelog output.*
+
+### Lanes
+
+Lanes for Android live in `./android/fastlane` and for iOS in `./ios/fastlane`. Shared lanes are in `./fastlane`.
+
+An overview about FL lanes is available in several documents:
+* [General](../fastlane/README.md#available-actions) - Responsible for delivering and uploading artifacts.
+* [Android](../android/fastlane/README.md#available-actions) - Responsible for setting up the signing keys and building the Android app.
+* [iOS](../ios/fastlane/README.md#available-actions) - Responsible for setting up the certificates and building the iOS app.
+
+## Apple Certificates and Android Keystore
+
+Fastlane is used to setup certificates and keystores. The detailed steps of the CI/CD pipeline are the same as those when manually building the app.
+Therefore, you can follow the documentation for Manual Builds to set up [certificates for iOS](docs/manual-builds.md#certificates-setup) and [keystores for android](docs/manual-builds.md#keystore-setup).
 
 ## Determining the Next Version
 
-The next version of the app must be determined programmatically. The tool [next-version](../../tools/next-version) can be used.
+The next version of the app must be determined programmatically. The tool [next-version](../tools/next-version) can be used.
 More information on the version naming schema used can be found [here](docs/conventions.md#versioning).
+
+## Environment Variables and Dependencies
+
+|Variable|Description|Where do I get it from?|Example|Reference|
+|---|---|---|---|---|
+|BROWSERSTACK_ACCESS_KEY|Access Key for BrowserStack|Password Manager|DEADBEEF|[Appium REST API](https://www.browserstack.com/app-automate/rest-api)|
+|BROWSERSTACK_USERNAME|Username for BrowserStack|Password Manager|123546|[Appium REST API](https://www.browserstack.com/app-automate/rest-api)|
+|DELIVERINO_PRIVATE_KEY|Base64 encoded PEM private key|Password Manager|[Deliverino Settings](https://github.com/organizations/Integreat/settings/apps/deliverino)|[Deliverino](https://github.com/apps/deliverino)|
+|SENTRY_AUTH_TOKEN|Auth Token from Sentry for uploading sourcemaps and artifacts|Generate this [in your Sentry account](https://sentry.integreat-app.de/settings/account/api/auth-tokens/) with the scope `project:releases`|deadbeef|[Sentry Authentication](https://docs.sentry.io/cli/configuration/)|
+|SLACK_URL|URL which can be used to send notifications to our Slack. Keep this private!|[Deliverino Settings](https://api.slack.com/apps/A0117F1AAHZ/incoming-webhooks?)|https://hooks.slack.com/...| [Slack API](https://api.slack.com/messaging/webhooks)|
+
+### Android Variables
+
+|Variable|Description|Where do I get it from?|Example|Reference|
+|---|---|---|---|---|
+|GOOGLE_SERVICE_ACCOUNT_JSON|JSON for authentication in the Google Play Console as Release Manager. This should expire after two years.|Password Manager|{...}|[Service Account Docu](https://cloud.google.com/iam/docs/creating-managing-service-account-keys?hl=de)|
+|CREDENTIALS_GIT_REPOSITORY_URL|Git remote URL to the credentials repository which contains the Java Keystore|Ask the team about this secret repository|git@github.com:User/credentials.git|-|
+|CREDENTIALS_DIRECTORY_PATH|Path where the credentials Git repository cloned to automatically by FL|The developer can choose this freely|/tmp/credentials|-|
+|CREDENTIALS_KEYSTORE_PATH|Path to the OpenSSL AES256-CBC encrypted Java Keystore file|-|/tmp/credentials/<secret>.enc|Look for the `openssl enc` command in the Android Fastlane file for more information|
+|KEYSTORE_PATH|Path to the decrypted Java Keystore file|-|/tmp/keystore.jks|-|
+|CREDENTIALS_KEYSTORE_PASSWORD|Password for decrypting the keystore using OpenSSL||password|-|
+|KEYSTORE_KEY_ALIAS|Alias of the key within the Java Keystore|You should look in the JKS file using `keytool -list -v -keystore <jks>`|my-key|-|
+|KEYSTORE_KEY_PASSWORD|Password of the key within the Java Keystore|Password Manager|123456|-|
+|KEYSTORE_PASSWORD|Password of the JKS which can contain multiple keys|Password Manager|123456|-|
+
+### iOS Variables
+
+|Variable|Description|Where do I get it from?|Example|Reference|
+|---|---|---|---|---|
+|FASTLANE_USER|User for an Apple Account without 2FA for delivery|Password Manager|lutz|[Credentials](https://github.com/fastlane/fastlane/blob/b121a96e3e2e0bb83392c130cb3a088c773dbbaf/spaceship/docs/Authentication.md#credentials) [Avoid 2FA](https://github.com/fastlane/fastlane/blob/b121a96e3e2e0bb83392c130cb3a088c773dbbaf/spaceship/docs/Authentication.md#avoid-2fa-via-additional-account)|
+|FASTLANE_PASSWORD|Password for the Apple Account for delivery|Password Manager|123456|[Credentials](https://github.com/fastlane/fastlane/blob/b121a96e3e2e0bb83392c130cb3a088c773dbbaf/spaceship/docs/Authentication.md#credentials) [Avoid 2FA](https://github.com/fastlane/fastlane/blob/b121a96e3e2e0bb83392c130cb3a088c773dbbaf/spaceship/docs/Authentication.md#avoid-2fa-via-additional-account)|
+|MATCH_PASSWORD|Password for accessing the certificates for the iOS app using [Fastlane Match](https://docs.fastlane.tools/actions/match/)|Password Manager|123456|[Using a Git Repo](https://docs.fastlane.tools/actions/match/#git-repo-encryption-password)|
 
 ## Hints and Quirks
 
