@@ -2,4 +2,4 @@ issue_key: IGAPP-83
 show_in_stores: false
 platforms:
   - web
-en: Footer and Header are only shown once everything is ready to prevent penalties by google.
+en: Footer and Header are only shown once everything is ready.
