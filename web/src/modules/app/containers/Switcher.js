@@ -113,8 +113,9 @@ export class Switcher extends React.Component<PropsType> {
     })
 
     if (error || !routeConfig.isLocationLayoutRoute) {
+      const showFooter = (error || routeConfig.requiresFooter) && !isLoading
       return (
-        <Layout footer={(error || routeConfig.requiresFooter) && <GeneralFooter />}
+        <Layout footer={showFooter && <GeneralFooter />}
                 header={(error || routeConfig.requiresHeader) && <GeneralHeader viewportSmall={viewportSmall} />}
                 darkMode={darkMode}>
           {error ? <LanguageFailure cities={citiesPayload.data}
