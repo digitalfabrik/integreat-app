@@ -3,8 +3,8 @@
 const fs = require('fs')
 const { program } = require('commander')
 
-const setupNativeLocales = (appName) => {
-  const { native: nativeLocales } = JSON.parse(fs.readFileSync('../../locales/locales.json'))
+const setupNativeLocales = (appName, { localesFile, destination }) => {
+  const { native: nativeLocales } = JSON.parse(fs.readFileSync(localesFile))
   const languageCodes = Object.keys(nativeLocales)
   console.warn('Creating InfoPlist.strings for the languages ', languageCodes)
 
@@ -18,7 +18,7 @@ const setupNativeLocales = (appName) => {
       return `${key} = "${value}";`
     }).join('\n')
 
-    const path = `Integreat/${language}.lproj/`
+    const path = `${destination}/${language}.lproj/`
     fs.mkdirSync(path, { recursive: true })
     fs.writeFileSync(`${path}InfoPlist.strings`, content)
   })
@@ -28,10 +28,12 @@ const setupNativeLocales = (appName) => {
 
 program
   .command('setup <appName>')
+  .requiredOption('--locales <locales>', 'the path to the locales.json file')
+  .requiredOption('--destination <destination>', 'the path to put the string resources to')
   .description('setup native locales for ios')
-  .action((appName) => {
+  .action((appName, program) => {
     try {
-      setupNativeLocales(appName)
+      setupNativeLocales(appName, { localesFile: program.locales, destination: program.destination })
     } catch (e) {
       console.error(e)
       process.exit(1)
