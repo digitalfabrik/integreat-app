@@ -13,7 +13,7 @@ const setupNativeLocales = (appName, { localesFile, destination }) => {
     const keys = Object.keys(locales)
 
     const content = keys.map((key) => {
-      const regex = /{\{appName}}/gi
+      const regex = /{{appName}}/gi
       const value = locales[key].replace(regex, appName)
       return `${key} = "${value}";`
     }).join('\n')
