@@ -62,14 +62,6 @@ steps:
             name: "[FL] integreat build"
             command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat
             working_directory: native/ios
-        - run:
-            name: "[FL] malte build"
-            command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:malte
-            working_directory: native/ios
-  - run:
-      name: "[FL] integreat-e2e build"
-      command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat-e2e
-      working_directory: native/ios
   - store_artifacts:
       path: native/ios/output/gym/
   - when:

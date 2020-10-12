@@ -248,14 +248,6 @@ jobs:
                         command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat
                         name: '[FL] integreat build'
                         working_directory: native/ios
-                    - run:
-                        command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:malte
-                        name: '[FL] malte build'
-                        working_directory: native/ios
-            - run:
-                command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat-e2e
-                name: '[FL] integreat-e2e build'
-                working_directory: native/ios
             - store_artifacts:
                 path: native/ios/output/gym/
             - when:
