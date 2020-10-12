@@ -27,12 +27,11 @@ jobs:
       requires:
         - bump_version
 
-  - build_android:
+  - build_e2e_android:
       context:
         - slack-app
         - tuerantuer-google-play
         - tuerantuer-android
-      build_for_delivery: false
       requires:
         - bump_version
   - e2e_android:
@@ -40,14 +39,13 @@ jobs:
         - slack-app
         - browserstack
       requires:
-        - build_android
+        - build_e2e_android
 
-  - build_ios:
+  - build_e2e_ios:
       context:
         - slack-app
         - tuerantuer-apple
         - tuerantuer-ios
-      build_for_delivery: false
       requires:
         - bump_version
   - e2e_ios:
@@ -55,4 +53,4 @@ jobs:
         - slack-app
         - browserstack
       requires:
-        - build_ios
+        - build_e2e_ios

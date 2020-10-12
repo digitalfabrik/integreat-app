@@ -68,16 +68,12 @@ commands:
                     - native/node_modules
                     - web/node_modules
 jobs:
-    build_android:
+    build_e2e_android:
         docker:
             - image: circleci/android:api-29-node
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
             TOTAL_CPUS: 2
-        parameters:
-            build_for_delivery:
-                description: Whether builds are delivered to the store. If true, integreat and malte builds are created.
-                type: boolean
         resource_class: medium
         shell: /bin/bash -eo pipefail
         steps:
@@ -120,71 +116,27 @@ jobs:
                 paths:
                     - ~/.gradle
             - run:
-                command: mkdir --parents native/android/output/apk
-                name: Create output dir
-            - when:
-                condition: << parameters.build_for_delivery >>
-                steps:
-                    - run:
-                        command: ./gradlew clean && bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat
-                        name: '[FL] integreat build'
-                        working_directory: native/android
-                    - run:
-                        command: mv app/build/outputs/apk/release/app-release.apk output/apk/integreat.apk
-                        name: Rename apk
-                        working_directory: native/android
-                    - run:
-                        command: mv app/build/generated/sourcemaps/react/release/index.android.bundle.map output/integreat.android.bundle.map
-                        name: Rename sourcemap
-                        working_directory: native/android
-                    - run:
-                        command: ./gradlew clean && bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:malte
-                        name: '[FL] malte build'
-                        working_directory: native/android
-                    - run:
-                        command: mv app/build/outputs/apk/release/app-release.apk output/apk/malte.apk
-                        name: Rename apk
-                        working_directory: native/android
-                    - run:
-                        command: mv app/build/generated/sourcemaps/react/release/index.android.bundle.map output/malte.android.bundle.map
-                        name: Rename sourcemap
-                        working_directory: native/android
-            - run:
                 command: ./gradlew clean && bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat-e2e
                 name: '[FL] integreat-e2e build'
                 working_directory: native/android
             - run:
-                command: mv app/build/outputs/apk/release/app-release.apk output/apk/integreat-e2e.apk
+                command: mv app/build/outputs/apk/release/app-release.apk integreat-e2e.apk
                 name: Rename apk
                 working_directory: native/android
             - store_artifacts:
-                path: native/android/output/apk
-            - when:
-                condition: << parameters.build_for_delivery >>
-                steps:
-                    - persist_to_workspace:
-                        paths:
-                            - integreat.android.bundle.map
-                            - malte.android.bundle.map
-                        root: native/android/output
+                path: native/android/integreat-e2e.apk
             - persist_to_workspace:
                 paths:
-                    - integreat.apk
-                    - malte.apk
                     - integreat-e2e.apk
-                root: native/android/output/apk
+                root: native/android
             - notify_failed
-    build_ios:
+    build_e2e_ios:
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
             FL_OUTPUT_DIR: output
             TOTAL_CPUS: 4
         macos:
             xcode: 11.7.0
-        parameters:
-            build_for_delivery:
-                description: Whether builds are delivered to the store. If true, integreat and malte builds are created.
-                type: boolean
         resource_class: large
         shell: /bin/bash --login -o pipefail
         steps:
@@ -224,36 +176,165 @@ jobs:
                 name: Save CocoaPods Cache
                 paths:
                     - ~/Library/Caches/CocoaPods/
-            - when:
-                condition: << parameters.build_for_delivery >>
-                steps:
-                    - run:
-                        command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat
-                        name: '[FL] integreat build'
-                        working_directory: native/ios
-                    - run:
-                        command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:malte
-                        name: '[FL] malte build'
-                        working_directory: native/ios
             - run:
                 command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat-e2e
                 name: '[FL] integreat-e2e build'
                 working_directory: native/ios
             - store_artifacts:
                 path: native/ios/output/gym/
-            - when:
-                condition: << parameters.build_for_delivery >>
-                steps:
-                    - persist_to_workspace:
-                        paths:
-                            - integreat.ios.bundle.map
-                            - malte.ios.bundle.map
-                        root: native/ios/output
+            - persist_to_workspace:
+                paths:
+                    - integreat-e2e.ipa
+                root: native/ios/output/gym
+            - notify_failed
+    build_production_android:
+        docker:
+            - image: circleci/android:api-29-node
+        environment:
+            FASTLANE_SKIP_UPDATE_CHECK: true
+            TOTAL_CPUS: 2
+        resource_class: medium
+        shell: /bin/bash -eo pipefail
+        steps:
+            - add_ssh_keys:
+                fingerprints:
+                    - 61:d8:94:00:53:5f:3b:19:fd:88:6b:fa:cd:ca:df:5d
+            - checkout
+            - attach_workspace:
+                at: .
+            - restore_environment_variables
+            - restore_cache:
+                keys:
+                    - 2-gems-{{ arch }}-{{ checksum "native/android/Gemfile.lock" }}
+                    - 2-gems-{{ arch }}-
+            - run:
+                command: bundle config set path 'vendor/bundle'
+                working_directory: native/android
+            - run:
+                command: bundle check || bundle install
+                working_directory: native/android
+            - save_cache:
+                key: 2-gems-{{ arch }}-{{ checksum "native/android/Gemfile.lock" }}
+                paths:
+                    - native/android/vendor/bundle
+            - restore_yarn_cache
+            - run:
+                command: bundle exec fastlane keystore
+                name: '[FL] Prepare Android Keystore'
+                working_directory: native/android
+            - restore_cache:
+                keys:
+                    - 1-gradle-{{ checksum "native/android/build.gradle" }}-{{ checksum "native/android/app/build.gradle" }}-{{ checksum "native/android/settings.gradle" }}
+                    - 1-gradle-
+            - run:
+                command: bundle exec fastlane dependencies
+                name: '[FL] Download Dependencies'
+                working_directory: native/android
+            - save_cache:
+                key: 1-gradle-{{ checksum "native/android/build.gradle" }}-{{ checksum "native/android/app/build.gradle" }}-{{ checksum "native/android/settings.gradle" }}
+                paths:
+                    - ~/.gradle
+            - run:
+                command: ./gradlew clean && bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat
+                name: '[FL] integreat build'
+                working_directory: native/android
+            - run:
+                command: mv app/build/outputs/apk/release/app-release.apk integreat.apk
+                name: Rename apk
+                working_directory: native/android
+            - run:
+                command: mv app/build/generated/sourcemaps/react/release/index.android.bundle.map integreat.android.bundle.map
+                name: Rename sourcemap
+                working_directory: native/android
+            - run:
+                command: ./gradlew clean && bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:malte
+                name: '[FL] malte build'
+                working_directory: native/android
+            - run:
+                command: mv app/build/outputs/apk/release/app-release.apk malte.apk
+                name: Rename apk
+                working_directory: native/android
+            - run:
+                command: mv app/build/generated/sourcemaps/react/release/index.android.bundle.map malte.android.bundle.map
+                name: Rename sourcemap
+                working_directory: native/android
+            - store_artifacts:
+                path: native/android/integreat.apk
+            - store_artifacts:
+                path: native/android/malte.apk
+            - persist_to_workspace:
+                paths:
+                    - integreat.apk
+                    - integreat.android.bundle.map
+                    - malte.apk
+                    - malte.android.bundle.map
+                root: native/android
+            - notify_failed
+    build_production_ios:
+        environment:
+            FASTLANE_SKIP_UPDATE_CHECK: true
+            FL_OUTPUT_DIR: output
+            TOTAL_CPUS: 4
+        macos:
+            xcode: 11.7.0
+        resource_class: large
+        shell: /bin/bash --login -o pipefail
+        steps:
+            - add_ssh_keys:
+                fingerprints:
+                    - 61:d8:94:00:53:5f:3b:19:fd:88:6b:fa:cd:ca:df:5d
+            - checkout
+            - attach_workspace:
+                at: .
+            - restore_environment_variables
+            - restore_cache:
+                keys:
+                    - 3-gems-{{ arch }}-{{ checksum "native/ios/Gemfile.lock" }}
+                    - 3-gems-{{ arch }}-
+            - run:
+                command: bundle config set path 'vendor/bundle'
+                working_directory: native/ios
+            - run:
+                command: bundle check || bundle install
+                working_directory: native/ios
+            - save_cache:
+                key: 3-gems-{{ arch }}-{{ checksum "native/ios/Gemfile.lock" }}
+                paths:
+                    - native/ios/vendor/bundle
+            - restore_yarn_cache
+            - restore_cache:
+                keys:
+                    - 2-pods-{{ arch }}-{{ checksum "native/ios/Podfile.lock" }}
+                    - 2-pods-{{ arch }}-
+                name: Restore CocoaPods Cache
+            - run:
+                command: bundle exec pod install --deployment
+                name: '[CP] Install CocoaPods'
+                working_directory: native/ios
+            - save_cache:
+                key: 2-pods-{{ arch }}-{{ checksum "native/ios/Podfile.lock" }}
+                name: Save CocoaPods Cache
+                paths:
+                    - ~/Library/Caches/CocoaPods/
+            - run:
+                command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat
+                name: '[FL] integreat build'
+                working_directory: native/ios
+            - run:
+                command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:malte
+                name: '[FL] malte build'
+                working_directory: native/ios
+            - store_artifacts:
+                path: native/ios/output/gym/
+            - persist_to_workspace:
+                paths:
+                    - integreat.ios.bundle.map
+                    - malte.ios.bundle.map
+                root: native/ios/output
             - persist_to_workspace:
                 paths:
                     - integreat.ipa
                     - malte.ipa
-                    - integreat-e2e.ipa
                 root: native/ios/output/gym
             - notify_failed
     build_production_web:
@@ -719,8 +800,7 @@ workflows:
                     - slack-app
                 requires:
                     - bump_version
-            - build_android:
-                build_for_delivery: false
+            - build_e2e_android:
                 context:
                     - slack-app
                     - tuerantuer-google-play
@@ -732,9 +812,8 @@ workflows:
                     - slack-app
                     - browserstack
                 requires:
-                    - build_android
-            - build_ios:
-                build_for_delivery: false
+                    - build_e2e_android
+            - build_e2e_ios:
                 context:
                     - slack-app
                     - tuerantuer-apple
@@ -746,7 +825,7 @@ workflows:
                     - slack-app
                     - browserstack
                 requires:
-                    - build_ios
+                    - build_e2e_ios
         unless: << pipeline.parameters.api_triggered >>
     scheduled_native_development_delivery:
         jobs:
@@ -761,8 +840,7 @@ workflows:
                     - slack-app
                 requires:
                     - bump_version
-            - build_android:
-                build_for_delivery: true
+            - build_e2e_android:
                 context:
                     - slack-app
                     - tuerantuer-google-play
@@ -774,7 +852,14 @@ workflows:
                     - slack-app
                     - browserstack
                 requires:
-                    - build_android
+                    - build_e2e_android
+            - build_production_android:
+                context:
+                    - slack-app
+                    - tuerantuer-google-play
+                    - tuerantuer-android
+                requires:
+                    - bump_version
             - deliver_android:
                 context:
                     - slack-app
@@ -786,6 +871,7 @@ workflows:
                 requires:
                     - check_native
                     - e2e_android
+                    - build_production_android
             - notify_android:
                 context:
                     - slack-app
@@ -793,8 +879,7 @@ workflows:
                 production_delivery: false
                 requires:
                     - deliver_android
-            - build_ios:
-                build_for_delivery: true
+            - build_e2e_ios:
                 context:
                     - slack-app
                     - tuerantuer-apple
@@ -806,7 +891,14 @@ workflows:
                     - slack-app
                     - browserstack
                 requires:
-                    - build_ios
+                    - build_e2e_ios
+            - build_production_ios:
+                context:
+                    - slack-app
+                    - tuerantuer-apple
+                    - tuerantuer-ios
+                requires:
+                    - bump_version
             - deliver_ios:
                 context:
                     - slack-app
@@ -818,6 +910,7 @@ workflows:
                 requires:
                     - check_native
                     - e2e_ios
+                    - build_production_ios
             - notify_ios:
                 context:
                     - slack-app
@@ -868,8 +961,7 @@ workflows:
                     - slack-app
                 requires:
                     - bump_version
-            - build_android:
-                build_for_delivery: true
+            - build_e2e_android:
                 context:
                     - slack-app
                     - tuerantuer-google-play
@@ -881,7 +973,14 @@ workflows:
                     - slack-app
                     - browserstack
                 requires:
-                    - build_android
+                    - build_e2e_android
+            - build_production_android:
+                context:
+                    - slack-app
+                    - tuerantuer-google-play
+                    - tuerantuer-android
+                requires:
+                    - bump_version
             - deliver_android:
                 context:
                     - slack-app
@@ -893,6 +992,7 @@ workflows:
                 requires:
                     - check_native
                     - e2e_android
+                    - build_production_android
             - notify_android:
                 context:
                     - slack-app
@@ -900,8 +1000,7 @@ workflows:
                 production_delivery: true
                 requires:
                     - deliver_android
-            - build_ios:
-                build_for_delivery: true
+            - build_e2e_ios:
                 context:
                     - slack-app
                     - tuerantuer-apple
@@ -913,7 +1012,14 @@ workflows:
                     - slack-app
                     - browserstack
                 requires:
-                    - build_ios
+                    - build_e2e_ios
+            - build_production_ios:
+                context:
+                    - slack-app
+                    - tuerantuer-apple
+                    - tuerantuer-ios
+                requires:
+                    - bump_version
             - deliver_ios:
                 context:
                     - slack-app
@@ -925,6 +1031,7 @@ workflows:
                 requires:
                     - check_native
                     - e2e_ios
+                    - build_production_ios
             - notify_ios:
                 context:
                     - slack-app
@@ -1062,8 +1169,7 @@ workflows:
                     - slack-app
                 requires:
                     - bump_version
-            - build_android:
-                build_for_delivery: true
+            - build_e2e_android:
                 context:
                     - slack-app
                     - tuerantuer-google-play
@@ -1075,7 +1181,14 @@ workflows:
                     - slack-app
                     - browserstack
                 requires:
-                    - build_android
+                    - build_e2e_android
+            - build_production_android:
+                context:
+                    - slack-app
+                    - tuerantuer-google-play
+                    - tuerantuer-android
+                requires:
+                    - bump_version
             - deliver_android:
                 context:
                     - slack-app
@@ -1087,6 +1200,7 @@ workflows:
                 requires:
                     - check_native
                     - e2e_android
+                    - build_production_android
             - notify_android:
                 context:
                     - slack-app
@@ -1094,8 +1208,7 @@ workflows:
                 production_delivery: true
                 requires:
                     - deliver_android
-            - build_ios:
-                build_for_delivery: true
+            - build_e2e_ios:
                 context:
                     - slack-app
                     - tuerantuer-apple
@@ -1107,7 +1220,14 @@ workflows:
                     - slack-app
                     - browserstack
                 requires:
-                    - build_ios
+                    - build_e2e_ios
+            - build_production_ios:
+                context:
+                    - slack-app
+                    - tuerantuer-apple
+                    - tuerantuer-ios
+                requires:
+                    - bump_version
             - deliver_ios:
                 context:
                     - slack-app
@@ -1119,6 +1239,7 @@ workflows:
                 requires:
                     - check_native
                     - e2e_ios
+                    - build_production_ios
             - notify_ios:
                 context:
                     - slack-app
