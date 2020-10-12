@@ -49,6 +49,21 @@ commands:
             - run:
                 command: cat environment_variables >> ${BASH_ENV}
                 name: Restore environment variables
+    restore_gradle_cache:
+        description: Restores and saves the gradle cache.
+        steps:
+            - restore_cache:
+                keys:
+                    - 1-gradle-{{ checksum "native/android/build.gradle" }}-{{ checksum "native/android/app/build.gradle" }}-{{ checksum "native/android/settings.gradle" }}
+                    - 1-gradle-
+            - run:
+                command: bundle exec fastlane dependencies
+                name: '[FL] Download Dependencies'
+                working_directory: native/android
+            - save_cache:
+                key: 1-gradle-{{ checksum "native/android/build.gradle" }}-{{ checksum "native/android/app/build.gradle" }}-{{ checksum "native/android/settings.gradle" }}
+                paths:
+                    - ~/.gradle
     restore_yarn_cache:
         description: Restores and saves the node_modules directories of the monorepo.
         steps:
@@ -98,23 +113,12 @@ jobs:
                 key: 2-gems-{{ arch }}-{{ checksum "native/android/Gemfile.lock" }}
                 paths:
                     - native/android/vendor/bundle
+            - restore_gradle_cache
             - restore_yarn_cache
             - run:
                 command: bundle exec fastlane keystore
                 name: '[FL] Prepare Android Keystore'
                 working_directory: native/android
-            - restore_cache:
-                keys:
-                    - 1-gradle-{{ checksum "native/android/build.gradle" }}-{{ checksum "native/android/app/build.gradle" }}-{{ checksum "native/android/settings.gradle" }}
-                    - 1-gradle-
-            - run:
-                command: bundle exec fastlane dependencies
-                name: '[FL] Download Dependencies'
-                working_directory: native/android
-            - save_cache:
-                key: 1-gradle-{{ checksum "native/android/build.gradle" }}-{{ checksum "native/android/app/build.gradle" }}-{{ checksum "native/android/settings.gradle" }}
-                paths:
-                    - ~/.gradle
             - run:
                 command: ./gradlew clean && bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat-e2e
                 name: '[FL] integreat-e2e build'
@@ -218,22 +222,11 @@ jobs:
                 paths:
                     - native/android/vendor/bundle
             - restore_yarn_cache
+            - restore_gradle_cache
             - run:
                 command: bundle exec fastlane keystore
                 name: '[FL] Prepare Android Keystore'
                 working_directory: native/android
-            - restore_cache:
-                keys:
-                    - 1-gradle-{{ checksum "native/android/build.gradle" }}-{{ checksum "native/android/app/build.gradle" }}-{{ checksum "native/android/settings.gradle" }}
-                    - 1-gradle-
-            - run:
-                command: bundle exec fastlane dependencies
-                name: '[FL] Download Dependencies'
-                working_directory: native/android
-            - save_cache:
-                key: 1-gradle-{{ checksum "native/android/build.gradle" }}-{{ checksum "native/android/app/build.gradle" }}-{{ checksum "native/android/settings.gradle" }}
-                paths:
-                    - ~/.gradle
             - run:
                 command: ./gradlew clean && bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat
                 name: '[FL] integreat build'
