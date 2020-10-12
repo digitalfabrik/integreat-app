@@ -14,21 +14,9 @@ steps:
   - attach_workspace:
       at: .
   - restore_environment_variables
-  - restore_cache:
-      keys:
-        - 3-gems-{{ arch }}-{{ checksum "native/ios/Gemfile.lock" }}
-        - 3-gems-{{ arch }}-
-  - run:
-      command: bundle config set path 'vendor/bundle'
-      working_directory: native/ios
-  - run:
-      command: bundle check || bundle install
-      working_directory: native/ios
-  - save_cache:
-      key: 3-gems-{{ arch }}-{{ checksum "native/ios/Gemfile.lock" }}
-      paths:
-        - native/ios/vendor/bundle
   - restore_yarn_cache
+  - restore_ruby_cache:
+      directory: native/ios
   - restore_cache:
       name: Restore CocoaPods Cache
       keys:

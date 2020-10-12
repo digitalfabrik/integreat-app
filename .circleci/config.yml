@@ -64,6 +64,24 @@ commands:
                 key: 1-gradle-{{ checksum "native/android/build.gradle" }}-{{ checksum "native/android/app/build.gradle" }}-{{ checksum "native/android/settings.gradle" }}
                 paths:
                     - ~/.gradle
+    restore_ruby_cache:
+        description: Restores and saves fastlane cache of the passed directory.
+        parameters:
+            directory:
+                default: native
+                type: string
+        steps:
+            - restore_cache:
+                keys:
+                    - 3-gems-{{ arch }}-{{ checksum "<< parameters.directory >>/Gemfile.lock" }}
+                    - 3-gems-{{ arch }}-
+            - run:
+                command: bundle check || bundle install
+                working_directory: << parameters.directory >>
+            - save_cache:
+                key: 3-gems-{{ arch }}-{{ checksum "<< parameters.directory >>/Gemfile.lock" }}
+                paths:
+                    - << parameters.directory >>/vendor/bundle
     restore_yarn_cache:
         description: Restores and saves the node_modules directories of the monorepo.
         steps:
@@ -99,22 +117,10 @@ jobs:
             - attach_workspace:
                 at: .
             - restore_environment_variables
-            - restore_cache:
-                keys:
-                    - 2-gems-{{ arch }}-{{ checksum "native/android/Gemfile.lock" }}
-                    - 2-gems-{{ arch }}-
-            - run:
-                command: bundle config set path 'vendor/bundle'
-                working_directory: native/android
-            - run:
-                command: bundle check || bundle install
-                working_directory: native/android
-            - save_cache:
-                key: 2-gems-{{ arch }}-{{ checksum "native/android/Gemfile.lock" }}
-                paths:
-                    - native/android/vendor/bundle
             - restore_gradle_cache
             - restore_yarn_cache
+            - restore_ruby_cache:
+                directory: native/android
             - run:
                 command: bundle exec fastlane keystore
                 name: '[FL] Prepare Android Keystore'
@@ -151,21 +157,9 @@ jobs:
             - attach_workspace:
                 at: .
             - restore_environment_variables
-            - restore_cache:
-                keys:
-                    - 3-gems-{{ arch }}-{{ checksum "native/ios/Gemfile.lock" }}
-                    - 3-gems-{{ arch }}-
-            - run:
-                command: bundle config set path 'vendor/bundle'
-                working_directory: native/ios
-            - run:
-                command: bundle check || bundle install
-                working_directory: native/ios
-            - save_cache:
-                key: 3-gems-{{ arch }}-{{ checksum "native/ios/Gemfile.lock" }}
-                paths:
-                    - native/ios/vendor/bundle
             - restore_yarn_cache
+            - restore_ruby_cache:
+                directory: native/ios
             - restore_cache:
                 keys:
                     - 2-pods-{{ arch }}-{{ checksum "native/ios/Podfile.lock" }}
@@ -207,22 +201,10 @@ jobs:
             - attach_workspace:
                 at: .
             - restore_environment_variables
-            - restore_cache:
-                keys:
-                    - 2-gems-{{ arch }}-{{ checksum "native/android/Gemfile.lock" }}
-                    - 2-gems-{{ arch }}-
-            - run:
-                command: bundle config set path 'vendor/bundle'
-                working_directory: native/android
-            - run:
-                command: bundle check || bundle install
-                working_directory: native/android
-            - save_cache:
-                key: 2-gems-{{ arch }}-{{ checksum "native/android/Gemfile.lock" }}
-                paths:
-                    - native/android/vendor/bundle
             - restore_yarn_cache
             - restore_gradle_cache
+            - restore_ruby_cache:
+                directory: native/android
             - run:
                 command: bundle exec fastlane keystore
                 name: '[FL] Prepare Android Keystore'
@@ -280,21 +262,9 @@ jobs:
             - attach_workspace:
                 at: .
             - restore_environment_variables
-            - restore_cache:
-                keys:
-                    - 3-gems-{{ arch }}-{{ checksum "native/ios/Gemfile.lock" }}
-                    - 3-gems-{{ arch }}-
-            - run:
-                command: bundle config set path 'vendor/bundle'
-                working_directory: native/ios
-            - run:
-                command: bundle check || bundle install
-                working_directory: native/ios
-            - save_cache:
-                key: 3-gems-{{ arch }}-{{ checksum "native/ios/Gemfile.lock" }}
-                paths:
-                    - native/ios/vendor/bundle
             - restore_yarn_cache
+            - restore_ruby_cache:
+                directory: native/ios
             - restore_cache:
                 keys:
                     - 2-pods-{{ arch }}-{{ checksum "native/ios/Podfile.lock" }}
@@ -475,21 +445,9 @@ jobs:
             - attach_workspace:
                 at: .
             - restore_environment_variables
-            - restore_cache:
-                keys:
-                    - 2-gems-{{ arch }}-{{ checksum "native/Gemfile.lock" }}
-                    - 2-gems-{{ arch }}-
-            - run:
-                command: bundle config set path 'vendor/bundle'
-                working_directory: native
-            - run:
-                command: bundle check || bundle install
-                working_directory: native
-            - save_cache:
-                key: 2-gems-{{ arch }}-{{ checksum "native/Gemfile.lock" }}
-                paths:
-                    - vendor/bundle
             - restore_yarn_cache
+            - restore_ruby_cache:
+                directory: native
             - run:
                 command: tools/parse-release-notes parse --android --destination native/android/fastlane/metadata/android/de-DE/changelogs/default.txt --language de --production
                 name: Parse german android release notes
@@ -525,21 +483,9 @@ jobs:
             - attach_workspace:
                 at: .
             - restore_environment_variables
-            - restore_cache:
-                keys:
-                    - 2-gems-{{ arch }}-{{ checksum "native/Gemfile.lock" }}
-                    - 2-gems-{{ arch }}-
-            - run:
-                command: bundle config set path 'vendor/bundle'
-                working_directory: native
-            - run:
-                command: bundle check || bundle install
-                working_directory: native
-            - save_cache:
-                key: 2-gems-{{ arch }}-{{ checksum "native/Gemfile.lock" }}
-                paths:
-                    - vendor/bundle
             - restore_yarn_cache
+            - restore_ruby_cache:
+                directory: native
             - run:
                 command: tools/parse-release-notes parse --ios --destination native/ios/fastlane/metadata/de-DE/release_notes.txt --language de --production
                 name: Parse german ios release notes
@@ -615,21 +561,9 @@ jobs:
             - checkout
             - attach_workspace:
                 at: ./native
-            - restore_cache:
-                keys:
-                    - 2-gems-{{ arch }}-{{ checksum "native/Gemfile.lock" }}
-                    - 2-gems-{{ arch }}-
-            - run:
-                command: bundle config set path 'vendor/bundle'
-                working_directory: native
-            - run:
-                command: bundle check || bundle install
-                working_directory: native
-            - save_cache:
-                key: 2-gems-{{ arch }}-{{ checksum "native/Gemfile.lock" }}
-                paths:
-                    - native/vendor/bundle
             - restore_yarn_cache
+            - restore_ruby_cache:
+                directory: native
             - run:
                 command: bundle exec fastlane android browserstack_e2e_tests app_name:integreat-e2e
                 name: '[FL] Android E2E Tests on Browserstack'
@@ -646,21 +580,9 @@ jobs:
             - checkout
             - attach_workspace:
                 at: ./native
-            - restore_cache:
-                keys:
-                    - 2-gems-{{ arch }}-{{ checksum "native/Gemfile.lock" }}
-                    - 2-gems-{{ arch }}-
-            - run:
-                command: bundle config set path 'vendor/bundle'
-                working_directory: native
-            - run:
-                command: bundle check || bundle install
-                working_directory: native
-            - save_cache:
-                key: 2-gems-{{ arch }}-{{ checksum "native/Gemfile.lock" }}
-                paths:
-                    - native/vendor/bundle
             - restore_yarn_cache
+            - restore_ruby_cache:
+                directory: native
             - run:
                 command: bundle exec fastlane ios browserstack_e2e_tests app_name:integreat-e2e
                 name: '[FL] iOS E2E Tests on Browserstack'
