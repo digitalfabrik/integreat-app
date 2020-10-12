@@ -1,0 +1,36 @@
+docker:
+  - image: circleci/node:12.16.3
+resource_class: small
+environment:
+  TOTAL_CPUS: 1 # For resource_class small
+  TZ: "Europe/Berlin" # Should be removed in WEBAPP-463
+shell: /bin/bash -eo pipefail
+steps:
+  - checkout
+  - check_config
+  - restore_yarn_cache
+  - run:
+      name: Check linting
+      command: yarn workspace web lint
+  - run:
+      name: Check flow
+      command: yarn workspace web flow:check-now --max-workers ${TOTAL_CPUS}
+  - run:
+      name: Unit tests
+      command: yarn workspace web test --ci --maxWorkers ${TOTAL_CPUS}
+  - run:
+      name: Test coverage # Results are not used right now. Run it anyway to (possibly) discover more problems.
+      command: yarn workspace web test:coverage --ci --maxWorkers ${TOTAL_CPUS}
+  - run:
+      name: Development integreat-test-cms build
+      command: yarn workspace web build:integreat-test-cms --env.commit_sha=${CIRCLE_SHA1}
+  - run:
+      name: Check build
+      command: yarn workspace web check:build
+  - store_artifacts:
+      path: dist
+  - persist_to_workspace:
+      root: web
+      paths:
+        - dist
+  - notify_failed

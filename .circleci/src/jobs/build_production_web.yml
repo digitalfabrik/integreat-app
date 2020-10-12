@@ -1,0 +1,25 @@
+docker:
+  - image: circleci/node:12.16.3
+resource_class: small
+environment:
+  TOTAL_CPUS: 1 # For resource_class small
+shell: /bin/bash -eo pipefail
+steps:
+  - checkout
+  - restore_yarn_cache
+  - run:
+      name: Production integreat build
+      command: yarn workspace web build:integreat
+  - run:
+      name: Production malte build
+      command: yarn workspace web build:malte
+  - run:
+      name: Check build
+      command: yarn workspace web check:build
+  - store_artifacts:
+      path: dist
+  - persist_to_workspace:
+      root: web
+      paths:
+        - dist
+  - notify_failed

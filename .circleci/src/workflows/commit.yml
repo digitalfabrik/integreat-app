@@ -1,9 +1,11 @@
 unless: << pipeline.parameters.api_triggered >>
 jobs:
   - bump_version:
+      context:
+        - slack-app
       delivery: none
 
-  - build_web:
+  - check_web:
       context:
         - slack-app
       requires:
@@ -17,11 +19,13 @@ jobs:
         - slack-app
       production_delivery: false
       requires:
-        - build_web
+        - check_web
 
   - check_native:
       context:
         - slack-app
+      requires:
+        - bump_version
 
   - build_android:
       context:
