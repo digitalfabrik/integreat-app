@@ -40,6 +40,23 @@ commands:
                 mentions: maxammann,st,UUZS7CMV0,UV99P8ETW
                 only_for_branches: main
                 webhook: ${SLACK_URL}
+    restore_cocoa_pods_cache:
+        description: Restores and saves the cocoa pods cache.
+        steps:
+            - restore_cache:
+                keys:
+                    - 2-pods-{{ arch }}-{{ checksum "native/ios/Podfile.lock" }}
+                    - 2-pods-{{ arch }}-
+                name: Restore CocoaPods Cache
+            - run:
+                command: bundle exec pod install --deployment
+                name: '[CP] Install CocoaPods'
+                working_directory: native/ios
+            - save_cache:
+                key: 2-pods-{{ arch }}-{{ checksum "native/ios/Podfile.lock" }}
+                name: Save CocoaPods Cache
+                paths:
+                    - ~/Library/Caches/CocoaPods/
     restore_environment_variables:
         description: Sets the environment variables specified in the file 'environment_variables'. Make sure the file is persisted and has been attached.
         steps:
@@ -160,20 +177,7 @@ jobs:
             - restore_yarn_cache
             - restore_ruby_cache:
                 directory: native/ios
-            - restore_cache:
-                keys:
-                    - 2-pods-{{ arch }}-{{ checksum "native/ios/Podfile.lock" }}
-                    - 2-pods-{{ arch }}-
-                name: Restore CocoaPods Cache
-            - run:
-                command: bundle exec pod install --deployment
-                name: '[CP] Install CocoaPods'
-                working_directory: native/ios
-            - save_cache:
-                key: 2-pods-{{ arch }}-{{ checksum "native/ios/Podfile.lock" }}
-                name: Save CocoaPods Cache
-                paths:
-                    - ~/Library/Caches/CocoaPods/
+            - restore_cocoa_pods_cache
             - run:
                 command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat-e2e
                 name: '[FL] integreat-e2e build'
@@ -265,20 +269,7 @@ jobs:
             - restore_yarn_cache
             - restore_ruby_cache:
                 directory: native/ios
-            - restore_cache:
-                keys:
-                    - 2-pods-{{ arch }}-{{ checksum "native/ios/Podfile.lock" }}
-                    - 2-pods-{{ arch }}-
-                name: Restore CocoaPods Cache
-            - run:
-                command: bundle exec pod install --deployment
-                name: '[CP] Install CocoaPods'
-                working_directory: native/ios
-            - save_cache:
-                key: 2-pods-{{ arch }}-{{ checksum "native/ios/Podfile.lock" }}
-                name: Save CocoaPods Cache
-                paths:
-                    - ~/Library/Caches/CocoaPods/
+            - restore_cocoa_pods_cache
             - run:
                 command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat
                 name: '[FL] integreat build'

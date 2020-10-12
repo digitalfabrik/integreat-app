@@ -17,20 +17,7 @@ steps:
   - restore_yarn_cache
   - restore_ruby_cache:
       directory: native/ios
-  - restore_cache:
-      name: Restore CocoaPods Cache
-      keys:
-        - 2-pods-{{ arch }}-{{ checksum "native/ios/Podfile.lock" }}
-        - 2-pods-{{ arch }}-
-  - run:
-      name: "[CP] Install CocoaPods"
-      command: bundle exec pod install --deployment
-      working_directory: native/ios
-  - save_cache:
-      name: Save CocoaPods Cache
-      key: 2-pods-{{ arch }}-{{ checksum "native/ios/Podfile.lock" }}
-      paths:
-        - ~/Library/Caches/CocoaPods/
+  - restore_cocoa_pods_cache
   - run:
       name: "[FL] integreat build"
       command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat
