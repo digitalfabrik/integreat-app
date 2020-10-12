@@ -42,5 +42,4 @@ steps:
       root: web
       paths:
         - dist
-        - node_modules
   - notify_failed
