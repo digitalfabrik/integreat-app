@@ -1,11 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`RouteContentSwitcher should render a FailureSwitcher if a payload contains an error 1`] = `
-<FailureSwitcher
-  error={[Error: error]}
-/>
-`;
-
 exports[`RouteContentSwitcher should render and match snapshot 1`] = `
 <Translate(Connect(CategoriesPage))
   categories={
