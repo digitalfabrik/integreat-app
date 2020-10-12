@@ -27,23 +27,12 @@ steps:
       key: 2-gems-{{ arch }}-{{ checksum "native/android/Gemfile.lock" }}
       paths:
         - native/android/vendor/bundle
+  - restore_gradle_cache
   - restore_yarn_cache
   - run:
       name: "[FL] Prepare Android Keystore"
       command: bundle exec fastlane keystore
       working_directory: native/android
-  - restore_cache:
-      keys:
-        - 1-gradle-{{ checksum "native/android/build.gradle" }}-{{ checksum "native/android/app/build.gradle" }}-{{ checksum "native/android/settings.gradle" }}
-        - 1-gradle-
-  - run:
-      name: "[FL] Download Dependencies"
-      command: bundle exec fastlane dependencies
-      working_directory: native/android
-  - save_cache:
-      paths:
-        - ~/.gradle
-      key: 1-gradle-{{ checksum "native/android/build.gradle" }}-{{ checksum "native/android/app/build.gradle" }}-{{ checksum "native/android/settings.gradle" }}
   - run:
       name: "[FL] integreat-e2e build"
       command: ./gradlew clean && bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat-e2e
