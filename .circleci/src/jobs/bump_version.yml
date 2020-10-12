@@ -34,4 +34,8 @@ steps:
         - run:
             name: Create jira release # The jira project has to have the same name as the github project. Otherwise this has to be configured.
             command: tools/create-jira-release create-release ${NEW_VERSION_NAME} --private-key ${JIRA_PRIVATE_KEY} --access-token ${JIRA_OAUTH_TOKEN} --consumer-key ${JIRA_CONSUMER_KEY} --project-name ${CIRCLE_PROJECT_REPONAME}
+  - persist_to_workspace:
+      root: ./
+      paths:
+        - environment_variables
   - notify_failed
