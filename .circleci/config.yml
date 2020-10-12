@@ -87,15 +87,6 @@ jobs:
             - checkout
             - attach_workspace:
                 at: .
-            - unless:
-                condition: << parameters.build_for_delivery >>
-                steps:
-                    - run:
-                        command: echo "export NEW_VERSION_NAME=$(cat version.json | jq .versionCode)" >> environment_variables
-                        name: Calculate next version name
-                    - run:
-                        command: echo "export NEW_VERSION_CODE=$(cat version.json | jq .versionCode)" >> environment_variables
-                        name: Calculate next version code
             - restore_environment_variables
             - restore_cache:
                 keys:
@@ -203,15 +194,6 @@ jobs:
             - checkout
             - attach_workspace:
                 at: .
-            - unless:
-                condition: << parameters.build_for_delivery >>
-                steps:
-                    - run:
-                        command: echo "export NEW_VERSION_NAME=$(cat version.json | jq .versionName)" >> environment_variables
-                        name: Calculate next version name
-                    - run:
-                        command: echo "export NEW_VERSION_CODE=$(cat version.json | jq .versionCode)" >> environment_variables
-                        name: Calculate next version code
             - restore_environment_variables
             - restore_cache:
                 keys:
@@ -324,14 +306,17 @@ jobs:
         docker:
             - image: circleci/node:12.16.3
         parameters:
-            production_delivery:
-                description: Whether builds are delivered to production.
-                type: boolean
+            delivery:
+                default: none
+                description: Which type of delivery should be made. If none, the bumped version is not committed.
+                enum:
+                    - none
+                    - development
+                    - production
+                type: enum
         resource_class: small
         steps:
             - checkout
-            - attach_workspace:
-                at: .
             - restore_yarn_cache
             - run:
                 command: echo "export NEW_VERSION_NAME=$(tools/next-version calc | jq .versionName)" >> environment_variables
@@ -342,19 +327,24 @@ jobs:
             - run:
                 command: cat environment_variables >> ${BASH_ENV}
                 name: Set environment varibales
-            - run:
-                command: tools/git-version bump-to ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
-                name: Bump git version
+            - unless:
+                condition:
+                    equal:
+                        - none
+                        - << parameters.delivery >>
+                steps:
+                    - run:
+                        command: tools/git-version bump-to ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
+                        name: Bump git version
             - when:
-                condition: << parameters.production_delivery >>
+                condition:
+                    equal:
+                        - production
+                        - << parameters.delivery >>
                 steps:
                     - run:
                         command: tools/create-jira-release create-release ${NEW_VERSION_NAME} --private-key ${JIRA_PRIVATE_KEY} --access-token ${JIRA_OAUTH_TOKEN} --consumer-key ${JIRA_CONSUMER_KEY} --project-name ${CIRCLE_PROJECT_REPONAME}
                         name: Create jira release
-            - persist_to_workspace:
-                paths:
-                    - environment_variables
-                root: ./
             - notify_failed
     check_native:
         docker:
@@ -688,6 +678,8 @@ version: 2.1
 workflows:
     commit:
         jobs:
+            - bump_version:
+                delivery: none
             - build_web:
                 context:
                     - slack-app
@@ -740,7 +732,7 @@ workflows:
                     - slack-app
                     - deliverino
                     - jira
-                production_delivery: false
+                delivery: development
             - check_native:
                 context:
                     - slack-app
@@ -822,7 +814,7 @@ workflows:
                     - slack-app
                     - deliverino
                     - jira
-                production_delivery: true
+                delivery: production
             - build_web:
                 context:
                     - slack-app
@@ -1008,7 +1000,7 @@ workflows:
                     - slack-app
                     - deliverino
                     - jira
-                production_delivery: true
+                delivery: production
             - build_web:
                 context:
                     - slack-app
