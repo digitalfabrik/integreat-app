@@ -63,17 +63,9 @@ steps:
             command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat
             working_directory: native/ios
         - run:
-            name: Create sourcemap
-            command: BUILD_CONFIG_NAME='integreat' yarn react-native bundle --platform ios --dev false --entry-file index.js --bundle-output ios/output/integreat.ios-release.bundle --sourcemap-output ios/output/integreat.ios.bundle.map
-            working_directory: native
-        - run:
             name: "[FL] malte build"
             command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:malte
             working_directory: native/ios
-        - run:
-            name: Create sourcemap
-            command: BUILD_CONFIG_NAME='malte' yarn react-native bundle --platform ios --dev false --entry-file index.js --bundle-output ios/output/malte.ios-release.bundle --sourcemap-output ios/output/malte.ios.bundle.map
-            working_directory: native
   - run:
       name: "[FL] integreat-e2e build"
       command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat-e2e

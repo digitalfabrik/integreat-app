@@ -35,7 +35,8 @@ lane :build do |options|
   )
 
   # DO NOT OVERWRITE THE BUNDLE_CONFIG ENV VARIABLE! It is used by ruby bundle.
-  ENV["EXTRA_PACKAGER_ARGS"] = "--sourcemap-output /Users/distiller/project/ios/index.ios.bundle.map --config ../metro.config.ci.js"
+
+  ENV["EXTRA_PACKAGER_ARGS"] = "--sourcemap-output ios/output/#{build_config_name}.ios.bundle.map"
   # DO NOT REMOVE THIS! It is necessary for the javascript build config logic.
   ENV["BUILD_CONFIG_NAME"] = build_config_name
 
