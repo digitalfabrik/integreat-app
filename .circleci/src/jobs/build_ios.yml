@@ -4,6 +4,7 @@ parameters:
     type: boolean
 macos:
   xcode: 11.7.0
+resource_class: large
 environment:
   FL_OUTPUT_DIR: output
   FASTLANE_SKIP_UPDATE_CHECK: true

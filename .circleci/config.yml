@@ -194,6 +194,7 @@ jobs:
             build_for_delivery:
                 description: Whether builds are delivered to the store. If true, integreat and malte builds are created.
                 type: boolean
+        resource_class: large
         shell: /bin/bash --login -o pipefail
         steps:
             - add_ssh_keys:
