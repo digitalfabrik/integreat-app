@@ -249,16 +249,8 @@ jobs:
                         name: '[FL] integreat build'
                         working_directory: native/ios
                     - run:
-                        command: mv index.ios.bundle.map output/integreat.ios.bundle.map
-                        name: Rename sourcemap
-                        working_directory: native/ios
-                    - run:
                         command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:malte
                         name: '[FL] malte build'
-                        working_directory: native/ios
-                    - run:
-                        command: mv index.ios.bundle.map output/malte.ios.bundle.map
-                        name: Rename sourcemap
                         working_directory: native/ios
             - run:
                 command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat-e2e
@@ -325,7 +317,6 @@ jobs:
             - persist_to_workspace:
                 paths:
                     - dist
-                    - node_modules
                 root: web
             - notify_failed
     bump_version:
@@ -340,7 +331,7 @@ jobs:
             - checkout
             - attach_workspace:
                 at: .
-            - restore_environment_variables
+            - restore_yarn_cache
             - run:
                 command: echo "export NEW_VERSION_NAME=$(tools/next-version calc | jq .versionName)" >> environment_variables
                 name: Calculate next version name
@@ -511,6 +502,7 @@ jobs:
                     - 68:a3:fe:e7:94:f7:a4:13:35:5c:63:30:2f:07:7d:02
             - attach_workspace:
                 at: .
+            - restore_yarn_cache
             - when:
                 condition: << parameters.production_delivery >>
                 steps:
@@ -603,7 +595,7 @@ jobs:
             - restore_environment_variables
             - restore_yarn_cache
             - run:
-                command: tools/move-release-notes move-to ${NEW_VERSION_NAME} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH} --commit-sha ${CIRCLE_SHA1}
+                command: tools/move-release-notes move-to ${NEW_VERSION_NAME} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
                 name: Move release notes
             - notify_failed
     notify_android:
@@ -621,10 +613,13 @@ jobs:
             - restore_environment_variables
             - restore_yarn_cache
             - run:
-                command: tools/github-release create Android ${NEW_VERSION_NAME} ${NEW_VERSION_NAME} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(tools/parse-release-notes parse --android --language en)"<<^ parameters.production_delivery >> --development-release<</ parameters.production_delivery >>
+                command: echo "export GITHUB_RELEASE_NOTES=$(tools/parse-release-notes parse --android --language en)" >> ${BASH_ENV}
+                name: Create github release notes
+            - run:
+                command: tools/github-release create android ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "${GITHUB_RELEASE_NOTES}"<<^ parameters.production_delivery >> --development-release<</ parameters.production_delivery >>
                 name: Create github release
             - slack/notify:
-                message: Integreat ${NEW_VERSION_NAME} has been released successfully on Android!
+                message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat ${NEW_VERSION_NAME} has been released successfully on Android!\n${GITHUB_RELEASE_NOTES}
                 webhook: ${SLACK_URL}
             - notify_failed
     notify_ios:
@@ -642,10 +637,13 @@ jobs:
             - restore_environment_variables
             - restore_yarn_cache
             - run:
-                command: tools/github-release create iOS ${NEW_VERSION_NAME} ${NEW_VERSION_NAME} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(tools/parse-release-notes parse --ios --language en)"<<^ parameters.production_delivery >> --development-release<</ parameters.production_delivery >>
+                command: echo "export GITHUB_RELEASE_NOTES=$(tools/parse-release-notes parse --android --language en)" >> ${BASH_ENV}
+                name: Create github release notes
+            - run:
+                command: tools/github-release create ios ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "${GITHUB_RELEASE_NOTES}"<<^ parameters.production_delivery >> --development-release<</ parameters.production_delivery >>
                 name: Create github release
             - slack/notify:
-                message: Integreat ${NEW_VERSION_NAME} has been released successfully on iOS!
+                message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat ${NEW_VERSION_NAME} has been released successfully on iOS!\n${GITHUB_RELEASE_NOTES}
                 webhook: ${SLACK_URL}
             - notify_failed
     notify_web:
@@ -656,13 +654,16 @@ jobs:
             - checkout
             - attach_workspace:
                 at: .
-            - restore_environment_variables
             - restore_yarn_cache
+            - restore_environment_variables
             - run:
-                command: tools/github-release create Web ${NEW_VERSION_NAME} ${NEW_VERSION_NAME} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(tools/parse-release-notes parse --web --language en)"
+                command: echo "export GITHUB_RELEASE_NOTES=$(tools/parse-release-notes parse --android --language en)" >> ${BASH_ENV}
+                name: Create github release notes
+            - run:
+                command: tools/github-release create web ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "${GITHUB_RELEASE_NOTES}"
                 name: Create github release
             - slack/notify:
-                message: WebApp version ${NEW_VERSION_NAME} was delivered successfully to integreat.app and malteapp.de!
+                message: WebApp version ${NEW_VERSION_NAME} was delivered successfully to integreat.app and malteapp.de!\n${GITHUB_RELEASE_NOTES}
                 webhook: ${SLACK_URL}
             - notify_failed
 orbs:

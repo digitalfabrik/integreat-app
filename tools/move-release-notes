@@ -10,14 +10,13 @@ program
   .requiredOption('--owner <owner>', 'owner of the current repository, usually "Integreat"')
   .requiredOption('--repo <repo>', 'the current repository, usually "integreat-app"')
   .requiredOption('--branch <branch>', 'the current branch')
-  .requiredOption('--commit-sha <commit-sha>', 'the sha1 of the current commit')
 
-const moveReleaseNotes = async ({ newVersionName, deliverinoPrivateKey, owner, repo, branch, commitSha }) => {
+const moveReleaseNotes = async ({ newVersionName, deliverinoPrivateKey, owner, repo, branch }) => {
   const appOctokit = await authenticate({ deliverinoPrivateKey, owner, repo })
-  const lastCommit = await appOctokit.git.getCommit({ owner, repo, commit_sha: commitSha })
+  const { data: { commit } } = await appOctokit.repos.getBranch({ owner, repo, branch })
 
   // Tree of the root folder of the project
-  const rootTreeSha = lastCommit.data.tree.sha
+  const rootTreeSha = commit.sha
   const rootTree = await appOctokit.git.getTree({ owner, repo, tree_sha: rootTreeSha })
 
   // Tree of the 'release-notes' folder of the project
@@ -78,7 +77,7 @@ const moveReleaseNotes = async ({ newVersionName, deliverinoPrivateKey, owner, r
     repo,
     message: `Move release notes to ${newVersionName}\n[skip ci]`,
     tree: updatedRootTree.data.sha,
-    parents: [commitSha]
+    parents: [commit.sha]
   })
 
   await appOctokit.git.updateRef({
