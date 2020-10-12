@@ -134,10 +134,10 @@ jobs:
             - attach_workspace:
                 at: .
             - restore_environment_variables
-            - restore_gradle_cache
             - restore_yarn_cache
             - restore_ruby_cache:
                 directory: native/android
+            - restore_gradle_cache
             - run:
                 command: bundle exec fastlane keystore
                 name: '[FL] Prepare Android Keystore'
@@ -206,9 +206,9 @@ jobs:
                 at: .
             - restore_environment_variables
             - restore_yarn_cache
-            - restore_gradle_cache
             - restore_ruby_cache:
                 directory: native/android
+            - restore_gradle_cache
             - run:
                 command: bundle exec fastlane keystore
                 name: '[FL] Prepare Android Keystore'
