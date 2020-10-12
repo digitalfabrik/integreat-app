@@ -256,36 +256,16 @@ jobs:
                     - integreat-e2e.ipa
                 root: native/ios/output/gym
             - notify_failed
-    build_web:
+    build_production_web:
         docker:
             - image: circleci/node:12.16.3
         environment:
             TOTAL_CPUS: 1
-            TZ: Europe/Berlin
         resource_class: small
         shell: /bin/bash -eo pipefail
         steps:
-            - run:
-                command: echo "CPU count is ${TOTAL_CPUS}"
-                name: Show current CPU count
             - checkout
-            - check_config
             - restore_yarn_cache
-            - run:
-                command: yarn workspace web lint
-                name: Check linting
-            - run:
-                command: yarn workspace web flow:check-now --max-workers ${TOTAL_CPUS}
-                name: Check flow
-            - run:
-                command: yarn workspace web test --ci --maxWorkers ${TOTAL_CPUS}
-                name: Unit tests
-            - run:
-                command: yarn workspace web test:coverage --ci --maxWorkers ${TOTAL_CPUS}
-                name: Test coverage
-            - run:
-                command: yarn workspace web build:integreat-test-cms --env.commit_sha=${CIRCLE_SHA1}
-                name: Development integreat-test-cms build
             - run:
                 command: yarn workspace web build:integreat
                 name: Production integreat build
@@ -308,7 +288,7 @@ jobs:
         parameters:
             delivery:
                 default: none
-                description: Which type of delivery should be made. If none, the bumped version is not committed.
+                description: Which type of delivery is made. If none, the bumped version is not committed.
                 enum:
                     - none
                     - development
@@ -366,6 +346,43 @@ jobs:
             - run:
                 command: yarn workspace native test --maxWorkers ${TOTAL_CPUS}
                 name: Unit tests
+            - notify_failed
+    check_web:
+        docker:
+            - image: circleci/node:12.16.3
+        environment:
+            TOTAL_CPUS: 1
+            TZ: Europe/Berlin
+        resource_class: small
+        shell: /bin/bash -eo pipefail
+        steps:
+            - checkout
+            - check_config
+            - restore_yarn_cache
+            - run:
+                command: yarn workspace web lint
+                name: Check linting
+            - run:
+                command: yarn workspace web flow:check-now --max-workers ${TOTAL_CPUS}
+                name: Check flow
+            - run:
+                command: yarn workspace web test --ci --maxWorkers ${TOTAL_CPUS}
+                name: Unit tests
+            - run:
+                command: yarn workspace web test:coverage --ci --maxWorkers ${TOTAL_CPUS}
+                name: Test coverage
+            - run:
+                command: yarn workspace web build:integreat-test-cms --env.commit_sha=${CIRCLE_SHA1}
+                name: Development integreat-test-cms build
+            - run:
+                command: yarn workspace web check:build
+                name: Check build
+            - store_artifacts:
+                path: dist
+            - persist_to_workspace:
+                paths:
+                    - dist
+                root: web
             - notify_failed
     deliver_android:
         docker:
@@ -679,10 +696,14 @@ workflows:
     commit:
         jobs:
             - bump_version:
-                delivery: none
-            - build_web:
                 context:
                     - slack-app
+                delivery: none
+            - check_web:
+                context:
+                    - slack-app
+                requires:
+                    - bump_version
             - deliver_web:
                 context:
                     - slack-app
@@ -692,10 +713,12 @@ workflows:
                             - main
                 production_delivery: false
                 requires:
-                    - build_web
+                    - check_web
             - check_native:
                 context:
                     - slack-app
+                requires:
+                    - bump_version
             - build_android:
                 build_for_delivery: false
                 context:
@@ -703,7 +726,7 @@ workflows:
                     - tuerantuer-google-play
                     - tuerantuer-android
                 requires:
-                    - check_native
+                    - bump_version
             - e2e_android:
                 context:
                     - slack-app
@@ -717,7 +740,7 @@ workflows:
                     - tuerantuer-apple
                     - tuerantuer-ios
                 requires:
-                    - check_native
+                    - bump_version
             - e2e_ios:
                 context:
                     - slack-app
@@ -745,7 +768,7 @@ workflows:
                     - tuerantuer-google-play
                     - tuerantuer-android
                 requires:
-                    - check_native
+                    - bump_version
             - e2e_android:
                 context:
                     - slack-app
@@ -761,6 +784,7 @@ workflows:
                     - tuerantuer-android
                 production_delivery: false
                 requires:
+                    - check_native
                     - e2e_android
             - notify_android:
                 context:
@@ -776,7 +800,7 @@ workflows:
                     - tuerantuer-apple
                     - tuerantuer-ios
                 requires:
-                    - check_native
+                    - bump_version
             - e2e_ios:
                 context:
                     - slack-app
@@ -792,6 +816,7 @@ workflows:
                     - tuerantuer-ios
                 production_delivery: false
                 requires:
+                    - check_native
                     - e2e_ios
             - notify_ios:
                 context:
@@ -815,7 +840,12 @@ workflows:
                     - deliverino
                     - jira
                 delivery: production
-            - build_web:
+            - check_web:
+                context:
+                    - slack-app
+                requires:
+                    - bump_version
+            - build_production_web:
                 context:
                     - slack-app
                 requires:
@@ -825,7 +855,8 @@ workflows:
                     - slack-app
                 production_delivery: true
                 requires:
-                    - build_web
+                    - check_web
+                    - build_production_web
             - notify_web:
                 context:
                     - slack-app
@@ -844,7 +875,7 @@ workflows:
                     - tuerantuer-google-play
                     - tuerantuer-android
                 requires:
-                    - check_native
+                    - bump_version
             - e2e_android:
                 context:
                     - slack-app
@@ -860,6 +891,7 @@ workflows:
                     - tuerantuer-android
                 production_delivery: true
                 requires:
+                    - check_native
                     - e2e_android
             - notify_android:
                 context:
@@ -875,7 +907,7 @@ workflows:
                     - tuerantuer-apple
                     - tuerantuer-ios
                 requires:
-                    - check_native
+                    - bump_version
             - e2e_ios:
                 context:
                     - slack-app
@@ -891,6 +923,7 @@ workflows:
                     - tuerantuer-ios
                 production_delivery: true
                 requires:
+                    - check_native
                     - e2e_ios
             - notify_ios:
                 context:
@@ -1001,7 +1034,12 @@ workflows:
                     - deliverino
                     - jira
                 delivery: production
-            - build_web:
+            - check_web:
+                context:
+                    - slack-app
+                requires:
+                    - bump_version
+            - build_production_web:
                 context:
                     - slack-app
                 requires:
@@ -1011,7 +1049,8 @@ workflows:
                     - slack-app
                 production_delivery: true
                 requires:
-                    - build_web
+                    - check_web
+                    - build_production_web
             - notify_web:
                 context:
                     - slack-app
@@ -1030,7 +1069,7 @@ workflows:
                     - tuerantuer-google-play
                     - tuerantuer-android
                 requires:
-                    - check_native
+                    - bump_version
             - e2e_android:
                 context:
                     - slack-app
@@ -1046,6 +1085,7 @@ workflows:
                     - tuerantuer-android
                 production_delivery: true
                 requires:
+                    - check_native
                     - e2e_android
             - notify_android:
                 context:
@@ -1061,7 +1101,7 @@ workflows:
                     - tuerantuer-apple
                     - tuerantuer-ios
                 requires:
-                    - check_native
+                    - bump_version
             - e2e_ios:
                 context:
                     - slack-app
@@ -1077,6 +1117,7 @@ workflows:
                     - tuerantuer-ios
                 production_delivery: true
                 requires:
+                    - check_native
                     - e2e_ios
             - notify_ios:
                 context:

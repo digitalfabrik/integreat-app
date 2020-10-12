@@ -13,7 +13,12 @@ jobs:
         - jira
       delivery: production
 
-  - build_web:
+  - check_web:
+      context:
+        - slack-app
+      requires:
+        - bump_version
+  - build_production_web:
       context:
         - slack-app
       requires:
@@ -23,7 +28,8 @@ jobs:
         - slack-app
       production_delivery: true
       requires:
-        - build_web
+        - check_web
+        - build_production_web
   - notify_web:
       context:
         - slack-app
@@ -34,6 +40,8 @@ jobs:
   - check_native:
       context:
         - slack-app
+      requires:
+        - bump_version
 
   - build_android:
       context:
