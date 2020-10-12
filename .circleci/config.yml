@@ -249,17 +249,9 @@ jobs:
                         name: '[FL] integreat build'
                         working_directory: native/ios
                     - run:
-                        command: BUILD_CONFIG_NAME='integreat' yarn react-native bundle --platform ios --dev false --entry-file index.js --bundle-output ios/output/integreat.ios-release.bundle --sourcemap-output ios/output/integreat.ios.bundle.map
-                        name: Create sourcemap
-                        working_directory: native
-                    - run:
                         command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:malte
                         name: '[FL] malte build'
                         working_directory: native/ios
-                    - run:
-                        command: BUILD_CONFIG_NAME='malte' yarn react-native bundle --platform ios --dev false --entry-file index.js --bundle-output ios/output/malte.ios-release.bundle --sourcemap-output ios/output/malte.ios.bundle.map
-                        name: Create sourcemap
-                        working_directory: native
             - run:
                 command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat-e2e
                 name: '[FL] integreat-e2e build'
