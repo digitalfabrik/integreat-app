@@ -15,21 +15,9 @@ steps:
   - attach_workspace:
       at: .
   - restore_environment_variables
-  - restore_cache:
-      keys:
-        - 2-gems-{{ arch }}-{{ checksum "native/Gemfile.lock" }}
-        - 2-gems-{{ arch }}-
-  - run:
-      command: bundle config set path 'vendor/bundle'
-      working_directory: native
-  - run:
-      command: bundle check || bundle install
-      working_directory: native
-  - save_cache:
-      key: 2-gems-{{ arch }}-{{ checksum "native/Gemfile.lock" }}
-      paths:
-        - vendor/bundle
   - restore_yarn_cache
+  - restore_ruby_cache:
+      directory: native
   - run:
       name: Parse german android release notes
       command: tools/parse-release-notes parse --android --destination native/android/fastlane/metadata/android/de-DE/changelogs/default.txt --language de --production
