@@ -6,7 +6,7 @@ steps:
         - 6-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
   - run:
       name: Install Dependencies
-      command: yarn install --frozen-lockfile
+      command: yarn --frozen-lockfile --cache-folder ~/.cache/yarn
   - save_cache:
       name: Save Yarn Package Cache
       key: 6-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
