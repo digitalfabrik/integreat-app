@@ -202,7 +202,7 @@ jobs:
             - checkout
             - attach_workspace:
                 at: .
-            - unless:
+            - when:
                 condition: << parameters.build_for_delivery >>
                 steps:
                     - run:

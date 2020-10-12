@@ -16,7 +16,7 @@ steps:
   - checkout
   - attach_workspace:
       at: .
-  - unless: # If not building for delivery, the bump version job has never been executed and therefore no env variables are available.
+  - when: # If not building for delivery, the bump version job has never been executed and therefore no env variables are available.
       condition: << parameters.build_for_delivery >>
       steps:
         - run:
