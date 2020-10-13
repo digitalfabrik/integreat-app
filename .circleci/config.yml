@@ -340,12 +340,6 @@ jobs:
             - run:
                 command: yarn workspace web test:coverage --ci --maxWorkers ${TOTAL_CPUS}
                 name: Test coverage
-            - store_artifacts:
-                path: dist
-            - persist_to_workspace:
-                paths:
-                    - dist
-                root: web
             - notify_failed
     deliver_android:
         docker:

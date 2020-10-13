@@ -21,10 +21,4 @@ steps:
   - run:
       name: Test coverage # Results are not used right now. Run it anyway to (possibly) discover more problems.
       command: yarn workspace web test:coverage --ci --maxWorkers ${TOTAL_CPUS}
-  - store_artifacts:
-      path: dist
-  - persist_to_workspace:
-      root: web
-      paths:
-        - dist
   - notify_failed
