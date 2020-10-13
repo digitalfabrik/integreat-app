@@ -561,10 +561,7 @@ workflows:
                     - slack-app
                     - deliverino
                     - jira
-                delivery: development
-            - check_native:
-                context:
-                    - slack-app
+                delivery: none
             - notify_android:
                 context:
                     - slack-app
