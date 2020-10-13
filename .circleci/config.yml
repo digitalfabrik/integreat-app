@@ -559,22 +559,9 @@ workflows:
             - bump_version:
                 context:
                     - slack-app
-                delivery: none
-            - check_web:
-                context:
-                    - slack-app
-            - build_web:
-                build_config_name: integreat-test-cms
-                context:
-                    - slack-app
-                name: build_ig_test_cms_web
-            - deliver_web:
-                context:
-                    - slack-app
-                production_delivery: false
-                requires:
-                    - check_web
-                    - build_ig_test_cms_web
+                    - deliverino
+                    - jira
+                delivery: development
             - check_native:
                 context:
                     - slack-app
@@ -593,8 +580,37 @@ workflows:
                     - browserstack
                 requires:
                     - build_e2e_android
+            - build_android:
+                build_config_name: integreat
+                context:
+                    - slack-app
+                    - tuerantuer-google-play
+                    - tuerantuer-android
+                name: build_integreat_android
+                requires:
+                    - bump_version
+            - deliver_android:
+                build_config_name: integreat
+                context:
+                    - slack-app
+                    - sentry
+                    - browserstack
+                    - tuerantuer-google-play
+                    - tuerantuer-android
+                name: deliver_integreat_android
+                production_delivery: false
+                requires:
+                    - check_native
+                    - e2e_android
+                    - build_integreat_android
+            - notify_android:
+                context:
+                    - slack-app
+                    - deliverino
+                production_delivery: false
+                requires:
+                    - deliver_integreat_android
             - build_ios:
-                build_config_name: integreat-e2e
                 context:
                     - slack-app
                     - tuerantuer-apple
@@ -608,6 +624,36 @@ workflows:
                     - browserstack
                 requires:
                     - build_e2e_ios
+            - build_ios:
+                build_config_name: integreat
+                context:
+                    - slack-app
+                    - tuerantuer-apple
+                    - tuerantuer-ios
+                name: build_integreat_ios
+                requires:
+                    - bump_version
+            - deliver_ios:
+                build_config_name: integreat
+                context:
+                    - slack-app
+                    - sentry
+                    - browserstack
+                    - tuerantuer-apple
+                    - tuerantuer-ios
+                name: deliver_integreat_ios
+                production_delivery: false
+                requires:
+                    - check_native
+                    - e2e_ios
+                    - build_integreat_ios
+            - notify_ios:
+                context:
+                    - slack-app
+                    - deliverino
+                production_delivery: false
+                requires:
+                    - deliver_integreat_ios
         unless: << pipeline.parameters.api_triggered >>
     scheduled_native_development_delivery:
         jobs:
