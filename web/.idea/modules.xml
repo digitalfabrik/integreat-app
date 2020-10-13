@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/integreat-webapp.iml" filepath="$PROJECT_DIR$/.idea/integreat-webapp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/integreat-app-web.iml" filepath="$PROJECT_DIR$/.idea/integreat-app-web.iml" />
     </modules>
   </component>
 </project>
