@@ -25,6 +25,9 @@ const githubRelease = async (platform, newVersionName, newVersionCode, {
 
   const developmentMessage = developmentRelease ? 'This release is only delivered to development and not yet visible for users.' : ''
 
+  console.warn(releaseNotes)
+  console.warn(`${releaseNotes}`)
+  console.warn(`asdf\n${releaseNotes}asdf\n`)
   const body = `${developmentMessage}\n\n${releaseNotes}`
   console.warn('and body ', body)
 
