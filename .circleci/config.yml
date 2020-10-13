@@ -374,18 +374,6 @@ jobs:
             - run:
                 command: tools/parse-release-notes parse --android --destination native/android/fastlane/metadata/android/en-GB/changelogs/default.txt --language en --production && tools/parse-release-notes parse --android --destination native/android/fastlane/metadata/android/en-US/changelogs/default.txt --language en --production
                 name: Parse english android release notes
-            - run:
-                command: bundle exec fastlane android browserstack_upload_live app_name:<< parameters.build_config_name >>
-                name: '[FL] Browserstack Upload Live'
-                working_directory: native
-            - run:
-                command: bundle exec fastlane android playstore_upload app_name:<< parameters.build_config_name >> production_delivery:"<< parameters.production_delivery >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}  build_config_name:<< parameters.build_config_name >>
-                name: '[FL] Play Store Upload'
-                working_directory: native
-            - run:
-                command: bundle exec fastlane android sentry_upload app_name:<< parameters.build_config_name >> version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:<< parameters.build_config_name >>
-                name: '[FL] Upload to Sentry'
-                working_directory: native
             - notify_failed
     deliver_ios:
         environment:
@@ -418,28 +406,6 @@ jobs:
             - run:
                 command: tools/parse-release-notes parse --ios --destination native/ios/fastlane/metadata/en-US/release_notes.txt --language en --production
                 name: Parse english ios release notes
-            - run:
-                command: bundle exec fastlane ios browserstack_upload_live app_name:<< parameters.build_config_name >>
-                name: '[FL] Browserstack Upload Live'
-                working_directory: native
-            - when:
-                condition: << parameters.production_delivery >>
-                steps:
-                    - run:
-                        command: bundle exec fastlane ios appstoreconnect_upload app_name:<< parameters.build_config_name >>
-                        name: '[FL] App Store Connect Upload'
-                        working_directory: native
-            - unless:
-                condition: << parameters.production_delivery >>
-                steps:
-                    - run:
-                        command: bundle exec fastlane ios testflight_upload app_name:<< parameters.build_config_name >> version_name:${NEW_VERSION_NAME}
-                        name: '[FL] TestFlight Upload'
-                        working_directory: native
-            - run:
-                command: bundle exec fastlane ios sentry_upload app_name:<< parameters.build_config_name >> version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}  build_config_name:<< parameters.build_config_name >>
-                name: '[FL] Upload to Sentry'
-                working_directory: native
             - notify_failed
     deliver_web:
         docker:
@@ -457,24 +423,6 @@ jobs:
             - attach_workspace:
                 at: .
             - restore_yarn_cache
-            - when:
-                condition: << parameters.production_delivery >>
-                steps:
-                    - run:
-                        command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/integreat.app \<<< $'put -r dist/integreat/*'
-                        name: Integreat production delivery
-                    - run:
-                        command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/malteapp.de \<<< $'put -r dist/malte/*'
-                        name: Malte production delivery
-            - unless:
-                condition: << parameters.production_delivery >>
-                steps:
-                    - run:
-                        command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.integreat.app \<<< $'put -r dist/integreat-test-cms/*'
-                        name: Integreat development delivery
-                    - run:
-                        command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.malteapp.de \<<< $'put -r dist/malte/*'
-                        name: Malte development delivery
             - notify_failed
     e2e_android:
         docker:
@@ -545,9 +493,6 @@ jobs:
             - run:
                 command: tools/github-release create android ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(tools/parse-release-notes parse --android --language en)"<<^ parameters.production_delivery >> --development-release<</ parameters.production_delivery >>
                 name: Create github release
-            - slack/notify:
-                message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat ${NEW_VERSION_NAME} has been released successfully on Android!\n$(tools/parse-release-notes parse --android --language en)
-                webhook: ${SLACK_URL}
             - notify_failed
     notify_ios:
         docker:
@@ -566,9 +511,6 @@ jobs:
             - run:
                 command: tools/github-release create ios ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(tools/parse-release-notes parse --ios --language en)"<<^ parameters.production_delivery >> --development-release<</ parameters.production_delivery >>
                 name: Create github release
-            - slack/notify:
-                message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat ${NEW_VERSION_NAME} has been released successfully on iOS!\n$(tools/parse-release-notes parse --ios --language en)
-                webhook: ${SLACK_URL}
             - notify_failed
     notify_web:
         docker:
@@ -583,9 +525,6 @@ jobs:
             - run:
                 command: tools/github-release create web ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(tools/parse-release-notes parse --web --language en)"
                 name: Create github release
-            - slack/notify:
-                message: WebApp version ${NEW_VERSION_NAME} was delivered successfully to integreat.app and malteapp.de!\n$(tools/parse-release-notes parse --web --language en)
-                webhook: ${SLACK_URL}
             - notify_failed
 orbs:
     slack: circleci/slack@3.4.2
@@ -611,26 +550,37 @@ workflows:
             - bump_version:
                 context:
                     - slack-app
+                    - deliverino
+                    - jira
                 delivery: none
             - check_web:
                 context:
                     - slack-app
             - build_web:
-                build_config_name: integreat-test-cms
+                build_config_name: integreat
                 context:
                     - slack-app
-                name: build_ig_test_cms_web
+                name: build_integreat_web
+            - build_web:
+                build_config_name: malte
+                context:
+                    - slack-app
+                name: build_malte_web
             - deliver_web:
                 context:
                     - slack-app
-                filters:
-                    branches:
-                        only:
-                            - main
-                production_delivery: false
+                production_delivery: true
                 requires:
                     - check_web
-                    - build_ig_test_cms_web
+                    - build_integreat_web
+                    - build_malte_web
+            - notify_web:
+                context:
+                    - slack-app
+                    - deliverino
+                requires:
+                    - bump_version
+                    - deliver_web
             - check_native:
                 context:
                     - slack-app
@@ -649,6 +599,36 @@ workflows:
                     - browserstack
                 requires:
                     - build_e2e_android
+            - build_android:
+                build_config_name: integreat
+                context:
+                    - slack-app
+                    - tuerantuer-google-play
+                    - tuerantuer-android
+                name: build_integreat_android
+                requires:
+                    - bump_version
+            - deliver_android:
+                build_config_name: integreat
+                context:
+                    - slack-app
+                    - sentry
+                    - browserstack
+                    - tuerantuer-google-play
+                    - tuerantuer-android
+                name: deliver_integreat_android
+                production_delivery: true
+                requires:
+                    - check_native
+                    - e2e_android
+                    - build_integreat_android
+            - notify_android:
+                context:
+                    - slack-app
+                    - deliverino
+                production_delivery: true
+                requires:
+                    - deliver_integreat_android
             - build_ios:
                 build_config_name: integreat-e2e
                 context:
@@ -664,6 +644,44 @@ workflows:
                     - browserstack
                 requires:
                     - build_e2e_ios
+            - build_ios:
+                build_config_name: integreat
+                context:
+                    - slack-app
+                    - tuerantuer-apple
+                    - tuerantuer-ios
+                name: build_integreat_ios
+                requires:
+                    - bump_version
+            - deliver_ios:
+                build_config_name: integreat
+                context:
+                    - slack-app
+                    - sentry
+                    - browserstack
+                    - tuerantuer-apple
+                    - tuerantuer-ios
+                name: deliver_integreat_ios
+                production_delivery: true
+                requires:
+                    - check_native
+                    - e2e_ios
+                    - build_integreat_ios
+            - notify_ios:
+                context:
+                    - slack-app
+                    - deliverino
+                production_delivery: true
+                requires:
+                    - deliver_integreat_ios
+            - move_release_notes:
+                context:
+                    - slack-app
+                    - deliverino
+                requires:
+                    - notify_web
+                    - notify_android
+                    - notify_ios
         unless: << pipeline.parameters.api_triggered >>
     scheduled_native_development_delivery:
         jobs:
