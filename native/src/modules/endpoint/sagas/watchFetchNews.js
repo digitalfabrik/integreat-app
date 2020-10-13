@@ -6,17 +6,13 @@ import type {
   FetchNewsActionType,
   PushNewsActionType,
   FetchNewsFailedActionType,
-  ClearNewsActionType,
   FetchMoreNewsActionType,
-  FetchLanguagesFailedActionType
 } from '../../app/StoreActionType'
 import type { DataContainer } from '../DataContainer'
 import ErrorCodes, { fromError } from '../../error/ErrorCodes'
 import loadLocalNews from './loadLocalNews'
 import loadTunews from './loadTunews'
-import loadLanguages from './loadLanguages'
 import loadTunewsLanguages from './loadTunewsLanguages'
-
 import loadTunewsElement from './loadTunewsElement'
 import { LOCAL_NEWS } from '../constants'
 
@@ -161,34 +157,7 @@ export function * fetchMoreNews (
   }
 }
 
-// when leaving News page, available languages should be updated according to city
-export function * updateLanguages (
-  dataContainer: DataContainer,
-  action: ClearNewsActionType
-): Saga<void> {
-  const { city } = action.params
-  try {
-    const languages = yield call(loadLanguages, city, dataContainer, true)
-    const pushLanguagesAction = {
-      type: 'PUSH_LANGUAGES',
-      params: { languages: languages }
-    }
-    yield put(pushLanguagesAction)
-  } catch (e) {
-    console.error(e)
-    const languagesFailed: FetchLanguagesFailedActionType = {
-      type: 'FETCH_LANGUAGES_FAILED',
-      params: {
-        message: `Error in updateLanguages: ${e.message}`,
-        code: fromError(e)
-      }
-    }
-    yield put(languagesFailed)
-  }
-}
-
 export default function * (dataContainer: DataContainer): Saga<void> {
   yield takeLatest('FETCH_NEWS', fetchNews, dataContainer)
   yield takeLatest('FETCH_MORE_NEWS', fetchMoreNews, dataContainer)
-  // yield takeLatest('CLEAR_NEWS', updateLanguages, dataContainer)
 }
