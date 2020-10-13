@@ -5,7 +5,7 @@ jobs:
         - slack-app
         - deliverino
         - jira
-      delivery: production
+      delivery: none
 
   - check_web:
       context:
