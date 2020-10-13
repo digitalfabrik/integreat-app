@@ -21,12 +21,6 @@ steps:
   - run:
       name: Test coverage # Results are not used right now. Run it anyway to (possibly) discover more problems.
       command: yarn workspace web test:coverage --ci --maxWorkers ${TOTAL_CPUS}
-  - run:
-      name: Development integreat-test-cms build
-      command: yarn workspace web build:integreat-test-cms --env.commit_sha=${CIRCLE_SHA1}
-  - run:
-      name: Check build
-      command: yarn workspace web check:build
   - store_artifacts:
       path: dist
   - persist_to_workspace:

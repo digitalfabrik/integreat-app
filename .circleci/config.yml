@@ -216,22 +216,27 @@ jobs:
                     - << parameters.build_config_name >>.ipa
                 root: native/ios/output/gym
             - notify_failed
-    build_production_web:
+    build_web:
         docker:
             - image: circleci/node:12.16.3
         environment:
             TOTAL_CPUS: 1
+        parameters:
+            build_config_name:
+                default: integreat
+                enum:
+                    - integreat
+                    - malte
+                    - integreat-test-cms
+                type: enum
         resource_class: small
         shell: /bin/bash -eo pipefail
         steps:
             - checkout
             - restore_yarn_cache
             - run:
-                command: yarn workspace web build:integreat
-                name: Production integreat build
-            - run:
-                command: yarn workspace web build:malte
-                name: Production malte build
+                command: yarn workspace web build:<< parameters.build_config_name >> --env.commit_sha=${CIRCLE_SHA1}
+                name: Production << parameters.build_config_name >> build
             - run:
                 command: yarn workspace web check:build
                 name: Check build
@@ -335,12 +340,6 @@ jobs:
             - run:
                 command: yarn workspace web test:coverage --ci --maxWorkers ${TOTAL_CPUS}
                 name: Test coverage
-            - run:
-                command: yarn workspace web build:integreat-test-cms --env.commit_sha=${CIRCLE_SHA1}
-                name: Development integreat-test-cms build
-            - run:
-                command: yarn workspace web check:build
-                name: Check build
             - store_artifacts:
                 path: dist
             - persist_to_workspace:
@@ -354,6 +353,12 @@ jobs:
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         parameters:
+            build_config_name:
+                default: integreat
+                enum:
+                    - integreat
+                    - malte
+                type: enum
             production_delivery:
                 description: Whether to deliver the build to production.
                 type: boolean
@@ -375,15 +380,15 @@ jobs:
                 command: tools/parse-release-notes parse --android --destination native/android/fastlane/metadata/android/en-GB/changelogs/default.txt --language en --production && tools/parse-release-notes parse --android --destination native/android/fastlane/metadata/android/en-US/changelogs/default.txt --language en --production
                 name: Parse english android release notes
             - run:
-                command: bundle exec fastlane android browserstack_upload_live app_name:integreat
+                command: bundle exec fastlane android browserstack_upload_live app_name:<< parameters.build_config_name >>
                 name: '[FL] Browserstack Upload Live'
                 working_directory: native
             - run:
-                command: bundle exec fastlane android playstore_upload app_name:integreat production_delivery:"<< parameters.production_delivery >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}  build_config_name:integreat
+                command: bundle exec fastlane android playstore_upload app_name:<< parameters.build_config_name >> production_delivery:"<< parameters.production_delivery >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}  build_config_name:<< parameters.build_config_name >>
                 name: '[FL] Play Store Upload'
                 working_directory: native
             - run:
-                command: bundle exec fastlane android sentry_upload app_name:integreat version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat
+                command: bundle exec fastlane android sentry_upload app_name:<< parameters.build_config_name >> version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:<< parameters.build_config_name >>
                 name: '[FL] Upload to Sentry'
                 working_directory: native
             - notify_failed
@@ -393,6 +398,12 @@ jobs:
         macos:
             xcode: 11.7.0
         parameters:
+            build_config_name:
+                default: integreat
+                enum:
+                    - integreat
+                    - malte
+                type: enum
             production_delivery:
                 description: Whether to deliver the build to production.
                 type: boolean
@@ -413,25 +424,25 @@ jobs:
                 command: tools/parse-release-notes parse --ios --destination native/ios/fastlane/metadata/en-US/release_notes.txt --language en --production
                 name: Parse english ios release notes
             - run:
-                command: bundle exec fastlane ios browserstack_upload_live app_name:integreat
+                command: bundle exec fastlane ios browserstack_upload_live app_name:<< parameters.build_config_name >>
                 name: '[FL] Browserstack Upload Live'
                 working_directory: native
             - when:
                 condition: << parameters.production_delivery >>
                 steps:
                     - run:
-                        command: bundle exec fastlane ios appstoreconnect_upload app_name:integreat
+                        command: bundle exec fastlane ios appstoreconnect_upload app_name:<< parameters.build_config_name >>
                         name: '[FL] App Store Connect Upload'
                         working_directory: native
             - unless:
                 condition: << parameters.production_delivery >>
                 steps:
                     - run:
-                        command: bundle exec fastlane ios testflight_upload app_name:integreat version_name:${NEW_VERSION_NAME}
+                        command: bundle exec fastlane ios testflight_upload app_name:<< parameters.build_config_name >> version_name:${NEW_VERSION_NAME}
                         name: '[FL] TestFlight Upload'
                         working_directory: native
             - run:
-                command: bundle exec fastlane ios sentry_upload app_name:integreat version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}  build_config_name:integreat
+                command: bundle exec fastlane ios sentry_upload app_name:<< parameters.build_config_name >> version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}  build_config_name:<< parameters.build_config_name >>
                 name: '[FL] Upload to Sentry'
                 working_directory: native
             - notify_failed
@@ -618,8 +629,11 @@ workflows:
             - check_web:
                 context:
                     - slack-app
-                requires:
-                    - bump_version
+            - build_web:
+                build_config_name: integreat-test-cms
+                context:
+                    - slack-app
+                name: build_integreat_test_cms_web
             - deliver_web:
                 context:
                     - slack-app
@@ -630,12 +644,12 @@ workflows:
                 production_delivery: false
                 requires:
                     - check_web
+                    - build_integreat_test_cms_web
             - check_native:
                 context:
                     - slack-app
-                requires:
-                    - bump_version
             - build_android:
+                build_config_name: integreat-e2e
                 context:
                     - slack-app
                     - tuerantuer-google-play
@@ -650,6 +664,7 @@ workflows:
                 requires:
                     - build_e2e_android
             - build_ios:
+                build_config_name: integreat-e2e
                 context:
                     - slack-app
                     - tuerantuer-apple
@@ -675,9 +690,8 @@ workflows:
             - check_native:
                 context:
                     - slack-app
-                requires:
-                    - bump_version
             - build_android:
+                build_config_name: integreat-e2e
                 context:
                     - slack-app
                     - tuerantuer-google-play
@@ -692,6 +706,7 @@ workflows:
                 requires:
                     - build_e2e_android
             - build_android:
+                build_config_name: integreat
                 context:
                     - slack-app
                     - tuerantuer-google-play
@@ -699,7 +714,22 @@ workflows:
                 name: build_integreat_android
                 requires:
                     - bump_version
+            - deliver_android:
+                build_config_name: integreat
+                context:
+                    - slack-app
+                    - sentry
+                    - browserstack
+                    - tuerantuer-google-play
+                    - tuerantuer-android
+                name: deliver_integreat_android
+                production_delivery: false
+                requires:
+                    - check_native
+                    - e2e_android
+                    - build_integreat_android
             - build_android:
+                build_config_name: malte
                 context:
                     - slack-app
                     - tuerantuer-google-play
@@ -708,17 +738,18 @@ workflows:
                 requires:
                     - bump_version
             - deliver_android:
+                build_config_name: malte
                 context:
                     - slack-app
                     - sentry
                     - browserstack
                     - tuerantuer-google-play
                     - tuerantuer-android
+                name: deliver_malte_android
                 production_delivery: false
                 requires:
                     - check_native
                     - e2e_android
-                    - build_integreat_android
                     - build_malte_android
             - notify_android:
                 context:
@@ -726,7 +757,8 @@ workflows:
                     - deliverino
                 production_delivery: false
                 requires:
-                    - deliver_android
+                    - deliver_integreat_android
+                    - deliver_malte_android
             - build_ios:
                 context:
                     - slack-app
@@ -742,6 +774,7 @@ workflows:
                 requires:
                     - build_e2e_ios
             - build_ios:
+                build_config_name: integreat
                 context:
                     - slack-app
                     - tuerantuer-apple
@@ -749,7 +782,22 @@ workflows:
                 name: build_integreat_ios
                 requires:
                     - bump_version
+            - deliver_ios:
+                build_config_name: integreat
+                context:
+                    - slack-app
+                    - sentry
+                    - browserstack
+                    - tuerantuer-apple
+                    - tuerantuer-ios
+                name: deliver_integreat_ios
+                production_delivery: false
+                requires:
+                    - check_native
+                    - e2e_ios
+                    - build_integreat_ios
             - build_ios:
+                build_config_name: malte
                 context:
                     - slack-app
                     - tuerantuer-apple
@@ -758,17 +806,18 @@ workflows:
                 requires:
                     - bump_version
             - deliver_ios:
+                build_config_name: malte
                 context:
                     - slack-app
                     - sentry
                     - browserstack
                     - tuerantuer-apple
                     - tuerantuer-ios
+                name: deliver_malte_ios
                 production_delivery: false
                 requires:
                     - check_native
                     - e2e_ios
-                    - build_integreat_ios
                     - build_malte_ios
             - notify_ios:
                 context:
@@ -776,7 +825,8 @@ workflows:
                     - deliverino
                 production_delivery: false
                 requires:
-                    - deliver_ios
+                    - deliver_integreat_ios
+                    - deliver_malte_ios
         triggers:
             - schedule:
                 cron: 0 5 8,22 * *
@@ -795,20 +845,24 @@ workflows:
             - check_web:
                 context:
                     - slack-app
-                requires:
-                    - bump_version
-            - build_production_web:
+            - build_web:
+                build_config_name: integreat
                 context:
                     - slack-app
-                requires:
-                    - bump_version
+                name: build_integreat_web
+            - build_web:
+                build_config_name: malte
+                context:
+                    - slack-app
+                name: build_malte_web
             - deliver_web:
                 context:
                     - slack-app
                 production_delivery: true
                 requires:
                     - check_web
-                    - build_production_web
+                    - build_integreat_web
+                    - build_malte_web
             - notify_web:
                 context:
                     - slack-app
@@ -818,9 +872,8 @@ workflows:
             - check_native:
                 context:
                     - slack-app
-                requires:
-                    - bump_version
             - build_android:
+                build_config_name: integreat-e2e
                 context:
                     - slack-app
                     - tuerantuer-google-play
@@ -835,6 +888,7 @@ workflows:
                 requires:
                     - build_e2e_android
             - build_android:
+                build_config_name: integreat
                 context:
                     - slack-app
                     - tuerantuer-google-play
@@ -842,7 +896,22 @@ workflows:
                 name: build_integreat_android
                 requires:
                     - bump_version
+            - deliver_android:
+                build_config_name: integreat
+                context:
+                    - slack-app
+                    - sentry
+                    - browserstack
+                    - tuerantuer-google-play
+                    - tuerantuer-android
+                name: deliver_integreat_android
+                production_delivery: true
+                requires:
+                    - check_native
+                    - e2e_android
+                    - build_integreat_android
             - build_android:
+                build_config_name: malte
                 context:
                     - slack-app
                     - tuerantuer-google-play
@@ -851,17 +920,18 @@ workflows:
                 requires:
                     - bump_version
             - deliver_android:
+                build_config_name: malte
                 context:
                     - slack-app
                     - sentry
                     - browserstack
                     - tuerantuer-google-play
                     - tuerantuer-android
+                name: deliver_malte_android
                 production_delivery: true
                 requires:
                     - check_native
                     - e2e_android
-                    - build_integreat_android
                     - build_malte_android
             - notify_android:
                 context:
@@ -869,8 +939,10 @@ workflows:
                     - deliverino
                 production_delivery: true
                 requires:
-                    - deliver_android
+                    - deliver_integreat_android
+                    - deliver_malte_android
             - build_ios:
+                build_config_name: integreat-e2e
                 context:
                     - slack-app
                     - tuerantuer-apple
@@ -885,6 +957,7 @@ workflows:
                 requires:
                     - build_e2e_ios
             - build_ios:
+                build_config_name: integreat
                 context:
                     - slack-app
                     - tuerantuer-apple
@@ -892,7 +965,22 @@ workflows:
                 name: build_integreat_ios
                 requires:
                     - bump_version
+            - deliver_ios:
+                build_config_name: integreat
+                context:
+                    - slack-app
+                    - sentry
+                    - browserstack
+                    - tuerantuer-apple
+                    - tuerantuer-ios
+                name: deliver_integreat_ios
+                production_delivery: true
+                requires:
+                    - check_native
+                    - e2e_ios
+                    - build_integreat_ios
             - build_ios:
+                build_config_name: malte
                 context:
                     - slack-app
                     - tuerantuer-apple
@@ -901,17 +989,18 @@ workflows:
                 requires:
                     - bump_version
             - deliver_ios:
+                build_config_name: malte
                 context:
                     - slack-app
                     - sentry
                     - browserstack
                     - tuerantuer-apple
                     - tuerantuer-ios
+                name: deliver_malte_ios
                 production_delivery: true
                 requires:
                     - check_native
                     - e2e_ios
-                    - build_integreat_ios
                     - build_malte_ios
             - notify_ios:
                 context:
@@ -919,7 +1008,8 @@ workflows:
                     - deliverino
                 production_delivery: true
                 requires:
-                    - deliver_ios
+                    - deliver_integreat_ios
+                    - deliver_malte_ios
             - move_release_notes:
                 context:
                     - slack-app
@@ -1025,20 +1115,24 @@ workflows:
             - check_web:
                 context:
                     - slack-app
-                requires:
-                    - bump_version
-            - build_production_web:
+            - build_web:
+                build_config_name: integreat
                 context:
                     - slack-app
-                requires:
-                    - bump_version
+                name: build_integreat_web
+            - build_web:
+                build_config_name: malte
+                context:
+                    - slack-app
+                name: build_malte_web
             - deliver_web:
                 context:
                     - slack-app
                 production_delivery: true
                 requires:
                     - check_web
-                    - build_production_web
+                    - build_integreat_web
+                    - build_malte_web
             - notify_web:
                 context:
                     - slack-app
@@ -1048,9 +1142,8 @@ workflows:
             - check_native:
                 context:
                     - slack-app
-                requires:
-                    - bump_version
             - build_android:
+                build_config_name: integreat-e2e
                 context:
                     - slack-app
                     - tuerantuer-google-play
@@ -1065,6 +1158,7 @@ workflows:
                 requires:
                     - build_e2e_android
             - build_android:
+                build_config_name: integreat
                 context:
                     - slack-app
                     - tuerantuer-google-play
@@ -1072,7 +1166,22 @@ workflows:
                 name: build_integreat_android
                 requires:
                     - bump_version
+            - deliver_android:
+                build_config_name: integreat
+                context:
+                    - slack-app
+                    - sentry
+                    - browserstack
+                    - tuerantuer-google-play
+                    - tuerantuer-android
+                name: deliver_integreat_android
+                production_delivery: true
+                requires:
+                    - check_native
+                    - e2e_android
+                    - build_integreat_android
             - build_android:
+                build_config_name: malte
                 context:
                     - slack-app
                     - tuerantuer-google-play
@@ -1081,17 +1190,18 @@ workflows:
                 requires:
                     - bump_version
             - deliver_android:
+                build_config_name: malte
                 context:
                     - slack-app
                     - sentry
                     - browserstack
                     - tuerantuer-google-play
                     - tuerantuer-android
+                name: deliver_malte_android
                 production_delivery: true
                 requires:
                     - check_native
                     - e2e_android
-                    - build_integreat_android
                     - build_malte_android
             - notify_android:
                 context:
@@ -1099,8 +1209,10 @@ workflows:
                     - deliverino
                 production_delivery: true
                 requires:
-                    - deliver_android
+                    - deliver_integreat_android
+                    - deliver_malte_android
             - build_ios:
+                build_config_name: integreat-e2e
                 context:
                     - slack-app
                     - tuerantuer-apple
@@ -1115,6 +1227,7 @@ workflows:
                 requires:
                     - build_e2e_ios
             - build_ios:
+                build_config_name: integreat
                 context:
                     - slack-app
                     - tuerantuer-apple
@@ -1122,7 +1235,22 @@ workflows:
                 name: build_integreat_ios
                 requires:
                     - bump_version
+            - deliver_ios:
+                build_config_name: integreat
+                context:
+                    - slack-app
+                    - sentry
+                    - browserstack
+                    - tuerantuer-apple
+                    - tuerantuer-ios
+                name: deliver_integreat_ios
+                production_delivery: true
+                requires:
+                    - check_native
+                    - e2e_ios
+                    - build_integreat_ios
             - build_ios:
+                build_config_name: malte
                 context:
                     - slack-app
                     - tuerantuer-apple
@@ -1131,17 +1259,18 @@ workflows:
                 requires:
                     - bump_version
             - deliver_ios:
+                build_config_name: malte
                 context:
                     - slack-app
                     - sentry
                     - browserstack
                     - tuerantuer-apple
                     - tuerantuer-ios
+                name: deliver_malte_ios
                 production_delivery: true
                 requires:
                     - check_native
                     - e2e_ios
-                    - build_integreat_ios
                     - build_malte_ios
             - notify_ios:
                 context:
@@ -1149,7 +1278,8 @@ workflows:
                     - deliverino
                 production_delivery: true
                 requires:
-                    - deliver_ios
+                    - deliver_integreat_ios
+                    - deliver_malte_ios
             - move_release_notes:
                 context:
                     - slack-app
