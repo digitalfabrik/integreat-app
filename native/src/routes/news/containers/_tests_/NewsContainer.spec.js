@@ -175,21 +175,6 @@ describe('News', () => {
     expectLoadingIndicator(state)
   })
 
-  it('should display loading indicator if switching languages lasts long enough', () => {
-    const state: StateType = prepareState(successfulRouteState, { switchingLanguage: true })
-    expectLoadingIndicator(state)
-  })
-
-  it('should display loading indicator if cities are loading long enough', () => {
-    const state: StateType = prepareState(successfulRouteState, { cities: { status: 'loading' } })
-    expectLoadingIndicator(state)
-  })
-
-  it('should display loading indicator if languages are loading long enough', () => {
-    const state: StateType = prepareState(successfulRouteState, { languages: { status: 'loading' } })
-    expectLoadingIndicator(state)
-  })
-
   it('should display NewsListItem component if the state is ready', () => {
     const state: StateType = prepareState(successfulRouteState)
     const store = mockStore(state)
