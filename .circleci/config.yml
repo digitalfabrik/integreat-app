@@ -543,13 +543,10 @@ jobs:
             - restore_environment_variables
             - restore_yarn_cache
             - run:
-                command: echo "export GITHUB_RELEASE_NOTES=$(tools/parse-release-notes parse --android --language en)" >> ${BASH_ENV}
-                name: Create github release notes
-            - run:
-                command: tools/github-release create android ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "${GITHUB_RELEASE_NOTES}"<<^ parameters.production_delivery >> --development-release<</ parameters.production_delivery >>
+                command: tools/github-release create android ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(tools/parse-release-notes parse --android --language en)"<<^ parameters.production_delivery >> --development-release<</ parameters.production_delivery >>
                 name: Create github release
             - slack/notify:
-                message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat ${NEW_VERSION_NAME} has been released successfully on Android!\n${GITHUB_RELEASE_NOTES}
+                message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat ${NEW_VERSION_NAME} has been released successfully on Android!\n$(tools/parse-release-notes parse --android --language en)
                 webhook: ${SLACK_URL}
             - notify_failed
     notify_ios:
@@ -567,13 +564,10 @@ jobs:
             - restore_environment_variables
             - restore_yarn_cache
             - run:
-                command: echo "export GITHUB_RELEASE_NOTES=$(tools/parse-release-notes parse --android --language en)" >> ${BASH_ENV}
-                name: Create github release notes
-            - run:
-                command: tools/github-release create ios ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "${GITHUB_RELEASE_NOTES}"<<^ parameters.production_delivery >> --development-release<</ parameters.production_delivery >>
+                command: tools/github-release create ios ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(tools/parse-release-notes parse --android --language en)"<<^ parameters.production_delivery >> --development-release<</ parameters.production_delivery >>
                 name: Create github release
             - slack/notify:
-                message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat ${NEW_VERSION_NAME} has been released successfully on iOS!\n${GITHUB_RELEASE_NOTES}
+                message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat ${NEW_VERSION_NAME} has been released successfully on iOS!\n$(tools/parse-release-notes parse --android --language en)
                 webhook: ${SLACK_URL}
             - notify_failed
     notify_web:
@@ -587,13 +581,10 @@ jobs:
             - restore_yarn_cache
             - restore_environment_variables
             - run:
-                command: echo "export GITHUB_RELEASE_NOTES=$(tools/parse-release-notes parse --android --language en)" >> ${BASH_ENV}
-                name: Create github release notes
-            - run:
-                command: tools/github-release create web ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "${GITHUB_RELEASE_NOTES}"
+                command: tools/github-release create web ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(tools/parse-release-notes parse --android --language en)"
                 name: Create github release
             - slack/notify:
-                message: WebApp version ${NEW_VERSION_NAME} was delivered successfully to integreat.app and malteapp.de!\n${GITHUB_RELEASE_NOTES}
+                message: WebApp version ${NEW_VERSION_NAME} was delivered successfully to integreat.app and malteapp.de!\n$(tools/parse-release-notes parse --android --language en)
                 webhook: ${SLACK_URL}
             - notify_failed
 orbs:
