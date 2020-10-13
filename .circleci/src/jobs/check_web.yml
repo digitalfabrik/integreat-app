@@ -3,7 +3,7 @@ docker:
 resource_class: small
 environment:
   TOTAL_CPUS: 1 # For resource_class small
-  TZ: "Europe/Berlin" # Should be removed in WEBAPP-463
+  TZ: "Europe/Berlin" # Should be removed in IGAPP-39
 shell: /bin/bash -eo pipefail
 steps:
   - checkout
