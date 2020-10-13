@@ -24,8 +24,7 @@ const TouchableWrapper = styled.TouchableOpacity`
 const LocalTabWrapper: StyledComponent<
   { isSelected: boolean },
   ThemeType,
-  *
-  > = styled.View`
+  *> = styled.View`
   padding-horizontal: 10px;
   border-radius: 10px;
   height: 34px;
@@ -34,7 +33,7 @@ const LocalTabWrapper: StyledComponent<
   align-items: center;
   justify-content: center;
   background-color: ${props =>
-  props.isSelected ? props.theme.colors.themeColor : props.theme.colors.textDisabledColor};
+    props.isSelected ? props.theme.colors.themeColor : props.theme.colors.textDisabledColor};
 `
 
 const LocalText: StyledComponent<{}, ThemeType, *> = styled.Text`

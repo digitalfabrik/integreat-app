@@ -1,15 +1,15 @@
 // @flow
 
-import {connect} from 'react-redux'
-import type {Dispatch} from 'redux'
-import type {NewsType, StateType} from '../../../modules/app/StateType'
-import type {FetchNewsActionType, StoreActionType} from '../../../modules/app/StoreActionType'
+import { connect } from 'react-redux'
+import type { Dispatch } from 'redux'
+import type { NewsType, StateType } from '../../../modules/app/StateType'
+import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import ChangeLanguageModal from '../components/ChangeLanguageModal'
 import withTheme from '../../../modules/theme/hocs/withTheme'
-import {LanguageModel} from '@integreat-app/integreat-api-client'
-import type {NavigationScreenProp} from 'react-navigation'
-import type {TFunction} from 'react-i18next'
-import {withTranslation} from 'react-i18next'
+import { LanguageModel } from '@integreat-app/integreat-api-client'
+import type { NavigationScreenProp } from 'react-navigation'
+import type { TFunction } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 
 type OwnPropsType = {| navigation: NavigationScreenProp<*>, t: TFunction |}
 
