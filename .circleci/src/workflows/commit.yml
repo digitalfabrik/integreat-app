@@ -3,28 +3,9 @@ jobs:
   - bump_version:
       context:
         - slack-app
-      delivery: none
-
-  - check_web:
-      context:
-        - slack-app
-  - build_web:
-      name: build_ig_test_cms_web
-      build_config_name: integreat-test-cms
-      context:
-        - slack-app
-  - deliver_web:
-#      filters:
-#        branches:
-#          only:
-#            - main
-      context:
-        - slack-app
-      production_delivery: false
-      requires:
-        - check_web
-        - build_ig_test_cms_web
-
+        - deliverino
+        - jira
+      delivery: development
   - check_native:
       context:
         - slack-app
@@ -45,9 +26,65 @@ jobs:
       requires:
         - build_e2e_android
 
+  - build_android:
+      name: build_integreat_android
+      build_config_name: integreat
+      context:
+        - slack-app
+        - tuerantuer-google-play
+        - tuerantuer-android
+      requires:
+        - bump_version
+  - deliver_android:
+      name: deliver_integreat_android
+      build_config_name: integreat
+      context:
+        - slack-app
+        - sentry
+        - browserstack
+        - tuerantuer-google-play
+        - tuerantuer-android
+      production_delivery: false
+      requires:
+        - check_native
+        - e2e_android
+        - build_integreat_android
+
+  #  - build_android:
+  #      name: build_malte_android
+  #      build_config_name: malte
+  #      context:
+  #        - slack-app
+  #        - tuerantuer-google-play
+  #        - tuerantuer-android
+  #      requires:
+  #        - bump_version
+  #  - deliver_android:
+  #      name: deliver_malte_android
+  #      build_config_name: malte
+  #      context:
+  #        - slack-app
+  #        - sentry
+  #        - browserstack
+  #        - tuerantuer-google-play
+  #        - tuerantuer-android
+  #      production_delivery: false
+  #      requires:
+  #        - check_native
+  #        - e2e_android
+  #        - build_malte_android
+
+  - notify_android:
+      context:
+        - slack-app
+        - deliverino
+      production_delivery: false
+      requires:
+        - deliver_integreat_android
+  #        - deliver_malte_android
+
   - build_ios:
       name: build_e2e_ios
-      build_config_name: integreat-e2e
       context:
         - slack-app
         - tuerantuer-apple
@@ -60,3 +97,60 @@ jobs:
         - browserstack
       requires:
         - build_e2e_ios
+
+  - build_ios:
+      name: build_integreat_ios
+      build_config_name: integreat
+      context:
+        - slack-app
+        - tuerantuer-apple
+        - tuerantuer-ios
+      requires:
+        - bump_version
+  - deliver_ios:
+      name: deliver_integreat_ios
+      build_config_name: integreat
+      context:
+        - slack-app
+        - sentry
+        - browserstack
+        - tuerantuer-apple
+        - tuerantuer-ios
+      production_delivery: false
+      requires:
+        - check_native
+        - e2e_ios
+        - build_integreat_ios
+
+  #  - build_ios:
+  #      name: build_malte_ios
+  #      build_config_name: malte
+  #      context:
+  #        - slack-app
+  #        - tuerantuer-apple
+  #        - tuerantuer-ios
+  #      requires:
+  #        - bump_version
+  #  - deliver_ios:
+  #      name: deliver_malte_ios
+  #      build_config_name: malte
+  #      context:
+  #        - slack-app
+  #        - sentry
+  #        - browserstack
+  #        - tuerantuer-apple
+  #        - tuerantuer-ios
+  #      production_delivery: false
+  #      requires:
+  #        - check_native
+  #        - e2e_ios
+  #        - build_malte_ios
+
+  - notify_ios:
+      context:
+        - slack-app
+        - deliverino
+      production_delivery: false
+      requires:
+        - deliver_integreat_ios
+#        - deliver_malte_ios
