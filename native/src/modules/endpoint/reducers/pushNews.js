@@ -20,7 +20,7 @@ const pushNews = (
     newsId,
     key,
     language,
-    cityLanguages,
+    availableLanguages,
     city,
     type,
     page,
@@ -33,7 +33,7 @@ const pushNews = (
   const getNewsRoute = (): NewsRouteStateType => {
     if (!newsId) {
       const allAvailableLanguages = new Map(
-        cityLanguages.map(language => [language.code, null])
+        availableLanguages.map(language => [language.code, null])
       )
       const models = (page && previouslyFetchedNews)
         ? { models: [...previouslyFetchedNews, ...news] }
@@ -67,7 +67,7 @@ const pushNews = (
       }
     }
 
-    const allAvailableLanguages = cityLanguages.filter(languageModel => languageModel.code === language)
+    const allAvailableLanguages = availableLanguages.filter(languageModel => languageModel.code === language)
 
     return {
       status: 'ready',
