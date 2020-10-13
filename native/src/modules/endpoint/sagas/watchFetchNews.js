@@ -6,7 +6,7 @@ import type {
   FetchNewsActionType,
   PushNewsActionType,
   FetchNewsFailedActionType,
-  FetchMoreNewsActionType,
+  FetchMoreNewsActionType
 } from '../../app/StoreActionType'
 import type { DataContainer } from '../DataContainer'
 import ErrorCodes, { fromError } from '../../error/ErrorCodes'
