@@ -8,8 +8,11 @@ jobs:
   - check_web:
       context:
         - slack-app
-      requires:
-        - bump_version
+  - build_web:
+      name: build_integreat_test_cms_web
+      build_config_name: integreat-test-cms
+      context:
+        - slack-app
   - deliver_web:
       filters:
         branches:
@@ -20,15 +23,15 @@ jobs:
       production_delivery: false
       requires:
         - check_web
+        - build_integreat_test_cms_web
 
   - check_native:
       context:
         - slack-app
-      requires:
-        - bump_version
 
   - build_android:
       name: build_e2e_android
+      build_config_name: integreat-e2e
       context:
         - slack-app
         - tuerantuer-google-play
@@ -44,6 +47,7 @@ jobs:
 
   - build_ios:
       name: build_e2e_ios
+      build_config_name: integreat-e2e
       context:
         - slack-app
         - tuerantuer-apple

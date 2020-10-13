@@ -16,20 +16,24 @@ jobs:
   - check_web:
       context:
         - slack-app
-      requires:
-        - bump_version
-  - build_production_web:
+  - build_web:
+      name: build_integreat_web
+      build_config_name: integreat
       context:
         - slack-app
-      requires:
-        - bump_version
+  - build_web:
+      name: build_malte_web
+      build_config_name: malte
+      context:
+        - slack-app
   - deliver_web:
       context:
         - slack-app
       production_delivery: true
       requires:
         - check_web
-        - build_production_web
+        - build_integreat_web
+        - build_malte_web
   - notify_web:
       context:
         - slack-app
@@ -40,11 +44,10 @@ jobs:
   - check_native:
       context:
         - slack-app
-      requires:
-        - bump_version
 
   - build_android:
       name: build_e2e_android
+      build_config_name: integreat-e2e
       context:
         - slack-app
         - tuerantuer-google-play
@@ -57,16 +60,10 @@ jobs:
         - browserstack
       requires:
         - build_e2e_android
+
   - build_android:
       name: build_integreat_android
-      context:
-        - slack-app
-        - tuerantuer-google-play
-        - tuerantuer-android
-      requires:
-        - bump_version
-  - build_android:
-      name: build_malte_android
+      build_config_name: integreat
       context:
         - slack-app
         - tuerantuer-google-play
@@ -74,6 +71,8 @@ jobs:
       requires:
         - bump_version
   - deliver_android:
+      name: deliver_integreat_android
+      build_config_name: integreat
       context:
         - slack-app
         - sentry
@@ -85,17 +84,43 @@ jobs:
         - check_native
         - e2e_android
         - build_integreat_android
+
+  - build_android:
+      name: build_malte_android
+      build_config_name: malte
+      context:
+        - slack-app
+        - tuerantuer-google-play
+        - tuerantuer-android
+      requires:
+        - bump_version
+  - deliver_android:
+      name: deliver_malte_android
+      build_config_name: malte
+      context:
+        - slack-app
+        - sentry
+        - browserstack
+        - tuerantuer-google-play
+        - tuerantuer-android
+      production_delivery: true
+      requires:
+        - check_native
+        - e2e_android
         - build_malte_android
+
   - notify_android:
       context:
         - slack-app
         - deliverino
       production_delivery: true
       requires:
-        - deliver_android
+        - deliver_integreat_android
+        - deliver_malte_android
 
   - build_ios:
       name: build_e2e_ios
+      build_config_name: integreat-e2e
       context:
         - slack-app
         - tuerantuer-apple
@@ -108,16 +133,10 @@ jobs:
         - browserstack
       requires:
         - build_e2e_ios
+
   - build_ios:
       name: build_integreat_ios
-      context:
-        - slack-app
-        - tuerantuer-apple
-        - tuerantuer-ios
-      requires:
-        - bump_version
-  - build_ios:
-      name: build_malte_ios
+      build_config_name: integreat
       context:
         - slack-app
         - tuerantuer-apple
@@ -125,6 +144,8 @@ jobs:
       requires:
         - bump_version
   - deliver_ios:
+      name: deliver_integreat_ios
+      build_config_name: integreat
       context:
         - slack-app
         - sentry
@@ -136,14 +157,39 @@ jobs:
         - check_native
         - e2e_ios
         - build_integreat_ios
+
+  - build_ios:
+      name: build_malte_ios
+      build_config_name: malte
+      context:
+        - slack-app
+        - tuerantuer-apple
+        - tuerantuer-ios
+      requires:
+        - bump_version
+  - deliver_ios:
+      name: deliver_malte_ios
+      build_config_name: malte
+      context:
+        - slack-app
+        - sentry
+        - browserstack
+        - tuerantuer-apple
+        - tuerantuer-ios
+      production_delivery: true
+      requires:
+        - check_native
+        - e2e_ios
         - build_malte_ios
+
   - notify_ios:
       context:
         - slack-app
         - deliverino
       production_delivery: true
       requires:
-        - deliver_ios
+        - deliver_integreat_ios
+        - deliver_malte_ios
 
   - move_release_notes:
       context:
