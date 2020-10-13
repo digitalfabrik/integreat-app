@@ -731,6 +731,7 @@ workflows:
                 requires:
                     - deliver_integreat_android
             - build_ios:
+                build_config_name: integreat-e2e
                 context:
                     - slack-app
                     - tuerantuer-apple
@@ -981,6 +982,7 @@ workflows:
                 requires:
                     - deliver_integreat_android
             - build_ios:
+                build_config_name: integreat-e2e
                 context:
                     - slack-app
                     - tuerantuer-apple
