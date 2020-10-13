@@ -14,10 +14,10 @@ jobs:
       context:
         - slack-app
   - deliver_web:
-      filters:
-        branches:
-          only:
-            - main
+#      filters:
+#        branches:
+#          only:
+#            - main
       context:
         - slack-app
       production_delivery: false
