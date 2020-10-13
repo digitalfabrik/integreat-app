@@ -6,6 +6,8 @@ import type { NewsType } from './StateType'
 import type { NavigationScreenProp } from 'react-navigation'
 import { generateKey } from './generateRouteKey'
 
+export const NEWS_ROUTE_NAME = 'News'
+
 export type NavigateToNewsParamsType = {|
   cityCode: string,
   language: string,
@@ -19,7 +21,7 @@ export default (dispatch: Dispatch<StoreActionType>, navigation: NavigationScree
   cityCode, type, language, newsId, key = generateKey(), forceRefresh = false
 }: NavigateToNewsParamsType) => {
   navigation.navigate({
-    routeName: 'News',
+    routeName: NEWS_ROUTE_NAME,
     params: {
       onRouteClose: () => dispatch({ type: 'CLEAR_NEWS', params: { key, city: cityCode } })
     },

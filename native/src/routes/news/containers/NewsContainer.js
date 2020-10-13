@@ -174,13 +174,6 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsType => ({ dispatch })
 
 class NewsContainer extends React.Component<ContainerPropsType, {| newsType: NewsType |}> {
-  componentDidUpdate (prevProps: ContainerPropsType) {
-    const { language, selectedNewsType } = this.props
-    if (selectedNewsType === TUNEWS && prevProps.language !== language) {
-      this.fetchNews(TUNEWS)
-    }
-  }
-
   fetchNews = (newsType: NewsType) => {
     const { dispatch, cityCode, navigation, language } = this.props
     dispatch({

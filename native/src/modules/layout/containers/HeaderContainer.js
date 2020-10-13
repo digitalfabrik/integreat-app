@@ -57,13 +57,16 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
 
   const goToLanguageChange = () => {
+    const { key } = ownProps.navigation.state
+
     ownProps.navigation.navigate({
       routeName: 'ChangeLanguageModal',
       params: {
         currentLanguage: route.language,
         languages: languages.models,
         cityCode: stateCityCode,
-        availableLanguages: Array.from(route.allAvailableLanguages.keys())
+        availableLanguages: Array.from(route.allAvailableLanguages.keys()),
+        previousKey: key
       }
     })
   }
