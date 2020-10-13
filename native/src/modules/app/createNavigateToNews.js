@@ -20,7 +20,7 @@ export default (dispatch: Dispatch<StoreActionType>, navigation: NavigationScree
 }: NavigateToNewsParamsType) => {
   navigation.navigate({
     routeName: 'News',
-    params: { // refresh language when switching between local/tunews news
+    params: {
       onRouteClose: () => dispatch({ type: 'CLEAR_NEWS', params: { key, city: cityCode } })
     },
     key
