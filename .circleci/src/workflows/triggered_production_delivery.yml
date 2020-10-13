@@ -40,7 +40,8 @@ jobs:
       requires:
         - bump_version
 
-  - build_e2e_android:
+  - build_android:
+      name: build_e2e_android
       context:
         - slack-app
         - tuerantuer-google-play
@@ -53,7 +54,16 @@ jobs:
         - browserstack
       requires:
         - build_e2e_android
-  - build_production_android:
+  - build_android:
+      name: build_integreat_android
+      context:
+        - slack-app
+        - tuerantuer-google-play
+        - tuerantuer-android
+      requires:
+        - bump_version
+  - build_android:
+      name: build_malte_android
       context:
         - slack-app
         - tuerantuer-google-play
@@ -71,7 +81,8 @@ jobs:
       requires:
         - check_native
         - e2e_android
-        - build_production_android
+        - build_integreat_android
+        - build_malte_android
   - notify_android:
       context:
         - slack-app
@@ -80,7 +91,8 @@ jobs:
       requires:
         - deliver_android
 
-  - build_e2e_ios:
+  - build_ios:
+      name: build_e2e_ios
       context:
         - slack-app
         - tuerantuer-apple
@@ -93,7 +105,16 @@ jobs:
         - browserstack
       requires:
         - build_e2e_ios
-  - build_production_ios:
+  - build_ios:
+      name: build_integreat_ios
+      context:
+        - slack-app
+        - tuerantuer-apple
+        - tuerantuer-ios
+      requires:
+        - bump_version
+  - build_ios:
+      name: build_malte_ios
       context:
         - slack-app
         - tuerantuer-apple
@@ -111,7 +132,8 @@ jobs:
       requires:
         - check_native
         - e2e_ios
-        - build_production_ios
+        - build_integreat_ios
+        - build_malte_ios
   - notify_ios:
       context:
         - slack-app
