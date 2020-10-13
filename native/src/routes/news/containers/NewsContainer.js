@@ -243,7 +243,13 @@ class NewsContainer extends React.Component<ContainerPropsType, {| newsType: New
         </View>
       )
     } else {
-      return <LoadingSpinner />
+      const { cityModel, selectedNewsType } = this.props
+      return (
+        <View style={{ flex: 1 }}>
+          <NewsHeader selectedNewsType={selectedNewsType} cityModel={cityModel} navigateToNews={this.fetchNews} />
+          <LoadingSpinner />
+        </View>
+      )
     }
   }
 }
