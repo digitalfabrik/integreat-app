@@ -1,17 +1,9 @@
 /flow-typed/
 /coverage/
 __coverage__
-/node_modules/
-/tile-server/
-/www/
+**/node_modules/
 
-# Configs in root
-
-stylelint.config.js
-.babelrc.js
-
-bundle.js
 ios/main.jsbundle
 
-# Locales submodule
-/locales/
+# Configs in root
+stylelint.config.js
