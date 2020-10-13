@@ -1,0 +1,48 @@
+parameters:
+  build_config_name:
+    type: enum
+    enum: [integreat, malte, integreat-e2e, integreat-test-cms]
+    default: integreat
+docker:
+  - image: circleci/android:api-29-node
+resource_class: medium
+environment:
+  TOTAL_CPUS: 2 # For resource_class medium, used in metro.config.ci.js.
+  FASTLANE_SKIP_UPDATE_CHECK: true
+shell: /bin/bash -eo pipefail
+steps:
+  - add_ssh_keys: # Needed for credentials repo
+      fingerprints:
+        - 61:d8:94:00:53:5f:3b:19:fd:88:6b:fa:cd:ca:df:5d
+  - checkout
+  - attach_workspace:
+      at: .
+  - restore_environment_variables
+  - restore_yarn_cache
+  - restore_ruby_cache:
+      directory: native/android
+  - restore_gradle_cache
+  - run:
+      name: "[FL] Prepare Android Keystore"
+      command: bundle exec fastlane keystore
+      working_directory: native/android
+  - run:
+      name: "[FL] << parameters.build_config_name >> build"
+      command: ./gradlew clean && bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:<< parameters.build_config_name >>
+      working_directory: native/android
+  - run:
+      name: Rename apk
+      command: mv app/build/outputs/apk/release/app-release.apk << parameters.build_config_name >>.apk
+      working_directory: native/android
+  - run:
+      name: Rename sourcemap
+      command: mv app/build/generated/sourcemaps/react/release/index.android.bundle.map << parameters.build_config_name >>.android.bundle.map
+      working_directory: native/android
+  - store_artifacts:
+      path: native/android/<< parameters.build_config_name >>.apk
+  - persist_to_workspace:
+      root: native/android
+      paths:
+        - << parameters.build_config_name >>.apk
+        - << parameters.build_config_name >>.android.bundle.map
+  - notify_failed

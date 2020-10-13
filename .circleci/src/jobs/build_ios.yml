@@ -1,3 +1,8 @@
+parameters:
+  build_config_name:
+    type: enum
+    enum: [integreat, malte, integreat-e2e, integreat-test-cms]
+    default: integreat
 macos:
   xcode: 11.7.0
 resource_class: large
@@ -9,7 +14,7 @@ shell: /bin/bash --login -o pipefail
 steps:
   - add_ssh_keys: # Needed for credentials repo
       fingerprints:
-        - "61:d8:94:00:53:5f:3b:19:fd:88:6b:fa:cd:ca:df:5d"
+        - 61:d8:94:00:53:5f:3b:19:fd:88:6b:fa:cd:ca:df:5d
   - checkout
   - attach_workspace:
       at: .
@@ -19,13 +24,17 @@ steps:
       directory: native/ios
   - restore_cocoa_pods_cache
   - run:
-      name: "[FL] integreat-e2e build"
-      command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat-e2e
+      name: "[FL] << parameters.build_config_name >> build"
+      command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:<< parameters.build_config_name >>
       working_directory: native/ios
   - store_artifacts:
-      path: native/ios/output/gym/
+      path: native/ios/output/gym/<< parameters.build_config_name >>.ipa
+  - persist_to_workspace:
+      root: native/ios/output
+      paths:
+        - << parameters.build_config_name >>.ios.bundle.map
   - persist_to_workspace:
       root: native/ios/output/gym
       paths:
-        - integreat-e2e.ipa
+        - << parameters.build_config_name >>.ipa
   - notify_failed

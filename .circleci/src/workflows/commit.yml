@@ -27,7 +27,8 @@ jobs:
       requires:
         - bump_version
 
-  - build_e2e_android:
+  - build_android:
+      name: build_e2e_android
       context:
         - slack-app
         - tuerantuer-google-play
@@ -41,7 +42,8 @@ jobs:
       requires:
         - build_e2e_android
 
-  - build_e2e_ios:
+  - build_ios:
+      name: build_e2e_ios
       context:
         - slack-app
         - tuerantuer-apple
