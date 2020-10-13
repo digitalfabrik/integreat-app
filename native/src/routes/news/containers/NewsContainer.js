@@ -1,46 +1,45 @@
 // @flow
 
-import type {
-  NewsRouteStateType,
-  LanguageResourceCacheStateType,
-  StateType,
-  NewsModelsType,
-  NewsType
-} from '../../../modules/app/StateType'
-import type {
-  FetchMoreNewsActionType,
-  StoreActionType,
-  SwitchContentLanguageActionType
-} from '../../../modules/app/StoreActionType'
+import type { NewsModelsType, NewsRouteStateType, NewsType, StateType } from '../../../modules/app/StateType'
+import type { FetchMoreNewsActionType, StoreActionType } from '../../../modules/app/StoreActionType'
 import { connect } from 'react-redux'
 import { type TFunction, withTranslation } from 'react-i18next'
 import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 import createNavigateToNews from '../../../modules/app/createNavigateToNews'
 import type { Dispatch } from 'redux'
-
 import type { NavigationScreenProp } from 'react-navigation'
-import withCustomPayloadProvider from '../../../modules/endpoint/hocs/withCustomNewsProvider'
-import type { StatusPropsType } from '../../../modules/endpoint/hocs/withCustomNewsProvider'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import * as React from 'react'
 import { mapProps } from 'recompose'
-import TranslatedWithThemeNewsList from '../components/NewsList'
+import NewsList from '../components/NewsList'
 import { TUNEWS } from '../../../modules/endpoint/constants'
+import withPayloadProvider, { type StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
+import NewsHeader from '../../../modules/common/components/NewsHeader'
+import { View } from 'react-native'
+import LoadingSpinner from '../../../modules/common/components/LoadingSpinner'
 
 type ContainerPropsType = {|
+  status: 'fetching',
   newsId: ?string,
-  news: NewsModelsType,
-  cities: $ReadOnlyArray<CityModel>,
   cityCode: string,
   language: string,
-  status: string,
-  resourceCache: LanguageResourceCacheStateType,
   navigation: NavigationScreenProp<*>,
   dispatch: Dispatch<StoreActionType>,
-  cityModel: CityModel | void,
-  selectedNewsType: NewsType,
+  cityModel: CityModel,
+  selectedNewsType: NewsType
+|} | {|
+  status: 'ready',
+  news: NewsModelsType,
   hasMoreNews?: boolean,
-  page?: number
+  page?: number,
+  isFetchingMore: boolean,
+  newsId: ?string,
+  cityCode: string,
+  language: string,
+  navigation: NavigationScreenProp<*>,
+  dispatch: Dispatch<StoreActionType>,
+  cityModel: CityModel,
+  selectedNewsType: NewsType
 |}
 
 type RefreshPropsType = {|
@@ -56,74 +55,55 @@ type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
 type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
+const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
+  const { navigation, cityCode, language, newsId, selectedNewsType } = refreshProps
+
+  const navigateToNews = createNavigateToNews(dispatch, navigation)
+  navigateToNews({
+    cityCode,
+    type: selectedNewsType,
+    language,
+    newsId,
+    forceRefresh: true,
+    key: navigation.state.key
+  })
+}
+
 const createChangeUnavailableLanguage = (city: string, t: TFunction) => (
   dispatch: Dispatch<StoreActionType>,
   newLanguage: string
 ) => {
-  const switchContentLanguage: SwitchContentLanguageActionType = {
-    type: 'SWITCH_CONTENT_LANGUAGE',
-    params: {
-      newLanguage,
-      city,
-      t
-    }
-  }
-  dispatch(switchContentLanguage)
+  dispatch({ type: 'SWITCH_CONTENT_LANGUAGE', params: { newLanguage, city, t } })
 }
 
-const mapStateToProps = (
-  state: StateType,
-  ownProps: OwnPropsType
-): StatePropsType => {
+const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const { t, navigation } = ownProps
   if (!state.cityContent) {
     return { status: 'routeNotInitialized' }
   }
 
-  const {
-    resourceCache,
-    newsRouteMapping,
-    switchingLanguage,
-    languages
-  } = state.cityContent
+  const { resourceCache, newsRouteMapping, switchingLanguage, languages } = state.cityContent
 
   const route: ?NewsRouteStateType = newsRouteMapping[navigation.state.key]
-
   if (!route) {
     return { status: 'routeNotInitialized' }
   }
-  if (
-    state.cities.status === 'loading' ||
-    switchingLanguage ||
-    languages.status === 'loading'
-  ) {
+
+  if (state.cities.status === 'loading' || switchingLanguage || languages.status === 'loading') {
     return { status: 'loading' }
   }
 
   if (route.status === 'languageNotAvailable') {
     if (languages.status === 'error') {
-      console.error(
-        'languageNotAvailable status impossible if languages not ready'
-      )
-      return {
-        status: 'error',
-        refreshProps: null,
-        code: languages.code,
-        message: languages.message
-      }
+      console.error('languageNotAvailable status impossible if languages not ready')
+      return { status: 'error', refreshProps: null, code: languages.code, message: languages.message }
     }
+
     return {
       status: 'languageNotAvailable',
-      availableLanguages: languages.models.filter(lng =>
-        route.allAvailableLanguages.has(lng.code)
-      ),
-      changeUnavailableLanguage: createChangeUnavailableLanguage(route.city, t),
-      innerProps: {
-        language: state.contentLanguage,
-        cityCode: route.city,
-        selectedNewsType: route.type,
-        navigation: ownProps.navigation
-      }
+      availableLanguages: languages.models.filter(lng => route.allAvailableLanguages.has(lng.code)),
+      cityCode: route.city,
+      changeUnavailableLanguage: createChangeUnavailableLanguage(route.city, t)
     }
   }
 
@@ -136,88 +116,91 @@ const mapStateToProps = (
   }
 
   if (state.cities.status === 'error') {
-    return {
-      status: 'error',
-      message: state.cities.message,
-      code: state.cities.code,
-      refreshProps
-    }
+    return { status: 'error', message: state.cities.message, code: state.cities.code, refreshProps }
   } else if (resourceCache.status === 'error') {
-    return {
-      status: 'error',
-      message: resourceCache.message,
-      code: resourceCache.code,
-      refreshProps
-    }
+    return { status: 'error', message: resourceCache.message, code: resourceCache.code, refreshProps }
   } else if (route.status === 'error') {
-    return {
-      status: 'error',
-      message: route.message,
-      code: route.code,
-      refreshProps
-    }
+    return { status: 'error', message: route.message, code: route.code, refreshProps }
   } else if (languages.status === 'error') {
-    return {
-      status: 'error',
-      message: languages.message,
-      code: languages.code,
-      refreshProps
-    }
+    return { status: 'error', message: languages.message, code: languages.code, refreshProps }
   }
+
   const cities = state.cities.models
   const cityModel = cities.find(city => city.code === route.city)
+
+  if (!cityModel) {
+    throw new Error('It is impossible not to find the current city model!')
+  }
+
   if (route.status === 'loading') {
     return {
-      status: 'loading',
+      status: 'success',
+      refreshProps,
       innerProps: {
-        cityModel,
-        language: state.contentLanguage,
+        status: 'fetching',
         newsId: route.newsId,
-        navigation,
+        cityCode: route.city,
+        language: state.contentLanguage,
         selectedNewsType: route.type,
-        cityCode: route.city
+        cityModel,
+        navigation
       }
     }
   }
 
-  const innerProps = {
-    newsId: route.newsId,
-    cities: cities,
-    cityCode: route.city,
-    language: state.contentLanguage,
-    news: route.models,
-    resourceCache: resourceCache.value,
-    selectedNewsType: route.type,
-    status: route.status,
-    cityModel,
-    navigation
-  }
-
-  if (route.status === 'loadingMore') {
-    return {
-      status: 'loadingMore',
-      innerProps
-    }
-  }
   return {
-    status: 'ready',
+    status: 'success',
     refreshProps,
     innerProps: {
-      ...innerProps,
-      hasMoreNews: route.hasMoreNews,
-      page: route.page
+      status: 'ready',
+      newsId: route.newsId,
+      cityCode: route.city,
+      language: state.contentLanguage,
+      news: route.models,
+      selectedNewsType: route.type,
+      cityModel,
+      navigation,
+      hasMoreNews: route.status === 'loadingMore' ? undefined : route.hasMoreNews,
+      page: route.status === 'loadingMore' ? undefined : route.page,
+      isFetchingMore: route.status === 'loadingMore'
     }
   }
 }
 
-const mapDispatchToProps = (
-  dispatch: Dispatch<StoreActionType>
-): DispatchPropsType => ({ dispatch })
+const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsType => ({ dispatch })
 
-class NewsContainer extends React.Component<ContainerPropsType> {
-  fetchMoreNews = async () => {
-    const { dispatch, selectedNewsType, ...rest } = this.props
-    const { news, hasMoreNews, cityCode, language, navigation, newsId, page } = rest
+class NewsContainer extends React.Component<ContainerPropsType, {| newsType: NewsType |}> {
+  componentDidUpdate (prevProps: ContainerPropsType) {
+    const { language, selectedNewsType } = this.props
+    if (selectedNewsType === TUNEWS && prevProps.language !== language) {
+      this.fetchNews(TUNEWS)
+    }
+  }
+
+  fetchNews = (newsType: NewsType) => {
+    const { dispatch, cityCode, navigation, language } = this.props
+    dispatch({
+      type: 'FETCH_NEWS',
+      params: {
+        city: cityCode,
+        language,
+        newsId: null,
+        type: newsType,
+        key: navigation.state.key,
+        criterion: {
+          forceUpdate: false,
+          shouldRefreshResources: false
+        }
+      }
+    })
+  }
+
+  fetchMoreNews = () => {
+    if (this.props.status === 'fetching') {
+      throw new Error('Cannot fetch more if already fetching')
+    }
+    const { news, hasMoreNews, page, dispatch, selectedNewsType, ...rest } = this.props
+    const { cityCode, language, navigation, newsId } = rest
 
     const isTunews = selectedNewsType === TUNEWS
 
@@ -244,19 +227,24 @@ class NewsContainer extends React.Component<ContainerPropsType> {
   }
 
   render () {
-    const { dispatch, status, ...rest } = this.props
+    if (this.props.status === 'ready') {
+      const { isFetchingMore, status, cityModel, selectedNewsType, dispatch, ...rest } = this.props
 
-    return (
-      <TranslatedWithThemeNewsList
-        {...rest}
-        dispatch={dispatch}
-        {...this.state}
-        status={status}
-        isFetchingMore={status === 'loadingMore'}
-        fetchMoreNews={this.fetchMoreNews}
-        navigateToNews={createNavigateToNews(dispatch, rest.navigation)}
-      />
-    )
+      return (
+        <View style={{ flex: 1 }}>
+          <NewsHeader selectedNewsType={selectedNewsType} cityModel={cityModel} navigateToNews={this.fetchNews} />
+          <NewsList dispatch={dispatch}
+                    selectedNewsType={selectedNewsType}
+                    isFetchingMore={isFetchingMore}
+                    fetchMoreNews={this.fetchMoreNews}
+                    navigateToNews={createNavigateToNews(dispatch, rest.navigation)}
+                    {...this.state}
+                    {...rest} />
+        </View>
+      )
+    } else {
+      return <LoadingSpinner />
+    }
   }
 }
 
@@ -266,36 +254,10 @@ const removeOwnProps = (props: PropsType): RestType => {
   return rest
 }
 
-const refresh = (
-  refreshProps: RefreshPropsType,
-  dispatch: Dispatch<StoreActionType>
-) => {
-  const { navigation, cityCode, language, newsId, selectedNewsType } = refreshProps
-
-  const navigateToNews = createNavigateToNews(dispatch, navigation)
-  navigateToNews({
-    cityCode,
-    type: selectedNewsType,
-    language,
-    newsId,
-    forceRefresh: true,
-    key: navigation.state.key
-  })
-}
-
-const NewsContainerWithNewsPayloadProvider = withCustomPayloadProvider<ContainerPropsType, RefreshPropsType>(
-  refresh
-)(NewsContainer)
-
 export default withRouteCleaner<{| navigation: NavigationScreenProp<*> |}>(
   withTranslation('error')(
-    connect<PropsType, OwnPropsType, _, _, _, _>(
-      mapStateToProps,
-      mapDispatchToProps
-    )(
+    connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
       mapProps<RestType, PropsType>(removeOwnProps)(
-        NewsContainerWithNewsPayloadProvider
-      )
-    )
-  )
-)
+        withPayloadProvider<ContainerPropsType, RefreshPropsType>(refresh, true)(
+          NewsContainer
+        )))))

@@ -25,7 +25,7 @@ const LocalTabWrapper: StyledComponent<
   { isSelected: boolean },
   ThemeType,
   *
-> = styled.View`
+  > = styled.View`
   padding-horizontal: 10px;
   border-radius: 10px;
   height: 34px;
@@ -34,7 +34,7 @@ const LocalTabWrapper: StyledComponent<
   align-items: center;
   justify-content: center;
   background-color: ${props =>
-    props.isSelected ? props.theme.colors.themeColor : props.theme.colors.textDisabledColor};
+  props.isSelected ? props.theme.colors.themeColor : props.theme.colors.textDisabledColor};
 `
 
 const LocalText: StyledComponent<{}, ThemeType, *> = styled.Text`
@@ -53,27 +53,29 @@ const HeaderContainer: StyledComponent<{}, ThemeType, *> = styled.View`
 type PropsType = {|
   cityModel: CityModel,
   selectedNewsType: NewsType,
-  selectAndFetchLocalNews: () => void,
-  selectAndFetchTunews: () => void,
+  navigateToNews: NewsType => void,
   theme: ThemeType,
   t: TFunction
 |}
 
 class NewsHeader extends React.PureComponent<PropsType> {
+  navigateToLocalNews = () => { this.props.navigateToNews(LOCAL_NEWS) }
+  navigateToTunews = () => { this.props.navigateToNews(TUNEWS) }
+
   render () {
-    const { cityModel, selectedNewsType, selectAndFetchLocalNews, selectAndFetchTunews, theme, t } = this.props
+    const { cityModel, selectedNewsType, theme, t } = this.props
 
     return (
       <HeaderContainer>
         {cityModel.pushNotificationsEnabled ? (
-          <TouchableWrapper onPress={selectAndFetchLocalNews}>
+          <TouchableWrapper onPress={this.navigateToLocalNews}>
             <LocalTabWrapper isSelected={selectedNewsType === LOCAL_NEWS} theme={theme}>
               <LocalText theme={theme}>{t('local')}</LocalText>
             </LocalTabWrapper>
           </TouchableWrapper>
         ) : null}
         {cityModel.tunewsEnabled ? (
-          <TouchableWrapper onPress={selectAndFetchTunews}>
+          <TouchableWrapper onPress={this.navigateToTunews}>
             <NewsTypeIcon source={selectedNewsType === TUNEWS ? activeInternational : inactiveInternational} />
           </TouchableWrapper>
         ) : null}
