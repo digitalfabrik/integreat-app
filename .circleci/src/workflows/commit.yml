@@ -16,7 +16,7 @@ jobs:
         - deliverino
       production_delivery: false
       requires:
-        bump_version
+        - bump_version
 
   - notify_ios:
       context:
@@ -24,4 +24,4 @@ jobs:
         - deliverino
       production_delivery: false
       requires:
-        bump_version
+        - bump_version

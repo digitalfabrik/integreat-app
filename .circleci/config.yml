@@ -570,13 +570,15 @@ workflows:
                     - slack-app
                     - deliverino
                 production_delivery: false
-                requires: bump_version
+                requires:
+                    - bump_version
             - notify_ios:
                 context:
                     - slack-app
                     - deliverino
                 production_delivery: false
-                requires: bump_version
+                requires:
+                    - bump_version
         unless: << pipeline.parameters.api_triggered >>
     scheduled_native_development_delivery:
         jobs:
