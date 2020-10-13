@@ -633,7 +633,7 @@ workflows:
                 build_config_name: integreat-test-cms
                 context:
                     - slack-app
-                name: build_integreat_test_cms_web
+                name: build_ig_test_cms_web
             - deliver_web:
                 context:
                     - slack-app
@@ -644,7 +644,7 @@ workflows:
                 production_delivery: false
                 requires:
                     - check_web
-                    - build_integreat_test_cms_web
+                    - build_ig_test_cms_web
             - check_native:
                 context:
                     - slack-app
