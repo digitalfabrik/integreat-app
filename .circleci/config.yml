@@ -491,7 +491,7 @@ jobs:
             - restore_environment_variables
             - restore_yarn_cache
             - run:
-                command: echo "export GITHUB_RELEASE_NOTES=$(tools/parse-release-notes parse --android --language en)" >> ${BASH_ENV}
+                command: export GITHUB_RELEASE_NOTES="$(tools/parse-release-notes parse --android --language en)"
                 name: Create github release notes
             - run:
                 command: tools/github-release create android ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "${GITHUB_RELEASE_NOTES}"<<^ parameters.production_delivery >> --development-release<</ parameters.production_delivery >>
