@@ -39,6 +39,7 @@ jobs:
         - slack-app
         - deliverino
       requires:
+        - bump_version
         - deliver_web
 
   - check_native:
