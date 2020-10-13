@@ -5,7 +5,36 @@ jobs:
         - slack-app
         - deliverino
         - jira
-      delivery: development
+      delivery: production
+
+  - check_web:
+      context:
+        - slack-app
+  - build_web:
+      name: build_integreat_web
+      build_config_name: integreat
+      context:
+        - slack-app
+  - build_web:
+      name: build_malte_web
+      build_config_name: malte
+      context:
+        - slack-app
+  - deliver_web:
+      context:
+        - slack-app
+      production_delivery: true
+      requires:
+        - check_web
+        - build_integreat_web
+        - build_malte_web
+  - notify_web:
+      context:
+        - slack-app
+        - deliverino
+      requires:
+        - deliver_web
+
   - check_native:
       context:
         - slack-app
@@ -44,7 +73,7 @@ jobs:
         - browserstack
         - tuerantuer-google-play
         - tuerantuer-android
-      production_delivery: false
+      production_delivery: true
       requires:
         - check_native
         - e2e_android
@@ -68,7 +97,7 @@ jobs:
   #        - browserstack
   #        - tuerantuer-google-play
   #        - tuerantuer-android
-  #      production_delivery: false
+  #      production_delivery: true
   #      requires:
   #        - check_native
   #        - e2e_android
@@ -78,13 +107,14 @@ jobs:
       context:
         - slack-app
         - deliverino
-      production_delivery: false
+      production_delivery: true
       requires:
         - deliver_integreat_android
   #        - deliver_malte_android
 
   - build_ios:
       name: build_e2e_ios
+      build_config_name: integreat-e2e
       context:
         - slack-app
         - tuerantuer-apple
@@ -116,7 +146,7 @@ jobs:
         - browserstack
         - tuerantuer-apple
         - tuerantuer-ios
-      production_delivery: false
+      production_delivery: true
       requires:
         - check_native
         - e2e_ios
@@ -140,7 +170,7 @@ jobs:
   #        - browserstack
   #        - tuerantuer-apple
   #        - tuerantuer-ios
-  #      production_delivery: false
+  #      production_delivery: true
   #      requires:
   #        - check_native
   #        - e2e_ios
@@ -150,7 +180,16 @@ jobs:
       context:
         - slack-app
         - deliverino
-      production_delivery: false
+      production_delivery: true
       requires:
         - deliver_integreat_ios
-#        - deliver_malte_ios
+  #        - deliver_malte_ios
+
+  - move_release_notes:
+      context:
+        - slack-app
+        - deliverino
+      requires:
+        - notify_web
+        - notify_android
+        - notify_ios
