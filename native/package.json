@@ -50,7 +50,7 @@
     "js-md5": "^0.7.3",
     "locales": "file:../locales",
     "lodash": "^4.17.19",
-    "moment": "2.24.0",
+    "moment": "2.25.3",
     "normalize-path": "^3.0.0",
     "normalize-strings": "^1.1.0",
     "query-string": "^6.11.0",
