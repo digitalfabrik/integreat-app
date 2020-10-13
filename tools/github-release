@@ -28,9 +28,14 @@ const githubRelease = async (platform, newVersionName, newVersionCode, {
   console.warn(releaseNotes)
   console.warn(`${releaseNotes}`)
   console.warn(`asdf\n${releaseNotes}asdf\n`)
-  const body = JSON.stringify(`${developmentMessage}${releaseNotes}`)
+  const body = `${developmentMessage}${releaseNotes}`
   console.warn('and body ', body)
   console.warn('stringified', JSON.stringify(body))
+  try {
+    console.warn('parsed', JSON.parse(body))
+  } catch (e) {
+    console.error(e)
+  }
 
   if (dryRun) {
     return
