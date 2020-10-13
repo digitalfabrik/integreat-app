@@ -94,6 +94,7 @@ commands:
                     - 3-gems-{{ arch }}-
             - run:
                 command: bundle check || bundle install
+                name: '[FL] install'
                 working_directory: << parameters.directory >>
             - save_cache:
                 key: 3-gems-{{ arch }}-{{ checksum "<< parameters.directory >>/Gemfile.lock" }}
@@ -108,7 +109,7 @@ commands:
                 name: Restore Yarn Package Cache
             - run:
                 command: yarn --frozen-lockfile --cache-folder ~/.cache/yarn
-                name: Install Dependencies
+                name: Yarn
             - save_cache:
                 key: 7-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
                 name: Save Yarn Package Cache
@@ -236,7 +237,7 @@ jobs:
             - restore_yarn_cache
             - run:
                 command: yarn workspace web build:<< parameters.build_config_name >> --env.commit_sha=${CIRCLE_SHA1}
-                name: Production << parameters.build_config_name >> build
+                name: << parameters.build_config_name >> build
             - run:
                 command: yarn workspace web check:build
                 name: Check build
