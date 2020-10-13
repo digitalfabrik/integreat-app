@@ -29,16 +29,16 @@ steps:
       name: Parse english android release notes
       command: tools/parse-release-notes parse --android --destination native/android/fastlane/metadata/android/en-GB/changelogs/default.txt --language en --production
         && tools/parse-release-notes parse --android --destination native/android/fastlane/metadata/android/en-US/changelogs/default.txt --language en --production
-  - run:
-      name: "[FL] Browserstack Upload Live"
-      command: bundle exec fastlane android browserstack_upload_live app_name:<< parameters.build_config_name >>
-      working_directory: native
-  - run:
-      name: "[FL] Play Store Upload"
-      command: bundle exec fastlane android playstore_upload app_name:<< parameters.build_config_name >> production_delivery:"<< parameters.production_delivery >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}  build_config_name:<< parameters.build_config_name >>
-      working_directory: native
-  - run:
-      name: "[FL] Upload to Sentry"
-      command: bundle exec fastlane android sentry_upload app_name:<< parameters.build_config_name >> version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:<< parameters.build_config_name >>
-      working_directory: native
+#  - run:
+#      name: "[FL] Browserstack Upload Live"
+#      command: bundle exec fastlane android browserstack_upload_live app_name:<< parameters.build_config_name >>
+#      working_directory: native
+#  - run:
+#      name: "[FL] Play Store Upload"
+#      command: bundle exec fastlane android playstore_upload app_name:<< parameters.build_config_name >> production_delivery:"<< parameters.production_delivery >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}  build_config_name:<< parameters.build_config_name >>
+#      working_directory: native
+#  - run:
+#      name: "[FL] Upload to Sentry"
+#      command: bundle exec fastlane android sentry_upload app_name:<< parameters.build_config_name >> version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:<< parameters.build_config_name >>
+#      working_directory: native
   - notify_failed

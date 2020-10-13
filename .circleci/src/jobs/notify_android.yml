@@ -18,7 +18,7 @@ steps:
   - run:
       name: Create github release
       command: tools/github-release create android ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "${GITHUB_RELEASE_NOTES}"<<^ parameters.production_delivery >> --development-release<</ parameters.production_delivery >>
-  - slack/notify:
-      message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat ${NEW_VERSION_NAME} has been released successfully on Android!\n${GITHUB_RELEASE_NOTES}
-      webhook: ${SLACK_URL}
+#  - slack/notify:
+#      message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat ${NEW_VERSION_NAME} has been released successfully on Android!\n${GITHUB_RELEASE_NOTES}
+#      webhook: ${SLACK_URL}
   - notify_failed
