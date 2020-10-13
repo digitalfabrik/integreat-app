@@ -2,7 +2,7 @@
   "name": "integreat-app",
   "private": true,
   "workspaces": {
-    "packages": ["native", "web", "locales", "tools"],
+    "packages": ["native", "web", "locales"],
     "nohoist": [
       "native/**",
       "web/**"
