@@ -37,7 +37,7 @@ commands:
                 fail_only: true
                 failure_message: ':fire: The $CIRCLE_JOB job has failed on the main branch! :fire:'
                 include_job_number_field: false
-                mentions: maxammann,st,UUZS7CMV0,UV99P8ETW
+                mentions: maxammann,st,UV99P8ETW
                 only_for_branches: main
                 webhook: ${SLACK_URL}
     restore_environment_variables:
