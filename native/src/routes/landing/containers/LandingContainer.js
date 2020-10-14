@@ -23,7 +23,7 @@ type ContainerPropsType = {|
   cities: $ReadOnlyArray<CityModel>
 |}
 
-type OwnPropsType = {| navigation: NavigationScreenProp<*>, t?: TFunction |}
+type OwnPropsType = {| navigation: NavigationScreenProp<*>, t: void |}
 type StatePropsType = StatusPropsType<ContainerPropsType, {}>
 type DispatchPropsType = {|
   dispatch: Dispatch<StoreActionType>
