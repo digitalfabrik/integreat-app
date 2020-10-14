@@ -41,7 +41,7 @@ const MalteBuildConfig: BuildConfigType = {
   ios: {
     bundleIdentifier: 'de.malteapp',
     provisioningProfileSpecifier: 'match Development de.malteapp',
-    appleId: "1535758339",
+    appleId: '1535758339',
     googleServices: {
       clientId: '146599424234-b6rfm4skhbsv4qvob3ieh34s2chjm54k.apps.googleusercontent.com',
       reversedClientId: 'com.googleusercontent.apps.146599424234-b6rfm4skhbsv4qvob3ieh34s2chjm54k',
