@@ -30,7 +30,7 @@ twice a month if no production build is delivered.
 
 See the table below for a more detailed overview:
 
-|Wrokflow|Checks|E2E tests|integreat build|malte build|Version bump|
+|Workflow|Checks|E2E tests|integreat build|malte build|Version bump|
 |---|---|---|---|---|---|
 |commit|:heavy_check_mark:|:heavy_check_mark:|:x:|:x:|:x:|
 |scheduled_native_production_delivery|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:

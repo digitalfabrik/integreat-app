@@ -6,7 +6,6 @@ versioning: ![versioning](https://img.shields.io/badge/calver-YYYY.MM.PATCH-22bf
 * [Contributing](#contributing)
 * [Getting Started](#getting-started)
 * [Bug Reporting](#bug-reporting)
-* [Pull Requests](#pull-requests)
 * [Further Reading](#further-reading)
 * [Glossary](https://wiki.integreat-app.de/glossary)
 
@@ -24,7 +23,7 @@ If you want to know more about Integreat or if you want to join us, contact [Max
 ### Prerequisites
 * Rate our Integreat app in the [PlayStore](https://play.google.com/store/apps/details?id=tuerantuer.app.integreat)
 and the [Apple App Store](https://apps.apple.com/ae/app/integreat/id1072353915).
-* Install [nodejs](https://nodejs.org/). At least v6 is required, but we recommend the v12 LTS.
+* Install [nodejs](https://nodejs.org/). At least v10 is required, but we recommend the v12 LTS.
 Using the latest version (v13) may lead to errors.
 * Install [yarn](https://yarnpkg.com/)
 * For native development also take a look at the [Android setup](#android) and the [IOS setup](#ios).
@@ -63,9 +62,8 @@ All in all it contains the following projects:
     *Note: For editing native Java code for Android IntelliJ with the Android extension is recommended. For native Swift/Objective-C code [XCode](https://developer.apple.com/xcode/) is required.*
 * locales
     
-
 #### Additional Configuration
-* Mark the *src* and *www* (web-only) folder as *Source directory*.
+* Mark the *src* and *www* (web-only) folders as *Source directory*.
 * Run > Edit Configurations > Defaults > Jest and set *Configuration file* to *jest.config.json*
 
 * Settings > Languages & Frameworks > JavaScript and
@@ -77,6 +75,7 @@ All in all it contains the following projects:
     * [EJS](https://plugins.jetbrains.com/plugin/index?xmlId=com.jetbrains.lang.ejs) (for web)
     * [Ruby](https://plugins.jetbrains.com/plugin/1293-ruby) (if working with Fastlane)
 * [optional] Configure Linux environment on Windows: [WSL Setup](docs/wsl-setup.md)
+
 ### Trouble shooting
 * Use nodejs 12 LTS instead of the latest version.
 * For any native problems you can take a look at our troubleshooting section [here](native/docs/troubleshooting.md)
@@ -84,13 +83,6 @@ All in all it contains the following projects:
 ## Bug reporting
 You can [view our issues](https://issues.integreat-app.de/projects/IGAPP) or
  [create new ones](https://issues.integreat-app.de/secure/CreateIssue!default.jspa) on our jira.
-
-## Pull requests
-Please take a look at our [conventions](docs/conventions.md).
-
-To merge a pull request,
-* at least two approvals are required.
-* tests, linting and flow have to succeed.
 
 ## Further Reading
 More information on both the webapp and the native app specifically can be found in the [web documentation](web/docs) and the [app documentation](native/docs).
