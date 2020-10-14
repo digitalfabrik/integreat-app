@@ -14,7 +14,6 @@ import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvi
 import { CityModel } from '@integreat-app/integreat-api-client'
 import * as React from 'react'
 import { connect } from 'react-redux'
-import type { TFunction } from 'react-i18next'
 
 type ContainerPropsType = {|
   dispatch: Dispatch<StoreActionType>,
