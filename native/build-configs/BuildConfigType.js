@@ -68,6 +68,7 @@ export type BuildConfigType = {|
     launchScreen: string,
     bundleIdentifier: string,
     provisioningProfileSpecifier: string,
+    appleId: string,
     googleServices: ?iOSGoogleServicesConfig
   |}
 |}
