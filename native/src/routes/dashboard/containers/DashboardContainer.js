@@ -20,7 +20,6 @@ import createNavigateToEvent from '../../../modules/app/createNavigateToEvent'
 import createNavigateToInternalLink from '../../../modules/app/createNavigateToInternalLink'
 import createNavigateToPoi from '../../../modules/app/createNavigateToPoi'
 import createNavigateToOffers from '../../../modules/app/createNavigateToOffers'
-import { mapProps } from 'recompose'
 import createNavigateToNews from '../../../modules/app/createNavigateToNews'
 
 type RefreshPropsType = {|
@@ -142,16 +141,9 @@ const DashboardContainer = (props: ContainerPropsType) => {
     navigateToOffers={createNavigateToOffers(dispatch, rest.navigation)} />
 }
 
-type RestType = $Diff<PropsType, OwnPropsType>
-const removeOwnProps = (props: PropsType): RestType => {
-  const { t, navigation, ...rest } = props
-  return rest
-}
-
 export default withRouteCleaner<{| navigation: NavigationScreenProp<*> |}>(
   withTranslation('error')(
     connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
-      mapProps<RestType, PropsType>(removeOwnProps)(
-        withPayloadProvider<ContainerPropsType, RefreshPropsType>(refresh)(
-          DashboardContainer
-        )))))
+      withPayloadProvider<ContainerPropsType, RefreshPropsType>(refresh)(
+        DashboardContainer
+      ))))
