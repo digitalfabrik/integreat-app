@@ -375,15 +375,15 @@ jobs:
                 command: tools/parse-release-notes parse --android --destination native/android/fastlane/metadata/android/en-GB/changelogs/default.txt --language en --production && tools/parse-release-notes parse --android --destination native/android/fastlane/metadata/android/en-US/changelogs/default.txt --language en --production
                 name: Parse english android release notes
             - run:
-                command: bundle exec fastlane android browserstack_upload_live app_name:<< parameters.build_config_name >>
+                command: bundle exec fastlane android browserstack_upload_live build_config_name:<< parameters.build_config_name >>
                 name: '[FL] Browserstack Upload Live'
                 working_directory: native
             - run:
-                command: bundle exec fastlane android playstore_upload app_name:<< parameters.build_config_name >> production_delivery:"<< parameters.production_delivery >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}  build_config_name:<< parameters.build_config_name >>
+                command: bundle exec fastlane android playstore_upload build_config_name:<< parameters.build_config_name >> production_delivery:"<< parameters.production_delivery >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}  build_config_name:<< parameters.build_config_name >>
                 name: '[FL] Play Store Upload'
                 working_directory: native
             - run:
-                command: bundle exec fastlane android sentry_upload app_name:<< parameters.build_config_name >> version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:<< parameters.build_config_name >>
+                command: bundle exec fastlane android sentry_upload build_config_name:<< parameters.build_config_name >> version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:<< parameters.build_config_name >>
                 name: '[FL] Upload to Sentry'
                 working_directory: native
             - notify_failed
@@ -419,25 +419,25 @@ jobs:
                 command: tools/parse-release-notes parse --ios --destination native/ios/fastlane/metadata/en-US/release_notes.txt --language en --production
                 name: Parse english ios release notes
             - run:
-                command: bundle exec fastlane ios browserstack_upload_live app_name:<< parameters.build_config_name >>
+                command: bundle exec fastlane ios browserstack_upload_live build_config_name:<< parameters.build_config_name >>
                 name: '[FL] Browserstack Upload Live'
                 working_directory: native
             - when:
                 condition: << parameters.production_delivery >>
                 steps:
                     - run:
-                        command: bundle exec fastlane ios appstoreconnect_upload app_name:<< parameters.build_config_name >>
+                        command: bundle exec fastlane ios appstoreconnect_upload build_config_name:<< parameters.build_config_name >>
                         name: '[FL] App Store Connect Upload'
                         working_directory: native
             - unless:
                 condition: << parameters.production_delivery >>
                 steps:
                     - run:
-                        command: bundle exec fastlane ios testflight_upload app_name:<< parameters.build_config_name >> version_name:${NEW_VERSION_NAME}
+                        command: bundle exec fastlane ios testflight_upload build_config_name:<< parameters.build_config_name >> version_name:${NEW_VERSION_NAME}
                         name: '[FL] TestFlight Upload'
                         working_directory: native
             - run:
-                command: bundle exec fastlane ios sentry_upload app_name:<< parameters.build_config_name >> version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}  build_config_name:<< parameters.build_config_name >>
+                command: bundle exec fastlane ios sentry_upload version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:<< parameters.build_config_name >>
                 name: '[FL] Upload to Sentry'
                 working_directory: native
             - notify_failed
@@ -491,7 +491,7 @@ jobs:
             - restore_ruby_cache:
                 directory: native
             - run:
-                command: bundle exec fastlane android browserstack_e2e_tests app_name:integreat-e2e
+                command: bundle exec fastlane android browserstack_e2e_tests build_config_name:integreat-e2e
                 name: '[FL] Android E2E Tests on Browserstack'
                 working_directory: native
             - notify_failed
@@ -510,7 +510,7 @@ jobs:
             - restore_ruby_cache:
                 directory: native
             - run:
-                command: bundle exec fastlane ios browserstack_e2e_tests app_name:integreat-e2e
+                command: bundle exec fastlane ios browserstack_e2e_tests build_config_name:integreat-e2e
                 name: '[FL] iOS E2E Tests on Browserstack'
                 working_directory: native
             - notify_failed

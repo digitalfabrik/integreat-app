@@ -13,6 +13,6 @@ steps:
       directory: native
   - run:
       name: "[FL] iOS E2E Tests on Browserstack"
-      command: bundle exec fastlane ios browserstack_e2e_tests app_name:integreat-e2e
+      command: bundle exec fastlane ios browserstack_e2e_tests build_config_name:integreat-e2e
       working_directory: native
   - notify_failed
