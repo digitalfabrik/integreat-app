@@ -14,7 +14,6 @@ import withTheme from '../../../modules/theme/hocs/withTheme'
 import { CityModel, PoiModel } from '@integreat-app/integreat-api-client'
 import * as React from 'react'
 import createNavigateToInternalLink from '../../../modules/app/createNavigateToInternalLink'
-import { mapProps } from 'recompose'
 import Pois from '../components/Pois'
 
 type ContainerPropsType = {|
@@ -133,16 +132,9 @@ const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionT
   navigateToPoi({ cityCode, language, path, forceRefresh: true, key: navigation.state.key })
 }
 
-type RestType = $Diff<PropsType, OwnPropsType>
-const removeOwnProps = (props: PropsType): RestType => {
-  const { t, navigation, ...rest } = props
-  return rest
-}
-
 export default withRouteCleaner<{| navigation: NavigationScreenProp<*> |}>(
-  withTranslation('pois')(
+  withTranslation('error')(
     connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
-      mapProps<RestType, PropsType>(removeOwnProps)(
-        withPayloadProvider<ContainerPropsType, RefreshPropsType>(refresh)(
-          PoisContainer
-        )))))
+      withPayloadProvider<ContainerPropsType, RefreshPropsType>(refresh)(
+        PoisContainer
+      ))))
