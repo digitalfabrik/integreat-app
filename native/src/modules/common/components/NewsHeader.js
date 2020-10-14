@@ -21,10 +21,7 @@ const TouchableWrapper = styled.TouchableOpacity`
   margin-bottom: 5px;
   margin-horizontal: 10px;
 `
-const LocalTabWrapper: StyledComponent<
-  { isSelected: boolean },
-  ThemeType,
-  *> = styled.View`
+const LocalTabWrapper: StyledComponent<{ isSelected: boolean }, ThemeType, *> = styled.View`
   padding-horizontal: 10px;
   border-radius: 10px;
   height: 34px;
