@@ -379,11 +379,11 @@ jobs:
                 name: '[FL] Browserstack Upload Live'
                 working_directory: native
             - run:
-                command: bundle exec fastlane android playstore_upload build_config_name:<< parameters.build_config_name >> production_delivery:"<< parameters.production_delivery >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}  build_config_name:<< parameters.build_config_name >>
+                command: bundle exec fastlane android playstore_upload build_config_name:<< parameters.build_config_name >> production_delivery:"<< parameters.production_delivery >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
                 name: '[FL] Play Store Upload'
                 working_directory: native
             - run:
-                command: bundle exec fastlane android sentry_upload build_config_name:<< parameters.build_config_name >> version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:<< parameters.build_config_name >>
+                command: bundle exec fastlane android sentry_upload build_config_name:<< parameters.build_config_name >> version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
                 name: '[FL] Upload to Sentry'
                 working_directory: native
             - notify_failed
