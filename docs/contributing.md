@@ -35,12 +35,12 @@ To merge a pull request, the following is necessary:
 Pull requests with changes that are visible to our end users should always include one (or more) release note describing the changes.
 For other changes, these release notes are optional, but make sure to set the flag `show_in_stores` to false.
 
-To add a release note (exemplary on native):
-* Have a look at the [template](native/release-notes/ReleaseNoteTemplate.yml).
-* Add a new release note to the [unreleased directory](native/release-notes/unreleased).
+To add a release note:
+* Have a look at the [template](release-notes/ReleaseNoteTemplate.yml).
+* Add a new release note to the [unreleased directory](release-notes/unreleased).
 
 This gives users, members of other teams and us developers a simple overview over which changes and features belong to which release.
-The release notes can be found [here (for native)](native/release-notes) and [here (for web)](web/release-notes) and are automatically moved to a new release directory during a release.
+The release notes can be found [here](release-notes) and [here](release-notes) and are automatically moved to a new release directory during a release.
 They are also shown in the stores and the [release section of github](https://github.com/Integreat/integreat-react-native-app/releases).
 
 ## Bug reporting
