@@ -58,7 +58,7 @@ class RemoteContent extends React.Component<PropType, StateType> {
   }
 
   onShouldStartLoadWithRequest = (event: WebViewNavigation) => {
-    const url = event.url
+    const url = event.url.endsWith('/') ? event.url.slice(0, -1) : event.url
     // Needed on iOS for the initial load
     if (url === this.props.resourceCacheUrl) {
       return true
