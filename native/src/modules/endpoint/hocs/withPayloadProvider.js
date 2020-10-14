@@ -46,7 +46,7 @@ export type PropsType<S: { dispatch: Dispatch<StoreActionType> }, R: {}> = {|
   ...StatusPropsType<S, R>,
   dispatch: Dispatch<StoreActionType>,
   navigation: NavigationScreenProp<*>,
-  t?: TFunction | void
+  t?: TFunction
 |}
 
 const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R: {}> (
