@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const fs = require('fs')
-const { VERSION_FILE } = require("./constants")
+const { VERSION_FILE } = require('./constants')
 const { program } = require('commander')
 
 const calculateNewVersion = () => {

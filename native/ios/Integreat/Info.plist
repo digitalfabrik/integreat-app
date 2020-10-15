@@ -43,12 +43,6 @@
 			</dict>
 		</dict>
 	</dict>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Integreat wants to use your location to find nearby cities.</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Integreat wants to use your location to find nearby cities.</string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Integreat wants to save photos to your library.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Lateef.ttf</string>

@@ -2,6 +2,7 @@
 
 exports[`LastUpdateInfo should match snapshot 1`] = `
 <LastUpdateInfo__TimeStamp>
+   
   18. November 2017
 </LastUpdateInfo__TimeStamp>
 `;

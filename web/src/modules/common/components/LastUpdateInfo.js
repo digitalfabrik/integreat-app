@@ -29,7 +29,7 @@ export class LastUpdateInfo extends React.PureComponent<PropsType> {
     // only show day, month and year
     const timestamp = lastUpdate.format('LL')
 
-    return <TimeStamp className={className}>{withText && t('lastUpdate')}{timestamp}</TimeStamp>
+    return <TimeStamp className={className}>{withText && t('lastUpdate')} {timestamp}</TimeStamp>
   }
 }
 

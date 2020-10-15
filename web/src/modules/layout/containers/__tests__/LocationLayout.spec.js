@@ -1,8 +1,7 @@
 // @flow
 
 import React from 'react'
-import { shallow } from 'enzyme'
-
+import { render } from '@testing-library/react'
 import {
   CategoriesMapModel,
   CategoryModel,
@@ -11,14 +10,26 @@ import {
   EventModel,
   LocationModel
 } from '@integreat-app/integreat-api-client'
-
 import { LocationLayout } from '../LocationLayout'
 import { CATEGORIES_ROUTE } from '../../../app/route-configs/CategoriesRouteConfig'
 import moment from 'moment'
-import { SEARCH_ROUTE } from '../../../app/route-configs/SearchRouteConfig'
-import CategoriesToolbar from '../../../../routes/categories/containers/CategoriesToolbar'
-import LocationToolbar from '../../components/LocationToolbar'
 import createLocation from '../../../../createLocation'
+import { ThemeProvider } from 'styled-components'
+import theme from '../../../theme/constants/theme'
+import { EVENTS_ROUTE } from '../../../app/route-configs/EventsRouteConfig'
+
+jest.mock('../../components/LocationFooter', () => {
+  return () => <div>LocationFooter</div>
+})
+jest.mock('../LocationHeader', () => {
+  return () => <div>LocationHeader</div>
+})
+jest.mock('../../components/LocationToolbar', () => {
+  return () => <div>LocationToolbar</div>
+})
+jest.mock('../../../../routes/categories/containers/CategoriesToolbar', () => {
+  return () => <div>CategoriesToolbar</div>
+})
 
 describe('LocationLayout', () => {
   const city = 'city1'
@@ -94,53 +105,74 @@ describe('LocationLayout', () => {
   const feedbackTargetInformation = { path: '/path/to/category', title: 'Category_Title' }
 
   const MockNode = () => <div />
-  const renderLocationLayout = location => <LocationLayout location={createLocation({ ...location })}
-                                                           categories={categories} cities={cities}
-                                                           events={events} languageChangePaths={languageChangePaths}
-                                                           feedbackTargetInformation={feedbackTargetInformation}
-                                                           viewportSmall toggleDarkMode={() => {}} darkMode>
-    <MockNode />
-  </LocationLayout>
+  const renderLocationLayout = (location, isLoading) =>
+    <LocationLayout location={createLocation({ ...location })}
+                    categories={categories} cities={cities}
+                    events={events} languageChangePaths={languageChangePaths}
+                    feedbackTargetInformation={feedbackTargetInformation}
+                    viewportSmall toggleDarkMode={() => {}} darkMode
+                    isLoading={isLoading}>
+      <MockNode />
+    </LocationLayout>
 
   describe('renderToolbar', () => {
     it('should render a CategoriesToolbar if current route is categories', () => {
       const location = {
         payload: { city, language },
-        type: '/augsburg/de/willkommen',
-        pathname: CATEGORIES_ROUTE
+        type: CATEGORIES_ROUTE,
+        pathname: '/augsburg/de/willkommen'
       }
-      const component = shallow(renderLocationLayout(location))
-      expect(component.find(CategoriesToolbar)).not.toBeNull()
+      const { getByText } = render(
+        <ThemeProvider theme={theme}>
+          {renderLocationLayout(location, false)}
+        </ThemeProvider>
+      )
+      expect(getByText('CategoriesToolbar')).toBeTruthy()
     })
 
-    it('should not render a LocationToolbar if current route is not categories', () => {
+    it('should render a LocationToolbar if current route is not categories', () => {
       const location = {
         payload: { city, language },
-        type: SEARCH_ROUTE,
-        pathname: '/augsburg/de/search'
+        type: EVENTS_ROUTE,
+        pathname: '/augsburg/de/events'
       }
-      const component = shallow(renderLocationLayout(location))
-      expect(component.find(LocationToolbar)).not.toBeNull()
+      const { getByText } = render(
+        <ThemeProvider theme={theme}>
+          {renderLocationLayout(location, false)}
+        </ThemeProvider>
+      )
+      expect(getByText('LocationToolbar')).toBeTruthy()
     })
   })
 
-  it('should show LocationHeader and LocationFooter if city is available', () => {
+  it('should show LocationHeader and LocationFooter if not loading', () => {
     const location = {
       payload: { city, language },
       type: CATEGORIES_ROUTE,
       pathname: '/augsburg/de/willkommen'
     }
-    const component = shallow(renderLocationLayout(location))
-    expect(component).toMatchSnapshot()
+    const { getByText } = render(
+      <ThemeProvider theme={theme}>
+        {renderLocationLayout(location, false)}
+      </ThemeProvider>
+    )
+    expect(getByText('LocationHeader')).toBeTruthy()
+    expect(getByText('LocationFooter')).toBeTruthy()
   })
 
-  it('should show GeneralHeader and GeneralFooter if city is not available', () => {
+  it('should not render LocationFooter if loading', () => {
     const location = {
       payload: { city, language },
       type: CATEGORIES_ROUTE,
       pathname: '/augsburg/de/willkommen'
     }
-    const component = shallow(renderLocationLayout(location))
-    expect(component).toMatchSnapshot()
+
+    const { getByText } = render(
+      <ThemeProvider theme={theme}>
+        {renderLocationLayout(location, true)}
+      </ThemeProvider>
+    )
+    expect(getByText('LocationHeader')).toBeTruthy()
+    expect(() => getByText('LocationFooter')).toThrow()
   })
 })
