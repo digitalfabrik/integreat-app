@@ -22,7 +22,7 @@ const tunewsReducer: ReduxReducer<TunewsStateType, TunewsFetchActionType> = (
   action: TunewsFetchActionType
 ) => {
   switch (action.type) {
-    case startFetchActionName(TUNEWS_ENDPOINT_NAME):
+    case startFetchActionName(TUNEWS_ENDPOINT_NAME): {
       const language = action.meta.language
       return {
         language,
@@ -30,6 +30,7 @@ const tunewsReducer: ReduxReducer<TunewsStateType, TunewsFetchActionType> = (
         hasMore: state.hasMore,
         payload: action.payload
       }
+    }
     case finishFetchActionName(TUNEWS_ENDPOINT_NAME): {
       const data = action.payload.data
       if (!data) {
