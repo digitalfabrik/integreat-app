@@ -22,7 +22,6 @@ type PropsType = {|
   language: string,
   city: string,
   cities: Array<CityModel>,
-  areCitiesFetching: boolean,
   path: string,
   t: TFunction,
   isFetching: boolean,
@@ -51,12 +50,8 @@ export class TunewsPage extends React.PureComponent<PropsType> {
 
   render () {
     const {
-      tunews, language, city, t, fetchTunews, hasMore, isFetching, cities, areCitiesFetching, path
+      tunews, language, city, t, fetchTunews, hasMore, isFetching, cities, path
     } = this.props
-
-    if (areCitiesFetching) {
-      return <LoadingSpinner />
-    }
 
     const currentCity: ?CityModel = cities && cities.find(cityElement => cityElement.code === city)
     if (!currentCity) {
@@ -89,7 +84,6 @@ const mapStateToProps = (state: StateType) => ({
   language: state.location.payload.language,
   city: state.location.payload.city,
   cities: state.cities.data,
-  areCitiesFetching: state.cities.isFetching,
   path: state.location.pathname,
   hasMore: state.tunews.hasMore,
   tunews: state.tunews.allData,
