@@ -13,7 +13,6 @@ import {
   POIS_ENDPOINT_NAME,
   SPRUNGBRETT_JOBS_ENDPOINT_NAME,
   TUNEWS_ELEMENT_ENDPOINT_NAME,
-  TUNEWS_LANGUAGES_ENDPOINT_NAME,
   WOHNEN_ENDPOINT_NAME
 } from '@integreat-app/integreat-api-client'
 import { handleActions } from 'redux-actions'
@@ -29,7 +28,7 @@ import type { PayloadDataType } from '../PayloadDataType'
  */
 const endpointNames = [
   LANGUAGES_ENDPOINT_NAME,
-  TUNEWS_LANGUAGES_ENDPOINT_NAME,
+  'tunewsLanguages', // TODO Change back to TUNEWS_LANGUAGES_ENDPOINT_NAME once fixed in api-client
   CITIES_ENDPOINT_NAME,
   CATEGORIES_ENDPOINT_NAME,
   DISCLAIMER_ENDPOINT_NAME,

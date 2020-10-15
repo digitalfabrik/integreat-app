@@ -34,6 +34,7 @@ export type StateType = {
   localNews: Payload<Array<LocalNewsModel>>,
   localNewsElement: Payload<LocalNewsModel>,
   tunews: TunewsStateType,
+  tunewsLanguages: Payload<Array<LanguageModel>>,
   tunewsElement: Payload<TunewsModel>,
   cities: Payload<Array<CityModel>>,
   languages: Payload<Array<LanguageModel>>,
