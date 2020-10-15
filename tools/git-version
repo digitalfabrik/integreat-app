@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const authenticate = require('./github-authentication')
-const { VERSION_FILE } = require("./constants")
+const { VERSION_FILE, PLATFORMS, tagId } = require('./constants')
 const { program } = require('commander')
 
 program
@@ -9,6 +9,30 @@ program
   .requiredOption('--owner <owner>', 'owner of the current repository, usually "Integreat"')
   .requiredOption('--repo <repo>', 'the current repository, should be integreat-app')
   .requiredOption('--branch <branch>', 'the current branch')
+
+const createTag = async ({ versionName, versionCode, owner, repo, commitSha, appOctokit, platform }) => {
+  const id = tagId({ versionName, platform })
+  const tagMessage = `[${platform}] ${versionName} - ${versionCode}`
+
+  const tag = await appOctokit.git.createTag({
+    owner,
+    repo,
+    tag: id,
+    message: tagMessage,
+    object: commitSha,
+    type: 'commit'
+  })
+  const tagSha = tag.data.sha
+  console.warn(`New tag with id ${id} successfully created.`)
+
+  await appOctokit.git.createRef({
+    owner,
+    repo,
+    ref: `refs/tags/${id}`,
+    sha: tagSha
+  })
+  console.warn(`New ref with id ${id} successfully created.`)
+}
 
 const commitAndTag = async (versionName, versionCodeString, {
   deliverinoPrivateKey, owner, repo, branch
@@ -35,30 +59,11 @@ const commitAndTag = async (versionName, versionCodeString, {
     message: commitMessage,
     sha: versionFileContent.data.sha
   })
-  console.warn(`New version successfully commited with message "${message}".`)
+  console.warn(`New version successfully commited with message "${commitMessage}".`)
 
   const commitSha = commit.data.commit.sha
 
-  const tagMessage = `${versionName} - ${versionCode}`
-
-  const tag = await appOctokit.git.createTag({
-    owner,
-    repo,
-    tag: versionName,
-    message: tagMessage,
-    object: commitSha,
-    type: 'commit'
-  })
-  const tagSha = tag.data.sha
-  console.warn(`New tag with name ${versionName} successfully created.`)
-
-  await appOctokit.git.createRef({
-    owner,
-    repo,
-    ref: `refs/tags/${versionName}`,
-    sha: tagSha
-  })
-  console.warn(`New ref with name ${versionName} successfully created.`)
+  await Promise.all(PLATFORMS.map(platform => createTag({ versionName, versionCode, commitSha, appOctokit, owner, repo, platform })))
 }
 
 program

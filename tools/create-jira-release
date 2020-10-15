@@ -78,12 +78,12 @@ const createRelease = async ({ newVersionName, accessToken, privateKey, consumer
   const { values: [newVersion, lastVersion] } = await getFromJira(
     `/rest/api/2/project/${projectKey}/version?orderBy=-releaseDate&maxResults=2`
   )
-  const lastDate = lastVersion.releaseDate
 
   if (newVersion.name !== newVersionName) {
     throw Error(`There is already a release ${newVersion.name} with a later release date in the project!`)
   }
 
+  const lastDate = lastVersion ? lastVersion.releaseDate : '1970-01-01'
   // Get all issues which should be part of the new release
   const query =
     `project = ${projectName} AND fixVersion IS EMPTY AND resolution = Done AND resolutiondate > ${lastDate}`

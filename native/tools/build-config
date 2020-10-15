@@ -6,7 +6,7 @@ const fs = require('fs')
 const flat = require('flat')
 const decamelize = require('decamelize')
 
-const loadBuildConfigAsXCConfig = (buildConfigName, directory) => {
+const loadBuildConfigAsXCConfig = (buildConfigName) => {
   const buildConfig = loadBuildConfig(buildConfigName)
   const xcconfigOptions = flat(buildConfig, {
     delimiter: '_',
@@ -34,9 +34,9 @@ program
 program
   .command('to-xcconfig <build_config_name>')
   .description('outputs the specified build config as XConfig')
-  .action((buildConfigName, cmdObj) => {
+  .action((buildConfigName) => {
     try {
-      const xcconfig = loadBuildConfigAsXCConfig(buildConfigName, cmdObj.directory)
+      const xcconfig = loadBuildConfigAsXCConfig(buildConfigName)
       console.log(xcconfig)
     } catch (e) {
       console.error(e)

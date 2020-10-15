@@ -33,7 +33,7 @@
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		0518B741B48590C7AE9330F0 /* Pods-IntegreatTests.integreat-test-cms.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IntegreatTests.integreat-test-cms.xcconfig"; path = "Target Support Files/Pods-IntegreatTests/Pods-IntegreatTests.integreat-test-cms.xcconfig"; sourceTree = "<group>"; };
 		07CD12FA3D7CB27526D44E55 /* Pods-IntegreatTests.malte.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IntegreatTests.malte.xcconfig"; path = "Target Support Files/Pods-IntegreatTests/Pods-IntegreatTests.malte.xcconfig"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* Malte.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Malte.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* Integreat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Integreat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Integreat/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Integreat/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Integreat/Images.xcassets; sourceTree = "<group>"; };
@@ -53,7 +53,7 @@
 		7B4C27542274D7B7000FA969 /* FetchResultCollector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchResultCollector.swift; sourceTree = "<group>"; };
 		7B4C277B2274DE2B000FA969 /* FetchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchResult.swift; sourceTree = "<group>"; };
 		7B7EDC2C2428EE0900E64563 /* fastlane */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fastlane; sourceTree = "<group>"; };
-		7B9749D622DC7AEE0078B456 /* ar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		7B9749D622DC7AEE0078B456 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7B9749D722DC7B1B0078B456 /* ru */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7BB592D623D855BA0012BF03 /* fr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7BB592D723D8562E0012BF03 /* fa */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = fa; path = fa.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -61,10 +61,10 @@
 		7BB592D923D856440012BF03 /* tr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7BB592DB23D856710012BF03 /* ti */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ti; path = ti.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7BB592DE23D857DF0012BF03 /* ku */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ku; path = ku.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		7BB592E023D85A210012BF03 /* so */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = so; path = so.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		7BB592E023D85A210012BF03 /* sr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = sr; path = sr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7BB592E123D85A830012BF03 /* hr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = hr; path = hr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7BB592E223D85AA70012BF03 /* es */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		7BB592E323D85B1F0012BF03 /* pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		7BB592E323D85B1F0012BF03 /* ps */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ps; path = ps.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7BF11468226F4D730031D233 /* Integreat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Integreat-Bridging-Header.h"; path = "Integreat/Integreat-Bridging-Header.h"; sourceTree = "<group>"; };
 		7BF11469226F4D740031D233 /* FetcherModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetcherModule.swift; sourceTree = "<group>"; };
 		7BF11490226F4E6D0031D233 /* FetcherModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FetcherModule.m; sourceTree = "<group>"; };
@@ -77,6 +77,9 @@
 		A330D33122AA9F54005736D0 /* Lateef.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Lateef.ttf; sourceTree = "<group>"; };
 		A330D33222AA9F54005736D0 /* Raleway-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Bold.ttf"; sourceTree = "<group>"; };
 		AA122B6227569D12B58DFF11 /* Pods-Integreat.production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Integreat.production.xcconfig"; path = "Target Support Files/Pods-Integreat/Pods-Integreat.production.xcconfig"; sourceTree = "<group>"; };
+		B848D0B2252DF2A200D4695A /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		B848D0B3252DF2A500D4695A /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		B848D0B4252DF2A800D4695A /* so */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = so; path = so.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B8F3AC7E24ADE7E10010125F /* buildConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = buildConfig.xcconfig; sourceTree = "<group>"; };
 		BCE07220C56B492D6ABF304B /* Pods-IntegreatTests.integreat.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IntegreatTests.integreat.xcconfig"; path = "Target Support Files/Pods-IntegreatTests/Pods-IntegreatTests.integreat.xcconfig"; sourceTree = "<group>"; };
 		BED3EA7415E0AF75A9DBA8B5 /* Pods-Integreat.integreat release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Integreat.integreat release.xcconfig"; path = "Target Support Files/Pods-Integreat/Pods-Integreat.integreat release.xcconfig"; sourceTree = "<group>"; };
@@ -196,7 +199,7 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* Malte.app */,
+				13B07F961A680F5B00A75B9A /* Integreat.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -244,7 +247,7 @@
 			);
 			name = Integreat;
 			productName = "Hello World";
-			productReference = 13B07F961A680F5B00A75B9A /* Malte.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* Integreat.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -282,6 +285,8 @@
 				hr,
 				es,
 				pl,
+				sr,
+				ps,
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
@@ -453,7 +458,7 @@
 		7B9749D522DC7A940078B456 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				7B9749D622DC7AEE0078B456 /* ar */,
+				7B9749D622DC7AEE0078B456 /* en */,
 				7B9749D722DC7B1B0078B456 /* ru */,
 				7B0E54CE2369C1480016A7C1 /* de */,
 				7BB592D623D855BA0012BF03 /* fr */,
@@ -462,10 +467,13 @@
 				7BB592D923D856440012BF03 /* tr */,
 				7BB592DB23D856710012BF03 /* ti */,
 				7BB592DE23D857DF0012BF03 /* ku */,
-				7BB592E023D85A210012BF03 /* so */,
+				7BB592E023D85A210012BF03 /* sr */,
 				7BB592E123D85A830012BF03 /* hr */,
 				7BB592E223D85AA70012BF03 /* es */,
-				7BB592E323D85B1F0012BF03 /* pl */,
+				7BB592E323D85B1F0012BF03 /* ps */,
+				B848D0B2252DF2A200D4695A /* ar */,
+				B848D0B3252DF2A500D4695A /* pl */,
+				B848D0B4252DF2A800D4695A /* so */,
 			);
 			name = InfoPlist.strings;
 			path = Integreat;
@@ -478,7 +486,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 49EED0C36D66FA4AB70F7809 /* Pods-Integreat.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "$BUILD_CONFIG_APP_ICON";
+				ASSETCATALOG_COMPILER_APPICON_NAME = $BUILD_CONFIG_APP_ICON;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Integreat/Integreat.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -585,7 +593,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DD14BEF1244BF70E95AA783F /* Pods-Integreat.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "$BUILD_CONFIG_APP_ICON";
+				ASSETCATALOG_COMPILER_APPICON_NAME = $BUILD_CONFIG_APP_ICON;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;

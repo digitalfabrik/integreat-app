@@ -16,7 +16,7 @@ steps:
   - checkout
   - attach_workspace:
       at: .
-  - unless: # If not building for delivery, the bump version job has never been executed and therefore no env variables are available
+  - unless: # If not building for delivery, the bump version job has never been executed and therefore no env variables are available.
       condition: << parameters.build_for_delivery >>
       steps:
         - run:
@@ -63,16 +63,8 @@ steps:
             command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat
             working_directory: native/ios
         - run:
-            name: Rename sourcemap
-            command: mv index.ios.bundle.map output/integreat.ios.bundle.map
-            working_directory: native/ios
-        - run:
             name: "[FL] malte build"
             command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:malte
-            working_directory: native/ios
-        - run:
-            name: Rename sourcemap
-            command: mv index.ios.bundle.map output/malte.ios.bundle.map
             working_directory: native/ios
   - run:
       name: "[FL] integreat-e2e build"

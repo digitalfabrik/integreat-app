@@ -82,14 +82,13 @@ project.ext.react = [
         enableHermes: false,  // clean and rebuild if changing
 ]
 
-apply from: "../../node_modules/react-native/react.gradle"
-apply from: "buildConfigs.gradle"
-
 project.ext.vectoricons = [
-        iconFontNames: [ 'MaterialIcons.ttf', 'MaterialIconsCommunity.ttf' ] // Name of the font files you want to copy
+        iconFontNames: [ 'MaterialIcons.ttf', 'MaterialCommunityIcons.ttf' ] // Name of the font files you want to copy
 ]
 
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
+apply from: "../../node_modules/react-native/react.gradle"
+apply from: "buildConfigs.gradle"
 
 /**
  * Set this to true to create two separate APKs instead of one:
@@ -196,7 +195,7 @@ android {
         release {
             // Caution! In production, you need to generate your own keystore file.
             // see https://reactnative.dev/docs/signed-apk-android.
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
