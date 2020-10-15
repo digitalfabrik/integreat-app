@@ -57,7 +57,7 @@ class TunewsRouteConfig implements RouteConfig<TunewsRouteParamsType, RequiredPa
     const tunewsLanguages = payloads.tunewsLanguages.data
 
     if (tunewsLanguages && tunewsLanguages.find(languageModel => languageModel.code === language)) {
-      return this.getRoutePath({city: location.payload.city, language})
+      return this.getRoutePath({ city: location.payload.city, language })
     }
     return null
   }
