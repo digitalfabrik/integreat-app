@@ -19,7 +19,12 @@ import type { UiDirectionType } from '../i18n/types/UiDirectionType'
 
 export type ViewportType = { +is: { +small: boolean, +large: boolean } }
 
-export type TunewsStateType = { allData: TunewsModel[], hasMore: boolean, payload: Payload<TunewsModel[]> }
+export type TunewsStateType = {
+  allData: Array<TunewsModel>,
+  language: string | null,
+  hasMore: boolean,
+  payload: Payload<Array<TunewsModel>>
+}
 
 export type StateType = {
   location: LocationState,

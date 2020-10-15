@@ -12,7 +12,7 @@ export type ToggleDarkModeActionType = { type: 'TOGGLE_DARK_MODE' }
 
 export type StoreActionType =
   StartFetchActionType<*>
-  | FinishFetchActionType<*>
+  | FinishFetchActionType<*, *>
   | SetLanguageActionType
   | SetCurrentCityActionType
   | SetUiDirectionActionType

@@ -43,10 +43,10 @@ const endpointNames = [
   TUNEWS_ELEMENT_ENDPOINT_NAME
 ]
 
-export const startFetchReducer = <T: PayloadDataType> (oldPayload?: Payload<T>, action: StartFetchActionType<T>
-): Payload<T> => action.payload
+export const startFetchReducer = (oldPayload?: Payload<*>, action: StartFetchActionType<*>
+): Payload<*> => action.payload
 
-export const finishFetchReducer = <T: PayloadDataType> (oldPayload?: Payload<T>, action: FinishFetchActionType<T>
+export const finishFetchReducer = <T: PayloadDataType> (oldPayload?: Payload<T>, action: FinishFetchActionType<T, *>
 ): Payload<T> => {
   if (!oldPayload) {
     return action.payload
