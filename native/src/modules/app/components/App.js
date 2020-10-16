@@ -14,6 +14,7 @@ import DefaultDataContainer from '../../endpoint/DefaultDataContainer'
 import type { DataContainer } from '../../endpoint/DataContainer'
 import NavigatorContainer from '../containers/NavigatorContainer'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
+import StaticServerProvider from '../../static-server/containers/StaticServerProvider'
 
 class App extends React.Component<{||}> {
   dataContainer: DataContainer = new DefaultDataContainer()
@@ -22,16 +23,18 @@ class App extends React.Component<{||}> {
   render () {
     return (
       <Provider store={this.store}>
-        <I18nProviderContainer>
-          <SafeAreaProvider>
-          <>
-            <StatusBarContainer />
-            <IOSSafeAreaView>
-              <NavigatorContainer />
-            </IOSSafeAreaView>
-          </>
-          </SafeAreaProvider>
-        </I18nProviderContainer>
+        <StaticServerProvider>
+          <I18nProviderContainer>
+            <SafeAreaProvider>
+              <>
+                <StatusBarContainer />
+                <IOSSafeAreaView>
+                  <NavigatorContainer />
+                </IOSSafeAreaView>
+              </>
+            </SafeAreaProvider>
+          </I18nProviderContainer>
+        </StaticServerProvider>
       </Provider>
     )
   }

@@ -51,7 +51,6 @@
     "locales": "file:../locales",
     "lodash": "^4.17.19",
     "moment": "2.25.3",
-    "normalize-path": "^3.0.0",
     "normalize-strings": "^1.1.0",
     "query-string": "^6.11.0",
     "react": "16.13.1",
@@ -70,8 +69,9 @@
     "react-native-safe-area-view": "2.0.0",
     "react-native-screens": "^2.11.0",
     "react-native-share": "^3.0.0",
+    "react-native-static-server": "^0.5.0",
     "react-native-vector-icons": "^7.1.0",
-    "react-native-webview": "^5.3.1",
+    "react-native-webview": "^10.9.1",
     "react-navigation": "^3.10.2",
     "react-navigation-header-buttons": "^3.0.5",
     "react-navigation-stack": "^1.4.0",
@@ -104,6 +104,7 @@
     "babel-plugin-module-resolver": "^4.0.0",
     "babel-plugin-transform-inline-environment-variables": "^0.4.3",
     "babel-plugin-transform-remove-console": "^6.9.4",
+    "commander": "^5.1.0",
     "cross-env": "^7.0.2",
     "decamelize": "^4.0.0",
     "eslint": "^6.8.0",
@@ -129,7 +130,6 @@
     "seedrandom": "^3.0.3",
     "wait-for-expect": "^3.0.2",
     "wd": "^1.12.1",
-    "yo": "^3.1.1",
-    "commander": "^5.1.0"
+    "yo": "^3.1.1"
   }
 }

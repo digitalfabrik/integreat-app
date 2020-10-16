@@ -37,6 +37,7 @@ type ContainerPropsType = {|
   cities: $ReadOnlyArray<CityModel>,
   stateView: CategoriesRouteStateView,
   resourceCache: LanguageResourceCacheStateType,
+  resourceCacheUrl: string,
   dispatch: Dispatch<StoreActionType>
 |}
 
@@ -72,8 +73,8 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     return { status: 'routeNotInitialized' }
   }
 
-  if (state.cities.status === 'loading' || switchingLanguage || route.status === 'loading' ||
-    languages.status === 'loading') {
+  if (state.resourceCacheUrl === null || state.cities.status === 'loading' || switchingLanguage ||
+      route.status === 'loading' || languages.status === 'loading') {
     return { status: 'loading' }
   }
 
@@ -118,6 +119,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       language: route.language,
       cities,
       stateView,
+      resourceCacheUrl: state.resourceCacheUrl,
       resourceCache: resourceCache.value
     }
   }

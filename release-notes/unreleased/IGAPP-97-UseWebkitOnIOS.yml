@@ -1,0 +1,6 @@
+issue_key: IGAPP-97
+show_in_stores: false
+platforms:
+  - ios
+  - android
+en: Resources are now distributed via an internal static server, which allows us to use WebKit webview on iOS and remove the deprecated UIWebView.

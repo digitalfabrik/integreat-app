@@ -36,7 +36,7 @@ type PropType = {|
   files: PageResourceCacheStateType,
   children?: React.Node,
   language: string,
-  cityCode: string,
+  resourceCacheUrl: string,
   lastUpdate: Moment,
   hijackRegExp?: RegExp
 |}
@@ -66,13 +66,13 @@ class Page extends React.Component<PropType, StateType> {
   onLoad = () => this.setState({ loading: false })
 
   render () {
-    const { title, children, content, files, theme, language, cityCode, lastUpdate, navigateToFeedback } = this.props
+    const { title, children, content, files, theme, language, resourceCacheUrl, lastUpdate, navigateToFeedback } = this.props
     return <SpaceBetween>
       <Container>
         <Caption title={title} theme={theme} />
         {children}
-        <RemoteContent theme={theme} cityCode={cityCode} content={content} files={files} onLinkPress={this.onLinkPress}
-                       onLoad={this.onLoad} language={language} />
+        <RemoteContent theme={theme} content={content} files={files} onLinkPress={this.onLinkPress}
+                       onLoad={this.onLoad} language={language} resourceCacheUrl={resourceCacheUrl} />
         {!this.state.loading && <MomentContext.Consumer>
           {formatter => <TimeStamp formatter={formatter} lastUpdate={lastUpdate} language={language} theme={theme} />}
         </MomentContext.Consumer>}
