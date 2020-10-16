@@ -40,6 +40,7 @@ export type PropsType = {|
   cityCode: string,
   language: string,
   resourceCache: LanguageResourceCacheStateType,
+  resourceCacheUrl: string,
   theme: ThemeType,
   t: TFunction,
   navigation: NavigationScreenProp<*>,
@@ -102,7 +103,9 @@ class Pois extends React.Component<PropsType> {
   }
 
   render () {
-    const { pois, path, cityCode, language, resourceCache, theme, navigateToInternalLink, t, navigation } = this.props
+    const {
+      pois, path, cityCode, language, resourceCache, resourceCacheUrl, theme, navigateToInternalLink, t, navigation
+    } = this.props
     const sortedPois = pois.sort((poi1, poi2) => poi1.title.localeCompare(poi2.title))
     if (path) {
       const poi: ?PoiModel = sortedPois.find(_poi => _poi.path === path)
@@ -115,7 +118,7 @@ class Pois extends React.Component<PropsType> {
                      language={language}
                      files={files}
                      theme={theme}
-                     cityCode={cityCode}
+                     resourceCacheUrl={resourceCacheUrl}
                      navigation={navigation}
                      navigateToInternalLink={navigateToInternalLink}
                      navigateToFeedback={this.createNavigateToFeedbackForPoi(poi)}>

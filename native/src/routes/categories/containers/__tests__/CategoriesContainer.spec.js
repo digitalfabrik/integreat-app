@@ -51,6 +51,7 @@ describe('CategoriesContainer', () => {
       }
     }
   }
+  const resourceCacheUrl = 'http://localhost:8080'
 
   const prepareState = (
     routeState: ?CategoryRouteStateType,
@@ -68,6 +69,7 @@ describe('CategoriesContainer', () => {
   ): StateType => {
     return {
       darkMode: false,
+      resourceCacheUrl,
       cityContent: {
         city: city.code,
         switchingLanguage: switchingLanguage !== undefined ? switchingLanguage : false,
@@ -247,6 +249,7 @@ describe('CategoriesContainer', () => {
       navigateToInternalLink: expect.any(Function),
       navigation,
       resourceCache,
+      resourceCacheUrl,
       stateView: expect.any(CategoriesRouteStateView),
       t: expect.any(Function),
       theme: lightTheme
