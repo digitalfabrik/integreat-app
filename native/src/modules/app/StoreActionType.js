@@ -286,9 +286,14 @@ export type ClearResourcesAndCacheActionType = {|
   type: 'CLEAR_RESOURCES_AND_CACHE'
 |}
 
+export type SetResourceCacheUrlActionType = {|
+  type: 'SET_RESOURCE_CACHE_URL', +params: {| +url: string |}
+|}
+
 export type StoreActionType =
   ToggleDarkModeActionType
   | CitiesActionType
   | CityContentActionType
   | SetContentLanguageActionType
   | ClearResourcesAndCacheActionType
+  | SetResourceCacheUrlActionType

@@ -1,9 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import GeneralHeader from '../components/GeneralHeader'
 import Layout from '../components/Layout'
-import GeneralFooter from '../components/GeneralFooter'
 import LocationHeader from './LocationHeader'
 import LocationFooter from '../components/LocationFooter'
 import CategoriesToolbar from '../../../routes/categories/containers/CategoriesToolbar'
@@ -35,7 +33,8 @@ type PropsType = {|
   toggleDarkMode: () => void,
   darkMode: boolean,
   feedbackTargetInformation: FeedbackTargetInformationType,
-  languageChangePaths: ?LanguageChangePathsType
+  languageChangePaths: ?LanguageChangePathsType,
+  isLoading: boolean
 |}
 
 type LocalStateType = {|
@@ -102,17 +101,14 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
   }
 
   render () {
-    const { viewportSmall, children, location, darkMode, languageChangePaths, events } = this.props
+    const { viewportSmall, children, location, darkMode, languageChangePaths, events, isLoading } = this.props
     const type = location.type
     const { city, language } = location.payload
 
     const cityModel = this.getCurrentCity()
 
     if (!cityModel) {
-      return <Layout header={<GeneralHeader viewportSmall={viewportSmall} />}
-                     footer={<GeneralFooter />}>
-        {children}
-      </Layout>
+      return null
     }
 
     return <Layout asideStickyTop={this.state.asideStickyTop}
@@ -126,7 +122,7 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
                                            cityName={cityModel.name}
                                            viewportSmall={viewportSmall}
                                            onStickyTopChanged={this.handleStickyTopChanged} />}
-                   footer={<LocationFooter onClick={this.handleFooterClicked} city={city} language={language} />}
+                   footer={isLoading ? null : <LocationFooter onClick={this.handleFooterClicked} city={city} language={language} />}
                    toolbar={this.renderToolbar()}
                    modal={type !== SEARCH_ROUTE && this.renderFeedbackModal()}
                    darkMode={darkMode}>

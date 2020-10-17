@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const fs = require('fs')
-const { GITKEEP_FILE, UNRELEASED_DIR, RELEASE_NOTES_DIR } = require('./constants')
+const { GITKEEP_FILE, UNRELEASED_DIR, RELEASE_NOTES_DIR, PLATFORM_ANDROID, PLATFORM_IOS, PLATFORM_WEB } = require('./constants')
 const { program } = require('commander')
 const yaml = require('js-yaml')
 
@@ -11,10 +11,6 @@ const DEFAULT_NOTES = {
   en: 'We’ve been working hard behind the scenes to make sure everything is working as it should. If you notice anything that does not work, let us know!\n',
   de: 'Wir haben hinter den Kulissen hart gearbeitet, um sicherzustellen, dass alles so funktioniert, wie es soll. Wenn Sie bemerken, dass etwas nicht funktioniert, lassen Sie es uns wissen!\n'
 }
-
-const PLATFORM_ANDROID = 'android'
-const PLATFORM_IOS = 'ios'
-const PLATFORM_WEB = 'web'
 
 program
   .option('--ios', 'include release notes for ios')

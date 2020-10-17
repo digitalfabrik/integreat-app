@@ -96,7 +96,7 @@ the locales can be submitted for professional translations as follows:
     * Examples: `2020-01` and `2020-06-malte`
 * [Convert json files to csv and/or ods](#conversion-between-json-csv-and-ods).
     * This has to be done for every file that needs translation.
-    * Current locale files are [locales.json](./locales.json), [native locales.json](./native-locales/locales.json) and [malte override locales](./override-locales/malte.json).
+    * Current locale files are [locales.json](./locales.json) and [malte override locales](./override-locales/malte.json).
 * Send the `sent` folder and the [translation rules](./RULES.md) to the external translation service.
 
 ### Receiving locales after translation
@@ -104,7 +104,7 @@ the locales can be submitted for professional translations as follows:
 * Copy the received files to `./external-jobs/<identifier>/received`
 * [Convert received csv or ods files to json](#conversion-between-json-csv-and-ods).
     * This has to be done for every file that needs translation.
-    * Current locale files are [locales.json](./locales.json), [native locales.json](./native-locales/locales.json) and [malte override locales](./override-locales/malte.json).
+    * Current locale files are [locales.json](./locales.json) and [malte override locales](./override-locales/malte.json).
 * Open a PR with the changes. Except for proofreading jobs, no existing values should be changed.
 
 ## Conversion between JSON, CSV and ODS

@@ -73,6 +73,6 @@ To make the build config available to XCode and Gradle, [xcconfig files](https:/
 Also, XCode has built in support for xcconfig files (and uses them). [Java properties](https://docs.oracle.com/javase/tutorial/essential/environment/properties.html)
 are using the same syntax (while being more powerful), so Gradle can parse the xcconfig files as java properties.
 
-Both XCode and Gradle therefore call the [create-xcconfig script](../../tools/create-xcconfigs) to convert the specified build config.
+Both XCode and Gradle therefore convert the specified build config into a valid xcconfig file.
 In Xcode this is done with a so called `Pre Action` which is run whenever a build is made in xcode.
 In Gradle the logic behind this can be found [here](../android/app/buildConfigs.gradle).

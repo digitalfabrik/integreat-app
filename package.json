@@ -19,5 +19,8 @@
     "node-fetch": "^2.6.1",
     "oauth": "^0.9.15",
     "js-yaml": "^3.14.0"
+  },
+  "resolutions": {
+    "moment": "2.25.3"
   }
 }

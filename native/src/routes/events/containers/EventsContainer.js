@@ -24,6 +24,7 @@ type ContainerPropsType = {|
   cityCode: string,
   language: string,
   resourceCache: LanguageResourceCacheStateType,
+  resourceCacheUrl: string,
   navigation: NavigationScreenProp<*>,
   dispatch: Dispatch<StoreActionType>
 |}
@@ -61,8 +62,8 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     return { status: 'routeNotInitialized' }
   }
 
-  if (state.cities.status === 'loading' || switchingLanguage || route.status === 'loading' ||
-    languages.status === 'loading') {
+  if (state.resourceCacheUrl === null || state.cities.status === 'loading' || switchingLanguage ||
+      route.status === 'loading' || languages.status === 'loading') {
     return { status: 'loading' }
   }
 
@@ -107,6 +108,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       cityCode: route.city,
       language: route.language,
       resourceCache: resourceCache.value,
+      resourceCacheUrl: state.resourceCacheUrl,
       navigation
     }
   }

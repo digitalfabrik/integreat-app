@@ -35,6 +35,7 @@ type ContainerPropsType = {|
   language: string,
   status: string,
   resourceCache: LanguageResourceCacheStateType,
+  resourceCacheUrl: string,
   navigation: NavigationScreenProp<*>,
   dispatch: Dispatch<StoreActionType>,
   cityModel: CityModel | void,
@@ -87,6 +88,8 @@ const mapStateToProps = (
     languages
   } = state.cityContent
 
+  const resourceCacheUrl = state.resourceCacheUrl
+
   const route: ?NewsRouteStateType = newsRouteMapping[navigation.state.key]
 
   if (!route) {
@@ -95,7 +98,8 @@ const mapStateToProps = (
   if (
     state.cities.status === 'loading' ||
     switchingLanguage ||
-    languages.status === 'loading'
+    languages.status === 'loading' ||
+    resourceCacheUrl === null
   ) {
     return { status: 'loading' }
   }
@@ -187,6 +191,7 @@ const mapStateToProps = (
     language: state.contentLanguage,
     news: route.models,
     resourceCache: resourceCache.value,
+    resourceCacheUrl,
     selectedNewsType: route.type,
     status: route.status,
     cityModel,
