@@ -41,7 +41,7 @@ export class TimeStamp extends React.PureComponent<PropsType> {
       locale: language
     })
     return <DirectionContainer language={language} theme={theme}>
-      <TimeStampText theme={theme}>{t('lastUpdate', { lng: language })}</TimeStampText>
+      <TimeStampText theme={theme}>{t('lastUpdate', { lng: language })} </TimeStampText>
       <TimeStampText theme={theme}>{dateText}</TimeStampText>
     </DirectionContainer>
   }

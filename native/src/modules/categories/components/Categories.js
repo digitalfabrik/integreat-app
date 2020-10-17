@@ -5,6 +5,7 @@ import { View } from 'react-native'
 
 import Page from '../../common/components/Page'
 import Tiles from '../../common/components/Tiles'
+import type { CategoryListModelType } from './CategoryList'
 import CategoryList from './CategoryList'
 import TileModel from '../../common/models/TileModel'
 import {
@@ -32,7 +33,6 @@ import {
   CONTENT_FEEDBACK_CATEGORY,
   TECHNICAL_FEEDBACK_CATEGORY
 } from '@integreat-app/integreat-api-client/endpoints/createFeedbackEndpoint'
-import type { CategoryListModelType } from './CategoryList'
 
 type PropsType = {|
   cities: Array<CityModel>,
@@ -45,6 +45,7 @@ type PropsType = {|
 
   navigation: NavigationScreenProp<*>,
   resourceCache: LanguageResourceCacheStateType,
+  resourceCacheUrl: string,
   theme: ThemeType,
   t: TFunction
 |}
@@ -139,7 +140,7 @@ class Categories extends React.Component<PropsType> {
    * @return {*} The content to be displayed
    */
   render () {
-    const { stateView, navigateToInternalLink, theme, navigation, language, cityCode, t } = this.props
+    const { stateView, navigateToInternalLink, theme, navigation, language, resourceCacheUrl, t } = this.props
 
     const category = stateView.root()
     const children = stateView.children()
@@ -153,10 +154,10 @@ class Categories extends React.Component<PropsType> {
                    theme={theme}
                    files={files}
                    language={language}
-                   cityCode={cityCode}
                    navigation={navigation}
                    navigateToFeedback={this.navigateToFeedback}
-                   navigateToInternalLink={navigateToInternalLink} />
+                   navigateToInternalLink={navigateToInternalLink}
+                   resourceCacheUrl={resourceCacheUrl} />
     } else if (category.isRoot()) {
       // first level, we want to display a table with all first order categories
 

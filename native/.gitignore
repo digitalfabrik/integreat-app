@@ -39,6 +39,9 @@ yarn-error.log*
 /ios/buildConfig.tmp.xcconfig
 /android/buildConfig.tmp.xcconfig
 
+# Temp native ios locales
+/ios/Integreat/*.lproj/InfoPlist.strings
+
 # Runtime data
 pids
 *.pid

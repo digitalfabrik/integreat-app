@@ -106,15 +106,22 @@ export class Switcher extends React.Component<PropsType> {
     const languageChangePaths = this.getLanguageChangePaths(routeConfig)
 
     const error = this.isLanguageInvalid()
+
+    const isLoading = Object.keys(payloads).some(key => {
+      const payload = payloads[key]
+      return (payload.isFetching || !payload.data) && !payload.error
+    })
+
     if (error || !routeConfig.isLocationLayoutRoute) {
+      const showFooter = (error || routeConfig.requiresFooter) && !isLoading
       return (
-        <Layout footer={(error || routeConfig.requiresFooter) && <GeneralFooter />}
+        <Layout footer={showFooter && <GeneralFooter />}
                 header={(error || routeConfig.requiresHeader) && <GeneralHeader viewportSmall={viewportSmall} />}
                 darkMode={darkMode}>
           {error ? <LanguageFailure cities={citiesPayload.data}
                                     location={location}
                                     languageChangePaths={languageChangePaths} />
-            : <RouteContentSwitcher location={location} allPayloads={this.getAllPayloads()} />}
+            : <RouteContentSwitcher location={location} payloads={payloads} isLoading={isLoading} />}
         </Layout>
       )
     } else {
@@ -127,8 +134,9 @@ export class Switcher extends React.Component<PropsType> {
                         darkMode={darkMode}
                         viewportSmall={viewportSmall}
                         toggleDarkMode={toggleDarkMode}
-                        languageChangePaths={languageChangePaths}>
-          <RouteContentSwitcher location={location} allPayloads={this.getAllPayloads()} />
+                        languageChangePaths={languageChangePaths}
+                        isLoading={isLoading}>
+          <RouteContentSwitcher location={location} payloads={payloads} isLoading={isLoading} />
         </LocationLayout>
       )
     }

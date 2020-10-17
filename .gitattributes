@@ -14,3 +14,7 @@
 *.md    text eol=lf
 *.txt   text eol=lf
 
+*.pbxproj -text
+
+# specific for windows script files
+*.bat text eol=crlf

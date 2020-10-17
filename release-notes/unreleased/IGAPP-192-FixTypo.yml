@@ -1,0 +1,8 @@
+issue_key: IGAPP-192
+show_in_stores: true
+platforms:
+  - web
+  - ios
+  - android
+en: Added missing space to display of last change.
+de: Fehlendes Leerzeichen zur Anzeige der letzten Änderung hinzugefügt.
