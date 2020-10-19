@@ -123,14 +123,15 @@ commands:
         steps:
             - restore_cache:
                 keys:
-                    - 1-yarn-{{ arch }}-{{ checksum "tools/yarn.lock" }}-{{ checksum "tools/package.json" }}
-                name: Restore Yarn Package Cache
+                    - 2-yarn-{{ arch }}-{{ checksum "tools/yarn.lock" }}-{{ checksum "tools/package.json" }}
+                name: Restore Yarn Tools Package Cache
             - run:
                 command: yarn --frozen-lockfile --cache-folder ~/.cache/yarn
-                name: Yarn
+                name: Yarn tools
+                working_directory: tools
             - save_cache:
-                key: 1-yarn-{{ arch }}-{{ checksum "tools/yarn.lock" }}-{{ checksum "tools/package.json" }}
-                name: Save Yarn Package Cache
+                key: 2-yarn-{{ arch }}-{{ checksum "tools/yarn.lock" }}-{{ checksum "tools/package.json" }}
+                name: Save Yarn Tools Package Cache
                 paths:
                     - ~/.cache/yarn
                     - tools/node_modules
@@ -204,7 +205,7 @@ jobs:
                     - integreat-e2e
                     - integreat-test-cms
                 type: enum
-        resource_class: large
+        resource_class: medium
         shell: /bin/bash --login -o pipefail
         steps:
             - add_ssh_keys:

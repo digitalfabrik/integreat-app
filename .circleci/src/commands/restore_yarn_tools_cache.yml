@@ -1,15 +1,16 @@
 description: Restores and saves the node_modules directories of the tools package.
 steps:
   - restore_cache:
-      name: Restore Yarn Package Cache
+      name: Restore Yarn Tools Package Cache
       keys:
-        - 1-yarn-{{ arch }}-{{ checksum "tools/yarn.lock" }}-{{ checksum "tools/package.json" }}
+        - 2-yarn-{{ arch }}-{{ checksum "tools/yarn.lock" }}-{{ checksum "tools/package.json" }}
   - run:
-      name: Yarn
+      name: Yarn tools
       command: yarn --frozen-lockfile --cache-folder ~/.cache/yarn
+      working_directory: tools
   - save_cache:
-      name: Save Yarn Package Cache
-      key: 1-yarn-{{ arch }}-{{ checksum "tools/yarn.lock" }}-{{ checksum "tools/package.json" }}
+      name: Save Yarn Tools Package Cache
+      key: 2-yarn-{{ arch }}-{{ checksum "tools/yarn.lock" }}-{{ checksum "tools/package.json" }}
       paths:
         - ~/.cache/yarn
         - tools/node_modules
