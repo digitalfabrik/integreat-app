@@ -5,11 +5,11 @@ parameters:
     default: integreat
 macos:
   xcode: 11.7.0
-resource_class: large
+resource_class: medium
 environment:
   FL_OUTPUT_DIR: output
   FASTLANE_SKIP_UPDATE_CHECK: true
-  TOTAL_CPUS: 4 # For mac with resource_class medium, used in metro.config.ci.js. # TODO change
+  TOTAL_CPUS: 4 # For mac with resource_class medium, used in metro.config.ci.js.
 shell: /bin/bash --login -o pipefail
 steps:
   - add_ssh_keys: # Needed for credentials repo
