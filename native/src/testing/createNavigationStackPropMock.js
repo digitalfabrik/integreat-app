@@ -1,7 +1,6 @@
 // @flow
 
-import type { NavigationStackProp } from 'react-navigation-stack'
-import type { NavigationAction } from 'react-navigation-stack'
+import type { NavigationStackProp, NavigationAction } from 'react-navigation-stack'
 
 type NavigationParamsType = { [key: string]: mixed, ... }
 
@@ -42,5 +41,5 @@ export default (): NavigationStackProp<*> => ({
   pop: jest.fn(),
   popToTop: jest.fn(),
   isFocused: jest.fn(),
-  reset: jest.fn((actions: NavigationAction[], index: number) => false),
+  reset: jest.fn((actions: NavigationAction[], index: number) => false)
 })
