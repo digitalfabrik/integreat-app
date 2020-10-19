@@ -8,7 +8,7 @@ import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 import createNavigateToEvent from '../../../modules/app/createNavigateToEvent'
 import type { Dispatch } from 'redux'
 import type { StoreActionType, SwitchContentLanguageActionType } from '../../../modules/app/StoreActionType'
-import type { NavigationScreenProp } from 'react-navigation'
+import type { NavigationStackProp } from 'react-navigation-stack'
 import type { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
 import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvider'
 import withTheme from '../../../modules/theme/hocs/withTheme'
@@ -24,18 +24,18 @@ type ContainerPropsType = {|
   language: string,
   resourceCache: LanguageResourceCacheStateType,
   resourceCacheUrl: string,
-  navigation: NavigationScreenProp<*>,
+  navigation: NavigationStackProp<*>,
   dispatch: Dispatch<StoreActionType>
 |}
 
 type RefreshPropsType = {|
-  navigation: NavigationScreenProp<*>,
+  navigation: NavigationStackProp<*>,
   cityCode: string,
   language: string,
   path: ?string
 |}
 
-type OwnPropsType = {| navigation: NavigationScreenProp<*>, t: TFunction |}
+type OwnPropsType = {| navigation: NavigationStackProp<*>, t: TFunction |}
 type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
 type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
@@ -135,7 +135,7 @@ const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionT
   navigateToEvent({ cityCode, language, path, forceRefresh: true, key: navigation.state.key })
 }
 
-export default withRouteCleaner<{| navigation: NavigationScreenProp<*> |}>(
+export default withRouteCleaner<{| navigation: NavigationStackProp<*> |}>(
   withTranslation('error')(
     connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
       withPayloadProvider<ContainerPropsType, RefreshPropsType>(refresh)(

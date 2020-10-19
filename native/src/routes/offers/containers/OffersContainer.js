@@ -8,13 +8,13 @@ import { type TFunction, withTranslation } from 'react-i18next'
 import { CityModel, createOffersEndpoint, OfferModel, Payload } from '@integreat-app/integreat-api-client'
 import type { ThemeType } from '../../../modules/theme/constants'
 import type { StateType } from '../../../modules/app/StateType'
-import type { NavigationScreenProp } from 'react-navigation'
+import type { NavigationStackProp } from 'react-navigation-stack'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import FailureContainer from '../../../modules/error/containers/FailureContainer'
 import { LOADING_TIMEOUT } from '../../../modules/common/constants'
 import determineApiUrl from '../../../modules/endpoint/determineApiUrl'
 
-type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
+type OwnPropsType = {| navigation: NavigationStackProp<*> |}
 
 type StatePropsType = {| city: string, language: string, cities: ?$ReadOnlyArray<CityModel> |}
 
@@ -35,7 +35,7 @@ const mapStateToProps = (state: StateType): StatePropsType => {
 }
 
 type OffersPropsType = {|
-  navigation: NavigationScreenProp<*>,
+  navigation: NavigationStackProp<*>,
   city: string,
   cities: ?Array<CityModel>,
   language: string,

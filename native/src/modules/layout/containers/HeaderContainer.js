@@ -1,11 +1,10 @@
 // @flow
 
 import { connect } from 'react-redux'
-import type { NavigationScene, NavigationScreenProp } from 'react-navigation'
+import type { NavigationStackProp, NavigationStackScene } from 'react-navigation-stack'
 import { withNavigation } from 'react-navigation'
 import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
-
 import Header from '../components/Header'
 import withTheme from '../../theme/hocs/withTheme'
 import type { StateType } from '../../app/StateType'
@@ -16,9 +15,9 @@ import isPeekingRoute from '../../endpoint/selectors/isPeekingRoute'
 import createNavigateToLanding from '../../app/createNavigateToLanding'
 
 type OwnPropsType = {|
-  navigation: NavigationScreenProp<*>,
-  scene: NavigationScene,
-  scenes: Array<NavigationScene>,
+  navigation: NavigationStackProp<*>,
+  scene: NavigationStackScene,
+  scenes: Array<NavigationStackScene>,
   t: TFunction
 |}
 

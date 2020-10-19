@@ -3,10 +3,10 @@
 import * as React from 'react'
 import { View } from 'react-native'
 import { ImageViewer } from 'react-native-image-zoom-viewer'
-import type { NavigationScreenProp } from 'react-navigation'
+import type { NavigationStackProp } from 'react-navigation-stack'
 
 type PropsType = {
-  navigation: NavigationScreenProp<*>,
+  navigation: NavigationStackProp<*>,
   url: string
 }
 

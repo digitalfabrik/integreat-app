@@ -2,7 +2,7 @@
 
 import type { Dispatch } from 'redux'
 import type { FetchCategoryActionType, StoreActionType } from './StoreActionType'
-import type { NavigationScreenProp } from 'react-navigation'
+import type { NavigationStackProp } from 'react-navigation-stack'
 import { generateKey } from './generateRouteKey'
 
 export type NavigateToCategoryParamsType = {|
@@ -12,7 +12,7 @@ export type NavigateToCategoryParamsType = {|
 export default (
   routeName: 'Categories' | 'Dashboard',
   dispatch: Dispatch<StoreActionType>,
-  navigation: NavigationScreenProp<*>
+  navigation: NavigationStackProp<*>
 ) => ({ cityCode, language, path, key = generateKey(), forceRefresh = false }: NavigateToCategoryParamsType) => {
   navigation.navigate({
     routeName,

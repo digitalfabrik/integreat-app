@@ -15,7 +15,7 @@ import { SPRUNGBRETT_OFFER, SPRUNGBRETT_ROUTE, WOHNEN_OFFER, WOHNEN_ROUTE } from
 import { View } from 'react-native'
 import type { ThemeType } from '../../../modules/theme/constants'
 import FeedbackVariant from '../../feedback/FeedbackVariant'
-import type { NavigationScreenProp } from 'react-navigation'
+import type { NavigationStackProp } from 'react-navigation-stack'
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
 import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
 import type {
@@ -30,7 +30,7 @@ import {
 type PropsType = {|
   offers: Array<OfferModel>,
   navigateToOffer: (path: string, isExternalUrl: boolean, postData: ?Map<string, string>) => void,
-  navigation: NavigationScreenProp<*>,
+  navigation: NavigationStackProp<*>,
   theme: ThemeType,
   cities: Array<CityModel>,
   t: TFunction,
