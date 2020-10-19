@@ -48,7 +48,7 @@ If you are using a different IDE, the steps might differ.
 * Import this project (VCS > Get from Version Control).
 * Run `yarn` in the terminal to install all dependencies.
 
-This is a monorepository. That means it contains more than one project. 
+This is a monorepo. That means it contains more than one project. 
 All in all it contains the following projects:
 
 * web:
