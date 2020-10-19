@@ -69,7 +69,7 @@ class LandingContainer extends React.Component<ContainerPropsType> {
         sharePath: path,
         onRouteClose: () => dispatch({ type: 'CLEAR_CATEGORY', params: { key } })
       },
-      newKey: key
+      key
     })
 
     // $FlowFixMe For some reason action is not allowed to be a StackAction
