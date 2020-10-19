@@ -7,7 +7,7 @@ import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateV
 import type { StoreActionType, SwitchContentLanguageActionType } from '../../../modules/app/StoreActionType'
 import createNavigateToCategory from '../../../modules/app/createNavigateToCategory'
 import createNavigateToInternalLink from '../../../modules/app/createNavigateToInternalLink'
-import type { NavigationScreenProp } from 'react-navigation'
+import type { NavigationStackProp } from 'react-navigation-stack'
 import type { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
 import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvider'
 import { CityModel } from '@integreat-app/integreat-api-client'
@@ -19,7 +19,7 @@ import React from 'react'
 import type { TFunction } from 'react-i18next'
 
 type ContainerPropsType = {|
-  navigation: NavigationScreenProp<*>,
+  navigation: NavigationStackProp<*>,
   cities: $ReadOnlyArray<CityModel>,
   cityCode: string,
   language: string,
@@ -33,10 +33,10 @@ type RefreshPropsType = {|
   cityCode: string,
   language: string,
   path: string,
-  navigation: NavigationScreenProp<*>
+  navigation: NavigationStackProp<*>
 |}
 
-type OwnPropsType = {| navigation: NavigationScreenProp<*>, t: TFunction |}
+type OwnPropsType = {| navigation: NavigationStackProp<*>, t: TFunction |}
 type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
 type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
@@ -136,7 +136,7 @@ const ThemedTranslatedCategories = withTheme(
   withTranslation('categories')(Categories)
 )
 
-export default withRouteCleaner<{| navigation: NavigationScreenProp<*> |}>(
+export default withRouteCleaner<{| navigation: NavigationStackProp<*> |}>(
   withTranslation('error')(
     connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
       withPayloadProvider<ContainerPropsType, RefreshPropsType>(refresh)(

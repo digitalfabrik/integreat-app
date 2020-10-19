@@ -8,7 +8,7 @@ import EventModelBuilder from '../../../../testing/builder/EventModelBuilder'
 import CityModelBuilder from '../../../../testing/builder/CityModelBuilder'
 import LanguageModelBuilder from '../../../../testing/builder/LanguageModelBuilder'
 import Page from '../../../../modules/common/components/Page'
-import createNavigationScreenPropMock from '../../../../testing/createNavigationScreenPropMock'
+import createNavigationScreenPropMock from '../../../../testing/createNavigationStackPropMock'
 
 jest.mock('../../../../modules/common/components/Page', () => {
   const Text = require('react-native').Text

@@ -7,7 +7,7 @@ import { type StyledComponent } from 'styled-components'
 import SettingItem from './SettingItem'
 import type { ThemeType } from '../../../modules/theme/constants'
 import type { TFunction } from 'react-i18next'
-import type { NavigationScreenProp } from 'react-navigation'
+import type { NavigationStackProp } from 'react-navigation-stack'
 import type { SettingsType } from '../../../modules/settings/AppSettings'
 import createSettingsSections from '../createSettingsSections'
 import AppSettings, { defaultSettings } from '../../../modules/settings/AppSettings'
@@ -19,7 +19,7 @@ type PropsType = {|
   languageCode: string,
   cityCode: ?string,
   t: TFunction,
-  navigation: NavigationScreenProp<*>,
+  navigation: NavigationStackProp<*>,
   dispatch: () => {}
 |}
 

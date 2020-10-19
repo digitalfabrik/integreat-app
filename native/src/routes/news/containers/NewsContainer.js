@@ -7,7 +7,7 @@ import { type TFunction, withTranslation } from 'react-i18next'
 import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 import createNavigateToNews from '../../../modules/app/createNavigateToNews'
 import type { Dispatch } from 'redux'
-import type { NavigationScreenProp } from 'react-navigation'
+import type { NavigationStackProp } from 'react-navigation-stack'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import * as React from 'react'
 import NewsList from '../components/NewsList'
@@ -22,7 +22,7 @@ type ContainerPropsType = {|
   newsId: ?string,
   cityCode: string,
   language: string,
-  navigation: NavigationScreenProp<*>,
+  navigation: NavigationStackProp<*>,
   dispatch: Dispatch<StoreActionType>,
   cityModel: CityModel,
   selectedNewsType: NewsType
@@ -35,21 +35,21 @@ type ContainerPropsType = {|
   newsId: ?string,
   cityCode: string,
   language: string,
-  navigation: NavigationScreenProp<*>,
+  navigation: NavigationStackProp<*>,
   dispatch: Dispatch<StoreActionType>,
   cityModel: CityModel,
   selectedNewsType: NewsType
 |}
 
 type RefreshPropsType = {|
-  navigation: NavigationScreenProp<*>,
+  navigation: NavigationStackProp<*>,
   cityCode: string,
   language: string,
   newsId: ?string,
   selectedNewsType: NewsType
 |}
 
-type OwnPropsType = {| navigation: NavigationScreenProp<*>, t: TFunction |}
+type OwnPropsType = {| navigation: NavigationStackProp<*>, t: TFunction |}
 type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
 type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
@@ -243,7 +243,7 @@ class NewsContainer extends React.Component<ContainerPropsType> {
   }
 }
 
-export default withRouteCleaner<{| navigation: NavigationScreenProp<*> |}>(
+export default withRouteCleaner<{| navigation: NavigationStackProp<*> |}>(
   withTranslation('error')(
     connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
       withPayloadProvider<ContainerPropsType, RefreshPropsType>(refresh, true)(

@@ -4,7 +4,7 @@ import Page from '../../modules/common/components/Page'
 import { PageModel } from '@integreat-app/integreat-api-client'
 import type { ThemeType } from '../../modules/theme/constants'
 import React from 'react'
-import type { NavigationScreenProp } from 'react-navigation'
+import type { NavigationStackProp } from 'react-navigation-stack'
 
 type PropsType = {|
   disclaimer: PageModel,
@@ -12,7 +12,7 @@ type PropsType = {|
   language: string,
   theme: ThemeType,
   resourceCacheUrl: string,
-  navigation: NavigationScreenProp<*>
+  navigation: NavigationStackProp<*>
 |}
 
 class Disclaimer extends React.Component<PropsType> {

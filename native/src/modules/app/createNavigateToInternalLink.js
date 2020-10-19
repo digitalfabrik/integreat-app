@@ -4,7 +4,7 @@ import type { NavigateToCategoryParamsType } from './createNavigateToCategory'
 import createNavigateToCategory from './createNavigateToCategory'
 import type { NavigateToEventParamsType } from './createNavigateToEvent'
 import createNavigateToEvent from './createNavigateToEvent'
-import type { NavigationScreenProp } from 'react-navigation'
+import type { NavigationStackProp } from 'react-navigation-stack'
 import type { StoreActionType } from './StoreActionType'
 import createNavigateToLanding from './createNavigateToLanding'
 import type { Dispatch } from 'redux'
@@ -39,7 +39,7 @@ export const createNavigateToInternalLink = ({ navigateToLanding, navigateToEven
   }
 }
 
-export default (dispatch: Dispatch<StoreActionType>, navigation: NavigationScreenProp<*>) => {
+export default (dispatch: Dispatch<StoreActionType>, navigation: NavigationStackProp<*>) => {
   const navigateToCategory = createNavigateToCategory('Categories', dispatch, navigation)
   const navigateToDashboard = createNavigateToCategory('Dashboard', dispatch, navigation)
   const navigateToEvent = createNavigateToEvent(dispatch, navigation)

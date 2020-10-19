@@ -9,7 +9,7 @@ import { type Dispatch } from 'redux'
 import FailureContainer from '../../error/containers/FailureContainer'
 import { LOADING_TIMEOUT } from '../../common/constants'
 import type { ErrorCodeType } from '../../error/ErrorCodes'
-import type { NavigationScreenProp } from 'react-navigation'
+import type { NavigationStackProp } from 'react-navigation-stack'
 import type { TFunction } from 'react-i18next'
 import wrapDisplayName from '../../common/hocs/wrapDisplayName'
 
@@ -45,7 +45,7 @@ export type StatusPropsType<S: {}, R: {}> =
 export type PropsType<S: { dispatch: Dispatch<StoreActionType> }, R: {}> = {|
   ...StatusPropsType<S, R>,
   dispatch: Dispatch<StoreActionType>,
-  navigation: NavigationScreenProp<*>,
+  navigation: NavigationStackProp<*>,
   t?: TFunction
 |}
 
