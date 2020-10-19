@@ -118,6 +118,22 @@ commands:
                     - node_modules
                     - native/node_modules
                     - web/node_modules
+    restore_yarn_tools_cache:
+        description: Restores and saves the node_modules directories of the tools package.
+        steps:
+            - restore_cache:
+                keys:
+                    - 1-yarn-{{ arch }}-{{ checksum "tools/yarn.lock" }}-{{ checksum "tools/package.json" }}
+                name: Restore Yarn Package Cache
+            - run:
+                command: yarn --frozen-lockfile --cache-folder ~/.cache/yarn
+                name: Yarn
+            - save_cache:
+                key: 7-yarn-{{ arch }}-{{ checksum "tools/yarn.lock" }}-{{ checksum "tools/package.json" }}
+                name: Save Yarn Package Cache
+                paths:
+                    - ~/.cache/yarn
+                    - tools/node_modules
 jobs:
     build_android:
         docker:
@@ -263,7 +279,7 @@ jobs:
         resource_class: small
         steps:
             - checkout
-            - restore_yarn_cache
+            - restore_yarn_tools_cache
             - run:
                 command: echo "export NEW_VERSION_NAME=$(tools/next-version calc | jq .versionName)" >> environment_variables
                 name: Calculate next version name
@@ -306,7 +322,7 @@ jobs:
         steps:
             - checkout
             - check_config
-            - restore_yarn_cache
+            - restore_yarn_tools_cache
             - run:
                 command: yarn workspace native lint
                 name: Linting check
@@ -328,7 +344,7 @@ jobs:
         steps:
             - checkout
             - check_config
-            - restore_yarn_cache
+            - restore_yarn_tools_cache
             - run:
                 command: yarn workspace web lint
                 name: Check linting
@@ -365,7 +381,7 @@ jobs:
             - attach_workspace:
                 at: .
             - restore_environment_variables
-            - restore_yarn_cache
+            - restore_yarn_tools_cache
             - restore_ruby_cache:
                 directory: native
             - run:
@@ -409,7 +425,7 @@ jobs:
             - attach_workspace:
                 at: .
             - restore_environment_variables
-            - restore_yarn_cache
+            - restore_yarn_tools_cache
             - restore_ruby_cache:
                 directory: native
             - run:
@@ -456,7 +472,6 @@ jobs:
                     - 68:a3:fe:e7:94:f7:a4:13:35:5c:63:30:2f:07:7d:02
             - attach_workspace:
                 at: .
-            - restore_yarn_cache
             - when:
                 condition: << parameters.production_delivery >>
                 steps:
@@ -523,7 +538,7 @@ jobs:
             - attach_workspace:
                 at: .
             - restore_environment_variables
-            - restore_yarn_cache
+            - restore_yarn_tools_cache
             - run:
                 command: tools/move-release-notes move-to ${NEW_VERSION_NAME} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
                 name: Move release notes
@@ -541,7 +556,7 @@ jobs:
             - attach_workspace:
                 at: .
             - restore_environment_variables
-            - restore_yarn_cache
+            - restore_yarn_tools_cache
             - run:
                 command: tools/github-release create android ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(tools/parse-release-notes parse --android --language en)"<<^ parameters.production_delivery >> --development-release<</ parameters.production_delivery >>
                 name: Create github release
@@ -562,7 +577,7 @@ jobs:
             - attach_workspace:
                 at: .
             - restore_environment_variables
-            - restore_yarn_cache
+            - restore_yarn_tools_cache
             - run:
                 command: tools/github-release create ios ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(tools/parse-release-notes parse --ios --language en)"<<^ parameters.production_delivery >> --development-release<</ parameters.production_delivery >>
                 name: Create github release
@@ -578,8 +593,8 @@ jobs:
             - checkout
             - attach_workspace:
                 at: .
-            - restore_yarn_cache
             - restore_environment_variables
+            - restore_yarn_tools_cache
             - run:
                 command: tools/github-release create web ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(tools/parse-release-notes parse --web --language en)"
                 name: Create github release
