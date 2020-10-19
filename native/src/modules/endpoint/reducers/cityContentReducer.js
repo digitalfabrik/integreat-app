@@ -17,11 +17,20 @@ export default (
   if (action.type === 'FETCH_CATEGORY') {
     const { language, path, depth, key, city } = action.params
     const initializedState = state || createCityContent(city)
+    const oldContent = state && state.categoriesRouteMapping[key] ? state.categoriesRouteMapping[key] : {}
+
     return {
       ...initializedState,
       categoriesRouteMapping: {
         ...initializedState.categoriesRouteMapping,
-        [key]: { status: 'loading', language, depth, path, city }
+        [key]: {
+          ...oldContent,
+          status: 'loading',
+          language,
+          depth,
+          path,
+          city
+        }
       }
     }
   } else if (action.type === 'FETCH_EVENT') {
