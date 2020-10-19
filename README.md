@@ -48,8 +48,9 @@ If you are using a different IDE, the steps might differ.
 * Import this project (VCS > Get from Version Control).
 * Run `yarn` in the terminal to install all dependencies.
 
-This is a monorepository. That means it contains more than one project. 
-All in all it contains the following projects:
+This is a monorepository. That means it contains more than one project.
+For correct project dependent IDE settings open each contained project separately in your IDE (e.g. if you are developing web, open the web folder rather than the integreat-app folder). 
+This repository contains the following projects:
 
 * web:
     * Take a look at web/package.json to show all available npm scripts.
