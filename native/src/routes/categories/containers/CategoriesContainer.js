@@ -17,7 +17,6 @@ import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 import Categories from '../../../modules/categories/components/Categories'
 import React from 'react'
 import type { TFunction } from 'react-i18next'
-import { mapProps } from 'recompose'
 
 type ContainerPropsType = {|
   navigation: NavigationScreenProp<*>,
@@ -137,16 +136,9 @@ const ThemedTranslatedCategories = withTheme(
   withTranslation('categories')(Categories)
 )
 
-type RestType = $Diff<PropsType, OwnPropsType>
-const removeOwnProps = (props: PropsType): RestType => {
-  const { t, navigation, ...rest } = props
-  return rest
-}
-
 export default withRouteCleaner<{| navigation: NavigationScreenProp<*> |}>(
   withTranslation('error')(
     connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
-      mapProps<RestType, PropsType>(removeOwnProps)(
-        withPayloadProvider<ContainerPropsType, RefreshPropsType>(refresh)(
-          CategoriesContainer
-        )))))
+      withPayloadProvider<ContainerPropsType, RefreshPropsType>(refresh)(
+        CategoriesContainer
+      ))))

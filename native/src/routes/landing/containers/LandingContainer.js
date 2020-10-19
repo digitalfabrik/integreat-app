@@ -14,7 +14,6 @@ import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvi
 import { CityModel } from '@integreat-app/integreat-api-client'
 import * as React from 'react'
 import { connect } from 'react-redux'
-import omitNavigation from '../../../modules/common/hocs/omitNavigation'
 
 type ContainerPropsType = {|
   dispatch: Dispatch<StoreActionType>,
@@ -23,7 +22,7 @@ type ContainerPropsType = {|
   cities: $ReadOnlyArray<CityModel>
 |}
 
-type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
+type OwnPropsType = {| navigation: NavigationScreenProp<*>, t: void |}
 type StatePropsType = StatusPropsType<ContainerPropsType, {}>
 type DispatchPropsType = {|
   dispatch: Dispatch<StoreActionType>
@@ -106,8 +105,7 @@ class LandingContainer extends React.Component<ContainerPropsType> {
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
 export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
-  omitNavigation<PropsType>(
-    withPayloadProvider<ContainerPropsType, {}>(refresh)(
-      LandingContainer
-    ))
+  withPayloadProvider<ContainerPropsType, {}>(refresh)(
+    LandingContainer
+  )
 )
