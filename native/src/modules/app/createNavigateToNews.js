@@ -3,7 +3,7 @@
 import type { Dispatch } from 'redux'
 import type { FetchNewsActionType, StoreActionType } from './StoreActionType'
 import type { NewsType } from './StateType'
-import type { NavigationScreenProp } from 'react-navigation'
+import type { NavigationStackProp } from 'react-navigation-stack'
 import { generateKey } from './generateRouteKey'
 
 export const NEWS_ROUTE_NAME = 'News'
@@ -17,7 +17,7 @@ export type NavigateToNewsParamsType = {|
   type: NewsType
 |}
 
-export default (dispatch: Dispatch<StoreActionType>, navigation: NavigationScreenProp<*>) => ({
+export default (dispatch: Dispatch<StoreActionType>, navigation: NavigationStackProp<*>) => ({
   cityCode, type, language, newsId, key = generateKey(), forceRefresh = false
 }: NavigateToNewsParamsType) => {
   navigation.navigate({

@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { createDisclaimerEndpoint, PageModel, Payload } from '@integreat-app/integreat-api-client'
 import type { ThemeType } from '../../modules/theme/constants'
 import type { StateType } from '../../modules/app/StateType'
-import type { NavigationScreenProp } from 'react-navigation'
+import type { NavigationStackProp } from 'react-navigation-stack'
 import withTheme from '../../modules/theme/hocs/withTheme'
 import Disclaimer from './Disclaimer'
 import FailureContainer from '../../modules/error/containers/FailureContainer'
@@ -15,7 +15,7 @@ import { RefreshControl, ScrollView } from 'react-native'
 import { LOADING_TIMEOUT } from '../../modules/common/constants'
 import determineApiUrl from '../../modules/endpoint/determineApiUrl'
 
-type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
+type OwnPropsType = {| navigation: NavigationStackProp<*> |}
 
 type StatePropsType = {| city: string, language: string, resourceCacheUrl: string |}
 
@@ -33,7 +33,7 @@ const mapStateToProps = (state: StateType): StatePropsType => {
 }
 
 type DisclaimerPropsType = {|
-  navigation: NavigationScreenProp<*>,
+  navigation: NavigationStackProp<*>,
   city: string,
   language: string,
   theme: ThemeType,

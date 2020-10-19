@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import type { NavigationScreenProp } from 'react-navigation'
+import type { NavigationStackProp } from 'react-navigation-stack'
 import Categories from '../../../modules/categories/components/Categories'
 import type { ThemeType } from '../../../modules/theme/constants'
 import { CityModel } from '@integreat-app/integreat-api-client'
@@ -25,7 +25,7 @@ import type { NavigateToPoiParamsType } from '../../../modules/app/createNavigat
 import { LOCAL_NEWS, TUNEWS } from '../../../modules/endpoint/constants'
 
 export type PropsType = {|
-  navigation: NavigationScreenProp<*>,
+  navigation: NavigationStackProp<*>,
   cityCode: string,
 
   navigateToPoi: NavigateToPoiParamsType => void,

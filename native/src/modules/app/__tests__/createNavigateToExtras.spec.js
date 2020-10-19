@@ -1,6 +1,6 @@
 // @flow
 
-import createNavigationScreenPropMock from '../../../testing/createNavigationScreenPropMock'
+import createNavigationScreenPropMock from '../../../testing/createNavigationStackPropMock'
 import createNavigateToOffers from '../createNavigateToOffers'
 
 describe('createNavigateToOffers', () => {

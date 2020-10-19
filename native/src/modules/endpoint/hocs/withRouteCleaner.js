@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import type { NavigationScreenProp } from 'react-navigation'
+import type { NavigationStackProp } from 'react-navigation-stack'
 
 /**
  * This hoc removes routes from the state when unmounting
@@ -9,7 +9,7 @@ import type { NavigationScreenProp } from 'react-navigation'
  * @param Component
  * @returns {RouteCleaner}
  */
-function withRouteCleaner<Props: { navigation: NavigationScreenProp<*> }> (
+function withRouteCleaner<Props: { navigation: NavigationStackProp<*> }> (
   Component: React.ComponentType<Props>
 ): React.ComponentType<Props> {
   class RouteCleaner extends React.Component<Props> {

@@ -3,13 +3,13 @@
 import Pdf from 'react-native-pdf'
 import * as React from 'react'
 import { View } from 'react-native'
-import type { NavigationScreenProp } from 'react-navigation'
+import type { NavigationStackProp } from 'react-navigation-stack'
 import FailureContainer from '../../../modules/error/containers/FailureContainer'
 import type { ThemeType } from '../../../modules/theme/constants'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 
 type PropsType = {
-  navigation: NavigationScreenProp<*>,
+  navigation: NavigationStackProp<*>,
   url: string,
   theme: ThemeType
 }
