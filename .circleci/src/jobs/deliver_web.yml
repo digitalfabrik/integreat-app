@@ -13,7 +13,6 @@ steps:
         - "68:a3:fe:e7:94:f7:a4:13:35:5c:63:30:2f:07:7d:02"
   - attach_workspace:
       at: .
-  - restore_yarn_cache
   - when:
       condition: << parameters.production_delivery >>
       steps:
