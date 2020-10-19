@@ -380,7 +380,7 @@ jobs:
             - run: curl -sL https://sentry.io/get-cli/ | bash
             - checkout
             - attach_workspace:
-                at: .
+                at: ./native
             - restore_environment_variables
             - restore_yarn_tools_cache
             - restore_ruby_cache:
@@ -424,7 +424,7 @@ jobs:
             - run: curl -sL https://sentry.io/get-cli/ | bash
             - checkout
             - attach_workspace:
-                at: .
+                at: ./native
             - restore_environment_variables
             - restore_yarn_tools_cache
             - restore_ruby_cache:
