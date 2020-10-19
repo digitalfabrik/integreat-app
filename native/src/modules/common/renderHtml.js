@@ -132,12 +132,15 @@ const renderHtml = (html: string, files: PageResourceCacheStateType, theme: Them
       font-weight: 400;
       src: ${getFontFaceSource('Lateef')};
     }
+    
+    html {
+        font: -apple-system-body;
+    }
 
     html, body {
         margin: 0;
         padding: 0;
 
-        font: -apple-system-body;
         font-family: ${(webviewFontFamilies(theme, language))};
         line-height: ${theme.fonts.contentLineHeight};
         font-size-adjust: ${theme.fonts.fontSizeAdjust};
@@ -148,7 +151,7 @@ const renderHtml = (html: string, files: PageResourceCacheStateType, theme: Them
         \`} */
     }
     
-    body * {
+    body {
         font-size: ${theme.fonts.contentFontSize};
     }
 
