@@ -12,5 +12,5 @@ steps:
       name: Save Yarn Tools Package Cache
       key: 2-yarn-{{ arch }}-{{ checksum "tools/yarn.lock" }}-{{ checksum "tools/package.json" }}
       paths:
-        - ~/.cache/yarn
+        - ~/.cache/yarn-tools
         - tools/node_modules

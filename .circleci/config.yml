@@ -133,7 +133,7 @@ commands:
                 key: 2-yarn-{{ arch }}-{{ checksum "tools/yarn.lock" }}-{{ checksum "tools/package.json" }}
                 name: Save Yarn Tools Package Cache
                 paths:
-                    - ~/.cache/yarn
+                    - ~/.cache/yarn-tools
                     - tools/node_modules
 jobs:
     build_android:
