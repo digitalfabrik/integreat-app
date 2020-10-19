@@ -10,7 +10,7 @@ docker:
 resource_class: small
 steps:
   - checkout
-  - restore_yarn_cache
+  - restore_yarn_tools_cache
   - run:
       name: Calculate next version name
       command: echo "export NEW_VERSION_NAME=$(tools/next-version calc | jq .versionName)" >> environment_variables
