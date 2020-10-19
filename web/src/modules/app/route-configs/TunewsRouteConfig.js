@@ -29,14 +29,11 @@ const tunewsRoute: Route = {
     const state: StateType = getState()
     const { city, language } = state.location.payload
 
-    const tunewsLanguagesEndpoint = createTunewsLanguagesEndpoint(tunewsApiBaseUrl)
-    tunewsLanguagesEndpoint._stateName = 'tunewsLanguages' // TODO Revert once fixed in api-client
-
     await Promise.all([
       fetchData(createCitiesEndpoint(cmsApiBaseUrl), dispatch, state.cities),
       fetchData(createEventsEndpoint(cmsApiBaseUrl), dispatch, state.events, { city, language }),
       fetchData(createLanguagesEndpoint(cmsApiBaseUrl), dispatch, state.languages, { city, language }),
-      fetchData(tunewsLanguagesEndpoint, dispatch, state.languages, { city, language }),
+      fetchData(createTunewsLanguagesEndpoint(tunewsApiBaseUrl), dispatch, state.languages, { city, language }),
       fetchData(createTunewsEndpoint(tunewsApiBaseUrl), dispatch, state.tunews.payload, {
         page: 1,
         language,
