@@ -1,10 +1,10 @@
 // @flow
 
 import ExternalOffer from '../components/ExternalOffer'
-import type { NavigationScreenProp } from 'react-navigation'
+import type { NavigationStackProp } from 'react-navigation-stack'
 import React from 'react'
 
-export default class ExternalOfferContainer extends React.Component<{| navigation: NavigationScreenProp<*> |}> {
+export default class ExternalOfferContainer extends React.Component<{| navigation: NavigationStackProp<*> |}> {
   render () {
     const url = this.props.navigation.getParam('url')
 

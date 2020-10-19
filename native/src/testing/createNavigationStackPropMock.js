@@ -1,6 +1,6 @@
 // @flow
 
-import type { NavigationScreenProp } from 'react-navigation'
+import type { NavigationStackProp, NavigationAction } from 'react-navigation-stack'
 
 type NavigationParamsType = { [key: string]: mixed, ... }
 
@@ -14,7 +14,7 @@ const getParam: GetParamType = jest.fn<[string, *], *>((paramName: string, fallb
   return fallback
 })
 
-export default (): NavigationScreenProp<*> => ({
+export default (): NavigationStackProp<*> => ({
   state: {
     params: {},
     key: ''
@@ -40,5 +40,6 @@ export default (): NavigationScreenProp<*> => ({
   replace: jest.fn(),
   pop: jest.fn(),
   popToTop: jest.fn(),
-  isFocused: jest.fn()
+  isFocused: jest.fn(),
+  reset: jest.fn((actions: NavigationAction[], index: number) => false)
 })

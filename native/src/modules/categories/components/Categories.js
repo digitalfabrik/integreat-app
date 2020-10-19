@@ -20,7 +20,7 @@ import CategoriesRouteStateView from '../../app/CategoriesRouteStateView'
 import type { PageResourceCacheStateType, LanguageResourceCacheStateType } from '../../app/StateType'
 import type { NavigateToCategoryParamsType } from '../../app/createNavigateToCategory'
 import type { NavigateToInternalLinkParamsType } from '../../app/createNavigateToInternalLink'
-import type { NavigationScreenProp } from 'react-navigation'
+import type { NavigationStackProp } from 'react-navigation-stack'
 import FeedbackVariant from '../../../routes/feedback/FeedbackVariant'
 import { type TFunction } from 'react-i18next'
 import SpaceBetween from '../../common/components/SpaceBetween'
@@ -43,7 +43,7 @@ type PropsType = {|
   navigateToCategory: NavigateToCategoryParamsType => void,
   navigateToInternalLink: NavigateToInternalLinkParamsType => void,
 
-  navigation: NavigationScreenProp<*>,
+  navigation: NavigationStackProp<*>,
   resourceCache: LanguageResourceCacheStateType,
   resourceCacheUrl: string,
   theme: ThemeType,

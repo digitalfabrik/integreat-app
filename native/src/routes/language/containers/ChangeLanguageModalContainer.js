@@ -7,11 +7,11 @@ import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import ChangeLanguageModal from '../components/ChangeLanguageModal'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import { LanguageModel } from '@integreat-app/integreat-api-client'
-import type { NavigationScreenProp } from 'react-navigation'
+import type { NavigationStackProp } from 'react-navigation-stack'
 import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
 
-type OwnPropsType = {| navigation: NavigationScreenProp<*>, t: TFunction |}
+type OwnPropsType = {| navigation: NavigationStackProp<*>, t: TFunction |}
 
 type StatePropsType = {|
   currentLanguage: string,

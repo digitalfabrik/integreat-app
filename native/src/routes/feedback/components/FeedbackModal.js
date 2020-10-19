@@ -6,7 +6,7 @@ import { ActivityIndicator, Picker, ScrollView, TextInput } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { Button } from 'react-native-elements'
 import type { ThemeType } from '../../../modules/theme/constants'
-import type { NavigationScreenProp } from 'react-navigation'
+import type { NavigationStackProp } from 'react-navigation-stack'
 import type { TFunction } from 'react-i18next'
 import FeedbackVariant from '../FeedbackVariant'
 import Caption from '../../../modules/common/components/Caption'
@@ -38,7 +38,7 @@ const RequiredText = styled.Text`
 type PropsType = {|
   theme: ThemeType,
   closeModal: () => void,
-  navigation: NavigationScreenProp<*>,
+  navigation: NavigationStackProp<*>,
   t: TFunction,
   feedbackItems: Array<FeedbackVariant>,
   isPositiveFeedback: boolean,

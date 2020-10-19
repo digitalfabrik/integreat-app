@@ -3,7 +3,7 @@
 import * as React from 'react'
 import Snackbar from '../components/Snackbar'
 import type { ThemeType } from '../../theme/constants'
-import { type NavigationScreenProp } from 'react-navigation'
+import type { NavigationStackProp } from 'react-navigation-stack'
 import { type TFunction, withTranslation } from 'react-i18next'
 import withTheme from '../../theme/hocs/withTheme'
 import AppSettings from '../../settings/AppSettings'
@@ -18,7 +18,7 @@ import {
 import type { FeatureFlagsType } from '../../../../build-configs/BuildConfigType'
 
 type PropsType = {|
-  navigation: NavigationScreenProp<*>,
+  navigation: NavigationStackProp<*>,
   t: TFunction,
   theme: ThemeType
 |}

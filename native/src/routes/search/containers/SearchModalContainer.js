@@ -9,11 +9,11 @@ import type { NavigateToCategoryParamsType } from '../../../modules/app/createNa
 import createNavigateToCategory from '../../../modules/app/createNavigateToCategory'
 import SearchModal from '../components/SearchModal'
 import { CategoriesMapModel, createFeedbackEndpoint, SEARCH_FEEDBACK_TYPE } from '@integreat-app/integreat-api-client'
-import type { NavigationScreenProp } from 'react-navigation'
+import type { NavigationStackProp } from 'react-navigation-stack'
 import { withTranslation } from 'react-i18next'
 import determineApiUrl from '../../../modules/endpoint/determineApiUrl'
 
-type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
+type OwnPropsType = {| navigation: NavigationStackProp<*> |}
 
 export type PropsType = {|
   categories: CategoriesMapModel | null,
@@ -21,7 +21,7 @@ export type PropsType = {|
   language: string,
   cityCode: string,
   closeModal: () => void,
-  navigation: NavigationScreenProp<*>,
+  navigation: NavigationStackProp<*>,
   sendFeedback: (comment: string, query: string) => Promise<void>
 |}
 

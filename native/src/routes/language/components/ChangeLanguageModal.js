@@ -8,7 +8,7 @@ import { LanguageModel } from '@integreat-app/integreat-api-client'
 import Selector from '../../../modules/common/components/Selector'
 import SelectorItemModel from '../../../modules/common/models/SelectorItemModel'
 import { InteractionManager } from 'react-native'
-import type { NavigationScreenProp } from 'react-navigation'
+import type { NavigationStackProp } from 'react-navigation-stack'
 import type { NewsType } from '../../../modules/app/StateType'
 
 const Wrapper: StyledComponent<{}, ThemeType, *> = styled.ScrollView`
@@ -21,7 +21,7 @@ type PropsType = {
   languages: Array<LanguageModel>,
   availableLanguages: Array<string>,
   changeLanguage: (newLanguage: string, newsType: ?NewsType) => void,
-  navigation: NavigationScreenProp<*>,
+  navigation: NavigationStackProp<*>,
   newsType: ?NewsType
 }
 

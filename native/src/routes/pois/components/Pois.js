@@ -20,7 +20,7 @@ import Caption from '../../../modules/common/components/Caption'
 import Failure from '../../../modules/error/components/Failure'
 import type { ThemeType } from '../../../modules/theme/constants'
 import type { LanguageResourceCacheStateType } from '../../../modules/app/StateType'
-import type { NavigationScreenProp } from 'react-navigation'
+import type { NavigationStackProp } from 'react-navigation-stack'
 import type { NavigateToInternalLinkParamsType } from '../../../modules/app/createNavigateToInternalLink'
 import FeedbackVariant from '../../feedback/FeedbackVariant'
 import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
@@ -43,7 +43,7 @@ export type PropsType = {|
   resourceCacheUrl: string,
   theme: ThemeType,
   t: TFunction,
-  navigation: NavigationScreenProp<*>,
+  navigation: NavigationStackProp<*>,
   navigateToPoi: NavigateToPoiParamsType => void,
   navigateToInternalLink: NavigateToInternalLinkParamsType => void
 |}
