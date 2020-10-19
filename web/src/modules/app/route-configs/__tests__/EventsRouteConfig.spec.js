@@ -68,6 +68,7 @@ describe('EventsRouteConfig', () => {
       localNewsPayload: new Payload(true),
       localNewsElementPayload: new Payload(true),
       tunewsPayload: new Payload(true),
+      tunewsLanguagesPayload: new Payload(true),
       tunewsElementPayload: new Payload(true),
       citiesPayload: citiesPayload,
       categoriesPayload: new Payload(true),

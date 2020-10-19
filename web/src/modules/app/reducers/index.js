@@ -13,8 +13,8 @@ import {
   POIS_ENDPOINT_NAME,
   SPRUNGBRETT_JOBS_ENDPOINT_NAME,
   TUNEWS_ELEMENT_ENDPOINT_NAME,
-  TUNEWS_LANGUAGES_ENDPOINT_NAME,
-  WOHNEN_ENDPOINT_NAME
+  WOHNEN_ENDPOINT_NAME,
+  TUNEWS_LANGUAGES_ENDPOINT_NAME
 } from '@integreat-app/integreat-api-client'
 import { handleActions } from 'redux-actions'
 import type { StartFetchActionType } from '../actions/startFetchAction'
@@ -43,10 +43,10 @@ const endpointNames = [
   TUNEWS_ELEMENT_ENDPOINT_NAME
 ]
 
-export const startFetchReducer = <T: PayloadDataType> (oldPayload?: Payload<T>, action: StartFetchActionType<T>
-): Payload<T> => action.payload
+export const startFetchReducer = (oldPayload?: Payload<*>, action: StartFetchActionType<*>
+): Payload<*> => action.payload
 
-export const finishFetchReducer = <T: PayloadDataType> (oldPayload?: Payload<T>, action: FinishFetchActionType<T>
+export const finishFetchReducer = <T: PayloadDataType> (oldPayload?: Payload<T>, action: FinishFetchActionType<T, *>
 ): Payload<T> => {
   if (!oldPayload) {
     return action.payload

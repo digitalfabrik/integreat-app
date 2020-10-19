@@ -1276,10 +1276,22 @@
     eslint-config-standard-react "^9.2.0"
     eslint-plugin-react "^7.18.3"
 
-"@integreat-app/integreat-api-client@^5.0.3", "@integreat-app/integreat-api-client@^5.1.0":
+"@integreat-app/integreat-api-client@^5.0.3":
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/@integreat-app/integreat-api-client/-/integreat-api-client-5.1.0.tgz#52260d81ae2a4da74ea92a3dabbb00ab25016b33"
   integrity sha512-1RDuOnqZNh4qQz6O20OKbk/Vc/uAqUIhCzYsJi0KINlYVhO6RfHoxCMqMQ9Fu8ZOCYTLVhd8Ib6E84D04OF7Vg==
+  dependencies:
+    entities "^2.0.0"
+    is-url "^1.2"
+    moment "^2.24"
+    moment-timezone "^0.5"
+    normalize-path "^3.0.0"
+    sanitize-html-react "^1.13"
+
+"@integreat-app/integreat-api-client@^6.0.0":
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/@integreat-app/integreat-api-client/-/integreat-api-client-6.0.0.tgz#06b129a04cbe6c96836eaeb93f157797f6027b4a"
+  integrity sha512-/smTOHoy3GMXQXsFz2sa+fVu/6Z8TL7YUJ5WWHApCOkwUT/Ddt5o15BOAMIIFT99uTy6O3omgmQE7PPKFLsT6Q==
   dependencies:
     entities "^2.0.0"
     is-url "^1.2"

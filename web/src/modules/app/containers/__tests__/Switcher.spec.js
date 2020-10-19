@@ -203,6 +203,7 @@ describe('Switcher', () => {
   const disclaimerPayload = new Payload(false, 'https://random.api.json', disclaimer, null)
   const citiesPayload = new Payload(false, 'https://random.api.json', cities, null)
   const languagesPayload = new Payload(false, 'https://random.api.json', languages, null)
+  const tunewsLanguagesPayload = new Payload(false, 'https://random.api.json', languages, null)
   const sprungbrettPayload = new Payload(false, 'https://random.api.json', sprungbrettJobs, null)
   const wohnenOffersPayload = new Payload(false, 'https://random.api.json', wohnenOffers, null)
   const poisPayload = new Payload(false, 'https://random.api.json', pois, null)
@@ -223,7 +224,8 @@ describe('Switcher', () => {
                 categoriesPayload={categoriesPayload} eventsPayload={eventsPayload} offersPayload={offersPayload}
                 localNewsPayload={localNewsPayload} localNewsElementPayload={localNewsElementPayload}
                 tunewsPayload={tunewsPayload} tunewsElementPayload={tunewsElementPayload} poisPayload={poisPayload}
-                disclaimerPayload={disclaimerPayload} languages={languages} t={t}
+                disclaimerPayload={disclaimerPayload} languages={languages}
+                tunewsLanguagesPayload={tunewsLanguagesPayload} t={t}
                 sprungbrettJobsPayload={sprungbrettPayload} wohnenOffersPayload={wohnenOffersPayload} darkMode
                 toggleDarkMode={toggleDarkMode} />
     )
