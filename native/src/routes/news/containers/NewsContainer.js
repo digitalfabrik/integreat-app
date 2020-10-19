@@ -81,7 +81,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     return { status: 'routeNotInitialized' }
   }
 
-  const {  newsRouteMapping, switchingLanguage, languages } = state.cityContent
+  const { newsRouteMapping, switchingLanguage, languages } = state.cityContent
 
   const route: ?NewsRouteStateType = newsRouteMapping[navigation.state.key]
   if (!route) {
@@ -115,7 +115,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
 
   if (state.cities.status === 'error') {
-    return { status: 'error', message: state.cities.message, code: state.cities.code, refreshProps  }
+    return { status: 'error', message: state.cities.message, code: state.cities.code, refreshProps }
   } else if (route.status === 'error') {
     return { status: 'error', message: route.message, code: route.code, refreshProps }
   } else if (languages.status === 'error') {
@@ -166,7 +166,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsType => ({ dispatch })
 
-class NewsContainer extends React.Component<ContainerPropsType, {| newsType: NewsType |}> {
+class NewsContainer extends React.Component<ContainerPropsType> {
   fetchNews = (newsType: NewsType) => {
     const { dispatch, cityCode, navigation, language } = this.props
     dispatch({
