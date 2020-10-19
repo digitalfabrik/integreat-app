@@ -1,25 +1,18 @@
 // @flow
 
 import type { Saga } from 'redux-saga'
-import { call, put, select, takeLatest } from 'redux-saga/effects'
+import { call, put, takeLatest } from 'redux-saga/effects'
 import type {
   FetchNewsActionType,
   PushNewsActionType,
   FetchNewsFailedActionType,
-  ClearNewsActionType,
-  FetchMoreNewsActionType,
-  FetchLanguagesFailedActionType
+  FetchMoreNewsActionType
 } from '../../app/StoreActionType'
 import type { DataContainer } from '../DataContainer'
-import type Moment from 'moment'
-import { ContentLoadCriterion } from '../ContentLoadCriterion'
-import isPeekingRoute from '../selectors/isPeekingRoute'
 import ErrorCodes, { fromError } from '../../error/ErrorCodes'
 import loadLocalNews from './loadLocalNews'
 import loadTunews from './loadTunews'
-import loadLanguages from './loadLanguages'
 import loadTunewsLanguages from './loadTunewsLanguages'
-
 import loadTunewsElement from './loadTunewsElement'
 import { LOCAL_NEWS } from '../constants'
 
@@ -30,52 +23,29 @@ export function * fetchNews (
   dataContainer: DataContainer,
   action: FetchNewsActionType
 ): Saga<void> {
-  const { city, language, newsId, key, type, criterion } = action.params
+  const { city, language, newsId, key, type } = action.params
   try {
     const isLocalNews = type === LOCAL_NEWS
 
-    const peeking = yield select(state => isPeekingRoute(state, { routeCity: city }))
+    const languages = yield call(dataContainer.getLanguages, city)
+    const availableNewsLanguages = isLocalNews ? languages : yield call(loadTunewsLanguages, city)
 
-    const lastUpdate: Moment | null = yield call(dataContainer.getLastUpdate, city, language)
-    const loadCriterion = new ContentLoadCriterion(criterion, peeking)
+    const validLanguage = availableNewsLanguages.find(languageModel => languageModel.code === language)
 
-    const shouldUpdate = loadCriterion.shouldUpdate(lastUpdate)
-    // Update language each time when switching between news
-    const languages = !isLocalNews
-      ? yield call(loadTunewsLanguages, city) : yield call(
-        loadLanguages,
-        city,
-        dataContainer,
-        shouldUpdate
-      )
-    const languageValid = languages
-      .find(languageModel => languageModel.code === language)
-    const pushLanguagesAction = {
-      type: 'PUSH_LANGUAGES',
-      params: { languages: languages }
-    }
-    yield put(pushLanguagesAction)
-
-    if (languageValid) {
-      const news =
-        (isLocalNews
-          ? yield call(loadLocalNews, city, language)
-          : newsId
-            // A better solution to prevent re-fetching news again from page 1
-            ? yield call(loadTunewsElement, parseInt(newsId, 0))
-            : yield call(
-              loadTunews,
-              language,
-              FIRST_PAGE_INDEX,
-              TUNEWS_FETCH_COUNT_LIMIT
-            ))
+    if (validLanguage) {
+      const news = isLocalNews
+        ? yield call(loadLocalNews, city, language)
+        : newsId
+          // A better solution to prevent re-fetching news again from page 1
+          ? yield call(loadTunewsElement, parseInt(newsId, 0))
+          : yield call(loadTunews, language, FIRST_PAGE_INDEX, TUNEWS_FETCH_COUNT_LIMIT)
 
       const insert: PushNewsActionType = {
         type: 'PUSH_NEWS',
         params: {
           news,
           newsId,
-          cityLanguages: languages,
+          availableLanguages: availableNewsLanguages,
           key,
           language,
           city,
@@ -86,7 +56,9 @@ export function * fetchNews (
       }
       yield put(insert)
     } else {
-      const allAvailableLanguages = !newsId ? new Map(languages.map(language => [language.code, null])) : null
+      const allAvailableLanguages = !newsId
+        ? new Map(availableNewsLanguages.map(language => [language.code, null]))
+        : null
 
       const failed: FetchNewsFailedActionType = {
         type: 'FETCH_NEWS_FAILED',
@@ -131,22 +103,17 @@ export function * fetchMoreNews (
     language,
     newsId,
     key,
-    criterion,
     type,
     page,
     previouslyFetchedNews
   } = action.params
+
+  if (type === LOCAL_NEWS) {
+    throw new Error('Cannot fetch more local news!')
+  }
+
   try {
-    const peeking = yield select(state =>
-      isPeekingRoute(state, { routeCity: city })
-    )
-
-    const loadCriterion = new ContentLoadCriterion(criterion, peeking)
-
-    // Only get languages if we've loaded them, otherwise we're peeking
-    const cityLanguages = loadCriterion.shouldLoadLanguages()
-      ? yield call(dataContainer.getLanguages, city)
-      : []
+    const availableLanguages = yield call(loadTunewsLanguages, city)
 
     const news = yield call(
       loadTunews,
@@ -162,7 +129,7 @@ export function * fetchMoreNews (
         previouslyFetchedNews,
         newsId,
         hasMoreNews: news.length === TUNEWS_FETCH_COUNT_LIMIT,
-        cityLanguages,
+        availableLanguages,
         key,
         language,
         city,
@@ -190,34 +157,7 @@ export function * fetchMoreNews (
   }
 }
 
-// when leaving News page, available languages should be updated according to city
-export function * updateLanguages (
-  dataContainer: DataContainer,
-  action: ClearNewsActionType
-): Saga<void> {
-  const { city } = action.params
-  try {
-    const languages = yield call(loadLanguages, city, dataContainer, true)
-    const pushLanguagesAction = {
-      type: 'PUSH_LANGUAGES',
-      params: { languages: languages }
-    }
-    yield put(pushLanguagesAction)
-  } catch (e) {
-    console.error(e)
-    const languagesFailed: FetchLanguagesFailedActionType = {
-      type: 'FETCH_LANGUAGES_FAILED',
-      params: {
-        message: `Error in updateLanguages: ${e.message}`,
-        code: fromError(e)
-      }
-    }
-    yield put(languagesFailed)
-  }
-}
-
 export default function * (dataContainer: DataContainer): Saga<void> {
   yield takeLatest('FETCH_NEWS', fetchNews, dataContainer)
   yield takeLatest('FETCH_MORE_NEWS', fetchMoreNews, dataContainer)
-  yield takeLatest('CLEAR_NEWS', updateLanguages, dataContainer)
 }

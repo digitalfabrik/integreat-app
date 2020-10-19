@@ -56,6 +56,7 @@ describe('News', () => {
   ): StateType => {
     return {
       darkMode: false,
+      resourceCacheUrl: 'http://localhost:8080',
       cityContent: {
         city: city.code,
         switchingLanguage:
@@ -172,21 +173,6 @@ describe('News', () => {
       language: language.code,
       city: city.code
     })
-    expectLoadingIndicator(state)
-  })
-
-  it('should display loading indicator if switching languages lasts long enough', () => {
-    const state: StateType = prepareState(successfulRouteState, { switchingLanguage: true })
-    expectLoadingIndicator(state)
-  })
-
-  it('should display loading indicator if cities are loading long enough', () => {
-    const state: StateType = prepareState(successfulRouteState, { cities: { status: 'loading' } })
-    expectLoadingIndicator(state)
-  })
-
-  it('should display loading indicator if languages are loading long enough', () => {
-    const state: StateType = prepareState(successfulRouteState, { languages: { status: 'loading' } })
     expectLoadingIndicator(state)
   })
 

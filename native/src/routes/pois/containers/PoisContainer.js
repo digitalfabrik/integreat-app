@@ -14,7 +14,6 @@ import withTheme from '../../../modules/theme/hocs/withTheme'
 import { CityModel, PoiModel } from '@integreat-app/integreat-api-client'
 import * as React from 'react'
 import createNavigateToInternalLink from '../../../modules/app/createNavigateToInternalLink'
-import { mapProps } from 'recompose'
 import Pois from '../components/Pois'
 
 type ContainerPropsType = {|
@@ -24,6 +23,7 @@ type ContainerPropsType = {|
   cityCode: string,
   language: string,
   resourceCache: LanguageResourceCacheStateType,
+  resourceCacheUrl: string,
   navigation: NavigationScreenProp<*>,
   dispatch: Dispatch<StoreActionType>
 |}
@@ -61,8 +61,8 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     return { status: 'routeNotInitialized' }
   }
 
-  if (state.cities.status === 'loading' || switchingLanguage || route.status === 'loading' ||
-    languages.status === 'loading') {
+  if (state.resourceCacheUrl === null || state.cities.status === 'loading' || switchingLanguage ||
+      route.status === 'loading' || languages.status === 'loading') {
     return { status: 'loading' }
   }
 
@@ -106,6 +106,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       cityCode: route.city,
       language: route.language,
       resourceCache: resourceCache.value,
+      resourceCacheUrl: state.resourceCacheUrl,
       navigation
     }
   }
@@ -133,16 +134,9 @@ const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionT
   navigateToPoi({ cityCode, language, path, forceRefresh: true, key: navigation.state.key })
 }
 
-type RestType = $Diff<PropsType, OwnPropsType>
-const removeOwnProps = (props: PropsType): RestType => {
-  const { t, navigation, ...rest } = props
-  return rest
-}
-
 export default withRouteCleaner<{| navigation: NavigationScreenProp<*> |}>(
-  withTranslation('pois')(
+  withTranslation('error')(
     connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
-      mapProps<RestType, PropsType>(removeOwnProps)(
-        withPayloadProvider<ContainerPropsType, RefreshPropsType>(refresh)(
-          PoisContainer
-        )))))
+      withPayloadProvider<ContainerPropsType, RefreshPropsType>(refresh)(
+        PoisContainer
+      ))))

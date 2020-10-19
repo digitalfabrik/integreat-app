@@ -43,7 +43,6 @@ export type PropsType = {|
   theme: ThemeType,
   t: TFunction,
   selectedNewsType: NewsType,
-  status: 'ready' | 'loadingMore',
   isFetchingMore: boolean,
   fetchMoreNews: () => void,
   navigateToNews: (navigationOptions: NavigateToNewsParamsType) => void,
@@ -80,9 +79,7 @@ class NewsList extends React.PureComponent<PropsType> {
     return <NoNews theme={theme}>{t('currentlyNoNews')}</NoNews>
   }
 
-  rendersNewsListItem = (cityCode: string, language: string) => ({
-    item: newsItem
-  }) => {
+  rendersNewsListItem = (cityCode: string, language: string) => ({ item: newsItem }) => {
     const { theme, selectedNewsType } = this.props
     const isTunews = selectedNewsType === TUNEWS
     return (

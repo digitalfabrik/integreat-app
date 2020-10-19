@@ -81,7 +81,7 @@ export type PushNewsActionType = {|
     +previouslyFetchedNews?: NewsModelsType, // in case if there is old news then concat old news with new ones
     +newsId: ?string,
     +key: string,
-    +cityLanguages: $ReadOnlyArray<LanguageModel>,
+    +availableLanguages: $ReadOnlyArray<LanguageModel>,
     +language: string,
     +city: string,
     +hasMoreNews: boolean, // stop loading more when no items are coming from response
@@ -286,9 +286,14 @@ export type ClearResourcesAndCacheActionType = {|
   type: 'CLEAR_RESOURCES_AND_CACHE'
 |}
 
+export type SetResourceCacheUrlActionType = {|
+  type: 'SET_RESOURCE_CACHE_URL', +params: {| +url: string |}
+|}
+
 export type StoreActionType =
   ToggleDarkModeActionType
   | CitiesActionType
   | CityContentActionType
   | SetContentLanguageActionType
   | ClearResourcesAndCacheActionType
+  | SetResourceCacheUrlActionType

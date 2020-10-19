@@ -17,7 +17,7 @@ import determineApiUrl from '../../modules/endpoint/determineApiUrl'
 
 type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
 
-type StatePropsType = {| city: string, language: string |}
+type StatePropsType = {| city: string, language: string, resourceCacheUrl: string |}
 
 type PropsType = {| ...OwnPropsType, ...StatePropsType, dispatch: Dispatch<StoreActionType> |}
 
@@ -25,8 +25,11 @@ const mapStateToProps = (state: StateType): StatePropsType => {
   if (!state.cityContent) {
     throw new Error('CityContent must not be null!')
   }
+  if (state.resourceCacheUrl === null) {
+    throw new Error('Resource cache Url must not be null!')
+  }
 
-  return { city: state.cityContent.city, language: state.contentLanguage }
+  return { city: state.cityContent.city, language: state.contentLanguage, resourceCacheUrl: state.resourceCacheUrl }
 }
 
 type DisclaimerPropsType = {|
@@ -34,6 +37,7 @@ type DisclaimerPropsType = {|
   city: string,
   language: string,
   theme: ThemeType,
+  resourceCacheUrl: string,
   dispatch: Dispatch<StoreActionType>
 |}
 
@@ -74,7 +78,7 @@ class DisclaimerContainer extends React.Component<DisclaimerPropsType, Disclaime
   }
 
   render () {
-    const { theme, navigation, city, language } = this.props
+    const { theme, navigation, city, language, resourceCacheUrl } = this.props
     const { disclaimer, error, timeoutExpired } = this.state
 
     if (error) {
@@ -92,7 +96,7 @@ class DisclaimerContainer extends React.Component<DisclaimerPropsType, Disclaime
 
     return <ScrollView refreshControl={<RefreshControl onRefresh={this.loadDisclaimer} refreshing={false} />}
                        contentContainerStyle={{ flexGrow: 1 }}>
-      <Disclaimer disclaimer={disclaimer} theme={theme} navigation={navigation} city={city} language={language} />
+      <Disclaimer resourceCacheUrl={resourceCacheUrl} disclaimer={disclaimer} theme={theme} navigation={navigation} city={city} language={language} />
     </ScrollView>
   }
 }
