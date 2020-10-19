@@ -5,8 +5,9 @@ import { Share } from 'react-native'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
 import { Item } from 'react-navigation-header-buttons'
-import HeaderBackButton from 'react-navigation-stack/lib/module/views/Header/HeaderBackButton'
-import type { NavigationDescriptor, NavigationScene, NavigationScreenProp } from 'react-navigation'
+import { HeaderBackButton } from 'react-navigation-stack'
+import type { NavigationDescriptor } from 'react-navigation'
+import type { NavigationStackProp, NavigationStackScene } from 'react-navigation-stack'
 import type { ThemeType } from '../../theme/constants'
 import type { TFunction } from 'react-i18next'
 import { CityModel } from '@integreat-app/integreat-api-client'
@@ -54,9 +55,9 @@ const BoxShadow: StyledComponent<{}, ThemeType, *> = styled.View`
 `
 
 type PropsType = {|
-  navigation: NavigationScreenProp<*>,
-  scene: NavigationScene,
-  scenes: Array<NavigationScene>,
+  navigation: NavigationStackProp<*>,
+  scene: NavigationStackScene,
+  scenes: Array<NavigationStackScene>,
   t: TFunction,
   theme: ThemeType,
   language: string,
@@ -72,8 +73,8 @@ class Header extends React.PureComponent<PropsType> {
     return !!this.getLastSceneInStack()
   }
 
-  getLastSceneInStack (): NavigationScene | void {
-    return this.props.scenes.find((s: NavigationScene) => s.index === this.props.scene.index - 1)
+  getLastSceneInStack (): NavigationStackScene | void {
+    return this.props.scenes.find((s: NavigationStackScene) => s.index === this.props.scene.index - 1)
   }
 
   getDescriptor (): NavigationDescriptor {

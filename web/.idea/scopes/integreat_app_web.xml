@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="integreat-app-web" pattern="file[integreat-app-web]:web//*||file[integreat-app-web]:docs//*||file[integreat-app-web]:locales//*||file[integreat-app-web]:.circleci//*||file:README.md||file:CODEOWNERS||file:yarn.lock||file:version.json||file[integreat-app-web]:release-notes/*||file[integreat-app-web]:tools/*||file[integreat-app-web]:release-notes//*" />
+</component>

@@ -3,10 +3,10 @@
 import * as React from 'react'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
-import HeaderBackButton from 'react-navigation-stack/lib/module/views/Header/HeaderBackButton'
+import { HeaderBackButton } from 'react-navigation-stack'
 import type { ThemeType } from '../../theme/constants'
 import type { TFunction } from 'react-i18next'
-import type { NavigationScreenProp } from 'react-navigation'
+import type { NavigationStackProp } from 'react-navigation-stack'
 
 const Horizontal = styled.View`
   flex: 1;
@@ -42,7 +42,7 @@ const HeaderText: StyledComponent<{}, ThemeType, *> = styled.Text`
 `
 
 type PropsType = {|
-  navigation: NavigationScreenProp<*>,
+  navigation: NavigationStackProp<*>,
   t: TFunction,
   theme: ThemeType
 |}

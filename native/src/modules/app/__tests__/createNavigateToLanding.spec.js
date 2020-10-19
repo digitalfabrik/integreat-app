@@ -1,6 +1,6 @@
 // @flow
 
-import createNavigationScreenPropMock from '../../../testing/createNavigationScreenPropMock'
+import createNavigationScreenPropMock from '../../../testing/createNavigationStackPropMock'
 import createNavigateToLanding from '../createNavigateToLanding'
 import type { StoreActionType } from '../StoreActionType'
 import type { Dispatch } from 'redux'

@@ -124,7 +124,9 @@ fastlane/readme.md
 *.jks
 *.keystore
 !app/test.keystore
+*.hprof
 
 # Ruby Gems
 .bundle/
 vendor/
+

@@ -5,7 +5,7 @@ import TestRenderer from 'react-test-renderer'
 import configureMockStore from 'redux-mock-store'
 import CityModelBuilder from '../../../../testing/builder/CityModelBuilder'
 import LanguageModelBuilder from '../../../../testing/builder/LanguageModelBuilder'
-import createNavigationScreenPropMock from '../../../../testing/createNavigationScreenPropMock'
+import createNavigationScreenPropMock from '../../../../testing/createNavigationStackPropMock'
 import LocalNewsModelBuilder from '../../../../testing/builder/NewsModelBuilder'
 import type {
   NewsRouteStateType,
@@ -173,21 +173,6 @@ describe('News', () => {
       language: language.code,
       city: city.code
     })
-    expectLoadingIndicator(state)
-  })
-
-  it('should display loading indicator if switching languages lasts long enough', () => {
-    const state: StateType = prepareState(successfulRouteState, { switchingLanguage: true })
-    expectLoadingIndicator(state)
-  })
-
-  it('should display loading indicator if cities are loading long enough', () => {
-    const state: StateType = prepareState(successfulRouteState, { cities: { status: 'loading' } })
-    expectLoadingIndicator(state)
-  })
-
-  it('should display loading indicator if languages are loading long enough', () => {
-    const state: StateType = prepareState(successfulRouteState, { languages: { status: 'loading' } })
     expectLoadingIndicator(state)
   })
 

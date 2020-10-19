@@ -6,15 +6,12 @@ steps:
   - checkout
   - attach_workspace:
       at: .
-  - restore_yarn_cache
   - restore_environment_variables
-  - run:
-      name: Create github release notes
-      command: echo "export GITHUB_RELEASE_NOTES=$(tools/parse-release-notes parse --android --language en)" >> ${BASH_ENV}
+  - restore_yarn_tools_cache
   - run:
       name: Create github release
-      command: tools/github-release create web ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "${GITHUB_RELEASE_NOTES}"
+      command: tools/github-release create web ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(tools/parse-release-notes parse --web --language en)"
   - slack/notify:
-      message: WebApp version ${NEW_VERSION_NAME} was delivered successfully to integreat.app and malteapp.de!\n${GITHUB_RELEASE_NOTES}
+      message: WebApp version ${NEW_VERSION_NAME} was delivered successfully to integreat.app and malteapp.de!\n$(tools/parse-release-notes parse --web --language en)
       webhook: ${SLACK_URL}
   - notify_failed

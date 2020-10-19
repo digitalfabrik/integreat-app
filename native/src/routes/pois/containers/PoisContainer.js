@@ -7,14 +7,13 @@ import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 import createNavigateToPoi from '../../../modules/app/createNavigateToPoi'
 import type { Dispatch } from 'redux'
 import type { StoreActionType, SwitchContentLanguageActionType } from '../../../modules/app/StoreActionType'
-import type { NavigationScreenProp } from 'react-navigation'
+import type { NavigationStackProp } from 'react-navigation-stack'
 import type { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
 import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvider'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import { CityModel, PoiModel } from '@integreat-app/integreat-api-client'
 import * as React from 'react'
 import createNavigateToInternalLink from '../../../modules/app/createNavigateToInternalLink'
-import { mapProps } from 'recompose'
 import Pois from '../components/Pois'
 
 type ContainerPropsType = {|
@@ -25,18 +24,18 @@ type ContainerPropsType = {|
   language: string,
   resourceCache: LanguageResourceCacheStateType,
   resourceCacheUrl: string,
-  navigation: NavigationScreenProp<*>,
+  navigation: NavigationStackProp<*>,
   dispatch: Dispatch<StoreActionType>
 |}
 
 type RefreshPropsType = {|
-  navigation: NavigationScreenProp<*>,
+  navigation: NavigationStackProp<*>,
   cityCode: string,
   language: string,
   path: ?string
 |}
 
-type OwnPropsType = {| navigation: NavigationScreenProp<*>, t: TFunction |}
+type OwnPropsType = {| navigation: NavigationStackProp<*>, t: TFunction |}
 type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
 type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
@@ -135,16 +134,9 @@ const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionT
   navigateToPoi({ cityCode, language, path, forceRefresh: true, key: navigation.state.key })
 }
 
-type RestType = $Diff<PropsType, OwnPropsType>
-const removeOwnProps = (props: PropsType): RestType => {
-  const { t, navigation, ...rest } = props
-  return rest
-}
-
-export default withRouteCleaner<{| navigation: NavigationScreenProp<*> |}>(
-  withTranslation('pois')(
+export default withRouteCleaner<{| navigation: NavigationStackProp<*> |}>(
+  withTranslation('error')(
     connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
-      mapProps<RestType, PropsType>(removeOwnProps)(
-        withPayloadProvider<ContainerPropsType, RefreshPropsType>(refresh)(
-          PoisContainer
-        )))))
+      withPayloadProvider<ContainerPropsType, RefreshPropsType>(refresh)(
+        PoisContainer
+      ))))

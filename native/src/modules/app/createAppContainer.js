@@ -10,10 +10,10 @@ import type {
   NavigationNavigator,
   NavigationRouteConfig,
   NavigationRouteConfigMap,
-  NavigationRouter,
-  NavigationScreenProp
+  NavigationRouter
 } from 'react-navigation'
-import { createAppContainer, createStackNavigator, createSwitchNavigator } from 'react-navigation'
+import { createAppContainer, createSwitchNavigator } from 'react-navigation'
+import { createStackNavigator, type NavigationStackProp } from 'react-navigation-stack'
 import TransparentHeaderContainer from '../layout/containers/TransparentHeaderContainer'
 import SettingsHeaderContainer from '../layout/containers/SettingsHeaderContainer'
 import HeaderContainer from '../layout/containers/HeaderContainer'
@@ -117,7 +117,7 @@ const createCityContentNavigator = (params: CreateNavigationContainerParamsType)
 }
 
 type NavigatorPropsType = {|
-  navigation: NavigationScreenProp<*>
+  navigation: NavigationStackProp<*>
 |}
 
 const createSwitchNavigatorWithSnackbar = (

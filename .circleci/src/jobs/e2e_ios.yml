@@ -8,23 +8,11 @@ steps:
   - checkout
   - attach_workspace:
       at: ./native
-  - restore_cache:
-      keys:
-        - 2-gems-{{ arch }}-{{ checksum "native/Gemfile.lock" }}
-        - 2-gems-{{ arch }}-
-  - run:
-      command: bundle config set path 'vendor/bundle'
-      working_directory: native
-  - run:
-      command: bundle check || bundle install
-      working_directory: native
-  - save_cache:
-      key: 2-gems-{{ arch }}-{{ checksum "native/Gemfile.lock" }}
-      paths:
-        - native/vendor/bundle
   - restore_yarn_cache
+  - restore_ruby_cache:
+      directory: native
   - run:
       name: "[FL] iOS E2E Tests on Browserstack"
-      command: bundle exec fastlane ios browserstack_e2e_tests app_name:integreat-e2e
+      command: bundle exec fastlane ios browserstack_e2e_tests build_config_name:integreat-e2e
       working_directory: native
   - notify_failed

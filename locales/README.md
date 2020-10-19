@@ -7,7 +7,6 @@
 * [Submitting locales for translation](#submitting-locales-for-translation)
 * [Conversion between JSON, CSV and ODS](#conversion-between-json-csv-and-ods)
 * [Used file formats](#used-file-formats)
-* [Origin of the locales](#origin-of-the-locales)
 
 ## Setup and Usage
 
@@ -167,8 +166,3 @@ Example: `./tools/ods-to-csv ../external-jobs/2020-06-malte`
 
 * Used for distribution of CSVs as the CSV format does not define the exact format.
 * For an example see `./external-jobs/2020-06-malteser`
-
-## Origin of the locales
-
-This repository is the result of a merge of the locales between the webapp project and the react-native project. The base for the locales is the file `src/locales` from the integreat-react-native project. It was copied on on 04-09-2018 the from the integreat-webapp project.
-All changes after 04-09-2018 have been reapplied to the locales.json such that no locale changes are missing. The patches can be found in `origin`.

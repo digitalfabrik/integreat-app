@@ -1,5 +1,0 @@
-<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="findMissingLocales" type="NodeJSConfigurationType" path-to-js-file="$PROJECT_DIR$/locales/tools/findMissingLocales.js" working-dir="$PROJECT_DIR$">
-    <method v="2" />
-  </configuration>
-</component>

@@ -1,0 +1,14 @@
+description: Restores and saves the gradle cache.
+steps:
+  - restore_cache:
+      keys:
+        - 1-gradle-{{ checksum "native/android/build.gradle" }}-{{ checksum "native/android/app/build.gradle" }}-{{ checksum "native/android/settings.gradle" }}
+        - 1-gradle-
+  - run:
+      name: "[FL] Download Dependencies"
+      command: bundle exec fastlane dependencies
+      working_directory: native/android
+  - save_cache:
+      paths:
+        - ~/.gradle
+      key: 1-gradle-{{ checksum "native/android/build.gradle" }}-{{ checksum "native/android/app/build.gradle" }}-{{ checksum "native/android/settings.gradle" }}

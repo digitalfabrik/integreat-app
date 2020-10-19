@@ -1,9 +1,9 @@
 // @flow
 
 import * as React from 'react'
-import { wrapDisplayName } from 'recompose'
 import type { ThemeType } from '../constants'
 import { lightTheme } from '../constants'
+import wrapDisplayName from '../../common/hocs/wrapDisplayName'
 
 function withTheme<Props: { theme: ThemeType }> (
   Component: React.AbstractComponent<Props>

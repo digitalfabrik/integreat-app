@@ -8,7 +8,7 @@ import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
 import SearchHeader from './SearchHeader'
 import { ActivityIndicator, ScrollView, View } from 'react-native'
-import type { NavigationScreenProp } from 'react-navigation'
+import type { NavigationStackProp } from 'react-navigation-stack'
 import type { ThemeType } from '../../../modules/theme/constants'
 import type { NavigateToCategoryParamsType } from '../../../modules/app/createNavigateToCategory'
 import type { TFunction } from 'react-i18next'
@@ -33,7 +33,7 @@ export type PropsType = {|
   language: string,
   cityCode: string,
   closeModal: () => void,
-  navigation: NavigationScreenProp<*>,
+  navigation: NavigationStackProp<*>,
   t: TFunction,
   sendFeedback: (comment: string, query: string) => Promise<void>
 |}

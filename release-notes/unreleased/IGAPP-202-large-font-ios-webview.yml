@@ -1,0 +1,6 @@
+issue_key: IGAPP-202
+show_in_stores: true
+platforms:
+  - ios
+en: Large texts are now used everywhere if set in the iOS accessibility settings.
+de: Die iOS Einstsellung "Größerer Text" wird nun überall berücksichtigt.

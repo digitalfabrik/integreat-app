@@ -87,7 +87,6 @@ describe('TunewsPage', () => {
     expect(tree.find(TunewsPage).props()).toEqual({
       tunews,
       cities,
-      areCitiesFetching: false,
       language,
       path: '/augsburg/en/news/tu-news',
       city,
