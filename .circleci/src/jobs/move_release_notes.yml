@@ -7,7 +7,7 @@ steps:
   - attach_workspace:
       at: .
   - restore_environment_variables
-  - restore_yarn_cache
+  - restore_yarn_tools_cache
   - run:
       name: Move release notes
       command: tools/move-release-notes move-to ${NEW_VERSION_NAME} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}

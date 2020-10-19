@@ -10,7 +10,7 @@ import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import { type TFunction, withTranslation } from 'react-i18next'
-import type { NavigationScreenProp } from 'react-navigation'
+import type { NavigationStackProp } from 'react-navigation-stack'
 import type { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
 import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvider'
 import { CityModel } from '@integreat-app/integreat-api-client'
@@ -20,18 +20,17 @@ import createNavigateToEvent from '../../../modules/app/createNavigateToEvent'
 import createNavigateToInternalLink from '../../../modules/app/createNavigateToInternalLink'
 import createNavigateToPoi from '../../../modules/app/createNavigateToPoi'
 import createNavigateToOffers from '../../../modules/app/createNavigateToOffers'
-import { mapProps } from 'recompose'
 import createNavigateToNews from '../../../modules/app/createNavigateToNews'
 
 type RefreshPropsType = {|
   cityCode: string,
   language: string,
   path: string,
-  navigation: NavigationScreenProp<*>
+  navigation: NavigationStackProp<*>
 |}
 
 type ContainerPropsType = {|
-  navigation: NavigationScreenProp<*>,
+  navigation: NavigationStackProp<*>,
   language: string,
   cityCode: string,
   cities: $ReadOnlyArray<CityModel>,
@@ -41,7 +40,7 @@ type ContainerPropsType = {|
   dispatch: Dispatch<StoreActionType>
 |}
 
-type OwnPropsType = {| navigation: NavigationScreenProp<*>, t: TFunction |}
+type OwnPropsType = {| navigation: NavigationStackProp<*>, t: TFunction |}
 type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
 type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
@@ -148,16 +147,9 @@ const DashboardContainer = (props: ContainerPropsType) => {
     navigateToOffers={createNavigateToOffers(dispatch, rest.navigation)} />
 }
 
-type RestType = $Diff<PropsType, OwnPropsType>
-const removeOwnProps = (props: PropsType): RestType => {
-  const { t, navigation, ...rest } = props
-  return rest
-}
-
-export default withRouteCleaner<{| navigation: NavigationScreenProp<*> |}>(
+export default withRouteCleaner<{| navigation: NavigationStackProp<*> |}>(
   withTranslation('error')(
     connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
-      mapProps<RestType, PropsType>(removeOwnProps)(
-        withPayloadProvider<ContainerPropsType, RefreshPropsType>(refresh)(
-          DashboardContainer
-        )))))
+      withPayloadProvider<ContainerPropsType, RefreshPropsType>(refresh)(
+        DashboardContainer
+      ))))

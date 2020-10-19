@@ -1,5 +1,9 @@
-# Deliver integreat to the Google Play Store.
+# Deliver the app to the Google Play Store.
 parameters:
+  build_config_name:
+    type: enum
+    enum: [integreat, malte]
+    default: integreat
   production_delivery:
     description: Whether to deliver the build to production.
     type: boolean
@@ -13,23 +17,11 @@ steps:
   - run: 'curl -sL https://sentry.io/get-cli/ | bash'
   - checkout
   - attach_workspace:
-      at: .
+      at: ./native
   - restore_environment_variables
-  - restore_cache:
-      keys:
-        - 2-gems-{{ arch }}-{{ checksum "native/Gemfile.lock" }}
-        - 2-gems-{{ arch }}-
-  - run:
-      command: bundle config set path 'vendor/bundle'
-      working_directory: native
-  - run:
-      command: bundle check || bundle install
-      working_directory: native
-  - save_cache:
-      key: 2-gems-{{ arch }}-{{ checksum "native/Gemfile.lock" }}
-      paths:
-        - vendor/bundle
-  - restore_yarn_cache
+  - restore_yarn_tools_cache
+  - restore_ruby_cache:
+      directory: native
   - run:
       name: Parse german android release notes
       command: tools/parse-release-notes parse --android --destination native/android/fastlane/metadata/android/de-DE/changelogs/default.txt --language de --production
@@ -39,14 +31,14 @@ steps:
         && tools/parse-release-notes parse --android --destination native/android/fastlane/metadata/android/en-US/changelogs/default.txt --language en --production
   - run:
       name: "[FL] Browserstack Upload Live"
-      command: bundle exec fastlane android browserstack_upload_live app_name:integreat
+      command: bundle exec fastlane android browserstack_upload_live build_config_name:<< parameters.build_config_name >>
       working_directory: native
   - run:
       name: "[FL] Play Store Upload"
-      command: bundle exec fastlane android playstore_upload app_name:integreat production_delivery:"<< parameters.production_delivery >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}  build_config_name:integreat
+      command: bundle exec fastlane android playstore_upload build_config_name:<< parameters.build_config_name >> production_delivery:"<< parameters.production_delivery >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
       working_directory: native
   - run:
       name: "[FL] Upload to Sentry"
-      command: bundle exec fastlane android sentry_upload app_name:integreat version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat
+      command: bundle exec fastlane android sentry_upload build_config_name:<< parameters.build_config_name >> version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
       working_directory: native
   - notify_failed

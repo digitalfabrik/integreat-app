@@ -15,12 +15,12 @@ import {
 import { SPRUNGBRETT_OFFER } from '../../offers/constants'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import type { ThemeType } from '../../../modules/theme/constants'
-import type { NavigationScreenProp } from 'react-navigation'
+import type { NavigationStackProp } from 'react-navigation-stack'
 import FailureContainer from '../../../modules/error/containers/FailureContainer'
 import { LOADING_TIMEOUT } from '../../../modules/common/constants'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
 
-type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
+type OwnPropsType = {| navigation: NavigationStackProp<*> |}
 
 type StatePropsType = {| offer: ?OfferModel, language: string |}
 
@@ -36,7 +36,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 }
 
 type SprungbrettPropsType = {|
-  navigation: NavigationScreenProp<*>,
+  navigation: NavigationStackProp<*>,
   offer: ?OfferModel,
   language: string,
   theme: ThemeType,

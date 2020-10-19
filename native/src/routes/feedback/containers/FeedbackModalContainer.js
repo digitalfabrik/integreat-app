@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import type { NavigationScreenProp } from 'react-navigation'
+import type { NavigationStackProp } from 'react-navigation-stack'
 import { withTranslation } from 'react-i18next'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import FeedbackModal from '../components/FeedbackModal'
@@ -12,7 +12,7 @@ import determineApiUrl from '../../../modules/endpoint/determineApiUrl'
 
 const TranslatedFeedbackModal = withTranslation('feedback')(withTheme(FeedbackModal))
 
-class FeedbackModalContainer extends React.Component<{| navigation: NavigationScreenProp<*> |}> {
+class FeedbackModalContainer extends React.Component<{| navigation: NavigationStackProp<*> |}> {
   closeModal = () => this.props.navigation.goBack()
 
   sendFeedback = async (feedbackData: FeedbackParamsType) => {

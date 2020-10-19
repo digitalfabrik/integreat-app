@@ -132,13 +132,16 @@ const renderHtml = (html: string, files: PageResourceCacheStateType, theme: Them
       font-weight: 400;
       src: ${getFontFaceSource('Lateef')};
     }
+    
+    html {
+        font: -apple-system-body;
+    }
 
     html, body {
         margin: 0;
         padding: 0;
 
         font-family: ${(webviewFontFamilies(theme, language))};
-        font-size: ${theme.fonts.contentFontSize};
         line-height: ${theme.fonts.contentLineHeight};
         font-size-adjust: ${theme.fonts.fontSizeAdjust};
         background-color: ${theme.colors.backgroundColor};
@@ -146,6 +149,10 @@ const renderHtml = (html: string, files: PageResourceCacheStateType, theme: Them
         text-align: center;
         list-style-position: inside;
         \`} */
+    }
+    
+    body {
+        font-size: ${theme.fonts.contentFontSize};
     }
 
     p {

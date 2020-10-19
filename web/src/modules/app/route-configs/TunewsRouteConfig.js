@@ -8,7 +8,9 @@ import {
   createTunewsEndpoint,
   createTunewsLanguagesEndpoint,
   Payload,
-  CityModel
+  CityModel,
+  createLanguagesEndpoint,
+  LanguageModel
 } from '@integreat-app/integreat-api-client'
 import fetchData from '../fetchData'
 import { cmsApiBaseUrl, tunewsApiBaseUrl } from '../constants/urls'
@@ -16,7 +18,8 @@ import type { StateType } from '../StateType'
 import type { AllPayloadsType } from './RouteConfig'
 
 type TunewsRouteParamsType = {| city: string, language: string |}
-type RequiredPayloadsType = {| cities: Payload<Array<CityModel>> |} // Loading tunews is handled inside Page
+// Loading tunews is handled inside Page
+type RequiredPayloadsType = {| cities: Payload<Array<CityModel>>, tunewsLanguages: Payload<Array<LanguageModel>> |}
 
 export const TUNEWS_ROUTE = 'TU_NEWS'
 
@@ -29,6 +32,7 @@ const tunewsRoute: Route = {
     await Promise.all([
       fetchData(createCitiesEndpoint(cmsApiBaseUrl), dispatch, state.cities),
       fetchData(createEventsEndpoint(cmsApiBaseUrl), dispatch, state.events, { city, language }),
+      fetchData(createLanguagesEndpoint(cmsApiBaseUrl), dispatch, state.languages, { city, language }),
       fetchData(createTunewsLanguagesEndpoint(tunewsApiBaseUrl), dispatch, state.languages, { city, language }),
       fetchData(createTunewsEndpoint(tunewsApiBaseUrl), dispatch, state.tunews.payload, {
         page: 1,
@@ -46,11 +50,18 @@ class TunewsRouteConfig implements RouteConfig<TunewsRouteParamsType, RequiredPa
   requiresHeader = true
   requiresFooter = true
 
-  getLanguageChangePath = ({ location, language }) =>
-    this.getRoutePath({ city: location.payload.city, language })
+  getLanguageChangePath = ({ location, language, payloads }) => {
+    const tunewsLanguages = payloads.tunewsLanguages.data
+
+    if (tunewsLanguages && tunewsLanguages.find(languageModel => languageModel.code === language)) {
+      return this.getRoutePath({ city: location.payload.city, language })
+    }
+    return null
+  }
 
   getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType => ({
-    cities: payloads.citiesPayload
+    cities: payloads.citiesPayload,
+    tunewsLanguages: payloads.tunewsLanguagesPayload
   })
 
   getPageTitle = ({ t, cityName, payloads, location }) => {

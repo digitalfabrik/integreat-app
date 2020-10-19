@@ -2,21 +2,22 @@
 
 import { connect } from 'react-redux'
 import type { Dispatch } from 'redux'
-import type { StateType } from '../../../modules/app/StateType'
-import type { SwitchContentLanguageActionType } from '../../../modules/app/StoreActionType'
+import type { NewsType, StateType } from '../../../modules/app/StateType'
+import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import ChangeLanguageModal from '../components/ChangeLanguageModal'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import { LanguageModel } from '@integreat-app/integreat-api-client'
-import type { NavigationScreenProp } from 'react-navigation'
-import { withTranslation } from 'react-i18next'
+import type { NavigationStackProp } from 'react-navigation-stack'
 import type { TFunction } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 
-type OwnPropsType = {| navigation: NavigationScreenProp<*>, t: TFunction |}
+type OwnPropsType = {| navigation: NavigationStackProp<*>, t: TFunction |}
 
 type StatePropsType = {|
   currentLanguage: string,
   languages: Array<LanguageModel>,
-  availableLanguages: Array<string>
+  availableLanguages: Array<string>,
+  newsType: ?NewsType
 |}
 
 type DispatchPropsType = {|
@@ -29,21 +30,47 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   const currentLanguage: string = ownProps.navigation.getParam('currentLanguage')
   const languages: Array<LanguageModel> = ownProps.navigation.getParam('languages')
   const availableLanguages: Array<string> = ownProps.navigation.getParam('availableLanguages')
+  const previousKey = ownProps.navigation.getParam('previousKey')
+
+  const newsRouteMapping = state.cityContent?.newsRouteMapping
+  const newsType = previousKey && newsRouteMapping && newsRouteMapping[previousKey] && newsRouteMapping[previousKey].type
+
   return {
     currentLanguage,
     languages,
-    availableLanguages
+    availableLanguages,
+    newsType
   }
 }
 
-type DispatchType = Dispatch<SwitchContentLanguageActionType>
+type DispatchType = Dispatch<StoreActionType>
 const mapDispatchToProps = (dispatch: DispatchType, ownProps: OwnPropsType): DispatchPropsType => {
+  const cityCode = ownProps.navigation.getParam('cityCode')
+  const previousKey = ownProps.navigation.getParam('previousKey')
+
   return {
-    changeLanguage: (newLanguage: string) => {
+    changeLanguage: (newLanguage: string, newsType: ?NewsType) => {
       dispatch({
         type: 'SWITCH_CONTENT_LANGUAGE',
         params: { newLanguage, city: ownProps.navigation.getParam('cityCode'), t: ownProps.t }
       })
+
+      if (newsType) {
+        dispatch({
+          type: 'FETCH_NEWS',
+          params: {
+            city: cityCode,
+            language: newLanguage,
+            newsId: null,
+            type: newsType,
+            key: previousKey,
+            criterion: {
+              forceUpdate: false,
+              shouldRefreshResources: false
+            }
+          }
+        })
+      }
     }
   }
 }

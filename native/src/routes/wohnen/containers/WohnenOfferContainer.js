@@ -10,14 +10,14 @@ import { createWohnenEndpoint, OfferModel, Payload, WohnenOfferModel } from '@in
 import { WOHNEN_OFFER, WOHNEN_ROUTE } from '../../offers/constants'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import type { ThemeType } from '../../../modules/theme/constants'
-import type { NavigationScreenProp } from 'react-navigation'
+import type { NavigationStackProp } from 'react-navigation-stack'
 import FailureContainer from '../../../modules/error/containers/FailureContainer'
 import { LOADING_TIMEOUT } from '../../../modules/common/constants'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
 
 const WOHNEN_API_URL = 'https://api.wohnen.integreat-app.de/v0'
 
-type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
+type OwnPropsType = {| navigation: NavigationStackProp<*> |}
 
 type StatePropsType = {|
   city: string,

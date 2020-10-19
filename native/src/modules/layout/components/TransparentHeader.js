@@ -4,9 +4,9 @@ import * as React from 'react'
 import Share from 'react-native-share'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
-import type { NavigationScreenProp } from 'react-navigation'
+import type { NavigationStackProp } from 'react-navigation-stack'
 import type { ThemeType } from '../../theme/constants'
-import HeaderBackButton from 'react-navigation-stack/lib/module/views/Header/HeaderBackButton'
+import { HeaderBackButton } from 'react-navigation-stack'
 import { HeaderButtons, HeaderButton, Item } from 'react-navigation-header-buttons'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import type { TFunction } from 'react-i18next'
@@ -38,7 +38,7 @@ const BoxShadow: StyledComponent<{float: boolean}, ThemeType, *> = styled.View`
 `
 
 type PropsType = {|
-  navigation: NavigationScreenProp<*>,
+  navigation: NavigationStackProp<*>,
   theme: ThemeType,
   float: boolean,
   t: TFunction

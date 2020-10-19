@@ -42,8 +42,8 @@ describe('fetchData', () => {
 
     expect(data).toEqual(payload)
     expect(dispatch).toHaveBeenCalledTimes(2)
-    expect(dispatch).toHaveBeenCalledWith(startFetchAction(defaultName, defaultMapParamsToUrl(params)))
-    expect(dispatch).toHaveBeenCalledWith(finishFetchAction(defaultName, payload))
+    expect(dispatch).toHaveBeenCalledWith(startFetchAction(defaultName, defaultMapParamsToUrl(params), params))
+    expect(dispatch).toHaveBeenCalledWith(finishFetchAction(defaultName, payload, params))
   })
 
   it('should fetch correctly if the fetched data is outdated', async () => {
@@ -59,8 +59,8 @@ describe('fetchData', () => {
 
     expect(data).toEqual(payload)
     expect(dispatch).toHaveBeenCalledTimes(2)
-    expect(dispatch).toHaveBeenCalledWith(startFetchAction(defaultName, defaultMapParamsToUrl(params)))
-    expect(dispatch).toHaveBeenCalledWith(finishFetchAction(defaultName, payload))
+    expect(dispatch).toHaveBeenCalledWith(startFetchAction(defaultName, defaultMapParamsToUrl(params), params))
+    expect(dispatch).toHaveBeenCalledWith(finishFetchAction(defaultName, payload, params))
   })
 
   it('should fail if json is malformed', async () => {
@@ -80,8 +80,8 @@ describe('fetchData', () => {
 
     expect(data).toEqual(payload)
     expect(dispatch).toHaveBeenCalledTimes(2)
-    expect(dispatch).toHaveBeenCalledWith(startFetchAction(defaultName, defaultMapParamsToUrl(params)))
-    expect(dispatch).toHaveBeenCalledWith(finishFetchAction(defaultName, payload))
+    expect(dispatch).toHaveBeenCalledWith(startFetchAction(defaultName, defaultMapParamsToUrl(params), params))
+    expect(dispatch).toHaveBeenCalledWith(finishFetchAction(defaultName, payload, params))
   })
 
   it('should not fetch if data has already been fetched', async () => {
@@ -112,8 +112,8 @@ describe('fetchData', () => {
 
     expect(data).toEqual(payload)
     expect(dispatch).toHaveBeenCalledTimes(2)
-    expect(dispatch).toHaveBeenCalledWith(startFetchAction(defaultName, defaultMapParamsToUrl(params)))
-    expect(dispatch).toHaveBeenCalledWith(finishFetchAction(defaultName, payload))
+    expect(dispatch).toHaveBeenCalledWith(startFetchAction(defaultName, defaultMapParamsToUrl(params), params))
+    expect(dispatch).toHaveBeenCalledWith(finishFetchAction(defaultName, payload, params))
   })
 
   it('should use overrideError correctly', async () => {
@@ -134,7 +134,7 @@ describe('fetchData', () => {
 
     expect(data).toEqual(payload)
     expect(dispatch).toHaveBeenCalledTimes(2)
-    expect(dispatch).toHaveBeenCalledWith(startFetchAction(defaultName, defaultMapParamsToUrl(params)))
-    expect(dispatch).toHaveBeenCalledWith(finishFetchAction(defaultName, payload))
+    expect(dispatch).toHaveBeenCalledWith(startFetchAction(defaultName, defaultMapParamsToUrl(params), params))
+    expect(dispatch).toHaveBeenCalledWith(finishFetchAction(defaultName, payload, params))
   })
 })

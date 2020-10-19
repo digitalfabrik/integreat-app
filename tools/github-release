@@ -23,9 +23,9 @@ const githubRelease = async (platform, newVersionName, newVersionCode, {
   const releaseName = `[${platform}${developmentRelease ? ' development release' : ''}] ${newVersionName} - ${versionCode}`
   console.warn('Creating release with name ', releaseName)
 
-  const developmentMessage = developmentRelease ? 'This release is only delivered to development and not yet visible for users.' : ''
+  const developmentMessage = developmentRelease ? 'This release is only delivered to development and not yet visible for users.\n\n' : ''
 
-  const body = `${developmentMessage}\n\n${JSON.parse(releaseNotes)}`
+  const body = `${developmentMessage}${JSON.parse(releaseNotes)}`
   console.warn('and body ', body)
 
   if (dryRun) {
