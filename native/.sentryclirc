@@ -1,4 +1,4 @@
 [defaults]
-url = https://sentry.integreat-app.de/
-org = tur-an-tur-digitalfabrik
-project = integreat-react-native-app
+url = https://sentry.tuerantuer.org/
+org = digitalfabrik
+project = integreat-app
