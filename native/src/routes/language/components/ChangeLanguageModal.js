@@ -9,6 +9,7 @@ import Selector from '../../../modules/common/components/Selector'
 import SelectorItemModel from '../../../modules/common/models/SelectorItemModel'
 import { InteractionManager } from 'react-native'
 import type { NavigationScreenProp } from 'react-navigation'
+import type { NewsType } from '../../../modules/app/StateType'
 
 const Wrapper: StyledComponent<{}, ThemeType, *> = styled.ScrollView`
   background-color: ${props => props.theme.colors.backgroundColor};
@@ -19,17 +20,18 @@ type PropsType = {
   currentLanguage: string,
   languages: Array<LanguageModel>,
   availableLanguages: Array<string>,
-  changeLanguage: (newLanguage: string) => void,
-  navigation: NavigationScreenProp<*>
+  changeLanguage: (newLanguage: string, newsType: ?NewsType) => void,
+  navigation: NavigationScreenProp<*>,
+  newsType: ?NewsType
 }
 
 class ChangeLanguageModal extends React.Component<PropsType> {
   onPress = (model: LanguageModel) => {
-    const { changeLanguage } = this.props
+    const { changeLanguage, newsType } = this.props
 
     this.closeModal()
     InteractionManager.runAfterInteractions(() => {
-      changeLanguage(model.code)
+      changeLanguage(model.code, newsType)
     })
   }
 

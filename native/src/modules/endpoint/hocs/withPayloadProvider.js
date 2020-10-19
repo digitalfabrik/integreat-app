@@ -1,9 +1,8 @@
 // @flow
 
 import * as React from 'react'
-
 import { LanguageModel } from '@integreat-app/integreat-api-client'
-import { RefreshControl, ScrollView } from 'react-native'
+import { RefreshControl, ScrollView, View } from 'react-native'
 import LanguageNotAvailableContainer from '../../common/containers/LanguageNotAvailableContainer'
 import type { StoreActionType } from '../../app/StoreActionType'
 import { type Dispatch } from 'redux'
@@ -47,7 +46,8 @@ export type PropsType<S: { dispatch: Dispatch<StoreActionType> }, R: {}> = {|
 |}
 
 const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R: {}> (
-  refresh: (refreshProps: R, dispatch: Dispatch<StoreActionType>) => void
+  refresh: (refreshProps: R, dispatch: Dispatch<StoreActionType>) => void,
+  noScrollView?: boolean
 ): ((Component: React.ComponentType<S>) => React.ComponentType<PropsType<S, R>>) => {
   return (Component: React.ComponentType<S>): React.ComponentType<PropsType<S, R>> => {
     return class extends React.Component<PropsType<S, R>, {| timeoutExpired: boolean |}> {
@@ -94,7 +94,13 @@ const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R: {}> 
             ? <ScrollView refreshControl={<RefreshControl refreshing />} contentContainerStyle={{ flexGrow: 0 }} />
             : null
         } else { // props.status === 'success'
-          return <ScrollView keyboardShouldPersistTaps='always' refreshControl={<RefreshControl onRefresh={this.refresh} refreshing={false} />}
+          if (noScrollView) {
+            return <View style={{ flex: 1 }}>
+              <Component {...props.innerProps} dispatch={props.dispatch} />
+            </View>
+          }
+          return <ScrollView keyboardShouldPersistTaps='always'
+                             refreshControl={<RefreshControl onRefresh={this.refresh} refreshing={false} />}
                              contentContainerStyle={{ flexGrow: 1 }}>
             <Component {...props.innerProps} dispatch={props.dispatch} />
           </ScrollView>
