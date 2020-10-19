@@ -3,7 +3,7 @@
 import * as React from 'react'
 import styled from 'styled-components/native'
 import type { ThemeType } from '../../../modules/theme/constants'
-import HeaderBackButton from 'react-navigation-stack/lib/module/views/Header/HeaderBackButton'
+import { HeaderBackButton } from 'react-navigation-stack'
 import ThemedSearchBar from './ThemedSearchBar'
 import type { TFunction } from 'react-i18next'
 
