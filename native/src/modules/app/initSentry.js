@@ -12,7 +12,7 @@ const initSentry = () => {
   }
 
   Sentry.init({
-    dsn: 'https://93d8df4f46614d6895d12879640c3a19@sentry.integreat-app.de/1'
+    dsn: 'https://3dfd3051678042b2b04cb5a6c2d869a4@sentry.tuerantuer.org/2'
   })
 }
 
