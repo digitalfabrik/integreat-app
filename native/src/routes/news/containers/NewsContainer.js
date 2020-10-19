@@ -81,7 +81,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     return { status: 'routeNotInitialized' }
   }
 
-  const { resourceCache, newsRouteMapping, switchingLanguage, languages } = state.cityContent
+  const {  newsRouteMapping, switchingLanguage, languages } = state.cityContent
 
   const route: ?NewsRouteStateType = newsRouteMapping[navigation.state.key]
   if (!route) {
@@ -115,9 +115,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
 
   if (state.cities.status === 'error') {
-    return { status: 'error', message: state.cities.message, code: state.cities.code, refreshProps }
-  } else if (resourceCache.status === 'error') {
-    return { status: 'error', message: resourceCache.message, code: resourceCache.code, refreshProps }
+    return { status: 'error', message: state.cities.message, code: state.cities.code, refreshProps  }
   } else if (route.status === 'error') {
     return { status: 'error', message: route.message, code: route.code, refreshProps }
   } else if (languages.status === 'error') {
@@ -128,7 +126,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   const cityModel = cities.find(city => city.code === route.city)
 
   if (!cityModel) {
-    throw new Error('It is impossible not to find the current city model!')
+    throw new Error('cityModel is undefined!')
   }
 
   if (route.status === 'loading') {
@@ -230,7 +228,6 @@ class NewsContainer extends React.Component<ContainerPropsType, {| newsType: New
                     isFetchingMore={isFetchingMore}
                     fetchMoreNews={this.fetchMoreNews}
                     navigateToNews={createNavigateToNews(dispatch, rest.navigation)}
-                    {...this.state}
                     {...rest} />
         </View>
       )

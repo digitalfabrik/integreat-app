@@ -37,7 +37,7 @@ commands:
                 fail_only: true
                 failure_message: ':fire: The $CIRCLE_JOB job has failed on the main branch! :fire:'
                 include_job_number_field: false
-                mentions: maxammann,st,UUZS7CMV0,UV99P8ETW
+                mentions: maxammann,st,UV99P8ETW
                 only_for_branches: main
                 webhook: ${SLACK_URL}
     restore_environment_variables:
@@ -921,6 +921,85 @@ workflows:
                     branches:
                         only:
                             - main
+    triggered_native_development_delivery:
+        jobs:
+            - bump_version:
+                context:
+                    - slack-app
+                    - deliverino
+                    - jira
+                production_delivery: false
+            - check_native:
+                context:
+                    - slack-app
+                requires:
+                    - bump_version
+            - build_android:
+                build_for_delivery: true
+                context:
+                    - slack-app
+                    - tuerantuer-google-play
+                    - tuerantuer-android
+                requires:
+                    - check_native
+            - e2e_android:
+                context:
+                    - slack-app
+                    - browserstack
+                requires:
+                    - build_android
+            - deliver_android:
+                context:
+                    - slack-app
+                    - sentry
+                    - browserstack
+                    - tuerantuer-google-play
+                    - tuerantuer-android
+                production_delivery: false
+                requires:
+                    - e2e_android
+            - notify_android:
+                context:
+                    - slack-app
+                    - deliverino
+                production_delivery: false
+                requires:
+                    - deliver_android
+            - build_ios:
+                build_for_delivery: true
+                context:
+                    - slack-app
+                    - tuerantuer-apple
+                    - tuerantuer-ios
+                requires:
+                    - check_native
+            - e2e_ios:
+                context:
+                    - slack-app
+                    - browserstack
+                requires:
+                    - build_ios
+            - deliver_ios:
+                context:
+                    - slack-app
+                    - sentry
+                    - browserstack
+                    - tuerantuer-apple
+                    - tuerantuer-ios
+                production_delivery: false
+                requires:
+                    - e2e_ios
+            - notify_ios:
+                context:
+                    - slack-app
+                    - deliverino
+                production_delivery: false
+                requires:
+                    - deliver_ios
+        when:
+            and:
+                - << pipeline.parameters.api_triggered >>
+                - not: << pipeline.parameters.production_delivery >>
     triggered_production_delivery:
         jobs:
             - bump_version:
