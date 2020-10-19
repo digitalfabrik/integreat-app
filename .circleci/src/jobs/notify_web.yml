@@ -6,8 +6,8 @@ steps:
   - checkout
   - attach_workspace:
       at: .
-  - restore_yarn_cache
   - restore_environment_variables
+  - restore_yarn_tools_cache
   - run:
       name: Create github release
       command: tools/github-release create web ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(tools/parse-release-notes parse --web --language en)"
