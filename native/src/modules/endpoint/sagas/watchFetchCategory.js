@@ -1,7 +1,7 @@
 // @flow
 
 import type { Saga } from 'redux-saga'
-import { all, call, put, select, takeLatest } from 'redux-saga/effects'
+import { all, call, put, select, takeEvery } from 'redux-saga/effects'
 import type {
   FetchCategoryActionType,
   FetchCategoryFailedActionType,
@@ -86,5 +86,5 @@ export function * fetchCategory (dataContainer: DataContainer, action: FetchCate
 }
 
 export default function * (dataContainer: DataContainer): Saga<void> {
-  yield takeLatest('FETCH_CATEGORY', fetchCategory, dataContainer)
+  yield takeEvery('FETCH_CATEGORY', fetchCategory, dataContainer)
 }
