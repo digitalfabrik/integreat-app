@@ -322,7 +322,7 @@ jobs:
         steps:
             - checkout
             - check_config
-            - restore_yarn_tools_cache
+            - restore_yarn_cache
             - run:
                 command: yarn workspace native lint
                 name: Linting check
@@ -344,7 +344,7 @@ jobs:
         steps:
             - checkout
             - check_config
-            - restore_yarn_tools_cache
+            - restore_yarn_cache
             - run:
                 command: yarn workspace web lint
                 name: Check linting

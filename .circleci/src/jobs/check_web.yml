@@ -8,7 +8,7 @@ shell: /bin/bash -eo pipefail
 steps:
   - checkout
   - check_config
-  - restore_yarn_tools_cache
+  - restore_yarn_cache
   - run:
       name: Check linting
       command: yarn workspace web lint
