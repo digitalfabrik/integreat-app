@@ -82,18 +82,14 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     return { status: 'routeNotInitialized' }
   }
 
-  const { resourceCache, newsRouteMapping, switchingLanguage, languages } = state.cityContent
-
-  const resourceCacheUrl = state.resourceCacheUrl
+  const { newsRouteMapping, switchingLanguage, languages } = state.cityContent
 
   const route: ?NewsRouteStateType = newsRouteMapping[navigation.state.key]
   if (!route) {
     return { status: 'routeNotInitialized' }
   }
 
-  if (state.cities.status === 'loading' || switchingLanguage || languages.status === 'loading' ||
-    resourceCacheUrl === null
-  ) {
+  if (state.cities.status === 'loading' || switchingLanguage || languages.status === 'loading') {
     return { status: 'loading' }
   }
 
@@ -121,8 +117,6 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 
   if (state.cities.status === 'error') {
     return { status: 'error', message: state.cities.message, code: state.cities.code, refreshProps }
-  } else if (resourceCache.status === 'error') {
-    return { status: 'error', message: resourceCache.message, code: resourceCache.code, refreshProps }
   } else if (route.status === 'error') {
     return { status: 'error', message: route.message, code: route.code, refreshProps }
   } else if (languages.status === 'error') {
@@ -133,7 +127,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   const cityModel = cities.find(city => city.code === route.city)
 
   if (!cityModel) {
-    throw new Error('It is impossible not to find the current city model!')
+    throw new Error('cityModel is undefined!')
   }
 
   if (route.status === 'loading') {
@@ -173,7 +167,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsType => ({ dispatch })
 
-class NewsContainer extends React.Component<ContainerPropsType, {| newsType: NewsType |}> {
+class NewsContainer extends React.Component<ContainerPropsType> {
   fetchNews = (newsType: NewsType) => {
     const { dispatch, cityCode, navigation, language } = this.props
     dispatch({
@@ -235,7 +229,6 @@ class NewsContainer extends React.Component<ContainerPropsType, {| newsType: New
                     isFetchingMore={isFetchingMore}
                     fetchMoreNews={this.fetchMoreNews}
                     navigateToNews={createNavigateToNews(dispatch, rest.navigation)}
-                    {...this.state}
                     {...rest} />
         </View>
       )
