@@ -2,5 +2,8 @@
   "extends": [
     "@integreat-app/eslint-config-node",
     "@integreat-app/eslint-config-jest"
-  ]
+  ],
+  "globals": {
+    "__DEV__": true
+  }
 }
