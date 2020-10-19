@@ -10,7 +10,6 @@ import type { Dispatch } from 'redux'
 import type { NavigationScreenProp } from 'react-navigation'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import * as React from 'react'
-import { mapProps } from 'recompose'
 import NewsList from '../components/NewsList'
 import { TUNEWS } from '../../../modules/endpoint/constants'
 import withPayloadProvider, { type StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
@@ -244,16 +243,9 @@ class NewsContainer extends React.Component<ContainerPropsType> {
   }
 }
 
-type RestType = $Diff<PropsType, OwnPropsType>
-const removeOwnProps = (props: PropsType): RestType => {
-  const { t, navigation, ...rest } = props
-  return rest
-}
-
 export default withRouteCleaner<{| navigation: NavigationScreenProp<*> |}>(
   withTranslation('error')(
     connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
-      mapProps<RestType, PropsType>(removeOwnProps)(
-        withPayloadProvider<ContainerPropsType, RefreshPropsType>(refresh, true)(
-          NewsContainer
-        )))))
+      withPayloadProvider<ContainerPropsType, RefreshPropsType>(refresh, true)(
+        NewsContainer
+      ))))

@@ -6,10 +6,12 @@ import { RefreshControl, ScrollView, View } from 'react-native'
 import LanguageNotAvailableContainer from '../../common/containers/LanguageNotAvailableContainer'
 import type { StoreActionType } from '../../app/StoreActionType'
 import { type Dispatch } from 'redux'
-import { wrapDisplayName } from 'recompose'
 import FailureContainer from '../../error/containers/FailureContainer'
 import { LOADING_TIMEOUT } from '../../common/constants'
 import type { ErrorCodeType } from '../../error/ErrorCodes'
+import type { NavigationScreenProp } from 'react-navigation'
+import type { TFunction } from 'react-i18next'
+import wrapDisplayName from '../../common/hocs/wrapDisplayName'
 
 export type RouteNotInitializedType = {| status: 'routeNotInitialized' |}
 export type LoadingType = {| status: 'loading' |}
@@ -42,7 +44,9 @@ export type StatusPropsType<S: {}, R: {}> =
 
 export type PropsType<S: { dispatch: Dispatch<StoreActionType> }, R: {}> = {|
   ...StatusPropsType<S, R>,
-  dispatch: Dispatch<StoreActionType>
+  dispatch: Dispatch<StoreActionType>,
+  navigation: NavigationScreenProp<*>,
+  t?: TFunction
 |}
 
 const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R: {}> (
