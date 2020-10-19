@@ -1,5 +1,5 @@
-// flow-typed signature: c160a027e33cf97235b8234433c6420e
-// flow-typed version: b527cb0ea1/react-navigation-stack_v1.x.x/flow_>=v0.104.x
+// flow-typed signature: c6a2115a6f241ea2bc5dc48065092698
+// flow-typed version: 4c0299d5b5/react-navigation-stack_v1.x.x/flow_>=v0.104.x
 
 // @flow
 
@@ -83,6 +83,7 @@ declare module 'react-navigation-stack' {
   declare export type NavigationPopToTopAction = {|
     +type: 'Navigation/POP_TO_TOP',
     +immediate?: boolean,
+    +key?: string,
   |};
   declare export type NavigationPushAction = {|
     +type: 'Navigation/PUSH',

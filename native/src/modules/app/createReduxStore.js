@@ -24,6 +24,7 @@ import watchClearCity from '../i18n/watchClearCity'
 import watchClearResourcesAndCache from '../endpoint/sagas/watchClearResourcesAndCache'
 import watchFetchPoi from '../endpoint/sagas/watchFetchPoi'
 import buildConfig from './constants/buildConfig'
+import resourceCacheUrlReducer from '../static-server/reducers/resourceCacheUrlReducer'
 
 function * rootSaga (dataContainer: DataContainer): Saga<void> {
   yield all([
@@ -47,14 +48,16 @@ const createReduxStore = (
     darkMode: false,
     cities: defaultCitiesState,
     contentLanguage: defaultContentLanguageState,
-    cityContent: defaultCityContentState
+    cityContent: defaultCityContentState,
+    resourceCacheUrl: null
   }
 
   const rootReducer = combineReducers({
     darkMode: toggleDarkModeReducer,
     cities: citiesReducer,
     contentLanguage: contentLanguageReducer,
-    cityContent: cityContentReducer
+    cityContent: cityContentReducer,
+    resourceCacheUrl: resourceCacheUrlReducer
   })
 
   const middleware = applyMiddleware(sagaMiddleware)

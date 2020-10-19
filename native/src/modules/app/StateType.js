@@ -235,6 +235,7 @@ export const defaultCityContentState = null
 
 export type StateType = {|
   +darkMode: boolean,
+  +resourceCacheUrl: string | null,
   +cityContent: CityContentStateType | null,
   +contentLanguage: string,
   +cities: CitiesStateType

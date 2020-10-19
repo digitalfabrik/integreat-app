@@ -41,6 +41,7 @@ export type PropsType = {|
   cities: Array<CityModel>,
   stateView: CategoriesRouteStateView,
   resourceCache: LanguageResourceCacheStateType,
+  resourceCacheUrl: string,
   t: TFunction
 |}
 
@@ -151,6 +152,7 @@ class Dashboard extends React.Component<PropsType> {
       stateView,
       theme,
       resourceCache,
+      resourceCacheUrl,
       navigateToInternalLink,
       language,
       cityCode,
@@ -165,6 +167,7 @@ class Dashboard extends React.Component<PropsType> {
           stateView={stateView}
           cities={cities}
           resourceCache={resourceCache}
+          resourceCacheUrl={resourceCacheUrl}
           language={language}
           cityCode={cityCode}
           theme={theme}
