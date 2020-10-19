@@ -4,7 +4,7 @@ import type { Dispatch } from 'redux'
 
 import { connect } from 'react-redux'
 import Dashboard from '../components/Dashboard'
-import type { LanguageResourceCacheStateType, StateType } from '../../../modules/app/StateType'
+import type { CategoryRouteStateType, LanguageResourceCacheStateType, StateType } from '../../../modules/app/StateType'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
@@ -62,6 +62,10 @@ const createChangeUnavailableLanguage = (city: string, t: TFunction) =>
     })
   }
 
+function routeHasOldContent (route: CategoryRouteStateType): boolean {
+  return route.models && route.allAvailableLanguages && route.children
+}
+
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const { t, navigation } = ownProps
   if (!state.cityContent) {
@@ -74,7 +78,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
 
   if (state.resourceCacheUrl === null || state.cities.status === 'loading' || switchingLanguage ||
-      route.status === 'loading' || languages.status === 'loading') {
+    (route.status === 'loading' && !routeHasOldContent(route)) || languages.status === 'loading') {
     return { status: 'loading' }
   }
 
@@ -111,7 +115,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   const cities = state.cities.models
   const stateView = new CategoriesRouteStateView(route.path, route.models, route.children)
   return {
-    status: 'success',
+    status: route.status === 'loading' ? 'loading' : 'success',
     refreshProps,
     innerProps: {
       navigation,
