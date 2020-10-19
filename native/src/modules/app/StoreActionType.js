@@ -122,7 +122,7 @@ export type FetchCategoryFailedActionType = {|
   |}
 |}
 export type PushCategoryActionType = {|
-  type: 'PUSH_CATEGORY',
+  type: 'PUSH_CATEGORY' | 'REFRESH_CATEGORY',
   +params: {|
     +categoriesMap: CategoriesMapModel,
     +resourceCache: LanguageResourceCacheStateType,

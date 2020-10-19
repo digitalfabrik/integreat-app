@@ -10,6 +10,7 @@ import type { StoreActionType } from '../../app/StoreActionType'
 import createCityContent from './createCityContent'
 import { omit } from 'lodash'
 import pushPoi from './pushPoi'
+import refreshCategory from './refreshCategory'
 
 export default (
   state: CityContentStateType | null = defaultCityContentState, action: StoreActionType
@@ -87,6 +88,8 @@ export default (
         return { ...state, languages: { status: 'ready', models: action.params.languages } }
       case 'FETCH_LANGUAGES_FAILED':
         return { ...state, languages: { status: 'error', ...action.params } }
+      case 'REFRESH_CATEGORY':
+        return refreshCategory(state, action)
       case 'PUSH_CATEGORY':
         return pushCategory(state, action)
       case 'PUSH_POI':

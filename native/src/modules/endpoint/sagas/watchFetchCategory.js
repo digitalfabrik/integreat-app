@@ -12,6 +12,7 @@ import loadCityContent from './loadCityContent'
 import { ContentLoadCriterion } from '../ContentLoadCriterion'
 import isPeekingRoute from '../selectors/isPeekingRoute'
 import ErrorCodes, { fromError } from '../../error/ErrorCodes'
+import type Moment from 'moment'
 
 /**
  * This fetch corresponds to a peek if the major content city is not equal to the city of the current route.
@@ -42,8 +43,10 @@ export function * fetchCategory (dataContainer: DataContainer, action: FetchCate
         call(dataContainer.getResourceCache, city, language)
       ])
 
+      const lastUpdate: Moment | null = yield call(dataContainer.getLastUpdate, city, language)
+
       const push: PushCategoryActionType = {
-        type: 'PUSH_CATEGORY',
+        type: loadCriterion.shouldUpdate(lastUpdate) ? 'REFRESH_CATEGORY' : 'PUSH_CATEGORY',
         params: { categoriesMap, resourceCache, path, cityLanguages, depth, key, city, language }
       }
       yield put(push)
