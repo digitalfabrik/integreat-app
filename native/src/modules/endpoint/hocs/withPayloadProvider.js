@@ -91,10 +91,16 @@ const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R: {}> 
                                                 changeLanguage={this.changeUnavailableLanguage} />
         } else if (props.status === 'loading') {
           return this.state.timeoutExpired
-            ? <ScrollView refreshControl={<RefreshControl refreshing />} contentContainerStyle={{ flexGrow: 0 }} />
+            ? <ScrollView refreshControl={<RefreshControl refreshing />} contentContainerStyle={{ flexGrow: 1 }}
+                        keyboardShouldPersistTaps='always'>
+              {/* only display content while loading if innerProps and dispatch are available */}
+              {props.innerProps && props.dispatch
+                ? <Component {...props.innerProps} dispatch={props.dispatch} /> : null}
+            </ScrollView>
             : null
         } else { // props.status === 'success'
-          return <ScrollView keyboardShouldPersistTaps='always' refreshControl={<RefreshControl onRefresh={this.refresh} refreshing={false} />}
+          return <ScrollView keyboardShouldPersistTaps='always'
+                             refreshControl={<RefreshControl onRefresh={this.refresh} refreshing={false} />}
                              contentContainerStyle={{ flexGrow: 1 }}>
             <Component {...props.innerProps} dispatch={props.dispatch} />
           </ScrollView>
