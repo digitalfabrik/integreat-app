@@ -62,6 +62,7 @@ class LandingContainer extends React.Component<ContainerPropsType> {
     const path = `/${cityCode}/${language}`
     const key: string = generateKey()
 
+    // $FlowFixMe newKey missing in typedef
     const action: NavigationReplaceAction = StackActions.replace({
       routeName: 'Dashboard',
       params: {
@@ -69,7 +70,7 @@ class LandingContainer extends React.Component<ContainerPropsType> {
         sharePath: path,
         onRouteClose: () => dispatch({ type: 'CLEAR_CATEGORY', params: { key } })
       },
-      key
+      newKey: key
     })
 
     // $FlowFixMe For some reason action is not allowed to be a StackAction
