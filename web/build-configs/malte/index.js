@@ -6,9 +6,9 @@ import malteOverrideLocales from 'locales/override-locales/malte.json'
 
 const MalteBuildConfig: () => BuildConfigType = () => ({
   appName: 'Malte',
+  itunesAppId: '1535758339',
   theme: malteTheme,
   darkTheme: darkMalteTheme,
-  // TODO WEBAPP-567: Add itunesAppId
   cmsUrl: 'https://cms.malteapp.de',
   featureFlags: {
     pois: false,
