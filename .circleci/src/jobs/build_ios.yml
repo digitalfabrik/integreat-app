@@ -1,89 +1,40 @@
 parameters:
-  build_for_delivery:
-    description: Whether builds are delivered to the store. If true, integreat and malte builds are created.
-    type: boolean
+  build_config_name:
+    type: enum
+    enum: [integreat, malte, integreat-e2e, integreat-test-cms]
+    default: integreat
 macos:
   xcode: 11.7.0
+resource_class: large
 environment:
   FL_OUTPUT_DIR: output
   FASTLANE_SKIP_UPDATE_CHECK: true
-  TOTAL_CPUS: 4 # For mac with resource_class medium, used in metro.config.ci.js.
+  TOTAL_CPUS: 4 # For mac with resource_class medium, used in metro.config.ci.js. # TODO change
 shell: /bin/bash --login -o pipefail
 steps:
   - add_ssh_keys: # Needed for credentials repo
       fingerprints:
-        - "61:d8:94:00:53:5f:3b:19:fd:88:6b:fa:cd:ca:df:5d"
+        - 61:d8:94:00:53:5f:3b:19:fd:88:6b:fa:cd:ca:df:5d
   - checkout
   - attach_workspace:
       at: .
-  - unless: # If not building for delivery, the bump version job has never been executed and therefore no env variables are available.
-      condition: << parameters.build_for_delivery >>
-      steps:
-        - run:
-            name: Calculate next version name
-            command: echo "export NEW_VERSION_NAME=$(cat version.json | jq .versionName)" >> environment_variables
-        - run:
-            name: Calculate next version code
-            command: echo "export NEW_VERSION_CODE=$(cat version.json | jq .versionCode)" >> environment_variables
   - restore_environment_variables
-  - restore_cache:
-      keys:
-        - 3-gems-{{ arch }}-{{ checksum "native/ios/Gemfile.lock" }}
-        - 3-gems-{{ arch }}-
-  - run:
-      command: bundle config set path 'vendor/bundle'
-      working_directory: native/ios
-  - run:
-      command: bundle check || bundle install
-      working_directory: native/ios
-  - save_cache:
-      key: 3-gems-{{ arch }}-{{ checksum "native/ios/Gemfile.lock" }}
-      paths:
-        - native/ios/vendor/bundle
   - restore_yarn_cache
-  - restore_cache:
-      name: Restore CocoaPods Cache
-      keys:
-        - 2-pods-{{ arch }}-{{ checksum "native/ios/Podfile.lock" }}
-        - 2-pods-{{ arch }}-
+  - restore_ruby_cache:
+      directory: native/ios
+  - restore_cocoa_pods_cache
   - run:
-      name: "[CP] Install CocoaPods"
-      command: bundle exec pod install --deployment
-      working_directory: native/ios
-  - save_cache:
-      name: Save CocoaPods Cache
-      key: 2-pods-{{ arch }}-{{ checksum "native/ios/Podfile.lock" }}
-      paths:
-        - ~/Library/Caches/CocoaPods/
-  - when:
-      condition: << parameters.build_for_delivery >>
-      steps:
-        - run:
-            name: "[FL] integreat build"
-            command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat
-            working_directory: native/ios
-        - run:
-            name: "[FL] malte build"
-            command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:malte
-            working_directory: native/ios
-  - run:
-      name: "[FL] integreat-e2e build"
-      command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:integreat-e2e
+      name: "[FL] << parameters.build_config_name >> build"
+      command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:<< parameters.build_config_name >>
       working_directory: native/ios
   - store_artifacts:
-      path: native/ios/output/gym/
-  - when:
-      condition: << parameters.build_for_delivery >>
-      steps:
-        - persist_to_workspace:
-            root: native/ios/output
-            paths:
-              - integreat.ios.bundle.map
-              - malte.ios.bundle.map
+      path: native/ios/output/gym/<< parameters.build_config_name >>.ipa
+  - persist_to_workspace:
+      root: native/ios/output
+      paths:
+        - << parameters.build_config_name >>.ios.bundle.map
   - persist_to_workspace:
       root: native/ios/output/gym
       paths:
-        - integreat.ipa
-        - malte.ipa
-        - integreat-e2e.ipa
+        - << parameters.build_config_name >>.ipa
   - notify_failed

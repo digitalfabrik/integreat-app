@@ -1,5 +1,9 @@
-# Deliver integreat to the Apple App Store or Testflight.
+# Deliver the app to the Apple App Store or Testflight.
 parameters:
+  build_config_name:
+    type: enum
+    enum: [integreat, malte]
+    default: integreat
   production_delivery:
     description: Whether to deliver the build to production.
     type: boolean
@@ -14,21 +18,9 @@ steps:
   - attach_workspace:
       at: .
   - restore_environment_variables
-  - restore_cache:
-      keys:
-        - 2-gems-{{ arch }}-{{ checksum "native/Gemfile.lock" }}
-        - 2-gems-{{ arch }}-
-  - run:
-      command: bundle config set path 'vendor/bundle'
-      working_directory: native
-  - run:
-      command: bundle check || bundle install
-      working_directory: native
-  - save_cache:
-      key: 2-gems-{{ arch }}-{{ checksum "native/Gemfile.lock" }}
-      paths:
-        - vendor/bundle
   - restore_yarn_cache
+  - restore_ruby_cache:
+      directory: native
   - run:
       name: Parse german ios release notes
       command: tools/parse-release-notes parse --ios --destination native/ios/fastlane/metadata/de-DE/release_notes.txt --language de --production
@@ -37,24 +29,24 @@ steps:
       command: tools/parse-release-notes parse --ios --destination native/ios/fastlane/metadata/en-US/release_notes.txt --language en --production
   - run:
       name: "[FL] Browserstack Upload Live"
-      command: bundle exec fastlane ios browserstack_upload_live app_name:integreat
+      command: bundle exec fastlane ios browserstack_upload_live app_name:<< parameters.build_config_name >>
       working_directory: native
   - when:
       condition: << parameters.production_delivery >>
       steps:
         - run:
             name: "[FL] App Store Connect Upload"
-            command: bundle exec fastlane ios appstoreconnect_upload app_name:integreat
+            command: bundle exec fastlane ios appstoreconnect_upload app_name:<< parameters.build_config_name >>
             working_directory: native
   - unless:
       condition: << parameters.production_delivery >>
       steps:
         - run:
             name: "[FL] TestFlight Upload"
-            command: bundle exec fastlane ios testflight_upload app_name:integreat version_name:${NEW_VERSION_NAME}
+            command: bundle exec fastlane ios testflight_upload app_name:<< parameters.build_config_name >> version_name:${NEW_VERSION_NAME}
             working_directory: native
   - run:
       name: "[FL] Upload to Sentry"
-      command: bundle exec fastlane ios sentry_upload app_name:integreat version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}  build_config_name:integreat
+      command: bundle exec fastlane ios sentry_upload app_name:<< parameters.build_config_name >> version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}  build_config_name:<< parameters.build_config_name >>
       working_directory: native
   - notify_failed

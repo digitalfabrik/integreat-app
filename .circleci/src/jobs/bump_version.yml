@@ -1,15 +1,15 @@
 # First step of a new delivery. Bump version name and code, tag the commit and (only for production) create a jira release.
 parameters:
-  production_delivery:
-    description: Whether builds are delivered to production.
-    type: boolean
+  delivery:
+    description: Which type of delivery is made. If none, the bumped version is not committed.
+    type: enum
+    enum: [none, development, production]
+    default: none
 docker:
   - image: circleci/node:12.16.3
 resource_class: small
 steps:
   - checkout
-  - attach_workspace:
-      at: .
   - restore_yarn_cache
   - run:
       name: Calculate next version name
@@ -20,11 +20,16 @@ steps:
   - run:
       name: Set environment varibales
       command: cat environment_variables >> ${BASH_ENV}
-  - run:
-      name: Bump git version
-      command: tools/git-version bump-to ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
+  - unless:
+      condition:
+        equal: [ none, << parameters.delivery >>]
+      steps:
+        - run:
+            name: Bump git version
+            command: tools/git-version bump-to ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
   - when:
-      condition: << parameters.production_delivery >>
+      condition:
+        equal: [ production, << parameters.delivery >>]
       steps:
         - run:
             name: Create jira release # The jira project has to have the same name as the github project. Otherwise this has to be configured.
