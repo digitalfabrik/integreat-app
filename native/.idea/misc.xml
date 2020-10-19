@@ -3,12 +3,5 @@
   <component name="JavaScriptSettings">
     <option name="languageLevel" value="FLOW" />
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_10" default="false" project-jdk-name="12" project-jdk-type="JavaSDK">
-    <output url="file://$PROJECT_DIR$/out" />
-  </component>
-  <component name="ReactNativePackager" nodePath="project" workingDirectory="$PROJECT_DIR$">
-    <scripts>
-      <item value="start" />
-    </scripts>
-  </component>
+  <component name="ProjectRootManager" version="2" default="false" />
 </project>
