@@ -1,9 +1,8 @@
 // @flow
 
 import * as React from 'react'
-import { wrapDisplayName } from 'recompose'
-
 import LayoutContainer from '../containers/LayoutContainer'
+import wrapDisplayName from '../../common/hocs/wrapDisplayName'
 
 const withLayout = <T>(WrappedComponent: React.ComponentType<T>) => {
   return class extends React.Component<T> {

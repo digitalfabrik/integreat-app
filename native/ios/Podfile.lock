@@ -98,6 +98,9 @@ PODS:
     - boost-for-react-native
     - DoubleConversion
     - glog
+  - GCDWebServer (3.5.4):
+    - GCDWebServer/Core (= 3.5.4)
+  - GCDWebServer/Core (3.5.4)
   - glog (0.3.5)
   - GoogleDataTransport (7.4.0):
     - nanopb (~> 1.30906.0)
@@ -319,8 +322,11 @@ PODS:
     - React
   - react-native-safe-area-context (1.0.2):
     - React
-  - react-native-webview (5.12.1):
+  - react-native-static-server (0.5.0):
+    - GCDWebServer (~> 3.0)
     - React
+  - react-native-webview (10.9.1):
+    - React-Core
   - React-RCTActionSheet (0.63.2):
     - React-Core/RCTActionSheetHeaders (= 0.63.2)
   - React-RCTAnimation (0.63.2):
@@ -469,6 +475,7 @@ DEPENDENCIES:
   - "react-native-progress-bar-android (from `../node_modules/@react-native-community/progress-bar-android`)"
   - "react-native-progress-view (from `../node_modules/@react-native-community/progress-view`)"
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
+  - react-native-static-server (from `../node_modules/react-native-static-server`)
   - react-native-webview (from `../node_modules/react-native-webview`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
@@ -512,6 +519,7 @@ SPEC REPOS:
     - Flipper-PeerTalk
     - Flipper-RSocket
     - FlipperKit
+    - GCDWebServer
     - GoogleDataTransport
     - GoogleUtilities
     - libwebp
@@ -571,6 +579,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-community/progress-view"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
+  react-native-static-server:
+    :path: "../node_modules/react-native-static-server"
   react-native-webview:
     :path: "../node_modules/react-native-webview"
   React-RCTActionSheet:
@@ -641,6 +651,7 @@ SPEC CHECKSUMS:
   Flipper-RSocket: 64e7431a55835eb953b0bf984ef3b90ae9fdddd7
   FlipperKit: bc68102cd4952a258a23c9c1b316c7bec1fecf83
   Folly: b73c3869541e86821df3c387eb0af5f65addfab4
+  GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
   glog: 40a13f7840415b9a77023fbcae0f1e6f43192af3
   GoogleDataTransport: b7f406340a291370045a270c599e53c6fa6ec20f
   GoogleUtilities: 7f2f5a07f888cdb145101d6042bc4422f57e70b3
@@ -667,7 +678,8 @@ SPEC CHECKSUMS:
   react-native-progress-bar-android: d1ec460350b7c0d27418b0c0b9ebf073646db016
   react-native-progress-view: d6127184789afb752faae9acdbe7fa320632a662
   react-native-safe-area-context: 9d9640a9085014864052e38496fc1dfde0b93974
-  react-native-webview: 5036ed4a973ad1deeeff118262d2df7b60b3419d
+  react-native-static-server: 201b2a945a35096be3ae7f43e367c65bcbd61343
+  react-native-webview: c981c0de33cdc842884469b008f067d6132ad7a5
   React-RCTActionSheet: 910163b6b09685a35c4ebbc52b66d1bfbbe39fc5
   React-RCTAnimation: 9a883bbe1e9d2e158d4fb53765ed64c8dc2200c6
   React-RCTBlob: 39cf0ece1927996c4466510e25d2105f67010e13

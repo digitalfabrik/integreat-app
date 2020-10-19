@@ -2,24 +2,26 @@
 
 import * as React from 'react'
 import type { LocationState } from 'redux-first-router'
-import type { AllPayloadsType } from '../route-configs/RouteConfig'
 import { Payload, SPRUNGBRETT_OFFER, WOHNEN_OFFER } from '@integreat-app/integreat-api-client'
 import { find, reduce } from 'lodash'
 import LoadingSpinner from '../../common/components/LoadingSpinner'
 import FailureSwitcher from '../../common/components/FailureSwitcher'
-import { getRouteConfig } from '../route-configs'
 import { getRouteContent } from '../routeContents'
 import ContentNotFoundError from '../../common/errors/ContentNotFoundError'
 
 type PropsType = {|
   location: LocationState,
-  allPayloads: AllPayloadsType
+  payloads: {[string]: Payload<any>},
+  isLoading: boolean
 |}
 
 class RouteContentSwitcher extends React.PureComponent<PropsType> {
-  renderFailureLoadingComponents = (payloads: {[string]: Payload<any>}): React.Node => {
+  renderFailureLoadingComponents = (): React.Node => {
+    const { isLoading, payloads } = this.props
+
     const errorPayload = find(payloads, payload => payload.error)
-    if (find(payloads, payload => (payload.isFetching || !payload.data) && !payload.error)) {
+
+    if (isLoading) {
       return <LoadingSpinner />
     } else if (errorPayload) {
       return <FailureSwitcher error={errorPayload.error} />
@@ -32,7 +34,8 @@ class RouteContentSwitcher extends React.PureComponent<PropsType> {
     return payloads[offerType] && !find(payloads.offers.data, offer => offer.alias === alias)
   }
 
-  renderOfferFailure = (payloads: {[string]: Payload<any>}, location: LocationState): React.Node => {
+  renderOfferFailure = (): React.Node => {
+    const { payloads, location } = this.props
     if (payloads.offers && !payloads.offers.isFetching && payloads.offers.data && !payloads.offers.error) {
       if (this.isWaitingForOffer('wohnenOffer', payloads) || this.isWaitingForOffer('sprungbrettJobs', payloads)) {
         return <FailureSwitcher error={new ContentNotFoundError({
@@ -47,12 +50,12 @@ class RouteContentSwitcher extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const { location, allPayloads } = this.props
+    const { location, payloads } = this.props
     const currentRoute = location.type
     const RouteContent = getRouteContent(currentRoute)
-    const payloads = getRouteConfig(currentRoute).getRequiredPayloads(allPayloads)
-    return this.renderOfferFailure(payloads, location) ||
-      this.renderFailureLoadingComponents(payloads) ||
+
+    return this.renderOfferFailure() ||
+      this.renderFailureLoadingComponents() ||
       <RouteContent {...reduce(payloads, (result, value, key: string) => ({ [key]: value.data, ...result }), {})} />
   }
 }

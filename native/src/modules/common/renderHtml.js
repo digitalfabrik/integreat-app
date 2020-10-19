@@ -1,13 +1,15 @@
 // @flow
 
-import { getFontFaceSource, URL_PREFIX } from '../platform/constants/webview'
-import type { PageResourceCacheStateType } from '../app/StateType'
+import { getFontFaceSource } from '../platform/constants/webview'
+import type { PageResourceCacheEntryStateType, PageResourceCacheStateType } from '../app/StateType'
 import type { ThemeType } from '../theme/constants'
 import { RTL_LANGUAGES } from '../i18n/constants'
 import webviewFontFamilies from '../theme/webviewFontFamilies'
+import { RESOURCE_CACHE_DIR_PATH } from '../endpoint/DatabaseConnector'
+import { mapValues } from 'lodash'
 
 // language=JavaScript
-const renderJS = (files: PageResourceCacheStateType) => `
+const renderJS = (cacheDictionary: { [remoteUrl: string]: string }) => `
 // Catching occurring errors
 (function() {
   function reportError (message) {
@@ -41,28 +43,28 @@ const renderJS = (files: PageResourceCacheStateType) => `
 (function() {
   var hrefs = document.querySelectorAll('[href]')
   var srcs = document.querySelectorAll('[src]')
-  var files = ${JSON.stringify(files)}
-  
-  console.debug('Files to inject:') // TODO: remove
-  console.debug(files)
-  
+  var cacheDictionary = ${JSON.stringify(cacheDictionary)}
+
+  console.debug('Resources to inject:')
+  console.debug(cacheDictionary)
+
   for (var i = 0; i < hrefs.length; i++) {
     var item = hrefs[i]
     console.debug('Found href: ' + decodeURI(item.href))
-    var newResource = files[decodeURI(item.href)]
+    var newResource = cacheDictionary[decodeURI(item.href)]
     if (newResource) {
-      console.debug('Replaced ' + item.href + ' with ' + newResource.filePath)
-      item.href = '${URL_PREFIX}' + newResource.filePath
+      console.debug('Replaced ' + item.href + ' with ' + newResource)
+      item.href = newResource
     }
   }
-  
+
   for (var i = 0; i < srcs.length; i++) {
     var item = srcs[i]
     console.debug('Found src: ' + decodeURI(item.src))
-    var newResource = files[decodeURI(item.src)]
+    var newResource = cacheDictionary[decodeURI(item.src)]
     if (newResource) {
-      console.debug('Replaced ' + item.src + ' with ' + newResource.filePath)
-      item.src = '${URL_PREFIX}' + newResource.filePath
+      console.debug('Replaced ' + item.src + ' with ' + newResource)
+      item.src = newResource
     }
   }
 })();
@@ -87,7 +89,13 @@ const renderJS = (files: PageResourceCacheStateType) => `
 `
 
 // language=HTML
-const renderHtml = (html: string, files: PageResourceCacheStateType, theme: ThemeType, language: string) => `
+const renderHtml = (html: string, files: PageResourceCacheStateType, theme: ThemeType, language: string, resourceCacheUrl: string) => {
+  const cacheDictionary = mapValues(files, (file: PageResourceCacheEntryStateType) => {
+    return file.filePath.startsWith(RESOURCE_CACHE_DIR_PATH)
+      ? file.filePath.replace(RESOURCE_CACHE_DIR_PATH, resourceCacheUrl)
+      : file.filePath
+  })
+  return `
 <!-- The lang attribute makes TalkBack use the appropriate language. -->
 <html lang="${language}">
 <head>
@@ -191,9 +199,10 @@ const renderHtml = (html: string, files: PageResourceCacheStateType, theme: Them
 </head>
 <body dir="${RTL_LANGUAGES.includes(language) ? 'rtl' : 'ltr'}">
   <div id="measure-container">${html}</div>
-  <script>${renderJS(files)}</script>
+  <script>${renderJS(cacheDictionary)}</script>
 </body>
 </html>
 `
+}
 
 export default renderHtml

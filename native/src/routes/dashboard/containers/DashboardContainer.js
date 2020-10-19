@@ -20,7 +20,6 @@ import createNavigateToEvent from '../../../modules/app/createNavigateToEvent'
 import createNavigateToInternalLink from '../../../modules/app/createNavigateToInternalLink'
 import createNavigateToPoi from '../../../modules/app/createNavigateToPoi'
 import createNavigateToOffers from '../../../modules/app/createNavigateToOffers'
-import { mapProps } from 'recompose'
 import createNavigateToNews from '../../../modules/app/createNavigateToNews'
 
 type RefreshPropsType = {|
@@ -37,6 +36,7 @@ type ContainerPropsType = {|
   cities: $ReadOnlyArray<CityModel>,
   stateView: CategoriesRouteStateView,
   resourceCache: LanguageResourceCacheStateType,
+  resourceCacheUrl: string,
   dispatch: Dispatch<StoreActionType>
 |}
 
@@ -72,8 +72,8 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     return { status: 'routeNotInitialized' }
   }
 
-  if (state.cities.status === 'loading' || switchingLanguage || route.status === 'loading' ||
-    languages.status === 'loading') {
+  if (state.resourceCacheUrl === null || state.cities.status === 'loading' || switchingLanguage ||
+      route.status === 'loading' || languages.status === 'loading') {
     return { status: 'loading' }
   }
 
@@ -118,6 +118,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       language: route.language,
       cities,
       stateView,
+      resourceCacheUrl: state.resourceCacheUrl,
       resourceCache: resourceCache.value
     }
   }
@@ -142,16 +143,9 @@ const DashboardContainer = (props: ContainerPropsType) => {
     navigateToOffers={createNavigateToOffers(dispatch, rest.navigation)} />
 }
 
-type RestType = $Diff<PropsType, OwnPropsType>
-const removeOwnProps = (props: PropsType): RestType => {
-  const { t, navigation, ...rest } = props
-  return rest
-}
-
 export default withRouteCleaner<{| navigation: NavigationScreenProp<*> |}>(
   withTranslation('error')(
     connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
-      mapProps<RestType, PropsType>(removeOwnProps)(
-        withPayloadProvider<ContainerPropsType, RefreshPropsType>(refresh)(
-          DashboardContainer
-        )))))
+      withPayloadProvider<ContainerPropsType, RefreshPropsType>(refresh)(
+        DashboardContainer
+      ))))

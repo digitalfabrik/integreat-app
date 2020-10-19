@@ -39,6 +39,8 @@ The first version code was `100000`.
 
 ## Folder structure
 
+
+### Native
 ```
 ├── __mocks__
 ├── modules
@@ -64,6 +66,7 @@ A component always follows the following structure (Uppercase files always conta
 ```
 ├── __tests__
 │   └── Caption.js
+├── Caption.css (Web only)
 └── Caption.js
 ```
 
