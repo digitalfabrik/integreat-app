@@ -69,6 +69,7 @@ describe('SearchRouteConfig', () => {
       localNewsPayload: new Payload(true),
       localNewsElementPayload: new Payload(true),
       tunewsPayload: new Payload(true),
+      tunewsLanguagesPayload: new Payload(true),
       tunewsElementPayload: new Payload(true),
       disclaimerPayload: new Payload(true),
       offersPayload: new Payload(true),

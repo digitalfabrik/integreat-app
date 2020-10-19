@@ -7,7 +7,7 @@ import InfiniteScroll from 'react-infinite-scroller'
 import { TunewsModel } from '@integreat-app/integreat-api-client'
 import LoadingSpinner from '../../../modules/common/components/LoadingSpinner'
 
-const LIMIT = 20
+const TUNEWS_PAGE_COUNT = 20
 
 const NoItemsMessage = styled.div`
   padding-top: 25px;
@@ -34,7 +34,7 @@ type PropsType = {|
 
 class TunewsList extends React.PureComponent<PropsType> {
   loadItems = (page: number) => {
-    this.props.fetchMoreTunews(page + 1, LIMIT)
+    this.props.fetchMoreTunews(page + 1, TUNEWS_PAGE_COUNT)
   }
 
   render () {
