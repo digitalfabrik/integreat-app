@@ -6,7 +6,7 @@ steps:
         - 2-yarn-{{ arch }}-{{ checksum "tools/yarn.lock" }}-{{ checksum "tools/package.json" }}
   - run:
       name: Yarn tools
-      command: yarn --frozen-lockfile --cache-folder ~/.cache/yarn
+      command: yarn --frozen-lockfile --cache-folder ~/.cache/yarn-tools
       working_directory: tools
   - save_cache:
       name: Save Yarn Tools Package Cache
