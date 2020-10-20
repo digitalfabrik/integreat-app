@@ -5,6 +5,8 @@ const { GITKEEP_FILE, UNRELEASED_DIR, RELEASE_NOTES_DIR, PLATFORM_ANDROID, PLATF
 const { program } = require('commander')
 const yaml = require('js-yaml')
 
+const MAX_RELEASE_NOTES_LENGTH = 500
+
 const DEFAULT_LANGUAGE = 'de'
 
 const DEFAULT_NOTES = {
@@ -32,9 +34,18 @@ const formatNotes = ({ notes, language, production, platformName }) => {
       const localizedNote = note[language] || note[DEFAULT_LANGUAGE]
       return production ? `* ${localizedNote}` : `* ${note.issue_key}: ${localizedNote}`
     })
-    .join('\n')
+    .reduce((text, note) => {
+      if (production && text.length + note.length > MAX_RELEASE_NOTES_LENGTH) {
+        return text
+      } else if (text.length === 0) {
+        return note
+      }
+      return `${text}\n${note}`
+    }, '')
 
-  const notesWithDefault = `${defaultNote}${formattedNotes}`
+  const notesWithDefault = production && defaultNote.length + formattedNotes.length > MAX_RELEASE_NOTES_LENGTH
+    ? formattedNotes
+    : `${defaultNote}${formattedNotes}`
 
   return platformName ? `\n${platformName}:\n${notesWithDefault}` : `${notesWithDefault}`
 }
