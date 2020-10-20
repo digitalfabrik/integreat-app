@@ -11,8 +11,8 @@ steps:
       name: Create github release
       command: tools/github-release create web ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(tools/parse-release-notes parse --web --language en)"
   - run:
-      name: Create github release notes
-      command: echo "export SLACK_RELEASE_NOTES=$(tools/parse-release-notes parse --web --language en)" >> ${BASH_ENV}
+      name: Create slack release notes
+      command: echo "export SLACK_RELEASE_NOTES=$(tools/parse-release-notes parse --web --language en --production)" >> ${BASH_ENV}
   - slack/notify:
       message: WebApp version ${NEW_VERSION_NAME} was delivered successfully to integreat.app and malteapp.de!\n${SLACK_RELEASE_NOTES}
       webhook: ${SLACK_URL}
