@@ -6,7 +6,7 @@ import { applyMiddleware, combineReducers, createStore } from 'redux'
 import toggleDarkModeReducer from '../theme/reducers'
 import type { Saga } from 'redux-saga'
 import createSagaMiddleware from 'redux-saga'
-import createDebugger from 'redux-flipper';
+import createDebugger from 'redux-flipper'
 import { all, call } from 'redux-saga/effects'
 import type { StateType } from './StateType'
 import { defaultCitiesState, defaultCityContentState, defaultContentLanguageState } from './StateType'
