@@ -5,3 +5,6 @@ steps:
     - run:
         name: Attached workspace contents
         command: ls ~/attached_workspace
+    - run:
+        name: Recursive attached workspace contents
+        command: ls -A ~/attached_workspace
