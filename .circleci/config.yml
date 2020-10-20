@@ -48,6 +48,9 @@ commands:
             - run:
                 command: ls ~/attached_workspace
                 name: Attached workspace contents
+            - run:
+                command: ls -A ~/attached_workspace
+                name: Recursive attached workspace contents
     restore_cocoa_pods_cache:
         description: Restores and saves the cocoa pods cache.
         steps:
@@ -72,7 +75,7 @@ commands:
                 command: cat ~/attached_workspace/environment_variables
                 name: List environment variables
             - run:
-                command: cat environment_variables >> ${BASH_ENV}
+                command: cat ~/attached_workspace/environment_variables >> ${BASH_ENV}
                 name: Restore environment variables
     restore_gradle_cache:
         description: Restores and saves the gradle cache.
