@@ -559,17 +559,12 @@ jobs:
         resource_class: small
         steps:
             - checkout
-            - prepare_workspace
-            - restore_environment_variables
             - restore_yarn_tools_cache
-            - run:
-                command: tools/github-release create android ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(tools/parse-release-notes parse --android --language en)"<<^ parameters.production_delivery >> --development-release<</ parameters.production_delivery >>
-                name: Create github release
             - run:
                 command: echo "export SLACK_RELEASE_NOTES=$(tools/parse-release-notes parse --android --language en)" >> ${BASH_ENV}
                 name: Create github release notes
             - slack/notify:
-                message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat ${NEW_VERSION_NAME} has been released successfully on Android!\n${SLACK_RELEASE_NOTES}
+                message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat 2020.10.5 has been released successfully on Android!\n${SLACK_RELEASE_NOTES}
                 webhook: ${SLACK_URL}
             - notify_failed
     notify_ios:
@@ -582,17 +577,12 @@ jobs:
         resource_class: small
         steps:
             - checkout
-            - prepare_workspace
-            - restore_environment_variables
             - restore_yarn_tools_cache
-            - run:
-                command: tools/github-release create ios ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(tools/parse-release-notes parse --ios --language en)"<<^ parameters.production_delivery >> --development-release<</ parameters.production_delivery >>
-                name: Create github release
             - run:
                 command: echo "export SLACK_RELEASE_NOTES=$(tools/parse-release-notes parse --ios --language en)" >> ${BASH_ENV}
                 name: Create github release notes
             - slack/notify:
-                message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat ${NEW_VERSION_NAME} has been released successfully on iOS!\n${SLACK_RELEASE_NOTES}
+                message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat 2020.10.5 has been released successfully on iOS!\n${SLACK_RELEASE_NOTES}
                 webhook: ${SLACK_URL}
             - notify_failed
     notify_web:
@@ -635,6 +625,16 @@ version: 2.1
 workflows:
     commit:
         jobs:
+            - notify_android:
+                context:
+                    - slack-app
+                    - deliverino
+                production_delivery: false
+            - notify_ios:
+                context:
+                    - slack-app
+                    - deliverino
+                production_delivery: false
             - bump_version:
                 context:
                     - slack-app

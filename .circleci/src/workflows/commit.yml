@@ -1,5 +1,17 @@
 unless: << pipeline.parameters.api_triggered >>
 jobs:
+  - notify_android:
+      context:
+        - slack-app
+        - deliverino
+      production_delivery: false
+
+  - notify_ios:
+      context:
+        - slack-app
+        - deliverino
+      production_delivery: false
+
   - bump_version:
       context:
         - slack-app
