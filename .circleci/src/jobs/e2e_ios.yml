@@ -12,6 +12,6 @@ steps:
       directory: native
   - run:
       name: "[FL] iOS E2E Tests on Browserstack"
-      command: bundle exec fastlane ios browserstack_e2e_tests ipa_path:#{ENV['HOME']}/attached_workspace/integreat-e2e.ipa
+      command: bundle exec fastlane ios browserstack_e2e_tests ipa_path:attached_workspace/integreat-e2e.ipa
       working_directory: native
   - notify_failed
