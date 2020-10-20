@@ -49,8 +49,8 @@ commands:
                 command: ls ~/attached_workspace
                 name: Attached workspace contents
             - run:
-                command: ls -A ~/attached_workspace
-                name: Recursive attached workspace contents
+                command: ls -R ~/attached_workspace
+                name: Recursively list attached workspace contents
     restore_cocoa_pods_cache:
         description: Restores and saves the cocoa pods cache.
         steps:
@@ -400,15 +400,15 @@ jobs:
                 command: tools/parse-release-notes parse --android --destination native/android/fastlane/metadata/android/en-GB/changelogs/default.txt --language en --production && tools/parse-release-notes parse --android --destination native/android/fastlane/metadata/android/en-US/changelogs/default.txt --language en --production
                 name: Parse english android release notes
             - run:
-                command: bundle exec fastlane android browserstack_upload_live apk_path:~/attached_workspace/<< parameters.build_config_name >>.apk
+                command: bundle exec fastlane android browserstack_upload_live apk_path:#{ENV['HOME']}/attached_workspace/<< parameters.build_config_name >>.apk
                 name: '[FL] Browserstack Upload Live'
                 working_directory: native
             - run:
-                command: bundle exec fastlane android playstore_upload build_config_name:<< parameters.build_config_name >> apk_path:~/attached_workspace/<< parameters.build_config_name >>.apk production_delivery:"<< parameters.production_delivery >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
+                command: bundle exec fastlane android playstore_upload build_config_name:<< parameters.build_config_name >> apk_path:#{ENV['HOME']}/attached_workspace/<< parameters.build_config_name >>.apk production_delivery:"<< parameters.production_delivery >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
                 name: '[FL] Play Store Upload'
                 working_directory: native
             - run:
-                command: bundle exec fastlane android sentry_upload build_config_name:<< parameters.build_config_name >> sourcemap_path:~/attached_workspace/<< parameters.build_config_name >>.android.bundle.map version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
+                command: bundle exec fastlane android sentry_upload build_config_name:<< parameters.build_config_name >> sourcemap_path:#{ENV['HOME']}/attached_workspace/<< parameters.build_config_name >>.android.bundle.map version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
                 name: '[FL] Upload to Sentry'
                 working_directory: native
             - notify_failed
@@ -443,25 +443,25 @@ jobs:
                 command: tools/parse-release-notes parse --ios --destination native/ios/fastlane/metadata/en-US/release_notes.txt --language en --production
                 name: Parse english ios release notes
             - run:
-                command: bundle exec fastlane ios browserstack_upload_live ipa_path:~/attached_workspace/<< parameters.build_config_name >>.ipa
+                command: bundle exec fastlane ios browserstack_upload_live ipa_path:#{ENV['HOME']}/attached_workspace/<< parameters.build_config_name >>.ipa
                 name: '[FL] Browserstack Upload Live'
                 working_directory: native
             - when:
                 condition: << parameters.production_delivery >>
                 steps:
                     - run:
-                        command: bundle exec fastlane ios appstoreconnect_upload ipa_path:~/attached_workspace/<< parameters.build_config_name >>.ipa version_name:${NEW_VERSION_NAME}
+                        command: bundle exec fastlane ios appstoreconnect_upload ipa_path:#{ENV['HOME']}/attached_workspace/<< parameters.build_config_name >>.ipa version_name:${NEW_VERSION_NAME}
                         name: '[FL] App Store Connect Upload'
                         working_directory: native
             - unless:
                 condition: << parameters.production_delivery >>
                 steps:
                     - run:
-                        command: bundle exec fastlane ios testflight_upload build_config_name:<< parameters.build_config_name >> ipa_path:~/attached_workspace/<< parameters.build_config_name >>.ipa
+                        command: bundle exec fastlane ios testflight_upload build_config_name:<< parameters.build_config_name >> ipa_path:#{ENV['HOME']}/attached_workspace/<< parameters.build_config_name >>.ipa
                         name: '[FL] TestFlight Upload'
                         working_directory: native
             - run:
-                command: bundle exec fastlane ios sentry_upload version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:<< parameters.build_config_name >> sourcemap_path:~/attached_workspace/<< parameters.build_config_name >>.ios.bundle.map
+                command: bundle exec fastlane ios sentry_upload version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:<< parameters.build_config_name >> sourcemap_path:#{ENV['HOME']}/attached_workspace/<< parameters.build_config_name >>.ios.bundle.map
                 name: '[FL] Upload to Sentry'
                 working_directory: native
             - notify_failed
@@ -512,7 +512,7 @@ jobs:
             - restore_ruby_cache:
                 directory: native
             - run:
-                command: bundle exec fastlane android browserstack_e2e_tests apk_path:~/attached_workspace/integreat-e2e.apk
+                command: bundle exec fastlane android browserstack_e2e_tests apk_path:#{ENV['HOME']}/attached_workspace/integreat-e2e.apk
                 name: '[FL] Android E2E Tests on Browserstack'
                 working_directory: native
             - notify_failed
@@ -530,7 +530,7 @@ jobs:
             - restore_ruby_cache:
                 directory: native
             - run:
-                command: bundle exec fastlane ios browserstack_e2e_tests ipa_path:~/attached_workspace/integreat-e2e.ipa
+                command: bundle exec fastlane ios browserstack_e2e_tests ipa_path:#{ENV['HOME']}/attached_workspace/integreat-e2e.ipa
                 name: '[FL] iOS E2E Tests on Browserstack'
                 working_directory: native
             - notify_failed
