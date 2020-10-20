@@ -20,15 +20,14 @@ private_lane :generic_sentry_upload do |options|
   package_name = options[:package_name]
   sourcemap_path = options[:sourcemap_path]
 
+  sentry_release_version = "#{package_name}@#{version_name}+#{version_code}"
   sentry_create_release(
-      version: version_name,
-      app_identifier: package_name,
+      version: sentry_release_version,
       finalize: true
   )
 
   sentry_upload_sourcemap(
-      version: version_name,
-      app_identifier: package_name,
+      version: sentry_release_version,
       dist: version_code.to_s,
       sourcemap: sourcemap_path,
       rewrite: true
