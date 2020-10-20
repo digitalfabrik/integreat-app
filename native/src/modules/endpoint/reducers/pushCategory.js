@@ -50,7 +50,7 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
   // This is important for displaying the loading spinner.
   const otherPageLoading = Object.values(state.categoriesRouteMapping)
     .filter(route => city === route.city && path !== route.path)
-    .reduce((acc, current) => (acc || current.status === 'loading'), false)
+    .some(route => current.status === 'loading')
 
   const resultModels = {}
   const resultChildren = {}
