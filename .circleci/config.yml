@@ -566,8 +566,8 @@ jobs:
                 command: tools/github-release create android ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(tools/parse-release-notes parse --android --language en)"<<^ parameters.production_delivery >> --development-release<</ parameters.production_delivery >>
                 name: Create github release
             - run:
-                command: echo "export SLACK_RELEASE_NOTES=$(tools/parse-release-notes parse --android --language en)" >> ${BASH_ENV}
-                name: Create github release notes
+                command: echo "export SLACK_RELEASE_NOTES=$(tools/parse-release-notes parse --android --language en --production)" >> ${BASH_ENV}
+                name: Create slack release notes
             - slack/notify:
                 message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat ${NEW_VERSION_NAME} has been released successfully on Android!\n${SLACK_RELEASE_NOTES}
                 webhook: ${SLACK_URL}
@@ -589,8 +589,8 @@ jobs:
                 command: tools/github-release create ios ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(tools/parse-release-notes parse --ios --language en)"<<^ parameters.production_delivery >> --development-release<</ parameters.production_delivery >>
                 name: Create github release
             - run:
-                command: echo "export SLACK_RELEASE_NOTES=$(tools/parse-release-notes parse --ios --language en)" >> ${BASH_ENV}
-                name: Create github release notes
+                command: echo "export SLACK_RELEASE_NOTES=$(tools/parse-release-notes parse --ios --language en --production)" >> ${BASH_ENV}
+                name: Create slack release notes
             - slack/notify:
                 message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat ${NEW_VERSION_NAME} has been released successfully on iOS!\n${SLACK_RELEASE_NOTES}
                 webhook: ${SLACK_URL}
@@ -608,8 +608,8 @@ jobs:
                 command: tools/github-release create web ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(tools/parse-release-notes parse --web --language en)"
                 name: Create github release
             - run:
-                command: echo "export SLACK_RELEASE_NOTES=$(tools/parse-release-notes parse --web --language en)" >> ${BASH_ENV}
-                name: Create github release notes
+                command: echo "export SLACK_RELEASE_NOTES=$(tools/parse-release-notes parse --web --language en --production)" >> ${BASH_ENV}
+                name: Create slack release notes
             - slack/notify:
                 message: WebApp version ${NEW_VERSION_NAME} was delivered successfully to integreat.app and malteapp.de!\n${SLACK_RELEASE_NOTES}
                 webhook: ${SLACK_URL}
