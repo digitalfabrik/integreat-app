@@ -12,6 +12,6 @@ steps:
       directory: native
   - run:
       name: "[FL] Android E2E Tests on Browserstack"
-      command: bundle exec fastlane android browserstack_e2e_tests apk_path:~/attached_workspace/<< parameters.build_config_name >>.apk
+      command: bundle exec fastlane android browserstack_e2e_tests apk_path:~/attached_workspace/integreat-e2e.apk
       working_directory: native
   - notify_failed

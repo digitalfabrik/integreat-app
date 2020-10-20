@@ -512,7 +512,7 @@ jobs:
             - restore_ruby_cache:
                 directory: native
             - run:
-                command: bundle exec fastlane android browserstack_e2e_tests apk_path:~/attached_workspace/<< parameters.build_config_name >>.apk
+                command: bundle exec fastlane android browserstack_e2e_tests apk_path:~/attached_workspace/integreat-e2e.apk
                 name: '[FL] Android E2E Tests on Browserstack'
                 working_directory: native
             - notify_failed
@@ -530,7 +530,7 @@ jobs:
             - restore_ruby_cache:
                 directory: native
             - run:
-                command: bundle exec fastlane ios browserstack_e2e_tests ipa_path:~/attached_workspace/<< parameters.build_config_name >>.ipa
+                command: bundle exec fastlane ios browserstack_e2e_tests ipa_path:~/attached_workspace/integreat-e2e.ipa
                 name: '[FL] iOS E2E Tests on Browserstack'
                 working_directory: native
             - notify_failed
