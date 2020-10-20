@@ -61,7 +61,7 @@ const createChangeUnavailableLanguage = (city: string, t: TFunction) =>
     })
   }
 
-function routeHasOldContent (route: CategoryRouteStateType): boolean {
+const routeHasOldContent = (route: CategoryRouteStateType): boolean => {
   return route.models && route.allAvailableLanguages && route.children
 }
 
