@@ -44,7 +44,6 @@ const createReduxStore = (
   dataContainer: DataContainer
 ): Store<StateType, StoreActionType> => {
   const sagaMiddleware = createSagaMiddleware()
-  const flipperReduxMiddleware = createDebugger()
 
   const initialState: StateType = {
     darkMode: false,
@@ -63,9 +62,11 @@ const createReduxStore = (
   })
 
   const middlewares = [sagaMiddleware]
-  if (__DEV__) {
+  if (buildConfig().development) {
+    const flipperReduxMiddleware = createDebugger()
     middlewares.push(flipperReduxMiddleware)
   }
+
   const middleware = applyMiddleware(...middlewares)
   const enhancer = buildConfig().development ? composeWithDevTools(middleware) : middleware
   const store = createStore(rootReducer, initialState, enhancer)
