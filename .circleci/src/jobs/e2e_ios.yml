@@ -6,13 +6,12 @@ environment:
   FASTLANE_SKIP_UPDATE_CHECK: true
 steps:
   - checkout
-  - attach_workspace:
-      at: ./native
+  - prepare_workspace
   - restore_yarn_cache
   - restore_ruby_cache:
       directory: native
   - run:
       name: "[FL] iOS E2E Tests on Browserstack"
-      command: bundle exec fastlane ios browserstack_e2e_tests build_config_name:integreat-e2e
+      command: bundle exec fastlane ios browserstack_e2e_tests ipa_path:~/attached_workspace/<< parameters.build_config_name >>.ipa
       working_directory: native
   - notify_failed

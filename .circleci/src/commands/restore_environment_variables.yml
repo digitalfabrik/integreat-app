@@ -2,7 +2,7 @@ description: Sets the environment variables specified in the file 'environment_v
 steps:
   - run:
       name: List environment variables
-      command: cat environment_variables
+      command: cat ~/attached_workspace/environment_variables
   - run:
       name: Restore environment variables
-      command: cat environment_variables >> ${BASH_ENV}
+      command: cat ~/attached_workspace/environment_variables >> ${BASH_ENV}

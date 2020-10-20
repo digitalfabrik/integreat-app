@@ -8,8 +8,7 @@ docker:
 resource_class: small
 steps:
   - checkout
-  - attach_workspace:
-      at: .
+  - prepare_workspace
   - restore_environment_variables
   - restore_yarn_tools_cache
   - run:
