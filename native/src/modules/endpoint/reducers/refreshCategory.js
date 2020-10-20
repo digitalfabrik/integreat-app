@@ -1,7 +1,7 @@
 // @flow
 
 import type { CategoryRouteStateType, CityContentStateType, PathType } from '../../app/StateType'
-import type { PushCategoryActionType } from '../../app/StoreActionType'
+import type { PushCategoryActionType, RefreshCategoryActionType } from '../../app/StoreActionType'
 import { CategoryModel, LanguageModel } from '@integreat-app/integreat-api-client'
 import forEachTreeNode from '../../common/forEachTreeNode'
 import ErrorCodes from '../../error/ErrorCodes'
@@ -36,7 +36,7 @@ function extractResultModelsAndChildren (root: ?CategoryModel, categoriesMap: Ca
   }
 }
 
-const refreshCategory = (state: CityContentStateType, action: PushCategoryActionType): CityContentStateType => {
+const refreshCategory = (state: CityContentStateType, action: RefreshCategoryActionType): CityContentStateType => {
   const { categoriesMap, path, depth, key, language, city, resourceCache, cityLanguages } = action.params
 
   // If there is an error in the old resourceCache, we want to override it

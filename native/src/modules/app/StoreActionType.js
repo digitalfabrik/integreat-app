@@ -121,15 +121,23 @@ export type FetchCategoryFailedActionType = {|
     +allAvailableLanguages: $ReadOnlyMap<string, ?string> | null
   |}
 |}
-export type PushCategoryActionType = {|
-  type: 'PUSH_CATEGORY' | 'REFRESH_CATEGORY',
-  +params: {|
+
+type CategoryParamsType = {|
     +categoriesMap: CategoriesMapModel,
     +resourceCache: LanguageResourceCacheStateType,
     +cityLanguages: Array<LanguageModel>,
     ...CategoryRouteConfigType,
     +key: string
-  |}
+|}
+
+export type PushCategoryActionType = {|
+  type: 'PUSH_CATEGORY',
+  +params: CategoryParamsType
+|}
+
+export type RefreshCategoryActionType = {|
+  type: 'REFRESH_CATEGORY',
+  +params: CategoryParamsType
 |}
 
 export type ClearCategoryActionType = {|

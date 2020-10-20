@@ -5,7 +5,7 @@ import { all, call, put, select, takeEvery } from 'redux-saga/effects'
 import type {
   FetchCategoryActionType,
   FetchCategoryFailedActionType,
-  PushCategoryActionType
+  PushCategoryActionType, RefreshCategoryActionType
 } from '../../app/StoreActionType'
 import type { DataContainer } from '../DataContainer'
 import loadCityContent from './loadCityContent'
@@ -45,7 +45,7 @@ export function * fetchCategory (dataContainer: DataContainer, action: FetchCate
 
       const lastUpdate: Moment | null = yield call(dataContainer.getLastUpdate, city, language)
 
-      const push: PushCategoryActionType = {
+      const push: PushCategoryActionType | RefreshCategoryActionType = {
         type: loadCriterion.shouldUpdate(lastUpdate) ? 'REFRESH_CATEGORY' : 'PUSH_CATEGORY',
         params: { categoriesMap, resourceCache, path, cityLanguages, depth, key, city, language }
       }
