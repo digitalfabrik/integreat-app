@@ -569,7 +569,7 @@ jobs:
                 command: echo "export SLACK_RELEASE_NOTES=$(tools/parse-release-notes parse --android --language en)" >> ${BASH_ENV}
                 name: Create slack release notes
             - slack/notify:
-                message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat ${NEW_VERSION_NAME} has been released successfully on Android!\n${SLACK_RELEASE_NOTES}
+                message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat and Malte ${NEW_VERSION_NAME} have been released successfully on Android!\n${SLACK_RELEASE_NOTES}
                 webhook: ${SLACK_URL}
             - notify_failed
     notify_ios:
@@ -592,7 +592,7 @@ jobs:
                 command: echo "export SLACK_RELEASE_NOTES=$(tools/parse-release-notes parse --ios --language en)" >> ${BASH_ENV}
                 name: Create slack release notes
             - slack/notify:
-                message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat ${NEW_VERSION_NAME} has been released successfully on iOS!\n${SLACK_RELEASE_NOTES}
+                message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat and Malte ${NEW_VERSION_NAME} have been released successfully on iOS!\n${SLACK_RELEASE_NOTES}
                 webhook: ${SLACK_URL}
             - notify_failed
     notify_web:
@@ -955,6 +955,7 @@ workflows:
                 production_delivery: true
                 requires:
                     - deliver_integreat_android
+                    - deliver_malte_android
             - build_ios:
                 build_config_name: integreat-e2e
                 context:
@@ -1298,7 +1299,7 @@ workflows:
                     - deliverino
                 production_delivery: true
                 requires:
-                    - deliver_integreat_android
+                    - deliver_integreat_android - deliver_malte_android
             - build_ios:
                 build_config_name: integreat-e2e
                 context:
