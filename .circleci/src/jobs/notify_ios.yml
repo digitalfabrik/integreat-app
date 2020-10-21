@@ -18,6 +18,6 @@ steps:
       name: Create slack release notes
       command: echo "export SLACK_RELEASE_NOTES=$(tools/parse-release-notes parse --ios --language en)" >> ${BASH_ENV}
   - slack/notify:
-      message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat ${NEW_VERSION_NAME} has been released successfully on iOS!\n${SLACK_RELEASE_NOTES}
+      message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat and Malte ${NEW_VERSION_NAME} have been released successfully on iOS!\n${SLACK_RELEASE_NOTES}
       webhook: ${SLACK_URL}
   - notify_failed
