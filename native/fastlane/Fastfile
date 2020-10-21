@@ -108,30 +108,33 @@ platform :android do
   # apk_path: The path of the apk to upload (relative to home dir)
   desc "Deliver the app to Play Store. Depending on the option `production_delivery` the update is released to the general public."
   lane :playstore_upload do |options|
+    ensure_env_vars(
+        env_vars: ["GOOGLE_SERVICE_ACCOUNT_JSON"]
+    )
+
     version_code = options[:version_code]
     version_name = options[:version_name]
     build_config_name = options[:build_config_name]
     apk_path = options[:apk_path]
 
     build_config = read_build_config(build_config_name)
-
-    ensure_env_vars(
-        env_vars: ["GOOGLE_SERVICE_ACCOUNT_JSON"]
-    )
-
+    skip_metadata = build_config_name == "malte"
     track = options[:production_delivery] === true ? "production" : "beta"
+
+    puts("delivering #{build_config_name} v#{version_name} to track #{track}")
+    puts("skip_metadata: #{skip_metadata}")
 
     # https://docs.fastlane.tools/actions/supply/
     upload_to_play_store(
         version_code: version_code,
         version_name: version_name,
         package_name: build_config['android']['applicationId'],
-        metadata_path: "./android/fastlane/metadata/android",
+        metadata_path: "./android/fastlane/#{build_config_name}/metadata",
         track: track,
         skip_upload_changelogs: false,
-        skip_upload_images: false,
-        skip_upload_screenshots: false,
-        skip_upload_metadata: false,
+        skip_upload_images: skip_metadata,
+        skip_upload_screenshots: skip_metadata,
+        skip_upload_metadata: skip_metadata,
         release_status: "completed",
         apk: "#{ENV['HOME']}/#{apk_path}",
         json_key_data: ENV["GOOGLE_SERVICE_ACCOUNT_JSON"]
