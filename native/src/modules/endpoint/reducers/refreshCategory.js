@@ -21,6 +21,9 @@ function extractResultModelsAndChildren (root: ?CategoryModel, categoriesMap: Ca
   resultModels: { [path: PathType]: CategoryModel },
   resultChildren: { [path: PathType]: $ReadOnlyArray<PathType> }
 |} {
+  /**
+   * Extracts models and children from the (updated) categories map.
+   */
   const resultModels = {}
   const resultChildren = {}
 
@@ -88,13 +91,25 @@ const refreshCategory = (state: CityContentStateType, action: RefreshCategoryAct
     .filter(([key, route]) => city === route.city && path !== route.path && language === route.language)
     .forEach(([key, route]) => {
       const root: ?CategoryModel = categoriesMap.findCategoryByPath(route.path)
-      const { resultModels, resultChildren } = extractResultModelsAndChildren(root, categoriesMap, depth)
-      state.categoriesRouteMapping[key] = {
-        ...state.categoriesRouteMapping[key],
-        models: resultModels,
-        children: resultChildren,
-        allAvailableLanguages: getAllAvailableLanguages(root, city, language, cityLanguages),
-        status: 'ready'
+      if (!root) {
+        state.categoriesRouteMapping[key] = {
+          path: path,
+          depth: depth,
+          language,
+          city,
+          status: 'error',
+          message: `Could not find a category with path '${path}'.`,
+          code: ErrorCodes.PageNotFound
+        }
+      } else {
+        const { resultModels, resultChildren } = extractResultModelsAndChildren(root, categoriesMap, depth)
+        state.categoriesRouteMapping[key] = {
+          ...state.categoriesRouteMapping[key],
+          models: resultModels,
+          children: resultChildren,
+          allAvailableLanguages: getAllAvailableLanguages(root, city, language, cityLanguages),
+          status: 'ready'
+        }
       }
     })
 
