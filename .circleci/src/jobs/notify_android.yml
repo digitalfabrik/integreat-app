@@ -8,14 +8,16 @@ docker:
 resource_class: small
 steps:
   - checkout
-  - attach_workspace:
-      at: .
+  - prepare_workspace
   - restore_environment_variables
   - restore_yarn_tools_cache
   - run:
       name: Create github release
       command: tools/github-release create android ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(tools/parse-release-notes parse --android --language en)"<<^ parameters.production_delivery >> --development-release<</ parameters.production_delivery >>
+  - run:
+      name: Create slack release notes
+      command: echo "export SLACK_RELEASE_NOTES=$(tools/parse-release-notes parse --android --language en)" >> ${BASH_ENV}
   - slack/notify:
-      message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat ${NEW_VERSION_NAME} has been released successfully on Android!\n$(tools/parse-release-notes parse --android --language en)
+      message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat ${NEW_VERSION_NAME} has been released successfully on Android!\n${SLACK_RELEASE_NOTES}
       webhook: ${SLACK_URL}
   - notify_failed

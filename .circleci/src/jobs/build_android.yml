@@ -15,8 +15,7 @@ steps:
       fingerprints:
         - 61:d8:94:00:53:5f:3b:19:fd:88:6b:fa:cd:ca:df:5d
   - checkout
-  - attach_workspace:
-      at: .
+  - prepare_workspace
   - restore_environment_variables
   - restore_yarn_cache
   - restore_ruby_cache:

@@ -15,10 +15,10 @@ shell: /bin/bash --login -o pipefail
 steps:
   - run: 'curl -sL https://sentry.io/get-cli/ | bash'
   - checkout
-  - attach_workspace:
-      at: ./native
+  - prepare_workspace
   - restore_environment_variables
   - restore_yarn_tools_cache
+  - restore_yarn_cache # Needed for babel-node run in read_build_config.rb. May be refactored and optimized later.
   - restore_ruby_cache:
       directory: native
   - run:
@@ -29,24 +29,24 @@ steps:
       command: tools/parse-release-notes parse --ios --destination native/ios/fastlane/metadata/en-US/release_notes.txt --language en --production
   - run:
       name: "[FL] Browserstack Upload Live"
-      command: bundle exec fastlane ios browserstack_upload_live build_config_name:<< parameters.build_config_name >>
+      command: bundle exec fastlane ios browserstack_upload_live ipa_path:attached_workspace/<< parameters.build_config_name >>.ipa
       working_directory: native
   - when:
       condition: << parameters.production_delivery >>
       steps:
         - run:
             name: "[FL] App Store Connect Upload"
-            command: bundle exec fastlane ios appstoreconnect_upload build_config_name:<< parameters.build_config_name >>
+            command: bundle exec fastlane ios appstoreconnect_upload ipa_path:attached_workspace/<< parameters.build_config_name >>.ipa version_name:${NEW_VERSION_NAME}
             working_directory: native
   - unless:
       condition: << parameters.production_delivery >>
       steps:
         - run:
             name: "[FL] TestFlight Upload"
-            command: bundle exec fastlane ios testflight_upload build_config_name:<< parameters.build_config_name >> version_name:${NEW_VERSION_NAME}
+            command: bundle exec fastlane ios testflight_upload build_config_name:<< parameters.build_config_name >> ipa_path:attached_workspace/<< parameters.build_config_name >>.ipa
             working_directory: native
   - run:
       name: "[FL] Upload to Sentry"
-      command: bundle exec fastlane ios sentry_upload version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:<< parameters.build_config_name >>
+      command: bundle exec fastlane ios sentry_upload version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:<< parameters.build_config_name >> sourcemap_path:attached_workspace/<< parameters.build_config_name >>.ios.bundle.map
       working_directory: native
   - notify_failed
