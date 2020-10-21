@@ -208,6 +208,7 @@ platform :ios do
 
   # The following parameters have to be passed:
   # version_name: The version name of the app
+  # build_config_name: The name of the build config
   # ipa_path: The path of the ipa to upload (relative to home dir)
   desc "Deliver the app to App Store Connect. The app is submitted for review and released automatically."
   lane :appstoreconnect_upload do |options|
@@ -217,6 +218,11 @@ platform :ios do
 
     version_name = options[:version_name]
     ipa_path = options[:ipa_path]
+    build_config_name = options[:build_config_name]
+    skip_screenshots = build_config_name == "malte"
+
+    puts("delivering #{build_config_name} v#{version_name}")
+    puts("skip_screenshots: #{skip_screenshots}")
 
     # https://docs.fastlane.tools/actions/deliver/
     deliver(
@@ -225,11 +231,11 @@ platform :ios do
         submit_for_review: true,
         automatic_release: true,
         force: true,
-        skip_screenshots: false,
+        skip_screenshots: skip_screenshots,
         skip_metadata: false,
         skip_app_version_update: false,
-        metadata_path: "./ios/fastlane/metadata",
-        screenshots_path: "./ios/fastlane/screenshots",
+        metadata_path: "./ios/fastlane/#{build_config_name}/metadata",
+        screenshots_path: "./ios/fastlane/#{build_config_name}/screenshots",
         precheck_include_in_app_purchases: false, # We do not have inapp purchases
         submission_information: { add_id_info_uses_idfa: false }  # https://firebase.google.com/docs/analytics/configure-data-collection?platform=ios
                                                                   # https://support.google.com/firebase/answer/6318039?hl=en
