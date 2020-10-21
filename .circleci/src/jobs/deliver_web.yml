@@ -11,24 +11,23 @@ steps:
   - add_ssh_keys:
       fingerprints:
         - "68:a3:fe:e7:94:f7:a4:13:35:5c:63:30:2f:07:7d:02"
-  - attach_workspace:
-      at: .
+  - prepare_workspace
   - when:
       condition: << parameters.production_delivery >>
       steps:
         - run:
             name: Integreat production delivery # StrictHostKeyChecking=no is not a security problem. The worst that could happen is a delivery to the wrong domain.
-            command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/integreat.app \<<< $'put -r dist/integreat/*'
+            command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/integreat.app \<<< $'put -r ~/attached_workspace/dist/integreat/*'
         - run:
             name: Malte production delivery
-            command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/malteapp.de \<<< $'put -r dist/malte/*'
+            command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/malteapp.de \<<< $'put -r ~/attached_workspace/dist/malte/*'
   - unless:
       condition: << parameters.production_delivery >>
       steps:
         - run:
             name: Integreat development delivery
-            command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.integreat.app \<<< $'put -r dist/integreat-test-cms/*'
+            command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.integreat.app \<<< $'put -r ~/attached_workspace/dist/integreat-test-cms/*'
         - run:
             name: Malte development delivery
-            command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.malteapp.de \<<< $'put -r dist/malte/*'
+            command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.malteapp.de \<<< $'put -r ~/attached_workspace/dist/malte/*'
   - notify_failed
