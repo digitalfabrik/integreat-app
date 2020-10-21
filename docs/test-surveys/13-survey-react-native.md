@@ -1,46 +1,36 @@
-### UC1: Open the app and choose a city of your choice, and the language you are most comfortable with. Explore the app and familiarize yourself with it. Turn off your internet connection and explore the same city further on.
+### UC0: Start the app and continue until you reach the selection of the cities.
 
-#### Describe the steps you took.
+#### Did you have any problems with understanding the introduction slides? Did you read them? Did you understand the settings?
 
 *Input box*
 
-### UC2: Choose city "Stadt Regensburg" as your location, if you haven’t done so already. Find out when shops are usually open in Regensburg without using the search functionality. Switch the language to any other as soon as you found it.
+#### Did you have any problems with understanding the introduction slides? Did you read them? Did you understand the settings?
 
-#### Did you find the information?
+*Input box*
 
-* [ ] Yes
-* [ ] No
+### UC1: Choose city "Stadt Regensburg" as your location, if you haven’t done so already. Find out when shops are usually open in Regensburg **without** using the search functionality. Switch the language to any other as soon as you found it and then share the information you found through your favorite messenger or via E-Mail.
+
+#### If you did not find the information, tell us why you gave up. If you found it please enter it here.
+
+*Input box*
 
 (The Answer is: "Monday to Saturday: 08:00-20:00")
 
-#### Describe the steps you took.
+#### Did the sharing work like expected? If not, please tell us what you did not like. If yes, tell us what could be improved.
 
 *Input box*
 
-### UC3: Find the same information as in UC2 by using the search icon in the navigation bar. 
-
-The search terms you need are "Einkaufen" (German), "Shopping" (German), "التسوّق" (Arabic/العربية)
-
-#### Did you find the information?
-
-* [ ] Yes
-* [ ] No
-
-### UC4: Share the information you found through your favorite Messenger or via E-Mail.
-
-#### Did you find the sharing functionality of the app?
-
-* [ ] Yes
-* [ ] No
+### UC2: Enable accessibility setting on your smartphone. You can enable a screen reader like TalkBack on Android. Try to find the information you already looked for in UC1 again using these accessibility tools.
+         
+         Hint: On Android you maybe need to install the "Android Accessibility Suite".
 
 ### UC4: Choose city "Stadt Augsburg" as your location, if you haven’t done so already. Try to find a job in the "Sprungbrett into work" offer. Also try the "Lehrstellenradar".
 
 Note: You need a stable internet connection.
 
-#### Did you find a job offer near Regensburg?
+#### Did you find a job offer near Regensburg? If not, please tell us what you did not like. If yes, tell us what could be improved.
 
-* [ ] Yes
-* [ ] No
+*Input box*
 
 ### UC5: Turn off your internet connection (WiFi + Data) and repeat usecases UC2-4.
 
@@ -66,7 +56,8 @@ Note: It is not a bug that the app shows you that it requires internet connectio
 
 *Input box*
 
-### Q1: How easy did you think it was to navigate yourself in the app? (1: Very easy/6: Very difficult)
+
+#### How easy did you think it was to find what you were looking for? (1: Very easy/6: Very difficult)
 
 * [ ] (Very Easy)
 * [ ] \-
@@ -75,15 +66,6 @@ Note: It is not a bug that the app shows you that it requires internet connectio
 * [ ] \-
 * [ ] (Very difficult)
 
-### Q2: How easy did you think it was to find what you were looking for? (1: Very easy/6: Very difficult)
-
-* [ ] (Very Easy)
-* [ ] \-
-* [ ] \-
-* [ ] \-
-* [ ] \-
-* [ ] (Very difficult)
-
-### Q3: Do you want to mention something about the app? Did anything disturb your experience with the app? What were the reasons for your rating in the past two questions?
+#### Do you want to mention something about the app? Did anything disturb your experience with the app? What were the reasons for your rating in the past question?
 
 *Input box*
