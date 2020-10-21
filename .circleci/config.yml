@@ -395,10 +395,10 @@ jobs:
             - restore_ruby_cache:
                 directory: native
             - run:
-                command: tools/parse-release-notes parse --android --destination native/android/fastlane/metadata/android/de-DE/changelogs/default.txt --language de --production
+                command: tools/parse-release-notes parse --android --destination native/android/fastlane/<< parameters.build_config_name >>/metadata/de-DE/changelogs/default.txt --language de --production
                 name: Parse german android release notes
             - run:
-                command: tools/parse-release-notes parse --android --destination native/android/fastlane/metadata/android/en-GB/changelogs/default.txt --language en --production && tools/parse-release-notes parse --android --destination native/android/fastlane/metadata/android/en-US/changelogs/default.txt --language en --production
+                command: tools/parse-release-notes parse --android --destination native/android/fastlane/<< parameters.build_config_name >>/metadata/en-GB/changelogs/default.txt --language en --production && tools/parse-release-notes parse --android --destination native/android/fastlane/<< parameters.build_config_name >>/metadata/en-US/changelogs/default.txt --language en --production
                 name: Parse english android release notes
             - run:
                 command: bundle exec fastlane android browserstack_upload_live apk_path:attached_workspace/<< parameters.build_config_name >>.apk
@@ -439,10 +439,10 @@ jobs:
             - restore_ruby_cache:
                 directory: native
             - run:
-                command: tools/parse-release-notes parse --ios --destination native/ios/fastlane/metadata/de-DE/release_notes.txt --language de --production
+                command: tools/parse-release-notes parse --ios --destination native/ios/fastlane/<< parameters.build_config_name >>/metadata/de-DE/release_notes.txt --language de --production
                 name: Parse german ios release notes
             - run:
-                command: tools/parse-release-notes parse --ios --destination native/ios/fastlane/metadata/en-US/release_notes.txt --language en --production
+                command: tools/parse-release-notes parse --ios --destination native/ios/fastlane/<< parameters.build_config_name >>/metadata/en-US/release_notes.txt --language en --production
                 name: Parse english ios release notes
             - run:
                 command: bundle exec fastlane ios browserstack_upload_live ipa_path:attached_workspace/<< parameters.build_config_name >>.ipa
