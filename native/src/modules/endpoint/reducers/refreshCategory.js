@@ -1,7 +1,7 @@
 // @flow
 
 import type { CategoryRouteStateType, CityContentStateType, PathType } from '../../app/StateType'
-import type { PushCategoryActionType, RefreshCategoryActionType } from '../../app/StoreActionType'
+import type { RefreshCategoryActionType } from '../../app/StoreActionType'
 import { CategoryModel, LanguageModel } from '@integreat-app/integreat-api-client'
 import forEachTreeNode from '../../common/forEachTreeNode'
 import ErrorCodes from '../../error/ErrorCodes'
@@ -84,7 +84,8 @@ const refreshCategory = (state: CityContentStateType, action: RefreshCategoryAct
   }
 
   // Update all open routes in the same city with the new content
-  Object.entries(state.categoriesRouteMapping).filter(([key, route]) => city === route.city && path !== route.path)
+  Object.entries(state.categoriesRouteMapping)
+    .filter(([key, route]) => city === route.city && path !== route.path && language === route.language)
     .forEach(([key, route]) => {
       const root: ?CategoryModel = categoriesMap.findCategoryByPath(route.path)
       const { resultModels, resultChildren } = extractResultModelsAndChildren(root, categoriesMap, depth)

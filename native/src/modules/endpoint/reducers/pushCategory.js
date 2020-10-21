@@ -49,8 +49,8 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
   // Check whether another page in the same city is loading, e.g. because it is being refreshed.
   // This is important for displaying the loading spinner.
   const otherPageLoading = Object.values(state.categoriesRouteMapping)
-    .filter(route => city === route.city && path !== route.path)
-    .some(route => current.status === 'loading')
+    .filter(route => city === route.city && path !== route.path && language === route.language)
+    .some(route => route.status === 'loading')
 
   const resultModels = {}
   const resultChildren = {}
