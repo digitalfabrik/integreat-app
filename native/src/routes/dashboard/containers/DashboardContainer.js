@@ -21,6 +21,7 @@ import createNavigateToInternalLink from '../../../modules/app/createNavigateToI
 import createNavigateToPoi from '../../../modules/app/createNavigateToPoi'
 import createNavigateToOffers from '../../../modules/app/createNavigateToOffers'
 import createNavigateToNews from '../../../modules/app/createNavigateToNews'
+import ErrorCodes from '../../../modules/error/ErrorCodes'
 
 type RefreshPropsType = {|
   cityCode: string,
@@ -72,15 +73,15 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     return { status: 'routeNotInitialized' }
   }
 
-  if (state.resourceCacheUrl === null || state.cities.status === 'loading' || switchingLanguage ||
-      route.status === 'loading' || languages.status === 'loading') {
-    return { status: 'loading' }
-  }
-
   if (route.status === 'languageNotAvailable') {
-    if (languages.status === 'error') {
+    if (languages.status === 'error' || languages.status === 'loading') {
       console.error('languageNotAvailable status impossible if languages not ready')
-      return { status: 'error', refreshProps: null, code: languages.code, message: languages.message }
+      return {
+        status: 'error',
+        refreshProps: null,
+        code: languages.code || ErrorCodes.UnknownError,
+        message: languages.message || 'languages not ready'
+      }
     }
     return {
       status: 'languageNotAvailable',
@@ -105,6 +106,11 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     return { status: 'error', refreshProps, message: route.message, code: route.code }
   } else if (languages.status === 'error') {
     return { status: 'error', message: languages.message, code: languages.code, refreshProps }
+  }
+
+  if (state.resourceCacheUrl === null || state.cities.status === 'loading' || switchingLanguage ||
+    route.status === 'loading' || languages.status === 'loading') {
+    return { status: 'loading' }
   }
 
   const cities = state.cities.models

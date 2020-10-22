@@ -15,6 +15,7 @@ import withTheme from '../../../modules/theme/hocs/withTheme'
 import { CityModel, EventModel } from '@integreat-app/integreat-api-client'
 import * as React from 'react'
 import createNavigateToInternalLink from '../../../modules/app/createNavigateToInternalLink'
+import ErrorCodes from '../../../modules/error/ErrorCodes'
 
 type ContainerPropsType = {|
   path: ?string,
@@ -61,15 +62,15 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     return { status: 'routeNotInitialized' }
   }
 
-  if (state.resourceCacheUrl === null || state.cities.status === 'loading' || switchingLanguage ||
-      route.status === 'loading' || languages.status === 'loading') {
-    return { status: 'loading' }
-  }
-
   if (route.status === 'languageNotAvailable') {
-    if (languages.status === 'error') {
+    if (languages.status === 'error' || languages.status === 'loading') {
       console.error('languageNotAvailable status impossible if languages not ready')
-      return { status: 'error', refreshProps: null, code: languages.code, message: languages.message }
+      return {
+        status: 'error',
+        refreshProps: null,
+        code: languages.code || ErrorCodes.UnknownError,
+        message: languages.message || 'languages not ready'
+      }
     }
     return {
       status: 'languageNotAvailable',
@@ -95,6 +96,12 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   } else if (languages.status === 'error') {
     return { status: 'error', message: languages.message, code: languages.code, refreshProps }
   }
+
+  if (state.resourceCacheUrl === null || state.cities.status === 'loading' || switchingLanguage ||
+    route.status === 'loading' || languages.status === 'loading') {
+    return { status: 'loading' }
+  }
+
   const cities = state.cities.models
 
   return {
