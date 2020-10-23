@@ -2,7 +2,7 @@
 
 ## What are build configs and which build configs are available?
 
-See the [general information on build configs](../../docs/build-configs.md)
+See the [general information on build configs](../../docs/build-configs.md).
 
 ## Using a Build Config
 
@@ -11,18 +11,18 @@ Therefore, the build config has to be defined when compiling the javascript bund
 
 ### Runtime (Javascript)
 
-For each build config there is a script in the [package.json](package.json) to ease the process of starting the packager:
+For each build config there is a script in the [package.json](../package.json) to ease the process of starting the packager:
 ```bash
 yarn start:<build config name>
 ```
 
 For the standard development build config `integreat-test-cms` there is also the shortcut `yarn start`.
 
-To access the values of the build config import [buildConfig.js](src/modules/app/constants/buildConfig.js).
+To access the values of the build config import [buildConfig.js](../src/modules/app/constants/buildConfig.js).
 
 ### Gradle (Android Build)
 
-For each build config there is a script in the [package.json](package.json) to ease the process of building and installing the app on android:
+For each build config there is a script in the [package.json](../package.json) to ease the process of building and installing the app on android:
 ```bash
 yarn android:<build config name>
 ```
@@ -33,7 +33,7 @@ To build `integreat` and `malte` in **production** mode, use the commands `yarn 
 
 ### XCode (iOS Build)
 
-To use a build config in XCode, select the corresponding xcscheme and hit run or archive as specified in the [manual builds doc](docs/manual-builds.md#ios).
+To use a build config in XCode, select the corresponding xcscheme and hit run or archive as specified in the [manual builds doc](manual-builds.md#ios).
 Before running the app, make sure to start the packager with the right build config as specified [above](#runtime-javascript)
 as the packager started by XCode does not select a build config per default.
 
@@ -48,11 +48,11 @@ whereas for XCode xcschemes are used as we don't have a bash command to build an
 
 ### Javascript
 
-To make the selected build config available in the javascript code, the [buildConfig module](build-configs/index.js)
+To make the selected build config available in the javascript code, the [buildConfig module](../build-configs/index.js)
 reads the environment variable and returns the corresponding javascript object.
 If the env is not set or not a valid name, an error is thrown. 
 
-To access the values of the build config use [this method](src/modules/app/constants/buildConfig.js).
+To access the values of the build config use [this method](../src/modules/app/constants/buildConfig.js).
 
 ### Native Containers
 
@@ -66,5 +66,5 @@ In Xcode the build configs are converted with a so called `Pre Action` which is 
 #### Gradle
 
 For Gradle the build configs are converted to .json files for better typing and error handling.
-In Gradle the logic behind this can be found [here](android/app/buildConfigs.gradle).
+In Gradle the logic behind this can be found [here](../android/app/buildConfigs.gradle).
 

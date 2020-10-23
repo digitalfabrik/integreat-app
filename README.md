@@ -27,8 +27,8 @@ If you want to know more about Integreat or if you want to join us, contact [Max
 
 This is a monorepo and contains the following projects:
 
-* **[web](web/README.md)**: React JS WebApp
-* **[native](native/README.md)**: React Native Android and iOS Apps
+* **[web](web/README.md)**: React JS webapp
+* **[native](native/README.md)**: React Native Android and iOS apps
 
 Both projects are whitelabelled with different [build configs](docs/build-configs.md).
     

@@ -19,9 +19,7 @@ Other team members you can contact are
 
 ## Pull requests
 
-**Testing with the live cms instance should be avoided. Instead, [please use the test cms](docs/technology-stack.md#test-cms).**
-
-Before starting to write code and opening a pull request, please take a look [at our conventions](docs/conventions.md).
+Before starting to write code and opening a pull request, please take a look [at our conventions](conventions.md).
 
 Pull requests should always belong to an [issue in our issue tracker](#bug-reporting).
 
@@ -46,8 +44,6 @@ The release notes can be found [here](release-notes) and [here](release-notes) a
 They are also shown in the stores and the [release section of github](https://github.com/Integreat/integreat-react-native-app/releases).
 
 ## Bug reporting
-
-**Testing with the live cms instance should be avoided. Instead, [please use the test cms](docs/technology-stack.md#test-cms).**
 
 You can [view our issues](https://issues.integreat-app.de/projects/NATIVE) or
 [create new ones](https://issues.integreat-app.de/secure/CreateIssue!default.jspa) on our jira.
