@@ -93,7 +93,10 @@ Things the AppTeam has to do and therefore probably create issues for.
     * Android
     * iOS
 * Add sentry flag
-* Create screenshots
+* Create screenshots with the following aspect ratios (for iOS):
+    * 1242 x 2208
+    * 1242 x 2688
+    * 2048 x 2732
 * Add to google search console
 * Translate and add locales
     * New languages
