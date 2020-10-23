@@ -1,6 +1,6 @@
 # integreat-app-native
 
-Android and iOS React Native App for [Integreat](integreat-app.de) and [Malte](https://www.malteser-werke.de/malte-app.html).
+Android and iOS React Native App for [Integreat](https://integreat-app.de) and [Malte](https://www.malteser-werke.de/malte-app.html).
 
 ## Contents
 

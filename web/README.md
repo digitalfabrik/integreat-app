@@ -1,11 +1,11 @@
 # integreat-app-web
 
-React JS WebApp for [Integreat](integreat-app.de) and [Malte](https://www.malteser-werke.de/malte-app.html).
+React JS WebApp for [Integreat](https://integreat-app.de) and [Malte](https://www.malteser-werke.de/malte-app.html).
 
 ## Contents
 
 * [Project Setup](#project-setup)
-* [Run the App](#running-the-app)
+* [Run the App](#run-the-app)
 * [Troubleshooting](#trouble-shooting)
 * [Build Configs](docs/build-configs.md)
 * [Technical Documentation](docs/technical-documentation.md)
