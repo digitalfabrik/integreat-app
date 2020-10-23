@@ -8,6 +8,7 @@ Android and iOS React Native App for [Integreat](integreat-app.de) and [Malte](h
 * [Run the App](#running-the-app)
 * [Debugging](docs/debugging.md)
 * [Troubleshooting](docs/troubleshooting.md)
+* [Build Configs](docs/build-configs.md)
 * [Technical Documentation](docs/technical-documentation.md)
 * [General Repository Documentation](../README.md)
 
@@ -43,9 +44,7 @@ Depending on whether you want to develop for Android, iOS or both the following 
 * [optional] Associate the *\*.snap* files with the file type *JavaScript*
 * [optional] Install the following plugins:
     * [Styled Components](https://plugins.jetbrains.com/plugin/9997-styled-components--styled-jsx/)
-    * [EJS](https://plugins.jetbrains.com/plugin/index?xmlId=com.jetbrains.lang.ejs) (for web)
     * [Ruby](https://plugins.jetbrains.com/plugin/1293-ruby) (if working with Fastlane)
-    
     
 ## Running the app
 
