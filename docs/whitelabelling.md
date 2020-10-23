@@ -35,11 +35,11 @@ Information necessary for the creation of a new build config.
 * (De)activated features: pois, news stream, push notifications, offers, ...
 * Fonts (Content, UI only at own risk)
 
-#### For Stores/WebApp
+#### For Stores/Webapp
 
 Information necessary for the setup of the store and webapp presences.
 
-* WebApp domain (DF or own?)
+* Webapp domain (DF or own?)
 * Apple app store:
     * DF account or own?
     * App title
