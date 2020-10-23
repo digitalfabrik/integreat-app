@@ -12,30 +12,32 @@
 
 ## Triggering a Delivery using the CI
 
-The easiest way to deliver a new build to production or development is to trigger the corresponding CircleCI workflow *triggered_production_delivery*:
+The easiest way to deliver a new build to production or development is to trigger the corresponding CircleCI workflows *triggered_native_development_delivery* and *triggered_production_delivery*:
 
 * Get a CircleCI [Personal API Token](https://circleci.com/docs/2.0/managing-pi-tokens/).
-* Trigger a delivery using the tool [trigger-pipeline.sh](.circleci/trigger-pipeline).
-If no branch is specified, main is used as default.
+* Trigger a delivery using the tool [trigger-pipeline](.circleci/trigger-pipeline).
+If no branch is specified, main is used as default. Per default the delivery is made to development
 * For more information on how to use it, execute it without parameters to see usage information.
 
 ## Workflows
 
 Several workflows exist for different purposes:
-* **commit**: Run for all commit of a PR to ensure good code quality and working code.
-* **scheduled_native_development_delivery**: Delivers 'integreat' and 'malte' native builds to development (Testflight and Beta channel)
-twice a month if no production build is delivered.
-* **scheduled_production_delivery**: Delivers 'integreat' and 'malte' builds to production.
-* **triggered_production_delivery**: [Manually triggerable](#triggering-a-delivery-using-the-ci) workflow which delivers 'integreat' and 'malte' builds for native and web to development or production.
+* **commit**: Run for all commits of PRs to ensure good code quality and working code. Delivers Integreat and Malte webapps on the main branch.
+* **scheduled_native_development_delivery**: Delivers Integreat and Malte native builds to development (Testflight and Beta channel)
+twice a month.
+* **triggered_native_development_delivery**: [Manually triggerable](#triggering-a-delivery-using-the-ci) workflow which delivers Integreat and Malte builds for native to development.
+* **scheduled_production_delivery**: Delivers Integreat and Malte native builds to production twice a month.
+* **triggered_production_delivery**: [Manually triggerable](#triggering-a-delivery-using-the-ci) workflow which delivers Integreat and Malte builds for native and web to production.
 
 See the table below for a more detailed overview:
 
-|Workflow|Checks|E2E tests|integreat build|malte build|Version bump|
-|---|---|---|---|---|---|
-|commit|:heavy_check_mark:|:heavy_check_mark:|:x:|:x:|:x:|
-|scheduled_native_production_delivery|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:
-|scheduled_production_delivery|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:
-|triggered_production_delivery|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:
+|Workflow|Checks|E2E tests|native delivery|web delivery|Version bump|Move release notes|
+|---|---|---|---|---|---|---|
+|commit|:heavy_check_mark:|:heavy_check_mark:|:x:|Only on main|:x:|:x:|
+|scheduled_native_development_delivery|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:x:|:heavy_check_mark:|:x:|
+|triggered_native_development_delivery|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:x:|:heavy_check_mark:|:x:|
+|scheduled_production_delivery|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
+|triggered_production_delivery|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
 
 Steps executed if *Checks* is checked :heavy_check_mark::
 * Linting
@@ -55,7 +57,7 @@ Steps executed if *Version bump* is checked :heavy_check_mark::
 `deliverino` is a GitHub App and can be accessed and installed [here](https://github.com/apps/deliverino). This bot bumps the version of the app when a new release is delivered.
 A private key in PEM format grants access to the bot. If the `deliverino` is installed for a specific repository then it has access to create commits there.
 
-**`deliverino` has the role of an Administrator. This is important when setting up ["Protected branches"](https://help.github.com/en/github/administering-a-repository/about-branch-restrictions) in GitHub. You have to disable "Include Administrators", else `deliverino` is not allowed to directly commit to the protected branch.**
+**`deliverino` has the role of an Administrator. This is important when setting up [Protected branches](https://help.github.com/en/github/administering-a-repository/about-branch-restrictions) in GitHub. You have to disable "Include Administrators", else `deliverino` is not allowed to directly commit to the protected branch.**
 
 ### deliverino (Slack)
 
@@ -121,14 +123,14 @@ Fastlane is a task-runner for triggering build relevant tasks. It offers integra
 Lanes for Android live in `./android/fastlane` and for iOS in `./ios/fastlane`. Shared lanes are in `./fastlane`.
 
 An overview about FL lanes is available in several documents:
-* [General](../fastlane/README.md#available-actions) - Responsible for delivering and uploading artifacts.
-* [Android](../android/fastlane/README.md#available-actions) - Responsible for setting up the signing keys and building the Android app.
-* [iOS](../ios/fastlane/README.md#available-actions) - Responsible for setting up the certificates and building the iOS app.
+* [General](../native/fastlane/README.md#available-actions) - Responsible for delivering and uploading artifacts.
+* [Android](../native/android/fastlane/README.md#available-actions) - Responsible for setting up the signing keys and building the Android app.
+* [iOS](../native/ios/fastlane/README.md#available-actions) - Responsible for setting up the certificates and building the iOS app.
 
 ## Apple Certificates and Android Keystore
 
 Fastlane is used to setup certificates and keystores. The detailed steps of the CI/CD pipeline are the same as those when manually building the app.
-Therefore, you can follow the documentation for Manual Builds to set up [certificates for iOS](docs/manual-builds.md#certificates-setup) and [keystores for android](docs/manual-builds.md#keystore-setup).
+Therefore, you can follow the documentation for Manual Builds to set up [certificates for iOS](../native/docs/manual-builds.md#certificates-setup) and [keystores for android](../native/docs/manual-builds.md#keystore-setup).
 
 ## Determining the Next Version
 
