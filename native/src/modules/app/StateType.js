@@ -100,7 +100,9 @@ export type EventRouteStateType = {|
   +allAvailableLanguages: $ReadOnlyMap<string, ?string>
 |} | {|
   +status: 'loading',
-  ...EventRouteConfigType
+  ...EventRouteConfigType,
+  +models: ?$ReadOnlyArray<EventModel>,
+  +allAvailableLanguages: ?$ReadOnlyMap<string, ?string> // including the current content language
 |} | {|
   +status: 'error',
   ...EventRouteConfigType,

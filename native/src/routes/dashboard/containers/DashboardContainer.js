@@ -61,9 +61,8 @@ const createChangeUnavailableLanguage = (city: string, t: TFunction) =>
     })
   }
 
-const routeHasOldContent = (route: CategoryRouteStateType): boolean => {
-  return route.models && route.allAvailableLanguages && route.children
-}
+const routeHasOldContent = (route: CategoryRouteStateType): boolean =>
+  route.models && route.allAvailableLanguages && route.children
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const { t, navigation } = ownProps
