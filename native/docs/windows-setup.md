@@ -1,6 +1,8 @@
 # Windows Setup
 
-Since we noticed some issues with the usage of windows which can be happened, here a small setup guide
+Since we noticed some issues with the usage of windows which can be happened, here a small setup guide.
+
+*Note: This guide may be outdated. You may want to use the [Windows Subsystem for Linux](../../docs/wsl-setup.md) instead.*
 
 ## Setup of Development Tools
 

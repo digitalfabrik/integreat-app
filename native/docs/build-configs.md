@@ -37,7 +37,7 @@ To use a build config in XCode, select the corresponding xcscheme and hit run or
 Before running the app, make sure to start the packager with the right build config as specified [above](#runtime-javascript)
 as the packager started by XCode does not select a build config per default.
 
-Not doing this will lead to [this error](docs/troubleshooting.md#no-build_config_name-supplied).
+Not doing this will lead to [this error](troubleshooting.md#no-build_config_name-supplied).
 
 ## Technical Information
 

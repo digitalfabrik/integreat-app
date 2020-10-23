@@ -2,7 +2,6 @@
 
 ## Content
 
-* [Glossary](https://wiki.integreat-app.de/glossary)
 * [Technology stack](#technology-stack)
 * [Persistence](docs/persistence.md)
 * [UI/UX](docs/ui-ux.md)

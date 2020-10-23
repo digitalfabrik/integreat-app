@@ -1,3 +1,5 @@
+TODO IGAPP-334
+
 # Debugging
 
 For debugging install [react-native-debugger](https://github.com/jhen0409/react-native-debugger) or use the IntelliJ
