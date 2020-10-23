@@ -1,7 +1,7 @@
 # Manually Running and Building the App
 
 If you want to run the app locally or create `.ipa` or `.apk` builds for testing purposes you can follow this guide.
-If you only want to quickly push an update to the stores then take a look at the [CI/CD documentation](../../docs/cicd.md#triggering-a-build-in-ci).
+If you only want to quickly push an update to the stores then take a look at the [CI/CD documentation](../../docs/cicd.md#triggering-a-delivery-using-the-ci).
 
 ## Contents
 

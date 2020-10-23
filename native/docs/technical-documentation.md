@@ -3,11 +3,11 @@
 ## Content
 
 * [Technology stack](#technology-stack)
-* [Persistence](docs/persistence.md)
-* [UI/UX](docs/ui-ux.md)
-* [I18n](docs/i18n.md)
-* [Error reporting](docs/error-reporting.md)
-* [React Native Upgrades](docs/react-native-upgrades.md)
+* [Persistence](persistence.md)
+* [UI/UX](ui-ux.md)
+* [I18n](i18n.md)
+* [Error reporting](error-reporting.md)
+* [React Native Upgrades](react-native-upgrades.md)
 
 ## Technology Stack
 
@@ -31,8 +31,8 @@ The data which is received through the restful api of the CMS is "cached" and st
 
 ### Testing
 
-* [Unit/Integration Testing](docs/testing.md)
-* [E2E Testing](docs/e2e-testing.md)
+* [Unit/Integration Testing](testing.md)
+* [E2E Testing](e2e-testing.md)
 
 #### Test CMS
 
