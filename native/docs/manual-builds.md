@@ -24,8 +24,8 @@ If you only want to quickly push an update to the stores then take a look at the
 #### Prerequisites
 
 * Install and setup XCode.
-* [Install and setup Fastlane](docs/cicd.md#fastlane-setup).
-* Read about [Apple Certificates](docs/apple-certifcates.md).
+* [Install and setup Fastlane](../../docs/cicd.md#fastlane-setup).
+* Read about [Apple Certificates](apple-certifcates.md).
 
 #### Certificates Setup
 
@@ -150,7 +150,7 @@ export CREDENTIALS_KEYSTORE_PATH=/tmp/credentials/<secret>.enc
 export KEYSTORE_PATH=/tmp/keystore.jks
 ```
 
-More information about the necessary environment variables can be found [here](docs/cicd.md#environment-variables-and-dependencies).
+More information about the necessary environment variables can be found [here](../../docs/cicd.md#environment-variables-and-dependencies).
 
 * Setup the production JKS:
 ```bash
@@ -164,7 +164,7 @@ export KEYSTORE_PASSWORD=<secret>
 export KEYSTORE_KEY_PASSWORD=<secret>
 ```
 
-More information about the necessary environment variables can be found [here](docs/cicd.md#environment-variables-and-dependencies).
+More information about the necessary environment variables can be found [here](../../docs/cicd.md#environment-variables-and-dependencies).
 
 #### Build the App
 
