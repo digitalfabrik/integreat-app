@@ -9,7 +9,7 @@ We use the concept of build configs to build different versions of the app. A bu
 
 ## Available Build Configs
 
-* **integreat**: Build config for [Integreat](integreat-app.de).
+* **integreat**: Build config for [Integreat](https://integreat-app.de).
 * **malte**: Build config for the [Malte](https://www.malteser-werke.de/malte-app.html).
 * **integreat-test-cms**: Build config for development using the test cms and with additional features enabled.
 * **integreat-e2e**: Build config for [E2E-Tests](../native/docs/e2e-testing.md), primarily used in the [CI](cicd.md).

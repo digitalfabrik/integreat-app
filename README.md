@@ -3,7 +3,7 @@ versioning: ![versioning](https://img.shields.io/badge/calver-YYYY.MM.PATCH-22bf
 
 # integreat-app
 
-React JS and React Native App for [Integreat](integreat-app.de) and [Malte](https://www.malteser-werke.de/malte-app.html).
+React JS and React Native App for [Integreat](https://integreat-app.de) and [Malte](https://www.malteser-werke.de/malte-app.html).
 
 ## Contents
 
