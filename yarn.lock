@@ -13826,10 +13826,10 @@ react-native-ratings@^6.3.0:
     lodash "^4.17.4"
     prop-types "^15.5.10"
 
-react-native-render-html@^4.2.0:
-  version "4.2.4"
-  resolved "https://registry.yarnpkg.com/react-native-render-html/-/react-native-render-html-4.2.4.tgz#0b642fb72aee5935bd1cfc427a115ffdf881d522"
-  integrity sha512-OiLItEzKgS7dzD9XI5bHhjcUEfpWdzH1FgexzjbBdICPfYjmmcefpcRmLZY1+HMfxJ7wL8iF1PzTF48LchGTBA==
+react-native-render-html@^5.0.0-alpha.1:
+  version "5.0.0-alpha.2"
+  resolved "https://registry.yarnpkg.com/react-native-render-html/-/react-native-render-html-5.0.0-alpha.2.tgz#180907d71432ddd955ca5002f8fb0221736a6433"
+  integrity sha512-MMaoF5HOr+hHwLprI5ehQNKl4Em0p2uU2I1rQRfAPP2Cp7FvxzrBUdPlwLMJdkeA1YJq+e0I82Wpw5TMCEd5Rw==
   dependencies:
     buffer "^4.5.1"
     events "^1.1.0"
