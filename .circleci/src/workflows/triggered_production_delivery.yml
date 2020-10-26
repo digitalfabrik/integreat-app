@@ -83,29 +83,29 @@ jobs:
         - e2e_android
         - build_integreat_android
 
-  #  - build_android:
-  #      name: build_malte_android
-  #      build_config_name: malte
-  #      context:
-  #        - slack-app
-  #        - tuerantuer-google-play
-  #        - tuerantuer-android
-  #      requires:
-  #        - bump_version
-  #  - deliver_android:
-  #      name: deliver_malte_android
-  #      build_config_name: malte
-  #      context:
-  #        - slack-app
-  #        - sentry
-  #        - browserstack
-  #        - tuerantuer-google-play
-  #        - tuerantuer-android
-  #      production_delivery: true
-  #      requires:
-  #        - check_native
-  #        - e2e_android
-  #        - build_malte_android
+  - build_android:
+      name: build_malte_android
+      build_config_name: malte
+      context:
+        - slack-app
+        - tuerantuer-google-play
+        - tuerantuer-android
+      requires:
+        - bump_version
+  - deliver_android:
+      name: deliver_malte_android
+      build_config_name: malte
+      context:
+        - slack-app
+        - sentry
+        - browserstack
+        - tuerantuer-google-play
+        - tuerantuer-android
+      production_delivery: true
+      requires:
+        - check_native
+        - e2e_android
+        - build_malte_android
 
   - notify_android:
       context:
@@ -114,7 +114,7 @@ jobs:
       production_delivery: true
       requires:
         - deliver_integreat_android
-  #        - deliver_malte_android
+        - deliver_malte_android
 
   - build_ios:
       name: build_e2e_ios
@@ -156,29 +156,29 @@ jobs:
         - e2e_ios
         - build_integreat_ios
 
-  #  - build_ios:
-  #      name: build_malte_ios
-  #      build_config_name: malte
-  #      context:
-  #        - slack-app
-  #        - tuerantuer-apple
-  #        - tuerantuer-ios
-  #      requires:
-  #        - bump_version
-  #  - deliver_ios:
-  #      name: deliver_malte_ios
-  #      build_config_name: malte
-  #      context:
-  #        - slack-app
-  #        - sentry
-  #        - browserstack
-  #        - tuerantuer-apple
-  #        - tuerantuer-ios
-  #      production_delivery: true
-  #      requires:
-  #        - check_native
-  #        - e2e_ios
-  #        - build_malte_ios
+  - build_ios:
+      name: build_malte_ios
+      build_config_name: malte
+      context:
+        - slack-app
+        - tuerantuer-apple
+        - tuerantuer-ios
+      requires:
+        - bump_version
+  - deliver_ios:
+      name: deliver_malte_ios
+      build_config_name: malte
+      context:
+        - slack-app
+        - sentry
+        - browserstack
+        - tuerantuer-apple
+        - tuerantuer-ios
+      production_delivery: true
+      requires:
+        - check_native
+        - e2e_ios
+        - build_malte_ios
 
   - notify_ios:
       context:
@@ -187,7 +187,7 @@ jobs:
       production_delivery: true
       requires:
         - deliver_integreat_ios
-  #        - deliver_malte_ios
+        - deliver_malte_ios
 
   - move_release_notes:
       context:
