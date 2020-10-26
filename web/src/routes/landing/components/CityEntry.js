@@ -61,7 +61,7 @@ class CityEntry extends React.PureComponent<PropsType> {
             aliases.slice(0, MAX_NUMBER_OF_ALIASES).map((alias, index) => (
               <>
                 <AliasItem key={alias} aria-label={alias} searchWords={[filterText]} sanitize={normalizeSearchString}
-                           textToHighlight={alias}
+                           textToHighlight={alias} autoEscape
                            highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }} />
                 {index !== aliases.length - 1 && <span>, </span>}
               </>
