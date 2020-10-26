@@ -1,7 +1,7 @@
 // @flow
 
 import type { Saga } from 'redux-saga'
-import { all, call, put, takeLatest } from 'redux-saga/effects'
+import { all, call, put, takeLatest, spawn } from 'redux-saga/effects'
 import type {
   MorphContentLanguageActionType,
   SetContentLanguageActionType,
@@ -15,6 +15,7 @@ import AppSettings from '../../settings/AppSettings'
 import { Alert } from 'react-native'
 import * as NotificationsManager from '../../push-notifications/PushNotificationsManager'
 import buildConfig from '../../app/constants/buildConfig'
+import type { SettingsType } from '../../settings/AppSettings'
 
 export function * switchContentLanguage (
   dataContainer: DataContainer,
@@ -43,17 +44,11 @@ export function * switchContentLanguage (
     ])
 
     const appSettings = new AppSettings()
+    const { selectedCity, contentLanguage, allowPushNotifications }: SettingsType = yield call(appSettings.loadSettings)
 
     // Unsubscribe from prev. city notifications
-    const previousSelectedCity = yield call(appSettings.loadSelectedCity)
-    const previousContentLanguage = yield call(appSettings.loadContentLanguage)
-    if (previousContentLanguage !== newLanguage) {
-      yield call(
-        NotificationsManager.unsubscribeNews,
-        previousSelectedCity,
-        previousContentLanguage,
-        buildConfig().featureFlags
-      )
+    if (contentLanguage !== newLanguage && allowPushNotifications && contentLanguage && selectedCity) {
+      yield spawn(NotificationsManager.unsubscribeNews, selectedCity, contentLanguage, buildConfig().featureFlags)
     }
 
     // Only set new language after fetch succeeded
