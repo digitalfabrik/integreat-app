@@ -76,13 +76,18 @@ class CityEntry extends React.PureComponent<PropType> {
       <CityListItem onPress={this.navigateToDashboard}
                     underlayColor={theme.colors.backgroundAccentColor}>
         <Labels>
-          <Label theme={theme} searchWords={[filterText]} textToHighlight={city.name} sanitize={normalizeSearchString}
+          <Label theme={theme}
+                 searchWords={[filterText]}
+                 autoEscape
+                 textToHighlight={city.name}
+                 sanitize={normalizeSearchString}
                  highlightStyle={{ fontWeight: 'bold' }} />
           {aliases.length > 0 && <Aliases>
             {aliases.map(
               (alias, index) => <React.Fragment key={alias}>
                 <AliasLabel theme={theme} searchWords={[filterText]}
                             textToHighlight={alias}
+                            autoEscape
                             sanitize={normalizeSearchString}
                             highlightStyle={{ fontWeight: 'bold' }} />
                 {index !== aliases.length - 1 && <>
