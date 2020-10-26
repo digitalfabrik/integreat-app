@@ -54,7 +54,7 @@ class CityEntry extends React.PureComponent<PropsType> {
     return (
       <CityListItem to={new CategoriesRouteConfig().getRoutePath({ city: city.code, language })}>
         <Highlighter searchWords={[filterText]} sanitize={normalizeSearchString} aria-label={city.name}
-                     textToHighlight={city.name}
+                     textToHighlight={city.name} autoEscape
                      highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }} />
         <div style={{ margin: '0 5px', fontSize: '12px' }}>
           {
