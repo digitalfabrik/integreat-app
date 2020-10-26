@@ -16,7 +16,7 @@ The easiest way to deliver a new build to production or development is to trigge
 
 * Get a CircleCI [Personal API Token](https://circleci.com/docs/2.0/managing-pi-tokens/).
 * Trigger a delivery using the tool [trigger-pipeline](.circleci/trigger-pipeline).
-If no branch is specified, main is used as default. Per default the delivery is made to development
+If no branch is specified, main is used as default. Per default the delivery is set to development
 * For more information on how to use it, execute it without parameters to see usage information.
 
 ## Workflows
