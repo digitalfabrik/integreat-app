@@ -27,4 +27,4 @@ See the corresponding sections for [native](../native/docs/build-configs.md#tech
 
 ## Whitelabelling
 
-If you want to add more build configs in order to create a new whitelabelled app, have a look at the [whitellabelling docu](whitelabelling.md).
+If you want to add more build configs in order to create a new whitelabelled app, have a look at the [whitelabelling docu](whitelabelling.md).
