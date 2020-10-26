@@ -1299,7 +1299,8 @@ workflows:
                     - deliverino
                 production_delivery: true
                 requires:
-                    - deliver_integreat_android - deliver_malte_android
+                    - deliver_integreat_android
+                    - deliver_malte_android
             - build_ios:
                 build_config_name: integreat-e2e
                 context:

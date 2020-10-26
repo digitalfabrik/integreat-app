@@ -114,7 +114,7 @@ jobs:
       production_delivery: true
       requires:
         - deliver_integreat_android
-          - deliver_malte_android
+        - deliver_malte_android
 
   - build_ios:
       name: build_e2e_ios
