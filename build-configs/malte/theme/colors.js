@@ -1,7 +1,7 @@
 // @flow
 
-import { commonLightColors, commonDarkColors } from '../../common/colors'
-import type { ColorsType } from '../../common/colors'
+import { commonLightColors, commonDarkColors } from '../../common/theme/colors'
+import type { ColorsType } from '../../common/theme/colors'
 
 const themeColor = '#ff0000'
 

@@ -6,8 +6,10 @@ export type FontsType = {|
   decorativeFontRegular: string,
   decorativeFontSize: string,
   decorativeLineHeight: number,
+  decorativeFontFamily: string,
   contentFontRegular: string,
   contentFontBold: string,
+  contentFontFamily: string,
   arabicWebviewFontFamilies: string, // used for 'ar', 'fa' and 'ku'
   webviewFontFamilies: string, // used for all other languages
   contentFontSize: string,
