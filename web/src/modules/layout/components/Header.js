@@ -110,7 +110,7 @@ export class Header extends React.PureComponent<PropsType> {
     const {
       theme, viewportSmall, onStickyTopChanged, actionItems, logoHref, navigationItems, platform, cityName
     } = this.props
-    const { headerHeightSmall, headerHeightLarge } = theme.dimensions
+    const { headerHeightSmall, headerHeightLarge } = theme.dimensions.web
     const hasNavigationBar = navigationItems.length > 0
     const height = viewportSmall
       ? (1 + (hasNavigationBar ? 1 : 0)) * headerHeightSmall + (cityName ? HEADER_TITLE_HEIGHT : 0)
