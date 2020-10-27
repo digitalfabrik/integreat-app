@@ -1,8 +1,8 @@
 // @flow
 
-import { darkTheme, lightTheme } from '../../../../../../build-configs/integreat/theme'
-import { INTEGREAT_ASSETS } from '../../../../../../build-configs/AssetsType'
-import type { BuildConfigType } from '../buildConfig'
+import { darkTheme, lightTheme } from 'build-configs/integreat/theme'
+import type { BuildConfigType } from 'build-configs/BuildConfigType'
+import { INTEGREAT_ASSETS } from 'build-configs/AssetsType'
 
 export const buildConfigIconSet = (): {| appLogo: string, locationMarker: string |} => {
   throw new Error('Mock not yet implemented!')
