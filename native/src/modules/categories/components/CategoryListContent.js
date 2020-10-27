@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { Linking, Dimensions, View, Text } from 'react-native'
+import { type DisplayMetrics } from 'react-native/Libraries/Utilities/NativeDeviceInfo'
 import Html, { GestureResponderEvent, type HTMLNode, type RendererFunction } from 'react-native-render-html'
 import { _constructStyles } from 'react-native-render-html/src/HTMLStyles'
 import styled from 'styled-components/native'
@@ -15,9 +16,12 @@ import { RTL_LANGUAGES } from '../../i18n/constants'
 const VerticalPadding: StyledComponent<{}, {}, *> = styled.View`
   padding: 0 20px;
 `
-type WindowEventType = {
-  window: {width: number,
-  height: number}
+
+// type inferred from 'react-native/Libraries/Utilities/Dimensions'
+type DimensionsEventType = {
+  window?: DisplayMetrics,
+  screen?: DisplayMetrics,
+  ...
 }
 
 type ContentPropsType = {|
@@ -32,7 +36,7 @@ type ContentPropsType = {|
 
 const HIJACK = new RegExp(buildConfig().internalLinksHijackPattern)
 
-class CategoryListContent extends React.Component<ContentPropsType, {width: number}> {
+class CategoryListContent extends React.Component<ContentPropsType, {| width: number |}> {
   constructor () {
     super()
     this.state = {
@@ -40,8 +44,9 @@ class CategoryListContent extends React.Component<ContentPropsType, {width: numb
     }
   }
 
-  onChange = ({ window: { width } }: WindowEventType) => {
-    this.setState({ width: width })
+  onChange = (dimensionsEvent: DimensionsEventType) => {
+    const defaultWidth = 200
+    this.setState({ width: (dimensionsEvent.window?.width || dimensionsEvent.screen?.width || defaultWidth) })
   };
 
   componentDidMount () {
@@ -95,7 +100,7 @@ class CategoryListContent extends React.Component<ContentPropsType, {width: numb
 
   // see https://github.com/archriss/react-native-render-html/issues/286
   renderBulletLists: RendererFunction = (htmlAttribs, children, convertedCSSStyles, passProps) => {
-    const { language } = this.props
+    const { language, theme } = this.props
     const style = _constructStyles({
       tagName: 'ul',
       htmlAttribs,
@@ -116,39 +121,42 @@ class CategoryListContent extends React.Component<ContentPropsType, {width: numb
           index
         }
       ]
-      const rtlMargin = 10
+      const textDistanceToBullet = 10
+      const rtlListIndent = 20
       const bulletSizeRelativeToFont = 2.8
       if (rawChild) {
         if (rawChild.parentTag === 'ul' && rawChild.tagName === 'li') {
           prefix = listsPrefixesRenderers && listsPrefixesRenderers.ul ? listsPrefixesRenderers.ul(...rendererArgs) : (
             <View style={{
-              marginRight: 10,
+              marginRight: RTL_LANGUAGES.includes(language) ? rtlListIndent : textDistanceToBullet,
               width: baseFontSize / bulletSizeRelativeToFont,
               height: baseFontSize / bulletSizeRelativeToFont,
               marginTop: baseFontSize / 2,
               borderRadius: baseFontSize / bulletSizeRelativeToFont,
-              backgroundColor: 'black',
-              marginLeft: RTL_LANGUAGES.includes(language) ? rtlMargin : 0
+              backgroundColor: theme.colors.textColor,
+              marginLeft: RTL_LANGUAGES.includes(language) ? textDistanceToBullet : 0
             }} />
           )
         } else if (rawChild.parentTag === 'ol' && rawChild.tagName === 'li') {
           prefix = listsPrefixesRenderers && listsPrefixesRenderers.ol ? listsPrefixesRenderers.ol(...rendererArgs) : (
             <Text allowFontScaling={allowFontScaling} style={{
-              marginRight: 5,
-              fontSize: baseFontSize,
-              marginLeft: RTL_LANGUAGES.includes(language) ? rtlMargin : 0
-}}>{index + 1})</Text>
+                fontSize: baseFontSize,
+                marginRight: RTL_LANGUAGES.includes(language) ? rtlListIndent : textDistanceToBullet,
+                marginLeft: RTL_LANGUAGES.includes(language) ? textDistanceToBullet : 0
+              }}>
+              {index + 1}
+            </Text>
           )
         }
       }
       return (
         RTL_LANGUAGES.includes(language) ? (
-          <View key={`list-${nodeIndex}-${index}-${key}`} style={{ flexDirection: 'row', marginBottom: 10 }}>
+          <View key={`list-${nodeIndex}-${index}-${key}`} style={{ flexDirection: 'row' }}>
             <View style={{ flex: 1 }}>{child}</View>
             {prefix}
           </View>
         ) : (
-          <View key={`list-${nodeIndex}-${index}-${key}`} style={{ flexDirection: 'row', marginBottom: 10 }}>
+          <View key={`list-${nodeIndex}-${index}-${key}`} style={{ flexDirection: 'row' }}>
             {prefix}
             <View style={{ flex: 1 }}>{child}</View>
           </View>
