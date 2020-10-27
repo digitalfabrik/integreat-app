@@ -34,6 +34,7 @@ node_modules/warning/.*
 .*/node_modules/react-navigation-header-buttons/.*
 
 [include]
+../build-configs/.*
 
 [libs]
 node_modules/react-native/interface.js
