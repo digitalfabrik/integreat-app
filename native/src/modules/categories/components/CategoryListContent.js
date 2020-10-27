@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react'
-import { Linking, Dimensions, View, Text } from 'react-native'
+import { Dimensions, Text, View } from 'react-native'
 import { type DisplayMetrics } from 'react-native/Libraries/Utilities/NativeDeviceInfo'
 import Html, { GestureResponderEvent, type HTMLNode, type RendererFunction } from 'react-native-render-html'
 import { _constructStyles } from 'react-native-render-html/src/HTMLStyles'
@@ -9,9 +9,9 @@ import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
 import type { NavigationStackProp } from 'react-navigation-stack'
 import type { NavigateToInternalLinkParamsType } from '../../app/createNavigateToInternalLink'
-import buildConfig from '../../app/constants/buildConfig'
 import type { ThemeType } from '../../../../build-configs/ThemeType'
 import { RTL_LANGUAGES } from '../../i18n/constants'
+import onLinkPress from '../../common/onLinkPress'
 
 const VerticalPadding: StyledComponent<{}, {}, *> = styled.View`
   padding: 0 20px;
@@ -29,12 +29,10 @@ type ContentPropsType = {|
   navigation: NavigationStackProp<*>,
   resourceCacheUrl: string,
   navigateToInternalLink?: NavigateToInternalLinkParamsType => void,
-  cacheDictionary: {[string]: string},
+  cacheDictionary: { [string]: string },
   language: string,
   theme: ThemeType
 |}
-
-const HIJACK = new RegExp(buildConfig().internalLinksHijackPattern)
 
 class CategoryListContent extends React.Component<ContentPropsType, {| width: number |}> {
   constructor () {
@@ -47,7 +45,7 @@ class CategoryListContent extends React.Component<ContentPropsType, {| width: nu
   onChange = (dimensionsEvent: DimensionsEventType) => {
     const defaultWidth = 200
     this.setState({ width: (dimensionsEvent.window?.width || dimensionsEvent.screen?.width || defaultWidth) })
-  };
+  }
 
   componentDidMount () {
     Dimensions.addEventListener('change', this.onChange)
@@ -59,31 +57,21 @@ class CategoryListContent extends React.Component<ContentPropsType, {| width: nu
 
   onLinkPress = (evt: GestureResponderEvent, url: string) => {
     const { language, navigation, navigateToInternalLink } = this.props
-
-    console.log(url)
-    if (url.includes('.pdf')) {
-      navigation.navigate('PDFViewModal', { url })
-    } else if (url.includes('.png') || url.includes('.jpg')) {
-      navigation.navigate('ImageViewModal', { url })
-    } else if (navigateToInternalLink && HIJACK.test(url)) {
-      navigateToInternalLink({
-        url,
-        language
-      })
-    } else {
-      Linking.openURL(url).catch(err => console.error('An error occurred', err))
-    }
+    onLinkPress(url, navigation, language, navigateToInternalLink)
   }
 
   alterResources = (node: HTMLNode) => {
     const { cacheDictionary } = this.props
-    if (node.attribs && cacheDictionary) {
+    if (node.attribs) {
       if (node.attribs.href) {
         console.debug(`Found href: ${decodeURI(node.attribs.href)}`)
         const newResource = cacheDictionary[decodeURI(node.attribs.href)]
         if (newResource) {
           console.debug(`Replaced ${node.attribs.href} with ${newResource}`)
-          node.attribs = { ...(node.attribs || {}), href: newResource }
+          node.attribs = {
+            ...(node.attribs || {}),
+            href: newResource
+          }
           return node
         }
       } else if (node.attribs.src) {
@@ -91,7 +79,10 @@ class CategoryListContent extends React.Component<ContentPropsType, {| width: nu
         const newResource = cacheDictionary[decodeURI(node.attribs.src)]
         if (newResource) {
           console.debug(`Replaced ${node.attribs.src} with ${newResource}`)
-          node.attribs = { ...(node.attribs || {}), src: newResource }
+          node.attribs = {
+            ...(node.attribs || {}),
+            src: newResource
+          }
           return node
         }
       }
@@ -124,26 +115,27 @@ class CategoryListContent extends React.Component<ContentPropsType, {| width: nu
       const textDistanceToBullet = 10
       const rtlListIndent = 20
       const bulletSizeRelativeToFont = 2.8
+      const bulletAlignmentRelativeToFont = 2
       if (rawChild) {
         if (rawChild.parentTag === 'ul' && rawChild.tagName === 'li') {
           prefix = listsPrefixesRenderers && listsPrefixesRenderers.ul ? listsPrefixesRenderers.ul(...rendererArgs) : (
             <View style={{
-              marginRight: RTL_LANGUAGES.includes(language) ? rtlListIndent : textDistanceToBullet,
               width: baseFontSize / bulletSizeRelativeToFont,
               height: baseFontSize / bulletSizeRelativeToFont,
-              marginTop: baseFontSize / 2,
               borderRadius: baseFontSize / bulletSizeRelativeToFont,
-              backgroundColor: theme.colors.textColor,
-              marginLeft: RTL_LANGUAGES.includes(language) ? textDistanceToBullet : 0
+              marginRight: RTL_LANGUAGES.includes(language) ? rtlListIndent : textDistanceToBullet,
+              marginLeft: RTL_LANGUAGES.includes(language) ? textDistanceToBullet : 0,
+              marginTop: baseFontSize / bulletAlignmentRelativeToFont,
+              backgroundColor: theme.colors.textColor
             }} />
           )
         } else if (rawChild.parentTag === 'ol' && rawChild.tagName === 'li') {
           prefix = listsPrefixesRenderers && listsPrefixesRenderers.ol ? listsPrefixesRenderers.ol(...rendererArgs) : (
             <Text allowFontScaling={allowFontScaling} style={{
-                fontSize: baseFontSize,
-                marginRight: RTL_LANGUAGES.includes(language) ? rtlListIndent : textDistanceToBullet,
-                marginLeft: RTL_LANGUAGES.includes(language) ? textDistanceToBullet : 0
-              }}>
+              fontSize: baseFontSize,
+              marginRight: RTL_LANGUAGES.includes(language) ? rtlListIndent : textDistanceToBullet,
+              marginLeft: RTL_LANGUAGES.includes(language) ? textDistanceToBullet : 0
+            }}>
               {index + 1}
             </Text>
           )
