@@ -26,7 +26,7 @@ const HorizontalLeft = styled.View`
 
 const BoxShadow: StyledComponent<{float: boolean}, ThemeType, *> = styled.View`
   background-color: ${props => props.float ? 'transparent' : props.theme.colors.backgroundColor};
-  height: ${props => props.theme.dimensions.modalHeaderHeight}px;
+  height: ${props => props.theme.dimensions.native.modalHeaderHeight}px;
   ${props => props.float
     ? `position: absolute;
     z-index: 100;

@@ -67,7 +67,7 @@ const IntegreatBuildConfig: BuildConfigType = {
     headerLogo: '/integreat-app-logo.png'
   },
   splashScreen: {
-    backgroundColor: integreatTheme.colors.themeColor,
+    backgroundColor: lightTheme.colors.themeColor,
     imageUrl: '/progressive-logo.jpg'
   }
 }
