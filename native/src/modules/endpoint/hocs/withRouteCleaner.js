@@ -2,9 +2,7 @@
 
 import * as React from 'react'
 import type { NavigationStackProp } from 'react-navigation-stack'
-import type {
-  NavigationComponent
-} from 'react-navigation'
+import type { NavigationComponent } from 'react-navigation'
 /**
  * This hoc removes routes from the state when unmounting
  *
