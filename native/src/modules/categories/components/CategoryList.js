@@ -66,12 +66,12 @@ class CategoryList extends React.Component<PropsType> {
         : file.filePath
     })
     return <CategoryListContent content={listContent.content}
-                         language={language}
-                         navigation={listContent.navigation}
-                         navigateToInternalLink={listContent.navigateToInternalLink}
-                         resourceCacheUrl={listContent.resourceCacheUrl}
-                         cacheDictionary={cacheDictionary}
-                         theme={theme} />
+                                language={language}
+                                navigation={listContent.navigation}
+                                navigateToInternalLink={listContent.navigateToInternalLink}
+                                resourceCacheUrl={listContent.resourceCacheUrl}
+                                cacheDictionary={cacheDictionary}
+                                theme={theme} />
   }
 
   render () {
