@@ -37,7 +37,7 @@ export type ListContentModelType = {|
 type PropsType = {|
   categories: Array<ListEntryType>,
   title?: string,
-  listContent: ?ListContentModelType,
+  listContent?: ?ListContentModelType,
   /** A search query to highlight in the categories titles */
   query?: string,
   theme: ThemeType,
