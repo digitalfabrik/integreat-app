@@ -2,7 +2,9 @@
 
 import * as React from 'react'
 import type { NavigationStackProp } from 'react-navigation-stack'
-
+import type {
+  NavigationComponent
+} from 'react-navigation'
 /**
  * This hoc removes routes from the state when unmounting
  *
@@ -11,7 +13,7 @@ import type { NavigationStackProp } from 'react-navigation-stack'
  */
 function withRouteCleaner<Props: { navigation: NavigationStackProp<*> }> (
   Component: React.ComponentType<Props>
-): React.ComponentType<Props> {
+): NavigationComponent {
   class RouteCleaner extends React.Component<Props> {
     componentWillUnmount () {
       const onRouteClose = this.props.navigation.getParam('onRouteClose')
