@@ -51,7 +51,22 @@ Array [
 ]
 `;
 
-exports[`LocationHeader NavigationItems should be empty, if offers and news are both disabled 1`] = `Array []`;
+exports[`LocationHeader NavigationItems should be empty, if offers and news are both disabled 1`] = `
+Array [
+  <HeaderNavigationItem
+    active={true}
+    href="/augsburg/de"
+    icon="test-file-stub"
+    text="localInformation"
+  />,
+  <HeaderNavigationItem
+    active={false}
+    href="/augsburg/de/locations"
+    icon="test-file-stub"
+    text="pois"
+  />,
+]
+`;
 
 exports[`LocationHeader NavigationItems should show categories, events, offers in this order 1`] = `
 Array [
@@ -70,6 +85,12 @@ Array [
   />,
   <HeaderNavigationItem
     active={false}
+    href="/augsburg/de/locations"
+    icon="test-file-stub"
+    text="pois"
+  />,
+  <HeaderNavigationItem
+    active={false}
     href="/augsburg/de/offers"
     icon="test-file-stub"
     text="offers"
@@ -84,6 +105,12 @@ Array [
     href="/augsburg/de"
     icon="test-file-stub"
     text="localInformation"
+  />,
+  <HeaderNavigationItem
+    active={false}
+    href="/augsburg/de/locations"
+    icon="test-file-stub"
+    text="pois"
   />,
   <HeaderNavigationItem
     active={false}
@@ -108,6 +135,12 @@ Array [
     icon="test-file-stub"
     text="events"
     tooltip=""
+  />,
+  <HeaderNavigationItem
+    active={false}
+    href="/augsburg/de/locations"
+    icon="test-file-stub"
+    text="pois"
   />,
 ]
 `;
@@ -180,6 +213,12 @@ exports[`LocationHeader should match snapshot 1`] = `
         icon="test-file-stub"
         text="events"
         tooltip=""
+      />,
+      <HeaderNavigationItem
+        active={false}
+        href="/augsburg/de/locations"
+        icon="test-file-stub"
+        text="pois"
       />,
       <HeaderNavigationItem
         active={true}
