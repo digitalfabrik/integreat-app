@@ -56,8 +56,8 @@ const createConfig = (env = {}) => {
   console.log('Production: ', isProductionBuild)
   console.log('Version: ', version)
 
-  const buildConfig = require(`../build-configs/${buildConfigName}`)
-  const configAssets = path.resolve(__dirname, `../build-configs/${buildConfigName}/assets`)
+  const buildConfig = require(`../../build-configs/${buildConfigName}`)
+  const configAssets = path.resolve(__dirname, `../../build-configs/${buildConfigName}/assets`)
 
   const nodeModules = path.resolve(__dirname, '../node_modules')
   const rootNodeModules = path.resolve(__dirname, '../../node_modules')
@@ -120,11 +120,11 @@ const createConfig = (env = {}) => {
     plugins: [
       new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
-        title: buildConfig().appName,
+        title: buildConfig.appName,
         // Load a custom template (lodash by default)
         template: 'index.ejs',
         templateParameters: {
-          config: buildConfig()
+          config: buildConfig
         }
       }),
       new CopyPlugin([
@@ -135,7 +135,7 @@ const createConfig = (env = {}) => {
         'process.env.NODE_ENV': NODE_ENV,
         __DEV__: !isProductionBuild,
         __VERSION__: JSON.stringify(version),
-        __BUILD_CONFIG__: JSON.stringify(buildConfig())
+        __BUILD_CONFIG__: JSON.stringify(buildConfig)
       }),
       // Emit a JSON file with assets paths
       // https://github.com/sporto/assets-webpack-plugin#options
