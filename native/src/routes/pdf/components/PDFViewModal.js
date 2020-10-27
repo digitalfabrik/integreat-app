@@ -7,7 +7,6 @@ import type { NavigationStackProp } from 'react-navigation-stack'
 import FailureContainer from '../../../modules/error/containers/FailureContainer'
 import type { ThemeType } from '../../../modules/theme/constants'
 import withTheme from '../../../modules/theme/hocs/withTheme'
-import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 
 type PropsType = {
   navigation: NavigationStackProp<*>,
@@ -52,6 +51,4 @@ class PDFViewModal extends React.Component<PropsType, StateType> {
   }
 }
 
-export default withRouteCleaner(
-  withTheme<PropsType>(PDFViewModal)
-)
+export default withTheme<PropsType>(PDFViewModal)

@@ -1,8 +1,8 @@
 // @flow
 
 import * as React from 'react'
-import type { NavigationStackProp } from 'react-navigation-stack'
-import type { NavigationComponent } from 'react-navigation'
+import type { NavigationStackProp, NavigationComponent } from 'react-navigation-stack'
+
 /**
  * This hoc removes routes from the state when unmounting
  *
