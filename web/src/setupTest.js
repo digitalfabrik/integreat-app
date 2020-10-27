@@ -11,4 +11,4 @@ configure({ adapter: new Adapter() })
 global.fetch = require('jest-fetch-mock')
 
 // Setup config mock
-global.__BUILD_CONFIG__ = integreatTestCmsBuildConfig()
+global.__BUILD_CONFIG__ = integreatTestCmsBuildConfig
