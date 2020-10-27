@@ -1,0 +1,9 @@
+{
+  "name": "build-configs",
+  "version": "0.0.1",
+  "description": "Build configs for the integreat project",
+  "main": "index.js",
+  "author": "Maximilian Ammann <max@maxammann.org>",
+  "license": "MIT",
+  "private": false
+}

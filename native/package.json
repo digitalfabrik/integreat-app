@@ -43,6 +43,7 @@
     "@sentry/react-native": "^1.7.2",
     "@testing-library/jest-native": "^3.4.2",
     "@testing-library/react-native": "^7.0.2",
+    "build-configs": "file:../build-configs",
     "hashids": "^2.2.1",
     "htmlparser2": "^4.0.0",
     "i18next": "^19.1.0",
