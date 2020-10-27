@@ -172,15 +172,17 @@ class CategoryListContent extends React.Component<ContentPropsType, {| width: nu
   }
 
   render () {
-    const { content } = this.props
-    return <VerticalPadding><Html html={content}
-                                  onLinkPress={this.onLinkPress}
-                                  contentWidth={this.state.width}
-                                  allowFontScaling
-                                  textSelectable
-                                  alterNode={this.alterResources}
-                                  renderers={{ ul: this.renderBulletLists }}
-    /></VerticalPadding>
+    const { content, language } = this.props
+    return <VerticalPadding>
+      <Html html={content}
+            onLinkPress={this.onLinkPress}
+            contentWidth={this.state.width}
+            allowFontScaling
+            textSelectable
+            alterNode={this.alterResources}
+            renderers={{ ul: this.renderBulletLists }}
+            tagsStyles={{ p: { textAlign: RTL_LANGUAGES.includes(language) ? 'right' : 'left' } }} />
+    </VerticalPadding>
   }
 }
 
