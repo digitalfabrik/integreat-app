@@ -11,6 +11,8 @@ export const buildConfigIconSet = (): {| appLogo: string, locationMarker: string
 const buildConfig = jest.fn<[], BuildConfigType>((): BuildConfigType => ({
   appName: 'Integreat',
   appIcon: 'app_icon_integreat',
+  itunesAppId: '1072353915',
+  manifestUrl: '/manifest.json',
   lightTheme,
   darkTheme,
   assets: INTEGREAT_ASSETS,
@@ -63,6 +65,14 @@ const buildConfig = jest.fn<[], BuildConfigType>((): BuildConfigType => ({
       databaseUrl: 'https://integreat-2020.firebaseio.com'
     },
     launchScreen: 'LaunchScreenIntegreat'
+  },
+  icons: {
+    locationIcon: '/location-big.svg',
+    headerLogo: '/integreat-app-logo.png'
+  },
+  splashScreen: {
+    backgroundColor: lightTheme.colors.themeColor,
+    imageUrl: '/progressive-logo.jpg'
   }
 }))
 

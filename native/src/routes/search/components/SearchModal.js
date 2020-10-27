@@ -110,7 +110,8 @@ class SearchModal extends React.Component<PropsType, StateType> {
     const { language, theme, categories, t, sendFeedback } = this.props
     const { query } = this.state
 
-    const minHeight = theme.dimensions.categoryListItem.iconSize + theme.dimensions.categoryListItem.margin * 2
+    const nativeDimensions = theme.dimensions.native
+    const minHeight = nativeDimensions.categoryListItem.iconSize + nativeDimensions.categoryListItem.margin * 2
 
     if (!categories) {
       return <ActivityIndicator size='large' color='#0000ff' />
