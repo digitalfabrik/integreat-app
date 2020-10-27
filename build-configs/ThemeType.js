@@ -1,11 +1,13 @@
 // @flow
 
-import type { ColorsType } from './common/colors'
-import type { DimensionsType } from './common/dimensions'
-import type { FontsType } from './common/fonts'
+import type { ColorsType } from './common/theme/colors'
+import type { DimensionsType } from './common/theme/dimensions'
+import type { FontsType } from './common/theme/fonts'
+import type { HelpersType } from './common/theme/helpers'
 
 export type ThemeType = {|
   colors: ColorsType,
   dimensions: DimensionsType,
-  fonts: FontsType
+  fonts: FontsType,
+  helpers: HelpersType
 |}

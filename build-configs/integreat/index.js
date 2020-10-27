@@ -7,7 +7,9 @@ import { INTEGREAT_ASSETS } from '../AssetsType'
 const IntegreatBuildConfig: BuildConfigType = {
   appName: 'Integreat',
   appIcon: 'app_icon_integreat',
-  lightTheme,
+  itunesAppId: '1072353915',
+  manifestUrl: '/manifest.json',
+  lightTheme, // named theme
   darkTheme,
   assets: INTEGREAT_ASSETS,
   development: false,
@@ -59,6 +61,14 @@ const IntegreatBuildConfig: BuildConfigType = {
       databaseUrl: 'https://integreat-2020.firebaseio.com'
     },
     launchScreen: 'LaunchScreenIntegreat'
+  },
+  icons: {
+    locationIcon: '/location-big.svg',
+    headerLogo: '/integreat-app-logo.png'
+  },
+  splashScreen: {
+    backgroundColor: integreatTheme.colors.themeColor,
+    imageUrl: '/progressive-logo.jpg'
   }
 }
 
