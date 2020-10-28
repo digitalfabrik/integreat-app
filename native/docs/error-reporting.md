@@ -7,7 +7,6 @@ We are using Sentry for error reporting. Sentry offers a [react-native client](h
 
 **In order to use the cli a `sentry.properties` is needed which includes an auth key and information about the project.**
 
-
 # Platform specifics for crashes
 
 ## JavaScript crashes
