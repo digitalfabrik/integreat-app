@@ -9,8 +9,7 @@ To run the tests locally you first need to setup an Appium server. You can [read
 
 ### Building the app for e2e tests
 
-To build for e2e tests, use the [corresponding build config](../build-configs/integreat-e2e).
-
+To build for e2e tests, use the [corresponding build config](../../build-configs/integreat-e2e).
 
 ### Using appium-desktop
 

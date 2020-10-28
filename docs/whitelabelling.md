@@ -35,11 +35,11 @@ Information necessary for the creation of a new build config.
 * (De)activated features: pois, news stream, push notifications, offers, ...
 * Fonts (Content, UI only at own risk)
 
-#### For Stores/WebApp
+#### For Stores/Webapp
 
 Information necessary for the setup of the store and webapp presences.
 
-* WebApp domain (DF or own?)
+* Webapp domain (DF or own?)
 * Apple app store:
     * DF account or own?
     * App title
@@ -93,7 +93,10 @@ Things the AppTeam has to do and therefore probably create issues for.
     * Android
     * iOS
 * Add sentry flag
-* Create screenshots
+* Create screenshots with the following aspect ratios (for iOS):
+    * 1242 x 2208
+    * 1242 x 2688
+    * 2048 x 2732
 * Add to google search console
 * Translate and add locales
     * New languages
