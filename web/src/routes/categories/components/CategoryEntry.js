@@ -108,6 +108,7 @@ class CategoryEntry extends React.PureComponent<PropsType> {
 
     return <ContentMatchItem aria-label={textToHighlight}
                              searchWords={[query]}
+                             autoEscape
                              sanitize={normalizeSearchString}
                              textToHighlight={textToHighlight}
                              highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }} />
@@ -118,6 +119,7 @@ class CategoryEntry extends React.PureComponent<PropsType> {
     return <CategoryListItem>
       <Highlighter searchWords={query ? [query] : []}
                    aria-label={category.title}
+                   autoEscape
                    sanitize={normalizeSearchString}
                    highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }}
                    textToHighlight={category.title} />

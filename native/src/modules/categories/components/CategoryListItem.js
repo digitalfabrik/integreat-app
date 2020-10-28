@@ -87,7 +87,11 @@ class CategoryListItem extends React.Component<PropsType> {
 
   getMatchedContent (numWordsSurrounding: number): ?Highlighter {
     const { query, theme, category } = this.props
-    const textToHighlight = this.contentMatcher.getMatchedContent(query, category.contentWithoutHtml, numWordsSurrounding)
+    const textToHighlight = this.contentMatcher.getMatchedContent(
+      query,
+      category.contentWithoutHtml,
+      numWordsSurrounding
+    )
     if (textToHighlight == null) {
       return null
     }
@@ -95,6 +99,7 @@ class CategoryListItem extends React.Component<PropsType> {
                         searchWords={[query]}
                         sanitize={normalizeSearchString}
                         textToHighlight={textToHighlight}
+                        autoEscape
                         highlightStyle={{
                           backgroundColor: theme.colors.backgroundColor,
                           fontWeight: 'bold'
@@ -106,6 +111,7 @@ class CategoryListItem extends React.Component<PropsType> {
     return (<CategoryEntryContainer theme={theme} language={language}>
       <CategoryTitle theme={theme}
                      language={language}
+                     autoEscape
                      textToHighlight={category.title}
                      sanitize={normalizeSearchString}
                      searchWords={query ? [query] : []}
