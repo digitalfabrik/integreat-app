@@ -6,7 +6,6 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 const MomentTimezoneDataPlugin = require('moment-timezone-data-webpack-plugin')
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin')
-const babelConfig = require('../babel.config.js')
 const fs = require('fs')
 
 const currentYear = new Date().getFullYear()
@@ -162,7 +161,7 @@ const createConfig = (env = {}) => {
           // in development mode webpack bundles the mentioned packages
           exclude: /node_modules\/(?!(strict-uri-encode|strip-ansi)\/).*/,
           loader: 'babel-loader',
-          options: babelConfig
+          options: { rootMode: 'upward' }
         },
         {
           test: /\.html$/,

@@ -29,6 +29,9 @@ module.exports = {
     'jest-extended',
     '@testing-library/jest-native/extend-expect'
   ],
+  transform: {
+    '^.+\\.jsx?$': './jest-wrapper.js'
+  },
   transformIgnorePatterns: [
     `node_modules/(?!${transformNodeModules.join('|')})`
   ],
