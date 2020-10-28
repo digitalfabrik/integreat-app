@@ -2,7 +2,7 @@
 
 exports[`HeaderNavigationItem should render an ActiveNavigationItem 1`] = `
 <HeaderNavigationItem__StyledLink
-  active={true}
+  $active={true}
   data-event="mouseover"
   data-event-off="click mouseout"
   to="/augsburg/de"
@@ -21,7 +21,7 @@ exports[`HeaderNavigationItem should render an ActiveNavigationItem 1`] = `
 
 exports[`HeaderNavigationItem should render an InactiveNavigationItem 1`] = `
 <HeaderNavigationItem__StyledLink
-  active={false}
+  $active={false}
   data-event="mouseover"
   data-event-off="click mouseout"
   data-tip="random tooltip"
