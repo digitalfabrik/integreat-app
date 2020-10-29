@@ -1,13 +1,14 @@
 import path from 'path'
-const webpack = require('webpack')
-const AssetsPlugin = require('assets-webpack-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const CopyPlugin = require('copy-webpack-plugin')
-const MomentTimezoneDataPlugin = require('moment-timezone-data-webpack-plugin')
-const MomentLocalesPlugin = require('moment-locales-webpack-plugin')
-const babelConfig = require('../babel.config.js')
-const fs = require('fs')
+import loadBuildConfig from '../build-configs'
+import webpack from 'webpack'
+import AssetsPlugin from 'assets-webpack-plugin'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
+import { CleanWebpackPlugin } from 'clean-webpack-plugin'
+import CopyPlugin from 'copy-webpack-plugin'
+import MomentTimezoneDataPlugin from 'moment-timezone-data-webpack-plugin'
+import MomentLocalesPlugin from 'moment-locales-webpack-plugin'
+import babelConfig from '../babel.config.js'
+import fs from 'fs'
 
 const currentYear = new Date().getFullYear()
 
@@ -31,15 +32,12 @@ const getSupportedLocales = () => {
 
 const createConfig = (env = {}) => {
   const { config_name: buildConfigName, production, debug, commit_sha: commitSha, version_name: versionName } = env
-  const validConfigNames = ['integreat', 'integreat-test-cms', 'malte']
 
-  if (!buildConfigName) {
-    throw new Error('You need to specify a config name!')
-  } else if (!validConfigNames.includes(buildConfigName)) {
-    throw new Error(`Invalid config name! Allowed configs: ${validConfigNames}`)
-  } else if ((!production && !debug) || (production && debug)) {
+  if ((!production && !debug) || (production && debug)) {
     throw new Error('You need to set the build mode by either passing production or debug flag!')
   }
+
+  const buildConfig = loadBuildConfig(buildConfigName)
 
   const isProductionBuild = production || !debug
   // We have to override the env of the current process, such that babel-loader works with that.
@@ -56,8 +54,7 @@ const createConfig = (env = {}) => {
   console.log('Production: ', isProductionBuild)
   console.log('Version: ', version)
 
-  const buildConfig = require(`../../build-configs/${buildConfigName}`)
-  const configAssets = path.resolve(__dirname, `../../build-configs/${buildConfigName}/assets`)
+  const configAssets = path.resolve(__dirname, `../build-configs/${buildConfigName}/assets`)
 
   const nodeModules = path.resolve(__dirname, '../node_modules')
   const rootNodeModules = path.resolve(__dirname, '../../node_modules')
