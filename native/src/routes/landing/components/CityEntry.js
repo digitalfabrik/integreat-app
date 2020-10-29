@@ -7,17 +7,15 @@ import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
 import type { ThemeType } from '../../../modules/theme/constants'
 import normalizeSearchString from '../../../modules/common/normalizeSearchString'
-import { Text, View } from 'react-native'
+import { Text } from 'react-native'
 import Highlighter from 'react-native-highlight-words'
 
 const MAX_NUMBER_OF_ALIASES_SHOWN = 3
 
 const CityListItem: StyledComponent<{}, {}, *> = styled.TouchableHighlight`
+  flex: 1;
   padding: 7px;
   width: 100%;
-`
-
-const Labels = styled(View)`
   flex-wrap: wrap;
   flex-direction: column;
   align-items: flex-start;
@@ -41,6 +39,7 @@ const Separator = styled(Text)`
 `
 
 const Aliases = styled.View`
+  flex: 1;
   flex-wrap: wrap;
   flex-direction: row;
   align-items: flex-start;
@@ -75,7 +74,7 @@ class CityEntry extends React.PureComponent<PropType> {
     return (
       <CityListItem onPress={this.navigateToDashboard}
                     underlayColor={theme.colors.backgroundAccentColor}>
-        <Labels>
+        <>
           <Label theme={theme}
                  searchWords={[filterText]}
                  autoEscape
@@ -101,7 +100,7 @@ class CityEntry extends React.PureComponent<PropType> {
               <Separator theme={theme}>...</Separator>
             </>}
           </Aliases>}
-        </Labels>
+        </>
       </CityListItem>
     )
   }

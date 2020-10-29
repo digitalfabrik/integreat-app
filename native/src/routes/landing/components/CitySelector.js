@@ -17,6 +17,11 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 import CityGroup from './CityGroup'
 import normalizeSearchString from '../../../modules/common/normalizeSearchString'
 
+const CityGroupContainer: StyledComponent<{}, {}, *> = styled.View`
+  flex: 0;
+  flex-direction: column;
+`
+
 const NearbyMessageContainer: StyledComponent<{}, {}, *> = styled.View`
   padding: 7px;
   flex-direction: row;
@@ -64,7 +69,7 @@ class CitySelector extends React.PureComponent<PropsType> {
   _renderFilteredLocations (cities: Array<CityModel>): React.Node {
     const groups = groupBy(cities, city => city.sortCategory)
     return transform(groups, (result, cities, key) => {
-      result.push(<React.Fragment key={key}>
+      result.push(<CityGroupContainer key={key}>
         <CityGroup theme={this.props.theme}>{key}</CityGroup>
         {cities.map(city => <CityEntry
           key={city.code}
@@ -73,7 +78,7 @@ class CitySelector extends React.PureComponent<PropsType> {
           navigateToDashboard={this.props.navigateToDashboard}
           theme={this.props.theme}
         />)}
-      </React.Fragment>)
+      </CityGroupContainer>)
     }, [])
   }
 
@@ -87,7 +92,7 @@ class CitySelector extends React.PureComponent<PropsType> {
       const nearbyCities = getNearbyPlaces(cities.filter(city => city.live), location.longitude, location.latitude)
 
       if (nearbyCities.length > 0) {
-        return <>
+        return <CityGroupContainer>
           <CityGroup theme={theme}>{t('nearbyPlaces')}</CityGroup>
           {nearbyCities.map(city => <CityEntry
             key={city.code}
@@ -96,17 +101,17 @@ class CitySelector extends React.PureComponent<PropsType> {
             navigateToDashboard={navigateToDashboard}
             theme={theme}
             />)}
-        </>
+        </CityGroupContainer>
       } else {
-        return <>
+        return <CityGroupContainer>
           <CityGroup theme={theme}>{t('nearbyPlaces')}</CityGroup>
           <NearbyMessageContainer>
             <NearbyMessage theme={theme}>{t('noNearbyPlaces')}</NearbyMessage>
           </NearbyMessageContainer>
-        </>
+        </CityGroupContainer>
       }
     } else {
-      return <>
+      return <CityGroupContainer>
         <CityGroup theme={theme}>{t('nearbyPlaces')}</CityGroup>
         <NearbyMessageContainer>
           <NearbyMessage theme={theme}>{t(location.message)}</NearbyMessage>
@@ -115,7 +120,7 @@ class CitySelector extends React.PureComponent<PropsType> {
                   title='' type='clear' onPress={tryAgain} accessibilityLabel={t('refresh')}
                   accessibilityRole='button' />}
         </NearbyMessageContainer>
-      </>
+      </CityGroupContainer>
     }
   }
 
