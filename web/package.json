@@ -62,7 +62,7 @@
     "redux-logger": "^3.0.6",
     "redux-responsive": "^4.3.8",
     "redux-thunk": "^2.3.0",
-    "styled-components": "^5.0.0",
+    "styled-components": "^5.1.1",
     "url-polyfill": "^1.1.5",
     "whatwg-fetch": "^3.0.0"
   },
