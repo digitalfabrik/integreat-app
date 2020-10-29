@@ -1,4 +1,4 @@
-const path = require('path')
+import path from 'path'
 const webpack = require('webpack')
 const AssetsPlugin = require('assets-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
