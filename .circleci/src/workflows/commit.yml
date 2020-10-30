@@ -6,7 +6,6 @@ jobs:
       delivery: none
 
   - check_web:
-      build_config_name: integreat-test-cms
       context:
         - slack-app
   - build_web:
