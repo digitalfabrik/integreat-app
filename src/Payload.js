@@ -1,7 +1,5 @@
 // @flow
 
-import isUrl from 'is-url'
-
 /**
  * The payload gets stored in the redux store and holds the information about a fetch
  */
@@ -24,12 +22,6 @@ class Payload<T> {
     this._error = error
     this._requestUrl = requestUrl
     this._data = data
-
-    if (requestUrl) {
-      if (!isUrl(requestUrl)) {
-        throw new Error('requestUrl must be a valid URL')
-      }
-    }
 
     if (error && data) {
       throw new Error('data and error can not be set at the same time')
