@@ -4,7 +4,6 @@ import React from 'react'
 import { Dimensions, Text, View } from 'react-native'
 import { type DisplayMetrics } from 'react-native/Libraries/Utilities/NativeDeviceInfo'
 import Html, { GestureResponderEvent, type HTMLNode, type RendererFunction } from 'react-native-render-html'
-import { _constructStyles } from 'react-native-render-html/src/HTMLStyles'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
 import type { NavigationStackProp } from 'react-navigation-stack'
@@ -89,78 +88,69 @@ class CategoryListContent extends React.Component<ContentPropsType, {| width: nu
     }
   }
 
-  // see https://github.com/archriss/react-native-render-html/issues/286
-  renderBulletLists: RendererFunction = (htmlAttribs, children, convertedCSSStyles, passProps) => {
+  // TODO: remove with IGAPP-XXX
+  renderUnorderedListPrefix: RendererFunction = (htmlAttribs, children, convertedCSSStyles, passProps) => {
     const { language, theme } = this.props
-    const style = _constructStyles({
-      tagName: 'ul',
-      htmlAttribs,
-      passProps,
-      styleSet: 'VIEW'
-    })
-    const { allowFontScaling, rawChildren, nodeIndex, key, baseFontStyle, listsPrefixesRenderers } = passProps
+    const { baseFontStyle } = passProps
     const baseFontSize = baseFontStyle.fontSize
+    const textDistanceToBullet = 10
+    const listIndent = 20
+    const bulletSizeRelativeToFont = 2.8
+    const bulletAlignmentRelativeToFont = 2
+    return <View style={{
+          width: baseFontSize / bulletSizeRelativeToFont,
+          height: baseFontSize / bulletSizeRelativeToFont,
+          borderRadius: baseFontSize / bulletSizeRelativeToFont,
+          marginTop: baseFontSize / bulletAlignmentRelativeToFont,
+          marginRight: RTL_LANGUAGES.includes(language) ? listIndent : textDistanceToBullet,
+          marginLeft: RTL_LANGUAGES.includes(language) ? textDistanceToBullet : listIndent,
+          backgroundColor: theme.colors.textColor
+        }} />
+  }
+
+  // TODO: remove with IGAPP-XXX
+  renderOrderedListPrefix: RendererFunction = (htmlAttribs, children, convertedCSSStyles, passProps) => {
+    const { baseFontSize, allowFontScaling, index } = passProps
+    const { language } = this.props
+    const textDistanceToBullet = 10
+    const listIndent = 20
+    return <Text allowFontScaling={allowFontScaling} style={{
+      fontSize: baseFontSize,
+      marginRight: RTL_LANGUAGES.includes(language) ? listIndent : textDistanceToBullet,
+      marginLeft: RTL_LANGUAGES.includes(language) ? textDistanceToBullet : listIndent
+    }}>
+      {index})
+    </Text>
+  }
+
+  // see https://github.com/archriss/react-native-render-html/issues/286
+  // TODO: remove with IGAPP-XXX
+  renderLists: RendererFunction = (htmlAttribs, children, convertedCSSStyles, passProps) => {
+    const { language } = this.props
+    const { rawChildren, nodeIndex, key, listsPrefixesRenderers } = passProps
     children = children && children.map((child, index) => {
       const rawChild = rawChildren[index]
       let prefix = false
-      const rendererArgs = [
-        htmlAttribs,
-        children,
-        convertedCSSStyles,
-        {
-          ...passProps,
-          index
-        }
-      ]
-      const textDistanceToBullet = 10
-      const rtlListIndent = 20
-      const bulletSizeRelativeToFont = 2.8
-      const bulletAlignmentRelativeToFont = 2
-      if (rawChild) {
-        if (rawChild.parentTag === 'ul' && rawChild.tagName === 'li') {
-          prefix = listsPrefixesRenderers && listsPrefixesRenderers.ul ? listsPrefixesRenderers.ul(...rendererArgs) : (
-            <View style={{
-              width: baseFontSize / bulletSizeRelativeToFont,
-              height: baseFontSize / bulletSizeRelativeToFont,
-              borderRadius: baseFontSize / bulletSizeRelativeToFont,
-              marginRight: RTL_LANGUAGES.includes(language) ? rtlListIndent : textDistanceToBullet,
-              marginLeft: RTL_LANGUAGES.includes(language) ? textDistanceToBullet : 0,
-              marginTop: baseFontSize / bulletAlignmentRelativeToFont,
-              backgroundColor: theme.colors.textColor
-            }} />
-          )
-        } else if (rawChild.parentTag === 'ol' && rawChild.tagName === 'li') {
-          prefix = listsPrefixesRenderers && listsPrefixesRenderers.ol ? listsPrefixesRenderers.ol(...rendererArgs) : (
-            <Text allowFontScaling={allowFontScaling} style={{
-              fontSize: baseFontSize,
-              marginRight: RTL_LANGUAGES.includes(language) ? rtlListIndent : textDistanceToBullet,
-              marginLeft: RTL_LANGUAGES.includes(language) ? textDistanceToBullet : 0
-            }}>
-              {index + 1}
-            </Text>
-          )
+      if (rawChild && rawChild.tagName === 'li') {
+        if (rawChild.parentTag === 'ul') {
+          prefix = listsPrefixesRenderers.ul(htmlAttribs, children, convertedCSSStyles, { ...passProps })
+        } else if (rawChild.parentTag === 'ol') {
+          prefix = listsPrefixesRenderers.ol(htmlAttribs, children, convertedCSSStyles, { ...passProps, index })
         }
       }
-      return (
-        RTL_LANGUAGES.includes(language) ? (
-          <View key={`list-${nodeIndex}-${index}-${key}`} style={{ flexDirection: 'row' }}>
-            <View style={{ flex: 1 }}>{child}</View>
-            {prefix}
-          </View>
-        ) : (
-          <View key={`list-${nodeIndex}-${index}-${key}`} style={{ flexDirection: 'row' }}>
-            {prefix}
-            <View style={{ flex: 1 }}>{child}</View>
-          </View>
-        )
-
+      return RTL_LANGUAGES.includes(language) ? (
+            <View key={`list-${nodeIndex}-${index}-${key}`} style={{ flexDirection: 'row' }}>
+              <View style={{ flex: 1 }}>{child}</View>
+              {prefix}
+            </View>
+      ) : (
+            <View key={`list-${nodeIndex}-${index}-${key}`} style={{ flexDirection: 'row' }}>
+              {prefix}
+              <View style={{ flex: 1 }}>{child}</View>
+            </View>
       )
     })
-    return (
-      <View style={style} key={key}>
-        {children}
-      </View>
-    )
+    return <View key={key}>{children}</View>
   }
 
   render () {
@@ -172,7 +162,8 @@ class CategoryListContent extends React.Component<ContentPropsType, {| width: nu
             allowFontScaling
             textSelectable
             alterNode={this.alterResources}
-            renderers={{ ul: this.renderBulletLists }}
+            listsPrefixesRenderers={{ ul: this.renderUnorderedListPrefix, ol: this.renderOrderedListPrefix }}
+            renderers={{ ul: this.renderLists, ol: this.renderLists }}
             tagsStyles={{ p: { textAlign: RTL_LANGUAGES.includes(language) ? 'right' : 'left' } }} />
     </VerticalPadding>
   }
