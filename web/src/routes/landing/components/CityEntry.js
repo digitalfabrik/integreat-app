@@ -54,14 +54,14 @@ class CityEntry extends React.PureComponent<PropsType> {
     return (
       <CityListItem to={new CategoriesRouteConfig().getRoutePath({ city: city.code, language })}>
         <Highlighter searchWords={[filterText]} sanitize={normalizeSearchString} aria-label={city.name}
-                     textToHighlight={city.name}
+                     textToHighlight={city.name} autoEscape
                      highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }} />
         <div style={{ margin: '0 5px', fontSize: '12px' }}>
           {
             aliases.slice(0, MAX_NUMBER_OF_ALIASES).map((alias, index) => (
               <>
                 <AliasItem key={alias} aria-label={alias} searchWords={[filterText]} sanitize={normalizeSearchString}
-                           textToHighlight={alias}
+                           textToHighlight={alias} autoEscape
                            highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }} />
                 {index !== aliases.length - 1 && <span>, </span>}
               </>

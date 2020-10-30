@@ -19,7 +19,7 @@ Other team members you can contact are
 
 ## Pull requests
 
-Before starting to write code and opening a pull request, please take a look [at our conventions](docs/conventions.md).
+Before starting to write code and opening a pull request, please take a look [at our conventions](conventions.md).
 
 Pull requests should always belong to an [issue in our issue tracker](#bug-reporting).
 

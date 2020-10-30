@@ -40,6 +40,17 @@ commands:
                 mentions: maxammann,st,UV99P8ETW
                 only_for_branches: main
                 webhook: ${SLACK_URL}
+    prepare_workspace:
+        description: Attach the workspace at ~/attached_workspace and list its contents
+        steps:
+            - attach_workspace:
+                at: ~/attached_workspace
+            - run:
+                command: ls ~/attached_workspace
+                name: Attached workspace contents
+            - run:
+                command: ls -R ~/attached_workspace
+                name: Recursively list attached workspace contents
     restore_cocoa_pods_cache:
         description: Restores and saves the cocoa pods cache.
         steps:
@@ -61,10 +72,10 @@ commands:
         description: Sets the environment variables specified in the file 'environment_variables'. Make sure the file is persisted and has been attached.
         steps:
             - run:
-                command: cat environment_variables
+                command: cat ~/attached_workspace/environment_variables
                 name: List environment variables
             - run:
-                command: cat environment_variables >> ${BASH_ENV}
+                command: cat ~/attached_workspace/environment_variables >> ${BASH_ENV}
                 name: Restore environment variables
     restore_gradle_cache:
         description: Restores and saves the gradle cache.
@@ -158,8 +169,7 @@ jobs:
                 fingerprints:
                     - 61:d8:94:00:53:5f:3b:19:fd:88:6b:fa:cd:ca:df:5d
             - checkout
-            - attach_workspace:
-                at: .
+            - prepare_workspace
             - restore_environment_variables
             - restore_yarn_cache
             - restore_ruby_cache:
@@ -212,8 +222,7 @@ jobs:
                 fingerprints:
                     - 61:d8:94:00:53:5f:3b:19:fd:88:6b:fa:cd:ca:df:5d
             - checkout
-            - attach_workspace:
-                at: .
+            - prepare_workspace
             - restore_environment_variables
             - restore_yarn_cache
             - restore_ruby_cache:
@@ -379,28 +388,28 @@ jobs:
         steps:
             - run: curl -sL https://sentry.io/get-cli/ | bash
             - checkout
-            - attach_workspace:
-                at: ./native
+            - prepare_workspace
             - restore_environment_variables
             - restore_yarn_tools_cache
+            - restore_yarn_cache
             - restore_ruby_cache:
                 directory: native
             - run:
-                command: tools/parse-release-notes parse --android --destination native/android/fastlane/metadata/android/de-DE/changelogs/default.txt --language de --production
+                command: tools/parse-release-notes parse --android --destination native/android/fastlane/<< parameters.build_config_name >>/metadata/de-DE/changelogs/default.txt --language de --production
                 name: Parse german android release notes
             - run:
-                command: tools/parse-release-notes parse --android --destination native/android/fastlane/metadata/android/en-GB/changelogs/default.txt --language en --production && tools/parse-release-notes parse --android --destination native/android/fastlane/metadata/android/en-US/changelogs/default.txt --language en --production
+                command: tools/parse-release-notes parse --android --destination native/android/fastlane/<< parameters.build_config_name >>/metadata/en-GB/changelogs/default.txt --language en --production && tools/parse-release-notes parse --android --destination native/android/fastlane/<< parameters.build_config_name >>/metadata/en-US/changelogs/default.txt --language en --production
                 name: Parse english android release notes
             - run:
-                command: bundle exec fastlane android browserstack_upload_live build_config_name:<< parameters.build_config_name >>
+                command: bundle exec fastlane android browserstack_upload_live apk_path:attached_workspace/<< parameters.build_config_name >>.apk
                 name: '[FL] Browserstack Upload Live'
                 working_directory: native
             - run:
-                command: bundle exec fastlane android playstore_upload build_config_name:<< parameters.build_config_name >> production_delivery:"<< parameters.production_delivery >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
+                command: bundle exec fastlane android playstore_upload build_config_name:<< parameters.build_config_name >> apk_path:attached_workspace/<< parameters.build_config_name >>.apk production_delivery:"<< parameters.production_delivery >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
                 name: '[FL] Play Store Upload'
                 working_directory: native
             - run:
-                command: bundle exec fastlane android sentry_upload build_config_name:<< parameters.build_config_name >> version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
+                command: bundle exec fastlane android sentry_upload build_config_name:<< parameters.build_config_name >> sourcemap_path:attached_workspace/<< parameters.build_config_name >>.android.bundle.map version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
                 name: '[FL] Upload to Sentry'
                 working_directory: native
             - notify_failed
@@ -423,38 +432,38 @@ jobs:
         steps:
             - run: curl -sL https://sentry.io/get-cli/ | bash
             - checkout
-            - attach_workspace:
-                at: ./native
+            - prepare_workspace
             - restore_environment_variables
             - restore_yarn_tools_cache
+            - restore_yarn_cache
             - restore_ruby_cache:
                 directory: native
             - run:
-                command: tools/parse-release-notes parse --ios --destination native/ios/fastlane/metadata/de-DE/release_notes.txt --language de --production
+                command: tools/parse-release-notes parse --ios --destination native/ios/fastlane/<< parameters.build_config_name >>/metadata/de-DE/release_notes.txt --language de --production
                 name: Parse german ios release notes
             - run:
-                command: tools/parse-release-notes parse --ios --destination native/ios/fastlane/metadata/en-US/release_notes.txt --language en --production
+                command: tools/parse-release-notes parse --ios --destination native/ios/fastlane/<< parameters.build_config_name >>/metadata/en-US/release_notes.txt --language en --production
                 name: Parse english ios release notes
             - run:
-                command: bundle exec fastlane ios browserstack_upload_live build_config_name:<< parameters.build_config_name >>
+                command: bundle exec fastlane ios browserstack_upload_live ipa_path:attached_workspace/<< parameters.build_config_name >>.ipa
                 name: '[FL] Browserstack Upload Live'
                 working_directory: native
             - when:
                 condition: << parameters.production_delivery >>
                 steps:
                     - run:
-                        command: bundle exec fastlane ios appstoreconnect_upload build_config_name:<< parameters.build_config_name >>
+                        command: bundle exec fastlane ios appstoreconnect_upload ipa_path:attached_workspace/<< parameters.build_config_name >>.ipa version_name:${NEW_VERSION_NAME}
                         name: '[FL] App Store Connect Upload'
                         working_directory: native
             - unless:
                 condition: << parameters.production_delivery >>
                 steps:
                     - run:
-                        command: bundle exec fastlane ios testflight_upload build_config_name:<< parameters.build_config_name >> version_name:${NEW_VERSION_NAME}
+                        command: bundle exec fastlane ios testflight_upload build_config_name:<< parameters.build_config_name >> ipa_path:attached_workspace/<< parameters.build_config_name >>.ipa
                         name: '[FL] TestFlight Upload'
                         working_directory: native
             - run:
-                command: bundle exec fastlane ios sentry_upload version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:<< parameters.build_config_name >>
+                command: bundle exec fastlane ios sentry_upload version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:<< parameters.build_config_name >> sourcemap_path:attached_workspace/<< parameters.build_config_name >>.ios.bundle.map
                 name: '[FL] Upload to Sentry'
                 working_directory: native
             - notify_failed
@@ -471,25 +480,24 @@ jobs:
             - add_ssh_keys:
                 fingerprints:
                     - 68:a3:fe:e7:94:f7:a4:13:35:5c:63:30:2f:07:7d:02
-            - attach_workspace:
-                at: .
+            - prepare_workspace
             - when:
                 condition: << parameters.production_delivery >>
                 steps:
                     - run:
-                        command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/integreat.app \<<< $'put -r dist/integreat/*'
+                        command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/integreat.app \<<< $'put -r ~/attached_workspace/dist/integreat/*'
                         name: Integreat production delivery
                     - run:
-                        command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/malteapp.de \<<< $'put -r dist/malte/*'
+                        command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/malteapp.de \<<< $'put -r ~/attached_workspace/dist/malte/*'
                         name: Malte production delivery
             - unless:
                 condition: << parameters.production_delivery >>
                 steps:
                     - run:
-                        command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.integreat.app \<<< $'put -r dist/integreat-test-cms/*'
+                        command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.integreat.app \<<< $'put -r ~/attached_workspace/dist/integreat-test-cms/*'
                         name: Integreat development delivery
                     - run:
-                        command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.malteapp.de \<<< $'put -r dist/malte/*'
+                        command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.malteapp.de \<<< $'put -r ~/attached_workspace/dist/malte/*'
                         name: Malte development delivery
             - notify_failed
     e2e_android:
@@ -501,13 +509,12 @@ jobs:
         shell: /bin/bash -eo pipefail
         steps:
             - checkout
-            - attach_workspace:
-                at: ./native
+            - prepare_workspace
             - restore_yarn_cache
             - restore_ruby_cache:
                 directory: native
             - run:
-                command: bundle exec fastlane android browserstack_e2e_tests build_config_name:integreat-e2e
+                command: bundle exec fastlane android browserstack_e2e_tests apk_path:attached_workspace/integreat-e2e.apk
                 name: '[FL] Android E2E Tests on Browserstack'
                 working_directory: native
             - notify_failed
@@ -520,13 +527,12 @@ jobs:
         shell: /bin/bash -eo pipefail
         steps:
             - checkout
-            - attach_workspace:
-                at: ./native
+            - prepare_workspace
             - restore_yarn_cache
             - restore_ruby_cache:
                 directory: native
             - run:
-                command: bundle exec fastlane ios browserstack_e2e_tests build_config_name:integreat-e2e
+                command: bundle exec fastlane ios browserstack_e2e_tests ipa_path:attached_workspace/integreat-e2e.ipa
                 name: '[FL] iOS E2E Tests on Browserstack'
                 working_directory: native
             - notify_failed
@@ -536,8 +542,7 @@ jobs:
         resource_class: small
         steps:
             - checkout
-            - attach_workspace:
-                at: .
+            - prepare_workspace
             - restore_environment_variables
             - restore_yarn_tools_cache
             - run:
@@ -554,15 +559,17 @@ jobs:
         resource_class: small
         steps:
             - checkout
-            - attach_workspace:
-                at: .
+            - prepare_workspace
             - restore_environment_variables
             - restore_yarn_tools_cache
             - run:
                 command: tools/github-release create android ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(tools/parse-release-notes parse --android --language en)"<<^ parameters.production_delivery >> --development-release<</ parameters.production_delivery >>
                 name: Create github release
+            - run:
+                command: echo "export SLACK_RELEASE_NOTES=$(tools/parse-release-notes parse --android --language en)" >> ${BASH_ENV}
+                name: Create slack release notes
             - slack/notify:
-                message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat ${NEW_VERSION_NAME} has been released successfully on Android!\n$(tools/parse-release-notes parse --android --language en)
+                message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat and Malte ${NEW_VERSION_NAME} have been released successfully on Android!\n${SLACK_RELEASE_NOTES}
                 webhook: ${SLACK_URL}
             - notify_failed
     notify_ios:
@@ -575,15 +582,17 @@ jobs:
         resource_class: small
         steps:
             - checkout
-            - attach_workspace:
-                at: .
+            - prepare_workspace
             - restore_environment_variables
             - restore_yarn_tools_cache
             - run:
                 command: tools/github-release create ios ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(tools/parse-release-notes parse --ios --language en)"<<^ parameters.production_delivery >> --development-release<</ parameters.production_delivery >>
                 name: Create github release
+            - run:
+                command: echo "export SLACK_RELEASE_NOTES=$(tools/parse-release-notes parse --ios --language en)" >> ${BASH_ENV}
+                name: Create slack release notes
             - slack/notify:
-                message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat ${NEW_VERSION_NAME} has been released successfully on iOS!\n$(tools/parse-release-notes parse --ios --language en)
+                message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat and Malte ${NEW_VERSION_NAME} have been released successfully on iOS!\n${SLACK_RELEASE_NOTES}
                 webhook: ${SLACK_URL}
             - notify_failed
     notify_web:
@@ -592,15 +601,17 @@ jobs:
         resource_class: small
         steps:
             - checkout
-            - attach_workspace:
-                at: .
+            - prepare_workspace
             - restore_environment_variables
             - restore_yarn_tools_cache
             - run:
                 command: tools/github-release create web ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(tools/parse-release-notes parse --web --language en)"
                 name: Create github release
+            - run:
+                command: echo "export SLACK_RELEASE_NOTES=$(tools/parse-release-notes parse --web --language en)" >> ${BASH_ENV}
+                name: Create slack release notes
             - slack/notify:
-                message: WebApp version ${NEW_VERSION_NAME} was delivered successfully to integreat.app and malteapp.de!\n$(tools/parse-release-notes parse --web --language en)
+                message: WebApp version ${NEW_VERSION_NAME} was delivered successfully to integreat.app and malteapp.de!\n${SLACK_RELEASE_NOTES}
                 webhook: ${SLACK_URL}
             - notify_failed
 orbs:
@@ -730,6 +741,29 @@ workflows:
                     - check_native
                     - e2e_android
                     - build_integreat_android
+            - build_android:
+                build_config_name: malte
+                context:
+                    - slack-app
+                    - tuerantuer-google-play
+                    - tuerantuer-android
+                name: build_malte_android
+                requires:
+                    - bump_version
+            - deliver_android:
+                build_config_name: malte
+                context:
+                    - slack-app
+                    - sentry
+                    - browserstack
+                    - tuerantuer-google-play
+                    - tuerantuer-android
+                name: deliver_malte_android
+                production_delivery: false
+                requires:
+                    - check_native
+                    - e2e_android
+                    - build_malte_android
             - notify_android:
                 context:
                     - slack-app
@@ -737,6 +771,7 @@ workflows:
                 production_delivery: false
                 requires:
                     - deliver_integreat_android
+                    - deliver_malte_android
             - build_ios:
                 build_config_name: integreat-e2e
                 context:
@@ -775,6 +810,29 @@ workflows:
                     - check_native
                     - e2e_ios
                     - build_integreat_ios
+            - build_ios:
+                build_config_name: malte
+                context:
+                    - slack-app
+                    - tuerantuer-apple
+                    - tuerantuer-ios
+                name: build_malte_ios
+                requires:
+                    - bump_version
+            - deliver_ios:
+                build_config_name: malte
+                context:
+                    - slack-app
+                    - sentry
+                    - browserstack
+                    - tuerantuer-apple
+                    - tuerantuer-ios
+                name: deliver_malte_ios
+                production_delivery: false
+                requires:
+                    - check_native
+                    - e2e_ios
+                    - build_malte_ios
             - notify_ios:
                 context:
                     - slack-app
@@ -782,6 +840,7 @@ workflows:
                 production_delivery: false
                 requires:
                     - deliver_integreat_ios
+                    - deliver_malte_ios
         triggers:
             - schedule:
                 cron: 0 5 8,22 * *
@@ -866,6 +925,29 @@ workflows:
                     - check_native
                     - e2e_android
                     - build_integreat_android
+            - build_android:
+                build_config_name: malte
+                context:
+                    - slack-app
+                    - tuerantuer-google-play
+                    - tuerantuer-android
+                name: build_malte_android
+                requires:
+                    - bump_version
+            - deliver_android:
+                build_config_name: malte
+                context:
+                    - slack-app
+                    - sentry
+                    - browserstack
+                    - tuerantuer-google-play
+                    - tuerantuer-android
+                name: deliver_malte_android
+                production_delivery: true
+                requires:
+                    - check_native
+                    - e2e_android
+                    - build_malte_android
             - notify_android:
                 context:
                     - slack-app
@@ -873,6 +955,7 @@ workflows:
                 production_delivery: true
                 requires:
                     - deliver_integreat_android
+                    - deliver_malte_android
             - build_ios:
                 build_config_name: integreat-e2e
                 context:
@@ -911,6 +994,29 @@ workflows:
                     - check_native
                     - e2e_ios
                     - build_integreat_ios
+            - build_ios:
+                build_config_name: malte
+                context:
+                    - slack-app
+                    - tuerantuer-apple
+                    - tuerantuer-ios
+                name: build_malte_ios
+                requires:
+                    - bump_version
+            - deliver_ios:
+                build_config_name: malte
+                context:
+                    - slack-app
+                    - sentry
+                    - browserstack
+                    - tuerantuer-apple
+                    - tuerantuer-ios
+                name: deliver_malte_ios
+                production_delivery: true
+                requires:
+                    - check_native
+                    - e2e_ios
+                    - build_malte_ios
             - notify_ios:
                 context:
                     - slack-app
@@ -918,6 +1024,7 @@ workflows:
                 production_delivery: true
                 requires:
                     - deliver_integreat_ios
+                    - deliver_malte_ios
             - move_release_notes:
                 context:
                     - slack-app
@@ -982,6 +1089,29 @@ workflows:
                     - check_native
                     - e2e_android
                     - build_integreat_android
+            - build_android:
+                build_config_name: malte
+                context:
+                    - slack-app
+                    - tuerantuer-google-play
+                    - tuerantuer-android
+                name: build_malte_android
+                requires:
+                    - bump_version
+            - deliver_android:
+                build_config_name: malte
+                context:
+                    - slack-app
+                    - sentry
+                    - browserstack
+                    - tuerantuer-google-play
+                    - tuerantuer-android
+                name: deliver_malte_android
+                production_delivery: false
+                requires:
+                    - check_native
+                    - e2e_android
+                    - build_malte_android
             - notify_android:
                 context:
                     - slack-app
@@ -989,6 +1119,7 @@ workflows:
                 production_delivery: false
                 requires:
                     - deliver_integreat_android
+                    - deliver_malte_android
             - build_ios:
                 build_config_name: integreat-e2e
                 context:
@@ -1027,6 +1158,29 @@ workflows:
                     - check_native
                     - e2e_ios
                     - build_integreat_ios
+            - build_ios:
+                build_config_name: malte
+                context:
+                    - slack-app
+                    - tuerantuer-apple
+                    - tuerantuer-ios
+                name: build_malte_ios
+                requires:
+                    - bump_version
+            - deliver_ios:
+                build_config_name: malte
+                context:
+                    - slack-app
+                    - sentry
+                    - browserstack
+                    - tuerantuer-apple
+                    - tuerantuer-ios
+                name: deliver_malte_ios
+                production_delivery: false
+                requires:
+                    - check_native
+                    - e2e_ios
+                    - build_malte_ios
             - notify_ios:
                 context:
                     - slack-app
@@ -1034,6 +1188,7 @@ workflows:
                 production_delivery: false
                 requires:
                     - deliver_integreat_ios
+                    - deliver_malte_ios
         when:
             and:
                 - << pipeline.parameters.api_triggered >>
@@ -1115,6 +1270,29 @@ workflows:
                     - check_native
                     - e2e_android
                     - build_integreat_android
+            - build_android:
+                build_config_name: malte
+                context:
+                    - slack-app
+                    - tuerantuer-google-play
+                    - tuerantuer-android
+                name: build_malte_android
+                requires:
+                    - bump_version
+            - deliver_android:
+                build_config_name: malte
+                context:
+                    - slack-app
+                    - sentry
+                    - browserstack
+                    - tuerantuer-google-play
+                    - tuerantuer-android
+                name: deliver_malte_android
+                production_delivery: true
+                requires:
+                    - check_native
+                    - e2e_android
+                    - build_malte_android
             - notify_android:
                 context:
                     - slack-app
@@ -1122,6 +1300,7 @@ workflows:
                 production_delivery: true
                 requires:
                     - deliver_integreat_android
+                    - deliver_malte_android
             - build_ios:
                 build_config_name: integreat-e2e
                 context:
@@ -1160,6 +1339,29 @@ workflows:
                     - check_native
                     - e2e_ios
                     - build_integreat_ios
+            - build_ios:
+                build_config_name: malte
+                context:
+                    - slack-app
+                    - tuerantuer-apple
+                    - tuerantuer-ios
+                name: build_malte_ios
+                requires:
+                    - bump_version
+            - deliver_ios:
+                build_config_name: malte
+                context:
+                    - slack-app
+                    - sentry
+                    - browserstack
+                    - tuerantuer-apple
+                    - tuerantuer-ios
+                name: deliver_malte_ios
+                production_delivery: true
+                requires:
+                    - check_native
+                    - e2e_ios
+                    - build_malte_ios
             - notify_ios:
                 context:
                     - slack-app
@@ -1167,6 +1369,7 @@ workflows:
                 production_delivery: true
                 requires:
                     - deliver_integreat_ios
+                    - deliver_malte_ios
             - move_release_notes:
                 context:
                     - slack-app

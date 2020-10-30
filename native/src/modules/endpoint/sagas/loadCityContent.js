@@ -1,7 +1,7 @@
 // @flow
 
 import type { Saga } from 'redux-saga'
-import { all, call, put } from 'redux-saga/effects'
+import { all, call, put, spawn } from 'redux-saga/effects'
 import type { DataContainer } from '../DataContainer'
 import loadCategories from './loadCategories'
 import loadEvents from './loadEvents'
@@ -20,6 +20,7 @@ import { fromError } from '../../error/ErrorCodes'
 import * as NotificationsManager from '../../push-notifications/PushNotificationsManager'
 import buildConfig from '../../app/constants/buildConfig'
 import loadPois from './loadPois'
+import type { SettingsType } from '../../settings/AppSettings'
 
 /**
  *
@@ -38,7 +39,11 @@ export default function * loadCityContent (
 
   if (!criterion.peeking()) {
     const appSettings = new AppSettings()
-    yield call(NotificationsManager.subscribeNews, newCity, newLanguage, buildConfig().featureFlags)
+    const settings: SettingsType = yield call(appSettings.loadSettings)
+
+    if (settings.allowPushNotifications) {
+      yield spawn(NotificationsManager.subscribeNews, newCity, newLanguage, buildConfig().featureFlags)
+    }
 
     yield call(appSettings.setSelectedCity, newCity)
   }

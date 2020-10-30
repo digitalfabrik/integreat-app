@@ -16,6 +16,7 @@ import withPayloadProvider, { type StatusPropsType } from '../../../modules/endp
 import NewsHeader from '../../../modules/common/components/NewsHeader'
 import { View } from 'react-native'
 import LoadingSpinner from '../../../modules/common/components/LoadingSpinner'
+import ErrorCodes from '../../../modules/error/ErrorCodes'
 
 type ContainerPropsType = {|
   status: 'fetching',
@@ -88,14 +89,15 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     return { status: 'routeNotInitialized' }
   }
 
-  if (state.cities.status === 'loading' || switchingLanguage || languages.status === 'loading') {
-    return { status: 'loading' }
-  }
-
   if (route.status === 'languageNotAvailable') {
-    if (languages.status === 'error') {
+    if (languages.status === 'error' || languages.status === 'loading') {
       console.error('languageNotAvailable status impossible if languages not ready')
-      return { status: 'error', refreshProps: null, code: languages.code, message: languages.message }
+      return {
+        status: 'error',
+        refreshProps: null,
+        code: languages.code || ErrorCodes.UnknownError,
+        message: languages.message || 'languages not ready'
+      }
     }
 
     return {
@@ -120,6 +122,10 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     return { status: 'error', message: route.message, code: route.code, refreshProps }
   } else if (languages.status === 'error') {
     return { status: 'error', message: languages.message, code: languages.code, refreshProps }
+  }
+
+  if (state.cities.status === 'loading' || switchingLanguage || languages.status === 'loading') {
+    return { status: 'loading' }
   }
 
   const cities = state.cities.models

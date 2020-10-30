@@ -1,7 +1,7 @@
 # Manually Running and Building the App
 
 If you want to run the app locally or create `.ipa` or `.apk` builds for testing purposes you can follow this guide.
-If you only want to quickly push an update to the stores then take a look at the [CI/CD documentation](docs/cicd.md#triggering-a-build-in-ci).
+If you only want to quickly push an update to the stores then take a look at the [CI/CD documentation](../../docs/cicd.md#triggering-a-delivery-using-the-ci).
 
 ## Contents
 
@@ -24,8 +24,8 @@ If you only want to quickly push an update to the stores then take a look at the
 #### Prerequisites
 
 * Install and setup XCode.
-* [Install and setup Fastlane](docs/cicd.md#fastlane-setup).
-* Read about [Apple Certificates](docs/apple-certifcates.md).
+* [Install and setup Fastlane](../../docs/cicd.md#fastlane-setup).
+* Read about [Apple Certificates](apple-certifcates.md).
 
 #### Certificates Setup
 
@@ -36,7 +36,7 @@ export FASTLANE_PASSWORD=<secret>
 export MATCH_PASSWORD=<secret>
 ```
 
-More information about the necessary environment variables can be found [here](docs/cicd.md#environment-variables-and-dependencies).
+More information about the necessary environment variables can be found [here](../../docs/cicd.md#environment-variables-and-dependencies).
 
 * Install the certificates locally:
 ```bash
@@ -99,7 +99,7 @@ Fastlane should report where the build artifacts are. These can be uploaded to A
 #### Prerequisites
 
 * Install and setup the Android SDK.
-* **Building for the Play Store only:** [Install and setup Fastlane](docs/cicd.md#fastlane-setup) (necessary for keystore management).
+* **Building for the Play Store only:** [Install and setup Fastlane](../../docs/cicd.md#fastlane-setup) (necessary for keystore management).
 
 #### Dependency Management
 
@@ -150,7 +150,7 @@ export CREDENTIALS_KEYSTORE_PATH=/tmp/credentials/<secret>.enc
 export KEYSTORE_PATH=/tmp/keystore.jks
 ```
 
-More information about the necessary environment variables can be found [here](docs/cicd.md#environment-variables-and-dependencies).
+More information about the necessary environment variables can be found [here](../../docs/cicd.md#environment-variables-and-dependencies).
 
 * Setup the production JKS:
 ```bash
@@ -164,7 +164,7 @@ export KEYSTORE_PASSWORD=<secret>
 export KEYSTORE_KEY_PASSWORD=<secret>
 ```
 
-More information about the necessary environment variables can be found [here](docs/cicd.md#environment-variables-and-dependencies).
+More information about the necessary environment variables can be found [here](../../docs/cicd.md#environment-variables-and-dependencies).
 
 #### Build the App
 
@@ -173,7 +173,7 @@ More information about the necessary environment variables can be found [here](d
 cd android && bundle exec fastlane build
 ```
 
-#### [Optional] Install and run the App
+#### \[Optional\] Install and run the App
 
 * Install the app:
 ```bash

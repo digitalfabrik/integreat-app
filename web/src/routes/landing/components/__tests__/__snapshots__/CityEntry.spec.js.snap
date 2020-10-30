@@ -6,6 +6,7 @@ exports[`CityEntry should match snapshot 1`] = `
 >
   <Highlighter
     aria-label="Augsburg"
+    autoEscape={true}
     highlightStyle={
       Object {
         "backgroundColor": "#ffffff",
