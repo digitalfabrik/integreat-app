@@ -149,6 +149,7 @@ export type CategoriesActionType =
   | FetchCategoryActionType
   | PushCategoryActionType
   | FetchCategoryFailedActionType
+  | RefreshCategoryActionType
 
 export type FetchPoiActionType = {|
   type: 'FETCH_POI', +params: {|
@@ -243,6 +244,7 @@ export type EventsActionType =
   | FetchEventActionType
   | PushEventActionType
   | FetchEventFailedActionType
+  | RefreshEventActionType
 
 export type SwitchContentLanguageActionType = {|
   type: 'SWITCH_CONTENT_LANGUAGE', +params: {|

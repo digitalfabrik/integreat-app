@@ -49,7 +49,9 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
   // Check whether another page in the same city is loading, e.g. because it is being refreshed.
   // This is important for displaying the loading spinner.
   const otherPageLoading = Object.values(state.categoriesRouteMapping)
+    // $FlowFixMe Flow does not support Object.values
     .filter(route => city === route.city && path !== route.path && language === route.language)
+    // $FlowFixMe Flow does not support Object.values
     .some(route => route.status === 'loading')
 
   const resultModels = {}
@@ -62,6 +64,7 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
     }
   })
 
+  // $FlowFixMe Flow can't evaluate the status as it is dynamic
   const route: CategoryRouteStateType = {
     path: root.path,
     models: resultModels,

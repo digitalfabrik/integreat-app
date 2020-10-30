@@ -1,11 +1,11 @@
 // @flow
 
 import type { CityContentStateType, EventRouteStateType } from '../../app/StateType'
-import type { PushEventActionType } from '../../app/StoreActionType'
+import type { RefreshEventActionType } from '../../app/StoreActionType'
 import { EventModel } from '@integreat-app/integreat-api-client'
 import ErrorCodes from '../../error/ErrorCodes'
 
-const refreshEvent = (state: CityContentStateType, action: PushEventActionType): CityContentStateType => {
+const refreshEvent = (state: CityContentStateType, action: RefreshEventActionType): CityContentStateType => {
   const { events, path, key, language, resourceCache, cityLanguages, city } = action.params
 
   if (!key) {
@@ -54,8 +54,10 @@ const refreshEvent = (state: CityContentStateType, action: PushEventActionType):
     : resourceCache
 
   Object.entries(state.eventsRouteMapping)
+    // $FlowFixMe Object.entries does not supply proper types
     .filter(([key, route]) => city === route.city && path !== route.path && language === route.language)
-    .forEach(([key, route]) => {
+    .forEach(([key:string, route]) => {
+    // $FlowFixMe Object.entries does not supply proper types
       state.eventsRouteMapping[key] = getEventRoute(route.path)
     })
 

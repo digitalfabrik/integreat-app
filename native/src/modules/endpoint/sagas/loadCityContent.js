@@ -119,16 +119,18 @@ export default function * loadCityContent (
       yield call(fetchResourceCache, newCity, newLanguage, fetchMap, dataContainer)
     }
 
-    if (shouldUpdate) {
-      yield call(dataContainer.setLastUpdate, newCity, newLanguage, moment())
-    } else {
+    if (!shouldUpdate && lastUpdate) {
       yield call(dataContainer.setLastUpdate, newCity, newLanguage, lastUpdate)
+    } else {
+      yield call(dataContainer.setLastUpdate, newCity, newLanguage, moment())
     }
 
     return true
   } catch (e) {
     // If any error occurs, we have to store the old value for lastUpdate again
-    yield call(dataContainer.setLastUpdate, newCity, newLanguage, lastUpdate)
+    if (lastUpdate) {
+      yield call(dataContainer.setLastUpdate, newCity, newLanguage, lastUpdate)
+    }
     throw e
   }
 }

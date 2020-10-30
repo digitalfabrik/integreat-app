@@ -52,7 +52,7 @@ const createChangeUnavailableLanguage = (city: string, t: TFunction) => (
 }
 
 const routeHasOldContent = (route: CategoryRouteStateType): boolean =>
-  route.models && route.allAvailableLanguages && route.children
+  !!route.models && !!route.allAvailableLanguages && !!route.children
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const { t, navigation } = ownProps
@@ -100,6 +100,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     return { status: 'error', message: languages.message, code: languages.code, refreshProps }
   }
 
+  // $FlowFixMe Flow can't evaluate the status as it is dynamic
   return {
     status: route.status === 'loading' ? 'loading' : 'success',
     refreshProps,

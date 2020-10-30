@@ -14,7 +14,11 @@ import type { TFunction } from 'react-i18next'
 import wrapDisplayName from '../../common/hocs/wrapDisplayName'
 
 export type RouteNotInitializedType = {| status: 'routeNotInitialized' |}
-export type LoadingType = {| status: 'loading' |}
+export type LoadingType<S: {}, R: {}> = {|
+  status: 'loading',
+  innerProps?: S,
+  refreshProps?: R
+|}
 export type ErrorType<R: {}> = {|
   status: 'error',
   message: ?string,
@@ -37,7 +41,7 @@ export type SuccessType<S: {}, R: {}> = {|
 
 export type StatusPropsType<S: {}, R: {}> =
   RouteNotInitializedType
-  | LoadingType
+  | LoadingType<$Diff<S, { dispatch: Dispatch<StoreActionType> }>, R>
   | ErrorType<R>
   | LanguageNotAvailableType
   | SuccessType<$Diff<S, { dispatch: Dispatch<StoreActionType> }>, R>
