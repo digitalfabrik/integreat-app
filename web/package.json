@@ -31,7 +31,7 @@
     "@fortawesome/free-regular-svg-icons": "^5.7.2",
     "@fortawesome/free-solid-svg-icons": "^5.7.2",
     "@fortawesome/react-fontawesome": "^0.1.4",
-    "@integreat-app/integreat-api-client": "^6.0.0",
+    "@integreat-app/integreat-api-client": "^6.0.1",
     "@integreat-app/react-sticky-headroom": "^1.0.4",
     "detect-browser": "^4.1.0",
     "focus-trap-react": "^6.0.0",
