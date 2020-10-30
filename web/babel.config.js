@@ -1,4 +1,4 @@
-const config = {
+module.exports = {
   presets: [
     ['@babel/preset-env', { modules: 'commonjs' }],
     '@babel/preset-react',
@@ -21,5 +21,3 @@ const config = {
     'lodash'
   ]
 }
-
-module.exports = config
