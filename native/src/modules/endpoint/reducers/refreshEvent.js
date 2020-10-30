@@ -63,7 +63,7 @@ const refreshEvent = (state: CityContentStateType, action: PushEventActionType):
     ...state,
     eventsRouteMapping: {
       ...state.eventsRouteMapping,
-      [key]: getEventRoute()
+      [key]: getEventRoute(path)
     },
     resourceCache: {
       status: 'ready',
