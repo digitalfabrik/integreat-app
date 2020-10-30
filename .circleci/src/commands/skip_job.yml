@@ -12,7 +12,7 @@ steps:
         function skip_job {
           build_config_name=$1
           variable_name=SKIP_JOB_${CIRCLE_JOB%-*} # Remove everything after "-". e.g. "check_web-1" -> check_web
-          if [[ -n ${!variable_name} && $build_config_name =~ ${!variable_name} || "all" =~  ${!variable_name} ]]; then
+          if [[ -n ${!variable_name} && ($build_config_name =~ ${!variable_name} || "all" =~  ${!variable_name}) ]]; then
             echo "This job is skipped because the variable $variable_name is set"
             circleci step halt
           fi
