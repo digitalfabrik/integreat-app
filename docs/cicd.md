@@ -169,6 +169,16 @@ More information on the version naming schema used can be found [here](docs/conv
 |FASTLANE_PASSWORD|Password for the Apple Account for delivery|Password Manager|123456|[Credentials](https://github.com/fastlane/fastlane/blob/b121a96e3e2e0bb83392c130cb3a088c773dbbaf/spaceship/docs/Authentication.md#credentials) [Avoid 2FA](https://github.com/fastlane/fastlane/blob/b121a96e3e2e0bb83392c130cb3a088c773dbbaf/spaceship/docs/Authentication.md#avoid-2fa-via-additional-account)|
 |MATCH_PASSWORD|Password for accessing the certificates for the iOS app using [Fastlane Match](https://docs.fastlane.tools/actions/match/)|Password Manager|123456|[Using a Git Repo](https://docs.fastlane.tools/actions/match/#git-repo-encryption-password)|
 
+## Skipping specific jobs
+
+You can control which jobs should be skipped through environment variables. The environment variable `SKIP_JOB_deliver_ios` skips all jobs with the name `deliver_ios`. The environment variable `SKIP_JOB_malte_deliver_ios` skips all jobs with the name `deliver_ios`and which reference the `malte` build config. 
+
+Environment variables can be set in the [Project Settings](https://app.circleci.com/settings/project/github/Integreat/integreat-app/environment-variables) of CircleCI.
+
+Some jobs like `bump_version` run only once for multiple build configs. Therefore, variables like `SKIP_JOB_malte_bump_version` or `SKIP_JOB_integreat_bump_version` do not exist.
+
+Note: The environment variable `SKIP_JOB_deliver_ios` is equivalent to `SKIP_JOB_all_deliver_ios`
+
 ## Hints and Quirks
 
 ### CPU count aka. $TOTAL_CPUS
