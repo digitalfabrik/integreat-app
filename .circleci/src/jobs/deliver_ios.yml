@@ -13,7 +13,8 @@ environment:
   FASTLANE_SKIP_UPDATE_CHECK: true
 shell: /bin/bash --login -o pipefail
 steps:
-  - skip_job
+  - skip_job:
+      build_config_name: << parameters.build_config_name >>
   - run: 'curl -sL https://sentry.io/get-cli/ | bash'
   - checkout
   - prepare_workspace

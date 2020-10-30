@@ -146,6 +146,31 @@ commands:
                 paths:
                     - ~/.cache/yarn-tools
                     - tools/node_modules
+    skip_job:
+        description: Skips the current build if neccassary
+        parameters:
+            build_config_name:
+                default: ""
+                enum:
+                    - integreat
+                    - malte
+                    - integreat-e2e
+                    - integreat-test-cms
+                    - ""
+                type: enum
+        steps:
+            - run:
+                command: |
+                    build_config=<< parameters.build_config_name >>
+                    if [[ -n $build_config ]]; then
+                      variable_name="SKIP_JOB_${build_config}_$CIRCLE_JOB"
+                    else
+                      variable_name="SKIP_JOB_$CIRCLE_JOB"
+                    fi
+                    if [[ -n ${!variable_name} ]]; then
+                      echo "This job is skipped because the variable $variable_name is set"
+                      circleci step halt
+                    fi
 jobs:
     build_android:
         docker:
@@ -165,6 +190,8 @@ jobs:
         resource_class: medium
         shell: /bin/bash -eo pipefail
         steps:
+            - skip_job:
+                build_config_name: << parameters.build_config_name >>
             - add_ssh_keys:
                 fingerprints:
                     - 61:d8:94:00:53:5f:3b:19:fd:88:6b:fa:cd:ca:df:5d
@@ -218,6 +245,8 @@ jobs:
         resource_class: medium
         shell: /bin/bash --login -o pipefail
         steps:
+            - skip_job:
+                build_config_name: << parameters.build_config_name >>
             - add_ssh_keys:
                 fingerprints:
                     - 61:d8:94:00:53:5f:3b:19:fd:88:6b:fa:cd:ca:df:5d
@@ -259,6 +288,8 @@ jobs:
         resource_class: small
         shell: /bin/bash -eo pipefail
         steps:
+            - skip_job:
+                build_config_name: << parameters.build_config_name >>
             - checkout
             - restore_yarn_cache
             - run:
@@ -288,6 +319,7 @@ jobs:
                 type: enum
         resource_class: small
         steps:
+            - skip_job
             - checkout
             - restore_yarn_tools_cache
             - run:
@@ -330,6 +362,7 @@ jobs:
         resource_class: small
         shell: /bin/bash -eo pipefail
         steps:
+            - skip_job
             - checkout
             - check_config
             - restore_yarn_cache
@@ -349,9 +382,19 @@ jobs:
         environment:
             TOTAL_CPUS: 1
             TZ: Europe/Berlin
+        parameters:
+            build_config_name:
+                default: integreat
+                enum:
+                    - integreat
+                    - malte
+                    - integreat-test-cms
+                type: enum
         resource_class: small
         shell: /bin/bash -eo pipefail
         steps:
+            - skip_job:
+                build_config_name: << parameters.build_config_name >>
             - checkout
             - check_config
             - restore_yarn_cache
@@ -386,6 +429,8 @@ jobs:
         resource_class: small
         shell: /bin/bash -eo pipefail
         steps:
+            - skip_job:
+                build_config_name: << parameters.build_config_name >>
             - run: curl -sL https://sentry.io/get-cli/ | bash
             - checkout
             - prepare_workspace
@@ -430,6 +475,8 @@ jobs:
                 type: boolean
         shell: /bin/bash --login -o pipefail
         steps:
+            - skip_job:
+                build_config_name: << parameters.build_config_name >>
             - run: curl -sL https://sentry.io/get-cli/ | bash
             - checkout
             - prepare_workspace
@@ -477,6 +524,7 @@ jobs:
         resource_class: small
         shell: /bin/bash -eo pipefail
         steps:
+            - skip_job
             - add_ssh_keys:
                 fingerprints:
                     - 68:a3:fe:e7:94:f7:a4:13:35:5c:63:30:2f:07:7d:02
@@ -508,6 +556,7 @@ jobs:
         resource_class: small
         shell: /bin/bash -eo pipefail
         steps:
+            - skip_job
             - checkout
             - prepare_workspace
             - restore_yarn_cache
@@ -526,6 +575,7 @@ jobs:
         resource_class: small
         shell: /bin/bash -eo pipefail
         steps:
+            - skip_job
             - checkout
             - prepare_workspace
             - restore_yarn_cache
@@ -541,6 +591,7 @@ jobs:
             - image: circleci/node:12.16.3
         resource_class: small
         steps:
+            - skip_job
             - checkout
             - prepare_workspace
             - restore_environment_variables
@@ -558,6 +609,7 @@ jobs:
                 type: boolean
         resource_class: small
         steps:
+            - skip_job
             - checkout
             - prepare_workspace
             - restore_environment_variables
@@ -581,6 +633,7 @@ jobs:
                 type: boolean
         resource_class: small
         steps:
+            - skip_job
             - checkout
             - prepare_workspace
             - restore_environment_variables
@@ -600,6 +653,7 @@ jobs:
             - image: circleci/node:12.16.3
         resource_class: small
         steps:
+            - skip_job
             - checkout
             - prepare_workspace
             - restore_environment_variables
@@ -640,6 +694,7 @@ workflows:
                     - slack-app
                 delivery: none
             - check_web:
+                build_config_name: integreat-test-cms
                 context:
                     - slack-app
             - build_web:
