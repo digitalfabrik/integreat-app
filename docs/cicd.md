@@ -171,13 +171,11 @@ More information on the version naming schema used can be found [here](docs/conv
 
 ## Skipping specific jobs
 
-You can control which jobs should be skipped through environment variables. The environment variable `SKIP_JOB_deliver_ios` skips all jobs with the name `deliver_ios`. The environment variable `SKIP_JOB_malte_deliver_ios` skips all jobs with the name `deliver_ios`and which reference the `malte` build config. 
+You can control which jobs should be skipped through environment variables. Set the variable `SKIP_JOB_deliver_ios` to `"all"` to skip all jobs with the name `deliver_ios`. Set the variable to `"malte"` in order to skip jobs which use the build config `malte` and have the name `deliver_ios`. You can also set it to `"malte|integreat"` in order to match multiple build configs.
 
 Environment variables can be set in the [Project Settings](https://app.circleci.com/settings/project/github/Integreat/integreat-app/environment-variables) of CircleCI.
 
-Some jobs like `bump_version` run only once for multiple build configs. Therefore, variables like `SKIP_JOB_malte_bump_version` or `SKIP_JOB_integreat_bump_version` do not exist.
-
-Note: The environment variable `SKIP_JOB_deliver_ios` is equivalent to `SKIP_JOB_all_deliver_ios`
+Some jobs like `bump_version` run only once for multiple build configs. Therefore, it does not make sense to set `SKIP_JOB_bump_version` to something other than `"all"`
 
 ## Hints and Quirks
 
