@@ -1,9 +1,19 @@
 description: Skips the current build if neccassary
+parameters:
+  build_config_name:
+    type: enum
+    enum: [integreat, malte, integreat-e2e, integreat-test-cms, ""]
+    default: ""
 steps:
   - run:
       command: |
-        COMMIT_MSG=$(git log --format=oneline -n 1 $CIRCLE_SHA1)
-        if [[ $COMMIT_MSG == *"[skip-ci-staging]"* ]]; then
-          echo "[skip-ci-staging] detected. Stopping."
+        build_config=<< parameters.build_config_name >>
+        if [[ -n $build_config ]]; then
+          variable_name="SKIP_JOB_${build_config}_$CIRCLE_JOB"
+        else
+          variable_name="SKIP_JOB_$CIRCLE_JOB"
+        fi
+        if [[ -n ${!variable_name} ]]; then
+          echo "This job is skipped because the variable $variable_name is set"
           circleci step halt
         fi

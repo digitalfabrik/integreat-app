@@ -1,3 +1,8 @@
+parameters:
+  build_config_name:
+    type: enum
+    enum: [integreat, malte, integreat-test-cms]
+    default: integreat
 docker:
   - image: circleci/node:12.16.3
 resource_class: small
@@ -6,7 +11,8 @@ environment:
   TZ: "Europe/Berlin" # Should be removed in IGAPP-39
 shell: /bin/bash -eo pipefail
 steps:
-  - skip_job
+  - skip_job:
+      build_config_name: << parameters.build_config_name >>
   - checkout
   - check_config
   - restore_yarn_cache
