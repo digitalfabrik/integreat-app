@@ -11,6 +11,7 @@ import createCityContent from './createCityContent'
 import { omit } from 'lodash'
 import pushPoi from './pushPoi'
 import refreshCategory from './refreshCategory'
+import refreshEvent from './refreshEvent'
 
 export default (
   state: CityContentStateType | null = defaultCityContentState, action: StoreActionType
@@ -37,11 +38,19 @@ export default (
   } else if (action.type === 'FETCH_EVENT') {
     const { language, path, key, city } = action.params
     const initializedState = state || createCityContent(city)
+    const oldContent = state && state.eventsRouteMapping[key] ? state.eventsRouteMapping[key] : {}
+
     return {
       ...initializedState,
       eventsRouteMapping: {
         ...initializedState.eventsRouteMapping,
-        [key]: { status: 'loading', language, city, path }
+        [key]: {
+          ...oldContent,
+          status: 'loading',
+          language,
+          city,
+          path
+        }
       }
     }
   } else if (action.type === 'FETCH_NEWS') {
@@ -96,6 +105,8 @@ export default (
         return pushPoi(state, action)
       case 'PUSH_EVENT':
         return pushEvent(state, action)
+      case 'REFRESH_EVENT':
+        return refreshEvent(state, action)
       case 'PUSH_NEWS':
         return pushNews(state, action)
       case 'FETCH_NEWS_FAILED': {

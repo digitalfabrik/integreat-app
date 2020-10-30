@@ -5,28 +5,18 @@ import type { PushEventActionType } from '../../app/StoreActionType'
 import { EventModel } from '@integreat-app/integreat-api-client'
 import ErrorCodes from '../../error/ErrorCodes'
 
-const pushEvent = (state: CityContentStateType, action: PushEventActionType): CityContentStateType => {
+const refreshEvent = (state: CityContentStateType, action: PushEventActionType): CityContentStateType => {
   const { events, path, key, language, resourceCache, cityLanguages, city } = action.params
 
   if (!key) {
     throw new Error('You need to specify a key!')
   }
 
-  // If there is an error in the old resourceCache, we want to override it
-  const newResourceCache = state.resourceCache.status === 'ready'
-    ? { ...state.resourceCache.value, ...resourceCache }
-    : resourceCache
-
-  const getEventRoute = (): EventRouteStateType => {
-    // Check whether another page in the same city is loading, e.g. because it is being refreshed.
-    // This is important for displaying the loading spinner.
-    const otherEventPageLoading = Object.values(state.eventsRouteMapping)
-      .filter(route => city === route.city && path !== route.path && language === route.language)
-      .some(route => route.status === 'loading')
-    if (!path) {
+  const getEventRoute = (currentPath: ?string): EventRouteStateType => {
+    if (!currentPath) {
       const allAvailableLanguages = new Map(cityLanguages.map(lng => [lng.code, null]))
       return {
-        status: otherEventPageLoading ? 'loading' : 'ready',
+        status: 'ready',
         path: null,
         models: events,
         allAvailableLanguages,
@@ -34,29 +24,40 @@ const pushEvent = (state: CityContentStateType, action: PushEventActionType): Ci
         city
       }
     }
-    const event: ?EventModel = events.find(event => event.path === path)
+    const event: ?EventModel = events.find(event => event.path === currentPath)
     if (!event) {
       return {
-        path: path,
+        path: currentPath,
         language,
         city,
         status: 'error',
-        message: `Could not find an event with path '${path}'.`,
+        message: `Could not find an event with path '${currentPath}'.`,
         code: ErrorCodes.PageNotFound
       }
     }
-
     const allAvailableLanguages = new Map(event.availableLanguages)
-    allAvailableLanguages.set(language, path)
+    allAvailableLanguages.set(language, currentPath)
+
     return {
-      status: otherEventPageLoading ? 'loading' : 'ready',
-      path,
+      status: 'ready',
+      path: currentPath,
       models: [event],
       allAvailableLanguages,
       language,
       city
     }
   }
+
+  // If there is an error in the old resourceCache, we want to override it
+  const newResourceCache = state.resourceCache.status === 'ready'
+    ? { ...state.resourceCache.value, ...resourceCache }
+    : resourceCache
+
+  Object.entries(state.eventsRouteMapping)
+    .filter(([key, route]) => city === route.city && path !== route.path && language === route.language)
+    .forEach(([key, route]) => {
+      state.eventsRouteMapping[key] = getEventRoute(route.path)
+    })
 
   return {
     ...state,
@@ -68,7 +69,8 @@ const pushEvent = (state: CityContentStateType, action: PushEventActionType): Ci
       status: 'ready',
       value: newResourceCache
     }
+
   }
 }
 
-export default pushEvent
+export default refreshEvent
