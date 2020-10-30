@@ -31,11 +31,4 @@ describe('Payload', () => {
       new Payload(true, fetchUrl, data, error, fetchDate)
     }).toThrowErrorMatchingSnapshot()
   })
-
-  it('should throw if url is invalid', () => {
-    expect(() => {
-      // eslint-disable-next-line no-new
-      new Payload(true, 'Rambazamba!', data, null, fetchDate)
-    }).toThrowErrorMatchingSnapshot()
-  })
 })
