@@ -1,14 +1,17 @@
-import path from 'path'
-import loadBuildConfig from '../build-configs'
-import webpack from 'webpack'
-import AssetsPlugin from 'assets-webpack-plugin'
-import HtmlWebpackPlugin from 'html-webpack-plugin'
-import { CleanWebpackPlugin } from 'clean-webpack-plugin'
-import CopyPlugin from 'copy-webpack-plugin'
-import MomentTimezoneDataPlugin from 'moment-timezone-data-webpack-plugin'
-import MomentLocalesPlugin from 'moment-locales-webpack-plugin'
-import babelConfig from '../babel.config.js'
-import fs from 'fs'
+require('@babel/register')({ ignore: [' '] })
+const loadBuildConfig = require('build-configs').default
+
+require('@babel/register')({ })
+const path = require('path')
+const webpack = require('webpack')
+const AssetsPlugin = require('assets-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const CopyPlugin = require('copy-webpack-plugin')
+const MomentTimezoneDataPlugin = require('moment-timezone-data-webpack-plugin')
+const MomentLocalesPlugin = require('moment-locales-webpack-plugin')
+const babelConfig = require('../babel.config.js')
+const fs = require('fs')
 
 const currentYear = new Date().getFullYear()
 
@@ -54,7 +57,7 @@ const createConfig = (env = {}) => {
   console.log('Production: ', isProductionBuild)
   console.log('Version: ', version)
 
-  const configAssets = path.resolve(__dirname, `../build-configs/${buildConfigName}/assets`)
+  const configAssets = path.resolve(__dirname, `../node_modules/build-configs/${buildConfigName}/assets`)
 
   const nodeModules = path.resolve(__dirname, '../node_modules')
   const rootNodeModules = path.resolve(__dirname, '../../node_modules')
