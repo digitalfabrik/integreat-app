@@ -6,10 +6,11 @@ parameters:
     default: "all"
 steps:
   - run:
+      # language=bash
       command: |        
         function skip_job {
-          variable_name=$1
-          if [[ -n ${!variable_name} ]]; then
+          variable_name=${1%-*} # Remove everything after "-". e.g. "check_web-1" -> check_web
+          if [[ -n ${!variable_name%-*} ]]; then
             echo "This job is skipped because the variable $variable_name is set"
             circleci step halt
             exit 0
