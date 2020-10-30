@@ -17,10 +17,10 @@ const getAllAvailableLanguages = (
   return allAvailableLanguages
 }
 
-function extractResultModelsAndChildren (root: ?CategoryModel, categoriesMap: CategoriesMapModel, depth: number): {|
+const extractResultModelsAndChildren = (root: ?CategoryModel, categoriesMap: CategoriesMapModel, depth: number): {|
   resultModels: { [path: PathType]: CategoryModel },
   resultChildren: { [path: PathType]: $ReadOnlyArray<PathType> }
-|} {
+|} => {
   /**
    * Extracts models and children from the (updated) categories map.
    */
