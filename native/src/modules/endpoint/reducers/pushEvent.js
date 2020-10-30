@@ -23,10 +23,11 @@ const pushEvent = (state: CityContentStateType, action: PushEventActionType): Ci
     const otherEventPageLoading = Object.values(state.eventsRouteMapping)
       .filter(route => city === route.city && path !== route.path && language === route.language)
       .some(route => route.status === 'loading')
+    const status = otherEventPageLoading ? 'loading' : 'ready'
     if (!path) {
       const allAvailableLanguages = new Map(cityLanguages.map(lng => [lng.code, null]))
       return {
-        status: otherEventPageLoading ? 'loading' : 'ready',
+        status,
         path: null,
         models: events,
         allAvailableLanguages,
@@ -49,7 +50,7 @@ const pushEvent = (state: CityContentStateType, action: PushEventActionType): Ci
     const allAvailableLanguages = new Map(event.availableLanguages)
     allAvailableLanguages.set(language, path)
     return {
-      status: otherEventPageLoading ? 'loading' : 'ready',
+      status,
       path,
       models: [event],
       allAvailableLanguages,

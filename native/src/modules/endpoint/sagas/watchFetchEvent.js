@@ -8,6 +8,7 @@ import loadCityContent from './loadCityContent'
 import { ContentLoadCriterion } from '../ContentLoadCriterion'
 import isPeekingRoute from '../selectors/isPeekingRoute'
 import ErrorCodes, { fromError } from '../../error/ErrorCodes'
+import type Moment from 'moment'
 
 export function * fetchEvent (dataContainer: DataContainer, action: FetchEventActionType): Saga<void> {
   const { city, language, path, key, criterion } = action.params
@@ -26,8 +27,10 @@ export function * fetchEvent (dataContainer: DataContainer, action: FetchEventAc
         call(dataContainer.getResourceCache, city, language)
       ])
 
+      const lastUpdate: Moment | null = yield call(dataContainer.getLastUpdate, city, language)
+
       const insert: PushEventActionType = {
-        type: 'PUSH_EVENT',
+        type: loadCriterion.shouldUpdate(lastUpdate) ? 'REFRESH_EVENT' : 'PUSH_EVENT',
         params: { events, resourceCache, path, cityLanguages, key, language, city }
       }
       yield put(insert)
