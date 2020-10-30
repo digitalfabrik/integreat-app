@@ -21,11 +21,15 @@ const pushEvent = (state: CityContentStateType, action: PushEventActionType): Ci
     // Check whether another page in the same city is loading, e.g. because it is being refreshed.
     // This is important for displaying the loading spinner.
     const otherEventPageLoading = Object.values(state.eventsRouteMapping)
+      // $FlowFixMe Flow does not support Object.values
       .filter(route => city === route.city && path !== route.path && language === route.language)
+      // $FlowFixMe Flow does not support Object.values
       .some(route => route.status === 'loading')
+
     const status = otherEventPageLoading ? 'loading' : 'ready'
     if (!path) {
       const allAvailableLanguages = new Map(cityLanguages.map(lng => [lng.code, null]))
+      // $FlowFixMe Flow can't evaluate the status as it is dynamic
       return {
         status,
         path: null,
@@ -49,6 +53,7 @@ const pushEvent = (state: CityContentStateType, action: PushEventActionType): Ci
 
     const allAvailableLanguages = new Map(event.availableLanguages)
     allAvailableLanguages.set(language, path)
+    // $FlowFixMe Flow can't evaluate the status as it is dynamic
     return {
       status,
       path,

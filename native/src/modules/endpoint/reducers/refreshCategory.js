@@ -2,7 +2,7 @@
 
 import type { CategoryRouteStateType, CityContentStateType, PathType } from '../../app/StateType'
 import type { RefreshCategoryActionType } from '../../app/StoreActionType'
-import { CategoryModel, LanguageModel } from '@integreat-app/integreat-api-client'
+import type { CategoriesMapModel, CategoryModel, LanguageModel } from '@integreat-app/integreat-api-client'
 import forEachTreeNode from '../../common/forEachTreeNode'
 import ErrorCodes from '../../error/ErrorCodes'
 
@@ -17,7 +17,7 @@ const getAllAvailableLanguages = (
   return allAvailableLanguages
 }
 
-const extractResultModelsAndChildren = (root: ?CategoryModel, categoriesMap: CategoriesMapModel, depth: number): {|
+const extractResultModelsAndChildren = (root: CategoryModel, categoriesMap: CategoriesMapModel, depth: number): {|
   resultModels: { [path: PathType]: CategoryModel },
   resultChildren: { [path: PathType]: $ReadOnlyArray<PathType> }
 |} => {
@@ -27,7 +27,7 @@ const extractResultModelsAndChildren = (root: ?CategoryModel, categoriesMap: Cat
   const resultModels = {}
   const resultChildren = {}
 
-  forEachTreeNode(root, node => categoriesMap.getChildren(node), depth, (node, children) => {
+  forEachTreeNode(root, (node: CategoryModel) => categoriesMap.getChildren(node), depth, (node, children) => {
     resultModels[node.path] = node
     if (children) {
       resultChildren[node.path] = children.map(child => child.path)
@@ -88,10 +88,13 @@ const refreshCategory = (state: CityContentStateType, action: RefreshCategoryAct
 
   // Update all open routes in the same city with the new content
   Object.entries(state.categoriesRouteMapping)
+    // $FlowFixMe Object.entries does not supply proper types
     .filter(([key, route]) => city === route.city && path !== route.path && language === route.language)
-    .forEach(([key, route]) => {
+    .forEach(([key : string, route]) => {
+      // $FlowFixMe Object.entries does not supply proper types
       const root: ?CategoryModel = categoriesMap.findCategoryByPath(route.path)
       if (!root) {
+        // $FlowFixMe Object.entries does not supply proper types
         state.categoriesRouteMapping[key] = {
           path: path,
           depth: depth,
@@ -103,7 +106,9 @@ const refreshCategory = (state: CityContentStateType, action: RefreshCategoryAct
         }
       } else {
         const { resultModels, resultChildren } = extractResultModelsAndChildren(root, categoriesMap, depth)
+        // $FlowFixMe Object.entries does not supply proper types
         state.categoriesRouteMapping[key] = {
+          // $FlowFixMe Object.entries does not supply proper types
           ...state.categoriesRouteMapping[key],
           models: resultModels,
           children: resultChildren,

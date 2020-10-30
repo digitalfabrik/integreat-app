@@ -45,6 +45,7 @@ export function * fetchCategory (dataContainer: DataContainer, action: FetchCate
 
       const lastUpdate: Moment | null = yield call(dataContainer.getLastUpdate, city, language)
 
+      // $FlowFixMe Flow can't evaluate the type as it is dynamic
       const push: PushCategoryActionType | RefreshCategoryActionType = {
         type: loadCriterion.shouldUpdate(lastUpdate) ? 'REFRESH_CATEGORY' : 'PUSH_CATEGORY',
         params: { categoriesMap, resourceCache, path, cityLanguages, depth, key, city, language }

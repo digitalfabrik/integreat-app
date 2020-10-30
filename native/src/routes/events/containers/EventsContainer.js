@@ -99,6 +99,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
   const cities = state.cities.models
 
+  // $FlowFixMe Flow can't evaluate the status as it is dynamic
   return {
     status: route.status === 'loading' ? 'loading' : 'success',
     refreshProps,
