@@ -205,17 +205,24 @@ export type ClearEventActionType = {|
   type: 'CLEAR_EVENT', +params: {| +key: string |}
 |}
 
+type EventParamsType = {|
+  +events: $ReadOnlyArray<EventModel>,
+  +path: ?string,
+  +key: string,
+  +resourceCache: LanguageResourceCacheStateType,
+  +cityLanguages: $ReadOnlyArray<LanguageModel>,
+  +language: string,
+  +city: string
+|}
+
 export type PushEventActionType = {|
   type: 'PUSH_EVENT',
-  +params: {|
-    +events: $ReadOnlyArray<EventModel>,
-    +path: ?string,
-    +key: string,
-    +resourceCache: LanguageResourceCacheStateType,
-    +cityLanguages: $ReadOnlyArray<LanguageModel>,
-    +language: string,
-    +city: string
-  |}
+  +params: EventParamsType
+|}
+
+export type RefreshEventActionType = {|
+  type: 'REFRESH_EVENT',
+  +params: EventParamsType
 |}
 
 export type FetchEventFailedActionType = {|
