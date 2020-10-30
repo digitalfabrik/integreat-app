@@ -6,6 +6,7 @@ parameters:
     default: "all"
 steps:
   - run:
+      name: Skip the current build if neccassary
       # language=bash
       command: |        
         function skip_job {
