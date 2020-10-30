@@ -17,6 +17,7 @@ import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 import Categories from '../../../modules/categories/components/Categories'
 import React from 'react'
 import type { TFunction } from 'react-i18next'
+import ErrorCodes from '../../../modules/error/ErrorCodes'
 
 type ContainerPropsType = {|
   navigation: NavigationStackProp<*>,
@@ -65,15 +66,15 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     return { status: 'routeNotInitialized' }
   }
 
-  if (state.resourceCacheUrl === null || state.cities.status === 'loading' || switchingLanguage ||
-    (route.status === 'loading' && !routeHasOldContent(route)) || languages.status === 'loading') {
-    return { status: 'loading' }
-  }
-
   if (route.status === 'languageNotAvailable') {
-    if (languages.status === 'error') {
+    if (languages.status === 'error' || languages.status === 'loading') {
       console.error('languageNotAvailable status impossible if languages not ready')
-      return { status: 'error', refreshProps: null, code: languages.code, message: languages.message }
+      return {
+        status: 'error',
+        refreshProps: null,
+        code: languages.code || ErrorCodes.UnknownError,
+        message: languages.message || 'languages not ready'
+      }
     }
     return {
       status: 'languageNotAvailable',
@@ -98,6 +99,11 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     return { status: 'error', message: resourceCache.message, code: resourceCache.code, refreshProps }
   } else if (languages.status === 'error') {
     return { status: 'error', message: languages.message, code: languages.code, refreshProps }
+  }
+
+  if (state.resourceCacheUrl === null || state.cities.status === 'loading' || switchingLanguage ||
+    (route.status === 'loading' && !routeHasOldContent(route)) || languages.status === 'loading') {
+    return { status: 'loading' }
   }
 
   // $FlowFixMe Flow can't evaluate the status as it is dynamic

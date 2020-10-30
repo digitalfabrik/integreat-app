@@ -66,15 +66,15 @@ const cityContentRouteConfigMap: NavigationRouteConfigMap = {
   [WOHNEN_ROUTE]: createNavigationRouteConfig(WohnenOfferContainer, defaultHeader),
   [SPRUNGBRETT_ROUTE]: createNavigationRouteConfig(SprungbrettOfferContainer, defaultHeader),
   [EXTERNAL_OFFER_ROUTE]: createNavigationRouteConfig(ExternalOfferContainer, defaultHeader),
-  Pois: createNavigationRouteConfig(// $FlowFixMe We don't know why this fails.
+  Pois: createNavigationRouteConfig(
     PoisContainer, defaultHeader),
-  Events: createNavigationRouteConfig( // $FlowFixMe We don't know why this fails.
+  Events: createNavigationRouteConfig(
     EventsContainer, defaultHeader
   ),
-  News: createNavigationRouteConfig( // $FlowFixMe Me either don't know why this fails.
+  News: createNavigationRouteConfig(
     NewsContainer, defaultHeader
   ),
-  PDFViewModal: createNavigationRouteConfig( // $FlowFixMe We don't know why this fails.
+  PDFViewModal: createNavigationRouteConfig(
     PDFViewModal, transparentFloatingHeader
   ),
   ChangeLanguageModal: createNavigationRouteConfig(ChangeLanguageModalContainer, transparentStaticHeader),

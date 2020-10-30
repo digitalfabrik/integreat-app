@@ -1,11 +1,10 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Run release on Android" type="js.build_tools.npm" factoryName="npm">
+  <configuration default="false" name="Run release on Android" type="js.build_tools.npm">
     <package-json value="$PROJECT_DIR$/package.json" />
     <command value="run" />
     <scripts>
-      <script value="android" />
+      <script value="android:integreat:production" />
     </scripts>
-    <arguments value="--variant=release" />
     <node-interpreter value="project" />
     <envs />
     <method v="2" />

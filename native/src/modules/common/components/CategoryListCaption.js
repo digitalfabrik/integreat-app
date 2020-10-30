@@ -1,12 +1,12 @@
 // @flow
 
-import React from 'react'
+import * as React from 'react'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
 import type { ThemeType } from '../../theme/constants'
 
 const H1: StyledComponent<{ withThumbnail: boolean }, ThemeType, *> = styled.Text`
-  padding : {props => this.props.withThumbnail ? '0 0' : '20px 0'};
+  padding : ${props => props.withThumbnail ? '0 0' : '20px 0'};
   font-size: 20px;
   text-align: center;
   color: ${props => props.theme.colors.textColor};

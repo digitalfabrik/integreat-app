@@ -30,9 +30,7 @@ export default function * loadLanguages (
   console.debug('Fetching languages')
 
   const apiUrl = yield call(determineApiUrl)
-  const payload = yield call(() =>
-    createLanguagesEndpoint(apiUrl).request({ city })
-  )
+  const payload = yield call(() => createLanguagesEndpoint(apiUrl).request({ city }))
   const languages: Array<LanguageModel> = payload.data
 
   yield call(dataContainer.setLanguages, city, languages)

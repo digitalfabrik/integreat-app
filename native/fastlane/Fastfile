@@ -20,15 +20,14 @@ private_lane :generic_sentry_upload do |options|
   package_name = options[:package_name]
   sourcemap_path = options[:sourcemap_path]
 
+  sentry_release_version = "#{package_name}@#{version_name}+#{version_code}"
   sentry_create_release(
-      version: version_name,
-      app_identifier: package_name,
+      version: sentry_release_version,
       finalize: true
   )
 
   sentry_upload_sourcemap(
-      version: version_name,
-      app_identifier: package_name,
+      version: sentry_release_version,
       dist: version_code.to_s,
       sourcemap: sourcemap_path,
       rewrite: true
@@ -37,36 +36,36 @@ end
 
 platform :android do
   # The following parameters have to be passed:
-  # build_config_name: The name of the build config
+  # apk_path: The path of the apk to upload (relative to home dir)
   desc "Upload the APK to BrowserStack Live"
   lane :browserstack_upload_live do |options|
     ensure_env_vars(
         env_vars: ["BROWSERSTACK_USERNAME", "BROWSERSTACK_ACCESS_KEY"]
     )
 
-    build_config_name = options[:build_config_name]
+    apk_path = options[:apk_path]
 
     upload_to_browserstack_app_live(
         browserstack_username: ENV["BROWSERSTACK_USERNAME"],
         browserstack_access_key: ENV["BROWSERSTACK_ACCESS_KEY"],
-        file_path: "./#{build_config_name}.apk"
+        file_path: "#{ENV['HOME']}/#{apk_path}"
     )
   end
 
   # The following parameters have to be passed:
-  # build_config_name: The name of the build config
+  # apk_path: The path of the apk to upload (relative to home dir)
   desc "Upload the APK and run E2E tests on BrowserStack"
   lane :browserstack_e2e_tests do |options|
     ensure_env_vars(
         env_vars: ["BROWSERSTACK_USERNAME", "BROWSERSTACK_ACCESS_KEY"]
     )
 
-    build_config_name = options[:build_config_name]
+    apk_path = options[:apk_path]
 
     upload_to_browserstack_app_automate(
         browserstack_username: ENV["BROWSERSTACK_USERNAME"],
         browserstack_access_key: ENV["BROWSERSTACK_ACCESS_KEY"],
-        file_path: "./#{build_config_name}.apk"
+        file_path: "#{ENV['HOME']}/#{apk_path}"
     )
 
     ENV["E2E_CONFIG"] = "browserstack_ci_android"
@@ -84,17 +83,19 @@ platform :android do
   # version_code: The version code of the app
   # version_name: The version name of the app
   # build_config_name: The name of the build config
+  # sourcemap_path: The path to the sourcemap to upload (relative to home dir)
   desc "Upload the JavaScript source map to Sentry"
   lane :sentry_upload do |options|
     version_code = options[:version_code]
     version_name = options[:version_name]
     build_config_name = options[:build_config_name]
+    sourcemap_path = options[:sourcemap_path]
 
     build_config = read_build_config(build_config_name)
 
     generic_sentry_upload(
         package_name: build_config['android']['applicationId'],
-        sourcemap_path: "./#{build_config_name}.android.bundle.map",
+        sourcemap_path: "#{ENV['HOME']}/#{sourcemap_path}",
         version_name: version_name,
         version_code: version_code
     )
@@ -104,33 +105,38 @@ platform :android do
   # version_code: The version code of the app
   # version_name: The version name of the app
   # build_config_name: The name of the build config
+  # apk_path: The path of the apk to upload (relative to home dir)
   desc "Deliver the app to Play Store. Depending on the option `production_delivery` the update is released to the general public."
   lane :playstore_upload do |options|
-    version_code = options[:version_code]
-    version_name = options[:version_name]
-    build_config_name = options[:build_config_name]
-
-    build_config = read_build_config(build_config_name)
-
     ensure_env_vars(
         env_vars: ["GOOGLE_SERVICE_ACCOUNT_JSON"]
     )
 
+    version_code = options[:version_code]
+    version_name = options[:version_name]
+    build_config_name = options[:build_config_name]
+    apk_path = options[:apk_path]
+
+    build_config = read_build_config(build_config_name)
+    skip_metadata = build_config_name == "malte"
     track = options[:production_delivery] === true ? "production" : "beta"
+
+    puts("delivering #{build_config_name} v#{version_name} to track #{track}")
+    puts("skip_metadata: #{skip_metadata}")
 
     # https://docs.fastlane.tools/actions/supply/
     upload_to_play_store(
         version_code: version_code,
         version_name: version_name,
         package_name: build_config['android']['applicationId'],
-        metadata_path: "./android/fastlane/metadata/android",
+        metadata_path: "./android/fastlane/#{build_config_name}/metadata",
         track: track,
         skip_upload_changelogs: false,
-        skip_upload_images: false,
-        skip_upload_screenshots: false,
-        skip_upload_metadata: false,
+        skip_upload_images: skip_metadata,
+        skip_upload_screenshots: skip_metadata,
+        skip_upload_metadata: skip_metadata,
         release_status: "completed",
-        apk: "./#{build_config_name}.apk",
+        apk: "#{ENV['HOME']}/#{apk_path}",
         json_key_data: ENV["GOOGLE_SERVICE_ACCOUNT_JSON"]
     )
   end
@@ -138,36 +144,37 @@ end
 
 platform :ios do
   # The following parameters have to be passed:
-  # build_config_name: The name of the build config
+  # ipa_path: The path of the ipa to upload (relative to home dir)
   desc "Upload the IPA to BrowserStack Live"
   lane :browserstack_upload_live do |options|
     ensure_env_vars(
         env_vars: ["BROWSERSTACK_USERNAME", "BROWSERSTACK_ACCESS_KEY"]
     )
 
-    build_config_name = options[:build_config_name]
+    ipa_path = options[:ipa_path]
 
     upload_to_browserstack_app_live(
         browserstack_username: ENV["BROWSERSTACK_USERNAME"],
         browserstack_access_key: ENV["BROWSERSTACK_ACCESS_KEY"],
-        file_path: "./#{build_config_name}.ipa"
+        file_path: "#{ENV['HOME']}/#{ipa_path}"
     )
   end
 
   # The following parameters have to be passed:
   # build_config_name: The name of the build config
-  desc "Upload the APK and run E2E tests on BrowserStack"
+  # ipa_path: The path of the ipa to upload (relative to home dir)
+  desc "Upload the IPA and run E2E tests on BrowserStack"
   lane :browserstack_e2e_tests do |options|
     ensure_env_vars(
         env_vars: ["BROWSERSTACK_USERNAME", "BROWSERSTACK_ACCESS_KEY"]
     )
 
-    build_config_name = options[:build_config_name]
+    ipa_path = options[:ipa_path]
 
     upload_to_browserstack_app_automate(
         browserstack_username: ENV["BROWSERSTACK_USERNAME"],
         browserstack_access_key: ENV["BROWSERSTACK_ACCESS_KEY"],
-        file_path: "./#{build_config_name}.ipa"
+        file_path: "#{ENV['HOME']}/#{ipa_path}"
     )
 
     ENV["E2E_CONFIG"] = "browserstack_ci_ios"
@@ -184,17 +191,19 @@ platform :ios do
   # version_code: The version code of the app
   # version_name: The version name of the app
   # build_config_name: The name of the build config
+  # sourcemap_path: The path to the sourcemap to upload (relative to home dir)
   desc "Upload source map to Sentry"
   lane :sentry_upload do |options|
     version_code = options[:version_code]
     version_name = options[:version_name]
     build_config_name = options[:build_config_name]
+    sourcemap_path = options[:sourcemap_path]
 
     build_config = read_build_config(build_config_name)
 
     generic_sentry_upload(
         package_name: build_config['ios']['bundleIdentifier'],
-        sourcemap_path: "./#{build_config_name}.ios.bundle.map",
+        sourcemap_path: "#{ENV['HOME']}/#{sourcemap_path}",
         version_code: version_code,
         version_name: version_name
     )
@@ -203,6 +212,7 @@ platform :ios do
   # The following parameters have to be passed:
   # version_name: The version name of the app
   # build_config_name: The name of the build config
+  # ipa_path: The path of the ipa to upload (relative to home dir)
   desc "Deliver the app to App Store Connect. The app is submitted for review and released automatically."
   lane :appstoreconnect_upload do |options|
     ensure_env_vars(
@@ -210,20 +220,25 @@ platform :ios do
     )
 
     version_name = options[:version_name]
+    ipa_path = options[:ipa_path]
     build_config_name = options[:build_config_name]
+    skip_screenshots = build_config_name == "malte"
+
+    puts("delivering #{build_config_name} v#{version_name}")
+    puts("skip_screenshots: #{skip_screenshots}")
 
     # https://docs.fastlane.tools/actions/deliver/
     deliver(
-        ipa: "./#{build_config_name}.ipa",
+        ipa: "#{ENV['HOME']}/#{ipa_path}",
         app_version: version_name,
         submit_for_review: true,
         automatic_release: true,
         force: true,
-        skip_screenshots: false,
+        skip_screenshots: skip_screenshots,
         skip_metadata: false,
         skip_app_version_update: false,
-        metadata_path: "./ios/fastlane/metadata",
-        screenshots_path: "./ios/fastlane/screenshots",
+        metadata_path: "./ios/fastlane/#{build_config_name}/metadata",
+        screenshots_path: "./ios/fastlane/#{build_config_name}/screenshots",
         precheck_include_in_app_purchases: false, # We do not have inapp purchases
         submission_information: { add_id_info_uses_idfa: false }  # https://firebase.google.com/docs/analytics/configure-data-collection?platform=ios
                                                                   # https://support.google.com/firebase/answer/6318039?hl=en
@@ -232,6 +247,7 @@ platform :ios do
 
   # The following parameters have to be passed:
   # build_config_name: The name of the build config
+  # ipa_path: The path of the ipa to upload (relative to home dir)
   desc "Deliver the app to TestFlight for testers"
   lane :testflight_upload do |options|
     ensure_env_vars(
@@ -241,12 +257,13 @@ platform :ios do
     build_config_name = options[:build_config_name]
     build_config = read_build_config(build_config_name)
     apple_id = build_config['ios']['appleId']
+    ipa_path = options[:ipa_path]
 
     # https://docs.fastlane.tools/actions/upload_to_testflight/
     upload_to_testflight(
         skip_waiting_for_build_processing: true,
         apple_id: apple_id,
-        ipa: "./#{build_config_name}.ipa",
+        ipa: "#{ENV['HOME']}/#{ipa_path}",
         distribute_external: false
     )
   end
