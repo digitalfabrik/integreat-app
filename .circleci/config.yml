@@ -171,6 +171,7 @@ commands:
                     }
 
                     skip_job << parameters.build_config_name >>
+                name: Skip the current build if neccassary
 jobs:
     build_android:
         docker:
@@ -382,19 +383,10 @@ jobs:
         environment:
             TOTAL_CPUS: 1
             TZ: Europe/Berlin
-        parameters:
-            build_config_name:
-                default: integreat
-                enum:
-                    - integreat
-                    - malte
-                    - integreat-test-cms
-                type: enum
         resource_class: small
         shell: /bin/bash -eo pipefail
         steps:
-            - skip_job:
-                build_config_name: << parameters.build_config_name >>
+            - skip_job
             - checkout
             - check_config
             - restore_yarn_cache
@@ -694,7 +686,6 @@ workflows:
                     - slack-app
                 delivery: none
             - check_web:
-                build_config_name: integreat-test-cms
                 context:
                     - slack-app
             - build_web:
