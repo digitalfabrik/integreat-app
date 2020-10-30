@@ -9,9 +9,11 @@ import watchFetchEvent, { fetchEvent } from '../watchFetchEvent'
 import { expectSaga, testSaga } from 'redux-saga-test-plan'
 import loadCityContent from '../loadCityContent'
 import ErrorCodes from '../../../error/ErrorCodes'
+import moment from 'moment'
 
 jest.mock('rn-fetch-blob')
 jest.mock('../loadCityContent')
+Date.now = jest.fn().mockReturnValue(new Date('2020-01-01T12:00:00.000Z'))
 
 describe('watchFetchEvents', () => {
   beforeEach(() => {
@@ -27,13 +29,54 @@ describe('watchFetchEvents', () => {
       const events = eventsBuilder.build()
       const resources = eventsBuilder.buildResources()
       const languages = new LanguageModelBuilder(2).build()
+      const metaCities = {
+        [city]: {
+          languages: { [language]: { lastUpdate: moment('2020-01-01T00:00:00.000Z') } },
+          lastUsage: moment('2020-01-01T01:00:00.000Z')
+        }
+      }
 
       const dataContainer = new DefaultDataContainer()
       await dataContainer.setEvents(city, language, events)
       await dataContainer.setLanguages(city, languages)
       await dataContainer.setResourceCache(city, language, resources)
+      await dataContainer._databaseConnector._storeMetaCities(metaCities)
+
       return { dataContainer, events, resources, languages }
     }
+
+    it('should put an action which refreshes the events', async () => {
+      const { events, dataContainer, resources, languages } = await createDataContainer(city, language)
+
+      const action: FetchEventActionType = {
+        type: 'FETCH_EVENT',
+        params: {
+          city,
+          language,
+          path: events[0].path,
+          key: 'events-key',
+          criterion: {
+            forceUpdate: true,
+            shouldRefreshResources: true
+          }
+        }
+      }
+      return expectSaga(fetchEvent, dataContainer, action)
+        .withState({ cityContent: { city } })
+        .put({
+          type: 'REFRESH_EVENT',
+          params: {
+            events,
+            resourceCache: resources,
+            path: events[0].path,
+            cityLanguages: languages,
+            key: 'events-key',
+            language,
+            city
+          }
+        })
+        .run()
+    })
 
     it('should put an action which pushes the events', async () => {
       const { events, dataContainer, resources, languages } = await createDataContainer(city, language)
@@ -47,7 +90,7 @@ describe('watchFetchEvents', () => {
           key: 'events-key',
           criterion: {
             forceUpdate: false,
-            shouldRefreshResources: true
+            shouldRefreshResources: false
           }
         }
       }
