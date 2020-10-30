@@ -1,0 +1,9 @@
+description: Skips the current build if neccassary
+steps:
+  - run:
+      command: |
+        COMMIT_MSG=$(git log --format=oneline -n 1 $CIRCLE_SHA1)
+        if [[ $COMMIT_MSG == *"[skip-ci-staging]"* ]]; then
+          echo "[skip-ci-staging] detected. Stopping."
+          circleci step halt
+        fi
