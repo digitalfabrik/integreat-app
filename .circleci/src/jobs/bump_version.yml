@@ -9,6 +9,7 @@ docker:
   - image: circleci/node:12.16.3
 resource_class: small
 steps:
+  - skip_job
   - checkout
   - restore_yarn_tools_cache
   - run:

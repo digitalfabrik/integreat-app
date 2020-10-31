@@ -8,6 +8,7 @@ steps:
       command: yarn run circleci:update-config
   - run: # Taken from https://github.com/roopakv/orbs/blob/master/src/commands/fail_if_dirty.yml
       name: CircleCI config up to date
+      # language=bash
       command: |
         FILES_MODIFIED=""
         setcommit () {

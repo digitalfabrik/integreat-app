@@ -169,6 +169,14 @@ More information on the version naming schema used can be found [here](docs/conv
 |FASTLANE_PASSWORD|Password for the Apple Account for delivery|Password Manager|123456|[Credentials](https://github.com/fastlane/fastlane/blob/b121a96e3e2e0bb83392c130cb3a088c773dbbaf/spaceship/docs/Authentication.md#credentials) [Avoid 2FA](https://github.com/fastlane/fastlane/blob/b121a96e3e2e0bb83392c130cb3a088c773dbbaf/spaceship/docs/Authentication.md#avoid-2fa-via-additional-account)|
 |MATCH_PASSWORD|Password for accessing the certificates for the iOS app using [Fastlane Match](https://docs.fastlane.tools/actions/match/)|Password Manager|123456|[Using a Git Repo](https://docs.fastlane.tools/actions/match/#git-repo-encryption-password)|
 
+## Skipping specific jobs
+
+You can control which jobs should be skipped through environment variables. Set the variable `SKIP_JOB_deliver_ios` to `"all"` to skip all jobs with the name `deliver_ios`. Set the variable to `"malte"` in order to skip jobs which use the build config `malte` and have the name `deliver_ios`. You can also set it to `"malte|integreat"` in order to match multiple build configs.
+
+Environment variables can be set in the [Project Settings](https://app.circleci.com/settings/project/github/Integreat/integreat-app/environment-variables) of CircleCI.
+
+Some jobs like `bump_version` run only once for multiple build configs. Therefore, it does not make sense to set `SKIP_JOB_bump_version` to something other than `"all"`
+
 ## Hints and Quirks
 
 ### CPU count aka. $TOTAL_CPUS
