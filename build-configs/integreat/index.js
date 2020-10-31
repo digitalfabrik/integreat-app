@@ -7,9 +7,7 @@ import { INTEGREAT_ASSETS } from '../AssetsType'
 const IntegreatBuildConfig: BuildConfigType = {
   appName: 'Integreat',
   appIcon: 'app_icon_integreat',
-  itunesAppId: '1072353915',
-  manifestUrl: '/manifest.json',
-  lightTheme, // named theme
+  lightTheme,
   darkTheme,
   assets: INTEGREAT_ASSETS,
   development: false,
@@ -62,13 +60,17 @@ const IntegreatBuildConfig: BuildConfigType = {
     },
     launchScreen: 'LaunchScreenIntegreat'
   },
-  icons: {
-    locationIcon: '/location-big.svg',
-    headerLogo: '/integreat-app-logo.png'
-  },
-  splashScreen: {
-    backgroundColor: lightTheme.colors.themeColor,
-    imageUrl: '/progressive-logo.jpg'
+  web: {
+    itunesAppId: '1072353915',
+    manifestUrl: '/manifest.json',
+    icons: {
+      locationIcon: '/location-big.svg',
+      headerLogo: '/integreat-app-logo.png'
+    },
+    splashScreen: {
+      backgroundColor: lightTheme.colors.themeColor,
+      imageUrl: '/progressive-logo.jpg'
+    }
   }
 }
 

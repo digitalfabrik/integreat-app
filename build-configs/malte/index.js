@@ -8,7 +8,6 @@ import malteOverrideLocales from 'locales/override-locales/malte.json'
 const MalteBuildConfig: BuildConfigType = {
   appName: 'Malte',
   appIcon: 'app_icon_malte',
-  itunesAppId: '1535758339',
   lightTheme,
   darkTheme,
   assets: MALTE_ASSETS,
@@ -62,9 +61,12 @@ const MalteBuildConfig: BuildConfigType = {
     },
     launchScreen: 'LaunchScreenDefault'
   },
-  icons: {
-    locationIcon: '/location-big.svg',
-    headerLogo: '/malteser-logo.png'
+  web: {
+    itunesAppId: '1535758339',
+    icons: {
+      locationIcon: '/location-big.svg',
+      headerLogo: '/malteser-logo.png'
+    }
   }
 }
 
