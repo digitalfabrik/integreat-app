@@ -59,10 +59,7 @@ exports[`FeedbackModal should match snapshot 1`] = `
           "webviewFontFamilies": "'OpenSans', sans-serif",
         },
         "helpers": Object {
-          "removeLinkHighlighting": "
-    color: inherit;
-    text-decoration: none;
-  ",
+          "removeLinkHighlighting": "color: inherit; text-decoration: none;",
         },
       }
     }
@@ -120,10 +117,7 @@ exports[`FeedbackModal should match snapshot 1`] = `
             "webviewFontFamilies": "'OpenSans', sans-serif",
           },
           "helpers": Object {
-            "removeLinkHighlighting": "
-    color: inherit;
-    text-decoration: none;
-  ",
+            "removeLinkHighlighting": "color: inherit; text-decoration: none;",
           },
         }
       }
@@ -224,10 +218,7 @@ exports[`FeedbackModal should match snapshot 1`] = `
               "webviewFontFamilies": "'OpenSans', sans-serif",
             },
             "helpers": Object {
-              "removeLinkHighlighting": "
-    color: inherit;
-    text-decoration: none;
-  ",
+              "removeLinkHighlighting": "color: inherit; text-decoration: none;",
             },
           }
         }
