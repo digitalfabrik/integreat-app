@@ -1,10 +1,14 @@
 #!/usr/bin/env node
 
-const loadBuildConfig = require('../../build-configs').default
+require('@babel/register')({
+  ignore: [/node_modules\/(?!build-configs)/]
+})
+
 const { program } = require('commander')
 const fs = require('fs')
 const flat = require('flat')
 const decamelize = require('decamelize')
+const loadBuildConfig = require('build-configs').default
 
 const loadBuildConfigAsXCConfig = buildConfigName => {
   const buildConfig = loadBuildConfig(buildConfigName)
