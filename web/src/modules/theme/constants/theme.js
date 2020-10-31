@@ -5,8 +5,8 @@ import type { ThemeType } from '../../app/constants/buildConfig'
 
 export type { ThemeType }
 
-export const brightTheme: ThemeType = buildConfig().lightTheme
+export const lightTheme: ThemeType = buildConfig().lightTheme
 
 export const darkTheme: ThemeType = buildConfig().darkTheme
 
-export default brightTheme
+export default lightTheme
