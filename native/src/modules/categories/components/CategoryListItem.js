@@ -49,9 +49,9 @@ const CategoryTitle = styled(Highlighter)`
 const CategoryThumbnail = styled(Image)`
   align-self: center;
   flex-shrink: 0;
-  width: ${props => props.theme.dimensions.categoryListItem.iconSize}px;
-  height: ${props => props.theme.dimensions.categoryListItem.iconSize}px;
-  margin: ${props => props.theme.dimensions.categoryListItem.margin}px;
+  width: ${props => props.theme.dimensions.native.categoryListItem.iconSize}px;
+  height: ${props => props.theme.dimensions.native.categoryListItem.iconSize}px;
+  margin: ${props => props.theme.dimensions.native.categoryListItem.margin}px;
 `
 
 type PropsType = {
