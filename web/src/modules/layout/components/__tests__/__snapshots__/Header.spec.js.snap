@@ -65,10 +65,7 @@ exports[`Header should match snapshot with largeViewport 1`] = `
               "webviewFontFamilies": "'OpenSans', sans-serif",
             },
             "helpers": Object {
-              "removeLinkHighlighting": "
-    color: inherit;
-    text-decoration: none;
-  ",
+              "removeLinkHighlighting": "color: inherit; text-decoration: none;",
             },
           }
         }
@@ -123,10 +120,7 @@ exports[`Header should match snapshot with largeViewport 1`] = `
               "webviewFontFamilies": "'OpenSans', sans-serif",
             },
             "helpers": Object {
-              "removeLinkHighlighting": "
-    color: inherit;
-    text-decoration: none;
-  ",
+              "removeLinkHighlighting": "color: inherit; text-decoration: none;",
             },
           }
         }
@@ -221,10 +215,7 @@ exports[`Header should match snapshot with smallViewport 1`] = `
               "webviewFontFamilies": "'OpenSans', sans-serif",
             },
             "helpers": Object {
-              "removeLinkHighlighting": "
-    color: inherit;
-    text-decoration: none;
-  ",
+              "removeLinkHighlighting": "color: inherit; text-decoration: none;",
             },
           }
         }
