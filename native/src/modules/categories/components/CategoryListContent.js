@@ -33,6 +33,11 @@ type ContentPropsType = {|
   theme: ThemeType
 |}
 
+const textDistanceToBullet = 10
+const listIndent = 20
+const bulletSizeRelativeToFont = 2.8
+const bulletAlignmentRelativeToFont = 2
+
 class CategoryListContent extends React.Component<ContentPropsType, {| width: number |}> {
   constructor () {
     super()
@@ -89,10 +94,6 @@ class CategoryListContent extends React.Component<ContentPropsType, {| width: nu
     const { language, theme } = this.props
     const { baseFontStyle } = passProps
     const baseFontSize = baseFontStyle.fontSize
-    const textDistanceToBullet = 10
-    const listIndent = 20
-    const bulletSizeRelativeToFont = 2.8
-    const bulletAlignmentRelativeToFont = 2
     return <View style={{
           width: baseFontSize / bulletSizeRelativeToFont,
           height: baseFontSize / bulletSizeRelativeToFont,
@@ -108,8 +109,6 @@ class CategoryListContent extends React.Component<ContentPropsType, {| width: nu
   renderOrderedListPrefix: RendererFunction = (htmlAttribs, children, convertedCSSStyles, passProps) => {
     const { baseFontSize, allowFontScaling, index } = passProps
     const { language } = this.props
-    const textDistanceToBullet = 10
-    const listIndent = 20
     return <Text allowFontScaling={allowFontScaling} style={{
       fontSize: baseFontSize,
       marginRight: RTL_LANGUAGES.includes(language) ? listIndent : textDistanceToBullet,
