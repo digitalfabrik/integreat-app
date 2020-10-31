@@ -5,6 +5,8 @@ import type { BuildConfigType } from '../BuildConfigType'
 import { MALTE_ASSETS } from '../AssetsType'
 import malteOverrideLocales from 'locales/override-locales/malte.json'
 
+const APPLE_APP_ID = '1535758339'
+
 const MalteBuildConfig: BuildConfigType = {
   appName: 'Malte',
   appIcon: 'app_icon_malte',
@@ -41,7 +43,7 @@ const MalteBuildConfig: BuildConfigType = {
   ios: {
     bundleIdentifier: 'de.malteapp',
     provisioningProfileSpecifier: 'match Development de.malteapp',
-    appleId: '1535758339',
+    appleId: APPLE_APP_ID,
     googleServices: {
       clientId: '146599424234-b6rfm4skhbsv4qvob3ieh34s2chjm54k.apps.googleusercontent.com',
       reversedClientId: 'com.googleusercontent.apps.146599424234-b6rfm4skhbsv4qvob3ieh34s2chjm54k',
@@ -62,7 +64,7 @@ const MalteBuildConfig: BuildConfigType = {
     launchScreen: 'LaunchScreenDefault'
   },
   web: {
-    itunesAppId: '1535758339',
+    itunesAppId: APPLE_APP_ID,
     icons: {
       appLogo: '/app-logo.png',
       locationMarker: '/location-marker.svg',
