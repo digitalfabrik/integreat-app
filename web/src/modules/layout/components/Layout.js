@@ -9,7 +9,7 @@ import withPlatform from '../../platform/hocs/withPlatform'
 const RichLayout = styled.div`
   position: relative;
   display: flex;
-  min-height: 100vh;
+  height: 100vh;
   flex-direction: column;
   justify-content: space-between;
   color: ${props => props.theme.colors.textColor};
