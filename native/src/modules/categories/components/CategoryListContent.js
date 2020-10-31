@@ -10,7 +10,7 @@ import type { NavigationStackProp } from 'react-navigation-stack'
 import type { NavigateToInternalLinkParamsType } from '../../app/createNavigateToInternalLink'
 import type { ThemeType } from '../../../../build-configs/ThemeType'
 import { RTL_LANGUAGES } from '../../i18n/constants'
-import onLinkPress from '../../common/onLinkPress'
+import onInternalLinkPress from '../../common/onInternalLinkPress'
 
 const VerticalPadding: StyledComponent<{}, {}, *> = styled.View`
   padding: 0 20px;
@@ -56,17 +56,15 @@ class CategoryListContent extends React.Component<ContentPropsType, {| width: nu
 
   onLinkPress = (evt: GestureResponderEvent, url: string) => {
     const { language, navigation, navigateToInternalLink } = this.props
-    onLinkPress(url, navigation, language, navigateToInternalLink)
+    onInternalLinkPress(url, navigation, language, navigateToInternalLink)
   }
 
   alterResources = (node: HTMLNode) => {
     const { cacheDictionary } = this.props
     if (node.attribs) {
       if (node.attribs.href) {
-        console.debug(`Found href: ${decodeURI(node.attribs.href)}`)
         const newResource = cacheDictionary[decodeURI(node.attribs.href)]
         if (newResource) {
-          console.debug(`Replaced ${node.attribs.href} with ${newResource}`)
           node.attribs = {
             ...(node.attribs || {}),
             href: newResource
@@ -74,10 +72,8 @@ class CategoryListContent extends React.Component<ContentPropsType, {| width: nu
           return node
         }
       } else if (node.attribs.src) {
-        console.debug(`Found src: ${decodeURI(node.attribs.src)}`)
         const newResource = cacheDictionary[decodeURI(node.attribs.src)]
         if (newResource) {
-          console.debug(`Replaced ${node.attribs.src} with ${newResource}`)
           node.attribs = {
             ...(node.attribs || {}),
             src: newResource
@@ -154,7 +150,7 @@ class CategoryListContent extends React.Component<ContentPropsType, {| width: nu
   }
 
   render () {
-    const { content, language } = this.props
+    const { content, language, theme } = this.props
     return <VerticalPadding>
       <Html html={content}
             onLinkPress={this.onLinkPress}
@@ -164,7 +160,15 @@ class CategoryListContent extends React.Component<ContentPropsType, {| width: nu
             alterNode={this.alterResources}
             listsPrefixesRenderers={{ ul: this.renderUnorderedListPrefix, ol: this.renderOrderedListPrefix }}
             renderers={{ ul: this.renderLists, ol: this.renderLists }}
-            tagsStyles={{ p: { textAlign: RTL_LANGUAGES.includes(language) ? 'right' : 'left' } }} />
+            baseFontStyle={{
+              fontSize: 14,
+              fontFamily: theme.fonts.contentFontRegular,
+              color: theme.colors.textColor
+            }}
+            tagsStyles={{
+              p: { textAlign: RTL_LANGUAGES.includes(language) ? 'right' : 'left' },
+              img: { align: RTL_LANGUAGES.includes(language) ? 'right' : 'left' }
+            }} />
     </VerticalPadding>
   }
 }

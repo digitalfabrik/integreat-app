@@ -13,7 +13,7 @@ import MomentContext from '../../i18n/context/MomentContext'
 import RemoteContent from './RemoteContent'
 import SiteHelpfulBox from './SiteHelpfulBox'
 import SpaceBetween from './SpaceBetween'
-import onLinkPress from '../onLinkPress'
+import onInternalLinkPress from '../onInternalLinkPress'
 
 const HORIZONTAL_MARGIN = 8
 
@@ -45,7 +45,7 @@ class Page extends React.Component<PropType, StateType> {
 
   onLinkPress = (url: string) => {
     const { navigation, language, navigateToInternalLink } = this.props
-    onLinkPress(url, navigation, language, navigateToInternalLink)
+    onInternalLinkPress(url, navigation, language, navigateToInternalLink)
   }
 
   onLoad = () => this.setState({ loading: false })
