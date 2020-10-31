@@ -64,12 +64,14 @@ const IntegreatBuildConfig: BuildConfigType = {
     itunesAppId: '1072353915',
     manifestUrl: '/manifest.json',
     icons: {
-      locationIcon: '/location-marker.svg',
-      headerLogo: '/integreat-app-logo.png'
+      appLogo: '/app-logo.png',
+      locationMarker: '/location-marker.svg',
+      appleTouchIcon: 'apple-touch-icon.png',
+      favicons: '/favicons/'
     },
     splashScreen: {
       backgroundColor: lightTheme.colors.themeColor,
-      imageUrl: '/progressive-logo.jpg'
+      imageUrl: '/app-icon-cornered.jpg'
     }
   }
 }

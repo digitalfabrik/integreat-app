@@ -28,7 +28,7 @@ const HorizontalLeft = styled.View`
   align-items: center;
 `
 
-const Logo = styled.Image`
+const Icon = styled.Image`
   width: 70px;
   height: 50px;
   resize-mode: contain;
@@ -149,7 +149,7 @@ class Header extends React.PureComponent<PropsType> {
       <Horizontal>
         <HorizontalLeft>
           {this.canGoBackInStack() ? <HeaderBackButton onPress={this.goBackInStack} />
-            : <Logo source={buildConfigAssets().appLogo} />}
+            : <Icon source={buildConfigAssets().appIcon} />}
           {routeCityModel &&
           <HeaderText allowFontScaling={false} theme={theme}>{this.cityDisplayName(routeCityModel)}</HeaderText>}
         </HorizontalLeft>
