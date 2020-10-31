@@ -64,7 +64,7 @@ const IntegreatBuildConfig: BuildConfigType = {
     itunesAppId: '1072353915',
     manifestUrl: '/manifest.json',
     icons: {
-      locationIcon: '/location-big.svg',
+      locationIcon: '/location-marker.svg',
       headerLogo: '/integreat-app-logo.png'
     },
     splashScreen: {
