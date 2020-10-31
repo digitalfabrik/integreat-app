@@ -1,3 +1,4 @@
+// https://github.com/babel/babel/issues/8309#issuecomment-439161848
 require('@babel/register')({
   ignore: [/node_modules\/(?!build-configs)/]
 })
