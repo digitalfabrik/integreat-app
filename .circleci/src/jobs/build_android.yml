@@ -11,6 +11,8 @@ environment:
   FASTLANE_SKIP_UPDATE_CHECK: true
 shell: /bin/bash -eo pipefail
 steps:
+  - skip_job:
+      build_config_name: << parameters.build_config_name >>
   - add_ssh_keys: # Needed for credentials repo
       fingerprints:
         - 61:d8:94:00:53:5f:3b:19:fd:88:6b:fa:cd:ca:df:5d
