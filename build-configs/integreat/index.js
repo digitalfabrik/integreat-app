@@ -66,7 +66,7 @@ const IntegreatBuildConfig: BuildConfigType = {
     icons: {
       appLogo: '/app-logo.png',
       locationMarker: '/location-marker.svg',
-      appleTouchIcon: 'apple-touch-icon.png',
+      appleTouchIcon: '/apple-touch-icon.png',
       favicons: '/favicons/'
     },
     splashScreen: {
