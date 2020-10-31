@@ -72,7 +72,7 @@ export class LocationHeader extends React.Component<PropsType> {
 
     const isNewsVisible = buildConfig().featureFlags.newsStream && (isLocalNewsEnabled || isTunewsEnabled)
     const isEventsVisible = isEventsEnabled
-    const isMapVisible = buildConfig().featureFlags.pois // todo: check for flag from cms
+    const isMapVisible = buildConfig().featureFlags.pois // TODO IGAPP-115: check for flag from cms
     const isOffersVisible = isOffersEnabled
 
     const showNavBar = isNewsVisible || isEventsVisible || isMapVisible || isOffersVisible
