@@ -1,7 +1,6 @@
-require('@babel/register')({ ignore: [' '] })
-const loadBuildConfig = require('build-configs').default
-
-require('@babel/register')({ })
+require('@babel/register')({
+  ignore: [/node_modules\/(?!build-configs)/]
+})
 const path = require('path')
 const webpack = require('webpack')
 const AssetsPlugin = require('assets-webpack-plugin')
@@ -12,6 +11,7 @@ const MomentTimezoneDataPlugin = require('moment-timezone-data-webpack-plugin')
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin')
 const babelConfig = require('../babel.config.js')
 const fs = require('fs')
+const loadBuildConfig = require('build-configs').default
 
 const currentYear = new Date().getFullYear()
 
