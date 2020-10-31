@@ -15,7 +15,7 @@ exports[`Header should match snapshot with largeViewport 1`] = `
       <HeaderLogo
         alt="IntegreatTestCms"
         link="/random_route"
-        src="/integreat-app-logo.png"
+        src="/app-logo.png"
         theme={
           Object {
             "colors": Object {
@@ -165,7 +165,7 @@ exports[`Header should match snapshot with smallViewport 1`] = `
       <HeaderLogo
         alt="IntegreatTestCms"
         link="/random_route"
-        src="/integreat-app-logo.png"
+        src="/app-logo.png"
         theme={
           Object {
             "colors": Object {
