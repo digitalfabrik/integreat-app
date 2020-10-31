@@ -5,13 +5,13 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <title><%= config.appName %></title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <% if (config.manifestUrl) { %><link rel="manifest" href="<%= config.manifestUrl %>"><% } %>
+  <% if (config.web.manifestUrl) { %><link rel="manifest" href="<%= config.web.manifestUrl %>"><% } %>
 
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="application-name" content="<%= config.appName %>">
   <meta name="apple-mobile-web-app-title" content="<%= config.appName %>">
-  <% if (config.itunesAppId) { %>
-    <meta name="apple-itunes-app" content="app-id=<%= config.itunesAppId %>">
+  <% if (config.web.itunesAppId) { %>
+    <meta name="apple-itunes-app" content="app-id=<%= config.web.itunesAppId %>">
   <% } %>
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
