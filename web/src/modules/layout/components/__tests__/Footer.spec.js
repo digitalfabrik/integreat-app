@@ -14,12 +14,9 @@ describe('Footer', () => {
   })
 
   it('should show Version on dev builds', () => {
-    const preDev = global.__DEV__
     const preVersion = global.__VERSION__
-    global.__DEV__ = true
     global.__VERSION__ = 'vX.X'
     expect(shallow(<Footer><div>MockNode</div><div>AnotherMockNode</div></Footer>)).toMatchSnapshot()
-    global.__DEV__ = preDev
     global.__VERSION__ = preVersion
   })
 })

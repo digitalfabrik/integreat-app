@@ -20,9 +20,6 @@
   "moduleDirectories": [
     "node_modules"
   ],
-  "globals": {
-    "__DEV__": false
-  },
   "collectCoverageFrom": [
     "**/*.{js,jsx}"
   ],
