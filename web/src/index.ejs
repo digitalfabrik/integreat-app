@@ -55,7 +55,7 @@
 
   <link rel="mask-icon" href="/safari-pinned-tab.svg" color="<%= config.lightTheme.colors.themeColor %>">
 
-  <style><% if (config.splashScreen) { %>
+  <style><% if (config.web.splashScreen) { %>
     @keyframes show {
       0% {
         opacity: 0;
@@ -82,7 +82,7 @@
     }
 
     #splash > div {
-      background-color: <%= config.splashScreen.backgroundColor %>;
+      background-color: <%= config.web.splashScreen.backgroundColor %>;
       width: 100%;
       height: 100%;
       display: flex;
@@ -117,9 +117,9 @@
     }
   </style>
 </head>
-<body><% if (config.splashScreen) { %>
+<body><% if (config.web.splashScreen) { %>
 <div id="splash">
-  <div><img src="<%= config.splashScreen.imageUrl %>" alt=""></div>
+  <div><img src="<%= config.web.splashScreen.imageUrl %>" alt=""></div>
 </div><% } %>
 <noscript>
   <div class="no-js">

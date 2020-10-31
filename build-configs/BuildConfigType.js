@@ -49,8 +49,6 @@ export type BuildConfigType = {|
   appIcon: string,
   cmsUrl: string,
   switchCmsUrl?: string,
-  manifestUrl?: string,
-  itunesAppId?: string,
   shareBaseUrl: string,
   allowedHostNames: Array<string>,
   internalLinksHijackPattern: string,
@@ -73,9 +71,16 @@ export type BuildConfigType = {|
     appleId: string,
     googleServices: ?iOSGoogleServicesConfig
   |},
-  icons: {
-    locationIcon: string,
-    headerLogo: string,
-  },
-  splashScreen?: {| backgroundColor: string, imageUrl: string |}
+  web: {|
+    manifestUrl?: string,
+    itunesAppId?: string,
+    icons: {
+      locationIcon: string,
+      headerLogo: string,
+    },
+    splashScreen?: {|
+      backgroundColor: string,
+      imageUrl: string
+    |}
+  |}
 |}
