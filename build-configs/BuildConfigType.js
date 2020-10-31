@@ -74,10 +74,12 @@ export type BuildConfigType = {|
   web: {|
     manifestUrl?: string,
     itunesAppId?: string,
-    icons: {
-      locationIcon: string,
-      headerLogo: string,
-    },
+    icons: {|
+      appLogo: string,
+      locationMarker: string,
+      appleTouchIcon: string,
+      favicons: string
+    |},
     splashScreen?: {|
       backgroundColor: string,
       imageUrl: string

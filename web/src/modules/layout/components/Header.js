@@ -127,7 +127,7 @@ export class Header extends React.PureComponent<PropsType> {
           <Row hasTitle={!!cityName}>
             <HeaderLogo theme={theme}
                         link={logoHref}
-                        src={buildConfig().web.icons.headerLogo}
+                        src={buildConfig().web.icons.appLogo}
                         alt={buildConfig().appName} />
             {!viewportSmall && cityName && <HeaderSeparator theme={theme} />}
             {(!viewportSmall || cityName) && <HeaderTitle theme={theme}>{cityName}</HeaderTitle>}
