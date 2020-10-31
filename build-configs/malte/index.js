@@ -64,7 +64,7 @@ const MalteBuildConfig: BuildConfigType = {
   web: {
     itunesAppId: '1535758339',
     icons: {
-      locationIcon: '/location-big.svg',
+      locationIcon: '/location-marker.svg',
       headerLogo: '/malteser-logo.png'
     }
   }
