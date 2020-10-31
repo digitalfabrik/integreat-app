@@ -9,7 +9,7 @@ type NavigateToInternalLinkType = NavigateToInternalLinkParamsType => void
 
 const HIJACK = new RegExp(buildConfig().internalLinksHijackPattern)
 
-const onLinkPress = (url: string,
+const onInternalLinkPress = (url: string,
   navigation: NavigationStackProp<*>,
   language: string,
   navigateToInternalLink: ?NavigateToInternalLinkType) => {
@@ -27,4 +27,4 @@ const onLinkPress = (url: string,
   }
 }
 
-export default onLinkPress
+export default onInternalLinkPress
