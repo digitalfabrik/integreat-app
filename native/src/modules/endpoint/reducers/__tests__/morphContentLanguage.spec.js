@@ -17,7 +17,7 @@ import type {
   PushCategoryActionType,
   PushEventActionType
 } from '../../../app/StoreActionType'
-import pushEvent from '../pushEvent'
+import pushOrRefreshEvent from '../pushOrRefreshEvent'
 import createCityContent from '../createCityContent'
 
 describe('morphContentLanguage', () => {
@@ -253,7 +253,7 @@ describe('morphContentLanguage', () => {
         city: 'augsburg'
       }
     }
-    return pushEvent(
+    return pushOrRefreshEvent(
       pushCategory(createCityContent('augsburg', cityLanguages), pushCategoryAction),
       pushEventAction
     )

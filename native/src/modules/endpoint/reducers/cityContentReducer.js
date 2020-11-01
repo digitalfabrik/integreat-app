@@ -3,13 +3,12 @@
 import type { CityContentStateType } from '../../app/StateType'
 import { defaultCityContentState } from '../../app/StateType'
 import morphContentLanguage from './morphContentLanguage'
-import pushEvent from './pushEvent'
+import pushOrRefreshEvent from './pushOrRefreshEvent'
 import pushNews from './pushNews'
 import type { StoreActionType } from '../../app/StoreActionType'
 import createCityContent from './createCityContent'
 import { omit } from 'lodash'
 import pushPoi from './pushPoi'
-import refreshEvent from './refreshEvent'
 import pushOrRefreshCategory from './pushOrRefreshCategory'
 
 export default (
@@ -101,10 +100,9 @@ export default (
         return pushOrRefreshCategory(state, action)
       case 'PUSH_POI':
         return pushPoi(state, action)
-      case 'PUSH_EVENT':
-        return pushEvent(state, action)
       case 'REFRESH_EVENT':
-        return refreshEvent(state, action)
+      case 'PUSH_EVENT':
+        return pushOrRefreshEvent(state, action)
       case 'PUSH_NEWS':
         return pushNews(state, action)
       case 'FETCH_NEWS_FAILED': {
