@@ -1,0 +1,24 @@
+# Run checks and tests for the api-client.
+docker:
+  - image: circleci/node:12.16.3
+resource_class: small
+environment:
+  TOTAL_CPUS: 1 # For resource_class small
+shell: /bin/bash -eo pipefail
+steps:
+  - checkout
+  - check_config
+  - restore_yarn_cache
+  - run:
+      name: Check linting
+      command: yarn workspace api-client lint
+  - run:
+      name: Check flow
+      command: yarn workspace api-client flow:check-now --max-workers $TOTAL_CPUS
+  - run:
+      name: Unit tests
+      command: yarn workspace api-client test --ci --maxWorkers $TOTAL_CPUS
+  - run:
+      name: Test coverage
+      command: yarn workspace api-client test:coverage --ci --maxWorkers $TOTAL_CPUS
+  - notify_failed

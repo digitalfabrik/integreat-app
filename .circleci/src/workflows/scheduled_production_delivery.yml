@@ -12,6 +12,9 @@ jobs:
         - deliverino
         - jira
       delivery: production
+  - check_api_client:
+      context:
+        - slack-app
 
   - check_web:
       context:
