@@ -48,7 +48,7 @@ const pushOrRefreshEvent = (state: CityContentStateType,
         language,
         city,
         status: 'error',
-        message: `Could not find an event with path '${path}'.`,
+        message: `Could not find an event with path '${currentPath}'.`,
         code: ErrorCodes.PageNotFound
       }
     }
