@@ -71,7 +71,6 @@ const pushOrRefreshEvent = (state: CityContentStateType,
       .filter(([key, route]) => city === route.city && path !== route.path && language === route.language)
       .forEach(([key:string, route]) => {
         // $FlowFixMe Object.entries does not supply proper types
-        console.log('route path', route.path)
         state.eventsRouteMapping[key] = getEventRoute(route.path)
       })
   }
