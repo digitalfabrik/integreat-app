@@ -3,15 +3,14 @@
 import type { CityContentStateType } from '../../app/StateType'
 import { defaultCityContentState } from '../../app/StateType'
 import morphContentLanguage from './morphContentLanguage'
-import pushCategory from './pushCategory'
 import pushEvent from './pushEvent'
 import pushNews from './pushNews'
 import type { StoreActionType } from '../../app/StoreActionType'
 import createCityContent from './createCityContent'
 import { omit } from 'lodash'
 import pushPoi from './pushPoi'
-import refreshCategory from './refreshCategory'
 import refreshEvent from './refreshEvent'
+import pushOrRefreshCategory from './pushOrRefreshCategory'
 
 export default (
   state: CityContentStateType | null = defaultCityContentState, action: StoreActionType
@@ -98,9 +97,8 @@ export default (
       case 'FETCH_LANGUAGES_FAILED':
         return { ...state, languages: { status: 'error', ...action.params } }
       case 'REFRESH_CATEGORY':
-        return refreshCategory(state, action)
       case 'PUSH_CATEGORY':
-        return pushCategory(state, action)
+        return pushOrRefreshCategory(state, action)
       case 'PUSH_POI':
         return pushPoi(state, action)
       case 'PUSH_EVENT':
