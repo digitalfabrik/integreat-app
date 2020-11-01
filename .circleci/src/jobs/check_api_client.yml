@@ -13,9 +13,6 @@ steps:
       name: Check linting
       command: yarn workspace api-client lint
   - run:
-      name: Check flow
-      command: yarn workspace api-client flow:check-now --max-workers $TOTAL_CPUS
-  - run:
       name: Unit tests
       command: yarn workspace api-client test --ci --maxWorkers $TOTAL_CPUS
   - run:

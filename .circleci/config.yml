@@ -337,9 +337,6 @@ jobs:
                 command: yarn workspace api-client lint
                 name: Check linting
             - run:
-                command: yarn workspace api-client flow:check-now --max-workers $TOTAL_CPUS
-                name: Check flow
-            - run:
                 command: yarn workspace api-client test --ci --maxWorkers $TOTAL_CPUS
                 name: Unit tests
             - run:
