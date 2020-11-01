@@ -1,8 +1,6 @@
 // @flow
 
-import type {
-  FeedbackType, FeedbackCategoryType
-} from '@integreat-app/integreat-api-client/endpoints/createFeedbackEndpoint'
+import type { FeedbackType, FeedbackCategoryType } from 'api-client'
 
 class FeedbackVariant {
   label: string

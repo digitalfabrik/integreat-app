@@ -1,7 +1,7 @@
 // @flow
 
 import type { CityContentStateType } from '../../app/StateType'
-import { LanguageModel } from '@integreat-app/integreat-api-client'
+import { LanguageModel } from 'api-client'
 
 const createCityContent = (city: string, languages: ?Array<LanguageModel>): CityContentStateType => {
   return {

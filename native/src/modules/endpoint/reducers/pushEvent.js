@@ -2,7 +2,7 @@
 
 import type { CityContentStateType, EventRouteStateType } from '../../app/StateType'
 import type { PushEventActionType } from '../../app/StoreActionType'
-import { EventModel } from '@integreat-app/integreat-api-client'
+import { EventModel } from 'api-client'
 
 const pushEvent = (state: CityContentStateType, action: PushEventActionType): CityContentStateType => {
   const { events, path, key, language, resourceCache, cityLanguages, city } = action.params

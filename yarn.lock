@@ -1889,15 +1889,6 @@
     normalize-path "^3.0.0"
     sanitize-html-react "^1.13"
 
-"@integreat-app/integreat-api-client@file:api-client":
-  version "6.0.1"
-  dependencies:
-    entities "^2.0.0"
-    moment "^2.24"
-    moment-timezone "^0.5"
-    normalize-path "^3.0.0"
-    sanitize-html-react "^1.13"
-
 "@integreat-app/react-sticky-headroom@^1.0.4":
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/@integreat-app/react-sticky-headroom/-/react-sticky-headroom-1.0.6.tgz#bade45033eaddd7345dba2e04e363e731cbc439c"
@@ -3547,6 +3538,15 @@ anymatch@^3.0.3, anymatch@~3.1.1:
   dependencies:
     normalize-path "^3.0.0"
     picomatch "^2.0.4"
+
+"api-client@file:api-client":
+  version "6.0.1"
+  dependencies:
+    entities "^2.0.0"
+    moment "^2.24"
+    moment-timezone "^0.5"
+    normalize-path "^3.0.0"
+    sanitize-html-react "^1.13"
 
 aproba@^1.0.3, aproba@^1.1.1:
   version "1.2.0"

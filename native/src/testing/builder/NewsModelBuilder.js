@@ -1,6 +1,6 @@
 // @flow
 
-import { LocalNewsModel } from '@integreat-app/integreat-api-client'
+import { LocalNewsModel } from 'api-client'
 import moment from 'moment'
 
 class LocalNewsModelBuilder {
