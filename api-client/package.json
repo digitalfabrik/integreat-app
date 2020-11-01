@@ -1,28 +1,8 @@
 {
-  "name": "@integreat-app/integreat-api-client",
+  "name": "api-client",
   "version": "6.0.1",
-  "engines": {
-    "node": ">=6.9",
-    "npm": ">=3.8"
-  },
-  "license": "MIT",
-  "description": "The client for the integreat api.",
-  "author": "Max Ammann <ammann@integreat-app.de>",
-  "files": [
-    "*"
-  ],
-  "publishConfig": {
-    "access": "public"
-  },
-  "keywords": [
-    "integreat",
-    "api",
-    "client",
-    "endpoint"
-  ],
-  "module": "./index.js",
-  "main": "./index-umd.js",
-  "sideEffects": true,
+  "description": "Api client for the integreat cms",
+  "main": "src/index.js",
   "scripts": {
     "build": "node tools/build.js",
     "npm:publish": "cd dist && npm publish",
