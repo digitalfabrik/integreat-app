@@ -2,7 +2,7 @@
 
 import type { CategoryRouteStateType, CityContentStateType, PathType } from '../../app/StateType'
 import type { PushCategoryActionType, RefreshCategoryActionType } from '../../app/StoreActionType'
-import { CategoryModel, LanguageModel } from '@integreat-app/integreat-api-client'
+import { CategoryModel, LanguageModel, CategoriesMapModel } from '@integreat-app/integreat-api-client'
 import forEachTreeNode from '../../common/forEachTreeNode'
 import ErrorCodes from '../../error/ErrorCodes'
 
