@@ -1,5 +1,6 @@
 {
   "name": "integreat-app",
+  "license": "MIT",
   "private": true,
   "workspaces": {
     "packages": ["native", "web", "api-client", "locales", "build-configs"],
