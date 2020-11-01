@@ -2,7 +2,5 @@
   "name": "build-configs",
   "version": "1.0.0",
   "description": "Build configs for the integreat project",
-  "main": "index.js",
-  "license": "MIT",
-  "private": false
+  "main": "index.js"
 }
