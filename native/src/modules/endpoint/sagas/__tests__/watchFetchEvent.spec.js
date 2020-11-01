@@ -212,6 +212,6 @@ describe('watchFetchEvents', () => {
 
     return testSaga(watchFetchEvent, dataContainer)
       .next()
-      .takeLatest('FETCH_EVENT', fetchEvent, dataContainer)
+      .takeEvery('FETCH_EVENT', fetchEvent, dataContainer)
   })
 })
