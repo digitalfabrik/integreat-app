@@ -10,7 +10,7 @@ import {
 } from '@integreat-app/integreat-api-client'
 import moment from 'moment'
 import morphContentLanguage from '../morphContentLanguage'
-import pushCategory from '../pushCategory'
+import pushCategory from '../pushOrRefreshCategory'
 import type { CityContentStateType } from '../../../app/StateType'
 import type {
   MorphContentLanguageActionType,
