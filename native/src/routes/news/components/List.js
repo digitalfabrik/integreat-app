@@ -2,10 +2,7 @@
 
 import React from 'react'
 import { FlatList } from 'react-native'
-import {
-  LocalNewsModel,
-  TunewsModel
-} from '@integreat-app/integreat-api-client'
+import { LocalNewsModel, TunewsModel } from 'api-client'
 import type { NewsModelsType } from '../../../modules/app/StateType'
 import LoadingSpinner from '../../../modules/common/components/LoadingSpinner'
 

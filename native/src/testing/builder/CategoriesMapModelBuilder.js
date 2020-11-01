@@ -1,6 +1,6 @@
 // @flow
 
-import { CategoriesMapModel, CategoryModel } from '@integreat-app/integreat-api-client'
+import { CategoriesMapModel, CategoryModel } from 'api-client'
 import moment from 'moment'
 import type { PageResourceCacheEntryStateType, PageResourceCacheStateType } from '../../modules/app/StateType'
 import seedrandom from 'seedrandom'

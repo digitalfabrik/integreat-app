@@ -1,6 +1,6 @@
 // @flow
 
-import { LocalNewsModel, LanguageModel } from '@integreat-app/integreat-api-client'
+import { LocalNewsModel, LanguageModel } from 'api-client'
 import type { CityContentStateType } from '../../../app/StateType'
 import cityContentReducer from '../cityContentReducer'
 import type { PushNewsActionType } from '../../../app/StoreActionType'

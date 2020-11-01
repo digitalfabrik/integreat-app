@@ -1,6 +1,6 @@
 // @flow
 
-import { DateModel, EventModel, LocationModel } from '@integreat-app/integreat-api-client'
+import { DateModel, EventModel, LocationModel } from 'api-client'
 import moment from 'moment'
 import seedrandom from 'seedrandom'
 import type { PageResourceCacheEntryStateType, PageResourceCacheStateType } from '../../modules/app/StateType'
