@@ -8,7 +8,6 @@
   "license": "MIT",
   "description": "The client for the integreat api.",
   "author": "Max Ammann <ammann@integreat-app.de>",
-  "repository": "https://github.com/integreat/integreat-api-client",
   "files": [
     "*"
   ],
