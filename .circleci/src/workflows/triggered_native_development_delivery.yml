@@ -9,6 +9,9 @@ jobs:
         - deliverino
         - jira
       delivery: development
+  - check_api_client:
+      context:
+        - slack-app
   - check_native:
       context:
         - slack-app

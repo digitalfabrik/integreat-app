@@ -322,6 +322,30 @@ jobs:
                     - environment_variables
                 root: ./
             - notify_failed
+    check_api_client:
+        docker:
+            - image: circleci/node:12.16.3
+        environment:
+            TOTAL_CPUS: 1
+        resource_class: small
+        shell: /bin/bash -eo pipefail
+        steps:
+            - checkout
+            - check_config
+            - restore_yarn_cache
+            - run:
+                command: yarn workspace api-client lint
+                name: Check linting
+            - run:
+                command: yarn workspace api-client flow:check-now --max-workers $TOTAL_CPUS
+                name: Check flow
+            - run:
+                command: yarn workspace api-client test --ci --maxWorkers $TOTAL_CPUS
+                name: Unit tests
+            - run:
+                command: yarn workspace api-client test:coverage --ci --maxWorkers $TOTAL_CPUS
+                name: Test coverage
+            - notify_failed
     check_native:
         docker:
             - image: circleci/node:12.16.3
@@ -639,6 +663,9 @@ workflows:
                 context:
                     - slack-app
                 delivery: none
+            - check_api_client:
+                context:
+                    - slack-app
             - check_web:
                 context:
                     - slack-app
@@ -700,6 +727,9 @@ workflows:
                     - deliverino
                     - jira
                 delivery: development
+            - check_api_client:
+                context:
+                    - slack-app
             - check_native:
                 context:
                     - slack-app
@@ -856,6 +886,9 @@ workflows:
                     - deliverino
                     - jira
                 delivery: production
+            - check_api_client:
+                context:
+                    - slack-app
             - check_web:
                 context:
                     - slack-app
@@ -1048,6 +1081,9 @@ workflows:
                     - deliverino
                     - jira
                 delivery: development
+            - check_api_client:
+                context:
+                    - slack-app
             - check_native:
                 context:
                     - slack-app
@@ -1201,6 +1237,9 @@ workflows:
                     - deliverino
                     - jira
                 delivery: production
+            - check_api_client:
+                context:
+                    - slack-app
             - check_web:
                 context:
                     - slack-app
