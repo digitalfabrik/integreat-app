@@ -10,6 +10,7 @@ const RichLayout = styled.div`
   position: relative;
   display: flex;
   height: 100vh;
+  max-height: 100vh;
   flex-direction: column;
   justify-content: space-between;
   color: ${props => props.theme.colors.textColor};
