@@ -1,0 +1,6 @@
+issue_key: IGAPP-256
+show_in_stores: false
+platforms:
+  - android
+  - ios
+en: Improved representation of second and third layer remote content in the category list.
