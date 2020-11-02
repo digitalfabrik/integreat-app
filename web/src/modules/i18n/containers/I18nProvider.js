@@ -43,6 +43,9 @@ export class I18nProvider extends React.Component<PropsType, StateType> {
       resources: i18nextResources,
       fallbackLng: FALLBACK_LANGUAGES,
       load: 'languageOnly',
+      interpolation: {
+        escapeValue: false // Escaping is not needed for react apps: https://github.com/i18next/react-i18next/issues/277
+      },
       debug: __DEV__
     })
     this.state = {
