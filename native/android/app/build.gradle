@@ -224,6 +224,19 @@ android {
         pickFirst 'lib/arm64-v8a/libc++_shared.so'
         pickFirst 'lib/x86_64/libc++_shared.so'
         pickFirst 'lib/armeabi-v7a/libc++_shared.so'
+
+        // Remove after this is merged: https://github.com/facebook/react-native/pull/30303
+        if (enableHermes) {
+            def taskName = getGradle().getStartParameter().getTaskRequests().toString()
+
+            exclude "**/libjsc*.so"
+            if (taskName.toLowerCase().contains("release")) {
+                exclude '**/libhermes-inspector.so'
+                exclude '**/libhermes-executor-debug.so'
+            } else {
+                exclude '**/libhermes-executor-release.so'
+            }
+        }
     }
 }
 
