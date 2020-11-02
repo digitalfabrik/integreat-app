@@ -7,7 +7,7 @@ import type { Dispatch } from 'redux'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import Landing from '../components/Landing'
 import type { NavigationStackProp } from 'react-navigation-stack'
-import { type NavigationReplaceAction, StackActions } from 'react-navigation'
+import { StackActions } from 'react-navigation'
 import { generateKey } from '../../../modules/app/generateRouteKey'
 import type { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
 import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvider'
@@ -62,8 +62,10 @@ class LandingContainer extends React.Component<ContainerPropsType> {
     const path = `/${cityCode}/${language}`
     const key: string = generateKey()
 
+    navigation.navigate('CityContent')
+
     // $FlowFixMe newKey missing in typedef
-    const action: NavigationReplaceAction = StackActions.replace({
+    navigation.dispatch(StackActions.replace({
       routeName: 'Dashboard',
       params: {
         cityCode,
@@ -71,13 +73,7 @@ class LandingContainer extends React.Component<ContainerPropsType> {
         onRouteClose: () => dispatch({ type: 'CLEAR_CATEGORY', params: { key } })
       },
       newKey: key
-    })
-
-    // $FlowFixMe For some reason action is not allowed to be a StackAction
-    navigation.navigate({
-      routeName: 'CityContent',
-      action: action
-    })
+    }))
 
     return dispatch({
       type: 'FETCH_CATEGORY',
