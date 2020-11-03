@@ -1,18 +1,13 @@
 // @flow
 
 import type { CityContentStateType, EventRouteStateType } from '../../app/StateType'
-import type { PushEventActionType, RefreshEventActionType } from '../../app/StoreActionType'
+import type { PushEventActionType } from '../../app/StoreActionType'
 import { EventModel } from '@integreat-app/integreat-api-client'
 import ErrorCodes from '../../error/ErrorCodes'
 
-const pushOrRefreshEvent = (state: CityContentStateType,
-  action: PushEventActionType | RefreshEventActionType): CityContentStateType => {
-  const type = action.type
+const pushEvent = (state: CityContentStateType, action: PushEventActionType): CityContentStateType => {
+  const refresh = action.refresh
   const { events, path, key, language, resourceCache, cityLanguages, city } = action.params
-
-  if (!key) {
-    throw new Error('You need to specify a key!')
-  }
 
   // If there is an error in the old resourceCache, we want to override it
   const newResourceCache = state.resourceCache.status === 'ready'
@@ -28,7 +23,7 @@ const pushOrRefreshEvent = (state: CityContentStateType,
       // $FlowFixMe Flow does not support Object.values
       .some(route => route.status === 'loading')
 
-    const status = (otherEventPageLoading && type === 'PUSH_EVENT') ? 'loading' : 'ready'
+    const status = (otherEventPageLoading && !refresh) ? 'loading' : 'ready'
     if (!currentPath) {
       const allAvailableLanguages = new Map(cityLanguages.map(lng => [lng.code, null]))
       // $FlowFixMe Flow can't evaluate the status as it is dynamic
@@ -65,7 +60,7 @@ const pushOrRefreshEvent = (state: CityContentStateType,
     }
   }
 
-  if (type === 'REFRESH_EVENT') {
+  if (refresh) {
     Object.entries(state.eventsRouteMapping)
       // $FlowFixMe Object.entries does not supply proper types
       .filter(([key, route]) => city === route.city && path !== route.path && language === route.language)
@@ -88,4 +83,4 @@ const pushOrRefreshEvent = (state: CityContentStateType,
   }
 }
 
-export default pushOrRefreshEvent
+export default pushEvent

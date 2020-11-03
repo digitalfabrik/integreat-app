@@ -211,12 +211,8 @@ type EventParamsType = {|
 
 export type PushEventActionType = {|
   type: 'PUSH_EVENT',
-  +params: EventParamsType
-|}
-
-export type RefreshEventActionType = {|
-  type: 'REFRESH_EVENT',
-  +params: EventParamsType
+  +params: EventParamsType,
+  +refresh: boolean
 |}
 
 export type FetchEventFailedActionType = {|
@@ -237,7 +233,6 @@ export type EventsActionType =
   | FetchEventActionType
   | PushEventActionType
   | FetchEventFailedActionType
-  | RefreshEventActionType
 
 export type SwitchContentLanguageActionType = {|
   type: 'SWITCH_CONTENT_LANGUAGE', +params: {|

@@ -39,23 +39,18 @@ describe('watchFetchEvents', () => {
       const events = eventsBuilder.build()
       const resources = eventsBuilder.buildResources()
       const languages = new LanguageModelBuilder(2).build()
-      const metaCities = {
-        [city]: {
-          languages: { [language]: { lastUpdate: moment('2020-01-01T00:00:00.000Z') } },
-          lastUsage: moment('2020-01-01T01:00:00.000Z')
-        }
-      }
 
       const dataContainer = new DefaultDataContainer()
       await dataContainer.setEvents(city, language, events)
       await dataContainer.setLanguages(city, languages)
       await dataContainer.setResourceCache(city, language, resources)
-      await dataContainer._databaseConnector._storeMetaCities(metaCities)
+      await dataContainer.storeLastUsage(city, false)
+      await dataContainer.setLastUpdate(city, language, moment('2020-01-01T01:00:00.000Z'))
 
       return { dataContainer, events, resources, languages }
     }
 
-    it('should put an action which refreshes the events', async () => {
+    it('should put an action which refreshes the events if the events should be refreshed', async () => {
       const { events, dataContainer, resources, languages } = await createDataContainer(city, language)
 
       const action: FetchEventActionType = {
@@ -74,7 +69,8 @@ describe('watchFetchEvents', () => {
       return expectSaga(fetchEvent, dataContainer, action)
         .withState({ cityContent: { city } })
         .put({
-          type: 'REFRESH_EVENT',
+          type: 'PUSH_EVENT',
+          refresh: true,
           params: {
             events,
             resourceCache: resources,
@@ -88,7 +84,7 @@ describe('watchFetchEvents', () => {
         .run()
     })
 
-    it('should put an action which pushes the events', async () => {
+    it('should put an action which pushes the events if the events should not be refreshed', async () => {
       const { events, dataContainer, resources, languages } = await createDataContainer(city, language)
 
       const action: FetchEventActionType = {
@@ -108,6 +104,7 @@ describe('watchFetchEvents', () => {
         .withState({ cityContent: { city } })
         .put({
           type: 'PUSH_EVENT',
+          refresh: false,
           params: {
             events,
             resourceCache: resources,
