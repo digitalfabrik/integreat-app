@@ -2,7 +2,7 @@
 
 import { forEach, reduce } from 'lodash'
 import type { TransformedLocalesType } from './loadLocales'
-import type { LocalesType } from '../app/constants/buildConfig'
+import type { LocalesType } from 'build-configs/BuildConfigType'
 
 /**
  * Transform locale resources from our internal locales format to be i18next compatible.
