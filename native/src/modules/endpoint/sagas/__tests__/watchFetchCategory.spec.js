@@ -10,29 +10,23 @@ import loadCityContent from '../loadCityContent'
 import CategoriesMapModelBuilder from '../../../../testing/builder/CategoriesMapModelBuilder'
 import ErrorCodes from '../../../error/ErrorCodes'
 import moment from 'moment'
+import mockDate from '../../../../testing/mockDate'
 
 jest.mock('rn-fetch-blob')
 jest.mock('../loadCityContent')
-// $FlowFixMe Date.now is writable here
-Date.now = jest.fn().mockReturnValue(new Date('2020-01-01T12:00:00.000Z'))
 
 const createDataContainer = async (city: string, language: string) => {
   const categoriesBuilder = new CategoriesMapModelBuilder(city, language)
   const categories = categoriesBuilder.build()
   const resources = categoriesBuilder.buildResources()
   const languages = new LanguageModelBuilder(2).build()
-  const metaCities = {
-    [city]: {
-      languages: { [language]: { lastUpdate: moment('2020-01-01T00:00:00.000Z') } },
-      lastUsage: moment('2020-01-01T01:00:00.000Z')
-    }
-  }
 
   const dataContainer = new DefaultDataContainer()
   await dataContainer.setCategoriesMap(city, language, categories)
   await dataContainer.setLanguages(city, languages)
   await dataContainer.setResourceCache(city, language, resources)
-  await dataContainer._databaseConnector._storeMetaCities(metaCities)
+  await dataContainer.storeLastUsage(city, false)
+  await dataContainer.setLastUpdate(city, language, moment('2020-01-01T01:00:00.000Z'))
 
   return {
     categories,
@@ -44,8 +38,18 @@ const createDataContainer = async (city: string, language: string) => {
 }
 
 describe('watchFetchCategories', () => {
+  const mockedDate = moment('2020-01-01T12:00:00.000Z')
+  let restoreMockedDate
+
   beforeEach(() => {
     RNFetchBlob.fs._reset()
+
+    const { restoreDate } = mockDate(mockedDate)
+    restoreMockedDate = restoreDate
+  })
+
+  afterEach(async () => {
+    restoreMockedDate()
   })
 
   const city = 'augsburg'

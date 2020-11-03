@@ -10,15 +10,24 @@ import { expectSaga, testSaga } from 'redux-saga-test-plan'
 import loadCityContent from '../loadCityContent'
 import ErrorCodes from '../../../error/ErrorCodes'
 import moment from 'moment'
+import mockDate from '../../../../testing/mockDate'
 
 jest.mock('rn-fetch-blob')
 jest.mock('../loadCityContent')
-// $FlowFixMe Date.now is writable here
-Date.now = jest.fn().mockReturnValue(new Date('2020-01-01T12:00:00.000Z'))
 
 describe('watchFetchEvents', () => {
+  const mockedDate = moment('2020-01-01T12:00:00.000Z')
+  let restoreMockedDate
+
   beforeEach(() => {
     RNFetchBlob.fs._reset()
+
+    const { restoreDate } = mockDate(mockedDate)
+    restoreMockedDate = restoreDate
+  })
+
+  afterEach(async () => {
+    restoreMockedDate()
   })
 
   const city = 'augsburg'
