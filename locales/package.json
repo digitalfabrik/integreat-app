@@ -1,12 +1,9 @@
 {
   "name": "locales",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Locales for the integreat frontend projects",
   "main": "index.js",
-  "author": "Maximilian Ammann <max@maxammann.org>",
-  "license": "MIT",
-  "private": false,
-  "dependencies": {
+  "devDependencies": {
     "commander": "^4.0.1",
     "csv": "^5.3.0",
     "flat": "^5.0.0",
