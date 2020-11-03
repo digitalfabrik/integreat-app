@@ -131,11 +131,10 @@ export default function * loadCityContent (
     }
 
     return true
-  } catch (e) {
+  } finally (e) {
     // If any error occurs, we have to store the old value for lastUpdate again
     if (lastUpdate) {
       yield call(dataContainer.setLastUpdate, newCity, newLanguage, lastUpdate)
     }
-    throw e
   }
 }
