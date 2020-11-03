@@ -30,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		0518B741B48590C7AE9330F0 /* Pods-IntegreatTests.integreat-test-cms.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IntegreatTests.integreat-test-cms.xcconfig"; path = "Target Support Files/Pods-IntegreatTests/Pods-IntegreatTests.integreat-test-cms.xcconfig"; sourceTree = "<group>"; };
 		07CD12FA3D7CB27526D44E55 /* Pods-IntegreatTests.malte.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IntegreatTests.malte.xcconfig"; path = "Target Support Files/Pods-IntegreatTests/Pods-IntegreatTests.malte.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* Integreat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Integreat.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -109,6 +110,7 @@
 			children = (
 				EE11BE9E24A4D56D00C6F209 /* Integreat.entitlements */,
 				616E1ACC2370DFCF00136B38 /* constants */,
+				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				7BF11468226F4D730031D233 /* Integreat-Bridging-Header.h */,
 				7BF11492226F58E10031D233 /* fetcher */,
@@ -329,7 +331,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd ../; ./node_modules/react-native/scripts/react-native-xcode.sh\n";
+			shellScript = "../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
 		31AF7631F7FB8B3BE99E14B2 /* [CP-User] [RNFB] Core Configuration */ = {
 			isa = PBXShellScriptBuildPhase;
