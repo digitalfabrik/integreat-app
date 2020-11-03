@@ -31,6 +31,7 @@ describe('cityContentReducer', () => {
   }
   const pushEventAction = {
     type: 'PUSH_EVENT',
+    refresh: false,
     params: {
       events: [],
       path: null,

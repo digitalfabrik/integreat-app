@@ -86,6 +86,7 @@ describe('pushEvent', () => {
 
     const pushEventAction: PushEventActionType = {
       type: 'PUSH_EVENT',
+      refresh: false,
       params: {
         events: [event1],
         path: null,
@@ -122,6 +123,7 @@ describe('pushEvent', () => {
 
     const pushEventAction: PushEventActionType = {
       type: 'PUSH_EVENT',
+      refresh: false,
       params: {
         events: [event1],
         path: '/augsburg/de/events/ev1',
@@ -166,6 +168,7 @@ describe('pushEvent', () => {
 
     const pushEventAction: PushEventActionType = {
       type: 'PUSH_EVENT',
+      refresh: false,
       params: {
         resourceCache,
         events: [new EventModel({

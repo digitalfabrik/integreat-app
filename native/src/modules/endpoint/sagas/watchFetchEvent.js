@@ -5,8 +5,7 @@ import { all, call, put, select, takeEvery } from 'redux-saga/effects'
 import type {
   FetchEventActionType,
   FetchEventFailedActionType,
-  PushEventActionType,
-  RefreshEventActionType
+  PushEventActionType
 } from '../../app/StoreActionType'
 import type { DataContainer } from '../DataContainer'
 import loadCityContent from './loadCityContent'
@@ -35,9 +34,10 @@ export function * fetchEvent (dataContainer: DataContainer, action: FetchEventAc
       const lastUpdate: Moment | null = yield call(dataContainer.getLastUpdate, city, language)
 
       // $FlowFixMe Flow can't evaluate the type as it is dynamic
-      const insert: PushEventActionType | RefreshEventActionType = {
-        type: loadCriterion.shouldUpdate(lastUpdate) ? 'REFRESH_EVENT' : 'PUSH_EVENT',
-        params: { events, resourceCache, path, cityLanguages, key, language, city }
+      const insert: PushEventActionType = {
+        type: 'PUSH_EVENT',
+        params: { events, resourceCache, path, cityLanguages, key, language, city },
+        refresh: loadCriterion.shouldUpdate(lastUpdate)
       }
       yield put(insert)
     } else {
