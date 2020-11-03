@@ -21,9 +21,7 @@ const extractResultModelsAndChildren = (root: CategoryModel, categoriesMap: Cate
   resultModels: { [path: PathType]: CategoryModel },
   resultChildren: { [path: PathType]: $ReadOnlyArray<PathType> }
 |} => {
-  /**
-   * Extracts models and children from the (updated) categories map.
-   */
+     // Extracts models and children from the (updated) categories map.
   const resultModels = {}
   const resultChildren = {}
 
