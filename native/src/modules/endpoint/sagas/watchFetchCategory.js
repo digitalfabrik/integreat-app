@@ -5,7 +5,7 @@ import { all, call, put, select, takeEvery } from 'redux-saga/effects'
 import type {
   FetchCategoryActionType,
   FetchCategoryFailedActionType,
-  PushCategoryActionType, RefreshCategoryActionType
+  PushCategoryActionType
 } from '../../app/StoreActionType'
 import type { DataContainer } from '../DataContainer'
 import loadCityContent from './loadCityContent'
@@ -45,10 +45,10 @@ export function * fetchCategory (dataContainer: DataContainer, action: FetchCate
 
       const lastUpdate: Moment | null = yield call(dataContainer.getLastUpdate, city, language)
 
-      // $FlowFixMe Flow can't evaluate the type as it is dynamic
-      const push: PushCategoryActionType | RefreshCategoryActionType = {
-        type: loadCriterion.shouldUpdate(lastUpdate) ? 'REFRESH_CATEGORY' : 'PUSH_CATEGORY',
-        params: { categoriesMap, resourceCache, path, cityLanguages, depth, key, city, language }
+      const push: PushCategoryActionType = {
+        type: 'PUSH_CATEGORY',
+        params: { categoriesMap, resourceCache, path, cityLanguages, depth, key, city, language },
+        refresh: loadCriterion.shouldUpdate(lastUpdate)
       }
       yield put(push)
     } else {

@@ -10,7 +10,7 @@ import {
 } from '@integreat-app/integreat-api-client'
 import moment from 'moment'
 import morphContentLanguage from '../morphContentLanguage'
-import pushCategory from '../pushOrRefreshCategory'
+import pushCategory from '../pushCategory'
 import type { CityContentStateType } from '../../../app/StateType'
 import type {
   MorphContentLanguageActionType,
@@ -238,7 +238,8 @@ describe('morphContentLanguage', () => {
         resourceCache: {},
         city: 'augsburg',
         language: 'de'
-      }
+      },
+      refresh: false
     }
 
     const pushEventAction: PushEventActionType = {

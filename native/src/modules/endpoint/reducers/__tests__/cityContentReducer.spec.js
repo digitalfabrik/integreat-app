@@ -26,7 +26,8 @@ describe('cityContentReducer', () => {
       path: '/augsburg/de',
       depth: 2,
       key: 'route-id-0'
-    }
+    },
+    refresh: false
   }
   const pushEventAction = {
     type: 'PUSH_EVENT',
