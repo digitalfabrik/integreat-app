@@ -1,8 +1,8 @@
 // @flow
 
 import messaging from '@react-native-firebase/messaging'
-import type { FeatureFlagsType } from '../app/constants/buildConfig'
 import { checkNotifications, RESULTS } from 'react-native-permissions'
+import type { FeatureFlagsType } from 'build-configs/BuildConfigType'
 
 export const checkPushNotificationPermission = async (): RESULTS => {
   const { status } = await checkNotifications()

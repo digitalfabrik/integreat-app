@@ -16,9 +16,6 @@ import malteIntroOffersIcon from 'build-configs/malte/assets/Offers.svg'
 import malteIntroSearchIcon from 'build-configs/malte/assets/Search.svg'
 import { INTEGREAT_ASSETS, MALTE_ASSETS } from 'build-configs/AssetsType'
 
-export { BuildConfigType, FeatureFlagsType, LocalesType } from 'build-configs/BuildConfigType'
-export { ThemeType } from 'build-configs/ThemeType'
-
 type AssetsType = {|
   appLogo: number,
   locationMarker: number,
