@@ -5,25 +5,7 @@ exports[`HeaderLanguageSelectorItem should render a HeaderDropDown with a Select
   iconSrc="test-file-stub"
   text="layout:changeLanguage"
 >
-  <Selector
-    activeItemCode="de"
-    disabledItemTooltip="layout:noTranslation"
-    items={
-      Array [
-        SelectorItemModel {
-          "_code": "en",
-          "_href": "/augsburg/en/",
-          "_name": "English",
-        },
-        SelectorItemModel {
-          "_code": "de",
-          "_href": "/augsburg/de/",
-          "_name": "Deutsch",
-        },
-      ]
-    }
-    verticalLayout={false}
-  />
+  <Component />
 </HeaderActionItemDropDown>
 `;
 
