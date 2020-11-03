@@ -42,16 +42,14 @@ export const DropDownContainer = styled.div`
   right: 0;
   width: 100%;
   box-sizing: border-box;
-  opacity: ${props => props.active ? '1' : '0'};
   z-index: 1; /* this is only necessary for IE11 to have the DropDown above NavigationItems */
 
-  transform: scale(${props => props.active ? '1' : '0.9'});
+  transform: scale(1);
   transform-origin: center top;
   justify-content: center;
   box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.2);
   transition: transform 0.2s, opacity 0.2s, visibility 0s ${props => props.active ? '0s' : '0.2s'};
   background-color: ${props => props.theme.colors.backgroundColor};
-  visibility: ${props => props.active ? 'visible' : 'hidden'};
 
   @media ${props => props.theme.dimensions.smallViewport} {
     top: ${props => props.theme.dimensions.headerHeightSmall}px;
@@ -64,7 +62,7 @@ export const DropDownContainer = styled.div`
 `
 
 type PropsType = {|
-  children: React.Element<*>,
+  children: (closeDropDown: () => void) => React.Element<*>,
   theme: ThemeType,
   iconSrc: string,
   text: string
@@ -88,9 +86,7 @@ const HeaderActionItemDropDown = (props: PropsType) => {
   }
 
   const clickOutside = () => {
-    if (dropDownActive) {
-      setDropDownActive(false)
-    }
+    setDropDownActive(false)
   }
 
   const wrapperRef = useRef(null)
@@ -101,11 +97,9 @@ const HeaderActionItemDropDown = (props: PropsType) => {
             onClick={toggleDropDown}>
       <img alt='' src={iconSrc} />
     </button>
-    <DropDownContainer active={dropDownActive} theme={theme}>
-      {React.cloneElement(children, {
-        closeDropDownCallback: closeDropDown
-      })}
-    </DropDownContainer>
+    {dropDownActive && <DropDownContainer active={dropDownActive} theme={theme}>
+      {children(closeDropDown)}
+    </DropDownContainer>}
   </Container>
 }
 

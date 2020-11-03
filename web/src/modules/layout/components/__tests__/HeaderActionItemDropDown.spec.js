@@ -2,88 +2,80 @@
 
 import React from 'react'
 import { mount } from 'enzyme'
-import ClickOutsideHeaderDropDown, { DropDownContainer, HeaderActionItemDropDown } from '../HeaderActionItemDropDown'
-import fileMock from '../../../../__mocks__/fileMock'
+import HeaderActionItemDropDown, { DropDownContainer } from '../HeaderActionItemDropDown'
 import brightTheme from '../../../theme/constants/theme'
+import { render, fireEvent } from '@testing-library/react'
 
 describe('HeaderActionItemDropDown', () => {
-  const MockNode = () => <div>Here comes the DropDown</div>
+  let MockNode
   let wrapperComponent
 
   beforeEach(() => {
-    wrapperComponent = mount(<ClickOutsideHeaderDropDown theme={brightTheme} iconSrc='/someImg' text='some text'>
-      <MockNode />
-    </ClickOutsideHeaderDropDown>)
+    MockNode = () => <></>
+    wrapperComponent = mount(
+      <HeaderActionItemDropDown theme={brightTheme} iconSrc='/someImg' text='some text'>
+        {closeDropDown => <MockNode closeDropDown={closeDropDown} />}
+      </HeaderActionItemDropDown>)
   })
 
   it('should pass correct closeDropDown callback', () => {
-    const component = wrapperComponent.find(HeaderActionItemDropDown)
-    const instance = component.instance()
+    wrapperComponent.find('button').simulate('click')
+
     const callback = wrapperComponent.find('MockNode').prop('closeDropDownCallback')
-    expect(callback).toEqual(instance?.closeDropDown)
+    expect(callback).not.toBeNull()
   })
 
-  describe('closeDropDown()', () => {
-    it('should close DropDown if active', () => {
-      const component = wrapperComponent.find(HeaderActionItemDropDown)
-      component.setState({ dropDownActive: true })
-      const instance: any = component.instance()
-      instance.closeDropDown()
-      expect(instance.state.dropDownActive).toBe(false)
-    })
+  it('should open DropDown if active', () => {
+    wrapperComponent.find('button').simulate('click')
 
-    it('shouldnt open DropDown if inactive', () => {
-      const component = wrapperComponent.find(HeaderActionItemDropDown)
-      const instance: any = component.instance()
-      instance.closeDropDown()
-      instance.closeDropDown()
-      expect(instance.state.dropDownActive).toBe(false)
-    })
+    expect(wrapperComponent.find(DropDownContainer)).toHaveLength(1)
   })
 
-  describe('toggleDropDown()', () => {
-    it('should close DropDown if active', () => {
-      const component = wrapperComponent.find(HeaderActionItemDropDown)
-      component.setState({ dropDownActive: true })
-      const instance: any = component.instance()
-      instance.toggleDropDown()
-      expect(instance.state.dropDownActive).toBe(false)
-    })
-
-    it('should open DropDown if inactive', () => {
-      const component = wrapperComponent.find(HeaderActionItemDropDown)
-      const instance: any = component.instance()
-      instance.toggleDropDown()
-      expect(instance.state.dropDownActive).toBe(true)
-    })
+  it('shouldnt close DropDown if inactive', () => {
+    wrapperComponent.find('button').simulate('click')
+    wrapperComponent.find('button').simulate('click')
+    expect(wrapperComponent.find(DropDownContainer)).toHaveLength(0)
   })
 
-  it('should toggle when user clicks on button', () => {
-    const component = wrapperComponent.find(HeaderActionItemDropDown)
-    const instance: any = component.instance()
-    const onClick = component.find({ selector: 'button' }).prop('onClick')
-    expect(onClick).toBe(instance.toggleDropDown)
+  it('should close if clicked outside', () => {
+    const wrapperComponent = render(
+      <div>
+        <span>Click me to close dropdown!</span>
+        <HeaderActionItemDropDown theme={brightTheme} iconSrc='/someImg' text='some text'>
+          {() => <span>Do you see me?</span>}
+        </HeaderActionItemDropDown>
+      </div>
+    )
+
+    fireEvent.click(wrapperComponent.getByRole('button'))
+    expect(wrapperComponent.getByText('Do you see me?')).not.toBeNull()
+
+    fireEvent.mouseDown(wrapperComponent.getByText('Click me to close dropdown!'))
+    expect(wrapperComponent.queryByText('Do you see me?')).toBeNull()
+
+    fireEvent.click(wrapperComponent.getByRole('button'))
+    expect(wrapperComponent.getByText('Do you see me?')).not.toBeNull()
   })
 
-  it('should call closeDropDown when handleClickOutside is called', () => {
-    const component = wrapperComponent.find(HeaderActionItemDropDown)
-    const instance: any = component.instance()
-    instance.closeDropDown = jest.fn()
-    instance.handleClickOutside()
-    expect(instance.closeDropDown).toHaveBeenCalled()
+  it('should close if inner component demands', async () => {
+    const MockNode = (props: {closeDropDown: () => void}) => {
+      return <span onClick={props.closeDropDown}>Click Me!</span>
+    }
+
+    // $FlowFixMe
+    const wrapperComponent = render(
+        <HeaderActionItemDropDown theme={brightTheme} iconSrc='/someImg' text='some text'>
+          {closeDropDown => <MockNode closeDropDown={closeDropDown} />}
+        </HeaderActionItemDropDown>
+    )
+
+    fireEvent.click(wrapperComponent.getByRole('button'))
+    expect(wrapperComponent.getByText('Click Me!')).not.toBeNull()
+    fireEvent.click(wrapperComponent.getByText('Click Me!'))
+    expect(wrapperComponent.queryByText('Click Me!')).toBeNull()
   })
 
   it('should be closed from the beginning', () => {
-    const component = wrapperComponent.find(HeaderActionItemDropDown)
-    const instance: any = component.instance()
-    expect(instance.state.dropDownActive).toBe(false)
-  })
-
-  it('should add class if active', () => {
-    const component = mount(<HeaderActionItemDropDown theme={brightTheme} iconSrc={fileMock}
-                                                      text='some text'><MockNode /></HeaderActionItemDropDown>)
-    expect(component.find(DropDownContainer).prop('active')).toBe(false)
-    component.setState({ dropDownActive: true })
-    expect(component.find(DropDownContainer).prop('active')).toBe(true)
+    expect(wrapperComponent.find(DropDownContainer)).toHaveLength(0)
   })
 })
