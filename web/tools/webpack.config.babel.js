@@ -1,4 +1,6 @@
 // https://github.com/babel/babel/issues/8309#issuecomment-439161848
+// Modules in node_modules are ignored and not transpiled per default.
+// Explicitly not ignore the build-configs npm module here since it has to be compiled as monorepo package.
 require('@babel/register')({
   ignore: [/node_modules\/(?!build-configs)/]
 })
