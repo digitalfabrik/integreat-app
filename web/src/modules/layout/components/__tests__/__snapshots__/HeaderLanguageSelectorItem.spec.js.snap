@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`HeaderLanguageSelectorItem should render a HeaderDropDown with a Selector if there are selectorItems 1`] = `
-<OnClickOutside(HeaderActionItemDropDown)
+<HeaderActionItemDropDown
   iconSrc="test-file-stub"
   text="layout:changeLanguage"
 >
@@ -24,7 +24,7 @@ exports[`HeaderLanguageSelectorItem should render a HeaderDropDown with a Select
     }
     verticalLayout={false}
   />
-</OnClickOutside(HeaderActionItemDropDown)>
+</HeaderActionItemDropDown>
 `;
 
 exports[`HeaderLanguageSelectorItem should render an icon with a tooltip if there are no selectorItems 1`] = `
