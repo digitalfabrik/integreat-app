@@ -72,10 +72,10 @@ export class LocationHeader extends React.Component<PropsType> {
 
     const isNewsVisible = buildConfig().featureFlags.newsStream && (isLocalNewsEnabled || isTunewsEnabled)
     const isEventsVisible = isEventsEnabled
-    const isMapVisible = buildConfig().featureFlags.pois // TODO IGAPP-115: check for flag from cms
+    const isPoisVisible = buildConfig().featureFlags.pois // TODO IGAPP-115: check for flag from cms
     const isOffersVisible = isOffersEnabled
 
-    const showNavBar = isNewsVisible || isEventsVisible || isMapVisible || isOffersVisible
+    const showNavBar = isNewsVisible || isEventsVisible || isPoisVisible || isOffersVisible
     if (!showNavBar) {
       return []
     }
@@ -119,7 +119,7 @@ export class LocationHeader extends React.Component<PropsType> {
       )
     }
 
-    if (isMapVisible) {
+    if (isPoisVisible) {
       items.push(
         <HeaderNavigationItem
           key='pois'
