@@ -47,7 +47,7 @@ You can run the linter by calling **yarn run lint**. Some issues can be fixed au
 You can run flow using **yarn flow**. 
 
 ## Backend
-The endpoints for the webapp and this project are defined in the [api-client](https://github.com/Integreat/integreat-api-client).
+The endpoints for the webapp and this project are defined in the [api-client](../../api-client).
 
 * The current backend uses WordPress and can be found [here](https://github.com/Integreat/cms).
 * [API Documentation](https://github.com/Integreat/cms/wiki/REST-APIv3-Documentation)

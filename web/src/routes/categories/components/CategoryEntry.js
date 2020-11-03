@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 
-import { CategoryModel } from '@integreat-app/integreat-api-client'
+import { CategoryModel } from 'api-client'
 import iconPlaceholder from '../assets/IconPlaceholder.svg'
 import styled, { withTheme } from 'styled-components'
 import Highlighter from 'react-highlight-words'

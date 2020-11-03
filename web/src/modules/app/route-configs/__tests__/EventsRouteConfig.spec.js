@@ -1,7 +1,7 @@
 // @flow
 
 import EventsRouteConfig from '../EventsRouteConfig'
-import { CityModel, DateModel, EventModel, LocationModel, Payload } from '@integreat-app/integreat-api-client'
+import { CityModel, DateModel, EventModel, LocationModel, Payload } from 'api-client'
 import moment from 'moment'
 import createLocation from '../../../../createLocation'
 
