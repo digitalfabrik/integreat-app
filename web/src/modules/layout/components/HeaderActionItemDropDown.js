@@ -1,10 +1,10 @@
 // @flow
 
 import * as React from 'react'
-import onClickOutside from 'react-onclickoutside'
 import styled from 'styled-components'
-import ReactTooltip from 'react-tooltip'
 import type { ThemeType } from '../../theme/constants/theme'
+import { useRef, useState } from 'react'
+import useOnClickOutside from '../hooks/useOnClickOutside'
 
 export const Container = styled.div`
   width: calc(0.8 * ${props => props.theme.dimensions.headerHeightLarge}px);
@@ -70,57 +70,43 @@ type PropsType = {|
   text: string
 |}
 
-type StateType = {|
-  dropDownActive: boolean
-|}
-
 /**
  * Designed to work as an item of a HeaderActionBar. Once clicked, the child node becomes visible right underneath the
  * Header. Once the user clicks outside, the node is hidden again. Additionally, the inner node gets a
  * closeDropDownCallback through its props to close the dropDown and hide itself.
  */
-export class HeaderActionItemDropDown extends React.Component<PropsType, StateType> {
-  componentDidUpdate () {
-    /* https://www.npmjs.com/package/react-tooltip#1-using-tooltip-within-the-modal-eg-react-modal- */
-    ReactTooltip.rebuild()
+const HeaderActionItemDropDown = (props: PropsType) => {
+  const { iconSrc, text, children, theme } = props
+  const [dropDownActive, setDropDownActive] = useState(false)
+
+  const toggleDropDown = () => {
+    setDropDownActive(!dropDownActive)
   }
 
-  constructor (props: PropsType) {
-    super(props)
-    this.state = { dropDownActive: false }
+  const closeDropDown = () => {
+    setDropDownActive(false)
   }
 
-  toggleDropDown = () => {
-    this.setState(prevState => ({ dropDownActive: !prevState.dropDownActive }))
-  }
-
-  closeDropDown = () => {
-    if (this.state.dropDownActive) {
-      this.toggleDropDown()
+  const clickOutside = () => {
+    if (dropDownActive) {
+      setDropDownActive(false)
     }
   }
 
-  handleClickOutside = () => {
-    this.closeDropDown()
-  }
+  const wrapperRef = useRef(null)
+  useOnClickOutside(wrapperRef, clickOutside)
 
-  render () {
-    const { iconSrc, text, children, theme } = this.props
-    const { dropDownActive } = this.state
-
-    return (
-      <Container theme={theme}>
-        <button selector='button' data-tip={text} data-event='mouseover' data-event-off='click mouseout' aria-label={text} onClick={this.toggleDropDown}>
-          <img alt='' src={iconSrc} />
-        </button>
-        <DropDownContainer active={dropDownActive} theme={theme}>
-          {React.cloneElement(children, {
-            closeDropDownCallback: this.closeDropDown
-          })}
-        </DropDownContainer>
-      </Container>
-    )
-  }
+  return <Container ref={wrapperRef} theme={theme}>
+    <button selector='button' data-tip={text} data-event='mouseover' data-event-off='click mouseout' aria-label={text}
+            onClick={toggleDropDown}>
+      <img alt='' src={iconSrc} />
+    </button>
+    <DropDownContainer active={dropDownActive} theme={theme}>
+      {React.cloneElement(children, {
+        closeDropDownCallback: closeDropDown
+      })}
+    </DropDownContainer>
+  </Container>
 }
 
-export default onClickOutside<PropsType, HeaderActionItemDropDown>(HeaderActionItemDropDown)
+export default HeaderActionItemDropDown
