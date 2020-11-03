@@ -1,6 +1,6 @@
 // @flow
 
-import { PageModel, Payload } from '@integreat-app/integreat-api-client'
+import { PageModel, Payload } from 'api-client'
 import moment from 'moment'
 import createLocation from '../../../../createLocation'
 import DisclaimerRouteConfig from '../DisclaimerRouteConfig'

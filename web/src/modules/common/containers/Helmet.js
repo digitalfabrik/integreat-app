@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import { CityModel } from '@integreat-app/integreat-api-client'
+import { CityModel } from 'api-client'
 import { Helmet as ReactHelmet } from 'react-helmet'
 import type { LanguageChangePathsType } from '../../app/containers/Switcher'
 

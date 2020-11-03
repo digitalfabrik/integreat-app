@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react'
-import { WohnenOfferModel, WohnenFormData } from '@integreat-app/integreat-api-client'
+import { WohnenOfferModel, WohnenFormData } from 'api-client'
 import moment from 'moment'
 import { shallow } from 'enzyme'
 import OfferListItem from '../OfferListItem'

@@ -3,7 +3,7 @@
 import type {
   FeedbackCategoryType,
   FeedbackType
-} from '@integreat-app/integreat-api-client'
+} from 'api-client'
 
 class FeedbackVariant {
   feedbackType: FeedbackType

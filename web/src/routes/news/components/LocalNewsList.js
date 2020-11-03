@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { isEmpty } from 'lodash'
 import styled from 'styled-components'
-import { LocalNewsModel } from '@integreat-app/integreat-api-client'
+import { LocalNewsModel } from 'api-client'
 
 const NoItemsMessage = styled.div`
   padding-top: 25px;

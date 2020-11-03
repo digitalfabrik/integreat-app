@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { transform, groupBy } from 'lodash'
-import { CityModel } from '@integreat-app/integreat-api-client'
+import { CityModel } from 'api-client'
 import CityEntry from './CityEntry'
 import withPlatform from '../../../modules/platform/hocs/withPlatform'
 import styled from 'styled-components'

@@ -3,7 +3,7 @@
 import { mount, shallow } from 'enzyme'
 import React from 'react'
 
-import { OfferModel, CityModel } from '@integreat-app/integreat-api-client'
+import { OfferModel, CityModel } from 'api-client'
 import ConnectedOffersPage, { OffersPage } from '../OffersPage'
 import theme from '../../../../modules/theme/constants/theme'
 import createReduxStore from '../../../../modules/app/createReduxStore'
