@@ -3,7 +3,7 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import type { ThemeType } from '../../theme/constants/theme'
-import { useRef, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import useOnClickOutside from '../hooks/useOnClickOutside'
 
 export const Container = styled.div`
@@ -77,9 +77,9 @@ const HeaderActionItemDropDown = (props: PropsType) => {
   const { iconSrc, text, children, theme } = props
   const [dropDownActive, setDropDownActive] = useState(false)
 
-  const toggleDropDown = () => {
+  const toggleDropDown = useCallback(() => {
     setDropDownActive(!dropDownActive)
-  }
+  }, [setDropDownActive, dropDownActive])
 
   const closeDropDown = () => {
     setDropDownActive(false)
