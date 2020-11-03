@@ -1,7 +1,7 @@
 // @flow
 
 import type { CategoryRouteStateType, CityContentStateType, PathType } from '../../app/StateType'
-import type { PushCategoryActionType, RefreshCategoryActionType } from '../../app/StoreActionType'
+import type { PushCategoryActionType } from '../../app/StoreActionType'
 import { CategoryModel, LanguageModel, CategoriesMapModel } from '@integreat-app/integreat-api-client'
 import forEachTreeNode from '../../common/forEachTreeNode'
 import ErrorCodes from '../../error/ErrorCodes'
@@ -21,7 +21,7 @@ const extractResultModelsAndChildren = (root: CategoryModel, categoriesMap: Cate
   resultModels: { [path: PathType]: CategoryModel },
   resultChildren: { [path: PathType]: $ReadOnlyArray<PathType> }
 |} => {
-     // Extracts models and children from the (updated) categories map.
+  // Extracts models and children from the (updated) categories map.
   const resultModels = {}
   const resultChildren = {}
 
@@ -37,9 +37,8 @@ const extractResultModelsAndChildren = (root: CategoryModel, categoriesMap: Cate
   }
 }
 
-const pushOrRefreshCategory = (state: CityContentStateType,
-  action: PushCategoryActionType | RefreshCategoryActionType): CityContentStateType => {
-  const type = action.type
+const pushCategory = (state: CityContentStateType, action: PushCategoryActionType): CityContentStateType => {
+  const refresh = action.refresh
   const { categoriesMap, path, depth, key, language, city, resourceCache, cityLanguages } = action.params
 
   // If there is an error in the old resourceCache, we want to override it
@@ -93,10 +92,10 @@ const pushOrRefreshCategory = (state: CityContentStateType,
     allAvailableLanguages: getAllAvailableLanguages(root, city, language, cityLanguages),
     language,
     city,
-    status: (otherPageLoading && type === 'PUSH_CATEGORY') ? 'loading' : 'ready'
+    status: (otherPageLoading && !refresh) ? 'loading' : 'ready'
   }
 
-  if (type === 'REFRESH_CATEGORY') {
+  if (refresh) {
     // Update all open routes in the same city with the new content in case the content has been refreshed
     Object.entries(state.categoriesRouteMapping)
       // $FlowFixMe Object.entries does not supply proper types
@@ -144,4 +143,4 @@ const pushOrRefreshCategory = (state: CityContentStateType,
   }
 }
 
-export default pushOrRefreshCategory
+export default pushCategory

@@ -122,22 +122,16 @@ export type FetchCategoryFailedActionType = {|
   |}
 |}
 
-type CategoryParamsType = {|
+export type PushCategoryActionType = {|
+  type: 'PUSH_CATEGORY',
+  +params: {|
     +categoriesMap: CategoriesMapModel,
     +resourceCache: LanguageResourceCacheStateType,
     +cityLanguages: Array<LanguageModel>,
     ...CategoryRouteConfigType,
     +key: string
-|}
-
-export type PushCategoryActionType = {|
-  type: 'PUSH_CATEGORY',
-  +params: CategoryParamsType
-|}
-
-export type RefreshCategoryActionType = {|
-  type: 'REFRESH_CATEGORY',
-  +params: CategoryParamsType
+  |},
+  +refresh: boolean
 |}
 
 export type ClearCategoryActionType = {|
@@ -149,7 +143,6 @@ export type CategoriesActionType =
   | FetchCategoryActionType
   | PushCategoryActionType
   | FetchCategoryFailedActionType
-  | RefreshCategoryActionType
 
 export type FetchPoiActionType = {|
   type: 'FETCH_POI', +params: {|

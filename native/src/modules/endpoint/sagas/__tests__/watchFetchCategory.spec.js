@@ -52,7 +52,7 @@ describe('watchFetchCategories', () => {
   const language = 'en'
 
   describe('fetchCategory', () => {
-    it('should put an action which refreshes the categories', async () => {
+    it('should put an action which refreshes the categories if the content should be refreshed', async () => {
       const { categories, resources, languages, dataContainer, initialPath } = await createDataContainer(city, language)
 
       const action: FetchCategoryActionType = {
@@ -73,7 +73,8 @@ describe('watchFetchCategories', () => {
       return expectSaga(fetchCategory, dataContainer, action)
         .withState({ cityContent: { city: city } })
         .put({
-          type: 'REFRESH_CATEGORY',
+          type: 'PUSH_CATEGORY',
+          refresh: true,
           params: {
             categoriesMap: categories,
             resourceCache: resources,
@@ -88,7 +89,7 @@ describe('watchFetchCategories', () => {
         .run()
     })
 
-    it('should put an action which pushes the categories', async () => {
+    it('should put an action which pushes the categories if content should not be refreshed', async () => {
       const { categories, resources, languages, dataContainer, initialPath } = await createDataContainer(city, language)
 
       const action: FetchCategoryActionType = {
@@ -110,6 +111,7 @@ describe('watchFetchCategories', () => {
         .withState({ cityContent: { city: city } })
         .put({
           type: 'PUSH_CATEGORY',
+          refresh: false,
           params: {
             categoriesMap: categories,
             resourceCache: resources,
@@ -147,6 +149,7 @@ describe('watchFetchCategories', () => {
         .withState({ cityContent: { city: anotherCity } })
         .put({
           type: 'PUSH_CATEGORY',
+          refresh: false,
           params: {
             categoriesMap: categories,
             resourceCache: resources,
@@ -161,42 +164,44 @@ describe('watchFetchCategories', () => {
         .run()
     })
 
-    it('should put an action which refreshes the categories when peeking', async () => {
-      const { categories, resources, dataContainer, initialPath } = await createDataContainer(city, language)
-      const anotherCity = 'anotherCity'
+    it('should put an action which refreshes the categories when peeking if the content should be refreshed',
+      async () => {
+        const { categories, resources, dataContainer, initialPath } = await createDataContainer(city, language)
+        const anotherCity = 'anotherCity'
 
-      const action: FetchCategoryActionType = {
-        type: 'FETCH_CATEGORY',
-        params: {
-          city,
-          language,
-          path: initialPath,
-          depth: 2,
-          key: 'categories-key',
-          criterion: {
-            forceUpdate: true,
-            shouldRefreshResources: false
+        const action: FetchCategoryActionType = {
+          type: 'FETCH_CATEGORY',
+          params: {
+            city,
+            language,
+            path: initialPath,
+            depth: 2,
+            key: 'categories-key',
+            criterion: {
+              forceUpdate: true,
+              shouldRefreshResources: false
+            }
           }
         }
-      }
 
-      return expectSaga(fetchCategory, dataContainer, action)
-        .withState({ cityContent: { city: anotherCity } })
-        .put({
-          type: 'REFRESH_CATEGORY',
-          params: {
-            categoriesMap: categories,
-            resourceCache: resources,
-            path: initialPath,
-            cityLanguages: [],
-            depth: 2,
-            key: 'categories-key',
-            language,
-            city
-          }
-        })
-        .run()
-    })
+        return expectSaga(fetchCategory, dataContainer, action)
+          .withState({ cityContent: { city: anotherCity } })
+          .put({
+            type: 'PUSH_CATEGORY',
+            refresh: true,
+            params: {
+              categoriesMap: categories,
+              resourceCache: resources,
+              path: initialPath,
+              cityLanguages: [],
+              depth: 2,
+              key: 'categories-key',
+              language,
+              city
+            }
+          })
+          .run()
+      })
 
     it('should put error action if language is not available for root model', async () => {
       const { dataContainer, languages } = await createDataContainer(city, language)
