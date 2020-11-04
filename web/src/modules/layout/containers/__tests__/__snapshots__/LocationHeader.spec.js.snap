@@ -51,7 +51,7 @@ Array [
 ]
 `;
 
-exports[`LocationHeader NavigationItems should be empty, if offers and news are both disabled 1`] = `
+exports[`LocationHeader NavigationItems should be empty if all other header items are disabled 1`] = `
 Array [
   <HeaderNavigationItem
     active={true}
