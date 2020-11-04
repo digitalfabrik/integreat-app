@@ -6,7 +6,7 @@ import type { StateType } from '../../../modules/app/StateType'
 import type { Dispatch } from 'redux'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import Landing from '../components/Landing'
-import type { NavigationStackProp } from 'react-navigation-stack'
+import type { NavigationScreenProp } from 'react-navigation-stack'
 import { StackActions } from 'react-navigation'
 import { generateKey } from '../../../modules/app/generateRouteKey'
 import type { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
@@ -17,12 +17,12 @@ import { connect } from 'react-redux'
 
 type ContainerPropsType = {|
   dispatch: Dispatch<StoreActionType>,
-  navigation: NavigationStackProp<*>,
+  navigation: NavigationScreenProp<*>,
   language: string,
   cities: $ReadOnlyArray<CityModel>
 |}
 
-type OwnPropsType = {| navigation: NavigationStackProp<*>, t: void |}
+type OwnPropsType = {| navigation: NavigationScreenProp<*>, t: void |}
 type StatePropsType = StatusPropsType<ContainerPropsType, {}>
 type DispatchPropsType = {|
   dispatch: Dispatch<StoreActionType>

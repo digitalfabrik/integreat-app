@@ -2,7 +2,7 @@
 
 import { withTranslation, type TFunction } from 'react-i18next'
 import * as React from 'react'
-import type { NavigationStackProp } from 'react-navigation-stack'
+import type { NavigationScreenProp } from 'react-navigation-stack'
 import type { ThemeType } from '../../modules/theme/constants'
 import withTheme from '../../modules/theme/hocs/withTheme'
 import { FlatList, Dimensions } from 'react-native'
@@ -49,7 +49,7 @@ const ImageContent = styled.Image`
 
 type PropsType = {|
   t: TFunction,
-  navigation: NavigationStackProp<*>,
+  navigation: NavigationScreenProp<*>,
   theme: ThemeType,
   language: string,
   dispatch: () => void
