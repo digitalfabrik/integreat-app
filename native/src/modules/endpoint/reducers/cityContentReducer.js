@@ -80,6 +80,8 @@ export default (
         return { ...state, languages: { status: 'error', ...action.params } }
       case 'PUSH_CATEGORY':
         return pushCategory(state, action)
+      case 'FETCH_RESOURCES_PROGRESS':
+        return { ...state, resourceCache: { ...state.resourceCache, ...action.params } }
       case 'PUSH_POI':
         return pushPoi(state, action)
       case 'PUSH_EVENT':

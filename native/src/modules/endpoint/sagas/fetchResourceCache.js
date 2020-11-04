@@ -1,9 +1,9 @@
 // @flow
 
-import type { Saga } from 'redux-saga'
+import type { Saga, Channel } from 'redux-saga'
 import { flatten, isEmpty, mapValues, pickBy, reduce, values } from 'lodash'
-import { call, put } from 'redux-saga/effects'
-import type { ResourcesFetchFailedActionType } from '../../app/StoreActionType'
+import { call, put, fork, take } from 'redux-saga/effects'
+import type { ResourcesFetchProgressActionType, ResourcesFetchFailedActionType } from '../../app/StoreActionType'
 import type { FetchResultType, TargetFilePathsType } from '../../fetcher/FetcherModule'
 import FetcherModule from '../../fetcher/FetcherModule'
 import type { DataContainer } from '../DataContainer'
@@ -19,6 +19,28 @@ const createErrorMessage = (fetchResult: FetchResultType) => {
     `${message}'Failed to download ${result.url} to ${path}': ${result.errorMessage}\n`, '')
 }
 
+function * watchOnProgress (chan: Channel<number>): Saga<void> {
+  let prevStep = 0
+  while (true) {
+    const progress = yield take(chan)
+    const newStep = Math.floor(progress * 10) * 10
+
+    if (newStep <= prevStep) {
+      continue
+    }
+
+    const progressAction: ResourcesFetchProgressActionType = {
+      type: 'FETCH_RESOURCES_PROGRESS',
+      params: {
+        progress: newStep
+      }
+    }
+    yield put(progressAction)
+
+    prevStep = newStep
+  }
+}
+
 export default function * fetchResourceCache (
   city: string,
   language: string,
@@ -32,7 +54,12 @@ export default function * fetchResourceCache (
       return acc
     }, {})
 
-    const results = yield call(new FetcherModule().fetchAsync, targetFilePaths, progress => console.log(progress))
+    const fetcher = new FetcherModule()
+    const [fetchPromise, progressChannel] = yield call(fetcher.fetchAsync, targetFilePaths)
+    if (progressChannel) {
+      yield fork(watchOnProgress, progressChannel)
+    }
+    const results = yield fetchPromise
 
     const successResults: FetchResultType = pickBy(results, result => !result.errorMessage)
     const failureResults: FetchResultType = pickBy(results, result => !!result.errorMessage)
