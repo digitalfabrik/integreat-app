@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SearchPage should match snapshot 1`] = `
-<div>
+<Fragment>
   <SearchInput
     filterText=""
     onFilterTextChange={[Function]}
@@ -56,5 +56,5 @@ exports[`SearchPage should match snapshot 1`] = `
     query=""
     resultsFound={true}
   />
-</div>
+</Fragment>
 `;
