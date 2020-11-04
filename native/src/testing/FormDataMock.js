@@ -12,7 +12,7 @@ type FormDataPartType = {
   type?: string
 }
 
-// See https://github.com/RealOrangeOne/react-native-mock/blob/master/src/Libraries/Network/FormData.js for reverence
+// See https://github.com/RealOrangeOne/react-native-mock/blob/master/src/Libraries/Network/FormData.js for reference
 class FormData {
   _parts: Array<FormDataNameValuePairType>
 
