@@ -1,19 +1,16 @@
 // @flow
 
 type FormDataNameValuePairType = [string, string]
-type HeadersType = { [name: string]: string }
 type FormDataPartType = {
-  string: string,
-  headers: HeadersType
+  string: string
 } | {
   uri: string,
-  headers: HeadersType,
   name?: string,
   type?: string
 }
 
 // See https://github.com/RealOrangeOne/react-native-mock/blob/master/src/Libraries/Network/FormData.js for reference
-class FormData {
+class FormDataMock {
   _parts: Array<FormDataNameValuePairType>
 
   constructor () {
@@ -34,4 +31,4 @@ class FormData {
   }
 }
 
-module.exports = FormData
+export default FormDataMock
