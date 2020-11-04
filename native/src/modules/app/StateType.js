@@ -162,6 +162,7 @@ export type ResourceCacheStateType = {|
   +message: ?string
 |} | {|
   +status: 'ready',
+  +progress: number,
   +value: LanguageResourceCacheStateType
 |}
 

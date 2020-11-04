@@ -258,6 +258,12 @@ export type ClearCityActionType = {|
   type: 'CLEAR_CITY'
 |}
 
+export type ResourcesFetchProgressActionType = {|
+  type: 'FETCH_RESOURCES_PROGRESS', +params: {|
+    +progress: number
+  |}
+|}
+
 export type ResourcesFetchFailedActionType = {|
   type: 'FETCH_RESOURCES_FAILED',
   +params: {|
@@ -275,6 +281,7 @@ export type CityContentActionType =
   | ClearCityActionType
   | PushLanguagesActionType
   | FetchLanguagesFailedActionType
+  | ResourcesFetchProgressActionType
   | ResourcesFetchFailedActionType
   | NewsActionType
 

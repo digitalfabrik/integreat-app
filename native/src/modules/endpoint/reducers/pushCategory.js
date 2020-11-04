@@ -41,7 +41,7 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
     return {
       ...state,
       categoriesRouteMapping: { ...state.categoriesRouteMapping, [key]: route },
-      resourceCache: { status: 'ready', value: newResourceCache },
+      resourceCache: { status: 'ready', progress: 100, value: newResourceCache },
       searchRoute: { categoriesMap }
     }
   }
@@ -70,7 +70,7 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
   return {
     ...state,
     categoriesRouteMapping: { ...state.categoriesRouteMapping, [key]: route },
-    resourceCache: { status: 'ready', value: newResourceCache },
+    resourceCache: { status: 'ready', progress: 100, value: newResourceCache },
     searchRoute: { categoriesMap }
   }
 }
