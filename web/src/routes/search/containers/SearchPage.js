@@ -77,7 +77,7 @@ export class SearchPage extends React.Component<PropsType, LocalStateType> {
     const { filterText } = this.state
 
     return (
-      <div>
+      <>
         <SearchInput filterText={this.state.filterText}
                      placeholderText={t('searchPlaceholder')}
                      onFilterTextChange={this.handleFilterTextChanged}
@@ -87,7 +87,7 @@ export class SearchPage extends React.Component<PropsType, LocalStateType> {
           location={location}
           resultsFound={categories.length !== 0}
           query={filterText} />
-      </div>
+      </>
     )
   }
 }
