@@ -20,15 +20,15 @@ class FetcherModule {
 
     FetcherModule.currentlyFetching = true
 
-    const progressSubscription = NativeFetcherModuleEmitter.addListener('progress', emit)
-
     let emit
     const progressChannel = eventChannel<number>(emitter => {
       emit = emitter
       return () => {}
     })
+    const progressSubscription = NativeFetcherModuleEmitter.addListener('progress', emit)
+
     try {
-      var fetchPromise: Promise<FetchResultType>
+      let fetchPromise: Promise<FetchResultType>
       if (isEmpty(targetFilePaths)) {
         fetchPromise = Promise.resolve({})
       } else {

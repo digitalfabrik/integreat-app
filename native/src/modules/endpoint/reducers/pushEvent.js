@@ -41,7 +41,7 @@ const pushEvent = (state: CityContentStateType, action: PushEventActionType): Ci
   return {
     ...state,
     eventsRouteMapping: { ...state.eventsRouteMapping, [key]: getEventRoute() },
-    resourceCache: { status: 'ready', progress: 100, value: newResourceCache }
+    resourceCache: { status: 'ready', progress: 1, value: newResourceCache }
   }
 }
 

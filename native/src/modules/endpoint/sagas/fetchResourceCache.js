@@ -19,11 +19,12 @@ const createErrorMessage = (fetchResult: FetchResultType) => {
     `${message}'Failed to download ${result.url} to ${path}': ${result.errorMessage}\n`, '')
 }
 
-function * watchOnProgress (chan: Channel<number>): Saga<void> {
+function * watchOnProgress (channel: Channel<number>): Saga<void> {
   let prevStep = 0
-  while (true) {
-    const progress = yield take(chan)
-    const newStep = Math.floor(progress * 10) * 10
+  while (prevStep < 1) {
+    const progress = yield take(channel)
+    const stepWidth = 10
+    const newStep = Math.floor(progress * stepWidth) / stepWidth
 
     if (newStep <= prevStep) {
       continue
