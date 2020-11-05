@@ -30,6 +30,11 @@ class Navigator extends React.Component<PropsType, StateType> {
 
   async initializeAppContainer () {
     const { fetchCategory, clearCategory } = this.props
+
+    if (global.HermesInternal) {
+      console.log('App is using Hermes: https://reactnative.dev/docs/hermes')
+    }
+
     const appSettings = new AppSettings()
     const {
       introShown,
