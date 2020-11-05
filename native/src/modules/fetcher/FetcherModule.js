@@ -10,7 +10,7 @@ export type TargetFilePathsType = { [path: string]: string }
 export type FetchResultType = { [path: string]: {| lastUpdate: string, url: string, errorMessage: ?string |} }
 
 class FetcherModule {
-  // TODO NATIVE-264: Correctly handle already fetching
+  // TODO IGAPP-217: Correctly handle already fetching
   static currentlyFetching = false
 
   fetchAsync = (targetFilePaths: TargetFilePathsType): [Promise<FetchResultType>, Channel] => {
