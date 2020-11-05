@@ -81,7 +81,7 @@ export default (
       case 'PUSH_CATEGORY':
         return pushCategory(state, action)
       case 'FETCH_RESOURCES_PROGRESS':
-        return { ...state, resourceCache: { ...state.resourceCache, ...action.params } }
+        return { ...state, resourceCache: { ...state.resourceCache, progress: action.params.progress } }
       case 'PUSH_POI':
         return pushPoi(state, action)
       case 'PUSH_EVENT':
