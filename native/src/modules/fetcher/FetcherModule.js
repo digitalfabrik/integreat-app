@@ -1,8 +1,8 @@
 // @flow
 
-import type { Channel } from 'redux-saga'
+import type { EventChannel } from 'redux-saga'
 import NativeFetcherModule, { NativeFetcherModuleEmitter } from './NativeFetcherModule'
-import { eventChannel, END } from 'redux-saga'
+import { eventChannel } from 'redux-saga'
 import { isEmpty } from 'lodash'
 
 export type TargetFilePathsType = { [path: string]: string }
@@ -13,45 +13,30 @@ class FetcherModule {
   // TODO IGAPP-217: Correctly handle already fetching
   static currentlyFetching = false
 
-  fetchAsync = (targetFilePaths: TargetFilePathsType): [Promise<FetchResultType>, Channel] => {
+  fetchAsync = (targetFilePaths: TargetFilePathsType): [Promise<FetchResultType>, EventChannel<number>] => {
     if (FetcherModule.currentlyFetching) {
       throw new Error('Already fetching!')
     }
 
     FetcherModule.currentlyFetching = true
 
-    let emit
     const progressChannel = eventChannel<number>(emitter => {
-      emit = emitter
-      return () => {}
+      const subscription = NativeFetcherModuleEmitter.addListener('progress', emitter)
+      return () => subscription.remove()
     })
-    const progressSubscription = NativeFetcherModuleEmitter.addListener('progress', emit)
 
-    try {
-      let fetchPromise: Promise<FetchResultType>
-      if (isEmpty(targetFilePaths)) {
-        fetchPromise = Promise.resolve({})
-      } else {
-        fetchPromise = NativeFetcherModule.fetchAsync(targetFilePaths)
-      }
-
-      fetchPromise.then(result => {
-        progressSubscription.remove()
-        emit(END)
-        FetcherModule.currentlyFetching = false
-
-        if (!result) {
-          // While testing the app I noticed that the FetchResultType of this function was empty. I am absolutely not sure
-          // why this happened. As this cause an inconsistent state it is better to throw an error in this case.
-          throw new Error('Fetch failed for some reason!')
-        }
-      })
-      return [fetchPromise, progressChannel]
-    } catch {
-      progressSubscription.remove()
-      emit(END)
+    const fetchPromise = !isEmpty(targetFilePaths) ? NativeFetcherModule.fetchAsync(targetFilePaths) : Promise.resolve({})
+    fetchPromise.then(result => {
+      progressChannel.close()
       FetcherModule.currentlyFetching = false
-    }
+
+      if (!result) {
+        // While testing the app I noticed that the FetchResultType of this function was empty. I am absolutely not sure
+        // why this happened. As this cause an inconsistent state it is better to throw an error in this case.
+        throw new Error('Fetch failed for some reason!')
+      }
+    })
+    return [fetchPromise, progressChannel]
   }
 }
 
