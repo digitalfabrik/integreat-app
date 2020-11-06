@@ -491,7 +491,7 @@ jobs:
                 condition: << parameters.production_delivery >>
                 steps:
                     - run:
-                        command: bundle exec fastlane ios appstoreconnect_upload ipa_path:attached_workspace/<< parameters.build_config_name >>.ipa version_name:${NEW_VERSION_NAME}
+                        command: bundle exec fastlane ios appstoreconnect_upload ipa_path:attached_workspace/<< parameters.build_config_name >>.ipa version_name:${NEW_VERSION_NAME} build_config_name:<< parameters.build_config_name >>
                         name: '[FL] App Store Connect Upload'
                         working_directory: native
             - unless:
