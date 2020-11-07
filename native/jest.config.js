@@ -9,7 +9,8 @@ const transformNodeModules = [
   '@sentry/react-native',
   'hashids',
   '@react-native-community/progress-bar-android',
-  '@react-native-community/progress-view'
+  '@react-native-community/progress-view',
+  'build-configs'
 ]
 
 module.exports = {

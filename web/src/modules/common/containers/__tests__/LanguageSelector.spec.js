@@ -6,7 +6,7 @@ import { shallow } from 'enzyme'
 import { LanguageSelector } from '../LanguageSelector'
 import { DISCLAIMER_ROUTE } from '../../../app/route-configs/DisclaimerRouteConfig'
 import createLocation from '../../../../createLocation'
-import brightTheme from '../../../theme/constants/theme'
+import lightTheme from '../../../theme/constants/theme'
 
 describe('LanguageSelector', () => {
   const city = 'augsburg'
@@ -28,7 +28,7 @@ describe('LanguageSelector', () => {
     const languageSelector = shallow(
       <LanguageSelector languageChangePaths={languageChangePaths}
                         location={location}
-                        theme={brightTheme}
+                        theme={lightTheme}
                         isHeaderActionItem
                         t={key => key || 'null'} />
     )
@@ -46,7 +46,7 @@ describe('LanguageSelector', () => {
     const languageSelector = shallow(
       <LanguageSelector languageChangePaths={languageChangePaths}
                         location={location}
-                        theme={brightTheme}
+                        theme={lightTheme}
                         isHeaderActionItem={false}
                         t={key => key || 'null'} />
     )

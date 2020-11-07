@@ -4,14 +4,14 @@ import React from 'react'
 import { mount } from 'enzyme'
 import ClickOutsideHeaderDropDown, { DropDownContainer, HeaderActionItemDropDown } from '../HeaderActionItemDropDown'
 import fileMock from '../../../../__mocks__/fileMock'
-import brightTheme from '../../../theme/constants/theme'
+import lightTheme from '../../../theme/constants/theme'
 
 describe('HeaderActionItemDropDown', () => {
   const MockNode = () => <div>Here comes the DropDown</div>
   let wrapperComponent
 
   beforeEach(() => {
-    wrapperComponent = mount(<ClickOutsideHeaderDropDown theme={brightTheme} iconSrc='/someImg' text='some text'>
+    wrapperComponent = mount(<ClickOutsideHeaderDropDown theme={lightTheme} iconSrc='/someImg' text='some text'>
       <MockNode />
     </ClickOutsideHeaderDropDown>)
   })
@@ -80,7 +80,7 @@ describe('HeaderActionItemDropDown', () => {
   })
 
   it('should add class if active', () => {
-    const component = mount(<HeaderActionItemDropDown theme={brightTheme} iconSrc={fileMock}
+    const component = mount(<HeaderActionItemDropDown theme={lightTheme} iconSrc={fileMock}
                                                       text='some text'><MockNode /></HeaderActionItemDropDown>)
     expect(component.find(DropDownContainer).prop('active')).toBe(false)
     component.setState({ dropDownActive: true })

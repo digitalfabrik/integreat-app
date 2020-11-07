@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "description": "Locales for the integreat frontend projects",
   "main": "index.js",
-  "repository": "git@github.com:Integreat/integreat-locales.git",
   "author": "Maximilian Ammann <max@maxammann.org>",
   "license": "MIT",
   "private": false,
