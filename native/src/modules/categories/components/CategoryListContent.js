@@ -8,7 +8,7 @@ import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
 import type { NavigationStackProp } from 'react-navigation-stack'
 import type { NavigateToInternalLinkParamsType } from '../../app/createNavigateToInternalLink'
-import type { ThemeType } from '../../../../build-configs/ThemeType'
+import type { ThemeType } from 'build-configs/ThemeType'
 import { RTL_LANGUAGES } from '../../i18n/constants'
 import onInternalLinkPress from '../../common/onInternalLinkPress'
 
