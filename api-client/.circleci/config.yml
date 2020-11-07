@@ -1,0 +1,53 @@
+version: 2.1
+
+workflows:
+  version: 2
+  commit:
+    jobs:
+      - build
+
+jobs:
+  build:
+    docker:
+      - image: circleci/node:12.16.3
+    resource_class: small
+    environment:
+      TOTAL_CPUS: 1 # For resource_class small
+    shell: /bin/bash -eo pipefail
+    steps:
+      - run:
+          name: "Show current CPU count"
+          command: |
+            echo "CPU count is ${TOTAL_CPUS}"
+      - checkout
+      - restore_cache:
+          name: Restore Yarn Package Cache
+          keys:
+            - 2-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+            - 2-yarn-{{ arch }}-
+      - run:
+          name: Install Dependencies
+          command: yarn install --frozen-lockfile
+      - save_cache:
+          name: Save Yarn Package Cache
+          key: 2-yarn-{{ arch }}-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+            - node_modules
+      - run:
+          name: Check linting
+          command: yarn run lint
+      - run:
+          name: Check flow
+          command: yarn run flow:check-now --max-workers $TOTAL_CPUS
+      - run:
+          name: Unit tests
+          command: yarn run test --ci --maxWorkers $TOTAL_CPUS
+      - run:
+          name: Test coverage
+          command: yarn run test:coverage --ci --maxWorkers $TOTAL_CPUS
+      - run:
+          name: Build
+          command: yarn run build
+      - store_artifacts:
+          path: dist
