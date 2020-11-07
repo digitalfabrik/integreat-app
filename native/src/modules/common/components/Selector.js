@@ -13,7 +13,7 @@ const ItemWrapper = styled.View`
   align-items: center;
   background-color: ${props => props.theme.colors.backgroundColor};
   ${props => props.selected ? `background-color: ${props.theme.colors.backgroundAccentColor}` : ''};
-  height: ${props => props.theme.dimensions.headerHeight}px;
+  height: ${props => props.theme.dimensions.native.headerHeight}px;
 `
 
 const Element = styled.Text`

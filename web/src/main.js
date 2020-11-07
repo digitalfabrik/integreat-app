@@ -17,7 +17,7 @@ const HMRApp = hot(module)(App)
 
 ReactDOM.render(<HMRApp />, container)
 
-if (buildConfig().splashScreen) {
+if (buildConfig().web.splashScreen) {
 // Sets the splash to hidden when the page is rendered
   const splash = document.getElementById('splash')
   if (splash) {
