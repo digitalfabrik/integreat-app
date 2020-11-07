@@ -1,43 +1,45 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Layout should render all components 1`] = `
-<Layout__RichLayout>
-  <div
-    aria-hidden={false}
-  >
-    <header />
-    <Layout__Body>
-      <withPlatform(Layout__Aside)
-        style={
-          Object {
-            "top": "40px",
+<Layout__FlexWrapper>
+  <Layout__RichLayout>
+    <div
+      aria-hidden={false}
+    >
+      <header />
+      <Layout__Body>
+        <withPlatform(Layout__Aside)
+          style={
+            Object {
+              "top": "40px",
+            }
           }
-        }
-      >
-        <div>
-          toolybar
-        </div>
-      </withPlatform(Layout__Aside)>
-      <Layout__Main>
-        <p>
-          content right here
-        </p>
-      </Layout__Main>
-    </Layout__Body>
-  </div>
-  <ReactTooltip
-    clickable={false}
-    delayShow={0}
-    effect="solid"
-    insecure={true}
-    resizeHide={true}
-    type="dark"
-    wrapper="div"
-  />
-  <div
-    aria-hidden={false}
-  >
-    <footer />
-  </div>
-</Layout__RichLayout>
+        >
+          <div>
+            toolybar
+          </div>
+        </withPlatform(Layout__Aside)>
+        <Layout__Main>
+          <p>
+            content right here
+          </p>
+        </Layout__Main>
+      </Layout__Body>
+    </div>
+    <ReactTooltip
+      clickable={false}
+      delayShow={0}
+      effect="solid"
+      insecure={true}
+      resizeHide={true}
+      type="dark"
+      wrapper="div"
+    />
+    <div
+      aria-hidden={false}
+    >
+      <footer />
+    </div>
+  </Layout__RichLayout>
+</Layout__FlexWrapper>
 `;
