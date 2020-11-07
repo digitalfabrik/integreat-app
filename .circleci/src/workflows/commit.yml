@@ -5,9 +5,6 @@ jobs:
         - slack-app
       delivery: none
 
-  - check_api_client:
-      context:
-        - slack-app
   - check_web:
       context:
         - slack-app
