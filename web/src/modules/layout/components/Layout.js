@@ -6,6 +6,12 @@ import ReactTooltip from 'react-tooltip'
 import styled from 'styled-components'
 import withPlatform from '../../platform/hocs/withPlatform'
 
+// Needed for sticky footer on IE - see https://stackoverflow.com/a/31835167
+const FlexWrapper = styled.div`
+  display: flex;
+  flex-direction: column
+`
+
 const RichLayout = styled.div`
   position: relative;
   display: flex;
@@ -117,24 +123,26 @@ class Layout extends React.PureComponent<PropsType> {
     const { asideStickyTop, footer, header, toolbar, modal, children, darkMode } = this.props
     const modalVisible = !!modal
     return (
-      <RichLayout>
-        <div aria-hidden={modalVisible}>
-          {header}
-          <Body>
-            <Aside style={{ top: `${asideStickyTop}px` }}>
-              {toolbar}
-            </Aside>
-            <Main>
-              {children}
-            </Main>
-          </Body>
-        </div>
-        <ReactTooltip effect='solid' type={darkMode ? 'light' : 'dark'} delayShow={0} />
-        {modal}
-        <div aria-hidden={modalVisible}>
-          {footer}
-        </div>
-      </RichLayout>
+      <FlexWrapper>
+        <RichLayout>
+          <div aria-hidden={modalVisible}>
+            {header}
+            <Body>
+              <Aside style={{ top: `${asideStickyTop}px` }}>
+                {toolbar}
+              </Aside>
+              <Main>
+                {children}
+              </Main>
+            </Body>
+          </div>
+          <ReactTooltip effect='solid' type={darkMode ? 'light' : 'dark'} delayShow={0} />
+          {modal}
+          <div aria-hidden={modalVisible}>
+            {footer}
+          </div>
+        </RichLayout>
+      </FlexWrapper>
     )
   }
 }

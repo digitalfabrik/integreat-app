@@ -1,0 +1,5 @@
+issue_key: IGAPP-45
+show_in_stores: false
+platforms:
+  - web
+en: Stick footer to bottom of the page on internet explorer.
