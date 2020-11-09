@@ -125,7 +125,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
 
   if (state.cities.status === 'loading' || switchingLanguage || languages.status === 'loading') {
-    return { status: 'loading' }
+    return { status: 'loading', progress: 0 }
   }
 
   const cities = state.cities.models

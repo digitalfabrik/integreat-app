@@ -4,7 +4,7 @@ import type { Dispatch } from 'redux'
 
 import { connect } from 'react-redux'
 import Dashboard from '../components/Dashboard'
-import type { LanguageResourceCacheStateType, StateType } from '../../../modules/app/StateType'
+import type { LanguageResourceCacheStateType, ResourceCacheStateType, StateType } from '../../../modules/app/StateType'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
@@ -110,7 +110,11 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 
   if (state.resourceCacheUrl === null || state.cities.status === 'loading' || switchingLanguage ||
     route.status === 'loading' || languages.status === 'loading') {
-    return { status: 'loading', progress: state.cityContent.resourceCache.progress }
+    const resourceCache = state.cityContent.resourceCache
+    return {
+      status: 'loading',
+      progress: resourceCache.status !== 'error' ? resourceCache.progress : 0
+    }
   }
 
   const cities = state.cities.models

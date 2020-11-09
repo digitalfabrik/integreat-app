@@ -1,8 +1,8 @@
 // @flow
 
+import { eventChannel } from 'redux-saga'
 import type { EventChannel } from 'redux-saga'
 import NativeFetcherModule, { NativeFetcherModuleEmitter } from './NativeFetcherModule'
-import { eventChannel } from 'redux-saga'
 import { isEmpty } from 'lodash'
 
 export type TargetFilePathsType = { [path: string]: string }
