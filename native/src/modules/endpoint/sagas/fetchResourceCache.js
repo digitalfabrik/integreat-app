@@ -1,6 +1,6 @@
 // @flow
 
-import type { Saga, Channel } from 'redux-saga'
+import type { Saga, EventChannel } from 'redux-saga'
 import { flatten, isEmpty, mapValues, pickBy, reduce, values } from 'lodash'
 import { call, put, fork, take } from 'redux-saga/effects'
 import type { ResourcesFetchProgressActionType, ResourcesFetchFailedActionType } from '../../app/StoreActionType'
@@ -19,7 +19,7 @@ const createErrorMessage = (fetchResult: FetchResultType) => {
     `${message}'Failed to download ${result.url} to ${path}': ${result.errorMessage}\n`, '')
 }
 
-function * watchOnProgress (channel: Channel<number>): Saga<void> {
+function * watchOnProgress (channel: EventChannel<number>): Saga<void> {
   let prevStep = 0
   while (prevStep < 1) {
     const progress = yield take(channel)
@@ -55,12 +55,15 @@ export default function * fetchResourceCache (
       return acc
     }, {})
 
-    const fetcher = new FetcherModule()
-    const [fetchPromise, progressChannel] = yield call(fetcher.fetchAsync, targetFilePaths)
-    if (progressChannel) {
-      yield fork(watchOnProgress, progressChannel)
+    if (FetcherModule.currentlyFetching) {
+      throw new Error('Already fetching!')
     }
-    const results = yield fetchPromise
+    const fetcher = new FetcherModule()
+    const progressChannel = fetcher.createProgressChannel();
+    yield fork(watchOnProgress, progressChannel)
+    
+    const results = yield call(fetcher.fetchAsync, targetFilePaths)
+    progressChannel.close()
 
     const successResults: FetchResultType = pickBy(results, result => !result.errorMessage)
     const failureResults: FetchResultType = pickBy(results, result => !!result.errorMessage)

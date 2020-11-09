@@ -13,21 +13,21 @@ class FetcherModule {
   // TODO IGAPP-217: Correctly handle already fetching
   static currentlyFetching = false
 
-  fetchAsync = (targetFilePaths: TargetFilePathsType): [Promise<FetchResultType>, EventChannel<number>] => {
-    if (FetcherModule.currentlyFetching) {
-      throw new Error('Already fetching!')
-    }
-
-    FetcherModule.currentlyFetching = true
-
-    const progressChannel = eventChannel<number>(emitter => {
+  createProgressChannel = (): EventChannel<number> => {
+    return eventChannel<number>(emitter => {
       const subscription = NativeFetcherModuleEmitter.addListener('progress', emitter)
       return () => subscription.remove()
     })
+  }
 
-    const fetchPromise = !isEmpty(targetFilePaths) ? NativeFetcherModule.fetchAsync(targetFilePaths) : Promise.resolve({})
+  fetchAsync = (targetFilePaths: TargetFilePathsType): Promise<FetchResultType> => {
+    FetcherModule.currentlyFetching = true
+
+    const fetchPromise: Promise<FetchResultType> = !isEmpty(targetFilePaths) 
+      ? NativeFetcherModule.fetchAsync(targetFilePaths) 
+      : Promise.resolve({})
+    
     fetchPromise.then(result => {
-      progressChannel.close()
       FetcherModule.currentlyFetching = false
 
       if (!result) {
@@ -36,7 +36,7 @@ class FetcherModule {
         throw new Error('Fetch failed for some reason!')
       }
     })
-    return [fetchPromise, progressChannel]
+    return fetchPromise
   }
 }
 
