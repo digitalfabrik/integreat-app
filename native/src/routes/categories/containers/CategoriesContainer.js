@@ -100,7 +100,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 
   if (state.resourceCacheUrl === null || state.cities.status === 'loading' || switchingLanguage ||
     route.status === 'loading' || languages.status === 'loading') {
-    return { status: 'loading' }
+    return { status: 'loading', progress: 0 }
   }
 
   return {
