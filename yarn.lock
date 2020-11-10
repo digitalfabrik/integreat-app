@@ -2404,11 +2404,6 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.11.2.tgz#2de1ed6670439387da1c9f549a2ade2b0a799256"
   integrity sha512-jiE3QIxJ8JLNcb1Ps6rDbysDhN4xa8DJJvuC9prr6w+1tIh+QAbYyNF3tyiZNLDBIuBCf4KEcV2UvQm/V60xfA==
 
-"@types/node@^14.0.22":
-  version "14.11.10"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.11.10.tgz#8c102aba13bf5253f35146affbf8b26275069bef"
-  integrity sha512-yV1nWZPlMFpoXyoknm4S56y2nlTAuFYaJuQtYRAOU7xA/FJ9RY0Xm7QOkaYMMmr8ESdHIuUb6oQgR/0+2NqlyA==
-
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/@types/normalize-package-data/-/normalize-package-data-2.4.0.tgz#e486d0d97396d79beedd0a6e33f4534ff6b4973e"
@@ -13379,15 +13374,10 @@ react-native-fast-image@^7.0.2:
   resolved "https://registry.yarnpkg.com/react-native-fast-image/-/react-native-fast-image-7.0.2.tgz#e06b21f42f4a9786eaa86f3db35d919070fb8403"
   integrity sha512-MfuzJbC0RjYobR2gFCdqe1I7jvNOCfDkjQ7VGOHXniqjohhULMkcWNBE9Umovi9Dx93lJ6t5utcE2wf/09zvlg==
 
-react-native-flipper@^0.55.0:
-  version "0.55.0"
-  resolved "https://registry.yarnpkg.com/react-native-flipper/-/react-native-flipper-0.55.0.tgz#1fb0e280eff2224f2ab5b3f429896e05112ced41"
-  integrity sha512-z2FARpeCfMWVn4zdYJtpGiYqcmo48dCuAjEI3CdkCewjQVNrT5DxUm33Yr/iM1HnTzVKRKsluPuPsKJXXHaQtw==
-
-react-native-flipper@^0.62.0:
-  version "0.62.0"
-  resolved "https://registry.yarnpkg.com/react-native-flipper/-/react-native-flipper-0.62.0.tgz#e01b7649204e5da3be359a7c829370cae911a91b"
-  integrity sha512-9+yLksMpQUByyiL8ma722qlHLmyqTiRNiINfCKfUvtilb9kqUHVmYazmnpZcBK9szOZCLMVrpg1OzeQ2TUprOg==
+react-native-flipper@^0.64.0:
+  version "0.64.0"
+  resolved "https://registry.yarnpkg.com/react-native-flipper/-/react-native-flipper-0.64.0.tgz#48d157f0ef6ba312d83f683975da22885db549f9"
+  integrity sha512-1IaHJCao5enY0Y5ccU01I3B+cG7fWjqKvC6/IpZvUFEvFHUpjRLmDyaEPNogsWtHYKvcdcPJlAsVKbNmJapeLA==
 
 react-native-gesture-handler@1.8.0:
   version "1.8.0"
@@ -13883,15 +13873,13 @@ redux-first-router@^2.1.5:
     rudy-history "^1.0.0"
     rudy-match-path "^0.3.0"
 
-redux-flipper@^1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/redux-flipper/-/redux-flipper-1.4.0.tgz#9f9bdee5a6b46d89885bcb02509c377946aecc73"
-  integrity sha512-lef1dt+9mvRLsO80U3xMcHMOYNc1zqWJ1E8+JnhSZHoRJoVRrX7x+4MdtaB/e8aAE6QO//vc1E3eQu9IMrBN6w==
+redux-flipper@^1.4.2:
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/redux-flipper/-/redux-flipper-1.4.2.tgz#da765a675136e9893a002730703ec58d2f0e359b"
+  integrity sha512-VfSdmWATaZD2BHAiMOEzxk+KSiSTAv/N5AyY64+dU+qif/KfinSHWW3+YVMCO+5rxne1Fr92YwsYJl8l9injDA==
   dependencies:
-    "@types/node" "^14.0.22"
     cycle "^1.0.3"
     dayjs "^1.8.29"
-    react-native-flipper "^0.55.0"
 
 redux-logger@^3.0.6:
   version "3.0.6"
