@@ -11,7 +11,7 @@
     "start:malte": "webpack-dev-server --config tools/webpack.config.babel.js --progress --env.config_name=malte",
     "build": "yarn build:integreat",
     "build:integreat": "webpack --config tools/webpack.config.babel.js --env.config_name=integreat",
-    "build:malte": "webpack --config tools/webpackconfig.babel.js --env.config_name=malte",
+    "build:malte": "webpack --config tools/webpack.config.babel.js --env.config_name=malte",
     "build:integreat-test-cms": "webpack --config tools/webpack.config.babel.js --env.config_name=integreat-test-cms",
     "check:build": "yarn es-check es5 ./dist/**/*.js --verbose",
     "test": "jest --config jest.config.json",
