@@ -25,9 +25,6 @@ export class LocationFooter extends React.PureComponent<PropsType> {
     const aboutUrl = aboutUrls[language] || aboutUrls.default
     const privacyUrl = privacyUrls[language] || privacyUrls.default
 
-    console.error(aboutUrl)
-    console.error(privacyUrl)
-
     return <Footer onClick={onClick}>
       <CleanLink to={new DisclaimerRouteConfig().getRoutePath({ city, language })}>
         {t('imprintAndContact')}
