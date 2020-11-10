@@ -19,7 +19,11 @@ const loadBuildConfigAsXCConfig = buildConfigName => {
     delimiter: '_',
     transformKey: key => decamelize(key).toUpperCase()
   })
-  const prefixed = Object.keys(xcconfigOptions).map(key => `BUILD_CONFIG_${key} = ${xcconfigOptions[key]}`)
+  const prefixed = Object.keys(xcconfigOptions).map(key => {
+    const value = xcconfigOptions[key]
+    const escaped = typeof xcconfigOptions[key] === 'string' ? value.replace(/\n/g, '\\n') : value
+    return `BUILD_CONFIG_${key} = ${escaped}`
+  })
   prefixed.push(`BUILD_CONFIG_NAME = ${buildConfigName}`)
   return prefixed.join('\n')
 }

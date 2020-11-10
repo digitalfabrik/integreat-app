@@ -84,11 +84,8 @@ const createSettingsSections = ({ setSetting, t, languageCode, cityCode }: Creat
           accessibilityRole: 'link',
           title: t('about', { appName: buildConfig().appName }),
           onPress: () => {
-            if (languageCode === 'de') {
-              Linking.openURL('https://integreat-app.de/about/')
-            } else {
-              Linking.openURL('https://integreat-app.de/en/about/')
-            }
+            const aboutUrl = buildConfig().aboutUrls[languageCode] || buildConfig().aboutUrls.default
+            Linking.openURL(aboutUrl)
           }
         },
         {
