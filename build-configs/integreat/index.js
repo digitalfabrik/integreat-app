@@ -3,6 +3,7 @@
 import { lightTheme, darkTheme } from './theme'
 import type { BuildConfigType } from '../BuildConfigType'
 import { INTEGREAT_ASSETS } from '../AssetsType'
+import mainImprint from './assets/mainImprint'
 
 const APPLE_APP_ID = '1072353915'
 
@@ -24,6 +25,15 @@ const IntegreatBuildConfig: BuildConfigType = {
     pushNotifications: true,
     introSlides: true,
     sentry: true
+  },
+  mainImprint,
+  aboutUrls: {
+    default: 'https://integreat-app.de/about/',
+    en: 'https://integreat-app.de/en/about/'
+  },
+  privacyUrls: {
+    default: 'https://integreat-app.de/datenschutz/',
+    en: 'https://integreat-app.de/en/privacy/'
   },
   android: {
     splashScreen: true,

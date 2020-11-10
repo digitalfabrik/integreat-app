@@ -59,6 +59,9 @@ export type BuildConfigType = {|
   assets: string,
   development: boolean,
   e2e?: boolean,
+  mainImprint: string,
+  aboutUrls: { default: string, [language: string]: string },
+  privacyUrls: { default: string, [language: string]: string },
   android: {|
     splashScreen: boolean,
     applicationId: string,
