@@ -49,7 +49,7 @@ Upload the IPA to BrowserStack Live
 ```
 fastlane ios browserstack_e2e_tests
 ```
-Upload the APK and run E2E tests on BrowserStack
+Upload the IPA and run E2E tests on BrowserStack
 ### ios sentry_upload
 ```
 fastlane ios sentry_upload

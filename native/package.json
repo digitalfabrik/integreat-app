@@ -65,7 +65,7 @@
     "react-native-pdf": "6.2.0",
     "react-native-permissions": "2.0.9",
     "react-native-progress": "^4.0.3",
-    "react-native-render-html": "^4.2.0",
+    "react-native-render-html": "^5.0.0-alpha.2",
     "react-native-safe-area-context": "^1.0.0",
     "react-native-safe-area-view": "2.0.0",
     "react-native-screens": "^2.11.0",

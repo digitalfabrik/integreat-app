@@ -15,6 +15,9 @@ Object {
     "en",
     "de",
   ],
+  "interpolation": Object {
+    "escapeValue": false,
+  },
   "load": "languageOnly",
 }
 `;
