@@ -37,7 +37,7 @@ const getSupportedLocales = () => {
 }
 
 const createConfig = (env = {}) => {
-  const { config_name: buildConfigName, commit_sha: commitSha, version_name: versionName } = env
+  const { config_name: buildConfigName, commit_sha: commitSha, version_name: versionName, dev_server: devServer } = env
 
   const buildConfig = loadBuildConfig(buildConfigName)
 
@@ -111,7 +111,7 @@ const createConfig = (env = {}) => {
     // What information should be printed to the console
     stats: 'minimal',
     performance: {
-      hints: isProductionBuild ? 'error' : false,
+      hints: isProductionBuild && !devServer ? 'error' : false,
       maxEntrypointSize: MAX_BUNDLE_SIZE,
       maxAssetSize: MAX_BUNDLE_SIZE
     },
