@@ -62,7 +62,6 @@ describe('HeaderActionItemDropDown', () => {
       return <span onClick={props.closeDropDown}>Click Me!</span>
     }
 
-    // $FlowFixMe
     const wrapperComponent = render(
         <HeaderActionItemDropDown theme={brightTheme} iconSrc='/someImg' text='some text'>
           {closeDropDown => <MockNode closeDropDown={closeDropDown} />}
