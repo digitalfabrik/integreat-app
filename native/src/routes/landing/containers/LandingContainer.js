@@ -11,7 +11,7 @@ import { type NavigationReplaceAction, StackActions } from 'react-navigation'
 import { generateKey } from '../../../modules/app/generateRouteKey'
 import type { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
 import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvider'
-import { CityModel } from '@integreat-app/integreat-api-client'
+import { CityModel } from 'api-client'
 import * as React from 'react'
 import { connect } from 'react-redux'
 

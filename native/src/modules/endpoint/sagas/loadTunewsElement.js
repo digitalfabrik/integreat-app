@@ -1,7 +1,7 @@
 // @flow
 
 import type { Saga } from 'redux-saga'
-import { createTunewsElementEndpoint, TunewsModel } from '@integreat-app/integreat-api-client'
+import { createTunewsElementEndpoint, TunewsModel } from 'api-client'
 import { call } from 'redux-saga/effects'
 import { tunewsApiUrl } from '../constants'
 

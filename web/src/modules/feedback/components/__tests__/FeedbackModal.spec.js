@@ -4,7 +4,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 
 import { FeedbackModal } from '../FeedbackModal'
-import { CityModel } from '@integreat-app/integreat-api-client'
+import { CityModel } from 'api-client'
 import { CATEGORIES_ROUTE } from '../../../app/route-configs/CategoriesRouteConfig'
 import createLocation from '../../../../createLocation'
 import theme from '../../../theme/constants/theme'

@@ -1,6 +1,6 @@
 // @flow
 
-import { DateModel, EventModel, LanguageModel, LocationModel } from '@integreat-app/integreat-api-client'
+import { DateModel, EventModel, LanguageModel, LocationModel } from 'api-client'
 import moment from 'moment'
 import type { CityContentStateType } from '../../../app/StateType'
 import cityContentReducer from '../cityContentReducer'

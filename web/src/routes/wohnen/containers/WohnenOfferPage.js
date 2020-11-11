@@ -4,7 +4,7 @@ import * as React from 'react'
 
 import type { StateType } from '../../../modules/app/StateType'
 import { connect } from 'react-redux'
-import { OfferModel, WohnenOfferModel } from '@integreat-app/integreat-api-client'
+import { OfferModel, WohnenOfferModel } from 'api-client'
 import OfferDetail from '../components/OfferDetail'
 import Caption from '../../../modules/common/components/Caption'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'

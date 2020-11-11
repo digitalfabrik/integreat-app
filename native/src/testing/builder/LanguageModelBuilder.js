@@ -1,6 +1,6 @@
 // @flow
 
-import { LanguageModel } from '@integreat-app/integreat-api-client'
+import { LanguageModel } from 'api-client'
 
 const languages = [
   new LanguageModel('en', 'English'),

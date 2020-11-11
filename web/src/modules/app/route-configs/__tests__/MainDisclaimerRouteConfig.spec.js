@@ -1,7 +1,7 @@
 // @flow
 
 import MainDisclaimerRouteConfig from '../MainDisclaimerRouteConfig'
-import { Payload } from '@integreat-app/integreat-api-client'
+import { Payload } from 'api-client'
 import createLocation from '../../../../createLocation'
 
 const t = (key: ?string): string => key || ''

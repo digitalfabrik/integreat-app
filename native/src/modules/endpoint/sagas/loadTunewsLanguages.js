@@ -2,10 +2,7 @@
 
 import type { Saga } from 'redux-saga'
 import { call } from 'redux-saga/effects'
-import {
-  LanguageModel,
-  createTunewsLanguagesEndpoint
-} from '@integreat-app/integreat-api-client'
+import { LanguageModel, createTunewsLanguagesEndpoint } from 'api-client'
 import { tunewsApiUrl } from '../constants'
 
 export default function * loadTunewsLanguages (
