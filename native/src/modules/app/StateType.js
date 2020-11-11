@@ -40,7 +40,10 @@ export type CategoryRouteStateType = {|
   +allAvailableLanguages: $ReadOnlyMap<string, string>
 |} | {|
   +status: 'loading',
-  ...CategoryRouteConfigType
+  ...CategoryRouteConfigType,
+  +allAvailableLanguages?: $ReadOnlyMap<string, string>,
+  +models?: $ReadOnly<{ [path: PathType]: CategoryModel }>,
+  +children?: $ReadOnly<{ [path: PathType]: $ReadOnlyArray<PathType> }>
 |} | {|
   +status: 'error',
   ...CategoryRouteConfigType,
@@ -97,7 +100,9 @@ export type EventRouteStateType = {|
   +allAvailableLanguages: $ReadOnlyMap<string, ?string>
 |} | {|
   +status: 'loading',
-  ...EventRouteConfigType
+  ...EventRouteConfigType,
+  +models?: $ReadOnlyArray<EventModel>,
+  +allAvailableLanguages?: $ReadOnlyMap<string, ?string>
 |} | {|
   +status: 'error',
   ...EventRouteConfigType,

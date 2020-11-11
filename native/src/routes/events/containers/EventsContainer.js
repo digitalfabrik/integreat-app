@@ -51,6 +51,8 @@ const createChangeUnavailableLanguage = (city: string, t: TFunction) => (
   dispatch(switchContentLanguage)
 }
 
+const routeHasOldContent = (route: EventRouteStateType) => route.models && route.allAvailableLanguages
+
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const { t, navigation } = ownProps
   if (!state.cityContent) {
@@ -98,14 +100,15 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
 
   if (state.resourceCacheUrl === null || state.cities.status === 'loading' || switchingLanguage ||
-    route.status === 'loading' || languages.status === 'loading') {
+    (route.status === 'loading' && !routeHasOldContent(route)) || languages.status === 'loading') {
     return { status: 'loading' }
   }
 
   const cities = state.cities.models
 
+  // $FlowFixMe Flow can't evaluate the status as it is dynamic
   return {
-    status: 'success',
+    status: route.status === 'loading' ? 'loading' : 'success',
     refreshProps,
     innerProps: {
       path: route.path,

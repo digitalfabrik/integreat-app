@@ -34,7 +34,7 @@
     "@react-native-community/art": "^1.1.2",
     "@react-native-community/async-storage": "^1.9.0",
     "@react-native-community/geolocation": "^2.0.2",
-    "@react-native-community/netinfo": "^5.5.0",
+    "@react-native-community/netinfo": "^5.9.7",
     "@react-native-community/progress-bar-android": "1.0.3",
     "@react-native-community/progress-view": "1.0.3",
     "@react-native-firebase/app": "^8.2.0",

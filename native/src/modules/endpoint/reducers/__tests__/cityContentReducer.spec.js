@@ -1,6 +1,11 @@
 // @flow
 
-import type { CityContentActionType, FetchCategoryActionType, FetchEventActionType } from '../../../app/StoreActionType'
+import type {
+  CityContentActionType,
+  FetchCategoryActionType,
+  FetchEventActionType,
+  PushCategoryActionType
+} from '../../../app/StoreActionType'
 import { CategoriesMapModel, LanguageModel } from 'api-client'
 import cityContentReducer from '../cityContentReducer'
 import type { CityContentStateType } from '../../../app/StateType'
@@ -15,7 +20,7 @@ describe('cityContentReducer', () => {
     type: 'SWITCH_CONTENT_LANGUAGE_FAILED', params: { message: 'Some error' }
   }
   const pushLanguagesAction = { type: 'PUSH_LANGUAGES', params: { languages: [new LanguageModel('de', 'Deutsch')] } }
-  const pushCategoryAction = {
+  const pushCategoryAction: PushCategoryActionType = {
     type: 'PUSH_CATEGORY',
     params: {
       categoriesMap: new CategoriesMapModel([]),
@@ -25,7 +30,8 @@ describe('cityContentReducer', () => {
       language: 'de',
       path: '/augsburg/de',
       depth: 2,
-      key: 'route-id-0'
+      key: 'route-id-0',
+      refresh: false
     }
   }
   const pushEventAction = {
@@ -37,7 +43,8 @@ describe('cityContentReducer', () => {
       resourceCache: {},
       cityLanguages: [],
       language: 'de',
-      city: 'augsburg'
+      city: 'augsburg',
+      refresh: false
     }
   }
   const morphContentLanguageAction = {
