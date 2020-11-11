@@ -12,6 +12,7 @@ import CustomThemeProvider from '../../theme/containers/CustomThemeProvider'
 import type { StateType } from '../StateType'
 import type { Store } from 'redux'
 import type { StoreActionType } from '../StoreActionType'
+import initSentry from '../initSentry'
 
 type PropsType = {||}
 
@@ -21,6 +22,7 @@ class App extends React.Component<PropsType> {
   constructor () {
     super()
     this.store = createReduxStore()
+    initSentry()
   }
 
   render () {
