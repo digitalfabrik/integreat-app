@@ -1,9 +1,9 @@
 // @flow
 
 import * as React from 'react'
+import { useCallback, useRef, useState } from 'react'
 import styled from 'styled-components'
 import type { ThemeType } from '../../theme/constants/theme'
-import { useCallback, useRef, useState } from 'react'
 import useOnClickOutside from '../hooks/useOnClickOutside'
 
 export const Container = styled.div`
@@ -93,8 +93,10 @@ const HeaderActionItemDropDown = (props: PropsType) => {
   useOnClickOutside(wrapperRef, clickOutside)
 
   return <Container ref={wrapperRef} theme={theme}>
-    <button selector='button' data-tip={text} data-event='mouseover' data-event-off='click mouseout' aria-label={text}
-            onClick={toggleDropDown}>
+    <button
+      data-tip={text} data-event='mouseover' data-event-off='click mouseout'
+      aria-label={text}
+      onClick={toggleDropDown}>
       <img alt='' src={iconSrc} />
     </button>
     {dropDownActive && <DropDownContainer active={dropDownActive} theme={theme}>
