@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import { LanguageModel } from '@integreat-app/integreat-api-client'
+import { LanguageModel } from 'api-client'
 import { RefreshControl, ScrollView, View } from 'react-native'
 import LanguageNotAvailableContainer from '../../common/containers/LanguageNotAvailableContainer'
 import type { StoreActionType } from '../../app/StoreActionType'

@@ -14,7 +14,7 @@ import {
   LocalNewsModel,
   TunewsModel,
   LanguageModel
-} from '@integreat-app/integreat-api-client'
+} from 'api-client'
 import type { TFunction } from 'react-i18next'
 
 export type AllPayloadsType = {|

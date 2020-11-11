@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { createDisclaimerEndpoint, PageModel, Payload } from '@integreat-app/integreat-api-client'
+import { createDisclaimerEndpoint, PageModel, Payload } from 'api-client'
 import type { ThemeType } from '../../modules/theme/constants'
 import type { StateType } from '../../modules/app/StateType'
 import type { NavigationStackProp } from 'react-navigation-stack'

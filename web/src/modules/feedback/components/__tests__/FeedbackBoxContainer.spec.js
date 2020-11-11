@@ -15,7 +15,7 @@ import {
   SEARCH_FEEDBACK_TYPE,
   CONTENT_FEEDBACK_CATEGORY,
   TECHNICAL_FEEDBACK_CATEGORY
-} from '@integreat-app/integreat-api-client'
+} from 'api-client'
 import FeedbackVariant from '../../FeedbackVariant'
 import { OFFERS_ROUTE } from '../../../app/route-configs/OffersRouteConfig'
 import { EVENTS_ROUTE } from '../../../app/route-configs/EventsRouteConfig'

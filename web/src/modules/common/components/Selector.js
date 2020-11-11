@@ -9,24 +9,24 @@ import Link from 'redux-first-router-link'
 
 const Element = styled(Link)`
   ${props => props.theme.helpers.removeLinkHighlighting};
-  height: ${props => props.theme.dimensions.headerHeightLarge}px;
+  height: ${props => props.theme.dimensions.web.headerHeightLarge}px;
   min-width: 90px;
   flex: 1 1 auto;
   padding: 0 5px;
   font-size: 1.2em;
-  line-height: ${props => props.theme.dimensions.headerHeightLarge}px;
+  line-height: ${props => props.theme.dimensions.web.headerHeightLarge}px;
   text-align: center;
   white-space: nowrap;
   border-radius: 30px;
   transition: background-color 0.2s, border-radius 0.2s;
   user-select: none;
 
-  @media ${props => props.theme.dimensions.smallViewport} {
-    height: ${props => props.theme.dimensions.headerHeightSmall}px;
+  @media ${props => props.theme.dimensions.web.smallViewport} {
+    height: ${props => props.theme.dimensions.web.headerHeightSmall}px;
     min-width: 70px;
     flex: 1 1 auto;
     font-size: 1em;
-    line-height: ${props => props.theme.dimensions.headerHeightSmall}px;
+    line-height: ${props => props.theme.dimensions.web.headerHeightSmall}px;
   }
 `
 

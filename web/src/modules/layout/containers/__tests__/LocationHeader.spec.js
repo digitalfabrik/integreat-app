@@ -2,7 +2,7 @@
 
 import { shallow } from 'enzyme'
 import React from 'react'
-import { DateModel, EventModel, LocationModel } from '@integreat-app/integreat-api-client'
+import { DateModel, EventModel, LocationModel } from 'api-client'
 import { LocationHeader } from '../LocationHeader'
 import { CATEGORIES_ROUTE } from '../../../app/route-configs/CategoriesRouteConfig'
 import { EVENTS_ROUTE } from '../../../app/route-configs/EventsRouteConfig'
@@ -113,7 +113,8 @@ describe('LocationHeader', () => {
   const onStickyTopChanged = (value: number) => {}
 
   describe('NavigationItems', () => {
-    it('should be empty, if offers and news are both disabled', () => {
+    it('should be empty if all other header items are disabled', () => {
+      // TODO IGAPP-115: Fix this test
       const component = shallow(<LocationHeader location={location(CATEGORIES_ROUTE)}
                                                 isOffersEnabled={false}
                                                 isEventsEnabled={false}

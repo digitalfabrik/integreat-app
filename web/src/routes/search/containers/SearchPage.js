@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 
 import SearchInput from '../../../modules/common/components/SearchInput'
 
-import { CategoriesMapModel, CategoryModel } from '@integreat-app/integreat-api-client'
+import { CategoriesMapModel, CategoryModel } from 'api-client'
 import CategoryList from '../../categories/components/CategoryList'
 import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
@@ -77,7 +77,7 @@ export class SearchPage extends React.Component<PropsType, LocalStateType> {
     const { filterText } = this.state
 
     return (
-      <div>
+      <>
         <SearchInput filterText={this.state.filterText}
                      placeholderText={t('searchPlaceholder')}
                      onFilterTextChange={this.handleFilterTextChanged}
@@ -87,7 +87,7 @@ export class SearchPage extends React.Component<PropsType, LocalStateType> {
           location={location}
           resultsFound={categories.length !== 0}
           query={filterText} />
-      </div>
+      </>
     )
   }
 }

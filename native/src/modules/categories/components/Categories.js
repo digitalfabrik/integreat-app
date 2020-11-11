@@ -5,15 +5,17 @@ import { View } from 'react-native'
 
 import Page from '../../common/components/Page'
 import Tiles from '../../common/components/Tiles'
-import type { CategoryListModelType } from './CategoryList'
+import type { CategoryListModelType, ListContentModelType } from './CategoryList'
 import CategoryList from './CategoryList'
 import TileModel from '../../common/models/TileModel'
 import {
   CATEGORIES_FEEDBACK_TYPE,
   CategoryModel,
   CityModel,
-  PAGE_FEEDBACK_TYPE
-} from '@integreat-app/integreat-api-client'
+  PAGE_FEEDBACK_TYPE,
+  CONTENT_FEEDBACK_CATEGORY,
+  TECHNICAL_FEEDBACK_CATEGORY
+} from 'api-client'
 import type { ThemeType } from '../../theme/constants'
 import { URL_PREFIX } from '../../platform/constants/webview'
 import CategoriesRouteStateView from '../../app/CategoriesRouteStateView'
@@ -25,14 +27,7 @@ import FeedbackVariant from '../../../routes/feedback/FeedbackVariant'
 import { type TFunction } from 'react-i18next'
 import SpaceBetween from '../../common/components/SpaceBetween'
 import SiteHelpfulBox from '../../common/components/SiteHelpfulBox'
-import type {
-  FeedbackCategoryType,
-  FeedbackType
-} from '@integreat-app/integreat-api-client/endpoints/createFeedbackEndpoint'
-import {
-  CONTENT_FEEDBACK_CATEGORY,
-  TECHNICAL_FEEDBACK_CATEGORY
-} from '@integreat-app/integreat-api-client/endpoints/createFeedbackEndpoint'
+import type { FeedbackCategoryType, FeedbackType } from 'api-client'
 
 type PropsType = {|
   cities: Array<CityModel>,
@@ -132,6 +127,17 @@ class Categories extends React.Component<PropsType> {
     return categories.map(category => this.getListModel(category))
   }
 
+  getListContentModel (category: CategoryModel): ?ListContentModelType {
+    const { navigation, navigateToInternalLink, resourceCacheUrl } = this.props
+    return category.content ? {
+      content: category.content,
+      files: this.getCategoryResourceCache(category),
+      navigation: navigation,
+      navigateToInternalLink: navigateToInternalLink,
+      resourceCacheUrl: resourceCacheUrl
+    } : undefined
+  }
+
   /**
    * Returns the content to be displayed, based on the current category, which is
    * a) page with information
@@ -186,7 +192,7 @@ class Categories extends React.Component<PropsType> {
           })}
           thumbnail={this.getCachedThumbnail(category) || category.thumbnail}
           title={category.title}
-          content={category.content}
+          listContent={this.getListContentModel(category)}
           language={language}
           onItemPress={this.onItemPress}
           theme={theme} />

@@ -10,7 +10,7 @@ import withTheme from '../../theme/hocs/withTheme'
 import type { StateType } from '../../app/StateType'
 import { type Dispatch } from 'redux'
 import type { StoreActionType } from '../../app/StoreActionType'
-import { CityModel } from '@integreat-app/integreat-api-client'
+import { CityModel } from 'api-client'
 import isPeekingRoute from '../../endpoint/selectors/isPeekingRoute'
 import createNavigateToLanding from '../../app/createNavigateToLanding'
 

@@ -6,6 +6,7 @@ environment:
   TOTAL_CPUS: 1 # For resource_class small
 shell: /bin/bash -eo pipefail
 steps:
+  - skip_job
   - checkout
   - check_config
   - restore_yarn_cache

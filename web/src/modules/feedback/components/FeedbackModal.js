@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import { CityModel, POSITIVE_RATING } from '@integreat-app/integreat-api-client'
+import { CityModel, POSITIVE_RATING } from 'api-client'
 import styled, { withTheme } from 'styled-components'
 import type { LocationState } from 'redux-first-router'
 import FeedbackThanksMessage from './FeedbackThanksMessage'
@@ -37,7 +37,7 @@ const FeedbackContainer = styled.div`
   display: flex;
   background-color: ${props => props.theme.colors.backgroundColor};
 
-  @media ${props => props.theme.dimensions.smallViewport} {
+  @media ${props => props.theme.dimensions.web.smallViewport} {
     width: 100%;
     height: 100%;
     align-items: flex-start;

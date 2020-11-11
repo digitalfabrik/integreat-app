@@ -1,7 +1,6 @@
 // @flow
 
 import * as React from 'react'
-import { Linking } from 'react-native'
 import styled from 'styled-components/native'
 import type { ThemeType } from '../../theme/constants'
 import type { NavigationStackProp } from 'react-navigation-stack'
@@ -14,7 +13,7 @@ import MomentContext from '../../i18n/context/MomentContext'
 import RemoteContent from './RemoteContent'
 import SiteHelpfulBox from './SiteHelpfulBox'
 import SpaceBetween from './SpaceBetween'
-import buildConfig from '../../app/constants/buildConfig'
+import onInternalLinkPress from '../onInternalLinkPress'
 
 const HORIZONTAL_MARGIN = 8
 
@@ -41,26 +40,12 @@ type PropType = {|
   hijackRegExp?: RegExp
 |}
 
-const HIJACK = new RegExp(buildConfig().internalLinksHijackPattern)
-
 class Page extends React.Component<PropType, StateType> {
   state = { loading: true }
 
   onLinkPress = (url: string) => {
     const { navigation, language, navigateToInternalLink } = this.props
-
-    if (url.includes('.pdf')) {
-      navigation.navigate('PDFViewModal', { url })
-    } else if (url.includes('.png') || url.includes('.jpg')) {
-      navigation.navigate('ImageViewModal', { url })
-    } else if (navigateToInternalLink && HIJACK.test(url)) {
-      navigateToInternalLink({
-        url,
-        language
-      })
-    } else {
-      Linking.openURL(url).catch(err => console.error('An error occurred', err))
-    }
+    onInternalLinkPress(url, navigation, language, navigateToInternalLink)
   }
 
   onLoad = () => this.setState({ loading: false })

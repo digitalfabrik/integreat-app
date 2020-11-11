@@ -10,7 +10,7 @@ import createNavigateToInternalLink from '../../../modules/app/createNavigateToI
 import type { NavigationStackProp } from 'react-navigation-stack'
 import type { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
 import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvider'
-import { CityModel } from '@integreat-app/integreat-api-client'
+import { CityModel } from 'api-client'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import { withTranslation } from 'react-i18next'
 import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'

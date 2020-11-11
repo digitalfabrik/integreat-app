@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react'
-import { EventModel, LocationModel, DateModel } from '@integreat-app/integreat-api-client'
+import { EventModel, LocationModel, DateModel } from 'api-client'
 import moment from 'moment'
 import { shallow } from 'enzyme'
 import EventListItem from '../EventListItem'

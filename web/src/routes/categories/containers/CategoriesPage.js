@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 
-import { CategoriesMapModel, CategoryModel, CityModel } from '@integreat-app/integreat-api-client'
+import { CategoriesMapModel, CategoryModel, CityModel } from 'api-client'
 
 import Breadcrumbs from '../../../modules/common/components/Breadcrumbs'
 import Tiles from '../../../modules/common/components/Tiles'

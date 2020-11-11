@@ -6,7 +6,7 @@ import moment from 'moment'
 import { ThemeProvider } from 'styled-components'
 
 import ConnectedLocalNewsPage, { LocalNewsPage } from '../LocalNewsPage'
-import { CityModel, LocalNewsModel, Payload } from '@integreat-app/integreat-api-client'
+import { CityModel, LocalNewsModel, Payload } from 'api-client'
 import createReduxStore from '../../../../modules/app/createReduxStore'
 import { Provider } from 'react-redux'
 import createLocation from '../../../../createLocation'

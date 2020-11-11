@@ -2,7 +2,7 @@
 
 import type { CitiesStateType } from '../../../app/StateType'
 import citiesReducer from '../citiesReducer'
-import { CityModel } from '@integreat-app/integreat-api-client'
+import { CityModel } from 'api-client'
 import ErrorCodes from '../../../error/ErrorCodes'
 
 describe('citiesReducer', () => {
