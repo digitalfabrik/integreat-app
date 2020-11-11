@@ -3,6 +3,7 @@
   "version": "7.0.0",
   "description": "Api client for the integreat cms",
   "main": "src/index.js",
+  "private": false,
   "scripts": {
     "test": "jest --config jest.config.json",
     "test:coverage": "jest --config jest.config.json --coverage",
