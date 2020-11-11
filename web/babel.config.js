@@ -1,6 +1,6 @@
 module.exports = {
   presets: [
-    ['@babel/preset-env', { modules: 'commonjs' }],
+    ['@babel/preset-env', { modules: 'auto', loose: true }],
     '@babel/preset-react',
     '@babel/preset-flow'
   ],
@@ -18,6 +18,7 @@ module.exports = {
     '@babel/plugin-proposal-do-expressions',
     '@babel/plugin-proposal-class-properties',
     '@babel/plugin-proposal-export-namespace-from',
+    '@babel/plugin-syntax-dynamic-import',
     'lodash'
   ]
 }
