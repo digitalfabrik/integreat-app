@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { Helmet } from 'react-helmet'
-import { EventModel } from '@integreat-app/integreat-api-client'
+import { EventModel } from 'api-client'
 
 const createJsonLd = (event: EventModel) => {
   const date = event.date

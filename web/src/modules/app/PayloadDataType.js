@@ -12,7 +12,7 @@ import {
   SprungbrettJobModel,
   TunewsModel,
   WohnenOfferModel
-} from '@integreat-app/integreat-api-client'
+} from 'api-client'
 
 export type PayloadDataType = Array<CityModel> | Array<LanguageModel> | Array<OfferModel> | Array<EventModel>
   | PageModel | CategoriesMapModel | Array<SprungbrettJobModel> | Array<WohnenOfferModel> | Array<LocalNewsModel>

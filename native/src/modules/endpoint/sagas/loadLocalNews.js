@@ -1,7 +1,7 @@
 // @flow
 
 import type { Saga } from 'redux-saga'
-import { createLocalNewsEndpoint, LocalNewsModel } from '@integreat-app/integreat-api-client'
+import { createLocalNewsEndpoint, LocalNewsModel } from 'api-client'
 import { call } from 'redux-saga/effects'
 import determineApiUrl from '../determineApiUrl'
 

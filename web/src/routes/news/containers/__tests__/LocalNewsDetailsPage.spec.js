@@ -7,7 +7,7 @@ import type Moment from 'moment'
 import { ThemeProvider } from 'styled-components'
 
 import ConnectedLocalNewsDetailsPage, { LocalNewsDetailsPage } from '../LocalNewsDetailsPage'
-import { CityModel, LocalNewsModel } from '@integreat-app/integreat-api-client'
+import { CityModel, LocalNewsModel } from 'api-client'
 import { Provider } from 'react-redux'
 import createLocation from '../../../../createLocation'
 import { LOCAL_NEWS_DETAILS_ROUTE } from '../../../../modules/app/route-configs/LocalNewsDetailsRouteConfig'

@@ -4,7 +4,7 @@ import reducers, { finishFetchReducer, startFetchReducer } from '../'
 import startFetchAction from '../../../app/actions/startFetchAction'
 import lolex from 'lolex'
 import finishFetchAction from '../../../app/actions/finishFetchAction'
-import { CityModel, Payload } from '@integreat-app/integreat-api-client'
+import { CityModel, Payload } from 'api-client'
 
 describe('endpoint reducers', () => {
   let clock

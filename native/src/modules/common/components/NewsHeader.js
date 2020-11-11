@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react'
-import { CityModel } from '@integreat-app/integreat-api-client'
+import { CityModel } from 'api-client'
 import type { StyledComponent } from 'styled-components'
 import styled from 'styled-components/native'
 import { withTranslation } from 'react-i18next'

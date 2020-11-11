@@ -3,10 +3,7 @@
 import * as React from 'react'
 import { View, Linking } from 'react-native'
 import { TFunction, withTranslation } from 'react-i18next'
-import {
-  LocalNewsModel,
-  TunewsModel
-} from '@integreat-app/integreat-api-client'
+import { LocalNewsModel, TunewsModel } from 'api-client'
 import ContentNotFoundError from '../../../modules/error/ContentNotFoundError'
 import List from './List'
 import Failure from '../../../modules/error/components/Failure'

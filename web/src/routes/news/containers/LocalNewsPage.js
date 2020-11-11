@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { CityModel, LocalNewsModel } from '@integreat-app/integreat-api-client'
+import { CityModel, LocalNewsModel } from 'api-client'
 import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'

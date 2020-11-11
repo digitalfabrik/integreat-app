@@ -1,7 +1,7 @@
 // @flow
 
 import CityEntry from '../CityEntry'
-import { CityModel } from '@integreat-app/integreat-api-client'
+import { CityModel } from 'api-client'
 import { shallow } from 'enzyme'
 import React from 'react'
 import lightTheme from '../../../../modules/theme/constants/theme'

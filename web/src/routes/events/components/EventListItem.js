@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import { EventModel } from '@integreat-app/integreat-api-client'
+import { EventModel } from 'api-client'
 import ListItem from '../../../modules/common/components/ListItem'
 import EventPlaceholder1 from '../assets/EventPlaceholder1.jpg'
 import EventPlaceholder2 from '../assets/EventPlaceholder2.jpg'

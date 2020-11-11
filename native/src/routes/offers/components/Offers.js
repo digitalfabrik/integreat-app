@@ -7,8 +7,10 @@ import {
   CityModel,
   OFFER_FEEDBACK_TYPE,
   OfferModel,
-  OFFERS_FEEDBACK_TYPE
-} from '@integreat-app/integreat-api-client'
+  OFFERS_FEEDBACK_TYPE,
+  CONTENT_FEEDBACK_CATEGORY,
+  TECHNICAL_FEEDBACK_CATEGORY
+} from 'api-client'
 import Tiles from '../../../modules/common/components/Tiles'
 import type { TFunction } from 'react-i18next'
 import { SPRUNGBRETT_OFFER, SPRUNGBRETT_ROUTE, WOHNEN_OFFER, WOHNEN_ROUTE } from '../constants'
@@ -18,14 +20,7 @@ import FeedbackVariant from '../../feedback/FeedbackVariant'
 import type { NavigationStackProp } from 'react-navigation-stack'
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
 import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
-import type {
-  FeedbackCategoryType,
-  FeedbackType
-} from '@integreat-app/integreat-api-client/endpoints/createFeedbackEndpoint'
-import {
-  CONTENT_FEEDBACK_CATEGORY,
-  TECHNICAL_FEEDBACK_CATEGORY
-} from '@integreat-app/integreat-api-client/endpoints/createFeedbackEndpoint'
+import type { FeedbackCategoryType, FeedbackType } from 'api-client'
 
 type PropsType = {|
   offers: Array<OfferModel>,

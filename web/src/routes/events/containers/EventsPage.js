@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 
-import { CityModel, EventModel } from '@integreat-app/integreat-api-client'
+import { CityModel, EventModel } from 'api-client'
 import Page, { THUMBNAIL_WIDTH } from '../../../modules/common/components/Page'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'

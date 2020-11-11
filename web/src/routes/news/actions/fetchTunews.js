@@ -1,6 +1,6 @@
 // @flow
 
-import { createTunewsEndpoint } from '@integreat-app/integreat-api-client'
+import { createTunewsEndpoint } from 'api-client'
 import type { Dispatch } from 'redux'
 import { tunewsApiBaseUrl } from '../../../modules/app/constants/urls'
 import type { StateType } from '../../../modules/app/StateType'
