@@ -99,6 +99,9 @@ const createConfig = (env = {}) => {
       chunkFilename: isProductionBuild ? '[id].[chunkhash].js' : '[id].js?[chunkhash]',
       sourcePrefix: '  '
     },
+    optimization: {
+      usedExports: true
+    },
     // Developer tool to enhance debugging, source maps
     // http://webpack.github.io/docs/configuration.html#devtool
     devtool: isProductionBuild ? false : 'source-map',
