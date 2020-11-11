@@ -9,7 +9,6 @@ type PropsType = {||}
 class MainDisclaimerPage extends React.Component<PropsType> {
   render () {
     return (
-
       <div>
         <Caption title='Impressum und Datenschutz' />
         <div dangerouslySetInnerHTML={{ __html: buildConfig().mainImprint }} />
