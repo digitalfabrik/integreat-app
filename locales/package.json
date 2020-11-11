@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Locales for the integreat frontend projects",
   "main": "index.js",
+  "private": true,
   "devDependencies": {
     "commander": "^4.0.1",
     "csv": "^5.3.0",

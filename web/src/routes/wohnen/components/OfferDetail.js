@@ -27,7 +27,6 @@ const RowValue = styled.div`
 
 const Row = styled.div`
   display: flex;
-
   margin: 10px 0;
 `
 
