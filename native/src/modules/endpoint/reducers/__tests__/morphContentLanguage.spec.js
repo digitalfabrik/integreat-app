@@ -237,14 +237,13 @@ describe('morphContentLanguage', () => {
         key: 'route-0',
         resourceCache: {},
         city: 'augsburg',
-        language: 'de'
-      },
-      refresh: false
+        language: 'de',
+        refresh: false
+      }
     }
 
     const pushEventAction: PushEventActionType = {
       type: 'PUSH_EVENT',
-      refresh: false,
       params: {
         path: eventPath,
         events,
@@ -252,7 +251,8 @@ describe('morphContentLanguage', () => {
         key: 'route-1',
         resourceCache: {},
         language: 'de',
-        city: 'augsburg'
+        city: 'augsburg',
+        refresh: false
       }
     }
     return pushEvent(

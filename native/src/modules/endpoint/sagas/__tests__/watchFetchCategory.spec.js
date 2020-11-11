@@ -78,7 +78,6 @@ describe('watchFetchCategories', () => {
         .withState({ cityContent: { city: city } })
         .put({
           type: 'PUSH_CATEGORY',
-          refresh: true,
           params: {
             categoriesMap: categories,
             resourceCache: resources,
@@ -87,7 +86,8 @@ describe('watchFetchCategories', () => {
             depth: 2,
             key: 'categories-key',
             language,
-            city
+            city,
+            refresh: true
           }
         })
         .run()
@@ -115,7 +115,6 @@ describe('watchFetchCategories', () => {
         .withState({ cityContent: { city: city } })
         .put({
           type: 'PUSH_CATEGORY',
-          refresh: false,
           params: {
             categoriesMap: categories,
             resourceCache: resources,
@@ -124,7 +123,8 @@ describe('watchFetchCategories', () => {
             depth: 2,
             key: 'categories-key',
             language,
-            city
+            city,
+            refresh: false
           }
         })
         .run()
@@ -153,7 +153,6 @@ describe('watchFetchCategories', () => {
         .withState({ cityContent: { city: anotherCity } })
         .put({
           type: 'PUSH_CATEGORY',
-          refresh: false,
           params: {
             categoriesMap: categories,
             resourceCache: resources,
@@ -162,7 +161,8 @@ describe('watchFetchCategories', () => {
             depth: 2,
             key: 'categories-key',
             language,
-            city
+            city,
+            refresh: false
           }
         })
         .run()
@@ -192,7 +192,6 @@ describe('watchFetchCategories', () => {
           .withState({ cityContent: { city: anotherCity } })
           .put({
             type: 'PUSH_CATEGORY',
-            refresh: true,
             params: {
               categoriesMap: categories,
               resourceCache: resources,
@@ -201,7 +200,8 @@ describe('watchFetchCategories', () => {
               depth: 2,
               key: 'categories-key',
               language,
-              city
+              city,
+              refresh: true
             }
           })
           .run()

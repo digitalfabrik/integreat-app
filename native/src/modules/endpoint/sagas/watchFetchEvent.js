@@ -32,12 +32,11 @@ export function * fetchEvent (dataContainer: DataContainer, action: FetchEventAc
       ])
 
       const lastUpdate: Moment | null = yield call(dataContainer.getLastUpdate, city, language)
+      const refresh = loadCriterion.shouldUpdate(lastUpdate)
 
-      // $FlowFixMe Flow can't evaluate the type as it is dynamic
       const insert: PushEventActionType = {
         type: 'PUSH_EVENT',
-        params: { events, resourceCache, path, cityLanguages, key, language, city },
-        refresh: loadCriterion.shouldUpdate(lastUpdate)
+        params: { events, resourceCache, path, cityLanguages, key, language, city, refresh }
       }
       yield put(insert)
     } else {

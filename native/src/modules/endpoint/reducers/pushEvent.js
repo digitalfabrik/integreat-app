@@ -4,77 +4,90 @@ import type { CityContentStateType, EventRouteStateType } from '../../app/StateT
 import type { PushEventActionType } from '../../app/StoreActionType'
 import { EventModel } from '@integreat-app/integreat-api-client'
 import ErrorCodes from '../../error/ErrorCodes'
+import { entries, values } from '../../../utils/object'
+
+const getEventRouteState = (currentPath: ?string,
+  state: CityContentStateType,
+  action: PushEventActionType
+): EventRouteStateType => {
+  const { events, language, cityLanguages, city, refresh } = action.params
+
+  // Check whether another page in the same city is loading, e.g. because it is being refreshed.
+  // This is important for displaying the loading spinner.
+  const otherEventPageLoading = values<EventRouteStateType>(state.eventsRouteMapping)
+    .filter(route => city === route.city && currentPath !== route.path && language === route.language)
+    .some(route => route.status === 'loading')
+
+  const status: 'loading' | 'ready' = (otherEventPageLoading && !refresh) ? 'loading' : 'ready'
+  if (!currentPath) {
+    const allAvailableLanguages = new Map(cityLanguages.map(lng => [lng.code, null]))
+    const eventRouteState = {
+      path: null,
+      language,
+      city,
+      models: events,
+      allAvailableLanguages
+    }
+    if (status === 'loading') {
+      return { status: 'loading', ...eventRouteState }
+    } else {
+      return { status: 'ready', ...eventRouteState }
+    }
+  }
+  const event: ?EventModel = events.find(event => event.path === currentPath)
+  if (!event) {
+    return {
+      path: currentPath,
+      language,
+      city,
+      status: 'error',
+      message: `Could not find an event with path '${currentPath}'.`,
+      code: ErrorCodes.PageNotFound
+    }
+  }
+  const allAvailableLanguages = new Map(event.availableLanguages)
+  allAvailableLanguages.set(language, currentPath)
+
+  const eventRouteState = {
+    path: currentPath,
+    models: [event],
+    allAvailableLanguages,
+    language,
+    city
+  }
+
+  if (status === 'loading') {
+    return { status: 'loading', ...eventRouteState }
+  } else {
+    return { status: 'ready', ...eventRouteState }
+  }
+}
 
 const pushEvent = (state: CityContentStateType, action: PushEventActionType): CityContentStateType => {
-  const refresh = action.refresh
-  const { events, path, key, language, resourceCache, cityLanguages, city } = action.params
+  const { path, key, language, resourceCache, city, refresh } = action.params
 
   // If there is an error in the old resourceCache, we want to override it
   const newResourceCache = state.resourceCache.status === 'ready'
     ? { ...state.resourceCache.value, ...resourceCache }
     : resourceCache
 
-  const getEventRoute = (currentPath: ?string): EventRouteStateType => {
-    // Check whether another page in the same city is loading, e.g. because it is being refreshed.
-    // This is important for displaying the loading spinner.
-    const otherEventPageLoading = Object.values(state.eventsRouteMapping)
-      // $FlowFixMe Flow does not support Object.values
-      .filter(route => city === route.city && currentPath !== route.path && language === route.language)
-      // $FlowFixMe Flow does not support Object.values
-      .some(route => route.status === 'loading')
-
-    const status = (otherEventPageLoading && !refresh) ? 'loading' : 'ready'
-    if (!currentPath) {
-      const allAvailableLanguages = new Map(cityLanguages.map(lng => [lng.code, null]))
-      // $FlowFixMe Flow can't evaluate the status as it is dynamic
-      return {
-        status,
-        path: null,
-        models: events,
-        allAvailableLanguages,
-        language,
-        city
-      }
-    }
-    const event: ?EventModel = events.find(event => event.path === currentPath)
-    if (!event) {
-      return {
-        path: currentPath,
-        language,
-        city,
-        status: 'error',
-        message: `Could not find an event with path '${currentPath}'.`,
-        code: ErrorCodes.PageNotFound
-      }
-    }
-    const allAvailableLanguages = new Map(event.availableLanguages)
-    allAvailableLanguages.set(language, currentPath)
-    // $FlowFixMe Flow can't evaluate the status as it is dynamic
-    return {
-      status,
-      path: currentPath,
-      models: [event],
-      allAvailableLanguages,
-      language,
-      city
-    }
-  }
+  const newEventsRouteMapping = { ...state.eventsRouteMapping }
 
   if (refresh) {
-    Object.entries(state.eventsRouteMapping)
-      // $FlowFixMe Object.entries does not supply proper types
-      .filter(([key, route]) => city === route.city && path !== route.path && language === route.language)
-      .forEach(([key:string, route]) => {
-        // $FlowFixMe Object.entries does not supply proper types
-        state.eventsRouteMapping[key] = getEventRoute(route.path)
+    entries<EventRouteStateType>(state.eventsRouteMapping)
+      .filter(([_, route]) => city === route.city && path !== route.path && language === route.language)
+      .forEach(([key, route]) => {
+        newEventsRouteMapping[key] = route.path
+          ? getEventRouteState(route.path, state, action)
+          : getEventRouteState(null, state, action)
       })
   }
 
   return {
     ...state,
     eventsRouteMapping: {
-      ...state.eventsRouteMapping,
-      [key]: getEventRoute(path)
+      ...newEventsRouteMapping,
+      [key]: getEventRouteState(path, state, action)
     },
     resourceCache: {
       status: 'ready',
