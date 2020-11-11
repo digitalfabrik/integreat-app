@@ -84,7 +84,8 @@ const createSettingsSections = ({ setSetting, t, languageCode, cityCode }: Creat
           accessibilityRole: 'link',
           title: t('about', { appName: buildConfig().appName }),
           onPress: () => {
-            const aboutUrl = buildConfig().aboutUrls[languageCode] || buildConfig().aboutUrls.default
+            const aboutUrls = buildConfig().aboutUrls
+            const aboutUrl = aboutUrls[languageCode] || aboutUrls.default
             Linking.openURL(aboutUrl)
           }
         },
