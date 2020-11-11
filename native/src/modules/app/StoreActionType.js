@@ -1,6 +1,6 @@
 // @flow
 
-import { CategoriesMapModel, CityModel, EventModel, LanguageModel, TunewsModel, LocalNewsModel, PoiModel } from '@integreat-app/integreat-api-client'
+import { CategoriesMapModel, CityModel, EventModel, LanguageModel, TunewsModel, LocalNewsModel, PoiModel } from 'api-client'
 import type { CategoryRouteConfigType, LanguageResourceCacheStateType, NewsType, NewsModelsType } from './StateType'
 import type { ContentLoadCriterionType } from '../endpoint/ContentLoadCriterion'
 import type { TFunction } from 'react-i18next'

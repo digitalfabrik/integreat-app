@@ -2,7 +2,7 @@
 
 import type { CityContentStateType, EventRouteStateType } from '../../app/StateType'
 import type { PushEventActionType } from '../../app/StoreActionType'
-import { EventModel } from '@integreat-app/integreat-api-client'
+import { EventModel } from 'api-client'
 import ErrorCodes from '../../error/ErrorCodes'
 import { entries, values } from '../../../utils/object'
 

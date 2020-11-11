@@ -10,11 +10,14 @@ Object {
 
 exports[`I18nProvider should initialize correct i18next instance 1`] = `
 Object {
-  "debug": false,
+  "debug": true,
   "fallbackLng": Array [
     "en",
     "de",
   ],
+  "interpolation": Object {
+    "escapeValue": false,
+  },
   "load": "languageOnly",
 }
 `;

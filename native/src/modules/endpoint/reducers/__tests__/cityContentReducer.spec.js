@@ -6,7 +6,7 @@ import type {
   FetchEventActionType,
   PushCategoryActionType
 } from '../../../app/StoreActionType'
-import { CategoriesMapModel, LanguageModel } from '@integreat-app/integreat-api-client'
+import { CategoriesMapModel, LanguageModel } from 'api-client'
 import cityContentReducer from '../cityContentReducer'
 import type { CityContentStateType } from '../../../app/StateType'
 import ErrorCodes from '../../../error/ErrorCodes'

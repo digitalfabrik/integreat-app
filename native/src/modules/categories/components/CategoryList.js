@@ -2,12 +2,17 @@
 
 import * as React from 'react'
 
+import type { NavigationStackProp } from 'react-navigation-stack'
 import CategoryListItem from './CategoryListItem'
-import Html from 'react-native-render-html'
 import type { ThemeType } from '../../theme/constants'
 import styled from 'styled-components/native'
 import Image from '../../common/components/Image'
 import CategoryListCaption from '../../../modules/common/components/CategoryListCaption'
+import CategoryListContent from './CategoryListContent'
+import type { NavigateToInternalLinkParamsType } from '../../app/createNavigateToInternalLink'
+import type { PageResourceCacheEntryStateType, PageResourceCacheStateType } from '../../app/StateType'
+import { RESOURCE_CACHE_DIR_PATH } from '../../endpoint/DatabaseConnector'
+import { mapValues } from 'lodash'
 
 export type CategoryListModelType = {|
   title: string,
@@ -21,10 +26,18 @@ export type ListEntryType = {|
   subCategories: Array<CategoryListModelType>
 |}
 
+export type ListContentModelType = {|
+  navigation: NavigationStackProp<*>,
+  files: PageResourceCacheStateType,
+  navigateToInternalLink: NavigateToInternalLinkParamsType => void,
+  resourceCacheUrl: string,
+  content: string
+|}
+
 type PropsType = {|
   categories: Array<ListEntryType>,
   title?: string,
-  content?: string,
+  listContent?: ?ListContentModelType,
   /** A search query to highlight in the categories titles */
   query?: string,
   theme: ThemeType,
@@ -41,20 +54,33 @@ const CategoryThumbnail = styled(Image)`
   margin: 10px;
 `
 
-const VerticalPadding = styled.View`
-  padding: 0 20px;
-`
-
 /**
  * Displays a ContentList which is a list of categories, a caption and a thumbnail
  */
 class CategoryList extends React.Component<PropsType> {
+  getListContent (listContent: ListContentModelType): React.Node {
+    const { theme, language } = this.props
+    const cacheDictionary = mapValues(listContent.files, (file: PageResourceCacheEntryStateType) => {
+      return file.filePath.startsWith(RESOURCE_CACHE_DIR_PATH)
+        ? file.filePath.replace(RESOURCE_CACHE_DIR_PATH, listContent.resourceCacheUrl)
+        : file.filePath
+    })
+    return <CategoryListContent content={listContent.content}
+                                language={language}
+                                navigation={listContent.navigation}
+                                navigateToInternalLink={listContent.navigateToInternalLink}
+                                resourceCacheUrl={listContent.resourceCacheUrl}
+                                cacheDictionary={cacheDictionary}
+                                theme={theme} />
+  }
+
   render () {
-    const { categories, title, content, query, theme, onItemPress, language, thumbnail } = this.props
+    const { categories, title, listContent, query, theme, onItemPress, language, thumbnail } = this.props
+
     return <>
       {thumbnail && <CategoryThumbnail source={thumbnail} />}
       {title && <CategoryListCaption title={title} theme={theme} withThumbnail={!!(thumbnail)} />}
-      {!!content && <VerticalPadding><Html html={content} /></VerticalPadding>}
+      {listContent && this.getListContent(listContent)}
       {categories.map(({ model, subCategories }) =>
         <CategoryListItem key={model.path}
                           category={model}

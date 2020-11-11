@@ -11,7 +11,7 @@ import {
   createPOIsEndpoint,
   Payload,
   PoiModel
-} from '@integreat-app/integreat-api-client'
+} from 'api-client'
 import { cmsApiBaseUrl } from '../constants/urls'
 import type { StateType } from '../StateType'
 

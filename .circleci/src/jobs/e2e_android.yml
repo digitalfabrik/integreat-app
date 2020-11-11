@@ -5,6 +5,7 @@ shell: /bin/bash -eo pipefail
 environment:
   FASTLANE_SKIP_UPDATE_CHECK: true
 steps:
+  - skip_job
   - checkout
   - prepare_workspace
   - restore_yarn_cache

@@ -1,6 +1,6 @@
 // @flow
 
-import { CategoriesMapModel, CategoryModel, LanguageModel } from '@integreat-app/integreat-api-client'
+import { CategoriesMapModel, CategoryModel, LanguageModel } from 'api-client'
 import moment from 'moment'
 import type { CityContentStateType } from '../../../app/StateType'
 import cityContentReducer from '../cityContentReducer'

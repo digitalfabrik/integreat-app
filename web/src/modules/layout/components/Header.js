@@ -30,9 +30,9 @@ const HeaderContainer = styled.header`
   user-select: none;
   flex-direction: column;
 
-  @media ${props => props.theme.dimensions.minMaxWidth} {
-    padding-right: calc((200% - 100vw - ${props => props.theme.dimensions.maxWidth}px) / 2);
-    padding-left: calc((100vw - ${props => props.theme.dimensions.maxWidth}px) / 2);
+  @media ${props => props.theme.dimensions.web.minMaxWidth} {
+    padding-right: calc((200% - 100vw - ${props => props.theme.dimensions.web.maxWidth}px) / 2);
+    padding-left: calc((100vw - ${props => props.theme.dimensions.web.maxWidth}px) / 2);
   }
 `
 
@@ -42,33 +42,33 @@ const Row = styled.div`
   max-width: 100%;
   overflow-x: auto;
   align-items: stretch;
-  min-height: ${props => props.theme.dimensions.headerHeightLarge}px;
+  min-height: ${props => props.theme.dimensions.web.headerHeightLarge}px;
   flex-direction: row;
 
   :first-child {
     z-index: 1; /* Necessary to make the LanguageFlyout cover the NavigationItems as they have opacity set */
   }
 
-  @media ${props => props.theme.dimensions.smallViewport} {
+  @media ${props => props.theme.dimensions.web.smallViewport} {
     justify-content: space-between;
     flex-wrap: wrap;
-    min-height: ${props => props.theme.dimensions.headerHeightSmall}px;
+    min-height: ${props => props.theme.dimensions.web.headerHeightSmall}px;
 
     :first-child { /* this is only necessary for IE11 */
-      min-height: ${props => props.theme.dimensions.headerHeightSmall + (props.hasTitle ? HEADER_TITLE_HEIGHT : 0)}px;
+      min-height: ${props => props.theme.dimensions.web.headerHeightSmall + (props.hasTitle ? HEADER_TITLE_HEIGHT : 0)}px;
     }
   }
 `
 
 const HeaderSeparator = styled.div`
   align-self: center;
-  height: ${props => props.theme.dimensions.headerHeightLarge / 2}px;
+  height: ${props => props.theme.dimensions.web.headerHeightLarge / 2}px;
   width: 2px;
   margin: 0 5px;
   background-color: ${props => props.theme.colors.textDecorationColor};
   order: 2;
 
-  @media ${props => props.theme.dimensions.smallViewport} {
+  @media ${props => props.theme.dimensions.web.smallViewport} {
     display: none;
   }
 `
@@ -79,7 +79,7 @@ const ActionBar = styled.div`
   align-items: center;
   justify-content: flex-end;
 
-  @media ${props => props.theme.dimensions.smallViewport} {
+  @media ${props => props.theme.dimensions.web.smallViewport} {
     order: 2;
     flex: 1 1 0%; /* The % unit is necessary for IE11 */
   }
@@ -110,7 +110,7 @@ export class Header extends React.PureComponent<PropsType> {
     const {
       theme, viewportSmall, onStickyTopChanged, actionItems, logoHref, navigationItems, platform, cityName
     } = this.props
-    const { headerHeightSmall, headerHeightLarge } = theme.dimensions
+    const { headerHeightSmall, headerHeightLarge } = theme.dimensions.web
     const hasNavigationBar = navigationItems.length > 0
     const height = viewportSmall
       ? (1 + (hasNavigationBar ? 1 : 0)) * headerHeightSmall + (cityName ? HEADER_TITLE_HEIGHT : 0)
@@ -125,7 +125,10 @@ export class Header extends React.PureComponent<PropsType> {
                 positionStickyDisabled={platform.positionStickyDisabled}>
         <HeaderContainer>
           <Row hasTitle={!!cityName}>
-            <HeaderLogo theme={theme} link={logoHref} src={buildConfig().icons.headerLogo} alt={buildConfig().appName} />
+            <HeaderLogo theme={theme}
+                        link={logoHref}
+                        src={buildConfig().web.icons.appLogo}
+                        alt={buildConfig().appName} />
             {!viewportSmall && cityName && <HeaderSeparator theme={theme} />}
             {(!viewportSmall || cityName) && <HeaderTitle theme={theme}>{cityName}</HeaderTitle>}
             <ActionBar>{actionItems}</ActionBar>

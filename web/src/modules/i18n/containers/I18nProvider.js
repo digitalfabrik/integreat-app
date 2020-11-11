@@ -11,6 +11,7 @@ import type { Dispatch } from 'redux'
 import type { StoreActionType } from '../../app/StoreActionType'
 import type { UiDirectionType } from '../types/UiDirectionType'
 import loadLocales from '../loadLocales'
+import buildConfig from '../../app/constants/buildConfig'
 
 const RTL_LANGUAGES = ['ar', 'fa']
 const FALLBACK_LANGUAGES = ['en', 'de']
@@ -43,7 +44,10 @@ export class I18nProvider extends React.Component<PropsType, StateType> {
       resources: i18nextResources,
       fallbackLng: FALLBACK_LANGUAGES,
       load: 'languageOnly',
-      debug: __DEV__
+      interpolation: {
+        escapeValue: false // Escaping is not needed for react apps: https://github.com/i18next/react-i18next/issues/277
+      },
+      debug: buildConfig().development
     })
     this.state = {
       language: DEFAULT_LANGUAGE,

@@ -4,7 +4,7 @@ import lolex from 'lolex'
 
 import startFetchAction from '../../app/actions/startFetchAction'
 import finishFetchAction from '../../app/actions/finishFetchAction'
-import { CityModel, EndpointBuilder, MappingError, Payload } from '@integreat-app/integreat-api-client'
+import { CityModel, EndpointBuilder, MappingError, Payload } from 'api-client'
 import fetchData from '../fetchData'
 
 describe('fetchData', () => {

@@ -3,10 +3,10 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import { CityModel } from '@integreat-app/integreat-api-client'
+import { CityModel } from 'api-client'
 import { LanguageFailure } from '../LanguageFailure'
 import createLocation from '../../../../createLocation'
-import { brightTheme } from '../../../theme/constants/theme'
+import { lightTheme } from '../../../theme/constants/theme'
 
 describe('LanguageFailure', () => {
   const cities = [
@@ -65,7 +65,7 @@ describe('LanguageFailure', () => {
   it('should match snapshot', () => {
     const wrapper = shallow(
       <LanguageFailure cities={cities}
-                       theme={brightTheme}
+                       theme={lightTheme}
                        location={location}
                        languageChangePaths={languageChangePaths}
                        t={key => key || 'null'} />

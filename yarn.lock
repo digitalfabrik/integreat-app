@@ -1075,6 +1075,17 @@
     pirates "^4.0.0"
     source-map-support "^0.5.16"
 
+"@babel/register@^7.8.4":
+  version "7.12.1"
+  resolved "https://registry.yarnpkg.com/@babel/register/-/register-7.12.1.tgz#cdb087bdfc4f7241c03231f22e15d211acf21438"
+  integrity sha512-XWcmseMIncOjoydKZnWvWi0/5CUCD+ZYKhRwgYlWOrA8fGZ/FjuLRpqtIhLOVD/fvR1b9DQHtZPn68VvhpYf+Q==
+  dependencies:
+    find-cache-dir "^2.0.0"
+    lodash "^4.17.19"
+    make-dir "^2.1.0"
+    pirates "^4.0.0"
+    source-map-support "^0.5.16"
+
 "@babel/runtime-corejs3@^7.10.2":
   version "7.11.2"
   resolved "https://registry.yarnpkg.com/@babel/runtime-corejs3/-/runtime-corejs3-7.11.2.tgz#02c3029743150188edeb66541195f54600278419"
@@ -1087,6 +1098,13 @@
   version "7.11.2"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.11.2.tgz#f549c13c754cc40b87644b9fa9f09a6a95fe0736"
   integrity sha512-TeWkU52so0mPtDcaCTxNBI/IHiz0pZgr8VEFqXFtZWpYD08ZB6FaSwVAS8MKRQAP3bYKiVjwysOJgMFY28o6Tw==
+  dependencies:
+    regenerator-runtime "^0.13.4"
+
+"@babel/runtime@^7.12.0":
+  version "7.12.5"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.12.5.tgz#410e7e487441e1b360c29be715d870d9b985882e"
+  integrity sha512-plcc+hbExy3McchJCEQG3knOsuh3HH+Prx1P6cLIkET/0dLuQDEnrT+s27Axgc9bqfsmNUNHfscgMUdBpC9xfg==
   dependencies:
     regenerator-runtime "^0.13.4"
 
@@ -1275,18 +1293,6 @@
   dependencies:
     eslint-config-standard-react "^9.2.0"
     eslint-plugin-react "^7.18.3"
-
-"@integreat-app/integreat-api-client@^6.0.0":
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/@integreat-app/integreat-api-client/-/integreat-api-client-6.0.0.tgz#06b129a04cbe6c96836eaeb93f157797f6027b4a"
-  integrity sha512-/smTOHoy3GMXQXsFz2sa+fVu/6Z8TL7YUJ5WWHApCOkwUT/Ddt5o15BOAMIIFT99uTy6O3omgmQE7PPKFLsT6Q==
-  dependencies:
-    entities "^2.0.0"
-    is-url "^1.2"
-    moment "^2.24"
-    moment-timezone "^0.5"
-    normalize-path "^3.0.0"
-    sanitize-html-react "^1.13"
 
 "@integreat-app/react-sticky-headroom@^1.0.4":
   version "1.0.6"
@@ -2938,6 +2944,15 @@ anymatch@^3.0.3, anymatch@~3.1.1:
     normalize-path "^3.0.0"
     picomatch "^2.0.4"
 
+"api-client@file:api-client":
+  version "7.0.0"
+  dependencies:
+    entities "^2.0.0"
+    moment "^2.24"
+    moment-timezone "^0.5"
+    normalize-path "^3.0.0"
+    sanitize-html-react "^1.13"
+
 aproba@^1.0.3, aproba@^1.1.1:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/aproba/-/aproba-1.2.0.tgz#6802e6264efd18c790a1b0d517f0f2627bf2c94a"
@@ -3935,6 +3950,9 @@ buffers@~0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/buffers/-/buffers-0.1.1.tgz#b24579c3bed4d6d396aeee6d9a8ae7f5482ab7bb"
   integrity sha1-skV5w77U1tOWru5tmorn9Ugqt7s=
+
+"build-configs@file:build-configs":
+  version "1.1.0"
 
 builtin-status-codes@^3.0.0:
   version "3.0.0"
@@ -8156,10 +8174,10 @@ humanize-string@^1.0.2:
   dependencies:
     decamelize "^1.0.0"
 
-i18next-browser-languagedetector@^4.0.1:
-  version "4.3.1"
-  resolved "https://registry.yarnpkg.com/i18next-browser-languagedetector/-/i18next-browser-languagedetector-4.3.1.tgz#005d2db6204b0a4af5f01c7987f5ccaf4ef97da5"
-  integrity sha512-KIToAzf8zwWvacgnRwJp63ase26o24AuNUlfNVJ5YZAFmdGhsJpmFClxXPuk9rv1FMI4lnc8zLSqgZPEZMrW4g==
+i18next-browser-languagedetector@^6.0.1:
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/i18next-browser-languagedetector/-/i18next-browser-languagedetector-6.0.1.tgz#83654bc87302be2a6a5a75146ffea97b4ca268cf"
+  integrity sha512-3H+OsNQn3FciomUU0d4zPFHsvJv4X66lBelXk9hnIDYDsveIgT7dWZ3/VvcSlpKk9lvCK770blRZ/CwHMXZqWw==
   dependencies:
     "@babel/runtime" "^7.5.5"
 
@@ -8169,6 +8187,13 @@ i18next@^19.1.0:
   integrity sha512-sxZhj6u7HbEYOMx81oGwq5MiXISRBVg2wRY3n6YIbe+HtU8ydzlGzv6ErHdrRKYxATBFssVXYbc3lNZoyB4vfA==
   dependencies:
     "@babel/runtime" "^7.10.1"
+
+i18next@^19.8.3:
+  version "19.8.3"
+  resolved "https://registry.yarnpkg.com/i18next/-/i18next-19.8.3.tgz#10df7222db8c23389b13bceb9ba67a5e20a0241e"
+  integrity sha512-eVrqAw2gGGYYJaJMYw4VM1FNFawLD4b84IsoTZMVXeWHaxAM2gyTa34j2Sip15UkBz/LrSxdFJj0Jhlrz7EvHA==
+  dependencies:
+    "@babel/runtime" "^7.12.0"
 
 iconv-lite@0.4.24, iconv-lite@^0.4.17, iconv-lite@^0.4.24:
   version "0.4.24"
@@ -8886,7 +8911,7 @@ is-typedarray@^1.0.0, is-typedarray@~1.0.0:
   resolved "https://registry.yarnpkg.com/is-typedarray/-/is-typedarray-1.0.0.tgz#e479c80858df0c1b11ddda6940f96011fcda4a9a"
   integrity sha1-5HnICFjfDBsR3dppQPlgEfzaSpo=
 
-is-url@^1.2, is-url@^1.2.4:
+is-url@^1.2.4:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/is-url/-/is-url-1.2.4.tgz#04a4df46d28c4cff3d73d01ff06abeb318a1aa52"
   integrity sha512-ITvGim8FhRiYe4IQ5uHSkj7pVaPDrCTkNd3yq3cV7iZAcJdHTUMPMEHcqSOy9xZ9qFenQCvi+2wjH9a1nXqHww==
@@ -9305,7 +9330,7 @@ jest-extended@^0.11.5:
     jest-get-type "^22.4.3"
     jest-matcher-utils "^22.0.0"
 
-jest-fetch-mock@^3.0.1:
+jest-fetch-mock@^3.0.1, jest-fetch-mock@^3.0.3:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/jest-fetch-mock/-/jest-fetch-mock-3.0.3.tgz#31749c456ae27b8919d69824f1c2bd85fe0a1f3b"
   integrity sha512-Ux1nWprtLrdrH4XwE7O7InRY6psIi3GOsqNESJgMJ+M5cv4A8Lh7SN9d2V2kKRZ8ebAfcd1LNyZguAOb6JiDqw==
@@ -9836,7 +9861,7 @@ jest-worker@^25.5.0:
     merge-stream "^2.0.0"
     supports-color "^7.0.0"
 
-jest@^24.9.0:
+jest@^24.0.0, jest@^24.9.0:
   version "24.9.0"
   resolved "https://registry.yarnpkg.com/jest/-/jest-24.9.0.tgz#987d290c05a08b52c56188c1002e368edb007171"
   integrity sha512-YvkBL1Zm7d2B1+h5fHEOdyjCG+sGMz4f8D86/0HiqJ6MB4MnDc8FgP5vdWsGnemOQro7lnYo8UakZ3+5A0jxGw==
@@ -10292,12 +10317,7 @@ loader-utils@^2.0.0:
     json5 "^2.1.2"
 
 "locales@file:locales":
-  version "0.0.1"
-  dependencies:
-    commander "^4.0.1"
-    csv "^5.3.0"
-    flat "^5.0.0"
-    lodash "^4.17.19"
+  version "1.0.0"
 
 localforage@1.8.1:
   version "1.8.1"
@@ -13216,7 +13236,7 @@ react-hot-loader@^4.12.19:
     shallowequal "^1.1.0"
     source-map "^0.7.3"
 
-react-i18next@^11.3.1:
+react-i18next@^11.3.1, react-i18next@^11.7.3:
   version "11.7.3"
   resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-11.7.3.tgz#256461c46baf5b3208c3c6860ca4e569fc7ed053"
   integrity sha512-7sYZqVZgdaS9Z0ZH6nuJFErCD0zz5wK3jR4/xCrWjZcxHHF3GRu7BXdicbSPprZV4ZYz7LJzxxMHO7dg5Qb70A==
@@ -13326,10 +13346,10 @@ react-native-ratings@^6.3.0:
     lodash "^4.17.4"
     prop-types "^15.5.10"
 
-react-native-render-html@^4.2.0:
-  version "4.2.4"
-  resolved "https://registry.yarnpkg.com/react-native-render-html/-/react-native-render-html-4.2.4.tgz#0b642fb72aee5935bd1cfc427a115ffdf881d522"
-  integrity sha512-OiLItEzKgS7dzD9XI5bHhjcUEfpWdzH1FgexzjbBdICPfYjmmcefpcRmLZY1+HMfxJ7wL8iF1PzTF48LchGTBA==
+react-native-render-html@^5.0.0-alpha.2:
+  version "5.0.0-alpha.2"
+  resolved "https://registry.yarnpkg.com/react-native-render-html/-/react-native-render-html-5.0.0-alpha.2.tgz#180907d71432ddd955ca5002f8fb0221736a6433"
+  integrity sha512-MMaoF5HOr+hHwLprI5ehQNKl4Em0p2uU2I1rQRfAPP2Cp7FvxzrBUdPlwLMJdkeA1YJq+e0I82Wpw5TMCEd5Rw==
   dependencies:
     buffer "^4.5.1"
     events "^1.1.0"

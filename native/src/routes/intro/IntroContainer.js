@@ -29,7 +29,7 @@ const Container: StyledComponent<{ width: number }, {}, *> = styled.View`
   justify-content: space-between;
 `
 
-const AppLogo = styled.Image`
+const AppIcon = styled.Image`
   justify-content: center;
   align-self: center;
   flex: 1;
@@ -91,7 +91,7 @@ class Intro extends React.Component<PropsType, StateType> {
     )
   }
 
-  renderAppLogo = () => (): React.Node => <AppLogo source={buildConfigAssets().appLogo} />
+  renderAppIcon = () => (): React.Node => <AppIcon source={buildConfigAssets().appIcon} />
   renderImageContent = (image: number) => (): React.Node => <ImageContent source={image} />
 
   slides = (): Array<SlideContentType> => {
@@ -102,7 +102,7 @@ class Intro extends React.Component<PropsType, StateType> {
       key: 'integreat',
       title: t('appName', { appName: buildConfig().appName }),
       description: t('appDescription', { appName: buildConfig().appName }),
-      renderContent: this.renderAppLogo()
+      renderContent: this.renderAppIcon()
     }, {
       key: 'search',
       title: t('search'),

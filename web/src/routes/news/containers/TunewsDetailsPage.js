@@ -3,7 +3,7 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import TunewsIcon from './../assets/TunewsActiveLogo.png'
-import { CityModel, TunewsModel } from '@integreat-app/integreat-api-client'
+import { CityModel, TunewsModel } from 'api-client'
 import { connect } from 'react-redux'
 import type { StateType } from '../../../modules/app/StateType'
 import TunewsDetailsFooter from '../components/TunewsDetailsFooter'
