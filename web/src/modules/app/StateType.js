@@ -13,7 +13,7 @@ import {
   SprungbrettJobModel,
   TunewsModel,
   WohnenOfferModel
-} from '@integreat-app/integreat-api-client'
+} from 'api-client'
 import type { LocationState } from 'redux-first-router'
 import type { UiDirectionType } from '../i18n/types/UiDirectionType'
 

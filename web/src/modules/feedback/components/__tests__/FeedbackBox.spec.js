@@ -4,7 +4,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import { FeedbackBox } from '../FeedbackBox'
 import FeedbackVariant from '../../FeedbackVariant'
-import { CATEGORIES_FEEDBACK_TYPE, CONTENT_FEEDBACK_CATEGORY } from '@integreat-app/integreat-api-client'
+import { CATEGORIES_FEEDBACK_TYPE, CONTENT_FEEDBACK_CATEGORY } from 'api-client'
 import theme from '../../../theme/constants/theme'
 
 describe('FeedbackBox', () => {

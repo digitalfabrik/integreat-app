@@ -1,6 +1,6 @@
 // https://github.com/babel/babel/issues/8309#issuecomment-439161848
 // Modules in node_modules are ignored and not transpiled per default.
-// Explicitly not ignore the build-configs npm module here since it has to be compiled as monorepo package.
+// Explicitly not ignore the build-configs npm module as it has to be transpiled as monorepo package.
 require('@babel/register')({
   ignore: [/node_modules\/(?!build-configs)/]
 })
@@ -158,7 +158,7 @@ const createConfig = (env = {}) => {
           // https://github.com/webpack/webpack/issues/2031#issuecomment-219040479
           // Packages mentioned here probably use ES6 syntax which IE11 does not support. This is a problem because
           // in development mode webpack bundles the mentioned packages
-          exclude: /node_modules\/(?!(strict-uri-encode|strip-ansi|build-configs)\/).*/,
+          exclude: /node_modules\/(?!(strict-uri-encode|strip-ansi|build-configs|api-client)\/).*/,
           loader: 'babel-loader',
           options: babelConfig
         },

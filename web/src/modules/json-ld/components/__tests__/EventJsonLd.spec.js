@@ -5,7 +5,7 @@ import { shallow } from 'enzyme'
 import { Helmet } from 'react-helmet'
 import EventJsonLd from '../EventJsonLd'
 import moment from 'moment'
-import { DateModel, EventModel, FeaturedImageModel, LocationModel } from '@integreat-app/integreat-api-client'
+import { DateModel, EventModel, FeaturedImageModel, LocationModel } from 'api-client'
 
 describe('EventJsonLd', () => {
   it('should output valid json-ld', () => {

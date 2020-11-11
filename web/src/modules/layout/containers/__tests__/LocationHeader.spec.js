@@ -2,7 +2,7 @@
 
 import { shallow } from 'enzyme'
 import React from 'react'
-import { DateModel, EventModel, LocationModel } from '@integreat-app/integreat-api-client'
+import { DateModel, EventModel, LocationModel } from 'api-client'
 import { LocationHeader } from '../LocationHeader'
 import { CATEGORIES_ROUTE } from '../../../app/route-configs/CategoriesRouteConfig'
 import { EVENTS_ROUTE } from '../../../app/route-configs/EventsRouteConfig'

@@ -2,7 +2,7 @@
 
 import React from 'react'
 import ConnectedSearchPage, { SearchPage } from '../SearchPage'
-import { CategoriesMapModel, CategoryModel, CityModel } from '@integreat-app/integreat-api-client'
+import { CategoriesMapModel, CategoryModel, CityModel } from 'api-client'
 import { shallow } from 'enzyme'
 import configureMockStore from 'redux-mock-store'
 import { SEARCH_ROUTE } from '../../../../modules/app/route-configs/SearchRouteConfig'

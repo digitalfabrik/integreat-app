@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react'
-import { TunewsModel } from '@integreat-app/integreat-api-client'
+import { TunewsModel } from 'api-client'
 import moment from 'moment'
 import { shallow } from 'enzyme'
 import TunewsList from '../TunewsList'

@@ -7,7 +7,7 @@ import {
   EventModel,
   LanguageModel,
   LocationModel, PoiModel
-} from '@integreat-app/integreat-api-client'
+} from 'api-client'
 import moment from 'moment'
 import morphContentLanguage from '../morphContentLanguage'
 import pushCategory from '../pushCategory'

@@ -9,7 +9,7 @@ import {
   LocalNewsModel,
   PoiModel,
   TunewsModel
-} from '@integreat-app/integreat-api-client'
+} from 'api-client'
 import Moment from 'moment'
 import { DEFAULT_LANGUAGE } from '../i18n/constants'
 import type { ErrorCodeType } from '../error/ErrorCodes'

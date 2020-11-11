@@ -3,7 +3,7 @@
 import * as React from 'react'
 
 import { Linking } from 'react-native'
-import { SprungbrettJobModel, OfferModel } from '@integreat-app/integreat-api-client'
+import { SprungbrettJobModel, OfferModel } from 'api-client'
 import SprungbrettListItem from './SprungbrettListItem'
 import type { TFunction } from 'react-i18next'
 import type { ThemeType } from '../../../modules/theme/constants'

@@ -2,10 +2,7 @@
 
 import React from 'react'
 import { ScrollView, View } from 'react-native'
-import {
-  LocalNewsModel,
-  TunewsModel
-} from '@integreat-app/integreat-api-client'
+import { LocalNewsModel, TunewsModel } from 'api-client'
 import MomentContext from '../../../modules/i18n/context/MomentContext'
 import type { ThemeType } from '../../../modules/theme/constants'
 import {

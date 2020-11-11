@@ -2,7 +2,7 @@
 
 import type { DataContainer } from '../../DataContainer'
 import type { Saga } from 'redux-saga'
-import { CategoriesMapModel } from '@integreat-app/integreat-api-client'
+import { CategoriesMapModel } from 'api-client'
 import { call } from 'redux-saga/effects'
 
 export default function * loadCategories (

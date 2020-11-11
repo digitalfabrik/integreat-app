@@ -1,7 +1,7 @@
 // @flow
 
 import NotFoundRouteConfig from '../NotFoundRouteConfig'
-import { Payload } from '@integreat-app/integreat-api-client'
+import { Payload } from 'api-client'
 import createLocation from '../../../../createLocation'
 import { NOT_FOUND } from 'redux-first-router'
 

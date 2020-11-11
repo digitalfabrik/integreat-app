@@ -5,7 +5,7 @@ import React from 'react'
 import Heading from './Heading'
 import ScrollingSearchBox from '../../../modules/common/components/ScrollingSearchBox'
 import CitySelector from './CitySelector'
-import { CityModel } from '@integreat-app/integreat-api-client'
+import { CityModel } from 'api-client'
 import styled from 'styled-components'
 
 import type { TFunction } from 'react-i18next'

@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import { WohnenFormData, WohnenOfferModel } from '@integreat-app/integreat-api-client'
+import { WohnenFormData, WohnenOfferModel } from 'api-client'
 import ListItem from '../../../modules/common/components/ListItem'
 import styled from 'styled-components'
 import WohnenRouteConfig from '../../../modules/app/route-configs/WohnenRouteConfig'

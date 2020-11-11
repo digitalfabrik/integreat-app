@@ -1287,30 +1287,6 @@
     eslint-config-standard-react "^9.2.0"
     eslint-plugin-react "^7.18.3"
 
-"@integreat-app/integreat-api-client@^5.0.3":
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/@integreat-app/integreat-api-client/-/integreat-api-client-5.1.0.tgz#52260d81ae2a4da74ea92a3dabbb00ab25016b33"
-  integrity sha512-1RDuOnqZNh4qQz6O20OKbk/Vc/uAqUIhCzYsJi0KINlYVhO6RfHoxCMqMQ9Fu8ZOCYTLVhd8Ib6E84D04OF7Vg==
-  dependencies:
-    entities "^2.0.0"
-    is-url "^1.2"
-    moment "^2.24"
-    moment-timezone "^0.5"
-    normalize-path "^3.0.0"
-    sanitize-html-react "^1.13"
-
-"@integreat-app/integreat-api-client@^6.0.0":
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/@integreat-app/integreat-api-client/-/integreat-api-client-6.0.0.tgz#06b129a04cbe6c96836eaeb93f157797f6027b4a"
-  integrity sha512-/smTOHoy3GMXQXsFz2sa+fVu/6Z8TL7YUJ5WWHApCOkwUT/Ddt5o15BOAMIIFT99uTy6O3omgmQE7PPKFLsT6Q==
-  dependencies:
-    entities "^2.0.0"
-    is-url "^1.2"
-    moment "^2.24"
-    moment-timezone "^0.5"
-    normalize-path "^3.0.0"
-    sanitize-html-react "^1.13"
-
 "@integreat-app/react-sticky-headroom@^1.0.4":
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/@integreat-app/react-sticky-headroom/-/react-sticky-headroom-1.0.6.tgz#bade45033eaddd7345dba2e04e363e731cbc439c"
@@ -2960,6 +2936,15 @@ anymatch@^3.0.3, anymatch@~3.1.1:
   dependencies:
     normalize-path "^3.0.0"
     picomatch "^2.0.4"
+
+"api-client@file:api-client":
+  version "7.0.0"
+  dependencies:
+    entities "^2.0.0"
+    moment "^2.24"
+    moment-timezone "^0.5"
+    normalize-path "^3.0.0"
+    sanitize-html-react "^1.13"
 
 aproba@^1.0.3, aproba@^1.1.1:
   version "1.2.0"
@@ -8912,7 +8897,7 @@ is-typedarray@^1.0.0, is-typedarray@~1.0.0:
   resolved "https://registry.yarnpkg.com/is-typedarray/-/is-typedarray-1.0.0.tgz#e479c80858df0c1b11ddda6940f96011fcda4a9a"
   integrity sha1-5HnICFjfDBsR3dppQPlgEfzaSpo=
 
-is-url@^1.2, is-url@^1.2.4:
+is-url@^1.2.4:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/is-url/-/is-url-1.2.4.tgz#04a4df46d28c4cff3d73d01ff06abeb318a1aa52"
   integrity sha512-ITvGim8FhRiYe4IQ5uHSkj7pVaPDrCTkNd3yq3cV7iZAcJdHTUMPMEHcqSOy9xZ9qFenQCvi+2wjH9a1nXqHww==
@@ -9331,7 +9316,7 @@ jest-extended@^0.11.5:
     jest-get-type "^22.4.3"
     jest-matcher-utils "^22.0.0"
 
-jest-fetch-mock@^3.0.1:
+jest-fetch-mock@^3.0.1, jest-fetch-mock@^3.0.3:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/jest-fetch-mock/-/jest-fetch-mock-3.0.3.tgz#31749c456ae27b8919d69824f1c2bd85fe0a1f3b"
   integrity sha512-Ux1nWprtLrdrH4XwE7O7InRY6psIi3GOsqNESJgMJ+M5cv4A8Lh7SN9d2V2kKRZ8ebAfcd1LNyZguAOb6JiDqw==
@@ -9862,7 +9847,7 @@ jest-worker@^25.5.0:
     merge-stream "^2.0.0"
     supports-color "^7.0.0"
 
-jest@^24.9.0:
+jest@^24.0.0, jest@^24.9.0:
   version "24.9.0"
   resolved "https://registry.yarnpkg.com/jest/-/jest-24.9.0.tgz#987d290c05a08b52c56188c1002e368edb007171"
   integrity sha512-YvkBL1Zm7d2B1+h5fHEOdyjCG+sGMz4f8D86/0HiqJ6MB4MnDc8FgP5vdWsGnemOQro7lnYo8UakZ3+5A0jxGw==
@@ -10318,12 +10303,7 @@ loader-utils@^2.0.0:
     json5 "^2.1.2"
 
 "locales@file:locales":
-  version "0.0.1"
-  dependencies:
-    commander "^4.0.1"
-    csv "^5.3.0"
-    flat "^5.0.0"
-    lodash "^4.17.19"
+  version "1.0.0"
 
 localforage@1.8.1:
   version "1.8.1"

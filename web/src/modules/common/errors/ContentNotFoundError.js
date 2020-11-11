@@ -1,6 +1,6 @@
 // @flow
 
-import { ResponseError } from '@integreat-app/integreat-api-client'
+import { ResponseError } from 'api-client'
 
 type NotFoundType = 'category' | 'event' | 'offer' | 'poi' | 'localNewsItem' | 'tunewsItem'
 
