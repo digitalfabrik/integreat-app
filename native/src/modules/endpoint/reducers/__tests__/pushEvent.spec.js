@@ -86,7 +86,6 @@ describe('pushEvent', () => {
 
     const pushEventAction: PushEventActionType = {
       type: 'PUSH_EVENT',
-      refresh: false,
       params: {
         events: [event1],
         path: null,
@@ -94,7 +93,8 @@ describe('pushEvent', () => {
         resourceCache: {},
         cityLanguages: [new LanguageModel('de', 'Deutsch'), new LanguageModel('en', 'English')],
         language: 'de',
-        city: 'augsburg'
+        city: 'augsburg',
+        refresh: false
       }
     }
 
@@ -123,7 +123,6 @@ describe('pushEvent', () => {
 
     const pushEventAction: PushEventActionType = {
       type: 'PUSH_EVENT',
-      refresh: false,
       params: {
         events: [event1],
         path: '/augsburg/de/events/ev1',
@@ -131,7 +130,8 @@ describe('pushEvent', () => {
         resourceCache: {},
         cityLanguages: [new LanguageModel('de', 'Deutsch'), new LanguageModel('en', 'English')],
         language: 'de',
-        city: 'augsburg'
+        city: 'augsburg',
+        refresh: false
       }
     }
 
@@ -168,7 +168,6 @@ describe('pushEvent', () => {
 
     const pushEventAction: PushEventActionType = {
       type: 'PUSH_EVENT',
-      refresh: false,
       params: {
         resourceCache,
         events: [new EventModel({
@@ -202,7 +201,8 @@ describe('pushEvent', () => {
         city: 'testumgebung',
         language: 'de',
         path: '/testumgebung/de/events/ev1',
-        key: 'route-id-0'
+        key: 'route-id-0',
+        refresh: false
       }
     }
 

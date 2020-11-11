@@ -129,9 +129,9 @@ export type PushCategoryActionType = {|
     +resourceCache: LanguageResourceCacheStateType,
     +cityLanguages: Array<LanguageModel>,
     ...CategoryRouteConfigType,
-    +key: string
-  |},
-  +refresh: boolean
+    +key: string,
+    +refresh: boolean
+  |}
 |}
 
 export type ClearCategoryActionType = {|
@@ -199,20 +199,20 @@ export type ClearEventActionType = {|
   type: 'CLEAR_EVENT', +params: {| +key: string |}
 |}
 
-type EventParamsType = {|
+type PushEventParamsType = {|
   +events: $ReadOnlyArray<EventModel>,
   +path: ?string,
   +key: string,
   +resourceCache: LanguageResourceCacheStateType,
   +cityLanguages: $ReadOnlyArray<LanguageModel>,
   +language: string,
-  +city: string
+  +city: string,
+  +refresh: boolean
 |}
 
 export type PushEventActionType = {|
   type: 'PUSH_EVENT',
-  +params: EventParamsType,
-  +refresh: boolean
+  +params: PushEventParamsType
 |}
 
 export type FetchEventFailedActionType = {|

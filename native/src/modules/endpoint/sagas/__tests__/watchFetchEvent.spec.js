@@ -70,7 +70,6 @@ describe('watchFetchEvents', () => {
         .withState({ cityContent: { city } })
         .put({
           type: 'PUSH_EVENT',
-          refresh: true,
           params: {
             events,
             resourceCache: resources,
@@ -78,7 +77,8 @@ describe('watchFetchEvents', () => {
             cityLanguages: languages,
             key: 'events-key',
             language,
-            city
+            city,
+            refresh: true
           }
         })
         .run()
@@ -104,7 +104,6 @@ describe('watchFetchEvents', () => {
         .withState({ cityContent: { city } })
         .put({
           type: 'PUSH_EVENT',
-          refresh: false,
           params: {
             events,
             resourceCache: resources,
@@ -112,7 +111,8 @@ describe('watchFetchEvents', () => {
             cityLanguages: languages,
             key: 'events-key',
             language,
-            city
+            city,
+            refresh: false
           }
         })
         .run()

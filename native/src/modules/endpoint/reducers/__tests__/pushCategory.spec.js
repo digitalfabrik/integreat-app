@@ -103,9 +103,9 @@ describe('pushCategory', () => {
         language: 'de',
         path: '/augsburg/de',
         depth: 1,
-        key: 'route-id-0'
-      },
-      refresh: false
+        key: 'route-id-0',
+        refresh: false
+      }
     }
 
     expect(cityContentReducer(prevState, pushCategoryAction)).toEqual(expect.objectContaining({
@@ -140,9 +140,9 @@ describe('pushCategory', () => {
         language: 'de',
         path: '/augsburg/de/sub',
         depth: 1,
-        key: 'route-id-1'
-      },
-      refresh: false
+        key: 'route-id-1',
+        refresh: false
+      }
     }
 
     expect(cityContentReducer(prevState, pushCategoryAction)).toEqual(expect.objectContaining({
@@ -201,9 +201,9 @@ describe('pushCategory', () => {
         language: 'de',
         path: '/testumgebung/de',
         depth: 1,
-        key: 'route-id-0'
-      },
-      refresh: false
+        key: 'route-id-0',
+        refresh: false
+      }
     }
 
     expect(cityContentReducer(prevState, pushCategoryAction)).toEqual(expect.objectContaining({
@@ -230,9 +230,9 @@ describe('pushCategory', () => {
         language: 'de',
         path: '/augsburg/de',
         depth: 1,
-        key: 'route-id-0'
-      },
-      refresh: false
+        key: 'route-id-0',
+        refresh: false
+      }
     }
 
     expect(cityContentReducer(prevState, pushCategoryAction)).toEqual(expect.objectContaining({

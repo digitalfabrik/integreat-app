@@ -45,10 +45,10 @@ export function * fetchCategory (dataContainer: DataContainer, action: FetchCate
 
       const lastUpdate: Moment | null = yield call(dataContainer.getLastUpdate, city, language)
 
+      const refresh = loadCriterion.shouldUpdate(lastUpdate)
       const push: PushCategoryActionType = {
         type: 'PUSH_CATEGORY',
-        params: { categoriesMap, resourceCache, path, cityLanguages, depth, key, city, language },
-        refresh: loadCriterion.shouldUpdate(lastUpdate)
+        params: { categoriesMap, resourceCache, path, cityLanguages, depth, key, city, language, refresh }
       }
       yield put(push)
     } else {
