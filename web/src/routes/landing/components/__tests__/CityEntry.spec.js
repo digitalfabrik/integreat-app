@@ -4,7 +4,7 @@ import CityEntry from '../CityEntry'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import { shallow } from 'enzyme'
 import React from 'react'
-import brightTheme from '../../../../modules/theme/constants/theme'
+import lightTheme from '../../../../modules/theme/constants/theme'
 
 describe('CityEntry', () => {
   it('should match snapshot', () => {
@@ -23,7 +23,7 @@ describe('CityEntry', () => {
       aliases: null
     })
 
-    const component = shallow(<CityEntry theme={brightTheme} language='de' city={city} filterText='' />).dive()
+    const component = shallow(<CityEntry theme={lightTheme} language='de' city={city} filterText='' />).dive()
     expect(component).toMatchSnapshot()
   })
 })

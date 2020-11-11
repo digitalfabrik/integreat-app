@@ -113,7 +113,8 @@ describe('LocationHeader', () => {
   const onStickyTopChanged = (value: number) => {}
 
   describe('NavigationItems', () => {
-    it('should be empty, if offers and news are both disabled', () => {
+    it('should be empty if all other header items are disabled', () => {
+      // TODO IGAPP-115: Fix this test
       const component = shallow(<LocationHeader location={location(CATEGORIES_ROUTE)}
                                                 isOffersEnabled={false}
                                                 isEventsEnabled={false}

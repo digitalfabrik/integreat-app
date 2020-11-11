@@ -18,7 +18,7 @@ const StyledLink = styled(Link)`
   display: flex;
   transition: color 0.2s;
 
-  @media ${props => props.theme.dimensions.smallViewport} {
+  @media ${props => props.theme.dimensions.web.smallViewport} {
     font-size: 0.8em;
     min-width: 135px;
   }
@@ -76,7 +76,7 @@ const Circle = styled.div`
     width: ${ICON_SIZE_LARGE / Math.sqrt(2) - PADDING_CIRCLE}px;
   }
 
-  @media ${props => props.theme.dimensions.smallViewport} {
+  @media ${props => props.theme.dimensions.web.smallViewport} {
     height: ${ICON_SIZE_SMALL}px;
     width: ${ICON_SIZE_SMALL}px;
 

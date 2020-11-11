@@ -5,7 +5,7 @@ import { View } from 'react-native'
 
 import Page from '../../common/components/Page'
 import Tiles from '../../common/components/Tiles'
-import type { CategoryListModelType } from './CategoryList'
+import type { CategoryListModelType, ListContentModelType } from './CategoryList'
 import CategoryList from './CategoryList'
 import TileModel from '../../common/models/TileModel'
 import {
@@ -132,6 +132,17 @@ class Categories extends React.Component<PropsType> {
     return categories.map(category => this.getListModel(category))
   }
 
+  getListContentModel (category: CategoryModel): ?ListContentModelType {
+    const { navigation, navigateToInternalLink, resourceCacheUrl } = this.props
+    return category.content ? {
+      content: category.content,
+      files: this.getCategoryResourceCache(category),
+      navigation: navigation,
+      navigateToInternalLink: navigateToInternalLink,
+      resourceCacheUrl: resourceCacheUrl
+    } : undefined
+  }
+
   /**
    * Returns the content to be displayed, based on the current category, which is
    * a) page with information
@@ -186,7 +197,7 @@ class Categories extends React.Component<PropsType> {
           })}
           thumbnail={this.getCachedThumbnail(category) || category.thumbnail}
           title={category.title}
-          content={category.content}
+          listContent={this.getListContentModel(category)}
           language={language}
           onItemPress={this.onItemPress}
           theme={theme} />

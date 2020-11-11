@@ -15,7 +15,7 @@ import {
   checkPushNotificationPermission,
   requestPushNotificationPermission
 } from '../../push-notifications/PushNotificationsManager'
-import type { FeatureFlagsType } from '../../../../build-configs/BuildConfigType'
+import type { FeatureFlagsType } from 'build-configs/BuildConfigType'
 
 type PropsType = {|
   navigation: NavigationStackProp<*>,
