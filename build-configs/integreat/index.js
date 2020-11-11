@@ -4,6 +4,8 @@ import { lightTheme, darkTheme } from './theme'
 import type { BuildConfigType } from '../BuildConfigType'
 import { INTEGREAT_ASSETS } from '../AssetsType'
 
+const APPLE_APP_ID = '1072353915'
+
 const IntegreatBuildConfig: BuildConfigType = {
   appName: 'Integreat',
   appIcon: 'app_icon_integreat',
@@ -40,7 +42,7 @@ const IntegreatBuildConfig: BuildConfigType = {
   ios: {
     bundleIdentifier: 'de.integreat-app',
     provisioningProfileSpecifier: 'match Development de.integreat-app',
-    appleId: '1072353915',
+    appleId: APPLE_APP_ID,
     googleServices: {
       clientId: '164298278764-pemn49q7v283m0tqml3q8q0ltr5h8pni.apps.googleusercontent.com',
       reversedClientId: 'com.googleusercontent.apps.164298278764-pemn49q7v283m0tqml3q8q0ltr5h8pni',
@@ -61,15 +63,17 @@ const IntegreatBuildConfig: BuildConfigType = {
     launchScreen: 'LaunchScreenIntegreat'
   },
   web: {
-    itunesAppId: '1072353915',
+    itunesAppId: APPLE_APP_ID,
     manifestUrl: '/manifest.json',
     icons: {
-      locationIcon: '/location-big.svg',
-      headerLogo: '/integreat-app-logo.png'
+      appLogo: '/app-logo.png',
+      locationMarker: '/location-marker.svg',
+      appleTouchIcon: '/apple-touch-icon.png',
+      favicons: '/favicons/'
     },
     splashScreen: {
       backgroundColor: lightTheme.colors.themeColor,
-      imageUrl: '/progressive-logo.jpg'
+      imageUrl: '/app-icon-cornered.jpg'
     }
   }
 }

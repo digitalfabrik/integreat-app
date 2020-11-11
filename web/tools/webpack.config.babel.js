@@ -37,15 +37,11 @@ const getSupportedLocales = () => {
 }
 
 const createConfig = (env = {}) => {
-  const { config_name: buildConfigName, production, debug, commit_sha: commitSha, version_name: versionName } = env
-
-  if ((!production && !debug) || (production && debug)) {
-    throw new Error('You need to set the build mode by either passing production or debug flag!')
-  }
+  const { config_name: buildConfigName, commit_sha: commitSha, version_name: versionName, dev_server: devServer } = env
 
   const buildConfig = loadBuildConfig(buildConfigName)
 
-  const isProductionBuild = production || !debug
+  const isProductionBuild = !buildConfig.development
   // We have to override the env of the current process, such that babel-loader works with that.
   const NODE_ENV = isProductionBuild ? '"production"' : '"development"'
   process.env.NODE_ENV = NODE_ENV
@@ -115,7 +111,7 @@ const createConfig = (env = {}) => {
     // What information should be printed to the console
     stats: 'minimal',
     performance: {
-      hints: isProductionBuild ? 'error' : false,
+      hints: isProductionBuild && !devServer ? 'error' : false,
       maxEntrypointSize: MAX_BUNDLE_SIZE,
       maxAssetSize: MAX_BUNDLE_SIZE
     },
@@ -136,7 +132,6 @@ const createConfig = (env = {}) => {
       ]),
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': NODE_ENV,
-        __DEV__: !isProductionBuild,
         __VERSION__: JSON.stringify(version),
         __BUILD_CONFIG__: JSON.stringify(buildConfig)
       }),
