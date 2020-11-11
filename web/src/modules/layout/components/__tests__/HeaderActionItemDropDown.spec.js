@@ -1,81 +1,68 @@
 // @flow
 
 import React from 'react'
-import { mount } from 'enzyme'
-import HeaderActionItemDropDown, { DropDownContainer } from '../HeaderActionItemDropDown'
-import brightTheme from '../../../theme/constants/theme'
-import { render, fireEvent } from '@testing-library/react'
+import HeaderActionItemDropDown from '../HeaderActionItemDropDown'
+import { fireEvent, render, cleanup } from '@testing-library/react'
 import lightTheme from '../../../theme/constants/theme'
 
 describe('HeaderActionItemDropDown', () => {
-  let MockNode
   let wrapperComponent
+  let inner
 
   beforeEach(() => {
-    MockNode = () => <></>
-    wrapperComponent = mount(
-      <HeaderActionItemDropDown theme={lightTheme} iconSrc='/someImg' text='some text'>
-        {closeDropDown => <MockNode closeDropDown={closeDropDown} />}
-      </HeaderActionItemDropDown>)
-  })
+    const InnerComponent = (props: { closeDropDown: () => void }) => {
+      return <span onClick={props.closeDropDown}>Do you see me?</span>
+    }
 
-  it('should pass correct closeDropDown callback', () => {
-    wrapperComponent.find('button').simulate('click')
-
-    const callback = wrapperComponent.find('MockNode').prop('closeDropDownCallback')
-    expect(callback).not.toBeNull()
-  })
-
-  it('should open DropDown if active', () => {
-    wrapperComponent.find('button').simulate('click')
-
-    expect(wrapperComponent.find(DropDownContainer)).toHaveLength(1)
-  })
-
-  it('shouldnt close DropDown if inactive', () => {
-    wrapperComponent.find('button').simulate('click')
-    wrapperComponent.find('button').simulate('click')
-    expect(wrapperComponent.find(DropDownContainer)).toHaveLength(0)
-  })
-
-  it('should close if clicked outside', () => {
-    const wrapperComponent = render(
+    wrapperComponent = render(
       <div>
-        <span>Click me to close dropdown!</span>
-        <HeaderActionItemDropDown theme={brightTheme} iconSrc='/someImg' text='some text'>
-          {() => <span>Do you see me?</span>}
+        <span>Click me to trigger dropdown!</span>
+        <HeaderActionItemDropDown theme={lightTheme} iconSrc='/someImg' text='some text'>
+          {closeDropDown => <InnerComponent closeDropDown={closeDropDown} />}
         </HeaderActionItemDropDown>
       </div>
     )
 
-    fireEvent.click(wrapperComponent.getByRole('button'))
-    expect(wrapperComponent.getByText('Do you see me?')).not.toBeNull()
+    inner = wrapperComponent.getByText('Do you see me?')
+  })
 
-    fireEvent.mouseDown(wrapperComponent.getByText('Click me to close dropdown!'))
-    expect(wrapperComponent.queryByText('Do you see me?')).toBeNull()
+  afterEach(() => {
+    cleanup()
+  })
 
-    fireEvent.click(wrapperComponent.getByRole('button'))
-    expect(wrapperComponent.getByText('Do you see me?')).not.toBeNull()
+  it('should open and close dropdown', () => {
+    expect(inner).not.toBeVisible()
+
+    const button = wrapperComponent.getByRole('button')
+    fireEvent.click(button)
+
+    expect(inner).toBeVisible()
+
+    fireEvent.click(button)
+    expect(wrapperComponent.queryByText('Do you see me?')).not.toBeVisible()
+  })
+
+  it('should close if clicked outside', async () => {
+    const button = wrapperComponent.getByRole('button')
+    fireEvent.click(button)
+    expect(inner).toBeVisible()
+
+    fireEvent.mouseDown(wrapperComponent.getByText('Click me to trigger dropdown!'))
+
+    expect(wrapperComponent.queryByText('Do you see me?')).not.toBeVisible()
+
+    fireEvent.click(button)
+    expect(inner).toBeVisible()
   })
 
   it('should close if inner component demands', async () => {
-    const MockNode = (props: {closeDropDown: () => void}) => {
-      return <span onClick={props.closeDropDown}>Click Me!</span>
-    }
-
-    const wrapperComponent = render(
-        <HeaderActionItemDropDown theme={brightTheme} iconSrc='/someImg' text='some text'>
-          {closeDropDown => <MockNode closeDropDown={closeDropDown} />}
-        </HeaderActionItemDropDown>
-    )
-
     fireEvent.click(wrapperComponent.getByRole('button'))
-    expect(wrapperComponent.getByText('Click Me!')).not.toBeNull()
-    fireEvent.click(wrapperComponent.getByText('Click Me!'))
-    expect(wrapperComponent.queryByText('Click Me!')).toBeNull()
+    expect(inner).toBeVisible()
+    fireEvent.click(inner)
+    expect(inner).not.toBeVisible()
   })
 
   it('should be closed from the beginning', () => {
-    expect(wrapperComponent.find(DropDownContainer)).toHaveLength(0)
+    expect(inner).not.toBeVisible()
   })
 })

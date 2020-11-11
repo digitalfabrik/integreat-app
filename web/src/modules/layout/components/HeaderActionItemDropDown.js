@@ -97,7 +97,11 @@ const HeaderActionItemDropDown = (props: PropsType) => {
       onClick={toggleDropDown}>
       <img alt='' src={iconSrc} />
     </button>
-    <DropDownContainer active={dropDownActive} theme={theme}>
+    <DropDownContainer aria-label={dropDownActive}
+                       active={dropDownActive}
+                       theme={theme}
+                       // We need to have th visibility here, else the jest-dom testing library can not assert on it
+                       style={{ visibility: `${dropDownActive ? 'visible' : 'hidden'}` }}>
       {children(closeDropDown)}
     </DropDownContainer>
   </Container>
