@@ -10,6 +10,8 @@ environment:
   TOTAL_CPUS: 1 # For resource_class small
 shell: /bin/bash -eo pipefail
 steps:
+  - skip_job:
+      build_config_name: << parameters.build_config_name >>
   - checkout
   - restore_yarn_cache
   - run:

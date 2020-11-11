@@ -50,20 +50,16 @@ const renderJS = (cacheDictionary: { [remoteUrl: string]: string }) => `
 
   for (var i = 0; i < hrefs.length; i++) {
     var item = hrefs[i]
-    console.debug('Found href: ' + decodeURI(item.href))
     var newResource = cacheDictionary[decodeURI(item.href)]
     if (newResource) {
-      console.debug('Replaced ' + item.href + ' with ' + newResource)
       item.href = newResource
     }
   }
 
   for (var i = 0; i < srcs.length; i++) {
     var item = srcs[i]
-    console.debug('Found src: ' + decodeURI(item.src))
     var newResource = cacheDictionary[decodeURI(item.src)]
     if (newResource) {
-      console.debug('Replaced ' + item.src + ' with ' + newResource)
       item.src = newResource
     }
   }
