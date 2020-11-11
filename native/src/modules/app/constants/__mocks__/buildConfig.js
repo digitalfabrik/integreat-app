@@ -3,6 +3,7 @@
 import { darkTheme, lightTheme } from 'build-configs/integreat/theme'
 import type { BuildConfigType } from 'build-configs/BuildConfigType'
 import { INTEGREAT_ASSETS } from 'build-configs/AssetsType'
+import mainImprint from 'build-configs/integreat/assets/mainImprint'
 
 export const buildConfigIconSet = (): {| appLogo: string, locationMarker: string |} => {
   throw new Error('Mock not yet implemented!')
@@ -26,6 +27,15 @@ const buildConfig = jest.fn<[], BuildConfigType>((): BuildConfigType => ({
     pushNotifications: false,
     introSlides: true,
     sentry: true
+  },
+  mainImprint,
+  aboutUrls: {
+    default: 'https://integreat-app.de/about/',
+    en: 'https://integreat-app.de/en/about/'
+  },
+  privacyUrls: {
+    default: 'https://integreat-app.de/datenschutz/',
+    en: 'https://integreat-app.de/en/privacy/'
   },
   android: {
     splashScreen: true,
