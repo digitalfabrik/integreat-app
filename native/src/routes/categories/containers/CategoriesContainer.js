@@ -1,7 +1,7 @@
 // @flow
 
 import { connect } from 'react-redux'
-import type { LanguageResourceCacheStateType, StateType } from '../../../modules/app/StateType'
+import type { CategoryRouteStateType, LanguageResourceCacheStateType, StateType } from '../../../modules/app/StateType'
 import { type Dispatch } from 'redux'
 import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
 import type { StoreActionType, SwitchContentLanguageActionType } from '../../../modules/app/StoreActionType'
@@ -52,6 +52,9 @@ const createChangeUnavailableLanguage = (city: string, t: TFunction) => (
   dispatch(switchContentLanguage)
 }
 
+const routeHasOldContent = (route: CategoryRouteStateType): boolean =>
+  !!route.models && !!route.allAvailableLanguages && !!route.children
+
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const { t, navigation } = ownProps
   if (!state.cityContent) {
@@ -99,12 +102,13 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
 
   if (state.resourceCacheUrl === null || state.cities.status === 'loading' || switchingLanguage ||
-    route.status === 'loading' || languages.status === 'loading') {
+    (route.status === 'loading' && !routeHasOldContent(route)) || languages.status === 'loading') {
     return { status: 'loading' }
   }
 
+  // $FlowFixMe Flow can't evaluate the status as it is dynamic
   return {
-    status: 'success',
+    status: route.status === 'loading' ? 'loading' : 'success',
     refreshProps,
     innerProps: {
       cityCode: route.city,

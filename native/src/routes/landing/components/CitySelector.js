@@ -16,6 +16,7 @@ import { Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import CityGroup from './CityGroup'
 import normalizeSearchString from '../../../modules/common/normalizeSearchString'
+import buildConfig from '../../../modules/app/constants/buildConfig'
 
 const CityGroupContainer: StyledComponent<{}, {}, *> = styled.View`
   flex: 0;
@@ -59,6 +60,8 @@ class CitySelector extends React.PureComponent<PropsType> {
     const cities = this.props.cities
     if (normalizedFilter === 'wirschaffendas') {
       return cities.filter(_city => !_city.live)
+    } else if (buildConfig().development) {
+      return cities
     } else {
       return cities
         .filter(_city => _city.live)
