@@ -15,7 +15,7 @@ import {
   PoiModel,
   TunewsModel,
   WohnenOfferModel
-} from '@integreat-app/integreat-api-client'
+} from 'api-client'
 import Layout from '../../layout/components/Layout'
 import LocationLayout from '../../layout/containers/LocationLayout'
 import GeneralHeader from '../../layout/components/GeneralHeader'

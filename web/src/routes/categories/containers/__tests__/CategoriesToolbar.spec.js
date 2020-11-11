@@ -4,7 +4,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 
 import { CategoriesToolbar } from '../CategoriesToolbar'
-import { CategoriesMapModel, CategoryModel } from '@integreat-app/integreat-api-client'
+import { CategoriesMapModel, CategoryModel } from 'api-client'
 import { CATEGORIES_ROUTE } from '../../../../modules/app/route-configs/CategoriesRouteConfig'
 import moment from 'moment'
 import createLocation from '../../../../createLocation'

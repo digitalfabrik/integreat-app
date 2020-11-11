@@ -1,10 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import {
-  LocalNewsModel,
-  TunewsModel
-} from '@integreat-app/integreat-api-client'
+import { LocalNewsModel, TunewsModel } from 'api-client'
 import styled from 'styled-components/native'
 import { type TFunction, withTranslation } from 'react-i18next'
 import type { ThemeType } from '../../../modules/theme/constants'

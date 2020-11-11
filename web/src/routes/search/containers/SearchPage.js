@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 
 import SearchInput from '../../../modules/common/components/SearchInput'
 
-import { CategoriesMapModel, CategoryModel } from '@integreat-app/integreat-api-client'
+import { CategoriesMapModel, CategoryModel } from 'api-client'
 import CategoryList from '../../categories/components/CategoryList'
 import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'

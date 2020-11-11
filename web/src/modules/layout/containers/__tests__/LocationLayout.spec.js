@@ -9,7 +9,7 @@ import {
   DateModel,
   EventModel,
   LocationModel
-} from '@integreat-app/integreat-api-client'
+} from 'api-client'
 import { LocationLayout } from '../LocationLayout'
 import { CATEGORIES_ROUTE } from '../../../app/route-configs/CategoriesRouteConfig'
 import moment from 'moment'

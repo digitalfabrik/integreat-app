@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import { CityModel, POSITIVE_RATING } from '@integreat-app/integreat-api-client'
+import { CityModel, POSITIVE_RATING } from 'api-client'
 import styled, { withTheme } from 'styled-components'
 import type { LocationState } from 'redux-first-router'
 import FeedbackThanksMessage from './FeedbackThanksMessage'

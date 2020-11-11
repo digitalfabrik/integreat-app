@@ -2,7 +2,7 @@
 
 import { render, shallow } from 'enzyme'
 import React from 'react'
-import { WohnenOfferModel, WohnenFormData } from '@integreat-app/integreat-api-client'
+import { WohnenOfferModel, WohnenFormData } from 'api-client'
 import moment from 'moment'
 import OfferDetail from '../OfferDetail'
 

@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { Linking } from 'react-native'
-import { WohnenOfferModel, WohnenFormData, type AccommodationType } from '@integreat-app/integreat-api-client'
+import { WohnenOfferModel, WohnenFormData, type AccommodationType } from 'api-client'
 import styled from 'styled-components/native'
 import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'

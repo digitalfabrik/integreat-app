@@ -2,7 +2,7 @@
 
 import type { DataContainer } from '../../DataContainer'
 import type { Saga } from 'redux-saga'
-import { LanguageModel } from '@integreat-app/integreat-api-client'
+import { LanguageModel } from 'api-client'
 import { call } from 'redux-saga/effects'
 
 export default function * (

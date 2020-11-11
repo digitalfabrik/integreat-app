@@ -10,7 +10,7 @@ import type { NavigationStackProp } from 'react-navigation-stack'
 import type { TFunction } from 'react-i18next'
 import FeedbackVariant from '../FeedbackVariant'
 import Caption from '../../../modules/common/components/Caption'
-import type { FeedbackParamsType } from '@integreat-app/integreat-api-client/index'
+import type { FeedbackParamsType } from 'api-client'
 import buildConfig from '../../../modules/app/constants/buildConfig'
 
 const Input = styled(TextInput)`

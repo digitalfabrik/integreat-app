@@ -5,7 +5,7 @@ import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
 import { faFilePdf } from '../../../modules/app/constants/icons'
 
-import { CategoriesMapModel, CategoryModel } from '@integreat-app/integreat-api-client'
+import { CategoriesMapModel, CategoryModel } from 'api-client'
 import ToolbarItem from '../../../modules/layout/components/ToolbarItem'
 import type { LocationState } from 'redux-first-router'
 import LocationToolbar from '../../../modules/layout/components/LocationToolbar'
