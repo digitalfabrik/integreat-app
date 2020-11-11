@@ -1,12 +1,19 @@
 #!/usr/bin/env node
 
-const loadBuildConfig = require('../build-configs').default
+// https://github.com/babel/babel/issues/8309#issuecomment-439161848
+// Modules in node_modules are ignored and not transpiled per default.
+// Explicitly not ignore the build-configs npm module here since it has to be compiled as monorepo package.
+require('@babel/register')({
+  ignore: [/node_modules\/(?!build-configs)/]
+})
+
 const { program } = require('commander')
 const fs = require('fs')
 const flat = require('flat')
 const decamelize = require('decamelize')
+const loadBuildConfig = require('build-configs').default
 
-const loadBuildConfigAsXCConfig = (buildConfigName) => {
+const loadBuildConfigAsXCConfig = buildConfigName => {
   const buildConfig = loadBuildConfig(buildConfigName)
   const xcconfigOptions = flat(buildConfig, {
     delimiter: '_',
@@ -34,7 +41,7 @@ program
 program
   .command('to-xcconfig <build_config_name>')
   .description('outputs the specified build config as XConfig')
-  .action((buildConfigName) => {
+  .action(buildConfigName => {
     try {
       const xcconfig = loadBuildConfigAsXCConfig(buildConfigName)
       console.log(xcconfig)

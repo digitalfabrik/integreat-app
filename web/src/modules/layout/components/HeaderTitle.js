@@ -16,18 +16,18 @@ const HeaderTitleDiv = styled.div`
   display: flex;
   align-items: center;
   font-size: ${props => props.long ? '1.3rem' : '1.8rem'};
-  max-height: ${props => props.theme.dimensions.headerHeightLarge};
+  max-height: ${props => props.theme.dimensions.web.headerHeightLarge};
   font-weight: 800;
   flex: 1;
   order: 2;
   padding: 0 10px;
   box-sizing: border-box;
 
-  @media ${props => props.theme.dimensions.minMaxWidth} {
+  @media ${props => props.theme.dimensions.web.minMaxWidth} {
     font-size: ${props => props.long ? '1.5rem' : '1.8rem'};
   }
 
-  @media ${props => props.theme.dimensions.smallViewport} {
+  @media ${props => props.theme.dimensions.web.smallViewport} {
     font-size: ${props => props.long ? '1.2rem' : '1.5rem'};
     height: ${HEADER_TITLE_HEIGHT}px;
     order: 3;

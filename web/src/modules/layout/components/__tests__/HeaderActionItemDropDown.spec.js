@@ -5,6 +5,7 @@ import { mount } from 'enzyme'
 import HeaderActionItemDropDown, { DropDownContainer } from '../HeaderActionItemDropDown'
 import brightTheme from '../../../theme/constants/theme'
 import { render, fireEvent } from '@testing-library/react'
+import lightTheme from '../../../theme/constants/theme'
 
 describe('HeaderActionItemDropDown', () => {
   let MockNode
@@ -13,7 +14,7 @@ describe('HeaderActionItemDropDown', () => {
   beforeEach(() => {
     MockNode = () => <></>
     wrapperComponent = mount(
-      <HeaderActionItemDropDown theme={brightTheme} iconSrc='/someImg' text='some text'>
+      <HeaderActionItemDropDown theme={lightTheme} iconSrc='/someImg' text='some text'>
         {closeDropDown => <MockNode closeDropDown={closeDropDown} />}
       </HeaderActionItemDropDown>)
   })
