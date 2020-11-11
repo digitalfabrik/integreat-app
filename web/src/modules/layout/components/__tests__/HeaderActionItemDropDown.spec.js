@@ -44,7 +44,6 @@ describe('HeaderActionItemDropDown', () => {
     expect(wrapperComponent.queryByText('Do you see me?')).not.toBeVisible()
   })
 
-
   it('should close if clicked outside', async () => {
     const button = wrapperComponent.getByRole('button')
     fireEvent.click(button)
