@@ -8,6 +8,7 @@ import lightTheme from '../../../theme/constants/theme'
 describe('HeaderActionItemDropDown', () => {
   let wrapperComponent
   let inner
+  let outside
 
   beforeEach(() => {
     const InnerComponent = (props: { closeDropDown: () => void }) => {
@@ -24,6 +25,7 @@ describe('HeaderActionItemDropDown', () => {
     )
 
     inner = wrapperComponent.getByText('Do you see me?')
+    outside = wrapperComponent.getByText('Click me to trigger dropdown!')
   })
 
   afterEach(() => {
@@ -42,12 +44,13 @@ describe('HeaderActionItemDropDown', () => {
     expect(wrapperComponent.queryByText('Do you see me?')).not.toBeVisible()
   })
 
+
   it('should close if clicked outside', async () => {
     const button = wrapperComponent.getByRole('button')
     fireEvent.click(button)
     expect(inner).toBeVisible()
 
-    fireEvent.mouseDown(wrapperComponent.getByText('Click me to trigger dropdown!'))
+    fireEvent.mouseDown(outside)
 
     expect(wrapperComponent.queryByText('Do you see me?')).not.toBeVisible()
 
@@ -59,6 +62,20 @@ describe('HeaderActionItemDropDown', () => {
     fireEvent.click(wrapperComponent.getByRole('button'))
     expect(inner).toBeVisible()
     fireEvent.click(inner)
+    expect(inner).not.toBeVisible()
+  })
+
+  it('should close if pressing escape', async () => {
+    fireEvent.click(wrapperComponent.getByRole('button'))
+    expect(inner).toBeVisible()
+    fireEvent.keyDown(outside, { keyCode: 27 })
+    expect(inner).not.toBeVisible()
+  })
+
+  it('should close if pressing enter', async () => {
+    fireEvent.click(wrapperComponent.getByRole('button'))
+    expect(inner).toBeVisible()
+    fireEvent.keyDown(outside, { keyCode: 13 })
     expect(inner).not.toBeVisible()
   })
 
