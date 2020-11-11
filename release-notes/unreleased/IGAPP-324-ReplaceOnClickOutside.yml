@@ -1,0 +1,5 @@
+issue_key: IGAPP-324
+show_in_stores: false
+platforms: 
+  - web
+en: Remove external depdendency for handling clicks outside of active components
