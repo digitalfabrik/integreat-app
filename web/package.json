@@ -33,6 +33,7 @@
     "@fortawesome/react-fontawesome": "^0.1.4",
     "@integreat-app/integreat-api-client": "^6.0.0",
     "@integreat-app/react-sticky-headroom": "^1.0.4",
+    "@sentry/react": "^5.27.3",
     "build-configs": "file:../build-configs",
     "detect-browser": "^4.1.0",
     "focus-trap-react": "^6.0.0",
