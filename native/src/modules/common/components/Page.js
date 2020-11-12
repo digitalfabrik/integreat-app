@@ -14,6 +14,7 @@ import RemoteContent from './RemoteContent'
 import SiteHelpfulBox from './SiteHelpfulBox'
 import SpaceBetween from './SpaceBetween'
 import onInternalLinkPress from '../onInternalLinkPress'
+import { RESOURCE_CACHE_DIR_PATH } from '../../endpoint/DatabaseConnector'
 
 const HORIZONTAL_MARGIN = 8
 
@@ -44,14 +45,19 @@ class Page extends React.Component<PropType, StateType> {
   state = { loading: true }
 
   onLinkPress = (url: string) => {
-    const { navigation, language, navigateToInternalLink } = this.props
-    onInternalLinkPress(url, navigation, language, navigateToInternalLink)
+    const { navigation, language, navigateToInternalLink, resourceCacheUrl } = this.props
+    const sharePath = url.replace(resourceCacheUrl, RESOURCE_CACHE_DIR_PATH)
+    console.log(resourceCacheUrl)
+    console.log(RESOURCE_CACHE_DIR_PATH)
+    console.log(sharePath)
+    onInternalLinkPress(url, navigation, language, navigateToInternalLink, sharePath)
   }
 
   onLoad = () => this.setState({ loading: false })
 
   render () {
     const { title, children, content, files, theme, language, resourceCacheUrl, lastUpdate, navigateToFeedback } = this.props
+    console.log(files)
     return <SpaceBetween>
       <Container>
         <Caption title={title} theme={theme} />
