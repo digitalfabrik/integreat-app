@@ -58,6 +58,7 @@ describe('pushEvent', () => {
       },
       resourceCache: {
         status: 'ready',
+        progress: 1,
         value: {
           '/augsburg/de/events/ev1': {
             'some-url': {
@@ -80,6 +81,7 @@ describe('pushEvent', () => {
       newsRouteMapping: {},
       resourceCache: {
         status: 'ready',
+        progress: 0,
         value: {}
       }
     })
@@ -116,6 +118,7 @@ describe('pushEvent', () => {
       eventsRouteMapping: {},
       resourceCache: {
         status: 'ready',
+        progress: 0,
         value: {}
       }
     })
@@ -207,6 +210,7 @@ describe('pushEvent', () => {
       city: 'augsburg',
       resourceCache: {
         status: 'ready',
+        progress: 1,
         value: { ...prevResources, ...resourceCache }
       }
     }))

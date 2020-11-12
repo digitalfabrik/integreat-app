@@ -1,9 +1,9 @@
 // @flow
 
-import { eventChannel } from 'redux-saga'
-import type { EventChannel } from 'redux-saga'
-import NativeFetcherModule, { NativeFetcherModuleEmitter } from './NativeFetcherModule'
 import { isEmpty } from 'lodash'
+import type { EventChannel } from 'redux-saga'
+import { eventChannel } from 'redux-saga'
+import NativeFetcherModule, { NativeFetcherModuleEmitter } from './NativeFetcherModule'
 
 export type TargetFilePathsType = { [path: string]: string }
 
@@ -15,7 +15,18 @@ class FetcherModule {
 
   createProgressChannel = (): EventChannel<number> => {
     return eventChannel<number>(emitter => {
-      const subscription = NativeFetcherModuleEmitter.addListener('progress', emitter)
+      let prevStep = 0
+      const stepWidth = 10
+
+      const subscription = NativeFetcherModuleEmitter.addListener('progress', (progress: number) => {
+        const newStep = Math.floor(progress * stepWidth) / stepWidth
+        if (newStep <= prevStep) {
+          return
+        }
+        prevStep = newStep
+        emitter(newStep)
+      })
+
       return () => subscription.remove()
     })
   }
@@ -23,10 +34,10 @@ class FetcherModule {
   fetchAsync = (targetFilePaths: TargetFilePathsType): Promise<FetchResultType> => {
     FetcherModule.currentlyFetching = true
 
-    const fetchPromise: Promise<FetchResultType> = !isEmpty(targetFilePaths) 
-      ? NativeFetcherModule.fetchAsync(targetFilePaths) 
+    const fetchPromise: Promise<FetchResultType> = !isEmpty(targetFilePaths)
+      ? NativeFetcherModule.fetchAsync(targetFilePaths)
       : Promise.resolve({})
-    
+
     fetchPromise.then(result => {
       FetcherModule.currentlyFetching = false
 

@@ -6,6 +6,7 @@ import DefaultDataContainer from '../../DefaultDataContainer'
 import RNFetchBlob from '../../../../__mocks__/rn-fetch-blob'
 import CategoriesMapModelBuilder from '../../../../testing/builder/CategoriesMapModelBuilder'
 import ErrorCodes from '../../../error/ErrorCodes'
+import FetcherModule from '../../../fetcher/FetcherModule'
 
 jest.mock('../../../fetcher/FetcherModule')
 jest.mock('rn-fetch-blob')
@@ -61,19 +62,12 @@ describe('fetchResourceCache', () => {
     const categoriesBuilder = new CategoriesMapModelBuilder(city, language)
     const fetchMap = categoriesBuilder.buildFetchMap()
 
+    FetcherModule.currentlyFetching = true
     return expectSaga(fetchResourceCache, city, language, fetchMap, dataContainer)
-      .provide({
-        call: (effect, next) => {
-          if (effect.fn.name === 'fetchAsync') {
-            throw new Error('Jemand hat keine 4 Issues geschafft!')
-          }
-          return next()
-        }
-      })
       .put({
         type: 'FETCH_RESOURCES_FAILED',
         params: {
-          message: 'Error in fetchResourceCache: Jemand hat keine 4 Issues geschafft!',
+          message: 'Error in fetchResourceCache: Already fetching!',
           code: ErrorCodes.UnknownError
         }
       })

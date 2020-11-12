@@ -106,6 +106,21 @@ describe('cityContentReducer', () => {
     })
   }
 
+  let prevState: CityContentStateType
+  beforeEach(() => {
+    prevState = {
+      city: 'augsburg',
+      categoriesRouteMapping: {},
+      eventsRouteMapping: {},
+      poisRouteMapping: {},
+      newsRouteMapping: {},
+      languages: { status: 'ready', models: languageModels },
+      resourceCache: { status: 'ready', progress: 0, value: {} },
+      searchRoute: null,
+      switchingLanguage: false
+    }
+  })
+
   it('should set switchingLanguage to true on SWITCH_CONTENT_LANGUAGE', () => {
     const prevState: CityContentStateType = {
       city: 'augsburg',
@@ -113,7 +128,7 @@ describe('cityContentReducer', () => {
       eventsRouteMapping: {},
       poisRouteMapping: {},
       languages: { status: 'ready', models: [] },
-      resourceCache: { status: 'ready', value: {} },
+      resourceCache: { status: 'ready', progress: 0, value: {} },
       newsRouteMapping: {},
       searchRoute: null,
       switchingLanguage: false
@@ -129,7 +144,7 @@ describe('cityContentReducer', () => {
       poisRouteMapping: {},
       newsRouteMapping: {},
       languages: { status: 'ready', models: [] },
-      resourceCache: { status: 'ready', value: {} },
+      resourceCache: { status: 'ready', progress: 0, value: {} },
       searchRoute: null,
       switchingLanguage: true
     }
@@ -144,7 +159,7 @@ describe('cityContentReducer', () => {
       poisRouteMapping: {},
       newsRouteMapping: {},
       languages: { status: 'ready', models: [] },
-      resourceCache: { status: 'ready', value: {} },
+      resourceCache: { status: 'ready', progress: 0, value: {} },
       searchRoute: null,
       switchingLanguage: false
     }
@@ -160,7 +175,7 @@ describe('cityContentReducer', () => {
       poisRouteMapping: {},
       newsRouteMapping: {},
       languages: { status: 'ready', models: [] },
-      resourceCache: { status: 'ready', value: {} },
+      resourceCache: { status: 'ready', progress: 0, value: {} },
       searchRoute: null,
       switchingLanguage: false
     }
@@ -194,7 +209,7 @@ describe('cityContentReducer', () => {
       poisRouteMapping: {},
       newsRouteMapping: {},
       languages: { status: 'loading' },
-      resourceCache: { status: 'ready', value: {} },
+      resourceCache: { status: 'ready', progress: 0, value: {} },
       searchRoute: null,
       switchingLanguage: false
     })
@@ -217,7 +232,7 @@ describe('cityContentReducer', () => {
       },
       poisRouteMapping: {},
       languages: { status: 'ready', models: languageModels },
-      resourceCache: { status: 'ready', value: {} },
+      resourceCache: { status: 'ready', progress: 0, value: {} },
       searchRoute: null,
       switchingLanguage: false
     }
@@ -243,7 +258,7 @@ describe('cityContentReducer', () => {
       },
       poisRouteMapping: {},
       languages: { status: 'ready', models: languageModels },
-      resourceCache: { status: 'ready', value: {} },
+      resourceCache: { status: 'ready', progress: 0, value: {} },
       searchRoute: null,
       switchingLanguage: false
     }
@@ -283,7 +298,7 @@ describe('cityContentReducer', () => {
       },
       poisRouteMapping: {},
       languages: { status: 'ready', models: languageModels },
-      resourceCache: { status: 'ready', value: {} },
+      resourceCache: { status: 'ready', progress: 0, value: {} },
       searchRoute: null,
       switchingLanguage: false
     }
@@ -333,7 +348,7 @@ describe('cityContentReducer', () => {
       poisRouteMapping: {},
       newsRouteMapping: {},
       languages: { status: 'loading' },
-      resourceCache: { status: 'ready', value: {} },
+      resourceCache: { status: 'ready', progress: 0, value: {} },
       searchRoute: null,
       switchingLanguage: false
     })
@@ -357,7 +372,7 @@ describe('cityContentReducer', () => {
       poisRouteMapping: {},
       newsRouteMapping: {},
       languages: { status: 'ready', models: languageModels },
-      resourceCache: { status: 'ready', value: {} },
+      resourceCache: { status: 'ready', progress: 0, value: {} },
       searchRoute: null,
       switchingLanguage: false
     }
@@ -385,7 +400,7 @@ describe('cityContentReducer', () => {
         poisRouteMapping: {},
         newsRouteMapping: {},
         languages: { status: 'ready', models: languageModels },
-        resourceCache: { status: 'ready', value: {} },
+        resourceCache: { status: 'ready', progress: 0, value: {} },
         searchRoute: null,
         switchingLanguage: false
       }
@@ -426,7 +441,7 @@ describe('cityContentReducer', () => {
       poisRouteMapping: {},
       newsRouteMapping: {},
       languages: { status: 'ready', models: languageModels },
-      resourceCache: { status: 'ready', value: {} },
+      resourceCache: { status: 'ready', progress: 0, value: {} },
       searchRoute: null,
       switchingLanguage: false
     }
@@ -462,26 +477,26 @@ describe('cityContentReducer', () => {
       poisRouteMapping: {},
       newsRouteMapping: {},
       languages: { status: 'ready', models: languageModels },
-      resourceCache: { status: 'ready', value: {} },
+      resourceCache: { status: 'ready', progress: 0, value: {} },
       searchRoute: null,
       switchingLanguage: false
     }
     expect(cityContentReducer(prevState, { type: 'CLEAR_CITY' })).toBeNull()
   })
 
-  it('should set an errorState for the resourceCache on FETCH_RESOURCES_FAILED', () => {
-    const prevState = {
-      city: 'augsburg',
-      categoriesRouteMapping: {},
-      eventsRouteMapping: {},
-      poisRouteMapping: {},
-      newsRouteMapping: {},
-      languages: { status: 'ready', models: languageModels },
-      resourceCache: { status: 'ready', value: {} },
-      searchRoute: null,
-      switchingLanguage: false
+  it('should set progress for the resourceCache on FETCH_RESOURCES_PROGRESS', () => {
+    prevState = {
+      ...prevState,
+      resourceCache: { status: 'ready', progress: 0.1, value: {} }
     }
 
+    expect(cityContentReducer(prevState, {
+      type: 'FETCH_RESOURCES_PROGRESS',
+      params: { progress: 0.2 }
+    })?.resourceCache).toEqual({ status: 'ready', progress: 0.2, value: {} })
+  })
+
+  it('should set an errorState for the resourceCache on FETCH_RESOURCES_FAILED', () => {
     expect(cityContentReducer(prevState, {
       type: 'FETCH_RESOURCES_FAILED',
       params: { message: 'No idea why it fails :/', code: ErrorCodes.UnknownError }

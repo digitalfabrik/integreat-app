@@ -15,7 +15,7 @@ describe('isPeekingRoute', () => {
         eventsRouteMapping: {},
         poisRouteMapping: {},
         newsRouteMapping: {},
-        resourceCache: { status: 'ready', value: {} },
+        resourceCache: { status: 'ready', progress: 1, value: {} },
         searchRoute: null
       },
       contentLanguage: 'en',
@@ -37,7 +37,7 @@ describe('isPeekingRoute', () => {
         eventsRouteMapping: {},
         poisRouteMapping: {},
         newsRouteMapping: {},
-        resourceCache: { status: 'ready', value: {} },
+        resourceCache: { status: 'ready', progress: 1, value: {} },
         searchRoute: null
       },
       contentLanguage: 'en',

@@ -1,8 +1,8 @@
 // @flow
 
+import type { TargetFilePathsType } from '../FetcherModule'
 import FetcherModule from '../FetcherModule'
 import NativeFetcherModule from '../NativeFetcherModule'
-import type { TargetFilePathsType } from '../FetcherModule'
 
 jest.mock('../NativeFetcherModule')
 
@@ -11,41 +11,48 @@ beforeEach(() => {
 })
 
 describe('FetcherModule', () => {
-  const testTargetFilePaths: TargetFilePathsType = {
-    'local/path/to/resource.png': 'http://randomtesturl.de/resource.png',
-    'local/path/to/resource2.jpg': 'http://randomtesturl.de/resource2.jpg'
-  }
-
-  it('should call fetchAsync with targetFiles on native module', async () => {
-    const fetcherModule = new FetcherModule()
-    await fetcherModule.fetchAsync(testTargetFilePaths, progress => console.log(progress))
-    expect(NativeFetcherModule.fetchAsync).toHaveBeenCalledTimes(1)
-    expect(NativeFetcherModule.fetchAsync).toHaveBeenCalledWith(testTargetFilePaths)
+  let fetcherModule: FetcherModule
+  beforeEach(() => {
+    fetcherModule = new FetcherModule()
   })
 
-  it('should not call fetchAsync if targetFiles are empty', async () => {
-    const fetcherModule = new FetcherModule()
-    await fetcherModule.fetchAsync({}, progress => console.log(progress))
-    expect(NativeFetcherModule.fetchAsync).not.toHaveBeenCalled()
+  describe('createProgressChannel', () => {
+    it('should create event channel', () => {
+      const channel = fetcherModule.createProgressChannel()
+      expect(NativeFetcherModule.addListener).toHaveBeenCalledWith('progress')
+      channel.close()
+    })
   })
 
-  it('should return an error if fetcher is already busy', async () => {
-    const fetcherModule = new FetcherModule()
-    const anotherFetcherModule = new FetcherModule()
-
-    fetcherModule.fetchAsync(testTargetFilePaths, process => console.log(process))
-
-    expect.assertions(1)
-    try {
-      await anotherFetcherModule.fetchAsync(testTargetFilePaths, process => console.log(process))
-    } catch (e) {
-      expect(e).toEqual(new Error('Already fetching!'))
+  describe('fetchAsync', () => {
+    const testTargetFilePaths: TargetFilePathsType = {
+      'local/path/to/resource.png': 'http://randomtesturl.de/resource.png',
+      'local/path/to/resource2.jpg': 'http://randomtesturl.de/resource2.jpg'
     }
-  })
 
-  it('should return the fetch result data if fetchAsync call is valid', async () => {
-    const fetcherModule = new FetcherModule()
-    const fetchResult = await fetcherModule.fetchAsync(testTargetFilePaths, progress => console.log(progress))
-    expect(fetchResult).toMatchSnapshot()
+    it('should call fetchAsync with targetFiles on native module', async () => {
+      await fetcherModule.fetchAsync(testTargetFilePaths)
+      expect(NativeFetcherModule.fetchAsync).toHaveBeenCalledTimes(1)
+      expect(NativeFetcherModule.fetchAsync).toHaveBeenCalledWith(testTargetFilePaths)
+    })
+
+    it('should not call fetchAsync if targetFiles are empty', async () => {
+      await fetcherModule.fetchAsync({})
+      expect(NativeFetcherModule.fetchAsync).not.toHaveBeenCalled()
+    })
+
+    it('should set currentlyFetching to true if fetcher is already busy', async () => {
+      const fetcherModule = new FetcherModule()
+      const anotherFetcherModule = new FetcherModule()
+
+      expect(FetcherModule.currentlyFetching).toBe(false)
+      fetcherModule.fetchAsync(testTargetFilePaths)
+      expect(FetcherModule.currentlyFetching).toBe(true)
+    })
+
+    it('should return the fetch result data if fetchAsync call is valid', async () => {
+      const fetchResult = await fetcherModule.fetchAsync(testTargetFilePaths)
+      expect(fetchResult).toMatchSnapshot()
+    })
   })
 })
