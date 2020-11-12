@@ -1,8 +1,8 @@
 // @flow
 
-import type { Saga, EventChannel } from 'redux-saga'
+import type { Saga } from 'redux-saga'
 import { flatten, isEmpty, mapValues, pickBy, reduce, values } from 'lodash'
-import { call, put, fork, take } from 'redux-saga/effects'
+import { call, put, fork, take, cancel } from 'redux-saga/effects'
 import type { ResourcesFetchProgressActionType, ResourcesFetchFailedActionType } from '../../app/StoreActionType'
 import type { FetchResultType, TargetFilePathsType } from '../../fetcher/FetcherModule'
 import FetcherModule from '../../fetcher/FetcherModule'
@@ -19,26 +19,23 @@ const createErrorMessage = (fetchResult: FetchResultType) => {
     `${message}'Failed to download ${result.url} to ${path}': ${result.errorMessage}\n`, '')
 }
 
-function * watchOnProgress (channel: EventChannel<number>): Saga<void> {
-  let prevStep = 0
-  while (prevStep < 1) {
-    const progress = yield take(channel)
-    const stepWidth = 10
-    const newStep = Math.floor(progress * stepWidth) / stepWidth
+function * watchOnProgress (): Saga<void> {
+  const channel = new FetcherModule().createProgressChannel()
+  try {
+    let progress = 0
+    while (progress < 1) {
+      progress = yield take(channel)
 
-    if (newStep <= prevStep) {
-      continue
-    }
-
-    const progressAction: ResourcesFetchProgressActionType = {
-      type: 'FETCH_RESOURCES_PROGRESS',
-      params: {
-        progress: newStep
+      const progressAction: ResourcesFetchProgressActionType = {
+        type: 'FETCH_RESOURCES_PROGRESS',
+        params: {
+          progress: progress
+        }
       }
+      yield put(progressAction)
     }
-    yield put(progressAction)
-
-    prevStep = newStep
+  } finally {
+    channel.close()
   }
 }
 
@@ -58,12 +55,9 @@ export default function * fetchResourceCache (
     if (FetcherModule.currentlyFetching) {
       throw new Error('Already fetching!')
     }
-    const fetcher = new FetcherModule()
-    const progressChannel = fetcher.createProgressChannel();
-    yield fork(watchOnProgress, progressChannel)
-    
-    const results = yield call(fetcher.fetchAsync, targetFilePaths)
-    progressChannel.close()
+    const progressTask = yield fork(watchOnProgress)
+    const results = yield call(new FetcherModule().fetchAsync, targetFilePaths)
+    yield cancel(progressTask)
 
     const successResults: FetchResultType = pickBy(results, result => !result.errorMessage)
     const failureResults: FetchResultType = pickBy(results, result => !!result.errorMessage)

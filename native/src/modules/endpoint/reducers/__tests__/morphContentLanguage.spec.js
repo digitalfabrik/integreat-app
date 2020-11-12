@@ -378,6 +378,7 @@ describe('morphContentLanguage', () => {
       newsRouteMapping: {},
       resourceCache: {
         status: 'ready',
+        progress: 1,
         value: {}
       },
       searchRoute: { categoriesMap: enCategoriesMap }
@@ -424,6 +425,7 @@ describe('morphContentLanguage', () => {
       newsRouteMapping: {},
       resourceCache: {
         status: 'ready',
+        progress: 1,
         value: {}
       },
       searchRoute: { categoriesMap: enCategoriesMap }
@@ -469,6 +471,7 @@ describe('morphContentLanguage', () => {
       poisRouteMapping: expect.any(Object),
       resourceCache: {
         status: 'ready',
+        progress: 1,
         value: {}
       },
       searchRoute: { categoriesMap: enCategoriesMap }

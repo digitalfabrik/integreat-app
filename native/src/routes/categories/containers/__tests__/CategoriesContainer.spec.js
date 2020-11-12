@@ -78,7 +78,7 @@ describe('CategoriesContainer', () => {
         eventsRouteMapping: {},
         poisRouteMapping: {},
         newsRouteMapping: {},
-        resourceCache: resourceCacheState || { status: 'ready', value: resourceCache },
+        resourceCache: resourceCacheState || { status: 'ready', progress: 0, value: resourceCache },
         searchRoute: null
       },
       contentLanguage: 'de',
