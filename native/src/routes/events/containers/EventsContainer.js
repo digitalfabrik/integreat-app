@@ -12,7 +12,7 @@ import type { NavigationStackProp } from 'react-navigation-stack'
 import type { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
 import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvider'
 import withTheme from '../../../modules/theme/hocs/withTheme'
-import { CityModel, EventModel } from '@integreat-app/integreat-api-client'
+import { CityModel, EventModel } from 'api-client'
 import * as React from 'react'
 import createNavigateToInternalLink from '../../../modules/app/createNavigateToInternalLink'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
@@ -50,6 +50,8 @@ const createChangeUnavailableLanguage = (city: string, t: TFunction) => (
   }
   dispatch(switchContentLanguage)
 }
+
+const routeHasOldContent = (route: EventRouteStateType) => route.models && route.allAvailableLanguages
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const { t, navigation } = ownProps
@@ -98,14 +100,15 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
 
   if (state.resourceCacheUrl === null || state.cities.status === 'loading' || switchingLanguage ||
-    route.status === 'loading' || languages.status === 'loading') {
+    (route.status === 'loading' && !routeHasOldContent(route)) || languages.status === 'loading') {
     return { status: 'loading', progress: 0 }
   }
 
   const cities = state.cities.models
 
+  // $FlowFixMe Flow can't evaluate the status as it is dynamic
   return {
-    status: 'success',
+    status: route.status === 'loading' ? 'loading' : 'success',
     refreshProps,
     innerProps: {
       path: route.path,

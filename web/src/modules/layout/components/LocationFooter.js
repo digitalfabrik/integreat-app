@@ -20,15 +20,19 @@ type PropsType = {|
 export class LocationFooter extends React.PureComponent<PropsType> {
   render () {
     const { t, city, language, onClick } = this.props
+    const { aboutUrls, privacyUrls } = buildConfig()
+
+    const aboutUrl = aboutUrls[language] || aboutUrls.default
+    const privacyUrl = privacyUrls[language] || privacyUrls.default
 
     return <Footer onClick={onClick}>
       <CleanLink to={new DisclaimerRouteConfig().getRoutePath({ city, language })}>
         {t('imprintAndContact')}
       </CleanLink>
-      <CleanAnchor href={`https://integreat-app.de${language === 'de' ? '/about/' : '/en/about/'}`}>
+      <CleanAnchor href={aboutUrl}>
         {t('settings:about', { appName: buildConfig().appName })}
       </CleanAnchor>
-      <CleanAnchor href={`https://integreat-app.de${language === 'de' ? '/datenschutz/' : '/en/privacy/'}`}>
+      <CleanAnchor href={privacyUrl}>
         {t('privacy')}
       </CleanAnchor>
     </Footer>

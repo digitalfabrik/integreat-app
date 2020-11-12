@@ -4,7 +4,7 @@ import React from 'react'
 
 import { FilterableCitySelector } from '../FilterableCitySelector'
 import { shallow } from 'enzyme'
-import { CityModel } from '@integreat-app/integreat-api-client'
+import { CityModel } from 'api-client'
 
 describe('FilterableCitySelector', () => {
   const t = (key: ?string): string => key || ''

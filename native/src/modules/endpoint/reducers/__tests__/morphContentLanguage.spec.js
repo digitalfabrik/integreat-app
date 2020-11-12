@@ -7,7 +7,7 @@ import {
   EventModel,
   LanguageModel,
   LocationModel, PoiModel
-} from '@integreat-app/integreat-api-client'
+} from 'api-client'
 import moment from 'moment'
 import morphContentLanguage from '../morphContentLanguage'
 import pushCategory from '../pushCategory'
@@ -237,7 +237,8 @@ describe('morphContentLanguage', () => {
         key: 'route-0',
         resourceCache: {},
         city: 'augsburg',
-        language: 'de'
+        language: 'de',
+        refresh: false
       }
     }
 
@@ -250,7 +251,8 @@ describe('morphContentLanguage', () => {
         key: 'route-1',
         resourceCache: {},
         language: 'de',
-        city: 'augsburg'
+        city: 'augsburg',
+        refresh: false
       }
     }
     return pushEvent(

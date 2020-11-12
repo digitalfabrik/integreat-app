@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react'
-import { LocalNewsModel } from '@integreat-app/integreat-api-client'
+import { LocalNewsModel } from 'api-client'
 import moment from 'moment'
 import { shallow } from 'enzyme'
 import NewsElement, { NUM_OF_WORDS_ALLOWED } from '../NewsElement'

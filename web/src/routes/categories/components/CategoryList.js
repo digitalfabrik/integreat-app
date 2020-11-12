@@ -5,7 +5,7 @@ import React from 'react'
 import RemoteContent from '../../../modules/common/components/RemoteContent'
 import Caption from '../../../modules/common/components/Caption'
 import CategoryEntry from './CategoryEntry'
-import { CategoryModel } from '@integreat-app/integreat-api-client'
+import { CategoryModel } from 'api-client'
 import styled from 'styled-components'
 
 const List = styled.div`

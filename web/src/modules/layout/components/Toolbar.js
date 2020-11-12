@@ -24,7 +24,7 @@ const ToolbarContainer = styled.div`
     opacity: 1;
   }
 
-  @media ${props => props.theme.dimensions.smallViewport} {
+  @media ${props => props.theme.dimensions.web.smallViewport} {
     width: 100%;
     flex-flow: row wrap;
     justify-content: center;

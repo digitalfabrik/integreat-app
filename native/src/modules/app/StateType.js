@@ -9,7 +9,7 @@ import {
   LocalNewsModel,
   PoiModel,
   TunewsModel
-} from '@integreat-app/integreat-api-client'
+} from 'api-client'
 import Moment from 'moment'
 import { DEFAULT_LANGUAGE } from '../i18n/constants'
 import type { ErrorCodeType } from '../error/ErrorCodes'
@@ -40,7 +40,10 @@ export type CategoryRouteStateType = {|
   +allAvailableLanguages: $ReadOnlyMap<string, string>
 |} | {|
   +status: 'loading',
-  ...CategoryRouteConfigType
+  ...CategoryRouteConfigType,
+  +allAvailableLanguages?: $ReadOnlyMap<string, string>,
+  +models?: $ReadOnly<{ [path: PathType]: CategoryModel }>,
+  +children?: $ReadOnly<{ [path: PathType]: $ReadOnlyArray<PathType> }>
 |} | {|
   +status: 'error',
   ...CategoryRouteConfigType,
@@ -97,7 +100,9 @@ export type EventRouteStateType = {|
   +allAvailableLanguages: $ReadOnlyMap<string, ?string>
 |} | {|
   +status: 'loading',
-  ...EventRouteConfigType
+  ...EventRouteConfigType,
+  +models?: $ReadOnlyArray<EventModel>,
+  +allAvailableLanguages?: $ReadOnlyMap<string, ?string>
 |} | {|
   +status: 'error',
   ...EventRouteConfigType,

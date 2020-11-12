@@ -1,6 +1,6 @@
 // @flow
 
-import { LocationModel, PoiModel } from '@integreat-app/integreat-api-client'
+import { LocationModel, PoiModel } from 'api-client'
 import moment from 'moment'
 
 const availableLanguages = new Map([['de', '/de/test'], ['en', '/en/test']])

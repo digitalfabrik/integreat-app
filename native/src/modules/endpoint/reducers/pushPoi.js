@@ -2,7 +2,7 @@
 
 import type { CityContentStateType, PoiRouteStateType } from '../../app/StateType'
 import type { PushPoiActionType } from '../../app/StoreActionType'
-import { PoiModel } from '@integreat-app/integreat-api-client'
+import { PoiModel } from 'api-client'
 
 const pushPoi = (state: CityContentStateType, action: PushPoiActionType): CityContentStateType => {
   const { pois, path, key, language, resourceCache, cityLanguages, city } = action.params

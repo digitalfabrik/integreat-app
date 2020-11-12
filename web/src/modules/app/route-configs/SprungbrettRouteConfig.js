@@ -12,7 +12,7 @@ import {
   OfferModel,
   Payload,
   SprungbrettJobModel
-} from '@integreat-app/integreat-api-client'
+} from 'api-client'
 import type { Route } from 'redux-first-router'
 import fetchData from '../fetchData'
 import { cmsApiBaseUrl } from '../constants/urls'
