@@ -15,7 +15,7 @@ import {
   TUNEWS_ELEMENT_ENDPOINT_NAME,
   WOHNEN_ENDPOINT_NAME,
   TUNEWS_LANGUAGES_ENDPOINT_NAME
-} from '@integreat-app/integreat-api-client'
+} from 'api-client'
 import { handleActions } from 'redux-actions'
 import type { StartFetchActionType } from '../actions/startFetchAction'
 import { startFetchActionName } from '../actions/startFetchAction'

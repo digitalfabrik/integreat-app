@@ -3,7 +3,7 @@
 import React from 'react'
 import { mount, shallow } from 'enzyme'
 import ConnectedI18nRedirectPage, { I18nRedirectPage } from '../I18nRedirectPage'
-import { CityModel } from '@integreat-app/integreat-api-client'
+import { CityModel } from 'api-client'
 import createReduxStore from '../../../../modules/app/createReduxStore'
 import { Provider } from 'react-redux'
 import { I18N_REDIRECT_ROUTE } from '../../../../modules/app/route-configs/I18nRedirectRouteConfig'

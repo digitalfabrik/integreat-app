@@ -2,7 +2,7 @@
 
 import type { CategoryRouteStateType, CityContentStateType, EventRouteStateType, PoiRouteStateType } from '../../app/StateType'
 import { mapValues } from 'lodash/object'
-import { CategoriesMapModel, EventModel, PoiModel } from '@integreat-app/integreat-api-client'
+import { CategoriesMapModel, EventModel, PoiModel } from 'api-client'
 import type { MorphContentLanguageActionType } from '../../app/StoreActionType'
 import forEachTreeNode from '../../common/forEachTreeNode'
 

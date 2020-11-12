@@ -4,7 +4,7 @@ import * as React from 'react'
 import { isEmpty } from 'lodash'
 import styled from 'styled-components'
 import InfiniteScroll from 'react-infinite-scroller'
-import { TunewsModel } from '@integreat-app/integreat-api-client'
+import { TunewsModel } from 'api-client'
 import LoadingSpinner from '../../../modules/common/components/LoadingSpinner'
 
 const TUNEWS_PAGE_COUNT = 20

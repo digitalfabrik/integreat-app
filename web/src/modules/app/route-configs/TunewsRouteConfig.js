@@ -11,7 +11,7 @@ import {
   CityModel,
   createLanguagesEndpoint,
   LanguageModel
-} from '@integreat-app/integreat-api-client'
+} from 'api-client'
 import fetchData from '../fetchData'
 import { cmsApiBaseUrl, tunewsApiBaseUrl } from '../constants/urls'
 import type { StateType } from '../StateType'

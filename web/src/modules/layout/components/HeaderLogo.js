@@ -14,7 +14,7 @@ type PropsType = {|
 
 const LogoContainer = styled.div`
   box-sizing: border-box;
-  height: ${props => props.theme.dimensions.headerHeightLarge}px;
+  height: ${props => props.theme.dimensions.web.headerHeightLarge}px;
   padding: 0 10px;
   display: flex;
   justify-content: start;
@@ -33,8 +33,8 @@ const LogoContainer = styled.div`
     object-fit: contain;
   }
 
-  @media ${props => props.theme.dimensions.smallViewport} {
-    height: ${props => props.theme.dimensions.headerHeightSmall}px;
+  @media ${props => props.theme.dimensions.web.smallViewport} {
+    height: ${props => props.theme.dimensions.web.headerHeightSmall}px;
     flex: 1 1 0%; /* The % unit is necessary for IE11 */
 
     & a {

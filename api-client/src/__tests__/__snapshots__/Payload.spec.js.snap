@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Payload should throw if error and data is supplied 1`] = `"data and error can not be set at the same time"`;

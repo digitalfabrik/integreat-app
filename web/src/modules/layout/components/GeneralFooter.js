@@ -11,19 +11,25 @@ import CleanLink from '../../common/components/CleanLink'
 import buildConfig from '../../app/constants/buildConfig'
 
 type PropsType = {|
+  language: string,
   t: TFunction
 |}
 
 class GeneralFooter extends React.PureComponent<PropsType> {
   render () {
-    const { t } = this.props
+    const { language, t } = this.props
+    const { aboutUrls, privacyUrls } = buildConfig()
+
+    const aboutUrl = aboutUrls[language] || aboutUrls.default
+    const privacyUrl = privacyUrls[language] || privacyUrls.default
+
     return (
       <Footer>
         <CleanLink to={new MainDisclaimerRouteConfig().getRoutePath()}>{t('imprintAndContact')}</CleanLink>
-        <CleanAnchor href='https://integreat-app.de/about/'>
+        <CleanAnchor href={aboutUrl}>
           {t('settings:about', { appName: buildConfig().appName })}
         </CleanAnchor>
-        <CleanAnchor href='https://integreat-app.de/datenschutz/'>
+        <CleanAnchor href={privacyUrl}>
           {t('privacy')}
         </CleanAnchor>
       </Footer>

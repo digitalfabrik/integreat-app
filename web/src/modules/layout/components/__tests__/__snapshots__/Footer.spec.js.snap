@@ -8,6 +8,9 @@ exports[`Footer should insert items 1`] = `
   <div>
     AnotherMockNode
   </div>
+  <span>
+    vX.X
+  </span>
 </Footer__FooterContainer>
 `;
 

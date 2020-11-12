@@ -1,6 +1,6 @@
 // @flow
 
-import { CategoriesMapModel, CategoryModel, LanguageModel } from '@integreat-app/integreat-api-client'
+import { CategoriesMapModel, CategoryModel, LanguageModel } from 'api-client'
 import moment from 'moment'
 import type { CityContentStateType } from '../../../app/StateType'
 import cityContentReducer from '../cityContentReducer'
@@ -104,7 +104,8 @@ describe('pushCategory', () => {
         language: 'de',
         path: '/augsburg/de',
         depth: 1,
-        key: 'route-id-0'
+        key: 'route-id-0',
+        refresh: false
       }
     }
 
@@ -140,7 +141,8 @@ describe('pushCategory', () => {
         language: 'de',
         path: '/augsburg/de/sub',
         depth: 1,
-        key: 'route-id-1'
+        key: 'route-id-1',
+        refresh: false
       }
     }
 
@@ -200,7 +202,8 @@ describe('pushCategory', () => {
         language: 'de',
         path: '/testumgebung/de',
         depth: 1,
-        key: 'route-id-0'
+        key: 'route-id-0',
+        refresh: false
       }
     }
 
@@ -228,7 +231,8 @@ describe('pushCategory', () => {
         language: 'de',
         path: '/augsburg/de',
         depth: 1,
-        key: 'route-id-0'
+        key: 'route-id-0',
+        refresh: false
       }
     }
 

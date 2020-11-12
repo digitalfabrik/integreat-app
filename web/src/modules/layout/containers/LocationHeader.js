@@ -19,7 +19,7 @@ import TunewsRouteConfig, { TUNEWS_ROUTE } from '../../app/route-configs/TunewsR
 import { TUNEWS_DETAILS_ROUTE } from '../../app/route-configs/TunewsDetailsRouteConfig'
 import SearchRouteConfig from '../../app/route-configs/SearchRouteConfig'
 import type { LocationState } from 'redux-first-router'
-import { EventModel } from '@integreat-app/integreat-api-client'
+import { EventModel } from 'api-client'
 import { WOHNEN_ROUTE } from '../../app/route-configs/WohnenRouteConfig'
 import { SPRUNGBRETT_ROUTE } from '../../app/route-configs/SprungbrettRouteConfig'
 import LandingRouteConfig from '../../app/route-configs/LandingRouteConfig'
@@ -72,10 +72,10 @@ export class LocationHeader extends React.Component<PropsType> {
 
     const isNewsVisible = buildConfig().featureFlags.newsStream && (isLocalNewsEnabled || isTunewsEnabled)
     const isEventsVisible = isEventsEnabled
-    const isMapVisible = buildConfig().featureFlags.pois // todo: check for flag from cms
+    const isPoisVisible = buildConfig().featureFlags.pois // TODO IGAPP-115: check for flag from cms
     const isOffersVisible = isOffersEnabled
 
-    const showNavBar = isNewsVisible || isEventsVisible || isMapVisible || isOffersVisible
+    const showNavBar = isNewsVisible || isEventsVisible || isPoisVisible || isOffersVisible
     if (!showNavBar) {
       return []
     }
@@ -119,7 +119,7 @@ export class LocationHeader extends React.Component<PropsType> {
       )
     }
 
-    if (isMapVisible) {
+    if (isPoisVisible) {
       items.push(
         <HeaderNavigationItem
           key='pois'

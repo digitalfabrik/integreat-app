@@ -4,7 +4,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 
 import CategoryList from '../CategoryList'
-import { CategoryModel } from '@integreat-app/integreat-api-client'
+import { CategoryModel } from 'api-client'
 import moment from 'moment'
 
 const title = 'Willkommen'

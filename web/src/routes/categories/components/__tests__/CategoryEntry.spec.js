@@ -4,9 +4,9 @@ import React from 'react'
 import { shallow, type ShallowWrapper } from 'enzyme'
 import moment from 'moment'
 import CategoryEntry from '../CategoryEntry'
-import { CategoryModel } from '@integreat-app/integreat-api-client'
+import { CategoryModel } from 'api-client'
 import iconPlaceholder from '../../assets/IconPlaceholder.svg'
-import { brightTheme } from '../../../../modules/theme/constants/theme'
+import { lightTheme } from '../../../../modules/theme/constants/theme'
 import normalizeSearchString from '../../../../modules/common/utils/normalizeSearchString'
 
 const category = new CategoryModel({
@@ -54,7 +54,7 @@ function findComponent (wrapper: ShallowWrapper<*>, name: string): ShallowWrappe
 describe('CategoryEntry', () => {
   it('should render and match snapshot', () => {
     const wrapper = shallow(<CategoryEntry
-      theme={brightTheme}
+      theme={lightTheme}
       category={category}
       subCategories={[childCategory]} />
     ).dive()
@@ -79,7 +79,7 @@ describe('CategoryEntry', () => {
 
   it('should replace empty thumbnail', () => {
     const wrapper = shallow(<CategoryEntry
-      theme={brightTheme}
+      theme={lightTheme}
       category={noThumbCategory}
       subCategories={[childCategory]} />
     ).dive()
@@ -93,7 +93,7 @@ describe('CategoryEntry', () => {
       const selectedSection = 'this is a test content which is'
       const numWords = 3
       const wrapper = shallow(
-        <CategoryEntry theme={brightTheme}
+        <CategoryEntry theme={lightTheme}
                        category={category}
                        contentWithoutHtml={category.content}
                        query={query}
@@ -113,7 +113,7 @@ describe('CategoryEntry', () => {
       const query = 'test'
       const numWords = 3
       const wrapper = shallow(
-        <CategoryEntry theme={brightTheme}
+        <CategoryEntry theme={lightTheme}
                        category={category}
                        contentWithoutHtml={category.content}
                        query={query}

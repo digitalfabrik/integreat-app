@@ -7,12 +7,12 @@ import ReactTooltip from 'react-tooltip'
 import styled from 'styled-components'
 
 const StyledLink = styled(Link)`
-  width: calc(0.8 * ${props => props.theme.dimensions.headerHeightLarge}px);
-  height: calc(0.8 * ${props => props.theme.dimensions.headerHeightLarge}px);
+  width: calc(0.8 * ${props => props.theme.dimensions.web.headerHeightLarge}px);
+  height: calc(0.8 * ${props => props.theme.dimensions.web.headerHeightLarge}px);
 
-  @media ${props => props.theme.dimensions.smallViewport} {
-    width: calc(0.8 * ${props => props.theme.dimensions.headerHeightSmall}px);
-    height: calc(0.8 * ${props => props.theme.dimensions.headerHeightSmall}px);
+  @media ${props => props.theme.dimensions.web.smallViewport} {
+    width: calc(0.8 * ${props => props.theme.dimensions.web.headerHeightSmall}px);
+    height: calc(0.8 * ${props => props.theme.dimensions.web.headerHeightSmall}px);
   }
 
   & > img {
