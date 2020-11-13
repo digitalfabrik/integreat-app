@@ -368,26 +368,23 @@ jobs:
             - check_config
             - restore_yarn_cache
             - run:
-                command: yarn workspace native lint
+                command: yarn workspace native lint --format junit -o reports/junit-lint.xml
                 name: Linting check
+            - store_test_results:
+                path: native/reports
             - run:
                 command: yarn workspace native flow:check-now --max-workers ${TOTAL_CPUS}
                 name: Flow-type check
             - run:
-                command: yarn workspace native test --ci --maxWorkers ${TOTAL_CPUS}
-                name: Unit tests
-            - run:
-                command: yarn workspace native test:coverage --ci --maxWorkers ${TOTAL_CPUS}
-                name: Test coverage
+                command: yarn workspace native test:ci --maxWorkers ${TOTAL_CPUS}
+                environment:
+                    JEST_JUNIT_OUTPUT: reports/junit-test.xml
+                name: Unit Tests with Coverage
+            - store_test_results:
+                path: native/reports
             - store_artifacts:
                 destination: native-coverage
                 path: native/coverage
-            - run:
-                command: yarn workspace native api-client:coverage --ci --maxWorkers ${TOTAL_CPUS}
-                name: Test coverage
-            - store_artifacts:
-                destination: api-client-coverage
-                path: api-client/coverage
             - notify_failed
     check_web:
         docker:
@@ -403,20 +400,38 @@ jobs:
             - check_config
             - restore_yarn_cache
             - run:
-                command: yarn workspace web lint
+                command: yarn workspace web lint --format junit -o reports/junit-lint.xml
                 name: Check linting
+            - store_test_results:
+                path: web/reports
             - run:
                 command: yarn workspace web flow:check-now --max-workers ${TOTAL_CPUS}
                 name: Check flow
             - run:
-                command: yarn workspace web test --ci --maxWorkers ${TOTAL_CPUS}
-                name: Unit tests
-            - run:
-                command: yarn workspace web test:coverage --ci --maxWorkers ${TOTAL_CPUS}
-                name: Test coverage
+                command: yarn workspace web test:ci --maxWorkers ${TOTAL_CPUS}
+                environment:
+                    JEST_JUNIT_OUTPUT: reports/junit-test.xml
+                name: Unit Tests with Coverage
+            - store_test_results:
+                path: web/reports
             - store_artifacts:
                 destination: web-coverage
                 path: web/coverage
+            - run:
+                command: yarn workspace api-client lint --format junit -o reports/junit-lint.xml
+                name: api-client Check linting
+            - store_test_results:
+                path: api-client/reports
+            - run:
+                command: yarn workspace native api-client:ci --maxWorkers ${TOTAL_CPUS}
+                environment:
+                    JEST_JUNIT_OUTPUT: reports/junit-test.xml
+                name: api-client Unit Tests with Coverage
+            - store_test_results:
+                path: api-client/reports
+            - store_artifacts:
+                destination: api-client-coverage
+                path: api-client/coverage
             - notify_failed
     deliver_android:
         docker:
