@@ -374,8 +374,20 @@ jobs:
                 command: yarn workspace native flow:check-now --max-workers ${TOTAL_CPUS}
                 name: Flow-type check
             - run:
-                command: yarn workspace native test --maxWorkers ${TOTAL_CPUS}
+                command: yarn workspace native test --ci --maxWorkers ${TOTAL_CPUS}
                 name: Unit tests
+            - run:
+                command: yarn workspace native test:coverage --ci --maxWorkers ${TOTAL_CPUS}
+                name: Test coverage
+            - store_artifacts:
+                destination: native-coverage
+                path: native/coverage
+            - run:
+                command: yarn workspace native api-client:coverage --ci --maxWorkers ${TOTAL_CPUS}
+                name: Test coverage
+            - store_artifacts:
+                destination: api-client-coverage
+                path: api-client/coverage
             - notify_failed
     check_web:
         docker:
@@ -402,6 +414,9 @@ jobs:
             - run:
                 command: yarn workspace web test:coverage --ci --maxWorkers ${TOTAL_CPUS}
                 name: Test coverage
+            - store_artifacts:
+                destination: web-coverage
+                path: web/coverage
             - notify_failed
     deliver_android:
         docker:
