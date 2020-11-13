@@ -22,4 +22,7 @@ steps:
   - run:
       name: Test coverage # Results are not used right now. Run it anyway to (possibly) discover more problems.
       command: yarn workspace web test:coverage --ci --maxWorkers ${TOTAL_CPUS}
+  - store_artifacts:
+      path: web/coverage
+      destination: web-coverage
   - notify_failed

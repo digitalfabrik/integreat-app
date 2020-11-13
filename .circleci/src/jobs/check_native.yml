@@ -18,5 +18,17 @@ steps:
       command: yarn workspace native flow:check-now --max-workers ${TOTAL_CPUS}
   - run:
       name: Unit tests
-      command: yarn workspace native test --maxWorkers ${TOTAL_CPUS}
+      command: yarn workspace native test --ci --maxWorkers ${TOTAL_CPUS}
+  - run:
+      name: Test coverage
+      command: yarn workspace native test:coverage --ci --maxWorkers ${TOTAL_CPUS}
+  - store_artifacts:
+      path: native/coverage
+      destination: native-coverage
+  - run:
+      name: Test coverage
+      command: yarn workspace native api-client:coverage --ci --maxWorkers ${TOTAL_CPUS}
+  - store_artifacts:
+      path: api-client/coverage
+      destination: api-client-coverage
   - notify_failed
