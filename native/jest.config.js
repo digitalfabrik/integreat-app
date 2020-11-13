@@ -43,5 +43,5 @@ module.exports = {
   collectCoverageFrom: [
     '**/*.{js,jsx}'
   ],
-  coverageDirectory: '../__coverage__'
+  coverageDirectory: '<rootDir>/coverage',
 }
