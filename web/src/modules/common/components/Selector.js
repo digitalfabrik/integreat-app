@@ -64,7 +64,7 @@ const Wrapper = styled.div`
 
 type PropsType = {|
   verticalLayout: boolean,
-  closeDropDownCallback?: () => void,
+  closeDropDown?: () => void,
   items: Array<SelectorItemModel>,
   activeItemCode?: string,
   disabledItemTooltip: string
@@ -85,12 +85,12 @@ class Selector extends React.PureComponent<PropsType> {
   }
 
   getItems (): React.Node {
-    const { items, activeItemCode, closeDropDownCallback, disabledItemTooltip } = this.props
+    const { items, activeItemCode, closeDropDown, disabledItemTooltip } = this.props
     return items.map(item => {
       if (item.href) {
         return (
           <ActiveElement key={item.code}
-                         onClick={closeDropDownCallback}
+                         onClick={closeDropDown}
                          to={item.href}
                          selected={item.code === activeItemCode}>
             {item.name}
