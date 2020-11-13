@@ -7,6 +7,7 @@
   "scripts": {
     "test": "jest --config jest.config.js",
     "test:coverage": "jest --config jest.config.js --coverage",
+    "test:ci": "jest --config jest.config.js --coverage --ci --testResultsProcessor=jest-junit",
     "test:watch": "jest --config jest.config.js --watchAll",
     "test:update": "jest --config jest.config.js -u",
     "lint": "yarn run eslint",
@@ -21,8 +22,8 @@
     "sanitize-html-react": "^1.13"
   },
   "devDependencies": {
-    "@babel/polyfill": "^7.8.3",
     "@babel/core": "^7.8.3",
+    "@babel/polyfill": "^7.8.3",
     "@babel/preset-env": "^7.8.3",
     "@babel/preset-flow": "^7.8.3",
     "@integreat-app/eslint-config-babel": "^0.6.0",
@@ -31,6 +32,7 @@
     "@integreat-app/eslint-config-node": "^0.6.0",
     "eslint": "^6.8.0",
     "jest": "^25.5.4",
-    "jest-fetch-mock": "^3.0.3"
+    "jest-fetch-mock": "^3.0.3",
+    "jest-junit": "^12.0.0"
   }
 }
