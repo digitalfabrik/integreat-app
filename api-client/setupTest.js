@@ -1,6 +1,5 @@
 // @flow
-
-import 'regenerator-runtime/runtime'
+import '@babel/polyfill'
 
 // Setup fetch mock
 global.fetch = require('jest-fetch-mock')
