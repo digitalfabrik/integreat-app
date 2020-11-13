@@ -35,10 +35,12 @@ class HeaderLanguageSelectorItem extends React.Component<PropsType> {
 
     return selectorItems && selectorItems.length > 0
       ? <HeaderActionItemDropDown theme={theme} iconSrc={languageIcon} text={t('changeLanguage')}>
-        <Selector verticalLayout={false}
-                  items={selectorItems}
-                  activeItemCode={activeItemCode}
-                  disabledItemTooltip={t('noTranslation')} />
+        {closeDropDown => <Selector
+          closeDropDown={closeDropDown}
+          verticalLayout={false}
+          items={selectorItems}
+          activeItemCode={activeItemCode}
+          disabledItemTooltip={t('noTranslation')} />}
       </HeaderActionItemDropDown>
       : <HeaderActionBarItemLink text={noLanguagesHint} iconSrc={languageIcon} />
   }

@@ -1,0 +1,6 @@
+issue_key: IGAPP-324
+show_in_stores: true
+platforms: 
+  - web
+en: The langauge menu can now be closed by pressing escape or enter
+de: Das Sprachmenü kann nun mit Escape und Enter geschlossen werden
