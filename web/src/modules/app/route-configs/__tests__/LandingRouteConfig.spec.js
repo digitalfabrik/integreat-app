@@ -1,7 +1,7 @@
 // @flow
 
 import LandingRouteConfig from '../LandingRouteConfig'
-import { CityModel, Payload } from '@integreat-app/integreat-api-client'
+import { CityModel, Payload } from 'api-client'
 import createLocation from '../../../../createLocation'
 
 const cities = [

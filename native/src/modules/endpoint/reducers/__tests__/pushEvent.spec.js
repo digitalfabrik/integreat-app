@@ -1,6 +1,6 @@
 // @flow
 
-import { DateModel, EventModel, LanguageModel, LocationModel } from '@integreat-app/integreat-api-client'
+import { DateModel, EventModel, LanguageModel, LocationModel } from 'api-client'
 import moment from 'moment'
 import type { CityContentStateType } from '../../../app/StateType'
 import cityContentReducer from '../cityContentReducer'
@@ -93,7 +93,8 @@ describe('pushEvent', () => {
         resourceCache: {},
         cityLanguages: [new LanguageModel('de', 'Deutsch'), new LanguageModel('en', 'English')],
         language: 'de',
-        city: 'augsburg'
+        city: 'augsburg',
+        refresh: false
       }
     }
 
@@ -129,7 +130,8 @@ describe('pushEvent', () => {
         resourceCache: {},
         cityLanguages: [new LanguageModel('de', 'Deutsch'), new LanguageModel('en', 'English')],
         language: 'de',
-        city: 'augsburg'
+        city: 'augsburg',
+        refresh: false
       }
     }
 
@@ -199,7 +201,8 @@ describe('pushEvent', () => {
         city: 'testumgebung',
         language: 'de',
         path: '/testumgebung/de/events/ev1',
-        key: 'route-id-0'
+        key: 'route-id-0',
+        refresh: false
       }
     }
 

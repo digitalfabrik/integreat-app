@@ -1,7 +1,7 @@
 // @flow
 
 import PoisRouteConfig from '../PoisRouteConfig'
-import { LocationModel, Payload, PoiModel } from '@integreat-app/integreat-api-client'
+import { LocationModel, Payload, PoiModel } from 'api-client'
 import moment from 'moment'
 import createLocation from '../../../../createLocation'
 

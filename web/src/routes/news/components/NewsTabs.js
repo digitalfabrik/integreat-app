@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import styled from 'styled-components'
-import { CityModel } from '@integreat-app/integreat-api-client'
+import { CityModel } from 'api-client'
 import type { TFunction } from 'react-i18next'
 import Tab from './Tab'
 import { LOCAL_NEWS, TU_NEWS } from '../constants'

@@ -1,7 +1,7 @@
 // @flow
 
 import featuredImageToSrcSet from '../featuredImageToSrcSet'
-import { FeaturedImageModel } from '@integreat-app/integreat-api-client'
+import { FeaturedImageModel } from 'api-client'
 
 describe('featuredImageToSrcSet', () => {
   it('should calculate the correct sizes for srcSet and encode urls', () => {

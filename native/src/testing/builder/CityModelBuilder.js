@@ -1,6 +1,6 @@
 // @flow
 
-import { CityModel } from '@integreat-app/integreat-api-client'
+import { CityModel } from 'api-client'
 
 const cities = [
   new CityModel({

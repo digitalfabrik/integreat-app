@@ -1,6 +1,6 @@
 // https://github.com/babel/babel/issues/8309#issuecomment-439161848
 // Modules in node_modules are ignored and not transpiled per default.
-// Explicitly not ignore the build-configs npm module here since it has to be compiled as monorepo package.
+// Explicitly not ignore the build-configs npm module as it has to be transpiled as monorepo package.
 require('@babel/register')({
   ignore: [/node_modules\/(?!build-configs)/]
 })
@@ -37,15 +37,11 @@ const getSupportedLocales = () => {
 }
 
 const createConfig = (env = {}) => {
-  const { config_name: buildConfigName, production, debug, commit_sha: commitSha, version_name: versionName } = env
-
-  if ((!production && !debug) || (production && debug)) {
-    throw new Error('You need to set the build mode by either passing production or debug flag!')
-  }
+  const { config_name: buildConfigName, commit_sha: commitSha, version_name: versionName, dev_server: devServer } = env
 
   const buildConfig = loadBuildConfig(buildConfigName)
 
-  const isProductionBuild = production || !debug
+  const isProductionBuild = !buildConfig.development
   // We have to override the env of the current process, such that babel-loader works with that.
   const NODE_ENV = isProductionBuild ? '"production"' : '"development"'
   process.env.NODE_ENV = NODE_ENV
@@ -115,7 +111,7 @@ const createConfig = (env = {}) => {
     // What information should be printed to the console
     stats: 'minimal',
     performance: {
-      hints: isProductionBuild ? 'error' : false,
+      hints: isProductionBuild && !devServer ? 'error' : false,
       maxEntrypointSize: MAX_BUNDLE_SIZE,
       maxAssetSize: MAX_BUNDLE_SIZE
     },
@@ -136,7 +132,6 @@ const createConfig = (env = {}) => {
       ]),
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': NODE_ENV,
-        __DEV__: !isProductionBuild,
         __VERSION__: JSON.stringify(version),
         __BUILD_CONFIG__: JSON.stringify(buildConfig)
       }),
@@ -163,7 +158,7 @@ const createConfig = (env = {}) => {
           // https://github.com/webpack/webpack/issues/2031#issuecomment-219040479
           // Packages mentioned here probably use ES6 syntax which IE11 does not support. This is a problem because
           // in development mode webpack bundles the mentioned packages
-          exclude: /node_modules\/(?!(strict-uri-encode|strip-ansi|build-configs)\/).*/,
+          exclude: /node_modules\/(?!(strict-uri-encode|strip-ansi|build-configs|api-client)\/).*/,
           loader: 'babel-loader',
           options: babelConfig
         },

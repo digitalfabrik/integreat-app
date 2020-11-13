@@ -1,7 +1,7 @@
 // @flow
 
 import type { Saga } from 'redux-saga'
-import { all, call, put, select, takeLatest } from 'redux-saga/effects'
+import { all, call, put, select, takeEvery } from 'redux-saga/effects'
 import type {
   FetchCategoryActionType,
   FetchCategoryFailedActionType,
@@ -12,6 +12,7 @@ import loadCityContent from './loadCityContent'
 import { ContentLoadCriterion } from '../ContentLoadCriterion'
 import isPeekingRoute from '../selectors/isPeekingRoute'
 import ErrorCodes, { fromError } from '../../error/ErrorCodes'
+import type Moment from 'moment'
 
 /**
  * This fetch corresponds to a peek if the major content city is not equal to the city of the current route.
@@ -42,9 +43,12 @@ export function * fetchCategory (dataContainer: DataContainer, action: FetchCate
         call(dataContainer.getResourceCache, city, language)
       ])
 
+      const lastUpdate: Moment | null = yield call(dataContainer.getLastUpdate, city, language)
+
+      const refresh = loadCriterion.shouldUpdate(lastUpdate)
       const push: PushCategoryActionType = {
         type: 'PUSH_CATEGORY',
-        params: { categoriesMap, resourceCache, path, cityLanguages, depth, key, city, language }
+        params: { categoriesMap, resourceCache, path, cityLanguages, depth, key, city, language, refresh }
       }
       yield put(push)
     } else {
@@ -86,5 +90,5 @@ export function * fetchCategory (dataContainer: DataContainer, action: FetchCate
 }
 
 export default function * (dataContainer: DataContainer): Saga<void> {
-  yield takeLatest('FETCH_CATEGORY', fetchCategory, dataContainer)
+  yield takeEvery('FETCH_CATEGORY', fetchCategory, dataContainer)
 }

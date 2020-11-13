@@ -1,7 +1,7 @@
 // @flow
 
 import SprungbrettRouteConfig from '../SprungbrettRouteConfig'
-import { OfferModel, Payload, SprungbrettJobModel } from '@integreat-app/integreat-api-client'
+import { OfferModel, Payload, SprungbrettJobModel } from 'api-client'
 import createLocation from '../../../../createLocation'
 
 const offers = [

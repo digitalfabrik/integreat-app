@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import { CityModel } from '@integreat-app/integreat-api-client'
+import { CityModel } from 'api-client'
 import { View } from 'react-native'
 import Heading from '../components/Heading'
 import styled from 'styled-components/native'

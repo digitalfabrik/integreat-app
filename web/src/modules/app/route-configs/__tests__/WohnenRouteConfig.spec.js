@@ -1,7 +1,7 @@
 // @flow
 
 import WohnenRouteConfig, { hash } from '../WohnenRouteConfig'
-import { OfferModel, Payload, WohnenFormData, WohnenOfferModel } from '@integreat-app/integreat-api-client'
+import { OfferModel, Payload, WohnenFormData, WohnenOfferModel } from 'api-client'
 import createLocation from '../../../../createLocation'
 import moment from 'moment'
 

@@ -5,7 +5,7 @@ import { mount, shallow } from 'enzyme'
 import moment from 'moment'
 
 import ConnectedEventsPage, { EventsPage } from '../EventsPage'
-import { CityModel, DateModel, EventModel, LocationModel } from '@integreat-app/integreat-api-client'
+import { CityModel, DateModel, EventModel, LocationModel } from 'api-client'
 import createReduxStore from '../../../../modules/app/createReduxStore'
 import { Provider } from 'react-redux'
 import createLocation from '../../../../createLocation'
