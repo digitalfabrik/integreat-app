@@ -1,0 +1,15 @@
+description: Runs the test task and stores coverage and junit data
+parameters:
+  directory:
+    type: string
+steps:
+  - run:
+      name: Unit Tests with Coverage
+      command: yarn workspace << parameters.directory >> run test:ci --maxWorkers ${TOTAL_CPUS}
+      environment:
+        JEST_JUNIT_OUTPUT: "reports/junit-test.xml"
+  - store_test_results:
+      path: << parameters.directory >>/reports
+  - store_artifacts:
+      path: << parameters.directory >>/coverage
+      destination: << parameters.directory >>-coverage

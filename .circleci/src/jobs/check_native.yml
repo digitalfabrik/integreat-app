@@ -10,22 +10,13 @@ steps:
   - checkout
   - check_config
   - restore_yarn_cache
-  - run:
-      name: Linting check
-      command: yarn workspace native lint --format junit -o reports/junit-lint.xml
+  - lint:
+      directory: native
   - store_test_results:
       path: native/reports
   - run:
       name: Flow-type check
       command: yarn workspace native flow:check-now --max-workers ${TOTAL_CPUS}
-  - run:
-      name: Unit Tests with Coverage
-      command: yarn workspace native test:ci --maxWorkers ${TOTAL_CPUS}
-      environment:
-        JEST_JUNIT_OUTPUT: "reports/junit-test.xml"
-  - store_test_results:
-      path: native/reports
-  - store_artifacts:
-      path: native/coverage
-      destination: native-coverage
+  - unit_test:
+      directory: native
   - notify_failed

@@ -10,37 +10,15 @@ steps:
   - checkout
   - check_config
   - restore_yarn_cache
-  - run:
-      name: Check linting
-      command: yarn workspace web lint --format junit -o reports/junit-lint.xml
-  - store_test_results:
-      path: web/reports
+  - lint:
+      directory: web
   - run:
       name: Check flow
       command: yarn workspace web flow:check-now --max-workers ${TOTAL_CPUS}
-  - run:
-      name: Unit Tests with Coverage
-      command: yarn workspace web test:ci --maxWorkers ${TOTAL_CPUS}
-      environment:
-        JEST_JUNIT_OUTPUT: "reports/junit-test.xml"
-  - store_test_results:
-      path: web/reports
-  - store_artifacts:
-      path: web/coverage
-      destination: web-coverage
-  - run:
-      name: api-client Check linting
-      command: yarn workspace api-client lint --format junit -o reports/junit-lint.xml
-  - store_test_results:
-      path: api-client/reports
-  - run:
-      name: api-client Unit Tests with Coverage
-      command: yarn workspace native api-client:ci --maxWorkers ${TOTAL_CPUS}
-      environment:
-        JEST_JUNIT_OUTPUT: "reports/junit-test.xml"
-  - store_test_results:
-        path: api-client/reports
-  - store_artifacts:
-      path: api-client/coverage
-      destination: api-client-coverage
+  - unit_test:
+      directory: web
+  - lint:
+      directory: api-client
+  - unit_test:
+      directory: api-client
   - notify_failed

@@ -30,6 +30,17 @@ commands:
             - run:
                 command: circleci config validate
                 name: Validate circle config
+    lint:
+        description: Runs the lint task and stores junit output
+        parameters:
+            directory:
+                type: string
+        steps:
+            - run:
+                command: yarn workspace << parameters.directory >> run eslint --format junit -o reports/junit-lint.xml
+                name: Linting check
+            - store_test_results:
+                path: << parameters.directory >>/reports
     notify_failed:
         description: Notifies about jobs which have failed
         steps:
@@ -172,6 +183,22 @@ commands:
 
                     skip_job << parameters.build_config_name >>
                 name: Skip the current build if neccassary
+    unit_test:
+        description: Runs the test task and stores coverage and junit data
+        parameters:
+            directory:
+                type: string
+        steps:
+            - run:
+                command: yarn workspace << parameters.directory >> run test:ci --maxWorkers ${TOTAL_CPUS}
+                environment:
+                    JEST_JUNIT_OUTPUT: reports/junit-test.xml
+                name: Unit Tests with Coverage
+            - store_test_results:
+                path: << parameters.directory >>/reports
+            - store_artifacts:
+                destination: << parameters.directory >>-coverage
+                path: << parameters.directory >>/coverage
 jobs:
     build_android:
         docker:
@@ -367,24 +394,15 @@ jobs:
             - checkout
             - check_config
             - restore_yarn_cache
-            - run:
-                command: yarn workspace native lint --format junit -o reports/junit-lint.xml
-                name: Linting check
+            - lint:
+                directory: native
             - store_test_results:
                 path: native/reports
             - run:
                 command: yarn workspace native flow:check-now --max-workers ${TOTAL_CPUS}
                 name: Flow-type check
-            - run:
-                command: yarn workspace native test:ci --maxWorkers ${TOTAL_CPUS}
-                environment:
-                    JEST_JUNIT_OUTPUT: reports/junit-test.xml
-                name: Unit Tests with Coverage
-            - store_test_results:
-                path: native/reports
-            - store_artifacts:
-                destination: native-coverage
-                path: native/coverage
+            - unit_test:
+                directory: native
             - notify_failed
     check_web:
         docker:
@@ -399,39 +417,17 @@ jobs:
             - checkout
             - check_config
             - restore_yarn_cache
-            - run:
-                command: yarn workspace web lint --format junit -o reports/junit-lint.xml
-                name: Check linting
-            - store_test_results:
-                path: web/reports
+            - lint:
+                directory: web
             - run:
                 command: yarn workspace web flow:check-now --max-workers ${TOTAL_CPUS}
                 name: Check flow
-            - run:
-                command: yarn workspace web test:ci --maxWorkers ${TOTAL_CPUS}
-                environment:
-                    JEST_JUNIT_OUTPUT: reports/junit-test.xml
-                name: Unit Tests with Coverage
-            - store_test_results:
-                path: web/reports
-            - store_artifacts:
-                destination: web-coverage
-                path: web/coverage
-            - run:
-                command: yarn workspace api-client lint --format junit -o reports/junit-lint.xml
-                name: api-client Check linting
-            - store_test_results:
-                path: api-client/reports
-            - run:
-                command: yarn workspace native api-client:ci --maxWorkers ${TOTAL_CPUS}
-                environment:
-                    JEST_JUNIT_OUTPUT: reports/junit-test.xml
-                name: api-client Unit Tests with Coverage
-            - store_test_results:
-                path: api-client/reports
-            - store_artifacts:
-                destination: api-client-coverage
-                path: api-client/coverage
+            - unit_test:
+                directory: web
+            - lint:
+                directory: api-client
+            - unit_test:
+                directory: api-client
             - notify_failed
     deliver_android:
         docker:

@@ -1,0 +1,10 @@
+description: Runs the lint task and stores junit output
+parameters:
+  directory:
+    type: string
+steps:
+  - run:
+      name: Linting check
+      command: yarn workspace << parameters.directory >> run eslint --format junit -o reports/junit-lint.xml
+  - store_test_results:
+      path: << parameters.directory >>/reports
