@@ -10,7 +10,7 @@ import type { NavigationDescriptor } from 'react-navigation'
 import type { NavigationStackProp, NavigationStackScene } from 'react-navigation-stack'
 import type { ThemeType } from '../../theme/constants'
 import type { TFunction } from 'react-i18next'
-import { CityModel } from '@integreat-app/integreat-api-client'
+import { CityModel } from 'api-client'
 import MaterialHeaderButtons from './MaterialHeaderButtons'
 import buildConfig, { buildConfigAssets } from '../../app/constants/buildConfig'
 import Url from 'url-parse'
@@ -28,7 +28,7 @@ const HorizontalLeft = styled.View`
   align-items: center;
 `
 
-const Logo = styled.Image`
+const Icon = styled.Image`
   width: 70px;
   height: 50px;
   resize-mode: contain;
@@ -149,7 +149,7 @@ class Header extends React.PureComponent<PropsType> {
       <Horizontal>
         <HorizontalLeft>
           {this.canGoBackInStack() ? <HeaderBackButton onPress={this.goBackInStack} />
-            : <Logo source={buildConfigAssets().appLogo} />}
+            : <Icon source={buildConfigAssets().appIcon} />}
           {routeCityModel &&
           <HeaderText allowFontScaling={false} theme={theme}>{this.cityDisplayName(routeCityModel)}</HeaderText>}
         </HorizontalLeft>

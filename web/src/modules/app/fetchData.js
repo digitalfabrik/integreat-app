@@ -1,7 +1,7 @@
 // @flow
 
 import type { Dispatch } from 'redux'
-import { Endpoint, Payload } from '@integreat-app/integreat-api-client'
+import { Endpoint, Payload } from 'api-client'
 import startFetchAction from './actions/startFetchAction'
 import finishFetchAction from './actions/finishFetchAction'
 import type { StoreActionType } from './StoreActionType'

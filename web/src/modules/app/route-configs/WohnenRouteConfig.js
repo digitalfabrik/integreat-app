@@ -15,7 +15,7 @@ import {
   OfferModel,
   Payload,
   WohnenOfferModel
-} from '@integreat-app/integreat-api-client'
+} from 'api-client'
 import { cmsApiBaseUrl, wohnenApiBaseUrl } from '../constants/urls'
 import type { StateType } from '../StateType'
 

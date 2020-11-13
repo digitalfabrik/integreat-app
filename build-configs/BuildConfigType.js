@@ -59,6 +59,9 @@ export type BuildConfigType = {|
   assets: string,
   development: boolean,
   e2e?: boolean,
+  mainImprint: string,
+  aboutUrls: { default: string, [language: string]: string },
+  privacyUrls: { default: string, [language: string]: string },
   android: {|
     splashScreen: boolean,
     applicationId: string,
@@ -74,10 +77,12 @@ export type BuildConfigType = {|
   web: {|
     manifestUrl?: string,
     itunesAppId?: string,
-    icons: {
-      locationIcon: string,
-      headerLogo: string,
-    },
+    icons: {|
+      appLogo: string,
+      locationMarker: string,
+      appleTouchIcon: string,
+      favicons: string
+    |},
     splashScreen?: {|
       backgroundColor: string,
       imageUrl: string

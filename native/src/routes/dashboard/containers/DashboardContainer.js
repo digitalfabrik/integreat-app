@@ -4,7 +4,7 @@ import type { Dispatch } from 'redux'
 
 import { connect } from 'react-redux'
 import Dashboard from '../components/Dashboard'
-import type { LanguageResourceCacheStateType, StateType } from '../../../modules/app/StateType'
+import type { CategoryRouteStateType, LanguageResourceCacheStateType, StateType } from '../../../modules/app/StateType'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
@@ -13,7 +13,7 @@ import { type TFunction, withTranslation } from 'react-i18next'
 import type { NavigationStackProp } from 'react-navigation-stack'
 import type { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
 import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvider'
-import { CityModel } from '@integreat-app/integreat-api-client'
+import { CityModel } from 'api-client'
 import React from 'react'
 import createNavigateToCategory from '../../../modules/app/createNavigateToCategory'
 import createNavigateToEvent from '../../../modules/app/createNavigateToEvent'
@@ -62,6 +62,9 @@ const createChangeUnavailableLanguage = (city: string, t: TFunction) =>
     })
   }
 
+const routeHasOldContent = (route: CategoryRouteStateType): boolean =>
+  !!route.models && !!route.allAvailableLanguages && !!route.children
+
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const { t, navigation } = ownProps
   if (!state.cityContent) {
@@ -109,14 +112,15 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
 
   if (state.resourceCacheUrl === null || state.cities.status === 'loading' || switchingLanguage ||
-    route.status === 'loading' || languages.status === 'loading') {
+    (route.status === 'loading' && !routeHasOldContent(route)) || languages.status === 'loading') {
     return { status: 'loading' }
   }
 
   const cities = state.cities.models
   const stateView = new CategoriesRouteStateView(route.path, route.models, route.children)
+  // $FlowFixMe Flow can't evaluate the status as it is dynamic
   return {
-    status: 'success',
+    status: route.status === 'loading' ? 'loading' : 'success',
     refreshProps,
     innerProps: {
       navigation,

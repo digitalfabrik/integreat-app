@@ -11,7 +11,7 @@ import {
   EVENTS_FEEDBACK_TYPE,
   PAGE_FEEDBACK_TYPE,
   TECHNICAL_FEEDBACK_CATEGORY
-} from '@integreat-app/integreat-api-client'
+} from 'api-client'
 import Page from '../../../modules/common/components/Page'
 import ContentNotFoundError from '../../../modules/error/ContentNotFoundError'
 import PageDetail from '../../../modules/common/components/PageDetail'
@@ -25,10 +25,7 @@ import type { NavigateToInternalLinkParamsType } from '../../../modules/app/crea
 import FeedbackVariant from '../../feedback/FeedbackVariant'
 import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
-import type {
-  FeedbackCategoryType,
-  FeedbackType
-} from '@integreat-app/integreat-api-client/endpoints/createFeedbackEndpoint'
+import type { FeedbackCategoryType, FeedbackType } from 'api-client'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
 import PoiListItem from './PoiListItem'
 import type { NavigateToPoiParamsType } from '../../../modules/app/createNavigateToPoi'

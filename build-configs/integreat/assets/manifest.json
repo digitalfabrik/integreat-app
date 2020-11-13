@@ -5,19 +5,19 @@
   "version": "2018.03.2",
   "description": "Daily Guide for Refugees. Digital. Multilingual. Free.",
   "icons": [{
-    "src": "favicon-16x16.png",
+    "src": "favicons/favicon-16x16.png",
     "sizes": "16x16"
   }, {
-    "src": "favicon-48x48.png",
+    "src": "favicons/favicon-48x48.png",
     "sizes": "48x48"
   }, {
-    "src": "favicon-96x96.png",
+    "src": "favicons/favicon-96x96.png",
     "sizes": "96x96"
   }, {
-    "src": "favicon-192x192.png",
+    "src": "favicons/favicon-192x192.png",
     "sizes": "192x192"
   }, {
-    "src": "favicon-512x512.png",
+    "src": "favicons/favicon-512x512.png",
     "sizes": "512x512"
   }],
   "homepage_url": "https://integreat-app.de/",

@@ -1,7 +1,7 @@
 // @flow
 
 import SearchRouteConfig from '../SearchRouteConfig'
-import { CategoriesMapModel, CategoryModel, CityModel, Payload } from '@integreat-app/integreat-api-client'
+import { CategoriesMapModel, CategoryModel, CityModel, Payload } from 'api-client'
 import moment from 'moment'
 import createLocation from '../../../../createLocation'
 

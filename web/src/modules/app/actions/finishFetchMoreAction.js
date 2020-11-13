@@ -1,7 +1,7 @@
 // @flow
 
 import { createAction } from 'redux-actions'
-import { Payload } from '@integreat-app/integreat-api-client'
+import { Payload } from 'api-client'
 import type { PayloadDataType } from '../../../modules/app/PayloadDataType'
 
 export type FinishFetchMoreActionType<T: PayloadDataType> = { type: string, payload: Payload<T> }

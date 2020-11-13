@@ -31,11 +31,10 @@
     "postinstall": "jetifier"
   },
   "dependencies": {
-    "@integreat-app/integreat-api-client": "^5.0.3",
     "@react-native-community/art": "^1.1.2",
     "@react-native-community/async-storage": "^1.9.0",
     "@react-native-community/geolocation": "^2.0.2",
-    "@react-native-community/netinfo": "^5.5.0",
+    "@react-native-community/netinfo": "^5.9.7",
     "@react-native-community/progress-bar-android": "1.0.3",
     "@react-native-community/progress-view": "1.0.3",
     "@react-native-firebase/app": "^8.2.0",
@@ -43,6 +42,7 @@
     "@sentry/react-native": "^1.7.2",
     "@testing-library/jest-native": "^3.4.2",
     "@testing-library/react-native": "^7.0.2",
+    "api-client": "file:../api-client",
     "build-configs": "file:../build-configs",
     "hashids": "^2.2.1",
     "htmlparser2": "^4.0.0",

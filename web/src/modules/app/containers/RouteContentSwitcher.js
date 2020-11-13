@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import type { LocationState } from 'redux-first-router'
-import { Payload, SPRUNGBRETT_OFFER, WOHNEN_OFFER } from '@integreat-app/integreat-api-client'
+import { Payload, SPRUNGBRETT_OFFER, WOHNEN_OFFER } from 'api-client'
 import { find, reduce } from 'lodash'
 import LoadingSpinner from '../../common/components/LoadingSpinner'
 import FailureSwitcher from '../../common/components/FailureSwitcher'

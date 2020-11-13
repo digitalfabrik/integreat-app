@@ -5,7 +5,7 @@ const transformNodeModules = [
   '@react-native-community/async-storage',
   'react-navigation',
   'rn-fetch-blob',
-  '@integreat-app/integreat-api-client',
+  'api-client',
   '@sentry/react-native',
   'hashids',
   '@react-native-community/progress-bar-android',

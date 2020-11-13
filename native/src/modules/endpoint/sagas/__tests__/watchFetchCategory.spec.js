@@ -9,6 +9,8 @@ import { expectSaga, testSaga } from 'redux-saga-test-plan'
 import loadCityContent from '../loadCityContent'
 import CategoriesMapModelBuilder from '../../../../testing/builder/CategoriesMapModelBuilder'
 import ErrorCodes from '../../../error/ErrorCodes'
+import moment from 'moment'
+import mockDate from '../../../../testing/mockDate'
 
 jest.mock('rn-fetch-blob')
 jest.mock('../loadCityContent')
@@ -23,20 +25,38 @@ const createDataContainer = async (city: string, language: string) => {
   await dataContainer.setCategoriesMap(city, language, categories)
   await dataContainer.setLanguages(city, languages)
   await dataContainer.setResourceCache(city, language, resources)
+  await dataContainer.storeLastUsage(city, false)
+  await dataContainer.setLastUpdate(city, language, moment('2020-01-01T01:00:00.000Z'))
 
-  return { categories, resources, languages, dataContainer, initialPath: `/${city}/${language}` }
+  return {
+    categories,
+    resources,
+    languages,
+    dataContainer,
+    initialPath: `/${city}/${language}`
+  }
 }
 
 describe('watchFetchCategories', () => {
+  const mockedDate = moment('2020-01-01T12:00:00.000Z')
+  let restoreMockedDate
+
   beforeEach(() => {
     RNFetchBlob.fs._reset()
+
+    const { restoreDate } = mockDate(mockedDate)
+    restoreMockedDate = restoreDate
+  })
+
+  afterEach(async () => {
+    restoreMockedDate()
   })
 
   const city = 'augsburg'
   const language = 'en'
 
   describe('fetchCategory', () => {
-    it('should put an action which pushes the categories', async () => {
+    it('should put an action which refreshes the categories if the content should be refreshed', async () => {
       const { categories, resources, languages, dataContainer, initialPath } = await createDataContainer(city, language)
 
       const action: FetchCategoryActionType = {
@@ -48,7 +68,7 @@ describe('watchFetchCategories', () => {
           depth: 2,
           key: 'categories-key',
           criterion: {
-            forceUpdate: false,
+            forceUpdate: true,
             shouldRefreshResources: true
           }
         }
@@ -66,7 +86,45 @@ describe('watchFetchCategories', () => {
             depth: 2,
             key: 'categories-key',
             language,
-            city
+            city,
+            refresh: true
+          }
+        })
+        .run()
+    })
+
+    it('should put an action which pushes the categories if content should not be refreshed', async () => {
+      const { categories, resources, languages, dataContainer, initialPath } = await createDataContainer(city, language)
+
+      const action: FetchCategoryActionType = {
+        type: 'FETCH_CATEGORY',
+        params: {
+          city,
+          language,
+          path: initialPath,
+          depth: 2,
+          key: 'categories-key',
+          criterion: {
+            forceUpdate: false,
+            shouldRefreshResources: false
+          }
+        }
+      }
+
+      return expectSaga(fetchCategory, dataContainer, action)
+        .withState({ cityContent: { city: city } })
+        .put({
+          type: 'PUSH_CATEGORY',
+          params: {
+            categoriesMap: categories,
+            resourceCache: resources,
+            path: initialPath,
+            cityLanguages: languages,
+            depth: 2,
+            key: 'categories-key',
+            language,
+            city,
+            refresh: false
           }
         })
         .run()
@@ -86,7 +144,7 @@ describe('watchFetchCategories', () => {
           key: 'categories-key',
           criterion: {
             forceUpdate: false,
-            shouldRefreshResources: true
+            shouldRefreshResources: false
           }
         }
       }
@@ -103,11 +161,51 @@ describe('watchFetchCategories', () => {
             depth: 2,
             key: 'categories-key',
             language,
-            city
+            city,
+            refresh: false
           }
         })
         .run()
     })
+
+    it('should put an action which refreshes the categories when peeking if the content should be refreshed',
+      async () => {
+        const { categories, resources, dataContainer, initialPath } = await createDataContainer(city, language)
+        const anotherCity = 'anotherCity'
+
+        const action: FetchCategoryActionType = {
+          type: 'FETCH_CATEGORY',
+          params: {
+            city,
+            language,
+            path: initialPath,
+            depth: 2,
+            key: 'categories-key',
+            criterion: {
+              forceUpdate: true,
+              shouldRefreshResources: false
+            }
+          }
+        }
+
+        return expectSaga(fetchCategory, dataContainer, action)
+          .withState({ cityContent: { city: anotherCity } })
+          .put({
+            type: 'PUSH_CATEGORY',
+            params: {
+              categoriesMap: categories,
+              resourceCache: resources,
+              path: initialPath,
+              cityLanguages: [],
+              depth: 2,
+              key: 'categories-key',
+              language,
+              city,
+              refresh: true
+            }
+          })
+          .run()
+      })
 
     it('should put error action if language is not available for root model', async () => {
       const { dataContainer, languages } = await createDataContainer(city, language)
@@ -271,6 +369,6 @@ describe('watchFetchCategories', () => {
 
     return testSaga(watchFetchCategory, dataContainer)
       .next()
-      .takeLatest('FETCH_CATEGORY', fetchCategory, dataContainer)
+      .takeEvery('FETCH_CATEGORY', fetchCategory, dataContainer)
   })
 })
