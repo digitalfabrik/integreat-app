@@ -142,7 +142,6 @@ www/workbox-sw.prod.v*.js.map
 /build/deploy/openconnect.*.config
 
 # Jest testing
-/__coverage__/
 junit.xml
 
 # CI
