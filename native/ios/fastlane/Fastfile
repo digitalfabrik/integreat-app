@@ -51,7 +51,7 @@ lane :build do |options|
   # DO NOT REMOVE THIS! It is necessary for the javascript build config logic.
   ENV["BUILD_CONFIG_NAME"] = build_config_name
 
-  build_config = read_build_config(build_config_name, '../')
+  build_config = read_build_config(build_config_name, 'ios', '../')
 
   # https://docs.fastlane.tools/actions/match/
   match(type: "development", app_identifier: build_config['bundleIdentifier'], username: ENV['FASTLANE_USER'], readonly: true)
