@@ -6,6 +6,8 @@ before_all do
   setup_circle_ci
 end
 
+# The following parameters have to be passed:
+# build_config_name: The build config which should be used
 desc "Download and setup certificates"
 lane :certificates do |options|
   ensure_env_vars(
@@ -13,6 +15,10 @@ lane :certificates do |options|
   )
 
   build_config_name = options[:build_config_name]
+
+  if [build_config_name].include?(nil)
+    raise "'nil' passed as parameter! Aborting..."
+  end
 
   build_config = read_build_config(build_config_name, '../')
 
@@ -29,6 +35,11 @@ lane :build do |options|
   version_code = options[:version_code]
   version_name = options[:version_name]
   build_config_name = options[:build_config_name]
+
+
+  if [version_code, version_name, build_config_name].include?(nil)
+    raise "'nil' passed as parameter! Aborting..."
+  end
 
   ensure_env_vars(
       env_vars: ['FASTLANE_USER']
