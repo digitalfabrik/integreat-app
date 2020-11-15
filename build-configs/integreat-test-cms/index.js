@@ -1,7 +1,12 @@
 // @flow
 
-import { WebIntegreatBuildConfig, AndroidIntegreatBuildConfig, iOSIntegreatBuildConfig } from '../integreat'
-import type { AndroidBuildConfigType, iOSBuildConfigType, WebBuildConfigType } from '../BuildConfigType'
+import IntegreatPlatformBuildConfigs from '../integreat'
+import type {
+  AndroidBuildConfigType,
+  CommonBuildConfigType,
+  iOSBuildConfigType,
+  WebBuildConfigType
+} from '../BuildConfigType'
 
 const IntegreatTestCms = {
   appName: 'IntegreatTestCms',
@@ -17,24 +22,33 @@ const IntegreatTestCms = {
   }
 }
 
-export const WebIntegreatTestCmsBuildConfig: WebBuildConfigType = { ...WebIntegreatBuildConfig, ...IntegreatTestCms }
+export const CommonIntegreatTestCmsBuildConfig: CommonBuildConfigType = {
+  ...IntegreatPlatformBuildConfigs.common,
+  ...IntegreatTestCms
+}
+
+export const WebIntegreatTestCmsBuildConfig: WebBuildConfigType = {
+  ...IntegreatPlatformBuildConfigs.web,
+  ...IntegreatTestCms
+}
 
 export const AndroidIntegreatTestCmsBuildConfig: AndroidBuildConfigType = {
-  ...AndroidIntegreatBuildConfig,
+  ...IntegreatPlatformBuildConfigs.android,
   ...IntegreatTestCms,
   googleServices: null
 }
 
 export const iOSIntegreatTestCmsBuildConfig: iOSBuildConfigType = {
-  ...iOSIntegreatBuildConfig,
+  ...IntegreatPlatformBuildConfigs.ios,
   ...IntegreatTestCms,
   googleServices: null
 }
 
 const platformBuildConfigs = {
-  'web': WebIntegreatTestCmsBuildConfig,
-  'android': AndroidIntegreatTestCmsBuildConfig,
-  'ios': iOSIntegreatTestCmsBuildConfig,
+  common: CommonIntegreatTestCmsBuildConfig,
+  web: WebIntegreatTestCmsBuildConfig,
+  android: AndroidIntegreatTestCmsBuildConfig,
+  ios: iOSIntegreatTestCmsBuildConfig,
 }
 
 export default platformBuildConfigs

@@ -1,18 +1,25 @@
 // @flow
 
-import type { AndroidBuildConfigType, iOSBuildConfigType, WebBuildConfigType } from './BuildConfigType'
+import type {
+  CommonBuildConfigType,
+  AndroidBuildConfigType,
+  iOSBuildConfigType,
+  WebBuildConfigType
+} from './BuildConfigType'
 import integreatBuildConfig from './integreat'
 import integreatTestCmsBuildConfig from './integreat-test-cms'
 import integreatE2eBuildConfig from './integreat-e2e'
 import malteBuildConfig from './malte'
 
+export const COMMON = 'common'
 export const ANDROID = 'android'
 export const IOS = 'ios'
 export const WEB = 'web'
 
-const PLATFORMS = [ANDROID, IOS, WEB]
+const PLATFORMS = [COMMON, ANDROID, IOS, WEB]
 
 type BuildConfigPlatformType = {
+  common: CommonBuildConfigType,
   android: AndroidBuildConfigType,
   ios: iOSBuildConfigType,
   web: WebBuildConfigType
