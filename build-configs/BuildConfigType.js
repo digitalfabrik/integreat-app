@@ -1,6 +1,7 @@
 // @flow
 
 import type { ThemeType } from './ThemeType'
+import { ANDROID, IOS, WEB } from './index'
 
 export type LocalesType = { [namespace: string]: { [language: string]: { [key: string]: string } } }
 
@@ -10,6 +11,42 @@ export type FeatureFlagsType = {|
   pushNotifications: boolean,
   introSlides: boolean,
   sentry: boolean
+|}
+
+export type CommonBuildConfigType = {|
+  appName: string,
+  appIcon: string,
+  cmsUrl: string,
+  switchCmsUrl?: string,
+  shareBaseUrl: string,
+  allowedHostNames: Array<string>,
+  internalLinksHijackPattern: string,
+  featureFlags: FeatureFlagsType,
+  lightTheme: ThemeType,
+  darkTheme: ThemeType,
+  localesOverride?: LocalesType,
+  assets: string,
+  development: boolean,
+  e2e?: boolean,
+  aboutUrls: { default: string, [language: string]: string },
+  privacyUrls: { default: string, [language: string]: string }
+|}
+
+export type WebBuildConfigType = {|
+  ...CommonBuildConfigType,
+  mainImprint: string,
+  manifestUrl?: string,
+  itunesAppId?: string,
+  icons: {|
+    appLogo: string,
+    locationMarker: string,
+    appleTouchIcon: string,
+    favicons: string
+  |},
+  splashScreen?: {|
+    backgroundColor: string,
+    imageUrl: string
+  |}
 |}
 
 // These values can be retrieved from the google-services.json according to this guide:
@@ -23,6 +60,13 @@ type AndroidGoogleServicesConfig = {|
   googleApiKey: string,
   googleCrashReportingApiKey: string,
   projectId: string
+|}
+
+export type AndroidBuildConfigType = {|
+  ...CommonBuildConfigType,
+  splashScreen: boolean,
+  applicationId: string,
+  googleServices: ?AndroidGoogleServicesConfig
 |}
 
 // These values can be retrieved from the GoogleService-Info.plist.
@@ -44,48 +88,11 @@ type iOSGoogleServicesConfig = {|
   databaseUrl: string
 |}
 
-export type BuildConfigType = {|
-  appName: string,
-  appIcon: string,
-  cmsUrl: string,
-  switchCmsUrl?: string,
-  shareBaseUrl: string,
-  allowedHostNames: Array<string>,
-  internalLinksHijackPattern: string,
-  featureFlags: FeatureFlagsType,
-  lightTheme: ThemeType,
-  darkTheme: ThemeType,
-  localesOverride?: LocalesType,
-  assets: string,
-  development: boolean,
-  e2e?: boolean,
-  mainImprint: string,
-  aboutUrls: { default: string, [language: string]: string },
-  privacyUrls: { default: string, [language: string]: string },
-  android: {|
-    splashScreen: boolean,
-    applicationId: string,
-    googleServices: ?AndroidGoogleServicesConfig
-  |},
-  ios: {|
-    launchScreen: string,
-    bundleIdentifier: string,
-    provisioningProfileSpecifier: string,
-    appleId: string,
-    googleServices: ?iOSGoogleServicesConfig
-  |},
-  web: {|
-    manifestUrl?: string,
-    itunesAppId?: string,
-    icons: {|
-      appLogo: string,
-      locationMarker: string,
-      appleTouchIcon: string,
-      favicons: string
-    |},
-    splashScreen?: {|
-      backgroundColor: string,
-      imageUrl: string
-    |}
-  |}
+export type iOSBuildConfigType = {|
+  ...CommonBuildConfigType,
+  launchScreen: string,
+  bundleIdentifier: string,
+  provisioningProfileSpecifier: string,
+  appleId: string,
+  googleServices: ?iOSGoogleServicesConfig
 |}
