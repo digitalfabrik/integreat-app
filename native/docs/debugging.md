@@ -14,9 +14,7 @@ It allows debugging of logs, network requests, views and redux actions.
 
 ### iOS
 
-For iOS, some additional steps are required:
-* `bundle exec pod install`
-* Install [idb (iOS Development Bridge)](https://github.com/facebook/idb#quick-start):
+On iOS the [iOS Development Bridge (idb)](https://github.com/facebook/idb#quick-start) has to be installed additionally:
     * `brew tap facebook/fb`
     * `brew install idb-companion`
     * `pip3 install fb-idb`
