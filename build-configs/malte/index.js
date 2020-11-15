@@ -87,9 +87,10 @@ const WebMalteBuildConfig: WebBuildConfigType = {
 }
 
 const platformBuildConfigs = {
-  'web': WebMalteBuildConfig,
-  'android': AndroidMalteBuildConfig,
-  'ios': iOSMalteBuildConfig
+  common: CommonMalteBuildConfig,
+  web: WebMalteBuildConfig,
+  android: AndroidMalteBuildConfig,
+  ios: iOSMalteBuildConfig
 }
 
 export default platformBuildConfigs

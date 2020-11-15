@@ -100,9 +100,10 @@ export const WebIntegreatBuildConfig: WebBuildConfigType = {
 }
 
 const platformBuildConfigs = {
-  'web': WebIntegreatBuildConfig,
-  'android': AndroidIntegreatBuildConfig,
-  'ios': iOSIntegreatBuildConfig
+  common: CommonIntegreatBuildConfig,
+  web: WebIntegreatBuildConfig,
+  android: AndroidIntegreatBuildConfig,
+  ios: iOSIntegreatBuildConfig
 }
 
 export default platformBuildConfigs
