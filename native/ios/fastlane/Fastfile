@@ -20,10 +20,10 @@ lane :certificates do |options|
     raise "'nil' passed as parameter! Aborting..."
   end
 
-  build_config = read_build_config(build_config_name, '../')
+  build_config = read_build_config(build_config_name, 'ios', '../')
 
   # https://docs.fastlane.tools/actions/match/
-  match(type: "appstore", app_identifier: build_config['ios']['bundleIdentifier'], username: ENV['FASTLANE_USER'], readonly: true)
+  match(type: "appstore", app_identifier: build_config['bundleIdentifier'], username: ENV['FASTLANE_USER'], readonly: true)
 end
 
 # The following parameters have to be passed:
@@ -54,8 +54,8 @@ lane :build do |options|
   build_config = read_build_config(build_config_name, '../')
 
   # https://docs.fastlane.tools/actions/match/
-  match(type: "development", app_identifier: build_config['ios']['bundleIdentifier'], username: ENV['FASTLANE_USER'], readonly: true)
-  match(type: "appstore", app_identifier: build_config['ios']['bundleIdentifier'], username: ENV['FASTLANE_USER'], readonly: true)
+  match(type: "development", app_identifier: build_config['bundleIdentifier'], username: ENV['FASTLANE_USER'], readonly: true)
+  match(type: "appstore", app_identifier: build_config['bundleIdentifier'], username: ENV['FASTLANE_USER'], readonly: true)
 
   increment_build_number(
       build_number: version_code
