@@ -1,7 +1,6 @@
 // @flow
 
 import type { ThemeType } from './ThemeType'
-import { ANDROID, IOS, WEB } from './index'
 
 export type LocalesType = { [namespace: string]: { [language: string]: { [key: string]: string } } }
 
