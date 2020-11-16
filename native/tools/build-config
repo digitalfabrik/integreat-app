@@ -12,6 +12,7 @@ const fs = require('fs')
 const flat = require('flat')
 const decamelize = require('decamelize')
 const loadBuildConfig = require('build-configs').default
+const isString = require('lodash').isString
 
 const loadBuildConfigAsXCConfig = buildConfigName => {
   const buildConfig = loadBuildConfig(buildConfigName)
@@ -19,7 +20,11 @@ const loadBuildConfigAsXCConfig = buildConfigName => {
     delimiter: '_',
     transformKey: key => decamelize(key).toUpperCase()
   })
-  const prefixed = Object.keys(xcconfigOptions).map(key => `BUILD_CONFIG_${key} = ${xcconfigOptions[key]}`)
+  const prefixed = Object.keys(xcconfigOptions).map(key => {
+    const value = xcconfigOptions[key]
+    const escaped = isString(value) ? value.replace(/\n/g, '\\n') : value
+    return `BUILD_CONFIG_${key} = ${escaped}`
+  })
   prefixed.push(`BUILD_CONFIG_NAME = ${buildConfigName}`)
   return prefixed.join('\n')
 }

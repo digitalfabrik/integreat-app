@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 
-import { SprungbrettJobModel } from '@integreat-app/integreat-api-client'
+import { SprungbrettJobModel } from 'api-client'
 import ListItem from '../../../modules/common/components/ListItem'
 
 type PropsType = {|

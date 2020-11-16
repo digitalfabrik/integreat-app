@@ -1,7 +1,7 @@
 // @flow
 
 import Page from '../../modules/common/components/Page'
-import { PageModel } from '@integreat-app/integreat-api-client'
+import { PageModel } from 'api-client'
 import type { ThemeType } from '../../modules/theme/constants'
 import React from 'react'
 import type { NavigationStackProp } from 'react-navigation-stack'

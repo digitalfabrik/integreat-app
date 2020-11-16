@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react'
-import { CityModel } from '@integreat-app/integreat-api-client'
+import { CityModel } from 'api-client'
 import { shallow } from 'enzyme'
 import NewsTabs from '../NewsTabs'
 import { LOCAL_NEWS } from '../../constants'

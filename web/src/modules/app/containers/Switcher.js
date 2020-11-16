@@ -15,7 +15,7 @@ import {
   PoiModel,
   TunewsModel,
   WohnenOfferModel
-} from '@integreat-app/integreat-api-client'
+} from 'api-client'
 import Layout from '../../layout/components/Layout'
 import LocationLayout from '../../layout/containers/LocationLayout'
 import GeneralHeader from '../../layout/components/GeneralHeader'
@@ -99,7 +99,17 @@ export class Switcher extends React.Component<PropsType> {
   }
 
   renderLayoutWithContent (): React.Node {
-    const { location, viewportSmall, darkMode, categoriesPayload, citiesPayload, toggleDarkMode, eventsPayload } = this.props
+    const {
+      location,
+      viewportSmall,
+      darkMode,
+      categoriesPayload,
+      citiesPayload,
+      toggleDarkMode,
+      eventsPayload
+    } = this.props
+
+    const { language } = location.payload
 
     const routeConfig = getRouteConfig(location.type)
     const payloads = routeConfig.getRequiredPayloads(this.getAllPayloads())
@@ -116,7 +126,7 @@ export class Switcher extends React.Component<PropsType> {
     if (error || !routeConfig.isLocationLayoutRoute) {
       const showFooter = (error || routeConfig.requiresFooter) && !isLoading
       return (
-        <Layout footer={showFooter && <GeneralFooter />}
+        <Layout footer={showFooter && <GeneralFooter language={language} />}
                 header={(error || routeConfig.requiresHeader) && <GeneralHeader viewportSmall={viewportSmall} />}
                 darkMode={darkMode}>
           {error ? <LanguageFailure cities={citiesPayload.data}

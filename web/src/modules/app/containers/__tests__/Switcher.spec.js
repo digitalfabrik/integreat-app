@@ -17,7 +17,7 @@ import {
   SprungbrettJobModel,
   WohnenFormData,
   WohnenOfferModel
-} from '@integreat-app/integreat-api-client'
+} from 'api-client'
 import { mount, shallow } from 'enzyme'
 import { CATEGORIES_ROUTE } from '../../route-configs/CategoriesRouteConfig'
 import { LANDING_ROUTE } from '../../route-configs/LandingRouteConfig'

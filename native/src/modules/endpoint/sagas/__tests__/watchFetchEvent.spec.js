@@ -9,13 +9,25 @@ import watchFetchEvent, { fetchEvent } from '../watchFetchEvent'
 import { expectSaga, testSaga } from 'redux-saga-test-plan'
 import loadCityContent from '../loadCityContent'
 import ErrorCodes from '../../../error/ErrorCodes'
+import moment from 'moment'
+import mockDate from '../../../../testing/mockDate'
 
 jest.mock('rn-fetch-blob')
 jest.mock('../loadCityContent')
 
 describe('watchFetchEvents', () => {
+  const mockedDate = moment('2020-01-01T12:00:00.000Z')
+  let restoreMockedDate
+
   beforeEach(() => {
     RNFetchBlob.fs._reset()
+
+    const { restoreDate } = mockDate(mockedDate)
+    restoreMockedDate = restoreDate
+  })
+
+  afterEach(async () => {
+    restoreMockedDate()
   })
 
   const city = 'augsburg'
@@ -32,10 +44,13 @@ describe('watchFetchEvents', () => {
       await dataContainer.setEvents(city, language, events)
       await dataContainer.setLanguages(city, languages)
       await dataContainer.setResourceCache(city, language, resources)
+      await dataContainer.storeLastUsage(city, false)
+      await dataContainer.setLastUpdate(city, language, moment('2020-01-01T01:00:00.000Z'))
+
       return { dataContainer, events, resources, languages }
     }
 
-    it('should put an action which pushes the events', async () => {
+    it('should put an action which refreshes the events if the events should be refreshed', async () => {
       const { events, dataContainer, resources, languages } = await createDataContainer(city, language)
 
       const action: FetchEventActionType = {
@@ -46,7 +61,7 @@ describe('watchFetchEvents', () => {
           path: events[0].path,
           key: 'events-key',
           criterion: {
-            forceUpdate: false,
+            forceUpdate: true,
             shouldRefreshResources: true
           }
         }
@@ -62,7 +77,42 @@ describe('watchFetchEvents', () => {
             cityLanguages: languages,
             key: 'events-key',
             language,
-            city
+            city,
+            refresh: true
+          }
+        })
+        .run()
+    })
+
+    it('should put an action which pushes the events if the events should not be refreshed', async () => {
+      const { events, dataContainer, resources, languages } = await createDataContainer(city, language)
+
+      const action: FetchEventActionType = {
+        type: 'FETCH_EVENT',
+        params: {
+          city,
+          language,
+          path: events[0].path,
+          key: 'events-key',
+          criterion: {
+            forceUpdate: false,
+            shouldRefreshResources: false
+          }
+        }
+      }
+      return expectSaga(fetchEvent, dataContainer, action)
+        .withState({ cityContent: { city } })
+        .put({
+          type: 'PUSH_EVENT',
+          params: {
+            events,
+            resourceCache: resources,
+            path: events[0].path,
+            cityLanguages: languages,
+            key: 'events-key',
+            language,
+            city,
+            refresh: false
           }
         })
         .run()
@@ -168,6 +218,6 @@ describe('watchFetchEvents', () => {
 
     return testSaga(watchFetchEvent, dataContainer)
       .next()
-      .takeLatest('FETCH_EVENT', fetchEvent, dataContainer)
+      .takeEvery('FETCH_EVENT', fetchEvent, dataContainer)
   })
 })

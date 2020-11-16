@@ -11,16 +11,16 @@ import DatabaseContext from '../../DatabaseContext'
 let mockCategories
 jest.mock('@react-native-community/async-storage')
 jest.mock('rn-fetch-blob')
-jest.mock('@integreat-app/integreat-api-client',
+jest.mock('api-client',
   () => {
-    const actual = jest.requireActual('@integreat-app/integreat-api-client')
+    const actual = jest.requireActual('api-client')
     const city = 'augsburg'
     const language = 'de'
 
     return {
       ...actual,
       createCategoriesEndpoint: () => {
-        const { EndpointBuilder } = require('@integreat-app/integreat-api-client')
+        const { EndpointBuilder } = require('api-client')
         const { default: CategoriesMapModelBuilder } = require('../../../../testing/builder/CategoriesMapModelBuilder')
 
         mockCategories = new CategoriesMapModelBuilder(city, language, 2).build()

@@ -1,6 +1,6 @@
 // @flow
 
-import { Payload, TUNEWS_ENDPOINT_NAME, TunewsModel } from '@integreat-app/integreat-api-client'
+import { Payload, TUNEWS_ENDPOINT_NAME, TunewsModel } from 'api-client'
 import { startFetchActionName } from '../actions/startFetchAction'
 import { finishFetchActionName } from '../actions/finishFetchAction'
 import { type ReduxReducer } from 'redux-actions'

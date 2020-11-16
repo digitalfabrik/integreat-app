@@ -6,6 +6,7 @@ import { applyMiddleware, combineReducers, createStore } from 'redux'
 import toggleDarkModeReducer from '../theme/reducers'
 import type { Saga } from 'redux-saga'
 import createSagaMiddleware from 'redux-saga'
+import createDebugger from 'redux-flipper'
 import { all, call } from 'redux-saga/effects'
 import type { StateType } from './StateType'
 import { defaultCitiesState, defaultCityContentState, defaultContentLanguageState } from './StateType'
@@ -60,7 +61,13 @@ const createReduxStore = (
     resourceCacheUrl: resourceCacheUrlReducer
   })
 
-  const middleware = applyMiddleware(sagaMiddleware)
+  const middlewares = [sagaMiddleware]
+  if (buildConfig().development) {
+    const flipperReduxMiddleware = createDebugger()
+    middlewares.push(flipperReduxMiddleware)
+  }
+
+  const middleware = applyMiddleware(...middlewares)
   const enhancer = buildConfig().development ? composeWithDevTools(middleware) : middleware
   const store = createStore(rootReducer, initialState, enhancer)
 
