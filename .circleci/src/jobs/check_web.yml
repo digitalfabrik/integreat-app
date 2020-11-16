@@ -17,8 +17,4 @@ steps:
       command: yarn workspace web flow:check-now --max-workers ${TOTAL_CPUS}
   - unit_test:
       directory: web
-  - lint:
-      directory: api-client
-  - unit_test:
-      directory: api-client
   - notify_failed
