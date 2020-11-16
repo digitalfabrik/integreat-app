@@ -20,8 +20,9 @@
     "test:watch": "jest --config jest.config.js --watchAll",
     "test:update": "jest --config jest.config.js -u",
     "lint": "yarn run eslint && yarn run stylelint",
-    "eslint": "eslint .",
+    "lint:ci": "yarn run eslint --format junit -o reports/lint/junit-lint.xml && yarn run stylelint",
     "eslint:fix": "eslint . --fix",
+    "eslint": "eslint .",
     "stylelint": "stylelint --config stylelint.config.js \"src/**/*.{js,css}\"",
     "flow:check-now": "flow check",
     "flow:install-types": "flow-typed install --skip"
