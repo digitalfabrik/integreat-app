@@ -1,3 +1,5 @@
+import { JSDOM } from 'jsdom' // jsdom is included in jest and therefore shouldn't be added as dev dependency
+
 const fs = require('fs')
 const path = require('path')
 require('react-native-gesture-handler/jestSetup')
@@ -12,7 +14,7 @@ if (typeof window !== 'object') {
 global.fetch = require('jest-fetch-mock')
 jest.mock('rn-fetch-blob')
 
-import { JSDOM } from 'jsdom'
+
 const jsdom = new JSDOM()
 const { FormData } = jsdom.window
 global.FormData = FormData
