@@ -2,8 +2,8 @@
 #
 # ARG_POSITIONAL_SINGLE([package-name],[package name under which to release],[])
 # ARG_POSITIONAL_SINGLE([version-name],[name of the version to release],[])
-# ARG_POSITIONAL_SINGLE([version-code],[code of the version to release],[])
 # ARG_POSITIONAL_SINGLE([sourcemap-directory],[relative path to the directory where the sourcemap is],[])
+# ARG_OPTIONAL_SINGLE([version-code],[o],[code of the version to release, this is only needed for react-native])
 # ARG_HELP([This script creates a release in sentry. This file uses the configuration from ./.sentryclirc])
 # ARGBASH_GO()
 # needed because of Argbash --> m4_ignore([
@@ -24,7 +24,7 @@ die()
 
 begins_with_short_option()
 {
-	local first_option all_short_options='h'
+	local first_option all_short_options='oh'
 	first_option="${1:0:1}"
 	test "$all_short_options" = "${all_short_options/$first_option/}" && return 1 || return 0
 }
@@ -32,16 +32,17 @@ begins_with_short_option()
 # THE DEFAULTS INITIALIZATION - POSITIONALS
 _positionals=()
 # THE DEFAULTS INITIALIZATION - OPTIONALS
+_arg_version_code=
 
 
 print_help()
 {
 	printf '%s\n' "This script creates a release in sentry. This file uses the configuration from ./.sentryclirc"
-	printf 'Usage: %s [-h|--help] <package-name> <version-name> <version-code> <sourcemap-directory>\n' "$0"
+	printf 'Usage: %s [-o|--version-code <arg>] [-h|--help] <package-name> <version-name> <sourcemap-directory>\n' "$0"
 	printf '\t%s\n' "<package-name>: package name under which to release"
 	printf '\t%s\n' "<version-name>: name of the version to release"
-	printf '\t%s\n' "<version-code>: code of the version to release"
 	printf '\t%s\n' "<sourcemap-directory>: relative path to the directory where the sourcemap is"
+	printf '\t%s\n' "-o, --version-code: code of the version to release, this is only needed for react-native (no default)"
 	printf '\t%s\n' "-h, --help: Prints help"
 }
 
@@ -53,6 +54,17 @@ parse_commandline()
 	do
 		_key="$1"
 		case "$_key" in
+			-o|--version-code)
+				test $# -lt 2 && die "Missing value for the optional argument '$_key'." 1
+				_arg_version_code="$2"
+				shift
+				;;
+			--version-code=*)
+				_arg_version_code="${_key##--version-code=}"
+				;;
+			-o*)
+				_arg_version_code="${_key##-o}"
+				;;
 			-h|--help)
 				print_help
 				exit 0
@@ -74,16 +86,16 @@ parse_commandline()
 
 handle_passed_args_count()
 {
-	local _required_args_string="'package-name', 'version-name', 'version-code' and 'sourcemap-directory'"
-	test "${_positionals_count}" -ge 4 || _PRINT_HELP=yes die "FATAL ERROR: Not enough positional arguments - we require exactly 4 (namely: $_required_args_string), but got only ${_positionals_count}." 1
-	test "${_positionals_count}" -le 4 || _PRINT_HELP=yes die "FATAL ERROR: There were spurious positional arguments --- we expect exactly 4 (namely: $_required_args_string), but got ${_positionals_count} (the last one was: '${_last_positional}')." 1
+	local _required_args_string="'package-name', 'version-name' and 'sourcemap-directory'"
+	test "${_positionals_count}" -ge 3 || _PRINT_HELP=yes die "FATAL ERROR: Not enough positional arguments - we require exactly 3 (namely: $_required_args_string), but got only ${_positionals_count}." 1
+	test "${_positionals_count}" -le 3 || _PRINT_HELP=yes die "FATAL ERROR: There were spurious positional arguments --- we expect exactly 3 (namely: $_required_args_string), but got ${_positionals_count} (the last one was: '${_last_positional}')." 1
 }
 
 
 assign_positional_args()
 {
 	local _positional_name _shift_for=$1
-	_positional_names="_arg_package_name _arg_version_name _arg_version_code _arg_sourcemap_directory "
+	_positional_names="_arg_package_name _arg_version_name _arg_sourcemap_directory "
 
 	shift "$_shift_for"
 	for _positional_name in ${_positional_names}
@@ -130,12 +142,19 @@ then
   exit 1
 fi
 
-version="${package_name}@${version_name}+${version_code}"
+version="${package_name}@${version_name}"
 
-sentry-cli releases new $version --finalize
 
-for sourcemap_path in "${sourcemap_paths[@]}"; do 
-  sentry-cli releases files $version upload-sourcemaps $sourcemap_path --rewrite --dist $version_code
+if [ -z "$version_code" ]
+then
+      version="$version+${version_code}"
+fi
+
+
+sentry-cli releases new "$version" --finalize
+
+for sourcemap_path in "${sourcemap_paths[@]}"; do
+  sentry-cli releases files "$version" upload-sourcemaps "$sourcemap_path" --rewrite --dist "$version_code"
 done
 
 # ] <-- needed because of Argbash
