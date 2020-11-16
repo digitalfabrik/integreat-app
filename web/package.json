@@ -16,7 +16,7 @@
     "check:build": "yarn es-check es5 ./dist/**/*.js --verbose",
     "test": "jest --config jest.config.js",
     "test:coverage": "jest --config jest.config.js --coverage",
-    "test:ci": "jest --config jest.config.js --coverage --ci --testResultsProcessor=jest-junit",
+    "test:ci": "yarn run test:coverage --ci",
     "test:watch": "jest --config jest.config.js --watchAll",
     "test:update": "jest --config jest.config.js -u",
     "lint": "yarn run eslint && yarn run stylelint",
