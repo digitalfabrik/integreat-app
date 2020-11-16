@@ -43,5 +43,12 @@ module.exports = {
   collectCoverageFrom: [
     '**/*.{js,jsx}'
   ],
-  coverageDirectory: '<rootDir>/coverage'
+  coverageDirectory: '<rootDir>/reports/coverage',
+  reporters: [
+    'default',
+    ['jest-junit', {
+      outputDirectory: 'reports/unit-test',
+      outputName: 'junit-test.xml'
+    }]
+  ]
 }

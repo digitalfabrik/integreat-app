@@ -26,6 +26,7 @@
     "test:update": "cross-env BUILD_CONFIG_NAME='integreat-test-cms' jest --config ./jest.config.js -u",
     "test:e2e": "cross-env BUILD_CONFIG_NAME='integreat-e2e' jest --config jest.e2e.config.js --maxWorkers=4",
     "lint": "yarn run eslint",
+    "lint:ci": "yarn run eslint --format junit -o reports/lint/junit-lint.xml",
     "eslint": "eslint .",
     "flow:check-now": "flow check",
     "flow:install-types": "flow-typed install --ignoreDeps dev",

@@ -37,10 +37,10 @@ commands:
                 type: string
         steps:
             - run:
-                command: yarn workspace << parameters.directory >> run eslint --format junit -o reports/junit-lint.xml
+                command: yarn workspace << parameters.directory >> run lint:ci
                 name: Linting check
             - store_test_results:
-                path: << parameters.directory >>/reports
+                path: << parameters.directory >>/reports/lint
     notify_failed:
         description: Notifies about jobs which have failed
         steps:
@@ -191,14 +191,11 @@ commands:
         steps:
             - run:
                 command: yarn workspace << parameters.directory >> run test:ci --maxWorkers ${TOTAL_CPUS}
-                environment:
-                    JEST_JUNIT_OUTPUT: reports/junit-test.xml
                 name: Unit Tests with Coverage
             - store_test_results:
-                path: << parameters.directory >>/reports
+                path: << parameters.directory >>/reports/unit-test
             - store_artifacts:
-                destination: << parameters.directory >>-coverage
-                path: << parameters.directory >>/coverage
+                path: << parameters.directory >>/reports/coverage
 jobs:
     build_android:
         docker:
@@ -323,6 +320,9 @@ jobs:
             - run:
                 command: yarn workspace web build:<< parameters.build_config_name >> --env.commit_sha=${CIRCLE_SHA1}
                 name: << parameters.build_config_name >> build
+            - store_artifacts:
+                name: Store output of bundle analyzer
+                path: web/reports/bundle
             - run:
                 command: yarn workspace web check:build
                 name: Check build
@@ -396,8 +396,6 @@ jobs:
             - restore_yarn_cache
             - lint:
                 directory: native
-            - store_test_results:
-                path: native/reports
             - run:
                 command: yarn workspace native flow:check-now --max-workers ${TOTAL_CPUS}
                 name: Flow-type check

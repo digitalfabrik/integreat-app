@@ -15,6 +15,7 @@ const MomentLocalesPlugin = require('moment-locales-webpack-plugin')
 const babelConfig = require('../babel.config.js')
 const fs = require('fs')
 const loadBuildConfig = require('build-configs').default
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 const currentYear = new Date().getFullYear()
 
@@ -22,7 +23,7 @@ const SHORT_COMMIT_SHA_LENGTH = 8
 
 // A first performance budget, which should be improved in the future: Maximum bundle size in Bytes; 2^20 = 1 MiB
 // eslint-disable-next-line no-magic-numbers
-const MAX_BUNDLE_SIZE = 1.56 * Math.pow(2, 20)
+const MAX_BUNDLE_SIZE = 1.64 * Math.pow(2, 20)
 
 const readJson = path => JSON.parse(fs.readFileSync(path))
 
@@ -63,6 +64,7 @@ const createConfig = (env = {}) => {
   const wwwDirectory = path.resolve(__dirname, '../www')
   const distDirectory = path.resolve(__dirname, `../dist/${buildConfigName}`)
   const srcDirectory = path.resolve(__dirname, '../src')
+  const bundleReportDirectory = path.resolve(__dirname, '../reports/bundle')
 
   // Add new polyfills here instead of importing them in the JavaScript code.
   // This way it is ensured that polyfills are loaded before any other code which might require them.
@@ -117,6 +119,13 @@ const createConfig = (env = {}) => {
     },
     // The list of plugins for Webpack compiler
     plugins: [
+      new BundleAnalyzerPlugin({
+        analyzerMode: isProductionBuild ? 'static' : 'disabled',
+        generateStatsFile: !!isProductionBuild,
+        openAnalyzer: false,
+        reportFilename: path.join(bundleReportDirectory, 'report.html'),
+        statsFilename: path.join(bundleReportDirectory, 'stats.json')
+      }),
       new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
         title: buildConfig.appName,
