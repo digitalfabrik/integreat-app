@@ -2,7 +2,7 @@
   "rootDir": "src/",
   "verbose": true,
   "automock": false,
-  "setupFiles": [
+  "setupFilesAfterEnv": [
     "<rootDir>/setupTest.js"
   ],
   "transformIgnorePatterns": [
