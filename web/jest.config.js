@@ -1,9 +1,10 @@
 module.exports = {
-  rootDir: 'src/',
+  rootDir: 'src',
+  roots: ['<rootDir>', '<rootDir>/../../api-client'],
   verbose: true,
   automock: false,
   setupFiles: [
-    '<rootDir>/setupTest.js'
+    '<rootDir>/../jest.setup.js'
   ],
   transformIgnorePatterns: [
     'node_modules/(?!build-configs|api-client)'
@@ -20,15 +21,11 @@ module.exports = {
   moduleDirectories: [
     'node_modules'
   ],
-  collectCoverageFrom: [
-    '**/*.{js,jsx}'
-  ],
   coverageDirectory: '<rootDir>/../reports/coverage',
   reporters: [
     'default',
     ['jest-junit', {
-      outputDirectory: 'reports/unit-test',
-      outputName: 'junit-test.xml'
+      outputDirectory: '<rootDir>/../reports/unit-test'
     }]
   ],
   snapshotSerializers: [

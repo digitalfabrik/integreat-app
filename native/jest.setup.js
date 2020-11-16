@@ -12,8 +12,10 @@ if (typeof window !== 'object') {
 global.fetch = require('jest-fetch-mock')
 jest.mock('rn-fetch-blob')
 
-// FormData is not part of the jest react-native preset: https://github.com/jefflau/jest-fetch-mock/issues/23
-global.FormData = require('testing/FormDataMock.js')
+import { JSDOM } from 'jsdom'
+const jsdom = new JSDOM()
+const { FormData } = jsdom.window
+global.FormData = FormData
 
 function walkDir (dir, callback) {
   fs.readdirSync(dir).forEach(f => {
