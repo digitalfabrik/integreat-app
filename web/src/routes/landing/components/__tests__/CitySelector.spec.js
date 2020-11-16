@@ -3,7 +3,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import { CityModel } from '@integreat-app/integreat-api-client'
+import { CityModel } from 'api-client'
 
 import CitySelector from '../CitySelector'
 

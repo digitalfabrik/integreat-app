@@ -1,6 +1,6 @@
 // @flow
 
-import { CategoryModel } from '@integreat-app/integreat-api-client'
+import { CategoryModel } from 'api-client'
 import CategoriesRouteStateView from '../CategoriesRouteStateView'
 import moment from 'moment'
 

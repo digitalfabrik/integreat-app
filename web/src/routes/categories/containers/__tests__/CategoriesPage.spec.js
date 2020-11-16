@@ -4,7 +4,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 
 import ConnectedCategoriesPage, { CategoriesPage } from '../CategoriesPage'
-import { CategoriesMapModel, CategoryModel, CityModel } from '@integreat-app/integreat-api-client'
+import { CategoriesMapModel, CategoryModel, CityModel } from 'api-client'
 import configureMockStore from 'redux-mock-store'
 import moment from 'moment'
 

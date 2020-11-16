@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { Text } from 'react-native'
-import { WohnenOfferModel, WohnenFormData } from '@integreat-app/integreat-api-client'
+import { WohnenOfferModel, WohnenFormData } from 'api-client'
 import ListItem from '../../../modules/common/components/ListItem'
 import styled from 'styled-components/native'
 import { formatPrice } from './OfferDetail'

@@ -15,7 +15,7 @@ import {
   SEARCH_FEEDBACK_TYPE,
   CONTENT_FEEDBACK_CATEGORY,
   TECHNICAL_FEEDBACK_CATEGORY
-} from '@integreat-app/integreat-api-client'
+} from 'api-client'
 import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
 import type { LocationState } from 'redux-first-router'
@@ -31,7 +31,7 @@ import { DISCLAIMER_ROUTE } from '../../app/route-configs/DisclaimerRouteConfig'
 import { cmsApiBaseUrl } from '../../app/constants/urls'
 import type { ThemeType } from '../../theme/constants/theme'
 import type { SendingStatusType } from './FeedbackModal'
-import type { FeedbackParamsType } from '@integreat-app/integreat-api-client'
+import type { FeedbackParamsType } from 'api-client'
 
 type PropsType = {|
   cities: ?Array<CityModel>,

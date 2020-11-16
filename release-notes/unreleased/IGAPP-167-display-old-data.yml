@@ -1,0 +1,7 @@
+issue_key: IGAPP-167
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: Content is now still being displayed while refreshing.
+de: Der Inhalt wird nun während des Updatens der Inhalte weiterhin angezeigt.

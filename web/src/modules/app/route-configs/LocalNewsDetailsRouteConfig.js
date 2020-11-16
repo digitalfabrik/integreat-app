@@ -10,7 +10,7 @@ import {
   createLanguagesEndpoint,
   LocalNewsModel,
   Payload, CityModel
-} from '@integreat-app/integreat-api-client'
+} from 'api-client'
 import fetchData from '../fetchData'
 import { cmsApiBaseUrl } from '../constants/urls'
 import type { StateType } from '../StateType'

@@ -9,7 +9,7 @@ import {
   LanguageModel,
   LocationModel,
   PoiModel
-} from '@integreat-app/integreat-api-client'
+} from 'api-client'
 import RNFetchBlob from 'rn-fetch-blob'
 import type Moment from 'moment'
 import moment from 'moment'

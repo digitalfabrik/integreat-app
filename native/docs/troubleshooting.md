@@ -16,6 +16,7 @@
 * [Gradle `resource string/BUILD_CONFIG_APP_NAME not found`](#gradle-resource-stringbuild_config_app_name-not-found)
 * [`No BUILD_CONFIG_NAME supplied`](#no-build_config_name-supplied)
 * [`Invalid BUILD_CONFIG_NAME supplied`](#invalid-build_config_name-supplied)
+* [App crashing with java.lang.UnsatisfiedLinkError](#app-crashing-with-javalangunsatisfiedlinkerror)
 
 ## Problems with sharp or other node modules
 
@@ -108,3 +109,12 @@ More information on how to set the environment variable can be found [here](buil
 
 Invalid environment variable `BUILD_CONFIG_NAME` set before running the packager.
 All available build configs can be found [here](../../docs/build-configs.md#available-build-configs).
+
+## App crashing with java.lang.UnsatisfiedLinkError 
+
+The following error occurs:
+`java.lang.UnsatisfiedLinkError: couldn't find DSO to load: libflipper.so caused by: dlopen failed: library "libevent_extra-2.1.so" not found result: 0`
+
+* Delete the folder `android/app/build` 
+* Delete the app
+* Reinstall the app (`yarn android`)

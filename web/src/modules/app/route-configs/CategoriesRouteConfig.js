@@ -12,7 +12,7 @@ import {
   createEventsEndpoint,
   createLanguagesEndpoint,
   Payload
-} from '@integreat-app/integreat-api-client'
+} from 'api-client'
 import { cmsApiBaseUrl } from '../constants/urls'
 import buildConfig from '../constants/buildConfig'
 

@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react'
-import { SprungbrettJobModel } from '@integreat-app/integreat-api-client'
+import { SprungbrettJobModel } from 'api-client'
 import { shallow } from 'enzyme'
 import SprungbrettListItem from '../SprungbrettListItem'
 

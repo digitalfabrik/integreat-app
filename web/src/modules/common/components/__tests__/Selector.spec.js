@@ -27,7 +27,7 @@ describe('Selector', () => {
   it('should match snapshot', () => {
     const wrapper = shallow(
       <Selector verticalLayout={false}
-                closeDropDownCallback={() => {}}
+                closeDropDown={() => {}}
                 items={selectorItems}
                 activeItemCode='de'
                 disabledItemTooltip='random tooltip' />
@@ -38,7 +38,7 @@ describe('Selector', () => {
   it('should be vertical and match snapshot', () => {
     const wrapper = shallow(
       <Selector verticalLayout
-                closeDropDownCallback={() => {}}
+                closeDropDown={() => {}}
                 items={selectorItems}
                 activeItemCode='de'
                 disabledItemTooltip='random tooltip' />
