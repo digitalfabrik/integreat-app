@@ -3,7 +3,7 @@ module.exports = {
   roots: ['<rootDir>', '<rootDir>/../../api-client'],
   verbose: true,
   automock: false,
-  setupFiles: [
+  setupFilesAfterEnv: [
     '<rootDir>/../jest.setup.js'
   ],
   transformIgnorePatterns: [
