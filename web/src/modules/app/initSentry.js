@@ -4,6 +4,7 @@ import buildConfig from './constants/buildConfig'
 
 const initSentry = async () => {
   if (!buildConfig().featureFlags.sentry) {
+    console.log('Disabling sentry because it was disabled through the build config.')
     return
   }
 
@@ -14,10 +15,11 @@ const initSentry = async () => {
     )
 
     Sentry.init({
-      dsn: 'https://f07e705b25464bbd8b0dbbc0a6414b11@sentry.tuerantuer.org/2'
-      // release: "my-project-name@" + process.env.npm_package_version,
+      dsn: 'https://f07e705b25464bbd8b0dbbc0a6414b11@sentry.tuerantuer.org/2',
+      release: `${__BUILD_CONFIG_NAME__}@${__VERSION__}`
     })
   } catch (e) {
+    console.error(e)
     console.error('Failed to load sentry entry point!')
   }
 }

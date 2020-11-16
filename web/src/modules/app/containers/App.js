@@ -22,7 +22,7 @@ class App extends React.Component<PropsType> {
   constructor () {
     super()
     this.store = createReduxStore()
-    initSentry()
+    initSentry().catch(e => console.error(e))
   }
 
   render () {
