@@ -14,7 +14,9 @@ if (typeof window !== 'object') {
 global.fetch = require('jest-fetch-mock')
 jest.mock('rn-fetch-blob')
 
-
+// We polyfill FormData here because react-native uses 'node' as 'testEnvironment' option in jest:
+// https://jestjs.io/docs/en/configuration#testenvironment-string
+// Importing it from jsdom allows us to import stuff selectively
 const jsdom = new JSDOM()
 const { FormData } = jsdom.window
 global.FormData = FormData
