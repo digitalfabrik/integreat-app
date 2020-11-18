@@ -1,6 +1,0 @@
-issue_key: IGAPP-166
-show_in_stores: false
-platforms:
-  - android
-  - ios
-en: Fix typing of navigation property and improve navigation from landing to a city.
