@@ -89,7 +89,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     return { status: 'routeNotInitialized' }
   }
 
-  if (route.status === 'languageNotAvailable') {
+  if (route.status === 'languageNotAvailable' && !switchingLanguage) {
     if (languages.status === 'error' || languages.status === 'loading') {
       console.error('languageNotAvailable status impossible if languages not ready')
       return {
@@ -133,6 +133,9 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 
   if (!cityModel) {
     throw new Error('cityModel is undefined!')
+  } else if (route.status === 'languageNotAvailable') {
+    // Necessary for flow type checking, already handled above
+    throw new Error('language not available route status not handled!')
   }
 
   if (route.status === 'loading') {
