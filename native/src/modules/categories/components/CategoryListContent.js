@@ -60,8 +60,9 @@ class CategoryListContent extends React.Component<ContentPropsType, {| width: nu
   }
 
   onLinkPress = (evt: GestureResponderEvent, url: string) => {
-    const { language, navigation, navigateToInternalLink } = this.props
-    onInternalLinkPress(url, navigation, language, navigateToInternalLink)
+    const { language, navigation, navigateToInternalLink, cacheDictionary } = this.props
+    const shareUrl = Object.keys(cacheDictionary).find(remoteUrl => cacheDictionary[remoteUrl] === url)
+    onInternalLinkPress(url, navigation, language, navigateToInternalLink, shareUrl || url)
   }
 
   alterResources = (node: HTMLNode) => {
