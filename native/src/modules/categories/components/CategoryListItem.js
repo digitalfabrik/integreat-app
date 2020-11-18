@@ -14,6 +14,7 @@ import Highlighter from 'react-native-highlight-words'
 import normalizeSearchString from '../../common/normalizeSearchString'
 import type { CategoryListModelType } from './CategoryList'
 import ContentMatcher from './ContentMatcher'
+import dimensions from '../../theme/constants/dimensions'
 
 const NUM_WORDS_SURROUNDING_MATCH = 10
 
@@ -49,9 +50,9 @@ const CategoryTitle = styled(Highlighter)`
 const CategoryThumbnail = styled(Image)`
   align-self: center;
   flex-shrink: 0;
-  width: ${props => props.theme.dimensions.native.categoryListItem.iconSize}px;
-  height: ${props => props.theme.dimensions.native.categoryListItem.iconSize}px;
-  margin: ${props => props.theme.dimensions.native.categoryListItem.margin}px;
+  width: ${dimensions.categoryListItem.iconSize}px;
+  height: ${dimensions.categoryListItem.iconSize}px;
+  margin: ${dimensions.categoryListItem.margin}px;
 `
 
 type PropsType = {

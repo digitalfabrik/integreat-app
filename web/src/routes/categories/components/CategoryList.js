@@ -7,10 +7,11 @@ import Caption from '../../../modules/common/components/Caption'
 import CategoryEntry from './CategoryEntry'
 import { CategoryModel } from 'api-client'
 import styled from 'styled-components'
+import helpers from '../../../modules/theme/constants/helpers'
 
 const List = styled.div`
   & a {
-    ${props => props.theme.helpers.removeLinkHighlighting}
+    ${helpers.removeLinkHighlighting}
   }
 `
 

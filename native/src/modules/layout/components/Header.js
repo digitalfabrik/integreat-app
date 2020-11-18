@@ -14,6 +14,7 @@ import { CityModel } from 'api-client'
 import MaterialHeaderButtons from './MaterialHeaderButtons'
 import buildConfig, { buildConfigAssets } from '../../app/constants/buildConfig'
 import Url from 'url-parse'
+import dimensions from '../../theme/constants/dimensions'
 
 const Horizontal = styled.View`
   flex: 1;
@@ -51,7 +52,7 @@ const BoxShadow: StyledComponent<{}, ThemeType, *> = styled.View`
   shadow-opacity: 0.18;
   shadow-radius: 1.00px;
   background-color: ${props => props.theme.colors.backgroundAccentColor};
-  height: ${props => props.theme.dimensions.native.headerHeight}px;
+  height: ${dimensions.headerHeight}px;
 `
 
 type PropsType = {|
