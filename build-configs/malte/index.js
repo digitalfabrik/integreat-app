@@ -8,7 +8,7 @@ import mainImprint from './assets/mainImprint'
 
 const APPLE_APP_ID = '1535758339'
 
-const CommonMalteBuildConfig = {
+const commonMalteBuildConfig = {
   appName: 'Malte',
   appIcon: 'app_icon_malte',
   lightTheme,
@@ -35,8 +35,8 @@ const CommonMalteBuildConfig = {
   }
 }
 
-const AndroidMalteBuildConfig: AndroidBuildConfigType = {
-  ...CommonMalteBuildConfig,
+const androidMalteBuildConfig: AndroidBuildConfigType = {
+  ...commonMalteBuildConfig,
   splashScreen: false,
   applicationId: 'de.malteapp',
   googleServices: {
@@ -50,8 +50,8 @@ const AndroidMalteBuildConfig: AndroidBuildConfigType = {
     projectId: 'malte-2020'
   }
 }
-const iOSMalteBuildConfig: iOSBuildConfigType = {
-  ...CommonMalteBuildConfig,
+const iosMalteBuildConfig: iOSBuildConfigType = {
+  ...commonMalteBuildConfig,
   bundleIdentifier: 'de.malteapp',
   provisioningProfileSpecifier: 'match Development de.malteapp',
   appleId: APPLE_APP_ID,
@@ -74,8 +74,8 @@ const iOSMalteBuildConfig: iOSBuildConfigType = {
   },
   launchScreen: 'LaunchScreenDefault'
 }
-const WebMalteBuildConfig: WebBuildConfigType = {
-  ...CommonMalteBuildConfig,
+const webMalteBuildConfig: WebBuildConfigType = {
+  ...commonMalteBuildConfig,
   mainImprint,
   itunesAppId: APPLE_APP_ID,
   icons: {
@@ -87,10 +87,10 @@ const WebMalteBuildConfig: WebBuildConfigType = {
 }
 
 const platformBuildConfigs = {
-  common: CommonMalteBuildConfig,
-  web: WebMalteBuildConfig,
-  android: AndroidMalteBuildConfig,
-  ios: iOSMalteBuildConfig
+  common: commonMalteBuildConfig,
+  web: webMalteBuildConfig,
+  android: androidMalteBuildConfig,
+  ios: iosMalteBuildConfig
 }
 
 export default platformBuildConfigs
