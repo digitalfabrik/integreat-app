@@ -1,6 +1,6 @@
 // @flow
 
-import IntegreatPlatformBuildConfigs from '../integreat'
+import integreatPlatformBuildConfigs from '../integreat'
 import type {
   AndroidBuildConfigType,
   CommonBuildConfigType,
@@ -8,7 +8,7 @@ import type {
   WebBuildConfigType
 } from '../BuildConfigType'
 
-const IntegreatTestCms = {
+const integreatTestCms = {
   appName: 'IntegreatTestCms',
   cmsUrl: 'https://cms-test.integreat-app.de',
   switchCmsUrl: 'https://cms.integreat-app.de',
@@ -22,33 +22,33 @@ const IntegreatTestCms = {
   }
 }
 
-export const CommonIntegreatTestCmsBuildConfig: CommonBuildConfigType = {
-  ...IntegreatPlatformBuildConfigs.common,
-  ...IntegreatTestCms
+export const commonIntegreatTestCmsBuildConfig: CommonBuildConfigType = {
+  ...integreatPlatformBuildConfigs.common,
+  ...integreatTestCms
 }
 
-export const WebIntegreatTestCmsBuildConfig: WebBuildConfigType = {
-  ...IntegreatPlatformBuildConfigs.web,
-  ...IntegreatTestCms
+export const webIntegreatTestCmsBuildConfig: WebBuildConfigType = {
+  ...integreatPlatformBuildConfigs.web,
+  ...integreatTestCms
 }
 
-export const AndroidIntegreatTestCmsBuildConfig: AndroidBuildConfigType = {
-  ...IntegreatPlatformBuildConfigs.android,
-  ...IntegreatTestCms,
+export const androidIntegreatTestCmsBuildConfig: AndroidBuildConfigType = {
+  ...integreatPlatformBuildConfigs.android,
+  ...integreatTestCms,
   googleServices: null
 }
 
-export const iOSIntegreatTestCmsBuildConfig: iOSBuildConfigType = {
-  ...IntegreatPlatformBuildConfigs.ios,
-  ...IntegreatTestCms,
+export const iosIntegreatTestCmsBuildConfig: iOSBuildConfigType = {
+  ...integreatPlatformBuildConfigs.ios,
+  ...integreatTestCms,
   googleServices: null
 }
 
 const platformBuildConfigs = {
-  common: CommonIntegreatTestCmsBuildConfig,
-  web: WebIntegreatTestCmsBuildConfig,
-  android: AndroidIntegreatTestCmsBuildConfig,
-  ios: iOSIntegreatTestCmsBuildConfig,
+  common: commonIntegreatTestCmsBuildConfig,
+  web: webIntegreatTestCmsBuildConfig,
+  android: androidIntegreatTestCmsBuildConfig,
+  ios: iosIntegreatTestCmsBuildConfig,
 }
 
 export default platformBuildConfigs

@@ -12,7 +12,7 @@ import mainImprint from './assets/mainImprint'
 
 const APPLE_APP_ID = '1072353915'
 
-const CommonIntegreatBuildConfig: CommonBuildConfigType = {
+const commonIntegreatBuildConfig: CommonBuildConfigType = {
   appName: 'Integreat',
   appIcon: 'app_icon_integreat',
   lightTheme,
@@ -41,8 +41,8 @@ const CommonIntegreatBuildConfig: CommonBuildConfigType = {
   }
 }
 
-export const AndroidIntegreatBuildConfig: AndroidBuildConfigType = {
-  ...CommonIntegreatBuildConfig,
+export const androidIntegreatBuildConfig: AndroidBuildConfigType = {
+  ...commonIntegreatBuildConfig,
   splashScreen: true,
   applicationId: 'tuerantuer.app.integreat',
   googleServices: {
@@ -57,8 +57,8 @@ export const AndroidIntegreatBuildConfig: AndroidBuildConfigType = {
   }
 }
 
-export const iOSIntegreatBuildConfig: iOSBuildConfigType = {
-  ...CommonIntegreatBuildConfig,
+export const iosIntegreatBuildConfig: iOSBuildConfigType = {
+  ...commonIntegreatBuildConfig,
   bundleIdentifier: 'de.integreat-app',
   provisioningProfileSpecifier: 'match Development de.integreat-app',
   appleId: APPLE_APP_ID,
@@ -82,8 +82,8 @@ export const iOSIntegreatBuildConfig: iOSBuildConfigType = {
   launchScreen: 'LaunchScreenIntegreat'
 }
 
-export const WebIntegreatBuildConfig: WebBuildConfigType = {
-  ...CommonIntegreatBuildConfig,
+export const webIntegreatBuildConfig: WebBuildConfigType = {
+  ...commonIntegreatBuildConfig,
   mainImprint,
   itunesAppId: APPLE_APP_ID,
   manifestUrl: '/manifest.json',
@@ -100,10 +100,10 @@ export const WebIntegreatBuildConfig: WebBuildConfigType = {
 }
 
 const platformBuildConfigs = {
-  common: CommonIntegreatBuildConfig,
-  web: WebIntegreatBuildConfig,
-  android: AndroidIntegreatBuildConfig,
-  ios: iOSIntegreatBuildConfig
+  common: commonIntegreatBuildConfig,
+  web: webIntegreatBuildConfig,
+  android: androidIntegreatBuildConfig,
+  ios: iosIntegreatBuildConfig
 }
 
 export default platformBuildConfigs
