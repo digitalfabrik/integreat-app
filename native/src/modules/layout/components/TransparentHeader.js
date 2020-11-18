@@ -65,11 +65,10 @@ class TransparentHeader extends React.PureComponent<PropsType> {
 
   onShare = async () => {
     const { navigation, t } = this.props
-    const url: string = navigation.getParam('shareUrl')
-
-    if (url) {
+    const shareUrl: string = navigation.getParam('shareUrl')
+    if (shareUrl) {
       const message = t('shareMessage', {
-        message: url,
+        message: shareUrl,
         interpolation: { escapeValue: false }
       })
       try {
