@@ -2,6 +2,7 @@
 
 import styled from 'styled-components'
 import CleanAnchor from '../../common/components/CleanAnchor'
+import dimensions from '../../theme/constants/dimensions'
 
 const StyledToolbarItem = styled(CleanAnchor)`
   display: inline-block;
@@ -13,7 +14,7 @@ const StyledToolbarItem = styled(CleanAnchor)`
   background-color: ${props => props.theme.colors.backgroundColor};
   text-align: center;
 
-  @media ${props => props.theme.dimensions.web.smallViewport} {
+  @media ${dimensions.smallViewport} {
     line-height: 1.15;
   }
 `
