@@ -47,7 +47,7 @@ class CategoryList extends React.PureComponent<PropsType> {
       <div>
         {thumbnail && <Centering><CategoryIcon src={thumbnail} alt='' /></Centering>}
         {title && <Caption title={title} />}
-        {content && <RemoteContent centered dangerouslySetInnerHTML={{ __html: content }}
+        {content && <RemoteContent dangerouslySetInnerHTML={{ __html: content }}
                                    onInternalLinkClick={onInternalLinkClick} />}
         <List>
           {categories.map(categoryItem =>
