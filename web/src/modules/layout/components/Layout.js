@@ -5,6 +5,7 @@ import React from 'react'
 import ReactTooltip from 'react-tooltip'
 import styled from 'styled-components'
 import withPlatform from '../../platform/hocs/withPlatform'
+import dimensions from '../../theme/constants/dimensions'
 
 // Needed for sticky footer on IE - see https://stackoverflow.com/a/31835167
 const FlexWrapper = styled.div`
@@ -40,12 +41,12 @@ const Body = styled.div`
   word-wrap: break-word;
 
   /* https://aykevl.nl/2014/09/fix-jumping-scrollbar */
-  @media ${props => props.theme.dimensions.web.minMaxWidth} {
-    padding-right: calc((200% - 100vw - ${props => props.theme.dimensions.web.maxWidth}px) / 2);
-    padding-left: calc((100vw - ${props => props.theme.dimensions.web.maxWidth}px) / 2);
+  @media ${dimensions.minMaxWidth} {
+    padding-right: calc((200% - 100vw - ${dimensions.maxWidth}px) / 2);
+    padding-left: calc((100vw - ${dimensions.maxWidth}px) / 2);
   }
 
-  @media ${props => props.theme.dimensions.web.smallViewport} {
+  @media ${dimensions.smallViewport} {
     display: flex;
     flex-direction: column-reverse;
   }
@@ -53,8 +54,8 @@ const Body = styled.div`
 
 const Main = styled.main`
   display: inline-block;
-  width: ${props => props.theme.dimensions.web.maxWidth - 2 * props.theme.dimensions.web.toolbarWidth}px;
-  max-width: calc(100% - ${props => props.theme.dimensions.web.toolbarWidth}px);
+  width: ${dimensions.maxWidth - 2 * dimensions.toolbarWidth}px;
+  max-width: calc(100% - ${dimensions.toolbarWidth}px);
   box-sizing: border-box;
   margin: 0 auto;
   padding: 0 10px;
@@ -65,7 +66,7 @@ const Main = styled.main`
     margin: ${props => props.theme.fonts.standardParagraphMargin} 0;
   }
 
-  @media ${props => props.theme.dimensions.web.smallViewport} {
+  @media ${dimensions.smallViewport} {
     position: static;
     width: 100%;
     max-width: initial;
@@ -76,7 +77,7 @@ const Main = styled.main`
 const Aside = withPlatform(styled.aside`
   position: ${props => (props.platform.positionStickyDisabled ? 'static' : 'sticky')};
   display: inline-block;
-  width: ${props => props.theme.dimensions.web.toolbarWidth}px;
+  width: ${dimensions.toolbarWidth}px;
   margin-top: 105px;
   vertical-align: top;
   transition: top 0.2s ease-in-out;
@@ -90,7 +91,7 @@ const Aside = withPlatform(styled.aside`
     max-width: 100%;
   }
 
-  @media ${props => props.theme.dimensions.web.smallViewport} {
+  @media ${dimensions.smallViewport} {
     position: static;
     width: 100%;
     max-width: initial;
