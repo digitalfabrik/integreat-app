@@ -90,7 +90,7 @@ class CategoryListContent extends React.Component<ContentPropsType, {| width: nu
     }
   }
 
-  // TODO: remove with IGAPP-XXX
+  // TODO: remove with IGAPP-378
   renderUnorderedListPrefix: RendererFunction = (htmlAttribs, children, convertedCSSStyles, passProps) => {
     const { language, theme } = this.props
     const { baseFontStyle } = passProps
@@ -106,7 +106,7 @@ class CategoryListContent extends React.Component<ContentPropsType, {| width: nu
         }} />
   }
 
-  // TODO: remove with IGAPP-XXX
+  // TODO: remove with IGAPP-378
   renderOrderedListPrefix: RendererFunction = (htmlAttribs, children, convertedCSSStyles, passProps) => {
     const { baseFontSize, allowFontScaling, index } = passProps
     const { language } = this.props
@@ -120,7 +120,7 @@ class CategoryListContent extends React.Component<ContentPropsType, {| width: nu
   }
 
   // see https://github.com/archriss/react-native-render-html/issues/286
-  // TODO: remove with IGAPP-XXX
+  // TODO: remove with IGAPP-378
   renderLists: RendererFunction = (htmlAttribs, children, convertedCSSStyles, passProps) => {
     const { language } = this.props
     const { rawChildren, nodeIndex, key, listsPrefixesRenderers } = passProps
