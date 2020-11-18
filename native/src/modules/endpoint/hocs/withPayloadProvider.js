@@ -66,11 +66,18 @@ const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R: {}> 
   return (Component: React.ComponentType<S>): React.ComponentType<PropsType<S, R>> => {
     return class extends React.Component<PropsType<S, R>, {| timeoutExpired: boolean |}> {
       static displayName = wrapDisplayName(Component, 'withPayloadProvider')
+      timeout = null
 
       state = { timeoutExpired: false }
 
       componentDidMount () {
-        setTimeout(() => this.setState({ timeoutExpired: true }), LOADING_TIMEOUT)
+        this.timeout = setTimeout(() => this.setState({ timeoutExpired: true }), LOADING_TIMEOUT)
+      }
+
+      componentWillUnmount () {
+        if (this.timeout) {
+          clearTimeout(this.timeout)
+        }
       }
 
       refresh = () => {
