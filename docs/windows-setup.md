@@ -2,7 +2,7 @@
 
 Since we noticed some issues with the usage of windows which can be happened, here a small setup guide.
 
-*Note: This guide may be outdated. You may want to use the [Windows Subsystem for Linux](../../docs/wsl-setup.md) instead.*
+*Note: This guide may be outdated. You may want to use the [Windows Subsystem for Linux](./wsl-setup.md) instead.*
 
 ## Setup of Development Tools
 
@@ -19,7 +19,9 @@ You will need the following tools:
   choco install nodejs-lts
   choco install yarn
   choco install openjdk
-
+````
+Install Visual Studio Code [./vscode.md](./vscode.md) or IntelliJ:
+````
   # if you have a ultimate licence for intellij
   choco install intellijidea-ultimate
   # if you don't have the ultimate licence
