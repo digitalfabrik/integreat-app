@@ -11,6 +11,8 @@ module.exports = {
       plugins: ['transform-remove-console']
     }
   },
+  // prevent babel error - only windows (using backslash)
+  exclude: [/node_modules\\decamelize.*/],
   plugins: [
     [
       'transform-inline-environment-variables',
