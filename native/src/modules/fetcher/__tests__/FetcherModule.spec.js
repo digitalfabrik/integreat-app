@@ -43,7 +43,6 @@ describe('FetcherModule', () => {
 
     it('should set currentlyFetching to true if fetcher is already busy', async () => {
       const fetcherModule = new FetcherModule()
-      const anotherFetcherModule = new FetcherModule()
 
       expect(FetcherModule.currentlyFetching).toBe(false)
       fetcherModule.fetchAsync(testTargetFilePaths)

@@ -62,7 +62,8 @@ export default function * fetchResourceCache (
     const successResults: FetchResultType = pickBy(results, result => !result.errorMessage)
     const failureResults: FetchResultType = pickBy(results, result => !!result.errorMessage)
     if (!isEmpty(failureResults)) {
-      // TODO: we might remember which files have failed to retry later (internet connection of client could have failed)
+      // TODO: we might remember which files have failed to retry later
+      // (internet connection of client could have failed)
       const message = createErrorMessage(failureResults)
       console.warn(message)
     }
