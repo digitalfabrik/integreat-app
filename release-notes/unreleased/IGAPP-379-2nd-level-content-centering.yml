@@ -1,0 +1,5 @@
+issue_key: IGAPP-379
+show_in_stores: false
+platforms:
+  - web
+en: 2nd level content is not centered automatically anymore.
