@@ -145,7 +145,7 @@ fi
 version="${package_name}@${version_name}"
 
 
-if [ -z "$version_code" ]
+if [ ! -z "$version_code" ]
 then
       version="$version+${version_code}"
 fi
@@ -154,7 +154,15 @@ fi
 sentry-cli releases new "$version" --finalize
 
 for sourcemap_path in "${sourcemap_paths[@]}"; do
-  sentry-cli releases files "$version" upload-sourcemaps "$sourcemap_path" --rewrite --dist "$version_code"
+  sentry-cli releases files "$version" upload-sourcemaps "$sourcemap_path" --dist "$version_code"
+  # webapp without rewrite, native with
+done
+
+binaries=($sourcemap_directory/*.js)
+for binary in "${binaries[@]}"; do
+  # works both
+  #sentry-cli releases files "$version" upload "$binary" "~/$(basename -- "$binary")"
+  sentry-cli releases files "$version" upload "$binary"
 done
 
 # ] <-- needed because of Argbash
