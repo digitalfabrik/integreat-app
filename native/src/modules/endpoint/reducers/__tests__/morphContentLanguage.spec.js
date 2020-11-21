@@ -463,6 +463,7 @@ describe('morphContentLanguage', () => {
       eventsRouteMapping: {
         'route-1': {
           status: 'languageNotAvailable',
+          path: '/augsburg/de/events/drittes_event',
           city: 'augsburg',
           language: 'en',
           allAvailableLanguages: new Map([['de', '/augsburg/de/events/drittes_event']])
