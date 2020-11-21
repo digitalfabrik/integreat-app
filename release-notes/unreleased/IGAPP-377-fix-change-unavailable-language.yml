@@ -1,0 +1,7 @@
+issue_key: IGAPP-377
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: Fixed a bug with language changing.
+de: Bug beim Sprachwechsel behoben.
