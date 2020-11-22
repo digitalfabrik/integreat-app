@@ -135,7 +135,7 @@ platform :android do
     apk_path = options[:apk_path]
     production_delivery = options[:production_delivery]
 
-    if [version_name, version_code, build_config_name, apk_path, track].include?(nil)
+    if [version_name, version_code, build_config_name, apk_path, production_delivery].include?(nil)
       raise "'nil' passed as parameter! Aborting..."
     end
 
