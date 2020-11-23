@@ -1,6 +1,5 @@
 module.exports = {
   rootDir: 'src',
-  roots: ['<rootDir>', '<rootDir>/../../api-client'],
   verbose: true,
   automock: false,
   setupFilesAfterEnv: [
