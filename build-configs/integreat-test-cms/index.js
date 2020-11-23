@@ -1,10 +1,14 @@
 // @flow
 
-import IntegreatBuildConfig from '../integreat'
-import type { BuildConfigType } from '../BuildConfigType'
+import integreatPlatformBuildConfigs from '../integreat'
+import type {
+  AndroidBuildConfigType,
+  CommonBuildConfigType,
+  iOSBuildConfigType,
+  WebBuildConfigType
+} from '../BuildConfigType'
 
-const IntegreatTestCmsBuildConfig: BuildConfigType = {
-  ...IntegreatBuildConfig,
+const integreatTestCms = {
   appName: 'IntegreatTestCms',
   cmsUrl: 'https://cms-test.integreat-app.de',
   switchCmsUrl: 'https://cms.integreat-app.de',
@@ -15,18 +19,36 @@ const IntegreatTestCmsBuildConfig: BuildConfigType = {
     pushNotifications: false,
     introSlides: true,
     sentry: false
-  },
-  android: {
-    ...IntegreatBuildConfig.android,
-    applicationId: 'tuerantuer.app.integreat',
-    googleServices: null
-  },
-  ios: {
-    ...IntegreatBuildConfig.ios,
-    bundleIdentifier: 'de.integreat-app',
-    provisioningProfileSpecifier: 'match Development de.integreat-app',
-    googleServices: null
   }
 }
 
-export default IntegreatTestCmsBuildConfig
+export const commonIntegreatTestCmsBuildConfig: CommonBuildConfigType = {
+  ...integreatPlatformBuildConfigs.common,
+  ...integreatTestCms
+}
+
+export const webIntegreatTestCmsBuildConfig: WebBuildConfigType = {
+  ...integreatPlatformBuildConfigs.web,
+  ...integreatTestCms
+}
+
+export const androidIntegreatTestCmsBuildConfig: AndroidBuildConfigType = {
+  ...integreatPlatformBuildConfigs.android,
+  ...integreatTestCms,
+  googleServices: null
+}
+
+export const iosIntegreatTestCmsBuildConfig: iOSBuildConfigType = {
+  ...integreatPlatformBuildConfigs.ios,
+  ...integreatTestCms,
+  googleServices: null
+}
+
+const platformBuildConfigs = {
+  common: commonIntegreatTestCmsBuildConfig,
+  web: webIntegreatTestCmsBuildConfig,
+  android: androidIntegreatTestCmsBuildConfig,
+  ios: iosIntegreatTestCmsBuildConfig,
+}
+
+export default platformBuildConfigs

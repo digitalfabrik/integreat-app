@@ -7,13 +7,14 @@ import styled from 'styled-components/native'
 import { css, type StyledComponent } from 'styled-components'
 import { TouchableHighlight } from 'react-native'
 import type { ThemeType } from '../../theme/constants'
+import dimensions from '../../theme/constants/dimensions'
 
 const ItemWrapper = styled.View`
   justify-content: center;
   align-items: center;
   background-color: ${props => props.theme.colors.backgroundColor};
   ${props => props.selected ? `background-color: ${props.theme.colors.backgroundAccentColor}` : ''};
-  height: ${props => props.theme.dimensions.native.headerHeight}px;
+  height: ${dimensions.headerHeight}px;
 `
 
 const Element = styled.Text`

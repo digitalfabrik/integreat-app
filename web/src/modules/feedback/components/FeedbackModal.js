@@ -9,6 +9,7 @@ import FeedbackBoxContainer from './FeedbackBoxContainer'
 import type { FeedbackRatingType } from '../../layout/containers/LocationLayout'
 import FocusTrap from 'focus-trap-react'
 import type { ThemeType } from '../../theme/constants/theme'
+import dimensions from '../../theme/constants/dimensions'
 
 const Overlay = styled.div`
   position: absolute;
@@ -37,7 +38,7 @@ const FeedbackContainer = styled.div`
   display: flex;
   background-color: ${props => props.theme.colors.backgroundColor};
 
-  @media ${props => props.theme.dimensions.web.smallViewport} {
+  @media ${dimensions.smallViewport} {
     width: 100%;
     height: 100%;
     align-items: flex-start;
