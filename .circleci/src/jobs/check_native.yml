@@ -12,9 +12,13 @@ steps:
   - restore_yarn_cache
   - lint:
       directory: native
+  - lint:
+      directory: api-client
   - run:
       name: Flow-type check
       command: yarn workspace native flow:check-now --max-workers ${TOTAL_CPUS}
   - unit_test:
       directory: native
+  - unit_test:
+      directory: api-client
   - notify_failed

@@ -3846,7 +3846,7 @@ buffers@~0.1.1:
   integrity sha1-skV5w77U1tOWru5tmorn9Ugqt7s=
 
 "build-configs@file:build-configs":
-  version "2.0.0"
+  version "1.1.0"
 
 builtin-status-codes@^3.0.0:
   version "3.0.0"
