@@ -8,9 +8,9 @@ import type { ThemeType } from '../../theme/constants'
 import { createHtmlSource } from '../../platform/constants/webview'
 import renderHtml from '../renderHtml'
 import { WebView, type WebViewMessageEvent } from 'react-native-webview'
-import type { PageResourceCacheStateType } from '../../app/StateType'
 import type { WebViewNavigation } from 'react-native-webview/lib/WebViewTypes'
 import type { ViewLayoutEvent } from 'react-native/Libraries/Components/View/ViewPropTypes'
+import type { ParsedCacheDictionaryType } from './Page'
 
 const StyledView: StyledComponent<{}, {}, *> = styled.View`
   overflow: hidden;
@@ -25,7 +25,7 @@ type StateType = {|
 type PropType = {|
   content: string,
   theme: ThemeType,
-  cacheDirectory: PageResourceCacheStateType,
+  cacheDirectory: ParsedCacheDictionaryType,
   language: string,
   resourceCacheUrl: string,
   onLinkPress: string => void,

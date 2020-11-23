@@ -1,10 +1,10 @@
 // @flow
 
 import { getFontFaceSource } from '../platform/constants/webview'
-import type { PageResourceCacheStateType } from '../app/StateType'
 import type { ThemeType } from '../theme/constants'
 import { RTL_LANGUAGES } from '../i18n/constants'
 import webviewFontFamilies from '../theme/webviewFontFamilies'
+import type { ParsedCacheDictionaryType } from './components/Page'
 
 // language=JavaScript
 const renderJS = (cacheDictionary: { [remoteUrl: string]: string }) => `
@@ -83,7 +83,7 @@ const renderJS = (cacheDictionary: { [remoteUrl: string]: string }) => `
 `
 
 // language=HTML
-const renderHtml = (html: string, cacheDictionary: PageResourceCacheStateType, theme: ThemeType, language: string) => {
+const renderHtml = (html: string, cacheDictionary: ParsedCacheDictionaryType, theme: ThemeType, language: string) => {
   return `
 <!-- The lang attribute makes TalkBack use the appropriate language. -->
 <html lang="${language}">
