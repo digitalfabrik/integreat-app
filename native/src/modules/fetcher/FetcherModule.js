@@ -2,31 +2,42 @@
 
 import NativeFetcherModule, { NativeFetcherModuleEmitter } from './NativeFetcherModule'
 import { isEmpty } from 'lodash'
+import type { EventChannel } from 'redux-saga'
+import { eventChannel } from 'redux-saga'
 
 export type TargetFilePathsType = { [path: string]: string }
 
 export type FetchResultType = { [path: string]: {| lastUpdate: string, url: string, errorMessage: ?string |} }
 
-export type ProgressCallbackType = (progress: number) => void
-
 class FetcherModule {
-  // TODO NATIVE-264: Correctly handle already fetching
+  // TODO IGAPP-217: Correctly handle already fetching
   static currentlyFetching = false
 
+  createProgressChannel = (): EventChannel<number> => {
+    return eventChannel<number>(emitter => {
+      let prevStep = 0
+      const stepWidth = 10
+
+      const subscription = NativeFetcherModuleEmitter.addListener('progress', (progress: number) => {
+        const newStep = Math.floor(progress * stepWidth) / stepWidth
+        if (newStep <= prevStep) {
+          return
+        }
+        prevStep = newStep
+        emitter(newStep)
+      })
+
+      return () => subscription.remove()
+    })
+  }
+
   async fetchAsync (
-    targetFilePaths: TargetFilePathsType,
-    progress: ProgressCallbackType
+    targetFilePaths: TargetFilePathsType
   ): Promise<FetchResultType> {
-    if (FetcherModule.currentlyFetching) {
-      throw new Error('Already fetching!')
-    }
     if (isEmpty(targetFilePaths)) {
       return {}
     }
     FetcherModule.currentlyFetching = true
-
-    const subscriptions = []
-    subscriptions.push(NativeFetcherModuleEmitter.addListener('progress', progress))
 
     try {
       const result = await NativeFetcherModule.fetchAsync(targetFilePaths)
@@ -39,7 +50,6 @@ class FetcherModule {
 
       return result
     } finally {
-      subscriptions.forEach(sub => sub.remove())
       FetcherModule.currentlyFetching = false
     }
   }

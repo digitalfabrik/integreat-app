@@ -113,7 +113,11 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 
   if (state.resourceCacheUrl === null || state.cities.status === 'loading' || switchingLanguage ||
     (route.status === 'loading' && !routeHasOldContent(route)) || languages.status === 'loading') {
-    return { status: 'loading' }
+    const resourceCache = state.cityContent.resourceCache
+    return {
+      status: 'loading',
+      progress: resourceCache.status !== 'error' ? resourceCache.progress : 0
+    }
   }
 
   const cities = state.cities.models
