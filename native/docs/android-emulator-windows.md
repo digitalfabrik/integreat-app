@@ -1,29 +1,31 @@
 # Android Emulator without Android SDK in Windows
 
-## Install JAVA
+- [Install Java](#install-java)
+- [Install HAXM](#install-haxm)
+- [Download cmdline-tools](#download-cmdline-tools)
+- [TL;DR - Quickinstall](#tldr---quickinstall)
+- [Download android platform tools](#download-android-platform-tools)
+- [Download Image and Emulator](#download-image-and-emulator)
+- [Final Folder Structure](#final-folder-structure)
+- [Set Paths](#set-paths)
+- [Create the Android Virtual Device (avd)](#create-the-android-virtual-device-avd)
+- [Start the emulator](#start-the-emulator)
+- [Using the emulator with WSL2 (untested)](#using-the-emulator-with-wsl2-untested)
+
+## Install [Java](https://www.java.com/de/)
+
 ```
 choco install jdk8
 ```
 (This should also set the corresponding paths, e.g. ````JAVA_HOME C:\Program Files\Java\jdk1.8.0_211```` and ````PATH C:\Program Files\Java\jdk1.8.0_211\bin````)
 
-
 ## Install HAXM
+
 Install HAXM hardware accelerator for the emulator (recommended for powerful PCs)  
 https://github.com/intel/haxm/releases
 
-
-## TL;DR - Quickinstall
-- Execute steps in "Download cmdline-tools"
-- Execute steps in "Set Paths"
-- Run
-```
-sdkmanager --install "system-images;android-29;default;x86" "platform-tools" "platforms;android-29"
-echo no | avdmanager create avd --name "android-29_default_x86" --package "system-images;android-29;default;x86"
-```
-- Start "yarn android" in integreat-app/native folder
-
-
 ## Download cmdline-tools
+
 This installs the sdkmanager and the avdmanager.
 We need the  sdkmanager for downloading the emulator, more info about the tool:  
 https://developer.android.com/studio/command-line/sdkmanager
@@ -44,6 +46,18 @@ cd C:\Android\Sdk\cmdline-tools\tools\bin
 ```
 to use the sdkmanager and the avdmanager for the next steps 
 
+## TL;DR - Quickinstall
+
+[Set Paths](#set-paths)
+
+Run
+```
+sdkmanager --install "system-images;android-29;default;x86" "platform-tools" "platforms;android-29"
+echo no | avdmanager create avd --name "android-29_default_x86" --package "system-images;android-29;default;x86"
+```
+Start "yarn android" in integreat-app/native folder
+
+Enjoy.
 
 ## Download android platform tools
 
@@ -53,7 +67,6 @@ Download the platform tools including adb and fastboot:
 ```
 This creates a new folder in ANDROID_SDK_ROOT:  
 ```C:\Android\Sdk\platform-tools```
-
 
 ## Download Image and Emulator
 
@@ -75,8 +88,8 @@ sdkmanager "platforms;android-29"
 
 This downloads the image and the emulator and creates following folder structure in ANDROID_SDK_ROOT:
 
-
 ## Final Folder Structure
+
 Your folder inside your ANDROID_SDK_ROOT (here "C:\Android\Sdk") should now look like this
 
 - **cmdline-tools** *(sdkmanager and avdmanager)*
@@ -88,7 +101,6 @@ Your folder inside your ANDROID_SDK_ROOT (here "C:\Android\Sdk") should now look
 - **system-images**
 
 You now also have a new subfolder in your user folder named ".android"
-
 
 ## Set Paths
 
@@ -110,7 +122,6 @@ C:\Android\Sdk\platform-tools
 ```
 
 Close and reopen your powershell to have the new paths set.
-
 
 ## Create the Android Virtual Device (avd)
 
@@ -134,7 +145,6 @@ To use the keyboard of your PC set
 hw.keyboard=yes
 ```
 
-
 ## Start the emulator
 
 Start the Virtual Device with
@@ -143,7 +153,6 @@ emulator -avd android-29_default_x86
 ````
 Using "yarn android" in the integreat-app native folder will find and start the emulator automatically
 
-
-## Using the emulator with WSL2
+## Using the emulator with WSL2 (untested)
 
 https://medium.com/@pellea/using-the-android-emulator-on-windows-10-with-wsl2-39c2bae30c49
