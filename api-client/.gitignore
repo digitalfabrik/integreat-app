@@ -1,7 +1,7 @@
 # Created by .ignore support plugin (hsz.mobi)
 ### Project specific stuff
-junit.xml
-__coverage__
+# JUnit output
+reports/
 
 ### VisualStudioCode template
 .vscode/*
