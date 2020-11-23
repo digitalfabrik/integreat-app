@@ -76,7 +76,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     return { status: 'routeNotInitialized' }
   }
 
-  if (route.status === 'languageNotAvailable') {
+  if (route.status === 'languageNotAvailable' && !switchingLanguage) {
     if (languages.status === 'error' || languages.status === 'loading') {
       console.error('languageNotAvailable status impossible if languages not ready')
       return {
