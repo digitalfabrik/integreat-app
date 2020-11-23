@@ -14,7 +14,6 @@ const commonMalteBuildConfig = {
   lightTheme,
   darkTheme,
   assets: MALTE_ASSETS,
-  development: false,
   cmsUrl: 'https://cms.malteapp.de',
   allowedHostNames: ['cms.malteapp.de'],
   localesOverride: malteOverrideLocales,
@@ -25,7 +24,8 @@ const commonMalteBuildConfig = {
     newsStream: true,
     pushNotifications: true,
     introSlides: true,
-    sentry: true
+    sentry: true,
+    logging: false
   },
   aboutUrls: {
     default: 'https://www.malteser-werke.de/malte-app'
