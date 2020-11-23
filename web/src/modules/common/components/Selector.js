@@ -6,27 +6,29 @@ import SelectorItemModel from '../models/SelectorItemModel'
 import ReactTooltip from 'react-tooltip'
 import styled, { css } from 'styled-components'
 import Link from 'redux-first-router-link'
+import helpers from '../../theme/constants/helpers'
+import dimensions from '../../theme/constants/dimensions'
 
 const Element = styled(Link)`
-  ${props => props.theme.helpers.removeLinkHighlighting};
-  height: ${props => props.theme.dimensions.web.headerHeightLarge}px;
+  ${helpers.removeLinkHighlighting};
+  height: ${dimensions.headerHeightLarge}px;
   min-width: 90px;
   flex: 1 1 auto;
   padding: 0 5px;
   font-size: 1.2em;
-  line-height: ${props => props.theme.dimensions.web.headerHeightLarge}px;
+  line-height: ${dimensions.headerHeightLarge}px;
   text-align: center;
   white-space: nowrap;
   border-radius: 30px;
   transition: background-color 0.2s, border-radius 0.2s;
   user-select: none;
 
-  @media ${props => props.theme.dimensions.web.smallViewport} {
-    height: ${props => props.theme.dimensions.web.headerHeightSmall}px;
+  @media ${dimensions.smallViewport} {
+    height: ${dimensions.headerHeightSmall}px;
     min-width: 70px;
     flex: 1 1 auto;
     font-size: 1em;
-    line-height: ${props => props.theme.dimensions.web.headerHeightSmall}px;
+    line-height: ${dimensions.headerHeightSmall}px;
   }
 `
 

@@ -20,6 +20,10 @@ private_lane :generic_sentry_upload do |options|
   package_name = options[:package_name]
   sourcemap_path = options[:sourcemap_path]
 
+  if [version_name, version_code, package_name, sourcemap_path].include?(nil)
+    raise "'nil' passed as parameter! Aborting..."
+  end
+
   sentry_release_version = "#{package_name}@#{version_name}+#{version_code}"
   sentry_create_release(
       version: sentry_release_version,
@@ -45,6 +49,10 @@ platform :android do
 
     apk_path = options[:apk_path]
 
+    if [apk_path].include?(nil)
+      raise "'nil' passed as parameter! Aborting..."
+    end
+
     upload_to_browserstack_app_live(
         browserstack_username: ENV["BROWSERSTACK_USERNAME"],
         browserstack_access_key: ENV["BROWSERSTACK_ACCESS_KEY"],
@@ -61,6 +69,10 @@ platform :android do
     )
 
     apk_path = options[:apk_path]
+
+    if [apk_path].include?(nil)
+      raise "'nil' passed as parameter! Aborting..."
+    end
 
     upload_to_browserstack_app_automate(
         browserstack_username: ENV["BROWSERSTACK_USERNAME"],
@@ -91,10 +103,14 @@ platform :android do
     build_config_name = options[:build_config_name]
     sourcemap_path = options[:sourcemap_path]
 
-    build_config = read_build_config(build_config_name)
+    if [version_name, version_code, build_config_name, sourcemap_path].include?(nil)
+      raise "'nil' passed as parameter! Aborting..."
+    end
+
+    build_config = read_build_config(build_config_name, 'android')
 
     generic_sentry_upload(
-        package_name: build_config['android']['applicationId'],
+        package_name: build_config['applicationId'],
         sourcemap_path: "#{ENV['HOME']}/#{sourcemap_path}",
         version_name: version_name,
         version_code: version_code
@@ -106,6 +122,7 @@ platform :android do
   # version_name: The version name of the app
   # build_config_name: The name of the build config
   # apk_path: The path of the apk to upload (relative to home dir)
+  # production_delivery: Whether the apk should be uploaded to the production track
   desc "Deliver the app to Play Store. Depending on the option `production_delivery` the update is released to the general public."
   lane :playstore_upload do |options|
     ensure_env_vars(
@@ -116,10 +133,15 @@ platform :android do
     version_name = options[:version_name]
     build_config_name = options[:build_config_name]
     apk_path = options[:apk_path]
+    production_delivery = options[:production_delivery]
 
-    build_config = read_build_config(build_config_name)
+    if [version_name, version_code, build_config_name, apk_path, production_delivery].include?(nil)
+      raise "'nil' passed as parameter! Aborting..."
+    end
+
+    build_config = read_build_config(build_config_name, 'android')
     skip_metadata = build_config_name == "malte"
-    track = options[:production_delivery] === true ? "production" : "beta"
+    track = production_delivery === true ? "production" : "beta"
 
     puts("delivering #{build_config_name} v#{version_name} to track #{track}")
     puts("skip_metadata: #{skip_metadata}")
@@ -128,7 +150,7 @@ platform :android do
     upload_to_play_store(
         version_code: version_code,
         version_name: version_name,
-        package_name: build_config['android']['applicationId'],
+        package_name: build_config['applicationId'],
         metadata_path: "./android/fastlane/#{build_config_name}/metadata",
         track: track,
         skip_upload_changelogs: false,
@@ -153,6 +175,10 @@ platform :ios do
 
     ipa_path = options[:ipa_path]
 
+    if [ipa_path].include?(nil)
+      raise "'nil' passed as parameter! Aborting..."
+    end
+
     upload_to_browserstack_app_live(
         browserstack_username: ENV["BROWSERSTACK_USERNAME"],
         browserstack_access_key: ENV["BROWSERSTACK_ACCESS_KEY"],
@@ -170,6 +196,10 @@ platform :ios do
     )
 
     ipa_path = options[:ipa_path]
+
+    if [ipa_path].include?(nil)
+      raise "'nil' passed as parameter! Aborting..."
+    end
 
     upload_to_browserstack_app_automate(
         browserstack_username: ENV["BROWSERSTACK_USERNAME"],
@@ -199,10 +229,14 @@ platform :ios do
     build_config_name = options[:build_config_name]
     sourcemap_path = options[:sourcemap_path]
 
-    build_config = read_build_config(build_config_name)
+    if [version_name, version_code, build_config_name, sourcemap_path].include?(nil)
+      raise "'nil' passed as parameter! Aborting..."
+    end
+
+    build_config = read_build_config(build_config_name, 'ios')
 
     generic_sentry_upload(
-        package_name: build_config['ios']['bundleIdentifier'],
+        package_name: build_config['bundleIdentifier'],
         sourcemap_path: "#{ENV['HOME']}/#{sourcemap_path}",
         version_code: version_code,
         version_name: version_name
@@ -222,6 +256,11 @@ platform :ios do
     version_name = options[:version_name]
     ipa_path = options[:ipa_path]
     build_config_name = options[:build_config_name]
+
+    if [version_name, ipa_path, build_config_name].include?(nil)
+      raise "'nil' passed as parameter! Aborting..."
+    end
+
     skip_screenshots = build_config_name == "malte"
 
     puts("delivering #{build_config_name} v#{version_name}")
@@ -255,9 +294,14 @@ platform :ios do
     )
 
     build_config_name = options[:build_config_name]
-    build_config = read_build_config(build_config_name)
-    apple_id = build_config['ios']['appleId']
     ipa_path = options[:ipa_path]
+
+    if [build_config_name, ipa_path].include?(nil)
+      raise "'nil' passed as parameter! Aborting..."
+    end
+
+    build_config = read_build_config(build_config_name, 'ios')
+    apple_id = build_config['appleId']
 
     # https://docs.fastlane.tools/actions/upload_to_testflight/
     upload_to_testflight(

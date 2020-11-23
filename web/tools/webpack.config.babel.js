@@ -15,6 +15,7 @@ const MomentLocalesPlugin = require('moment-locales-webpack-plugin')
 const babelConfig = require('../babel.config.js')
 const fs = require('fs')
 const loadBuildConfig = require('build-configs').default
+const { WEB } = require('build-configs')
 
 const currentYear = new Date().getFullYear()
 
@@ -39,7 +40,7 @@ const getSupportedLocales = () => {
 const createConfig = (env = {}) => {
   const { config_name: buildConfigName, commit_sha: commitSha, version_name: versionName, dev_server: devServer } = env
 
-  const buildConfig = loadBuildConfig(buildConfigName)
+  const buildConfig = loadBuildConfig(buildConfigName, WEB)
 
   const isProductionBuild = !buildConfig.development
   // We have to override the env of the current process, such that babel-loader works with that.

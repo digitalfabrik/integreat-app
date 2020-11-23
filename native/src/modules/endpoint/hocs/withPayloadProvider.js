@@ -9,13 +9,14 @@ import { type Dispatch } from 'redux'
 import FailureContainer from '../../error/containers/FailureContainer'
 import { LOADING_TIMEOUT } from '../../common/constants'
 import type { ErrorCodeType } from '../../error/ErrorCodes'
-import type { NavigationStackProp } from 'react-navigation-stack'
+import type { NavigationStackProp, NavigationScreenProp } from 'react-navigation-stack'
 import type { TFunction } from 'react-i18next'
 import wrapDisplayName from '../../common/hocs/wrapDisplayName'
 
 export type RouteNotInitializedType = {| status: 'routeNotInitialized' |}
 export type LoadingType<S: {}, R: {}> = {|
   status: 'loading',
+  progress: number,
   innerProps?: S,
   refreshProps?: R
 |}
@@ -47,6 +48,11 @@ export type StatusPropsType<S: {}, R: {}> =
   | SuccessType<$Diff<S, { dispatch: Dispatch<StoreActionType> }>, R>
 
 export type PropsType<S: { dispatch: Dispatch<StoreActionType> }, R: {}> = {|
+  ...StatusPropsType<S, R>,
+  dispatch: Dispatch<StoreActionType>,
+  navigation: NavigationScreenProp<*>,
+  t?: TFunction
+|} | {|
   ...StatusPropsType<S, R>,
   dispatch: Dispatch<StoreActionType>,
   navigation: NavigationStackProp<*>,
@@ -98,6 +104,7 @@ const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R: {}> 
           return <LanguageNotAvailableContainer languages={props.availableLanguages}
                                                 changeLanguage={this.changeUnavailableLanguage} />
         } else if (props.status === 'loading') {
+          console.log('render loading', props.progress)
           return this.state.timeoutExpired
             ? <ScrollView refreshControl={<RefreshControl refreshing />} contentContainerStyle={{ flexGrow: 1 }}
                         keyboardShouldPersistTaps='always'>
