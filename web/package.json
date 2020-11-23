@@ -34,7 +34,7 @@
     "@sentry/react": "^5.27.3",
     "@testing-library/jest-dom": "^5.11.5",
     "api-client": "file:../api-client",
-    "build-configs": "1.1.0",
+    "build-configs": "2.0.0",
     "detect-browser": "^4.1.0",
     "focus-trap-react": "^6.0.0",
     "hashids": "^2.2.1",
