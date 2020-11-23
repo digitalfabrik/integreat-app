@@ -3,6 +3,5 @@
     "@integreat-app/eslint-config-node"
   ],
   "rules": {
-    "object-curly-spacing": ["off", "never"]
   }
 }

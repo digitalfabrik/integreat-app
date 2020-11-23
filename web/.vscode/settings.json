@@ -9,7 +9,7 @@
   "prettier.eslintIntegration": true,
   "jira.baseUrl": "https://integreat.atlassian.net/",
   "jira.projectNames": "WEBAPP",
-  "jest.pathToConfig": "jest.config.json",
+  "jest.pathToConfig": "jest.config.js",
   "jest.restartJestOnSnapshotUpdate": true,
   "eslint.enable": true
 }
