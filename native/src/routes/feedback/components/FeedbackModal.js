@@ -5,13 +5,12 @@ import styled from 'styled-components/native'
 import { ActivityIndicator, Picker, ScrollView, TextInput } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { Button } from 'react-native-elements'
-import type { ThemeType } from '../../../modules/theme/constants'
-import type { NavigationStackProp } from 'react-navigation-stack'
+import type { ThemeType } from 'build-configs/ThemeType'
 import type { TFunction } from 'react-i18next'
 import FeedbackVariant from '../FeedbackVariant'
 import Caption from '../../../modules/common/components/Caption'
-import type { FeedbackParamsType } from 'api-client'
 import buildConfig from '../../../modules/app/constants/buildConfig'
+import type { SendingStatusType } from '../containers/FeedbackModalContainer'
 
 const Input = styled(TextInput)`
   margin-bottom: 15px;
@@ -36,65 +35,35 @@ const RequiredText = styled.Text`
 `
 
 type PropsType = {|
-  theme: ThemeType,
-  closeModal: () => void,
-  navigation: NavigationStackProp<*>,
-  t: TFunction,
-  feedbackItems: Array<FeedbackVariant>,
-  isPositiveFeedback: boolean,
-  sendFeedback: (params: FeedbackParamsType) => Promise<void>
-|}
-
-type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
-
-type StateType = {|
+  closeModal: () => boolean,
   comment: string,
-  feedbackIndex: number,
-  sendingStatus: SendingStatusType
+  selectedFeedbackIndex: number,
+  sendingStatus: SendingStatusType,
+  feedbackOptions: Array<FeedbackVariant>,
+  onCommentChanged: (comment: string) => void,
+  onFeedbackOptionChanged: (value: string | number, index: number) => void,
+  isPositiveFeedback: boolean,
+  onSubmit: () => Promise<void>,
+  theme: ThemeType,
+  t: TFunction
 |}
 
-class FeedbackModal extends React.Component<PropsType, StateType> {
-  state = { comment: '', feedbackIndex: 0, sendingStatus: 'idle' }
-
-  onFeedbackVariantChanged = (value: string | number, index: number) => this.setState({ feedbackIndex: index })
-
-  onFeedbackCommentChanged = (comment: string) => this.setState({ comment })
-
-  onSubmit = () => {
-    const { feedbackIndex, comment } = this.state
-    const feedbackItem = this.props.feedbackItems[feedbackIndex]
-    const feedbackData: FeedbackParamsType = {
-      feedbackType: feedbackItem.feedbackType,
-      feedbackCategory: feedbackItem.feedbackCategory,
-      isPositiveRating: this.props.isPositiveFeedback,
-      comment: comment,
-      permalink: feedbackItem.pagePath || undefined,
-      alias: feedbackItem.alias || undefined,
-      city: feedbackItem.city,
-      language: feedbackItem.language
-    }
-    this.setState({ sendingStatus: 'sending' })
-    this.props.sendFeedback(feedbackData)
-      .then(() => this.setState({ sendingStatus: 'successful' }))
-      .catch(() => this.setState({ sendingStatus: 'failed' }))
-  }
-
+class FeedbackModal extends React.Component<PropsType> {
   renderBox (): React.Node {
-    const { theme, t, isPositiveFeedback, feedbackItems } = this.props
-    const { feedbackIndex, comment, sendingStatus } = this.state
-    const feedbackItem = feedbackItems[feedbackIndex]
+    const { theme, t, isPositiveFeedback, feedbackOptions, selectedFeedbackIndex, comment, sendingStatus } = this.props
+    const feedbackItem = feedbackOptions[selectedFeedbackIndex]
 
     if (['idle', 'failed'].includes(sendingStatus)) {
       return <>
         <Caption theme={theme} title={t('feedback')} />
         <Description theme={theme}>{t('feedbackType')}</Description>
-        <Picker selectedValue={feedbackItems.indexOf(feedbackItem)}
-                onValueChange={this.onFeedbackVariantChanged}
+        <Picker selectedValue={feedbackOptions.indexOf(feedbackItem)}
+                onValueChange={this.props.onFeedbackOptionChanged}
                 mode='dropdown'>
-          {feedbackItems.map((item, index) => <Picker.Item label={item.label} value={index} key={index} />)}
+          {feedbackOptions.map((item, index) => <Picker.Item label={item.label} value={index} key={index} />)}
         </Picker>
         <Description theme={theme}> {isPositiveFeedback ? t('positiveComment') : t('negativeComment')}{!isPositiveFeedback && <RequiredText>*</RequiredText>}</Description>
-        <Input theme={theme} onChangeText={this.onFeedbackCommentChanged}
+        <Input theme={theme} onChangeText={this.props.onCommentChanged}
                autoFocus value={comment} multiline placeholderTextColor={theme.colors.textSecondaryColor}
                placeholder={t('yourFeedback')} />
         {sendingStatus === 'failed' && <Description theme={theme}>{t('failedSendingFeedback')}</Description>}
@@ -102,7 +71,7 @@ class FeedbackModal extends React.Component<PropsType, StateType> {
                 titleStyle={{ color: theme.colors.textColor }}
                 buttonStyle={{ backgroundColor: theme.colors.themeColor }}
                 disabled={!isPositiveFeedback && !comment}
-                onPress={this.onSubmit} title={t('send')} />
+                onPress={this.props.onSubmit} title={t('send')} />
       </>
     } else if (sendingStatus === 'sending') {
       return <ActivityIndicator size='large' color='#0000ff' />

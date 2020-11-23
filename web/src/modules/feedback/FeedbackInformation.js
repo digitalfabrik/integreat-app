@@ -1,11 +1,14 @@
 // @flow
 
-import type { FeedbackType, FeedbackCategoryType } from 'api-client'
+import type {
+  FeedbackCategoryType,
+  FeedbackType
+} from 'api-client'
 
-class FeedbackVariant {
-  label: string
+class FeedbackInformation {
   feedbackType: FeedbackType
   feedbackCategory: FeedbackCategoryType
+  label: string
   alias: ?string
   value: string
 
@@ -20,4 +23,4 @@ class FeedbackVariant {
   }
 }
 
-export default FeedbackVariant
+export default FeedbackInformation

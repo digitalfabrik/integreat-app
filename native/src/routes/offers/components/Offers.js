@@ -3,24 +3,18 @@
 import * as React from 'react'
 import TileModel from '../../../modules/common/models/TileModel'
 import {
-  CATEGORIES_FEEDBACK_TYPE,
   CityModel,
-  OFFER_FEEDBACK_TYPE,
-  OfferModel,
-  OFFERS_FEEDBACK_TYPE,
-  CONTENT_FEEDBACK_CATEGORY,
-  TECHNICAL_FEEDBACK_CATEGORY
+  OfferModel
 } from 'api-client'
 import Tiles from '../../../modules/common/components/Tiles'
 import type { TFunction } from 'react-i18next'
 import { SPRUNGBRETT_OFFER, SPRUNGBRETT_ROUTE, WOHNEN_OFFER, WOHNEN_ROUTE } from '../constants'
 import { View } from 'react-native'
 import type { ThemeType } from '../../../modules/theme/constants'
-import FeedbackVariant from '../../feedback/FeedbackVariant'
 import type { NavigationStackProp } from 'react-navigation-stack'
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
 import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
-import type { FeedbackCategoryType, FeedbackType } from 'api-client'
+import type { FeedbackInformationType } from '../../feedback/containers/FeedbackModalContainer'
 
 type PropsType = {|
   offers: Array<OfferModel>,
@@ -61,26 +55,22 @@ class Offers extends React.Component<PropsType> {
   }
 
   navigateToFeedback = (isPositiveFeedback: boolean) => {
-    const { navigation, offers, t, cities, cityCode, language } = this.props
+    const { navigation, offers, cities, cityCode, language } = this.props
     if (!cityCode || !language) {
       throw Error('language or cityCode not available')
     }
-    const createFeedbackVariant = (
-      label: string, feedbackType: FeedbackType, feedbackCategory: FeedbackCategoryType, alias?: string
-    ) => new FeedbackVariant(label, language, cityCode, feedbackType, feedbackCategory, undefined, alias)
+
     const cityTitle = CityModel.findCityName(cities, cityCode)
 
-    const feedbackItems = [
-      createFeedbackVariant(t('feedback:contentOfCity', { city: cityTitle }), OFFERS_FEEDBACK_TYPE,
-        CONTENT_FEEDBACK_CATEGORY),
-      ...offers.map(offer =>
-        createFeedbackVariant(t('feedback:contentOfOffer', { offer: offer.title }), OFFER_FEEDBACK_TYPE,
-          CONTENT_FEEDBACK_CATEGORY, offer.alias)
-      ),
-      createFeedbackVariant(t('feedback:technicalTopics'), CATEGORIES_FEEDBACK_TYPE, TECHNICAL_FEEDBACK_CATEGORY)
-    ]
+    const feedbackInformation: FeedbackInformationType = {
+      type: 'Offers',
+      language,
+      cityTitle: cityTitle,
+      offers,
+      isPositiveFeedback
+    }
 
-    navigation.navigate('FeedbackModal', { isPositiveFeedback, feedbackItems })
+    navigation.navigate('FeedbackModal', { ...feedbackInformation })
   }
 
   render () {
