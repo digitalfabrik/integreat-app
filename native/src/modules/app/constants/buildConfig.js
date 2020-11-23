@@ -1,7 +1,7 @@
 // @flow
 
-import type { BuildConfigType } from 'build-configs/BuildConfigType'
-import loadBuildConfig from 'build-configs'
+import type { CommonBuildConfigType } from 'build-configs/BuildConfigType'
+import loadBuildConfig, { COMMON } from 'build-configs'
 import integreatAppIcon from 'build-configs/integreat/assets/app-icon-round.png'
 import integreatLocationMarker from 'build-configs/integreat/assets/location-marker.svg'
 import integreatIntroLanguageIcon from 'build-configs/integreat/assets/intro-slides/Language.svg'
@@ -55,6 +55,6 @@ export const buildConfigAssets = (): AssetsType => {
   throw new Error(`Unknown icon set ${assetsName}. Check your build config!`)
 }
 
-const buildConfig = (): BuildConfigType => loadBuildConfig(process.env.BUILD_CONFIG_NAME)
+const buildConfig = (): CommonBuildConfigType => loadBuildConfig(process.env.BUILD_CONFIG_NAME, COMMON)
 
 export default buildConfig

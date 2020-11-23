@@ -1,6 +1,14 @@
 // @flow
 
-import { CategoriesMapModel, CityModel, EventModel, LanguageModel, TunewsModel, LocalNewsModel, PoiModel } from 'api-client'
+import {
+  CategoriesMapModel,
+  CityModel,
+  EventModel,
+  LanguageModel,
+  TunewsModel,
+  LocalNewsModel,
+  PoiModel
+} from 'api-client'
 import type { CategoryRouteConfigType, LanguageResourceCacheStateType, NewsType, NewsModelsType } from './StateType'
 import type { ContentLoadCriterionType } from '../endpoint/ContentLoadCriterion'
 import type { TFunction } from 'react-i18next'
@@ -263,6 +271,12 @@ export type ClearCityActionType = {|
   type: 'CLEAR_CITY'
 |}
 
+export type ResourcesFetchProgressActionType = {|
+  type: 'FETCH_RESOURCES_PROGRESS', +params: {|
+    +progress: number
+  |}
+|}
+
 export type ResourcesFetchFailedActionType = {|
   type: 'FETCH_RESOURCES_FAILED',
   +params: {|
@@ -280,6 +294,7 @@ export type CityContentActionType =
   | ClearCityActionType
   | PushLanguagesActionType
   | FetchLanguagesFailedActionType
+  | ResourcesFetchProgressActionType
   | ResourcesFetchFailedActionType
   | NewsActionType
 

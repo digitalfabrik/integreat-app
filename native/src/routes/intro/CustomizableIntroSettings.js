@@ -39,7 +39,8 @@ class CustomizableIntroSettings extends React.Component<PropsType> {
         <Switch thumbColor={themeColor} trackColor={{ true: themeColor }} value={proposeNearbyCities}
                 onValueChange={toggleProposeNearbyCities} />
       </SettingItem>
-      <SettingItem bigTitle title={t('settings:sentryTitle')} description={t('settings:sentryDescription', { appName: buildConfig().appName })}
+      <SettingItem bigTitle title={t('settings:sentryTitle')}
+                   description={t('settings:sentryDescription', { appName: buildConfig().appName })}
                    onPress={toggleErrorTracking} theme={theme}>
         <Switch thumbColor={themeColor} trackColor={{ true: themeColor }} value={errorTracking}
                 onValueChange={toggleErrorTracking} />

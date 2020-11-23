@@ -14,8 +14,8 @@ const decamelize = require('decamelize')
 const loadBuildConfig = require('build-configs').default
 const isString = require('lodash').isString
 
-const loadBuildConfigAsXCConfig = buildConfigName => {
-  const buildConfig = loadBuildConfig(buildConfigName)
+const loadBuildConfigAsXCConfig = (buildConfigName, platform) => {
+  const buildConfig = loadBuildConfig(buildConfigName, platform)
   const xcconfigOptions = flat(buildConfig, {
     delimiter: '_',
     transformKey: key => decamelize(key).toUpperCase()
@@ -30,12 +30,12 @@ const loadBuildConfigAsXCConfig = buildConfigName => {
 }
 
 program
-  .command('write-xcconfig <build_config_name>')
+  .command('write-xcconfig <build_config_name> <platform>')
   .requiredOption('--directory <directory>', 'the directory to put the created xcconfig file in')
   .description('create and write a new .xcconfig from the iosBuildOptions of the specified build config')
-  .action((buildConfigName, cmdObj) => {
+  .action((buildConfigName, platform, cmdObj) => {
     try {
-      const xcconfig = loadBuildConfigAsXCConfig(buildConfigName)
+      const xcconfig = loadBuildConfigAsXCConfig(buildConfigName, platform)
       fs.writeFileSync(`${cmdObj.directory}/buildConfig.tmp.xcconfig`, xcconfig)
     } catch (e) {
       console.error(e)
@@ -44,11 +44,11 @@ program
   })
 
 program
-  .command('to-xcconfig <build_config_name>')
+  .command('to-xcconfig <build_config_name> <platform>')
   .description('outputs the specified build config as XConfig')
-  .action(buildConfigName => {
+  .action((buildConfigName, platform) => {
     try {
-      const xcconfig = loadBuildConfigAsXCConfig(buildConfigName)
+      const xcconfig = loadBuildConfigAsXCConfig(buildConfigName, platform)
       console.log(xcconfig)
     } catch (e) {
       console.error(e)
@@ -57,10 +57,10 @@ program
   })
 
 program
-  .command('to-json <build_config_name>')
+  .command('to-json <build_config_name> <platform>')
   .description('outputs the specified build config as JSON')
-  .action(async buildConfigName => {
-    const buildConfig = loadBuildConfig(buildConfigName)
+  .action((buildConfigName, platform) => {
+    const buildConfig = loadBuildConfig(buildConfigName, platform)
     console.log(JSON.stringify(buildConfig))
   })
 

@@ -139,7 +139,7 @@ android {
     def buildConfig = createBuildConfig(buildConfigName)
 
     defaultConfig {
-        applicationId buildConfig.android.applicationId ?: "tuerantuer.app.integreat"
+        applicationId buildConfig.applicationId ?: "tuerantuer.app.integreat"
 
         setupResourceValues(buildConfigName, {
             String type, String name, String value -> resValue(type, name, value)

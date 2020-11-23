@@ -380,6 +380,7 @@ describe('morphContentLanguage', () => {
       newsRouteMapping: {},
       resourceCache: {
         status: 'ready',
+        progress: 1,
         value: {}
       },
       searchRoute: { categoriesMap: enCategoriesMap }
@@ -426,6 +427,7 @@ describe('morphContentLanguage', () => {
       newsRouteMapping: {},
       resourceCache: {
         status: 'ready',
+        progress: 1,
         value: {}
       },
       searchRoute: { categoriesMap: enCategoriesMap }
@@ -463,6 +465,7 @@ describe('morphContentLanguage', () => {
       eventsRouteMapping: {
         'route-1': {
           status: 'languageNotAvailable',
+          path: '/augsburg/de/events/drittes_event',
           city: 'augsburg',
           language: 'en',
           allAvailableLanguages: new Map([['de', '/augsburg/de/events/drittes_event']])
@@ -471,6 +474,7 @@ describe('morphContentLanguage', () => {
       poisRouteMapping: expect.any(Object),
       resourceCache: {
         status: 'ready',
+        progress: 1,
         value: {}
       },
       searchRoute: { categoriesMap: enCategoriesMap }

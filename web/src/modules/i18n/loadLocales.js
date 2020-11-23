@@ -2,7 +2,8 @@
 
 import { reduce, forEach, merge } from 'lodash'
 import defaultLocales from 'locales/locales.json'
-import buildConfig, { type LocalesType } from '../app/constants/buildConfig'
+import buildConfig from '../app/constants/buildConfig'
+import type { LocalesType } from 'build-configs/BuildConfigType'
 
 type TransformedLocalesType = { [language: string]: { [namespace: string]: { [key: string]: string } } }
 

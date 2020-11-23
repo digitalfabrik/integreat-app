@@ -1,19 +1,38 @@
 // @flow
 
-import type { BuildConfigType } from './BuildConfigType'
+import type {
+  CommonBuildConfigType,
+  AndroidBuildConfigType,
+  iOSBuildConfigType,
+  WebBuildConfigType
+} from './BuildConfigType'
 import integreatBuildConfig from './integreat'
 import integreatTestCmsBuildConfig from './integreat-test-cms'
 import integreatE2eBuildConfig from './integreat-e2e'
 import malteBuildConfig from './malte'
 
-export const buildConfigs: { [string]: BuildConfigType } = {
+export const COMMON = 'common'
+export const ANDROID = 'android'
+export const IOS = 'ios'
+export const WEB = 'web'
+
+const PLATFORMS = [COMMON, ANDROID, IOS, WEB]
+
+type BuildConfigPlatformType = {
+  common: CommonBuildConfigType,
+  android: AndroidBuildConfigType,
+  ios: iOSBuildConfigType,
+  web: WebBuildConfigType
+}
+
+export const buildConfigs: { [string]: BuildConfigPlatformType } = {
   integreat: integreatBuildConfig,
   'integreat-test-cms': integreatTestCmsBuildConfig,
   'integreat-e2e': integreatE2eBuildConfig,
   malte: malteBuildConfig
 }
 
-const loadBuildConfig = (buildConfigName: ?string): BuildConfigType => {
+const loadBuildConfig = (buildConfigName: ?string, platform: ?string) => {
   if (!buildConfigName) {
     throw Error('No BUILD_CONFIG_NAME supplied!')
   }
@@ -22,15 +41,11 @@ const loadBuildConfig = (buildConfigName: ?string): BuildConfigType => {
     throw Error(`Invalid BUILD_CONFIG_NAME supplied: ${buildConfigName}`)
   }
 
-  const { featureFlags: { pushNotifications }, android, ios } = buildConfig
-
-  if ((android.googleServices === null) !== (ios.googleServices === null)) {
-    console.warn('Google services should be configured for both or no platform!')
-  } else if (pushNotifications === (android.googleServices === null)) {
-    console.warn('Push notification feature flag does not match google service configuration!')
+  if (!platform || !PLATFORMS.includes(platform)) {
+    throw Error(`Invalid platform supplied: ${platform || 'undefined'}`)
   }
 
-  return buildConfig
+  return buildConfig[platform]
 }
 
 export default loadBuildConfig

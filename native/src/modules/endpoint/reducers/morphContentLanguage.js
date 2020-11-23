@@ -1,6 +1,11 @@
 // @flow
 
-import type { CategoryRouteStateType, CityContentStateType, EventRouteStateType, PoiRouteStateType } from '../../app/StateType'
+import type {
+  CategoryRouteStateType,
+  CityContentStateType,
+  EventRouteStateType,
+  PoiRouteStateType
+} from '../../app/StateType'
 import { mapValues } from 'lodash/object'
 import { CategoriesMapModel, EventModel, PoiModel } from 'api-client'
 import type { MorphContentLanguageActionType } from '../../app/StoreActionType'
@@ -61,13 +66,14 @@ const eventRouteTranslator = (newEvents: $ReadOnlyArray<EventModel>, newLanguage
       console.warn('Route was not ready when translating. Will not translate this route.')
       return route
     }
-    const { allAvailableLanguages, city } = route
+    const { allAvailableLanguages, city, path } = route
 
     if (!allAvailableLanguages.has(newLanguage)) {
       return {
         status: 'languageNotAvailable',
         allAvailableLanguages,
         language: newLanguage,
+        path,
         city
       }
     }
@@ -108,13 +114,14 @@ const poiRouteTranslator = (newPois: $ReadOnlyArray<PoiModel>, newLanguage: stri
       console.warn('Route was not ready when translating. Will not translate this route.')
       return route
     }
-    const { allAvailableLanguages, city } = route
+    const { allAvailableLanguages, city, path } = route
 
     if (!allAvailableLanguages.has(newLanguage)) {
       return {
         status: 'languageNotAvailable',
         allAvailableLanguages,
         language: newLanguage,
+        path,
         city
       }
     }
@@ -172,7 +179,7 @@ const morphContentLanguage = (
 
   return {
     ...state,
-    resourceCache: { status: 'ready', value: newResourceCache },
+    resourceCache: { status: 'ready', progress: 1, value: newResourceCache },
     searchRoute: { categoriesMap: newCategoriesMap },
     categoriesRouteMapping: translatedCategoriesRouteMapping,
     eventsRouteMapping: translatedEventsRouteMapping,
