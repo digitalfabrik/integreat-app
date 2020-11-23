@@ -93,7 +93,11 @@ class FeedbackModal extends React.Component<PropsType, StateType> {
                 mode='dropdown'>
           {feedbackItems.map((item, index) => <Picker.Item label={item.label} value={index} key={index} />)}
         </Picker>
-        <Description theme={theme}> {isPositiveFeedback ? t('positiveComment') : t('negativeComment')}{!isPositiveFeedback && <RequiredText>*</RequiredText>}</Description>
+        <Description theme={theme}>
+          {' '}
+          {isPositiveFeedback ? t('positiveComment') : t('negativeComment')}
+          {!isPositiveFeedback && <RequiredText>*</RequiredText>}
+        </Description>
         <Input theme={theme} onChangeText={this.onFeedbackCommentChanged}
                autoFocus value={comment} multiline placeholderTextColor={theme.colors.textSecondaryColor}
                placeholder={t('yourFeedback')} />

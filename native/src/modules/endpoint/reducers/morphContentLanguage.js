@@ -1,6 +1,11 @@
 // @flow
 
-import type { CategoryRouteStateType, CityContentStateType, EventRouteStateType, PoiRouteStateType } from '../../app/StateType'
+import type {
+  CategoryRouteStateType,
+  CityContentStateType,
+  EventRouteStateType,
+  PoiRouteStateType
+} from '../../app/StateType'
 import { mapValues } from 'lodash/object'
 import { CategoriesMapModel, EventModel, PoiModel } from 'api-client'
 import type { MorphContentLanguageActionType } from '../../app/StoreActionType'
@@ -174,7 +179,7 @@ const morphContentLanguage = (
 
   return {
     ...state,
-    resourceCache: { status: 'ready', value: newResourceCache },
+    resourceCache: { status: 'ready', progress: 1, value: newResourceCache },
     searchRoute: { categoriesMap: newCategoriesMap },
     categoriesRouteMapping: translatedCategoriesRouteMapping,
     eventsRouteMapping: translatedEventsRouteMapping,

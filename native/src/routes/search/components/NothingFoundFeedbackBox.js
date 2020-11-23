@@ -74,11 +74,16 @@ class NothingFoundFeedbackBox extends React.Component<PropsType, StateType> {
       </>
     } else if (sendingStatus === 'sending') {
       return <ActivityIndicator size='large' color='#0000ff' />
-    } else { // sendingStatus === 'successful'
-      return <>
-        <TitleText theme={theme}>{t('feedback:feedbackSent')}</TitleText>
-        <DescriptionText theme={theme}>{t('feedback:thanksMessage', { appName: buildConfig().appName })}</DescriptionText>
-      </>
+    } else {
+      // sendingStatus === 'successful'
+      return (
+        <>
+          <TitleText theme={theme}>{t('feedback:feedbackSent')}</TitleText>
+          <DescriptionText theme={theme}>
+            {t('feedback:thanksMessage', { appName: buildConfig().appName })}
+          </DescriptionText>
+        </>
+      )
     }
   }
 }

@@ -1,29 +1,28 @@
 // @flow
 
+import { eventChannel } from 'redux-saga'
+import type { EventChannel } from 'redux-saga'
 import { isEmpty, mapValues, sortBy, toPairs } from 'lodash'
-import type { FetchResultType, ProgressCallbackType, TargetFilePathsType } from '../FetcherModule'
+import type { FetchResultType, TargetFilePathsType } from '../FetcherModule'
 import moment from 'moment'
 
 class FetcherModule {
   static currentlyFetching = false
 
-  async fetchAsync (
-    targetFilePaths: TargetFilePathsType,
-    progress: ProgressCallbackType
-  ): Promise<FetchResultType> {
+  createProgressChannel = (): EventChannel<number> => {
+    return eventChannel<number>(emitter => {
+      emitter(0.5)
+      return () => {}
+    })
+  }
+
+  fetchAsync = (targetFilePaths: TargetFilePathsType): Promise<FetchResultType> => {
     if (FetcherModule.currentlyFetching) {
-      return Promise.reject(new Error('Already fetching!'))
+      throw new Error('Already fetching!')
     }
     if (isEmpty(targetFilePaths)) {
       return Promise.resolve({})
     }
-    FetcherModule.currentlyFetching = true
-
-    for (let i = 0; i < 100; i++) {
-      progress(i / 100)
-    }
-
-    FetcherModule.currentlyFetching = false
 
     const fetchResult = mapValues(
       targetFilePaths,

@@ -2,8 +2,8 @@
 
 import type { Saga } from 'redux-saga'
 import { flatten, isEmpty, mapValues, pickBy, reduce, values } from 'lodash'
-import { call, put } from 'redux-saga/effects'
-import type { ResourcesFetchFailedActionType } from '../../app/StoreActionType'
+import { call, put, fork, take, cancel } from 'redux-saga/effects'
+import type { ResourcesFetchProgressActionType, ResourcesFetchFailedActionType } from '../../app/StoreActionType'
 import type { FetchResultType, TargetFilePathsType } from '../../fetcher/FetcherModule'
 import FetcherModule from '../../fetcher/FetcherModule'
 import type { DataContainer } from '../DataContainer'
@@ -19,6 +19,26 @@ const createErrorMessage = (fetchResult: FetchResultType) => {
     `${message}'Failed to download ${result.url} to ${path}': ${result.errorMessage}\n`, '')
 }
 
+function * watchOnProgress (): Saga<void> {
+  const channel = new FetcherModule().createProgressChannel()
+  try {
+    let progress = 0
+    while (progress < 1) {
+      progress = yield take(channel)
+
+      const progressAction: ResourcesFetchProgressActionType = {
+        type: 'FETCH_RESOURCES_PROGRESS',
+        params: {
+          progress: progress
+        }
+      }
+      yield put(progressAction)
+    }
+  } finally {
+    channel.close()
+  }
+}
+
 export default function * fetchResourceCache (
   city: string,
   language: string,
@@ -32,12 +52,18 @@ export default function * fetchResourceCache (
       return acc
     }, {})
 
-    const results = yield call(new FetcherModule().fetchAsync, targetFilePaths, progress => console.log(progress))
+    if (FetcherModule.currentlyFetching) {
+      throw new Error('Already fetching!')
+    }
+    const progressTask = yield fork(watchOnProgress)
+    const results = yield call(new FetcherModule().fetchAsync, targetFilePaths)
+    yield cancel(progressTask)
 
     const successResults: FetchResultType = pickBy(results, result => !result.errorMessage)
     const failureResults: FetchResultType = pickBy(results, result => !!result.errorMessage)
     if (!isEmpty(failureResults)) {
-      // TODO: we might remember which files have failed to retry later (internet connection of client could have failed)
+      // TODO: we might remember which files have failed to retry later
+      // (internet connection of client could have failed)
       const message = createErrorMessage(failureResults)
       console.warn(message)
     }

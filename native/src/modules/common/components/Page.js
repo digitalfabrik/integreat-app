@@ -51,7 +51,17 @@ class Page extends React.Component<PropType, StateType> {
   onLoad = () => this.setState({ loading: false })
 
   render () {
-    const { title, children, content, files, theme, language, resourceCacheUrl, lastUpdate, navigateToFeedback } = this.props
+    const {
+      title,
+      children,
+      content,
+      files,
+      theme,
+      language,
+      resourceCacheUrl,
+      lastUpdate,
+      navigateToFeedback
+    } = this.props
     return <SpaceBetween>
       <Container>
         <Caption title={title} theme={theme} />
