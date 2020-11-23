@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react'
+import React, { useCallback, useState } from 'react'
 
 import styled from 'styled-components'
 import buildConfig from '../../../modules/app/constants/buildConfig'
@@ -11,6 +11,19 @@ const Logo = styled.img`
   margin: 0 auto;
 `
 
-const Heading = () => <Logo src={buildConfig().icons.locationMarker} alt='' />
+const Heading = () => {
+  const [counter, setCounter] = useState(0)
+
+  const increment = useCallback(() => {
+    setCounter(counter + 1)
+
+    const CRASH_COUNTER_MAX = 13
+    if (counter === CRASH_COUNTER_MAX) {
+      throw new Error('This error was thrown for testing purposes.')
+    }
+  }, [counter])
+
+  return <Logo src={buildConfig().icons.locationMarker} alt='' onClick={increment} />
+}
 
 export default Heading

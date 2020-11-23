@@ -13,6 +13,7 @@ steps:
       fingerprints:
         - "68:a3:fe:e7:94:f7:a4:13:35:5c:63:30:2f:07:7d:02"
   - prepare_workspace
+  - restore_environment_variables
   - when:
       condition: << parameters.production_delivery >>
       steps:
@@ -22,6 +23,12 @@ steps:
         - run:
             name: Malte production delivery
             command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/malteapp.de \<<< $'put -r ~/attached_workspace/dist/malte/*'
+        - run:
+            name: "Sentry Upload: integreat"
+            command: tools/sentry-release integreat "${NEW_VERSION_NAME}" ~/attached_workspace/dist/integreat
+        - run:
+            name: "Sentry Upload: malte"
+            command: tools/sentry-release malte "${NEW_VERSION_NAME}" ~/attached_workspace/dist/malte
   - unless:
       condition: << parameters.production_delivery >>
       steps:
@@ -31,4 +38,10 @@ steps:
         - run:
             name: Malte development delivery
             command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.malteapp.de \<<< $'put -r ~/attached_workspace/dist/malte/*'
+        - run:
+            name: "Sentry Upload: integreat-test-cms"
+            command: tools/sentry-release integreat-test-cms "${NEW_VERSION_NAME}" ~/attached_workspace/dist/integreat-test-cms
+        - run:
+            name: "Sentry Upload: malte"
+            command: tools/sentry-release malte "${NEW_VERSION_NAME}" ~/attached_workspace/dist/malte
   - notify_failed

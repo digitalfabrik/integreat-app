@@ -128,13 +128,6 @@ version_name=$_arg_version_name
 version_code=$_arg_version_code
 sourcemap_directory=$_arg_sourcemap_directory
 
-sourcemap_paths=($sourcemap_directory/*.js.map)
-
-if [ ${#sourcemap_paths[@]} -eq 0 ]
-then
-  echo "There are no sourcemaps in $sourcemap_directory. Exiting."
-  exit 0
-fi
 
 if [ -z "$SENTRY_AUTH_TOKEN" ]
 then
@@ -153,16 +146,6 @@ fi
 
 sentry-cli releases new "$version" --finalize
 
-for sourcemap_path in "${sourcemap_paths[@]}"; do
-  sentry-cli releases files "$version" upload-sourcemaps "$sourcemap_path" --dist "$version_code"
-  # webapp without rewrite, native with
-done
-
-binaries=($sourcemap_directory/*.js)
-for binary in "${binaries[@]}"; do
-  # works both
-  #sentry-cli releases files "$version" upload "$binary" "~/$(basename -- "$binary")"
-  sentry-cli releases files "$version" upload "$binary"
-done
+sentry-cli releases files "$version" upload-sourcemaps "$sourcemap_directory" --dist "$version_code"
 
 # ] <-- needed because of Argbash
