@@ -14,10 +14,13 @@
 
 ## Install [Java](https://www.java.com/de/)
 
+
 ```
 choco install jdk8
 ```
 (This should also set the corresponding paths, e.g. ````JAVA_HOME C:\Program Files\Java\jdk1.8.0_211```` and ````PATH C:\Program Files\Java\jdk1.8.0_211\bin````)
+
+*Installation was only tested with this Java version, different versions may not work*
 
 ## Install HAXM
 
@@ -48,7 +51,7 @@ to use the sdkmanager and the avdmanager for the next steps
 
 ## TL;DR - Quickinstall
 
-[Set Paths](#set-paths)
+Set Paths: [Set Paths](#set-paths)
 
 Run
 ```
