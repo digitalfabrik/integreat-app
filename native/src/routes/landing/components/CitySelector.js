@@ -60,8 +60,6 @@ class CitySelector extends React.PureComponent<PropsType> {
     const cities = this.props.cities
     if (normalizedFilter === 'wirschaffendas') {
       return cities.filter(_city => !_city.live)
-    } else if (buildConfig().development) {
-      return cities
     } else {
       return cities
         .filter(_city => _city.live)
