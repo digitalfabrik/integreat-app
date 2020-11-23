@@ -85,7 +85,13 @@ const renderJS = (cacheDictionary: { [remoteUrl: string]: string }) => `
 `
 
 // language=HTML
-const renderHtml = (html: string, files: PageResourceCacheStateType, theme: ThemeType, language: string, resourceCacheUrl: string) => {
+const renderHtml = (
+  html: string,
+  files: PageResourceCacheStateType,
+  theme: ThemeType,
+  language: string,
+  resourceCacheUrl: string
+) => {
   const cacheDictionary = mapValues(files, (file: PageResourceCacheEntryStateType) => {
     return file.filePath.startsWith(RESOURCE_CACHE_DIR_PATH)
       ? file.filePath.replace(RESOURCE_CACHE_DIR_PATH, resourceCacheUrl)

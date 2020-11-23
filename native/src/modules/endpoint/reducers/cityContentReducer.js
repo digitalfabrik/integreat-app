@@ -95,6 +95,13 @@ export default (
         return { ...state, languages: { status: 'ready', models: action.params.languages } }
       case 'FETCH_LANGUAGES_FAILED':
         return { ...state, languages: { status: 'error', ...action.params } }
+      case 'FETCH_RESOURCES_PROGRESS':
+        return {
+          ...state,
+          resourceCache: state.resourceCache.status !== 'error'
+            ? { ...state.resourceCache, progress: action.params.progress }
+            : state.resourceCache
+        }
       case 'PUSH_CATEGORY':
         return pushCategory(state, action)
       case 'PUSH_POI':

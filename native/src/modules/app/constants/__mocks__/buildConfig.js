@@ -1,15 +1,14 @@
 // @flow
 
 import { darkTheme, lightTheme } from 'build-configs/integreat/theme'
-import type { BuildConfigType } from 'build-configs/BuildConfigType'
+import type { CommonBuildConfigType } from 'build-configs/BuildConfigType'
 import { INTEGREAT_ASSETS } from 'build-configs/AssetsType'
-import mainImprint from 'build-configs/integreat/assets/mainImprint'
 
 export const buildConfigIconSet = (): {| appLogo: string, locationMarker: string |} => {
   throw new Error('Mock not yet implemented!')
 }
 
-const buildConfig = jest.fn<[], BuildConfigType>((): BuildConfigType => ({
+const buildConfig = jest.fn<[], CommonBuildConfigType>((): CommonBuildConfigType => ({
   appName: 'Integreat',
   appIcon: 'app_icon_integreat',
   lightTheme,
@@ -28,7 +27,6 @@ const buildConfig = jest.fn<[], BuildConfigType>((): BuildConfigType => ({
     introSlides: true,
     sentry: true
   },
-  mainImprint,
   aboutUrls: {
     default: 'https://integreat-app.de/about/',
     en: 'https://integreat-app.de/en/about/'
@@ -36,57 +34,6 @@ const buildConfig = jest.fn<[], BuildConfigType>((): BuildConfigType => ({
   privacyUrls: {
     default: 'https://integreat-app.de/datenschutz/',
     en: 'https://integreat-app.de/en/privacy/'
-  },
-  android: {
-    splashScreen: true,
-    applicationId: 'tuerantuer.app.integreat',
-    googleServices: {
-      googleAppId: '1:164298278764:android:3fc1f67f3883df306fd549',
-      gcmDefaultSenderId: '164298278764',
-      defaultWebClientId: '164298278764-hhup7orh5rvg0oumhbabqvp5giudaste.apps.googleusercontent.com',
-      gaTrackingId: null,
-      firebaseDatabaseUrl: 'https://integreat-2020.firebaseio.com',
-      googleApiKey: 'AIzaSyBvc08_Cqww8z2Dh-EXtwHW98HXBk8T7V4',
-      googleCrashReportingApiKey: 'AIzaSyBvc08_Cqww8z2Dh-EXtwHW98HXBk8T7V4',
-      projectId: 'integreat-2020'
-    }
-  },
-  ios: {
-    bundleIdentifier: 'de.integreat-app',
-    provisioningProfileSpecifier: 'match Development de.integreat-app',
-    appleId: '1072353915',
-    googleServices: {
-      clientId: '164298278764-pemn49q7v283m0tqml3q8q0ltr5h8pni.apps.googleusercontent.com',
-      reversedClientId: 'com.googleusercontent.apps.164298278764-pemn49q7v283m0tqml3q8q0ltr5h8pni',
-      apiKey: 'AIzaSyBSnGYrUWfIAPcEsFya1OYvTMbjvfUyOEU',
-      gcmSenderId: '164298278764',
-      plistVersion: '1',
-      bundleId: 'de.integreat-app',
-      projectId: 'integreat-2020',
-      storageBucket: 'integreat-2020.appspot.com',
-      isAdsEnabled: false,
-      isAnalyticsEnabled: false,
-      isAppInviteEnabled: true,
-      isGCMEnabled: true,
-      isSigninEnabled: true,
-      googleAppId: '1:164298278764:ios:2a69672da4d117116fd549',
-      databaseUrl: 'https://integreat-2020.firebaseio.com'
-    },
-    launchScreen: 'LaunchScreenIntegreat'
-  },
-  web: {
-    itunesAppId: '1072353915',
-    manifestUrl: '/manifest.json',
-    icons: {
-      appLogo: '/app-logo.png',
-      locationMarker: '/location-marker.svg',
-      appleTouchIcon: 'apple-touch-icon.png',
-      favicons: '/favicons/'
-    },
-    splashScreen: {
-      backgroundColor: lightTheme.colors.themeColor,
-      imageUrl: '/app-icon-cornered.jpg'
-    }
   }
 }))
 

@@ -41,14 +41,14 @@ def determineBuildConfigName() {
 def createBuildConfig(buildConfigName) {
     logger.quiet("Using build config $buildConfigName")
 
-    def command = "yarn --silent babel-node tools/build-config to-json $buildConfigName"
+    def command = "yarn --silent babel-node tools/build-config to-json $buildConfigName android"
     def proc = execCommand(command)
     def buildConfig = new JsonSlurper().parseText(proc)
     return buildConfig
 }
 
 def setupGoogleServices(buildConfig, resValue) {
-    def gs = buildConfig.android.googleServices
+    def gs = buildConfig.googleServices
 
     if (gs == null) {
         logger.warn("WARNING: Google Services are not used in this build!")
@@ -70,7 +70,7 @@ def setupGoogleServices(buildConfig, resValue) {
 def setupResourceValues(buildConfigName, resValue) {
     logger.quiet("Using build config $buildConfigName")
 
-    def command = "yarn --silent babel-node tools/build-config to-xcconfig $buildConfigName"
+    def command = "yarn --silent babel-node tools/build-config to-xcconfig $buildConfigName android"
     def proc = execCommand(command)
     def buildConfigProperties = new Properties()
     buildConfigProperties.load(new StringReader(proc))
@@ -85,7 +85,7 @@ def setupResourceValues(buildConfigName, resValue) {
 }
 
 def determineTheme(buildConfig) {
-    if (buildConfig.android.splashScreen) {
+    if (buildConfig.splashScreen) {
         return [theme: "@style/SplashScreenTheme"]
     } else {
         return [theme: "@style/AppTheme"]

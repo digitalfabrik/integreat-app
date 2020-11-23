@@ -4,9 +4,11 @@ import React from 'react'
 import ReactTooltip from 'react-tooltip'
 import styled from 'styled-components'
 import Link from 'redux-first-router-link'
+import helpers from '../../theme/constants/helpers'
+import dimensions from '../../theme/constants/dimensions'
 
 const StyledLink = styled(Link)`
-  ${props => props.theme.helpers.removeLinkHighlighting};
+  ${helpers.removeLinkHighlighting};
   flex: 1 1 135px;
   color: ${props => props.theme.colors.textSecondaryColor};
   font-size: .9em;
@@ -18,7 +20,7 @@ const StyledLink = styled(Link)`
   display: flex;
   transition: color 0.2s;
 
-  @media ${props => props.theme.dimensions.web.smallViewport} {
+  @media ${dimensions.smallViewport} {
     font-size: 0.8em;
     min-width: 135px;
   }
@@ -76,7 +78,7 @@ const Circle = styled.div`
     width: ${ICON_SIZE_LARGE / Math.sqrt(2) - PADDING_CIRCLE}px;
   }
 
-  @media ${props => props.theme.dimensions.web.smallViewport} {
+  @media ${dimensions.smallViewport} {
     height: ${ICON_SIZE_SMALL}px;
     width: ${ICON_SIZE_SMALL}px;
 
