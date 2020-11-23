@@ -140,7 +140,7 @@ const ThemedTranslatedDashboard = withTranslation('dashboard')(
   withTheme(Dashboard)
 )
 
-const DashboardContainer = (props: ContainerPropsType) => {
+const DashboardContainer = (props: ContainerPropsType, state) => {
   const { dispatch, ...rest } = props
   return <ThemedTranslatedDashboard
     {...rest}

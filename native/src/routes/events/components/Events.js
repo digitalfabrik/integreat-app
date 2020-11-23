@@ -4,13 +4,8 @@ import * as React from 'react'
 import { View } from 'react-native'
 import type { TFunction } from 'react-i18next'
 import {
-  CATEGORIES_FEEDBACK_TYPE,
   CityModel,
-  CONTENT_FEEDBACK_CATEGORY,
-  EventModel,
-  EVENTS_FEEDBACK_TYPE,
-  PAGE_FEEDBACK_TYPE,
-  TECHNICAL_FEEDBACK_CATEGORY
+  EventModel
 } from 'api-client'
 import Page from '../../../modules/common/components/Page'
 import ContentNotFoundError from '../../../modules/error/ContentNotFoundError'
@@ -24,11 +19,10 @@ import type { LanguageResourceCacheStateType } from '../../../modules/app/StateT
 import type { NavigationStackProp } from 'react-navigation-stack'
 import type { NavigateToEventParamsType } from '../../../modules/app/createNavigateToEvent'
 import type { NavigateToInternalLinkParamsType } from '../../../modules/app/createNavigateToInternalLink'
-import FeedbackVariant from '../../feedback/FeedbackVariant'
 import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
-import type { FeedbackCategoryType, FeedbackType } from 'api-client'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
+import type { FeedbackInformationType } from '../../feedback/containers/FeedbackModalContainer'
 
 export type PropsType = {|
   path: ?string,
@@ -63,39 +57,35 @@ class Events extends React.Component<PropsType> {
   }
 
   createNavigateToFeedbackForEvent = (event: EventModel) => (isPositiveFeedback: boolean) => {
-    const { t, navigation, cities, cityCode, language } = this.props
-
-    const createFeedbackVariant = (
-      label: string, feedbackType: FeedbackType, feedbackCategory: FeedbackCategoryType, pagePath?: string
-    ): FeedbackVariant => new FeedbackVariant(label, language, cityCode, feedbackType, feedbackCategory, pagePath)
+    const { navigation, cities, cityCode, language } = this.props
 
     const cityTitle = CityModel.findCityName(cities, cityCode)
-    navigation.navigate('FeedbackModal', {
-      isPositiveFeedback,
-      feedbackItems: [
-        createFeedbackVariant(t('feedback:contentOfEvent', { event: event.title }), PAGE_FEEDBACK_TYPE,
-          CONTENT_FEEDBACK_CATEGORY, event.path),
-        createFeedbackVariant(t('feedback:contentOfCity', { city: cityTitle }), EVENTS_FEEDBACK_TYPE,
-          CONTENT_FEEDBACK_CATEGORY),
-        createFeedbackVariant(t('feedback:technicalTopics'), CATEGORIES_FEEDBACK_TYPE, TECHNICAL_FEEDBACK_CATEGORY)
-      ]
-    })
+
+    const feedbackInformation: FeedbackInformationType = {
+      type: 'Event',
+      language,
+      title: event.title,
+      cityTitle: cityTitle,
+      path: event.path,
+      isPositiveFeedback
+    }
+
+    navigation.navigate('FeedbackModal', { ...feedbackInformation })
   }
 
   navigateToFeedbackForEvents = (isPositiveFeedback: boolean) => {
-    const { t, navigation, cities, cityCode, language } = this.props
-    const createFeedbackVariant = (label: string, feedbackType: FeedbackType, feedbackCategory: FeedbackCategoryType,
-      pagePath?: string) =>
-      new FeedbackVariant(label, language, cityCode, feedbackType, feedbackCategory, pagePath)
+    const { navigation, cities, cityCode, language } = this.props
+
     const cityTitle = CityModel.findCityName(cities, cityCode)
-    navigation.navigate('FeedbackModal', {
-      isPositiveFeedback,
-      feedbackItems: [
-        createFeedbackVariant(t('feedback:contentOfCity', { city: cityTitle }), EVENTS_FEEDBACK_TYPE,
-          CONTENT_FEEDBACK_CATEGORY),
-        createFeedbackVariant(t('feedback:technicalTopics'), CATEGORIES_FEEDBACK_TYPE, TECHNICAL_FEEDBACK_CATEGORY)
-      ]
-    })
+
+    const feedbackInformation: FeedbackInformationType = {
+      type: 'Event',
+      language,
+      cityTitle: cityTitle,
+      isPositiveFeedback
+    }
+
+    navigation.navigate('FeedbackModal', { ...feedbackInformation })
   }
 
   render () {

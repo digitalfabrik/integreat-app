@@ -7,6 +7,7 @@ import SprungbrettOffer from '../components/SprungbrettOffer'
 import { connect } from 'react-redux'
 import type { StateType } from '../../../modules/app/StateType'
 import {
+  CityModel,
   createSprungbrettJobsEndpoint,
   OfferModel,
   Payload,
@@ -19,17 +20,21 @@ import type { NavigationStackProp } from 'react-navigation-stack'
 import FailureContainer from '../../../modules/error/containers/FailureContainer'
 import { LOADING_TIMEOUT } from '../../../modules/common/constants'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
+import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
+import type { FeedbackInformationType } from '../../feedback/containers/FeedbackModalContainer'
 
 type OwnPropsType = {| navigation: NavigationStackProp<*> |}
 
-type StatePropsType = {| offer: ?OfferModel, language: string |}
+type StatePropsType = {| offer: ?OfferModel, language: string, cities: $ReadOnlyArray<CityModel> |}
 
 type PropsType = { ...OwnPropsType, ...StatePropsType }
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const offers: Array<OfferModel> = ownProps.navigation.getParam('offers')
-
+  // prevent re-rendering when city is not there.
+  const cities = state.cities.models || []
   return {
+    cities,
     language: state.contentLanguage,
     offer: offers.find(offer => offer.alias === SPRUNGBRETT_OFFER)
   }
@@ -38,6 +43,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 type SprungbrettPropsType = {|
   navigation: NavigationStackProp<*>,
   offer: ?OfferModel,
+  cities: Array<CityModel>,
   language: string,
   theme: ThemeType,
   t: TFunction
@@ -54,6 +60,31 @@ class SprungbrettOfferContainer extends React.Component<SprungbrettPropsType, Sp
   constructor (props: SprungbrettPropsType) {
     super(props)
     this.state = { jobs: null, error: null, timeoutExpired: false }
+  }
+
+  navigateToFeedback = (isPositiveFeedback: boolean) => {
+    const { navigation, offer, cities, language } = this.props
+    const cityCode: string = navigation.getParam('city')
+    if (!cityCode || !language) {
+      throw Error('language or cityCode not available')
+    }
+
+    const cityTitle = CityModel.findCityName(cities, cityCode)
+    if (!language) {
+      throw Error('language not available')
+    }
+
+    const feedbackInformation: FeedbackInformationType = {
+      type: 'Offers',
+      cityTitle,
+      title: offer?.title,
+      feedbackAlias: offer?.alias,
+      path: offer?.path,
+      language,
+      isPositiveFeedback
+    }
+
+    navigation.navigate('FeedbackModal', { ...feedbackInformation })
   }
 
   componentDidMount () {
@@ -110,6 +141,7 @@ class SprungbrettOfferContainer extends React.Component<SprungbrettPropsType, Sp
     return <ScrollView refreshControl={<RefreshControl onRefresh={this.loadSprungbrett} refreshing={false} />}
                        contentContainerStyle={{ flexGrow: 1 }}>
       <SprungbrettOffer sprungbrettOffer={offer} sprungbrettJobs={jobs} t={t} theme={theme} language={language} />
+      <SiteHelpfulBox navigateToFeedback={this.navigateToFeedback} theme={theme} t={t} />
     </ScrollView>
   }
 }
