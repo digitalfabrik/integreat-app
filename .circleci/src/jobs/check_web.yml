@@ -10,16 +10,15 @@ steps:
   - checkout
   - check_config
   - restore_yarn_cache
-  - run:
-      name: Check linting
-      command: yarn workspace web lint
+  - lint:
+      directory: web
+  - lint:
+      directory: api-client
   - run:
       name: Check flow
       command: yarn workspace web flow:check-now --max-workers ${TOTAL_CPUS}
-  - run:
-      name: Unit tests
-      command: yarn workspace web test --ci --maxWorkers ${TOTAL_CPUS}
-  - run:
-      name: Test coverage # Results are not used right now. Run it anyway to (possibly) discover more problems.
-      command: yarn workspace web test:coverage --ci --maxWorkers ${TOTAL_CPUS}
+  - unit_test:
+      directory: web
+  - unit_test:
+      directory: api-client
   - notify_failed
