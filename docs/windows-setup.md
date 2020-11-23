@@ -1,9 +1,5 @@
 # Windows Setup
 
-Since we noticed some issues with the usage of windows which can be happened, here a small setup guide.
-
-*Note: This guide may be outdated. You may want to use the [Windows Subsystem for Linux](./wsl-setup.md) instead.*
-
 ## Setup of Development Tools
 
 If react native is already running on your machine you can skip this part.
@@ -20,7 +16,7 @@ You will need the following tools:
   choco install yarn
   choco install openjdk
 ````
-Install Visual Studio Code [./vscode.md](./vscode.md) or IntelliJ:
+As IDE [IntelliJ](https://www.jetbrains.com/de-de/idea/) is recommended because it is used by most members of the team:
 ````
   # if you have a ultimate licence for intellij
   choco install intellijidea-ultimate
@@ -28,7 +24,18 @@ Install Visual Studio Code [./vscode.md](./vscode.md) or IntelliJ:
   choco install intellijidea-community
 ````
 
+Alternatively install [Visual Studio Code](https://code.visualstudio.com/): [./vscode.md](./vscode.md)
+
+or [Android Studio](https://developer.android.com/studio) (not tested):
+````
+choco install androidstudio
+````
+
 Reboot after the installation.
+
+## Android Emulator
+
+To use an Android Emulator instead or beside of your mobile to develop the native app you can use [Android Studio](https://developer.android.com/studio/run/emulator) (recommended by Google) or install only the emulator via PowerShell: [./native/android-emulator-windows.md](./native/android-emulator-windows.md)
 
 ## Troubleshooting
 

@@ -1,9 +1,20 @@
 # Visual Studio Code Installation
-Install nodeJs, yarn and java according to your system:
-- Windows: [./windows-setup.md](./windows-setup.md)
-- Linux / Windows Subsystem for Linux: [./wsl-setup.md](./wsl-setup.md)
 
-Download and Install Visual Studio Code or use chocolatey:
+- [Installation](#installation)
+- [Settings](#settings)
+  - [Optional settings](#optional-settings)
+- [Required Extensions](#required-extensions)
+  - [Flow Type Checker](#flow-type-checker)
+  - [Eslint Code Formatter](#eslint-code-formatter)
+- [Recommended Extensions](#recommended-extensions)
+  - [Git History](#git-history)
+  - [... Save your ass](#-save-your-ass)
+  - [Remote WSL](#remote-wsl)
+  - [.md-Files](#md-files)
+
+## Installation
+
+Download and Install [Visual Studio Code](https://code.visualstudio.com/) or use [Chocolatey](https://chocolatey.org/):
 
 https://code.visualstudio.com/Download  
 https://code.visualstudio.com/docs/setup/linux  
@@ -13,15 +24,16 @@ choco install vscode
 ```
 
 ## Settings
+
 Adjust the following settings corresponding to your preferences: 
 ```
-File > Preferences > Color Theme
 File > Preferences > Keyboard Shortcuts
 # or install a known ones (e.g. IntelliJ)
 File > Preferences > Keymaps
 ```
 
 ### Optional settings
+
 ```
 File > Preferences > Settings (Ctrl+,)
 ```
@@ -46,7 +58,7 @@ File > Preferences > Settings (Ctrl+,)
 
 The following extensions (or any alternatives) should be installed.
 
-### Flow Type Checker 
+### Flow Type Checker
 (Alternative: Flow Language Support)
 
 Hint: Use "yarn flow check" instead of "yarn flow" in the console, currently there is a [Bug](https://github.com/facebook/flow/issues/6592) in Windows
@@ -59,6 +71,7 @@ Important: Deactivate internal standard javascript validator in settings:
 ```
 
 ### Eslint Code Formatter
+
 ```
 code --install-extension dbaeumer.vscode-eslint
 code --install-extension rvest.vs-code-prettier-eslint
@@ -72,16 +85,18 @@ Activate vs-code-prettier as default formatter. VSCode should ask you, otherwise
 Until now Integreat uses an external repo for the eslint configuration. After Checking out the repo allow eslint to use the npm module in node_modules/eslint.  
 The eslint extension button is in the bottom right corner of the IDE
 
-
 ## Recommended Extensions
+
 ### Git History
 (Alternative: Git Lens)
+
 ```
 code --install-extension donjayamanne.githistory      
 ```
 
 ### ... Save your ass
 (Changes History)
+
 ```
 code --install-extension xyz.local-history
 ```
@@ -91,6 +106,7 @@ Set path in settings:
 ```
 
 ### Remote WSL
+
 Use Visual Studio Code in Windows as GUI for code running in WSL  
 https://code.visualstudio.com/docs/remote/wsl
 ```
@@ -98,6 +114,7 @@ code --install-extension ms-vscode-remote.remote-wsl
 ```
 
 ### .md-Files 
+
 use button in top right corner see the formatted markup
 ```
 code --install-extension yzhang.markdown-all-in-one   
