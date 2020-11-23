@@ -1,5 +1,3 @@
-const main = require('./jest.config.js')
-
 module.exports = {
   rootDir: '.',
   verbose: true,
