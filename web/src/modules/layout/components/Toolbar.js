@@ -5,6 +5,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { withTranslation } from 'react-i18next'
 import type { TFunction } from 'react-i18next'
+import dimensions from '../../theme/constants/dimensions'
 
 const ToolbarContainer = styled.div`
   display: flex;
@@ -24,7 +25,7 @@ const ToolbarContainer = styled.div`
     opacity: 1;
   }
 
-  @media ${props => props.theme.dimensions.web.smallViewport} {
+  @media ${dimensions.smallViewport} {
     width: 100%;
     flex-flow: row wrap;
     justify-content: center;

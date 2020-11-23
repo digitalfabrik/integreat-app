@@ -5,14 +5,15 @@ import Link from 'redux-first-router-link'
 
 import ReactTooltip from 'react-tooltip'
 import styled from 'styled-components'
+import dimensions from '../../theme/constants/dimensions'
 
 const StyledLink = styled(Link)`
-  width: calc(0.8 * ${props => props.theme.dimensions.web.headerHeightLarge}px);
-  height: calc(0.8 * ${props => props.theme.dimensions.web.headerHeightLarge}px);
+  width: calc(0.8 * ${dimensions.headerHeightLarge}px);
+  height: calc(0.8 * ${dimensions.headerHeightLarge}px);
 
-  @media ${props => props.theme.dimensions.web.smallViewport} {
-    width: calc(0.8 * ${props => props.theme.dimensions.web.headerHeightSmall}px);
-    height: calc(0.8 * ${props => props.theme.dimensions.web.headerHeightSmall}px);
+  @media ${dimensions.smallViewport} {
+    width: calc(0.8 * ${dimensions.headerHeightSmall}px);
+    height: calc(0.8 * ${dimensions.headerHeightSmall}px);
   }
 
   & > img {

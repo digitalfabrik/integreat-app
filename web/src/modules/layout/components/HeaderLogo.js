@@ -4,6 +4,7 @@ import * as React from 'react'
 import Link from 'redux-first-router-link'
 import styled from 'styled-components'
 import type { ThemeType } from '../../theme/constants/theme'
+import dimensions from '../../theme/constants/dimensions'
 
 type PropsType = {|
   theme: ThemeType,
@@ -14,7 +15,7 @@ type PropsType = {|
 
 const LogoContainer = styled.div`
   box-sizing: border-box;
-  height: ${props => props.theme.dimensions.web.headerHeightLarge}px;
+  height: ${dimensions.headerHeightLarge}px;
   padding: 0 10px;
   display: flex;
   justify-content: start;
@@ -33,8 +34,8 @@ const LogoContainer = styled.div`
     object-fit: contain;
   }
 
-  @media ${props => props.theme.dimensions.web.smallViewport} {
-    height: ${props => props.theme.dimensions.web.headerHeightSmall}px;
+  @media ${dimensions.smallViewport} {
+    height: ${dimensions.headerHeightSmall}px;
     flex: 1 1 0%; /* The % unit is necessary for IE11 */
 
     & a {

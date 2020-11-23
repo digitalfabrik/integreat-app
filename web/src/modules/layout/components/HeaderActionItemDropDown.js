@@ -5,15 +5,16 @@ import { useCallback, useRef, useState } from 'react'
 import styled from 'styled-components'
 import type { ThemeType } from '../../theme/constants/theme'
 import useOnClickOutside from '../hooks/useOnClickOutside'
+import dimensions from '../../theme/constants/dimensions'
 
 export const Container = styled.div`
-  width: calc(0.8 * ${props => props.theme.dimensions.web.headerHeightLarge}px);
-  height: calc(0.8 * ${props => props.theme.dimensions.web.headerHeightLarge}px);
+  width: calc(0.8 * ${dimensions.headerHeightLarge}px);
+  height: calc(0.8 * ${dimensions.headerHeightLarge}px);
   box-sizing: border-box;
 
-  @media ${props => props.theme.dimensions.web.smallViewport} {
-    width: calc(0.8 * ${props => props.theme.dimensions.web.headerHeightSmall}px);
-    height: calc(0.8 * ${props => props.theme.dimensions.web.headerHeightSmall}px);
+  @media ${dimensions.smallViewport} {
+    width: calc(0.8 * ${dimensions.headerHeightSmall}px);
+    height: calc(0.8 * ${dimensions.headerHeightSmall}px);
   }
 
   & > button {
@@ -38,7 +39,7 @@ export const Container = styled.div`
 
 export const DropDownContainer = styled.div`
   position: absolute;
-  top: ${props => props.theme.dimensions.web.headerHeightLarge}px;
+  top: ${dimensions.headerHeightLarge}px;
   right: 0;
   width: 100%;
   box-sizing: border-box;
@@ -53,13 +54,13 @@ export const DropDownContainer = styled.div`
   background-color: ${props => props.theme.colors.backgroundColor};
   visibility: ${props => props.active ? 'visible' : 'hidden'};
 
-  @media ${props => props.theme.dimensions.web.smallViewport} {
-    top: ${props => props.theme.dimensions.web.headerHeightSmall}px;
+  @media ${dimensions.smallViewport} {
+    top: ${dimensions.headerHeightSmall}px;
   }
 
-  @media ${props => props.theme.dimensions.web.minMaxWidth} {
-    padding-right: calc((200% - 100vw - ${props => props.theme.dimensions.web.maxWidth}px) / 2);
-    padding-left: calc((100vw - ${props => props.theme.dimensions.web.maxWidth}px) / 2);
+  @media ${dimensions.minMaxWidth} {
+    padding-right: calc((200% - 100vw - ${dimensions.maxWidth}px) / 2);
+    padding-left: calc((100vw - ${dimensions.maxWidth}px) / 2);
   }
 `
 
