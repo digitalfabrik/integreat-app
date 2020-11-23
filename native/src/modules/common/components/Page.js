@@ -23,6 +23,8 @@ const Container = styled.View`
   margin: 0 ${HORIZONTAL_MARGIN}px 8px;
 `
 
+export type ParsedCacheDictionaryType = {| [remoteUrl: string]: string |}
+
 type StateType = {|
   loading: boolean
 |}
@@ -54,7 +56,7 @@ class Page extends React.Component<PropType, StateType> {
 
   onLoad = () => this.setState({ loading: false })
 
-  cacheDictionary = () => {
+  cacheDictionary = (): ParsedCacheDictionaryType => {
     const { files, resourceCacheUrl } = this.props
     return mapValues(files, (file: PageResourceCacheEntryStateType) => {
       return file.filePath.startsWith(RESOURCE_CACHE_DIR_PATH)
