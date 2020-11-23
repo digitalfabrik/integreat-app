@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`FetcherModule should return the fetch result data if fetchAsync call is valid 1`] = `
+exports[`FetcherModule fetchAsync should return the fetch result data if fetchAsync call is valid 1`] = `
 Object {
   "local/path/to/resource.png": Object {
     "errorMessage": null,

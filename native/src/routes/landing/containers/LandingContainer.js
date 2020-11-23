@@ -6,8 +6,8 @@ import type { StateType } from '../../../modules/app/StateType'
 import type { Dispatch } from 'redux'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import Landing from '../components/Landing'
-import type { NavigationStackProp } from 'react-navigation-stack'
-import { type NavigationReplaceAction, StackActions } from 'react-navigation'
+import type { NavigationScreenProp } from 'react-navigation-stack'
+import { StackActions } from 'react-navigation'
 import { generateKey } from '../../../modules/app/generateRouteKey'
 import type { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
 import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvider'
@@ -17,12 +17,12 @@ import { connect } from 'react-redux'
 
 type ContainerPropsType = {|
   dispatch: Dispatch<StoreActionType>,
-  navigation: NavigationStackProp<*>,
+  navigation: NavigationScreenProp<*>,
   language: string,
   cities: $ReadOnlyArray<CityModel>
 |}
 
-type OwnPropsType = {| navigation: NavigationStackProp<*>, t: void |}
+type OwnPropsType = {| navigation: NavigationScreenProp<*>, t: void |}
 type StatePropsType = StatusPropsType<ContainerPropsType, {}>
 type DispatchPropsType = {|
   dispatch: Dispatch<StoreActionType>
@@ -39,7 +39,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
 
   if (state.cities.status === 'loading') {
-    return { status: 'loading' }
+    return { status: 'loading', progress: 0 }
   }
   return {
     status: 'success',
@@ -62,8 +62,10 @@ class LandingContainer extends React.Component<ContainerPropsType> {
     const path = `/${cityCode}/${language}`
     const key: string = generateKey()
 
+    navigation.navigate('CityContent')
+
     // $FlowFixMe newKey missing in typedef
-    const action: NavigationReplaceAction = StackActions.replace({
+    navigation.dispatch(StackActions.replace({
       routeName: 'Dashboard',
       params: {
         cityCode,
@@ -71,13 +73,7 @@ class LandingContainer extends React.Component<ContainerPropsType> {
         onRouteClose: () => dispatch({ type: 'CLEAR_CATEGORY', params: { key } })
       },
       newKey: key
-    })
-
-    // $FlowFixMe For some reason action is not allowed to be a StackAction
-    navigation.navigate({
-      routeName: 'CityContent',
-      action: action
-    })
+    }))
 
     return dispatch({
       type: 'FETCH_CATEGORY',

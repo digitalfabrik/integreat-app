@@ -91,6 +91,7 @@ const pushEvent = (state: CityContentStateType, action: PushEventActionType): Ci
     },
     resourceCache: {
       status: 'ready',
+      progress: 1,
       value: newResourceCache
     }
   }

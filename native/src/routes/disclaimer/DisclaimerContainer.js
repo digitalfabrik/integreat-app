@@ -96,7 +96,8 @@ class DisclaimerContainer extends React.Component<DisclaimerPropsType, Disclaime
 
     return <ScrollView refreshControl={<RefreshControl onRefresh={this.loadDisclaimer} refreshing={false} />}
                        contentContainerStyle={{ flexGrow: 1 }}>
-      <Disclaimer resourceCacheUrl={resourceCacheUrl} disclaimer={disclaimer} theme={theme} navigation={navigation} city={city} language={language} />
+      <Disclaimer resourceCacheUrl={resourceCacheUrl} disclaimer={disclaimer} theme={theme} navigation={navigation}
+                  city={city} language={language} />
     </ScrollView>
   }
 }

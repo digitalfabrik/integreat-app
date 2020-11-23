@@ -66,7 +66,10 @@ class EventModelBuilder {
       const mockDate = moment('2015-01-01T00:00:00.000Z', moment.ISO_8601)
       const startDate = moment(mockDate.add(this._predictableNumber(index), 'years').toISOString(), moment.ISO_8601)
       const endDate = moment(mockDate.add(this._predictableNumber(index), 'hours').toISOString(), moment.ISO_8601)
-      const lastUpdate = moment(mockDate.subtract(this._predictableNumber(index), 'months').toISOString(), moment.ISO_8601)
+      const lastUpdate = moment(
+        mockDate.subtract(this._predictableNumber(index), 'months').toISOString(),
+        moment.ISO_8601
+      )
 
       const path = `/${this._city}/${this._language}/events/event${index}`
       const resourceUrl1 = `https://cms.integreat-app.de/title_${index}-300x300.png`
