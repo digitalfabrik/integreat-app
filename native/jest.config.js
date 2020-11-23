@@ -15,7 +15,6 @@ const transformNodeModules = [
 
 module.exports = {
   rootDir: 'src',
-  roots: ['<rootDir>', '<rootDir>/../../api-client/src'],
   preset: 'react-native',
   verbose: true,
   automock: false, /* Always explicitly mock modules. Also automocking seems to be broken right now:
