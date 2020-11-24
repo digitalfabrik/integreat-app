@@ -1,6 +1,7 @@
 // @flow
 
 import * as React from 'react'
+import { useEffect, useState } from 'react'
 import { LanguageModel } from 'api-client'
 import { RefreshControl, ScrollView, View } from 'react-native'
 import LanguageNotAvailableContainer from '../../common/containers/LanguageNotAvailableContainer'
@@ -64,24 +65,17 @@ const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R: {}> 
   noScrollView?: boolean
 ): ((Component: React.ComponentType<S>) => React.ComponentType<PropsType<S, R>>) => {
   return (Component: React.ComponentType<S>): React.ComponentType<PropsType<S, R>> => {
-    return class extends React.Component<PropsType<S, R>, {| timeoutExpired: boolean |}> {
-      static displayName = wrapDisplayName(Component, 'withPayloadProvider')
-      timeout = null
+    const Wrapper = (props: PropsType<S, R>) => {
+      const [timeoutExpired, setTimeoutExpired] = useState(false)
 
-      state = { timeoutExpired: false }
+      useEffect(() => {
+        const timer = setTimeout(() => {
+          setTimeoutExpired(true)
+        }, LOADING_TIMEOUT)
+        return () => clearTimeout(timer)
+      }, [])
 
-      componentDidMount () {
-        this.timeout = setTimeout(() => this.setState({ timeoutExpired: true }), LOADING_TIMEOUT)
-      }
-
-      componentWillUnmount () {
-        if (this.timeout) {
-          clearTimeout(this.timeout)
-        }
-      }
-
-      refresh = () => {
-        const props = this.props
+      function refreshIfPossible () {
         if (props.status === 'routeNotInitialized' || props.status === 'loading' ||
           props.status === 'languageNotAvailable') {
           throw Error('Refreshing is not possible because the route is not yet initialized or already loading.')
@@ -91,49 +85,48 @@ const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R: {}> 
         }
       }
 
-      changeUnavailableLanguage = (newLanguage: string) => {
-        if (this.props.status !== 'languageNotAvailable') {
+      function changeUnavailableLanguage (newLanguage: string) {
+        if (props.status !== 'languageNotAvailable') {
           throw Error('Call of changeUnavailableLanguage is only possible when language is not available.')
         }
-        this.props.changeUnavailableLanguage(this.props.dispatch, newLanguage)
+        props.changeUnavailableLanguage(props.dispatch, newLanguage)
       }
 
-      render () {
-        const props = this.props
-        if (props.status === 'routeNotInitialized') {
-          return null
-        } else if (props.status === 'error') {
-          return <ScrollView refreshControl={<RefreshControl onRefresh={this.refresh} refreshing={false} />}
-                             contentContainerStyle={{ flexGrow: 1 }}>
-            <FailureContainer tryAgain={this.refresh} message={props.message} code={props.code} />
-          </ScrollView>
-        } else if (props.status === 'languageNotAvailable') {
-          return <LanguageNotAvailableContainer languages={props.availableLanguages}
-                                                changeLanguage={this.changeUnavailableLanguage} />
-        } else if (props.status === 'loading') {
-          console.log('render loading', props.progress)
-          return this.state.timeoutExpired
-            ? <ScrollView refreshControl={<RefreshControl refreshing />} contentContainerStyle={{ flexGrow: 1 }}
-                        keyboardShouldPersistTaps='always'>
-              {/* only display content while loading if innerProps and dispatch are available */}
-              {props.innerProps && props.dispatch
-                ? <Component {...props.innerProps} dispatch={props.dispatch} /> : null}
-            </ScrollView>
-            : null
-        } else { // props.status === 'success'
-          if (noScrollView) {
-            return <View style={{ flex: 1 }}>
-              <Component {...props.innerProps} dispatch={props.dispatch} />
-            </View>
-          }
-          return <ScrollView keyboardShouldPersistTaps='always'
-                             refreshControl={<RefreshControl onRefresh={this.refresh} refreshing={false} />}
-                             contentContainerStyle={{ flexGrow: 1 }}>
+      if (props.status === 'routeNotInitialized') {
+        return null
+      } else if (props.status === 'error') {
+        return <ScrollView refreshControl={<RefreshControl onRefresh={refreshIfPossible} refreshing={false} />}
+                           contentContainerStyle={{ flexGrow: 1 }}>
+          <FailureContainer tryAgain={refreshIfPossible} message={props.message} code={props.code} />
+        </ScrollView>
+      } else if (props.status === 'languageNotAvailable') {
+        return <LanguageNotAvailableContainer languages={props.availableLanguages}
+                                              changeLanguage={changeUnavailableLanguage} />
+      } else if (props.status === 'loading') {
+        console.log('render loading', props.progress)
+        return timeoutExpired
+          ? <ScrollView refreshControl={<RefreshControl refreshing />} contentContainerStyle={{ flexGrow: 1 }}
+                      keyboardShouldPersistTaps='always'>
+          {/* only display content while loading if innerProps and dispatch are available */}
+          {props.innerProps && props.dispatch
+            ? <Component {...props.innerProps} dispatch={props.dispatch} /> : null}
+        </ScrollView>
+          : null
+      } else { // props.status === 'success'
+        if (noScrollView) {
+          return <View style={{ flex: 1 }}>
             <Component {...props.innerProps} dispatch={props.dispatch} />
-          </ScrollView>
+          </View>
         }
+        return <ScrollView keyboardShouldPersistTaps='always'
+                           refreshControl={<RefreshControl onRefresh={refreshIfPossible} refreshing={false} />}
+                           contentContainerStyle={{ flexGrow: 1 }}>
+          <Component {...props.innerProps} dispatch={props.dispatch} />
+        </ScrollView>
       }
     }
+    Wrapper.displayName = wrapDisplayName(Component, 'withPayloadProvider')
+    return Wrapper
   }
 }
 
