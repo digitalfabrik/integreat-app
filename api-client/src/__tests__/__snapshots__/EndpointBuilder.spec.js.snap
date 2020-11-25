@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EndpointBuilder should throw errors if used incorrectly 1`] = `"You have to set a url mapper to build an endpoint!"`;
+
+exports[`EndpointBuilder should throw errors if used incorrectly 2`] = `"You have to set a mapper to build an endpoint!"`;

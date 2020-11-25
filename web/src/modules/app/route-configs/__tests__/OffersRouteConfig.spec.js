@@ -1,7 +1,7 @@
 // @flow
 
 import OffersRouteConfig from '../OffersRouteConfig'
-import { CityModel, OfferModel, Payload } from '@integreat-app/integreat-api-client'
+import { CityModel, OfferModel, Payload } from 'api-client'
 import createLocation from '../../../../createLocation'
 
 const offers = [

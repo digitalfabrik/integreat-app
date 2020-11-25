@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import type { TFunction } from 'react-i18next'
-import { OfferModel, WohnenOfferModel } from '@integreat-app/integreat-api-client'
+import { OfferModel, WohnenOfferModel } from 'api-client'
 import OfferDetail from './OfferDetail'
 import Caption from '../../../modules/common/components/Caption'
 import OfferListItem from './OfferListItem'

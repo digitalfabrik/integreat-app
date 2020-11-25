@@ -16,6 +16,7 @@ import { routesMap as defaultRoutesMap } from './route-configs/index'
 import createHistory from './createHistory'
 import type { StateType } from './StateType'
 import type { StoreActionType } from './StoreActionType'
+import buildConfig from './constants/buildConfig'
 
 const createReduxStore = (initialState: StateType = {}, routesMap: RoutesMap = defaultRoutesMap): Store<StateType,
   StoreActionType> => {
@@ -31,7 +32,7 @@ const createReduxStore = (initialState: StateType = {}, routesMap: RoutesMap = d
     thunkMiddleware // Allows to return functions in actions
   ]
 
-  if (__DEV__) {
+  if (buildConfig().development) {
     middlewares.push(createLogger()) // Logs all state changes in console
   }
   const rootReducer = combineReducers({

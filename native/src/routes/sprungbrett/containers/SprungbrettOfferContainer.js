@@ -11,7 +11,7 @@ import {
   OfferModel,
   Payload,
   SprungbrettJobModel
-} from '@integreat-app/integreat-api-client'
+} from 'api-client'
 import { SPRUNGBRETT_OFFER } from '../../offers/constants'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import type { ThemeType } from '../../../modules/theme/constants'

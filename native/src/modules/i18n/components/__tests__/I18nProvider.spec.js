@@ -113,6 +113,14 @@ describe('I18nProvider', () => {
       </I18nProvider>
     )
 
-    await waitForExpect(() => expect(queryByText('Integreat ist Ihr digitaler Guide für Deutschland. Finden Sie lokale Informationen, Veranstaltungen und Beratung. Immer aktuell und in Ihrer Sprache.')).toBeTruthy())
+    await waitForExpect(() =>
+      expect(
+        queryByText(
+          'Integreat ist Ihr digitaler Guide für Deutschland. ' +
+          'Finden Sie lokale Informationen, Veranstaltungen und Beratung. ' +
+          'Immer aktuell und in Ihrer Sprache.'
+        )
+      ).toBeTruthy()
+    )
   })
 })

@@ -5,12 +5,13 @@ import React from 'react'
 import RemoteContent from '../../../modules/common/components/RemoteContent'
 import Caption from '../../../modules/common/components/Caption'
 import CategoryEntry from './CategoryEntry'
-import { CategoryModel } from '@integreat-app/integreat-api-client'
+import { CategoryModel } from 'api-client'
 import styled from 'styled-components'
+import helpers from '../../../modules/theme/constants/helpers'
 
 const List = styled.div`
   & a {
-    ${props => props.theme.helpers.removeLinkHighlighting}
+    ${helpers.removeLinkHighlighting}
   }
 `
 
@@ -46,7 +47,7 @@ class CategoryList extends React.PureComponent<PropsType> {
       <div>
         {thumbnail && <Centering><CategoryIcon src={thumbnail} alt='' /></Centering>}
         {title && <Caption title={title} />}
-        {content && <RemoteContent centered dangerouslySetInnerHTML={{ __html: content }}
+        {content && <RemoteContent dangerouslySetInnerHTML={{ __html: content }}
                                    onInternalLinkClick={onInternalLinkClick} />}
         <List>
           {categories.map(categoryItem =>

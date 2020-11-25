@@ -1,13 +1,11 @@
 // @flow
 
 import { Linking } from 'react-native'
+import buildConfig from '../../modules/app/constants/buildConfig'
 
 const openPrivacyPolicy = (language: string) => {
-  if (language === 'de') {
-    Linking.openURL('https://integreat-app.de/datenschutz/')
-  } else {
-    Linking.openURL('https://integreat-app.de/en/privacy/')
-  }
+  const privacyUrl = buildConfig().privacyUrls[language] || buildConfig().privacyUrls.default
+  Linking.openURL(privacyUrl)
 }
 
 export default openPrivacyPolicy

@@ -2,7 +2,7 @@
 
 import { withTranslation, type TFunction } from 'react-i18next'
 import * as React from 'react'
-import type { NavigationStackProp } from 'react-navigation-stack'
+import type { NavigationScreenProp } from 'react-navigation-stack'
 import type { ThemeType } from '../../modules/theme/constants'
 import withTheme from '../../modules/theme/hocs/withTheme'
 import { FlatList, Dimensions } from 'react-native'
@@ -29,7 +29,7 @@ const Container: StyledComponent<{ width: number }, {}, *> = styled.View`
   justify-content: space-between;
 `
 
-const AppLogo = styled.Image`
+const AppIcon = styled.Image`
   justify-content: center;
   align-self: center;
   flex: 1;
@@ -49,7 +49,7 @@ const ImageContent = styled.Image`
 
 type PropsType = {|
   t: TFunction,
-  navigation: NavigationStackProp<*>,
+  navigation: NavigationScreenProp<*>,
   theme: ThemeType,
   language: string,
   dispatch: () => void
@@ -91,7 +91,7 @@ class Intro extends React.Component<PropsType, StateType> {
     )
   }
 
-  renderAppLogo = () => (): React.Node => <AppLogo source={buildConfigAssets().appLogo} />
+  renderAppIcon = () => (): React.Node => <AppIcon source={buildConfigAssets().appIcon} />
   renderImageContent = (image: number) => (): React.Node => <ImageContent source={image} />
 
   slides = (): Array<SlideContentType> => {
@@ -102,7 +102,7 @@ class Intro extends React.Component<PropsType, StateType> {
       key: 'integreat',
       title: t('appName', { appName: buildConfig().appName }),
       description: t('appDescription', { appName: buildConfig().appName }),
-      renderContent: this.renderAppLogo()
+      renderContent: this.renderAppIcon()
     }, {
       key: 'search',
       title: t('search'),

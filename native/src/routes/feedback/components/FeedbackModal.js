@@ -10,7 +10,7 @@ import type { NavigationStackProp } from 'react-navigation-stack'
 import type { TFunction } from 'react-i18next'
 import FeedbackVariant from '../FeedbackVariant'
 import Caption from '../../../modules/common/components/Caption'
-import type { FeedbackParamsType } from '@integreat-app/integreat-api-client/index'
+import type { FeedbackParamsType } from 'api-client'
 import buildConfig from '../../../modules/app/constants/buildConfig'
 
 const Input = styled(TextInput)`
@@ -93,7 +93,11 @@ class FeedbackModal extends React.Component<PropsType, StateType> {
                 mode='dropdown'>
           {feedbackItems.map((item, index) => <Picker.Item label={item.label} value={index} key={index} />)}
         </Picker>
-        <Description theme={theme}> {isPositiveFeedback ? t('positiveComment') : t('negativeComment')}{!isPositiveFeedback && <RequiredText>*</RequiredText>}</Description>
+        <Description theme={theme}>
+          {' '}
+          {isPositiveFeedback ? t('positiveComment') : t('negativeComment')}
+          {!isPositiveFeedback && <RequiredText>*</RequiredText>}
+        </Description>
         <Input theme={theme} onChangeText={this.onFeedbackCommentChanged}
                autoFocus value={comment} multiline placeholderTextColor={theme.colors.textSecondaryColor}
                placeholder={t('yourFeedback')} />

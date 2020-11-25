@@ -1,7 +1,7 @@
 // @flow
 
 import { connect } from 'react-redux'
-import type { LanguageResourceCacheStateType, StateType } from '../../../modules/app/StateType'
+import type { CategoryRouteStateType, LanguageResourceCacheStateType, StateType } from '../../../modules/app/StateType'
 import { type Dispatch } from 'redux'
 import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
 import type { StoreActionType, SwitchContentLanguageActionType } from '../../../modules/app/StoreActionType'
@@ -10,7 +10,7 @@ import createNavigateToInternalLink from '../../../modules/app/createNavigateToI
 import type { NavigationStackProp } from 'react-navigation-stack'
 import type { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
 import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvider'
-import { CityModel } from '@integreat-app/integreat-api-client'
+import { CityModel } from 'api-client'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import { withTranslation } from 'react-i18next'
 import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
@@ -52,6 +52,9 @@ const createChangeUnavailableLanguage = (city: string, t: TFunction) => (
   dispatch(switchContentLanguage)
 }
 
+const routeHasOldContent = (route: CategoryRouteStateType): boolean =>
+  !!route.models && !!route.allAvailableLanguages && !!route.children
+
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const { t, navigation } = ownProps
   if (!state.cityContent) {
@@ -63,7 +66,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     return { status: 'routeNotInitialized' }
   }
 
-  if (route.status === 'languageNotAvailable') {
+  if (route.status === 'languageNotAvailable' && !switchingLanguage) {
     if (languages.status === 'error' || languages.status === 'loading') {
       console.error('languageNotAvailable status impossible if languages not ready')
       return {
@@ -99,12 +102,13 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
 
   if (state.resourceCacheUrl === null || state.cities.status === 'loading' || switchingLanguage ||
-    route.status === 'loading' || languages.status === 'loading') {
-    return { status: 'loading' }
+    (route.status === 'loading' && !routeHasOldContent(route)) || languages.status === 'loading') {
+    return { status: 'loading', progress: 0 }
   }
 
+  // $FlowFixMe Flow can't evaluate the status as it is dynamic
   return {
-    status: 'success',
+    status: route.status === 'loading' ? 'loading' : 'success',
     refreshProps,
     innerProps: {
       cityCode: route.city,

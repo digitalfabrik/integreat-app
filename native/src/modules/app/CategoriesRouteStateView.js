@@ -1,6 +1,6 @@
 // @flow
 
-import { CategoryModel } from '@integreat-app/integreat-api-client'
+import { CategoryModel } from 'api-client'
 import { has } from 'lodash'
 
 class CategoriesRouteStateView {

@@ -2,7 +2,7 @@
 
 import finishFetchAction, { finishFetchActionName } from '../finishFetchAction'
 import lolex from 'lolex'
-import { CityModel, Payload } from '@integreat-app/integreat-api-client'
+import { CityModel, Payload } from 'api-client'
 
 describe('finishFetchAction', () => {
   let clock

@@ -3,13 +3,13 @@
 import type { CityContentStateType } from '../../app/StateType'
 import { defaultCityContentState } from '../../app/StateType'
 import morphContentLanguage from './morphContentLanguage'
-import pushCategory from './pushCategory'
 import pushEvent from './pushEvent'
 import pushNews from './pushNews'
 import type { StoreActionType } from '../../app/StoreActionType'
 import createCityContent from './createCityContent'
 import { omit } from 'lodash'
 import pushPoi from './pushPoi'
+import pushCategory from './pushCategory'
 
 export default (
   state: CityContentStateType | null = defaultCityContentState, action: StoreActionType
@@ -17,21 +17,38 @@ export default (
   if (action.type === 'FETCH_CATEGORY') {
     const { language, path, depth, key, city } = action.params
     const initializedState = state || createCityContent(city)
+    const oldContent = state && state.categoriesRouteMapping[key] ? state.categoriesRouteMapping[key] : {}
+
     return {
       ...initializedState,
       categoriesRouteMapping: {
         ...initializedState.categoriesRouteMapping,
-        [key]: { status: 'loading', language, depth, path, city }
+        [key]: {
+          ...oldContent,
+          status: 'loading',
+          language,
+          depth,
+          path,
+          city
+        }
       }
     }
   } else if (action.type === 'FETCH_EVENT') {
     const { language, path, key, city } = action.params
     const initializedState = state || createCityContent(city)
+    const oldContent = state && state.eventsRouteMapping[key] ? state.eventsRouteMapping[key] : {}
+
     return {
       ...initializedState,
       eventsRouteMapping: {
         ...initializedState.eventsRouteMapping,
-        [key]: { status: 'loading', language, city, path }
+        [key]: {
+          ...oldContent,
+          status: 'loading',
+          language,
+          city,
+          path
+        }
       }
     }
   } else if (action.type === 'FETCH_NEWS') {
@@ -78,6 +95,13 @@ export default (
         return { ...state, languages: { status: 'ready', models: action.params.languages } }
       case 'FETCH_LANGUAGES_FAILED':
         return { ...state, languages: { status: 'error', ...action.params } }
+      case 'FETCH_RESOURCES_PROGRESS':
+        return {
+          ...state,
+          resourceCache: state.resourceCache.status !== 'error'
+            ? { ...state.resourceCache, progress: action.params.progress }
+            : state.resourceCache
+        }
       case 'PUSH_CATEGORY':
         return pushCategory(state, action)
       case 'PUSH_POI':

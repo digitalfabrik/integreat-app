@@ -3,7 +3,7 @@
 import { mount, shallow } from 'enzyme'
 import React from 'react'
 
-import { OfferModel, WohnenFormData, WohnenOfferModel } from '@integreat-app/integreat-api-client'
+import { OfferModel, WohnenFormData, WohnenOfferModel } from 'api-client'
 import ConnectedWohnenOfferPage, { WohnenOfferPage } from '../WohnenOfferPage'
 import moment from 'moment'
 import Hashids from 'hashids'

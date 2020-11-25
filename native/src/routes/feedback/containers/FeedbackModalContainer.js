@@ -6,8 +6,8 @@ import { withTranslation } from 'react-i18next'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import FeedbackModal from '../components/FeedbackModal'
 import FeedbackVariant from '../FeedbackVariant'
-import { createFeedbackEndpoint } from '@integreat-app/integreat-api-client'
-import type { FeedbackParamsType } from '@integreat-app/integreat-api-client/index'
+import { createFeedbackEndpoint } from 'api-client'
+import type { FeedbackParamsType } from 'api-client'
 import determineApiUrl from '../../../modules/endpoint/determineApiUrl'
 
 const TranslatedFeedbackModal = withTranslation('feedback')(withTheme(FeedbackModal))

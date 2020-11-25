@@ -1,6 +1,14 @@
 // @flow
 
-import { CategoriesMapModel, CityModel, EventModel, LanguageModel, TunewsModel, LocalNewsModel, PoiModel } from '@integreat-app/integreat-api-client'
+import {
+  CategoriesMapModel,
+  CityModel,
+  EventModel,
+  LanguageModel,
+  TunewsModel,
+  LocalNewsModel,
+  PoiModel
+} from 'api-client'
 import type { CategoryRouteConfigType, LanguageResourceCacheStateType, NewsType, NewsModelsType } from './StateType'
 import type { ContentLoadCriterionType } from '../endpoint/ContentLoadCriterion'
 import type { TFunction } from 'react-i18next'
@@ -121,6 +129,7 @@ export type FetchCategoryFailedActionType = {|
     +allAvailableLanguages: $ReadOnlyMap<string, ?string> | null
   |}
 |}
+
 export type PushCategoryActionType = {|
   type: 'PUSH_CATEGORY',
   +params: {|
@@ -128,7 +137,8 @@ export type PushCategoryActionType = {|
     +resourceCache: LanguageResourceCacheStateType,
     +cityLanguages: Array<LanguageModel>,
     ...CategoryRouteConfigType,
-    +key: string
+    +key: string,
+    +refresh: boolean
   |}
 |}
 
@@ -197,17 +207,20 @@ export type ClearEventActionType = {|
   type: 'CLEAR_EVENT', +params: {| +key: string |}
 |}
 
+type PushEventParamsType = {|
+  +events: $ReadOnlyArray<EventModel>,
+  +path: ?string,
+  +key: string,
+  +resourceCache: LanguageResourceCacheStateType,
+  +cityLanguages: $ReadOnlyArray<LanguageModel>,
+  +language: string,
+  +city: string,
+  +refresh: boolean
+|}
+
 export type PushEventActionType = {|
   type: 'PUSH_EVENT',
-  +params: {|
-    +events: $ReadOnlyArray<EventModel>,
-    +path: ?string,
-    +key: string,
-    +resourceCache: LanguageResourceCacheStateType,
-    +cityLanguages: $ReadOnlyArray<LanguageModel>,
-    +language: string,
-    +city: string
-  |}
+  +params: PushEventParamsType
 |}
 
 export type FetchEventFailedActionType = {|
@@ -258,6 +271,12 @@ export type ClearCityActionType = {|
   type: 'CLEAR_CITY'
 |}
 
+export type ResourcesFetchProgressActionType = {|
+  type: 'FETCH_RESOURCES_PROGRESS', +params: {|
+    +progress: number
+  |}
+|}
+
 export type ResourcesFetchFailedActionType = {|
   type: 'FETCH_RESOURCES_FAILED',
   +params: {|
@@ -275,6 +294,7 @@ export type CityContentActionType =
   | ClearCityActionType
   | PushLanguagesActionType
   | FetchLanguagesFailedActionType
+  | ResourcesFetchProgressActionType
   | ResourcesFetchFailedActionType
   | NewsActionType
 

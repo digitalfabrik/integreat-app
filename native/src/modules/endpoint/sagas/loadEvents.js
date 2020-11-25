@@ -1,7 +1,7 @@
 // @flow
 
 import type { Saga } from 'redux-saga'
-import { createEventsEndpoint, EventModel } from '@integreat-app/integreat-api-client'
+import { createEventsEndpoint, EventModel } from 'api-client'
 import { call } from 'redux-saga/effects'
 import type { DataContainer } from '../DataContainer'
 import determineApiUrl from '../determineApiUrl'

@@ -5,7 +5,7 @@ const transformNodeModules = [
   '@react-native-community/async-storage',
   'react-navigation',
   'rn-fetch-blob',
-  '@integreat-app/integreat-api-client',
+  'api-client',
   '@sentry/react-native',
   'hashids',
   '@react-native-community/progress-bar-android',
@@ -14,6 +14,7 @@ const transformNodeModules = [
 ]
 
 module.exports = {
+  rootDir: 'src',
   preset: 'react-native',
   verbose: true,
   automock: false, /* Always explicitly mock modules. Also automocking seems to be broken right now:
@@ -23,7 +24,7 @@ module.exports = {
     '\\.(css|less)$': 'identity-obj-proxy'
   },
   setupFiles: [
-    '<rootDir>/jest.setup.js'
+    '<rootDir>/../jest.setup.js'
   ],
   setupFilesAfterEnv: [
     'jest-extended',
@@ -36,12 +37,17 @@ module.exports = {
     'js',
     'json'
   ],
+  modulePaths: [
+    '<rootDir>'
+  ],
   moduleDirectories: [
-    'node_modules',
-    'src'
+    'node_modules'
   ],
-  collectCoverageFrom: [
-    '**/*.{js,jsx}'
-  ],
-  coverageDirectory: '../__coverage__'
+  coverageDirectory: '<rootDir>/../reports/coverage',
+  reporters: [
+    'default',
+    ['jest-junit', {
+      outputDirectory: '<rootDir>/../reports/unit-test'
+    }]
+  ]
 }

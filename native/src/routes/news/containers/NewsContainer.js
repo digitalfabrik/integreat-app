@@ -8,7 +8,7 @@ import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 import createNavigateToNews from '../../../modules/app/createNavigateToNews'
 import type { Dispatch } from 'redux'
 import type { NavigationStackProp } from 'react-navigation-stack'
-import { CityModel } from '@integreat-app/integreat-api-client'
+import { CityModel } from 'api-client'
 import * as React from 'react'
 import NewsList from '../components/NewsList'
 import { TUNEWS } from '../../../modules/endpoint/constants'
@@ -89,7 +89,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     return { status: 'routeNotInitialized' }
   }
 
-  if (route.status === 'languageNotAvailable') {
+  if (route.status === 'languageNotAvailable' && !switchingLanguage) {
     if (languages.status === 'error' || languages.status === 'loading') {
       console.error('languageNotAvailable status impossible if languages not ready')
       return {
@@ -125,7 +125,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
 
   if (state.cities.status === 'loading' || switchingLanguage || languages.status === 'loading') {
-    return { status: 'loading' }
+    return { status: 'loading', progress: 0 }
   }
 
   const cities = state.cities.models
@@ -133,6 +133,9 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 
   if (!cityModel) {
     throw new Error('cityModel is undefined!')
+  } else if (route.status === 'languageNotAvailable') {
+    // Necessary for flow type checking, already handled above
+    throw new Error('language not available route status not handled!')
   }
 
   if (route.status === 'loading') {

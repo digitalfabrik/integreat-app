@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { createDisclaimerEndpoint, PageModel, Payload } from '@integreat-app/integreat-api-client'
+import { createDisclaimerEndpoint, PageModel, Payload } from 'api-client'
 import type { ThemeType } from '../../modules/theme/constants'
 import type { StateType } from '../../modules/app/StateType'
 import type { NavigationStackProp } from 'react-navigation-stack'
@@ -96,7 +96,8 @@ class DisclaimerContainer extends React.Component<DisclaimerPropsType, Disclaime
 
     return <ScrollView refreshControl={<RefreshControl onRefresh={this.loadDisclaimer} refreshing={false} />}
                        contentContainerStyle={{ flexGrow: 1 }}>
-      <Disclaimer resourceCacheUrl={resourceCacheUrl} disclaimer={disclaimer} theme={theme} navigation={navigation} city={city} language={language} />
+      <Disclaimer resourceCacheUrl={resourceCacheUrl} disclaimer={disclaimer} theme={theme} navigation={navigation}
+                  city={city} language={language} />
     </ScrollView>
   }
 }

@@ -1,6 +1,6 @@
 // @flow
 
-import { CategoriesMapModel, CityModel, EventModel, LanguageModel, PoiModel } from '@integreat-app/integreat-api-client'
+import { CategoriesMapModel, CityModel, EventModel, LanguageModel, PoiModel } from 'api-client'
 import type { LanguageResourceCacheStateType } from '../app/StateType'
 import type Moment from 'moment'
 
@@ -24,7 +24,8 @@ export interface DataContainer {
 
   /**
    * Sets the cities but does not persist them.
-   * TODO: Offline available cities will be persisted in NATIVE-175. For now switching cities when offline is not possible.
+   * TODO: Offline available cities will be persisted in NATIVE-175.
+   * For now switching cities when offline is not possible.
    */
   setCities: (cities: Array<CityModel>) => Promise<void>,
 

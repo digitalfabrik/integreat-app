@@ -1,19 +1,20 @@
 // @flow
 
 import * as React from 'react'
-import onClickOutside from 'react-onclickoutside'
+import { useCallback, useRef, useState } from 'react'
 import styled from 'styled-components'
-import ReactTooltip from 'react-tooltip'
 import type { ThemeType } from '../../theme/constants/theme'
+import useOnClickOutside from '../hooks/useOnClickOutside'
+import dimensions from '../../theme/constants/dimensions'
 
 export const Container = styled.div`
-  width: calc(0.8 * ${props => props.theme.dimensions.web.headerHeightLarge}px);
-  height: calc(0.8 * ${props => props.theme.dimensions.web.headerHeightLarge}px);
+  width: calc(0.8 * ${dimensions.headerHeightLarge}px);
+  height: calc(0.8 * ${dimensions.headerHeightLarge}px);
   box-sizing: border-box;
 
-  @media ${props => props.theme.dimensions.web.smallViewport} {
-    width: calc(0.8 * ${props => props.theme.dimensions.web.headerHeightSmall}px);
-    height: calc(0.8 * ${props => props.theme.dimensions.web.headerHeightSmall}px);
+  @media ${dimensions.smallViewport} {
+    width: calc(0.8 * ${dimensions.headerHeightSmall}px);
+    height: calc(0.8 * ${dimensions.headerHeightSmall}px);
   }
 
   & > button {
@@ -38,7 +39,7 @@ export const Container = styled.div`
 
 export const DropDownContainer = styled.div`
   position: absolute;
-  top: ${props => props.theme.dimensions.web.headerHeightLarge}px;
+  top: ${dimensions.headerHeightLarge}px;
   right: 0;
   width: 100%;
   box-sizing: border-box;
@@ -53,25 +54,21 @@ export const DropDownContainer = styled.div`
   background-color: ${props => props.theme.colors.backgroundColor};
   visibility: ${props => props.active ? 'visible' : 'hidden'};
 
-  @media ${props => props.theme.dimensions.web.smallViewport} {
-    top: ${props => props.theme.dimensions.web.headerHeightSmall}px;
+  @media ${dimensions.smallViewport} {
+    top: ${dimensions.headerHeightSmall}px;
   }
 
-  @media ${props => props.theme.dimensions.web.minMaxWidth} {
-    padding-right: calc((200% - 100vw - ${props => props.theme.dimensions.web.maxWidth}px) / 2);
-    padding-left: calc((100vw - ${props => props.theme.dimensions.web.maxWidth}px) / 2);
+  @media ${dimensions.minMaxWidth} {
+    padding-right: calc((200% - 100vw - ${dimensions.maxWidth}px) / 2);
+    padding-left: calc((100vw - ${dimensions.maxWidth}px) / 2);
   }
 `
 
 type PropsType = {|
-  children: React.Element<*>,
+  children: (closeDropDown: () => void) => React.Element<*>,
   theme: ThemeType,
   iconSrc: string,
   text: string
-|}
-
-type StateType = {|
-  dropDownActive: boolean
 |}
 
 /**
@@ -79,48 +76,36 @@ type StateType = {|
  * Header. Once the user clicks outside, the node is hidden again. Additionally, the inner node gets a
  * closeDropDownCallback through its props to close the dropDown and hide itself.
  */
-export class HeaderActionItemDropDown extends React.Component<PropsType, StateType> {
-  componentDidUpdate () {
-    /* https://www.npmjs.com/package/react-tooltip#1-using-tooltip-within-the-modal-eg-react-modal- */
-    ReactTooltip.rebuild()
+const HeaderActionItemDropDown = (props: PropsType) => {
+  const { iconSrc, text, children, theme } = props
+  const [dropDownActive, setDropDownActive] = useState(false)
+
+  const toggleDropDown = useCallback(() => {
+    setDropDownActive(!dropDownActive)
+  }, [setDropDownActive, dropDownActive])
+
+  const closeDropDown = () => {
+    setDropDownActive(false)
   }
 
-  constructor (props: PropsType) {
-    super(props)
-    this.state = { dropDownActive: false }
-  }
+  const wrapperRef = useRef(null)
+  useOnClickOutside(wrapperRef, closeDropDown)
 
-  toggleDropDown = () => {
-    this.setState(prevState => ({ dropDownActive: !prevState.dropDownActive }))
-  }
-
-  closeDropDown = () => {
-    if (this.state.dropDownActive) {
-      this.toggleDropDown()
-    }
-  }
-
-  handleClickOutside = () => {
-    this.closeDropDown()
-  }
-
-  render () {
-    const { iconSrc, text, children, theme } = this.props
-    const { dropDownActive } = this.state
-
-    return (
-      <Container theme={theme}>
-        <button selector='button' data-tip={text} data-event='mouseover' data-event-off='click mouseout' aria-label={text} onClick={this.toggleDropDown}>
-          <img alt='' src={iconSrc} />
-        </button>
-        <DropDownContainer active={dropDownActive} theme={theme}>
-          {React.cloneElement(children, {
-            closeDropDownCallback: this.closeDropDown
-          })}
-        </DropDownContainer>
-      </Container>
-    )
-  }
+  return <Container ref={wrapperRef} theme={theme}>
+    <button
+      data-tip={text} data-event='mouseover' data-event-off='click mouseout'
+      aria-label={text}
+      onClick={toggleDropDown}>
+      <img alt='' src={iconSrc} />
+    </button>
+    <DropDownContainer aria-label={dropDownActive}
+                       active={dropDownActive}
+                       theme={theme}
+                       // We need to have th visibility here, else the jest-dom testing library can not assert on it
+                       style={{ visibility: `${dropDownActive ? 'visible' : 'hidden'}` }}>
+      {children(closeDropDown)}
+    </DropDownContainer>
+  </Container>
 }
 
-export default onClickOutside<PropsType, HeaderActionItemDropDown>(HeaderActionItemDropDown)
+export default HeaderActionItemDropDown

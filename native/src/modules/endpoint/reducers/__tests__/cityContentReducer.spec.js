@@ -1,7 +1,12 @@
 // @flow
 
-import type { CityContentActionType, FetchCategoryActionType, FetchEventActionType } from '../../../app/StoreActionType'
-import { CategoriesMapModel, LanguageModel } from '@integreat-app/integreat-api-client'
+import type {
+  CityContentActionType,
+  FetchCategoryActionType,
+  FetchEventActionType,
+  PushCategoryActionType
+} from '../../../app/StoreActionType'
+import { CategoriesMapModel, LanguageModel } from 'api-client'
 import cityContentReducer from '../cityContentReducer'
 import type { CityContentStateType } from '../../../app/StateType'
 import ErrorCodes from '../../../error/ErrorCodes'
@@ -15,7 +20,7 @@ describe('cityContentReducer', () => {
     type: 'SWITCH_CONTENT_LANGUAGE_FAILED', params: { message: 'Some error' }
   }
   const pushLanguagesAction = { type: 'PUSH_LANGUAGES', params: { languages: [new LanguageModel('de', 'Deutsch')] } }
-  const pushCategoryAction = {
+  const pushCategoryAction: PushCategoryActionType = {
     type: 'PUSH_CATEGORY',
     params: {
       categoriesMap: new CategoriesMapModel([]),
@@ -25,7 +30,8 @@ describe('cityContentReducer', () => {
       language: 'de',
       path: '/augsburg/de',
       depth: 2,
-      key: 'route-id-0'
+      key: 'route-id-0',
+      refresh: false
     }
   }
   const pushEventAction = {
@@ -37,7 +43,8 @@ describe('cityContentReducer', () => {
       resourceCache: {},
       cityLanguages: [],
       language: 'de',
-      city: 'augsburg'
+      city: 'augsburg',
+      refresh: false
     }
   }
   const morphContentLanguageAction = {
@@ -106,6 +113,21 @@ describe('cityContentReducer', () => {
     })
   }
 
+  let prevState: CityContentStateType
+  beforeEach(() => {
+    prevState = {
+      city: 'augsburg',
+      categoriesRouteMapping: {},
+      eventsRouteMapping: {},
+      poisRouteMapping: {},
+      newsRouteMapping: {},
+      languages: { status: 'ready', models: languageModels },
+      resourceCache: { status: 'ready', progress: 0, value: {} },
+      searchRoute: null,
+      switchingLanguage: false
+    }
+  })
+
   it('should set switchingLanguage to true on SWITCH_CONTENT_LANGUAGE', () => {
     const prevState: CityContentStateType = {
       city: 'augsburg',
@@ -113,7 +135,7 @@ describe('cityContentReducer', () => {
       eventsRouteMapping: {},
       poisRouteMapping: {},
       languages: { status: 'ready', models: [] },
-      resourceCache: { status: 'ready', value: {} },
+      resourceCache: { status: 'ready', progress: 0, value: {} },
       newsRouteMapping: {},
       searchRoute: null,
       switchingLanguage: false
@@ -129,7 +151,7 @@ describe('cityContentReducer', () => {
       poisRouteMapping: {},
       newsRouteMapping: {},
       languages: { status: 'ready', models: [] },
-      resourceCache: { status: 'ready', value: {} },
+      resourceCache: { status: 'ready', progress: 0, value: {} },
       searchRoute: null,
       switchingLanguage: true
     }
@@ -144,7 +166,7 @@ describe('cityContentReducer', () => {
       poisRouteMapping: {},
       newsRouteMapping: {},
       languages: { status: 'ready', models: [] },
-      resourceCache: { status: 'ready', value: {} },
+      resourceCache: { status: 'ready', progress: 0, value: {} },
       searchRoute: null,
       switchingLanguage: false
     }
@@ -160,7 +182,7 @@ describe('cityContentReducer', () => {
       poisRouteMapping: {},
       newsRouteMapping: {},
       languages: { status: 'ready', models: [] },
-      resourceCache: { status: 'ready', value: {} },
+      resourceCache: { status: 'ready', progress: 0, value: {} },
       searchRoute: null,
       switchingLanguage: false
     }
@@ -194,7 +216,7 @@ describe('cityContentReducer', () => {
       poisRouteMapping: {},
       newsRouteMapping: {},
       languages: { status: 'loading' },
-      resourceCache: { status: 'ready', value: {} },
+      resourceCache: { status: 'ready', progress: 0, value: {} },
       searchRoute: null,
       switchingLanguage: false
     })
@@ -217,7 +239,7 @@ describe('cityContentReducer', () => {
       },
       poisRouteMapping: {},
       languages: { status: 'ready', models: languageModels },
-      resourceCache: { status: 'ready', value: {} },
+      resourceCache: { status: 'ready', progress: 0, value: {} },
       searchRoute: null,
       switchingLanguage: false
     }
@@ -243,7 +265,7 @@ describe('cityContentReducer', () => {
       },
       poisRouteMapping: {},
       languages: { status: 'ready', models: languageModels },
-      resourceCache: { status: 'ready', value: {} },
+      resourceCache: { status: 'ready', progress: 0, value: {} },
       searchRoute: null,
       switchingLanguage: false
     }
@@ -283,7 +305,7 @@ describe('cityContentReducer', () => {
       },
       poisRouteMapping: {},
       languages: { status: 'ready', models: languageModels },
-      resourceCache: { status: 'ready', value: {} },
+      resourceCache: { status: 'ready', progress: 0, value: {} },
       searchRoute: null,
       switchingLanguage: false
     }
@@ -333,7 +355,7 @@ describe('cityContentReducer', () => {
       poisRouteMapping: {},
       newsRouteMapping: {},
       languages: { status: 'loading' },
-      resourceCache: { status: 'ready', value: {} },
+      resourceCache: { status: 'ready', progress: 0, value: {} },
       searchRoute: null,
       switchingLanguage: false
     })
@@ -357,7 +379,7 @@ describe('cityContentReducer', () => {
       poisRouteMapping: {},
       newsRouteMapping: {},
       languages: { status: 'ready', models: languageModels },
-      resourceCache: { status: 'ready', value: {} },
+      resourceCache: { status: 'ready', progress: 0, value: {} },
       searchRoute: null,
       switchingLanguage: false
     }
@@ -385,7 +407,7 @@ describe('cityContentReducer', () => {
         poisRouteMapping: {},
         newsRouteMapping: {},
         languages: { status: 'ready', models: languageModels },
-        resourceCache: { status: 'ready', value: {} },
+        resourceCache: { status: 'ready', progress: 0, value: {} },
         searchRoute: null,
         switchingLanguage: false
       }
@@ -426,7 +448,7 @@ describe('cityContentReducer', () => {
       poisRouteMapping: {},
       newsRouteMapping: {},
       languages: { status: 'ready', models: languageModels },
-      resourceCache: { status: 'ready', value: {} },
+      resourceCache: { status: 'ready', progress: 0, value: {} },
       searchRoute: null,
       switchingLanguage: false
     }
@@ -462,26 +484,26 @@ describe('cityContentReducer', () => {
       poisRouteMapping: {},
       newsRouteMapping: {},
       languages: { status: 'ready', models: languageModels },
-      resourceCache: { status: 'ready', value: {} },
+      resourceCache: { status: 'ready', progress: 0, value: {} },
       searchRoute: null,
       switchingLanguage: false
     }
     expect(cityContentReducer(prevState, { type: 'CLEAR_CITY' })).toBeNull()
   })
 
-  it('should set an errorState for the resourceCache on FETCH_RESOURCES_FAILED', () => {
-    const prevState = {
-      city: 'augsburg',
-      categoriesRouteMapping: {},
-      eventsRouteMapping: {},
-      poisRouteMapping: {},
-      newsRouteMapping: {},
-      languages: { status: 'ready', models: languageModels },
-      resourceCache: { status: 'ready', value: {} },
-      searchRoute: null,
-      switchingLanguage: false
+  it('should set progress for the resourceCache on FETCH_RESOURCES_PROGRESS', () => {
+    prevState = {
+      ...prevState,
+      resourceCache: { status: 'ready', progress: 0.1, value: {} }
     }
 
+    expect(cityContentReducer(prevState, {
+      type: 'FETCH_RESOURCES_PROGRESS',
+      params: { progress: 0.2 }
+    })?.resourceCache).toEqual({ status: 'ready', progress: 0.2, value: {} })
+  })
+
+  it('should set an errorState for the resourceCache on FETCH_RESOURCES_FAILED', () => {
     expect(cityContentReducer(prevState, {
       type: 'FETCH_RESOURCES_FAILED',
       params: { message: 'No idea why it fails :/', code: ErrorCodes.UnknownError }

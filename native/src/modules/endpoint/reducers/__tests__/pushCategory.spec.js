@@ -1,6 +1,6 @@
 // @flow
 
-import { CategoriesMapModel, CategoryModel, LanguageModel } from '@integreat-app/integreat-api-client'
+import { CategoriesMapModel, CategoryModel, LanguageModel } from 'api-client'
 import moment from 'moment'
 import type { CityContentStateType } from '../../../app/StateType'
 import cityContentReducer from '../cityContentReducer'
@@ -70,6 +70,7 @@ describe('pushCategory', () => {
       languages: { status: 'ready', models: languageModels },
       resourceCache: {
         status: 'ready',
+        progress: 1,
         value: {
           '/augsburg/de': {
             'some-url': {
@@ -90,7 +91,7 @@ describe('pushCategory', () => {
     const prevState: CityContentStateType = prepareState({
       categoriesRouteMapping: {},
       newsRouteMapping: {},
-      resourceCache: { status: 'ready', value: {} }
+      resourceCache: { status: 'ready', progress: 0, value: {} }
     })
 
     const pushCategoryAction = {
@@ -103,7 +104,8 @@ describe('pushCategory', () => {
         language: 'de',
         path: '/augsburg/de',
         depth: 1,
-        key: 'route-id-0'
+        key: 'route-id-0',
+        refresh: false
       }
     }
 
@@ -126,7 +128,7 @@ describe('pushCategory', () => {
   it('should add subCategory to routeMapping with depth 1', () => {
     const prevState = prepareState({
       categoriesRouteMapping: {},
-      resourceCache: { status: 'ready', value: {} }
+      resourceCache: { status: 'ready', progress: 0, value: {} }
     })
 
     const pushCategoryAction = {
@@ -139,7 +141,8 @@ describe('pushCategory', () => {
         language: 'de',
         path: '/augsburg/de/sub',
         depth: 1,
-        key: 'route-id-1'
+        key: 'route-id-1',
+        refresh: false
       }
     }
 
@@ -199,13 +202,14 @@ describe('pushCategory', () => {
         language: 'de',
         path: '/testumgebung/de',
         depth: 1,
-        key: 'route-id-0'
+        key: 'route-id-0',
+        refresh: false
       }
     }
 
     expect(cityContentReducer(prevState, pushCategoryAction)).toEqual(expect.objectContaining({
       city: 'augsburg',
-      resourceCache: { status: 'ready', value: { ...prevResources, ...resourceCache } }
+      resourceCache: { status: 'ready', progress: 1, value: { ...prevResources, ...resourceCache } }
     }))
   })
 
@@ -214,7 +218,7 @@ describe('pushCategory', () => {
       categoriesRouteMapping: {},
       newsRouteMapping: {},
       searchRoute: null,
-      resourceCache: { status: 'ready', value: {} }
+      resourceCache: { status: 'ready', progress: 0, value: {} }
     })
 
     const pushCategoryAction = {
@@ -227,7 +231,8 @@ describe('pushCategory', () => {
         language: 'de',
         path: '/augsburg/de',
         depth: 1,
-        key: 'route-id-0'
+        key: 'route-id-0',
+        refresh: false
       }
     }
 

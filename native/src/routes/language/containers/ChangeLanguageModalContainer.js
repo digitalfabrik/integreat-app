@@ -6,7 +6,7 @@ import type { NewsType, StateType } from '../../../modules/app/StateType'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import ChangeLanguageModal from '../components/ChangeLanguageModal'
 import withTheme from '../../../modules/theme/hocs/withTheme'
-import { LanguageModel } from '@integreat-app/integreat-api-client'
+import { LanguageModel } from 'api-client'
 import type { NavigationStackProp } from 'react-navigation-stack'
 import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
@@ -33,7 +33,8 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   const previousKey = ownProps.navigation.getParam('previousKey')
 
   const newsRouteMapping = state.cityContent?.newsRouteMapping
-  const newsType = previousKey && newsRouteMapping && newsRouteMapping[previousKey] && newsRouteMapping[previousKey].type
+  const newsType =
+    previousKey && newsRouteMapping && newsRouteMapping[previousKey] && newsRouteMapping[previousKey].type
 
   return {
     currentLanguage,

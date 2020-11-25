@@ -11,7 +11,7 @@ import type { NavigationStackProp } from 'react-navigation-stack'
 import type { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
 import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvider'
 import withTheme from '../../../modules/theme/hocs/withTheme'
-import { CityModel, PoiModel } from '@integreat-app/integreat-api-client'
+import { CityModel, PoiModel } from 'api-client'
 import * as React from 'react'
 import createNavigateToInternalLink from '../../../modules/app/createNavigateToInternalLink'
 import Pois from '../components/Pois'
@@ -62,7 +62,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     return { status: 'routeNotInitialized' }
   }
 
-  if (route.status === 'languageNotAvailable') {
+  if (route.status === 'languageNotAvailable' && !switchingLanguage) {
     if (languages.status === 'error' || languages.status === 'loading') {
       console.error('languageNotAvailable status impossible if languages not ready')
       return {
@@ -99,7 +99,12 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 
   if (state.resourceCacheUrl === null || state.cities.status === 'loading' || switchingLanguage ||
     route.status === 'loading' || languages.status === 'loading') {
-    return { status: 'loading' }
+    return { status: 'loading', progress: 0 }
+  }
+
+  if (route.status === 'languageNotAvailable') {
+    // Necessary for flow type checking, already handled above
+    throw new Error('language not available route status not handled!')
   }
 
   const cities = state.cities.models
