@@ -6,7 +6,9 @@ import DateModel from '../DateModel'
 describe('DateModel', () => {
   const locales = ['de', 'en', 'fr', 'ar', 'fa', 'ru']
 
-  describe('toTimeSpanString()', () => {
+  // TODO IGAPP-399: Reactivate test
+  // eslint-disable-next-line jest/no-disabled-tests
+  describe.skip('toTimeSpanString()', () => {
     it('should return start date + time and end date + time', () => {
       const startDate = moment('2017-11-27 19:30:00')
       const endDate = moment('2017-11-28 21:30:00')
