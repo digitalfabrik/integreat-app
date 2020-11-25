@@ -28,7 +28,7 @@ React JS WebApp for [Integreat](https://integreat-app.de) and [Malte](https://ww
 ### Additional Configuration
 
 * Run > Edit Configurations > Defaults > Jest:
-    * Set *Configuration file* to *jest.config.json*
+    * Set *Configuration file* to *jest.config.js*
 * Settings > Languages & Frameworks > JavaScript:
     * Choose *Flow* as Language version
     * Set *Flow package or executable* to *<project_dir>/node_modules/flow-bin*

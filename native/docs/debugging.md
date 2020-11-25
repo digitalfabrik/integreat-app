@@ -1,31 +1,20 @@
-TODO IGAPP-334
-
 # Debugging
 
-For debugging install [react-native-debugger](https://github.com/jhen0409/react-native-debugger) or use the IntelliJ
-debugging tool.
+For debugging [flipper](https://fbflipper.com/) is recommended. 
+It allows debugging of logs, network requests, views and redux actions.
 
-## Setup reverse tunnel from device to metro
+## Setup
 
-On Android, you have 2 options:
-* Setup a reverse tunnel though adb: `adb reverse tcp:8081 tcp:8081`.
-* Open the development options of the react-native app (shake device or Ctrl+M) and set a development host
+* Download and install [flipper](https://fbflipper.com/)
+* Run flipper
+* Install and run the app which should be debugged
+* \[optional\]: Install `redux-debugger` plugin in flipper: 
+`Manage plugins` > `Install plugins` > `redux-debugger` > `Install`
+* \[optional\]: Enable plugins for installation
 
-On iOS the port 8081 is tunneled by default. You cannot change this. If the emulator is running on another host you can proxy the port with `yarn run proxy <host>`.
+### iOS
 
-## Steps to get started with debugging:
-
-* Start react-native-debugger
-* Start the metro bundler
-* Connect a real device or run an emulator though adb (e.g. `$ANDROID_HOME/emulator/emulator -avd <avd>`)
-* Setup network connectivity from the emulator/device to the host where the bundler is running (see [here](#setup-reverse-tunnel-from-device-to-metro))
-* [Enter the development menu](#enter-the-development-menu) and enable "Remote JS Debugging"
-* The app should reload now, and the debugger should connect to the device
-
-## Enter the development menu
-
-Shake the device or press Ctrl+M to enter the menu. If you are connected through adb to your android device you can also 
-run: `adb shell input keyevent 82`
-
-## Reload the app
-You can [enter the development menu](#enter-the-development-menu) and click "Reload" or use adb: `adb shell input text "RR"`
+On iOS the [iOS Development Bridge (idb)](https://github.com/facebook/idb#quick-start) has to be installed additionally:
+    * `brew tap facebook/fb`
+    * `brew install idb-companion`
+    * `pip3 install fb-idb`

@@ -12,8 +12,10 @@ import {
   CATEGORIES_FEEDBACK_TYPE,
   CategoryModel,
   CityModel,
-  PAGE_FEEDBACK_TYPE
-} from '@integreat-app/integreat-api-client'
+  PAGE_FEEDBACK_TYPE,
+  CONTENT_FEEDBACK_CATEGORY,
+  TECHNICAL_FEEDBACK_CATEGORY
+} from 'api-client'
 import type { ThemeType } from '../../theme/constants'
 import { URL_PREFIX } from '../../platform/constants/webview'
 import CategoriesRouteStateView from '../../app/CategoriesRouteStateView'
@@ -25,14 +27,7 @@ import FeedbackVariant from '../../../routes/feedback/FeedbackVariant'
 import { type TFunction } from 'react-i18next'
 import SpaceBetween from '../../common/components/SpaceBetween'
 import SiteHelpfulBox from '../../common/components/SiteHelpfulBox'
-import type {
-  FeedbackCategoryType,
-  FeedbackType
-} from '@integreat-app/integreat-api-client/endpoints/createFeedbackEndpoint'
-import {
-  CONTENT_FEEDBACK_CATEGORY,
-  TECHNICAL_FEEDBACK_CATEGORY
-} from '@integreat-app/integreat-api-client/endpoints/createFeedbackEndpoint'
+import type { FeedbackCategoryType, FeedbackType } from 'api-client'
 
 type PropsType = {|
   cities: Array<CityModel>,

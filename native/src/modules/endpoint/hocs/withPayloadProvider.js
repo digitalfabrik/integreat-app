@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import { LanguageModel } from '@integreat-app/integreat-api-client'
+import { LanguageModel } from 'api-client'
 import { RefreshControl, ScrollView, View } from 'react-native'
 import LanguageNotAvailableContainer from '../../common/containers/LanguageNotAvailableContainer'
 import type { StoreActionType } from '../../app/StoreActionType'
@@ -9,12 +9,17 @@ import { type Dispatch } from 'redux'
 import FailureContainer from '../../error/containers/FailureContainer'
 import { LOADING_TIMEOUT } from '../../common/constants'
 import type { ErrorCodeType } from '../../error/ErrorCodes'
-import type { NavigationStackProp } from 'react-navigation-stack'
+import type { NavigationStackProp, NavigationScreenProp } from 'react-navigation-stack'
 import type { TFunction } from 'react-i18next'
 import wrapDisplayName from '../../common/hocs/wrapDisplayName'
 
 export type RouteNotInitializedType = {| status: 'routeNotInitialized' |}
-export type LoadingType = {| status: 'loading' |}
+export type LoadingType<S: {}, R: {}> = {|
+  status: 'loading',
+  progress: number,
+  innerProps?: S,
+  refreshProps?: R
+|}
 export type ErrorType<R: {}> = {|
   status: 'error',
   message: ?string,
@@ -37,12 +42,17 @@ export type SuccessType<S: {}, R: {}> = {|
 
 export type StatusPropsType<S: {}, R: {}> =
   RouteNotInitializedType
-  | LoadingType
+  | LoadingType<$Diff<S, { dispatch: Dispatch<StoreActionType> }>, R>
   | ErrorType<R>
   | LanguageNotAvailableType
   | SuccessType<$Diff<S, { dispatch: Dispatch<StoreActionType> }>, R>
 
 export type PropsType<S: { dispatch: Dispatch<StoreActionType> }, R: {}> = {|
+  ...StatusPropsType<S, R>,
+  dispatch: Dispatch<StoreActionType>,
+  navigation: NavigationScreenProp<*>,
+  t?: TFunction
+|} | {|
   ...StatusPropsType<S, R>,
   dispatch: Dispatch<StoreActionType>,
   navigation: NavigationStackProp<*>,
@@ -94,8 +104,14 @@ const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R: {}> 
           return <LanguageNotAvailableContainer languages={props.availableLanguages}
                                                 changeLanguage={this.changeUnavailableLanguage} />
         } else if (props.status === 'loading') {
+          console.log('render loading', props.progress)
           return this.state.timeoutExpired
-            ? <ScrollView refreshControl={<RefreshControl refreshing />} contentContainerStyle={{ flexGrow: 0 }} />
+            ? <ScrollView refreshControl={<RefreshControl refreshing />} contentContainerStyle={{ flexGrow: 1 }}
+                        keyboardShouldPersistTaps='always'>
+              {/* only display content while loading if innerProps and dispatch are available */}
+              {props.innerProps && props.dispatch
+                ? <Component {...props.innerProps} dispatch={props.dispatch} /> : null}
+            </ScrollView>
             : null
         } else { // props.status === 'success'
           if (noScrollView) {

@@ -5,7 +5,7 @@ import { shallow } from 'enzyme'
 import moment from 'moment'
 
 import ConnectedDisclaimerPage, { DisclaimerPage } from '../DisclaimerPage'
-import { PageModel } from '@integreat-app/integreat-api-client'
+import { PageModel } from 'api-client'
 import configureMockStore from 'redux-mock-store'
 
 describe('DisclaimerPage', () => {

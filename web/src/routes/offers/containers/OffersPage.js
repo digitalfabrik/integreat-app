@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 
 import TileModel from '../../../modules/common/models/TileModel'
 import Tiles from '../../../modules/common/components/Tiles'
-import { CityModel, OfferModel, SPRUNGBRETT_OFFER, WOHNEN_OFFER } from '@integreat-app/integreat-api-client'
+import { CityModel, OfferModel, SPRUNGBRETT_OFFER, WOHNEN_OFFER } from 'api-client'
 import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'

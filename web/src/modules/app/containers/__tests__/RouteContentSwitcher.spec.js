@@ -1,7 +1,7 @@
 // @flow
 
 import RouteContentSwitcher from '../RouteContentSwitcher'
-import { CategoriesMapModel, CategoryModel, CityModel, Payload } from '@integreat-app/integreat-api-client'
+import { CategoriesMapModel, CategoryModel, CityModel, Payload } from 'api-client'
 import moment from 'moment'
 import { render } from '@testing-library/react'
 import { shallow } from 'enzyme'

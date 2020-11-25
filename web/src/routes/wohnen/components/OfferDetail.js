@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react'
-import { WohnenOfferModel, WohnenFormData, type AccommodationType } from '@integreat-app/integreat-api-client'
+import { WohnenOfferModel, WohnenFormData, type AccommodationType } from 'api-client'
 import styled from 'styled-components'
 import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
@@ -27,7 +27,6 @@ const RowValue = styled.div`
 
 const Row = styled.div`
   display: flex;
-  
   margin: 10px 0;
 `
 

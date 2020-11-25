@@ -6,6 +6,7 @@ import type { ThemeType } from '../../../modules/theme/constants'
 import { HeaderBackButton } from 'react-navigation-stack'
 import ThemedSearchBar from './ThemedSearchBar'
 import type { TFunction } from 'react-i18next'
+import dimensions from '../../../modules/theme/constants/dimensions'
 
 const HorizontalLeft = styled.View`
   flex:1;
@@ -20,7 +21,7 @@ const BoxShadow = styled.View`
   shadow-opacity: 0.18;
   shadow-radius: 1.00px;
   background-color: ${props => props.theme.colors.backgroundAccentColor};
-  height: ${props => props.theme.dimensions.native.headerHeight}px;
+  height: ${dimensions.headerHeight}px;
 `
 
 type PropsType = {|

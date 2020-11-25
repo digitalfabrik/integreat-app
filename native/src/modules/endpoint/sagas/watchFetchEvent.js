@@ -1,13 +1,18 @@
 // @flow
 
 import type { Saga } from 'redux-saga'
-import { all, call, put, select, takeLatest } from 'redux-saga/effects'
-import type { FetchEventActionType, FetchEventFailedActionType, PushEventActionType } from '../../app/StoreActionType'
+import { all, call, put, select, takeEvery } from 'redux-saga/effects'
+import type {
+  FetchEventActionType,
+  FetchEventFailedActionType,
+  PushEventActionType
+} from '../../app/StoreActionType'
 import type { DataContainer } from '../DataContainer'
 import loadCityContent from './loadCityContent'
 import { ContentLoadCriterion } from '../ContentLoadCriterion'
 import isPeekingRoute from '../selectors/isPeekingRoute'
 import ErrorCodes, { fromError } from '../../error/ErrorCodes'
+import type Moment from 'moment'
 
 export function * fetchEvent (dataContainer: DataContainer, action: FetchEventActionType): Saga<void> {
   const { city, language, path, key, criterion } = action.params
@@ -26,9 +31,12 @@ export function * fetchEvent (dataContainer: DataContainer, action: FetchEventAc
         call(dataContainer.getResourceCache, city, language)
       ])
 
+      const lastUpdate: Moment | null = yield call(dataContainer.getLastUpdate, city, language)
+      const refresh = loadCriterion.shouldUpdate(lastUpdate)
+
       const insert: PushEventActionType = {
         type: 'PUSH_EVENT',
-        params: { events, resourceCache, path, cityLanguages, key, language, city }
+        params: { events, resourceCache, path, cityLanguages, key, language, city, refresh }
       }
       yield put(insert)
     } else {
@@ -66,5 +74,5 @@ export function * fetchEvent (dataContainer: DataContainer, action: FetchEventAc
 }
 
 export default function * (dataContainer: DataContainer): Saga<void> {
-  yield takeLatest('FETCH_EVENT', fetchEvent, dataContainer)
+  yield takeEvery('FETCH_EVENT', fetchEvent, dataContainer)
 }

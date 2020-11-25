@@ -9,7 +9,7 @@ import {
   createTunewsElementEndpoint,
   createCitiesEndpoint,
   createEventsEndpoint, CityModel
-} from '@integreat-app/integreat-api-client'
+} from 'api-client'
 import fetchData from '../fetchData'
 import { cmsApiBaseUrl, tunewsApiBaseUrl } from '../constants/urls'
 import type { StateType } from '../StateType'

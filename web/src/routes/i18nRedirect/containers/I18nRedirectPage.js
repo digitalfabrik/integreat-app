@@ -11,7 +11,7 @@ import i18n from 'i18next'
 import { routesMap } from '../../../modules/app/route-configs/index'
 import LandingRouteConfig from '../../../modules/app/route-configs/LandingRouteConfig'
 import CategoriesRouteConfig from '../../../modules/app/route-configs/CategoriesRouteConfig'
-import { CityModel } from '@integreat-app/integreat-api-client'
+import { CityModel } from 'api-client'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 
 type PropsType = {|

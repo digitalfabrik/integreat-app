@@ -7,6 +7,7 @@ import { HeaderBackButton } from 'react-navigation-stack'
 import type { ThemeType } from '../../theme/constants'
 import type { TFunction } from 'react-i18next'
 import type { NavigationStackProp } from 'react-navigation-stack'
+import dimensions from '../../theme/constants/dimensions'
 
 const Horizontal = styled.View`
   flex: 1;
@@ -28,7 +29,7 @@ const BoxShadow: StyledComponent<{}, ThemeType, *> = styled.View`
   shadow-opacity: 0.18;
   shadow-radius: 1.00px;
   background-color: ${props => props.theme.colors.backgroundAccentColor};
-  height: ${props => props.theme.dimensions.native.headerHeight}px;
+  height: ${dimensions.headerHeight}px;
 `
 
 const HeaderText: StyledComponent<{}, ThemeType, *> = styled.Text`

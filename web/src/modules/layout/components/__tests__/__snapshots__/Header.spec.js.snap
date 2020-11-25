@@ -15,7 +15,7 @@ exports[`Header should match snapshot with largeViewport 1`] = `
       <HeaderLogo
         alt="IntegreatTestCms"
         link="/random_route"
-        src="/integreat-app-logo.png"
+        src="/app-logo.png"
         theme={
           Object {
             "colors": Object {
@@ -28,24 +28,6 @@ exports[`Header should match snapshot with largeViewport 1`] = `
               "themeColor": "#fbda16",
               "tunewsThemeColor": "#007aa8",
               "tunewsThemeColorLight": "rgba(0, 122, 168, 0.4)",
-            },
-            "dimensions": Object {
-              "native": Object {
-                "categoryListItem": Object {
-                  "iconSize": 40,
-                  "margin": 10,
-                },
-                "headerHeight": 60,
-                "modalHeaderHeight": 40,
-              },
-              "web": Object {
-                "headerHeightLarge": 90,
-                "headerHeightSmall": 70,
-                "maxWidth": 1100,
-                "minMaxWidth": "screen and (min-width: 1100px)",
-                "smallViewport": "(max-width: 750px)",
-                "toolbarWidth": 125,
-              },
             },
             "fonts": Object {
               "arabicWebviewFontFamilies": "'OpenSans', 'Lateef', sans-serif",
@@ -63,9 +45,6 @@ exports[`Header should match snapshot with largeViewport 1`] = `
               "standardParagraphMargin": "0.75rem",
               "subTitleFontSize": "1.8rem",
               "webviewFontFamilies": "'OpenSans', sans-serif",
-            },
-            "helpers": Object {
-              "removeLinkHighlighting": "color: inherit; text-decoration: none;",
             },
           }
         }
@@ -84,24 +63,6 @@ exports[`Header should match snapshot with largeViewport 1`] = `
               "tunewsThemeColor": "#007aa8",
               "tunewsThemeColorLight": "rgba(0, 122, 168, 0.4)",
             },
-            "dimensions": Object {
-              "native": Object {
-                "categoryListItem": Object {
-                  "iconSize": 40,
-                  "margin": 10,
-                },
-                "headerHeight": 60,
-                "modalHeaderHeight": 40,
-              },
-              "web": Object {
-                "headerHeightLarge": 90,
-                "headerHeightSmall": 70,
-                "maxWidth": 1100,
-                "minMaxWidth": "screen and (min-width: 1100px)",
-                "smallViewport": "(max-width: 750px)",
-                "toolbarWidth": 125,
-              },
-            },
             "fonts": Object {
               "arabicWebviewFontFamilies": "'OpenSans', 'Lateef', sans-serif",
               "contentFontBold": "OpenSans-Bold",
@@ -118,9 +79,6 @@ exports[`Header should match snapshot with largeViewport 1`] = `
               "standardParagraphMargin": "0.75rem",
               "subTitleFontSize": "1.8rem",
               "webviewFontFamilies": "'OpenSans', sans-serif",
-            },
-            "helpers": Object {
-              "removeLinkHighlighting": "color: inherit; text-decoration: none;",
             },
           }
         }
@@ -165,7 +123,7 @@ exports[`Header should match snapshot with smallViewport 1`] = `
       <HeaderLogo
         alt="IntegreatTestCms"
         link="/random_route"
-        src="/integreat-app-logo.png"
+        src="/app-logo.png"
         theme={
           Object {
             "colors": Object {
@@ -178,24 +136,6 @@ exports[`Header should match snapshot with smallViewport 1`] = `
               "themeColor": "#fbda16",
               "tunewsThemeColor": "#007aa8",
               "tunewsThemeColorLight": "rgba(0, 122, 168, 0.4)",
-            },
-            "dimensions": Object {
-              "native": Object {
-                "categoryListItem": Object {
-                  "iconSize": 40,
-                  "margin": 10,
-                },
-                "headerHeight": 60,
-                "modalHeaderHeight": 40,
-              },
-              "web": Object {
-                "headerHeightLarge": 90,
-                "headerHeightSmall": 70,
-                "maxWidth": 1100,
-                "minMaxWidth": "screen and (min-width: 1100px)",
-                "smallViewport": "(max-width: 750px)",
-                "toolbarWidth": 125,
-              },
             },
             "fonts": Object {
               "arabicWebviewFontFamilies": "'OpenSans', 'Lateef', sans-serif",
@@ -213,9 +153,6 @@ exports[`Header should match snapshot with smallViewport 1`] = `
               "standardParagraphMargin": "0.75rem",
               "subTitleFontSize": "1.8rem",
               "webviewFontFamilies": "'OpenSans', sans-serif",
-            },
-            "helpers": Object {
-              "removeLinkHighlighting": "color: inherit; text-decoration: none;",
             },
           }
         }

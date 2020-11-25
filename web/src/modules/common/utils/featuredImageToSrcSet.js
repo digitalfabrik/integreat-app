@@ -1,6 +1,6 @@
 // @flow
 
-import { FeaturedImageModel } from '@integreat-app/integreat-api-client'
+import { FeaturedImageModel } from 'api-client'
 
 const ten = 10
 const roundToOneDecimal = number => Math.round(number * ten) / ten

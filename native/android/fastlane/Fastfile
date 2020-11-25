@@ -33,11 +33,19 @@ lane :dependencies do
   gradle(task: "androidDependencies")
 end
 
+# The following parameters have to be passed:
+# version_code: The version code of the app
+# version_name: The version name of the app
+# build_config_name: The name of the build config
 desc "Create an Android build in release mode. Set the environment variable E2E_TEST_IDS if you want a build usable for E2E tests. Set the environment variable TOTAL_CPUS if you run this in a Docker container."
 lane :build do |options|
   version_code = options[:version_code]
   version_name = options[:version_name]
   build_config_name = options[:build_config_name]
+
+  if [version_name, version_code, build_config_name].include?(nil)
+    raise "'nil' passed as parameter! Aborting..."
+  end
 
   # DO NOT OVERWRITE THE BUNDLE_CONFIG ENV VARIABLE! It is used by ruby bundle.
   ENV["EXTRA_PACKAGER_ARGS"] = "--config ./metro.config.ci.js"

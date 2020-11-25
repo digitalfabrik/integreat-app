@@ -7,7 +7,7 @@ import {
   EventModel,
   LanguageModel,
   LocationModel, PoiModel
-} from '@integreat-app/integreat-api-client'
+} from 'api-client'
 import moment from 'moment'
 import morphContentLanguage from '../morphContentLanguage'
 import pushCategory from '../pushCategory'
@@ -237,7 +237,8 @@ describe('morphContentLanguage', () => {
         key: 'route-0',
         resourceCache: {},
         city: 'augsburg',
-        language: 'de'
+        language: 'de',
+        refresh: false
       }
     }
 
@@ -250,7 +251,8 @@ describe('morphContentLanguage', () => {
         key: 'route-1',
         resourceCache: {},
         language: 'de',
-        city: 'augsburg'
+        city: 'augsburg',
+        refresh: false
       }
     }
     return pushEvent(
@@ -378,6 +380,7 @@ describe('morphContentLanguage', () => {
       newsRouteMapping: {},
       resourceCache: {
         status: 'ready',
+        progress: 1,
         value: {}
       },
       searchRoute: { categoriesMap: enCategoriesMap }
@@ -424,6 +427,7 @@ describe('morphContentLanguage', () => {
       newsRouteMapping: {},
       resourceCache: {
         status: 'ready',
+        progress: 1,
         value: {}
       },
       searchRoute: { categoriesMap: enCategoriesMap }
@@ -461,6 +465,7 @@ describe('morphContentLanguage', () => {
       eventsRouteMapping: {
         'route-1': {
           status: 'languageNotAvailable',
+          path: '/augsburg/de/events/drittes_event',
           city: 'augsburg',
           language: 'en',
           allAvailableLanguages: new Map([['de', '/augsburg/de/events/drittes_event']])
@@ -469,6 +474,7 @@ describe('morphContentLanguage', () => {
       poisRouteMapping: expect.any(Object),
       resourceCache: {
         status: 'ready',
+        progress: 1,
         value: {}
       },
       searchRoute: { categoriesMap: enCategoriesMap }

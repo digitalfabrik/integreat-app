@@ -19,7 +19,7 @@ import TunewsRouteConfig, { TUNEWS_ROUTE } from '../../app/route-configs/TunewsR
 import { TUNEWS_DETAILS_ROUTE } from '../../app/route-configs/TunewsDetailsRouteConfig'
 import SearchRouteConfig from '../../app/route-configs/SearchRouteConfig'
 import type { LocationState } from 'redux-first-router'
-import { EventModel } from '@integreat-app/integreat-api-client'
+import { EventModel } from 'api-client'
 import { WOHNEN_ROUTE } from '../../app/route-configs/WohnenRouteConfig'
 import { SPRUNGBRETT_ROUTE } from '../../app/route-configs/SprungbrettRouteConfig'
 import LandingRouteConfig from '../../app/route-configs/LandingRouteConfig'

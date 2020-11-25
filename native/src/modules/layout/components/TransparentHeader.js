@@ -10,6 +10,7 @@ import { HeaderBackButton } from 'react-navigation-stack'
 import { HeaderButtons, HeaderButton, Item } from 'react-navigation-header-buttons'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import type { TFunction } from 'react-i18next'
+import dimensions from '../../theme/constants/dimensions'
 
 const Horizontal = styled.View`
   flex:1;
@@ -26,7 +27,7 @@ const HorizontalLeft = styled.View`
 
 const BoxShadow: StyledComponent<{float: boolean}, ThemeType, *> = styled.View`
   background-color: ${props => props.float ? 'transparent' : props.theme.colors.backgroundColor};
-  height: ${props => props.theme.dimensions.native.modalHeaderHeight}px;
+  height: ${dimensions.modalHeaderHeight}px;
   ${props => props.float
     ? `position: absolute;
     z-index: 100;

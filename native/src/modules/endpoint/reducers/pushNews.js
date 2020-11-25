@@ -8,7 +8,7 @@ import type { PushNewsActionType } from '../../app/StoreActionType'
 import {
   LocalNewsModel,
   TunewsModel
-} from '@integreat-app/integreat-api-client'
+} from 'api-client'
 import ErrorCodes from '../../error/ErrorCodes'
 
 const pushNews = (

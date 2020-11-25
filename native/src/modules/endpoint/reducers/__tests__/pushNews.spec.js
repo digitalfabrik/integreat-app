@@ -1,6 +1,6 @@
 // @flow
 
-import { LocalNewsModel, LanguageModel } from '@integreat-app/integreat-api-client'
+import { LocalNewsModel, LanguageModel } from 'api-client'
 import type { CityContentStateType } from '../../../app/StateType'
 import cityContentReducer from '../cityContentReducer'
 import type { PushNewsActionType } from '../../../app/StoreActionType'
@@ -38,7 +38,7 @@ describe('pushNews', () => {
           type: LOCAL_NEWS
         }
       },
-      resourceCache: { status: 'ready', value: { files: {} } },
+      resourceCache: { status: 'ready', progress: 1, value: { files: {} } },
       languages: { status: 'ready', models: languageModels },
       searchRoute: null,
       switchingLanguage: false

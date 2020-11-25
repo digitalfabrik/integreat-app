@@ -1,6 +1,6 @@
 // @flow
 
-import { FetchError, MappingError, ResponseError } from '@integreat-app/integreat-api-client'
+import { FetchError, MappingError, ResponseError } from 'api-client'
 
 type ErrorCodesType = {|
   PageNotFound: 'pageNotFound',

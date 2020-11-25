@@ -7,12 +7,12 @@ React JS and React Native App for [Integreat](https://integreat-app.de) and [Mal
 
 ## Contents
 
-* [Contributing](#contributing)
-* [Project Structure](#project-structure)
-* [Getting Started](#getting-started)
-* [Build Configs](docs/build-configs.md)
-* [Further Reading](#further-reading)
-* [Glossary](https://wiki.integreat-app.de/glossary)
+- [Contributing](#contributing)
+- [Project Structure](#project-structure)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Project setup](#project-setup)
+- [Further Reading](#further-reading)
 
 ## Contributing
 
@@ -35,7 +35,11 @@ Both projects are whitelabelled with different [build configs](docs/build-config
 There are also separate sub-projects used by both projects:
     
 * **[locales](locales/README.md)**: Localized texts and utilities to manage them
-* **[api-client](api-client/README.md)**: TODO: Not yet part of this repository.
+* **[api-client](api-client/README.md)**: Implementation of the endpoints (v3) of the integreat cms
+* **[build-configs](docs/build-configs.md)**: Configuration files to build different versions of the apps
+
+If you make changes in these sub-projects, make sure to bump the version in the corresponding package.json and run yarn
+to make these changes available in both projects.
 
 ## Getting Started
 
@@ -50,15 +54,15 @@ Using the latest version (v13) may lead to errors.
 ### Project setup
 
 We suggest **[IntelliJ IDEA Ultimate](https://www.jetbrains.com/idea/)** as IDE. JetBrains provides free licences for students.
-If you are using a different IDE, the steps might differ.
+If you are using a different IDE like Visual Studio Code ([./docs/vscode.md](./docs/vscode.md)) the steps might differ.
 
 * Import this project (VCS > Get from Version Control).
 * Open either the [web](web) or [native](native) project separately in IntelliJ (File > Open).
 * Follow the steps mentioned in the projects README.
 
-*Note: The project setup on Windows has shown to be a lot more difficult and problematic.
-Therefore, we are recommending to use either a Linux distribution or MacOS for development.
-If you want to develop on Windows anyway, the [Windows Subsystem for Linux](docs/wsl-setup.md) may be a good solution.*
+*We are recommending to use either a Linux distribution or MacOS for development.
+If you want to develop on Windows anyway, follow the steps in [./docs/windows-setup.md](./docs/windows-setup.md) 
+or use the Windows Subsystem for Linux: [./docs/wsl-setup.md](./docs/wsl-setup.md)
     
 ## Further Reading
 

@@ -6,7 +6,7 @@ exports[`CategoryList should render and display a caption 1`] = `
     title="Willkommen"
   />
   <RemoteContent
-    centered={true}
+    centered={false}
     dangerouslySetInnerHTML={
       Object {
         "__html": "test content",
