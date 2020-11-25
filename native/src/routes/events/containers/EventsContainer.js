@@ -145,7 +145,8 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     return {
       status: 'loading',
       refreshProps,
-      innerProps
+      innerProps,
+      progress: 0
     }
   }
   return {
