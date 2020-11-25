@@ -19,7 +19,7 @@ import ErrorCodes from '../../../modules/error/ErrorCodes'
 
 type ContainerPropsType = {|
   path: ?string,
-  events: $ReadOnlyArray<EventModel>,
+  events: ?$ReadOnlyArray<EventModel>,
   cities: $ReadOnlyArray<CityModel>,
   cityCode: string,
   language: string,
@@ -90,13 +90,33 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
 
   if (state.cities.status === 'error') {
-    return { status: 'error', message: state.cities.message, code: state.cities.code, refreshProps }
+    return {
+      status: 'error',
+      message: state.cities.message,
+      code: state.cities.code,
+      refreshProps
+    }
   } else if (resourceCache.status === 'error') {
-    return { status: 'error', message: resourceCache.message, code: resourceCache.code, refreshProps }
+    return {
+      status: 'error',
+      message: resourceCache.message,
+      code: resourceCache.code,
+      refreshProps
+    }
   } else if (route.status === 'error') {
-    return { status: 'error', message: route.message, code: route.code, refreshProps }
+    return {
+      status: 'error',
+      message: route.message,
+      code: route.code,
+      refreshProps
+    }
   } else if (languages.status === 'error') {
-    return { status: 'error', message: languages.message, code: languages.code, refreshProps }
+    return {
+      status: 'error',
+      message: languages.message,
+      code: languages.code,
+      refreshProps
+    }
   }
 
   if (state.resourceCacheUrl === null || state.cities.status === 'loading' || switchingLanguage ||
@@ -110,21 +130,28 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
 
   const cities = state.cities.models
+  const innerProps = {
+    path: route.path,
+    events: route.models,
+    cities: cities,
+    cityCode: route.city,
+    language: route.language,
+    resourceCache: resourceCache.value,
+    resourceCacheUrl: state.resourceCacheUrl,
+    navigation
+  }
 
-  // $FlowFixMe Flow can't evaluate the status as it is dynamic
-  return {
-    status: route.status === 'loading' ? 'loading' : 'success',
-    refreshProps,
-    innerProps: {
-      path: route.path,
-      events: route.models,
-      cities: cities,
-      cityCode: route.city,
-      language: route.language,
-      resourceCache: resourceCache.value,
-      resourceCacheUrl: state.resourceCacheUrl,
-      navigation
+  if (route.status === 'loading') {
+    return {
+      status: 'loading',
+      refreshProps,
+      innerProps
     }
+  }
+  return {
+    status: 'success',
+    refreshProps,
+    innerProps
   }
 }
 
