@@ -2877,8 +2877,10 @@ anymatch@^3.0.3, anymatch@~3.1.1:
     picomatch "^2.0.4"
 
 "api-client@file:api-client":
-  version "7.0.0"
+  version "7.0.1"
   dependencies:
+    "@babel/polyfill" "^7.8.3"
+    "@babel/runtime" "^7.8.3"
     entities "^2.0.0"
     moment "^2.24"
     moment-timezone "^0.5"
@@ -3846,7 +3848,7 @@ buffers@~0.1.1:
   integrity sha1-skV5w77U1tOWru5tmorn9Ugqt7s=
 
 "build-configs@file:build-configs":
-  version "1.1.0"
+  version "2.0.0"
 
 builtin-status-codes@^3.0.0:
   version "3.0.0"
