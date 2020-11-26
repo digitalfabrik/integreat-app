@@ -22,7 +22,6 @@ const WOHNEN_API_URL = 'https://api.wohnen.integreat-app.de/v0'
 type OwnPropsType = {| navigation: NavigationStackProp<*> |}
 
 type StatePropsType = {|
-  city: string,
   offer: ?OfferModel,
   language: string,
   offerHash: string,
