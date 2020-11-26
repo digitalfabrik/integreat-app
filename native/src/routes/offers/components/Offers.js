@@ -55,17 +55,12 @@ class Offers extends React.Component<PropsType> {
   }
 
   navigateToFeedback = (isPositiveFeedback: boolean) => {
-    const { navigation, offers, cities, cityCode, language } = this.props
-    if (!cityCode || !language) {
-      throw Error('language or cityCode not available')
-    }
-
-    const cityName = CityModel.findCityName(cities, cityCode)
+    const { navigation, offers, cityCode, language } = this.props
 
     const feedbackInformation: FeedbackInformationType = {
       type: 'Offers',
       language,
-      cityName,
+      cityCode,
       offers,
       isPositiveFeedback
     }

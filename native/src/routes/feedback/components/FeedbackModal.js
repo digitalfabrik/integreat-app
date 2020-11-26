@@ -2,7 +2,8 @@
 
 import * as React from 'react'
 import styled from 'styled-components/native'
-import { ActivityIndicator, Picker, ScrollView, TextInput } from 'react-native'
+import { Picker } from '@react-native-community/picker'
+import { ActivityIndicator, ScrollView, TextInput } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { Button } from 'react-native-elements'
 import type { ThemeType } from 'build-configs/ThemeType'

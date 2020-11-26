@@ -67,8 +67,7 @@ class OffersContainer extends React.Component<OffersPropsType, OffersStateType> 
     if (isExternalUrl) {
       this.props.navigation.push('ExternalOffer', { url: path, postData })
     } else {
-      const cityName = CityModel.findCityName(this.props.cities || [], this.props.city)
-      const params = { cityName: cityName, offers: this.state.offers, offerHash: null }
+      const params = { city: this.props.city, offers: this.state.offers, offerHash: null }
       this.props.navigation.push(path, params)
     }
   }

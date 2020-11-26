@@ -2,30 +2,35 @@
 
 import * as React from 'react'
 import type { NavigationLeafRoute, NavigationScreenProp } from 'react-navigation'
+import { connect } from 'react-redux'
+import { type Dispatch } from 'redux'
 import { withTranslation } from 'react-i18next'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import FeedbackModal from '../components/FeedbackModal'
 import FeedbackVariant from '../FeedbackVariant'
 import {
-  CATEGORIES_FEEDBACK_TYPE,
+  CATEGORIES_FEEDBACK_TYPE, CityModel,
   CONTENT_FEEDBACK_CATEGORY,
   createFeedbackEndpoint, DEFAULT_FEEDBACK_LANGUAGE, EVENTS_FEEDBACK_TYPE, INTEGREAT_INSTANCE,
-  OFFER_FEEDBACK_TYPE, OfferModel,
+  OFFER_FEEDBACK_TYPE, OfferModel, OFFERS_FEEDBACK_TYPE,
   PAGE_FEEDBACK_TYPE,
   SEARCH_FEEDBACK_TYPE, TECHNICAL_FEEDBACK_CATEGORY
 } from 'api-client'
 import type { FeedbackParamsType } from 'api-client'
 import determineApiUrl from '../../../modules/endpoint/determineApiUrl'
-import type { ThemeType } from 'build-configs/ThemeType'
 import type { TFunction } from 'react-i18next'
+import type { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
+import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvider'
+import type { StateType } from '../../../modules/app/StateType'
+import createNavigateToFeedbackModal from '../../../modules/app/createNavigateToFeedbackModal'
+import type { StoreActionType } from '../../../modules/app/StoreActionType'
 
 type FeedbackType = 'Category' | 'Event' | 'Pois' | 'Offers' | 'Search' | 'Disclaimer'
 
 export type FeedbackInformationType = {
   type: FeedbackType,
   isPositiveFeedback: boolean,
-  language: string,
-  cityName?: string,
+  cityCode?: string,
   path?: string,
   title?: string,
   feedbackAlias?: string,
@@ -33,26 +38,81 @@ export type FeedbackInformationType = {
   offers?: Array<OfferModel>
 }
 
-export type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
-
-type PropsType = {|
+type ContainerPropsType = {|
   navigation: NavigationScreenProp<{|...NavigationLeafRoute, params: FeedbackInformationType |}>,
-  t: TFunction,
-  theme: ThemeType
+  language: string,
+  dispatch: Dispatch<StoreActionType>,
+  cities: $ReadOnlyArray<CityModel>,
+  t: TFunction
 |}
 
-type StateType = {|
+type OwnPropsType = {|
+  navigation: NavigationScreenProp<{|...NavigationLeafRoute, params: FeedbackInformationType |}>,
+  t: TFunction
+|}
+
+type RefreshPropsType = {|
+  navigation: NavigationScreenProp<{|...NavigationLeafRoute, params: FeedbackInformationType |}>
+|}
+
+type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
+type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
+type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
+
+const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
+  const language = state.contentLanguage
+
+  const refreshProps = {
+    navigation: ownProps.navigation
+  }
+  if (state.cities.status === 'error') {
+    return { status: 'error', message: state.cities.message, code: state.cities.code, refreshProps }
+  }
+
+  if (state.cities.status === 'loading') {
+    return { status: 'loading', progress: 0 }
+  }
+  return {
+    status: 'success',
+    innerProps: {
+      cities: state.cities.models,
+      language,
+      navigation: ownProps.navigation,
+      t: ownProps.t
+    },
+    refreshProps
+  }
+}
+
+const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsType => ({ dispatch })
+
+const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
+  const { navigation } = refreshProps
+  const feedbackInformation = navigation.state.params
+  const navigateToFeedback = createNavigateToFeedbackModal(navigation, dispatch)
+  navigateToFeedback(feedbackInformation)
+}
+
+export type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
+
+type FeedbackModalStateType = {|
   feedbackOptions: Array<FeedbackVariant>,
   selectedFeedbackIndex: number,
   comment: string,
   sendingStatus: SendingStatusType
 |}
 
-class FeedbackModalContainer extends React.Component<PropsType, StateType> {
-  constructor (props: PropsType) {
+class FeedbackModalContainer extends React.Component<ContainerPropsType, FeedbackModalStateType> {
+  constructor (props: ContainerPropsType) {
     super(props)
     const feedbackOptions = this.getFeedbackOptions()
     this.state = { feedbackOptions, selectedFeedbackIndex: 0, comment: '', sendingStatus: 'idle' }
+  }
+
+  getCityName = (): string => {
+    const { cities, navigation } = this.props
+    const cityCode = navigation.getParam('cityCode')
+    return cityCode ? CityModel.findCityName(cities, cityCode) : INTEGREAT_INSTANCE
   }
 
   getFeedbackOptions = (): Array<FeedbackVariant> => {
@@ -83,17 +143,20 @@ class FeedbackModalContainer extends React.Component<PropsType, StateType> {
 
   getContentFeedbackOption = (): ?FeedbackVariant => {
     const { navigation, t } = this.props
-    const cityName = navigation.getParam('cityName')
+    const cityName = this.getCityName()
 
     if (cityName) {
       const label = t('contentOfCity', { city: cityName })
       const feedbackCategory = CONTENT_FEEDBACK_CATEGORY
-
-      return new FeedbackVariant({
-        label,
-        feedbackType: EVENTS_FEEDBACK_TYPE,
-        feedbackCategory
-      })
+      const feedbackType = navigation.getParam('type')
+      switch (feedbackType) {
+        case 'Event':
+          return new FeedbackVariant({ label, feedbackType: EVENTS_FEEDBACK_TYPE, feedbackCategory })
+        case 'Offers':
+          return new FeedbackVariant({ label, feedbackType: OFFERS_FEEDBACK_TYPE, feedbackCategory })
+        default:
+          return new FeedbackVariant({ label, feedbackType: CATEGORIES_FEEDBACK_TYPE, feedbackCategory })
+      }
     }
   }
 
@@ -162,18 +225,19 @@ class FeedbackModalContainer extends React.Component<PropsType, StateType> {
   }
 
   getFeedbackData = (selectedFeedbackOption: FeedbackVariant, comment: string): FeedbackParamsType => {
-    const { navigation } = this.props
+    const { navigation, language } = this.props
     const feedbackInformation = navigation.state.params
     const isOfferOptionSelected = selectedFeedbackOption.feedbackType === OFFER_FEEDBACK_TYPE
     const alias = feedbackInformation.feedbackAlias || (isOfferOptionSelected && selectedFeedbackOption.alias) || ''
+    const city = this.getCityName().toLocaleLowerCase(language)
 
     return {
       feedbackType: selectedFeedbackOption.feedbackType,
       feedbackCategory: selectedFeedbackOption.feedbackCategory,
       isPositiveRating: navigation.getParam('isPositiveFeedback'),
       permalink: feedbackInformation.path,
-      city: feedbackInformation.cityName || INTEGREAT_INSTANCE,
-      language: feedbackInformation.language || DEFAULT_FEEDBACK_LANGUAGE,
+      city,
+      language: language || DEFAULT_FEEDBACK_LANGUAGE,
       query: feedbackInformation.query,
       comment,
       alias
@@ -194,6 +258,7 @@ class FeedbackModalContainer extends React.Component<PropsType, StateType> {
     try {
       const apiUrl = await determineApiUrl()
       const feedbackEndpoint = createFeedbackEndpoint(apiUrl)
+      console.log(feedbackEndpoint.request)
       await feedbackEndpoint.request(feedbackData)
       this.setState({ sendingStatus: 'successful' })
     } catch (e) {
@@ -203,11 +268,11 @@ class FeedbackModalContainer extends React.Component<PropsType, StateType> {
   }
 
   render () {
-    const { navigation, theme, t } = this.props
+    const { navigation } = this.props
     const { comment, selectedFeedbackIndex, feedbackOptions, sendingStatus } = this.state
     const { isPositiveFeedback } = navigation.state.params
 
-    return <FeedbackModal closeModal={this.closeModal}
+    return <ThemedTranslatedFeedbackModal closeModal={this.closeModal}
                           comment={comment}
                           selectedFeedbackIndex={selectedFeedbackIndex}
                           sendingStatus={sendingStatus}
@@ -215,9 +280,20 @@ class FeedbackModalContainer extends React.Component<PropsType, StateType> {
                           onCommentChanged={this.onFeedbackCommentChanged}
                           onFeedbackOptionChanged={this.onFeedbackOptionChanged}
                           isPositiveFeedback={isPositiveFeedback}
-                          onSubmit={this.handleSubmit}
-                          theme={theme} t={t} />
+                          onSubmit={this.handleSubmit} />
   }
 }
 
-export default withTranslation('feedback')(withTheme(FeedbackModalContainer))
+const ThemedTranslatedFeedbackModal = withTheme(
+  withTranslation('feedback')(FeedbackModal)
+)
+
+const ThemedTranslatedFeedbackContainer = withTranslation('feedback')(
+  withTheme(FeedbackModalContainer)
+)
+
+export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
+  withPayloadProvider<ContainerPropsType, RefreshPropsType>(refresh)(
+    ThemedTranslatedFeedbackContainer
+  )
+)

@@ -16,6 +16,7 @@ import { LOADING_TIMEOUT } from '../../modules/common/constants'
 import determineApiUrl from '../../modules/endpoint/determineApiUrl'
 import type { FeedbackInformationType } from '../feedback/containers/FeedbackModalContainer'
 import SiteHelpfulBox from '../../modules/common/components/SiteHelpfulBox'
+import createNavigateToFeedbackModal from '../../modules/app/createNavigateToFeedbackModal'
 
 type OwnPropsType = {| navigation: NavigationStackProp<*> |}
 
@@ -56,12 +57,12 @@ class DisclaimerContainer extends React.Component<DisclaimerPropsType, Disclaime
   }
 
   navigateToFeedback = (isPositiveFeedback: boolean) => {
-    const { navigation, language } = this.props
+    const { navigation, city } = this.props
     const feedbackInformation: FeedbackInformationType = {
       type: 'Disclaimer',
-      cityName: navigation.getParam('cityName'),
-      language,
-      isPositiveFeedback
+      cityCode: city,
+      isPositiveFeedback,
+      path: this.state.disclaimer?.path
     }
 
     navigation.navigate('FeedbackModal', { ...feedbackInformation })

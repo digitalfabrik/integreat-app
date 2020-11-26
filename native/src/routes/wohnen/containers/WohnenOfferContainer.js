@@ -15,7 +15,6 @@ import FailureContainer from '../../../modules/error/containers/FailureContainer
 import { LOADING_TIMEOUT } from '../../../modules/common/constants'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
 import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
-import type { FeedbackInformationType } from '../../feedback/containers/FeedbackModalContainer'
 
 const WOHNEN_API_URL = 'https://api.wohnen.integreat-app.de/v0'
 
@@ -32,12 +31,11 @@ type StatePropsType = {|
 type PropsType = { ...OwnPropsType, ...StatePropsType }
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
-  const cityName: string = ownProps.navigation.getParam('cityName')
+  const cityCode: string = ownProps.navigation.getParam('city')
   const offers: Array<OfferModel> = ownProps.navigation.getParam('offers')
   const offerHash: string = ownProps.navigation.getParam('offerHash')
 
   const offer: ?OfferModel = offers.find(offer => offer.alias === WOHNEN_OFFER)
-  const language = state.contentLanguage
 
   const navigateToOffer = (offerHash: string) => {
     const params = { offerHash: offerHash, offers: offers }
@@ -47,13 +45,12 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
 
   const navigateToFeedback = (isPositiveFeedback: boolean) => {
-    const feedbackInformation: FeedbackInformationType = {
+    const feedbackInformation = {
       type: 'Offers',
-      cityName: cityName,
+      cityCode,
       title: offer?.title,
       feedbackAlias: offer?.alias,
       path: offer?.path,
-      language,
       isPositiveFeedback
     }
 
