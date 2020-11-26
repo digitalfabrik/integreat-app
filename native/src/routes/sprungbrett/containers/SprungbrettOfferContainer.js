@@ -59,13 +59,14 @@ class SprungbrettOfferContainer extends React.Component<SprungbrettPropsType, Sp
   }
 
   navigateToFeedback = (isPositiveFeedback: boolean) => {
-    const { navigation, offer } = this.props
+    const { navigation, offer, language } = this.props
     const feedbackInformation: FeedbackInformationType = {
       type: 'Offers',
       cityCode: navigation.getParam('city'),
       title: offer?.title,
       feedbackAlias: offer?.alias,
       path: offer?.path,
+      language,
       isPositiveFeedback
     }
 

@@ -51,6 +51,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       title: offer?.title,
       feedbackAlias: offer?.alias,
       path: offer?.path,
+      language: state.contentLanguage,
       isPositiveFeedback
     }
 

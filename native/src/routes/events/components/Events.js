@@ -23,7 +23,6 @@ import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
 import type { FeedbackInformationType } from '../../feedback/containers/FeedbackModalContainer'
-import createNavigateToFeedbackModal from '../../../modules/app/createNavigateToFeedbackModal'
 
 export type PropsType = {|
   path: ?string,
@@ -58,14 +57,14 @@ class Events extends React.Component<PropsType> {
   }
 
   createNavigateToFeedbackForEvent = (event: EventModel) => (isPositiveFeedback: boolean) => {
-    const { navigation, cityCode } = this.props
-
+    const { navigation, cityCode, language } = this.props
 
     const feedbackInformation: FeedbackInformationType = {
       type: 'Event',
       title: event.title,
       path: event.path,
       cityCode,
+      language,
       isPositiveFeedback
     }
 
@@ -73,12 +72,12 @@ class Events extends React.Component<PropsType> {
   }
 
   navigateToFeedbackForEvents = (isPositiveFeedback: boolean) => {
-    const { navigation, cityCode } = this.props
-
+    const { navigation, cityCode, language } = this.props
 
     const feedbackInformation: FeedbackInformationType = {
       type: 'Event',
       cityCode,
+      language,
       isPositiveFeedback
     }
 

@@ -86,7 +86,7 @@ class CityModel {
     return this._aliases
   }
 
-  static findCityName (cities: Array<CityModel>, code: string): string {
+  static findCityName (cities: $ReadOnlyArray<CityModel>, code: string): string {
     const city = cities.find(city => city.code === code)
     return city ? city.name : code
   }

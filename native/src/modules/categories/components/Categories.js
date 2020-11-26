@@ -154,7 +154,7 @@ class Categories extends React.Component<PropsType> {
                  onTilePress={this.onTilePress}
                  theme={theme} />
         </View>
-        <SiteHelpfulBox navigateToFeedback={this.navigateToFeedback} theme={theme} t={t} />
+        <SiteHelpfulBox navigateToFeedback={this.navigateToFeedback} theme={theme} />
       </SpaceBetween>
     }
     // some level between, we want to display a list
@@ -177,7 +177,7 @@ class Categories extends React.Component<PropsType> {
           onItemPress={this.onItemPress}
           theme={theme} />
       </View>
-      <SiteHelpfulBox navigateToFeedback={this.navigateToFeedback} theme={theme} t={t} />
+      <SiteHelpfulBox navigateToFeedback={this.navigateToFeedback} theme={theme} />
       </SpaceBetween>
     )
   }
