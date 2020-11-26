@@ -59,14 +59,14 @@ class Events extends React.Component<PropsType> {
   createNavigateToFeedbackForEvent = (event: EventModel) => (isPositiveFeedback: boolean) => {
     const { navigation, cities, cityCode, language } = this.props
 
-    const cityTitle = CityModel.findCityName(cities, cityCode)
+    const cityName = CityModel.findCityName(cities, cityCode)
 
     const feedbackInformation: FeedbackInformationType = {
       type: 'Event',
       language,
       title: event.title,
-      cityTitle: cityTitle,
       path: event.path,
+      cityName,
       isPositiveFeedback
     }
 
@@ -76,12 +76,12 @@ class Events extends React.Component<PropsType> {
   navigateToFeedbackForEvents = (isPositiveFeedback: boolean) => {
     const { navigation, cities, cityCode, language } = this.props
 
-    const cityTitle = CityModel.findCityName(cities, cityCode)
+    const cityName = CityModel.findCityName(cities, cityCode)
 
     const feedbackInformation: FeedbackInformationType = {
       type: 'Event',
       language,
-      cityTitle: cityTitle,
+      cityName,
       isPositiveFeedback
     }
 

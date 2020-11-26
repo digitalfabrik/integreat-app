@@ -60,12 +60,12 @@ class Offers extends React.Component<PropsType> {
       throw Error('language or cityCode not available')
     }
 
-    const cityTitle = CityModel.findCityName(cities, cityCode)
+    const cityName = CityModel.findCityName(cities, cityCode)
 
     const feedbackInformation: FeedbackInformationType = {
       type: 'Offers',
       language,
-      cityTitle: cityTitle,
+      cityName,
       offers,
       isPositiveFeedback
     }

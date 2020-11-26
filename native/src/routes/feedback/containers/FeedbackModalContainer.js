@@ -24,8 +24,8 @@ type FeedbackType = 'Category' | 'Event' | 'Pois' | 'Offers' | 'Search' | 'Discl
 export type FeedbackInformationType = {
   type: FeedbackType,
   isPositiveFeedback: boolean,
-  language?: string,
-  cityTitle?: string,
+  language: string,
+  cityName?: string,
   path?: string,
   title?: string,
   feedbackAlias?: string,
@@ -83,10 +83,10 @@ class FeedbackModalContainer extends React.Component<PropsType, StateType> {
 
   getContentFeedbackOption = (): ?FeedbackVariant => {
     const { navigation, t } = this.props
-    const cityTitle = navigation.getParam('cityTitle')
+    const cityName = navigation.getParam('cityName')
 
-    if (cityTitle) {
-      const label = t('contentOfCity', { city: cityTitle })
+    if (cityName) {
+      const label = t('contentOfCity', { city: cityName })
       const feedbackCategory = CONTENT_FEEDBACK_CATEGORY
 
       return new FeedbackVariant({
@@ -103,7 +103,7 @@ class FeedbackModalContainer extends React.Component<PropsType, StateType> {
     if (offers) {
       return offers.map(offer =>
         new FeedbackVariant({
-          label: t('contentOfOffer', { offer: offer.title}),
+          label: t('contentOfOffer', { offer: offer.title }),
           feedbackType: OFFER_FEEDBACK_TYPE,
           feedbackCategory: CONTENT_FEEDBACK_CATEGORY,
           alias: offer.alias
@@ -172,7 +172,7 @@ class FeedbackModalContainer extends React.Component<PropsType, StateType> {
       feedbackCategory: selectedFeedbackOption.feedbackCategory,
       isPositiveRating: navigation.getParam('isPositiveFeedback'),
       permalink: feedbackInformation.path,
-      city: feedbackInformation.cityTitle || INTEGREAT_INSTANCE,
+      city: feedbackInformation.cityName || INTEGREAT_INSTANCE,
       language: feedbackInformation.language || DEFAULT_FEEDBACK_LANGUAGE,
       query: feedbackInformation.query,
       comment,

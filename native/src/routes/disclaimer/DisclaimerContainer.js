@@ -14,6 +14,8 @@ import type { StoreActionType } from '../../modules/app/StoreActionType'
 import { RefreshControl, ScrollView } from 'react-native'
 import { LOADING_TIMEOUT } from '../../modules/common/constants'
 import determineApiUrl from '../../modules/endpoint/determineApiUrl'
+import type { FeedbackInformationType } from '../feedback/containers/FeedbackModalContainer'
+import SiteHelpfulBox from '../../modules/common/components/SiteHelpfulBox'
 
 type OwnPropsType = {| navigation: NavigationStackProp<*> |}
 
@@ -51,6 +53,18 @@ class DisclaimerContainer extends React.Component<DisclaimerPropsType, Disclaime
   constructor (props: DisclaimerPropsType) {
     super(props)
     this.state = { disclaimer: null, error: null, timeoutExpired: false }
+  }
+
+  navigateToFeedback = (isPositiveFeedback: boolean) => {
+    const { navigation, language } = this.props
+    const feedbackInformation: FeedbackInformationType = {
+      type: 'Disclaimer',
+      cityName: navigation.getParam('cityName'),
+      language,
+      isPositiveFeedback
+    }
+
+    navigation.navigate('FeedbackModal', { ...feedbackInformation })
   }
 
   componentDidMount () {
@@ -96,7 +110,13 @@ class DisclaimerContainer extends React.Component<DisclaimerPropsType, Disclaime
 
     return <ScrollView refreshControl={<RefreshControl onRefresh={this.loadDisclaimer} refreshing={false} />}
                        contentContainerStyle={{ flexGrow: 1 }}>
-      <Disclaimer resourceCacheUrl={resourceCacheUrl} disclaimer={disclaimer} theme={theme} navigation={navigation} city={city} language={language} />
+      <Disclaimer resourceCacheUrl={resourceCacheUrl}
+                  disclaimer={disclaimer}
+                  theme={theme}
+                  navigation={navigation}
+                  city={city}
+                  language={language} />
+      <SiteHelpfulBox navigateToFeedback={this.navigateToFeedback} theme={theme} />
     </ScrollView>
   }
 }

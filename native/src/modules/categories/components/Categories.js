@@ -56,17 +56,13 @@ class Categories extends React.Component<PropsType> {
 
   navigateToFeedback = (isPositiveFeedback: boolean) => {
     const { navigation, stateView, cities, cityCode, language } = this.props
-    if (!cityCode || !language) {
-      throw Error('language or cityCode not available')
-    }
-
-    const cityTitle = CityModel.findCityName(cities, cityCode)
+    const cityName = CityModel.findCityName(cities, cityCode)
     const category = stateView.root()
 
     const feedbackInformation: FeedbackInformationType = {
       type: 'Category',
       language,
-      cityTitle: cityTitle,
+      cityName,
       title: !category.isRoot() ? category.title : undefined,
       path: !category.isRoot() ? category.path : undefined,
       isPositiveFeedback
