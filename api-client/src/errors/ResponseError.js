@@ -33,10 +33,12 @@ class ResponseError extends Error {
   }
 
   createMessage ({ requestOptions, url, endpointName, response }: ResponseErrorParamsType): string {
+    // This is a react-native FormData
+    // https://github.com/facebook/react-native/blob/master/Libraries/Network/FormData.js#
     const stringifyFormData = (formData: FormData) => {
       const entries = {}
-      for (const [key, value] of formData.entries()) {
-        entries[key] = value
+      for (const part of formData.getParts()) {
+        entries[part.fieldName] = part.string
       }
 
       return ` and the formData ${JSON.stringify(entries)}`
