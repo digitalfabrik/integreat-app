@@ -21,6 +21,7 @@ import { LOADING_TIMEOUT } from '../../../modules/common/constants'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
 import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
 import type { FeedbackInformationType } from '../../feedback/containers/FeedbackModalContainer'
+import createNavigateToFeedbackModal from '../../../modules/app/createNavigateToFeedbackModal'
 
 type OwnPropsType = {| navigation: NavigationStackProp<*> |}
 
@@ -58,14 +59,13 @@ class SprungbrettOfferContainer extends React.Component<SprungbrettPropsType, Sp
   }
 
   navigateToFeedback = (isPositiveFeedback: boolean) => {
-    const { navigation, offer, language } = this.props
+    const { navigation, offer } = this.props
     const feedbackInformation: FeedbackInformationType = {
       type: 'Offers',
-      cityName: navigation.getParam('cityName'),
+      cityCode: navigation.getParam('city'),
       title: offer?.title,
       feedbackAlias: offer?.alias,
       path: offer?.path,
-      language,
       isPositiveFeedback
     }
 

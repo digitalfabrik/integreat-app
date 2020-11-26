@@ -123,8 +123,7 @@ class Header extends React.PureComponent<PropsType> {
   }
 
   goToDisclaimer = () => {
-    const cityName = this.props.routeCityModel?.name
-    this.props.navigation.navigate('Disclaimer', { cityName })
+    this.props.navigation.navigate('Disclaimer')
   }
 
   cityDisplayName = (cityModel: CityModel) => {
