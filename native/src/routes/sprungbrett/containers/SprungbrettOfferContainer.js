@@ -7,7 +7,6 @@ import SprungbrettOffer from '../components/SprungbrettOffer'
 import { connect } from 'react-redux'
 import type { StateType } from '../../../modules/app/StateType'
 import {
-  CityModel,
   createSprungbrettJobsEndpoint,
   OfferModel,
   Payload,
@@ -25,16 +24,13 @@ import type { FeedbackInformationType } from '../../feedback/containers/Feedback
 
 type OwnPropsType = {| navigation: NavigationStackProp<*> |}
 
-type StatePropsType = {| offer: ?OfferModel, language: string, cities: $ReadOnlyArray<CityModel> |}
+type StatePropsType = {| offer: ?OfferModel, language: string |}
 
 type PropsType = { ...OwnPropsType, ...StatePropsType }
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const offers: Array<OfferModel> = ownProps.navigation.getParam('offers')
-  // prevent re-rendering when city is not there.
-  const cities = state.cities.models || []
   return {
-    cities,
     language: state.contentLanguage,
     offer: offers.find(offer => offer.alias === SPRUNGBRETT_OFFER)
   }
@@ -43,7 +39,6 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 type SprungbrettPropsType = {|
   navigation: NavigationStackProp<*>,
   offer: ?OfferModel,
-  cities: Array<CityModel>,
   language: string,
   theme: ThemeType,
   t: TFunction
@@ -63,20 +58,10 @@ class SprungbrettOfferContainer extends React.Component<SprungbrettPropsType, Sp
   }
 
   navigateToFeedback = (isPositiveFeedback: boolean) => {
-    const { navigation, offer, cities, language } = this.props
-    const cityCode: string = navigation.getParam('city')
-    if (!cityCode || !language) {
-      throw Error('language or cityCode not available')
-    }
-
-    const cityTitle = CityModel.findCityName(cities, cityCode)
-    if (!language) {
-      throw Error('language not available')
-    }
-
+    const { navigation, offer, language } = this.props
     const feedbackInformation: FeedbackInformationType = {
       type: 'Offers',
-      cityTitle,
+      cityName: navigation.getParam('cityName'),
       title: offer?.title,
       feedbackAlias: offer?.alias,
       path: offer?.path,
