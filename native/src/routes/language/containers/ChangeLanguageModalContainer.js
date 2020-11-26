@@ -33,7 +33,8 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   const previousKey = ownProps.navigation.getParam('previousKey')
 
   const newsRouteMapping = state.cityContent?.newsRouteMapping
-  const newsType = previousKey && newsRouteMapping && newsRouteMapping[previousKey] && newsRouteMapping[previousKey].type
+  const newsType =
+    previousKey && newsRouteMapping && newsRouteMapping[previousKey] && newsRouteMapping[previousKey].type
 
   return {
     currentLanguage,

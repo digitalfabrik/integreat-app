@@ -57,20 +57,14 @@ export type PoiRouteConfigType = {|
   +city: string
 |}
 
-// eslint-disable-next-line flowtype/type-id-match
-type LanguageKey = string
-// eslint-disable-next-line flowtype/type-id-match
-type Path = ?string // Path can be falsy if the current displayed view is a list of events or POIs
-type AllAvailableLanguagesType = $ReadOnlyMap<LanguageKey, Path>
 export type PoiRouteStateType = {|
   +status: 'ready',
   ...PoiRouteConfigType,
   +models: $ReadOnlyArray<PoiModel>,
-  +allAvailableLanguages: AllAvailableLanguagesType // including the current content language
+  +allAvailableLanguages: $ReadOnlyMap<string, ?string> // including the current content language
 |} | {|
   +status: 'languageNotAvailable',
-  +language: string,
-  +city: string,
+  ...PoiRouteConfigType,
   +allAvailableLanguages: $ReadOnlyMap<string, ?string>
 |} | {|
   +status: 'loading',
@@ -95,8 +89,7 @@ export type EventRouteStateType = {|
   +allAvailableLanguages: $ReadOnlyMap<string, ?string> // including the current content language
 |} | {|
   +status: 'languageNotAvailable',
-  +language: string,
-  +city: string,
+  ...EventRouteConfigType,
   +allAvailableLanguages: $ReadOnlyMap<string, ?string>
 |} | {|
   +status: 'loading',
@@ -167,6 +160,7 @@ export type ResourceCacheStateType = {|
   +message: ?string
 |} | {|
   +status: 'ready',
+  +progress: number,
   +value: LanguageResourceCacheStateType
 |}
 

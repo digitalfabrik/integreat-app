@@ -1,3 +1,5 @@
+import { JSDOM } from 'jsdom' // jsdom is included in jest and therefore shouldn't be added as dev dependency
+
 const fs = require('fs')
 const path = require('path')
 require('react-native-gesture-handler/jestSetup')
@@ -12,8 +14,12 @@ if (typeof window !== 'object') {
 global.fetch = require('jest-fetch-mock')
 jest.mock('rn-fetch-blob')
 
-// FormData is not part of the jest react-native preset: https://github.com/jefflau/jest-fetch-mock/issues/23
-global.FormData = require('testing/FormDataMock.js')
+// We polyfill FormData here because react-native uses 'node' as 'testEnvironment' option in jest:
+// https://jestjs.io/docs/en/configuration#testenvironment-string
+// Importing it from jsdom allows us to import stuff selectively
+const jsdom = new JSDOM()
+const { FormData } = jsdom.window
+global.FormData = FormData
 
 function walkDir (dir, callback) {
   fs.readdirSync(dir).forEach(f => {

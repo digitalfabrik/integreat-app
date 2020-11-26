@@ -38,7 +38,7 @@ describe('pushNews', () => {
           type: LOCAL_NEWS
         }
       },
-      resourceCache: { status: 'ready', value: { files: {} } },
+      resourceCache: { status: 'ready', progress: 1, value: { files: {} } },
       languages: { status: 'ready', models: languageModels },
       searchRoute: null,
       switchingLanguage: false

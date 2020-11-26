@@ -11,7 +11,12 @@ import type { Dispatch } from 'redux'
 
 export type NavigateToInternalLinkParamsType = {| url: string, language: string |}
 
-export const createNavigateToInternalLink = ({ navigateToLanding, navigateToEvent, navigateToCategory, navigateToDashboard }: {
+export const createNavigateToInternalLink = ({
+  navigateToLanding,
+  navigateToEvent,
+  navigateToCategory,
+  navigateToDashboard
+}: {
   navigateToLanding: () => void,
   navigateToEvent: NavigateToEventParamsType => void,
   navigateToCategory: NavigateToCategoryParamsType => void,
