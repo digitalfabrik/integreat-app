@@ -12,7 +12,7 @@ const createCityContent = (city: string, languages: ?Array<LanguageModel>): City
     eventsRouteMapping: {},
     poisRouteMapping: {},
     newsRouteMapping: {},
-    resourceCache: { status: 'ready', value: {} },
+    resourceCache: { status: 'ready', progress: 0, value: {} },
     searchRoute: null
   }
 }

@@ -141,9 +141,8 @@ www/workbox-sw.prod.v*.js.map
 # VPN config
 /build/deploy/openconnect.*.config
 
-# Jest testing
-/__coverage__/
-junit.xml
+# JUnit output
+reports/
 
 # CI
 www.tar.gz

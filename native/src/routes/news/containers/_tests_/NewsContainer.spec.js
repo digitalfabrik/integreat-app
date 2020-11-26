@@ -72,6 +72,7 @@ describe('News', () => {
         searchRoute: null,
         resourceCache: {
           status: 'ready',
+          progress: 0,
           value: { file: {} }
         }
       },

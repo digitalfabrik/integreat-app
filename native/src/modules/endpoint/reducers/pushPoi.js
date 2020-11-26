@@ -40,7 +40,7 @@ const pushPoi = (state: CityContentStateType, action: PushPoiActionType): CityCo
   return {
     ...state,
     poisRouteMapping: { ...state.poisRouteMapping, [key]: getPoiRoute() },
-    resourceCache: { status: 'ready', value: newResourceCache }
+    resourceCache: { status: 'ready', progress: 1, value: newResourceCache }
   }
 }
 

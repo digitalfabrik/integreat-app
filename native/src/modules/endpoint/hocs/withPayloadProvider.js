@@ -16,6 +16,7 @@ import wrapDisplayName from '../../common/hocs/wrapDisplayName'
 export type RouteNotInitializedType = {| status: 'routeNotInitialized' |}
 export type LoadingType<S: {}, R: {}> = {|
   status: 'loading',
+  progress: number,
   innerProps?: S,
   refreshProps?: R
 |}
@@ -103,6 +104,7 @@ const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R: {}> 
           return <LanguageNotAvailableContainer languages={props.availableLanguages}
                                                 changeLanguage={this.changeUnavailableLanguage} />
         } else if (props.status === 'loading') {
+          console.log('render loading', props.progress)
           return this.state.timeoutExpired
             ? <ScrollView refreshControl={<RefreshControl refreshing />} contentContainerStyle={{ flexGrow: 1 }}
                         keyboardShouldPersistTaps='always'>
