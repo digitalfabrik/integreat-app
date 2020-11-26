@@ -31,7 +31,8 @@ class DateModel {
    * @return {String} The formatted span string
    */
   toFormattedString (locale: string): string {
-    this._startDate.locale(locale)
+    // TODO IGAPP-399: Use passed locale again instead of hardcoded 'en'
+    this._startDate.locale('en')
 
     // if allDay: only date, else: date + time
     let span = this._allDay ? this._startDate.format('LL') : this._startDate.format('LLL')
@@ -39,7 +40,8 @@ class DateModel {
     if (this._endDate.isValid() && !this._startDate.isSame(this._endDate)) {
       // endDate is valid and different from startDate
 
-      this._endDate.locale(locale)
+      // TODO IGAPP-399: Use passed locale again instead of hardcoded 'en'
+      this._endDate.locale('en')
       if (this._startDate.isSame(this._endDate, 'day')) {
         // startDate and endDate are on the same day
 

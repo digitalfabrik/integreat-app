@@ -2877,7 +2877,7 @@ anymatch@^3.0.3, anymatch@~3.1.1:
     picomatch "^2.0.4"
 
 "api-client@file:api-client":
-  version "7.0.0"
+  version "7.0.1"
   dependencies:
     "@babel/polyfill" "^7.8.3"
     "@babel/runtime" "^7.8.3"
