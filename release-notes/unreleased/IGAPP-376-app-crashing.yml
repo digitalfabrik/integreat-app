@@ -1,0 +1,7 @@
+issue_key: IGAPP-376
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: Fix app crashes. We are sorry for any inconveniences!
+de: Abstürzen der App wurde behoben. Wir entschuldigen uns für entstandene Probleme!
