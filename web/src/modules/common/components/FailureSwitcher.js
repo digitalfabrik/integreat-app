@@ -34,11 +34,11 @@ export class FailureSwitcher extends React.Component<PropsType> {
       case 'localNews':
         return <Failure goToPath={new LocalNewsRouteConfig().getRoutePath({ city, language })}
                         goToMessage='goTo.localNews'
-                        errorMessage='notFound.localNewsItem' />
+                        errorMessage='notFound.localNews' />
       case 'tunews':
         return <Failure goToPath={new TunewsRouteConfig().getRoutePath({ city, language })}
                         goToMessage='goTo.tunews'
-                        errorMessage='notFound.tunewsItem' />
+                        errorMessage='notFound.tunews' />
       case 'offer':
         return <Failure goToPath={new OffersRouteConfig().getRoutePath({ city, language })}
                         goToMessage='goTo.offers'

@@ -486,7 +486,9 @@
         "category": "Diese Seite wurde leider nicht gefunden.",
         "event": "Dieses Event wurde leider nicht gefunden.",
         "offer": "Dieses Angebot wurde leider nicht gefunden.",
-        "poi": "Dieser Point of Interest wurde leider nicht gefunden."
+        "poi": "Dieser Point of Interest wurde leider nicht gefunden.",
+        "localNews": "Diese Nachricht wurde leider nicht gefunden.",
+        "tunews": "Diese tünews wurde leider nicht gefunden."
       },
       "pageNotFound": "Diese Seite wurde leider nicht gefunden.",
       "networkConnectionFailed": "Die Verbindung zum Server ist fehlgeschlagen.",
@@ -500,7 +502,10 @@
         "start": "Zur Startseite",
         "categories": "Zu den Kategorien",
         "events": "Zu den Veranstaltungen",
-        "offers": "Zu den Angeboten"
+        "offers": "Zu den Angeboten",
+        "pois": "Zu den Points of Interest",
+        "localNews": "Zu den Nachrichten",
+        "tunews": "Zu den tünews"
       },
       "pageTitle": "Fehler",
       "generalError": "Ein Fehler ist aufgetreten",
