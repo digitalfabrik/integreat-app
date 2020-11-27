@@ -5,7 +5,7 @@ import type { JsonTunewsType } from '../types'
 import TunewsModel from '../models/TunewsModel'
 import moment from 'moment-timezone'
 import Endpoint from '../Endpoint'
-import { NotFoundError } from '../index'
+import NotFoundError from '../errors/NotFoundError'
 
 export const TUNEWS_ELEMENT_ENDPOINT_NAME = 'tunewsElement'
 
