@@ -2,7 +2,7 @@
 
 exports[`PoisPage should render a Failure if poi is invalid 1`] = `
 <FailureSwitcher
-  error={[Error: The poi invalid_poi does not exist here.]}
+  error={[NotFoundError: The poi invalid_poi does not exist here.]}
 />
 `;
 
