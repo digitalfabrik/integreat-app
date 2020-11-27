@@ -8,7 +8,7 @@ import type {
   WebBuildConfigType
 } from '../BuildConfigType'
 import { INTEGREAT_ASSETS } from '../AssetsType'
-import mainImprint from './assets/mainImprint'
+import mainImprint from './mainImprint'
 
 const APPLE_APP_ID = '1072353915'
 
