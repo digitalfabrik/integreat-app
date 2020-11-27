@@ -1,11 +1,11 @@
 // @flow
 
-type NotFoundType = 'category' | 'event' | 'poi' | 'offer' | 'news'
+type NotFoundType = 'category' | 'event' | 'poi' | 'offer' | 'news' | 'disclaimer'
 
 const getMessage = (type: NotFoundType, id: string): string =>
   `The ${type} ${id} does not exist here.`
 
-class ContentNotFoundError extends Error {
+class NotFoundError extends Error {
   _type: NotFoundType
   _id: string | number
   _city: string
@@ -15,10 +15,10 @@ class ContentNotFoundError extends Error {
     super(getMessage(params.type, params.id))
 
     if (Error.captureStackTrace) {
-      Error.captureStackTrace(this, ContentNotFoundError)
+      Error.captureStackTrace(this, NotFoundError)
     }
 
-    this.name = 'ContentNotFoundError'
+    this.name = 'NotFoundError'
     this._type = params.type
     this._id = params.id
     this._city = params.city
@@ -42,4 +42,4 @@ class ContentNotFoundError extends Error {
   }
 }
 
-export default ContentNotFoundError
+export default NotFoundError
