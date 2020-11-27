@@ -129,6 +129,6 @@ exports[`EventsPage should match snapshot and render EventList 1`] = `
 
 exports[`EventsPage should match snapshot and render Failure if event does not exist 1`] = `
 <FailureSwitcher
-  error={[Error: The event invalid_event does not exist here.]}
+  error={[NotFoundError: The event invalid_event does not exist here.]}
 />
 `;
