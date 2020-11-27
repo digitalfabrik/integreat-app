@@ -9,7 +9,7 @@ import { NotFoundError } from '../index'
 
 export const TUNEWS_ELEMENT_ENDPOINT_NAME = 'tunewsElement'
 
-type ParamsType = { id: number }
+type ParamsType = {| city: string, language: string, id: number |}
 
 export default (baseUrl: string): Endpoint<ParamsType, TunewsModel> => new EndpointBuilder(TUNEWS_ELEMENT_ENDPOINT_NAME)
   .withParamsToUrlMapper((params: ParamsType): string =>
@@ -18,7 +18,7 @@ export default (baseUrl: string): Endpoint<ParamsType, TunewsModel> => new Endpo
   .withMapper((json: JsonTunewsType | Array<void>, params: ParamsType): TunewsModel => {
     // The api is not good and returns an empty array if the tunews does not exist
     if (Array.isArray(json)) {
-      throw new NotFoundError({ type: 'tunews', id: params.id.toString(), city: '', language: '' })
+      throw new NotFoundError({ ...params, type: 'tunews', id: params.id.toString() })
     }
 
     return new TunewsModel({
