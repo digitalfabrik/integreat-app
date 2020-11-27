@@ -3,7 +3,7 @@
 import React from 'react'
 import { mount } from 'enzyme'
 import { FailureSwitcher } from '../FailureSwitcher'
-import ContentNotFoundError from '../../errors/ContentNotFoundError'
+import { NotFoundError } from 'api-client'
 import { Failure } from '../Failure'
 
 describe('FailureSwitcher', () => {
@@ -22,13 +22,13 @@ describe('FailureSwitcher', () => {
     `('render $type component not found failure',
   ({ type, id }) => {
     it(`should render a ${type} not found failure and match snapshot`, () => {
-      const error = new ContentNotFoundError({ type, id, language, city })
+      const error = new NotFoundError({ type, id, language, city })
       const component = FailureSwitcher.renderContentNotFoundComponent(error)
       expect(component).toMatchSnapshot()
     })
 
     it('should call render content not found component and create a Failure component', () => {
-      const error = new ContentNotFoundError({ type, id, language, city })
+      const error = new NotFoundError({ type, id, language, city })
       const spy = jest.spyOn(FailureSwitcher, 'renderContentNotFoundComponent')
       const component = mount(<FailureSwitcher error={error} />)
       expect(spy).toHaveBeenCalledWith(error)
