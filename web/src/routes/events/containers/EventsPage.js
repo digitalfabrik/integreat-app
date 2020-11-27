@@ -2,10 +2,8 @@
 
 import * as React from 'react'
 import { connect } from 'react-redux'
-
-import { CityModel, EventModel } from 'api-client'
+import { CityModel, EventModel, NotFoundError } from 'api-client'
 import Page, { THUMBNAIL_WIDTH } from '../../../modules/common/components/Page'
-import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
@@ -65,7 +63,7 @@ export class EventsPage extends React.Component<PropsType> {
           </Page>
         </>
       } else {
-        const error = new ContentNotFoundError({ type: 'event', id: eventId, city, language })
+        const error = new NotFoundError({ type: 'event', id: eventId, city, language })
         return <FailureSwitcher error={error} />
       }
     }

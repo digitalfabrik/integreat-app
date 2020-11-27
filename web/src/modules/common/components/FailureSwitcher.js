@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import ContentNotFoundError from '../errors/ContentNotFoundError'
+import { NotFoundError } from 'api-client'
 import Failure from './Failure'
 import CategoriesRouteConfig from '../../app/route-configs/CategoriesRouteConfig'
 import EventsRouteConfig from '../../app/route-configs/EventsRouteConfig'
@@ -20,7 +20,7 @@ export class FailureSwitcher extends React.Component<PropsType> {
    * @param error
    * @return {*}
    */
-  static renderContentNotFoundComponent (error: ContentNotFoundError): React.Node {
+  static renderContentNotFoundComponent (error: NotFoundError): React.Node {
     const { city, language } = error
     switch (error.type) {
       case 'category':
@@ -31,11 +31,11 @@ export class FailureSwitcher extends React.Component<PropsType> {
         return <Failure goToPath={new EventsRouteConfig().getRoutePath({ city, language })}
                         goToMessage='goTo.events'
                         errorMessage='notFound.event' />
-      case 'localNewsItem':
+      case 'localNews':
         return <Failure goToPath={new LocalNewsRouteConfig().getRoutePath({ city, language })}
                         goToMessage='goTo.localNews'
                         errorMessage='notFound.localNewsItem' />
-      case 'tunewsItem':
+      case 'tunews':
         return <Failure goToPath={new TunewsRouteConfig().getRoutePath({ city, language })}
                         goToMessage='goTo.tunews'
                         errorMessage='notFound.tunewsItem' />
@@ -54,7 +54,7 @@ export class FailureSwitcher extends React.Component<PropsType> {
 
   render () {
     const error = this.props.error
-    if (error instanceof ContentNotFoundError) {
+    if (error instanceof NotFoundError) {
       return FailureSwitcher.renderContentNotFoundComponent(error)
     } else {
       return <Failure errorMessage={error.message} />
