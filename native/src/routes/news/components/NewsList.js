@@ -124,7 +124,7 @@ class NewsList extends React.PureComponent<PropsType> {
         )
       } else {
         const error = new NotFoundError({
-          type: 'news',
+          type: isTunews ? 'tunews' : 'localNews',
           id: newsId,
           city: cityCode,
           language
