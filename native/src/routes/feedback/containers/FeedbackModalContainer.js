@@ -14,7 +14,7 @@ import {
   createFeedbackEndpoint, DEFAULT_FEEDBACK_LANGUAGE, EVENTS_FEEDBACK_TYPE, INTEGREAT_INSTANCE,
   OFFER_FEEDBACK_TYPE, OfferModel, OFFERS_FEEDBACK_TYPE,
   PAGE_FEEDBACK_TYPE,
-  SEARCH_FEEDBACK_TYPE, TECHNICAL_FEEDBACK_CATEGORY
+  TECHNICAL_FEEDBACK_CATEGORY
 } from 'api-client'
 import type { FeedbackParamsType } from 'api-client'
 import determineApiUrl from '../../../modules/endpoint/determineApiUrl'
@@ -25,7 +25,7 @@ import type { StateType } from '../../../modules/app/StateType'
 import createNavigateToFeedbackModal from '../../../modules/app/createNavigateToFeedbackModal'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 
-type FeedbackType = 'Category' | 'Event' | 'Pois' | 'Offers' | 'Search' | 'Disclaimer'
+type FeedbackType = 'Category' | 'Event' | 'Pois' | 'Offers' | 'Disclaimer'
 
 export type FeedbackInformationType = {
   type: FeedbackType,
@@ -35,7 +35,6 @@ export type FeedbackInformationType = {
   path?: string,
   title?: string,
   feedbackAlias?: string,
-  query?: string,
   offers?: Array<OfferModel>
 }
 
@@ -177,7 +176,7 @@ class FeedbackModalContainer extends React.Component<ContainerPropsType, Feedbac
 
   getCurrentPageFeedbackOption = (): ?FeedbackVariant => {
     const { navigation, t } = this.props
-    const { type, path, title, feedbackAlias, query } = navigation.state.params
+    const { type, path, title, feedbackAlias } = navigation.state.params
 
     const feedbackCategory = CONTENT_FEEDBACK_CATEGORY
     if (type === 'Category' && path && title) {
@@ -202,12 +201,6 @@ class FeedbackModalContainer extends React.Component<ContainerPropsType, Feedbac
       return new FeedbackVariant({
         label: t('contentOfOffer', { offer: title }),
         feedbackType: OFFER_FEEDBACK_TYPE,
-        feedbackCategory
-      })
-    } else if (type === 'Search' && query) {
-      return new FeedbackVariant({
-        label: `${t('searchFor')} '${query}'`,
-        feedbackType: SEARCH_FEEDBACK_TYPE,
         feedbackCategory
       })
     } else if (type === 'Disclaimer') {
@@ -235,7 +228,6 @@ class FeedbackModalContainer extends React.Component<ContainerPropsType, Feedbac
       permalink: feedbackInformation.path,
       city,
       language: feedbackInformation.language || DEFAULT_FEEDBACK_LANGUAGE,
-      query: feedbackInformation.query,
       comment,
       alias
     }
