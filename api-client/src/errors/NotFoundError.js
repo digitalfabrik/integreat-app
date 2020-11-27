@@ -1,6 +1,6 @@
 // @flow
 
-type NotFoundType = 'category' | 'event' | 'poi' | 'offer' | 'news' | 'disclaimer'
+type NotFoundType = 'category' | 'event' | 'poi' | 'offer' | 'tunews' | 'localNews' | 'disclaimer'
 
 const getMessage = (type: NotFoundType, id: string): string =>
   `The ${type} ${id} does not exist here.`

@@ -23,7 +23,7 @@ export default (
     .withMapper((localNews: Array<JsonLocalNewsType>, params: ParamsType): LocalNewsModel => {
       const count = localNews.length
       if (count === 0) {
-        throw new NotFoundError({ ...params, type: 'news'})
+        throw new NotFoundError({ ...params, type: 'localNews'})
       } else if (count > 1) {
         throw new MappingError(
           LOCAL_NEWS_ELEMENT_ENDPOINT_NAME,
