@@ -33,7 +33,7 @@ describe('localnews', () => {
     moment.tz('2020-03-20 17:50:00', 'GMT')
   )
 
-  const params = { city: 'testumgebung', language: 'en', id: 1 }
+  const params = { city: 'testumgebung', language: 'en', id: '1' }
 
   it('should map params to url', () => {
     expect(localNewsElement.mapParamsToUrl(params)).toEqual(

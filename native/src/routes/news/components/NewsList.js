@@ -3,8 +3,7 @@
 import * as React from 'react'
 import { View, Linking } from 'react-native'
 import { TFunction, withTranslation } from 'react-i18next'
-import { LocalNewsModel, TunewsModel } from 'api-client'
-import ContentNotFoundError from '../../../modules/error/ContentNotFoundError'
+import { LocalNewsModel, NotFoundError, TunewsModel } from 'api-client'
 import List from './List'
 import Failure from '../../../modules/error/components/Failure'
 import type { ThemeType } from '../../../modules/theme/constants'
@@ -124,7 +123,7 @@ class NewsList extends React.PureComponent<PropsType> {
           />
         )
       } else {
-        const error = new ContentNotFoundError({
+        const error = new NotFoundError({
           type: 'news',
           id: newsId,
           city: cityCode,
