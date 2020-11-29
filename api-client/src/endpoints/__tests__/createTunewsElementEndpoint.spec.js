@@ -46,4 +46,8 @@ describe('tunews', () => {
 
     expect(itemModel).toEqual(itemModel1)
   })
+
+  it('should throw a not found error if the response is empty', () => {
+    expect(() => tunewsElement.mapResponse([], params)).toThrowError('The tunews 1 does not exist here.')
+  })
 })
