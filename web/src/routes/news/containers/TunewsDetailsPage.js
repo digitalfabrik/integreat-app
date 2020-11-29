@@ -9,7 +9,6 @@ import type { StateType } from '../../../modules/app/StateType'
 import TunewsDetailsFooter from '../components/TunewsDetailsFooter'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import CityNotFoundError from '../../../modules/app/errors/CityNotFoundError'
-import { toString } from 'redux-actions/lib/utils/toString'
 
 const StyledContainer = styled.div`
   display: flex;
