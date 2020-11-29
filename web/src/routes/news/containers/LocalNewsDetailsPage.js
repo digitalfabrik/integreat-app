@@ -15,8 +15,7 @@ type PropsType = {|
   language: string,
   city: string,
   id: string,
-  cities: Array<CityModel>,
-  t: TFunction
+  cities: Array<CityModel>
 |}
 
 export class LocalNewsDetailsPage extends React.PureComponent<PropsType> {

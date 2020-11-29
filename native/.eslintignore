@@ -1,9 +1,0 @@
-/flow-typed/
-/coverage/
-__coverage__
-**/node_modules/
-
-ios/main.jsbundle
-
-# Configs in root
-stylelint.config.js
