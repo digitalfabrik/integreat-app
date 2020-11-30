@@ -329,7 +329,7 @@ jobs:
                 command: yarn workspace web check:build
                 name: Check build
             - store_artifacts:
-                path: dist
+                path: web/dist
             - persist_to_workspace:
                 paths:
                     - dist
@@ -575,14 +575,8 @@ jobs:
                         command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.integreat.app \<<< $'put -r ~/attached_workspace/dist/integreat-test-cms/*'
                         name: Integreat development delivery
                     - run:
-                        command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.malteapp.de \<<< $'put -r ~/attached_workspace/dist/malte/*'
-                        name: Malte development delivery
-                    - run:
                         command: tools/sentry-release integreat-test-cms "${NEW_VERSION_NAME}" ~/attached_workspace/dist/integreat-test-cms
                         name: 'Sentry Upload: integreat-test-cms'
-                    - run:
-                        command: tools/sentry-release malte "${NEW_VERSION_NAME}" ~/attached_workspace/dist/malte
-                        name: 'Sentry Upload: malte'
             - notify_failed
     e2e_android:
         docker:
