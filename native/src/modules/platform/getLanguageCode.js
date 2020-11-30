@@ -1,16 +1,16 @@
 // @flow
 
-import { NativeModules, Platform } from 'react-native'
+import { getLocales } from 'react-native-localize'
 
+/**
+ * @returns {string} the system language code usually 2 letter but could be threee letter
+ */
 export default () => {
-  const languageCode = Platform.select({
-    android: NativeModules?.I18nManager?.localeIdentifier,
-    ios: NativeModules?.SettingsManager?.settings?.AppleLocale
-  })
+  const locales = getLocales()
 
-  if (!languageCode) {
+  if (locales.length === 0) {
     throw new Error('Failed to get language code from native side!')
   }
 
-  return languageCode
+  return locales[0].languageCode
 }
