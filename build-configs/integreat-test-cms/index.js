@@ -18,7 +18,7 @@ const integreatTestCms = {
     pushNotifications: false,
     introSlides: true,
     sentry: false,
-    logging: true
+    developerFriendly: true
   }
 }
 

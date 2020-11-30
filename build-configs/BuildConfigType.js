@@ -10,7 +10,7 @@ export type FeatureFlagsType = {|
   pushNotifications: boolean,
   introSlides: boolean,
   sentry: boolean,
-  logging: boolean
+  developerFriendly: boolean
 |}
 
 export type CommonBuildConfigType = {|

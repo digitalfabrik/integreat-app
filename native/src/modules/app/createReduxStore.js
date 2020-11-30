@@ -62,13 +62,13 @@ const createReduxStore = (
   })
 
   const middlewares = [sagaMiddleware]
-  if (buildConfig().featureFlags.logging) {
+  if (buildConfig().featureFlags.developerFriendly) {
     const flipperReduxMiddleware = createDebugger()
     middlewares.push(flipperReduxMiddleware)
   }
 
   const middleware = applyMiddleware(...middlewares)
-  const enhancer = buildConfig().featureFlags.logging ? composeWithDevTools(middleware) : middleware
+  const enhancer = buildConfig().featureFlags.developerFriendly ? composeWithDevTools(middleware) : middleware
   const store = createStore(rootReducer, initialState, enhancer)
 
   sagaMiddleware.run(rootSaga, dataContainer)

@@ -165,7 +165,7 @@ const createConfig = (env: { config_name?: string, dev_server?: boolean, version
         filename: 'assets.json',
         prettyPrint: true
       }),
-      // $FlowFixMe Unable to find "optimize" in "webpack"
+      // $FlowFixMe Unable to find "LoaderOptionsPlugin" in "webpack"
       new webpack.LoaderOptionsPlugin({
         debug: devServer,
         minimize: !devServer
