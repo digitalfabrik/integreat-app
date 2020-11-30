@@ -56,10 +56,12 @@ class Endpoint<P, T> {
       return new Payload(false, url, this.responseOverride, null)
     }
 
-    const requestOptions: RequestOptionsType = this.mapParamsToBody ? {
-      method: 'POST',
-      body: this.mapParamsToBody(params)
-    } : { method: 'GET' }
+    const requestOptions: RequestOptionsType = this.mapParamsToBody
+      ? {
+          method: 'POST',
+          body: this.mapParamsToBody(params)
+        }
+      : { method: 'GET' }
     const response = await this.fetchOrThrow(url, requestOptions)
 
     if (!response.ok) {

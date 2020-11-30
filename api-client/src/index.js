@@ -33,13 +33,9 @@ export { default as createCitiesEndpoint, CITIES_ENDPOINT_NAME } from './endpoin
 export { default as createDisclaimerEndpoint, DISCLAIMER_ENDPOINT_NAME } from './endpoints/createDisclaimerEndpoint'
 export { default as createEventsEndpoint, EVENTS_ENDPOINT_NAME } from './endpoints/createEventsEndpoint'
 export { default as createLocalNewsEndpoint, LOCAL_NEWS_ENDPOINT_NAME } from './endpoints/createLocalNewsEndpoint'
-export {
-  default as createLocalNewsElementEndpoint, LOCAL_NEWS_ELEMENT_ENDPOINT_NAME
-} from './endpoints/createLocalNewsElementEndpoint'
+export { default as createLocalNewsElementEndpoint, LOCAL_NEWS_ELEMENT_ENDPOINT_NAME } from './endpoints/createLocalNewsElementEndpoint'
 export { default as createTunewsEndpoint, TUNEWS_ENDPOINT_NAME } from './endpoints/createTunewsEndpoint'
-export {
-  default as createTunewsElementEndpoint, TUNEWS_ELEMENT_ENDPOINT_NAME
-} from './endpoints/createTunewsElementEndpoint'
+export { default as createTunewsElementEndpoint, TUNEWS_ELEMENT_ENDPOINT_NAME } from './endpoints/createTunewsElementEndpoint'
 export { default as createOffersEndpoint, OFFERS_ENDPOINT_NAME } from './endpoints/createOffersEndpoint'
 export { default as createFeedbackEndpoint, FEEDBACK_ENDPOINT_NAME } from './endpoints/createFeedbackEndpoint'
 
