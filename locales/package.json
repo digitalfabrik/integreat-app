@@ -1,6 +1,6 @@
 {
   "name": "locales",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Locales for the integreat frontend projects",
   "main": "index.js",
   "private": true,
