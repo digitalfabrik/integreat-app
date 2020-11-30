@@ -61,7 +61,6 @@ type PropsType = {|
   scenes: Array<NavigationStackScene>,
   t: TFunction,
   theme: ThemeType,
-  language: string,
   peeking: boolean,
   categoriesAvailable: boolean,
   navigateToLanding: () => void,
@@ -149,7 +148,8 @@ class Header extends React.PureComponent<PropsType> {
     return <BoxShadow theme={theme}>
       <Horizontal>
         <HorizontalLeft>
-          {this.canGoBackInStack() ? <HeaderBackButton onPress={this.goBackInStack} />
+          {this.canGoBackInStack()
+            ? <HeaderBackButton onPress={this.goBackInStack} />
             : <Icon source={buildConfigAssets().appIcon} />}
           {routeCityModel &&
           <HeaderText allowFontScaling={false} theme={theme}>{this.cityDisplayName(routeCityModel)}</HeaderText>}
