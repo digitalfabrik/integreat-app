@@ -47,8 +47,12 @@ export class I18nProvider extends React.Component<PropsType, StateType> {
       interpolation: {
         escapeValue: false // Escaping is not needed for react apps: https://github.com/i18next/react-i18next/issues/277
       },
-      debug: buildConfig().featureFlags.developerFriendly
+      debug: buildConfig().featureFlags.developerFriendly,
+      detection: {
+        order: ['localStorage', 'navigator']
+      }
     })
+
     this.state = {
       language: DEFAULT_LANGUAGE,
       fonts: I18nProvider.getSelectedFonts(DEFAULT_LANGUAGE),
@@ -57,27 +61,40 @@ export class I18nProvider extends React.Component<PropsType, StateType> {
   }
 
   componentDidMount () {
-    this.setLanguage(this.props.language)
+    const language = this.props.language
+    if (language) {
+      this.updateLanguage(language)
+    }
   }
 
-  setLanguage (language: ?string) {
-    const targetLanguage = language || this.i18n.languages[0]
+  updateLanguage (targetLanguage: string) {
+    if (targetLanguage === this.i18n.languages[0]) {
+      this.updateLanguageState(targetLanguage)
+      return
+    }
 
     // Set i18next language to apps language
     this.i18n.changeLanguage(targetLanguage, () => {
-      const fonts = I18nProvider.getSelectedFonts(targetLanguage)
-      this.setState(prevState => ({ ...prevState, language: targetLanguage, fonts }))
-
-      this.props.setUiDirection(RTL_LANGUAGES.includes(targetLanguage) ? 'rtl' : 'ltr')
-      if (document.documentElement) {
-        document.documentElement.lang = targetLanguage
-      }
+      this.updateLanguageState(targetLanguage)
     })
+  }
+
+  updateLanguageState = (targetLanguage: string) => {
+    const fonts = I18nProvider.getSelectedFonts(targetLanguage)
+    this.setState(prevState => ({ ...prevState, language: targetLanguage, fonts }))
+
+    this.props.setUiDirection(RTL_LANGUAGES.includes(targetLanguage) ? 'rtl' : 'ltr')
+    if (document.documentElement) {
+      document.documentElement.lang = targetLanguage
+    }
   }
 
   componentDidUpdate (prevProps: PropsType) {
     if (this.props.language !== prevProps.language) {
-      this.setLanguage(this.props.language)
+      const language = this.props.language
+      if (language) {
+        this.updateLanguage(language)
+      }
     }
   }
 
