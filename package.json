@@ -3,7 +3,7 @@
   "license": "MIT",
   "private": true,
   "workspaces": {
-    "packages": ["native", "web", "api-client", "locales", "build-configs"],
+    "packages": ["native", "web", "api-client", "translations", "build-configs"],
     "nohoist": [
       "api-client/**",
       "native/**",

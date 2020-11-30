@@ -52,7 +52,7 @@
     "i18next": "^19.1.0",
     "is-url": "^1.2.4",
     "js-md5": "^0.7.3",
-    "locales": "0.0.1",
+    "translations": "0.0.1",
     "lodash": "^4.17.19",
     "moment": "2.25.3",
     "normalize-strings": "^1.1.0",
