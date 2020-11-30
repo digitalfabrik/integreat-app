@@ -52,7 +52,7 @@ describe('I18nProvider', () => {
 
     const ReceivingComponent = withTranslation('app')(
       ({ t, i18n }) => {
-        const transformedResources = require('../../loadTranslations').loadTranslations()
+        const transformedResources = require('../../loadTranslations').default()
         const languages = Object.keys(transformedResources)
 
         const resources = languages.reduce((resources, language: string) => {
