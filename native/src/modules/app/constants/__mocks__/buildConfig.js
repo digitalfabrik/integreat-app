@@ -25,7 +25,7 @@ const buildConfig = jest.fn<[], CommonBuildConfigType>((): CommonBuildConfigType
     pushNotifications: false,
     introSlides: true,
     sentry: true,
-    logging: true
+    developerFriendly: true
   },
   aboutUrls: {
     default: 'https://integreat-app.de/about/',
