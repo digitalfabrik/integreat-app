@@ -1,4 +1,4 @@
-#!/bin/env bash
+#!/usr/bin/env bash
 #
 # ARG_POSITIONAL_SINGLE([package-name],[package name under which to release],[])
 # ARG_POSITIONAL_SINGLE([version-name],[name of the version to release],[])
