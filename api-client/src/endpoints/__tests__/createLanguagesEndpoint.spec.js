@@ -25,7 +25,7 @@ describe('languages', () => {
     }
   ]
 
-  const params = {city: 'augsburg'}
+  const params = { city: 'augsburg' }
 
   it('should map router to url', () => {
     expect(languages.mapParamsToUrl(params)).toEqual(
@@ -34,7 +34,7 @@ describe('languages', () => {
   })
 
   it('should throw if the city to map the url are missing', () => {
-    expect(() => languages.mapParamsToUrl({city: undefined, language: 'de'})).toThrowErrorMatchingSnapshot()
+    expect(() => languages.mapParamsToUrl({ city: undefined, language: 'de' })).toThrowErrorMatchingSnapshot()
   })
 
   it('should map fetched data to models', () => {
