@@ -30,6 +30,7 @@ jobs:
   - deliver_web:
       context:
         - slack-app
+        - sentry
       production_delivery: true
       requires:
         - check_web

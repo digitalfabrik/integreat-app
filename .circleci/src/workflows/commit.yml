@@ -22,6 +22,7 @@ jobs:
             - main
       context:
         - slack-app
+        - sentry
       production_delivery: false
       requires:
         - check_web

@@ -742,6 +742,7 @@ workflows:
             - deliver_web:
                 context:
                     - slack-app
+                    - sentry
                 filters:
                     branches:
                         only:
@@ -968,6 +969,7 @@ workflows:
             - deliver_web:
                 context:
                     - slack-app
+                    - sentry
                 production_delivery: true
                 requires:
                     - check_web
@@ -1317,6 +1319,7 @@ workflows:
             - deliver_web:
                 context:
                     - slack-app
+                    - sentry
                 production_delivery: true
                 requires:
                     - check_web
