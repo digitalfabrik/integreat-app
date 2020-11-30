@@ -12,7 +12,7 @@
     "test:update": "yarn run test -u",
     "lint": "yarn run eslint",
     "lint:fix": "yarn run eslint --fix",
-    "lint:ci": "yarn run eslint --format junit -o reports/lint/junit-lint.xml",
+    "lint:ci": "yarn run eslint --quiet --format junit -o reports/lint/junit-lint.xml",
     "eslint": "eslint ."
   },
   "dependencies": {
