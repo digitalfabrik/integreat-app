@@ -954,11 +954,15 @@ workflows:
                 context:
                     - slack-app
                 name: build_integreat_web
+                requires:
+                    - bump_version
             - build_web:
                 build_config_name: malte
                 context:
                     - slack-app
                 name: build_malte_web
+                requires:
+                    - bump_version
             - deliver_web:
                 context:
                     - slack-app
@@ -1299,11 +1303,15 @@ workflows:
                 context:
                     - slack-app
                 name: build_integreat_web
+                requires:
+                    - bump_version
             - build_web:
                 build_config_name: malte
                 context:
                     - slack-app
                 name: build_malte_web
+                requires:
+                    - bump_version
             - deliver_web:
                 context:
                     - slack-app
