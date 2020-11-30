@@ -31,7 +31,7 @@ Information necessary for the creation of a new build config.
 * About app link
 * Privacy policy link
 * Languages of the app
-* Different translations for locales (especially metadata)
+* Different translations (especially metadata)
 * (De)activated features: pois, news stream, push notifications, offers, ...
 * Fonts (Content, UI only at own risk)
 
@@ -98,10 +98,10 @@ Things the AppTeam has to do and therefore probably create issues for.
     * 1242 x 2688
     * 2048 x 2732
 * Add to google search console
-* Translate and add locales
+* Translate and add translations
     * New languages
-    * Override locales
-    * Native locales?
+    * Override translations
+    * Native translations?
 * CI adjustments for delivery
 * Add iTunes app id
 * Adjust manifest.json in webapp?

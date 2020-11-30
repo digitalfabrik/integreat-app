@@ -4,7 +4,7 @@ We use the concept of build configs to build different versions of the app. A bu
 * Enabling and disabling of features
 * Design, fonts, icons and theme colors
 * Backend urls
-* Override locales
+* Override translations
 * Store metadata
 
 ## Available Build Configs
