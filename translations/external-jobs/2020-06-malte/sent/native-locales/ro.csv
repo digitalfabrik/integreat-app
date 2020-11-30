@@ -1,3 +1,0 @@
-key,source_language,target_language
-native.NSPhotoLibraryAddUsageDescription,"Um Bilder zu speichern, benötigt {{appName}} Zugriff auf die Galerie.","Pentru a stoca imagini, {{appName}} are nevoie de acces la galerie."
-native.NSLocationWhenInUseUsageDescription,"Um nahegelegene Orte zu finden, benötigt {{appName}} Zugriff auf den Standort.",
