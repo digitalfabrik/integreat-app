@@ -47,7 +47,7 @@ export class I18nProvider extends React.Component<PropsType, StateType> {
       interpolation: {
         escapeValue: false // Escaping is not needed for react apps: https://github.com/i18next/react-i18next/issues/277
       },
-      debug: buildConfig().development
+      debug: buildConfig().featureFlags.developerFriendly
     })
     this.state = {
       language: DEFAULT_LANGUAGE,

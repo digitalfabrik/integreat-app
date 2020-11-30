@@ -12,13 +12,13 @@ const integreatTestCms = {
   appName: 'IntegreatTestCms',
   cmsUrl: 'https://cms-test.integreat-app.de',
   switchCmsUrl: 'https://cms.integreat-app.de',
-  development: true,
   featureFlags: {
     pois: true,
     newsStream: true,
     pushNotifications: false,
     introSlides: true,
-    sentry: false
+    sentry: false,
+    developerFriendly: true
   }
 }
 
