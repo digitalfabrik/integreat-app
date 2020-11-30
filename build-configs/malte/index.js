@@ -25,7 +25,7 @@ const commonMalteBuildConfig = {
     pushNotifications: true,
     introSlides: true,
     sentry: true,
-    logging: false
+    developerFriendly: false
   },
   aboutUrls: {
     default: 'https://www.malteser-werke.de/malte-app'

@@ -16,7 +16,7 @@ const Padding: StyledComponent<{}, ThemeType, *> = styled.View`
   justify-content: space-between;
 `
 
-const Item: StyledComponent<{}, ThemeType, *> = styled.View`
+const Item: StyledComponent<{||}, ThemeType, *> = styled.View`
   padding: 16px;
   flex-direction: column;
 `

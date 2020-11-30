@@ -3,6 +3,7 @@
 import type { Node } from 'react'
 import * as React from 'react'
 import styled from 'styled-components'
+import buildConfig from '../../app/constants/buildConfig'
 
 type PropsType = {|
   children: Array<React.Node>,
@@ -37,7 +38,10 @@ const FooterContainer = styled.footer`
  */
 class Footer extends React.PureComponent<PropsType> {
   static getVersion (): Node {
-    return <span>{__VERSION__}</span>
+    if (buildConfig().featureFlags.developerFriendly) {
+      return <span>{__VERSION__}</span>
+    }
+    return null
   }
 
   render () {

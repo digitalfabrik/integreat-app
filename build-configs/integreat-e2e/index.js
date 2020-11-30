@@ -17,7 +17,7 @@ const integreatE2e = {
     pushNotifications: false,
     introSlides: false,
     sentry: false,
-    logging: true
+    developerFriendly: true
   }
 }
 
