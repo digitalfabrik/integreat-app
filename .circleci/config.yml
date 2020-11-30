@@ -317,6 +317,7 @@ jobs:
                 build_config_name: << parameters.build_config_name >>
             - checkout
             - restore_yarn_cache
+            - prepare_workspace
             - restore_environment_variables
             - run:
                 command: yarn workspace web build:<< parameters.build_config_name >> --env.commit_sha=${CIRCLE_SHA1} --env.version_name=${NEW_VERSION_NAME}
