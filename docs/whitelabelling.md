@@ -101,7 +101,6 @@ Things the AppTeam has to do and therefore probably create issues for.
 * Translate and add translations
     * New languages
     * Override translations
-    * Native translations?
 * CI adjustments for delivery
 * Add iTunes app id
 * Adjust manifest.json in webapp?
