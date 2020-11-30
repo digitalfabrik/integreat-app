@@ -20,6 +20,11 @@ module.exports = {
     browser: true,
     'jest/globals': true
   },
+  settings: {
+    flowtype: {
+      onlyFilesWithFlowAnnotation: true
+    }
+  },
   ignorePatterns: [
     '**/flow-typed/',
     '**/reports/',
@@ -48,6 +53,22 @@ module.exports = {
     'react/no-typos': 'error',
     'react/prefer-es6-class': ['error', 'always'],
 
+    'flowtype/delimiter-dangle': ['error', 'never'],
+    'flowtype/newline-after-flow-annotation': ['error', 'always'],
+    'flowtype/no-primitive-constructor-types': 'error',
+    'flowtype/no-weak-types': 'warn',
+    'flowtype/object-type-delimiter': ['error', 'comma'],
+    'flowtype/require-exact-type': ['warn', 'always'],
+    'flowtype/require-parameter-type': ['error', { excludeArrowFunctions: true }],
+    'flowtype/require-return-type': ['error', 'always', {
+      excludeArrowFunctions: true,
+      annotateUndefined: 'never',
+      excludeMatching: ['^render$']
+    }],
+    'flowtype/semi': ['error', 'never'],
+    'flowtype/type-id-match': ['error', '^(iOS)?([A-Z][a-z0-9]+)+Type$'],
+    'flowtype/valid-syntax': 'warn',
+
     'jest/consistent-test-it': 'error',
     'jest/no-disabled-tests': 'error',
     'jest/no-focused-tests': 'error',
@@ -61,22 +82,7 @@ module.exports = {
   overrides: [{
     files: ['**/src/**/*.js'],
     rules: {
-      'flowtype/require-valid-file-annotation': ['error', 'always', { annotationStyle: 'line' }],
-      'flowtype/delimiter-dangle': ['error', 'never'],
-      'flowtype/newline-after-flow-annotation': ['error', 'always'],
-      'flowtype/no-primitive-constructor-types': 'error',
-      'flowtype/no-weak-types': 'warn',
-      'flowtype/object-type-delimiter': ['error', 'comma'],
-      'flowtype/require-exact-type': ['warn', 'always'],
-      'flowtype/require-parameter-type': ['error', { excludeArrowFunctions: true }],
-      'flowtype/require-return-type': ['error', 'always', {
-        excludeArrowFunctions: true,
-        annotateUndefined: 'never',
-        excludeMatching: ['^render$']
-      }],
-      'flowtype/semi': ['error', 'never'],
-      'flowtype/type-id-match': ['error', '^([A-Z][a-z0-9]+)+Type$'],
-      'flowtype/valid-syntax': 'warn'
+      'flowtype/require-valid-file-annotation': ['error', 'always', { annotationStyle: 'line' }]
     }
   }, {
     files: ['*.js'],
