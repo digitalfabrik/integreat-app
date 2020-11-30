@@ -98,9 +98,10 @@ const createConfig = (env = {}) => {
       chunkFilename: isProductionBuild ? '[id].[chunkhash].js' : '[id].js?[chunkhash]',
       sourcePrefix: '  '
     },
-    // Developer tool to enhance debugging, source maps
-    // http://webpack.github.io/docs/configuration.html#devtool
-    devtool: isProductionBuild ? false : 'source-map',
+    optimization: {
+      usedExports: true
+    },
+    devtool: 'source-map',
     devServer: {
       contentBase: distDirectory,
       compress: true,
@@ -143,6 +144,7 @@ const createConfig = (env = {}) => {
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': NODE_ENV,
         __VERSION__: JSON.stringify(version),
+        __BUILD_CONFIG_NAME__: JSON.stringify(buildConfigName),
         __BUILD_CONFIG__: JSON.stringify(buildConfig)
       }),
       // Emit a JSON file with assets paths

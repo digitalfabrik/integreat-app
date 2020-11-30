@@ -21,11 +21,15 @@ jobs:
       build_config_name: integreat
       context:
         - slack-app
+      requires:
+        - bump_version
   - build_web:
       name: build_malte_web
       build_config_name: malte
       context:
         - slack-app
+      requires:
+        - bump_version
   - deliver_web:
       context:
         - slack-app

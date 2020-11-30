@@ -7,7 +7,8 @@
   ],
   "globals": {
     "__VERSION__": false,
-    "__BUILD_CONFIG__": "writable"
+    "__BUILD_CONFIG__": "readonly",
+    "__BUILD_CONFIG_NAME__": "readonly"
   },
   "rules": {
   }
