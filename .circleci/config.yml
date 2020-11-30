@@ -317,8 +317,9 @@ jobs:
                 build_config_name: << parameters.build_config_name >>
             - checkout
             - restore_yarn_cache
+            - restore_environment_variables
             - run:
-                command: yarn workspace web build:<< parameters.build_config_name >> --env.commit_sha=${CIRCLE_SHA1}
+                command: yarn workspace web build:<< parameters.build_config_name >> --env.commit_sha=${CIRCLE_SHA1} --env.version_name=${NEW_VERSION_NAME}
                 name: << parameters.build_config_name >> build
             - store_artifacts:
                 name: Store output of bundle analyzer
