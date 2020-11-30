@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`loadLocales should correctly merge and transform locales 1`] = `
+exports[`loadTranslations should correctly merge and transform translations 1`] = `
 Object {
   "ar": Object {
     "dashboard": Object {
@@ -36,7 +36,7 @@ Object {
 }
 `;
 
-exports[`loadLocales should correctly transform locales 1`] = `
+exports[`loadTranslations should correctly transform translations 1`] = `
 Object {
   "ar": Object {
     "dashboard": Object {
