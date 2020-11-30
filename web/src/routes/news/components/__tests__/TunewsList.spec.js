@@ -15,7 +15,6 @@ describe('TunewsList', () => {
   const city = 'testcity'
 
   const renderItem = (language: string) => ({ id, title, content, date }: TunewsModel, city: string) => <NewsElement
-    id={id}
     title={title}
     content={content}
     timestamp={date}

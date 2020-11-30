@@ -15,7 +15,6 @@ describe('LocalNewsList', () => {
   const city = 'testcity'
 
   const renderItem = ({ id, title, message, timestamp }, city) => <NewsElement
-    id={id}
     title={title}
     content={message}
     timestamp={timestamp}
