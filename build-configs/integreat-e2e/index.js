@@ -34,12 +34,14 @@ const webIntegreatE2eBuildConfig: WebBuildConfigType = {
 const androidIntegreatE2eBuildCOnfig: AndroidBuildConfigType = {
   ...integreatTestCmsPlatformBuildConfigs.android,
   ...integreatE2e,
+  applicationId: 'de.integreat_e2e',
   googleServices: null
 }
 
 const iosIntegreatE2eBuildConfig: iOSBuildConfigType = {
   ...integreatTestCmsPlatformBuildConfigs.ios,
   ...integreatE2e,
+  bundleIdentifier: 'de.integreat_e2e',
   googleServices: null
 }
 
