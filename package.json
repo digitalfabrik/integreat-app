@@ -5,6 +5,7 @@
   "workspaces": {
     "packages": ["native", "web", "api-client", "locales", "build-configs"],
     "nohoist": [
+      "api-client/**",
       "native/**",
       "web/**"
     ]
