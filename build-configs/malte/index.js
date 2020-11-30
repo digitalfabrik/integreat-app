@@ -4,7 +4,7 @@ import { lightTheme, darkTheme } from './theme'
 import type { AndroidBuildConfigType, iOSBuildConfigType, WebBuildConfigType } from '../BuildConfigType'
 import { MALTE_ASSETS } from '../AssetsType'
 import malteOverrideLocales from 'locales/override-locales/malte.json'
-import mainImprint from './assets/mainImprint'
+import mainImprint from './mainImprint'
 
 const APPLE_APP_ID = '1535758339'
 
