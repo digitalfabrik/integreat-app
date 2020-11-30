@@ -3,18 +3,18 @@
 const fs = require('fs')
 const { program } = require('commander')
 
-const setupNativeLocales = (appName, { localesFile, destination }) => {
-  const { native: nativeLocales } = JSON.parse(fs.readFileSync(localesFile))
-  const languageCodes = Object.keys(nativeLocales)
+const setupNativeTranslations = (appName, { translationsFile, destination }) => {
+  const { native: nativeTranslations } = JSON.parse(fs.readFileSync(translationsFile))
+  const languageCodes = Object.keys(nativeTranslations)
   console.warn('Creating InfoPlist.strings for the languages ', languageCodes)
 
   languageCodes.forEach(language => {
-    const locales = nativeLocales[language]
-    const keys = Object.keys(locales)
+    const translations = nativeTranslations[language]
+    const keys = Object.keys(translations)
 
     const content = keys.map((key) => {
       const regex = /{{appName}}/gi
-      const value = locales[key].replace(regex, appName)
+      const value = translations[key].replace(regex, appName)
       return `${key} = "${value}";`
     }).join('\n')
 
@@ -28,12 +28,12 @@ const setupNativeLocales = (appName, { localesFile, destination }) => {
 
 program
   .command('setup <appName>')
-  .requiredOption('--locales <locales>', 'the path to the locales.json file')
+  .requiredOption('--translations <translations>', 'the path to the translations.json file')
   .requiredOption('--destination <destination>', 'the path to put the string resources to')
-  .description('setup native locales for ios')
+  .description('setup native translations for ios')
   .action((appName, program) => {
     try {
-      setupNativeLocales(appName, { localesFile: program.locales, destination: program.destination })
+      setupNativeTranslations(appName, { translationsFile: program.translations, destination: program.destination })
     } catch (e) {
       console.error(e)
       process.exit(1)
