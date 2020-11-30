@@ -131,13 +131,13 @@ const loadModules = (csvFile, csvColumn) => {
   return unflatten(flattened)
 }
 
-const writeJsonFromCsv = (locales, toPath, sourceLanguage) => {
-  fs.readdir(locales, (err, files) => {
+const writeJsonFromCsv = (translations, toPath, sourceLanguage) => {
+  fs.readdir(translations, (err, files) => {
     if (err) {
       throw err
     }
 
-    const csvs = files.map(file => `${locales}/${file}`).filter(file => path.extname(file) === '.csv')
+    const csvs = files.map(file => `${translations}/${file}`).filter(file => path.extname(file) === '.csv')
 
     if (isEmpty(csvs)) {
       throw  new Error('A minimum of one CSV is required in order to build a JSON!')
@@ -184,7 +184,7 @@ const writeJsonFromCsv = (locales, toPath, sourceLanguage) => {
 }
 
 program
-  .command('convert <locales_file> <toPath> <format>')
+  .command('convert <translations_file> <toPath> <format>')
   .action(function (fromPath, toPath, targetFormat, options) {
     const {targetLanguages, sourceLanguage} = JSON.parse(fs.readFileSync(program.config, 'utf8'))
 
