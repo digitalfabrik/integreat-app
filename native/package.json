@@ -65,6 +65,7 @@
     "react-native-gesture-handler": "1.8.0",
     "react-native-highlight-words": "^1.0.1",
     "react-native-image-zoom-viewer": "^3.0.1",
+    "react-native-localize": "^2.0.1",
     "react-native-pdf": "6.2.0",
     "react-native-permissions": "2.0.9",
     "react-native-progress": "^4.0.3",
