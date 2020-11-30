@@ -25,8 +25,8 @@
          <ExecutionAction
             ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
             <ActionContent
-               title = "Setup native locales"
-               scriptText = "exec &gt; ${PROJECT_DIR}/prebuild_native_locales.log 2&gt;&amp;1&#10;cd ${PROJECT_DIR} &amp;&amp; ../tools/native-translations setup Integreat --translations &quot;../../translations/translations.json&quot; --destination &quot;Integreat&quot;&#10;">
+               title = "Setup native translations"
+               scriptText = "exec &gt; ${PROJECT_DIR}/prebuild_native_translations.log 2&gt;&amp;1&#10;cd ${PROJECT_DIR} &amp;&amp; ../tools/native-translations setup Integreat --translations &quot;../../translations/translations.json&quot; --destination &quot;Integreat&quot;&#10;">
                <EnvironmentBuildable>
                   <BuildableReference
                      BuildableIdentifier = "primary"
