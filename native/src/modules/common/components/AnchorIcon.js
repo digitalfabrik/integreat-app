@@ -34,8 +34,7 @@ class AnchorIcon extends React.Component<PropsType> {
 
     const didReachLastItem = parseInt(xPosition.toFixed(0)) + widthThreshold > contentSizeDiff
     // when everything is at starting point and xPosition is zero
-    if (!_scrollView) {
-    } else {
+    if (_scrollView) {
       if (!xPosition) {
         _scrollView.scrollTo({
           y: 0,

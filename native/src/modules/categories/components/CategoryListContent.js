@@ -95,14 +95,14 @@ class CategoryListContent extends React.Component<ContentPropsType, {| width: nu
     const { baseFontStyle } = passProps
     const baseFontSize = baseFontStyle.fontSize
     return <View style={{
-          width: baseFontSize / bulletSizeRelativeToFont,
-          height: baseFontSize / bulletSizeRelativeToFont,
-          borderRadius: baseFontSize / bulletSizeRelativeToFont,
-          marginTop: baseFontSize / bulletAlignmentRelativeToFont,
-          marginRight: RTL_LANGUAGES.includes(language) ? listIndent : textDistanceToBullet,
-          marginLeft: RTL_LANGUAGES.includes(language) ? textDistanceToBullet : listIndent,
-          backgroundColor: theme.colors.textColor
-        }} />
+      width: baseFontSize / bulletSizeRelativeToFont,
+      height: baseFontSize / bulletSizeRelativeToFont,
+      borderRadius: baseFontSize / bulletSizeRelativeToFont,
+      marginTop: baseFontSize / bulletAlignmentRelativeToFont,
+      marginRight: RTL_LANGUAGES.includes(language) ? listIndent : textDistanceToBullet,
+      marginLeft: RTL_LANGUAGES.includes(language) ? textDistanceToBullet : listIndent,
+      backgroundColor: theme.colors.textColor
+    }} />
   }
 
   // TODO: remove with IGAPP-XXX
@@ -133,17 +133,19 @@ class CategoryListContent extends React.Component<ContentPropsType, {| width: nu
           prefix = listsPrefixesRenderers.ol(htmlAttribs, children, convertedCSSStyles, { ...passProps, index })
         }
       }
-      return RTL_LANGUAGES.includes(language) ? (
-            <View key={`list-${nodeIndex}-${index}-${key}`} style={{ flexDirection: 'row' }}>
-              <View style={{ flex: 1 }}>{child}</View>
-              {prefix}
-            </View>
-      ) : (
-            <View key={`list-${nodeIndex}-${index}-${key}`} style={{ flexDirection: 'row' }}>
-              {prefix}
-              <View style={{ flex: 1 }}>{child}</View>
-            </View>
-      )
+      return RTL_LANGUAGES.includes(language)
+        ? (
+          <View key={`list-${nodeIndex}-${index}-${key}`} style={{ flexDirection: 'row' }}>
+            <View style={{ flex: 1 }}>{child}</View>
+            {prefix}
+          </View>
+          )
+        : (
+          <View key={`list-${nodeIndex}-${index}-${key}`} style={{ flexDirection: 'row' }}>
+            {prefix}
+            <View style={{ flex: 1 }}>{child}</View>
+          </View>
+          )
     })
     return <View key={key}>{children}</View>
   }
