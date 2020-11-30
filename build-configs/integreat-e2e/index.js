@@ -11,13 +11,13 @@ import type {
 const integreatE2e = {
   appName: 'IntegreatE2E',
   e2e: true,
-  development: false,
   featureFlags: {
     pois: true,
     newsStream: true,
     pushNotifications: false,
     introSlides: false,
-    sentry: false
+    sentry: false,
+    developerFriendly: true
   }
 }
 
