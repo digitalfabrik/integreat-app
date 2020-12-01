@@ -1,13 +1,21 @@
 // @flow
 
-import { CategoriesMapModel, CategoryModel } from 'api-client'
 import moment from 'moment'
-import type { PageResourceCacheEntryStateType, PageResourceCacheStateType } from '../../modules/app/StateType'
 import seedrandom from 'seedrandom'
-import hashUrl from '../../modules/endpoint/hashUrl'
-import type { FetchMapType } from '../../modules/endpoint/sagas/fetchResourceCache'
-import { createFetchMap } from './util'
 import md5 from 'js-md5'
+import CategoryModel from '../models/CategoryModel'
+import CategoriesMapModel from '../models/CategoriesMapModel'
+import hashUrl from '../hashUrl'
+
+type PageResourceCacheEntryStateType = {|
+  +filePath: string,
+  +lastUpdate: moment,
+  +hash: string
+|}
+
+type PageResourceCacheStateType = $ReadOnly<{
+  [url: string]: PageResourceCacheEntryStateType
+}>
 
 const DEFAULT_ARITY = 3
 const DEFAULT_DEPTH = 2
@@ -95,10 +103,6 @@ class CategoriesMapModelBuilder {
 
   buildResources (): { [path: string]: PageResourceCacheStateType } {
     return this.buildAll().resourceCache
-  }
-
-  buildFetchMap (): FetchMapType {
-    return createFetchMap(this.buildResources())
   }
 
   build (): CategoriesMapModel {

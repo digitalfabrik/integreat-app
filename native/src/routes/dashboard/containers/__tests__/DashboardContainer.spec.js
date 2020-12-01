@@ -10,7 +10,7 @@ import type {
 } from '../../../../modules/app/StateType'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
-import CategoriesMapModelBuilder from '../../../../testing/builder/CategoriesMapModelBuilder'
+import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
 import { reduce } from 'lodash'
 import configureMockStore from 'redux-mock-store'
 import React from 'react'

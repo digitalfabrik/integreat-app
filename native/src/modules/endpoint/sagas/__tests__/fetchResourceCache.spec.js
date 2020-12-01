@@ -4,9 +4,10 @@ import { expectSaga } from 'redux-saga-test-plan'
 import fetchResourceCache from '../fetchResourceCache'
 import DefaultDataContainer from '../../DefaultDataContainer'
 import RNFetchBlob from '../../../../__mocks__/rn-fetch-blob'
-import CategoriesMapModelBuilder from '../../../../testing/builder/CategoriesMapModelBuilder'
 import ErrorCodes from '../../../error/ErrorCodes'
 import FetcherModule from '../../../fetcher/FetcherModule'
+import { createFetchMap } from '../../../../testing/builder/util'
+import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
 
 jest.mock('../../../fetcher/FetcherModule')
 jest.mock('rn-fetch-blob')
@@ -26,7 +27,7 @@ describe('fetchResourceCache', () => {
 
     const categoriesBuilder = new CategoriesMapModelBuilder(city, language)
     const resources = categoriesBuilder.buildResources()
-    const fetchMap = categoriesBuilder.buildFetchMap()
+    const fetchMap = createFetchMap(resources)
 
     await expectSaga(fetchResourceCache, city, language, fetchMap, dataContainer)
       .not.put.like({ action: { type: 'FETCH_RESOURCES_FAILED' } })
@@ -60,7 +61,7 @@ describe('fetchResourceCache', () => {
     const dataContainer = new DefaultDataContainer()
 
     const categoriesBuilder = new CategoriesMapModelBuilder(city, language)
-    const fetchMap = categoriesBuilder.buildFetchMap()
+    const fetchMap = createFetchMap(categoriesBuilder.buildResources())
 
     FetcherModule.currentlyFetching = true
     return expectSaga(fetchResourceCache, city, language, fetchMap, dataContainer)

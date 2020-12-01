@@ -39,6 +39,8 @@ export { default as createTunewsElementEndpoint, TUNEWS_ELEMENT_ENDPOINT_NAME } 
 export { default as createOffersEndpoint, OFFERS_ENDPOINT_NAME } from './endpoints/createOffersEndpoint'
 export { default as createFeedbackEndpoint, FEEDBACK_ENDPOINT_NAME } from './endpoints/createFeedbackEndpoint'
 
+export { default as hashUrl } from './hashUrl'
+
 export { POSITIVE_RATING } from './endpoints/createFeedbackEndpoint'
 export { NEGATIVE_RATING } from './endpoints/createFeedbackEndpoint'
 

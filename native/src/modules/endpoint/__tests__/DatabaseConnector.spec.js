@@ -5,9 +5,9 @@ import DatabaseContext from '../DatabaseContext'
 import moment from 'moment'
 import RNFetchBlob from '../../../__mocks__/rn-fetch-blob'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
-import CategoriesMapModelBuilder from '../../../testing/builder/CategoriesMapModelBuilder'
+import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
-import EventModelBuilder from '../../../testing/builder/EventModelBuilder'
+import EventModelBuilder from 'api-client/src/testing/EventModelBuilder'
 import mockDate from '../../../testing/mockDate'
 
 jest.mock('rn-fetch-blob')
