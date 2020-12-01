@@ -180,6 +180,7 @@ export type JsonCityType = {
   live: boolean,
   events: boolean,
   extras: boolean,
+  pois: boolean,
   tunews: boolean,
   push_notifications: boolean,
   name_without_prefix: string,
