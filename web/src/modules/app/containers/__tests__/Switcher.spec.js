@@ -5,7 +5,6 @@ import ConnectedSwitcher, { Switcher } from '../Switcher'
 import {
   CategoriesMapModel,
   CategoryModel,
-  CityModel,
   DateModel,
   EventModel,
   OfferModel,
@@ -33,6 +32,7 @@ import { Header } from '../../../layout/components/Header'
 import createLocation from '../../../../createLocation'
 import configureMockStore from 'redux-mock-store'
 import { I18N_REDIRECT_ROUTE } from '../../route-configs/I18nRedirectRouteConfig'
+import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 
 describe('Switcher', () => {
   const categories = new CategoriesMapModel([
@@ -105,22 +105,7 @@ describe('Switcher', () => {
     })
   ]
 
-  const cities = [
-    new CityModel({
-      name: 'Mambo No. 5',
-      code: 'city1',
-      live: true,
-      eventsEnabled: true,
-      offersEnabled: false,
-      tunewsEnabled: false,
-      pushNotificationsEnabled: false,
-      sortingName: 'Mambo',
-      prefix: 'Stadt',
-      latitude: null,
-      longitude: null,
-      aliases: null
-    })
-  ]
+  const cities = new CityModelBuilder(1).build()
   const languages = [
     new LanguageModel('de', 'Deutsch'),
     new LanguageModel('en', 'English')
@@ -216,7 +201,7 @@ describe('Switcher', () => {
     const location = createLocation({
       type: currentRoute,
       pathname,
-      payload: { city: 'city1', language: 'de' },
+      payload: { city: 'augsburg', language: 'de' },
       prev: { payload: { param: 'param' }, type: 'RANDOM_TYPE', pathname: '/param' }
     })
     return (
@@ -260,6 +245,8 @@ describe('Switcher', () => {
   })
 
   it('should map state to props', () => {
+    const preVersion = global.__VERSION__
+    global.__VERSION__ = 'vX.X'
     const location = createLocation({
       type: CATEGORIES_ROUTE,
       payload: { city: 'augsburg', language: 'de' },
@@ -308,5 +295,6 @@ describe('Switcher', () => {
       viewportSmall: true,
       wohnenOffersPayload
     })
+    global.__VERSION__ = preVersion
   })
 })

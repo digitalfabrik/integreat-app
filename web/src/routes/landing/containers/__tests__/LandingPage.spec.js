@@ -3,28 +3,13 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import ConnectedLandingPage, { LandingPage } from '../LandingPage'
-import { CityModel } from 'api-client'
 import configureMockStore from 'redux-mock-store'
 import { LANDING_ROUTE } from '../../../../modules/app/route-configs/LandingRouteConfig'
 import { routesMap } from '../../../../modules/app/route-configs'
+import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 
 describe('LandingPage', () => {
-  const cities = [
-    new CityModel({
-      name: 'City',
-      code: 'city',
-      live: true,
-      eventsEnabled: false,
-      offersEnabled: false,
-      pushNotificationsEnabled: false,
-      tunewsEnabled: false,
-      sortingName: 'City',
-      aliases: null,
-      prefix: null,
-      longitude: null,
-      latitude: null
-    })
-  ]
+  const cities = new CityModelBuilder(2).build()
 
   it('should match snapshot', () => {
     expect(shallow(<LandingPage cities={cities} language='de' />)).toMatchSnapshot()
