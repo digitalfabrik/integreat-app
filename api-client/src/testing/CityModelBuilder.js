@@ -37,6 +37,66 @@ const cities = [
     latitude: null,
     longitude: null,
     aliases: null
+  }),
+  new CityModel({
+    name: 'City',
+    code: 'city',
+    live: true,
+    eventsEnabled: false,
+    offersEnabled: false,
+    poisEnabled: true,
+    pushNotificationsEnabled: false,
+    tunewsEnabled: false,
+    sortingName: 'City',
+    latitude: null,
+    longitude: null,
+    prefix: null,
+    aliases: null
+  }),
+  new CityModel({
+    name: 'Other city',
+    code: 'otherCity',
+    live: true,
+    eventsEnabled: false,
+    offersEnabled: false,
+    poisEnabled: false,
+    pushNotificationsEnabled: false,
+    tunewsEnabled: false,
+    sortingName: 'OtherCity',
+    latitude: null,
+    longitude: null,
+    prefix: null,
+    aliases: null
+  }),
+  new CityModel({
+    name: 'Notlive',
+    code: 'nonlive',
+    live: false,
+    eventsEnabled: false,
+    offersEnabled: false,
+    poisEnabled: true,
+    pushNotificationsEnabled: false,
+    tunewsEnabled: false,
+    sortingName: 'Nonlive',
+    latitude: null,
+    longitude: null,
+    prefix: null,
+    aliases: null
+  }),
+  new CityModel({
+    name: 'Yet another city',
+    code: 'yetanothercity',
+    live: true,
+    eventsEnabled: false,
+    offersEnabled: false,
+    poisEnabled: false,
+    pushNotificationsEnabled: false,
+    tunewsEnabled: false,
+    sortingName: 'Yetanothercity',
+    latitude: null,
+    longitude: null,
+    prefix: null,
+    aliases: null
   })
 ]
 
