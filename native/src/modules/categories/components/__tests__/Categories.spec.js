@@ -2,8 +2,8 @@
 
 import * as React from 'react'
 import TestRenderer from 'react-test-renderer'
-import CityModelBuilder from '../../../../testing/builder/CityModelBuilder'
-import LanguageModelBuilder from '../../../../testing/builder/LanguageModelBuilder'
+import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
+import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import Page from '../../../common/components/Page'
 import createNavigationScreenPropMock from '../../../../testing/createNavigationStackPropMock'
 import CategoriesMapModelBuilder from '../../../../testing/builder/CategoriesMapModelBuilder'

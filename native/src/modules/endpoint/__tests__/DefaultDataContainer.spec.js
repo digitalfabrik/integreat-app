@@ -4,12 +4,12 @@ import DefaultDataContainer from '../DefaultDataContainer'
 import DatabaseContext from '../DatabaseContext'
 import RNFetchBlob from '../../../__mocks__/rn-fetch-blob'
 import moment from 'moment'
-import CityModelBuilder from '../../../testing/builder/CityModelBuilder'
-import LanguageModelBuilder from '../../../testing/builder/LanguageModelBuilder'
+import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
+import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import CategoriesMapModelBuilder from '../../../testing/builder/CategoriesMapModelBuilder'
 import EventModelBuilder from '../../../testing/builder/EventModelBuilder'
 import DatabaseConnector from '../DatabaseConnector'
-import PoiModelBuilder from '../../../testing/builder/PoiModelBuilder'
+import PoiModelBuilder from 'api-client/src/testing/PoiModelBuilder'
 
 jest.mock('rn-fetch-blob')
 
