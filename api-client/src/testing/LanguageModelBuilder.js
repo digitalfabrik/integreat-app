@@ -1,6 +1,6 @@
 // @flow
 
-import { LanguageModel } from 'api-client'
+import LanguageModel from '../models/LanguageModel'
 
 const languages = [
   new LanguageModel('en', 'English'),

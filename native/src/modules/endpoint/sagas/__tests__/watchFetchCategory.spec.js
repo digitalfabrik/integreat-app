@@ -3,7 +3,7 @@
 import RNFetchBlob from '../../../../__mocks__/rn-fetch-blob'
 import DefaultDataContainer from '../../DefaultDataContainer'
 import type { FetchCategoryActionType } from '../../../app/StoreActionType'
-import LanguageModelBuilder from '../../../../testing/builder/LanguageModelBuilder'
+import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import watchFetchCategory, { fetchCategory } from '../watchFetchCategory'
 import { expectSaga, testSaga } from 'redux-saga-test-plan'
 import loadCityContent from '../loadCityContent'

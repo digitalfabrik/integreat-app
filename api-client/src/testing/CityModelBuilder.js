@@ -1,6 +1,6 @@
 // @flow
 
-import { CityModel } from 'api-client'
+import CityModel from '../models/CityModel'
 
 const cities = [
   new CityModel({
