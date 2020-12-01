@@ -4,7 +4,7 @@ import getExtension from './getExtension'
 import { Parser } from 'htmlparser2'
 import type { FetchMapType } from './sagas/fetchResourceCache'
 import { reduce } from 'lodash'
-import hashUrl from './hashUrl'
+import { hashUrl } from 'api-client'
 import Url from 'url-parse'
 
 interface InputEntryType {

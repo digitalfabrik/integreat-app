@@ -1,14 +1,22 @@
 // @flow
 
-import { DateModel, EventModel, LocationModel } from 'api-client'
 import moment from 'moment'
 import seedrandom from 'seedrandom'
-import type { PageResourceCacheEntryStateType, PageResourceCacheStateType } from '../../modules/app/StateType'
-import hashUrl from '../../modules/endpoint/hashUrl'
 import md5 from 'js-md5'
-import type { FetchMapType } from '../../modules/endpoint/sagas/fetchResourceCache'
-import { createFetchMap } from './util'
-import { difference } from 'lodash'
+import EventModel from '../models/EventModel'
+import DateModel from '../models/DateModel'
+import LocationModel from '../models/LocationModel'
+import hashUrl from '../hashUrl'
+
+type PageResourceCacheEntryStateType = {|
+  +filePath: string,
+  +lastUpdate: moment,
+  +hash: string
+|}
+
+type PageResourceCacheStateType = $ReadOnly<{
+  [url: string]: PageResourceCacheEntryStateType
+}>
 
 const MAX_PREDICTABLE_VALUE = 6
 const LANGUAGES = ['de', 'en', 'ar']
@@ -39,10 +47,6 @@ class EventModelBuilder {
       result[path] = resources
       return result
     }, {})
-  }
-
-  buildFetchMap (): FetchMapType {
-    return createFetchMap(this.buildResources())
   }
 
   createResource (url: string, index: number, lastUpdate: moment): PageResourceCacheEntryStateType {
@@ -81,9 +85,9 @@ class EventModelBuilder {
         event: new EventModel({
           path,
           title: 'first Event',
-          availableLanguages: new Map(difference(LANGUAGES, [this._language]).map(
-            lng => [lng, `/${this._city}/${lng}/events/event${index}`]
-          )),
+          availableLanguages: new Map(LANGUAGES
+            .filter(language => language !== this._language)
+            .map(lng => [lng, `/${this._city}/${lng}/events/event${index}`])),
           date: new DateModel({
             startDate,
             endDate,

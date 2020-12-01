@@ -7,17 +7,18 @@ import loadCityContent from '../loadCityContent'
 import AppSettings from '../../../settings/AppSettings'
 import { ContentLoadCriterion } from '../../ContentLoadCriterion'
 import type { DataContainer } from '../../DataContainer'
-import CategoriesMapModelBuilder from '../../../../testing/builder/CategoriesMapModelBuilder'
+import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import moment from 'moment'
-import EventModelBuilder from '../../../../testing/builder/EventModelBuilder'
+import EventModelBuilder from 'api-client/src/testing/EventModelBuilder'
 import PoiModelBuilder from 'api-client/src/testing/PoiModelBuilder'
 import AsyncStorage from '@react-native-community/async-storage'
 import fetchResourceCache from '../fetchResourceCache'
 import NetInfo from '@react-native-community/netinfo'
 import DatabaseConnector from '../../DatabaseConnector'
 import mockDate from '../../../../testing/mockDate'
+import { createFetchMap } from '../../../../testing/builder/util'
 
 jest.mock('@react-native-community/async-storage')
 jest.mock('@react-native-community/netinfo')
@@ -40,7 +41,7 @@ const prepareDataContainer = async (dataContainer: DataContainer, city: string, 
   const events = eventsBuilder.build()
   const pois = poisBuilder.build()
   const resources = { ...categoriesBuilder.buildResources(), ...eventsBuilder.buildResources() }
-  const fetchMap = { ...categoriesBuilder.buildFetchMap(), ...eventsBuilder.buildFetchMap() }
+  const fetchMap = createFetchMap(resources)
 
   await dataContainer.setEvents(city, language, events)
   await dataContainer.setCategoriesMap(city, language, categories)
