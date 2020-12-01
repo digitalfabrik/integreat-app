@@ -39,7 +39,7 @@
         "disclaimer": "Imprint and contacts",
         "mainDisclaimer": "Imprint and contacts - {{appName}}",
         "pois": "Points of interest",
-        "notFound": "Page not located",
+        "notFound": "Page not found",
         "tunews": "tünews",
         "localNews": "Local news"
       },
@@ -216,7 +216,6 @@
         "disclaimer": "ናይ ደራሲ ዝርዝራት ሓበሬታን ናይ ርክብን",
         "mainDisclaimer": "ናይ ደራሲ ዝርዝራት ሓበሬታን ናይ ርክብን - {{appName}}",
         "pois": "ዘገድሱ ነጥብታት",
-        "notFound": "ገጽ ኣይተረኽበን",
         "tunews": "tünews",
         "localNews": "ዜና ውሽጢ  ዓዲ"
       },
