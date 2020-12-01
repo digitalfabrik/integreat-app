@@ -24,7 +24,6 @@ export interface DataContainer {
 
   /**
    * Sets the cities but does not persist them.
-   * TODO: Offline available cities will be persisted in NATIVE-175.
    * For now switching cities when offline is not possible.
    */
   setCities: (cities: Array<CityModel>) => Promise<void>,

@@ -126,7 +126,7 @@ class Dashboard extends React.Component<PropsType> {
       }))
     }
 
-    if (featureFlags.pois) {
+    if (cityModel.poisEnabled && featureFlags.pois) {
       tiles.push(new TileModel({
         title: t('pois'),
         path: 'pois',
