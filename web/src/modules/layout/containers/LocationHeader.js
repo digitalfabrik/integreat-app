@@ -19,7 +19,7 @@ import TunewsRouteConfig, { TUNEWS_ROUTE } from '../../app/route-configs/TunewsR
 import { TUNEWS_DETAILS_ROUTE } from '../../app/route-configs/TunewsDetailsRouteConfig'
 import SearchRouteConfig from '../../app/route-configs/SearchRouteConfig'
 import type { LocationState } from 'redux-first-router'
-import { EventModel } from 'api-client'
+import { CityModel, EventModel } from 'api-client'
 import { WOHNEN_ROUTE } from '../../app/route-configs/WohnenRouteConfig'
 import { SPRUNGBRETT_ROUTE } from '../../app/route-configs/SprungbrettRouteConfig'
 import LandingRouteConfig from '../../app/route-configs/LandingRouteConfig'
@@ -37,15 +37,11 @@ const newsRoutes = [LOCAL_NEWS_ROUTE, TUNEWS_ROUTE, TUNEWS_DETAILS_ROUTE, LOCAL_
 const offersRoutes = [OFFERS_ROUTE, WOHNEN_ROUTE, SPRUNGBRETT_ROUTE]
 
 type PropsType = {|
+  cityModel: CityModel,
   events: ?Array<EventModel>,
   location: LocationState,
   viewportSmall: boolean,
   t: TFunction,
-  cityName: string,
-  isEventsEnabled: boolean,
-  isLocalNewsEnabled: boolean,
-  isTunewsEnabled: boolean,
-  isOffersEnabled: boolean,
   onStickyTopChanged: number => void,
   languageChangePaths: ?LanguageChangePathsType
 |}
@@ -65,15 +61,16 @@ export class LocationHeader extends React.Component<PropsType> {
   }
 
   getNavigationItems (): Array<Element<typeof HeaderNavigationItem>> {
-    const { t, isEventsEnabled, isLocalNewsEnabled, isTunewsEnabled, isOffersEnabled, location, events } = this.props
+    const { t, cityModel, location, events } = this.props
+    const { eventsEnabled, poisEnabled, offersEnabled, tunewsEnabled, pushNotificationsEnabled } = cityModel
 
     const { city, language } = location.payload
     const currentRoute = location.type
 
-    const isNewsVisible = buildConfig().featureFlags.newsStream && (isLocalNewsEnabled || isTunewsEnabled)
-    const isEventsVisible = isEventsEnabled
-    const isPoisVisible = buildConfig().featureFlags.pois // TODO IGAPP-115: check for flag from cms
-    const isOffersVisible = isOffersEnabled
+    const isNewsVisible = buildConfig().featureFlags.newsStream && (pushNotificationsEnabled || tunewsEnabled)
+    const isEventsVisible = eventsEnabled
+    const isPoisVisible = buildConfig().featureFlags.pois && poisEnabled
+    const isOffersVisible = offersEnabled
 
     const showNavBar = isNewsVisible || isEventsVisible || isPoisVisible || isOffersVisible
     if (!showNavBar) {
@@ -91,7 +88,7 @@ export class LocationHeader extends React.Component<PropsType> {
     ]
 
     if (isNewsVisible) {
-      const newsUrl = isLocalNewsEnabled
+      const newsUrl = pushNotificationsEnabled
         ? new LocalNewsRouteConfig().getRoutePath({ city, language })
         : new TunewsRouteConfig().getRoutePath({ city, language })
 
@@ -146,7 +143,7 @@ export class LocationHeader extends React.Component<PropsType> {
   }
 
   render () {
-    const { cityName, location } = this.props
+    const { cityModel, location } = this.props
     const { city, language } = location.payload
 
     return (
@@ -154,7 +151,7 @@ export class LocationHeader extends React.Component<PropsType> {
         viewportSmall={this.props.viewportSmall}
         logoHref={new CategoriesRouteConfig().getRoutePath({ city, language })}
         actionItems={this.getActionItems()}
-        cityName={cityName}
+        cityName={cityModel.name}
         navigationItems={this.getNavigationItems()}
         onStickyTopChanged={this.props.onStickyTopChanged}
       />
