@@ -2,7 +2,6 @@
 
 import * as React from 'react'
 import { Col } from 'react-styled-flexboxgrid'
-
 import styled from 'styled-components'
 import TileModel from '../models/TileModel'
 import CleanLink from './CleanLink'
@@ -86,7 +85,7 @@ class Tile extends React.PureComponent<PropsType> {
     } else {
       const inputs = []
       tile.postData.forEach((value, key) => inputs.unshift(<input type='hidden' value={value} key={key} name={key} />))
-      return <form method='POST' action={tile.path} target='_blank'>
+      return <form method='POST' action={tile.path}>
         {inputs}
         <button type='submit' role='link'>{this.getTileContent()}</button>
       </form>
