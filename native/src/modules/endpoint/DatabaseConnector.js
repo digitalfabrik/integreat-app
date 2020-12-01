@@ -273,7 +273,7 @@ class DatabaseConnector {
     const citiesMetaJson: MetaCitiesJsonType = mapValues(metaCities, cityMeta => ({
       languages: mapValues(
         cityMeta.languages,
-        ({ lastUpdate }): { last_update: string } => ({ last_update: lastUpdate.toISOString() })
+        ({ lastUpdate }): {| last_update: string |} => ({ last_update: lastUpdate.toISOString() })
       ),
       last_usage: cityMeta.lastUsage.toISOString()
     }))
@@ -517,12 +517,12 @@ class DatabaseConnector {
       },
       featured_image: event.featuredImage
         ? {
-          description: event.featuredImage.description,
-          thumbnail: event.featuredImage.thumbnail,
-          medium: event.featuredImage.medium,
-          large: event.featuredImage.large,
-          full: event.featuredImage.full
-        }
+            description: event.featuredImage.description,
+            thumbnail: event.featuredImage.thumbnail,
+            medium: event.featuredImage.medium,
+            large: event.featuredImage.large,
+            full: event.featuredImage.full
+          }
         : null
     }))
 
@@ -551,12 +551,12 @@ class DatabaseConnector {
         thumbnail: jsonObject.thumbnail,
         featuredImage: jsonObject.featured_image
           ? new FeaturedImageModel({
-            description: jsonObject.featured_image.description,
-            thumbnail: jsonObject.featured_image.thumbnail,
-            medium: jsonObject.featured_image.medium,
-            large: jsonObject.featured_image.large,
-            full: jsonObject.featured_image.full
-          })
+              description: jsonObject.featured_image.description,
+              thumbnail: jsonObject.featured_image.thumbnail,
+              medium: jsonObject.featured_image.medium,
+              large: jsonObject.featured_image.large,
+              full: jsonObject.featured_image.full
+            })
           : null,
         availableLanguages,
         lastUpdate: moment(jsonObject.last_update, moment.ISO_8601),
