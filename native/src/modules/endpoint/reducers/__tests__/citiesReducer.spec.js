@@ -23,6 +23,7 @@ describe('citiesReducer', () => {
       live: true,
       eventsEnabled: true,
       offersEnabled: true,
+      poisEnabled: true,
       pushNotificationsEnabled: false,
       tunewsEnabled: false,
       sortingName: 'augsburg',
