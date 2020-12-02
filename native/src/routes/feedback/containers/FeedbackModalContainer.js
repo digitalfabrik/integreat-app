@@ -11,7 +11,7 @@ import FeedbackVariant from '../FeedbackVariant'
 import {
   CATEGORIES_FEEDBACK_TYPE, CityModel,
   CONTENT_FEEDBACK_CATEGORY,
-  createFeedbackEndpoint, DEFAULT_FEEDBACK_LANGUAGE, EVENTS_FEEDBACK_TYPE, INTEGREAT_INSTANCE,
+  createFeedbackEndpoint, DEFAULT_FEEDBACK_LANGUAGE, EVENTS_FEEDBACK_TYPE,
   OFFER_FEEDBACK_TYPE, OfferModel, OFFERS_FEEDBACK_TYPE,
   PAGE_FEEDBACK_TYPE,
   TECHNICAL_FEEDBACK_CATEGORY
@@ -82,7 +82,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsType => ({ dispatch })
 
-const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
+const refresh = (refreshProps: RefreshPropsType) => {
   const { navigation } = refreshProps
   const feedbackInformation = navigation.state.params
   const navigateToFeedback = createNavigateToFeedbackModal(navigation)
@@ -108,7 +108,10 @@ class FeedbackModalContainer extends React.Component<ContainerPropsType, Feedbac
   getCityName = (): string => {
     const { cities, navigation } = this.props
     const cityCode = navigation.getParam('cityCode')
-    return cityCode ? CityModel.findCityName(cities, cityCode) : INTEGREAT_INSTANCE
+    if (!cityCode || !cities) {
+      throw new Error('City or cites unavailable.')
+    }
+    return CityModel.findCityName(cities, cityCode)
   }
 
   getFeedbackOptions = (): Array<FeedbackVariant> => {
