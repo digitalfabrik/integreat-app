@@ -58,14 +58,13 @@ class Pois extends React.Component<PropsType> {
   }
 
   createNavigateToFeedbackForPoi = (poi: PoiModel) => (isPositiveFeedback: boolean) => {
-    const { navigation, cities, cityCode, language } = this.props
-    const cityName = CityModel.findCityName(cities, cityCode)
+    const { navigation, cityCode, language } = this.props
 
     const feedbackInformation: FeedbackInformationType = {
       type: 'Pois',
       language,
       title: poi.title,
-      cityName,
+      cityCode,
       isPositiveFeedback
     }
 
@@ -73,13 +72,12 @@ class Pois extends React.Component<PropsType> {
   }
 
   navigateToFeedbackForPois = (isPositiveFeedback: boolean) => {
-    const { navigation, cities, cityCode, language } = this.props
-    const cityName = CityModel.findCityName(cities, cityCode)
+    const { navigation, cityCode, language } = this.props
 
     const feedbackInformation: FeedbackInformationType = {
       type: 'Pois',
       language,
-      cityName,
+      cityCode,
       isPositiveFeedback
     }
 

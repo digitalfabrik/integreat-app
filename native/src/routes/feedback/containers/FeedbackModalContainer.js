@@ -31,10 +31,10 @@ export type FeedbackInformationType = {
   type: FeedbackType,
   isPositiveFeedback: boolean,
   language: string,
-  cityCode?: string,
+  cityCode: string,
   path?: string,
   title?: string,
-  feedbackAlias?: string,
+  alias?: string,
   offers?: Array<OfferModel>
 }
 
@@ -123,8 +123,7 @@ class FeedbackModalContainer extends React.Component<ContainerPropsType, Feedbac
       options.push(contentFeedbackOption)
     }
 
-    this.getOffersFeedbackOptions().forEach(option => options.push(option))
-    options.push(this.getTechnicalFeedbackVariant())
+    options.push(...this.getOffersFeedbackOptions(), this.getTechnicalFeedbackVariant())
 
     return options
   }
@@ -141,18 +140,16 @@ class FeedbackModalContainer extends React.Component<ContainerPropsType, Feedbac
     const { navigation, t } = this.props
     const cityName = this.getCityName()
 
-    if (cityName) {
-      const label = t('contentOfCity', { city: cityName })
-      const feedbackCategory = CONTENT_FEEDBACK_CATEGORY
-      const feedbackType = navigation.getParam('type')
-      switch (feedbackType) {
-        case 'Event':
-          return new FeedbackVariant({ label, feedbackType: EVENTS_FEEDBACK_TYPE, feedbackCategory })
-        case 'Offers':
-          return new FeedbackVariant({ label, feedbackType: OFFERS_FEEDBACK_TYPE, feedbackCategory })
-        default:
-          return new FeedbackVariant({ label, feedbackType: CATEGORIES_FEEDBACK_TYPE, feedbackCategory })
-      }
+    const label = t('contentOfCity', { city: cityName })
+    const feedbackCategory = CONTENT_FEEDBACK_CATEGORY
+    const feedbackType = navigation.getParam('type')
+    switch (feedbackType) {
+      case 'Event':
+        return new FeedbackVariant({ label, feedbackType: EVENTS_FEEDBACK_TYPE, feedbackCategory })
+      case 'Offers':
+        return new FeedbackVariant({ label, feedbackType: OFFERS_FEEDBACK_TYPE, feedbackCategory })
+      default:
+        return new FeedbackVariant({ label, feedbackType: CATEGORIES_FEEDBACK_TYPE, feedbackCategory })
     }
   }
 
@@ -176,7 +173,7 @@ class FeedbackModalContainer extends React.Component<ContainerPropsType, Feedbac
 
   getCurrentPageFeedbackOption = (): ?FeedbackVariant => {
     const { navigation, t } = this.props
-    const { type, path, title, feedbackAlias } = navigation.state.params
+    const { type, path, title, alias } = navigation.state.params
 
     const feedbackCategory = CONTENT_FEEDBACK_CATEGORY
     if (type === 'Category' && path && title) {
@@ -197,7 +194,7 @@ class FeedbackModalContainer extends React.Component<ContainerPropsType, Feedbac
         feedbackType: PAGE_FEEDBACK_TYPE,
         feedbackCategory
       })
-    } else if (type === 'Offers' && feedbackAlias && title) {
+    } else if (type === 'Offers' && alias && title) {
       return new FeedbackVariant({
         label: t('contentOfOffer', { offer: title }),
         feedbackType: OFFER_FEEDBACK_TYPE,
@@ -218,7 +215,7 @@ class FeedbackModalContainer extends React.Component<ContainerPropsType, Feedbac
     const { navigation } = this.props
     const feedbackInformation = navigation.state.params
     const isOfferOptionSelected = selectedFeedbackOption.feedbackType === OFFER_FEEDBACK_TYPE
-    const alias = feedbackInformation.feedbackAlias || (isOfferOptionSelected && selectedFeedbackOption.alias) || ''
+    const alias = feedbackInformation.alias || (isOfferOptionSelected && selectedFeedbackOption.alias) || ''
     const city = this.getCityName().toLocaleLowerCase(feedbackInformation.language)
 
     return {
@@ -247,7 +244,6 @@ class FeedbackModalContainer extends React.Component<ContainerPropsType, Feedbac
     try {
       const apiUrl = await determineApiUrl()
       const feedbackEndpoint = createFeedbackEndpoint(apiUrl)
-      console.log(feedbackEndpoint.request)
       await feedbackEndpoint.request(feedbackData)
       this.setState({ sendingStatus: 'successful' })
     } catch (e) {
