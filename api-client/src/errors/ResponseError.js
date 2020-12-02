@@ -1,5 +1,7 @@
 // @flow
 
+import { iterateFormData } from '../iterateFormData'
+
 export type RequestOptionsType = { method: 'GET' } | { method: 'POST', body: FormData }
 
 type ResponseErrorParamsType = {|
@@ -33,12 +35,10 @@ class ResponseError extends Error {
   }
 
   createMessage ({ requestOptions, url, endpointName, response }: ResponseErrorParamsType): string {
-    // This is a react-native FormData
-    // https://github.com/facebook/react-native/blob/master/Libraries/Network/FormData.js#
     const stringifyFormData = (formData: FormData) => {
       const entries = {}
-      for (const part of formData.getParts()) {
-        entries[part.fieldName] = part.string
+      for (const [key, value] of iterateFormData(formData)) {
+        entries[key] = value
       }
 
       return ` and the formData ${JSON.stringify(entries)}`
