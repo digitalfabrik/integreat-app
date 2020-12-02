@@ -14,7 +14,7 @@ import type { ThemeType } from '../../../modules/theme/constants'
 import type { NavigationStackProp } from 'react-navigation-stack'
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
 import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
-import type { FeedbackInformationType } from '../../feedback/containers/FeedbackModalContainer'
+import createNavigateToFeedbackModal from '../../../modules/app/createNavigateToFeedbackModal'
 
 type PropsType = {|
   offers: Array<OfferModel>,
@@ -57,15 +57,13 @@ class Offers extends React.Component<PropsType> {
   navigateToFeedback = (isPositiveFeedback: boolean) => {
     const { navigation, offers, cityCode, language } = this.props
 
-    const feedbackInformation: FeedbackInformationType = {
+    createNavigateToFeedbackModal(navigation)({
       type: 'Offers',
       language,
       cityCode,
       offers,
       isPositiveFeedback
-    }
-
-    navigation.navigate('FeedbackModal', { ...feedbackInformation })
+    })
   }
 
   render () {

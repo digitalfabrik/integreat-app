@@ -14,8 +14,8 @@ import type { StoreActionType } from '../../modules/app/StoreActionType'
 import { RefreshControl, ScrollView } from 'react-native'
 import { LOADING_TIMEOUT } from '../../modules/common/constants'
 import determineApiUrl from '../../modules/endpoint/determineApiUrl'
-import type { FeedbackInformationType } from '../feedback/containers/FeedbackModalContainer'
 import SiteHelpfulBox from '../../modules/common/components/SiteHelpfulBox'
+import createNavigateToFeedbackModal from '../../modules/app/createNavigateToFeedbackModal'
 
 type OwnPropsType = {| navigation: NavigationStackProp<*> |}
 
@@ -57,15 +57,13 @@ class DisclaimerContainer extends React.Component<DisclaimerPropsType, Disclaime
 
   navigateToFeedback = (isPositiveFeedback: boolean) => {
     const { navigation, city, language } = this.props
-    const feedbackInformation: FeedbackInformationType = {
+    createNavigateToFeedbackModal(navigation)({
       type: 'Disclaimer',
       cityCode: city,
       language,
       isPositiveFeedback,
       path: this.state.disclaimer?.path
-    }
-
-    navigation.navigate('FeedbackModal', { ...feedbackInformation })
+    })
   }
 
   componentDidMount () {

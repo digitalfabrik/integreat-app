@@ -22,7 +22,7 @@ import type { NavigateToInternalLinkParamsType } from '../../../modules/app/crea
 import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
-import type { FeedbackInformationType } from '../../feedback/containers/FeedbackModalContainer'
+import createNavigateToFeedbackModal from '../../../modules/app/createNavigateToFeedbackModal'
 
 export type PropsType = {|
   path: ?string,
@@ -59,29 +59,25 @@ class Events extends React.Component<PropsType> {
   createNavigateToFeedbackForEvent = (event: EventModel) => (isPositiveFeedback: boolean) => {
     const { navigation, cityCode, language } = this.props
 
-    const feedbackInformation: FeedbackInformationType = {
+    createNavigateToFeedbackModal(navigation)({
       type: 'Event',
       title: event.title,
       path: event.path,
       cityCode,
       language,
       isPositiveFeedback
-    }
-
-    navigation.navigate('FeedbackModal', { ...feedbackInformation })
+    })
   }
 
   navigateToFeedbackForEvents = (isPositiveFeedback: boolean) => {
     const { navigation, cityCode, language } = this.props
 
-    const feedbackInformation: FeedbackInformationType = {
+    createNavigateToFeedbackModal(navigation)({
       type: 'Event',
       cityCode,
       language,
       isPositiveFeedback
-    }
-
-    navigation.navigate('FeedbackModal', { ...feedbackInformation })
+    })
   }
 
   render () {

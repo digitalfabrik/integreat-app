@@ -22,7 +22,7 @@ import type { NavigationStackProp } from 'react-navigation-stack'
 import { type TFunction } from 'react-i18next'
 import SpaceBetween from '../../common/components/SpaceBetween'
 import SiteHelpfulBox from '../../common/components/SiteHelpfulBox'
-import type { FeedbackInformationType } from '../../../routes/feedback/containers/FeedbackModalContainer'
+import createNavigateToFeedbackModal from '../../app/createNavigateToFeedbackModal'
 
 type PropsType = {|
   cities: Array<CityModel>,
@@ -58,16 +58,14 @@ class Categories extends React.Component<PropsType> {
     const { navigation, stateView, cityCode, language } = this.props
     const category = stateView.root()
 
-    const feedbackInformation: FeedbackInformationType = {
+    createNavigateToFeedbackModal(navigation)({
       type: 'Category',
       language,
       cityCode,
       title: !category.isRoot() ? category.title : undefined,
       path: !category.isRoot() ? category.path : undefined,
       isPositiveFeedback
-    }
-
-    navigation.navigate('FeedbackModal', { ...feedbackInformation })
+    })
   }
 
   getCachedThumbnail (category: CategoryModel): ?string {
@@ -126,7 +124,7 @@ class Categories extends React.Component<PropsType> {
    * @return {*} The content to be displayed
    */
   render () {
-    const { stateView, navigateToInternalLink, theme, navigation, language, resourceCacheUrl, t } = this.props
+    const { stateView, navigateToInternalLink, theme, navigation, language, resourceCacheUrl } = this.props
 
     const category = stateView.root()
     const children = stateView.children()

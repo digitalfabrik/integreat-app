@@ -15,6 +15,7 @@ import FailureContainer from '../../../modules/error/containers/FailureContainer
 import { LOADING_TIMEOUT } from '../../../modules/common/constants'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
 import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
+import createNavigateToFeedbackModal from '../../../modules/app/createNavigateToFeedbackModal'
 
 const WOHNEN_API_URL = 'https://api.wohnen.integreat-app.de/v0'
 
@@ -45,7 +46,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
 
   const navigateToFeedback = (isPositiveFeedback: boolean) => {
-    const feedbackInformation = {
+    createNavigateToFeedbackModal(ownProps.navigation)({
       type: 'Offers',
       cityCode,
       title: offer?.title,
@@ -53,9 +54,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       path: offer?.path,
       language: state.contentLanguage,
       isPositiveFeedback
-    }
-
-    ownProps.navigation.navigate('FeedbackModal', { ...feedbackInformation })
+    })
   }
 
   return {
