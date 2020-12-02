@@ -131,8 +131,8 @@ export class Switcher extends React.Component<PropsType> {
                 darkMode={darkMode}>
           {error
             ? <LanguageFailure cities={citiesPayload.data}
-                                    location={location}
-                                    languageChangePaths={languageChangePaths} />
+                               location={location}
+                               languageChangePaths={languageChangePaths} />
             : <RouteContentSwitcher location={location} payloads={payloads} isLoading={isLoading} />}
         </Layout>
       )
