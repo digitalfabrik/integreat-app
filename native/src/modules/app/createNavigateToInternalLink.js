@@ -8,7 +8,7 @@ import type { NavigationStackProp } from 'react-navigation-stack'
 import type { StoreActionType } from './StoreActionType'
 import createNavigateToLanding from './createNavigateToLanding'
 import type { Dispatch } from 'redux'
-import { URL } from 'react-native-url-polyfill'
+import URL from 'url-parse'
 
 export type NavigateToInternalLinkParamsType = {| url: string, language: string |}
 
@@ -25,22 +25,23 @@ export const createNavigateToInternalLink = ({
 }) => ({ url, language }: NavigateToInternalLinkParamsType) => {
   const parsedUrl = new URL(url)
   const pathname = parsedUrl.pathname
-  const pathnameParts = pathname.split('/', 2)
+  const pathnameParts = pathname.split('/').filter(Boolean)
   const newCity = pathnameParts[0]
   const newLanguage = pathnameParts[1]
+  const normalizedPathname = pathnameParts.reduce((acc, part) => `${acc}/${part}`, '')
 
   if (!newCity) { // '/'
     navigateToLanding()
   } else if (pathnameParts[2] === 'events') {
     if (pathnameParts[3]) { // '/augsburg/de/events/some_event'
-      navigateToEvent({ cityCode: newCity, language: newLanguage, path: pathname })
+      navigateToEvent({ cityCode: newCity, language: newLanguage, path: normalizedPathname })
     } else { // '/augsburg/de/events'
       navigateToEvent({ cityCode: newCity, language: newLanguage, path: null })
     }
   } else if (pathnameParts[2]) { // '/augsburg/de/willkommen'
-    navigateToCategory({ cityCode: newCity, language: newLanguage, path: pathname })
+    navigateToCategory({ cityCode: newCity, language: newLanguage, path: normalizedPathname })
   } else { // '/augsburg/de' or '/augsburg'
-    const path = newLanguage ? pathname : `${pathname}/${language}`
+    const path = newLanguage ? normalizedPathname : `${normalizedPathname}/${language}`
     navigateToDashboard({ cityCode: newCity, language: newLanguage || language, path })
   }
 }
