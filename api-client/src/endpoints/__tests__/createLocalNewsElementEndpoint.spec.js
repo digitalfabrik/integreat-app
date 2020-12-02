@@ -33,7 +33,7 @@ describe('localnews', () => {
     moment.tz('2020-03-20 17:50:00', 'GMT')
   )
 
-  const params = { city: 'testumgebung', language: 'en', id: 1 }
+  const params = { city: 'testumgebung', language: 'en', id: '1' }
 
   it('should map params to url', () => {
     expect(localNewsElement.mapParamsToUrl(params)).toEqual(
@@ -45,5 +45,13 @@ describe('localnews', () => {
     const itemModel = localNewsElement.mapResponse([item], params)
 
     expect(itemModel).toEqual(itemValue)
+  })
+
+  it('should throw if response is empty', () => {
+    expect(() => localNewsElement.mapResponse([], params)).toThrowError('The localNews 1 does not exist here.')
+  })
+
+  it('should throw a not found error if the response contains more than one item', () => {
+    expect(() => localNewsElement.mapResponse([item, item], params)).toThrowError()
   })
 })

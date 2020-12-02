@@ -1,6 +1,6 @@
 // @flow
 
-import { FetchError, MappingError, ResponseError } from 'api-client'
+import { FetchError, MappingError, ResponseError, NotFoundError } from 'api-client'
 
 type ErrorCodesType = {|
   PageNotFound: 'pageNotFound',
@@ -27,6 +27,8 @@ export const fromError = (error: Error): ErrorCodeType => {
     return ErrorCodes.ResponseMappingFailed
   } else if (error instanceof FetchError) {
     return ErrorCodes.NetworkConnectionFailed
+  } else if (error instanceof NotFoundError) {
+    return ErrorCodes.PageNotFound
   }
   return ErrorCodes.UnknownError
 }

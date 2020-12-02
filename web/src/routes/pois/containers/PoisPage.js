@@ -2,11 +2,9 @@
 
 import * as React from 'react'
 import { connect } from 'react-redux'
-
 import Page from '../../../modules/common/components/Page'
-import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
-import { PoiModel } from 'api-client'
+import { NotFoundError, PoiModel } from 'api-client'
 import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
@@ -48,7 +46,7 @@ export class PoisPage extends React.Component<PropsType> {
           </Page>
         )
       } else {
-        const error = new ContentNotFoundError({ type: 'poi', id: poiId, city, language })
+        const error = new NotFoundError({ type: 'poi', id: poiId, city, language })
         return <FailureSwitcher error={error} />
       }
     }
