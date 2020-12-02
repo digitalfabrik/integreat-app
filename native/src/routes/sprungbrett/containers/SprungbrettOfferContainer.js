@@ -20,7 +20,6 @@ import FailureContainer from '../../../modules/error/containers/FailureContainer
 import { LOADING_TIMEOUT } from '../../../modules/common/constants'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
 import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
-import type { FeedbackInformationType } from '../../feedback/containers/FeedbackModalContainer'
 import createNavigateToFeedbackModal from '../../../modules/app/createNavigateToFeedbackModal'
 
 type OwnPropsType = {| navigation: NavigationStackProp<*> |}
@@ -60,7 +59,7 @@ class SprungbrettOfferContainer extends React.Component<SprungbrettPropsType, Sp
 
   navigateToFeedback = (isPositiveFeedback: boolean) => {
     const { navigation, offer, language } = this.props
-    const feedbackInformation: FeedbackInformationType = {
+    createNavigateToFeedbackModal(navigation)({
       type: 'Offers',
       cityCode: navigation.getParam('city'),
       title: offer?.title,
@@ -68,9 +67,7 @@ class SprungbrettOfferContainer extends React.Component<SprungbrettPropsType, Sp
       path: offer?.path,
       language,
       isPositiveFeedback
-    }
-
-    navigation.navigate('FeedbackModal', { ...feedbackInformation })
+    })
   }
 
   componentDidMount () {

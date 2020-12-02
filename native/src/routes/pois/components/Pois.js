@@ -22,7 +22,7 @@ import SpaceBetween from '../../../modules/common/components/SpaceBetween'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
 import PoiListItem from './PoiListItem'
 import type { NavigateToPoiParamsType } from '../../../modules/app/createNavigateToPoi'
-import type { FeedbackInformationType } from '../../feedback/containers/FeedbackModalContainer'
+import createNavigateToFeedbackModal from '../../../modules/app/createNavigateToFeedbackModal'
 
 export type PropsType = {|
   path: ?string,
@@ -60,28 +60,24 @@ class Pois extends React.Component<PropsType> {
   createNavigateToFeedbackForPoi = (poi: PoiModel) => (isPositiveFeedback: boolean) => {
     const { navigation, cityCode, language } = this.props
 
-    const feedbackInformation: FeedbackInformationType = {
+    createNavigateToFeedbackModal(navigation)({
       type: 'Pois',
       language,
       title: poi.title,
       cityCode,
       isPositiveFeedback
-    }
-
-    navigation.navigate('FeedbackModal', { ...feedbackInformation })
+    })
   }
 
   navigateToFeedbackForPois = (isPositiveFeedback: boolean) => {
     const { navigation, cityCode, language } = this.props
 
-    const feedbackInformation: FeedbackInformationType = {
+    createNavigateToFeedbackModal(navigation)({
       type: 'Pois',
       language,
       cityCode,
       isPositiveFeedback
-    }
-
-    navigation.navigate('FeedbackModal', { ...feedbackInformation })
+    })
   }
 
   render () {
