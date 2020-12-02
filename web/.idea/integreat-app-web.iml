@@ -3,9 +3,12 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$/..">
       <excludeFolder url="file://$MODULE_DIR$/../.idea/shelf" />
+      <excludeFolder url="file://$MODULE_DIR$/../api-client/node_modules" />
+      <excludeFolder url="file://$MODULE_DIR$/../api-client/reports" />
       <excludeFolder url="file://$MODULE_DIR$/../native" />
       <excludeFolder url="file://$MODULE_DIR$/dist" />
       <excludeFolder url="file://$MODULE_DIR$/flow-typed" />
+      <excludeFolder url="file://$MODULE_DIR$/reports" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

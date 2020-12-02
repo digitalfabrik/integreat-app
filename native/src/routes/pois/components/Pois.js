@@ -10,10 +10,9 @@ import {
   PoiModel,
   EVENTS_FEEDBACK_TYPE,
   PAGE_FEEDBACK_TYPE,
-  TECHNICAL_FEEDBACK_CATEGORY
+  TECHNICAL_FEEDBACK_CATEGORY, NotFoundError
 } from 'api-client'
 import Page from '../../../modules/common/components/Page'
-import ContentNotFoundError from '../../../modules/error/ContentNotFoundError'
 import PageDetail from '../../../modules/common/components/PageDetail'
 import List from '../../../modules/common/components/List'
 import Caption from '../../../modules/common/components/Caption'
@@ -127,7 +126,7 @@ class Pois extends React.Component<PropsType> {
         </Page>
       }
 
-      const error = new ContentNotFoundError({ type: 'poi', id: path, city: cityCode, language })
+      const error = new NotFoundError({ type: 'poi', id: path, city: cityCode, language })
       return <Failure errorMessage={error.message} code={ErrorCodes.PageNotFound} t={t} theme={theme} />
     }
 
