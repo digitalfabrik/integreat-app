@@ -28,20 +28,19 @@ export const createNavigateToInternalLink = ({
   const pathnameParts = pathname.split('/').filter(Boolean)
   const newCity = pathnameParts[0]
   const newLanguage = pathnameParts[1]
-  const normalizedPathname = pathnameParts.reduce((acc, part) => `${acc}/${part}`, '')
 
   if (!newCity) { // '/'
     navigateToLanding()
   } else if (pathnameParts[2] === 'events') {
     if (pathnameParts[3]) { // '/augsburg/de/events/some_event'
-      navigateToEvent({ cityCode: newCity, language: newLanguage, path: normalizedPathname })
+      navigateToEvent({ cityCode: newCity, language: newLanguage, path: pathname })
     } else { // '/augsburg/de/events'
       navigateToEvent({ cityCode: newCity, language: newLanguage, path: null })
     }
   } else if (pathnameParts[2]) { // '/augsburg/de/willkommen'
-    navigateToCategory({ cityCode: newCity, language: newLanguage, path: normalizedPathname })
+    navigateToCategory({ cityCode: newCity, language: newLanguage, path: pathname })
   } else { // '/augsburg/de' or '/augsburg'
-    const path = newLanguage ? normalizedPathname : `${normalizedPathname}/${language}`
+    const path = newLanguage ? pathname : `${pathname}/${language}`
     navigateToDashboard({ cityCode: newCity, language: newLanguage || language, path })
   }
 }
