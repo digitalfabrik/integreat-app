@@ -9,7 +9,8 @@ export type FeatureFlagsType = {|
   newsStream: boolean,
   pushNotifications: boolean,
   introSlides: boolean,
-  sentry: boolean
+  sentry: boolean,
+  developerFriendly: boolean
 |}
 
 export type CommonBuildConfigType = {|
@@ -25,7 +26,6 @@ export type CommonBuildConfigType = {|
   darkTheme: ThemeType,
   localesOverride?: LocalesType,
   assets: string,
-  development: boolean,
   e2e?: boolean,
   aboutUrls: { default: string, [language: string]: string },
   privacyUrls: { default: string, [language: string]: string }

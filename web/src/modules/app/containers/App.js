@@ -21,6 +21,8 @@ class App extends React.Component<PropsType> {
   constructor () {
     super()
     this.store = createReduxStore()
+    // import initSentry from '../initSentry'
+    // initSentry().catch(e => console.error(e)) This will be enabled in IGAPP-397
   }
 
   render () {

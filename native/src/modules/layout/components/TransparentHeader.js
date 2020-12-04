@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import Share from 'react-native-share'
+import { Share } from 'react-native'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
 import type { NavigationStackProp } from 'react-navigation-stack'
@@ -66,12 +66,15 @@ class TransparentHeader extends React.PureComponent<PropsType> {
 
   onShare = async () => {
     const { navigation, t } = this.props
-    const url: ?string = navigation.state.params.url
-
-    if (url) {
+    const shareUrl: string = navigation.getParam('shareUrl')
+    if (shareUrl) {
+      const message = t('shareMessage', {
+        message: shareUrl,
+        interpolation: { escapeValue: false }
+      })
       try {
-        await Share.open({
-          url,
+        await Share.share({
+          message,
           failOnCancel: false
         })
       } catch (e) {

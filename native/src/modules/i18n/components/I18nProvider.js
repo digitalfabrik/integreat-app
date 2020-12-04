@@ -54,7 +54,7 @@ class I18nProvider extends React.Component<PropsType, StateType> {
           resources: i18nextResources,
           fallbackLng: FALLBACK_LANGUAGES,
           load: 'languageOnly',
-          debug: buildConfig().development
+          debug: buildConfig().featureFlags.developerFriendly
         })
 
       await this.initContentLanguage()

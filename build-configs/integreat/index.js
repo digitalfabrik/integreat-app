@@ -8,7 +8,7 @@ import type {
   WebBuildConfigType
 } from '../BuildConfigType'
 import { INTEGREAT_ASSETS } from '../AssetsType'
-import mainImprint from './assets/mainImprint'
+import mainImprint from './mainImprint'
 
 const APPLE_APP_ID = '1072353915'
 
@@ -18,7 +18,6 @@ const commonIntegreatBuildConfig: CommonBuildConfigType = {
   lightTheme,
   darkTheme,
   assets: INTEGREAT_ASSETS,
-  development: false,
   cmsUrl: 'https://cms.integreat-app.de',
   switchCmsUrl: 'https://cms-test.integreat-app.de',
   shareBaseUrl: 'https://integreat.app',
@@ -29,7 +28,8 @@ const commonIntegreatBuildConfig: CommonBuildConfigType = {
     newsStream: true,
     pushNotifications: true,
     introSlides: true,
-    sentry: true
+    sentry: true,
+    developerFriendly: false
   },
   aboutUrls: {
     default: 'https://integreat-app.de/about/',

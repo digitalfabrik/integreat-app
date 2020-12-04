@@ -1,3 +1,5 @@
+// @flow
+
 // https://github.com/babel/babel/issues/8309#issuecomment-439161848
 // Modules in node_modules are ignored and not transpiled per default.
 // Explicitly not ignore the build-configs npm module as it has to be transpiled as monorepo package.
@@ -26,7 +28,7 @@ const SHORT_COMMIT_SHA_LENGTH = 8
 // eslint-disable-next-line no-magic-numbers
 const MAX_BUNDLE_SIZE = 1.64 * Math.pow(2, 20)
 
-const readJson = path => JSON.parse(fs.readFileSync(path))
+const readJson = path => JSON.parse(fs.readFileSync(path, 'utf8'))
 
 const readVersionName = () => {
   const versionFile = readJson(path.resolve(__dirname, '../../version.json'))
@@ -38,14 +40,17 @@ const getSupportedLocales = () => {
   return [localesConfig.sourceLanguage, ...localesConfig.targetLanguages]
 }
 
-const createConfig = (env = {}) => {
+const createConfig = (env: { config_name?: string, dev_server?: boolean, version_name?: string, commit_sha?: string } = {}) => {
   const { config_name: buildConfigName, commit_sha: commitSha, version_name: versionName, dev_server: devServer } = env
+
+  if (!buildConfigName) {
+    throw new Error('Please specificy build config name')
+  }
 
   const buildConfig = loadBuildConfig(buildConfigName, WEB)
 
-  const isProductionBuild = !buildConfig.development
   // We have to override the env of the current process, such that babel-loader works with that.
-  const NODE_ENV = isProductionBuild ? '"production"' : '"development"'
+  const NODE_ENV = devServer ? '"development"' : '"production"'
   process.env.NODE_ENV = NODE_ENV
 
   // If version_name is not supplied read it from version file
@@ -55,7 +60,7 @@ const createConfig = (env = {}) => {
   }
 
   console.log('Used config: ', buildConfigName)
-  console.log('Production: ', isProductionBuild)
+  console.log('Configured as running in dev server: ', !devServer)
   console.log('Version: ', version)
 
   const configAssets = path.resolve(__dirname, `../node_modules/build-configs/${buildConfigName}/assets`)
@@ -76,7 +81,7 @@ const createConfig = (env = {}) => {
   ]
 
   const config = {
-    mode: isProductionBuild ? 'production' : 'development',
+    mode: devServer ? 'development' : 'production',
     resolve: {
       modules: [nodeModules, rootNodeModules]
     },
@@ -94,13 +99,14 @@ const createConfig = (env = {}) => {
     output: {
       path: distDirectory,
       publicPath: '/',
-      filename: isProductionBuild ? '[name].[hash].js' : '[name].js?[hash]',
-      chunkFilename: isProductionBuild ? '[id].[chunkhash].js' : '[id].js?[chunkhash]',
+      filename: devServer ? '[name].js?[hash]' : '[name].[hash].js',
+      chunkFilename: devServer ? '[id].js?[chunkhash]' : '[id].[chunkhash].js',
       sourcePrefix: '  '
     },
-    // Developer tool to enhance debugging, source maps
-    // http://webpack.github.io/docs/configuration.html#devtool
-    devtool: isProductionBuild ? false : 'source-map',
+    optimization: {
+      usedExports: true
+    },
+    devtool: 'source-map',
     devServer: {
       contentBase: distDirectory,
       compress: true,
@@ -114,15 +120,15 @@ const createConfig = (env = {}) => {
     // What information should be printed to the console
     stats: 'minimal',
     performance: {
-      hints: isProductionBuild && !devServer ? 'error' : false,
+      hints: !devServer ? 'error' : false,
       maxEntrypointSize: MAX_BUNDLE_SIZE,
       maxAssetSize: MAX_BUNDLE_SIZE
     },
     // The list of plugins for Webpack compiler
     plugins: [
       new BundleAnalyzerPlugin({
-        analyzerMode: isProductionBuild ? 'static' : 'disabled',
-        generateStatsFile: !!isProductionBuild,
+        analyzerMode: devServer ? 'disabled' : 'static',
+        generateStatsFile: !devServer,
         openAnalyzer: false,
         reportFilename: path.join(bundleReportDirectory, 'report.html'),
         statsFilename: path.join(bundleReportDirectory, 'stats.json')
@@ -137,12 +143,19 @@ const createConfig = (env = {}) => {
         }
       }),
       new CopyPlugin([
-        { from: wwwDirectory, to: distDirectory },
-        { from: configAssets, to: distDirectory }
+        {
+          from: wwwDirectory,
+          to: distDirectory
+        },
+        {
+          from: configAssets,
+          to: distDirectory
+        }
       ]),
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': NODE_ENV,
         __VERSION__: JSON.stringify(version),
+        __BUILD_CONFIG_NAME__: JSON.stringify(buildConfigName),
         __BUILD_CONFIG__: JSON.stringify(buildConfig)
       }),
       // Emit a JSON file with assets paths
@@ -152,14 +165,21 @@ const createConfig = (env = {}) => {
         filename: 'assets.json',
         prettyPrint: true
       }),
+      // $FlowFixMe Unable to find "LoaderOptionsPlugin" in "webpack"
       new webpack.LoaderOptionsPlugin({
-        debug: !isProductionBuild,
-        minimize: isProductionBuild
+        debug: devServer,
+        minimize: !devServer
       }),
       // We use moment-timezone for parsing a limited range of years here with GTM data in the integreat-api-client
-      new MomentTimezoneDataPlugin({ startYear: currentYear, endYear: currentYear + 2 }),
+      new MomentTimezoneDataPlugin({
+        startYear: currentYear,
+        endYear: currentYear + 2
+      }),
       // moment has no support for 'ti' (Tigrinya) and 'so' (Somali), hence we have to use the ignoreInvalidLocales flag
-      new MomentLocalesPlugin({ localesToKeep: getSupportedLocales(), ignoreInvalidLocales: true })
+      new MomentLocalesPlugin({
+        localesToKeep: getSupportedLocales(),
+        ignoreInvalidLocales: true
+      })
     ],
     module: {
       rules: [
@@ -174,7 +194,10 @@ const createConfig = (env = {}) => {
         },
         {
           test: /\.html$/,
-          use: [{ loader: 'html-loader', options: { minimize: true } }]
+          use: [{
+            loader: 'html-loader',
+            options: { minimize: true }
+          }]
         },
         {
           test: /\.css$/,
@@ -193,7 +216,7 @@ const createConfig = (env = {}) => {
             {
               loader: 'img-loader',
               options: {
-                enabled: isProductionBuild,
+                enabled: !devServer,
                 gifsicle: {
                   interlaced: false
                 },
@@ -225,7 +248,8 @@ const createConfig = (env = {}) => {
   }
 
   // Optimize the bundle in production mode
-  if (isProductionBuild) {
+  if (!devServer) {
+    // $FlowFixMe Unable to find "optimize" in "webpack"
     config.plugins.push(new webpack.optimize.AggressiveMergingPlugin())
   }
 

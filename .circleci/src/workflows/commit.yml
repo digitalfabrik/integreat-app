@@ -13,6 +13,8 @@ jobs:
       build_config_name: integreat-test-cms
       context:
         - slack-app
+      requires:
+        - bump_version
   - deliver_web:
       filters:
         branches:
@@ -20,6 +22,7 @@ jobs:
             - main
       context:
         - slack-app
+        - sentry
       production_delivery: false
       requires:
         - check_web
