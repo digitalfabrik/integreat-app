@@ -1,7 +1,7 @@
 // @flow
 
 type FormDataType = FormData
-  | { getParts: () => Array<{ string: string, fieldName: string }> }
+  | {| getParts: () => Array<{ string: string, fieldName: string }> |}
 
 export function stringifyFormData (formData: FormDataType): string {
   const entries = {}
