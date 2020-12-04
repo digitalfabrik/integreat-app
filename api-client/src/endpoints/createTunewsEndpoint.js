@@ -8,7 +8,7 @@ import Endpoint from '../Endpoint'
 
 export const TUNEWS_ENDPOINT_NAME = 'tunews'
 
-type ParamsType = { language: string, page: number, count: number }
+type ParamsType = {| city: string, language: string, page: number, count: number |}
 
 export default (baseUrl: string): Endpoint<ParamsType, Array<TunewsModel>> => new EndpointBuilder(TUNEWS_ENDPOINT_NAME)
   .withParamsToUrlMapper((params: ParamsType): string =>

@@ -317,8 +317,10 @@ jobs:
                 build_config_name: << parameters.build_config_name >>
             - checkout
             - restore_yarn_cache
+            - prepare_workspace
+            - restore_environment_variables
             - run:
-                command: yarn workspace web build:<< parameters.build_config_name >> --env.commit_sha=${CIRCLE_SHA1}
+                command: yarn workspace web build:<< parameters.build_config_name >> --env.commit_sha=${CIRCLE_SHA1} --env.version_name=${NEW_VERSION_NAME}
                 name: << parameters.build_config_name >> build
             - store_artifacts:
                 name: Store output of bundle analyzer
@@ -327,7 +329,7 @@ jobs:
                 command: yarn workspace web check:build
                 name: Check build
             - store_artifacts:
-                path: dist
+                path: web/dist
             - persist_to_workspace:
                 paths:
                     - dist
@@ -548,7 +550,9 @@ jobs:
             - add_ssh_keys:
                 fingerprints:
                     - 68:a3:fe:e7:94:f7:a4:13:35:5c:63:30:2f:07:7d:02
+            - checkout
             - prepare_workspace
+            - restore_environment_variables
             - when:
                 condition: << parameters.production_delivery >>
                 steps:
@@ -558,6 +562,12 @@ jobs:
                     - run:
                         command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/malteapp.de \<<< $'put -r ~/attached_workspace/dist/malte/*'
                         name: Malte production delivery
+                    - run:
+                        command: tools/sentry-release integreat "${NEW_VERSION_NAME}" ~/attached_workspace/dist/integreat
+                        name: 'Sentry Upload: integreat'
+                    - run:
+                        command: tools/sentry-release malte "${NEW_VERSION_NAME}" ~/attached_workspace/dist/malte
+                        name: 'Sentry Upload: malte'
             - unless:
                 condition: << parameters.production_delivery >>
                 steps:
@@ -565,8 +575,8 @@ jobs:
                         command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.integreat.app \<<< $'put -r ~/attached_workspace/dist/integreat-test-cms/*'
                         name: Integreat development delivery
                     - run:
-                        command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.malteapp.de \<<< $'put -r ~/attached_workspace/dist/malte/*'
-                        name: Malte development delivery
+                        command: tools/sentry-release integreat-test-cms "${NEW_VERSION_NAME}" ~/attached_workspace/dist/integreat-test-cms
+                        name: 'Sentry Upload: integreat-test-cms'
             - notify_failed
     e2e_android:
         docker:
@@ -721,9 +731,12 @@ workflows:
                 context:
                     - slack-app
                 name: build_ig_test_cms_web
+                requires:
+                    - bump_version
             - deliver_web:
                 context:
                     - slack-app
+                    - sentry
                 filters:
                     branches:
                         only:
@@ -938,14 +951,19 @@ workflows:
                 context:
                     - slack-app
                 name: build_integreat_web
+                requires:
+                    - bump_version
             - build_web:
                 build_config_name: malte
                 context:
                     - slack-app
                 name: build_malte_web
+                requires:
+                    - bump_version
             - deliver_web:
                 context:
                     - slack-app
+                    - sentry
                 production_delivery: true
                 requires:
                     - check_web
@@ -1283,14 +1301,19 @@ workflows:
                 context:
                     - slack-app
                 name: build_integreat_web
+                requires:
+                    - bump_version
             - build_web:
                 build_config_name: malte
                 context:
                     - slack-app
                 name: build_malte_web
+                requires:
+                    - bump_version
             - deliver_web:
                 context:
                     - slack-app
+                    - sentry
                 production_delivery: true
                 requires:
                     - check_web

@@ -13,7 +13,7 @@ describe('NewsElement', () => {
   const link = '/testumgebung/en/news/local'
   const t = (key: ?string): string => key || ''
 
-  const date = moment('2020-03-20T17:50:00.000Z', 'GMT')
+  const date = moment('2020-03-20T17:50:00.000Z')
   const newsItem = new LocalNewsModel({
     id: 217,
     title: 'Tick bite - What to do?',

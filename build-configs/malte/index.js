@@ -4,7 +4,7 @@ import { lightTheme, darkTheme } from './theme'
 import type { AndroidBuildConfigType, iOSBuildConfigType, WebBuildConfigType } from '../BuildConfigType'
 import { MALTE_ASSETS } from '../AssetsType'
 import malteOverrideLocales from 'locales/override-locales/malte.json'
-import mainImprint from './assets/mainImprint'
+import mainImprint from './mainImprint'
 
 const APPLE_APP_ID = '1535758339'
 
@@ -14,7 +14,6 @@ const commonMalteBuildConfig = {
   lightTheme,
   darkTheme,
   assets: MALTE_ASSETS,
-  development: false,
   cmsUrl: 'https://cms.malteapp.de',
   allowedHostNames: ['cms.malteapp.de'],
   localesOverride: malteOverrideLocales,
@@ -25,7 +24,8 @@ const commonMalteBuildConfig = {
     newsStream: true,
     pushNotifications: true,
     introSlides: true,
-    sentry: true
+    sentry: true,
+    developerFriendly: false
   },
   aboutUrls: {
     default: 'https://www.malteser-werke.de/malte-app'

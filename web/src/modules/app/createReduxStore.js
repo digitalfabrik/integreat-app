@@ -32,7 +32,7 @@ const createReduxStore = (initialState: StateType = {}, routesMap: RoutesMap = d
     thunkMiddleware // Allows to return functions in actions
   ]
 
-  if (buildConfig().development) {
+  if (buildConfig().featureFlags.developerFriendly) {
     middlewares.push(createLogger()) // Logs all state changes in console
   }
   const rootReducer = combineReducers({
