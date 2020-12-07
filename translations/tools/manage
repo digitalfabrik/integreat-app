@@ -90,10 +90,11 @@ const mergeByLanguageModule = (byLanguageModule, skeleton, sourceLanguage) => {
     })
 }
 
-const writeCsvFromJson = (json, toPath, sourceLanguage, targetLanguages) => {
+const writeCsvFromJson = (json, toPath, sourceLanguage, supportedLanguages) => {
   const moduleArray = sortBy(toPairs(json), ([moduleKey, module]) => moduleKey) // Sort by module key
   const byLanguageModuleArray = fromPairs(
-    targetLanguages.map(targetLanguage => [targetLanguage, getModulesByLanguage(moduleArray, targetLanguage)])
+    supportedLanguages.filter(language => language !== sourceLanguage) // source language is not a target language
+      .map(targetLanguage => [targetLanguage, getModulesByLanguage(moduleArray, targetLanguage)])
   )
 
   const skeleton = createSkeleton(sourceLanguage, moduleArray)
@@ -186,12 +187,12 @@ const writeJsonFromCsv = (translations, toPath, sourceLanguage) => {
 program
   .command('convert <translations_file> <toPath> <format>')
   .action(function (fromPath, toPath, targetFormat, options) {
-    const {targetLanguages, sourceLanguage} = config
+    const {supportedLanguages, sourceLanguage} = config
 
     if (targetFormat === 'csv') {
       if (path.extname(fromPath) === '.json') {
         const json = JSON.parse(fs.readFileSync(fromPath, 'utf8'))
-        writeCsvFromJson(json, toPath, sourceLanguage, Object.keys(targetLanguages))
+        writeCsvFromJson(json, toPath, sourceLanguage, Object.keys(supportedLanguages))
       } else {
         throw new Error('nyi')
       }
