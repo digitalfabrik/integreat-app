@@ -18,7 +18,11 @@ module.exports = {
     es: {},
     sr: {},
     ps: { rtl: true },
-    kmr: { rtl: true }
+    kmr: { rtl: true },
+    am: {},
+    bg: {},
+    el: {},
+    it: {}
   },
   // Fallbacks for unnormalized language codes from our backend
   fallbacks: {
