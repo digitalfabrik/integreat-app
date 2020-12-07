@@ -33,7 +33,7 @@ describe('tunews', () => {
   const itemModel1 = createNewsItemModel(1,
     moment.tz('2020-01-20 12:04:22+00:00', 'GMT'))
 
-  const params = {id: 1}
+  const params = { city: 'augsburg', language: 'de', id: 1 }
 
   it('should map params to url', () => {
     expect(tunewsElement.mapParamsToUrl(params)).toEqual(
@@ -45,5 +45,9 @@ describe('tunews', () => {
     const itemModel = tunewsElement.mapResponse(item1, params)
 
     expect(itemModel).toEqual(itemModel1)
+  })
+
+  it('should throw a not found error if the response is empty', () => {
+    expect(() => tunewsElement.mapResponse([], params)).toThrowError('The tunews 1 does not exist here.')
   })
 })

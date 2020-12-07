@@ -15,7 +15,7 @@ export const fetchTunews = (
   count: number = TUNEWS_ITEMS_PER_PAGE
 ) => (dispatch: Dispatch<StoreActionType>, getState: () => StateType) => {
   const state: StateType = getState()
-  const { language } = state.location.payload
+  const { city, language } = state.location.payload
   return fetchData<*, *>(
-    createTunewsEndpoint(tunewsApiBaseUrl), dispatch, state.tunews.payload, { language, page, count })
+    createTunewsEndpoint(tunewsApiBaseUrl), dispatch, state.tunews.payload, { city, language, page, count })
 }

@@ -2,16 +2,13 @@
 
 import * as React from 'react'
 import { connect } from 'react-redux'
-
-import { CategoriesMapModel, CategoryModel, CityModel } from 'api-client'
-
+import { CategoriesMapModel, CategoryModel, CityModel, NotFoundError } from 'api-client'
 import Breadcrumbs from '../../../modules/common/components/Breadcrumbs'
 import Tiles from '../../../modules/common/components/Tiles'
 import CategoryList from '../components/CategoryList'
 import TileModel from '../../../modules/common/models/TileModel'
 import Link from 'redux-first-router-link'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
-import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import type { StateType } from '../../../modules/app/StateType'
 import type { UiDirectionType } from '../../../modules/i18n/types/UiDirectionType'
 import Page from '../../../modules/common/components/Page'
@@ -100,7 +97,7 @@ export class CategoriesPage extends React.Component<PropsType> {
         {this.getContent(categoryModel)}
       </div>
     } else {
-      const error = new ContentNotFoundError({ type: 'category', id: this.props.path, city: city, language })
+      const error = new NotFoundError({ type: 'category', id: this.props.path, city: city, language })
       return <FailureSwitcher error={error} />
     }
   }

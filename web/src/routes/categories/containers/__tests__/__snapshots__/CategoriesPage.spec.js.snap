@@ -148,6 +148,6 @@ exports[`CategoriesPage should match snapshot and render a Page if page has no c
 
 exports[`CategoriesPage should match snapshot and render an error if path is not valid 1`] = `
 <FailureSwitcher
-  error={[Error: The category /augsburg/de/not/valid does not exist here.]}
+  error={[NotFoundError: The category /augsburg/de/not/valid does not exist here.]}
 />
 `;

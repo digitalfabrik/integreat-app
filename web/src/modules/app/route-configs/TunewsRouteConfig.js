@@ -35,8 +35,9 @@ const tunewsRoute: Route = {
       fetchData(createLanguagesEndpoint(cmsApiBaseUrl), dispatch, state.languages, { city, language }),
       fetchData(createTunewsLanguagesEndpoint(tunewsApiBaseUrl), dispatch, state.languages, { city, language }),
       fetchData(createTunewsEndpoint(tunewsApiBaseUrl), dispatch, state.tunews.payload, {
-        page: 1,
+        city,
         language,
+        page: 1,
         count: 20
       })
     ])

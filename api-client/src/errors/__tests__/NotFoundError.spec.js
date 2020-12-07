@@ -1,11 +1,11 @@
 // @flow
 
-import ContentNotFoundError from '../ContentNotFoundError'
+import NotFoundError from '../NotFoundError'
 import { escapeRegExp } from 'lodash/string'
 
-describe('ContentNotFoundError', () => {
+describe('NotFoundError', () => {
   it('should have correct message', () => {
-    const error = new ContentNotFoundError(
+    const error = new NotFoundError(
       { type: 'category', id: '/augsburg/de/test', city: 'augsburg', language: 'language' }
     )
 
@@ -14,7 +14,7 @@ describe('ContentNotFoundError', () => {
 
   it('should produce a stacktrace', () => {
     try {
-      throw new ContentNotFoundError(
+      throw new NotFoundError(
         { type: 'category', id: '/augsburg/de/test', city: 'augsburg', language: 'language' }
       )
     } catch (error) {

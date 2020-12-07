@@ -8,12 +8,11 @@ import {
   CityModel,
   CONTENT_FEEDBACK_CATEGORY,
   EventModel,
-  EVENTS_FEEDBACK_TYPE,
+  EVENTS_FEEDBACK_TYPE, NotFoundError,
   PAGE_FEEDBACK_TYPE,
   TECHNICAL_FEEDBACK_CATEGORY
 } from 'api-client'
 import Page from '../../../modules/common/components/Page'
-import ContentNotFoundError from '../../../modules/error/ContentNotFoundError'
 import PageDetail from '../../../modules/common/components/PageDetail'
 import EventListItem from './EventListItem'
 import List from '../../../modules/common/components/List'
@@ -128,7 +127,7 @@ class Events extends React.Component<PropsType> {
         </Page>
       }
 
-      const error = new ContentNotFoundError({ type: 'event', id: path, city: cityCode, language })
+      const error = new NotFoundError({ type: 'event', id: path, city: cityCode, language })
       return <Failure errorMessage={error.message} code={ErrorCodes.PageNotFound} t={t} theme={theme} />
     }
 

@@ -1,12 +1,10 @@
 // @flow
 
 import { getFontFaceSource } from '../platform/constants/webview'
-import type { PageResourceCacheEntryStateType, PageResourceCacheStateType } from '../app/StateType'
 import type { ThemeType } from '../theme/constants'
 import { RTL_LANGUAGES } from '../i18n/constants'
 import webviewFontFamilies from '../theme/webviewFontFamilies'
-import { RESOURCE_CACHE_DIR_PATH } from '../endpoint/DatabaseConnector'
-import { mapValues } from 'lodash'
+import type { ParsedCacheDictionaryType } from './components/Page'
 
 // language=JavaScript
 const renderJS = (cacheDictionary: { [remoteUrl: string]: string }) => `
@@ -85,18 +83,7 @@ const renderJS = (cacheDictionary: { [remoteUrl: string]: string }) => `
 `
 
 // language=HTML
-const renderHtml = (
-  html: string,
-  files: PageResourceCacheStateType,
-  theme: ThemeType,
-  language: string,
-  resourceCacheUrl: string
-) => {
-  const cacheDictionary = mapValues(files, (file: PageResourceCacheEntryStateType) => {
-    return file.filePath.startsWith(RESOURCE_CACHE_DIR_PATH)
-      ? file.filePath.replace(RESOURCE_CACHE_DIR_PATH, resourceCacheUrl)
-      : file.filePath
-  })
+const renderHtml = (html: string, cacheDictionary: ParsedCacheDictionaryType, theme: ThemeType, language: string) => {
   return `
 <!-- The lang attribute makes TalkBack use the appropriate language. -->
 <html lang="${language}">

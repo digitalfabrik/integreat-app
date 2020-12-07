@@ -6,20 +6,20 @@ import { call } from 'redux-saga/effects'
 import { tunewsApiUrl } from '../constants'
 
 function * loadTunews (
+  city: string,
   language: string,
   page: number,
   count: number
 ): Saga<Array<TunewsModel>> {
   console.debug('Fetching tunews')
 
-  const payload = yield call(() => createTunewsEndpoint(tunewsApiUrl).request({
+  const payload = yield call(createTunewsEndpoint(tunewsApiUrl).request, {
+    city,
     language,
     page,
     count
-  }))
-  const news: Array<TunewsModel> = payload.data
-
-  return news
+  })
+  return payload.data
 }
 
 export default loadTunews
