@@ -2,7 +2,6 @@
 
 import normalizePath from 'normalize-path'
 import CategoryModel from './CategoryModel'
-import { isEqualWith } from 'lodash'
 
 /**
  * Contains a Map [string -> CategoryModel] and some helper functions
@@ -57,7 +56,9 @@ class CategoriesMapModel {
     while (!category.isRoot()) {
       const temp = this.findCategoryByPath(category.parentPath)
       if (!temp) {
-        throw new Error(`The category ${category.parentPath} does not exist but should be the parent of ${category.path}`)
+        throw new Error(
+          `The category ${category.parentPath} does not exist but should be the parent of ${category.path}`
+        )
       }
       category = temp
       parents.unshift(category)
@@ -67,7 +68,10 @@ class CategoriesMapModel {
 
   isEqual (other: CategoriesMapModel): boolean {
     return this._categories.size === other._categories.size &&
-      Array.from(this._categories.entries()).every(([key, value]) => value.isEqual(other._categories.get(key)))
+      Array.from(this._categories.entries()).every(([key, value]) => {
+        const otherCategory = other._categories.get(key)
+        return otherCategory && value.isEqual(otherCategory)
+      })
   }
 }
 

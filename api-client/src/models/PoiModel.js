@@ -3,6 +3,7 @@
 import type Moment from 'moment'
 import LocationModel from './LocationModel'
 import ExtendedPageModel from './ExtendedPageModel'
+import PageModel from './PageModel'
 
 class PoiModel extends ExtendedPageModel {
   _location: LocationModel
@@ -27,8 +28,9 @@ class PoiModel extends ExtendedPageModel {
     return this._excerpt
   }
 
-  isEqual (other: PoiModel): boolean {
-    return super.isEqual(other) &&
+  isEqual (other: PageModel): boolean {
+    return other instanceof PoiModel &&
+      super.isEqual(other) &&
       this.location.isEqual(other.location) &&
       this.excerpt === other.excerpt
   }

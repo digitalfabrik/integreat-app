@@ -3,6 +3,7 @@
 import type Moment from 'moment'
 import CategoriesMapModel from './CategoriesMapModel'
 import ExtendedPageModel from './ExtendedPageModel'
+import PageModel from './PageModel'
 
 class CategoryModel extends ExtendedPageModel {
   _root: boolean
@@ -41,8 +42,9 @@ class CategoryModel extends ExtendedPageModel {
     return categories.getChildren(this).length === 0
   }
 
-  isEqual (other: CategoryModel): boolean {
-    return super.isEqual(other) &&
+  isEqual (other: PageModel): boolean {
+    return other instanceof CategoryModel &&
+      super.isEqual(other) &&
       this.parentPath === other.parentPath &&
       this.order === other.order &&
       this.isRoot === other.isRoot
