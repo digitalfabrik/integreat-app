@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`loadTranslations should correctly merge and transform translations 1`] = `
+Object {
+  "ar": Object {
+    "dashboard": Object {
+      "events": "الفعاليات",
+      "localInformation": "معلومات محلية",
+      "offers": "العروض",
+    },
+  },
+  "de": Object {
+    "app": Object {
+      "metaDescription": "Integreat ist Ihr digitaler Guide für Deutschland. Finden Sie lokale Informationen, Veranstaltungen und Beratung. Immer aktuell und in Ihrer Sprache.",
+      "pageTitles": Object {
+        "localNews": "Lokale Nachrichten",
+        "notFound": "Seite nicht gefunden",
+        "tunews": "tünews",
+      },
+    },
+    "dashboard": Object {
+      "events": "Veranstaltungen",
+      "localInformation": "Malte Informationen",
+      "news": "Malte Nachrichten",
+      "newsAlternative": "Neuigkeiten",
+      "offers": "Malte Angebote",
+    },
+  },
+  "en": Object {
+    "dashboard": Object {
+      "events": "Malte Events",
+      "localInformation": "Malte information",
+      "offers": "Malte Offers",
+    },
+  },
+}
+`;
+
+exports[`loadTranslations should correctly transform translations 1`] = `
+Object {
+  "ar": Object {
+    "dashboard": Object {
+      "events": "الفعاليات",
+      "localInformation": "معلومات محلية",
+      "offers": "العروض",
+    },
+  },
+  "de": Object {
+    "app": Object {
+      "metaDescription": "Integreat ist Ihr digitaler Guide für Deutschland. Finden Sie lokale Informationen, Veranstaltungen und Beratung. Immer aktuell und in Ihrer Sprache.",
+      "pageTitles": Object {
+        "localNews": "Lokale Nachrichten",
+        "notFound": "Seite nicht gefunden",
+        "tunews": "tünews",
+      },
+    },
+    "dashboard": Object {
+      "events": "Veranstaltungen",
+      "localInformation": "Lokale Informationen",
+      "news": "Nachrichten",
+      "newsAlternative": "Neuigkeiten",
+      "offers": "Angebote",
+    },
+  },
+}
+`;
