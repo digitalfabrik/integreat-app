@@ -45,7 +45,8 @@ class FeaturedImageModel {
   }
 
   isEqual (other: ?FeaturedImageModel): boolean {
-    return other && this.description === other.description &&
+    return !!other &&
+      this.description === other.description &&
       isEqual(this.thumbnail, other.thumbnail) &&
       isEqual(this.medium, other.medium) &&
       isEqual(this.large, other.large) &&

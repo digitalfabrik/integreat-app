@@ -26,8 +26,9 @@ class ExtendedPageModel extends PageModel {
     return this._availableLanguages
   }
 
-  isEqual (other: ExtendedPageModel): boolean {
-    return super.isEqual(other) &&
+  isEqual (other: PageModel): boolean {
+    return other instanceof ExtendedPageModel &&
+      super.isEqual(other) &&
       this.thumbnail === other.thumbnail &&
       isEqual(this.availableLanguages, other.availableLanguages)
   }
