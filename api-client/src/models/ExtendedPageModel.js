@@ -2,6 +2,7 @@
 
 import type Moment from 'moment'
 import PageModel from './PageModel'
+import { isEqual } from 'lodash'
 
 class ExtendedPageModel extends PageModel {
   _thumbnail: string
@@ -23,6 +24,12 @@ class ExtendedPageModel extends PageModel {
 
   get availableLanguages (): Map<string, string> {
     return this._availableLanguages
+  }
+
+  isEqual (other: ExtendedPageModel): boolean {
+    return super.isEqual(other) &&
+      this.thumbnail === other.thumbnail &&
+      isEqual(this.availableLanguages, other.availableLanguages)
   }
 }
 

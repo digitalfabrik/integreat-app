@@ -193,7 +193,7 @@ describe('DatabaseConnector', () => {
       await databaseConnector.storeCategories(testCategoriesMap, context)
 
       const categories = await databaseConnector.loadCategories(context)
-      expect(categories).toEqual(testCategoriesMap)
+      expect(categories.isEqual(testCategoriesMap)).toBe(true)
     })
   })
 
@@ -273,7 +273,7 @@ describe('DatabaseConnector', () => {
       await databaseConnector.storeEvents(testEvents, context)
 
       const events = await databaseConnector.loadEvents(context)
-      expect(events).toEqual(testEvents)
+      expect(events.every((event, i) => event.isEqual(testEvents[i]))).toBeTruthy()
     })
   })
 

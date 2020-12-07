@@ -2,12 +2,14 @@
 
 import normalizePath from 'normalize-path'
 import CategoryModel from './CategoryModel'
+import { isEqualWith } from 'lodash'
 
 /**
  * Contains a Map [string -> CategoryModel] and some helper functions
  */
 class CategoriesMapModel {
   _categories: Map<string, CategoryModel>
+
   /**
    * Creates a Map [path -> category] from the categories provided,
    * whose parent attributes are first changed from id to path
@@ -61,6 +63,11 @@ class CategoriesMapModel {
       parents.unshift(category)
     }
     return parents
+  }
+
+  isEqual (other: CategoriesMapModel): boolean {
+    return this._categories.size === other._categories.size &&
+      Array.from(this._categories.entries()).every(([key, value]) => value.isEqual(other._categories.get(key)))
   }
 }
 

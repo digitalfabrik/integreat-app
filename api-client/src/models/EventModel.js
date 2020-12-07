@@ -40,6 +40,14 @@ class EventModel extends ExtendedPageModel {
   get featuredImage (): ?FeaturedImageModel {
     return this._featuredImage
   }
+
+  isEqual (other: EventModel): boolean {
+    return super.isEqual(other) &&
+      this.date.isEqual(other.date) &&
+      this.location.isEqual(other.location) &&
+      this.excerpt === other.excerpt &&
+      ((!this.featuredImage && this.featuredImage === other.featuredImage) || this.featuredImage.isEqual(other.featuredImage))
+  }
 }
 
 export default EventModel
