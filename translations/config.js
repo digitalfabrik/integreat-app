@@ -1,4 +1,13 @@
-const checkConsistency = (config) => {
+// @flow
+
+type ConfigType = {
+  sourceLanguage: string,
+  supportedLanguages: { [languageCode: string]: string },
+  fallbacks: { [languageCode: string]: string[] },
+  defaultFallback: string
+}
+
+const checkConsistency = (config: ConfigType): ConfigType => {
 
   const supportedLanguageCodes = Object.keys(config.supportedLanguages)
 
