@@ -8,7 +8,7 @@ import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
 import ConnectedI18nProvider, { I18nProvider } from '../I18nProvider'
 import { I18nextProvider } from 'react-i18next'
-import loadLocales from '../../loadLocales'
+import loadTranslations from '../../loadTranslations'
 
 const mockStore = configureMockStore()
 
@@ -46,7 +46,7 @@ describe('I18nProvider', () => {
     expect(i18nInstance.init.mock.calls[0]).toHaveLength(1)
     const options = i18nInstance.init.mock.calls[0][0]
 
-    expect(options.resources).toEqual(loadLocales())
+    expect(options.resources).toEqual(loadTranslations())
     delete options.resources
 
     expect(options).toMatchSnapshot()

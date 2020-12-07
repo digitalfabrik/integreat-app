@@ -8,9 +8,9 @@ import type { ThemeType } from '../../theme/constants'
 import { createHtmlSource } from '../../platform/constants/webview'
 import renderHtml from '../renderHtml'
 import { WebView, type WebViewMessageEvent } from 'react-native-webview'
-import type { PageResourceCacheStateType } from '../../app/StateType'
 import type { WebViewNavigation } from 'react-native-webview/lib/WebViewTypes'
 import type { ViewLayoutEvent } from 'react-native/Libraries/Components/View/ViewPropTypes'
+import type { ParsedCacheDictionaryType } from './Page'
 
 const StyledView: StyledComponent<{}, {}, *> = styled.View`
   overflow: hidden;
@@ -25,7 +25,7 @@ type StateType = {|
 type PropType = {|
   content: string,
   theme: ThemeType,
-  files: PageResourceCacheStateType,
+  cacheDirectory: ParsedCacheDictionaryType,
   language: string,
   resourceCacheUrl: string,
   onLinkPress: string => void,
@@ -72,12 +72,12 @@ class RemoteContent extends React.Component<PropType, StateType> {
   }
 
   render () {
-    const { content, files, theme, resourceCacheUrl, language } = this.props
+    const { content, cacheDirectory, theme, resourceCacheUrl, language } = this.props
     const height = this.state.webViewHeight
     const width = this.state.webViewWidth
     return <StyledView onLayout={this.onLayout}>
       <WebView
-        source={createHtmlSource(renderHtml(content, files, theme, language, resourceCacheUrl), resourceCacheUrl)}
+        source={createHtmlSource(renderHtml(content, cacheDirectory, theme, language), resourceCacheUrl)}
         originWhitelist={['*']} // Needed by iOS to load the initial html
         javaScriptEnabled
         dataDetectorTypes='all'

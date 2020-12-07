@@ -79,7 +79,7 @@ yarn start
     
 #### Trouble Shooting
 
-* [`Failed to get "locale" from native side!` in the simulator](troubleshooting.md#failed-to-get-locale-from-native-side-in-the-simulator)
+* [`Failed to get language code from native side!` in the simulator](troubleshooting.md#failed-to-get-language-code-from-native-side-in-the-simulator)
 
 ### Building the App with a Distribution Certificate
 
