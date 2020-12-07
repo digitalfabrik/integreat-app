@@ -6,6 +6,7 @@
       <excludeFolder url="file://$MODULE_DIR$/../api-client/node_modules" />
       <excludeFolder url="file://$MODULE_DIR$/../api-client/reports" />
       <excludeFolder url="file://$MODULE_DIR$/../native" />
+      <excludeFolder url="file://$MODULE_DIR$/../translations/external-jobs" />
       <excludeFolder url="file://$MODULE_DIR$/dist" />
       <excludeFolder url="file://$MODULE_DIR$/flow-typed" />
       <excludeFolder url="file://$MODULE_DIR$/reports" />

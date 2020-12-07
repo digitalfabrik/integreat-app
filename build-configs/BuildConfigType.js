@@ -2,7 +2,7 @@
 
 import type { ThemeType } from './ThemeType'
 
-export type LocalesType = { [namespace: string]: { [language: string]: { [key: string]: string } } }
+export type TranslationsType = { [namespace: string]: { [language: string]: { [key: string]: string } } }
 
 export type FeatureFlagsType = {|
   pois: boolean,
@@ -24,7 +24,7 @@ export type CommonBuildConfigType = {|
   featureFlags: FeatureFlagsType,
   lightTheme: ThemeType,
   darkTheme: ThemeType,
-  localesOverride?: LocalesType,
+  translationsOverride?: TranslationsType,
   assets: string,
   e2e?: boolean,
   aboutUrls: { default: string, [language: string]: string },

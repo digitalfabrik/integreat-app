@@ -44,7 +44,7 @@
     "history": "^4.9.0",
     "i18next": "^19.8.3",
     "i18next-browser-languagedetector": "^6.0.1",
-    "locales": "0.0.1",
+    "translations": "0.0.1",
     "lodash": "^4.17.19",
     "moment": "^2.24.0",
     "normalize-strings": "^1.1.0",
