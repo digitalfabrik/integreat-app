@@ -94,8 +94,8 @@ describe('DefaultDataContainer', () => {
     const receivedTestPois = await defaultDataContainer.getPois('testCity', 'de')
     const receivedAnotherTestPois = await defaultDataContainer.getPois('anotherTestCity', 'en')
 
-    expect(receivedTestPois).toEqual([testPois[0]])
-    expect(receivedAnotherTestPois).toEqual([testPois[1]])
+    expect(receivedTestPois[0].isEqual(testPois[0])).toBeTruthy()
+    expect(receivedAnotherTestPois[0].isEqual(testPois[1])).toBeTruthy()
   })
   it('should return persisted data if not cached', async () => {
     const defaultDataContainer = new DefaultDataContainer()
@@ -125,9 +125,10 @@ describe('DefaultDataContainer', () => {
     const receivedTestCategories = await defaultDataContainer.getCategoriesMap('testCity', 'de')
     const receivedAnotherTestCategories = await defaultDataContainer.getCategoriesMap('anotherTestCity', 'en')
 
-    expect(receivedTestCategories).toEqual(testCategoriesMap)
-    expect(receivedAnotherTestCategories).toEqual(anotherTestCategoriesMap)
+    expect(receivedTestCategories.isEqual(testCategoriesMap)).toBeTruthy()
+    expect(receivedAnotherTestCategories.isEqual(anotherTestCategoriesMap)).toBeTruthy()
   })
+
   it('should return the events associated with the context', async () => {
     const defaultDataContainer = new DefaultDataContainer()
     await defaultDataContainer.setEvents('testCity', 'de', [testEvents[0]])
@@ -136,9 +137,10 @@ describe('DefaultDataContainer', () => {
     const receivedTestEvents = await defaultDataContainer.getEvents('testCity', 'de')
     const receivedAnotherTestEvents = await defaultDataContainer.getEvents('anotherTestCity', 'en')
 
-    expect(receivedTestEvents).toEqual([testEvents[0]])
-    expect(receivedAnotherTestEvents).toEqual([testEvents[1]])
+    expect(receivedTestEvents[0].isEqual(testEvents[0])).toBeTruthy()
+    expect(receivedAnotherTestEvents[0].isEqual(testEvents[1])).toBeTruthy()
   })
+
   it('should return the pois associated with the context', async () => {
     const defaultDataContainer = new DefaultDataContainer()
     await defaultDataContainer.setPois('testCity', 'de', [testPois[0]])
@@ -147,8 +149,8 @@ describe('DefaultDataContainer', () => {
     const receivedTestPois = await defaultDataContainer.getPois('testCity', 'de')
     const receivedAnotherTestPois = await defaultDataContainer.getPois('anotherTestCity', 'en')
 
-    expect(receivedTestPois).toEqual([testPois[0]])
-    expect(receivedAnotherTestPois).toEqual([testPois[1]])
+    expect(receivedTestPois[0].isEqual(testPois[0])).toBeTruthy()
+    expect(receivedAnotherTestPois[0].isEqual(testPois[1])).toBeTruthy()
   })
   it('should return the resources associated with the context', async () => {
     const defaultDataContainer = new DefaultDataContainer()

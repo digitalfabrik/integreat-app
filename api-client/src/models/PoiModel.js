@@ -26,6 +26,12 @@ class PoiModel extends ExtendedPageModel {
   get excerpt (): string {
     return this._excerpt
   }
+
+  isEqual (other: PoiModel): boolean {
+    return super.isEqual(other) &&
+      this.location.isEqual(other.location) &&
+      this.excerpt === other.excerpt
+  }
 }
 
 export default PoiModel
