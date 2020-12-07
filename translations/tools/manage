@@ -7,13 +7,13 @@ const flat = require('flat')
 const {unflatten} = flat
 const stringify = require('csv-stringify')
 const parse = require('csv-parse/lib/sync')
+const config = require('../config.js')
 
 const {isEmpty, without, isString, merge, fromPairs, toPairs, zip, sortBy, mapValues, isEqual} = require('lodash')
 
 program
   .version('0.1.0')
   .option('-d, --debug', 'enable extreme logging')
-  .option('-c, --config <config_file>', 'set configuration for managing translations', 'config.json')
 
 const mapStringValuesDeep = (obj, fn) =>
   mapValues(obj, (val, key) =>
@@ -33,8 +33,8 @@ const writePairs = (toPath, sourceLanguagePairs, pairs, name) => {
     console.log(`Successfully written ${name}.csv.`)
   })
 
-  output.on('error', () => {
-    console.log(`Failed to write ${name}.csv.`)
+  output.on('error', (e) => {
+    console.log(`Failed to write ${name}.csv ${e}`)
   })
 
   const withSourceLanguagePairs = zip(sourceLanguagePairs, pairs)
@@ -186,12 +186,12 @@ const writeJsonFromCsv = (translations, toPath, sourceLanguage) => {
 program
   .command('convert <translations_file> <toPath> <format>')
   .action(function (fromPath, toPath, targetFormat, options) {
-    const {targetLanguages, sourceLanguage} = JSON.parse(fs.readFileSync(program.config, 'utf8'))
+    const {targetLanguages, sourceLanguage} = config
 
     if (targetFormat === 'csv') {
       if (path.extname(fromPath) === '.json') {
         const json = JSON.parse(fs.readFileSync(fromPath, 'utf8'))
-        writeCsvFromJson(json, toPath, sourceLanguage, targetLanguages)
+        writeCsvFromJson(json, toPath, sourceLanguage, Object.keys(targetLanguages))
       } else {
         throw new Error('nyi')
       }
