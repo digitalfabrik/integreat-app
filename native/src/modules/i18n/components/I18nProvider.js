@@ -3,7 +3,7 @@
 import i18n from 'i18next'
 import * as React from 'react'
 import { I18nextProvider, initReactI18next } from 'react-i18next'
-import loadLocales from '../loadLocales'
+import loadTranslations from '../loadTranslations'
 import LanguageDetector from '../LanguageDetector'
 import MomentContext, { createMomentFormatter } from '../context/MomentContext'
 import AppSettings from '../../settings/AppSettings'
@@ -46,7 +46,7 @@ class I18nProvider extends React.Component<PropsType, StateType> {
 
   initI18n = async () => {
     try {
-      const i18nextResources = loadLocales()
+      const i18nextResources = loadTranslations()
       await this.i18n
         .use(LanguageDetector)
         .use(initReactI18next)

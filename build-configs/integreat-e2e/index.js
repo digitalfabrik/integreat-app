@@ -1,6 +1,7 @@
 // @flow
 
 import integreatTestCmsPlatformBuildConfigs from '../integreat-test-cms'
+import integreatPlatformBuildConfigs from '../integreat'
 import type {
   AndroidBuildConfigType,
   CommonBuildConfigType,
@@ -34,12 +35,14 @@ const webIntegreatE2eBuildConfig: WebBuildConfigType = {
 const androidIntegreatE2eBuildCOnfig: AndroidBuildConfigType = {
   ...integreatTestCmsPlatformBuildConfigs.android,
   ...integreatE2e,
+  applicationId: integreatPlatformBuildConfigs.android.applicationId,
   googleServices: null
 }
 
 const iosIntegreatE2eBuildConfig: iOSBuildConfigType = {
   ...integreatTestCmsPlatformBuildConfigs.ios,
   ...integreatE2e,
+  bundleIdentifier: integreatPlatformBuildConfigs.ios.bundleIdentifier,
   googleServices: null
 }
 

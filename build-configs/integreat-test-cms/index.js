@@ -35,12 +35,14 @@ export const webIntegreatTestCmsBuildConfig: WebBuildConfigType = {
 export const androidIntegreatTestCmsBuildConfig: AndroidBuildConfigType = {
   ...integreatPlatformBuildConfigs.android,
   ...integreatTestCms,
+  applicationId: 'de.integreat_test_cms',
   googleServices: null
 }
 
 export const iosIntegreatTestCmsBuildConfig: iOSBuildConfigType = {
   ...integreatPlatformBuildConfigs.ios,
   ...integreatTestCms,
+  bundleIdentifier: 'de.integreat_test_cms',
   googleServices: null
 }
 
