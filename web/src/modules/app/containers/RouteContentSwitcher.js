@@ -2,16 +2,15 @@
 
 import * as React from 'react'
 import type { LocationState } from 'redux-first-router'
-import { Payload, SPRUNGBRETT_OFFER, WOHNEN_OFFER } from 'api-client'
+import { NotFoundError, Payload, SPRUNGBRETT_OFFER, WOHNEN_OFFER } from 'api-client'
 import { find, reduce } from 'lodash'
 import LoadingSpinner from '../../common/components/LoadingSpinner'
 import FailureSwitcher from '../../common/components/FailureSwitcher'
 import { getRouteContent } from '../routeContents'
-import ContentNotFoundError from '../../common/errors/ContentNotFoundError'
 
 type PropsType = {|
   location: LocationState,
-  payloads: {[string]: Payload<any>},
+  payloads: { [string]: Payload<any> },
   isLoading: boolean
 |}
 
@@ -38,7 +37,7 @@ class RouteContentSwitcher extends React.PureComponent<PropsType> {
     const { payloads, location } = this.props
     if (payloads.offers && !payloads.offers.isFetching && payloads.offers.data && !payloads.offers.error) {
       if (this.isWaitingForOffer('wohnenOffer', payloads) || this.isWaitingForOffer('sprungbrettJobs', payloads)) {
-        return <FailureSwitcher error={new ContentNotFoundError({
+        return <FailureSwitcher error={new NotFoundError({
           type: 'offer',
           id: location.pathname,
           city: location.payload.city,

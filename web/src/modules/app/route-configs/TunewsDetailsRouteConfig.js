@@ -29,7 +29,11 @@ const tunewsDetailsRoute: Route = {
     const { city, language, newsId } = state.location.payload
 
     await Promise.all([
-      fetchData(createTunewsElementEndpoint(tunewsApiBaseUrl), dispatch, state.tunewsElement, { id: newsId }),
+      fetchData(createTunewsElementEndpoint(tunewsApiBaseUrl), dispatch, state.tunewsElement, {
+        city,
+        language,
+        id: newsId
+      }),
       fetchData(createCitiesEndpoint(cmsApiBaseUrl), dispatch, state.cities),
       fetchData(createEventsEndpoint(cmsApiBaseUrl), dispatch, state.events, { city, language })
     ])

@@ -2,48 +2,7 @@
 
 exports[`OffersPage should render a OfferNotFoundError if there is an offerId 1`] = `
 <FailureSwitcher
-  error={[Error: The offer invalid_offer does not exist here.]}
-/>
-`;
-
-exports[`OffersPage should render a OfferNotFoundError if there is an offerId 1`] = `
-<FailureSwitcher
-  error={[Error: The offer invalid_offer does not exist here.]}
-/>
-`;
-
-exports[`OffersPage should render offer tiles if no offer is selected 1`] = `
-<Tiles
-  tiles={
-    Array [
-      TileModel {
-        "_isExternalUrl": false,
-        "_path": "/augsburg/de/offers/sprungbrett",
-        "_postData": null,
-        "_thumbnail": "xy",
-        "_title": "Sprungbrett",
-      },
-      TileModel {
-        "_isExternalUrl": true,
-        "_path": "ihk-jobborese.com",
-        "_postData": Map {
-          "partner" => "0006",
-          "radius" => "50",
-          "plz" => "86150",
-        },
-        "_thumbnail": "xy",
-        "_title": "Jobboerse",
-      },
-      TileModel {
-        "_isExternalUrl": true,
-        "_path": "ihk-pratkitkumsboerse.com",
-        "_postData": null,
-        "_thumbnail": "xy",
-        "_title": "Praktikumsboerse",
-      },
-    ]
-  }
-  title="offers"
+  error={[NotFoundError: The offer invalid_offer does not exist here.]}
 />
 `;
 

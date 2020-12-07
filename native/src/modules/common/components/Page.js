@@ -7,19 +7,23 @@ import type { NavigationStackProp } from 'react-navigation-stack'
 import Caption from './Caption'
 import TimeStamp from './TimeStamp'
 import type Moment from 'moment'
-import type { PageResourceCacheStateType } from '../../app/StateType'
+import type { PageResourceCacheEntryStateType, PageResourceCacheStateType } from '../../app/StateType'
 import type { NavigateToInternalLinkParamsType } from '../../app/createNavigateToInternalLink'
 import MomentContext from '../../i18n/context/MomentContext'
 import RemoteContent from './RemoteContent'
 import SiteHelpfulBox from './SiteHelpfulBox'
 import SpaceBetween from './SpaceBetween'
 import onInternalLinkPress from '../onInternalLinkPress'
+import { RESOURCE_CACHE_DIR_PATH } from '../../endpoint/DatabaseConnector'
+import { mapValues } from 'lodash'
 
 const HORIZONTAL_MARGIN = 8
 
 const Container = styled.View`
   margin: 0 ${HORIZONTAL_MARGIN}px 8px;
 `
+
+export type ParsedCacheDictionaryType = {| [remoteUrl: string]: string |}
 
 type StateType = {|
   loading: boolean
@@ -45,29 +49,31 @@ class Page extends React.Component<PropType, StateType> {
 
   onLinkPress = (url: string) => {
     const { navigation, language, navigateToInternalLink } = this.props
-    onInternalLinkPress(url, navigation, language, navigateToInternalLink)
+    const cacheDict = this.cacheDictionary()
+    const shareUrl = Object.keys(cacheDict).find(remoteUrl => cacheDict[remoteUrl] === url)
+    onInternalLinkPress(url, navigation, language, navigateToInternalLink, shareUrl || url)
   }
 
   onLoad = () => this.setState({ loading: false })
 
+  cacheDictionary = (): ParsedCacheDictionaryType => {
+    const { files, resourceCacheUrl } = this.props
+    return mapValues(files, (file: PageResourceCacheEntryStateType) => {
+      return file.filePath.startsWith(RESOURCE_CACHE_DIR_PATH)
+        ? file.filePath.replace(RESOURCE_CACHE_DIR_PATH, resourceCacheUrl)
+        : file.filePath
+    })
+  }
+
   render () {
-    const {
-      title,
-      children,
-      content,
-      files,
-      theme,
-      language,
-      resourceCacheUrl,
-      lastUpdate,
-      navigateToFeedback
-    } = this.props
+    const { title, children, content, theme, language, resourceCacheUrl, lastUpdate, navigateToFeedback } = this.props
     return <SpaceBetween>
       <Container>
         <Caption title={title} theme={theme} />
         {children}
-        <RemoteContent theme={theme} content={content} files={files} onLinkPress={this.onLinkPress}
-                       onLoad={this.onLoad} language={language} resourceCacheUrl={resourceCacheUrl} />
+        <RemoteContent theme={theme} content={content} cacheDirectory={this.cacheDictionary()}
+                       onLinkPress={this.onLinkPress} onLoad={this.onLoad} language={language}
+                       resourceCacheUrl={resourceCacheUrl} />
         {!this.state.loading && <MomentContext.Consumer>
           {formatter => <TimeStamp formatter={formatter} lastUpdate={lastUpdate} language={language} theme={theme} />}
         </MomentContext.Consumer>}
