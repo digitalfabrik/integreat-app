@@ -1,8 +1,24 @@
-module.exports = {
+const checkConsistency = (config) => {
+
+  const supportedLanguageCodes = Object.keys(config.supportedLanguages)
+
+  const languagesInFallbacks = Object.values(config.fallbacks).flat()
+
+  languagesInFallbacks.forEach(languageCode => {
+    if (!supportedLanguageCodes.includes(languageCode)) {
+      throw Error(`The code ${languageCode} was mentioned in the fallbacks but is not included in 'targetLanguage'`)
+    }
+  })
+
+  return config
+}
+
+module.exports = checkConsistency({
   // The language from which we translate
   sourceLanguage: 'de',
-  // The languages to which we translate
-  targetLanguages: {
+  // The languages into which we translate from 'sourceLanguage' including the sourceLanguage
+  supportedLanguages: {
+    de: {},
     ar: { rtl: true },
     en: {},
     fa: { rtl: true },
@@ -51,4 +67,4 @@ module.exports = {
   },
   // If the language code is not found in our translations then use this 
   defaultFallback: 'de'
-}
+})
