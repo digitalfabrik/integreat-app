@@ -1,0 +1,6 @@
+issue_key: IGAPP-363
+show_in_stores: false
+platforms:
+  - android
+  - ios
+en: Hide redundant local information tile if no other feature is enabled.
