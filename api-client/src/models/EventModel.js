@@ -5,6 +5,7 @@ import LocationModel from './LocationModel'
 import DateModel from './DateModel'
 import ExtendedPageModel from './ExtendedPageModel'
 import FeaturedImageModel from './FeaturedImageModel'
+import PageModel from './PageModel'
 
 class EventModel extends ExtendedPageModel {
   _date: DateModel
@@ -39,6 +40,17 @@ class EventModel extends ExtendedPageModel {
 
   get featuredImage (): ?FeaturedImageModel {
     return this._featuredImage
+  }
+
+  isEqual (other: PageModel): boolean {
+    return other instanceof EventModel &&
+      super.isEqual(other) &&
+      this.date.isEqual(other.date) &&
+      this.location.isEqual(other.location) &&
+      this.excerpt === other.excerpt &&
+      (this.featuredImage
+        ? this.featuredImage.isEqual(other.featuredImage)
+        : this.featuredImage === other.featuredImage)
   }
 }
 

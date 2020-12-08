@@ -7,44 +7,16 @@ import type Moment from 'moment'
 import { ThemeProvider } from 'styled-components'
 
 import ConnectedLocalNewsDetailsPage, { LocalNewsDetailsPage } from '../LocalNewsDetailsPage'
-import { CityModel, LocalNewsModel } from 'api-client'
+import { LocalNewsModel } from 'api-client'
 import { Provider } from 'react-redux'
 import createLocation from '../../../../createLocation'
 import { LOCAL_NEWS_DETAILS_ROUTE } from '../../../../modules/app/route-configs/LocalNewsDetailsRouteConfig'
 import theme from '../../../../modules/theme/constants/theme'
 import configureMockStore from 'redux-mock-store'
+import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 
 describe('LocalNewsDetailsPage', () => {
-  const cities = [
-    new CityModel({
-      name: 'Augsburg',
-      code: 'augsburg',
-      live: true,
-      eventsEnabled: true,
-      offersEnabled: true,
-      pushNotificationsEnabled: true,
-      tunewsEnabled: true,
-      sortingName: 'Augsburg',
-      prefix: null,
-      longitude: 10.89779,
-      latitude: 48.3705449,
-      aliases: { Gersthofen: { longitude: 10.89779, latitude: 48.3705449 } }
-    }),
-    new CityModel({
-      name: 'Stadt Regensburg',
-      code: 'regensburg',
-      live: true,
-      eventsEnabled: false,
-      offersEnabled: false,
-      pushNotificationsEnabled: false,
-      tunewsEnabled: false,
-      sortingName: 'Regensburg',
-      prefix: 'Stadt',
-      latitude: null,
-      longitude: null,
-      aliases: null
-    })
-  ]
+  const cities = new CityModelBuilder(2).build()
 
   const createNewsItemModel = (date: Moment): LocalNewsModel =>
     new LocalNewsModel({

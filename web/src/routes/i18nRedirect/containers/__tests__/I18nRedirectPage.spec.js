@@ -3,32 +3,17 @@
 import React from 'react'
 import { mount, shallow } from 'enzyme'
 import ConnectedI18nRedirectPage, { I18nRedirectPage } from '../I18nRedirectPage'
-import { CityModel } from 'api-client'
 import createReduxStore from '../../../../modules/app/createReduxStore'
 import { Provider } from 'react-redux'
 import { I18N_REDIRECT_ROUTE } from '../../../../modules/app/route-configs/I18nRedirectRouteConfig'
 import configureStore from 'redux-mock-store'
 import { NOT_FOUND } from 'redux-first-router'
+import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 
 describe('I18nRedirectPage', () => {
   const language = 'de'
 
-  const cities = [
-    new CityModel({
-      name: 'City',
-      code: 'random_city',
-      live: true,
-      eventsEnabled: false,
-      offersEnabled: false,
-      tunewsEnabled: false,
-      pushNotificationsEnabled: false,
-      sortingName: 'City',
-      latitude: null,
-      longitude: null,
-      aliases: null,
-      prefix: null
-    })
-  ]
+  const cities = new CityModelBuilder(1).build()
 
   describe('get redirect action', () => {
     it('should return landing path if there is no param or the param is landing', () => {
@@ -47,10 +32,10 @@ describe('I18nRedirectPage', () => {
 
     it('should return categories path if the param is a city', () => {
       const instance = shallow(
-        <I18nRedirectPage cities={cities} redirect={() => {}} param='random_city' i18n={{ language }} />
+        <I18nRedirectPage cities={cities} redirect={() => {}} param='augsburg' i18n={{ language }} />
       ).instance()
 
-      expect(instance.getRedirectPath()).toEqual('/random_city/de')
+      expect(instance.getRedirectPath()).toEqual('/augsburg/de')
     })
 
     it('should return not found path as default', () => {
