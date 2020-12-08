@@ -103,12 +103,10 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 
   if (state.resourceCacheUrl === null || state.cities.status === 'loading' || switchingLanguage ||
     (route.status === 'loading' && !routeHasOldContent(route)) || languages.status === 'loading') {
-    return { status: 'loading', progress: 0 }
+    return { status: 'loading', progress: resourceCache.progress }
   }
 
-  // $FlowFixMe Flow can't evaluate the status as it is dynamic
-  return {
-    status: route.status === 'loading' ? 'loading' : 'success',
+  const successProps = {
     refreshProps,
     innerProps: {
       cityCode: route.city,
@@ -119,6 +117,19 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       resourceCacheUrl: state.resourceCacheUrl,
       navigation
     }
+  }
+
+  if (route.status === 'loading') {
+    return {
+      ...successProps,
+      progress: resourceCache.progress,
+      status: 'loading'
+    }
+  }
+
+  return {
+    ...successProps,
+    status: 'success'
   }
 }
 
