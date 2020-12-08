@@ -1,6 +1,6 @@
 // @flow
 
-import * as React from 'react'
+import React, { type Element } from 'react'
 import { WebView } from 'react-native-webview'
 import { Text } from 'react-native'
 import { stringify } from 'query-string'
@@ -12,23 +12,21 @@ export type PropsType = {|
   postData: ?Map<string, string>
 |}
 
-class ExternalOffer extends React.Component<PropsType> {
-  render () {
-    const { url, postData } = this.props
-
-    const body = !postData ? '' : stringify(fromPairs([...postData.entries()]))
-    return <WebView
-      source={postData ? createPostSource(url, body) : createGetSource(url, body)}
-      javaScriptEnabled
-      dataDetectorTypes={['all']}
-      domStorageEnabled={false}
-      renderError={this.renderError}
-    />
-  }
-
-  renderError = (errorDomain: ?string, errorCode: number, errorDesc: string) => {
+const ExternalOffer = (props: PropsType) => {
+  function renderError (errorDomain: ?string, errorCode: number, errorDesc: string): Element<*> {
     return <Text>${errorDomain} ${errorCode} ${errorDesc}</Text>
   }
+
+  const { url, postData } = props
+  const body = !postData ? '' : stringify(fromPairs([...postData.entries()]))
+
+  return <WebView
+    source={postData ? createPostSource(url, body) : createGetSource(url, body)}
+    javaScriptEnabled
+    dataDetectorTypes={['all']}
+    domStorageEnabled={false}
+    renderError={renderError}
+  />
 }
 
 export default ExternalOffer
