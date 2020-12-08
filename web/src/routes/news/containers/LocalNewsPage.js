@@ -56,7 +56,12 @@ export class LocalNewsPage extends React.Component<PropsType> {
     }
 
     return (
-      <NewsTabs type={LOCAL_NEWS} city={city} cities={cities} t={t} language={language}>
+      <NewsTabs type={LOCAL_NEWS}
+                city={city}
+                tunewsEnabled={currentCity.tunewsEnabled}
+                localNewsEnabled={currentCity.pushNotificationsEnabled}
+                t={t}
+                language={language}>
         <LocalNewsList
           items={localNews}
           noItemsMessage={t('currentlyNoNews')}

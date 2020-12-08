@@ -2,7 +2,6 @@
 
 import * as React from 'react'
 import styled from 'styled-components'
-import { CityModel } from 'api-client'
 import type { TFunction } from 'react-i18next'
 import Tab from './Tab'
 import { LOCAL_NEWS, TU_NEWS } from '../constants'
@@ -19,15 +18,15 @@ type PropsType = {|
   type: string,
   children: React.Node,
   city: string,
-  cities: Array<CityModel>,
+  localNewsEnabled: boolean,
+  tunewsEnabled: boolean,
   language: string,
   t: TFunction
 |}
 
 class NewsTabs extends React.PureComponent<PropsType> {
   render () {
-    const { children, city, cities, language, t, type } = this.props
-    const currentCity: ?CityModel = cities && cities.find(cityElement => cityElement.code === city)
+    const { children, language, city, localNewsEnabled, tunewsEnabled, t, type } = this.props
     const localNewsPath = new LocalNewsRouteConfig().getRoutePath({ city, language })
     const tunewsPath = new TunewsRouteConfig().getRoutePath({ city, language })
 
@@ -35,7 +34,7 @@ class NewsTabs extends React.PureComponent<PropsType> {
       <>
         <StyledTabs>
           {
-            currentCity && currentCity.pushNotificationsEnabled && (
+            localNewsEnabled && (
               <Tab
                 active={type === LOCAL_NEWS}
                 type={LOCAL_NEWS}
@@ -45,7 +44,7 @@ class NewsTabs extends React.PureComponent<PropsType> {
             )
           }
           {
-            currentCity && currentCity.tunewsEnabled && (
+            tunewsEnabled && (
               <Tab
                 active={type === TU_NEWS}
                 type={TU_NEWS}

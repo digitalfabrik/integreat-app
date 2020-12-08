@@ -1,7 +1,7 @@
 // @flow
 
-import { LocalNewsModel } from 'api-client'
 import moment from 'moment'
+import LocalNewsModel from '../models/LocalNewsModel'
 
 class LocalNewsModelBuilder {
   _newsCount: number

@@ -1,8 +1,9 @@
 // @flow
 
 import OffersRouteConfig from '../OffersRouteConfig'
-import { CityModel, OfferModel, Payload } from 'api-client'
+import { OfferModel, Payload } from 'api-client'
 import createLocation from '../../../../createLocation'
+import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 
 const offers = [
   new OfferModel({
@@ -13,20 +14,7 @@ const offers = [
     postData: null
   })
 ]
-const cities = [new CityModel({
-  name: 'Augsburg',
-  code: 'augsburg',
-  live: true,
-  eventsEnabled: true,
-  offersEnabled: true,
-  pushNotificationsEnabled: true,
-  tunewsEnabled: true,
-  sortingName: 'Augsburg',
-  prefix: null,
-  latitude: null,
-  longitude: null,
-  aliases: null
-})]
+const cities = new CityModelBuilder(1).build()
 const offersPayload = new Payload(false, 'https://random.api.json', offers, null)
 const citiesPayload = new Payload(false, 'https://random.api.json', cities, null)
 const payloads = { offers: offersPayload, cities: citiesPayload }
@@ -81,7 +69,7 @@ describe('OffersRouteConfig', () => {
     })
 
     expect(extasRouteConfig.getPageTitle({ payloads, location, cityName: 'Augsburg', t }))
-      .toBe('pageTitles.offers - Augsburg')
+      .toBe('pageTitles.offers - Stadt Augsburg')
 
     const wrongLocation = createLocation({
       payload: { city: 'wrong-location', language: 'de' },

@@ -3,7 +3,7 @@
 import { mount, shallow } from 'enzyme'
 import React from 'react'
 
-import { OfferModel, CityModel } from 'api-client'
+import { OfferModel } from 'api-client'
 import ConnectedOffersPage, { OffersPage } from '../OffersPage'
 import theme from '../../../../modules/theme/constants/theme'
 import createReduxStore from '../../../../modules/app/createReduxStore'
@@ -11,6 +11,7 @@ import { ThemeProvider } from 'styled-components'
 import { Provider } from 'react-redux'
 import createLocation from '../../../../createLocation'
 import { OFFERS_ROUTE } from '../../../../modules/app/route-configs/OffersRouteConfig'
+import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 
 describe('OffersPage', () => {
   const city = 'augsburg'
@@ -43,20 +44,7 @@ describe('OffersPage', () => {
     })
   ]
 
-  const cities = [new CityModel({
-    name: 'Augsburg',
-    code: 'augsburg',
-    live: true,
-    eventsEnabled: true,
-    offersEnabled: true,
-    pushNotificationsEnabled: true,
-    tunewsEnabled: true,
-    sortingName: 'Augsburg',
-    prefix: null,
-    latitude: null,
-    longitude: null,
-    aliases: null
-  })]
+  const cities = new CityModelBuilder(1).build()
 
   const t = (key: ?string): string => key || ''
 

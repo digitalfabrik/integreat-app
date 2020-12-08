@@ -1,7 +1,7 @@
 // @flow
 
 import RouteContentSwitcher from '../RouteContentSwitcher'
-import { CategoriesMapModel, CategoryModel, CityModel, Payload } from 'api-client'
+import { CategoriesMapModel, CategoryModel, Payload } from 'api-client'
 import moment from 'moment'
 import { render } from '@testing-library/react'
 import { shallow } from 'enzyme'
@@ -10,6 +10,7 @@ import createLocation from '../../../../createLocation'
 import { CATEGORIES_ROUTE } from '../../route-configs/CategoriesRouteConfig'
 import theme from '../../../theme/constants/theme'
 import { ThemeProvider } from 'styled-components'
+import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 
 jest.mock('../../../common/components/FailureSwitcher', () => {
   return () => <div>FailureSwitcher</div>
@@ -34,22 +35,7 @@ describe('RouteContentSwitcher', () => {
     })
   ])
 
-  const cities = [
-    new CityModel({
-      name: 'Mambo No. 5',
-      code: 'city1',
-      live: true,
-      eventsEnabled: true,
-      offersEnabled: false,
-      pushNotificationsEnabled: false,
-      tunewsEnabled: false,
-      sortingName: 'Mambo',
-      aliases: null,
-      longitude: null,
-      latitude: null,
-      prefix: null
-    })
-  ]
+  const cities = new CityModelBuilder(1).build()
 
   const categoriesPayload = new Payload(false, 'https://random.api.json', categories, null)
   const citiesPayload = new Payload(false, 'https://random.api.json', cities, null)

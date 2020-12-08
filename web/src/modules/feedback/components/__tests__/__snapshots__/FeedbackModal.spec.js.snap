@@ -93,6 +93,7 @@ exports[`FeedbackModal should match snapshot 1`] = `
               "_longitude": null,
               "_name": "Augsburg",
               "_offersEnabled": false,
+              "_poisEnabled": true,
               "_prefix": null,
               "_pushNotificationsEnabled": false,
               "_sortingName": "Augsburg",
