@@ -28,18 +28,6 @@ const expectExactlyOneHit = (mocks: {
 }
 
 describe('createNavigateToInternalLink', () => {
-  it('should ignore trailing and double slashes', () => {
-    const { navigateToInternalLink, mocks } = instantiate()
-    navigateToInternalLink({ url: 'https://integreat.app/augsburg/de//events/integrationskurs/', language: 'en' })
-
-    expect(mocks.navigateToEvent).toHaveBeenCalledWith({
-      cityCode: 'augsburg',
-      language: 'de',
-      path: '/augsburg/de/events/integrationskurs'
-    })
-    expectExactlyOneHit(mocks)
-  })
-
   it('should navigate to Landing', () => {
     const { navigateToInternalLink, mocks } = instantiate()
     navigateToInternalLink({ url: 'https://integreat.app', language: 'en' })
