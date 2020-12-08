@@ -10,7 +10,6 @@ import { CityModel } from 'api-client'
 import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
 import NavigationTiles from '../../../../modules/common/components/NavigationTiles'
 import buildConfig from '../../../../modules/app/constants/buildConfig'
-import malteOverrideTranslations from '../../../../modules/i18n/__mocks__/malte-translations.json'
 
 jest.mock('../../../../modules/common/components/NavigationTiles', () => {
   const Text = require('react-native').Text
@@ -71,7 +70,10 @@ describe('Dashboard', () => {
   const mockBuildConfig = (pois: boolean, newsStream: boolean) => {
     const previous = buildConfig()
     // $FlowFixMe flow is not aware that buildConfig is a mock funciton
-    buildConfig.mockImplementation(() => ({ ...previous, featureFlags: { ...previous.featureFlags, pois, newsStream }}))
+    buildConfig.mockImplementation(() => ({
+      ...previous,
+      featureFlags: { ...previous.featureFlags, pois, newsStream }
+    }))
   }
 
   const renderDashboard = (cityModel: CityModel) =>
