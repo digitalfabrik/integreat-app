@@ -50,7 +50,7 @@ const platformBuildConfigs = {
   common: commonIntegreatTestCmsBuildConfig,
   web: webIntegreatTestCmsBuildConfig,
   android: androidIntegreatTestCmsBuildConfig,
-  ios: iosIntegreatTestCmsBuildConfig,
+  ios: iosIntegreatTestCmsBuildConfig
 }
 
 export default platformBuildConfigs

@@ -27,7 +27,7 @@ describe('endpoint', () => {
       name: 'Lehrstellenradar',
       url: 'https://www.lehrstellen-radar.de/5100,0,lsrlist.html',
       thumbnail: 'some_other_thumbnail',
-      post: {partner: '0006', radius: '50', plz: '86150'}
+      post: { partner: '0006', radius: '50', plz: '86150' }
     }
   ]
 
@@ -60,7 +60,7 @@ describe('endpoint', () => {
     })
   ]
 
-  const params = {city: 'bad-toelz', language: 'en'}
+  const params = { city: 'bad-toelz', language: 'en' }
 
   it('should map router to url', () => {
     expect(offers.mapParamsToUrl(params)).toEqual(

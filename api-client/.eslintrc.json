@@ -1,7 +1,0 @@
-{
-  "extends": [
-    "@integreat-app/eslint-config-node"
-  ],
-  "rules": {
-  }
-}

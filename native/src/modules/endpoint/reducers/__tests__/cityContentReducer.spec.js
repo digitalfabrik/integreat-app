@@ -108,6 +108,7 @@ describe('cityContentReducer', () => {
   ]
 
   for (const action of softUnsupportedActionsOnUnitializedState) {
+    // eslint-disable-next-line no-loop-func
     it(`should return null on ${action.type} if state is unitialized`, () => {
       expect(cityContentReducer(null, action)).toBeNull()
     })

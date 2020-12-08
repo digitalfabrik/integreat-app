@@ -17,10 +17,10 @@ describe('categories', () => {
       title: 'Anlaufstellen zu sonstigen Themen',
       content: '<a href="javascript:IWantToBeRemoved();">Ich bleib aber da.</a>',
       excerpt: 'excerpt',
-      parent: {id: 0, path: null, url: null},
+      parent: { id: 0, path: null, url: null },
       order: 75,
       available_languages: {
-        en: {path: '/augsburg/en/anlaufstellen'}
+        en: { path: '/augsburg/en/anlaufstellen' }
       },
       thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png',
       modified_gmt: '2017-01-01 05:10:05',
@@ -32,10 +32,10 @@ describe('categories', () => {
       title: 'Willkommen',
       content: '',
       excerpt: 'excerpt',
-      parent: {id: 0, path: null, url: null},
+      parent: { id: 0, path: null, url: null },
       order: 11,
       available_languages: {
-        en: {path: '/augsburg/en/welcome'}
+        en: { path: '/augsburg/en/welcome' }
       },
       thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
       modified_gmt: '2017-01-09 15:30:00',
@@ -105,7 +105,7 @@ describe('categories', () => {
     hash: ''
   })]
 
-  const params = {language: 'de', city: 'augsburg'}
+  const params = { language: 'de', city: 'augsburg' }
 
   it('should map router to path', () => {
     expect(categories.mapParamsToUrl(params)).toEqual(
