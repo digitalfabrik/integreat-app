@@ -9,7 +9,6 @@ const StyledAnchor = styled.a`
 `
 
 type PropsType = {|
-  newTab?: boolean,
   href: string,
   children: React.Node,
   ariaLabel?: string,
@@ -17,14 +16,10 @@ type PropsType = {|
 |}
 
 class CleanAnchor extends React.PureComponent<PropsType> {
-  static defaultProps = {
-    newTab: true
-  }
-
   render () {
-    const { newTab, href, children, className, ariaLabel } = this.props
+    const { href, children, className, ariaLabel } = this.props
     return (
-      <StyledAnchor aria-label={ariaLabel} className={className} href={href} {...newTab ? { target: '_blank', rel: 'noreferrer' } : {}}>
+      <StyledAnchor aria-label={ariaLabel} className={className} href={href}>
         {children}
       </StyledAnchor>
     )
