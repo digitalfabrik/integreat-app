@@ -30,11 +30,10 @@ import SiteHelpfulBox from '../../common/components/SiteHelpfulBox'
 import type { FeedbackCategoryType, FeedbackType } from 'api-client'
 
 type PropsType = {|
-  cities: Array<CityModel>,
+  cityModel: CityModel,
   language: string,
 
   stateView: CategoriesRouteStateView,
-  cityCode: string,
   navigateToCategory: NavigateToCategoryParamsType => void,
   navigateToInternalLink: NavigateToInternalLinkParamsType => void,
 
@@ -50,29 +49,25 @@ type PropsType = {|
  */
 class Categories extends React.Component<PropsType> {
   onTilePress = (tile: TileModel) => {
-    const { cityCode, language, navigateToCategory } = this.props
-    navigateToCategory({ cityCode, language, path: tile.path })
+    const { cityModel, language, navigateToCategory } = this.props
+    navigateToCategory({ cityCode: cityModel.code, language, path: tile.path })
   }
 
   onItemPress = (category: { title: string, thumbnail: string, path: string }) => {
-    const { cityCode, language, navigateToCategory } = this.props
-    navigateToCategory({ cityCode, language, path: category.path })
+    const { cityModel, language, navigateToCategory } = this.props
+    navigateToCategory({ cityCode: cityModel.code, language, path: category.path })
   }
 
   navigateToFeedback = (isPositiveFeedback: boolean) => {
-    const { navigation, t, stateView, cities, cityCode, language } = this.props
-    if (!cityCode || !language) {
-      throw Error('language or cityCode not available')
-    }
+    const { navigation, t, stateView, cityModel, language } = this.props
 
     const createFeedbackVariant = (
       label: string, feedbackType: FeedbackType, feedbackCategory: FeedbackCategoryType, pagePath?: string
-    ) => new FeedbackVariant(label, language, cityCode, feedbackType, feedbackCategory, pagePath)
-    const cityTitle = CityModel.findCityName(cities, cityCode)
+    ) => new FeedbackVariant(label, language, cityModel.code, feedbackType, feedbackCategory, pagePath)
     const category = stateView.root()
 
     const feedbackItems = [
-      createFeedbackVariant(t('feedback:contentOfCity', { city: cityTitle }),
+      createFeedbackVariant(t('feedback:contentOfCity', { city: cityModel.name }),
         CATEGORIES_FEEDBACK_TYPE, CONTENT_FEEDBACK_CATEGORY),
       createFeedbackVariant(t('feedback:technicalTopics'), CATEGORIES_FEEDBACK_TYPE, TECHNICAL_FEEDBACK_CATEGORY)
     ]
