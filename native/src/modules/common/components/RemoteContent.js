@@ -17,6 +17,10 @@ const StyledView: StyledComponent<{||}, {||}, *> = styled.View`
   flex: 1;
 `
 
+export const renderWebviewError = (errorDomain: ?string, errorCode: number, errorDesc: string): Element<*> => {
+  return <Text>${errorDomain} ${errorCode} ${errorDesc}</Text>
+}
+
 type PropType = {|
   content: string,
   theme: ThemeType,
@@ -64,10 +68,6 @@ const RemoteContent = (props: PropType) => {
     return false
   }
 
-  function renderError (errorDomain: ?string, errorCode: number, errorDesc: string): Element<*> {
-    return <Text>${errorDomain} ${errorCode} ${errorDesc}</Text>
-  }
-
   const { content, cacheDirectory, theme, resourceCacheUrl, language } = props
   return <StyledView onLayout={onLayout}>
     <WebView
@@ -81,7 +81,7 @@ const RemoteContent = (props: PropType) => {
       scrollEnabled={false} // to disable scrolling in iOS
 
       onMessage={onMessage}
-      renderError={renderError}
+      renderError={renderWebviewError}
       onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
 
       style={{
