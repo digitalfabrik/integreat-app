@@ -4,9 +4,10 @@ import React from 'react'
 import { shallow } from 'enzyme'
 
 import ConnectedCategoriesPage, { CategoriesPage } from '../CategoriesPage'
-import { CategoriesMapModel, CategoryModel, CityModel } from 'api-client'
+import { CategoriesMapModel, CategoryModel } from 'api-client'
 import configureMockStore from 'redux-mock-store'
 import moment from 'moment'
+import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 
 describe('CategoriesPage', () => {
   const categoryModels = [
@@ -62,50 +63,7 @@ describe('CategoriesPage', () => {
 
   const categories = new CategoriesMapModel(categoryModels)
 
-  const cities = [
-    new CityModel({
-      name: 'Augsburg',
-      code: 'augsburg',
-      live: true,
-      eventsEnabled: false,
-      offersEnabled: false,
-      pushNotificationsEnabled: false,
-      tunewsEnabled: false,
-      sortingName: 'Augsburg',
-      aliases: null,
-      prefix: null,
-      longitude: null,
-      latitude: null
-    }),
-    new CityModel({
-      name: 'Stadt Regensburg',
-      code: 'regensburg',
-      live: true,
-      eventsEnabled: false,
-      offersEnabled: false,
-      tunewsEnabled: false,
-      pushNotificationsEnabled: false,
-      sortingName: 'Regensburg',
-      aliases: null,
-      prefix: null,
-      longitude: null,
-      latitude: null
-    }),
-    new CityModel({
-      name: 'Werne',
-      code: 'werne',
-      live: true,
-      eventsEnabled: false,
-      offersEnabled: false,
-      tunewsEnabled: false,
-      pushNotificationsEnabled: false,
-      sortingName: 'City',
-      aliases: null,
-      prefix: null,
-      longitude: null,
-      latitude: null
-    })
-  ]
+  const cities = new CityModelBuilder(3).build()
 
   const city = 'augsburg'
 

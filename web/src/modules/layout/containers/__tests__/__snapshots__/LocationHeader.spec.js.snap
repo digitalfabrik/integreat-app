@@ -51,52 +51,7 @@ Array [
 ]
 `;
 
-exports[`LocationHeader NavigationItems should be empty if all other header items are disabled 1`] = `
-Array [
-  <HeaderNavigationItem
-    active={true}
-    href="/augsburg/de"
-    icon="test-file-stub"
-    text="localInformation"
-  />,
-  <HeaderNavigationItem
-    active={false}
-    href="/augsburg/de/locations"
-    icon="test-file-stub"
-    text="pois"
-  />,
-]
-`;
-
-exports[`LocationHeader NavigationItems should show categories, events, offers in this order 1`] = `
-Array [
-  <HeaderNavigationItem
-    active={true}
-    href="/augsburg/de"
-    icon="test-file-stub"
-    text="localInformation"
-  />,
-  <HeaderNavigationItem
-    active={false}
-    href="/augsburg/de/events"
-    icon="test-file-stub"
-    text="events"
-    tooltip=""
-  />,
-  <HeaderNavigationItem
-    active={false}
-    href="/augsburg/de/locations"
-    icon="test-file-stub"
-    text="pois"
-  />,
-  <HeaderNavigationItem
-    active={false}
-    href="/augsburg/de/offers"
-    icon="test-file-stub"
-    text="offers"
-  />,
-]
-`;
+exports[`LocationHeader NavigationItems should be empty if all other header items are disabled 1`] = `Array []`;
 
 exports[`LocationHeader NavigationItems should show categories, if offers or news are enabled 1`] = `
 Array [
@@ -105,12 +60,6 @@ Array [
     href="/augsburg/de"
     icon="test-file-stub"
     text="localInformation"
-  />,
-  <HeaderNavigationItem
-    active={false}
-    href="/augsburg/de/locations"
-    icon="test-file-stub"
-    text="pois"
   />,
   <HeaderNavigationItem
     active={false}
@@ -136,99 +85,41 @@ Array [
     text="events"
     tooltip=""
   />,
+]
+`;
+
+exports[`LocationHeader NavigationItems should show categories, news, events, offers, pois in this order 1`] = `
+Array [
+  <HeaderNavigationItem
+    active={true}
+    href="/augsburg/de"
+    icon="test-file-stub"
+    text="localInformation"
+  />,
+  <HeaderNavigationItem
+    active={false}
+    href="/augsburg/de/news/local"
+    icon="test-file-stub"
+    text="news"
+  />,
+  <HeaderNavigationItem
+    active={false}
+    href="/augsburg/de/events"
+    icon="test-file-stub"
+    text="events"
+    tooltip=""
+  />,
   <HeaderNavigationItem
     active={false}
     href="/augsburg/de/locations"
     icon="test-file-stub"
     text="pois"
   />,
+  <HeaderNavigationItem
+    active={false}
+    href="/augsburg/de/offers"
+    icon="test-file-stub"
+    text="offers"
+  />,
 ]
-`;
-
-exports[`LocationHeader should match snapshot 1`] = `
-<withPlatform(WithTheme(Header))
-  actionItems={
-    Array [
-      <HeaderActionItemLink
-        href="/augsburg/de/search"
-        iconSrc="test-file-stub"
-        text="search"
-      />,
-      <HeaderActionItemLink
-        href="/landing/de"
-        iconSrc="test-file-stub"
-        text="changeLocation"
-      />,
-      <Translate(LanguageSelector)
-        isHeaderActionItem={true}
-        languageChangePaths={
-          Array [
-            Object {
-              "code": "de",
-              "name": "Deutsch",
-              "path": "/augsburg/de",
-            },
-            Object {
-              "code": "en",
-              "name": "English",
-              "path": "/augsburg/en",
-            },
-          ]
-        }
-        location={
-          Object {
-            "history": undefined,
-            "kind": undefined,
-            "pathname": "/random_pathname",
-            "payload": Object {
-              "city": "augsburg",
-              "language": "de",
-            },
-            "prev": Object {
-              "pathname": "/random_prev_pathname",
-              "payload": Object {},
-              "type": "RANDOM_PREV_TYPE",
-            },
-            "query": Object {},
-            "routesMap": Object {},
-            "type": "OFFERS",
-          }
-        }
-      />,
-    ]
-  }
-  cityName="Stadt Augsburg"
-  logoHref="/augsburg/de"
-  navigationItems={
-    Array [
-      <HeaderNavigationItem
-        active={false}
-        href="/augsburg/de"
-        icon="test-file-stub"
-        text="localInformation"
-      />,
-      <HeaderNavigationItem
-        active={false}
-        href="/augsburg/de/events"
-        icon="test-file-stub"
-        text="events"
-        tooltip=""
-      />,
-      <HeaderNavigationItem
-        active={false}
-        href="/augsburg/de/locations"
-        icon="test-file-stub"
-        text="pois"
-      />,
-      <HeaderNavigationItem
-        active={true}
-        href="/augsburg/de/offers"
-        icon="test-file-stub"
-        text="offers"
-      />,
-    ]
-  }
-  onStickyTopChanged={[Function]}
-  viewportSmall={true}
-/>
 `;

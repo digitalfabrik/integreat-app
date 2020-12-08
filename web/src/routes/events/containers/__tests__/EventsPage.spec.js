@@ -5,13 +5,14 @@ import { mount, shallow } from 'enzyme'
 import moment from 'moment'
 
 import ConnectedEventsPage, { EventsPage } from '../EventsPage'
-import { CityModel, DateModel, EventModel, LocationModel } from 'api-client'
+import { DateModel, EventModel, LocationModel } from 'api-client'
 import createReduxStore from '../../../../modules/app/createReduxStore'
 import { Provider } from 'react-redux'
 import createLocation from '../../../../createLocation'
 import { EVENTS_ROUTE } from '../../../../modules/app/route-configs/EventsRouteConfig'
 import EventJsonLd from '../../../../modules/json-ld/components/EventJsonLd'
 import Page from '../../../../modules/common/components/Page'
+import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 
 describe('EventsPage', () => {
   const events = [
@@ -100,20 +101,7 @@ describe('EventsPage', () => {
       hash: '2fe6283485c93932'
     })
   ]
-  const cities = [new CityModel({
-    name: 'Augsburg',
-    code: 'augsburg',
-    live: true,
-    eventsEnabled: true,
-    offersEnabled: true,
-    pushNotificationsEnabled: true,
-    tunewsEnabled: true,
-    sortingName: 'Augsburg',
-    prefix: null,
-    latitude: null,
-    longitude: null,
-    aliases: null
-  })]
+  const cities = new CityModelBuilder(1).build()
 
   const city = 'augsburg'
 

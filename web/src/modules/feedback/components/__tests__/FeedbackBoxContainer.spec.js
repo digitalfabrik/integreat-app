@@ -7,7 +7,6 @@ import { FeedbackBoxContainer } from '../FeedbackBoxContainer'
 import { CATEGORIES_ROUTE } from '../../../app/route-configs/CategoriesRouteConfig'
 import {
   CATEGORIES_FEEDBACK_TYPE,
-  CityModel,
   EVENTS_FEEDBACK_TYPE,
   OFFER_FEEDBACK_TYPE,
   OfferModel,
@@ -25,24 +24,10 @@ import { SEARCH_ROUTE } from '../../../app/route-configs/SearchRouteConfig'
 import { DISCLAIMER_ROUTE } from '../../../app/route-configs/DisclaimerRouteConfig'
 import createLocation from '../../../../createLocation'
 import theme from '../../../theme/constants/theme'
+import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 
 describe('FeedbackBoxContainer', () => {
-  const cities = [
-    new CityModel({
-      name: 'Augsburg',
-      code: 'augsburg',
-      live: true,
-      eventsEnabled: true,
-      offersEnabled: false,
-      pushNotificationsEnabled: false,
-      tunewsEnabled: false,
-      sortingName: 'Augsburg',
-      aliases: null,
-      longitude: null,
-      latitude: null,
-      prefix: null
-    })
-  ]
+  const cities = new CityModelBuilder(1).build()
   const t = (key: ?string): string => key || ''
   const location = createLocation(
     { type: CATEGORIES_ROUTE, payload: { city: 'augsburg', language: 'de' }, query: { feedback: 'up' } })

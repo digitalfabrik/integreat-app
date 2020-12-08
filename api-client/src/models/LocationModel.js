@@ -73,6 +73,18 @@ class LocationModel {
       .filter(value => !!value)
       .join(', ')
   }
+
+  isEqual (other: LocationModel): boolean {
+    return this.name === other.name &&
+      this.address === other.address &&
+      this.town === other.town &&
+      this.state === other.state &&
+      this.postcode === other.postcode &&
+      this.region === other.region &&
+      this.country === other.country &&
+      this.longitude === other.longitude &&
+      this.latitude === other.latitude
+  }
 }
 
 export default LocationModel
