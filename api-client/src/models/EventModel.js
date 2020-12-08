@@ -12,10 +12,12 @@ class EventModel extends ExtendedPageModel {
   _excerpt: string
   _featuredImage: ?FeaturedImageModel
 
-  constructor (params: {| path: string, title: string, content: string, thumbnail: string,
+  constructor (params: {|
+    path: string, title: string, content: string, thumbnail: string,
     date: DateModel, location: LocationModel, excerpt: string, availableLanguages: Map<string, string>,
-    lastUpdate: Moment, hash: string, featuredImage: ?FeaturedImageModel |}) {
-    const {date, location, excerpt, featuredImage, ...other} = params
+    lastUpdate: Moment, hash: string, featuredImage: ?FeaturedImageModel
+  |}) {
+    const { date, location, excerpt, featuredImage, ...other } = params
     super(other)
     this._date = date
     this._location = location

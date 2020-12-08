@@ -60,7 +60,7 @@ describe('pois', () => {
   const poiModel3 = createPoiModel()
   const poiModel4 = createPoiModel()
 
-  const params = {city: 'augsburg', language: 'de'}
+  const params = { city: 'augsburg', language: 'de' }
 
   it('should map params to url', () => {
     expect(pois.mapParamsToUrl(params)).toEqual(

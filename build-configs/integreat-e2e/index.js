@@ -50,7 +50,7 @@ const platformBuildConfigs = {
   common: commonIntegreatE2eBuildConfig,
   web: webIntegreatE2eBuildConfig,
   android: androidIntegreatE2eBuildCOnfig,
-  ios: iosIntegreatE2eBuildConfig,
+  ios: iosIntegreatE2eBuildConfig
 }
 
 export default platformBuildConfigs

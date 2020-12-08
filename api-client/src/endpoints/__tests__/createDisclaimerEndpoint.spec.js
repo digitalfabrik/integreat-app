@@ -17,7 +17,7 @@ describe('disclaimer', () => {
     hash: '91d435afbc7aa83496137e81fd2832e3'
   }
 
-  const params = {city: 'augsburg', language: 'de'}
+  const params = { city: 'augsburg', language: 'de' }
 
   it('should map router to url', () => {
     expect(disclaimer.mapParamsToUrl(params)).toEqual(

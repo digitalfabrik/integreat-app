@@ -15,7 +15,6 @@ describe('TunewsList', () => {
   const city = 'testcity'
 
   const renderItem = (language: string) => ({ id, title, content, date }: TunewsModel, city: string) => <NewsElement
-    id={id}
     title={title}
     content={content}
     timestamp={date}
@@ -34,15 +33,21 @@ describe('TunewsList', () => {
       title: 'Tick bite - What to do?',
       tags: ['8 Gesundheit'],
       date: date1,
-      content: 'In summer there are often ticks in forest and meadows with high grass. These are very small animals. They feed on the blood of people or animals they sting, like mosquitoes. But they stay in the skin longer and can transmit dangerous diseases. If you have been in high grass, you should search your body very thoroughly for ticks. They like to sit in the knees, armpits or in the groin area. If you discover a tick in your skin, you should carefully pull it out with tweezers without crushing it. If the sting inflames, you must see a doctor. tünews INTERNATIONAL',
+      content: `In summer there are often ticks in forest and meadows with high grass.
+      These are very small animals. They feed on the blood of people or animals they sting, like mosquitoes.
+      But they stay in the skin longer and can transmit dangerous diseases.
+      If you have been in high grass, you should search your body very thoroughly for ticks. T
+      hey like to sit in the knees, armpits or in the groin area.
+      If you discover a tick in your skin, you should carefully pull it out with tweezers without crushing it.
+      If the sting inflames, you must see a doctor. tünews INTERNATIONAL`,
       eNewsNo: 'tun0000009902'
     }),
     new TunewsModel({
       id: 2,
-      title: 'Tick bite - What to do?',
-      tags: ['8 Gesundheit'],
+      title: 'Volunteering',
+      tags: ['1 Society'],
       date: date2,
-      content: 'In summer there are often ticks in forest and meadows with high grass. These are very small animals. They feed on the blood of people or animals they sting, like mosquitoes. But they stay in the skin longer and can transmit dangerous diseases. If you have been in high grass, you should search your body very thoroughly for ticks. They like to sit in the knees, armpits or in the groin area. If you discover a tick in your skin, you should carefully pull it out with tweezers without crushing it. If the sting inflames, you must see a doctor. tünews INTERNATIONAL',
+      content: 'Volunteering in Germany (and in other countries) is a very good thing!',
       eNewsNo: 'tun0000009902'
     })
   ]
@@ -64,7 +69,7 @@ describe('TunewsList', () => {
     const newsElementList = tunewsList.find(NewsElement)
 
     expect(newsElementList).toHaveLength(2)
-    expect(newsElementList.find({ id: 1 })).toHaveLength(1)
+    expect(newsElementList.find({ title: 'Tick bite - What to do?' })).toHaveLength(1)
   })
 
   it('should render "currentlyNoTunews" if the items is an empty array and hasMore is false', () => {

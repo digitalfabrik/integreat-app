@@ -7,7 +7,7 @@ class DateModel {
   _endDate: Moment
   _allDay: boolean
 
-  constructor ({startDate, endDate, allDay}: {|startDate: Moment, endDate: Moment, allDay: boolean|}) {
+  constructor ({ startDate, endDate, allDay }: {| startDate: Moment, endDate: Moment, allDay: boolean |}) {
     this._allDay = allDay
     this._startDate = startDate
     this._endDate = endDate

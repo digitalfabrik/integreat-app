@@ -329,8 +329,8 @@ describe('FeedbackBoxContainer', () => {
     ${DISCLAIMER_ROUTE}  | ${null}    | ${''}           | ${''}              | ${''}         | ${disclaimerOption}
     ${OFFERS_ROUTE}      | ${null}    | ${''}           | ${''}              | ${''}         | ${offersOption}
     `('should return the right option', ({ type, path, alias, title, query, result }) => {
-  const location = createLocation({ type, payload: { city: 'augsburg', language: 'de', categoryPath: path } })
-  const component = shallow(
+      const location = createLocation({ type, payload: { city: 'augsburg', language: 'de', categoryPath: path } })
+      const component = shallow(
           <FeedbackBoxContainer
             location={location}
             query={query}
@@ -345,11 +345,10 @@ describe('FeedbackBoxContainer', () => {
             theme={theme}
             sendingStatus='SUCCESS'
             t={t} />
-  )
+      )
 
-  expect(component.instance().getCurrentPageFeedbackOption()).toEqual(result)
-}
-)
+      expect(component.instance().getCurrentPageFeedbackOption()).toEqual(result)
+    })
   })
 
   it('should post data on submit', () => {

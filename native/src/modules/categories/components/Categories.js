@@ -129,13 +129,15 @@ class Categories extends React.Component<PropsType> {
 
   getListContentModel (category: CategoryModel): ?ListContentModelType {
     const { navigation, navigateToInternalLink, resourceCacheUrl } = this.props
-    return category.content ? {
-      content: category.content,
-      files: this.getCategoryResourceCache(category),
-      navigation: navigation,
-      navigateToInternalLink: navigateToInternalLink,
-      resourceCacheUrl: resourceCacheUrl
-    } : undefined
+    return category.content
+      ? {
+          content: category.content,
+          files: this.getCategoryResourceCache(category),
+          navigation: navigation,
+          navigateToInternalLink: navigateToInternalLink,
+          resourceCacheUrl: resourceCacheUrl
+        }
+      : undefined
   }
 
   /**

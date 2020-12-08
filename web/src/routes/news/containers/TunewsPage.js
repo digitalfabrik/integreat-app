@@ -33,7 +33,6 @@ export class TunewsPage extends React.PureComponent<PropsType> {
     const { id, title, content, date } = tunewsItem
     return (
       <NewsElement
-        id={id}
         title={title}
         content={content}
         timestamp={date}

@@ -8,7 +8,7 @@ import tunewsLogoActive from '../assets/TunewsActiveLogo.png'
 import tunewsLogoInactive from '../assets/TunewsInactiveLogo.png'
 import { TU_NEWS } from '../constants'
 
-const NewsLink = ({ active, ...props }) => <Link {...props} />
+const NewsLink = ({ active, ...props }: { active: boolean }) => <Link {...props} />
 
 const StyledTab = styled(NewsLink)`
   display: flex;
