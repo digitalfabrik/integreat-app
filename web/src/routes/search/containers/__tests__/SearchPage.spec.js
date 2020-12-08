@@ -2,12 +2,13 @@
 
 import React from 'react'
 import ConnectedSearchPage, { SearchPage } from '../SearchPage'
-import { CategoriesMapModel, CategoryModel, CityModel } from 'api-client'
+import { CategoriesMapModel, CategoryModel } from 'api-client'
 import { shallow } from 'enzyme'
 import configureMockStore from 'redux-mock-store'
 import { SEARCH_ROUTE } from '../../../../modules/app/route-configs/SearchRouteConfig'
 import moment from 'moment'
 import createLocation from '../../../../createLocation'
+import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 
 describe('SearchPage', () => {
   const t = (key: ?string): string => key || ''
@@ -39,22 +40,7 @@ describe('SearchPage', () => {
     })
   ]
 
-  const cities = [
-    new CityModel({
-      name: 'Stadt Augsburg',
-      code: 'augsburg',
-      live: true,
-      eventsEnabled: true,
-      offersEnabled: false,
-      tunewsEnabled: false,
-      pushNotificationsEnabled: false,
-      sortingName: 'Augsburg',
-      aliases: null,
-      latitude: null,
-      longitude: null,
-      prefix: 'Stadt'
-    })
-  ]
+  const cities = new CityModelBuilder(1).build()
 
   const city = 'augsburg'
   const language = 'de'

@@ -61,7 +61,12 @@ export class TunewsPage extends React.PureComponent<PropsType> {
     }
 
     return (
-      <NewsTabs type={TU_NEWS} city={city} cities={cities} t={t} language={language}>
+      <NewsTabs type={TU_NEWS}
+                city={city}
+                tunewsEnabled={currentCity.tunewsEnabled}
+                localNewsEnabled={currentCity.pushNotificationsEnabled}
+                t={t}
+                language={language}>
         <TunewsList
           items={tunews}
           renderItem={this.renderTunewsElement(city, language)}

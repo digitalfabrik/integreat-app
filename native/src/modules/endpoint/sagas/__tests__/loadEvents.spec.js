@@ -4,7 +4,7 @@ import { runSaga } from 'redux-saga'
 import DefaultDataContainer from '../../DefaultDataContainer'
 import loadEvents from '../loadEvents'
 import RNFetchBlob from '../../../../__mocks__/rn-fetch-blob'
-import EventModelBuilder from '../../../../testing/builder/EventModelBuilder'
+import EventModelBuilder from 'api-client/src/testing/EventModelBuilder'
 import DatabaseContext from '../../DatabaseContext'
 import DatabaseConnector from '../../DatabaseConnector'
 
@@ -21,7 +21,7 @@ jest.mock('api-client',
       ...actual,
       createEventsEndpoint: () => {
         const { EndpointBuilder } = require('api-client')
-        const { default: EventModelBuilder } = require('../../../../testing/builder/EventModelBuilder')
+        const { default: EventModelBuilder } = require('api-client/src/testing/EventModelBuilder')
 
         mockEvents = new EventModelBuilder('mockEvents', 1, city, language).build()
 

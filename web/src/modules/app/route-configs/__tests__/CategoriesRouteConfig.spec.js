@@ -1,9 +1,10 @@
 // @flow
 
 import CategoriesRouteConfig from '../CategoriesRouteConfig'
-import { CategoriesMapModel, CategoryModel, CityModel, Payload } from 'api-client'
+import { CategoriesMapModel, CategoryModel, Payload } from 'api-client'
 import moment from 'moment'
 import createLocation from '../../../../createLocation'
+import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 
 const categories = new CategoriesMapModel([
   new CategoryModel({
@@ -33,22 +34,7 @@ const categories = new CategoriesMapModel([
 ])
 const categoriesPayload = new Payload(false, 'https://random.api.json', categories, null)
 
-const cities = [
-  new CityModel({
-    name: 'Mambo No. 5',
-    code: 'city1',
-    live: true,
-    eventsEnabled: true,
-    offersEnabled: false,
-    pushNotificationsEnabled: false,
-    tunewsEnabled: false,
-    sortingName: 'Mambo',
-    prefix: null,
-    latitude: null,
-    longitude: null,
-    aliases: null
-  })
-]
+const cities = new CityModelBuilder(1).build()
 const citiesPayload = new Payload(false, 'https://random.api.json', cities, null)
 const payloads = { cities: citiesPayload, categories: categoriesPayload }
 

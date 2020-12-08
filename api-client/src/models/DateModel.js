@@ -57,6 +57,12 @@ class DateModel {
     }
     return span
   }
+
+  isEqual (other: DateModel): boolean {
+    return this.startDate.isSame(other.startDate) &&
+      this.endDate.isSame(other.endDate) &&
+      this.allDay === other.allDay
+  }
 }
 
 export default DateModel

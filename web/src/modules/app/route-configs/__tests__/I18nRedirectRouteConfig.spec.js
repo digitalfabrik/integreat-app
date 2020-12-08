@@ -1,25 +1,11 @@
 // @flow
 
 import I18nRedirectRouteConfig from '../I18nRedirectRouteConfig'
-import { CityModel, Payload } from 'api-client'
+import { Payload } from 'api-client'
 import createLocation from '../../../../createLocation'
+import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 
-const cities = [
-  new CityModel({
-    name: 'Mambo No. 5',
-    code: 'city1',
-    live: true,
-    eventsEnabled: true,
-    offersEnabled: false,
-    tunewsEnabled: false,
-    pushNotificationsEnabled: false,
-    sortingName: 'Mambo',
-    aliases: null,
-    longitude: null,
-    latitude: null,
-    prefix: null
-  })
-]
+const cities = new CityModelBuilder(1).build()
 const citiesPayload = new Payload(false, 'https://random.api.json', cities, null)
 const payloads = { cities: citiesPayload }
 
