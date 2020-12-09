@@ -50,7 +50,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       type: 'Offers',
       cityCode,
       title: offer?.title,
-      feedbackAlias: offer?.alias,
+      alias: offer?.alias,
       path: offer?.path,
       language: state.contentLanguage,
       isPositiveFeedback

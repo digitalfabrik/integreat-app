@@ -63,7 +63,7 @@ class SprungbrettOfferContainer extends React.Component<SprungbrettPropsType, Sp
       type: 'Offers',
       cityCode: navigation.getParam('city'),
       title: offer?.title,
-      feedbackAlias: offer?.alias,
+      alias: offer?.alias,
       path: offer?.path,
       language,
       isPositiveFeedback
