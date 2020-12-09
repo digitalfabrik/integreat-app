@@ -3,6 +3,7 @@
 type FormDataType = FormData
   | {| getParts: () => Array<{ string: string, fieldName: string }> |}
 
+// stringifies FormData from react-native or the browser variant of it
 export function stringifyFormData (formData: FormDataType): string {
   const entries = {}
   if (formData.entries) {
