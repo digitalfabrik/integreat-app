@@ -36,7 +36,8 @@ class ResponseError extends Error {
 
   createMessage ({ requestOptions, url, endpointName, response }: ResponseErrorParamsType): string {
     const stringifiedFormData = requestOptions.method === 'POST'
-      ? ` and the formData ${stringifyFormData(requestOptions.body)}` : ''
+      ? ` and the formData ${stringifyFormData(requestOptions.body)}`
+      : ''
 
     return `ResponseError: Failed to ${requestOptions.method} the request for the ${endpointName} endpoint with the url
      ${url}${stringifiedFormData}. Received response status ${response.status}: ${response.statusText}.`
