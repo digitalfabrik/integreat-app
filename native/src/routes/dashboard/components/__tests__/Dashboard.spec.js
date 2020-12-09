@@ -99,7 +99,7 @@ describe('Dashboard', () => {
     expect(() => result.root.findByType(NavigationTiles)).toThrowError()
   })
 
-  it('should show news tile if at least one nems feature is enabled', () => {
+  it('should show news tile if at least one news feature is enabled', () => {
     mockBuildConfig(false, true)
     const cityModel = createCityModel(false, false, true, false, false)
     const result = TestRenderer.create(renderDashboard(cityModel))
