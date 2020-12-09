@@ -6,19 +6,22 @@ import { RefreshControl, ScrollView } from 'react-native'
 import Offers from '../components/Offers'
 import { type TFunction, withTranslation } from 'react-i18next'
 import { CityModel, createOffersEndpoint, OfferModel, Payload } from 'api-client'
-import type { ThemeType } from '../../../modules/theme/constants'
+import type { ThemeType } from 'build-configs/ThemeType'
 import type { StateType } from '../../../modules/app/StateType'
 import type { NavigationStackProp } from 'react-navigation-stack'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import FailureContainer from '../../../modules/error/containers/FailureContainer'
 import { LOADING_TIMEOUT } from '../../../modules/common/constants'
 import determineApiUrl from '../../../modules/endpoint/determineApiUrl'
+import openExternalUrl from '../../../modules/common/openExternalUrl'
+import type { StoreActionType } from '../../../modules/app/StoreActionType'
+import type { Dispatch } from 'redux'
 
-type OwnPropsType = {| navigation: NavigationStackProp<*> |}
+type OwnPropsType = {| navigation: NavigationStackProp<*>, dispatch: Dispatch<StoreActionType> |}
 
 type StatePropsType = {| city: string, language: string, cities: ?$ReadOnlyArray<CityModel> |}
 
-type PropsType = { ...OwnPropsType, ...StatePropsType }
+type PropsType = {| ...OwnPropsType, ...StatePropsType |}
 
 const mapStateToProps = (state: StateType): StatePropsType => {
   if (!state.cityContent) {
@@ -39,7 +42,6 @@ type OffersPropsType = {|
   city: string,
   cities: ?Array<CityModel>,
   language: string,
-  navigateToOffer: (path: string, isExternalUrl: boolean) => void,
   theme: ThemeType,
   t: TFunction
 |}
@@ -64,8 +66,10 @@ class OffersContainer extends React.Component<OffersPropsType, OffersStateType> 
     if (!this.props.navigation.push) {
       throw new Error('push is not defined on navigation')
     }
-    if (isExternalUrl) {
+    if (isExternalUrl && postData) {
       this.props.navigation.push('ExternalOffer', { url: path, postData })
+    } else if (isExternalUrl) {
+      openExternalUrl(path)
     } else {
       const params = { city: this.props.city, offers: this.state.offers, offerHash: null }
       this.props.navigation.push(path, params)
