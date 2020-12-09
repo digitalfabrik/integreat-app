@@ -1,0 +1,6 @@
+issue_key: IGAPP-107
+show_in_stores: false
+platforms:
+  - android
+  - ios
+en: Add Feedback option to disclaimer and sprungbrett.
