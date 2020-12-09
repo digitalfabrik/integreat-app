@@ -17,18 +17,18 @@ const ExternalOffer = (props: PropsType) => {
   const [canGoBack, setCanGoBack] = useState(false)
   const webviewRef = useRef(null)
 
-  const handleBackButton = (): boolean => {
-    if (webviewRef.current && canGoBack) {
-      webviewRef.current.goBack()
-      return true
-    }
-    return false
-  }
-
   useEffect(() => {
+    const handleBackButton = (): boolean => {
+      if (webviewRef.current && canGoBack) {
+        webviewRef.current.goBack()
+        return true
+      }
+      return false
+    }
+
     const backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackButton)
     return () => backHandler.remove()
-  }, [])
+  }, [canGoBack])
 
   const { url, postData } = props
   const body = !postData ? '' : stringify(fromPairs([...postData.entries()]))
