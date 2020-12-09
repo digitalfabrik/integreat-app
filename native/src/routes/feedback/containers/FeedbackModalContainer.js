@@ -27,7 +27,7 @@ import type { StoreActionType } from '../../../modules/app/StoreActionType'
 
 type FeedbackType = 'Category' | 'Event' | 'Pois' | 'Offers' | 'Disclaimer'
 
-export type FeedbackInformationType = {
+export type FeedbackInformationType = {|
   type: FeedbackType,
   isPositiveFeedback: boolean,
   language: string,
@@ -36,7 +36,7 @@ export type FeedbackInformationType = {
   title?: string,
   alias?: string,
   offers?: Array<OfferModel>
-}
+|}
 
 type ContainerPropsType = {|
   navigation: NavigationScreenProp<{|...NavigationLeafRoute, params: FeedbackInformationType |}>,
