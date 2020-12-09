@@ -242,8 +242,7 @@ describe('CategoriesContainer', () => {
     )
     const categoriesInstance = result.root.findByType(MockCategories)
     expect(categoriesInstance.props).toEqual({
-      cities: [city],
-      cityCode: city.code,
+      cityModel: city,
       language: language.code,
       navigateToCategory: expect.any(Function),
       navigateToInternalLink: expect.any(Function),
