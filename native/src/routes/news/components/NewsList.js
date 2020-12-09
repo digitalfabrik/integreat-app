@@ -1,17 +1,13 @@
 // @flow
 
 import * as React from 'react'
-import { View, Linking } from 'react-native'
+import { View } from 'react-native'
 import { TFunction, withTranslation } from 'react-i18next'
 import { LocalNewsModel, NotFoundError, TunewsModel } from 'api-client'
 import List from './List'
 import Failure from '../../../modules/error/components/Failure'
-import type { ThemeType } from '../../../modules/theme/constants'
-import type {
-  LanguageResourceCacheStateType,
-  NewsModelsType,
-  NewsType
-} from '../../../modules/app/StateType'
+import type { ThemeType } from 'build-configs/ThemeType'
+import type { NewsModelsType, NewsType } from '../../../modules/app/StateType'
 import type { NavigateToNewsParamsType } from '../../../modules/app/createNavigateToNews'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
@@ -20,6 +16,7 @@ import styled from 'styled-components/native'
 import type { StyledComponent } from 'styled-components'
 import NewsItemsDetails from './NewsItemDetails'
 import { TUNEWS } from '../../../modules/endpoint/constants'
+import openExternalUrl from '../../../modules/common/openExternalUrl'
 
 const tunewsWebsiteUrl = 'https://tunewsinternational.com'
 
@@ -35,14 +32,12 @@ export type PropsType = {|
   news: NewsModelsType,
   cityCode: string,
   language: string,
-  resourceCache: LanguageResourceCacheStateType,
   theme: ThemeType,
   t: TFunction,
   selectedNewsType: NewsType,
   isFetchingMore: boolean,
   fetchMoreNews: () => void,
-  navigateToNews: (navigationOptions: NavigateToNewsParamsType) => void,
-  createNavigateToNews: (NavigateToNewsParamsType) => void
+  navigateToNews: (navigationOptions: NavigateToNewsParamsType) => void
 |}
 
 /* Displays a list of news or a single news item, matching the route <id>)
@@ -64,10 +59,7 @@ class NewsList extends React.PureComponent<PropsType> {
   }
 
   openTunewsLink = async () => {
-    const supported = await Linking.canOpenURL(tunewsWebsiteUrl)
-    if (supported) {
-      await Linking.openURL(tunewsWebsiteUrl)
-    }
+    openExternalUrl(tunewsWebsiteUrl)
   }
 
   renderNoItemsComponent = () => {
