@@ -1,11 +1,9 @@
 // @flow
 
-type FormDataType = FormData | {| getParts: () => Array<{| string: string, fieldName: string |}> |}
-
 // stringifies FormData from react-native or the browser variant of it
-export function stringifyFormData (formData: FormDataType): string {
+export function stringifyFormData (formData: any): string {
   const entries = {}
-  if (formData.getParts) {
+  if (formData?.getParts) {
     for (const part of formData.getParts()) {
       entries[part.fieldName] = part.string
     }
