@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import styled from 'styled-components/native'
-import { Picker } from '@react-native-community/picker'
+import { Picker } from '@react-native-picker/picker'
 import { ActivityIndicator, ScrollView, TextInput } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { Button } from 'react-native-elements'
