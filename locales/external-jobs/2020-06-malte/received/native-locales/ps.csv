@@ -1,3 +1,0 @@
-"key","source_language","target_language"
-"native.NSPhotoLibraryAddUsageDescription","Um Bilder zu speichern, benötigt {{appName}} Zugriff auf die Galerie.","د انځورونو خوندي کولو لپاره {{appName}} انځورتون ته لاسرسي ته اړتیا لري."
-"native.NSLocationWhenInUseUsageDescription","Um nahegelegene Orte zu finden, benötigt {{appName}} Zugriff auf den Standort.","د نږدې ځایونو پیدا کولو لپاره {{appName}} موقعیت ته لاسرسي ته اړتیا لري."

@@ -15,7 +15,6 @@ describe('LocalNewsList', () => {
   const city = 'testcity'
 
   const renderItem = ({ id, title, message, timestamp }, city) => <NewsElement
-    id={id}
     title={title}
     content={message}
     timestamp={timestamp}
@@ -28,18 +27,16 @@ describe('LocalNewsList', () => {
   const date = moment('2017-11-18T09:30:00.000Z')
   const localNews1 = new LocalNewsModel({
     id: 217,
-    title: 'Tick bite - What to do?',
+    title: 'Important',
     timestamp: date,
-    message:
-    'In summer there are often ticks in forest and meadows with high grass. These are very small animals. They feed on the blood of people or animals they sting, like mosquitoes. But they stay in the skin longer and can transmit dangerous diseases. If you have been in high grass, you should search your body very thoroughly for ticks. They like to sit in the knees, armpits or in the groin area. If you discover a tick in your skin, you should carefully pull it out with tweezers without crushing it. If the sting inflames, you must see a doctor.'
+    message: 'This is a very important message from your favourite city!'
   })
 
   const localNews2 = new LocalNewsModel({
     id: 218,
-    title: 'Tick bite - What to do?',
+    title: 'Love :)',
     timestamp: date,
-    message:
-    'In summer there are often ticks in forest and meadows with high grass. These are very small animals. They feed on the blood of people or animals they sting, like mosquitoes. But they stay in the skin longer and can transmit dangerous diseases. If you have been in high grass, you should search your body very thoroughly for ticks. They like to sit in the knees, armpits or in the groin area. If you discover a tick in your skin, you should carefully pull it out with tweezers without crushing it. If the sting inflames, you must see a doctor.'
+    message: 'I am a random local news content content and I like it!!!!!!!!!'
   })
 
   const items = [localNews1, localNews2]
@@ -51,7 +48,7 @@ describe('LocalNewsList', () => {
     const newsElementList = localNewsList.find('NewsElement')
 
     expect(newsElementList).toHaveLength(2)
-    expect(newsElementList.find({ id: 217 })).toHaveLength(1)
+    expect(newsElementList.find({ title: 'Love :)' })).toHaveLength(1)
   })
 
   it('should render "noItemsMessage" if the items is an empty array', () => {

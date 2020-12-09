@@ -1,9 +1,10 @@
 // @flow
 
 import EventsRouteConfig from '../EventsRouteConfig'
-import { CityModel, DateModel, EventModel, LocationModel, Payload } from 'api-client'
+import { DateModel, EventModel, LocationModel, Payload } from 'api-client'
 import moment from 'moment'
 import createLocation from '../../../../createLocation'
+import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 
 const events = [
   new EventModel({
@@ -35,20 +36,7 @@ const events = [
     thumbnail: 'thumbnail'
   })
 ]
-const cities = [new CityModel({
-  name: 'Augsburg',
-  code: 'augsburg',
-  live: true,
-  eventsEnabled: true,
-  offersEnabled: true,
-  pushNotificationsEnabled: true,
-  tunewsEnabled: true,
-  sortingName: 'Augsburg',
-  prefix: null,
-  latitude: null,
-  longitude: null,
-  aliases: null
-})]
+const cities = new CityModelBuilder(1).build()
 const eventsPayload = new Payload(false, 'https://random.api.json', events, null)
 const citiesPayload = new Payload(false, 'https://random.api.json', cities, null)
 const payloads = { events: eventsPayload, cities: citiesPayload }
@@ -126,7 +114,7 @@ describe('EventsRouteConfig', () => {
       })
 
       expect(eventsRouteConfig.getPageTitle({ payloads, location, cityName: 'Augsburg', t }))
-        .toBe('Erstes Event - Augsburg')
+        .toBe('Erstes Event - Stadt Augsburg')
     })
 
     it('no event with the given pathname exists', () => {
@@ -137,7 +125,7 @@ describe('EventsRouteConfig', () => {
       })
 
       expect(eventsRouteConfig.getPageTitle({ payloads, location, cityName: 'Augsburg', t }))
-        .toBe('pageTitles.events - Augsburg')
+        .toBe('pageTitles.events - Stadt Augsburg')
     })
 
     it('is the events root page', () => {
@@ -148,7 +136,7 @@ describe('EventsRouteConfig', () => {
       })
 
       expect(eventsRouteConfig.getPageTitle({ payloads, location, cityName: 'Augsburg', t }))
-        .toBe('pageTitles.events - Augsburg')
+        .toBe('pageTitles.events - Stadt Augsburg')
     })
 
     it('the city is wrong', () => {

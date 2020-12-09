@@ -32,7 +32,6 @@ exports[`Tile should render a a-Tag if path is not an external url 1`] = `
 >
   <CleanAnchor
     href="https://example.com"
-    newTab={true}
   >
     <Tile__ThumbnailSizer>
       <Tile__Thumbnail>
@@ -58,7 +57,6 @@ exports[`Tile should render a form-Tag if path is not an external url and has po
   <form
     action="https://example.com"
     method="POST"
-    target="_blank"
   >
     <input
       key="plz"

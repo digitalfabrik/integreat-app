@@ -12,7 +12,7 @@
 * [Build failed with an exception](#build-failed-with-an-exception)
 * [App hangs on loading screen](#app-hangs-on-loading-screen)
 * [`bundle exec fastlane certificates` hangs on `Cloning remote git repo...`](#bundle-exec-fastlane-certificates-hangs-on-cloning-remote-git-repo)
-* [`Failed to get "locale" from native side!` in the simulator](#failed-to-get-locale-from-native-side-in-the-simulator)
+* [`Failed to get language code from native side!` in the simulator](#failed-to-get-language-code-from-native-side-in-the-simulator)
 * [Gradle `resource string/BUILD_CONFIG_APP_NAME not found`](#gradle-resource-stringbuild_config_app_name-not-found)
 * [`No BUILD_CONFIG_NAME supplied`](#no-build_config_name-supplied)
 * [`Invalid BUILD_CONFIG_NAME supplied`](#invalid-build_config_name-supplied)
@@ -89,7 +89,7 @@ Copy the last command printed to the console (`git clone ...`) and execute it ma
     * Make sure to have git properly set up on the machine (using **ssh** protocol instead of https).
     * The ssh key has to be added permanently in order for the command to work: `cd ~/.ssh/; ssh-add`.
     
-## `Failed to get "locale" from native side!` in the simulator
+## `Failed to get language code from native side!` in the simulator
 
 * Go to `(Device) Settings` > `General` > `Language and Region`.
 * Change `iPhone Language` and `Region`.

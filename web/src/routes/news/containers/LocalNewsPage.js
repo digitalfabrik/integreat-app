@@ -29,7 +29,6 @@ export class LocalNewsPage extends React.Component<PropsType> {
   renderLocalNewsElement = (city: string, language: string) => (localNewsItem: LocalNewsModel) => {
     const { id, title, message, timestamp } = localNewsItem
     return <NewsElement
-      id={id}
       title={title}
       content={message}
       timestamp={timestamp}
@@ -57,7 +56,12 @@ export class LocalNewsPage extends React.Component<PropsType> {
     }
 
     return (
-      <NewsTabs type={LOCAL_NEWS} city={city} cities={cities} t={t} language={language}>
+      <NewsTabs type={LOCAL_NEWS}
+                city={city}
+                tunewsEnabled={currentCity.tunewsEnabled}
+                localNewsEnabled={currentCity.pushNotificationsEnabled}
+                t={t}
+                language={language}>
         <LocalNewsList
           items={localNews}
           noItemsMessage={t('currentlyNoNews')}

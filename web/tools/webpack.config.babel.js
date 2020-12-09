@@ -35,9 +35,9 @@ const readVersionName = () => {
   return versionFile.versionName
 }
 
-const getSupportedLocales = () => {
-  const localesConfig = readJson(path.resolve(__dirname, '../../locales/config.json'))
-  return [localesConfig.sourceLanguage, ...localesConfig.targetLanguages]
+const getSupportedLanguageCodes = () => {
+  const translationsConfig = readJson(path.resolve(__dirname, '../../translations/config.json'))
+  return [translationsConfig.sourceLanguage, ...translationsConfig.targetLanguages]
 }
 
 const createConfig = (env: { config_name?: string, dev_server?: boolean, version_name?: string, commit_sha?: string } = {}) => {
@@ -177,7 +177,7 @@ const createConfig = (env: { config_name?: string, dev_server?: boolean, version
       }),
       // moment has no support for 'ti' (Tigrinya) and 'so' (Somali), hence we have to use the ignoreInvalidLocales flag
       new MomentLocalesPlugin({
-        localesToKeep: getSupportedLocales(),
+        localesToKeep: getSupportedLanguageCodes(),
         ignoreInvalidLocales: true
       })
     ],

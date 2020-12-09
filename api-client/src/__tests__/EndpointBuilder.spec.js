@@ -7,7 +7,7 @@ describe('EndpointBuilder', () => {
     const url = 'https://someurl'
     const name = 'endpoint'
     const mapper = json => json
-    const responseOverride = {test: 'random'}
+    const responseOverride = { test: 'random' }
     const errorOverride = new Error('Error No. 5')
     const mapParamsToUrl = () => url
 

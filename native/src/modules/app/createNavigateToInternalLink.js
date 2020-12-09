@@ -8,6 +8,7 @@ import type { NavigationStackProp } from 'react-navigation-stack'
 import type { StoreActionType } from './StoreActionType'
 import createNavigateToLanding from './createNavigateToLanding'
 import type { Dispatch } from 'redux'
+import URL from 'url-parse'
 
 export type NavigateToInternalLinkParamsType = {| url: string, language: string |}
 
@@ -22,11 +23,11 @@ export const createNavigateToInternalLink = ({
   navigateToCategory: NavigateToCategoryParamsType => void,
   navigateToDashboard: NavigateToCategoryParamsType => void
 }) => ({ url, language }: NavigateToInternalLinkParamsType) => {
-  const parts = url.split('/').filter(segment => segment)
-  const pathnameParts = parts.splice(2)
+  const parsedUrl = new URL(url)
+  const pathname = parsedUrl.pathname
+  const pathnameParts = pathname.split('/').filter(Boolean)
   const newCity = pathnameParts[0]
   const newLanguage = pathnameParts[1]
-  const pathname = pathnameParts.reduce((acc, part) => `${acc}/${part}`, '')
 
   if (!newCity) { // '/'
     navigateToLanding()

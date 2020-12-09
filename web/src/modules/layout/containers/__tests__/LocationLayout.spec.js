@@ -5,7 +5,6 @@ import { render } from '@testing-library/react'
 import {
   CategoriesMapModel,
   CategoryModel,
-  CityModel,
   DateModel,
   EventModel,
   LocationModel
@@ -17,6 +16,7 @@ import createLocation from '../../../../createLocation'
 import { ThemeProvider } from 'styled-components'
 import theme from '../../../theme/constants/theme'
 import { EVENTS_ROUTE } from '../../../app/route-configs/EventsRouteConfig'
+import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 
 jest.mock('../../components/LocationFooter', () => {
   return () => <div>LocationFooter</div>
@@ -32,7 +32,7 @@ jest.mock('../../../../routes/categories/containers/CategoriesToolbar', () => {
 })
 
 describe('LocationLayout', () => {
-  const city = 'city1'
+  const city = 'augsburg'
   const language = 'de'
 
   const categories = new CategoriesMapModel([
@@ -81,21 +81,7 @@ describe('LocationLayout', () => {
     })
   ]
 
-  const cities = [new CityModel({
-    name: 'Mambo No. 5',
-    code: 'city1',
-    live: true,
-    eventsEnabled: true,
-    offersEnabled: false,
-    pushNotificationsEnabled: false,
-    tunewsEnabled: false,
-    sortingName: 'Mambo',
-    longitude: null,
-    latitude: null,
-    prefix: null,
-    aliases: null
-  })
-  ]
+  const cities = new CityModelBuilder(1).build()
 
   const languageChangePaths = [
     { code: 'de', name: 'Deutsch', path: '/augsburg/de' },
