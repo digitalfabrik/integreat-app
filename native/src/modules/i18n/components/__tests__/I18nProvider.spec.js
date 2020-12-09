@@ -11,7 +11,7 @@ import { Text } from 'react-native'
 
 jest.mock('@react-native-community/async-storage')
 jest.mock('../../../i18n/LanguageDetector')
-jest.mock('../../loadLocales')
+jest.mock('../../loadTranslations')
 
 describe('I18nProvider', () => {
   beforeEach(async () => {
@@ -52,7 +52,7 @@ describe('I18nProvider', () => {
 
     const ReceivingComponent = withTranslation('app')(
       ({ t, i18n }) => {
-        const transformedResources = require('../../loadLocales').default()
+        const transformedResources = require('../../loadTranslations').default()
         const languages = Object.keys(transformedResources)
 
         const resources = languages.reduce((resources, language: string) => {

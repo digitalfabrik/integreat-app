@@ -22,12 +22,11 @@ describe('NewsElement', () => {
     'In summer there are often ticks in forest and meadows with high grass. These are very small animals. They feed on the blood of people or animals they sting, like mosquitoes. But they stay in the skin longer and can transmit dangerous diseases. If you have been in high grass, you should search your body very thoroughly for ticks. They like to sit in the knees, armpits or in the groin area. If you discover a tick in your skin, you should carefully pull it out with tweezers without crushing it. If the sting inflames, you must see a doctor.'
   })
 
-  const { id, title, message, timestamp } = newsItem
+  const { title, message, timestamp } = newsItem
 
   it('should render the right data', () => {
     const wrapper = shallow(
       <NewsElement
-        id={id}
         type={LOCAL_NEWS}
         title={title}
         content={message}

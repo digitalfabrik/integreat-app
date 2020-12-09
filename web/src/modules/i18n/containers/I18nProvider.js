@@ -10,7 +10,7 @@ import setUiDirection from '../actions/setUIDirection'
 import type { Dispatch } from 'redux'
 import type { StoreActionType } from '../../app/StoreActionType'
 import type { UiDirectionType } from '../types/UiDirectionType'
-import loadLocales from '../loadLocales'
+import loadTranslations from '../loadTranslations'
 import buildConfig from '../../app/constants/buildConfig'
 
 const RTL_LANGUAGES = ['ar', 'fa']
@@ -37,7 +37,7 @@ export class I18nProvider extends React.Component<PropsType, StateType> {
   constructor () {
     super()
 
-    const i18nextResources = loadLocales()
+    const i18nextResources = loadTranslations()
     this.i18n = i18next.createInstance()
       .use(LanguageDetector)
     this.i18n.init({

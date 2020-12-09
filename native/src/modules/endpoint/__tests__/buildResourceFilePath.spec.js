@@ -1,7 +1,7 @@
 // @flow
 
 import buildResourceFilePath from '../buildResourceFilePath'
-import hashUrl from '../hashUrl'
+import { hashUrl } from 'api-client'
 
 jest.mock('rn-fetch-blob')
 

@@ -2,7 +2,7 @@
 
 import type { ThemeType } from './ThemeType'
 
-export type LocalesType = { [namespace: string]: { [language: string]: { [key: string]: string } } }
+export type TranslationsType = { [namespace: string]: { [language: string]: { [key: string]: string } } }
 
 export type FeatureFlagsType = {|
   pois: boolean,
@@ -24,7 +24,7 @@ export type CommonBuildConfigType = {|
   featureFlags: FeatureFlagsType,
   lightTheme: ThemeType,
   darkTheme: ThemeType,
-  localesOverride?: LocalesType,
+  translationsOverride?: TranslationsType,
   assets: string,
   e2e?: boolean,
   aboutUrls: { default: string, [language: string]: string },
@@ -50,7 +50,7 @@ export type WebBuildConfigType = {|
 
 // These values can be retrieved from the google-services.json according to this guide:
 // https://developers.google.com/android/guides/google-services-plugin#processing_the_json_file
-type AndroidGoogleServicesConfig = {|
+type AndroidGoogleServicesConfigType = {|
   googleAppId: string,
   gcmDefaultSenderId: string,
   defaultWebClientId: string,
@@ -65,11 +65,11 @@ export type AndroidBuildConfigType = {|
   ...CommonBuildConfigType,
   splashScreen: boolean,
   applicationId: string,
-  googleServices: ?AndroidGoogleServicesConfig
+  googleServices: ?AndroidGoogleServicesConfigType
 |}
 
 // These values can be retrieved from the GoogleService-Info.plist.
-type iOSGoogleServicesConfig = {|
+type iOSGoogleServicesConfigType = {|
   clientId: string,
   reversedClientId: string,
   apiKey: string,
@@ -93,5 +93,5 @@ export type iOSBuildConfigType = {|
   bundleIdentifier: string,
   provisioningProfileSpecifier: string,
   appleId: string,
-  googleServices: ?iOSGoogleServicesConfig
+  googleServices: ?iOSGoogleServicesConfigType
 |}

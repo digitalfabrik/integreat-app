@@ -13,7 +13,7 @@ class TunewsModel {
   constructor (params: {| id: number, title: string,
     date: Moment, tags: Array<string>, content: string, eNewsNo: string
     |}) {
-    const {id, date, title, tags, content, eNewsNo} = params
+    const { id, date, title, tags, content, eNewsNo } = params
     this._id = id
     this._title = title
     this._tags = tags

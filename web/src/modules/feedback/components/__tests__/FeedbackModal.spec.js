@@ -20,6 +20,7 @@ describe('FeedbackModal', () => {
         offersEnabled: false,
         pushNotificationsEnabled: false,
         tunewsEnabled: false,
+        poisEnabled: true,
         sortingName: 'Augsburg',
         latitude: null,
         longitude: null,

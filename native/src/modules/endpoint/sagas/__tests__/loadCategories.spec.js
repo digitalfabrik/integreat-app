@@ -4,7 +4,7 @@ import { runSaga } from 'redux-saga'
 import loadCategories from '../loadCategories'
 import DefaultDataContainer from '../../DefaultDataContainer'
 import RNFetchBlob from '../../../../__mocks__/rn-fetch-blob'
-import CategoriesMapModelBuilder from '../../../../testing/builder/CategoriesMapModelBuilder'
+import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
 import DatabaseConnector from '../../DatabaseConnector'
 import DatabaseContext from '../../DatabaseContext'
 
@@ -21,7 +21,7 @@ jest.mock('api-client',
       ...actual,
       createCategoriesEndpoint: () => {
         const { EndpointBuilder } = require('api-client')
-        const { default: CategoriesMapModelBuilder } = require('../../../../testing/builder/CategoriesMapModelBuilder')
+        const { default: CategoriesMapModelBuilder } = require('api-client/src/testing/CategoriesMapModelBuilder')
 
         mockCategories = new CategoriesMapModelBuilder(city, language, 2).build()
         return new EndpointBuilder('categories-mock')

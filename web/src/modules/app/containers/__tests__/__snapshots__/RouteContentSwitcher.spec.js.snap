@@ -23,17 +23,23 @@ exports[`RouteContentSwitcher should render and match snapshot 1`] = `
   cities={
     Array [
       CityModel {
-        "_aliases": null,
-        "_code": "city1",
+        "_aliases": Object {
+          "Konigsbrunn": Object {
+            "latitude": 48.267499,
+            "longitude": 10.889586,
+          },
+        },
+        "_code": "augsburg",
         "_eventsEnabled": true,
-        "_latitude": null,
+        "_latitude": 48.369696,
         "_live": true,
-        "_longitude": null,
-        "_name": "Mambo No. 5",
-        "_offersEnabled": false,
-        "_prefix": null,
+        "_longitude": 10.892578,
+        "_name": "Stadt Augsburg",
+        "_offersEnabled": true,
+        "_poisEnabled": true,
+        "_prefix": "Stadt",
         "_pushNotificationsEnabled": false,
-        "_sortingName": "Mambo",
+        "_sortingName": "Augsburg",
         "_tunewsEnabled": false,
       },
     ]

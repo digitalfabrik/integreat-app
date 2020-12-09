@@ -1,0 +1,5 @@
+issue_key: IGAPP-57
+show_in_stores: false
+platforms:
+  - web
+en: External links are now opened in the same tab (except from links in content).

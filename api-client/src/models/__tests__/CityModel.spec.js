@@ -10,6 +10,7 @@ describe('CityModel', () => {
       live: true,
       eventsEnabled: false,
       offersEnabled: false,
+      poisEnabled: false,
       pushNotificationsEnabled: false,
       tunewsEnabled: false,
       sortingName: 'City',

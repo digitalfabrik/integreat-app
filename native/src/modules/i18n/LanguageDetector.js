@@ -1,18 +1,18 @@
 // @flow
 
-import getLocale from '../platform/getLocale'
+import getLanguageCode from '../platform/getLanguageCode'
 
 export default {
   type: 'languageDetector',
   async: false,
   detect: () => {
-    const locale = getLocale()
+    const languageCode = getLanguageCode()
 
-    if (locale.length < 2) {
-      throw Error('locale has wrong format')
+    if (languageCode.length < 2) {
+      throw Error('languageCode has wrong format')
     }
 
-    return locale.substring(0, 2)
+    return languageCode.substring(0, 2)
   },
   init: () => {},
   cacheUserLanguage: (newLanguage: string) => {}

@@ -6,44 +6,16 @@ import moment from 'moment'
 import { ThemeProvider } from 'styled-components'
 
 import ConnectedLocalNewsPage, { LocalNewsPage } from '../LocalNewsPage'
-import { CityModel, LocalNewsModel, Payload } from 'api-client'
+import { LocalNewsModel, Payload } from 'api-client'
 import createReduxStore from '../../../../modules/app/createReduxStore'
 import { Provider } from 'react-redux'
 import createLocation from '../../../../createLocation'
 import { LOCAL_NEWS_ROUTE } from '../../../../modules/app/route-configs/LocalNewsRouteConfig'
 import theme from '../../../../modules/theme/constants/theme'
+import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 
 describe('LocalNewsPage', () => {
-  const cities = [
-    new CityModel({
-      name: 'Augsburg',
-      code: 'augsburg',
-      live: true,
-      eventsEnabled: true,
-      offersEnabled: true,
-      pushNotificationsEnabled: true,
-      tunewsEnabled: true,
-      sortingName: 'Augsburg',
-      prefix: null,
-      latitude: null,
-      longitude: null,
-      aliases: null
-    }),
-    new CityModel({
-      name: 'Stadt Regensburg',
-      code: 'regensburg',
-      live: true,
-      eventsEnabled: false,
-      offersEnabled: false,
-      pushNotificationsEnabled: false,
-      tunewsEnabled: false,
-      sortingName: 'Regensburg',
-      prefix: 'Stadt',
-      latitude: null,
-      longitude: null,
-      aliases: null
-    })
-  ]
+  const cities = new CityModelBuilder(2).build()
 
   const localNews = [new LocalNewsModel({
     id: 1,

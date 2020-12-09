@@ -4,7 +4,6 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { push } from 'redux-first-router'
 import { CityModel, LocalNewsModel, NotFoundError } from 'api-client'
-import type { TFunction } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
 import Page from '../../../modules/common/components/Page'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
@@ -15,8 +14,7 @@ type PropsType = {|
   language: string,
   city: string,
   id: string,
-  cities: Array<CityModel>,
-  t: TFunction
+  cities: Array<CityModel>
 |}
 
 export class LocalNewsDetailsPage extends React.PureComponent<PropsType> {

@@ -2,90 +2,24 @@
 
 import React from 'react'
 import { shallow } from 'enzyme'
-
-import { CityModel } from 'api-client'
-
 import CitySelector from '../CitySelector'
+import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 
 describe('CitySelector', () => {
-  const cities = [
-    new CityModel({
-      name: 'City',
-      code: 'city',
-      live: true,
-      eventsEnabled: false,
-      offersEnabled: false,
-      pushNotificationsEnabled: false,
-      tunewsEnabled: false,
-      sortingName: 'City',
-      latitude: null,
-      longitude: null,
-      prefix: null,
-      aliases: null
-    }),
-    new CityModel({
-      name: 'Other city',
-      code: 'otherCity',
-      live: true,
-      eventsEnabled: false,
-      offersEnabled: false,
-      pushNotificationsEnabled: false,
-      tunewsEnabled: false,
-      sortingName: 'OtherCity',
-      latitude: null,
-      longitude: null,
-      prefix: null,
-      aliases: null
-    }),
-    new CityModel({
-      name: 'Notlive',
-      code: 'nonlive',
-      live: false,
-      eventsEnabled: false,
-      offersEnabled: false,
-      pushNotificationsEnabled: false,
-      tunewsEnabled: false,
-      sortingName: 'Nonlive',
-      latitude: null,
-      longitude: null,
-      prefix: null,
-      aliases: null
-    }),
-    new CityModel({
-      name: 'Yet another city',
-      code: 'yetanothercity',
-      live: true,
-      eventsEnabled: false,
-      offersEnabled: false,
-      pushNotificationsEnabled: false,
-      tunewsEnabled: false,
-      sortingName: 'Yetanothercity',
-      latitude: null,
-      longitude: null,
-      prefix: null,
-      aliases: null
-    })
-  ]
-
-  it('should render', () => {
-    shallow(
-      <CitySelector
-        filterText='Text'
-        language='de'
-        cities={cities} />
-    )
-  })
+  const cities = new CityModelBuilder(5).build()
 
   it('should filter for existing and live cities', () => {
     const wrapper = shallow(<CitySelector
-      filterText='city'
+      filterText=''
       language='de'
       cities={cities} />
     )
 
     const component = wrapper.instance()
+    const filteredCities = component.filter()
 
-    expect(component.filter()).toMatchSnapshot()
+    expect(filteredCities).toHaveLength(3)
+    expect(filteredCities.find(city => !city.live)).toBeUndefined()
   })
 
   it('should exclude location if location does not exist', () => {
@@ -96,18 +30,18 @@ describe('CitySelector', () => {
     )
 
     const component = wrapper.instance()
-    expect(component.filter()).toMatchSnapshot()
+    expect(component.filter()).toHaveLength(0)
   })
 
   it('should exclude location if location is not live', () => {
     const wrapper = shallow(<CitySelector
-      filterText='notlive'
+      filterText='oldtown'
       language='de'
       cities={cities} />
     )
 
     const component = wrapper.instance()
-    expect(component.filter()).toMatchSnapshot()
+    expect(component.filter()).toHaveLength(0)
   })
 
   it('should filter for all non-live cities if filterText is "wirschaffendas"', () => {
@@ -118,6 +52,6 @@ describe('CitySelector', () => {
     )
 
     const component = wrapper.instance()
-    expect(component.filter()).toMatchSnapshot()
+    expect(component.filter()).toHaveLength(2)
   })
 })
