@@ -66,6 +66,7 @@ class OffersContainer extends React.Component<OffersPropsType, OffersStateType> 
     if (!this.props.navigation.push) {
       throw new Error('push is not defined on navigation')
     }
+    // HTTP POST is neither supported by the InAppBrowser nor by Linking, therefore we have to open it in a webview
     if (isExternalUrl && postData) {
       this.props.navigation.push('ExternalOffer', { url: path, postData })
     } else if (isExternalUrl) {
