@@ -4,10 +4,10 @@ import DatabaseConnector from '../DatabaseConnector'
 import DatabaseContext from '../DatabaseContext'
 import moment from 'moment'
 import RNFetchBlob from '../../../__mocks__/rn-fetch-blob'
-import CityModelBuilder from '../../../testing/builder/CityModelBuilder'
-import CategoriesMapModelBuilder from '../../../testing/builder/CategoriesMapModelBuilder'
-import LanguageModelBuilder from '../../../testing/builder/LanguageModelBuilder'
-import EventModelBuilder from '../../../testing/builder/EventModelBuilder'
+import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
+import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
+import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
+import EventModelBuilder from 'api-client/src/testing/EventModelBuilder'
 import mockDate from '../../../testing/mockDate'
 
 jest.mock('rn-fetch-blob')
@@ -193,7 +193,7 @@ describe('DatabaseConnector', () => {
       await databaseConnector.storeCategories(testCategoriesMap, context)
 
       const categories = await databaseConnector.loadCategories(context)
-      expect(categories).toEqual(testCategoriesMap)
+      expect(categories.isEqual(testCategoriesMap)).toBe(true)
     })
   })
 
@@ -273,7 +273,7 @@ describe('DatabaseConnector', () => {
       await databaseConnector.storeEvents(testEvents, context)
 
       const events = await databaseConnector.loadEvents(context)
-      expect(events).toEqual(testEvents)
+      expect(events.every((event, i) => event.isEqual(testEvents[i]))).toBeTruthy()
     })
   })
 

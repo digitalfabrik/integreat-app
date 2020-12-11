@@ -4,7 +4,7 @@ import { runSaga } from 'redux-saga'
 import DefaultDataContainer from '../../DefaultDataContainer'
 import loadCities from '../loadCities'
 import RNFetchBlob from '../../../../__mocks__/rn-fetch-blob'
-import CityModelBuilder from '../../../../testing/builder/CityModelBuilder'
+import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import DatabaseConnector from '../../DatabaseConnector'
 
 let mockCities
@@ -17,7 +17,7 @@ jest.mock('api-client',
       ...actual,
       createCitiesEndpoint: () => {
         const { EndpointBuilder } = require('api-client')
-        const { default: CityModelBuilder } = require('../../../../testing/builder/CityModelBuilder')
+        const { default: CityModelBuilder } = require('api-client/src/testing/CityModelBuilder')
 
         mockCities = new CityModelBuilder(1).build()
 

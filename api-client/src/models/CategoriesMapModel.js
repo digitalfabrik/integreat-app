@@ -8,6 +8,7 @@ import CategoryModel from './CategoryModel'
  */
 class CategoriesMapModel {
   _categories: Map<string, CategoryModel>
+
   /**
    * Creates a Map [path -> category] from the categories provided,
    * whose parent attributes are first changed from id to path
@@ -55,12 +56,22 @@ class CategoriesMapModel {
     while (!category.isRoot()) {
       const temp = this.findCategoryByPath(category.parentPath)
       if (!temp) {
-        throw new Error(`The category ${category.parentPath} does not exist but should be the parent of ${category.path}`)
+        throw new Error(
+          `The category ${category.parentPath} does not exist but should be the parent of ${category.path}`
+        )
       }
       category = temp
       parents.unshift(category)
     }
     return parents
+  }
+
+  isEqual (other: CategoriesMapModel): boolean {
+    return this._categories.size === other._categories.size &&
+      Array.from(this._categories.entries()).every(([key, value]) => {
+        const otherCategory = other._categories.get(key)
+        return otherCategory && value.isEqual(otherCategory)
+      })
   }
 }
 

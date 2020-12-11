@@ -19,6 +19,8 @@ import type { NavigationStackProp } from 'react-navigation-stack'
 import FailureContainer from '../../../modules/error/containers/FailureContainer'
 import { LOADING_TIMEOUT } from '../../../modules/common/constants'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
+import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
+import createNavigateToFeedbackModal from '../../../modules/app/createNavigateToFeedbackModal'
 
 type OwnPropsType = {| navigation: NavigationStackProp<*> |}
 
@@ -28,7 +30,6 @@ type PropsType = { ...OwnPropsType, ...StatePropsType }
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const offers: Array<OfferModel> = ownProps.navigation.getParam('offers')
-
   return {
     language: state.contentLanguage,
     offer: offers.find(offer => offer.alias === SPRUNGBRETT_OFFER)
@@ -54,6 +55,19 @@ class SprungbrettOfferContainer extends React.Component<SprungbrettPropsType, Sp
   constructor (props: SprungbrettPropsType) {
     super(props)
     this.state = { jobs: null, error: null, timeoutExpired: false }
+  }
+
+  navigateToFeedback = (isPositiveFeedback: boolean) => {
+    const { navigation, offer, language } = this.props
+    createNavigateToFeedbackModal(navigation)({
+      type: 'Offers',
+      cityCode: navigation.getParam('city'),
+      title: offer?.title,
+      alias: offer?.alias,
+      path: offer?.path,
+      language,
+      isPositiveFeedback
+    })
   }
 
   componentDidMount () {
@@ -110,6 +124,7 @@ class SprungbrettOfferContainer extends React.Component<SprungbrettPropsType, Sp
     return <ScrollView refreshControl={<RefreshControl onRefresh={this.loadSprungbrett} refreshing={false} />}
                        contentContainerStyle={{ flexGrow: 1 }}>
       <SprungbrettOffer sprungbrettOffer={offer} sprungbrettJobs={jobs} t={t} theme={theme} language={language} />
+      <SiteHelpfulBox navigateToFeedback={this.navigateToFeedback} theme={theme} t={t} />
     </ScrollView>
   }
 }

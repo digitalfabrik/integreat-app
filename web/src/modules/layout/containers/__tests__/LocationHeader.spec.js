@@ -2,7 +2,7 @@
 
 import { shallow } from 'enzyme'
 import React from 'react'
-import { DateModel, EventModel, LocationModel } from 'api-client'
+import { CityModel, DateModel, EventModel, LocationModel } from 'api-client'
 import { LocationHeader } from '../LocationHeader'
 import { CATEGORIES_ROUTE } from '../../../app/route-configs/CategoriesRouteConfig'
 import { EVENTS_ROUTE } from '../../../app/route-configs/EventsRouteConfig'
@@ -11,9 +11,38 @@ import moment from 'moment'
 import { WOHNEN_ROUTE } from '../../../app/route-configs/WohnenRouteConfig'
 import { SPRUNGBRETT_ROUTE } from '../../../app/route-configs/SprungbrettRouteConfig'
 import createLocation from '../../../../createLocation'
+import { LOCAL_NEWS_ROUTE } from '../../../app/route-configs/LocalNewsRouteConfig'
 
 describe('LocationHeader', () => {
   const t = (key: ?string): string => key || ''
+
+  const cityModel = (
+    offersEnabled: boolean,
+    eventsEnabled: boolean,
+    poisEnabled: boolean,
+    tunewsEnabled: boolean,
+    pushNotificationsEnabled: boolean
+  ) =>
+    new CityModel({
+      name: 'Stadt Augsburg',
+      code: 'augsburg',
+      live: true,
+      eventsEnabled,
+      offersEnabled,
+      poisEnabled,
+      pushNotificationsEnabled,
+      tunewsEnabled,
+      sortingName: 'Augsburg',
+      prefix: 'Stadt',
+      latitude: 48.369696,
+      longitude: 10.892578,
+      aliases: {
+        Konigsbrunn: {
+          latitude: 48.267499,
+          longitude: 10.889586
+        }
+      }
+    })
 
   const languageChangePaths = [
     { code: 'de', name: 'Deutsch', path: '/augsburg/de' },
@@ -114,14 +143,9 @@ describe('LocationHeader', () => {
 
   describe('NavigationItems', () => {
     it('should be empty if all other header items are disabled', () => {
-      // TODO IGAPP-115: Fix this test
       const component = shallow(<LocationHeader location={location(CATEGORIES_ROUTE)}
-                                                isOffersEnabled={false}
-                                                isEventsEnabled={false}
-                                                isLocalNewsEnabled={false}
-                                                isTunewsEnabled={false}
                                                 viewportSmall
-                                                cityName='Stadt Augsburg'
+                                                cityModel={cityModel(false, false, false, false, false)}
                                                 events={events}
                                                 languageChangePaths={languageChangePaths}
                                                 onStickyTopChanged={onStickyTopChanged}
@@ -131,23 +155,15 @@ describe('LocationHeader', () => {
 
     it('should show categories, if offers or news are enabled', () => {
       const offersComp = shallow(<LocationHeader location={location(CATEGORIES_ROUTE)}
-                                                 isOffersEnabled
-                                                 isEventsEnabled={false}
-                                                 isLocalNewsEnabled={false}
-                                                 isTunewsEnabled={false}
+                                                 cityModel={cityModel(true, false, false, false, false)}
                                                  viewportSmall
-                                                 cityName='Stadt Augsburg'
                                                  events={events}
                                                  languageChangePaths={languageChangePaths}
                                                  onStickyTopChanged={onStickyTopChanged}
                                                  t={t} />)
       const eventsComp = shallow(<LocationHeader location={location(CATEGORIES_ROUTE)}
-                                                 isOffersEnabled={false}
-                                                 isEventsEnabled
-                                                 isLocalNewsEnabled={false}
-                                                 isTunewsEnabled={false}
                                                  viewportSmall
-                                                 cityName='Stadt Augsburg'
+                                                 cityModel={cityModel(false, true, false, false, false)}
                                                  events={events}
                                                  languageChangePaths={languageChangePaths}
                                                  onStickyTopChanged={onStickyTopChanged}
@@ -157,15 +173,10 @@ describe('LocationHeader', () => {
       expect(eventsComp.instance().getNavigationItems()).toMatchSnapshot()
     })
 
-    it('should show categories, events, offers in this order', () => {
-      // todo: Adjust order to categories, news, events, pois, offers when feature flags enabled
+    it('should show categories, news, events, offers, pois in this order', () => {
       const component = shallow(<LocationHeader location={location(CATEGORIES_ROUTE)}
-                                                isOffersEnabled
-                                                isEventsEnabled
-                                                isLocalNewsEnabled={false}
-                                                isTunewsEnabled={false}
                                                 viewportSmall
-                                                cityName='Stadt Augsburg'
+                                                cityModel={cityModel(true, true, true, true, true)}
                                                 events={events}
                                                 languageChangePaths={languageChangePaths}
                                                 onStickyTopChanged={onStickyTopChanged}
@@ -175,12 +186,8 @@ describe('LocationHeader', () => {
 
     it('should highlight localInformation if route corresponds', () => {
       const component = shallow(<LocationHeader location={location(CATEGORIES_ROUTE)}
-                                                isOffersEnabled
-                                                isEventsEnabled
-                                                isLocalNewsEnabled={false}
-                                                isTunewsEnabled={false}
                                                 viewportSmall
-                                                cityName='Stadt Augsburg'
+                                                cityModel={cityModel(true, true, true, true, true)}
                                                 events={events}
                                                 languageChangePaths={languageChangePaths}
                                                 onStickyTopChanged={onStickyTopChanged}
@@ -189,14 +196,22 @@ describe('LocationHeader', () => {
       expect(navItem?.props.active).toBe(true)
     })
 
+    it('should highlight news if route corresponds', () => {
+      const component = shallow(<LocationHeader location={location(LOCAL_NEWS_ROUTE)}
+                                                viewportSmall
+                                                cityModel={cityModel(true, true, true, true, true)}
+                                                events={events}
+                                                languageChangePaths={languageChangePaths}
+                                                onStickyTopChanged={onStickyTopChanged}
+                                                t={t} />)
+      const navItem = component.instance().getNavigationItems().find(item => item.props.text === 'news')
+      expect(navItem?.props.active).toBe(true)
+    })
+
     it('should highlight events if route corresponds', () => {
       const component = shallow(<LocationHeader location={location(EVENTS_ROUTE)}
-                                                isOffersEnabled
-                                                isEventsEnabled
-                                                isLocalNewsEnabled={false}
-                                                isTunewsEnabled={false}
                                                 viewportSmall
-                                                cityName='Stadt Augsburg'
+                                                cityModel={cityModel(true, true, true, true, true)}
                                                 events={events}
                                                 languageChangePaths={languageChangePaths}
                                                 onStickyTopChanged={onStickyTopChanged}
@@ -207,12 +222,8 @@ describe('LocationHeader', () => {
 
     it('should highlight offers if offers route is active', () => {
       const component = shallow(<LocationHeader location={location(OFFERS_ROUTE)}
-                                                isOffersEnabled
-                                                isEventsEnabled
-                                                isLocalNewsEnabled={false}
-                                                isTunewsEnabled={false}
                                                 viewportSmall
-                                                cityName='Stadt Augsburg'
+                                                cityModel={cityModel(true, true, true, true, true)}
                                                 events={events}
                                                 languageChangePaths={languageChangePaths}
                                                 onStickyTopChanged={onStickyTopChanged}
@@ -223,12 +234,8 @@ describe('LocationHeader', () => {
 
     it('should highlight offers if sprungbrett route is selected', () => {
       const component = shallow(<LocationHeader location={location(SPRUNGBRETT_ROUTE)}
-                                                isOffersEnabled
-                                                isEventsEnabled
-                                                isLocalNewsEnabled={false}
-                                                isTunewsEnabled={false}
                                                 viewportSmall
-                                                cityName='Stadt Augsburg'
+                                                cityModel={cityModel(true, true, true, true, true)}
                                                 events={events}
                                                 languageChangePaths={languageChangePaths}
                                                 onStickyTopChanged={onStickyTopChanged}
@@ -239,12 +246,8 @@ describe('LocationHeader', () => {
 
     it('should highlight offers if wohnen route is selected', () => {
       const component = shallow(<LocationHeader location={location(WOHNEN_ROUTE)}
-                                                isOffersEnabled
-                                                isEventsEnabled
-                                                isLocalNewsEnabled={false}
-                                                isTunewsEnabled={false}
                                                 viewportSmall
-                                                cityName='Stadt Augsburg'
+                                                cityModel={cityModel(true, true, true, true, true)}
                                                 events={events}
                                                 languageChangePaths={languageChangePaths}
                                                 onStickyTopChanged={onStickyTopChanged}
@@ -257,12 +260,8 @@ describe('LocationHeader', () => {
   describe('ActionItems', () => {
     it('should match snapshot', () => {
       const component = shallow(<LocationHeader location={location(OFFERS_ROUTE)}
-                                                isOffersEnabled
-                                                isEventsEnabled
-                                                isLocalNewsEnabled={false}
-                                                isTunewsEnabled={false}
                                                 viewportSmall
-                                                cityName='Stadt Augsburg'
+                                                cityModel={cityModel(true, true, true, true, true)}
                                                 events={events}
                                                 languageChangePaths={languageChangePaths}
                                                 onStickyTopChanged={onStickyTopChanged}
@@ -270,20 +269,5 @@ describe('LocationHeader', () => {
 
       expect(component.instance().getActionItems()).toMatchSnapshot()
     })
-  })
-
-  it('should match snapshot', () => {
-    const component = shallow(<LocationHeader location={location(OFFERS_ROUTE)}
-                                              isOffersEnabled
-                                              isEventsEnabled
-                                              isLocalNewsEnabled={false}
-                                              isTunewsEnabled={false}
-                                              viewportSmall
-                                              cityName='Stadt Augsburg'
-                                              events={events}
-                                              languageChangePaths={languageChangePaths}
-                                              onStickyTopChanged={onStickyTopChanged}
-                                              t={t} />)
-    expect(component).toMatchSnapshot()
   })
 })

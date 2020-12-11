@@ -8,7 +8,7 @@
 ## Submitting for translation
 
 Translations should be done by professional translators. If there are enough untranslated strings,
-they can be submitted to professional for translations as follows:
+they can be submitted to professionals for translations as follows:
 
 * Create an issue in our issue tracker.
 * Create a new branch for the issue.

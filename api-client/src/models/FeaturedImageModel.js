@@ -1,5 +1,7 @@
 // @flow
 
+import { isEqual } from 'lodash'
+
 type FeaturedImageInstanceType = {|
   url: string,
   width: number,
@@ -40,6 +42,15 @@ class FeaturedImageModel {
 
   get full (): FeaturedImageInstanceType {
     return this._full
+  }
+
+  isEqual (other: ?FeaturedImageModel): boolean {
+    return !!other &&
+      this.description === other.description &&
+      isEqual(this.thumbnail, other.thumbnail) &&
+      isEqual(this.medium, other.medium) &&
+      isEqual(this.large, other.large) &&
+      isEqual(this.full, other.full)
   }
 }
 

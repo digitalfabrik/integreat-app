@@ -3,10 +3,10 @@
 import * as React from 'react'
 import TestRenderer from 'react-test-renderer'
 import configureMockStore from 'redux-mock-store'
-import CityModelBuilder from '../../../../testing/builder/CityModelBuilder'
-import LanguageModelBuilder from '../../../../testing/builder/LanguageModelBuilder'
+import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
+import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import createNavigationScreenPropMock from '../../../../testing/createNavigationStackPropMock'
-import LocalNewsModelBuilder from '../../../../testing/builder/NewsModelBuilder'
+import LocalNewsModelBuilder from 'api-client/src/testing/NewsModelBuilder'
 import type {
   NewsRouteStateType,
   StateType,

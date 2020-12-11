@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { CityModel, LocalNewsModel } from 'api-client'
+import { CityModel, LocalNewsModel, NotFoundError } from 'api-client'
 import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
@@ -11,7 +11,6 @@ import LocalNewsList from '../components/LocalNewsList'
 import NewsTabs from '../components/NewsTabs'
 import { LOCAL_NEWS } from '../constants'
 import LoadingSpinner from '../../../modules/common/components/LoadingSpinner'
-import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import CityNotFoundError from '../../../modules/app/errors/CityNotFoundError'
 import LocalNewsDetailsRouteConfig from '../../../modules/app/route-configs/LocalNewsDetailsRouteConfig'
@@ -30,7 +29,6 @@ export class LocalNewsPage extends React.Component<PropsType> {
   renderLocalNewsElement = (city: string, language: string) => (localNewsItem: LocalNewsModel) => {
     const { id, title, message, timestamp } = localNewsItem
     return <NewsElement
-      id={id}
       title={title}
       content={message}
       timestamp={timestamp}
@@ -53,12 +51,17 @@ export class LocalNewsPage extends React.Component<PropsType> {
     if (!currentCity) {
       return <FailureSwitcher error={new CityNotFoundError()} />
     } else if (!currentCity.pushNotificationsEnabled) {
-      const error = new ContentNotFoundError({ type: 'category', id: path, city: city, language })
+      const error = new NotFoundError({ type: 'category', id: path, city: city, language })
       return <FailureSwitcher error={error} />
     }
 
     return (
-      <NewsTabs type={LOCAL_NEWS} city={city} cities={cities} t={t} language={language}>
+      <NewsTabs type={LOCAL_NEWS}
+                city={city}
+                tunewsEnabled={currentCity.tunewsEnabled}
+                localNewsEnabled={currentCity.pushNotificationsEnabled}
+                t={t}
+                language={language}>
         <LocalNewsList
           items={localNews}
           noItemsMessage={t('currentlyNoNews')}

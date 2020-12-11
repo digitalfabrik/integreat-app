@@ -8,9 +8,8 @@ import { TFunction } from 'i18next'
 import TunewsList from '../components/TunewsList'
 import NewsElement from '../components/NewsElement'
 import NewsTabs from '../components/NewsTabs'
-import { CityModel, TunewsModel } from 'api-client'
+import { CityModel, NotFoundError, TunewsModel } from 'api-client'
 import { TU_NEWS } from '../constants'
-import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import CityNotFoundError from '../../../modules/app/errors/CityNotFoundError'
 import { fetchTunews } from '../actions/fetchTunews'
@@ -34,7 +33,6 @@ export class TunewsPage extends React.PureComponent<PropsType> {
     const { id, title, content, date } = tunewsItem
     return (
       <NewsElement
-        id={id}
         title={title}
         content={content}
         timestamp={date}
@@ -58,12 +56,17 @@ export class TunewsPage extends React.PureComponent<PropsType> {
     }
 
     if (!currentCity.tunewsEnabled) {
-      const error = new ContentNotFoundError({ type: 'category', id: path, city: city, language })
+      const error = new NotFoundError({ type: 'category', id: path, city: city, language })
       return <FailureSwitcher error={error} />
     }
 
     return (
-      <NewsTabs type={TU_NEWS} city={city} cities={cities} t={t} language={language}>
+      <NewsTabs type={TU_NEWS}
+                city={city}
+                tunewsEnabled={currentCity.tunewsEnabled}
+                localNewsEnabled={currentCity.pushNotificationsEnabled}
+                t={t}
+                language={language}>
         <TunewsList
           items={tunews}
           renderItem={this.renderTunewsElement(city, language)}

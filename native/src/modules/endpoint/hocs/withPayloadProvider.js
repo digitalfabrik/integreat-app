@@ -109,7 +109,8 @@ const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R: {}> 
                       keyboardShouldPersistTaps='always'>
           {/* only display content while loading if innerProps and dispatch are available */}
           {props.innerProps && props.dispatch
-            ? <Component {...props.innerProps} dispatch={props.dispatch} /> : null}
+            ? <Component {...props.innerProps} dispatch={props.dispatch} />
+            : null}
         </ScrollView>
           : null
       } else { // props.status === 'success'

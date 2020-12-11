@@ -1,3 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`disclaimer should throw if there is no disclaimer 1`] = `"disclaimer:notAvailable"`;
+exports[`disclaimer should throw if there is no disclaimer 1`] = `"The disclaimer  does not exist here."`;

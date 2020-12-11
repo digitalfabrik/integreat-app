@@ -39,7 +39,12 @@ describe('tunews', () => {
   const itemModel3 = createNewsItemModel(3,
     moment.tz('2020-01-22 11:06:22+00:00', 'GMT'))
 
-  const params = {page: 1, language: 'de', count: 1}
+  const params = {
+    city: 'augsburg',
+    language: 'de',
+    page: 1,
+    count: 1
+  }
 
   it('should map params to url', () => {
     expect(tunews.mapParamsToUrl(params)).toEqual(

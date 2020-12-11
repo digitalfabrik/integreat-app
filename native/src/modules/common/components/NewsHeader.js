@@ -21,7 +21,7 @@ const TouchableWrapper = styled.TouchableOpacity`
   margin-bottom: 5px;
   margin-horizontal: 10px;
 `
-const LocalTabWrapper: StyledComponent<{ isSelected: boolean }, ThemeType, *> = styled.View`
+const LocalTabWrapper: StyledComponent<{| isSelected: boolean |}, ThemeType, *> = styled.View`
   padding-horizontal: 10px;
   border-radius: 10px;
   height: 34px;
@@ -29,18 +29,19 @@ const LocalTabWrapper: StyledComponent<{ isSelected: boolean }, ThemeType, *> = 
   min-width: 110px;
   align-items: center;
   justify-content: center;
-  background-color: ${props =>
-    props.isSelected ? props.theme.colors.themeColor : props.theme.colors.textDisabledColor};
+  background-color: ${props => props.isSelected
+  ? props.theme.colors.themeColor
+  : props.theme.colors.textDisabledColor};
 `
 
-const LocalText: StyledComponent<{}, ThemeType, *> = styled.Text`
+const LocalText: StyledComponent<{||}, ThemeType, *> = styled.Text`
   font-size: 18px;
   font-family: ${props => props.theme.fonts.decorativeFontBold};
   text-transform: uppercase;
   color: ${props => props.theme.colors.backgroundColor};
 `
 
-const HeaderContainer: StyledComponent<{}, ThemeType, *> = styled.View`
+const HeaderContainer: StyledComponent<{||}, ThemeType, *> = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: center;
@@ -63,18 +64,22 @@ class NewsHeader extends React.PureComponent<PropsType> {
 
     return (
       <HeaderContainer>
-        {cityModel.pushNotificationsEnabled ? (
-          <TouchableWrapper onPress={this.navigateToLocalNews}>
-            <LocalTabWrapper isSelected={selectedNewsType === LOCAL_NEWS} theme={theme}>
-              <LocalText theme={theme}>{t('local')}</LocalText>
-            </LocalTabWrapper>
-          </TouchableWrapper>
-        ) : null}
-        {cityModel.tunewsEnabled ? (
-          <TouchableWrapper onPress={this.navigateToTunews}>
-            <NewsTypeIcon source={selectedNewsType === TUNEWS ? activeInternational : inactiveInternational} />
-          </TouchableWrapper>
-        ) : null}
+        {cityModel.pushNotificationsEnabled
+          ? (
+            <TouchableWrapper onPress={this.navigateToLocalNews}>
+              <LocalTabWrapper isSelected={selectedNewsType === LOCAL_NEWS} theme={theme}>
+                <LocalText theme={theme}>{t('local')}</LocalText>
+              </LocalTabWrapper>
+            </TouchableWrapper>
+            )
+          : null}
+        {cityModel.tunewsEnabled
+          ? (
+            <TouchableWrapper onPress={this.navigateToTunews}>
+              <NewsTypeIcon source={selectedNewsType === TUNEWS ? activeInternational : inactiveInternational} />
+            </TouchableWrapper>
+            )
+          : null}
       </HeaderContainer>
     )
   }

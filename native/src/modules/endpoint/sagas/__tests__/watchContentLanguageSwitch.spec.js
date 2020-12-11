@@ -3,15 +3,15 @@
 import RNFetchBlob from '../../../../__mocks__/rn-fetch-blob'
 import DefaultDataContainer from '../../DefaultDataContainer'
 import type { SwitchContentLanguageActionType } from '../../../app/StoreActionType'
-import LanguageModelBuilder from '../../../../testing/builder/LanguageModelBuilder'
+import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import { expectSaga, testSaga } from 'redux-saga-test-plan'
 import loadCityContent from '../loadCityContent'
-import CategoriesMapModelBuilder from '../../../../testing/builder/CategoriesMapModelBuilder'
+import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
 import watchContentLanguageSwitch, { switchContentLanguage } from '../watchContentLanguageSwitch'
 import AsyncStorage from '@react-native-community/async-storage'
 import AppSettings from '../../../settings/AppSettings'
-import EventModelBuilder from '../../../../testing/builder/EventModelBuilder'
-import PoiModelBuilder from '../../../../testing/builder/PoiModelBuilder'
+import EventModelBuilder from 'api-client/src/testing/EventModelBuilder'
+import PoiModelBuilder from 'api-client/src/testing/PoiModelBuilder'
 
 jest.mock('rn-fetch-blob')
 jest.mock('../../../push-notifications/PushNotificationsManager')

@@ -5,7 +5,7 @@ exports[`CityEntry should match snapshot 1`] = `
   to="/augsburg/de"
 >
   <Highlighter
-    aria-label="Augsburg"
+    aria-label="Stadt Augsburg"
     autoEscape={true}
     highlightStyle={
       Object {
@@ -19,7 +19,7 @@ exports[`CityEntry should match snapshot 1`] = `
         "",
       ]
     }
-    textToHighlight="Augsburg"
+    textToHighlight="Stadt Augsburg"
   />
   <div
     style={
