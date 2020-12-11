@@ -34,6 +34,7 @@
     "postinstall": "jetifier"
   },
   "dependencies": {
+    "@babel/runtime": "^7.12.10",
     "@react-native-community/art": "^1.1.2",
     "@react-native-community/async-storage": "^1.9.0",
     "@react-native-community/geolocation": "^2.0.2",
@@ -91,11 +92,10 @@
     "url-parse": "^1.4.7"
   },
   "devDependencies": {
-    "@babel/core": "^7.8.4",
-    "@babel/node": "7.8.4",
-    "@babel/preset-flow": "^7.8.3",
-    "@babel/register": "^7.8.4",
-    "@babel/runtime": "^7.8.4",
+    "@babel/core": "7.12.10",
+    "@babel/node": "7.12.10",
+    "@babel/preset-flow": "7.12.10",
+    "@babel/register": "7.12.10",
     "@octokit/plugin-paginate-rest": "^2.4.0",
     "babel-core": "7.0.0-bridge.0",
     "babel-jest": "^25.1.0",

@@ -8,11 +8,11 @@
     "manage": "babel-node tools/manage.js"
   },
   "devDependencies": {
-    "@babel/core": "^7.8.3",
-    "@babel/node": "^7.8.3",
-    "@babel/plugin-proposal-class-properties": "^7.12.1",
-    "@babel/preset-env": "^7.8.3",
-    "@babel/preset-flow": "^7.8.3",
+    "@babel/core": "7.12.10",
+    "@babel/node": "7.12.10",
+    "@babel/plugin-proposal-class-properties": "7.12.10",
+    "@babel/preset-env": "7.12.10",
+    "@babel/preset-flow": "7.12.10",
     "commander": "^4.0.1",
     "csv": "^5.3.0",
     "flat": "^5.0.0",
