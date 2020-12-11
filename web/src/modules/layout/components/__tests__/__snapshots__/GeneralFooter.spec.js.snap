@@ -9,13 +9,11 @@ exports[`GeneralFooter should match snapshot 1`] = `
   </CleanLink___default>
   <CleanAnchor
     href="https://integreat-app.de/about/"
-    newTab={true}
   >
     layout,settings:settings:about
   </CleanAnchor>
   <CleanAnchor
     href="https://integreat-app.de/datenschutz/"
-    newTab={true}
   >
     layout,settings:privacy
   </CleanAnchor>

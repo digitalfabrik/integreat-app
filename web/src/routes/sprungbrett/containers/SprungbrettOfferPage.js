@@ -1,7 +1,6 @@
 // @flow
 
 import * as React from 'react'
-
 import { OfferModel, SprungbrettJobModel } from 'api-client'
 import SprungbrettListItem from '../components/SprungbrettListItem'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
@@ -10,6 +9,7 @@ import { withTranslation } from 'react-i18next'
 import List from '../../../modules/common/components/List'
 import Caption from '../../../modules/common/components/Caption'
 import styled from 'styled-components'
+import CleanAnchor from '../../../modules/common/components/CleanAnchor'
 
 const Image = styled.img`
   display: block;
@@ -39,9 +39,9 @@ export class SprungbrettOfferPage extends React.Component<PropsType> {
         <List noItemsMessage={t('noOffersAvailable')}
               renderItem={this.renderSprungbrettListItem}
               items={sprungbrettJobs} />
-        <a target='_blank' rel='noopener noreferrer' href='https://www.sprungbrett-intowork.de'>
+        <CleanAnchor href='https://www.sprungbrett-intowork.de'>
           <Image src={offer.thumbnail} />
-        </a>
+        </CleanAnchor>
       </>
     )
   }
