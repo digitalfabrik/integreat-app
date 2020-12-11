@@ -1037,6 +1037,7 @@
       "contentOfOffer": "Angebot \"{{offer}}\"",
       "disclaimer": "Kontakt und Impressum",
       "searchFor": "Suche nach",
+      "contentOfPoi": "Inhalt des Ortes \"{{poi}}\"",
       "contentOfPage": "Inhalt der Seite \"{{page}}\"",
       "contentOfEvent": "Inhalt der Veranstaltung \"{{event}}\"",
       "send": "Abschicken",
