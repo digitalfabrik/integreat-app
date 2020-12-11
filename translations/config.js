@@ -8,7 +8,6 @@ type ConfigType = {
 }
 
 const checkConsistency = (config: ConfigType): ConfigType => {
-
   const supportedLanguageCodes = Object.keys(config.supportedLanguages)
 
   const languagesInFallbacks = Object.values(config.fallbacks).flat()
@@ -74,6 +73,6 @@ module.exports = checkConsistency({
     sr: ['sr'],
     ps: ['ps']
   },
-  // If the language code is not found in our translations then use this 
+  // If the language code is not found in our translations then use this
   defaultFallback: 'de'
 })
