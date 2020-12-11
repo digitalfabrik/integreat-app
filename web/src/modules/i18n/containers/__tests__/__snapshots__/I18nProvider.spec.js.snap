@@ -11,6 +11,22 @@ Object {
 exports[`I18nProvider should initialize correct i18next instance 1`] = `
 Object {
   "debug": true,
+  "detection": Object {
+    "caches": Array [
+      "localStorage",
+    ],
+    "excludeCacheFor": Array [
+      "cimode",
+    ],
+    "lookupCookie": "i18next",
+    "lookupLocalStorage": "i18nextLng",
+    "lookupQuerystring": "lng",
+    "lookupSessionStorage": "i18nextLng",
+    "order": Array [
+      "localStorage",
+      "navigator",
+    ],
+  },
   "fallbackLng": Array [
     "en",
     "de",

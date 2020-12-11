@@ -54,7 +54,7 @@ export class I18nProvider extends React.Component<PropsType, StateType> {
     })
 
     this.state = {
-      language: DEFAULT_LANGUAGE,
+      language: this.i18n.language,
       fonts: I18nProvider.getSelectedFonts(DEFAULT_LANGUAGE),
       i18nLoaded: true
     }
