@@ -11,6 +11,10 @@ import sadIcon from './assets/smile-sad.svg'
 import Image from './Image'
 import { withTranslation } from 'react-i18next'
 
+const FeedbackBoxContainer = styled.View`
+  margin-top: auto;
+`
+
 const FeedbackBox: StyledComponent<{}, ThemeType, *> = styled.View`
   margin-top: 25px;
   padding: 15px 5px;
@@ -72,19 +76,21 @@ class SiteHelpfulBox extends React.Component<PropType> {
 
   render () {
     const { theme, t } = this.props
-    return <FeedbackBox theme={theme}>
-      <HelpfulText theme={theme}>{t('isThisSiteUseful')}</HelpfulText>
-      <FeedbackButtons>
-        <FeedbackTouchableOpacity theme={theme} onPress={this.navigateToFeedback(true)}>
-          <Circle theme={theme}><Thumbnail source={happyIcon} /></Circle>
-          <FeedbackText theme={theme}>{t('useful')}</FeedbackText>
-        </FeedbackTouchableOpacity>
-        <FeedbackTouchableOpacity theme={theme} onPress={this.navigateToFeedback(false)}>
-          <Circle theme={theme}><Thumbnail source={sadIcon} /></Circle>
-          <FeedbackText theme={theme}>{t('notUseful')}</FeedbackText>
-        </FeedbackTouchableOpacity>
-      </FeedbackButtons>
-    </FeedbackBox>
+    return <FeedbackBoxContainer>
+        <FeedbackBox theme={theme}>
+          <HelpfulText theme={theme}>{t('isThisSiteUseful')}</HelpfulText>
+          <FeedbackButtons>
+            <FeedbackTouchableOpacity theme={theme} onPress={this.navigateToFeedback(true)}>
+              <Circle theme={theme}><Thumbnail source={happyIcon} /></Circle>
+              <FeedbackText theme={theme}>{t('useful')}</FeedbackText>
+            </FeedbackTouchableOpacity>
+            <FeedbackTouchableOpacity theme={theme} onPress={this.navigateToFeedback(false)}>
+              <Circle theme={theme}><Thumbnail source={sadIcon} /></Circle>
+              <FeedbackText theme={theme}>{t('notUseful')}</FeedbackText>
+            </FeedbackTouchableOpacity>
+          </FeedbackButtons>
+        </FeedbackBox>
+    </FeedbackBoxContainer>
   }
 }
 

@@ -5,7 +5,8 @@ import {
   CategoryModel,
   CityModel,
   DateModel,
-  EventModel, FeaturedImageModel,
+  EventModel,
+  FeaturedImageModel,
   LanguageModel,
   LocationModel,
   PoiModel
@@ -479,7 +480,7 @@ class DatabaseConnector {
         pushNotificationsEnabled: jsonObject.pushNotificationsEnabled,
         tunewsEnabled: jsonObject.tunewsEnabled,
         offersEnabled: jsonObject.extras_enabled,
-        poisEnabled: jsonObject.pois_enabled || false,
+        poisEnabled: jsonObject.pois_enabled,
         sortingName: jsonObject.sorting_name,
         prefix: jsonObject.prefix,
         longitude: jsonObject.longitude,

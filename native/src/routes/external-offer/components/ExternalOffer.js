@@ -20,7 +20,7 @@ class ExternalOffer extends React.Component<PropsType> {
     return <WebView
       source={postData ? createPostSource(url, body) : createGetSource(url, body)}
       javaScriptEnabled
-      dataDetectorTypes={['all']}
+      dataDetectorTypes='none'
       domStorageEnabled={false}
       renderError={this.renderError}
     />
