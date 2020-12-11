@@ -1,27 +1,18 @@
 // @flow
 
 import LanguageDetector from '../LanguageDetector'
+import { getLocales } from 'react-native-localize'
 
-let mockGetLanguageCode
-jest.mock('../../platform/getLanguageCode', () => {
-  mockGetLanguageCode = jest.fn()
-  return mockGetLanguageCode
-})
+jest.mock('react-native-localize')
 
 describe('LanguageDetector', () => {
   it('should detect current language code', () => {
-    mockGetLanguageCode.mockImplementation(() => 'en')
-    expect(LanguageDetector.detect()).toBe('en')
-  })
-
-  it('should substring if language code is too long', () => {
-    mockGetLanguageCode.mockImplementation(() => 'en_US')
-
+    getLocales.mockImplementation(() => ([{ languageCode: 'en' }]))
     expect(LanguageDetector.detect()).toBe('en')
   })
 
   it('should not respond to language changes', () => {
-    mockGetLanguageCode.mockImplementation(() => 'en')
+    getLocales.mockImplementation(() => ([{ languageCode: 'en' }]))
     expect(LanguageDetector.detect()).toBe('en')
     LanguageDetector.cacheUserLanguage('de')
     expect(LanguageDetector.detect()).toBe('en')
