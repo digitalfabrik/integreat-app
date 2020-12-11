@@ -12,11 +12,12 @@ const HIJACK = new RegExp(buildConfig().internalLinksHijackPattern)
 const onInternalLinkPress = (url: string,
   navigation: NavigationStackProp<*>,
   language: string,
-  navigateToInternalLink: ?NavigateToInternalLinkType) => {
+  navigateToInternalLink: ?NavigateToInternalLinkType,
+  shareUrl?: string) => {
   if (url.includes('.pdf')) {
-    navigation.navigate('PDFViewModal', { url })
+    navigation.navigate('PDFViewModal', { url, shareUrl })
   } else if (url.includes('.png') || url.includes('.jpg')) {
-    navigation.navigate('ImageViewModal', { url })
+    navigation.navigate('ImageViewModal', { url, shareUrl })
   } else if (navigateToInternalLink && HIJACK.test(url)) {
     navigateToInternalLink({
       url,

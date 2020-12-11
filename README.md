@@ -34,7 +34,7 @@ Both projects are whitelabelled with different [build configs](docs/build-config
     
 There are also separate sub-projects used by both projects:
     
-* **[translations](translations/README.md)**: Localized texts and utilities to manage them
+* **[translations](translations/README.md)**: Translated texts and utilities to manage them
 * **[api-client](api-client/README.md)**: Implementation of the endpoints (v3) of the integreat cms
 * **[build-configs](docs/build-configs.md)**: Configuration files to build different versions of the apps
 

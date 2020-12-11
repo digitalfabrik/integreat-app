@@ -112,17 +112,15 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
     }
 
     return <Layout asideStickyTop={this.state.asideStickyTop}
-                   header={<LocationHeader isEventsEnabled={cityModel.eventsEnabled}
-                                           isOffersEnabled={cityModel.offersEnabled}
-                                           isLocalNewsEnabled={cityModel.pushNotificationsEnabled}
-                                           isTunewsEnabled={cityModel.tunewsEnabled}
+                   header={<LocationHeader cityModel={cityModel}
                                            languageChangePaths={languageChangePaths}
                                            location={location}
                                            events={events}
-                                           cityName={cityModel.name}
                                            viewportSmall={viewportSmall}
                                            onStickyTopChanged={this.handleStickyTopChanged} />}
-                   footer={isLoading ? null : <LocationFooter onClick={this.handleFooterClicked} city={city} language={language} />}
+                   footer={!isLoading
+                     ? <LocationFooter onClick={this.handleFooterClicked} city={city} language={language} />
+                     : null}
                    toolbar={this.renderToolbar()}
                    modal={type !== SEARCH_ROUTE && this.renderFeedbackModal()}
                    darkMode={darkMode}>

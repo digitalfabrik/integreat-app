@@ -2,17 +2,15 @@
 
 import * as React from 'react'
 import { connect } from 'react-redux'
-
 import TileModel from '../../../modules/common/models/TileModel'
 import Tiles from '../../../modules/common/components/Tiles'
-import { CityModel, OfferModel, SPRUNGBRETT_OFFER, WOHNEN_OFFER } from 'api-client'
+import { CityModel, NotFoundError, OfferModel, SPRUNGBRETT_OFFER, WOHNEN_OFFER } from 'api-client'
 import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
 import SprungbrettRouteConfig from '../../../modules/app/route-configs/SprungbrettRouteConfig'
 import WohnenRouteConfig from '../../../modules/app/route-configs/WohnenRouteConfig'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
-import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import Failure from '../../../modules/common/components/Failure'
 import CategoriesRouteConfig from '../../../modules/app/route-configs/CategoriesRouteConfig'
 
@@ -65,7 +63,7 @@ export class OffersPage extends React.Component<PropsType> {
 
     if (offerId) {
       // If there is an offerId, the route is invalid, because every internal offer has a separate route
-      const error = new ContentNotFoundError({ type: 'offer', id: offerId, city: city, language })
+      const error = new NotFoundError({ type: 'offer', id: offerId, city: city, language })
       return <FailureSwitcher error={error} />
     }
 

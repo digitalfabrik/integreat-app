@@ -47,7 +47,6 @@ const StyledContainer = styled.div`
 `
 
 type PropsType = {|
-  id: number,
   title: string,
   content: string,
   timestamp: Moment,

@@ -3,11 +3,9 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { push } from 'redux-first-router'
-import { CityModel, LocalNewsModel } from 'api-client'
-import type { TFunction } from 'react-i18next'
+import { CityModel, LocalNewsModel, NotFoundError } from 'api-client'
 import type { StateType } from '../../../modules/app/StateType'
 import Page from '../../../modules/common/components/Page'
-import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import CityNotFoundError from '../../../modules/app/errors/CityNotFoundError'
 
@@ -15,9 +13,8 @@ type PropsType = {|
   localNewsElement: LocalNewsModel,
   language: string,
   city: string,
-  id: number,
-  cities: Array<CityModel>,
-  t: TFunction
+  id: string,
+  cities: Array<CityModel>
 |}
 
 export class LocalNewsDetailsPage extends React.PureComponent<PropsType> {
@@ -28,10 +25,10 @@ export class LocalNewsDetailsPage extends React.PureComponent<PropsType> {
     if (!currentCity) {
       return <FailureSwitcher error={new CityNotFoundError()} />
     } else if (!currentCity.pushNotificationsEnabled) {
-      const error = new ContentNotFoundError({ type: 'category', id, city, language })
+      const error = new NotFoundError({ type: 'category', id, city, language })
       return <FailureSwitcher error={error} />
     } else if (!localNewsElement) {
-      const error = new ContentNotFoundError({ type: 'localNewsItem', id, city, language })
+      const error = new NotFoundError({ type: 'tunews', id, city, language })
       return <FailureSwitcher error={error} />
     }
 

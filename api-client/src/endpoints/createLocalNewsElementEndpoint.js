@@ -6,24 +6,27 @@ import LocalNewsModel from '../models/LocalNewsModel'
 import moment from 'moment-timezone'
 import Endpoint from '../Endpoint'
 import MappingError from '../errors/MappingError'
+import NotFoundError from '../errors/NotFoundError'
 
-export const LOCALNEWS_ELEMENT_ENDPOINT_NAME = 'localNewsElement'
+export const LOCAL_NEWS_ELEMENT_ENDPOINT_NAME = 'localNewsElement'
 
-type ParamsType = { city: string, language: string, id: number }
+type ParamsType = {| city: string, language: string, id: string |}
 
 export default (
   baseUrl: string
 ): Endpoint<ParamsType, LocalNewsModel> =>
-  new EndpointBuilder(LOCALNEWS_ELEMENT_ENDPOINT_NAME)
+  new EndpointBuilder(LOCAL_NEWS_ELEMENT_ENDPOINT_NAME)
     .withParamsToUrlMapper(
       (params: ParamsType): string =>
         `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/fcm?id=${params.id}`
     )
-    .withMapper((localNews: Array<JsonLocalNewsType>): LocalNewsModel => {
+    .withMapper((localNews: Array<JsonLocalNewsType>, params: ParamsType): LocalNewsModel => {
       const count = localNews.length
-      if (count !== 1) {
+      if (count === 0) {
+        throw new NotFoundError({ ...params, type: 'localNews' })
+      } else if (count > 1) {
         throw new MappingError(
-          LOCALNEWS_ELEMENT_ENDPOINT_NAME,
+          LOCAL_NEWS_ELEMENT_ENDPOINT_NAME,
           `Expected count of local news to be one. Received ${count} instead`
         )
       }

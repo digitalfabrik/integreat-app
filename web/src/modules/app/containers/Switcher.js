@@ -129,9 +129,10 @@ export class Switcher extends React.Component<PropsType> {
         <Layout footer={showFooter && <GeneralFooter language={language} />}
                 header={(error || routeConfig.requiresHeader) && <GeneralHeader viewportSmall={viewportSmall} />}
                 darkMode={darkMode}>
-          {error ? <LanguageFailure cities={citiesPayload.data}
-                                    location={location}
-                                    languageChangePaths={languageChangePaths} />
+          {error
+            ? <LanguageFailure cities={citiesPayload.data}
+                               location={location}
+                               languageChangePaths={languageChangePaths} />
             : <RouteContentSwitcher location={location} payloads={payloads} isLoading={isLoading} />}
         </Layout>
       )

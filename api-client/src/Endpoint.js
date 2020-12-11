@@ -8,6 +8,7 @@ import type { MapParamsToBodyType } from './MapParamsToBody'
 import ResponseError from './errors/ResponseError'
 import FetchError from './errors/FetchError'
 import type { RequestOptionsType } from './errors/ResponseError'
+import NotFoundError from './errors/NotFoundError'
 
 /**
  * A Endpoint holds all the relevant information to fetch data from it
@@ -55,10 +56,12 @@ class Endpoint<P, T> {
       return new Payload(false, url, this.responseOverride, null)
     }
 
-    const requestOptions: RequestOptionsType = this.mapParamsToBody ? {
-      method: 'POST',
-      body: this.mapParamsToBody(params)
-    } : { method: 'GET' }
+    const requestOptions: RequestOptionsType = this.mapParamsToBody
+      ? {
+          method: 'POST',
+          body: this.mapParamsToBody(params)
+        }
+      : { method: 'GET' }
     const response = await this.fetchOrThrow(url, requestOptions)
 
     if (!response.ok) {
@@ -70,7 +73,7 @@ class Endpoint<P, T> {
       const fetchedData = this.mapResponse(json, params)
       return new Payload(false, url, fetchedData, null)
     } catch (e) {
-      throw (e instanceof MappingError) ? e : new MappingError(this.stateName, e.message)
+      throw (e instanceof MappingError || e instanceof NotFoundError) ? e : new MappingError(this.stateName, e.message)
     }
   }
 }

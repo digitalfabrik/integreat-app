@@ -6,6 +6,7 @@ import {
   CityModel,
   DateModel,
   EventModel,
+  FeaturedImageModel,
   LanguageModel,
   LocationModel,
   PoiModel
@@ -45,6 +46,32 @@ type ContentCategoryJsonType = {|
   hash: string
 |}
 
+type LocationJsonType = {|
+  address: ?string,
+  town: ?string,
+  postcode: ?string,
+  latitude: ?string,
+  longitude: ?string,
+  country: ?string,
+  region: ?string,
+  state: ?string,
+  name: ?string
+|}
+
+type FeaturedImageInstanceJsonType = {|
+  url: string,
+  width: number,
+  height: number
+|}
+
+type FeaturedImageJsonType = {|
+  description: ?string,
+  thumbnail: FeaturedImageInstanceJsonType,
+  medium: FeaturedImageInstanceJsonType,
+  large: FeaturedImageInstanceJsonType,
+  full: FeaturedImageInstanceJsonType
+|}
+
 type ContentEventJsonType = {|
   path: string,
   title: string,
@@ -59,13 +86,8 @@ type ContentEventJsonType = {|
     end_date: string,
     all_day: boolean
   |},
-  location: {|
-    address: ?string,
-    town: ?string,
-    postcode: ?string,
-    latitude: ?string,
-    longitude: ?string
-  |}
+  location: LocationJsonType,
+  featured_image: ?FeaturedImageJsonType
 |}
 
 type ContentCityJsonType = {|
@@ -75,6 +97,7 @@ type ContentCityJsonType = {|
   prefix: ?string,
   extras_enabled: boolean,
   events_enabled: boolean,
+  pois_enabled: boolean,
   sorting_name: string,
   longitude: number | null,
   latitude: number | null,
@@ -90,17 +113,7 @@ type ContentPoiJsonType = {|
   thumbnail: string,
   availableLanguages: { [code: string]: string },
   excerpt: string,
-  location: {|
-    address: ?string,
-    town: ?string,
-    postcode: ?string,
-    latitude: ?string,
-    longitude: ?string,
-    country: ?string,
-    region: ?string,
-    state: ?string,
-    name: ?string
-  |},
+  location: LocationJsonType,
   lastUpdate: string,
   hash: string
 |}
@@ -261,7 +274,7 @@ class DatabaseConnector {
     const citiesMetaJson: MetaCitiesJsonType = mapValues(metaCities, cityMeta => ({
       languages: mapValues(
         cityMeta.languages,
-        ({ lastUpdate }): { last_update: string } => ({ last_update: lastUpdate.toISOString() })
+        ({ lastUpdate }): {| last_update: string |} => ({ last_update: lastUpdate.toISOString() })
       ),
       last_usage: cityMeta.lastUsage.toISOString()
     }))
@@ -436,6 +449,7 @@ class DatabaseConnector {
       prefix: city.prefix,
       extras_enabled: city.offersEnabled,
       events_enabled: city.eventsEnabled,
+      pois_enabled: city.poisEnabled,
       pushNotificationsEnabled: city.pushNotificationsEnabled,
       tunewsEnabled: city.tunewsEnabled,
       sorting_name: city.sortingName,
@@ -466,6 +480,7 @@ class DatabaseConnector {
         pushNotificationsEnabled: jsonObject.pushNotificationsEnabled,
         tunewsEnabled: jsonObject.tunewsEnabled,
         offersEnabled: jsonObject.extras_enabled,
+        poisEnabled: jsonObject.pois_enabled,
         sortingName: jsonObject.sorting_name,
         prefix: jsonObject.prefix,
         longitude: jsonObject.longitude,
@@ -495,8 +510,21 @@ class DatabaseConnector {
         town: event.location.town,
         postcode: event.location.postcode,
         latitude: event.location.latitude,
-        longitude: event.location.longitude
-      }
+        longitude: event.location.longitude,
+        country: event.location.country,
+        region: event.location.region,
+        state: event.location.state,
+        name: event.location.name
+      },
+      featured_image: event.featuredImage
+        ? {
+            description: event.featuredImage.description,
+            thumbnail: event.featuredImage.thumbnail,
+            medium: event.featuredImage.medium,
+            large: event.featuredImage.large,
+            full: event.featuredImage.full
+          }
+        : null
     }))
 
     await this.writeFile(this.getContentPath('events', context), JSON.stringify(jsonModels))
@@ -522,7 +550,15 @@ class DatabaseConnector {
         title: jsonObject.title,
         content: jsonObject.content,
         thumbnail: jsonObject.thumbnail,
-        featuredImage: null, // todo: NATIVE-549
+        featuredImage: jsonObject.featured_image
+          ? new FeaturedImageModel({
+              description: jsonObject.featured_image.description,
+              thumbnail: jsonObject.featured_image.thumbnail,
+              medium: jsonObject.featured_image.medium,
+              large: jsonObject.featured_image.large,
+              full: jsonObject.featured_image.full
+            })
+          : null,
         availableLanguages,
         lastUpdate: moment(jsonObject.last_update, moment.ISO_8601),
         hash: jsonObject.hash,
@@ -533,10 +569,10 @@ class DatabaseConnector {
           allDay: jsonDate.all_day
         }),
         location: new LocationModel({
-          name: null, // todo: NATIVE-549
-          region: null, // todo: NATIVE-549
-          state: null, // todo: NATIVE-549
-          country: null, // todo: NATIVE-549
+          name: jsonObject.location.name,
+          region: jsonObject.location.region,
+          state: jsonObject.location.state,
+          country: jsonObject.location.country,
           address: jsonLocation.address,
           latitude: jsonLocation.latitude,
           longitude: jsonLocation.longitude,
@@ -594,7 +630,7 @@ class DatabaseConnector {
     }
     const lastUsages = await this.loadLastUsages()
     const cachesToDelete = lastUsages.filter(it => it.city !== city)
-    // Sort last usages chronological, from oldest to newest
+      // Sort last usages chronological, from oldest to newest
       .sort((a, b) =>
         a.lastUsage.isBefore(b.lastUsage) ? -1 : (a.lastUsage.isSame(b.lastUsage) ? 0 : 1)
       )

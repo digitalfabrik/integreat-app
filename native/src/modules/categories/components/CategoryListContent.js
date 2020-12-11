@@ -60,8 +60,9 @@ class CategoryListContent extends React.Component<ContentPropsType, {| width: nu
   }
 
   onLinkPress = (evt: GestureResponderEvent, url: string) => {
-    const { language, navigation, navigateToInternalLink } = this.props
-    onInternalLinkPress(url, navigation, language, navigateToInternalLink)
+    const { language, navigation, navigateToInternalLink, cacheDictionary } = this.props
+    const shareUrl = Object.keys(cacheDictionary).find(remoteUrl => cacheDictionary[remoteUrl] === url)
+    onInternalLinkPress(url, navigation, language, navigateToInternalLink, shareUrl || url)
   }
 
   alterResources = (node: HTMLNode) => {
@@ -89,23 +90,23 @@ class CategoryListContent extends React.Component<ContentPropsType, {| width: nu
     }
   }
 
-  // TODO: remove with IGAPP-XXX
+  // TODO: remove with IGAPP-378
   renderUnorderedListPrefix: RendererFunction = (htmlAttribs, children, convertedCSSStyles, passProps) => {
     const { language, theme } = this.props
     const { baseFontStyle } = passProps
     const baseFontSize = baseFontStyle.fontSize
     return <View style={{
-          width: baseFontSize / bulletSizeRelativeToFont,
-          height: baseFontSize / bulletSizeRelativeToFont,
-          borderRadius: baseFontSize / bulletSizeRelativeToFont,
-          marginTop: baseFontSize / bulletAlignmentRelativeToFont,
-          marginRight: RTL_LANGUAGES.includes(language) ? listIndent : textDistanceToBullet,
-          marginLeft: RTL_LANGUAGES.includes(language) ? textDistanceToBullet : listIndent,
-          backgroundColor: theme.colors.textColor
-        }} />
+      width: baseFontSize / bulletSizeRelativeToFont,
+      height: baseFontSize / bulletSizeRelativeToFont,
+      borderRadius: baseFontSize / bulletSizeRelativeToFont,
+      marginTop: baseFontSize / bulletAlignmentRelativeToFont,
+      marginRight: RTL_LANGUAGES.includes(language) ? listIndent : textDistanceToBullet,
+      marginLeft: RTL_LANGUAGES.includes(language) ? textDistanceToBullet : listIndent,
+      backgroundColor: theme.colors.textColor
+    }} />
   }
 
-  // TODO: remove with IGAPP-XXX
+  // TODO: remove with IGAPP-378
   renderOrderedListPrefix: RendererFunction = (htmlAttribs, children, convertedCSSStyles, passProps) => {
     const { baseFontSize, allowFontScaling, index } = passProps
     const { language } = this.props
@@ -119,7 +120,7 @@ class CategoryListContent extends React.Component<ContentPropsType, {| width: nu
   }
 
   // see https://github.com/archriss/react-native-render-html/issues/286
-  // TODO: remove with IGAPP-XXX
+  // TODO: remove with IGAPP-378
   renderLists: RendererFunction = (htmlAttribs, children, convertedCSSStyles, passProps) => {
     const { language } = this.props
     const { rawChildren, nodeIndex, key, listsPrefixesRenderers } = passProps
@@ -133,17 +134,19 @@ class CategoryListContent extends React.Component<ContentPropsType, {| width: nu
           prefix = listsPrefixesRenderers.ol(htmlAttribs, children, convertedCSSStyles, { ...passProps, index })
         }
       }
-      return RTL_LANGUAGES.includes(language) ? (
-            <View key={`list-${nodeIndex}-${index}-${key}`} style={{ flexDirection: 'row' }}>
-              <View style={{ flex: 1 }}>{child}</View>
-              {prefix}
-            </View>
-      ) : (
-            <View key={`list-${nodeIndex}-${index}-${key}`} style={{ flexDirection: 'row' }}>
-              {prefix}
-              <View style={{ flex: 1 }}>{child}</View>
-            </View>
-      )
+      return RTL_LANGUAGES.includes(language)
+        ? (
+          <View key={`list-${nodeIndex}-${index}-${key}`} style={{ flexDirection: 'row' }}>
+            <View style={{ flex: 1 }}>{child}</View>
+            {prefix}
+          </View>
+          )
+        : (
+          <View key={`list-${nodeIndex}-${index}-${key}`} style={{ flexDirection: 'row' }}>
+            {prefix}
+            <View style={{ flex: 1 }}>{child}</View>
+          </View>
+          )
     })
     return <View key={key}>{children}</View>
   }

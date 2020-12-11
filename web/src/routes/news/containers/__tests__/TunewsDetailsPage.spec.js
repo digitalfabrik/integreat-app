@@ -6,44 +6,16 @@ import moment from 'moment'
 import type Moment from 'moment'
 import configureMockStore from 'redux-mock-store'
 import ConnectedTunewsDetailsPage, { TunewsDetailsPage } from '../TunewsDetailsPage'
-import { CityModel, TunewsModel } from 'api-client'
+import { TunewsModel } from 'api-client'
 import { Provider } from 'react-redux'
 import createLocation from '../../../../createLocation'
 import { TUNEWS_ROUTE } from '../../../../modules/app/route-configs/TunewsRouteConfig'
 import theme from '../../../../modules/theme/constants/theme'
 import { ThemeProvider } from 'styled-components'
+import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 
 describe('TunewsDetailsPage', () => {
-  const cities = [
-    new CityModel({
-      name: 'Augsburg',
-      code: 'augsburg',
-      live: true,
-      eventsEnabled: true,
-      offersEnabled: true,
-      pushNotificationsEnabled: true,
-      tunewsEnabled: true,
-      sortingName: 'Augsburg',
-      prefix: null,
-      longitude: 10.89779,
-      latitude: 48.3705449,
-      aliases: { Gersthofen: { longitude: 10.89779, latitude: 48.3705449 } }
-    }),
-    new CityModel({
-      name: 'Stadt Regensburg',
-      code: 'regensburg',
-      live: true,
-      eventsEnabled: false,
-      offersEnabled: false,
-      pushNotificationsEnabled: false,
-      tunewsEnabled: false,
-      sortingName: 'Regensburg',
-      prefix: 'Stadt',
-      latitude: null,
-      longitude: null,
-      aliases: null
-    })
-  ]
+  const cities = new CityModelBuilder(2).build()
 
   const createTunewsItemModel = (id, date: Moment): TunewsModel => new TunewsModel({
     id,

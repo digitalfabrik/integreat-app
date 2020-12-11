@@ -6,6 +6,7 @@ class CityModel {
   _live: boolean
   _eventsEnabled: boolean
   _offersEnabled: boolean
+  _poisEnabled: boolean
   _pushNotificationsEnabled: boolean
   _tunewsEnabled: boolean
   _sortingName: string
@@ -15,7 +16,7 @@ class CityModel {
   _aliases: { [alias: string]: {| longitude: number, latitude: number |} } | null
 
   constructor (params: {|
-    name: string, code: string, live: boolean, eventsEnabled: boolean,
+    name: string, code: string, live: boolean, poisEnabled: boolean, eventsEnabled: boolean,
     offersEnabled: boolean, pushNotificationsEnabled: boolean, tunewsEnabled: boolean,
     sortingName: string, prefix: ?string, latitude: number | null, longitude: number | null,
     aliases: { [alias: string]: {| longitude: number, latitude: number |} } | null
@@ -25,6 +26,7 @@ class CityModel {
     this._live = params.live
     this._eventsEnabled = params.eventsEnabled
     this._offersEnabled = params.offersEnabled
+    this._poisEnabled = params.poisEnabled
     this._pushNotificationsEnabled = params.pushNotificationsEnabled
     this._tunewsEnabled = params.tunewsEnabled
     this._sortingName = params.sortingName
@@ -58,6 +60,10 @@ class CityModel {
     return this._offersEnabled
   }
 
+  get poisEnabled (): boolean {
+    return this._poisEnabled
+  }
+
   get pushNotificationsEnabled (): boolean {
     return this._pushNotificationsEnabled
   }
@@ -86,7 +92,7 @@ class CityModel {
     return this._aliases
   }
 
-  static findCityName (cities: Array<CityModel>, code: string): string {
+  static findCityName (cities: $ReadOnlyArray<CityModel>, code: string): string {
     const city = cities.find(city => city.code === code)
     return city ? city.name : code
   }

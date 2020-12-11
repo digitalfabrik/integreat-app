@@ -38,7 +38,8 @@ const StyledLink = styled(Link)`
     opacity: 1;
   }
 
-  ${props => props.$active ? `
+  ${props => props.$active
+  ? `
       color: ${props.theme.colors.textColor};
 
       & > div > img {
@@ -49,7 +50,8 @@ const StyledLink = styled(Link)`
         box-shadow: 0 0px 0px 0px rgba(0, 0, 0, 0.3);
         border-color: ${props.theme.colors.themeColor};
       }
-   ` : ''}
+   `
+  : ''}
 
 `
 
