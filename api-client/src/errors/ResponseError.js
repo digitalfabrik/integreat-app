@@ -1,5 +1,7 @@
 // @flow
 
+import { stringifyFormData } from '../stringifyFormData'
+
 export type RequestOptionsType = { method: 'GET' } | { method: 'POST', body: FormData }
 
 type ResponseErrorParamsType = {|
@@ -33,16 +35,9 @@ class ResponseError extends Error {
   }
 
   createMessage ({ requestOptions, url, endpointName, response }: ResponseErrorParamsType): string {
-    const stringifyFormData = (formData: FormData) => {
-      const entries = {}
-      for (const [key, value] of formData.entries()) {
-        entries[key] = value
-      }
-
-      return ` and the formData ${JSON.stringify(entries)}`
-    }
-
-    const stringifiedFormData = requestOptions.method === 'POST' ? stringifyFormData(requestOptions.body) : ''
+    const stringifiedFormData = requestOptions.method === 'POST'
+      ? ` and the formData ${stringifyFormData(requestOptions.body)}`
+      : ''
 
     return `ResponseError: Failed to ${requestOptions.method} the request for the ${endpointName} endpoint with the url
      ${url}${stringifiedFormData}. Received response status ${response.status}: ${response.statusText}.`
