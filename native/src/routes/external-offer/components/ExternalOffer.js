@@ -40,7 +40,7 @@ const ExternalOffer = (props: PropsType) => {
   return <WebView
     source={postData ? createPostSource(url, body) : createGetSource(url, body)}
     javaScriptEnabled
-    dataDetectorTypes={['all']}
+    dataDetectorTypes='none'
     domStorageEnabled={false}
     ref={webviewRef}
     /* The Lehrstellenradar does not work in the webview if you are navigating back (probably because of FormData?).

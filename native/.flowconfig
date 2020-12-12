@@ -15,8 +15,11 @@ node_modules/warning/.*
 ; Flow doesn't support platforms
 .*/Libraries/Utilities/LoadingView.js
 
-; Remove this line when upgrading geolocation
+; TODO IGAPP-173: Try removing this line when upgrading geolocation
 .*/node_modules/@react-native-community/geolocation/lib/commonjs/implementation.js.flow
+
+; TODO IGAPP-173: Try removing this line when upgrading picker
+.*/node_modules/@react-native-picker/picker/js/index.js
 
 ; Ignore native directories as they may contain JSONs
 <PROJECT_ROOT>/ios/.*
