@@ -1,6 +1,6 @@
 // @flow
 
-import React, { useState, useEffect, type Element } from 'react'
+import React, { useState, useEffect, useCallback, type Element } from 'react'
 import { Text } from 'react-native'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
@@ -32,19 +32,20 @@ type PropType = {|
 |}
 
 const RemoteContent = (props: PropType) => {
+  const { onLoad, content, cacheDirectory, theme, resourceCacheUrl, language, onLinkPress } = props
   const [webViewHeight, setWebViewHeight] = useState(0)
   const [webViewWidth, setWebViewWidth] = useState(0)
 
   useEffect(() => {
-    props.onLoad()
-  }, [webViewHeight])
+    onLoad()
+  }, [onLoad, webViewHeight])
 
-  function onLayout (event: ViewLayoutEvent) {
+  const onLayout = useCallback((event: ViewLayoutEvent) => {
     const { width } = event.nativeEvent.layout
     setWebViewWidth(width)
-  }
+  }, [setWebViewWidth])
 
-  function onMessage (event: WebViewMessageEvent) {
+  const onMessage = useCallback((event: WebViewMessageEvent) => {
     if (!event.nativeEvent) {
       return
     }
@@ -56,19 +57,18 @@ const RemoteContent = (props: PropType) => {
     } else {
       throw Error('Got an unknown message from the webview.')
     }
-  }
+  }, [setWebViewHeight])
 
-  function onShouldStartLoadWithRequest (event: WebViewNavigation): boolean {
+  const onShouldStartLoadWithRequest = useCallback((event: WebViewNavigation): boolean => {
     // Needed on iOS for the initial load
-    if (event.url === new URL(props.resourceCacheUrl).href) {
+    if (event.url === new URL(resourceCacheUrl).href) {
       return true
     }
 
-    props.onLinkPress(event.url)
+    onLinkPress(event.url)
     return false
-  }
+  }, [resourceCacheUrl, onLinkPress])
 
-  const { content, cacheDirectory, theme, resourceCacheUrl, language } = props
   return <StyledView onLayout={onLayout}>
     <WebView
       source={createHtmlSource(renderHtml(content, cacheDirectory, theme, language), resourceCacheUrl)}

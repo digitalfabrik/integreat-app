@@ -1,6 +1,6 @@
 // @flow
 
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect, useCallback } from 'react'
 import { WebView, type WebViewNavigation } from 'react-native-webview'
 import { stringify } from 'query-string'
 import { fromPairs } from 'lodash'
@@ -33,9 +33,9 @@ const ExternalOffer = (props: PropsType) => {
   const { url, postData } = props
   const body = !postData ? '' : stringify(fromPairs([...postData.entries()]))
 
-  function onNavigationStateChange (navState: WebViewNavigation) {
+  const onNavigationStateChange = useCallback((navState: WebViewNavigation) => {
     setCanGoBack(navState.canGoBack)
-  }
+  }, [setCanGoBack])
 
   return <WebView
     source={postData ? createPostSource(url, body) : createGetSource(url, body)}
