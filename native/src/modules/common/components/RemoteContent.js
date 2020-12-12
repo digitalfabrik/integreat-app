@@ -74,7 +74,7 @@ const RemoteContent = (props: PropType) => {
       source={createHtmlSource(renderHtml(content, cacheDirectory, theme, language), resourceCacheUrl)}
       originWhitelist={['*']} // Needed by iOS to load the initial html
       javaScriptEnabled
-      dataDetectorTypes='all'
+      dataDetectorTypes='none'
       domStorageEnabled={false}
       showsVerticalScrollIndicator={false}
       showsHorizontalScrollIndicator={false}

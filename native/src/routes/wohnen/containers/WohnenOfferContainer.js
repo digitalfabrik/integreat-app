@@ -14,23 +14,25 @@ import type { NavigationStackProp } from 'react-navigation-stack'
 import FailureContainer from '../../../modules/error/containers/FailureContainer'
 import { LOADING_TIMEOUT } from '../../../modules/common/constants'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
+import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
+import createNavigateToFeedbackModal from '../../../modules/app/createNavigateToFeedbackModal'
 
 const WOHNEN_API_URL = 'https://api.wohnen.integreat-app.de/v0'
 
 type OwnPropsType = {| navigation: NavigationStackProp<*> |}
 
 type StatePropsType = {|
-  city: string,
   offer: ?OfferModel,
   language: string,
   offerHash: string,
-  navigateToOffer: (offerHash: string) => void
+  navigateToOffer: (offerHash: string) => void,
+  navigateToFeedback: (isPositiveFeedback: boolean) => void
 |}
 
 type PropsType = { ...OwnPropsType, ...StatePropsType }
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
-  const city: string = ownProps.navigation.getParam('city')
+  const cityCode: string = ownProps.navigation.getParam('city')
   const offers: Array<OfferModel> = ownProps.navigation.getParam('offers')
   const offerHash: string = ownProps.navigation.getParam('offerHash')
 
@@ -43,20 +45,32 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     }
   }
 
+  const navigateToFeedback = (isPositiveFeedback: boolean) => {
+    createNavigateToFeedbackModal(ownProps.navigation)({
+      type: 'Offers',
+      cityCode,
+      title: offer?.title,
+      alias: offer?.alias,
+      path: offer?.path,
+      language: state.contentLanguage,
+      isPositiveFeedback
+    })
+  }
+
   return {
-    city,
     language: state.contentLanguage,
     offerHash,
     offer,
-    navigateToOffer
+    navigateToOffer,
+    navigateToFeedback
   }
 }
 
 type WohnenPropsType = {|
-  city: string,
   offer: ?OfferModel,
   offerHash?: WohnenOfferModel,
   navigateToOffer: (offerHash: string) => void,
+  navigateToFeedback: (isPositiveFeedback: boolean) => void,
   theme: ThemeType,
   language: string,
   t: TFunction
@@ -106,7 +120,7 @@ class WohnenOfferContainer extends React.Component<WohnenPropsType, WohnenStateT
   }
 
   render () {
-    const { language, offer, offerHash, navigateToOffer, t, theme } = this.props
+    const { language, offer, offerHash, navigateToOffer, navigateToFeedback, t, theme } = this.props
     const { offers, error, timeoutExpired } = this.state
 
     if (error) {
@@ -132,6 +146,7 @@ class WohnenOfferContainer extends React.Component<WohnenPropsType, WohnenStateT
                        contentContainerStyle={{ flexGrow: 1 }}>
       <WohnenOffer wohnenOffer={offer} offerHash={offerHash} navigateToOffer={navigateToOffer} offers={offers}
                           t={t} theme={theme} language={language} />
+      <SiteHelpfulBox navigateToFeedback={navigateToFeedback} theme={theme} t={t} />
     </ScrollView>
   }
 }

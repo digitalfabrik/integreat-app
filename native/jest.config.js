@@ -10,6 +10,7 @@ const transformNodeModules = [
   'hashids',
   '@react-native-community/progress-bar-android',
   '@react-native-community/progress-view',
+  '@react-native-picker/picker',
   'build-configs'
 ]
 
