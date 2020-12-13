@@ -2,13 +2,13 @@
 
 import type { Dispatch } from 'redux'
 import type { FetchEventActionType, StoreActionType } from './StoreActionType'
-import type { NavigationStackProp } from 'react-navigation-stack'
+import type { NavigationPropType, RoutesType } from './components/NavigationTypes'
 import { generateKey } from './generateRouteKey'
 
 export type NavigateToEventParamsType =
   {| cityCode: string, language: string, path: ?string, key?: string, forceRefresh?: boolean |}
 
-export default (dispatch: Dispatch<StoreActionType>, navigation: NavigationStackProp<*>) => (
+export default (dispatch: Dispatch<StoreActionType>, navigation: NavigationPropType<RoutesType>) => (
   {
     cityCode, language, path, key = generateKey(), forceRefresh = false
   }: NavigateToEventParamsType) => {
