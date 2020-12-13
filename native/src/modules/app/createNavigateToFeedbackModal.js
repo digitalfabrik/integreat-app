@@ -1,12 +1,12 @@
 // @flow
 
-import type { NavigationScreenProp } from 'react-navigation'
 import type { FeedbackInformationType } from '../../routes/feedback/containers/FeedbackModalContainer'
+import type { NavigationPropType, RoutesType } from './components/NavigationTypes'
 
-export default (navigation: NavigationScreenProp<*>) =>
+export default (navigation: NavigationPropType<RoutesType>) =>
   (feedbackInformation: FeedbackInformationType) => {
     navigation.navigate({
-      routeName: 'FeedbackModal',
+      name: 'FeedbackModal',
       params: { ...feedbackInformation }
     })
   }

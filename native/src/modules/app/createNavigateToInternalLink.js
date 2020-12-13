@@ -4,11 +4,11 @@ import type { NavigateToCategoryParamsType } from './createNavigateToCategory'
 import createNavigateToCategory from './createNavigateToCategory'
 import type { NavigateToEventParamsType } from './createNavigateToEvent'
 import createNavigateToEvent from './createNavigateToEvent'
-import type { NavigationStackProp } from 'react-navigation-stack'
 import type { StoreActionType } from './StoreActionType'
 import createNavigateToLanding from './createNavigateToLanding'
 import type { Dispatch } from 'redux'
 import URL from 'url-parse'
+import type { NavigationPropType, RoutesType } from './components/NavigationTypes'
 
 export type NavigateToInternalLinkParamsType = {| url: string, language: string |}
 
@@ -17,12 +17,12 @@ export const createNavigateToInternalLink = ({
   navigateToEvent,
   navigateToCategory,
   navigateToDashboard
-}: {
+}: {|
   navigateToLanding: () => void,
   navigateToEvent: NavigateToEventParamsType => void,
   navigateToCategory: NavigateToCategoryParamsType => void,
   navigateToDashboard: NavigateToCategoryParamsType => void
-}) => ({ url, language }: NavigateToInternalLinkParamsType) => {
+|}) => ({ url, language }: NavigateToInternalLinkParamsType) => {
   const parsedUrl = new URL(url)
   const pathname = parsedUrl.pathname
   const pathnameParts = pathname.split('/').filter(Boolean)
@@ -45,7 +45,7 @@ export const createNavigateToInternalLink = ({
   }
 }
 
-export default (dispatch: Dispatch<StoreActionType>, navigation: NavigationStackProp<*>) => {
+export default (dispatch: Dispatch<StoreActionType>, navigation: NavigationPropType<RoutesType>) => {
   const navigateToCategory = createNavigateToCategory('Categories', dispatch, navigation)
   const navigateToDashboard = createNavigateToCategory('Dashboard', dispatch, navigation)
   const navigateToEvent = createNavigateToEvent(dispatch, navigation)
