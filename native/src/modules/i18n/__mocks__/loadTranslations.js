@@ -1,6 +1,6 @@
 // @flow
 
-import translations from './translations.json'
+import translations from '../../../testing/translations.json'
 import transformTranslations from '../transformTranslations'
 import type { TransformedTranslationsType } from '../loadTranslations'
 
