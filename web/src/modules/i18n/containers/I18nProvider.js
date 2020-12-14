@@ -2,135 +2,90 @@
 
 import i18next from 'i18next'
 import * as React from 'react'
-import { connect } from 'react-redux'
+import { useEffect, useState } from 'react'
 import { I18nextProvider } from 'react-i18next'
 import { Helmet as ReactHelmet } from 'react-helmet'
-import LanguageDetector from 'i18next-browser-languagedetector'
 import setUiDirection from '../actions/setUIDirection'
-import type { Dispatch } from 'redux'
-import type { StoreActionType } from '../../app/StoreActionType'
-import type { UiDirectionType } from '../types/UiDirectionType'
 import loadTranslations from '../loadTranslations'
 import buildConfig from '../../app/constants/buildConfig'
+import { useDispatch, useSelector } from 'react-redux'
+import type { StateType } from '../../app/StateType'
+import { config } from 'translations'
+import BrowserLanguageDetector from '../BrowserLanguageDetector'
 
-const RTL_LANGUAGES = ['ar', 'fa']
-const FALLBACK_LANGUAGES = ['en', 'de']
-const DEFAULT_LANGUAGE = 'en'
+type PropsType = {| children: React.Node |}
 
-type FontMapType = { [font: 'lateef' | 'openSans' | 'raleway']: boolean }
+export default ({ children }: PropsType) => {
+  const [language, setLanguage] = useState<string>(config.defaultFallback)
+  const [i18nextInstance, setI18nextInstance] = useState(null)
 
-type PropsType = {|
-  children: React.Node,
-  language?: string,
-  setUiDirection: (UiDirectionType) => void
-|}
+  const dispatch = useDispatch()
+  const contentLanguage = useSelector((state: StateType) => state.location.payload.language)
 
-type StateType = {|
-  language: string,
-  fonts: FontMapType,
-  i18nLoaded: boolean
-|}
+  useEffect(() => {
+    const initI18Next = async () => {
+      const resources = loadTranslations()
+      const i18nextInstance = await i18next
+        .createInstance()
+        .use(BrowserLanguageDetector)
 
-export class I18nProvider extends React.Component<PropsType, StateType> {
-  i18n: i18next.i18n
+      await i18nextInstance.init({
+        resources,
+        fallbackLng: {
+          ...config.fallbacks,
+          default: [config.defaultFallback]
+        },
+        load: 'languageOnly',
+        interpolation: {
+          escapeValue: false /* Escaping is not needed for react apps:
+                                https://github.com/i18next/react-i18next/issues/277 */
+        },
+        debug: buildConfig().featureFlags.developerFriendly
+      })
 
-  constructor () {
-    super()
+      setI18nextInstance(i18nextInstance)
 
-    const i18nextResources = loadTranslations()
-    this.i18n = i18next.createInstance()
-      .use(LanguageDetector)
-    this.i18n.init({
-      resources: i18nextResources,
-      fallbackLng: FALLBACK_LANGUAGES,
-      load: 'languageOnly',
-      interpolation: {
-        escapeValue: false // Escaping is not needed for react apps: https://github.com/i18next/react-i18next/issues/277
-      },
-      debug: buildConfig().featureFlags.developerFriendly,
-      detection: {
-        order: ['localStorage', 'navigator']
-      }
-    })
-
-    this.state = {
-      language: this.i18n.language,
-      fonts: I18nProvider.getSelectedFonts(DEFAULT_LANGUAGE),
-      i18nLoaded: true
-    }
-  }
-
-  componentDidMount () {
-    const language = this.props.language
-    if (language) {
-      this.updateLanguage(language)
-    }
-  }
-
-  updateLanguage (targetLanguage: string) {
-    if (targetLanguage === this.i18n.languages[0]) {
-      this.updateLanguageState(targetLanguage)
-      return
+      // Apply ui language as language
+      i18nextInstance.on('languageChanged', uiLanguage => {
+        setLanguage(uiLanguage)
+      })
     }
 
-    // Set i18next language to apps language
-    this.i18n.changeLanguage(targetLanguage, () => {
-      this.updateLanguageState(targetLanguage)
-    })
-  }
+    initI18Next().catch((e: Error) => console.error(e))
+  }, [])
 
-  updateLanguageState = (targetLanguage: string) => {
-    const fonts = I18nProvider.getSelectedFonts(targetLanguage)
-    this.setState(prevState => ({ ...prevState, language: targetLanguage, fonts }))
+  // Apply contentLanguage as language
+  useEffect(() => {
+    if (i18nextInstance) {
+      i18nextInstance.changeLanguage(contentLanguage, () => {
+        setLanguage(contentLanguage)
+      })
+    }
+  }, [i18nextInstance, contentLanguage])
 
-    this.props.setUiDirection(RTL_LANGUAGES.includes(targetLanguage) ? 'rtl' : 'ltr')
+  // Apply side effects
+  useEffect(() => {
     if (document.documentElement) {
-      document.documentElement.lang = targetLanguage
+      document.documentElement.lang = language
     }
-  }
+    dispatch(setUiDirection(config.isRTLLanguage(language) ? 'rtl' : 'ltr'))
+  }, [dispatch, language])
 
-  componentDidUpdate (prevProps: PropsType) {
-    if (this.props.language !== prevProps.language) {
-      const language = this.props.language
-      if (language) {
-        this.updateLanguage(language)
-      }
-    }
-  }
+  const additionalFont = config.getAdditionalFont(language)
 
-  static getSelectedFonts (language: string): FontMapType {
-    // Lateef for arabic ui and content, Open Sans for latin text in arabic text, Raleway for latin ui
-    return {
-      lateef: ['ar', 'fa', 'ku'].includes(language),
-      openSans: true,
-      raleway: true
-    }
-  }
-
-  render () {
-    const { language, fonts: { lateef, openSans, raleway } } = this.state
-    return (
-      <I18nextProvider i18n={this.i18n}>
-        <div
-          style={{
-            direction: RTL_LANGUAGES.includes(language) ? 'rtl' : 'ltr'
-          }}>
-          <ReactHelmet>
-            {lateef && <link href='/fonts/lateef/lateef.css' rel='stylesheet' />}
-            {openSans && <link href='/fonts/open-sans/open-sans.css' rel='stylesheet' />}
-            {raleway && <link href='/fonts/raleway/raleway.css' rel='stylesheet' />}
-          </ReactHelmet>
-          {this.props.children}
-        </div>
-      </I18nextProvider>
-    )
-  }
+  return (
+    i18nextInstance && <I18nextProvider i18n={i18nextInstance}>
+      <div
+        style={{
+          direction: config.isRTLLanguage(language) ? 'rtl' : 'ltr'
+        }}>
+        <ReactHelmet>
+          {additionalFont === 'lateef' && <link href='/fonts/lateef/lateef.css' rel='stylesheet' />}
+          <link href='/fonts/open-sans/open-sans.css' rel='stylesheet' />
+          <link href='/fonts/raleway/raleway.css' rel='stylesheet' />
+        </ReactHelmet>
+        {children}
+      </div>
+    </I18nextProvider>
+  )
 }
-
-const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>) => ({
-  setUiDirection: action => dispatch(setUiDirection(action))
-})
-
-const mapStateToProps = state => ({ language: state.location.payload.language })
-
-export default connect<*, *, *, *, *, *>(mapStateToProps, mapDispatchToProps)(I18nProvider)
