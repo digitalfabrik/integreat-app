@@ -16,40 +16,50 @@ const localStorageAvailable = () => {
   return hasLocalStorageSupport
 }
 
+const LANGUAGE_LOCAL_STORAGE = 'i18nextLng'
+
 export default {
   type: 'languageDetector',
   async: false,
   init: (services, detectorOptions, i18nextOptions) => {},
   // https://github.com/i18next/i18next-browser-languageDetector/blob/master/src/browserLookups/navigator.js
+  // Returns array of ISO-639-2 or ISO-639-3 language codes
   detect: () => {
-    const found = []
+    const bcp47Tags = []
 
     if (localStorageAvailable()) {
-      const localStorageLanguage = window.localStorage.getItem('i18nextLng')
+      const localStorageLanguage = window.localStorage.getItem(LANGUAGE_LOCAL_STORAGE)
       if (localStorageLanguage) {
-        found.push(localStorageLanguage)
+        bcp47Tags.push(localStorageLanguage)
       }
     }
 
     if (typeof navigator !== 'undefined') {
       if (navigator.languages) { // chrome only; not an array, so can't use .push.apply instead of iterating
         for (let i = 0; i < navigator.languages.length; i++) {
-          found.push(navigator.languages[i])
+          bcp47Tags.push(navigator.languages[i])
         }
       }
       if (navigator.userLanguage) {
-        found.push(navigator.userLanguage)
+        bcp47Tags.push(navigator.userLanguage)
       }
       if (navigator.language) {
-        found.push(navigator.language)
+        bcp47Tags.push(navigator.language)
       }
     }
 
-    return found.length > 0 ? found : undefined // Returning array: new i18next v19.5.0
+    const iso639Codes = bcp47Tags.map(bcp47Tag => {
+      if (bcp47Tag.includes('-')) {
+        return bcp47Tag.split('-')[0]
+      }
+      return bcp47Tag
+    })
+
+    return iso639Codes.length > 0 ? iso639Codes : undefined // Returning array: new i18next v19.5.0
   },
-  cacheUserLanguage: function (lng) {
+  cacheUserLanguage: language => {
     if (localStorageAvailable()) {
-      window.localStorage.setItem('i18nextLng', lng)
+      window.localStorage.setItem(LANGUAGE_LOCAL_STORAGE, language)
     }
   }
 }

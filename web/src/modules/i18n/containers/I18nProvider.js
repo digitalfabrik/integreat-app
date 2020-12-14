@@ -17,6 +17,7 @@ type PropsType = {| children: React.Node |}
 
 export default ({ children }: PropsType) => {
   const [language, setLanguage] = useState<string>(config.defaultFallback)
+  const [errorMessage, setErrorMessage] = useState<?string>(null)
   const [i18nextInstance, setI18nextInstance] = useState(null)
 
   const dispatch = useDispatch()
@@ -51,7 +52,10 @@ export default ({ children }: PropsType) => {
       })
     }
 
-    initI18Next().catch((e: Error) => console.error(e))
+    initI18Next().catch((e: Error) => {
+      setErrorMessage(e.message)
+      console.error(e)
+    })
   }, [])
 
   // Apply contentLanguage as language
@@ -73,8 +77,16 @@ export default ({ children }: PropsType) => {
 
   const additionalFont = config.getAdditionalFont(language)
 
+  if (errorMessage) {
+    return errorMessage
+  }
+
+  if (!i18nextInstance) {
+    return null
+  }
+
   return (
-    i18nextInstance && <I18nextProvider i18n={i18nextInstance}>
+    <I18nextProvider i18n={i18nextInstance}>
       <div
         style={{
           direction: config.isRTLLanguage(language) ? 'rtl' : 'ltr'

@@ -6,7 +6,7 @@ import React from 'react'
 import i18next from 'i18next'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
-import ConnectedI18nProvider, { I18nProvider } from '../I18nProvider'
+import ConnectedI18nProvider from '../I18nProvider'
 import { I18nextProvider } from 'react-i18next'
 import loadTranslations from '../../loadTranslations'
 
