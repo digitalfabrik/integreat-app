@@ -32,8 +32,9 @@ function walkDir (dir, callback) {
 // The following code automatically unmocks the modules in `mocksPath`. This is required because jest mocks all these
 // modules automatically as soon as they are found
 const mocksPath = 'src/__mocks__/'
+const jsPath = '.js' // This only unmocks .js files not .json for example
 walkDir(mocksPath, name => {
-  if (name.endsWith('.js') || name.endsWith('.json')) {
+  if (name.endsWith(jsPath)) {
     jest.unmock(name.substring(mocksPath.length, name.length - jsPath.length))
   }
 })
