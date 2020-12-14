@@ -12,7 +12,10 @@
     ],
     "nohoist": [
       "native/**",
-      "web/**"
+      "web/**",
+      "api-client/**",
+      "translations/**",
+      "build-configs/**"
     ]
   },
   "scripts": {
