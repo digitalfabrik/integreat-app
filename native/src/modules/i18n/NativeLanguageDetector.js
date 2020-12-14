@@ -5,14 +5,15 @@ import { getLocales } from 'react-native-localize'
 export default {
   type: 'languageDetector',
   async: false,
-  detect: () => {
+  // Returns array of ISO-639-2 or ISO-639-3 language codes
+  detect: (callback: (languages: string[]) => void) => {
     const locales = getLocales()
 
     if (locales.length === 0) {
       throw new Error('Failed to get language code from native side!')
     }
 
-    return locales[0].languageCode
+    return locales.map(locale => locale.languageCode)
   },
   init: () => {},
   cacheUserLanguage: (newLanguage: string) => {}
