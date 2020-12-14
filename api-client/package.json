@@ -30,6 +30,7 @@
     "@babel/core": "7.12.10",
     "@babel/preset-env": "7.12.10",
     "@babel/preset-flow": "7.12.1",
+    "@babel/plugin-proposal-class-properties": "7.12.1",
     "seedrandom": "^3.0.3",
     "jest": "^25.5.4",
     "jest-fetch-mock": "^3.0.3",
