@@ -1,52 +1,56 @@
 // @flow
 
-type ConfigType = {
+import { values } from './utils/object'
+
+type ConfigType = {|
   sourceLanguage: string,
-  supportedLanguages: { [languageCode: string]: string },
+  supportedLanguages: { [languageCode: string]: {| rtl: boolean |} },
   fallbacks: { [languageCode: string]: string[] },
   defaultFallback: string
-}
+|}
 
 const checkConsistency = (config: ConfigType): ConfigType => {
   const supportedLanguageCodes = Object.keys(config.supportedLanguages)
 
-  const languagesInFallbacks = Object.values(config.fallbacks).flat()
+  const fallbacks: string[][] = values(config.fallbacks)
 
-  languagesInFallbacks.forEach(languageCode => {
-    if (!supportedLanguageCodes.includes(languageCode)) {
-      throw Error(`The code ${languageCode} was mentioned in the fallbacks but is not included in 'targetLanguage'`)
-    }
+  fallbacks.forEach((languagesInFallbacks: string[]) => {
+    languagesInFallbacks.forEach((languageCode: string) => {
+      if (!supportedLanguageCodes.includes(languageCode)) {
+        throw Error(`The code ${languageCode} was mentioned in the fallbacks but is not included in 'targetLanguage'`)
+      }
+    })
   })
 
   return config
 }
 
-module.exports = checkConsistency({
+const config: ConfigType = {
   // The language from which we translate
   sourceLanguage: 'de',
   // The languages into which we translate from 'sourceLanguage' including the sourceLanguage
   supportedLanguages: {
-    de: {},
+    de: { rtl: false },
     ar: { rtl: true },
-    en: {},
+    en: { rtl: false },
     fa: { rtl: true },
-    fr: {},
-    ro: {},
-    tr: {},
-    pl: {},
-    ti: {},
-    ku: {},
-    ru: {},
-    so: {},
-    hr: {},
-    es: {},
-    sr: {},
+    fr: { rtl: false },
+    ro: { rtl: false },
+    tr: { rtl: false },
+    pl: { rtl: false },
+    ti: { rtl: false },
+    ku: { rtl: false },
+    ru: { rtl: false },
+    so: { rtl: false },
+    hr: { rtl: false },
+    es: { rtl: false },
+    sr: { rtl: false },
     ps: { rtl: true },
     kmr: { rtl: true },
-    am: {},
-    bg: {},
-    el: {},
-    it: {}
+    am: { rtl: false },
+    bg: { rtl: false },
+    el: { rtl: false },
+    it: { rtl: false }
   },
   // Fallbacks for unnormalized language codes from our backend
   fallbacks: {
@@ -75,4 +79,5 @@ module.exports = checkConsistency({
   },
   // If the language code is not found in our translations then use this
   defaultFallback: 'de'
-})
+}
+module.exports = checkConsistency(config)
