@@ -16,6 +16,7 @@ const MomentTimezoneDataPlugin = require('moment-timezone-data-webpack-plugin')
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin')
 const babelConfig = require('../babel.config.js')
 const fs = require('fs')
+const translations = require('translations')
 const loadBuildConfig = require('build-configs').default
 const { WEB } = require('build-configs')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
@@ -33,11 +34,6 @@ const readJson = path => JSON.parse(fs.readFileSync(path, 'utf8'))
 const readVersionName = () => {
   const versionFile = readJson(path.resolve(__dirname, '../../version.json'))
   return versionFile.versionName
-}
-
-const getSupportedLanguageCodes = () => {
-  const translationsConfig = readJson(path.resolve(__dirname, '../../translations/config.json'))
-  return [translationsConfig.sourceLanguage, ...translationsConfig.targetLanguages]
 }
 
 const createConfig = (env: { config_name?: string, dev_server?: boolean, version_name?: string, commit_sha?: string } = {}) => {
@@ -177,7 +173,7 @@ const createConfig = (env: { config_name?: string, dev_server?: boolean, version
       }),
       // moment has no support for 'ti' (Tigrinya) and 'so' (Somali), hence we have to use the ignoreInvalidLocales flag
       new MomentLocalesPlugin({
-        localesToKeep: getSupportedLanguageCodes(),
+        localesToKeep: translations.config.getSupportedLanguageCodes(),
         ignoreInvalidLocales: true
       })
     ],

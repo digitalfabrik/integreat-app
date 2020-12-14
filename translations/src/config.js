@@ -2,34 +2,15 @@
 
 import { values } from './utils/object'
 
-type ConfigType = {|
-  sourceLanguage: string,
-  supportedLanguages: { [languageCode: string]: {| rtl: boolean |} },
-  fallbacks: { [languageCode: string]: string[] },
-  defaultFallback: string
-|}
+type SupportedLanguagesType = { [languageCode: string]: {| rtl: boolean |} }
+type FallbacksType = { [languageCode: string]: string[] }
 
-const checkConsistency = (config: ConfigType): ConfigType => {
-  const supportedLanguageCodes = Object.keys(config.supportedLanguages)
-
-  const fallbacks: string[][] = values(config.fallbacks)
-
-  fallbacks.forEach((languagesInFallbacks: string[]) => {
-    languagesInFallbacks.forEach((languageCode: string) => {
-      if (!supportedLanguageCodes.includes(languageCode)) {
-        throw Error(`The code ${languageCode} was mentioned in the fallbacks but is not included in 'targetLanguage'`)
-      }
-    })
-  })
-
-  return config
-}
-
-const config: ConfigType = {
+class Config {
   // The language from which we translate
-  sourceLanguage: 'de',
+  sourceLanguage = 'de'
+
   // The languages into which we translate from 'sourceLanguage' including the sourceLanguage
-  supportedLanguages: {
+  supportedLanguages: SupportedLanguagesType = {
     de: { rtl: false },
     ar: { rtl: true },
     en: { rtl: false },
@@ -51,9 +32,10 @@ const config: ConfigType = {
     bg: { rtl: false },
     el: { rtl: false },
     it: { rtl: false }
-  },
+  }
+
   // Fallbacks for unnormalized language codes from our backend
-  fallbacks: {
+  fallbacks: FallbacksType = {
     ku: ['ku'],
     kmr: ['kmr'],
     ckb: ['ku'],
@@ -76,8 +58,40 @@ const config: ConfigType = {
     es: ['es'],
     sr: ['sr'],
     ps: ['ps']
-  },
-  // If the language code is not found in our translations then use this
-  defaultFallback: 'de'
+  }
+
+  defaultFallback = 'de' // If the language code is not found in our translations then use this
+
+  constructor () {
+    this.checkConsistency()
+  }
+
+  getSupportedLanguageCodes (): string[] {
+    return Object.keys(this.supportedLanguages)
+  }
+
+  getFallbackLanguageCodes (): string[] {
+    const languageCodes = []
+    const fallbacks: string[][] = values(this.fallbacks)
+
+    fallbacks.forEach((languagesInFallbacks: string[]) => {
+      languagesInFallbacks.forEach((languageCode: string) => {
+        languageCodes.push(languageCode)
+      })
+    })
+
+    return languageCodes
+  }
+
+  checkConsistency () {
+    const supportedLanguageCodes = this.getSupportedLanguageCodes()
+
+    this.getFallbackLanguageCodes().forEach((languageCode: string) => {
+      if (!supportedLanguageCodes.includes(languageCode)) {
+        throw Error(`The code ${languageCode} was mentioned in the fallbacks but is not included in 'targetLanguage'`)
+      }
+    })
+  }
 }
-module.exports = checkConsistency(config)
+
+export default new Config()
