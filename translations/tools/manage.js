@@ -5,7 +5,7 @@ const flat = require('flat')
 const { unflatten } = flat
 const stringify = require('csv-stringify')
 const parse = require('csv-parse/lib/sync')
-const config = require('../config.js')
+const config = require('../src/config.js')
 
 const {
   isEmpty,
