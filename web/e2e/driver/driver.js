@@ -7,10 +7,6 @@ import serverConfigs from '../config/configs'
 import { clone } from 'lodash'
 import browserstack from 'browserstack-local'
 
-type LanguageType = 'de' | 'en'
-
-type LanguageCapabilityType = {| chromeOptions?: {| args: [string] |} |}
-
 const BROWSERSTACK_EXHAUSTED_MESSAGE = 'All parallel tests are currently in use, including the queued tests. ' +
   'Please wait to finish or upgrade your plan to add more sessions.'
 const IMPLICIT_WAIT_TIMEOUT = 80000
@@ -18,8 +14,16 @@ const INIT_RETRY_TIME = 3000
 const STARTUP_DELAY = 8000
 
 export const timer = (ms: number) => new Promise<void>(resolve => setTimeout(resolve, ms))
-type E2EDriverType = {| driver: wd.promiseChainRemote, bsLocal?: browserstack.Local |}
-type ConfigType = {| url: string, platform: string, prefix: string, caps: {| [key: string]: string |} |}
+type DriverType = {| driver: wd.promiseChainRemote, bsLocal?: browserstack.Local |}
+
+export type ConfigType = {|
+  url: string,
+  browser: string,
+  prefix: string,
+  local: boolean,
+  caps: {| [key: string]: string |}
+|}
+
 const getConfig = (): ConfigType | null => {
   const configName: ?string = process.env.E2E_CONFIG
 
@@ -36,32 +40,6 @@ const getConfig = (): ConfigType | null => {
   }
 
   return config
-}
-
-export const isWindows = (config: ConfigType) => {
-  return config.platform.toLowerCase() === 'windows'
-}
-
-export const isMac = (config: ConfigType) => {
-  return config.platform.toLowerCase() === 'osx'
-}
-
-export const isLinux = (config: ConfigType) => {
-  return config.platform.toLowerCase() === 'linux'
-}
-
-export const select = <T, K> (input: {| windows: T |}): T | K => {
-  const config = getConfig()
-
-  if (!config) {
-    throw Error('Failed to get config!')
-  }
-
-  if (isWindows(config)) {
-    return input.windows
-  }
-
-  throw new Error('Unknown platform.')
 }
 
 const initDriver = async (config: ConfigType, desiredCaps): Promise<wd.promiseChainRemote> => {
@@ -134,43 +112,25 @@ const getGitHeadReference = () => {
   return childProcess.execSync('git rev-parse --short HEAD').toString().trim()
 }
 
-const createLanguageOption = (config: ConfigType, language: ?LanguageType): LanguageCapabilityType => {
-  if (!language) {
-    return Object.freeze({})
-  }
-  if (config.caps.browser.toLowerCase() === 'chrome') {
-    return {
-      chromeOptions: {
-        args: [`--lang=${language}`]
-      }
-    }
-  }
-  throw Error(`Cannot change language for this browser ${config.caps.browser}`)
-}
-
-export const setupDriver = async (additionalCaps: any = {}, language?: LanguageType): Promise<E2EDriverType> => {
+export const setupDriver = async (): Promise<DriverType> => {
   const config = getConfig()
 
   if (!config) {
     throw Error('Failed to get config!')
   }
 
-  const languageCaps = createLanguageOption(config, language)
-
   console.log(`Trying to use ${config.url} ...`)
 
   const desiredCaps = {
     ...clone(config.caps),
     build: `${config.prefix}: ${getGitBranch()}`,
-    name: `${config.platform}: ${getGitHeadReference()}`,
-    tags: [config.prefix, config.platform],
-    ...additionalCaps,
-    ...languageCaps
+    name: `${config.browser}: ${getGitHeadReference()}`,
+    tags: [config.prefix, config.browser]
   }
 
-  const tunnel = await initTunnel(desiredCaps)
-  const driver = await initDriver(config, desiredCaps)
+  const driver = initDriver(config, desiredCaps)
   const status = await driver.status()
+  const bsLocal = !config.local ? await initTunnel(desiredCaps) : undefined
 
   console.log(`Session ID is ${JSON.stringify(driver.sessionID)}`)
   console.log(`Status of Driver is ${JSON.stringify(status)}`)
@@ -178,10 +138,10 @@ export const setupDriver = async (additionalCaps: any = {}, language?: LanguageT
   await driver.setImplicitWaitTimeout(IMPLICIT_WAIT_TIMEOUT)
   await timer(STARTUP_DELAY)
 
-  return { driver: driver, bsLocal: tunnel }
+  return { driver, bsLocal }
 }
 
-export const stopDriver = async (e2eDriver: E2EDriverType) => {
+export const stopDriver = async (e2eDriver: DriverType) => {
   const { driver, bsLocal } = e2eDriver
   await fetchTestResults(driver)
   if (driver === undefined) {

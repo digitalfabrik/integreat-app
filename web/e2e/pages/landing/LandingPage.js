@@ -15,11 +15,11 @@ export default class LandingPage {
     return this.driver.get(`http://localhost:9000/landing/${this.language}`)
   }
 
-  getUrl (): Promise<string> {
-    return this.driver.url()
-  }
-
   getSearchInput (): Promise<wd.Element> {
     return this.driver.waitForElementByXPath('//input')
+  }
+
+  getCity (name: string): Promise<wd.Element> {
+    return this.driver.waitForElementByXPath(`//span[@aria-label=${name}]`)
   }
 }

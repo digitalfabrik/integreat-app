@@ -8,10 +8,18 @@ const defaultCaps = {
   project: 'integreat-app-web'
 }
 
+exports.local_chrome = {
+  url: 'http://localhost:9000/wd/hub',
+  prefix: 'IG LOCAL',
+  browser: 'chrome',
+  local: true
+}
+
 exports.browserstack_dev_ie11 = {
   url: 'http://hub-cloud.browserstack.com/wd/hub',
   prefix: 'IG DEV',
-  platform: 'windows',
+  browser: 'IE11',
+  local: false,
   caps: {
     os: 'Windows',
     os_version: '10',
@@ -24,12 +32,13 @@ exports.browserstack_dev_ie11 = {
 exports.browserstack_dev_chrome = {
   url: 'http://hub-cloud.browserstack.com/wd/hub',
   prefix: 'IG DEV',
-  platform: 'windows',
+  browser: 'chrome',
+  local: false,
   caps: {
     os: 'Windows',
     os_version: '10',
     browser: 'Chrome',
     browser_Version: '80',
-    ...defaultCaps,
+    ...defaultCaps
   }
 }
