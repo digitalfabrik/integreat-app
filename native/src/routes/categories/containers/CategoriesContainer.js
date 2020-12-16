@@ -21,8 +21,7 @@ import ErrorCodes from '../../../modules/error/ErrorCodes'
 
 type ContainerPropsType = {|
   navigation: NavigationStackProp<*>,
-  cities: $ReadOnlyArray<CityModel>,
-  cityCode: string,
+  cityModel: CityModel,
   language: string,
   stateView: CategoriesRouteStateView,
   resourceCache: LanguageResourceCacheStateType,
@@ -101,24 +100,40 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     return { status: 'error', message: languages.message, code: languages.code, refreshProps }
   }
 
-  if (state.resourceCacheUrl === null || state.cities.status === 'loading' || switchingLanguage ||
+  const resourceCacheUrl = state.resourceCacheUrl
+  if (resourceCacheUrl === null || state.cities.status === 'loading' || switchingLanguage ||
     (route.status === 'loading' && !routeHasOldContent(route)) || languages.status === 'loading') {
-    return { status: 'loading', progress: 0 }
+    return { status: 'loading', progress: resourceCache.progress }
   }
 
-  // $FlowFixMe Flow can't evaluate the status as it is dynamic
-  return {
-    status: route.status === 'loading' ? 'loading' : 'success',
+  const cityModel = state.cities.models.find(city => city.code === route.city)
+  if (!cityModel) {
+    return { status: 'error', refreshProps, message: 'Unknown city', code: ErrorCodes.PageNotFound }
+  }
+
+  const successProps = {
     refreshProps,
     innerProps: {
-      cityCode: route.city,
+      cityModel,
       language: route.language,
-      cities: state.cities.models,
       stateView: new CategoriesRouteStateView(route.path, route.models, route.children),
       resourceCache: resourceCache.value,
-      resourceCacheUrl: state.resourceCacheUrl,
+      resourceCacheUrl,
       navigation
     }
+  }
+
+  if (route.status === 'loading') {
+    return {
+      ...successProps,
+      progress: resourceCache.progress,
+      status: 'loading'
+    }
+  }
+
+  return {
+    ...successProps,
+    status: 'success'
   }
 }
 

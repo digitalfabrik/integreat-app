@@ -19,12 +19,12 @@ import { INTEGREAT_ASSETS, MALTE_ASSETS } from 'build-configs/AssetsType'
 type AssetsType = {|
   appIcon: number,
   locationMarker: number,
-  intro: {
+  intro: {|
     events: number,
     language: number,
     offers: number,
     search: number
-  }
+  |}
 |}
 
 export const buildConfigAssets = (): AssetsType => {
