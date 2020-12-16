@@ -15,21 +15,28 @@ import {
 import { SPRUNGBRETT_OFFER } from '../../offers/constants'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import type { ThemeType } from '../../../modules/theme/constants'
-import type { NavigationStackProp } from 'react-navigation-stack'
 import FailureContainer from '../../../modules/error/containers/FailureContainer'
 import { LOADING_TIMEOUT } from '../../../modules/common/constants'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
 import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
 import createNavigateToFeedbackModal from '../../../modules/app/createNavigateToFeedbackModal'
+import type {
+  SprungbrettOfferRouteType,
+  NavigationPropType,
+  RoutePropType
+} from '../../../modules/app/components/NavigationTypes'
 
-type OwnPropsType = {| navigation: NavigationStackProp<*> |}
+type OwnPropsType = {|
+  route: RoutePropType<SprungbrettOfferRouteType>,
+  navigation: NavigationPropType<SprungbrettOfferRouteType>
+|}
 
 type StatePropsType = {| offer: ?OfferModel, language: string |}
 
 type PropsType = { ...OwnPropsType, ...StatePropsType }
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
-  const offers: Array<OfferModel> = ownProps.navigation.getParam('offers')
+  const offers: Array<OfferModel> = ownProps.route.params.offers
   return {
     language: state.contentLanguage,
     offer: offers.find(offer => offer.alias === SPRUNGBRETT_OFFER)
@@ -37,7 +44,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 }
 
 type SprungbrettPropsType = {|
-  navigation: NavigationStackProp<*>,
+  ...OwnPropsType,
   offer: ?OfferModel,
   language: string,
   theme: ThemeType,
@@ -58,10 +65,10 @@ class SprungbrettOfferContainer extends React.Component<SprungbrettPropsType, Sp
   }
 
   navigateToFeedback = (isPositiveFeedback: boolean) => {
-    const { navigation, offer, language } = this.props
+    const { route, navigation, offer, language } = this.props
     createNavigateToFeedbackModal(navigation)({
       type: 'Offers',
-      cityCode: navigation.getParam('city'),
+      cityCode: route.params.city,
       title: offer?.title,
       alias: offer?.alias,
       path: offer?.path,

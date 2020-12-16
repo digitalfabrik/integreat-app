@@ -2,7 +2,6 @@
 
 import { withTranslation, type TFunction } from 'react-i18next'
 import * as React from 'react'
-import type { NavigationScreenProp } from 'react-navigation-stack'
 import type { ThemeType } from '../../modules/theme/constants'
 import withTheme from '../../modules/theme/hocs/withTheme'
 import { FlatList, Dimensions } from 'react-native'
@@ -20,6 +19,11 @@ import { connect } from 'react-redux'
 import { requestLocationPermission } from '../../modules/app/LocationPermissionManager'
 import buildConfig, { buildConfigAssets } from '../../modules/app/constants/buildConfig'
 import { requestPushNotificationPermission } from '../../modules/push-notifications/PushNotificationsManager'
+import type {
+  IntroRouteType,
+  NavigationPropType,
+  RoutePropType
+} from '../../modules/app/components/NavigationTypes'
 
 const Container: StyledComponent<{ width: number }, {}, *> = styled.View`
   display: flex;
@@ -49,7 +53,8 @@ const ImageContent = styled.Image`
 
 type PropsType = {|
   t: TFunction,
-  navigation: NavigationScreenProp<*>,
+  route: RoutePropType<IntroRouteType>,
+  navigation: NavigationPropType<IntroRouteType>,
   theme: ThemeType,
   language: string,
   dispatch: () => void

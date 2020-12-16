@@ -1,7 +1,8 @@
 // @flow
 
 import * as React from 'react'
-import type { RoutePropType, RoutesType } from '../../app/components/NavigationTypes'
+import type { RoutesParamsType, RoutesType } from '../../app/components/NavigationTypes'
+import type { RouteProp } from '@react-navigation/native'
 
 /**
  * This hoc removes routes from the state when unmounting
@@ -9,7 +10,7 @@ import type { RoutePropType, RoutesType } from '../../app/components/NavigationT
  * @param Component
  * @returns {RouteCleaner}
  */
-function withRouteCleaner<Props: { route: RoutePropType<RoutesType>, ... }> (
+function withRouteCleaner<Props: { route: RouteProp<RoutesParamsType, RoutesType>, ... }> (
   Component: React.ComponentType<Props>
 ): React.ComponentType<Props> {
   class RouteCleaner extends React.Component<Props> {

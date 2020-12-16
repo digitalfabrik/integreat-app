@@ -6,36 +6,37 @@ import type { StateType } from '../../../modules/app/StateType'
 import type { Dispatch } from 'redux'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import Landing from '../components/Landing'
-import type { NavigationScreenProp } from 'react-navigation-stack'
-import { StackActions } from 'react-navigation'
-import { generateKey } from '../../../modules/app/generateRouteKey'
 import type { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
 import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvider'
 import { CityModel } from 'api-client'
 import * as React from 'react'
 import { connect } from 'react-redux'
+import type {
+  LandingRouteType,
+  NavigationPropType,
+  RoutePropType
+} from '../../../modules/app/components/NavigationTypes'
+
+type OwnPropsType = {| route: RoutePropType<LandingRouteType>, navigation: NavigationPropType<LandingRouteType> |}
+type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
 
 type ContainerPropsType = {|
-  dispatch: Dispatch<StoreActionType>,
-  navigation: NavigationScreenProp<*>,
+  ...OwnPropsType,
+  ...DispatchPropsType,
   language: string,
   cities: $ReadOnlyArray<CityModel>
 |}
 
-type OwnPropsType = {| navigation: NavigationScreenProp<*>, t: void |}
-type StatePropsType = StatusPropsType<ContainerPropsType, {}>
-type DispatchPropsType = {|
-  dispatch: Dispatch<StoreActionType>
-|}
+type StatePropsType = StatusPropsType<ContainerPropsType, {||}>
 
-const refresh = (refreshProps: {}, dispatch: Dispatch<StoreActionType>) => {
+const refresh = (refreshProps: OwnPropsType, dispatch: Dispatch<StoreActionType>) => {
   dispatch({ type: 'FETCH_CITIES', params: { forceRefresh: true } })
 }
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const language = state.contentLanguage
   if (state.cities.status === 'error') {
-    return { status: 'error', message: state.cities.message, code: state.cities.code, refreshProps: {} }
+    return { status: 'error', message: state.cities.message, code: state.cities.code, refreshProps: ownProps }
   }
 
   if (state.cities.status === 'loading') {
@@ -43,8 +44,8 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
   return {
     status: 'success',
-    innerProps: { cities: state.cities.models, language, navigation: ownProps.navigation },
-    refreshProps: {}
+    innerProps: { cities: state.cities.models, language, navigation: ownProps.navigation, route: ownProps.route },
+    refreshProps: ownProps
   }
 }
 
@@ -57,36 +58,8 @@ const ThemedTranslatedLanding = withTranslation('landing')(
 )
 
 class LandingContainer extends React.Component<ContainerPropsType> {
-  navigateToDashboard = (cityCode: string, language: string) => {
-    const { dispatch, navigation } = this.props
-    const path = `/${cityCode}/${language}`
-    const key: string = generateKey()
-
-    navigation.navigate('CityContent')
-
-    // $FlowFixMe newKey missing in typedef
-    navigation.dispatch(StackActions.replace({
-      routeName: 'Dashboard',
-      params: {
-        cityCode,
-        sharePath: path,
-        onRouteClose: () => dispatch({ type: 'CLEAR_CATEGORY', params: { key } })
-      },
-      newKey: key
-    }))
-
-    return dispatch({
-      type: 'FETCH_CATEGORY',
-      params: {
-        city: cityCode,
-        language,
-        path,
-        depth: 2,
-        criterion: { forceUpdate: false, shouldRefreshResources: true },
-        key
-      }
-    })
-  }
+  navigateToDashboard = (cityCode: string, languageCode: string) =>
+    this.props.route.params.navigateToCityContent(cityCode, languageCode)
 
   clearResourcesAndCache = () => this.props.dispatch({ type: 'CLEAR_RESOURCES_AND_CACHE' })
 
@@ -102,7 +75,7 @@ class LandingContainer extends React.Component<ContainerPropsType> {
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
 export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
-  withPayloadProvider<ContainerPropsType, {}>(refresh)(
+  withPayloadProvider<ContainerPropsType, OwnPropsType>(refresh)(
     LandingContainer
   )
 )

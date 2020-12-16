@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 import { createDisclaimerEndpoint, PageModel, Payload } from 'api-client'
 import type { ThemeType } from '../../modules/theme/constants'
 import type { StateType } from '../../modules/app/StateType'
-import type { NavigationStackProp } from 'react-navigation-stack'
 import withTheme from '../../modules/theme/hocs/withTheme'
 import Disclaimer from './Disclaimer'
 import FailureContainer from '../../modules/error/containers/FailureContainer'
@@ -16,8 +15,16 @@ import { LOADING_TIMEOUT } from '../../modules/common/constants'
 import determineApiUrl from '../../modules/endpoint/determineApiUrl'
 import SiteHelpfulBox from '../../modules/common/components/SiteHelpfulBox'
 import createNavigateToFeedbackModal from '../../modules/app/createNavigateToFeedbackModal'
+import type {
+  DisclaimerRouteType,
+  NavigationPropType,
+  RoutePropType
+} from '../../modules/app/components/NavigationTypes'
 
-type OwnPropsType = {| navigation: NavigationStackProp<*> |}
+type OwnPropsType = {|
+  route: RoutePropType<DisclaimerRouteType>,
+  navigation: NavigationPropType<DisclaimerRouteType>
+|}
 
 type StatePropsType = {| city: string, language: string, resourceCacheUrl: string |}
 
@@ -35,7 +42,7 @@ const mapStateToProps = (state: StateType): StatePropsType => {
 }
 
 type DisclaimerPropsType = {|
-  navigation: NavigationStackProp<*>,
+  ...OwnPropsType,
   city: string,
   language: string,
   theme: ThemeType,
@@ -91,7 +98,7 @@ class DisclaimerContainer extends React.Component<DisclaimerPropsType, Disclaime
   }
 
   render () {
-    const { theme, navigation, city, language, resourceCacheUrl } = this.props
+    const { theme, navigation, city, language, resourceCacheUrl, route } = this.props
     const { disclaimer, error, timeoutExpired } = this.state
 
     if (error) {
@@ -113,6 +120,7 @@ class DisclaimerContainer extends React.Component<DisclaimerPropsType, Disclaime
                   disclaimer={disclaimer}
                   theme={theme}
                   navigation={navigation}
+                  route={route}
                   city={city}
                   language={language} />
       <SiteHelpfulBox navigateToFeedback={this.navigateToFeedback} theme={theme} />

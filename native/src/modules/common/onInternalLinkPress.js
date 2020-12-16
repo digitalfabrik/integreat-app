@@ -3,14 +3,14 @@
 import { Linking } from 'react-native'
 import type { NavigateToInternalLinkParamsType } from '../app/createNavigateToInternalLink'
 import buildConfig from '../app/constants/buildConfig'
-import type { NavigationStackProp } from 'react-navigation-stack'
+import type { NavigationPropType, RoutesType } from '../app/components/NavigationTypes'
 
 type NavigateToInternalLinkType = NavigateToInternalLinkParamsType => void
 
 const HIJACK = new RegExp(buildConfig().internalLinksHijackPattern)
 
 const onInternalLinkPress = (url: string,
-  navigation: NavigationStackProp<*>,
+  navigation: NavigationPropType<RoutesType>,
   language: string,
   navigateToInternalLink: ?NavigateToInternalLinkType,
   shareUrl?: string) => {

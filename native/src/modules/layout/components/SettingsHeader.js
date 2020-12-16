@@ -49,7 +49,7 @@ type PropsType = {|
 
 class SettingsHeader extends React.PureComponent<PropsType> {
   goBack = () => {
-    this.props.navigation.goBack(null)
+    this.props.navigation.goBack()
   }
 
   render () {

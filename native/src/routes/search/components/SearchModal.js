@@ -8,7 +8,6 @@ import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
 import SearchHeader from './SearchHeader'
 import { ActivityIndicator, ScrollView, View } from 'react-native'
-import type { NavigationStackProp } from 'react-navigation-stack'
 import type { ThemeType } from '../../../modules/theme/constants'
 import type { NavigateToCategoryParamsType } from '../../../modules/app/createNavigateToCategory'
 import type { TFunction } from 'react-i18next'
@@ -17,6 +16,11 @@ import SearchFeedbackBox from './SearchFeedbackBox'
 import normalizeSearchString from '../../../modules/common/normalizeSearchString'
 import { Parser } from 'htmlparser2'
 import dimensions from '../../../modules/theme/constants/dimensions'
+import type {
+  SettingsRouteType,
+  NavigationPropType,
+  RoutePropType
+} from '../../../modules/app/components/NavigationTypes'
 
 const Wrapper: StyledComponent<{}, ThemeType, *> = styled.View`
   position: absolute;  
@@ -34,7 +38,8 @@ export type PropsType = {|
   language: string,
   cityCode: string,
   closeModal: () => void,
-  navigation: NavigationStackProp<*>,
+  route: RoutePropType<SettingsRouteType>,
+  navigation: NavigationPropType<SettingsRouteType>,
   t: TFunction,
   sendFeedback: (comment: string, query: string) => Promise<void>
 |}

@@ -3,7 +3,6 @@
 import * as React from 'react'
 import styled from 'styled-components/native'
 import type { ThemeType } from '../../theme/constants'
-import type { NavigationStackProp } from 'react-navigation-stack'
 import Caption from './Caption'
 import TimeStamp from './TimeStamp'
 import type Moment from 'moment'
@@ -16,6 +15,7 @@ import SpaceBetween from './SpaceBetween'
 import onInternalLinkPress from '../onInternalLinkPress'
 import { RESOURCE_CACHE_DIR_PATH } from '../../endpoint/DatabaseConnector'
 import { mapValues } from 'lodash'
+import type { NavigationPropType, RoutesType } from '../../app/components/NavigationTypes'
 
 const HORIZONTAL_MARGIN = 8
 
@@ -33,7 +33,7 @@ type PropType = {|
   title: string,
   content: string,
   theme: ThemeType,
-  navigation: NavigationStackProp<*>,
+  navigation: NavigationPropType<RoutesType>,
   navigateToInternalLink?: NavigateToInternalLinkParamsType => void,
   navigateToFeedback?: (positive: boolean) => void,
   files: PageResourceCacheStateType,

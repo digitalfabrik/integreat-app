@@ -7,7 +7,6 @@ import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 import createNavigateToPoi from '../../../modules/app/createNavigateToPoi'
 import type { Dispatch } from 'redux'
 import type { StoreActionType, SwitchContentLanguageActionType } from '../../../modules/app/StoreActionType'
-import type { NavigationStackProp } from 'react-navigation-stack'
 import type { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
 import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvider'
 import withTheme from '../../../modules/theme/hocs/withTheme'
@@ -16,8 +15,24 @@ import * as React from 'react'
 import createNavigateToInternalLink from '../../../modules/app/createNavigateToInternalLink'
 import Pois from '../components/Pois'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
+import type {
+  PoisRouteType,
+  NavigationPropType,
+  RoutePropType
+} from '../../../modules/app/components/NavigationTypes'
+
+type NavigationPropsType = {|
+  route: RoutePropType<PoisRouteType>,
+  navigation: NavigationPropType<PoisRouteType>
+|}
+
+type OwnPropsType = {|
+  ...NavigationPropsType,
+  t: TFunction
+|}
 
 type ContainerPropsType = {|
+  ...OwnPropsType,
   path: ?string,
   pois: $ReadOnlyArray<PoiModel>,
   cities: $ReadOnlyArray<CityModel>,
@@ -25,18 +40,16 @@ type ContainerPropsType = {|
   language: string,
   resourceCache: LanguageResourceCacheStateType,
   resourceCacheUrl: string,
-  navigation: NavigationStackProp<*>,
   dispatch: Dispatch<StoreActionType>
 |}
 
 type RefreshPropsType = {|
-  navigation: NavigationStackProp<*>,
+  ...NavigationPropsType,
   cityCode: string,
   language: string,
   path: ?string
 |}
 
-type OwnPropsType = {| navigation: NavigationStackProp<*>, t: TFunction |}
 type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
 type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
@@ -52,12 +65,12 @@ const createChangeUnavailableLanguage = (city: string, t: TFunction) => (
 }
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
-  const { t, navigation } = ownProps
+  const { t, navigation, route: { key } } = ownProps
   if (!state.cityContent) {
     return { status: 'routeNotInitialized' }
   }
   const { resourceCache, poisRouteMapping, switchingLanguage, languages } = state.cityContent
-  const route: ?PoiRouteStateType = poisRouteMapping[navigation.state.key]
+  const route: ?PoiRouteStateType = poisRouteMapping[key]
   if (!route) {
     return { status: 'routeNotInitialized' }
   }
@@ -84,7 +97,8 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     path: route.path,
     cityCode: route.city,
     language: route.language,
-    navigation: ownProps.navigation
+    navigation: ownProps.navigation,
+    route: ownProps.route
   }
 
   if (state.cities.status === 'error') {
@@ -120,7 +134,9 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       language: route.language,
       resourceCache: resourceCache.value,
       resourceCacheUrl: state.resourceCacheUrl,
-      navigation
+      navigation,
+      route: ownProps.route,
+      t: ownProps.t
     }
   }
 }
@@ -135,21 +151,20 @@ class PoisContainer extends React.Component<ContainerPropsType> {
   render () {
     const { dispatch, ...rest } = this.props
     return <ThemedTranslatedPois {...rest}
-                                   navigateToPoi={createNavigateToPoi(dispatch, rest.navigation)}
-                                   navigateToInternalLink={createNavigateToInternalLink(dispatch, rest.navigation)}
+                                 navigateToPoi={createNavigateToPoi(dispatch, rest.navigation)}
+                                 navigateToInternalLink={createNavigateToInternalLink(dispatch, rest.navigation)}
     />
   }
 }
 
 const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
-  const { navigation, cityCode, language, path } = refreshProps
+  const { navigation, route, cityCode, language, path } = refreshProps
   const navigateToPoi = createNavigateToPoi(dispatch, navigation)
-  navigateToPoi({ cityCode, language, path, forceRefresh: true, key: navigation.state.key })
+  navigateToPoi({ cityCode, language, path, forceRefresh: true, key: route.key })
 }
 
-export default withRouteCleaner<{| navigation: NavigationStackProp<*> |}>(
-  withTranslation('error')(
-    connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
-      withPayloadProvider<ContainerPropsType, RefreshPropsType>(refresh)(
-        PoisContainer
-      ))))
+export default withRouteCleaner<PoisRouteType>(
+  connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
+    withPayloadProvider<ContainerPropsType, RefreshPropsType, PoisRouteType>(refresh)(
+      PoisContainer
+    )))

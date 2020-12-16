@@ -1,17 +1,22 @@
 // @flow
 
 import ExternalOffer from '../components/ExternalOffer'
-import type { NavigationStackProp } from 'react-navigation-stack'
 import React from 'react'
+import type {
+  ExternalOfferRouteType,
+  NavigationPropType,
+  RoutePropType
+} from '../../../modules/app/components/NavigationTypes'
 
-export default class ExternalOfferContainer extends React.Component<{| navigation: NavigationStackProp<*> |}> {
+type PropsType = {|
+  route: RoutePropType<ExternalOfferRouteType>,
+  navigation: NavigationPropType<ExternalOfferRouteType>
+|}
+
+export default class ExternalOfferContainer extends React.Component<PropsType> {
   render () {
-    const url = this.props.navigation.getParam('url')
+    const { url, postData } = this.props.route.params
 
-    if (!url) {
-      throw Error('url is not defined in navigation params!')
-    }
-
-    return <ExternalOffer url={url} postData={this.props.navigation.getParam('postData')} />
+    return <ExternalOffer url={url} postData={postData} />
   }
 }
