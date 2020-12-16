@@ -43,8 +43,7 @@ type RefreshPropsType = {|
 type ContainerPropsType = {|
   ...OwnPropsType,
   language: string,
-  cityCode: string,
-  cities: $ReadOnlyArray<CityModel>,
+  cityModel: CityModel,
   stateView: CategoriesRouteStateView,
   resourceCache: LanguageResourceCacheStateType,
   resourceCacheUrl: string,
@@ -120,30 +119,43 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     return { status: 'error', message: languages.message, code: languages.code, refreshProps }
   }
 
-  if (state.resourceCacheUrl === null || state.cities.status === 'loading' || switchingLanguage ||
+  const resourceCacheUrl = state.resourceCacheUrl
+  if (resourceCacheUrl === null || state.cities.status === 'loading' || switchingLanguage ||
     (route.status === 'loading' && !routeHasOldContent(route)) || languages.status === 'loading') {
-    const resourceCache = state.cityContent.resourceCache
     return {
       status: 'loading',
-      progress: resourceCache.status !== 'error' ? resourceCache.progress : 0
+      progress: resourceCache.progress
     }
   }
 
-  const cities = state.cities.models
-  const stateView = new CategoriesRouteStateView(route.path, route.models, route.children)
-  // $FlowFixMe Flow can't evaluate the status as it is dynamic
-  return {
-    status: route.status === 'loading' ? 'loading' : 'success',
+  const cityModel = state.cities.models.find(city => city.code === route.city)
+  if (!cityModel) {
+    return { status: 'error', refreshProps, message: 'Unknown city', code: ErrorCodes.PageNotFound }
+  }
+
+  const successProps = {
     refreshProps,
     innerProps: {
       ...ownProps,
-      cityCode: route.city,
+      cityModel,
       language: route.language,
-      cities,
-      stateView,
-      resourceCacheUrl: state.resourceCacheUrl,
+      stateView: new CategoriesRouteStateView(route.path, route.models, route.children),
+      resourceCacheUrl: resourceCacheUrl,
       resourceCache: resourceCache.value
     }
+  }
+
+  if (route.status === 'loading') {
+    return {
+      ...successProps,
+      progress: resourceCache.progress,
+      status: 'loading'
+    }
+  }
+
+  return {
+    ...successProps,
+    status: 'success'
   }
 }
 
