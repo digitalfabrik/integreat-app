@@ -9,19 +9,26 @@ import type { NavigateToCategoryParamsType } from '../../../modules/app/createNa
 import createNavigateToCategory from '../../../modules/app/createNavigateToCategory'
 import SearchModal from '../components/SearchModal'
 import { CategoriesMapModel, createFeedbackEndpoint, SEARCH_FEEDBACK_TYPE } from 'api-client'
-import type { NavigationStackProp } from 'react-navigation-stack'
 import { withTranslation } from 'react-i18next'
 import determineApiUrl from '../../../modules/endpoint/determineApiUrl'
+import type {
+  SearchModalRouteType,
+  NavigationPropType,
+  RoutePropType
+} from '../../../modules/app/components/NavigationTypes'
 
-type OwnPropsType = {| navigation: NavigationStackProp<*> |}
+type OwnPropsType = {|
+  route: RoutePropType<SearchModalRouteType>,
+  navigation: NavigationPropType<SearchModalRouteType>
+|}
 
 export type PropsType = {|
+  ...OwnPropsType,
   categories: CategoriesMapModel | null,
   navigateToCategory: NavigateToCategoryParamsType => void,
   language: string,
   cityCode: string,
   closeModal: () => void,
-  navigation: NavigationStackProp<*>,
   sendFeedback: (comment: string, query: string) => Promise<void>
 |}
 

@@ -1,7 +1,6 @@
 // @flow
 
 import * as React from 'react'
-
 import { Provider } from 'react-redux'
 import I18nProviderContainer from '../../i18n/containers/I18nProviderContainer'
 import createReduxStore from '../createReduxStore'
@@ -15,6 +14,7 @@ import type { DataContainer } from '../../endpoint/DataContainer'
 import NavigatorContainer from '../containers/NavigatorContainer'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import StaticServerProvider from '../../static-server/containers/StaticServerProvider'
+import { NavigationContainer } from '@react-navigation/native'
 
 class App extends React.Component<{||}> {
   dataContainer: DataContainer = new DefaultDataContainer()
@@ -29,7 +29,9 @@ class App extends React.Component<{||}> {
               <>
                 <StatusBarContainer />
                 <IOSSafeAreaView>
-                  <NavigatorContainer />
+                  <NavigationContainer>
+                    <NavigatorContainer />
+                  </NavigationContainer>
                 </IOSSafeAreaView>
               </>
             </SafeAreaProvider>

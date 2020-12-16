@@ -2,14 +2,21 @@
 
 import Settings from '../components/Settings'
 import withTheme from '../../../modules/theme/hocs/withTheme'
-import type { NavigationStackProp } from 'react-navigation-stack'
 import { withTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
 import type { StateType } from '../../../modules/app/StateType'
 import { type Dispatch } from 'redux'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
+import type {
+  SettingsRouteType,
+  NavigationPropType,
+  RoutePropType
+} from '../../../modules/app/components/NavigationTypes'
 
-type OwnPropsType = {| navigation: NavigationStackProp<*> |}
+type OwnPropsType = {|
+  route: RoutePropType<SettingsRouteType>,
+  navigation: NavigationPropType<SettingsRouteType>
+|}
 
 type StatePropsType = {|
   languageCode: string,

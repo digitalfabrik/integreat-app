@@ -7,7 +7,6 @@ import { type TFunction, withTranslation } from 'react-i18next'
 import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 import createNavigateToNews from '../../../modules/app/createNavigateToNews'
 import type { Dispatch } from 'redux'
-import type { NavigationStackProp } from 'react-navigation-stack'
 import { CityModel } from 'api-client'
 import * as React from 'react'
 import NewsList from '../components/NewsList'
@@ -17,17 +16,37 @@ import NewsHeader from '../../../modules/common/components/NewsHeader'
 import { View } from 'react-native'
 import LoadingSpinner from '../../../modules/common/components/LoadingSpinner'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
+import type {
+  NewsRouteType,
+  NavigationPropType,
+  RoutePropType
+} from '../../../modules/app/components/NavigationTypes'
+
+type NavigationPropsType = {|
+  route: RoutePropType<NewsRouteType>,
+  navigation: NavigationPropType<NewsRouteType>
+|}
+
+type OwnPropsType = {|
+  ...NavigationPropsType,
+  t: TFunction
+|}
+
+type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
 
 type ContainerPropsType = {|
+  ...OwnPropsType,
+  ...DispatchPropsType,
   status: 'fetching',
   newsId: ?string,
   cityCode: string,
   language: string,
-  navigation: NavigationStackProp<*>,
   dispatch: Dispatch<StoreActionType>,
   cityModel: CityModel,
   selectedNewsType: NewsType
 |} | {|
+  ...OwnPropsType,
+  ...DispatchPropsType,
   status: 'ready',
   news: NewsModelsType,
   hasMoreNews?: boolean,
@@ -36,27 +55,24 @@ type ContainerPropsType = {|
   newsId: ?string,
   cityCode: string,
   language: string,
-  navigation: NavigationStackProp<*>,
   dispatch: Dispatch<StoreActionType>,
   cityModel: CityModel,
   selectedNewsType: NewsType
 |}
 
 type RefreshPropsType = {|
-  navigation: NavigationStackProp<*>,
+  ...NavigationPropsType,
   cityCode: string,
   language: string,
   newsId: ?string,
   selectedNewsType: NewsType
 |}
 
-type OwnPropsType = {| navigation: NavigationStackProp<*>, t: TFunction |}
 type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
-type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
 const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
-  const { navigation, cityCode, language, newsId, selectedNewsType } = refreshProps
+  const { route, navigation, cityCode, language, newsId, selectedNewsType } = refreshProps
 
   const navigateToNews = createNavigateToNews(dispatch, navigation)
   navigateToNews({
@@ -65,7 +81,7 @@ const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionT
     language,
     newsId,
     forceRefresh: true,
-    key: navigation.state.key
+    key: route.key
   })
 }
 
@@ -77,14 +93,14 @@ const createChangeUnavailableLanguage = (city: string, t: TFunction) => (
 }
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
-  const { t, navigation } = ownProps
+  const { t, navigation, route: { key } } = ownProps
   if (!state.cityContent) {
     return { status: 'routeNotInitialized' }
   }
 
   const { newsRouteMapping, switchingLanguage, languages } = state.cityContent
 
-  const route: ?NewsRouteStateType = newsRouteMapping[navigation.state.key]
+  const route: ?NewsRouteStateType = newsRouteMapping[key]
   if (!route) {
     return { status: 'routeNotInitialized' }
   }
@@ -113,6 +129,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     cityCode: route.city,
     language: state.contentLanguage,
     navigation: ownProps.navigation,
+    route: ownProps.route,
     selectedNewsType: route.type
   }
 
@@ -177,7 +194,7 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsT
 
 class NewsContainer extends React.Component<ContainerPropsType> {
   fetchNews = (newsType: NewsType) => {
-    const { dispatch, cityCode, navigation, language } = this.props
+    const { dispatch, cityCode, route, language } = this.props
     dispatch({
       type: 'FETCH_NEWS',
       params: {
@@ -185,7 +202,7 @@ class NewsContainer extends React.Component<ContainerPropsType> {
         language,
         newsId: null,
         type: newsType,
-        key: navigation.state.key,
+        key: route.key,
         criterion: {
           forceUpdate: false,
           shouldRefreshResources: false
@@ -198,8 +215,8 @@ class NewsContainer extends React.Component<ContainerPropsType> {
     if (this.props.status === 'fetching') {
       throw new Error('Cannot fetch more if already fetching')
     }
-    const { news, hasMoreNews, page, dispatch, selectedNewsType, ...rest } = this.props
-    const { cityCode, language, navigation, newsId } = rest
+    const { news, hasMoreNews, page, dispatch, selectedNewsType, route, ...rest } = this.props
+    const { cityCode, language, newsId } = rest
 
     const isTunews = selectedNewsType === TUNEWS
 
@@ -211,7 +228,7 @@ class NewsContainer extends React.Component<ContainerPropsType> {
           language,
           newsId,
           type: TUNEWS,
-          key: navigation.state.key,
+          key: route.key,
           page: page + 1,
           previouslyFetchedNews: news,
           hasMoreNews,
@@ -252,9 +269,9 @@ class NewsContainer extends React.Component<ContainerPropsType> {
   }
 }
 
-export default withRouteCleaner<{| navigation: NavigationStackProp<*> |}>(
+export default withRouteCleaner<OwnPropsType>(
   withTranslation('error')(
     connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
-      withPayloadProvider<ContainerPropsType, RefreshPropsType>(refresh, true)(
+      withPayloadProvider<ContainerPropsType, RefreshPropsType, NewsRouteType>(refresh, true)(
         NewsContainer
       ))))

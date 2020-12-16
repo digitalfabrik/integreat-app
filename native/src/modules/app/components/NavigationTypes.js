@@ -3,6 +3,7 @@
 import type { StackNavigationProp } from '@react-navigation/stack'
 import type { RouteProp } from '@react-navigation/native'
 import type { FeedbackInformationType } from '../../../routes/feedback/containers/FeedbackModalContainer'
+import { LanguageModel, OfferModel } from 'api-client'
 
 export type IntroRouteType = 'Intro'
 export const INTRO_ROUTE: IntroRouteType = 'Intro'
@@ -38,7 +39,7 @@ export type SprungbrettOfferRouteType = 'SprungbrettOffer'
 export const SPRUNGBRETT_OFFER_ROUTE: SprungbrettOfferRouteType = 'SprungbrettOffer'
 
 export type WohnenOfferRouteType = 'WohnenOffer'
-export const WOHNEN_ROUTE: WohnenOfferRouteType = 'WohnenOffer'
+export const WOHNEN_OFFER_ROUTE: WohnenOfferRouteType = 'WohnenOffer'
 
 export type SettingsRouteType = 'Settings'
 export const SETTINGS_ROUTE: SettingsRouteType = 'Settings'
@@ -80,21 +81,27 @@ export type RoutesType = IntroRouteType
 export type RoutesParamsType = {|
   Intro: {||},
   Landing: {| navigateToCityContent: (cityCode: string, languageCode: string) => void |},
-  Dashboard: {||},
+  Dashboard: {| onRouteClose: () => void |},
   Categories: {||},
   Pois: {||},
   Events: {||},
   News: {||},
   Disclaimer: {||},
   Offers: {| cityCode: string, sharePath: string |},
-  ExternalOffer: {| url: string, postData?: Map<string, string> |},
-  SprungbrettOffer: {||},
-  WohnenOffer: {||},
+  ExternalOffer: {| url: string, postData: ?Map<string, string> |},
+  SprungbrettOffer: {| city: string, offers: Array<OfferModel> |},
+  WohnenOffer: {| offerHash: ?string, city: string, offers: Array<OfferModel> |},
   Settings: {||},
   SearchModal: {||},
-  ChangeLanguageModal: {||},
-  PDFViewModal: {||},
-  ImageViewModal: {| url: string |},
+  ChangeLanguageModal: {|
+    currentLanguage: string,
+    previousKey: string,
+    cityCode: string,
+    languages: Array<LanguageModel>,
+    availableLanguages: Array<string>
+  |},
+  PDFViewModal: {| url: string, shareUrl?: string |},
+  ImageViewModal: {| url: string, shareUrl?: string |},
   FeedbackModal: {| ...FeedbackInformationType |}
 |}
 

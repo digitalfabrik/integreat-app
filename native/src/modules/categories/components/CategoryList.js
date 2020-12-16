@@ -1,8 +1,6 @@
 // @flow
 
 import * as React from 'react'
-
-import type { NavigationStackProp } from 'react-navigation-stack'
 import CategoryListItem from './CategoryListItem'
 import type { ThemeType } from '../../theme/constants'
 import styled from 'styled-components/native'
@@ -13,6 +11,7 @@ import type { NavigateToInternalLinkParamsType } from '../../app/createNavigateT
 import type { PageResourceCacheEntryStateType, PageResourceCacheStateType } from '../../app/StateType'
 import { RESOURCE_CACHE_DIR_PATH } from '../../endpoint/DatabaseConnector'
 import { mapValues } from 'lodash'
+import type { NavigationPropType, RoutesType } from '../../app/components/NavigationTypes'
 
 export type CategoryListModelType = {|
   title: string,
@@ -27,7 +26,7 @@ export type ListEntryType = {|
 |}
 
 export type ListContentModelType = {|
-  navigation: NavigationStackProp<*>,
+  navigation: NavigationPropType<RoutesType>,
   files: PageResourceCacheStateType,
   navigateToInternalLink: NavigateToInternalLinkParamsType => void,
   resourceCacheUrl: string,

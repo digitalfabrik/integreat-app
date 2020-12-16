@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { render } from '@testing-library/react-native'
 import AsyncStorage from '@react-native-community/async-storage'
-import Navigator from '../Navigator'
+import RootNavigator from '../RootNavigator'
 import AppSettings from '../../../settings/AppSettings'
 import waitForExpect from 'wait-for-expect'
 
@@ -18,7 +18,7 @@ jest.mock('../../createAppContainer', () => {
   return mockCreateAppNavigationContainer
 })
 
-describe('Navigator', () => {
+describe('RootNavigator', () => {
   beforeEach(() => {
     AsyncStorage.clear()
     jest.clearAllMocks()
@@ -28,7 +28,7 @@ describe('Navigator', () => {
     const mock = jest.fn()
     const appSettings = new AppSettings()
     await appSettings.setContentLanguage('de')
-    render(<Navigator fetchCities={mock} fetchCategory={() => {}} clearCategory={() => {}} />)
+    render(<RootNavigator fetchCities={mock} fetchCategory={() => {}} clearCategory={() => {}} />)
     await waitForExpect(() => {
       expect(mock).toHaveBeenCalledTimes(1)
     })
@@ -42,8 +42,8 @@ describe('Navigator', () => {
     const clearCategory = jest.fn()
     const fetchCategory = jest.fn()
 
-    const { getByText } = render(<Navigator fetchCities={() => {}} fetchCategory={fetchCategory}
-                                            clearCategory={clearCategory} />)
+    const { getByText } = render(<RootNavigator fetchCities={() => {}} fetchCategory={fetchCategory}
+                                                clearCategory={clearCategory} />)
     await waitForExpect(() => {
       expect(mockCreateAppNavigationContainer).toHaveBeenCalledTimes(1)
       expect(mockCreateAppNavigationContainer).toHaveBeenCalledWith({
@@ -65,7 +65,7 @@ describe('Navigator', () => {
     await appSettings.setContentLanguage('de')
     await appSettings.setIntroShown()
 
-    const { getByText } = render(<Navigator fetchCities={() => {}} fetchCategory={() => {}} clearCategory={() => {}} />)
+    const { getByText } = render(<RootNavigator fetchCities={() => {}} fetchCategory={() => {}} clearCategory={() => {}} />)
     await waitForExpect(() => {
       expect(mockCreateAppNavigationContainer).toHaveBeenCalledTimes(1)
       expect(mockCreateAppNavigationContainer).toHaveBeenCalledWith({ initialRouteName: 'Landing' })
@@ -77,7 +77,7 @@ describe('Navigator', () => {
     const appSettings = new AppSettings()
     await appSettings.setContentLanguage('de')
 
-    const { getByText } = render(<Navigator fetchCities={() => {}} fetchCategory={() => {}} clearCategory={() => {}} />)
+    const { getByText } = render(<RootNavigator fetchCities={() => {}} fetchCategory={() => {}} clearCategory={() => {}} />)
     await waitForExpect(() => {
       expect(mockCreateAppNavigationContainer).toHaveBeenCalledTimes(1)
       expect(mockCreateAppNavigationContainer).toHaveBeenCalledWith({ initialRouteName: 'Intro' })
@@ -86,7 +86,7 @@ describe('Navigator', () => {
   })
 
   it('should display error, if content language could not be loaded', async () => {
-    const { getByText } = render(<Navigator fetchCities={() => {}} fetchCategory={() => {}} clearCategory={() => {}} />)
+    const { getByText } = render(<RootNavigator fetchCities={() => {}} fetchCategory={() => {}} clearCategory={() => {}} />)
     await waitForExpect(() => {
       expect(getByText('The contentLanguage has not been set correctly by I18nProvider!')).toBeTruthy()
     })

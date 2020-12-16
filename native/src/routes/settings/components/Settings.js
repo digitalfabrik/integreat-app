@@ -7,19 +7,24 @@ import { type StyledComponent } from 'styled-components'
 import SettingItem from './SettingItem'
 import type { ThemeType } from '../../../modules/theme/constants'
 import type { TFunction } from 'react-i18next'
-import type { NavigationStackProp } from 'react-navigation-stack'
 import type { SettingsType } from '../../../modules/settings/AppSettings'
 import createSettingsSections from '../createSettingsSections'
 import AppSettings, { defaultSettings } from '../../../modules/settings/AppSettings'
 import type { SectionBase } from 'react-native/Libraries/Lists/SectionList'
 import type { AccessibilityRole } from 'react-native/Libraries/Components/View/ViewAccessibility'
+import type {
+  SettingsRouteType,
+  NavigationPropType,
+  RoutePropType
+} from '../../../modules/app/components/NavigationTypes'
 
 type PropsType = {|
   theme: ThemeType,
   languageCode: string,
   cityCode: ?string,
   t: TFunction,
-  navigation: NavigationStackProp<*>,
+  route: RoutePropType<SettingsRouteType>,
+  navigation: NavigationPropType<SettingsRouteType>,
   dispatch: () => {}
 |}
 

@@ -2,7 +2,7 @@
 
 import { type Dispatch } from 'redux'
 import { connect } from 'react-redux'
-import Navigator from '../components/Navigator'
+import RootNavigator from '../components/RootNavigator'
 import type { StoreActionType } from '../StoreActionType'
 
 type DispatchPropsType = {|
@@ -37,4 +37,4 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsT
   }
 })
 
-export default connect<PropsType, {||}, _, _, _, _>(undefined, mapDispatchToProps)(Navigator)
+export default connect<PropsType, {||}, _, _, _, _>(undefined, mapDispatchToProps)(RootNavigator)

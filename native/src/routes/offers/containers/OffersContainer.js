@@ -8,17 +8,31 @@ import { type TFunction, withTranslation } from 'react-i18next'
 import { CityModel, createOffersEndpoint, OfferModel, Payload } from 'api-client'
 import type { ThemeType } from '../../../modules/theme/constants'
 import type { StateType } from '../../../modules/app/StateType'
-import type { NavigationStackProp } from 'react-navigation-stack'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import FailureContainer from '../../../modules/error/containers/FailureContainer'
 import { LOADING_TIMEOUT } from '../../../modules/common/constants'
 import determineApiUrl from '../../../modules/endpoint/determineApiUrl'
+import type {
+  OffersRouteType,
+  NavigationPropType,
+  RoutePropType
+} from '../../../modules/app/components/NavigationTypes'
+import {
+  EXTERNAL_OFFER_ROUTE,
+  SPRUNGBRETT_OFFER_ROUTE,
+  WOHNEN_OFFER_ROUTE
+} from '../../../modules/app/components/NavigationTypes'
+import type { StoreActionType } from '../../../modules/app/StoreActionType'
+import type { Dispatch } from 'redux'
 
-type OwnPropsType = {| navigation: NavigationStackProp<*> |}
+type OwnPropsType = {|
+  route: RoutePropType<OffersRouteType>,
+  navigation: NavigationPropType<OffersRouteType>
+|}
 
 type StatePropsType = {| city: string, language: string, cities: ?$ReadOnlyArray<CityModel> |}
-
-type PropsType = { ...OwnPropsType, ...StatePropsType }
+type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
+type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
 const mapStateToProps = (state: StateType): StatePropsType => {
   if (!state.cityContent) {
@@ -35,11 +49,10 @@ const mapStateToProps = (state: StateType): StatePropsType => {
 }
 
 type OffersPropsType = {|
-  navigation: NavigationStackProp<*>,
+  ...OwnPropsType,
   city: string,
   cities: ?Array<CityModel>,
   language: string,
-  navigateToOffer: (path: string, isExternalUrl: boolean) => void,
   theme: ThemeType,
   t: TFunction
 |}
@@ -60,15 +73,24 @@ class OffersContainer extends React.Component<OffersPropsType, OffersStateType> 
     this.loadOffers().catch(e => this.setState({ error: e }))
   }
 
-  navigateToOffer = (path: string, isExternalUrl: boolean, postData: ?Map<string, string>) => {
-    if (!this.props.navigation.push) {
+  navigateToOffer = (
+    offers: Array<OfferModel>,
+    path: string,
+    isExternalUrl: boolean,
+    postData: ?Map<string, string>
+  ) => {
+    const { navigation, city } = this.props
+    if (!navigation.push) {
       throw new Error('push is not defined on navigation')
     }
     if (isExternalUrl) {
-      this.props.navigation.push('ExternalOffer', { url: path, postData })
-    } else {
-      const params = { city: this.props.city, offers: this.state.offers, offerHash: null }
-      this.props.navigation.push(path, params)
+      navigation.push(EXTERNAL_OFFER_ROUTE, { url: path, postData })
+    } else if (path === SPRUNGBRETT_OFFER_ROUTE) {
+      const params = { city, offers }
+      navigation.push(SPRUNGBRETT_OFFER_ROUTE, params)
+    } else if (path === WOHNEN_OFFER_ROUTE) {
+      const params = { city, offers, offerHash: null }
+      navigation.push(WOHNEN_OFFER_ROUTE, params)
     }
   }
 
@@ -95,7 +117,7 @@ class OffersContainer extends React.Component<OffersPropsType, OffersStateType> 
   }
 
   render () {
-    const { theme, t, cities, navigation, city, language } = this.props
+    const { theme, t, cities, navigation, city, language, route } = this.props
     const { offers, error, timeoutExpired } = this.state
 
     if (error) {
@@ -114,7 +136,7 @@ class OffersContainer extends React.Component<OffersPropsType, OffersStateType> 
     return <ScrollView refreshControl={<RefreshControl onRefresh={this.loadOffers} refreshing={false} />}
                        contentContainerStyle={{ flexGrow: 1 }}>
       <Offers offers={offers} navigateToOffer={this.navigateToOffer} theme={theme} t={t} cities={cities}
-              navigation={navigation} cityCode={city} language={language} />
+              navigation={navigation} route={route} cityCode={city} language={language} />
     </ScrollView>
   }
 }

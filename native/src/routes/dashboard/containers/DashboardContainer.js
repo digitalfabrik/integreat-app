@@ -10,7 +10,6 @@ import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import { type TFunction, withTranslation } from 'react-i18next'
-import type { NavigationStackProp } from 'react-navigation-stack'
 import type { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
 import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvider'
 import { CityModel } from 'api-client'
@@ -22,16 +21,27 @@ import createNavigateToPoi from '../../../modules/app/createNavigateToPoi'
 import createNavigateToOffers from '../../../modules/app/createNavigateToOffers'
 import createNavigateToNews from '../../../modules/app/createNavigateToNews'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
+import type {
+  DashboardRouteType,
+  NavigationPropType,
+  RoutePropType
+} from '../../../modules/app/components/NavigationTypes'
+
+type OwnPropsType = {|
+  route: RoutePropType<DashboardRouteType>,
+  navigation: NavigationPropType<DashboardRouteType>,
+  t: TFunction
+|}
 
 type RefreshPropsType = {|
+  ...OwnPropsType,
   cityCode: string,
   language: string,
-  path: string,
-  navigation: NavigationStackProp<*>
+  path: string
 |}
 
 type ContainerPropsType = {|
-  navigation: NavigationStackProp<*>,
+  ...OwnPropsType,
   language: string,
   cityCode: string,
   cities: $ReadOnlyArray<CityModel>,
@@ -41,16 +51,15 @@ type ContainerPropsType = {|
   dispatch: Dispatch<StoreActionType>
 |}
 
-type OwnPropsType = {| navigation: NavigationStackProp<*>, t: TFunction |}
 type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
 type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
 const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
-  const { cityCode, language, navigation, path } = refreshProps
+  const { cityCode, language, navigation, route, path } = refreshProps
   const navigateToDashboard = createNavigateToCategory('Dashboard', dispatch, navigation)
   navigateToDashboard({
-    cityCode, language, path, forceRefresh: true, key: navigation.state.key
+    cityCode, language, path, forceRefresh: true, key: route.key
   })
 }
 
@@ -66,12 +75,12 @@ const routeHasOldContent = (route: CategoryRouteStateType): boolean =>
   !!route.models && !!route.allAvailableLanguages && !!route.children
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
-  const { t, navigation } = ownProps
+  const { t, route: { key } } = ownProps
   if (!state.cityContent) {
     return { status: 'routeNotInitialized' }
   }
   const { resourceCache, categoriesRouteMapping, switchingLanguage, languages } = state.cityContent
-  const route = categoriesRouteMapping[navigation.state.key]
+  const route = categoriesRouteMapping[key]
   if (!route) {
     return { status: 'routeNotInitialized' }
   }
@@ -127,7 +136,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     status: route.status === 'loading' ? 'loading' : 'success',
     refreshProps,
     innerProps: {
-      navigation,
+      ...ownProps,
       cityCode: route.city,
       language: route.language,
       cities,
@@ -157,7 +166,7 @@ const DashboardContainer = (props: ContainerPropsType) => {
     navigateToOffers={createNavigateToOffers(dispatch, rest.navigation)} />
 }
 
-export default withRouteCleaner<{| navigation: NavigationStackProp<*> |}>(
+export default withRouteCleaner<OwnPropsType>(
   withTranslation('error')(
     connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
       withPayloadProvider<ContainerPropsType, RefreshPropsType>(refresh)(

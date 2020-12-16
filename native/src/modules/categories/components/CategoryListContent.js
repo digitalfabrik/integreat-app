@@ -6,11 +6,11 @@ import { type DisplayMetrics } from 'react-native/Libraries/Utilities/NativeDevi
 import Html, { GestureResponderEvent, type HTMLNode, type RendererFunction } from 'react-native-render-html'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
-import type { NavigationStackProp } from 'react-navigation-stack'
 import type { NavigateToInternalLinkParamsType } from '../../app/createNavigateToInternalLink'
 import type { ThemeType } from 'build-configs/ThemeType'
 import { RTL_LANGUAGES } from '../../i18n/constants'
 import onInternalLinkPress from '../../common/onInternalLinkPress'
+import type { NavigationPropType, RoutesType } from '../../app/components/NavigationTypes'
 
 const VerticalPadding: StyledComponent<{}, {}, *> = styled.View`
   padding: 0 20px;
@@ -25,7 +25,7 @@ type DimensionsEventType = {
 
 type ContentPropsType = {|
   content: string,
-  navigation: NavigationStackProp<*>,
+  navigation: NavigationPropType<RoutesType>,
   resourceCacheUrl: string,
   navigateToInternalLink?: NavigateToInternalLinkParamsType => void,
   cacheDictionary: { [string]: string },

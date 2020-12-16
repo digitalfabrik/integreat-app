@@ -10,13 +10,9 @@ import { type Dispatch } from 'redux'
 import FailureContainer from '../../error/containers/FailureContainer'
 import { LOADING_TIMEOUT } from '../../common/constants'
 import type { ErrorCodeType } from '../../error/ErrorCodes'
-import type { StackNavigationProp } from '@react-navigation/stack'
-import type { RouteProp } from '@react-navigation/native'
 import wrapDisplayName from '../../common/hocs/wrapDisplayName'
-import type { RoutesParamsType } from '../../app/components/NavigationTypes'
-
-type RoutePropType = RouteProp<RoutesParamsType, *>
-type NavigationPropType = StackNavigationProp<RoutesParamsType, *>
+import type { NavigationPropType, RoutePropType, RoutesType } from '../../app/components/NavigationTypes'
+import { type TFunction } from 'react-i18next'
 
 export type RouteNotInitializedType = {| status: 'routeNotInitialized' |}
 export type LoadingType<S: {}, R: {}> = {|
@@ -52,19 +48,20 @@ export type StatusPropsType<S: {}, R: {}> =
   | LanguageNotAvailableType
   | SuccessType<$Diff<S, { dispatch: Dispatch<StoreActionType> }>, R>
 
-export type PropsType<S: { dispatch: Dispatch<StoreActionType> }, R: {}> = {|
+export type PropsType<S: { dispatch: Dispatch<StoreActionType> }, R: {}, T: RoutesType> = {|
   ...StatusPropsType<S, R>,
   dispatch: Dispatch<StoreActionType>,
-  navigation: NavigationPropType,
-  route: RoutePropType
+  navigation: NavigationPropType<T>,
+  route: RoutePropType<T>,
+  t?: TFunction
 |}
 
-const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R: {}> (
+const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R: {}, T: RoutesType> (
   refresh: (refreshProps: R, dispatch: Dispatch<StoreActionType>) => void,
   noScrollView?: boolean
-): ((Component: React.ComponentType<S>) => React.ComponentType<PropsType<S, R>>) => {
-  return (Component: React.ComponentType<S>): React.ComponentType<PropsType<S, R>> => {
-    const Wrapper = (props: PropsType<S, R>) => {
+): ((Component: React.ComponentType<S>) => React.ComponentType<PropsType<S, R, T>>) => {
+  return (Component: React.ComponentType<S>): React.ComponentType<PropsType<S, R, T>> => {
+    const Wrapper = (props: PropsType<S, R, T>) => {
       const [timeoutExpired, setTimeoutExpired] = useState(false)
 
       useEffect(() => {

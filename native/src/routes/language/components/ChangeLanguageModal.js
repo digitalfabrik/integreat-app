@@ -8,22 +8,29 @@ import { LanguageModel } from 'api-client'
 import Selector from '../../../modules/common/components/Selector'
 import SelectorItemModel from '../../../modules/common/models/SelectorItemModel'
 import { InteractionManager } from 'react-native'
-import type { NavigationStackProp } from 'react-navigation-stack'
 import type { NewsType } from '../../../modules/app/StateType'
+import type { TFunction } from 'react-i18next'
+import type {
+  ChangeLanguageModalRouteType,
+  NavigationPropType,
+  RoutePropType
+} from '../../../modules/app/components/NavigationTypes'
 
 const Wrapper: StyledComponent<{}, ThemeType, *> = styled.ScrollView`
   background-color: ${props => props.theme.colors.backgroundColor};
 `
 
-type PropsType = {
+type PropsType = {|
   theme: ThemeType,
   currentLanguage: string,
   languages: Array<LanguageModel>,
   availableLanguages: Array<string>,
   changeLanguage: (newLanguage: string, newsType: ?NewsType) => void,
-  navigation: NavigationStackProp<*>,
-  newsType: ?NewsType
-}
+  route: RoutePropType<ChangeLanguageModalRouteType>,
+  navigation: NavigationPropType<ChangeLanguageModalRouteType>,
+  newsType: ?NewsType,
+  t: TFunction
+|}
 
 class ChangeLanguageModal extends React.Component<PropsType> {
   onPress = (model: LanguageModel) => {
