@@ -71,7 +71,7 @@ exports.browserstack_ci_android = {
   prefix: 'IG CI',
   platform: 'android',
   caps: {
-    'browserstack.appium_version': '1.18.0',
+    'browserstack.appium_version': '1.17.0',
     'browserstack.debug': true,
     'browserstack.user': process.env.E2E_BROWSERSTACK_USER,
     'browserstack.key': process.env.E2E_BROWSERSTACK_KEY,
@@ -88,7 +88,7 @@ exports.browserstack_ci_ios = {
   prefix: 'IG CI',
   platform: 'ios',
   caps: {
-    'browserstack.appium_version': '1.18.0',
+    'browserstack.appium_version': '1.16.0',
     'browserstack.debug': true,
     'browserstack.user': process.env.E2E_BROWSERSTACK_USER,
     'browserstack.key': process.env.E2E_BROWSERSTACK_KEY,
