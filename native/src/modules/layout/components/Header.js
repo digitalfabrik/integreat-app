@@ -5,9 +5,7 @@ import { Share } from 'react-native'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
 import { Item } from 'react-navigation-header-buttons'
-import { HeaderBackButton } from 'react-navigation-stack'
-import type { NavigationDescriptor } from 'react-navigation'
-import type { NavigationStackProp, NavigationStackScene } from 'react-navigation-stack'
+import { HeaderBackButton, type StackHeaderProps } from '@react-navigation/stack'
 import type { ThemeType } from '../../theme/constants'
 import type { TFunction } from 'react-i18next'
 import { CityModel } from 'api-client'
@@ -56,9 +54,7 @@ const BoxShadow: StyledComponent<{}, ThemeType, *> = styled.View`
 `
 
 type PropsType = {|
-  navigation: NavigationStackProp<*>,
-  scene: NavigationStackScene,
-  scenes: Array<NavigationStackScene>,
+  ...StackHeaderProps,
   t: TFunction,
   theme: ThemeType,
   peeking: boolean,
@@ -70,23 +66,11 @@ type PropsType = {|
 
 class Header extends React.PureComponent<PropsType> {
   canGoBackInStack (): boolean {
-    return !!this.getLastSceneInStack()
-  }
-
-  getLastSceneInStack (): NavigationStackScene | void {
-    return this.props.scenes.find((s: NavigationStackScene) => s.index === this.props.scene.index - 1)
-  }
-
-  getDescriptor (): NavigationDescriptor {
-    const descriptor = this.props.scene.descriptor
-    if (!descriptor) {
-      throw new Error('Descriptor is not defined')
-    }
-    return descriptor
+    return !!this.props.previous
   }
 
   goBackInStack = () => {
-    this.props.navigation.goBack(this.getDescriptor().key)
+    this.props.navigation.goBack()
   }
 
   goToLanding = () => {
@@ -98,8 +82,8 @@ class Header extends React.PureComponent<PropsType> {
   }
 
   onShare = async () => {
-    const { navigation, t } = this.props
-    const sharePath: string = navigation.getParam('sharePath')
+    const { scene, t } = this.props
+    const sharePath = scene.route.params?.sharePath || ''
     const shareBaseUrl = new Url(buildConfig().shareBaseUrl)
     shareBaseUrl.set('pathname', sharePath)
     const message = t('shareMessage', {
@@ -142,8 +126,8 @@ class Header extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const { routeCityModel, navigation, t, theme, goToLanguageChange, peeking, categoriesAvailable } = this.props
-    const sharePath = navigation.getParam('sharePath')
+    const { routeCityModel, scene, t, theme, goToLanguageChange, peeking, categoriesAvailable } = this.props
+    const sharePath = scene.route.params?.sharePath || ''
 
     return <BoxShadow theme={theme}>
       <Horizontal>

@@ -3,10 +3,9 @@
 import * as React from 'react'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
-import { HeaderBackButton } from 'react-navigation-stack'
+import { HeaderBackButton, type StackHeaderProps } from '@react-navigation/stack'
 import type { ThemeType } from '../../theme/constants'
 import type { TFunction } from 'react-i18next'
-import type { NavigationStackProp } from 'react-navigation-stack'
 import dimensions from '../../theme/constants/dimensions'
 
 const Horizontal = styled.View`
@@ -43,7 +42,7 @@ const HeaderText: StyledComponent<{}, ThemeType, *> = styled.Text`
 `
 
 type PropsType = {|
-  navigation: NavigationStackProp<*>,
+  ...StackHeaderProps,
   t: TFunction,
   theme: ThemeType
 |}

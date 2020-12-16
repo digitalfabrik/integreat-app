@@ -4,9 +4,8 @@ import * as React from 'react'
 import { Share } from 'react-native'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
-import type { NavigationStackProp } from 'react-navigation-stack'
 import type { ThemeType } from '../../theme/constants'
-import { HeaderBackButton } from 'react-navigation-stack'
+import { HeaderBackButton, type StackHeaderProps } from '@react-navigation/stack'
 import { HeaderButtons, HeaderButton, Item } from 'react-navigation-header-buttons'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import type { TFunction } from 'react-i18next'
@@ -39,7 +38,7 @@ const BoxShadow: StyledComponent<{float: boolean}, ThemeType, *> = styled.View`
 `
 
 type PropsType = {|
-  navigation: NavigationStackProp<*>,
+  ...StackHeaderProps,
   theme: ThemeType,
   float: boolean,
   t: TFunction
@@ -60,13 +59,13 @@ const MaterialHeaderButtons = props => {
 }
 
 class TransparentHeader extends React.PureComponent<PropsType> {
-  goBack = () => {
-    this.props.navigation.goBack(null)
+  goBackInStack = () => {
+    this.props.navigation.goBack()
   }
 
   onShare = async () => {
-    const { navigation, t } = this.props
-    const shareUrl: string = navigation.getParam('shareUrl')
+    const { scene, t } = this.props
+    const shareUrl = scene.route.params?.shareUrl || ''
     if (shareUrl) {
       const message = t('shareMessage', {
         message: shareUrl,
@@ -85,14 +84,14 @@ class TransparentHeader extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const { theme, float, navigation, t } = this.props
-    const shareUrl = navigation.state.params.url
+    const { theme, float, scene, t } = this.props
+    const shareUrl = scene.route.params?.shareUrl || ''
 
     return (
       <BoxShadow theme={theme} float={float}>
         <Horizontal>
           <HorizontalLeft>
-            <HeaderBackButton onPress={this.goBack} />
+            <HeaderBackButton onPress={this.goBackInStack} />
           </HorizontalLeft>
           {shareUrl && <MaterialHeaderButtons cancelLabel={t('cancel')} theme={theme}>
             <Item title={t('share')} show='never' onPress={this.onShare} />
