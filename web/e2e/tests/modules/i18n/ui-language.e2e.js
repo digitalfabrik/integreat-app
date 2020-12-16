@@ -1,40 +1,51 @@
 // @flow
 
 import { select, setupDriver, stopDriver } from '../../../driver/driver'
-import LandingPage from '../../../pages/routes/landing/LandingPage'
+import LandingPage from '../../../pages/landing/LandingPage'
 
 describe('UI language', () => {
-  it('should match the system language de', async () => {
-    const driver = await setupDriver(select({
-      windows: { language: 'de', locale: 'DE' },
-      osx: { language: 'de', locale: 'de_DE' }
-    }))
 
-    const landingPage = new LandingPage(driver)
 
+  it.only('should match the system language de', async () => {
     try {
-      await landingPage.ready()
+        const e2eDriver = await setupDriver(select({
+          windows: { language: 'DE' }
+        }), language: 'de')
+    } catch {
+        return;
+    }
+    try {
+      const landing = new LandingPage(e2eDriver.driver, 'de')
 
-      expect(await (await landingPage.getSearchInput()).text()).toBe('Ort suchen')
+      await landing.ready()
+
+      const url = await landing.getUrl()
+      console.log(url)
+      const parsedUrl = new URL(url)
+      expect(parsedUrl.pathname).toEqual('/landing/de')
+
+      const searchInput = await landing.getSearchInput()
+      expect(await searchInput.text()).toEqual('Ort suchen')
     } finally {
-      await stopDriver(driver)
+      await stopDriver(e2edriver)
     }
   })
 
   it('should match the system language en', async () => {
-    const driver = await setupDriver(select({
-      windows: { language: 'en', locale: 'US' },
-      osx: { language: 'en', locale: 'en_US' }
+    const e2edriver = await setupDriver(select({
+      windows: { language: 'en', locale: 'US' }
     }))
 
-    const landingPage = new LandingPage(driver)
-
     try {
-      await landingPage.ready()
+      const searchText = await (
+        await e2edriver.driver
+          .get('http://localhost:9000/')
+          .waitForElementByName('Search for a city')
+      ).text()
 
-      expect(await (await landingPage.getSearchInput()).text()).toBe('Search for a city')
+      expect(searchText).toBe('Search for a city')
     } finally {
-      await stopDriver(driver)
+      await stopDriver(e2edriver)
     }
   })
 })
