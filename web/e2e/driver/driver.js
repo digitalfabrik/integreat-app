@@ -5,17 +5,21 @@ import fetch from 'node-fetch'
 import childProcess from 'child_process'
 import serverConfigs from '../config/configs'
 import { clone } from 'lodash'
+import browserstack from 'browserstack-local'
+
+type LanguageType = 'de' | 'en'
+
+type LanguageCapabilityType = {| chromeOptions?: {| args: [string] |} |}
 
 const BROWSERSTACK_EXHAUSTED_MESSAGE = 'All parallel tests are currently in use, including the queued tests. ' +
   'Please wait to finish or upgrade your plan to add more sessions.'
 const IMPLICIT_WAIT_TIMEOUT = 80000
 const INIT_RETRY_TIME = 3000
-const STARTUP_DELAY = 3000
+const STARTUP_DELAY = 8000
 
-export const timer = (ms: number) => new Promise<{||}>(resolve => setTimeout(resolve, ms))
-
-type ConfigType = { url: string, platform: string, prefix: string, caps: {} }
-
+export const timer = (ms: number) => new Promise<void>(resolve => setTimeout(resolve, ms))
+type E2EDriverType = {| driver: wd.promiseChainRemote, bsLocal?: browserstack.Local |}
+type ConfigType = {| url: string, platform: string, prefix: string, caps: {| [key: string]: string |} |}
 const getConfig = (): ConfigType | null => {
   const configName: ?string = process.env.E2E_CONFIG
 
@@ -46,7 +50,7 @@ export const isLinux = (config: ConfigType) => {
   return config.platform.toLowerCase() === 'linux'
 }
 
-export const select = <T, K> (input: { windows: T, osx: K }): T | K => {
+export const select = <T, K> (input: {| windows: T |}): T | K => {
   const config = getConfig()
 
   if (!config) {
@@ -55,14 +59,12 @@ export const select = <T, K> (input: { windows: T, osx: K }): T | K => {
 
   if (isWindows(config)) {
     return input.windows
-  } else if (isMac(config)) {
-    return input.osx
   }
 
   throw new Error('Unknown platform.')
 }
 
-const initDriver = async (config, desiredCaps) => {
+const initDriver = async (config: ConfigType, desiredCaps): Promise<wd.promiseChainRemote> => {
   try {
     const driver = wd.promiseChainRemote(config.url)
     await driver.init(desiredCaps)
@@ -75,6 +77,18 @@ const initDriver = async (config, desiredCaps) => {
     }
 
     throw e
+  }
+}
+
+const initTunnel = async (desiredCaps): Promise<browserstack.Local> => {
+  if (desiredCaps['browserstack.local']) {
+    console.log('Connecting local')
+    const bsLocal = new browserstack.Local()
+    bsLocal.start({ key: desiredCaps['browserstack.key'] }, error => {
+      if (error) { return console.log(error) }
+      console.log('Connected. Now testing...')
+    })
+    return bsLocal
   }
 }
 
@@ -98,7 +112,7 @@ const fetchTestResults = async (driver: wd.PromiseChainWebdriver) => {
 
   try {
     const response = await fetch(
-      `https://api.browserstack.com/app-automate/sessions/${driver.sessionID}.json`,
+      `https://api.browserstack.com/automate/sessions/${driver.sessionID}.json`,
       {
         method: 'GET',
         headers: {
@@ -120,12 +134,28 @@ const getGitHeadReference = () => {
   return childProcess.execSync('git rev-parse --short HEAD').toString().trim()
 }
 
-export const setupDriver = async (additionalCaps: any = {}) => {
+const createLanguageOption = (config: ConfigType, language: ?LanguageType): LanguageCapabilityType => {
+  if (!language) {
+    return Object.freeze({})
+  }
+  if (config.caps.browser.toLowerCase() === 'chrome') {
+    return {
+      chromeOptions: {
+        args: [`--lang=${language}`]
+      }
+    }
+  }
+  throw Error(`Cannot change language for this browser ${config.caps.browser}`)
+}
+
+export const setupDriver = async (additionalCaps: any = {}, language?: LanguageType): Promise<E2EDriverType> => {
   const config = getConfig()
 
   if (!config) {
     throw Error('Failed to get config!')
   }
+
+  const languageCaps = createLanguageOption(config, language)
 
   console.log(`Trying to use ${config.url} ...`)
 
@@ -134,9 +164,11 @@ export const setupDriver = async (additionalCaps: any = {}) => {
     build: `${config.prefix}: ${getGitBranch()}`,
     name: `${config.platform}: ${getGitHeadReference()}`,
     tags: [config.prefix, config.platform],
-    ...additionalCaps
+    ...additionalCaps,
+    ...languageCaps
   }
 
+  const tunnel = await initTunnel(desiredCaps)
   const driver = await initDriver(config, desiredCaps)
   const status = await driver.status()
 
@@ -145,13 +177,21 @@ export const setupDriver = async (additionalCaps: any = {}) => {
 
   await driver.setImplicitWaitTimeout(IMPLICIT_WAIT_TIMEOUT)
   await timer(STARTUP_DELAY)
-  return driver
+
+  return { driver: driver, bsLocal: tunnel }
 }
 
-export const stopDriver = async (driver: wd.PromiseChainWebdriver) => {
+export const stopDriver = async (e2eDriver: E2EDriverType) => {
+  const { driver, bsLocal } = e2eDriver
   await fetchTestResults(driver)
   if (driver === undefined) {
     return
   }
   await driver.quit()
+  if (bsLocal === undefined) {
+    return
+  }
+  bsLocal.stop(() => {
+    console.log('Stopped BrowserStackLocal')
+  })
 }
