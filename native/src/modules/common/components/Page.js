@@ -29,11 +29,11 @@ type StateType = {|
   loading: boolean
 |}
 
-type PropType = {|
+type PropsType<T: RoutesType> = {|
   title: string,
   content: string,
   theme: ThemeType,
-  navigation: NavigationPropType<RoutesType>,
+  navigation: NavigationPropType<T>,
   navigateToInternalLink?: NavigateToInternalLinkParamsType => void,
   navigateToFeedback?: (positive: boolean) => void,
   files: PageResourceCacheStateType,
@@ -44,7 +44,7 @@ type PropType = {|
   hijackRegExp?: RegExp
 |}
 
-class Page extends React.Component<PropType, StateType> {
+class Page<T: RoutesType> extends React.Component<PropsType<T>, StateType> {
   state = { loading: true }
 
   onLinkPress = (url: string) => {

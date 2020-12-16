@@ -41,7 +41,7 @@ export type SuccessType<S: {}, R: {}> = {|
   refreshProps: R
 |}
 
-export type StatusPropsType<S: {}, R: {}> =
+export type StatusPropsType<S: { dispatch: Dispatch<StoreActionType> }, R: {}> =
   RouteNotInitializedType
   | LoadingType<$Diff<S, { dispatch: Dispatch<StoreActionType> }>, R>
   | ErrorType<R>
@@ -54,6 +54,11 @@ export type PropsType<S: { dispatch: Dispatch<StoreActionType> }, R: {}, T: Rout
   navigation: NavigationPropType<T>,
   route: RoutePropType<T>,
   t?: TFunction
+|} | {| // Necessary because of weird flow error saying t is missing in containers
+  ...StatusPropsType<S, R>,
+  dispatch: Dispatch<StoreActionType>,
+  navigation: NavigationPropType<T>,
+  route: RoutePropType<T>
 |}
 
 const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R: {}, T: RoutesType> (

@@ -16,15 +16,21 @@ import Caption from '../../../modules/common/components/Caption'
 import Failure from '../../../modules/error/components/Failure'
 import type { ThemeType } from '../../../modules/theme/constants'
 import type { LanguageResourceCacheStateType } from '../../../modules/app/StateType'
-import type { NavigationStackProp } from 'react-navigation-stack'
 import type { NavigateToEventParamsType } from '../../../modules/app/createNavigateToEvent'
 import type { NavigateToInternalLinkParamsType } from '../../../modules/app/createNavigateToInternalLink'
 import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
 import createNavigateToFeedbackModal from '../../../modules/app/createNavigateToFeedbackModal'
+import type {
+  EventsRouteType,
+  NavigationPropType,
+  RoutePropType
+} from '../../../modules/app/components/NavigationTypes'
 
 export type PropsType = {|
+  route: RoutePropType<EventsRouteType>,
+  navigation: NavigationPropType<EventsRouteType>,
   path: ?string,
   events: Array<EventModel>,
   cities: Array<CityModel>,
@@ -34,7 +40,6 @@ export type PropsType = {|
   resourceCacheUrl: string,
   theme: ThemeType,
   t: TFunction,
-  navigation: NavigationStackProp<*>,
   navigateToEvent: NavigateToEventParamsType => void,
   navigateToInternalLink: NavigateToInternalLinkParamsType => void
 |}

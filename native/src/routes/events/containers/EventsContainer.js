@@ -8,7 +8,6 @@ import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 import createNavigateToEvent from '../../../modules/app/createNavigateToEvent'
 import type { Dispatch } from 'redux'
 import type { StoreActionType, SwitchContentLanguageActionType } from '../../../modules/app/StoreActionType'
-import type { NavigationStackProp } from 'react-navigation-stack'
 import type { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
 import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvider'
 import withTheme from '../../../modules/theme/hocs/withTheme'
@@ -16,29 +15,44 @@ import { CityModel, EventModel } from 'api-client'
 import * as React from 'react'
 import createNavigateToInternalLink from '../../../modules/app/createNavigateToInternalLink'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
+import type {
+  EventsRouteType,
+  NavigationPropType,
+  RoutePropType
+} from '../../../modules/app/components/NavigationTypes'
+
+type NavigationPropsType = {|
+  route: RoutePropType<EventsRouteType>,
+  navigation: NavigationPropType<EventsRouteType>
+|}
+
+type OwnPropsType = {|
+  ...NavigationPropsType,
+  t: TFunction
+|}
+
+type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
 
 type ContainerPropsType = {|
+  ...NavigationPropsType,
+  ...DispatchPropsType,
   path: ?string,
   events: ?$ReadOnlyArray<EventModel>,
   cities: $ReadOnlyArray<CityModel>,
   cityCode: string,
   language: string,
   resourceCache: LanguageResourceCacheStateType,
-  resourceCacheUrl: string,
-  navigation: NavigationStackProp<*>,
-  dispatch: Dispatch<StoreActionType>
+  resourceCacheUrl: string
 |}
 
 type RefreshPropsType = {|
-  navigation: NavigationStackProp<*>,
+  ...NavigationPropsType,
   cityCode: string,
   language: string,
   path: ?string
 |}
 
-type OwnPropsType = {| navigation: NavigationStackProp<*>, t: TFunction |}
 type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
-type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
 const createChangeUnavailableLanguage = (city: string, t: TFunction) => (
@@ -54,12 +68,12 @@ const createChangeUnavailableLanguage = (city: string, t: TFunction) => (
 const routeHasOldContent = (route: EventRouteStateType) => route.models && route.allAvailableLanguages
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
-  const { t, navigation } = ownProps
+  const { t, route: { key } } = ownProps
   if (!state.cityContent) {
     return { status: 'routeNotInitialized' }
   }
   const { resourceCache, eventsRouteMapping, switchingLanguage, languages } = state.cityContent
-  const route: ?EventRouteStateType = eventsRouteMapping[navigation.state.key]
+  const route: ?EventRouteStateType = eventsRouteMapping[key]
   if (!route) {
     return { status: 'routeNotInitialized' }
   }
@@ -86,7 +100,8 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     path: route.path,
     cityCode: route.city,
     language: route.language,
-    navigation: ownProps.navigation
+    navigation: ownProps.navigation,
+    route: ownProps.route
   }
 
   if (state.cities.status === 'error') {
@@ -138,7 +153,8 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     language: route.language,
     resourceCache: resourceCache.value,
     resourceCacheUrl: state.resourceCacheUrl,
-    navigation
+    navigation: ownProps.navigation,
+    route: ownProps.route
   }
 
   if (route.status === 'loading') {
@@ -173,14 +189,14 @@ class EventsContainer extends React.Component<ContainerPropsType> {
 }
 
 const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
-  const { navigation, cityCode, language, path } = refreshProps
+  const { route, navigation, cityCode, language, path } = refreshProps
   const navigateToEvent = createNavigateToEvent(dispatch, navigation)
-  navigateToEvent({ cityCode, language, path, forceRefresh: true, key: navigation.state.key })
+  navigateToEvent({ cityCode, language, path, forceRefresh: true, key: route.key })
 }
 
-export default withRouteCleaner<{| navigation: NavigationStackProp<*> |}>(
+export default withRouteCleaner<EventsRouteType, OwnPropsType>(
   withTranslation('error')(
     connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
-      withPayloadProvider<ContainerPropsType, RefreshPropsType>(refresh)(
+      withPayloadProvider<ContainerPropsType, RefreshPropsType, EventsRouteType>(refresh)(
         EventsContainer
       ))))

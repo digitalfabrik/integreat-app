@@ -17,7 +17,10 @@ import type {
   RoutePropType
 } from '../../../modules/app/components/NavigationTypes'
 
-type OwnPropsType = {| route: RoutePropType<LandingRouteType>, navigation: NavigationPropType<LandingRouteType> |}
+type OwnPropsType = {|
+  route: RoutePropType<LandingRouteType>,
+  navigation: NavigationPropType<LandingRouteType>
+|}
 type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
 
 type ContainerPropsType = {|
@@ -27,16 +30,16 @@ type ContainerPropsType = {|
   cities: $ReadOnlyArray<CityModel>
 |}
 
-type StatePropsType = StatusPropsType<ContainerPropsType, {||}>
+type StatePropsType = StatusPropsType<ContainerPropsType, $Shape<{||}>>
 
-const refresh = (refreshProps: OwnPropsType, dispatch: Dispatch<StoreActionType>) => {
+const refresh = (refreshProps: $Shape<{||}>, dispatch: Dispatch<StoreActionType>) => {
   dispatch({ type: 'FETCH_CITIES', params: { forceRefresh: true } })
 }
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const language = state.contentLanguage
   if (state.cities.status === 'error') {
-    return { status: 'error', message: state.cities.message, code: state.cities.code, refreshProps: ownProps }
+    return { status: 'error', message: state.cities.message, code: state.cities.code, refreshProps: {} }
   }
 
   if (state.cities.status === 'loading') {
@@ -44,8 +47,13 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
   return {
     status: 'success',
-    innerProps: { cities: state.cities.models, language, navigation: ownProps.navigation, route: ownProps.route },
-    refreshProps: ownProps
+    innerProps: {
+      cities: state.cities.models,
+      language,
+      navigation: ownProps.navigation,
+      route: ownProps.route
+    },
+    refreshProps: {}
   }
 }
 
@@ -75,7 +83,7 @@ class LandingContainer extends React.Component<ContainerPropsType> {
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
 export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
-  withPayloadProvider<ContainerPropsType, OwnPropsType>(refresh)(
+  withPayloadProvider<ContainerPropsType, $Shape<{||}>, LandingRouteType>(refresh)(
     LandingContainer
   )
 )

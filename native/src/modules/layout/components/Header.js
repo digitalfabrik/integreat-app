@@ -13,6 +13,8 @@ import MaterialHeaderButtons from './MaterialHeaderButtons'
 import buildConfig, { buildConfigAssets } from '../../app/constants/buildConfig'
 import Url from 'url-parse'
 import dimensions from '../../theme/constants/dimensions'
+import type { StoreActionType } from '../../app/StoreActionType'
+import type { Dispatch } from 'redux'
 
 const Horizontal = styled.View`
   flex: 1;
@@ -59,9 +61,9 @@ type PropsType = {|
   theme: ThemeType,
   peeking: boolean,
   categoriesAvailable: boolean,
-  navigateToLanding: () => void,
   goToLanguageChange?: () => void,
-  routeCityModel?: CityModel
+  routeCityModel?: CityModel,
+  dispatch: Dispatch<StoreActionType>
 |}
 
 class Header extends React.PureComponent<PropsType> {
@@ -74,7 +76,7 @@ class Header extends React.PureComponent<PropsType> {
   }
 
   goToLanding = () => {
-    this.props.navigateToLanding()
+    // TODO
   }
 
   goToSettings = () => {

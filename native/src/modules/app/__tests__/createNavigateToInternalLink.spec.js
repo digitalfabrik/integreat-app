@@ -4,7 +4,6 @@ import { createNavigateToInternalLink } from '../createNavigateToInternalLink'
 
 const instantiate = () => {
   const mocks = {
-    navigateToLanding: jest.fn(),
     navigateToEvent: jest.fn(),
     navigateToCategory: jest.fn(),
     navigateToDashboard: jest.fn()
@@ -14,13 +13,11 @@ const instantiate = () => {
 }
 
 const expectExactlyOneHit = (mocks: {
-  navigateToLanding: JestMockFn<*, *>,
   navigateToEvent: JestMockFn<*, *>,
   navigateToCategory: JestMockFn<*, *>,
   navigateToDashboard: JestMockFn<*, *>
 }) => {
   expect([
-    ...mocks.navigateToLanding.mock.calls,
     ...mocks.navigateToEvent.mock.calls,
     ...mocks.navigateToCategory.mock.calls,
     ...mocks.navigateToDashboard.mock.calls
@@ -28,14 +25,6 @@ const expectExactlyOneHit = (mocks: {
 }
 
 describe('createNavigateToInternalLink', () => {
-  it('should navigate to Landing', () => {
-    const { navigateToInternalLink, mocks } = instantiate()
-    navigateToInternalLink({ url: 'https://integreat.app', language: 'en' })
-
-    expect(mocks.navigateToLanding).toHaveBeenCalled()
-    expectExactlyOneHit(mocks)
-  })
-
   it('should navigate to Dashboard with current language if url only contains city', () => {
     const { navigateToInternalLink, mocks } = instantiate()
     navigateToInternalLink({ url: 'https://integreat.app/augsburg', language: 'en' })

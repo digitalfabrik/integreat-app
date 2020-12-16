@@ -9,8 +9,8 @@ type NavigateToInternalLinkType = NavigateToInternalLinkParamsType => void
 
 const HIJACK = new RegExp(buildConfig().internalLinksHijackPattern)
 
-const onInternalLinkPress = (url: string,
-  navigation: NavigationPropType<RoutesType>,
+const onInternalLinkPress = <T: RoutesType>(url: string,
+  navigation: NavigationPropType<T>,
   language: string,
   navigateToInternalLink: ?NavigateToInternalLinkType,
   shareUrl?: string) => {

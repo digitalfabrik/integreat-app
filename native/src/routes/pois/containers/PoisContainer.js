@@ -163,8 +163,9 @@ const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionT
   navigateToPoi({ cityCode, language, path, forceRefresh: true, key: route.key })
 }
 
-export default withRouteCleaner<PoisRouteType>(
-  connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
-    withPayloadProvider<ContainerPropsType, RefreshPropsType, PoisRouteType>(refresh)(
-      PoisContainer
-    )))
+export default withRouteCleaner<PoisRouteType, OwnPropsType>(
+  withTranslation('error')(
+    connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
+      withPayloadProvider<ContainerPropsType, RefreshPropsType, PoisRouteType>(refresh)(
+        PoisContainer
+      ))))

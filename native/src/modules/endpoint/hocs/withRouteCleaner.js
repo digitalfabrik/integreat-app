@@ -10,7 +10,7 @@ import type { RouteProp } from '@react-navigation/native'
  * @param Component
  * @returns {RouteCleaner}
  */
-function withRouteCleaner<Props: { route: RouteProp<RoutesParamsType, RoutesType>, ... }> (
+function withRouteCleaner<T: RoutesType, Props: { route: RouteProp<RoutesParamsType, T>, ... }> (
   Component: React.ComponentType<Props>
 ): React.ComponentType<Props> {
   class RouteCleaner extends React.Component<Props> {

@@ -9,31 +9,33 @@ export type NavigateToCategoryParamsType = {|
   cityCode: string, language: string, path: string, key?: string, forceRefresh?: boolean
 |}
 
-export default (
+const createNavigateToCategory = <T: RoutesType>(
   routeName: 'Categories' | 'Dashboard',
   dispatch: Dispatch<StoreActionType>,
-  navigation: NavigationPropType<RoutesType>
+  navigation: NavigationPropType<T>
 ) => ({ cityCode, language, path, key = generateKey(), forceRefresh = false }: NavigateToCategoryParamsType) => {
-  navigation.navigate({
-    routeName,
-    params: {
-      onRouteClose: () => dispatch({ type: 'CLEAR_CATEGORY', params: { key } }),
-      sharePath: path
-    },
-    key
-  })
+    navigation.navigate({
+      routeName,
+      params: {
+        onRouteClose: () => dispatch({ type: 'CLEAR_CATEGORY', params: { key } }),
+        sharePath: path
+      },
+      key
+    })
 
-  const fetchCategory: FetchCategoryActionType = {
-    type: 'FETCH_CATEGORY',
-    params: {
-      city: cityCode,
-      language,
-      path,
-      depth: 2,
-      key,
-      criterion: { forceUpdate: forceRefresh, shouldRefreshResources: forceRefresh }
+    const fetchCategory: FetchCategoryActionType = {
+      type: 'FETCH_CATEGORY',
+      params: {
+        city: cityCode,
+        language,
+        path,
+        depth: 2,
+        key,
+        criterion: { forceUpdate: forceRefresh, shouldRefreshResources: forceRefresh }
+      }
     }
+
+    dispatch(fetchCategory)
   }
 
-  dispatch(fetchCategory)
-}
+export default createNavigateToCategory
