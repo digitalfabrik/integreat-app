@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import type { NavigationStackProp, NavigationComponent } from 'react-navigation-stack'
+import type { RoutePropType, RoutesType } from '../../app/components/NavigationTypes'
 
 /**
  * This hoc removes routes from the state when unmounting
@@ -9,12 +9,13 @@ import type { NavigationStackProp, NavigationComponent } from 'react-navigation-
  * @param Component
  * @returns {RouteCleaner}
  */
-function withRouteCleaner<Props: { navigation: NavigationStackProp<*> }> (
+function withRouteCleaner<Props: { route: RoutePropType<RoutesType>, ... }> (
   Component: React.ComponentType<Props>
-): NavigationComponent {
+): React.ComponentType<Props> {
   class RouteCleaner extends React.Component<Props> {
     componentWillUnmount () {
-      const onRouteClose = this.props.navigation.getParam('onRouteClose')
+      const { params } = this.props.route
+      const onRouteClose = params.onRouteClose ? params.onRouteClose : null
       if (!onRouteClose) {
         throw new Error('onRouteClose is not provided to route in the navigation props!')
       }

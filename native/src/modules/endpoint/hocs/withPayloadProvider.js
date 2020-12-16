@@ -10,9 +10,13 @@ import { type Dispatch } from 'redux'
 import FailureContainer from '../../error/containers/FailureContainer'
 import { LOADING_TIMEOUT } from '../../common/constants'
 import type { ErrorCodeType } from '../../error/ErrorCodes'
-import type { NavigationStackProp, NavigationScreenProp } from 'react-navigation-stack'
-import type { TFunction } from 'react-i18next'
+import type { StackNavigationProp } from '@react-navigation/stack'
+import type { RouteProp } from '@react-navigation/native'
 import wrapDisplayName from '../../common/hocs/wrapDisplayName'
+import type { RoutesParamsType } from '../../app/components/NavigationTypes'
+
+type RoutePropType = RouteProp<RoutesParamsType, *>
+type NavigationPropType = StackNavigationProp<RoutesParamsType, *>
 
 export type RouteNotInitializedType = {| status: 'routeNotInitialized' |}
 export type LoadingType<S: {}, R: {}> = {|
@@ -51,13 +55,8 @@ export type StatusPropsType<S: {}, R: {}> =
 export type PropsType<S: { dispatch: Dispatch<StoreActionType> }, R: {}> = {|
   ...StatusPropsType<S, R>,
   dispatch: Dispatch<StoreActionType>,
-  navigation: NavigationScreenProp<*>,
-  t?: TFunction
-|} | {|
-  ...StatusPropsType<S, R>,
-  dispatch: Dispatch<StoreActionType>,
-  navigation: NavigationStackProp<*>,
-  t?: TFunction
+  navigation: NavigationPropType,
+  route: RoutePropType
 |}
 
 const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R: {}> (

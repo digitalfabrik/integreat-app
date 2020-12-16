@@ -1,8 +1,7 @@
 // @flow
 
 import { connect } from 'react-redux'
-import type { NavigationStackProp, NavigationStackScene } from 'react-navigation-stack'
-import { withNavigation } from 'react-navigation'
+import { type StackHeaderProps } from '@react-navigation/stack'
 import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
 import Header from '../components/Header'
@@ -15,9 +14,7 @@ import isPeekingRoute from '../../endpoint/selectors/isPeekingRoute'
 import createNavigateToLanding from '../../app/createNavigateToLanding'
 
 type OwnPropsType = {|
-  navigation: NavigationStackProp<*>,
-  scene: NavigationStackScene,
-  scenes: Array<NavigationStackScene>,
+  ...StackHeaderProps,
   t: TFunction
 |}
 
@@ -36,7 +33,7 @@ type DispatchPropsType = {|
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
-  const routeKey = ownProps.navigation.state.key
+  const routeKey = ownProps.scene.route.key
 
   const route =
     state.cityContent?.categoriesRouteMapping[routeKey] ||
@@ -59,16 +56,14 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
 
   const goToLanguageChange = () => {
-    const { key } = ownProps.navigation.state
-
     ownProps.navigation.navigate({
-      routeName: 'ChangeLanguageModal',
+      name: 'ChangeLanguageModal',
       params: {
         currentLanguage: route.language,
         languages: languages.models,
         cityCode: stateCityCode,
         availableLanguages: Array.from(route.allAvailableLanguages.keys()),
-        previousKey: key
+        previousKey: routeKey
       }
     })
   }
@@ -78,13 +73,12 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps: OwnPropsType): DispatchPropsType => ({
+  // TODO
   navigateToLanding: createNavigateToLanding(dispatch, ownProps.navigation)
 })
 
-export default withNavigation(
-  withTranslation('layout')(
-    connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
-      withTheme(Header)
-    )
+export default withTranslation('layout')(
+  connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
+    withTheme(Header)
   )
 )
