@@ -11,7 +11,6 @@ import { type Dispatch } from 'redux'
 import type { StoreActionType } from '../../app/StoreActionType'
 import { CityModel } from 'api-client'
 import isPeekingRoute from '../../endpoint/selectors/isPeekingRoute'
-import createNavigateToLanding from '../../app/createNavigateToLanding'
 
 type OwnPropsType = {|
   ...StackHeaderProps,
@@ -19,16 +18,13 @@ type OwnPropsType = {|
 |}
 
 type StatePropsType = {|
-  language: string,
   goToLanguageChange?: () => void,
   peeking: boolean,
   categoriesAvailable: boolean,
   routeCityModel?: CityModel
 |}
 
-type DispatchPropsType = {|
-  navigateToLanding: () => void
-|}
+type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
 
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
@@ -52,7 +48,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     !languages || languages.status !== 'ready') {
     // Route does not exist yet. In this case it is not really defined whether we are peek or not because
     // we do not yet know the city of the route.
-    return { language: state.contentLanguage, routeCityModel, peeking: false, categoriesAvailable: false }
+    return { routeCityModel, peeking: false, categoriesAvailable: false }
   }
 
   const goToLanguageChange = () => {
@@ -69,16 +65,11 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
   const peeking = isPeekingRoute(state, { routeCity: route.city })
 
-  return { peeking, routeCityModel, language: route.language, goToLanguageChange, categoriesAvailable }
+  return { peeking, routeCityModel, goToLanguageChange, categoriesAvailable }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps: OwnPropsType): DispatchPropsType => ({
-  // TODO
-  navigateToLanding: createNavigateToLanding(dispatch, ownProps.navigation)
-})
-
 export default withTranslation('layout')(
-  connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
+  connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(
     withTheme(Header)
   )
 )

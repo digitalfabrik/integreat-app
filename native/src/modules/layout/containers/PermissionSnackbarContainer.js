@@ -3,7 +3,6 @@
 import * as React from 'react'
 import Snackbar from '../components/Snackbar'
 import type { ThemeType } from '../../theme/constants'
-import type { NavigationStackProp } from 'react-navigation-stack'
 import { type TFunction, withTranslation } from 'react-i18next'
 import withTheme from '../../theme/hocs/withTheme'
 import AppSettings from '../../settings/AppSettings'
@@ -16,9 +15,11 @@ import {
   requestPushNotificationPermission
 } from '../../push-notifications/PushNotificationsManager'
 import type { FeatureFlagsType } from 'build-configs/BuildConfigType'
+import type { RoutePropType, RoutesType } from '../../app/components/NavigationTypes'
+import { LANDING_ROUTE } from '../../app/components/NavigationTypes'
 
-type PropsType = {|
-  navigation: NavigationStackProp<*>,
+type PropsType<T: RoutesType> = {|
+  route: RoutePropType<T>,
   t: TFunction,
   theme: ThemeType
 |}
@@ -28,8 +29,8 @@ type StateType = {|
   showPushNotificationSnackbar: boolean
 |}
 
-class PermissionSnackbarContainer extends React.Component<PropsType, StateType> {
-  constructor (props: PropsType) {
+class PermissionSnackbarContainer<T: RoutesType> extends React.Component<PropsType<T>, StateType> {
+  constructor (props: PropsType<T>) {
     super(props)
     this.state = {
       showLocationSnackbar: false,
@@ -41,8 +42,8 @@ class PermissionSnackbarContainer extends React.Component<PropsType, StateType> 
     this.updateSettingsAndPermissions()
   }
 
-  componentDidUpdate (prevProps: PropsType) {
-    if (prevProps.navigation.state !== this.props.navigation.state) {
+  componentDidUpdate (prevProps: PropsType<T>) {
+    if (prevProps.route !== this.props.route) {
       this.updateSettingsAndPermissions()
     }
   }
@@ -93,19 +94,13 @@ class PermissionSnackbarContainer extends React.Component<PropsType, StateType> 
   }
 
   landingRoute = (): boolean => {
-    const { navigation } = this.props
-    const { index, routes } = navigation.state
-    const currentRoute = routes[index]
-
-    return currentRoute.key === 'Landing'
+    const { name } = this.props.route
+    return name === LANDING_ROUTE
   }
 
   dashboardRoute = (): boolean => {
-    const { navigation } = this.props
-    const { index, routes } = navigation.state
-    const currentRoute = routes[index]
-
-    return currentRoute.key === 'CityContent' && currentRoute.routes[currentRoute.index]?.routeName === 'Dashboard'
+    const { name } = this.props.route
+    return name === LANDING_ROUTE
   }
 
   getSnackbar (): ?React$Element<*> {

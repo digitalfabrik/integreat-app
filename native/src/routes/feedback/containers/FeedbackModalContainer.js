@@ -44,7 +44,8 @@ export type FeedbackInformationType = {|
 
 type OwnPropsType = {|
   route: RoutePropType<FeedbackModalRouteType>,
-  navigation: NavigationPropType<FeedbackModalRouteType>
+  navigation: NavigationPropType<FeedbackModalRouteType>,
+  t: void
 |}
 type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
 
@@ -279,7 +280,7 @@ const ThemedTranslatedFeedbackContainer = withTranslation('feedback')(
 )
 
 export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
-  withPayloadProvider<InnerPropsType, OwnPropsType>(refresh)(
+  withPayloadProvider<InnerPropsType, OwnPropsType, FeedbackModalRouteType>(refresh)(
     ThemedTranslatedFeedbackContainer
   )
 )

@@ -5,7 +5,6 @@ import createNavigateToCategory from './createNavigateToCategory'
 import type { NavigateToEventParamsType } from './createNavigateToEvent'
 import createNavigateToEvent from './createNavigateToEvent'
 import type { StoreActionType } from './StoreActionType'
-import createNavigateToLanding from './createNavigateToLanding'
 import type { Dispatch } from 'redux'
 import URL from 'url-parse'
 import type { NavigationPropType, RoutesType } from './components/NavigationTypes'
@@ -13,12 +12,10 @@ import type { NavigationPropType, RoutesType } from './components/NavigationType
 export type NavigateToInternalLinkParamsType = {| url: string, language: string |}
 
 export const createNavigateToInternalLink = ({
-  navigateToLanding,
   navigateToEvent,
   navigateToCategory,
   navigateToDashboard
 }: {|
-  navigateToLanding: () => void,
   navigateToEvent: NavigateToEventParamsType => void,
   navigateToCategory: NavigateToCategoryParamsType => void,
   navigateToDashboard: NavigateToCategoryParamsType => void
@@ -29,9 +26,7 @@ export const createNavigateToInternalLink = ({
   const newCity = pathnameParts[0]
   const newLanguage = pathnameParts[1]
 
-  if (!newCity) { // '/'
-    navigateToLanding()
-  } else if (pathnameParts[2] === 'events') {
+  if (pathnameParts[2] === 'events') {
     if (pathnameParts[3]) { // '/augsburg/de/events/some_event'
       navigateToEvent({ cityCode: newCity, language: newLanguage, path: pathname })
     } else { // '/augsburg/de/events'
@@ -45,10 +40,14 @@ export const createNavigateToInternalLink = ({
   }
 }
 
-export default (dispatch: Dispatch<StoreActionType>, navigation: NavigationPropType<RoutesType>) => {
-  const navigateToCategory = createNavigateToCategory('Categories', dispatch, navigation)
-  const navigateToDashboard = createNavigateToCategory('Dashboard', dispatch, navigation)
-  const navigateToEvent = createNavigateToEvent(dispatch, navigation)
-  const navigateToLanding = createNavigateToLanding(dispatch, navigation)
-  return createNavigateToInternalLink({ navigateToLanding, navigateToEvent, navigateToCategory, navigateToDashboard })
+const navigateToInternalLink = <T: RoutesType>(
+  dispatch: Dispatch<StoreActionType>,
+  navigation: NavigationPropType<T>
+) => {
+  const navigateToCategory = createNavigateToCategory<T>('Categories', dispatch, navigation)
+  const navigateToDashboard = createNavigateToCategory<T>('Dashboard', dispatch, navigation)
+  const navigateToEvent = createNavigateToEvent<T>(dispatch, navigation)
+  return createNavigateToInternalLink({ navigateToEvent, navigateToCategory, navigateToDashboard })
 }
+
+export default navigateToInternalLink

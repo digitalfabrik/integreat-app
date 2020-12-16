@@ -41,7 +41,6 @@ type ContainerPropsType = {|
   newsId: ?string,
   cityCode: string,
   language: string,
-  dispatch: Dispatch<StoreActionType>,
   cityModel: CityModel,
   selectedNewsType: NewsType
 |} | {|
@@ -55,7 +54,6 @@ type ContainerPropsType = {|
   newsId: ?string,
   cityCode: string,
   language: string,
-  dispatch: Dispatch<StoreActionType>,
   cityModel: CityModel,
   selectedNewsType: NewsType
 |}
@@ -166,7 +164,9 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
         language: state.contentLanguage,
         selectedNewsType: route.type,
         cityModel,
-        navigation
+        navigation,
+        route: ownProps.route,
+        t: undefined
       }
     }
   }
@@ -183,14 +183,14 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       selectedNewsType: route.type,
       cityModel,
       navigation,
+      route: ownProps.route,
+      t: undefined,
       hasMoreNews: route.status === 'loadingMore' ? undefined : route.hasMoreNews,
       page: route.status === 'loadingMore' ? undefined : route.page,
       isFetchingMore: route.status === 'loadingMore'
     }
   }
 }
-
-const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsType => ({ dispatch })
 
 class NewsContainer extends React.Component<ContainerPropsType> {
   fetchNews = (newsType: NewsType) => {
@@ -269,9 +269,9 @@ class NewsContainer extends React.Component<ContainerPropsType> {
   }
 }
 
-export default withRouteCleaner<OwnPropsType>(
+export default withRouteCleaner<NewsRouteType, OwnPropsType>(
   withTranslation('error')(
-    connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
+    connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(
       withPayloadProvider<ContainerPropsType, RefreshPropsType, NewsRouteType>(refresh, true)(
         NewsContainer
       ))))
