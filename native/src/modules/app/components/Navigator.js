@@ -127,12 +127,8 @@ class Navigator extends React.Component<PropsType, StateType> {
     // TODO Snackbar
     return (
       <Stack.Navigator initialRouteName={currentRoute}>
-        <Stack.Screen name={INTRO_ROUTE}
-                      component={IntroContainer}
-                      options={{ header: () => null }} />
-        <Stack.Screen name={LANDING_ROUTE}
-                      component={LandingContainer}
-                      options={{ header: () => null }} />
+        <Stack.Screen name={INTRO_ROUTE} component={IntroContainer} options={{ header: () => null }} />
+        <Stack.Screen name={LANDING_ROUTE} component={LandingContainer} options={{ header: () => null }} />
         <Stack.Screen name={DASHBOARD_ROUTE} component={DashboardContainer} options={{ header: defaultHeader }} />
         <Stack.Screen name={CATEGORIES_ROUTE} component={CategoriesContainer} options={{ header: defaultHeader }} />
         <Stack.Screen name={OFFERS_ROUTE} component={OffersContainer} options={{ header: defaultHeader }} />
