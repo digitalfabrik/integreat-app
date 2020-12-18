@@ -88,7 +88,7 @@ exports.browserstack_ci_ios = {
   prefix: 'IG CI',
   platform: 'ios',
   caps: {
-    'browserstack.appium_version': '1.15.0',
+    'browserstack.appium_version': '1.16.0',
     'browserstack.debug': true,
     'browserstack.user': process.env.E2E_BROWSERSTACK_USER,
     'browserstack.key': process.env.E2E_BROWSERSTACK_KEY,
@@ -96,6 +96,7 @@ exports.browserstack_ci_ios = {
     os_version: '11',
     device: 'iPhone 8',
     real_mobile: 'true',
-    app: process.env.E2E_BROWSERSTACK_APP
+    app: process.env.E2E_BROWSERSTACK_APP,
+    waitForQuiescence: 'true'
   }
 }
