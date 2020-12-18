@@ -57,7 +57,7 @@ type StateType = {| waitingForSettings: boolean, errorMessage: null, currentRout
 
 const Stack = createStackNavigator<RoutesParamsType, *, *>()
 
-class RootNavigator extends React.Component<PropsType, StateType> {
+class Navigator extends React.Component<PropsType, StateType> {
   state = { waitingForSettings: true, errorMessage: null, currentRoute: INTRO_ROUTE }
 
   componentDidMount () {
@@ -153,4 +153,4 @@ class RootNavigator extends React.Component<PropsType, StateType> {
   }
 }
 
-export default RootNavigator
+export default Navigator

@@ -52,8 +52,8 @@ describe('NavigatorContainer', () => {
     Provider = require('react-redux').Provider
   })
 
-  it('should pass fetchCategory to RootNavigator', () => {
-    jest.doMock('../../components/RootNavigator', () => MockNavigator)
+  it('should pass fetchCategory to Navigator', () => {
+    jest.doMock('../../components/Navigator', () => MockNavigator)
     const NavigatorContainer = require('../NavigatorContainer').default
     const store = mockStore({})
     const result = TestRenderer.create(<Provider store={store}><NavigatorContainer /></Provider>)
@@ -75,11 +75,11 @@ describe('NavigatorContainer', () => {
       }
     }])
 
-    jest.dontMock('../../components/RootNavigator')
+    jest.dontMock('../../components/Navigator')
   })
 
-  it('should pass clearCategory to RootNavigator', () => {
-    jest.doMock('../../components/RootNavigator', () => MockNavigator)
+  it('should pass clearCategory to Navigator', () => {
+    jest.doMock('../../components/Navigator', () => MockNavigator)
     const NavigatorContainer = require('../NavigatorContainer').default
     const store = mockStore({})
     const result = TestRenderer.create(<Provider store={store}><NavigatorContainer /></Provider>)
@@ -90,11 +90,11 @@ describe('NavigatorContainer', () => {
       type: 'CLEAR_CATEGORY',
       params: { key: 'route-key-0' }
     }])
-    jest.dontMock('../../components/RootNavigator')
+    jest.dontMock('../../components/Navigator')
   })
 
-  it('should pass fetchCities to RootNavigator', () => {
-    jest.doMock('../../components/RootNavigator', () => MockNavigator)
+  it('should pass fetchCities to Navigator', () => {
+    jest.doMock('../../components/Navigator', () => MockNavigator)
     const NavigatorContainer = require('../NavigatorContainer').default
     const store = mockStore({})
     const result = TestRenderer.create(<Provider store={store}><NavigatorContainer /></Provider>)
@@ -105,7 +105,7 @@ describe('NavigatorContainer', () => {
       type: 'FETCH_CITIES',
       params: { forceRefresh: true }
     }])
-    jest.dontMock('../../components/RootNavigator')
+    jest.dontMock('../../components/Navigator')
   })
 
   it('should render the IntroContainer if it has not been shown previously', async () => {
