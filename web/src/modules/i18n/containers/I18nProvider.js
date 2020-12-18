@@ -87,6 +87,7 @@ export default ({ children }: PropsType) => {
   return (
     <I18nextProvider i18n={i18nextInstance}>
       <div
+        data-testid={'direction'}
         style={{
           direction: config.isRTLLanguage(language) ? 'rtl' : 'ltr'
         }}>
