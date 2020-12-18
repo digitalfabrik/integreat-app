@@ -16,7 +16,7 @@ import {
 } from '../../push-notifications/PushNotificationsManager'
 import type { FeatureFlagsType } from 'build-configs/BuildConfigType'
 import type { RoutePropType, RoutesType } from '../../app/components/NavigationTypes'
-import { LANDING_ROUTE } from '../../app/components/NavigationTypes'
+import { DASHBOARD_ROUTE, LANDING_ROUTE } from '../../app/components/NavigationTypes'
 
 type PropsType<T: RoutesType> = {|
   route: RoutePropType<T>,
@@ -100,7 +100,7 @@ class PermissionSnackbarContainer<T: RoutesType> extends React.Component<PropsTy
 
   dashboardRoute = (): boolean => {
     const { name } = this.props.route
-    return name === LANDING_ROUTE
+    return name === DASHBOARD_ROUTE
   }
 
   getSnackbar (): ?React$Element<*> {
