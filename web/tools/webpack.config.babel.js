@@ -2,7 +2,7 @@
 
 // Transpile and load build-configs in root directory
 require('@babel/register')({
-  only: [/build-configs/]
+  only: [/(build-configs|translations)/]
 })
 const loadBuildConfig = require('build-configs').default
 
