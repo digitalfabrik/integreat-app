@@ -27,14 +27,18 @@ import type {
   RoutePropType
 } from '../../../modules/app/components/NavigationTypes'
 
-type OwnPropsType = {|
+type NavigationPropsType = {|
   route: RoutePropType<DashboardRouteType>,
-  navigation: NavigationPropType<DashboardRouteType>,
+  navigation: NavigationPropType<DashboardRouteType>
+|}
+
+type OwnPropsType = {|
+  ...NavigationPropsType,
   t: TFunction
 |}
 
 type RefreshPropsType = {|
-  ...OwnPropsType,
+  ...NavigationPropsType,
   cityCode: string,
   language: string,
   path: string
@@ -70,21 +74,25 @@ const createChangeUnavailableLanguage = (city: string, t: TFunction) =>
     })
   }
 
-const routeHasOldContent = (route: CategoryRouteStateType): boolean =>
-  !!route.models && !!route.allAvailableLanguages && !!route.children
-
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const { t, route: { key } } = ownProps
   if (!state.cityContent) {
     return { status: 'routeNotInitialized' }
   }
   const { resourceCache, categoriesRouteMapping, switchingLanguage, languages } = state.cityContent
-  const route = categoriesRouteMapping[key]
+  const route: ?CategoryRouteStateType = categoriesRouteMapping[key]
   if (!route) {
     return { status: 'routeNotInitialized' }
   }
 
-  if (route.status === 'languageNotAvailable' && !switchingLanguage) {
+  if (switchingLanguage) {
+    return {
+      status: 'loading',
+      progress: resourceCache.progress ? resourceCache.progress : 0
+    }
+  }
+
+  if (route.status === 'languageNotAvailable') {
     if (languages.status === 'error' || languages.status === 'loading') {
       console.error('languageNotAvailable status impossible if languages not ready')
       return {
@@ -106,7 +114,8 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     cityCode: route.city,
     language: route.language,
     path: route.path,
-    navigation: ownProps.navigation
+    navigation: ownProps.navigation,
+    route: ownProps.route
   }
 
   if (state.cities.status === 'error') {
@@ -120,13 +129,16 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
 
   const resourceCacheUrl = state.resourceCacheUrl
-  if (resourceCacheUrl === null || state.cities.status === 'loading' || switchingLanguage ||
-    (route.status === 'loading' && !routeHasOldContent(route)) || languages.status === 'loading') {
+  const { models, children, allAvailableLanguages } = route
+  if (resourceCacheUrl === null || state.cities.status === 'loading' || languages.status === 'loading' ||
+    (route.status === 'loading' && (!models || !allAvailableLanguages || !children))) {
     return {
       status: 'loading',
       progress: resourceCache.progress
     }
   }
+  // $FlowFixMe Flow does not get that models and children cannot be undefined as it is already checked above
+  const stateView = new CategoriesRouteStateView(route.path, models, children)
 
   const cityModel = state.cities.models.find(city => city.code === route.city)
   if (!cityModel) {
@@ -139,7 +151,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       ...ownProps,
       cityModel,
       language: route.language,
-      stateView: new CategoriesRouteStateView(route.path, route.models, route.children),
+      stateView,
       resourceCacheUrl: resourceCacheUrl,
       resourceCache: resourceCache.value
     }
