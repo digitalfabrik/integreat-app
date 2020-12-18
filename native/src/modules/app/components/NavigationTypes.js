@@ -81,7 +81,7 @@ export type RoutesType = IntroRouteType
 export type RoutesParamsType = {|
   Intro: void,
   Landing: void,
-  Dashboard: {| key: string | null |},
+  Dashboard: void,
   Categories: void,
   Pois: void,
   Events: void,
