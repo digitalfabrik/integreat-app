@@ -3,7 +3,6 @@
 import type { PoiRouteStateType, LanguageResourceCacheStateType, StateType } from '../../../modules/app/StateType'
 import { connect } from 'react-redux'
 import { type TFunction, withTranslation } from 'react-i18next'
-import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 import createNavigateToPoi from '../../../modules/app/createNavigateToPoi'
 import type { Dispatch } from 'redux'
 import type { StoreActionType, SwitchContentLanguageActionType } from '../../../modules/app/StoreActionType'
@@ -53,6 +52,10 @@ type RefreshPropsType = {|
 type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
 type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
+
+const onRouteClose = (routeKey: string, dispatch: Dispatch<StoreActionType>) => {
+  dispatch({ type: 'CLEAR_POI', params: { key: routeKey } })
+}
 
 const createChangeUnavailableLanguage = (city: string, t: TFunction) => (
   dispatch: Dispatch<StoreActionType>, newLanguage: string
@@ -163,9 +166,8 @@ const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionT
   navigateToPoi({ cityCode, language, path, forceRefresh: true, key: route.key })
 }
 
-export default withRouteCleaner<PoisRouteType, OwnPropsType>(
-  withTranslation('error')(
-    connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
-      withPayloadProvider<ContainerPropsType, RefreshPropsType, PoisRouteType>(refresh)(
-        PoisContainer
-      ))))
+export default withTranslation('error')(
+  connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
+    withPayloadProvider<ContainerPropsType, RefreshPropsType, PoisRouteType>(refresh, onRouteClose)(
+      PoisContainer
+    )))

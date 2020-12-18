@@ -7,7 +7,6 @@ import type { StoreActionType } from '../StoreActionType'
 
 type DispatchPropsType = {|
   fetchCategory: (cityCode: string, language: string, key: string) => void,
-  clearCategory: (key: string) => void,
   fetchCities: (forceRefresh: boolean) => void
 |}
 
@@ -28,9 +27,6 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsT
         key
       }
     })
-  },
-  clearCategory: (key: string) => {
-    dispatch({ type: 'CLEAR_CATEGORY', params: { key } })
   },
   fetchCities: (forceRefresh: boolean) => {
     dispatch({ type: 'FETCH_CITIES', params: { forceRefresh } })

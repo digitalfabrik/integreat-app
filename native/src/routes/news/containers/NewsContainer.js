@@ -4,7 +4,6 @@ import type { NewsModelsType, NewsRouteStateType, NewsType, StateType } from '..
 import type { FetchMoreNewsActionType, StoreActionType } from '../../../modules/app/StoreActionType'
 import { connect } from 'react-redux'
 import { type TFunction, withTranslation } from 'react-i18next'
-import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 import createNavigateToNews from '../../../modules/app/createNavigateToNews'
 import type { Dispatch } from 'redux'
 import { CityModel } from 'api-client'
@@ -68,6 +67,10 @@ type RefreshPropsType = {|
 
 type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
+
+const onRouteClose = (routeKey: string, dispatch: Dispatch<StoreActionType>) => {
+  dispatch({ type: 'CLEAR_NEWS', params: { key: routeKey } })
+}
 
 const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
   const { route, navigation, cityCode, language, newsId, selectedNewsType } = refreshProps
@@ -269,9 +272,8 @@ class NewsContainer extends React.Component<ContainerPropsType> {
   }
 }
 
-export default withRouteCleaner<NewsRouteType, OwnPropsType>(
-  withTranslation('error')(
-    connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(
-      withPayloadProvider<ContainerPropsType, RefreshPropsType, NewsRouteType>(refresh, true)(
-        NewsContainer
-      ))))
+export default withTranslation('error')(
+  connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(
+    withPayloadProvider<ContainerPropsType, RefreshPropsType, NewsRouteType>(refresh, onRouteClose, true)(
+      NewsContainer
+    )))

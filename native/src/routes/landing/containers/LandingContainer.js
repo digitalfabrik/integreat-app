@@ -16,6 +16,8 @@ import type {
   NavigationPropType,
   RoutePropType
 } from '../../../modules/app/components/NavigationTypes'
+import { generateKey } from '../../../modules/app/generateRouteKey'
+import { DASHBOARD_ROUTE } from '../../../modules/app/components/NavigationTypes'
 
 type OwnPropsType = {|
   route: RoutePropType<LandingRouteType>,
@@ -57,17 +59,30 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsType => ({
-  dispatch
-})
-
 const ThemedTranslatedLanding = withTranslation('landing')(
   withTheme(Landing)
 )
 
 class LandingContainer extends React.Component<ContainerPropsType> {
-  navigateToDashboard = (cityCode: string, languageCode: string) =>
-    this.props.route.params.navigateToCityContent(cityCode, languageCode)
+  navigateToDashboard = (cityCode: string, languageCode: string) => {
+    const { dispatch, navigation } = this.props
+    const path = `/${cityCode}/${languageCode}`
+    const key: string = generateKey()
+
+    dispatch({
+      type: 'FETCH_CATEGORY',
+      params: {
+        city: cityCode,
+        language: languageCode,
+        path,
+        depth: 2,
+        criterion: { forceUpdate: false, shouldRefreshResources: true },
+        key
+      }
+    })
+
+    navigation.replace(DASHBOARD_ROUTE)
+  }
 
   clearResourcesAndCache = () => this.props.dispatch({ type: 'CLEAR_RESOURCES_AND_CACHE' })
 
@@ -82,7 +97,7 @@ class LandingContainer extends React.Component<ContainerPropsType> {
 
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
-export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
+export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(
   withPayloadProvider<ContainerPropsType, $Shape<{||}>, LandingRouteType>(refresh)(
     LandingContainer
   )
