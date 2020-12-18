@@ -40,14 +40,14 @@ import type { RoutesParamsType } from './NavigationTypes'
 import { generateKey } from '../generateRouteKey'
 
 const transparentStaticHeader = (headerProps: StackHeaderProps) =>
-  <TransparentHeaderContainer scene={headerProps.scene} float={false} />
+  <TransparentHeaderContainer {...headerProps} float={false} />
 
 const transparentFloatingHeader = (headerProps: StackHeaderProps) =>
-  <TransparentHeaderContainer scene={headerProps.scene} float />
+  <TransparentHeaderContainer {...headerProps} float />
 
-const settingsHeader = (headerProps: StackHeaderProps) => <SettingsHeaderContainer scene={headerProps.scene} />
+const settingsHeader = (headerProps: StackHeaderProps) => <SettingsHeaderContainer {...headerProps} />
 
-const defaultHeader = (headerProps: StackHeaderProps) => <HeaderContainer scene={headerProps.scene} />
+const defaultHeader = (headerProps: StackHeaderProps) => <HeaderContainer {...headerProps} />
 
 type PropsType = {|
   fetchCategory: (cityCode: string, language: string, key: string) => void,
