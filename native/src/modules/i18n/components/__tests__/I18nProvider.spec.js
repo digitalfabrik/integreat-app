@@ -10,7 +10,7 @@ import AsyncStorage from '@react-native-community/async-storage'
 import { Text } from 'react-native'
 
 jest.mock('@react-native-community/async-storage')
-jest.mock('../../../i18n/LanguageDetector')
+jest.mock('../../../i18n/NativeLanguageDetector')
 jest.mock('../../loadTranslations')
 
 describe('I18nProvider', () => {
