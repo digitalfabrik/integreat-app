@@ -44,8 +44,7 @@ export type FeedbackInformationType = {|
 
 type OwnPropsType = {|
   route: RoutePropType<FeedbackModalRouteType>,
-  navigation: NavigationPropType<FeedbackModalRouteType>,
-  t: void
+  navigation: NavigationPropType<FeedbackModalRouteType>
 |}
 type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
 

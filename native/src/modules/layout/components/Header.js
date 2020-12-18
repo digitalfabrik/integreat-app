@@ -15,6 +15,7 @@ import Url from 'url-parse'
 import dimensions from '../../theme/constants/dimensions'
 import type { StoreActionType } from '../../app/StoreActionType'
 import type { Dispatch } from 'redux'
+import { LANDING_ROUTE } from '../../app/components/NavigationTypes'
 
 const Horizontal = styled.View`
   flex: 1;
@@ -76,7 +77,9 @@ class Header extends React.PureComponent<PropsType> {
   }
 
   goToLanding = () => {
-    // TODO
+    const { navigation, dispatch } = this.props
+    navigation.replace(LANDING_ROUTE)
+    dispatch({ type: 'CLEAR_CITY' })
   }
 
   goToSettings = () => {
