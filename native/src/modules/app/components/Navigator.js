@@ -36,7 +36,7 @@ import {
   OFFERS_ROUTE, PDF_VIEW_MODAL_ROUTE,
   POIS_ROUTE, SEARCH_MODAL_ROUTE, SETTINGS_ROUTE
 } from './NavigationTypes'
-import type { RoutesParamsType } from './NavigationTypes'
+import type { IntroRouteType, DashboardRouteType, LandingRouteType, RoutesParamsType } from './NavigationTypes'
 import { generateKey } from '../generateRouteKey'
 
 const transparentStaticHeader = (headerProps: StackHeaderProps) =>
@@ -54,12 +54,15 @@ type PropsType = {|
   fetchCities: (forceRefresh: boolean) => void
 |}
 
-type StateType = {| waitingForSettings: boolean, errorMessage: null, currentRoute: string |}
+type CurrentRouteType = {| name: IntroRouteType |}
+  | {| name: LandingRouteType |}
+  | {| name: DashboardRouteType, key: string |}
+type StateType = {| waitingForSettings: boolean, errorMessage: ?string, currentRoute: CurrentRouteType |}
 
 const Stack = createStackNavigator<RoutesParamsType, *, *>()
 
 class Navigator extends React.Component<PropsType, StateType> {
-  state = { waitingForSettings: true, errorMessage: null, currentRoute: INTRO_ROUTE }
+  state = { waitingForSettings: true, errorMessage: null, currentRoute: { name: INTRO_ROUTE } }
 
   componentDidMount () {
     const { fetchCities } = this.props
@@ -99,17 +102,18 @@ class Navigator extends React.Component<PropsType, StateType> {
     }
 
     if (buildConfig().featureFlags.introSlides && !introShown) {
-      this.setState({ currentRoute: INTRO_ROUTE })
+      this.setState({ currentRoute: { name: INTRO_ROUTE } })
     } else {
       if (errorTracking) {
         initSentry()
       }
 
       if (selectedCity) {
-        this.props.fetchCategory(selectedCity, contentLanguage, generateKey())
-        this.setState({ currentRoute: DASHBOARD_ROUTE })
+        const key = generateKey()
+        this.props.fetchCategory(selectedCity, contentLanguage, key)
+        this.setState({ currentRoute: { name: DASHBOARD_ROUTE, key } })
       } else {
-        this.setState({ currentRoute: LANDING_ROUTE })
+        this.setState({ currentRoute: { name: LANDING_ROUTE } })
       }
     }
 
@@ -126,10 +130,10 @@ class Navigator extends React.Component<PropsType, StateType> {
 
     // TODO Snackbar
     return (
-      <Stack.Navigator initialRouteName={currentRoute}>
+      <Stack.Navigator initialRouteName={currentRoute.name}>
         <Stack.Screen name={INTRO_ROUTE} component={IntroContainer} options={{ header: () => null }} />
         <Stack.Screen name={LANDING_ROUTE} component={LandingContainer} options={{ header: () => null }} />
-        <Stack.Screen name={DASHBOARD_ROUTE} component={DashboardContainer} options={{ header: defaultHeader }} />
+        <Stack.Screen name={DASHBOARD_ROUTE} component={DashboardContainer} options={{ header: defaultHeader }} initialParams={{ key: currentRoute.key || null }} />
         <Stack.Screen name={CATEGORIES_ROUTE} component={CategoriesContainer} options={{ header: defaultHeader }} />
         <Stack.Screen name={OFFERS_ROUTE} component={OffersContainer} options={{ header: defaultHeader }} />
         <Stack.Screen name={WOHNEN_OFFER_ROUTE} component={WohnenOfferContainer} options={{ header: defaultHeader }} />

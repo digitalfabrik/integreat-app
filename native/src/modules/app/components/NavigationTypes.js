@@ -81,7 +81,7 @@ export type RoutesType = IntroRouteType
 export type RoutesParamsType = {|
   Intro: void,
   Landing: void,
-  Dashboard: void,
+  Dashboard: {| key: string | null |},
   Categories: void,
   Pois: void,
   Events: void,
@@ -102,7 +102,7 @@ export type RoutesParamsType = {|
   |},
   PDFViewModal: {| url: string, shareUrl?: string |},
   ImageViewModal: {| url: string, shareUrl?: string |},
-  FeedbackModal: {| ...FeedbackInformationType |}
+  FeedbackModal: FeedbackInformationType
 |}
 
 export type RoutePropType<T: RoutesType> = RouteProp<RoutesParamsType, T>

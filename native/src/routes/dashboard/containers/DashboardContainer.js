@@ -77,7 +77,10 @@ const createChangeUnavailableLanguage = (city: string, t: TFunction) =>
   }
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
-  const { t, route: { key } } = ownProps
+  const { t, route: { params: { key } } } = ownProps
+  if (!key) {
+    throw new Error('No key provided!')
+  }
   if (!state.cityContent) {
     return { status: 'routeNotInitialized' }
   }

@@ -14,7 +14,7 @@ const createNavigateToPoi = <T: RoutesType>(
   navigation: NavigationPropType<T>
 ) => ({ cityCode, language, path, key = generateKey(), forceRefresh = false }: NavigateToPoiParamsType) => {
     navigation.navigate({
-      routeName: POIS_ROUTE,
+      name: POIS_ROUTE,
       key
     })
 
