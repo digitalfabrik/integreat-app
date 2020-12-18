@@ -1,7 +1,7 @@
 // @flow
 
 import { connect } from 'react-redux'
-import type { CategoryRouteStateType, LanguageResourceCacheStateType, StateType } from '../../../modules/app/StateType'
+import type { LanguageResourceCacheStateType, StateType } from '../../../modules/app/StateType'
 import { type Dispatch } from 'redux'
 import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
 import type { StoreActionType, SwitchContentLanguageActionType } from '../../../modules/app/StoreActionType'
@@ -65,9 +65,6 @@ const createChangeUnavailableLanguage = (city: string, t: TFunction) => (
   dispatch(switchContentLanguage)
 }
 
-const routeHasOldContent = (route: CategoryRouteStateType): boolean =>
-  !!route.models && !!route.allAvailableLanguages && !!route.children
-
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const { t, route: { key } } = ownProps
   if (!state.cityContent) {
@@ -79,7 +76,14 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     return { status: 'routeNotInitialized' }
   }
 
-  if (route.status === 'languageNotAvailable' && !switchingLanguage) {
+  if (switchingLanguage) {
+    return {
+      status: 'loading',
+      progress: resourceCache.progress ? resourceCache.progress : 0
+    }
+  }
+
+  if (route.status === 'languageNotAvailable') {
     if (languages.status === 'error' || languages.status === 'loading') {
       console.error('languageNotAvailable status impossible if languages not ready')
       return {
@@ -116,10 +120,13 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
 
   const resourceCacheUrl = state.resourceCacheUrl
-  if (resourceCacheUrl === null || state.cities.status === 'loading' || switchingLanguage ||
-    (route.status === 'loading' && !routeHasOldContent(route)) || languages.status === 'loading') {
+  const { models, children, allAvailableLanguages } = route
+  if (resourceCacheUrl === null || state.cities.status === 'loading' || languages.status === 'loading' ||
+    (route.status === 'loading' && (!models || !allAvailableLanguages || !children))) {
     return { status: 'loading', progress: resourceCache.progress }
   }
+  // $FlowFixMe Flow does not get that models and children cannot be undefined as it is already checked above
+  const stateView = new CategoriesRouteStateView(route.path, route.models, route.children)
 
   const cityModel = state.cities.models.find(city => city.code === route.city)
   if (!cityModel) {
@@ -132,7 +139,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       ...ownProps,
       cityModel,
       language: route.language,
-      stateView: new CategoriesRouteStateView(route.path, route.models, route.children),
+      stateView,
       resourceCache: resourceCache.value,
       resourceCacheUrl
     }
