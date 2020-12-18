@@ -3,19 +3,24 @@
 import type { Dispatch } from 'redux'
 import type { FetchCategoryActionType, StoreActionType } from './StoreActionType'
 import { generateKey } from './generateRouteKey'
-import type { NavigationPropType, RoutesType } from './components/NavigationTypes'
+import type {
+  CategoriesRouteType,
+  DashboardRouteType,
+  NavigationPropType,
+  RoutesType
+} from './components/NavigationTypes'
 
 export type NavigateToCategoryParamsType = {|
   cityCode: string, language: string, path: string, key?: string, forceRefresh?: boolean
 |}
 
 const createNavigateToCategory = <T: RoutesType>(
-  routeName: 'Categories' | 'Dashboard',
+  routeName: CategoriesRouteType | DashboardRouteType,
   dispatch: Dispatch<StoreActionType>,
   navigation: NavigationPropType<T>
 ) => ({ cityCode, language, path, key = generateKey(), forceRefresh = false }: NavigateToCategoryParamsType) => {
     navigation.navigate({
-      routeName,
+      name: routeName,
       key
     })
 

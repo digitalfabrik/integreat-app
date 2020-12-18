@@ -24,7 +24,7 @@ const createNavigateToNews = <T: RoutesType>(
     cityCode, type, language, newsId, key = generateKey(), forceRefresh = false
   }: NavigateToNewsParamsType) => {
     navigation.navigate({
-      routeName: NEWS_ROUTE_NAME,
+      name: NEWS_ROUTE_NAME,
       key
     })
     const fetchNews: FetchNewsActionType = {

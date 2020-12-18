@@ -14,7 +14,7 @@ const createNavigateToEvent = <T: RoutesType>(
   navigation: NavigationPropType<T>
 ) => ({ cityCode, language, path, key = generateKey(), forceRefresh = false }: NavigateToEventParamsType) => {
     navigation.navigate({
-      routeName: EVENTS_ROUTE,
+      name: EVENTS_ROUTE,
       key
     })
 

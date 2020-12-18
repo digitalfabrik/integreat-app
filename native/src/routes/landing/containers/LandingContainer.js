@@ -81,7 +81,7 @@ class LandingContainer extends React.Component<ContainerPropsType> {
       }
     })
 
-    navigation.replace(DASHBOARD_ROUTE)
+    navigation.replace(DASHBOARD_ROUTE, { key })
   }
 
   clearResourcesAndCache = () => this.props.dispatch({ type: 'CLEAR_RESOURCES_AND_CACHE' })
