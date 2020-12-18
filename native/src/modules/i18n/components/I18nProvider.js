@@ -3,11 +3,10 @@
 import * as React from 'react'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { I18nextProvider } from 'react-i18next'
-import loadTranslations from '../loadTranslations'
 import MomentContext, { createMomentFormatter } from '../context/MomentContext'
 import { Text } from 'react-native'
 import buildConfig from '../../app/constants/buildConfig'
-import { config } from 'translations'
+import { config, loadTranslations } from 'translations'
 import i18next from 'i18next'
 import { useDispatch } from 'react-redux'
 import type { SetContentLanguageActionType } from '../../app/StoreActionType'
@@ -40,7 +39,7 @@ export default ({ children }: PropsType) => {
 
   useEffect(() => {
     const initI18Next = async () => {
-      const resources = loadTranslations()
+      const resources = loadTranslations(buildConfig().translationsOverride)
       const i18nextInstance = await i18next
         .createInstance()
         .use(NativeLanguageDetector)

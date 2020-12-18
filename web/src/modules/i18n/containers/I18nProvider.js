@@ -6,11 +6,10 @@ import { useEffect, useState } from 'react'
 import { I18nextProvider } from 'react-i18next'
 import { Helmet as ReactHelmet } from 'react-helmet'
 import setUiDirection from '../actions/setUIDirection'
-import loadTranslations from '../loadTranslations'
+import { loadTranslations, config } from 'translations'
 import buildConfig from '../../app/constants/buildConfig'
 import { useDispatch, useSelector } from 'react-redux'
 import type { StateType } from '../../app/StateType'
-import { config } from 'translations'
 import BrowserLanguageDetector from '../BrowserLanguageDetector'
 
 type PropsType = {| children: React.Node |}
