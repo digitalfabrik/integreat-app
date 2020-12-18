@@ -178,9 +178,9 @@ const DashboardContainer = (props: ContainerPropsType) => {
     navigateToOffers={createNavigateToOffers(dispatch, rest.navigation)} />
 }
 
-export default withRouteCleaner<OwnPropsType>(
+export default withRouteCleaner<DashboardRouteType, OwnPropsType>(
   withTranslation('error')(
     connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
-      withPayloadProvider<ContainerPropsType, RefreshPropsType>(refresh)(
+      withPayloadProvider<ContainerPropsType, RefreshPropsType, DashboardRouteType>(refresh)(
         DashboardContainer
       ))))

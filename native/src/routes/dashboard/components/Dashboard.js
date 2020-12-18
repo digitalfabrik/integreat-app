@@ -1,7 +1,6 @@
 // @flow
 
 import * as React from 'react'
-import type { NavigationStackProp } from 'react-navigation-stack'
 import Categories from '../../../modules/categories/components/Categories'
 import type { ThemeType } from 'build-configs/ThemeType'
 import { CityModel } from 'api-client'
@@ -25,13 +24,19 @@ import type { NavigateToPoiParamsType } from '../../../modules/app/createNavigat
 import { LOCAL_NEWS, TUNEWS } from '../../../modules/endpoint/constants'
 import styled from 'styled-components/native'
 import type { StyledComponent } from 'styled-components'
+import type {
+  DashboardRouteType,
+  NavigationPropType,
+  RoutePropType
+} from '../../../modules/app/components/NavigationTypes'
 
 const Spacing: StyledComponent<{||}, ThemeType, *> = styled.View`
   padding: 10px;
 `
 
 export type PropsType = {|
-  navigation: NavigationStackProp<*>,
+  route: RoutePropType<DashboardRouteType>,
+  navigation: NavigationPropType<DashboardRouteType>,
 
   navigateToPoi: NavigateToPoiParamsType => void,
   navigateToCategory: NavigateToCategoryParamsType => void,
@@ -154,6 +159,7 @@ class Dashboard extends React.Component<PropsType> {
       cityModel,
       navigateToCategory,
       navigation,
+      route,
       t
     } = this.props
 
@@ -172,6 +178,7 @@ class Dashboard extends React.Component<PropsType> {
           cityModel={cityModel}
           theme={theme}
           navigation={navigation}
+          route={route}
           navigateToCategory={navigateToCategory}
           t={t}
           navigateToInternalLink={navigateToInternalLink}

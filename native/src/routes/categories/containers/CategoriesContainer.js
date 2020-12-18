@@ -7,7 +7,6 @@ import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateV
 import type { StoreActionType, SwitchContentLanguageActionType } from '../../../modules/app/StoreActionType'
 import createNavigateToCategory from '../../../modules/app/createNavigateToCategory'
 import createNavigateToInternalLink from '../../../modules/app/createNavigateToInternalLink'
-import type { NavigationStackProp } from 'react-navigation-stack'
 import type { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
 import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvider'
 import { CityModel } from 'api-client'
@@ -18,27 +17,42 @@ import Categories from '../../../modules/categories/components/Categories'
 import React from 'react'
 import type { TFunction } from 'react-i18next'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
+import type {
+  CategoriesRouteType,
+  NavigationPropType,
+  RoutePropType
+} from '../../../modules/app/components/NavigationTypes'
+
+type NavigationPropsType = {|
+  route: RoutePropType<CategoriesRouteType>,
+  navigation: NavigationPropType<CategoriesRouteType>
+|}
+
+type OwnPropsType = {|
+  ...NavigationPropsType,
+  t: TFunction
+|}
+
+type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
 
 type ContainerPropsType = {|
-  navigation: NavigationStackProp<*>,
+  ...OwnPropsType,
+  ...DispatchPropsType,
   cityModel: CityModel,
   language: string,
   stateView: CategoriesRouteStateView,
   resourceCache: LanguageResourceCacheStateType,
-  resourceCacheUrl: string,
-  dispatch: Dispatch<StoreActionType>
+  resourceCacheUrl: string
 |}
 
 type RefreshPropsType = {|
+  ...NavigationPropsType,
   cityCode: string,
   language: string,
-  path: string,
-  navigation: NavigationStackProp<*>
+  path: string
 |}
 
-type OwnPropsType = {| navigation: NavigationStackProp<*>, t: TFunction |}
 type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
-type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
 const createChangeUnavailableLanguage = (city: string, t: TFunction) => (
@@ -55,12 +69,12 @@ const routeHasOldContent = (route: CategoryRouteStateType): boolean =>
   !!route.models && !!route.allAvailableLanguages && !!route.children
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
-  const { t, navigation } = ownProps
+  const { t, route: { key } } = ownProps
   if (!state.cityContent) {
     return { status: 'routeNotInitialized' }
   }
   const { resourceCache, categoriesRouteMapping, switchingLanguage, languages } = state.cityContent
-  const route = categoriesRouteMapping[navigation.state.key]
+  const route = categoriesRouteMapping[key]
   if (!route) {
     return { status: 'routeNotInitialized' }
   }
@@ -87,7 +101,8 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     cityCode: route.city,
     language: route.language,
     path: route.path,
-    navigation: ownProps.navigation
+    navigation: ownProps.navigation,
+    route: ownProps.route
   }
 
   if (state.cities.status === 'error') {
@@ -114,12 +129,12 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   const successProps = {
     refreshProps,
     innerProps: {
+      ...ownProps,
       cityModel,
       language: route.language,
       stateView: new CategoriesRouteStateView(route.path, route.models, route.children),
       resourceCache: resourceCache.value,
-      resourceCacheUrl,
-      navigation
+      resourceCacheUrl
     }
   }
 
@@ -140,10 +155,10 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsType => ({ dispatch })
 
 const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
-  const { cityCode, language, path, navigation } = refreshProps
+  const { cityCode, language, path, navigation, route } = refreshProps
   const navigateToCategories = createNavigateToCategory('Categories', dispatch, navigation)
   navigateToCategories({
-    cityCode, language, path, forceRefresh: true, key: navigation.state.key
+    cityCode, language, path, forceRefresh: true, key: route.key
   })
 }
 
@@ -161,9 +176,9 @@ const ThemedTranslatedCategories = withTheme(
   withTranslation('categories')(Categories)
 )
 
-export default withRouteCleaner<{| navigation: NavigationStackProp<*> |}>(
+export default withRouteCleaner<CategoriesRouteType, OwnPropsType>(
   withTranslation('error')(
     connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
-      withPayloadProvider<ContainerPropsType, RefreshPropsType>(refresh)(
+      withPayloadProvider<ContainerPropsType, RefreshPropsType, CategoriesRouteType>(refresh)(
         CategoriesContainer
       ))))

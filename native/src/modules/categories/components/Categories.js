@@ -18,13 +18,18 @@ import CategoriesRouteStateView from '../../app/CategoriesRouteStateView'
 import type { PageResourceCacheStateType, LanguageResourceCacheStateType } from '../../app/StateType'
 import type { NavigateToCategoryParamsType } from '../../app/createNavigateToCategory'
 import type { NavigateToInternalLinkParamsType } from '../../app/createNavigateToInternalLink'
-import type { NavigationStackProp } from 'react-navigation-stack'
 import { type TFunction } from 'react-i18next'
 import SpaceBetween from '../../common/components/SpaceBetween'
 import SiteHelpfulBox from '../../common/components/SiteHelpfulBox'
 import createNavigateToFeedbackModal from '../../app/createNavigateToFeedbackModal'
+import type {
+  CategoriesRouteType,
+  DashboardRouteType,
+  NavigationPropType,
+  RoutePropType
+} from '../../app/components/NavigationTypes'
 
-type PropsType = {|
+type PropsType<T: CategoriesRouteType | DashboardRouteType> = {|
   cityModel: CityModel,
   language: string,
 
@@ -32,7 +37,8 @@ type PropsType = {|
   navigateToCategory: NavigateToCategoryParamsType => void,
   navigateToInternalLink: NavigateToInternalLinkParamsType => void,
 
-  navigation: NavigationStackProp<*>,
+  route: RoutePropType<T>,
+  navigation: NavigationPropType<T>,
   resourceCache: LanguageResourceCacheStateType,
   resourceCacheUrl: string,
   theme: ThemeType,
@@ -42,7 +48,7 @@ type PropsType = {|
 /**
  * Displays a CategoryTable, CategoryList or a single category as page matching the route /<cityCode>/<language>*
  */
-class Categories extends React.Component<PropsType> {
+class Categories<T: DashboardRouteType | CategoriesRouteType> extends React.Component<PropsType<T>> {
   onTilePress = (tile: TileModel) => {
     const { cityModel, language, navigateToCategory } = this.props
     navigateToCategory({ cityCode: cityModel.code, language, path: tile.path })
@@ -105,12 +111,11 @@ class Categories extends React.Component<PropsType> {
   }
 
   getListContentModel (category: CategoryModel): ?ListContentModelType {
-    const { navigation, navigateToInternalLink, resourceCacheUrl } = this.props
+    const { navigateToInternalLink, resourceCacheUrl } = this.props
     return category.content
       ? {
           content: category.content,
           files: this.getCategoryResourceCache(category),
-          navigation: navigation,
           navigateToInternalLink: navigateToInternalLink,
           resourceCacheUrl: resourceCacheUrl
         }
@@ -169,6 +174,7 @@ class Categories extends React.Component<PropsType> {
               subCategories: this.getListModels(children)
             })
           })}
+          navigation={navigation}
           thumbnail={this.getCachedThumbnail(category) || category.thumbnail}
           title={category.title}
           listContent={this.getListContentModel(category)}

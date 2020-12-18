@@ -23,9 +23,9 @@ type DimensionsEventType = {
   ...
 }
 
-type ContentPropsType = {|
+type ContentPropsType<T: RoutesType> = {|
   content: string,
-  navigation: NavigationPropType<RoutesType>,
+  navigation: NavigationPropType<T>,
   resourceCacheUrl: string,
   navigateToInternalLink?: NavigateToInternalLinkParamsType => void,
   cacheDictionary: { [string]: string },
@@ -38,7 +38,7 @@ const listIndent = 20
 const bulletSizeRelativeToFont = 2.8
 const bulletAlignmentRelativeToFont = 2
 
-class CategoryListContent extends React.Component<ContentPropsType, {| width: number |}> {
+class CategoryListContent<T: RoutesType> extends React.Component<ContentPropsType<T>, {| width: number |}> {
   constructor () {
     super()
     this.state = {

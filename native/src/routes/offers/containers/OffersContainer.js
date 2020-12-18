@@ -80,9 +80,6 @@ class OffersContainer extends React.Component<OffersPropsType, OffersStateType> 
     postData: ?Map<string, string>
   ) => {
     const { navigation, city } = this.props
-    if (!navigation.push) {
-      throw new Error('push is not defined on navigation')
-    }
     if (isExternalUrl) {
       navigation.push(EXTERNAL_OFFER_ROUTE, { url: path, postData })
     } else if (path === SPRUNGBRETT_OFFER_ROUTE) {
