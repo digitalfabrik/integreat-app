@@ -113,7 +113,7 @@ class SearchModal extends React.Component<PropsType, StateType> {
   }
 
   renderContent = () => {
-    const { language, theme, categories, t, sendFeedback } = this.props
+    const { language, theme, categories, t, sendFeedback, navigation } = this.props
     const { query } = this.state
 
     const minHeight = dimensions.categoryListItem.iconSize + dimensions.categoryListItem.margin * 2
@@ -128,7 +128,9 @@ class SearchModal extends React.Component<PropsType, StateType> {
         {/* The minHeight is needed to circumvent a bug that appears when there is only one search result.
               See NATIVE-430 for reference. */}
         <View style={{ minHeight: minHeight }}>
-          <CategoryList categories={filteredCategories} query={query}
+          <CategoryList categories={filteredCategories}
+                        navigation={navigation}
+                        query={query}
                         onItemPress={this.onItemPress}
                         theme={theme} language={language} />
         </View>

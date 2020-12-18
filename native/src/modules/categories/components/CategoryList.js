@@ -26,14 +26,13 @@ export type ListEntryType = {|
 |}
 
 export type ListContentModelType = {|
-  navigation: NavigationPropType<RoutesType>,
   files: PageResourceCacheStateType,
   navigateToInternalLink: NavigateToInternalLinkParamsType => void,
   resourceCacheUrl: string,
   content: string
 |}
 
-type PropsType = {|
+type PropsType<T: RoutesType> = {|
   categories: Array<ListEntryType>,
   title?: string,
   listContent?: ?ListContentModelType,
@@ -42,7 +41,8 @@ type PropsType = {|
   theme: ThemeType,
   onItemPress: (tile: { title: string, thumbnail: string, path: string }) => void,
   language: string,
-  thumbnail?: string
+  thumbnail?: string,
+  navigation: NavigationPropType<T>
 |}
 
 const CategoryThumbnail = styled(Image)`
@@ -56,9 +56,9 @@ const CategoryThumbnail = styled(Image)`
 /**
  * Displays a ContentList which is a list of categories, a caption and a thumbnail
  */
-class CategoryList extends React.Component<PropsType> {
+class CategoryList<T: RoutesType> extends React.Component<PropsType<T>> {
   getListContent (listContent: ListContentModelType): React.Node {
-    const { theme, language } = this.props
+    const { theme, language, navigation } = this.props
     const cacheDictionary = mapValues(listContent.files, (file: PageResourceCacheEntryStateType) => {
       return file.filePath.startsWith(RESOURCE_CACHE_DIR_PATH)
         ? file.filePath.replace(RESOURCE_CACHE_DIR_PATH, listContent.resourceCacheUrl)
@@ -66,7 +66,7 @@ class CategoryList extends React.Component<PropsType> {
     })
     return <CategoryListContent content={listContent.content}
                                 language={language}
-                                navigation={listContent.navigation}
+                                navigation={navigation}
                                 navigateToInternalLink={listContent.navigateToInternalLink}
                                 resourceCacheUrl={listContent.resourceCacheUrl}
                                 cacheDictionary={cacheDictionary}
