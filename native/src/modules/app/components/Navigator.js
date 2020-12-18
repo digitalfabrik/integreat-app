@@ -1,6 +1,6 @@
 // @flow
 
-import * as React from 'react'
+import React, { useState, useEffect } from 'react'
 import AppSettings from '../../settings/AppSettings'
 import { Text } from 'react-native'
 import initSentry from '../initSentry'
@@ -54,104 +54,106 @@ type PropsType = {|
   fetchCities: (forceRefresh: boolean) => void
 |}
 
-type CurrentRouteType = {| name: IntroRouteType |}
-  | {| name: LandingRouteType |}
-  | {| name: DashboardRouteType, key: string |}
-type StateType = {| waitingForSettings: boolean, errorMessage: ?string, currentRoute: CurrentRouteType |}
+type CurrentRouteType = {| name: IntroRouteType | LandingRouteType | DashboardRouteType |}
 
 const Stack = createStackNavigator<RoutesParamsType, *, *>()
 
-class Navigator extends React.Component<PropsType, StateType> {
-  state = { waitingForSettings: true, errorMessage: null, currentRoute: { name: INTRO_ROUTE } }
+const Navigator = (props: PropsType) => {
+  const [waitingForSettings, setWaitingForSettings] = useState<boolean>(true)
+  const [errorMessage, setErrorMessage] = useState<?string>(null)
+  const [currentRoute, setCurrentRoute] = useState<CurrentRouteType>({ name: INTRO_ROUTE })
 
-  componentDidMount () {
-    const { fetchCities } = this.props
+  const { fetchCities, fetchCategory } = props
+
+  useEffect(() => {
     fetchCities(false)
-    this.initializeAppContainer().catch(error => this.setState({ errorMessage: error.message }))
-  }
+  }, [fetchCities])
 
-  async initializeAppContainer () {
-    if (global.HermesInternal) {
-      console.log('App is using Hermes: https://reactnative.dev/docs/hermes')
-    }
-
-    const appSettings = new AppSettings()
-    const {
-      introShown,
-      selectedCity,
-      contentLanguage,
-      storageVersion,
-      errorTracking
-    } = await appSettings.loadSettings()
-
-    if (!storageVersion) {
-      await appSettings.setVersion(ASYNC_STORAGE_VERSION)
-    }
-
-    if (storageVersion !== ASYNC_STORAGE_VERSION) {
-      // start a migration routine
-    }
-
-    if (!contentLanguage) {
-      throw Error('The contentLanguage has not been set correctly by I18nProvider!')
-    }
-
-    if (!buildConfig().featureFlags.introSlides) {
-      await appSettings.setIntroShown()
-      await appSettings.setSettings({ errorTracking: false, allowPushNotifications: false, proposeNearbyCities: false })
-    }
-
-    if (buildConfig().featureFlags.introSlides && !introShown) {
-      this.setState({ currentRoute: { name: INTRO_ROUTE } })
-    } else {
-      if (errorTracking) {
-        initSentry()
+  useEffect(() => {
+    const initialize = async () => {
+      if (global.HermesInternal) {
+        console.log('App is using Hermes: https://reactnative.dev/docs/hermes')
       }
 
-      if (selectedCity) {
-        const key = generateKey()
-        this.props.fetchCategory(selectedCity, contentLanguage, key)
-        this.setState({ currentRoute: { name: DASHBOARD_ROUTE, key } })
+      const appSettings = new AppSettings()
+      const {
+        introShown,
+        selectedCity,
+        contentLanguage,
+        storageVersion,
+        errorTracking
+      } = await appSettings.loadSettings()
+
+      if (!storageVersion) {
+        await appSettings.setVersion(ASYNC_STORAGE_VERSION)
+      }
+
+      if (storageVersion !== ASYNC_STORAGE_VERSION) {
+        // start a migration routine
+      }
+
+      if (!contentLanguage) {
+        throw Error('The contentLanguage has not been set correctly by I18nProvider!')
+      }
+
+      if (!buildConfig().featureFlags.introSlides) {
+        await appSettings.setIntroShown()
+        await appSettings.setSettings({
+          errorTracking: false,
+          allowPushNotifications: false,
+          proposeNearbyCities: false
+        })
+      }
+
+      if (buildConfig().featureFlags.introSlides && !introShown) {
+        setCurrentRoute({ name: INTRO_ROUTE })
       } else {
-        this.setState({ currentRoute: { name: LANDING_ROUTE } })
+        if (errorTracking) {
+          initSentry()
+        }
+
+        if (selectedCity) {
+          fetchCategory(selectedCity, contentLanguage, generateKey())
+          setCurrentRoute({ name: DASHBOARD_ROUTE })
+        } else {
+          setCurrentRoute({ name: LANDING_ROUTE })
+        }
       }
-    }
 
-    this.setState({ waitingForSettings: false })
+      setWaitingForSettings(false)
+    }
+    initialize().catch(error => setErrorMessage(error.message))
+  }, [])
+
+  if (errorMessage) {
+    return <Text>{errorMessage}</Text>
+  } else if (waitingForSettings) {
+    return null
   }
 
-  render () {
-    const { waitingForSettings, errorMessage, currentRoute } = this.state
-    if (errorMessage) {
-      return <Text>{errorMessage}</Text>
-    } else if (waitingForSettings) {
-      return null
-    }
-
-    // TODO Snackbar
-    return (
-      <Stack.Navigator initialRouteName={currentRoute.name}>
-        <Stack.Screen name={INTRO_ROUTE} component={IntroContainer} options={{ header: () => null }} />
-        <Stack.Screen name={LANDING_ROUTE} component={LandingContainer} options={{ header: () => null }} />
-        <Stack.Screen name={DASHBOARD_ROUTE} component={DashboardContainer} options={{ header: defaultHeader }} initialParams={{ key: currentRoute.key || null }} />
-        <Stack.Screen name={CATEGORIES_ROUTE} component={CategoriesContainer} options={{ header: defaultHeader }} />
-        <Stack.Screen name={OFFERS_ROUTE} component={OffersContainer} options={{ header: defaultHeader }} />
-        <Stack.Screen name={WOHNEN_OFFER_ROUTE} component={WohnenOfferContainer} options={{ header: defaultHeader }} />
-        <Stack.Screen name={SPRUNGBRETT_OFFER_ROUTE} component={SprungbrettOfferContainer} options={{ header: defaultHeader }} />
-        <Stack.Screen name={EXTERNAL_OFFER_ROUTE} component={ExternalOfferContainer} options={{ header: defaultHeader }} />
-        <Stack.Screen name={POIS_ROUTE} component={PoisContainer} options={{ header: defaultHeader }} />
-        <Stack.Screen name={EVENTS_ROUTE} component={EventsContainer} options={{ header: defaultHeader }} />
-        <Stack.Screen name={NEWS_ROUTE} component={NewsContainer} options={{ header: defaultHeader }} />
-        <Stack.Screen name={PDF_VIEW_MODAL_ROUTE} component={PDFViewModal} options={{ header: transparentFloatingHeader }} />
-        <Stack.Screen name={CHANGE_LANGUAGE_MODAL_ROUTE} component={ChangeLanguageModalContainer} options={{ header: transparentStaticHeader }} />
-        <Stack.Screen name={SEARCH_MODAL_ROUTE} component={SearchModalContainer} options={{ header: () => null }} />
-        <Stack.Screen name={IMAGE_VIEW_MODAL_ROUTE} component={ImageViewModal} options={{ header: transparentFloatingHeader }} />
-        <Stack.Screen name={FEEDBACK_MODAL_ROUTE} component={FeedbackModalContainer} options={{ header: transparentFloatingHeader }} />
-        <Stack.Screen name={SETTINGS_ROUTE} component={SettingsContainer} options={{ header: settingsHeader }} />
-        <Stack.Screen name={DISCLAIMER_ROUTE} component={DisclaimerContainer} options={{ header: defaultHeader }} />
-      </Stack.Navigator>
-    )
-  }
+  // TODO Snackbar
+  return (
+    <Stack.Navigator initialRouteName={currentRoute.name}>
+      <Stack.Screen name={INTRO_ROUTE} component={IntroContainer} options={{ header: () => null }} />
+      <Stack.Screen name={LANDING_ROUTE} component={LandingContainer} options={{ header: () => null }} />
+      <Stack.Screen name={DASHBOARD_ROUTE} component={DashboardContainer} options={{ header: defaultHeader }} />
+      <Stack.Screen name={CATEGORIES_ROUTE} component={CategoriesContainer} options={{ header: defaultHeader }} />
+      <Stack.Screen name={OFFERS_ROUTE} component={OffersContainer} options={{ header: defaultHeader }} />
+      <Stack.Screen name={WOHNEN_OFFER_ROUTE} component={WohnenOfferContainer} options={{ header: defaultHeader }} />
+      <Stack.Screen name={SPRUNGBRETT_OFFER_ROUTE} component={SprungbrettOfferContainer} options={{ header: defaultHeader }} />
+      <Stack.Screen name={EXTERNAL_OFFER_ROUTE} component={ExternalOfferContainer} options={{ header: defaultHeader }} />
+      <Stack.Screen name={POIS_ROUTE} component={PoisContainer} options={{ header: defaultHeader }} />
+      <Stack.Screen name={EVENTS_ROUTE} component={EventsContainer} options={{ header: defaultHeader }} />
+      <Stack.Screen name={NEWS_ROUTE} component={NewsContainer} options={{ header: defaultHeader }} />
+      <Stack.Screen name={PDF_VIEW_MODAL_ROUTE} component={PDFViewModal} options={{ header: transparentFloatingHeader }} />
+      <Stack.Screen name={CHANGE_LANGUAGE_MODAL_ROUTE} component={ChangeLanguageModalContainer} options={{ header: transparentStaticHeader }} />
+      <Stack.Screen name={SEARCH_MODAL_ROUTE} component={SearchModalContainer} options={{ header: () => null }} />
+      <Stack.Screen name={IMAGE_VIEW_MODAL_ROUTE} component={ImageViewModal} options={{ header: transparentFloatingHeader }} />
+      <Stack.Screen name={FEEDBACK_MODAL_ROUTE} component={FeedbackModalContainer} options={{ header: transparentFloatingHeader }} />
+      <Stack.Screen name={SETTINGS_ROUTE} component={SettingsContainer} options={{ header: settingsHeader }} />
+      <Stack.Screen name={DISCLAIMER_ROUTE} component={DisclaimerContainer} options={{ header: defaultHeader }} />
+    </Stack.Navigator>
+  )
 }
 
 export default Navigator

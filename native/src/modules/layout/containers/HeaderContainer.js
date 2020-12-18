@@ -31,10 +31,13 @@ type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const routeKey = ownProps.scene.route.key
 
-  const route =
-    state.cityContent?.categoriesRouteMapping[routeKey] ||
-    state.cityContent?.eventsRouteMapping[routeKey] ||
-    state.cityContent?.newsRouteMapping[routeKey]
+  const route = state.cityContent
+    ? state.cityContent.categoriesRouteMapping[routeKey] ||
+      state.cityContent.eventsRouteMapping[routeKey] ||
+      state.cityContent.newsRouteMapping[routeKey] ||
+      // Necessary for dashboard as the route key is not that of the categories state view
+      state.cityContent.categoriesRouteMapping[Object.keys(state.cityContent.categoriesRouteMapping)[0]]
+    : null
   const languages = state.cityContent?.languages
 
   // prevent re-rendering when city is there.
