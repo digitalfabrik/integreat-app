@@ -16,10 +16,6 @@ const createNavigateToCategory = <T: RoutesType>(
 ) => ({ cityCode, language, path, key = generateKey(), forceRefresh = false }: NavigateToCategoryParamsType) => {
     navigation.navigate({
       routeName,
-      params: {
-        onRouteClose: () => dispatch({ type: 'CLEAR_CATEGORY', params: { key } }),
-        sharePath: path
-      },
       key
     })
 

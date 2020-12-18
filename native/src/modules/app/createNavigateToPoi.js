@@ -4,6 +4,7 @@ import type { Dispatch } from 'redux'
 import type { FetchPoiActionType, StoreActionType } from './StoreActionType'
 import { generateKey } from './generateRouteKey'
 import type { NavigationPropType, RoutesType } from './components/NavigationTypes'
+import { POIS_ROUTE } from './components/NavigationTypes'
 
 export type NavigateToPoiParamsType =
   {| cityCode: string, language: string, path: ?string, key?: string, forceRefresh?: boolean |}
@@ -11,16 +12,9 @@ export type NavigateToPoiParamsType =
 const createNavigateToPoi = <T: RoutesType>(
   dispatch: Dispatch<StoreActionType>,
   navigation: NavigationPropType<T>
-) => (
-    {
-      cityCode, language, path, key = generateKey(), forceRefresh = false
-    }: NavigateToPoiParamsType) => {
+) => ({ cityCode, language, path, key = generateKey(), forceRefresh = false }: NavigateToPoiParamsType) => {
     navigation.navigate({
-      routeName: 'Pois',
-      params: {
-        onRouteClose: () => dispatch({ type: 'CLEAR_POI', params: { key } }),
-        sharePath: path || `/${cityCode}/${language}/pois`
-      },
+      routeName: POIS_ROUTE,
       key
     })
 

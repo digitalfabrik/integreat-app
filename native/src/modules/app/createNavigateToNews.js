@@ -25,9 +25,6 @@ const createNavigateToNews = <T: RoutesType>(
   }: NavigateToNewsParamsType) => {
     navigation.navigate({
       routeName: NEWS_ROUTE_NAME,
-      params: {
-        onRouteClose: () => dispatch({ type: 'CLEAR_NEWS', params: { key, city: cityCode } })
-      },
       key
     })
     const fetchNews: FetchNewsActionType = {
