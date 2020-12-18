@@ -37,6 +37,7 @@ import {
   POIS_ROUTE, SEARCH_MODAL_ROUTE, SETTINGS_ROUTE
 } from './NavigationTypes'
 import type { RoutesParamsType } from './NavigationTypes'
+import { generateKey } from '../generateRouteKey'
 
 const transparentStaticHeader = (headerProps: StackHeaderProps) =>
   <TransparentHeaderContainer scene={headerProps.scene} float={false} />
@@ -105,7 +106,7 @@ class Navigator extends React.Component<PropsType, StateType> {
       }
 
       if (selectedCity) {
-        // TODO fetch categories?
+        this.props.fetchCategory(selectedCity, contentLanguage, generateKey())
         this.setState({ currentRoute: DASHBOARD_ROUTE })
       } else {
         this.setState({ currentRoute: LANDING_ROUTE })
