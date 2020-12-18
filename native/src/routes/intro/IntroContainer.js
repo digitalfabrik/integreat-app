@@ -185,7 +185,7 @@ class Intro extends React.Component<PropsType, StateType> {
     }
     await this._appSettings.setSettings({ errorTracking, allowPushNotifications, proposeNearbyCities })
     this._appSettings.setIntroShown()
-    // TODO Navigate to landing
+    this.props.navigation.replace('Landing')
   }
 
   goToSlide = (index: number) => {

@@ -63,6 +63,7 @@ export type PropsType<S: { dispatch: Dispatch<StoreActionType> }, R: {}, T: Rout
 
 const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R: {}, T: RoutesType> (
   refresh: (refreshProps: R, dispatch: Dispatch<StoreActionType>) => void,
+  onRouteClose?: (routeKey: string, dispatch: Dispatch<StoreActionType>) => void,
   noScrollView?: boolean
 ): ((Component: React.ComponentType<S>) => React.ComponentType<PropsType<S, R, T>>) => {
   return (Component: React.ComponentType<S>): React.ComponentType<PropsType<S, R, T>> => {
@@ -75,6 +76,12 @@ const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R: {}, 
         }, LOADING_TIMEOUT)
         return () => clearTimeout(timer)
       }, [])
+
+      useEffect(() => {
+        if (onRouteClose) {
+          return () => onRouteClose(props.route.key, props.dispatch)
+        }
+      }, [props.route.key, props.dispatch])
 
       function refreshIfPossible () {
         if (props.status === 'routeNotInitialized' || props.status === 'loading' ||

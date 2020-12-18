@@ -12,7 +12,6 @@ import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvi
 import { CityModel } from 'api-client'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import { withTranslation } from 'react-i18next'
-import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 import Categories from '../../../modules/categories/components/Categories'
 import React from 'react'
 import type { TFunction } from 'react-i18next'
@@ -54,6 +53,10 @@ type RefreshPropsType = {|
 
 type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
+
+const onRouteClose = (routeKey: string, dispatch: Dispatch<StoreActionType>) => {
+  dispatch({ type: 'CLEAR_CATEGORY', params: { key: routeKey } })
+}
 
 const createChangeUnavailableLanguage = (city: string, t: TFunction) => (
   dispatch: Dispatch<StoreActionType>, newLanguage: string
@@ -183,9 +186,8 @@ const ThemedTranslatedCategories = withTheme(
   withTranslation('categories')(Categories)
 )
 
-export default withRouteCleaner<CategoriesRouteType, OwnPropsType>(
-  withTranslation('error')(
-    connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
-      withPayloadProvider<ContainerPropsType, RefreshPropsType, CategoriesRouteType>(refresh)(
-        CategoriesContainer
-      ))))
+export default withTranslation('error')(
+  connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
+    withPayloadProvider<ContainerPropsType, RefreshPropsType, CategoriesRouteType>(refresh, onRouteClose)(
+      CategoriesContainer
+    )))

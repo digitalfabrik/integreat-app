@@ -1,12 +1,10 @@
 // @flow
 
 import type { Dispatch } from 'redux'
-
 import { connect } from 'react-redux'
 import Dashboard from '../components/Dashboard'
 import type { CategoryRouteStateType, LanguageResourceCacheStateType, StateType } from '../../../modules/app/StateType'
 import withTheme from '../../../modules/theme/hocs/withTheme'
-import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import { type TFunction, withTranslation } from 'react-i18next'
@@ -57,6 +55,10 @@ type ContainerPropsType = {|
 type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
 type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
+
+const onRouteClose = (routeKey: string, dispatch: Dispatch<StoreActionType>) => {
+  dispatch({ type: 'CLEAR_CATEGORY', params: { key: routeKey } })
+}
 
 const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
   const { cityCode, language, navigation, route, path } = refreshProps
@@ -190,9 +192,8 @@ const DashboardContainer = (props: ContainerPropsType) => {
     navigateToOffers={createNavigateToOffers(dispatch, rest.navigation)} />
 }
 
-export default withRouteCleaner<DashboardRouteType, OwnPropsType>(
-  withTranslation('error')(
-    connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
-      withPayloadProvider<ContainerPropsType, RefreshPropsType, DashboardRouteType>(refresh)(
-        DashboardContainer
-      ))))
+export default withTranslation('error')(
+  connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
+    withPayloadProvider<ContainerPropsType, RefreshPropsType, DashboardRouteType>(refresh, onRouteClose)(
+      DashboardContainer
+    )))

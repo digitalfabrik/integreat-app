@@ -4,7 +4,6 @@ import type { EventRouteStateType, LanguageResourceCacheStateType, StateType } f
 import { connect } from 'react-redux'
 import Events from '../components/Events'
 import { type TFunction, withTranslation } from 'react-i18next'
-import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 import createNavigateToEvent from '../../../modules/app/createNavigateToEvent'
 import type { Dispatch } from 'redux'
 import type { StoreActionType, SwitchContentLanguageActionType } from '../../../modules/app/StoreActionType'
@@ -54,6 +53,10 @@ type RefreshPropsType = {|
 
 type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
+
+const onRouteClose = (routeKey: string, dispatch: Dispatch<StoreActionType>) => {
+  dispatch({ type: 'CLEAR_EVENT', params: { key: routeKey } })
+}
 
 const createChangeUnavailableLanguage = (city: string, t: TFunction) => (
   dispatch: Dispatch<StoreActionType>, newLanguage: string
@@ -194,9 +197,8 @@ const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionT
   navigateToEvent({ cityCode, language, path, forceRefresh: true, key: route.key })
 }
 
-export default withRouteCleaner<EventsRouteType, OwnPropsType>(
-  withTranslation('error')(
-    connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
-      withPayloadProvider<ContainerPropsType, RefreshPropsType, EventsRouteType>(refresh)(
-        EventsContainer
-      ))))
+export default withTranslation('error')(
+  connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
+    withPayloadProvider<ContainerPropsType, RefreshPropsType, EventsRouteType>(refresh, onRouteClose)(
+      EventsContainer
+    )))

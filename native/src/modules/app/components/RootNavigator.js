@@ -1,7 +1,6 @@
 // @flow
 
 import * as React from 'react'
-import { generateKey } from '../generateRouteKey'
 import AppSettings from '../../settings/AppSettings'
 import { Text } from 'react-native'
 import initSentry from '../initSentry'
@@ -37,7 +36,7 @@ import {
   OFFERS_ROUTE, PDF_VIEW_MODAL_ROUTE,
   POIS_ROUTE, SEARCH_MODAL_ROUTE, SETTINGS_ROUTE
 } from './NavigationTypes'
-import type { DashboardRouteType, IntroRouteType, LandingRouteType, RoutesParamsType } from './NavigationTypes'
+import type { RoutesParamsType } from './NavigationTypes'
 
 const transparentStaticHeader = (headerProps: StackHeaderProps) =>
   <TransparentHeaderContainer scene={headerProps.scene} float={false} />
@@ -51,27 +50,15 @@ const defaultHeader = (headerProps: StackHeaderProps) => <HeaderContainer scene=
 
 type PropsType = {|
   fetchCategory: (cityCode: string, language: string, key: string) => void,
-  clearCategory: (key: string) => void,
   fetchCities: (forceRefresh: boolean) => void
 |}
 
-type InitialRouteType = {|
-  name: IntroRouteType
-|} | {|
-  name: LandingRouteType
-|} | {|
-  name: DashboardRouteType,
-  cityCode: string,
-  languageCode: string,
-  key: string
-|}
-
-type StateType = {| waitingForSettings: boolean, errorMessage: null, currentRoute: InitialRouteType |}
+type StateType = {| waitingForSettings: boolean, errorMessage: null, currentRoute: string |}
 
 const Stack = createStackNavigator<RoutesParamsType, *, *>()
 
 class RootNavigator extends React.Component<PropsType, StateType> {
-  state = { waitingForSettings: true, errorMessage: null, currentRoute: { name: INTRO_ROUTE } }
+  state = { waitingForSettings: true, errorMessage: null, currentRoute: INTRO_ROUTE }
 
   componentDidMount () {
     const { fetchCities } = this.props
@@ -111,42 +98,24 @@ class RootNavigator extends React.Component<PropsType, StateType> {
     }
 
     if (buildConfig().featureFlags.introSlides && !introShown) {
-      this.setState({ currentRoute: { name: INTRO_ROUTE } })
+      this.setState({ currentRoute: INTRO_ROUTE })
     } else {
       if (errorTracking) {
         initSentry()
       }
 
       if (selectedCity) {
-        this.navigateToCityContent(selectedCity, contentLanguage)
+        // TODO fetch categories?
+        this.setState({ currentRoute: DASHBOARD_ROUTE })
       } else {
-        this.setState({ currentRoute: { name: LANDING_ROUTE } })
+        this.setState({ currentRoute: LANDING_ROUTE })
       }
     }
 
     this.setState({ waitingForSettings: false })
   }
 
-  navigateToLanding = () => {
-    this.setState({ currentRoute: { name: LANDING_ROUTE } })
-  }
-
-  navigateToCityContent = (cityCode: string, languageCode: string) => {
-    const key = generateKey()
-    // TODO
-    // const params = {
-    //   cityCode,
-    //   sharePath: path,
-    //   onRouteClose: () => dispatch({ type: 'CLEAR_CATEGORY', params: { key } })
-    // }
-    this.setState({
-      currentRoute: { name: DASHBOARD_ROUTE, cityCode, languageCode, key }
-    })
-    this.props.fetchCategory(cityCode, languageCode, key)
-  }
-
   render () {
-    const { clearCategory } = this.props
     const { waitingForSettings, errorMessage, currentRoute } = this.state
     if (errorMessage) {
       return <Text>{errorMessage}</Text>
@@ -156,33 +125,29 @@ class RootNavigator extends React.Component<PropsType, StateType> {
 
     // TODO Snackbar
     return (
-      <Stack.Navigator>
-        {
-          currentRoute.name !== DASHBOARD_ROUTE
-            ? currentRoute.name === INTRO_ROUTE
-                ? <Stack.Screen name={INTRO_ROUTE} component={IntroContainer} />
-                : <Stack.Screen name={LANDING_ROUTE}
-                                component={LandingContainer}
-                                initialParams={{ navigateToCityContent: this.navigateToCityContent }} />
-            : <>
-              <Stack.Screen name={DASHBOARD_ROUTE} component={DashboardContainer} options={{ header: defaultHeader }} />
-              <Stack.Screen name={CATEGORIES_ROUTE} component={CategoriesContainer} options={{ header: defaultHeader }} />
-              <Stack.Screen name={OFFERS_ROUTE} component={OffersContainer} options={{ header: defaultHeader }} />
-              <Stack.Screen name={WOHNEN_OFFER_ROUTE} component={WohnenOfferContainer} options={{ header: defaultHeader }} />
-              <Stack.Screen name={SPRUNGBRETT_OFFER_ROUTE} component={SprungbrettOfferContainer} options={{ header: defaultHeader }} />
-              <Stack.Screen name={EXTERNAL_OFFER_ROUTE} component={ExternalOfferContainer} options={{ header: defaultHeader }} />
-              <Stack.Screen name={POIS_ROUTE} component={PoisContainer} options={{ header: defaultHeader }} />
-              <Stack.Screen name={EVENTS_ROUTE} component={EventsContainer} options={{ header: defaultHeader }} />
-              <Stack.Screen name={NEWS_ROUTE} component={NewsContainer} options={{ header: defaultHeader }} />
-              <Stack.Screen name={PDF_VIEW_MODAL_ROUTE} component={PDFViewModal} options={{ header: transparentFloatingHeader }} />
-              <Stack.Screen name={CHANGE_LANGUAGE_MODAL_ROUTE} component={ChangeLanguageModalContainer} options={{ header: transparentStaticHeader }} />
-              <Stack.Screen name={SEARCH_MODAL_ROUTE} component={SearchModalContainer} />
-              <Stack.Screen name={IMAGE_VIEW_MODAL_ROUTE} component={ImageViewModal} options={{ header: transparentFloatingHeader }} />
-              <Stack.Screen name={FEEDBACK_MODAL_ROUTE} component={FeedbackModalContainer} options={{ header: transparentFloatingHeader }} />
-              <Stack.Screen name={SETTINGS_ROUTE} component={SettingsContainer} options={{ header: settingsHeader }} />
-              <Stack.Screen name={DISCLAIMER_ROUTE} component={DisclaimerContainer} options={{ header: defaultHeader }} />
-            </>
-        }
+      <Stack.Navigator initialRouteName={currentRoute}>
+        <Stack.Screen name={INTRO_ROUTE}
+                      component={IntroContainer}
+                      options={{ header: () => null }} />
+        <Stack.Screen name={LANDING_ROUTE}
+                      component={LandingContainer}
+                      options={{ header: () => null }} />
+        <Stack.Screen name={DASHBOARD_ROUTE} component={DashboardContainer} options={{ header: defaultHeader }} />
+        <Stack.Screen name={CATEGORIES_ROUTE} component={CategoriesContainer} options={{ header: defaultHeader }} />
+        <Stack.Screen name={OFFERS_ROUTE} component={OffersContainer} options={{ header: defaultHeader }} />
+        <Stack.Screen name={WOHNEN_OFFER_ROUTE} component={WohnenOfferContainer} options={{ header: defaultHeader }} />
+        <Stack.Screen name={SPRUNGBRETT_OFFER_ROUTE} component={SprungbrettOfferContainer} options={{ header: defaultHeader }} />
+        <Stack.Screen name={EXTERNAL_OFFER_ROUTE} component={ExternalOfferContainer} options={{ header: defaultHeader }} />
+        <Stack.Screen name={POIS_ROUTE} component={PoisContainer} options={{ header: defaultHeader }} />
+        <Stack.Screen name={EVENTS_ROUTE} component={EventsContainer} options={{ header: defaultHeader }} />
+        <Stack.Screen name={NEWS_ROUTE} component={NewsContainer} options={{ header: defaultHeader }} />
+        <Stack.Screen name={PDF_VIEW_MODAL_ROUTE} component={PDFViewModal} options={{ header: transparentFloatingHeader }} />
+        <Stack.Screen name={CHANGE_LANGUAGE_MODAL_ROUTE} component={ChangeLanguageModalContainer} options={{ header: transparentStaticHeader }} />
+        <Stack.Screen name={SEARCH_MODAL_ROUTE} component={SearchModalContainer} options={{ header: () => null }} />
+        <Stack.Screen name={IMAGE_VIEW_MODAL_ROUTE} component={ImageViewModal} options={{ header: transparentFloatingHeader }} />
+        <Stack.Screen name={FEEDBACK_MODAL_ROUTE} component={FeedbackModalContainer} options={{ header: transparentFloatingHeader }} />
+        <Stack.Screen name={SETTINGS_ROUTE} component={SettingsContainer} options={{ header: settingsHeader }} />
+        <Stack.Screen name={DISCLAIMER_ROUTE} component={DisclaimerContainer} options={{ header: defaultHeader }} />
       </Stack.Navigator>
     )
   }
