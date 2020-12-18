@@ -1,6 +1,6 @@
 // @flow
 
-import * as React from 'react'
+import React from 'react'
 import { Provider } from 'react-redux'
 import I18nProviderContainer from '../../i18n/containers/I18nProviderContainer'
 import createReduxStore from '../createReduxStore'
@@ -16,30 +16,28 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 import StaticServerProvider from '../../static-server/containers/StaticServerProvider'
 import { NavigationContainer } from '@react-navigation/native'
 
-class App extends React.Component<{||}> {
-  dataContainer: DataContainer = new DefaultDataContainer()
-  store: Store<StateType, StoreActionType> = createReduxStore(this.dataContainer)
+const dataContainer: DataContainer = new DefaultDataContainer()
+const store: Store<StateType, StoreActionType> = createReduxStore(dataContainer)
 
-  render () {
-    return (
-      <Provider store={this.store}>
-        <StaticServerProvider>
-          <I18nProviderContainer>
-            <SafeAreaProvider>
-              <>
-                <StatusBarContainer />
-                <IOSSafeAreaView>
-                  <NavigationContainer>
-                    <NavigatorContainer />
-                  </NavigationContainer>
-                </IOSSafeAreaView>
-              </>
-            </SafeAreaProvider>
-          </I18nProviderContainer>
-        </StaticServerProvider>
-      </Provider>
-    )
-  }
+const App = () => {
+  return (
+    <Provider store={store}>
+      <StaticServerProvider>
+        <I18nProviderContainer>
+          <SafeAreaProvider>
+            <>
+              <StatusBarContainer />
+              <IOSSafeAreaView>
+                <NavigationContainer>
+                  <NavigatorContainer />
+                </NavigationContainer>
+              </IOSSafeAreaView>
+            </>
+          </SafeAreaProvider>
+        </I18nProviderContainer>
+      </StaticServerProvider>
+    </Provider>
+  )
 }
 
 export default App
