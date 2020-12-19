@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import { type TFunction, withTranslation } from 'react-i18next'
 import WohnenOffer from '../components/WohnenOffer'
 import { createWohnenEndpoint, OfferModel, Payload, WohnenOfferModel } from 'api-client'
-import { WOHNEN_OFFER, WOHNEN_ROUTE } from '../../offers/constants'
+import { WOHNEN_OFFER } from '../../offers/constants'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import type { ThemeType } from '../../../modules/theme/constants'
 import FailureContainer from '../../../modules/error/containers/FailureContainer'
@@ -20,6 +20,7 @@ import type {
   NavigationPropType,
   RoutePropType
 } from '../../../modules/app/components/NavigationTypes'
+import { WOHNEN_OFFER_ROUTE } from '../../../modules/app/components/NavigationTypes'
 
 const WOHNEN_API_URL = 'https://api.wohnen.integreat-app.de/v0'
 
@@ -48,7 +49,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   const navigateToOffer = (offerHash: string) => {
     const params = { offerHash: offerHash, offers: offers, city: cityCode }
     if (ownProps.navigation.push) {
-      ownProps.navigation.push(WOHNEN_ROUTE, params)
+      ownProps.navigation.push(WOHNEN_OFFER_ROUTE, params)
     }
   }
 
