@@ -54,14 +54,14 @@ type PropsType = {|
   fetchCities: (forceRefresh: boolean) => void
 |}
 
-type CurrentRouteType = {| name: IntroRouteType | LandingRouteType | DashboardRouteType |}
+type InitialRouteType = {| name: IntroRouteType | LandingRouteType | DashboardRouteType |}
 
 const Stack = createStackNavigator<RoutesParamsType, *, *>()
 
 const Navigator = (props: PropsType) => {
   const [waitingForSettings, setWaitingForSettings] = useState<boolean>(true)
   const [errorMessage, setErrorMessage] = useState<?string>(null)
-  const [currentRoute, setCurrentRoute] = useState<CurrentRouteType>({ name: INTRO_ROUTE })
+  const [initialRoute, setInitialRoute] = useState<InitialRouteType>({ name: INTRO_ROUTE })
 
   const { fetchCities, fetchCategory } = props
 
@@ -106,7 +106,7 @@ const Navigator = (props: PropsType) => {
       }
 
       if (buildConfig().featureFlags.introSlides && !introShown) {
-        setCurrentRoute({ name: INTRO_ROUTE })
+        setInitialRoute({ name: INTRO_ROUTE })
       } else {
         if (errorTracking) {
           initSentry()
@@ -114,9 +114,9 @@ const Navigator = (props: PropsType) => {
 
         if (selectedCity) {
           fetchCategory(selectedCity, contentLanguage, generateKey())
-          setCurrentRoute({ name: DASHBOARD_ROUTE })
+          setInitialRoute({ name: DASHBOARD_ROUTE })
         } else {
-          setCurrentRoute({ name: LANDING_ROUTE })
+          setInitialRoute({ name: LANDING_ROUTE })
         }
       }
 
@@ -133,7 +133,7 @@ const Navigator = (props: PropsType) => {
 
   // TODO Snackbar
   return (
-    <Stack.Navigator initialRouteName={currentRoute.name}>
+    <Stack.Navigator initialRouteName={initialRoute.name}>
       <Stack.Screen name={INTRO_ROUTE} component={IntroContainer} options={{ header: () => null }} />
       <Stack.Screen name={LANDING_ROUTE} component={LandingContainer} options={{ header: () => null }} />
       <Stack.Screen name={DASHBOARD_ROUTE} component={DashboardContainer} options={{ header: defaultHeader }} />
