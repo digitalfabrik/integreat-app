@@ -29,6 +29,7 @@ import type {
   NavigationPropType,
   RoutePropType
 } from '../../../modules/app/components/NavigationTypes'
+import { cityContentPath } from '../../../modules/common/url'
 
 const Spacing: StyledComponent<{||}, ThemeType, *> = styled.View`
   padding: 10px;
@@ -80,7 +81,7 @@ class Dashboard extends React.Component<PropsType> {
         onTilePress: () => navigateToCategory({
           cityCode,
           language,
-          path: `/${cityCode}/${language}`
+          cityContentPath: cityContentPath({ cityCode, languageCode: language })
         }),
         notifications: 0
       })]

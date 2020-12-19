@@ -5,59 +5,59 @@ import type { RouteProp } from '@react-navigation/native'
 import type { FeedbackInformationType } from '../../../routes/feedback/containers/FeedbackModalContainer'
 import { LanguageModel, OfferModel } from 'api-client'
 
-export type IntroRouteType = 'Intro'
-export const INTRO_ROUTE: IntroRouteType = 'Intro'
+export type IntroRouteType = 'intro'
+export const INTRO_ROUTE: IntroRouteType = 'intro'
 
-export type LandingRouteType = 'Landing'
-export const LANDING_ROUTE: LandingRouteType = 'Landing'
+export type LandingRouteType = 'landing'
+export const LANDING_ROUTE: LandingRouteType = 'landing'
 
-export type DashboardRouteType = 'Dashboard'
-export const DASHBOARD_ROUTE: DashboardRouteType = 'Dashboard'
+export type DashboardRouteType = 'dashboard'
+export const DASHBOARD_ROUTE: DashboardRouteType = 'dashboard'
 
-export type CategoriesRouteType = 'Categories'
-export const CATEGORIES_ROUTE: CategoriesRouteType = 'Categories'
+export type CategoriesRouteType = 'categories'
+export const CATEGORIES_ROUTE: CategoriesRouteType = 'categories'
 
-export type PoisRouteType = 'Pois'
-export const POIS_ROUTE: PoisRouteType = 'Pois'
+export type PoisRouteType = 'pois'
+export const POIS_ROUTE: PoisRouteType = 'pois'
 
-export type EventsRouteType = 'Events'
-export const EVENTS_ROUTE: EventsRouteType = 'Events'
+export type EventsRouteType = 'events'
+export const EVENTS_ROUTE: EventsRouteType = 'events'
 
-export type NewsRouteType = 'News'
-export const NEWS_ROUTE: NewsRouteType = 'News'
+export type NewsRouteType = 'news'
+export const NEWS_ROUTE: NewsRouteType = 'news'
 
-export type DisclaimerRouteType = 'Disclaimer'
-export const DISCLAIMER_ROUTE: DisclaimerRouteType = 'Disclaimer'
+export type DisclaimerRouteType = 'disclaimer'
+export const DISCLAIMER_ROUTE: DisclaimerRouteType = 'disclaimer'
 
-export type OffersRouteType = 'Offers'
-export const OFFERS_ROUTE: OffersRouteType = 'Offers'
+export type OffersRouteType = 'offers'
+export const OFFERS_ROUTE: OffersRouteType = 'offers'
 
-export type ExternalOfferRouteType = 'ExternalOffer'
-export const EXTERNAL_OFFER_ROUTE: ExternalOfferRouteType = 'ExternalOffer'
+export type ExternalOfferRouteType = 'externalOffer'
+export const EXTERNAL_OFFER_ROUTE: ExternalOfferRouteType = 'externalOffer'
 
-export type SprungbrettOfferRouteType = 'SprungbrettOffer'
-export const SPRUNGBRETT_OFFER_ROUTE: SprungbrettOfferRouteType = 'SprungbrettOffer'
+export type SprungbrettOfferRouteType = 'sprungbrett'
+export const SPRUNGBRETT_OFFER_ROUTE: SprungbrettOfferRouteType = 'sprungbrett'
 
-export type WohnenOfferRouteType = 'WohnenOffer'
-export const WOHNEN_OFFER_ROUTE: WohnenOfferRouteType = 'WohnenOffer'
+export type WohnenOfferRouteType = 'wohnen'
+export const WOHNEN_OFFER_ROUTE: WohnenOfferRouteType = 'wohnen'
 
-export type SettingsRouteType = 'Settings'
-export const SETTINGS_ROUTE: SettingsRouteType = 'Settings'
+export type SettingsRouteType = 'settings'
+export const SETTINGS_ROUTE: SettingsRouteType = 'settings'
 
-export type SearchModalRouteType = 'SearchModal'
-export const SEARCH_MODAL_ROUTE: SearchModalRouteType = 'SearchModal'
+export type SearchModalRouteType = 'search'
+export const SEARCH_MODAL_ROUTE: SearchModalRouteType = 'search'
 
-export type ChangeLanguageModalRouteType = 'ChangeLanguageModal'
-export const CHANGE_LANGUAGE_MODAL_ROUTE: ChangeLanguageModalRouteType = 'ChangeLanguageModal'
+export type ChangeLanguageModalRouteType = 'changeLanguage'
+export const CHANGE_LANGUAGE_MODAL_ROUTE: ChangeLanguageModalRouteType = 'changeLanguage'
 
-export type PdfViewModalRouteType = 'PDFViewModal'
-export const PDF_VIEW_MODAL_ROUTE: PdfViewModalRouteType = 'PDFViewModal'
+export type PdfViewModalRouteType = 'pdf'
+export const PDF_VIEW_MODAL_ROUTE: PdfViewModalRouteType = 'pdf'
 
-export type ImageViewModalRouteType = 'ImageViewModal'
-export const IMAGE_VIEW_MODAL_ROUTE: ImageViewModalRouteType = 'ImageViewModal'
+export type ImageViewModalRouteType = 'image'
+export const IMAGE_VIEW_MODAL_ROUTE: ImageViewModalRouteType = 'image'
 
-export type FeedbackModalRouteType = 'FeedbackModal'
-export const FEEDBACK_MODAL_ROUTE: FeedbackModalRouteType = 'FeedbackModal'
+export type FeedbackModalRouteType = 'feedback'
+export const FEEDBACK_MODAL_ROUTE: FeedbackModalRouteType = 'feedback'
 
 export type RoutesType = IntroRouteType
   | LandingRouteType
@@ -78,31 +78,33 @@ export type RoutesType = IntroRouteType
   | ImageViewModalRouteType
   | FeedbackModalRouteType
 
+type ShareUrlType = {| shareUrl: string |}
+
 export type RoutesParamsType = {|
-  Intro: void,
-  Landing: void,
-  Dashboard: void,
-  Categories: void,
-  Pois: void,
-  Events: void,
-  News: void,
-  Disclaimer: void,
-  Offers: {| cityCode: string, sharePath: string |},
-  ExternalOffer: {| url: string, postData: ?Map<string, string> |},
-  SprungbrettOffer: {| city: string, offers: Array<OfferModel> |},
-  WohnenOffer: {| offerHash: ?string, city: string, offers: Array<OfferModel> |},
-  Settings: void,
-  SearchModal: void,
-  ChangeLanguageModal: {|
+  intro: void,
+  landing: void,
+  dashboard: ShareUrlType,
+  categories: ShareUrlType,
+  pois: ShareUrlType,
+  events: ShareUrlType,
+  news: ShareUrlType,
+  disclaimer: ShareUrlType,
+  offers: {| ...ShareUrlType, cityCode: string |},
+  externalOffer: {| ...ShareUrlType, url: string, postData: ?Map<string, string> |},
+  sprungbrett: {| ...ShareUrlType, city: string, offers: Array<OfferModel> |},
+  wohnen: {| offerHash: ?string, city: string, offers: Array<OfferModel> |},
+  settings: void,
+  search: void,
+  changeLanguage: {|
     currentLanguage: string,
     previousKey: string,
     cityCode: string,
     languages: Array<LanguageModel>,
     availableLanguages: Array<string>
   |},
-  PDFViewModal: {| url: string, shareUrl?: string |},
-  ImageViewModal: {| url: string, shareUrl?: string |},
-  FeedbackModal: FeedbackInformationType
+  pdf: {| url: string, ...ShareUrlType |},
+  image: {| url: string, ...ShareUrlType |},
+  feedback: FeedbackInformationType
 |}
 
 export type RoutePropType<T: RoutesType> = RouteProp<RoutesParamsType, T>

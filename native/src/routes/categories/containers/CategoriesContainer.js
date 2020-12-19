@@ -21,6 +21,7 @@ import type {
   NavigationPropType,
   RoutePropType
 } from '../../../modules/app/components/NavigationTypes'
+import { CATEGORIES_ROUTE } from '../../../modules/app/components/NavigationTypes'
 
 type NavigationPropsType = {|
   route: RoutePropType<CategoriesRouteType>,
@@ -166,9 +167,9 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsT
 
 const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
   const { cityCode, language, path, navigation, route } = refreshProps
-  const navigateToCategories = createNavigateToCategory('Categories', dispatch, navigation)
+  const navigateToCategories = createNavigateToCategory(CATEGORIES_ROUTE, dispatch, navigation)
   navigateToCategories({
-    cityCode, language, path, forceRefresh: true, key: route.key
+    cityCode, language, cityContentPath: path, forceRefresh: true, key: route.key
   })
 }
 
@@ -177,7 +178,7 @@ class CategoriesContainer extends React.Component<ContainerPropsType> {
     const { dispatch, ...rest } = this.props
     return <ThemedTranslatedCategories
       {...rest}
-      navigateToCategory={createNavigateToCategory('Categories', dispatch, rest.navigation)}
+      navigateToCategory={createNavigateToCategory(CATEGORIES_ROUTE, dispatch, rest.navigation)}
       navigateToInternalLink={createNavigateToInternalLink(dispatch, rest.navigation)} />
   }
 }

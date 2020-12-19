@@ -18,7 +18,7 @@ import type {
   RoutePropType
 } from '../../../modules/app/components/NavigationTypes'
 import {
-  EXTERNAL_OFFER_ROUTE,
+  EXTERNAL_OFFER_ROUTE, OFFERS_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE,
   WOHNEN_OFFER_ROUTE
 } from '../../../modules/app/components/NavigationTypes'
@@ -26,6 +26,7 @@ import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import type { Dispatch } from 'redux'
 import LayoutedScrollView from '../../../modules/common/components/LayoutedScrollView'
 import LayoutContainer from '../../../modules/layout/containers/LayoutContainer'
+import { cityContentUrl } from '../../../modules/common/url'
 
 type OwnPropsType = {|
   route: RoutePropType<OffersRouteType>,
@@ -81,14 +82,15 @@ class OffersContainer extends React.Component<OffersPropsType, OffersStateType> 
     isExternalUrl: boolean,
     postData: ?Map<string, string>
   ) => {
-    const { navigation, city } = this.props
+    const { navigation, city, language } = this.props
     // HTTP POST is neither supported by the InAppBrowser nor by Linking, therefore we have to open it in a webview
     if (isExternalUrl && postData) {
-      navigation.push(EXTERNAL_OFFER_ROUTE, { url: path, postData })
+      navigation.push(EXTERNAL_OFFER_ROUTE, { url: path, shareUrl: path, postData })
     } else if (isExternalUrl) {
       openExternalUrl(path)
     } else if (path === SPRUNGBRETT_OFFER_ROUTE) {
-      const params = { city, offers }
+      const shareUrl = cityContentUrl({ cityCode: city, languageCode: language, route: OFFERS_ROUTE, path })
+      const params = { city, offers, shareUrl }
       navigation.push(SPRUNGBRETT_OFFER_ROUTE, params)
     } else if (path === WOHNEN_OFFER_ROUTE) {
       const params = { city, offers, offerHash: null }

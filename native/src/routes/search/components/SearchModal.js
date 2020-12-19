@@ -104,7 +104,7 @@ class SearchModal extends React.Component<PropsType, StateType> {
     navigateToCategory({
       cityCode,
       language,
-      path: category.path
+      cityContentPath: category.path
     })
   }
 

@@ -24,6 +24,7 @@ import type {
   NavigationPropType,
   RoutePropType
 } from '../../../modules/app/components/NavigationTypes'
+import { CATEGORIES_ROUTE, DASHBOARD_ROUTE } from '../../../modules/app/components/NavigationTypes'
 
 type NavigationPropsType = {|
   route: RoutePropType<DashboardRouteType>,
@@ -58,9 +59,13 @@ type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
 const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
   const { cityCode, language, navigation, route, path } = refreshProps
-  const navigateToDashboard = createNavigateToCategory('Dashboard', dispatch, navigation)
+  const navigateToDashboard = createNavigateToCategory(DASHBOARD_ROUTE, dispatch, navigation)
   navigateToDashboard({
-    cityCode, language, path, forceRefresh: true, key: route.key
+    cityCode,
+    language,
+    cityContentPath: path,
+    forceRefresh: true,
+    key: route.key
   })
 }
 
@@ -181,11 +186,11 @@ const DashboardContainer = (props: ContainerPropsType) => {
   return <ThemedTranslatedDashboard
     {...rest}
     navigateToPoi={createNavigateToPoi(dispatch, rest.navigation)}
-    navigateToCategory={createNavigateToCategory('Categories', dispatch, rest.navigation)}
+    navigateToCategory={createNavigateToCategory(CATEGORIES_ROUTE, dispatch, rest.navigation)}
     navigateToEvent={createNavigateToEvent(dispatch, rest.navigation)}
     navigateToNews={createNavigateToNews(dispatch, rest.navigation)}
     navigateToInternalLink={createNavigateToInternalLink(dispatch, rest.navigation)}
-    navigateToDashboard={createNavigateToCategory('Dashboard', dispatch, rest.navigation)}
+    navigateToDashboard={createNavigateToCategory(DASHBOARD_ROUTE, dispatch, rest.navigation)}
     navigateToOffers={createNavigateToOffers(dispatch, rest.navigation)} />
 }
 

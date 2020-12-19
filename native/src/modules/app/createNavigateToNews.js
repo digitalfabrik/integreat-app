@@ -5,8 +5,8 @@ import type { FetchNewsActionType, StoreActionType } from './StoreActionType'
 import type { NewsType } from './StateType'
 import { generateKey } from './generateRouteKey'
 import type { NavigationPropType, RoutesType } from './components/NavigationTypes'
-
-export const NEWS_ROUTE_NAME = 'News'
+import { cityContentUrl } from '../common/url'
+import { NEWS_ROUTE } from './components/NavigationTypes'
 
 export type NavigateToNewsParamsType = {|
   cityCode: string,
@@ -24,7 +24,8 @@ const createNavigateToNews = <T: RoutesType>(
     cityCode, type, language, newsId, key = generateKey(), forceRefresh = false
   }: NavigateToNewsParamsType) => {
     navigation.navigate({
-      name: NEWS_ROUTE_NAME,
+      name: NEWS_ROUTE,
+      shareUrl: cityContentUrl({ cityCode, languageCode: language, route: NEWS_ROUTE, path: type }),
       key
     })
     const fetchNews: FetchNewsActionType = {

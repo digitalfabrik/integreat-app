@@ -12,7 +12,7 @@ import MomentContext from '../../i18n/context/MomentContext'
 import RemoteContent from './RemoteContent'
 import SiteHelpfulBox from './SiteHelpfulBox'
 import SpaceBetween from './SpaceBetween'
-import onInternalLinkPress from '../onInternalLinkPress'
+import navigateToLink from '../../app/navigateToLink'
 import { RESOURCE_CACHE_DIR_PATH } from '../../endpoint/DatabaseConnector'
 import { mapValues } from 'lodash'
 import type { NavigationPropType, RoutesType } from '../../app/components/NavigationTypes'
@@ -51,7 +51,7 @@ class Page<T: RoutesType> extends React.Component<PropsType<T>, StateType> {
     const { navigation, language, navigateToInternalLink } = this.props
     const cacheDict = this.cacheDictionary()
     const shareUrl = Object.keys(cacheDict).find(remoteUrl => cacheDict[remoteUrl] === url)
-    onInternalLinkPress(url, navigation, language, navigateToInternalLink, shareUrl || url)
+    navigateToLink(url, navigation, language, navigateToInternalLink, shareUrl || url)
   }
 
   onLoad = () => this.setState({ loading: false })

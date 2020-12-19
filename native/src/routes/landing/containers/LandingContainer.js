@@ -18,6 +18,7 @@ import type {
 } from '../../../modules/app/components/NavigationTypes'
 import { generateKey } from '../../../modules/app/generateRouteKey'
 import { DASHBOARD_ROUTE } from '../../../modules/app/components/NavigationTypes'
+import { cityContentUrl } from '../../../modules/common/url'
 
 type OwnPropsType = {|
   route: RoutePropType<LandingRouteType>,
@@ -81,7 +82,7 @@ class LandingContainer extends React.Component<ContainerPropsType> {
       }
     })
 
-    navigation.replace(DASHBOARD_ROUTE)
+    navigation.replace(DASHBOARD_ROUTE, { shareUrl: cityContentUrl({ cityCode, languageCode }) })
   }
 
   clearResourcesAndCache = () => this.props.dispatch({ type: 'CLEAR_RESOURCES_AND_CACHE' })

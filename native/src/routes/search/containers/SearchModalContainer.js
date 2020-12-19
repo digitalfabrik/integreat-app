@@ -16,6 +16,7 @@ import type {
   NavigationPropType,
   RoutePropType
 } from '../../../modules/app/components/NavigationTypes'
+import { CATEGORIES_ROUTE } from '../../../modules/app/components/NavigationTypes'
 
 type OwnPropsType = {|
   route: RoutePropType<SearchModalRouteType>,
@@ -60,7 +61,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType) => {
 
 type DispatchType = Dispatch<StoreActionType>
 const mapDispatchToProps = (dispatch: DispatchType, ownProps: OwnPropsType) => ({
-  navigateToCategory: createNavigateToCategory('Categories', dispatch, ownProps.navigation)
+  navigateToCategory: createNavigateToCategory(CATEGORIES_ROUTE, dispatch, ownProps.navigation)
 })
 
 export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
