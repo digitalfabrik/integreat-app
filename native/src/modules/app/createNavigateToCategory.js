@@ -33,7 +33,9 @@ const createNavigateToCategory = <T: RoutesType>(
     navigation.navigate({
       name: routeName,
       params: {
-        shareUrl: url(cityContentPath)
+        shareUrl: url(cityContentPath),
+        cityCode,
+        languageCode: language
       },
       key
     })

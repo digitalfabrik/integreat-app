@@ -50,9 +50,12 @@ const settingsHeader = (headerProps: StackHeaderProps) => <SettingsHeaderContain
 const defaultHeader = (headerProps: StackHeaderProps) => <HeaderContainer {...headerProps} />
 
 type PropsType = {|
-  fetchCategory: (cityCode: string, language: string, key: string) => void,
+  fetchCategory: (cityCode: string, language: string, key: string, forceUpdate: boolean) => void,
   fetchCities: (forceRefresh: boolean) => void,
-  routeKey: ?string
+  routeKey: ?string,
+  routeName: ?string,
+  cityCode: ?string,
+  languageCode: ?string
 |}
 
 type InitialRouteType = {| name: IntroRouteType | LandingRouteType |} |
@@ -65,8 +68,9 @@ const Navigator = (props: PropsType) => {
   const [errorMessage, setErrorMessage] = useState<?string>(null)
   const [initialRoute, setInitialRoute] = useState<InitialRouteType>({ name: INTRO_ROUTE })
   const previousRouteKey = useRef(null)
+  const previousRouteName = useRef(null)
 
-  const { fetchCities, fetchCategory, routeKey } = props
+  const { fetchCities, fetchCategory, routeKey, routeName, cityCode, languageCode } = props
 
   useEffect(() => {
     fetchCities(false)
@@ -125,12 +129,25 @@ const Navigator = (props: PropsType) => {
     initialize().catch(error => setErrorMessage(error.message))
   }, [])
 
-  // Fetch categories if the initial route is the dashboard route and there was no route before
+  // The following is used to have correct mapping from categories route mapping in redux state to the actual routes
   useEffect(() => {
-    if (!previousRouteKey.current && routeKey && initialRoute.name === DASHBOARD_ROUTE) {
-      fetchCategory(initialRoute.cityCode, initialRoute.languageCode, routeKey)
+    // Fetch categories if the initial route is the dashboard route and there was no route before
+    // i.e. initial route was set by this component (Navigator)
+    if ((!previousRouteKey.current && routeKey && initialRoute.name === DASHBOARD_ROUTE)) {
+      fetchCategory(initialRoute.cityCode, initialRoute.languageCode, routeKey, false)
+    } else {
+      // Fetch categories if new route is the dashboard route and the previous route was the landing route
+      // This is necessary because with react-navigation v5 it is not possible anymore to specify the key of a new route
+      // https://github.com/react-navigation/react-navigation/issues/8313
+      // https://github.com/react-navigation/react-navigation/issues/7685
+      if (routeName === DASHBOARD_ROUTE && previousRouteName.current === LANDING_ROUTE &&
+        routeKey && cityCode && languageCode
+      ) {
+        fetchCategory(cityCode, languageCode, routeKey, true)
+      }
     }
     previousRouteKey.current = routeKey
+    previousRouteName.current = routeName
   }, [routeKey])
 
   if (errorMessage) {
@@ -139,31 +156,35 @@ const Navigator = (props: PropsType) => {
     return null
   }
 
-  const shareUrl = initialRoute.name === DASHBOARD_ROUTE
-    ? cityContentUrl({ cityCode: initialRoute.cityCode, languageCode: initialRoute.languageCode })
-    : null
+  const dashboardParams = initialRoute.name === DASHBOARD_ROUTE
+    ? {
+        cityCode: initialRoute.cityCode,
+        languageCode: initialRoute.languageCode,
+        shareUrl: cityContentUrl({ cityCode: initialRoute.cityCode, languageCode: initialRoute.languageCode })
+      }
+    : {}
 
   return (
-    <Stack.Navigator initialRouteName={initialRoute.name}>
-      <Stack.Screen name={INTRO_ROUTE} component={IntroContainer} options={{ header: () => null }} />
-      <Stack.Screen name={LANDING_ROUTE} component={LandingContainer} options={{ header: () => null }} />
-      <Stack.Screen name={DASHBOARD_ROUTE} component={DashboardContainer} options={{ header: defaultHeader }} initialParams={{ shareUrl }} />
-      <Stack.Screen name={CATEGORIES_ROUTE} component={CategoriesContainer} options={{ header: defaultHeader }} />
-      <Stack.Screen name={OFFERS_ROUTE} component={OffersContainer} options={{ header: defaultHeader }} />
-      <Stack.Screen name={WOHNEN_OFFER_ROUTE} component={WohnenOfferContainer} options={{ header: defaultHeader }} />
-      <Stack.Screen name={SPRUNGBRETT_OFFER_ROUTE} component={SprungbrettOfferContainer} options={{ header: defaultHeader }} />
-      <Stack.Screen name={EXTERNAL_OFFER_ROUTE} component={ExternalOfferContainer} options={{ header: defaultHeader }} />
-      <Stack.Screen name={POIS_ROUTE} component={PoisContainer} options={{ header: defaultHeader }} />
-      <Stack.Screen name={EVENTS_ROUTE} component={EventsContainer} options={{ header: defaultHeader }} />
-      <Stack.Screen name={NEWS_ROUTE} component={NewsContainer} options={{ header: defaultHeader }} />
-      <Stack.Screen name={PDF_VIEW_MODAL_ROUTE} component={PDFViewModal} options={{ header: transparentFloatingHeader }} />
-      <Stack.Screen name={CHANGE_LANGUAGE_MODAL_ROUTE} component={ChangeLanguageModalContainer} options={{ header: transparentStaticHeader }} />
-      <Stack.Screen name={SEARCH_MODAL_ROUTE} component={SearchModalContainer} options={{ header: () => null }} />
-      <Stack.Screen name={IMAGE_VIEW_MODAL_ROUTE} component={ImageViewModal} options={{ header: transparentFloatingHeader }} />
-      <Stack.Screen name={FEEDBACK_MODAL_ROUTE} component={FeedbackModalContainer} options={{ header: transparentFloatingHeader }} />
-      <Stack.Screen name={SETTINGS_ROUTE} component={SettingsContainer} options={{ header: settingsHeader }} />
-      <Stack.Screen name={DISCLAIMER_ROUTE} component={DisclaimerContainer} options={{ header: defaultHeader }} />
-    </Stack.Navigator>
+  <Stack.Navigator initialRouteName={initialRoute.name}>
+    <Stack.Screen name={INTRO_ROUTE} component={IntroContainer} options={{ header: () => null }} />
+    <Stack.Screen name={LANDING_ROUTE} component={LandingContainer} options={{ header: () => null }} />
+    <Stack.Screen name={DASHBOARD_ROUTE} component={DashboardContainer} options={{ header: defaultHeader }} initialParams={dashboardParams} />
+    <Stack.Screen name={CATEGORIES_ROUTE} component={CategoriesContainer} options={{ header: defaultHeader }} />
+    <Stack.Screen name={OFFERS_ROUTE} component={OffersContainer} options={{ header: defaultHeader }} />
+    <Stack.Screen name={WOHNEN_OFFER_ROUTE} component={WohnenOfferContainer} options={{ header: defaultHeader }} />
+    <Stack.Screen name={SPRUNGBRETT_OFFER_ROUTE} component={SprungbrettOfferContainer} options={{ header: defaultHeader }} />
+    <Stack.Screen name={EXTERNAL_OFFER_ROUTE} component={ExternalOfferContainer} options={{ header: defaultHeader }} />
+    <Stack.Screen name={POIS_ROUTE} component={PoisContainer} options={{ header: defaultHeader }} />
+    <Stack.Screen name={EVENTS_ROUTE} component={EventsContainer} options={{ header: defaultHeader }} />
+    <Stack.Screen name={NEWS_ROUTE} component={NewsContainer} options={{ header: defaultHeader }} />
+    <Stack.Screen name={PDF_VIEW_MODAL_ROUTE} component={PDFViewModal} options={{ header: transparentFloatingHeader }} />
+    <Stack.Screen name={CHANGE_LANGUAGE_MODAL_ROUTE} component={ChangeLanguageModalContainer} options={{ header: transparentStaticHeader }} />
+    <Stack.Screen name={SEARCH_MODAL_ROUTE} component={SearchModalContainer} options={{ header: () => null }} />
+    <Stack.Screen name={IMAGE_VIEW_MODAL_ROUTE} component={ImageViewModal} options={{ header: transparentFloatingHeader }} />
+    <Stack.Screen name={FEEDBACK_MODAL_ROUTE} component={FeedbackModalContainer} options={{ header: transparentFloatingHeader }} />
+    <Stack.Screen name={SETTINGS_ROUTE} component={SettingsContainer} options={{ header: settingsHeader }} />
+    <Stack.Screen name={DISCLAIMER_ROUTE} component={DisclaimerContainer} options={{ header: defaultHeader }} />
+  </Stack.Navigator>
   )
 }
 

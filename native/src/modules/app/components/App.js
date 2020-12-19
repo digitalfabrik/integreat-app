@@ -21,13 +21,22 @@ const dataContainer: DataContainer = new DefaultDataContainer()
 const store: Store<StateType, StoreActionType> = createReduxStore(dataContainer)
 
 const App = () => {
-  const [routeName, setRouteName] = useState<string | null>(null)
+  const [routeName, setRouteName] = useState<?string>(null)
   const [routeKey, setRouteKey] = useState<?string>(null)
+  const [cityCode, setCityCode] = useState<?string>(null)
+  const [languageCode, setLanguageCode] = useState<?string>(null)
 
   const onStateChange = useCallback(state => {
     if (state) {
-      setRouteName(state.routes[state.index].name)
-      setRouteKey(state.routes[state.index].key)
+      const route = state.routes[state.index]
+      setRouteName(route.name)
+      setRouteKey(route.key)
+      if (route.params?.cityCode && route.params?.languageCode) {
+        // $FlowFixMe cityCode is not of type mixed
+        setCityCode(route.params.cityCode)
+        // $FlowFixMe languageCode is not of type mixed
+        setLanguageCode(route.params.languageCode)
+      }
     }
   }, [])
 
@@ -40,7 +49,10 @@ const App = () => {
               <StatusBarContainer />
               <IOSSafeAreaView>
                 <NavigationContainer onStateChange={onStateChange}>
-                  <NavigatorContainer routeKey={routeKey} />
+                  <NavigatorContainer routeKey={routeKey}
+                                      routeName={routeName}
+                                      languageCode={languageCode}
+                                      cityCode={cityCode} />
                 </NavigationContainer>
               </IOSSafeAreaView>
               <PermissionSnackbarContainer routeName={routeName} />
