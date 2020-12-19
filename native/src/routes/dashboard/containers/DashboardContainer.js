@@ -56,10 +56,6 @@ type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
 type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
-const onRouteClose = (routeKey: string, dispatch: Dispatch<StoreActionType>) => {
-  dispatch({ type: 'CLEAR_CATEGORY', params: { key: routeKey } })
-}
-
 const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
   const { cityCode, language, navigation, route, path } = refreshProps
   const navigateToDashboard = createNavigateToCategory('Dashboard', dispatch, navigation)
@@ -195,6 +191,6 @@ const DashboardContainer = (props: ContainerPropsType) => {
 
 export default withTranslation('error')(
   connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
-    withPayloadProvider<ContainerPropsType, RefreshPropsType, DashboardRouteType>(refresh, onRouteClose)(
+    withPayloadProvider<ContainerPropsType, RefreshPropsType, DashboardRouteType>(refresh)(
       DashboardContainer
     )))
