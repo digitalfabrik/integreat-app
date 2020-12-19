@@ -5,12 +5,16 @@ import { connect } from 'react-redux'
 import Navigator from '../components/Navigator'
 import type { StoreActionType } from '../StoreActionType'
 
+type OwnPropsType = {|
+  routeKey: ?string
+|}
+
 type DispatchPropsType = {|
   fetchCategory: (cityCode: string, language: string, key: string) => void,
   fetchCities: (forceRefresh: boolean) => void
 |}
 
-type PropsType = DispatchPropsType
+type PropsType = {| ...OwnPropsType, ...DispatchPropsType |}
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsType => ({
   fetchCategory: (cityCode: string, language: string, key: string) => {
@@ -33,4 +37,4 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsT
   }
 })
 
-export default connect<PropsType, {||}, _, _, _, _>(undefined, mapDispatchToProps)(Navigator)
+export default connect<PropsType, OwnPropsType, _, _, _, _>(undefined, mapDispatchToProps)(Navigator)

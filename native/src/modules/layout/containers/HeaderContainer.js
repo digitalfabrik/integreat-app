@@ -35,9 +35,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   const route = state.cityContent
     ? state.cityContent.categoriesRouteMapping[routeKey] ||
       state.cityContent.eventsRouteMapping[routeKey] ||
-      state.cityContent.newsRouteMapping[routeKey] ||
-      // Necessary for dashboard as the route key is not that of the categories state view
-      state.cityContent.categoriesRouteMapping[Object.keys(state.cityContent.categoriesRouteMapping)[0]]
+      state.cityContent.newsRouteMapping[routeKey]
     : null
   const languages = state.cityContent?.languages
 

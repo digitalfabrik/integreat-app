@@ -1,6 +1,6 @@
 // @flow
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import AppSettings from '../../settings/AppSettings'
 import { Text } from 'react-native'
 import initSentry from '../initSentry'
@@ -37,7 +37,6 @@ import {
   POIS_ROUTE, SEARCH_MODAL_ROUTE, SETTINGS_ROUTE
 } from './NavigationTypes'
 import type { IntroRouteType, DashboardRouteType, LandingRouteType, RoutesParamsType } from './NavigationTypes'
-import { generateKey } from '../generateRouteKey'
 import { cityContentUrl } from '../../common/url'
 
 const transparentStaticHeader = (headerProps: StackHeaderProps) =>
@@ -52,11 +51,12 @@ const defaultHeader = (headerProps: StackHeaderProps) => <HeaderContainer {...he
 
 type PropsType = {|
   fetchCategory: (cityCode: string, language: string, key: string) => void,
-  fetchCities: (forceRefresh: boolean) => void
+  fetchCities: (forceRefresh: boolean) => void,
+  routeKey: ?string
 |}
 
 type InitialRouteType = {| name: IntroRouteType | LandingRouteType |} |
-  {| name: DashboardRouteType, shareUrl: string |}
+  {| name: DashboardRouteType, cityCode: string, languageCode: string |}
 
 const Stack = createStackNavigator<RoutesParamsType, *, *>()
 
@@ -64,8 +64,11 @@ const Navigator = (props: PropsType) => {
   const [waitingForSettings, setWaitingForSettings] = useState<boolean>(true)
   const [errorMessage, setErrorMessage] = useState<?string>(null)
   const [initialRoute, setInitialRoute] = useState<InitialRouteType>({ name: INTRO_ROUTE })
+  const previousRouteKey = useRef(null)
 
-  const { fetchCities, fetchCategory } = props
+  const { fetchCities, fetchCategory, routeKey } = props
+
+  console.warn(routeKey)
 
   useEffect(() => {
     fetchCities(false)
@@ -113,9 +116,7 @@ const Navigator = (props: PropsType) => {
         }
 
         if (selectedCity) {
-          fetchCategory(selectedCity, contentLanguage, generateKey())
-          const shareUrl = cityContentUrl({ cityCode: selectedCity, languageCode: contentLanguage })
-          setInitialRoute({ name: DASHBOARD_ROUTE, shareUrl })
+          setInitialRoute({ name: DASHBOARD_ROUTE, cityCode: selectedCity, languageCode: contentLanguage })
         } else {
           setInitialRoute({ name: LANDING_ROUTE })
         }
@@ -126,13 +127,24 @@ const Navigator = (props: PropsType) => {
     initialize().catch(error => setErrorMessage(error.message))
   }, [])
 
+  // Fetch categories if the initial route is the dashboard route and there was no route before
+  useEffect(() => {
+    if (!previousRouteKey.current && routeKey && initialRoute.name === DASHBOARD_ROUTE) {
+      fetchCategory(initialRoute.cityCode, initialRoute.languageCode, routeKey)
+    }
+    previousRouteKey.current = routeKey
+  }, [routeKey])
+
   if (errorMessage) {
     return <Text>{errorMessage}</Text>
   } else if (waitingForSettings) {
     return null
   }
 
-  const shareUrl = initialRoute.name === DASHBOARD_ROUTE ? initialRoute.shareUrl : null
+  const shareUrl = initialRoute.name === DASHBOARD_ROUTE
+    ? cityContentUrl({ cityCode: initialRoute.cityCode, languageCode: initialRoute.languageCode })
+    : null
+
   return (
     <Stack.Navigator initialRouteName={initialRoute.name}>
       <Stack.Screen name={INTRO_ROUTE} component={IntroContainer} options={{ header: () => null }} />
