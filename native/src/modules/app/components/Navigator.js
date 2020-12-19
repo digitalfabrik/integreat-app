@@ -114,7 +114,7 @@ const Navigator = (props: PropsType) => {
 
         if (selectedCity) {
           fetchCategory(selectedCity, contentLanguage, generateKey())
-          const shareUrl = cityContentUrl({ cityCode: selectedCity, languageCode: contentLanguage})
+          const shareUrl = cityContentUrl({ cityCode: selectedCity, languageCode: contentLanguage })
           setInitialRoute({ name: DASHBOARD_ROUTE, shareUrl })
         } else {
           setInitialRoute({ name: LANDING_ROUTE })
@@ -132,7 +132,6 @@ const Navigator = (props: PropsType) => {
     return null
   }
 
-  // TODO Snackbar
   const shareUrl = initialRoute.name === DASHBOARD_ROUTE ? initialRoute.shareUrl : null
   return (
     <Stack.Navigator initialRouteName={initialRoute.name}>
