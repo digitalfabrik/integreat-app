@@ -11,11 +11,16 @@ import type { TFunction } from 'react-i18next'
 import { CityModel } from 'api-client'
 import MaterialHeaderButtons from './MaterialHeaderButtons'
 import buildConfig, { buildConfigAssets } from '../../app/constants/buildConfig'
-import Url from 'url-parse'
 import dimensions from '../../theme/constants/dimensions'
 import type { StoreActionType } from '../../app/StoreActionType'
 import type { Dispatch } from 'redux'
-import { LANDING_ROUTE } from '../../app/components/NavigationTypes'
+import {
+  DISCLAIMER_ROUTE,
+  LANDING_ROUTE,
+  SEARCH_MODAL_ROUTE,
+  SETTINGS_ROUTE
+} from '../../app/components/NavigationTypes'
+import { cityContentUrl } from '../../common/url'
 
 const Horizontal = styled.View`
   flex: 1;
@@ -64,6 +69,7 @@ type PropsType = {|
   categoriesAvailable: boolean,
   goToLanguageChange?: () => void,
   routeCityModel?: CityModel,
+  language: string,
   dispatch: Dispatch<StoreActionType>
 |}
 
@@ -83,23 +89,21 @@ class Header extends React.PureComponent<PropsType> {
   }
 
   goToSettings = () => {
-    this.props.navigation.navigate('Settings')
+    this.props.navigation.navigate(SETTINGS_ROUTE)
   }
 
   onShare = async () => {
     const { scene, t } = this.props
-    const sharePath = scene.route.params?.sharePath || ''
-    const shareBaseUrl = new Url(buildConfig().shareBaseUrl)
-    shareBaseUrl.set('pathname', sharePath)
+    const shareUrl = scene.route.params?.shareUrl || ''
     const message = t('shareMessage', {
-      message: shareBaseUrl.href,
+      message: shareUrl,
       interpolation: { escapeValue: false }
     })
 
     try {
       await Share.share({
         message,
-        title: 'Integreat App'
+        title: buildConfig().appName
       })
     } catch (e) {
       alert(e.message)
@@ -107,11 +111,16 @@ class Header extends React.PureComponent<PropsType> {
   }
 
   goToSearch = () => {
-    this.props.navigation.navigate('SearchModal')
+    this.props.navigation.navigate(SEARCH_MODAL_ROUTE)
   }
 
   goToDisclaimer = () => {
-    this.props.navigation.navigate('Disclaimer')
+    const { routeCityModel, language } = this.props
+    if (!routeCityModel) {
+      throw new Error('Impossible to go to disclaimer route if no city model is defined')
+    }
+    const shareUrl = cityContentUrl({ cityCode: routeCityModel.code, languageCode: language, route: DISCLAIMER_ROUTE })
+    this.props.navigation.navigate(DISCLAIMER_ROUTE, { shareUrl })
   }
 
   cityDisplayName = (cityModel: CityModel) => {
@@ -132,7 +141,7 @@ class Header extends React.PureComponent<PropsType> {
 
   render () {
     const { routeCityModel, scene, t, theme, goToLanguageChange, peeking, categoriesAvailable } = this.props
-    const sharePath = scene.route.params?.sharePath || ''
+    const shareUrl = scene.route.params?.shareUrl || ''
 
     return <BoxShadow theme={theme}>
       <Horizontal>
@@ -148,10 +157,10 @@ class Header extends React.PureComponent<PropsType> {
           this.renderItem(t('search'), 'search', 'always', this.goToSearch, t('search'))}
           {!peeking && goToLanguageChange &&
           this.renderItem(t('changeLanguage'), 'language', 'always', goToLanguageChange, t('changeLanguage'))}
-          {sharePath && this.renderItem(t('share'), undefined, 'never', this.onShare, t('share'))}
+          {shareUrl && this.renderItem(t('share'), undefined, 'never', this.onShare, t('share'))}
           {this.renderItem(t('changeLocation'), undefined, 'never', this.goToLanding, t('changeLocation'))}
           {this.renderItem(t('settings'), undefined, 'never', this.goToSettings, t('settings'))}
-          {this.renderItem(t('disclaimer'), undefined, 'never', this.goToDisclaimer, t('disclaimer'))}
+          {routeCityModel && this.renderItem(t('disclaimer'), undefined, 'never', this.goToDisclaimer, t('disclaimer'))}
         </MaterialHeaderButtons>
       </Horizontal>
     </BoxShadow>

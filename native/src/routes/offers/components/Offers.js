@@ -8,7 +8,6 @@ import {
 } from 'api-client'
 import Tiles from '../../../modules/common/components/Tiles'
 import type { TFunction } from 'react-i18next'
-import { SPRUNGBRETT_OFFER, WOHNEN_OFFER } from '../constants'
 import { View } from 'react-native'
 import type { ThemeType } from 'build-configs/ThemeType'
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
@@ -48,9 +47,9 @@ class Offers extends React.Component<PropsType> {
     return offer.map(
       offer => {
         let path = offer.path
-        if (offer.alias === SPRUNGBRETT_OFFER) {
+        if (offer.alias === SPRUNGBRETT_OFFER_ROUTE) {
           path = SPRUNGBRETT_OFFER_ROUTE
-        } else if (offer.alias === WOHNEN_OFFER) {
+        } else if (offer.alias === WOHNEN_OFFER_ROUTE) {
           path = WOHNEN_OFFER_ROUTE
         }
 

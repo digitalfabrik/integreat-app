@@ -103,7 +103,7 @@ export type EventRouteStateType = {|
   +message: ?string
 |}
 
-export type TunewsType = 'tunews'
+export type TunewsType = 'tu-news'
 export type LocalNewsType = 'local'
 export type NewsType = TunewsType | LocalNewsType
 

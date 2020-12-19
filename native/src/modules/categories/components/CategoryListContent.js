@@ -9,7 +9,7 @@ import { type StyledComponent } from 'styled-components'
 import type { NavigateToInternalLinkParamsType } from '../../app/createNavigateToInternalLink'
 import type { ThemeType } from 'build-configs/ThemeType'
 import { RTL_LANGUAGES } from '../../i18n/constants'
-import onInternalLinkPress from '../../common/onInternalLinkPress'
+import navigateToLink from '../../app/navigateToLink'
 import type { NavigationPropType, RoutesType } from '../../app/components/NavigationTypes'
 
 const VerticalPadding: StyledComponent<{}, {}, *> = styled.View`
@@ -62,7 +62,7 @@ class CategoryListContent<T: RoutesType> extends React.Component<ContentPropsTyp
   onLinkPress = (evt: GestureResponderEvent, url: string) => {
     const { language, navigation, navigateToInternalLink, cacheDictionary } = this.props
     const shareUrl = Object.keys(cacheDictionary).find(remoteUrl => cacheDictionary[remoteUrl] === url)
-    onInternalLinkPress(url, navigation, language, navigateToInternalLink, shareUrl || url)
+    navigateToLink(url, navigation, language, navigateToInternalLink, shareUrl || url)
   }
 
   alterResources = (node: HTMLNode) => {

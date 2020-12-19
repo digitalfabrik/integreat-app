@@ -12,7 +12,6 @@ import {
   Payload,
   SprungbrettJobModel
 } from 'api-client'
-import { SPRUNGBRETT_OFFER } from '../../offers/constants'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import type { ThemeType } from '../../../modules/theme/constants'
 import FailureContainer from '../../../modules/error/containers/FailureContainer'
@@ -27,6 +26,7 @@ import type {
 } from '../../../modules/app/components/NavigationTypes'
 import LayoutedScrollView from '../../../modules/common/components/LayoutedScrollView'
 import LayoutContainer from '../../../modules/layout/containers/LayoutContainer'
+import { SPRUNGBRETT_OFFER_ROUTE } from '../../../modules/app/components/NavigationTypes'
 
 type OwnPropsType = {|
   route: RoutePropType<SprungbrettOfferRouteType>,
@@ -41,7 +41,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   const offers: Array<OfferModel> = ownProps.route.params.offers
   return {
     language: state.contentLanguage,
-    offer: offers.find(offer => offer.alias === SPRUNGBRETT_OFFER)
+    offer: offers.find(offer => offer.alias === SPRUNGBRETT_OFFER_ROUTE)
   }
 }
 

@@ -24,6 +24,7 @@ import type {
   NavigationPropType,
   RoutePropType
 } from '../../modules/app/components/NavigationTypes'
+import { LANDING_ROUTE } from '../../modules/app/components/NavigationTypes'
 
 const Container: StyledComponent<{ width: number }, {}, *> = styled.View`
   display: flex;
@@ -185,7 +186,7 @@ class Intro extends React.Component<PropsType, StateType> {
     }
     await this._appSettings.setSettings({ errorTracking, allowPushNotifications, proposeNearbyCities })
     this._appSettings.setIntroShown()
-    this.props.navigation.replace('Landing')
+    this.props.navigation.replace(LANDING_ROUTE)
   }
 
   goToSlide = (index: number) => {

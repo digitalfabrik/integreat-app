@@ -51,12 +51,12 @@ type PropsType<T: CategoriesRouteType | DashboardRouteType> = {|
 class Categories<T: DashboardRouteType | CategoriesRouteType> extends React.Component<PropsType<T>> {
   onTilePress = (tile: TileModel) => {
     const { cityModel, language, navigateToCategory } = this.props
-    navigateToCategory({ cityCode: cityModel.code, language, path: tile.path })
+    navigateToCategory({ cityCode: cityModel.code, language, cityContentPath: tile.path })
   }
 
   onItemPress = (category: { title: string, thumbnail: string, path: string }) => {
     const { cityModel, language, navigateToCategory } = this.props
-    navigateToCategory({ cityCode: cityModel.code, language, path: category.path })
+    navigateToCategory({ cityCode: cityModel.code, language, cityContentPath: category.path })
   }
 
   navigateToFeedback = (isPositiveFeedback: boolean) => {

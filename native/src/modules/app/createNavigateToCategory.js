@@ -9,18 +9,32 @@ import type {
   NavigationPropType,
   RoutesType
 } from './components/NavigationTypes'
+import { url } from '../common/url'
 
 export type NavigateToCategoryParamsType = {|
-  cityCode: string, language: string, path: string, key?: string, forceRefresh?: boolean
+  cityCode: string,
+  language: string,
+  cityContentPath: string,
+  key?: string,
+  forceRefresh?: boolean
 |}
 
 const createNavigateToCategory = <T: RoutesType>(
   routeName: CategoriesRouteType | DashboardRouteType,
   dispatch: Dispatch<StoreActionType>,
   navigation: NavigationPropType<T>
-) => ({ cityCode, language, path, key = generateKey(), forceRefresh = false }: NavigateToCategoryParamsType) => {
+) => ({
+    cityCode,
+    language,
+    cityContentPath,
+    key = generateKey(),
+    forceRefresh = false
+  }: NavigateToCategoryParamsType) => {
     navigation.navigate({
       name: routeName,
+      params: {
+        shareUrl: url(cityContentPath)
+      },
       key
     })
 
@@ -29,7 +43,7 @@ const createNavigateToCategory = <T: RoutesType>(
       params: {
         city: cityCode,
         language,
-        path,
+        path: cityContentPath,
         depth: 2,
         key,
         criterion: { forceUpdate: forceRefresh, shouldRefreshResources: forceRefresh }
