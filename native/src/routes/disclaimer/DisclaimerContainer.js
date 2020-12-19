@@ -10,7 +10,7 @@ import Disclaimer from './Disclaimer'
 import FailureContainer from '../../modules/error/containers/FailureContainer'
 import type { Dispatch } from 'redux'
 import type { StoreActionType } from '../../modules/app/StoreActionType'
-import { RefreshControl, ScrollView } from 'react-native'
+import { RefreshControl } from 'react-native'
 import { LOADING_TIMEOUT } from '../../modules/common/constants'
 import determineApiUrl from '../../modules/endpoint/determineApiUrl'
 import SiteHelpfulBox from '../../modules/common/components/SiteHelpfulBox'
@@ -20,6 +20,8 @@ import type {
   NavigationPropType,
   RoutePropType
 } from '../../modules/app/components/NavigationTypes'
+import LayoutedScrollView from '../../modules/common/components/LayoutedScrollView'
+import LayoutContainer from '../../modules/layout/containers/LayoutContainer'
 
 type OwnPropsType = {|
   route: RoutePropType<DisclaimerRouteType>,
@@ -102,20 +104,18 @@ class DisclaimerContainer extends React.Component<DisclaimerPropsType, Disclaime
     const { disclaimer, error, timeoutExpired } = this.state
 
     if (error) {
-      return <ScrollView refreshControl={<RefreshControl onRefresh={this.loadDisclaimer} refreshing={false} />}
-                         contentContainerStyle={{ flexGrow: 1 }}>
+      return <LayoutedScrollView refreshControl={<RefreshControl onRefresh={this.loadDisclaimer} refreshing={false} />}>
         <FailureContainer error={error} tryAgain={this.loadDisclaimer} />
-      </ScrollView>
+      </LayoutedScrollView>
     }
 
     if (!disclaimer) {
       return timeoutExpired
-        ? <ScrollView refreshControl={<RefreshControl refreshing />} contentContainerStyle={{ flexGrow: 1 }} />
-        : null
+        ? <LayoutedScrollView refreshControl={<RefreshControl refreshing />} />
+        : <LayoutContainer />
     }
 
-    return <ScrollView refreshControl={<RefreshControl onRefresh={this.loadDisclaimer} refreshing={false} />}
-                       contentContainerStyle={{ flexGrow: 1 }}>
+    return <LayoutedScrollView refreshControl={<RefreshControl onRefresh={this.loadDisclaimer} refreshing={false} />}>
       <Disclaimer resourceCacheUrl={resourceCacheUrl}
                   disclaimer={disclaimer}
                   theme={theme}
@@ -124,7 +124,7 @@ class DisclaimerContainer extends React.Component<DisclaimerPropsType, Disclaime
                   city={city}
                   language={language} />
       <SiteHelpfulBox navigateToFeedback={this.navigateToFeedback} theme={theme} />
-    </ScrollView>
+    </LayoutedScrollView>
   }
 }
 

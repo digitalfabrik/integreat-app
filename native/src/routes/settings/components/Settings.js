@@ -17,6 +17,7 @@ import type {
   NavigationPropType,
   RoutePropType
 } from '../../../modules/app/components/NavigationTypes'
+import LayoutContainer from '../../../modules/layout/containers/LayoutContainer'
 
 type PropsType = {|
   theme: ThemeType,
@@ -134,7 +135,8 @@ export default class Settings extends React.Component<PropsType, StateType> {
       return null
     }
 
-    return <SectionList
+    return <LayoutContainer>
+      <SectionList
         keyExtractor={this.keyExtractor}
         sections={createSettingsSections({ setSetting: this.setSetting, t, languageCode, cityCode })}
         extraData={settings}
@@ -144,5 +146,6 @@ export default class Settings extends React.Component<PropsType, StateType> {
         SectionSeparatorComponent={this.ThemedItemSeparator}
         stickySectionHeadersEnabled={false}
       />
+    </LayoutContainer>
   }
 }

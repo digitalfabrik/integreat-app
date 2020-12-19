@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { RefreshControl, ScrollView } from 'react-native'
+import { RefreshControl } from 'react-native'
 import Offers from '../components/Offers'
 import { type TFunction, withTranslation } from 'react-i18next'
 import { CityModel, createOffersEndpoint, OfferModel, Payload } from 'api-client'
@@ -24,6 +24,8 @@ import {
 } from '../../../modules/app/components/NavigationTypes'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import type { Dispatch } from 'redux'
+import LayoutedScrollView from '../../../modules/common/components/LayoutedScrollView'
+import LayoutContainer from '../../../modules/layout/containers/LayoutContainer'
 
 type OwnPropsType = {|
   route: RoutePropType<OffersRouteType>,
@@ -121,23 +123,21 @@ class OffersContainer extends React.Component<OffersPropsType, OffersStateType> 
     const { offers, error, timeoutExpired } = this.state
 
     if (error) {
-      return <ScrollView refreshControl={<RefreshControl onRefresh={this.loadOffers} refreshing={false} />}
-                         contentContainerStyle={{ flexGrow: 1 }}>
+      return <LayoutedScrollView refreshControl={<RefreshControl onRefresh={this.loadOffers} refreshing={false} />}>
         <FailureContainer errorMessage={error.message} tryAgain={this.loadOffers} />
-      </ScrollView>
+      </LayoutedScrollView>
     }
 
     if (!offers || !cities) {
       return timeoutExpired
-        ? <ScrollView refreshControl={<RefreshControl refreshing />} contentContainerStyle={{ flexGrow: 1 }} />
-        : null
+        ? <LayoutedScrollView refreshControl={<RefreshControl refreshing />} />
+        : <LayoutContainer />
     }
 
-    return <ScrollView refreshControl={<RefreshControl onRefresh={this.loadOffers} refreshing={false} />}
-                       contentContainerStyle={{ flexGrow: 1 }}>
+    return <LayoutedScrollView refreshControl={<RefreshControl onRefresh={this.loadOffers} refreshing={false} />}>
       <Offers offers={offers} navigateToOffer={this.navigateToOffer} theme={theme} t={t} cities={cities}
               navigation={navigation} route={route} cityCode={city} language={language} />
-    </ScrollView>
+    </LayoutedScrollView>
   }
 }
 
