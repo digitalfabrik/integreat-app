@@ -78,13 +78,12 @@ const createChangeUnavailableLanguage = (city: string, t: TFunction) =>
   }
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
-  const { t } = ownProps
+  const { t, route: { key } } = ownProps
   if (!state.cityContent) {
     return { status: 'routeNotInitialized' }
   }
   const { resourceCache, categoriesRouteMapping, switchingLanguage, languages } = state.cityContent
-  // The route key is not the one of the categories state view.
-  const route: ?CategoryRouteStateType = categoriesRouteMapping[Object.keys(categoriesRouteMapping)[0]]
+  const route: ?CategoryRouteStateType = categoriesRouteMapping[key]
   if (!route) {
     return { status: 'routeNotInitialized' }
   }

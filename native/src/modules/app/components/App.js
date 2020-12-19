@@ -21,11 +21,13 @@ const dataContainer: DataContainer = new DefaultDataContainer()
 const store: Store<StateType, StoreActionType> = createReduxStore(dataContainer)
 
 const App = () => {
-  const [routeName, setRouteName] = useState<?string>(null)
+  const [routeName, setRouteName] = useState<string | null>(null)
+  const [routeKey, setRouteKey] = useState<?string>(null)
 
   const onStateChange = useCallback(state => {
     if (state) {
       setRouteName(state.routes[state.index].name)
+      setRouteKey(state.routes[state.index].key)
     }
   }, [])
 
@@ -38,7 +40,7 @@ const App = () => {
               <StatusBarContainer />
               <IOSSafeAreaView>
                 <NavigationContainer onStateChange={onStateChange}>
-                  <NavigatorContainer />
+                  <NavigatorContainer routeKey={routeKey} />
                 </NavigationContainer>
               </IOSSafeAreaView>
               <PermissionSnackbarContainer routeName={routeName} />
