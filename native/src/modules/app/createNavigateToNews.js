@@ -25,7 +25,7 @@ const createNavigateToNews = <T: RoutesType>(
   }: NavigateToNewsParamsType) => {
     navigation.navigate({
       name: NEWS_ROUTE,
-      shareUrl: cityContentUrl({ cityCode, languageCode: language, route: NEWS_ROUTE, path: type }),
+      params: { shareUrl: cityContentUrl({ cityCode, languageCode: language, route: NEWS_ROUTE, path: type }) },
       key
     })
     const fetchNews: FetchNewsActionType = {
