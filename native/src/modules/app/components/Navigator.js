@@ -67,9 +67,7 @@ const Navigator = (props: PropsType) => {
 
   useEffect(() => {
     fetchCities(false)
-  }, [fetchCities])
 
-  useEffect(() => {
     const initialize = async () => {
       if (global.HermesInternal) {
         console.log('App is using Hermes: https://reactnative.dev/docs/hermes')
