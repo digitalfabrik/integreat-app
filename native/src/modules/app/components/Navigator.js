@@ -38,6 +38,7 @@ import {
 } from './NavigationTypes'
 import type { IntroRouteType, DashboardRouteType, LandingRouteType, RoutesParamsType } from './NavigationTypes'
 import { generateKey } from '../generateRouteKey'
+import { cityContentUrl } from '../../common/url'
 
 const transparentStaticHeader = (headerProps: StackHeaderProps) =>
   <TransparentHeaderContainer {...headerProps} float={false} />
@@ -54,7 +55,8 @@ type PropsType = {|
   fetchCities: (forceRefresh: boolean) => void
 |}
 
-type InitialRouteType = {| name: IntroRouteType | LandingRouteType | DashboardRouteType |}
+type InitialRouteType = {| name: IntroRouteType | LandingRouteType |} |
+  {| name: DashboardRouteType, shareUrl: string |}
 
 const Stack = createStackNavigator<RoutesParamsType, *, *>()
 
@@ -112,7 +114,8 @@ const Navigator = (props: PropsType) => {
 
         if (selectedCity) {
           fetchCategory(selectedCity, contentLanguage, generateKey())
-          setInitialRoute({ name: DASHBOARD_ROUTE })
+          const shareUrl = cityContentUrl({ cityCode: selectedCity, languageCode: contentLanguage})
+          setInitialRoute({ name: DASHBOARD_ROUTE, shareUrl })
         } else {
           setInitialRoute({ name: LANDING_ROUTE })
         }
@@ -130,11 +133,12 @@ const Navigator = (props: PropsType) => {
   }
 
   // TODO Snackbar
+  const shareUrl = initialRoute.name === DASHBOARD_ROUTE ? initialRoute.shareUrl : null
   return (
     <Stack.Navigator initialRouteName={initialRoute.name}>
       <Stack.Screen name={INTRO_ROUTE} component={IntroContainer} options={{ header: () => null }} />
       <Stack.Screen name={LANDING_ROUTE} component={LandingContainer} options={{ header: () => null }} />
-      <Stack.Screen name={DASHBOARD_ROUTE} component={DashboardContainer} options={{ header: defaultHeader }} />
+      <Stack.Screen name={DASHBOARD_ROUTE} component={DashboardContainer} options={{ header: defaultHeader }} initialParams={{ shareUrl }} />
       <Stack.Screen name={CATEGORIES_ROUTE} component={CategoriesContainer} options={{ header: defaultHeader }} />
       <Stack.Screen name={OFFERS_ROUTE} component={OffersContainer} options={{ header: defaultHeader }} />
       <Stack.Screen name={WOHNEN_OFFER_ROUTE} component={WohnenOfferContainer} options={{ header: defaultHeader }} />
