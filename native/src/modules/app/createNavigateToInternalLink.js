@@ -38,7 +38,7 @@ export const createNavigateToInternalLink = ({
     const cityCode = pathnameParts[0]
     const language = pathnameParts[1]
     navigateToDashboard({ cityCode, language, cityContentPath: pathname })
-  } else if (pathnameParts.length > 2) {
+  } else {
     const newCity = pathnameParts[0]
     const newLanguage = pathnameParts[1]
 
