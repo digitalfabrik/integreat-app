@@ -83,8 +83,8 @@ type ShareUrlType = {| shareUrl: string |}
 export type RoutesParamsType = {|
   intro: void,
   landing: void,
-  dashboard: ShareUrlType,
-  categories: ShareUrlType,
+  dashboard: {| ...ShareUrlType, cityCode: string, languageCode: string |},
+  categories: {| ...ShareUrlType, cityCode: string, languageCode: string |},
   pois: ShareUrlType,
   events: ShareUrlType,
   news: ShareUrlType,
