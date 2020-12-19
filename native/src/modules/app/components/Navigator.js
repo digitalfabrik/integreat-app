@@ -68,8 +68,6 @@ const Navigator = (props: PropsType) => {
 
   const { fetchCities, fetchCategory, routeKey } = props
 
-  console.warn(routeKey)
-
   useEffect(() => {
     fetchCities(false)
 
