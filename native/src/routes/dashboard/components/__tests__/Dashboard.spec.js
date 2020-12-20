@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import TestRenderer from 'react-test-renderer'
-import createNavigationScreenPropMock from '../../../../testing/createNavigationStackPropMock'
+import createNavigationScreenPropMock from '../../../../testing/createNavigationPropMock'
 import Dashboard from '../Dashboard'
 import lightTheme from '../../../../modules/theme/constants'
 import CategoriesRouteStateView from '../../../../modules/app/CategoriesRouteStateView'
