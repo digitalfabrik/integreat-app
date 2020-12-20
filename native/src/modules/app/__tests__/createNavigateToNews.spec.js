@@ -1,6 +1,6 @@
 // @flow
 
-import createNavigationScreenPropMock from '../../../testing/createNavigationStackPropMock'
+import createNavigationScreenPropMock from '../../../testing/createNavigationPropMock'
 import createNavigateToNews from '../createNavigateToNews'
 import { LOCAL_NEWS } from '../../endpoint/constants'
 

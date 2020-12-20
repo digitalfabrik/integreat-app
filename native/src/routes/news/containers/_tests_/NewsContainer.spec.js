@@ -5,7 +5,7 @@ import TestRenderer from 'react-test-renderer'
 import configureMockStore from 'redux-mock-store'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
-import createNavigationScreenPropMock from '../../../../testing/createNavigationStackPropMock'
+import createNavigationScreenPropMock from '../../../../testing/createNavigationPropMock'
 import LocalNewsModelBuilder from 'api-client/src/testing/NewsModelBuilder'
 import type {
   NewsRouteStateType,
