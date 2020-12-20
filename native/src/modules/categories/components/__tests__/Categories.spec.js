@@ -10,6 +10,8 @@ import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModel
 import Categories from '../Categories'
 import lightTheme from '../../../theme/constants'
 import CategoriesRouteStateView from '../../../app/CategoriesRouteStateView'
+import { generateKey } from '../../../app/generateRouteKey'
+import { CATEGORIES_ROUTE } from '../../../app/components/NavigationTypes'
 
 jest.mock('../../../../modules/common/components/Page', () => {
   const Text = require('react-native').Text
@@ -22,6 +24,11 @@ jest.mock('../../../../modules/common/components/PageDetail', () => {
 })
 
 jest.mock('rn-fetch-blob')
+
+const cityCode = 'augsburg'
+const languageCode = 'de'
+const shareUrl = 'https://integreat.app/augsburg'
+const route = { key: generateKey(), params: { cityCode, languageCode, shareUrl }, name: CATEGORIES_ROUTE }
 
 describe('Categories', () => {
   it('should pass an empty object to Page if the resource cache doesnt contain an appropriate entry', () => {
@@ -39,7 +46,7 @@ describe('Categories', () => {
       { [categoryLeaf.path]: [] }
     )
     const result = TestRenderer.create(
-      <Categories cityModel={cityModel} language={languages[0].code} stateView={stateView}
+      <Categories cityModel={cityModel} language={languages[0].code} stateView={stateView} route={route}
                   navigateToCategory={() => {}} navigateToInternalLink={() => {}} navigation={navigation}
                   resourceCacheUrl='http://localhost:8080'
                   resourceCache={{ notAvailable: {} }} theme={lightTheme} t={key => key} />

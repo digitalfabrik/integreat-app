@@ -24,17 +24,23 @@ import lightTheme from '../../../../modules/theme/constants'
 import moment from 'moment'
 import { LOADING_TIMEOUT } from '../../../../modules/common/constants'
 import ErrorCodes from '../../../../modules/error/ErrorCodes'
+import { CATEGORIES_ROUTE } from '../../../../modules/app/components/NavigationTypes'
 
 jest.mock('react-i18next')
 jest.useFakeTimers()
 
 const mockStore = configureMockStore()
 
-class MockCategories extends React.Component<{}> {
+class MockCategories extends React.Component<{||}> {
   render () {
     return <Text>Categories</Text>
   }
 }
+
+const cityCode = 'augsburg'
+const languageCode = 'de'
+const shareUrl = 'https://integreat.app/augsburg'
+const route = { key: 'route-id-0', params: { cityCode, languageCode, shareUrl }, name: CATEGORIES_ROUTE }
 
 describe('CategoriesContainer', () => {
   const [city] = new CityModelBuilder(1).build()
@@ -107,16 +113,19 @@ describe('CategoriesContainer', () => {
     children
   }
 
-  it('should display null if the route is not initialized', () => {
+  it('should display nothing if the route is not initialized', () => {
     const state: StateType = prepareState()
     const store = mockStore(state)
     const navigation = createNavigationScreenPropMock()
-    navigation.state.key = 'route-id-0'
     jest.doMock('../../../../modules/categories/components/Categories', () => MockCategories)
+    // jest.mock('../../../../modules/layout/containers/LayoutContainer', () => {
+    //   const Text = require('react-native').Text
+    //   return () => <Text>LayoutContainer</Text>
+    // })
     const CategoriesContainer = require('../CategoriesContainer').default
 
     const result = TestRenderer.create(
-      <Provider store={store}><CategoriesContainer navigation={navigation} /></Provider>
+      <Provider store={store}><CategoriesContainer navigation={navigation} route={route} /></Provider>
     )
     expect(result.toJSON()).toBeNull()
   })
@@ -124,13 +133,11 @@ describe('CategoriesContainer', () => {
   const expectError = (state: StateType, message: string) => {
     const store = mockStore(state)
     const navigation = createNavigationScreenPropMock()
-    navigation.state.key = 'route-id-0'
-    navigation.setParams({ onRouteClose: () => {} })
     jest.doMock('../../../../modules/categories/components/Categories', () => MockCategories)
     const CategoriesContainer = require('../CategoriesContainer').default
 
     const { getByText } = render(
-      <Provider store={store}><CategoriesContainer navigation={navigation} /></Provider>
+      <Provider store={store}><CategoriesContainer navigation={navigation} route={route} /></Provider>
     )
     expect(getByText(message)).toBeTruthy()
   }
@@ -173,11 +180,10 @@ describe('CategoriesContainer', () => {
   const expectLoadingIndicator = (state: StateType) => {
     const store = mockStore(state)
     const navigation = createNavigationScreenPropMock()
-    navigation.state.key = 'route-id-0'
     jest.doMock('../../../../modules/categories/components/Categories', () => MockCategories)
     const CategoriesContainer = require('../CategoriesContainer').default
     const result = TestRenderer.create(
-      <Provider store={store}><CategoriesContainer navigation={navigation} /></Provider>
+      <Provider store={store}><CategoriesContainer navigation={navigation} route={route} /></Provider>
     )
     jest.advanceTimersByTime(LOADING_TIMEOUT)
     const refreshControl = result.root.findByType(ScrollView).props.refreshControl
@@ -220,12 +226,11 @@ describe('CategoriesContainer', () => {
     })
     const store = mockStore(state)
     const navigation = createNavigationScreenPropMock()
-    navigation.state.key = 'route-id-0'
     jest.doMock('../../../../modules/categories/components/Categories', () => MockCategories)
     const CategoriesContainer = require('../CategoriesContainer').default
 
     const { getByText } = render(
-      <Provider store={store}><CategoriesContainer navigation={navigation} /></Provider>
+      <Provider store={store}><CategoriesContainer navigation={navigation} route={route} /></Provider>
     )
     expect(getByText('chooseALanguage')).toBeTruthy()
   })
@@ -234,11 +239,10 @@ describe('CategoriesContainer', () => {
     const state: StateType = prepareState(successfulRouteState)
     const store = mockStore(state)
     const navigation = createNavigationScreenPropMock()
-    navigation.state.key = 'route-id-0'
     jest.doMock('../../../../modules/categories/components/Categories', () => MockCategories)
     const CategoriesContainer = require('../CategoriesContainer').default
     const result = TestRenderer.create(
-      <Provider store={store}><CategoriesContainer navigation={navigation} /></Provider>
+      <Provider store={store}><CategoriesContainer navigation={navigation} route={route} /></Provider>
     )
     const categoriesInstance = result.root.findByType(MockCategories)
     expect(categoriesInstance.props).toEqual({
@@ -250,6 +254,7 @@ describe('CategoriesContainer', () => {
       resourceCache,
       resourceCacheUrl,
       stateView: expect.any(CategoriesRouteStateView),
+      route,
       t: expect.any(Function),
       theme: lightTheme
     })
