@@ -58,20 +58,7 @@ class Config {
     fa_pr: ['fa'],
     per: ['fa'],
     de: ['de'],
-    'de-si': ['de'],
-    en: ['en'],
-    fr: ['fr'],
-    ar: ['ar'],
-    ro: ['ro'],
-    tr: ['tr'],
-    pl: ['pl'],
-    ti: ['ti'],
-    ru: ['ru'],
-    so: ['so'],
-    hr: ['hr'],
-    es: ['es'],
-    sr: ['sr'],
-    ps: ['ps']
+    'de-si': ['de']
   }
 
   defaultFallback = 'de' // If the language code is not found in our translations then use this
