@@ -1,7 +1,6 @@
 // @flow
 
-import React from 'react'
-import { useContext } from 'react'
+import React, { useContext } from 'react'
 import { Translation } from 'react-i18next'
 import { Text } from 'react-native'
 import NativeLanguageDetector from '../../NativeLanguageDetector'
@@ -18,8 +17,9 @@ import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import AppSettings from '../../../settings/AppSettings'
 import AsyncStorage from '@react-native-community/async-storage'
-import MomentContext, { MomentFormatterType } from '../../context/MomentContext'
+import MomentContext from '../../context/MomentContext'
 import moment from 'moment'
+import type { MomentFormatterType } from '../../context/MomentContext'
 
 jest.mock('../../NativeLanguageDetector')
 jest.mock('@react-native-community/async-storage')
