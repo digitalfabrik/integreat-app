@@ -61,11 +61,16 @@ export default ({ children }: PropsType) => {
       setI18nextInstance(i18nextInstance)
 
       // Apply ui language as language
-      i18nextInstance.on('languageChanged', uiLanguage => {
-        setContentLanguage(uiLanguage).catch(e => {
-          console.error(e)
-        })
+      setContentLanguage(i18nextInstance.language).catch(e => {
+        console.error(e)
       })
+
+      // Apply ui language as language
+      // i18nextInstance.on('languageChanged', uiLanguage => {
+      //   setContentLanguage(uiLanguage).catch(e => {
+      //     console.error(e)
+      //   })
+      //  })
     }
 
     initI18Next().catch((e: Error) => {

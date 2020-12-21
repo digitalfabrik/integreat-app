@@ -13,6 +13,7 @@ import BrowserLanguageDetector from '../../BrowserLanguageDetector'
 
 const mockStore = configureMockStore()
 jest.mock('../../BrowserLanguageDetector')
+jest.mock('translations/src/loadTranslations')
 
 const prepareStore = (contentLanguage?: string) => {
   const payload = contentLanguage
@@ -81,9 +82,9 @@ describe('I18nProvider', () => {
         </Translation>
       </I18nProvider></Provider>)
     })
-    await waitFor(() => screen.getByText('Local information'))
+    await waitFor(() => screen.getByText('Lokale Informationen'))
 
-    expect(screen.getByText('Local information')).toBeTruthy()
+    expect(screen.getByText('Lokale Informationen')).toBeTruthy()
   })
 
   it('should set ui language to content language', async () => {
