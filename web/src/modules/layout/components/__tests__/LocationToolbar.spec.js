@@ -5,6 +5,8 @@ import { shallow } from 'enzyme'
 
 import LocationToolbar from '../LocationToolbar'
 
+jest.mock('react-i18next')
+
 describe('LocationToolbar', () => {
   it('should match snapshot', () => {
     const component = shallow(
