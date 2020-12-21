@@ -58,19 +58,11 @@ export default ({ children }: PropsType) => {
         debug: buildConfig().featureFlags.developerFriendly
       })
 
-      setI18nextInstance(i18nextInstance)
-
-      // Apply ui language as language
-      setContentLanguage(i18nextInstance.language).catch(e => {
+      await setContentLanguage(i18nextInstance.language).catch(e => {
         console.error(e)
       })
 
-      // Apply ui language as language
-      // i18nextInstance.on('languageChanged', uiLanguage => {
-      //   setContentLanguage(uiLanguage).catch(e => {
-      //     console.error(e)
-      //   })
-      //  })
+      setI18nextInstance(i18nextInstance)
     }
 
     initI18Next().catch((e: Error) => {

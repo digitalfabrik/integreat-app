@@ -31,7 +31,6 @@ const languages = new LanguageModelBuilder(1).build()
 const language = languages[0]
 
 const prepareState = (
-  routeState: ?NewsRouteStateType,
   {
     contentLanguage = 'de',
     switchingLanguage,
@@ -58,7 +57,7 @@ const prepareState = (
       eventsRouteMapping: {},
       categoriesRouteMapping: {},
       poisRouteMapping: {},
-      newsRouteMapping: routeState ? { 'route-id-0': routeState } : {},
+      newsRouteMapping: {},
       searchRoute: null,
       resourceCache: {
         status: 'ready',
@@ -170,11 +169,29 @@ describe('I18nProvider', () => {
     }
 
     const { getByText } = render(<Provider store={store}><I18nProvider>
-      <ReceivingComponent/>
+      <ReceivingComponent />
     </I18nProvider></Provider>)
 
     await waitFor(() => getByText('2020-12-21T14:58:57+01:00'))
 
     expect(getByText('2020-12-21T14:58:57+01:00')).toBeTruthy()
+  })
+
+  it('should have content language set when rendering children', async () => {
+    await new AppSettings().setContentLanguage('ckb')
+    const store = mockStore(prepareState({ contentLanguage: undefined }))
+    const ReceivingComponent = () => {
+      expect(store.getActions()).toEqual([{
+        params: { contentLanguage: 'ckb' },
+        type: 'SET_CONTENT_LANGUAGE'
+      }])
+      return <Text>Hello</Text>
+    }
+
+    const { getByText } = render(<Provider store={store}><I18nProvider>
+      <ReceivingComponent />
+    </I18nProvider></Provider>)
+
+    await waitFor(() => getByText('Hello'))
   })
 })
