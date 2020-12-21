@@ -15,6 +15,9 @@ export const testTranslations: TranslationsType = {
     }
   },
   dashboard: {
+    ku: {
+      localInformation: 'Zanyariyên xwecihî'
+    },
     de: {
       localInformation: 'Lokale Informationen',
       offers: 'Angebote',
