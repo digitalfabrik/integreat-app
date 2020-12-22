@@ -3,7 +3,7 @@
 import * as React from 'react'
 import type { NavigationStackProp } from 'react-navigation-stack'
 import Categories from '../../../modules/categories/components/Categories'
-import type { ThemeType } from '../../../modules/theme/constants'
+import type { ThemeType } from 'build-configs/ThemeType'
 import { CityModel } from 'api-client'
 import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
 import type { LanguageResourceCacheStateType } from '../../../modules/app/StateType'
@@ -23,22 +23,26 @@ import buildConfig from '../../../modules/app/constants/buildConfig'
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
 import type { NavigateToPoiParamsType } from '../../../modules/app/createNavigateToPoi'
 import { LOCAL_NEWS, TUNEWS } from '../../../modules/endpoint/constants'
+import styled from 'styled-components/native'
+import type { StyledComponent } from 'styled-components'
+
+const Spacing: StyledComponent<{||}, ThemeType, *> = styled.View`
+  padding: 10px;
+`
 
 export type PropsType = {|
   navigation: NavigationStackProp<*>,
-  cityCode: string,
 
   navigateToPoi: NavigateToPoiParamsType => void,
   navigateToCategory: NavigateToCategoryParamsType => void,
   navigateToEvent: NavigateToEventParamsType => void,
   navigateToInternalLink: NavigateToInternalLinkParamsType => void,
-  navigateToDashboard: NavigateToCategoryParamsType => void,
   navigateToNews: NavigateToNewsParamsType => void,
   navigateToOffers: ({| cityCode: string, language: string |}) => void,
   theme: ThemeType,
 
   language: string,
-  cities: Array<CityModel>,
+  cityModel: CityModel,
   stateView: CategoriesRouteStateView,
   resourceCache: LanguageResourceCacheStateType,
   resourceCacheUrl: string,
@@ -46,25 +50,20 @@ export type PropsType = {|
 |}
 
 class Dashboard extends React.Component<PropsType> {
-  getNavigationTileModels (cityCode: string, language: string): Array<TileModel> {
+  getNavigationTileModels (): Array<TileModel> {
     const {
       navigateToCategory,
       navigateToEvent,
       navigateToPoi,
       navigateToOffers,
       navigateToNews,
-      cities,
+      cityModel,
+      language,
       t
     } = this.props
-    const { featureFlags } = buildConfig()
-    const cityModel = cities.find(city => city.code === cityCode)
 
-    if (!cityModel) {
-      console.error('City model of current cityCode was not found.')
-      return []
-    }
-    // Check if news is enabled to show the menu item
-    const { tunewsEnabled, pushNotificationsEnabled } = cityModel
+    const { featureFlags } = buildConfig()
+    const { tunewsEnabled, pushNotificationsEnabled, code: cityCode } = cityModel
     const isNewsEnabled = tunewsEnabled || pushNotificationsEnabled
 
     const tiles = [
@@ -144,32 +143,33 @@ class Dashboard extends React.Component<PropsType> {
     return tiles
   }
 
-  landing = () => this.props.navigation.navigate('Landing')
-
   render () {
     const {
-      cities,
       stateView,
       theme,
       resourceCache,
       resourceCacheUrl,
       navigateToInternalLink,
       language,
-      cityCode,
+      cityModel,
       navigateToCategory,
       navigation,
       t
     } = this.props
+
+    const navigationTiles = this.getNavigationTileModels()
+
     return (
       <SpaceBetween>
-        <NavigationTiles tiles={this.getNavigationTileModels(cityCode, language)} theme={theme} language={language} />
+        {navigationTiles.length > 1
+          ? <NavigationTiles tiles={navigationTiles} theme={theme} language={language} />
+          : <Spacing />}
         <Categories
           stateView={stateView}
-          cities={cities}
           resourceCache={resourceCache}
           resourceCacheUrl={resourceCacheUrl}
           language={language}
-          cityCode={cityCode}
+          cityModel={cityModel}
           theme={theme}
           navigation={navigation}
           navigateToCategory={navigateToCategory}
