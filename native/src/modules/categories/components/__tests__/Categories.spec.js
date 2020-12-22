@@ -25,9 +25,9 @@ jest.mock('rn-fetch-blob')
 
 describe('Categories', () => {
   it('should pass an empty object to Page if the resource cache doesnt contain an appropriate entry', () => {
-    const cities = new CityModelBuilder(1).build()
+    const cityModel = new CityModelBuilder(1).build()[0]
     const languages = new LanguageModelBuilder(1).build()
-    const categoriesMapModel = new CategoriesMapModelBuilder(cities[0].code, languages[0].code).build()
+    const categoriesMapModel = new CategoriesMapModelBuilder(cityModel.code, languages[0].code).build()
     const navigation = createNavigationScreenPropMock()
     const categoryLeaf = categoriesMapModel.toArray().find(category => category.isLeaf(categoriesMapModel))
     if (!categoryLeaf) {
@@ -39,7 +39,7 @@ describe('Categories', () => {
       { [categoryLeaf.path]: [] }
     )
     const result = TestRenderer.create(
-      <Categories cities={cities} language={languages[0].code} stateView={stateView} cityCode={cities[0].code}
+      <Categories cityModel={cityModel} language={languages[0].code} stateView={stateView}
                   navigateToCategory={() => {}} navigateToInternalLink={() => {}} navigation={navigation}
                   resourceCacheUrl='http://localhost:8080'
                   resourceCache={{ notAvailable: {} }} theme={lightTheme} t={key => key} />
