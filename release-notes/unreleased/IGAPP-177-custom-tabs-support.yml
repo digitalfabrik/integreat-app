@@ -1,0 +1,7 @@
+issue_key: IGAPP-177
+show_in_stores: true
+platforms:
+  - ios
+  - android
+en: External links are now opened faster in your favourite browser.
+de: Externe Links werden nun schneller in deinem Browser geöffnet.
