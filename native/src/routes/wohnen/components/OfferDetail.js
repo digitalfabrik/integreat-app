@@ -1,13 +1,13 @@
 // @flow
 
 import React from 'react'
-import { Linking } from 'react-native'
 import { WohnenOfferModel, WohnenFormData, type AccommodationType } from 'api-client'
 import styled from 'styled-components/native'
 import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
 import Caption from '../../../modules/common/components/Caption'
-import type { ThemeType } from '../../../modules/theme/constants'
+import type { ThemeType } from 'build-configs/ThemeType'
+import openExternalUrl from '../../../modules/common/openExternalUrl'
 
 export const formatPrice = (price: number): string => {
   return (price % 1 === 0) ? `${price}` : `${price.toFixed(2)}`
@@ -58,7 +58,7 @@ class OfferDetail extends React.PureComponent<PropsType> {
   }
 
   openUrl = (url: string) => () => {
-    Linking.openURL(url)
+    openExternalUrl(url)
   }
 
   render () {
