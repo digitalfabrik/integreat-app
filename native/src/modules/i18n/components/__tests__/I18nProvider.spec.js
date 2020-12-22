@@ -10,7 +10,7 @@ import { render, waitFor } from '@testing-library/react-native'
 import I18nProvider from '../I18nProvider'
 import type {
   CitiesStateType,
-  LanguagesStateType, NewsRouteStateType,
+  LanguagesStateType,
   StateType
 } from '../../../app/StateType'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
