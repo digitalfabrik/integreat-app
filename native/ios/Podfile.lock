@@ -322,8 +322,8 @@ PODS:
     - React
   - react-native-progress-view (1.0.3):
     - React
-  - react-native-safe-area-context (1.0.2):
-    - React
+  - react-native-safe-area-context (3.1.9):
+    - React-Core
   - react-native-static-server (0.5.0):
     - GCDWebServer (~> 3.0)
     - React
@@ -395,6 +395,8 @@ PODS:
     - React-Core
   - RNCAsyncStorage (1.12.0):
     - React
+  - RNCMaskedView (0.1.10):
+    - React
   - RNCPicker (1.9.4):
     - React-Core
   - RNFastImage (7.0.2):
@@ -408,14 +410,16 @@ PODS:
     - Firebase/Messaging (~> 6.30.0)
     - React
     - RNFBApp
-  - RNGestureHandler (1.8.0):
-    - React
+  - RNGestureHandler (1.9.0):
+    - React-Core
   - RNInAppBrowser (3.5.1):
     - React-Core
   - RNPermissions (2.0.9):
     - React
-  - RNScreens (2.11.0):
-    - React
+  - RNReanimated (1.13.2):
+    - React-Core
+  - RNScreens (2.16.1):
+    - React-Core
   - RNSentry (1.8.2):
     - React
     - Sentry (~> 5.2.0)
@@ -495,6 +499,7 @@ DEPENDENCIES:
   - "ReactNativeART (from `../node_modules/@react-native-community/art`)"
   - rn-fetch-blob (from `../node_modules/rn-fetch-blob`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-community/async-storage`)"
+  - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
   - "RNCPicker (from `../node_modules/@react-native-picker/picker`)"
   - RNFastImage (from `../node_modules/react-native-fast-image`)
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
@@ -502,6 +507,7 @@ DEPENDENCIES:
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNInAppBrowser (from `../node_modules/react-native-inappbrowser-reborn`)
   - RNPermissions (from `../node_modules/react-native-permissions`)
+  - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - "RNSentry (from `../node_modules/@sentry/react-native`)"
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
@@ -617,6 +623,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/rn-fetch-blob"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-community/async-storage"
+  RNCMaskedView:
+    :path: "../node_modules/@react-native-community/masked-view"
   RNCPicker:
     :path: "../node_modules/@react-native-picker/picker"
   RNFastImage:
@@ -631,6 +639,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-inappbrowser-reborn"
   RNPermissions:
     :path: "../node_modules/react-native-permissions"
+  RNReanimated:
+    :path: "../node_modules/react-native-reanimated"
   RNScreens:
     :path: "../node_modules/react-native-screens"
   RNSentry:
@@ -688,7 +698,7 @@ SPEC CHECKSUMS:
   react-native-pdf: 909cd849e6a806731b2135263189fea39494b55e
   react-native-progress-bar-android: d1ec460350b7c0d27418b0c0b9ebf073646db016
   react-native-progress-view: d6127184789afb752faae9acdbe7fa320632a662
-  react-native-safe-area-context: 9d9640a9085014864052e38496fc1dfde0b93974
+  react-native-safe-area-context: b6e0e284002381d2ff29fa4fff42b4d8282e3c94
   react-native-static-server: 201b2a945a35096be3ae7f43e367c65bcbd61343
   react-native-webview: c981c0de33cdc842884469b008f067d6132ad7a5
   React-RCTActionSheet: 53ea72699698b0b47a6421cb1c8b4ab215a774aa
@@ -704,14 +714,16 @@ SPEC CHECKSUMS:
   ReactNativeART: 78edc68dd4a1e675338cd0cd113319cf3a65f2ab
   rn-fetch-blob: f065bb7ab7fb48dd002629f8bdcb0336602d3cba
   RNCAsyncStorage: 2a692bcb9b69b76a2f1a95f33db057129700af64
+  RNCMaskedView: 5a8ec07677aa885546a0d98da336457e2bea557f
   RNCPicker: 2c31098349f499e7ab4da6c1ce26f7537d271062
   RNFastImage: 9b0c22643872bb7494c8d87bbbb66cc4c0d9e7a2
   RNFBApp: a74d8259d827c8bf55100e759cffa2e50ba6fe30
   RNFBMessaging: c69238917a8672f5aed2c8a6ee124efa8f962677
-  RNGestureHandler: 7a5833d0f788dbd107fbb913e09aa0c1ff333c39
+  RNGestureHandler: 9b7e605a741412e20e13c512738a31bd1611759b
   RNInAppBrowser: 48b95ba7a4eaff5cc223bca338d3e319561dbd1b
   RNPermissions: 2f74237e97b08beda01e914301e12524ddddf5b8
-  RNScreens: 0e91da98ab26d5d04c7b59a9b6bd694124caf88c
+  RNReanimated: e03f7425cb7a38dcf1b644d680d1bfc91c3337ad
+  RNScreens: 45c457af3d2ee9e08fc01e70da87e653d46b1198
   RNSentry: cff88174a0b2e0289b2efe5be1abba1f6c54269d
   RNVectorIcons: bc69e6a278b14842063605de32bec61f0b251a59
   SDWebImage: a990c053fff71e388a10f3357edb0be17929c9c5
