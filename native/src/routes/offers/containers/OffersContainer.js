@@ -6,7 +6,7 @@ import { RefreshControl, ScrollView } from 'react-native'
 import Offers from '../components/Offers'
 import { type TFunction, withTranslation } from 'react-i18next'
 import { CityModel, createOffersEndpoint, OfferModel, Payload } from 'api-client'
-import type { ThemeType } from '../../../modules/theme/constants'
+import type { ThemeType } from 'build-configs/ThemeType'
 import type { StateType } from '../../../modules/app/StateType'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import FailureContainer from '../../../modules/error/containers/FailureContainer'
@@ -80,8 +80,11 @@ class OffersContainer extends React.Component<OffersPropsType, OffersStateType> 
     postData: ?Map<string, string>
   ) => {
     const { navigation, city } = this.props
-    if (isExternalUrl) {
+    // HTTP POST is neither supported by the InAppBrowser nor by Linking, therefore we have to open it in a webview
+    if (isExternalUrl && postData) {
       navigation.push(EXTERNAL_OFFER_ROUTE, { url: path, postData })
+    } else if (isExternalUrl) {
+      openExternalUrl(path)
     } else if (path === SPRUNGBRETT_OFFER_ROUTE) {
       const params = { city, offers }
       navigation.push(SPRUNGBRETT_OFFER_ROUTE, params)

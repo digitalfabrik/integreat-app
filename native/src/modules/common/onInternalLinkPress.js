@@ -1,9 +1,9 @@
 // @flow
 
-import { Linking } from 'react-native'
 import type { NavigateToInternalLinkParamsType } from '../app/createNavigateToInternalLink'
 import buildConfig from '../app/constants/buildConfig'
 import type { NavigationPropType, RoutesType } from '../app/components/NavigationTypes'
+import openExternalUrl from './openExternalUrl'
 
 type NavigateToInternalLinkType = NavigateToInternalLinkParamsType => void
 
@@ -24,7 +24,7 @@ const onInternalLinkPress = <T: RoutesType>(url: string,
       language
     })
   } else {
-    Linking.openURL(url).catch(err => console.error('An error occurred', err))
+    openExternalUrl(url)
   }
 }
 

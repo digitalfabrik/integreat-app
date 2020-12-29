@@ -557,10 +557,10 @@ jobs:
                 condition: << parameters.production_delivery >>
                 steps:
                     - run:
-                        command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/integreat.app \<<< $'put -r ~/attached_workspace/dist/integreat/*'
+                        command: sftp -b - -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/integreat.app \<<< "put -r $HOME/attached_workspace/dist/integreat/*"
                         name: Integreat production delivery
                     - run:
-                        command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/malteapp.de \<<< $'put -r ~/attached_workspace/dist/malte/*'
+                        command: sftp -b - -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/malteapp.de \<<< "put -r $HOME/attached_workspace/dist/malte/*"
                         name: Malte production delivery
                     - run:
                         command: tools/sentry-release integreat "${NEW_VERSION_NAME}" ~/attached_workspace/dist/integreat
@@ -572,7 +572,7 @@ jobs:
                 condition: << parameters.production_delivery >>
                 steps:
                     - run:
-                        command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.integreat.app \<<< $'put -r ~/attached_workspace/dist/integreat-test-cms/*'
+                        command: sftp -b - -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.integreat.app \<<< "put -r $HOME/attached_workspace/dist/integreat-test-cms/*"
                         name: Integreat development delivery
                     - run:
                         command: tools/sentry-release integreat-test-cms "${NEW_VERSION_NAME}" ~/attached_workspace/dist/integreat-test-cms
