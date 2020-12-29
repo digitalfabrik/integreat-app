@@ -27,7 +27,7 @@ jest.mock('rn-fetch-blob')
 
 const cityCode = 'augsburg'
 const languageCode = 'de'
-const shareUrl = 'https://integreat.app/augsburg'
+const shareUrl = 'https://integreat.app/augsburg/de'
 const route = { key: generateKey(), params: { cityCode, languageCode, shareUrl }, name: CATEGORIES_ROUTE }
 
 describe('Categories', () => {

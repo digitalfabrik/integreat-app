@@ -9,6 +9,8 @@ import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import Page from '../../../../modules/common/components/Page'
 import createNavigationScreenPropMock from '../../../../testing/createNavigationPropMock'
+import { generateKey } from '../../../../modules/app/generateRouteKey'
+import { EVENTS_ROUTE } from '../../../../modules/app/components/NavigationTypes'
 
 jest.mock('../../../../modules/common/components/Page', () => {
   const Text = require('react-native').Text
@@ -19,6 +21,9 @@ jest.mock('../../../../modules/common/components/PageDetail', () => {
   const Text = require('react-native').Text
   return () => <Text>PageDetail</Text>
 })
+
+const shareUrl = 'https://integreat.app/augsburg/de/events'
+const route = { key: generateKey(), params: { shareUrl }, name: EVENTS_ROUTE }
 
 describe('Events', () => {
   it('should pass an empty object to Page if the resource cache doesnt contain an appropriate entry', () => {
@@ -33,7 +38,7 @@ describe('Events', () => {
     }
     const navigation = createNavigationScreenPropMock()
     const result = TestRenderer.create(
-      <Events path={event.path} events={events} cities={cities} cityCode={city.code}
+      <Events path={event.path} events={events} cities={cities} cityCode={city.code} route={route}
               resourceCacheUrl='http://localhost:8080' language={language.code} resourceCache={{ notAvailable: {} }}
               theme={lightTheme} t={key => key} navigation={navigation} navigateToEvent={() => {}}
               navigateToInternalLink={() => {}} />
