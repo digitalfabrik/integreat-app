@@ -27,6 +27,7 @@ import type { Dispatch } from 'redux'
 import LayoutedScrollView from '../../../modules/common/components/LayoutedScrollView'
 import LayoutContainer from '../../../modules/layout/containers/LayoutContainer'
 import { cityContentUrl } from '../../../modules/common/url'
+import openExternalUrl from '../../../modules/common/openExternalUrl'
 
 type OwnPropsType = {|
   route: RoutePropType<OffersRouteType>,

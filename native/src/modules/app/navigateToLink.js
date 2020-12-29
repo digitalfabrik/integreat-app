@@ -1,10 +1,10 @@
 // @flow
 
-import { Linking } from 'react-native'
 import type { NavigateToInternalLinkParamsType } from './createNavigateToInternalLink'
 import buildConfig from './constants/buildConfig'
 import type { NavigationPropType, RoutesType } from './components/NavigationTypes'
 import { IMAGE_VIEW_MODAL_ROUTE, PDF_VIEW_MODAL_ROUTE } from './components/NavigationTypes'
+import openExternalUrl from '../common/openExternalUrl'
 
 type NavigateToInternalLinkType = NavigateToInternalLinkParamsType => void
 
@@ -24,7 +24,7 @@ const navigateToLink = <T: RoutesType>(
   } else if (navigateToInternalLink && HIJACK.test(url)) {
     navigateToInternalLink({ url, language })
   } else {
-    Linking.openURL(url).catch(err => console.error('An error occurred', err))
+    openExternalUrl(url)
   }
 }
 
