@@ -43,7 +43,7 @@ describe('createNavigateToInternalLink', () => {
     expect(mocks.navigateToDashboard).toHaveBeenCalledWith({
       cityCode: 'augsburg',
       language: 'en',
-      path: '/augsburg/en'
+      cityContentPath: '/augsburg/en'
     })
     expectExactlyOneHit(mocks)
   })
@@ -55,7 +55,7 @@ describe('createNavigateToInternalLink', () => {
     expect(mocks.navigateToDashboard).toHaveBeenCalledWith({
       cityCode: 'augsburg',
       language: 'de',
-      path: '/augsburg/de'
+      cityContentPath: '/augsburg/de'
     })
     expectExactlyOneHit(mocks)
   })
@@ -67,7 +67,7 @@ describe('createNavigateToInternalLink', () => {
     expect(mocks.navigateToCategory).toHaveBeenCalledWith({
       cityCode: 'augsburg',
       language: 'de',
-      path: '/augsburg/de/sub-category'
+      cityContentPath: '/augsburg/de/sub-category'
     })
     expectExactlyOneHit(mocks)
   })
@@ -91,7 +91,7 @@ describe('createNavigateToInternalLink', () => {
     expect(mocks.navigateToEvent).toHaveBeenCalledWith({
       cityCode: 'augsburg',
       language: 'de',
-      path: '/augsburg/de/events/integrationskurs'
+      path: 'integrationskurs'
     })
     expectExactlyOneHit(mocks)
   })

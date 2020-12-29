@@ -2,6 +2,17 @@
 
 import createNavigationScreenPropMock from '../../../testing/createNavigationPropMock'
 import createNavigateToEvent from '../createNavigateToEvent'
+import { EVENTS_ROUTE } from '../components/NavigationTypes'
+
+const cityContentUrl = ({ cityCode, languageCode, route, path }) => `/${cityCode}/${languageCode}/${route}${path || ''}`
+jest.mock('../../common/url', () => ({
+  cityContentUrl: jest.fn(cityContentUrl)
+}))
+
+const cityCode = 'augsburg'
+const language = 'de'
+const route = EVENTS_ROUTE
+const path = 'integrationskurs'
 
 describe('createNavigateToEvent', () => {
   it('should generate key if not supplied with at least 6 chars and use it for both navigation and redux actions', () => {
@@ -9,7 +20,7 @@ describe('createNavigateToEvent', () => {
     const navigation = createNavigationScreenPropMock()
 
     const navigateToEvent = createNavigateToEvent(dispatch, navigation)
-    navigateToEvent({ cityCode: 'augsburg', language: 'de', path: '/augsburg/de/events/integrationskurs' })
+    navigateToEvent({ cityCode, language, path })
 
     expect(navigation.navigate).toHaveBeenCalledWith(expect.objectContaining({
       key: expect.stringMatching(/^.{6,}$/) // at least 6 chars but no newline
@@ -21,41 +32,19 @@ describe('createNavigateToEvent', () => {
     })
   })
 
-  it('should have onRouteClose in navigation params', () => {
-    const dispatch = jest.fn()
-    const navigation = createNavigationScreenPropMock()
-
-    const navigateToEvent = createNavigateToEvent(dispatch, navigation)
-    navigateToEvent({ cityCode: 'augsburg', language: 'de', path: '/augsburg/de/events/integrationskurs' })
-
-    expect(navigation.navigate).toHaveBeenCalledWith(expect.objectContaining({
-      key: expect.any(String), // at least 6 chars but no newline
-      params: expect.objectContaining({
-        onRouteClose: expect.any(Function)
-      })
-    }))
-
-    const key = (navigation.navigate: any).mock.calls[0][0].key
-    // $FlowFixMe .mock is missing
-    navigation.navigate.mock.calls[0][0].params.onRouteClose()
-    expect(dispatch).toHaveBeenLastCalledWith({
-      type: 'CLEAR_EVENT', params: { key }
-    })
-  })
-
   it('should pass path, or the events path if not supplied, as sharePath in navigation params', () => {
     const dispatch = jest.fn()
     const navigation = createNavigationScreenPropMock()
     const navigateToEvent = createNavigateToEvent(dispatch, navigation)
 
-    navigateToEvent({ cityCode: 'augsburg', language: 'de', path: '/augsburg/de/events/integrationskurs' })
+    navigateToEvent({ cityCode, language, path })
     expect(navigation.navigate).toHaveBeenCalledWith(expect.objectContaining({
-      params: expect.objectContaining({ sharePath: '/augsburg/de/events/integrationskurs' })
+      params: expect.objectContaining({ shareUrl: cityContentUrl({ cityCode, languageCode: language, path, route }) })
     }))
 
-    navigateToEvent({ cityCode: 'augsburg', language: 'de', path: null })
+    navigateToEvent({ cityCode, language, path: null })
     expect(navigation.navigate).toHaveBeenCalledWith(expect.objectContaining({
-      params: expect.objectContaining({ sharePath: '/augsburg/de/events' })
+      params: expect.objectContaining({ shareUrl: cityContentUrl({ cityCode, languageCode: language, route, path: null }) })
     }))
   })
 
