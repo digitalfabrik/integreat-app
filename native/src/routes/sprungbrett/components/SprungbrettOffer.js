@@ -1,14 +1,13 @@
 // @flow
 
 import * as React from 'react'
-
-import { Linking } from 'react-native'
 import { SprungbrettJobModel, OfferModel } from 'api-client'
 import SprungbrettListItem from './SprungbrettListItem'
 import type { TFunction } from 'react-i18next'
-import type { ThemeType } from '../../../modules/theme/constants'
+import type { ThemeType } from 'build-configs/ThemeType'
 import List from '../../../modules/common/components/List'
 import Caption from '../../../modules/common/components/Caption'
+import openExternalUrl from '../../../modules/common/openExternalUrl'
 
 type PropsType = {|
   sprungbrettJobs: Array<SprungbrettJobModel>,
@@ -19,12 +18,12 @@ type PropsType = {|
 |}
 
 class SprungbrettOffer extends React.Component<PropsType> {
-  openJobInBrowser = (url: string) => () => {
-    Linking.openURL(url)
+  openJob = (url: string) => () => {
+    openExternalUrl(url)
   }
 
   renderSprungbrettListItem = (job: SprungbrettJobModel): React.Node => (
-    <SprungbrettListItem key={job.id} job={job} openJobInBrowser={this.openJobInBrowser(job.url)}
+    <SprungbrettListItem key={job.id} job={job} openJobInBrowser={this.openJob(job.url)}
                          theme={this.props.theme} language={this.props.language} />
   )
 

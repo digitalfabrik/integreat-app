@@ -20,10 +20,10 @@ steps:
       steps:
         - run:
             name: Integreat production delivery # StrictHostKeyChecking=no is not a security problem. The worst that could happen is a delivery to the wrong domain.
-            command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/integreat.app \<<< $'put -r ~/attached_workspace/dist/integreat/*'
+            command: sftp -b - -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/integreat.app \<<< "put -r $HOME/attached_workspace/dist/integreat/*"
         - run:
             name: Malte production delivery
-            command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/malteapp.de \<<< $'put -r ~/attached_workspace/dist/malte/*'
+            command: sftp -b - -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/malteapp.de \<<< "put -r $HOME/attached_workspace/dist/malte/*"
         - run:
             name: "Sentry Upload: integreat"
             command: tools/sentry-release integreat "${NEW_VERSION_NAME}" ~/attached_workspace/dist/integreat
@@ -35,7 +35,7 @@ steps:
       steps:
         - run:
             name: Integreat development delivery
-            command: sftp -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.integreat.app \<<< $'put -r ~/attached_workspace/dist/integreat-test-cms/*'
+            command: sftp -b - -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.integreat.app \<<< "put -r $HOME/attached_workspace/dist/integreat-test-cms/*"
         - run:
             name: "Sentry Upload: integreat-test-cms"
             command: tools/sentry-release integreat-test-cms "${NEW_VERSION_NAME}" ~/attached_workspace/dist/integreat-test-cms
