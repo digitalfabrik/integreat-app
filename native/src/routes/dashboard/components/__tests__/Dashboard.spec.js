@@ -10,6 +10,7 @@ import { CityModel } from 'api-client'
 import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
 import NavigationTiles from '../../../../modules/common/components/NavigationTiles'
 import buildConfig from '../../../../modules/app/constants/buildConfig'
+import { DASHBOARD_ROUTE } from '../../../../modules/app/components/NavigationTypes'
 
 jest.mock('../../../../modules/common/components/NavigationTiles', () => {
   const Text = require('react-native').Text
@@ -17,6 +18,11 @@ jest.mock('../../../../modules/common/components/NavigationTiles', () => {
 })
 
 jest.mock('rn-fetch-blob')
+
+const cityCode = 'augsburg'
+const languageCode = 'de'
+const shareUrl = 'https://integreat.app/augsburg/de'
+const route = { key: 'route-id-0', params: { cityCode, languageCode, shareUrl }, name: DASHBOARD_ROUTE }
 
 describe('Dashboard', () => {
   const categoriesMapModel = new CategoriesMapModelBuilder('augsburg', 'de').build()
@@ -80,7 +86,7 @@ describe('Dashboard', () => {
     <Dashboard navigation={navigation} navigateToPoi={navigateToPoi} navigateToCategory={navigateToCategory}
                navigateToEvent={navigateToEvent} navigateToInternalLink={navigateToInternalLink}
                navigateToNews={navigateToNews} navigateToOffers={navigateToOffers} theme={theme} language={language}
-               cityModel={cityModel} stateView={stateView} resourceCache={resourceCache}
+               cityModel={cityModel} stateView={stateView} resourceCache={resourceCache} route={route}
                resourceCacheUrl={resourceCacheUrl} t={t} />
 
   it('should show navigation tiles if there are is at least one feature enabled', () => {
