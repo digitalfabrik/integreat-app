@@ -1,7 +1,6 @@
 // @flow
 
 import * as React from 'react'
-import TestRenderer from 'react-test-renderer'
 import configureMockStore from 'redux-mock-store'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
@@ -16,29 +15,51 @@ import type {
 import { Provider } from 'react-redux'
 import { render } from '@testing-library/react-native'
 import ErrorCodes from '../../../../modules/error/ErrorCodes'
-import { Text, ActivityIndicator } from 'react-native'
 import { LOADING_TIMEOUT } from '../../../../modules/common/constants'
 import { LOCAL_NEWS } from '../../../../modules/endpoint/constants'
+import { NEWS_ROUTE } from '../../../../modules/app/components/NavigationTypes'
+import NewsContainer from '../NewsContainer'
 
 const mockStore = configureMockStore()
 jest.mock('react-i18next')
 jest.useFakeTimers()
 
-class MockNewsList extends React.Component<{}> {
-  render () {
-    return <Text>News List</Text>
-  }
-}
+jest.mock('../../components/NewsList', () => {
+  const Text = require('react-native').Text
+  return () => <Text>NewsList</Text>
+})
 
-describe('News', () => {
-  const cities = new CityModelBuilder(1).build()
-  const city = cities[0]
+jest.mock('../../../../modules/error/containers/FailureContainer', () => {
+  const Text = require('react-native').Text
+  return ({ code }: {| code: string |}) => <Text>Failure {code}</Text>
+})
+
+jest.mock('../../../../modules/common/containers/LanguageNotAvailableContainer', () => {
+  const Text = require('react-native').Text
+  return () => <Text>LanguageNotAvailable</Text>
+})
+
+jest.mock('react-native/Libraries/Components/RefreshControl/RefreshControl', () => {
+  const Text = require('react-native').Text
+  return ({ refreshing }: {| refreshing: boolean |}) => refreshing ? <Text>loading</Text> : null
+})
+
+jest.mock('../../../../modules/common/components/LoadingSpinner', () => {
+  const Text = require('react-native').Text
+  return () => <Text>Loading</Text>
+})
+
+const shareUrl = 'https://integreat.app/augsburg/de/offers'
+const route = { key: 'route-id-0', params: { shareUrl }, name: NEWS_ROUTE }
+
+describe('NewsContainer', () => {
+  const [city] = new CityModelBuilder(1).build()
   const languages = new LanguageModelBuilder(1).build()
   const language = languages[0]
   const news = new LocalNewsModelBuilder(
     'NewsList-Component',
     1,
-    cities[0].code,
+    city.code,
     languages[0].code
   ).build()
 
@@ -96,36 +117,32 @@ describe('News', () => {
     allAvailableLanguages: new Map()
   }
 
-  it('should display null if the route is not initialized', () => {
+  it('should display nothing if the route is not initialized', () => {
     const state: StateType = prepareState()
     const store = mockStore(state)
     const navigation = createNavigationScreenPropMock()
-    navigation.state.key = 'route-id-0'
-    jest.mock('../../components/NewsList', () => MockNewsList)
-    const NewsContainer = require('../NewsContainer').default
-
-    const result = TestRenderer.create(
-      <Provider store={store}>
-        <NewsContainer navigation={navigation} />
-      </Provider>
-    )
-    expect(result.toJSON()).toBeNull()
-  })
-
-  const expectError = (state: StateType, message: string) => {
-    const store = mockStore(state)
-    const navigation = createNavigationScreenPropMock()
-    navigation.state.key = 'route-id-0'
-    navigation.setParams({ onRouteClose: () => {} })
-    jest.mock('../../components/NewsList', () => MockNewsList)
-    const NewsContainer = require('../NewsContainer').default
 
     const { getByText } = render(
       <Provider store={store}>
-        <NewsContainer navigation={navigation} />
+        <NewsContainer navigation={navigation} route={route} />
       </Provider>
     )
-    expect(getByText(message)).toBeTruthy()
+    expect(() => getByText('NewsList')).toThrow()
+    expect(() => getByText('FailureContainer')).toThrow()
+    expect(() => getByText('LanguageNotAvailable')).toThrow()
+    expect(() => getByText('RefreshControl')).toThrow()
+  })
+
+  const expectError = (state: StateType, code: string) => {
+    const store = mockStore(state)
+    const navigation = createNavigationScreenPropMock()
+
+    const { getByText } = render(
+      <Provider store={store}>
+        <NewsContainer navigation={navigation} route={route} />
+      </Provider>
+    )
+    expect(getByText(`Failure ${code}`)).toBeTruthy()
   }
 
   it('should display error if the route has the status error', () => {
@@ -152,21 +169,17 @@ describe('News', () => {
     expectError(state, ErrorCodes.UnknownError)
   })
 
-  const expectLoadingIndicator = (state: StateType) => {
+  const expectLoadingSpinner = (state: StateType) => {
     const navigation = createNavigationScreenPropMock()
-    navigation.state.key = 'route-id-0'
     const store = mockStore(state)
-    jest.doMock('../../components/NewsList', () => MockNewsList)
-    const NewsContainer = require('../NewsContainer').default
-    const result = TestRenderer.create(
-      <Provider store={store}><NewsContainer navigation={navigation} /></Provider>
+    const { getByText } = render(
+      <Provider store={store}><NewsContainer navigation={navigation} route={route} /></Provider>
     )
     jest.advanceTimersByTime(LOADING_TIMEOUT)
-    const indicator = result.root.findByType(ActivityIndicator)
-    expect(indicator).toBeTruthy()
+    expect(getByText('Loading')).toBeTruthy()
   }
 
-  it('should display loading indicator if the route is loading long enough', () => {
+  it('should display loading spinner', () => {
     const state: StateType = prepareState({
       newsId: null,
       status: 'loading',
@@ -174,21 +187,17 @@ describe('News', () => {
       language: language.code,
       city: city.code
     })
-    expectLoadingIndicator(state)
+    expectLoadingSpinner(state)
   })
 
   it('should display NewsListItem component if the state is ready', () => {
     const state: StateType = prepareState(successfulRouteState)
     const store = mockStore(state)
     const navigation = createNavigationScreenPropMock()
-    navigation.state.key = 'route-id-0'
-    jest.doMock('../../components/NewsList', () => MockNewsList)
-    const NewsContainer = require('../NewsContainer').default
-    const result = TestRenderer.create(
-      <Provider store={store}><NewsContainer navigation={navigation} /></Provider>
+    const { getByText } = render(
+      <Provider store={store}><NewsContainer navigation={navigation} route={route} /></Provider>
     )
-    const newsInstance = result.root.findByProps({ news: news })
 
-    expect(newsInstance).toBeTruthy()
+    expect(getByText('NewsList')).toBeTruthy()
   })
 })
