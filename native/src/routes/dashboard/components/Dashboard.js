@@ -111,7 +111,7 @@ class Dashboard extends React.Component<PropsType> {
         onTilePress: () => navigateToEvent({
           cityCode,
           language,
-          path: null
+          cityContentPath: null
         }),
         notifications: 0
       }))

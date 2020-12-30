@@ -45,9 +45,9 @@ export const createNavigateToInternalLink = ({
     // TODO IGAPP-136: Handle other routes
     if (pathnameParts[2] === EVENTS_ROUTE.toLowerCase()) {
       if (pathnameParts[3]) { // '/augsburg/de/events/some_event'
-        navigateToEvent({ cityCode: newCity, language: newLanguage, path: pathnameParts[3] })
+        navigateToEvent({ cityCode: newCity, language: newLanguage, cityContentPath: pathname })
       } else { // '/augsburg/de/events'
-        navigateToEvent({ cityCode: newCity, language: newLanguage, path: null })
+        navigateToEvent({ cityCode: newCity, language: newLanguage, cityContentPath: null })
       }
     } else { // '/augsburg/de/willkommen'
       navigateToCategory({ cityCode: newCity, language: newLanguage, cityContentPath: pathname })

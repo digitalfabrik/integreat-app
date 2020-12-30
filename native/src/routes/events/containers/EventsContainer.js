@@ -194,7 +194,7 @@ class EventsContainer extends React.Component<ContainerPropsType> {
 const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
   const { route, navigation, cityCode, language, path } = refreshProps
   const navigateToEvent = createNavigateToEvent(dispatch, navigation)
-  navigateToEvent({ cityCode, language, path, forceRefresh: true, key: route.key })
+  navigateToEvent({ cityCode, language, cityContentPath: path, forceRefresh: true, key: route.key })
 }
 
 export default withTranslation('error')(

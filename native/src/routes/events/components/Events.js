@@ -49,7 +49,7 @@ export type PropsType = {|
  */
 class Events extends React.Component<PropsType> {
   navigateToEvent = (cityCode: string, language: string, path: string) => () => {
-    this.props.navigateToEvent({ cityCode, language, path })
+    this.props.navigateToEvent({ cityCode, language, cityContentPath: path })
   }
 
   renderEventListItem = (cityCode: string, language: string) => (event: EventModel) => {
