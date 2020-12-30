@@ -16,11 +16,11 @@ import type { StoreActionType } from '../../app/StoreActionType'
 import type { Dispatch } from 'redux'
 import {
   DISCLAIMER_ROUTE,
-  LANDING_ROUTE,
   SEARCH_MODAL_ROUTE,
   SETTINGS_ROUTE
 } from '../../app/components/NavigationTypes'
 import { cityContentUrl } from '../../common/url'
+import createNavigateToLanding from '../../app/createNavigateToLanding'
 
 const Horizontal = styled.View`
   flex: 1;
@@ -84,8 +84,8 @@ class Header extends React.PureComponent<PropsType> {
 
   goToLanding = () => {
     const { navigation, dispatch } = this.props
-    navigation.replace(LANDING_ROUTE)
-    dispatch({ type: 'CLEAR_CITY' })
+    // $FlowFixMe Navigation type of the header does not match that of screens.
+    createNavigateToLanding(dispatch, navigation)()
   }
 
   goToSettings = () => {
