@@ -2,11 +2,11 @@
 
 import React, { useState, useEffect, useRef } from 'react'
 import AppSettings from '../../settings/AppSettings'
-import { Text } from 'react-native'
+import { Text, Platform } from 'react-native'
 import initSentry from '../initSentry'
 import { ASYNC_STORAGE_VERSION } from '../../settings/constants'
 import buildConfig from '../constants/buildConfig'
-import { createStackNavigator, type StackHeaderProps } from '@react-navigation/stack'
+import { createStackNavigator, TransitionPresets, type StackHeaderProps } from '@react-navigation/stack'
 import IntroContainer from '../../../routes/intro/IntroContainer'
 import LandingContainer from '../../../routes/landing/containers/LandingContainer'
 import TransparentHeaderContainer from '../../layout/containers/TransparentHeaderContainer'
@@ -164,26 +164,32 @@ const Navigator = (props: PropsType) => {
       }
     : {}
 
+  // Keeps our previous transition on android. Fixes weird showing of splash screen on every navigate.
+  const transitionPreset = Platform.select({
+    android: TransitionPresets.FadeFromBottomAndroid,
+    ios: TransitionPresets.DefaultTransition
+  })
+
   return (
     <Stack.Navigator initialRouteName={initialRoute.name}>
-      <Stack.Screen name={INTRO_ROUTE} component={IntroContainer} options={{ header: () => null }} />
-      <Stack.Screen name={LANDING_ROUTE} component={LandingContainer} options={{ header: () => null }} />
-      <Stack.Screen name={DASHBOARD_ROUTE} component={DashboardContainer} options={{ header: defaultHeader }} initialParams={dashboardParams} />
-      <Stack.Screen name={CATEGORIES_ROUTE} component={CategoriesContainer} options={{ header: defaultHeader }} />
-      <Stack.Screen name={OFFERS_ROUTE} component={OffersContainer} options={{ header: defaultHeader }} />
-      <Stack.Screen name={WOHNEN_OFFER_ROUTE} component={WohnenOfferContainer} options={{ header: defaultHeader }} />
-      <Stack.Screen name={SPRUNGBRETT_OFFER_ROUTE} component={SprungbrettOfferContainer} options={{ header: defaultHeader }} />
-      <Stack.Screen name={EXTERNAL_OFFER_ROUTE} component={ExternalOfferContainer} options={{ header: defaultHeader }} />
-      <Stack.Screen name={POIS_ROUTE} component={PoisContainer} options={{ header: defaultHeader }} />
-      <Stack.Screen name={EVENTS_ROUTE} component={EventsContainer} options={{ header: defaultHeader }} />
-      <Stack.Screen name={NEWS_ROUTE} component={NewsContainer} options={{ header: defaultHeader }} />
-      <Stack.Screen name={PDF_VIEW_MODAL_ROUTE} component={PDFViewModal} options={{ header: transparentFloatingHeader }} />
-      <Stack.Screen name={CHANGE_LANGUAGE_MODAL_ROUTE} component={ChangeLanguageModalContainer} options={{ header: transparentStaticHeader }} />
-      <Stack.Screen name={SEARCH_MODAL_ROUTE} component={SearchModalContainer} options={{ header: () => null }} />
-      <Stack.Screen name={IMAGE_VIEW_MODAL_ROUTE} component={ImageViewModal} options={{ header: transparentFloatingHeader }} />
-      <Stack.Screen name={FEEDBACK_MODAL_ROUTE} component={FeedbackModalContainer} options={{ header: transparentFloatingHeader }} />
-      <Stack.Screen name={SETTINGS_ROUTE} component={SettingsContainer} options={{ header: settingsHeader }} />
-      <Stack.Screen name={DISCLAIMER_ROUTE} component={DisclaimerContainer} options={{ header: defaultHeader }} />
+      <Stack.Screen name={INTRO_ROUTE} component={IntroContainer} options={{ header: () => null, ...transitionPreset }} />
+      <Stack.Screen name={LANDING_ROUTE} component={LandingContainer} options={{ header: () => null, ...transitionPreset }} />
+      <Stack.Screen name={DASHBOARD_ROUTE} component={DashboardContainer} options={{ header: defaultHeader, ...transitionPreset }} initialParams={dashboardParams} />
+      <Stack.Screen name={CATEGORIES_ROUTE} component={CategoriesContainer} options={{ header: defaultHeader, ...transitionPreset }} />
+      <Stack.Screen name={OFFERS_ROUTE} component={OffersContainer} options={{ header: defaultHeader, ...transitionPreset }} />
+      <Stack.Screen name={WOHNEN_OFFER_ROUTE} component={WohnenOfferContainer} options={{ header: defaultHeader, ...transitionPreset }} />
+      <Stack.Screen name={SPRUNGBRETT_OFFER_ROUTE} component={SprungbrettOfferContainer} options={{ header: defaultHeader, ...transitionPreset }} />
+      <Stack.Screen name={EXTERNAL_OFFER_ROUTE} component={ExternalOfferContainer} options={{ header: defaultHeader, ...transitionPreset }} />
+      <Stack.Screen name={POIS_ROUTE} component={PoisContainer} options={{ header: defaultHeader, ...transitionPreset }} />
+      <Stack.Screen name={EVENTS_ROUTE} component={EventsContainer} options={{ header: defaultHeader, ...transitionPreset }} />
+      <Stack.Screen name={NEWS_ROUTE} component={NewsContainer} options={{ header: defaultHeader, ...transitionPreset }} />
+      <Stack.Screen name={PDF_VIEW_MODAL_ROUTE} component={PDFViewModal} options={{ header: transparentFloatingHeader, ...transitionPreset }} />
+      <Stack.Screen name={CHANGE_LANGUAGE_MODAL_ROUTE} component={ChangeLanguageModalContainer} options={{ header: transparentStaticHeader, ...transitionPreset }} />
+      <Stack.Screen name={SEARCH_MODAL_ROUTE} component={SearchModalContainer} options={{ header: () => null, ...transitionPreset }} />
+      <Stack.Screen name={IMAGE_VIEW_MODAL_ROUTE} component={ImageViewModal} options={{ header: transparentFloatingHeader, ...transitionPreset }} />
+      <Stack.Screen name={FEEDBACK_MODAL_ROUTE} component={FeedbackModalContainer} options={{ header: transparentFloatingHeader, ...transitionPreset }} />
+      <Stack.Screen name={SETTINGS_ROUTE} component={SettingsContainer} options={{ header: settingsHeader, ...transitionPreset }} />
+      <Stack.Screen name={DISCLAIMER_ROUTE} component={DisclaimerContainer} options={{ header: defaultHeader, ...transitionPreset }} />
     </Stack.Navigator>
   )
 }
