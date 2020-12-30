@@ -79,7 +79,7 @@ describe('createNavigateToInternalLink', () => {
     expect(mocks.navigateToEvent).toHaveBeenCalledWith({
       cityCode: 'augsburg',
       language: 'de',
-      path: null
+      cityContentPath: null
     })
     expectExactlyOneHit(mocks)
   })
@@ -91,7 +91,7 @@ describe('createNavigateToInternalLink', () => {
     expect(mocks.navigateToEvent).toHaveBeenCalledWith({
       cityCode: 'augsburg',
       language: 'de',
-      path: 'integrationskurs'
+      cityContentPath: '/augsburg/de/events/integrationskurs'
     })
     expectExactlyOneHit(mocks)
   })

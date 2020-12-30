@@ -5,14 +5,16 @@ import createNavigateToEvent from '../createNavigateToEvent'
 import { EVENTS_ROUTE } from '../components/NavigationTypes'
 
 const cityContentUrl = ({ cityCode, languageCode, route, path }) => `/${cityCode}/${languageCode}/${route}${path || ''}`
+const url = path => `some.base.url/${path}`
 jest.mock('../../common/url', () => ({
-  cityContentUrl: jest.fn(cityContentUrl)
+  cityContentUrl: jest.fn(cityContentUrl),
+  url: jest.fn(url)
 }))
 
 const cityCode = 'augsburg'
 const language = 'de'
 const route = EVENTS_ROUTE
-const path = 'integrationskurs'
+const cityContentPath = '/augsburg/de/integrationskurs'
 
 describe('createNavigateToEvent', () => {
   it('should generate key if not supplied with at least 6 chars and use it for both navigation and redux actions', () => {
@@ -20,7 +22,7 @@ describe('createNavigateToEvent', () => {
     const navigation = createNavigationScreenPropMock()
 
     const navigateToEvent = createNavigateToEvent(dispatch, navigation)
-    navigateToEvent({ cityCode, language, path })
+    navigateToEvent({ cityCode, language, cityContentPath })
 
     expect(navigation.navigate).toHaveBeenCalledWith(expect.objectContaining({
       key: expect.stringMatching(/^.{6,}$/) // at least 6 chars but no newline
@@ -37,14 +39,18 @@ describe('createNavigateToEvent', () => {
     const navigation = createNavigationScreenPropMock()
     const navigateToEvent = createNavigateToEvent(dispatch, navigation)
 
-    navigateToEvent({ cityCode, language, path })
+    navigateToEvent({ cityCode, language, cityContentPath })
     expect(navigation.navigate).toHaveBeenCalledWith(expect.objectContaining({
-      params: expect.objectContaining({ shareUrl: cityContentUrl({ cityCode, languageCode: language, path, route }) })
+      params: expect.objectContaining({
+        shareUrl: url(cityContentPath)
+      })
     }))
 
-    navigateToEvent({ cityCode, language, path: null })
+    navigateToEvent({ cityCode, language, cityContentPath: null })
     expect(navigation.navigate).toHaveBeenCalledWith(expect.objectContaining({
-      params: expect.objectContaining({ shareUrl: cityContentUrl({ cityCode, languageCode: language, route, path: null }) })
+      params: expect.objectContaining({
+        shareUrl: cityContentUrl({ cityCode, languageCode: language, route, path: null })
+      })
     }))
   })
 
@@ -54,7 +60,11 @@ describe('createNavigateToEvent', () => {
 
     const navigateToEvent = createNavigateToEvent(dispatch, navigation)
     navigateToEvent({
-      cityCode: 'augsburg', language: 'de', path: '/augsburg/de/events', key: 'route-id-1', forceRefresh: true
+      cityCode: 'augsburg',
+      language: 'de',
+      cityContentPath: '/augsburg/de/events',
+      key: 'route-id-1',
+      forceRefresh: true
     })
 
     expect(dispatch).toHaveBeenCalledWith({
