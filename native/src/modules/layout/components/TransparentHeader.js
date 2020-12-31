@@ -6,10 +6,10 @@ import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
 import type { ThemeType } from '../../theme/constants'
 import { HeaderBackButton, type StackHeaderProps } from '@react-navigation/stack'
-import { HeaderButtons, HeaderButton, Item } from 'react-navigation-header-buttons'
-import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
+import { Item } from 'react-navigation-header-buttons'
 import type { TFunction } from 'react-i18next'
 import dimensions from '../../theme/constants/dimensions'
+import MaterialHeaderButtons from './MaterialHeaderButtons'
 
 const Horizontal = styled.View`
   flex:1;
@@ -24,39 +24,17 @@ const HorizontalLeft = styled.View`
   align-items: center;
 `
 
-const BoxShadow: StyledComponent<{float: boolean}, ThemeType, *> = styled.View`
-  background-color: ${props => props.float ? 'transparent' : props.theme.colors.backgroundColor};
+const BoxShadow: StyledComponent<{||}, ThemeType, *> = styled.View`
+  background-color: ${props => props.theme.colors.backgroundAccentColor};
   height: ${dimensions.modalHeaderHeight}px;
-  ${props => props.float
-    ? `position: absolute;
-    z-index: 100;
-    top: 0;
-    left: 0;
-    right: 0;`
-    : ''
 }
 `
 
 type PropsType = {|
   ...StackHeaderProps,
   theme: ThemeType,
-  float: boolean,
   t: TFunction
 |}
-
-const MaterialHeaderButton = props => (
-  <HeaderButton {...props} IconComponent={MaterialIcon} iconSize={23} color='black' />
-)
-
-const MaterialHeaderButtons = props => {
-  return (
-    // $FlowFixMe onOverflowMenuPress should not be required
-    <HeaderButtons HeaderButtonComponent={MaterialHeaderButton}
-                   OverflowIcon={<MaterialIcon name='more-vert' size={23} color='black' />}
-                   {...props}
-    />
-  )
-}
 
 class TransparentHeader extends React.PureComponent<PropsType> {
   goBackInStack = () => {
@@ -84,20 +62,18 @@ class TransparentHeader extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const { theme, float, scene, t } = this.props
+    const { theme, scene, t } = this.props
     const shareUrl = scene.route.params?.shareUrl || ''
 
     return (
-      <BoxShadow theme={theme} float={float}>
+      <BoxShadow theme={theme}>
         <Horizontal>
           <HorizontalLeft>
             <HeaderBackButton onPress={this.goBackInStack} labelVisible={false} />
           </HorizontalLeft>
-          {shareUrl
-            ? <MaterialHeaderButtons cancelLabel={t('cancel')} theme={theme}>
-              <Item title={t('share')} show='never' onPress={this.onShare} />
-            </MaterialHeaderButtons>
-            : null}
+          <MaterialHeaderButtons cancelLabel={t('cancel')} theme={theme}>
+            {shareUrl && <Item title={t('share')} show='never' onPress={this.onShare} />}
+          </MaterialHeaderButtons>
         </Horizontal>
       </BoxShadow>
     )
