@@ -147,7 +147,7 @@ class Header extends React.PureComponent<PropsType> {
       <Horizontal>
         <HorizontalLeft>
           {this.canGoBackInStack()
-            ? <HeaderBackButton onPress={this.goBackInStack} />
+            ? <HeaderBackButton onPress={this.goBackInStack} labelVisible={false} />
             : <Icon source={buildConfigAssets().appIcon} />}
           {routeCityModel &&
           <HeaderText allowFontScaling={false} theme={theme}>{this.cityDisplayName(routeCityModel)}</HeaderText>}
