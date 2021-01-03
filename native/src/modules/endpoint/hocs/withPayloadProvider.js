@@ -13,6 +13,7 @@ import type { ErrorCodeType } from '../../error/ErrorCodes'
 import type { NavigationStackProp, NavigationScreenProp } from 'react-navigation-stack'
 import type { TFunction } from 'react-i18next'
 import wrapDisplayName from '../../common/hocs/wrapDisplayName'
+import ProgressBar from './ProgressBar'
 
 export type RouteNotInitializedType = {| status: 'routeNotInitialized' |}
 export type LoadingType<S: {}, R: {}> = {|
@@ -103,16 +104,12 @@ const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R: {}> 
         return <LanguageNotAvailableContainer languages={props.availableLanguages}
                                               changeLanguage={changeUnavailableLanguage} />
       } else if (props.status === 'loading') {
-        console.log('render loading', props.progress)
-        return timeoutExpired
+        return timeoutExpired && (props.innerProps && props.dispatch)
           ? <ScrollView refreshControl={<RefreshControl refreshing />} contentContainerStyle={{ flexGrow: 1 }}
                       keyboardShouldPersistTaps='always'>
-          {/* only display content while loading if innerProps and dispatch are available */}
-          {props.innerProps && props.dispatch
-            ? <Component {...props.innerProps} dispatch={props.dispatch} />
-            : null}
-        </ScrollView>
-          : null
+              <Component {...props.innerProps} dispatch={props.dispatch} />
+            </ScrollView>
+          : <ProgressBar progress={props.progress} />
       } else { // props.status === 'success'
         if (noScrollView) {
           return <View style={{ flex: 1 }}>
