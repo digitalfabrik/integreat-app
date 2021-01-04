@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import Svg, { Circle, Image } from 'react-native-svg'
-import logo from './assets/logo_yellow.svg'
+import logo from './assets/app-logo-g.svg'
 import { Dimensions } from 'react-native'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
@@ -39,7 +39,6 @@ const strokeDasharray = circumference
 
 export default (props: {| progress: number |}) => {
   const strokeDashoffset = circumference - props.progress * circumference
-
   return (
     <Container>
       <Svg width={size} height={size}>
