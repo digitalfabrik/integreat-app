@@ -57,12 +57,13 @@ exports.browserstack_dev_ios = {
     'browserstack.user': process.env.E2E_BROWSERSTACK_USER,
     'browserstack.key': process.env.E2E_BROWSERSTACK_KEY,
     project: 'integreat-react-native-app',
-    os_version: '11',
+    os_version: '12',
     device: 'iPhone 8',
     real_mobile: 'true',
-    'browserstack.appium_version': '1.16.0',
+    'browserstack.appium_version': '1.17.0',
     app: process.env.E2E_BROWSERSTACK_APP,
-    'browserstack.debug': true
+    'browserstack.debug': true,
+    waitForQuiescence: 'true'
   }
 }
 
@@ -88,12 +89,12 @@ exports.browserstack_ci_ios = {
   prefix: 'IG CI',
   platform: 'ios',
   caps: {
-    'browserstack.appium_version': '1.16.0',
+    'browserstack.appium_version': '1.17.0',
     'browserstack.debug': true,
     'browserstack.user': process.env.E2E_BROWSERSTACK_USER,
     'browserstack.key': process.env.E2E_BROWSERSTACK_KEY,
     project: 'integreat-react-native-app',
-    os_version: '11',
+    os_version: '12',
     device: 'iPhone 8',
     real_mobile: 'true',
     app: process.env.E2E_BROWSERSTACK_APP,
