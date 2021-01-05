@@ -9,12 +9,8 @@ import type { CategoryListModelType, ListContentModelType } from './CategoryList
 import CategoryList from './CategoryList'
 import TileModel from '../../common/models/TileModel'
 import {
-  CATEGORIES_FEEDBACK_TYPE,
   CategoryModel,
-  CityModel,
-  PAGE_FEEDBACK_TYPE,
-  CONTENT_FEEDBACK_CATEGORY,
-  TECHNICAL_FEEDBACK_CATEGORY
+  CityModel
 } from 'api-client'
 import type { ThemeType } from '../../theme/constants'
 import { URL_PREFIX } from '../../platform/constants/webview'
@@ -23,18 +19,16 @@ import type { PageResourceCacheStateType, LanguageResourceCacheStateType } from 
 import type { NavigateToCategoryParamsType } from '../../app/createNavigateToCategory'
 import type { NavigateToInternalLinkParamsType } from '../../app/createNavigateToInternalLink'
 import type { NavigationStackProp } from 'react-navigation-stack'
-import FeedbackVariant from '../../../routes/feedback/FeedbackVariant'
 import { type TFunction } from 'react-i18next'
 import SpaceBetween from '../../common/components/SpaceBetween'
 import SiteHelpfulBox from '../../common/components/SiteHelpfulBox'
-import type { FeedbackCategoryType, FeedbackType } from 'api-client'
+import createNavigateToFeedbackModal from '../../app/createNavigateToFeedbackModal'
 
 type PropsType = {|
-  cities: Array<CityModel>,
+  cityModel: CityModel,
   language: string,
 
   stateView: CategoriesRouteStateView,
-  cityCode: string,
   navigateToCategory: NavigateToCategoryParamsType => void,
   navigateToInternalLink: NavigateToInternalLinkParamsType => void,
 
@@ -50,43 +44,26 @@ type PropsType = {|
  */
 class Categories extends React.Component<PropsType> {
   onTilePress = (tile: TileModel) => {
-    const { cityCode, language, navigateToCategory } = this.props
-    navigateToCategory({ cityCode, language, path: tile.path })
+    const { cityModel, language, navigateToCategory } = this.props
+    navigateToCategory({ cityCode: cityModel.code, language, path: tile.path })
   }
 
   onItemPress = (category: { title: string, thumbnail: string, path: string }) => {
-    const { cityCode, language, navigateToCategory } = this.props
-    navigateToCategory({ cityCode, language, path: category.path })
+    const { cityModel, language, navigateToCategory } = this.props
+    navigateToCategory({ cityCode: cityModel.code, language, path: category.path })
   }
 
   navigateToFeedback = (isPositiveFeedback: boolean) => {
-    const { navigation, t, stateView, cities, cityCode, language } = this.props
-    if (!cityCode || !language) {
-      throw Error('language or cityCode not available')
-    }
-
-    const createFeedbackVariant = (
-      label: string, feedbackType: FeedbackType, feedbackCategory: FeedbackCategoryType, pagePath?: string
-    ) => new FeedbackVariant(label, language, cityCode, feedbackType, feedbackCategory, pagePath)
-    const cityTitle = CityModel.findCityName(cities, cityCode)
+    const { navigation, stateView, cityModel, language } = this.props
     const category = stateView.root()
 
-    const feedbackItems = [
-      createFeedbackVariant(t('feedback:contentOfCity', { city: cityTitle }),
-        CATEGORIES_FEEDBACK_TYPE, CONTENT_FEEDBACK_CATEGORY),
-      createFeedbackVariant(t('feedback:technicalTopics'), CATEGORIES_FEEDBACK_TYPE, TECHNICAL_FEEDBACK_CATEGORY)
-    ]
-
-    if (!category.isRoot()) {
-      feedbackItems.unshift(
-        createFeedbackVariant(t('feedback:contentOfPage', { page: category.title }),
-          PAGE_FEEDBACK_TYPE, CONTENT_FEEDBACK_CATEGORY, category.path)
-      )
-    }
-
-    navigation.navigate('FeedbackModal', {
-      isPositiveFeedback,
-      feedbackItems
+    createNavigateToFeedbackModal(navigation)({
+      type: 'Category',
+      language,
+      cityCode: cityModel.code,
+      title: !category.isRoot() ? category.title : undefined,
+      path: !category.isRoot() ? category.path : undefined,
+      isPositiveFeedback
     })
   }
 
@@ -148,7 +125,7 @@ class Categories extends React.Component<PropsType> {
    * @return {*} The content to be displayed
    */
   render () {
-    const { stateView, navigateToInternalLink, theme, navigation, language, resourceCacheUrl, t } = this.props
+    const { stateView, navigateToInternalLink, theme, navigation, language, resourceCacheUrl } = this.props
 
     const category = stateView.root()
     const children = stateView.children()
@@ -176,7 +153,7 @@ class Categories extends React.Component<PropsType> {
                  onTilePress={this.onTilePress}
                  theme={theme} />
         </View>
-        <SiteHelpfulBox navigateToFeedback={this.navigateToFeedback} theme={theme} t={t} />
+        <SiteHelpfulBox navigateToFeedback={this.navigateToFeedback} theme={theme} />
       </SpaceBetween>
     }
     // some level between, we want to display a list
@@ -199,7 +176,7 @@ class Categories extends React.Component<PropsType> {
           onItemPress={this.onItemPress}
           theme={theme} />
       </View>
-      <SiteHelpfulBox navigateToFeedback={this.navigateToFeedback} theme={theme} t={t} />
+      <SiteHelpfulBox navigateToFeedback={this.navigateToFeedback} theme={theme} />
       </SpaceBetween>
     )
   }
