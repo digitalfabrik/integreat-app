@@ -1,11 +1,11 @@
 // @flow
 
-// https://github.com/babel/babel/issues/8309#issuecomment-439161848
-// Modules in node_modules are ignored and not transpiled per default.
-// Explicitly not ignore the build-configs npm module as it has to be transpiled as monorepo package.
+// Transpile and load build-configs in root directory
 require('@babel/register')({
-  ignore: [/node_modules\/(?!build-configs)/]
+  only: [/build-configs/]
 })
+const loadBuildConfig = require('build-configs').default
+
 const path = require('path')
 const webpack = require('webpack')
 const AssetsPlugin = require('assets-webpack-plugin')
@@ -16,7 +16,6 @@ const MomentTimezoneDataPlugin = require('moment-timezone-data-webpack-plugin')
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin')
 const babelConfig = require('../babel.config.js')
 const fs = require('fs')
-const loadBuildConfig = require('build-configs').default
 const { WEB } = require('build-configs')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 

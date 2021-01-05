@@ -4,22 +4,19 @@ import type { FeedbackType, FeedbackCategoryType } from 'api-client'
 
 class FeedbackVariant {
   label: string
-  language: string
-  city: string
   feedbackType: FeedbackType
   feedbackCategory: FeedbackCategoryType
-  pagePath: ?string
   alias: ?string
+  value: string
 
-  constructor (label: string, language: string, city: string, feedbackType: FeedbackType,
-    feedbackCategory: FeedbackCategoryType, pagePath?: string, alias?: string) {
-    this.label = label
-    this.language = language
-    this.city = city
+  constructor ({ label, feedbackType, feedbackCategory, alias }: {|
+    label: string, feedbackType: FeedbackType, feedbackCategory: FeedbackCategoryType, alias?: string
+  |}) {
     this.feedbackType = feedbackType
+    this.label = label
     this.feedbackCategory = feedbackCategory
-    this.pagePath = pagePath
     this.alias = alias
+    this.value = label // Required for react-select
   }
 }
 

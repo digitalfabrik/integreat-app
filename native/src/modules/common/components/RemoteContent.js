@@ -1,6 +1,6 @@
 // @flow
 
-import * as React from 'react'
+import React, { useState, useEffect, useCallback, type Element } from 'react'
 import { Text } from 'react-native'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
@@ -12,15 +12,14 @@ import type { WebViewNavigation } from 'react-native-webview/lib/WebViewTypes'
 import type { ViewLayoutEvent } from 'react-native/Libraries/Components/View/ViewPropTypes'
 import type { ParsedCacheDictionaryType } from './Page'
 
-const StyledView: StyledComponent<{}, {}, *> = styled.View`
+const StyledView: StyledComponent<{||}, {||}, *> = styled.View`
   overflow: hidden;
   flex: 1;
 `
 
-type StateType = {|
-  webViewHeight: number,
-  webViewWidth: number
-|}
+export const renderWebviewError = (errorDomain: ?string, errorCode: number, errorDesc: string): Element<*> => {
+  return <Text>${errorDomain} ${errorCode} ${errorDesc}</Text>
+}
 
 type PropType = {|
   content: string,
@@ -32,18 +31,21 @@ type PropType = {|
   onLoad: void => void
 |}
 
-class RemoteContent extends React.Component<PropType, StateType> {
-  state = {
-    webViewHeight: 0,
-    webViewWidth: 0
-  }
+const RemoteContent = (props: PropType) => {
+  const { onLoad, content, cacheDirectory, theme, resourceCacheUrl, language, onLinkPress } = props
+  const [webViewHeight, setWebViewHeight] = useState(0)
+  const [webViewWidth, setWebViewWidth] = useState(0)
 
-  onLayout = (event: ViewLayoutEvent) => {
+  useEffect(() => {
+    onLoad()
+  }, [onLoad, webViewHeight])
+
+  const onLayout = useCallback((event: ViewLayoutEvent) => {
     const { width } = event.nativeEvent.layout
-    this.setState({ webViewWidth: width })
-  }
+    setWebViewWidth(width)
+  }, [setWebViewWidth])
 
-  onMessage = (event: WebViewMessageEvent) => {
+  const onMessage = useCallback((event: WebViewMessageEvent) => {
     if (!event.nativeEvent) {
       return
     }
@@ -51,51 +53,43 @@ class RemoteContent extends React.Component<PropType, StateType> {
     if (message.type === 'error') {
       throw Error(`An error occurred in the webview:\n${message.message}`)
     } else if (message.type === 'height' && typeof message.height === 'number') {
-      this.setState({ webViewHeight: message.height }, this.props.onLoad)
+      setWebViewHeight(message.height)
     } else {
       throw Error('Got an unknown message from the webview.')
     }
-  }
+  }, [setWebViewHeight])
 
-  onShouldStartLoadWithRequest = (event: WebViewNavigation) => {
+  const onShouldStartLoadWithRequest = useCallback((event: WebViewNavigation): boolean => {
     // Needed on iOS for the initial load
-    if (event.url === new URL(this.props.resourceCacheUrl).href) {
+    if (event.url === new URL(resourceCacheUrl).href) {
       return true
     }
 
-    this.props.onLinkPress(event.url)
+    onLinkPress(event.url)
     return false
-  }
+  }, [resourceCacheUrl, onLinkPress])
 
-  renderError = (errorDomain: ?string, errorCode: number, errorDesc: string) => {
-    return <Text>${errorDomain} ${errorCode} ${errorDesc}</Text>
-  }
+  return <StyledView onLayout={onLayout}>
+    <WebView
+      source={createHtmlSource(renderHtml(content, cacheDirectory, theme, language), resourceCacheUrl)}
+      originWhitelist={['*']} // Needed by iOS to load the initial html
+      javaScriptEnabled
+      dataDetectorTypes='none'
+      domStorageEnabled={false}
+      showsVerticalScrollIndicator={false}
+      showsHorizontalScrollIndicator={false}
+      scrollEnabled={false} // to disable scrolling in iOS
 
-  render () {
-    const { content, cacheDirectory, theme, resourceCacheUrl, language } = this.props
-    const height = this.state.webViewHeight
-    const width = this.state.webViewWidth
-    return <StyledView onLayout={this.onLayout}>
-      <WebView
-        source={createHtmlSource(renderHtml(content, cacheDirectory, theme, language), resourceCacheUrl)}
-        originWhitelist={['*']} // Needed by iOS to load the initial html
-        javaScriptEnabled
-        dataDetectorTypes='all'
-        domStorageEnabled={false}
-        showsVerticalScrollIndicator={false}
-        showsHorizontalScrollIndicator={false}
-        scrollEnabled={false} // to disable scrolling in iOS
+      onMessage={onMessage}
+      renderError={renderWebviewError}
+      onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
 
-        onMessage={this.onMessage}
-        style={{
-          height,
-          width
-        }}
-        renderError={this.renderError}
-        onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
-      />
-    </StyledView>
-  }
+      style={{
+        height: webViewHeight,
+        width: webViewWidth
+      }}
+    />
+  </StyledView>
 }
 
 export default RemoteContent
