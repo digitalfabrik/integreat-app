@@ -2,10 +2,12 @@
 
 import * as React from 'react'
 import Svg, { Circle, Image } from 'react-native-svg'
-import logo from './assets/app-logo-g.svg'
 import { Dimensions } from 'react-native'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
+import { buildConfigAssets } from '../../app/constants/buildConfig'
+import type { ThemeType } from '../../theme/constants'
+import { type TFunction } from 'react-i18next'
 
 const Container: StyledComponent<{||}, {||}, *> = styled.View`
   width: 100%;
@@ -37,17 +39,29 @@ const cy = size / 2
 const circumference = r * 2 * Math.PI
 const strokeDasharray = circumference
 
-export default (props: {| progress: number |}) => {
-  const strokeDashoffset = circumference - props.progress * circumference
-  return (
-    <Container>
-      <Svg width={size} height={size}>
-          <Image width={logoSize} height={logoSize} transform={logoToCenter} xlinkHref={logo} />
-          <Circle stroke='#fbda16'
-            {...{ strokeDasharray, strokeDashoffset, strokeWidth, cx, cy, r }}
-          />
-      </Svg>
-      <Text>Loading ...</Text>
-    </Container>
-  )
+type PropsType = {|
+  progress: number,
+  theme: ThemeType,
+  t: TFunction
+|}
+
+class ProgressBar extends React.Component<PropsType> {
+  render () {
+    const { t, progress, theme } = this.props
+    const strokeDashoffset = circumference - progress * circumference
+    return (
+      <Container>
+        <Svg width={size} height={size}>
+            <Image width={logoSize} height={logoSize} transform={logoToCenter}
+              xlinkHref={buildConfigAssets().loadingImage} />
+            <Circle stroke= {theme.colors.themeColor}
+              {...{ strokeDasharray, strokeDashoffset, strokeWidth, cx, cy, r }}
+            />
+        </Svg>
+        <Text>{t('loading')}</Text>
+      </Container>
+    )
+  }
 }
+
+export default ProgressBar
