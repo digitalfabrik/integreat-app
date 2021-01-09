@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 import { LanguageModel } from 'api-client'
-import { RefreshControl, ScrollView, View } from 'react-native'
+import { ScrollView, View } from 'react-native'
 import LanguageNotAvailableContainer from '../../common/containers/LanguageNotAvailableContainer'
 import type { StoreActionType } from '../../app/StoreActionType'
 import { type Dispatch } from 'redux'
@@ -13,7 +13,7 @@ import type { ErrorCodeType } from '../../error/ErrorCodes'
 import type { NavigationStackProp, NavigationScreenProp } from 'react-navigation-stack'
 import type { TFunction } from 'react-i18next'
 import wrapDisplayName from '../../common/hocs/wrapDisplayName'
-import ProgressBar from '../../common/components/ProgressBar'
+import ProgressContainer from '../../common/containers/ProgressContainer'
 
 export type RouteNotInitializedType = {| status: 'routeNotInitialized' |}
 export type LoadingType<S: {}, R: {}> = {|
@@ -61,9 +61,8 @@ export type PropsType<S: { dispatch: Dispatch<StoreActionType> }, R: {}> = {|
   t?: TFunction
 |}
 
-const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R: {}> (
-  refresh: (refreshProps: R, dispatch: Dispatch<StoreActionType>) => void,
-  noScrollView?: boolean
+const withPayloadProvider = <S: {| dispatch: Dispatch<StoreActionType> |}, R: {||}> (
+  refresh: (refreshProps: R, dispatch: Dispatch<StoreActionType>) => void, noScrollView?: boolean
 ): ((Component: React.ComponentType<S>) => React.ComponentType<PropsType<S, R>>) => {
   return (Component: React.ComponentType<S>): React.ComponentType<PropsType<S, R>> => {
     const Wrapper = (props: PropsType<S, R>) => {
@@ -96,8 +95,7 @@ const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R: {}> 
       if (props.status === 'routeNotInitialized') {
         return null
       } else if (props.status === 'error') {
-        return <ScrollView refreshControl={<RefreshControl onRefresh={refreshIfPossible} refreshing={false} />}
-                           contentContainerStyle={{ flexGrow: 1 }}>
+        return <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
           <FailureContainer tryAgain={refreshIfPossible} message={props.message} code={props.code} />
         </ScrollView>
       } else if (props.status === 'languageNotAvailable') {
@@ -109,7 +107,7 @@ const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R: {}> 
           {/* only display content while loading if innerProps and dispatch are available */}
           {props.innerProps && props.dispatch
             ? <Component {...props.innerProps} dispatch={props.dispatch} />
-            : <ProgressBar progress={props.progress} />}
+            : <ProgressContainer progress={props.progress} />}
             </ScrollView>
           : null
       } else { // props.status === 'success'
@@ -118,9 +116,7 @@ const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R: {}> 
             <Component {...props.innerProps} dispatch={props.dispatch} />
           </View>
         }
-        return <ScrollView keyboardShouldPersistTaps='always'
-                           refreshControl={<RefreshControl onRefresh={refreshIfPossible} refreshing={false} />}
-                           contentContainerStyle={{ flexGrow: 1 }}>
+        return <ScrollView keyboardShouldPersistTaps='always' contentContainerStyle={{ flexGrow: 1 }}>
           <Component {...props.innerProps} dispatch={props.dispatch} />
         </ScrollView>
       }
