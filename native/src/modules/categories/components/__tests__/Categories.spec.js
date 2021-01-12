@@ -11,7 +11,7 @@ import Categories from '../Categories'
 import lightTheme from '../../../theme/constants'
 import CategoriesRouteStateView from '../../../app/CategoriesRouteStateView'
 import { generateKey } from '../../../app/generateRouteKey'
-import { CATEGORIES_ROUTE } from '../../../app/components/NavigationTypes'
+import { CATEGORIES_ROUTE } from '../../../app/constants/NavigationTypes'
 
 jest.mock('../../../../modules/common/components/Page', () => {
   const Text = require('react-native').Text

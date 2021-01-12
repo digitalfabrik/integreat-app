@@ -2,7 +2,7 @@
 
 import createNavigateToCategory from '../createNavigateToCategory'
 import createNavigationScreenPropMock from '../../../testing/createNavigationPropMock'
-import { CATEGORIES_ROUTE, DASHBOARD_ROUTE } from '../components/NavigationTypes'
+import { CATEGORIES_ROUTE, DASHBOARD_ROUTE } from '../constants/NavigationTypes'
 
 jest.mock('../../common/url', () => ({
   url: jest.fn(path => path)

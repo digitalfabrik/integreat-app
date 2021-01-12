@@ -10,7 +10,7 @@ import { CityModel } from 'api-client'
 import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
 import NavigationTiles from '../../../../modules/common/components/NavigationTiles'
 import buildConfig from '../../../../modules/app/constants/buildConfig'
-import { DASHBOARD_ROUTE } from '../../../../modules/app/components/NavigationTypes'
+import { DASHBOARD_ROUTE } from '../../../../modules/app/constants/NavigationTypes'
 
 jest.mock('../../../../modules/common/components/NavigationTiles', () => {
   const Text = require('react-native').Text
