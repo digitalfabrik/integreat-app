@@ -14,7 +14,7 @@ import type {
   ChangeLanguageModalRouteType,
   NavigationPropType,
   RoutePropType
-} from '../../../modules/app/components/NavigationTypes'
+} from '../../../modules/app/constants/NavigationTypes'
 
 const Wrapper: StyledComponent<{}, ThemeType, *> = styled.ScrollView`
   background-color: ${props => props.theme.colors.backgroundColor};

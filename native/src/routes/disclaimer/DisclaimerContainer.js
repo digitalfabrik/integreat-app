@@ -19,7 +19,7 @@ import type {
   DisclaimerRouteType,
   NavigationPropType,
   RoutePropType
-} from '../../modules/app/components/NavigationTypes'
+} from '../../modules/app/constants/NavigationTypes'
 import LayoutedScrollView from '../../modules/common/containers/LayoutedScrollView'
 import LayoutContainer from '../../modules/layout/containers/LayoutContainer'
 import createNavigateToInternalLink from '../../modules/app/createNavigateToInternalLink'

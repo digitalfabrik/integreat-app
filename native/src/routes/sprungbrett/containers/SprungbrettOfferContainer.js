@@ -23,10 +23,10 @@ import type {
   SprungbrettOfferRouteType,
   NavigationPropType,
   RoutePropType
-} from '../../../modules/app/components/NavigationTypes'
+} from '../../../modules/app/constants/NavigationTypes'
 import LayoutedScrollView from '../../../modules/common/containers/LayoutedScrollView'
 import LayoutContainer from '../../../modules/layout/containers/LayoutContainer'
-import { SPRUNGBRETT_OFFER_ROUTE } from '../../../modules/app/components/NavigationTypes'
+import { SPRUNGBRETT_OFFER_ROUTE } from '../../../modules/app/constants/NavigationTypes'
 
 type OwnPropsType = {|
   route: RoutePropType<SprungbrettOfferRouteType>,

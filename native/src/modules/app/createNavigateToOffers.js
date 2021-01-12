@@ -2,8 +2,8 @@
 
 import type { Dispatch } from 'redux'
 import type { StoreActionType } from './StoreActionType'
-import type { NavigationPropType, RoutesType } from './components/NavigationTypes'
-import { OFFERS_ROUTE } from './components/NavigationTypes'
+import type { NavigationPropType, RoutesType } from './constants/NavigationTypes'
+import { OFFERS_ROUTE } from './constants/NavigationTypes'
 import { cityContentUrl } from '../common/url'
 
 const createNavigateToOffer = <T: RoutesType>(dispatch: Dispatch<StoreActionType>, navigation: NavigationPropType<T>) =>

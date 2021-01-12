@@ -18,7 +18,7 @@ import {
   DISCLAIMER_ROUTE,
   SEARCH_MODAL_ROUTE,
   SETTINGS_ROUTE
-} from '../../app/components/NavigationTypes'
+} from '../../app/constants/NavigationTypes'
 import { cityContentUrl } from '../../common/url'
 import createNavigateToLanding from '../../app/createNavigateToLanding'
 

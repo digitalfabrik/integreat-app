@@ -18,7 +18,7 @@ import type {
   PoisRouteType,
   NavigationPropType,
   RoutePropType
-} from '../../../modules/app/components/NavigationTypes'
+} from '../../../modules/app/constants/NavigationTypes'
 import navigateToLink from '../../../modules/app/navigateToLink'
 import createNavigateToFeedbackModal from '../../../modules/app/createNavigateToFeedbackModal'
 
