@@ -7,15 +7,12 @@ import Caption from './Caption'
 import TimeStamp from './TimeStamp'
 import type Moment from 'moment'
 import type { PageResourceCacheEntryStateType, PageResourceCacheStateType } from '../../app/StateType'
-import type { NavigateToInternalLinkParamsType } from '../../app/createNavigateToInternalLink'
 import MomentContext from '../../i18n/context/MomentContext'
 import RemoteContent from './RemoteContent'
 import SiteHelpfulBox from './SiteHelpfulBox'
 import SpaceBetween from './SpaceBetween'
-import navigateToLink from '../../app/navigateToLink'
 import { RESOURCE_CACHE_DIR_PATH } from '../../endpoint/DatabaseConnector'
 import { mapValues } from 'lodash'
-import type { NavigationPropType, RoutesType } from '../../app/components/NavigationTypes'
 
 const HORIZONTAL_MARGIN = 8
 
@@ -29,12 +26,11 @@ type StateType = {|
   loading: boolean
 |}
 
-type PropsType<T: RoutesType> = {|
+type PropsType = {|
   title: string,
   content: string,
   theme: ThemeType,
-  navigation: NavigationPropType<T>,
-  navigateToInternalLink?: NavigateToInternalLinkParamsType => void,
+  navigateToLink: (url: string, language: string, shareUrl: string) => void,
   navigateToFeedback?: (positive: boolean) => void,
   files: PageResourceCacheStateType,
   children?: React.Node,
@@ -44,14 +40,14 @@ type PropsType<T: RoutesType> = {|
   hijackRegExp?: RegExp
 |}
 
-class Page<T: RoutesType> extends React.Component<PropsType<T>, StateType> {
+class Page extends React.Component<PropsType, StateType> {
   state = { loading: true }
 
   onLinkPress = (url: string) => {
-    const { navigation, language, navigateToInternalLink } = this.props
+    const { language, navigateToLink } = this.props
     const cacheDict = this.cacheDictionary()
     const shareUrl = Object.keys(cacheDict).find(remoteUrl => cacheDict[remoteUrl] === url)
-    navigateToLink(url, navigation, language, navigateToInternalLink, shareUrl || url)
+    navigateToLink(url, language, shareUrl || url)
   }
 
   onLoad = () => this.setState({ loading: false })

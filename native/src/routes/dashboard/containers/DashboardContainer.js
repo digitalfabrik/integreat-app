@@ -11,7 +11,7 @@ import { type TFunction, withTranslation } from 'react-i18next'
 import type { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
 import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvider'
 import { CityModel } from 'api-client'
-import React from 'react'
+import React, { useCallback } from 'react'
 import createNavigateToCategory from '../../../modules/app/createNavigateToCategory'
 import createNavigateToEvent from '../../../modules/app/createNavigateToEvent'
 import createNavigateToInternalLink from '../../../modules/app/createNavigateToInternalLink'
@@ -25,6 +25,7 @@ import type {
   RoutePropType
 } from '../../../modules/app/components/NavigationTypes'
 import { CATEGORIES_ROUTE, DASHBOARD_ROUTE } from '../../../modules/app/components/NavigationTypes'
+import navigateToLink from '../../../modules/app/navigateToLink'
 
 type NavigationPropsType = {|
   route: RoutePropType<DashboardRouteType>,
@@ -181,16 +182,22 @@ const ThemedTranslatedDashboard = withTranslation('dashboard')(
 )
 
 const DashboardContainer = (props: ContainerPropsType) => {
-  const { dispatch, ...rest } = props
+  const { dispatch, navigation, ...rest } = props
+
+  const navigateToLinkProp = useCallback((url: string, language: string, shareUrl: string) => {
+    const navigateToInternalLink = createNavigateToInternalLink(dispatch, navigation)
+    navigateToLink(url, navigation, language, navigateToInternalLink, shareUrl || url)
+  }, [dispatch, navigation])
+
   return <ThemedTranslatedDashboard
     {...rest}
-    navigateToPoi={createNavigateToPoi(dispatch, rest.navigation)}
-    navigateToCategory={createNavigateToCategory(CATEGORIES_ROUTE, dispatch, rest.navigation)}
-    navigateToEvent={createNavigateToEvent(dispatch, rest.navigation)}
-    navigateToNews={createNavigateToNews(dispatch, rest.navigation)}
-    navigateToInternalLink={createNavigateToInternalLink(dispatch, rest.navigation)}
-    navigateToDashboard={createNavigateToCategory(DASHBOARD_ROUTE, dispatch, rest.navigation)}
-    navigateToOffers={createNavigateToOffers(dispatch, rest.navigation)} />
+    navigateToLink={navigateToLinkProp}
+    navigateToPoi={createNavigateToPoi(dispatch, navigation)}
+    navigateToCategory={createNavigateToCategory(CATEGORIES_ROUTE, dispatch, navigation)}
+    navigateToEvent={createNavigateToEvent(dispatch, navigation)}
+    navigateToNews={createNavigateToNews(dispatch, navigation)}
+    navigateToDashboard={createNavigateToCategory(DASHBOARD_ROUTE, dispatch, navigation)}
+    navigateToOffers={createNavigateToOffers(dispatch, navigation)} />
 }
 
 export default withTranslation('error')(

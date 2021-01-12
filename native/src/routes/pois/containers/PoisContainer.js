@@ -19,6 +19,8 @@ import type {
   NavigationPropType,
   RoutePropType
 } from '../../../modules/app/components/NavigationTypes'
+import navigateToLink from '../../../modules/app/navigateToLink'
+import createNavigateToFeedbackModal from '../../../modules/app/createNavigateToFeedbackModal'
 
 type NavigationPropsType = {|
   route: RoutePropType<PoisRouteType>,
@@ -151,11 +153,18 @@ const ThemedTranslatedPois = withTranslation('pois')(
 )
 
 class PoisContainer extends React.Component<ContainerPropsType> {
+  navigateToLinkProp = (url: string, language: string, shareUrl: string) => {
+    const { dispatch, navigation } = this.props
+    const navigateToInternalLink = createNavigateToInternalLink(dispatch, navigation)
+    navigateToLink(url, navigation, language, navigateToInternalLink, shareUrl || url)
+  }
+
   render () {
     const { dispatch, ...rest } = this.props
     return <ThemedTranslatedPois {...rest}
                                  navigateToPoi={createNavigateToPoi(dispatch, rest.navigation)}
-                                 navigateToInternalLink={createNavigateToInternalLink(dispatch, rest.navigation)}
+                                 navigateToFeedback={createNavigateToFeedbackModal(rest.navigation)}
+                                 navigateToLink={this.navigateToLinkProp}
     />
   }
 }

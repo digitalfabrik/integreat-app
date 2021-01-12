@@ -5,7 +5,6 @@ import type { Dispatch } from 'redux'
 import type { StateType } from '../../../modules/app/StateType'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import withTheme from '../../../modules/theme/hocs/withTheme'
-import type { NavigateToCategoryParamsType } from '../../../modules/app/createNavigateToCategory'
 import createNavigateToCategory from '../../../modules/app/createNavigateToCategory'
 import SearchModal from '../components/SearchModal'
 import { CategoriesMapModel, createFeedbackEndpoint, SEARCH_FEEDBACK_TYPE } from 'api-client'
@@ -17,6 +16,9 @@ import type {
   RoutePropType
 } from '../../../modules/app/components/NavigationTypes'
 import { CATEGORIES_ROUTE } from '../../../modules/app/components/NavigationTypes'
+import createNavigateToInternalLink from '../../../modules/app/createNavigateToInternalLink'
+import navigateToLink from '../../../modules/app/navigateToLink'
+import React, { useCallback } from 'react'
 
 type OwnPropsType = {|
   route: RoutePropType<SearchModalRouteType>,
@@ -25,8 +27,8 @@ type OwnPropsType = {|
 
 export type PropsType = {|
   ...OwnPropsType,
+  dispatch: Dispatch<StoreActionType>,
   categories: CategoriesMapModel | null,
-  navigateToCategory: NavigateToCategoryParamsType => void,
   language: string,
   cityCode: string,
   closeModal: () => void,
@@ -59,13 +61,24 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType) => {
   }
 }
 
-type DispatchType = Dispatch<StoreActionType>
-const mapDispatchToProps = (dispatch: DispatchType, ownProps: OwnPropsType) => ({
-  navigateToCategory: createNavigateToCategory(CATEGORIES_ROUTE, dispatch, ownProps.navigation)
-})
+const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>) => ({ dispatch })
 
-export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
-  withTheme(
-    withTranslation('search')(SearchModal)
-  )
+const ThemedTranslatedSearch = withTheme(
+  withTranslation('search')(SearchModal)
 )
+
+const SearchModalContainer = (props: PropsType) => {
+  const { dispatch, navigation, ...rest } = props
+
+  const navigateToLinkProp = useCallback((url: string, language: string, shareUrl: string) => {
+    const navigateToInternalLink = createNavigateToInternalLink(dispatch, navigation)
+    navigateToLink(url, navigation, language, navigateToInternalLink, shareUrl || url)
+  }, [dispatch, navigation])
+
+  return <ThemedTranslatedSearch
+    {...rest}
+    navigateToLink={navigateToLinkProp}
+    navigateToCategory={createNavigateToCategory(CATEGORIES_ROUTE, dispatch, navigation)} />
+}
+
+export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(SearchModalContainer)

@@ -22,6 +22,8 @@ import type {
 } from '../../modules/app/components/NavigationTypes'
 import LayoutedScrollView from '../../modules/common/components/LayoutedScrollView'
 import LayoutContainer from '../../modules/layout/containers/LayoutContainer'
+import createNavigateToInternalLink from '../../modules/app/createNavigateToInternalLink'
+import navigateToLink from '../../modules/app/navigateToLink'
 
 type OwnPropsType = {|
   route: RoutePropType<DisclaimerRouteType>,
@@ -64,6 +66,12 @@ class DisclaimerContainer extends React.Component<DisclaimerPropsType, Disclaime
     this.state = { disclaimer: null, error: null, timeoutExpired: false }
   }
 
+  navigateToLinkProp = (url: string, language: string, shareUrl: string) => {
+    const { dispatch, navigation } = this.props
+    const navigateToInternalLink = createNavigateToInternalLink(dispatch, navigation)
+    navigateToLink(url, navigation, language, navigateToInternalLink, shareUrl || url)
+  }
+
   navigateToFeedback = (isPositiveFeedback: boolean) => {
     const { navigation, city, language } = this.props
     createNavigateToFeedbackModal(navigation)({
@@ -100,7 +108,7 @@ class DisclaimerContainer extends React.Component<DisclaimerPropsType, Disclaime
   }
 
   render () {
-    const { theme, navigation, city, language, resourceCacheUrl, route } = this.props
+    const { theme, city, language, resourceCacheUrl } = this.props
     const { disclaimer, error, timeoutExpired } = this.state
 
     if (error) {
@@ -119,8 +127,7 @@ class DisclaimerContainer extends React.Component<DisclaimerPropsType, Disclaime
       <Disclaimer resourceCacheUrl={resourceCacheUrl}
                   disclaimer={disclaimer}
                   theme={theme}
-                  navigation={navigation}
-                  route={route}
+                  navigateToLink={this.navigateToLinkProp}
                   city={city}
                   language={language} />
       <SiteHelpfulBox navigateToFeedback={this.navigateToFeedback} theme={theme} />
