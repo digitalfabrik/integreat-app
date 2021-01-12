@@ -15,18 +15,12 @@ import Caption from '../../../modules/common/components/Caption'
 import Failure from '../../../modules/error/components/Failure'
 import type { ThemeType } from '../../../modules/theme/constants'
 import type { LanguageResourceCacheStateType } from '../../../modules/app/StateType'
-import type { NavigateToInternalLinkParamsType } from '../../../modules/app/createNavigateToInternalLink'
 import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
 import PoiListItem from './PoiListItem'
 import type { NavigateToPoiParamsType } from '../../../modules/app/createNavigateToPoi'
-import createNavigateToFeedbackModal from '../../../modules/app/createNavigateToFeedbackModal'
-import type {
-  PoisRouteType,
-  NavigationPropType,
-  RoutePropType
-} from '../../../modules/app/components/NavigationTypes'
+import type { FeedbackInformationType } from '../../feedback/containers/FeedbackModalContainer'
 
 export type PropsType = {|
   path: ?string,
@@ -38,10 +32,9 @@ export type PropsType = {|
   resourceCacheUrl: string,
   theme: ThemeType,
   t: TFunction,
-  route: RoutePropType<PoisRouteType>,
-  navigation: NavigationPropType<PoisRouteType>,
   navigateToPoi: NavigateToPoiParamsType => void,
-  navigateToInternalLink: NavigateToInternalLinkParamsType => void
+  navigateToFeedback: FeedbackInformationType => void,
+  navigateToLink: (url: string, language: string, shareUrl: string) => void
 |}
 
 /**
@@ -63,9 +56,9 @@ class Pois extends React.Component<PropsType> {
   }
 
   createNavigateToFeedbackForPoi = (poi: PoiModel) => (isPositiveFeedback: boolean) => {
-    const { navigation, cityCode, language } = this.props
+    const { navigateToFeedback, cityCode, language } = this.props
 
-    createNavigateToFeedbackModal(navigation)({
+    navigateToFeedback({
       type: 'Pois',
       language,
       title: poi.title,
@@ -75,9 +68,9 @@ class Pois extends React.Component<PropsType> {
   }
 
   navigateToFeedbackForPois = (isPositiveFeedback: boolean) => {
-    const { navigation, cityCode, language } = this.props
+    const { navigateToFeedback, cityCode, language } = this.props
 
-    createNavigateToFeedbackModal(navigation)({
+    navigateToFeedback({
       type: 'Pois',
       language,
       cityCode,
@@ -86,9 +79,8 @@ class Pois extends React.Component<PropsType> {
   }
 
   render () {
-    const {
-      pois, path, cityCode, language, resourceCache, resourceCacheUrl, theme, navigateToInternalLink, t, navigation
-    } = this.props
+    const { pois, path, cityCode, language, resourceCache, resourceCacheUrl, theme, navigateToLink, t } = this.props
+
     const sortedPois = pois.sort((poi1, poi2) => poi1.title.localeCompare(poi2.title))
     if (path) {
       const poi: ?PoiModel = sortedPois.find(_poi => _poi.path === path)
@@ -102,8 +94,7 @@ class Pois extends React.Component<PropsType> {
                      files={files}
                      theme={theme}
                      resourceCacheUrl={resourceCacheUrl}
-                     navigation={navigation}
-                     navigateToInternalLink={navigateToInternalLink}
+                     navigateToLink={navigateToLink}
                      navigateToFeedback={this.createNavigateToFeedbackForPoi(poi)}>
           <>
             {location && <PageDetail identifier={t('location')}
