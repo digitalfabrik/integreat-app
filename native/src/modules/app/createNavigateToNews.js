@@ -4,9 +4,9 @@ import type { Dispatch } from 'redux'
 import type { FetchNewsActionType, StoreActionType } from './StoreActionType'
 import type { NewsType } from './StateType'
 import { generateKey } from './generateRouteKey'
-import type { NavigationPropType, RoutesType } from './components/NavigationTypes'
+import type { NavigationPropType, RoutesType } from './constants/NavigationTypes'
 import { cityContentUrl } from '../common/url'
-import { NEWS_ROUTE } from './components/NavigationTypes'
+import { NEWS_ROUTE } from './constants/NavigationTypes'
 
 export type NavigateToNewsParamsType = {|
   cityCode: string,

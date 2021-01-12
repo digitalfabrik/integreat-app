@@ -18,7 +18,7 @@ import {
   DISCLAIMER_ROUTE,
   SEARCH_MODAL_ROUTE,
   SETTINGS_ROUTE
-} from '../../app/components/NavigationTypes'
+} from '../../app/constants/NavigationTypes'
 import { cityContentUrl } from '../../common/url'
 import createNavigateToLanding from '../../app/createNavigateToLanding'
 
@@ -94,7 +94,11 @@ class Header extends React.PureComponent<PropsType> {
 
   onShare = async () => {
     const { scene, t } = this.props
-    const shareUrl = scene.route.params?.shareUrl || ''
+    const shareUrl = scene.route.params?.shareUrl
+    if (!shareUrl) { // The share option should only be shown if there is a shareUrl
+      return
+    }
+
     const message = t('shareMessage', {
       message: shareUrl,
       interpolation: { escapeValue: false }
@@ -141,7 +145,7 @@ class Header extends React.PureComponent<PropsType> {
 
   render () {
     const { routeCityModel, scene, t, theme, goToLanguageChange, peeking, categoriesAvailable } = this.props
-    const shareUrl = scene.route.params?.shareUrl || ''
+    const shareUrl = scene.route.params?.shareUrl || null
 
     return <BoxShadow theme={theme}>
       <Horizontal>

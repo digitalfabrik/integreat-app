@@ -7,7 +7,7 @@ import type {
   ImageViewModalRouteType,
   NavigationPropType,
   RoutePropType
-} from '../../../modules/app/components/NavigationTypes'
+} from '../../../modules/app/constants/NavigationTypes'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import type { ThemeType } from 'build-configs/ThemeType'
 

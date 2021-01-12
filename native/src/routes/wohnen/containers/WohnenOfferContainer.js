@@ -18,8 +18,8 @@ import type {
   WohnenOfferRouteType,
   NavigationPropType,
   RoutePropType
-} from '../../../modules/app/components/NavigationTypes'
-import { WOHNEN_OFFER_ROUTE } from '../../../modules/app/components/NavigationTypes'
+} from '../../../modules/app/constants/NavigationTypes'
+import { WOHNEN_OFFER_ROUTE } from '../../../modules/app/constants/NavigationTypes'
 
 const WOHNEN_API_URL = 'https://api.wohnen.integreat-app.de/v0'
 

@@ -13,7 +13,7 @@ import type {
   ChangeLanguageModalRouteType,
   NavigationPropType,
   RoutePropType
-} from '../../../modules/app/components/NavigationTypes'
+} from '../../../modules/app/constants/NavigationTypes'
 
 type OwnPropsType = {|
   route: RoutePropType<ChangeLanguageModalRouteType>,

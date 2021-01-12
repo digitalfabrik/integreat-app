@@ -15,7 +15,7 @@ import {
   requestPushNotificationPermission
 } from '../../push-notifications/PushNotificationsManager'
 import type { FeatureFlagsType } from 'build-configs/BuildConfigType'
-import { DASHBOARD_ROUTE, LANDING_ROUTE } from '../../app/components/NavigationTypes'
+import { DASHBOARD_ROUTE, LANDING_ROUTE } from '../../app/constants/NavigationTypes'
 
 type PropsType = {|
   routeName: string,

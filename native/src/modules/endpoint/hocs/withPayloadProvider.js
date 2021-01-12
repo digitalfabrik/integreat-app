@@ -11,10 +11,10 @@ import FailureContainer from '../../error/containers/FailureContainer'
 import { LOADING_TIMEOUT } from '../../common/constants'
 import type { ErrorCodeType } from '../../error/ErrorCodes'
 import wrapDisplayName from '../../common/hocs/wrapDisplayName'
-import type { NavigationPropType, RoutePropType, RoutesType } from '../../app/components/NavigationTypes'
+import type { NavigationPropType, RoutePropType, RoutesType } from '../../app/constants/NavigationTypes'
 import { type TFunction } from 'react-i18next'
 import LayoutContainer from '../../layout/containers/LayoutContainer'
-import LayoutedScrollView from '../../common/components/LayoutedScrollView'
+import LayoutedScrollView from '../../common/containers/LayoutedScrollView'
 
 export type RouteNotInitializedType = {| status: 'routeNotInitialized' |}
 export type LoadingType<S: {}, R: {}> = {|
@@ -56,7 +56,7 @@ export type PropsType<S: { dispatch: Dispatch<StoreActionType> }, R: {}, T: Rout
   navigation: NavigationPropType<T>,
   route: RoutePropType<T>,
   t?: TFunction
-|} | {| // Necessary because of weird flow error saying t is missing in containers
+|} | {| // Necessary because of weird flow error saying t is missing even though t is already optional in the first type
   ...StatusPropsType<S, R>,
   dispatch: Dispatch<StoreActionType>,
   navigation: NavigationPropType<T>,

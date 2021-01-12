@@ -8,7 +8,7 @@ import type {
   DashboardRouteType,
   NavigationPropType,
   RoutesType
-} from './components/NavigationTypes'
+} from './constants/NavigationTypes'
 import { url } from '../common/url'
 
 export type NavigateToCategoryParamsType = {|

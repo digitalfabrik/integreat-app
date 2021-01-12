@@ -16,7 +16,7 @@ import type {
   SettingsRouteType,
   NavigationPropType,
   RoutePropType
-} from '../../../modules/app/components/NavigationTypes'
+} from '../../../modules/app/constants/NavigationTypes'
 import LayoutContainer from '../../../modules/layout/containers/LayoutContainer'
 
 type PropsType = {|

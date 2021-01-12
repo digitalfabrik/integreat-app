@@ -35,8 +35,8 @@ import {
   LANDING_ROUTE, NEWS_ROUTE,
   OFFERS_ROUTE, PDF_VIEW_MODAL_ROUTE,
   POIS_ROUTE, SEARCH_MODAL_ROUTE, SETTINGS_ROUTE
-} from './NavigationTypes'
-import type { IntroRouteType, DashboardRouteType, LandingRouteType, RoutesParamsType } from './NavigationTypes'
+} from '../constants/NavigationTypes'
+import type { IntroRouteType, DashboardRouteType, LandingRouteType, RoutesParamsType } from '../constants/NavigationTypes'
 import { cityContentUrl } from '../../common/url'
 
 const transparentHeader = (headerProps: StackHeaderProps) =>
@@ -161,7 +161,7 @@ const Navigator = (props: PropsType) => {
       }
     : {}
 
-  // Keeps our previous transition on android. Fixes weird showing of splash screen on every navigate.
+  // Keeps our previous transition we used in v4 of react-navigation on android. Fixes weird showing of splash screen on every navigate.
   const transitionPreset = Platform.select({
     android: TransitionPresets.FadeFromBottomAndroid,
     ios: TransitionPresets.DefaultTransition
