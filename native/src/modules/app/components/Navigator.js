@@ -161,7 +161,7 @@ const Navigator = (props: PropsType) => {
       }
     : {}
 
-  // Keeps our previous transition on android. Fixes weird showing of splash screen on every navigate.
+  // Keeps our previous transition we used in v4 of react-navigation on android. Fixes weird showing of splash screen on every navigate.
   const transitionPreset = Platform.select({
     android: TransitionPresets.FadeFromBottomAndroid,
     ios: TransitionPresets.DefaultTransition
