@@ -56,7 +56,7 @@ export type PropsType<S: { dispatch: Dispatch<StoreActionType> }, R: {}, T: Rout
   navigation: NavigationPropType<T>,
   route: RoutePropType<T>,
   t?: TFunction
-|} | {| // Necessary because of weird flow error saying t is missing in containers
+|} | {| // Necessary because of weird flow error saying t is missing even though t is already optional in the first type
   ...StatusPropsType<S, R>,
   dispatch: Dispatch<StoreActionType>,
   navigation: NavigationPropType<T>,
