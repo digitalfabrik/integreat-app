@@ -8,9 +8,6 @@ import EventModelBuilder from 'api-client/src/testing/EventModelBuilder'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import Page from '../../../../modules/common/components/Page'
-import createNavigationScreenPropMock from '../../../../testing/createNavigationPropMock'
-import { generateKey } from '../../../../modules/app/generateRouteKey'
-import { EVENTS_ROUTE } from '../../../../modules/app/constants/NavigationTypes'
 
 jest.mock('../../../../modules/common/components/Page', () => {
   const Text = require('react-native').Text
@@ -21,9 +18,6 @@ jest.mock('../../../../modules/common/components/PageDetail', () => {
   const Text = require('react-native').Text
   return () => <Text>PageDetail</Text>
 })
-
-const shareUrl = 'https://integreat.app/augsburg/de/events'
-const route = { key: generateKey(), params: { shareUrl }, name: EVENTS_ROUTE }
 
 describe('Events', () => {
   it('should pass an empty object to Page if the resource cache doesnt contain an appropriate entry', () => {
@@ -36,12 +30,11 @@ describe('Events', () => {
     if (!city || !language || !event) {
       throw Error('Something went wrong with the builder')
     }
-    const navigation = createNavigationScreenPropMock()
     const result = TestRenderer.create(
-      <Events path={event.path} events={events} cities={cities} cityCode={city.code} route={route}
+      <Events path={event.path} events={events} cities={cities} cityCode={city.code}
               resourceCacheUrl='http://localhost:8080' language={language.code} resourceCache={{ notAvailable: {} }}
-              theme={lightTheme} t={key => key} navigation={navigation} navigateToEvent={() => {}}
-              navigateToInternalLink={() => {}} />
+              theme={lightTheme} t={key => key} navigateToEvent={() => {}} navigateToLink={() => {}}
+              navigateToFeedback={() => {}} />
     )
     const pageInstance = result.root.findByType(Page)
     expect(pageInstance.props).toEqual(expect.objectContaining({
