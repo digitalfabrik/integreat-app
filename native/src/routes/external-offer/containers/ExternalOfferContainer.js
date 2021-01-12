@@ -6,7 +6,7 @@ import type {
   ExternalOfferRouteType,
   NavigationPropType,
   RoutePropType
-} from '../../../modules/app/components/NavigationTypes'
+} from '../../../modules/app/constants/NavigationTypes'
 
 type PropsType = {|
   route: RoutePropType<ExternalOfferRouteType>,

@@ -11,7 +11,7 @@ import type {
   SettingsRouteType,
   NavigationPropType,
   RoutePropType
-} from '../../../modules/app/components/NavigationTypes'
+} from '../../../modules/app/constants/NavigationTypes'
 
 type OwnPropsType = {|
   route: RoutePropType<SettingsRouteType>,

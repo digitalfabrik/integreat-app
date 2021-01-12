@@ -16,15 +16,15 @@ import type {
   OffersRouteType,
   NavigationPropType,
   RoutePropType
-} from '../../../modules/app/components/NavigationTypes'
+} from '../../../modules/app/constants/NavigationTypes'
 import {
   EXTERNAL_OFFER_ROUTE, OFFERS_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE,
   WOHNEN_OFFER_ROUTE
-} from '../../../modules/app/components/NavigationTypes'
+} from '../../../modules/app/constants/NavigationTypes'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import type { Dispatch } from 'redux'
-import LayoutedScrollView from '../../../modules/common/components/LayoutedScrollView'
+import LayoutedScrollView from '../../../modules/common/containers/LayoutedScrollView'
 import LayoutContainer from '../../../modules/layout/containers/LayoutContainer'
 import { cityContentUrl } from '../../../modules/common/url'
 import openExternalUrl from '../../../modules/common/openExternalUrl'

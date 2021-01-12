@@ -20,8 +20,10 @@ import type {
   CategoriesRouteType,
   NavigationPropType,
   RoutePropType
-} from '../../../modules/app/components/NavigationTypes'
-import { CATEGORIES_ROUTE } from '../../../modules/app/components/NavigationTypes'
+} from '../../../modules/app/constants/NavigationTypes'
+import { CATEGORIES_ROUTE } from '../../../modules/app/constants/NavigationTypes'
+import navigateToLink from '../../../modules/app/navigateToLink'
+import createNavigateToFeedbackModal from '../../../modules/app/createNavigateToFeedbackModal'
 
 type NavigationPropsType = {|
   route: RoutePropType<CategoriesRouteType>,
@@ -174,12 +176,20 @@ const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionT
 }
 
 class CategoriesContainer extends React.Component<ContainerPropsType> {
+  navigateToLinkProp = (url: string, language: string, shareUrl: string) => {
+    const { dispatch, navigation } = this.props
+    const navigateToInternalLink = createNavigateToInternalLink(dispatch, navigation)
+    navigateToLink(url, navigation, language, navigateToInternalLink, shareUrl || url)
+  }
+
   render () {
-    const { dispatch, ...rest } = this.props
+    const { dispatch, navigation, ...rest } = this.props
+
     return <ThemedTranslatedCategories
       {...rest}
-      navigateToCategory={createNavigateToCategory(CATEGORIES_ROUTE, dispatch, rest.navigation)}
-      navigateToInternalLink={createNavigateToInternalLink(dispatch, rest.navigation)} />
+      navigateToFeedback={createNavigateToFeedbackModal(navigation)}
+      navigateToCategory={createNavigateToCategory(CATEGORIES_ROUTE, dispatch, navigation)}
+      navigateToLink={this.navigateToLinkProp} />
   }
 }
 

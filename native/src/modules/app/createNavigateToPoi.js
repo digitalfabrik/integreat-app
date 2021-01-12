@@ -3,8 +3,8 @@
 import type { Dispatch } from 'redux'
 import type { FetchPoiActionType, StoreActionType } from './StoreActionType'
 import { generateKey } from './generateRouteKey'
-import type { NavigationPropType, RoutesType } from './components/NavigationTypes'
-import { POIS_ROUTE } from './components/NavigationTypes'
+import type { NavigationPropType, RoutesType } from './constants/NavigationTypes'
+import { POIS_ROUTE } from './constants/NavigationTypes'
 import { cityContentUrl } from '../common/url'
 
 export type NavigateToPoiParamsType =

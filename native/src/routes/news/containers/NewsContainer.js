@@ -19,7 +19,7 @@ import type {
   NewsRouteType,
   NavigationPropType,
   RoutePropType
-} from '../../../modules/app/components/NavigationTypes'
+} from '../../../modules/app/constants/NavigationTypes'
 
 type NavigationPropsType = {|
   route: RoutePropType<NewsRouteType>,

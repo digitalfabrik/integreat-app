@@ -27,7 +27,7 @@ import type {
   FeedbackModalRouteType,
   NavigationPropType,
   RoutePropType
-} from '../../../modules/app/components/NavigationTypes'
+} from '../../../modules/app/constants/NavigationTypes'
 
 type FeedbackType = 'Category' | 'Event' | 'Pois' | 'Offers' | 'Disclaimer'
 
