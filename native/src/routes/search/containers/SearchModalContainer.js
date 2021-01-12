@@ -14,8 +14,8 @@ import type {
   SearchModalRouteType,
   NavigationPropType,
   RoutePropType
-} from '../../../modules/app/components/NavigationTypes'
-import { CATEGORIES_ROUTE } from '../../../modules/app/components/NavigationTypes'
+} from '../../../modules/app/constants/NavigationTypes'
+import { CATEGORIES_ROUTE } from '../../../modules/app/constants/NavigationTypes'
 import createNavigateToInternalLink from '../../../modules/app/createNavigateToInternalLink'
 import navigateToLink from '../../../modules/app/navigateToLink'
 import React, { useCallback } from 'react'

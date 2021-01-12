@@ -20,8 +20,8 @@ import type {
   CategoriesRouteType,
   NavigationPropType,
   RoutePropType
-} from '../../../modules/app/components/NavigationTypes'
-import { CATEGORIES_ROUTE } from '../../../modules/app/components/NavigationTypes'
+} from '../../../modules/app/constants/NavigationTypes'
+import { CATEGORIES_ROUTE } from '../../../modules/app/constants/NavigationTypes'
 import navigateToLink from '../../../modules/app/navigateToLink'
 import createNavigateToFeedbackModal from '../../../modules/app/createNavigateToFeedbackModal'
 

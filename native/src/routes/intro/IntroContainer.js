@@ -23,8 +23,8 @@ import type {
   IntroRouteType,
   NavigationPropType,
   RoutePropType
-} from '../../modules/app/components/NavigationTypes'
-import { LANDING_ROUTE } from '../../modules/app/components/NavigationTypes'
+} from '../../modules/app/constants/NavigationTypes'
+import { LANDING_ROUTE } from '../../modules/app/constants/NavigationTypes'
 
 const Container: StyledComponent<{ width: number }, {}, *> = styled.View`
   display: flex;

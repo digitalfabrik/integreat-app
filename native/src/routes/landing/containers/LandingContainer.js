@@ -15,8 +15,8 @@ import type {
   LandingRouteType,
   NavigationPropType,
   RoutePropType
-} from '../../../modules/app/components/NavigationTypes'
-import { DASHBOARD_ROUTE } from '../../../modules/app/components/NavigationTypes'
+} from '../../../modules/app/constants/NavigationTypes'
+import { DASHBOARD_ROUTE } from '../../../modules/app/constants/NavigationTypes'
 import { cityContentUrl } from '../../../modules/common/url'
 
 type OwnPropsType = {|

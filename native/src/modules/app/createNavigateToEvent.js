@@ -2,9 +2,9 @@
 
 import type { Dispatch } from 'redux'
 import type { FetchEventActionType, StoreActionType } from './StoreActionType'
-import type { NavigationPropType, RoutesType } from './components/NavigationTypes'
+import type { NavigationPropType, RoutesType } from './constants/NavigationTypes'
 import { generateKey } from './generateRouteKey'
-import { EVENTS_ROUTE } from './components/NavigationTypes'
+import { EVENTS_ROUTE } from './constants/NavigationTypes'
 import { cityContentUrl, url } from '../common/url'
 
 export type NavigateToEventParamsType =

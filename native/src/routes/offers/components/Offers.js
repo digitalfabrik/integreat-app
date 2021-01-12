@@ -17,8 +17,8 @@ import type {
   NavigationPropType,
   OffersRouteType,
   RoutePropType
-} from '../../../modules/app/components/NavigationTypes'
-import { SPRUNGBRETT_OFFER_ROUTE, WOHNEN_OFFER_ROUTE } from '../../../modules/app/components/NavigationTypes'
+} from '../../../modules/app/constants/NavigationTypes'
+import { SPRUNGBRETT_OFFER_ROUTE, WOHNEN_OFFER_ROUTE } from '../../../modules/app/constants/NavigationTypes'
 
 type PropsType = {|
   offers: Array<OfferModel>,

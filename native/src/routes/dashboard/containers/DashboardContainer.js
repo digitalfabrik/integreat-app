@@ -23,8 +23,8 @@ import type {
   DashboardRouteType,
   NavigationPropType,
   RoutePropType
-} from '../../../modules/app/components/NavigationTypes'
-import { CATEGORIES_ROUTE, DASHBOARD_ROUTE } from '../../../modules/app/components/NavigationTypes'
+} from '../../../modules/app/constants/NavigationTypes'
+import { CATEGORIES_ROUTE, DASHBOARD_ROUTE } from '../../../modules/app/constants/NavigationTypes'
 import navigateToLink from '../../../modules/app/navigateToLink'
 
 type NavigationPropsType = {|
