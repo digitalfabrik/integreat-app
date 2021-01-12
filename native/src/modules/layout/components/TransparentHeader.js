@@ -43,27 +43,29 @@ class TransparentHeader extends React.PureComponent<PropsType> {
 
   onShare = async () => {
     const { scene, t } = this.props
-    const shareUrl = scene.route.params?.shareUrl || ''
-    if (shareUrl) {
-      const message = t('shareMessage', {
-        message: shareUrl,
-        interpolation: { escapeValue: false }
+    const shareUrl = scene.route.params?.shareUrl
+    if (!shareUrl) { // The share option should only be shown if there is a shareUrl
+      return
+    }
+
+    const message = t('shareMessage', {
+      message: shareUrl,
+      interpolation: { escapeValue: false }
+    })
+    try {
+      await Share.share({
+        message,
+        failOnCancel: false
       })
-      try {
-        await Share.share({
-          message,
-          failOnCancel: false
-        })
-      } catch (e) {
-        const errorMessage = e.message ? e.message : t('shareFailDefaultMessage')
-        alert(errorMessage)
-      }
+    } catch (e) {
+      const errorMessage = e.message ? e.message : t('shareFailDefaultMessage')
+      alert(errorMessage)
     }
   }
 
   render () {
     const { theme, scene, t } = this.props
-    const shareUrl = scene.route.params?.shareUrl || ''
+    const shareUrl = scene.route.params?.shareUrl || null
 
     return (
       <BoxShadow theme={theme}>
