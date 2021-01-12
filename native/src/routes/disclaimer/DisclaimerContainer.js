@@ -20,7 +20,7 @@ import type {
   NavigationPropType,
   RoutePropType
 } from '../../modules/app/components/NavigationTypes'
-import LayoutedScrollView from '../../modules/common/components/LayoutedScrollView'
+import LayoutedScrollView from '../../modules/common/containers/LayoutedScrollView'
 import LayoutContainer from '../../modules/layout/containers/LayoutContainer'
 import createNavigateToInternalLink from '../../modules/app/createNavigateToInternalLink'
 import navigateToLink from '../../modules/app/navigateToLink'

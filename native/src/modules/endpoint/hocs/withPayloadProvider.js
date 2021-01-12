@@ -14,7 +14,7 @@ import wrapDisplayName from '../../common/hocs/wrapDisplayName'
 import type { NavigationPropType, RoutePropType, RoutesType } from '../../app/components/NavigationTypes'
 import { type TFunction } from 'react-i18next'
 import LayoutContainer from '../../layout/containers/LayoutContainer'
-import LayoutedScrollView from '../../common/components/LayoutedScrollView'
+import LayoutedScrollView from '../../common/containers/LayoutedScrollView'
 
 export type RouteNotInitializedType = {| status: 'routeNotInitialized' |}
 export type LoadingType<S: {}, R: {}> = {|
