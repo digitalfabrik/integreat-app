@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-community/async-storage'
 import Navigator from '../Navigator'
 import AppSettings from '../../../settings/AppSettings'
 import { generateKey } from '../../generateRouteKey'
-import { DASHBOARD_ROUTE, LANDING_ROUTE } from '../NavigationTypes'
+import { DASHBOARD_ROUTE, LANDING_ROUTE } from '../../constants/NavigationTypes'
 import waitForExpect from 'wait-for-expect'
 import { NavigationContainer } from '@react-navigation/native'
 

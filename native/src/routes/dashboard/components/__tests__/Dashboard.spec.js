@@ -2,7 +2,6 @@
 
 import * as React from 'react'
 import TestRenderer from 'react-test-renderer'
-import createNavigationScreenPropMock from '../../../../testing/createNavigationPropMock'
 import Dashboard from '../Dashboard'
 import lightTheme from '../../../../modules/theme/constants'
 import CategoriesRouteStateView from '../../../../modules/app/CategoriesRouteStateView'
@@ -10,7 +9,6 @@ import { CityModel } from 'api-client'
 import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
 import NavigationTiles from '../../../../modules/common/components/NavigationTiles'
 import buildConfig from '../../../../modules/app/constants/buildConfig'
-import { DASHBOARD_ROUTE } from '../../../../modules/app/constants/NavigationTypes'
 
 jest.mock('../../../../modules/common/components/NavigationTiles', () => {
   const Text = require('react-native').Text
@@ -19,22 +17,17 @@ jest.mock('../../../../modules/common/components/NavigationTiles', () => {
 
 jest.mock('rn-fetch-blob')
 
-const cityCode = 'augsburg'
-const languageCode = 'de'
-const shareUrl = 'https://integreat.app/augsburg/de'
-const route = { key: 'route-id-0', params: { cityCode, languageCode, shareUrl }, name: DASHBOARD_ROUTE }
-
 describe('Dashboard', () => {
   const categoriesMapModel = new CategoriesMapModelBuilder('augsburg', 'de').build()
   const categoryLeaf = categoriesMapModel.toArray().find(category => category.isLeaf(categoriesMapModel))
   const language = 'de'
-  const navigation = createNavigationScreenPropMock()
 
   const navigateToPoi = jest.fn()
   const navigateToCategory = jest.fn()
   const navigateToEvent = jest.fn()
-  const navigateToInternalLink = jest.fn()
   const navigateToNews = jest.fn()
+  const navigateToLink = jest.fn()
+  const navigateToFeedback = jest.fn()
   const navigateToOffers = jest.fn()
   const theme = lightTheme
 
@@ -83,10 +76,10 @@ describe('Dashboard', () => {
   }
 
   const renderDashboard = (cityModel: CityModel) =>
-    <Dashboard navigation={navigation} navigateToPoi={navigateToPoi} navigateToCategory={navigateToCategory}
-               navigateToEvent={navigateToEvent} navigateToInternalLink={navigateToInternalLink}
+    <Dashboard navigateToPoi={navigateToPoi} navigateToCategory={navigateToCategory}
+               navigateToEvent={navigateToEvent} navigateToLink={navigateToLink} navigateToFeedback={navigateToFeedback}
                navigateToNews={navigateToNews} navigateToOffers={navigateToOffers} theme={theme} language={language}
-               cityModel={cityModel} stateView={stateView} resourceCache={resourceCache} route={route}
+               cityModel={cityModel} stateView={stateView} resourceCache={resourceCache}
                resourceCacheUrl={resourceCacheUrl} t={t} />
 
   it('should show navigation tiles if there are is at least one feature enabled', () => {

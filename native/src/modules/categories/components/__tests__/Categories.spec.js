@@ -5,13 +5,10 @@ import TestRenderer from 'react-test-renderer'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import Page from '../../../common/components/Page'
-import createNavigationScreenPropMock from '../../../../testing/createNavigationPropMock'
 import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
 import Categories from '../Categories'
 import lightTheme from '../../../theme/constants'
 import CategoriesRouteStateView from '../../../app/CategoriesRouteStateView'
-import { generateKey } from '../../../app/generateRouteKey'
-import { CATEGORIES_ROUTE } from '../../../app/constants/NavigationTypes'
 
 jest.mock('../../../../modules/common/components/Page', () => {
   const Text = require('react-native').Text
@@ -25,17 +22,11 @@ jest.mock('../../../../modules/common/components/PageDetail', () => {
 
 jest.mock('rn-fetch-blob')
 
-const cityCode = 'augsburg'
-const languageCode = 'de'
-const shareUrl = 'https://integreat.app/augsburg/de'
-const route = { key: generateKey(), params: { cityCode, languageCode, shareUrl }, name: CATEGORIES_ROUTE }
-
 describe('Categories', () => {
   it('should pass an empty object to Page if the resource cache doesnt contain an appropriate entry', () => {
     const cityModel = new CityModelBuilder(1).build()[0]
     const languages = new LanguageModelBuilder(1).build()
     const categoriesMapModel = new CategoriesMapModelBuilder(cityModel.code, languages[0].code).build()
-    const navigation = createNavigationScreenPropMock()
     const categoryLeaf = categoriesMapModel.toArray().find(category => category.isLeaf(categoriesMapModel))
     if (!categoryLeaf) {
       throw Error('There should be a leaf!')
@@ -46,9 +37,9 @@ describe('Categories', () => {
       { [categoryLeaf.path]: [] }
     )
     const result = TestRenderer.create(
-      <Categories cityModel={cityModel} language={languages[0].code} stateView={stateView} route={route}
-                  navigateToCategory={() => {}} navigateToInternalLink={() => {}} navigation={navigation}
-                  resourceCacheUrl='http://localhost:8080'
+      <Categories cityModel={cityModel} language={languages[0].code} stateView={stateView}
+                  navigateToCategory={() => {}} navigateToFeedback={() => {}}
+                  resourceCacheUrl='http://localhost:8080' navigateToLink={() => {}}
                   resourceCache={{ notAvailable: {} }} theme={lightTheme} t={key => key} />
     )
     const pageInstance = result.root.findByType(Page)
