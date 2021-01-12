@@ -24,7 +24,7 @@ import type {
   NavigationPropType,
   RoutePropType
 } from '../../../modules/app/components/NavigationTypes'
-import LayoutedScrollView from '../../../modules/common/components/LayoutedScrollView'
+import LayoutedScrollView from '../../../modules/common/containers/LayoutedScrollView'
 import LayoutContainer from '../../../modules/layout/containers/LayoutContainer'
 import { SPRUNGBRETT_OFFER_ROUTE } from '../../../modules/app/components/NavigationTypes'
 
