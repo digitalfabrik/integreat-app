@@ -20,7 +20,7 @@ import { render } from '@testing-library/react-native'
 import moment from 'moment'
 import { LOADING_TIMEOUT } from '../../../../modules/common/constants'
 import ErrorCodes from '../../../../modules/error/ErrorCodes'
-import { CATEGORIES_ROUTE } from '../../../../modules/app/components/NavigationTypes'
+import { CATEGORIES_ROUTE } from '../../../../modules/app/constants/NavigationTypes'
 import CategoriesContainer from '../CategoriesContainer'
 
 const mockStore = configureMockStore()

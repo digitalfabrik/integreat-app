@@ -21,7 +21,7 @@ import moment from 'moment'
 import { LOADING_TIMEOUT } from '../../../../modules/common/constants'
 import ErrorCodes from '../../../../modules/error/ErrorCodes'
 import DashboardContainer from '../DashboardContainer'
-import { DASHBOARD_ROUTE } from '../../../../modules/app/components/NavigationTypes'
+import { DASHBOARD_ROUTE } from '../../../../modules/app/constants/NavigationTypes'
 
 const mockStore = configureMockStore()
 jest.mock('react-i18next')

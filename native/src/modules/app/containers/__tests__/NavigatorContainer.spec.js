@@ -2,7 +2,7 @@
 
 import configureMockStore from 'redux-mock-store'
 import * as React from 'react'
-import { DASHBOARD_ROUTE } from '../../components/NavigationTypes'
+import { DASHBOARD_ROUTE } from '../../constants/NavigationTypes'
 import { generateKey } from '../../generateRouteKey'
 
 jest.mock('../../../../routes/landing/containers/LandingContainer', () => {

@@ -17,7 +17,7 @@ import { render } from '@testing-library/react-native'
 import ErrorCodes from '../../../../modules/error/ErrorCodes'
 import { LOADING_TIMEOUT } from '../../../../modules/common/constants'
 import { LOCAL_NEWS } from '../../../../modules/endpoint/constants'
-import { NEWS_ROUTE } from '../../../../modules/app/components/NavigationTypes'
+import { NEWS_ROUTE } from '../../../../modules/app/constants/NavigationTypes'
 import NewsContainer from '../NewsContainer'
 
 const mockStore = configureMockStore()

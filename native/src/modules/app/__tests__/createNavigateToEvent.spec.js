@@ -2,7 +2,7 @@
 
 import createNavigationScreenPropMock from '../../../testing/createNavigationPropMock'
 import createNavigateToEvent from '../createNavigateToEvent'
-import { EVENTS_ROUTE } from '../components/NavigationTypes'
+import { EVENTS_ROUTE } from '../constants/NavigationTypes'
 
 const cityContentUrl = ({ cityCode, languageCode, route, path }) => `/${cityCode}/${languageCode}/${route}${path || ''}`
 const url = path => `some.base.url/${path}`

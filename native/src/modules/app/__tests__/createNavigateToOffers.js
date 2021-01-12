@@ -2,7 +2,7 @@
 
 import createNavigationScreenPropMock from '../../../testing/createNavigationPropMock'
 import createNavigateToOffers from '../createNavigateToOffers'
-import { OFFERS_ROUTE } from '../components/NavigationTypes'
+import { OFFERS_ROUTE } from '../constants/NavigationTypes'
 
 const cityContentUrl = ({ cityCode, languageCode, route }) => `/${cityCode}/${languageCode}/${route}`
 jest.mock('../../common/url', () => ({

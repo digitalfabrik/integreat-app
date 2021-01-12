@@ -1,6 +1,6 @@
 // @flow
 
-import type { NavigationPropType, RoutesType } from '../modules/app/components/NavigationTypes'
+import type { NavigationPropType, RoutesType } from '../modules/app/constants/NavigationTypes'
 
 const createNavigationMock = <T: RoutesType>(): NavigationPropType<T> => ({
   dispatch: jest.fn(),

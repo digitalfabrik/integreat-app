@@ -10,7 +10,7 @@ import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import Page from '../../../../modules/common/components/Page'
 import createNavigationScreenPropMock from '../../../../testing/createNavigationPropMock'
 import { generateKey } from '../../../../modules/app/generateRouteKey'
-import { EVENTS_ROUTE } from '../../../../modules/app/components/NavigationTypes'
+import { EVENTS_ROUTE } from '../../../../modules/app/constants/NavigationTypes'
 
 jest.mock('../../../../modules/common/components/Page', () => {
   const Text = require('react-native').Text
