@@ -16,7 +16,7 @@ import configureMockStore from 'redux-mock-store'
 import React from 'react'
 import { Provider } from 'react-redux'
 import createNavigationScreenPropMock from '../../../../testing/createNavigationStackPropMock'
-import { ScrollView, Text } from 'react-native'
+import { Text } from 'react-native'
 import TestRenderer from 'react-test-renderer'
 import { render } from '@testing-library/react-native'
 import CategoriesRouteStateView from '../../../../modules/app/CategoriesRouteStateView'
@@ -174,14 +174,16 @@ describe('CategoriesContainer', () => {
     const store = mockStore(state)
     const navigation = createNavigationScreenPropMock()
     navigation.state.key = 'route-id-0'
+    navigation.setParams({ onRouteClose: () => {} })
     jest.doMock('../../../../modules/categories/components/Categories', () => MockCategories)
     const CategoriesContainer = require('../CategoriesContainer').default
-    const result = TestRenderer.create(
-      <Provider store={store}><CategoriesContainer navigation={navigation} /></Provider>
+    const { getByText } = render(
+      <Provider store={store}>
+        <CategoriesContainer navigation={navigation} />
+      </Provider>
     )
     jest.advanceTimersByTime(LOADING_TIMEOUT)
-    const refreshControl = result.root.findByType(ScrollView).props.refreshControl
-    expect(refreshControl.props.refreshing).toBe(true)
+    expect(getByText('loading')).toBeTruthy()
   }
 
   it('should display loading indicator if the route is loading long enough', () => {

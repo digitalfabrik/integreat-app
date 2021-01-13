@@ -16,7 +16,7 @@ import configureMockStore from 'redux-mock-store'
 import React from 'react'
 import { Provider } from 'react-redux'
 import createNavigationScreenPropMock from '../../../../testing/createNavigationStackPropMock'
-import { ScrollView, Text } from 'react-native'
+import { Text } from 'react-native'
 import TestRenderer from 'react-test-renderer'
 import { render } from '@testing-library/react-native'
 import CategoriesRouteStateView from '../../../../modules/app/CategoriesRouteStateView'
@@ -30,7 +30,7 @@ jest.useFakeTimers()
 
 const mockStore = configureMockStore()
 
-class MockDashboard extends React.Component<{}> {
+class MockDashboard extends React.Component<{||}> {
   render () {
     return <Text>Dashboard</Text>
   }
@@ -174,14 +174,16 @@ describe('DashboardContainer', () => {
     const store = mockStore(state)
     const navigation = createNavigationScreenPropMock()
     navigation.state.key = 'route-id-0'
+    navigation.setParams({ onRouteClose: () => {} })
     jest.doMock('../../components/Dashboard', () => MockDashboard)
     const DashboardContainer = require('../DashboardContainer').default
-    const result = TestRenderer.create(
-      <Provider store={store}><DashboardContainer navigation={navigation} /></Provider>
+    const { getByText } = render(
+      <Provider store={store}>
+        <DashboardContainer navigation={navigation} />
+      </Provider>
     )
     jest.advanceTimersByTime(LOADING_TIMEOUT)
-    const refreshControl = result.root.findByType(ScrollView).props.refreshControl
-    expect(refreshControl.props.refreshing).toBe(true)
+    expect(getByText('loading')).toBeTruthy()
   }
 
   it('should display loading indicator if the route is loading long enough', () => {
