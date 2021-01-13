@@ -12,7 +12,7 @@ export type ColorsType = {|
   tunewsThemeColorLight: string
 |}
 
-export const commonLightColors: ColorsType = {
+export const commonLightColors = {
   backgroundAccentColor: '#fafafa',
   textColor: '#000000',
   textSecondaryColor: '#585858',
@@ -23,7 +23,7 @@ export const commonLightColors: ColorsType = {
   tunewsThemeColorLight: 'rgba(0, 122, 168, 0.4)'
 }
 
-export const commonDarkColors: ColorsType = {
+export const commonDarkColors = {
   backgroundAccentColor: '#111111',
   textColor: '#BBBBBB',
   textSecondaryColor: '#888888',

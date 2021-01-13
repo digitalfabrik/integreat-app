@@ -61,7 +61,7 @@ export type PropsType<S: { dispatch: Dispatch<StoreActionType> }, R: {}> = {|
   t?: TFunction
 |}
 
-const withPayloadProvider = <S: {| dispatch: Dispatch<StoreActionType> |}, R: {||}> (
+const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R: {}> (
   refresh: (refreshProps: R, dispatch: Dispatch<StoreActionType>) => void, noScrollView?: boolean
 ): ((Component: React.ComponentType<S>) => React.ComponentType<PropsType<S, R>>) => {
   return (Component: React.ComponentType<S>): React.ComponentType<PropsType<S, R>> => {
