@@ -31,11 +31,11 @@ const App = () => {
       const route = state.routes[state.index]
       setRouteName(route.name)
       setRouteKey(route.key)
-      if (route.params?.cityCode && route.params?.languageCode) {
-        // $FlowFixMe cityCode is not of type mixed
-        setCityCode(route.params.cityCode)
-        // $FlowFixMe languageCode is not of type mixed
-        setLanguageCode(route.params.languageCode)
+      if (route.params?.cityCode) {
+        setCityCode(typeof route.params.cityCode === 'string' ? route.params.cityCode : null)
+      }
+      if (route.params?.languageCode) {
+        setLanguageCode(typeof route.params.languageCode === 'string' ? route.params.languageCode : null)
       }
     }
   }, [])
