@@ -69,7 +69,7 @@ class DisclaimerContainer extends React.Component<DisclaimerPropsType, Disclaime
   navigateToLinkProp = (url: string, language: string, shareUrl: string) => {
     const { dispatch, navigation } = this.props
     const navigateToInternalLink = createNavigateToInternalLink(dispatch, navigation)
-    navigateToLink(url, navigation, language, navigateToInternalLink, shareUrl || url)
+    navigateToLink(url, navigation, language, navigateToInternalLink, shareUrl)
   }
 
   navigateToFeedback = (isPositiveFeedback: boolean) => {

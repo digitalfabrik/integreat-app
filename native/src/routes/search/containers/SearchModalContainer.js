@@ -72,7 +72,7 @@ const SearchModalContainer = (props: PropsType) => {
 
   const navigateToLinkProp = useCallback((url: string, language: string, shareUrl: string) => {
     const navigateToInternalLink = createNavigateToInternalLink(dispatch, navigation)
-    navigateToLink(url, navigation, language, navigateToInternalLink, shareUrl || url)
+    navigateToLink(url, navigation, language, navigateToInternalLink, shareUrl)
   }, [dispatch, navigation])
 
   return <ThemedTranslatedSearch
