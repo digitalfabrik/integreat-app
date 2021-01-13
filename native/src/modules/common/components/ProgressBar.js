@@ -1,13 +1,13 @@
 // @flow
 
 import * as React from 'react'
-import Svg, { Circle, Image } from 'react-native-svg'
+import { TFunction } from 'react-i18next'
 import { Dimensions } from 'react-native'
-import styled from 'styled-components/native'
+import Svg, { Circle, Image } from 'react-native-svg'
 import { type StyledComponent } from 'styled-components'
+import styled from 'styled-components/native'
 import { buildConfigAssets } from '../../app/constants/buildConfig'
 import type { ThemeType } from '../../theme/constants'
-import { type TFunction } from 'react-i18next'
 
 const Container: StyledComponent<{||}, {||}, *> = styled.View`
   width: 100%;
@@ -24,20 +24,18 @@ const Text = styled.Text`
   font-weight: 700;
 `
 
-const { width } = Dimensions.get('window')
-const size = width / 3 // eslint-disable-line no-magic-numbers
+const SVG_SIZE_FRACTION = 0.333
+const svgSize = Dimensions.get('window').width * SVG_SIZE_FRACTION
 
-const logoSize = size * 0.6 // eslint-disable-line no-magic-numbers
-const logoXY = (size - logoSize) / 2
-const logoToCenter = `translate(${logoXY}, ${logoXY})`
+const LOGO_SIZE_FRACTION = 0.6
+const logoSize = svgSize * LOGO_SIZE_FRACTION
+const logoXY = (svgSize - logoSize) / 2
 
 // progress
-const strokeWidth = size * 0.09 // eslint-disable-line no-magic-numbers
-const r = (size - strokeWidth) / 2
-const cx = size / 2
-const cy = size / 2
-const circumference = r * 2 * Math.PI
-const strokeDasharray = circumference
+const STROKE_WIDTH_FRACTION = 0.09
+const strokeWidth = svgSize * STROKE_WIDTH_FRACTION
+const radius = (svgSize - strokeWidth) / 2
+const circumference = radius * 2 * Math.PI
 
 type PropsType = {|
   progress: number,
@@ -48,15 +46,24 @@ type PropsType = {|
 class ProgressBar extends React.Component<PropsType> {
   render () {
     const { t, progress, theme } = this.props
-    const strokeDashoffset = circumference - progress * circumference
     return (
       <Container>
-        <Svg width={size} height={size}>
-            <Image width={logoSize} height={logoSize} transform={logoToCenter}
-              xlinkHref={buildConfigAssets().loadingImage} />
-            <Circle stroke= {theme.colors.themeColor}
-              {...{ strokeDasharray, strokeDashoffset, strokeWidth, cx, cy, r }}
-            />
+        <Svg width={svgSize} height={svgSize}>
+          <Image
+            width={logoSize}
+            height={logoSize}
+            transform={`translate(${logoXY}, ${logoXY})`}
+            xlinkHref={buildConfigAssets().loadingImage}
+          />
+          <Circle
+            stroke={theme.colors.themeColor}
+            strokeDasharray={circumference}
+            strokeDashoffset={circumference - progress * circumference}
+            strokeWidth={svgSize * STROKE_WIDTH_FRACTION}
+            cx={svgSize / 2}
+            cy={svgSize / 2}
+            r={radius}
+          />
         </Svg>
         <Text>{t('loading')}</Text>
       </Container>

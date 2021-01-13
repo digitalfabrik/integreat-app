@@ -1,0 +1,7 @@
+issue_key: IGAPP-336
+show_in_stores: true
+platforms:
+  - ios
+  - android
+en: Now a progress circle is shown when loading content
+de: Beim Laden wird jetzt der Fortschritt in Form eines Kreises angezeigt
