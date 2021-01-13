@@ -8,7 +8,7 @@ export const buildConfigIconSet = (): {| appLogo: string, locationMarker: string
   throw new Error('Mock not yet implemented!')
 }
 
-export const buildConfigAssets = (): AssetsType => {
+export const buildConfigAssets = () => {
   return {}
 }
 

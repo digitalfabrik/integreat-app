@@ -30,7 +30,7 @@ jest.useFakeTimers()
 
 const mockStore = configureMockStore()
 
-class MockDashboard extends React.Component<{||}> {
+class MockDashboard extends React.Component<{}> {
   render () {
     return <Text>Dashboard</Text>
   }
