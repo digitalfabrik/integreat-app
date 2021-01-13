@@ -39,7 +39,8 @@ type PropsType = {|
 
 class Offers extends React.Component<PropsType> {
   onTilePress = (tile: TileModel) => {
-    const { navigateToOffer, offers } = this.props
+    const { navigateToOffer, offers: allOffers } = this.props
+    const offers = allOffers.filter(offer => offer.alias === tile.path)
     navigateToOffer(offers, tile.path, tile.isExternalUrl, tile.postData)
   }
 
