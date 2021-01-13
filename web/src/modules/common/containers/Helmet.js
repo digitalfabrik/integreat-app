@@ -36,7 +36,7 @@ class Helmet extends React.PureComponent<PropsType> {
       {cityModel && !cityModel.live && <meta name='robots' content='noindex' />}
       {metaDescription && <meta name='description' content={metaDescription} />}
       {this.getLanguageLinks()}
-      {/* https://developers.facebook.com/docs/sharing/webmasters */}
+      {/* Tags for a prettier social media preview. See: https://developers.facebook.com/docs/sharing/webmasters */}
       {pageTitle && <meta property='og:title' content={pageTitle} />}
       <meta property='og:image' content={previewImageUrl.href} />
       {metaDescription && <meta property='og:description' content={metaDescription} />}
