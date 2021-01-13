@@ -132,7 +132,7 @@ export default class Settings extends React.Component<PropsType, StateType> {
     const { settings, settingsLoaded } = this.state
 
     if (!settingsLoaded) {
-      return null
+      return <LayoutContainer />
     }
 
     return <LayoutContainer>
