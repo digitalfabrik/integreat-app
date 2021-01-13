@@ -30,30 +30,28 @@ export type PropsType = {|
   dispatch: Dispatch<StoreActionType>,
   categories: CategoriesMapModel | null,
   language: string,
-  cityCode: string,
+  cityCode: ?string,
   closeModal: () => void,
   sendFeedback: (comment: string, query: string) => Promise<void>
 |}
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType) => {
-  if (!state.cityContent) {
-    throw new Error('CityContent must not be null!')
-  }
-
-  const { searchRoute, city } = state.cityContent
-
+  const cityCode = state.cityContent?.city
   return {
-    categories: (searchRoute && searchRoute.categoriesMap) || null,
+    categories: state.cityContent?.searchRoute?.categoriesMap || null,
     language: state.contentLanguage,
-    cityCode: city,
+    cityCode,
     closeModal: () => { ownProps.navigation.goBack() },
     sendFeedback: async (comment: string, query: string) => {
+      if (!cityCode) {
+        return
+      }
       const apiUrlOverride = await determineApiUrl()
       await createFeedbackEndpoint(apiUrlOverride).request({
         feedbackType: SEARCH_FEEDBACK_TYPE,
         isPositiveRating: false,
         comment,
-        city,
+        city: cityCode,
         language: state.contentLanguage,
         query
       })

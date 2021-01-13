@@ -30,27 +30,20 @@ type OwnPropsType = {|
   navigation: NavigationPropType<DisclaimerRouteType>
 |}
 
-type StatePropsType = {| city: string, language: string, resourceCacheUrl: string |}
+type StatePropsType = {| city: ?string, language: string, resourceCacheUrl: ?string |}
 
 type PropsType = {| ...OwnPropsType, ...StatePropsType, dispatch: Dispatch<StoreActionType> |}
 
 const mapStateToProps = (state: StateType): StatePropsType => {
-  if (!state.cityContent) {
-    throw new Error('CityContent must not be null!')
-  }
-  if (state.resourceCacheUrl === null) {
-    throw new Error('Resource cache Url must not be null!')
-  }
-
-  return { city: state.cityContent.city, language: state.contentLanguage, resourceCacheUrl: state.resourceCacheUrl }
+  return { city: state.cityContent?.city, language: state.contentLanguage, resourceCacheUrl: state.resourceCacheUrl }
 }
 
 type DisclaimerPropsType = {|
   ...OwnPropsType,
-  city: string,
+  city: ?string,
   language: string,
   theme: ThemeType,
-  resourceCacheUrl: string,
+  resourceCacheUrl: ?string,
   dispatch: Dispatch<StoreActionType>
 |}
 
@@ -74,6 +67,9 @@ class DisclaimerContainer extends React.Component<DisclaimerPropsType, Disclaime
 
   navigateToFeedback = (isPositiveFeedback: boolean) => {
     const { navigation, city, language } = this.props
+    if (!city) {
+      return
+    }
     createNavigateToFeedbackModal(navigation)({
       type: 'Disclaimer',
       cityCode: city,
@@ -89,6 +85,10 @@ class DisclaimerContainer extends React.Component<DisclaimerPropsType, Disclaime
 
   loadDisclaimer = async () => {
     const { city, language } = this.props
+    if (!city) {
+      return
+    }
+
     this.setState({ error: null, disclaimer: null, timeoutExpired: false })
     setTimeout(() => this.setState({ timeoutExpired: true }), LOADING_TIMEOUT)
 
@@ -117,7 +117,7 @@ class DisclaimerContainer extends React.Component<DisclaimerPropsType, Disclaime
       </LayoutedScrollView>
     }
 
-    if (!disclaimer) {
+    if (!disclaimer || !city || !resourceCacheUrl) {
       return timeoutExpired
         ? <LayoutedScrollView refreshControl={<RefreshControl refreshing />} />
         : <LayoutContainer />

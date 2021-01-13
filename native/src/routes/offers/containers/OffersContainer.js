@@ -34,19 +34,15 @@ type OwnPropsType = {|
   navigation: NavigationPropType<OffersRouteType>
 |}
 
-type StatePropsType = {| city: string, language: string, cities: ?$ReadOnlyArray<CityModel> |}
+type StatePropsType = {| city: ?string, language: string, cities: ?$ReadOnlyArray<CityModel> |}
 type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
 const mapStateToProps = (state: StateType): StatePropsType => {
-  if (!state.cityContent) {
-    throw new Error('CityContent must not be null!')
-  }
-
   const cities: ?$ReadOnlyArray<CityModel> = state.cities.status !== 'ready' ? null : state.cities.models
 
   return {
-    city: state.cityContent.city,
+    city: state.cityContent?.city,
     language: state.contentLanguage,
     cities
   }
@@ -54,7 +50,7 @@ const mapStateToProps = (state: StateType): StatePropsType => {
 
 type OffersPropsType = {|
   ...OwnPropsType,
-  city: string,
+  city: ?string,
   cities: ?Array<CityModel>,
   language: string,
   theme: ThemeType,
@@ -84,6 +80,10 @@ class OffersContainer extends React.Component<OffersPropsType, OffersStateType> 
     postData: ?Map<string, string>
   ) => {
     const { navigation, city, language } = this.props
+    if (!city) {
+      return
+    }
+
     // HTTP POST is neither supported by the InAppBrowser nor by Linking, therefore we have to open it in a webview
     if (isExternalUrl && postData) {
       navigation.push(EXTERNAL_OFFER_ROUTE, { url: path, shareUrl: path, postData })
@@ -101,6 +101,11 @@ class OffersContainer extends React.Component<OffersPropsType, OffersStateType> 
 
   loadOffers = async () => {
     const { city, language } = this.props
+
+    if (!city) {
+      return
+    }
+
     this.setState({ error: null, offers: null, timeoutExpired: false })
     setTimeout(() => this.setState({ timeoutExpired: true }), LOADING_TIMEOUT)
 
@@ -131,7 +136,7 @@ class OffersContainer extends React.Component<OffersPropsType, OffersStateType> 
       </LayoutedScrollView>
     }
 
-    if (!offers || !cities) {
+    if (!offers || !cities || !city) {
       return timeoutExpired
         ? <LayoutedScrollView refreshControl={<RefreshControl refreshing />} />
         : <LayoutContainer />
