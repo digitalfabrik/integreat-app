@@ -1,12 +1,13 @@
 // @flow
 
-import wd from 'wd'
+import type { WebDriver, WebElement } from 'selenium-webdriver'
+import { By } from 'selenium-webdriver'
 
 export default class LandingPage {
-  driver: wd.PromiseChainWebdriver
+  driver: WebDriver
   language: string
 
-  constructor (driver: wd.PromiseChainWebdriver, langugage: 'de' | 'en' = 'de') {
+  constructor (driver: WebDriver, langugage: 'de' | 'en' = 'de') {
     this.driver = driver
     this.language = langugage
   }
@@ -15,11 +16,11 @@ export default class LandingPage {
     return this.driver.get(`http://localhost:9000/landing/${this.language}`)
   }
 
-  getSearchInput (): Promise<wd.Element> {
-    return this.driver.waitForElementByXPath('//input')
+  getSearchInput (): Promise<WebElement> {
+    return this.driver.findElement(By.xpath('//input'))
   }
 
-  getCity (name: string): Promise<wd.Element> {
-    return this.driver.waitForElementByXPath(`//span[@aria-label=${name}]`)
+  getCity (name: string): Promise<WebElement> {
+    return this.driver.findElement(By.xpath(`//span[@aria-label='${name}']`))
   }
 }

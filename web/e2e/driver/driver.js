@@ -1,26 +1,23 @@
 // @flow
 
-import wd from 'wd'
+import { type WebDriver, Builder } from 'selenium-webdriver'
 import fetch from 'node-fetch'
 import childProcess from 'child_process'
 import serverConfigs from '../config/configs'
 import { clone } from 'lodash'
-import browserstack from 'browserstack-local'
 
 const BROWSERSTACK_EXHAUSTED_MESSAGE = 'All parallel tests are currently in use, including the queued tests. ' +
   'Please wait to finish or upgrade your plan to add more sessions.'
 const IMPLICIT_WAIT_TIMEOUT = 80000
 const INIT_RETRY_TIME = 3000
-const STARTUP_DELAY = 8000
+const STARTUP_DELAY = 3000
 
 export const timer = (ms: number) => new Promise<void>(resolve => setTimeout(resolve, ms))
-type DriverType = {| driver: wd.promiseChainRemote, bsLocal?: browserstack.Local |}
 
 export type ConfigType = {|
   url: string,
   browser: string,
   prefix: string,
-  local: boolean,
   caps: {| [key: string]: string |}
 |}
 
@@ -42,40 +39,24 @@ const getConfig = (): ConfigType | null => {
   return config
 }
 
-const initDriver = async (config: ConfigType, desiredCaps): Promise<wd.promiseChainRemote> => {
+const initDriver = async (config: ConfigType, desiredCaps): Promise<WebDriver> => {
   try {
-    const driver = wd.promiseChainRemote(config.url)
-    await driver.init(desiredCaps)
-    return driver
+    return new Builder()
+      .usingServer(config.url)
+      .withCapabilities(desiredCaps)
+      .build()
   } catch (e) {
     if (e.message.includes(BROWSERSTACK_EXHAUSTED_MESSAGE)) {
       console.log('Waiting because queue is full!')
       await timer(INIT_RETRY_TIME)
-      await initDriver(config, desiredCaps)
+      return await initDriver(config, desiredCaps)
     }
 
     throw e
   }
 }
 
-const initTunnel = async (desiredCaps): Promise<browserstack.Local> => {
-  if (desiredCaps['browserstack.local']) {
-    console.log('Connecting local')
-    const bsLocal = new browserstack.Local()
-    bsLocal.start({ key: desiredCaps['browserstack.key'] }, error => {
-      if (error) { return console.log(error) }
-      console.log('Connected. Now testing...')
-    })
-    return bsLocal
-  }
-}
-
-const fetchTestResults = async (driver: wd.PromiseChainWebdriver) => {
-  if (!driver.sessionID) {
-    // We are not using BrowserStack probably
-    return
-  }
-
+const fetchTestResults = async (driver: WebDriver) => {
   const user = process.env.E2E_BROWSERSTACK_USER
   const password = process.env.E2E_BROWSERSTACK_KEY
 
@@ -89,8 +70,9 @@ const fetchTestResults = async (driver: wd.PromiseChainWebdriver) => {
   ).toString('base64')}`
 
   try {
+    const session = await driver.getSession()
     const response = await fetch(
-      `https://api.browserstack.com/automate/sessions/${driver.sessionID}.json`,
+      `https://api.browserstack.com/automate/sessions/${session.getId()}.json`,
       {
         method: 'GET',
         headers: {
@@ -112,7 +94,7 @@ const getGitHeadReference = () => {
   return childProcess.execSync('git rev-parse --short HEAD').toString().trim()
 }
 
-export const setupDriver = async (): Promise<DriverType> => {
+export const setupDriver = async (): Promise<WebDriver> => {
   const config = getConfig()
 
   if (!config) {
@@ -128,30 +110,22 @@ export const setupDriver = async (): Promise<DriverType> => {
     tags: [config.prefix, config.browser]
   }
 
-  const driver = initDriver(config, desiredCaps)
-  const status = await driver.status()
-  const bsLocal = !config.local ? await initTunnel(desiredCaps) : undefined
+  const driver = await initDriver(config, desiredCaps)
+  // const status = await driver.getServerStatus()
+  const session = await driver.getSession()
 
-  console.log(`Session ID is ${JSON.stringify(driver.sessionID)}`)
+  console.log(`Session ID is ${session.getId()}`)
   console.log(`Status of Driver is ${JSON.stringify(status)}`)
-
-  await driver.setImplicitWaitTimeout(IMPLICIT_WAIT_TIMEOUT)
+  driver.manage().timeouts().implicitlyWait(IMPLICIT_WAIT_TIMEOUT)
   await timer(STARTUP_DELAY)
 
-  return { driver, bsLocal }
+  return driver
 }
 
-export const stopDriver = async (e2eDriver: DriverType) => {
-  const { driver, bsLocal } = e2eDriver
+export const stopDriver = async (driver: WebDriver) => {
   await fetchTestResults(driver)
   if (driver === undefined) {
     return
   }
   await driver.quit()
-  if (bsLocal === undefined) {
-    return
-  }
-  bsLocal.stop(() => {
-    console.log('Stopped BrowserStackLocal')
-  })
 }
