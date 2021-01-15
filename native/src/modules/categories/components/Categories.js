@@ -25,11 +25,10 @@ import SiteHelpfulBox from '../../common/components/SiteHelpfulBox'
 import createNavigateToFeedbackModal from '../../app/createNavigateToFeedbackModal'
 
 type PropsType = {|
-  cities: Array<CityModel>,
+  cityModel: CityModel,
   language: string,
 
   stateView: CategoriesRouteStateView,
-  cityCode: string,
   navigateToCategory: NavigateToCategoryParamsType => void,
   navigateToInternalLink: NavigateToInternalLinkParamsType => void,
 
@@ -45,23 +44,23 @@ type PropsType = {|
  */
 class Categories extends React.Component<PropsType> {
   onTilePress = (tile: TileModel) => {
-    const { cityCode, language, navigateToCategory } = this.props
-    navigateToCategory({ cityCode, language, path: tile.path })
+    const { cityModel, language, navigateToCategory } = this.props
+    navigateToCategory({ cityCode: cityModel.code, language, path: tile.path })
   }
 
   onItemPress = (category: { title: string, thumbnail: string, path: string }) => {
-    const { cityCode, language, navigateToCategory } = this.props
-    navigateToCategory({ cityCode, language, path: category.path })
+    const { cityModel, language, navigateToCategory } = this.props
+    navigateToCategory({ cityCode: cityModel.code, language, path: category.path })
   }
 
   navigateToFeedback = (isPositiveFeedback: boolean) => {
-    const { navigation, stateView, cityCode, language } = this.props
+    const { navigation, stateView, cityModel, language } = this.props
     const category = stateView.root()
 
     createNavigateToFeedbackModal(navigation)({
       type: 'Category',
       language,
-      cityCode,
+      cityCode: cityModel.code,
       title: !category.isRoot() ? category.title : undefined,
       path: !category.isRoot() ? category.path : undefined,
       isPositiveFeedback

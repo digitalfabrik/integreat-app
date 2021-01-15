@@ -39,6 +39,7 @@ export type WebBuildConfigType = {|
     appLogo: string,
     locationMarker: string,
     appleTouchIcon: string,
+    socialMediaPreview: string,
     favicons: string
   |},
   splashScreen?: {|
