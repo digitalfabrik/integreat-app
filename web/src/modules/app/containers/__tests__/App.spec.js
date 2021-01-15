@@ -10,6 +10,7 @@ import configureMockStore from 'redux-mock-store'
 const mockStore = configureMockStore()
 const mockedStore = mockStore()
 
+jest.mock('react-i18next')
 jest.mock('../../createReduxStore', () => jest.fn().mockImplementation(() => mockedStore))
 
 describe('App', () => {

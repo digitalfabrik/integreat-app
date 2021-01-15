@@ -8,6 +8,8 @@ import { DISCLAIMER_ROUTE } from '../../../app/route-configs/DisclaimerRouteConf
 import createLocation from '../../../../createLocation'
 import lightTheme from '../../../theme/constants/theme'
 
+jest.mock('react-i18next')
+
 describe('LanguageSelector', () => {
   const city = 'augsburg'
   const language = 'en'

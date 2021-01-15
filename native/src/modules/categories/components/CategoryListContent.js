@@ -6,11 +6,8 @@ import { type DisplayMetrics } from 'react-native/Libraries/Utilities/NativeDevi
 import Html, { GestureResponderEvent, type HTMLNode, type RendererFunction } from 'react-native-render-html'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
-import type { NavigationStackProp } from 'react-navigation-stack'
-import type { NavigateToInternalLinkParamsType } from '../../app/createNavigateToInternalLink'
 import type { ThemeType } from 'build-configs/ThemeType'
-import { RTL_LANGUAGES } from '../../i18n/constants'
-import onInternalLinkPress from '../../common/onInternalLinkPress'
+import { config } from 'translations'
 
 const VerticalPadding: StyledComponent<{}, {}, *> = styled.View`
   padding: 0 20px;
@@ -25,9 +22,8 @@ type DimensionsEventType = {
 
 type ContentPropsType = {|
   content: string,
-  navigation: NavigationStackProp<*>,
   resourceCacheUrl: string,
-  navigateToInternalLink?: NavigateToInternalLinkParamsType => void,
+  navigateToLink: (url: string, language: string, shareUrl: string) => void,
   cacheDictionary: { [string]: string },
   language: string,
   theme: ThemeType
@@ -60,9 +56,9 @@ class CategoryListContent extends React.Component<ContentPropsType, {| width: nu
   }
 
   onLinkPress = (evt: GestureResponderEvent, url: string) => {
-    const { language, navigation, navigateToInternalLink, cacheDictionary } = this.props
+    const { language, navigateToLink, cacheDictionary } = this.props
     const shareUrl = Object.keys(cacheDictionary).find(remoteUrl => cacheDictionary[remoteUrl] === url)
-    onInternalLinkPress(url, navigation, language, navigateToInternalLink, shareUrl || url)
+    navigateToLink(url, language, shareUrl || url)
   }
 
   alterResources = (node: HTMLNode) => {
@@ -100,8 +96,8 @@ class CategoryListContent extends React.Component<ContentPropsType, {| width: nu
       height: baseFontSize / bulletSizeRelativeToFont,
       borderRadius: baseFontSize / bulletSizeRelativeToFont,
       marginTop: baseFontSize / bulletAlignmentRelativeToFont,
-      marginRight: RTL_LANGUAGES.includes(language) ? listIndent : textDistanceToBullet,
-      marginLeft: RTL_LANGUAGES.includes(language) ? textDistanceToBullet : listIndent,
+      marginRight: config.isRTLLanguage(language) ? listIndent : textDistanceToBullet,
+      marginLeft: config.isRTLLanguage(language) ? textDistanceToBullet : listIndent,
       backgroundColor: theme.colors.textColor
     }} />
   }
@@ -112,8 +108,8 @@ class CategoryListContent extends React.Component<ContentPropsType, {| width: nu
     const { language } = this.props
     return <Text allowFontScaling={allowFontScaling} style={{
       fontSize: baseFontSize,
-      marginRight: RTL_LANGUAGES.includes(language) ? listIndent : textDistanceToBullet,
-      marginLeft: RTL_LANGUAGES.includes(language) ? textDistanceToBullet : listIndent
+      marginRight: config.isRTLLanguage(language) ? listIndent : textDistanceToBullet,
+      marginLeft: config.isRTLLanguage(language) ? textDistanceToBullet : listIndent
     }}>
       {index})
     </Text>
@@ -134,7 +130,7 @@ class CategoryListContent extends React.Component<ContentPropsType, {| width: nu
           prefix = listsPrefixesRenderers.ol(htmlAttribs, children, convertedCSSStyles, { ...passProps, index })
         }
       }
-      return RTL_LANGUAGES.includes(language)
+      return config.isRTLLanguage(language)
         ? (
           <View key={`list-${nodeIndex}-${index}-${key}`} style={{ flexDirection: 'row' }}>
             <View style={{ flex: 1 }}>{child}</View>
@@ -168,8 +164,8 @@ class CategoryListContent extends React.Component<ContentPropsType, {| width: nu
               color: theme.colors.textColor
             }}
             tagsStyles={{
-              p: { textAlign: RTL_LANGUAGES.includes(language) ? 'right' : 'left' },
-              img: { align: RTL_LANGUAGES.includes(language) ? 'right' : 'left' }
+              p: { textAlign: config.isRTLLanguage(language) ? 'right' : 'left' },
+              img: { align: config.isRTLLanguage(language) ? 'right' : 'left' }
             }} />
     </VerticalPadding>
   }
