@@ -14,7 +14,6 @@ import createLocation from '../../../../createLocation'
 import { LOCAL_NEWS_ROUTE } from '../../../app/route-configs/LocalNewsRouteConfig'
 
 jest.mock('react-i18next')
-jest.mock('react-i18next')
 
 describe('LocationHeader', () => {
   const t = (key: ?string): string => key || ''

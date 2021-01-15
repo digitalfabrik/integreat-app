@@ -168,11 +168,10 @@ describe('I18nProvider', () => {
       return <Text>{format(moment.utc('2020-12-21T14:58:57+01:00'), {})}</Text>
     }
 
-    const { getByText, debug } = render(<Provider store={store}><I18nProvider>
+    const { getByText } = render(<Provider store={store}><I18nProvider>
       <ReceivingComponent />
     </I18nProvider></Provider>)
 
-    await waitFor(() => debug())
     await waitFor(() => getByText('2020-12-21T13:58:57Z'))
 
     expect(getByText('2020-12-21T13:58:57Z')).toBeTruthy()
