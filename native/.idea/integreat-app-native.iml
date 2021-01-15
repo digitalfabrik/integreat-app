@@ -11,6 +11,7 @@
       <excludeFolder url="file://$MODULE_DIR$/reports" />
       <excludeFolder url="file://$MODULE_DIR$/../translations/external-jobs" />
       <excludeFolder url="file://$MODULE_DIR$/../web" />
+      <excludeFolder url="file://$MODULE_DIR$/../translations/reports" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

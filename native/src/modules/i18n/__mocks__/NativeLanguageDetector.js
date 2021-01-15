@@ -3,7 +3,9 @@
 export default {
   type: 'languageDetector',
   async: false,
-  detect: () => 'en',
   init: () => {},
+  detect: jest.fn<[], string[]>(() => {
+    return ['en']
+  }),
   cacheUserLanguage: () => {}
 }

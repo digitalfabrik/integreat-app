@@ -6,6 +6,8 @@ import { shallow } from 'enzyme'
 import { Failure } from '../Failure'
 import Link from '../../../../__mocks__/redux-first-router-link'
 
+jest.mock('redux-first-router-link')
+
 describe('Failure', () => {
   const mockTranslate = key => key
 

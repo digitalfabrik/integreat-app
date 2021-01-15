@@ -1,10 +1,10 @@
 // @flow
 
 import { I18nManager } from 'react-native'
-import { RTL_LANGUAGES } from '../i18n/constants'
+import { config } from 'translations'
 
 export const isContentDirectionReversalRequired = (contentLanguage: string): boolean =>
-  RTL_LANGUAGES.includes(contentLanguage) !== I18nManager.isRTL
+  config.isRTLLanguage(contentLanguage) !== I18nManager.isRTL
 
 export const isRTL = (): boolean => I18nManager.isRTL
 
