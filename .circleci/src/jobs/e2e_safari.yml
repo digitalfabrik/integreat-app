@@ -1,0 +1,16 @@
+docker:
+  - image: circleci/node:12.16.3
+resource_class: small
+shell: /bin/bash -eo pipefail
+environment:
+  FASTLANE_SKIP_UPDATE_CHECK: true
+steps:
+  - skip_job
+  - checkout
+  - prepare_workspace
+  - restore_yarn_cache
+  - run:
+      name: "Safari E2E Tests on Browserstack"
+      command: yarn workspaces web test:e2e
+      working_directory: web
+  - notify_failed
