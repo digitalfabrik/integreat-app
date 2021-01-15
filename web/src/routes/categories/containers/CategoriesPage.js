@@ -67,9 +67,8 @@ export class CategoriesPage extends React.Component<PropsType> {
     }
     // some level between, we want to display a list
     return <CategoryList categories={children.map(model => ({ model, subCategories: categories.getChildren(model) }))}
-                         title={category.title}
-                         content={category.content}
-                         thumbnail={category.thumbnail}
+                         currentCategory={category}
+                         language={language}
                          onInternalLinkClick={push} />
   }
 
