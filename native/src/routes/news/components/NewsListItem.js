@@ -11,7 +11,7 @@ import {
   contentDirection,
   contentAlignment
 } from '../../../modules/i18n/contentDirection'
-import { RTL_LANGUAGES } from '../../../modules/i18n/constants'
+import { config } from 'translations'
 
 type PropsType = {|
   newsItem: LocalNewsModel | TunewsModel,
@@ -145,7 +145,7 @@ class NewsListItem extends React.PureComponent<PropsType> {
                 theme={theme}
                 isTunews={isTunews}
                 name='keyboard-arrow-right'
-                style={{ transform: [{ scaleX: RTL_LANGUAGES.includes(language) ? -1 : 1 }] }}
+                style={{ transform: [{ scaleX: config.isRTLLanguage(language) ? -1 : 1 }] }}
               />
             </ReadMoreWrapper>
           </StyledTouchableOpacity>

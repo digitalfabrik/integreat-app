@@ -7,7 +7,7 @@ import Html, { GestureResponderEvent, type HTMLNode, type RendererFunction } fro
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
 import type { ThemeType } from 'build-configs/ThemeType'
-import { RTL_LANGUAGES } from '../../i18n/constants'
+import { config } from 'translations'
 
 const VerticalPadding: StyledComponent<{}, {}, *> = styled.View`
   padding: 0 20px;
@@ -96,8 +96,8 @@ class CategoryListContent extends React.Component<ContentPropsType, {| width: nu
       height: baseFontSize / bulletSizeRelativeToFont,
       borderRadius: baseFontSize / bulletSizeRelativeToFont,
       marginTop: baseFontSize / bulletAlignmentRelativeToFont,
-      marginRight: RTL_LANGUAGES.includes(language) ? listIndent : textDistanceToBullet,
-      marginLeft: RTL_LANGUAGES.includes(language) ? textDistanceToBullet : listIndent,
+      marginRight: config.isRTLLanguage(language) ? listIndent : textDistanceToBullet,
+      marginLeft: config.isRTLLanguage(language) ? textDistanceToBullet : listIndent,
       backgroundColor: theme.colors.textColor
     }} />
   }
@@ -108,8 +108,8 @@ class CategoryListContent extends React.Component<ContentPropsType, {| width: nu
     const { language } = this.props
     return <Text allowFontScaling={allowFontScaling} style={{
       fontSize: baseFontSize,
-      marginRight: RTL_LANGUAGES.includes(language) ? listIndent : textDistanceToBullet,
-      marginLeft: RTL_LANGUAGES.includes(language) ? textDistanceToBullet : listIndent
+      marginRight: config.isRTLLanguage(language) ? listIndent : textDistanceToBullet,
+      marginLeft: config.isRTLLanguage(language) ? textDistanceToBullet : listIndent
     }}>
       {index})
     </Text>
@@ -130,7 +130,7 @@ class CategoryListContent extends React.Component<ContentPropsType, {| width: nu
           prefix = listsPrefixesRenderers.ol(htmlAttribs, children, convertedCSSStyles, { ...passProps, index })
         }
       }
-      return RTL_LANGUAGES.includes(language)
+      return config.isRTLLanguage(language)
         ? (
           <View key={`list-${nodeIndex}-${index}-${key}`} style={{ flexDirection: 'row' }}>
             <View style={{ flex: 1 }}>{child}</View>
@@ -164,8 +164,8 @@ class CategoryListContent extends React.Component<ContentPropsType, {| width: nu
               color: theme.colors.textColor
             }}
             tagsStyles={{
-              p: { textAlign: RTL_LANGUAGES.includes(language) ? 'right' : 'left' },
-              img: { align: RTL_LANGUAGES.includes(language) ? 'right' : 'left' }
+              p: { textAlign: config.isRTLLanguage(language) ? 'right' : 'left' },
+              img: { align: config.isRTLLanguage(language) ? 'right' : 'left' }
             }} />
     </VerticalPadding>
   }

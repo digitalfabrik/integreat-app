@@ -7,6 +7,8 @@ import createLocation from '../../../../createLocation'
 import { lightTheme } from '../../../theme/constants/theme'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 
+jest.mock('react-i18next')
+
 describe('LanguageFailure', () => {
   const cities = new CityModelBuilder(1).build()
 
