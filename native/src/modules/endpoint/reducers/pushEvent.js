@@ -4,7 +4,7 @@ import type { CityContentStateType, EventRouteStateType } from '../../app/StateT
 import type { PushEventActionType } from '../../app/StoreActionType'
 import { EventModel } from 'api-client'
 import ErrorCodes from '../../error/ErrorCodes'
-import { entries, values } from '../../../utils/object'
+import { values, entries } from 'translations'
 
 const getEventRouteState = (currentPath: ?string,
   state: CityContentStateType,

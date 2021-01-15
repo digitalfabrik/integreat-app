@@ -2,7 +2,6 @@
 
 import React, { useState, useCallback } from 'react'
 import { Provider } from 'react-redux'
-import I18nProviderContainer from '../../i18n/containers/I18nProviderContainer'
 import createReduxStore from '../createReduxStore'
 import IOSSafeAreaView from '../../../modules/platform/components/IOSSafeAreaView'
 import StatusBarContainer from '../containers/StatusBarContainer'
@@ -14,6 +13,7 @@ import type { DataContainer } from '../../endpoint/DataContainer'
 import NavigatorContainer from '../containers/NavigatorContainer'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import StaticServerProvider from '../../static-server/containers/StaticServerProvider'
+import I18nProvider from '../../i18n/components/I18nProvider'
 import { NavigationContainer } from '@react-navigation/native'
 import PermissionSnackbarContainer from '../../layout/containers/PermissionSnackbarContainer'
 
@@ -43,7 +43,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <StaticServerProvider>
-        <I18nProviderContainer>
+        <I18nProvider>
           <SafeAreaProvider>
             <>
               <StatusBarContainer />
@@ -58,7 +58,7 @@ const App = () => {
               <PermissionSnackbarContainer routeName={routeName} />
             </>
           </SafeAreaProvider>
-        </I18nProviderContainer>
+        </I18nProvider>
       </StaticServerProvider>
     </Provider>
   )

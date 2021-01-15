@@ -7,6 +7,7 @@ const transformNodeModules = [
   'react-navigation-header-buttons',
   'rn-fetch-blob',
   'api-client',
+  'translations',
   '@sentry/react-native',
   'hashids',
   '@react-native-picker/picker',
