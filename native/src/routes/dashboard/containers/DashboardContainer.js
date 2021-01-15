@@ -1,20 +1,17 @@
 // @flow
 
 import type { Dispatch } from 'redux'
-
 import { connect } from 'react-redux'
 import Dashboard from '../components/Dashboard'
 import type { CategoryRouteStateType, LanguageResourceCacheStateType, StateType } from '../../../modules/app/StateType'
 import withTheme from '../../../modules/theme/hocs/withTheme'
-import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import { type TFunction, withTranslation } from 'react-i18next'
-import type { NavigationStackProp } from 'react-navigation-stack'
 import type { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
 import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvider'
 import { CityModel } from 'api-client'
-import React from 'react'
+import React, { useCallback } from 'react'
 import createNavigateToCategory from '../../../modules/app/createNavigateToCategory'
 import createNavigateToEvent from '../../../modules/app/createNavigateToEvent'
 import createNavigateToInternalLink from '../../../modules/app/createNavigateToInternalLink'
@@ -22,16 +19,33 @@ import createNavigateToPoi from '../../../modules/app/createNavigateToPoi'
 import createNavigateToOffers from '../../../modules/app/createNavigateToOffers'
 import createNavigateToNews from '../../../modules/app/createNavigateToNews'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
+import type {
+  DashboardRouteType,
+  NavigationPropType,
+  RoutePropType
+} from '../../../modules/app/constants/NavigationTypes'
+import { CATEGORIES_ROUTE, DASHBOARD_ROUTE } from '../../../modules/app/constants/NavigationTypes'
+import navigateToLink from '../../../modules/app/navigateToLink'
+
+type NavigationPropsType = {|
+  route: RoutePropType<DashboardRouteType>,
+  navigation: NavigationPropType<DashboardRouteType>
+|}
+
+type OwnPropsType = {|
+  ...NavigationPropsType,
+  t: TFunction
+|}
 
 type RefreshPropsType = {|
+  ...NavigationPropsType,
   cityCode: string,
   language: string,
-  path: string,
-  navigation: NavigationStackProp<*>
+  path: string
 |}
 
 type ContainerPropsType = {|
-  navigation: NavigationStackProp<*>,
+  ...OwnPropsType,
   language: string,
   cityModel: CityModel,
   stateView: CategoriesRouteStateView,
@@ -40,16 +54,19 @@ type ContainerPropsType = {|
   dispatch: Dispatch<StoreActionType>
 |}
 
-type OwnPropsType = {| navigation: NavigationStackProp<*>, t: TFunction |}
 type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
 type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
 const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
-  const { cityCode, language, navigation, path } = refreshProps
-  const navigateToDashboard = createNavigateToCategory('Dashboard', dispatch, navigation)
+  const { cityCode, language, navigation, route, path } = refreshProps
+  const navigateToDashboard = createNavigateToCategory(DASHBOARD_ROUTE, dispatch, navigation)
   navigateToDashboard({
-    cityCode, language, path, forceRefresh: true, key: navigation.state.key
+    cityCode,
+    language,
+    cityContentPath: path,
+    forceRefresh: true,
+    key: route.key
   })
 }
 
@@ -61,21 +78,25 @@ const createChangeUnavailableLanguage = (city: string, t: TFunction) =>
     })
   }
 
-const routeHasOldContent = (route: CategoryRouteStateType): boolean =>
-  !!route.models && !!route.allAvailableLanguages && !!route.children
-
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
-  const { t, navigation } = ownProps
+  const { t, route: { key } } = ownProps
   if (!state.cityContent) {
     return { status: 'routeNotInitialized' }
   }
   const { resourceCache, categoriesRouteMapping, switchingLanguage, languages } = state.cityContent
-  const route = categoriesRouteMapping[navigation.state.key]
+  const route: ?CategoryRouteStateType = categoriesRouteMapping[key]
   if (!route) {
     return { status: 'routeNotInitialized' }
   }
 
-  if (route.status === 'languageNotAvailable' && !switchingLanguage) {
+  if (switchingLanguage) {
+    return {
+      status: 'loading',
+      progress: resourceCache.progress ? resourceCache.progress : 0
+    }
+  }
+
+  if (route.status === 'languageNotAvailable') {
     if (languages.status === 'error' || languages.status === 'loading') {
       console.error('languageNotAvailable status impossible if languages not ready')
       return {
@@ -97,7 +118,8 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     cityCode: route.city,
     language: route.language,
     path: route.path,
-    navigation: ownProps.navigation
+    navigation: ownProps.navigation,
+    route: ownProps.route
   }
 
   if (state.cities.status === 'error') {
@@ -111,13 +133,16 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
 
   const resourceCacheUrl = state.resourceCacheUrl
-  if (resourceCacheUrl === null || state.cities.status === 'loading' || switchingLanguage ||
-    (route.status === 'loading' && !routeHasOldContent(route)) || languages.status === 'loading') {
+  const { models, children, allAvailableLanguages } = route
+  if (resourceCacheUrl === null || state.cities.status === 'loading' || languages.status === 'loading' ||
+    (route.status === 'loading' && (!models || !allAvailableLanguages || !children))) {
     return {
       status: 'loading',
       progress: resourceCache.progress
     }
   }
+  // $FlowFixMe Flow does not get that models and children cannot be undefined as it is already checked above
+  const stateView = new CategoriesRouteStateView(route.path, models, children)
 
   const cityModel = state.cities.models.find(city => city.code === route.city)
   if (!cityModel) {
@@ -127,10 +152,10 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   const successProps = {
     refreshProps,
     innerProps: {
-      navigation,
+      ...ownProps,
       cityModel,
       language: route.language,
-      stateView: new CategoriesRouteStateView(route.path, route.models, route.children),
+      stateView,
       resourceCacheUrl: resourceCacheUrl,
       resourceCache: resourceCache.value
     }
@@ -157,21 +182,26 @@ const ThemedTranslatedDashboard = withTranslation('dashboard')(
 )
 
 const DashboardContainer = (props: ContainerPropsType) => {
-  const { dispatch, ...rest } = props
+  const { dispatch, navigation, ...rest } = props
+
+  const navigateToLinkProp = useCallback((url: string, language: string, shareUrl: string) => {
+    const navigateToInternalLink = createNavigateToInternalLink(dispatch, navigation)
+    navigateToLink(url, navigation, language, navigateToInternalLink, shareUrl)
+  }, [dispatch, navigation])
+
   return <ThemedTranslatedDashboard
     {...rest}
-    navigateToPoi={createNavigateToPoi(dispatch, rest.navigation)}
-    navigateToCategory={createNavigateToCategory('Categories', dispatch, rest.navigation)}
-    navigateToEvent={createNavigateToEvent(dispatch, rest.navigation)}
-    navigateToNews={createNavigateToNews(dispatch, rest.navigation)}
-    navigateToInternalLink={createNavigateToInternalLink(dispatch, rest.navigation)}
-    navigateToDashboard={createNavigateToCategory('Dashboard', dispatch, rest.navigation)}
-    navigateToOffers={createNavigateToOffers(dispatch, rest.navigation)} />
+    navigateToLink={navigateToLinkProp}
+    navigateToPoi={createNavigateToPoi(dispatch, navigation)}
+    navigateToCategory={createNavigateToCategory(CATEGORIES_ROUTE, dispatch, navigation)}
+    navigateToEvent={createNavigateToEvent(dispatch, navigation)}
+    navigateToNews={createNavigateToNews(dispatch, navigation)}
+    navigateToDashboard={createNavigateToCategory(DASHBOARD_ROUTE, dispatch, navigation)}
+    navigateToOffers={createNavigateToOffers(dispatch, navigation)} />
 }
 
-export default withRouteCleaner<{| navigation: NavigationStackProp<*> |}>(
-  withTranslation('error')(
-    connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
-      withPayloadProvider<ContainerPropsType, RefreshPropsType>(refresh)(
-        DashboardContainer
-      ))))
+export default withTranslation('error')(
+  connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
+    withPayloadProvider<ContainerPropsType, RefreshPropsType, DashboardRouteType>(refresh)(
+      DashboardContainer
+    )))
