@@ -3,20 +3,24 @@
 import Pdf from 'react-native-pdf'
 import * as React from 'react'
 import { View } from 'react-native'
-import type { NavigationStackProp } from 'react-navigation-stack'
 import FailureContainer from '../../../modules/error/containers/FailureContainer'
 import type { ThemeType } from '../../../modules/theme/constants'
 import withTheme from '../../../modules/theme/hocs/withTheme'
+import type {
+  PdfViewModalRouteType,
+  NavigationPropType,
+  RoutePropType
+} from '../../../modules/app/constants/NavigationTypes'
 
-type PropsType = {
-  navigation: NavigationStackProp<*>,
-  url: string,
+type PropsType = {|
+  route: RoutePropType<PdfViewModalRouteType>,
+  navigation: NavigationPropType<PdfViewModalRouteType>,
   theme: ThemeType
-}
+|}
 
-type StateType = {
+type StateType = {|
   error: ?Error
-}
+|}
 
 class PDFViewModal extends React.Component<PropsType, StateType> {
   constructor (props: PropsType) {
@@ -27,8 +31,8 @@ class PDFViewModal extends React.Component<PropsType, StateType> {
   onError = (error: Error) => this.setState(() => ({ error }))
 
   render () {
-    const { theme, navigation } = this.props
-    const url = navigation.getParam('url')
+    const { theme, route } = this.props
+    const url = route.params.url
     const { error } = this.state
     if (error) {
       return <FailureContainer code='unknownError' />
@@ -38,7 +42,7 @@ class PDFViewModal extends React.Component<PropsType, StateType> {
       <View style={{ flex: 1 }}>
         <Pdf
           singlePage={false}
-          style={{ flex: 1 }}
+          style={{ flex: 1, backgroundColor: theme.colors.backgroundAccentColor }}
           activityIndicatorProps={{
             color: theme.colors.themeColor,
             progressTintColor: theme.colors.themeColor

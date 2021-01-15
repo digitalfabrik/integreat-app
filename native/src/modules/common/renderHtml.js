@@ -2,9 +2,9 @@
 
 import { getFontFaceSource } from '../platform/constants/webview'
 import type { ThemeType } from '../theme/constants'
-import { RTL_LANGUAGES } from '../i18n/constants'
 import webviewFontFamilies from '../theme/webviewFontFamilies'
 import type { ParsedCacheDictionaryType } from './components/Page'
+import { config } from 'translations'
 
 // language=JavaScript
 const renderJS = (cacheDictionary: { [remoteUrl: string]: string }) => `
@@ -193,7 +193,7 @@ const renderHtml = (html: string, cacheDictionary: ParsedCacheDictionaryType, th
     }
   </style>
 </head>
-<body dir="${RTL_LANGUAGES.includes(language) ? 'rtl' : 'ltr'}">
+<body dir="${config.isRTLLanguage(language) ? 'rtl' : 'ltr'}">
   <div id="measure-container">${html}</div>
   <script>${renderJS(cacheDictionary)}</script>
 </body>

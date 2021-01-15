@@ -3,16 +3,18 @@
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 import { LanguageModel } from 'api-client'
-import { ScrollView, View } from 'react-native'
+import { RefreshControl } from 'react-native'
 import LanguageNotAvailableContainer from '../../common/containers/LanguageNotAvailableContainer'
 import type { StoreActionType } from '../../app/StoreActionType'
 import { type Dispatch } from 'redux'
 import FailureContainer from '../../error/containers/FailureContainer'
 import { LOADING_TIMEOUT } from '../../common/constants'
 import type { ErrorCodeType } from '../../error/ErrorCodes'
-import type { NavigationStackProp, NavigationScreenProp } from 'react-navigation-stack'
-import type { TFunction } from 'react-i18next'
 import wrapDisplayName from '../../common/hocs/wrapDisplayName'
+import type { NavigationPropType, RoutePropType, RoutesType } from '../../app/constants/NavigationTypes'
+import { type TFunction } from 'react-i18next'
+import LayoutContainer from '../../layout/containers/LayoutContainer'
+import LayoutedScrollView from '../../common/containers/LayoutedScrollView'
 import ProgressContainer from '../../common/containers/ProgressContainer'
 
 export type RouteNotInitializedType = {| status: 'routeNotInitialized' |}
@@ -42,30 +44,33 @@ export type SuccessType<S: {}, R: {}> = {|
   refreshProps: R
 |}
 
-export type StatusPropsType<S: {}, R: {}> =
+export type StatusPropsType<S: { dispatch: Dispatch<StoreActionType> }, R: {}> =
   RouteNotInitializedType
   | LoadingType<$Diff<S, { dispatch: Dispatch<StoreActionType> }>, R>
   | ErrorType<R>
   | LanguageNotAvailableType
   | SuccessType<$Diff<S, { dispatch: Dispatch<StoreActionType> }>, R>
 
-export type PropsType<S: { dispatch: Dispatch<StoreActionType> }, R: {}> = {|
+export type PropsType<S: { dispatch: Dispatch<StoreActionType> }, R: {}, T: RoutesType> = {|
   ...StatusPropsType<S, R>,
   dispatch: Dispatch<StoreActionType>,
-  navigation: NavigationScreenProp<*>,
+  navigation: NavigationPropType<T>,
+  route: RoutePropType<T>,
   t?: TFunction
-|} | {|
+|} | {| // Necessary because of weird flow error saying t is missing even though t is already optional in the first type
   ...StatusPropsType<S, R>,
   dispatch: Dispatch<StoreActionType>,
-  navigation: NavigationStackProp<*>,
-  t?: TFunction
+  navigation: NavigationPropType<T>,
+  route: RoutePropType<T>
 |}
 
-const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R: {}> (
-  refresh: (refreshProps: R, dispatch: Dispatch<StoreActionType>) => void, noScrollView?: boolean
-): ((Component: React.ComponentType<S>) => React.ComponentType<PropsType<S, R>>) => {
-  return (Component: React.ComponentType<S>): React.ComponentType<PropsType<S, R>> => {
-    const Wrapper = (props: PropsType<S, R>) => {
+const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R: {}, T: RoutesType> (
+  refresh: (refreshProps: R, dispatch: Dispatch<StoreActionType>) => void,
+  onRouteClose?: (routeKey: string, dispatch: Dispatch<StoreActionType>) => void,
+  noScrollView?: boolean
+): ((Component: React.ComponentType<S>) => React.ComponentType<PropsType<S, R, T>>) => {
+  return (Component: React.ComponentType<S>): React.ComponentType<PropsType<S, R, T>> => {
+    const Wrapper = (props: PropsType<S, R, T>) => {
       const [timeoutExpired, setTimeoutExpired] = useState(false)
 
       useEffect(() => {
@@ -74,6 +79,12 @@ const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R: {}> 
         }, LOADING_TIMEOUT)
         return () => clearTimeout(timer)
       }, [])
+
+      useEffect(() => {
+        if (onRouteClose) {
+          return () => onRouteClose(props.route.key, props.dispatch)
+        }
+      }, [props.route.key, props.dispatch])
 
       function refreshIfPossible () {
         if (props.status === 'routeNotInitialized' || props.status === 'loading' ||
@@ -93,32 +104,32 @@ const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R: {}> 
       }
 
       if (props.status === 'routeNotInitialized') {
-        return null
+        return <LayoutContainer />
       } else if (props.status === 'error') {
-        return <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        return <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refreshIfPossible} refreshing={false} />}>
           <FailureContainer tryAgain={refreshIfPossible} message={props.message} code={props.code} />
-        </ScrollView>
+        </LayoutedScrollView>
       } else if (props.status === 'languageNotAvailable') {
         return <LanguageNotAvailableContainer languages={props.availableLanguages}
                                               changeLanguage={changeUnavailableLanguage} />
       } else if (props.status === 'loading') {
         return timeoutExpired
-          ? <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps='always'>
+          ? <LayoutedScrollView refreshControl={<RefreshControl refreshing />}>
           {/* only display content while loading if innerProps and dispatch are available */}
           {props.innerProps && props.dispatch
             ? <Component {...props.innerProps} dispatch={props.dispatch} />
             : <ProgressContainer progress={props.progress} />}
-            </ScrollView>
-          : null
+        </LayoutedScrollView>
+          : <LayoutContainer />
       } else { // props.status === 'success'
         if (noScrollView) {
-          return <View style={{ flex: 1 }}>
+          return <LayoutContainer>
             <Component {...props.innerProps} dispatch={props.dispatch} />
-          </View>
+          </LayoutContainer>
         }
-        return <ScrollView keyboardShouldPersistTaps='always' contentContainerStyle={{ flexGrow: 1 }}>
+        return <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refreshIfPossible} refreshing={false} />}>
           <Component {...props.innerProps} dispatch={props.dispatch} />
-        </ScrollView>
+        </LayoutedScrollView>
       }
     }
     Wrapper.displayName = wrapDisplayName(Component, 'withPayloadProvider')

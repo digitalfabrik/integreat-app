@@ -11,9 +11,9 @@ import {
   TunewsModel
 } from 'api-client'
 import Moment from 'moment'
-import { DEFAULT_LANGUAGE } from '../i18n/constants'
 import type { ErrorCodeType } from '../error/ErrorCodes'
 import ErrorCodes from '../error/ErrorCodes'
+import { config } from 'translations'
 
 export type PathType = string
 
@@ -103,7 +103,7 @@ export type EventRouteStateType = {|
   +message: ?string
 |}
 
-export type TunewsType = 'tunews'
+export type TunewsType = 'tu-news'
 export type LocalNewsType = 'local'
 export type NewsType = TunewsType | LocalNewsType
 
@@ -212,7 +212,7 @@ export type LanguagesStateType = {|
   +message: string
 |}
 
-export const defaultContentLanguageState = DEFAULT_LANGUAGE
+export const defaultContentLanguageState = config.defaultFallback
 
 export type SearchRouteType = {|
   +categoriesMap: CategoriesMapModel

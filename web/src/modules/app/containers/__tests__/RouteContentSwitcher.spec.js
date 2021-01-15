@@ -12,6 +12,8 @@ import theme from '../../../theme/constants/theme'
 import { ThemeProvider } from 'styled-components'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 
+jest.mock('react-i18next')
+
 jest.mock('../../../common/components/FailureSwitcher', () => {
   return () => <div>FailureSwitcher</div>
 })
