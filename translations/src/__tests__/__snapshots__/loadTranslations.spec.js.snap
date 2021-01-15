@@ -33,6 +33,11 @@ Object {
       "offers": "Malte Offers",
     },
   },
+  "ku": Object {
+    "dashboard": Object {
+      "localInformation": "Zanyariyên xwecihî",
+    },
+  },
 }
 `;
 
@@ -60,6 +65,11 @@ Object {
       "news": "Nachrichten",
       "newsAlternative": "Neuigkeiten",
       "offers": "Angebote",
+    },
+  },
+  "ku": Object {
+    "dashboard": Object {
+      "localInformation": "Zanyariyên xwecihî",
     },
   },
 }

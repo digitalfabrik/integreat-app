@@ -1,8 +1,9 @@
 // @flow
 
-import { values } from './utils/object'
+import { entries, values } from './utils/object'
 
-type SupportedLanguagesType = { [languageCode: string]: {| rtl: boolean |} }
+type FontType = 'lateef' | 'openSans' | 'raleway'
+type SupportedLanguagesType = { [languageCode: string]: {| rtl: boolean, additionalFont?: FontType |} }
 type FallbacksType = { [languageCode: string]: string[] }
 
 class Config {
@@ -12,22 +13,35 @@ class Config {
   // The languages into which we translate from 'sourceLanguage' including the sourceLanguage
   supportedLanguages: SupportedLanguagesType = {
     de: { rtl: false },
-    ar: { rtl: true },
+    ar: {
+      // Lateef for arabic ui and content, Open Sans for latin text in arabic text, Raleway for latin ui
+      rtl: true,
+      additionalFont: 'lateef'
+    },
     en: { rtl: false },
-    fa: { rtl: true },
+    fa: {
+      rtl: true,
+      additionalFont: 'lateef'
+    },
     fr: { rtl: false },
     ro: { rtl: false },
     tr: { rtl: false },
     pl: { rtl: false },
     ti: { rtl: false },
-    ku: { rtl: false },
+    ku: {
+      rtl: false,
+      additionalFont: 'lateef'
+    },
     ru: { rtl: false },
     so: { rtl: false },
     hr: { rtl: false },
     es: { rtl: false },
     sr: { rtl: false },
     ps: { rtl: true },
-    kmr: { rtl: true },
+    kmr: {
+      rtl: true,
+      additionalFont: 'lateef'
+    },
     am: { rtl: false },
     bg: { rtl: false },
     el: { rtl: false },
@@ -36,28 +50,12 @@ class Config {
 
   // Fallbacks for unnormalized language codes from our backend
   fallbacks: FallbacksType = {
-    ku: ['ku'],
     kmr: ['kmr'],
     ckb: ['ku'],
     'fa-AF': ['fa'],
-    fa: ['fa'],
     fa_pr: ['fa'],
     per: ['fa'],
-    de: ['de'],
-    'de-si': ['de'],
-    en: ['en'],
-    fr: ['fr'],
-    ar: ['ar'],
-    ro: ['ro'],
-    tr: ['tr'],
-    pl: ['pl'],
-    ti: ['ti'],
-    ru: ['ru'],
-    so: ['so'],
-    hr: ['hr'],
-    es: ['es'],
-    sr: ['sr'],
-    ps: ['ps']
+    'de-si': ['de']
   }
 
   defaultFallback = 'de' // If the language code is not found in our translations then use this
@@ -68,6 +66,20 @@ class Config {
 
   getSupportedLanguageCodes (): string[] {
     return Object.keys(this.supportedLanguages)
+  }
+
+  getRTLLanguages (): string[] {
+    return entries(this.supportedLanguages)
+      .filter(([_, languageConfig]) => languageConfig.rtl)
+      .map(([languageCode, _]) => languageCode)
+  }
+
+  isRTLLanguage (languageCode: string): boolean {
+    return this.getRTLLanguages().includes(languageCode)
+  }
+
+  getAdditionalFont (languageCode: string): ?FontType {
+    return this.supportedLanguages[languageCode]?.additionalFont
   }
 
   getFallbackLanguageCodes (): string[] {
