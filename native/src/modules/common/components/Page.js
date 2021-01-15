@@ -3,17 +3,14 @@
 import * as React from 'react'
 import styled from 'styled-components/native'
 import type { ThemeType } from '../../theme/constants'
-import type { NavigationStackProp } from 'react-navigation-stack'
 import Caption from './Caption'
 import TimeStamp from './TimeStamp'
 import type Moment from 'moment'
 import type { PageResourceCacheEntryStateType, PageResourceCacheStateType } from '../../app/StateType'
-import type { NavigateToInternalLinkParamsType } from '../../app/createNavigateToInternalLink'
 import MomentContext from '../../i18n/context/MomentContext'
 import RemoteContent from './RemoteContent'
 import SiteHelpfulBox from './SiteHelpfulBox'
 import SpaceBetween from './SpaceBetween'
-import onInternalLinkPress from '../onInternalLinkPress'
 import { RESOURCE_CACHE_DIR_PATH } from '../../endpoint/DatabaseConnector'
 import { mapValues } from 'lodash'
 
@@ -29,12 +26,11 @@ type StateType = {|
   loading: boolean
 |}
 
-type PropType = {|
+type PropsType = {|
   title: string,
   content: string,
   theme: ThemeType,
-  navigation: NavigationStackProp<*>,
-  navigateToInternalLink?: NavigateToInternalLinkParamsType => void,
+  navigateToLink: (url: string, language: string, shareUrl: string) => void,
   navigateToFeedback?: (positive: boolean) => void,
   files: PageResourceCacheStateType,
   children?: React.Node,
@@ -44,14 +40,14 @@ type PropType = {|
   hijackRegExp?: RegExp
 |}
 
-class Page extends React.Component<PropType, StateType> {
+class Page extends React.Component<PropsType, StateType> {
   state = { loading: true }
 
   onLinkPress = (url: string) => {
-    const { navigation, language, navigateToInternalLink } = this.props
+    const { language, navigateToLink } = this.props
     const cacheDict = this.cacheDictionary()
     const shareUrl = Object.keys(cacheDict).find(remoteUrl => cacheDict[remoteUrl] === url)
-    onInternalLinkPress(url, navigation, language, navigateToInternalLink, shareUrl || url)
+    navigateToLink(url, language, shareUrl || url)
   }
 
   onLoad = () => this.setState({ loading: false })
