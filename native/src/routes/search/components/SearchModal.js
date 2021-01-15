@@ -16,11 +16,6 @@ import SearchFeedbackBox from './SearchFeedbackBox'
 import normalizeSearchString from '../../../modules/common/normalizeSearchString'
 import { Parser } from 'htmlparser2'
 import dimensions from '../../../modules/theme/constants/dimensions'
-import type {
-  SettingsRouteType,
-  NavigationPropType,
-  RoutePropType
-} from '../../../modules/app/components/NavigationTypes'
 
 const Wrapper: StyledComponent<{}, ThemeType, *> = styled.View`
   position: absolute;  
@@ -38,8 +33,7 @@ export type PropsType = {|
   language: string,
   cityCode: string,
   closeModal: () => void,
-  route: RoutePropType<SettingsRouteType>,
-  navigation: NavigationPropType<SettingsRouteType>,
+  navigateToLink: (url: string, language: string, shareUrl: string) => void,
   t: TFunction,
   sendFeedback: (comment: string, query: string) => Promise<void>
 |}
@@ -104,7 +98,7 @@ class SearchModal extends React.Component<PropsType, StateType> {
     navigateToCategory({
       cityCode,
       language,
-      path: category.path
+      cityContentPath: category.path
     })
   }
 
@@ -113,7 +107,7 @@ class SearchModal extends React.Component<PropsType, StateType> {
   }
 
   renderContent = () => {
-    const { language, theme, categories, t, sendFeedback, navigation } = this.props
+    const { language, theme, categories, t, sendFeedback, navigateToLink } = this.props
     const { query } = this.state
 
     const minHeight = dimensions.categoryListItem.iconSize + dimensions.categoryListItem.margin * 2
@@ -129,7 +123,7 @@ class SearchModal extends React.Component<PropsType, StateType> {
               See NATIVE-430 for reference. */}
         <View style={{ minHeight: minHeight }}>
           <CategoryList categories={filteredCategories}
-                        navigation={navigation}
+                        navigateToLink={navigateToLink}
                         query={query}
                         onItemPress={this.onItemPress}
                         theme={theme} language={language} />

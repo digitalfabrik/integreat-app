@@ -15,9 +15,9 @@ import type {
   LandingRouteType,
   NavigationPropType,
   RoutePropType
-} from '../../../modules/app/components/NavigationTypes'
-import { generateKey } from '../../../modules/app/generateRouteKey'
-import { DASHBOARD_ROUTE } from '../../../modules/app/components/NavigationTypes'
+} from '../../../modules/app/constants/NavigationTypes'
+import { DASHBOARD_ROUTE } from '../../../modules/app/constants/NavigationTypes'
+import { cityContentUrl } from '../../../modules/common/url'
 
 type OwnPropsType = {|
   route: RoutePropType<LandingRouteType>,
@@ -65,23 +65,16 @@ const ThemedTranslatedLanding = withTranslation('landing')(
 
 class LandingContainer extends React.Component<ContainerPropsType> {
   navigateToDashboard = (cityCode: string, languageCode: string) => {
-    const { dispatch, navigation } = this.props
-    const path = `/${cityCode}/${languageCode}`
-    const key: string = generateKey()
+    const { navigation } = this.props
 
-    dispatch({
-      type: 'FETCH_CATEGORY',
-      params: {
-        city: cityCode,
-        language: languageCode,
-        path,
-        depth: 2,
-        criterion: { forceUpdate: false, shouldRefreshResources: true },
-        key
+    navigation.replace(
+      DASHBOARD_ROUTE,
+      {
+        shareUrl: cityContentUrl({ cityCode, languageCode }),
+        cityCode,
+        languageCode
       }
-    })
-
-    navigation.replace(DASHBOARD_ROUTE)
+    )
   }
 
   clearResourcesAndCache = () => this.props.dispatch({ type: 'CLEAR_RESOURCES_AND_CACHE' })

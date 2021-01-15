@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { RefreshControl, ScrollView } from 'react-native'
+import { RefreshControl } from 'react-native'
 import Offers from '../components/Offers'
 import { type TFunction, withTranslation } from 'react-i18next'
 import { CityModel, createOffersEndpoint, OfferModel, Payload } from 'api-client'
@@ -16,33 +16,33 @@ import type {
   OffersRouteType,
   NavigationPropType,
   RoutePropType
-} from '../../../modules/app/components/NavigationTypes'
+} from '../../../modules/app/constants/NavigationTypes'
 import {
-  EXTERNAL_OFFER_ROUTE,
+  EXTERNAL_OFFER_ROUTE, OFFERS_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE,
   WOHNEN_OFFER_ROUTE
-} from '../../../modules/app/components/NavigationTypes'
+} from '../../../modules/app/constants/NavigationTypes'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import type { Dispatch } from 'redux'
+import LayoutedScrollView from '../../../modules/common/containers/LayoutedScrollView'
+import LayoutContainer from '../../../modules/layout/containers/LayoutContainer'
+import { cityContentUrl } from '../../../modules/common/url'
+import openExternalUrl from '../../../modules/common/openExternalUrl'
 
 type OwnPropsType = {|
   route: RoutePropType<OffersRouteType>,
   navigation: NavigationPropType<OffersRouteType>
 |}
 
-type StatePropsType = {| city: string, language: string, cities: ?$ReadOnlyArray<CityModel> |}
+type StatePropsType = {| city: ?string, language: string, cities: ?$ReadOnlyArray<CityModel> |}
 type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
 const mapStateToProps = (state: StateType): StatePropsType => {
-  if (!state.cityContent) {
-    throw new Error('CityContent must not be null!')
-  }
-
   const cities: ?$ReadOnlyArray<CityModel> = state.cities.status !== 'ready' ? null : state.cities.models
 
   return {
-    city: state.cityContent.city,
+    city: state.cityContent?.city,
     language: state.contentLanguage,
     cities
   }
@@ -50,7 +50,7 @@ const mapStateToProps = (state: StateType): StatePropsType => {
 
 type OffersPropsType = {|
   ...OwnPropsType,
-  city: string,
+  city: ?string,
   cities: ?Array<CityModel>,
   language: string,
   theme: ThemeType,
@@ -79,14 +79,19 @@ class OffersContainer extends React.Component<OffersPropsType, OffersStateType> 
     isExternalUrl: boolean,
     postData: ?Map<string, string>
   ) => {
-    const { navigation, city } = this.props
+    const { navigation, city, language } = this.props
+    if (!city) {
+      return
+    }
+
     // HTTP POST is neither supported by the InAppBrowser nor by Linking, therefore we have to open it in a webview
     if (isExternalUrl && postData) {
-      navigation.push(EXTERNAL_OFFER_ROUTE, { url: path, postData })
+      navigation.push(EXTERNAL_OFFER_ROUTE, { url: path, shareUrl: path, postData })
     } else if (isExternalUrl) {
       openExternalUrl(path)
     } else if (path === SPRUNGBRETT_OFFER_ROUTE) {
-      const params = { city, offers }
+      const shareUrl = cityContentUrl({ cityCode: city, languageCode: language, route: OFFERS_ROUTE, path })
+      const params = { city, offers, shareUrl }
       navigation.push(SPRUNGBRETT_OFFER_ROUTE, params)
     } else if (path === WOHNEN_OFFER_ROUTE) {
       const params = { city, offers, offerHash: null }
@@ -96,6 +101,11 @@ class OffersContainer extends React.Component<OffersPropsType, OffersStateType> 
 
   loadOffers = async () => {
     const { city, language } = this.props
+
+    if (!city) {
+      return
+    }
+
     this.setState({ error: null, offers: null, timeoutExpired: false })
     setTimeout(() => this.setState({ timeoutExpired: true }), LOADING_TIMEOUT)
 
@@ -121,23 +131,21 @@ class OffersContainer extends React.Component<OffersPropsType, OffersStateType> 
     const { offers, error, timeoutExpired } = this.state
 
     if (error) {
-      return <ScrollView refreshControl={<RefreshControl onRefresh={this.loadOffers} refreshing={false} />}
-                         contentContainerStyle={{ flexGrow: 1 }}>
+      return <LayoutedScrollView refreshControl={<RefreshControl onRefresh={this.loadOffers} refreshing={false} />}>
         <FailureContainer errorMessage={error.message} tryAgain={this.loadOffers} />
-      </ScrollView>
+      </LayoutedScrollView>
     }
 
-    if (!offers || !cities) {
+    if (!offers || !cities || !city) {
       return timeoutExpired
-        ? <ScrollView refreshControl={<RefreshControl refreshing />} contentContainerStyle={{ flexGrow: 1 }} />
-        : null
+        ? <LayoutedScrollView refreshControl={<RefreshControl refreshing />} />
+        : <LayoutContainer />
     }
 
-    return <ScrollView refreshControl={<RefreshControl onRefresh={this.loadOffers} refreshing={false} />}
-                       contentContainerStyle={{ flexGrow: 1 }}>
+    return <LayoutedScrollView refreshControl={<RefreshControl onRefresh={this.loadOffers} refreshing={false} />}>
       <Offers offers={offers} navigateToOffer={this.navigateToOffer} theme={theme} t={t} cities={cities}
               navigation={navigation} route={route} cityCode={city} language={language} />
-    </ScrollView>
+    </LayoutedScrollView>
   }
 }
 

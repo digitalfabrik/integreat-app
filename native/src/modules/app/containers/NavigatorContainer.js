@@ -5,15 +5,22 @@ import { connect } from 'react-redux'
 import Navigator from '../components/Navigator'
 import type { StoreActionType } from '../StoreActionType'
 
+type OwnPropsType = {|
+  routeKey: ?string,
+  routeName: ?string,
+  cityCode: ?string,
+  languageCode: ?string
+|}
+
 type DispatchPropsType = {|
-  fetchCategory: (cityCode: string, language: string, key: string) => void,
+  fetchCategory: (cityCode: string, language: string, key: string, forceUpdate: boolean) => void,
   fetchCities: (forceRefresh: boolean) => void
 |}
 
-type PropsType = DispatchPropsType
+type PropsType = {| ...OwnPropsType, ...DispatchPropsType |}
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsType => ({
-  fetchCategory: (cityCode: string, language: string, key: string) => {
+  fetchCategory: (cityCode: string, language: string, key: string, forceUpdate: boolean) => {
     const path = `/${cityCode}/${language}`
 
     dispatch({
@@ -23,7 +30,7 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsT
         language,
         path,
         depth: 2,
-        criterion: { forceUpdate: false, shouldRefreshResources: true },
+        criterion: { forceUpdate, shouldRefreshResources: true },
         key
       }
     })
@@ -33,4 +40,4 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsT
   }
 })
 
-export default connect<PropsType, {||}, _, _, _, _>(undefined, mapDispatchToProps)(Navigator)
+export default connect<PropsType, OwnPropsType, _, _, _, _>(undefined, mapDispatchToProps)(Navigator)

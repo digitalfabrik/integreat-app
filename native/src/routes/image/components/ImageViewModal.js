@@ -7,14 +7,17 @@ import type {
   ImageViewModalRouteType,
   NavigationPropType,
   RoutePropType
-} from '../../../modules/app/components/NavigationTypes'
+} from '../../../modules/app/constants/NavigationTypes'
+import withTheme from '../../../modules/theme/hocs/withTheme'
+import type { ThemeType } from 'build-configs/ThemeType'
 
 type PropsType = {|
   route: RoutePropType<ImageViewModalRouteType>,
-  navigation: NavigationPropType<ImageViewModalRouteType>
+  navigation: NavigationPropType<ImageViewModalRouteType>,
+  theme: ThemeType
 |}
 
-export default class ImageViewModal extends React.Component<PropsType> {
+class ImageViewModal extends React.Component<PropsType> {
   renderNothing (): React.Node {
     return null
   }
@@ -24,10 +27,12 @@ export default class ImageViewModal extends React.Component<PropsType> {
       <View style={{ flex: 1 }}>
         <ImageViewer style={{ flex: 1 }}
                      renderIndicator={this.renderNothing}
-                     backgroundColor='white'
+                     backgroundColor={this.props.theme.colors.backgroundAccentColor}
                      saveToLocalByLongPress={false}
                      imageUrls={[{ url: this.props.route.params.url }]} />
       </View>
     )
   }
 }
+
+export default withTheme(ImageViewModal)

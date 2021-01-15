@@ -7,9 +7,10 @@ import createNavigateToEvent from './createNavigateToEvent'
 import type { StoreActionType } from './StoreActionType'
 import type { Dispatch } from 'redux'
 import URL from 'url-parse'
-import type { NavigationPropType, RoutesType } from './components/NavigationTypes'
-import { CATEGORIES_ROUTE, DASHBOARD_ROUTE } from './components/NavigationTypes'
+import type { NavigationPropType, RoutesType } from './constants/NavigationTypes'
+import { CATEGORIES_ROUTE, DASHBOARD_ROUTE, EVENTS_ROUTE } from './constants/NavigationTypes'
 import createNavigateToLanding from './createNavigateToLanding'
+import { cityContentPath } from '../common/url'
 
 export type NavigateToInternalLinkParamsType = {| url: string, language: string |}
 
@@ -27,22 +28,30 @@ export const createNavigateToInternalLink = ({
   const parsedUrl = new URL(url)
   const pathname = parsedUrl.pathname
   const pathnameParts = pathname.split('/').filter(Boolean)
-  const newCity = pathnameParts[0]
-  const newLanguage = pathnameParts[1]
 
-  if (!newCity) { // '/'
+  if (pathnameParts.length === 0) { // '/'
     navigateToLanding()
-  } else if (pathnameParts[2] === 'events') {
-    if (pathnameParts[3]) { // '/augsburg/de/events/some_event'
-      navigateToEvent({ cityCode: newCity, language: newLanguage, path: pathname })
-    } else { // '/augsburg/de/events'
-      navigateToEvent({ cityCode: newCity, language: newLanguage, path: null })
+  } else if (pathnameParts.length === 1) { // '/augsburg'
+    const cityCode = pathnameParts[0]
+    navigateToDashboard({ cityCode, language, cityContentPath: cityContentPath({ cityCode, languageCode: language }) })
+  } else if (pathnameParts.length === 2) { // '/augsburg/de'
+    const cityCode = pathnameParts[0]
+    const language = pathnameParts[1]
+    navigateToDashboard({ cityCode, language, cityContentPath: pathname })
+  } else {
+    const newCity = pathnameParts[0]
+    const newLanguage = pathnameParts[1]
+
+    // TODO IGAPP-136: Handle other routes
+    if (pathnameParts[2] === EVENTS_ROUTE.toLowerCase()) {
+      if (pathnameParts[3]) { // '/augsburg/de/events/some_event'
+        navigateToEvent({ cityCode: newCity, language: newLanguage, cityContentPath: pathname })
+      } else { // '/augsburg/de/events'
+        navigateToEvent({ cityCode: newCity, language: newLanguage, cityContentPath: null })
+      }
+    } else { // '/augsburg/de/willkommen'
+      navigateToCategory({ cityCode: newCity, language: newLanguage, cityContentPath: pathname })
     }
-  } else if (pathnameParts[2]) { // '/augsburg/de/willkommen'
-    navigateToCategory({ cityCode: newCity, language: newLanguage, path: pathname })
-  } else { // '/augsburg/de' or '/augsburg'
-    const path = newLanguage ? pathname : `${pathname}/${language}`
-    navigateToDashboard({ cityCode: newCity, language: newLanguage || language, path })
   }
 }
 

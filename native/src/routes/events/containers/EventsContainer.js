@@ -18,7 +18,9 @@ import type {
   EventsRouteType,
   NavigationPropType,
   RoutePropType
-} from '../../../modules/app/components/NavigationTypes'
+} from '../../../modules/app/constants/NavigationTypes'
+import navigateToLink from '../../../modules/app/navigateToLink'
+import createNavigateToFeedbackModal from '../../../modules/app/createNavigateToFeedbackModal'
 
 type NavigationPropsType = {|
   route: RoutePropType<EventsRouteType>,
@@ -182,11 +184,18 @@ const ThemedTranslatedEvents = withTranslation('events')(
 )
 
 class EventsContainer extends React.Component<ContainerPropsType> {
+  navigateToLinkProp = (url: string, language: string, shareUrl: string) => {
+    const { dispatch, navigation } = this.props
+    const navigateToInternalLink = createNavigateToInternalLink(dispatch, navigation)
+    navigateToLink(url, navigation, language, navigateToInternalLink, shareUrl)
+  }
+
   render () {
     const { dispatch, ...rest } = this.props
     return <ThemedTranslatedEvents {...rest}
                                    navigateToEvent={createNavigateToEvent(dispatch, rest.navigation)}
-                                   navigateToInternalLink={createNavigateToInternalLink(dispatch, rest.navigation)}
+                                   navigateToFeedback={createNavigateToFeedbackModal(rest.navigation)}
+                                   navigateToLink={this.navigateToLinkProp}
     />
   }
 }
@@ -194,7 +203,7 @@ class EventsContainer extends React.Component<ContainerPropsType> {
 const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
   const { route, navigation, cityCode, language, path } = refreshProps
   const navigateToEvent = createNavigateToEvent(dispatch, navigation)
-  navigateToEvent({ cityCode, language, path, forceRefresh: true, key: route.key })
+  navigateToEvent({ cityCode, language, cityContentPath: path, forceRefresh: true, key: route.key })
 }
 
 export default withTranslation('error')(

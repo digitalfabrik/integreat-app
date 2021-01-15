@@ -11,7 +11,7 @@ import { type TFunction, withTranslation } from 'react-i18next'
 import type { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
 import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvider'
 import { CityModel } from 'api-client'
-import React from 'react'
+import React, { useCallback } from 'react'
 import createNavigateToCategory from '../../../modules/app/createNavigateToCategory'
 import createNavigateToEvent from '../../../modules/app/createNavigateToEvent'
 import createNavigateToInternalLink from '../../../modules/app/createNavigateToInternalLink'
@@ -23,7 +23,9 @@ import type {
   DashboardRouteType,
   NavigationPropType,
   RoutePropType
-} from '../../../modules/app/components/NavigationTypes'
+} from '../../../modules/app/constants/NavigationTypes'
+import { CATEGORIES_ROUTE, DASHBOARD_ROUTE } from '../../../modules/app/constants/NavigationTypes'
+import navigateToLink from '../../../modules/app/navigateToLink'
 
 type NavigationPropsType = {|
   route: RoutePropType<DashboardRouteType>,
@@ -58,9 +60,13 @@ type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
 const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
   const { cityCode, language, navigation, route, path } = refreshProps
-  const navigateToDashboard = createNavigateToCategory('Dashboard', dispatch, navigation)
+  const navigateToDashboard = createNavigateToCategory(DASHBOARD_ROUTE, dispatch, navigation)
   navigateToDashboard({
-    cityCode, language, path, forceRefresh: true, key: route.key
+    cityCode,
+    language,
+    cityContentPath: path,
+    forceRefresh: true,
+    key: route.key
   })
 }
 
@@ -73,13 +79,12 @@ const createChangeUnavailableLanguage = (city: string, t: TFunction) =>
   }
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
-  const { t } = ownProps
+  const { t, route: { key } } = ownProps
   if (!state.cityContent) {
     return { status: 'routeNotInitialized' }
   }
   const { resourceCache, categoriesRouteMapping, switchingLanguage, languages } = state.cityContent
-  // The route key is not the one of the categories state view.
-  const route: ?CategoryRouteStateType = categoriesRouteMapping[Object.keys(categoriesRouteMapping)[0]]
+  const route: ?CategoryRouteStateType = categoriesRouteMapping[key]
   if (!route) {
     return { status: 'routeNotInitialized' }
   }
@@ -177,16 +182,22 @@ const ThemedTranslatedDashboard = withTranslation('dashboard')(
 )
 
 const DashboardContainer = (props: ContainerPropsType) => {
-  const { dispatch, ...rest } = props
+  const { dispatch, navigation, ...rest } = props
+
+  const navigateToLinkProp = useCallback((url: string, language: string, shareUrl: string) => {
+    const navigateToInternalLink = createNavigateToInternalLink(dispatch, navigation)
+    navigateToLink(url, navigation, language, navigateToInternalLink, shareUrl)
+  }, [dispatch, navigation])
+
   return <ThemedTranslatedDashboard
     {...rest}
-    navigateToPoi={createNavigateToPoi(dispatch, rest.navigation)}
-    navigateToCategory={createNavigateToCategory('Categories', dispatch, rest.navigation)}
-    navigateToEvent={createNavigateToEvent(dispatch, rest.navigation)}
-    navigateToNews={createNavigateToNews(dispatch, rest.navigation)}
-    navigateToInternalLink={createNavigateToInternalLink(dispatch, rest.navigation)}
-    navigateToDashboard={createNavigateToCategory('Dashboard', dispatch, rest.navigation)}
-    navigateToOffers={createNavigateToOffers(dispatch, rest.navigation)} />
+    navigateToLink={navigateToLinkProp}
+    navigateToPoi={createNavigateToPoi(dispatch, navigation)}
+    navigateToCategory={createNavigateToCategory(CATEGORIES_ROUTE, dispatch, navigation)}
+    navigateToEvent={createNavigateToEvent(dispatch, navigation)}
+    navigateToNews={createNavigateToNews(dispatch, navigation)}
+    navigateToDashboard={createNavigateToCategory(DASHBOARD_ROUTE, dispatch, navigation)}
+    navigateToOffers={createNavigateToOffers(dispatch, navigation)} />
 }
 
 export default withTranslation('error')(

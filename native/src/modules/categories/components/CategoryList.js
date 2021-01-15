@@ -7,11 +7,9 @@ import styled from 'styled-components/native'
 import Image from '../../common/components/Image'
 import CategoryListCaption from '../../../modules/common/components/CategoryListCaption'
 import CategoryListContent from './CategoryListContent'
-import type { NavigateToInternalLinkParamsType } from '../../app/createNavigateToInternalLink'
 import type { PageResourceCacheEntryStateType, PageResourceCacheStateType } from '../../app/StateType'
 import { RESOURCE_CACHE_DIR_PATH } from '../../endpoint/DatabaseConnector'
 import { mapValues } from 'lodash'
-import type { NavigationPropType, RoutesType } from '../../app/components/NavigationTypes'
 
 export type CategoryListModelType = {|
   title: string,
@@ -27,12 +25,11 @@ export type ListEntryType = {|
 
 export type ListContentModelType = {|
   files: PageResourceCacheStateType,
-  navigateToInternalLink: NavigateToInternalLinkParamsType => void,
   resourceCacheUrl: string,
   content: string
 |}
 
-type PropsType<T: RoutesType> = {|
+type PropsType = {|
   categories: Array<ListEntryType>,
   title?: string,
   listContent?: ?ListContentModelType,
@@ -40,9 +37,9 @@ type PropsType<T: RoutesType> = {|
   query?: string,
   theme: ThemeType,
   onItemPress: (tile: { title: string, thumbnail: string, path: string }) => void,
+  navigateToLink: (url: string, language: string, shareUrl: string) => void,
   language: string,
-  thumbnail?: string,
-  navigation: NavigationPropType<T>
+  thumbnail?: string
 |}
 
 const CategoryThumbnail = styled(Image)`
@@ -56,9 +53,9 @@ const CategoryThumbnail = styled(Image)`
 /**
  * Displays a ContentList which is a list of categories, a caption and a thumbnail
  */
-class CategoryList<T: RoutesType> extends React.Component<PropsType<T>> {
+class CategoryList extends React.Component<PropsType> {
   getListContent (listContent: ListContentModelType): React.Node {
-    const { theme, language, navigation } = this.props
+    const { theme, language, navigateToLink } = this.props
     const cacheDictionary = mapValues(listContent.files, (file: PageResourceCacheEntryStateType) => {
       return file.filePath.startsWith(RESOURCE_CACHE_DIR_PATH)
         ? file.filePath.replace(RESOURCE_CACHE_DIR_PATH, listContent.resourceCacheUrl)
@@ -66,8 +63,7 @@ class CategoryList<T: RoutesType> extends React.Component<PropsType<T>> {
     })
     return <CategoryListContent content={listContent.content}
                                 language={language}
-                                navigation={navigation}
-                                navigateToInternalLink={listContent.navigateToInternalLink}
+                                navigateToLink={navigateToLink}
                                 resourceCacheUrl={listContent.resourceCacheUrl}
                                 cacheDictionary={cacheDictionary}
                                 theme={theme} />

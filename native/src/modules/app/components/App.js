@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react'
+import React, { useState, useCallback } from 'react'
 import { Provider } from 'react-redux'
 import I18nProviderContainer from '../../i18n/containers/I18nProviderContainer'
 import createReduxStore from '../createReduxStore'
@@ -15,11 +15,31 @@ import NavigatorContainer from '../containers/NavigatorContainer'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import StaticServerProvider from '../../static-server/containers/StaticServerProvider'
 import { NavigationContainer } from '@react-navigation/native'
+import PermissionSnackbarContainer from '../../layout/containers/PermissionSnackbarContainer'
 
 const dataContainer: DataContainer = new DefaultDataContainer()
 const store: Store<StateType, StoreActionType> = createReduxStore(dataContainer)
 
 const App = () => {
+  const [routeName, setRouteName] = useState<?string>(null)
+  const [routeKey, setRouteKey] = useState<?string>(null)
+  const [cityCode, setCityCode] = useState<?string>(null)
+  const [languageCode, setLanguageCode] = useState<?string>(null)
+
+  const onStateChange = useCallback(state => {
+    if (state) {
+      const route = state.routes[state.index]
+      setRouteName(route.name)
+      setRouteKey(route.key)
+      if (route.params?.cityCode) {
+        setCityCode(typeof route.params.cityCode === 'string' ? route.params.cityCode : null)
+      }
+      if (route.params?.languageCode) {
+        setLanguageCode(typeof route.params.languageCode === 'string' ? route.params.languageCode : null)
+      }
+    }
+  }, [])
+
   return (
     <Provider store={store}>
       <StaticServerProvider>
@@ -28,10 +48,14 @@ const App = () => {
             <>
               <StatusBarContainer />
               <IOSSafeAreaView>
-                <NavigationContainer>
-                  <NavigatorContainer />
+                <NavigationContainer onStateChange={onStateChange}>
+                  <NavigatorContainer routeKey={routeKey}
+                                      routeName={routeName}
+                                      languageCode={languageCode}
+                                      cityCode={cityCode} />
                 </NavigationContainer>
               </IOSSafeAreaView>
+              <PermissionSnackbarContainer routeName={routeName} />
             </>
           </SafeAreaProvider>
         </I18nProviderContainer>

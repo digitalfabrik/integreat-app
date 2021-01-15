@@ -6,11 +6,8 @@ import { type DisplayMetrics } from 'react-native/Libraries/Utilities/NativeDevi
 import Html, { GestureResponderEvent, type HTMLNode, type RendererFunction } from 'react-native-render-html'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
-import type { NavigateToInternalLinkParamsType } from '../../app/createNavigateToInternalLink'
 import type { ThemeType } from 'build-configs/ThemeType'
 import { RTL_LANGUAGES } from '../../i18n/constants'
-import onInternalLinkPress from '../../common/onInternalLinkPress'
-import type { NavigationPropType, RoutesType } from '../../app/components/NavigationTypes'
 
 const VerticalPadding: StyledComponent<{}, {}, *> = styled.View`
   padding: 0 20px;
@@ -23,11 +20,10 @@ type DimensionsEventType = {
   ...
 }
 
-type ContentPropsType<T: RoutesType> = {|
+type ContentPropsType = {|
   content: string,
-  navigation: NavigationPropType<T>,
   resourceCacheUrl: string,
-  navigateToInternalLink?: NavigateToInternalLinkParamsType => void,
+  navigateToLink: (url: string, language: string, shareUrl: string) => void,
   cacheDictionary: { [string]: string },
   language: string,
   theme: ThemeType
@@ -38,7 +34,7 @@ const listIndent = 20
 const bulletSizeRelativeToFont = 2.8
 const bulletAlignmentRelativeToFont = 2
 
-class CategoryListContent<T: RoutesType> extends React.Component<ContentPropsType<T>, {| width: number |}> {
+class CategoryListContent extends React.Component<ContentPropsType, {| width: number |}> {
   constructor () {
     super()
     this.state = {
@@ -60,9 +56,9 @@ class CategoryListContent<T: RoutesType> extends React.Component<ContentPropsTyp
   }
 
   onLinkPress = (evt: GestureResponderEvent, url: string) => {
-    const { language, navigation, navigateToInternalLink, cacheDictionary } = this.props
+    const { language, navigateToLink, cacheDictionary } = this.props
     const shareUrl = Object.keys(cacheDictionary).find(remoteUrl => cacheDictionary[remoteUrl] === url)
-    onInternalLinkPress(url, navigation, language, navigateToInternalLink, shareUrl || url)
+    navigateToLink(url, language, shareUrl || url)
   }
 
   alterResources = (node: HTMLNode) => {

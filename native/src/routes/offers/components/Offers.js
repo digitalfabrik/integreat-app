@@ -8,7 +8,6 @@ import {
 } from 'api-client'
 import Tiles from '../../../modules/common/components/Tiles'
 import type { TFunction } from 'react-i18next'
-import { SPRUNGBRETT_OFFER, WOHNEN_OFFER } from '../constants'
 import { View } from 'react-native'
 import type { ThemeType } from 'build-configs/ThemeType'
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
@@ -18,8 +17,8 @@ import type {
   NavigationPropType,
   OffersRouteType,
   RoutePropType
-} from '../../../modules/app/components/NavigationTypes'
-import { SPRUNGBRETT_OFFER_ROUTE, WOHNEN_OFFER_ROUTE } from '../../../modules/app/components/NavigationTypes'
+} from '../../../modules/app/constants/NavigationTypes'
+import { SPRUNGBRETT_OFFER_ROUTE, WOHNEN_OFFER_ROUTE } from '../../../modules/app/constants/NavigationTypes'
 
 type PropsType = {|
   offers: Array<OfferModel>,
@@ -40,7 +39,8 @@ type PropsType = {|
 
 class Offers extends React.Component<PropsType> {
   onTilePress = (tile: TileModel) => {
-    const { navigateToOffer, offers } = this.props
+    const { navigateToOffer, offers: allOffers } = this.props
+    const offers = allOffers.filter(offer => offer.alias === tile.path)
     navigateToOffer(offers, tile.path, tile.isExternalUrl, tile.postData)
   }
 
@@ -48,9 +48,9 @@ class Offers extends React.Component<PropsType> {
     return offer.map(
       offer => {
         let path = offer.path
-        if (offer.alias === SPRUNGBRETT_OFFER) {
+        if (offer.alias === SPRUNGBRETT_OFFER_ROUTE) {
           path = SPRUNGBRETT_OFFER_ROUTE
-        } else if (offer.alias === WOHNEN_OFFER) {
+        } else if (offer.alias === WOHNEN_OFFER_ROUTE) {
           path = WOHNEN_OFFER_ROUTE
         }
 
