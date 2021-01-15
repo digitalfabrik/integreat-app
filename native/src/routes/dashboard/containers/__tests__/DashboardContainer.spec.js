@@ -15,26 +15,42 @@ import { reduce } from 'lodash'
 import configureMockStore from 'redux-mock-store'
 import React from 'react'
 import { Provider } from 'react-redux'
-import createNavigationScreenPropMock from '../../../../testing/createNavigationStackPropMock'
-import { ScrollView, Text } from 'react-native'
-import TestRenderer from 'react-test-renderer'
+import createNavigationScreenPropMock from '../../../../testing/createNavigationPropMock'
 import { render } from '@testing-library/react-native'
-import CategoriesRouteStateView from '../../../../modules/app/CategoriesRouteStateView'
-import lightTheme from '../../../../modules/theme/constants'
 import moment from 'moment'
 import { LOADING_TIMEOUT } from '../../../../modules/common/constants'
 import ErrorCodes from '../../../../modules/error/ErrorCodes'
+import DashboardContainer from '../DashboardContainer'
+import { DASHBOARD_ROUTE } from '../../../../modules/app/constants/NavigationTypes'
 
+const mockStore = configureMockStore()
 jest.mock('react-i18next')
 jest.useFakeTimers()
 
-const mockStore = configureMockStore()
+jest.mock('../../components/Dashboard', () => {
+  const Text = require('react-native').Text
+  return () => <Text>Dashboard</Text>
+})
 
-class MockDashboard extends React.Component<{}> {
-  render () {
-    return <Text>Dashboard</Text>
-  }
-}
+jest.mock('../../../../modules/error/containers/FailureContainer', () => {
+  const Text = require('react-native').Text
+  return ({ code }: {| code: string |}) => <Text>Failure {code}</Text>
+})
+
+jest.mock('../../../../modules/common/containers/LanguageNotAvailableContainer', () => {
+  const Text = require('react-native').Text
+  return () => <Text>LanguageNotAvailable</Text>
+})
+
+jest.mock('react-native/Libraries/Components/RefreshControl/RefreshControl', () => {
+  const Text = require('react-native').Text
+  return ({ refreshing }: {| refreshing: boolean |}) => refreshing ? <Text>loading</Text> : null
+})
+
+const cityCode = 'augsburg'
+const languageCode = 'de'
+const shareUrl = 'https://integreat.app/augsburg/de'
+const route = { key: 'route-id-0', params: { cityCode, languageCode, shareUrl }, name: DASHBOARD_ROUTE }
 
 describe('DashboardContainer', () => {
   const [city] = new CityModelBuilder(1).build()
@@ -107,32 +123,28 @@ describe('DashboardContainer', () => {
     children
   }
 
-  it('should display null if the route is not initialized', () => {
+  it('should display nothing if the route is not initialized', () => {
     const state: StateType = prepareState()
     const store = mockStore(state)
     const navigation = createNavigationScreenPropMock()
-    navigation.state.key = 'route-id-0'
-    jest.doMock('../../components/Dashboard', () => MockDashboard)
-    const DashboardContainer = require('../DashboardContainer').default
-
-    const result = TestRenderer.create(
-      <Provider store={store}><DashboardContainer navigation={navigation} /></Provider>
-    )
-    expect(result.toJSON()).toBeNull()
-  })
-
-  const expectError = (state: StateType, message: string) => {
-    const store = mockStore(state)
-    const navigation = createNavigationScreenPropMock()
-    navigation.state.key = 'route-id-0'
-    navigation.setParams({ onRouteClose: () => {} })
-    jest.doMock('../../components/Dashboard', () => MockDashboard)
-    const DashboardContainer = require('../DashboardContainer').default
 
     const { getByText } = render(
-      <Provider store={store}><DashboardContainer navigation={navigation} /></Provider>
+      <Provider store={store}><DashboardContainer navigation={navigation} route={route} /></Provider>
     )
-    expect(getByText(message)).toBeTruthy()
+    expect(() => getByText('Dashboard')).toThrow()
+    expect(() => getByText('Failure')).toThrow()
+    expect(() => getByText('LanguageNotAvailable')).toThrow()
+    expect(() => getByText('loading')).toThrow()
+  })
+
+  const expectError = (state: StateType, code: string) => {
+    const store = mockStore(state)
+    const navigation = createNavigationScreenPropMock()
+
+    const { getByText } = render(
+      <Provider store={store}><DashboardContainer navigation={navigation} route={route} /></Provider>
+    )
+    expect(getByText(`Failure ${code}`)).toBeTruthy()
   }
 
   it('should display error if the route has the status error', () => {
@@ -173,15 +185,11 @@ describe('DashboardContainer', () => {
   const expectLoadingIndicator = (state: StateType) => {
     const store = mockStore(state)
     const navigation = createNavigationScreenPropMock()
-    navigation.state.key = 'route-id-0'
-    jest.doMock('../../components/Dashboard', () => MockDashboard)
-    const DashboardContainer = require('../DashboardContainer').default
-    const result = TestRenderer.create(
-      <Provider store={store}><DashboardContainer navigation={navigation} /></Provider>
+    const { getByText } = render(
+      <Provider store={store}><DashboardContainer navigation={navigation} route={route} /></Provider>
     )
     jest.advanceTimersByTime(LOADING_TIMEOUT)
-    const refreshControl = result.root.findByType(ScrollView).props.refreshControl
-    expect(refreshControl.props.refreshing).toBe(true)
+    expect(getByText('loading')).toBeTruthy()
   }
 
   it('should display loading indicator if the route is loading long enough', () => {
@@ -220,45 +228,20 @@ describe('DashboardContainer', () => {
     })
     const store = mockStore(state)
     const navigation = createNavigationScreenPropMock()
-    navigation.state.key = 'route-id-0'
-    jest.doMock('../../../../modules/categories/components/Categories', () => MockDashboard)
-    const DashboardContainer = require('../DashboardContainer').default
 
     const { getByText } = render(
-      <Provider store={store}><DashboardContainer navigation={navigation} /></Provider>
+      <Provider store={store}><DashboardContainer navigation={navigation} route={route} /></Provider>
     )
-    expect(getByText('chooseALanguage')).toBeTruthy()
+    expect(getByText('LanguageNotAvailable')).toBeTruthy()
   })
 
   it('should display Dashboard component if the state is ready', () => {
     const state: StateType = prepareState(successfulRouteState)
     const store = mockStore(state)
     const navigation = createNavigationScreenPropMock()
-    navigation.state.key = 'route-id-0'
-    jest.doMock('../../components/Dashboard', () => MockDashboard)
-    const DashboardContainer = require('../DashboardContainer').default
-    const result = TestRenderer.create(
-      <Provider store={store}><DashboardContainer navigation={navigation} /></Provider>
+    const { getByText } = render(
+      <Provider store={store}><DashboardContainer navigation={navigation} route={route} /></Provider>
     )
-    const dashboardInstance = result.root.findByType(MockDashboard)
-    expect(dashboardInstance.props).toEqual({
-      cityModel: city,
-      language: language.code,
-      navigateToCategory: expect.any(Function),
-      navigateToInternalLink: expect.any(Function),
-      navigateToEvent: expect.any(Function),
-      navigateToOffers: expect.any(Function),
-      navigateToDashboard: expect.any(Function),
-      navigateToNews: expect.any(Function),
-      navigateToPoi: expect.any(Function),
-      navigation,
-      resourceCache,
-      resourceCacheUrl,
-      stateView: expect.any(CategoriesRouteStateView),
-      t: expect.any(Function),
-      theme: lightTheme
-    })
-    const stateView = dashboardInstance.props.stateView
-    expect([stateView.root(), stateView.children()]).toEqual([rootCategory, categoriesMap.getChildren(rootCategory)])
+    expect(getByText('Dashboard')).toBeTruthy()
   })
 })

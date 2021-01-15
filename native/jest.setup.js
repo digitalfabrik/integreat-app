@@ -2,7 +2,18 @@ import { JSDOM } from 'jsdom' // jsdom is included in jest and therefore shouldn
 
 const fs = require('fs')
 const path = require('path')
+
+// react-navigation jest setup
+// https://reactnavigation.org/docs/testing#mocking-native-modules
 require('react-native-gesture-handler/jestSetup')
+
+jest.mock('react-native-reanimated', () => {
+  const Reanimated = require('react-native-reanimated/mock')
+  Reanimated.default.call = () => {}
+  return Reanimated
+})
+
+jest.mock('react-native/Libraries/Animated/src/NativeAnimatedHelper')
 
 // window isn't defined as of react-native 0.45+ it seems
 if (typeof window !== 'object') {
