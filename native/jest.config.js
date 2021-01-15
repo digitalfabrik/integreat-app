@@ -6,6 +6,7 @@ const transformNodeModules = [
   'react-navigation',
   'rn-fetch-blob',
   'api-client',
+  'translations',
   '@sentry/react-native',
   'hashids',
   '@react-native-community/progress-bar-android',

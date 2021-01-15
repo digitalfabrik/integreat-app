@@ -1,18 +1,18 @@
 // @flow
 
-import getLanguageCode from '../platform/getLanguageCode'
+import { getLocales } from 'react-native-localize'
 
 export default {
   type: 'languageDetector',
   async: false,
   detect: () => {
-    const languageCode = getLanguageCode()
+    const locales = getLocales()
 
-    if (languageCode.length < 2) {
-      throw Error('languageCode has wrong format')
+    if (locales.length === 0) {
+      throw new Error('Failed to get language code from native side!')
     }
 
-    return languageCode.substring(0, 2)
+    return locales[0].languageCode
   },
   init: () => {},
   cacheUserLanguage: (newLanguage: string) => {}
