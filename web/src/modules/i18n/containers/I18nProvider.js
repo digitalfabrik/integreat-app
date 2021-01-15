@@ -15,7 +15,6 @@ import buildConfig from '../../app/constants/buildConfig'
 
 const RTL_LANGUAGES = ['ar', 'fa']
 const FALLBACK_LANGUAGES = ['en', 'de']
-const DEFAULT_LANGUAGE = 'en'
 
 type FontMapType = { [font: 'lateef' | 'openSans' | 'raleway']: boolean }
 
