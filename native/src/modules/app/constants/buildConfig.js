@@ -3,7 +3,7 @@
 import type { CommonBuildConfigType } from 'build-configs/BuildConfigType'
 import loadBuildConfig, { COMMON } from 'build-configs'
 import integreatAppIcon from 'build-configs/integreat/assets/app-icon-round.png'
-import integreatLoadingImage from 'build-configs/integreat/assets/app-logo-g.svg'
+import integreatLoadingImage from 'build-configs/integreat/assets/app-logo-inverted.svg'
 import integreatLocationMarker from 'build-configs/integreat/assets/location-marker.svg'
 import integreatIntroLanguageIcon from 'build-configs/integreat/assets/intro-slides/Language.svg'
 import integreatIntroEventsIcon from 'build-configs/integreat/assets/intro-slides/Events.svg'
