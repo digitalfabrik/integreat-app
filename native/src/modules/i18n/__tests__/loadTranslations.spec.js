@@ -1,12 +1,12 @@
 // @flow
 
 import loadTranslations from '../loadTranslations'
-import malteOverrideTranslations from '../__mocks__/malte-translations.json'
+import malteOverrideTranslations from '../../../testing/malte-translations.json'
 import buildConfig from '../../app/constants/buildConfig'
 
 jest.mock(
   'translations/translations.json',
-  () => require('../__mocks__/translations.json')
+  () => require('../../../testing/translations.json')
 )
 
 describe('loadTranslations', () => {
