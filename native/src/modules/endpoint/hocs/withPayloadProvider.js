@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 import { LanguageModel } from 'api-client'
-import { RefreshControl, ScrollView, View } from 'react-native'
+import { RefreshControl } from 'react-native'
 import LanguageNotAvailableContainer from '../../common/containers/LanguageNotAvailableContainer'
 import type { StoreActionType } from '../../app/StoreActionType'
 import { type Dispatch } from 'redux'
@@ -11,8 +11,10 @@ import FailureContainer from '../../error/containers/FailureContainer'
 import { LOADING_TIMEOUT } from '../../common/constants'
 import type { ErrorCodeType } from '../../error/ErrorCodes'
 import wrapDisplayName from '../../common/hocs/wrapDisplayName'
-import type { NavigationPropType, RoutePropType, RoutesType } from '../../app/components/NavigationTypes'
+import type { NavigationPropType, RoutePropType, RoutesType } from '../../app/constants/NavigationTypes'
 import { type TFunction } from 'react-i18next'
+import LayoutContainer from '../../layout/containers/LayoutContainer'
+import LayoutedScrollView from '../../common/containers/LayoutedScrollView'
 
 export type RouteNotInitializedType = {| status: 'routeNotInitialized' |}
 export type LoadingType<S: {}, R: {}> = {|
@@ -54,7 +56,7 @@ export type PropsType<S: { dispatch: Dispatch<StoreActionType> }, R: {}, T: Rout
   navigation: NavigationPropType<T>,
   route: RoutePropType<T>,
   t?: TFunction
-|} | {| // Necessary because of weird flow error saying t is missing in containers
+|} | {| // Necessary because of weird flow error saying t is missing even though t is already optional in the first type
   ...StatusPropsType<S, R>,
   dispatch: Dispatch<StoreActionType>,
   navigation: NavigationPropType<T>,
@@ -101,37 +103,33 @@ const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R: {}, 
       }
 
       if (props.status === 'routeNotInitialized') {
-        return null
+        return <LayoutContainer />
       } else if (props.status === 'error') {
-        return <ScrollView refreshControl={<RefreshControl onRefresh={refreshIfPossible} refreshing={false} />}
-                           contentContainerStyle={{ flexGrow: 1 }}>
+        return <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refreshIfPossible} refreshing={false} />}>
           <FailureContainer tryAgain={refreshIfPossible} message={props.message} code={props.code} />
-        </ScrollView>
+        </LayoutedScrollView>
       } else if (props.status === 'languageNotAvailable') {
         return <LanguageNotAvailableContainer languages={props.availableLanguages}
                                               changeLanguage={changeUnavailableLanguage} />
       } else if (props.status === 'loading') {
         console.log('render loading', props.progress)
         return timeoutExpired
-          ? <ScrollView refreshControl={<RefreshControl refreshing />} contentContainerStyle={{ flexGrow: 1 }}
-                      keyboardShouldPersistTaps='always'>
+          ? <LayoutedScrollView refreshControl={<RefreshControl refreshing />}>
           {/* only display content while loading if innerProps and dispatch are available */}
           {props.innerProps && props.dispatch
             ? <Component {...props.innerProps} dispatch={props.dispatch} />
             : null}
-        </ScrollView>
-          : null
+        </LayoutedScrollView>
+          : <LayoutContainer />
       } else { // props.status === 'success'
         if (noScrollView) {
-          return <View style={{ flex: 1 }}>
+          return <LayoutContainer>
             <Component {...props.innerProps} dispatch={props.dispatch} />
-          </View>
+          </LayoutContainer>
         }
-        return <ScrollView keyboardShouldPersistTaps='always'
-                           refreshControl={<RefreshControl onRefresh={refreshIfPossible} refreshing={false} />}
-                           contentContainerStyle={{ flexGrow: 1 }}>
+        return <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refreshIfPossible} refreshing={false} />}>
           <Component {...props.innerProps} dispatch={props.dispatch} />
-        </ScrollView>
+        </LayoutedScrollView>
       }
     }
     Wrapper.displayName = wrapDisplayName(Component, 'withPayloadProvider')

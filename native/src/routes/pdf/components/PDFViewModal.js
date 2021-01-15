@@ -10,7 +10,7 @@ import type {
   PdfViewModalRouteType,
   NavigationPropType,
   RoutePropType
-} from '../../../modules/app/components/NavigationTypes'
+} from '../../../modules/app/constants/NavigationTypes'
 
 type PropsType = {|
   route: RoutePropType<PdfViewModalRouteType>,
@@ -42,7 +42,7 @@ class PDFViewModal extends React.Component<PropsType, StateType> {
       <View style={{ flex: 1 }}>
         <Pdf
           singlePage={false}
-          style={{ flex: 1 }}
+          style={{ flex: 1, backgroundColor: theme.colors.backgroundAccentColor }}
           activityIndicatorProps={{
             color: theme.colors.themeColor,
             progressTintColor: theme.colors.themeColor

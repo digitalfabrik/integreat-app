@@ -15,11 +15,10 @@ import {
   requestPushNotificationPermission
 } from '../../push-notifications/PushNotificationsManager'
 import type { FeatureFlagsType } from 'build-configs/BuildConfigType'
-import type { RoutePropType, RoutesType } from '../../app/components/NavigationTypes'
-import { DASHBOARD_ROUTE, LANDING_ROUTE } from '../../app/components/NavigationTypes'
+import { DASHBOARD_ROUTE, LANDING_ROUTE } from '../../app/constants/NavigationTypes'
 
-type PropsType<T: RoutesType> = {|
-  route: RoutePropType<T>,
+type PropsType = {|
+  routeName: string,
   t: TFunction,
   theme: ThemeType
 |}
@@ -29,8 +28,8 @@ type StateType = {|
   showPushNotificationSnackbar: boolean
 |}
 
-class PermissionSnackbarContainer<T: RoutesType> extends React.Component<PropsType<T>, StateType> {
-  constructor (props: PropsType<T>) {
+class PermissionSnackbarContainer extends React.Component<PropsType, StateType> {
+  constructor (props: PropsType) {
     super(props)
     this.state = {
       showLocationSnackbar: false,
@@ -42,8 +41,8 @@ class PermissionSnackbarContainer<T: RoutesType> extends React.Component<PropsTy
     this.updateSettingsAndPermissions()
   }
 
-  componentDidUpdate (prevProps: PropsType<T>) {
-    if (prevProps.route !== this.props.route) {
+  componentDidUpdate (prevProps: PropsType) {
+    if (prevProps.routeName !== this.props.routeName) {
       this.updateSettingsAndPermissions()
     }
   }
@@ -94,13 +93,13 @@ class PermissionSnackbarContainer<T: RoutesType> extends React.Component<PropsTy
   }
 
   landingRoute = (): boolean => {
-    const { name } = this.props.route
-    return name === LANDING_ROUTE
+    const { routeName } = this.props
+    return routeName === LANDING_ROUTE
   }
 
   dashboardRoute = (): boolean => {
-    const { name } = this.props.route
-    return name === DASHBOARD_ROUTE
+    const { routeName } = this.props
+    return routeName === DASHBOARD_ROUTE
   }
 
   getSnackbar (): ?React$Element<*> {

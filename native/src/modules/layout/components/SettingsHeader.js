@@ -56,7 +56,7 @@ class SettingsHeader extends React.PureComponent<PropsType> {
     return <BoxShadow theme={this.props.theme}>
       <Horizontal>
         <HorizontalLeft>
-          <HeaderBackButton onPress={this.goBack} />
+          <HeaderBackButton onPress={this.goBack} labelVisible={false} />
           <HeaderText theme={this.props.theme}>{this.props.t('settings')}</HeaderText>
         </HorizontalLeft>
       </Horizontal>

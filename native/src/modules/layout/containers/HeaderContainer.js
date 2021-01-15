@@ -11,6 +11,7 @@ import { type Dispatch } from 'redux'
 import type { StoreActionType } from '../../app/StoreActionType'
 import { CityModel } from 'api-client'
 import isPeekingRoute from '../../endpoint/selectors/isPeekingRoute'
+import { CHANGE_LANGUAGE_MODAL_ROUTE } from '../../app/constants/NavigationTypes'
 
 type OwnPropsType = {|
   ...StackHeaderProps,
@@ -18,6 +19,7 @@ type OwnPropsType = {|
 |}
 
 type StatePropsType = {|
+  language: string,
   goToLanguageChange?: () => void,
   peeking: boolean,
   categoriesAvailable: boolean,
@@ -34,9 +36,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   const route = state.cityContent
     ? state.cityContent.categoriesRouteMapping[routeKey] ||
       state.cityContent.eventsRouteMapping[routeKey] ||
-      state.cityContent.newsRouteMapping[routeKey] ||
-      // Necessary for dashboard as the route key is not that of the categories state view
-      state.cityContent.categoriesRouteMapping[Object.keys(state.cityContent.categoriesRouteMapping)[0]]
+      state.cityContent.newsRouteMapping[routeKey]
     : null
   const languages = state.cityContent?.languages
 
@@ -51,12 +51,12 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     !languages || languages.status !== 'ready') {
     // Route does not exist yet. In this case it is not really defined whether we are peek or not because
     // we do not yet know the city of the route.
-    return { routeCityModel, peeking: false, categoriesAvailable: false }
+    return { language: state.contentLanguage, routeCityModel, peeking: false, categoriesAvailable: false }
   }
 
   const goToLanguageChange = () => {
     ownProps.navigation.navigate({
-      name: 'ChangeLanguageModal',
+      name: CHANGE_LANGUAGE_MODAL_ROUTE,
       params: {
         currentLanguage: route.language,
         languages: languages.models,
@@ -68,7 +68,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
   const peeking = isPeekingRoute(state, { routeCity: route.city })
 
-  return { peeking, routeCityModel, goToLanguageChange, categoriesAvailable }
+  return { peeking, routeCityModel, language: route.language, goToLanguageChange, categoriesAvailable }
 }
 
 export default withTranslation('layout')(
