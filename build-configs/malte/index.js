@@ -82,6 +82,7 @@ const webMalteBuildConfig: WebBuildConfigType = {
     appLogo: '/app-logo.png',
     locationMarker: '/location-marker.svg',
     appleTouchIcon: '/apple-touch-icon.png',
+    socialMediaPreview: '/social-media-preview.png',
     favicons: '/favicons/'
   }
 }
