@@ -1,7 +1,6 @@
 // @flow
 
 import { type TFunction } from 'react-i18next'
-import { Linking } from 'react-native'
 import NativeConstants from '../../modules/native-constants/NativeConstants'
 import type { SettingsType } from '../../modules/settings/AppSettings'
 import openPrivacyPolicy from './openPrivacyPolicy'
@@ -9,6 +8,7 @@ import buildConfig from '../../modules/app/constants/buildConfig'
 import * as Sentry from '@sentry/react-native'
 import * as NotificationsManager from '../../modules/push-notifications/PushNotificationsManager'
 import initSentry from '../../modules/app/initSentry'
+import openExternalUrl from '../../modules/common/openExternalUrl'
 
 export type SetSettingFunctionType = (
   changeSetting: (settings: SettingsType) => $Shape<SettingsType>,
@@ -86,7 +86,7 @@ const createSettingsSections = ({ setSetting, t, languageCode, cityCode }: Creat
           onPress: () => {
             const aboutUrls = buildConfig().aboutUrls
             const aboutUrl = aboutUrls[languageCode] || aboutUrls.default
-            Linking.openURL(aboutUrl)
+            openExternalUrl(aboutUrl)
           }
         },
         {

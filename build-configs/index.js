@@ -18,12 +18,12 @@ export const WEB = 'web'
 
 const PLATFORMS = [COMMON, ANDROID, IOS, WEB]
 
-type BuildConfigPlatformType = {
+type BuildConfigPlatformType = {|
   common: CommonBuildConfigType,
   android: AndroidBuildConfigType,
   ios: iOSBuildConfigType,
   web: WebBuildConfigType
-}
+|}
 
 export const buildConfigs: { [string]: BuildConfigPlatformType } = {
   integreat: integreatBuildConfig,

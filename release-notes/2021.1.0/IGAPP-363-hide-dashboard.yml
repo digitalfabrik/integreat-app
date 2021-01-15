@@ -1,0 +1,7 @@
+issue_key: IGAPP-363
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: Hide redundant navigation items.
+de: Redundante Navigationselemente werden nun nicht mehr angezeigt.
