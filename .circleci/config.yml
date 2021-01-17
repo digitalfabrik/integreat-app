@@ -782,21 +782,21 @@ workflows:
         jobs:
             - bump_version:
                 context:
-                    - slack-app
+                    - mattermost
                 delivery: none
             - check_web:
                 context:
-                    - slack-app
+                    - mattermost
             - build_web:
                 build_config_name: integreat-test-cms
                 context:
-                    - slack-app
+                    - mattermost
                 name: build_ig_test_cms_web
                 requires:
                     - bump_version
             - deliver_web:
                 context:
-                    - slack-app
+                    - mattermost
                     - sentry
                 filters:
                     branches:
@@ -808,11 +808,11 @@ workflows:
                     - build_ig_test_cms_web
             - check_native:
                 context:
-                    - slack-app
+                    - mattermost
             - build_android:
                 build_config_name: integreat-e2e
                 context:
-                    - slack-app
+                    - mattermost
                     - tuerantuer-google-play
                     - tuerantuer-android
                 name: build_e2e_android
@@ -820,14 +820,14 @@ workflows:
                     - bump_version
             - e2e_android:
                 context:
-                    - slack-app
+                    - mattermost
                     - browserstack
                 requires:
                     - build_e2e_android
             - build_ios:
                 build_config_name: integreat-e2e
                 context:
-                    - slack-app
+                    - mattermost
                     - tuerantuer-apple
                     - tuerantuer-ios
                 name: build_e2e_ios
@@ -835,7 +835,7 @@ workflows:
                     - bump_version
             - e2e_ios:
                 context:
-                    - slack-app
+                    - mattermost
                     - browserstack
                 requires:
                     - build_e2e_ios
@@ -844,17 +844,17 @@ workflows:
         jobs:
             - bump_version:
                 context:
-                    - slack-app
+                    - mattermost
                     - deliverino
                     - jira
                 delivery: development
             - check_native:
                 context:
-                    - slack-app
+                    - mattermost
             - build_android:
                 build_config_name: integreat-e2e
                 context:
-                    - slack-app
+                    - mattermost
                     - tuerantuer-google-play
                     - tuerantuer-android
                 name: build_e2e_android
@@ -862,14 +862,14 @@ workflows:
                     - bump_version
             - e2e_android:
                 context:
-                    - slack-app
+                    - mattermost
                     - browserstack
                 requires:
                     - build_e2e_android
             - build_android:
                 build_config_name: integreat
                 context:
-                    - slack-app
+                    - mattermost
                     - tuerantuer-google-play
                     - tuerantuer-android
                 name: build_integreat_android
@@ -878,7 +878,7 @@ workflows:
             - deliver_android:
                 build_config_name: integreat
                 context:
-                    - slack-app
+                    - mattermost
                     - sentry
                     - browserstack
                     - tuerantuer-google-play
@@ -892,7 +892,7 @@ workflows:
             - build_android:
                 build_config_name: malte
                 context:
-                    - slack-app
+                    - mattermost
                     - tuerantuer-google-play
                     - tuerantuer-android
                 name: build_malte_android
@@ -901,7 +901,7 @@ workflows:
             - deliver_android:
                 build_config_name: malte
                 context:
-                    - slack-app
+                    - mattermost
                     - sentry
                     - browserstack
                     - tuerantuer-google-play
@@ -914,7 +914,7 @@ workflows:
                     - build_malte_android
             - notify_android:
                 context:
-                    - slack-app
+                    - mattermost
                     - deliverino
                 production_delivery: false
                 requires:
@@ -923,7 +923,7 @@ workflows:
             - build_ios:
                 build_config_name: integreat-e2e
                 context:
-                    - slack-app
+                    - mattermost
                     - tuerantuer-apple
                     - tuerantuer-ios
                 name: build_e2e_ios
@@ -931,14 +931,14 @@ workflows:
                     - bump_version
             - e2e_ios:
                 context:
-                    - slack-app
+                    - mattermost
                     - browserstack
                 requires:
                     - build_e2e_ios
             - build_ios:
                 build_config_name: integreat
                 context:
-                    - slack-app
+                    - mattermost
                     - tuerantuer-apple
                     - tuerantuer-ios
                 name: build_integreat_ios
@@ -947,7 +947,7 @@ workflows:
             - deliver_ios:
                 build_config_name: integreat
                 context:
-                    - slack-app
+                    - mattermost
                     - sentry
                     - browserstack
                     - tuerantuer-apple
@@ -961,7 +961,7 @@ workflows:
             - build_ios:
                 build_config_name: malte
                 context:
-                    - slack-app
+                    - mattermost
                     - tuerantuer-apple
                     - tuerantuer-ios
                 name: build_malte_ios
@@ -970,7 +970,7 @@ workflows:
             - deliver_ios:
                 build_config_name: malte
                 context:
-                    - slack-app
+                    - mattermost
                     - sentry
                     - browserstack
                     - tuerantuer-apple
@@ -983,7 +983,7 @@ workflows:
                     - build_malte_ios
             - notify_ios:
                 context:
-                    - slack-app
+                    - mattermost
                     - deliverino
                 production_delivery: false
                 requires:
@@ -1000,30 +1000,30 @@ workflows:
         jobs:
             - bump_version:
                 context:
-                    - slack-app
+                    - mattermost
                     - deliverino
                     - jira
                 delivery: production
             - check_web:
                 context:
-                    - slack-app
+                    - mattermost
             - build_web:
                 build_config_name: integreat
                 context:
-                    - slack-app
+                    - mattermost
                 name: build_integreat_web
                 requires:
                     - bump_version
             - build_web:
                 build_config_name: malte
                 context:
-                    - slack-app
+                    - mattermost
                 name: build_malte_web
                 requires:
                     - bump_version
             - deliver_web:
                 context:
-                    - slack-app
+                    - mattermost
                     - sentry
                 production_delivery: true
                 requires:
@@ -1032,18 +1032,18 @@ workflows:
                     - build_malte_web
             - notify_web:
                 context:
-                    - slack-app
+                    - mattermost
                     - deliverino
                 requires:
                     - bump_version
                     - deliver_web
             - check_native:
                 context:
-                    - slack-app
+                    - mattermost
             - build_android:
                 build_config_name: integreat-e2e
                 context:
-                    - slack-app
+                    - mattermost
                     - tuerantuer-google-play
                     - tuerantuer-android
                 name: build_e2e_android
@@ -1051,14 +1051,14 @@ workflows:
                     - bump_version
             - e2e_android:
                 context:
-                    - slack-app
+                    - mattermost
                     - browserstack
                 requires:
                     - build_e2e_android
             - build_android:
                 build_config_name: integreat
                 context:
-                    - slack-app
+                    - mattermost
                     - tuerantuer-google-play
                     - tuerantuer-android
                 name: build_integreat_android
@@ -1067,7 +1067,7 @@ workflows:
             - deliver_android:
                 build_config_name: integreat
                 context:
-                    - slack-app
+                    - mattermost
                     - sentry
                     - browserstack
                     - tuerantuer-google-play
@@ -1081,7 +1081,7 @@ workflows:
             - build_android:
                 build_config_name: malte
                 context:
-                    - slack-app
+                    - mattermost
                     - tuerantuer-google-play
                     - tuerantuer-android
                 name: build_malte_android
@@ -1090,7 +1090,7 @@ workflows:
             - deliver_android:
                 build_config_name: malte
                 context:
-                    - slack-app
+                    - mattermost
                     - sentry
                     - browserstack
                     - tuerantuer-google-play
@@ -1103,7 +1103,7 @@ workflows:
                     - build_malte_android
             - notify_android:
                 context:
-                    - slack-app
+                    - mattermost
                     - deliverino
                 production_delivery: true
                 requires:
@@ -1112,7 +1112,7 @@ workflows:
             - build_ios:
                 build_config_name: integreat-e2e
                 context:
-                    - slack-app
+                    - mattermost
                     - tuerantuer-apple
                     - tuerantuer-ios
                 name: build_e2e_ios
@@ -1120,14 +1120,14 @@ workflows:
                     - bump_version
             - e2e_ios:
                 context:
-                    - slack-app
+                    - mattermost
                     - browserstack
                 requires:
                     - build_e2e_ios
             - build_ios:
                 build_config_name: integreat
                 context:
-                    - slack-app
+                    - mattermost
                     - tuerantuer-apple
                     - tuerantuer-ios
                 name: build_integreat_ios
@@ -1136,7 +1136,7 @@ workflows:
             - deliver_ios:
                 build_config_name: integreat
                 context:
-                    - slack-app
+                    - mattermost
                     - sentry
                     - browserstack
                     - tuerantuer-apple
@@ -1150,7 +1150,7 @@ workflows:
             - build_ios:
                 build_config_name: malte
                 context:
-                    - slack-app
+                    - mattermost
                     - tuerantuer-apple
                     - tuerantuer-ios
                 name: build_malte_ios
@@ -1159,7 +1159,7 @@ workflows:
             - deliver_ios:
                 build_config_name: malte
                 context:
-                    - slack-app
+                    - mattermost
                     - sentry
                     - browserstack
                     - tuerantuer-apple
@@ -1172,7 +1172,7 @@ workflows:
                     - build_malte_ios
             - notify_ios:
                 context:
-                    - slack-app
+                    - mattermost
                     - deliverino
                 production_delivery: true
                 requires:
@@ -1180,7 +1180,7 @@ workflows:
                     - deliver_malte_ios
             - move_release_notes:
                 context:
-                    - slack-app
+                    - mattermost
                     - deliverino
                 requires:
                     - notify_web
@@ -1197,17 +1197,17 @@ workflows:
         jobs:
             - bump_version:
                 context:
-                    - slack-app
+                    - mattermost
                     - deliverino
                     - jira
                 delivery: development
             - check_native:
                 context:
-                    - slack-app
+                    - mattermost
             - build_android:
                 build_config_name: integreat-e2e
                 context:
-                    - slack-app
+                    - mattermost
                     - tuerantuer-google-play
                     - tuerantuer-android
                 name: build_e2e_android
@@ -1215,14 +1215,14 @@ workflows:
                     - bump_version
             - e2e_android:
                 context:
-                    - slack-app
+                    - mattermost
                     - browserstack
                 requires:
                     - build_e2e_android
             - build_android:
                 build_config_name: integreat
                 context:
-                    - slack-app
+                    - mattermost
                     - tuerantuer-google-play
                     - tuerantuer-android
                 name: build_integreat_android
@@ -1231,7 +1231,7 @@ workflows:
             - deliver_android:
                 build_config_name: integreat
                 context:
-                    - slack-app
+                    - mattermost
                     - sentry
                     - browserstack
                     - tuerantuer-google-play
@@ -1245,7 +1245,7 @@ workflows:
             - build_android:
                 build_config_name: malte
                 context:
-                    - slack-app
+                    - mattermost
                     - tuerantuer-google-play
                     - tuerantuer-android
                 name: build_malte_android
@@ -1254,7 +1254,7 @@ workflows:
             - deliver_android:
                 build_config_name: malte
                 context:
-                    - slack-app
+                    - mattermost
                     - sentry
                     - browserstack
                     - tuerantuer-google-play
@@ -1267,7 +1267,7 @@ workflows:
                     - build_malte_android
             - notify_android:
                 context:
-                    - slack-app
+                    - mattermost
                     - deliverino
                 production_delivery: false
                 requires:
@@ -1276,7 +1276,7 @@ workflows:
             - build_ios:
                 build_config_name: integreat-e2e
                 context:
-                    - slack-app
+                    - mattermost
                     - tuerantuer-apple
                     - tuerantuer-ios
                 name: build_e2e_ios
@@ -1284,14 +1284,14 @@ workflows:
                     - bump_version
             - e2e_ios:
                 context:
-                    - slack-app
+                    - mattermost
                     - browserstack
                 requires:
                     - build_e2e_ios
             - build_ios:
                 build_config_name: integreat
                 context:
-                    - slack-app
+                    - mattermost
                     - tuerantuer-apple
                     - tuerantuer-ios
                 name: build_integreat_ios
@@ -1300,7 +1300,7 @@ workflows:
             - deliver_ios:
                 build_config_name: integreat
                 context:
-                    - slack-app
+                    - mattermost
                     - sentry
                     - browserstack
                     - tuerantuer-apple
@@ -1314,7 +1314,7 @@ workflows:
             - build_ios:
                 build_config_name: malte
                 context:
-                    - slack-app
+                    - mattermost
                     - tuerantuer-apple
                     - tuerantuer-ios
                 name: build_malte_ios
@@ -1323,7 +1323,7 @@ workflows:
             - deliver_ios:
                 build_config_name: malte
                 context:
-                    - slack-app
+                    - mattermost
                     - sentry
                     - browserstack
                     - tuerantuer-apple
@@ -1336,7 +1336,7 @@ workflows:
                     - build_malte_ios
             - notify_ios:
                 context:
-                    - slack-app
+                    - mattermost
                     - deliverino
                 production_delivery: false
                 requires:
@@ -1350,30 +1350,30 @@ workflows:
         jobs:
             - bump_version:
                 context:
-                    - slack-app
+                    - mattermost
                     - deliverino
                     - jira
                 delivery: production
             - check_web:
                 context:
-                    - slack-app
+                    - mattermost
             - build_web:
                 build_config_name: integreat
                 context:
-                    - slack-app
+                    - mattermost
                 name: build_integreat_web
                 requires:
                     - bump_version
             - build_web:
                 build_config_name: malte
                 context:
-                    - slack-app
+                    - mattermost
                 name: build_malte_web
                 requires:
                     - bump_version
             - deliver_web:
                 context:
-                    - slack-app
+                    - mattermost
                     - sentry
                 production_delivery: true
                 requires:
@@ -1382,18 +1382,18 @@ workflows:
                     - build_malte_web
             - notify_web:
                 context:
-                    - slack-app
+                    - mattermost
                     - deliverino
                 requires:
                     - bump_version
                     - deliver_web
             - check_native:
                 context:
-                    - slack-app
+                    - mattermost
             - build_android:
                 build_config_name: integreat-e2e
                 context:
-                    - slack-app
+                    - mattermost
                     - tuerantuer-google-play
                     - tuerantuer-android
                 name: build_e2e_android
@@ -1401,14 +1401,14 @@ workflows:
                     - bump_version
             - e2e_android:
                 context:
-                    - slack-app
+                    - mattermost
                     - browserstack
                 requires:
                     - build_e2e_android
             - build_android:
                 build_config_name: integreat
                 context:
-                    - slack-app
+                    - mattermost
                     - tuerantuer-google-play
                     - tuerantuer-android
                 name: build_integreat_android
@@ -1417,7 +1417,7 @@ workflows:
             - deliver_android:
                 build_config_name: integreat
                 context:
-                    - slack-app
+                    - mattermost
                     - sentry
                     - browserstack
                     - tuerantuer-google-play
@@ -1431,7 +1431,7 @@ workflows:
             - build_android:
                 build_config_name: malte
                 context:
-                    - slack-app
+                    - mattermost
                     - tuerantuer-google-play
                     - tuerantuer-android
                 name: build_malte_android
@@ -1440,7 +1440,7 @@ workflows:
             - deliver_android:
                 build_config_name: malte
                 context:
-                    - slack-app
+                    - mattermost
                     - sentry
                     - browserstack
                     - tuerantuer-google-play
@@ -1453,7 +1453,7 @@ workflows:
                     - build_malte_android
             - notify_android:
                 context:
-                    - slack-app
+                    - mattermost
                     - deliverino
                 production_delivery: true
                 requires:
@@ -1462,7 +1462,7 @@ workflows:
             - build_ios:
                 build_config_name: integreat-e2e
                 context:
-                    - slack-app
+                    - mattermost
                     - tuerantuer-apple
                     - tuerantuer-ios
                 name: build_e2e_ios
@@ -1470,14 +1470,14 @@ workflows:
                     - bump_version
             - e2e_ios:
                 context:
-                    - slack-app
+                    - mattermost
                     - browserstack
                 requires:
                     - build_e2e_ios
             - build_ios:
                 build_config_name: integreat
                 context:
-                    - slack-app
+                    - mattermost
                     - tuerantuer-apple
                     - tuerantuer-ios
                 name: build_integreat_ios
@@ -1486,7 +1486,7 @@ workflows:
             - deliver_ios:
                 build_config_name: integreat
                 context:
-                    - slack-app
+                    - mattermost
                     - sentry
                     - browserstack
                     - tuerantuer-apple
@@ -1500,7 +1500,7 @@ workflows:
             - build_ios:
                 build_config_name: malte
                 context:
-                    - slack-app
+                    - mattermost
                     - tuerantuer-apple
                     - tuerantuer-ios
                 name: build_malte_ios
@@ -1509,7 +1509,7 @@ workflows:
             - deliver_ios:
                 build_config_name: malte
                 context:
-                    - slack-app
+                    - mattermost
                     - sentry
                     - browserstack
                     - tuerantuer-apple
@@ -1522,7 +1522,7 @@ workflows:
                     - build_malte_ios
             - notify_ios:
                 context:
-                    - slack-app
+                    - mattermost
                     - deliverino
                 production_delivery: true
                 requires:
@@ -1530,7 +1530,7 @@ workflows:
                     - deliver_malte_ios
             - move_release_notes:
                 context:
-                    - slack-app
+                    - mattermost
                     - deliverino
                 requires:
                     - notify_web
