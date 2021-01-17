@@ -1,8 +1,5 @@
 description: Send a notification (to Mattermost) at the end of a job, based on success or failure. Must be the last step in a job.
 parameters:
-  failure_message:
-    default: ":fire: The [${CIRCLE_JOB}](${CIRCLE_BUILD_URL}) job has failed on the main branch! :fire:"
-    type: string
   success_message:
     default: ""
     type: string
@@ -21,12 +18,10 @@ parameters:
 steps:
   - run:
       command: |
-          if [ -n << parameters.failure_message >> ]; then
-              if [ -n "<< parameters.failure_mentions >>" ]; then
-                  echo 'export MM_MESSAGE="<< parameters.failure_message >>\n<< parameters.failure_mentions >>"' >> $BASH_ENV
-              else
-                  echo 'export MM_MESSAGE="<< parameters.failure_message >>"' >> $BASH_ENV
-              fi
+          if [ -n "<< parameters.failure_mentions >>" ]; then
+              echo 'export MM_MESSAGE=":fire: The [${CIRCLE_JOB}](${CIRCLE_BUILD_URL}) job has failed on the main branch! :fire:\n<< parameters.failure_mentions >>"' >> $BASH_ENV
+          else
+              echo 'export MM_MESSAGE=":fire: The [${CIRCLE_JOB}](${CIRCLE_BUILD_URL}) job has failed on the main branch! :fire:"' >> $BASH_ENV
           fi
       name: Mattermost - Failure message
       when: on_fail
