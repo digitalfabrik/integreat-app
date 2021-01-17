@@ -3,5 +3,5 @@ show_in_stores: true
 platforms:
   - ios
   - android
-en: Now a progress circle is shown when loading content
-de: Beim Laden wird jetzt der Fortschritt in Form eines Kreises angezeigt
+en: We added a nice animation to show you the current loading progress.
+de: Die App gibt dir nun Feedback über den Fortschritt beim Ladevorgang.
