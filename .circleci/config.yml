@@ -71,7 +71,7 @@ commands:
                 when: on_fail
             - run:
                 command: |
-                    if [ -n << parameters.success_message >> ]; then
+                    if [ -n "<< parameters.success_message >>" ]; then
                         if [ -n "<< parameters.success_mentions >>" ]; then
                             echo 'export MM_MESSAGE="<< parameters.success_message >>\n<< parameters.success_mentions >>"' >> $BASH_ENV
                         else
@@ -85,7 +85,7 @@ commands:
                     #!/bin/bash
 
                     Send_notification() {
-                        if [ << parameters.only_for_branch >> -ne "${CIRCLE_BRANCH}" ]; then
+                        if [ "<< parameters.only_for_branch >>" -ne "${CIRCLE_BRANCH}" ]; then
                             echo "Not on << parameters.only_for_branch >> branch. Skipping."
                             exit 0
                         fi
