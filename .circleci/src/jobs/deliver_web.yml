@@ -39,4 +39,4 @@ steps:
         - run:
             name: "Sentry Upload: integreat-test-cms"
             command: tools/sentry-release integreat-test-cms "${NEW_VERSION_NAME}" ~/attached_workspace/dist/integreat-test-cms
-  - notify_failed
+  - notify

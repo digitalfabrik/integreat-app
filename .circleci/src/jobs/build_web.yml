@@ -31,4 +31,4 @@ steps:
       root: web
       paths:
         - dist
-  - notify_failed
+  - notify
