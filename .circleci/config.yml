@@ -65,12 +65,24 @@ commands:
         steps:
             - run:
                 command: |
-                    echo 'export MM_MESSAGE="<< parameters.failure_message >>\n<< parameters.failure_mentions >>"' >> $BASH_ENV
+                    if [ -n << parameters.failure_message >> ]; then
+                        if [ -n "<< parameters.failure_mentions >>" ]; then
+                            echo 'export MM_MESSAGE="<< parameters.failure_message >>\n<< parameters.failure_mentions >>"' >> $BASH_ENV
+                        else
+                            echo 'export MM_MESSAGE="<< parameters.failure_message >>"' >> $BASH_ENV
+                        fi
+                    fi
                 name: Mattermost - Failure message
                 when: on_fail
             - run:
                 command: |
-                    echo 'export MM_MESSAGE="<< parameters.success_message >>\n<< parameters.success_mentions >>"' >> $BASH_ENV
+                    if [ -n << parameters.success_message >> ]; then
+                        if [ -n "<< parameters.success_mentions >>" ]; then
+                            echo 'export MM_MESSAGE="<< parameters.success_message >>\n<< parameters.success_mentions >>"' >> $BASH_ENV
+                        else
+                            echo 'export MM_MESSAGE="<< parameters.success_message >>"' >> $BASH_ENV
+                        fi
+                    fi
                 name: Mattermost - Success message
                 when: on_success
             - run:
