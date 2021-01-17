@@ -10,7 +10,7 @@ import integreatIntroEventsIcon from 'build-configs/integreat/assets/intro-slide
 import integreatIntroOffersIcon from 'build-configs/integreat/assets/intro-slides/Offers.svg'
 import integreatIntroSearchIcon from 'build-configs/integreat/assets/intro-slides/Search.svg'
 import malteAppIcon from 'build-configs/malte/assets/app-icon-round.svg'
-import malteLoadingImage from 'build-configs/malte/assets/app_icon_malte_round.png'
+import malteLoadingImage from 'build-configs/malte/assets/app_icon_circle.png'
 import malteLocationMarker from 'build-configs/malte/assets/location-marker.svg'
 import malteIntroLanguageIcon from 'build-configs/malte/assets/intro-slides/Language.svg'
 import malteIntroEventsIcon from 'build-configs/malte/assets/intro-slides/Events.svg'

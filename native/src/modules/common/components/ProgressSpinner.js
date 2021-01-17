@@ -31,7 +31,6 @@ const LOGO_SIZE_FRACTION = 0.6
 const logoSize = svgSize * LOGO_SIZE_FRACTION
 const logoXY = (svgSize - logoSize) / 2
 
-// progress
 const STROKE_WIDTH_FRACTION = 0.09
 const strokeWidth = svgSize * STROKE_WIDTH_FRACTION
 const radius = (svgSize - strokeWidth) / 2
@@ -43,7 +42,7 @@ type PropsType = {|
   t: TFunction
 |}
 
-class ProgressBar extends React.Component<PropsType> {
+class ProgressSpinner extends React.Component<PropsType> {
   render () {
     const { t, progress, theme } = this.props
     return (
@@ -71,4 +70,4 @@ class ProgressBar extends React.Component<PropsType> {
   }
 }
 
-export default ProgressBar
+export default ProgressSpinner

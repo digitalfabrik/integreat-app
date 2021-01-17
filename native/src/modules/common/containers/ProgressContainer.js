@@ -2,6 +2,6 @@
 
 import { withTranslation } from 'react-i18next'
 import withTheme from '../../theme/hocs/withTheme'
-import ProgressBar from '../components/ProgressBar'
+import ProgressSpinner from '../components/ProgressSpinner'
 
-export default withTheme(withTranslation('common')(ProgressBar))
+export default withTheme(withTranslation('common')(ProgressSpinner))
