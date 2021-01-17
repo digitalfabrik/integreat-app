@@ -114,7 +114,7 @@ const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R: {}, 
                                               changeLanguage={changeUnavailableLanguage} />
       } else if (props.status === 'loading') {
         return timeoutExpired
-          ? <LayoutedScrollView refreshControl={<RefreshControl refreshing />}>
+          ? <LayoutedScrollView refreshControl={<RefreshControl refreshing={false} />}>
           {/* only display content while loading if innerProps and dispatch are available */}
           {props.innerProps && props.dispatch
             ? <Component {...props.innerProps} dispatch={props.dispatch} />
