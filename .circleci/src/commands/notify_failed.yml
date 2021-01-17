@@ -1,9 +1,0 @@
-description: Notifies about jobs which have failed
-steps:
-  - slack/status:
-      fail_only: true
-      mentions: 'maxammann,st,UV99P8ETW'
-      failure_message: ':fire: The $CIRCLE_JOB job has failed on the main branch! :fire:'
-      include_job_number_field: false
-      only_for_branches: main
-      webhook: ${SLACK_URL}
