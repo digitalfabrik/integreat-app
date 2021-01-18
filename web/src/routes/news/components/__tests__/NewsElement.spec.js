@@ -7,6 +7,7 @@ import { shallow } from 'enzyme'
 import NewsElement, { NUM_OF_WORDS_ALLOWED } from '../NewsElement'
 import { LOCAL_NEWS } from '../../constants'
 import textTruncator from '../../../../modules/common/utils/textTruncator'
+import DateFormatter from 'api-client/src/i18n/DateFormatter'
 
 describe('NewsElement', () => {
   const language = 'en'
@@ -31,7 +32,7 @@ describe('NewsElement', () => {
         title={title}
         content={message}
         timestamp={timestamp}
-        language={language}
+        formatter={new DateFormatter(undefined, language)}
         t={t}
         link={link} />
     ).dive()

@@ -6,6 +6,7 @@ import RemoteContent from './RemoteContent'
 import Caption from './Caption'
 import type Moment from 'moment'
 import LastUpdateInfo from './LastUpdateInfo'
+import DateFormatter from 'api-client/src/i18n/DateFormatter'
 
 export const THUMBNAIL_WIDTH = 300
 
@@ -24,7 +25,7 @@ type PropsType = {|
   thumbnailSrcSet?: ?string,
   content: string,
   lastUpdate?: Moment,
-  language: string,
+  formatter: DateFormatter,
   onInternalLinkClick: string => void,
   children?: React.Node
 |}
@@ -35,7 +36,7 @@ type PropsType = {|
 class Page extends React.PureComponent<PropsType> {
   render () {
     const {
-      title, defaultThumbnailSrc, thumbnailSrcSet, content, lastUpdate, language, children,
+      title, defaultThumbnailSrc, thumbnailSrcSet, content, lastUpdate, formatter, children,
       onInternalLinkClick
     } = this.props
     return (
@@ -45,7 +46,7 @@ class Page extends React.PureComponent<PropsType> {
         {children}
         <RemoteContent dangerouslySetInnerHTML={{ __html: content }}
                        onInternalLinkClick={onInternalLinkClick} />
-        {lastUpdate && <LastUpdateInfo lastUpdate={lastUpdate} language={language} withText />}
+        {lastUpdate && <LastUpdateInfo lastUpdate={lastUpdate} formatter={formatter} withText />}
       </>
     )
   }
