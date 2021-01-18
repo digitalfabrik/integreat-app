@@ -113,14 +113,16 @@ const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R: {}, 
         return <LanguageNotAvailableContainer languages={props.availableLanguages}
                                               changeLanguage={changeUnavailableLanguage} />
       } else if (props.status === 'loading') {
-        return timeoutExpired
-          ? <LayoutedScrollView refreshControl={<RefreshControl refreshing={false} />}>
-          {/* only display content while loading if innerProps and dispatch are available */}
-          {props.innerProps && props.dispatch
-            ? <Component {...props.innerProps} dispatch={props.dispatch} />
-            : <ProgressContainer progress={props.progress} />}
-        </LayoutedScrollView>
-          : <LayoutContainer />
+        const { innerProps, dispatch } = props
+        const isRefresh: boolean = Boolean(innerProps) && Boolean(dispatch)
+        const layoutedScrollview =
+          <LayoutedScrollView refreshControl={<RefreshControl refreshing={isRefresh} />}>
+            {isRefresh
+              // $FlowFixMe Cannot create `Component` element because props is incompatible with `S`
+              ? <Component {...innerProps} dispatch={dispatch} />
+              : <ProgressContainer progress={props.progress} />}
+          </LayoutedScrollView>
+        return timeoutExpired ? layoutedScrollview : <LayoutContainer />
       } else { // props.status === 'success'
         if (noScrollView) {
           return <LayoutContainer>
