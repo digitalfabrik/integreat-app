@@ -2,17 +2,17 @@ unless: << pipeline.parameters.api_triggered >>
 jobs:
   - bump_version:
       context:
-        - slack-app
+        - mattermost
       delivery: none
 
   - check_web:
       context:
-        - slack-app
+        - mattermost
   - build_web:
       name: build_ig_test_cms_web
       build_config_name: integreat-test-cms
       context:
-        - slack-app
+        - mattermost
       requires:
         - bump_version
   - deliver_web:
@@ -21,7 +21,7 @@ jobs:
           only:
             - main
       context:
-        - slack-app
+        - mattermost
         - sentry
       production_delivery: false
       requires:
@@ -30,20 +30,20 @@ jobs:
 
   - check_native:
       context:
-        - slack-app
+        - mattermost
 
   - build_android:
       name: build_e2e_android
       build_config_name: integreat-e2e
       context:
-        - slack-app
+        - mattermost
         - tuerantuer-google-play
         - tuerantuer-android
       requires:
         - bump_version
   - e2e_android:
       context:
-        - slack-app
+        - mattermost
         - browserstack
       requires:
         - build_e2e_android
@@ -52,14 +52,14 @@ jobs:
       name: build_e2e_ios
       build_config_name: integreat-e2e
       context:
-        - slack-app
+        - mattermost
         - tuerantuer-apple
         - tuerantuer-ios
       requires:
         - bump_version
   - e2e_ios:
       context:
-        - slack-app
+        - mattermost
         - browserstack
       requires:
         - build_e2e_ios
