@@ -16,13 +16,11 @@ import Caption from '../../../modules/common/components/Caption'
 import Failure from '../../../modules/error/components/Failure'
 import type { ThemeType } from '../../../modules/theme/constants'
 import type { LanguageResourceCacheStateType } from '../../../modules/app/StateType'
-import type { NavigationStackProp } from 'react-navigation-stack'
 import type { NavigateToEventParamsType } from '../../../modules/app/createNavigateToEvent'
-import type { NavigateToInternalLinkParamsType } from '../../../modules/app/createNavigateToInternalLink'
 import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
-import createNavigateToFeedbackModal from '../../../modules/app/createNavigateToFeedbackModal'
+import type { FeedbackInformationType } from '../../feedback/containers/FeedbackModalContainer'
 
 export type PropsType = {|
   path: ?string,
@@ -34,9 +32,9 @@ export type PropsType = {|
   resourceCacheUrl: string,
   theme: ThemeType,
   t: TFunction,
-  navigation: NavigationStackProp<*>,
   navigateToEvent: NavigateToEventParamsType => void,
-  navigateToInternalLink: NavigateToInternalLinkParamsType => void
+  navigateToFeedback: FeedbackInformationType => void,
+  navigateToLink: (url: string, language: string, shareUrl: string) => void
 |}
 
 /**
@@ -44,7 +42,7 @@ export type PropsType = {|
  */
 class Events extends React.Component<PropsType> {
   navigateToEvent = (cityCode: string, language: string, path: string) => () => {
-    this.props.navigateToEvent({ cityCode, language, path })
+    this.props.navigateToEvent({ cityCode, language, cityContentPath: path })
   }
 
   renderEventListItem = (cityCode: string, language: string) => (event: EventModel) => {
@@ -57,9 +55,9 @@ class Events extends React.Component<PropsType> {
   }
 
   createNavigateToFeedbackForEvent = (event: EventModel) => (isPositiveFeedback: boolean) => {
-    const { navigation, cityCode, language } = this.props
+    const { navigateToFeedback, cityCode, language } = this.props
 
-    createNavigateToFeedbackModal(navigation)({
+    navigateToFeedback({
       type: 'Event',
       title: event.title,
       path: event.path,
@@ -70,9 +68,9 @@ class Events extends React.Component<PropsType> {
   }
 
   navigateToFeedbackForEvents = (isPositiveFeedback: boolean) => {
-    const { navigation, cityCode, language } = this.props
+    const { navigateToFeedback, cityCode, language } = this.props
 
-    createNavigateToFeedbackModal(navigation)({
+    navigateToFeedback({
       type: 'Event',
       cityCode,
       language,
@@ -81,9 +79,7 @@ class Events extends React.Component<PropsType> {
   }
 
   render () {
-    const {
-      events, path, cityCode, language, resourceCache, resourceCacheUrl, theme, navigateToInternalLink, t, navigation
-    } = this.props
+    const { events, path, cityCode, language, resourceCache, resourceCacheUrl, theme, navigateToLink, t } = this.props
 
     if (path) {
       const event: ?EventModel = events.find(_event => _event.path === path)
@@ -98,8 +94,7 @@ class Events extends React.Component<PropsType> {
                      files={files}
                      theme={theme}
                      resourceCacheUrl={resourceCacheUrl}
-                     navigation={navigation}
-                     navigateToInternalLink={navigateToInternalLink}
+                     navigateToLink={navigateToLink}
                      navigateToFeedback={this.createNavigateToFeedbackForEvent(event)}>
           <>
             <PageDetail identifier={t('date')} information={event.date.toFormattedString(language)}

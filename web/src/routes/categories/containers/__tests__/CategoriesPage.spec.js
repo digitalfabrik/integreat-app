@@ -9,6 +9,9 @@ import configureMockStore from 'redux-mock-store'
 import moment from 'moment'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 
+jest.mock('react-i18next')
+jest.mock('redux-first-router-link')
+
 describe('CategoriesPage', () => {
   const categoryModels = [
     new CategoryModel({

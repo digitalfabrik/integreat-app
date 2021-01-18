@@ -2,7 +2,6 @@
 
 import * as React from 'react'
 import TestRenderer from 'react-test-renderer'
-import createNavigationScreenPropMock from '../../../../testing/createNavigationStackPropMock'
 import Dashboard from '../Dashboard'
 import lightTheme from '../../../../modules/theme/constants'
 import CategoriesRouteStateView from '../../../../modules/app/CategoriesRouteStateView'
@@ -22,13 +21,13 @@ describe('Dashboard', () => {
   const categoriesMapModel = new CategoriesMapModelBuilder('augsburg', 'de').build()
   const categoryLeaf = categoriesMapModel.toArray().find(category => category.isLeaf(categoriesMapModel))
   const language = 'de'
-  const navigation = createNavigationScreenPropMock()
 
   const navigateToPoi = jest.fn()
   const navigateToCategory = jest.fn()
   const navigateToEvent = jest.fn()
-  const navigateToInternalLink = jest.fn()
   const navigateToNews = jest.fn()
+  const navigateToLink = jest.fn()
+  const navigateToFeedback = jest.fn()
   const navigateToOffers = jest.fn()
   const theme = lightTheme
 
@@ -77,8 +76,8 @@ describe('Dashboard', () => {
   }
 
   const renderDashboard = (cityModel: CityModel) =>
-    <Dashboard navigation={navigation} navigateToPoi={navigateToPoi} navigateToCategory={navigateToCategory}
-               navigateToEvent={navigateToEvent} navigateToInternalLink={navigateToInternalLink}
+    <Dashboard navigateToPoi={navigateToPoi} navigateToCategory={navigateToCategory}
+               navigateToEvent={navigateToEvent} navigateToLink={navigateToLink} navigateToFeedback={navigateToFeedback}
                navigateToNews={navigateToNews} navigateToOffers={navigateToOffers} theme={theme} language={language}
                cityModel={cityModel} stateView={stateView} resourceCache={resourceCache}
                resourceCacheUrl={resourceCacheUrl} t={t} />

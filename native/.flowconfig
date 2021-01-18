@@ -38,6 +38,12 @@ node_modules/warning/.*
 .*/node_modules/react-native-inappbrowser-reborn/types.js
 
 [include]
+../translations/
+../translations/**/*.js
+../api-client/
+../api-client/**/*.js
+../build-configs/
+../build-configs/**/*.js
 
 [libs]
 node_modules/react-native/interface.js

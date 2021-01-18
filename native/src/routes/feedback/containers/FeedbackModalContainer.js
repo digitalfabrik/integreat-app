@@ -1,7 +1,6 @@
 // @flow
 
 import * as React from 'react'
-import type { NavigationLeafRoute, NavigationScreenProp } from 'react-navigation'
 import { connect } from 'react-redux'
 import { type Dispatch } from 'redux'
 import { withTranslation } from 'react-i18next'
@@ -24,6 +23,11 @@ import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvi
 import type { StateType } from '../../../modules/app/StateType'
 import createNavigateToFeedbackModal from '../../../modules/app/createNavigateToFeedbackModal'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
+import type {
+  FeedbackModalRouteType,
+  NavigationPropType,
+  RoutePropType
+} from '../../../modules/app/constants/NavigationTypes'
 
 type FeedbackType = 'Category' | 'Event' | 'Pois' | 'Offers' | 'Disclaimer'
 
@@ -38,30 +42,23 @@ export type FeedbackInformationType = {|
   offers?: Array<OfferModel>
 |}
 
-type ContainerPropsType = {|
-  navigation: NavigationScreenProp<{|...NavigationLeafRoute, params: FeedbackInformationType |}>,
-  dispatch: Dispatch<StoreActionType>,
-  cities: $ReadOnlyArray<CityModel>,
-  t: TFunction
-|}
-
 type OwnPropsType = {|
-  navigation: NavigationScreenProp<{|...NavigationLeafRoute, params: FeedbackInformationType |}>,
-  t: TFunction
+  route: RoutePropType<FeedbackModalRouteType>,
+  navigation: NavigationPropType<FeedbackModalRouteType>
 |}
-
-type RefreshPropsType = {|
-  navigation: NavigationScreenProp<*>
-|}
-
-type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
 type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
+
+type InnerPropsType = {|
+  ...OwnPropsType,
+  ...DispatchPropsType,
+  cities: $ReadOnlyArray<CityModel>
+|}
+
+type StatePropsType = StatusPropsType<InnerPropsType, OwnPropsType>
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
-  const refreshProps = {
-    navigation: ownProps.navigation
-  }
+  const refreshProps = ownProps
   if (state.cities.status === 'error') {
     return { status: 'error', message: state.cities.message, code: state.cities.code, refreshProps }
   }
@@ -72,9 +69,8 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   return {
     status: 'success',
     innerProps: {
-      cities: state.cities.models,
-      navigation: ownProps.navigation,
-      t: ownProps.t
+      ...ownProps,
+      cities: state.cities.models
     },
     refreshProps
   }
@@ -82,11 +78,10 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsType => ({ dispatch })
 
-const refresh = (refreshProps: RefreshPropsType) => {
+const refresh = (refreshProps: OwnPropsType) => {
   const { navigation } = refreshProps
-  const feedbackInformation = navigation.state.params
   const navigateToFeedback = createNavigateToFeedbackModal(navigation)
-  navigateToFeedback(feedbackInformation)
+  navigateToFeedback(refreshProps.route.params)
 }
 
 export type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
@@ -98,6 +93,11 @@ type FeedbackModalStateType = {|
   sendingStatus: SendingStatusType
 |}
 
+type ContainerPropsType = {|
+  ...InnerPropsType,
+  t: TFunction
+|}
+
 class FeedbackModalContainer extends React.Component<ContainerPropsType, FeedbackModalStateType> {
   constructor (props: ContainerPropsType) {
     super(props)
@@ -106,11 +106,9 @@ class FeedbackModalContainer extends React.Component<ContainerPropsType, Feedbac
   }
 
   getCityName = (): string => {
-    const { cities, navigation } = this.props
-    const cityCode = navigation.getParam('cityCode')
-    if (!cityCode || !cities) {
-      throw new Error('City or cites unavailable.')
-    }
+    const { cities, route } = this.props
+    const cityCode = route.params.cityCode
+
     return CityModel.findCityName(cities, cityCode)
   }
 
@@ -140,12 +138,12 @@ class FeedbackModalContainer extends React.Component<ContainerPropsType, Feedbac
   }
 
   getContentFeedbackOption = (): ?FeedbackVariant => {
-    const { navigation, t } = this.props
+    const { route, t } = this.props
     const cityName = this.getCityName()
 
     const label = t('contentOfCity', { city: cityName })
     const feedbackCategory = CONTENT_FEEDBACK_CATEGORY
-    const feedbackType = navigation.getParam('type')
+    const feedbackType = route.params.type
 
     // TODO: add 'POIS' in IGAPP-438
     switch (feedbackType) {
@@ -159,8 +157,8 @@ class FeedbackModalContainer extends React.Component<ContainerPropsType, Feedbac
   }
 
   getOffersFeedbackOptions = (): Array<FeedbackVariant> => {
-    const { t } = this.props
-    const { offers } = this.props.navigation.state.params
+    const { route, t } = this.props
+    const { offers } = route.params
     if (offers) {
       return offers.map(offer =>
         new FeedbackVariant({
@@ -177,8 +175,8 @@ class FeedbackModalContainer extends React.Component<ContainerPropsType, Feedbac
   closeModal = () => this.props.navigation.goBack()
 
   getCurrentPageFeedbackOption = (): ?FeedbackVariant => {
-    const { navigation, t } = this.props
-    const { type, path, title, alias } = navigation.state.params
+    const { route, t } = this.props
+    const { type, path, title, alias } = route.params
 
     const feedbackCategory = CONTENT_FEEDBACK_CATEGORY
     if (type === 'Category' && path && title) {
@@ -217,8 +215,8 @@ class FeedbackModalContainer extends React.Component<ContainerPropsType, Feedbac
   }
 
   getFeedbackData = (selectedFeedbackOption: FeedbackVariant, comment: string): FeedbackParamsType => {
-    const { navigation } = this.props
-    const feedbackInformation = navigation.state.params
+    const { route } = this.props
+    const feedbackInformation = route.params
     const isOfferOptionSelected = selectedFeedbackOption.feedbackType === OFFER_FEEDBACK_TYPE
     const alias = feedbackInformation.alias || (isOfferOptionSelected && selectedFeedbackOption.alias) || ''
     const city = this.getCityName().toLocaleLowerCase(feedbackInformation.language)
@@ -258,9 +256,9 @@ class FeedbackModalContainer extends React.Component<ContainerPropsType, Feedbac
   }
 
   render () {
-    const { navigation } = this.props
+    const { route } = this.props
     const { comment, selectedFeedbackIndex, feedbackOptions, sendingStatus } = this.state
-    const { isPositiveFeedback } = navigation.state.params
+    const { isPositiveFeedback } = route.params
 
     return <ThemedTranslatedFeedbackModal closeModal={this.closeModal}
                           comment={comment}
@@ -283,7 +281,7 @@ const ThemedTranslatedFeedbackContainer = withTranslation('feedback')(
 )
 
 export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
-  withPayloadProvider<ContainerPropsType, RefreshPropsType>(refresh)(
+  withPayloadProvider<InnerPropsType, OwnPropsType, FeedbackModalRouteType>(refresh)(
     ThemedTranslatedFeedbackContainer
   )
 )
