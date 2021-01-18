@@ -41,7 +41,6 @@ export type PropsType = {|
  * Displays a list of events or a single event, matching the route /<location>/<language>/events(/<id>)
  */
 const Events = ({
-  navigation,
   cityCode,
   language,
   theme,
@@ -50,9 +49,9 @@ const Events = ({
   path,
   resourceCache,
   resourceCacheUrl,
-  navigateToInternalLink,
   t,
-  navigateToLink
+  navigateToLink,
+  navigateToFeedback
 }: PropsType) => {
   const formatter = useContext(DateFormatterContext)
 
@@ -66,7 +65,7 @@ const Events = ({
   }
 
   const createNavigateToFeedbackForEvent = (event: EventModel) => (isPositiveFeedback: boolean) => {
-  navigateToFeedback(navigation)({
+    navigateToFeedback({
       type: 'Event',
       title: event.title,
       path: event.path,
@@ -77,13 +76,13 @@ const Events = ({
   }
 
   const navigateToFeedbackForEvents = useCallback((isPositiveFeedback: boolean) => {
-  navigateToFeedback(navigation)({
+    navigateToFeedback({
       type: 'Event',
       cityCode,
       language,
       isPositiveFeedback
     })
-  }, [cityCode, language, navigation])
+  }, [navigateToFeedback, cityCode, language])
 
   if (path) {
     const event: ?EventModel = events.find(_event => _event.path === path)

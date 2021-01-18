@@ -47,7 +47,7 @@ const EventListItem = ({
     navigateToEvent({
       cityCode,
       language,
-      path: event.path
+      cityContentPath: event.path
     })
   }, [navigateToEvent, cityCode, language, event])
 

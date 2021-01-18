@@ -54,19 +54,17 @@ const Page = ({
   resourceCacheUrl,
   lastUpdate,
   navigateToFeedback,
-  navigation,
-  navigateToInternalLink,
   navigateToLink,
   files
-}: PropType) => {
+}: PropsType) => {
   const [loading, setLoading] = useState<boolean>(true)
   const formatter = useContext(DateFormatterContext)
   const cacheDict = cacheDictionary(files, resourceCacheUrl)
 
   const onLinkPress = useCallback((url: string) => {
     const shareUrl = Object.keys(cacheDict).find(remoteUrl => cacheDict[remoteUrl] === url)
-    navigateToLink(url, navigation, language, navigateToInternalLink, shareUrl || url)
-  }, [cacheDict, navigation, language, navigateToInternalLink])
+    navigateToLink(url, language, shareUrl || url)
+  }, [navigateToLink, cacheDict, language])
 
   const onLoad = useCallback(() => setLoading(false), [setLoading])
 
