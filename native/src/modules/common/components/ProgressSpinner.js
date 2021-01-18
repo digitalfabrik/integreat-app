@@ -47,7 +47,7 @@ class ProgressSpinner extends React.Component<PropsType> {
     const { t, progress, theme } = this.props
     return (
       <Container>
-        <Svg width={svgSize} height={svgSize}>
+        <Svg width={svgSize} height={svgSize} testID='loading-image'>
           <Image
             width={logoSize}
             height={logoSize}
