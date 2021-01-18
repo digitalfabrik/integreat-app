@@ -4,7 +4,6 @@ import * as React from 'react'
 import { useState, useContext, useCallback } from 'react'
 import styled from 'styled-components/native'
 import type { ThemeType } from '../../theme/constants'
-import type { NavigationStackProp } from 'react-navigation-stack'
 import Caption from './Caption'
 import TimeStamp from './TimeStamp'
 import type Moment from 'moment'
@@ -13,7 +12,6 @@ import type { NavigateToInternalLinkParamsType } from '../../app/createNavigateT
 import RemoteContent from './RemoteContent'
 import SiteHelpfulBox from './SiteHelpfulBox'
 import SpaceBetween from './SpaceBetween'
-import onInternalLinkPress from '../onInternalLinkPress'
 import { RESOURCE_CACHE_DIR_PATH } from '../../endpoint/DatabaseConnector'
 import { mapValues } from 'lodash'
 import DateFormatterContext from '../../i18n/context/DateFormatterContext'
@@ -26,12 +24,11 @@ const Container = styled.View`
 
 export type ParsedCacheDictionaryType = {| [remoteUrl: string]: string |}
 
-type PropType = {|
+type PropsType = {|
   title: string,
   content: string,
   theme: ThemeType,
-  navigation: NavigationStackProp<*>,
-  navigateToInternalLink?: NavigateToInternalLinkParamsType => void,
+  navigateToLink: (url: string, language: string, shareUrl: string) => void,
   navigateToFeedback?: (positive: boolean) => void,
   files: PageResourceCacheStateType,
   children?: React.Node,
@@ -59,6 +56,7 @@ const Page = ({
   navigateToFeedback,
   navigation,
   navigateToInternalLink,
+  navigateToLink,
   files
 }: PropType) => {
   const [loading, setLoading] = useState<boolean>(true)
@@ -67,7 +65,7 @@ const Page = ({
 
   const onLinkPress = useCallback((url: string) => {
     const shareUrl = Object.keys(cacheDict).find(remoteUrl => cacheDict[remoteUrl] === url)
-    onInternalLinkPress(url, navigation, language, navigateToInternalLink, shareUrl || url)
+    navigateToLink(url, navigation, language, navigateToInternalLink, shareUrl || url)
   }, [cacheDict, navigation, language, navigateToInternalLink])
 
   const onLoad = useCallback(() => setLoading(false), [setLoading])

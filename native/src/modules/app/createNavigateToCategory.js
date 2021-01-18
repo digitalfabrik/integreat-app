@@ -2,38 +2,57 @@
 
 import type { Dispatch } from 'redux'
 import type { FetchCategoryActionType, StoreActionType } from './StoreActionType'
-import type { NavigationStackProp } from 'react-navigation-stack'
 import { generateKey } from './generateRouteKey'
+import type {
+  CategoriesRouteType,
+  DashboardRouteType,
+  NavigationPropType,
+  RoutesType
+} from './constants/NavigationTypes'
+import { url } from '../common/url'
 
 export type NavigateToCategoryParamsType = {|
-  cityCode: string, language: string, path: string, key?: string, forceRefresh?: boolean
+  cityCode: string,
+  language: string,
+  cityContentPath: string,
+  key?: string,
+  forceRefresh?: boolean
 |}
 
-export default (
-  routeName: 'Categories' | 'Dashboard',
+const createNavigateToCategory = <T: RoutesType>(
+  routeName: CategoriesRouteType | DashboardRouteType,
   dispatch: Dispatch<StoreActionType>,
-  navigation: NavigationStackProp<*>
-) => ({ cityCode, language, path, key = generateKey(), forceRefresh = false }: NavigateToCategoryParamsType) => {
-  navigation.navigate({
-    routeName,
-    params: {
-      onRouteClose: () => dispatch({ type: 'CLEAR_CATEGORY', params: { key } }),
-      sharePath: path
-    },
-    key
-  })
+  navigation: NavigationPropType<T>
+) => ({
+    cityCode,
+    language,
+    cityContentPath,
+    key = generateKey(),
+    forceRefresh = false
+  }: NavigateToCategoryParamsType) => {
+    navigation.navigate({
+      name: routeName,
+      params: {
+        shareUrl: url(cityContentPath),
+        cityCode,
+        languageCode: language
+      },
+      key
+    })
 
-  const fetchCategory: FetchCategoryActionType = {
-    type: 'FETCH_CATEGORY',
-    params: {
-      city: cityCode,
-      language,
-      path,
-      depth: 2,
-      key,
-      criterion: { forceUpdate: forceRefresh, shouldRefreshResources: forceRefresh }
+    const fetchCategory: FetchCategoryActionType = {
+      type: 'FETCH_CATEGORY',
+      params: {
+        city: cityCode,
+        language,
+        path: cityContentPath,
+        depth: 2,
+        key,
+        criterion: { forceUpdate: forceRefresh, shouldRefreshResources: forceRefresh }
+      }
     }
+
+    dispatch(fetchCategory)
   }
 
-  dispatch(fetchCategory)
-}
+export default createNavigateToCategory

@@ -3,7 +3,6 @@
 import * as React from 'react'
 import Snackbar from '../components/Snackbar'
 import type { ThemeType } from '../../theme/constants'
-import type { NavigationStackProp } from 'react-navigation-stack'
 import { type TFunction, withTranslation } from 'react-i18next'
 import withTheme from '../../theme/hocs/withTheme'
 import AppSettings from '../../settings/AppSettings'
@@ -16,9 +15,10 @@ import {
   requestPushNotificationPermission
 } from '../../push-notifications/PushNotificationsManager'
 import type { FeatureFlagsType } from 'build-configs/BuildConfigType'
+import { DASHBOARD_ROUTE, LANDING_ROUTE } from '../../app/constants/NavigationTypes'
 
 type PropsType = {|
-  navigation: NavigationStackProp<*>,
+  routeName: string,
   t: TFunction,
   theme: ThemeType
 |}
@@ -42,7 +42,7 @@ class PermissionSnackbarContainer extends React.Component<PropsType, StateType> 
   }
 
   componentDidUpdate (prevProps: PropsType) {
-    if (prevProps.navigation.state !== this.props.navigation.state) {
+    if (prevProps.routeName !== this.props.routeName) {
       this.updateSettingsAndPermissions()
     }
   }
@@ -93,19 +93,13 @@ class PermissionSnackbarContainer extends React.Component<PropsType, StateType> 
   }
 
   landingRoute = (): boolean => {
-    const { navigation } = this.props
-    const { index, routes } = navigation.state
-    const currentRoute = routes[index]
-
-    return currentRoute.key === 'Landing'
+    const { routeName } = this.props
+    return routeName === LANDING_ROUTE
   }
 
   dashboardRoute = (): boolean => {
-    const { navigation } = this.props
-    const { index, routes } = navigation.state
-    const currentRoute = routes[index]
-
-    return currentRoute.key === 'CityContent' && currentRoute.routes[currentRoute.index]?.routeName === 'Dashboard'
+    const { routeName } = this.props
+    return routeName === DASHBOARD_ROUTE
   }
 
   getSnackbar (): ?React$Element<*> {

@@ -1,8 +1,7 @@
 // @flow
 
 import { connect } from 'react-redux'
-import type { NavigationStackProp, NavigationStackScene } from 'react-navigation-stack'
-import { withNavigation } from 'react-navigation'
+import { type StackHeaderProps } from '@react-navigation/stack'
 import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
 import Header from '../components/Header'
@@ -12,12 +11,10 @@ import { type Dispatch } from 'redux'
 import type { StoreActionType } from '../../app/StoreActionType'
 import { CityModel } from 'api-client'
 import isPeekingRoute from '../../endpoint/selectors/isPeekingRoute'
-import createNavigateToLanding from '../../app/createNavigateToLanding'
+import { CHANGE_LANGUAGE_MODAL_ROUTE } from '../../app/constants/NavigationTypes'
 
 type OwnPropsType = {|
-  navigation: NavigationStackProp<*>,
-  scene: NavigationStackScene,
-  scenes: Array<NavigationStackScene>,
+  ...StackHeaderProps,
   t: TFunction
 |}
 
@@ -29,19 +26,18 @@ type StatePropsType = {|
   routeCityModel?: CityModel
 |}
 
-type DispatchPropsType = {|
-  navigateToLanding: () => void
-|}
+type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
 
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
-  const routeKey = ownProps.navigation.state.key
+  const routeKey = ownProps.scene.route.key
 
-  const route =
-    state.cityContent?.categoriesRouteMapping[routeKey] ||
-    state.cityContent?.eventsRouteMapping[routeKey] ||
-    state.cityContent?.newsRouteMapping[routeKey]
+  const route = state.cityContent
+    ? state.cityContent.categoriesRouteMapping[routeKey] ||
+      state.cityContent.eventsRouteMapping[routeKey] ||
+      state.cityContent.newsRouteMapping[routeKey]
+    : null
   const languages = state.cityContent?.languages
 
   // prevent re-rendering when city is there.
@@ -59,16 +55,14 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
 
   const goToLanguageChange = () => {
-    const { key } = ownProps.navigation.state
-
     ownProps.navigation.navigate({
-      routeName: 'ChangeLanguageModal',
+      name: CHANGE_LANGUAGE_MODAL_ROUTE,
       params: {
         currentLanguage: route.language,
         languages: languages.models,
         cityCode: stateCityCode,
         availableLanguages: Array.from(route.allAvailableLanguages.keys()),
-        previousKey: key
+        previousKey: routeKey
       }
     })
   }
@@ -77,14 +71,8 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   return { peeking, routeCityModel, language: route.language, goToLanguageChange, categoriesAvailable }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps: OwnPropsType): DispatchPropsType => ({
-  navigateToLanding: createNavigateToLanding(dispatch, ownProps.navigation)
-})
-
-export default withNavigation(
-  withTranslation('layout')(
-    connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
-      withTheme(Header)
-    )
+export default withTranslation('layout')(
+  connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(
+    withTheme(Header)
   )
 )

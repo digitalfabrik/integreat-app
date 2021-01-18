@@ -16,13 +16,11 @@ import Caption from '../../../modules/common/components/Caption'
 import Failure from '../../../modules/error/components/Failure'
 import type { ThemeType } from 'build-configs/ThemeType'
 import type { LanguageResourceCacheStateType } from '../../../modules/app/StateType'
-import type { NavigationStackProp } from 'react-navigation-stack'
 import type { NavigateToEventParamsType } from '../../../modules/app/createNavigateToEvent'
-import type { NavigateToInternalLinkParamsType } from '../../../modules/app/createNavigateToInternalLink'
 import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
-import createNavigateToFeedbackModal from '../../../modules/app/createNavigateToFeedbackModal'
+import type { FeedbackInformationType } from '../../feedback/containers/FeedbackModalContainer'
 import DateFormatterContext from '../../../modules/i18n/context/DateFormatterContext'
 
 export type PropsType = {|
@@ -34,9 +32,9 @@ export type PropsType = {|
   resourceCacheUrl: string,
   theme: ThemeType,
   t: TFunction,
-  navigation: NavigationStackProp<*>,
   navigateToEvent: NavigateToEventParamsType => void,
-  navigateToInternalLink: NavigateToInternalLinkParamsType => void
+  navigateToFeedback: FeedbackInformationType => void,
+  navigateToLink: (url: string, language: string, shareUrl: string) => void
 |}
 
 /**
@@ -53,7 +51,8 @@ const Events = ({
   resourceCache,
   resourceCacheUrl,
   navigateToInternalLink,
-  t
+  t,
+  navigateToLink
 }: PropsType) => {
   const formatter = useContext(DateFormatterContext)
 
@@ -67,7 +66,7 @@ const Events = ({
   }
 
   const createNavigateToFeedbackForEvent = (event: EventModel) => (isPositiveFeedback: boolean) => {
-    createNavigateToFeedbackModal(navigation)({
+  navigateToFeedback(navigation)({
       type: 'Event',
       title: event.title,
       path: event.path,
@@ -78,7 +77,7 @@ const Events = ({
   }
 
   const navigateToFeedbackForEvents = useCallback((isPositiveFeedback: boolean) => {
-    createNavigateToFeedbackModal(navigation)({
+  navigateToFeedback(navigation)({
       type: 'Event',
       cityCode,
       language,
@@ -99,8 +98,7 @@ const Events = ({
                    files={files}
                    theme={theme}
                    resourceCacheUrl={resourceCacheUrl}
-                   navigation={navigation}
-                   navigateToInternalLink={navigateToInternalLink}
+                   navigateToLink={navigateToLink}
                    navigateToFeedback={createNavigateToFeedbackForEvent(event)}>
         <>
           <PageDetail identifier={t('date')} information={event.date.toFormattedString(formatter)}
