@@ -41,7 +41,7 @@ steps:
           #!/bin/bash
 
           Send_notification() {
-              if [ "<< parameters.only_for_branch >>" -ne "${CIRCLE_BRANCH}" ]; then
+              if [ "<< parameters.only_for_branch >>" != "${CIRCLE_BRANCH}" ]; then
                   echo "Not on << parameters.only_for_branch >> branch. Skipping."
                   exit 0
               fi
