@@ -146,6 +146,8 @@ class FeedbackModalContainer extends React.Component<ContainerPropsType, Feedbac
     const label = t('contentOfCity', { city: cityName })
     const feedbackCategory = CONTENT_FEEDBACK_CATEGORY
     const feedbackType = navigation.getParam('type')
+
+    // TODO: add 'POIS' in IGAPP-438
     switch (feedbackType) {
       case 'Event':
         return new FeedbackVariant({ label, feedbackType: EVENTS_FEEDBACK_TYPE, feedbackCategory })
