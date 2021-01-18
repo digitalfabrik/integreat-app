@@ -3,7 +3,13 @@
 exports[`DisclaimerPage should match snapshot 1`] = `
 <Page
   content="this is a test content"
-  language="de"
+  formatter={
+    DateFormatter {
+      "_defaultLocale": "de",
+      "_fallbackFormat": undefined,
+      "format": [Function],
+    }
+  }
   lastUpdate={"2017-11-18T19:30:00.000Z"}
   onInternalLinkClick={[Function]}
   title="Feedback, Kontakt und mögliches Engagement"

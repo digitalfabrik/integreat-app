@@ -10,7 +10,13 @@ exports[`PoisPage should render a Page if a poi is selected 1`] = `
 <Page
   content="content"
   defaultThumbnailSrc="thumbnail"
-  language="en"
+  formatter={
+    DateFormatter {
+      "_defaultLocale": "de",
+      "_fallbackFormat": undefined,
+      "format": [Function],
+    }
+  }
   lastUpdate={"2016-01-07T09:36:24.000Z"}
   onInternalLinkClick={[Function]}
   title="third Event"
