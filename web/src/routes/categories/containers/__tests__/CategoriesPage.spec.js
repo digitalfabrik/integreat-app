@@ -81,8 +81,7 @@ describe('CategoriesPage', () => {
                       city={city}
                       language={language}
                       t={t}
-                      path={categoryModels[3].path}
-                      uiDirection='ltr' />
+                      path={categoryModels[3].path} />
     )
 
     expect(wrapper).toMatchSnapshot()
@@ -94,7 +93,6 @@ describe('CategoriesPage', () => {
                       cities={cities}
                       city={city}
                       language={language}
-                      uiDirection='ltr'
                       t={t}
                       path={categoryModels[2].path} />
     )
@@ -108,7 +106,6 @@ describe('CategoriesPage', () => {
                       cities={cities}
                       city={city}
                       language={language}
-                      uiDirection='ltr'
                       t={t}
                       path='/augsburg/de' />
     )
@@ -121,7 +118,6 @@ describe('CategoriesPage', () => {
       <CategoriesPage categories={categories}
                       cities={cities}
                       city={city}
-                      uiDirection='ltr'
                       t={t}
                       language={language}
                       path='/augsburg/de/not/valid' />
