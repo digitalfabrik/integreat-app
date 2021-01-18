@@ -4,7 +4,7 @@ import React from 'react'
 import { ScrollView, View } from 'react-native'
 import { LocalNewsModel, TunewsModel } from 'api-client'
 import MomentContext from '../../../modules/i18n/context/MomentContext'
-import type { ThemeType } from '../../../modules/theme/constants'
+import type { ThemeType } from 'build-configs/ThemeType'
 import {
   contentDirection,
   contentAlignment
@@ -13,13 +13,13 @@ import headerImage from '../assets/tu-news-header-details-icon.svg'
 import styled from 'styled-components/native'
 import type { StyledComponent } from 'styled-components'
 
-const Container: StyledComponent<{}, {}, *> = styled.View`
+const Container: StyledComponent<{||}, {||}, *> = styled.View`
   align-items: center;
   margin-horizontal: 3%;
   flex: 1;
 `
 
-const HeaderImageWrapper: StyledComponent<{}, {}, *> = styled.View`
+const HeaderImageWrapper: StyledComponent<{||}, {||}, *> = styled.View`
   width: 95%;
   align-self: center;
   align-items: flex-start;
@@ -28,12 +28,12 @@ const HeaderImageWrapper: StyledComponent<{}, {}, *> = styled.View`
   background-color: rgba(2, 121, 166, 0.4);
 `
 
-const HeaderImage: StyledComponent<{}, {}, *> = styled.Image`
+const HeaderImage: StyledComponent<{||}, {||}, *> = styled.Image`
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
 `
 
-const Row: StyledComponent<{ language: string }, ThemeType, *> = styled.View`
+const Row: StyledComponent<{| language: string |}, ThemeType, *> = styled.View`
   flex-direction: ${props => contentDirection(props.language)};
   border-radius: 5px;
   width: 95%;
@@ -42,7 +42,7 @@ const Row: StyledComponent<{ language: string }, ThemeType, *> = styled.View`
   padding: 5px;
   background-color: ${props => props.theme.colors.tunewsThemeColor};
 `
-const NewsHeadLine: StyledComponent<{}, ThemeType, *> = styled.Text`
+const NewsHeadLine: StyledComponent<{||}, ThemeType, *> = styled.Text`
   font-weight: 700;
   font-family: ${props => props.theme.fonts.decorativeFontBold};
   color: ${props => props.theme.colors.textColor};
@@ -51,7 +51,7 @@ const NewsHeadLine: StyledComponent<{}, ThemeType, *> = styled.Text`
   margin-bottom: 15px;
 `
 
-const NewsContent: StyledComponent<{ language: string },
+const NewsContent: StyledComponent<{| language: string |},
   ThemeType,
   *> = styled.Text`
   font-family: ${props => props.theme.fonts.decorativeFontRegular};
@@ -61,7 +61,7 @@ const NewsContent: StyledComponent<{ language: string },
   text-align: ${props => contentAlignment(props.language)};
   color: ${props => props.theme.colors.textColor};
 `
-const TunewsFooter: StyledComponent<{ underlined?: boolean, rightMargin: number },
+const TunewsFooter: StyledComponent<{| underlined?: boolean, rightMargin: number |},
   ThemeType,
   *> = styled.Text`
   font-family: ${props => props.theme.fonts.decorativeFontBold};
@@ -126,15 +126,19 @@ class NewsItemsDetails extends React.Component<PropsType> {
               </TunewsFooter>
               {isTunews && (
                 <MomentContext.Consumer>
-                  {formatter => (
-                    <TunewsFooter theme={theme} rightMargin={3}>
-                      {/* $FlowFixMe this keeps failing no matter the fix is */}
-                      {formatter(selectedNewsItem.date, {
-                        format: 'LL',
-                        locale: language
-                      })}
-                    </TunewsFooter>
-                  )}
+                  {formatter => {
+                    if (!(selectedNewsItem instanceof TunewsModel)) {
+                      return null
+                    }
+
+                    return (
+                      <TunewsFooter theme={theme} rightMargin={3}>
+                        {formatter.format(selectedNewsItem.date, {
+                          format: 'LL'
+                        })}
+                      </TunewsFooter>
+                    )
+                  }}
                 </MomentContext.Consumer>
               )}
             </Row>
