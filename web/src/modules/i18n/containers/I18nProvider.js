@@ -71,7 +71,12 @@ export default ({ children }: PropsType) => {
     if (document.documentElement) {
       document.documentElement.lang = language
     }
-    dispatch(setUiDirection(config.isRTLLanguage(language) ? 'rtl' : 'ltr'))
+    if (config.isSupportedLanguage(language)) {
+      dispatch(setUiDirection(config.hasRTLScript(language) ? 'rtl' : 'ltr'))
+    } else {
+      // Use ltr fallback if we are unsure
+      dispatch(setUiDirection('ltr'))
+    }
   }, [dispatch, language])
 
   const additionalFont = config.getAdditionalFont(language)
@@ -89,7 +94,7 @@ export default ({ children }: PropsType) => {
       <div
         data-testid={'direction'}
         style={{
-          direction: config.isRTLLanguage(language) ? 'rtl' : 'ltr'
+          direction: config.hasRTLScript(language) ? 'rtl' : 'ltr'
         }}>
         <ReactHelmet>
           {additionalFont === 'lateef' && <link href='/fonts/lateef/lateef.css' rel='stylesheet' />}
