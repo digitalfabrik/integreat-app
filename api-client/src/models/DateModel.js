@@ -1,13 +1,18 @@
 // @flow
 
 import type Moment from 'moment'
+import Formatter from '../i18n/Formatter'
 
 class DateModel {
   _startDate: Moment
   _endDate: Moment
   _allDay: boolean
 
-  constructor ({ startDate, endDate, allDay }: {| startDate: Moment, endDate: Moment, allDay: boolean |}) {
+  constructor ({
+    startDate,
+    endDate,
+    allDay
+  }: {| startDate: Moment, endDate: Moment, allDay: boolean |}) {
     this._allDay = allDay
     this._startDate = startDate
     this._endDate = endDate
@@ -27,32 +32,30 @@ class DateModel {
 
   /**
    * Returns a formatted string containing all relevant start and end date and time information
-   * @param {String} locale The locale to format the span in
+   * @param {MomentFormatterType} formatter formats the string according to the correct locale
    * @return {String} The formatted span string
    */
-  toFormattedString (locale: string): string {
-    // TODO IGAPP-399: Use passed locale again instead of hardcoded 'en'
-    this._startDate.locale('en')
-
+  toFormattedString (formatter: Formatter): string {
     // if allDay: only date, else: date + time
-    let span = this._allDay ? this._startDate.format('LL') : this._startDate.format('LLL')
+    let span = this._allDay
+      ? formatter.format(this._startDate, { format: 'LL' })
+      : formatter.format(this._startDate, { format: 'LLL' })
 
     if (this._endDate.isValid() && !this._startDate.isSame(this._endDate)) {
       // endDate is valid and different from startDate
-
-      // TODO IGAPP-399: Use passed locale again instead of hardcoded 'en'
-      this._endDate.locale('en')
       if (this._startDate.isSame(this._endDate, 'day')) {
         // startDate and endDate are on the same day
 
         // if allDay: we don't need anything more, because we are on the same day, else: only time
-        span += this._allDay ? '' : ` - ${this._endDate.format('LT')}`
+        span += this._allDay ? '' : ` - ${formatter.format(this._endDate, { format: 'LT' })}`
       } else {
         // startDate and endDate are not on the same day
 
         span += ' - '
         // if allDay: only date, else: date + time
-        span += this._allDay ? this._endDate.format('LL') : this._endDate.format('LLL')
+        span += this._allDay
+          ? formatter.format(this._endDate, { format: 'LL' })
+          : formatter.format(this._endDate, { format: 'LLL' })
       }
     }
     return span
