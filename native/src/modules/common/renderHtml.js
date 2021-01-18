@@ -193,7 +193,7 @@ const renderHtml = (html: string, cacheDictionary: ParsedCacheDictionaryType, th
     }
   </style>
 </head>
-<body dir="${config.isRTLLanguage(language) ? 'rtl' : 'ltr'}">
+<body dir="${config.hasRTLScript(language) ? 'rtl' : 'ltr'}">
   <div id="measure-container">${html}</div>
   <script>${renderJS(cacheDictionary)}</script>
 </body>

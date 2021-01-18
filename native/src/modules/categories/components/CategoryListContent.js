@@ -96,8 +96,8 @@ class CategoryListContent extends React.Component<ContentPropsType, {| width: nu
       height: baseFontSize / bulletSizeRelativeToFont,
       borderRadius: baseFontSize / bulletSizeRelativeToFont,
       marginTop: baseFontSize / bulletAlignmentRelativeToFont,
-      marginRight: config.isRTLLanguage(language) ? listIndent : textDistanceToBullet,
-      marginLeft: config.isRTLLanguage(language) ? textDistanceToBullet : listIndent,
+      marginRight: config.hasRTLScript(language) ? listIndent : textDistanceToBullet,
+      marginLeft: config.hasRTLScript(language) ? textDistanceToBullet : listIndent,
       backgroundColor: theme.colors.textColor
     }} />
   }
@@ -108,8 +108,8 @@ class CategoryListContent extends React.Component<ContentPropsType, {| width: nu
     const { language } = this.props
     return <Text allowFontScaling={allowFontScaling} style={{
       fontSize: baseFontSize,
-      marginRight: config.isRTLLanguage(language) ? listIndent : textDistanceToBullet,
-      marginLeft: config.isRTLLanguage(language) ? textDistanceToBullet : listIndent
+      marginRight: config.hasRTLScript(language) ? listIndent : textDistanceToBullet,
+      marginLeft: config.hasRTLScript(language) ? textDistanceToBullet : listIndent
     }}>
       {index})
     </Text>
@@ -130,7 +130,7 @@ class CategoryListContent extends React.Component<ContentPropsType, {| width: nu
           prefix = listsPrefixesRenderers.ol(htmlAttribs, children, convertedCSSStyles, { ...passProps, index })
         }
       }
-      return config.isRTLLanguage(language)
+      return config.hasRTLScript(language)
         ? (
           <View key={`list-${nodeIndex}-${index}-${key}`} style={{ flexDirection: 'row' }}>
             <View style={{ flex: 1 }}>{child}</View>
@@ -164,8 +164,8 @@ class CategoryListContent extends React.Component<ContentPropsType, {| width: nu
               color: theme.colors.textColor
             }}
             tagsStyles={{
-              p: { textAlign: config.isRTLLanguage(language) ? 'right' : 'left' },
-              img: { align: config.isRTLLanguage(language) ? 'right' : 'left' }
+              p: { textAlign: config.hasRTLScript(language) ? 'right' : 'left' },
+              img: { align: config.hasRTLScript(language) ? 'right' : 'left' }
             }} />
     </VerticalPadding>
   }
