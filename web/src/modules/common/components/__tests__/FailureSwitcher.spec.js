@@ -6,6 +6,9 @@ import { FailureSwitcher } from '../FailureSwitcher'
 import { NotFoundError } from 'api-client'
 import { Failure } from '../Failure'
 
+jest.mock('react-i18next')
+jest.mock('redux-first-router-link')
+
 describe('FailureSwitcher', () => {
   const city = 'augsburg'
 

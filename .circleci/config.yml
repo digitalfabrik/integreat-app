@@ -407,6 +407,8 @@ jobs:
                 directory: native
             - unit_test:
                 directory: api-client
+            - unit_test:
+                directory: translations
             - notify_failed
     check_web:
         docker:
@@ -432,6 +434,8 @@ jobs:
                 directory: web
             - unit_test:
                 directory: api-client
+            - unit_test:
+                directory: translations
             - notify_failed
     deliver_android:
         docker:
