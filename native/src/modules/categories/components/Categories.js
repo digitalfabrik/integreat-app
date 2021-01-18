@@ -2,7 +2,6 @@
 
 import * as React from 'react'
 import { View } from 'react-native'
-
 import Page from '../../common/components/Page'
 import Tiles from '../../common/components/Tiles'
 import type { CategoryListModelType, ListContentModelType } from './CategoryList'
@@ -17,12 +16,10 @@ import { URL_PREFIX } from '../../platform/constants/webview'
 import CategoriesRouteStateView from '../../app/CategoriesRouteStateView'
 import type { PageResourceCacheStateType, LanguageResourceCacheStateType } from '../../app/StateType'
 import type { NavigateToCategoryParamsType } from '../../app/createNavigateToCategory'
-import type { NavigateToInternalLinkParamsType } from '../../app/createNavigateToInternalLink'
-import type { NavigationStackProp } from 'react-navigation-stack'
 import { type TFunction } from 'react-i18next'
 import SpaceBetween from '../../common/components/SpaceBetween'
 import SiteHelpfulBox from '../../common/components/SiteHelpfulBox'
-import createNavigateToFeedbackModal from '../../app/createNavigateToFeedbackModal'
+import type { FeedbackInformationType } from '../../../routes/feedback/containers/FeedbackModalContainer'
 
 type PropsType = {|
   cityModel: CityModel,
@@ -30,9 +27,9 @@ type PropsType = {|
 
   stateView: CategoriesRouteStateView,
   navigateToCategory: NavigateToCategoryParamsType => void,
-  navigateToInternalLink: NavigateToInternalLinkParamsType => void,
+  navigateToFeedback: FeedbackInformationType => void,
+  navigateToLink: (url: string, language: string, shareUrl: string) => void,
 
-  navigation: NavigationStackProp<*>,
   resourceCache: LanguageResourceCacheStateType,
   resourceCacheUrl: string,
   theme: ThemeType,
@@ -45,19 +42,19 @@ type PropsType = {|
 class Categories extends React.Component<PropsType> {
   onTilePress = (tile: TileModel) => {
     const { cityModel, language, navigateToCategory } = this.props
-    navigateToCategory({ cityCode: cityModel.code, language, path: tile.path })
+    navigateToCategory({ cityCode: cityModel.code, language, cityContentPath: tile.path })
   }
 
   onItemPress = (category: { title: string, thumbnail: string, path: string }) => {
     const { cityModel, language, navigateToCategory } = this.props
-    navigateToCategory({ cityCode: cityModel.code, language, path: category.path })
+    navigateToCategory({ cityCode: cityModel.code, language, cityContentPath: category.path })
   }
 
   navigateToFeedback = (isPositiveFeedback: boolean) => {
-    const { navigation, stateView, cityModel, language } = this.props
+    const { navigateToFeedback, stateView, cityModel, language } = this.props
     const category = stateView.root()
 
-    createNavigateToFeedbackModal(navigation)({
+    navigateToFeedback({
       type: 'Category',
       language,
       cityCode: cityModel.code,
@@ -105,13 +102,11 @@ class Categories extends React.Component<PropsType> {
   }
 
   getListContentModel (category: CategoryModel): ?ListContentModelType {
-    const { navigation, navigateToInternalLink, resourceCacheUrl } = this.props
+    const { resourceCacheUrl } = this.props
     return category.content
       ? {
           content: category.content,
           files: this.getCategoryResourceCache(category),
-          navigation: navigation,
-          navigateToInternalLink: navigateToInternalLink,
           resourceCacheUrl: resourceCacheUrl
         }
       : undefined
@@ -125,7 +120,7 @@ class Categories extends React.Component<PropsType> {
    * @return {*} The content to be displayed
    */
   render () {
-    const { stateView, navigateToInternalLink, theme, navigation, language, resourceCacheUrl } = this.props
+    const { stateView, navigateToLink, theme, language, resourceCacheUrl } = this.props
 
     const category = stateView.root()
     const children = stateView.children()
@@ -139,9 +134,8 @@ class Categories extends React.Component<PropsType> {
                    theme={theme}
                    files={files}
                    language={language}
-                   navigation={navigation}
                    navigateToFeedback={this.navigateToFeedback}
-                   navigateToInternalLink={navigateToInternalLink}
+                   navigateToLink={navigateToLink}
                    resourceCacheUrl={resourceCacheUrl} />
     } else if (category.isRoot()) {
       // first level, we want to display a table with all first order categories
@@ -169,6 +163,7 @@ class Categories extends React.Component<PropsType> {
               subCategories: this.getListModels(children)
             })
           })}
+          navigateToLink={navigateToLink}
           thumbnail={this.getCachedThumbnail(category) || category.thumbnail}
           title={category.title}
           listContent={this.getListContentModel(category)}

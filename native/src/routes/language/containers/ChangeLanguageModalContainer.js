@@ -7,11 +7,19 @@ import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import ChangeLanguageModal from '../components/ChangeLanguageModal'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import { LanguageModel } from 'api-client'
-import type { NavigationStackProp } from 'react-navigation-stack'
 import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
+import type {
+  ChangeLanguageModalRouteType,
+  NavigationPropType,
+  RoutePropType
+} from '../../../modules/app/constants/NavigationTypes'
 
-type OwnPropsType = {| navigation: NavigationStackProp<*>, t: TFunction |}
+type OwnPropsType = {|
+  route: RoutePropType<ChangeLanguageModalRouteType>,
+  navigation: NavigationPropType<ChangeLanguageModalRouteType>,
+  t: TFunction
+|}
 
 type StatePropsType = {|
   currentLanguage: string,
@@ -24,17 +32,17 @@ type DispatchPropsType = {|
   changeLanguage: (newLanguage: string) => void
 |}
 
-type PropsType = { ...OwnPropsType, ...StatePropsType, ...DispatchPropsType }
+type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
-  const currentLanguage: string = ownProps.navigation.getParam('currentLanguage')
-  const languages: Array<LanguageModel> = ownProps.navigation.getParam('languages')
-  const availableLanguages: Array<string> = ownProps.navigation.getParam('availableLanguages')
-  const previousKey = ownProps.navigation.getParam('previousKey')
+  const currentLanguage: string = ownProps.route.params.currentLanguage
+  const languages: Array<LanguageModel> = ownProps.route.params.languages
+  const availableLanguages: Array<string> = ownProps.route.params.availableLanguages
+  const previousKey = ownProps.route.params.previousKey
 
   const newsRouteMapping = state.cityContent?.newsRouteMapping
   const newsType =
-    previousKey && newsRouteMapping && newsRouteMapping[previousKey] && newsRouteMapping[previousKey].type
+    (previousKey && newsRouteMapping && newsRouteMapping[previousKey] && newsRouteMapping[previousKey].type) || null
 
   return {
     currentLanguage,
@@ -46,14 +54,14 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 
 type DispatchType = Dispatch<StoreActionType>
 const mapDispatchToProps = (dispatch: DispatchType, ownProps: OwnPropsType): DispatchPropsType => {
-  const cityCode = ownProps.navigation.getParam('cityCode')
-  const previousKey = ownProps.navigation.getParam('previousKey')
+  const cityCode = ownProps.route.params.cityCode
+  const previousKey = ownProps.route.params.previousKey
 
   return {
     changeLanguage: (newLanguage: string, newsType: ?NewsType) => {
       dispatch({
         type: 'SWITCH_CONTENT_LANGUAGE',
-        params: { newLanguage, city: ownProps.navigation.getParam('cityCode'), t: ownProps.t }
+        params: { newLanguage, city: cityCode, t: ownProps.t }
       })
 
       if (newsType) {
