@@ -92,8 +92,8 @@ export default ({ children }: PropsType) => {
     <I18nextProvider i18n={i18nextInstance}>
       <div
         data-testid={'direction'}
-        style={config.isSupportedLanguage(language)
-          ? { direction: config.hasRTLScript(language) ? 'rtl' : 'ltr' }
+        dir={config.isSupportedLanguage(language)
+          ? config.hasRTLScript(language) ? 'rtl' : 'ltr'
           : undefined}>
         <ReactHelmet>
           {additionalFont === 'lateef' && <link href='/fonts/lateef/lateef.css' rel='stylesheet' />}
