@@ -6,7 +6,6 @@ import moment from 'moment'
 import { shallow } from 'enzyme'
 import EventListItem from '../EventListItem'
 import DateFormatter from 'api-client/src/i18n/DateFormatter'
-import TunewsDetailsFooter from '../../../news/components/TunewsDetailsFooter'
 
 describe('EventListItem', () => {
   const language = 'de'
