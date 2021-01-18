@@ -1,7 +1,7 @@
 // @flow
 
 import { Linking } from 'react-native'
-import { InAppBrowser } from 'react-native-inappbrowser-reborn'
+import InAppBrowser from 'react-native-inappbrowser-reborn'
 import buildConfig from '../app/constants/buildConfig'
 import URL from 'url-parse'
 
