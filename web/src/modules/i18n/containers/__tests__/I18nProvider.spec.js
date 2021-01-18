@@ -124,7 +124,7 @@ describe('I18nProvider', () => {
     })
 
     await waitFor(() => screen.getByTestId('direction'))
-    
+
     expect(screen.getByTestId('direction')).toHaveAttribute('dir', 'ltr')
   })
 
