@@ -25,6 +25,15 @@ const Description = styled.Text`
   font-family: ${props => props.theme.fonts.contentFontRegular};
 `
 
+/**
+ * We have three placeholder thumbnails to display when cities don't provide a thumbnail
+ * @returns {*} The Placeholder Thumbnail
+ */
+const getEventPlaceholder = (id: number): number => {
+  const placeholders = [EventPlaceholder1, EventPlaceholder2, EventPlaceholder3]
+  return placeholders[id % placeholders.length]
+}
+
 const EventListItem = ({
   event,
   cityCode,
@@ -33,15 +42,6 @@ const EventListItem = ({
   theme
 }: PropsType) => {
   const formatter = useContext(DateFormatterContext)
-
-  /**
-   * We have three placeholder thumbnails to display when cities don't provide a thumbnail
-   * @returns {*} The Placeholder Thumbnail
-   */
-  const getEventPlaceholder = (id: number): number => {
-    const placeholders = [EventPlaceholder1, EventPlaceholder2, EventPlaceholder3]
-    return placeholders[id % placeholders.length]
-  }
 
   const navigateToEventInCity = useCallback(() => {
     navigateToEvent({
