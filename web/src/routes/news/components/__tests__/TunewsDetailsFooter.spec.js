@@ -4,6 +4,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import moment from 'moment'
 import TunewsDetailsFooter from '../TunewsDetailsFooter'
+import DateFormatter from 'api-client/src/i18n/DateFormatter'
 
 describe('TunewsDetailsFooter', () => {
   const language = 'en'
@@ -14,7 +15,7 @@ describe('TunewsDetailsFooter', () => {
       <TunewsDetailsFooter
         eNewsNo='tun0000009902'
         date={date}
-        language={language}
+        formatter={new DateFormatter(undefined, language)}
       />
     )
     expect(wrapper.text()).toContain('tun0000009902')
