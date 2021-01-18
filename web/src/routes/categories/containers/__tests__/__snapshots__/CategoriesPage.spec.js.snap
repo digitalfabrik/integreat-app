@@ -15,7 +15,6 @@ exports[`CategoriesPage should match snapshot and render CategoryTiles if the pa
         "_title": "Stadt Augsburg",
       }
     }
-    direction="ltr"
   />
   <Tiles
     tiles={
@@ -68,7 +67,6 @@ exports[`CategoriesPage should match snapshot and render a CategoryList if the c
         "_title": "erste-schritte",
       }
     }
-    direction="ltr"
   />
   <CategoryList
     categories={
@@ -134,7 +132,6 @@ exports[`CategoriesPage should match snapshot and render a Page if page has no c
         "_title": "asylantrag",
       }
     }
-    direction="ltr"
   />
   <Page
     content="exampleContent0"

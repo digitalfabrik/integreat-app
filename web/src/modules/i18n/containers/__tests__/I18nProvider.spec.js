@@ -113,7 +113,7 @@ describe('I18nProvider', () => {
 
     await waitFor(() => screen.getByTestId('direction'))
 
-    expect(screen.getByTestId('direction')).toHaveStyle({ direction: 'rtl' })
+    expect(screen.getByTestId('direction')).toHaveAttribute('dir', 'rtl')
   })
 
   it('should choose ltr with en as language', async () => {
@@ -124,8 +124,8 @@ describe('I18nProvider', () => {
     })
 
     await waitFor(() => screen.getByTestId('direction'))
-
-    expect(screen.getByTestId('direction')).toHaveStyle({ direction: 'ltr' })
+    
+    expect(screen.getByTestId('direction')).toHaveAttribute('dir', 'ltr')
   })
 
   it('should set document language', async () => {
@@ -163,15 +163,6 @@ describe('I18nProvider', () => {
     // Checking for side-effect
     const helmet = Helmet.peek()
     expect(helmet.linkTags.map(link => link.href)).not.toContain('/fonts/lateef/lateef.css')
-  })
-
-  it('should dispatch action for setting ui direction', async () => {
-    const store = prepareStore('en')
-    act(() => {
-      render(<Provider store={store}><I18nProvider>Hello</I18nProvider></Provider>)
-    })
-
-    expect(store.getActions()).toEqual([{ payload: 'ltr', type: 'SET_UI_DIRECTION' }])
   })
 
   // We can not switch the language right now because it is bound to redux-first-router, we would need to trigger a
