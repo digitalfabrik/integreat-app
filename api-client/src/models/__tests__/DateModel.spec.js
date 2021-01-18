@@ -2,6 +2,7 @@
 
 import moment from 'moment'
 import DateModel from '../DateModel'
+import Formatter from '../../i18n/Formatter'
 
 describe('DateModel', () => {
   const locales = ['de', 'en', 'fr', 'ar', 'fa', 'ru']
@@ -15,7 +16,9 @@ describe('DateModel', () => {
       const allDay = false
       const date = new DateModel({ startDate, endDate, allDay })
 
-      expect(locales.map(locale => `${locale}: ${date.toFormattedString(locale)}`)).toMatchSnapshot()
+      expect(
+        locales.map(locale => `${locale}: ${date.toFormattedString(new Formatter(undefined, locale))}`)
+      ).toMatchSnapshot()
     })
 
     it('should return only start date + time and end time if the dates are the same', () => {
@@ -24,7 +27,9 @@ describe('DateModel', () => {
       const allDay = false
       const date = new DateModel({ startDate, endDate, allDay })
 
-      expect(locales.map(locale => `${locale}: ${date.toFormattedString(locale)}`)).toMatchSnapshot()
+      expect(
+        locales.map(locale => `${locale}: ${date.toFormattedString(new Formatter(undefined, locale))}`)
+      ).toMatchSnapshot()
     })
 
     it('should return only start date + time if start and end are the same', () => {
@@ -33,7 +38,9 @@ describe('DateModel', () => {
       const allDay = false
       const date = new DateModel({ startDate, endDate, allDay })
 
-      expect(locales.map(locale => `${locale}: ${date.toFormattedString(locale)}`)).toMatchSnapshot()
+      expect(
+        locales.map(locale => `${locale}: ${date.toFormattedString(new Formatter(undefined, locale))}`)
+      ).toMatchSnapshot()
     })
 
     it('should return only start date + end date if allDay is true', () => {
@@ -42,7 +49,9 @@ describe('DateModel', () => {
       const allDay = true
       const date = new DateModel({ startDate, endDate, allDay })
 
-      expect(locales.map(locale => `${locale}: ${date.toFormattedString(locale)}`)).toMatchSnapshot()
+      expect(
+        locales.map(locale => `${locale}: ${date.toFormattedString(new Formatter(undefined, locale))}`)
+      ).toMatchSnapshot()
     })
 
     it('should return only start date if allDay is true and the dates are the same', () => {
@@ -51,7 +60,9 @@ describe('DateModel', () => {
       const allDay = true
       const date = new DateModel({ startDate, endDate, allDay })
 
-      expect(locales.map(locale => `${locale}: ${date.toFormattedString(locale)}`)).toMatchSnapshot()
+      expect(
+        locales.map(locale => `${locale}: ${date.toFormattedString(new Formatter(undefined, locale))}`)
+      ).toMatchSnapshot()
     })
 
     it('should only return start date (+ time) if endDate is not valid', () => {
@@ -60,7 +71,9 @@ describe('DateModel', () => {
       const allDay = false
       const date = new DateModel({ startDate, endDate, allDay })
 
-      expect(locales.map(locale => `${locale}: ${date.toFormattedString(locale)}`)).toMatchSnapshot()
+      expect(
+        locales.map(locale => `${locale}: ${date.toFormattedString(new Formatter(undefined, locale))}`)
+      ).toMatchSnapshot()
     })
   })
 })
