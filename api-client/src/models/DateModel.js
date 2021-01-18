@@ -1,7 +1,7 @@
 // @flow
 
 import type Moment from 'moment'
-import Formatter from '../i18n/Formatter'
+import DateFormatter from '../i18n/DateFormatter'
 
 class DateModel {
   _startDate: Moment
@@ -32,10 +32,10 @@ class DateModel {
 
   /**
    * Returns a formatted string containing all relevant start and end date and time information
-   * @param {MomentFormatterType} formatter formats the string according to the correct locale
+   * @param {DateFormatter} formatter formats the string according to the correct locale
    * @return {String} The formatted span string
    */
-  toFormattedString (formatter: Formatter): string {
+  toFormattedString (formatter: DateFormatter): string {
     // if allDay: only date, else: date + time
     let span = this._allDay
       ? formatter.format(this._startDate, { format: 'LL' })

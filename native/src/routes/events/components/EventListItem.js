@@ -10,7 +10,7 @@ import EventPlaceholder3 from '../assets/EventPlaceholder3.jpg'
 import styled from 'styled-components/native'
 import type { ThemeType } from 'build-configs/ThemeType'
 import type { NavigateToEventParamsType } from '../../../modules/app/createNavigateToEvent'
-import MomentContext from '../../../modules/i18n/context/MomentContext'
+import DateFormatterContext from '../../../modules/i18n/context/DateFormatterContext'
 
 type PropsType = {|
   cityCode: string,
@@ -32,7 +32,7 @@ const EventListItem = ({
   navigateToEvent,
   theme
 }: PropsType) => {
-  const formatter = useContext(MomentContext)
+  const formatter = useContext(DateFormatterContext)
 
   /**
    * We have three placeholder thumbnails to display when cities don't provide a thumbnail

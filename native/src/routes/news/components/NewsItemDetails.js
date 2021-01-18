@@ -3,7 +3,7 @@
 import React from 'react'
 import { ScrollView, View } from 'react-native'
 import { LocalNewsModel, TunewsModel } from 'api-client'
-import MomentContext from '../../../modules/i18n/context/MomentContext'
+import DateFormatterContext from '../../../modules/i18n/context/DateFormatterContext'
 import type { ThemeType } from 'build-configs/ThemeType'
 import {
   contentDirection,
@@ -125,7 +125,7 @@ class NewsItemsDetails extends React.Component<PropsType> {
                 tünews INTERNATIONAL
               </TunewsFooter>
               {isTunews && (
-                <MomentContext.Consumer>
+                <DateFormatterContext.Consumer>
                   {formatter => {
                     if (!(selectedNewsItem instanceof TunewsModel)) {
                       return null
@@ -139,7 +139,7 @@ class NewsItemsDetails extends React.Component<PropsType> {
                       </TunewsFooter>
                     )
                   }}
-                </MomentContext.Consumer>
+                </DateFormatterContext.Consumer>
               )}
             </Row>
           )}
