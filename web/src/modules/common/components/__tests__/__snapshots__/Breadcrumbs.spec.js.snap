@@ -1,9 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Breadcrumbs should render and match snapshot 1`] = `
-<Breadcrumbs__Wrapper
-  direction="rtl"
->
+<Breadcrumbs__Wrapper>
   <BreadcrumbsJsonLd
     breadcrumbs={
       Array [
@@ -37,9 +35,7 @@ exports[`Breadcrumbs should render and match snapshot 1`] = `
       ]
     }
   />
-  <Breadcrumbs__OrderedList
-    direction="rtl"
-  >
+  <Breadcrumbs__OrderedList>
     <Breadcrumb
       key="0"
     >
