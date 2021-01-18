@@ -1,6 +1,7 @@
 // @flow
 
-import React from 'react'
+import * as React from 'react'
+import { useContext } from 'react'
 import { ScrollView, View } from 'react-native'
 import { LocalNewsModel, TunewsModel } from 'api-client'
 import DateFormatterContext from '../../../modules/i18n/context/DateFormatterContext'
@@ -79,74 +80,64 @@ export type PropsType = {|
   openTunewsLink: () => Promise<void>
 |}
 
-class NewsItemsDetails extends React.Component<PropsType> {
-  render () {
-    const {
-      theme,
-      selectedNewsItem,
-      isTunews,
-      language,
-      openTunewsLink
-    } = this.props
+const NewsItemsDetails = ({
+  theme,
+  selectedNewsItem,
+  isTunews,
+  language,
+  openTunewsLink
+}: PropsType) => {
+  const formatter = useContext(DateFormatterContext)
 
-    return (
-      <View style={{ flex: 1 }}>
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{
-            flexGrow: 1,
-            marginBottom: 10,
-            paddingHorizontal: '5%'
-          }}>
-          {isTunews && (
-            <HeaderImageWrapper>
-              <HeaderImage source={headerImage} />
-            </HeaderImageWrapper>
-          )}
-          <Container>
-            <NewsHeadLine theme={theme}>{selectedNewsItem.title}</NewsHeadLine>
-            <NewsContent theme={theme} language={language}>
-              {[
-                ...(selectedNewsItem.content ? [selectedNewsItem.content] : []),
-                ...(selectedNewsItem.message ? [selectedNewsItem.message] : [])
-              ]}
-            </NewsContent>
-          </Container>
-          {isTunews && (
-            <Row theme={theme} language={language}>
-              <TunewsFooter theme={theme} rightMargin={3}>
-                {selectedNewsItem.eNewsNo ? selectedNewsItem.eNewsNo : null}
-              </TunewsFooter>
-              <TunewsFooter
-                rightMargin={3}
-                onPress={openTunewsLink}
-                theme={theme}
-                underlined>
-                tünews INTERNATIONAL
-              </TunewsFooter>
-              {isTunews && (
-                <DateFormatterContext.Consumer>
-                  {formatter => {
-                    if (!(selectedNewsItem instanceof TunewsModel)) {
-                      return null
-                    }
-
-                    return (
-                      <TunewsFooter theme={theme} rightMargin={3}>
-                        {formatter.format(selectedNewsItem.date, {
-                          format: 'LL'
-                        })}
-                      </TunewsFooter>
-                    )
-                  }}
-                </DateFormatterContext.Consumer>
-              )}
-            </Row>
-          )}
-        </ScrollView>
-      </View>
-    )
-  }
+  return (
+    <View style={{ flex: 1 }}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{
+          flexGrow: 1,
+          marginBottom: 10,
+          paddingHorizontal: '5%'
+        }}>
+        {isTunews && (
+          <HeaderImageWrapper>
+            <HeaderImage source={headerImage} />
+          </HeaderImageWrapper>
+        )}
+        <Container>
+          <NewsHeadLine theme={theme}>{selectedNewsItem.title}</NewsHeadLine>
+          <NewsContent theme={theme} language={language}>
+            {[
+              ...(selectedNewsItem.content ? [selectedNewsItem.content] : []),
+              ...(selectedNewsItem.message ? [selectedNewsItem.message] : [])
+            ]}
+          </NewsContent>
+        </Container>
+        {isTunews && (
+          <Row theme={theme} language={language}>
+            <TunewsFooter theme={theme} rightMargin={3}>
+              {selectedNewsItem.eNewsNo ? selectedNewsItem.eNewsNo : null}
+            </TunewsFooter>
+            <TunewsFooter
+              rightMargin={3}
+              onPress={openTunewsLink}
+              theme={theme}
+              underlined>
+              tünews INTERNATIONAL
+            </TunewsFooter>
+            {
+              (isTunews && (selectedNewsItem instanceof TunewsModel)) && (
+                <TunewsFooter theme={theme} rightMargin={3}>
+                  {formatter.format(selectedNewsItem.date, {
+                    format: 'LL'
+                  })}
+                </TunewsFooter>
+              )
+            }
+          </Row>
+        )}
+      </ScrollView>
+    </View>
+  )
 }
 
 export default NewsItemsDetails
