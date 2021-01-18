@@ -5,7 +5,6 @@ import TestRenderer from 'react-test-renderer'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import Page from '../../../common/components/Page'
-import createNavigationScreenPropMock from '../../../../testing/createNavigationStackPropMock'
 import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
 import Categories from '../Categories'
 import lightTheme from '../../../theme/constants'
@@ -28,7 +27,6 @@ describe('Categories', () => {
     const cityModel = new CityModelBuilder(1).build()[0]
     const languages = new LanguageModelBuilder(1).build()
     const categoriesMapModel = new CategoriesMapModelBuilder(cityModel.code, languages[0].code).build()
-    const navigation = createNavigationScreenPropMock()
     const categoryLeaf = categoriesMapModel.toArray().find(category => category.isLeaf(categoriesMapModel))
     if (!categoryLeaf) {
       throw Error('There should be a leaf!')
@@ -40,8 +38,8 @@ describe('Categories', () => {
     )
     const result = TestRenderer.create(
       <Categories cityModel={cityModel} language={languages[0].code} stateView={stateView}
-                  navigateToCategory={() => {}} navigateToInternalLink={() => {}} navigation={navigation}
-                  resourceCacheUrl='http://localhost:8080'
+                  navigateToCategory={() => {}} navigateToFeedback={() => {}}
+                  resourceCacheUrl='http://localhost:8080' navigateToLink={() => {}}
                   resourceCache={{ notAvailable: {} }} theme={lightTheme} t={key => key} />
     )
     const pageInstance = result.root.findByType(Page)

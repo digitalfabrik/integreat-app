@@ -2,35 +2,47 @@
 
 import type { Dispatch } from 'redux'
 import type { FetchEventActionType, StoreActionType } from './StoreActionType'
-import type { NavigationStackProp } from 'react-navigation-stack'
+import type { NavigationPropType, RoutesType } from './constants/NavigationTypes'
 import { generateKey } from './generateRouteKey'
+import { EVENTS_ROUTE } from './constants/NavigationTypes'
+import { cityContentUrl, url } from '../common/url'
 
 export type NavigateToEventParamsType =
-  {| cityCode: string, language: string, path: ?string, key?: string, forceRefresh?: boolean |}
+  {| cityCode: string, language: string, cityContentPath: ?string, key?: string, forceRefresh?: boolean |}
 
-export default (dispatch: Dispatch<StoreActionType>, navigation: NavigationStackProp<*>) => (
-  {
-    cityCode, language, path, key = generateKey(), forceRefresh = false
+const createNavigateToEvent = <T: RoutesType>(
+  dispatch: Dispatch<StoreActionType>,
+  navigation: NavigationPropType<T>
+) => ({
+    cityCode,
+    language,
+    cityContentPath,
+    key = generateKey(),
+    forceRefresh = false
   }: NavigateToEventParamsType) => {
-  navigation.navigate({
-    routeName: 'Events',
-    params: {
-      onRouteClose: () => dispatch({ type: 'CLEAR_EVENT', params: { key } }),
-      sharePath: path || `/${cityCode}/${language}/events`
-    },
-    key
-  })
+    const shareUrl = cityContentPath
+      ? url(cityContentPath)
+      : cityContentUrl({ cityCode, languageCode: language, route: EVENTS_ROUTE })
+    navigation.navigate({
+      name: EVENTS_ROUTE,
+      params: {
+        shareUrl
+      },
+      key
+    })
 
-  const fetchEvent: FetchEventActionType = {
-    type: 'FETCH_EVENT',
-    params: {
-      city: cityCode,
-      language,
-      path,
-      key,
-      criterion: { forceUpdate: forceRefresh, shouldRefreshResources: forceRefresh }
+    const fetchEvent: FetchEventActionType = {
+      type: 'FETCH_EVENT',
+      params: {
+        city: cityCode,
+        language,
+        path: cityContentPath,
+        key,
+        criterion: { forceUpdate: forceRefresh, shouldRefreshResources: forceRefresh }
+      }
     }
+
+    dispatch(fetchEvent)
   }
 
-  dispatch(fetchEvent)
-}
+export default createNavigateToEvent

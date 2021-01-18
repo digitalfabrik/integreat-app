@@ -1,17 +1,79 @@
 // @flow
 
-import { render } from '@testing-library/react-native'
-import React from 'react'
-import type { TFunction } from 'react-i18next'
-import { withTranslation } from 'react-i18next'
-import waitForExpect from 'wait-for-expect'
+import React, { useContext } from 'react'
+import { Translation } from 'react-i18next'
+import { Text } from 'react-native'
+import NativeLanguageDetector from '../../NativeLanguageDetector'
+import { Provider } from 'react-redux'
+import configureMockStore from 'redux-mock-store'
+import { render, waitFor } from '@testing-library/react-native'
+import I18nProvider from '../I18nProvider'
+import type {
+  CitiesStateType,
+  LanguagesStateType,
+  StateType
+} from '../../../app/StateType'
+import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
+import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import AppSettings from '../../../settings/AppSettings'
 import AsyncStorage from '@react-native-community/async-storage'
-import { Text } from 'react-native'
+import MomentContext from '../../context/MomentContext'
+import moment from 'moment'
+import type { MomentFormatterType } from '../../context/MomentContext'
 
+jest.mock('../../NativeLanguageDetector')
 jest.mock('@react-native-community/async-storage')
-jest.mock('../../../i18n/LanguageDetector')
-jest.mock('../../loadTranslations')
+jest.mock('translations/src/loadTranslations')
+
+const cities = new CityModelBuilder(1).build()
+const city = cities[0]
+const languages = new LanguageModelBuilder(1).build()
+const language = languages[0]
+
+const prepareState = (
+  {
+    contentLanguage = 'de',
+    switchingLanguage,
+    cities,
+    languages
+  }: {|
+    contentLanguage?: string,
+    switchingLanguage?: boolean,
+    cities?: CitiesStateType,
+    languages?: LanguagesStateType
+  |} = {}
+): StateType => {
+  return {
+    darkMode: false,
+    resourceCacheUrl: 'http://localhost:8080',
+    cityContent: {
+      city: city.code,
+      switchingLanguage:
+        switchingLanguage !== undefined ? switchingLanguage : false,
+      languages: languages || {
+        status: 'ready',
+        models: [language]
+      },
+      eventsRouteMapping: {},
+      categoriesRouteMapping: {},
+      poisRouteMapping: {},
+      newsRouteMapping: {},
+      searchRoute: null,
+      resourceCache: {
+        status: 'ready',
+        progress: 0,
+        value: { file: {} }
+      }
+    },
+    contentLanguage,
+    cities: cities || {
+      status: 'ready',
+      models: [city]
+    }
+  }
+}
+
+const mockStore = configureMockStore()
 
 describe('I18nProvider', () => {
   beforeEach(async () => {
@@ -19,108 +81,117 @@ describe('I18nProvider', () => {
   })
 
   it('should set content language if not yet set', async () => {
-    const I18nProvider = require('../I18nProvider').default
+    // $FlowFixMe
+    NativeLanguageDetector.detect.mockReturnValue(['ckb'])
+    const store = mockStore(prepareState())
+    render(<Provider store={store}><I18nProvider><Text>Hello</Text></I18nProvider></Provider>)
 
-    const appSettings = new AppSettings()
-    const mockSetContentLanguage = jest.fn()
-
-    render(<I18nProvider setContentLanguage={mockSetContentLanguage} />)
-    await waitForExpect(async () => {
-      expect(mockSetContentLanguage).toHaveBeenCalledTimes(1)
-      expect(mockSetContentLanguage).toHaveBeenCalledWith('en')
-      expect(await appSettings.loadContentLanguage()).toBe('en')
-    })
-  })
-
-  it('should not use ui language as content language if already set', async () => {
-    const I18nProvider = require('../I18nProvider').default
-
-    const appSettings = new AppSettings()
-    await appSettings.setContentLanguage('de')
-    const mockSetContentLanguage = jest.fn()
-
-    render(<I18nProvider setContentLanguage={mockSetContentLanguage} />)
-
-    await waitForExpect(async () => {
-      expect(mockSetContentLanguage).toHaveBeenCalledWith('de')
-      expect(await appSettings.loadContentLanguage()).toBe('de')
-    })
-  })
-
-  it('should initialize correct i18next instance', async () => {
-    const I18nProvider = require('../I18nProvider').default
-
-    const ReceivingComponent = withTranslation('app')(
-      ({ t, i18n }) => {
-        const transformedResources = require('../../loadTranslations').default()
-        const languages = Object.keys(transformedResources)
-
-        const resources = languages.reduce((resources, language: string) => {
-          resources[language] = i18n.getDataByLanguage(language)
-          return resources
-        }, {})
-
-        expect(resources).toEqual(transformedResources)
-        expect(i18n.language).toEqual('en')
-        expect(i18n.languages).toEqual(['en', 'de'])
-        return <Text>{t('metaDescription')}</Text>
-      }
-    )
-
-    const { queryByText } = render(
-      <I18nProvider setContentLanguage={() => {}}>
-        <ReceivingComponent />
-      </I18nProvider>
-    )
-
-    await waitForExpect(async () => expect(
-      queryByText('Integreat ist Ihr digitaler Guide für Deutschland. Finden Sie lokale Informationen, ' +
-        'Veranstaltungen und Beratung. Immer aktuell und in Ihrer Sprache.')).toBeTruthy())
+    await waitFor(() => {})
+    expect(await new AppSettings().loadContentLanguage()).toEqual('ckb')
   })
 
   it('should show error if loading fails', async () => {
-    const I18nProvider = require('../I18nProvider').default
-
-    const mock = AsyncStorage.multiGet
-    mock.mockImplementation(() => {
+    // $FlowFixMe
+    NativeLanguageDetector.detect.mockImplementation(() => {
       throw Error('An Error occurred while getting settings!')
     })
 
-    const { queryByText } = render(
-      <I18nProvider setContentLanguage={() => {}}>
-        <></>
-      </I18nProvider>)
+    const store = mockStore(prepareState())
 
-    await waitForExpect(() => {
-      expect(queryByText('An Error occurred while getting settings!')).not.toBeNull()
-    })
+    const { getByText } = render(
+      <Provider store={store}>
+        <I18nProvider>
+          <></>
+        </I18nProvider>
+      </Provider>)
 
-    mock.mockRestore()
+    await waitFor(() => getByText('An Error occurred while getting settings!'))
+
+    expect(getByText('An Error occurred while getting settings!')).toBeTruthy()
+
+    // $FlowFixMe
+    NativeLanguageDetector.detect.mockRestore()
   })
 
-  it('should use fallback if language is invalid or unknown', async () => {
-    const I18nProvider = require('../I18nProvider').default
+  it('should use fallbacks for ui translations', async () => {
+    // $FlowFixMe
+    NativeLanguageDetector.detect.mockReturnValue(['ckb'])
+    const store = mockStore(prepareState())
 
-    const ReceivingComponent = withTranslation('app')(
-      ({ t }: { t: TFunction }) => {
-        return <Text>{t('metaDescription', { lng: 'XX' })}</Text>
-      }
-    )
+    const { getByText } = render(<Provider store={store}><I18nProvider>
+      <Translation>
+        {
+          (t, { i18n }) => <Text>{t('dashboard:localInformation')}</Text>
+        }
+      </Translation>
+    </I18nProvider></Provider>)
 
-    const { queryByText } = render(
-      <I18nProvider setContentLanguage={() => {}}>
-        <ReceivingComponent />
-      </I18nProvider>
-    )
+    await waitFor(() => getByText('Zanyariyên xwecihî'))
 
-    await waitForExpect(() =>
-      expect(
-        queryByText(
-          'Integreat ist Ihr digitaler Guide für Deutschland. ' +
-          'Finden Sie lokale Informationen, Veranstaltungen und Beratung. ' +
-          'Immer aktuell und in Ihrer Sprache.'
-        )
-      ).toBeTruthy()
-    )
+    expect(getByText('Zanyariyên xwecihî')).toBeTruthy()
+  })
+
+  it('should choose the default fallback for ui translations', async () => {
+    // $FlowFixMe
+    NativeLanguageDetector.detect.mockReturnValue(['en'])
+    const store = mockStore(prepareState())
+    const {
+      getByText
+    } = render(<Provider store={store}><I18nProvider>
+      <Translation>
+        {
+          (t, { i18n }) => <Text>{t('dashboard:localInformation')}</Text>
+        }
+      </Translation>
+    </I18nProvider></Provider>)
+
+    await waitFor(() => getByText('Lokale Informationen'))
+
+    expect(getByText('Lokale Informationen')).toBeTruthy()
+  })
+
+  it('should dispatch content language', async () => {
+    await new AppSettings().setContentLanguage('ar')
+    const store = mockStore(prepareState())
+    render(<Provider store={store}><I18nProvider><Text>Hello</Text></I18nProvider></Provider>)
+
+    await waitFor(() => expect(store.getActions()).toEqual([{
+      params: { contentLanguage: 'ar' },
+      type: 'SET_CONTENT_LANGUAGE'
+    }]))
+  })
+
+  it('should have formatter with german fallback format', async () => {
+    const store = mockStore(prepareState())
+    const ReceivingComponent = () => {
+      const format = useContext<MomentFormatterType>(MomentContext)
+      return <Text>{format(moment.utc('2020-12-21T14:58:57+01:00'), {})}</Text>
+    }
+
+    const { getByText } = render(<Provider store={store}><I18nProvider>
+      <ReceivingComponent />
+    </I18nProvider></Provider>)
+
+    await waitFor(() => getByText('2020-12-21T13:58:57Z'))
+
+    expect(getByText('2020-12-21T13:58:57Z')).toBeTruthy()
+  })
+
+  it('should have content language set when rendering children', async () => {
+    await new AppSettings().setContentLanguage('ckb')
+    const store = mockStore(prepareState({ contentLanguage: undefined }))
+    const ReceivingComponent = () => {
+      expect(store.getActions()).toEqual([{
+        params: { contentLanguage: 'ckb' },
+        type: 'SET_CONTENT_LANGUAGE'
+      }])
+      return <Text>Hello</Text>
+    }
+
+    const { getByText } = render(<Provider store={store}><I18nProvider>
+      <ReceivingComponent />
+    </I18nProvider></Provider>)
+
+    await waitFor(() => getByText('Hello'))
   })
 })

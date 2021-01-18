@@ -7,24 +7,31 @@ import { connect } from 'react-redux'
 import { type TFunction, withTranslation } from 'react-i18next'
 import WohnenOffer from '../components/WohnenOffer'
 import { createWohnenEndpoint, OfferModel, Payload, WohnenOfferModel } from 'api-client'
-import { WOHNEN_OFFER, WOHNEN_ROUTE } from '../../offers/constants'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import type { ThemeType } from '../../../modules/theme/constants'
-import type { NavigationStackProp } from 'react-navigation-stack'
 import FailureContainer from '../../../modules/error/containers/FailureContainer'
 import { LOADING_TIMEOUT } from '../../../modules/common/constants'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
 import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
 import createNavigateToFeedbackModal from '../../../modules/app/createNavigateToFeedbackModal'
+import type {
+  WohnenOfferRouteType,
+  NavigationPropType,
+  RoutePropType
+} from '../../../modules/app/constants/NavigationTypes'
+import { WOHNEN_OFFER_ROUTE } from '../../../modules/app/constants/NavigationTypes'
 
 const WOHNEN_API_URL = 'https://api.wohnen.integreat-app.de/v0'
 
-type OwnPropsType = {| navigation: NavigationStackProp<*> |}
+type OwnPropsType = {|
+  route: RoutePropType<WohnenOfferRouteType>,
+  navigation: NavigationPropType<WohnenOfferRouteType>
+|}
 
 type StatePropsType = {|
   offer: ?OfferModel,
   language: string,
-  offerHash: string,
+  offerHash: ?string,
   navigateToOffer: (offerHash: string) => void,
   navigateToFeedback: (isPositiveFeedback: boolean) => void
 |}
@@ -32,16 +39,16 @@ type StatePropsType = {|
 type PropsType = { ...OwnPropsType, ...StatePropsType }
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
-  const cityCode: string = ownProps.navigation.getParam('city')
-  const offers: Array<OfferModel> = ownProps.navigation.getParam('offers')
-  const offerHash: string = ownProps.navigation.getParam('offerHash')
+  const cityCode: string = ownProps.route.params.city
+  const offers: Array<OfferModel> = ownProps.route.params.offers
+  const offerHash: ?string = ownProps.route.params.offerHash
 
-  const offer: ?OfferModel = offers.find(offer => offer.alias === WOHNEN_OFFER)
+  const offer: ?OfferModel = offers.find(offer => offer.alias === WOHNEN_OFFER_ROUTE)
 
   const navigateToOffer = (offerHash: string) => {
-    const params = { offerHash: offerHash, offers: offers }
+    const params = { offerHash: offerHash, offers: offers, city: cityCode }
     if (ownProps.navigation.push) {
-      ownProps.navigation.push(WOHNEN_ROUTE, params)
+      ownProps.navigation.push(WOHNEN_OFFER_ROUTE, params)
     }
   }
 

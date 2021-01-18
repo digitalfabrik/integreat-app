@@ -26,6 +26,9 @@ import createLocation from '../../../../createLocation'
 import theme from '../../../theme/constants/theme'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 
+jest.mock('react-i18next')
+jest.mock('redux-first-router-link')
+
 describe('FeedbackBoxContainer', () => {
   const cities = new CityModelBuilder(1).build()
   const t = (key: ?string): string => key || ''
