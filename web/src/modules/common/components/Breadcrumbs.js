@@ -7,18 +7,13 @@ import Breadcrumb from './Breadcrumb'
 import BreadcrumbModel from '../BreadcrumbModel'
 import BreadcrumbsJsonLd from '../../json-ld/components/BreadcrumbsJsonLd'
 
-const opposite = (direction: UiDirectionType) => direction === 'ltr' ? 'rtl' : 'ltr'
-
 const Wrapper = styled.div`
   margin: 10px 0;
-  text-align: end;
   white-space: nowrap;
   overflow-x: auto;
-  direction: ${props => opposite(props.direction)};
 `
 
 const OrderedList = styled.ol`
-  direction: ${props => props.direction};
   display: inline-block;
   list-style: none;
   margin: 0;
@@ -33,8 +28,7 @@ const OrderedList = styled.ol`
 
 type PropsType = {|
   ancestorBreadcrumbs: Array<BreadcrumbModel>,
-  currentBreadcrumb: BreadcrumbModel,
-  direction: UiDirectionType
+  currentBreadcrumb: BreadcrumbModel
 |}
 
 /**
@@ -44,13 +38,13 @@ class Breadcrumbs extends React.PureComponent<PropsType> {
   static defaultProps = { direction: 'ltr' }
 
   render () {
-    const { direction, ancestorBreadcrumbs, currentBreadcrumb } = this.props
+    const { ancestorBreadcrumbs, currentBreadcrumb } = this.props
     // The current page should not be listed in the UI, but should be within the JsonLd.
     const jsonLdBreadcrumbs = [...ancestorBreadcrumbs, currentBreadcrumb]
 
-    return <Wrapper direction={direction}>
+    return <Wrapper>
       <BreadcrumbsJsonLd breadcrumbs={jsonLdBreadcrumbs} />
-      <OrderedList direction={direction}>
+      <OrderedList>
         {ancestorBreadcrumbs.map((breadcrumb, key) => <Breadcrumb key={key}>{breadcrumb.node}</Breadcrumb>)}
       </OrderedList>
     </Wrapper>
