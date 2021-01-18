@@ -2,7 +2,6 @@
 
 import type { StartFetchActionType } from './actions/startFetchAction'
 import type { FinishFetchActionType } from './actions/finishFetchAction'
-import type { SetUiDirectionActionType } from '../i18n/actions/setUIDirection'
 
 export type SetLanguageActionType = { type: 'SET_LANGUAGE', payload: string }
 
@@ -15,5 +14,4 @@ export type StoreActionType =
   | FinishFetchActionType<*, *>
   | SetLanguageActionType
   | SetCurrentCityActionType
-  | SetUiDirectionActionType
   | ToggleDarkModeActionType
