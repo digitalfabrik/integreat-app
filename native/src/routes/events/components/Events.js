@@ -23,7 +23,7 @@ import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
 import createNavigateToFeedbackModal from '../../../modules/app/createNavigateToFeedbackModal'
-import MomentContext from '../../../modules/i18n/context/MomentContext'
+import DateFormatterContext from '../../../modules/i18n/context/DateFormatterContext'
 
 export type PropsType = {|
   path: ?string,
@@ -55,7 +55,7 @@ const Events = ({
   navigateToInternalLink,
   t
 }: PropsType) => {
-  const formatter = useContext(MomentContext)
+  const formatter = useContext(DateFormatterContext)
 
   const renderEventListItem = (cityCode: string, language: string) => (event: EventModel) => {
     return <EventListItem key={event.path}

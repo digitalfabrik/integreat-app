@@ -2,7 +2,7 @@
 
 import moment from 'moment'
 import DateModel from '../DateModel'
-import Formatter from '../../i18n/Formatter'
+import DateFormatter from '../../i18n/DateFormatter'
 
 describe('DateModel', () => {
   const locales = ['de', 'en', 'fr', 'ar', 'fa', 'ru']
@@ -17,7 +17,7 @@ describe('DateModel', () => {
       const date = new DateModel({ startDate, endDate, allDay })
 
       expect(
-        locales.map(locale => `${locale}: ${date.toFormattedString(new Formatter(undefined, locale))}`)
+        locales.map(locale => `${locale}: ${date.toFormattedString(new DateFormatter(undefined, locale))}`)
       ).toMatchSnapshot()
     })
 
@@ -28,7 +28,7 @@ describe('DateModel', () => {
       const date = new DateModel({ startDate, endDate, allDay })
 
       expect(
-        locales.map(locale => `${locale}: ${date.toFormattedString(new Formatter(undefined, locale))}`)
+        locales.map(locale => `${locale}: ${date.toFormattedString(new DateFormatter(undefined, locale))}`)
       ).toMatchSnapshot()
     })
 
@@ -39,7 +39,7 @@ describe('DateModel', () => {
       const date = new DateModel({ startDate, endDate, allDay })
 
       expect(
-        locales.map(locale => `${locale}: ${date.toFormattedString(new Formatter(undefined, locale))}`)
+        locales.map(locale => `${locale}: ${date.toFormattedString(new DateFormatter(undefined, locale))}`)
       ).toMatchSnapshot()
     })
 
@@ -50,7 +50,7 @@ describe('DateModel', () => {
       const date = new DateModel({ startDate, endDate, allDay })
 
       expect(
-        locales.map(locale => `${locale}: ${date.toFormattedString(new Formatter(undefined, locale))}`)
+        locales.map(locale => `${locale}: ${date.toFormattedString(new DateFormatter(undefined, locale))}`)
       ).toMatchSnapshot()
     })
 
@@ -61,7 +61,7 @@ describe('DateModel', () => {
       const date = new DateModel({ startDate, endDate, allDay })
 
       expect(
-        locales.map(locale => `${locale}: ${date.toFormattedString(new Formatter(undefined, locale))}`)
+        locales.map(locale => `${locale}: ${date.toFormattedString(new DateFormatter(undefined, locale))}`)
       ).toMatchSnapshot()
     })
 
@@ -72,7 +72,7 @@ describe('DateModel', () => {
       const date = new DateModel({ startDate, endDate, allDay })
 
       expect(
-        locales.map(locale => `${locale}: ${date.toFormattedString(new Formatter(undefined, locale))}`)
+        locales.map(locale => `${locale}: ${date.toFormattedString(new DateFormatter(undefined, locale))}`)
       ).toMatchSnapshot()
     })
   })

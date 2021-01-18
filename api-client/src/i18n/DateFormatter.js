@@ -5,7 +5,7 @@ import moment from 'moment'
 
 export type FormatFunctionType = (date: Moment, options: {| format?: string |}) => string
 
-class Formatter {
+class DateFormatter {
   _fallbackFormat: string | void
   _defaultLocale: string
 
@@ -34,4 +34,4 @@ class Formatter {
   }
 }
 
-export default Formatter
+export default DateFormatter
