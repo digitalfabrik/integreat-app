@@ -1,9 +1,10 @@
 // @flow
 
-import { entries, values } from './utils/object'
+import { values } from './utils/object'
 
 type FontType = 'lateef' | 'openSans' | 'raleway'
-type SupportedLanguagesType = { [languageCode: string]: {| rtl: boolean, additionalFont?: FontType |} }
+type LanguageType = {| rtl: boolean, additionalFont?: FontType |}
+type SupportedLanguagesType = { [languageCode: string]: LanguageType}
 type FallbacksType = { [languageCode: string]: string[] }
 
 class Config {
@@ -68,18 +69,53 @@ class Config {
     return Object.keys(this.supportedLanguages)
   }
 
-  getRTLLanguages (): string[] {
-    return entries(this.supportedLanguages)
-      .filter(([_, languageConfig]) => languageConfig.rtl)
-      .map(([languageCode, _]) => languageCode)
+  getSupportedLanguage (languageCode: string): LanguageType | void {
+    const fallbacks = this.fallbacks[languageCode]
+
+    if (fallbacks) {
+      const found = fallbacks.find(fallback => !!this.supportedLanguages[fallback])
+
+      if (found) {
+        return this.supportedLanguages[found]
+      }
+    }
+
+    return this.supportedLanguages[languageCode]
   }
 
-  isRTLLanguage (languageCode: string): boolean {
-    return this.getRTLLanguages().includes(languageCode)
+  isSupportedLanguage (languageCode: string): boolean {
+    return !!this.getSupportedLanguage(languageCode)
+  }
+
+  /**
+   * Checks whether the languageCode belongs has an RTL script. This decision is made by the project "Integreat".
+   * Writing direction is not an attribute of "language", but of "scripts". That means that there are language which
+   * can have RTL and LTR scripts.
+   *
+   * <b>Typical Usage</b>
+   *
+   * If you do not know whether to display UI elements RTL/LTR you can use this method. Browsers for example, do not
+   * disclose the system script direction. On Android you can use the system libraries instead of this method. This only
+   * works for {@link #supportedLanguages} and not for arbitrary ones. This is because we simply do now know it and can
+   * not know it.
+   *
+   * @see http://www.i18nguy.com/temp/rtl.html
+   * @param languageCode for the check
+   * @returns {*} whether script is RTL
+   */
+  hasRTLScript (languageCode: string): boolean {
+    const language = this.getSupportedLanguage(languageCode)
+
+    if (!language) {
+      throw new Error(`Unable to determine whether ${languageCode} uses a RTL script. 
+                        Only supported languages have a defined direction.`)
+    }
+
+    return language.rtl
   }
 
   getAdditionalFont (languageCode: string): ?FontType {
-    return this.supportedLanguages[languageCode]?.additionalFont
+    return this.getSupportedLanguage(languageCode)?.additionalFont
   }
 
   getFallbackLanguageCodes (): string[] {
