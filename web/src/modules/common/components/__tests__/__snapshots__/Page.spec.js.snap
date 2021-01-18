@@ -19,7 +19,13 @@ exports[`Page should render 1`] = `
     onInternalLinkClick={[Function]}
   />
   <Translate(LastUpdateInfo)
-    language="en"
+    formatter={
+      DateFormatter {
+        "_defaultLocale": "en",
+        "_fallbackFormat": undefined,
+        "format": [Function],
+      }
+    }
     lastUpdate={"2016-01-07T10:36:24.000Z"}
     withText={true}
   />
