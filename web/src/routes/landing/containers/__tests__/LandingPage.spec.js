@@ -8,6 +8,8 @@ import { LANDING_ROUTE } from '../../../../modules/app/route-configs/LandingRout
 import { routesMap } from '../../../../modules/app/route-configs'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 
+jest.mock('react-i18next')
+
 describe('LandingPage', () => {
   const cities = new CityModelBuilder(2).build()
 

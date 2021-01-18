@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import { RefreshControl, ScrollView } from 'react-native'
+import { RefreshControl } from 'react-native'
 import { type TFunction, withTranslation } from 'react-i18next'
 import SprungbrettOffer from '../components/SprungbrettOffer'
 import { connect } from 'react-redux'
@@ -12,32 +12,41 @@ import {
   Payload,
   SprungbrettJobModel
 } from 'api-client'
-import { SPRUNGBRETT_OFFER } from '../../offers/constants'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import type { ThemeType } from '../../../modules/theme/constants'
-import type { NavigationStackProp } from 'react-navigation-stack'
 import FailureContainer from '../../../modules/error/containers/FailureContainer'
 import { LOADING_TIMEOUT } from '../../../modules/common/constants'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
 import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
 import createNavigateToFeedbackModal from '../../../modules/app/createNavigateToFeedbackModal'
+import type {
+  SprungbrettOfferRouteType,
+  NavigationPropType,
+  RoutePropType
+} from '../../../modules/app/constants/NavigationTypes'
+import LayoutedScrollView from '../../../modules/common/containers/LayoutedScrollView'
+import LayoutContainer from '../../../modules/layout/containers/LayoutContainer'
+import { SPRUNGBRETT_OFFER_ROUTE } from '../../../modules/app/constants/NavigationTypes'
 
-type OwnPropsType = {| navigation: NavigationStackProp<*> |}
+type OwnPropsType = {|
+  route: RoutePropType<SprungbrettOfferRouteType>,
+  navigation: NavigationPropType<SprungbrettOfferRouteType>
+|}
 
 type StatePropsType = {| offer: ?OfferModel, language: string |}
 
 type PropsType = { ...OwnPropsType, ...StatePropsType }
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
-  const offers: Array<OfferModel> = ownProps.navigation.getParam('offers')
+  const offers: Array<OfferModel> = ownProps.route.params.offers
   return {
     language: state.contentLanguage,
-    offer: offers.find(offer => offer.alias === SPRUNGBRETT_OFFER)
+    offer: offers.find(offer => offer.alias === SPRUNGBRETT_OFFER_ROUTE)
   }
 }
 
 type SprungbrettPropsType = {|
-  navigation: NavigationStackProp<*>,
+  ...OwnPropsType,
   offer: ?OfferModel,
   language: string,
   theme: ThemeType,
@@ -58,10 +67,10 @@ class SprungbrettOfferContainer extends React.Component<SprungbrettPropsType, Sp
   }
 
   navigateToFeedback = (isPositiveFeedback: boolean) => {
-    const { navigation, offer, language } = this.props
+    const { route, navigation, offer, language } = this.props
     createNavigateToFeedbackModal(navigation)({
       type: 'Offers',
-      cityCode: navigation.getParam('city'),
+      cityCode: route.params.city,
       title: offer?.title,
       alias: offer?.alias,
       path: offer?.path,
@@ -103,29 +112,29 @@ class SprungbrettOfferContainer extends React.Component<SprungbrettPropsType, Sp
     const { jobs, error, timeoutExpired } = this.state
 
     if (error) {
-      return <ScrollView refreshControl={<RefreshControl onRefresh={this.loadSprungbrett} refreshing={false} />}
-                         contentContainerStyle={{ flexGrow: 1 }}>
-        <FailureContainer errorMessage={error.message} tryAgain={this.loadSprungbrett} />
-      </ScrollView>
+      return (
+        <LayoutedScrollView refreshControl={<RefreshControl onRefresh={this.loadSprungbrett} refreshing={false} />}>
+          <FailureContainer errorMessage={error.message} tryAgain={this.loadSprungbrett} />
+        </LayoutedScrollView>
+      )
     }
 
     if (!offer) {
-      return <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      return <LayoutContainer>
         <FailureContainer code={ErrorCodes.UnknownError} />
-      </ScrollView>
+      </LayoutContainer>
     }
 
     if (!jobs) {
       return timeoutExpired
-        ? <ScrollView refreshControl={<RefreshControl refreshing />} contentContainerStyle={{ flexGrow: 1 }} />
-        : null
+        ? <LayoutedScrollView refreshControl={<RefreshControl refreshing />} />
+        : <LayoutContainer />
     }
 
-    return <ScrollView refreshControl={<RefreshControl onRefresh={this.loadSprungbrett} refreshing={false} />}
-                       contentContainerStyle={{ flexGrow: 1 }}>
+    return <LayoutedScrollView refreshControl={<RefreshControl onRefresh={this.loadSprungbrett} refreshing={false} />}>
       <SprungbrettOffer sprungbrettOffer={offer} sprungbrettJobs={jobs} t={t} theme={theme} language={language} />
       <SiteHelpfulBox navigateToFeedback={this.navigateToFeedback} theme={theme} t={t} />
-    </ScrollView>
+    </LayoutedScrollView>
   }
 }
 
