@@ -79,7 +79,7 @@ export type FetchMoreNewsActionType = {|
 |}
 
 export type ClearNewsActionType = {|
-  type: 'CLEAR_NEWS', +params: {| +key: string, +city: string |}
+  type: 'CLEAR_NEWS', +params: {| +key: string |}
 |}
 
 export type PushNewsActionType = {|

@@ -1,0 +1,5 @@
+issue_key: IGAPP-37
+show_in_stores: false
+platforms:
+  - web
+en: Improve web preview for social media platforms.

@@ -2,7 +2,18 @@ import { JSDOM } from 'jsdom' // jsdom is included in jest and therefore shouldn
 
 const fs = require('fs')
 const path = require('path')
+
+// react-navigation jest setup
+// https://reactnavigation.org/docs/testing#mocking-native-modules
 require('react-native-gesture-handler/jestSetup')
+
+jest.mock('react-native-reanimated', () => {
+  const Reanimated = require('react-native-reanimated/mock')
+  Reanimated.default.call = () => {}
+  return Reanimated
+})
+
+jest.mock('react-native/Libraries/Animated/src/NativeAnimatedHelper')
 
 // window isn't defined as of react-native 0.45+ it seems
 if (typeof window !== 'object') {
@@ -32,7 +43,7 @@ function walkDir (dir, callback) {
 // The following code automatically unmocks the modules in `mocksPath`. This is required because jest mocks all these
 // modules automatically as soon as they are found
 const mocksPath = 'src/__mocks__/'
-const jsPath = '.js'
+const jsPath = '.js' // This only unmocks .js files not .json for example
 walkDir(mocksPath, name => {
   if (name.endsWith(jsPath)) {
     jest.unmock(name.substring(mocksPath.length, name.length - jsPath.length))

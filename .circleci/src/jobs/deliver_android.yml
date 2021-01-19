@@ -43,4 +43,4 @@ steps:
       name: "[FL] Upload to Sentry"
       command: bundle exec fastlane android sentry_upload build_config_name:<< parameters.build_config_name >> sourcemap_path:attached_workspace/<< parameters.build_config_name >>.android.bundle.map version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
       working_directory: native
-  - notify_failed
+  - notify

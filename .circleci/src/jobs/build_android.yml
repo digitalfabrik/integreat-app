@@ -46,4 +46,4 @@ steps:
       paths:
         - << parameters.build_config_name >>.apk
         - << parameters.build_config_name >>.android.bundle.map
-  - notify_failed
+  - notify
