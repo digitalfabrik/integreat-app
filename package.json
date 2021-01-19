@@ -11,10 +11,11 @@
       "build-configs"
     ],
     "nohoist": [
-      "build-configs/**",
-      "api-client/**",
       "native/**",
-      "web/**"
+      "web/**",
+      "api-client/**",
+      "translations/**",
+      "build-configs/**"
     ]
   },
   "scripts": {
