@@ -75,7 +75,8 @@ export class SearchPage extends React.Component<PropsType, LocalStateType> {
 
   handleFilterTextChanged = (filterText: string) => {
     this.setState({ filterText: filterText })
-    history.replaceState(null, '', `${this.props.location.pathname}?query=${filterText}`)
+    const appendToUrl = filterText.length !== 0 ? `?query=${filterText}` : ''
+    history.replaceState(null, '', `${this.props.location.pathname}${appendToUrl}`)
   }
 
   render () {
