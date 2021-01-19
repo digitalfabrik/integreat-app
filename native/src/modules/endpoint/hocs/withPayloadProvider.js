@@ -15,6 +15,7 @@ import type { NavigationPropType, RoutePropType, RoutesType } from '../../app/co
 import { type TFunction } from 'react-i18next'
 import LayoutContainer from '../../layout/containers/LayoutContainer'
 import LayoutedScrollView from '../../common/containers/LayoutedScrollView'
+import ProgressContainer from '../../common/containers/ProgressContainer'
 
 export type RouteNotInitializedType = {| status: 'routeNotInitialized' |}
 export type LoadingType<S: {}, R: {}> = {|
@@ -112,15 +113,19 @@ const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R: {}, 
         return <LanguageNotAvailableContainer languages={props.availableLanguages}
                                               changeLanguage={changeUnavailableLanguage} />
       } else if (props.status === 'loading') {
-        console.log('render loading', props.progress)
-        return timeoutExpired
-          ? <LayoutedScrollView refreshControl={<RefreshControl refreshing />}>
-          {/* only display content while loading if innerProps and dispatch are available */}
-          {props.innerProps && props.dispatch
-            ? <Component {...props.innerProps} dispatch={props.dispatch} />
-            : null}
-        </LayoutedScrollView>
-          : <LayoutContainer />
+        const { innerProps, dispatch } = props
+
+        if (!timeoutExpired) { // Prevent jumpy behaviour by showing nothing until the timeout finishes
+          return <LayoutContainer />
+        } else if (!!innerProps && !!dispatch) { // Display previous content if available
+          return <LayoutedScrollView refreshControl={<RefreshControl refreshing />}>
+            <Component {...innerProps} dispatch={dispatch} />
+          </LayoutedScrollView>
+        } else { // Full screen loading spinner
+          return <LayoutedScrollView refreshControl={<RefreshControl refreshing={false} />}>
+            <ProgressContainer progress={props.progress} />
+          </LayoutedScrollView>
+        }
       } else { // props.status === 'success'
         if (noScrollView) {
           return <LayoutContainer>

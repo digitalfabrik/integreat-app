@@ -1,0 +1,6 @@
+issue_key: IGAPP-411
+show_in_stores: true
+platforms:
+  - web
+en: Navigationbar is now scrollable on small devices
+de: Auf kleinen Endgeräten kann die Menüleist gescrollt werden
