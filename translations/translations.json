@@ -291,7 +291,8 @@
     "de": {
       "languageNotAvailable": "Deine Sprache ist hier leider nicht verfügbar.",
       "chooseALanguage": "Wähle eine Sprache.",
-      "lastUpdate": "Letzte Änderung:"
+      "lastUpdate": "Letzte Änderung:",
+      "loading": "Lade ..."
     },
     "ar": {
       "languageNotAvailable": "للأسف، لغتك ليست متاحة.",
@@ -301,12 +302,14 @@
     "en": {
       "languageNotAvailable": "Sorry, but your language is not available here.",
       "chooseALanguage": "Choose a language.",
-      "lastUpdate": "Last update:"
+      "lastUpdate": "Last update:",
+      "loading": "Loading ..."
     },
     "es": {
       "languageNotAvailable": "Tu idioma no está disponible aquí.",
       "chooseALanguage": "Selecciona un idioma.",
-      "lastUpdate": "Última modificación:"
+      "lastUpdate": "Última modificación:",
+      "loading": "Cargando ..."
     },
     "fa": {
       "languageNotAvailable": "متاسفانه زبان شما در اینجا در دسترس نیست.",

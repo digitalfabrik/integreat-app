@@ -88,7 +88,14 @@ export default (
 
     switch (action.type) {
       case 'SWITCH_CONTENT_LANGUAGE':
-        return { ...state, switchingLanguage: true, searchRoute: null }
+        return {
+          ...state,
+          switchingLanguage: true,
+          searchRoute: null,
+          resourceCache: state.resourceCache.status !== 'error'
+            ? { ...state.resourceCache, progress: 0 }
+            : state.resourceCache
+        }
       case 'SWITCH_CONTENT_LANGUAGE_FAILED':
         return { ...state, switchingLanguage: false }
       case 'PUSH_LANGUAGES':
