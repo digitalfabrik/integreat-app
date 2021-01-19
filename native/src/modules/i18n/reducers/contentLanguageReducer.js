@@ -1,9 +1,9 @@
 // @flow
 
 import type { StoreActionType } from '../../app/StoreActionType'
-import { DEFAULT_LANGUAGE } from '../constants'
+import { config } from 'translations'
 
-const contentLanguageReducer = (state: string = DEFAULT_LANGUAGE, action: StoreActionType): string => {
+const contentLanguageReducer = (state: string = config.defaultFallback, action: StoreActionType): string => {
   if (action.type === 'SET_CONTENT_LANGUAGE') {
     return action.params.contentLanguage
   }

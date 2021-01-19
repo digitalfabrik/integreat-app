@@ -91,6 +91,7 @@ export const webIntegreatBuildConfig: WebBuildConfigType = {
     appLogo: '/app-logo.png',
     locationMarker: '/location-marker.svg',
     appleTouchIcon: '/apple-touch-icon.png',
+    socialMediaPreview: '/social-media-preview.png',
     favicons: '/favicons/'
   },
   splashScreen: {

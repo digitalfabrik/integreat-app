@@ -1,100 +1,93 @@
 // @flow
 
-import i18n from 'i18next'
 import * as React from 'react'
-import { I18nextProvider, initReactI18next } from 'react-i18next'
-import loadTranslations from '../loadTranslations'
-import LanguageDetector from '../LanguageDetector'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import { I18nextProvider } from 'react-i18next'
 import MomentContext, { createMomentFormatter } from '../context/MomentContext'
-import AppSettings from '../../settings/AppSettings'
 import { Text } from 'react-native'
 import buildConfig from '../../app/constants/buildConfig'
+import { config, loadTranslations } from 'translations'
+import i18next from 'i18next'
+import { useDispatch } from 'react-redux'
+import type { SetContentLanguageActionType } from '../../app/StoreActionType'
+import NativeLanguageDetector from '../NativeLanguageDetector'
+import AppSettings from '../../settings/AppSettings'
 
-export const DEFAULT_LANGUAGE = 'de'
-const FALLBACK_LANGUAGES = [DEFAULT_LANGUAGE]
+type PropsType = {| children: React.Node |}
 
-type PropsType = {|
-  children?: React.Node,
-  setContentLanguage: (language: string) => void
-|}
+export default ({ children }: PropsType) => {
+  const [errorMessage, setErrorMessage] = useState<?string>(null)
+  const [i18nextInstance, setI18nextInstance] = useState(null)
+  const dispatch = useDispatch()
 
-type StateType = {|
-  errorMessage: ?string,
-  initialisationFinished: boolean
-|}
-
-class I18nProvider extends React.Component<PropsType, StateType> {
-  i18n: i18n
-  appSettings: AppSettings
-
-  constructor (props: PropsType) {
-    super(props)
-
-    this.state = { errorMessage: null, initialisationFinished: false }
-
-    this.i18n = i18n.createInstance()
-    this.appSettings = new AppSettings()
-  }
-
-  getI18nextLanguage = (): string => {
-    if (this.i18n.languages && this.i18n.languages.length > 0) {
-      return this.i18n.languages[0]
-    } else {
-      throw new Error('Failed to set language because it is currently unknown and even i18next does not know it!')
-    }
-  }
-
-  initI18n = async () => {
-    try {
-      const i18nextResources = loadTranslations()
-      await this.i18n
-        .use(LanguageDetector)
-        .use(initReactI18next)
-        .init({
-          resources: i18nextResources,
-          fallbackLng: FALLBACK_LANGUAGES,
-          load: 'languageOnly',
-          debug: buildConfig().featureFlags.developerFriendly
-        })
-
-      await this.initContentLanguage()
-
-      this.setState({ initialisationFinished: true })
-    } catch (e) {
-      this.setState({ errorMessage: e.message })
-    }
-  }
-
-  initContentLanguage = async () => {
-    const { setContentLanguage } = this.props
-    const contentLanguage = await this.appSettings.loadContentLanguage()
-    const uiLanguage = this.getI18nextLanguage()
+  const setContentLanguage = useCallback(async (uiLanguage: string) => {
+    const appSettings = new AppSettings()
+    const contentLanguage = await appSettings.loadContentLanguage()
 
     if (!contentLanguage) {
-      await this.appSettings.setContentLanguage(uiLanguage)
-    }
-    setContentLanguage(contentLanguage || uiLanguage)
-  }
-
-  componentDidMount () {
-    this.initI18n()
-  }
-
-  momentFormatter = createMomentFormatter(() => undefined, () => DEFAULT_LANGUAGE)
-
-  render () {
-    if (this.state.errorMessage) {
-      return <Text>{this.state.errorMessage}</Text>
+      await appSettings.setContentLanguage(uiLanguage)
     }
 
-    return (
-      <I18nextProvider i18n={this.i18n}>
-        <MomentContext.Provider value={this.momentFormatter}>
-          {this.state.initialisationFinished ? this.props.children : null}
-        </MomentContext.Provider>
-      </I18nextProvider>
-    )
+    const setContentLanguageAction: SetContentLanguageActionType = {
+      type: 'SET_CONTENT_LANGUAGE',
+      params: {
+        contentLanguage: contentLanguage || uiLanguage
+      }
+    }
+    dispatch(setContentLanguageAction)
+  }, [dispatch])
+
+  useEffect(() => {
+    const initI18Next = async () => {
+      const resources = loadTranslations(buildConfig().translationsOverride)
+      const i18nextInstance = await i18next
+        .createInstance()
+        .use(NativeLanguageDetector)
+
+      await i18nextInstance.init({
+        resources,
+        fallbackLng: {
+          ...config.fallbacks,
+          default: [config.defaultFallback]
+        },
+        load: 'languageOnly',
+        interpolation: {
+          escapeValue: false /* Escaping is not needed for react apps:
+                                https://github.com/i18next/react-i18next/issues/277 */
+        },
+        debug: buildConfig().featureFlags.developerFriendly
+      })
+
+      await setContentLanguage(i18nextInstance.language).catch(e => {
+        console.error(e)
+      })
+
+      setI18nextInstance(i18nextInstance)
+    }
+
+    initI18Next().catch((e: Error) => {
+      setErrorMessage(e.message)
+      console.error(e)
+    })
+  }, [setContentLanguage])
+
+  const momentFormatter = useMemo(
+    () => createMomentFormatter(() => undefined, () => config.defaultFallback),
+    [])
+
+  if (errorMessage) {
+    return <Text>{errorMessage}</Text>
   }
+
+  if (!i18nextInstance) {
+    return null
+  }
+
+  return (
+    <I18nextProvider i18n={i18nextInstance}>
+      <MomentContext.Provider value={momentFormatter}>
+        {children}
+      </MomentContext.Provider>
+    </I18nextProvider>
+  )
 }
-
-export default I18nProvider

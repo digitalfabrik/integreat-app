@@ -8,7 +8,6 @@ import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
 import SearchHeader from './SearchHeader'
 import { ActivityIndicator, ScrollView, View } from 'react-native'
-import type { NavigationStackProp } from 'react-navigation-stack'
 import type { ThemeType } from '../../../modules/theme/constants'
 import type { NavigateToCategoryParamsType } from '../../../modules/app/createNavigateToCategory'
 import type { TFunction } from 'react-i18next'
@@ -34,7 +33,7 @@ export type PropsType = {|
   language: string,
   cityCode: string,
   closeModal: () => void,
-  navigation: NavigationStackProp<*>,
+  navigateToLink: (url: string, language: string, shareUrl: string) => void,
   t: TFunction,
   sendFeedback: (comment: string, query: string) => Promise<void>
 |}
@@ -99,7 +98,7 @@ class SearchModal extends React.Component<PropsType, StateType> {
     navigateToCategory({
       cityCode,
       language,
-      path: category.path
+      cityContentPath: category.path
     })
   }
 
@@ -108,7 +107,7 @@ class SearchModal extends React.Component<PropsType, StateType> {
   }
 
   renderContent = () => {
-    const { language, theme, categories, t, sendFeedback } = this.props
+    const { language, theme, categories, t, sendFeedback, navigateToLink } = this.props
     const { query } = this.state
 
     const minHeight = dimensions.categoryListItem.iconSize + dimensions.categoryListItem.margin * 2
@@ -123,7 +122,9 @@ class SearchModal extends React.Component<PropsType, StateType> {
         {/* The minHeight is needed to circumvent a bug that appears when there is only one search result.
               See NATIVE-430 for reference. */}
         <View style={{ minHeight: minHeight }}>
-          <CategoryList categories={filteredCategories} query={query}
+          <CategoryList categories={filteredCategories}
+                        navigateToLink={navigateToLink}
+                        query={query}
                         onItemPress={this.onItemPress}
                         theme={theme} language={language} />
         </View>
