@@ -114,15 +114,18 @@ const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R: {}, 
                                               changeLanguage={changeUnavailableLanguage} />
       } else if (props.status === 'loading') {
         const { innerProps, dispatch } = props
-        const isRefresh: boolean = Boolean(innerProps) && Boolean(dispatch)
-        const layoutedScrollview =
-          <LayoutedScrollView refreshControl={<RefreshControl refreshing={isRefresh} />}>
-            {isRefresh
-              // $FlowFixMe Cannot create `Component` element because props is incompatible with `S`
-              ? <Component {...innerProps} dispatch={dispatch} />
-              : <ProgressContainer progress={props.progress} />}
+
+        if (!timeoutExpired) { // Prevent jumpy behaviour by showing nothing until the timeout finishes
+          return <LayoutContainer />
+        } else if (!!innerProps && !!dispatch) { // Display previous content if available
+          return <LayoutedScrollView refreshControl={<RefreshControl refreshing />}>
+            <Component {...innerProps} dispatch={dispatch} />
           </LayoutedScrollView>
-        return timeoutExpired ? layoutedScrollview : <LayoutContainer />
+        } else { // Full screen loading spinner
+          return <LayoutedScrollView refreshControl={<RefreshControl refreshing={false} />}>
+            <ProgressContainer progress={props.progress} />
+          </LayoutedScrollView>
+        }
       } else { // props.status === 'success'
         if (noScrollView) {
           return <LayoutContainer>
