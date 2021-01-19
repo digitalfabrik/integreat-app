@@ -14,6 +14,8 @@ import EventJsonLd from '../../../../modules/json-ld/components/EventJsonLd'
 import Page from '../../../../modules/common/components/Page'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 
+jest.mock('react-i18next')
+
 describe('EventsPage', () => {
   const events = [
     new EventModel({

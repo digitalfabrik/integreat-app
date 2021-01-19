@@ -10,6 +10,8 @@ import configureStore from 'redux-mock-store'
 import { NOT_FOUND } from 'redux-first-router'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 
+jest.mock('react-i18next')
+
 describe('I18nRedirectPage', () => {
   const language = 'de'
 

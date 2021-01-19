@@ -6,6 +6,8 @@ import { SearchFeedback } from '../SearchFeedback'
 import { shallow } from 'enzyme'
 import createLocation from '../../../../createLocation'
 
+jest.mock('react-i18next')
+
 describe('SearchFeedback', () => {
   const t = (key: ?string): string => key || ''
   const location = createLocation(

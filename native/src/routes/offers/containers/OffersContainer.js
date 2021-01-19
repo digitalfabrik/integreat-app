@@ -2,44 +2,55 @@
 
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { RefreshControl, ScrollView } from 'react-native'
+import { RefreshControl } from 'react-native'
 import Offers from '../components/Offers'
 import { type TFunction, withTranslation } from 'react-i18next'
 import { CityModel, createOffersEndpoint, OfferModel, Payload } from 'api-client'
 import type { ThemeType } from 'build-configs/ThemeType'
 import type { StateType } from '../../../modules/app/StateType'
-import type { NavigationStackProp } from 'react-navigation-stack'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import FailureContainer from '../../../modules/error/containers/FailureContainer'
 import { LOADING_TIMEOUT } from '../../../modules/common/constants'
 import determineApiUrl from '../../../modules/endpoint/determineApiUrl'
-import openExternalUrl from '../../../modules/common/openExternalUrl'
+import type {
+  OffersRouteType,
+  NavigationPropType,
+  RoutePropType
+} from '../../../modules/app/constants/NavigationTypes'
+import {
+  EXTERNAL_OFFER_ROUTE, OFFERS_ROUTE,
+  SPRUNGBRETT_OFFER_ROUTE,
+  WOHNEN_OFFER_ROUTE
+} from '../../../modules/app/constants/NavigationTypes'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import type { Dispatch } from 'redux'
+import LayoutedScrollView from '../../../modules/common/containers/LayoutedScrollView'
+import LayoutContainer from '../../../modules/layout/containers/LayoutContainer'
+import { cityContentUrl } from '../../../modules/common/url'
+import openExternalUrl from '../../../modules/common/openExternalUrl'
 
-type OwnPropsType = {| navigation: NavigationStackProp<*>, dispatch: Dispatch<StoreActionType> |}
+type OwnPropsType = {|
+  route: RoutePropType<OffersRouteType>,
+  navigation: NavigationPropType<OffersRouteType>
+|}
 
-type StatePropsType = {| city: string, language: string, cities: ?$ReadOnlyArray<CityModel> |}
-
-type PropsType = {| ...OwnPropsType, ...StatePropsType |}
+type StatePropsType = {| city: ?string, language: string, cities: ?$ReadOnlyArray<CityModel> |}
+type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
+type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
 const mapStateToProps = (state: StateType): StatePropsType => {
-  if (!state.cityContent) {
-    throw new Error('CityContent must not be null!')
-  }
-
   const cities: ?$ReadOnlyArray<CityModel> = state.cities.status !== 'ready' ? null : state.cities.models
 
   return {
-    city: state.cityContent.city,
+    city: state.cityContent?.city,
     language: state.contentLanguage,
     cities
   }
 }
 
 type OffersPropsType = {|
-  navigation: NavigationStackProp<*>,
-  city: string,
+  ...OwnPropsType,
+  city: ?string,
   cities: ?Array<CityModel>,
   language: string,
   theme: ThemeType,
@@ -62,23 +73,39 @@ class OffersContainer extends React.Component<OffersPropsType, OffersStateType> 
     this.loadOffers().catch(e => this.setState({ error: e }))
   }
 
-  navigateToOffer = (path: string, isExternalUrl: boolean, postData: ?Map<string, string>) => {
-    if (!this.props.navigation.push) {
-      throw new Error('push is not defined on navigation')
+  navigateToOffer = (
+    offers: Array<OfferModel>,
+    path: string,
+    isExternalUrl: boolean,
+    postData: ?Map<string, string>
+  ) => {
+    const { navigation, city, language } = this.props
+    if (!city) {
+      return
     }
+
     // HTTP POST is neither supported by the InAppBrowser nor by Linking, therefore we have to open it in a webview
     if (isExternalUrl && postData) {
-      this.props.navigation.push('ExternalOffer', { url: path, postData })
+      navigation.push(EXTERNAL_OFFER_ROUTE, { url: path, shareUrl: path, postData })
     } else if (isExternalUrl) {
       openExternalUrl(path)
-    } else {
-      const params = { city: this.props.city, offers: this.state.offers, offerHash: null }
-      this.props.navigation.push(path, params)
+    } else if (path === SPRUNGBRETT_OFFER_ROUTE) {
+      const shareUrl = cityContentUrl({ cityCode: city, languageCode: language, route: OFFERS_ROUTE, path })
+      const params = { city, offers, shareUrl }
+      navigation.push(SPRUNGBRETT_OFFER_ROUTE, params)
+    } else if (path === WOHNEN_OFFER_ROUTE) {
+      const params = { city, offers, offerHash: null }
+      navigation.push(WOHNEN_OFFER_ROUTE, params)
     }
   }
 
   loadOffers = async () => {
     const { city, language } = this.props
+
+    if (!city) {
+      return
+    }
+
     this.setState({ error: null, offers: null, timeoutExpired: false })
     setTimeout(() => this.setState({ timeoutExpired: true }), LOADING_TIMEOUT)
 
@@ -100,27 +127,25 @@ class OffersContainer extends React.Component<OffersPropsType, OffersStateType> 
   }
 
   render () {
-    const { theme, t, cities, navigation, city, language } = this.props
+    const { theme, t, cities, navigation, city, language, route } = this.props
     const { offers, error, timeoutExpired } = this.state
 
     if (error) {
-      return <ScrollView refreshControl={<RefreshControl onRefresh={this.loadOffers} refreshing={false} />}
-                         contentContainerStyle={{ flexGrow: 1 }}>
+      return <LayoutedScrollView refreshControl={<RefreshControl onRefresh={this.loadOffers} refreshing={false} />}>
         <FailureContainer errorMessage={error.message} tryAgain={this.loadOffers} />
-      </ScrollView>
+      </LayoutedScrollView>
     }
 
-    if (!offers || !cities) {
+    if (!offers || !cities || !city) {
       return timeoutExpired
-        ? <ScrollView refreshControl={<RefreshControl refreshing />} contentContainerStyle={{ flexGrow: 1 }} />
-        : null
+        ? <LayoutedScrollView refreshControl={<RefreshControl refreshing />} />
+        : <LayoutContainer />
     }
 
-    return <ScrollView refreshControl={<RefreshControl onRefresh={this.loadOffers} refreshing={false} />}
-                       contentContainerStyle={{ flexGrow: 1 }}>
+    return <LayoutedScrollView refreshControl={<RefreshControl onRefresh={this.loadOffers} refreshing={false} />}>
       <Offers offers={offers} navigateToOffer={this.navigateToOffer} theme={theme} t={t} cities={cities}
-              navigation={navigation} cityCode={city} language={language} />
-    </ScrollView>
+              navigation={navigation} route={route} cityCode={city} language={language} />
+    </LayoutedScrollView>
   }
 }
 

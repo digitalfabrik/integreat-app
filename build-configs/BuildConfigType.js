@@ -1,8 +1,7 @@
 // @flow
 
 import type { ThemeType } from './ThemeType'
-
-export type TranslationsType = { [namespace: string]: { [language: string]: { [key: string]: string } } }
+import type { TranslationsType } from 'translations'
 
 export type FeatureFlagsType = {|
   pois: boolean,

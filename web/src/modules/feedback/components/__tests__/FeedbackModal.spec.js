@@ -9,6 +9,8 @@ import { CATEGORIES_ROUTE } from '../../../app/route-configs/CategoriesRouteConf
 import createLocation from '../../../../createLocation'
 import theme from '../../../theme/constants/theme'
 
+jest.mock('react-i18next')
+
 describe('FeedbackModal', () => {
   it('should match snapshot', () => {
     const cities = [

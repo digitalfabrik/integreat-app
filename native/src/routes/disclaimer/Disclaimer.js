@@ -4,26 +4,25 @@ import Page from '../../modules/common/components/Page'
 import { PageModel } from 'api-client'
 import type { ThemeType } from '../../modules/theme/constants'
 import React from 'react'
-import type { NavigationStackProp } from 'react-navigation-stack'
 
 type PropsType = {|
+  navigateToLink: (url: string, language: string, shareUrl: string) => void,
   disclaimer: PageModel,
   city: string,
   language: string,
   theme: ThemeType,
-  resourceCacheUrl: string,
-  navigation: NavigationStackProp<*>
+  resourceCacheUrl: string
 |}
 
 class Disclaimer extends React.Component<PropsType> {
   render () {
-    const { disclaimer, theme, navigation, language, resourceCacheUrl } = this.props
+    const { disclaimer, theme, language, resourceCacheUrl, navigateToLink } = this.props
     const { title, content, lastUpdate } = disclaimer
 
     return <Page title={title}
                  content={content}
                  theme={theme}
-                 navigation={navigation}
+                 navigateToLink={navigateToLink}
                  files={{}}
                  language={language}
                  resourceCacheUrl={resourceCacheUrl}

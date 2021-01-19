@@ -1,15 +1,12 @@
 // @flow
 
 import * as React from 'react'
-
-import type { NavigationStackProp } from 'react-navigation-stack'
 import CategoryListItem from './CategoryListItem'
 import type { ThemeType } from '../../theme/constants'
 import styled from 'styled-components/native'
 import Image from '../../common/components/Image'
 import CategoryListCaption from '../../../modules/common/components/CategoryListCaption'
 import CategoryListContent from './CategoryListContent'
-import type { NavigateToInternalLinkParamsType } from '../../app/createNavigateToInternalLink'
 import type { PageResourceCacheEntryStateType, PageResourceCacheStateType } from '../../app/StateType'
 import { RESOURCE_CACHE_DIR_PATH } from '../../endpoint/DatabaseConnector'
 import { mapValues } from 'lodash'
@@ -27,9 +24,7 @@ export type ListEntryType = {|
 |}
 
 export type ListContentModelType = {|
-  navigation: NavigationStackProp<*>,
   files: PageResourceCacheStateType,
-  navigateToInternalLink: NavigateToInternalLinkParamsType => void,
   resourceCacheUrl: string,
   content: string
 |}
@@ -42,6 +37,7 @@ type PropsType = {|
   query?: string,
   theme: ThemeType,
   onItemPress: (tile: { title: string, thumbnail: string, path: string }) => void,
+  navigateToLink: (url: string, language: string, shareUrl: string) => void,
   language: string,
   thumbnail?: string
 |}
@@ -59,7 +55,7 @@ const CategoryThumbnail = styled(Image)`
  */
 class CategoryList extends React.Component<PropsType> {
   getListContent (listContent: ListContentModelType): React.Node {
-    const { theme, language } = this.props
+    const { theme, language, navigateToLink } = this.props
     const cacheDictionary = mapValues(listContent.files, (file: PageResourceCacheEntryStateType) => {
       return file.filePath.startsWith(RESOURCE_CACHE_DIR_PATH)
         ? file.filePath.replace(RESOURCE_CACHE_DIR_PATH, listContent.resourceCacheUrl)
@@ -67,8 +63,7 @@ class CategoryList extends React.Component<PropsType> {
     })
     return <CategoryListContent content={listContent.content}
                                 language={language}
-                                navigation={listContent.navigation}
-                                navigateToInternalLink={listContent.navigateToInternalLink}
+                                navigateToLink={navigateToLink}
                                 resourceCacheUrl={listContent.resourceCacheUrl}
                                 cacheDictionary={cacheDictionary}
                                 theme={theme} />
