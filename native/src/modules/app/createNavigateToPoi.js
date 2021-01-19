@@ -2,35 +2,36 @@
 
 import type { Dispatch } from 'redux'
 import type { FetchPoiActionType, StoreActionType } from './StoreActionType'
-import type { NavigationStackProp } from 'react-navigation-stack'
 import { generateKey } from './generateRouteKey'
+import type { NavigationPropType, RoutesType } from './constants/NavigationTypes'
+import { POIS_ROUTE } from './constants/NavigationTypes'
+import { cityContentUrl } from '../common/url'
 
 export type NavigateToPoiParamsType =
   {| cityCode: string, language: string, path: ?string, key?: string, forceRefresh?: boolean |}
 
-export default (dispatch: Dispatch<StoreActionType>, navigation: NavigationStackProp<*>) => (
-  {
-    cityCode, language, path, key = generateKey(), forceRefresh = false
-  }: NavigateToPoiParamsType) => {
-  navigation.navigate({
-    routeName: 'Pois',
-    params: {
-      onRouteClose: () => dispatch({ type: 'CLEAR_POI', params: { key } }),
-      sharePath: path || `/${cityCode}/${language}/pois`
-    },
-    key
-  })
+const createNavigateToPoi = <T: RoutesType>(
+  dispatch: Dispatch<StoreActionType>,
+  navigation: NavigationPropType<T>
+) => ({ cityCode, language, path, key = generateKey(), forceRefresh = false }: NavigateToPoiParamsType) => {
+    navigation.navigate({
+      name: POIS_ROUTE,
+      params: { shareUrl: cityContentUrl({ cityCode, languageCode: language, route: POIS_ROUTE, path }) },
+      key
+    })
 
-  const fetchPoi: FetchPoiActionType = {
-    type: 'FETCH_POI',
-    params: {
-      city: cityCode,
-      language,
-      path,
-      key,
-      criterion: { forceUpdate: forceRefresh, shouldRefreshResources: forceRefresh }
+    const fetchPoi: FetchPoiActionType = {
+      type: 'FETCH_POI',
+      params: {
+        city: cityCode,
+        language,
+        path,
+        key,
+        criterion: { forceUpdate: forceRefresh, shouldRefreshResources: forceRefresh }
+      }
     }
+
+    dispatch(fetchPoi)
   }
 
-  dispatch(fetchPoi)
-}
+export default createNavigateToPoi

@@ -15,11 +15,11 @@ exports[`App should render 1`] = `
     }
   >
     <Provider>
-      <Connect(I18nProvider)>
+      <_default>
         <Connect(CustomThemeProvider)>
           <Connect(Translate(Switcher)) />
         </Connect(CustomThemeProvider)>
-      </Connect(I18nProvider)>
+      </_default>
     </Provider>
   </Provider>
 </StrictMode>

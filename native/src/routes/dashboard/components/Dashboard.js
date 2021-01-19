@@ -1,7 +1,6 @@
 // @flow
 
 import * as React from 'react'
-import type { NavigationStackProp } from 'react-navigation-stack'
 import Categories from '../../../modules/categories/components/Categories'
 import type { ThemeType } from 'build-configs/ThemeType'
 import { CityModel } from 'api-client'
@@ -16,7 +15,6 @@ import newsIcon from '../assets/news.svg'
 import localInformationIcon from '../assets/local_information.svg'
 import type { TFunction } from 'react-i18next'
 import type { NavigateToCategoryParamsType } from '../../../modules/app/createNavigateToCategory'
-import type { NavigateToInternalLinkParamsType } from '../../../modules/app/createNavigateToInternalLink'
 import type { NavigateToEventParamsType } from '../../../modules/app/createNavigateToEvent'
 import type { NavigateToNewsParamsType } from '../../../modules/app/createNavigateToNews'
 import buildConfig from '../../../modules/app/constants/buildConfig'
@@ -25,20 +23,21 @@ import type { NavigateToPoiParamsType } from '../../../modules/app/createNavigat
 import { LOCAL_NEWS, TUNEWS } from '../../../modules/endpoint/constants'
 import styled from 'styled-components/native'
 import type { StyledComponent } from 'styled-components'
+import { cityContentPath } from '../../../modules/common/url'
+import type { FeedbackInformationType } from '../../feedback/containers/FeedbackModalContainer'
 
 const Spacing: StyledComponent<{||}, ThemeType, *> = styled.View`
   padding: 10px;
 `
 
 export type PropsType = {|
-  navigation: NavigationStackProp<*>,
-
   navigateToPoi: NavigateToPoiParamsType => void,
   navigateToCategory: NavigateToCategoryParamsType => void,
   navigateToEvent: NavigateToEventParamsType => void,
-  navigateToInternalLink: NavigateToInternalLinkParamsType => void,
   navigateToNews: NavigateToNewsParamsType => void,
   navigateToOffers: ({| cityCode: string, language: string |}) => void,
+  navigateToLink: (url: string, language: string, shareUrl: string) => void,
+  navigateToFeedback: FeedbackInformationType => void,
   theme: ThemeType,
 
   language: string,
@@ -75,7 +74,7 @@ class Dashboard extends React.Component<PropsType> {
         onTilePress: () => navigateToCategory({
           cityCode,
           language,
-          path: `/${cityCode}/${language}`
+          cityContentPath: cityContentPath({ cityCode, languageCode: language })
         }),
         notifications: 0
       })]
@@ -105,7 +104,7 @@ class Dashboard extends React.Component<PropsType> {
         onTilePress: () => navigateToEvent({
           cityCode,
           language,
-          path: null
+          cityContentPath: null
         }),
         notifications: 0
       }))
@@ -149,11 +148,11 @@ class Dashboard extends React.Component<PropsType> {
       theme,
       resourceCache,
       resourceCacheUrl,
-      navigateToInternalLink,
       language,
       cityModel,
       navigateToCategory,
-      navigation,
+      navigateToLink,
+      navigateToFeedback,
       t
     } = this.props
 
@@ -171,10 +170,10 @@ class Dashboard extends React.Component<PropsType> {
           language={language}
           cityModel={cityModel}
           theme={theme}
-          navigation={navigation}
           navigateToCategory={navigateToCategory}
+          navigateToFeedback={navigateToFeedback}
+          navigateToLink={navigateToLink}
           t={t}
-          navigateToInternalLink={navigateToInternalLink}
         />
       </SpaceBetween>
     )

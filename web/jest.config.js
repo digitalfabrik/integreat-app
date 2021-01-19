@@ -1,3 +1,9 @@
+const transformNodeModules = [
+  'api-client',
+  'build-configs',
+  'translations'
+]
+
 module.exports = {
   rootDir: 'src',
   verbose: true,
@@ -6,7 +12,7 @@ module.exports = {
     '<rootDir>/../jest.setup.js'
   ],
   transformIgnorePatterns: [
-    'node_modules/(?!build-configs|api-client)'
+    `node_modules/(?!${transformNodeModules.join('|')})`
   ],
   moduleNameMapper: {
     '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$': '<rootDir>/__mocks__/fileMock.js',

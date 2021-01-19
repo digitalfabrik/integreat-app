@@ -6,6 +6,8 @@ import { WohnenOfferModel, WohnenFormData } from 'api-client'
 import moment from 'moment'
 import OfferDetail from '../OfferDetail'
 
+jest.mock('react-i18next')
+
 describe('OfferDetail', () => {
   const offer = new WohnenOfferModel({
     email: 'mail@mail.com',

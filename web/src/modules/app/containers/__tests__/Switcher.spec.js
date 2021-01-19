@@ -34,6 +34,9 @@ import configureMockStore from 'redux-mock-store'
 import { I18N_REDIRECT_ROUTE } from '../../route-configs/I18nRedirectRouteConfig'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 
+jest.mock('react-i18next')
+jest.mock('redux-first-router-link')
+
 describe('Switcher', () => {
   const categories = new CategoriesMapModel([
     new CategoryModel({

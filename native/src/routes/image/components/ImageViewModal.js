@@ -3,14 +3,21 @@
 import * as React from 'react'
 import { View } from 'react-native'
 import { ImageViewer } from 'react-native-image-zoom-viewer'
-import type { NavigationStackProp } from 'react-navigation-stack'
+import type {
+  ImageViewModalRouteType,
+  NavigationPropType,
+  RoutePropType
+} from '../../../modules/app/constants/NavigationTypes'
+import withTheme from '../../../modules/theme/hocs/withTheme'
+import type { ThemeType } from 'build-configs/ThemeType'
 
-type PropsType = {
-  navigation: NavigationStackProp<*>,
-  url: string
-}
+type PropsType = {|
+  route: RoutePropType<ImageViewModalRouteType>,
+  navigation: NavigationPropType<ImageViewModalRouteType>,
+  theme: ThemeType
+|}
 
-export default class ImageViewModal extends React.Component<PropsType> {
+class ImageViewModal extends React.Component<PropsType> {
   renderNothing (): React.Node {
     return null
   }
@@ -20,10 +27,12 @@ export default class ImageViewModal extends React.Component<PropsType> {
       <View style={{ flex: 1 }}>
         <ImageViewer style={{ flex: 1 }}
                      renderIndicator={this.renderNothing}
-                     backgroundColor='white'
+                     backgroundColor={this.props.theme.colors.backgroundAccentColor}
                      saveToLocalByLongPress={false}
-                     imageUrls={[{ url: this.props.navigation.getParam('url') }]} />
+                     imageUrls={[{ url: this.props.route.params.url }]} />
       </View>
     )
   }
 }
+
+export default withTheme(ImageViewModal)
