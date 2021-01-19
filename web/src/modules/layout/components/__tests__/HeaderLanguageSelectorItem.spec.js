@@ -5,6 +5,8 @@ import SelectorItemModel from '../../../common/models/SelectorItemModel'
 import { shallow } from 'enzyme'
 import HeaderLanguageSelectorItem from '../HeaderLanguageSelectorItem'
 
+jest.mock('react-i18next')
+
 describe('HeaderLanguageSelectorItem', () => {
   const selectorItems = [
     new SelectorItemModel({

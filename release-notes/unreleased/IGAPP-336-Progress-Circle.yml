@@ -1,0 +1,7 @@
+issue_key: IGAPP-336
+show_in_stores: true
+platforms:
+  - ios
+  - android
+en: We added a nice animation to show you the current loading progress.
+de: Die App gibt dir nun Feedback über den Fortschritt beim Ladevorgang.

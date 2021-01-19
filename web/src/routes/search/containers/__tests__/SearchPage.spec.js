@@ -10,6 +10,8 @@ import moment from 'moment'
 import createLocation from '../../../../createLocation'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 
+jest.mock('react-i18next')
+
 describe('SearchPage', () => {
   const t = (key: ?string): string => key || ''
 

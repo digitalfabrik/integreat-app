@@ -14,6 +14,8 @@ import { LOCAL_NEWS_ROUTE } from '../../../../modules/app/route-configs/LocalNew
 import theme from '../../../../modules/theme/constants/theme'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 
+jest.mock('react-i18next')
+
 describe('LocalNewsPage', () => {
   const cities = new CityModelBuilder(2).build()
 

@@ -2,14 +2,14 @@ const transformNodeModules = [
   'react-native',
   '@react-native-firebase/messaging',
   '@react-native-firebase/app',
-  '@react-native-community/async-storage',
-  'react-navigation',
+  '@react-native-community',
+  '@react-navigation',
+  'react-navigation-header-buttons',
   'rn-fetch-blob',
   'api-client',
+  'translations',
   '@sentry/react-native',
   'hashids',
-  '@react-native-community/progress-bar-android',
-  '@react-native-community/progress-view',
   '@react-native-picker/picker',
   'build-configs'
 ]

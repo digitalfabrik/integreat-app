@@ -14,6 +14,9 @@ import createLocation from '../../../../createLocation'
 import { WOHNEN_ROUTE } from '../../../../modules/app/route-configs/WohnenRouteConfig'
 import configureMockStore from 'redux-mock-store'
 
+jest.mock('react-i18next')
+jest.mock('redux-first-router-link')
+
 describe('WohnenOfferPage', () => {
   const city = 'augsburg'
   const language = 'de'

@@ -10,6 +10,12 @@
 .*/node_modules/redux-first-router/dist/pure-utils/actionToPath.js.flow.*
 
 [include]
+../translations/
+../translations/**/*.js
+../api-client/
+../api-client/**/*.js
+../build-configs/
+../build-configs/**/*.js
 
 [libs]
 

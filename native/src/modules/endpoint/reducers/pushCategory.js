@@ -5,7 +5,7 @@ import type { PushCategoryActionType } from '../../app/StoreActionType'
 import { CategoriesMapModel, CategoryModel, LanguageModel } from 'api-client'
 import forEachTreeNode from '../../common/forEachTreeNode'
 import ErrorCodes from '../../error/ErrorCodes'
-import { entries, values } from '../../../utils/object'
+import { values, entries } from 'translations'
 
 const getAllAvailableLanguages = (
   category: CategoryModel, city: string, language: string, cityLanguages: Array<LanguageModel>
@@ -13,6 +13,7 @@ const getAllAvailableLanguages = (
   if (category.isRoot()) {
     return new Map(cityLanguages.map(model => [model.code, `/${city}/${model.code}`]))
   }
+
   const allAvailableLanguages = new Map(category.availableLanguages)
   allAvailableLanguages.set(language, category.path)
   return allAvailableLanguages
