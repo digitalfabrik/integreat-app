@@ -1,0 +1,6 @@
+issue_key: 373
+show_in_stores: true
+platforms:
+  - web
+en: While searching in the app, the url is adjusted, so it is possible to share search results.
+de: Beim Suchen innerhalb der App, wird die URL angepasst, sodass Suchergebnisse geteilt werden können.

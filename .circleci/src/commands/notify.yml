@@ -1,0 +1,79 @@
+description: Send a notification (to Mattermost) at the end of a job, based on success or failure. Must be the last step in a job.
+parameters:
+  success_message:
+    default: ""
+    type: string
+  failure_mentions:
+    default: "@max.amman @stefanie.metzger @sarah.sporck @steffen.kleinle"
+    type: string
+  success_mentions:
+    default: ""
+    type: string
+  only_for_branch:
+    default: main
+    type: string
+  channel:
+    default: app
+    type: string
+steps:
+  - run:
+      command: |
+          if [ -n "<< parameters.failure_mentions >>" ]; then
+              echo 'export MM_MESSAGE=":fire: The [${CIRCLE_JOB}](${CIRCLE_BUILD_URL}) job has failed on the main branch! :fire:\n<< parameters.failure_mentions >>"' >> $BASH_ENV
+          else
+              echo 'export MM_MESSAGE=":fire: The [${CIRCLE_JOB}](${CIRCLE_BUILD_URL}) job has failed on the main branch! :fire:"' >> $BASH_ENV
+          fi
+      name: Mattermost - Failure message
+      when: on_fail
+  - run:
+      command: |
+          if [ -n "<< parameters.success_message >>" ]; then
+              if [ -n "<< parameters.success_mentions >>" ]; then
+                  echo 'export MM_MESSAGE="<< parameters.success_message >>\n<< parameters.success_mentions >>"' >> $BASH_ENV
+              else
+                  echo 'export MM_MESSAGE="<< parameters.success_message >>"' >> $BASH_ENV
+              fi
+          fi
+      name: Mattermost - Success message
+      when: on_success
+  - run:
+      command: |
+          #!/bin/bash
+
+          Send_notification() {
+              if [ "<< parameters.only_for_branch >>" != "${CIRCLE_BRANCH}" ]; then
+                  echo "Not on << parameters.only_for_branch >> branch. Skipping."
+                  exit 0
+              fi
+
+              if [ -z "${MM_MESSAGE}" ]; then
+                  echo "No message set. Skipping."
+                  exit 0
+              fi
+
+              if [ -z "${MM_WEBHOOK}" ]; then
+                  echo "NO MATTERMOST WEBHOOK SET"
+                  echo "Please add the environment variable \"MM_WEBHOOK\" in the settings for this project."
+                  exit 1
+              fi
+
+              STATUS=$(curl -o /dev/null -s -w "%{http_code}\n" -X POST -H 'Content-type: application/json' \
+                  --data \
+                  "{
+                    \"channel\": \"<< parameters.channel >>\",
+                    \"username\": \"circleci\",
+                    \"text\": \"${MM_MESSAGE}\"
+                  }" "${MM_WEBHOOK}")
+
+              if [ "$STATUS" -ne "200" ]; then
+                  echo "Notification not sent due to an error. Status: $STATUS. Please check the webhook URL"
+                  exit 1
+              fi
+
+              echo "Notification sent!"
+              exit 0
+            }
+
+            Send_notification
+      name: Mattermost Status Alert
+      when: always
