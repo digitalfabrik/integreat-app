@@ -30,6 +30,7 @@ export const createNavigateToInternalLink = ({
   const pathnameParts = pathname.split('/').filter(Boolean)
 
   if (pathnameParts.length === 0) { // '/'
+    // TODO What to do if there is a preselected city in the build config? Throw an error?
     navigateToLanding()
   } else if (pathnameParts.length === 1) { // '/augsburg'
     const cityCode = pathnameParts[0]

@@ -41,7 +41,7 @@ const Icon = styled.Image`
   resize-mode: contain;
 `
 
-const HeaderText: StyledComponent<{}, ThemeType, *> = styled.Text`
+const HeaderText: StyledComponent<{||}, ThemeType, *> = styled.Text`
   flex: 1;
   flex-direction: column;
   text-align-vertical: center;
@@ -51,7 +51,7 @@ const HeaderText: StyledComponent<{}, ThemeType, *> = styled.Text`
   font-family: ${props => props.theme.fonts.decorativeFontBold};
 `
 
-const BoxShadow: StyledComponent<{}, ThemeType, *> = styled.View`
+const BoxShadow: StyledComponent<{||}, ThemeType, *> = styled.View`
   elevation: 1;
   shadow-color: #000;
   shadow-offset: 0px 1px;
@@ -146,6 +146,7 @@ class Header extends React.PureComponent<PropsType> {
   render () {
     const { routeCityModel, scene, t, theme, goToLanguageChange, peeking, categoriesAvailable } = this.props
     const shareUrl = scene.route.params?.shareUrl || null
+    const showChangeLocation = !buildConfig().featureFlags.selectedCity
 
     return <BoxShadow theme={theme}>
       <Horizontal>
@@ -162,7 +163,8 @@ class Header extends React.PureComponent<PropsType> {
           {!peeking && goToLanguageChange &&
           this.renderItem(t('changeLanguage'), 'language', 'always', goToLanguageChange, t('changeLanguage'))}
           {shareUrl && this.renderItem(t('share'), undefined, 'never', this.onShare, t('share'))}
-          {this.renderItem(t('changeLocation'), undefined, 'never', this.goToLanding, t('changeLocation'))}
+          {showChangeLocation &&
+          this.renderItem(t('changeLocation'), undefined, 'never', this.goToLanding, t('changeLocation'))}
           {this.renderItem(t('settings'), undefined, 'never', this.goToSettings, t('settings'))}
           {routeCityModel && this.renderItem(t('disclaimer'), undefined, 'never', this.goToDisclaimer, t('disclaimer'))}
         </MaterialHeaderButtons>
