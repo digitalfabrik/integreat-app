@@ -10,6 +10,9 @@ import CategoryListContent from './CategoryListContent'
 import type { PageResourceCacheEntryStateType, PageResourceCacheStateType } from '../../app/StateType'
 import { RESOURCE_CACHE_DIR_PATH } from '../../endpoint/DatabaseConnector'
 import { mapValues } from 'lodash'
+import Moment from 'moment'
+import { CategoryModel } from 'api-client'
+import { URL_PREFIX } from '../../platform/constants/webview'
 
 export type CategoryListModelType = {|
   title: string,
@@ -26,7 +29,8 @@ export type ListEntryType = {|
 export type ListContentModelType = {|
   files: PageResourceCacheStateType,
   resourceCacheUrl: string,
-  content: string
+  content: string,
+  lastUpdate: Moment
 |}
 
 type PropsType = {|
@@ -36,7 +40,7 @@ type PropsType = {|
   /** A search query to highlight in the categories titles */
   query?: string,
   theme: ThemeType,
-  onItemPress: (tile: { title: string, thumbnail: string, path: string }) => void,
+  onItemPress: (tile: CategoryListModelType) => void,
   navigateToLink: (url: string, language: string, shareUrl: string) => void,
   language: string,
   thumbnail?: string
@@ -54,6 +58,17 @@ const CategoryThumbnail = styled(Image)`
  * Displays a ContentList which is a list of categories, a caption and a thumbnail
  */
 class CategoryList extends React.Component<PropsType> {
+  getCachedThumbnail (category: CategoryModel): ?string {
+    if (category.thumbnail) {
+      const resource = this.props.listContent?.files[category.thumbnail]
+
+      if (resource) {
+        return URL_PREFIX + resource.filePath
+      }
+    }
+    return null
+  }
+
   getListContent (listContent: ListContentModelType): React.Node {
     const { theme, language, navigateToLink } = this.props
     const cacheDictionary = mapValues(listContent.files, (file: PageResourceCacheEntryStateType) => {
@@ -64,7 +79,6 @@ class CategoryList extends React.Component<PropsType> {
     return <CategoryListContent content={listContent.content}
                                 language={language}
                                 navigateToLink={navigateToLink}
-                                resourceCacheUrl={listContent.resourceCacheUrl}
                                 cacheDictionary={cacheDictionary}
                                 theme={theme} />
   }
@@ -76,14 +90,17 @@ class CategoryList extends React.Component<PropsType> {
       {thumbnail && <CategoryThumbnail source={thumbnail} />}
       {title && <CategoryListCaption title={title} theme={theme} withThumbnail={!!(thumbnail)} />}
       {listContent && this.getListContent(listContent)}
-      {categories.map(({ model, subCategories }) =>
-        <CategoryListItem key={model.path}
-                          category={model}
-                          language={language}
-                          subCategories={subCategories}
-                          query={query}
-                          theme={theme}
-                          onItemPress={onItemPress} />
+      {categories.map(({
+        model,
+        subCategories
+      }) =>
+          <CategoryListItem key={model.path}
+                            category={model}
+                            language={language}
+                            subCategories={subCategories}
+                            query={query}
+                            theme={theme}
+                            onItemPress={onItemPress} />
       )}
     </>
   }
