@@ -9,7 +9,10 @@ export type FeatureFlagsType = {|
   pushNotifications: boolean,
   introSlides: boolean,
   sentry: boolean,
-  developerFriendly: boolean
+  developerFriendly: boolean,
+  // If set, the city is automatically preselected. Changing it is not possible for users.
+  // introSlides should be set to false as well to prevent navigating to landing screen.
+  selectedCity?: string
 |}
 
 export type CommonBuildConfigType = {|
