@@ -8,26 +8,26 @@ triggers:
 jobs:
   - bump_version:
       context:
-        - slack-app
+        - mattermost
         - deliverino
         - jira
       delivery: development
   - check_native:
       context:
-        - slack-app
+        - mattermost
 
   - build_android:
       name: build_e2e_android
       build_config_name: integreat-e2e
       context:
-        - slack-app
+        - mattermost
         - tuerantuer-google-play
         - tuerantuer-android
       requires:
         - bump_version
   - e2e_android:
       context:
-        - slack-app
+        - mattermost
         - browserstack
       requires:
         - build_e2e_android
@@ -36,7 +36,7 @@ jobs:
       name: build_integreat_android
       build_config_name: integreat
       context:
-        - slack-app
+        - mattermost
         - tuerantuer-google-play
         - tuerantuer-android
       requires:
@@ -45,7 +45,7 @@ jobs:
       name: deliver_integreat_android
       build_config_name: integreat
       context:
-        - slack-app
+        - mattermost
         - sentry
         - browserstack
         - tuerantuer-google-play
@@ -60,7 +60,7 @@ jobs:
       name: build_malte_android
       build_config_name: malte
       context:
-        - slack-app
+        - mattermost
         - tuerantuer-google-play
         - tuerantuer-android
       requires:
@@ -69,7 +69,7 @@ jobs:
       name: deliver_malte_android
       build_config_name: malte
       context:
-        - slack-app
+        - mattermost
         - sentry
         - browserstack
         - tuerantuer-google-play
@@ -82,7 +82,7 @@ jobs:
 
   - notify_android:
       context:
-        - slack-app
+        - mattermost
         - deliverino
       production_delivery: false
       requires:
@@ -93,14 +93,14 @@ jobs:
       name: build_e2e_ios
       build_config_name: integreat-e2e
       context:
-        - slack-app
+        - mattermost
         - tuerantuer-apple
         - tuerantuer-ios
       requires:
         - bump_version
   - e2e_ios:
       context:
-        - slack-app
+        - mattermost
         - browserstack
       requires:
         - build_e2e_ios
@@ -109,7 +109,7 @@ jobs:
       name: build_integreat_ios
       build_config_name: integreat
       context:
-        - slack-app
+        - mattermost
         - tuerantuer-apple
         - tuerantuer-ios
       requires:
@@ -118,7 +118,7 @@ jobs:
       name: deliver_integreat_ios
       build_config_name: integreat
       context:
-        - slack-app
+        - mattermost
         - sentry
         - browserstack
         - tuerantuer-apple
@@ -133,7 +133,7 @@ jobs:
       name: build_malte_ios
       build_config_name: malte
       context:
-        - slack-app
+        - mattermost
         - tuerantuer-apple
         - tuerantuer-ios
       requires:
@@ -142,7 +142,7 @@ jobs:
       name: deliver_malte_ios
       build_config_name: malte
       context:
-        - slack-app
+        - mattermost
         - sentry
         - browserstack
         - tuerantuer-apple
@@ -155,7 +155,7 @@ jobs:
 
   - notify_ios:
       context:
-        - slack-app
+        - mattermost
         - deliverino
       production_delivery: false
       requires:
