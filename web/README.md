@@ -25,6 +25,12 @@ React JS WebApp for [Integreat](https://integreat-app.de) and [Malte](https://ww
 * Run `yarn start` to start a local webpack dev server.
 * Start coding :)
 
+#### Run the App in production mode
+* Create a release build with `yarn build ----env.dev_server`
+* Launch http-server in /web/dist/integreat by running `python3 -m http.server`
+* See results on localhost:8000
+* Note: Steps for other build configs differ accordingly
+
 ### Additional Configuration
 
 * Run > Edit Configurations > Defaults > Jest:
