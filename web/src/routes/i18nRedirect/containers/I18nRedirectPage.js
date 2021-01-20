@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react'
+import { useEffect } from 'react'
 import type { ReceivedAction } from 'redux-first-router'
 import { NOT_FOUND, pathToAction, redirect } from 'redux-first-router'
 import { connect } from 'react-redux'
@@ -13,6 +13,7 @@ import LandingRouteConfig from '../../../modules/app/route-configs/LandingRouteC
 import CategoriesRouteConfig from '../../../modules/app/route-configs/CategoriesRouteConfig'
 import { CityModel } from 'api-client'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
+import buildConfig from '../../../modules/app/constants/buildConfig'
 
 type PropsType = {|
   redirect: ReceivedAction => void,
@@ -24,11 +25,16 @@ type PropsType = {|
 /**
  * Adds the language code at the end of the current path
  */
-export class I18nRedirectPage extends React.Component<PropsType> {
-  getRedirectPath (): string {
-    const { param, cities, i18n } = this.props
+const I18nRedirectPage = (props: PropsType) => {
+  const { redirect, param, cities, i18n } = props
+
+  const getRedirectPath = (): string => {
     // the param does not exist (or is 'landing'), so redirect to the landing page with the detected language
     if (!param || param === 'landing') {
+      const selectedCity = buildConfig().featureFlags.selectedCity
+      if (selectedCity) {
+        return new CategoriesRouteConfig().getRoutePath({ city: selectedCity, language: i18n.language })
+      }
       return new LandingRouteConfig().getRoutePath({ language: i18n.language })
     }
 
@@ -40,13 +46,11 @@ export class I18nRedirectPage extends React.Component<PropsType> {
     return NOT_FOUND
   }
 
-  componentDidMount () {
-    this.props.redirect(pathToAction(this.getRedirectPath(), routesMap))
-  }
+  useEffect(() => {
+    redirect(pathToAction(getRedirectPath(), routesMap))
+  }, [])
 
-  render () {
-    return null
-  }
+  return null
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>) => ({
