@@ -80,6 +80,7 @@ class CategoryList extends React.Component<PropsType> {
                                 language={language}
                                 navigateToLink={navigateToLink}
                                 cacheDictionary={cacheDictionary}
+                                lastUpdate={listContent.lastUpdate}
                                 theme={theme} />
   }
 
