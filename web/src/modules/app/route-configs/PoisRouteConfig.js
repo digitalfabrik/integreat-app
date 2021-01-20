@@ -68,7 +68,11 @@ class PoisRouteConfig implements RouteConfig<PoisRouteParamsType, RequiredPayloa
 
   getMetaDescription = () => null
 
-  getFeedbackTargetInformation = () => null
+  getFeedbackTargetInformation = ({ payloads, location }) => {
+    const pois = payloads.pois.data
+    const poi = pois && pois.find(poi => poi.path === location.pathname)
+    return poi ? { title: poi.title, path: poi.path } : null
+  }
 }
 
 export default PoisRouteConfig
