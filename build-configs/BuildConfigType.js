@@ -3,16 +3,23 @@
 import type { ThemeType } from './ThemeType'
 import type { TranslationsType } from 'translations'
 
+// Prevent enabled intro slide in combination with a preselected city.
+// If you change this make sure you are not navigating to the landing screen upon closing the intro slides.
+export type SelectedCityType = {|
+  introSlides: false,
+  selectedCity?: string // If set, the city is automatically preselected. Changing it is not possible for users.
+|} | {|
+  introSlides: true,
+  selectedCity: void
+|}
+
 export type FeatureFlagsType = {|
+  ...SelectedCityType,
   pois: boolean,
   newsStream: boolean,
   pushNotifications: boolean,
-  introSlides: boolean,
   sentry: boolean,
-  developerFriendly: boolean,
-  // If set, the city is automatically preselected. Changing it is not possible for users.
-  // introSlides should be set to false as well to prevent navigating to landing screen.
-  selectedCity?: string
+  developerFriendly: boolean
 |}
 
 export type CommonBuildConfigType = {|
