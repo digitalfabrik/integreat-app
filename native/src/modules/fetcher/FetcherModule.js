@@ -16,10 +16,10 @@ class FetcherModule {
   createProgressChannel = (): EventChannel<number> => {
     return eventChannel<number>(emitter => {
       let prevStep = 0
-      const stepWidth = 10
+      const stepWidthDivider = 20
 
       const subscription = NativeFetcherModuleEmitter.addListener('progress', (progress: number) => {
-        const newStep = Math.floor(progress * stepWidth) / stepWidth
+        const newStep = Math.floor(progress * stepWidthDivider) / stepWidthDivider
         if (newStep <= prevStep) {
           return
         }
