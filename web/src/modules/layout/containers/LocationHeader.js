@@ -50,14 +50,21 @@ export class LocationHeader extends React.Component<PropsType> {
   getActionItems (): Array<React.Node> {
     const { location, languageChangePaths, t } = this.props
     const { city, language } = location.payload
-    return [
+    const actionItems = [
       <HeaderActionBarItemLink key='search' href={new SearchRouteConfig().getRoutePath({ city, language })}
                                text={t('search')} iconSrc={searchIcon} />,
-      <HeaderActionBarItemLink key='location' href={new LandingRouteConfig().getRoutePath({ language })}
-                               text={t('changeLocation')} iconSrc={landingIcon} />,
       <LanguageSelector key='language' languageChangePaths={languageChangePaths} isHeaderActionItem
                         location={location} />
     ]
+
+    if (!buildConfig().featureFlags.selectedCity) {
+      actionItems.splice(1, 0, // Insert at second position
+        <HeaderActionBarItemLink key='location' href={new LandingRouteConfig().getRoutePath({ language })}
+                                 text={t('changeLocation')} iconSrc={landingIcon} />
+      )
+    }
+
+    return actionItems
   }
 
   getNavigationItems (): Array<Element<typeof HeaderNavigationItem>> {

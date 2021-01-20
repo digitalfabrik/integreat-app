@@ -7,6 +7,7 @@ import HeaderActionItemLink from './HeaderActionItemLink'
 import I18nRedirectRouteConfig from '../../app/route-configs/I18nRedirectRouteConfig'
 import { withTranslation } from 'react-i18next'
 import { type TFunction } from 'i18next'
+import buildConfig from '../../app/constants/buildConfig'
 
 type PropsType = {|
   viewportSmall: boolean,
@@ -17,12 +18,17 @@ class GeneralHeader extends React.PureComponent<PropsType> {
   render () {
     const { viewportSmall, t } = this.props
     const getPath = new I18nRedirectRouteConfig().getRoutePath
+
+    const actionItems = !buildConfig().featureFlags.selectedCity
+      ? [<HeaderActionItemLink key='landing'
+                               href={getPath({})}
+                               iconSrc={landingIcon}
+                               text={t('changeLocation')} />]
+      : []
+
     return <Header viewportSmall={viewportSmall}
                    logoHref={getPath({})}
-                   actionItems={[
-                     <HeaderActionItemLink key='landing' href={getPath({})} iconSrc={landingIcon}
-                                           text={t('changeLocation')} />
-                   ]} />
+                   actionItems={actionItems} />
   }
 }
 
