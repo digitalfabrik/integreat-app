@@ -31,10 +31,12 @@ const I18nRedirectPage = (props: PropsType) => {
   const getRedirectPath = (): string => {
     const selectedCity = buildConfig().featureFlags.selectedCity
     if (selectedCity) {
+      // Redirect to the dashboard of the selected city
       if (!param || param === 'landing' || param === selectedCity) {
         return new CategoriesRouteConfig().getRoutePath({ city: selectedCity, language: i18n.language })
       }
 
+      // Redirect to a not found page if the param is not a valid city
       return NOT_FOUND
     }
 
