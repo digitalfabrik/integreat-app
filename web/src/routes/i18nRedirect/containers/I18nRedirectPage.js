@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react'
 import type { ReceivedAction } from 'redux-first-router'
-import { NOT_FOUND, pathToAction, redirect } from 'redux-first-router'
+import { pathToAction, redirect } from 'redux-first-router'
 import { connect } from 'react-redux'
 import type { Dispatch } from 'redux'
 import type { StateType } from '../../../modules/app/StateType'
@@ -14,6 +14,7 @@ import CategoriesRouteConfig from '../../../modules/app/route-configs/Categories
 import { CityModel } from 'api-client'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import buildConfig from '../../../modules/app/constants/buildConfig'
+import { NOT_FOUND_ROUTE } from '../../../modules/app/route-configs/NotFoundRouteConfig'
 
 type PropsType = {|
   redirect: ReceivedAction => void,
@@ -25,7 +26,7 @@ type PropsType = {|
 /**
  * Adds the language code at the end of the current path
  */
-const I18nRedirectPage = (props: PropsType) => {
+export const I18nRedirectPage = (props: PropsType) => {
   const { redirect, param, cities, i18n } = props
 
   const getRedirectPath = (): string => {
@@ -37,7 +38,7 @@ const I18nRedirectPage = (props: PropsType) => {
       }
 
       // Redirect to a not found page if the param is not a valid city
-      return NOT_FOUND
+      return NOT_FOUND_ROUTE
     }
 
     // The param does not exist (or is 'landing'), so redirect to the landing page with the detected language
@@ -50,7 +51,7 @@ const I18nRedirectPage = (props: PropsType) => {
       return new CategoriesRouteConfig().getRoutePath({ city: param, language: i18n.language })
     }
 
-    return NOT_FOUND
+    return NOT_FOUND_ROUTE
   }
 
   useEffect(() => {

@@ -7,8 +7,8 @@ import createReduxStore from '../../../../modules/app/createReduxStore'
 import { Provider } from 'react-redux'
 import { I18N_REDIRECT_ROUTE } from '../../../../modules/app/route-configs/I18nRedirectRouteConfig'
 import configureStore from 'redux-mock-store'
-import { NOT_FOUND } from 'redux-first-router'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
+import { NOT_FOUND_ROUTE } from '../../../../modules/app/route-configs/NotFoundRouteConfig'
 
 jest.mock('react-i18next')
 
@@ -45,13 +45,13 @@ describe('I18nRedirectPage', () => {
         <I18nRedirectPage cities={cities} redirect={() => {}} param='not_found' i18n={{ language }} />
       ).instance()
 
-      expect(instance.getRedirectPath()).toEqual(NOT_FOUND)
+      expect(instance.getRedirectPath()).toEqual(NOT_FOUND_ROUTE)
 
       const instanceWithInvalidParam = shallow(
         <I18nRedirectPage cities={cities} redirect={() => {}} param='invalid_param' i18n={{ language }} />
       ).instance()
 
-      expect(instanceWithInvalidParam.getRedirectPath()).toEqual(NOT_FOUND)
+      expect(instanceWithInvalidParam.getRedirectPath()).toEqual(NOT_FOUND_ROUTE)
     })
   })
 
