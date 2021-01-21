@@ -4,7 +4,7 @@ import type { Store } from 'redux'
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import type { RoutesMap } from 'redux-first-router'
-import { connectRoutes, redirect } from 'redux-first-router'
+import { connectRoutes } from 'redux-first-router'
 import { createLogger } from 'redux-logger'
 import uiDirectionReducer from '../i18n/reducers'
 import endpointReducers from './reducers'
@@ -16,21 +16,11 @@ import createHistory from './createHistory'
 import type { StateType } from './StateType'
 import type { StoreActionType } from './StoreActionType'
 import buildConfig from './constants/buildConfig'
-import { NOT_FOUND_ROUTE } from './route-configs/NotFoundRouteConfig'
 
 const createReduxStore = (initialState: StateType = {}, routesMap: RoutesMap = defaultRoutesMap): Store<StateType,
   StoreActionType> => {
   const { reducer, middleware, enhancer } = connectRoutes(routesMap, {
-    createHistory: () => createHistory(),
-    onBeforeChange: (dispatch, _, bag) => {
-      const payload = bag.action.payload
-      const selectedCity = buildConfig().featureFlags.selectedCity
-      // If there is a preselected city in the build config we should show an not found error for every other city
-      if (payload.city && selectedCity && payload.city !== selectedCity) {
-        // $FlowFixMe Payload not needed
-        dispatch(redirect({ type: NOT_FOUND_ROUTE }))
-      }
-    }
+    createHistory: () => createHistory()
   })
 
   /**
