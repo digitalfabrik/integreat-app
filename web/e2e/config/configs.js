@@ -35,8 +35,7 @@ exports.local_chrome = ({
   prefix: 'IG LOCAL',
   caps: {
     browserName: 'chrome', // selenium has lowercased browsernames
-    browserVersion: '88',
-    headless: false
+    browserVersion: '88'
   }
 }: EndToEndConfigType)
 
