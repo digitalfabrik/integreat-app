@@ -7,6 +7,10 @@ We are using Sentry for error reporting. Sentry offers a [react-native client](h
 
 **In order to use the cli a `sentry.properties` is needed which includes an auth key and information about the project.**
 
+###Trigger a Sentry report manually
+* Run a production build with `yarn android:integreat:production`
+* Start the app, open settings, click the version number approximately 20 times.
+
 # Platform specifics for crashes
 
 ## JavaScript crashes
