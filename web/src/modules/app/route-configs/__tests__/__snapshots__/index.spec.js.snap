@@ -59,6 +59,7 @@ Object {
     "path": "/:city/:language/offers/wohnen/:offerHash?",
     "thunk": [Function],
   },
+  "not-found": "not-found",
 }
 `;
 
