@@ -29,16 +29,21 @@ const I18nRedirectPage = (props: PropsType) => {
   const { redirect, param, cities, i18n } = props
 
   const getRedirectPath = (): string => {
-    // the param does not exist (or is 'landing'), so redirect to the landing page with the detected language
-    if (!param || param === 'landing') {
-      const selectedCity = buildConfig().featureFlags.selectedCity
-      if (selectedCity) {
+    const selectedCity = buildConfig().featureFlags.selectedCity
+    if (selectedCity) {
+      if (!param || param === 'landing' || param === selectedCity) {
         return new CategoriesRouteConfig().getRoutePath({ city: selectedCity, language: i18n.language })
       }
+
+      return NOT_FOUND
+    }
+
+    // The param does not exist (or is 'landing'), so redirect to the landing page with the detected language
+    if (!param || param === 'landing') {
       return new LandingRouteConfig().getRoutePath({ language: i18n.language })
     }
 
-    // the param is a valid city, so redirect to the categories route with the detected language
+    // The param is a valid city, so redirect to the categories route with the detected language
     if (cities.find(_city => _city.code === param)) {
       return new CategoriesRouteConfig().getRoutePath({ city: param, language: i18n.language })
     }
