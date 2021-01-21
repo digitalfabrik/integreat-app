@@ -33,6 +33,7 @@ import LanguageFailure from '../../common/containers/LanguageFailure'
 import RouteContentSwitcher from './RouteContentSwitcher'
 import type { StoreActionType } from '../StoreActionType'
 import FailureSwitcher from '../../common/components/FailureSwitcher'
+import buildConfig from '../constants/buildConfig'
 
 export type LanguageChangePathsType = Array<{| code: string, path: string | null, name: string |}>
 
@@ -116,7 +117,6 @@ export class Switcher extends React.Component<PropsType> {
     const payloads = routeConfig.getRequiredPayloads(this.getAllPayloads())
     const feedbackTargetInformation = routeConfig.getFeedbackTargetInformation({ location, payloads })
     const languageChangePaths = this.getLanguageChangePaths(routeConfig)
-    const cities = this.getAllPayloads().citiesPayload.data
 
     const invalidLanguage = this.isLanguageInvalid()
 
@@ -125,11 +125,14 @@ export class Switcher extends React.Component<PropsType> {
       return (payload.isFetching || !payload.data) && !payload.error
     })
 
+    const cities = this.getAllPayloads().citiesPayload.data
     if (!cities) {
       return null
     }
 
-    const invalidCity = city && !cities.find(_city => _city.code === city)
+    const selectedCity = buildConfig().featureFlags.selectedCity
+    const invalidPreselectedCity = city && selectedCity && city !== selectedCity
+    const invalidCity = city && (!cities.find(_city => _city.code === city) || (invalidPreselectedCity))
 
     if (invalidCity || invalidLanguage || !routeConfig.isLocationLayoutRoute) {
       const showHeader = invalidLanguage || routeConfig.requiresHeader
@@ -138,15 +141,13 @@ export class Switcher extends React.Component<PropsType> {
         <Layout footer={showFooter && <GeneralFooter language={language} />}
                 header={showHeader && <GeneralHeader viewportSmall={viewportSmall} />}
                 darkMode={darkMode}>
-          {invalidCity ? <FailureSwitcher error={new Error('notFound.category')} /> : null}
-          {invalidLanguage
-            ? <LanguageFailure cities={citiesPayload.data}
+          {invalidCity
+            ? <FailureSwitcher error={new Error('notFound.category')} />
+            : invalidLanguage
+              ? <LanguageFailure cities={citiesPayload.data}
                                location={location}
                                languageChangePaths={languageChangePaths} />
-            : null}
-          {!invalidCity && !invalidLanguage
-            ? <RouteContentSwitcher location={location} payloads={payloads} isLoading={isLoading} />
-            : null}
+              : <RouteContentSwitcher location={location} payloads={payloads} isLoading={isLoading} />}
         </Layout>
       )
     } else {
