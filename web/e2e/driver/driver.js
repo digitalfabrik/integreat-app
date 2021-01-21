@@ -5,23 +5,16 @@ import fetch from 'node-fetch'
 import childProcess from 'child_process'
 import serverConfigs from '../config/configs'
 import { clone } from 'lodash'
+import type { EndToEndConfigType } from '../config/configs'
 
 const BROWSERSTACK_EXHAUSTED_MESSAGE = 'All parallel tests are currently in use, including the queued tests. ' +
   'Please wait to finish or upgrade your plan to add more sessions.'
 const IMPLICIT_WAIT_TIMEOUT = 80000
-const INIT_RETRY_TIME = 3000
 const STARTUP_DELAY = 3000
 
 export const timer = (ms: number) => new Promise<void>(resolve => setTimeout(resolve, ms))
 
-export type ConfigType = {|
-  url: string,
-  browser: string,
-  prefix: string,
-  caps: {| [key: string]: string |}
-|}
-
-const getConfig = (): ConfigType | null => {
+const getConfig = (): EndToEndConfigType | null => {
   const configName: ?string = process.env.E2E_CONFIG
 
   if (!configName) {
@@ -39,7 +32,7 @@ const getConfig = (): ConfigType | null => {
   return config
 }
 
-const initDriver = async (config: ConfigType, desiredCaps): Promise<WebDriver> => {
+const initDriver = async (config: EndToEndConfigType, desiredCaps): Promise<WebDriver> => {
   try {
     return new Builder()
       .usingServer(config.url)
@@ -47,16 +40,14 @@ const initDriver = async (config: ConfigType, desiredCaps): Promise<WebDriver> =
       .build()
   } catch (e) {
     if (e.message.includes(BROWSERSTACK_EXHAUSTED_MESSAGE)) {
-      console.log('Waiting because queue is full!')
-      await timer(INIT_RETRY_TIME)
-      return await initDriver(config, desiredCaps)
+      console.log('Browserstack Queue is full!')
     }
 
     throw e
   }
 }
 
-const fetchTestResults = async (driver: WebDriver) => {
+const fetchBrowserstackTestResults = async (driver: WebDriver) => {
   const user = process.env.E2E_BROWSERSTACK_USER
   const password = process.env.E2E_BROWSERSTACK_KEY
 
@@ -106,16 +97,16 @@ export const setupDriver = async (): Promise<WebDriver> => {
   const desiredCaps = {
     ...clone(config.caps),
     build: `${config.prefix}: ${getGitBranch()}`,
-    name: `${config.browser}: ${getGitHeadReference()}`,
-    tags: [config.prefix, config.browser]
+    name: `${config.caps.browserName.toLowerCase()}: ${getGitHeadReference()}`,
+    tags: [config.prefix, config.caps.browserName.toLowerCase()],
+    browserstack: !!(config?.browserstack)
   }
 
   const driver = await initDriver(config, desiredCaps)
-  // const status = await driver.getServerStatus()
   const session = await driver.getSession()
 
   console.log(`Session ID is ${session.getId()}`)
-  console.log(`Status of Driver is ${JSON.stringify(status)}`)
+
   driver.manage().timeouts().implicitlyWait(IMPLICIT_WAIT_TIMEOUT)
   await timer(STARTUP_DELAY)
 
@@ -123,7 +114,9 @@ export const setupDriver = async (): Promise<WebDriver> => {
 }
 
 export const stopDriver = async (driver: WebDriver) => {
-  await fetchTestResults(driver)
+  if (getConfig()?.browserstack) {
+    await fetchBrowserstackTestResults(driver)
+  }
   if (driver === undefined) {
     return
   }
