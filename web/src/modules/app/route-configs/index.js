@@ -62,5 +62,6 @@ export const routesMap: {[string]: Route} = {
   [DISCLAIMER_ROUTE]: new DisclaimerRouteConfig().route,
   [SEARCH_ROUTE]: new SearchRouteConfig().route,
   [POIS_ROUTE]: new PoisRouteConfig().route,
-  [CATEGORIES_ROUTE]: new CategoriesRouteConfig().route
+  [CATEGORIES_ROUTE]: new CategoriesRouteConfig().route,
+  [NOT_FOUND_ROUTE]: new NotFoundRouteConfig().route
 }
