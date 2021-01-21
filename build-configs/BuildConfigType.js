@@ -7,10 +7,10 @@ import type { TranslationsType } from 'translations'
 // If you change this make sure you are not navigating to the landing screen upon closing the intro slides.
 export type SelectedCityType = {|
   introSlides: false,
-  selectedCity?: string // If set, the city is automatically preselected. Changing it is not possible for users.
+  selectedCity: string | null // If set, the city is automatically preselected. Changing it is not possible for users.
 |} | {|
   introSlides: true,
-  selectedCity: void
+  selectedCity: null
 |}
 
 export type FeatureFlagsType = {|

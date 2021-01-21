@@ -18,7 +18,8 @@ const integreatE2e = {
     pushNotifications: false,
     introSlides: false,
     sentry: false,
-    developerFriendly: true
+    developerFriendly: true,
+    selectedCity: null
   }
 }
 
