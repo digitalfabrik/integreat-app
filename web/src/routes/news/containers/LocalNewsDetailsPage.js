@@ -7,7 +7,6 @@ import { CityModel, LocalNewsModel, NotFoundError } from 'api-client'
 import type { StateType } from '../../../modules/app/StateType'
 import Page from '../../../modules/common/components/Page'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
-import CityNotFoundError from '../../../modules/app/errors/CityNotFoundError'
 
 type PropsType = {|
   localNewsElement: LocalNewsModel,
@@ -22,9 +21,7 @@ export class LocalNewsDetailsPage extends React.PureComponent<PropsType> {
     const { localNewsElement, language, city, cities, id } = this.props
 
     const currentCity: ?CityModel = cities && cities.find(cityElement => cityElement.code === city)
-    if (!currentCity) {
-      return <FailureSwitcher error={new CityNotFoundError()} />
-    } else if (!currentCity.pushNotificationsEnabled) {
+    if (!currentCity || !currentCity.pushNotificationsEnabled) {
       const error = new NotFoundError({ type: 'category', id, city, language })
       return <FailureSwitcher error={error} />
     } else if (!localNewsElement) {

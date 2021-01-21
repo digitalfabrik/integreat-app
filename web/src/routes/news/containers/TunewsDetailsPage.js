@@ -8,7 +8,6 @@ import { connect } from 'react-redux'
 import type { StateType } from '../../../modules/app/StateType'
 import TunewsDetailsFooter from '../components/TunewsDetailsFooter'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
-import CityNotFoundError from '../../../modules/app/errors/CityNotFoundError'
 
 const StyledContainer = styled.div`
   display: flex;
@@ -64,9 +63,7 @@ export class TunewsDetailsPage extends React.PureComponent<PropsType> {
     const { tunewsElement, language, id, city, cities } = this.props
 
     const currentCity: ?CityModel = cities && cities.find(cityElement => cityElement.code === city)
-    if (!currentCity) {
-      return <FailureSwitcher error={new CityNotFoundError()} />
-    } else if (!currentCity.tunewsEnabled) {
+    if (!currentCity || !currentCity.tunewsEnabled) {
       const error = new NotFoundError({ type: 'category', id: id.toString(), city, language })
       return <FailureSwitcher error={error} />
     } else if (!tunewsElement) {
