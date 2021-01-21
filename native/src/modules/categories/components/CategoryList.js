@@ -11,8 +11,6 @@ import type { PageResourceCacheEntryStateType, PageResourceCacheStateType } from
 import { RESOURCE_CACHE_DIR_PATH } from '../../endpoint/DatabaseConnector'
 import { mapValues } from 'lodash'
 import Moment from 'moment'
-import { CategoryModel } from 'api-client'
-import { URL_PREFIX } from '../../platform/constants/webview'
 
 export type CategoryListModelType = {|
   title: string,
@@ -58,17 +56,6 @@ const CategoryThumbnail = styled(Image)`
  * Displays a ContentList which is a list of categories, a caption and a thumbnail
  */
 class CategoryList extends React.Component<PropsType> {
-  getCachedThumbnail (category: CategoryModel): ?string {
-    if (category.thumbnail) {
-      const resource = this.props.listContent?.files[category.thumbnail]
-
-      if (resource) {
-        return URL_PREFIX + resource.filePath
-      }
-    }
-    return null
-  }
-
   getListContent (listContent: ListContentModelType): React.Node {
     const { theme, language, navigateToLink } = this.props
     const cacheDictionary = mapValues(listContent.files, (file: PageResourceCacheEntryStateType) => {
