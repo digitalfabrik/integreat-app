@@ -26,7 +26,7 @@ type PropsType = {|
 /**
  * Adds the language code at the end of the current path
  */
-export const I18nRedirectPage = (props: PropsType) => {
+const I18nRedirectPage = (props: PropsType) => {
   const { redirect, param, cities, i18n } = props
 
   const getRedirectPath = (): string => {
