@@ -57,7 +57,7 @@ export class LocationHeader extends React.Component<PropsType> {
                         location={location} />
     ]
 
-    if (!buildConfig().featureFlags.selectedCity) {
+    if (!buildConfig().featureFlags.fixedCity) {
       actionItems.splice(1, 0, // Insert at second position
         <HeaderActionBarItemLink key='location' href={new LandingRouteConfig().getRoutePath({ language })}
                                  text={t('changeLocation')} iconSrc={landingIcon} />

@@ -3,18 +3,18 @@
 import type { ThemeType } from './ThemeType'
 import type { TranslationsType } from 'translations'
 
-// Prevent enabled intro slide in combination with a preselected city.
+// Prevent enabled intro slide in combination with a fixed city.
 // If you change this make sure you are not navigating to the landing screen upon closing the intro slides.
-export type SelectedCityType = {|
+export type FixedCityType = {|
   introSlides: false,
-  selectedCity: string | null // If set, the city is automatically preselected. Changing it is not possible for users.
+  fixedCity: string | null // If set, the city is automatically preselected. Changing it is not possible for users.
 |} | {|
   introSlides: true,
-  selectedCity: null
+  fixedCity: null
 |}
 
 export type FeatureFlagsType = {|
-  ...SelectedCityType,
+  ...FixedCityType,
   pois: boolean,
   newsStream: boolean,
   pushNotifications: boolean,

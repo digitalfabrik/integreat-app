@@ -130,9 +130,9 @@ export class Switcher extends React.Component<PropsType> {
       return null
     }
 
-    const selectedCity = buildConfig().featureFlags.selectedCity
-    const invalidPreselectedCity = city && selectedCity && city !== selectedCity
-    const invalidCity = city && (!cities.find(_city => _city.code === city) || (invalidPreselectedCity))
+    const fixedCity = buildConfig().featureFlags.fixedCity
+    const invalidFixedCity = city && fixedCity && city !== fixedCity
+    const invalidCity = city && (!cities.find(_city => _city.code === city) || invalidFixedCity)
 
     if (invalidCity || invalidLanguage || !routeConfig.isLocationLayoutRoute) {
       const showHeader = invalidLanguage || routeConfig.requiresHeader
