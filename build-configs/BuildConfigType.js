@@ -6,6 +6,7 @@ import type { TranslationsType } from 'translations'
 // Build Configs
 // These are the flow types of our build configs and therefore define the structure and available options.
 // Each build config (e.g. integreat, malte) is available per platform (android, ios, web) with some shared options.
+// Feature flags are boolean build config options defining whether a specified feature is enabled.
 
 // Prevent enabled intro slide in combination with a fixed city.
 // If you change this make sure you are not navigating to the landing screen upon closing the intro slides.
@@ -19,8 +20,8 @@ export type FixedCityType = {|
 
 export type FeatureFlagsType = {|
   ...FixedCityType,
-  pois: boolean, // Enables POIs and maps, can be disabled by cities.
-  newsStream: boolean, // Enables local news and tünews, can be disabled by cities.
+  pois: boolean, // Enables POIs and maps, can be disabled via our api on a per city basis.
+  newsStream: boolean, // Enables local news and tünews, can be disabled via our api on a per city basis.
   pushNotifications: boolean, // Enables firebase push notifications, can be disabled by users.
   sentry: boolean, // Enables error tracking to sentry, can be disabled by users.
   developerFriendly: boolean // Enables additional debugging output for devs (i18n, redux, hidden cities, version).
@@ -31,7 +32,8 @@ export type CommonBuildConfigType = {|
   appName: string,
   appIcon: string,
   cmsUrl: string,
-  switchCmsUrl?: string, // Secondary api url to use, selectable by clicking ten times on the location marker (native).
+  // Secondary api url to use, selectable by clicking ten times on the location marker (works only on native).
+  switchCmsUrl?: string,
   shareBaseUrl: string, // Base url of the web app, used for correct share urls.
   allowedHostNames: Array<string>, // Hostnames from which resources are automatically downloaded for offline usage.
   internalLinksHijackPattern: string, // Regex defining which urls to intercept as they are internal ones.
