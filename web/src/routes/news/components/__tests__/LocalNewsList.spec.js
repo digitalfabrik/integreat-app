@@ -23,7 +23,7 @@ describe('LocalNewsList', () => {
     key={localNews1.id}
     link={link}
     t={t}
-    formatter={new DateFormatter(undefined, language)}
+    formatter={new DateFormatter(language)}
   />
   const date = moment('2017-11-18T09:30:00.000Z')
   const localNews1 = new LocalNewsModel({

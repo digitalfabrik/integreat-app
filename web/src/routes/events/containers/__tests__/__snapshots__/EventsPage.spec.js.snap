@@ -6,8 +6,8 @@ exports[`EventsPage should match snapshot and render EventDetail 1`] = `
   defaultThumbnailSrc="thumbnail"
   formatter={
     DateFormatter {
-      "_defaultLocale": "de",
-      "_fallbackFormat": undefined,
+      "defaultLocale": "de",
+      "fallbackFormat": undefined,
       "format": [Function],
     }
   }

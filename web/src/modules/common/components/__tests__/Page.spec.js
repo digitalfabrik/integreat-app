@@ -19,7 +19,7 @@ describe('Page', () => {
                          lastUpdate={lastUpdate}
                          content={content}
                          defaultThumbnailSrc={thumbnail}
-                         formatter={new DateFormatter(undefined, 'en')}
+                         formatter={new DateFormatter('en')}
                          onInternalLinkClick={() => {}} />
     )).toMatchSnapshot()
   })

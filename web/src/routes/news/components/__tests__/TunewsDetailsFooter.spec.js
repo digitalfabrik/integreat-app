@@ -15,7 +15,7 @@ describe('TunewsDetailsFooter', () => {
       <TunewsDetailsFooter
         eNewsNo='tun0000009902'
         date={date}
-        formatter={new DateFormatter(undefined, language)}
+        formatter={new DateFormatter(language)}
       />
     )
     expect(wrapper.text()).toContain('tun0000009902')

@@ -23,7 +23,7 @@ describe('TunewsList', () => {
     key={id}
     link={link}
     t={t}
-    formatter={new DateFormatter(undefined, language)}
+    formatter={new DateFormatter(language)}
   />
   const date1 = moment('2018-07-24T00:00:00.000Z')
   const date2 = moment('2018-07-24T00:00:00.000Z')

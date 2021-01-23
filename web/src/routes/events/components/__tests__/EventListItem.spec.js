@@ -43,7 +43,7 @@ describe('EventListItem', () => {
   // eslint-disable-next-line jest/no-disabled-tests
   it.skip('should render and match snapshot', () => {
     expect(shallow(
-      <EventListItem event={event} formatter={new DateFormatter(undefined, language)} />
+      <EventListItem event={event} formatter={new DateFormatter(language)} />
     )).toMatchSnapshot()
   })
 })

@@ -12,7 +12,7 @@ describe('LastUpdateInfo', () => {
   it('should match snapshot', () => {
     const lastUpdate = moment('2017-11-18T09:30:00.000Z')
     expect(shallow(
-      <LastUpdateInfo lastUpdate={lastUpdate} formatter={new DateFormatter(undefined, 'de')} t={t} withText={false} />
+      <LastUpdateInfo lastUpdate={lastUpdate} formatter={new DateFormatter('de')} t={t} withText={false} />
     )).toMatchSnapshot()
   })
 })

@@ -32,7 +32,7 @@ describe('NewsElement', () => {
         title={title}
         content={message}
         timestamp={timestamp}
-        formatter={new DateFormatter(undefined, language)}
+        formatter={new DateFormatter(language)}
         t={t}
         link={link} />
     ).dive()
