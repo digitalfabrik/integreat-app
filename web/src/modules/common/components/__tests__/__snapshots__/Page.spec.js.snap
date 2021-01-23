@@ -21,8 +21,8 @@ exports[`Page should render 1`] = `
   <Translate(LastUpdateInfo)
     formatter={
       DateFormatter {
-        "_defaultLocale": "en",
-        "_fallbackFormat": undefined,
+        "defaultLocale": "en",
+        "fallbackFormat": undefined,
         "format": [Function],
       }
     }

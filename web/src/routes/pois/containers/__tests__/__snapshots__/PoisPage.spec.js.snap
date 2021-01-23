@@ -12,8 +12,8 @@ exports[`PoisPage should render a Page if a poi is selected 1`] = `
   defaultThumbnailSrc="thumbnail"
   formatter={
     DateFormatter {
-      "_defaultLocale": "de",
-      "_fallbackFormat": undefined,
+      "defaultLocale": "de",
+      "fallbackFormat": undefined,
       "format": [Function],
     }
   }

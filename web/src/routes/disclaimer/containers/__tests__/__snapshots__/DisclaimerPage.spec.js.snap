@@ -5,8 +5,8 @@ exports[`DisclaimerPage should match snapshot 1`] = `
   content="this is a test content"
   formatter={
     DateFormatter {
-      "_defaultLocale": "de",
-      "_fallbackFormat": undefined,
+      "defaultLocale": "de",
+      "fallbackFormat": undefined,
       "format": [Function],
     }
   }
