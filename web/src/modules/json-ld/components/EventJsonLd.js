@@ -3,8 +3,9 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
 import { EventModel } from 'api-client'
+import DateFormatter from 'api-client/src/i18n/DateFormatter'
 
-const createJsonLd = (event: EventModel) => {
+const createJsonLd = (event: EventModel, formatter: DateFormatter) => {
   const date = event.date
 
   // https://developers.google.com/search/docs/data-types/event
@@ -12,7 +13,9 @@ const createJsonLd = (event: EventModel) => {
     '@context': 'https://schema.org',
     '@type': 'Event',
     name: event.title,
-    startDate: date.allDay ? date.startDate.format('YYYY-MM-DD') : date.startDate.format(),
+    startDate: date.allDay
+      ? formatter.format(date.startDate, { format: 'YYYY-MM-DD' }) // ISO 8601 date format
+      : formatter.format(date.startDate, { format: undefined }), // ISO 8601 date-time format
     eventStatus: 'https://schema.org/EventScheduled',
     description: event.excerpt,
     location: {
@@ -44,17 +47,19 @@ const createJsonLd = (event: EventModel) => {
 }
 
 type PropsType = {|
-  event: EventModel
+  event: EventModel,
+  formatter: DateFormatter
 |}
 
-class EventJsonLd extends React.Component<PropsType> {
-  render () {
-    return <Helmet>
-      <script type='application/ld+json'>
-        {JSON.stringify(createJsonLd(this.props.event))}
-      </script>
-    </Helmet>
-  }
+const EventJsonLd = ({
+  event,
+  formatter
+}: PropsType) => {
+  return <Helmet>
+    <script type='application/ld+json'>
+      {JSON.stringify(createJsonLd(event, formatter))}
+    </script>
+  </Helmet>
 }
 
 export default EventJsonLd
