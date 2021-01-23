@@ -45,7 +45,7 @@ describe('EventJsonLd', () => {
       })
     })
 
-    const wrapper = shallow(<EventJsonLd event={eventModel} formatter={new DateFormatter(undefined, 'en')} />)
+    const wrapper = shallow(<EventJsonLd event={eventModel} formatter={new DateFormatter('en')} />)
     const helmet = wrapper.find(Helmet)
     expect(helmet.children().matchesElement(<script type='application/ld+json'>
         {JSON.stringify({

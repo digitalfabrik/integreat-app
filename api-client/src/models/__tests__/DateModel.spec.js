@@ -17,7 +17,7 @@ describe('DateModel', () => {
       const date = new DateModel({ startDate, endDate, allDay })
 
       expect(
-        locales.map(locale => `${locale}: ${date.toFormattedString(new DateFormatter(undefined, locale))}`)
+        locales.map(locale => `${locale}: ${date.toFormattedString(new DateFormatter(locale))}`)
       ).toMatchSnapshot()
     })
 
@@ -28,7 +28,7 @@ describe('DateModel', () => {
       const date = new DateModel({ startDate, endDate, allDay })
 
       expect(
-        locales.map(locale => `${locale}: ${date.toFormattedString(new DateFormatter(undefined, locale))}`)
+        locales.map(locale => `${locale}: ${date.toFormattedString(new DateFormatter(locale, undefined))}`)
       ).toMatchSnapshot()
     })
 
@@ -39,7 +39,7 @@ describe('DateModel', () => {
       const date = new DateModel({ startDate, endDate, allDay })
 
       expect(
-        locales.map(locale => `${locale}: ${date.toFormattedString(new DateFormatter(undefined, locale))}`)
+        locales.map(locale => `${locale}: ${date.toFormattedString(new DateFormatter(locale, undefined))}`)
       ).toMatchSnapshot()
     })
 
@@ -50,7 +50,7 @@ describe('DateModel', () => {
       const date = new DateModel({ startDate, endDate, allDay })
 
       expect(
-        locales.map(locale => `${locale}: ${date.toFormattedString(new DateFormatter(undefined, locale))}`)
+        locales.map(locale => `${locale}: ${date.toFormattedString(new DateFormatter(locale, undefined))}`)
       ).toMatchSnapshot()
     })
 
@@ -61,7 +61,7 @@ describe('DateModel', () => {
       const date = new DateModel({ startDate, endDate, allDay })
 
       expect(
-        locales.map(locale => `${locale}: ${date.toFormattedString(new DateFormatter(undefined, locale))}`)
+        locales.map(locale => `${locale}: ${date.toFormattedString(new DateFormatter(locale, undefined))}`)
       ).toMatchSnapshot()
     })
 
@@ -72,7 +72,7 @@ describe('DateModel', () => {
       const date = new DateModel({ startDate, endDate, allDay })
 
       expect(
-        locales.map(locale => `${locale}: ${date.toFormattedString(new DateFormatter(undefined, locale))}`)
+        locales.map(locale => `${locale}: ${date.toFormattedString(new DateFormatter(locale, undefined))}`)
       ).toMatchSnapshot()
     })
   })

@@ -79,7 +79,7 @@ export default ({ children }: PropsType) => {
   const additionalFont = config.getAdditionalFont(language)
 
   const dateFormatter = useMemo(
-    () => new DateFormatter(undefined, config.defaultFallback),
+    () => new DateFormatter(config.defaultFallback),
     [])
 
   if (errorMessage) {
