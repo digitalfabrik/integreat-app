@@ -30,11 +30,11 @@ const I18nRedirectPage = (props: PropsType) => {
   const { redirect, param, cities, i18n } = props
 
   const getRedirectPath = (): string => {
-    const selectedCity = buildConfig().featureFlags.selectedCity
-    if (selectedCity) {
+    const fixedCity = buildConfig().featureFlags.fixedCity
+    if (fixedCity) {
       // Redirect to the dashboard of the selected city
-      if (!param || param === 'landing' || param === selectedCity) {
-        return new CategoriesRouteConfig().getRoutePath({ city: selectedCity, language: i18n.language })
+      if (!param || param === 'landing' || param === fixedCity) {
+        return new CategoriesRouteConfig().getRoutePath({ city: fixedCity, language: i18n.language })
       }
 
       // Redirect to a not found page if the param is not a valid city

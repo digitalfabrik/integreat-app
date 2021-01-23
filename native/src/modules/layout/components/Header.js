@@ -146,7 +146,7 @@ class Header extends React.PureComponent<PropsType> {
   render () {
     const { routeCityModel, scene, t, theme, goToLanguageChange, peeking, categoriesAvailable } = this.props
     const shareUrl = scene.route.params?.shareUrl || null
-    const showChangeLocation = !buildConfig().featureFlags.selectedCity
+    const showChangeLocation = !buildConfig().featureFlags.fixedCity
 
     return <BoxShadow theme={theme}>
       <Horizontal>

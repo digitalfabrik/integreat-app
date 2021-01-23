@@ -19,7 +19,7 @@ const integreatTestCms = {
     introSlides: true,
     sentry: false,
     developerFriendly: true,
-    selectedCity: null
+    fixedCity: null
   }
 }
 

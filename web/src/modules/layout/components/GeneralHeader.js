@@ -19,7 +19,7 @@ class GeneralHeader extends React.PureComponent<PropsType> {
     const { viewportSmall, t } = this.props
     const getPath = new I18nRedirectRouteConfig().getRoutePath
 
-    const actionItems = !buildConfig().featureFlags.selectedCity
+    const actionItems = !buildConfig().featureFlags.fixedCity
       ? [<HeaderActionItemLink key='landing'
                                href={getPath({})}
                                iconSrc={landingIcon}

@@ -19,7 +19,7 @@ jest.mock('redux-first-router', () => ({
   redirect: jest.fn(action => action)
 }))
 jest.mock('../../../../modules/app/constants/buildConfig', () => jest.fn(() => ({
-  featureFlags: { selectedCity: null }
+  featureFlags: { fixedCity: null }
 })))
 
 describe('I18nRedirectPage', () => {
@@ -33,7 +33,7 @@ describe('I18nRedirectPage', () => {
   const cities = new CityModelBuilder(2).build()
   const city = cities[0].code
 
-  describe('no preselected city in build config', () => {
+  describe('no fixed city in build config', () => {
     it('should navigate to landing route if there is no url param ', () => {
       const mockStore = configureStore()
       const location = {
@@ -115,11 +115,11 @@ describe('I18nRedirectPage', () => {
     })
   })
 
-  describe('preselected city in build config', () => {
-    it('should navigate to preselected city if there is no url param', () => {
+  describe('fixed city in build config', () => {
+    it('should navigate to fixed city if there is no url param', () => {
       // $FlowFixMe build config is a mock and has function mockImplementationOnce
       buildConfig.mockImplementationOnce(() => ({
-        featureFlags: { selectedCity: city }
+        featureFlags: { fixedCity: city }
       }))
       const mockStore = configureStore()
       const location = {
@@ -140,10 +140,10 @@ describe('I18nRedirectPage', () => {
       })
     })
 
-    it('should navigate to preselected city if the url param is landing', () => {
+    it('should navigate to fixed city if the url param is landing', () => {
       // $FlowFixMe build config is a mock and has function mockImplementationOnce
       buildConfig.mockImplementationOnce(() => ({
-        featureFlags: { selectedCity: city }
+        featureFlags: { fixedCity: city }
       }))
       const mockStore = configureStore()
       const location = {
@@ -164,10 +164,10 @@ describe('I18nRedirectPage', () => {
       })
     })
 
-    it('should navigate to preselected city if the param is the preselected city', () => {
+    it('should navigate to fixed city if the param is the fixed city', () => {
       // $FlowFixMe build config is a mock and has function mockImplementationOnce
       buildConfig.mockImplementationOnce(() => ({
-        featureFlags: { selectedCity: city }
+        featureFlags: { fixedCity: city }
       }))
       const mockStore = configureStore()
       const location = {
@@ -191,7 +191,7 @@ describe('I18nRedirectPage', () => {
     it('should navigate to not found if the param is another city', () => {
       // $FlowFixMe build config is a mock and has function mockImplementationOnce
       buildConfig.mockImplementationOnce(() => ({
-        featureFlags: { selectedCity: city }
+        featureFlags: { fixedCity: city }
       }))
       const mockStore = configureStore()
       const location = {
@@ -215,7 +215,7 @@ describe('I18nRedirectPage', () => {
     it('should navigate to not found else', () => {
       // $FlowFixMe build config is a mock and has function mockImplementationOnce
       buildConfig.mockImplementationOnce(() => ({
-        featureFlags: { selectedCity: city }
+        featureFlags: { fixedCity: city }
       }))
       const mockStore = configureStore()
       const location = {
