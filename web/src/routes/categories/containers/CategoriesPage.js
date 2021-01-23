@@ -70,7 +70,9 @@ export class CategoriesPage extends React.Component<PropsType> {
                          title={category.title}
                          content={category.content}
                          thumbnail={category.thumbnail}
-                         onInternalLinkClick={push} />
+                         onInternalLinkClick={push}
+                         lastUpdate={category.lastUpdate}
+                         language={language}/>
   }
 
   renderBreadcrumbs (categoryModel: CategoryModel): React.Node {

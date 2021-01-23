@@ -8,6 +8,7 @@ import CategoryEntry from './CategoryEntry'
 import { CategoryModel } from 'api-client'
 import styled from 'styled-components'
 import helpers from '../../../modules/theme/constants/helpers'
+import LastUpdateInfo from '../../../modules/common/components/LastUpdateInfo'
 
 const List = styled.div`
   & a {
@@ -34,21 +35,25 @@ type PropsType = {|
   /** A search query to highlight in the categories titles */
   query?: string,
   thumbnail?: string,
+  lastUpdate?: Moment,
+  language: string,
   onInternalLinkClick: string => void
 |}
 
 /**
  * Displays a ContentList which is a list of categories, a caption and a thumbnail
  */
-class CategoryList extends React.PureComponent<PropsType> {
+class CategoryList extends React.PureComponent<PropsType> { 
   render () {
-    const { categories, title, thumbnail, content, query, onInternalLinkClick } = this.props
+    const { categories, title, thumbnail, content, query, onInternalLinkClick,
+            lastUpdate, language } = this.props
     return (
       <div>
         {thumbnail && <Centering><CategoryIcon src={thumbnail} alt='' /></Centering>}
         {title && <Caption title={title} />}
         {content && <RemoteContent dangerouslySetInnerHTML={{ __html: content }}
                                    onInternalLinkClick={onInternalLinkClick} />}
+        {content && lastUpdate && <LastUpdateInfo lastUpdate={lastUpdate} language={language} withText />}
         <List>
           {categories.map(categoryItem =>
             <CategoryEntry key={categoryItem.model.hash}
