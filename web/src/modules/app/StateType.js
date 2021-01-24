@@ -15,6 +15,7 @@ import {
   WohnenOfferModel
 } from 'api-client'
 import type { LocationState } from 'redux-first-router'
+import type { UiDirectionType } from '../i18n/types/UiDirectionType'
 
 export type ViewportType = { +is: { +small: boolean, +large: boolean } }
 
@@ -41,6 +42,7 @@ export type StateType = {
   sprungbrettJobs: Payload<Array<SprungbrettJobModel>>,
   wohnen: Payload<Array<WohnenOfferModel>>,
   viewport: ViewportType,
+  uiDirection: UiDirectionType,
   darkMode: boolean,
   pois: Payload<Array<PoiModel>>
 }

@@ -7,6 +7,7 @@ import type { RoutesMap } from 'redux-first-router'
 import { connectRoutes } from 'redux-first-router'
 import { createLogger } from 'redux-logger'
 
+import uiDirectionReducer from '../i18n/reducers'
 import endpointReducers from './reducers'
 import toggleDarkModeReducer from '../theme/reducers'
 import { createResponsiveStateReducer, responsiveStoreEnhancer } from 'redux-responsive'
@@ -38,6 +39,7 @@ const createReduxStore = (initialState: StateType = {}, routesMap: RoutesMap = d
     ...endpointReducers,
     viewport: createResponsiveStateReducer({ small: 750 }, { infinity: 'large' }),
     location: reducer,
+    uiDirection: uiDirectionReducer,
     darkMode: toggleDarkModeReducer,
     tunews: tunewsReducer
   })

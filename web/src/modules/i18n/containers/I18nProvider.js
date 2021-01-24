@@ -5,6 +5,7 @@ import * as React from 'react'
 import { useEffect, useState } from 'react'
 import { I18nextProvider } from 'react-i18next'
 import { Helmet as ReactHelmet } from 'react-helmet'
+import setUiDirection from '../actions/setUIDirection'
 import { loadTranslations, config } from 'translations'
 import buildConfig from '../../app/constants/buildConfig'
 import { useDispatch, useSelector } from 'react-redux'
@@ -69,6 +70,11 @@ export default ({ children }: PropsType) => {
   useEffect(() => {
     if (document.documentElement) {
       document.documentElement.lang = language
+    }
+
+    // Only change ui direction from default ('ltr') if the language is supported
+    if (config.isSupportedLanguage(language)) {
+      dispatch(setUiDirection(config.hasRTLScript(language) ? 'rtl' : 'ltr'))
     }
   }, [dispatch, language])
 

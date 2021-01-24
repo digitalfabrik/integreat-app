@@ -10,6 +10,7 @@ import TileModel from '../../../modules/common/models/TileModel'
 import Link from 'redux-first-router-link'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import type { StateType } from '../../../modules/app/StateType'
+import type { UiDirectionType } from '../../../modules/i18n/types/UiDirectionType'
 import Page from '../../../modules/common/components/Page'
 import { push } from 'redux-first-router'
 import BreadcrumbModel from '../../../modules/common/BreadcrumbModel'
@@ -23,7 +24,8 @@ type PropsType = {|
   path: string,
   city: string,
   t: TFunction,
-  language: string
+  language: string,
+  uiDirection: UiDirectionType
 |}
 
 /**
@@ -72,7 +74,7 @@ export class CategoriesPage extends React.Component<PropsType> {
   }
 
   renderBreadcrumbs (categoryModel: CategoryModel): React.Node {
-    const { cities, categories, city } = this.props
+    const { cities, categories, city, uiDirection } = this.props
     const getBreadcrumb = category => {
       const title = category.isRoot() ? CityModel.findCityName(cities, city) : category.title
       return new BreadcrumbModel({
@@ -82,7 +84,7 @@ export class CategoriesPage extends React.Component<PropsType> {
       })
     }
     return <Breadcrumbs ancestorBreadcrumbs={categories.getAncestors(categoryModel).map(getBreadcrumb)}
-                        currentBreadcrumb={getBreadcrumb(categoryModel)} />
+                        currentBreadcrumb={getBreadcrumb(categoryModel)} direction={uiDirection} />
   }
 
   render () {
@@ -102,6 +104,7 @@ export class CategoriesPage extends React.Component<PropsType> {
 }
 
 const mapStateToProps = (state: StateType) => ({
+  uiDirection: state.uiDirection,
   language: state.location.payload.language,
   city: state.location.payload.city,
   path: state.location.pathname
