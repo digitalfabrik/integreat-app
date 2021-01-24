@@ -10,6 +10,7 @@ import type { TFunction } from 'react-i18next'
 import textTruncator from './../../../modules/common/utils/textTruncator'
 import { LOCAL_NEWS } from '../constants'
 import type { NewsType } from '../constants'
+import DateFormatter from 'api-client/src/i18n/DateFormatter'
 
 export const NUM_OF_WORDS_ALLOWED = 30
 
@@ -50,7 +51,7 @@ type PropsType = {|
   title: string,
   content: string,
   timestamp: Moment,
-  language: string,
+  formatter: DateFormatter,
   link: string,
   type: NewsType,
   t: TFunction
@@ -58,13 +59,13 @@ type PropsType = {|
 
 class NewsElement extends React.PureComponent<PropsType> {
   renderContent (): React.Node {
-    const { title, content, timestamp, language, t, type, link } = this.props
+    const { title, content, timestamp, formatter, t, type, link } = this.props
     return (
       <Description>
         <Title>{title}</Title>
         <Body>{textTruncator(content, NUM_OF_WORDS_ALLOWED)}</Body>
         <StyledContainer>
-          <LastUpdateInfo lastUpdate={timestamp} language={language} />
+          <LastUpdateInfo lastUpdate={timestamp} formatter={formatter} />
           <ReadMoreLink to={link} type={type}>{t('readMore')} ></ReadMoreLink>
         </StyledContainer>
       </Description>

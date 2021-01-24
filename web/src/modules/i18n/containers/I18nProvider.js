@@ -2,7 +2,7 @@
 
 import i18next from 'i18next'
 import * as React from 'react'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { I18nextProvider } from 'react-i18next'
 import { Helmet as ReactHelmet } from 'react-helmet'
 import setUiDirection from '../actions/setUIDirection'
@@ -11,6 +11,8 @@ import buildConfig from '../../app/constants/buildConfig'
 import { useDispatch, useSelector } from 'react-redux'
 import type { StateType } from '../../app/StateType'
 import BrowserLanguageDetector from '../BrowserLanguageDetector'
+import DateFormatter from 'api-client/src/i18n/DateFormatter'
+import DateFormatterContext from '../context/DateFormatterContext'
 
 type PropsType = {| children: React.Node |}
 
@@ -80,6 +82,10 @@ export default ({ children }: PropsType) => {
 
   const additionalFont = config.getAdditionalFont(language)
 
+  const dateFormatter = useMemo(
+    () => new DateFormatter(config.defaultFallback),
+    [])
+
   if (errorMessage) {
     return errorMessage
   }
@@ -100,7 +106,9 @@ export default ({ children }: PropsType) => {
           <link href='/fonts/open-sans/open-sans.css' rel='stylesheet' />
           <link href='/fonts/raleway/raleway.css' rel='stylesheet' />
         </ReactHelmet>
-        {children}
+        <DateFormatterContext.Provider value={dateFormatter}>
+          {children}
+        </DateFormatterContext.Provider>
       </div>
     </I18nextProvider>
   )
