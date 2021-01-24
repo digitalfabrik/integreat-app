@@ -95,9 +95,11 @@ class Config {
    * <b>Typical Usage</b>
    *
    * If you do not know whether to display UI elements RTL/LTR you can use this method. Browsers for example, do not
-   * disclose the system script direction. On Android you can use the system libraries instead of this method. This only
-   * works for {@link #supportedLanguages} and not for arbitrary ones. This is because we simply do now know it and can
-   * not know it.
+   * disclose the system script direction. On Android and iOS system libraries are used instead of this method
+   * ({@link https://github.com/zoontek/react-native-localize/blob/de9c01ab99f69bcf655ed2cb83c7081b75298bd2/android/src/main/java/com/zoontek/rnlocalize/RNLocalizeModule.java#L191|Android})
+   * ({@link https://github.com/zoontek/react-native-localize/blob/d8f265ee665cf593f98ef92b308f4416cd251b30/ios/RNLocalize.m#L113|iOS}).
+   * This onlyworks for {@link #supportedLanguages} and not for arbitrary ones. This is because we simply do now know
+   * it and cannot know it.
    *
    * @see http://www.i18nguy.com/temp/rtl.html
    * @param languageCode for the check
