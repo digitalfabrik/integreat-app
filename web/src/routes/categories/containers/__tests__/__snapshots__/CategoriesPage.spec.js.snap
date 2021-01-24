@@ -91,6 +91,8 @@ exports[`CategoriesPage should match snapshot and render a CategoryList if the c
       ]
     }
     content="exampleContent0"
+    language="en"
+    lastUpdate={"2016-01-07T09:36:24.000Z"}
     onInternalLinkClick={[Function]}
     thumbnail="thumb-nail"
     title="erste-schritte"
