@@ -1,6 +1,7 @@
 // @flow
 
 import * as React from 'react'
+import type { UiDirectionType } from '../../i18n/types/UiDirectionType'
 import styled from 'styled-components'
 import Breadcrumb from './Breadcrumb'
 import BreadcrumbModel from '../BreadcrumbModel'
@@ -34,6 +35,8 @@ type PropsType = {|
  * Displays breadcrumbs (Links) for lower category levels and outputs a corresponding JSON-LD for rich search experience
  */
 class Breadcrumbs extends React.PureComponent<PropsType> {
+  static defaultProps = { direction: 'ltr' }
+
   render () {
     const { ancestorBreadcrumbs, currentBreadcrumb } = this.props
     // The current page should not be listed in the UI, but should be within the JsonLd.
