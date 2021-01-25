@@ -1,0 +1,7 @@
+issue_key: IGAPP-424
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: Fixed app crashes when opening mailto links.
+de: Abstürzen der App beim Öffnen von mailto Links behoben.
