@@ -18,6 +18,7 @@ import { WOHNEN_ROUTE } from '../../app/route-configs/WohnenRouteConfig'
 import { DISCLAIMER_ROUTE } from '../../app/route-configs/DisclaimerRouteConfig'
 import { SEARCH_ROUTE } from '../../app/route-configs/SearchRouteConfig'
 import { OFFERS_ROUTE } from '../../app/route-configs/OffersRouteConfig'
+import { POIS_ROUTE } from '../../app/route-configs/PoisRouteConfig'
 import type { FeedbackTargetInformationType } from '../../app/route-configs/RouteConfig'
 import type { LanguageChangePathsType } from '../../app/containers/Switcher'
 
@@ -72,7 +73,6 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
     }
 
     const { cities, location, feedbackTargetInformation } = this.props
-
     return <FeedbackModal cities={cities}
                           feedbackRating={this.state.feedbackModalRating}
                           closeFeedbackModal={this.closeFeedbackModal}
@@ -87,13 +87,21 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
   renderToolbar = (): React.Node => {
     const { viewportSmall, location, categories } = this.props
     const type = location.type
-
+    const feedbackRoutes = [
+      OFFERS_ROUTE,
+      EVENTS_ROUTE,
+      LOCAL_NEWS_ROUTE,
+      TUNEWS_ROUTE,
+      DISCLAIMER_ROUTE,
+      WOHNEN_ROUTE,
+      SPRUNGBRETT_ROUTE,
+      POIS_ROUTE]
     if (type === CATEGORIES_ROUTE) {
       return <CategoriesToolbar categories={categories}
                                 location={location}
                                 openFeedbackModal={this.openFeedbackModal}
                                 viewportSmall={viewportSmall} />
-    } else if ([OFFERS_ROUTE, EVENTS_ROUTE, LOCAL_NEWS_ROUTE, TUNEWS_ROUTE, DISCLAIMER_ROUTE, WOHNEN_ROUTE, SPRUNGBRETT_ROUTE].includes(type)) {
+    } else if (feedbackRoutes.includes(type)) {
       return <LocationToolbar openFeedbackModal={this.openFeedbackModal} viewportSmall={viewportSmall} />
     } else {
       return null

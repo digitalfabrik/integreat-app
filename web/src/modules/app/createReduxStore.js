@@ -12,6 +12,7 @@ import toggleDarkModeReducer from '../theme/reducers'
 import { createResponsiveStateReducer, responsiveStoreEnhancer } from 'redux-responsive'
 import tunewsReducer from './reducers/tunewsReducer'
 import { routesMap as defaultRoutesMap } from './route-configs/index'
+import queryString from 'query-string'
 import createHistory from './createHistory'
 import type { StateType } from './StateType'
 import type { StoreActionType } from './StoreActionType'
@@ -20,6 +21,7 @@ import buildConfig from './constants/buildConfig'
 const createReduxStore = (initialState: StateType = {}, routesMap: RoutesMap = defaultRoutesMap): Store<StateType,
   StoreActionType> => {
   const { reducer, middleware, enhancer } = connectRoutes(routesMap, {
+    querySerializer: queryString,
     createHistory: () => createHistory()
   })
 
