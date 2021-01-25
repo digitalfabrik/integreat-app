@@ -17,6 +17,7 @@
 * [`No BUILD_CONFIG_NAME supplied`](#no-build_config_name-supplied)
 * [`Invalid BUILD_CONFIG_NAME supplied`](#invalid-build_config_name-supplied)
 * [App crashing with java.lang.UnsatisfiedLinkError](#app-crashing-with-javalangunsatisfiedlinkerror)
+* [App crashing without any error](#app-crashing-without-any-error)
 
 ## Problems with sharp or other node modules
 
@@ -118,3 +119,8 @@ The following error occurs:
 * Delete the folder `android/app/build` 
 * Delete the app
 * Reinstall the app (`yarn android`)
+
+## App crashing without any error
+
+The app is installed correctly on the android emulator but crashes without any error message on start up.
+To solve this issue delete /android/app/build and android/.gradle folder.
