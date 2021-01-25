@@ -63,11 +63,11 @@ export const LocalNewsPage = ({
     return <LoadingSpinner />
   }
 
-    const currentCity: ?CityModel = cities && cities.find(cityElement => cityElement.code === city)
-    if (!currentCity || !currentCity.pushNotificationsEnabled) {
-      const error = new NotFoundError({ type: 'category', id: path, city: city, language })
-      return <FailureSwitcher error={error} />
-    }
+  const currentCity: ?CityModel = cities && cities.find(cityElement => cityElement.code === city)
+  if (!currentCity || !currentCity.pushNotificationsEnabled) {
+    const error = new NotFoundError({ type: 'category', id: path, city: city, language })
+    return <FailureSwitcher error={error} />
+  }
 
   return (
     <NewsTabs type={LOCAL_NEWS}

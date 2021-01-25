@@ -68,14 +68,14 @@ export const TunewsDetailsPage = ({
   cities
 }: PropsType) => {
   const formatter = useContext(DateFormatterContext)
-    const currentCity: ?CityModel = cities && cities.find(cityElement => cityElement.code === city)
-    if (!currentCity || !currentCity.tunewsEnabled) {
-      const error = new NotFoundError({ type: 'category', id: id.toString(), city, language })
-      return <FailureSwitcher error={error} />
-    } else if (!tunewsElement) {
-      const error = new NotFoundError({ type: 'tunews', id: id.toString(), city, language })
-      return <FailureSwitcher error={error} />
-    }
+  const currentCity: ?CityModel = cities && cities.find(cityElement => cityElement.code === city)
+  if (!currentCity || !currentCity.tunewsEnabled) {
+    const error = new NotFoundError({ type: 'category', id: id.toString(), city, language })
+    return <FailureSwitcher error={error} />
+  } else if (!tunewsElement) {
+    const error = new NotFoundError({ type: 'tunews', id: id.toString(), city, language })
+    return <FailureSwitcher error={error} />
+  }
 
   const {
     title,

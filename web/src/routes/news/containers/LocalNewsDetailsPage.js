@@ -26,14 +26,14 @@ export const LocalNewsDetailsPage = ({
   id
 }: PropsType) => {
   const formatter = useContext(DateFormatterContext)
-    const currentCity: ?CityModel = cities && cities.find(cityElement => cityElement.code === city)
-    if (!currentCity || !currentCity.pushNotificationsEnabled) {
-      const error = new NotFoundError({ type: 'category', id, city, language })
-      return <FailureSwitcher error={error} />
-    } else if (!localNewsElement) {
-      const error = new NotFoundError({ type: 'tunews', id, city, language })
-      return <FailureSwitcher error={error} />
-    }
+  const currentCity: ?CityModel = cities && cities.find(cityElement => cityElement.code === city)
+  if (!currentCity || !currentCity.pushNotificationsEnabled) {
+    const error = new NotFoundError({ type: 'category', id, city, language })
+    return <FailureSwitcher error={error} />
+  } else if (!localNewsElement) {
+    const error = new NotFoundError({ type: 'tunews', id, city, language })
+    return <FailureSwitcher error={error} />
+  }
 
   return (
     <Page
