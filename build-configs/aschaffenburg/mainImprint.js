@@ -1,4 +1,4 @@
-const mainImprint = `
+const mainImprint = ` <!-- TODO in IGAPP-433 -->
 <h3>Angaben gemäß § 5 TMG:</h3>
 <p>
   Tür an Tür – Digital Factory gGmbH<br />
