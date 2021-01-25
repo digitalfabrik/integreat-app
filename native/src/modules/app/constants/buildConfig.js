@@ -16,7 +16,7 @@ import malteIntroLanguageIcon from 'build-configs/malte/assets/intro-slides/Lang
 import malteIntroEventsIcon from 'build-configs/malte/assets/intro-slides/Events.svg'
 import malteIntroOffersIcon from 'build-configs/malte/assets/intro-slides/Offers.svg'
 import malteIntroSearchIcon from 'build-configs/malte/assets/intro-slides/Search.svg'
-import { INTEGREAT_ASSETS, MALTE_ASSETS } from 'build-configs/AssetsType'
+import { INTEGREAT_ASSETS, MALTE_ASSETS, ASCHAFFENBURG_ASSETS } from 'build-configs/AssetsType'
 
 type AssetsType = {|
   appIcon: number,
@@ -54,6 +54,18 @@ export const buildConfigAssets = (): AssetsType => {
         language: malteIntroLanguageIcon,
         offers: malteIntroOffersIcon,
         search: malteIntroSearchIcon
+      }
+    }
+  } else if (assetsName === ASCHAFFENBURG_ASSETS) {
+    return {
+      appIcon: integreatAppIcon, // TODO in IGAPP-299
+      loadingImage: integreatLoadingImage,
+      locationMarker: integreatLocationMarker,
+      intro: {
+        events: integreatIntroEventsIcon,
+        language: integreatIntroLanguageIcon,
+        offers: integreatIntroOffersIcon,
+        search: integreatIntroSearchIcon
       }
     }
   }

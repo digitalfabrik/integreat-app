@@ -7,6 +7,7 @@ import { shallow } from 'enzyme'
 import TunewsList from '../TunewsList'
 import NewsElement from '../NewsElement'
 import { TU_NEWS } from '../../constants'
+import DateFormatter from 'api-client/src/i18n/DateFormatter'
 
 describe('TunewsList', () => {
   const language = 'en'
@@ -22,7 +23,7 @@ describe('TunewsList', () => {
     key={id}
     link={link}
     t={t}
-    language={language}
+    formatter={new DateFormatter(language)}
   />
   const date1 = moment('2018-07-24T00:00:00.000Z')
   const date2 = moment('2018-07-24T00:00:00.000Z')

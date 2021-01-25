@@ -13,6 +13,8 @@ import { LOCAL_NEWS } from '../constants'
 import LoadingSpinner from '../../../modules/common/components/LoadingSpinner'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import LocalNewsDetailsRouteConfig from '../../../modules/app/route-configs/LocalNewsDetailsRouteConfig'
+import { useContext } from 'react'
+import DateFormatterContext from '../../../modules/i18n/context/DateFormatterContext'
 
 type PropsType = {|
   localNews: Array<LocalNewsModel>,
@@ -24,27 +26,42 @@ type PropsType = {|
   path: string
 |}
 
-export class LocalNewsPage extends React.Component<PropsType> {
-  renderLocalNewsElement = (city: string, language: string) => (localNewsItem: LocalNewsModel) => {
-    const { id, title, message, timestamp } = localNewsItem
+export const LocalNewsPage = ({
+  localNews,
+  city,
+  cities,
+  areCitiesFetching,
+  path,
+  language,
+  t
+}: PropsType) => {
+  const formatter = useContext(DateFormatterContext)
+  const renderLocalNewsElement = (city: string, language: string) => (localNewsItem: LocalNewsModel) => {
+    const {
+      id,
+      title,
+      message,
+      timestamp
+    } = localNewsItem
     return <NewsElement
       title={title}
       content={message}
       timestamp={timestamp}
       key={id}
-      link={new LocalNewsDetailsRouteConfig().getRoutePath({ city, language, id })}
-      t={this.props.t}
-      language={language}
+      link={new LocalNewsDetailsRouteConfig().getRoutePath({
+        city,
+        language,
+        id
+      })}
+      t={t}
+      formatter={formatter}
       type={LOCAL_NEWS}
     />
   }
 
-  render () {
-    const { localNews, city, cities, areCitiesFetching, path, language, t } = this.props
-
-    if (areCitiesFetching) {
-      return <LoadingSpinner />
-    }
+  if (areCitiesFetching) {
+    return <LoadingSpinner />
+  }
 
     const currentCity: ?CityModel = cities && cities.find(cityElement => cityElement.code === city)
     if (!currentCity || !currentCity.pushNotificationsEnabled) {
@@ -52,22 +69,21 @@ export class LocalNewsPage extends React.Component<PropsType> {
       return <FailureSwitcher error={error} />
     }
 
-    return (
-      <NewsTabs type={LOCAL_NEWS}
-                city={city}
-                tunewsEnabled={currentCity.tunewsEnabled}
-                localNewsEnabled={currentCity.pushNotificationsEnabled}
-                t={t}
-                language={language}>
-        <LocalNewsList
-          items={localNews}
-          noItemsMessage={t('currentlyNoNews')}
-          renderItem={this.renderLocalNewsElement(city, language)}
-          city={city}
-        />
-      </NewsTabs>
-    )
-  }
+  return (
+    <NewsTabs type={LOCAL_NEWS}
+              city={city}
+              tunewsEnabled={currentCity.tunewsEnabled}
+              localNewsEnabled={currentCity.pushNotificationsEnabled}
+              t={t}
+              language={language}>
+      <LocalNewsList
+        items={localNews}
+        noItemsMessage={t('currentlyNoNews')}
+        renderItem={renderLocalNewsElement(city, language)}
+        city={city}
+      />
+    </NewsTabs>
+  )
 }
 
 const mapStateTypeToProps = (state: StateType) => {

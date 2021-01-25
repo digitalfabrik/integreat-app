@@ -30,8 +30,12 @@ type LocalStateType = {|
 const noop = () => {}
 
 export class SearchPage extends React.Component<PropsType, LocalStateType> {
-  state = {
-    filterText: ''
+  constructor (props: PropsType) {
+    super(props)
+    const initialFilterText = props.location.query?.query ? props.location.query.query : ''
+    this.state = {
+      filterText: initialFilterText
+    }
   }
 
   findCategories (): Array<CategoryEntryType> {
@@ -69,7 +73,11 @@ export class SearchPage extends React.Component<PropsType, LocalStateType> {
       .concat(categoriesWithContent)
   }
 
-  handleFilterTextChanged = (filterText: string) => this.setState({ filterText: filterText })
+  handleFilterTextChanged = (filterText: string) => {
+    this.setState({ filterText: filterText })
+    const appendToUrl = filterText.length !== 0 ? `?query=${filterText}` : ''
+    history.replaceState(null, '', `${this.props.location.pathname}${appendToUrl}`)
+  }
 
   render () {
     const categories = this.findCategories()
