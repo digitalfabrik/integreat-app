@@ -14,7 +14,7 @@ const APPLE_APP_ID = ''
 
 const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
   appName: 'Aschaffenburg App',
-  appIcon: 'app_icon_integreat',
+  appIcon: 'app_icon_integreat',//TODO in IGAPP-299
   lightTheme,
   darkTheme,
   assets: ASCHAFFENBURG_ASSETS,
@@ -25,8 +25,8 @@ const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
   internalLinksHijackPattern: 'https?:\\/\\/(cms(-test)?\\.integreat-app\\.de|web\\.integreat-app\\.de|integreat\\.app)(?!\\/[^/]*\\/(wp-content|wp-admin|wp-json)\\/.*).*',
   featureFlags: {
     pois: false,
-    newsStream: true,
-    pushNotifications: true,
+    newsStream: false,
+    pushNotifications: false,
     introSlides: true,
     sentry: true,
     developerFriendly: false
@@ -43,18 +43,9 @@ const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
 
 export const androidAschaffenburgBuildConfig: AndroidBuildConfigType = {
   ...commonAschaffenburgBuildConfig,
-  splashScreen: true,
+  splashScreen: false,
   applicationId: 'app.aschaffenburg',
-  googleServices: {
-    googleAppId: '',
-    gcmDefaultSenderId: '',
-    defaultWebClientId: '',
-    gaTrackingId: null,
-    firebaseDatabaseUrl: '',
-    googleApiKey: '',
-    googleCrashReportingApiKey: '',
-    projectId: 'aschaffenburg-2021'
-  }
+  googleServices: null
 }
 
 export const iosAschaffenburgBuildConfig: iOSBuildConfigType = {
@@ -62,23 +53,7 @@ export const iosAschaffenburgBuildConfig: iOSBuildConfigType = {
   bundleIdentifier: 'app.aschaffenburg',
   provisioningProfileSpecifier: 'match Development app.aschaffenburg',
   appleId: APPLE_APP_ID,
-  googleServices: {
-    clientId: '',
-    reversedClientId: '',
-    apiKey: '',
-    gcmSenderId: '',
-    plistVersion: '1',
-    bundleId: 'app.aschaffenburg',
-    projectId: 'aschaffenburg-2021',
-    storageBucket: '',
-    isAdsEnabled: false,
-    isAnalyticsEnabled: false,
-    isAppInviteEnabled: true,
-    isGCMEnabled: true,
-    isSigninEnabled: true,
-    googleAppId: '',
-    databaseUrl: ''
-  },
+  googleServices: null,
   launchScreen: 'LaunchScreenDefault'
 }
 
@@ -93,10 +68,6 @@ export const webAschaffenburgBuildConfig: WebBuildConfigType = {
     appleTouchIcon: '/apple-touch-icon.png',
     socialMediaPreview: '/social-media-preview.png',
     favicons: '/favicons/'
-  },
-  splashScreen: {
-    backgroundColor: lightTheme.colors.themeColor,
-    imageUrl: '/app-icon-cornered.jpg'
   }
 }
 

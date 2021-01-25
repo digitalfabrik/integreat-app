@@ -16,7 +16,7 @@ import malteIntroLanguageIcon from 'build-configs/malte/assets/intro-slides/Lang
 import malteIntroEventsIcon from 'build-configs/malte/assets/intro-slides/Events.svg'
 import malteIntroOffersIcon from 'build-configs/malte/assets/intro-slides/Offers.svg'
 import malteIntroSearchIcon from 'build-configs/malte/assets/intro-slides/Search.svg'
-import { ASCHAFFENBURG_ASSETS, INTEGREAT_ASSETS, MALTE_ASSETS } from 'build-configs/AssetsType'
+import { INTEGREAT_ASSETS, MALTE_ASSETS, ASCHAFFENBURG_ASSETS } from 'build-configs/AssetsType'
 
 type AssetsType = {|
   appIcon: number,
