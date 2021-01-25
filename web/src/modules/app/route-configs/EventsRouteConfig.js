@@ -22,7 +22,7 @@ export const EVENTS_ROUTE = 'EVENTS'
 
 /**
  * EventsRoute, matches /augsburg/de/events and /augsburg/de/events/begegnungscafe
- * @type {{path: string, thunk: function(Dispatch, GetState)}}
+ * @type {{path: string, thunk: function(dispatch, getState)}}
  */
 const eventsRoute: Route = {
   path: '/:city/:language/events/:eventId?',
@@ -78,7 +78,7 @@ class EventsRouteConfig implements RouteConfig<EventsRouteParamsType, RequiredPa
   getFeedbackTargetInformation = ({ payloads, location }) => {
     const events = payloads.events.data
     const event = events && events.find(event => event.path === location.pathname)
-    return event ? { title: event.title } : null
+    return event ? { title: event.title, path: event.path } : null
   }
 }
 

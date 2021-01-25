@@ -4,6 +4,7 @@ import React from 'react'
 import styled from 'styled-components'
 import type Moment from 'moment'
 import LastUpdateInfo from '../../../modules/common/components/LastUpdateInfo'
+import DateFormatter from 'api-client/src/i18n/DateFormatter'
 
 const Footer = styled.footer`
   display: flex;
@@ -36,12 +37,12 @@ const CustomLastUpdateInfo = styled(LastUpdateInfo)`
 type PropsType = {|
   eNewsNo: string,
   date: Moment,
-  language: string
+  formatter: DateFormatter
 |}
 
 class TunewsDetailsFooter extends React.PureComponent<PropsType> {
   render () {
-    const { eNewsNo, date, language } = this.props
+    const { eNewsNo, date, formatter } = this.props
 
     return (
       <Footer>
@@ -51,7 +52,7 @@ class TunewsDetailsFooter extends React.PureComponent<PropsType> {
             tünews INTERNATIONAL
           </StyledLink>
         </StyledContainer>
-        <CustomLastUpdateInfo lastUpdate={date} language={language} />
+        <CustomLastUpdateInfo lastUpdate={date} formatter={formatter} />
       </Footer>
     )
   }
