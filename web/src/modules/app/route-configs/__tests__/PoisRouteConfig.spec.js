@@ -154,6 +154,9 @@ describe('PoisRouteConfig', () => {
     })
 
     expect(poisRouteConfig.getFeedbackTargetInformation({ payloads, location }))
-      .toBeNull()
+      .toEqual({
+        title: 'Erster Poi',
+        path: '/augsburg/de/locations/erster_poi'
+      })
   })
 })
