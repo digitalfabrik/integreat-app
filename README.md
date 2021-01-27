@@ -30,13 +30,13 @@ This is a monorepo and contains the following projects:
 * **[web](web/README.md)**: React JS webapp
 * **[native](native/README.md)**: React Native Android and iOS apps
 
-Both projects are whitelabelled with different [build configs](docs/build-configs.md).
+Both projects are whitelabelled with different [build configs](build-configs/README.md).
     
 There are also separate sub-projects used by both projects:
     
 * **[translations](translations/README.md)**: Translated texts and utilities to manage them
 * **[api-client](api-client/README.md)**: Implementation of the endpoints (v3) of the integreat cms
-* **[build-configs](docs/build-configs.md)**: Configuration files to build different versions of the apps
+* **[build-configs](build-configs/README.md)**: Configuration files to build different versions of the apps
 
 If you make changes in these sub-projects, make sure to bump the version in the corresponding package.json and run yarn
 to make these changes available in both projects.

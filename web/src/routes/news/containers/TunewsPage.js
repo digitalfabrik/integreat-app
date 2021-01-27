@@ -11,7 +11,6 @@ import NewsTabs from '../components/NewsTabs'
 import { CityModel, NotFoundError, TunewsModel } from 'api-client'
 import { TU_NEWS } from '../constants'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
-import CityNotFoundError from '../../../modules/app/errors/CityNotFoundError'
 import { fetchTunews } from '../actions/fetchTunews'
 import TunewsDetailsRouteConfig from '../../../modules/app/route-configs/TunewsDetailsRouteConfig'
 import { useContext } from 'react'
@@ -67,17 +66,8 @@ export const TunewsPage = ({
   }
 
   const currentCity: ?CityModel = cities && cities.find(cityElement => cityElement.code === city)
-  if (!currentCity) {
-    return <FailureSwitcher error={new CityNotFoundError()} />
-  }
-
-  if (!currentCity.tunewsEnabled) {
-    const error = new NotFoundError({
-      type: 'category',
-      id: path,
-      city: city,
-      language
-    })
+  if (!currentCity || !currentCity.tunewsEnabled) {
+    const error = new NotFoundError({ type: 'category', id: path, city: city, language })
     return <FailureSwitcher error={error} />
   }
 

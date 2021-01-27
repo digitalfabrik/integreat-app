@@ -22,7 +22,7 @@ export default ({ children }: PropsType) => {
   const [i18nextInstance, setI18nextInstance] = useState(null)
 
   const dispatch = useDispatch()
-  const contentLanguage = useSelector((state: StateType) => state.location.payload.language)
+  const contentLanguage: ?string = useSelector((state: StateType) => state.location.payload.language)
 
   useEffect(() => {
     const initI18Next = async () => {
@@ -61,7 +61,7 @@ export default ({ children }: PropsType) => {
 
   // Apply contentLanguage as language
   useEffect(() => {
-    if (i18nextInstance) {
+    if (i18nextInstance && contentLanguage) {
       i18nextInstance.changeLanguage(contentLanguage, () => {
         setLanguage(contentLanguage)
       })
@@ -73,7 +73,11 @@ export default ({ children }: PropsType) => {
     if (document.documentElement) {
       document.documentElement.lang = language
     }
-    dispatch(setUiDirection(config.isRTLLanguage(language) ? 'rtl' : 'ltr'))
+
+    // Only change ui direction from default ('ltr') if the language is supported
+    if (config.isSupportedLanguage(language)) {
+      dispatch(setUiDirection(config.hasRTLScript(language) ? 'rtl' : 'ltr'))
+    }
   }, [dispatch, language])
 
   const additionalFont = config.getAdditionalFont(language)
@@ -94,9 +98,9 @@ export default ({ children }: PropsType) => {
     <I18nextProvider i18n={i18nextInstance}>
       <div
         data-testid={'direction'}
-        style={{
-          direction: config.isRTLLanguage(language) ? 'rtl' : 'ltr'
-        }}>
+        dir={config.isSupportedLanguage(language)
+          ? config.hasRTLScript(language) ? 'rtl' : 'ltr'
+          : undefined}>
         <ReactHelmet>
           {additionalFont === 'lateef' && <link href='/fonts/lateef/lateef.css' rel='stylesheet' />}
           <link href='/fonts/open-sans/open-sans.css' rel='stylesheet' />

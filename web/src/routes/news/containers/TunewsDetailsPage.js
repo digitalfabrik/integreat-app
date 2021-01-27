@@ -8,7 +8,6 @@ import { connect } from 'react-redux'
 import type { StateType } from '../../../modules/app/StateType'
 import TunewsDetailsFooter from '../components/TunewsDetailsFooter'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
-import CityNotFoundError from '../../../modules/app/errors/CityNotFoundError'
 import { useContext } from 'react'
 import DateFormatterContext from '../../../modules/i18n/context/DateFormatterContext'
 
@@ -70,23 +69,11 @@ export const TunewsDetailsPage = ({
 }: PropsType) => {
   const formatter = useContext(DateFormatterContext)
   const currentCity: ?CityModel = cities && cities.find(cityElement => cityElement.code === city)
-  if (!currentCity) {
-    return <FailureSwitcher error={new CityNotFoundError()} />
-  } else if (!currentCity.tunewsEnabled) {
-    const error = new NotFoundError({
-      type: 'category',
-      id: id.toString(),
-      city,
-      language
-    })
+  if (!currentCity || !currentCity.tunewsEnabled) {
+    const error = new NotFoundError({ type: 'category', id: id.toString(), city, language })
     return <FailureSwitcher error={error} />
   } else if (!tunewsElement) {
-    const error = new NotFoundError({
-      type: 'tunews',
-      id: id.toString(),
-      city,
-      language
-    })
+    const error = new NotFoundError({ type: 'tunews', id: id.toString(), city, language })
     return <FailureSwitcher error={error} />
   }
 
