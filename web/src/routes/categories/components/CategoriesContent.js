@@ -24,7 +24,7 @@ type PropsType = {|
   categories: CategoriesMapModel,
   categoryModel: CategoryModel,
   t: TFunction,
-  formatter: DateFormatter
+  formatter: DateFormatter,
 |}
 
 /**
@@ -61,7 +61,9 @@ const CategoriesContent = ({
     title={categoryModel.title}
     content={categoryModel.content}
     thumbnail={categoryModel.thumbnail}
-    onInternalLinkClick={push} />
+    onInternalLinkClick={push}
+    formatter={formatter}
+    lastUpdate={categoryModel.lastUpdate}/>
 }
 
 export default CategoriesContent
