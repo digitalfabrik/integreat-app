@@ -36,7 +36,6 @@ type PropsType = {|
   query?: string,
   thumbnail?: string,
   lastUpdate?: Moment,
-  language: string,
   formatter: DateFormatter,
   lastUpdate: Moment,
   onInternalLinkClick: string => void
@@ -45,10 +44,12 @@ type PropsType = {|
 /**
  * Displays a ContentList which is a list of categories, a caption and a thumbnail
  */
-class CategoryList extends React.PureComponent<PropsType> { 
+class CategoryList extends React.PureComponent<PropsType> {
   render () {
-    const { categories, title, thumbnail, content, query, onInternalLinkClick,
-            lastUpdate, formatter } = this.props
+    const {
+      categories, title, thumbnail, content, query, onInternalLinkClick,
+      lastUpdate, formatter
+    } = this.props
     return (
       <div>
         {thumbnail && <Centering><CategoryIcon src={thumbnail} alt='' /></Centering>}

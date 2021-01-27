@@ -24,7 +24,7 @@ type PropsType = {|
   categories: CategoriesMapModel,
   categoryModel: CategoryModel,
   t: TFunction,
-  formatter: DateFormatter,
+  formatter: DateFormatter
 |}
 
 /**
