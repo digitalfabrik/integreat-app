@@ -1,14 +1,15 @@
 // @flow
 
-import React from 'react'
+import * as React from 'react'
+import { useState, useContext, useEffect, useCallback } from 'react'
 import { Dimensions, Text, View } from 'react-native'
 import { type DisplayMetrics } from 'react-native/Libraries/Utilities/NativeDeviceInfo'
-import Html, { GestureResponderEvent, type HTMLNode, type RendererFunction } from 'react-native-render-html'
+import Html, { GestureResponderEvent, type HTMLNode } from 'react-native-render-html'
+import DateFormatterContext from '../../i18n/context/DateFormatterContext'
 import styled from 'styled-components/native'
 import type { ThemeType } from 'build-configs/ThemeType'
 import Moment from 'moment'
 import { config } from 'translations'
-import MomentContext from '../../i18n/context/MomentContext'
 import TimeStamp from '../../common/components/TimeStamp'
 import SpaceBetween from '../../common/components/SpaceBetween'
 
@@ -43,35 +44,34 @@ const listIndent = 20
 const bulletSizeRelativeToFont = 2.8
 const bulletAlignmentRelativeToFont = 2
 
-class CategoryListContent extends React.Component<ContentPropsType, {| width: number |}> {
-  constructor () {
-    super()
-    this.state = {
-      width: Dimensions.get('window').width
-    }
-  }
-
-  onChange = (dimensionsEvent: DimensionsEventType) => {
+const CategoryListContent = ({
+  content,
+  navigateToLink,
+  cacheDictionary,
+  language,
+  lastUpdate,
+  theme
+}: ContentPropsType) => {
+  const [width, setWidth] = useState<number>(Dimensions.get('window').width)
+  const formatter = useContext(DateFormatterContext)
+  const onChange = (dimensionsEvent: DimensionsEventType) => {
     const defaultWidth = 200
-    this.setState({ width: (dimensionsEvent.window?.width || dimensionsEvent.screen?.width || defaultWidth) })
+    setWidth((dimensionsEvent.window?.width || dimensionsEvent.screen?.width || defaultWidth))
   }
 
-  componentDidMount () {
-    Dimensions.addEventListener('change', this.onChange)
-  }
+  useEffect(() => {
+    Dimensions.addEventListener('change', onChange)
+    return () => {
+      Dimensions.removeEventListener('change', onChange)
+    }
+  })
 
-  componentWillUnmount () {
-    Dimensions.removeEventListener('change', this.onChange)
-  }
-
-  onLinkPress = (evt: GestureResponderEvent, url: string) => {
-    const { language, navigateToLink, cacheDictionary } = this.props
+  const onLinkPress = useCallback((evt: GestureResponderEvent, url: string) => {
     const shareUrl = Object.keys(cacheDictionary).find(remoteUrl => cacheDictionary[remoteUrl] === url)
     navigateToLink(url, language, shareUrl || url)
-  }
+  }, [cacheDictionary, navigateToLink, language])
 
-  alterResources = (node: HTMLNode) => {
-    const { cacheDictionary } = this.props
+  const alterResources = useCallback((node: HTMLNode) => {
     if (node.attribs) {
       if (node.attribs.href) {
         const newResource = cacheDictionary[decodeURI(node.attribs.href)]
@@ -93,11 +93,10 @@ class CategoryListContent extends React.Component<ContentPropsType, {| width: nu
         }
       }
     }
-  }
+  }, [cacheDictionary])
 
   // TODO: remove with IGAPP-378
-  renderUnorderedListPrefix: RendererFunction = (htmlAttribs, children, convertedCSSStyles, passProps) => {
-    const { language, theme } = this.props
+  const renderUnorderedListPrefix = useCallback((htmlAttribs, children, convertedCSSStyles, passProps) => {
     const { baseFontStyle } = passProps
     const baseFontSize = baseFontStyle.fontSize
     return <View style={{
@@ -109,12 +108,11 @@ class CategoryListContent extends React.Component<ContentPropsType, {| width: nu
       marginLeft: config.isRTLLanguage(language) ? textDistanceToBullet : listIndent,
       backgroundColor: theme.colors.textColor
     }} />
-  }
+  }, [language, theme])
 
   // TODO: remove with IGAPP-378
-  renderOrderedListPrefix: RendererFunction = (htmlAttribs, children, convertedCSSStyles, passProps) => {
+  const renderOrderedListPrefix = useCallback((htmlAttribs, children, convertedCSSStyles, passProps) => {
     const { baseFontSize, allowFontScaling, index } = passProps
-    const { language } = this.props
     return <Text allowFontScaling={allowFontScaling} style={{
       fontSize: baseFontSize,
       marginRight: config.isRTLLanguage(language) ? listIndent : textDistanceToBullet,
@@ -122,12 +120,11 @@ class CategoryListContent extends React.Component<ContentPropsType, {| width: nu
     }}>
       {index})
     </Text>
-  }
+  }, [language])
 
   // see https://github.com/archriss/react-native-render-html/issues/286
   // TODO: remove with IGAPP-378
-  renderLists: RendererFunction = (htmlAttribs, children, convertedCSSStyles, passProps) => {
-    const { language } = this.props
+  const renderLists = useCallback((htmlAttribs, children, convertedCSSStyles, passProps) => {
     const { rawChildren, nodeIndex, key, listsPrefixesRenderers } = passProps
     children = children && children.map((child, index) => {
       const rawChild = rawChildren[index]
@@ -154,39 +151,34 @@ class CategoryListContent extends React.Component<ContentPropsType, {| width: nu
           )
     })
     return <View key={key}>{children}</View>
-  }
+  }, [language])
 
-  render () {
-    const { content, language, lastUpdate, theme } = this.props
-    return <SpaceBetween>
-      <Container>
-        <Html html={content}
-              onLinkPress={this.onLinkPress}
-              contentWidth={this.state.width}
-              allowFontScaling
-              textSelectable
-              alterNode={this.alterResources}
-              listsPrefixesRenderers={{ ul: this.renderUnorderedListPrefix, ol: this.renderOrderedListPrefix }}
-              renderers={{ ul: this.renderLists, ol: this.renderLists }}
-              baseFontStyle={{
-                fontSize: 14,
-                fontFamily: theme.fonts.contentFontRegular,
-                color: theme.colors.textColor
-              }}
-              tagsStyles={{
-                p: { textAlign: config.isRTLLanguage(language) ? 'right' : 'left' },
-                img: { align: config.isRTLLanguage(language) ? 'right' : 'left' }
-              }} />
-        {lastUpdate &&
-        <LastUpdateContainer>
-          <MomentContext.Consumer>
-            {formatter => <TimeStamp formatter={formatter} lastUpdate={lastUpdate} language={language} theme={theme} />}
-          </MomentContext.Consumer>
-        </LastUpdateContainer>
-        }
-      </Container>
-    </SpaceBetween>
-  }
+  return <SpaceBetween>
+    <Container>
+      <Html html={content}
+            onLinkPress={onLinkPress}
+            contentWidth={width}
+            allowFontScaling
+            textSelectable
+            alterNode={alterResources}
+            listsPrefixesRenderers={{ ul: renderUnorderedListPrefix, ol: renderOrderedListPrefix }}
+            renderers={{ ul: renderLists, ol: renderLists }}
+            baseFontStyle={{
+              fontSize: 14,
+              fontFamily: theme.fonts.contentFontRegular,
+              color: theme.colors.textColor
+            }}
+            tagsStyles={{
+              p: { textAlign: config.isRTLLanguage(language) ? 'right' : 'left' },
+              img: { align: config.isRTLLanguage(language) ? 'right' : 'left' }
+            }} />
+      {lastUpdate &&
+      <LastUpdateContainer>
+        <TimeStamp formatter={formatter} lastUpdate={lastUpdate} language={language} theme={theme} />
+      </LastUpdateContainer>
+      }
+    </Container>
+  </SpaceBetween>
 }
 
 export default CategoryListContent
