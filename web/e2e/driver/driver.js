@@ -10,7 +10,7 @@ import type { EndToEndConfigType } from '../config/configs'
 const BROWSERSTACK_EXHAUSTED_MESSAGE = 'All parallel tests are currently in use, including the queued tests. ' +
   'Please wait to finish or upgrade your plan to add more sessions.'
 const IMPLICIT_WAIT_TIMEOUT = 80000
-const STARTUP_DELAY = 3000
+const STARTUP_DELAY = 10000
 
 export const timer = (ms: number) => new Promise<void>(resolve => setTimeout(resolve, ms))
 
