@@ -89,7 +89,7 @@ class Config {
 
   /**
    * Checks whether the languageCode has an RTL script. This decision is made by the project "Integreat".
-   * Writing direction is not an attribute of "language", but of "scripts". That means that there are language which
+   * Writing direction is not an attribute of "language", but of "scripts". That means that there are languages which
    * can have RTL and LTR scripts.
    *
    * <b>Typical Usage</b>
