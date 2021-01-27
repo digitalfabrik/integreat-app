@@ -14,6 +14,9 @@ import theme from '../../../../modules/theme/constants/theme'
 import { ThemeProvider } from 'styled-components'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 
+jest.mock('react-i18next')
+jest.mock('redux-first-router-link')
+
 describe('TunewsPage', () => {
   const cities = new CityModelBuilder(2).build()
 

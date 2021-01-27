@@ -10,6 +10,8 @@ import moment from 'moment'
 import createLocation from '../../../../createLocation'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 
+jest.mock('react-i18next')
+
 describe('SearchPage', () => {
   const t = (key: ?string): string => key || ''
 
@@ -155,6 +157,32 @@ describe('SearchPage', () => {
     expect(searchPage.dive().dive().props()).toMatchObject({
       categories,
       location
+    })
+  })
+
+  describe('Tests for url query', () => {
+    it('should set state from url', () => {
+      const location = createLocation({
+        type: SEARCH_ROUTE, payload: { city, language }, query: { query: 'SearchForThis' }
+      })
+      const searchPage = shallow(
+        <SearchPage categories={categories} location={location} t={t}/>
+      )
+      expect(searchPage.state().filterText).toBe('SearchForThis')
+    })
+    it('should set url when state changes', () => {
+      const searchPage = shallow(
+        <SearchPage categories={categories} location={location} t={t}/>
+      )
+      searchPage.instance().handleFilterTextChanged('ChangeToThis')
+      expect(global.window.location.href).toMatch(/\?query=ChangeToThis/)
+    })
+    it('should remove ?query= when filteredText is empty', () => {
+      const searchPage = shallow(
+        <SearchPage categories={categories} location={location} t={t}/>
+      )
+      searchPage.instance().handleFilterTextChanged('')
+      expect(global.window.location.href).toMatch(/^((?!\?query=).)*$/)
     })
   })
 })

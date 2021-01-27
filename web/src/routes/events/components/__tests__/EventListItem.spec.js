@@ -5,6 +5,7 @@ import { EventModel, LocationModel, DateModel } from 'api-client'
 import moment from 'moment'
 import { shallow } from 'enzyme'
 import EventListItem from '../EventListItem'
+import DateFormatter from 'api-client/src/i18n/DateFormatter'
 
 describe('EventListItem', () => {
   const language = 'de'
@@ -42,7 +43,7 @@ describe('EventListItem', () => {
   // eslint-disable-next-line jest/no-disabled-tests
   it.skip('should render and match snapshot', () => {
     expect(shallow(
-      <EventListItem event={event} language={language} />
+      <EventListItem event={event} formatter={new DateFormatter(language)} />
     )).toMatchSnapshot()
   })
 })

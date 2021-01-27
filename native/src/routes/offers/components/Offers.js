@@ -8,18 +8,28 @@ import {
 } from 'api-client'
 import Tiles from '../../../modules/common/components/Tiles'
 import type { TFunction } from 'react-i18next'
-import { SPRUNGBRETT_OFFER, SPRUNGBRETT_ROUTE, WOHNEN_OFFER, WOHNEN_ROUTE } from '../constants'
 import { View } from 'react-native'
-import type { ThemeType } from '../../../modules/theme/constants'
-import type { NavigationStackProp } from 'react-navigation-stack'
+import type { ThemeType } from 'build-configs/ThemeType'
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
 import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
 import createNavigateToFeedbackModal from '../../../modules/app/createNavigateToFeedbackModal'
+import type {
+  NavigationPropType,
+  OffersRouteType,
+  RoutePropType
+} from '../../../modules/app/constants/NavigationTypes'
+import { SPRUNGBRETT_OFFER_ROUTE, WOHNEN_OFFER_ROUTE } from '../../../modules/app/constants/NavigationTypes'
 
 type PropsType = {|
   offers: Array<OfferModel>,
-  navigateToOffer: (path: string, isExternalUrl: boolean, postData: ?Map<string, string>) => void,
-  navigation: NavigationStackProp<*>,
+  navigateToOffer: (
+    offers: Array<OfferModel>,
+    path: string,
+    isExternalUrl: boolean,
+    postData: ?Map<string, string>
+  ) => void,
+  route: RoutePropType<OffersRouteType>,
+  navigation: NavigationPropType<OffersRouteType>,
   theme: ThemeType,
   cities: Array<CityModel>,
   t: TFunction,
@@ -29,17 +39,19 @@ type PropsType = {|
 
 class Offers extends React.Component<PropsType> {
   onTilePress = (tile: TileModel) => {
-    this.props.navigateToOffer(tile.path, tile.isExternalUrl, tile.postData)
+    const { navigateToOffer, offers: allOffers } = this.props
+    const offers = allOffers.filter(offer => offer.alias === tile.path)
+    navigateToOffer(offers, tile.path, tile.isExternalUrl, tile.postData)
   }
 
   toTileModels (offer: Array<OfferModel>): Array<TileModel> {
     return offer.map(
       offer => {
         let path = offer.path
-        if (offer.alias === SPRUNGBRETT_OFFER) {
-          path = SPRUNGBRETT_ROUTE
-        } else if (offer.alias === WOHNEN_OFFER) {
-          path = WOHNEN_ROUTE
+        if (offer.alias === SPRUNGBRETT_OFFER_ROUTE) {
+          path = SPRUNGBRETT_OFFER_ROUTE
+        } else if (offer.alias === WOHNEN_OFFER_ROUTE) {
+          path = WOHNEN_OFFER_ROUTE
         }
 
         return new TileModel({

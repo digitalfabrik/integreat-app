@@ -30,6 +30,22 @@ exports[`Helmet should add noindex tag, if city is not live 1`] = `
     key="ar"
     rel="alternate"
   />
+  <meta
+    content="PageTitle"
+    property="og:title"
+  />
+  <meta
+    content="https://integreat.app/social-media-preview.png"
+    property="og:image"
+  />
+  <meta
+    content="http://localhost/"
+    property="og:url"
+  />
+  <meta
+    content="website"
+    property="og:type"
+  />
 </HelmetWrapper>
 `;
 
@@ -62,6 +78,26 @@ exports[`Helmet should render and match snapshot 1`] = `
     hrefLang="ar"
     key="ar"
     rel="alternate"
+  />
+  <meta
+    content="PageTitle"
+    property="og:title"
+  />
+  <meta
+    content="https://integreat.app/social-media-preview.png"
+    property="og:image"
+  />
+  <meta
+    content="MetaDescription"
+    property="og:description"
+  />
+  <meta
+    content="http://localhost/"
+    property="og:url"
+  />
+  <meta
+    content="website"
+    property="og:type"
   />
 </HelmetWrapper>
 `;

@@ -92,7 +92,6 @@ const NavigationBar = styled.div`
   flex: 1 1 0%; /* The % unit is necessary for IE11 */
   align-items: stretch;
   justify-content: center;
-  overflow-y: hidden;
 `
 
 /**

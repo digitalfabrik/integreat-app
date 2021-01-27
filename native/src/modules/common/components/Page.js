@@ -1,21 +1,19 @@
 // @flow
 
 import * as React from 'react'
+import { useState, useContext, useCallback } from 'react'
 import styled from 'styled-components/native'
 import type { ThemeType } from '../../theme/constants'
-import type { NavigationStackProp } from 'react-navigation-stack'
 import Caption from './Caption'
 import TimeStamp from './TimeStamp'
 import type Moment from 'moment'
 import type { PageResourceCacheEntryStateType, PageResourceCacheStateType } from '../../app/StateType'
-import type { NavigateToInternalLinkParamsType } from '../../app/createNavigateToInternalLink'
-import MomentContext from '../../i18n/context/MomentContext'
 import RemoteContent from './RemoteContent'
 import SiteHelpfulBox from './SiteHelpfulBox'
 import SpaceBetween from './SpaceBetween'
-import onInternalLinkPress from '../onInternalLinkPress'
 import { RESOURCE_CACHE_DIR_PATH } from '../../endpoint/DatabaseConnector'
 import { mapValues } from 'lodash'
+import DateFormatterContext from '../../i18n/context/DateFormatterContext'
 
 const HORIZONTAL_MARGIN = 8
 
@@ -25,63 +23,62 @@ const Container = styled.View`
 
 export type ParsedCacheDictionaryType = {| [remoteUrl: string]: string |}
 
-type StateType = {|
-  loading: boolean
-|}
-
-type PropType = {|
+type PropsType = {|
   title: string,
   content: string,
   theme: ThemeType,
-  navigation: NavigationStackProp<*>,
-  navigateToInternalLink?: NavigateToInternalLinkParamsType => void,
+  navigateToLink: (url: string, language: string, shareUrl: string) => void,
   navigateToFeedback?: (positive: boolean) => void,
   files: PageResourceCacheStateType,
   children?: React.Node,
   language: string,
   resourceCacheUrl: string,
-  lastUpdate: Moment,
-  hijackRegExp?: RegExp
+  lastUpdate: Moment
 |}
 
-class Page extends React.Component<PropType, StateType> {
-  state = { loading: true }
+const cacheDictionary = (files: PageResourceCacheStateType, resourceCacheUrl: string): ParsedCacheDictionaryType => {
+  return mapValues(files, (file: PageResourceCacheEntryStateType) => {
+    return file.filePath.startsWith(RESOURCE_CACHE_DIR_PATH)
+      ? file.filePath.replace(RESOURCE_CACHE_DIR_PATH, resourceCacheUrl)
+      : file.filePath
+  })
+}
 
-  onLinkPress = (url: string) => {
-    const { navigation, language, navigateToInternalLink } = this.props
-    const cacheDict = this.cacheDictionary()
+const Page = ({
+  title,
+  children,
+  content,
+  theme,
+  language,
+  resourceCacheUrl,
+  lastUpdate,
+  navigateToFeedback,
+  navigateToLink,
+  files
+}: PropsType) => {
+  const [loading, setLoading] = useState<boolean>(true)
+  const formatter = useContext(DateFormatterContext)
+  const cacheDict = cacheDictionary(files, resourceCacheUrl)
+
+  const onLinkPress = useCallback((url: string) => {
     const shareUrl = Object.keys(cacheDict).find(remoteUrl => cacheDict[remoteUrl] === url)
-    onInternalLinkPress(url, navigation, language, navigateToInternalLink, shareUrl || url)
-  }
+    navigateToLink(url, language, shareUrl || url)
+  }, [navigateToLink, cacheDict, language])
 
-  onLoad = () => this.setState({ loading: false })
+  const onLoad = useCallback(() => setLoading(false), [setLoading])
 
-  cacheDictionary = (): ParsedCacheDictionaryType => {
-    const { files, resourceCacheUrl } = this.props
-    return mapValues(files, (file: PageResourceCacheEntryStateType) => {
-      return file.filePath.startsWith(RESOURCE_CACHE_DIR_PATH)
-        ? file.filePath.replace(RESOURCE_CACHE_DIR_PATH, resourceCacheUrl)
-        : file.filePath
-    })
-  }
-
-  render () {
-    const { title, children, content, theme, language, resourceCacheUrl, lastUpdate, navigateToFeedback } = this.props
-    return <SpaceBetween>
-      <Container>
-        <Caption title={title} theme={theme} />
-        {children}
-        <RemoteContent theme={theme} content={content} cacheDirectory={this.cacheDictionary()}
-                       onLinkPress={this.onLinkPress} onLoad={this.onLoad} language={language}
-                       resourceCacheUrl={resourceCacheUrl} />
-        {!this.state.loading && <MomentContext.Consumer>
-          {formatter => <TimeStamp formatter={formatter} lastUpdate={lastUpdate} language={language} theme={theme} />}
-        </MomentContext.Consumer>}
-      </Container>
-      {navigateToFeedback && !this.state.loading && <SiteHelpfulBox navigateToFeedback={navigateToFeedback}
-                                                                    theme={theme} />}
-    </SpaceBetween>
-  }
+  return <SpaceBetween>
+    <Container>
+      <Caption title={title} theme={theme} />
+      {children}
+      <RemoteContent theme={theme} content={content} cacheDirectory={cacheDict}
+                     onLinkPress={onLinkPress} onLoad={onLoad} language={language}
+                     resourceCacheUrl={resourceCacheUrl} />
+      {!loading && <TimeStamp formatter={formatter} lastUpdate={lastUpdate} language={language} theme={theme} />}
+    </Container>
+    {navigateToFeedback && !loading && <SiteHelpfulBox navigateToFeedback={navigateToFeedback}
+                                                       theme={theme} />}
+  </SpaceBetween>
 }
 
 export default Page
