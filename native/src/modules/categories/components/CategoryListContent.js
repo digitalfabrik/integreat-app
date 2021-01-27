@@ -104,8 +104,8 @@ const CategoryListContent = ({
       height: baseFontSize / bulletSizeRelativeToFont,
       borderRadius: baseFontSize / bulletSizeRelativeToFont,
       marginTop: baseFontSize / bulletAlignmentRelativeToFont,
-      marginRight: config.isRTLLanguage(language) ? listIndent : textDistanceToBullet,
-      marginLeft: config.isRTLLanguage(language) ? textDistanceToBullet : listIndent,
+      marginRight: config.hasRTLScript(language) ? listIndent : textDistanceToBullet,
+      marginLeft: config.hasRTLScript(language) ? textDistanceToBullet : listIndent,
       backgroundColor: theme.colors.textColor
     }} />
   }, [language, theme])
@@ -115,8 +115,8 @@ const CategoryListContent = ({
     const { baseFontSize, allowFontScaling, index } = passProps
     return <Text allowFontScaling={allowFontScaling} style={{
       fontSize: baseFontSize,
-      marginRight: config.isRTLLanguage(language) ? listIndent : textDistanceToBullet,
-      marginLeft: config.isRTLLanguage(language) ? textDistanceToBullet : listIndent
+      marginRight: config.hasRTLScript(language) ? listIndent : textDistanceToBullet,
+      marginLeft: config.hasRTLScript(language) ? textDistanceToBullet : listIndent
     }}>
       {index})
     </Text>
@@ -136,7 +136,7 @@ const CategoryListContent = ({
           prefix = listsPrefixesRenderers.ol(htmlAttribs, children, convertedCSSStyles, { ...passProps, index })
         }
       }
-      return config.isRTLLanguage(language)
+      return config.hasRTLScript(language)
         ? (
           <View key={`list-${nodeIndex}-${index}-${key}`} style={{ flexDirection: 'row' }}>
             <View style={{ flex: 1 }}>{child}</View>
@@ -169,8 +169,8 @@ const CategoryListContent = ({
               color: theme.colors.textColor
             }}
             tagsStyles={{
-              p: { textAlign: config.isRTLLanguage(language) ? 'right' : 'left' },
-              img: { align: config.isRTLLanguage(language) ? 'right' : 'left' }
+              p: { textAlign: config.hasRTLScript(language) ? 'right' : 'left' },
+              img: { align: config.hasRTLScript(language) ? 'right' : 'left' }
             }} />
       {lastUpdate &&
       <LastUpdateContainer>
