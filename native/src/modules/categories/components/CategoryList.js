@@ -10,6 +10,7 @@ import CategoryListContent from './CategoryListContent'
 import type { PageResourceCacheEntryStateType, PageResourceCacheStateType } from '../../app/StateType'
 import { RESOURCE_CACHE_DIR_PATH } from '../../endpoint/DatabaseConnector'
 import { mapValues } from 'lodash'
+import Moment from 'moment'
 
 export type CategoryListModelType = {|
   title: string,
@@ -26,7 +27,8 @@ export type ListEntryType = {|
 export type ListContentModelType = {|
   files: PageResourceCacheStateType,
   resourceCacheUrl: string,
-  content: string
+  content: string,
+  lastUpdate: Moment
 |}
 
 type PropsType = {|
@@ -36,7 +38,7 @@ type PropsType = {|
   /** A search query to highlight in the categories titles */
   query?: string,
   theme: ThemeType,
-  onItemPress: (tile: { title: string, thumbnail: string, path: string }) => void,
+  onItemPress: (tile: CategoryListModelType) => void,
   navigateToLink: (url: string, language: string, shareUrl: string) => void,
   language: string,
   thumbnail?: string
@@ -64,8 +66,8 @@ class CategoryList extends React.Component<PropsType> {
     return <CategoryListContent content={listContent.content}
                                 language={language}
                                 navigateToLink={navigateToLink}
-                                resourceCacheUrl={listContent.resourceCacheUrl}
                                 cacheDictionary={cacheDictionary}
+                                lastUpdate={listContent.lastUpdate}
                                 theme={theme} />
   }
 
@@ -76,14 +78,17 @@ class CategoryList extends React.Component<PropsType> {
       {thumbnail && <CategoryThumbnail source={thumbnail} />}
       {title && <CategoryListCaption title={title} theme={theme} withThumbnail={!!(thumbnail)} />}
       {listContent && this.getListContent(listContent)}
-      {categories.map(({ model, subCategories }) =>
-        <CategoryListItem key={model.path}
-                          category={model}
-                          language={language}
-                          subCategories={subCategories}
-                          query={query}
-                          theme={theme}
-                          onItemPress={onItemPress} />
+      {categories.map(({
+        model,
+        subCategories
+      }) =>
+          <CategoryListItem key={model.path}
+                            category={model}
+                            language={language}
+                            subCategories={subCategories}
+                            query={query}
+                            theme={theme}
+                            onItemPress={onItemPress} />
       )}
     </>
   }
