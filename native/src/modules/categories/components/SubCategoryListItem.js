@@ -6,6 +6,7 @@ import type { ThemeType } from '../../theme/constants'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
 import { contentDirection } from '../../i18n/contentDirection'
+import type { CategoryListModelType } from './CategoryList'
 
 const SubCategoryTitleContainer = styled.View`
   flex: 1;
@@ -31,12 +32,12 @@ const SubCategoryTitle = styled.Text`
   font-family: ${props => props.theme.fonts.decorativeFontRegular};
 `
 
-type PropsType = {
-  subCategory: { title: string, thumbnail: string, path: string },
+type PropsType = {|
+  subCategory: CategoryListModelType,
   theme: ThemeType,
-  onItemPress: (tile: { title: string, thumbnail: string, path: string }) => void,
+  onItemPress: (tile: CategoryListModelType) => void,
   language: string
-}
+|}
 
 class SubCategoryListItem extends React.PureComponent<PropsType> {
   onSubCategoryPress = () => {
