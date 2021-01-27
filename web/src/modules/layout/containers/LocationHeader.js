@@ -53,8 +53,12 @@ export class LocationHeader extends React.Component<PropsType> {
     return [
       <HeaderActionBarItemLink key='search' href={new SearchRouteConfig().getRoutePath({ city, language })}
                                text={t('search')} iconSrc={searchIcon} />,
-      <HeaderActionBarItemLink key='location' href={new LandingRouteConfig().getRoutePath({ language })}
-                               text={t('changeLocation')} iconSrc={landingIcon} />,
+      ...(!buildConfig().featureFlags.fixedCity
+        ? [<HeaderActionBarItemLink key='location'
+                                    href={new LandingRouteConfig().getRoutePath({ language })}
+                                    text={t('changeLocation')}
+                                    iconSrc={landingIcon} />]
+        : []),
       <LanguageSelector key='language' languageChangePaths={languageChangePaths} isHeaderActionItem
                         location={location} />
     ]

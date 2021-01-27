@@ -212,7 +212,7 @@ describe('Switcher', () => {
                 categoriesPayload={categoriesPayload} eventsPayload={eventsPayload} offersPayload={offersPayload}
                 localNewsPayload={localNewsPayload} localNewsElementPayload={localNewsElementPayload}
                 tunewsPayload={tunewsPayload} tunewsElementPayload={tunewsElementPayload} poisPayload={poisPayload}
-                disclaimerPayload={disclaimerPayload} languages={languages}
+                disclaimerPayload={disclaimerPayload} languagesPayload={languagesPayload}
                 tunewsLanguagesPayload={tunewsLanguagesPayload} t={t}
                 sprungbrettJobsPayload={sprungbrettPayload} wohnenOffersPayload={wohnenOffersPayload} darkMode
                 toggleDarkMode={toggleDarkMode} />
@@ -290,7 +290,7 @@ describe('Switcher', () => {
       eventsPayload,
       offersPayload,
       i18n: expect.anything(),
-      languages,
+      languagesPayload,
       poisPayload,
       sprungbrettJobsPayload: sprungbrettPayload,
       t: expect.any(Function),
