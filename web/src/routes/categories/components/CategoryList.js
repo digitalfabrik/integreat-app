@@ -37,6 +37,8 @@ type PropsType = {|
   thumbnail?: string,
   lastUpdate?: Moment,
   language: string,
+  formatter: DateFormatter,
+  lastUpdate: Moment,
   onInternalLinkClick: string => void
 |}
 
@@ -46,14 +48,15 @@ type PropsType = {|
 class CategoryList extends React.PureComponent<PropsType> { 
   render () {
     const { categories, title, thumbnail, content, query, onInternalLinkClick,
-            lastUpdate, language } = this.props
+            lastUpdate, formatter } = this.props
     return (
       <div>
         {thumbnail && <Centering><CategoryIcon src={thumbnail} alt='' /></Centering>}
         {title && <Caption title={title} />}
         {content && <RemoteContent dangerouslySetInnerHTML={{ __html: content }}
                                    onInternalLinkClick={onInternalLinkClick} />}
-        {content && lastUpdate && <LastUpdateInfo lastUpdate={lastUpdate} language={language} withText />}
+        {content && lastUpdate &&
+         <LastUpdateInfo lastUpdate={lastUpdate} formatter={formatter} withText />}
         <List>
           {categories.map(categoryItem =>
             <CategoryEntry key={categoryItem.model.hash}
