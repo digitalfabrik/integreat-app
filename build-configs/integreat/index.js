@@ -29,7 +29,8 @@ const commonIntegreatBuildConfig: CommonBuildConfigType = {
     pushNotifications: true,
     introSlides: true,
     sentry: true,
-    developerFriendly: false
+    developerFriendly: false,
+    fixedCity: null
   },
   aboutUrls: {
     default: 'https://integreat-app.de/about/',
