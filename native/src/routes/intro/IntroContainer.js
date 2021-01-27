@@ -26,7 +26,7 @@ import type {
 } from '../../modules/app/constants/NavigationTypes'
 import { LANDING_ROUTE } from '../../modules/app/constants/NavigationTypes'
 
-const Container: StyledComponent<{ width: number }, {}, *> = styled.View`
+const Container: StyledComponent<{| width: number |}, {||}, *> = styled.View`
   display: flex;
   flex-direction: column;
   width: ${props => props.width}px;
@@ -77,7 +77,7 @@ type StateType = {|
 
 class Intro extends React.Component<PropsType, StateType> {
   _appSettings: AppSettings
-  _flatList: {current: null | React$ElementRef<typeof FlatList>}
+  _flatList: {|current: null | React$ElementRef<typeof FlatList>|}
 
   constructor (props: PropsType) {
     super(props)
@@ -93,7 +93,7 @@ class Intro extends React.Component<PropsType, StateType> {
     this._appSettings = new AppSettings()
     this._flatList = React.createRef()
     Dimensions.addEventListener('change',
-      (event: { window: { width: number }}) => this.setState({ width: event.window.width })
+      (event: {| window: {| width: number |}|}) => this.setState({ width: event.window.width })
     )
   }
 
@@ -109,31 +109,33 @@ class Intro extends React.Component<PropsType, StateType> {
       title: t('appName', { appName: buildConfig().appName }),
       description: t('appDescription', { appName: buildConfig().appName }),
       renderContent: this.renderAppIcon()
-    }, {
-      key: 'search',
-      title: t('search'),
-      description: t('searchDescription'),
-      renderContent: this.renderImageContent(icons.search)
-    }, {
-      key: 'events',
-      title: t('events'),
-      description: t('eventsDescription'),
-      renderContent: this.renderImageContent(icons.events)
-    }, {
-      key: 'offers',
-      title: t('offers'),
-      description: t('offersDescription'),
-      renderContent: this.renderImageContent(icons.offers)
-    }, {
-      key: 'languageChange',
-      title: t('languageChange'),
-      description: t('languageChangeDescription'),
-      renderContent: this.renderImageContent(icons.language)
-    }, {
-      key: 'inquiry',
-      title: t('inquiryTitle'),
-      renderContent: this.renderSettings
-    }]
+    }].concat(icons
+      ? [{
+          key: 'search',
+          title: t('search'),
+          description: t('searchDescription'),
+          renderContent: this.renderImageContent(icons.search)
+        }, {
+          key: 'events',
+          title: t('events'),
+          description: t('eventsDescription'),
+          renderContent: this.renderImageContent(icons.events)
+        }, {
+          key: 'offers',
+          title: t('offers'),
+          description: t('offersDescription'),
+          renderContent: this.renderImageContent(icons.offers)
+        }, {
+          key: 'languageChange',
+          title: t('languageChange'),
+          description: t('languageChangeDescription'),
+          renderContent: this.renderImageContent(icons.language)
+        }, {
+          key: 'inquiry',
+          title: t('inquiryTitle'),
+          renderContent: this.renderSettings
+        }]
+      : [])
   }
 
   toggleCustomizeSettings = () => this.setState(prevState =>
@@ -197,11 +199,11 @@ class Intro extends React.Component<PropsType, StateType> {
     this._flatList.current.scrollToIndex({ index })
   }
 
-  renderSlide = ({ item }: { item: SlideContentType }) => {
+  renderSlide = ({ item }: {| item: SlideContentType |}) => {
     return <SlideContent item={item} theme={this.props.theme} width={this.state.width} />
   }
 
-  onViewableItemsChanged = ({ viewableItems }: { viewableItems: Array<ViewToken> }) => {
+  onViewableItemsChanged = ({ viewableItems }: {| viewableItems: Array<ViewToken> |}) => {
     if (viewableItems.length === 1) {
       if (viewableItems[0].index !== null) {
         this.setState({ currentSlide: viewableItems[0].index })
