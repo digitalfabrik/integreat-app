@@ -5,12 +5,21 @@ import { Dimensions, Text, View } from 'react-native'
 import { type DisplayMetrics } from 'react-native/Libraries/Utilities/NativeDeviceInfo'
 import Html, { GestureResponderEvent, type HTMLNode, type RendererFunction } from 'react-native-render-html'
 import styled from 'styled-components/native'
-import { type StyledComponent } from 'styled-components'
 import type { ThemeType } from 'build-configs/ThemeType'
+import Moment from 'moment'
 import { config } from 'translations'
+import MomentContext from '../../i18n/context/MomentContext'
+import TimeStamp from '../../common/components/TimeStamp'
+import SpaceBetween from '../../common/components/SpaceBetween'
 
-const VerticalPadding: StyledComponent<{}, {}, *> = styled.View`
-  padding: 0 20px;
+const HORIZONTAL_MARGIN = 8
+
+const Container = styled.View`
+  margin: 0 ${HORIZONTAL_MARGIN}px 0px;
+`
+
+const LastUpdateContainer = styled.View`
+  margin: 15px 0;
 `
 
 // type inferred from 'react-native/Libraries/Utilities/Dimensions'
@@ -22,10 +31,10 @@ type DimensionsEventType = {
 
 type ContentPropsType = {|
   content: string,
-  resourceCacheUrl: string,
   navigateToLink: (url: string, language: string, shareUrl: string) => void,
   cacheDictionary: { [string]: string },
   language: string,
+  lastUpdate?: Moment,
   theme: ThemeType
 |}
 
@@ -148,26 +157,35 @@ class CategoryListContent extends React.Component<ContentPropsType, {| width: nu
   }
 
   render () {
-    const { content, language, theme } = this.props
-    return <VerticalPadding>
-      <Html html={content}
-            onLinkPress={this.onLinkPress}
-            contentWidth={this.state.width}
-            allowFontScaling
-            textSelectable
-            alterNode={this.alterResources}
-            listsPrefixesRenderers={{ ul: this.renderUnorderedListPrefix, ol: this.renderOrderedListPrefix }}
-            renderers={{ ul: this.renderLists, ol: this.renderLists }}
-            baseFontStyle={{
-              fontSize: 14,
-              fontFamily: theme.fonts.contentFontRegular,
-              color: theme.colors.textColor
-            }}
-            tagsStyles={{
-              p: { textAlign: config.isRTLLanguage(language) ? 'right' : 'left' },
-              img: { align: config.isRTLLanguage(language) ? 'right' : 'left' }
-            }} />
-    </VerticalPadding>
+    const { content, language, lastUpdate, theme } = this.props
+    return <SpaceBetween>
+      <Container>
+        <Html html={content}
+              onLinkPress={this.onLinkPress}
+              contentWidth={this.state.width}
+              allowFontScaling
+              textSelectable
+              alterNode={this.alterResources}
+              listsPrefixesRenderers={{ ul: this.renderUnorderedListPrefix, ol: this.renderOrderedListPrefix }}
+              renderers={{ ul: this.renderLists, ol: this.renderLists }}
+              baseFontStyle={{
+                fontSize: 14,
+                fontFamily: theme.fonts.contentFontRegular,
+                color: theme.colors.textColor
+              }}
+              tagsStyles={{
+                p: { textAlign: config.isRTLLanguage(language) ? 'right' : 'left' },
+                img: { align: config.isRTLLanguage(language) ? 'right' : 'left' }
+              }} />
+        {lastUpdate &&
+        <LastUpdateContainer>
+          <MomentContext.Consumer>
+            {formatter => <TimeStamp formatter={formatter} lastUpdate={lastUpdate} language={language} theme={theme} />}
+          </MomentContext.Consumer>
+        </LastUpdateContainer>
+        }
+      </Container>
+    </SpaceBetween>
   }
 }
 
