@@ -170,7 +170,8 @@ describe('EventsRouteConfig', () => {
     it('should get feedback information', () => {
       expect(eventsRouteConfig.getFeedbackTargetInformation({ payloads, location }))
         .toEqual({
-          title: 'Erstes Event'
+          title: 'Erstes Event',
+          path: '/augsburg/de/events/erstes_event'
         })
     })
 

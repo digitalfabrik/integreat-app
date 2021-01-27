@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 
 import createReduxStore from '../createReduxStore'
 import I18nProvider from '../../i18n/containers/I18nProvider'
+import initSentry from '../initSentry'
 
 import PlatformProvider from '../../platform/containers/PlatformProvider'
 import Switcher from './Switcher'
@@ -21,8 +22,7 @@ class App extends React.Component<PropsType> {
   constructor () {
     super()
     this.store = createReduxStore()
-    // import initSentry from '../initSentry'
-    // initSentry().catch(e => console.error(e)) This will be enabled in IGAPP-397
+    initSentry().catch(e => console.error(e))
   }
 
   render () {

@@ -1,6 +1,7 @@
 // @flow
 
 import * as React from 'react'
+import { useContext } from 'react'
 import { connect } from 'react-redux'
 import { CityModel, EventModel, NotFoundError } from 'api-client'
 import Page, { THUMBNAIL_WIDTH } from '../../../modules/common/components/Page'
@@ -17,6 +18,7 @@ import EventJsonLd from '../../../modules/json-ld/components/EventJsonLd'
 import Failure from '../../../modules/common/components/Failure'
 import CategoriesRouteConfig from '../../../modules/app/route-configs/CategoriesRouteConfig'
 import featuredImageToSrcSet from '../../../modules/common/utils/featuredImageToSrcSet'
+import DateFormatterContext from '../../../modules/i18n/context/DateFormatterContext'
 
 type PropsType = {|
   events: Array<EventModel>,
@@ -30,50 +32,65 @@ type PropsType = {|
 /**
  * Displays a list of events or a single event, matching the route /<location>/<language>/events(/<id>)
  */
-export class EventsPage extends React.Component<PropsType> {
-  renderEventListItem = (language: string) => (event: EventModel) =>
-    <EventListItem event={event} language={language} key={event.path} />
+export const EventsPage = ({
+  events,
+  eventId,
+  city,
+  language,
+  t,
+  cities
+}: PropsType) => {
+  const formatter = useContext(DateFormatterContext)
 
-  render () {
-    const { events, eventId, city, language, t, cities } = this.props
-    const cityModel = cities.find(_cityModel => _cityModel.code === city)
-    if (!cityModel || !cityModel.eventsEnabled) {
-      return <Failure errorMessage='notFound.category' goToMessage='goTo.categories'
-                      goToPath={new CategoriesRouteConfig().getRoutePath({ city, language })} />
-    }
-    if (eventId) {
-      const event = events.find(_event => _event.path === `/${city}/${language}/events/${eventId}`)
+  const renderEventListItem = () => (event: EventModel) =>
+    <EventListItem event={event} formatter={formatter} key={event.path} />
 
-      if (event) {
-        const location = event.location.location
-        const defaultThumbnail = event.featuredImage ? event.featuredImage.medium.url : event.thumbnail
-        return <>
-          <EventJsonLd event={event} />
-          <Page defaultThumbnailSrc={defaultThumbnail}
-                thumbnailSrcSet={event.featuredImage && featuredImageToSrcSet(event.featuredImage, THUMBNAIL_WIDTH)}
-                lastUpdate={event.lastUpdate}
-                content={event.content}
-                title={event.title}
-                language={language}
-                onInternalLinkClick={push}>
-            <>
-              <PageDetail identifier={t('date')} information={event.date.toFormattedString(language)} />
-              {location && <PageDetail identifier={t('location')} information={location} />}
-            </>
-          </Page>
-        </>
-      } else {
-        const error = new NotFoundError({ type: 'event', id: eventId, city, language })
-        return <FailureSwitcher error={error} />
-      }
-    }
-    return <>
-      <Caption title={t('events')} />
-      <List noItemsMessage={t('currentlyNoEvents')}
-            items={events}
-            renderItem={this.renderEventListItem(language)} />
-    </>
+  const cityModel = cities.find(_cityModel => _cityModel.code === city)
+  if (!cityModel || !cityModel.eventsEnabled) {
+    return <Failure errorMessage='notFound.category' goToMessage='goTo.categories'
+                    goToPath={new CategoriesRouteConfig().getRoutePath({
+                      city,
+                      language
+                    })} />
   }
+
+  if (eventId) {
+    const event = events.find(_event => _event.path === `/${city}/${language}/events/${eventId}`)
+
+    if (event) {
+      const location = event.location.location
+      const defaultThumbnail = event.featuredImage ? event.featuredImage.medium.url : event.thumbnail
+      return <>
+        <EventJsonLd event={event} formatter={formatter}/>
+        <Page defaultThumbnailSrc={defaultThumbnail}
+              thumbnailSrcSet={event.featuredImage && featuredImageToSrcSet(event.featuredImage, THUMBNAIL_WIDTH)}
+              lastUpdate={event.lastUpdate}
+              content={event.content}
+              title={event.title}
+              formatter={formatter}
+              onInternalLinkClick={push}>
+          <>
+            <PageDetail identifier={t('date')} information={event.date.toFormattedString(formatter)} />
+            {location && <PageDetail identifier={t('location')} information={location} />}
+          </>
+        </Page>
+      </>
+    } else {
+      const error = new NotFoundError({
+        type: 'event',
+        id: eventId,
+        city,
+        language
+      })
+      return <FailureSwitcher error={error} />
+    }
+  }
+  return <>
+    <Caption title={t('events')} />
+    <List noItemsMessage={t('currentlyNoEvents')}
+          items={events}
+          renderItem={renderEventListItem()} />
+  </>
 }
 
 const mapStateTypeToProps = (state: StateType) => ({

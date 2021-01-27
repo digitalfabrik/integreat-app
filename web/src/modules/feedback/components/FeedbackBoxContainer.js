@@ -26,6 +26,7 @@ import { OFFERS_ROUTE } from '../../app/route-configs/OffersRouteConfig'
 import { CATEGORIES_ROUTE } from '../../app/route-configs/CategoriesRouteConfig'
 import { WOHNEN_ROUTE } from '../../app/route-configs/WohnenRouteConfig'
 import { SPRUNGBRETT_ROUTE } from '../../app/route-configs/SprungbrettRouteConfig'
+import { POIS_ROUTE } from '../../app/route-configs/PoisRouteConfig'
 import { SEARCH_ROUTE } from '../../app/route-configs/SearchRouteConfig'
 import { DISCLAIMER_ROUTE } from '../../app/route-configs/DisclaimerRouteConfig'
 import { cmsApiBaseUrl } from '../../app/constants/urls'
@@ -123,6 +124,7 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
 
       // We don't want to differ between the content of categories, offers and events for the user, but we want to know
       // from which route the feedback was sent
+      // TODO: add POIS_ROUTE in IGAPP-438
       switch (currentRoute) {
         case EVENTS_ROUTE:
           return new FeedbackVariant({ label, feedbackType: EVENTS_FEEDBACK_TYPE, feedbackCategory })
@@ -170,6 +172,12 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
     } else if (type === EVENTS_ROUTE && path && title) {
       return new FeedbackVariant({
         label: t('contentOfEvent', { event: title }),
+        feedbackType: PAGE_FEEDBACK_TYPE,
+        feedbackCategory
+      })
+    } else if (type === POIS_ROUTE && path && title) {
+      return new FeedbackVariant({
+        label: t('contentOfPoi', { poi: title }),
         feedbackType: PAGE_FEEDBACK_TYPE,
         feedbackCategory
       })

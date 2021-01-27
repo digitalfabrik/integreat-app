@@ -15,6 +15,8 @@ import theme from '../../../../modules/theme/constants/theme'
 import configureMockStore from 'redux-mock-store'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 
+jest.mock('redux-first-router-link')
+
 describe('LocalNewsDetailsPage', () => {
   const cities = new CityModelBuilder(2).build()
 

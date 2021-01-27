@@ -21,4 +21,6 @@ steps:
       directory: native
   - unit_test:
       directory: api-client
-  - notify_failed
+  - unit_test:
+      directory: translations
+  - notify

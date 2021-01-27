@@ -38,4 +38,4 @@ steps:
       root: native/ios/output/gym
       paths:
         - << parameters.build_config_name >>.ipa
-  - notify_failed
+  - notify
