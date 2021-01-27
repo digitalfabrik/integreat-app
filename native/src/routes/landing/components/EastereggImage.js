@@ -10,6 +10,7 @@ import AppSettings from '../../../modules/settings/AppSettings'
 import moment from 'moment'
 import { Button } from 'react-native-elements'
 import buildConfig, { buildConfigAssets } from '../../../modules/app/constants/buildConfig'
+import FastImage from 'react-native-fast-image'
 
 const API_URL_OVERRIDE_MIN_CLICKS = 10
 const CLICK_TIMEOUT = 8
@@ -21,7 +22,7 @@ type PropsType = {|
   theme: ThemeType
 |}
 
-const LocationImage: StyledComponent<{}, ThemeType, *> = styled.Image`
+const LocationImage: StyledComponent<{}, ThemeType, *> = styled(FastImage)`
   height: 70px;
   resize-mode: contain;
 `

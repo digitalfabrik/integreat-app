@@ -25,6 +25,7 @@ import type {
   RoutePropType
 } from '../../modules/app/constants/NavigationTypes'
 import { LANDING_ROUTE } from '../../modules/app/constants/NavigationTypes'
+import FastImage from 'react-native-fast-image'
 
 const Container: StyledComponent<{ width: number }, {}, *> = styled.View`
   display: flex;
@@ -34,7 +35,7 @@ const Container: StyledComponent<{ width: number }, {}, *> = styled.View`
   justify-content: space-between;
 `
 
-const AppIcon = styled.Image`
+const AppIcon = styled(FastImage)`
   justify-content: center;
   align-self: center;
   flex: 1;
@@ -43,7 +44,7 @@ const AppIcon = styled.Image`
   resize-mode: contain;
 `
 
-const ImageContent = styled.Image`
+const ImageContent = styled(FastImage)`
   justify-content: center;
   align-self: center;
   flex: 1;

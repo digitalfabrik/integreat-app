@@ -13,6 +13,7 @@ import {
 import headerImage from '../assets/tu-news-header-details-icon.svg'
 import styled from 'styled-components/native'
 import type { StyledComponent } from 'styled-components'
+import FastImage from 'react-native-fast-image'
 
 const Container: StyledComponent<{||}, {||}, *> = styled.View`
   align-items: center;
@@ -29,7 +30,7 @@ const HeaderImageWrapper: StyledComponent<{||}, {||}, *> = styled.View`
   background-color: rgba(2, 121, 166, 0.4);
 `
 
-const HeaderImage: StyledComponent<{||}, {||}, *> = styled.Image`
+const HeaderImage: StyledComponent<{||}, {||}, *> = styled(FastImage)`
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
 `

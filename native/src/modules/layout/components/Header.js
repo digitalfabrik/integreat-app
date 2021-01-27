@@ -21,6 +21,7 @@ import {
 } from '../../app/constants/NavigationTypes'
 import { cityContentUrl } from '../../common/url'
 import createNavigateToLanding from '../../app/createNavigateToLanding'
+import FastImage from 'react-native-fast-image'
 
 const Horizontal = styled.View`
   flex: 1;
@@ -35,7 +36,7 @@ const HorizontalLeft = styled.View`
   align-items: center;
 `
 
-const Icon = styled.Image`
+const Icon = styled(FastImage)`
   width: 70px;
   height: 50px;
   resize-mode: contain;

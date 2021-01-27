@@ -9,6 +9,7 @@ import FailureIcon from '../assets/FailureIcon.svg'
 import type { ThemeType } from '../../theme/constants'
 import { Button } from 'react-native-elements'
 import type { ErrorCodeType } from '../ErrorCodes'
+import FastImage from 'react-native-fast-image'
 
 const ViewContainer: StyledComponent<{}, ThemeType, *> = styled.View`
 flex: 1;
@@ -16,7 +17,7 @@ align-items: center;
 margin-top: 15%;
 `
 
-const IconContainer = styled.Image`
+const IconContainer = styled(FastImage)`
 margin-bottom: 10px;
 `
 

@@ -12,8 +12,9 @@ import { LOCAL_NEWS, TUNEWS } from '../../endpoint/constants'
 import activeInternational from '../../../routes/news/assets/tu-news-active.svg'
 import inactiveInternational from '../../../routes/news/assets/tu-news-inactive.svg'
 import { TFunction } from 'i18next'
+import FastImage from 'react-native-fast-image'
 
-const NewsTypeIcon = styled.Image`
+const NewsTypeIcon = styled(FastImage)`
   align-self: center;
 `
 const TouchableWrapper = styled.TouchableOpacity`
