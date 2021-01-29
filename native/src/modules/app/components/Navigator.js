@@ -114,8 +114,9 @@ const Navigator = (props: PropsType) => {
           initSentry()
         }
 
-        if (selectedCity) {
-          setInitialRoute({ name: DASHBOARD_ROUTE, cityCode: selectedCity, languageCode: contentLanguage })
+        const city = buildConfig().featureFlags.fixedCity || selectedCity
+        if (city) {
+          setInitialRoute({ name: DASHBOARD_ROUTE, cityCode: city, languageCode: contentLanguage })
         } else {
           setInitialRoute({ name: LANDING_ROUTE })
         }

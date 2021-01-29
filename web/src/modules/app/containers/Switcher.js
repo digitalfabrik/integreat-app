@@ -32,8 +32,10 @@ import toggleDarkModeAction from '../../theme/actions/toggleDarkMode'
 import LanguageFailure from '../../common/containers/LanguageFailure'
 import RouteContentSwitcher from './RouteContentSwitcher'
 import type { StoreActionType } from '../StoreActionType'
+import FailureSwitcher from '../../common/components/FailureSwitcher'
+import buildConfig from '../constants/buildConfig'
 
-export type LanguageChangePathsType = Array<{ code: string, path: string | null, name: string }>
+export type LanguageChangePathsType = Array<{| code: string, path: string | null, name: string |}>
 
 type PropsType = {|
   citiesPayload: Payload<Array<CityModel>>,
@@ -49,7 +51,7 @@ type PropsType = {|
   sprungbrettJobsPayload: Payload<Array<SprungbrettOfferPage>>,
   wohnenOffersPayload: Payload<Array<WohnenOfferModel>>,
   disclaimerPayload: Payload<PageModel>,
-  languages: ?Array<LanguageModel>,
+  languagesPayload: Payload<Array<LanguageModel>>,
   viewportSmall: boolean,
   darkMode: boolean,
   location: LocationState,
@@ -62,14 +64,14 @@ type PropsType = {|
  */
 export class Switcher extends React.Component<PropsType> {
   getAllPayloads = () => {
-    const { location, languages, viewportSmall, darkMode, toggleDarkMode, t, ...payloads } = this.props
+    const { location, languagesPayload, viewportSmall, darkMode, toggleDarkMode, t, ...payloads } = this.props
     return payloads
   }
 
   getLanguageChangePaths = (routeConfig: RouteConfig<*, *>): ?LanguageChangePathsType => {
-    const { languages, location } = this.props
+    const { languagesPayload, location } = this.props
     const payloads = routeConfig.getRequiredPayloads(this.getAllPayloads())
-    return languages && languages.map(language => ({
+    return languagesPayload.data && languagesPayload.data.map(language => ({
       path: routeConfig.getLanguageChangePath({ payloads, location, language: language.code }),
       name: language.name,
       code: language.code
@@ -93,9 +95,9 @@ export class Switcher extends React.Component<PropsType> {
   }
 
   isLanguageInvalid (): boolean {
-    const { location, citiesPayload, languages } = this.props
-    const { city, language } = location.payload
-    return language && city && !!citiesPayload.data && !!languages && !languages.find(lang => lang.code === language)
+    const { location, languagesPayload } = this.props
+    const { language } = location.payload
+    return language && !!languagesPayload.data && !languagesPayload.data.find(lang => lang.code === language)
   }
 
   renderLayoutWithContent (): React.Node {
@@ -109,31 +111,43 @@ export class Switcher extends React.Component<PropsType> {
       eventsPayload
     } = this.props
 
-    const { language } = location.payload
+    const { language, city } = location.payload
 
     const routeConfig = getRouteConfig(location.type)
     const payloads = routeConfig.getRequiredPayloads(this.getAllPayloads())
     const feedbackTargetInformation = routeConfig.getFeedbackTargetInformation({ location, payloads })
     const languageChangePaths = this.getLanguageChangePaths(routeConfig)
 
-    const error = this.isLanguageInvalid()
+    const invalidLanguage = this.isLanguageInvalid()
 
     const isLoading = Object.keys(payloads).some(key => {
       const payload = payloads[key]
       return (payload.isFetching || !payload.data) && !payload.error
     })
 
-    if (error || !routeConfig.isLocationLayoutRoute) {
-      const showFooter = (error || routeConfig.requiresFooter) && !isLoading
+    const cities = this.getAllPayloads().citiesPayload.data
+    if (!cities) {
+      return null
+    }
+
+    const fixedCity = buildConfig().featureFlags.fixedCity
+    const invalidFixedCity = city && fixedCity && city !== fixedCity
+    const invalidCity = city && (!cities.find(_city => _city.code === city) || invalidFixedCity)
+
+    if (invalidCity || invalidLanguage || !routeConfig.isLocationLayoutRoute) {
+      const showHeader = invalidLanguage || routeConfig.requiresHeader
+      const showFooter = (invalidLanguage || routeConfig.requiresFooter) && !isLoading
       return (
         <Layout footer={showFooter && <GeneralFooter language={language} />}
-                header={(error || routeConfig.requiresHeader) && <GeneralHeader viewportSmall={viewportSmall} />}
+                header={showHeader && <GeneralHeader viewportSmall={viewportSmall} />}
                 darkMode={darkMode}>
-          {error
-            ? <LanguageFailure cities={citiesPayload.data}
+          {invalidCity
+            ? <FailureSwitcher error={new Error('notFound.category')} />
+            : invalidLanguage
+              ? <LanguageFailure cities={citiesPayload.data}
                                location={location}
                                languageChangePaths={languageChangePaths} />
-            : <RouteContentSwitcher location={location} payloads={payloads} isLoading={isLoading} />}
+              : <RouteContentSwitcher location={location} payloads={payloads} isLoading={isLoading} />}
         </Layout>
       )
     } else {
@@ -178,7 +192,7 @@ const mapStateToProps = (state: StateType) => ({
   sprungbrettJobsPayload: state.sprungbrettJobs,
   wohnenOffersPayload: state.wohnen,
   disclaimerPayload: state.disclaimer,
-  languages: state.languages.data,
+  languagesPayload: state.languages,
   viewportSmall: state.viewport.is.small,
   darkMode: state.darkMode,
   location: state.location
