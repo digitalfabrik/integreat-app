@@ -34,6 +34,7 @@ import type {
   WohnenOfferRouteType
 } from 'api-client/src/routes'
 import type { NavigationPropType, RoutesType } from '../app/constants/NavigationTypes'
+import buildConfig from '../app/constants/buildConfig'
 
 type ParamsType = {|
   cityCode: string,
@@ -73,7 +74,6 @@ export type RouteInformationType = LandingRouteInformationType
   | EventsPoisRouteInformationType
   | null
 
-// TODO only navigate if feature is activated in build config
 const createNavigate = <T: RoutesType>(
   dispatch: Dispatch<StoreActionType>,
   navigation: NavigationPropType<T>
@@ -116,6 +116,9 @@ const createNavigate = <T: RoutesType>(
           navigateToEvents({ ...params, cityContentPath, key, forceRefresh })
           return
         case NEWS_ROUTE:
+          if (!buildConfig().featureFlags.newsStream) {
+            break
+          }
           navigateToNews({
             ...params,
             type: routeInformation.newsType || LOCAL_NEWS_TYPE,
@@ -128,6 +131,9 @@ const createNavigate = <T: RoutesType>(
           navigateToOffers(params)
           return
         case POIS_ROUTE:
+          if (!buildConfig().featureFlags.pois) {
+            break
+          }
           navigateToPois({ ...params, cityContentPath, key, forceRefresh })
           return
         case SEARCH_ROUTE:
