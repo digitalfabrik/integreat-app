@@ -73,6 +73,7 @@ export type RouteInformationType = LandingRouteInformationType
   | EventsPoisRouteInformationType
   | null
 
+// TODO only navigate if feature is activated in build config
 const createNavigate = <T: RoutesType>(
   dispatch: Dispatch<StoreActionType>,
   navigation: NavigationPropType<T>
