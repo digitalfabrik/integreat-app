@@ -1,8 +1,8 @@
 // @flow
 
 import type { FeedbackInformationType } from '../../routes/feedback/containers/FeedbackModalContainer'
-import type { NavigationPropType, RoutesType } from './constants/NavigationTypes'
-import { FEEDBACK_MODAL_ROUTE } from './constants/NavigationTypes'
+import { FEEDBACK_MODAL_ROUTE } from 'api-client/src/routes'
+import type { NavigationPropType, RoutesType } from '../app/constants/NavigationTypes'
 
 const createNavigateToFeedbackModal = <T: RoutesType>(navigation: NavigationPropType<T>) =>
   (feedbackInformation: FeedbackInformationType) => {

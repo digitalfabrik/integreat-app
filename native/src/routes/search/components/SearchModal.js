@@ -8,16 +8,17 @@ import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
 import SearchHeader from './SearchHeader'
 import { ActivityIndicator, ScrollView, View } from 'react-native'
-import type { ThemeType } from '../../../modules/theme/constants'
-import type { NavigateToCategoryParamsType } from '../../../modules/app/createNavigateToCategory'
+import type { ThemeType } from 'build-configs/ThemeType'
 import type { TFunction } from 'react-i18next'
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
 import SearchFeedbackBox from './SearchFeedbackBox'
 import normalizeSearchString from '../../../modules/common/normalizeSearchString'
 import { Parser } from 'htmlparser2'
 import dimensions from '../../../modules/theme/constants/dimensions'
+import { CATEGORIES_ROUTE } from 'api-client/src/routes'
+import type { RouteInformationType } from '../../../modules/navigation/createNavigate'
 
-const Wrapper: StyledComponent<{}, ThemeType, *> = styled.View`
+const Wrapper: StyledComponent<{||}, ThemeType, *> = styled.View`
   position: absolute;  
   top: 0;
   bottom: 0;
@@ -28,7 +29,7 @@ const Wrapper: StyledComponent<{}, ThemeType, *> = styled.View`
 
 export type PropsType = {|
   categories: CategoriesMapModel | null,
-  navigateToCategory: NavigateToCategoryParamsType => void,
+  navigateTo: RouteInformationType => void,
   theme: ThemeType,
   language: string,
   cityCode: string,
@@ -92,12 +93,13 @@ class SearchModal extends React.Component<PropsType, StateType> {
       .concat(categoriesWithContent)
   }
 
-  onItemPress = (category: { path: string }) => {
-    const { cityCode, language, navigateToCategory } = this.props
+  onItemPress = (category: { path: string, ... }) => {
+    const { cityCode, language, navigateTo } = this.props
 
-    navigateToCategory({
+    navigateTo({
+      route: CATEGORIES_ROUTE,
       cityCode,
-      language,
+      languageCode: language,
       cityContentPath: category.path
     })
   }

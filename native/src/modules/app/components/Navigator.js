@@ -34,10 +34,11 @@ import {
   INTRO_ROUTE, EXTERNAL_OFFER_ROUTE,
   LANDING_ROUTE, NEWS_ROUTE,
   OFFERS_ROUTE, PDF_VIEW_MODAL_ROUTE,
-  POIS_ROUTE, SEARCH_MODAL_ROUTE, SETTINGS_ROUTE
-} from '../constants/NavigationTypes'
-import type { IntroRouteType, DashboardRouteType, LandingRouteType, RoutesParamsType } from '../constants/NavigationTypes'
-import { cityContentUrl } from '../../common/url'
+  POIS_ROUTE, SEARCH_ROUTE, SETTINGS_ROUTE
+} from 'api-client/src/routes'
+import type { IntroRouteType, DashboardRouteType, LandingRouteType } from 'api-client/src/routes'
+import { cityContentUrl } from '../../navigation/url'
+import type { RoutesParamsType } from '../constants/NavigationTypes'
 
 const transparentHeader = (headerProps: StackHeaderProps) =>
   <TransparentHeaderContainer {...headerProps} />
@@ -182,7 +183,7 @@ const Navigator = (props: PropsType) => {
       <Stack.Screen name={EVENTS_ROUTE} component={EventsContainer} options={{ header: defaultHeader }} />
       <Stack.Screen name={NEWS_ROUTE} component={NewsContainer} options={{ header: defaultHeader }} />
       <Stack.Screen name={DISCLAIMER_ROUTE} component={DisclaimerContainer} options={{ header: defaultHeader }} />
-      <Stack.Screen name={SEARCH_MODAL_ROUTE} component={SearchModalContainer} options={{ header: () => null }} />
+      <Stack.Screen name={SEARCH_ROUTE} component={SearchModalContainer} options={{ header: () => null }} />
       <Stack.Screen name={PDF_VIEW_MODAL_ROUTE} component={PDFViewModal} options={{ header: transparentHeader }} />
       <Stack.Screen name={CHANGE_LANGUAGE_MODAL_ROUTE} component={ChangeLanguageModalContainer} options={{ header: transparentHeader }} />
       <Stack.Screen name={IMAGE_VIEW_MODAL_ROUTE} component={ImageViewModal} options={{ header: transparentHeader }} />

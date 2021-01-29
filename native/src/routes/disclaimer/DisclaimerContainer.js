@@ -14,16 +14,16 @@ import { RefreshControl } from 'react-native'
 import { LOADING_TIMEOUT } from '../../modules/common/constants'
 import determineApiUrl from '../../modules/endpoint/determineApiUrl'
 import SiteHelpfulBox from '../../modules/common/components/SiteHelpfulBox'
-import createNavigateToFeedbackModal from '../../modules/app/createNavigateToFeedbackModal'
+import createNavigateToFeedbackModal from '../../modules/navigation/createNavigateToFeedbackModal'
 import type {
-  DisclaimerRouteType,
   NavigationPropType,
   RoutePropType
 } from '../../modules/app/constants/NavigationTypes'
 import LayoutedScrollView from '../../modules/common/containers/LayoutedScrollView'
 import LayoutContainer from '../../modules/layout/containers/LayoutContainer'
-import createNavigateToInternalLink from '../../modules/app/createNavigateToInternalLink'
-import navigateToLink from '../../modules/app/navigateToLink'
+import navigateToLink from '../../modules/navigation/navigateToLink'
+import type { DisclaimerRouteType } from 'api-client/src/routes'
+import createNavigate from '../../modules/navigation/createNavigate'
 
 type OwnPropsType = {|
   route: RoutePropType<DisclaimerRouteType>,
@@ -61,8 +61,8 @@ class DisclaimerContainer extends React.Component<DisclaimerPropsType, Disclaime
 
   navigateToLinkProp = (url: string, language: string, shareUrl: string) => {
     const { dispatch, navigation } = this.props
-    const navigateToInternalLink = createNavigateToInternalLink(dispatch, navigation)
-    navigateToLink(url, navigation, language, navigateToInternalLink, shareUrl)
+    const navigateTo = createNavigate(dispatch, navigation)
+    navigateToLink(url, navigation, language, navigateTo, shareUrl)
   }
 
   navigateToFeedback = (isPositiveFeedback: boolean) => {

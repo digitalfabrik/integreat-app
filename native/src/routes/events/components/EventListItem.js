@@ -9,14 +9,15 @@ import EventPlaceholder2 from '../assets/EventPlaceholder2.jpg'
 import EventPlaceholder3 from '../assets/EventPlaceholder3.jpg'
 import styled from 'styled-components/native'
 import type { ThemeType } from 'build-configs/ThemeType'
-import type { NavigateToEventParamsType } from '../../../modules/app/createNavigateToEvent'
 import DateFormatterContext from '../../../modules/i18n/context/DateFormatterContext'
+import { EVENTS_ROUTE } from 'api-client/src/routes'
+import type { RouteInformationType } from '../../../modules/navigation/createNavigate'
 
 type PropsType = {|
   cityCode: string,
   event: EventModel,
   language: string,
-  navigateToEvent: NavigateToEventParamsType => void,
+  navigateTo: RouteInformationType => void,
   theme: ThemeType
 |}
 
@@ -38,18 +39,19 @@ const EventListItem = ({
   event,
   cityCode,
   language,
-  navigateToEvent,
+  navigateTo,
   theme
 }: PropsType) => {
   const formatter = useContext(DateFormatterContext)
 
   const navigateToEventInCity = useCallback(() => {
-    navigateToEvent({
+    navigateTo({
+      route: EVENTS_ROUTE,
       cityCode,
-      language,
+      languageCode: language,
       cityContentPath: event.path
     })
-  }, [navigateToEvent, cityCode, language, event])
+  }, [navigateTo, cityCode, language, event])
 
   const thumbnail = event.thumbnail || getEventPlaceholder(event.path.length)
   return (

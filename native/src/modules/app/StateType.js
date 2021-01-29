@@ -14,6 +14,7 @@ import Moment from 'moment'
 import type { ErrorCodeType } from '../error/ErrorCodes'
 import ErrorCodes from '../error/ErrorCodes'
 import { config } from 'translations'
+import type { NewsType } from 'api-client/src/routes'
 
 export type PathType = string
 
@@ -103,15 +104,11 @@ export type EventRouteStateType = {|
   +message: ?string
 |}
 
-export type TunewsType = 'tu-news'
-export type LocalNewsType = 'local'
-export type NewsType = TunewsType | LocalNewsType
-
 export type NewsRouteConfigType = {|
   +newsId: ?string, // Path is null for the news list
   +language: string,
   +city: string,
-  +type: NewsType // For checking whether type is local or tunews
+  +type: NewsType
 |}
 
 export type NewsModelsType = $ReadOnlyArray<LocalNewsModel | TunewsModel>
