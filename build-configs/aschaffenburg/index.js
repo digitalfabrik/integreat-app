@@ -14,7 +14,7 @@ const APPLE_APP_ID = ''
 
 const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
   appName: 'Aschaffenburg App',
-  appIcon: 'app_icon_integreat',
+  appIcon: 'app_icon_aschaffenburg',
   lightTheme,
   darkTheme,
   assets: ASCHAFFENBURG_ASSETS,
