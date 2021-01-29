@@ -7,10 +7,10 @@ import FailureContainer from '../../../modules/error/containers/FailureContainer
 import type { ThemeType } from '../../../modules/theme/constants'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import type {
-  PdfViewModalRouteType,
   NavigationPropType,
   RoutePropType
 } from '../../../modules/app/constants/NavigationTypes'
+import type { PdfViewModalRouteType } from 'api-client/src/routes'
 
 type PropsType = {|
   route: RoutePropType<PdfViewModalRouteType>,

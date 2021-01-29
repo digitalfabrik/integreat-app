@@ -15,18 +15,19 @@ import type { ThemeType } from '../../theme/constants'
 import { URL_PREFIX } from '../../platform/constants/webview'
 import CategoriesRouteStateView from '../../app/CategoriesRouteStateView'
 import type { PageResourceCacheStateType, LanguageResourceCacheStateType } from '../../app/StateType'
-import type { NavigateToCategoryParamsType } from '../../app/createNavigateToCategory'
 import { type TFunction } from 'react-i18next'
 import SpaceBetween from '../../common/components/SpaceBetween'
 import SiteHelpfulBox from '../../common/components/SiteHelpfulBox'
 import type { FeedbackInformationType } from '../../../routes/feedback/containers/FeedbackModalContainer'
+import { CATEGORIES_ROUTE } from 'api-client/src/routes'
+import type { RouteInformationType } from '../../navigation/createNavigate'
 
 type PropsType = {|
   cityModel: CityModel,
   language: string,
 
   stateView: CategoriesRouteStateView,
-  navigateToCategory: NavigateToCategoryParamsType => void,
+  navigateTo: RouteInformationType => void,
   navigateToFeedback: FeedbackInformationType => void,
   navigateToLink: (url: string, language: string, shareUrl: string) => void,
 
@@ -41,13 +42,23 @@ type PropsType = {|
  */
 class Categories extends React.Component<PropsType> {
   onTilePress = (tile: TileModel) => {
-    const { cityModel, language, navigateToCategory } = this.props
-    navigateToCategory({ cityCode: cityModel.code, language, cityContentPath: tile.path })
+    const { cityModel, language, navigateTo } = this.props
+    navigateTo({
+      route: CATEGORIES_ROUTE,
+      cityCode: cityModel.code,
+      languageCode: language,
+      cityContentPath: tile.path
+    })
   }
 
   onItemPress = (category: CategoryListModelType) => {
-    const { cityModel, language, navigateToCategory } = this.props
-    navigateToCategory({ cityCode: cityModel.code, language, cityContentPath: category.path })
+    const { cityModel, language, navigateTo } = this.props
+    navigateTo({
+      route: CATEGORIES_ROUTE,
+      cityCode: cityModel.code,
+      languageCode: language,
+      cityContentPath: category.path
+    })
   }
 
   navigateToFeedback = (isPositiveFeedback: boolean) => {
