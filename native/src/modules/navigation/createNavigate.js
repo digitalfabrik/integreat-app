@@ -8,7 +8,7 @@ import {
   DISCLAIMER_ROUTE,
   EVENTS_ROUTE,
   LANDING_ROUTE, LOCAL_NEWS_TYPE,
-  NEWS_ROUTE, OFFERS_ROUTE, POIS_ROUTE, SEARCH_ROUTE, SPRUNGBRETT_OFFER_ROUTE
+  NEWS_ROUTE, OFFERS_ROUTE, POIS_ROUTE, SEARCH_ROUTE
 } from 'api-client/src/routes'
 import navigateToDisclaimer from './navigateToDisclaimer'
 import navigateToLanding from './navigateToLanding'
@@ -132,8 +132,6 @@ const createNavigate = <T: RoutesType>(
         case SEARCH_ROUTE:
           navigateToSearch(params)
           return
-        case SPRUNGBRETT_OFFER_ROUTE:
-        // TODO
       }
     }
 
