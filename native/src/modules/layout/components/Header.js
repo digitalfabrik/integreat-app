@@ -20,7 +20,7 @@ import {
   SETTINGS_ROUTE
 } from 'api-client/src/routes'
 import { cityContentUrl } from '../../navigation/url'
-import createNavigateToLanding from '../../navigation/navigateToLanding'
+import navigateToLanding from '../../navigation/navigateToLanding'
 
 const Horizontal = styled.View`
   flex: 1;
@@ -85,7 +85,7 @@ class Header extends React.PureComponent<PropsType> {
   goToLanding = () => {
     const { navigation, dispatch } = this.props
     // $FlowFixMe Navigation type of the header does not match that of screens.
-    createNavigateToLanding({ dispatch, navigation })
+    navigateToLanding({ dispatch, navigation })
   }
 
   goToSettings = () => {
