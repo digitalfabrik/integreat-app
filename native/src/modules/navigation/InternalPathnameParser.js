@@ -54,7 +54,7 @@ class InternalPathnameParser {
   }
 
   landing = (): RouteInformationType => {
-    // There is no landing route if there is a fixed cityCode
+    // There is no landing route if there is a fixed city
     if (this._fixedCity) {
       return null
     }

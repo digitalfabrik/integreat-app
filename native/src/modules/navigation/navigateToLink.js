@@ -23,9 +23,8 @@ const navigateToLink = <T: RoutesType>(
     navigation.navigate(IMAGE_VIEW_MODAL_ROUTE, { url, shareUrl })
   } else if (HIJACK.test(url)) {
     const pathname = (new Url(url)).pathname
-    // TODO use right fixed city from build config
-    const internalUrl = new InternalPathnameParser(pathname, language, null)
-    navigateTo(internalUrl.route())
+    const routeParser = new InternalPathnameParser(pathname, language, buildConfig().featureFlags.fixedCity)
+    navigateTo(routeParser.route())
   } else {
     openExternalUrl(url)
   }

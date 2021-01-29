@@ -81,68 +81,64 @@ const createNavigate = <T: RoutesType>(
     key?: string,
     forceRefresh?: boolean
   ) => {
-    if (!routeInformation) {
-    // TODO
-      return
+    if (routeInformation) {
+      if (routeInformation.route === LANDING_ROUTE) {
+        navigateToLanding({ dispatch, navigation })
+        return
+      }
+
+      const { route, cityCode, languageCode } = routeInformation
+      const cityContentPath = routeInformation.cityContentPath || null
+      const params = { dispatch, navigation, cityCode, languageCode }
+
+      switch (route) {
+        case CATEGORIES_ROUTE:
+        case DASHBOARD_ROUTE:
+          if (!cityContentPath) {
+            break
+          }
+          navigateToCategory({
+            dispatch,
+            navigation,
+            routeName: route === CATEGORIES_ROUTE ? CATEGORIES_ROUTE : DASHBOARD_ROUTE,
+            cityCode,
+            languageCode,
+            cityContentPath,
+            key,
+            forceRefresh
+          })
+          return
+        case DISCLAIMER_ROUTE:
+          navigateToDisclaimer(params)
+          return
+        case EVENTS_ROUTE:
+          navigateToEvents({ ...params, cityContentPath, key, forceRefresh })
+          return
+        case NEWS_ROUTE:
+          navigateToNews({
+            ...params,
+            type: routeInformation.newsType || LOCAL_NEWS_TYPE,
+            newsId: routeInformation.newsId || null,
+            key,
+            forceRefresh
+          })
+          return
+        case OFFERS_ROUTE:
+          navigateToOffers(params)
+          return
+        case POIS_ROUTE:
+          navigateToPois({ ...params, cityContentPath, key, forceRefresh })
+          return
+        case SEARCH_ROUTE:
+          navigateToSearch(params)
+          return
+        case SPRUNGBRETT_OFFER_ROUTE:
+        // TODO
+      }
     }
 
-    if (routeInformation.route === LANDING_ROUTE) {
-      navigateToLanding({ dispatch, navigation })
-      return
-    }
-
-    const { route, cityCode, languageCode } = routeInformation
-    const cityContentPath = routeInformation.cityContentPath || null
-    const params = { dispatch, navigation, cityCode, languageCode }
-
-    switch (route) {
-      case CATEGORIES_ROUTE:
-      case DASHBOARD_ROUTE:
-        if (!cityContentPath) {
-          break
-        }
-        navigateToCategory({
-          dispatch,
-          navigation,
-          routeName: route === CATEGORIES_ROUTE ? CATEGORIES_ROUTE : DASHBOARD_ROUTE,
-          cityCode,
-          languageCode,
-          cityContentPath,
-          key,
-          forceRefresh
-        })
-        break
-      case DISCLAIMER_ROUTE:
-        navigateToDisclaimer(params)
-        break
-      case EVENTS_ROUTE:
-        navigateToEvents({ ...params, cityContentPath, key, forceRefresh })
-        break
-      case NEWS_ROUTE:
-        navigateToNews({
-          ...params,
-          type: routeInformation.newsType || LOCAL_NEWS_TYPE,
-          newsId: routeInformation.newsId || null,
-          key,
-          forceRefresh
-        })
-        break
-      case OFFERS_ROUTE:
-        navigateToOffers(params)
-        break
-      case POIS_ROUTE:
-        navigateToPois({ ...params, cityContentPath, key, forceRefresh })
-        break
-      case SEARCH_ROUTE:
-        navigateToSearch(params)
-        break
-      case SPRUNGBRETT_OFFER_ROUTE:
-      // TODO
-        break
-      default:
-        console.warn('This is not a supported route. Skipping.')
-        // TODO Show a snackbar
-    }
+    console.warn('This is not a supported route. Skipping.')
+    // TODO Show a snackbar
   }
 
 export default createNavigate
