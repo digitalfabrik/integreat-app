@@ -7,7 +7,6 @@ import { CityModel, LocalNewsModel, NotFoundError } from 'api-client'
 import type { StateType } from '../../../modules/app/StateType'
 import Page from '../../../modules/common/components/Page'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
-import CityNotFoundError from '../../../modules/app/errors/CityNotFoundError'
 import { useContext } from 'react'
 import DateFormatterContext from '../../../modules/i18n/context/DateFormatterContext'
 
@@ -28,23 +27,11 @@ export const LocalNewsDetailsPage = ({
 }: PropsType) => {
   const formatter = useContext(DateFormatterContext)
   const currentCity: ?CityModel = cities && cities.find(cityElement => cityElement.code === city)
-  if (!currentCity) {
-    return <FailureSwitcher error={new CityNotFoundError()} />
-  } else if (!currentCity.pushNotificationsEnabled) {
-    const error = new NotFoundError({
-      type: 'category',
-      id,
-      city,
-      language
-    })
+  if (!currentCity || !currentCity.pushNotificationsEnabled) {
+    const error = new NotFoundError({ type: 'category', id, city, language })
     return <FailureSwitcher error={error} />
   } else if (!localNewsElement) {
-    const error = new NotFoundError({
-      type: 'tunews',
-      id,
-      city,
-      language
-    })
+    const error = new NotFoundError({ type: 'tunews', id, city, language })
     return <FailureSwitcher error={error} />
   }
 

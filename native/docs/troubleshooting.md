@@ -109,7 +109,7 @@ More information on how to set the environment variable can be found [here](buil
 ## Invalid BUILD_CONFIG_NAME supplied
 
 Invalid environment variable `BUILD_CONFIG_NAME` set before running the packager.
-All available build configs can be found [here](../../docs/build-configs.md#available-build-configs).
+All available build configs can be found [here](../../build-configs/README.md#available-build-configs).
 
 ## App crashing with java.lang.UnsatisfiedLinkError 
 
