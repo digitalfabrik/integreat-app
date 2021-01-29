@@ -4,7 +4,7 @@ import Pdf from 'react-native-pdf'
 import * as React from 'react'
 import { View } from 'react-native'
 import FailureContainer from '../../../modules/error/containers/FailureContainer'
-import type { ThemeType } from '../../../modules/theme/constants'
+import type { ThemeType } from 'build-configs/ThemeType'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import type {
   NavigationPropType,

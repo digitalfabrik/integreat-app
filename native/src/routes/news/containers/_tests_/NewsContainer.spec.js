@@ -16,8 +16,7 @@ import { Provider } from 'react-redux'
 import { render } from '@testing-library/react-native'
 import ErrorCodes from '../../../../modules/error/ErrorCodes'
 import { LOADING_TIMEOUT } from '../../../../modules/common/constants'
-import { LOCAL_NEWS } from '../../../../modules/endpoint/constants'
-import { NEWS_ROUTE } from '../../../../modules/app/constants/NavigationTypes'
+import { LOCAL_NEWS_TYPE, NEWS_ROUTE } from 'api-client/src/routes'
 import NewsContainer from '../NewsContainer'
 
 const mockStore = configureMockStore()
@@ -109,7 +108,7 @@ describe('NewsContainer', () => {
     status: 'ready',
     language: language.code,
     newsId: null,
-    type: LOCAL_NEWS,
+    type: LOCAL_NEWS_TYPE,
     page: 1,
     city: city.code,
     models: news,
@@ -151,7 +150,7 @@ describe('NewsContainer', () => {
       language: language.code,
       city: city.code,
       newsId: null,
-      type: LOCAL_NEWS,
+      type: LOCAL_NEWS_TYPE,
       message: 'Something went wrong with the route',
       code: ErrorCodes.UnknownError
     })
@@ -183,7 +182,7 @@ describe('NewsContainer', () => {
     const state: StateType = prepareState({
       newsId: null,
       status: 'loading',
-      type: LOCAL_NEWS,
+      type: LOCAL_NEWS_TYPE,
       language: language.code,
       city: city.code
     })
