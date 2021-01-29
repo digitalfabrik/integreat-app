@@ -1,7 +1,6 @@
 // @flow
 
 import React from 'react'
-
 import RemoteContent from '../../../modules/common/components/RemoteContent'
 import Caption from '../../../modules/common/components/Caption'
 import CategoryEntry from './CategoryEntry'
@@ -9,6 +8,7 @@ import { CategoryModel } from 'api-client'
 import styled from 'styled-components'
 import helpers from '../../../modules/theme/constants/helpers'
 import LastUpdateInfo from '../../../modules/common/components/LastUpdateInfo'
+import DateFormatter from 'api-client/src/i18n/DateFormatter'
 
 const List = styled.div`
   & a {
@@ -30,14 +30,10 @@ const CategoryIcon = styled.img`
 
 type PropsType = {|
   categories: Array<{| model: CategoryModel, contentWithoutHtml?: string, subCategories: Array<CategoryModel> |}>,
-  title?: string,
-  content?: string,
   /** A search query to highlight in the categories titles */
   query?: string,
-  thumbnail?: string,
-  lastUpdate?: Moment,
-  formatter: DateFormatter,
-  lastUpdate: Moment,
+  formatter?: DateFormatter,
+  category?: CategoryModel,
   onInternalLinkClick: string => void
 |}
 
@@ -47,17 +43,16 @@ type PropsType = {|
 class CategoryList extends React.PureComponent<PropsType> {
   render () {
     const {
-      categories, title, thumbnail, content, query, onInternalLinkClick,
-      lastUpdate, formatter
+      categories, query, onInternalLinkClick, formatter, category
     } = this.props
     return (
       <div>
-        {thumbnail && <Centering><CategoryIcon src={thumbnail} alt='' /></Centering>}
-        {title && <Caption title={title} />}
-        {content && <RemoteContent dangerouslySetInnerHTML={{ __html: content }}
+        {category && category.thumbnail && <Centering><CategoryIcon src={category.thumbnail} alt='' /></Centering>}
+        {category && category.title && <Caption title={category.title} />}
+        {category && category.content && <RemoteContent dangerouslySetInnerHTML={{ __html: category.content }}
                                    onInternalLinkClick={onInternalLinkClick} />}
-        {content && lastUpdate &&
-         <LastUpdateInfo lastUpdate={lastUpdate} formatter={formatter} withText />}
+        {category && category.content && category.lastUpdate &&
+         <LastUpdateInfo lastUpdate={category.lastUpdate} formatter={formatter} withText />}
         <List>
           {categories.map(categoryItem =>
             <CategoryEntry key={categoryItem.model.hash}
