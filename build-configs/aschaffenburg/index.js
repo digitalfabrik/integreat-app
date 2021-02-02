@@ -13,7 +13,7 @@ import mainImprint from './mainImprint'
 const APPLE_APP_ID = '1551810291'
 
 const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
-  appName: 'Aschaffenburg App',
+  appName: 'Aschaffenburg App', // TODO maybe we have to change this to 'AB App'
   appIcon: 'app_icon_integreat', // TODO in IGAPP-299
   lightTheme,
   darkTheme,
@@ -29,7 +29,7 @@ const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
     introSlides: false,
     sentry: true,
     developerFriendly: false,
-    fixedCity: 'aschaffenburgapp'
+    fixedCity: 'aschaffenburgapp' // TODO probably has to be changed to 'abapp' after renamed in cms
   },
   aboutUrls: { // TODO
     default: 'https://integreat-app.de/about/',
