@@ -237,6 +237,7 @@ commands:
                     - malte
                     - integreat-e2e
                     - integreat-test-cms
+                    - aschaffenburg
                     - all
                 type: enum
         steps:
@@ -281,6 +282,7 @@ jobs:
                     - malte
                     - integreat-e2e
                     - integreat-test-cms
+                    - aschaffenburg
                 type: enum
         resource_class: medium
         shell: /bin/bash -eo pipefail
@@ -336,6 +338,7 @@ jobs:
                     - malte
                     - integreat-e2e
                     - integreat-test-cms
+                    - aschaffenburg
                 type: enum
         resource_class: medium
         shell: /bin/bash --login -o pipefail
@@ -379,6 +382,7 @@ jobs:
                     - integreat
                     - malte
                     - integreat-test-cms
+                    - aschaffenburg
                 type: enum
         resource_class: small
         shell: /bin/bash -eo pipefail
@@ -518,6 +522,7 @@ jobs:
                 enum:
                     - integreat
                     - malte
+                    - aschaffenburg
                 type: enum
             production_delivery:
                 description: Whether to deliver the build to production.
@@ -565,6 +570,7 @@ jobs:
                 enum:
                     - integreat
                     - malte
+                    - aschaffenburg
                 type: enum
             production_delivery:
                 description: Whether to deliver the build to production.
@@ -615,7 +621,7 @@ jobs:
             - image: circleci/node:12.16.3
         parameters:
             production_delivery:
-                description: Whether to deliver to production (integreat.app and malteapp.de) or not (webnext.integreat.app and webnext.malteapp.de).
+                description: Whether to deliver to production or to webnext.
                 type: boolean
         resource_class: small
         shell: /bin/bash -eo pipefail
@@ -637,11 +643,17 @@ jobs:
                         command: sftp -b - -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/malteapp.de \<<< "put -r $HOME/attached_workspace/dist/malte/*"
                         name: Malte production delivery
                     - run:
+                        command: sftp -b - -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/aschaffenburg.app \<<< "put -r $HOME/attached_workspace/dist/aschaffenburg/*"
+                        name: Aschaffenburg production delivery
+                    - run:
                         command: tools/sentry-release integreat "${NEW_VERSION_NAME}" ~/attached_workspace/dist/integreat
                         name: 'Sentry Upload: integreat'
                     - run:
                         command: tools/sentry-release malte "${NEW_VERSION_NAME}" ~/attached_workspace/dist/malte
                         name: 'Sentry Upload: malte'
+                    - run:
+                        command: tools/sentry-release aschaffenburg "${NEW_VERSION_NAME}" ~/attached_workspace/dist/aschaffenburg
+                        name: 'Sentry Upload: aschaffenburg'
             - unless:
                 condition: << parameters.production_delivery >>
                 steps:
@@ -649,8 +661,20 @@ jobs:
                         command: sftp -b - -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.integreat.app \<<< "put -r $HOME/attached_workspace/dist/integreat-test-cms/*"
                         name: Integreat development delivery
                     - run:
+                        command: sftp -b - -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.malteapp.de \<<< "put -r $HOME/attached_workspace/dist/malte/*"
+                        name: Malte development delivery
+                    - run:
+                        command: sftp -b - -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.aschaffenburg.app \<<< "put -r $HOME/attached_workspace/dist/aschaffenburg/*"
+                        name: Aschaffenburg development delivery
+                    - run:
                         command: tools/sentry-release integreat-test-cms "${NEW_VERSION_NAME}" ~/attached_workspace/dist/integreat-test-cms
                         name: 'Sentry Upload: integreat-test-cms'
+                    - run:
+                        command: tools/sentry-release malte "${NEW_VERSION_NAME}" ~/attached_workspace/dist/malte
+                        name: 'Sentry Upload: malte'
+                    - run:
+                        command: tools/sentry-release aschaffenburg "${NEW_VERSION_NAME}" ~/attached_workspace/dist/aschaffenburg
+                        name: 'Sentry Upload: aschaffenburg'
             - notify
     e2e_android:
         docker:
@@ -725,7 +749,7 @@ jobs:
                 command: echo "export RELEASE_NOTES=$(tools/parse-release-notes parse --android --language en)" >> ${BASH_ENV}
                 name: Create release notes
             - notify:
-                success_message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat and Malte ${NEW_VERSION_NAME} have been released successfully on Android!\n${RELEASE_NOTES}
+                success_message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat, Malte and Aschaffenburg ${NEW_VERSION_NAME} have been released successfully on Android!\n${RELEASE_NOTES}
     notify_ios:
         docker:
             - image: circleci/node:12.16.3
@@ -747,7 +771,7 @@ jobs:
                 command: echo "export RELEASE_NOTES=$(tools/parse-release-notes parse --ios --language en)" >> ${BASH_ENV}
                 name: Create release notes
             - notify:
-                success_message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat and Malte ${NEW_VERSION_NAME} have been released successfully on iOS!\n${RELEASE_NOTES}
+                success_message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat, Malte and Aschaffenburg ${NEW_VERSION_NAME} have been released successfully on iOS!\n${RELEASE_NOTES}
     notify_web:
         docker:
             - image: circleci/node:12.16.3
@@ -765,7 +789,7 @@ jobs:
                 command: echo "export RELEASE_NOTES=$(tools/parse-release-notes parse --web --language en)" >> ${BASH_ENV}
                 name: Create release notes
             - notify:
-                success_message: WebApp version ${NEW_VERSION_NAME} was delivered successfully to integreat.app and malteapp.de!\n${RELEASE_NOTES}
+                success_message: WebApp version ${NEW_VERSION_NAME} was delivered successfully to integreat.app, malteapp.de and aschaffenburg.app!\n${RELEASE_NOTES}
 orbs:
     slack: circleci/slack@3.4.2
 parameters:
@@ -801,6 +825,20 @@ workflows:
                 name: build_ig_test_cms_web
                 requires:
                     - bump_version
+            - build_web:
+                build_config_name: malte
+                context:
+                    - mattermost
+                name: build_malte_web
+                requires:
+                    - bump_version
+            - build_web:
+                build_config_name: aschaffenburg
+                context:
+                    - mattermost
+                name: build_aschaffenburg_web
+                requires:
+                    - bump_version
             - deliver_web:
                 context:
                     - mattermost
@@ -813,6 +851,8 @@ workflows:
                 requires:
                     - check_web
                     - build_ig_test_cms_web
+                    - build_malte_web
+                    - build_aschaffenburg_web
             - check_native:
                 context:
                     - mattermost
@@ -919,6 +959,29 @@ workflows:
                     - check_native
                     - e2e_android
                     - build_malte_android
+            - build_android:
+                build_config_name: aschaffenburg
+                context:
+                    - mattermost
+                    - tuerantuer-google-play
+                    - tuerantuer-android
+                name: build_aschaffenburg_android
+                requires:
+                    - bump_version
+            - deliver_android:
+                build_config_name: aschaffenburg
+                context:
+                    - mattermost
+                    - sentry
+                    - browserstack
+                    - tuerantuer-google-play
+                    - tuerantuer-android
+                name: deliver_aschaffenburg_android
+                production_delivery: false
+                requires:
+                    - check_native
+                    - e2e_android
+                    - build_aschaffenburg_android
             - notify_android:
                 context:
                     - mattermost
@@ -927,6 +990,7 @@ workflows:
                 requires:
                     - deliver_integreat_android
                     - deliver_malte_android
+                    - deliver_aschaffenburg_android
             - build_ios:
                 build_config_name: integreat-e2e
                 context:
@@ -988,6 +1052,29 @@ workflows:
                     - check_native
                     - e2e_ios
                     - build_malte_ios
+            - build_ios:
+                build_config_name: aschaffenburg
+                context:
+                    - mattermost
+                    - tuerantuer-apple
+                    - tuerantuer-ios
+                name: build_aschaffenburg_ios
+                requires:
+                    - bump_version
+            - deliver_ios:
+                build_config_name: aschaffenburg
+                context:
+                    - mattermost
+                    - sentry
+                    - browserstack
+                    - tuerantuer-apple
+                    - tuerantuer-ios
+                name: deliver_aschaffenburg_ios
+                production_delivery: false
+                requires:
+                    - check_native
+                    - e2e_ios
+                    - build_aschaffenburg_ios
             - notify_ios:
                 context:
                     - mattermost
@@ -996,6 +1083,7 @@ workflows:
                 requires:
                     - deliver_integreat_ios
                     - deliver_malte_ios
+                    - deliver_aschaffenburg_ios
         triggers:
             - schedule:
                 cron: 0 5 8,22 * *
@@ -1028,6 +1116,13 @@ workflows:
                 name: build_malte_web
                 requires:
                     - bump_version
+            - build_web:
+                build_config_name: aschaffenburg
+                context:
+                    - mattermost
+                name: build_aschaffenburg_web
+                requires:
+                    - bump_version
             - deliver_web:
                 context:
                     - mattermost
@@ -1037,6 +1132,7 @@ workflows:
                     - check_web
                     - build_integreat_web
                     - build_malte_web
+                    - build_aschaffenburg_web
             - notify_web:
                 context:
                     - mattermost
@@ -1108,6 +1204,29 @@ workflows:
                     - check_native
                     - e2e_android
                     - build_malte_android
+            - build_android:
+                build_config_name: aschaffenburg
+                context:
+                    - mattermost
+                    - tuerantuer-google-play
+                    - tuerantuer-android
+                name: build_aschaffenburg_android
+                requires:
+                    - bump_version
+            - deliver_android:
+                build_config_name: aschaffenburg
+                context:
+                    - mattermost
+                    - sentry
+                    - browserstack
+                    - tuerantuer-google-play
+                    - tuerantuer-android
+                name: deliver_aschaffenburg_android
+                production_delivery: true
+                requires:
+                    - check_native
+                    - e2e_android
+                    - build_aschaffenburg_android
             - notify_android:
                 context:
                     - mattermost
@@ -1116,6 +1235,7 @@ workflows:
                 requires:
                     - deliver_integreat_android
                     - deliver_malte_android
+                    - deliver_aschaffenburg_android
             - build_ios:
                 build_config_name: integreat-e2e
                 context:
@@ -1177,6 +1297,29 @@ workflows:
                     - check_native
                     - e2e_ios
                     - build_malte_ios
+            - build_ios:
+                build_config_name: aschaffenburg
+                context:
+                    - mattermost
+                    - tuerantuer-apple
+                    - tuerantuer-ios
+                name: build_aschaffenburg_ios
+                requires:
+                    - bump_version
+            - deliver_ios:
+                build_config_name: aschaffenburg
+                context:
+                    - mattermost
+                    - sentry
+                    - browserstack
+                    - tuerantuer-apple
+                    - tuerantuer-ios
+                name: deliver_aschaffenburg_ios
+                production_delivery: true
+                requires:
+                    - check_native
+                    - e2e_ios
+                    - build_aschaffenburg_ios
             - notify_ios:
                 context:
                     - mattermost
@@ -1185,6 +1328,7 @@ workflows:
                 requires:
                     - deliver_integreat_ios
                     - deliver_malte_ios
+                    - deliver_aschaffenburg_ios
             - move_release_notes:
                 context:
                     - mattermost
@@ -1272,6 +1416,29 @@ workflows:
                     - check_native
                     - e2e_android
                     - build_malte_android
+            - build_android:
+                build_config_name: aschaffenburg
+                context:
+                    - mattermost
+                    - tuerantuer-google-play
+                    - tuerantuer-android
+                name: build_aschaffenburg_android
+                requires:
+                    - bump_version
+            - deliver_android:
+                build_config_name: aschaffenburg
+                context:
+                    - mattermost
+                    - sentry
+                    - browserstack
+                    - tuerantuer-google-play
+                    - tuerantuer-android
+                name: deliver_aschaffenburg_android
+                production_delivery: false
+                requires:
+                    - check_native
+                    - e2e_android
+                    - build_aschaffenburg_android
             - notify_android:
                 context:
                     - mattermost
@@ -1280,6 +1447,7 @@ workflows:
                 requires:
                     - deliver_integreat_android
                     - deliver_malte_android
+                    - deliver_aschaffenburg_android
             - build_ios:
                 build_config_name: integreat-e2e
                 context:
@@ -1341,6 +1509,29 @@ workflows:
                     - check_native
                     - e2e_ios
                     - build_malte_ios
+            - build_ios:
+                build_config_name: aschaffenburg
+                context:
+                    - mattermost
+                    - tuerantuer-apple
+                    - tuerantuer-ios
+                name: build_aschaffenburg_ios
+                requires:
+                    - bump_version
+            - deliver_ios:
+                build_config_name: aschaffenburg
+                context:
+                    - mattermost
+                    - sentry
+                    - browserstack
+                    - tuerantuer-apple
+                    - tuerantuer-ios
+                name: deliver_aschaffenburg_ios
+                production_delivery: false
+                requires:
+                    - check_native
+                    - e2e_ios
+                    - build_aschaffenburg_ios
             - notify_ios:
                 context:
                     - mattermost
@@ -1349,6 +1540,7 @@ workflows:
                 requires:
                     - deliver_integreat_ios
                     - deliver_malte_ios
+                    - deliver_aschaffenburg_ios
         when:
             and:
                 - << pipeline.parameters.api_triggered >>
@@ -1378,6 +1570,13 @@ workflows:
                 name: build_malte_web
                 requires:
                     - bump_version
+            - build_web:
+                build_config_name: aschaffenburg
+                context:
+                    - mattermost
+                name: build_aschaffenburg_web
+                requires:
+                    - bump_version
             - deliver_web:
                 context:
                     - mattermost
@@ -1387,6 +1586,7 @@ workflows:
                     - check_web
                     - build_integreat_web
                     - build_malte_web
+                    - build_aschaffenburg_web
             - notify_web:
                 context:
                     - mattermost
@@ -1458,6 +1658,29 @@ workflows:
                     - check_native
                     - e2e_android
                     - build_malte_android
+            - build_android:
+                build_config_name: aschaffenburg
+                context:
+                    - mattermost
+                    - tuerantuer-google-play
+                    - tuerantuer-android
+                name: build_aschaffenburg_android
+                requires:
+                    - bump_version
+            - deliver_android:
+                build_config_name: aschaffenburg
+                context:
+                    - mattermost
+                    - sentry
+                    - browserstack
+                    - tuerantuer-google-play
+                    - tuerantuer-android
+                name: deliver_aschaffenburg_android
+                production_delivery: true
+                requires:
+                    - check_native
+                    - e2e_android
+                    - build_aschaffenburg_android
             - notify_android:
                 context:
                     - mattermost
@@ -1466,6 +1689,7 @@ workflows:
                 requires:
                     - deliver_integreat_android
                     - deliver_malte_android
+                    - deliver_aschaffenburg_android
             - build_ios:
                 build_config_name: integreat-e2e
                 context:
@@ -1527,6 +1751,29 @@ workflows:
                     - check_native
                     - e2e_ios
                     - build_malte_ios
+            - build_ios:
+                build_config_name: aschaffenburg
+                context:
+                    - mattermost
+                    - tuerantuer-apple
+                    - tuerantuer-ios
+                name: build_aschaffenburg_ios
+                requires:
+                    - bump_version
+            - deliver_ios:
+                build_config_name: aschaffenburg
+                context:
+                    - mattermost
+                    - sentry
+                    - browserstack
+                    - tuerantuer-apple
+                    - tuerantuer-ios
+                name: deliver_aschaffenburg_ios
+                production_delivery: true
+                requires:
+                    - check_native
+                    - e2e_ios
+                    - build_aschaffenburg_ios
             - notify_ios:
                 context:
                     - mattermost
@@ -1535,6 +1782,7 @@ workflows:
                 requires:
                     - deliver_integreat_ios
                     - deliver_malte_ios
+                    - deliver_aschaffenburg_ios
             - move_release_notes:
                 context:
                     - mattermost

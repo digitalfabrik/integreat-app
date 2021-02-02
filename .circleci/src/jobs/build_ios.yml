@@ -1,7 +1,7 @@
 parameters:
   build_config_name:
     type: enum
-    enum: [integreat, malte, integreat-e2e, integreat-test-cms]
+    enum: [integreat, malte, integreat-e2e, integreat-test-cms, aschaffenburg]
     default: integreat
 macos:
   xcode: 11.7.0

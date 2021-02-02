@@ -27,6 +27,13 @@ jobs:
         - mattermost
       requires:
         - bump_version
+  - build_web:
+      name: build_aschaffenburg_web
+      build_config_name: aschaffenburg
+      context:
+        - mattermost
+      requires:
+        - bump_version
   - deliver_web:
       context:
         - mattermost
@@ -36,6 +43,7 @@ jobs:
         - check_web
         - build_integreat_web
         - build_malte_web
+        - build_aschaffenburg_web
   - notify_web:
       context:
         - mattermost
@@ -112,6 +120,30 @@ jobs:
         - e2e_android
         - build_malte_android
 
+  - build_android:
+      name: build_aschaffenburg_android
+      build_config_name: aschaffenburg
+      context:
+        - mattermost
+        - tuerantuer-google-play
+        - tuerantuer-android
+      requires:
+        - bump_version
+  - deliver_android:
+      name: deliver_aschaffenburg_android
+      build_config_name: aschaffenburg
+      context:
+        - mattermost
+        - sentry
+        - browserstack
+        - tuerantuer-google-play
+        - tuerantuer-android
+      production_delivery: true
+      requires:
+        - check_native
+        - e2e_android
+        - build_aschaffenburg_android
+
   - notify_android:
       context:
         - mattermost
@@ -120,6 +152,7 @@ jobs:
       requires:
         - deliver_integreat_android
         - deliver_malte_android
+        - deliver_aschaffenburg_android
 
   - build_ios:
       name: build_e2e_ios
@@ -185,6 +218,30 @@ jobs:
         - e2e_ios
         - build_malte_ios
 
+  - build_ios:
+      name: build_aschaffenburg_ios
+      build_config_name: aschaffenburg
+      context:
+        - mattermost
+        - tuerantuer-apple
+        - tuerantuer-ios
+      requires:
+        - bump_version
+  - deliver_ios:
+      name: deliver_aschaffenburg_ios
+      build_config_name: aschaffenburg
+      context:
+        - mattermost
+        - sentry
+        - browserstack
+        - tuerantuer-apple
+        - tuerantuer-ios
+      production_delivery: true
+      requires:
+        - check_native
+        - e2e_ios
+        - build_aschaffenburg_ios
+
   - notify_ios:
       context:
         - mattermost
@@ -193,6 +250,7 @@ jobs:
       requires:
         - deliver_integreat_ios
         - deliver_malte_ios
+        - deliver_aschaffenburg_ios
 
   - move_release_notes:
       context:
