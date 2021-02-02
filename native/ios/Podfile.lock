@@ -327,8 +327,8 @@ PODS:
   - react-native-static-server (0.5.0):
     - GCDWebServer (~> 3.0)
     - React
-  - react-native-webview (10.9.1):
-    - React-Core
+  - react-native-webview (10.8.2):
+    - React
   - React-RCTActionSheet (0.63.3):
     - React-Core/RCTActionSheetHeaders (= 0.63.3)
   - React-RCTAnimation (0.63.3):
@@ -412,9 +412,9 @@ PODS:
     - RNFBApp
   - RNGestureHandler (1.9.0):
     - React-Core
-  - RNLocalize (2.0.1):
-    - React-Core
   - RNInAppBrowser (3.5.1):
+    - React-Core
+  - RNLocalize (2.0.1):
     - React-Core
   - RNPermissions (2.0.9):
     - React
@@ -710,7 +710,7 @@ SPEC CHECKSUMS:
   react-native-progress-view: d6127184789afb752faae9acdbe7fa320632a662
   react-native-safe-area-context: b6e0e284002381d2ff29fa4fff42b4d8282e3c94
   react-native-static-server: 201b2a945a35096be3ae7f43e367c65bcbd61343
-  react-native-webview: c981c0de33cdc842884469b008f067d6132ad7a5
+  react-native-webview: 0e49a2e85f42b20ea5579928a8b254a07fa901dc
   React-RCTActionSheet: 53ea72699698b0b47a6421cb1c8b4ab215a774aa
   React-RCTAnimation: 1befece0b5183c22ae01b966f5583f42e69a83c2
   React-RCTBlob: 0b284339cbe4b15705a05e2313a51c6d8b51fa40
@@ -730,8 +730,8 @@ SPEC CHECKSUMS:
   RNFBApp: a74d8259d827c8bf55100e759cffa2e50ba6fe30
   RNFBMessaging: c69238917a8672f5aed2c8a6ee124efa8f962677
   RNGestureHandler: 9b7e605a741412e20e13c512738a31bd1611759b
-  RNLocalize: 41026b7c14878f1a1b381bc79f668f1fbf841adb
   RNInAppBrowser: 48b95ba7a4eaff5cc223bca338d3e319561dbd1b
+  RNLocalize: 41026b7c14878f1a1b381bc79f668f1fbf841adb
   RNPermissions: 2f74237e97b08beda01e914301e12524ddddf5b8
   RNReanimated: e03f7425cb7a38dcf1b644d680d1bfc91c3337ad
   RNScreens: 45c457af3d2ee9e08fc01e70da87e653d46b1198
