@@ -20,7 +20,7 @@ import SpaceBetween from '../../common/components/SpaceBetween'
 import SiteHelpfulBox from '../../common/components/SiteHelpfulBox'
 import type { FeedbackInformationType } from '../../../routes/feedback/containers/FeedbackModalContainer'
 import { CATEGORIES_ROUTE } from 'api-client/src/routes'
-import type { RouteInformationType } from '../../navigation/createNavigate'
+import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
 
 type PropsType = {|
   cityModel: CityModel,

@@ -28,7 +28,7 @@ import {
   OFFERS_ROUTE,
   POIS_ROUTE, TU_NEWS_TYPE
 } from 'api-client/src/routes'
-import type { RouteInformationType } from '../../../modules/navigation/createNavigate'
+import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
 
 const Spacing: StyledComponent<{||}, ThemeType, *> = styled.View`
   padding: 10px;

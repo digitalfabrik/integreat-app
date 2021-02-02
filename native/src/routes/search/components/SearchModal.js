@@ -16,7 +16,7 @@ import normalizeSearchString from '../../../modules/common/normalizeSearchString
 import { Parser } from 'htmlparser2'
 import dimensions from '../../../modules/theme/constants/dimensions'
 import { CATEGORIES_ROUTE } from 'api-client/src/routes'
-import type { RouteInformationType } from '../../../modules/navigation/createNavigate'
+import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
 
 const Wrapper: StyledComponent<{||}, ThemeType, *> = styled.View`
   position: absolute;  

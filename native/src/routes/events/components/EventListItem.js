@@ -11,7 +11,7 @@ import styled from 'styled-components/native'
 import type { ThemeType } from 'build-configs/ThemeType'
 import DateFormatterContext from '../../../modules/i18n/context/DateFormatterContext'
 import { EVENTS_ROUTE } from 'api-client/src/routes'
-import type { RouteInformationType } from '../../../modules/navigation/createNavigate'
+import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
 
 type PropsType = {|
   cityCode: string,
