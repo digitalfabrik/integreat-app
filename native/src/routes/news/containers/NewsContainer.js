@@ -82,10 +82,7 @@ const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionT
     newsType: selectedNewsType,
     languageCode: language,
     newsId: newsId || undefined
-  },
-  route.key,
-  true
-  )
+  }, route.key, true)
 }
 
 const createChangeUnavailableLanguage = (city: string, t: TFunction) => (
