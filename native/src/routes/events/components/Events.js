@@ -21,7 +21,7 @@ import SpaceBetween from '../../../modules/common/components/SpaceBetween'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
 import type { FeedbackInformationType } from '../../feedback/containers/FeedbackModalContainer'
 import DateFormatterContext from '../../../modules/i18n/context/DateFormatterContext'
-import type { RouteInformationType } from '../../../modules/navigation/createNavigate'
+import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
 
 export type PropsType = {|
   path: ?string,

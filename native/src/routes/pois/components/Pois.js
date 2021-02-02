@@ -21,7 +21,7 @@ import ErrorCodes from '../../../modules/error/ErrorCodes'
 import PoiListItem from './PoiListItem'
 import type { FeedbackInformationType } from '../../feedback/containers/FeedbackModalContainer'
 import { POIS_ROUTE } from 'api-client/src/routes'
-import type { RouteInformationType } from '../../../modules/navigation/createNavigate'
+import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
 
 export type PropsType = {|
   path: ?string,

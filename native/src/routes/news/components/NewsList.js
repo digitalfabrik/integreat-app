@@ -16,7 +16,7 @@ import type { StyledComponent } from 'styled-components'
 import NewsItemsDetails from './NewsItemDetails'
 import openExternalUrl from '../../../modules/common/openExternalUrl'
 import { NEWS_ROUTE, TU_NEWS_TYPE } from 'api-client/src/routes'
-import type { RouteInformationType } from '../../../modules/navigation/createNavigate'
+import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
 import type { NewsType } from 'api-client/src/routes'
 import { tunewsWebsiteUrl } from '../../../modules/endpoint/constants'
 

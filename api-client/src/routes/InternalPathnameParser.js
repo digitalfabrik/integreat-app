@@ -13,12 +13,12 @@ import {
   SEARCH_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE,
   TU_NEWS_TYPE
-} from 'api-client/src/routes'
+} from './'
 import type {
   LocalNewsType,
   TuNewsType
-} from 'api-client/src/routes'
-import type { RouteInformationType } from './createNavigate'
+} from './'
+import type { RouteInformationType } from './RouteInformationTypes'
 
 const FEATURE_ID_INDEX = 3
 

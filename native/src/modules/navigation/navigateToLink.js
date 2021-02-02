@@ -5,8 +5,8 @@ import type { NavigationPropType, RoutesType } from '../app/constants/Navigation
 import { IMAGE_VIEW_MODAL_ROUTE, PDF_VIEW_MODAL_ROUTE } from 'api-client/src/routes'
 import openExternalUrl from '../common/openExternalUrl'
 import Url from 'url-parse'
-import type { RouteInformationType } from './createNavigate'
-import InternalPathnameParser from './InternalPathnameParser'
+import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
+import InternalPathnameParser from 'api-client/src/routes/InternalPathnameParser'
 
 const HIJACK = new RegExp(buildConfig().internalLinksHijackPattern)
 
