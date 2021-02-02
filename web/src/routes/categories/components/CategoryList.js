@@ -47,11 +47,11 @@ class CategoryList extends React.PureComponent<PropsType> {
     } = this.props
     return (
       <div>
-        {category && category.thumbnail && <Centering><CategoryIcon src={category.thumbnail} alt='' /></Centering>}
-        {category && category.title && <Caption title={category.title} />}
-        {category && category.content && <RemoteContent dangerouslySetInnerHTML={{ __html: category.content }}
+        {category?.thumbnail && <Centering><CategoryIcon src={category.thumbnail} alt='' /></Centering>}
+        {category?.title && <Caption title={category.title} />}
+        {category?.content && <RemoteContent dangerouslySetInnerHTML={{ __html: category.content }}
                                    onInternalLinkClick={onInternalLinkClick} />}
-        {category && category.content && category.lastUpdate &&
+        {category?.content && category.lastUpdate &&
          <LastUpdateInfo lastUpdate={category.lastUpdate} formatter={formatter} withText />}
         <List>
           {categories.map(categoryItem =>
