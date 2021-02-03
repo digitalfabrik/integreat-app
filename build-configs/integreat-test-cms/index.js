@@ -37,14 +37,39 @@ export const androidIntegreatTestCmsBuildConfig: AndroidBuildConfigType = {
   ...integreatPlatformBuildConfigs.android,
   ...integreatTestCms,
   applicationId: 'de.integreat_test_cms',
-  googleServices: null
+  googleServices: {
+    googleAppId: 'dummy',
+    gcmDefaultSenderId: 'dummy',
+    defaultWebClientId: 'dummy',
+    gaTrackingId: null,
+    firebaseDatabaseUrl: 'https://dummy',
+    googleApiKey: 'dummyKey',
+    googleCrashReportingApiKey: 'dummyKey',
+    projectId: 'dummy'
+  }
 }
 
 export const iosIntegreatTestCmsBuildConfig: iOSBuildConfigType = {
   ...integreatPlatformBuildConfigs.ios,
   ...integreatTestCms,
   bundleIdentifier: 'de.integreat_test_cms',
-  googleServices: null
+  googleServices: {
+    clientId: 'dummy',
+    reversedClientId: 'dummy',
+    apiKey: 'dummy',
+    gcmSenderId: 'dummy',
+    plistVersion: '1',
+    bundleId: 'de.integreat_test_cms',
+    projectId: 'dummy',
+    storageBucket: 'dummy',
+    isAdsEnabled: false,
+    isAnalyticsEnabled: false,
+    isAppInviteEnabled: true,
+    isGCMEnabled: true,
+    isSigninEnabled: true,
+    googleAppId: 'dummy',
+    databaseUrl: 'https://dummy'
+  }
 }
 
 const platformBuildConfigs = {
