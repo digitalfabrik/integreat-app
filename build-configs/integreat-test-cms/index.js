@@ -15,7 +15,7 @@ const integreatTestCms = {
   featureFlags: {
     pois: true,
     newsStream: true,
-    pushNotifications: false,
+    pushNotifications: true,
     introSlides: true,
     sentry: false,
     developerFriendly: true,
