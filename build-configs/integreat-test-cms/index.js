@@ -36,7 +36,7 @@ export const webIntegreatTestCmsBuildConfig: WebBuildConfigType = {
 export const androidIntegreatTestCmsBuildConfig: AndroidBuildConfigType = {
   ...integreatPlatformBuildConfigs.android,
   ...integreatTestCms,
-  applicationId: 'de.integreat_test_cms',
+  applicationId: 'de.integreat-test-cms',
   googleServices: {
     googleAppId: 'dummy',
     gcmDefaultSenderId: 'dummy',
@@ -52,7 +52,8 @@ export const androidIntegreatTestCmsBuildConfig: AndroidBuildConfigType = {
 export const iosIntegreatTestCmsBuildConfig: iOSBuildConfigType = {
   ...integreatPlatformBuildConfigs.ios,
   ...integreatTestCms,
-  bundleIdentifier: 'de.integreat_test_cms',
+  bundleIdentifier: 'de.integreat-test-cms',
+  provisioningProfileSpecifier: 'match Development de.integreat-test-cms',
   googleServices: {
     clientId: 'dummy',
     reversedClientId: 'dummy',
