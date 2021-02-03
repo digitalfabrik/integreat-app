@@ -55,7 +55,7 @@ export type WebBuildConfigType = {|
   itunesAppId?: string, // Id of the corresponding iOS app in the Apple App Store.
   icons: {|
     appLogo: string,
-    locationMarker: string,
+    locationMarker?: string,
     appleTouchIcon: string,
     socialMediaPreview: string,
     favicons: string

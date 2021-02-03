@@ -63,8 +63,7 @@ export const webAschaffenburgBuildConfig: WebBuildConfigType = {
   mainImprint,
   itunesAppId: APPLE_APP_ID,
   icons: {
-    appLogo: '/app-logo.svg',
-    locationMarker: '/location-marker.svg',
+    appLogo: '/app-logo.png',
     appleTouchIcon: '/apple-touch-icon.png',
     socialMediaPreview: '/social-media-preview.png',
     favicons: '/favicons/'
