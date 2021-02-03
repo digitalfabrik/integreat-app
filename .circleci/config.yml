@@ -814,45 +814,9 @@ workflows:
             - bump_version:
                 context:
                     - mattermost
+                    - deliverino
+                    - jira
                 delivery: none
-            - check_web:
-                context:
-                    - mattermost
-            - build_web:
-                build_config_name: integreat-test-cms
-                context:
-                    - mattermost
-                name: build_ig_test_cms_web
-                requires:
-                    - bump_version
-            - build_web:
-                build_config_name: malte
-                context:
-                    - mattermost
-                name: build_malte_web
-                requires:
-                    - bump_version
-            - build_web:
-                build_config_name: aschaffenburg
-                context:
-                    - mattermost
-                name: build_aschaffenburg_web
-                requires:
-                    - bump_version
-            - deliver_web:
-                context:
-                    - mattermost
-                    - sentry
-                filters:
-                    branches:
-                        only:
-                            - main
-                production_delivery: false
-                requires:
-                    - check_web
-                    - build_ig_test_cms_web
-                    - build_malte_web
-                    - build_aschaffenburg_web
             - check_native:
                 context:
                     - mattermost
@@ -871,6 +835,36 @@ workflows:
                     - browserstack
                 requires:
                     - build_e2e_android
+            - build_android:
+                build_config_name: aschaffenburg
+                context:
+                    - mattermost
+                    - tuerantuer-google-play
+                    - tuerantuer-android
+                name: build_aschaffenburg_android
+                requires:
+                    - bump_version
+            - deliver_android:
+                build_config_name: aschaffenburg
+                context:
+                    - mattermost
+                    - sentry
+                    - browserstack
+                    - tuerantuer-google-play
+                    - tuerantuer-android
+                name: deliver_aschaffenburg_android
+                production_delivery: false
+                requires:
+                    - check_native
+                    - e2e_android
+                    - build_aschaffenburg_android
+            - notify_android:
+                context:
+                    - mattermost
+                    - deliverino
+                production_delivery: false
+                requires:
+                    - deliver_aschaffenburg_android
             - build_ios:
                 build_config_name: integreat-e2e
                 context:
@@ -886,6 +880,36 @@ workflows:
                     - browserstack
                 requires:
                     - build_e2e_ios
+            - build_ios:
+                build_config_name: aschaffenburg
+                context:
+                    - mattermost
+                    - tuerantuer-apple
+                    - tuerantuer-ios
+                name: build_aschaffenburg_ios
+                requires:
+                    - bump_version
+            - deliver_ios:
+                build_config_name: aschaffenburg
+                context:
+                    - mattermost
+                    - sentry
+                    - browserstack
+                    - tuerantuer-apple
+                    - tuerantuer-ios
+                name: deliver_aschaffenburg_ios
+                production_delivery: false
+                requires:
+                    - check_native
+                    - e2e_ios
+                    - build_aschaffenburg_ios
+            - notify_ios:
+                context:
+                    - mattermost
+                    - deliverino
+                production_delivery: false
+                requires:
+                    - deliver_aschaffenburg_ios
         unless: << pipeline.parameters.api_triggered >>
     scheduled_native_development_delivery:
         jobs:
