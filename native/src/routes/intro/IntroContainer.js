@@ -102,40 +102,51 @@ class Intro extends React.Component<PropsType, StateType> {
 
   slides = (): Array<SlideContentType> => {
     const icons = buildConfigAssets().intro
-
     const { t } = this.props
+
+    if (!icons) {
+      return [{
+        key: 'integreat',
+        title: t('appName', { appName: buildConfig().appName }),
+        description: t('appDescription', { appName: buildConfig().appName }),
+        renderContent: this.renderAppIcon()
+      },
+      {
+        key: 'inquiry',
+        title: t('inquiryTitle'),
+        renderContent: this.renderSettings
+      }]
+    }
     return [{
       key: 'integreat',
       title: t('appName', { appName: buildConfig().appName }),
       description: t('appDescription', { appName: buildConfig().appName }),
       renderContent: this.renderAppIcon()
-    }].concat(icons
-      ? [{
-          key: 'search',
-          title: t('search'),
-          description: t('searchDescription'),
-          renderContent: this.renderImageContent(icons.search)
-        }, {
-          key: 'events',
-          title: t('events'),
-          description: t('eventsDescription'),
-          renderContent: this.renderImageContent(icons.events)
-        }, {
-          key: 'offers',
-          title: t('offers'),
-          description: t('offersDescription'),
-          renderContent: this.renderImageContent(icons.offers)
-        }, {
-          key: 'languageChange',
-          title: t('languageChange'),
-          description: t('languageChangeDescription'),
-          renderContent: this.renderImageContent(icons.language)
-        }, {
-          key: 'inquiry',
-          title: t('inquiryTitle'),
-          renderContent: this.renderSettings
-        }]
-      : [])
+    }, {
+      key: 'search',
+      title: t('search'),
+      description: t('searchDescription'),
+      renderContent: this.renderImageContent(icons.search)
+    }, {
+      key: 'events',
+      title: t('events'),
+      description: t('eventsDescription'),
+      renderContent: this.renderImageContent(icons.events)
+    }, {
+      key: 'offers',
+      title: t('offers'),
+      description: t('offersDescription'),
+      renderContent: this.renderImageContent(icons.offers)
+    }, {
+      key: 'languageChange',
+      title: t('languageChange'),
+      description: t('languageChangeDescription'),
+      renderContent: this.renderImageContent(icons.language)
+    }, {
+      key: 'inquiry',
+      title: t('inquiryTitle'),
+      renderContent: this.renderSettings
+    }]
   }
 
   toggleCustomizeSettings = () => this.setState(prevState =>
@@ -199,11 +210,11 @@ class Intro extends React.Component<PropsType, StateType> {
     this._flatList.current.scrollToIndex({ index })
   }
 
-  renderSlide = ({ item }: {| item: SlideContentType |}) => {
+  renderSlide = ({ item }: { item: SlideContentType }) => {
     return <SlideContent item={item} theme={this.props.theme} width={this.state.width} />
   }
 
-  onViewableItemsChanged = ({ viewableItems }: {| viewableItems: Array<ViewToken> |}) => {
+  onViewableItemsChanged = ({ viewableItems }: { viewableItems: Array<ViewToken> }) => {
     if (viewableItems.length === 1) {
       if (viewableItems[0].index !== null) {
         this.setState({ currentSlide: viewableItems[0].index })
