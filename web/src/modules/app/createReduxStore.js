@@ -4,7 +4,7 @@ import type { Store } from 'redux'
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import type { RoutesMap } from 'redux-first-router'
-import { connectRoutes } from 'redux-first-router'
+import { connectRoutes, redirect, pathToAction } from 'redux-first-router'
 import { createLogger } from 'redux-logger'
 import uiDirectionReducer from '../i18n/reducers'
 import endpointReducers from './reducers'
@@ -17,12 +17,24 @@ import createHistory from './createHistory'
 import type { StateType } from './StateType'
 import type { StoreActionType } from './StoreActionType'
 import buildConfig from './constants/buildConfig'
+import { LANDING_ROUTE } from './route-configs/LandingRouteConfig'
+import CategoriesRouteConfig from './route-configs/CategoriesRouteConfig'
 
 const createReduxStore = (initialState: StateType = {}, routesMap: RoutesMap = defaultRoutesMap): Store<StateType,
   StoreActionType> => {
   const { reducer, middleware, enhancer } = connectRoutes(routesMap, {
     querySerializer: queryString,
-    createHistory: () => createHistory()
+    createHistory: () => createHistory(),
+    onBeforeChange: (dispatch, _, bag) => {
+      const payload = bag.action.payload
+      const fixedCity = buildConfig().featureFlags.fixedCity
+      // Redirect to fixed city instead of showing the landing page for '/landing/>language>' routes
+      if (fixedCity && bag.action.type === LANDING_ROUTE && payload.language) {
+        const config = new CategoriesRouteConfig()
+        const routePath = config.getRoutePath({ city: fixedCity, language: payload.language })
+        dispatch(redirect(pathToAction(routePath, routesMap)))
+      }
+    }
   })
 
   /**
