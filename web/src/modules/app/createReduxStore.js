@@ -28,7 +28,7 @@ const createReduxStore = (initialState: StateType = {}, routesMap: RoutesMap = d
     onBeforeChange: (dispatch, _, bag) => {
       const payload = bag.action.payload
       const fixedCity = buildConfig().featureFlags.fixedCity
-      // Redirect to fixed city instead of showing the landing page for '/landing/>language>' routes
+      // Redirect to fixed city instead of showing the landing page for '/landing/<language>' routes
       if (fixedCity && bag.action.type === LANDING_ROUTE && payload.language) {
         const config = new CategoriesRouteConfig()
         const routePath = config.getRoutePath({ city: fixedCity, language: payload.language })
