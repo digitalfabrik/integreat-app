@@ -6,7 +6,6 @@ import thunkMiddleware from 'redux-thunk'
 import type { RoutesMap } from 'redux-first-router'
 import { connectRoutes } from 'redux-first-router'
 import { createLogger } from 'redux-logger'
-
 import uiDirectionReducer from '../i18n/reducers'
 import endpointReducers from './reducers'
 import toggleDarkModeReducer from '../theme/reducers'

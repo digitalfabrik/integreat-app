@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { I18nextProvider } from 'react-i18next'
-import MomentContext, { createMomentFormatter } from '../context/MomentContext'
+import DateFormatterContext from '../context/DateFormatterContext'
 import { Text } from 'react-native'
 import buildConfig from '../../app/constants/buildConfig'
 import { config, loadTranslations } from 'translations'
@@ -12,6 +12,7 @@ import { useDispatch } from 'react-redux'
 import type { SetContentLanguageActionType } from '../../app/StoreActionType'
 import NativeLanguageDetector from '../NativeLanguageDetector'
 import AppSettings from '../../settings/AppSettings'
+import DateFormatter from 'api-client/src/i18n/DateFormatter'
 
 type PropsType = {| children: React.Node |}
 
@@ -71,8 +72,8 @@ export default ({ children }: PropsType) => {
     })
   }, [setContentLanguage])
 
-  const momentFormatter = useMemo(
-    () => createMomentFormatter(() => undefined, () => config.defaultFallback),
+  const dateFormatter = useMemo(
+    () => new DateFormatter(config.defaultFallback),
     [])
 
   if (errorMessage) {
@@ -85,9 +86,9 @@ export default ({ children }: PropsType) => {
 
   return (
     <I18nextProvider i18n={i18nextInstance}>
-      <MomentContext.Provider value={momentFormatter}>
+      <DateFormatterContext.Provider value={dateFormatter}>
         {children}
-      </MomentContext.Provider>
+      </DateFormatterContext.Provider>
     </I18nextProvider>
   )
 }

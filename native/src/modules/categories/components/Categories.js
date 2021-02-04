@@ -45,7 +45,7 @@ class Categories extends React.Component<PropsType> {
     navigateToCategory({ cityCode: cityModel.code, language, cityContentPath: tile.path })
   }
 
-  onItemPress = (category: { title: string, thumbnail: string, path: string }) => {
+  onItemPress = (category: CategoryListModelType) => {
     const { cityModel, language, navigateToCategory } = this.props
     navigateToCategory({ cityCode: cityModel.code, language, cityContentPath: category.path })
   }
@@ -107,7 +107,8 @@ class Categories extends React.Component<PropsType> {
       ? {
           content: category.content,
           files: this.getCategoryResourceCache(category),
-          resourceCacheUrl: resourceCacheUrl
+          resourceCacheUrl: resourceCacheUrl,
+          lastUpdate: category?.lastUpdate
         }
       : undefined
   }

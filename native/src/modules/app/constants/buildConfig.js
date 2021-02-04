@@ -16,13 +16,16 @@ import malteIntroLanguageIcon from 'build-configs/malte/assets/intro-slides/Lang
 import malteIntroEventsIcon from 'build-configs/malte/assets/intro-slides/Events.svg'
 import malteIntroOffersIcon from 'build-configs/malte/assets/intro-slides/Offers.svg'
 import malteIntroSearchIcon from 'build-configs/malte/assets/intro-slides/Search.svg'
-import { INTEGREAT_ASSETS, MALTE_ASSETS } from 'build-configs/AssetsType'
+import aschaffenburgAppIcon from 'build-configs/aschaffenburg/assets/app-icon-round.png'
+import aschaffenburgLoadingImage from 'build-configs/aschaffenburg/assets/app-logo-inverted.svg'
+
+import { INTEGREAT_ASSETS, MALTE_ASSETS, ASCHAFFENBURG_ASSETS } from 'build-configs/AssetsType'
 
 type AssetsType = {|
   appIcon: number,
   loadingImage: number,
-  locationMarker: number,
-  intro: {|
+  locationMarker?: number,
+  intro?: {|
     events: number,
     language: number,
     offers: number,
@@ -55,6 +58,11 @@ export const buildConfigAssets = (): AssetsType => {
         offers: malteIntroOffersIcon,
         search: malteIntroSearchIcon
       }
+    }
+  } else if (assetsName === ASCHAFFENBURG_ASSETS) {
+    return {
+      appIcon: aschaffenburgAppIcon,
+      loadingImage: aschaffenburgLoadingImage
     }
   }
   throw new Error(`Unknown icon set ${assetsName}. Check your build config!`)

@@ -113,7 +113,7 @@ describe('I18nProvider', () => {
 
     await waitFor(() => screen.getByTestId('direction'))
 
-    expect(screen.getByTestId('direction')).toHaveStyle({ direction: 'rtl' })
+    expect(screen.getByTestId('direction')).toHaveAttribute('dir', 'rtl')
   })
 
   it('should choose ltr with en as language', async () => {
@@ -125,7 +125,7 @@ describe('I18nProvider', () => {
 
     await waitFor(() => screen.getByTestId('direction'))
 
-    expect(screen.getByTestId('direction')).toHaveStyle({ direction: 'ltr' })
+    expect(screen.getByTestId('direction')).toHaveAttribute('dir', 'ltr')
   })
 
   it('should set document language', async () => {

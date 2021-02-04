@@ -7,6 +7,7 @@ import { shallow } from 'enzyme'
 import LocalNewsList from '../LocalNewsList'
 import NewsElement from '../NewsElement'
 import { LOCAL_NEWS } from '../../constants'
+import DateFormatter from 'api-client/src/i18n/DateFormatter'
 
 describe('LocalNewsList', () => {
   const language = 'en'
@@ -22,7 +23,7 @@ describe('LocalNewsList', () => {
     key={localNews1.id}
     link={link}
     t={t}
-    language={language}
+    formatter={new DateFormatter(language)}
   />
   const date = moment('2017-11-18T09:30:00.000Z')
   const localNews1 = new LocalNewsModel({

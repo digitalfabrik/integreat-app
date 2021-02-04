@@ -8,7 +8,8 @@ import { connect } from 'react-redux'
 import type { StateType } from '../../../modules/app/StateType'
 import TunewsDetailsFooter from '../components/TunewsDetailsFooter'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
-import CityNotFoundError from '../../../modules/app/errors/CityNotFoundError'
+import { useContext } from 'react'
+import DateFormatterContext from '../../../modules/i18n/context/DateFormatterContext'
 
 const StyledContainer = styled.div`
   display: flex;
@@ -59,37 +60,43 @@ type PropsType = {|
   cities: Array<CityModel>
 |}
 
-export class TunewsDetailsPage extends React.PureComponent<PropsType> {
-  render () {
-    const { tunewsElement, language, id, city, cities } = this.props
-
-    const currentCity: ?CityModel = cities && cities.find(cityElement => cityElement.code === city)
-    if (!currentCity) {
-      return <FailureSwitcher error={new CityNotFoundError()} />
-    } else if (!currentCity.tunewsEnabled) {
-      const error = new NotFoundError({ type: 'category', id: id.toString(), city, language })
-      return <FailureSwitcher error={error} />
-    } else if (!tunewsElement) {
-      const error = new NotFoundError({ type: 'tunews', id: id.toString(), city, language })
-      return <FailureSwitcher error={error} />
-    }
-
-    const { title, content, date, eNewsNo } = tunewsElement
-    return (
-      <StyledContainer>
-        <StyledWrapper>
-          <StyledBanner>
-            <StyledTitle>
-              <StyledBannerImage src={TunewsIcon} alt='' />
-            </StyledTitle>
-          </StyledBanner>
-          <Title>{title}</Title>
-          <Content>{content}</Content>
-        </StyledWrapper>
-        <TunewsDetailsFooter eNewsNo={eNewsNo} date={date} language={language} />
-      </StyledContainer>
-    )
+export const TunewsDetailsPage = ({
+  tunewsElement,
+  language,
+  id,
+  city,
+  cities
+}: PropsType) => {
+  const formatter = useContext(DateFormatterContext)
+  const currentCity: ?CityModel = cities && cities.find(cityElement => cityElement.code === city)
+  if (!currentCity || !currentCity.tunewsEnabled) {
+    const error = new NotFoundError({ type: 'category', id: id.toString(), city, language })
+    return <FailureSwitcher error={error} />
+  } else if (!tunewsElement) {
+    const error = new NotFoundError({ type: 'tunews', id: id.toString(), city, language })
+    return <FailureSwitcher error={error} />
   }
+
+  const {
+    title,
+    content,
+    date,
+    eNewsNo
+  } = tunewsElement
+  return (
+    <StyledContainer>
+      <StyledWrapper>
+        <StyledBanner>
+          <StyledTitle>
+            <StyledBannerImage src={TunewsIcon} alt='' />
+          </StyledTitle>
+        </StyledBanner>
+        <Title>{title}</Title>
+        <Content>{content}</Content>
+      </StyledWrapper>
+      <TunewsDetailsFooter eNewsNo={eNewsNo} date={date} formatter={formatter} />
+    </StyledContainer>
+  )
 }
 
 const mapStateToProps = (state: StateType) => ({

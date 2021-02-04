@@ -10,6 +10,7 @@ import integreatBuildConfig from './integreat'
 import integreatTestCmsBuildConfig from './integreat-test-cms'
 import integreatE2eBuildConfig from './integreat-e2e'
 import malteBuildConfig from './malte'
+import aschaffenburgBuildConfig from './aschaffenburg'
 
 export const COMMON = 'common'
 export const ANDROID = 'android'
@@ -29,7 +30,8 @@ export const buildConfigs: { [string]: BuildConfigPlatformType } = {
   integreat: integreatBuildConfig,
   'integreat-test-cms': integreatTestCmsBuildConfig,
   'integreat-e2e': integreatE2eBuildConfig,
-  malte: malteBuildConfig
+  malte: malteBuildConfig,
+  aschaffenburg: aschaffenburgBuildConfig
 }
 
 const loadBuildConfig = (buildConfigName: ?string, platform: ?string) => {
