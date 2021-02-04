@@ -29,7 +29,7 @@ const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
     introSlides: false,
     sentry: true,
     developerFriendly: false,
-    fixedCity: 'aschaffenburgapp' // TODO probably has to be changed to 'abapp' after renamed in cms
+    fixedCity: 'abapp'
   },
   aboutUrls: { // TODO
     default: 'https://integreat-app.de/about/',
