@@ -2,6 +2,8 @@
 .*/node_modules/config-chain/test/broken.json
 <PROJECT_ROOT>/dist/.*
 <PROJECT_ROOT>/lib-dist/.*
+.*/node_modules/.*/__tests__/.*
+.*/build-configs/.*/assets/manifest\.json
 
 [untyped]
 .*/node_modules/react-select/src/.*
