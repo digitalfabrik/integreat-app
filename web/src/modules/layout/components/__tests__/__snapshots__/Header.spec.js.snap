@@ -4,9 +4,16 @@ exports[`Header should match snapshot with largeViewport 1`] = `
 <Headroom
   height={180}
   onStickyTopChanged={[Function]}
+  parent={
+    <html>
+      <head />
+      <body />
+    </html>
+  }
   pinStart={0}
   positionStickyDisabled={false}
   scrollHeight={90}
+  zIndex={1}
 >
   <Header__HeaderContainer>
     <Header__Row
@@ -112,9 +119,16 @@ exports[`Header should match snapshot with smallViewport 1`] = `
 <Headroom
   height={140}
   onStickyTopChanged={[Function]}
+  parent={
+    <html>
+      <head />
+      <body />
+    </html>
+  }
   pinStart={0}
   positionStickyDisabled={false}
   scrollHeight={70}
+  zIndex={1}
 >
   <Header__HeaderContainer>
     <Header__Row
