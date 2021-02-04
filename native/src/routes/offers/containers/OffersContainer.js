@@ -8,7 +8,6 @@ import { createOffersEndpoint, OfferModel, Payload } from 'api-client'
 import type { ThemeType } from 'build-configs/ThemeType'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import FailureContainer from '../../../modules/error/containers/FailureContainer'
-import { LOADING_TIMEOUT } from '../../../modules/common/constants'
 import determineApiUrl from '../../../modules/endpoint/determineApiUrl'
 import type {
   NavigationPropType,
@@ -40,15 +39,11 @@ const OffersContainer = ({ theme, t, navigation, route }: OffersPropsType) => {
   const [offers, setOffers] = useState<?Array<OfferModel>>(null)
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState<boolean>(true)
-  const [timeoutExpired, setTimeoutExpired] = useState<boolean>(false)
 
   const { cityCode, languageCode } = route.params
 
   const loadOffers = useCallback(async () => {
-    setError(null)
-    setTimeoutExpired(false)
     setLoading(true)
-    setTimeout(() => setTimeoutExpired(true), LOADING_TIMEOUT)
 
     try {
       const apiUrl = await determineApiUrl()
@@ -69,7 +64,7 @@ const OffersContainer = ({ theme, t, navigation, route }: OffersPropsType) => {
     } finally {
       setLoading(false)
     }
-  }, [cityCode, languageCode, setOffers, setError, setLoading, setTimeoutExpired])
+  }, [cityCode, languageCode, setOffers, setError, setLoading])
 
   useEffect(() => {
     loadOffers().catch(e => setError(e))
