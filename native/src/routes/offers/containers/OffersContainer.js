@@ -1,11 +1,11 @@
 // @flow
 
-import * as React from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { connect } from 'react-redux'
 import { RefreshControl } from 'react-native'
 import Offers from '../components/Offers'
 import { type TFunction, withTranslation } from 'react-i18next'
-import { CityModel, createOffersEndpoint, OfferModel, Payload } from 'api-client'
+import { createOffersEndpoint, OfferModel, Payload } from 'api-client'
 import type { ThemeType } from 'build-configs/ThemeType'
 import type { StateType } from '../../../modules/app/StateType'
 import withTheme from '../../../modules/theme/hocs/withTheme'
@@ -28,58 +28,80 @@ import LayoutContainer from '../../../modules/layout/containers/LayoutContainer'
 import { cityContentUrl } from '../../../modules/navigation/url'
 import openExternalUrl from '../../../modules/common/openExternalUrl'
 import type { OffersRouteType } from 'api-client/src/routes'
+import createNavigateToFeedbackModal from '../../../modules/navigation/createNavigateToFeedbackModal'
 
 type OwnPropsType = {|
   route: RoutePropType<OffersRouteType>,
   navigation: NavigationPropType<OffersRouteType>
 |}
 
-type StatePropsType = {| city: ?string, language: string, cities: ?$ReadOnlyArray<CityModel> |}
+type StatePropsType = {| city: ?string, language: string |}
 type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
 const mapStateToProps = (state: StateType): StatePropsType => {
-  const cities: ?$ReadOnlyArray<CityModel> = state.cities.status !== 'ready' ? null : state.cities.models
-
   return {
     city: state.cityContent?.city,
-    language: state.contentLanguage,
-    cities
+    language: state.contentLanguage
   }
 }
 
 type OffersPropsType = {|
   ...OwnPropsType,
   city: ?string,
-  cities: ?Array<CityModel>,
   language: string,
   theme: ThemeType,
   t: TFunction
 |}
 
-type OffersStateType = {|
-  offers: ?Array<OfferModel>,
-  error: ?Error,
-  timeoutExpired: boolean
-|}
+const OffersContainer = ({ theme, t, navigation, city, language, route }: OffersPropsType) => {
+  const [offers, setOffers] = useState<?Array<OfferModel>>(null)
+  const [error, setError] = useState<string | null>(null)
+  const [loading, setLoading] = useState<boolean>(true)
+  const [timeoutExpired, setTimeoutExpired] = useState<boolean>(false)
 
-class OffersContainer extends React.Component<OffersPropsType, OffersStateType> {
-  constructor (props: OffersPropsType) {
-    super(props)
-    this.state = { offers: null, error: null, timeoutExpired: false }
-  }
+  const loadOffers = useCallback(async () => {
+    // TODO pass city and language as route params
+    if (!city) {
+      setError('Missing city!')
+      return
+    }
+    setError(null)
+    setTimeoutExpired(false)
+    setLoading(true)
+    setTimeout(() => setTimeoutExpired(true), LOADING_TIMEOUT)
 
-  componentDidMount () {
-    this.loadOffers().catch(e => this.setState({ error: e }))
-  }
+    try {
+      const apiUrl = await determineApiUrl()
+      const payload: Payload<Array<OfferModel>> = await (createOffersEndpoint(apiUrl).request({
+        city,
+        language
+      }))
 
-  navigateToOffer = (
+      if (payload.error) {
+        setError(payload.error.message)
+        setOffers(null)
+      } else {
+        setOffers(payload.data)
+      }
+    } catch (e) {
+      setError(e)
+      setOffers(null)
+    } finally {
+      setLoading(false)
+    }
+  }, [city, language, setOffers, setError, setLoading, setTimeoutExpired])
+
+  useEffect(() => {
+    loadOffers().catch(e => setError(e))
+  }, [])
+
+  const navigateToOffer = useCallback((
     offers: Array<OfferModel>,
     path: string,
     isExternalUrl: boolean,
     postData: ?Map<string, string>
   ) => {
-    const { navigation, city, language } = this.props
     if (!city) {
       return
     }
@@ -97,56 +119,36 @@ class OffersContainer extends React.Component<OffersPropsType, OffersStateType> 
       const params = { city, offers, offerHash: null }
       navigation.push(WOHNEN_OFFER_ROUTE, params)
     }
-  }
+  }, [city, language, navigation])
 
-  loadOffers = async () => {
-    const { city, language } = this.props
-
-    if (!city) {
-      return
+  const navigateToFeedback = useCallback((isPositiveFeedback: boolean) => {
+    if (offers && city) {
+      createNavigateToFeedbackModal(navigation)({
+        type: 'Offers',
+        language,
+        cityCode: city,
+        offers,
+        isPositiveFeedback
+      })
     }
+  }, [offers, language, city, navigation])
 
-    this.setState({ error: null, offers: null, timeoutExpired: false })
-    setTimeout(() => this.setState({ timeoutExpired: true }), LOADING_TIMEOUT)
-
-    try {
-      const apiUrl = await determineApiUrl()
-      const payload: Payload<Array<OfferModel>> = await (createOffersEndpoint(apiUrl).request({
-        city,
-        language
-      }))
-
-      if (payload.error) {
-        this.setState({ error: payload.error, offers: null })
-      } else {
-        this.setState({ error: null, offers: payload.data })
-      }
-    } catch (e) {
-      this.setState({ error: e, offers: null })
-    }
-  }
-
-  render () {
-    const { theme, t, cities, navigation, city, language, route } = this.props
-    const { offers, error, timeoutExpired } = this.state
-
-    if (error) {
-      return <LayoutedScrollView refreshControl={<RefreshControl onRefresh={this.loadOffers} refreshing={false} />}>
-        <FailureContainer errorMessage={error.message} tryAgain={this.loadOffers} />
+  if (error) {
+    return <LayoutedScrollView refreshControl={<RefreshControl onRefresh={loadOffers} refreshing={loading} />}>
+        <FailureContainer errorMessage={error} tryAgain={loadOffers} />
       </LayoutedScrollView>
-    }
-
-    if (!offers || !cities || !city) {
-      return timeoutExpired
-        ? <LayoutedScrollView refreshControl={<RefreshControl refreshing />} />
-        : <LayoutContainer />
-    }
-
-    return <LayoutedScrollView refreshControl={<RefreshControl onRefresh={this.loadOffers} refreshing={false} />}>
-      <Offers offers={offers} navigateToOffer={this.navigateToOffer} theme={theme} t={t} cities={cities}
-              navigation={navigation} route={route} cityCode={city} language={language} />
-    </LayoutedScrollView>
   }
+
+  if (!offers || !city) {
+    return timeoutExpired
+      ? <LayoutedScrollView refreshControl={<RefreshControl refreshing />} />
+      : <LayoutContainer />
+  }
+
+  return <LayoutedScrollView refreshControl={<RefreshControl onRefresh={loadOffers} refreshing={loading} />}>
+      <Offers offers={offers} navigateToOffer={navigateToOffer} theme={theme} t={t}
+              navigateToFeedback={navigateToFeedback} cityCode={city} language={language} />
+    </LayoutedScrollView>
 }
 
 export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(
