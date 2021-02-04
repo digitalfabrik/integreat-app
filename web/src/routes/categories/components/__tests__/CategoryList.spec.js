@@ -7,8 +7,18 @@ import CategoryList from '../CategoryList'
 import { CategoryModel } from 'api-client'
 import moment from 'moment'
 
-const title = 'Willkommen'
-const content = 'test content'
+const modelWithTitle = new CategoryModel({
+  root: false,
+  path: '/augsburg/de/erste-schritte/asylantrag',
+  parentPath: '/augsburg/de/erste-schritte',
+  title: 'Willkommen',
+  order: 3,
+  availableLanguages: new Map(),
+  content: 'test content',
+  lastUpdate: moment('2016-01-07 10:36:24'),
+  thumbnail: 'thumb-nail',
+  hash: '91d435afbc7aa83437e81fd2832e3'
+})
 
 const categoryModels = [
   new CategoryModel({
@@ -75,8 +85,7 @@ describe('CategoryList', () => {
   it('should render and display a caption', () => {
     const wrapper = shallow(
       <CategoryList categories={categories} onInternalLinkClick={() => {}}
-                    title={title}
-                    content={content} />
+                    category={modelWithTitle} />
     )
     expect(wrapper).toMatchSnapshot()
   })
