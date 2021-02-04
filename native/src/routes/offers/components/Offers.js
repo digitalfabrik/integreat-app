@@ -22,14 +22,14 @@ type PropsType = {|
   ) => void,
   theme: ThemeType,
   t: TFunction,
-  cityCode: string,
   language: string
 |}
 
 const toTileModels = (offer: Array<OfferModel>): Array<TileModel> => {
   return offer.map(
     offer => {
-      const path = [SPRUNGBRETT_OFFER_ROUTE, WOHNEN_OFFER_ROUTE].includes(offer.alias)
+      const isInternalExtra = [SPRUNGBRETT_OFFER_ROUTE, WOHNEN_OFFER_ROUTE].includes(offer.alias)
+      const path = isInternalExtra
         ? offer.alias
         : offer.path
 
@@ -37,15 +37,14 @@ const toTileModels = (offer: Array<OfferModel>): Array<TileModel> => {
         title: offer.title,
         path: path,
         thumbnail: offer.thumbnail,
-        // every offer except the sprungbrett and the wohnen offer is just a link to an external site
-        isExternalUrl: path === offer.path,
+        isExternalUrl: !isInternalExtra,
         postData: offer.postData
       })
     }
   )
 }
 
-const Offers = ({ offers, navigateToFeedback, navigateToOffer, theme, t, cityCode, language }: PropsType) => {
+const Offers = ({ offers, navigateToFeedback, navigateToOffer, theme, t, language }: PropsType) => {
   const onTilePress = useCallback((tile: TileModel) => {
     const offer = offers.filter(offer => offer.alias === tile.path)
     navigateToOffer(offer, tile.path, tile.isExternalUrl, tile.postData)
