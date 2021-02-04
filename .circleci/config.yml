@@ -48,7 +48,7 @@ commands:
                 default: app
                 type: string
             failure_mentions:
-                default: '@max.amman @stefanie.metzger @sarah.sporck @steffen.kleinle'
+                default: '@max.ammann @stefanie.metzger @sarah.sporck @steffen.kleinle'
                 type: string
             only_for_branch:
                 default: main

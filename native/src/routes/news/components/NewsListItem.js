@@ -145,7 +145,7 @@ class NewsListItem extends React.PureComponent<PropsType> {
                 theme={theme}
                 isTunews={isTunews}
                 name='keyboard-arrow-right'
-                style={{ transform: [{ scaleX: config.isRTLLanguage(language) ? -1 : 1 }] }}
+                style={{ transform: [{ scaleX: config.hasRTLScript(language) ? -1 : 1 }] }}
               />
             </ReadMoreWrapper>
           </StyledTouchableOpacity>

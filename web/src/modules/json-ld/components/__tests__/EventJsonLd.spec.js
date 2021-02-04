@@ -6,6 +6,7 @@ import { Helmet } from 'react-helmet'
 import EventJsonLd from '../EventJsonLd'
 import moment from 'moment'
 import { DateModel, EventModel, FeaturedImageModel, LocationModel } from 'api-client'
+import DateFormatter from 'api-client/src/i18n/DateFormatter'
 
 describe('EventJsonLd', () => {
   it('should output valid json-ld', () => {
@@ -44,7 +45,7 @@ describe('EventJsonLd', () => {
       })
     })
 
-    const wrapper = shallow(<EventJsonLd event={eventModel} />)
+    const wrapper = shallow(<EventJsonLd event={eventModel} formatter={new DateFormatter('en')} />)
     const helmet = wrapper.find(Helmet)
     expect(helmet.children().matchesElement(<script type='application/ld+json'>
         {JSON.stringify({

@@ -17,6 +17,7 @@
 * [`No BUILD_CONFIG_NAME supplied`](#no-build_config_name-supplied)
 * [`Invalid BUILD_CONFIG_NAME supplied`](#invalid-build_config_name-supplied)
 * [App crashing with java.lang.UnsatisfiedLinkError](#app-crashing-with-javalangunsatisfiedlinkerror)
+* [App crashing without any error](#app-crashing-without-any-error)
 
 ## Problems with sharp or other node modules
 
@@ -108,7 +109,7 @@ More information on how to set the environment variable can be found [here](buil
 ## Invalid BUILD_CONFIG_NAME supplied
 
 Invalid environment variable `BUILD_CONFIG_NAME` set before running the packager.
-All available build configs can be found [here](../../docs/build-configs.md#available-build-configs).
+All available build configs can be found [here](../../build-configs/README.md#available-build-configs).
 
 ## App crashing with java.lang.UnsatisfiedLinkError 
 
@@ -118,3 +119,8 @@ The following error occurs:
 * Delete the folder `android/app/build` 
 * Delete the app
 * Reinstall the app (`yarn android`)
+
+## App crashing without any error
+
+The app is installed correctly on the android emulator but crashes without any error message on start up.
+To solve this issue delete /android/app/build and android/.gradle folder.

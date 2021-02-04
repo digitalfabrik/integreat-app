@@ -17,9 +17,8 @@ import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import AppSettings from '../../../settings/AppSettings'
 import AsyncStorage from '@react-native-community/async-storage'
-import MomentContext from '../../context/MomentContext'
+import DateFormatterContext from '../../context/DateFormatterContext'
 import moment from 'moment'
-import type { MomentFormatterType } from '../../context/MomentContext'
 
 jest.mock('../../NativeLanguageDetector')
 jest.mock('@react-native-community/async-storage')
@@ -164,8 +163,8 @@ describe('I18nProvider', () => {
   it('should have formatter with german fallback format', async () => {
     const store = mockStore(prepareState())
     const ReceivingComponent = () => {
-      const format = useContext<MomentFormatterType>(MomentContext)
-      return <Text>{format(moment.utc('2020-12-21T14:58:57+01:00'), {})}</Text>
+      const formatter = useContext(DateFormatterContext)
+      return <Text>{formatter.format(moment.utc('2020-12-21T14:58:57+01:00'), {})}</Text>
     }
 
     const { getByText } = render(<Provider store={store}><I18nProvider>
