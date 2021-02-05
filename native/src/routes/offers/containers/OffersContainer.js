@@ -9,20 +9,14 @@ import type { ThemeType } from 'build-configs/ThemeType'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import FailureContainer from '../../../modules/error/containers/FailureContainer'
 import determineApiUrl from '../../../modules/endpoint/determineApiUrl'
-import type {
-  NavigationPropType,
-  RoutePropType
-} from '../../../modules/app/constants/NavigationTypes'
-import {
-  EXTERNAL_OFFER_ROUTE, OFFERS_ROUTE,
-  SPRUNGBRETT_OFFER_ROUTE,
-  WOHNEN_OFFER_ROUTE
-} from 'api-client/src/routes'
+import type { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
+import { EXTERNAL_OFFER_ROUTE, OFFERS_ROUTE, SPRUNGBRETT_OFFER_ROUTE, WOHNEN_OFFER_ROUTE } from 'api-client/src/routes'
 import LayoutedScrollView from '../../../modules/common/containers/LayoutedScrollView'
 import { cityContentUrl } from '../../../modules/navigation/url'
 import openExternalUrl from '../../../modules/common/openExternalUrl'
 import type { OffersRouteType } from 'api-client/src/routes'
 import createNavigateToFeedbackModal from '../../../modules/navigation/createNavigateToFeedbackModal'
+import { fromError } from '../../../modules/error/ErrorCodes'
 
 type OwnPropsType = {|
   route: RoutePropType<OffersRouteType>,
@@ -37,8 +31,8 @@ type OffersPropsType = {|
 
 const OffersContainer = ({ theme, t, navigation, route }: OffersPropsType) => {
   const [offers, setOffers] = useState<?Array<OfferModel>>(null)
-  const [error, setError] = useState<string | null>(null)
-  const [loading, setLoading] = useState<boolean>(true)
+  const [error, setError] = useState<?Error>(null)
+  const [loading, setLoading] = useState<boolean>(false)
 
   const { cityCode, languageCode } = route.params
 
@@ -53,10 +47,11 @@ const OffersContainer = ({ theme, t, navigation, route }: OffersPropsType) => {
       }))
 
       if (payload.error) {
-        setError(payload.error.message)
+        setError(payload.error)
         setOffers(null)
       } else {
         setOffers(payload.data)
+        setError(null)
       }
     } catch (e) {
       setError(e)
@@ -105,7 +100,7 @@ const OffersContainer = ({ theme, t, navigation, route }: OffersPropsType) => {
 
   if (error) {
     return <LayoutedScrollView refreshControl={<RefreshControl onRefresh={loadOffers} refreshing={loading} />}>
-        <FailureContainer errorMessage={error} tryAgain={loadOffers} />
+        <FailureContainer errorMessage={error.message} code={fromError(error)} tryAgain={loadOffers} />
       </LayoutedScrollView>
   }
 
