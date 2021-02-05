@@ -4,11 +4,10 @@ import React, { useState, useEffect, useCallback } from 'react'
 import { RefreshControl } from 'react-native'
 import Offers from '../components/Offers'
 import { type TFunction, withTranslation } from 'react-i18next'
-import { createOffersEndpoint, OfferModel, Payload } from 'api-client'
+import { createOffersEndpoint, OfferModel } from 'api-client'
 import type { ThemeType } from 'build-configs/ThemeType'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import FailureContainer from '../../../modules/error/containers/FailureContainer'
-import determineApiUrl from '../../../modules/endpoint/determineApiUrl'
 import type { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
 import { EXTERNAL_OFFER_ROUTE, OFFERS_ROUTE, SPRUNGBRETT_OFFER_ROUTE, WOHNEN_OFFER_ROUTE } from 'api-client/src/routes'
 import LayoutedScrollView from '../../../modules/common/containers/LayoutedScrollView'
@@ -17,6 +16,7 @@ import openExternalUrl from '../../../modules/common/openExternalUrl'
 import type { OffersRouteType } from 'api-client/src/routes'
 import createNavigateToFeedbackModal from '../../../modules/navigation/createNavigateToFeedbackModal'
 import { fromError } from '../../../modules/error/ErrorCodes'
+import loadFromEndpoint from '../../../modules/endpoint/loadFromEndpoint'
 
 type OwnPropsType = {|
   route: RoutePropType<OffersRouteType>,
@@ -37,28 +37,10 @@ const OffersContainer = ({ theme, t, navigation, route }: OffersPropsType) => {
   const { cityCode, languageCode } = route.params
 
   const loadOffers = useCallback(async () => {
-    setLoading(true)
+    const request = async (apiUrl: string) =>
+      await createOffersEndpoint(apiUrl).request({ city: cityCode, language: languageCode })
 
-    try {
-      const apiUrl = await determineApiUrl()
-      const payload: Payload<Array<OfferModel>> = await (createOffersEndpoint(apiUrl).request({
-        city: cityCode,
-        language: languageCode
-      }))
-
-      if (payload.error) {
-        setError(payload.error)
-        setOffers(null)
-      } else {
-        setOffers(payload.data)
-        setError(null)
-      }
-    } catch (e) {
-      setError(e)
-      setOffers(null)
-    } finally {
-      setLoading(false)
-    }
+    await loadFromEndpoint<Array<OfferModel>>(request, setOffers, setError, setLoading)
   }, [cityCode, languageCode, setOffers, setError, setLoading])
 
   useEffect(() => {

@@ -1,8 +1,8 @@
 // @flow
 
-import React, { useCallback, useState, useEffect } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import { createDisclaimerEndpoint, PageModel, Payload } from 'api-client'
+import { createDisclaimerEndpoint, PageModel } from 'api-client'
 import type { ThemeType } from 'build-configs/ThemeType'
 import type { StateType } from '../../modules/app/StateType'
 import withTheme from '../../modules/theme/hocs/withTheme'
@@ -11,7 +11,6 @@ import FailureContainer from '../../modules/error/containers/FailureContainer'
 import type { Dispatch } from 'redux'
 import type { StoreActionType } from '../../modules/app/StoreActionType'
 import { RefreshControl } from 'react-native'
-import determineApiUrl from '../../modules/endpoint/determineApiUrl'
 import SiteHelpfulBox from '../../modules/common/components/SiteHelpfulBox'
 import createNavigateToFeedbackModal from '../../modules/navigation/createNavigateToFeedbackModal'
 import type { NavigationPropType, RoutePropType } from '../../modules/app/constants/NavigationTypes'
@@ -20,6 +19,7 @@ import navigateToLink from '../../modules/navigation/navigateToLink'
 import type { DisclaimerRouteType } from 'api-client/src/routes'
 import createNavigate from '../../modules/navigation/createNavigate'
 import { fromError } from '../../modules/error/ErrorCodes'
+import loadFromEndpoint from '../../modules/endpoint/loadFromEndpoint'
 
 type OwnPropsType = {|
   route: RoutePropType<DisclaimerRouteType>,
@@ -64,26 +64,10 @@ const DisclaimerContainer = ({ theme, resourceCacheUrl, navigation, route, dispa
   }, [disclaimer, cityCode, languageCode, navigation])
 
   const loadDisclaimer = useCallback(async () => {
-    setLoading(true)
+    const request = async (apiUrl: string) =>
+      await createDisclaimerEndpoint(apiUrl).request({ city: cityCode, language: languageCode })
 
-    try {
-      const apiUrl = await determineApiUrl()
-      const disclaimerEndpoint = createDisclaimerEndpoint(apiUrl)
-      const payload: Payload<PageModel> = await disclaimerEndpoint.request({ city: cityCode, language: languageCode })
-
-      if (payload.error) {
-        setError(payload.error)
-        setDisclaimer(null)
-      } else {
-        setDisclaimer(payload.data)
-        setError(null)
-      }
-    } catch (e) {
-      setError(e)
-      setDisclaimer(null)
-    } finally {
-      setLoading(false)
-    }
+    await loadFromEndpoint<PageModel>(request, setDisclaimer, setError, setLoading)
   }, [cityCode, languageCode, setError, setDisclaimer, setLoading])
 
   useEffect(() => {
