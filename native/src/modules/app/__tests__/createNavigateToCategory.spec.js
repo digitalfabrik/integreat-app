@@ -43,18 +43,6 @@ describe('createNavigateToCategory', () => {
     })
   })
 
-  it('should pass share url in navigation params', () => {
-    const dispatch = jest.fn()
-    const navigation = createNavigationScreenPropMock()
-
-    const navigateToCategory = createNavigateToCategory(CATEGORIES_ROUTE, dispatch, navigation)
-    navigateToCategory({ cityCode: 'augsburg', language: 'de', cityContentPath: '/augsburg/de/erste-hilfe' })
-
-    expect(navigation.navigate).toHaveBeenCalledWith(expect.objectContaining({
-      params: expect.objectContaining({ shareUrl: '/augsburg/de/erste-hilfe' })
-    }))
-  })
-
   it('should dispatch a FETCH_CATEGORY action and refresh resources on force refresh', () => {
     const dispatch = jest.fn()
     const navigation = createNavigationScreenPropMock()
