@@ -50,20 +50,29 @@ const OffersContainer = ({ theme, t, navigation, route }: OffersPropsType) => {
 
   const navigateToOffer = useCallback((tile: TileModel) => {
     const { title, path, isExternalUrl, postData } = tile
-    // HTTP POST is neither supported by the InAppBrowser nor by Linking, therefore we have to open it in a webview
-    if (isExternalUrl && postData) {
-      navigation.push(EXTERNAL_OFFER_ROUTE, { url: path, shareUrl: path, postData })
-    } else if (isExternalUrl) {
-      openExternalUrl(path)
-    } else if (path === SPRUNGBRETT_OFFER_ROUTE) {
-      const shareUrl = cityContentUrl({ cityCode, languageCode, route: OFFERS_ROUTE, path })
-      const params = { cityCode, languageCode, title, alias: path, shareUrl }
-      navigation.push(SPRUNGBRETT_OFFER_ROUTE, params)
-    } else if (path === WOHNEN_OFFER_ROUTE) {
-      const params = { city: cityCode, title, alias: path, postData, offerHash: null }
-      navigation.push(WOHNEN_OFFER_ROUTE, params)
+    const offer = offers && offers.find(offer => offer.title === title)
+    if (!offer) {
+      return
     }
-  }, [cityCode, languageCode, navigation])
+
+    if (isExternalUrl && postData) {
+      // HTTP POST is neither supported by the InAppBrowser nor by Linking, therefore we have to open it in a webview
+      if (postData) {
+        navigation.push(EXTERNAL_OFFER_ROUTE, { url: path, shareUrl: path, postData })
+      } else {
+        openExternalUrl(path)
+      }
+    } else {
+      if (offer.alias === SPRUNGBRETT_OFFER_ROUTE) {
+        const shareUrl = cityContentUrl({ cityCode, languageCode, route: OFFERS_ROUTE, path: offer.alias })
+        const params = { cityCode, languageCode, title, alias: offer.alias, apiUrl: offer.path, shareUrl }
+        navigation.push(SPRUNGBRETT_OFFER_ROUTE, params)
+      } else if (offer.alias === WOHNEN_OFFER_ROUTE) {
+        const params = { city: cityCode, title, alias: offer.alias, postData, offerHash: null }
+        navigation.push(WOHNEN_OFFER_ROUTE, params)
+      }
+    }
+  }, [offers, cityCode, languageCode, navigation])
 
   const navigateToFeedback = useCallback((isPositiveFeedback: boolean) => {
     if (offers) {

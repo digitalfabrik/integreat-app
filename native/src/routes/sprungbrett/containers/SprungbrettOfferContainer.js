@@ -34,7 +34,7 @@ const SprungbrettOfferContainer = ({ route, navigation, theme, t }: SprungbrettP
   const [error, setError] = useState<?Error>(null)
   const [loading, setLoading] = useState<boolean>(false)
 
-  const { cityCode, languageCode, title, alias } = route.params
+  const { cityCode, languageCode, title, alias, apiUrl } = route.params
 
   const navigateToFeedback = useCallback((isPositiveFeedback: boolean) => {
     createNavigateToFeedbackModal(navigation)({
@@ -48,11 +48,11 @@ const SprungbrettOfferContainer = ({ route, navigation, theme, t }: SprungbrettP
   }, [cityCode, languageCode, title, alias, navigation])
 
   const loadJobs = useCallback(async () => {
-    const request = async (apiUrl: string) =>
-      await createSprungbrettJobsEndpoint(apiUrl).request({ city: cityCode, language: languageCode })
+    const request = async () =>
+      await createSprungbrettJobsEndpoint(apiUrl).request()
 
     await loadFromEndpoint<Array<SprungbrettJobModel>>(request, setJobs, setError, setLoading)
-  }, [cityCode, languageCode, setJobs, setError, setLoading])
+  }, [apiUrl, setJobs, setError, setLoading])
 
   useEffect(() => {
     loadJobs().catch(e => setError(e))
