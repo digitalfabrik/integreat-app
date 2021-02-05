@@ -48,7 +48,7 @@ const OffersContainer = ({ theme, t, navigation, route }: OffersPropsType) => {
   }, [])
 
   const navigateToOffer = useCallback((
-    offers: Array<OfferModel>,
+    title: string,
     path: string,
     isExternalUrl: boolean,
     postData: ?Map<string, string>
@@ -60,7 +60,7 @@ const OffersContainer = ({ theme, t, navigation, route }: OffersPropsType) => {
       openExternalUrl(path)
     } else if (path === SPRUNGBRETT_OFFER_ROUTE) {
       const shareUrl = cityContentUrl({ cityCode, languageCode, route: OFFERS_ROUTE, path })
-      const params = { city: cityCode, offers, shareUrl }
+      const params = { cityCode, languageCode, title, alias: path, shareUrl }
       navigation.push(SPRUNGBRETT_OFFER_ROUTE, params)
     } else if (path === WOHNEN_OFFER_ROUTE) {
       const params = { city: cityCode, offers, offerHash: null }
