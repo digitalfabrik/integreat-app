@@ -57,7 +57,7 @@ export type RoutesParamsType = {|
   disclaimer: {| ...ShareUrlType, cityCode: string, languageCode: string |},
   offers: {| ...ShareUrlType, cityCode: string, languageCode: string |},
   externalOffer: {| ...ShareUrlType, url: string, postData: ?Map<string, string> |},
-  sprungbrett: {| ...ShareUrlType, city: string, offers: Array<OfferModel> |},
+  sprungbrett: {| ...ShareUrlType, cityCode: string, languageCode: string, offers: Array<OfferModel> |},
   wohnen: {| offerHash: ?string, city: string, offers: Array<OfferModel> |},
   settings: void,
   search: void,
