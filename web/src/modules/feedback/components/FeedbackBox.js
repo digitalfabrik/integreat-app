@@ -26,6 +26,10 @@ export const StyledFeedbackBox = styled.div`
   font-size: ${props => props.theme.fonts.contentFontSize};
 `
 
+const TextInput = styled.input.attrs({ type: 'text' })`
+  resize: none;
+`
+
 export const Description = styled.div`
   padding: 10px 0 5px;
 `
@@ -76,6 +80,11 @@ export class FeedbackBox extends React.PureComponent<PropsType> {
           commentMessage={isPositiveRatingSelected ? t('positiveComment') : t('negativeComment')}
           onCommentChanged={onCommentChanged}
           required={!isPositiveRatingSelected} />
+        {/* todo change this to match for an email adress field */}
+        <Description>{t('mailAdress')}</Description>
+        <TextInput 
+          onChange={this.handleFilterTextChange}
+          autoFocus />
         {sendingStatus === 'ERROR' && <Description>{t('failedSendingFeedback')}</Description>}
         <TextButton
           disabled={!isPositiveRatingSelected && !comment}
