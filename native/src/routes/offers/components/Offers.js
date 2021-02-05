@@ -15,7 +15,7 @@ type PropsType = {|
   offers: Array<OfferModel>,
   navigateToFeedback: (isPositiveFeedback: boolean) => void,
   navigateToOffer: (
-    offers: Array<OfferModel>,
+    title: string,
     path: string,
     isExternalUrl: boolean,
     postData: ?Map<string, string>
@@ -46,9 +46,8 @@ const toTileModels = (offer: Array<OfferModel>): Array<TileModel> => {
 
 const Offers = ({ offers, navigateToFeedback, navigateToOffer, theme, t, language }: PropsType) => {
   const onTilePress = useCallback((tile: TileModel) => {
-    const offer = offers.filter(offer => offer.alias === tile.path)
-    navigateToOffer(offer, tile.path, tile.isExternalUrl, tile.postData)
-  }, [navigateToOffer, offers])
+    navigateToOffer(tile.title, tile.path, tile.isExternalUrl, tile.postData)
+  }, [navigateToOffer])
 
   return (
     <SpaceBetween>

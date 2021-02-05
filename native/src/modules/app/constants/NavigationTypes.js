@@ -45,19 +45,20 @@ export type RoutesType = IntroRouteType
   | FeedbackModalRouteType
 
 type ShareUrlType = {| shareUrl: string |}
+type CityContentParamsType = {| ...ShareUrlType, cityCode: string, languageCode: string |}
 
 export type RoutesParamsType = {|
   intro: void,
   landing: void,
-  dashboard: {| ...ShareUrlType, cityCode: string, languageCode: string |},
-  categories: {| ...ShareUrlType, cityCode: string, languageCode: string |},
+  dashboard: CityContentParamsType,
+  categories: CityContentParamsType,
   pois: ShareUrlType,
   events: ShareUrlType,
   news: ShareUrlType,
-  disclaimer: {| ...ShareUrlType, cityCode: string, languageCode: string |},
-  offers: {| ...ShareUrlType, cityCode: string, languageCode: string |},
+  disclaimer: CityContentParamsType,
+  offers: CityContentParamsType,
   externalOffer: {| ...ShareUrlType, url: string, postData: ?Map<string, string> |},
-  sprungbrett: {| ...ShareUrlType, cityCode: string, languageCode: string, offers: Array<OfferModel> |},
+  sprungbrett: {| ...CityContentParamsType, title: string, alias: string |},
   wohnen: {| offerHash: ?string, city: string, offers: Array<OfferModel> |},
   settings: void,
   search: void,
