@@ -1,6 +1,6 @@
 // @flow
 
-import * as React from 'react'
+import React, { useCallback } from 'react'
 import { Share } from 'react-native'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
@@ -73,27 +73,27 @@ type PropsType = {|
   dispatch: Dispatch<StoreActionType>
 |}
 
-class Header extends React.PureComponent<PropsType> {
-  canGoBackInStack (): boolean {
-    return !!this.props.previous
-  }
+const Header = (props: PropsType) => {
+  const canGoBackInStack = useCallback(() => {
+    return !!props.previous
+  })
 
-  goBackInStack = () => {
-    this.props.navigation.goBack()
-  }
+  const goBackInStack = useCallback(() => {
+    props.navigation.goBack()
+  })
 
-  goToLanding = () => {
-    const { navigation, dispatch } = this.props
+  const goToLanding = useCallback(() => {
+    const { navigation, dispatch } = props
     // $FlowFixMe Navigation type of the header does not match that of screens.
     createNavigateToLanding(dispatch, navigation)()
-  }
+  })
 
-  goToSettings = () => {
-    this.props.navigation.navigate(SETTINGS_ROUTE)
-  }
+  const goToSettings = useCallback(() => {
+    props.navigation.navigate(SETTINGS_ROUTE)
+  })
 
-  onShare = async () => {
-    const { scene, t } = this.props
+  const onShare = useCallback(async () => {
+    const { scene, t } = props
     const shareUrl = scene.route.params?.shareUrl
     if (!shareUrl) { // The share option should only be shown if there is a shareUrl
       return
@@ -112,65 +112,65 @@ class Header extends React.PureComponent<PropsType> {
     } catch (e) {
       alert(e.message)
     }
-  }
+  })
 
-  goToSearch = () => {
-    this.props.navigation.navigate(SEARCH_MODAL_ROUTE)
-  }
+  const goToSearch = useCallback(() => {
+    props.navigation.navigate(SEARCH_MODAL_ROUTE)
+  })
 
-  goToDisclaimer = () => {
-    const { routeCityModel, language } = this.props
+  const goToDisclaimer = useCallback(() => {
+    const { routeCityModel, language } = props
     if (!routeCityModel) {
       throw new Error('Impossible to go to disclaimer route if no city model is defined')
     }
     const shareUrl = cityContentUrl({ cityCode: routeCityModel.code, languageCode: language, route: DISCLAIMER_ROUTE })
-    this.props.navigation.navigate(DISCLAIMER_ROUTE, { shareUrl })
-  }
+    props.navigation.navigate(DISCLAIMER_ROUTE, { shareUrl })
+  })
 
-  cityDisplayName = (cityModel: CityModel) => {
+  const cityDisplayName = useCallback((cityModel: CityModel) => {
     const description = cityModel.prefix ? ` (${cityModel.prefix})` : ''
     return `${cityModel.sortingName}${description}`
-  }
+  })
 
-  renderItem (
+  const renderItem = useCallback((
     title: string, iconName?: string, show: 'never' | 'always',
     onPress: ?() => void | Promise<void>, accessibilityLabel: string
-  ): React.Node {
-    const { theme } = this.props
+  ): React.Node => {
+    const { theme } = props
     const buttonStyle = onPress ? {} : { color: theme.colors.textSecondaryColor }
 
     return <Item title={title} accessibilityLabel={accessibilityLabel} iconName={iconName} show={show}
                  onPress={onPress} buttonStyle={buttonStyle} />
-  }
+  })
 
-  render () {
-    const { routeCityModel, scene, t, theme, goToLanguageChange, peeking, categoriesAvailable } = this.props
-    const shareUrl = scene.route.params?.shareUrl || null
-    const showChangeLocation = !buildConfig().featureFlags.fixedCity
+  const { routeCityModel, scene, t, theme, goToLanguageChange, peeking, categoriesAvailable } = props
+  const shareUrl = scene.route.params?.shareUrl || null
+  const showChangeLocation = !buildConfig().featureFlags.fixedCity
 
-    return <BoxShadow theme={theme}>
+  return (
+    <BoxShadow theme={theme}>
       <Horizontal>
         <HorizontalLeft>
-          {this.canGoBackInStack()
-            ? <HeaderBackButton onPress={this.goBackInStack} labelVisible={false} />
+          {canGoBackInStack()
+            ? <HeaderBackButton onPress={goBackInStack} labelVisible={false} />
             : <Icon source={buildConfigAssets().appIcon} />}
           {routeCityModel &&
-          <HeaderText allowFontScaling={false} theme={theme}>{this.cityDisplayName(routeCityModel)}</HeaderText>}
+          <HeaderText allowFontScaling={false} theme={theme}>City: {cityDisplayName(routeCityModel)}</HeaderText>}
         </HorizontalLeft>
         <MaterialHeaderButtons cancelLabel={t('cancel')} theme={theme}>
           {!peeking && categoriesAvailable &&
-          this.renderItem(t('search'), 'search', 'always', this.goToSearch, t('search'))}
+          renderItem(t('search'), 'search', 'always', goToSearch, t('search'))}
           {!peeking && goToLanguageChange &&
-          this.renderItem(t('changeLanguage'), 'language', 'always', goToLanguageChange, t('changeLanguage'))}
-          {shareUrl && this.renderItem(t('share'), undefined, 'never', this.onShare, t('share'))}
+          renderItem(t('changeLanguage'), 'language', 'always', goToLanguageChange, t('changeLanguage'))}
+          {shareUrl && renderItem(t('share'), undefined, 'never', onShare, t('share'))}
           {showChangeLocation &&
-          this.renderItem(t('changeLocation'), undefined, 'never', this.goToLanding, t('changeLocation'))}
-          {this.renderItem(t('settings'), undefined, 'never', this.goToSettings, t('settings'))}
-          {routeCityModel && this.renderItem(t('disclaimer'), undefined, 'never', this.goToDisclaimer, t('disclaimer'))}
+          renderItem(t('changeLocation'), undefined, 'never', goToLanding, t('changeLocation'))}
+          {renderItem(t('settings'), undefined, 'never', goToSettings, t('settings'))}
+          {routeCityModel && renderItem(t('disclaimer'), undefined, 'never', goToDisclaimer, t('disclaimer'))}
         </MaterialHeaderButtons>
       </Horizontal>
     </BoxShadow>
-  }
+)
 }
 
 export default Header
