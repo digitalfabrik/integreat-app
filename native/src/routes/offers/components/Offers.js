@@ -1,6 +1,6 @@
 // @flow
 
-import React, { useCallback } from 'react'
+import React from 'react'
 import TileModel from '../../../modules/common/models/TileModel'
 import { OfferModel } from 'api-client'
 import Tiles from '../../../modules/common/components/Tiles'
@@ -14,12 +14,7 @@ import { SPRUNGBRETT_OFFER_ROUTE, WOHNEN_OFFER_ROUTE } from 'api-client/src/rout
 type PropsType = {|
   offers: Array<OfferModel>,
   navigateToFeedback: (isPositiveFeedback: boolean) => void,
-  navigateToOffer: (
-    title: string,
-    path: string,
-    isExternalUrl: boolean,
-    postData: ?Map<string, string>
-  ) => void,
+  navigateToOffer: (tile: TileModel) => void,
   theme: ThemeType,
   t: TFunction,
   language: string
@@ -45,14 +40,10 @@ const toTileModels = (offer: Array<OfferModel>): Array<TileModel> => {
 }
 
 const Offers = ({ offers, navigateToFeedback, navigateToOffer, theme, t, language }: PropsType) => {
-  const onTilePress = useCallback((tile: TileModel) => {
-    navigateToOffer(tile.title, tile.path, tile.isExternalUrl, tile.postData)
-  }, [navigateToOffer])
-
   return (
     <SpaceBetween>
       <View>
-        <Tiles title={t('offers')} tiles={toTileModels(offers)} onTilePress={onTilePress} theme={theme}
+        <Tiles title={t('offers')} tiles={toTileModels(offers)} onTilePress={navigateToOffer} theme={theme}
                language={language} />
       </View>
       <SiteHelpfulBox navigateToFeedback={navigateToFeedback} theme={theme} t={t} />

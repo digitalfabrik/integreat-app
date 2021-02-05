@@ -17,6 +17,7 @@ import type { OffersRouteType } from 'api-client/src/routes'
 import createNavigateToFeedbackModal from '../../../modules/navigation/createNavigateToFeedbackModal'
 import { fromError } from '../../../modules/error/ErrorCodes'
 import loadFromEndpoint from '../../../modules/endpoint/loadFromEndpoint'
+import TileModel from '../../../modules/common/models/TileModel'
 
 type OwnPropsType = {|
   route: RoutePropType<OffersRouteType>,
@@ -47,12 +48,8 @@ const OffersContainer = ({ theme, t, navigation, route }: OffersPropsType) => {
     loadOffers().catch(e => setError(e))
   }, [])
 
-  const navigateToOffer = useCallback((
-    title: string,
-    path: string,
-    isExternalUrl: boolean,
-    postData: ?Map<string, string>
-  ) => {
+  const navigateToOffer = useCallback((tile: TileModel) => {
+    const { title, path, isExternalUrl, postData } = tile
     // HTTP POST is neither supported by the InAppBrowser nor by Linking, therefore we have to open it in a webview
     if (isExternalUrl && postData) {
       navigation.push(EXTERNAL_OFFER_ROUTE, { url: path, shareUrl: path, postData })
@@ -63,7 +60,7 @@ const OffersContainer = ({ theme, t, navigation, route }: OffersPropsType) => {
       const params = { cityCode, languageCode, title, alias: path, shareUrl }
       navigation.push(SPRUNGBRETT_OFFER_ROUTE, params)
     } else if (path === WOHNEN_OFFER_ROUTE) {
-      const params = { city: cityCode, offers, offerHash: null }
+      const params = { city: cityCode, title, alias: path, postData, offerHash: null }
       navigation.push(WOHNEN_OFFER_ROUTE, params)
     }
   }, [cityCode, languageCode, navigation])
