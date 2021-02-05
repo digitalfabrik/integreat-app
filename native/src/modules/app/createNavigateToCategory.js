@@ -9,7 +9,6 @@ import type {
   NavigationPropType,
   RoutesType
 } from './constants/NavigationTypes'
-import { url } from '../common/url'
 
 export type NavigateToCategoryParamsType = {|
   cityCode: string,
@@ -33,7 +32,6 @@ const createNavigateToCategory = <T: RoutesType>(
     navigation.navigate({
       name: routeName,
       params: {
-        shareUrl: url(cityContentPath),
         cityCode,
         languageCode: language
       },

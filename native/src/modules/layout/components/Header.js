@@ -14,12 +14,13 @@ import buildConfig, { buildConfigAssets } from '../../app/constants/buildConfig'
 import dimensions from '../../theme/constants/dimensions'
 import type { StoreActionType } from '../../app/StoreActionType'
 import type { Dispatch } from 'redux'
+import type { Node } from 'react'
 import {
   DISCLAIMER_ROUTE,
   SEARCH_MODAL_ROUTE,
   SETTINGS_ROUTE
 } from '../../app/constants/NavigationTypes'
-import { cityContentUrl } from '../../common/url'
+import { cityContentUrl, url } from '../../common/url'
 import createNavigateToLanding from '../../app/createNavigateToLanding'
 
 const Horizontal = styled.View`
@@ -70,6 +71,8 @@ type PropsType = {|
   goToLanguageChange?: () => void,
   routeCityModel?: CityModel,
   language: string,
+  path: string | null,
+  routeMappingType: string | null,
   dispatch: Dispatch<StoreActionType>
 |}
 
@@ -93,10 +96,20 @@ const Header = (props: PropsType) => {
   })
 
   const onShare = useCallback(async () => {
-    const { scene, t } = props
-    const shareUrl = scene.route.params?.shareUrl
-    if (!shareUrl) { // The share option should only be shown if there is a shareUrl
+    const { scene, t, path, language, routeMappingType } = props
+    const shareUrlFromScene = scene.route.params?.shareUrl
+
+    if (!shareUrlFromScene && !path && !routeMappingType) { // The share option should only be shown if there is a shareUrl
       return
+    }
+
+    let shareUrl
+    if (path) {
+      shareUrl = url(path)
+    } else if (routeMappingType && routeCityModel) { // for overview pages of news, events and pois, information should be moved to routeMappings in redux store TODO in 450
+      shareUrl = cityContentUrl({ cityCode: routeCityModel.name, languageCode: language, route: routeMappingType, path: null })
+    } else { // for routes not saved in redux store eg. offers
+      shareUrl = shareUrlFromScene
     }
 
     const message = t('shareMessage', {
@@ -135,7 +148,7 @@ const Header = (props: PropsType) => {
   const renderItem = useCallback((
     title: string, iconName?: string, show: 'never' | 'always',
     onPress: ?() => void | Promise<void>, accessibilityLabel: string
-  ): React.Node => {
+  ): Node => {
     const { theme } = props
     const buttonStyle = onPress ? {} : { color: theme.colors.textSecondaryColor }
 
@@ -143,8 +156,8 @@ const Header = (props: PropsType) => {
                  onPress={onPress} buttonStyle={buttonStyle} />
   })
 
-  const { routeCityModel, scene, t, theme, goToLanguageChange, peeking, categoriesAvailable } = props
-  const shareUrl = scene.route.params?.shareUrl || null
+  const { routeCityModel, scene, t, theme, goToLanguageChange, peeking, categoriesAvailable, path, routeMappingType } = props
+  const showShare = !!(scene.route.params?.shareUrl || path || routeMappingType)
   const showChangeLocation = !buildConfig().featureFlags.fixedCity
 
   return (
@@ -155,14 +168,14 @@ const Header = (props: PropsType) => {
             ? <HeaderBackButton onPress={goBackInStack} labelVisible={false} />
             : <Icon source={buildConfigAssets().appIcon} />}
           {routeCityModel &&
-          <HeaderText allowFontScaling={false} theme={theme}>City: {cityDisplayName(routeCityModel)}</HeaderText>}
+          <HeaderText allowFontScaling={false} theme={theme}>{cityDisplayName(routeCityModel)}</HeaderText>}
         </HorizontalLeft>
         <MaterialHeaderButtons cancelLabel={t('cancel')} theme={theme}>
           {!peeking && categoriesAvailable &&
           renderItem(t('search'), 'search', 'always', goToSearch, t('search'))}
           {!peeking && goToLanguageChange &&
           renderItem(t('changeLanguage'), 'language', 'always', goToLanguageChange, t('changeLanguage'))}
-          {shareUrl && renderItem(t('share'), undefined, 'never', onShare, t('share'))}
+          {showShare && renderItem(t('share'), undefined, 'never', onShare, t('share'))}
           {showChangeLocation &&
           renderItem(t('changeLocation'), undefined, 'never', goToLanding, t('changeLocation'))}
           {renderItem(t('settings'), undefined, 'never', goToSettings, t('settings'))}
@@ -170,7 +183,7 @@ const Header = (props: PropsType) => {
         </MaterialHeaderButtons>
       </Horizontal>
     </BoxShadow>
-)
+  )
 }
 
 export default Header

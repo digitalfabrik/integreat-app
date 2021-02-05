@@ -2,7 +2,6 @@
 
 import createNavigationScreenPropMock from '../../../testing/createNavigationPropMock'
 import createNavigateToEvent from '../createNavigateToEvent'
-import { EVENTS_ROUTE } from '../constants/NavigationTypes'
 
 const cityContentUrl = ({ cityCode, languageCode, route, path }) => `/${cityCode}/${languageCode}/${route}${path || ''}`
 const url = path => `some.base.url/${path}`
@@ -13,7 +12,6 @@ jest.mock('../../common/url', () => ({
 
 const cityCode = 'augsburg'
 const language = 'de'
-const route = EVENTS_ROUTE
 const cityContentPath = '/augsburg/de/integrationskurs'
 
 describe('createNavigateToEvent', () => {
@@ -32,26 +30,6 @@ describe('createNavigateToEvent', () => {
       type: 'FETCH_EVENT',
       params: expect.objectContaining({ key })
     })
-  })
-
-  it('should pass path, or the events path if not supplied, as sharePath in navigation params', () => {
-    const dispatch = jest.fn()
-    const navigation = createNavigationScreenPropMock()
-    const navigateToEvent = createNavigateToEvent(dispatch, navigation)
-
-    navigateToEvent({ cityCode, language, cityContentPath })
-    expect(navigation.navigate).toHaveBeenCalledWith(expect.objectContaining({
-      params: expect.objectContaining({
-        shareUrl: url(cityContentPath)
-      })
-    }))
-
-    navigateToEvent({ cityCode, language, cityContentPath: null })
-    expect(navigation.navigate).toHaveBeenCalledWith(expect.objectContaining({
-      params: expect.objectContaining({
-        shareUrl: cityContentUrl({ cityCode, languageCode: language, route, path: null })
-      })
-    }))
   })
 
   it('should dispatch a FETCH_EVENT action and refresh resources on force refresh', () => {

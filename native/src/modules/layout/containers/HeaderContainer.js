@@ -11,7 +11,12 @@ import { type Dispatch } from 'redux'
 import type { StoreActionType } from '../../app/StoreActionType'
 import { CityModel } from 'api-client'
 import isPeekingRoute from '../../endpoint/selectors/isPeekingRoute'
-import { CHANGE_LANGUAGE_MODAL_ROUTE } from '../../app/constants/NavigationTypes'
+import {
+  CATEGORIES_ROUTE,
+  CHANGE_LANGUAGE_MODAL_ROUTE,
+  EVENTS_ROUTE,
+  NEWS_ROUTE
+} from '../../app/constants/NavigationTypes'
 
 type OwnPropsType = {|
   ...StackHeaderProps,
@@ -23,7 +28,9 @@ type StatePropsType = {|
   goToLanguageChange?: () => void,
   peeking: boolean,
   categoriesAvailable: boolean,
-  routeCityModel?: CityModel
+  routeCityModel?: CityModel,
+  routeMappingType?: string | null,
+  path?: string | null
 |}
 
 type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
@@ -38,7 +45,20 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       state.cityContent.eventsRouteMapping[routeKey] ||
       state.cityContent.newsRouteMapping[routeKey]
     : null
+
   const languages = state.cityContent?.languages
+
+  let routeMappingType = null
+
+  if (state.cityContent) {
+    if (state.cityContent.categoriesRouteMapping[routeKey]) { // TODO refactor in #450
+      routeMappingType = CATEGORIES_ROUTE
+    } else if (state.cityContent.eventsRouteMapping[routeKey]) {
+      routeMappingType = EVENTS_ROUTE
+    } else if (state.cityContent.newsRouteMapping[routeKey]) {
+      routeMappingType = NEWS_ROUTE
+    }
+  }
 
   // prevent re-rendering when city is there.
   const cities = state.cities.models || []
@@ -51,7 +71,12 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     !languages || languages.status !== 'ready') {
     // Route does not exist yet. In this case it is not really defined whether we are peek or not because
     // we do not yet know the city of the route.
-    return { language: state.contentLanguage, routeCityModel, peeking: false, categoriesAvailable: false }
+    return {
+      language: state.contentLanguage,
+      routeCityModel,
+      peeking: false,
+      categoriesAvailable: false
+    }
   }
 
   const goToLanguageChange = () => {
@@ -68,7 +93,17 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
   const peeking = isPeekingRoute(state, { routeCity: route.city })
 
-  return { peeking, routeCityModel, language: route.language, goToLanguageChange, categoriesAvailable }
+  const path = route.path ? route.path : null
+
+  return {
+    peeking,
+    routeCityModel,
+    language: route.language,
+    path,
+    routeMappingType,
+    goToLanguageChange,
+    categoriesAvailable
+  }
 }
 
 export default withTranslation('layout')(
