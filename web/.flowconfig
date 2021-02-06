@@ -4,6 +4,8 @@
 <PROJECT_ROOT>/lib-dist/.*
 .*/node_modules/.*/__tests__/.*
 .*/build-configs/.*/assets/manifest\.json
+// TODO Fix flow error
+.*/node_modules/@integreat-app/react-sticky-headroom/index\.js\.flow
 
 [untyped]
 .*/node_modules/react-select/src/.*

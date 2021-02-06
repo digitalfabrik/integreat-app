@@ -6,7 +6,7 @@ import type Moment from 'moment'
 import CleanLink from '../../../modules/common/components/CleanLink'
 import LastUpdateInfo from './../../../modules/common/components/LastUpdateInfo'
 import { Description } from '../../../modules/common/components/ListItem'
-import type { TFunction } from 'react-i18next'
+import { TFunction } from 'react-i18next'
 import textTruncator from './../../../modules/common/utils/textTruncator'
 import { LOCAL_NEWS } from '../constants'
 import type { NewsType } from '../constants'
@@ -54,7 +54,7 @@ type PropsType = {|
   formatter: DateFormatter,
   link: string,
   type: NewsType,
-  t: TFunction
+  t: typeof TFunction
 |}
 
 class NewsElement extends React.PureComponent<PropsType> {

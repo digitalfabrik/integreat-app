@@ -5,8 +5,7 @@ import { connect } from 'react-redux'
 import TileModel from '../../../modules/common/models/TileModel'
 import Tiles from '../../../modules/common/components/Tiles'
 import { CityModel, NotFoundError, OfferModel, SPRUNGBRETT_OFFER, WOHNEN_OFFER } from 'api-client'
-import type { TFunction } from 'react-i18next'
-import { withTranslation } from 'react-i18next'
+import { withTranslation, TFunction } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
 import SprungbrettRouteConfig from '../../../modules/app/route-configs/SprungbrettRouteConfig'
 import WohnenRouteConfig from '../../../modules/app/route-configs/WohnenRouteConfig'
@@ -19,7 +18,7 @@ type PropsType = {|
   language: string,
   offers: Array<OfferModel>,
   offerId: ?string,
-  t: TFunction,
+  t: typeof TFunction,
   cities: Array<CityModel>
 |}
 

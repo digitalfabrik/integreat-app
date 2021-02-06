@@ -44,7 +44,7 @@ type PropsType = {|
   type: string,
   active: boolean,
   destination: string,
-  t: TFunction
+  t: typeof TFunction
 |}
 
 class Tab extends React.PureComponent<PropsType> {
