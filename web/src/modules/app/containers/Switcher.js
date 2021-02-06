@@ -25,8 +25,7 @@ import { getRouteConfig } from '../route-configs'
 import Helmet from '../../common/containers/Helmet'
 import type { Dispatch } from 'redux'
 import type { LocationState } from 'redux-first-router'
-import type { TFunction } from 'react-i18next'
-import { withTranslation } from 'react-i18next'
+import { withTranslation, TFunction } from 'react-i18next'
 import type { RouteConfig } from '../route-configs/RouteConfig'
 import toggleDarkModeAction from '../../theme/actions/toggleDarkMode'
 import LanguageFailure from '../../common/containers/LanguageFailure'
@@ -48,7 +47,7 @@ type PropsType = {|
   tunewsLanguagesPayload: Payload<Array<LanguageModel>>,
   tunewsElementPayload: Payload<TunewsModel>,
   offersPayload: Payload<Array<OfferModel>>,
-  sprungbrettJobsPayload: Payload<Array<SprungbrettOfferPage>>,
+  sprungbrettJobsPayload: Payload<Array<typeof SprungbrettOfferPage>>,
   wohnenOffersPayload: Payload<Array<WohnenOfferModel>>,
   disclaimerPayload: Payload<PageModel>,
   languagesPayload: Payload<Array<LanguageModel>>,
@@ -56,7 +55,7 @@ type PropsType = {|
   darkMode: boolean,
   location: LocationState,
   toggleDarkMode: () => void,
-  t: TFunction
+  t: typeof TFunction
 |}
 
 /**

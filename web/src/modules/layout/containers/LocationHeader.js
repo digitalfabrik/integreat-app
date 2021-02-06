@@ -2,8 +2,7 @@
 
 import type { Element } from 'react'
 import * as React from 'react'
-import type { TFunction } from 'react-i18next'
-import { withTranslation } from 'react-i18next'
+import { withTranslation, TFunction } from 'react-i18next'
 
 import LanguageSelector from '../../common/containers/LanguageSelector'
 import searchIcon from '../assets/magnifier.svg'
@@ -41,7 +40,7 @@ type PropsType = {|
   events: ?Array<EventModel>,
   location: LocationState,
   viewportSmall: boolean,
-  t: TFunction,
+  t: typeof TFunction,
   onStickyTopChanged: number => void,
   languageChangePaths: ?LanguageChangePathsType
 |}

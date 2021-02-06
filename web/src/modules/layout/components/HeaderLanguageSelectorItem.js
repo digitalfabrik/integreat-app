@@ -4,8 +4,7 @@ import React from 'react'
 import SelectorItemModel from '../../common/models/SelectorItemModel'
 import HeaderActionItemDropDown from './HeaderActionItemDropDown'
 import Selector from '../../common/components/Selector'
-import type { TFunction } from 'react-i18next'
-import { withTranslation } from 'react-i18next'
+import { withTranslation, TFunction } from 'react-i18next'
 import languageIcon from '../assets/language-icon.svg'
 import ReactTooltip from 'react-tooltip'
 import HeaderActionBarItemLink from './HeaderActionItemLink'
@@ -15,7 +14,7 @@ type PropsType = {|
   selectorItems: Array<SelectorItemModel>,
   activeItemCode: string,
   theme: ThemeType,
-  t: TFunction
+  t: typeof TFunction
 |}
 
 class HeaderLanguageSelectorItem extends React.Component<PropsType> {
