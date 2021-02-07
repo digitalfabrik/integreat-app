@@ -3,8 +3,8 @@
 <PROJECT_ROOT>/dist/.*
 <PROJECT_ROOT>/lib-dist/.*
 .*/node_modules/.*/__tests__/.*
-.*/build-configs/.*/assets/manifest\.json
-// TODO Fix flow error
+.*?/build-configs/.*/assets/manifest\.json
+; TODO Fix flow error
 .*/node_modules/@integreat-app/react-sticky-headroom/index\.js\.flow
 
 [untyped]
@@ -28,6 +28,10 @@
 [options]
 module.system.node.resolve_dirname=node_modules
 esproposal.optional_chaining=enable
+
+; TODO Remove and fix flow errors to upgrade to v0.143.0
+; https://github.com/facebook/flow/releases/tag/v0.143.0
+types_first=false
 
 module.file_ext=.js
 module.file_ext=.jsx
