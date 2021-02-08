@@ -6,7 +6,7 @@ import buildConfig from './constants/buildConfig'
 
 export const checkLocationPermission = async (): Promise<RESULTS> => {
   if (buildConfig().featureFlags.fixedCity) {
-    throw Error('Can not check location permission when city is fixed')
+    return RESULTS.UNAVAILABLE
   }
   return check(Platform.OS === 'ios'
     ? PERMISSIONS.IOS.LOCATION_WHEN_IN_USE
@@ -16,7 +16,7 @@ export const checkLocationPermission = async (): Promise<RESULTS> => {
 
 export const requestLocationPermission = async (): Promise<void> => {
   if (buildConfig().featureFlags.fixedCity) {
-    throw Error('Can not request location permission when city is fixed')
+    return RESULTS.UNAVAILABLE
   }
   await request(Platform.OS === 'ios'
     ? PERMISSIONS.IOS.LOCATION_WHEN_IN_USE

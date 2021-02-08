@@ -30,7 +30,7 @@ const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
     introSlides: false,
     sentry: true,
     developerFriendly: false,
-    fixedCity: 'aschaffenburgapp'
+    fixedCity: 'abapp'
   },
   aboutUrls: {
     default: 'https://integreat-app.de/about/',
