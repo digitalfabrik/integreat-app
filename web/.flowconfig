@@ -3,7 +3,7 @@
 <PROJECT_ROOT>/dist/.*
 <PROJECT_ROOT>/lib-dist/.*
 .*/node_modules/.*/__tests__/.*
-.*?/build-configs/.*/assets/manifest\.json
+.*/build-configs/.*/assets/manifest\.json
 ; TODO Fix flow error
 .*/node_modules/@integreat-app/react-sticky-headroom/index\.js\.flow
 
