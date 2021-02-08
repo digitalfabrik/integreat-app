@@ -105,7 +105,7 @@ class PermissionSnackbarContainer extends React.Component<PropsType, StateType> 
   getSnackbar (): ?React$Element<*> {
     const { t, theme } = this.props
     const { showLocationSnackbar, showPushNotificationSnackbar } = this.state
-    if (showLocationSnackbar && !buildConfig().featureFlags.fixedCity) {
+    if (showLocationSnackbar) {
       return <Snackbar key='location'
                        positiveAction={{
                          label: t('grantPermission').toUpperCase(),
