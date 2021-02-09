@@ -214,20 +214,20 @@ program
 
     const sourceFormat = path.extname(fromPath).replace('.', '') || 'csv'
 
-    const converter = new Map([
-      ['json-csv', () => {
+    const converter = {
+      'json-csv': () => {
         if (!fs.existsSync(toPath)) {
           fs.mkdirSync(toPath)
         }
         const json = JSON.parse(fs.readFileSync(fromPath, 'utf8'))
         writeCsvFromJson(json, toPath, sourceLanguage, Object.keys(supportedLanguages))
-      }],
-      ['csv-json', () => {
+      },
+      'csv-json': () => {
         writeJsonFromCsv(fromPath, toPath, sourceLanguage)
-      }]
-    ])
+      }
+    }
 
-    const convert = converter.get(`${sourceFormat.toLowerCase()}-${targetFormat.toLowerCase()}`)
+    const convert = converter[`${sourceFormat.toLowerCase()}-${targetFormat.toLowerCase()}`]
 
     if (convert) {
       convert()
