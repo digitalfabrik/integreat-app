@@ -16,6 +16,7 @@ import StaticServerProvider from '../../static-server/containers/StaticServerPro
 import I18nProvider from '../../i18n/components/I18nProvider'
 import { NavigationContainer } from '@react-navigation/native'
 import PermissionSnackbarContainer from '../../layout/containers/PermissionSnackbarContainer'
+import { navigationRef } from '../RootNavigation'
 
 const dataContainer: DataContainer = new DefaultDataContainer()
 const store: Store<StateType, StoreActionType> = createReduxStore(dataContainer)
@@ -48,7 +49,7 @@ const App = () => {
             <>
               <StatusBarContainer />
               <IOSSafeAreaView>
-                <NavigationContainer onStateChange={onStateChange}>
+                <NavigationContainer onStateChange={onStateChange} ref={navigationRef}>
                   <NavigatorContainer routeKey={routeKey}
                                       routeName={routeName}
                                       languageCode={languageCode}

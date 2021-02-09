@@ -10,6 +10,7 @@ import createCityContent from './createCityContent'
 import { omit } from 'lodash'
 import pushPoi from './pushPoi'
 import pushCategory from './pushCategory'
+import * as RootNavigation from '../../app/RootNavigation'
 
 export default (
   state: CityContentStateType | null = defaultCityContentState, action: StoreActionType
@@ -18,6 +19,8 @@ export default (
     const { language, path, depth, key, city } = action.params
     const initializedState = state || createCityContent(city)
     const oldContent = state && state.categoriesRouteMapping[key] ? state.categoriesRouteMapping[key] : {}
+
+    RootNavigation.push("cityContentReducer")
 
     return {
       ...initializedState,

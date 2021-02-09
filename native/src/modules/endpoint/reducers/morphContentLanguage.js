@@ -10,6 +10,7 @@ import { mapValues } from 'lodash/object'
 import { CategoriesMapModel, EventModel, PoiModel } from 'api-client'
 import type { MorphContentLanguageActionType } from '../../app/StoreActionType'
 import forEachTreeNode from '../../common/forEachTreeNode'
+import * as RootNavigation from '../../app/RootNavigation'
 
 const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, city: string, newLanguage: string) =>
   (route: CategoryRouteStateType): CategoryRouteStateType => {
@@ -161,6 +162,8 @@ const morphContentLanguage = (
 ): CityContentStateType => {
   const { newCategoriesMap, newResourceCache, newEvents, newPois, newLanguage } = action.params
   const { categoriesRouteMapping, eventsRouteMapping, poisRouteMapping, city } = state
+
+  RootNavigation.push("morphContentLanguage")
 
   const translatedCategoriesRouteMapping = mapValues(
     categoriesRouteMapping,

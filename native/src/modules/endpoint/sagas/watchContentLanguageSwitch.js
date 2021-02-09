@@ -16,6 +16,7 @@ import { Alert } from 'react-native'
 import * as NotificationsManager from '../../push-notifications/PushNotificationsManager'
 import buildConfig from '../../app/constants/buildConfig'
 import type { SettingsType } from '../../settings/AppSettings'
+import * as RootNavigation from '../../app/RootNavigation'
 
 export function * switchContentLanguage (
   dataContainer: DataContainer,
@@ -71,6 +72,7 @@ export function * switchContentLanguage (
       }
     }
     yield put(insert)
+    RootNavigation.push("watchContentLanguageSwitch")
   } catch (e) {
     if (e.message === 'Network request failed') {
       // The alert should be replaced with an error component in https://issues.integreat-app.de/browse/NATIVE-359
