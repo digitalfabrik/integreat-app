@@ -8,8 +8,6 @@ import styled from 'styled-components'
 import { faFrown } from '../../../modules/app/constants/icons'
 import I18nRedirectRouteConfig from '../../app/route-configs/I18nRedirectRouteConfig'
 
-
-
 const Centered = styled.div`
   & > * {
     display: block;
