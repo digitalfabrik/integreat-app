@@ -26,6 +26,7 @@ import type {
 } from '../../../modules/app/constants/NavigationTypes'
 import { CATEGORIES_ROUTE, DASHBOARD_ROUTE } from '../../../modules/app/constants/NavigationTypes'
 import navigateToLink from '../../../modules/app/navigateToLink'
+import createNavigateToFeedbackModal from '../../../modules/app/createNavigateToFeedbackModal'
 
 type NavigationPropsType = {|
   route: RoutePropType<DashboardRouteType>,
@@ -191,6 +192,7 @@ const DashboardContainer = (props: ContainerPropsType) => {
 
   return <ThemedTranslatedDashboard
     {...rest}
+    navigateToFeedback={createNavigateToFeedbackModal(navigation)}
     navigateToLink={navigateToLinkProp}
     navigateToPoi={createNavigateToPoi(dispatch, navigation)}
     navigateToCategory={createNavigateToCategory(CATEGORIES_ROUTE, dispatch, navigation)}
