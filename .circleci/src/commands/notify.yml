@@ -13,7 +13,7 @@ parameters:
     default: main
     type: string
   channel:
-    default: app
+    default: integreat-app
     type: string
 steps:
   - run:

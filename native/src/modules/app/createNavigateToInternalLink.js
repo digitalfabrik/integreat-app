@@ -29,6 +29,8 @@ export const createNavigateToInternalLink = ({
   const pathname = parsedUrl.pathname
   const pathnameParts = pathname.split('/').filter(Boolean)
 
+  // TODO IGAPP-136: Handle preselected city
+
   if (pathnameParts.length === 0) { // '/'
     navigateToLanding()
   } else if (pathnameParts.length === 1) { // '/augsburg'

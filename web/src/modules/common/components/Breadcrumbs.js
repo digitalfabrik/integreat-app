@@ -48,6 +48,10 @@ class Breadcrumbs extends React.PureComponent<PropsType> {
     // The current page should not be listed in the UI, but should be within the JsonLd.
     const jsonLdBreadcrumbs = [...ancestorBreadcrumbs, currentBreadcrumb]
 
+    // We are doing here funky stuff with directions. See here for more information about the idea:
+    // https://css-tricks.com/position-vertical-scrollbars-on-opposite-side-with-css/
+    // Basically we are inverting the direction on the wrapper and then making sure that the direction of the content
+    // has the opposite direction of the wrapper.
     return <Wrapper direction={direction}>
       <BreadcrumbsJsonLd breadcrumbs={jsonLdBreadcrumbs} />
       <OrderedList direction={direction}>

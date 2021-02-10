@@ -14,7 +14,7 @@ const APPLE_APP_ID = ''
 
 const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
   appName: 'Aschaffenburg App',
-  appIcon: 'app_icon_integreat',//TODO in IGAPP-299
+  appIcon: 'app_icon_aschaffenburg',
   lightTheme,
   darkTheme,
   assets: ASCHAFFENBURG_ASSETS,
@@ -27,9 +27,10 @@ const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
     pois: false,
     newsStream: false,
     pushNotifications: false,
-    introSlides: true,
+    introSlides: false,
     sentry: true,
-    developerFriendly: false
+    developerFriendly: false,
+    fixedCity: 'aschaffenburgapp'
   },
   aboutUrls: {
     default: 'https://integreat-app.de/about/',
@@ -61,10 +62,8 @@ export const webAschaffenburgBuildConfig: WebBuildConfigType = {
   ...commonAschaffenburgBuildConfig,
   mainImprint,
   itunesAppId: APPLE_APP_ID,
-  manifestUrl: '/manifest.json',
   icons: {
     appLogo: '/app-logo.png',
-    locationMarker: '/location-marker.svg',
     appleTouchIcon: '/apple-touch-icon.png',
     socialMediaPreview: '/social-media-preview.png',
     favicons: '/favicons/'
