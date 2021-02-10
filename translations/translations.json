@@ -2901,8 +2901,6 @@
       "locationPermissionMissing": "Standortzugriff zum Vorschlagen von nahegelegenen Orten erforderlich",
       "pushNotificationPermissionMissing": "Berechtigungen zum Senden von Push-Benachrichtigungen erforderlich",
       "deactivate": "Deaktivieren",
-      "coronaMessage": "Aktuelle, wissenschaftliche Informationen finden Sie bei der Bundeszentrale für gesundheitliche Aufklärung.",
-      "coronaUrl": "https://www.infektionsschutz.de/coronavirus/",
       "learnMore": "Mehr Infos",
       "dismiss": "Schließen"
     },
@@ -2912,8 +2910,6 @@
       "locationPermissionMissing": "مطلوب إذن بالوصول إلى الموقع لاقتراح المواقع القريبة  ",
       "pushNotificationPermissionMissing": "مطلوب تصاريح لإرسال إشعارات لحظية ",
       "deactivate": "إلغاء التفعيل",
-      "coronaMessage": "تجد معلومات علمية مُحدَّثة لدى المراكز الاتحادية للتوعية الصحية.",
-      "coronaUrl": "https://www.infektionsschutz.de/coronavirus/",
       "learnMore": "مزيد من المعلومات",
       "dismiss": "إغلاق"
     },
@@ -2923,8 +2919,6 @@
       "locationPermissionMissing": "Location access required to suggest nearby locations",
       "pushNotificationPermissionMissing": "Permissions required to send push notifications",
       "deactivate": "Deactivate   ",
-      "coronaMessage": "Get the latest information from the WHO about coronavirus.",
-      "coronaUrl": "https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public",
       "learnMore": "Learn more",
       "dismiss": "Dismiss"
     },
@@ -2934,8 +2928,6 @@
       "locationPermissionMissing": "Se requiere acceso a la ubicación para sugerir lugares cercanos",
       "pushNotificationPermissionMissing": "Permisos necesarios para enviar notificaciones push",
       "deactivate": "Desactivar  ",
-      "coronaMessage": "Las informaciones actuales, científicas se encuentran en el Centro Federal de Educación para la Salud.",
-      "coronaUrl": "https://www.infektionsschutz.de/coronavirus/",
       "learnMore": "Más información",
       "dismiss": "Cerrar"
     },
@@ -2945,8 +2937,6 @@
       "locationPermissionMissing": "دسترسی به موقعیت مکانی برای پرای ارائه پیشنهادات موجود در نزدیکی الزامی است",
       "pushNotificationPermissionMissing": "دادن حق دسترسی برای ارسال پیام‌های پوش الزامی است",
       "deactivate": "غیرفعال کردن",
-      "coronaMessage": "اطلاعات علمی به روز را می‌توانید در مرکز فدرال برای اطلاع‌رسانی بهداشتی بیابید.",
-      "coronaUrl": "https://www.infektionsschutz.de/coronavirus/",
       "learnMore": "اطلاعات بیشتر",
       "dismiss": "بستن"
     },
@@ -2956,8 +2946,6 @@
       "locationPermissionMissing": "Accès au lieu nécessaire pour proposer des lieux situés à proximité",
       "pushNotificationPermissionMissing": "Autorisations requises pour envoyer des notifications push",
       "deactivate": "Désactiver",
-      "coronaMessage": "Vous trouverez des informations scientifiques récentes auprès du Centre fédéral pour l’éducation à la santé.",
-      "coronaUrl": "https://www.infektionsschutz.de/coronavirus/",
       "learnMore": "Plus d'informations",
       "dismiss": "Fermer"
     },
@@ -2971,8 +2959,6 @@
       "locationPermissionMissing": "Destûr hewce ye ji bo pêşniyarkirina mekanên nû",
       "pushNotificationPermissionMissing": "Destûr hewce ye ji bo şandina agahdayin",
       "deactivate": "Neçalak bike",
-      "coronaMessage": "Hûn dikarin agahdariya nûyên zanistî li Navenda Federal a Perwerdehiya Tenduristiyê bibênin.",
-      "coronaUrl": "https://www.infektionsschutz.de/coronavirus/",
       "learnMore": "Agahdariya bêtir",
       "dismiss": "Qedandin"
     },
@@ -2986,8 +2972,6 @@
       "locationPermissionMissing": "د نږدې ځایونو د وړاندیز لپاره موقعیت ته لاسرسی اړین دی",
       "pushNotificationPermissionMissing": "د فشاري خبرتیاو لپاره اختیارات ورکول اړین دي",
       "deactivate": "غیر فعالول",
-      "coronaMessage": "تازه، علمي معلومات تاسو روغتیايي ښوونې لپاره فدرالي مرکز سره موندلی شئ.",
-      "coronaUrl": "https://www.infektionsschutz.de/coronavirus/",
       "learnMore": "نور معلومات",
       "dismiss": "پای ته رسول"
     },
@@ -3001,8 +2985,6 @@
       "locationPermissionMissing": "Необходим доступ к местоположению для поиска близлежащих населенных пунктов",
       "pushNotificationPermissionMissing": "Необходимы права на отправку push-уведомлений",
       "deactivate": "Деактивировать",
-      "coronaMessage": "Актуальную научную информацию вы найдете в Федеральном центре медицинского просвещения.",
-      "coronaUrl": "https://www.infektionsschutz.de/coronavirus/",
       "learnMore": "Подробнее",
       "dismiss": "Закрыть"
     },
@@ -3012,8 +2994,6 @@
       "locationPermissionMissing": "Wuxuu u baahan yahay oggolaansha goobta si uu usoo jeediyo meelaha aggagaarka ah",
       "pushNotificationPermissionMissing": "Ogolaansho ayaa loo baahan yahay si loo soo diro ogeysiiska isla markiiba ah",
       "deactivate": "Ka demi shaqeysiinta",
-      "coronaMessage": "Macluumaad saynis oo cusbooneysiisan ayaa laga heli karaa Xarunta Federalka ee Barashada Caafimaadka.",
-      "coronaUrl": "https://www.infektionsschutz.de/coronavirus/",
       "learnMore": "Macluumaad dheeraad ah",
       "dismiss": "Gunaanad"
     },
@@ -3023,8 +3003,6 @@
       "locationPermissionMissing": "Pristup lokaciji za predlaganje mesta u blizini",
       "pushNotificationPermissionMissing": "Potrebna su ovlašćenja za slanje push notifikacija",
       "deactivate": "Deaktivirajte",
-      "coronaMessage": "Aktuelne, naučne informacije ćete naći u Saveznoj centrali za pružanje informacija o zdravlju",
-      "coronaUrl": "https://www.infektionsschutz.de/coronavirus/",
       "learnMore": "Dodatne informacije",
       "dismiss": "Zatvorite"
     },
@@ -3034,8 +3012,6 @@
       "locationPermissionMissing": "ኣብ  ጥቃኹም ንዘለዉ ቦታታት ሓሳብ ንምሃብ ዘለኽሞ ቦታ ናይ ምፍላጥ ዕድል ክውሃቦ ይጠልብ",
       "pushNotificationPermissionMissing": "ናይ ምድፋእ መፍለጢታት ንምስዳድ ፍቓድ ይጥለብ",
       "deactivate": "ዘይንጡፍ ከምዝኸውን ግበር",
-      "coronaMessage": "ሓድሽ ስነ-ፍልጠታዊ ሓበሬታ ኣብቲ ፈደራላዊ ማእከል ንትምህርቲ ጥዕና ክርከብ ይኽእል Aufklärung.",
-      "coronaUrl": "https://www.infektionsschutz.de/coronavirus/",
       "learnMore": "ተወሳኺ ሓበሬታ",
       "dismiss": "መደምደምታ"
     },
@@ -3045,8 +3021,6 @@
       "locationPermissionMissing": "Yakındaki konum önerileri için konum erişimi gerekli",
       "pushNotificationPermissionMissing": "Anlık bildirim göndermek için izin gerekli",
       "deactivate": "Devre dışı bırak",
-      "coronaMessage": "Güncel bilimsel bilgiler Federal Sağlık Eğitimi Merkezinde bulunabilir.",
-      "coronaUrl": "https://www.infektionsschutz.de/coronavirus/",
       "learnMore": "Daha fazla bilgi",
       "dismiss": "Kapat"
     }
