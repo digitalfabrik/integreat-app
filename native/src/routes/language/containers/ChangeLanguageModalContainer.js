@@ -2,7 +2,7 @@
 
 import { connect } from 'react-redux'
 import type { Dispatch } from 'redux'
-import type { NewsType, StateType } from '../../../modules/app/StateType'
+import type { StateType } from '../../../modules/app/StateType'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import ChangeLanguageModal from '../components/ChangeLanguageModal'
 import withTheme from '../../../modules/theme/hocs/withTheme'
@@ -10,10 +10,10 @@ import { LanguageModel } from 'api-client'
 import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
 import type {
-  ChangeLanguageModalRouteType,
   NavigationPropType,
   RoutePropType
 } from '../../../modules/app/constants/NavigationTypes'
+import type { ChangeLanguageModalRouteType, NewsType } from 'api-client/src/routes'
 
 type OwnPropsType = {|
   route: RoutePropType<ChangeLanguageModalRouteType>,
