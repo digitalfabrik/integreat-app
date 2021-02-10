@@ -20,11 +20,11 @@ import { requestLocationPermission } from '../../modules/app/LocationPermissionM
 import buildConfig, { buildConfigAssets } from '../../modules/app/constants/buildConfig'
 import { requestPushNotificationPermission } from '../../modules/push-notifications/PushNotificationsManager'
 import type {
-  IntroRouteType,
   NavigationPropType,
   RoutePropType
 } from '../../modules/app/constants/NavigationTypes'
-import { LANDING_ROUTE } from '../../modules/app/constants/NavigationTypes'
+import { LANDING_ROUTE } from 'api-client/src/routes'
+import type { IntroRouteType } from 'api-client/src/routes'
 
 const Container: StyledComponent<{| width: number |}, {||}, *> = styled.View`
   display: flex;

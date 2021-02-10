@@ -3,7 +3,6 @@
 import type { PoiRouteStateType, LanguageResourceCacheStateType, StateType } from '../../../modules/app/StateType'
 import { connect } from 'react-redux'
 import { type TFunction, withTranslation } from 'react-i18next'
-import createNavigateToPoi from '../../../modules/app/createNavigateToPoi'
 import type { Dispatch } from 'redux'
 import type { StoreActionType, SwitchContentLanguageActionType } from '../../../modules/app/StoreActionType'
 import type { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
@@ -11,16 +10,17 @@ import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvi
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import { CityModel, PoiModel } from 'api-client'
 import * as React from 'react'
-import createNavigateToInternalLink from '../../../modules/app/createNavigateToInternalLink'
 import Pois from '../components/Pois'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
 import type {
-  PoisRouteType,
   NavigationPropType,
   RoutePropType
 } from '../../../modules/app/constants/NavigationTypes'
-import navigateToLink from '../../../modules/app/navigateToLink'
-import createNavigateToFeedbackModal from '../../../modules/app/createNavigateToFeedbackModal'
+import navigateToLink from '../../../modules/navigation/navigateToLink'
+import createNavigateToFeedbackModal from '../../../modules/navigation/createNavigateToFeedbackModal'
+import type { PoisRouteType } from 'api-client/src/routes'
+import createNavigate from '../../../modules/navigation/createNavigate'
+import { POIS_ROUTE } from 'api-client/src/routes'
 
 type NavigationPropsType = {|
   route: RoutePropType<PoisRouteType>,
@@ -155,14 +155,14 @@ const ThemedTranslatedPois = withTranslation('pois')(
 class PoisContainer extends React.Component<ContainerPropsType> {
   navigateToLinkProp = (url: string, language: string, shareUrl: string) => {
     const { dispatch, navigation } = this.props
-    const navigateToInternalLink = createNavigateToInternalLink(dispatch, navigation)
-    navigateToLink(url, navigation, language, navigateToInternalLink, shareUrl)
+    const navigateTo = createNavigate(dispatch, navigation)
+    navigateToLink(url, navigation, language, navigateTo, shareUrl)
   }
 
   render () {
     const { dispatch, ...rest } = this.props
     return <ThemedTranslatedPois {...rest}
-                                 navigateToPoi={createNavigateToPoi(dispatch, rest.navigation)}
+                                 navigateTo={createNavigate(dispatch, rest.navigation)}
                                  navigateToFeedback={createNavigateToFeedbackModal(rest.navigation)}
                                  navigateToLink={this.navigateToLinkProp}
     />
@@ -171,8 +171,13 @@ class PoisContainer extends React.Component<ContainerPropsType> {
 
 const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
   const { navigation, route, cityCode, language, path } = refreshProps
-  const navigateToPoi = createNavigateToPoi(dispatch, navigation)
-  navigateToPoi({ cityCode, language, path, forceRefresh: true, key: route.key })
+  const navigateTo = createNavigate(dispatch, navigation)
+  navigateTo({
+    route: POIS_ROUTE,
+    cityCode,
+    languageCode: language,
+    cityContentPath: path || undefined
+  }, route.key, true)
 }
 
 export default withTranslation('error')(

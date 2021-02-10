@@ -1,25 +1,25 @@
 // @flow
 
-import type { NewsModelsType, NewsRouteStateType, NewsType, StateType } from '../../../modules/app/StateType'
+import type { NewsModelsType, NewsRouteStateType, StateType } from '../../../modules/app/StateType'
 import type { FetchMoreNewsActionType, StoreActionType } from '../../../modules/app/StoreActionType'
 import { connect } from 'react-redux'
 import { type TFunction, withTranslation } from 'react-i18next'
-import createNavigateToNews from '../../../modules/app/createNavigateToNews'
 import type { Dispatch } from 'redux'
 import { CityModel } from 'api-client'
 import * as React from 'react'
 import NewsList from '../components/NewsList'
-import { TUNEWS } from '../../../modules/endpoint/constants'
 import withPayloadProvider, { type StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
 import NewsHeader from '../../../modules/common/components/NewsHeader'
 import { View } from 'react-native'
 import LoadingSpinner from '../../../modules/common/components/LoadingSpinner'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
 import type {
-  NewsRouteType,
   NavigationPropType,
   RoutePropType
 } from '../../../modules/app/constants/NavigationTypes'
+import type { NewsRouteType, NewsType } from 'api-client/src/routes'
+import createNavigate from '../../../modules/navigation/createNavigate'
+import { NEWS_ROUTE, TU_NEWS_TYPE } from 'api-client/src/routes'
 
 type NavigationPropsType = {|
   route: RoutePropType<NewsRouteType>,
@@ -75,15 +75,14 @@ const onRouteClose = (routeKey: string, dispatch: Dispatch<StoreActionType>) => 
 const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
   const { route, navigation, cityCode, language, newsId, selectedNewsType } = refreshProps
 
-  const navigateToNews = createNavigateToNews(dispatch, navigation)
-  navigateToNews({
+  const navigateTo = createNavigate(dispatch, navigation)
+  navigateTo({
+    route: NEWS_ROUTE,
     cityCode,
-    type: selectedNewsType,
-    language,
-    newsId,
-    forceRefresh: true,
-    key: route.key
-  })
+    newsType: selectedNewsType,
+    languageCode: language,
+    newsId: newsId || undefined
+  }, route.key, true)
 }
 
 const createChangeUnavailableLanguage = (city: string, t: TFunction) => (
@@ -221,7 +220,7 @@ class NewsContainer extends React.Component<ContainerPropsType> {
     const { news, hasMoreNews, page, dispatch, selectedNewsType, route, ...rest } = this.props
     const { cityCode, language, newsId } = rest
 
-    const isTunews = selectedNewsType === TUNEWS
+    const isTunews = selectedNewsType === TU_NEWS_TYPE
 
     if (hasMoreNews && isTunews) {
       const fetchNews: FetchMoreNewsActionType = {
@@ -230,7 +229,7 @@ class NewsContainer extends React.Component<ContainerPropsType> {
           city: cityCode,
           language,
           newsId,
-          type: TUNEWS,
+          type: TU_NEWS_TYPE,
           key: route.key,
           page: page + 1,
           previouslyFetchedNews: news,
@@ -256,7 +255,7 @@ class NewsContainer extends React.Component<ContainerPropsType> {
                     selectedNewsType={selectedNewsType}
                     isFetchingMore={isFetchingMore}
                     fetchMoreNews={this.fetchMoreNews}
-                    navigateToNews={createNavigateToNews(dispatch, rest.navigation)}
+                    navigateTo={createNavigate(dispatch, rest.navigation)}
                     {...rest} />
         </View>
       )
