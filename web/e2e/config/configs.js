@@ -22,6 +22,7 @@ export type BrowserstackCapabilitiesType = {|
 export type EndToEndConfigType = {|
   url: string,
   prefix: string,
+  integreatBaseUrl: string,
   browserstack?: boolean,
   caps: SeleniumCapabilitiesType | BrowserstackCapabilitiesType
 |}
@@ -32,6 +33,7 @@ export type EndToEndConfigType = {|
 
 exports.local_chrome = ({
   url: 'http://localhost:4444/wd/hub',
+  integreatBaseUrl: 'http://localhost:9000',
   prefix: 'IG LOCAL',
   caps: {
     browserName: 'chrome', // selenium has lowercased browsernames
@@ -45,6 +47,7 @@ exports.local_chrome = ({
 
 exports.ci_chrome = ({
   url: 'http://localhost:4444/wd/hub',
+  integreatBaseUrl: 'http://localhost:9000',
   prefix: 'IG DEV',
   caps: {
     browserName: 'chrome',
@@ -73,6 +76,7 @@ const defaultBrowserstackCaps: $Shape<BrowserstackCapabilitiesType> = {
 
 exports.browserstack_dev_ie11 = ({
   url: 'http://hub-cloud.browserstack.com/wd/hub',
+  integreatBaseUrl: 'http://localhost:9000',
   prefix: 'IG DEV',
   browserstack: true,
   caps: {
@@ -86,6 +90,7 @@ exports.browserstack_dev_ie11 = ({
 
 exports.browserstack_dev_chrome = ({
   url: 'http://hub-cloud.browserstack.com/wd/hub',
+  integreatBaseUrl: 'http://localhost:9000',
   prefix: 'IG DEV',
   browserstack: true,
   caps: {
@@ -99,6 +104,7 @@ exports.browserstack_dev_chrome = ({
 
 exports.browserstack_dev_firefox = ({
   url: 'http://hub-cloud.browserstack.com/wd/hub',
+  integreatBaseUrl: 'http://localhost:9000',
   prefix: 'IG DEV',
   browserstack: true,
   caps: {
@@ -112,6 +118,7 @@ exports.browserstack_dev_firefox = ({
 
 exports.browserstack_dev_safari = ({
   url: 'http://hub-cloud.browserstack.com/wd/hub',
+  integreatBaseUrl: 'http://localhost:9000',
   prefix: 'IG DEV',
   browserstack: true,
   caps: {
