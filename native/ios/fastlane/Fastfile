@@ -6,13 +6,23 @@ before_all do
   setup_circle_ci
 end
 
+ private_lane :apple_auth do |options|
+   ensure_env_vars(
+       env_vars: ["APP_STORE_CONNECT_API_KEY_ID", "APP_STORE_CONNECT_API_ISSUER_ID", "APP_STORE_CONNECT_API_KEY"]
+   )
+
+   app_store_connect_api_key(
+     key_id: ENV['APP_STORE_CONNECT_API_KEY_ID'],
+     issuer_id: ENV['APP_STORE_CONNECT_API_ISSUER_ID'],
+     key_content: Base64.decode64(ENV['APP_STORE_CONNECT_API_KEY'])
+   )
+ end
+
 # The following parameters have to be passed:
 # build_config_name: The build config which should be used
 desc "Download and setup certificates"
 lane :certificates do |options|
-  ensure_env_vars(
-      env_vars: ['FASTLANE_USER']
-  )
+  apple_auth
 
   build_config_name = options[:build_config_name]
 
@@ -23,7 +33,7 @@ lane :certificates do |options|
   build_config = read_build_config(build_config_name, 'ios', '../')
 
   # https://docs.fastlane.tools/actions/match/
-  match(type: "appstore", app_identifier: build_config['bundleIdentifier'], username: ENV['FASTLANE_USER'], readonly: true)
+  match(type: "appstore", app_identifier: build_config['bundleIdentifier'], readonly: true)
 end
 
 # The following parameters have to be passed:
@@ -41,9 +51,7 @@ lane :build do |options|
     raise "'nil' passed as parameter! Aborting..."
   end
 
-  ensure_env_vars(
-      env_vars: ['FASTLANE_USER']
-  )
+  apple_auth
 
   # DO NOT OVERWRITE THE BUNDLE_CONFIG ENV VARIABLE! It is used by ruby bundle.
 
@@ -54,8 +62,8 @@ lane :build do |options|
   build_config = read_build_config(build_config_name, 'ios', '../')
 
   # https://docs.fastlane.tools/actions/match/
-  match(type: "development", app_identifier: build_config['bundleIdentifier'], username: ENV['FASTLANE_USER'], readonly: true)
-  match(type: "appstore", app_identifier: build_config['bundleIdentifier'], username: ENV['FASTLANE_USER'], readonly: true)
+  match(type: "development", app_identifier: build_config['bundleIdentifier'], readonly: true)
+  match(type: "appstore", app_identifier: build_config['bundleIdentifier'], readonly: true)
 
   increment_build_number(
       build_number: version_code
