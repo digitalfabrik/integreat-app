@@ -13,20 +13,20 @@ import {
   SEARCH_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE,
   TU_NEWS_TYPE
-} from 'api-client/src/routes'
+} from './'
 import type {
   LocalNewsType,
   TuNewsType
-} from 'api-client/src/routes'
-import type { RouteInformationType } from './createNavigate'
+} from './'
+import type { RouteInformationType } from './RouteInformationTypes'
 
-const FEATURE_ID_INDEX = 3
+const ENTITY_ID_INDEX = 3
 
 class InternalPathnameParser {
   _pathname: string
   _parts: Array<string>
   _length: number
-  _languageCode: string
+  _fallbackLanguageCode: string
   _fixedCity: string | null
 
   constructor (pathname: string, languageCode: string, fixedCity: string | null) {
@@ -34,7 +34,7 @@ class InternalPathnameParser {
     this._fixedCity = fixedCity
     this._parts = this.pathnameParts(pathname)
     this._length = this._parts.length
-    this._languageCode = languageCode
+    this._fallbackLanguageCode = languageCode
   }
 
   pathnameParts = (pathname: string) => {
@@ -50,11 +50,11 @@ class InternalPathnameParser {
   }
 
   languageCode = (): string => {
-    return this._length >= 2 ? this._parts[1] : this._languageCode
+    return this._length >= 2 ? this._parts[1] : this._fallbackLanguageCode
   }
 
   landing = (): RouteInformationType => {
-    // There is no landing route if there is a fixed cityCode
+    // There is no landing route if there is a fixed city
     if (this._fixedCity) {
       return null
     }
@@ -98,7 +98,7 @@ class InternalPathnameParser {
     }
 
     // Single events are identified via their city content path, e.g. '/augsburg/de/events/1234'
-    const cityContentPath = this._length > FEATURE_ID_INDEX ? this._pathname : undefined
+    const cityContentPath = this._length > ENTITY_ID_INDEX ? this._pathname : undefined
     return {
       ...params,
       route: EVENTS_ROUTE,
@@ -113,7 +113,7 @@ class InternalPathnameParser {
     }
 
     // Single pois are identified via their city content path, e.g. '/augsburg/de/events/1234'
-    const cityContentPath = this._length > FEATURE_ID_INDEX ? this._pathname : undefined
+    const cityContentPath = this._length > ENTITY_ID_INDEX ? this._pathname : undefined
     return {
       ...params,
       route: POIS_ROUTE,
@@ -128,18 +128,18 @@ class InternalPathnameParser {
     }
 
     // '/augsburg/de/news', '/augsburg/de/news/local', '/augsburg/de/news/tu-news', '/augsburg/de/news/local/id'
-    const type = this._length > FEATURE_ID_INDEX ? this._parts[FEATURE_ID_INDEX] : undefined
+    const type = this._length > ENTITY_ID_INDEX ? this._parts[ENTITY_ID_INDEX] : undefined
     if (type && type !== LOCAL_NEWS_TYPE && type !== TU_NEWS_TYPE) {
       return null
     }
     const newsType: LocalNewsType | TuNewsType = type === TU_NEWS_TYPE ? TU_NEWS_TYPE : LOCAL_NEWS_TYPE
-    const newsId = this._length > FEATURE_ID_INDEX + 1 ? this._parts[FEATURE_ID_INDEX + 1] : undefined
+    const newsId = this._length > ENTITY_ID_INDEX + 1 ? this._parts[ENTITY_ID_INDEX + 1] : undefined
     return { route: NEWS_ROUTE, cityCode: this._parts[0], languageCode: this._parts[1], newsType, newsId }
   }
 
   offers = (): RouteInformationType => {
     const params = this.cityContentParams(OFFERS_ROUTE)
-    const route = this._length > FEATURE_ID_INDEX ? this._parts[FEATURE_ID_INDEX] : OFFERS_ROUTE
+    const route = this._length > ENTITY_ID_INDEX ? this._parts[ENTITY_ID_INDEX] : OFFERS_ROUTE
 
     if (params) {
       if (route === OFFERS_ROUTE) {

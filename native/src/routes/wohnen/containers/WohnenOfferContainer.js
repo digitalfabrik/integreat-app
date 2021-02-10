@@ -13,13 +13,13 @@ import FailureContainer from '../../../modules/error/containers/FailureContainer
 import { LOADING_TIMEOUT } from '../../../modules/common/constants'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
 import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
-import createNavigateToFeedbackModal from '../../../modules/app/createNavigateToFeedbackModal'
+import createNavigateToFeedbackModal from '../../../modules/navigation/createNavigateToFeedbackModal'
 import type {
-  WohnenOfferRouteType,
   NavigationPropType,
   RoutePropType
 } from '../../../modules/app/constants/NavigationTypes'
-import { WOHNEN_OFFER_ROUTE } from '../../../modules/app/constants/NavigationTypes'
+import type { WohnenOfferRouteType } from 'api-client/src/routes'
+import { WOHNEN_OFFER_ROUTE } from 'api-client/src/routes'
 
 const WOHNEN_API_URL = 'https://api.wohnen.integreat-app.de/v0'
 
