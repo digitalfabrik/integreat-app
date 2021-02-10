@@ -12,13 +12,13 @@ import { View } from 'react-native'
 import type { ThemeType } from 'build-configs/ThemeType'
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
 import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
-import createNavigateToFeedbackModal from '../../../modules/app/createNavigateToFeedbackModal'
+import createNavigateToFeedbackModal from '../../../modules/navigation/createNavigateToFeedbackModal'
 import type {
   NavigationPropType,
-  OffersRouteType,
   RoutePropType
 } from '../../../modules/app/constants/NavigationTypes'
-import { SPRUNGBRETT_OFFER_ROUTE, WOHNEN_OFFER_ROUTE } from '../../../modules/app/constants/NavigationTypes'
+import { SPRUNGBRETT_OFFER_ROUTE, WOHNEN_OFFER_ROUTE } from 'api-client/src/routes'
+import type { OffersRouteType } from 'api-client/src/routes'
 
 type PropsType = {|
   offers: Array<OfferModel>,
