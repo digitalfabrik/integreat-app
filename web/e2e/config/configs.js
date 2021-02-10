@@ -2,7 +2,7 @@
 
 export type SeleniumCapabilitiesType = {|
   browserName: string,
-  browserVersion: string,
+  browserVersion?: string,
   platformName?: string,
   chromeOptions?: {| args: Array<string> |}
 |}
@@ -37,7 +37,6 @@ exports.local_chrome = ({
   prefix: 'IG LOCAL',
   caps: {
     browserName: 'chrome', // selenium has lowercased browsernames
-    browserVersion: '88'
   }
 }: EndToEndConfigType)
 
@@ -48,7 +47,7 @@ exports.local_chrome = ({
 exports.ci_chrome = ({
   url: 'http://localhost:4444/wd/hub',
   integreatBaseUrl: 'http://localhost:9000',
-  prefix: 'IG DEV',
+  prefix: 'IG CI',
   caps: {
     browserName: 'chrome',
     browserVersion: '88',
