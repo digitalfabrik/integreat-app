@@ -9,7 +9,7 @@ import type { ThemeType } from '../../../modules/theme/constants'
 type PropsType = {|
   poi: PoiModel,
   language: string,
-  navigateToPoi: () => void,
+  navigateToPois: () => void,
   theme: ThemeType
 |}
 
@@ -20,13 +20,13 @@ const Description = styled.Text`
 
 class PoiListItem extends React.PureComponent<PropsType> {
   render () {
-    const { poi, language, navigateToPoi, theme } = this.props
+    const { poi, language, navigateToPois, theme } = this.props
     const thumbnail = poi.thumbnail
     return (
       <ListItem thumbnail={thumbnail}
         title={poi.title}
                 language={language}
-                navigateTo={navigateToPoi}
+                navigateTo={navigateToPois}
                 theme={theme}>
         {poi.location && <Description theme={theme}>{poi.location.location}</Description>}
       </ListItem>

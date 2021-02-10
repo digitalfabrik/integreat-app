@@ -9,10 +9,11 @@ import {
   LocalNewsModel,
   PoiModel
 } from 'api-client'
-import type { CategoryRouteConfigType, LanguageResourceCacheStateType, NewsType, NewsModelsType } from './StateType'
+import type { CategoryRouteConfigType, LanguageResourceCacheStateType, NewsModelsType } from './StateType'
 import type { ContentLoadCriterionType } from '../endpoint/ContentLoadCriterion'
 import type { TFunction } from 'react-i18next'
 import type { ErrorCodeType } from '../error/ErrorCodes'
+import type { NewsType } from 'api-client/src/routes'
 
 export type FetchCitiesActionType = {|
   type: 'FETCH_CITIES',

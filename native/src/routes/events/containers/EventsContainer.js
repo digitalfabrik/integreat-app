@@ -4,7 +4,6 @@ import type { EventRouteStateType, LanguageResourceCacheStateType, StateType } f
 import { connect } from 'react-redux'
 import Events from '../components/Events'
 import { type TFunction, withTranslation } from 'react-i18next'
-import createNavigateToEvent from '../../../modules/app/createNavigateToEvent'
 import type { Dispatch } from 'redux'
 import type { StoreActionType, SwitchContentLanguageActionType } from '../../../modules/app/StoreActionType'
 import type { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
@@ -12,15 +11,16 @@ import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvi
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import { CityModel, EventModel } from 'api-client'
 import * as React from 'react'
-import createNavigateToInternalLink from '../../../modules/app/createNavigateToInternalLink'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
 import type {
-  EventsRouteType,
   NavigationPropType,
   RoutePropType
 } from '../../../modules/app/constants/NavigationTypes'
-import navigateToLink from '../../../modules/app/navigateToLink'
-import createNavigateToFeedbackModal from '../../../modules/app/createNavigateToFeedbackModal'
+import navigateToLink from '../../../modules/navigation/navigateToLink'
+import createNavigateToFeedbackModal from '../../../modules/navigation/createNavigateToFeedbackModal'
+import type { EventsRouteType } from 'api-client/src/routes'
+import createNavigate from '../../../modules/navigation/createNavigate'
+import { EVENTS_ROUTE } from 'api-client/src/routes'
 
 type NavigationPropsType = {|
   route: RoutePropType<EventsRouteType>,
@@ -186,14 +186,14 @@ const ThemedTranslatedEvents = withTranslation('events')(
 class EventsContainer extends React.Component<ContainerPropsType> {
   navigateToLinkProp = (url: string, language: string, shareUrl: string) => {
     const { dispatch, navigation } = this.props
-    const navigateToInternalLink = createNavigateToInternalLink(dispatch, navigation)
-    navigateToLink(url, navigation, language, navigateToInternalLink, shareUrl)
+    const navigateTo = createNavigate(dispatch, navigation)
+    navigateToLink(url, navigation, language, navigateTo, shareUrl)
   }
 
   render () {
     const { dispatch, ...rest } = this.props
     return <ThemedTranslatedEvents {...rest}
-                                   navigateToEvent={createNavigateToEvent(dispatch, rest.navigation)}
+                                   navigateTo={createNavigate(dispatch, rest.navigation)}
                                    navigateToFeedback={createNavigateToFeedbackModal(rest.navigation)}
                                    navigateToLink={this.navigateToLinkProp}
     />
@@ -202,8 +202,16 @@ class EventsContainer extends React.Component<ContainerPropsType> {
 
 const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
   const { route, navigation, cityCode, language, path } = refreshProps
-  const navigateToEvent = createNavigateToEvent(dispatch, navigation)
-  navigateToEvent({ cityCode, language, cityContentPath: path, forceRefresh: true, key: route.key })
+  const navigateTo = createNavigate(dispatch, navigation)
+  navigateTo({
+    route: EVENTS_ROUTE,
+    cityCode,
+    languageCode: language,
+    cityContentPath: path || undefined
+  },
+  route.key,
+  true
+  )
 }
 
 export default withTranslation('error')(

@@ -9,7 +9,7 @@ import {
   LANDING_ROUTE, LOCAL_NEWS_TYPE, NEWS_ROUTE,
   OFFERS_ROUTE,
   POIS_ROUTE, SEARCH_ROUTE, SPRUNGBRETT_OFFER_ROUTE, TU_NEWS_TYPE
-} from 'api-client/src/routes'
+} from '../'
 
 const cityCode = 'bochum'
 const languageCode = 'de'
