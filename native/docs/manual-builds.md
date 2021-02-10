@@ -31,8 +31,7 @@ If you only want to quickly push an update to the stores then take a look at the
 
 * Prepare the necessary environment variables:
 ```bash
-export FASTLANE_USER=<secret>
-export FASTLANE_PASSWORD=<secret>
+export APP_STORE_CONNECT_API_KEY=<secret>
 export MATCH_PASSWORD=<secret>
 ```
 
