@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { connect } from 'react-redux'
-import SprungbrettOfferPage from '../../../routes/sprungbrett/containers/SprungbrettOfferPage'
+import SprungbrettJobModel from 'api-client/src/models/SprungbrettJobModel.js'
 import {
   CategoriesMapModel,
   CityModel,
@@ -47,7 +47,7 @@ type PropsType = {|
   tunewsLanguagesPayload: Payload<Array<LanguageModel>>,
   tunewsElementPayload: Payload<TunewsModel>,
   offersPayload: Payload<Array<OfferModel>>,
-  sprungbrettJobsPayload: Payload<Array<typeof SprungbrettOfferPage>>,
+  sprungbrettJobsPayload: Payload<Array<SprungbrettJobModel>>,
   wohnenOffersPayload: Payload<Array<WohnenOfferModel>>,
   disclaimerPayload: Payload<PageModel>,
   languagesPayload: Payload<Array<LanguageModel>>,
