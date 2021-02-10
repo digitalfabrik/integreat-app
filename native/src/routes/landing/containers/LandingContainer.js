@@ -12,12 +12,12 @@ import { CityModel } from 'api-client'
 import * as React from 'react'
 import { connect } from 'react-redux'
 import type {
-  LandingRouteType,
   NavigationPropType,
   RoutePropType
 } from '../../../modules/app/constants/NavigationTypes'
-import { DASHBOARD_ROUTE } from '../../../modules/app/constants/NavigationTypes'
-import { cityContentUrl } from '../../../modules/common/url'
+import { DASHBOARD_ROUTE } from 'api-client/src/routes'
+import { cityContentUrl } from '../../../modules/navigation/url'
+import type { LandingRouteType } from 'api-client/src/routes'
 
 type OwnPropsType = {|
   route: RoutePropType<LandingRouteType>,

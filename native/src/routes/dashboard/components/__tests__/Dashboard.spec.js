@@ -22,13 +22,9 @@ describe('Dashboard', () => {
   const categoryLeaf = categoriesMapModel.toArray().find(category => category.isLeaf(categoriesMapModel))
   const language = 'de'
 
-  const navigateToPoi = jest.fn()
-  const navigateToCategory = jest.fn()
-  const navigateToEvent = jest.fn()
-  const navigateToNews = jest.fn()
+  const navigateTo = jest.fn()
   const navigateToLink = jest.fn()
   const navigateToFeedback = jest.fn()
-  const navigateToOffers = jest.fn()
   const theme = lightTheme
 
   if (!categoryLeaf) {
@@ -76,9 +72,8 @@ describe('Dashboard', () => {
   }
 
   const renderDashboard = (cityModel: CityModel) =>
-    <Dashboard navigateToPoi={navigateToPoi} navigateToCategory={navigateToCategory}
-               navigateToEvent={navigateToEvent} navigateToLink={navigateToLink} navigateToFeedback={navigateToFeedback}
-               navigateToNews={navigateToNews} navigateToOffers={navigateToOffers} theme={theme} language={language}
+    <Dashboard navigateToLink={navigateToLink} navigateToFeedback={navigateToFeedback}
+               navigateTo={navigateTo} theme={theme} language={language}
                cityModel={cityModel} stateView={stateView} resourceCache={resourceCache}
                resourceCacheUrl={resourceCacheUrl} t={t} />
 

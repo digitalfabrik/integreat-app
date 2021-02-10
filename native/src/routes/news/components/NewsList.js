@@ -7,20 +7,20 @@ import { LocalNewsModel, NotFoundError, TunewsModel } from 'api-client'
 import List from './List'
 import Failure from '../../../modules/error/components/Failure'
 import type { ThemeType } from 'build-configs/ThemeType'
-import type { NewsModelsType, NewsType } from '../../../modules/app/StateType'
-import type { NavigateToNewsParamsType } from '../../../modules/app/createNavigateToNews'
+import type { NewsModelsType } from '../../../modules/app/StateType'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
 import NewsListItem from './NewsListItem'
 import styled from 'styled-components/native'
 import type { StyledComponent } from 'styled-components'
 import NewsItemsDetails from './NewsItemDetails'
-import { TUNEWS } from '../../../modules/endpoint/constants'
 import openExternalUrl from '../../../modules/common/openExternalUrl'
+import { NEWS_ROUTE, TU_NEWS_TYPE } from 'api-client/src/routes'
+import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
+import type { NewsType } from 'api-client/src/routes'
+import { tunewsWebsiteUrl } from '../../../modules/endpoint/constants'
 
-const tunewsWebsiteUrl = 'https://tunewsinternational.com'
-
-const NoNews: StyledComponent<{}, ThemeType, *> = styled.Text`
+const NoNews: StyledComponent<{||}, ThemeType, *> = styled.Text`
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.contentFontRegular};
   align-self: center;
@@ -37,7 +37,7 @@ export type PropsType = {|
   selectedNewsType: NewsType,
   isFetchingMore: boolean,
   fetchMoreNews: () => void,
-  navigateToNews: (navigationOptions: NavigateToNewsParamsType) => void
+  navigateTo: RouteInformationType => void
 |}
 
 /* Displays a list of news or a single news item, matching the route <id>)
@@ -50,11 +50,12 @@ class NewsList extends React.PureComponent<PropsType> {
     newsId: string
   ) => () => {
     const { selectedNewsType } = this.props
-    this.props.navigateToNews({
+    this.props.navigateTo({
+      route: NEWS_ROUTE,
       cityCode,
-      language,
+      languageCode: language,
       newsId,
-      type: selectedNewsType
+      newsType: selectedNewsType
     })
   }
 
@@ -69,7 +70,7 @@ class NewsList extends React.PureComponent<PropsType> {
 
   rendersNewsListItem = (cityCode: string, language: string) => ({ item: newsItem }) => {
     const { theme, selectedNewsType } = this.props
-    const isTunews = selectedNewsType === TUNEWS
+    const isTunews = selectedNewsType === TU_NEWS_TYPE
     return (
       <NewsListItem
         key={newsItem.id}
@@ -99,7 +100,7 @@ class NewsList extends React.PureComponent<PropsType> {
       selectedNewsType
     } = this.props
 
-    const isTunews = selectedNewsType === TUNEWS
+    const isTunews = selectedNewsType === TU_NEWS_TYPE
     if (newsId) {
       const selectedNewsItem: TunewsModel | LocalNewsModel | void = news.find(
         _newsItem => _newsItem.id.toString() === newsId
