@@ -2,6 +2,12 @@
 
 exports[`CategoryList should render and display a caption 1`] = `
 <div>
+  <CategoryList__Centering>
+    <CategoryList__CategoryIcon
+      alt=""
+      src="thumb-nail"
+    />
+  </CategoryList__Centering>
   <Caption
     title="Willkommen"
   />
@@ -13,6 +19,10 @@ exports[`CategoryList should render and display a caption 1`] = `
       }
     }
     onInternalLinkClick={[Function]}
+  />
+  <withI18nextTranslation(LastUpdateInfo)
+    lastUpdate={"2016-01-07T09:36:24.000Z"}
+    withText={true}
   />
   <CategoryList__List>
     <WithTheme(CategoryEntry)
