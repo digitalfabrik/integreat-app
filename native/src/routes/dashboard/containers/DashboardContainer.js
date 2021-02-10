@@ -21,7 +21,7 @@ import { DASHBOARD_ROUTE } from 'api-client/src/routes'
 import navigateToLink from '../../../modules/navigation/navigateToLink'
 import type { DashboardRouteType } from 'api-client/src/routes'
 import createNavigate from '../../../modules/navigation/createNavigate'
-import createNavigateToFeedbackModal from '../../../modules/app/createNavigateToFeedbackModal'
+import createNavigateToFeedbackModal from '../../../modules/navigation/createNavigateToFeedbackModal'
 
 type NavigationPropsType = {|
   route: RoutePropType<DashboardRouteType>,
