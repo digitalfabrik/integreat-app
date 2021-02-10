@@ -5,24 +5,22 @@ import type { Dispatch } from 'redux'
 import type { StateType } from '../../../modules/app/StateType'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import withTheme from '../../../modules/theme/hocs/withTheme'
-import createNavigateToCategory from '../../../modules/app/createNavigateToCategory'
 import SearchModal from '../components/SearchModal'
 import { CategoriesMapModel, createFeedbackEndpoint, SEARCH_FEEDBACK_TYPE } from 'api-client'
 import { withTranslation } from 'react-i18next'
 import determineApiUrl from '../../../modules/endpoint/determineApiUrl'
 import type {
-  SearchModalRouteType,
   NavigationPropType,
   RoutePropType
 } from '../../../modules/app/constants/NavigationTypes'
-import { CATEGORIES_ROUTE } from '../../../modules/app/constants/NavigationTypes'
-import createNavigateToInternalLink from '../../../modules/app/createNavigateToInternalLink'
-import navigateToLink from '../../../modules/app/navigateToLink'
+import navigateToLink from '../../../modules/navigation/navigateToLink'
 import React, { useCallback } from 'react'
+import type { SearchRouteType } from 'api-client/src/routes'
+import createNavigate from '../../../modules/navigation/createNavigate'
 
 type OwnPropsType = {|
-  route: RoutePropType<SearchModalRouteType>,
-  navigation: NavigationPropType<SearchModalRouteType>
+  route: RoutePropType<SearchRouteType>,
+  navigation: NavigationPropType<SearchRouteType>
 |}
 
 export type PropsType = {|
@@ -69,14 +67,14 @@ const SearchModalContainer = (props: PropsType) => {
   const { dispatch, navigation, ...rest } = props
 
   const navigateToLinkProp = useCallback((url: string, language: string, shareUrl: string) => {
-    const navigateToInternalLink = createNavigateToInternalLink(dispatch, navigation)
-    navigateToLink(url, navigation, language, navigateToInternalLink, shareUrl)
+    const navigateTo = createNavigate(dispatch, navigation)
+    navigateToLink(url, navigation, language, navigateTo, shareUrl)
   }, [dispatch, navigation])
 
   return <ThemedTranslatedSearch
     {...rest}
     navigateToLink={navigateToLinkProp}
-    navigateToCategory={createNavigateToCategory(CATEGORIES_ROUTE, dispatch, navigation)} />
+    navigateTo={createNavigate(dispatch, navigation)} />
 }
 
 export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(SearchModalContainer)

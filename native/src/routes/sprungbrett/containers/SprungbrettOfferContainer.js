@@ -13,20 +13,22 @@ import {
   SprungbrettJobModel
 } from 'api-client'
 import withTheme from '../../../modules/theme/hocs/withTheme'
-import type { ThemeType } from '../../../modules/theme/constants'
+import type { ThemeType } from 'build-configs/ThemeType'
 import FailureContainer from '../../../modules/error/containers/FailureContainer'
 import { LOADING_TIMEOUT } from '../../../modules/common/constants'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
 import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
-import createNavigateToFeedbackModal from '../../../modules/app/createNavigateToFeedbackModal'
+import createNavigateToFeedbackModal from '../../../modules/navigation/createNavigateToFeedbackModal'
 import type {
-  SprungbrettOfferRouteType,
   NavigationPropType,
   RoutePropType
 } from '../../../modules/app/constants/NavigationTypes'
 import LayoutedScrollView from '../../../modules/common/containers/LayoutedScrollView'
 import LayoutContainer from '../../../modules/layout/containers/LayoutContainer'
-import { SPRUNGBRETT_OFFER_ROUTE } from '../../../modules/app/constants/NavigationTypes'
+import { SPRUNGBRETT_OFFER_ROUTE } from 'api-client/src/routes'
+import type { SprungbrettOfferRouteType } from 'api-client/src/routes'
+import type { StoreActionType } from '../../../modules/app/StoreActionType'
+import type { Dispatch } from 'redux'
 
 type OwnPropsType = {|
   route: RoutePropType<SprungbrettOfferRouteType>,
@@ -35,7 +37,7 @@ type OwnPropsType = {|
 
 type StatePropsType = {| offer: ?OfferModel, language: string |}
 
-type PropsType = { ...OwnPropsType, ...StatePropsType }
+type PropsType = {| ...OwnPropsType, ...StatePropsType, dispatch: Dispatch<StoreActionType> |}
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const offers: Array<OfferModel> = ownProps.route.params.offers
