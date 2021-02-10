@@ -1060,7 +1060,8 @@
       "thanksMessage": "Vielen Dank für Ihr Feedback. Damit helfen Sie uns, unsere Inhalte und die {{appName}}-App zu verbessern. Wir würden uns über weiteres Feedback freuen.",
       "close": "Schließen",
       "negativeRating": "Diese Seite ist nicht hilfreich",
-      "positiveRating": "Diese Seite ist hilfreich"
+      "positiveRating": "Diese Seite ist hilfreich",
+      "contactMailAdress": "Email für eventuelle Rückfragen (optional)"
     },
     "ar": {
       "technicalTopics": "وظائف تقنية",
@@ -1114,7 +1115,8 @@
       "thanksMessage": "Thank you for your feedback. This will help us to improve our content and the {{appName}} app. We would be happy to receive further feedback.",
       "close": "Close",
       "negativeRating": "This site is not useful",
-      "positiveRating": "This site is useful"
+      "positiveRating": "This site is useful",
+      "contactMailAdress": "Email for possible queries (non-mandatory)"
     },
     "es": {
       "technicalTopics": "Funciones técnicas",

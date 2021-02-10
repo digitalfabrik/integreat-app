@@ -41,6 +41,7 @@ type PropsType = {|
   comment: string,
   onCommentChanged: SyntheticInputEvent<HTMLTextAreaElement> => void,
   onFeedbackOptionChanged: FeedbackVariant => void,
+  onMailChanged: SyntheticInputEvent<HTMLInputElement> => void,
   onSubmit: () => void,
   t: TFunction,
   closeFeedbackModal: () => void,
@@ -60,6 +61,7 @@ export class FeedbackBox extends React.PureComponent<PropsType> {
       isPositiveRatingSelected,
       onFeedbackOptionChanged,
       onCommentChanged,
+      onContactMailChanged,
       onSubmit,
       comment,
       closeFeedbackModal,
@@ -80,11 +82,10 @@ export class FeedbackBox extends React.PureComponent<PropsType> {
           commentMessage={isPositiveRatingSelected ? t('positiveComment') : t('negativeComment')}
           onCommentChanged={onCommentChanged}
           required={!isPositiveRatingSelected} />
-        {/* todo change this to match for an email adress field */}
-        <Description>{t('mailAdress')}</Description>
+        <Description>{t('contactMailAdress')}</Description>
         <TextInput 
-          onChange={this.handleFilterTextChange}
-          autoFocus />
+          onChange={onContactMailChanged}
+        />
         {sendingStatus === 'ERROR' && <Description>{t('failedSendingFeedback')}</Description>}
         <TextButton
           disabled={!isPositiveRatingSelected && !comment}
