@@ -5,10 +5,10 @@ import LandingPage from '../../pages/landing/LandingPage'
 
 describe('UI language', () => {
   it('should match the system language de', async () => {
-    const driver = await setupDriver()
-
+    const e2eDriver = await setupDriver()
+    const { driver } = e2eDriver
     try {
-      const landing = new LandingPage(driver)
+      const landing = new LandingPage(e2eDriver)
 
       await landing.ready()
 
@@ -27,7 +27,7 @@ describe('UI language', () => {
       const parsedDashboardUrl = new URL(dashboardUrl)
       expect(parsedDashboardUrl.pathname).toEqual('/augsburg/de')
     } finally {
-      await stopDriver(driver)
+      await stopDriver(e2eDriver)
     }
   })
 })

@@ -13,6 +13,7 @@ const IMPLICIT_WAIT_TIMEOUT = 80000
 const STARTUP_DELAY = 10000
 
 export const timer = (ms: number) => new Promise<void>(resolve => setTimeout(resolve, ms))
+export type EndToEndDriverType = {| driver: WebDriver, config: EndToEndConfigType |}
 
 const getConfig = (): EndToEndConfigType | null => {
   const configName: ?string = process.env.E2E_CONFIG
@@ -85,7 +86,7 @@ const getGitHeadReference = () => {
   return childProcess.execSync('git rev-parse --short HEAD').toString().trim()
 }
 
-export const setupDriver = async (): Promise<WebDriver> => {
+export const setupDriver = async (): Promise<EndToEndDriverType> => {
   const config = getConfig()
 
   if (!config) {
@@ -110,11 +111,12 @@ export const setupDriver = async (): Promise<WebDriver> => {
   driver.manage().timeouts().implicitlyWait(IMPLICIT_WAIT_TIMEOUT)
   await timer(STARTUP_DELAY)
 
-  return driver
+  return { driver, config }
 }
 
-export const stopDriver = async (driver: WebDriver) => {
-  if (getConfig()?.browserstack) {
+export const stopDriver = async (e2eDriver: EndToEndDriverType) => {
+  const { driver, config } = e2eDriver
+  if (config.browserstack) {
     await fetchBrowserstackTestResults(driver)
   }
   if (driver === undefined) {
