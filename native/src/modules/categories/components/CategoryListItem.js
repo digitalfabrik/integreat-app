@@ -55,15 +55,15 @@ const CategoryThumbnail = styled(Image)`
   margin: ${dimensions.categoryListItem.margin}px;
 `
 
-type PropsType = {
+type PropsType = {|
   category: CategoryListModelType,
   subCategories: Array<CategoryListModelType>,
   /** A search query to highlight in the category title */
   query?: string,
   theme: ThemeType,
-  onItemPress: (tile: { title: string, thumbnail: string, path: string }) => void,
+  onItemPress: (tile: CategoryListModelType) => void,
   language: string
-}
+|}
 
 /**
  * Displays a single CategoryListItem

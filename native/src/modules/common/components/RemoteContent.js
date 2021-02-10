@@ -37,8 +37,10 @@ const RemoteContent = (props: PropType) => {
   const [webViewWidth, setWebViewWidth] = useState(0)
 
   useEffect(() => {
-    onLoad()
-  }, [onLoad, webViewHeight])
+    if (webViewHeight !== 0) {
+      onLoad()
+    }
+  }, [webViewHeight])
 
   const onLayout = useCallback((event: ViewLayoutEvent) => {
     const { width } = event.nativeEvent.layout

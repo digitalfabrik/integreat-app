@@ -1,9 +1,8 @@
 // @flow
 
-import NotFoundRouteConfig from '../NotFoundRouteConfig'
+import NotFoundRouteConfig, { NOT_FOUND_ROUTE } from '../NotFoundRouteConfig'
 import { Payload } from 'api-client'
 import createLocation from '../../../../createLocation'
-import { NOT_FOUND } from 'redux-first-router'
 
 const t = (key: ?string): string => key || ''
 
@@ -11,7 +10,7 @@ describe('NotFoundRouteConfig', () => {
   const notFoundRouteConfig = new NotFoundRouteConfig()
 
   it('should get the right path', () => {
-    expect(notFoundRouteConfig.getRoutePath()).toBe(NOT_FOUND)
+    expect(notFoundRouteConfig.getRoutePath()).toBe(NOT_FOUND_ROUTE)
   })
 
   it('should get the required payloads', () => {
@@ -37,7 +36,7 @@ describe('NotFoundRouteConfig', () => {
   it('should return the right page title', () => {
     const location = createLocation({
       payload: {},
-      pathname: NOT_FOUND,
+      pathname: NOT_FOUND_ROUTE,
       type: notFoundRouteConfig.name
     })
     expect(notFoundRouteConfig.getPageTitle({ t, payloads: {}, location, cityName: null }))
@@ -51,7 +50,7 @@ describe('NotFoundRouteConfig', () => {
   it('should return the right language change path', () => {
     const location = createLocation({
       payload: { language: 'de' },
-      pathname: NOT_FOUND,
+      pathname: NOT_FOUND_ROUTE,
       type: notFoundRouteConfig.name
     })
     expect(notFoundRouteConfig.getLanguageChangePath({ payloads: {}, location, language: 'de' })).toBeNull()
@@ -60,7 +59,7 @@ describe('NotFoundRouteConfig', () => {
   it('all functions should return the right feedback target information', () => {
     const location = createLocation({
       payload: { language: 'de' },
-      pathname: NOT_FOUND,
+      pathname: NOT_FOUND_ROUTE,
       type: notFoundRouteConfig.name
     })
     expect(notFoundRouteConfig.getFeedbackTargetInformation({ payloads: {}, location })).toBeNull()

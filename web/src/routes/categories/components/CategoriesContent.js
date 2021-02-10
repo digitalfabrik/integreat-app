@@ -58,10 +58,9 @@ const CategoriesContent = ({
       model,
       subCategories: categories.getChildren(model)
     }))}
-    title={categoryModel.title}
-    content={categoryModel.content}
-    thumbnail={categoryModel.thumbnail}
-    onInternalLinkClick={push} />
+    category={categoryModel}
+    onInternalLinkClick={push}
+    formatter={formatter} />
 }
 
 export default CategoriesContent
