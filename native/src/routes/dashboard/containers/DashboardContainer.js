@@ -21,6 +21,7 @@ import { DASHBOARD_ROUTE } from 'api-client/src/routes'
 import navigateToLink from '../../../modules/navigation/navigateToLink'
 import type { DashboardRouteType } from 'api-client/src/routes'
 import createNavigate from '../../../modules/navigation/createNavigate'
+import createNavigateToFeedbackModal from '../../../modules/app/createNavigateToFeedbackModal'
 
 type NavigationPropsType = {|
   route: RoutePropType<DashboardRouteType>,
@@ -188,6 +189,7 @@ const DashboardContainer = (props: ContainerPropsType) => {
 
   return <ThemedTranslatedDashboard
     {...rest}
+    navigateToFeedback={createNavigateToFeedbackModal(navigation)}
     navigateToLink={navigateToLinkProp}
     navigateTo={createNavigate(dispatch, navigation)} />
 }
