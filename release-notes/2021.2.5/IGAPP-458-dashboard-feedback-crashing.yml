@@ -1,0 +1,7 @@
+issue_key: IGAPP-458
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: Fixed app crashes when giving feedback.
+de: Abstürzen der App beim Hinterlassen von Feedback behoben.
