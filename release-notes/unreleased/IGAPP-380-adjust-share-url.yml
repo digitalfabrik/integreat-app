@@ -4,4 +4,4 @@ platforms:
   - android
   - ios
 en: The url for sharing content is now correctly set after a language change
-de: Die url, mit der Inhalte geteilt werden können, wir nach dem Ändern der Sprache nun korrekt gesetzt.
+de: Die URL zum Teilen von Inhalten wir nach dem Ändern der Sprache nun korrekt gesetzt.
