@@ -33,7 +33,7 @@ describe('Events', () => {
     const result = TestRenderer.create(
       <Events path={event.path} events={events} cityCode={city.code}
               resourceCacheUrl='http://localhost:8080' language={language.code} resourceCache={{ notAvailable: {} }}
-              theme={lightTheme} t={key => key} navigateToEvent={() => {}} navigateToLink={() => {}}
+              theme={lightTheme} t={key => key} navigateTo={() => {}} navigateToLink={() => {}}
               navigateToFeedback={() => {}} />
     )
     const pageInstance = result.root.findByType(Page)
