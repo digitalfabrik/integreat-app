@@ -1,4 +1,4 @@
-# Create a release (with release notes) on github and send a slack notification.
+# Create a release (with release notes) on github and send a mattermost notification.
 docker:
   - image: circleci/node:12.16.3
 resource_class: small
