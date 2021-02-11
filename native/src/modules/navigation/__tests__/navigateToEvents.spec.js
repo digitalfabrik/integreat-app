@@ -2,7 +2,6 @@
 
 import createNavigationScreenPropMock from '../../../testing/createNavigationPropMock'
 import navigateToEvents from '../navigateToEvents'
-import { EVENTS_ROUTE } from 'api-client/src/routes'
 
 const cityContentUrl = ({ cityCode, languageCode, route, path }) => `/${cityCode}/${languageCode}/${route}${path || ''}`
 const url = path => `some.base.url/${path}`
@@ -13,7 +12,6 @@ jest.mock('../url', () => ({
 
 const cityCode = 'augsburg'
 const languageCode = 'de'
-const route = EVENTS_ROUTE
 const cityContentPath = '/augsburg/de/integrationskurs'
 
 describe('createNavigateToEvents', () => {

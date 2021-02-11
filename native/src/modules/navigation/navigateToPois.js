@@ -23,10 +23,7 @@ const navigateToPois = <T: RoutesType>({
     key?: string,
     forceRefresh?: boolean
   |}) => {
-  navigation.navigate({
-    name: POIS_ROUTE,
-    key
-  })
+  navigation.navigate({ name: POIS_ROUTE, key })
 
   const fetchPoi: FetchPoiActionType = {
     type: 'FETCH_POI',

@@ -11,9 +11,8 @@ import { type Dispatch } from 'redux'
 import type { StoreActionType } from '../../app/StoreActionType'
 import { CityModel } from 'api-client'
 import isPeekingRoute from '../../endpoint/selectors/isPeekingRoute'
-
-import { cityContentUrl, url } from '../../common/url'
-import { CATEGORIES_ROUTE, EVENTS_ROUTE, NEWS_ROUTE, CHANGE_LANGUAGE_MODAL_ROUTE } from 'api-client/src/routes'
+import { cityContentUrl, url } from '../../navigation/url'
+import { CATEGORIES_ROUTE, CHANGE_LANGUAGE_MODAL_ROUTE, EVENTS_ROUTE, NEWS_ROUTE } from 'api-client/src/routes'
 
 type OwnPropsType = {|
   ...StackHeaderProps,
@@ -105,20 +104,9 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
   const peeking = isPeekingRoute(state, { routeCity: route.city })
   const shareUrlFromScene = ownProps.scene.route.params?.shareUrl
-  const shareUrl: any = getShareUrl(state.cityContent,
-    route,
-    routeKey,
-    routeCityModel,
-    shareUrlFromScene)
+  const shareUrl: any = getShareUrl(state.cityContent, route, routeKey, routeCityModel, shareUrlFromScene)
 
-  return {
-    peeking,
-    routeCityModel,
-    language: route.language,
-    goToLanguageChange,
-    categoriesAvailable,
-    shareUrl
-  }
+  return { peeking, routeCityModel, language: route.language, goToLanguageChange, categoriesAvailable, shareUrl }
 }
 
 export default withTranslation('layout')(

@@ -19,10 +19,7 @@ const navigateToNews = <T: RoutesType>({
   key?: string,
   forceRefresh?: boolean
 |}) => {
-  navigation.navigate({
-    name: NEWS_ROUTE,
-    key
-  })
+  navigation.navigate({ name: NEWS_ROUTE, key })
   const fetchNews: FetchNewsActionType = {
     type: 'FETCH_NEWS',
     params: {
