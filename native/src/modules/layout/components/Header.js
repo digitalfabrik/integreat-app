@@ -17,11 +17,12 @@ import type { Dispatch } from 'redux'
 import type { Node } from 'react'
 import {
   DISCLAIMER_ROUTE,
-  SEARCH_MODAL_ROUTE,
+  SEARCH_ROUTE,
   SETTINGS_ROUTE
-} from '../../app/constants/NavigationTypes'
-import { cityContentUrl, url } from '../../common/url'
-import createNavigateToLanding from '../../app/createNavigateToLanding'
+} from 'api-client/src/routes'
+
+import { cityContentUrl } from '../../navigation/url'
+import navigateToLanding from '../../navigation/navigateToLanding'
 
 const Horizontal = styled.View`
   flex: 1;
@@ -87,7 +88,7 @@ const Header = (props: PropsType) => {
   const goToLanding = useCallback(() => {
     const { navigation, dispatch } = props
     // $FlowFixMe Navigation type of the header does not match that of screens.
-    createNavigateToLanding(dispatch, navigation)()
+    navigateToLanding({ dispatch, navigation })
   })
 
   const goToSettings = useCallback(() => {
@@ -117,7 +118,7 @@ const Header = (props: PropsType) => {
   })
 
   const goToSearch = useCallback(() => {
-    props.navigation.navigate(SEARCH_MODAL_ROUTE)
+    props.navigation.navigate(SEARCH_ROUTE)
   })
 
   const goToDisclaimer = useCallback(() => {

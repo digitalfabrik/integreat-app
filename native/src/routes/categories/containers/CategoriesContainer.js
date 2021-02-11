@@ -5,8 +5,6 @@ import type { LanguageResourceCacheStateType, StateType } from '../../../modules
 import { type Dispatch } from 'redux'
 import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
 import type { StoreActionType, SwitchContentLanguageActionType } from '../../../modules/app/StoreActionType'
-import createNavigateToCategory from '../../../modules/app/createNavigateToCategory'
-import createNavigateToInternalLink from '../../../modules/app/createNavigateToInternalLink'
 import type { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
 import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvider'
 import { CityModel } from 'api-client'
@@ -17,13 +15,14 @@ import React from 'react'
 import type { TFunction } from 'react-i18next'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
 import type {
-  CategoriesRouteType,
   NavigationPropType,
   RoutePropType
 } from '../../../modules/app/constants/NavigationTypes'
-import { CATEGORIES_ROUTE } from '../../../modules/app/constants/NavigationTypes'
-import navigateToLink from '../../../modules/app/navigateToLink'
-import createNavigateToFeedbackModal from '../../../modules/app/createNavigateToFeedbackModal'
+import { CATEGORIES_ROUTE } from 'api-client/src/routes'
+import navigateToLink from '../../../modules/navigation/navigateToLink'
+import createNavigateToFeedbackModal from '../../../modules/navigation/createNavigateToFeedbackModal'
+import type { CategoriesRouteType } from 'api-client/src/routes'
+import createNavigate from '../../../modules/navigation/createNavigate'
 
 type NavigationPropsType = {|
   route: RoutePropType<CategoriesRouteType>,
@@ -169,17 +168,23 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsT
 
 const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
   const { cityCode, language, path, navigation, route } = refreshProps
-  const navigateToCategories = createNavigateToCategory(CATEGORIES_ROUTE, dispatch, navigation)
-  navigateToCategories({
-    cityCode, language, cityContentPath: path, forceRefresh: true, key: route.key
-  })
+  const navigateTo = createNavigate(dispatch, navigation)
+  navigateTo({
+    route: CATEGORIES_ROUTE,
+    cityCode,
+    languageCode: language,
+    cityContentPath: path
+  },
+  route.key,
+  true
+  )
 }
 
 class CategoriesContainer extends React.Component<ContainerPropsType> {
   navigateToLinkProp = (url: string, language: string, shareUrl: string) => {
     const { dispatch, navigation } = this.props
-    const navigateToInternalLink = createNavigateToInternalLink(dispatch, navigation)
-    navigateToLink(url, navigation, language, navigateToInternalLink, shareUrl)
+    const navigateTo = createNavigate(dispatch, navigation)
+    navigateToLink(url, navigation, language, navigateTo, shareUrl)
   }
 
   render () {
@@ -188,7 +193,7 @@ class CategoriesContainer extends React.Component<ContainerPropsType> {
     return <ThemedTranslatedCategories
       {...rest}
       navigateToFeedback={createNavigateToFeedbackModal(navigation)}
-      navigateToCategory={createNavigateToCategory(CATEGORIES_ROUTE, dispatch, navigation)}
+      navigateTo={createNavigate(dispatch, navigation)}
       navigateToLink={this.navigateToLinkProp} />
   }
 }
