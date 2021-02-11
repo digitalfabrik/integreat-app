@@ -8,7 +8,7 @@ import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import watchFetchNews, { fetchNews } from '../watchFetchNews'
 import { expectSaga, testSaga } from 'redux-saga-test-plan'
 import loadCityContent from '../loadCityContent'
-import { LOCAL_NEWS } from '../../constants'
+import { LOCAL_NEWS_TYPE } from 'api-client/src/routes'
 
 jest.mock('rn-fetch-blob')
 jest.mock('../loadCityContent')
@@ -47,7 +47,7 @@ describe('watchFetchNews', () => {
           city,
           language: invalidLanguage,
           newsId: null,
-          type: LOCAL_NEWS,
+          type: LOCAL_NEWS_TYPE,
           key: 'route-0',
           criterion: {
             forceUpdate: false,
@@ -71,7 +71,7 @@ describe('watchFetchNews', () => {
           city,
           language,
           newsId: null,
-          type: LOCAL_NEWS,
+          type: LOCAL_NEWS_TYPE,
           key: 'news-key',
           criterion: {
             forceUpdate: false,
