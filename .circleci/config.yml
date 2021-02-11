@@ -790,8 +790,6 @@ jobs:
                 name: Create release notes
             - notify:
                 success_message: WebApp version ${NEW_VERSION_NAME} was delivered successfully to integreat.app, malteapp.de and aschaffenburg.app!\n${RELEASE_NOTES}
-orbs:
-    slack: circleci/slack@3.4.2
 parameters:
     api_triggered:
         default: false

@@ -1,4 +1,4 @@
-# Create a release (with release notes) on github and send a slack notification.
+# Create a release (with release notes) on github and send a mattermost notification.
 parameters:
   production_delivery:
     description: Whether builds are delivered to the production store. If set to true, jira and github releases are created.
