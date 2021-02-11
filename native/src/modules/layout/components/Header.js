@@ -71,8 +71,7 @@ type PropsType = {|
   goToLanguageChange?: () => void,
   routeCityModel?: CityModel,
   language: string,
-  path: string | null,
-  routeMappingType: string | null,
+  shareUrl: string,
   dispatch: Dispatch<StoreActionType>
 |}
 
@@ -96,20 +95,10 @@ const Header = (props: PropsType) => {
   })
 
   const onShare = useCallback(async () => {
-    const { scene, t, path, language, routeMappingType } = props
-    const shareUrlFromScene = scene.route.params?.shareUrl
+    const { t, shareUrl } = props
 
-    if (!shareUrlFromScene && !path && !routeMappingType) { // The share option should only be shown if there is a shareUrl
+    if (!shareUrl) { // The share option should only be shown if there is a shareUrl
       return
-    }
-
-    let shareUrl
-    if (path) {
-      shareUrl = url(path)
-    } else if (routeMappingType && routeCityModel) { // for overview pages of news, events and pois, information should be moved to routeMappings in redux store TODO in 450
-      shareUrl = cityContentUrl({ cityCode: routeCityModel.name, languageCode: language, route: routeMappingType, path: null })
-    } else { // for routes not saved in redux store eg. offers
-      shareUrl = shareUrlFromScene
     }
 
     const message = t('shareMessage', {
@@ -156,8 +145,8 @@ const Header = (props: PropsType) => {
                  onPress={onPress} buttonStyle={buttonStyle} />
   })
 
-  const { routeCityModel, scene, t, theme, goToLanguageChange, peeking, categoriesAvailable, path, routeMappingType } = props
-  const showShare = !!(scene.route.params?.shareUrl || path || routeMappingType)
+  const { routeCityModel, shareUrl, t, theme, goToLanguageChange, peeking, categoriesAvailable } = props
+  const showShare = !!(shareUrl)
   const showChangeLocation = !buildConfig().featureFlags.fixedCity
 
   return (
