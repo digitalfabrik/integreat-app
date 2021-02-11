@@ -16,12 +16,12 @@ import Caption from '../../../modules/common/components/Caption'
 import Failure from '../../../modules/error/components/Failure'
 import type { ThemeType } from 'build-configs/ThemeType'
 import type { LanguageResourceCacheStateType } from '../../../modules/app/StateType'
-import type { NavigateToEventParamsType } from '../../../modules/app/createNavigateToEvent'
 import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
 import type { FeedbackInformationType } from '../../feedback/containers/FeedbackModalContainer'
 import DateFormatterContext from '../../../modules/i18n/context/DateFormatterContext'
+import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
 
 export type PropsType = {|
   path: ?string,
@@ -32,7 +32,7 @@ export type PropsType = {|
   resourceCacheUrl: string,
   theme: ThemeType,
   t: TFunction,
-  navigateToEvent: NavigateToEventParamsType => void,
+  navigateTo: RouteInformationType => void,
   navigateToFeedback: FeedbackInformationType => void,
   navigateToLink: (url: string, language: string, shareUrl: string) => void
 |}
@@ -44,7 +44,7 @@ const Events = ({
   cityCode,
   language,
   theme,
-  navigateToEvent,
+  navigateTo,
   events,
   path,
   resourceCache,
@@ -61,7 +61,7 @@ const Events = ({
                           cityCode={cityCode}
                           language={language}
                           theme={theme}
-                          navigateToEvent={navigateToEvent} />
+                          navigateTo={navigateTo} />
   }
 
   const createNavigateToFeedbackForEvent = (event: EventModel) => (isPositiveFeedback: boolean) => {

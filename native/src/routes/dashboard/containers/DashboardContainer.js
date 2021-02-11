@@ -12,21 +12,16 @@ import type { StatusPropsType } from '../../../modules/endpoint/hocs/withPayload
 import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvider'
 import { CityModel } from 'api-client'
 import React, { useCallback } from 'react'
-import createNavigateToCategory from '../../../modules/app/createNavigateToCategory'
-import createNavigateToEvent from '../../../modules/app/createNavigateToEvent'
-import createNavigateToInternalLink from '../../../modules/app/createNavigateToInternalLink'
-import createNavigateToPoi from '../../../modules/app/createNavigateToPoi'
-import createNavigateToOffers from '../../../modules/app/createNavigateToOffers'
-import createNavigateToNews from '../../../modules/app/createNavigateToNews'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
 import type {
-  DashboardRouteType,
   NavigationPropType,
   RoutePropType
 } from '../../../modules/app/constants/NavigationTypes'
-import { CATEGORIES_ROUTE, DASHBOARD_ROUTE } from '../../../modules/app/constants/NavigationTypes'
-import navigateToLink from '../../../modules/app/navigateToLink'
-import createNavigateToFeedbackModal from '../../../modules/app/createNavigateToFeedbackModal'
+import { DASHBOARD_ROUTE } from 'api-client/src/routes'
+import navigateToLink from '../../../modules/navigation/navigateToLink'
+import type { DashboardRouteType } from 'api-client/src/routes'
+import createNavigate from '../../../modules/navigation/createNavigate'
+import createNavigateToFeedbackModal from '../../../modules/navigation/createNavigateToFeedbackModal'
 
 type NavigationPropsType = {|
   route: RoutePropType<DashboardRouteType>,
@@ -61,14 +56,16 @@ type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
 const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
   const { cityCode, language, navigation, route, path } = refreshProps
-  const navigateToDashboard = createNavigateToCategory(DASHBOARD_ROUTE, dispatch, navigation)
-  navigateToDashboard({
+  const navigateTo = createNavigate(dispatch, navigation)
+  navigateTo({
+    route: DASHBOARD_ROUTE,
     cityCode,
-    language,
-    cityContentPath: path,
-    forceRefresh: true,
-    key: route.key
-  })
+    languageCode: language,
+    cityContentPath: path
+  },
+  route.key,
+  true
+  )
 }
 
 const createChangeUnavailableLanguage = (city: string, t: TFunction) =>
@@ -186,20 +183,15 @@ const DashboardContainer = (props: ContainerPropsType) => {
   const { dispatch, navigation, ...rest } = props
 
   const navigateToLinkProp = useCallback((url: string, language: string, shareUrl: string) => {
-    const navigateToInternalLink = createNavigateToInternalLink(dispatch, navigation)
-    navigateToLink(url, navigation, language, navigateToInternalLink, shareUrl)
+    const navigateTo = createNavigate(dispatch, navigation)
+    navigateToLink(url, navigation, language, navigateTo, shareUrl)
   }, [dispatch, navigation])
 
   return <ThemedTranslatedDashboard
     {...rest}
     navigateToFeedback={createNavigateToFeedbackModal(navigation)}
     navigateToLink={navigateToLinkProp}
-    navigateToPoi={createNavigateToPoi(dispatch, navigation)}
-    navigateToCategory={createNavigateToCategory(CATEGORIES_ROUTE, dispatch, navigation)}
-    navigateToEvent={createNavigateToEvent(dispatch, navigation)}
-    navigateToNews={createNavigateToNews(dispatch, navigation)}
-    navigateToDashboard={createNavigateToCategory(DASHBOARD_ROUTE, dispatch, navigation)}
-    navigateToOffers={createNavigateToOffers(dispatch, navigation)} />
+    navigateTo={createNavigate(dispatch, navigation)} />
 }
 
 export default withTranslation('error')(
