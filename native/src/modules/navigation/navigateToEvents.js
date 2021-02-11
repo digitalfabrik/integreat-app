@@ -23,10 +23,7 @@ const navigateToEvents = <T: RoutesType>({
   key?: string,
   forceRefresh?: boolean
 |}) => {
-  navigation.navigate({
-    name: EVENTS_ROUTE,
-    key
-  })
+  navigation.navigate({ name: EVENTS_ROUTE, key })
 
   const fetchEvent: FetchEventActionType = {
     type: 'FETCH_EVENT',

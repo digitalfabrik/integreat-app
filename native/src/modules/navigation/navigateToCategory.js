@@ -30,10 +30,7 @@ const navigateToCategory = <T: RoutesType>({
 |}) => {
   navigation.navigate({
     name: routeName,
-    params: {
-      cityCode,
-      languageCode
-    },
+    params: { cityCode, languageCode },
     key
   })
 

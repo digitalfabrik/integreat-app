@@ -1,5 +1,6 @@
 // @flow
 
+import type { Node } from 'react'
 import React, { useCallback } from 'react'
 import { Share } from 'react-native'
 import styled from 'styled-components/native'
@@ -14,13 +15,7 @@ import buildConfig, { buildConfigAssets } from '../../app/constants/buildConfig'
 import dimensions from '../../theme/constants/dimensions'
 import type { StoreActionType } from '../../app/StoreActionType'
 import type { Dispatch } from 'redux'
-import type { Node } from 'react'
-import {
-  DISCLAIMER_ROUTE,
-  SEARCH_ROUTE,
-  SETTINGS_ROUTE
-} from 'api-client/src/routes'
-
+import { DISCLAIMER_ROUTE, SEARCH_ROUTE, SETTINGS_ROUTE } from 'api-client/src/routes'
 import { cityContentUrl } from '../../navigation/url'
 import navigateToLanding from '../../navigation/navigateToLanding'
 
@@ -77,7 +72,7 @@ type PropsType = {|
 |}
 
 const Header = (props: PropsType) => {
-  const canGoBackInStack = useCallback(() => {
+  const canGoBackInStack = useCallback((): boolean => {
     return !!props.previous
   })
 
