@@ -45,7 +45,7 @@ commands:
         description: Send a notification (to Mattermost) at the end of a job, based on success or failure. Must be the last step in a job.
         parameters:
             channel:
-                default: app
+                default: integreat-app
                 type: string
             failure_mentions:
                 default: '@max.ammann @stefanie.metzger @sarah.sporck @steffen.kleinle'

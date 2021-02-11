@@ -107,3 +107,6 @@ dist
 .tern-port
 
 reports/
+
+*.csv
+*.ods

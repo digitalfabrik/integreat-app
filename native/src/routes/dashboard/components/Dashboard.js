@@ -14,28 +14,28 @@ import poisIcon from '../assets/pois.svg'
 import newsIcon from '../assets/news.svg'
 import localInformationIcon from '../assets/local_information.svg'
 import type { TFunction } from 'react-i18next'
-import type { NavigateToCategoryParamsType } from '../../../modules/app/createNavigateToCategory'
-import type { NavigateToEventParamsType } from '../../../modules/app/createNavigateToEvent'
-import type { NavigateToNewsParamsType } from '../../../modules/app/createNavigateToNews'
 import buildConfig from '../../../modules/app/constants/buildConfig'
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
-import type { NavigateToPoiParamsType } from '../../../modules/app/createNavigateToPoi'
-import { LOCAL_NEWS, TUNEWS } from '../../../modules/endpoint/constants'
 import styled from 'styled-components/native'
 import type { StyledComponent } from 'styled-components'
-import { cityContentPath } from '../../../modules/common/url'
+import { cityContentPath } from '../../../modules/navigation/url'
 import type { FeedbackInformationType } from '../../feedback/containers/FeedbackModalContainer'
+import {
+  CATEGORIES_ROUTE,
+  EVENTS_ROUTE,
+  LOCAL_NEWS_TYPE,
+  NEWS_ROUTE,
+  OFFERS_ROUTE,
+  POIS_ROUTE, TU_NEWS_TYPE
+} from 'api-client/src/routes'
+import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
 
 const Spacing: StyledComponent<{||}, ThemeType, *> = styled.View`
   padding: 10px;
 `
 
 export type PropsType = {|
-  navigateToPoi: NavigateToPoiParamsType => void,
-  navigateToCategory: NavigateToCategoryParamsType => void,
-  navigateToEvent: NavigateToEventParamsType => void,
-  navigateToNews: NavigateToNewsParamsType => void,
-  navigateToOffers: ({| cityCode: string, language: string |}) => void,
+  navigateTo: RouteInformationType => void,
   navigateToLink: (url: string, language: string, shareUrl: string) => void,
   navigateToFeedback: FeedbackInformationType => void,
   theme: ThemeType,
@@ -51,11 +51,7 @@ export type PropsType = {|
 class Dashboard extends React.Component<PropsType> {
   getNavigationTileModels (): Array<TileModel> {
     const {
-      navigateToCategory,
-      navigateToEvent,
-      navigateToPoi,
-      navigateToOffers,
-      navigateToNews,
+      navigateTo,
       cityModel,
       language,
       t
@@ -71,9 +67,10 @@ class Dashboard extends React.Component<PropsType> {
         path: 'categories',
         thumbnail: localInformationIcon,
         isExternalUrl: false,
-        onTilePress: () => navigateToCategory({
+        onTilePress: () => navigateTo({
+          route: CATEGORIES_ROUTE,
           cityCode,
-          language,
+          languageCode: language,
           cityContentPath: cityContentPath({ cityCode, languageCode: language })
         }),
         notifications: 0
@@ -85,11 +82,11 @@ class Dashboard extends React.Component<PropsType> {
         path: 'news',
         thumbnail: newsIcon,
         isExternalUrl: false,
-        onTilePress: () => navigateToNews({
+        onTilePress: () => navigateTo({
+          route: NEWS_ROUTE,
           cityCode,
-          language,
-          newsId: null,
-          type: pushNotificationsEnabled ? LOCAL_NEWS : TUNEWS
+          languageCode: language,
+          newsType: pushNotificationsEnabled ? LOCAL_NEWS_TYPE : TU_NEWS_TYPE
         }),
         notifications: 0
       }))
@@ -101,10 +98,10 @@ class Dashboard extends React.Component<PropsType> {
         path: 'events',
         thumbnail: eventsIcon,
         isExternalUrl: false,
-        onTilePress: () => navigateToEvent({
+        onTilePress: () => navigateTo({
+          route: EVENTS_ROUTE,
           cityCode,
-          language,
-          cityContentPath: null
+          languageCode: language
         }),
         notifications: 0
       }))
@@ -116,9 +113,10 @@ class Dashboard extends React.Component<PropsType> {
         path: 'offers',
         thumbnail: offersIcon,
         isExternalUrl: false,
-        onTilePress: () => navigateToOffers({
+        onTilePress: () => navigateTo({
+          route: OFFERS_ROUTE,
           cityCode,
-          language
+          languageCode: language
         }),
         notifications: 0
       }))
@@ -130,10 +128,10 @@ class Dashboard extends React.Component<PropsType> {
         path: 'pois',
         thumbnail: poisIcon,
         isExternalUrl: false,
-        onTilePress: () => navigateToPoi({
+        onTilePress: () => navigateTo({
+          route: POIS_ROUTE,
           cityCode,
-          language,
-          path: null
+          languageCode: language
         }),
         notifications: 0
       }))
@@ -150,7 +148,7 @@ class Dashboard extends React.Component<PropsType> {
       resourceCacheUrl,
       language,
       cityModel,
-      navigateToCategory,
+      navigateTo,
       navigateToLink,
       navigateToFeedback,
       t
@@ -170,7 +168,7 @@ class Dashboard extends React.Component<PropsType> {
           language={language}
           cityModel={cityModel}
           theme={theme}
-          navigateToCategory={navigateToCategory}
+          navigateTo={navigateTo}
           navigateToFeedback={navigateToFeedback}
           navigateToLink={navigateToLink}
           t={t}

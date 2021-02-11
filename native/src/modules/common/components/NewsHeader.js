@@ -7,11 +7,11 @@ import styled from 'styled-components/native'
 import { withTranslation } from 'react-i18next'
 import withTheme from '../../theme/hocs/withTheme'
 import type { ThemeType } from '../../theme/constants'
-import type { NewsType } from '../../app/StateType'
-import { LOCAL_NEWS, TUNEWS } from '../../endpoint/constants'
 import activeInternational from '../../../routes/news/assets/tu-news-active.svg'
 import inactiveInternational from '../../../routes/news/assets/tu-news-inactive.svg'
 import { TFunction } from 'i18next'
+import type { NewsType } from 'api-client/src/routes'
+import { LOCAL_NEWS_TYPE, TU_NEWS_TYPE } from 'api-client/src/routes'
 
 const NewsTypeIcon = styled.Image`
   align-self: center;
@@ -56,8 +56,8 @@ type PropsType = {|
 |}
 
 class NewsHeader extends React.PureComponent<PropsType> {
-  navigateToLocalNews = () => { this.props.navigateToNews(LOCAL_NEWS) }
-  navigateToTunews = () => { this.props.navigateToNews(TUNEWS) }
+  navigateToLocalNews = () => { this.props.navigateToNews(LOCAL_NEWS_TYPE) }
+  navigateToTunews = () => { this.props.navigateToNews(TU_NEWS_TYPE) }
 
   render () {
     const { cityModel, selectedNewsType, theme, t } = this.props
@@ -67,7 +67,7 @@ class NewsHeader extends React.PureComponent<PropsType> {
         {cityModel.pushNotificationsEnabled
           ? (
             <TouchableWrapper onPress={this.navigateToLocalNews}>
-              <LocalTabWrapper isSelected={selectedNewsType === LOCAL_NEWS} theme={theme}>
+              <LocalTabWrapper isSelected={selectedNewsType === LOCAL_NEWS_TYPE} theme={theme}>
                 <LocalText theme={theme}>{t('local')}</LocalText>
               </LocalTabWrapper>
             </TouchableWrapper>
@@ -76,7 +76,7 @@ class NewsHeader extends React.PureComponent<PropsType> {
         {cityModel.tunewsEnabled
           ? (
             <TouchableWrapper onPress={this.navigateToTunews}>
-              <NewsTypeIcon source={selectedNewsType === TUNEWS ? activeInternational : inactiveInternational} />
+              <NewsTypeIcon source={selectedNewsType === TU_NEWS_TYPE ? activeInternational : inactiveInternational} />
             </TouchableWrapper>
             )
           : null}
