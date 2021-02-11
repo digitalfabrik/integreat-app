@@ -5,7 +5,7 @@ import { SectionList, StyleSheet, Switch, View } from 'react-native'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
 import SettingItem from './SettingItem'
-import type { ThemeType } from '../../../modules/theme/constants'
+import type { ThemeType } from 'build-configs/ThemeType'
 import type { TFunction } from 'react-i18next'
 import type { SettingsType } from '../../../modules/settings/AppSettings'
 import createSettingsSections from '../createSettingsSections'
@@ -13,11 +13,11 @@ import AppSettings, { defaultSettings } from '../../../modules/settings/AppSetti
 import type { SectionBase } from 'react-native/Libraries/Lists/SectionList'
 import type { AccessibilityRole } from 'react-native/Libraries/Components/View/ViewAccessibility'
 import type {
-  SettingsRouteType,
   NavigationPropType,
   RoutePropType
 } from '../../../modules/app/constants/NavigationTypes'
 import LayoutContainer from '../../../modules/layout/containers/LayoutContainer'
+import type { SettingsRouteType } from 'api-client/src/routes'
 
 type PropsType = {|
   theme: ThemeType,
@@ -29,22 +29,22 @@ type PropsType = {|
   dispatch: () => {}
 |}
 
-type StateType = {
+type StateType = {|
   settings: SettingsType,
   settingsLoaded: boolean
-}
+|}
 
-type ItemType = {
+type ItemType = {|
   title: string, description?: string,
   hasSwitch?: true,
   getSettingValue?: (settings: SettingsType) => boolean | null,
   onPress?: () => void,
   accessibilityRole?: AccessibilityRole
-}
+|}
 
-type SectionType = SectionBase<ItemType> & {title: ?string}
+type SectionType = SectionBase<ItemType> & { title: ?string, ... }
 
-const ItemSeparator: StyledComponent<{}, ThemeType, *> = styled.View`
+const ItemSeparator: StyledComponent<{||}, ThemeType, *> = styled.View`
     background-color: ${props => props.theme.colors.textDecorationColor};
     height: ${StyleSheet.hairlineWidth}px;
 `
@@ -100,7 +100,7 @@ export default class Settings extends React.Component<PropsType, StateType> {
     )
   }
 
-  renderItem = ({ item }: { item: ItemType }) => {
+  renderItem = ({ item }: { item: ItemType, ... }) => {
     const { theme } = this.props
     const { title, description, hasSwitch, onPress, getSettingValue, accessibilityRole } = item
     const value = getSettingValue ? getSettingValue(this.state.settings) : false
@@ -114,7 +114,7 @@ export default class Settings extends React.Component<PropsType, StateType> {
     )
   }
 
-  renderSectionHeader = ({ section: { title } }: { section: SectionType }) => {
+  renderSectionHeader = ({ section: { title } }: { section: SectionType, ... }) => {
     if (!title) {
       return null
     }

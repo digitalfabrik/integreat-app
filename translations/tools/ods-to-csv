@@ -2,7 +2,7 @@
 
 # Interpret all ods in the specified directory as UTF-8 and convert them to CSVs
 function ods_to_csv {
-  libreoffice --headless --infilter=CSV:44,34,76,1  --convert-to csv --outdir $1 $1/*.ods
+  libreoffice --headless --infilter=CSV:44,34,76,1  --convert-to csv --outdir $2 $1/*.ods
 }
 
-ods_to_csv $1
+ods_to_csv $1 $2

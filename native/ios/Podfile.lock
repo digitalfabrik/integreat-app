@@ -325,8 +325,8 @@ PODS:
   - react-native-static-server (0.5.0):
     - GCDWebServer (~> 3.0)
     - React
-  - react-native-webview (10.9.1):
-    - React-Core
+  - react-native-webview (10.8.2):
+    - React
   - React-RCTActionSheet (0.63.3):
     - React-Core/RCTActionSheetHeaders (= 0.63.3)
   - React-RCTAnimation (0.63.3):
@@ -706,7 +706,7 @@ SPEC CHECKSUMS:
   react-native-progress-view: d6127184789afb752faae9acdbe7fa320632a662
   react-native-safe-area-context: b6e0e284002381d2ff29fa4fff42b4d8282e3c94
   react-native-static-server: 201b2a945a35096be3ae7f43e367c65bcbd61343
-  react-native-webview: c981c0de33cdc842884469b008f067d6132ad7a5
+  react-native-webview: 0e49a2e85f42b20ea5579928a8b254a07fa901dc
   React-RCTActionSheet: 53ea72699698b0b47a6421cb1c8b4ab215a774aa
   React-RCTAnimation: 1befece0b5183c22ae01b966f5583f42e69a83c2
   React-RCTBlob: 0b284339cbe4b15705a05e2313a51c6d8b51fa40

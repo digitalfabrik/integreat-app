@@ -11,7 +11,7 @@ import { type Dispatch } from 'redux'
 import type { StoreActionType } from '../../app/StoreActionType'
 import { CityModel } from 'api-client'
 import isPeekingRoute from '../../endpoint/selectors/isPeekingRoute'
-import { CHANGE_LANGUAGE_MODAL_ROUTE } from '../../app/constants/NavigationTypes'
+import { CHANGE_LANGUAGE_MODAL_ROUTE } from 'api-client/src/routes'
 
 type OwnPropsType = {|
   ...StackHeaderProps,
