@@ -1,123 +1,43 @@
 // @flow
 
-import React, { useCallback } from 'react'
-import { View } from 'react-native'
-import { TFunction, withTranslation } from 'react-i18next'
-import { LocalNewsModel, NotFoundError, TunewsModel } from 'api-client'
-import List from './List'
-import Failure from '../../../modules/error/components/Failure'
-import type { ThemeType } from 'build-configs/ThemeType'
+import React from 'react'
+import { FlatList } from 'react-native'
+import { LocalNewsModel, TunewsModel } from 'api-client'
 import type { NewsModelsType } from '../../../modules/app/StateType'
-import withTheme from '../../../modules/theme/hocs/withTheme'
-import ErrorCodes from '../../../modules/error/ErrorCodes'
-import NewsListItem from './NewsListItem'
-import styled from 'styled-components/native'
-import type { StyledComponent } from 'styled-components'
-import NewsItemsDetails from './NewsItemDetails'
-import openExternalUrl from '../../../modules/common/openExternalUrl'
-import { NEWS_ROUTE, TU_NEWS_TYPE } from 'api-client/src/routes'
-import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
-import type { NewsType } from 'api-client/src/routes'
-import { tunewsWebsiteUrl } from '../../../modules/endpoint/constants'
+import LoadingSpinner from '../../../modules/common/components/LoadingSpinner'
 
-const NoNews: StyledComponent<{||}, ThemeType, *> = styled.Text`
-  color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.contentFontRegular};
-  align-self: center;
-  margin-top: 20px;
-`
+const keyExtractor = (item, index) => `${index}`
 
-export type PropsType = {|
-  newsId: ?string,
-  news: NewsModelsType,
-  cityCode: string,
-  language: string,
-  theme: ThemeType,
-  t: TFunction,
-  selectedNewsType: NewsType,
+type PropType = {|
+  items: NewsModelsType,
+  renderItem: ({| item: LocalNewsModel | TunewsModel |}) => React$Node,
   isFetchingMore: boolean,
-  fetchMoreNews: () => void,
-  navigateTo: RouteInformationType => void
+  fetchMoreItems: () => void,
+  renderNoItemsComponent: () => React$Node
 |}
 
-const NewsList = (props: PropsType) => {
-  const { news, newsId, cityCode, language, fetchMoreNews, isFetchingMore, selectedNewsType, theme, t } = props
-  const { navigateTo } = props
-
-  const isTunews = selectedNewsType === TU_NEWS_TYPE
-
-  const navigateToNews = useCallback((cityCode: string, language: string, newsId: string) => () => {
-    navigateTo({
-      route: NEWS_ROUTE,
-      cityCode,
-      languageCode: language,
-      newsId,
-      newsType: selectedNewsType
-    })
-  }, [selectedNewsType, navigateTo])
-
-  const openTunewsLink = useCallback(async () => {
-    openExternalUrl(tunewsWebsiteUrl)
-  }, [])
-
-  const renderNoItemsComponent = useCallback(() => {
-    return <NoNews theme={theme}>{t('currentlyNoNews')}</NoNews>
-  }, [theme, t])
-
-  const rendersNewsListItem = useCallback((cityCode: string, language: string) =>
-    ({ item }: { item: LocalNewsModel | TunewsModel, ... }) => {
-      return (
-      <NewsListItem
-        key={item.id}
-        newsItem={item}
-        language={language}
-        theme={theme}
-        isTunews={isTunews}
-        navigateToNews={navigateToNews(cityCode, language, item.id.toString())}
-        t={t}
-      />
-      )
-    }, [isTunews, navigateToNews, theme, t])
-
-  if (newsId) {
-    const selectedNewsItem = news.find(_newsItem => _newsItem.id.toString() === newsId)
-    if (selectedNewsItem) {
-      return (
-          <NewsItemsDetails
-            selectedNewsItem={selectedNewsItem}
-            theme={theme}
-            isTunews={isTunews}
-            language={language}
-            openTunewsLink={openTunewsLink}
-          />
-      )
-    } else {
-      const error = new NotFoundError({ type: selectedNewsType, id: newsId, city: cityCode, language })
-      return (
-          <Failure
-            errorMessage={error.message}
-            code={ErrorCodes.PageNotFound}
-            t={t}
-            theme={theme}
-          />
-      )
-    }
-  }
-
+const NewsList = ({
+  items,
+  renderItem,
+  isFetchingMore,
+  fetchMoreItems,
+  renderNoItemsComponent
+}: PropType) => {
   return (
-      <View style={{ flex: 1 }}>
-        <List
-          renderNoItemsComponent={renderNoItemsComponent}
-          items={news}
-          isFetchingMore={isFetchingMore}
-          fetchMoreItems={fetchMoreNews}
-          renderItem={rendersNewsListItem(cityCode, language)}
-        />
-      </View>
+    <FlatList
+      data={items}
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={{
+        flexGrow: 1,
+        paddingHorizontal: 10
+      }}
+      onEndReached={fetchMoreItems}
+      ListEmptyComponent={renderNoItemsComponent}
+      ListFooterComponent={isFetchingMore ? <LoadingSpinner /> : null}
+      onEndReachedThreshold={1}
+      keyExtractor={keyExtractor}
+      renderItem={renderItem}
+    />
   )
 }
-
-const TranslatedWithThemeNewsList = withTranslation('news')(
-  withTheme(NewsList)
-)
-export default TranslatedWithThemeNewsList
+export default NewsList

@@ -7,7 +7,7 @@ import { type TFunction, withTranslation } from 'react-i18next'
 import type { Dispatch } from 'redux'
 import { CityModel } from 'api-client'
 import React, { useCallback } from 'react'
-import NewsList from '../components/NewsList'
+import News from '../components/News'
 import withPayloadProvider, { type StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
 import NewsHeader from '../../../modules/common/components/NewsHeader'
 import { View } from 'react-native'
@@ -245,14 +245,14 @@ const NewsContainer = (props: ContainerPropsType) => {
     return (
       <View style={{ flex: 1 }}>
         <NewsHeader selectedNewsType={selectedNewsType} cityModel={cityModel} navigateToNews={fetchNews} />
-        <NewsList newsId={newsId}
-                  news={news}
-                  selectedNewsType={selectedNewsType}
-                  isFetchingMore={isFetchingMore}
-                  fetchMoreNews={fetchMoreNews({ news, hasMoreNews, page })}
-                  cityCode={cityModel.code}
-                  language={language}
-                  navigateTo={createNavigate(dispatch, navigation)} />
+        <News newsId={newsId}
+              news={news}
+              selectedNewsType={selectedNewsType}
+              isFetchingMore={isFetchingMore}
+              fetchMoreNews={fetchMoreNews({ news, hasMoreNews, page })}
+              cityCode={cityModel.code}
+              language={language}
+              navigateTo={createNavigate(dispatch, navigation)} />
       </View>
     )
   } else {
