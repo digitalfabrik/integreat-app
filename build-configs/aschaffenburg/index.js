@@ -10,19 +10,18 @@ import type {
 import { ASCHAFFENBURG_ASSETS } from '../AssetsType'
 import mainImprint from './mainImprint'
 
-const APPLE_APP_ID = ''
+const APPLE_APP_ID = '1551810291'
 
 const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
-  appName: 'Aschaffenburg App',
+  appName: 'Aschaffenburg App', // TODO maybe we have to change this to 'AB App'
   appIcon: 'app_icon_aschaffenburg',
   lightTheme,
   darkTheme,
   assets: ASCHAFFENBURG_ASSETS,
   cmsUrl: 'https://cms.integreat-app.de',
-  switchCmsUrl: 'https://cms-test.integreat-app.de',
   shareBaseUrl: 'https://aschaffenburg.app',
-  allowedHostNames: ['cms.integreat-app.de', 'cms-test.integreat-app.de'],
-  internalLinksHijackPattern: 'https?:\\/\\/(cms(-test)?\\.integreat-app\\.de|web\\.integreat-app\\.de|integreat\\.app)(?!\\/[^/]*\\/(wp-content|wp-admin|wp-json)\\/.*).*',
+  allowedHostNames: ['cms.integreat-app.de'],
+  internalLinksHijackPattern: 'https?:\\/\\/aschaffenburg\\.app(?!\\/[^/]*\\/(wp-content|wp-admin|wp-json)\\/.*).*',
   featureFlags: {
     pois: false,
     newsStream: false,
@@ -32,11 +31,11 @@ const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
     developerFriendly: false,
     fixedCity: 'abapp'
   },
-  aboutUrls: {
+  aboutUrls: { // TODO
     default: 'https://integreat-app.de/about/',
     en: 'https://integreat-app.de/en/about/'
   },
-  privacyUrls: {
+  privacyUrls: { // TODO
     default: 'https://integreat-app.de/datenschutz/',
     en: 'https://integreat-app.de/en/privacy/'
   }

@@ -1,7 +1,7 @@
 # Deliver integreat and malte. If it is not a production delivery, deliver to webnext.
 parameters:
   production_delivery:
-    description: Whether to deliver to production (integreat.app and malteapp.de) or not (webnext.integreat.app and webnext.malteapp.de).
+    description: Whether to deliver to production or to webnext.
     type: boolean
 docker:
   - image: circleci/node:12.16.3
@@ -25,11 +25,17 @@ steps:
             name: Malte production delivery
             command: sftp -b - -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/malteapp.de \<<< "put -r $HOME/attached_workspace/dist/malte/*"
         - run:
+            name: Aschaffenburg production delivery
+            command: sftp -b - -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/aschaffenburg.app \<<< "put -r $HOME/attached_workspace/dist/aschaffenburg/*"
+        - run:
             name: "Sentry Upload: integreat"
             command: tools/sentry-release integreat "${NEW_VERSION_NAME}" ~/attached_workspace/dist/integreat
         - run:
             name: "Sentry Upload: malte"
             command: tools/sentry-release malte "${NEW_VERSION_NAME}" ~/attached_workspace/dist/malte
+        - run:
+            name: "Sentry Upload: aschaffenburg"
+            command: tools/sentry-release aschaffenburg "${NEW_VERSION_NAME}" ~/attached_workspace/dist/aschaffenburg
   - unless:
       condition: << parameters.production_delivery >>
       steps:
@@ -37,6 +43,18 @@ steps:
             name: Integreat development delivery
             command: sftp -b - -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.integreat.app \<<< "put -r $HOME/attached_workspace/dist/integreat-test-cms/*"
         - run:
+            name: Malte development delivery
+            command: sftp -b - -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.malteapp.de \<<< "put -r $HOME/attached_workspace/dist/malte/*"
+        - run:
+            name: Aschaffenburg development delivery
+            command: sftp -b - -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.aschaffenburg.app \<<< "put -r $HOME/attached_workspace/dist/aschaffenburg/*"
+        - run:
             name: "Sentry Upload: integreat-test-cms"
             command: tools/sentry-release integreat-test-cms "${NEW_VERSION_NAME}" ~/attached_workspace/dist/integreat-test-cms
+        - run:
+            name: "Sentry Upload: malte"
+            command: tools/sentry-release malte "${NEW_VERSION_NAME}" ~/attached_workspace/dist/malte
+        - run:
+            name: "Sentry Upload: aschaffenburg"
+            command: tools/sentry-release aschaffenburg "${NEW_VERSION_NAME}" ~/attached_workspace/dist/aschaffenburg
   - notify

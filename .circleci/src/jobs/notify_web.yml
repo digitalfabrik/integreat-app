@@ -1,4 +1,4 @@
-# Create a release (with release notes) on github and send a slack notification.
+# Create a release (with release notes) on github and send a mattermost notification.
 docker:
   - image: circleci/node:12.16.3
 resource_class: small
@@ -15,4 +15,4 @@ steps:
       name: Create release notes
       command: echo "export RELEASE_NOTES=$(tools/parse-release-notes parse --web --language en)" >> ${BASH_ENV}
   - notify:
-      success_message: WebApp version ${NEW_VERSION_NAME} was delivered successfully to integreat.app and malteapp.de!\n${RELEASE_NOTES}
+      success_message: WebApp version ${NEW_VERSION_NAME} was delivered successfully to integreat.app, malteapp.de and aschaffenburg.app!\n${RELEASE_NOTES}
