@@ -2364,18 +2364,18 @@
   resolved "https://registry.yarnpkg.com/@react-native-community/progress-view/-/progress-view-1.0.3.tgz#6aaafd2d885771de6ef3a15e04f988af824dfa8b"
   integrity sha512-zpOop2VvkPHtomWtKbs62hhUhxzzpZsuo8tybxwaF6J+qY77rvYG9esDMOb0twXpa0i1jD+8nGyoiMS/Rx8Vtg==
 
-"@react-native-firebase/app@^8.2.0":
-  version "8.4.3"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/app/-/app-8.4.3.tgz#7f5c0d16c8b56808a26625af34259c8c50e0307b"
-  integrity sha512-qkjY4gvX4B0x1PKwaZIxByxwtnSlpvRt6IAlygB4rkeUv9XTBvW2j2xCGprEbKYZswEgSeY4ZDWl5SXYe6FgCg==
+"@react-native-firebase/app@10.5.0":
+  version "10.5.0"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/app/-/app-10.5.0.tgz#aa46cd3a62d2117914a6f81ffea0d1b3b9ef15c6"
+  integrity sha512-pEINud4A90RlwfTcE51m/5cOEGI4jiSi5Q4jsQ5UGGlsYqtbOw4Ja7b17x19o2OViJEQVjScpq4pH2bq9vie7Q==
   dependencies:
     opencollective-postinstall "^2.0.1"
     superstruct "^0.6.2"
 
-"@react-native-firebase/messaging@^7.4.2":
-  version "7.8.6"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/messaging/-/messaging-7.8.6.tgz#360cec3f7f6c405a6c1c0a955f16c7c664e27b12"
-  integrity sha512-sZ8Ygje573rJEMLgHIgrnDZ5H73xpLDXGOSGncQYzD+p4QxRqyBYVKLdbCkFqBjeHNXZw/GmRjtRh56DeqA+PQ==
+"@react-native-firebase/messaging@10.5.1":
+  version "10.5.1"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/messaging/-/messaging-10.5.1.tgz#f4b833f6ff6a7c234e790bae1f01289ac08199d8"
+  integrity sha512-cpx87M3vaR34vUYEFdpsFQk0/A29225tD5lqqvKW+l/u8FHD9KHyjm+XoEenV2eCayF8IxkmO9PQKsufgg4FHQ==
 
 "@react-native-picker/picker@^1.9.4":
   version "1.9.4"
@@ -4487,7 +4487,7 @@ buffer-xor@^1.0.3:
   resolved "https://registry.yarnpkg.com/buffer-xor/-/buffer-xor-1.0.3.tgz#26e61ed1422fb70dd42e6e36729ed51d855fe8d9"
   integrity sha1-JuYe0UIvtw3ULm42cp7VHYVf6Nk=
 
-buffer@^4.3.0, buffer@^4.5.1:
+buffer@^4.3.0:
   version "4.9.2"
   resolved "https://registry.yarnpkg.com/buffer/-/buffer-4.9.2.tgz#230ead344002988644841ab0244af8c44bbe3ef8"
   integrity sha512-xq+q3SRMOxGivLhBNaUdC64hDTQwejJ+H0T/NB1XMtTVEwNTrfFF3gAxiyW0Bu/xWEGhjVKgUcMhCrUy2+uCWg==
@@ -4775,6 +4775,11 @@ char-regex@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/char-regex/-/char-regex-1.0.2.tgz#d744358226217f981ed58f479b1d6bcc29545dcf"
   integrity sha512-kWWXztvZ5SBQV+eRgKFeh8q5sLuZY2+8WUIzlxWVTg+oGwY14qylx1KbKzHd8P6ZYkAg0xyIDU9JMHhyJMZ1jw==
+
+character-entities-html4@^1.0.0:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/character-entities-html4/-/character-entities-html4-1.1.4.tgz#0e64b0a3753ddbf1fdc044c5fd01d0199a02e125"
+  integrity sha512-HRcDxZuZqMx3/a+qrzxdBKBPUpxWEq9xw2OPZ3a/174ihfrQKVsFhqtthBInFy1zZ9GgZyFXOatNujm8M+El3g==
 
 character-entities-legacy@^1.0.0:
   version "1.1.4"
@@ -6057,6 +6062,13 @@ depd@~1.1.2:
   resolved "https://registry.yarnpkg.com/depd/-/depd-1.1.2.tgz#9bcd52e14c097763e749b274c4346ed2e560b5a9"
   integrity sha1-m81S4UwJd2PnSbJ0xDRu0uVgtak=
 
+deprecated-prop-type@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/deprecated-prop-type/-/deprecated-prop-type-1.0.0.tgz#eb364a453e72179973548296f930a727568b26a8"
+  integrity sha512-Hp4VxvZN6IlbKvleZfbdrojOmnPXuRPjC9cQ82j6bdI3DRCwGR+7CEf367X59MHz/y8Ao/mxdP7YyR3KTb+EhQ==
+  dependencies:
+    warning "4.0.1"
+
 deprecation@^2.0.0, deprecation@^2.3.1:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/deprecation/-/deprecation-2.3.1.tgz#6368cbdb40abf3373b525ac87e4a260c3a700919"
@@ -6286,6 +6298,13 @@ domhandler@^3.0.0, domhandler@^3.1.0:
   dependencies:
     domelementtype "^2.0.1"
 
+domhandler@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/domhandler/-/domhandler-3.3.0.tgz#6db7ea46e4617eb15cf875df68b2b8524ce0037a"
+  integrity sha512-J1C5rIANUbuYK+FuFL98650rihynUOEzRLxW+90bKZRWB6A1X1Tf82GxR1qAWLyfNPRvjqfip3Q5tdYlmAa9lA==
+  dependencies:
+    domelementtype "^2.0.1"
+
 domhandler@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/domhandler/-/domhandler-4.0.0.tgz#01ea7821de996d85f69029e81fa873c21833098e"
@@ -6318,7 +6337,7 @@ domutils@^2.0.0:
     domelementtype "^2.0.1"
     domhandler "^3.1.0"
 
-domutils@^2.4.4:
+domutils@^2.4.2, domutils@^2.4.4:
   version "2.4.4"
   resolved "https://registry.yarnpkg.com/domutils/-/domutils-2.4.4.tgz#282739c4b150d022d34699797369aad8d19bbbd3"
   integrity sha512-jBC0vOsECI4OMdD0GC9mGn7NXPLb+Qt6KW1YDQzeQYRUFKmNG8lh7mO5HiELfr+lLQE7loDVI4QcAxV80HS+RA==
@@ -7011,11 +7030,6 @@ eventemitter3@^4.0.0:
   version "4.0.7"
   resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-4.0.7.tgz#2de9b68f6528d5644ef5c59526a1b4a07306169f"
   integrity sha512-8guHBZCwKnFhYdHr2ysuRWErTwhoN2X8XELRlrRwpmfeY2jjuUN4taQMsULKUVo1K4DvZl+0pgfyoysHxvmvEw==
-
-events@^1.1.0:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/events/-/events-1.1.1.tgz#9ebdb7635ad099c70dcc4c2a1f5004288e8bd924"
-  integrity sha1-nr23Y1rQmccNzEwqH1AEKI6L2SQ=
 
 events@^3.0.0:
   version "3.2.0"
@@ -8684,7 +8698,7 @@ html-encoding-sniffer@^2.0.1:
   dependencies:
     whatwg-encoding "^1.0.5"
 
-html-entities@^1.2.0, html-entities@^1.3.1:
+html-entities@^1.3.1:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/html-entities/-/html-entities-1.3.1.tgz#fb9a1a4b5b14c5daba82d3e34c6ae4fe701a0e44"
   integrity sha512-rhE/4Z3hIhzHAUKbW8jVcCyuT5oJCXXqhN/6mXXVCpzTmvJnoH2HL/bt3EZ6p55jbFJBeAe1ZNpL5BugLujxNA==
@@ -8744,7 +8758,17 @@ html-webpack-plugin@^4.5.1:
     tapable "^1.1.3"
     util.promisify "1.0.0"
 
-htmlparser2@3.10.1, htmlparser2@^3.10.0, htmlparser2@^3.10.1, htmlparser2@^3.9.0, htmlparser2@^3.9.1:
+htmlparser2@5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/htmlparser2/-/htmlparser2-5.0.1.tgz#7daa6fc3e35d6107ac95a4fc08781f091664f6e7"
+  integrity sha512-vKZZra6CSe9qsJzh0BjBGXo8dvzNsq/oGvsjfRdOrrryfeD9UOBEEQdeoqCRmKZchF5h2zOBMQ6YuQ0uRUmdbQ==
+  dependencies:
+    domelementtype "^2.0.1"
+    domhandler "^3.3.0"
+    domutils "^2.4.2"
+    entities "^2.0.0"
+
+htmlparser2@^3.10.0, htmlparser2@^3.10.1, htmlparser2@^3.9.0, htmlparser2@^3.9.1:
   version "3.10.1"
   resolved "https://registry.yarnpkg.com/htmlparser2/-/htmlparser2-3.10.1.tgz#bd679dc3f59897b6a34bb10749c855bb53a9392f"
   integrity sha512-IgieNijUMbkDovyoKObU1DUhm1iwNYE/fuifEoEHfd1oZKZDaONBSkal7Y01shxsM49R4XaMdGez3WnF9UfiCQ==
@@ -13844,15 +13868,15 @@ react-native-reanimated@^1.13.2:
   dependencies:
     fbjs "^1.0.0"
 
-react-native-render-html@^5.0.0-alpha.2:
-  version "5.0.0-alpha.2"
-  resolved "https://registry.yarnpkg.com/react-native-render-html/-/react-native-render-html-5.0.0-alpha.2.tgz#180907d71432ddd955ca5002f8fb0221736a6433"
-  integrity sha512-MMaoF5HOr+hHwLprI5ehQNKl4Em0p2uU2I1rQRfAPP2Cp7FvxzrBUdPlwLMJdkeA1YJq+e0I82Wpw5TMCEd5Rw==
+react-native-render-html@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-render-html/-/react-native-render-html-5.1.0.tgz#049591d9a72f39634877991c33d546f277103520"
+  integrity sha512-zMExybt9n6oUGTusN2wIfr+nI+VSOZ5Yevru2+7+Rs7gyzT4rxGoD+Gv/AKWwnHMs1U4L8YOA9U1ZzCmHKR/1Q==
   dependencies:
-    buffer "^4.5.1"
-    events "^1.1.0"
-    html-entities "^1.2.0"
-    htmlparser2 "3.10.1"
+    deprecated-prop-type "^1.0.0"
+    htmlparser2 "5.0.1"
+    prop-types "^15.7.2"
+    stringify-entities "^3.1.0"
 
 react-native-safe-area-context@^3.1.9:
   version "3.1.9"
@@ -14865,7 +14889,7 @@ sane@^4.0.3:
     minimist "^1.1.1"
     walker "~1.0.5"
 
-sanitize-html-react@^1.13, sanitize-html-react@^1.13.0:
+sanitize-html-react@^1.13:
   version "1.13.0"
   resolved "https://registry.yarnpkg.com/sanitize-html-react/-/sanitize-html-react-1.13.0.tgz#e757b9adbaf2c8a762f3d2dff70138838e05420a"
   integrity sha1-51e5rbryyKdi89Lf9wE4g44FQgo=
@@ -15716,6 +15740,15 @@ string_decoder@~1.1.1:
   integrity sha512-n/ShnvDi6FHbbVfviro+WojiFzv+s8MPMHBczVePfUpDJLwoLT0ht1l4YwBCbi8pJAveEEdnkHyPyTP/mzRfwg==
   dependencies:
     safe-buffer "~5.1.0"
+
+stringify-entities@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/stringify-entities/-/stringify-entities-3.1.0.tgz#b8d3feac256d9ffcc9fa1fefdcf3ca70576ee903"
+  integrity sha512-3FP+jGMmMV/ffZs86MoghGqAoqXAdxLrJP4GUdrDN1aIScYih5tuIO3eF4To5AJZ79KDZ8Fpdy7QJnK8SsL1Vg==
+  dependencies:
+    character-entities-html4 "^1.0.0"
+    character-entities-legacy "^1.0.0"
+    xtend "^4.0.0"
 
 strip-ansi@^3.0.0, strip-ansi@^3.0.1:
   version "3.0.1"
@@ -17077,6 +17110,13 @@ walker@^1.0.7, walker@~1.0.5:
   integrity sha1-L3+bj9ENZ3JisYqITijRlhjgKPs=
   dependencies:
     makeerror "1.0.x"
+
+warning@4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/warning/-/warning-4.0.1.tgz#66ce376b7fbfe8a887c22bdf0e7349d73d397745"
+  integrity sha512-rAVtTNZw+cQPjvGp1ox0XC5Q2IBFyqoqh+QII4J/oguyu83Bax1apbo2eqB8bHRS+fqYUBagys6lqUoVwKSmXQ==
+  dependencies:
+    loose-envify "^1.0.0"
 
 warning@^3.0.0:
   version "3.0.0"
