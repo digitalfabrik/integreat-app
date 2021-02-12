@@ -1,7 +1,7 @@
 parameters:
   build_config_name:
     type: enum
-    enum: [integreat, malte, integreat-test-cms]
+    enum: [integreat, malte, integreat-test-cms, aschaffenburg]
     default: integreat
 docker:
   - image: circleci/node:12.16.3

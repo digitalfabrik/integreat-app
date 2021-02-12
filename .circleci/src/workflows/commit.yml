@@ -15,6 +15,20 @@ jobs:
         - mattermost
       requires:
         - bump_version
+  - build_web:
+      name: build_malte_web
+      build_config_name: malte
+      context:
+        - mattermost
+      requires:
+        - bump_version
+  - build_web:
+      name: build_aschaffenburg_web
+      build_config_name: aschaffenburg
+      context:
+        - mattermost
+      requires:
+        - bump_version
   - deliver_web:
       filters:
         branches:
@@ -27,6 +41,8 @@ jobs:
       requires:
         - check_web
         - build_ig_test_cms_web
+        - build_malte_web
+        - build_aschaffenburg_web
 
   - check_native:
       context:
