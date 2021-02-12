@@ -1,6 +1,6 @@
 // @flow
 
-import * as React from 'react'
+import React, { useCallback } from 'react'
 import { View } from 'react-native'
 import { TFunction, withTranslation } from 'react-i18next'
 import { LocalNewsModel, NotFoundError, TunewsModel } from 'api-client'
@@ -40,108 +40,81 @@ export type PropsType = {|
   navigateTo: RouteInformationType => void
 |}
 
-class NewsList extends React.PureComponent<PropsType> {
-  navigateToNews = (
-    cityCode: string,
-    language: string,
-    newsId: string
-  ) => () => {
-    const { selectedNewsType } = this.props
-    this.props.navigateTo({
+const NewsList = (props: PropsType) => {
+  const { news, newsId, cityCode, language, fetchMoreNews, isFetchingMore, selectedNewsType, theme, t } = props
+  const { navigateTo } = props
+
+  const isTunews = selectedNewsType === TU_NEWS_TYPE
+
+  const navigateToNews = useCallback((cityCode: string, language: string, newsId: string) => () => {
+    navigateTo({
       route: NEWS_ROUTE,
       cityCode,
       languageCode: language,
       newsId,
       newsType: selectedNewsType
     })
-  }
+  }, [selectedNewsType, navigateTo])
 
-  openTunewsLink = async () => {
+  const openTunewsLink = useCallback(async () => {
     openExternalUrl(tunewsWebsiteUrl)
-  }
+  }, [])
 
-  renderNoItemsComponent = () => {
-    const { t, theme } = this.props
+  const renderNoItemsComponent = useCallback(() => {
     return <NoNews theme={theme}>{t('currentlyNoNews')}</NoNews>
-  }
+  }, [theme, t])
 
-  rendersNewsListItem = (cityCode: string, language: string) => ({ item: newsItem }) => {
-    const { theme, selectedNewsType } = this.props
-    const isTunews = selectedNewsType === TU_NEWS_TYPE
-    return (
+  const rendersNewsListItem = useCallback((cityCode: string, language: string) =>
+    ({ item }: { item: LocalNewsModel | TunewsModel, ... }) => {
+      return (
       <NewsListItem
-        key={newsItem.id}
-        newsItem={newsItem}
+        key={item.id}
+        newsItem={item}
         language={language}
         theme={theme}
         isTunews={isTunews}
-        navigateToNews={this.navigateToNews(
-          cityCode,
-          language,
-          newsItem.id.toString()
-        )}
+        navigateToNews={navigateToNews(cityCode, language, item.id.toString())}
+        t={t}
       />
-    )
-  }
-
-  render () {
-    const {
-      news,
-      newsId,
-      cityCode,
-      language,
-      theme,
-      t,
-      fetchMoreNews,
-      isFetchingMore,
-      selectedNewsType
-    } = this.props
-
-    const isTunews = selectedNewsType === TU_NEWS_TYPE
-    if (newsId) {
-      const selectedNewsItem: TunewsModel | LocalNewsModel | void = news.find(
-        _newsItem => _newsItem.id.toString() === newsId
       )
-      if (selectedNewsItem) {
-        return (
+    }, [isTunews, navigateToNews, theme, t])
+
+  if (newsId) {
+    const selectedNewsItem = news.find(_newsItem => _newsItem.id.toString() === newsId)
+    if (selectedNewsItem) {
+      return (
           <NewsItemsDetails
             selectedNewsItem={selectedNewsItem}
             theme={theme}
             isTunews={isTunews}
             language={language}
-            openTunewsLink={this.openTunewsLink}
+            openTunewsLink={openTunewsLink}
           />
-        )
-      } else {
-        const error = new NotFoundError({
-          type: isTunews ? 'tunews' : 'localNews',
-          id: newsId,
-          city: cityCode,
-          language
-        })
-        return (
+      )
+    } else {
+      const error = new NotFoundError({ type: selectedNewsType, id: newsId, city: cityCode, language })
+      return (
           <Failure
             errorMessage={error.message}
             code={ErrorCodes.PageNotFound}
             t={t}
             theme={theme}
           />
-        )
-      }
+      )
     }
+  }
 
-    return (
+  return (
       <View style={{ flex: 1 }}>
         <List
-          renderNoItemsComponent={this.renderNoItemsComponent}
+          renderNoItemsComponent={renderNoItemsComponent}
           items={news}
           isFetchingMore={isFetchingMore}
           fetchMoreItems={fetchMoreNews}
-          renderItem={this.rendersNewsListItem(cityCode, language)}
+          renderItem={rendersNewsListItem(cityCode, language)}
         />
       </View>
-    )
-  }
+  )
 }
 
 const TranslatedWithThemeNewsList = withTranslation('news')(
