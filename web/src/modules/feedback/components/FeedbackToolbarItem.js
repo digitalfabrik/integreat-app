@@ -5,11 +5,12 @@ import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFrown, faSmile } from '../../../modules/app/constants/icons'
-import ReactTooltip from 'react-tooltip'
 import { NEGATIVE_RATING, POSITIVE_RATING } from 'api-client'
 import StyledToolbarItem from '../../layout/components/StyledToolbarItem'
 import StyledSmallViewTip from '../../layout/components/StyledSmallViewTip'
 import type { FeedbackRatingType } from '../../layout/containers/LocationLayout'
+import Tooltip from '../../common/components/Tooltip'
+import { Container } from '../../layout/components/HeaderActionItemDropDown'
 
 type PropsType = {|
   isPositiveRatingLink: boolean,
@@ -22,10 +23,6 @@ type PropsType = {|
 const StyledFeedbackToolbarItem = StyledToolbarItem.withComponent('button')
 
 export class FeedbackToolbarItem extends React.PureComponent<PropsType> {
-  componentDidMount () {
-    /* https://www.npmjs.com/package/react-tooltip#1-using-tooltip-within-the-modal-eg-react-modal- */
-    ReactTooltip.rebuild()
-  }
 
   handleLinkClick = () =>
     this.props.openFeedbackModal(this.props.isPositiveRatingLink ? POSITIVE_RATING : NEGATIVE_RATING)
@@ -37,12 +34,11 @@ export class FeedbackToolbarItem extends React.PureComponent<PropsType> {
 
     return (
       <StyledFeedbackToolbarItem className={className} onClick={this.handleLinkClick} aria-label={dataTip}>
+        <Tooltip text={dataTip} direction={'up'}>
         <FontAwesomeIcon
           className={className}
-          data-tip={dataTip}
-          data-event='mouseover'
-          data-event-off='click mouseout'
           icon={isPositiveRatingLink ? faSmile : faFrown} />
+        </Tooltip>
         {viewportSmall && <StyledSmallViewTip>{smallViewTip}</StyledSmallViewTip>}
       </StyledFeedbackToolbarItem>
     )
