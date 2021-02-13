@@ -20,14 +20,15 @@ exports[`Selector should be vertical and match snapshot 1`] = `
   >
     Deutsch
   </Selector__ActiveElement>
-  <Selector__DisabledElement
-    data-event="mouseover"
-    data-event-off="click mouseout"
-    data-tip="random tooltip"
+  <_default
+    direction="up"
     key="fr"
+    text="random tooltip"
   >
-    Französisch
-  </Selector__DisabledElement>
+    <Selector__DisabledElement>
+      Französisch
+    </Selector__DisabledElement>
+  </_default>
 </Selector__Wrapper>
 `;
 
@@ -51,13 +52,14 @@ exports[`Selector should match snapshot 1`] = `
   >
     Deutsch
   </Selector__ActiveElement>
-  <Selector__DisabledElement
-    data-event="mouseover"
-    data-event-off="click mouseout"
-    data-tip="random tooltip"
+  <_default
+    direction="up"
     key="fr"
+    text="random tooltip"
   >
-    Französisch
-  </Selector__DisabledElement>
+    <Selector__DisabledElement>
+      Französisch
+    </Selector__DisabledElement>
+  </_default>
 </Selector__Wrapper>
 `;

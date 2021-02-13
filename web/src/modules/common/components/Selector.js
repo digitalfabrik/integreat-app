@@ -76,7 +76,6 @@ type PropsType = {|
  * Displays a Selector showing different items
  */
 class Selector extends React.PureComponent<PropsType> {
-
   getItems (): React.Node {
     const { items, activeItemCode, closeDropDown, disabledItemTooltip } = this.props
     return items.map(item => {
