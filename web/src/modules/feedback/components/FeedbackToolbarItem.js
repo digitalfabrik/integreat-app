@@ -10,7 +10,6 @@ import StyledToolbarItem from '../../layout/components/StyledToolbarItem'
 import StyledSmallViewTip from '../../layout/components/StyledSmallViewTip'
 import type { FeedbackRatingType } from '../../layout/containers/LocationLayout'
 import Tooltip from '../../common/components/Tooltip'
-import { Container } from '../../layout/components/HeaderActionItemDropDown'
 
 type PropsType = {|
   isPositiveRatingLink: boolean,
@@ -34,7 +33,7 @@ export class FeedbackToolbarItem extends React.PureComponent<PropsType> {
 
     return (
       <StyledFeedbackToolbarItem className={className} onClick={this.handleLinkClick} aria-label={dataTip}>
-        <Tooltip text={dataTip} direction={'up'}>
+        <Tooltip text={dataTip} direction={'up'} lowWidthFallback={'right'}>
         <FontAwesomeIcon
           className={className}
           icon={isPositiveRatingLink ? faSmile : faFrown} />

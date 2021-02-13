@@ -2,6 +2,80 @@
 
 import * as React from 'react'
 import styled from 'styled-components'
+import dimensions from '../../theme/constants/dimensions'
+
+const renderPseudoClasses = (direction: string) => `
+    ::before {
+    ${direction === 'up'
+  ? `
+        bottom: 100%;
+        border-bottom-width: 0;
+        border-top-color: #333;
+    `
+  : ''}
+    ${direction === 'down'
+  ? `
+        top: 100%;
+        border-top-width: 0;
+        border-bottom-color: #333;
+    `
+  : ''}
+    ${direction === 'left'
+  ? `
+        top: 50%;
+        border-right-width: 0;
+        border-left-color: #333;
+        left: calc(0em - 5px);
+        transform: translate(0, -50%);
+    `
+  : ''}
+    ${direction === 'right'
+  ? `
+        top: 50%;
+        border-left-width: 0;
+        border-right-color: #333;
+        right: calc(0em - 5px);
+        transform: translate(0, -50%);
+    `
+  : ''}
+    }
+    ::after {
+    ${direction === 'up'
+  ? `
+        bottom: calc(100% + 5px);
+    `
+  : ''}
+    ${direction === 'down'
+  ? `
+        top: calc(100% + 5px);
+    `
+  : ''}
+    ${direction === 'left'
+  ? `
+        top: 50%;
+        right: calc(100% + 5px);
+        transform: translate(0, -50%);
+    `
+  : ''}
+    ${direction === 'right'
+  ? `
+        top: 50%;
+        left: calc(100% + 5px);
+        transform: translate(0, -50%);
+    `
+  : ''}
+    }
+
+    ::before,
+    ::after {
+    ${(direction === 'up' || direction === 'down')
+  ? `
+        left: 50%;
+        transform: translate(-50%, 0);
+    `
+  : ''}
+    }
+`
 
 const TooltipContainer = styled.div`
    position: relative;
@@ -17,7 +91,7 @@ const TooltipContainer = styled.div`
    
       /* opinions */
       text-transform: none; 
-      font-size: .9rem;
+      font-size: 16px;
   }
 
   ::before {
@@ -55,45 +129,39 @@ const TooltipContainer = styled.div`
       display: block;
   }
 
-  ::before {
-      ${props => props.direction === 'up' ? 'bottom' : 'top'}: 100%;
-      border-${props => props.direction === 'up' ? 'bottom' : 'top'}-width: 0;
-      border-${props => props.direction === 'up' ? 'top' : 'bottom'}-color: #333;
+
+  @media not ${dimensions.minMaxWidth} {
+    ${props => renderPseudoClasses(props.lowWidthFallback)}
   }
-  ::after {
-      ${props => props.direction === 'up' ? 'bottom' : 'top'}: calc(100% + 5px);
-  }
-  ::before,
-  ::after {
-      left: 50%;
-      transform: translate(-50%, ${props => props.direction === 'up' ? '-.5em' : '.5em'});
+  @media ${dimensions.minMaxWidth} {
+    ${props => renderPseudoClasses(props.direction)}
   }
   
-  @keyframes tooltips-vert {
+  @keyframes tooltips {
     to {
       opacity: .9;
-      transform: translate(-50%, 0);
     }
   }
   
   :hover::before,
   :hover::after {
-      animation: tooltips-vert 300ms ease-out forwards;
+      animation: tooltips 300ms ease-out forwards;
   }
 `
 
 type PropsType = {|
   children: React.Node,
   text: ?string,
-  direction: 'up' | 'down' | 'left' | 'right'
+  direction: 'up' | 'down',
+  lowWidthFallback?: 'left' | 'right'
 |}
 
-export default ({ children, text, direction }: PropsType) => {
+export default ({ children, text, direction, lowWidthFallback }: PropsType) => {
   if (!text) {
     return children
   }
 
-  return <TooltipContainer text={text} direction={direction}>
-       {children}
+  return <TooltipContainer text={text} direction={direction} lowWidthFallback={lowWidthFallback ?? direction}>
+    {children}
   </TooltipContainer>
 }
