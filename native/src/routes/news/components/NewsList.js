@@ -10,7 +10,7 @@ const keyExtractor = (item, index) => `${index}`
 
 type PropType = {|
   items: NewsModelsType,
-  renderItem: ({| item: LocalNewsModel | TunewsModel |}) => React$Node,
+  renderItem: ({ item: LocalNewsModel | TunewsModel, ... }) => React$Node,
   isFetchingMore: boolean,
   fetchMoreItems: () => void,
   renderNoItemsComponent: () => React$Node
