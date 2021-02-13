@@ -3,11 +3,11 @@
 import * as React from 'react'
 
 import SelectorItemModel from '../models/SelectorItemModel'
-import ReactTooltip from 'react-tooltip'
 import styled, { css } from 'styled-components'
 import Link from 'redux-first-router-link'
 import helpers from '../../theme/constants/helpers'
 import dimensions from '../../theme/constants/dimensions'
+import Tooltip from './Tooltip'
 
 const Element = styled(Link)`
   ${helpers.removeLinkHighlighting};
@@ -76,15 +76,6 @@ type PropsType = {|
  * Displays a Selector showing different items
  */
 class Selector extends React.PureComponent<PropsType> {
-  componentDidMount () {
-    /* https://www.npmjs.com/package/react-tooltip#1-using-tooltip-within-the-modal-eg-react-modal- */
-    ReactTooltip.rebuild()
-  }
-
-  componentDidUpdate () {
-    /* https://www.npmjs.com/package/react-tooltip#1-using-tooltip-within-the-modal-eg-react-modal- */
-    ReactTooltip.rebuild()
-  }
 
   getItems (): React.Node {
     const { items, activeItemCode, closeDropDown, disabledItemTooltip } = this.props
@@ -100,9 +91,11 @@ class Selector extends React.PureComponent<PropsType> {
         )
       } else {
         return (
-          <DisabledElement data-tip={disabledItemTooltip} data-event='mouseover' data-event-off='click mouseout' key={item.code}>
-            {item.name}
-          </DisabledElement>
+          <Tooltip key={item.code} text={disabledItemTooltip} direction='up'>
+            <DisabledElement>
+              {item.name}
+            </DisabledElement>
+          </Tooltip>
         )
       }
     })

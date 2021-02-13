@@ -4,12 +4,10 @@ import * as React from 'react'
 import styled from 'styled-components'
 
 const TooltipContainer = styled.div`
-  .tooltip {
-    position: relative;
-  }
+   position: relative;
   
-  .tooltip::before,
-  .tooltip::after {
+  ::before,
+  ::after {
       line-height: 1;
       user-select: none;
       pointer-events: none;
@@ -19,20 +17,19 @@ const TooltipContainer = styled.div`
    
       /* opinions */
       text-transform: none; 
-      font-size: .9em;
+      font-size: .9rem;
   }
 
-  .tooltip::before {
+  ::before {
       content: '';
       z-index: 1001;
       border: 5px solid transparent;
   }
-  .tooltip::after {
+  ::after {
       content: '${props => props.text}';
       z-index: 1000;
        
       /* most of the rest of this is opinion */
-      font-family: Helvetica, sans-serif;
       text-align: center;
        
       /* 
@@ -53,22 +50,21 @@ const TooltipContainer = styled.div`
       color: #fff;
   }
   
-  .tooltip:hover::before,
-  .tooltip:hover::after {
+  :hover::before,
+  :hover::after {
       display: block;
   }
-  
 
-  .tooltip::before {
+  ::before {
       ${props => props.direction === 'up' ? 'bottom' : 'top'}: 100%;
       border-${props => props.direction === 'up' ? 'bottom' : 'top'}-width: 0;
       border-${props => props.direction === 'up' ? 'top' : 'bottom'}-color: #333;
   }
-  .tooltip::after {
+  ::after {
       ${props => props.direction === 'up' ? 'bottom' : 'top'}: calc(100% + 5px);
   }
-  .tooltip::before,
-  .tooltip::after {
+  ::before,
+  ::after {
       left: 50%;
       transform: translate(-50%, ${props => props.direction === 'up' ? '-.5em' : '.5em'});
   }
@@ -80,14 +76,10 @@ const TooltipContainer = styled.div`
     }
   }
   
-  .tooltip:hover::before,
-  .tooltip:hover::after {
-      animation: 
-          tooltips-vert 
-          300ms 
-          ease-out
-          forwards;
-}
+  :hover::before,
+  :hover::after {
+      animation: tooltips-vert 300ms ease-out forwards;
+  }
 `
 
 type PropsType = {|
@@ -102,8 +94,6 @@ export default ({ children, text, direction }: PropsType) => {
   }
 
   return <TooltipContainer text={text} direction={direction}>
-     <div className={'tooltip'}>
        {children}
-     </div>
   </TooltipContainer>
 }
