@@ -6,10 +6,7 @@ import { ScrollView, View } from 'react-native'
 import { LocalNewsModel, TunewsModel } from 'api-client'
 import DateFormatterContext from '../../../modules/i18n/context/DateFormatterContext'
 import type { ThemeType } from 'build-configs/ThemeType'
-import {
-  contentDirection,
-  contentAlignment
-} from '../../../modules/i18n/contentDirection'
+import { contentDirection, contentAlignment } from '../../../modules/i18n/contentDirection'
 import headerImage from '../assets/tu-news-header-details-icon.svg'
 import styled from 'styled-components/native'
 import type { StyledComponent } from 'styled-components'
@@ -80,7 +77,7 @@ export type PropsType = {|
   openTunewsLink: () => Promise<void>
 |}
 
-const NewsItemsDetails = ({
+const NewsDetail = ({
   theme,
   selectedNewsItem,
   isTunews,
@@ -140,4 +137,4 @@ const NewsItemsDetails = ({
   )
 }
 
-export default NewsItemsDetails
+export default NewsDetail
