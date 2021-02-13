@@ -120,7 +120,7 @@ class Layout extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const { asideStickyTop, footer, header, toolbar, modal, children, darkMode } = this.props
+    const { asideStickyTop, footer, header, toolbar, modal, children } = this.props
     const modalVisible = !!modal
     return (
       <FlexWrapper>
