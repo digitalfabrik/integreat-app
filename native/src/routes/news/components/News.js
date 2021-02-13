@@ -13,7 +13,7 @@ import ErrorCodes from '../../../modules/error/ErrorCodes'
 import NewsListItem from './NewsListItem'
 import styled from 'styled-components/native'
 import type { StyledComponent } from 'styled-components'
-import NewsItemsDetails from './NewsItemDetails'
+import NewsDetail from './NewsDetail'
 import openExternalUrl from '../../../modules/common/openExternalUrl'
 import { NEWS_ROUTE, TU_NEWS_TYPE } from 'api-client/src/routes'
 import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
@@ -83,7 +83,7 @@ const News = (props: PropsType) => {
     const selectedNewsItem = news.find(_newsItem => _newsItem.id.toString() === newsId)
     if (selectedNewsItem) {
       return (
-          <NewsItemsDetails
+          <NewsDetail
             selectedNewsItem={selectedNewsItem}
             theme={theme}
             isTunews={isTunews}
