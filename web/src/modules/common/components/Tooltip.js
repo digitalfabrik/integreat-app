@@ -37,51 +37,51 @@ const pseudosMixin = (flow: FlowType, supportsLogicalProperties: boolean) => css
   /* CSS Triangle: https://css-tricks.com/snippets/css/css-triangle/ */
   ::before {
     ${flow === 'up' && `
-    bottom: 100%;
-    border-bottom-width: 0;
-    border-top-color: #333;
+      bottom: 100%;
+      border-bottom-width: 0;
+      border-top-color: #333;
     `}
     ${flow === 'down' && `
-    top: 100%;
-    border-top-width: 0;
-    border-bottom-color: #333;
+      top: 100%;
+      border-top-width: 0;
+      border-bottom-color: #333;
     `}
     ${flow === 'left' && `
-    ${toLogicalProperty('border-right-width', supportsLogicalProperties)}: 0;
-    ${toLogicalProperty('border-left-color', supportsLogicalProperties)}: #333;
-    ${toLogicalProperty('left', supportsLogicalProperties)}: -5px;
+      ${toLogicalProperty('border-right-width', supportsLogicalProperties)}: 0;
+      ${toLogicalProperty('border-left-color', supportsLogicalProperties)}: #333;
+      ${toLogicalProperty('left', supportsLogicalProperties)}: -5px;
     `}
     ${flow === 'right' && `
-    ${toLogicalProperty('border-left-width', supportsLogicalProperties)}: 0;
-    ${toLogicalProperty('border-right-color', supportsLogicalProperties)}: #333 ;
-    ${toLogicalProperty('right', supportsLogicalProperties)}: -5px;
+      ${toLogicalProperty('border-left-width', supportsLogicalProperties)}: 0;
+      ${toLogicalProperty('border-right-color', supportsLogicalProperties)}: #333 ;
+      ${toLogicalProperty('right', supportsLogicalProperties)}: -5px;
     `}
   }
   
   ::after {
     ${flow === 'up' && `
-    bottom: calc(99% + 5px);
+      bottom: calc(99% + 5px);
     `}
     ${flow === 'down' && `
-    top: calc(99% + 5px);
+      top: calc(99% + 5px);
     `}
     ${flow === 'left' && `
-    ${toLogicalProperty('right', supportsLogicalProperties)}: calc(99% + 5px);
+      ${toLogicalProperty('right', supportsLogicalProperties)}: calc(99% + 5px);
     `}
     ${flow === 'right' && `
-    ${toLogicalProperty('left', supportsLogicalProperties)}: calc(99% + 5px);
+      ${toLogicalProperty('left', supportsLogicalProperties)}: calc(99% + 5px);
     `}
   }
   
   ::before,
   ::after {
     ${(flow === 'left' || flow === 'right') && `
-    top: 50%;
-    transform: translate(0, -50%);
+      top: 50%;
+      transform: translate(0, -50%);
     `}
     ${(flow === 'up' || flow === 'down') && `
-    left: 50%;
-    transform: translate(-50%, 0);
+      left: 50%;
+      transform: translate(-50%, 0);
     `}
   }
 `
