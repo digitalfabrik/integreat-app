@@ -90,7 +90,7 @@ class Selector extends React.PureComponent<PropsType> {
         )
       } else {
         return (
-          <Tooltip key={item.code} text={disabledItemTooltip} direction='up'>
+          <Tooltip key={item.code} text={disabledItemTooltip} flow='up'>
             <DisabledElement>
               {item.name}
             </DisabledElement>

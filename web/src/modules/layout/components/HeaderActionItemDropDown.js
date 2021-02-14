@@ -92,7 +92,7 @@ const HeaderActionItemDropDown = (props: PropsType) => {
   useOnClickOutside(wrapperRef, closeDropDown)
 
   return <Container ref={wrapperRef} theme={theme}>
-    <Tooltip text={text} direction={'down'} lowWidthFallback={'left'}>
+    <Tooltip text={text} flow={'down'} mediumViewportFlow={'left'}>
       <button
         aria-label={text}
         onClick={toggleDropDown}>

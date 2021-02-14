@@ -5,61 +5,86 @@ import styled, { css } from 'styled-components'
 import dimensions from '../../theme/constants/dimensions'
 import Platform from '../../platform/Platform'
 
-// Works for Chrome > 69, Firefox > 41, RTL/LTR does not work for IE
+// Works for Chrome > 69, Firefox > 41, RTL/LTR support does not work for IE
+const toLogicalProperty = (prop: string): string => {
+  if (!new Platform().supportsLogicalProperties) {
+    return prop
+  }
 
-const pseudosMixin = (flow: 'up' | 'down' | 'left' | 'right') => css`
-    
-    /* CSS Triangle: https://css-tricks.com/snippets/css/css-triangle/ */
-    ::before {
-    ${flow === 'up' && `
-        bottom: 100%;
-        border-bottom-width: 0;
-        border-top-color: #333;
-    `}
-    ${flow === 'down' && `
-        top: 100%;
-        border-top-width: 0;
-        border-bottom-color: #333;
-    `}
-    ${flow === 'left' && `
-        border-inline-end-width: 0;
-        border-inline-start-color: #333;
-        inset-inline-start: -5px;
-    `}
-    ${flow === 'right' && `
-        border-inline-start-width: 0;
-        border-inline-end-color: #333 ;
-        inset-inline-end: -5px;
-    `}
-    }
+  switch (prop) {
+    case 'right':
+      return 'inset-inline-end'
+    case 'left':
+      return 'inset-inline-start'
+    case 'border-left-width':
+      return 'border-inline-start-width'
+    case 'border-right-width':
+      return 'border-inline-end-width'
+    case 'border-left-color':
+      return 'border-inline-start-color'
+    case 'border-right-color':
+      return 'border-inline-end-color'
+  }
 
-    ::after {
-    ${flow === 'up' && `
-        bottom: calc(97% + 5px);
-    `}
-    ${flow === 'down' && `
-        top: calc(97% + 5px);
-    `}
-    ${flow === 'left' && `
-        inset-inline-end: calc(97% + 5px);
-    `}
-    ${flow === 'right' && `
-        inset-inline-start: calc(97% + 5px);
-    `}
-    }
+  throw Error('Unknown property.')
+}
 
-    ::before,
-    ::after {
-    ${(flow === 'left' || flow === 'right') && `
-        top: 50%;
-        transform: translate(0, -50%);
-    `}
-    ${(flow === 'up' || flow === 'down') && `
-        left: 50%;
-        transform: translate(-50%, 0);
-    `}
-    }
-`
+type FlowType = 'left' | 'right' | 'up' | 'down'
+
+const pseudosMixin = (flow: FlowType) => {
+  return css`
+      /* CSS Triangle: https://css-tricks.com/snippets/css/css-triangle/ */
+      ::before {
+      ${flow === 'up' && `
+          bottom: 100%;
+          border-bottom-width: 0;
+          border-top-color: #333;
+      `}
+      ${flow === 'down' && `
+          top: 100%;
+          border-top-width: 0;
+          border-bottom-color: #333;
+      `}
+      ${flow === 'left' && `
+          ${toLogicalProperty('border-right-width')}: 0;
+          ${toLogicalProperty('border-left-color')}: #333;
+          ${toLogicalProperty('left')}: -5px;
+      `}
+      ${flow === 'right' && `
+          ${toLogicalProperty('border-left-width')}: 0;
+          ${toLogicalProperty('border-right-color')}: #333 ;
+          ${toLogicalProperty('right')}: -5px;
+      `}
+      }
+  
+      ::after {
+      ${flow === 'up' && `
+          bottom: calc(97% + 5px);
+      `}
+      ${flow === 'down' && `
+          top: calc(97% + 5px);
+      `}
+      ${flow === 'left' && `
+          ${toLogicalProperty('right')}: calc(97% + 5px);
+      `}
+      ${flow === 'right' && `
+          ${toLogicalProperty('left')}: calc(97% + 5px);
+      `}
+      }
+  
+      ::before,
+      ::after {
+      ${(flow === 'left' || flow === 'right') && `
+          top: 50%;
+          transform: translate(0, -50%);
+      `}
+      ${(flow === 'up' || flow === 'down') && `
+          left: 50%;
+          transform: translate(-50%, 0);
+      `}
+      }
+  `
+}
 
 const TooltipContainer = styled.div`
    position: relative;
@@ -86,14 +111,11 @@ const TooltipContainer = styled.div`
   ::after {
       content: '${props => props.text}';
       z-index: 1000;
-       
-      /* most of the rest of this is opinion */
-      text-align: center;
-       
+
       /* 
-      Let the content set the size of the tooltips 
-      but this will also keep them from being obnoxious
+      Content settings
       */
+      text-align: center;
       min-width: 3em;
       max-width: 21em;
       white-space: nowrap;
@@ -113,7 +135,6 @@ const TooltipContainer = styled.div`
       display: block;
   }
 
-
   /* over 1100px */
   @media ${dimensions.minMaxWidth} {
     ${props => pseudosMixin(props.flow)}
@@ -123,14 +144,13 @@ const TooltipContainer = styled.div`
     ${props => pseudosMixin(props.smallViewport)}
   }
   /* inbetween */
-  @media screen and (min-width: 750px) and (max-width: 1100px) {
+  @media screen and ${dimensions.mediumViewport} {
     ${props => pseudosMixin(props.lowWidthFallback)}
   }
   
-  
   @keyframes tooltips {
     to {
-      opacity: .9;
+      opacity: 1;
     }
   }
   
@@ -143,23 +163,19 @@ const TooltipContainer = styled.div`
 type PropsType = {|
   children: React.Node,
   text: ?string,
-  direction: 'up' | 'down',
-  lowWidthFallback?: 'left' | 'right' | 'up' | 'down',
-  smallViewport?: 'left' | 'right' | 'up' | 'down'
+  flow: FlowType,
+  mediumViewportFlow?: FlowType,
+  smallViewportFlow?: FlowType
 |}
 
-export default ({ children, text, direction, lowWidthFallback, smallViewport }: PropsType) => {
+export default ({ children, text, flow, mediumViewportFlow, smallViewportFlow }: PropsType) => {
   if (!text) {
     return children
   }
 
-  if (!new Platform().supportsLogicalProperties()) {
-    return children
-  }
-
-  return <TooltipContainer text={text} flow={direction}
-                           lowWidthFallback={lowWidthFallback ?? direction}
-                           smallViewport={smallViewport ?? (lowWidthFallback ?? direction)}>
-    {children}
+  return <TooltipContainer text={text} flow={flow}
+                           lowWidthFallback={mediumViewportFlow ?? flow}
+                           smallViewport={smallViewportFlow ?? (mediumViewportFlow ?? flow)}>
+      {children}
   </TooltipContainer>
 }

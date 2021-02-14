@@ -107,7 +107,7 @@ type PropsType = {|
 class HeaderNavigationItem extends React.PureComponent<PropsType> {
   render () {
     const { active, text, tooltip, href, icon } = this.props
-    return <Tooltip text={tooltip} direction={'up'}>
+    return <Tooltip text={tooltip} flow={'up'}>
       <StyledLink to={href} $active={active}>
         <Circle><img src={icon} alt='' /></Circle>
         <div>{text}</div>
