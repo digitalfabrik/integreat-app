@@ -137,8 +137,7 @@ const CategoryListContent = ({
       <Html source={{ content }}
             onLinkPress={onLinkPress}
             contentWidth={useWindowDimensions().width}
-            allowFontScaling
-            textSelectable
+            defaultTextProps={{ selectable: true, allowFontStyling: true }}
             alterNode={alterResources}
             listsPrefixesRenderers={{ ul: renderUnorderedListPrefix, ol: renderOrderedListPrefix }}
             renderers={{ ul: renderLists, ol: renderLists }}

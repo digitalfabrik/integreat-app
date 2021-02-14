@@ -66,7 +66,6 @@ const NewsDetail = ({ theme, selectedNewsItem, language }: PropsType) => {
           <NewsHeadLine theme={theme}>{selectedNewsItem.title}</NewsHeadLine>
           <Html source={{ html: content }}
                 contentWidth={useWindowDimensions().width}
-                allowFontScaling
                 baseFontStyle={{
                   fontFamily: theme.fonts.decorativeFontRegular,
                   fontSize: 16,
@@ -75,7 +74,7 @@ const NewsDetail = ({ theme, selectedNewsItem, language }: PropsType) => {
                   textAlign: contentAlignment(language),
                   color: theme.colors.textColor
                 }}
-                textSelectable />
+                defaultTextProps={{ selectable: true, allowFontStyling: true }} />
         </Container>
         {selectedNewsItem instanceof TunewsModel && <TuNewsFooter language={language}
                                                                   eNewsNo={selectedNewsItem.eNewsNo}
