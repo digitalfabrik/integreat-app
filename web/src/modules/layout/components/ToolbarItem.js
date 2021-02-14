@@ -18,7 +18,7 @@ class ToolbarItem extends React.PureComponent<PropsType> {
     const { href, text, icon, viewportSmall } = this.props
     return (
       <StyledToolbarItem href={href} ariaLabel={text}>
-        <Tooltip text={text} direction='up' lowWidthFallback={'right'}>
+        <Tooltip text={text} direction='up' lowWidthFallback='right' smallViewport='down'>
           <FontAwesomeIcon icon={icon} />
           {viewportSmall && <StyledSmallViewTip>{text}</StyledSmallViewTip>}
         </Tooltip>
