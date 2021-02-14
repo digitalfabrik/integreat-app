@@ -9,6 +9,10 @@ class Platform {
     this._browser = detect()
   }
 
+  supportsLogicalProperties (): boolean {
+    return !this._browser.name.includes('ie')
+  }
+
   get positionStickyDisabled (): boolean {
     return !!(this._browser && this._browser.name === 'edge' && /^16\..*/.test(this._browser.version))
   }

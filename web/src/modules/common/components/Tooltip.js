@@ -3,8 +3,13 @@
 import * as React from 'react'
 import styled, { css } from 'styled-components'
 import dimensions from '../../theme/constants/dimensions'
+import Platform from '../../platform/Platform'
+
+// Works for Chrome > 69, Firefox > 41, RTL/LTR does not work for IE
 
 const pseudosMixin = (flow: 'up' | 'down' | 'left' | 'right') => css`
+    
+    /* CSS Triangle: https://css-tricks.com/snippets/css/css-triangle/ */
     ::before {
     ${flow === 'up' && `
         bottom: 100%;
@@ -16,43 +21,39 @@ const pseudosMixin = (flow: 'up' | 'down' | 'left' | 'right') => css`
         border-top-width: 0;
         border-bottom-color: #333;
     `}
-    ${(flow === 'left' || flow === 'right') && `
-        top: 50%;
-        transform: translate(0, -50%);
-    `}
     ${flow === 'left' && `
-        border-right-width: 0;
-        border-left-color: #333;
-        left: calc(0em - 5px);
+        border-inline-end-width: 0;
+        border-inline-start-color: #333;
+        inset-inline-start: -5px;
     `}
     ${flow === 'right' && `
-        border-left-width: 0;
-        border-right-color: #333;
-        right: calc(0em - 5px);
+        border-inline-start-width: 0;
+        border-inline-end-color: #333 ;
+        inset-inline-end: -5px;
     `}
     }
 
     ::after {
     ${flow === 'up' && `
-        bottom: calc(100% + 5px);
+        bottom: calc(97% + 5px);
     `}
     ${flow === 'down' && `
-        top: calc(100% + 5px);
-    `}
-    ${(flow === 'left' || flow === 'right') && `
-        top: 50%;
-        transform: translate(0, -50%);
+        top: calc(97% + 5px);
     `}
     ${flow === 'left' && `
-        right: calc(100% + 5px);
+        inset-inline-end: calc(97% + 5px);
     `}
     ${flow === 'right' && `
-        left: calc(100% + 5px);
+        inset-inline-start: calc(97% + 5px);
     `}
     }
 
     ::before,
     ::after {
+    ${(flow === 'left' || flow === 'right') && `
+        top: 50%;
+        transform: translate(0, -50%);
+    `}
     ${(flow === 'up' || flow === 'down') && `
         left: 50%;
         transform: translate(-50%, 0);
@@ -113,12 +114,19 @@ const TooltipContainer = styled.div`
   }
 
 
-  @media not ${dimensions.minMaxWidth} {
-    ${props => pseudosMixin(props.lowWidthFallback)}
-  }
+  /* over 1100px */
   @media ${dimensions.minMaxWidth} {
     ${props => pseudosMixin(props.flow)}
   }
+  /* below 750px */
+  @media ${dimensions.smallViewport} {
+    ${props => pseudosMixin(props.smallViewport)}
+  }
+  /* inbetween */
+  @media not (${dimensions.smallViewport} or (min-width: 1100px)) {
+    ${props => pseudosMixin(props.lowWidthFallback)}
+  }
+  
   
   @keyframes tooltips {
     to {
@@ -136,15 +144,22 @@ type PropsType = {|
   children: React.Node,
   text: ?string,
   direction: 'up' | 'down',
-  lowWidthFallback?: 'left' | 'right'
+  lowWidthFallback?: 'left' | 'right' | 'up' | 'down',
+  smallViewport?: 'left' | 'right' | 'up' | 'down'
 |}
 
-export default ({ children, text, direction, lowWidthFallback }: PropsType) => {
+export default ({ children, text, direction, lowWidthFallback, smallViewport }: PropsType) => {
   if (!text) {
     return children
   }
 
-  return <TooltipContainer text={text} flow={direction} lowWidthFallback={lowWidthFallback ?? direction}>
+  if (!new Platform().supportsLogicalProperties()) {
+    return children
+  }
+
+  return <TooltipContainer text={text} flow={direction}
+                           lowWidthFallback={lowWidthFallback ?? direction}
+                           smallViewport={smallViewport ?? (lowWidthFallback ?? direction)}>
     {children}
   </TooltipContainer>
 }
