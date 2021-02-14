@@ -119,11 +119,11 @@ const TooltipContainer = styled.div`
     ${props => pseudosMixin(props.flow)}
   }
   /* below 750px */
-  @media ${dimensions.smallViewport} {
+  @media screen and ${dimensions.smallViewport} {
     ${props => pseudosMixin(props.smallViewport)}
   }
   /* inbetween */
-  @media not (${dimensions.smallViewport} or (min-width: 1100px)) {
+  @media screen and (min-width: 750px) and (max-width: 1100px) {
     ${props => pseudosMixin(props.lowWidthFallback)}
   }
   
