@@ -34,105 +34,101 @@ const toLogicalProperty = (prop: string, supportsLogicalProperties: boolean): st
 type FlowType = 'left' | 'right' | 'up' | 'down'
 
 const pseudosMixin = (flow: FlowType, supportsLogicalProperties: boolean) => css`
-      /* CSS Triangle: https://css-tricks.com/snippets/css/css-triangle/ */
-      ::before {
-      ${flow === 'up' && `
-          bottom: 100%;
-          border-bottom-width: 0;
-          border-top-color: #333;
-      `}
-      ${flow === 'down' && `
-          top: 100%;
-          border-top-width: 0;
-          border-bottom-color: #333;
-      `}
-      ${flow === 'left' && `
-          ${toLogicalProperty('border-right-width', supportsLogicalProperties)}: 0;
-          ${toLogicalProperty('border-left-color', supportsLogicalProperties)}: #333;
-          ${toLogicalProperty('left', supportsLogicalProperties)}: -5px;
-      `}
-      ${flow === 'right' && `
-          ${toLogicalProperty('border-left-width', supportsLogicalProperties)}: 0;
-          ${toLogicalProperty('border-right-color', supportsLogicalProperties)}: #333 ;
-          ${toLogicalProperty('right', supportsLogicalProperties)}: -5px;
-      `}
-      }
+  /* CSS Triangle: https://css-tricks.com/snippets/css/css-triangle/ */
+  ::before {
+    ${flow === 'up' && `
+    bottom: 100%;
+    border-bottom-width: 0;
+    border-top-color: #333;
+    `}
+    ${flow === 'down' && `
+    top: 100%;
+    border-top-width: 0;
+    border-bottom-color: #333;
+    `}
+    ${flow === 'left' && `
+    ${toLogicalProperty('border-right-width', supportsLogicalProperties)}: 0;
+    ${toLogicalProperty('border-left-color', supportsLogicalProperties)}: #333;
+    ${toLogicalProperty('left', supportsLogicalProperties)}: -5px;
+    `}
+    ${flow === 'right' && `
+    ${toLogicalProperty('border-left-width', supportsLogicalProperties)}: 0;
+    ${toLogicalProperty('border-right-color', supportsLogicalProperties)}: #333 ;
+    ${toLogicalProperty('right', supportsLogicalProperties)}: -5px;
+    `}
+  }
   
-      ::after {
-      ${flow === 'up' && `
-          bottom: calc(99% + 5px);
-      `}
-      ${flow === 'down' && `
-          top: calc(99% + 5px);
-      `}
-      ${flow === 'left' && `
-          ${toLogicalProperty('right', supportsLogicalProperties)}: calc(99% + 5px);
-      `}
-      ${flow === 'right' && `
-          ${toLogicalProperty('left', supportsLogicalProperties)}: calc(99% + 5px);
-      `}
-      }
-  
-      ::before,
-      ::after {
-      ${(flow === 'left' || flow === 'right') && `
-          top: 50%;
-          transform: translate(0, -50%);
-      `}
-      ${(flow === 'up' || flow === 'down') && `
-          left: 50%;
-          transform: translate(-50%, 0);
-      `}
-      }
-  `
-
-const TooltipContainer = styled.div`
-   position: relative;
+  ::after {
+    ${flow === 'up' && `
+    bottom: calc(99% + 5px);
+    `}
+    ${flow === 'down' && `
+    top: calc(99% + 5px);
+    `}
+    ${flow === 'left' && `
+    ${toLogicalProperty('right', supportsLogicalProperties)}: calc(99% + 5px);
+    `}
+    ${flow === 'right' && `
+    ${toLogicalProperty('left', supportsLogicalProperties)}: calc(99% + 5px);
+    `}
+  }
   
   ::before,
   ::after {
-      line-height: 1;
-      user-select: none;
-      pointer-events: none;
-      position: absolute;
-      display: none;
-      opacity: 0;
-   
-      /* opinions */
-      text-transform: none; 
-      font-size: 16px;
+    ${(flow === 'left' || flow === 'right') && `
+    top: 50%;
+    transform: translate(0, -50%);
+    `}
+    ${(flow === 'up' || flow === 'down') && `
+    left: 50%;
+    transform: translate(-50%, 0);
+    `}
+  }
+`
+
+const TooltipContainer = styled.div`
+  position: relative;
+  
+  ::before,
+  ::after {
+    line-height: 1;
+    user-select: none;
+    pointer-events: none;
+    position: absolute;
+    display: none;
+    opacity: 0;
+    text-transform: none;
+    font-size: 16px;
   }
 
   ::before {
-      content: '';
-      z-index: 1001;
-      border: 5px solid transparent;
+    content: '';
+    z-index: 1001;
+    border: 5px solid transparent;
   }
-  ::after {
-      content: '${props => props.text}';
-      z-index: 1000;
 
-      /* 
-      Content settings
-      */
-      text-align: center;
-      min-width: 3em;
-      max-width: 21em;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+  ::after {
+    content: '${props => props.text}';
+    z-index: 1000;
+
+    /* Content props */
+    text-align: center;
+    min-width: 3em;
+    max-width: 21em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
        
-      /* visible design of the tooltip bubbles */
-      padding: 1ch 1.5ch;
-      border-radius: .3ch;
-      box-shadow: 0 1em 2em -.5em rgba(0, 0, 0, 0.35);
-      background: #333;
-      color: #fff;
+    /* visible design of the tooltip bubbles */
+    padding: 10px 15px;
+    border-radius: 3px;
+    background: #333;
+    color: #fff;
   }
   
   :hover::before,
   :hover::after {
-      display: block;
+    display: block;
   }
 
   /* over 1100px */
@@ -156,7 +152,7 @@ const TooltipContainer = styled.div`
   
   :hover::before,
   :hover::after {
-      animation: tooltips 300ms ease-out forwards;
+    animation: tooltips 300ms ease-out forwards;
   }
 `
 
