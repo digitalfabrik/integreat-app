@@ -7,11 +7,9 @@ import { type TFunction } from 'react-i18next'
 import type { ThemeType } from 'build-configs/ThemeType'
 import { type StyledComponent } from 'styled-components'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
-import {
-  contentDirection,
-  contentAlignment
-} from '../../../modules/i18n/contentDirection'
+import { contentDirection, contentAlignment } from '../../../modules/i18n/contentDirection'
 import { config } from 'translations'
+import { Parser } from 'htmlparser2'
 
 type PropsType = {|
   newsItem: LocalNewsModel | TunewsModel,
@@ -101,6 +99,12 @@ export const ReadMore: StyledComponent<{| isTunews: ?boolean |}, ThemeType, *> =
 `
 
 const NewsListItem = ({ newsItem, language, navigateToNews, theme, t, isTunews }: PropsType) => {
+  const content = newsItem.content || newsItem.message || ''
+  let decodedContent = ''
+  const parser = new Parser({ ontext (data: string) { decodedContent += data } }, { decodeEntities: true })
+  parser.write(content)
+  parser.end()
+
   return (
       <>
         <Divider />
@@ -112,10 +116,7 @@ const NewsListItem = ({ newsItem, language, navigateToNews, theme, t, isTunews }
               </ListItemView>
               <ListItemView language={language} theme={theme}>
                 <Content numberOfLines={5} language={language} theme={theme}>
-                  {[
-                    ...(newsItem.content ? [newsItem.content] : []),
-                    ...(newsItem.message ? [newsItem.message] : [])
-                  ]}
+                  {decodedContent}
                 </Content>
               </ListItemView>
             </Description>
