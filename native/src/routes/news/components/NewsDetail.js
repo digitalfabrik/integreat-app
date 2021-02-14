@@ -1,15 +1,15 @@
 // @flow
 
 import * as React from 'react'
-import { useContext } from 'react'
-import { ScrollView, View } from 'react-native'
+import { ScrollView, View, useWindowDimensions } from 'react-native'
 import { LocalNewsModel, TunewsModel } from 'api-client'
-import DateFormatterContext from '../../../modules/i18n/context/DateFormatterContext'
 import type { ThemeType } from 'build-configs/ThemeType'
-import { contentDirection, contentAlignment } from '../../../modules/i18n/contentDirection'
+import { contentAlignment } from '../../../modules/i18n/contentDirection'
 import headerImage from '../assets/tu-news-header-details-icon.svg'
 import styled from 'styled-components/native'
 import type { StyledComponent } from 'styled-components'
+import Html from 'react-native-render-html'
+import TuNewsFooter from './TuNewsFooter'
 
 const Container: StyledComponent<{||}, {||}, *> = styled.View`
   align-items: center;
@@ -17,7 +17,7 @@ const Container: StyledComponent<{||}, {||}, *> = styled.View`
   flex: 1;
 `
 
-const HeaderImageWrapper: StyledComponent<{||}, {||}, *> = styled.View`
+const HeaderImageWrapper: StyledComponent<{||}, ThemeType, *> = styled.View`
   width: 95%;
   align-self: center;
   align-items: flex-start;
@@ -26,20 +26,11 @@ const HeaderImageWrapper: StyledComponent<{||}, {||}, *> = styled.View`
   background-color: rgba(2, 121, 166, 0.4);
 `
 
-const HeaderImage: StyledComponent<{||}, {||}, *> = styled.Image`
+const HeaderImage: StyledComponent<{||}, ThemeType, *> = styled.Image`
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
 `
 
-const Row: StyledComponent<{| language: string |}, ThemeType, *> = styled.View`
-  flex-direction: ${props => contentDirection(props.language)};
-  border-radius: 5px;
-  width: 95%;
-  flex-wrap: wrap;
-  align-self: center;
-  padding: 5px;
-  background-color: ${props => props.theme.colors.tunewsThemeColor};
-`
 const NewsHeadLine: StyledComponent<{||}, ThemeType, *> = styled.Text`
   font-weight: 700;
   font-family: ${props => props.theme.fonts.decorativeFontBold};
@@ -49,43 +40,15 @@ const NewsHeadLine: StyledComponent<{||}, ThemeType, *> = styled.Text`
   margin-bottom: 15px;
 `
 
-const NewsContent: StyledComponent<{| language: string |},
-  ThemeType,
-  *> = styled.Text`
-  font-family: ${props => props.theme.fonts.decorativeFontRegular};
-  font-size: 16px;
-  letter-spacing: 0.5px;
-  line-height: 24px;
-  text-align: ${props => contentAlignment(props.language)};
-  color: ${props => props.theme.colors.textColor};
-`
-const TunewsFooter: StyledComponent<{| underlined?: boolean, rightMargin: number |},
-  ThemeType,
-  *> = styled.Text`
-  font-family: ${props => props.theme.fonts.decorativeFontBold};
-  font-size: 12px;
-  color: white;
-  margin-right: ${props => props.rightMargin || 0}px;
-  text-decoration-line: ${props => (props.underlined ? 'underline' : 'none')};
-`
-
-export type PropsType = {|
+type PropsType = {|
   theme: ThemeType,
   language: string,
   selectedNewsItem: TunewsModel | LocalNewsModel,
-  isTunews: boolean,
-  openTunewsLink: () => Promise<void>
+  isTunews: boolean
 |}
 
-const NewsDetail = ({
-  theme,
-  selectedNewsItem,
-  isTunews,
-  language,
-  openTunewsLink
-}: PropsType) => {
-  const formatter = useContext(DateFormatterContext)
-
+const NewsDetail = ({ theme, selectedNewsItem, isTunews, language }: PropsType) => {
+  const content = selectedNewsItem.content || selectedNewsItem.message || ''
   return (
     <View style={{ flex: 1 }}>
       <ScrollView
@@ -102,36 +65,23 @@ const NewsDetail = ({
         )}
         <Container>
           <NewsHeadLine theme={theme}>{selectedNewsItem.title}</NewsHeadLine>
-          <NewsContent theme={theme} language={language}>
-            {[
-              ...(selectedNewsItem.content ? [selectedNewsItem.content] : []),
-              ...(selectedNewsItem.message ? [selectedNewsItem.message] : [])
-            ]}
-          </NewsContent>
+          <Html source={{ html: content }}
+                contentWidth={useWindowDimensions().width}
+                allowFontScaling
+                baseFontStyle={{
+                  fontFamily: theme.fonts.decorativeFontRegular,
+                  fontSize: 16,
+                  letterSpacing: 0.5,
+                  lineHeight: 24,
+                  textAlign: contentAlignment(language),
+                  color: theme.colors.textColor
+                }}
+                textSelectable />
         </Container>
-        {isTunews && (
-          <Row theme={theme} language={language}>
-            <TunewsFooter theme={theme} rightMargin={3}>
-              {selectedNewsItem.eNewsNo ? selectedNewsItem.eNewsNo : null}
-            </TunewsFooter>
-            <TunewsFooter
-              rightMargin={3}
-              onPress={openTunewsLink}
-              theme={theme}
-              underlined>
-              tünews INTERNATIONAL
-            </TunewsFooter>
-            {
-              (isTunews && (selectedNewsItem instanceof TunewsModel)) && (
-                <TunewsFooter theme={theme} rightMargin={3}>
-                  {formatter.format(selectedNewsItem.date, {
-                    format: 'LL'
-                  })}
-                </TunewsFooter>
-              )
-            }
-          </Row>
-        )}
+        {selectedNewsItem instanceof TunewsModel && <TuNewsFooter language={language}
+                                                                  eNewsNo={selectedNewsItem.eNewsNo}
+                                                                  date={selectedNewsItem.date}
+                                                                  theme={theme} />}
       </ScrollView>
     </View>
   )
