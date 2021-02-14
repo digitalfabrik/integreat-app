@@ -99,7 +99,10 @@ export const ReadMore: StyledComponent<{| isTunews: ?boolean |}, ThemeType, *> =
 `
 
 const NewsListItem = ({ newsItem, language, navigateToNews, theme, t, isTunews }: PropsType) => {
-  const content = newsItem.content || newsItem.message || ''
+  const localNewsContent = newsItem instanceof LocalNewsModel ? newsItem.message : ''
+  const tuNewsContent = newsItem instanceof TunewsModel ? newsItem.content : ''
+  const content = localNewsContent || tuNewsContent
+
   // Decode html entities
   let decodedContent = ''
   const parser = new Parser({ ontext (data: string) { decodedContent += data } }, { decodeEntities: true })
