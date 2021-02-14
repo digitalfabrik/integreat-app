@@ -59,16 +59,16 @@ const pseudosMixin = (flow: FlowType) => {
   
       ::after {
       ${flow === 'up' && `
-          bottom: calc(97% + 5px);
+          bottom: calc(99% + 5px);
       `}
       ${flow === 'down' && `
-          top: calc(97% + 5px);
+          top: calc(99% + 5px);
       `}
       ${flow === 'left' && `
-          ${toLogicalProperty('right')}: calc(97% + 5px);
+          ${toLogicalProperty('right')}: calc(99% + 5px);
       `}
       ${flow === 'right' && `
-          ${toLogicalProperty('left')}: calc(97% + 5px);
+          ${toLogicalProperty('left')}: calc(99% + 5px);
       `}
       }
   
