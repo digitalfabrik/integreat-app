@@ -31,7 +31,7 @@ export class FeedbackToolbarItem extends React.PureComponent<PropsType> {
     const smallViewTip = isPositiveRatingLink ? t('useful') : t('notUseful')
 
     return (
-      <Tooltip text={dataTip} direction='up' lowWidthFallback='right' smallViewport='down'>
+      <Tooltip text={dataTip} flow='up' mediumViewportFlow='right' smallViewportFlow='down'>
         <StyledFeedbackToolbarItem className={className} onClick={this.handleLinkClick} aria-label={dataTip}>
           <FontAwesomeIcon
             className={className}
