@@ -5,6 +5,7 @@ import { mount } from 'enzyme'
 import { FailureSwitcher } from '../FailureSwitcher'
 import { NotFoundError } from 'api-client'
 import { Failure } from '../Failure'
+import { LOCAL_NEWS_TYPE, TU_NEWS_TYPE } from 'api-client/src/routes'
 
 jest.mock('react-i18next')
 jest.mock('redux-first-router-link')
@@ -18,8 +19,8 @@ describe('FailureSwitcher', () => {
     type                | id
     ${'category'}       | ${'willkommen'}
     ${'event'}          | ${'1234'}
-    ${'localNews'}      | ${'/augsburg/en/news/local/1'}
-    ${'tunews'}         | ${'/augsburg/en/news/tu-news/1'}
+    ${LOCAL_NEWS_TYPE}  | ${'/augsburg/en/news/local/1'}
+    ${TU_NEWS_TYPE}     | ${'/augsburg/en/news/tu-news/1'}
     ${'offer'}          | ${'sprungbrett'}
     ${'poi'}            | ${'1234'}
     `('render $type component not found failure',
