@@ -77,7 +77,7 @@ const News = (props: PropsType) => {
     if (selectedNewsItem) {
       return (
           <NewsDetail
-            selectedNewsItem={selectedNewsItem}
+            newsItem={selectedNewsItem}
             theme={theme}
             language={language}
             navigateToLink={navigateToLink}

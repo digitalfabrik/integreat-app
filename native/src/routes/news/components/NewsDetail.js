@@ -44,13 +44,13 @@ const NewsHeadLine: StyledComponent<{||}, ThemeType, *> = styled.Text`
 type PropsType = {|
   theme: ThemeType,
   language: string,
-  selectedNewsItem: TunewsModel | LocalNewsModel,
+  newsItem: TunewsModel | LocalNewsModel,
   navigateToLink: (url: string, language: string, shareUrl: string) => void
 |}
 
-const NewsDetail = ({ theme, selectedNewsItem, language, navigateToLink }: PropsType) => {
-  const localNewsContent = selectedNewsItem instanceof LocalNewsModel ? selectedNewsItem.message : ''
-  const tuNewsContent = selectedNewsItem instanceof TunewsModel ? selectedNewsItem.content : ''
+const NewsDetail = ({ theme, newsItem, language, navigateToLink }: PropsType) => {
+  const localNewsContent = newsItem instanceof LocalNewsModel ? newsItem.message : ''
+  const tuNewsContent = newsItem instanceof TunewsModel ? newsItem.content : ''
   const content = localNewsContent || tuNewsContent
 
   // https://stackoverflow.com/a/3809435
@@ -70,13 +70,13 @@ const NewsDetail = ({ theme, selectedNewsItem, language, navigateToLink }: Props
           marginBottom: 10,
           paddingHorizontal: '5%'
         }}>
-        {selectedNewsItem instanceof TunewsModel && (
+        {newsItem instanceof TunewsModel && (
           <HeaderImageWrapper>
             <HeaderImage source={headerImage} />
           </HeaderImageWrapper>
         )}
         <Container>
-          <NewsHeadLine theme={theme}>{selectedNewsItem.title}</NewsHeadLine>
+          <NewsHeadLine theme={theme}>{newsItem.title}</NewsHeadLine>
           <Html source={{ html: urlContent }}
                 contentWidth={useWindowDimensions().width}
                 onLinkPress={onLinkPress}
@@ -90,9 +90,9 @@ const NewsDetail = ({ theme, selectedNewsItem, language, navigateToLink }: Props
                 }}
                 defaultTextProps={{ selectable: true, allowFontStyling: true }} />
         </Container>
-        {selectedNewsItem instanceof TunewsModel && <TuNewsFooter language={language}
-                                                                  eNewsNo={selectedNewsItem.eNewsNo}
-                                                                  date={selectedNewsItem.date}
+        {newsItem instanceof TunewsModel && <TuNewsFooter language={language}
+                                                                  eNewsNo={newsItem.eNewsNo}
+                                                                  date={newsItem.date}
                                                                   theme={theme} />}
       </ScrollView>
     </View>
