@@ -1,79 +1,62 @@
 // @flow
 
 import * as React from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import dimensions from '../../theme/constants/dimensions'
 
-const renderPseudoClasses = (direction: string) => `
+const pseudosMixin = (flow: 'up' | 'down' | 'left' | 'right') => css`
     ::before {
-    ${direction === 'up'
-  ? `
+    ${flow === 'up' && `
         bottom: 100%;
         border-bottom-width: 0;
         border-top-color: #333;
-    `
-  : ''}
-    ${direction === 'down'
-  ? `
+    `}
+    ${flow === 'down' && `
         top: 100%;
         border-top-width: 0;
         border-bottom-color: #333;
-    `
-  : ''}
-    ${direction === 'left'
-  ? `
+    `}
+    ${(flow === 'left' || flow === 'right') && `
         top: 50%;
+        transform: translate(0, -50%);
+    `}
+    ${flow === 'left' && `
         border-right-width: 0;
         border-left-color: #333;
         left: calc(0em - 5px);
-        transform: translate(0, -50%);
-    `
-  : ''}
-    ${direction === 'right'
-  ? `
-        top: 50%;
+    `}
+    ${flow === 'right' && `
         border-left-width: 0;
         border-right-color: #333;
         right: calc(0em - 5px);
-        transform: translate(0, -50%);
-    `
-  : ''}
+    `}
     }
+
     ::after {
-    ${direction === 'up'
-  ? `
+    ${flow === 'up' && `
         bottom: calc(100% + 5px);
-    `
-  : ''}
-    ${direction === 'down'
-  ? `
+    `}
+    ${flow === 'down' && `
         top: calc(100% + 5px);
-    `
-  : ''}
-    ${direction === 'left'
-  ? `
+    `}
+    ${(flow === 'left' || flow === 'right') && `
         top: 50%;
+        transform: translate(0, -50%);
+    `}
+    ${flow === 'left' && `
         right: calc(100% + 5px);
-        transform: translate(0, -50%);
-    `
-  : ''}
-    ${direction === 'right'
-  ? `
-        top: 50%;
+    `}
+    ${flow === 'right' && `
         left: calc(100% + 5px);
-        transform: translate(0, -50%);
-    `
-  : ''}
+    `}
     }
 
     ::before,
     ::after {
-    ${(direction === 'up' || direction === 'down')
-  ? `
+    ${(flow === 'up' || flow === 'down') && `
         left: 50%;
         transform: translate(-50%, 0);
-    `
-  : ''}
+    `}
     }
 `
 
@@ -131,10 +114,10 @@ const TooltipContainer = styled.div`
 
 
   @media not ${dimensions.minMaxWidth} {
-    ${props => renderPseudoClasses(props.lowWidthFallback)}
+    ${props => pseudosMixin(props.lowWidthFallback)}
   }
   @media ${dimensions.minMaxWidth} {
-    ${props => renderPseudoClasses(props.direction)}
+    ${props => pseudosMixin(props.flow)}
   }
   
   @keyframes tooltips {
@@ -161,7 +144,7 @@ export default ({ children, text, direction, lowWidthFallback }: PropsType) => {
     return children
   }
 
-  return <TooltipContainer text={text} direction={direction} lowWidthFallback={lowWidthFallback ?? direction}>
+  return <TooltipContainer text={text} flow={direction} lowWidthFallback={lowWidthFallback ?? direction}>
     {children}
   </TooltipContainer>
 }
