@@ -17,12 +17,12 @@ class ToolbarItem extends React.PureComponent<PropsType> {
   render () {
     const { href, text, icon, viewportSmall } = this.props
     return (
-      <StyledToolbarItem href={href} ariaLabel={text}>
-        <Tooltip text={text} flow='up' mediumViewportFlow='right' smallViewportFlow='down'>
+      <Tooltip text={text} flow='up' mediumViewportFlow='right' smallViewportFlow='down'>
+        <StyledToolbarItem href={href} ariaLabel={text}>
           <FontAwesomeIcon icon={icon} />
           {viewportSmall && <StyledSmallViewTip>{text}</StyledSmallViewTip>}
-        </Tooltip>
-      </StyledToolbarItem>
+        </StyledToolbarItem>
+      </Tooltip>
     )
   }
 }
