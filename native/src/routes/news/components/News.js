@@ -14,11 +14,9 @@ import NewsListItem from './NewsListItem'
 import styled from 'styled-components/native'
 import type { StyledComponent } from 'styled-components'
 import NewsDetail from './NewsDetail'
-import openExternalUrl from '../../../modules/common/openExternalUrl'
 import { NEWS_ROUTE, TU_NEWS_TYPE } from 'api-client/src/routes'
 import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
 import type { NewsType } from 'api-client/src/routes'
-import { tunewsWebsiteUrl } from '../../../modules/endpoint/constants'
 
 const NoNews: StyledComponent<{||}, ThemeType, *> = styled.Text`
   color: ${props => props.theme.colors.textColor};
@@ -56,10 +54,6 @@ const News = (props: PropsType) => {
     })
   }, [selectedNewsType, navigateTo])
 
-  const openTunewsLink = useCallback(async () => {
-    openExternalUrl(tunewsWebsiteUrl)
-  }, [])
-
   const renderNoItemsComponent = useCallback(() => {
     return <NoNews theme={theme}>{t('currentlyNoNews')}</NoNews>
   }, [theme, t])
@@ -88,7 +82,6 @@ const News = (props: PropsType) => {
             theme={theme}
             isTunews={isTunews}
             language={language}
-            openTunewsLink={openTunewsLink}
           />
       )
     } else {

@@ -100,6 +100,7 @@ export const ReadMore: StyledComponent<{| isTunews: ?boolean |}, ThemeType, *> =
 
 const NewsListItem = ({ newsItem, language, navigateToNews, theme, t, isTunews }: PropsType) => {
   const content = newsItem.content || newsItem.message || ''
+  // Decode html entities
   let decodedContent = ''
   const parser = new Parser({ ontext (data: string) { decodedContent += data } }, { decodeEntities: true })
   parser.write(content)
