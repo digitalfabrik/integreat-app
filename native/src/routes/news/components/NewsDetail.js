@@ -43,11 +43,10 @@ const NewsHeadLine: StyledComponent<{||}, ThemeType, *> = styled.Text`
 type PropsType = {|
   theme: ThemeType,
   language: string,
-  selectedNewsItem: TunewsModel | LocalNewsModel,
-  isTunews: boolean
+  selectedNewsItem: TunewsModel | LocalNewsModel
 |}
 
-const NewsDetail = ({ theme, selectedNewsItem, isTunews, language }: PropsType) => {
+const NewsDetail = ({ theme, selectedNewsItem, language }: PropsType) => {
   const content = selectedNewsItem.content || selectedNewsItem.message || ''
   return (
     <View style={{ flex: 1 }}>
@@ -58,7 +57,7 @@ const NewsDetail = ({ theme, selectedNewsItem, isTunews, language }: PropsType) 
           marginBottom: 10,
           paddingHorizontal: '5%'
         }}>
-        {isTunews && (
+        {selectedNewsItem instanceof TunewsModel && (
           <HeaderImageWrapper>
             <HeaderImage source={headerImage} />
           </HeaderImageWrapper>

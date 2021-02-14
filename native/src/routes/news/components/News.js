@@ -42,8 +42,6 @@ const News = (props: PropsType) => {
   const { news, newsId, cityCode, language, fetchMoreNews, isFetchingMore, selectedNewsType, theme, t } = props
   const { navigateTo } = props
 
-  const isTunews = selectedNewsType === TU_NEWS_TYPE
-
   const navigateToNews = useCallback((cityCode: string, language: string, newsId: string) => () => {
     navigateTo({
       route: NEWS_ROUTE,
@@ -66,12 +64,12 @@ const News = (props: PropsType) => {
         newsItem={item}
         language={language}
         theme={theme}
-        isTunews={isTunews}
+        isTunews={selectedNewsType === TU_NEWS_TYPE}
         navigateToNews={navigateToNews(cityCode, language, item.id.toString())}
         t={t}
       />
       )
-    }, [isTunews, navigateToNews, theme, t])
+    }, [selectedNewsType, navigateToNews, theme, t])
 
   if (newsId) {
     const selectedNewsItem = news.find(_newsItem => _newsItem.id.toString() === newsId)
@@ -80,7 +78,6 @@ const News = (props: PropsType) => {
           <NewsDetail
             selectedNewsItem={selectedNewsItem}
             theme={theme}
-            isTunews={isTunews}
             language={language}
           />
       )
