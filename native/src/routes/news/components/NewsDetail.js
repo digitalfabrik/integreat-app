@@ -91,9 +91,9 @@ const NewsDetail = ({ theme, newsItem, language, navigateToLink }: PropsType) =>
                 defaultTextProps={{ selectable: true, allowFontStyling: true }} />
         </Container>
         {newsItem instanceof TunewsModel && <TuNewsFooter language={language}
-                                                                  eNewsNo={newsItem.eNewsNo}
-                                                                  date={newsItem.date}
-                                                                  theme={theme} />}
+                                                          eNewsNo={newsItem.eNewsNo}
+                                                          date={newsItem.date}
+                                                          theme={theme} />}
       </ScrollView>
     </View>
   )
