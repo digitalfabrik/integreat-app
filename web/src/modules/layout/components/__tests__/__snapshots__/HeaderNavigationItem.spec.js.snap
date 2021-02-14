@@ -2,7 +2,7 @@
 
 exports[`HeaderNavigationItem should render an ActiveNavigationItem 1`] = `
 <_default
-  direction="up"
+  flow="up"
 >
   <HeaderNavigationItem__StyledLink
     $active={true}
@@ -23,7 +23,7 @@ exports[`HeaderNavigationItem should render an ActiveNavigationItem 1`] = `
 
 exports[`HeaderNavigationItem should render an InactiveNavigationItem 1`] = `
 <_default
-  direction="up"
+  flow="up"
   text="random tooltip"
 >
   <HeaderNavigationItem__StyledLink

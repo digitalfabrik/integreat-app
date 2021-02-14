@@ -1,13 +1,15 @@
 // @flow
 
 import * as React from 'react'
+import { useContext } from 'react'
 import styled, { css } from 'styled-components'
 import dimensions from '../../theme/constants/dimensions'
-import Platform from '../../platform/Platform'
+import PlatformContext from '../../platform/PlatformContext'
 
 // Works for Chrome > 69, Firefox > 41, RTL/LTR support does not work for IE
-const toLogicalProperty = (prop: string): string => {
-  if (!new Platform().supportsLogicalProperties) {
+
+const toLogicalProperty = (prop: string, supportsLogicalProperties: boolean): string => {
+  if (!supportsLogicalProperties) {
     return prop
   }
 
@@ -31,8 +33,7 @@ const toLogicalProperty = (prop: string): string => {
 
 type FlowType = 'left' | 'right' | 'up' | 'down'
 
-const pseudosMixin = (flow: FlowType) => {
-  return css`
+const pseudosMixin = (flow: FlowType, supportsLogicalProperties: boolean) => css`
       /* CSS Triangle: https://css-tricks.com/snippets/css/css-triangle/ */
       ::before {
       ${flow === 'up' && `
@@ -46,14 +47,14 @@ const pseudosMixin = (flow: FlowType) => {
           border-bottom-color: #333;
       `}
       ${flow === 'left' && `
-          ${toLogicalProperty('border-right-width')}: 0;
-          ${toLogicalProperty('border-left-color')}: #333;
-          ${toLogicalProperty('left')}: -5px;
+          ${toLogicalProperty('border-right-width', supportsLogicalProperties)}: 0;
+          ${toLogicalProperty('border-left-color', supportsLogicalProperties)}: #333;
+          ${toLogicalProperty('left', supportsLogicalProperties)}: -5px;
       `}
       ${flow === 'right' && `
-          ${toLogicalProperty('border-left-width')}: 0;
-          ${toLogicalProperty('border-right-color')}: #333 ;
-          ${toLogicalProperty('right')}: -5px;
+          ${toLogicalProperty('border-left-width', supportsLogicalProperties)}: 0;
+          ${toLogicalProperty('border-right-color', supportsLogicalProperties)}: #333 ;
+          ${toLogicalProperty('right', supportsLogicalProperties)}: -5px;
       `}
       }
   
@@ -65,10 +66,10 @@ const pseudosMixin = (flow: FlowType) => {
           top: calc(99% + 5px);
       `}
       ${flow === 'left' && `
-          ${toLogicalProperty('right')}: calc(99% + 5px);
+          ${toLogicalProperty('right', supportsLogicalProperties)}: calc(99% + 5px);
       `}
       ${flow === 'right' && `
-          ${toLogicalProperty('left')}: calc(99% + 5px);
+          ${toLogicalProperty('left', supportsLogicalProperties)}: calc(99% + 5px);
       `}
       }
   
@@ -84,7 +85,6 @@ const pseudosMixin = (flow: FlowType) => {
       `}
       }
   `
-}
 
 const TooltipContainer = styled.div`
    position: relative;
@@ -137,15 +137,15 @@ const TooltipContainer = styled.div`
 
   /* over 1100px */
   @media ${dimensions.minMaxWidth} {
-    ${props => pseudosMixin(props.flow)}
+    ${props => pseudosMixin(props.flow, props.supportsLogicalProperties)}
   }
   /* below 750px */
   @media screen and ${dimensions.smallViewport} {
-    ${props => pseudosMixin(props.smallViewport)}
+    ${props => pseudosMixin(props.smallViewportFlow, props.supportsLogicalProperties)}
   }
   /* inbetween */
   @media screen and ${dimensions.mediumViewport} {
-    ${props => pseudosMixin(props.lowWidthFallback)}
+    ${props => pseudosMixin(props.mediumViewportFlow, props.supportsLogicalProperties)}
   }
   
   @keyframes tooltips {
@@ -169,13 +169,16 @@ type PropsType = {|
 |}
 
 export default ({ children, text, flow, mediumViewportFlow, smallViewportFlow }: PropsType) => {
+  const platform = useContext(PlatformContext)
+
   if (!text) {
     return children
   }
 
   return <TooltipContainer text={text} flow={flow}
-                           lowWidthFallback={mediumViewportFlow ?? flow}
-                           smallViewport={smallViewportFlow ?? (mediumViewportFlow ?? flow)}>
-      {children}
+                           mediumViewportFlow={mediumViewportFlow ?? flow}
+                           smallViewportFlow={smallViewportFlow ?? (mediumViewportFlow ?? flow)}
+                           supportsLogicalProperties={platform.supportsLogicalProperties}>
+    {children}
   </TooltipContainer>
 }

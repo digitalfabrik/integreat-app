@@ -21,7 +21,7 @@ exports[`Selector should be vertical and match snapshot 1`] = `
     Deutsch
   </Selector__ActiveElement>
   <_default
-    direction="up"
+    flow="up"
     key="fr"
     text="random tooltip"
   >
@@ -53,7 +53,7 @@ exports[`Selector should match snapshot 1`] = `
     Deutsch
   </Selector__ActiveElement>
   <_default
-    direction="up"
+    flow="up"
     key="fr"
     text="random tooltip"
   >
