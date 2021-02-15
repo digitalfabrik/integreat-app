@@ -12,7 +12,7 @@ import type { StoreActionType } from '../../app/StoreActionType'
 import { CityModel } from 'api-client'
 import isPeekingRoute from '../../endpoint/selectors/isPeekingRoute'
 import { cityContentUrl, url } from '../../navigation/url'
-import { CATEGORIES_ROUTE, CHANGE_LANGUAGE_MODAL_ROUTE, EVENTS_ROUTE, NEWS_ROUTE } from 'api-client/src/routes'
+import { CHANGE_LANGUAGE_MODAL_ROUTE, EVENTS_ROUTE, NEWS_ROUTE, POIS_ROUTE } from 'api-client/src/routes'
 
 type OwnPropsType = {|
   ...StackHeaderProps,
@@ -32,31 +32,15 @@ type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
 
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
-const getShareUrl = (cityContent, route, routeKey, routeCityModel, shareUrlFromScene): string | null => {
-  let routeMappingType = null
-
-  if (cityContent) {
-    if (cityContent.categoriesRouteMapping[routeKey]) { // TODO refactor in #450
-      routeMappingType = CATEGORIES_ROUTE
-    } else if (cityContent.eventsRouteMapping[routeKey]) {
-      routeMappingType = EVENTS_ROUTE
-    } else if (cityContent.newsRouteMapping[routeKey]) {
-      routeMappingType = NEWS_ROUTE
-    }
-  }
-
-  const path = route.path ? route.path : null
-
-  let shareUrl = null
+const getShareUrl = (params: {| city: string, language: string, path: ?string, routeName: string |}): string | null => {
+  const { city, language, path, routeName } = params
   if (path) {
-    shareUrl = url(path)
-  } else if (routeMappingType && routeCityModel) { // for overview pages of news, events and pois, information should be moved to routeMappings in redux store TODO in 450
-    shareUrl = cityContentUrl({ cityCode: routeCityModel.name, languageCode: route.language, route: routeMappingType, path: null })
-  } else if (shareUrlFromScene && typeof shareUrlFromScene === 'string') { // for routes not saved in redux store eg. offers
-    shareUrl = shareUrlFromScene
+    return url(path)
+  } else if ([EVENTS_ROUTE, NEWS_ROUTE, POIS_ROUTE].includes(routeName)) {
+    const params = { cityCode: city, languageCode: language, path: null }
+    return cityContentUrl({ route: routeName, ...params })
   }
-
-  return shareUrl
+  return null
 }
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
@@ -65,7 +49,8 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   const route = state.cityContent
     ? state.cityContent.categoriesRouteMapping[routeKey] ||
     state.cityContent.eventsRouteMapping[routeKey] ||
-    state.cityContent.newsRouteMapping[routeKey]
+    state.cityContent.newsRouteMapping[routeKey] ||
+    state.cityContent.poisRouteMapping[routeKey]
     : null
 
   const languages = state.cityContent?.languages
@@ -103,8 +88,10 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     })
   }
   const peeking = isPeekingRoute(state, { routeCity: route.city })
-  const shareUrlFromScene = ownProps.scene.route.params?.shareUrl
-  const shareUrl: any = getShareUrl(state.cityContent, route, routeKey, routeCityModel, shareUrlFromScene)
+  const shareUrlFromScene: string | null = typeof ownProps.scene.route.params?.shareUrl === 'string' ? ownProps.scene.route.params?.shareUrl : null
+  const { city, language } = route
+  const path = route.path || null
+  const shareUrl = shareUrlFromScene || getShareUrl({ city, language, path, routeName: ownProps.scene.route.name })
 
   return { peeking, routeCityModel, language: route.language, goToLanguageChange, categoriesAvailable, shareUrl }
 }
