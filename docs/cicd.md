@@ -22,12 +22,12 @@ If no branch is specified, main is used as default. Per default the delivery is 
 ## Workflows
 
 Several workflows exist for different purposes:
-* **commit**: Run for all commits of PRs to ensure good code quality and working code. Delivers Integreat and Malte webapps on the main branch.
-* **scheduled_native_development_delivery**: Delivers Integreat and Malte native builds to development (Testflight and Beta channel)
+* **commit**: Run for all commits of PRs to ensure good code quality and working code. Delivers Integreat, Malte and AschaffenburgApp webapps on the main branch.
+* **scheduled_native_development_delivery**: Delivers Integreat, Malte and AschaffenburgApp native builds to development (Testflight and Beta channel)
 twice a month.
-* **triggered_native_development_delivery**: [Manually triggerable](#triggering-a-delivery-using-the-ci) workflow which delivers Integreat and Malte builds for native to development.
-* **scheduled_production_delivery**: Delivers Integreat and Malte native builds to production twice a month.
-* **triggered_production_delivery**: [Manually triggerable](#triggering-a-delivery-using-the-ci) workflow which delivers Integreat and Malte builds for native and web to production.
+* **triggered_native_development_delivery**: [Manually triggerable](#triggering-a-delivery-using-the-ci) workflow which delivers Integreat, Malte and AschaffenburgApp builds for native to development.
+* **scheduled_production_delivery**: Delivers Integreat, Malte and AschaffenburgApp native builds to production twice a month.
+* **triggered_production_delivery**: [Manually triggerable](#triggering-a-delivery-using-the-ci) workflow which delivers Integreat, Malte and AschaffenburgApp builds for native and web to production.
 
 See the table below for a more detailed overview:
 
