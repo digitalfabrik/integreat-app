@@ -26,7 +26,7 @@ export default ({ children }: PropsType) => {
 
   useEffect(() => {
     const initI18Next = async () => {
-      const resources = loadTranslations()
+      const resources = loadTranslations(buildConfig().translationsOverride)
       const i18nextInstance = await i18next
         .createInstance()
         .use(BrowserLanguageDetector)
