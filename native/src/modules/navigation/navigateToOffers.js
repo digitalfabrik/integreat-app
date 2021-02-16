@@ -16,6 +16,7 @@ const navigateToOffers = <T: RoutesType>({ dispatch, navigation, cityCode, langu
     name: OFFERS_ROUTE,
     params: {
       cityCode,
+      languageCode,
       shareUrl: cityContentUrl({ cityCode, languageCode, route: OFFERS_ROUTE })
     }
   })

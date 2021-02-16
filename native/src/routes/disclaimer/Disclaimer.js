@@ -2,13 +2,12 @@
 
 import Page from '../../modules/common/components/Page'
 import { PageModel } from 'api-client'
-import type { ThemeType } from '../../modules/theme/constants'
+import type { ThemeType } from 'build-configs/ThemeType'
 import React from 'react'
 
 type PropsType = {|
   navigateToLink: (url: string, language: string, shareUrl: string) => void,
   disclaimer: PageModel,
-  city: string,
   language: string,
   theme: ThemeType,
   resourceCacheUrl: string
