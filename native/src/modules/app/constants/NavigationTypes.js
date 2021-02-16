@@ -49,7 +49,7 @@ type ShareUrlType = {| shareUrl: string |}
 export type RoutesParamsType = {|
   intro: void,
   landing: void,
-  dashboard: {| ...ShareUrlType, cityCode: string, languageCode: string |},
+  dashboard: {| cityCode: string, languageCode: string |},
   categories: {| cityCode: string, languageCode: string |},
   pois: void,
   events: void,
