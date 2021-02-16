@@ -51,7 +51,7 @@ export type CommonBuildConfigType = {|
 export type WebBuildConfigType = {|
   ...CommonBuildConfigType,
   mainImprint: string, // Main imprint of the app.
-  manifestUrl?: string, // Url to the manifest.json.
+  manifestUrl?: string, // Url to the manifest.json generated with webpack.
   itunesAppId?: string, // Id of the corresponding iOS app in the Apple App Store.
   icons: {|
     appLogo: string,
