@@ -6,11 +6,13 @@
 
 * integreat.app
 * malteapp.de
+* aschaffenburg.app
 
 ### Development
 
 * webnext.integreat.app
 * webnext.malteapp.de
+* webnext.aschaffenburg.app
 
 ## Automatic delivery
 
