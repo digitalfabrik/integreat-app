@@ -105,6 +105,7 @@ export default ({ children }: PropsType) => {
           {additionalFont === 'lateef' && <link href='/fonts/lateef/lateef.css' rel='stylesheet' />}
           <link href='/fonts/open-sans/open-sans.css' rel='stylesheet' />
           <link href='/fonts/raleway/raleway.css' rel='stylesheet' />
+          <link href='/fonts/varela-round/varela-round.css' rel='stylesheet' />
         </ReactHelmet>
         <DateFormatterContext.Provider value={dateFormatter}>
           {children}
