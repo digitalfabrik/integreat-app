@@ -21,6 +21,7 @@ describe('FailureContainer', () => {
     const rendered = TestRenderer.create(<FailureContainerMock code={ErrorCodes.UnknownError} />)
     const instance = rendered.root.findByType(FailureMock)
     expect(instance.props).toEqual({
+      code: 'unknownError',
       t: expect.anything(),
       theme: expect.anything()
     })
