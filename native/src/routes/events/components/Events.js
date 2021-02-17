@@ -125,7 +125,7 @@ const Events = ({
             renderItem={renderEventListItem(cityCode, language)}
             theme={theme} />
     </View>
-    <SiteHelpfulBox navigateToFeedback={navigateToFeedbackForEvents} theme={theme} t={t} />
+    <SiteHelpfulBox navigateToFeedback={navigateToFeedbackForEvents} theme={theme} />
   </SpaceBetween>
 }
 

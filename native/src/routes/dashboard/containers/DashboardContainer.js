@@ -2,7 +2,7 @@
 
 import type { Dispatch } from 'redux'
 import { connect } from 'react-redux'
-import Dashboard from '../components/Dashboard'
+import Dashboard, { type PropsType as DashboardPropsType } from '../components/Dashboard'
 import type { CategoryRouteStateType, LanguageResourceCacheStateType, StateType } from '../../../modules/app/StateType'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
@@ -175,12 +175,12 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsType => ({ dispatch })
 
-const ThemedTranslatedDashboard = withTranslation('dashboard')(
-  withTheme(Dashboard)
+const ThemedTranslatedDashboard = withTranslation<$Diff<DashboardPropsType, {| theme: ThemeType |}>>('dashboard')(
+  withTheme<DashboardPropsType>(Dashboard)
 )
 
 const DashboardContainer = (props: ContainerPropsType) => {
-  const { dispatch, navigation, ...rest } = props
+  const { dispatch, navigation, route, t, ...rest } = props
 
   const navigateToLinkProp = useCallback((url: string, language: string, shareUrl: string) => {
     const navigateTo = createNavigate(dispatch, navigation)

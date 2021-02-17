@@ -61,7 +61,7 @@ const BoxShadow: StyledComponent<{||}, ThemeType, *> = styled.View`
   height: ${dimensions.headerHeight}px;
 `
 
-type PropsType = {|
+export type PropsType = {|
   ...StackHeaderProps,
   t: TFunction,
   theme: ThemeType,
