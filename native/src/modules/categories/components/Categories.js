@@ -22,7 +22,7 @@ import type { FeedbackInformationType } from '../../../routes/feedback/container
 import { CATEGORIES_ROUTE } from 'api-client/src/routes'
 import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
 
-type PropsType = {|
+export type PropsType = {|
   cityModel: CityModel,
   language: string,
 
@@ -33,8 +33,7 @@ type PropsType = {|
 
   resourceCache: LanguageResourceCacheStateType,
   resourceCacheUrl: string,
-  theme: ThemeType,
-  t: TFunction
+  theme: ThemeType
 |}
 
 /**

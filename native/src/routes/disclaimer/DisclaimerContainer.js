@@ -70,13 +70,15 @@ const DisclaimerContainer = ({ theme, resourceCacheUrl, navigation, route, dispa
     await loadFromEndpoint<PageModel>(request, setDisclaimer, setError, setLoading)
   }, [cityCode, languageCode, setError, setDisclaimer, setLoading])
 
+  const tryAgain = useCallback(() => { loadDisclaimer().catch(e => setError(e)) }, [loadDisclaimer])
+
   useEffect(() => {
     loadDisclaimer().catch(e => setError(e))
   }, [])
 
   if (error) {
     return <LayoutedScrollView refreshControl={<RefreshControl onRefresh={loadDisclaimer} refreshing={loading} />}>
-      <FailureContainer errorMessage={error.message} code={fromError(error)} tryAgain={loadDisclaimer} />
+      <FailureContainer errorMessage={error.message} code={fromError(error)} tryAgain={tryAgain} />
     </LayoutedScrollView>
   }
 

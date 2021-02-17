@@ -2,6 +2,6 @@
 
 import { withTranslation } from 'react-i18next'
 import withTheme from '../../theme/hocs/withTheme'
-import Failure from '../components/Failure'
+import Failure, { type PropsType as FailurePropsType } from '../components/Failure'
 
-export default withTheme(withTranslation('error')(Failure))
+export default withTheme(withTranslation<FailurePropsType>('error')(Failure))

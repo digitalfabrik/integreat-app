@@ -10,7 +10,7 @@ import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvi
 import { CityModel } from 'api-client'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import { withTranslation } from 'react-i18next'
-import Categories from '../../../modules/categories/components/Categories'
+import Categories, { type PropsType as CategoriesPropsType } from '../../../modules/categories/components/Categories'
 import React from 'react'
 import type { TFunction } from 'react-i18next'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
@@ -188,9 +188,9 @@ class CategoriesContainer extends React.Component<ContainerPropsType> {
   }
 
   render () {
-    const { dispatch, navigation, ...rest } = this.props
+    const { dispatch, navigation, route, t, ...rest } = this.props
 
-    return <ThemedTranslatedCategories
+    return <ThemedCategories
       {...rest}
       navigateToFeedback={createNavigateToFeedbackModal(navigation)}
       navigateTo={createNavigate(dispatch, navigation)}
@@ -198,9 +198,7 @@ class CategoriesContainer extends React.Component<ContainerPropsType> {
   }
 }
 
-const ThemedTranslatedCategories = withTheme(
-  withTranslation('categories')(Categories)
-)
+const ThemedCategories = withTheme<CategoriesPropsType>(Categories)
 
 export default withTranslation('error')(
   connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
