@@ -51,7 +51,7 @@ class CategoryList extends React.PureComponent<PropsType> {
         {category?.title && <Caption title={category.title} />}
         {category?.content && <RemoteContent dangerouslySetInnerHTML={{ __html: category.content }}
                                    onInternalLinkClick={onInternalLinkClick} />}
-        {category?.content && category.lastUpdate &&
+        {category?.content && category.lastUpdate && formatter &&
          <LastUpdateInfo lastUpdate={category.lastUpdate} formatter={formatter} withText />}
         <List>
           {categories.map(categoryItem =>

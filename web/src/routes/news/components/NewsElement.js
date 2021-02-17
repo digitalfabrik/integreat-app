@@ -6,7 +6,7 @@ import type Moment from 'moment'
 import CleanLink from '../../../modules/common/components/CleanLink'
 import LastUpdateInfo from './../../../modules/common/components/LastUpdateInfo'
 import { Description } from '../../../modules/common/components/ListItem'
-import { TFunction } from 'react-i18next'
+import { type TFunction } from 'react-i18next'
 import textTruncator from './../../../modules/common/utils/textTruncator'
 import { LOCAL_NEWS } from '../constants'
 import type { NewsType } from '../constants'
@@ -54,7 +54,7 @@ type PropsType = {|
   formatter: DateFormatter,
   link: string,
   type: NewsType,
-  t: typeof TFunction
+  t: TFunction
 |}
 
 class NewsElement extends React.PureComponent<PropsType> {
@@ -65,7 +65,7 @@ class NewsElement extends React.PureComponent<PropsType> {
         <Title>{title}</Title>
         <Body>{textTruncator(content, NUM_OF_WORDS_ALLOWED)}</Body>
         <StyledContainer>
-          <LastUpdateInfo lastUpdate={timestamp} formatter={formatter} />
+          <LastUpdateInfo lastUpdate={timestamp} formatter={formatter} withText={false} />
           <ReadMoreLink to={link} type={type}>{t('readMore')} ></ReadMoreLink>
         </StyledContainer>
       </Description>

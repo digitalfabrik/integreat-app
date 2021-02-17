@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 
-import { withTranslation, TFunction } from 'react-i18next'
+import { withTranslation, type TFunction } from 'react-i18next'
 import styled from 'styled-components'
 import ModalHeader from './ModalHeader'
 import FeedbackComment from './FeedbackComment'
@@ -37,7 +37,7 @@ type PropsType = {|
   onCommentChanged: SyntheticInputEvent<HTMLTextAreaElement> => void,
   onFeedbackOptionChanged: FeedbackVariant => void,
   onSubmit: () => void,
-  t: typeof TFunction,
+  t: TFunction,
   closeFeedbackModal: () => void,
   theme: ThemeType,
   sendingStatus: SendingStatusType
@@ -85,4 +85,4 @@ export class FeedbackBox extends React.PureComponent<PropsType> {
   }
 }
 
-export default withTranslation('feedback')(FeedbackBox)
+export default withTranslation<PropsType>('feedback')(FeedbackBox)

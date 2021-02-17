@@ -15,7 +15,7 @@ import {
   TunewsModel,
   LanguageModel
 } from 'api-client'
-import { TFunction } from 'react-i18next'
+import { type TFunction } from 'react-i18next'
 
 export type AllPayloadsType = {|
   citiesPayload: Payload<Array<CityModel>>,
@@ -43,8 +43,8 @@ export interface RouteConfig<T, P> {
   requiresFooter: boolean,
   getRoutePath: T => string,
   getLanguageChangePath: {|location: LocationState, payloads: P, language: string|} => string | null,
-  getPageTitle: {|t: typeof TFunction, cityName: ?string, location: LocationState, payloads: P|} => string | null,
+  getPageTitle: {|t: TFunction, cityName: ?string, location: LocationState, payloads: P|} => string | null,
   getRequiredPayloads: AllPayloadsType => P,
-  getMetaDescription: (t: typeof TFunction) => string | null,
+  getMetaDescription: (t: TFunction) => string | null,
   getFeedbackTargetInformation: {|location: LocationState, payloads: P|} => FeedbackTargetInformationType
 }

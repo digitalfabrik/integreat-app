@@ -16,7 +16,7 @@ import {
   CONTENT_FEEDBACK_CATEGORY,
   TECHNICAL_FEEDBACK_CATEGORY
 } from 'api-client'
-import { withTranslation, TFunction } from 'react-i18next'
+import { withTranslation, type TFunction } from 'react-i18next'
 import type { LocationState } from 'redux-first-router'
 import FeedbackVariant from '../FeedbackVariant'
 import FeedbackBox from './FeedbackBox'
@@ -29,7 +29,7 @@ import { POIS_ROUTE } from '../../app/route-configs/PoisRouteConfig'
 import { SEARCH_ROUTE } from '../../app/route-configs/SearchRouteConfig'
 import { DISCLAIMER_ROUTE } from '../../app/route-configs/DisclaimerRouteConfig'
 import { cmsApiBaseUrl } from '../../app/constants/urls'
-import type { ThemeType } from '../../theme/constants/theme'
+import type { ThemeType } from 'build-configs/ThemeType'
 import type { SendingStatusType } from './FeedbackModal'
 import type { FeedbackParamsType } from 'api-client'
 
@@ -46,7 +46,7 @@ type PropsType = {|
   closeFeedbackModal: () => void,
   sendingStatus: SendingStatusType,
   onSubmit: (sendingStatus: SendingStatusType) => void,
-  t: typeof TFunction,
+  t: TFunction,
   theme: ThemeType
 |}
 
@@ -235,7 +235,7 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
     }))
   }
 
-  handleSubmit = async () => {
+  submitFeedback = async () => {
     const { onSubmit } = this.props
     const { selectedFeedbackOption, comment } = this.state
     try {
@@ -245,6 +245,10 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
       console.error(e)
       onSubmit('ERROR')
     }
+  }
+
+  handleSubmit = () => {
+    this.submitFeedback()
   }
 
   render () {
@@ -261,4 +265,4 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
   }
 }
 
-export default withTranslation('feedback')(FeedbackBoxContainer)
+export default withTranslation<PropsType>('feedback')(FeedbackBoxContainer)

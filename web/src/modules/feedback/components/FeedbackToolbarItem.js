@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react'
-import { withTranslation, TFunction } from 'react-i18next'
+import { withTranslation, type TFunction } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFrown, faSmile } from '../../../modules/app/constants/icons'
 import ReactTooltip from 'react-tooltip'
@@ -12,7 +12,7 @@ import type { FeedbackRatingType } from '../../layout/containers/LocationLayout'
 
 type PropsType = {|
   isPositiveRatingLink: boolean,
-  t: typeof TFunction,
+  t: TFunction,
   openFeedbackModal: FeedbackRatingType => void,
   className?: string,
   viewportSmall: boolean
@@ -48,4 +48,4 @@ export class FeedbackToolbarItem extends React.PureComponent<PropsType> {
   }
 }
 
-export default withTranslation('feedback')(FeedbackToolbarItem)
+export default withTranslation<PropsType>('feedback')(FeedbackToolbarItem)

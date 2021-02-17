@@ -1,10 +1,10 @@
 // @flow
 
 import * as React from 'react'
-import { withTranslation } from 'react-i18next'
+import { useContext } from 'react'
+import { type TFunction, withTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
 import type { StateType } from '../../../modules/app/StateType'
-import { TFunction } from 'i18next'
 import TunewsList from '../components/TunewsList'
 import NewsElement from '../components/NewsElement'
 import NewsTabs from '../components/NewsTabs'
@@ -13,16 +13,15 @@ import { TU_NEWS } from '../constants'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import { fetchTunews } from '../actions/fetchTunews'
 import TunewsDetailsRouteConfig from '../../../modules/app/route-configs/TunewsDetailsRouteConfig'
-import { useContext } from 'react'
 import DateFormatterContext from '../../../modules/i18n/context/DateFormatterContext'
 
 type PropsType = {|
   tunews: Array<TunewsModel>,
   language: string,
   city: string,
-  cities: Array<CityModel>,
+  cities: ? Array<CityModel>,
   path: string,
-  t: typeof TFunction,
+  t: TFunction,
   isFetching: boolean,
   hasMore: boolean,
   fetchTunews: () => void
@@ -102,7 +101,7 @@ const mapStateToProps = (state: StateType) => ({
   isFetching: state.tunews.payload.isFetching
 })
 
-export default connect<PropsType, *, *, *, *, *>(mapStateToProps, { fetchTunews })(
-  withTranslation('news')(
+export default connect<$Diff<PropsType, {| t: TFunction |}>, {||}, _, _, _, _>(mapStateToProps, { fetchTunews })(
+  withTranslation<PropsType>('news')(
     TunewsPage
   ))

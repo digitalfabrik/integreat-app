@@ -5,7 +5,7 @@ import Layout from '../components/Layout'
 import LocationHeader from './LocationHeader'
 import LocationFooter from '../components/LocationFooter'
 import CategoriesToolbar from '../../../routes/categories/containers/CategoriesToolbar'
-import { CategoriesMapModel, CityModel, EventModel } from 'api-client'
+import { CategoriesMapModel, CityModel, EventModel, OfferModel } from 'api-client'
 import type { LocationState } from 'redux-first-router'
 import FeedbackModal from '../../feedback/components/FeedbackModal'
 import LocationToolbar from '../components/LocationToolbar'
@@ -28,6 +28,7 @@ type PropsType = {|
   cities: ?Array<CityModel>,
   categories: ?CategoriesMapModel,
   events: ?Array<EventModel>,
+  offers: ?Array<OfferModel>,
   viewportSmall: boolean,
   children?: React.Node,
   location: LocationState,
@@ -72,7 +73,7 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
       return null
     }
 
-    const { cities, location, feedbackTargetInformation } = this.props
+    const { cities, offers, location, feedbackTargetInformation } = this.props
     return <FeedbackModal cities={cities}
                           feedbackRating={this.state.feedbackModalRating}
                           closeFeedbackModal={this.closeFeedbackModal}
