@@ -2,7 +2,7 @@
 parameters:
   build_config_name:
     type: enum
-    enum: [integreat, malte]
+    enum: [integreat, malte, aschaffenburg]
     default: integreat
   production_delivery:
     description: Whether to deliver the build to production.

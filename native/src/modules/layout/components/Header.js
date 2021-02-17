@@ -16,11 +16,11 @@ import type { StoreActionType } from '../../app/StoreActionType'
 import type { Dispatch } from 'redux'
 import {
   DISCLAIMER_ROUTE,
-  SEARCH_MODAL_ROUTE,
+  SEARCH_ROUTE,
   SETTINGS_ROUTE
-} from '../../app/constants/NavigationTypes'
-import { cityContentUrl } from '../../common/url'
-import createNavigateToLanding from '../../app/createNavigateToLanding'
+} from 'api-client/src/routes'
+import { cityContentUrl } from '../../navigation/url'
+import navigateToLanding from '../../navigation/navigateToLanding'
 
 const Horizontal = styled.View`
   flex: 1;
@@ -85,7 +85,7 @@ class Header extends React.PureComponent<PropsType> {
   goToLanding = () => {
     const { navigation, dispatch } = this.props
     // $FlowFixMe Navigation type of the header does not match that of screens.
-    createNavigateToLanding(dispatch, navigation)()
+    navigateToLanding({ dispatch, navigation })
   }
 
   goToSettings = () => {
@@ -115,7 +115,7 @@ class Header extends React.PureComponent<PropsType> {
   }
 
   goToSearch = () => {
-    this.props.navigation.navigate(SEARCH_MODAL_ROUTE)
+    this.props.navigation.navigate(SEARCH_ROUTE)
   }
 
   goToDisclaimer = () => {
@@ -123,8 +123,9 @@ class Header extends React.PureComponent<PropsType> {
     if (!routeCityModel) {
       throw new Error('Impossible to go to disclaimer route if no city model is defined')
     }
-    const shareUrl = cityContentUrl({ cityCode: routeCityModel.code, languageCode: language, route: DISCLAIMER_ROUTE })
-    this.props.navigation.navigate(DISCLAIMER_ROUTE, { shareUrl })
+    const cityCode = routeCityModel.code
+    const shareUrl = cityContentUrl({ cityCode, languageCode: language, route: DISCLAIMER_ROUTE })
+    this.props.navigation.navigate(DISCLAIMER_ROUTE, { cityCode, languageCode: language, shareUrl })
   }
 
   cityDisplayName = (cityModel: CityModel) => {

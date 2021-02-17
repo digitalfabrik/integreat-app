@@ -13,14 +13,15 @@ import PageDetail from '../../../modules/common/components/PageDetail'
 import List from '../../../modules/common/components/List'
 import Caption from '../../../modules/common/components/Caption'
 import Failure from '../../../modules/error/components/Failure'
-import type { ThemeType } from '../../../modules/theme/constants'
+import type { ThemeType } from 'build-configs/ThemeType'
 import type { LanguageResourceCacheStateType } from '../../../modules/app/StateType'
 import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
 import PoiListItem from './PoiListItem'
-import type { NavigateToPoiParamsType } from '../../../modules/app/createNavigateToPoi'
 import type { FeedbackInformationType } from '../../feedback/containers/FeedbackModalContainer'
+import { POIS_ROUTE } from 'api-client/src/routes'
+import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
 
 export type PropsType = {|
   path: ?string,
@@ -32,7 +33,7 @@ export type PropsType = {|
   resourceCacheUrl: string,
   theme: ThemeType,
   t: TFunction,
-  navigateToPoi: NavigateToPoiParamsType => void,
+  navigateTo: RouteInformationType => void,
   navigateToFeedback: FeedbackInformationType => void,
   navigateToLink: (url: string, language: string, shareUrl: string) => void
 |}
@@ -42,8 +43,8 @@ export type PropsType = {|
  * cityCode: string, language: string, path: ?string, key?: string, forceRefresh?: boolean
  */
 class Pois extends React.Component<PropsType> {
-  navigateToPoi = (cityCode: string, language: string, path: string) => () => {
-    this.props.navigateToPoi({ cityCode, language, path })
+  navigateToPois = (cityCode: string, language: string, path: string) => () => {
+    this.props.navigateTo({ route: POIS_ROUTE, cityCode, languageCode: language, cityContentPath: path })
   }
 
   renderPoiListItem = (cityCode: string, language: string) => (poi: PoiModel) => {
@@ -52,7 +53,7 @@ class Pois extends React.Component<PropsType> {
                           poi={poi}
                           language={language}
                           theme={theme}
-                          navigateToPoi={this.navigateToPoi(cityCode, language, poi.path)} />
+                          navigateToPois={this.navigateToPois(cityCode, language, poi.path)} />
   }
 
   createNavigateToFeedbackForPoi = (poi: PoiModel) => (isPositiveFeedback: boolean) => {
