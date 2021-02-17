@@ -1,25 +1,25 @@
 // @flow
 
-import type { NewsModelsType, NewsRouteStateType, NewsType, StateType } from '../../../modules/app/StateType'
+import type { NewsModelsType, NewsRouteStateType, StateType } from '../../../modules/app/StateType'
 import type { FetchMoreNewsActionType, StoreActionType } from '../../../modules/app/StoreActionType'
 import { connect } from 'react-redux'
 import { type TFunction, withTranslation } from 'react-i18next'
-import createNavigateToNews from '../../../modules/app/createNavigateToNews'
 import type { Dispatch } from 'redux'
 import { CityModel } from 'api-client'
-import * as React from 'react'
-import NewsList from '../components/NewsList'
-import { TUNEWS } from '../../../modules/endpoint/constants'
+import React, { useCallback } from 'react'
+import News from '../components/News'
 import withPayloadProvider, { type StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
 import NewsHeader from '../../../modules/common/components/NewsHeader'
 import { View } from 'react-native'
 import LoadingSpinner from '../../../modules/common/components/LoadingSpinner'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
 import type {
-  NewsRouteType,
   NavigationPropType,
   RoutePropType
 } from '../../../modules/app/constants/NavigationTypes'
+import type { NewsRouteType, NewsType } from 'api-client/src/routes'
+import createNavigate from '../../../modules/navigation/createNavigate'
+import { NEWS_ROUTE, TU_NEWS_TYPE } from 'api-client/src/routes'
 
 type NavigationPropsType = {|
   route: RoutePropType<NewsRouteType>,
@@ -34,24 +34,22 @@ type OwnPropsType = {|
 type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
 
 type ContainerPropsType = {|
-  ...OwnPropsType,
+  ...NavigationPropsType,
   ...DispatchPropsType,
   status: 'fetching',
   newsId: ?string,
-  cityCode: string,
   language: string,
   cityModel: CityModel,
   selectedNewsType: NewsType
 |} | {|
-  ...OwnPropsType,
+  ...NavigationPropsType,
   ...DispatchPropsType,
   status: 'ready',
   news: NewsModelsType,
-  hasMoreNews?: boolean,
-  page?: number,
+  hasMoreNews: ?boolean,
+  page: ?number,
   isFetchingMore: boolean,
   newsId: ?string,
-  cityCode: string,
   language: string,
   cityModel: CityModel,
   selectedNewsType: NewsType
@@ -75,15 +73,14 @@ const onRouteClose = (routeKey: string, dispatch: Dispatch<StoreActionType>) => 
 const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
   const { route, navigation, cityCode, language, newsId, selectedNewsType } = refreshProps
 
-  const navigateToNews = createNavigateToNews(dispatch, navigation)
-  navigateToNews({
+  const navigateTo = createNavigate(dispatch, navigation)
+  navigateTo({
+    route: NEWS_ROUTE,
     cityCode,
-    type: selectedNewsType,
-    language,
-    newsId,
-    forceRefresh: true,
-    key: route.key
-  })
+    newsType: selectedNewsType,
+    languageCode: language,
+    newsId: newsId || undefined
+  }, route.key, true)
 }
 
 const createChangeUnavailableLanguage = (city: string, t: TFunction) => (
@@ -163,13 +160,11 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       innerProps: {
         status: 'fetching',
         newsId: route.newsId,
-        cityCode: route.city,
         language: state.contentLanguage,
         selectedNewsType: route.type,
         cityModel,
         navigation,
-        route: ownProps.route,
-        t: undefined
+        route: ownProps.route
       }
     }
   }
@@ -180,28 +175,27 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     innerProps: {
       status: 'ready',
       newsId: route.newsId,
-      cityCode: route.city,
       language: state.contentLanguage,
       news: route.models,
       selectedNewsType: route.type,
       cityModel,
       navigation,
       route: ownProps.route,
-      t: undefined,
-      hasMoreNews: route.status === 'loadingMore' ? undefined : route.hasMoreNews,
-      page: route.status === 'loadingMore' ? undefined : route.page,
+      hasMoreNews: route.hasMoreNews || null,
+      page: route.page || null,
       isFetchingMore: route.status === 'loadingMore'
     }
   }
 }
 
-class NewsContainer extends React.Component<ContainerPropsType> {
-  fetchNews = (newsType: NewsType) => {
-    const { dispatch, cityCode, route, language } = this.props
+const NewsContainer = (props: ContainerPropsType) => {
+  const { cityModel, dispatch, selectedNewsType, route, language, newsId, navigation } = props
+
+  const fetchNews = useCallback((newsType: NewsType) => {
     dispatch({
       type: 'FETCH_NEWS',
       params: {
-        city: cityCode,
+        city: cityModel.code,
         language,
         newsId: null,
         type: newsType,
@@ -212,25 +206,26 @@ class NewsContainer extends React.Component<ContainerPropsType> {
         }
       }
     })
-  }
+  }, [cityModel, language, route, dispatch])
 
-  fetchMoreNews = () => {
-    if (this.props.status === 'fetching') {
-      throw new Error('Cannot fetch more if already fetching')
+  const fetchMoreNews = useCallback(({ hasMoreNews, news, page }: {|
+    hasMoreNews: ?boolean,
+    news: NewsModelsType,
+    page: ?number
+  |}) => () => {
+    if (!hasMoreNews || !page) { // Already fetching more
+      return
     }
-    const { news, hasMoreNews, page, dispatch, selectedNewsType, route, ...rest } = this.props
-    const { cityCode, language, newsId } = rest
-
-    const isTunews = selectedNewsType === TUNEWS
+    const isTunews = selectedNewsType === TU_NEWS_TYPE
 
     if (hasMoreNews && isTunews) {
       const fetchNews: FetchMoreNewsActionType = {
         type: 'FETCH_MORE_NEWS',
         params: {
-          city: cityCode,
+          city: cityModel.code,
           language,
           newsId,
-          type: TUNEWS,
+          type: TU_NEWS_TYPE,
           key: route.key,
           page: page + 1,
           previouslyFetchedNews: news,
@@ -243,32 +238,30 @@ class NewsContainer extends React.Component<ContainerPropsType> {
       }
       dispatch(fetchNews)
     }
-  }
+  }, [selectedNewsType, language, cityModel, newsId, dispatch, route])
 
-  render () {
-    if (this.props.status === 'ready') {
-      const { isFetchingMore, status, cityModel, selectedNewsType, dispatch, ...rest } = this.props
-
-      return (
-        <View style={{ flex: 1 }}>
-          <NewsHeader selectedNewsType={selectedNewsType} cityModel={cityModel} navigateToNews={this.fetchNews} />
-          <NewsList dispatch={dispatch}
-                    selectedNewsType={selectedNewsType}
-                    isFetchingMore={isFetchingMore}
-                    fetchMoreNews={this.fetchMoreNews}
-                    navigateToNews={createNavigateToNews(dispatch, rest.navigation)}
-                    {...rest} />
-        </View>
-      )
-    } else {
-      const { cityModel, selectedNewsType } = this.props
-      return (
-        <View style={{ flex: 1 }}>
-          <NewsHeader selectedNewsType={selectedNewsType} cityModel={cityModel} navigateToNews={this.fetchNews} />
-          <LoadingSpinner />
-        </View>
-      )
-    }
+  if (props.status === 'ready') {
+    const { news, page, hasMoreNews, isFetchingMore } = props
+    return (
+      <View style={{ flex: 1 }}>
+        <NewsHeader selectedNewsType={selectedNewsType} cityModel={cityModel} navigateToNews={fetchNews} />
+        <News newsId={newsId}
+              news={news}
+              selectedNewsType={selectedNewsType}
+              isFetchingMore={isFetchingMore}
+              fetchMoreNews={fetchMoreNews({ news, hasMoreNews, page })}
+              cityCode={cityModel.code}
+              language={language}
+              navigateTo={createNavigate(dispatch, navigation)} />
+      </View>
+    )
+  } else {
+    return (
+      <View style={{ flex: 1 }}>
+        <NewsHeader selectedNewsType={selectedNewsType} cityModel={cityModel} navigateToNews={fetchNews} />
+        <LoadingSpinner />
+      </View>
+    )
   }
 }
 

@@ -3,6 +3,7 @@ fastlane_version "2.156.1"
 require_relative "read_build_config"
 
 require "yaml"
+require "base64"
 
 # The following parameters have to be passed:
 # version_code: The version code of the app
@@ -140,7 +141,7 @@ platform :android do
     end
 
     build_config = read_build_config(build_config_name, 'android')
-    skip_metadata = build_config_name == "malte"
+    skip_metadata = build_config_name != "integreat"
     track = production_delivery === true ? "production" : "beta"
 
     puts("delivering #{build_config_name} v#{version_name} to track #{track}")
@@ -165,6 +166,18 @@ platform :android do
 end
 
 platform :ios do
+  private_lane :apple_auth do |options|
+    ensure_env_vars(
+        env_vars: ["APP_STORE_CONNECT_API_KEY_ID", "APP_STORE_CONNECT_API_ISSUER_ID", "APP_STORE_CONNECT_API_KEY"]
+    )
+    
+    app_store_connect_api_key(
+      key_id: ENV['APP_STORE_CONNECT_API_KEY_ID'],
+      issuer_id: ENV['APP_STORE_CONNECT_API_ISSUER_ID'],
+      key_content: Base64.decode64(ENV['APP_STORE_CONNECT_API_KEY'])
+    )
+  end
+
   # The following parameters have to be passed:
   # ipa_path: The path of the ipa to upload (relative to home dir)
   desc "Upload the IPA to BrowserStack Live"
@@ -249,9 +262,7 @@ platform :ios do
   # ipa_path: The path of the ipa to upload (relative to home dir)
   desc "Deliver the app to App Store Connect. The app is submitted for review and released automatically."
   lane :appstoreconnect_upload do |options|
-    ensure_env_vars(
-        env_vars: ["FASTLANE_USER", "FASTLANE_PASSWORD"]
-    )
+    apple_auth()
 
     version_name = options[:version_name]
     ipa_path = options[:ipa_path]
@@ -261,7 +272,7 @@ platform :ios do
       raise "'nil' passed as parameter! Aborting..."
     end
 
-    skip_screenshots = build_config_name == "malte"
+    skip_screenshots = build_config_name != "integreat"
 
     puts("delivering #{build_config_name} v#{version_name}")
     puts("skip_screenshots: #{skip_screenshots}")
@@ -289,9 +300,7 @@ platform :ios do
   # ipa_path: The path of the ipa to upload (relative to home dir)
   desc "Deliver the app to TestFlight for testers"
   lane :testflight_upload do |options|
-    ensure_env_vars(
-        env_vars: ["FASTLANE_USER", "FASTLANE_PASSWORD"]
-    )
+    apple_auth()
 
     build_config_name = options[:build_config_name]
     ipa_path = options[:ipa_path]

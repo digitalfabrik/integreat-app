@@ -1,8 +1,7 @@
 // @flow
 
 import React from 'react'
-import type { TFunction } from 'react-i18next'
-import { withTranslation } from 'react-i18next'
+import { withTranslation, TFunction } from 'react-i18next'
 import LanguageSelector from '../../../modules/common/containers/LanguageSelector'
 import { CityModel } from 'api-client'
 import Caption from '../../../modules/common/components/Caption'
@@ -21,7 +20,7 @@ type PropsType = {|
   theme: ThemeType,
   location: LocationState,
   languageChangePaths: LanguageChangePathsType,
-  t: TFunction
+  t: typeof TFunction
 |}
 
 export class LanguageFailure extends React.PureComponent<PropsType> {

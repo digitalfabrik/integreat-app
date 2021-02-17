@@ -20,13 +20,13 @@ import { requestLocationPermission } from '../../modules/app/LocationPermissionM
 import buildConfig, { buildConfigAssets } from '../../modules/app/constants/buildConfig'
 import { requestPushNotificationPermission } from '../../modules/push-notifications/PushNotificationsManager'
 import type {
-  IntroRouteType,
   NavigationPropType,
   RoutePropType
 } from '../../modules/app/constants/NavigationTypes'
-import { LANDING_ROUTE } from '../../modules/app/constants/NavigationTypes'
+import { LANDING_ROUTE } from 'api-client/src/routes'
+import type { IntroRouteType } from 'api-client/src/routes'
 
-const Container: StyledComponent<{ width: number }, {}, *> = styled.View`
+const Container: StyledComponent<{| width: number |}, {||}, *> = styled.View`
   display: flex;
   flex-direction: column;
   width: ${props => props.width}px;
@@ -77,7 +77,7 @@ type StateType = {|
 
 class Intro extends React.Component<PropsType, StateType> {
   _appSettings: AppSettings
-  _flatList: {current: null | React$ElementRef<typeof FlatList>}
+  _flatList: {|current: null | React$ElementRef<typeof FlatList>|}
 
   constructor (props: PropsType) {
     super(props)
@@ -93,7 +93,7 @@ class Intro extends React.Component<PropsType, StateType> {
     this._appSettings = new AppSettings()
     this._flatList = React.createRef()
     Dimensions.addEventListener('change',
-      (event: { window: { width: number }}) => this.setState({ width: event.window.width })
+      (event: {| window: {| width: number |}|}) => this.setState({ width: event.window.width })
     )
   }
 
@@ -102,8 +102,21 @@ class Intro extends React.Component<PropsType, StateType> {
 
   slides = (): Array<SlideContentType> => {
     const icons = buildConfigAssets().intro
-
     const { t } = this.props
+
+    if (!icons) {
+      return [{
+        key: 'integreat',
+        title: t('appName', { appName: buildConfig().appName }),
+        description: t('appDescription', { appName: buildConfig().appName }),
+        renderContent: this.renderAppIcon()
+      },
+      {
+        key: 'inquiry',
+        title: t('inquiryTitle'),
+        renderContent: this.renderSettings
+      }]
+    }
     return [{
       key: 'integreat',
       title: t('appName', { appName: buildConfig().appName }),

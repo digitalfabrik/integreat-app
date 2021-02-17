@@ -5,8 +5,15 @@ exports[`ScrollingSearchBox should render 1`] = `
   <Headroom
     height={45}
     onStickyTopChanged={[Function]}
+    parent={
+      <html>
+        <head />
+        <body />
+      </html>
+    }
     pinStart={0}
     scrollHeight={45}
+    zIndex={1}
   >
     <SearchInput
       filterText="Test"
@@ -22,17 +29,17 @@ exports[`ScrollingSearchBox should render 1`] = `
 exports[`ScrollingSearchBox should set correct reference 1`] = `
 <div>
   <div
-    class="Headroom__HeaderWrapper-sc-16d3zk-0 dAYSiv"
+    class="Headroom__HeaderWrapper-sc-16d3zk-0 kGXTwn"
   >
     <div
       class="SearchInput__Spacer-sc-1brkyza-0"
     >
       <div
-        class="SearchInput__Wrapper-sc-1brkyza-2 imfdds"
+        class="SearchInput__Wrapper-sc-1brkyza-2 imWPGV"
       >
         <svg
           aria-hidden="true"
-          class="svg-inline--fa fa-search fa-w-16 SearchInput__SearchIcon-sc-1brkyza-3 fJfrLf"
+          class="svg-inline--fa fa-search fa-w-16 SearchInput__SearchIcon-sc-1brkyza-3 iwovYG"
           data-icon="search"
           data-prefix="fas"
           focusable="false"
@@ -47,7 +54,7 @@ exports[`ScrollingSearchBox should set correct reference 1`] = `
         </svg>
         <input
           aria-label="Placeholder"
-          class="SearchInput__TextInput-sc-1brkyza-1 cUSkzY"
+          class="SearchInput__TextInput-sc-1brkyza-1 cXA-dRB"
           placeholder="Placeholder"
           type="text"
           value="Test"
@@ -64,8 +71,15 @@ exports[`ScrollingSearchBox should space search 1`] = `
   <Headroom
     height={45}
     onStickyTopChanged={[Function]}
+    parent={
+      <html>
+        <head />
+        <body />
+      </html>
+    }
     pinStart={0}
     scrollHeight={45}
+    zIndex={1}
   >
     <SearchInput
       filterText="Test"
