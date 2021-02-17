@@ -1,8 +1,8 @@
 // @flow
 
 import React from 'react'
+import { Provider } from 'react-redux'
 import { shallow } from 'enzyme'
-
 import ConnectedCategoriesPage, { CategoriesPage } from '../CategoriesPage'
 import { CategoriesMapModel, CategoryModel } from 'api-client'
 import configureMockStore from 'redux-mock-store'
@@ -145,7 +145,9 @@ describe('CategoriesPage', () => {
     })
 
     const categoriesPage = shallow(
-      <ConnectedCategoriesPage store={store} cities={cities} categories={categories} />
+      <Provider store={store}>
+        <ConnectedCategoriesPage cities={cities} categories={categories} />
+      </Provider>
     )
 
     expect(categoriesPage.dive().find(CategoriesPage).props()).toMatchObject({

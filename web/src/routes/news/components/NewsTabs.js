@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import styled from 'styled-components'
-import { TFunction } from 'react-i18next'
+import { type TFunction } from 'react-i18next'
 import Tab from './Tab'
 import { LOCAL_NEWS, TU_NEWS } from '../constants'
 import LocalNewsRouteConfig from '../../../modules/app/route-configs/LocalNewsRouteConfig'
@@ -21,7 +21,7 @@ type PropsType = {|
   localNewsEnabled: boolean,
   tunewsEnabled: boolean,
   language: string,
-  t: typeof TFunction
+  t: TFunction
 |}
 
 class NewsTabs extends React.PureComponent<PropsType> {

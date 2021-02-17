@@ -28,7 +28,6 @@ describe('I18nRedirectPage', () => {
   })
 
   const language = 'ar'
-  const i18n = { language }
 
   const cities = new CityModelBuilder(2).build()
   const city = cities[0].code
@@ -45,7 +44,7 @@ describe('I18nRedirectPage', () => {
 
       render(
         <Provider store={store}>
-          <I18nRedirectPage cities={cities} i18n={i18n} />
+          <I18nRedirectPage cities={cities} />
         </Provider>
       )
 
@@ -65,7 +64,7 @@ describe('I18nRedirectPage', () => {
 
       render(
         <Provider store={store}>
-          <I18nRedirectPage cities={cities} i18n={i18n} />
+          <I18nRedirectPage cities={cities} />
         </Provider>
       )
 
@@ -85,7 +84,7 @@ describe('I18nRedirectPage', () => {
 
       render(
         <Provider store={store}>
-          <I18nRedirectPage cities={cities} i18n={i18n} />
+          <I18nRedirectPage cities={cities} />
         </Provider>
       )
 
@@ -105,7 +104,7 @@ describe('I18nRedirectPage', () => {
 
       render(
         <Provider store={store}>
-          <I18nRedirectPage cities={cities} i18n={i18n} />
+          <I18nRedirectPage cities={cities} />
         </Provider>
       )
 
@@ -131,7 +130,7 @@ describe('I18nRedirectPage', () => {
 
       render(
         <Provider store={store}>
-          <I18nRedirectPage cities={cities} i18n={i18n} />
+          <I18nRedirectPage cities={cities} />
         </Provider>
       )
 
@@ -155,7 +154,7 @@ describe('I18nRedirectPage', () => {
 
       render(
         <Provider store={store}>
-          <I18nRedirectPage cities={cities} i18n={i18n} />
+          <I18nRedirectPage cities={cities} />
         </Provider>
       )
 
@@ -179,7 +178,7 @@ describe('I18nRedirectPage', () => {
 
       render(
         <Provider store={store}>
-          <I18nRedirectPage cities={cities} i18n={i18n} />
+          <I18nRedirectPage cities={cities} />
         </Provider>
       )
 
@@ -203,7 +202,7 @@ describe('I18nRedirectPage', () => {
 
       render(
         <Provider store={store}>
-          <I18nRedirectPage cities={cities} i18n={i18n} />
+          <I18nRedirectPage cities={cities} />
         </Provider>
       )
 
@@ -227,7 +226,7 @@ describe('I18nRedirectPage', () => {
 
       render(
         <Provider store={store}>
-          <I18nRedirectPage cities={cities} i18n={i18n} />
+          <I18nRedirectPage cities={cities} />
         </Provider>
       )
 

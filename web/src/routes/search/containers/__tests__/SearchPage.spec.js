@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react'
+import { Provider } from 'react-redux'
 import ConnectedSearchPage, { SearchPage } from '../SearchPage'
 import { CategoriesMapModel, CategoryModel } from 'api-client'
 import { shallow } from 'enzyme'
@@ -151,7 +152,9 @@ describe('SearchPage', () => {
     })
 
     const searchPage = shallow(
-      <ConnectedSearchPage store={store} categories={categories} />
+      <Provider store={store}>
+        <ConnectedSearchPage categories={categories} />
+      </Provider>
     )
 
     expect(searchPage.dive().dive().props()).toMatchObject({
