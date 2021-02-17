@@ -53,7 +53,7 @@ const pseudosMixin = (flow: FlowType, supportsLogicalProperties: boolean) => css
     `}
     ${flow === 'right' && `
       ${toLogicalProperty('border-left-width', supportsLogicalProperties)}: 0;
-      ${toLogicalProperty('border-right-color', supportsLogicalProperties)}: #333 ;
+      ${toLogicalProperty('border-right-color', supportsLogicalProperties)}: #333;
       ${toLogicalProperty('right', supportsLogicalProperties)}: -5px;
     `}
   }

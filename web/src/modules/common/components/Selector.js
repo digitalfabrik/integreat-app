@@ -35,8 +35,8 @@ const Element = styled(Link)`
 const ActiveElement = styled(Element)`
   color: ${props => props.theme.colors.textColor};
   ${props => props.selected
-    ? 'font-weight: 700;'
-    : `:hover {
+  ? 'font-weight: 700;'
+  : `:hover {
           font-weight: 700;
           border-radius: 0;
         }`}
@@ -75,38 +75,31 @@ type PropsType = {|
 /**
  * Displays a Selector showing different items
  */
-class Selector extends React.PureComponent<PropsType> {
-  getItems (): React.Node {
-    const { items, activeItemCode, closeDropDown, disabledItemTooltip } = this.props
-    return items.map(item => {
-      if (item.href) {
-        return (
-          <ActiveElement key={item.code}
-                         onClick={closeDropDown}
-                         to={item.href}
-                         selected={item.code === activeItemCode}>
-            {item.name}
-          </ActiveElement>
-        )
-      } else {
-        return (
-          <Tooltip key={item.code} text={disabledItemTooltip} flow='up'>
-            <DisabledElement>
+const Selector = ({ items, activeItemCode, verticalLayout, closeDropDown, disabledItemTooltip }: PropsType) => {
+  return (
+    <Wrapper vertical={verticalLayout}>
+      {items.map(item => {
+        if (item.href) {
+          return (
+            <ActiveElement key={item.code}
+                           onClick={closeDropDown}
+                           to={item.href}
+                           selected={item.code === activeItemCode}>
               {item.name}
-            </DisabledElement>
-          </Tooltip>
-        )
-      }
-    })
-  }
-
-  render () {
-    return (
-      <Wrapper vertical={this.props.verticalLayout}>
-        {this.getItems()}
-      </Wrapper>
-    )
-  }
+            </ActiveElement>
+          )
+        } else {
+          return (
+            <Tooltip key={item.code} text={disabledItemTooltip} flow='up'>
+              <DisabledElement>
+                {item.name}
+              </DisabledElement>
+            </Tooltip>
+          )
+        }
+      })}
+    </Wrapper>
+  )
 }
 
 export default Selector
