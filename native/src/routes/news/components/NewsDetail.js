@@ -47,6 +47,7 @@ type PropsType = {|
 |}
 
 const NewsDetail = ({ theme, selectedNewsItem, language }: PropsType) => {
+  const width = useWindowDimensions().width
   const content = selectedNewsItem.content || selectedNewsItem.message || ''
   return (
     <View style={{ flex: 1 }}>
@@ -65,7 +66,7 @@ const NewsDetail = ({ theme, selectedNewsItem, language }: PropsType) => {
         <Container>
           <NewsHeadLine theme={theme}>{selectedNewsItem.title}</NewsHeadLine>
           <Html source={{ html: content }}
-                contentWidth={useWindowDimensions().width}
+                contentWidth={width}
                 baseFontStyle={{
                   fontFamily: theme.fonts.decorativeFontRegular,
                   fontSize: 16,

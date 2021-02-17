@@ -44,6 +44,7 @@ const CategoryListContent = ({
   lastUpdate,
   theme
 }: ContentPropsType) => {
+  const width = useWindowDimensions().width
   const formatter = useContext(DateFormatterContext)
   const onLinkPress = useCallback((evt: GestureResponderEvent, url: string) => {
     const shareUrl = Object.keys(cacheDictionary).find(remoteUrl => cacheDictionary[remoteUrl] === url)
@@ -136,7 +137,7 @@ const CategoryListContent = ({
     <Container>
       <Html source={{ content }}
             onLinkPress={onLinkPress}
-            contentWidth={useWindowDimensions().width}
+            contentWidth={width}
             defaultTextProps={{ selectable: true, allowFontStyling: true }}
             alterNode={alterResources}
             listsPrefixesRenderers={{ ul: renderUnorderedListPrefix, ol: renderOrderedListPrefix }}
