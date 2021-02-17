@@ -14,6 +14,7 @@ const APPLE_APP_ID = '1551810291'
 
 const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
   appName: 'Aschaffenburg App', // TODO maybe we have to change this to 'AB App'
+  appDescription: 'App of the city Aschaffenburg to inform about social topics.',
   appIcon: 'app_icon_aschaffenburg',
   lightTheme,
   darkTheme,
@@ -53,6 +54,7 @@ export const iosAschaffenburgBuildConfig: iOSBuildConfigType = {
   bundleIdentifier: 'app.aschaffenburg',
   provisioningProfileSpecifier: 'match Development app.aschaffenburg',
   appleId: APPLE_APP_ID,
+  itunesAppName: 'aschaffenburg-app',
   googleServices: null,
   launchScreen: 'LaunchScreenDefault'
 }

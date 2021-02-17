@@ -14,6 +14,7 @@ const APPLE_APP_ID = '1072353915'
 
 const commonIntegreatBuildConfig: CommonBuildConfigType = {
   appName: 'Integreat',
+  appDescription: 'Daily Guide for Refugees. Digital. Multilingual. Free.',
   appIcon: 'app_icon_integreat',
   lightTheme,
   darkTheme,
@@ -63,6 +64,7 @@ export const iosIntegreatBuildConfig: iOSBuildConfigType = {
   bundleIdentifier: 'de.integreat-app',
   provisioningProfileSpecifier: 'match Development de.integreat-app',
   appleId: APPLE_APP_ID,
+  itunesAppName: 'integreat',
   googleServices: {
     clientId: '164298278764-pemn49q7v283m0tqml3q8q0ltr5h8pni.apps.googleusercontent.com',
     reversedClientId: 'com.googleusercontent.apps.164298278764-pemn49q7v283m0tqml3q8q0ltr5h8pni',
