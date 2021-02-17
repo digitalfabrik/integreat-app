@@ -1,26 +1,38 @@
 // @flow
 
-import createNavigateToCategory from '../createNavigateToCategory'
+import navigateToCategory from '../navigateToCategory'
 import createNavigationScreenPropMock from '../../../testing/createNavigationPropMock'
-import { CATEGORIES_ROUTE, DASHBOARD_ROUTE } from '../constants/NavigationTypes'
+import { CATEGORIES_ROUTE, DASHBOARD_ROUTE } from 'api-client/src/routes'
 
-jest.mock('../../common/url', () => ({
+jest.mock('../url', () => ({
   url: jest.fn(path => path)
 }))
 
-describe('createNavigateToCategory', () => {
+describe('navigateToCategory', () => {
   it('should navigate to the specified route as in the supplied route name', () => {
     const dispatch = jest.fn()
     const navigation = createNavigationScreenPropMock()
 
-    const navigateToCategory = createNavigateToCategory(CATEGORIES_ROUTE, dispatch, navigation)
-    navigateToCategory({ cityCode: 'augsburg', language: 'de', cityContentPath: '/augsburg/de/erste-hilfe' })
+    navigateToCategory({
+      dispatch,
+      navigation,
+      routeName: CATEGORIES_ROUTE,
+      cityCode: 'augsburg',
+      languageCode: 'de',
+      cityContentPath: '/augsburg/de/erste-hilfe'
+    })
     expect(navigation.navigate).toHaveBeenCalledWith(expect.objectContaining({
       name: CATEGORIES_ROUTE
     }))
 
-    const navigateToDashboard = createNavigateToCategory(DASHBOARD_ROUTE, dispatch, navigation)
-    navigateToDashboard({ cityCode: 'augsburg', language: 'de', cityContentPath: '/augsburg/de' })
+    navigateToCategory({
+      dispatch,
+      navigation,
+      routeName: DASHBOARD_ROUTE,
+      cityCode: 'augsburg',
+      languageCode: 'de',
+      cityContentPath: '/augsburg/de'
+    })
     expect(navigation.navigate).toHaveBeenCalledWith(expect.objectContaining({
       name: DASHBOARD_ROUTE
     }))
@@ -30,8 +42,14 @@ describe('createNavigateToCategory', () => {
     const dispatch = jest.fn()
     const navigation = createNavigationScreenPropMock()
 
-    const navigateToCategory = createNavigateToCategory(CATEGORIES_ROUTE, dispatch, navigation)
-    navigateToCategory({ cityCode: 'augsburg', language: 'de', cityContentPath: '/augsburg/de/erste-hilfe' })
+    navigateToCategory({
+      dispatch,
+      navigation,
+      routeName: CATEGORIES_ROUTE,
+      cityCode: 'augsburg',
+      languageCode: 'de',
+      cityContentPath: '/augsburg/de/erste-hilfe'
+    })
 
     expect(navigation.navigate).toHaveBeenCalledWith(expect.objectContaining({
       key: expect.stringMatching(/^.{6,}$/) // at least 6 chars but no newline
@@ -47,8 +65,14 @@ describe('createNavigateToCategory', () => {
     const dispatch = jest.fn()
     const navigation = createNavigationScreenPropMock()
 
-    const navigateToCategory = createNavigateToCategory(CATEGORIES_ROUTE, dispatch, navigation)
-    navigateToCategory({ cityCode: 'augsburg', language: 'de', cityContentPath: '/augsburg/de/erste-hilfe' })
+    navigateToCategory({
+      dispatch,
+      navigation,
+      routeName: CATEGORIES_ROUTE,
+      cityCode: 'augsburg',
+      languageCode: 'de',
+      cityContentPath: '/augsburg/de/erste-hilfe'
+    })
 
     expect(navigation.navigate).toHaveBeenCalledWith(expect.objectContaining({
       params: expect.objectContaining({ shareUrl: '/augsburg/de/erste-hilfe' })
@@ -59,10 +83,12 @@ describe('createNavigateToCategory', () => {
     const dispatch = jest.fn()
     const navigation = createNavigationScreenPropMock()
 
-    const navigateToCategory = createNavigateToCategory(CATEGORIES_ROUTE, dispatch, navigation)
     navigateToCategory({
+      dispatch,
+      navigation,
+      routeName: CATEGORIES_ROUTE,
       cityCode: 'augsburg',
-      language: 'de',
+      languageCode: 'de',
       cityContentPath: '/augsburg/de/schule',
       key: 'route-id-1',
       forceRefresh: true

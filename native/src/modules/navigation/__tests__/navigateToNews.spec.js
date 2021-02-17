@@ -1,16 +1,22 @@
 // @flow
 
 import createNavigationScreenPropMock from '../../../testing/createNavigationPropMock'
-import createNavigateToNews from '../createNavigateToNews'
-import { LOCAL_NEWS } from '../../endpoint/constants'
+import navigateToNews from '../navigateToNews'
+import { LOCAL_NEWS_TYPE } from 'api-client/src/routes'
 
 describe('createNavigateToNews', () => {
   it('should generate key if not supplied with at least 6 chars and use it for navigation and redux actions', () => {
     const dispatch = jest.fn()
     const navigation = createNavigationScreenPropMock()
 
-    const navigateToNews = createNavigateToNews(dispatch, navigation)
-    navigateToNews({ cityCode: 'augsburg', language: 'de', newsId: null, type: LOCAL_NEWS })
+    navigateToNews({
+      dispatch,
+      navigation,
+      cityCode: 'augsburg',
+      languageCode: 'de',
+      newsId: null,
+      type: LOCAL_NEWS_TYPE
+    })
 
     expect(navigation.navigate).toHaveBeenCalledWith(expect.objectContaining({
       key: expect.stringMatching(/^.{6,}$/) // at least 6 chars but no newline
@@ -26,9 +32,15 @@ describe('createNavigateToNews', () => {
     const dispatch = jest.fn()
     const navigation = createNavigationScreenPropMock()
 
-    const navigateToNews = createNavigateToNews(dispatch, navigation)
     navigateToNews({
-      cityCode: 'augsburg', type: LOCAL_NEWS, language: 'de', newsId: '12', key: 'route-id-1', forceRefresh: true
+      dispatch,
+      navigation,
+      cityCode: 'augsburg',
+      type: LOCAL_NEWS_TYPE,
+      languageCode: 'de',
+      newsId: '12',
+      key: 'route-id-1',
+      forceRefresh: true
     })
 
     expect(dispatch).toHaveBeenCalledWith({
@@ -38,7 +50,7 @@ describe('createNavigateToNews', () => {
         language: 'de',
         newsId: '12',
         key: 'route-id-1',
-        type: LOCAL_NEWS,
+        type: LOCAL_NEWS_TYPE,
         criterion: { forceUpdate: true, shouldRefreshResources: true }
       }
     })

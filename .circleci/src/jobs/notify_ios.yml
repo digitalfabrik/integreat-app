@@ -1,4 +1,4 @@
-# Create a release (with release notes) on github and send a slack notification.
+# Create a release (with release notes) on github and send a mattermost notification.
 parameters:
   production_delivery:
     description: Whether builds are delivered to the production store. If set to true, jira and github releases are created.
@@ -19,4 +19,4 @@ steps:
       name: Create release notes
       command: echo "export RELEASE_NOTES=$(tools/parse-release-notes parse --ios --language en)" >> ${BASH_ENV}
   - notify:
-      success_message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat and Malte ${NEW_VERSION_NAME} have been released successfully on iOS!\n${RELEASE_NOTES}
+      success_message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat, Malte and Aschaffenburg ${NEW_VERSION_NAME} have been released successfully on iOS!\n${RELEASE_NOTES}

@@ -1,29 +1,29 @@
 // @flow
 
 import createNavigationScreenPropMock from '../../../testing/createNavigationPropMock'
-import createNavigateToOffers from '../createNavigateToOffers'
-import { OFFERS_ROUTE } from '../constants/NavigationTypes'
+import navigateToOffers from '../navigateToOffers'
+import { OFFERS_ROUTE } from 'api-client/src/routes'
 
 const cityContentUrl = ({ cityCode, languageCode, route }) => `/${cityCode}/${languageCode}/${route}`
-jest.mock('../../common/url', () => ({
+jest.mock('../url', () => ({
   cityContentUrl: jest.fn(cityContentUrl)
 }))
 
 const cityCode = 'augsburg'
-const language = 'de'
+const languageCode = 'de'
 
 describe('createNavigateToOffers', () => {
   it('should navigate to the Offers route with correct parameters', () => {
     const dispatch = jest.fn()
     const navigation = createNavigationScreenPropMock()
 
-    const navigateToOffers = createNavigateToOffers(dispatch, navigation)
-    navigateToOffers({ cityCode, language })
+    navigateToOffers({ dispatch, navigation, cityCode, languageCode })
     expect(navigation.navigate).toHaveBeenCalledWith({
       name: OFFERS_ROUTE,
       params: {
-        shareUrl: cityContentUrl({ cityCode, languageCode: language, route: OFFERS_ROUTE }),
-        cityCode
+        shareUrl: cityContentUrl({ cityCode, languageCode, route: OFFERS_ROUTE }),
+        cityCode,
+        languageCode
       }
     })
   })

@@ -3,20 +3,19 @@
 import * as React from 'react'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
-import type { ThemeType } from '../../../modules/theme/constants'
+import type { ThemeType } from 'build-configs/ThemeType'
 import { LanguageModel } from 'api-client'
 import Selector from '../../../modules/common/components/Selector'
 import SelectorItemModel from '../../../modules/common/models/SelectorItemModel'
 import { InteractionManager } from 'react-native'
-import type { NewsType } from '../../../modules/app/StateType'
 import type { TFunction } from 'react-i18next'
 import type {
-  ChangeLanguageModalRouteType,
   NavigationPropType,
   RoutePropType
 } from '../../../modules/app/constants/NavigationTypes'
+import type { ChangeLanguageModalRouteType, NewsType } from 'api-client/src/routes'
 
-const Wrapper: StyledComponent<{}, ThemeType, *> = styled.ScrollView`
+const Wrapper: StyledComponent<{||}, ThemeType, *> = styled.ScrollView`
   background-color: ${props => props.theme.colors.backgroundColor};
 `
 

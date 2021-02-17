@@ -3,10 +3,10 @@
 import ExternalOffer from '../components/ExternalOffer'
 import React from 'react'
 import type {
-  ExternalOfferRouteType,
   NavigationPropType,
   RoutePropType
 } from '../../../modules/app/constants/NavigationTypes'
+import type { ExternalOfferRouteType } from 'api-client/src/routes'
 
 type PropsType = {|
   route: RoutePropType<ExternalOfferRouteType>,
