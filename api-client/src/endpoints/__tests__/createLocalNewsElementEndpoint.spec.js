@@ -48,7 +48,7 @@ describe('localnews', () => {
   })
 
   it('should throw if response is empty', () => {
-    expect(() => localNewsElement.mapResponse([], params)).toThrowError('The localNews 1 does not exist here.')
+    expect(() => localNewsElement.mapResponse([], params)).toThrowError('The local 1 does not exist here.')
   })
 
   it('should throw a not found error if the response contains more than one item', () => {
