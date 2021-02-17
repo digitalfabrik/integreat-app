@@ -210,8 +210,6 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
   getFeedbackData = (selectedFeedbackOption: FeedbackVariant, comment: string): FeedbackParamsType => {
     const { location, query, isPositiveRatingSelected, path, alias } = this.props
     const { city, language } = location.payload
-    
-    debugger;
     const isOfferOptionSelected = selectedFeedbackOption.feedbackType === OFFER_FEEDBACK_TYPE
     const feedbackAlias = alias || (isOfferOptionSelected && selectedFeedbackOption.alias) || ''
 
@@ -244,8 +242,8 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
     const { onSubmit } = this.props
     const { selectedFeedbackOption, comment, contactMail } = this.state
     try {
-      debugger;
-      await this.postFeedbackData(this.getFeedbackData(selectedFeedbackOption, `${comment}  contactMail: ${contactMail}`))
+      await this.postFeedbackData(
+        this.getFeedbackData(selectedFeedbackOption, `${comment}    contactMail: ${contactMail}`))
       onSubmit('SUCCESS')
     } catch (e) {
       console.error(e)
