@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react'
+import React, { useCallback } from 'react'
 import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -21,26 +21,24 @@ type PropsType = {|
 
 const StyledFeedbackToolbarItem = StyledToolbarItem.withComponent('button')
 
-export class FeedbackToolbarItem extends React.PureComponent<PropsType> {
-  handleLinkClick = () =>
-    this.props.openFeedbackModal(this.props.isPositiveRatingLink ? POSITIVE_RATING : NEGATIVE_RATING)
+const FeedbackToolbarItem = ({ openFeedbackModal, t, isPositiveRatingLink, className, viewportSmall }: PropsType) => {
+  const handleLinkClick = useCallback(() =>
+    openFeedbackModal(isPositiveRatingLink ? POSITIVE_RATING : NEGATIVE_RATING),
+  [isPositiveRatingLink, openFeedbackModal])
 
-  render () {
-    const { t, isPositiveRatingLink, className, viewportSmall } = this.props
-    const dataTip = isPositiveRatingLink ? t('positiveRating') : t('negativeRating')
-    const smallViewTip = isPositiveRatingLink ? t('useful') : t('notUseful')
+  const dataTip = isPositiveRatingLink ? t('positiveRating') : t('negativeRating')
+  const smallViewTip = isPositiveRatingLink ? t('useful') : t('notUseful')
 
-    return (
-      <Tooltip text={dataTip} flow='up' mediumViewportFlow='right' smallViewportFlow='down'>
-        <StyledFeedbackToolbarItem className={className} onClick={this.handleLinkClick} aria-label={dataTip}>
-          <FontAwesomeIcon
-            className={className}
-            icon={isPositiveRatingLink ? faSmile : faFrown} />
-          {viewportSmall && <StyledSmallViewTip>{smallViewTip}</StyledSmallViewTip>}
-        </StyledFeedbackToolbarItem>
-      </Tooltip>
-    )
-  }
+  return (
+    <Tooltip text={viewportSmall ? null : dataTip} flow='up' mediumViewportFlow='right' smallViewportFlow='down'>
+      <StyledFeedbackToolbarItem className={className} onClick={handleLinkClick} aria-label={dataTip}>
+        <FontAwesomeIcon
+          className={className}
+          icon={isPositiveRatingLink ? faSmile : faFrown} />
+        {viewportSmall && <StyledSmallViewTip>{smallViewTip}</StyledSmallViewTip>}
+      </StyledFeedbackToolbarItem>
+    </Tooltip>
+  )
 }
 
 export default withTranslation('feedback')(FeedbackToolbarItem)
