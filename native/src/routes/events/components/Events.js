@@ -18,7 +18,7 @@ import type { ThemeType } from 'build-configs/ThemeType'
 import type { LanguageResourceCacheStateType } from '../../../modules/app/StateType'
 import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
-import ErrorCodes from '../../../modules/error/ErrorCodes'
+import { fromError } from '../../../modules/error/ErrorCodes'
 import type { FeedbackInformationType } from '../../feedback/containers/FeedbackModalContainer'
 import DateFormatterContext from '../../../modules/i18n/context/DateFormatterContext'
 import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
@@ -108,13 +108,8 @@ const Events = ({
       </Page>
     }
 
-    const error = new NotFoundError({
-      type: 'event',
-      id: path,
-      city: cityCode,
-      language
-    })
-    return <Failure errorMessage={error.message} code={ErrorCodes.PageNotFound} t={t} theme={theme} />
+    const error = new NotFoundError({ type: 'event', id: path, city: cityCode, language })
+    return <Failure code={fromError(error)} t={t} theme={theme} />
   }
 
   return <SpaceBetween>

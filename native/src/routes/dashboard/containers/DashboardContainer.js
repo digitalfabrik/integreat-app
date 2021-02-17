@@ -194,7 +194,7 @@ const DashboardContainer = (props: ContainerPropsType) => {
     navigateTo={createNavigate(dispatch, navigation)} />
 }
 
-export default withTranslation('error')(
+export default withTranslation<OwnPropsType>('error')(
   connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
     withPayloadProvider<ContainerPropsType, RefreshPropsType, DashboardRouteType>(refresh)(
       DashboardContainer

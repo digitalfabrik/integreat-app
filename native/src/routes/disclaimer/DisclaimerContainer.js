@@ -78,7 +78,7 @@ const DisclaimerContainer = ({ theme, resourceCacheUrl, navigation, route, dispa
 
   if (error) {
     return <LayoutedScrollView refreshControl={<RefreshControl onRefresh={loadDisclaimer} refreshing={loading} />}>
-      <FailureContainer errorMessage={error.message} code={fromError(error)} tryAgain={tryAgain} />
+      <FailureContainer code={fromError(error)} tryAgain={tryAgain} />
     </LayoutedScrollView>
   }
 
@@ -97,5 +97,5 @@ const DisclaimerContainer = ({ theme, resourceCacheUrl, navigation, route, dispa
 }
 
 export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(
-  withTheme(DisclaimerContainer)
+  withTheme<DisclaimerPropsType>(DisclaimerContainer)
 )

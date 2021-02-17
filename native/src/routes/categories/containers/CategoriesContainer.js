@@ -200,7 +200,7 @@ class CategoriesContainer extends React.Component<ContainerPropsType> {
 
 const ThemedCategories = withTheme<CategoriesPropsType>(Categories)
 
-export default withTranslation('error')(
+export default withTranslation<OwnPropsType>('error')(
   connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
     withPayloadProvider<ContainerPropsType, RefreshPropsType, CategoriesRouteType>(refresh, onRouteClose)(
       CategoriesContainer
