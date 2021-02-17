@@ -99,7 +99,7 @@ class CategoryEntry extends React.PureComponent<PropsType> {
     )
   }
 
-  getMatchedContent (numWordsSurrounding: number): ContentMatchItem {
+  getMatchedContent (numWordsSurrounding: number): typeof ContentMatchItem {
     const { query, theme, contentWithoutHtml } = this.props
     const textToHighlight = this.contentMatcher.getMatchedContent(query, contentWithoutHtml, numWordsSurrounding)
     if (textToHighlight == null) {
