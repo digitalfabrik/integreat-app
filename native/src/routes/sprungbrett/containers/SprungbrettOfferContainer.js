@@ -1,146 +1,81 @@
 // @flow
 
-import * as React from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import { RefreshControl } from 'react-native'
 import { type TFunction, withTranslation } from 'react-i18next'
 import SprungbrettOffer from '../components/SprungbrettOffer'
-import { connect } from 'react-redux'
-import type { StateType } from '../../../modules/app/StateType'
-import {
-  createSprungbrettJobsEndpoint,
-  OfferModel,
-  Payload,
-  SprungbrettJobModel
-} from 'api-client'
+import { createSprungbrettJobsEndpoint, SprungbrettJobModel } from 'api-client'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import type { ThemeType } from 'build-configs/ThemeType'
 import FailureContainer from '../../../modules/error/containers/FailureContainer'
-import { LOADING_TIMEOUT } from '../../../modules/common/constants'
-import ErrorCodes from '../../../modules/error/ErrorCodes'
-import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
+import { fromError } from '../../../modules/error/ErrorCodes'
 import createNavigateToFeedbackModal from '../../../modules/navigation/createNavigateToFeedbackModal'
 import type {
   NavigationPropType,
   RoutePropType
 } from '../../../modules/app/constants/NavigationTypes'
 import LayoutedScrollView from '../../../modules/common/containers/LayoutedScrollView'
-import LayoutContainer from '../../../modules/layout/containers/LayoutContainer'
-import { SPRUNGBRETT_OFFER_ROUTE } from 'api-client/src/routes'
 import type { SprungbrettOfferRouteType } from 'api-client/src/routes'
-import type { StoreActionType } from '../../../modules/app/StoreActionType'
-import type { Dispatch } from 'redux'
+import loadFromEndpoint from '../../../modules/endpoint/loadFromEndpoint'
 
 type OwnPropsType = {|
   route: RoutePropType<SprungbrettOfferRouteType>,
   navigation: NavigationPropType<SprungbrettOfferRouteType>
 |}
 
-type StatePropsType = {| offer: ?OfferModel, language: string |}
-
-type PropsType = {| ...OwnPropsType, ...StatePropsType, dispatch: Dispatch<StoreActionType> |}
-
-const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
-  const offers: Array<OfferModel> = ownProps.route.params.offers
-  return {
-    language: state.contentLanguage,
-    offer: offers.find(offer => offer.alias === SPRUNGBRETT_OFFER_ROUTE)
-  }
-}
-
 type SprungbrettPropsType = {|
   ...OwnPropsType,
-  offer: ?OfferModel,
-  language: string,
   theme: ThemeType,
   t: TFunction
 |}
 
-type SprungbrettStateType = {|
-  jobs: ?Array<SprungbrettJobModel>,
-  error: ?Error,
-  timeoutExpired: boolean
-|}
+const SprungbrettOfferContainer = ({ route, navigation, theme, t }: SprungbrettPropsType) => {
+  const [jobs, setJobs] = useState<?Array<SprungbrettJobModel>>(null)
+  const [error, setError] = useState<?Error>(null)
+  const [loading, setLoading] = useState<boolean>(false)
 
-// HINT: If you are copy-pasting this container think about generalizing this way of fetching
-class SprungbrettOfferContainer extends React.Component<SprungbrettPropsType, SprungbrettStateType> {
-  constructor (props: SprungbrettPropsType) {
-    super(props)
-    this.state = { jobs: null, error: null, timeoutExpired: false }
-  }
+  const { cityCode, languageCode, title, alias, apiUrl } = route.params
 
-  navigateToFeedback = (isPositiveFeedback: boolean) => {
-    const { route, navigation, offer, language } = this.props
+  const navigateToFeedback = useCallback((isPositiveFeedback: boolean) => {
     createNavigateToFeedbackModal(navigation)({
       type: 'Offers',
-      cityCode: route.params.city,
-      title: offer?.title,
-      alias: offer?.alias,
-      path: offer?.path,
-      language,
+      cityCode,
+      title,
+      alias,
+      language: languageCode,
       isPositiveFeedback
     })
-  }
+  }, [cityCode, languageCode, title, alias, navigation])
 
-  componentDidMount () {
-    this.loadSprungbrett()
-  }
+  const loadJobs = useCallback(async () => {
+    const request = async () =>
+      await createSprungbrettJobsEndpoint(apiUrl).request()
 
-  loadSprungbrett = async () => {
-    const { offer } = this.props
+    await loadFromEndpoint<Array<SprungbrettJobModel>>(request, setJobs, setError, setLoading)
+  }, [apiUrl, setJobs, setError, setLoading])
 
-    if (!offer) {
-      this.setState({ error: new Error('The Sprungbrett offer is not supported.'), jobs: null })
-      return
-    }
+  useEffect(() => {
+    loadJobs().catch(e => setError(e))
+  }, [])
 
-    this.setState({ error: null, jobs: null, timeoutExpired: false })
-    setTimeout(() => this.setState({ timeoutExpired: true }), LOADING_TIMEOUT)
-
-    try {
-      const payload: Payload<Array<SprungbrettJobModel>> = await createSprungbrettJobsEndpoint(offer.path).request()
-
-      if (payload.error) {
-        this.setState({ error: payload.error, jobs: null })
-      } else {
-        this.setState({ error: null, jobs: payload.data })
-      }
-    } catch (e) {
-      this.setState({ error: e, jobs: null })
-    }
-  }
-
-  render () {
-    const { offer, t, theme, language } = this.props
-    const { jobs, error, timeoutExpired } = this.state
-
-    if (error) {
-      return (
-        <LayoutedScrollView refreshControl={<RefreshControl onRefresh={this.loadSprungbrett} refreshing={false} />}>
-          <FailureContainer errorMessage={error.message} tryAgain={this.loadSprungbrett} />
+  if (error) {
+    return (
+        <LayoutedScrollView refreshControl={<RefreshControl onRefresh={loadJobs} refreshing={loading} />}>
+          <FailureContainer errorMessage={error.message} code={fromError(error)} tryAgain={loadJobs} />
         </LayoutedScrollView>
-      )
-    }
-
-    if (!offer) {
-      return <LayoutContainer>
-        <FailureContainer code={ErrorCodes.UnknownError} />
-      </LayoutContainer>
-    }
-
-    if (!jobs) {
-      return timeoutExpired
-        ? <LayoutedScrollView refreshControl={<RefreshControl refreshing />} />
-        : <LayoutContainer />
-    }
-
-    return <LayoutedScrollView refreshControl={<RefreshControl onRefresh={this.loadSprungbrett} refreshing={false} />}>
-      <SprungbrettOffer sprungbrettOffer={offer} sprungbrettJobs={jobs} t={t} theme={theme} language={language} />
-      <SiteHelpfulBox navigateToFeedback={this.navigateToFeedback} theme={theme} t={t} />
-    </LayoutedScrollView>
+    )
   }
+
+  return <LayoutedScrollView refreshControl={<RefreshControl onRefresh={loadJobs} refreshing={loading} />}>
+    {jobs && <SprungbrettOffer title={title}
+                               jobs={jobs}
+                               t={t}
+                               theme={theme}
+                               language={languageCode}
+                               navigateToFeedback={navigateToFeedback} />}
+    </LayoutedScrollView>
 }
 
-export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(
-  withTranslation('sprungbrett')(
-    withTheme(SprungbrettOfferContainer)
-  ))
+export default withTranslation('sprungbrett')(
+  withTheme(SprungbrettOfferContainer)
+)

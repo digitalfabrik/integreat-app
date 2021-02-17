@@ -21,7 +21,7 @@ type PropsType = {|
   cities: Array<CityModel>,
   path: string,
   city: string,
-  t: TFunction,
+  t: typeof TFunction,
   language: string,
   uiDirection: UiDirectionType
 |}

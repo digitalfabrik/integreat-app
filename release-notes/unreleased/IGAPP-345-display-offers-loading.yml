@@ -1,0 +1,7 @@
+issue_key: IGAPP-345
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: More content is now displayed during a refresh.
+de: Bei Aktualisierungen werden nun weiterhin die bisherigen Inhalte angezeigt.

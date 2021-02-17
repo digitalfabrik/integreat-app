@@ -7,8 +7,7 @@ import SearchInput from '../../../modules/common/components/SearchInput'
 
 import { CategoriesMapModel, CategoryModel } from 'api-client'
 import CategoryList from '../../categories/components/CategoryList'
-import type { TFunction } from 'react-i18next'
-import { withTranslation } from 'react-i18next'
+import { withTranslation, TFunction } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
 import SearchFeedback from '../components/SearchFeedback'
 import type { LocationState } from 'redux-first-router'
@@ -20,7 +19,7 @@ type CategoryEntryType = {| model: CategoryModel, contentWithoutHtml?: string, s
 type PropsType = {|
   categories: CategoriesMapModel,
   location: LocationState,
-  t: TFunction
+  t: typeof TFunction
 |}
 
 type LocalStateType = {|

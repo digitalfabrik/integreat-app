@@ -1,8 +1,7 @@
 // @flow
 
 import React from 'react'
-import type { TFunction } from 'react-i18next'
-import { withTranslation } from 'react-i18next'
+import { withTranslation, TFunction } from 'react-i18next'
 import type Moment from 'moment'
 import styled from 'styled-components'
 import DateFormatter from 'api-client/src/i18n/DateFormatter'
@@ -16,7 +15,7 @@ const TimeStamp = styled.p`
 
 type PropsType = {|
   lastUpdate: Moment,
-  t: TFunction,
+  t: typeof TFunction,
   withText: boolean,
   className?: string,
   formatter: DateFormatter

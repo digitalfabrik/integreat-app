@@ -1428,14 +1428,6 @@
     "@babel/helper-create-regexp-features-plugin" "^7.12.1"
     "@babel/helper-plugin-utils" "^7.10.4"
 
-"@babel/polyfill@^7.0.0":
-  version "7.11.5"
-  resolved "https://registry.yarnpkg.com/@babel/polyfill/-/polyfill-7.11.5.tgz#df550b2ec53abbc2ed599367ec59e64c7a707bb5"
-  integrity sha512-FunXnE0Sgpd61pKSj2OSOs1D44rKTD3pGOfGilZ6LGrrIH0QEtJlTjqOqdF8Bs98JmjfGhni2BBkTfv9KcKJ9g==
-  dependencies:
-    core-js "^2.6.5"
-    regenerator-runtime "^0.13.4"
-
 "@babel/polyfill@^7.12.1":
   version "7.12.1"
   resolved "https://registry.yarnpkg.com/@babel/polyfill/-/polyfill-7.12.1.tgz#1f2d6371d1261bbd961f3c5d5909150e12d0bd96"
@@ -2163,7 +2155,7 @@
     once "^1.4.0"
     universal-user-agent "^6.0.0"
 
-"@octokit/rest@^16.33.1", "@octokit/rest@^16.43.1":
+"@octokit/rest@^16.43.1":
   version "16.43.2"
   resolved "https://registry.yarnpkg.com/@octokit/rest/-/rest-16.43.2.tgz#c53426f1e1d1044dee967023e3279c50993dd91b"
   integrity sha512-ngDBevLbBTFfrHZeiS7SAMAZ6ssuVmXuya+F/7RaVvlysgGa1JKJkKWY+jV6TCJYcW0OALfJ7nTIGXcBXzycfQ==
@@ -5196,7 +5188,7 @@ colors@1.0.3, colors@1.0.x:
   resolved "https://registry.yarnpkg.com/colors/-/colors-1.0.3.tgz#0433f44d809680fdeb60ed260f1b0c262e82a40b"
   integrity sha1-BDP0TYCWgP3rYO0mDxsMJi6CpAs=
 
-colors@^1.1.2, colors@^1.3.2, colors@^1.4.0:
+colors@^1.1.2, colors@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/colors/-/colors-1.4.0.tgz#c50491479d4c1bdaed2c9ced32cf7c7dc2360f78"
   integrity sha512-a+UqTh4kgZg/SlGvfbzDHpgRu7AAQOmmqRHJnxhRZICKFUT91brVhNNt58CMWU9PsBbv3PDCZUHbVxuDiH2mtA==
@@ -7642,38 +7634,15 @@ flatted@^3.1.0:
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.1.1.tgz#c4b489e80096d9df1dfc97c79871aea7c617c469"
   integrity sha512-zAoAQiudy+r5SvnSw3KJy5os/oRJYHzrzja/tBDqrZtNhUw8bt6y8OBzMWcjWr+8liV8Eb6yOhw8WZ7VFZ5ZzA==
 
+flow-bin@0.141.0:
+  version "0.141.0"
+  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.141.0.tgz#f9e33ad29392824823c97b6db7de5ab972c7f872"
+  integrity sha512-NxaECTjIWfs2Y91GuA1PlgPd5uCulZcqR9wiXRg6n7/AbmvVetM2ewoGxCKxJm7wIml3f0/5KXIZvZa/3msqXg==
+
 flow-bin@^0.122.0:
   version "0.122.0"
   resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.122.0.tgz#c723a2b33b1a70bd10204704ae1dc776d5d89d79"
   integrity sha512-my8N5jgl/A+UVby9E7NDppHdhLgRbWgKbmFZSx2MSYMRh3d9YGnM2MM+wexpUpl0ftY1IM6ZcUwaAhrypLyvlA==
-
-flow-bin@~0.117.0:
-  version "0.117.0"
-  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.117.0.tgz#2fd331f476dac31f7dae6ac9b557581ebc84e8ad"
-  integrity sha512-LwDdiApyQsO26ubieaLBcW//K8QNcFR50FSUUDo5roy+2nsvkfRdJa0Qse2De6/2fwBElLDDrc3rrSzvC3hy2Q==
-
-flow-typed@^2.5.1:
-  version "2.6.2"
-  resolved "https://registry.yarnpkg.com/flow-typed/-/flow-typed-2.6.2.tgz#6d324a96c4df300e0f823c13ca879c824bef40ce"
-  integrity sha512-brTh8SukLidVpR1u8hSR3OcZSvLtptpwLEGgEhK/qBhWCB7zxPZmnmChYi40JQH6vB448ck380+qbkDo3fJ6qA==
-  dependencies:
-    "@babel/polyfill" "^7.0.0"
-    "@octokit/rest" "^16.33.1"
-    colors "^1.3.2"
-    flowgen "^1.9.0"
-    fs-extra "^7.0.0"
-    glob "^7.1.3"
-    got "^8.3.2"
-    md5 "^2.2.1"
-    mkdirp "^0.5.1"
-    prettier "^1.18.2"
-    rimraf "^2.6.2"
-    semver "^5.5.1"
-    table "^5.0.2"
-    through "^2.3.8"
-    unzipper "^0.9.3"
-    which "^1.3.1"
-    yargs "^12.0.2"
 
 flow-typed@^3.2.1:
   version "3.2.1"
@@ -7697,7 +7666,7 @@ flow-typed@^3.2.1:
     which "^2.0.2"
     yargs "^15.1.0"
 
-flowgen@^1.10.0, flowgen@^1.9.0:
+flowgen@^1.10.0:
   version "1.11.0"
   resolved "https://registry.yarnpkg.com/flowgen/-/flowgen-1.11.0.tgz#3d9e36bb1dcbc9ffd849e7b375295e6bb29a0465"
   integrity sha512-WpoBjzcZadnAw5FatlUbvFWUWXkI2/LjrwTl5fl3MVDh+KdvYgFzgRXDDKH/O2uUlwjfpveiJJJx8TwL7Se84A==
@@ -7844,15 +7813,6 @@ fs-extra@^4.0.2:
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-4.0.3.tgz#0d852122e5bc5beb453fb028e9c0c9bf36340c94"
   integrity sha512-q6rbdDd1o2mAnQreO7YADIxf/Whx4AHBiRf6d+/cVT8h44ss+lHgxf1FemcqDnQt9X3ct4McHr+JMGlYSsK7Cg==
-  dependencies:
-    graceful-fs "^4.1.2"
-    jsonfile "^4.0.0"
-    universalify "^0.1.0"
-
-fs-extra@^7.0.0:
-  version "7.0.1"
-  resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-7.0.1.tgz#4f189c44aa123b895f722804f55ea23eadc348e9"
-  integrity sha512-YJDaCJZEnBmcbw13fvdAM9AwNOJwOzrE4pqMqBq5nFiEqXUqHwlK4B+3pUw6JNvfSPtX05xFHtYy/1ni01eGCw==
   dependencies:
     graceful-fs "^4.1.2"
     jsonfile "^4.0.0"
@@ -13272,7 +13232,7 @@ prepend-http@^2.0.0:
   resolved "https://registry.yarnpkg.com/prepend-http/-/prepend-http-2.0.0.tgz#e92434bfa5ea8c19f41cdfd401d741a3c819d897"
   integrity sha1-6SQ0v6XqjBn0HN/UAddBo8gZ2Jc=
 
-prettier@^1.18.2, prettier@^1.19.1:
+prettier@^1.19.1:
   version "1.19.1"
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.19.1.tgz#f7d7f5ff8a9cd872a7be4ca142095956a60797cb"
   integrity sha512-s7PoyDv/II1ObgQunCbB9PdLmUcBZcnWOcxDh7O0N/UwDEsHyqkW+Qh28jW+mVuCdx7gLB0BotYI1Y6uI9iyew==
@@ -16051,7 +16011,7 @@ tabbable@^5.1.5:
   resolved "https://registry.yarnpkg.com/tabbable/-/tabbable-5.1.5.tgz#efec48ede268d511c261e3b81facbb4782a35147"
   integrity sha512-oVAPrWgLLqrbvQE8XqcU7CVBq6SQbaIbHkhOca3u7/jzuQvyZycrUKPCGr04qpEIUslmUlULbSeN+m3QrKEykA==
 
-table@^5.0.2, table@^5.2.3, table@^5.4.6:
+table@^5.2.3, table@^5.4.6:
   version "5.4.6"
   resolved "https://registry.yarnpkg.com/table/-/table-5.4.6.tgz#1292d19500ce3f86053b05f0e8e7e4a3bb21079e"
   integrity sha512-wmEc8m4fjnob4gt5riFRtTu/6+4rSe12TpAELNSqHMfF3IqnA+CH37USM6/YR3qRZv7e56kAEAtd6nKZaxe0Ug==
@@ -16763,21 +16723,6 @@ unzipper@^0.10.8:
     duplexer2 "~0.1.4"
     fstream "^1.0.12"
     graceful-fs "^4.2.2"
-    listenercount "~1.0.1"
-    readable-stream "~2.3.6"
-    setimmediate "~1.0.4"
-
-unzipper@^0.9.3:
-  version "0.9.15"
-  resolved "https://registry.yarnpkg.com/unzipper/-/unzipper-0.9.15.tgz#97d99203dad17698ee39882483c14e4845c7549c"
-  integrity sha512-2aaUvO4RAeHDvOCuEtth7jrHFaCKTSXPqUkXwADaLBzGbgZGzUDccoEdJ5lW+3RmfpOZYNx0Rw6F6PUzM6caIA==
-  dependencies:
-    big-integer "^1.6.17"
-    binary "~0.3.0"
-    bluebird "~3.4.1"
-    buffer-indexof-polyfill "~1.0.0"
-    duplexer2 "~0.1.4"
-    fstream "^1.0.12"
     listenercount "~1.0.1"
     readable-stream "~2.3.6"
     setimmediate "~1.0.4"
