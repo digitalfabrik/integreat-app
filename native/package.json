@@ -57,7 +57,6 @@
     "hashids": "^2.2.8",
     "htmlparser2": "^6.0.0",
     "i18next": "^19.1.0",
-    "is-url": "^1.2.4",
     "lodash": "^4.17.19",
     "moment": "2.25.3",
     "normalize-strings": "^1.1.0",
