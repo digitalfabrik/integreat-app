@@ -164,4 +164,4 @@ class OfferDetail extends React.PureComponent<PropsType> {
   }
 }
 
-export default withTranslation('wohnen')(OfferDetail)
+export default withTranslation<PropsType>('wohnen')(OfferDetail)

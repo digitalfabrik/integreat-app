@@ -176,7 +176,7 @@ const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionT
   }, route.key, true)
 }
 
-export default withTranslation('error')(
+export default withTranslation<OwnPropsType>('error')(
   connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
     withPayloadProvider<ContainerPropsType, RefreshPropsType, PoisRouteType>(refresh, onRouteClose)(
       PoisContainer

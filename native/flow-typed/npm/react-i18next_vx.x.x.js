@@ -24,5 +24,5 @@ declare module 'react-i18next' {
   }
   declare export function withTranslation<Props: { ... }>(namespace: string | Array<string>): ((React$ComponentType<Props>) => React$ComponentType<$Diff<Props, {| t: TFunction |}>>)
   declare export class I18nextProvider extends React$Component<{i18n: i18nType}> {}
-  declare export class Translation extends React$Component<{||}> {}
+  declare export class Translation extends React$Component<{| children: any |}> {}
 }

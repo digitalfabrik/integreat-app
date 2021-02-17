@@ -78,6 +78,6 @@ const SprungbrettOfferContainer = ({ route, navigation, theme, t }: SprungbrettP
     </LayoutedScrollView>
 }
 
-export default withTranslation('sprungbrett')(
-  withTheme(SprungbrettOfferContainer)
+export default withTranslation<$Diff<SprungbrettPropsType, {| theme: ThemeType |}>>('sprungbrett')(
+  withTheme<SprungbrettPropsType>(SprungbrettOfferContainer)
 )
