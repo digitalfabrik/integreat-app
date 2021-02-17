@@ -30,6 +30,7 @@ export type FeatureFlagsType = {|
 // Available on all platforms
 export type CommonBuildConfigType = {|
   appName: string,
+  appDescription: string,
   appIcon: string,
   cmsUrl: string,
   // Secondary api url to use, selectable by clicking ten times on the location marker (works only on native).
@@ -115,5 +116,6 @@ export type iOSBuildConfigType = {|
   bundleIdentifier: string, // iOS application identifier.
   provisioningProfileSpecifier: string, // Provisioning profile to sign the app.
   appleId: string, // Id of the app in the Apple App Store
+  itunesAppName: string,
   googleServices: ?iOSGoogleServicesConfigType
 |}
