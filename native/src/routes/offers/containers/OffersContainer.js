@@ -44,6 +44,8 @@ const OffersContainer = ({ theme, t, navigation, route }: OffersPropsType) => {
     await loadFromEndpoint<Array<OfferModel>>(request, setOffers, setError, setLoading)
   }, [cityCode, languageCode, setOffers, setError, setLoading])
 
+  const tryAgain = useCallback(() => { loadOffers().catch(e => setError(e)) }, [loadOffers])
+
   useEffect(() => {
     loadOffers().catch(e => setError(e))
   }, [])
@@ -88,7 +90,7 @@ const OffersContainer = ({ theme, t, navigation, route }: OffersPropsType) => {
 
   if (error) {
     return <LayoutedScrollView refreshControl={<RefreshControl onRefresh={loadOffers} refreshing={loading} />}>
-        <FailureContainer errorMessage={error.message} code={fromError(error)} tryAgain={loadOffers} />
+        <FailureContainer code={fromError(error)} tryAgain={tryAgain} />
       </LayoutedScrollView>
   }
 
@@ -98,6 +100,6 @@ const OffersContainer = ({ theme, t, navigation, route }: OffersPropsType) => {
     </LayoutedScrollView>
 }
 
-export default withTranslation('offers')(
-  withTheme(OffersContainer)
+export default withTranslation<$Diff<OffersPropsType, {| theme: ThemeType |}>>('offers')(
+  withTheme<OffersPropsType>(OffersContainer)
 )
