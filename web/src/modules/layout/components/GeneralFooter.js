@@ -1,8 +1,7 @@
 // @flow
 
 import React from 'react'
-import type { TFunction } from 'react-i18next'
-import { withTranslation } from 'react-i18next'
+import { withTranslation, TFunction } from 'react-i18next'
 
 import Footer from './Footer'
 import MainDisclaimerRouteConfig from '../../app/route-configs/MainDisclaimerRouteConfig'
@@ -12,7 +11,7 @@ import buildConfig from '../../app/constants/buildConfig'
 
 type PropsType = {|
   language: string,
-  t: TFunction
+  t: typeof TFunction
 |}
 
 class GeneralFooter extends React.PureComponent<PropsType> {

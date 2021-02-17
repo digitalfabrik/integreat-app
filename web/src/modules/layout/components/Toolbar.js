@@ -3,8 +3,7 @@
 import type { Node } from 'react'
 import React from 'react'
 import styled from 'styled-components'
-import { withTranslation } from 'react-i18next'
-import type { TFunction } from 'react-i18next'
+import { withTranslation, TFunction } from 'react-i18next'
 import dimensions from '../../theme/constants/dimensions'
 
 const ToolbarContainer = styled.div`
@@ -43,7 +42,7 @@ type PropsType = {|
   className?: string,
   children?: Node,
   viewportSmall: boolean,
-  t: TFunction
+  t: typeof TFunction
 |}
 
 class Toolbar extends React.PureComponent<PropsType> {

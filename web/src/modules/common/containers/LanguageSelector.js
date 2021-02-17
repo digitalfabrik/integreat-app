@@ -5,8 +5,7 @@ import SelectorItemModel from '../models/SelectorItemModel'
 import Selector from '../components/Selector'
 import HeaderLanguageSelectorItem from '../../layout/components/HeaderLanguageSelectorItem'
 import type { LocationState } from 'redux-first-router'
-import type { TFunction } from 'react-i18next'
-import { withTranslation } from 'react-i18next'
+import { withTranslation, TFunction } from 'react-i18next'
 import type { LanguageChangePathsType } from '../../app/containers/Switcher'
 import type { ThemeType } from '../../theme/constants/theme'
 
@@ -15,7 +14,7 @@ type PropsType = {|
   theme: ThemeType,
   isHeaderActionItem: boolean,
   languageChangePaths: ?LanguageChangePathsType,
-  t: TFunction
+  t: typeof TFunction
 |}
 
 /**
