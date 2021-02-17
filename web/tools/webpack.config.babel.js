@@ -17,7 +17,7 @@ const MomentLocalesPlugin = require('moment-locales-webpack-plugin')
 const babelConfig = require('../babel.config.js')
 const fs = require('fs')
 const translations = require('translations')
-const { WEB, ANDROID, COMMON } = require('build-configs')
+const { WEB, ANDROID, COMMON, IOS } = require('build-configs')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 const currentYear = new Date().getFullYear()
@@ -39,35 +39,44 @@ const generateManifest = (content: string, buildConfigName: string): string => {
   const manifest = JSON.parse(content.toString())
 
   const androidBuildConfig = loadBuildConfig(buildConfigName, ANDROID)
+  const iOSBuildConfig = loadBuildConfig(buildConfigName, IOS)
   const commonBuildConfig = loadBuildConfig(buildConfigName, COMMON)
 
   manifest.version = readVersionName()
   manifest.homepage_url = commonBuildConfig.aboutUrls.default
   manifest.theme_color = commonBuildConfig.lightTheme.colors.themeColor
-  manifest.related_applications = [{
-    platform: 'play',
-    id: androidBuildConfig.applicationId,
-    url: `https://play.google.com/store/apps/details?id=${androidBuildConfig.applicationId}`
-  }]
+
+  let iosAppName
 
   switch (buildConfigName) {
     case 'integreat':
     case 'integreat-test-cms':
       manifest.name = 'Integreat'
       manifest.description = 'Daily Guide for Refugees. Digital. Multilingual. Free.'
+      iosAppName = 'integreat'
       break
     case 'aschaffenburg':
       manifest.name = 'Aschaffenburg App'
       manifest.description = 'App of the city Aschaffenburg to inform about social topics'
+      iosAppName = 'aschaffenburg-app'
       break
     case 'malte':
       manifest.name = 'Malte'
       manifest.description = 'Guide of the Malteser Werke for Refugees. Digital. Multilingual. Free.'
+      iosAppName = 'malte'
       break
     default:
       throw Error('Manifest could not be created!')
   }
 
+  manifest.related_applications = [{
+    platform: 'play',
+    id: androidBuildConfig.applicationId,
+    url: `https://play.google.com/store/apps/details?id=${androidBuildConfig.applicationId}`
+  }, {
+    platform: 'itunes',
+    url: `https://apps.apple.com/de/app/${iosAppName}/${iOSBuildConfig.appleId}`
+  }]
   manifest.short_name = manifest.name
   return JSON.stringify(manifest, null, 2)
 }
