@@ -71,9 +71,14 @@ exports[`FeedbackBox should match snapshot 1`] = `
     onCommentChanged={[Function]}
     required={true}
   />
+  <FeedbackBox__Description>
+    contactMailAdress
+  </FeedbackBox__Description>
+  <FeedbackBox__TextInput />
   <TextButton
     disabled={true}
     onClick={[Function]}
+    sfd={true}
     text="send"
   />
 </FeedbackBox__StyledFeedbackBox>

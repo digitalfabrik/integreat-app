@@ -41,7 +41,7 @@ type PropsType = {|
   comment: string,
   onCommentChanged: SyntheticInputEvent<HTMLTextAreaElement> => void,
   onFeedbackOptionChanged: FeedbackVariant => void,
-  onMailChanged: SyntheticInputEvent<HTMLInputElement> => void,
+  onContactMailChanged: SyntheticInputEvent<HTMLInputElement> => void,
   onSubmit: () => void,
   t: TFunction,
   closeFeedbackModal: () => void,
@@ -87,7 +87,7 @@ export class FeedbackBox extends React.PureComponent<PropsType> {
           onChange={onContactMailChanged}
         />
         {sendingStatus === 'ERROR' && <Description>{t('failedSendingFeedback')}</Description>}
-        <TextButton
+         <TextButton sfd
           disabled={!isPositiveRatingSelected && !comment}
           onClick={onSubmit}
           text={t('send')} />
