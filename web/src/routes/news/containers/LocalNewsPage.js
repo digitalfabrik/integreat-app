@@ -3,8 +3,7 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { CityModel, LocalNewsModel, NotFoundError } from 'api-client'
-import type { TFunction } from 'react-i18next'
-import { withTranslation } from 'react-i18next'
+import { withTranslation, TFunction } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
 import NewsElement from '../components/NewsElement'
 import LocalNewsList from '../components/LocalNewsList'
@@ -22,7 +21,7 @@ type PropsType = {|
   cities: Array<CityModel>,
   areCitiesFetching: boolean,
   language: string,
-  t: TFunction,
+  t: typeof TFunction,
   path: string
 |}
 

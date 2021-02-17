@@ -15,6 +15,8 @@ const navigateToDisclaimer = <T: RoutesType>({ dispatch, navigation, cityCode, l
   navigation.navigate({
     name: DISCLAIMER_ROUTE,
     params: {
+      cityCode,
+      languageCode,
       shareUrl: cityContentUrl({ cityCode, languageCode, route: DISCLAIMER_ROUTE })
     }
   })

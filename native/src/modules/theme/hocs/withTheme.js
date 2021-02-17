@@ -5,7 +5,7 @@ import type { ThemeType } from '../constants'
 import { lightTheme } from '../constants'
 import wrapDisplayName from '../../common/hocs/wrapDisplayName'
 
-function withTheme<Props: { theme: ThemeType }> (
+function withTheme<Props: { theme: ThemeType, ... }> (
   Component: React.AbstractComponent<Props>
 ): React.AbstractComponent<$Diff<Props, {| theme: ThemeType |}>> {
   return class extends React.Component<$Diff<Props, {| theme: ThemeType |}>> {

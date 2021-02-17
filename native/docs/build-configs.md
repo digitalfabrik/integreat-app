@@ -29,7 +29,7 @@ yarn android:<build config name>
 
 For the standard development build config `integreat-test-cms` there is also the shortcut `yarn android`.
 
-To build `integreat` and `malte` in **production** mode, use the commands `yarn android:integreat:production` and `yarn android:malte:production`.
+To build `integreat`, `malte` and `aschaffenburg` in **production** mode, use the commands `yarn android:integreat:production`, `yarn android:malte:production`, `yarn android:aschaffenburg:production`.
 
 ### XCode (iOS Build)
 
