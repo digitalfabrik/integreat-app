@@ -23,7 +23,7 @@ const getTileModels = (categories: Array<CategoryModel>): Array<TileModel> => {
 type PropsType = {|
   categories: CategoriesMapModel,
   categoryModel: CategoryModel,
-  t: TFunction,
+  t: typeof TFunction,
   formatter: DateFormatter
 |}
 
@@ -58,10 +58,9 @@ const CategoriesContent = ({
       model,
       subCategories: categories.getChildren(model)
     }))}
-    title={categoryModel.title}
-    content={categoryModel.content}
-    thumbnail={categoryModel.thumbnail}
-    onInternalLinkClick={push} />
+    category={categoryModel}
+    onInternalLinkClick={push}
+    formatter={formatter} />
 }
 
 export default CategoriesContent

@@ -22,12 +22,12 @@ If no branch is specified, main is used as default. Per default the delivery is 
 ## Workflows
 
 Several workflows exist for different purposes:
-* **commit**: Run for all commits of PRs to ensure good code quality and working code. Delivers Integreat and Malte webapps on the main branch.
-* **scheduled_native_development_delivery**: Delivers Integreat and Malte native builds to development (Testflight and Beta channel)
+* **commit**: Run for all commits of PRs to ensure good code quality and working code. Delivers Integreat, Malte and Aschaffenburg webapps on the main branch.
+* **scheduled_native_development_delivery**: Delivers Integreat, Malte and Aschaffenburg native builds to development (Testflight and Beta channel)
 twice a month.
-* **triggered_native_development_delivery**: [Manually triggerable](#triggering-a-delivery-using-the-ci) workflow which delivers Integreat and Malte builds for native to development.
-* **scheduled_production_delivery**: Delivers Integreat and Malte native builds to production twice a month.
-* **triggered_production_delivery**: [Manually triggerable](#triggering-a-delivery-using-the-ci) workflow which delivers Integreat and Malte builds for native and web to production.
+* **triggered_native_development_delivery**: [Manually triggerable](#triggering-a-delivery-using-the-ci) workflow which delivers Integreat, Malte and Aschaffenburg builds for native to development.
+* **scheduled_production_delivery**: Delivers Integreat, Malte and Aschaffenburg native builds to production twice a month.
+* **triggered_production_delivery**: [Manually triggerable](#triggering-a-delivery-using-the-ci) workflow which delivers Integreat, Malte and Aschaffenburg builds for native and web to production.
 
 See the table below for a more detailed overview:
 
@@ -58,10 +58,6 @@ Steps executed if *Version bump* is checked :heavy_check_mark::
 A private key in PEM format grants access to the bot. If the `deliverino` is installed for a specific repository then it has access to create commits there.
 
 **`deliverino` has the role of an Administrator. This is important when setting up [Protected branches](https://help.github.com/en/github/administering-a-repository/about-branch-restrictions) in GitHub. You have to disable "Include Administrators", else `deliverino` is not allowed to directly commit to the protected branch.**
-
-### deliverino (Slack)
-
-The Slack bot `deliverino` is responsible to notify Slack channels about releases. It posts a message for iOS and Android individually as soon as the delivery step has finished.
 
 ### Google Play Store
 
@@ -95,8 +91,7 @@ You can read more about managing metadata for iOS [here](https://docs.fastlane.t
 
 #### Authenticating
 
-Authentication happens by setting the `FASTLANE_USER` and `FASTLANE_PASSWORD` environment variables as documented [above](#ios-variables). For more information visit the documentation [here](https://docs.fastlane.tools/best-practices/continuous-integration/#environment-variables-to-set) and read about [2-step-verification here](https://github.com/fastlane/fastlane/blob/ee904cd332ab38ca7c1979f0ab58f9389a51fb2d/spaceship/README.md#2-step-verification).
-
+Authentication happens by setting the `APP_STORE_CONNECT_API_KEY` environment variable as documented [above](#ios-variables). For more information visit the documentation [here](https://docs.fastlane.tools/app-store-connect-api/).
 
 ### BrowserStack
 
@@ -145,7 +140,7 @@ More information on the version naming schema used can be found [here](docs/conv
 |BROWSERSTACK_USERNAME|Username for BrowserStack|Password Manager|123546|[Appium REST API](https://www.browserstack.com/app-automate/rest-api)|
 |DELIVERINO_PRIVATE_KEY|Base64 encoded PEM private key|Password Manager|[Deliverino Settings](https://github.com/organizations/Integreat/settings/apps/deliverino)|[Deliverino](https://github.com/apps/deliverino)|
 |SENTRY_AUTH_TOKEN|Auth Token from Sentry for uploading sourcemaps and artifacts|Generate this [in your Sentry account](https://sentry.integreat-app.de/settings/account/api/auth-tokens/) with the scope `project:releases`|deadbeef|[Sentry Authentication](https://docs.sentry.io/cli/configuration/)|
-|SLACK_URL|URL which can be used to send notifications to our Slack. Keep this private!|[Deliverino Settings](https://api.slack.com/apps/A0117F1AAHZ/incoming-webhooks?)|https://hooks.slack.com/...| [Slack API](https://api.slack.com/messaging/webhooks)|
+|MM_WEBHOOK|URL which can be used to send notifications to our mattermost. Keep this private!|Mattermost server settings|https://chat.tuerantuer.org/hooks/...| [Mattermost Documentation](https://docs.mattermost.com/developer/webhooks-incoming.html)|
 
 ### Android Variables
 
@@ -165,8 +160,9 @@ More information on the version naming schema used can be found [here](docs/conv
 
 |Variable|Description|Where do I get it from?|Example|Reference|
 |---|---|---|---|---|
-|FASTLANE_USER|User for an Apple Account without 2FA for delivery|Password Manager|lutz|[Credentials](https://github.com/fastlane/fastlane/blob/b121a96e3e2e0bb83392c130cb3a088c773dbbaf/spaceship/docs/Authentication.md#credentials) [Avoid 2FA](https://github.com/fastlane/fastlane/blob/b121a96e3e2e0bb83392c130cb3a088c773dbbaf/spaceship/docs/Authentication.md#avoid-2fa-via-additional-account)|
-|FASTLANE_PASSWORD|Password for the Apple Account for delivery|Password Manager|123456|[Credentials](https://github.com/fastlane/fastlane/blob/b121a96e3e2e0bb83392c130cb3a088c773dbbaf/spaceship/docs/Authentication.md#credentials) [Avoid 2FA](https://github.com/fastlane/fastlane/blob/b121a96e3e2e0bb83392c130cb3a088c773dbbaf/spaceship/docs/Authentication.md#avoid-2fa-via-additional-account)|
+|APP_STORE_CONNECT_API_KEY_ID|Key ID for App Store Connect API|Password Manager|D83848D23|[app_store_connect_api_key](https://docs.fastlane.tools/actions/app_store_connect_api_key/)|
+|APP_STORE_CONNECT_API_ISSUER_ID|Issuer ID for App Store Connect API|Password Manager|227b0bbf-ada8-458c-9d62-3d8022b7d07f|[app_store_connect_api_key](https://docs.fastlane.tools/actions/app_store_connect_api_key/)|
+|APP_STORE_CONNECT_API_KEY|Key for App Store Connect API|Password Manager|-----BEGIN EC PRIVATE KEY-----\nfewfawefawfe\n-----END EC PRIVATE KEY-----|[app_store_connect_api_key](https://docs.fastlane.tools/actions/app_store_connect_api_key/)|
 |MATCH_PASSWORD|Password for accessing the certificates for the iOS app using [Fastlane Match](https://docs.fastlane.tools/actions/match/)|Password Manager|123456|[Using a Git Repo](https://docs.fastlane.tools/actions/match/#git-repo-encryption-password)|
 
 ## Skipping specific jobs

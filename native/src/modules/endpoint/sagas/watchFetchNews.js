@@ -14,7 +14,7 @@ import loadLocalNews from './loadLocalNews'
 import loadTunews from './loadTunews'
 import loadTunewsLanguages from './loadTunewsLanguages'
 import loadTunewsElement from './loadTunewsElement'
-import { LOCAL_NEWS } from '../constants'
+import { LOCAL_NEWS_TYPE } from 'api-client/src/routes'
 
 const TUNEWS_FETCH_COUNT_LIMIT = 20
 const FIRST_PAGE_INDEX = 1
@@ -25,7 +25,7 @@ export function * fetchNews (
 ): Saga<void> {
   const { city, language, newsId, key, type } = action.params
   try {
-    const isLocalNews = type === LOCAL_NEWS
+    const isLocalNews = type === LOCAL_NEWS_TYPE
 
     const languages = yield call(dataContainer.getLanguages, city)
     const availableNewsLanguages = isLocalNews ? languages : yield call(loadTunewsLanguages, city)
@@ -108,7 +108,7 @@ export function * fetchMoreNews (
     previouslyFetchedNews
   } = action.params
 
-  if (type === LOCAL_NEWS) {
+  if (type === LOCAL_NEWS_TYPE) {
     throw new Error('Cannot fetch more local news!')
   }
 

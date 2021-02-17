@@ -21,13 +21,13 @@ import type { TFunction } from 'react-i18next'
 import type { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
 import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvider'
 import type { StateType } from '../../../modules/app/StateType'
-import createNavigateToFeedbackModal from '../../../modules/app/createNavigateToFeedbackModal'
+import createNavigateToFeedbackModal from '../../../modules/navigation/createNavigateToFeedbackModal'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import type {
-  FeedbackModalRouteType,
   NavigationPropType,
   RoutePropType
 } from '../../../modules/app/constants/NavigationTypes'
+import type { FeedbackModalRouteType } from 'api-client/src/routes'
 
 type FeedbackType = 'Category' | 'Event' | 'Pois' | 'Offers' | 'Disclaimer'
 

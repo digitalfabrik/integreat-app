@@ -16,8 +16,7 @@ import {
   CONTENT_FEEDBACK_CATEGORY,
   TECHNICAL_FEEDBACK_CATEGORY
 } from 'api-client'
-import type { TFunction } from 'react-i18next'
-import { withTranslation } from 'react-i18next'
+import { withTranslation, TFunction } from 'react-i18next'
 import type { LocationState } from 'redux-first-router'
 import FeedbackVariant from '../FeedbackVariant'
 import FeedbackBox from './FeedbackBox'
@@ -47,7 +46,7 @@ type PropsType = {|
   closeFeedbackModal: () => void,
   sendingStatus: SendingStatusType,
   onSubmit: (sendingStatus: SendingStatusType) => void,
-  t: TFunction,
+  t: typeof TFunction,
   theme: ThemeType
 |}
 

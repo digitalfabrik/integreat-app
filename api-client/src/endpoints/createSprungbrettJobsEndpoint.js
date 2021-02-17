@@ -14,7 +14,7 @@ export default (baseUrl: string): Endpoint<*, Array<SprungbrettJobModel>> =>
     .withParamsToUrlMapper(() => {
       return baseUrl
     })
-    .withMapper((json: { results: Array<JsonSprungbrettJobType> }): Array<SprungbrettJobModel> => json.results
+    .withMapper((json: {| results: Array<JsonSprungbrettJobType> |}): Array<SprungbrettJobModel> => json.results
       .map((job, index) => new SprungbrettJobModel({
         id: index,
         title: job.title,

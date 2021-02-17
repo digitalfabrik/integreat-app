@@ -20,7 +20,7 @@ type PropsType = {|
   redirect: ReceivedAction => void,
   cities: Array<CityModel>,
   param?: string,
-  i18n: i18n
+  i18n: typeof i18n
 |}
 
 /**
