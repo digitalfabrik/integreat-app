@@ -54,6 +54,8 @@ const SprungbrettOfferContainer = ({ route, navigation, theme, t }: SprungbrettP
     await loadFromEndpoint<Array<SprungbrettJobModel>>(request, setJobs, setError, setLoading)
   }, [apiUrl, setJobs, setError, setLoading])
 
+  const tryAgain = useCallback(() => { loadJobs().catch(e => setError(e)) }, [loadJobs])
+
   useEffect(() => {
     loadJobs().catch(e => setError(e))
   }, [])
@@ -61,7 +63,7 @@ const SprungbrettOfferContainer = ({ route, navigation, theme, t }: SprungbrettP
   if (error) {
     return (
         <LayoutedScrollView refreshControl={<RefreshControl onRefresh={loadJobs} refreshing={loading} />}>
-          <FailureContainer errorMessage={error.message} code={fromError(error)} tryAgain={loadJobs} />
+          <FailureContainer code={fromError(error)} tryAgain={tryAgain} />
         </LayoutedScrollView>
     )
   }

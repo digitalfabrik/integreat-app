@@ -3,11 +3,7 @@
 import * as React from 'react'
 import { View } from 'react-native'
 import type { TFunction } from 'react-i18next'
-import {
-  CityModel,
-  PoiModel,
-  NotFoundError
-} from 'api-client'
+import { PoiModel, NotFoundError } from 'api-client'
 import Page from '../../../modules/common/components/Page'
 import PageDetail from '../../../modules/common/components/PageDetail'
 import List from '../../../modules/common/components/List'
@@ -17,7 +13,7 @@ import type { ThemeType } from 'build-configs/ThemeType'
 import type { LanguageResourceCacheStateType } from '../../../modules/app/StateType'
 import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
-import ErrorCodes from '../../../modules/error/ErrorCodes'
+import ErrorCodes, { fromError } from '../../../modules/error/ErrorCodes'
 import PoiListItem from './PoiListItem'
 import type { FeedbackInformationType } from '../../feedback/containers/FeedbackModalContainer'
 import { POIS_ROUTE } from 'api-client/src/routes'
@@ -26,7 +22,6 @@ import type { RouteInformationType } from 'api-client/src/routes/RouteInformatio
 export type PropsType = {|
   path: ?string,
   pois: Array<PoiModel>,
-  cities: Array<CityModel>,
   cityCode: string,
   language: string,
   resourceCache: LanguageResourceCacheStateType,
@@ -106,7 +101,7 @@ class Pois extends React.Component<PropsType> {
       }
 
       const error = new NotFoundError({ type: 'poi', id: path, city: cityCode, language })
-      return <Failure errorMessage={error.message} code={ErrorCodes.PageNotFound} t={t} theme={theme} />
+      return <Failure code={fromError(error)} t={t} theme={theme} />
     }
 
     return <SpaceBetween>
@@ -117,7 +112,7 @@ class Pois extends React.Component<PropsType> {
               renderItem={this.renderPoiListItem(cityCode, language)}
               theme={theme} />
       </View>
-      <SiteHelpfulBox navigateToFeedback={this.navigateToFeedbackForPois} theme={theme} t={t} />
+      <SiteHelpfulBox navigateToFeedback={this.navigateToFeedbackForPois} theme={theme} />
     </SpaceBetween>
   }
 }
