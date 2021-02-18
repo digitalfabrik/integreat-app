@@ -3,7 +3,6 @@
 import React from 'react'
 import HeaderActionItemDropDown from '../HeaderActionItemDropDown'
 import { fireEvent, render, cleanup } from '@testing-library/react'
-import lightTheme from '../../../theme/constants/theme'
 
 describe('HeaderActionItemDropDown', () => {
   let wrapperComponent
@@ -11,14 +10,14 @@ describe('HeaderActionItemDropDown', () => {
   let outside
 
   beforeEach(() => {
-    const InnerComponent = (props: { closeDropDown: () => void }) => {
+    const InnerComponent = (props: {| closeDropDown: () => void |}) => {
       return <span onClick={props.closeDropDown}>Do you see me?</span>
     }
 
     wrapperComponent = render(
       <div>
         <span>Click me to trigger dropdown!</span>
-        <HeaderActionItemDropDown theme={lightTheme} iconSrc='/someImg' text='some text'>
+        <HeaderActionItemDropDown iconSrc='/someImg' text='some text'>
           {closeDropDown => <InnerComponent closeDropDown={closeDropDown} />}
         </HeaderActionItemDropDown>
       </div>

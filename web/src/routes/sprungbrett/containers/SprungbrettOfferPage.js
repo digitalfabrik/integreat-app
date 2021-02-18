@@ -7,10 +7,11 @@ import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import { withTranslation, type TFunction } from 'react-i18next'
 import List from '../../../modules/common/components/List'
 import Caption from '../../../modules/common/components/Caption'
-import styled from 'styled-components'
+import styled, { type StyledComponent } from 'styled-components'
 import CleanAnchor from '../../../modules/common/components/CleanAnchor'
+import type { ThemeType } from 'build-configs/ThemeType'
 
-const Image = styled.img`
+const Image: StyledComponent<{||}, ThemeType, *> = styled.img`
   display: block;
   margin: 0 auto;
 `

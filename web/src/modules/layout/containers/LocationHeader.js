@@ -63,7 +63,7 @@ export class LocationHeader extends React.Component<PropsType> {
     ]
   }
 
-  getNavigationItems (): Array<Element<typeof HeaderNavigationItem>> {
+  getNavigationItems (): Array<React$Node> {
     const { t, cityModel, location, events } = this.props
     const { eventsEnabled, poisEnabled, offersEnabled, tunewsEnabled, pushNotificationsEnabled } = cityModel
 
@@ -80,7 +80,7 @@ export class LocationHeader extends React.Component<PropsType> {
       return []
     }
 
-    const items: Array<Element<typeof HeaderNavigationItem>> = [
+    const items: Array<React$Node> = [
       <HeaderNavigationItem
         key='categories'
         href={new CategoriesRouteConfig().getRoutePath({ city, language })}

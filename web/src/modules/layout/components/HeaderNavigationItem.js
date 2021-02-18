@@ -2,12 +2,13 @@
 
 import React from 'react'
 import ReactTooltip from 'react-tooltip'
-import styled from 'styled-components'
+import styled, { type StyledComponent } from 'styled-components'
 import Link from 'redux-first-router-link'
 import helpers from '../../theme/constants/helpers'
 import dimensions from '../../theme/constants/dimensions'
+import type { ThemeType } from 'build-configs/ThemeType'
 
-const StyledLink = styled(Link)`
+const StyledLink: StyledComponent<{||}, ThemeType, *> = styled(Link)`
   ${helpers.removeLinkHighlighting};
   flex: 1 1 135px;
   color: ${props => props.theme.colors.textSecondaryColor};

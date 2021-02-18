@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { CityModel, OfferModel, POSITIVE_RATING } from 'api-client'
-import styled, { withTheme } from 'styled-components'
+import styled, { type StyledComponent } from 'styled-components'
 import type { LocationState } from 'redux-first-router'
 import FeedbackThanksMessage from './FeedbackThanksMessage'
 import FeedbackBoxContainer from './FeedbackBoxContainer'
@@ -11,7 +11,7 @@ import FocusTrap from 'focus-trap-react'
 import type { ThemeType } from 'build-configs/ThemeType'
 import dimensions from '../../theme/constants/dimensions'
 
-const Overlay = styled.div`
+const Overlay: StyledComponent<{||}, ThemeType, *> = styled.div`
   position: absolute;
   top: 0;
   right: 0;
@@ -21,7 +21,7 @@ const Overlay = styled.div`
   opacity: 0.9;
 `
 
-const ModalContainer = styled.div`
+const ModalContainer: StyledComponent<{||}, ThemeType, *> = styled.div`
   position: fixed;
   top: 0;
   right: 0;
@@ -33,7 +33,7 @@ const ModalContainer = styled.div`
   justify-content: center;
 `
 
-const FeedbackContainer = styled.div`
+const FeedbackContainer: StyledComponent<{||}, ThemeType, *> = styled.div`
   position: relative;
   display: flex;
   background-color: ${props => props.theme.colors.backgroundColor};
@@ -54,8 +54,7 @@ type PropsType = {|
   query?: string,
   feedbackRating: FeedbackRatingType,
   closeFeedbackModal: () => void,
-  location: LocationState,
-  theme: ThemeType
+  location: LocationState
 |}
 
 export type SendingStatusType = 'IDLE' | 'SUCCESS' | 'ERROR'
@@ -77,7 +76,7 @@ export class FeedbackModal extends React.Component<PropsType, StateType> {
   }
 
   renderContent (): React.Node {
-    const { theme, feedbackRating, offers, ...otherProps } = this.props
+    const { feedbackRating, offers, ...otherProps } = this.props
     const { sendingStatus } = this.state
 
     if (['IDLE', 'ERROR'].includes(sendingStatus)) {
@@ -85,7 +84,6 @@ export class FeedbackModal extends React.Component<PropsType, StateType> {
                                    offers={offers}
                                    onSubmit={this.handleSubmit}
                                    sendingStatus={sendingStatus}
-                                   theme={theme}
                                    {...otherProps} />
     } else {
       return <FeedbackThanksMessage closeFeedbackModal={this.props.closeFeedbackModal} />
@@ -93,11 +91,10 @@ export class FeedbackModal extends React.Component<PropsType, StateType> {
   }
 
   render () {
-    const { theme } = this.props
     return <FocusTrap>
-      <ModalContainer role='dialog' aria-modal theme={theme}>
+      <ModalContainer role='dialog' aria-modal>
         <Overlay onClick={this.handleOverlayClick} />
-        <FeedbackContainer theme={theme}>
+        <FeedbackContainer>
           {this.renderContent()}
         </FeedbackContainer>
       </ModalContainer>
@@ -105,4 +102,4 @@ export class FeedbackModal extends React.Component<PropsType, StateType> {
   }
 }
 
-export default withTheme(FeedbackModal)
+export default FeedbackModal
