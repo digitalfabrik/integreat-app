@@ -2,12 +2,14 @@
 
 import React from 'react'
 import { Provider } from 'react-redux'
-import { shallow } from 'enzyme'
+import { shallow, mount } from 'enzyme'
 import ConnectedCategoriesPage, { CategoriesPage } from '../CategoriesPage'
 import { CategoriesMapModel, CategoryModel } from 'api-client'
 import configureMockStore from 'redux-mock-store'
 import moment from 'moment'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
+import { ThemeProvider } from 'styled-components'
+import theme from '../../../../modules/theme/constants/theme'
 
 jest.mock('react-i18next')
 jest.mock('redux-first-router-link')
@@ -144,13 +146,15 @@ describe('CategoriesPage', () => {
       cities: { data: cities }
     })
 
-    const categoriesPage = shallow(
+    const categoriesPage = mount(
       <Provider store={store}>
-        <ConnectedCategoriesPage cities={cities} categories={categories} />
+        <ThemeProvider theme={theme}>
+          <ConnectedCategoriesPage cities={cities} categories={categories} />
+        </ThemeProvider>
       </Provider>
     )
 
-    expect(categoriesPage.dive().find(CategoriesPage).props()).toMatchObject({
+    expect(categoriesPage.find(CategoriesPage).props()).toMatchObject({
       city,
       language,
       path: pathname,

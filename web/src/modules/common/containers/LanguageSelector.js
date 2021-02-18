@@ -63,4 +63,4 @@ export class LanguageSelector extends React.PureComponent<PropsType> {
   }
 }
 
-export default withTheme(withTranslation<PropsType>('layout'))(LanguageSelector)
+export default withTheme(withTranslation<PropsType>('layout')(LanguageSelector))
