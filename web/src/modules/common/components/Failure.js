@@ -4,11 +4,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import { withTranslation, type TFunction } from 'react-i18next'
 import Link from 'redux-first-router-link'
-import styled from 'styled-components'
+import styled, { type StyledComponent } from 'styled-components'
 import { faFrown } from '../../../modules/app/constants/icons'
 import I18nRedirectRouteConfig from '../../app/route-configs/I18nRedirectRouteConfig'
+import type { ThemeType } from 'build-configs/ThemeType'
 
-const Centered = styled.div`
+const Centered: StyledComponent<{||}, ThemeType, *> = styled.div`
   & > * {
     display: block;
     margin-top: 50px;

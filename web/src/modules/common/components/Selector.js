@@ -1,15 +1,15 @@
 // @flow
 
 import * as React from 'react'
-
 import SelectorItemModel from '../models/SelectorItemModel'
 import ReactTooltip from 'react-tooltip'
-import styled, { css } from 'styled-components'
+import styled, { css, type StyledComponent } from 'styled-components'
 import Link from 'redux-first-router-link'
 import helpers from '../../theme/constants/helpers'
 import dimensions from '../../theme/constants/dimensions'
+import type { ThemeType } from 'build-configs/ThemeType'
 
-const Element = styled(Link)`
+const Element: StyledComponent<{||}, ThemeType, *> = styled(Link)`
   ${helpers.removeLinkHighlighting};
   height: ${dimensions.headerHeightLarge}px;
   min-width: 90px;
@@ -32,7 +32,7 @@ const Element = styled(Link)`
   }
 `
 
-const ActiveElement = styled(Element)`
+const ActiveElement: StyledComponent<{| selected: boolean |}, ThemeType, *> = styled(Element)`
   color: ${props => props.theme.colors.textColor};
   ${props => props.selected
     ? 'font-weight: 700;'
@@ -42,11 +42,12 @@ const ActiveElement = styled(Element)`
         }`}
 `
 
-const DisabledElement = styled(Element.withComponent('span'))`
+// $FlowFixMe withComponent exists
+const DisabledElement: StyledComponent<{||}, ThemeType, *> = styled(Element.withComponent('span'))`
   color: ${props => props.theme.colors.textDisabledColor};
 `
 
-const Wrapper = styled.div`
+const Wrapper: StyledComponent<{| vertical: boolean |}, ThemeType, *> = styled.div`
   display: flex;
   width: 100%;
   flex-flow: row wrap;

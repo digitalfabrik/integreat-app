@@ -2,34 +2,35 @@
 
 import React from 'react'
 import { WohnenOfferModel, WohnenFormData, type AccommodationType } from 'api-client'
-import styled from 'styled-components'
+import styled, { type StyledComponent } from 'styled-components'
 import { withTranslation, type TFunction } from 'react-i18next'
 import Caption from '../../../modules/common/components/Caption'
+import type { ThemeType } from 'build-configs/ThemeType'
 
 type PropsType = {|
   offer: WohnenOfferModel,
   t: TFunction
 |}
 
-const Header = styled.div`
+const Header: StyledComponent<{||}, ThemeType, *> = styled.div`
   padding: 15px 5px 5px;
   font-weight: 700;
 `
 
-const RowTitle = styled.div`
+const RowTitle: StyledComponent<{||}, ThemeType, *> = styled.div`
   flex: 50%;
 `
 
-const RowValue = styled.div`
+const RowValue: StyledComponent<{||}, ThemeType, *> = styled.div`
   flex: 50%;
 `
 
-const Row = styled.div`
+const Row: StyledComponent<{||}, ThemeType, *> = styled.div`
   display: flex;
   margin: 10px 0;
 `
 
-const ListElement = styled.div`
+const ListElement: StyledComponent<{||}, ThemeType, *> = styled.div`
   border-bottom: 2px solid ${props => props.theme.colors.themeColor};
   margin-bottom: 10px;
 `
