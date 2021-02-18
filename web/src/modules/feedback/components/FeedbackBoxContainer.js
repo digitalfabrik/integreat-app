@@ -144,7 +144,7 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
     if (offers && currentRoute === OFFERS_ROUTE) {
       return offers.map(offer =>
         new FeedbackVariant({
-          label: `${t('offer')} '${offer.title}'`,
+          label: t('contentOfOffer', { offer: offer.title }),
           feedbackType: OFFER_FEEDBACK_TYPE,
           feedbackCategory: CONTENT_FEEDBACK_CATEGORY,
           alias: offer.alias
