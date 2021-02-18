@@ -77,11 +77,12 @@ export class FeedbackModal extends React.Component<PropsType, StateType> {
   }
 
   renderContent (): React.Node {
-    const { theme, feedbackRating, ...otherProps } = this.props
+    const { theme, feedbackRating, offers, ...otherProps } = this.props
     const { sendingStatus } = this.state
 
     if (['IDLE', 'ERROR'].includes(sendingStatus)) {
       return <FeedbackBoxContainer isPositiveRatingSelected={feedbackRating === POSITIVE_RATING}
+                                   offers={offers}
                                    onSubmit={this.handleSubmit}
                                    sendingStatus={sendingStatus}
                                    theme={theme}
