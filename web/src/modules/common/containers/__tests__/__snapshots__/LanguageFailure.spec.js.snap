@@ -8,7 +8,7 @@ exports[`LanguageFailure should match snapshot 1`] = `
   <LanguageFailure__ChooseLanguage>
     notFound.language chooseALanguage
   </LanguageFailure__ChooseLanguage>
-  <Translate(LanguageSelector)
+  <WithTheme(Translate(LanguageSelector))
     isHeaderActionItem={false}
     languageChangePaths={
       Array [

@@ -26,6 +26,7 @@ exports[`Toolbar should render 1`] = `
     }
   }
   t={[Function]}
+  viewportSmall={true}
 >
   <p>
     test item

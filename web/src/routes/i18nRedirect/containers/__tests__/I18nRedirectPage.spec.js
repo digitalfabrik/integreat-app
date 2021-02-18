@@ -13,7 +13,6 @@ import CategoriesRouteConfig from '../../../../modules/app/route-configs/Categor
 import NotFoundRouteConfig from '../../../../modules/app/route-configs/NotFoundRouteConfig'
 import buildConfig from '../../../../modules/app/constants/buildConfig'
 
-jest.mock('react-i18next')
 jest.mock('redux-first-router', () => ({
   pathToAction: jest.fn(type => ({ type })),
   redirect: jest.fn(action => action)
@@ -21,6 +20,14 @@ jest.mock('redux-first-router', () => ({
 jest.mock('../../../../modules/app/constants/buildConfig', () => jest.fn(() => ({
   featureFlags: { fixedCity: null }
 })))
+jest.mock('react-i18next', () => {
+  return {
+    useTranslation: jest.fn(() => ({
+      t: key => key,
+      i18n: { language: 'ar' }
+    }))
+  }
+})
 
 describe('I18nRedirectPage', () => {
   beforeEach(() => {

@@ -12,7 +12,7 @@ Array [
     iconSrc="test-file-stub"
     text="changeLocation"
   />,
-  <Translate(LanguageSelector)
+  <WithTheme(Translate(LanguageSelector))
     isHeaderActionItem={true}
     languageChangePaths={
       Array [

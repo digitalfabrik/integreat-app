@@ -2,7 +2,6 @@
 
 import { mount, shallow } from 'enzyme'
 import React from 'react'
-
 import { OfferModel, WohnenFormData, WohnenOfferModel } from 'api-client'
 import ConnectedWohnenOfferPage, { WohnenOfferPage } from '../WohnenOfferPage'
 import moment from 'moment'
@@ -133,7 +132,6 @@ describe('WohnenOfferPage', () => {
       wohnenOfferHash: offerHash,
       wohnenOffers,
       offers,
-      dispatch: expect.any(Function),
       t: expect.any(Function)
     })
   })
