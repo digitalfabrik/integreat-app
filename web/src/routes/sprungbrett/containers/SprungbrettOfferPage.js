@@ -4,8 +4,7 @@ import * as React from 'react'
 import { OfferModel, SprungbrettJobModel } from 'api-client'
 import SprungbrettListItem from '../components/SprungbrettListItem'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
-import type { TFunction } from 'react-i18next'
-import { withTranslation } from 'react-i18next'
+import { withTranslation, TFunction } from 'react-i18next'
 import List from '../../../modules/common/components/List'
 import Caption from '../../../modules/common/components/Caption'
 import styled from 'styled-components'
@@ -19,7 +18,7 @@ const Image = styled.img`
 type PropsType = {|
   sprungbrettJobs: Array<SprungbrettJobModel>,
   offers: Array<OfferModel>,
-  t: TFunction
+  t: typeof TFunction
 |}
 
 export class SprungbrettOfferPage extends React.Component<PropsType> {

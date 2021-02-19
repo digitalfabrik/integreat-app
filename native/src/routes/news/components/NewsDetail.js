@@ -49,6 +49,7 @@ type PropsType = {|
 |}
 
 const NewsDetail = ({ theme, newsItem, language, navigateToLink }: PropsType) => {
+  const width = useWindowDimensions().width
   const localNewsContent = newsItem instanceof LocalNewsModel ? newsItem.message : ''
   const tuNewsContent = newsItem instanceof TunewsModel ? newsItem.content : ''
   const linkedContent = replaceLinks(localNewsContent || tuNewsContent)
@@ -74,7 +75,7 @@ const NewsDetail = ({ theme, newsItem, language, navigateToLink }: PropsType) =>
         <Container>
           <NewsHeadLine theme={theme}>{newsItem.title}</NewsHeadLine>
           <Html source={{ html: linkedContent }}
-                contentWidth={useWindowDimensions().width}
+                contentWidth={width}
                 onLinkPress={onLinkPress}
                 baseFontStyle={{
                   fontFamily: theme.fonts.decorativeFontRegular,

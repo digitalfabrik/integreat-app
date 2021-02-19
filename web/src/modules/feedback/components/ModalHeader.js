@@ -28,7 +28,7 @@ const CloseButton = styled.button`
 type PropsType = {|
   closeFeedbackModal: () => void,
   title: string,
-  t: TFunction
+  t: typeof TFunction
 |}
 
 export class ModalHeader extends React.PureComponent<PropsType> {

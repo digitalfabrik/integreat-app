@@ -2,8 +2,7 @@
 
 import * as React from 'react'
 
-import type { TFunction } from 'react-i18next'
-import { withTranslation } from 'react-i18next'
+import { withTranslation, TFunction } from 'react-i18next'
 import { createFeedbackEndpoint, SEARCH_FEEDBACK_TYPE } from 'api-client'
 import type { LocationState } from 'redux-first-router'
 import { Description, StyledFeedbackBox } from '../../../modules/feedback/components/FeedbackBox'
@@ -15,7 +14,7 @@ import buildConfig from '../../../modules/app/constants/buildConfig'
 type PropsType = {|
   query?: string,
   location: LocationState,
-  t: TFunction
+  t: typeof TFunction
 |}
 
 type StateType = {|

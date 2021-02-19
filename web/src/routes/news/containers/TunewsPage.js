@@ -22,7 +22,7 @@ type PropsType = {|
   city: string,
   cities: Array<CityModel>,
   path: string,
-  t: TFunction,
+  t: typeof TFunction,
   isFetching: boolean,
   hasMore: boolean,
   fetchTunews: () => void
