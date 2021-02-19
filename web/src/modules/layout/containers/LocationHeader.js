@@ -1,9 +1,7 @@
 // @flow
 
-import type { Element } from 'react'
 import * as React from 'react'
 import { withTranslation, type TFunction } from 'react-i18next'
-
 import LanguageSelector from '../../common/containers/LanguageSelector'
 import searchIcon from '../assets/magnifier.svg'
 import landingIcon from '../assets/location-icon.svg'

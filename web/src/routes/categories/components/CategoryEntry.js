@@ -85,7 +85,7 @@ type PropsType = {|
 /**
  * Displays a single CategoryEntry
  */
-class CategoryEntry extends React.PureComponent<PropsType> {
+export class CategoryEntry extends React.PureComponent<PropsType> {
   contentMatcher = new ContentMatcher()
 
   renderSubCategories (): Array<React.Node> {
