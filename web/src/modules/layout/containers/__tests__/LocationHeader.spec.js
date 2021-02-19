@@ -13,10 +13,15 @@ import { LOCAL_NEWS_ROUTE } from '../../../app/route-configs/LocalNewsRouteConfi
 import EventModelBuilder from 'api-client/src/testing/EventModelBuilder'
 import theme from '../../../theme/constants/theme'
 import { ThemeProvider } from 'styled-components'
+import { LOCAL_NEWS_DETAILS_ROUTE } from '../../../app/route-configs/LocalNewsDetailsRouteConfig'
+import { TUNEWS_ROUTE } from '../../../app/route-configs/TunewsRouteConfig'
+import { TUNEWS_DETAILS_ROUTE } from '../../../app/route-configs/TunewsDetailsRouteConfig'
+import { POIS_ROUTE } from '../../../app/route-configs/PoisRouteConfig'
 
 jest.mock('react-i18next')
-jest.mock('redux-first-router-link', () =>
-  ({ children, ...rest }: { children: React$Node, ... }) => <div {...rest}>.parent{children}</div>
+jest.mock('redux-first-router-link')
+jest.mock('../../components/HeaderNavigationItem', () =>
+  ({ text, active }: {| text: string, active: boolean |}) => <div>{`${text} ${active ? 'active' : 'inactive'}`}</div>
 )
 
 describe('LocationHeader', () => {
@@ -61,16 +66,17 @@ describe('LocationHeader', () => {
   const location = route => createLocation({ type: route, payload: { city, language } })
   const onStickyTopChanged = (value: number) => {}
 
-  const expectNavigationItem = (getByText: string => any, shouldExist: boolean, text: string) => {
+  type GetByTextType = (text: string, options?: {| exact: boolean |}) => boolean
+  const expectNavigationItem = (getByText: GetByTextType, shouldExist: boolean, text: string) => {
     if (shouldExist) {
-      expect(getByText(text)).toBeTruthy()
+      expect(getByText(text, { exact: false })).toBeTruthy()
     } else {
-      expect(() => getByText(text)).toThrow(text)
+      expect(() => getByText(text, { exact: false })).toThrow(text)
     }
   }
 
   const expectNavigationItems = (
-    getByText: string => any,
+    getByText: GetByTextType,
     categories: boolean,
     offers: boolean,
     events: boolean,
@@ -145,67 +151,174 @@ describe('LocationHeader', () => {
       expectNavigationItems(getByText, true, true, true, true, true)
     })
 
-    it('should highlight localInformation if route corresponds', () => {
+    it('should highlight local information if route corresponds', () => {
       const { getByText } = render(
         <ThemeProvider theme={theme}>
           <LocationHeader location={location(CATEGORIES_ROUTE)}
                           viewportSmall
-                          cityModel={cityModel(true, false, false, false, false)}
+                          cityModel={cityModel(true, true, true, true, true)}
                           events={events}
                           languageChangePaths={languageChangePaths}
                           onStickyTopChanged={onStickyTopChanged}
                           t={t} />
         </ThemeProvider>
       )
-      expectNavigationItems(getByText, true, true, true, true, true)
+      expect(getByText('localInformation active')).toBeTruthy()
+      expect(getByText('offers inactive')).toBeTruthy()
+      expect(getByText('news inactive')).toBeTruthy()
+      expect(getByText('events inactive')).toBeTruthy()
+      expect(getByText('pois inactive')).toBeTruthy()
     })
 
-    it('should highlight news if route corresponds', () => {
-      const component = shallow(<LocationHeader location={location(LOCAL_NEWS_ROUTE)}
-                                                viewportSmall
-                                                cityModel={cityModel(true, true, true, true, true)}
-                                                events={events}
-                                                languageChangePaths={languageChangePaths}
-                                                onStickyTopChanged={onStickyTopChanged}
-                                                t={t} />)
-      const navItem = component.instance().getNavigationItems().find(item => item.props.text === 'news')
-      expect(navItem?.props.active).toBe(true)
+    it('should highlight news if the local news route is selected', () => {
+      const { getByText } = render(
+        <ThemeProvider theme={theme}>
+          <LocationHeader location={location(LOCAL_NEWS_ROUTE)}
+                          viewportSmall
+                          cityModel={cityModel(true, true, true, true, true)}
+                          events={events}
+                          languageChangePaths={languageChangePaths}
+                          onStickyTopChanged={onStickyTopChanged}
+                          t={t} />
+        </ThemeProvider>
+      )
+      expect(getByText('localInformation inactive')).toBeTruthy()
+      expect(getByText('offers inactive')).toBeTruthy()
+      expect(getByText('news active')).toBeTruthy()
+      expect(getByText('events inactive')).toBeTruthy()
+      expect(getByText('pois inactive')).toBeTruthy()
+    })
+
+    it('should highlight news if the local news detail route is selected', () => {
+      const { getByText } = render(
+        <ThemeProvider theme={theme}>
+          <LocationHeader location={location(LOCAL_NEWS_DETAILS_ROUTE)}
+                          viewportSmall
+                          cityModel={cityModel(true, true, true, true, true)}
+                          events={events}
+                          languageChangePaths={languageChangePaths}
+                          onStickyTopChanged={onStickyTopChanged}
+                          t={t} />
+        </ThemeProvider>
+      )
+      expect(getByText('localInformation inactive')).toBeTruthy()
+      expect(getByText('offers inactive')).toBeTruthy()
+      expect(getByText('news active')).toBeTruthy()
+      expect(getByText('events inactive')).toBeTruthy()
+      expect(getByText('pois inactive')).toBeTruthy()
+    })
+    it('should highlight news if the tu news route is selected', () => {
+      const { getByText } = render(
+        <ThemeProvider theme={theme}>
+          <LocationHeader location={location(TUNEWS_ROUTE)}
+                          viewportSmall
+                          cityModel={cityModel(true, true, true, true, true)}
+                          events={events}
+                          languageChangePaths={languageChangePaths}
+                          onStickyTopChanged={onStickyTopChanged}
+                          t={t} />
+        </ThemeProvider>
+      )
+      expect(getByText('localInformation inactive')).toBeTruthy()
+      expect(getByText('offers inactive')).toBeTruthy()
+      expect(getByText('news active')).toBeTruthy()
+      expect(getByText('events inactive')).toBeTruthy()
+      expect(getByText('pois inactive')).toBeTruthy()
+    })
+
+    it('should highlight news if the tu news detail route is selected', () => {
+      const { getByText } = render(
+        <ThemeProvider theme={theme}>
+          <LocationHeader location={location(TUNEWS_DETAILS_ROUTE)}
+                          viewportSmall
+                          cityModel={cityModel(true, true, true, true, true)}
+                          events={events}
+                          languageChangePaths={languageChangePaths}
+                          onStickyTopChanged={onStickyTopChanged}
+                          t={t} />
+        </ThemeProvider>
+      )
+      expect(getByText('localInformation inactive')).toBeTruthy()
+      expect(getByText('offers inactive')).toBeTruthy()
+      expect(getByText('news active')).toBeTruthy()
+      expect(getByText('events inactive')).toBeTruthy()
+      expect(getByText('pois inactive')).toBeTruthy()
     })
 
     it('should highlight events if route corresponds', () => {
-      const component = shallow(<LocationHeader location={location(EVENTS_ROUTE)}
-                                                viewportSmall
-                                                cityModel={cityModel(true, true, true, true, true)}
-                                                events={events}
-                                                languageChangePaths={languageChangePaths}
-                                                onStickyTopChanged={onStickyTopChanged}
-                                                t={t} />)
-      const navItem = component.instance().getNavigationItems().find(item => item.props.text === 'events')
-      expect(navItem?.props.active).toBe(true)
+      const { getByText } = render(
+        <ThemeProvider theme={theme}>
+          <LocationHeader location={location(EVENTS_ROUTE)}
+                          viewportSmall
+                          cityModel={cityModel(true, true, true, true, true)}
+                          events={events}
+                          languageChangePaths={languageChangePaths}
+                          onStickyTopChanged={onStickyTopChanged}
+                          t={t} />
+        </ThemeProvider>
+      )
+      expect(getByText('localInformation inactive')).toBeTruthy()
+      expect(getByText('offers inactive')).toBeTruthy()
+      expect(getByText('news inactive')).toBeTruthy()
+      expect(getByText('events active')).toBeTruthy()
+      expect(getByText('pois inactive')).toBeTruthy()
     })
 
     it('should highlight offers if offers route is active', () => {
-      const component = shallow(<LocationHeader location={location(OFFERS_ROUTE)}
-                                                viewportSmall
-                                                cityModel={cityModel(true, true, true, true, true)}
-                                                events={events}
-                                                languageChangePaths={languageChangePaths}
-                                                onStickyTopChanged={onStickyTopChanged}
-                                                t={t} />)
-      const navItem = component.instance().getNavigationItems().find(item => item.props.text === 'offers')
-      expect(navItem?.props.active).toBe(true)
+      const { getByText } = render(
+        <ThemeProvider theme={theme}>
+          <LocationHeader location={location(OFFERS_ROUTE)}
+                          viewportSmall
+                          cityModel={cityModel(true, true, true, true, true)}
+                          events={events}
+                          languageChangePaths={languageChangePaths}
+                          onStickyTopChanged={onStickyTopChanged}
+                          t={t} />
+        </ThemeProvider>
+      )
+      expect(getByText('localInformation inactive')).toBeTruthy()
+      expect(getByText('offers active')).toBeTruthy()
+      expect(getByText('news inactive')).toBeTruthy()
+      expect(getByText('events inactive')).toBeTruthy()
+      expect(getByText('pois inactive')).toBeTruthy()
     })
 
     it('should highlight offers if sprungbrett route is selected', () => {
-      const component = shallow(<LocationHeader location={location(SPRUNGBRETT_ROUTE)}
-                                                viewportSmall
-                                                cityModel={cityModel(true, true, true, true, true)}
-                                                events={events}
-                                                languageChangePaths={languageChangePaths}
-                                                onStickyTopChanged={onStickyTopChanged}
-                                                t={t} />)
-      const navItem = component.instance().getNavigationItems().find(item => item.props.text === 'offers')
-      expect(navItem?.props.active).toBe(true)
+      const { getByText } = render(
+        <ThemeProvider theme={theme}>
+          <LocationHeader location={location(SPRUNGBRETT_ROUTE)}
+                          viewportSmall
+                          cityModel={cityModel(true, true, true, true, true)}
+                          events={events}
+                          languageChangePaths={languageChangePaths}
+                          onStickyTopChanged={onStickyTopChanged}
+                          t={t} />
+        </ThemeProvider>
+      )
+      expect(getByText('localInformation inactive')).toBeTruthy()
+      expect(getByText('offers active')).toBeTruthy()
+      expect(getByText('news inactive')).toBeTruthy()
+      expect(getByText('events inactive')).toBeTruthy()
+      expect(getByText('pois inactive')).toBeTruthy()
+    })
+
+    it('should highlight pois if pois route is selected', () => {
+      const { getByText } = render(
+        <ThemeProvider theme={theme}>
+          <LocationHeader location={location(POIS_ROUTE)}
+                          viewportSmall
+                          cityModel={cityModel(true, true, true, true, true)}
+                          events={events}
+                          languageChangePaths={languageChangePaths}
+                          onStickyTopChanged={onStickyTopChanged}
+                          t={t} />
+        </ThemeProvider>
+      )
+      expect(getByText('localInformation inactive')).toBeTruthy()
+      expect(getByText('offers inactive')).toBeTruthy()
+      expect(getByText('news inactive')).toBeTruthy()
+      expect(getByText('events inactive')).toBeTruthy()
+      expect(getByText('pois active')).toBeTruthy()
     })
   })
 })

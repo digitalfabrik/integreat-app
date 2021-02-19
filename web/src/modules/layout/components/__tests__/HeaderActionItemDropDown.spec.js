@@ -3,6 +3,8 @@
 import React from 'react'
 import HeaderActionItemDropDown from '../HeaderActionItemDropDown'
 import { fireEvent, render, cleanup } from '@testing-library/react'
+import theme from '../../../theme/constants/theme'
+import { ThemeProvider } from 'styled-components'
 
 describe('HeaderActionItemDropDown', () => {
   let wrapperComponent
@@ -15,12 +17,12 @@ describe('HeaderActionItemDropDown', () => {
     }
 
     wrapperComponent = render(
-      <div>
+      <ThemeProvider theme={theme}>
         <span>Click me to trigger dropdown!</span>
         <HeaderActionItemDropDown iconSrc='/someImg' text='some text'>
           {closeDropDown => <InnerComponent closeDropDown={closeDropDown} />}
         </HeaderActionItemDropDown>
-      </div>
+      </ThemeProvider>
     )
 
     inner = wrapperComponent.getByText('Do you see me?')

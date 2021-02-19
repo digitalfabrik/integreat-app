@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown } from '../../app/constants/icons'
 import type { ThemeType } from 'build-configs/ThemeType'
 import styled, { type StyledComponent, withTheme } from 'styled-components'
+import FeedbackVariant from '../../feedback/FeedbackVariant'
 
 const StyledWrapper: StyledComponent<{||}, ThemeType, *> = styled(Wrapper)`
   position: relative;
@@ -61,16 +62,14 @@ const StyledMenuItem: StyledComponent<{||}, ThemeType, *> = styled(MenuItem)`
   }
 `
 
-type DropdownItemType = { label: string, ... }
-
-type DropdownPropsType<T: DropdownItemType> = {|
-  items: Array<T>,
-  selectedItem: T,
-  onOptionChanged: (item: T) => void,
+type DropdownPropsType = {|
+  items: Array<FeedbackVariant>,
+  selectedItem: FeedbackVariant,
+  onOptionChanged: (item: FeedbackVariant) => void,
   theme: ThemeType
 |}
 
-class Dropdown<T: DropdownItemType> extends React.Component<DropdownPropsType<T>> {
+class Dropdown extends React.Component<DropdownPropsType> {
   render () {
     const { onOptionChanged, items, selectedItem, theme } = this.props
 
