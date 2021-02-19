@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { ScrollView, View, useWindowDimensions } from 'react-native'
-import { LocalNewsModel, TunewsModel } from 'api-client'
+import { LocalNewsModel, TunewsModel, replaceLinks } from 'api-client'
 import type { ThemeType } from 'build-configs/ThemeType'
 import { contentAlignment } from '../../../modules/i18n/contentDirection'
 import headerImage from '../assets/tu-news-header-details-icon.svg'
@@ -51,11 +51,7 @@ type PropsType = {|
 const NewsDetail = ({ theme, newsItem, language, navigateToLink }: PropsType) => {
   const localNewsContent = newsItem instanceof LocalNewsModel ? newsItem.message : ''
   const tuNewsContent = newsItem instanceof TunewsModel ? newsItem.content : ''
-  const content = localNewsContent || tuNewsContent
-
-  // https://stackoverflow.com/a/3809435
-  const regex = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=+$,\w]+@)?[A-Za-z0-9.-]+|(?:www\.|[-;:&=+$,\w]+@)[A-Za-z0-9.-]+)((?:\/[+~%/.\w\-_]*)?\??(?:[-+=&;%@.\w_]*)#?(?:[.!/\\\w]*))?)/g
-  const urlContent = content.replace(regex, (matched: string) => `<a href="${matched}">${matched}</a>`)
+  const linkedContent = replaceLinks(localNewsContent || tuNewsContent)
 
   const onLinkPress = useCallback((_, url: string) => {
     navigateToLink(url, language, url)
@@ -77,7 +73,7 @@ const NewsDetail = ({ theme, newsItem, language, navigateToLink }: PropsType) =>
         )}
         <Container>
           <NewsHeadLine theme={theme}>{newsItem.title}</NewsHeadLine>
-          <Html source={{ html: urlContent }}
+          <Html source={{ html: linkedContent }}
                 contentWidth={useWindowDimensions().width}
                 onLinkPress={onLinkPress}
                 baseFontStyle={{
