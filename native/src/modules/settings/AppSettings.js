@@ -27,9 +27,9 @@ export const defaultSettings: SettingsType = {
 }
 
 class AppSettings {
-  asyncStorage: AsyncStorage
+  asyncStorage: typeof AsyncStorage
 
-  constructor (asyncStorage: AsyncStorage = AsyncStorage) {
+  constructor (asyncStorage: typeof AsyncStorage = AsyncStorage) {
     this.asyncStorage = asyncStorage
   }
 
