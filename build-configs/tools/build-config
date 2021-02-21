@@ -1,17 +1,10 @@
 #!/usr/bin/env node
 
-// https://github.com/babel/babel/issues/8309#issuecomment-439161848
-// Modules in node_modules are ignored and not transpiled per default.
-// Explicitly not ignore the build-configs npm module here since it has to be compiled as monorepo package.
-require('@babel/register')({
-  ignore: [/node_modules\/(?!build-configs)/]
-})
-
-const { program } = require('commander')
+const program = require('commander')
 const fs = require('fs')
 const flat = require('flat')
 const decamelize = require('decamelize')
-const loadBuildConfig = require('build-configs').default
+const loadBuildConfig = require('../index').default
 const isString = require('lodash').isString
 
 const loadBuildConfigAsXCConfig = (buildConfigName, platform) => {
