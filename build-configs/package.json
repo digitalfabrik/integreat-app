@@ -14,7 +14,9 @@
     "@babel/preset-env": "7.12.10",
     "@babel/preset-flow": "7.12.1",
     "@babel/plugin-proposal-class-properties": "7.12.1",
-    "commander": "^4.0.1"
+    "commander": "^4.0.1",
+    "decamelize": "^4.0.0",
+    "flat": "^5.0.0"
   },
   "scripts": {
     "manage": "babel-node tools/build-config"

@@ -1,11 +1,8 @@
-#!/usr/bin/env node
-
 const program = require('commander')
 const fs = require('fs')
 const flat = require('flat')
 const decamelize = require('decamelize')
 const loadBuildConfig = require('../index').default
-const isString = require('lodash').isString
 
 const loadBuildConfigAsXCConfig = (buildConfigName, platform) => {
   const buildConfig = loadBuildConfig(buildConfigName, platform)
@@ -15,7 +12,7 @@ const loadBuildConfigAsXCConfig = (buildConfigName, platform) => {
   })
   const prefixed = Object.keys(xcconfigOptions).map(key => {
     const value = xcconfigOptions[key]
-    const escaped = isString(value) ? value.replace(/\n/g, '\\n') : value
+    const escaped = typeof value === 'string' ? value.replace(/\n/g, '\\n') : value
     return `BUILD_CONFIG_${key} = ${escaped}`
   })
   prefixed.push(`BUILD_CONFIG_NAME = ${buildConfigName}`)
