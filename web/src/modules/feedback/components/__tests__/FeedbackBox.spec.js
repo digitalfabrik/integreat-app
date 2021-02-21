@@ -17,6 +17,7 @@ describe('FeedbackBox', () => {
     })
   ]
   const onCommentChanged = (event: SyntheticInputEvent<HTMLTextAreaElement>) => {}
+  const onContactMailChanged = (event: SyntheticInputEvent<HTMLInputElement>) => {}
   const onFeedbackOptionChanged = (option: FeedbackVariant) => {}
   const onSubmit = () => {}
 
@@ -29,6 +30,7 @@ describe('FeedbackBox', () => {
         selectedFeedbackOption={feedbackOptions[0]}
         onCommentChanged={onCommentChanged}
         onFeedbackOptionChanged={onFeedbackOptionChanged}
+        onContactMailChanged={onContactMailChanged}
         onSubmit={onSubmit}
         sendingStatus='SUCCESS'
         t={t}
