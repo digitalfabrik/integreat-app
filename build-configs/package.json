@@ -19,6 +19,6 @@
     "flat": "^5.0.0"
   },
   "scripts": {
-    "manage": "babel-node tools/build-config"
+    "manage": "babel-node tools/manage.js"
   }
 }
