@@ -4,18 +4,26 @@ const flat = require('flat')
 const decamelize = require('decamelize')
 const loadBuildConfig = require('../index').default
 
-const loadBuildConfigAsXCConfig = (buildConfigName, platform) => {
+const loadBuildConfigAsKeyValue = (buildConfigName, platform, spaces = true, quotes = false) => {
   const buildConfig = loadBuildConfig(buildConfigName, platform)
   const xcconfigOptions = flat(buildConfig, {
     delimiter: '_',
     transformKey: key => decamelize(key).toUpperCase()
   })
+  const assignOperator = `${spaces ? ' ' : ''}=${spaces ? ' ' : ''}`
+  const quoteValue = value => {
+    if (quotes && value.includes('"')) {
+      throw Error('Values in build configs musn\'t contain double quotes!')
+    }
+    return `${quotes ? '"' : ''}${value}${quotes ? '"' : ''}`
+  }
+
   const prefixed = Object.keys(xcconfigOptions).map(key => {
     const value = xcconfigOptions[key]
     const escaped = typeof value === 'string' ? value.replace(/\n/g, '\\n') : value
-    return `BUILD_CONFIG_${key} = ${escaped}`
+    return `BUILD_CONFIG_${key}${assignOperator}${quoteValue(String(escaped))}`
   })
-  prefixed.push(`BUILD_CONFIG_NAME = ${buildConfigName}`)
+  prefixed.push(`BUILD_CONFIG_NAME${assignOperator}${quoteValue(buildConfigName)}`)
   return prefixed.join('\n')
 }
 
@@ -25,7 +33,7 @@ program
   .description('create and write a new .xcconfig from the iosBuildOptions of the specified build config')
   .action((buildConfigName, platform, cmdObj) => {
     try {
-      const xcconfig = loadBuildConfigAsXCConfig(buildConfigName, platform)
+      const xcconfig = loadBuildConfigAsKeyValue(buildConfigName, platform)
       fs.writeFileSync(`${cmdObj.directory}/buildConfig.tmp.xcconfig`, xcconfig)
     } catch (e) {
       console.error(e)
@@ -34,16 +42,11 @@ program
   })
 
 program
-  .command('to-xcconfig <build_config_name> <platform>')
-  .description('outputs the specified build config as XConfig')
+  .command('to-bash <build_config_name> <platform>')
+  .description('outputs the specified build config as key-value pairs which can be executed by bash')
   .action((buildConfigName, platform) => {
-    try {
-      const xcconfig = loadBuildConfigAsXCConfig(buildConfigName, platform)
-      console.log(xcconfig)
-    } catch (e) {
-      console.error(e)
-      process.exit(1)
-    }
+    const buildConfig = loadBuildConfigAsKeyValue(buildConfigName, platform, false, true)
+    console.log(buildConfig)
   })
 
 program

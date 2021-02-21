@@ -39,7 +39,7 @@ def determineBuildConfigName() {
 }
 
 def createYarnProcess(buildConfigName, platform) {
-    def command = "yarn --silent workspace build-configs manage to-json $buildConfigName $platform"
+    def command = "yarn workspace --silent build-configs --silent manage to-json $buildConfigName $platform"
     return execCommand(command)
 }
 
