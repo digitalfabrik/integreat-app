@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { ScrollView, View, useWindowDimensions } from 'react-native'
-import { LocalNewsModel, TunewsModel } from 'api-client'
+import { LocalNewsModel, TunewsModel, replaceLinks } from 'api-client'
 import type { ThemeType } from 'build-configs/ThemeType'
 import { contentAlignment } from '../../../modules/i18n/contentDirection'
 import headerImage from '../assets/tu-news-header-details-icon.svg'
@@ -10,6 +10,7 @@ import styled from 'styled-components/native'
 import type { StyledComponent } from 'styled-components'
 import Html from 'react-native-render-html'
 import TuNewsFooter from './TuNewsFooter'
+import { useCallback } from 'react'
 
 const Container: StyledComponent<{||}, {||}, *> = styled.View`
   align-items: center;
@@ -43,12 +44,20 @@ const NewsHeadLine: StyledComponent<{||}, ThemeType, *> = styled.Text`
 type PropsType = {|
   theme: ThemeType,
   language: string,
-  selectedNewsItem: TunewsModel | LocalNewsModel
+  newsItem: TunewsModel | LocalNewsModel,
+  navigateToLink: (url: string, language: string, shareUrl: string) => void
 |}
 
-const NewsDetail = ({ theme, selectedNewsItem, language }: PropsType) => {
+const NewsDetail = ({ theme, newsItem, language, navigateToLink }: PropsType) => {
   const width = useWindowDimensions().width
-  const content = selectedNewsItem.content || selectedNewsItem.message || ''
+  const localNewsContent = newsItem instanceof LocalNewsModel ? newsItem.message : ''
+  const tuNewsContent = newsItem instanceof TunewsModel ? newsItem.content : ''
+  const linkedContent = replaceLinks(localNewsContent || tuNewsContent)
+
+  const onLinkPress = useCallback((_, url: string) => {
+    navigateToLink(url, language, url)
+  }, [navigateToLink, language])
+
   return (
     <View style={{ flex: 1 }}>
       <ScrollView
@@ -58,15 +67,16 @@ const NewsDetail = ({ theme, selectedNewsItem, language }: PropsType) => {
           marginBottom: 10,
           paddingHorizontal: '5%'
         }}>
-        {selectedNewsItem instanceof TunewsModel && (
+        {newsItem instanceof TunewsModel && (
           <HeaderImageWrapper>
             <HeaderImage source={headerImage} />
           </HeaderImageWrapper>
         )}
         <Container>
-          <NewsHeadLine theme={theme}>{selectedNewsItem.title}</NewsHeadLine>
-          <Html source={{ html: content }}
+          <NewsHeadLine theme={theme}>{newsItem.title}</NewsHeadLine>
+          <Html source={{ html: linkedContent }}
                 contentWidth={width}
+                onLinkPress={onLinkPress}
                 baseFontStyle={{
                   fontFamily: theme.fonts.decorativeFontRegular,
                   fontSize: 16,
@@ -77,10 +87,10 @@ const NewsDetail = ({ theme, selectedNewsItem, language }: PropsType) => {
                 }}
                 defaultTextProps={{ selectable: true, allowFontStyling: true }} />
         </Container>
-        {selectedNewsItem instanceof TunewsModel && <TuNewsFooter language={language}
-                                                                  eNewsNo={selectedNewsItem.eNewsNo}
-                                                                  date={selectedNewsItem.date}
-                                                                  theme={theme} />}
+        {newsItem instanceof TunewsModel && <TuNewsFooter language={language}
+                                                          eNewsNo={newsItem.eNewsNo}
+                                                          date={newsItem.date}
+                                                          theme={theme} />}
       </ScrollView>
     </View>
   )
