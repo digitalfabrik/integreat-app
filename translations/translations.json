@@ -1061,7 +1061,8 @@
       "close": "Schließen",
       "negativeRating": "Diese Seite ist nicht hilfreich",
       "positiveRating": "Diese Seite ist hilfreich",
-      "contactMailAdress": "E-Mail für eventuelle Rückfragen (optional)"
+      "contactMailAdress": "E-Mail für eventuelle Rückfragen",
+      "optionalInfo": "optional"
     },
     "ar": {
       "technicalTopics": "وظائف تقنية",
