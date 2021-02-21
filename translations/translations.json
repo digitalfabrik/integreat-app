@@ -1115,7 +1115,7 @@
       "thanksMessage": "Thank you for your feedback. This will help us to improve our content and the {{appName}} app. We would be happy to receive further feedback.",
       "close": "Close",
       "negativeRating": "This site is not useful",
-      "positiveRating": "This site is useful",
+      "positiveRating": "This site is useful"
     },
     "es": {
       "technicalTopics": "Funciones técnicas",
