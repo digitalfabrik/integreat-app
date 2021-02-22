@@ -4,9 +4,10 @@ import * as React from 'react'
 import configureMockStore from 'redux-mock-store'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
-import type { StateType } from '../../../../modules/app/StateType'
+import type { PathType, StateType } from '../../app/StateType'
 import Header from '../components/Header'
 import { url } from '../../navigation/url'
+import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
 
 const mockStore = configureMockStore()
 jest.mock('react-i18next')
@@ -45,8 +46,16 @@ describe('HeaderContainer', () => {
         },
         eventsRouteMapping: {},
         categoriesRouteMapping: {
-          status: 'ready',
-          path: 'abc'
+          routeKey1: {
+            status: 'ready',
+            path: 'abc',
+            depth: 1,
+            language: language._code,
+            city: city.name,
+            allAvailableLanguages: new Map(),
+            models: {},
+            children: {}
+          }
         },
         poisRouteMapping: {},
         newsRouteMapping: {},
@@ -55,7 +64,8 @@ describe('HeaderContainer', () => {
           status: 'ready',
           progress: 0,
           value: { file: {} }
-        }
+        },
+        switchingLanguage: false
       },
       contentLanguage: 'de',
       cities: {
@@ -70,16 +80,12 @@ describe('HeaderContainer', () => {
     const HeaderContainer = require('../containers/HeaderContainer').default
 
     const state: StateType = prepareState()
-    state.cityContent.categoriesRouteMapping['route-key-0'] = {
-      path: 'abc',
-      status: 'ready'
-    }
     const store = mockStore(state)
 
     const ownProps = {
       scene: {
         route: {
-          key: 'route-key-0'
+          key: 'routeKey1'
         }
       }
     }
