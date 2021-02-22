@@ -86,7 +86,7 @@ export const iosIntegreatBuildConfig: iOSBuildConfigType = {
 
 export const webIntegreatBuildConfig: WebBuildConfigType = {
   ...commonIntegreatBuildConfig,
-  appDescription: 'Daily Guide for Refugees. Digital. Multilingual. Free.',
+  appDescription: 'Integreat – die lokale und mehrsprachige Integrations-Plattform für Zugewanderte',
   mainImprint,
   itunesAppId: APPLE_APP_ID,
   manifestUrl: '/manifest.json',
