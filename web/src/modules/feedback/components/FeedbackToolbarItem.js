@@ -1,8 +1,7 @@
 // @flow
 
 import React from 'react'
-import type { TFunction } from 'react-i18next'
-import { withTranslation } from 'react-i18next'
+import { withTranslation, TFunction } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFrown, faSmile } from '../../../modules/app/constants/icons'
 import ReactTooltip from 'react-tooltip'
@@ -13,7 +12,7 @@ import type { FeedbackRatingType } from '../../layout/containers/LocationLayout'
 
 type PropsType = {|
   isPositiveRatingLink: boolean,
-  t: TFunction,
+  t: typeof TFunction,
   openFeedbackModal: FeedbackRatingType => void,
   className?: string,
   viewportSmall: boolean

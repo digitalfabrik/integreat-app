@@ -10,6 +10,7 @@ import TunewsDetailsFooter from '../components/TunewsDetailsFooter'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import { useContext } from 'react'
 import DateFormatterContext from '../../../modules/i18n/context/DateFormatterContext'
+import { TU_NEWS_TYPE } from 'api-client/src/routes'
 
 const StyledContainer = styled.div`
   display: flex;
@@ -73,7 +74,7 @@ export const TunewsDetailsPage = ({
     const error = new NotFoundError({ type: 'category', id: id.toString(), city, language })
     return <FailureSwitcher error={error} />
   } else if (!tunewsElement) {
-    const error = new NotFoundError({ type: 'tunews', id: id.toString(), city, language })
+    const error = new NotFoundError({ type: TU_NEWS_TYPE, id: id.toString(), city, language })
     return <FailureSwitcher error={error} />
   }
 

@@ -3,13 +3,12 @@
 import React from 'react'
 import { WohnenOfferModel, WohnenFormData, type AccommodationType } from 'api-client'
 import styled from 'styled-components'
-import type { TFunction } from 'react-i18next'
-import { withTranslation } from 'react-i18next'
+import { withTranslation, TFunction } from 'react-i18next'
 import Caption from '../../../modules/common/components/Caption'
 
 type PropsType = {|
   offer: WohnenOfferModel,
-  t: TFunction
+  t: typeof TFunction
 |}
 
 const Header = styled.div`

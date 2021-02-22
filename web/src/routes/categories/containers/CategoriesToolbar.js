@@ -1,8 +1,7 @@
 // @flow
 
 import React from 'react'
-import type { TFunction } from 'react-i18next'
-import { withTranslation } from 'react-i18next'
+import { withTranslation, TFunction } from 'react-i18next'
 import { faFilePdf } from '../../../modules/app/constants/icons'
 
 import { CategoriesMapModel, CategoryModel } from 'api-client'
@@ -16,7 +15,7 @@ type PropsType = {|
   categories: ?CategoriesMapModel,
   location: LocationState,
   openFeedbackModal: FeedbackRatingType => void,
-  t: TFunction,
+  t: typeof TFunction,
   viewportSmall: boolean
 |}
 
