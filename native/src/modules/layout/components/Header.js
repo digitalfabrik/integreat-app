@@ -124,6 +124,9 @@ const Header = (props: PropsType) => {
   }, [navigation, language, routeCityModel])
 
   const cityDisplayName = useCallback(() => {
+    if (!routeCityModel) {
+      return ''
+    }
     const description = routeCityModel.prefix ? ` (${routeCityModel.prefix})` : ''
     return `${routeCityModel.sortingName}${description}`
   }, [routeCityModel])
@@ -149,7 +152,7 @@ const Header = (props: PropsType) => {
             ? <HeaderBackButton onPress={goBackInStack} labelVisible={false} />
             : <Icon source={buildConfigAssets().appIcon} />}
           {routeCityModel &&
-          <HeaderText allowFontScaling={false} theme={theme}>{cityDisplayName(routeCityModel)}</HeaderText>}
+          <HeaderText allowFontScaling={false} theme={theme}>{cityDisplayName()}</HeaderText>}
         </HorizontalLeft>
         <MaterialHeaderButtons cancelLabel={t('cancel')} theme={theme}>
           {!peeking && categoriesAvailable &&
