@@ -6,6 +6,7 @@ import TunewsModel from '../models/TunewsModel'
 import moment from 'moment-timezone'
 import Endpoint from '../Endpoint'
 import NotFoundError from '../errors/NotFoundError'
+import { TU_NEWS_TYPE } from '../routes'
 
 export const TUNEWS_ELEMENT_ENDPOINT_NAME = 'tunewsElement'
 
@@ -18,7 +19,7 @@ export default (baseUrl: string): Endpoint<ParamsType, TunewsModel> => new Endpo
   .withMapper((json: JsonTunewsType | Array<void>, params: ParamsType): TunewsModel => {
     // The api is not good and returns an empty array if the tunews does not exist
     if (Array.isArray(json)) {
-      throw new NotFoundError({ ...params, type: 'tunews', id: params.id.toString() })
+      throw new NotFoundError({ ...params, type: TU_NEWS_TYPE, id: params.id.toString() })
     }
 
     return new TunewsModel({
