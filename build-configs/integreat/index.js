@@ -14,7 +14,6 @@ const APPLE_APP_ID = '1072353915'
 
 const commonIntegreatBuildConfig: CommonBuildConfigType = {
   appName: 'Integreat',
-  appDescription: 'Daily Guide for Refugees. Digital. Multilingual. Free.',
   appIcon: 'app_icon_integreat',
   lightTheme,
   darkTheme,
@@ -87,6 +86,7 @@ export const iosIntegreatBuildConfig: iOSBuildConfigType = {
 
 export const webIntegreatBuildConfig: WebBuildConfigType = {
   ...commonIntegreatBuildConfig,
+  appDescription: 'Daily Guide for Refugees. Digital. Multilingual. Free.',
   mainImprint,
   itunesAppId: APPLE_APP_ID,
   manifestUrl: '/manifest.json',

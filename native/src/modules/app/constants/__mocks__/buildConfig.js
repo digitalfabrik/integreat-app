@@ -14,7 +14,6 @@ export const buildConfigAssets = () => {
 
 const buildConfig = jest.fn<[], CommonBuildConfigType>((): CommonBuildConfigType => ({
   appName: 'Integreat',
-  appDescription: 'Daily Guide for Refugees. Digital. Multilingual. Free.',
   appIcon: 'app_icon_integreat',
   lightTheme,
   darkTheme,

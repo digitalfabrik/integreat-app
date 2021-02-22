@@ -10,7 +10,6 @@ const APPLE_APP_ID = '1535758339'
 
 const commonMalteBuildConfig = {
   appName: 'Malte',
-  appDescription: 'Guide of the Malteser Werke for Refugees. Digital. Multilingual. Free.',
   appIcon: 'app_icon_malte',
   lightTheme,
   darkTheme,
@@ -79,6 +78,7 @@ const iosMalteBuildConfig: iOSBuildConfigType = {
 }
 const webMalteBuildConfig: WebBuildConfigType = {
   ...commonMalteBuildConfig,
+  appDescription: 'Guide of the Malteser Werke for Refugees. Digital. Multilingual. Free.',
   mainImprint,
   itunesAppId: APPLE_APP_ID,
   icons: {
