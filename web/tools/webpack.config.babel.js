@@ -41,12 +41,13 @@ const generateManifest = (content: string, buildConfigName: string): string => {
   const androidBuildConfig = loadBuildConfig(buildConfigName, ANDROID)
   const iOSBuildConfig = loadBuildConfig(buildConfigName, IOS)
   const commonBuildConfig = loadBuildConfig(buildConfigName, COMMON)
+  const webBuildConfig = loadBuildConfig(buildConfigName, WEB)
 
   manifest.version = readVersionName()
   manifest.homepage_url = commonBuildConfig.aboutUrls.default
   manifest.theme_color = commonBuildConfig.lightTheme.colors.themeColor
   manifest.name = commonBuildConfig.appName
-  manifest.description = commonBuildConfig.appDescription
+  manifest.description = webBuildConfig.appDescription
   manifest.related_applications = [
     {
       platform: 'play',

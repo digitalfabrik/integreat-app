@@ -14,7 +14,7 @@ const APPLE_APP_ID = '1551810291'
 
 const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
   appName: 'Aschaffenburg App', // TODO maybe we have to change this to 'AB App'
-  appDescription: 'App of the city Aschaffenburg to inform about social topics.',
+  appDescription: 'App of the city Aschaffenburg to inform about social topics.', // TODO in #453 must be adjusted
   appIcon: 'app_icon_aschaffenburg',
   lightTheme,
   darkTheme,
