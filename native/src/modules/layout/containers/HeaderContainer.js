@@ -25,14 +25,14 @@ type StatePropsType = {|
   peeking: boolean,
   categoriesAvailable: boolean,
   routeCityModel?: CityModel,
-  shareUrl: string | null
+  shareUrl: ?string
 |}
 
 type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
 
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
-const getShareUrl = (params: {| city: string, language: string, path: ?string, routeName: string |}): string | null => {
+const getShareUrl = (params: {| city: string, language: string, path: ?string, routeName: string |}): ?string => {
   const { city, language, path, routeName } = params
   if (path) {
     return url(path)
@@ -88,7 +88,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     })
   }
   const peeking = isPeekingRoute(state, { routeCity: route.city })
-  const shareUrlFromScene: string | null = typeof ownProps.scene.route.params?.shareUrl === 'string' ? ownProps.scene.route.params?.shareUrl : null
+  const shareUrlFromScene: ?string = typeof ownProps.scene.route.params?.shareUrl === 'string' ? ownProps.scene.route.params?.shareUrl : null
   const { city, language } = route
   const path = route.path || null
   const shareUrl = shareUrlFromScene || getShareUrl({ city, language, path, routeName: ownProps.scene.route.name })
