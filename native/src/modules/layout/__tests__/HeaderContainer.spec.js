@@ -4,10 +4,9 @@ import * as React from 'react'
 import configureMockStore from 'redux-mock-store'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
-import type { PathType, StateType } from '../../app/StateType'
+import type { StateType } from '../../app/StateType'
 import Header from '../components/Header'
 import { url } from '../../navigation/url'
-import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
 
 const mockStore = configureMockStore()
 jest.mock('react-i18next')
