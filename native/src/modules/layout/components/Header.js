@@ -72,27 +72,26 @@ type PropsType = {|
 |}
 
 const Header = (props: PropsType) => {
+  const { navigation, dispatch, shareUrl, language, t, routeCityModel, theme, goToLanguageChange, peeking, categoriesAvailable } = props
+
   const canGoBackInStack = useCallback((): boolean => {
     return !!props.previous
-  })
+  }, [props.previous])
 
   const goBackInStack = useCallback(() => {
-    props.navigation.goBack()
-  })
+    navigation.goBack()
+  }, [navigation])
 
   const goToLanding = useCallback(() => {
-    const { navigation, dispatch } = props
     // $FlowFixMe Navigation type of the header does not match that of screens.
     navigateToLanding({ dispatch, navigation })
-  })
+  }, [dispatch, navigation])
 
   const goToSettings = useCallback(() => {
-    props.navigation.navigate(SETTINGS_ROUTE)
-  })
+    navigation.navigate(SETTINGS_ROUTE)
+  }, [navigation])
 
   const onShare = useCallback(async () => {
-    const { t, shareUrl } = props
-
     if (!shareUrl) { // The share option should only be shown if there is a shareUrl
       return
     }
@@ -110,38 +109,35 @@ const Header = (props: PropsType) => {
     } catch (e) {
       alert(e.message)
     }
-  })
+  }, [t, shareUrl])
 
   const goToSearch = useCallback(() => {
-    props.navigation.navigate(SEARCH_ROUTE)
-  })
+    navigation.navigate(SEARCH_ROUTE)
+  }, [navigation])
 
   const goToDisclaimer = useCallback(() => {
-    const { routeCityModel, language } = props
     if (!routeCityModel) {
       throw new Error('Impossible to go to disclaimer route if no city model is defined')
     }
     const shareUrl = cityContentUrl({ cityCode: routeCityModel.code, languageCode: language, route: DISCLAIMER_ROUTE })
-    props.navigation.navigate(DISCLAIMER_ROUTE, { shareUrl })
-  })
+    navigation.navigate(DISCLAIMER_ROUTE, { shareUrl })
+  }, [navigation, language, routeCityModel])
 
-  const cityDisplayName = useCallback((cityModel: CityModel) => {
-    const description = cityModel.prefix ? ` (${cityModel.prefix})` : ''
-    return `${cityModel.sortingName}${description}`
-  })
+  const cityDisplayName = useCallback(() => {
+    const description = routeCityModel.prefix ? ` (${routeCityModel.prefix})` : ''
+    return `${routeCityModel.sortingName}${description}`
+  }, [routeCityModel])
 
   const renderItem = useCallback((
     title: string, iconName?: string, show: 'never' | 'always',
     onPress: ?() => void | Promise<void>, accessibilityLabel: string
   ): Node => {
-    const { theme } = props
     const buttonStyle = onPress ? {} : { color: theme.colors.textSecondaryColor }
 
     return <Item title={title} accessibilityLabel={accessibilityLabel} iconName={iconName} show={show}
                  onPress={onPress} buttonStyle={buttonStyle} />
-  })
+  }, [theme])
 
-  const { routeCityModel, shareUrl, t, theme, goToLanguageChange, peeking, categoriesAvailable } = props
   const showShare = !!(shareUrl)
   const showChangeLocation = !buildConfig().featureFlags.fixedCity
 
