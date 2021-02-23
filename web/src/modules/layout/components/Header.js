@@ -41,7 +41,7 @@ const Row = styled.div`
   display: flex;
   flex: 1;
   max-width: 100%;
-  overflow-x: auto;
+  overflow: auto visible; /* overflow-y must be set to visible for iOS */
   align-items: stretch;
   min-height: ${dimensions.headerHeightLarge}px;
   flex-direction: row;
