@@ -22,12 +22,12 @@ If no branch is specified, main is used as default. Per default the delivery is 
 ## Workflows
 
 Several workflows exist for different purposes:
-* **commit**: Run for all commits of PRs to ensure good code quality and working code. Delivers Integreat and Malte webapps on the main branch.
-* **scheduled_native_development_delivery**: Delivers Integreat and Malte native builds to development (Testflight and Beta channel)
+* **commit**: Run for all commits of PRs to ensure good code quality and working code. Delivers Integreat, Malte and Aschaffenburg webapps on the main branch.
+* **scheduled_native_development_delivery**: Delivers Integreat, Malte and Aschaffenburg native builds to development (Testflight and Beta channel)
 twice a month.
-* **triggered_native_development_delivery**: [Manually triggerable](#triggering-a-delivery-using-the-ci) workflow which delivers Integreat and Malte builds for native to development.
-* **scheduled_production_delivery**: Delivers Integreat and Malte native builds to production twice a month.
-* **triggered_production_delivery**: [Manually triggerable](#triggering-a-delivery-using-the-ci) workflow which delivers Integreat and Malte builds for native and web to production.
+* **triggered_native_development_delivery**: [Manually triggerable](#triggering-a-delivery-using-the-ci) workflow which delivers Integreat, Malte and Aschaffenburg builds for native to development.
+* **scheduled_production_delivery**: Delivers Integreat, Malte and Aschaffenburg native builds to production twice a month.
+* **triggered_production_delivery**: [Manually triggerable](#triggering-a-delivery-using-the-ci) workflow which delivers Integreat, Malte and Aschaffenburg builds for native and web to production.
 
 See the table below for a more detailed overview:
 
@@ -58,10 +58,6 @@ Steps executed if *Version bump* is checked :heavy_check_mark::
 A private key in PEM format grants access to the bot. If the `deliverino` is installed for a specific repository then it has access to create commits there.
 
 **`deliverino` has the role of an Administrator. This is important when setting up [Protected branches](https://help.github.com/en/github/administering-a-repository/about-branch-restrictions) in GitHub. You have to disable "Include Administrators", else `deliverino` is not allowed to directly commit to the protected branch.**
-
-### deliverino (Slack)
-
-The Slack bot `deliverino` is responsible to notify Slack channels about releases. It posts a message for iOS and Android individually as soon as the delivery step has finished.
 
 ### Google Play Store
 
@@ -144,7 +140,7 @@ More information on the version naming schema used can be found [here](docs/conv
 |BROWSERSTACK_USERNAME|Username for BrowserStack|Password Manager|123546|[Appium REST API](https://www.browserstack.com/app-automate/rest-api)|
 |DELIVERINO_PRIVATE_KEY|Base64 encoded PEM private key|Password Manager|[Deliverino Settings](https://github.com/organizations/Integreat/settings/apps/deliverino)|[Deliverino](https://github.com/apps/deliverino)|
 |SENTRY_AUTH_TOKEN|Auth Token from Sentry for uploading sourcemaps and artifacts|Generate this [in your Sentry account](https://sentry.integreat-app.de/settings/account/api/auth-tokens/) with the scope `project:releases`|deadbeef|[Sentry Authentication](https://docs.sentry.io/cli/configuration/)|
-|SLACK_URL|URL which can be used to send notifications to our Slack. Keep this private!|[Deliverino Settings](https://api.slack.com/apps/A0117F1AAHZ/incoming-webhooks?)|https://hooks.slack.com/...| [Slack API](https://api.slack.com/messaging/webhooks)|
+|MM_WEBHOOK|URL which can be used to send notifications to our mattermost. Keep this private!|Mattermost server settings|https://chat.tuerantuer.org/hooks/...| [Mattermost Documentation](https://docs.mattermost.com/developer/webhooks-incoming.html)|
 
 ### Android Variables
 

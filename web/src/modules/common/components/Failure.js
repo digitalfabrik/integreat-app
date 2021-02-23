@@ -1,14 +1,11 @@
 // @flow
 
-import React from 'react'
-import type { TFunction } from 'react-i18next'
-import { withTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFrown } from '../../../modules/app/constants/icons'
-
+import React from 'react'
+import { withTranslation, TFunction } from 'react-i18next'
 import Link from 'redux-first-router-link'
-
 import styled from 'styled-components'
+import { faFrown } from '../../../modules/app/constants/icons'
 import I18nRedirectRouteConfig from '../../app/route-configs/I18nRedirectRouteConfig'
 
 const Centered = styled.div`
@@ -23,7 +20,7 @@ type PropsType = {|
   errorMessage: string,
   goToPath?: string,
   goToMessage?: string,
-  t: TFunction
+  t: typeof TFunction
 |}
 
 /**

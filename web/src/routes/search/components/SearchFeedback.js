@@ -2,8 +2,7 @@
 
 import * as React from 'react'
 import styled from 'styled-components'
-import type { TFunction } from 'react-i18next'
-import { withTranslation } from 'react-i18next'
+import { withTranslation, TFunction } from 'react-i18next'
 import { createFeedbackEndpoint, SEARCH_FEEDBACK_TYPE } from 'api-client'
 import type { LocationState } from 'redux-first-router'
 import NothingFoundFeedbackBox from './NothingFoundFeedbackBox'
@@ -24,7 +23,7 @@ type PropsType = {|
   location: LocationState,
   query: string,
   resultsFound: boolean,
-  t: TFunction
+  t: typeof TFunction
 |}
 
 type StateType = {|

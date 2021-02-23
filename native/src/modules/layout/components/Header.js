@@ -119,8 +119,9 @@ const Header = (props: PropsType) => {
     if (!routeCityModel) {
       throw new Error('Impossible to go to disclaimer route if no city model is defined')
     }
-    const shareUrl = cityContentUrl({ cityCode: routeCityModel.code, languageCode: language, route: DISCLAIMER_ROUTE })
-    navigation.navigate(DISCLAIMER_ROUTE, { shareUrl })
+    const cityCode = routeCityModel.code
+    const shareUrl = cityContentUrl({ cityCode, languageCode: language, route: DISCLAIMER_ROUTE })
+    this.props.navigation.navigate(DISCLAIMER_ROUTE, { cityCode, languageCode: language, shareUrl })
   }, [navigation, language, routeCityModel])
 
   const cityDisplayName = useCallback(() => {

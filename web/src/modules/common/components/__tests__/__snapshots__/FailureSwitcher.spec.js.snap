@@ -16,7 +16,7 @@ exports[`FailureSwitcher render event component not found failure should render 
 />
 `;
 
-exports[`FailureSwitcher render localNews component not found failure should render a localNews not found failure and match snapshot 1`] = `
+exports[`FailureSwitcher render local component not found failure should render a local not found failure and match snapshot 1`] = `
 <Translate(Failure)
   errorMessage="notFound.localNews"
   goToMessage="goTo.localNews"
@@ -40,7 +40,7 @@ exports[`FailureSwitcher render poi component not found failure should render a 
 />
 `;
 
-exports[`FailureSwitcher render tunews component not found failure should render a tunews not found failure and match snapshot 1`] = `
+exports[`FailureSwitcher render tu-news component not found failure should render a tu-news not found failure and match snapshot 1`] = `
 <Translate(Failure)
   errorMessage="notFound.tunews"
   goToMessage="goTo.tunews"

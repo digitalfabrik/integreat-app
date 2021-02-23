@@ -1,6 +1,6 @@
 # integreat-app-web
 
-React JS WebApp for [Integreat](https://integreat-app.de) and [Malte](https://www.malteser-werke.de/malte-app.html).
+React JS WebApp for [Integreat](https://integreat-app.de), [Malte](https://www.malteser-werke.de/malte-app.html) and [Aschaffenburg](https://aschaffenburg.app)
 
 ## Contents
 

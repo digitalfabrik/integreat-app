@@ -8,8 +8,7 @@ import CitySelector from './CitySelector'
 import { CityModel } from 'api-client'
 import styled from 'styled-components'
 
-import type { TFunction } from 'react-i18next'
-import { withTranslation } from 'react-i18next'
+import { withTranslation, TFunction } from 'react-i18next'
 
 const Container = styled.div`
   padding-top: 22px;
@@ -18,7 +17,7 @@ const Container = styled.div`
 type PropsType = {|
   cities: Array<CityModel>,
   language: string,
-  t: TFunction
+  t: typeof TFunction
 |}
 
 type StateType = {|
