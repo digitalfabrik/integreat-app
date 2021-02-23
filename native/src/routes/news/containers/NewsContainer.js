@@ -274,6 +274,6 @@ const NewsContainer = (props: ContainerPropsType) => {
 
 export default withTranslation('error')(
   connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(
-    withPayloadProvider<ContainerPropsType, RefreshPropsType, NewsRouteType>(refresh, onRouteClose, true)(
+    withPayloadProvider<ContainerPropsType, RefreshPropsType, NewsRouteType>(refresh, onRouteClose)(
       NewsContainer
     )))
