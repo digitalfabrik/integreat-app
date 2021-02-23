@@ -3,8 +3,9 @@
   "name": "e2e",
   "private": true,
   "scripts": {
-    "test:web": "npx wdio run web/wdio.conf.js",
-    "test:web:browserstack": "npx wdio run web/browserstack/wdio-browserstack.conf.js"
+    "start:web": "(cd ../ && yarn workspace web start)",
+    "test:web": "yarn start:web & npx wdio run web/wdio.conf.js",
+    "test:web:browserstack": "yarn start:web & npx wdio run web/browserstack/wdio-browserstack.conf.js"
   },
   "devDependencies": {
     "@wdio/types": "^7.0.4",

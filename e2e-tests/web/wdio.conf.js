@@ -26,4 +26,9 @@ exports.config = {
     jasmineNodeOpts: {
         defaultTimeoutInterval: 120000,
     },
+
+    onPrepare: async function () {
+        const startupDelay = 20000
+        await new Promise(resolve => setTimeout(resolve, startupDelay))
+    }
 }
