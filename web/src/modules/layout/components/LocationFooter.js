@@ -1,8 +1,7 @@
 // @flow
 
 import React from 'react'
-import type { TFunction } from 'react-i18next'
-import { withTranslation } from 'react-i18next'
+import { withTranslation, TFunction } from 'react-i18next'
 
 import Footer from './Footer'
 import DisclaimerRouteConfig from '../../app/route-configs/DisclaimerRouteConfig'
@@ -14,7 +13,7 @@ type PropsType = {|
   city: string,
   language: string,
   onClick: () => void,
-  t: TFunction
+  t: typeof TFunction
 |}
 
 export class LocationFooter extends React.PureComponent<PropsType> {

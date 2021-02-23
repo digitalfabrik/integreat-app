@@ -3,13 +3,12 @@
 import React from 'react'
 import { Description, StyledFeedbackBox } from './FeedbackBox'
 import ModalHeader from './ModalHeader'
-import type { TFunction } from 'react-i18next'
-import { withTranslation } from 'react-i18next'
+import { withTranslation, TFunction } from 'react-i18next'
 import buildConfig from '../../app/constants/buildConfig'
 
 type PropsType = {|
   closeFeedbackModal: () => void,
-  t: TFunction
+  t: typeof TFunction
 |}
 
 export class FeedbackThanksMessage extends React.PureComponent<PropsType> {

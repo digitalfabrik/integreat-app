@@ -2,7 +2,7 @@
 
 import type { StackNavigationProp } from '@react-navigation/stack'
 import type { RouteProp } from '@react-navigation/native'
-import { LanguageModel, OfferModel } from 'api-client'
+import { LanguageModel } from 'api-client'
 import type {
   CategoriesRouteType,
   ChangeLanguageModalRouteType,
@@ -45,6 +45,7 @@ export type RoutesType = IntroRouteType
   | FeedbackModalRouteType
 
 type ShareUrlType = {| shareUrl: string |}
+type CityContentParamsType = {| ...ShareUrlType, cityCode: string, languageCode: string |}
 
 export type RoutesParamsType = {|
   intro: void,
@@ -54,11 +55,11 @@ export type RoutesParamsType = {|
   pois: void,
   events: void,
   news: void,
-  disclaimer: ShareUrlType,
-  offers: {| ...ShareUrlType, cityCode: string |},
+  disclaimer: CityContentParamsType,
+  offers: CityContentParamsType,
   externalOffer: {| ...ShareUrlType, url: string, postData: ?Map<string, string> |},
-  sprungbrett: {| ...ShareUrlType, city: string, offers: Array<OfferModel> |},
-  wohnen: {| offerHash: ?string, city: string, offers: Array<OfferModel> |},
+  sprungbrett: {| ...CityContentParamsType, title: string, alias: string, apiUrl: string |},
+  wohnen: {| offerHash: ?string, city: string, title: string, alias: string, postData: ?Map<string, string> |},
   settings: void,
   search: void,
   changeLanguage: {|

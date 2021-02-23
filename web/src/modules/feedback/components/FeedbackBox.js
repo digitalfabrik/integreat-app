@@ -2,8 +2,7 @@
 
 import * as React from 'react'
 
-import type { TFunction } from 'react-i18next'
-import { withTranslation } from 'react-i18next'
+import { withTranslation, TFunction } from 'react-i18next'
 import styled from 'styled-components'
 import ModalHeader from './ModalHeader'
 import FeedbackComment from './FeedbackComment'
@@ -38,7 +37,7 @@ type PropsType = {|
   onCommentChanged: SyntheticInputEvent<HTMLTextAreaElement> => void,
   onFeedbackOptionChanged: FeedbackVariant => void,
   onSubmit: () => void,
-  t: TFunction,
+  t: typeof TFunction,
   closeFeedbackModal: () => void,
   theme: ThemeType,
   sendingStatus: SendingStatusType

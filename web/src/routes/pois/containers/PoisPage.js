@@ -6,8 +6,7 @@ import { connect } from 'react-redux'
 import Page from '../../../modules/common/components/Page'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import { NotFoundError, PoiModel } from 'api-client'
-import type { TFunction } from 'react-i18next'
-import { withTranslation } from 'react-i18next'
+import { withTranslation, TFunction } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
 import PageDetail from '../../../modules/common/components/PageDetail'
 import PoiListItem from '../components/PoiListItem'
@@ -21,7 +20,7 @@ type PropsType = {|
   city: string,
   poiId: ?string,
   language: string,
-  t: TFunction
+  t: typeof TFunction
 |}
 
 /**
