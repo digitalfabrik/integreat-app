@@ -18,7 +18,6 @@
     "check:build": "yarn es-check es5 ./dist/**/*.js --verbose",
     "test": "jest --config jest.config.js",
     "test:coverage": "yarn run test --coverage",
-    "test:e2e": "yarn start & jest --config ./jest.e2e.config.js --maxWorkers=4",
     "test:ci": "yarn run test:coverage --ci",
     "test:watch": "yarn run test --watchAll",
     "test:update": "yarn run test -u",
