@@ -2360,6 +2360,11 @@ validator@^13.0.0:
   resolved "https://registry.yarnpkg.com/validator/-/validator-13.5.2.tgz#c97ae63ed4224999fb6f42c91eaca9567fe69a46"
   integrity sha512-mD45p0rvHVBlY2Zuy3F3ESIe1h5X58GPfAtslBjY7EtTqGquZTj+VX/J4RnHWN8FKq0C9WRVt1oWAcytWRuYLQ==
 
+web@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/web/-/web-0.0.2.tgz#d9e227387306db8c4b239f0f4bae7fc14b4c117a"
+  integrity sha1-2eInOHMG24xLI58PS65/wUtMEXo=
+
 webdriver@7.0.4:
   version "7.0.4"
   resolved "https://registry.yarnpkg.com/webdriver/-/webdriver-7.0.4.tgz#da11bc845eb8a5ad659e95e44e4e2cbbee4d457c"
