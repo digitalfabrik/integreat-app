@@ -121,7 +121,7 @@ const Header = (props: PropsType) => {
     }
     const cityCode = routeCityModel.code
     const shareUrl = cityContentUrl({ cityCode, languageCode: language, route: DISCLAIMER_ROUTE })
-    this.props.navigation.navigate(DISCLAIMER_ROUTE, { cityCode, languageCode: language, shareUrl })
+    navigation.navigate(DISCLAIMER_ROUTE, { cityCode, languageCode: language, shareUrl })
   }, [navigation, language, routeCityModel])
 
   const cityDisplayName = useCallback(() => {
