@@ -21,6 +21,7 @@ import createNavigateToFeedbackModal from '../../../modules/navigation/createNav
 import type { EventsRouteType } from 'api-client/src/routes'
 import createNavigate from '../../../modules/navigation/createNavigate'
 import { EVENTS_ROUTE } from 'api-client/src/routes'
+import type { ThemeType } from 'build-configs/ThemeType'
 
 type NavigationPropsType = {|
   route: RoutePropType<EventsRouteType>,

@@ -22,6 +22,7 @@ import navigateToLink from '../../../modules/navigation/navigateToLink'
 import type { DashboardRouteType } from 'api-client/src/routes'
 import createNavigate from '../../../modules/navigation/createNavigate'
 import createNavigateToFeedbackModal from '../../../modules/navigation/createNavigateToFeedbackModal'
+import type { ThemeType } from 'build-configs/ThemeType'
 
 type NavigationPropsType = {|
   route: RoutePropType<DashboardRouteType>,
