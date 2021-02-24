@@ -36,7 +36,7 @@ const readVersionName = () => {
 }
 
 const createConfig = (env: { config_name?: string, dev_server?: boolean, version_name?: string, commit_sha?: string } = {}) => {
-  const { config_name: buildConfigName, commit_sha: commitSha, version_name: versionName, dev_server: devServer } = env
+  let { config_name: buildConfigName, commit_sha: commitSha, version_name: versionName, dev_server: devServer } = env
 
   if (!buildConfigName) {
     throw new Error('Please specificy build config name')
@@ -49,14 +49,13 @@ const createConfig = (env: { config_name?: string, dev_server?: boolean, version
   process.env.NODE_ENV = NODE_ENV
 
   // If version_name is not supplied read it from version file
-  let version = versionName || readVersionName()
-  if (commitSha) {
-    version = `${version}+${commitSha.substring(0, SHORT_COMMIT_SHA_LENGTH)}`
-  }
+  versionName = versionName ?? readVersionName()
+  commitSha = commitSha?.substring(0, SHORT_COMMIT_SHA_LENGTH) ?? 'Commit SHA unknown'
 
   console.log('Used config: ', buildConfigName)
   console.log('Configured as running in dev server: ', !devServer)
-  console.log('Version: ', version)
+  console.log('Version name: ', versionName)
+  console.log('Version nameCommit SHA: ', commitSha)
 
   const configAssets = path.resolve(__dirname, `../node_modules/build-configs/${buildConfigName}/assets`)
 
@@ -149,7 +148,8 @@ const createConfig = (env: { config_name?: string, dev_server?: boolean, version
       ]),
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': NODE_ENV,
-        __VERSION__: JSON.stringify(version),
+        __VERSION_NAME__: JSON.stringify(versionName),
+        __COMMIT_SHA__: JSON.stringify(commitSha),
         __BUILD_CONFIG_NAME__: JSON.stringify(buildConfigName),
         __BUILD_CONFIG__: JSON.stringify(buildConfig)
       }),

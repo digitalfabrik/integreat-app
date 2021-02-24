@@ -39,7 +39,7 @@ const FooterContainer = styled.footer`
 class Footer extends React.PureComponent<PropsType> {
   static getVersion (): Node {
     if (buildConfig().featureFlags.developerFriendly) {
-      return <span>{__VERSION__}</span>
+      return <span>{__VERSION_NAME__}+{__COMMIT_SHA__}</span>
     }
     return null
   }
