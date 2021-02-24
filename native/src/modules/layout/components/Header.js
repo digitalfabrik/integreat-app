@@ -67,7 +67,7 @@ export type PropsType = {|
   goToLanguageChange?: () => void,
   routeCityModel?: CityModel,
   language: string,
-  shareUrl: string,
+  shareUrl: ?string,
   dispatch: Dispatch<StoreActionType>
 |}
 
