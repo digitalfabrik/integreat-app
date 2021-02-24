@@ -16,7 +16,6 @@ import type {
   RoutePropType
 } from '../../../modules/app/constants/NavigationTypes'
 import { DASHBOARD_ROUTE } from 'api-client/src/routes'
-import { cityContentUrl } from '../../../modules/navigation/url'
 import type { LandingRouteType } from 'api-client/src/routes'
 
 type OwnPropsType = {|
@@ -70,7 +69,6 @@ class LandingContainer extends React.Component<ContainerPropsType> {
     navigation.replace(
       DASHBOARD_ROUTE,
       {
-        shareUrl: cityContentUrl({ cityCode, languageCode }),
         cityCode,
         languageCode
       }

@@ -5,7 +5,6 @@ import type { FetchEventActionType, StoreActionType } from '../app/StoreActionTy
 import type { NavigationPropType, RoutesType } from '../app/constants/NavigationTypes'
 import { generateKey } from '../app/generateRouteKey'
 import { EVENTS_ROUTE } from 'api-client/src/routes'
-import { cityContentUrl, url } from './url'
 
 const navigateToEvents = <T: RoutesType>({
   navigation,
@@ -24,16 +23,7 @@ const navigateToEvents = <T: RoutesType>({
   key?: string,
   forceRefresh?: boolean
 |}) => {
-  const shareUrl = cityContentPath
-    ? url(cityContentPath)
-    : cityContentUrl({ cityCode, languageCode, route: EVENTS_ROUTE })
-  navigation.navigate({
-    name: EVENTS_ROUTE,
-    params: {
-      shareUrl
-    },
-    key
-  })
+  navigation.navigate({ name: EVENTS_ROUTE, key })
 
   const fetchEvent: FetchEventActionType = {
     type: 'FETCH_EVENT',

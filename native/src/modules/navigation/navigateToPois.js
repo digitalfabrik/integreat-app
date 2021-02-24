@@ -4,8 +4,7 @@ import type { Dispatch } from 'redux'
 import type { FetchPoiActionType, StoreActionType } from '../app/StoreActionType'
 import { generateKey } from '../app/generateRouteKey'
 import type { NavigationPropType, RoutesType } from '../app/constants/NavigationTypes'
-import { EVENTS_ROUTE, POIS_ROUTE } from 'api-client/src/routes'
-import { cityContentUrl, url } from './url'
+import { POIS_ROUTE } from 'api-client/src/routes'
 
 const navigateToPois = <T: RoutesType>({
   navigation,
@@ -24,14 +23,7 @@ const navigateToPois = <T: RoutesType>({
     key?: string,
     forceRefresh?: boolean
   |}) => {
-  const shareUrl = cityContentPath
-    ? url(cityContentPath)
-    : cityContentUrl({ cityCode, languageCode, route: EVENTS_ROUTE })
-  navigation.navigate({
-    name: POIS_ROUTE,
-    params: { shareUrl: shareUrl },
-    key
-  })
+  navigation.navigate({ name: POIS_ROUTE, key })
 
   const fetchPoi: FetchPoiActionType = {
     type: 'FETCH_POI',
