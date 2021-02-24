@@ -18,6 +18,7 @@ import type {
 import { DASHBOARD_ROUTE } from 'api-client/src/routes'
 import { cityContentUrl } from '../../../modules/navigation/url'
 import type { LandingRouteType } from 'api-client/src/routes'
+import type { ThemeType } from 'build-configs/ThemeType'
 
 type OwnPropsType = {|
   route: RoutePropType<LandingRouteType>,
