@@ -73,7 +73,7 @@ def setupGoogleServices(buildConfig, resValue) {
 def setupResourceValues(buildConfigName, resValue) {
     logger.quiet("Using build config $buildConfigName")
 
-    def proc = createYarnProcess(buildConfigName, "android", "to-xcconfig")
+    def proc = createYarnProcess(buildConfigName, "android", "to-properties")
     def buildConfigProperties = new Properties()
     buildConfigProperties.load(new StringReader(proc))
 

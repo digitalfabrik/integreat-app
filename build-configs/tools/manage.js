@@ -30,7 +30,7 @@ const loadBuildConfigAsKeyValue = (buildConfigName, platform, spaces = true, quo
 program
   .command('write-xcconfig <build_config_name> <platform>')
   .requiredOption('--directory <directory>', 'the directory to put the created xcconfig file in')
-  .description('create and write a new .xcconfig from the iosBuildOptions of the specified build config')
+  .description('create and write a new buildConfig.tmp.xcconfig to the output directory')
   .action((buildConfigName, platform, cmdObj) => {
     try {
       const xcconfig = loadBuildConfigAsKeyValue(buildConfigName, platform)
@@ -42,12 +42,12 @@ program
   })
 
 program
-  .command('to-xcconfig <build_config_name> <platform>')
-  .description('create and write a new .xcconfig to the stdout')
+  .command('to-properties <build_config_name> <platform>')
+  .description('create and write a new properties file to the stdout')
   .action((buildConfigName, platform, cmdObj) => {
     try {
-      const xcconfig = loadBuildConfigAsKeyValue(buildConfigName, platform)
-      console.log(xcconfig)
+      const properties = loadBuildConfigAsKeyValue(buildConfigName, platform)
+      console.log(properties)
     } catch (e) {
       console.error(e)
       process.exit(1)
