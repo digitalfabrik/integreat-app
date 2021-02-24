@@ -39,15 +39,13 @@ def determineBuildConfigName() {
 }
 
 def createYarnProcess(buildConfigName, platform) {
-    def command = "yarn workspace --silent build-configs --silent manage to-json $buildConfigName $platform"
-    return execCommand(command)
+    return execCommand("yarn workspace --silent build-configs --silent manage to-json $buildConfigName $platform")
 }
 
 def createBuildConfig(buildConfigName) {
     logger.quiet("Using build config $buildConfigName")
-
-    def command = createYarnProcess(buildConfigName, "android")
-    def proc = execCommand(command)
+    
+    def proc = createYarnProcess(buildConfigName, "android")
     def buildConfig = new JsonSlurper().parseText(proc)
     return buildConfig
 }
@@ -75,8 +73,7 @@ def setupGoogleServices(buildConfig, resValue) {
 def setupResourceValues(buildConfigName, resValue) {
     logger.quiet("Using build config $buildConfigName")
 
-    def command = createYarnProcess(buildConfigName, "android")
-    def proc = execCommand(command)
+    def proc = createYarnProcess(buildConfigName, "android")
     def buildConfigProperties = new Properties()
     buildConfigProperties.load(new StringReader(proc))
 
