@@ -37,7 +37,6 @@ import {
   POIS_ROUTE, SEARCH_ROUTE, SETTINGS_ROUTE
 } from 'api-client/src/routes'
 import type { IntroRouteType, DashboardRouteType, LandingRouteType } from 'api-client/src/routes'
-import { cityContentUrl } from '../../navigation/url'
 import type { RoutesParamsType } from '../constants/NavigationTypes'
 
 const transparentHeader = (headerProps: StackHeaderProps) =>
@@ -158,8 +157,7 @@ const Navigator = (props: PropsType) => {
   const dashboardParams = initialRoute.name === DASHBOARD_ROUTE
     ? {
         cityCode: initialRoute.cityCode,
-        languageCode: initialRoute.languageCode,
-        shareUrl: cityContentUrl({ cityCode: initialRoute.cityCode, languageCode: initialRoute.languageCode })
+        languageCode: initialRoute.languageCode
       }
     : {}
 
