@@ -42,6 +42,19 @@ program
   })
 
 program
+  .command('to-xcconfig <build_config_name> <platform>')
+  .description('create and write a new .xcconfig to the stdout')
+  .action((buildConfigName, platform, cmdObj) => {
+    try {
+      const xcconfig = loadBuildConfigAsKeyValue(buildConfigName, platform)
+      console.log(xcconfig)
+    } catch (e) {
+      console.error(e)
+      process.exit(1)
+    }
+  })
+
+program
   .command('to-bash <build_config_name> <platform>')
   .description('outputs the specified build config as key-value pairs which can be executed by bash')
   .action((buildConfigName, platform) => {
