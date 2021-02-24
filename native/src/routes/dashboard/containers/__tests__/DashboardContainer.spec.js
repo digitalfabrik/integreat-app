@@ -49,8 +49,7 @@ jest.mock('react-native/Libraries/Components/RefreshControl/RefreshControl', () 
 
 const cityCode = 'augsburg'
 const languageCode = 'de'
-const shareUrl = 'https://integreat.app/augsburg/de'
-const route = { key: 'route-id-0', params: { cityCode, languageCode, shareUrl }, name: DASHBOARD_ROUTE }
+const route = { key: 'route-id-0', params: { cityCode, languageCode }, name: DASHBOARD_ROUTE }
 
 describe('DashboardContainer', () => {
   const [city] = new CityModelBuilder(1).build()
