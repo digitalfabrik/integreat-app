@@ -308,19 +308,24 @@ jobs:
                 name: '[FL] << parameters.build_config_name >> build'
                 working_directory: native/android
             - run:
+                command: |
+                    mkdir -p sourcemaps/<< parameters.build_config_name >>
+                    cp native/android/app/build/generated/sourcemaps/react/release/index.android.bundle.map sourcemaps/<< parameters.build_config_name >>/
+                    cp native/android/app/build/generated/assets/react/release/index.android.bundle sourcemaps/<< parameters.build_config_name >>/
+                name: Prepare Sourcemaps
+            - persist_to_workspace:
+                paths:
+                    - sourcemaps/<< parameters.build_config_name >>/*
+                root: .
+            - run:
                 command: mv app/build/outputs/apk/release/app-release.apk << parameters.build_config_name >>.apk
                 name: Rename apk
-                working_directory: native/android
-            - run:
-                command: mv app/build/generated/sourcemaps/react/release/index.android.bundle.map << parameters.build_config_name >>.android.bundle.map
-                name: Rename sourcemap
                 working_directory: native/android
             - store_artifacts:
                 path: native/android/<< parameters.build_config_name >>.apk
             - persist_to_workspace:
                 paths:
                     - << parameters.build_config_name >>.apk
-                    - << parameters.build_config_name >>.android.bundle.map
                 root: native/android
             - notify
     build_ios:
@@ -359,12 +364,17 @@ jobs:
                 command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:<< parameters.build_config_name >>
                 name: '[FL] << parameters.build_config_name >> build'
                 working_directory: native/ios
-            - store_artifacts:
-                path: native/ios/output/gym/<< parameters.build_config_name >>.ipa
+            - run:
+                command: |
+                    mkdir -p sourcemaps/<< parameters.build_config_name >>
+                    cp native/ios/output/<< parameters.build_config_name >>.ios.bundle* sourcemaps/<< parameters.build_config_name >>/
+                name: Prepare Sourcemaps
             - persist_to_workspace:
                 paths:
-                    - << parameters.build_config_name >>.ios.bundle.map
-                root: native/ios/output
+                    - sourcemaps/<< parameters.build_config_name >>/*
+                root: .
+            - store_artifacts:
+                path: native/ios/output/gym/<< parameters.build_config_name >>.ipa
             - persist_to_workspace:
                 paths:
                     - << parameters.build_config_name >>.ipa
@@ -532,7 +542,6 @@ jobs:
         steps:
             - skip_job:
                 build_config_name: << parameters.build_config_name >>
-            - run: curl -sL https://sentry.io/get-cli/ | bash
             - checkout
             - prepare_workspace
             - restore_environment_variables
@@ -555,9 +564,10 @@ jobs:
                 name: '[FL] Play Store Upload'
                 working_directory: native
             - run:
-                command: bundle exec fastlane android sentry_upload build_config_name:<< parameters.build_config_name >> sourcemap_path:attached_workspace/<< parameters.build_config_name >>.android.bundle.map version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
-                name: '[FL] Upload to Sentry'
-                working_directory: native
+                command: |
+                    eval $(yarn workspace --silent build-configs --silent manage to-bash << parameters.build_config_name >> android)
+                    tools/sentry-release "$BUILD_CONFIG_APPLICATION_ID" "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/<< parameters.build_config_name >> "${NEW_VERSION_CODE}"
+                name: Sentry Upload
             - notify
     deliver_ios:
         environment:
@@ -579,7 +589,6 @@ jobs:
         steps:
             - skip_job:
                 build_config_name: << parameters.build_config_name >>
-            - run: curl -sL https://sentry.io/get-cli/ | bash
             - checkout
             - prepare_workspace
             - restore_environment_variables
@@ -612,9 +621,10 @@ jobs:
                         name: '[FL] TestFlight Upload'
                         working_directory: native
             - run:
-                command: bundle exec fastlane ios sentry_upload version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:<< parameters.build_config_name >> sourcemap_path:attached_workspace/<< parameters.build_config_name >>.ios.bundle.map
-                name: '[FL] Upload to Sentry'
-                working_directory: native
+                command: |
+                    eval $(yarn workspace --silent build-configs --silent manage to-bash << parameters.build_config_name >> ios)
+                    tools/sentry-release "$BUILD_CONFIG_BUNDLE_IDENTIFIER" "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/<< parameters.build_config_name >> "${NEW_VERSION_CODE}"
+                name: Sentry Upload
             - notify
     deliver_web:
         docker:
@@ -646,13 +656,13 @@ jobs:
                         command: sftp -b - -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/aschaffenburg.app \<<< "put -r $HOME/attached_workspace/dist/aschaffenburg/*"
                         name: Aschaffenburg production delivery
                     - run:
-                        command: tools/sentry-release integreat "${NEW_VERSION_NAME}" ~/attached_workspace/dist/integreat
+                        command: tools/sentry-release web-integreat "${NEW_VERSION_NAME}" ~/attached_workspace/dist/integreat
                         name: 'Sentry Upload: integreat'
                     - run:
-                        command: tools/sentry-release malte "${NEW_VERSION_NAME}" ~/attached_workspace/dist/malte
+                        command: tools/sentry-release web-malte "${NEW_VERSION_NAME}" ~/attached_workspace/dist/malte
                         name: 'Sentry Upload: malte'
                     - run:
-                        command: tools/sentry-release aschaffenburg "${NEW_VERSION_NAME}" ~/attached_workspace/dist/aschaffenburg
+                        command: tools/sentry-release web-aschaffenburg "${NEW_VERSION_NAME}" ~/attached_workspace/dist/aschaffenburg
                         name: 'Sentry Upload: aschaffenburg'
             - unless:
                 condition: << parameters.production_delivery >>
@@ -667,13 +677,13 @@ jobs:
                         command: sftp -b - -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.aschaffenburg.app \<<< "put -r $HOME/attached_workspace/dist/aschaffenburg/*"
                         name: Aschaffenburg development delivery
                     - run:
-                        command: tools/sentry-release integreat-test-cms "${NEW_VERSION_NAME}" ~/attached_workspace/dist/integreat-test-cms
+                        command: tools/sentry-release web-integreat-test-cms "${NEW_VERSION_NAME}" ~/attached_workspace/dist/integreat-test-cms
                         name: 'Sentry Upload: integreat-test-cms'
                     - run:
-                        command: tools/sentry-release malte "${NEW_VERSION_NAME}" ~/attached_workspace/dist/malte
+                        command: tools/sentry-release web-malte "${NEW_VERSION_NAME}" ~/attached_workspace/dist/malte
                         name: 'Sentry Upload: malte'
                     - run:
-                        command: tools/sentry-release aschaffenburg "${NEW_VERSION_NAME}" ~/attached_workspace/dist/aschaffenburg
+                        command: tools/sentry-release web-aschaffenburg "${NEW_VERSION_NAME}" ~/attached_workspace/dist/aschaffenburg
                         name: 'Sentry Upload: aschaffenburg'
             - notify
     e2e_android:
