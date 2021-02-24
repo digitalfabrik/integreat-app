@@ -40,6 +40,7 @@ steps:
       working_directory: native
   - run:
       name: "Sentry Upload"
+      # A react-native app reports its version as: application_id@version+build_number
       command: |
         eval $(yarn workspace --silent build-configs --silent manage to-bash << parameters.build_config_name >> android)
         tools/sentry-release "$BUILD_CONFIG_APPLICATION_ID" "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/<< parameters.build_config_name >> "${NEW_VERSION_CODE}"
