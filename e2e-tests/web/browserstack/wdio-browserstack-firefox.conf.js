@@ -1,7 +1,7 @@
 const defaultConfig = require('./wdio-browserstack.conf')
 
-const config = Object.assign({}, defaultConfig.config)
+const config = { ...defaultConfig.config }
 config.capabilities = config.capabilities.filter(cap =>
-    cap.browserName.toLowerCase() === 'firefox'
+  cap.browserName.toLowerCase() === 'firefox'
 )
 exports.config = config
