@@ -3,8 +3,7 @@ exports.config = {
     specs: [
         './web/test/specs/**/*.ts'
     ],
-    exclude: [
-    ],
+    exclude: [],
     maxInstances: 10,
 
     capabilities: [{

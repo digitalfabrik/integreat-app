@@ -33,36 +33,36 @@ exports.config = merge(defaultConfig.config, {
     key: process.env.E2E_BROWSERSTACK_KEY,
 
     capabilities: [
-    browserstackCaps({
-        browserVersion: '80',
-        os: 'Windows',
-        osVersion: '10',
-        browserName: 'Chrome',
-    }),
-    browserstackCaps({
-        os: 'Windows',
-        osVersion: '10',
-        browserName: 'Firefox',
-        browserVersion: '84.0',
-    }),
-    browserstackCaps({
-        os: 'OS X',
-        osVersion: 'Big Sur',
-        browserName: 'Safari',
-        browserVersion: '14.0',
-    }),
-    browserstackCaps({
-        os: 'Windows',
-        osVersion: '10',
-        browserName: 'IE',
-        browserVersion: '11.0',
-        ie: {
-            driver: '3.141.59'
-        },
-        seleniumVersion: '3.141.59'
-    })],
+        browserstackCaps({
+            browserVersion: '80',
+            os: 'Windows',
+            osVersion: '10',
+            browserName: 'Chrome',
+        }),
+        browserstackCaps({
+            os: 'Windows',
+            osVersion: '10',
+            browserName: 'Firefox',
+            browserVersion: '84.0',
+        }),
+        browserstackCaps({
+            os: 'OS X',
+            osVersion: 'Big Sur',
+            browserName: 'Safari',
+            browserVersion: '14.0',
+        }),
+        browserstackCaps({
+            os: 'Windows',
+            osVersion: '10',
+            browserName: 'IE',
+            browserVersion: '11.0',
+            ie: {
+                driver: '3.141.59'
+            },
+            seleniumVersion: '3.141.59'
+        })],
 
-    services: [['browserstack', { browserstackLocal: true }]],
+    services: [['browserstack', {browserstackLocal: true}]],
     host: 'hub.browserstack.com',
 }, {
     clone: false,

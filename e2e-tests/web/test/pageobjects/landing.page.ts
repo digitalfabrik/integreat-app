@@ -12,14 +12,20 @@ class LandingPage extends Page {
         this.language = language
     }
 
-    get cities () { return $$('//main//a') }
-    get search () { return $('//main//input') }
-
-    city(name: string) {
-        return $(`*=${name}`)
+    get cities() {
+        return $$('//main//a')
     }
 
-    open () {
+    get search() {
+        return $('//main//input')
+    }
+
+    city(name: string) {
+        return $(`*=
+        ${name}`)
+    }
+
+    open() {
         return super.open(`landing/${this.language}`);
     }
 }

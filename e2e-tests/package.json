@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "start:web": "(cd ../ && yarn workspace web start)",
-    "test:web": "yarn start:web & npx wdio run web/wdio.conf.js",
-    "test:web:browserstack": "yarn start:web & npx wdio run web/browserstack/wdio-browserstack.conf.js"
+    "test:web": "yarn start:web & yarn wdio run web/wdio.conf.js",
+    "test:web:browserstack": "yarn start:web & yarn wdio run web/browserstack/wdio-browserstack.conf.js"
   },
   "devDependencies": {
     "@wdio/types": "^7.0.4",
