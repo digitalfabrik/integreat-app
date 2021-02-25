@@ -10,7 +10,7 @@
             ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
             <ActionContent
                title = "Setup build config"
-               scriptText = "exec &gt; ${PROJECT_DIR}/prebuild_build_config.log 2&gt;&amp;1&#10;cd ${PROJECT_DIR} &amp;&amp; yarn workspace build-configs manage write-xcconfig &quot;integreat-e2e&quot; ios --directory ${PROJECT_DIR}/ios&#10;">
+               scriptText = "exec &gt; ${PROJECT_DIR}/prebuild_build_config.log 2&gt;&amp;1&#10;cd ${PROJECT_DIR} &amp;&amp; yarn workspace build-configs manage write-xcconfig &quot;integreat-e2e&quot; ios --directory ${PROJECT_DIR}&#10;">
                <EnvironmentBuildable>
                   <BuildableReference
                      BuildableIdentifier = "primary"
