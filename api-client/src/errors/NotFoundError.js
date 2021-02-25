@@ -1,6 +1,8 @@
 // @flow
 
-type NotFoundType = 'category' | 'event' | 'poi' | 'offer' | 'tunews' | 'localNews' | 'disclaimer'
+import type { LocalNewsType, TuNewsType } from '../routes'
+
+type NotFoundType = 'category' | 'event' | 'poi' | 'offer' | 'disclaimer' | TuNewsType | LocalNewsType
 
 const getMessage = (type: NotFoundType, id: string): string =>
   `The ${type} ${id} does not exist here.`
@@ -11,7 +13,7 @@ class NotFoundError extends Error {
   _city: string
   _language: string
 
-  constructor (params: { type: NotFoundType, id: string, city: string, language: string }) {
+  constructor (params: {| type: NotFoundType, id: string, city: string, language: string |}) {
     super(getMessage(params.type, params.id))
 
     if (Error.captureStackTrace) {

@@ -1,0 +1,7 @@
+issue_key: IGAPP-380
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: The URL for sharing content is now correctly set after a language change
+de: Die URL zum Teilen von Inhalten wird nach dem Ändern der Sprache nun korrekt gesetzt.
