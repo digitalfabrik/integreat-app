@@ -6,9 +6,9 @@ describe('Landing Page', () => {
         const language = 'en'
         const filter = 'Augsburg'
         const dashboardPath = `/${filter.toLowerCase()}/en`
-        await browser.setTimeout( {'implicit': 80000})
+        await browser.setTimeout({'implicit': 80000})
         LandingPage.language = language
-        await LandingPage.open();
+        await LandingPage.open()
 
         const cities = await LandingPage.cities
         const search = await LandingPage.search
