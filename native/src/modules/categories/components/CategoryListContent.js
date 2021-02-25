@@ -135,7 +135,7 @@ const CategoryListContent = ({
 
   return <SpaceBetween>
     <Container>
-      <Html source={{ content }}
+      <Html source={{ html: content }}
             onLinkPress={onLinkPress}
             contentWidth={width}
             defaultTextProps={{ selectable: true, allowFontStyling: true }}
