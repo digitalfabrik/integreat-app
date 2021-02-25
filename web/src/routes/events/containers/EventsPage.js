@@ -6,8 +6,7 @@ import { connect } from 'react-redux'
 import { CityModel, EventModel, NotFoundError } from 'api-client'
 import Page, { THUMBNAIL_WIDTH } from '../../../modules/common/components/Page'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
-import type { TFunction } from 'react-i18next'
-import { withTranslation } from 'react-i18next'
+import { withTranslation, TFunction } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
 import PageDetail from '../../../modules/common/components/PageDetail'
 import EventListItem from '../components/EventListItem'
@@ -26,7 +25,7 @@ type PropsType = {|
   city: string,
   eventId: ?string,
   language: string,
-  t: TFunction
+  t: typeof TFunction
 |}
 
 /**

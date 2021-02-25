@@ -1,0 +1,7 @@
+issue_key: IGAPP-477
+show_in_stores: true
+platforms:
+  - ios
+  - android
+en: Links in local news can now be opened directly by clicking.
+de: Links in lokalen Nachrichten können nun durch Anklicken direkt geöffnet werden.

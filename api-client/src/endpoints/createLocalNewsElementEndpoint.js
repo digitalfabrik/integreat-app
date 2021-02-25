@@ -7,6 +7,7 @@ import moment from 'moment-timezone'
 import Endpoint from '../Endpoint'
 import MappingError from '../errors/MappingError'
 import NotFoundError from '../errors/NotFoundError'
+import { LOCAL_NEWS_TYPE } from '../routes'
 
 export const LOCAL_NEWS_ELEMENT_ENDPOINT_NAME = 'localNewsElement'
 
@@ -23,7 +24,7 @@ export default (
     .withMapper((localNews: Array<JsonLocalNewsType>, params: ParamsType): LocalNewsModel => {
       const count = localNews.length
       if (count === 0) {
-        throw new NotFoundError({ ...params, type: 'localNews' })
+        throw new NotFoundError({ ...params, type: LOCAL_NEWS_TYPE })
       } else if (count > 1) {
         throw new MappingError(
           LOCAL_NEWS_ELEMENT_ENDPOINT_NAME,

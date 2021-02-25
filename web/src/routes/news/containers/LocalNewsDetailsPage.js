@@ -9,6 +9,7 @@ import Page from '../../../modules/common/components/Page'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import { useContext } from 'react'
 import DateFormatterContext from '../../../modules/i18n/context/DateFormatterContext'
+import { LOCAL_NEWS_TYPE } from 'api-client/src/routes'
 
 type PropsType = {|
   localNewsElement: LocalNewsModel,
@@ -31,7 +32,7 @@ export const LocalNewsDetailsPage = ({
     const error = new NotFoundError({ type: 'category', id, city, language })
     return <FailureSwitcher error={error} />
   } else if (!localNewsElement) {
-    const error = new NotFoundError({ type: 'tunews', id, city, language })
+    const error = new NotFoundError({ type: LOCAL_NEWS_TYPE, id, city, language })
     return <FailureSwitcher error={error} />
   }
 
