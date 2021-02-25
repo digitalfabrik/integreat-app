@@ -243,7 +243,7 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
     const { selectedFeedbackOption, comment, contactMail } = this.state
     try {
       await this.postFeedbackData(
-        this.getFeedbackData(selectedFeedbackOption, `${comment}    contactMail: ${contactMail}`))
+        this.getFeedbackData(selectedFeedbackOption, `${comment}\m\nKontakt Adresse: ${contactMail}`))
       onSubmit('SUCCESS')
     } catch (e) {
       console.error(e)
