@@ -81,7 +81,7 @@ export class FeedbackBox extends React.PureComponent<PropsType> {
           commentMessage={isPositiveRatingSelected ? t('positiveComment') : t('negativeComment')}
           onCommentChanged={onCommentChanged}
           required={!isPositiveRatingSelected} />
-        <Description>{t('contactMailAdress')} ({t('optionalInfo')})</Description>
+        <Description>{t('contactMailAddress')} ({t('optionalInfo')})</Description>
         <TextInput
           onChange={onContactMailChanged} />
         {sendingStatus === 'ERROR' && <Description>{t('failedSendingFeedback')}</Description>}
