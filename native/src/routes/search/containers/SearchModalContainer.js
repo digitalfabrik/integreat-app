@@ -5,9 +5,9 @@ import type { Dispatch } from 'redux'
 import type { StateType } from '../../../modules/app/StateType'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import withTheme from '../../../modules/theme/hocs/withTheme'
-import SearchModal from '../components/SearchModal'
+import SearchModal, { type PropsType as SearchModalPropsType } from '../components/SearchModal'
 import { CategoriesMapModel, createFeedbackEndpoint, SEARCH_FEEDBACK_TYPE } from 'api-client'
-import { withTranslation } from 'react-i18next'
+import { withTranslation, type TFunction } from 'react-i18next'
 import determineApiUrl from '../../../modules/endpoint/determineApiUrl'
 import type {
   NavigationPropType,
@@ -59,22 +59,24 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType) => {
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>) => ({ dispatch })
 
-const ThemedTranslatedSearch = withTheme(
-  withTranslation('search')(SearchModal)
+const ThemedTranslatedSearch = withTheme<$Diff<SearchModalPropsType, {| t: TFunction |}>>(
+  withTranslation<SearchModalPropsType>('search')(SearchModal)
 )
 
 const SearchModalContainer = (props: PropsType) => {
-  const { dispatch, navigation, ...rest } = props
+  const { dispatch, navigation, route, cityCode, ...rest } = props
 
   const navigateToLinkProp = useCallback((url: string, language: string, shareUrl: string) => {
     const navigateTo = createNavigate(dispatch, navigation)
     navigateToLink(url, navigation, language, navigateTo, shareUrl)
   }, [dispatch, navigation])
 
-  return <ThemedTranslatedSearch
-    {...rest}
-    navigateToLink={navigateToLinkProp}
-    navigateTo={createNavigate(dispatch, navigation)} />
+  return cityCode
+    ? <ThemedTranslatedSearch cityCode={cityCode}
+                              navigateToLink={navigateToLinkProp}
+                              navigateTo={createNavigate(dispatch, navigation)}
+                              {...rest} />
+    : null
 }
 
 export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(SearchModalContainer)
