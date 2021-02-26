@@ -11,7 +11,7 @@ import { Text } from 'react-native'
 import Caption from './Caption'
 import { type TFunction } from 'react-i18next'
 
-const Wrapper: StyledComponent<{}, ThemeType, *> = styled.View`
+const Wrapper: StyledComponent<{||}, ThemeType, *> = styled.View`
   position: absolute;  
   top: 0;
   bottom: 0;
@@ -21,12 +21,12 @@ const Wrapper: StyledComponent<{}, ThemeType, *> = styled.View`
   align-items: center;
 `
 
-type PropsType = {
+export type PropsType = {|
   theme: ThemeType,
   languages: Array<LanguageModel>,
   changeLanguage: (newLanguage: string) => void,
   t: TFunction
-}
+|}
 
 class LanguageNotAvailablePage extends React.Component<PropsType> {
   onPress = (model: LanguageModel) => {

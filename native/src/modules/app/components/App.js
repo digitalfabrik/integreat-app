@@ -55,7 +55,7 @@ const App = () => {
                                       cityCode={cityCode} />
                 </NavigationContainer>
               </IOSSafeAreaView>
-              <PermissionSnackbarContainer routeName={routeName} />
+              {routeName && <PermissionSnackbarContainer routeName={routeName} />}
             </>
           </SafeAreaProvider>
         </I18nProvider>

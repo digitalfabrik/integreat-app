@@ -41,7 +41,7 @@ const HeaderText: StyledComponent<{}, ThemeType, *> = styled.Text`
   font-family: ${props => props.theme.fonts.decorativeFontBold};
 `
 
-type PropsType = {|
+export type PropsType = {|
   ...StackHeaderProps,
   t: TFunction,
   theme: ThemeType
