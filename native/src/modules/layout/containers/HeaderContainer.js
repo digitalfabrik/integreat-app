@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { type StackHeaderProps } from '@react-navigation/stack'
 import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
-import Header from '../components/Header'
+import Header, { type PropsType as HeaderPropsType } from '../components/Header'
 import withTheme from '../../theme/hocs/withTheme'
 import type { StateType } from '../../app/StateType'
 import { type Dispatch } from 'redux'
@@ -96,8 +96,8 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   return { peeking, routeCityModel, language: route.language, goToLanguageChange, categoriesAvailable, shareUrl }
 }
 
-export default withTranslation('layout')(
+export default withTranslation<OwnPropsType>('layout')(
   connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(
-    withTheme(Header)
+    withTheme<HeaderPropsType>(Header)
   )
 )

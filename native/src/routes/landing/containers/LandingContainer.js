@@ -5,7 +5,7 @@ import { withTranslation } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
 import type { Dispatch } from 'redux'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
-import Landing from '../components/Landing'
+import Landing, { type PropsType as LandingPropsType } from '../components/Landing'
 import type { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
 import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvider'
 import { CityModel } from 'api-client'
@@ -17,6 +17,7 @@ import type {
 } from '../../../modules/app/constants/NavigationTypes'
 import { DASHBOARD_ROUTE } from 'api-client/src/routes'
 import type { LandingRouteType } from 'api-client/src/routes'
+import type { ThemeType } from 'build-configs/ThemeType'
 
 type OwnPropsType = {|
   route: RoutePropType<LandingRouteType>,
@@ -28,7 +29,7 @@ type ContainerPropsType = {|
   ...OwnPropsType,
   ...DispatchPropsType,
   language: string,
-  cities: $ReadOnlyArray<CityModel>
+  cities: Array<CityModel>
 |}
 
 type StatePropsType = StatusPropsType<ContainerPropsType, $Shape<{||}>>
@@ -49,7 +50,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   return {
     status: 'success',
     innerProps: {
-      cities: state.cities.models,
+      cities: Array.from(state.cities.models),
       language,
       navigation: ownProps.navigation,
       route: ownProps.route
@@ -58,8 +59,8 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
 }
 
-const ThemedTranslatedLanding = withTranslation('landing')(
-  withTheme(Landing)
+const ThemedTranslatedLanding = withTranslation<$Diff<LandingPropsType, {| theme: ThemeType|}>>('landing')(
+  withTheme<LandingPropsType>(Landing)
 )
 
 class LandingContainer extends React.Component<ContainerPropsType> {
@@ -75,7 +76,7 @@ class LandingContainer extends React.Component<ContainerPropsType> {
     )
   }
 
-  clearResourcesAndCache = () => this.props.dispatch({ type: 'CLEAR_RESOURCES_AND_CACHE' })
+  clearResourcesAndCache = () => { this.props.dispatch({ type: 'CLEAR_RESOURCES_AND_CACHE' }) }
 
   render () {
     const { cities, language } = this.props

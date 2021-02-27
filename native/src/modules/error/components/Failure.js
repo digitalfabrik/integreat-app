@@ -20,8 +20,7 @@ const IconContainer = styled.Image`
 margin-bottom: 10px;
 `
 
-type PropsType = {|
-  errorMessage?: string,
+export type PropsType = {|
   code: ErrorCodeType,
   tryAgain?: () => void,
   t: TFunction,
