@@ -1,6 +1,6 @@
 import LandingPage from '../pageobjects/landing.page'
 
-describe('Landing Page', () => {
+describe('navigate to dashboard', () => {
   it('Filter and Navigate to City', async () => {
     // given
     const language = 'en'
