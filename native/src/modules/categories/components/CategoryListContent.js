@@ -105,9 +105,9 @@ const CategoryListContent = ({
   // see https://github.com/archriss/react-native-render-html/issues/286
   // TODO: remove with IGAPP-378
   const renderLists = useCallback((htmlAttribs, children, convertedCSSStyles, passProps) => {
-    const { rawChildren, nodeIndex, key, listsPrefixesRenderers } = passProps
+    const { transientChildren, nodeIndex, key, listsPrefixesRenderers } = passProps
     children = children && children.map((child, index) => {
-      const rawChild = rawChildren[index]
+      const rawChild = transientChildren[index]
       let prefix = false
       if (rawChild && rawChild.tagName === 'li') {
         if (rawChild.parentTag === 'ul') {
