@@ -1,12 +1,13 @@
 // @flow
 
 import * as React from 'react'
-import styled from 'styled-components'
+import styled, { type StyledComponent } from 'styled-components'
 import { faTimes } from '../../app/constants/icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { type TFunction } from 'react-i18next'
+import type { ThemeType } from 'build-configs/ThemeType'
 
-const Header = styled.div`
+const Header: StyledComponent<{||}, ThemeType, *> = styled.div`
   display: flex;
   width: 100%;
   flex-direction: row;
@@ -15,7 +16,7 @@ const Header = styled.div`
   font-size: ${props => props.theme.fonts.subTitleFontSize};
 `
 
-const CloseButton = styled.button`
+const CloseButton: StyledComponent<{||}, ThemeType, *> = styled.button`
   background-color: ${props => props.theme.colors.backgroundColor};
   border: none;
 

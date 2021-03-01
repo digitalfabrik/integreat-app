@@ -2,14 +2,15 @@
 
 import * as React from 'react'
 import type { UiDirectionType } from '../../i18n/types/UiDirectionType'
-import styled from 'styled-components'
+import styled, { type StyledComponent } from 'styled-components'
 import Breadcrumb from './Breadcrumb'
 import BreadcrumbModel from '../BreadcrumbModel'
 import BreadcrumbsJsonLd from '../../json-ld/components/BreadcrumbsJsonLd'
+import type { ThemeType } from 'build-configs/ThemeType'
 
 const opposite = (direction: UiDirectionType) => direction === 'ltr' ? 'rtl' : 'ltr'
 
-const Wrapper = styled.div`
+const Wrapper: StyledComponent<{| direction: UiDirectionType |}, ThemeType, *> = styled.div`
   margin: 10px 0;
   text-align: end;
   white-space: nowrap;
@@ -17,7 +18,7 @@ const Wrapper = styled.div`
   direction: ${props => opposite(props.direction)};
 `
 
-const OrderedList = styled.ol`
+const OrderedList: StyledComponent<{| direction: UiDirectionType |}, ThemeType, *> = styled.ol`
   direction: ${props => props.direction};
   display: inline-block;
   list-style: none;

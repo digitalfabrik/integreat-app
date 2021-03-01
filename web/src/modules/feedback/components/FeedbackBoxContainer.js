@@ -1,7 +1,6 @@
 // @flow
 
 import * as React from 'react'
-
 import {
   CATEGORIES_FEEDBACK_TYPE,
   CityModel,
@@ -29,7 +28,6 @@ import { POIS_ROUTE } from '../../app/route-configs/PoisRouteConfig'
 import { SEARCH_ROUTE } from '../../app/route-configs/SearchRouteConfig'
 import { DISCLAIMER_ROUTE } from '../../app/route-configs/DisclaimerRouteConfig'
 import { cmsApiBaseUrl } from '../../app/constants/urls'
-import type { ThemeType } from 'build-configs/ThemeType'
 import type { SendingStatusType } from './FeedbackModal'
 import type { FeedbackParamsType } from 'api-client'
 
@@ -46,8 +44,7 @@ type PropsType = {|
   closeFeedbackModal: () => void,
   sendingStatus: SendingStatusType,
   onSubmit: (sendingStatus: SendingStatusType) => void,
-  t: TFunction,
-  theme: ThemeType
+  t: TFunction
 |}
 
 type StateType = {|
@@ -252,7 +249,7 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
   }
 
   render () {
-    const { closeFeedbackModal, isPositiveRatingSelected, theme, sendingStatus } = this.props
+    const { closeFeedbackModal, isPositiveRatingSelected, sendingStatus } = this.props
 
     return <FeedbackBox onFeedbackOptionChanged={this.handleFeedbackOptionChanged}
                         onCommentChanged={this.handleCommentChanged}
@@ -260,7 +257,6 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
                         sendingStatus={sendingStatus}
                         closeFeedbackModal={closeFeedbackModal}
                         isPositiveRatingSelected={isPositiveRatingSelected}
-                        theme={theme}
                         {...this.state} />
   }
 }

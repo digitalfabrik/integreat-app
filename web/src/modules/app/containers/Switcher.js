@@ -144,9 +144,9 @@ export class Switcher extends React.Component<PropsType> {
           {invalidCity
             ? <FailureSwitcher error={new Error('notFound.category')} />
             : invalidLanguage
-              ? <LanguageFailure cities={citiesPayload.data}
-                               location={location}
-                               languageChangePaths={languageChangePaths} />
+              ? <LanguageFailure cities={cities}
+                                 location={location}
+                                 languageChangePaths={languageChangePaths || []} />
               : <RouteContentSwitcher location={location} payloads={payloads} isLoading={isLoading} />}
         </Layout>
       )
