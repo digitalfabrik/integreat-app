@@ -15,7 +15,7 @@ import {
   TunewsModel,
   LanguageModel
 } from 'api-client'
-import type { TFunction } from 'react-i18next'
+import { type TFunction } from 'react-i18next'
 
 export type AllPayloadsType = {|
   citiesPayload: Payload<Array<CityModel>>,

@@ -48,6 +48,6 @@ describe('tunews', () => {
   })
 
   it('should throw a not found error if the response is empty', () => {
-    expect(() => tunewsElement.mapResponse([], params)).toThrowError('The tunews 1 does not exist here.')
+    expect(() => tunewsElement.mapResponse([], params)).toThrowError('The tu-news 1 does not exist here.')
   })
 })

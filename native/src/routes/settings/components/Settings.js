@@ -1,6 +1,7 @@
 // @flow
 
 import * as React from 'react'
+import { type Dispatch } from 'redux'
 import { SectionList, StyleSheet, Switch, View } from 'react-native'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
@@ -18,15 +19,16 @@ import type {
 } from '../../../modules/app/constants/NavigationTypes'
 import LayoutContainer from '../../../modules/layout/containers/LayoutContainer'
 import type { SettingsRouteType } from 'api-client/src/routes'
+import type { StoreActionType } from '../../../modules/app/StoreActionType'
 
-type PropsType = {|
+export type PropsType = {|
   theme: ThemeType,
   languageCode: string,
   cityCode: ?string,
   t: TFunction,
   route: RoutePropType<SettingsRouteType>,
   navigation: NavigationPropType<SettingsRouteType>,
-  dispatch: () => {}
+  dispatch: Dispatch<StoreActionType>
 |}
 
 type StateType = {|

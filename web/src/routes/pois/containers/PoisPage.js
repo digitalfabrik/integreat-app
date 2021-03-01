@@ -6,8 +6,7 @@ import { connect } from 'react-redux'
 import Page from '../../../modules/common/components/Page'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import { NotFoundError, PoiModel } from 'api-client'
-import type { TFunction } from 'react-i18next'
-import { withTranslation } from 'react-i18next'
+import { withTranslation, type TFunction } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
 import PageDetail from '../../../modules/common/components/PageDetail'
 import PoiListItem from '../components/PoiListItem'
@@ -16,8 +15,12 @@ import List from '../../../modules/common/components/List'
 import { push } from 'redux-first-router'
 import DateFormatterContext from '../../../modules/i18n/context/DateFormatterContext'
 
+type OwnPropsType = {|
+  pois: Array<PoiModel>
+|}
+
 type PropsType = {|
-  pois: Array<PoiModel>,
+  ...OwnPropsType,
   city: string,
   poiId: ?string,
   language: string,
@@ -76,7 +79,7 @@ const mapStateTypeToProps = (state: StateType) => ({
   poiId: state.location.payload.poiId
 })
 
-export default connect<*, *, *, *, *, *>(mapStateTypeToProps)(
-  withTranslation('pois')(
+export default connect<$Diff<PropsType, {| t: TFunction |}>, OwnPropsType, _, _, _, _>(mapStateTypeToProps, () => ({}))(
+  withTranslation<PropsType>('pois')(
     PoisPage
   ))

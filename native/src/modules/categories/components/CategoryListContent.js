@@ -1,9 +1,8 @@
 // @flow
 
 import * as React from 'react'
-import { useState, useContext, useEffect, useCallback } from 'react'
-import { Dimensions, Text, View } from 'react-native'
-import { type DisplayMetrics } from 'react-native/Libraries/Utilities/NativeDeviceInfo'
+import { useCallback, useContext } from 'react'
+import { useWindowDimensions, Text, View } from 'react-native'
 import Html, { GestureResponderEvent, type HTMLNode } from 'react-native-render-html'
 import DateFormatterContext from '../../i18n/context/DateFormatterContext'
 import styled from 'styled-components/native'
@@ -22,13 +21,6 @@ const Container = styled.View`
 const LastUpdateContainer = styled.View`
   margin: 15px 0;
 `
-
-// type inferred from 'react-native/Libraries/Utilities/Dimensions'
-type DimensionsEventType = {
-  window?: DisplayMetrics,
-  screen?: DisplayMetrics,
-  ...
-}
 
 type ContentPropsType = {|
   content: string,
@@ -52,20 +44,8 @@ const CategoryListContent = ({
   lastUpdate,
   theme
 }: ContentPropsType) => {
-  const [width, setWidth] = useState<number>(Dimensions.get('window').width)
+  const width = useWindowDimensions().width
   const formatter = useContext(DateFormatterContext)
-  const onChange = (dimensionsEvent: DimensionsEventType) => {
-    const defaultWidth = 200
-    setWidth((dimensionsEvent.window?.width || dimensionsEvent.screen?.width || defaultWidth))
-  }
-
-  useEffect(() => {
-    Dimensions.addEventListener('change', onChange)
-    return () => {
-      Dimensions.removeEventListener('change', onChange)
-    }
-  })
-
   const onLinkPress = useCallback((evt: GestureResponderEvent, url: string) => {
     const shareUrl = Object.keys(cacheDictionary).find(remoteUrl => cacheDictionary[remoteUrl] === url)
     navigateToLink(url, language, shareUrl || url)
@@ -125,9 +105,9 @@ const CategoryListContent = ({
   // see https://github.com/archriss/react-native-render-html/issues/286
   // TODO: remove with IGAPP-378
   const renderLists = useCallback((htmlAttribs, children, convertedCSSStyles, passProps) => {
-    const { rawChildren, nodeIndex, key, listsPrefixesRenderers } = passProps
+    const { transientChildren, nodeIndex, key, listsPrefixesRenderers } = passProps
     children = children && children.map((child, index) => {
-      const rawChild = rawChildren[index]
+      const rawChild = transientChildren[index]
       let prefix = false
       if (rawChild && rawChild.tagName === 'li') {
         if (rawChild.parentTag === 'ul') {
@@ -155,11 +135,10 @@ const CategoryListContent = ({
 
   return <SpaceBetween>
     <Container>
-      <Html html={content}
+      <Html source={{ html: content }}
             onLinkPress={onLinkPress}
             contentWidth={width}
-            allowFontScaling
-            textSelectable
+            defaultTextProps={{ selectable: true, allowFontStyling: true }}
             alterNode={alterResources}
             listsPrefixesRenderers={{ ul: renderUnorderedListPrefix, ol: renderOrderedListPrefix }}
             renderers={{ ul: renderLists, ol: renderLists }}

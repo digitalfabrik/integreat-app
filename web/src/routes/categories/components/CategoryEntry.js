@@ -1,19 +1,18 @@
 // @flow
 
 import * as React from 'react'
-
 import { CategoryModel } from 'api-client'
 import iconPlaceholder from '../assets/IconPlaceholder.svg'
-import styled, { withTheme } from 'styled-components'
+import styled, { withTheme, type StyledComponent } from 'styled-components'
 import Highlighter from 'react-highlight-words'
 import normalizeSearchString from '../../../modules/common/utils/normalizeSearchString'
 import Link from 'redux-first-router-link'
-import type { ThemeType } from '../../../modules/theme/constants/theme'
+import type { ThemeType } from 'build-configs/ThemeType'
 import ContentMatcher from './ContentMatcher'
 
 const NUM_WORDS_SURROUNDING_MATCH = 10
 
-const Row = styled.div`
+const Row: StyledComponent<{||}, ThemeType, *> = styled.div`
   margin: 12px 0;
 
   & > * {
@@ -21,7 +20,7 @@ const Row = styled.div`
   }
 `
 
-const SubCategory = styled.div`
+const SubCategory: StyledComponent<{||}, ThemeType, *> = styled.div`
   text-align: end;
 
   & > * {
@@ -30,7 +29,7 @@ const SubCategory = styled.div`
   }
 `
 
-const CategoryThumbnail = styled.img`
+const CategoryThumbnail: StyledComponent<{||}, ThemeType, *> = styled.img`
   width: 40px;
   height: 40px;
   flex-shrink: 0;
@@ -38,7 +37,7 @@ const CategoryThumbnail = styled.img`
   object-fit: contain;
 `
 
-const CategoryListItem = styled.div`
+const CategoryListItem: StyledComponent<{||}, ThemeType, *> = styled.div`
   display: flex;
   flex-direction: column;
   padding: 15px 5px;
@@ -51,16 +50,17 @@ const CategoryListItem = styled.div`
   border-bottom: 1px solid ${props => props.theme.colors.themeColor};
 `
 
-const SubCategoryCaption = styled(CategoryListItem)`
+const SubCategoryCaption: StyledComponent<{||}, ThemeType, *> = styled(CategoryListItem)`
   margin: 0 15px;
   padding: 8px 0;
   border-bottom: 1px solid ${props => props.theme.colors.themeColor};
 `
-const ContentMatchItem = styled(Highlighter)`
+
+const ContentMatchItem: StyledComponent<{||}, ThemeType, *> = styled(Highlighter)`
   display: inline-block;
 `
 
-const StyledLink = styled(Link)`
+const StyledLink: StyledComponent<{||}, ThemeType, *> = styled(Link)`
   display: inline-flex;
   align-items: center;
   margin: 0 auto;
@@ -75,7 +75,7 @@ const StyledLink = styled(Link)`
 
 type PropsType = {|
   category: CategoryModel,
-  contentWithoutHtml: string,
+  contentWithoutHtml: ?string,
   subCategories: Array<CategoryModel>,
   /** A search query to highlight in the category title */
   query?: string,
@@ -85,7 +85,7 @@ type PropsType = {|
 /**
  * Displays a single CategoryEntry
  */
-class CategoryEntry extends React.PureComponent<PropsType> {
+export class CategoryEntry extends React.PureComponent<PropsType> {
   contentMatcher = new ContentMatcher()
 
   renderSubCategories (): Array<React.Node> {
@@ -99,8 +99,11 @@ class CategoryEntry extends React.PureComponent<PropsType> {
     )
   }
 
-  getMatchedContent (numWordsSurrounding: number): ContentMatchItem {
+  getMatchedContent (numWordsSurrounding: number): React.Node {
     const { query, theme, contentWithoutHtml } = this.props
+    if (!contentWithoutHtml) {
+      return null
+    }
     const textToHighlight = this.contentMatcher.getMatchedContent(query, contentWithoutHtml, numWordsSurrounding)
     if (textToHighlight == null) {
       return null

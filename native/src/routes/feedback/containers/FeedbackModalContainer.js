@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { type Dispatch } from 'redux'
 import { withTranslation } from 'react-i18next'
 import withTheme from '../../../modules/theme/hocs/withTheme'
-import FeedbackModal from '../components/FeedbackModal'
+import FeedbackModal, { type PropsType as FeedbackModalPropsType } from '../components/FeedbackModal'
 import FeedbackVariant from '../FeedbackVariant'
 import {
   CATEGORIES_FEEDBACK_TYPE, CityModel,
@@ -172,8 +172,6 @@ class FeedbackModalContainer extends React.Component<ContainerPropsType, Feedbac
     return []
   }
 
-  closeModal = () => this.props.navigation.goBack()
-
   getCurrentPageFeedbackOption = (): ?FeedbackVariant => {
     const { route, t } = this.props
     const { type, path, title, alias } = route.params
@@ -256,27 +254,25 @@ class FeedbackModalContainer extends React.Component<ContainerPropsType, Feedbac
   }
 
   render () {
-    const { route } = this.props
+    const { route, t } = this.props
     const { comment, selectedFeedbackIndex, feedbackOptions, sendingStatus } = this.state
     const { isPositiveFeedback } = route.params
 
-    return <ThemedTranslatedFeedbackModal closeModal={this.closeModal}
-                          comment={comment}
-                          selectedFeedbackIndex={selectedFeedbackIndex}
-                          sendingStatus={sendingStatus}
-                          feedbackOptions={feedbackOptions}
-                          onCommentChanged={this.onFeedbackCommentChanged}
-                          onFeedbackOptionChanged={this.onFeedbackOptionChanged}
-                          isPositiveFeedback={isPositiveFeedback}
-                          onSubmit={this.handleSubmit} />
+    return <ThemedFeedbackModal comment={comment}
+                                selectedFeedbackIndex={selectedFeedbackIndex}
+                                sendingStatus={sendingStatus}
+                                feedbackOptions={feedbackOptions}
+                                onCommentChanged={this.onFeedbackCommentChanged}
+                                onFeedbackOptionChanged={this.onFeedbackOptionChanged}
+                                isPositiveFeedback={isPositiveFeedback}
+                                onSubmit={this.handleSubmit}
+                                t={t} />
   }
 }
 
-const ThemedTranslatedFeedbackModal = withTheme(
-  withTranslation('feedback')(FeedbackModal)
-)
+const ThemedFeedbackModal = withTheme<FeedbackModalPropsType>(FeedbackModal)
 
-const ThemedTranslatedFeedbackContainer = withTranslation('feedback')(
+const ThemedTranslatedFeedbackContainer = withTranslation<ContainerPropsType>('feedback')(
   FeedbackModalContainer
 )
 
