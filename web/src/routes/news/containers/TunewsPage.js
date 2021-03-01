@@ -19,7 +19,7 @@ type PropsType = {|
   tunews: Array<TunewsModel>,
   language: string,
   city: string,
-  cities: ? Array<CityModel>,
+  cities: ?Array<CityModel>,
   path: string,
   t: TFunction,
   isFetching: boolean,
