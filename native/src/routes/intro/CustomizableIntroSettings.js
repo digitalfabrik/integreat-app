@@ -1,8 +1,8 @@
 // @flow
 
 import React from 'react'
-import type { ThemeType } from '../../modules/theme/constants'
-import type TFunction from 'react-i18next'
+import type { ThemeType } from 'build-configs/ThemeType'
+import { type TFunction } from 'react-i18next'
 import SettingItem from '../settings/components/SettingItem'
 import { Switch } from 'react-native'
 import buildConfig from '../../modules/app/constants/buildConfig'

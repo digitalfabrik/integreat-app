@@ -18,6 +18,10 @@ export type FeedbackType = ImportedFeedbackType
 export type FeedbackCategoryType = ImportedFeedbackCategoryType
 export type AccommodationType = ImportedAccommodationType
 
+export { default as InternalPathnameParser } from './routes/InternalPathnameParser'
+export * from './routes'
+export * from './routes/RouteInformationTypes'
+
 export { default as Endpoint } from './Endpoint'
 export { default as EndpointBuilder } from './EndpointBuilder'
 export { default as Payload } from './Payload'
@@ -39,7 +43,11 @@ export { default as createTunewsElementEndpoint, TUNEWS_ELEMENT_ENDPOINT_NAME } 
 export { default as createOffersEndpoint, OFFERS_ENDPOINT_NAME } from './endpoints/createOffersEndpoint'
 export { default as createFeedbackEndpoint, FEEDBACK_ENDPOINT_NAME } from './endpoints/createFeedbackEndpoint'
 
+export * from './i18n/DateFormatter'
+export { default as DateFormatter } from './i18n/DateFormatter'
+
 export { default as hashUrl } from './hashUrl'
+export * from './replaceLinks'
 
 export { POSITIVE_RATING } from './endpoints/createFeedbackEndpoint'
 export { NEGATIVE_RATING } from './endpoints/createFeedbackEndpoint'

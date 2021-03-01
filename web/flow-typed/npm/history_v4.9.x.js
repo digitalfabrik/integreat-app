@@ -1,4 +1,4 @@
-// flow-typed signature: b12a0fe63b5bf213ed883318ff3efec5
+// flow-typed signature: 0db4c2ff3bfc92976152d20dea6aa08d
 // flow-typed version: c6154227d1/history_v4.9.x/flow_>=v0.104.x
 
 declare module 'history' {
