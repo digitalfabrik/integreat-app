@@ -5,6 +5,8 @@ import { useContext } from 'react'
 import styled, { css } from 'styled-components'
 import dimensions from '../../theme/constants/dimensions'
 import PlatformContext from '../../platform/PlatformContext'
+import type { StyledComponent } from 'styled-components'
+import type { ThemeType } from 'build-configs/ThemeType'
 
 // Works for Chrome > 69, Firefox > 41, RTL/LTR support does not work for IE
 
@@ -86,7 +88,12 @@ const pseudosMixin = (flow: FlowType, supportsLogicalProperties: boolean) => css
   }
 `
 
-const TooltipContainer = styled.div`
+const TooltipContainer: StyledComponent<{|
+  text: string, flow: FlowType,
+  smallViewportFlow: FlowType,
+  mediumViewportFlow: FlowType,
+  supportsLogicalProperties: boolean
+|}, ThemeType, *> = styled.div`
   position: relative;
   
   ::before,
