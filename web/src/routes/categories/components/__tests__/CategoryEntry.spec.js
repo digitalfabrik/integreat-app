@@ -3,7 +3,7 @@
 import React from 'react'
 import { shallow, type ShallowWrapper } from 'enzyme'
 import moment from 'moment'
-import CategoryEntry from '../CategoryEntry'
+import { CategoryEntry } from '../CategoryEntry'
 import { CategoryModel } from 'api-client'
 import iconPlaceholder from '../../assets/IconPlaceholder.svg'
 import { lightTheme } from '../../../../modules/theme/constants/theme'
@@ -55,6 +55,7 @@ describe('CategoryEntry', () => {
   it('should render and match snapshot', () => {
     const wrapper = shallow(<CategoryEntry
       theme={lightTheme}
+      contentWithoutHtml={null}
       category={category}
       subCategories={[childCategory]} />
     ).dive()
@@ -80,6 +81,7 @@ describe('CategoryEntry', () => {
   it('should replace empty thumbnail', () => {
     const wrapper = shallow(<CategoryEntry
       theme={lightTheme}
+      contentWithoutHtml={null}
       category={noThumbCategory}
       subCategories={[childCategory]} />
     ).dive()
@@ -93,13 +95,14 @@ describe('CategoryEntry', () => {
       const selectedSection = 'this is a test content which is'
       const numWords = 3
       const wrapper = shallow(
-        <CategoryEntry theme={lightTheme}
-                       category={category}
+        <CategoryEntry category={category}
+                       theme={lightTheme}
                        contentWithoutHtml={category.content}
                        query={query}
                        subCategories={[]} />
-      ).dive()
+      )
       const categoryEntry = wrapper.instance()
+      // $FlowFixMe React.Portal is incompatible
       const contentMatchItem = shallow(categoryEntry.getMatchedContent(numWords))
       const contentMatchProps = contentMatchItem.props()
       expect(contentMatchProps['aria-label']).toEqual(selectedSection)
@@ -113,13 +116,14 @@ describe('CategoryEntry', () => {
       const query = 'test'
       const numWords = 3
       const wrapper = shallow(
-        <CategoryEntry theme={lightTheme}
-                       category={category}
+        <CategoryEntry category={category}
+                       theme={lightTheme}
                        contentWithoutHtml={category.content}
                        query={query}
                        subCategories={[]} />
-      ).dive()
+      )
       const categoryEntry = wrapper.instance()
+      // $FlowFixMe getMatchedContent is not writable
       categoryEntry.contentMatcher.getMatchedContent = jest.fn()
       categoryEntry.contentMatcher.getMatchedContent.mockReturnValue(null)
       expect(categoryEntry.getMatchedContent(numWords)).toBeNull()

@@ -4,15 +4,16 @@ import React from 'react'
 import { Wrapper, Button, Menu, MenuItem } from 'react-aria-menubutton'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown } from '../../app/constants/icons'
-import type { ThemeType } from '../../theme/constants/theme'
-import styled from 'styled-components'
+import type { ThemeType } from 'build-configs/ThemeType'
+import styled, { type StyledComponent, withTheme } from 'styled-components'
+import FeedbackVariant from '../../feedback/FeedbackVariant'
 
-const StyledWrapper = styled(Wrapper)`
+const StyledWrapper: StyledComponent<{||}, ThemeType, *> = styled(Wrapper)`
   position: relative;
   box-sizing: border-box;
 `
 
-const StyledMenuButton = styled(Button)`
+const StyledMenuButton: StyledComponent<{||}, ThemeType, *> = styled(Button)`
   display: flex;
   cursor: pointer;
   box-sizing: border-box;
@@ -24,17 +25,17 @@ const StyledMenuButton = styled(Button)`
   border-radius: 4px;
 `
 
-const StyledMenuButtonText = styled.div`
+const StyledMenuButtonText: StyledComponent<{||}, ThemeType, *> = styled.div`
   display: flex;
   padding: 8px;
   color: ${props => props.theme.colors.textColor};
 `
 
-const StyledMenuButtonIcon = styled.div`
+const StyledMenuButtonIcon: StyledComponent<{||}, ThemeType, *> = styled.div`
   padding: 8px 16px;
 `
 
-const StyledMenu = styled(Menu)`
+const StyledMenu: StyledComponent<{||}, ThemeType, *> = styled(Menu)`
   position: absolute;
   top: 100%;
   z-index: 1;
@@ -49,7 +50,7 @@ const StyledMenu = styled(Menu)`
     0 4px 11px ${props => props.theme.colors.textDecorationColor};
 `
 
-const StyledMenuItem = styled(MenuItem)`
+const StyledMenuItem: StyledComponent<{||}, ThemeType, *> = styled(MenuItem)`
   display: flex;
   padding: 8px;
   color: ${props => props.theme.colors.textColor};
@@ -61,16 +62,14 @@ const StyledMenuItem = styled(MenuItem)`
   }
 `
 
-type DropdownItemType = { label: string }
-
-type DropdownPropsType<T: DropdownItemType> = {
-  items: Array<T>,
-  selectedItem: T,
-  onOptionChanged: (item: T) => void,
+type DropdownPropsType = {|
+  items: Array<FeedbackVariant>,
+  selectedItem: FeedbackVariant,
+  onOptionChanged: (item: FeedbackVariant) => void,
   theme: ThemeType
-}
+|}
 
-class Dropdown<T: DropdownItemType> extends React.Component<DropdownPropsType<T>> {
+class Dropdown extends React.Component<DropdownPropsType> {
   render () {
     const { onOptionChanged, items, selectedItem, theme } = this.props
 
@@ -85,7 +84,7 @@ class Dropdown<T: DropdownItemType> extends React.Component<DropdownPropsType<T>
 
     const renderItems = () => {
       return items.map((option, index) =>
-        <StyledMenuItem key={index} value={option} text={option.label} theme={theme}>
+        <StyledMenuItem key={index} value={option} text={option.label}>
           {option.label}
         </StyledMenuItem>)
     }
@@ -99,4 +98,4 @@ class Dropdown<T: DropdownItemType> extends React.Component<DropdownPropsType<T>
   }
 }
 
-export default Dropdown
+export default withTheme(Dropdown)

@@ -1,10 +1,11 @@
 // @flow
 
-import styled from 'styled-components'
+import styled, { type StyledComponent } from 'styled-components'
 import CleanAnchor from '../../common/components/CleanAnchor'
 import dimensions from '../../theme/constants/dimensions'
+import type { ThemeType } from 'build-configs/ThemeType'
 
-const StyledToolbarItem = styled(CleanAnchor)`
+const StyledToolbarItem: StyledComponent<{||}, ThemeType, *> = styled(CleanAnchor)`
   display: inline-block;
   margin: 0 10px;
   padding: 8px;

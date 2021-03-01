@@ -5,22 +5,23 @@ import RemoteContent from '../../../modules/common/components/RemoteContent'
 import Caption from '../../../modules/common/components/Caption'
 import CategoryEntry from './CategoryEntry'
 import { CategoryModel } from 'api-client'
-import styled from 'styled-components'
+import styled, { type StyledComponent } from 'styled-components'
 import helpers from '../../../modules/theme/constants/helpers'
 import LastUpdateInfo from '../../../modules/common/components/LastUpdateInfo'
 import DateFormatter from 'api-client/src/i18n/DateFormatter'
+import type { ThemeType } from 'build-configs/ThemeType'
 
-const List = styled.div`
+const List: StyledComponent<{||}, ThemeType, *> = styled.div`
   & a {
     ${helpers.removeLinkHighlighting}
   }
 `
 
-const Centering = styled.div`
+const Centering: StyledComponent<{||}, ThemeType, *> = styled.div`
   text-align: center;
 `
 
-const CategoryIcon = styled.img`
+const CategoryIcon: StyledComponent<{||}, ThemeType, *> = styled.img`
   width: 150px;
   height: 150px;
   flex-shrink: 0;

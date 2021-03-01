@@ -1,12 +1,13 @@
 // @flow
 
 import React from 'react'
-import styled from 'styled-components'
+import styled, { type StyledComponent } from 'styled-components'
 import type Moment from 'moment'
 import LastUpdateInfo from '../../../modules/common/components/LastUpdateInfo'
 import DateFormatter from 'api-client/src/i18n/DateFormatter'
+import type { ThemeType } from 'build-configs/ThemeType'
 
-const Footer = styled.footer`
+const Footer: StyledComponent<{||}, ThemeType, *> = styled.footer`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -17,15 +18,15 @@ const Footer = styled.footer`
   border-radius: 24px;
 `
 
-const StyledContainer = styled.div`
+const StyledContainer: StyledComponent<{||}, ThemeType, *> = styled.div`
   padding: 0 10px;
 `
 
-const StyledLink = styled.a`
+const StyledLink: StyledComponent<{||}, ThemeType, *> = styled.a`
   color: ${({ theme }) => (theme.colors.backgroundColor)};
   text-decoration: underline;
 `
-const CustomLastUpdateInfo = styled(LastUpdateInfo)`
+const CustomLastUpdateInfo: StyledComponent<{||}, ThemeType, *> = styled(LastUpdateInfo)`
   padding: 0 10px;
   color: ${({ theme }) => (theme.colors.backgroundColor)};
 

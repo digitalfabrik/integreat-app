@@ -2,12 +2,12 @@
 
 import React from 'react'
 import Link from 'redux-first-router-link'
-
 import ReactTooltip from 'react-tooltip'
-import styled from 'styled-components'
+import styled, { type StyledComponent } from 'styled-components'
 import dimensions from '../../theme/constants/dimensions'
+import type { ThemeType } from 'build-configs/ThemeType'
 
-const StyledLink = styled(Link)`
+const StyledLink: StyledComponent<{||}, ThemeType, *> = styled(Link)`
   width: calc(0.8 * ${dimensions.headerHeightLarge}px);
   height: calc(0.8 * ${dimensions.headerHeightLarge}px);
 
@@ -25,7 +25,8 @@ const StyledLink = styled(Link)`
   }
 `
 
-const StyledSpan = StyledLink.withComponent('span')
+// $FlowFixMe withComponent exists
+const StyledSpan: StyledComponent<{||}, ThemeType, *> = StyledLink.withComponent('span')
 
 type PropsType = {|
   href?: string,

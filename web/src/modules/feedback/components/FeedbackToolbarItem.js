@@ -9,6 +9,8 @@ import { NEGATIVE_RATING, POSITIVE_RATING } from 'api-client'
 import StyledToolbarItem from '../../layout/components/StyledToolbarItem'
 import StyledSmallViewTip from '../../layout/components/StyledSmallViewTip'
 import type { FeedbackRatingType } from '../../layout/containers/LocationLayout'
+import type { ThemeType } from 'build-configs/ThemeType'
+import type { StyledComponent } from 'styled-components'
 
 type PropsType = {|
   isPositiveRatingLink: boolean,
@@ -18,7 +20,8 @@ type PropsType = {|
   viewportSmall: boolean
 |}
 
-const StyledFeedbackToolbarItem = StyledToolbarItem.withComponent('button')
+// $FlowFixMe withComponent exists
+const StyledFeedbackToolbarItem: StyledComponent<{||}, ThemeType, *> = StyledToolbarItem.withComponent('button')
 
 export class FeedbackToolbarItem extends React.PureComponent<PropsType> {
   componentDidMount () {

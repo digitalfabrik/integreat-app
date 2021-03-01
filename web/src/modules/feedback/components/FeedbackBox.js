@@ -1,18 +1,17 @@
 // @flow
 
 import * as React from 'react'
-
 import { withTranslation, type TFunction } from 'react-i18next'
-import styled from 'styled-components'
+import styled, { type StyledComponent } from 'styled-components'
 import ModalHeader from './ModalHeader'
 import FeedbackComment from './FeedbackComment'
 import FeedbackVariant from '../FeedbackVariant'
 import TextButton from '../../common/components/TextButton'
-import type { ThemeType } from '../../theme/constants/theme'
+import type { ThemeType } from 'build-configs/ThemeType'
 import Dropdown from '../../common/components/Dropdown'
 import type { SendingStatusType } from './FeedbackModal'
 
-export const StyledFeedbackBox = styled.div`
+export const StyledFeedbackBox: StyledComponent<{||}, ThemeType, *> = styled.div`
   display: flex;
   width: 400px;
   height: auto;
@@ -25,7 +24,7 @@ export const StyledFeedbackBox = styled.div`
   font-size: ${props => props.theme.fonts.contentFontSize};
 `
 
-export const Description = styled.div`
+export const Description: StyledComponent<{||}, ThemeType, *> = styled.div`
   padding: 10px 0 5px;
 `
 
@@ -39,7 +38,6 @@ type PropsType = {|
   onSubmit: () => void,
   t: TFunction,
   closeFeedbackModal: () => void,
-  theme: ThemeType,
   sendingStatus: SendingStatusType
 |}
 
@@ -58,7 +56,6 @@ export class FeedbackBox extends React.PureComponent<PropsType> {
       onSubmit,
       comment,
       closeFeedbackModal,
-      theme,
       sendingStatus
     } = this.props
 
@@ -68,8 +65,7 @@ export class FeedbackBox extends React.PureComponent<PropsType> {
         <Description>{t('feedbackType')}</Description>
         <Dropdown items={feedbackOptions}
                   selectedItem={selectedFeedbackOption}
-                  onOptionChanged={onFeedbackOptionChanged}
-                  theme={theme} />
+                  onOptionChanged={onFeedbackOptionChanged} />
         <FeedbackComment
           comment={comment}
           commentMessage={isPositiveRatingSelected ? t('positiveComment') : t('negativeComment')}
