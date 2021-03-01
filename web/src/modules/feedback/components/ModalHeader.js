@@ -4,7 +4,7 @@ import * as React from 'react'
 import styled from 'styled-components'
 import { faTimes } from '../../app/constants/icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { TFunction } from 'i18next'
+import { type TFunction } from 'react-i18next'
 
 const Header = styled.div`
   display: flex;
@@ -28,7 +28,7 @@ const CloseButton = styled.button`
 type PropsType = {|
   closeFeedbackModal: () => void,
   title: string,
-  t: typeof TFunction
+  t: TFunction
 |}
 
 export class ModalHeader extends React.PureComponent<PropsType> {

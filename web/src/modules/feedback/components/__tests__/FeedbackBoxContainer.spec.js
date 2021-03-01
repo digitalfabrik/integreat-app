@@ -383,7 +383,7 @@ describe('FeedbackBoxContainer', () => {
     const instance = component.instance()
     instance.postFeedbackData = jest.fn().mockRejectedValue(new Error('Endpoint request failed'))
 
-    await instance.handleSubmit()
+    await instance.submitFeedback()
     expect(mockOnSubmit).toHaveBeenCalledWith('ERROR')
   })
 

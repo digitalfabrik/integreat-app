@@ -124,6 +124,24 @@ exports[`FeedbackModal should match snapshot 1`] = `
             "type": "CATEGORIES",
           }
         }
+        offers={
+          Array [
+            OfferModel {
+              "_alias": "sprungbrett",
+              "_path": "https://my.sprung.br/ett/api",
+              "_postData": null,
+              "_thumbnail": "",
+              "_title": "Sprungbrett",
+            },
+            OfferModel {
+              "_alias": "jobboerse",
+              "_path": "https://my.jobs.com/api",
+              "_postData": null,
+              "_thumbnail": "",
+              "_title": "Jobboerse",
+            },
+          ]
+        }
         onSubmit={[Function]}
         path="path"
         query="ab"

@@ -1,14 +1,14 @@
 // @flow
 
 import * as React from 'react'
-import { CityModel, POSITIVE_RATING } from 'api-client'
+import { CityModel, OfferModel, POSITIVE_RATING } from 'api-client'
 import styled, { withTheme } from 'styled-components'
 import type { LocationState } from 'redux-first-router'
 import FeedbackThanksMessage from './FeedbackThanksMessage'
 import FeedbackBoxContainer from './FeedbackBoxContainer'
 import type { FeedbackRatingType } from '../../layout/containers/LocationLayout'
 import FocusTrap from 'focus-trap-react'
-import type { ThemeType } from '../../theme/constants/theme'
+import type { ThemeType } from 'build-configs/ThemeType'
 import dimensions from '../../theme/constants/dimensions'
 
 const Overlay = styled.div`
@@ -47,6 +47,7 @@ const FeedbackContainer = styled.div`
 `
 type PropsType = {|
   cities: ?Array<CityModel>,
+  offers: ?Array<OfferModel>,
   title?: string,
   path?: string,
   alias?: string,
@@ -76,15 +77,16 @@ export class FeedbackModal extends React.Component<PropsType, StateType> {
   }
 
   renderContent (): React.Node {
-    const { theme, feedbackRating, ...otherProps } = this.props
+    const { theme, feedbackRating, offers, ...otherProps } = this.props
     const { sendingStatus } = this.state
 
     if (['IDLE', 'ERROR'].includes(sendingStatus)) {
       return <FeedbackBoxContainer isPositiveRatingSelected={feedbackRating === POSITIVE_RATING}
-                              {...otherProps}
-                              onSubmit={this.handleSubmit}
-                              sendingStatus={sendingStatus}
-                              theme={theme} />
+                                   offers={offers}
+                                   onSubmit={this.handleSubmit}
+                                   sendingStatus={sendingStatus}
+                                   theme={theme}
+                                   {...otherProps} />
     } else {
       return <FeedbackThanksMessage closeFeedbackModal={this.props.closeFeedbackModal} />
     }

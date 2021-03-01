@@ -1,16 +1,20 @@
 // @flow
 
 import React from 'react'
+import { Provider } from 'react-redux'
 import ConnectedSearchPage, { SearchPage } from '../SearchPage'
 import { CategoriesMapModel, CategoryModel } from 'api-client'
-import { shallow } from 'enzyme'
+import { mount, shallow } from 'enzyme'
 import configureMockStore from 'redux-mock-store'
 import { SEARCH_ROUTE } from '../../../../modules/app/route-configs/SearchRouteConfig'
 import moment from 'moment'
 import createLocation from '../../../../createLocation'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
+import theme from '../../../../modules/theme/constants/theme'
+import { ThemeProvider } from 'styled-components'
 
 jest.mock('react-i18next')
+jest.mock('redux-first-router-link')
 
 describe('SearchPage', () => {
   const t = (key: ?string): string => key || ''
@@ -150,11 +154,15 @@ describe('SearchPage', () => {
       location
     })
 
-    const searchPage = shallow(
-      <ConnectedSearchPage store={store} categories={categories} />
+    const searchPage = mount(
+      <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          <ConnectedSearchPage categories={categories} />
+        </ThemeProvider>
+      </Provider>
     )
 
-    expect(searchPage.dive().dive().props()).toMatchObject({
+    expect(searchPage.find(SearchPage).props()).toMatchObject({
       categories,
       location
     })
