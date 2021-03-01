@@ -6,22 +6,22 @@ Array [
     "alias": "serlo-abc",
     "feedbackCategory": "Inhalte",
     "feedbackType": "extra",
-    "label": "offer 'Serlo ABC'",
-    "value": "offer 'Serlo ABC'",
+    "label": "contentOfOffer",
+    "value": "contentOfOffer",
   },
   FeedbackVariant {
     "alias": "sprungbrett",
     "feedbackCategory": "Inhalte",
     "feedbackType": "extra",
-    "label": "offer 'Sprungbrett'",
-    "value": "offer 'Sprungbrett'",
+    "label": "contentOfOffer",
+    "value": "contentOfOffer",
   },
   FeedbackVariant {
     "alias": "lehrstellen-radar",
     "feedbackCategory": "Inhalte",
     "feedbackType": "extra",
-    "label": "offer 'Lehrstellenradar'",
-    "value": "offer 'Lehrstellenradar'",
+    "label": "contentOfOffer",
+    "value": "contentOfOffer",
   },
 ]
 `;

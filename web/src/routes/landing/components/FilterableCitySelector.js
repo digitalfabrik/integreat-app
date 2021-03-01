@@ -8,7 +8,7 @@ import CitySelector from './CitySelector'
 import { CityModel } from 'api-client'
 import styled from 'styled-components'
 
-import { withTranslation, TFunction } from 'react-i18next'
+import { withTranslation, type TFunction } from 'react-i18next'
 
 const Container = styled.div`
   padding-top: 22px;
@@ -17,7 +17,7 @@ const Container = styled.div`
 type PropsType = {|
   cities: Array<CityModel>,
   language: string,
-  t: typeof TFunction
+  t: TFunction
 |}
 
 type StateType = {|
@@ -60,4 +60,4 @@ export class FilterableCitySelector extends React.Component<PropsType, StateType
   }
 }
 
-export default withTranslation('landing')(FilterableCitySelector)
+export default withTranslation<PropsType>('landing')(FilterableCitySelector)

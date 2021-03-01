@@ -3,7 +3,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import Link from 'redux-first-router-link'
-import { TFunction } from 'i18next'
+import { type TFunction } from 'react-i18next'
 import tunewsLogoActive from '../assets/TunewsActiveLogo.png'
 import tunewsLogoInactive from '../assets/TunewsInactiveLogo.png'
 import { TU_NEWS } from '../constants'
@@ -44,7 +44,7 @@ type PropsType = {|
   type: string,
   active: boolean,
   destination: string,
-  t: typeof TFunction
+  t: TFunction
 |}
 
 class Tab extends React.PureComponent<PropsType> {
