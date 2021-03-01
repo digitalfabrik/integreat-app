@@ -3,16 +3,13 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import { faFrown, faSmile } from '../../../../modules/app/constants/icons'
-import { FeedbackToolbarItem } from '../FeedbackToolbarItem'
+import FeedbackToolbarItem from '../FeedbackToolbarItem'
 
 describe('FeedbackToolbarItem', () => {
-  const t = (key: ?string): string => key || ''
-
   it('should render a positive FeedbackToolbarItem', () => {
     const component = shallow(
       <FeedbackToolbarItem
         openFeedbackModal={() => {}}
-        t={t}
         isPositiveRatingLink
         viewportSmall />
     )
@@ -23,7 +20,6 @@ describe('FeedbackToolbarItem', () => {
     const component = shallow(
       <FeedbackToolbarItem
         openFeedbackModal={() => {}}
-        t={t}
         isPositiveRatingLink={false}
         viewportSmall />
     )

@@ -6,6 +6,7 @@ import styled, { type StyledComponent } from 'styled-components'
 import type { ThemeType } from 'build-configs/ThemeType'
 import useOnClickOutside from '../hooks/useOnClickOutside'
 import dimensions from '../../theme/constants/dimensions'
+import Tooltip from '../../common/components/Tooltip'
 
 export const Container: StyledComponent<{||}, ThemeType, *> = styled.div`
   width: calc(0.8 * ${dimensions.headerHeightLarge}px);
@@ -17,7 +18,7 @@ export const Container: StyledComponent<{||}, ThemeType, *> = styled.div`
     height: calc(0.8 * ${dimensions.headerHeightSmall}px);
   }
 
-  & > button {
+  & button {
     width: 100%;
     height: 100%;
     margin: 0;
@@ -25,10 +26,9 @@ export const Container: StyledComponent<{||}, ThemeType, *> = styled.div`
     cursor: pointer;
     background-color: ${props => props.theme.colors.backgroundAccentColor};
     border: none;
-
   }
 
-  & > button > img {
+  & button > img {
     box-sizing: border-box;
     padding: 22%;
     object-fit: contain;
@@ -91,12 +91,13 @@ const HeaderActionItemDropDown = (props: PropsType) => {
   useOnClickOutside(wrapperRef, closeDropDown)
 
   return <Container ref={wrapperRef}>
-    <button
-      data-tip={text} data-event='mouseover' data-event-off='click mouseout'
-      aria-label={text}
-      onClick={toggleDropDown}>
-      <img alt='' src={iconSrc} />
-    </button>
+    <Tooltip text={text} flow={'down'} mediumViewportFlow={'left'}>
+      <button
+        aria-label={text}
+        onClick={toggleDropDown}>
+        <img alt='' src={iconSrc} />
+      </button>
+    </Tooltip>
     <DropDownContainer aria-label={dropDownActive}
                        active={dropDownActive}
                        // We need to have th visibility here, else the jest-dom testing library can not assert on it
