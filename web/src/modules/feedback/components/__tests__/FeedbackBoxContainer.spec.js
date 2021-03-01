@@ -65,7 +65,7 @@ describe('FeedbackBoxContainer', () => {
           onSubmit={() => {}}
           closeFeedbackModal={() => {}}
           offers={null}
-            sendingStatus='SUCCESS'
+          sendingStatus='SUCCESS'
           t={t} />
       ).instance()
 
@@ -94,7 +94,7 @@ describe('FeedbackBoxContainer', () => {
           onSubmit={() => {}}
           closeFeedbackModal={() => {}}
           offers={null}
-            sendingStatus='SUCCESS'
+          sendingStatus='SUCCESS'
           t={t} />
       ).instance()
 
@@ -123,7 +123,7 @@ describe('FeedbackBoxContainer', () => {
           onSubmit={() => {}}
           closeFeedbackModal={() => {}}
           offers={null}
-            sendingStatus='SUCCESS'
+          sendingStatus='SUCCESS'
           t={t} />
       ).instance()
 
@@ -159,7 +159,7 @@ describe('FeedbackBoxContainer', () => {
           onSubmit={() => {}}
           closeFeedbackModal={() => {}}
           offers={null}
-            sendingStatus='SUCCESS'
+          sendingStatus='SUCCESS'
           t={t} />
       ).instance()
 
