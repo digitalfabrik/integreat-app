@@ -2,7 +2,7 @@
 
 import React from 'react'
 import createNavigationScreenPropMock from '../../../../testing/createNavigationPropMock'
-import { OFFERS_ROUTE } from 'api-client/src/routes'
+import { SPRUNGBRETT_OFFER_ROUTE } from 'api-client/src/routes'
 import SprungbrettOfferContainer from '../SprungbrettOfferContainer'
 import { render } from '@testing-library/react-native'
 import ErrorCodes from '../../../../modules/error/ErrorCodes'
@@ -32,7 +32,14 @@ describe('SprungbrettOfferContainer', () => {
   const cityCode = 'augsburg'
   const languageCode = 'de'
   const shareUrl = 'https://integreat.app/augsburg/de'
-  const route = { key: 'route-id-0', params: { cityCode, languageCode, shareUrl }, name: OFFERS_ROUTE }
+  const title = 'Sprungbrett'
+  const apiUrl = 'https://my.sprung.br/ett/api'
+  const alias = 'sprungbrett'
+  const route = {
+    key: 'route-id-0',
+    params: { cityCode, languageCode, shareUrl, title, apiUrl, alias },
+    name: SPRUNGBRETT_OFFER_ROUTE
+  }
   const errorText = `Failure ${ErrorCodes.UnknownError}`
   const mockLoadFromEndpointOnce = mock => {
     // $FlowFixMe mockImplementationOnce is defined

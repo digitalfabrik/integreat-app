@@ -10,8 +10,7 @@ import Caption from '../../../modules/common/components/Caption'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import OfferListItem from '../components/OfferListItem'
 import List from '../../../modules/common/components/List'
-import type { TFunction } from 'react-i18next'
-import { withTranslation } from 'react-i18next'
+import { withTranslation, TFunction } from 'react-i18next'
 import { hash as hashFunction } from '../../../modules/app/route-configs/WohnenRouteConfig'
 
 type PropsType = {|
@@ -20,7 +19,7 @@ type PropsType = {|
   language: string,
   wohnenOfferHash?: string,
   offers: Array<OfferModel>,
-  t: TFunction
+  t: typeof TFunction
 |}
 
 export class WohnenOfferPage extends React.Component<PropsType> {
