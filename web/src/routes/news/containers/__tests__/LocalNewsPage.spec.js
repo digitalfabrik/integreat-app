@@ -58,13 +58,11 @@ describe('LocalNewsPage', () => {
     expect(tree.find(LocalNewsPage).props()).toEqual({
       city,
       cities,
-      areCitiesFetching: false,
       language,
       path: '/augsburg/en/news/local/',
       localNews,
       t: expect.any(Function),
-      i18n: expect.anything(),
-      dispatch: expect.any(Function)
+      i18n: expect.anything()
     })
   })
 })

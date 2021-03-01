@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`GeneralHeader should match snapshot 1`] = `
-<withPlatform(WithTheme(Header))
+<withPlatform(Header)
   actionItems={
     Array [
       <HeaderActionItemLink
@@ -12,6 +12,7 @@ exports[`GeneralHeader should match snapshot 1`] = `
     ]
   }
   logoHref="/"
+  onStickyTopChanged={[Function]}
   viewportSmall={true}
 />
 `;

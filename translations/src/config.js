@@ -2,7 +2,7 @@
 
 import { values } from './utils/object'
 
-type FontType = 'lateef' | 'openSans' | 'raleway'
+type FontType = 'lateef' | 'openSans' | 'raleway' | 'varelaRound'
 type LanguageType = {| rtl: boolean, additionalFont?: FontType |}
 type SupportedLanguagesType = { [languageCode: string]: LanguageType}
 type FallbacksType = { [languageCode: string]: string[] }

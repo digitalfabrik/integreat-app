@@ -2,8 +2,7 @@
 
 import * as React from 'react'
 
-import type { TFunction } from 'react-i18next'
-import { withTranslation } from 'react-i18next'
+import { withTranslation, type TFunction } from 'react-i18next'
 import { createFeedbackEndpoint, SEARCH_FEEDBACK_TYPE } from 'api-client'
 import type { LocationState } from 'redux-first-router'
 import { Description, StyledFeedbackBox } from '../../../modules/feedback/components/FeedbackBox'
@@ -68,4 +67,4 @@ export class NothingFoundFeedbackBox extends React.Component<PropsType, StateTyp
   }
 }
 
-export default withTranslation('feedback')(NothingFoundFeedbackBox)
+export default withTranslation<PropsType>('feedback')(NothingFoundFeedbackBox)

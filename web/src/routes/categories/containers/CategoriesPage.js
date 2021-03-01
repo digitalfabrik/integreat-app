@@ -10,15 +10,18 @@ import type { StateType } from '../../../modules/app/StateType'
 import type { UiDirectionType } from '../../../modules/i18n/types/UiDirectionType'
 import BreadcrumbModel from '../../../modules/common/BreadcrumbModel'
 import urlFromPath from '../../../modules/common/utils/urlFromPath'
-import { withTranslation } from 'react-i18next'
-import { TFunction } from 'i18next'
+import { withTranslation, type TFunction } from 'react-i18next'
 import { useContext } from 'react'
 import DateFormatterContext from '../../../modules/i18n/context/DateFormatterContext'
 import CategoriesContent from '../components/CategoriesContent'
 
-type PropsType = {|
+type OwnPropsType = {|
   categories: CategoriesMapModel,
-  cities: Array<CityModel>,
+  cities: Array<CityModel>
+|}
+
+type PropsType = {|
+  ...OwnPropsType,
   path: string,
   city: string,
   t: TFunction,
@@ -77,4 +80,6 @@ const mapStateToProps = (state: StateType) => ({
   path: state.location.pathname
 })
 
-export default withTranslation('layout')(connect<*, *, *, *, *, *>(mapStateToProps)(CategoriesPage))
+export default connect<$Diff<PropsType, {| t: TFunction |}>, OwnPropsType, _, _, _, _>(mapStateToProps, () => ({}))(
+  withTranslation<PropsType>('layout')(CategoriesPage)
+)

@@ -1,14 +1,15 @@
 // @flow
 
 import React, { useCallback } from 'react'
-import type { TFunction } from 'react-i18next'
-import { withTranslation } from 'react-i18next'
+import { withTranslation, type TFunction } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFrown, faSmile } from '../../../modules/app/constants/icons'
 import { NEGATIVE_RATING, POSITIVE_RATING } from 'api-client'
 import StyledToolbarItem from '../../layout/components/StyledToolbarItem'
 import StyledSmallViewTip from '../../layout/components/StyledSmallViewTip'
 import type { FeedbackRatingType } from '../../layout/containers/LocationLayout'
+import type { ThemeType } from 'build-configs/ThemeType'
+import type { StyledComponent } from 'styled-components'
 import Tooltip from '../../common/components/Tooltip'
 
 type PropsType = {|
@@ -19,7 +20,8 @@ type PropsType = {|
   viewportSmall: boolean
 |}
 
-const StyledFeedbackToolbarItem = StyledToolbarItem.withComponent('button')
+// $FlowFixMe withComponent exists
+const StyledFeedbackToolbarItem: StyledComponent<{||}, ThemeType, *> = StyledToolbarItem.withComponent('button')
 
 const FeedbackToolbarItem = ({ openFeedbackModal, t, isPositiveRatingLink, className, viewportSmall }: PropsType) => {
   const handleLinkClick = useCallback(() =>
@@ -41,4 +43,4 @@ const FeedbackToolbarItem = ({ openFeedbackModal, t, isPositiveRatingLink, class
   )
 }
 
-export default withTranslation('feedback')(FeedbackToolbarItem)
+export default withTranslation<PropsType>('feedback')(FeedbackToolbarItem)

@@ -35,8 +35,7 @@ const RequiredText = styled.Text`
     fontSize: 25px
 `
 
-type PropsType = {|
-  closeModal: () => boolean,
+export type PropsType = {|
   comment: string,
   selectedFeedbackIndex: number,
   sendingStatus: SendingStatusType,

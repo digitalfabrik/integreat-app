@@ -1,43 +1,42 @@
 // @flow
 
-import * as React from 'react'
-import { SprungbrettJobModel, OfferModel } from 'api-client'
+import React, { useCallback } from 'react'
+import { SprungbrettJobModel } from 'api-client'
 import SprungbrettListItem from './SprungbrettListItem'
 import type { TFunction } from 'react-i18next'
 import type { ThemeType } from 'build-configs/ThemeType'
 import List from '../../../modules/common/components/List'
 import Caption from '../../../modules/common/components/Caption'
 import openExternalUrl from '../../../modules/common/openExternalUrl'
+import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
 
 type PropsType = {|
-  sprungbrettJobs: Array<SprungbrettJobModel>,
+  jobs: Array<SprungbrettJobModel>,
   t: TFunction,
   theme: ThemeType,
   language: string,
-  sprungbrettOffer: OfferModel
+  title: string,
+  navigateToFeedback: (isPositiveFeedback: boolean) => void
 |}
 
-class SprungbrettOffer extends React.Component<PropsType> {
-  openJob = (url: string) => () => {
+const SprungbrettOffer = ({ jobs, title, navigateToFeedback, theme, t, language }: PropsType) => {
+  const openJob = useCallback((url: string) => () => {
     openExternalUrl(url)
-  }
+  }, [])
 
-  renderSprungbrettListItem = (job: SprungbrettJobModel): React.Node => (
-    <SprungbrettListItem key={job.id} job={job} openJobInBrowser={this.openJob(job.url)}
-                         theme={this.props.theme} language={this.props.language} />
-  )
+  const renderListItem = useCallback((job: SprungbrettJobModel): React$Node => (
+    <SprungbrettListItem key={job.id} job={job} openJobInBrowser={openJob(job.url)}
+                         theme={theme} language={language} />
+  ), [language, theme, openJob])
 
-  render () {
-    const { sprungbrettOffer, sprungbrettJobs, t, theme } = this.props
-
-    return <>
-        <Caption title={sprungbrettOffer.title} theme={theme} />
+  return <>
+        <Caption title={title} theme={theme} />
         <List noItemsMessage={t('noOffersAvailable')}
-              renderItem={this.renderSprungbrettListItem}
-              items={sprungbrettJobs}
+              renderItem={renderListItem}
+              items={jobs}
               theme={theme} />
+      <SiteHelpfulBox navigateToFeedback={navigateToFeedback} theme={theme} />
     </>
-  }
 }
 
 export default SprungbrettOffer

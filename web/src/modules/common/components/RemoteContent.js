@@ -1,11 +1,11 @@
 // @flow
 
 import React from 'react'
-
-import styled, { css } from 'styled-components'
+import styled, { css, type StyledComponent } from 'styled-components'
 import buildConfig from '../../app/constants/buildConfig'
+import type { ThemeType } from 'build-configs/ThemeType'
 
-const SandBox = styled.div`
+const SandBox: StyledComponent<{| centered: boolean |}, ThemeType, *> = styled.div`
   font-family: ${props => props.theme.fonts.contentFontFamily};
   font-size: ${props => props.theme.fonts.contentFontSize};
   line-height: ${props => props.theme.fonts.contentLineHeight};
