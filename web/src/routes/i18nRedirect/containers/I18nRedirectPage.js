@@ -1,6 +1,6 @@
 // @flow
 
-import { useEffect } from 'react'
+import { useEffect, useCallback } from 'react'
 import { pathToAction, redirect, type Action } from 'redux-first-router'
 import { connect } from 'react-redux'
 import type { Dispatch } from 'redux'
@@ -31,7 +31,7 @@ const I18nRedirectPage = (props: PropsType) => {
   const { redirect, param, cities } = props
   const { i18n } = useTranslation()
 
-  const getRedirectPath = (): string => {
+  const getRedirectPath = useCallback((): string => {
     const fixedCity = buildConfig().featureFlags.fixedCity
     if (fixedCity) {
       // Redirect to the dashboard of the selected city
@@ -54,11 +54,11 @@ const I18nRedirectPage = (props: PropsType) => {
     }
 
     return NOT_FOUND_ROUTE
-  }
+  }, [cities, i18n.language, param])
 
   useEffect(() => {
     redirect(pathToAction(getRedirectPath(), routesMap))
-  }, [])
+  }, [redirect, getRedirectPath])
 
   return null
 }
