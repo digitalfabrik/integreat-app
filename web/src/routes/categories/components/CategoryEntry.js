@@ -99,7 +99,7 @@ export class CategoryEntry extends React.PureComponent<PropsType> {
     )
   }
 
-  getMatchedContent (numWordsSurrounding: number): React$Node {
+  getMatchedContent (numWordsSurrounding: number): React.Node {
     const { query, theme, contentWithoutHtml } = this.props
     if (!contentWithoutHtml) {
       return null

@@ -61,7 +61,7 @@ export class LocationHeader extends React.Component<PropsType> {
     ]
   }
 
-  getNavigationItems (): Array<React$Node> {
+  getNavigationItems (): Array<React.Node> {
     const { t, cityModel, location, events } = this.props
     const { eventsEnabled, poisEnabled, offersEnabled, tunewsEnabled, pushNotificationsEnabled } = cityModel
 
