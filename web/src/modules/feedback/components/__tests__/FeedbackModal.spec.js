@@ -44,7 +44,7 @@ describe('FeedbackModal', () => {
                      alias='alias'
                      closeFeedbackModal={() => {}}
                      feedbackRating='up'
-                    offers={offers} />
+                     offers={offers} />
     )).toMatchSnapshot()
   })
 })
