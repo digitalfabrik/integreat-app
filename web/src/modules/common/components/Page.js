@@ -25,6 +25,7 @@ type PropsType = {|
   thumbnailSrcSet?: ?string,
   content: string,
   lastUpdate?: Moment,
+  showUpdateText?: boolean,
   formatter: DateFormatter,
   onInternalLinkClick: string => void,
   children?: React.Node
@@ -33,23 +34,27 @@ type PropsType = {|
 /**
  * Display a single page with all necessary information
  */
-class Page extends React.PureComponent<PropsType> {
-  render () {
-    const {
-      title, defaultThumbnailSrc, thumbnailSrcSet, content, lastUpdate, formatter, children,
-      onInternalLinkClick
-    } = this.props
-    return (
-      <>
-        {defaultThumbnailSrc && <Thumbnail alt='' src={defaultThumbnailSrc} srcSet={thumbnailSrcSet} />}
-        <Caption title={title} />
-        {children}
-        <RemoteContent dangerouslySetInnerHTML={{ __html: content }}
-                       onInternalLinkClick={onInternalLinkClick} />
-        {lastUpdate && <LastUpdateInfo lastUpdate={lastUpdate} formatter={formatter} withText />}
-      </>
-    )
-  }
+const Page = ({
+  title,
+  defaultThumbnailSrc,
+  thumbnailSrcSet,
+  content,
+  lastUpdate,
+  showUpdateText = true,
+  formatter,
+  children,
+  onInternalLinkClick
+}: PropsType) => {
+  return (
+    <>
+      {defaultThumbnailSrc && <Thumbnail alt='' src={defaultThumbnailSrc} srcSet={thumbnailSrcSet} />}
+      <Caption title={title} />
+      {children}
+      <RemoteContent dangerouslySetInnerHTML={{ __html: content }}
+                     onInternalLinkClick={onInternalLinkClick} />
+      {lastUpdate && <LastUpdateInfo lastUpdate={lastUpdate} formatter={formatter} withText={showUpdateText} />}
+    </>
+  )
 }
 
 export default Page
