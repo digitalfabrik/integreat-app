@@ -65,7 +65,7 @@ export type PropsType = {|
   categoriesAvailable: boolean,
   goToLanguageChange?: () => void,
   routeCityModel?: CityModel,
-  language: string,
+  language: mixed,
   shareUrl: ?string,
   dispatch: Dispatch<StoreActionType>
 |}
