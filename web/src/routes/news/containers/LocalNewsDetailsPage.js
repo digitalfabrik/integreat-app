@@ -42,7 +42,7 @@ export const LocalNewsDetailsPage = ({
       content={localNewsElement.message}
       formatter={formatter}
       lastUpdate={localNewsElement.timestamp}
-      showUpdateText={false}
+      showLastUpdateText={false}
       onInternalLinkClick={push}
     />
   )
