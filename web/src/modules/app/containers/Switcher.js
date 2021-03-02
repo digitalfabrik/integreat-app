@@ -126,13 +126,10 @@ export class Switcher extends React.Component<PropsType> {
     })
 
     const cities = this.getAllPayloads().citiesPayload.data
-    if (!cities) {
-      return null
-    }
 
     const fixedCity = buildConfig().featureFlags.fixedCity
     const invalidFixedCity = city && fixedCity && city !== fixedCity
-    const invalidCity = city && (!cities.find(_city => _city.code === city) || invalidFixedCity)
+    const invalidCity = cities && city && (!cities.find(_city => _city.code === city) || invalidFixedCity)
 
     if (invalidCity || invalidLanguage || !routeConfig.isLocationLayoutRoute) {
       const showHeader = invalidLanguage || routeConfig.requiresHeader
@@ -143,7 +140,7 @@ export class Switcher extends React.Component<PropsType> {
                 darkMode={darkMode}>
           {invalidCity
             ? <FailureSwitcher error={new Error('notFound.category')} />
-            : invalidLanguage
+            : invalidLanguage && cities
               ? <LanguageFailure cities={cities}
                                  location={location}
                                  languageChangePaths={languageChangePaths || []} />
