@@ -5,16 +5,14 @@ import SelectorItemModel from '../models/SelectorItemModel'
 import Selector from '../components/Selector'
 import HeaderLanguageSelectorItem from '../../layout/components/HeaderLanguageSelectorItem'
 import type { LocationState } from 'redux-first-router'
-import { withTranslation, TFunction } from 'react-i18next'
+import { withTranslation, type TFunction } from 'react-i18next'
 import type { LanguageChangePathsType } from '../../app/containers/Switcher'
-import type { ThemeType } from '../../theme/constants/theme'
 
 type PropsType = {|
   location: LocationState,
-  theme: ThemeType,
   isHeaderActionItem: boolean,
   languageChangePaths: ?LanguageChangePathsType,
-  t: typeof TFunction
+  t: TFunction
 |}
 
 /**
@@ -42,15 +40,12 @@ export class LanguageSelector extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const { location, isHeaderActionItem, t, theme } = this.props
+    const { location, isHeaderActionItem, t } = this.props
     const selectorItems = this.getSelectorItemModels()
     const activeItemCode = location.payload.language
 
     if (isHeaderActionItem) {
-      return <HeaderLanguageSelectorItem
-        theme={theme}
-        selectorItems={selectorItems}
-        activeItemCode={activeItemCode} />
+      return <HeaderLanguageSelectorItem selectorItems={selectorItems} activeItemCode={activeItemCode} />
     }
 
     return selectorItems &&
@@ -62,4 +57,4 @@ export class LanguageSelector extends React.PureComponent<PropsType> {
   }
 }
 
-export default withTranslation('layout')(LanguageSelector)
+export default withTranslation<PropsType>('layout')(LanguageSelector)
