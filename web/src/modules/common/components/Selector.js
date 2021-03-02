@@ -2,11 +2,11 @@
 
 import * as React from 'react'
 import SelectorItemModel from '../models/SelectorItemModel'
-import ReactTooltip from 'react-tooltip'
 import styled, { css, type StyledComponent } from 'styled-components'
 import Link from 'redux-first-router-link'
 import helpers from '../../theme/constants/helpers'
 import dimensions from '../../theme/constants/dimensions'
+import Tooltip from './Tooltip'
 import type { ThemeType } from 'build-configs/ThemeType'
 
 const Element: StyledComponent<{||}, ThemeType, *> = styled(Link)`
@@ -35,8 +35,8 @@ const Element: StyledComponent<{||}, ThemeType, *> = styled(Link)`
 const ActiveElement: StyledComponent<{| selected: boolean |}, ThemeType, *> = styled(Element)`
   color: ${props => props.theme.colors.textColor};
   ${props => props.selected
-    ? 'font-weight: 700;'
-    : `:hover {
+  ? 'font-weight: 700;'
+  : `:hover {
           font-weight: 700;
           border-radius: 0;
         }`}
@@ -76,46 +76,31 @@ type PropsType = {|
 /**
  * Displays a Selector showing different items
  */
-class Selector extends React.PureComponent<PropsType> {
-  componentDidMount () {
-    /* https://www.npmjs.com/package/react-tooltip#1-using-tooltip-within-the-modal-eg-react-modal- */
-    ReactTooltip.rebuild()
-  }
-
-  componentDidUpdate () {
-    /* https://www.npmjs.com/package/react-tooltip#1-using-tooltip-within-the-modal-eg-react-modal- */
-    ReactTooltip.rebuild()
-  }
-
-  getItems (): React.Node {
-    const { items, activeItemCode, closeDropDown, disabledItemTooltip } = this.props
-    return items.map(item => {
-      if (item.href) {
-        return (
-          <ActiveElement key={item.code}
-                         onClick={closeDropDown}
-                         to={item.href}
-                         selected={item.code === activeItemCode}>
-            {item.name}
-          </ActiveElement>
-        )
-      } else {
-        return (
-          <DisabledElement data-tip={disabledItemTooltip} data-event='mouseover' data-event-off='click mouseout' key={item.code}>
-            {item.name}
-          </DisabledElement>
-        )
-      }
-    })
-  }
-
-  render () {
-    return (
-      <Wrapper vertical={this.props.verticalLayout}>
-        {this.getItems()}
-      </Wrapper>
-    )
-  }
+const Selector = ({ items, activeItemCode, verticalLayout, closeDropDown, disabledItemTooltip }: PropsType) => {
+  return (
+    <Wrapper vertical={verticalLayout}>
+      {items.map(item => {
+        if (item.href) {
+          return (
+            <ActiveElement key={item.code}
+                           onClick={closeDropDown}
+                           to={item.href}
+                           selected={item.code === activeItemCode}>
+              {item.name}
+            </ActiveElement>
+          )
+        } else {
+          return (
+            <Tooltip key={item.code} text={disabledItemTooltip} flow='up'>
+              <DisabledElement>
+                {item.name}
+              </DisabledElement>
+            </Tooltip>
+          )
+        }
+      })}
+    </Wrapper>
+  )
 }
 
 export default Selector

@@ -1,11 +1,11 @@
 // @flow
 
 import React from 'react'
-import ReactTooltip from 'react-tooltip'
 import styled, { type StyledComponent } from 'styled-components'
 import Link from 'redux-first-router-link'
 import helpers from '../../theme/constants/helpers'
 import dimensions from '../../theme/constants/dimensions'
+import Tooltip from '../../common/components/Tooltip'
 import type { ThemeType } from 'build-configs/ThemeType'
 
 const StyledLink: StyledComponent<{||}, ThemeType, *> = styled(Link)`
@@ -20,6 +20,8 @@ const StyledLink: StyledComponent<{||}, ThemeType, *> = styled(Link)`
   flex-direction: column;
   display: flex;
   transition: color 0.2s;
+  
+  height: 100%;
 
   @media ${dimensions.smallViewport} {
     font-size: 0.8em;
@@ -104,21 +106,14 @@ type PropsType = {|
  * Renders a Link or a Span in the HeaderNavigationBar depending on the active prop
  */
 class HeaderNavigationItem extends React.PureComponent<PropsType> {
-  componentDidMount () {
-    /* https://www.npmjs.com/package/react-tooltip#1-using-tooltip-within-the-modal-eg-react-modal- */
-    ReactTooltip.rebuild()
-  }
-
   render () {
     const { active, text, tooltip, href, icon } = this.props
-    return <StyledLink to={href}
-                       data-tip={tooltip}
-                       data-event='mouseover'
-                       data-event-off='click mouseout'
-                       $active={active}>
-      <Circle><img src={icon} alt='' /></Circle>
-      <div>{text}</div>
-    </StyledLink>
+    return <Tooltip text={tooltip} flow={'up'}>
+      <StyledLink to={href} $active={active}>
+        <Circle><img src={icon} alt='' /></Circle>
+        <div>{text}</div>
+      </StyledLink>
+    </Tooltip>
   }
 }
 
