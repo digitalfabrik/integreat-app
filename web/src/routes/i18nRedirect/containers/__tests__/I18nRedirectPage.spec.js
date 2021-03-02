@@ -13,7 +13,6 @@ import CategoriesRouteConfig from '../../../../modules/app/route-configs/Categor
 import NotFoundRouteConfig from '../../../../modules/app/route-configs/NotFoundRouteConfig'
 import buildConfig from '../../../../modules/app/constants/buildConfig'
 
-jest.mock('react-i18next')
 jest.mock('redux-first-router', () => ({
   pathToAction: jest.fn(type => ({ type })),
   redirect: jest.fn(action => action)
@@ -21,6 +20,14 @@ jest.mock('redux-first-router', () => ({
 jest.mock('../../../../modules/app/constants/buildConfig', () => jest.fn(() => ({
   featureFlags: { fixedCity: null }
 })))
+jest.mock('react-i18next', () => {
+  return {
+    useTranslation: jest.fn(() => ({
+      t: key => key,
+      i18n: { language: 'ar' }
+    }))
+  }
+})
 
 describe('I18nRedirectPage', () => {
   beforeEach(() => {
@@ -28,7 +35,6 @@ describe('I18nRedirectPage', () => {
   })
 
   const language = 'ar'
-  const i18n = { language }
 
   const cities = new CityModelBuilder(2).build()
   const city = cities[0].code
@@ -45,7 +51,7 @@ describe('I18nRedirectPage', () => {
 
       render(
         <Provider store={store}>
-          <I18nRedirectPage cities={cities} i18n={i18n} />
+          <I18nRedirectPage cities={cities} />
         </Provider>
       )
 
@@ -65,7 +71,7 @@ describe('I18nRedirectPage', () => {
 
       render(
         <Provider store={store}>
-          <I18nRedirectPage cities={cities} i18n={i18n} />
+          <I18nRedirectPage cities={cities} />
         </Provider>
       )
 
@@ -85,7 +91,7 @@ describe('I18nRedirectPage', () => {
 
       render(
         <Provider store={store}>
-          <I18nRedirectPage cities={cities} i18n={i18n} />
+          <I18nRedirectPage cities={cities} />
         </Provider>
       )
 
@@ -105,7 +111,7 @@ describe('I18nRedirectPage', () => {
 
       render(
         <Provider store={store}>
-          <I18nRedirectPage cities={cities} i18n={i18n} />
+          <I18nRedirectPage cities={cities} />
         </Provider>
       )
 
@@ -131,7 +137,7 @@ describe('I18nRedirectPage', () => {
 
       render(
         <Provider store={store}>
-          <I18nRedirectPage cities={cities} i18n={i18n} />
+          <I18nRedirectPage cities={cities} />
         </Provider>
       )
 
@@ -155,7 +161,7 @@ describe('I18nRedirectPage', () => {
 
       render(
         <Provider store={store}>
-          <I18nRedirectPage cities={cities} i18n={i18n} />
+          <I18nRedirectPage cities={cities} />
         </Provider>
       )
 
@@ -179,7 +185,7 @@ describe('I18nRedirectPage', () => {
 
       render(
         <Provider store={store}>
-          <I18nRedirectPage cities={cities} i18n={i18n} />
+          <I18nRedirectPage cities={cities} />
         </Provider>
       )
 
@@ -203,7 +209,7 @@ describe('I18nRedirectPage', () => {
 
       render(
         <Provider store={store}>
-          <I18nRedirectPage cities={cities} i18n={i18n} />
+          <I18nRedirectPage cities={cities} />
         </Provider>
       )
 
@@ -227,7 +233,7 @@ describe('I18nRedirectPage', () => {
 
       render(
         <Provider store={store}>
-          <I18nRedirectPage cities={cities} i18n={i18n} />
+          <I18nRedirectPage cities={cities} />
         </Provider>
       )
 

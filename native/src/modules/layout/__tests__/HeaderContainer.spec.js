@@ -94,6 +94,7 @@ describe('HeaderContainer', () => {
 
     const result = TestRenderer.create(
       <Provider store={store}>
+        {/* $FlowFixMe not all props passed */}
         <HeaderContainer {...ownProps}/>
       </Provider>
     )
