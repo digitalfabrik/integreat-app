@@ -20,6 +20,7 @@ import type {
 import type { NewsRouteType, NewsType } from 'api-client/src/routes'
 import createNavigate from '../../../modules/navigation/createNavigate'
 import { NEWS_ROUTE, TU_NEWS_TYPE } from 'api-client/src/routes'
+import navigateToLink from '../../../modules/navigation/navigateToLink'
 
 type NavigationPropsType = {|
   route: RoutePropType<NewsRouteType>,
@@ -191,6 +192,11 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 const NewsContainer = (props: ContainerPropsType) => {
   const { cityModel, dispatch, selectedNewsType, route, language, newsId, navigation } = props
 
+  const navigateToLinkProp = useCallback((url: string, language: string, shareUrl: string) => {
+    const navigateTo = createNavigate(dispatch, navigation)
+    navigateToLink(url, navigation, language, navigateTo, shareUrl)
+  }, [dispatch, navigation])
+
   const fetchNews = useCallback((newsType: NewsType) => {
     dispatch({
       type: 'FETCH_NEWS',
@@ -252,7 +258,8 @@ const NewsContainer = (props: ContainerPropsType) => {
               fetchMoreNews={fetchMoreNews({ news, hasMoreNews, page })}
               cityCode={cityModel.code}
               language={language}
-              navigateTo={createNavigate(dispatch, navigation)} />
+              navigateTo={createNavigate(dispatch, navigation)}
+              navigateToLink={navigateToLinkProp} />
       </View>
     )
   } else {
@@ -265,7 +272,7 @@ const NewsContainer = (props: ContainerPropsType) => {
   }
 }
 
-export default withTranslation('error')(
+export default withTranslation<OwnPropsType>('error')(
   connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(
     withPayloadProvider<ContainerPropsType, RefreshPropsType, NewsRouteType>(refresh, onRouteClose, true)(
       NewsContainer

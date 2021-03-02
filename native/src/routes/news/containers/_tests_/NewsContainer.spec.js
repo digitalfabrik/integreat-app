@@ -48,8 +48,7 @@ jest.mock('../../../../modules/common/components/LoadingSpinner', () => {
   return () => <Text>Loading</Text>
 })
 
-const shareUrl = 'https://integreat.app/augsburg/de/offers'
-const route = { key: 'route-id-0', params: { shareUrl }, name: NEWS_ROUTE }
+const route = { key: 'route-id-0', params: undefined, name: NEWS_ROUTE }
 
 describe('NewsContainer', () => {
   const [city] = new CityModelBuilder(1).build()

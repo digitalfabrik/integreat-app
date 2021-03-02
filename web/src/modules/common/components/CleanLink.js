@@ -1,9 +1,12 @@
 // @flow
 
-import styled from 'styled-components'
+import styled, { type StyledComponent } from 'styled-components'
 import Link from 'redux-first-router-link'
+import type { ThemeType } from 'build-configs/ThemeType'
 
-export default styled(Link)`
+const CleanLink: StyledComponent<{||}, ThemeType, *> = styled(Link)`
   color: inherit;
   text-decoration: none;
 `
+
+export default CleanLink
