@@ -68,7 +68,7 @@ describe('HeaderContainer', () => {
     jest.doMock('../components/Header', () => Header)
     const HeaderContainer = require('../containers/HeaderContainer').default
 
-    const categoriesRoutMapping = {
+    const categoriesRouteMapping = {
       routeKey1: {
         status: 'ready',
         path: 'abc',
@@ -81,7 +81,7 @@ describe('HeaderContainer', () => {
       }
     }
 
-    const state: StateType = prepareState({}, categoriesRoutMapping, {})
+    const state: StateType = prepareState({}, categoriesRouteMapping, {})
     const store = mockStore(state)
 
     const ownProps = {
