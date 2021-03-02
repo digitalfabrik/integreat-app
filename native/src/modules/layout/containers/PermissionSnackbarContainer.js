@@ -138,6 +138,6 @@ class PermissionSnackbarContainer extends React.Component<PropsType, StateType> 
   }
 }
 
-export default withTranslation('snackbar')(
-  withTheme(PermissionSnackbarContainer)
+export default withTranslation<$Diff<PropsType, {| theme: ThemeType |}>>('snackbar')(
+  withTheme<PropsType>(PermissionSnackbarContainer)
 )

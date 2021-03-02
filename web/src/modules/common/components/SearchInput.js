@@ -1,17 +1,18 @@
 // @flow
 
 import React from 'react'
-import styled from 'styled-components'
+import styled, { type StyledComponent } from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons/faSearch'
+import type { ThemeType } from 'build-configs/ThemeType'
 
 const searchLogoWidth = '25px'
 
-const Spacer = styled.div`
+const Spacer: StyledComponent<{| space: boolean |}, ThemeType, *> = styled.div`
   ${props => props.space && 'margin: 15px 0;'}
 `
 
-const TextInput = styled.input.attrs({ type: 'text' })`
+const TextInput: StyledComponent<{||}, ThemeType, *> = styled.input.attrs({ type: 'text' })`
   width: calc(100% - ${searchLogoWidth} - 5px);
   height: 25px;
   box-sizing: border-box;
@@ -28,7 +29,7 @@ const TextInput = styled.input.attrs({ type: 'text' })`
   }
 `
 
-const Wrapper = styled.div`
+const Wrapper: StyledComponent<{||}, ThemeType, *> = styled.div`
   position: relative;
   width: 100%;
   box-sizing: border-box;
@@ -36,7 +37,7 @@ const Wrapper = styled.div`
   background-color: ${props => props.theme.colors.backgroundColor};
 `
 
-const SearchIcon = styled(FontAwesomeIcon).attrs({ icon: faSearch })`
+const SearchIcon: StyledComponent<{||}, ThemeType, *> = styled(FontAwesomeIcon).attrs({ icon: faSearch })`
   width: 25px;
   font-size: 1.2em;
   text-align: center;

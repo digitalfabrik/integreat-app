@@ -57,7 +57,7 @@ const BoxShadow: StyledComponent<{||}, ThemeType, *> = styled.View`
   height: ${dimensions.headerHeight}px;
 `
 
-type PropsType = {|
+export type PropsType = {|
   ...StackHeaderProps,
   t: TFunction,
   theme: ThemeType,
@@ -66,7 +66,7 @@ type PropsType = {|
   goToLanguageChange?: () => void,
   routeCityModel?: CityModel,
   language: string,
-  shareUrl: string,
+  shareUrl: ?string,
   dispatch: Dispatch<StoreActionType>
 |}
 
