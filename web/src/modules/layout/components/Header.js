@@ -2,10 +2,10 @@
 
 import * as React from 'react'
 import Headroom from '@integreat-app/react-sticky-headroom'
-import styled, { withTheme } from 'styled-components'
+import styled, { type StyledComponent } from 'styled-components'
 import withPlatform from '../../platform/hocs/withPlatform'
 import Platform from '../../platform/Platform'
-import type { ThemeType } from '../../theme/constants/theme'
+import type { ThemeType } from 'build-configs/ThemeType'
 import buildConfig from '../../app/constants/buildConfig'
 import HeaderTitle, { HEADER_TITLE_HEIGHT } from './HeaderTitle'
 import HeaderLogo from './HeaderLogo'
@@ -16,13 +16,12 @@ type PropsType = {|
   actionItems: Array<React.Node>,
   logoHref: string,
   viewportSmall: boolean,
-  theme: ThemeType,
   cityName?: string,
   onStickyTopChanged: number => void,
   platform: Platform
 |}
 
-const HeaderContainer = styled.header`
+const HeaderContainer: StyledComponent<{||}, ThemeType, *> = styled.header`
   display: flex;
   width: 100%;
   box-sizing: border-box;
@@ -30,6 +29,7 @@ const HeaderContainer = styled.header`
   background-color: ${props => props.theme.colors.backgroundAccentColor};
   user-select: none;
   flex-direction: column;
+  overflow: visible;
 
   @media ${dimensions.minMaxWidth} {
     padding-right: calc((200% - 100vw - ${dimensions.maxWidth}px) / 2);
@@ -37,11 +37,10 @@ const HeaderContainer = styled.header`
   }
 `
 
-const Row = styled.div`
+const Row: StyledComponent<{| hasTitle?: boolean |}, ThemeType, *> = styled.div`
   display: flex;
   flex: 1;
   max-width: 100%;
-  overflow-x: auto;
   align-items: stretch;
   min-height: ${dimensions.headerHeightLarge}px;
   flex-direction: row;
@@ -61,7 +60,7 @@ const Row = styled.div`
   }
 `
 
-const HeaderSeparator = styled.div`
+const HeaderSeparator: StyledComponent<{||}, ThemeType, *> = styled.div`
   align-self: center;
   height: ${dimensions.headerHeightLarge / 2}px;
   width: 2px;
@@ -74,7 +73,7 @@ const HeaderSeparator = styled.div`
   }
 `
 
-const ActionBar = styled.div`
+const ActionBar: StyledComponent<{||}, ThemeType, *> = styled.div`
   order: 3;
   display: flex;
   align-items: center;
@@ -86,7 +85,7 @@ const ActionBar = styled.div`
   }
 `
 
-const NavigationBar = styled.div`
+const NavigationBar: StyledComponent<{||}, ThemeType, *> = styled.div`
   display: flex;
   padding: 0 10px;
   flex: 1 1 0%; /* The % unit is necessary for IE11 */
@@ -107,9 +106,7 @@ export class Header extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const {
-      theme, viewportSmall, onStickyTopChanged, actionItems, logoHref, navigationItems, platform, cityName
-    } = this.props
+    const { viewportSmall, onStickyTopChanged, actionItems, logoHref, navigationItems, platform, cityName } = this.props
     const { headerHeightSmall, headerHeightLarge } = dimensions
     const hasNavigationBar = navigationItems.length > 0
     const height = viewportSmall
@@ -125,12 +122,11 @@ export class Header extends React.PureComponent<PropsType> {
                 positionStickyDisabled={platform.positionStickyDisabled}>
         <HeaderContainer>
           <Row hasTitle={!!cityName}>
-            <HeaderLogo theme={theme}
-                        link={logoHref}
+            <HeaderLogo link={logoHref}
                         src={buildConfig().icons.appLogo}
                         alt={buildConfig().appName} />
-            {!viewportSmall && cityName && <HeaderSeparator theme={theme} />}
-            {(!viewportSmall || cityName) && <HeaderTitle theme={theme}>{cityName}</HeaderTitle>}
+            {!viewportSmall && cityName && <HeaderSeparator />}
+            {(!viewportSmall || cityName) && <HeaderTitle>{cityName}</HeaderTitle>}
             <ActionBar>{actionItems}</ActionBar>
           </Row>
           {hasNavigationBar && <Row><NavigationBar>{navigationItems}</NavigationBar></Row>}
@@ -140,7 +136,4 @@ export class Header extends React.PureComponent<PropsType> {
   }
 }
 
-export default withPlatform(
-  withTheme(
-    Header
-  ))
+export default withPlatform(Header)

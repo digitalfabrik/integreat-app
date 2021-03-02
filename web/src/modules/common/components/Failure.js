@@ -2,13 +2,14 @@
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
-import { withTranslation, TFunction } from 'react-i18next'
+import { withTranslation, type TFunction } from 'react-i18next'
 import Link from 'redux-first-router-link'
-import styled from 'styled-components'
+import styled, { type StyledComponent } from 'styled-components'
 import { faFrown } from '../../../modules/app/constants/icons'
 import I18nRedirectRouteConfig from '../../app/route-configs/I18nRedirectRouteConfig'
+import type { ThemeType } from 'build-configs/ThemeType'
 
-const Centered = styled.div`
+const Centered: StyledComponent<{||}, ThemeType, *> = styled.div`
   & > * {
     display: block;
     margin-top: 50px;
@@ -20,7 +21,7 @@ type PropsType = {|
   errorMessage: string,
   goToPath?: string,
   goToMessage?: string,
-  t: typeof TFunction
+  t: TFunction
 |}
 
 /**
@@ -38,9 +39,9 @@ export class Failure extends React.PureComponent<PropsType> {
     return <Centered>
       <div>{t(errorMessage)}</div>
       <div><FontAwesomeIcon icon={faFrown} size='5x' /></div>
-      <Link to={goToPath}>{t(goToMessage)}</Link>
+      {goToPath && <Link to={goToPath}>{goToMessage ? t(goToMessage) : goToPath}</Link>}
     </Centered>
   }
 }
 
-export default withTranslation('error')(Failure)
+export default withTranslation<PropsType>('error')(Failure)

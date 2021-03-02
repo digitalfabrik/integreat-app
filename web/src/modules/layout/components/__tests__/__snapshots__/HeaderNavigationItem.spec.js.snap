@@ -1,40 +1,44 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`HeaderNavigationItem should render an ActiveNavigationItem 1`] = `
-<HeaderNavigationItem__StyledLink
-  $active={true}
-  data-event="mouseover"
-  data-event-off="click mouseout"
-  to="/augsburg/de"
+<_default
+  flow="up"
 >
-  <HeaderNavigationItem__Circle>
-    <img
-      alt=""
-      src="icon"
-    />
-  </HeaderNavigationItem__Circle>
-  <div>
-    Kategorien
-  </div>
-</HeaderNavigationItem__StyledLink>
+  <HeaderNavigationItem__StyledLink
+    $active={true}
+    to="/augsburg/de"
+  >
+    <HeaderNavigationItem__Circle>
+      <img
+        alt=""
+        src="icon"
+      />
+    </HeaderNavigationItem__Circle>
+    <div>
+      Kategorien
+    </div>
+  </HeaderNavigationItem__StyledLink>
+</_default>
 `;
 
 exports[`HeaderNavigationItem should render an InactiveNavigationItem 1`] = `
-<HeaderNavigationItem__StyledLink
-  $active={false}
-  data-event="mouseover"
-  data-event-off="click mouseout"
-  data-tip="random tooltip"
-  to="/augsburg/de"
+<_default
+  flow="up"
+  text="random tooltip"
 >
-  <HeaderNavigationItem__Circle>
-    <img
-      alt=""
-      src="icon"
-    />
-  </HeaderNavigationItem__Circle>
-  <div>
-    Kategorien
-  </div>
-</HeaderNavigationItem__StyledLink>
+  <HeaderNavigationItem__StyledLink
+    $active={false}
+    to="/augsburg/de"
+  >
+    <HeaderNavigationItem__Circle>
+      <img
+        alt=""
+        src="icon"
+      />
+    </HeaderNavigationItem__Circle>
+    <div>
+      Kategorien
+    </div>
+  </HeaderNavigationItem__StyledLink>
+</_default>
 `;

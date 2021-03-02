@@ -1568,7 +1568,7 @@
     core-js-pure "^3.0.0"
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.0.0", "@babel/runtime@^7.1.2", "@babel/runtime@^7.10.1", "@babel/runtime@^7.10.2", "@babel/runtime@^7.3.1", "@babel/runtime@^7.5.5", "@babel/runtime@^7.6.3", "@babel/runtime@^7.8.4":
+"@babel/runtime@^7.0.0", "@babel/runtime@^7.1.2", "@babel/runtime@^7.10.1", "@babel/runtime@^7.10.2", "@babel/runtime@^7.5.5", "@babel/runtime@^7.6.3", "@babel/runtime@^7.8.4":
   version "7.11.2"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.11.2.tgz#f549c13c754cc40b87644b9fa9f09a6a95fe0736"
   integrity sha512-TeWkU52so0mPtDcaCTxNBI/IHiz0pZgr8VEFqXFtZWpYD08ZB6FaSwVAS8MKRQAP3bYKiVjwysOJgMFY28o6Tw==
@@ -8740,7 +8740,7 @@ html-minifier-terser@^5.0.1, html-minifier-terser@^5.1.1:
     relateurl "^0.2.7"
     terser "^4.6.3"
 
-html-parse-stringify2@2.0.1, html-parse-stringify2@^2.0.1:
+html-parse-stringify2@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/html-parse-stringify2/-/html-parse-stringify2-2.0.1.tgz#dc5670b7292ca158b7bc916c9a6735ac8872834a"
   integrity sha1-3FZwtyksoVi3vJFsmmc1rIhyg0o=
@@ -13775,14 +13775,6 @@ react-hot-loader@^4.12.19:
     shallowequal "^1.1.0"
     source-map "^0.7.3"
 
-react-i18next@^11.8.5:
-  version "11.8.5"
-  resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-11.8.5.tgz#a093335822e36252cda6efc0f55facef6253643f"
-  integrity sha512-2jY/8NkhNv2KWBnZuhHxTn13aMxAbvhiDUNskm+1xVVnrPId78l8fA7fCyVeO3XU1kptM0t4MtvxV1Nu08cjLw==
-  dependencies:
-    "@babel/runtime" "^7.3.1"
-    html-parse-stringify2 "2.0.1"
-
 react-i18next@^11.8.8:
   version "11.8.8"
   resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-11.8.8.tgz#23d34518c784f2ada7cec41cfe439ac4ae51875c"
@@ -14082,14 +14074,6 @@ react-test-renderer@16.13.1, react-test-renderer@^16.0.0-0:
     prop-types "^15.6.2"
     react-is "^16.8.6"
     scheduler "^0.19.1"
-
-react-tooltip@4.2.13:
-  version "4.2.13"
-  resolved "https://registry.yarnpkg.com/react-tooltip/-/react-tooltip-4.2.13.tgz#908db8a41dc10ae2ae9cc1864746cde939aaab0f"
-  integrity sha512-iAZ02wSxChLWb7Vnu0zeQMyAo/jiGHrwFNILWaR3pCKaFVRjKcv/B6TBI4+Xd66xLXVzLngwJ91Tf5D+mqAqVA==
-  dependencies:
-    prop-types "^15.7.2"
-    uuid "^7.0.3"
 
 react@16.13.1, react@^16.12.0:
   version "16.13.1"
@@ -17020,11 +17004,6 @@ uuid@^3.0.0, uuid@^3.3.2, uuid@^3.3.3, uuid@^3.4.0:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.4.0.tgz#b23e4358afa8a202fe7a100af1f5f883f02007ee"
   integrity sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==
-
-uuid@^7.0.3:
-  version "7.0.3"
-  resolved "https://registry.yarnpkg.com/uuid/-/uuid-7.0.3.tgz#c5c9f2c8cf25dc0a372c4df1441c41f5bd0c680b"
-  integrity sha512-DPSke0pXhTZgoF/d+WSt2QaKMCFSfx7QegxEWT+JOuHF5aWrKEn0G+ztjuJg/gG8/ItK+rbPCD/yNv8yyih6Cg==
 
 uuid@^8.3.0:
   version "8.3.2"

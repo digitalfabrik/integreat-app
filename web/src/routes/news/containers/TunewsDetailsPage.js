@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import styled from 'styled-components'
+import styled, { type StyledComponent } from 'styled-components'
 import TunewsIcon from './../assets/TunewsActiveLogo.png'
 import { CityModel, NotFoundError, TunewsModel } from 'api-client'
 import { connect } from 'react-redux'
@@ -11,16 +11,17 @@ import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import { useContext } from 'react'
 import DateFormatterContext from '../../../modules/i18n/context/DateFormatterContext'
 import { TU_NEWS_TYPE } from 'api-client/src/routes'
+import type { ThemeType } from 'build-configs/ThemeType'
 
-const StyledContainer = styled.div`
+const StyledContainer: StyledComponent<{||}, ThemeType, *> = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 `
-const StyledWrapper = styled.div`
+const StyledWrapper: StyledComponent<{||}, ThemeType, *> = styled.div`
   padding-bottom: 50px;
 `
-const StyledBanner = styled.div`
+const StyledBanner: StyledComponent<{||}, ThemeType, *> = styled.div`
   position: relative;
   display: flex;
   height: 60px;
@@ -30,10 +31,10 @@ const StyledBanner = styled.div`
   background-color: ${({ theme }) => (theme.colors.tunewsThemeColorLight)};
   border-radius: 11px;
 `
-const StyledBannerImage = styled.img`
+const StyledBannerImage: StyledComponent<{||}, ThemeType, *> = styled.img`
   max-height: 100%;
 `
-const StyledTitle = styled.div`
+const StyledTitle: StyledComponent<{||}, ThemeType, *> = styled.div`
   display: flex;
   width: 205px;
   height: 100%;
@@ -44,12 +45,12 @@ const StyledTitle = styled.div`
   font-size: 20px;
   font-weight: 700;
 `
-const Title = styled.h2`
+const Title: StyledComponent<{||}, ThemeType, *> = styled.h2`
   margin-bottom: 5px;
   font-size: 24px;
   font-weight: 700;
 `
-const Content = styled.p`
+const Content: StyledComponent<{||}, ThemeType, *> = styled.p`
   font-size: 16px;
   line-height: 1.38;
 `
