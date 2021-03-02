@@ -2,11 +2,9 @@
 
 import React from 'react'
 import { shallow } from 'enzyme'
-
 import { LanguageSelector } from '../LanguageSelector'
 import { DISCLAIMER_ROUTE } from '../../../app/route-configs/DisclaimerRouteConfig'
 import createLocation from '../../../../createLocation'
-import lightTheme from '../../../theme/constants/theme'
 
 jest.mock('react-i18next')
 
@@ -30,7 +28,6 @@ describe('LanguageSelector', () => {
     const languageSelector = shallow(
       <LanguageSelector languageChangePaths={languageChangePaths}
                         location={location}
-                        theme={lightTheme}
                         isHeaderActionItem
                         t={key => key || 'null'} />
     )
@@ -48,7 +45,6 @@ describe('LanguageSelector', () => {
     const languageSelector = shallow(
       <LanguageSelector languageChangePaths={languageChangePaths}
                         location={location}
-                        theme={lightTheme}
                         isHeaderActionItem={false}
                         t={key => key || 'null'} />
     )

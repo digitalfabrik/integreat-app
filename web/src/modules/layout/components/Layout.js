@@ -2,18 +2,18 @@
 
 import type { Node } from 'react'
 import React from 'react'
-import ReactTooltip from 'react-tooltip'
-import styled from 'styled-components'
+import styled, { type StyledComponent } from 'styled-components'
 import withPlatform from '../../platform/hocs/withPlatform'
 import dimensions from '../../theme/constants/dimensions'
+import type { ThemeType } from 'build-configs/ThemeType'
 
 // Needed for sticky footer on IE - see https://stackoverflow.com/a/31835167
-const FlexWrapper = styled.div`
+const FlexWrapper: StyledComponent<{||}, ThemeType, *> = styled.div`
   display: flex;
   flex-direction: column
 `
 
-const RichLayout = styled.div`
+const RichLayout: StyledComponent<{||}, ThemeType, *> = styled.div`
   position: relative;
   display: flex;
   min-height: 100vh;
@@ -32,7 +32,7 @@ const RichLayout = styled.div`
   }
 `
 
-const Body = styled.div`
+const Body: StyledComponent<{||}, ThemeType, *> = styled.div`
   width: 100%;
   box-sizing: border-box;
   flex-grow: 1;
@@ -52,7 +52,7 @@ const Body = styled.div`
   }
 `
 
-const Main = styled.main`
+const Main: StyledComponent<{||}, ThemeType, *> = styled.main`
   display: inline-block;
   width: ${dimensions.maxWidth - 2 * dimensions.toolbarWidth}px;
   max-width: calc(100% - ${dimensions.toolbarWidth}px);
@@ -121,7 +121,7 @@ class Layout extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const { asideStickyTop, footer, header, toolbar, modal, children, darkMode } = this.props
+    const { asideStickyTop, footer, header, toolbar, modal, children } = this.props
     const modalVisible = !!modal
     return (
       <FlexWrapper>
@@ -137,7 +137,6 @@ class Layout extends React.PureComponent<PropsType> {
               </Main>
             </Body>
           </div>
-          <ReactTooltip effect='solid' type={darkMode ? 'light' : 'dark'} delayShow={0} />
           {modal}
           <div aria-hidden={modalVisible}>
             {footer}
