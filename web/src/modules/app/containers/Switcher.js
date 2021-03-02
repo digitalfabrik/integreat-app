@@ -140,7 +140,7 @@ export class Switcher extends React.Component<PropsType> {
                 darkMode={darkMode}>
           {invalidCity
             ? <FailureSwitcher error={new Error('notFound.category')} />
-            : invalidLanguage
+            : invalidLanguage && cities
               ? <LanguageFailure cities={cities}
                                  location={location}
                                  languageChangePaths={languageChangePaths || []} />
