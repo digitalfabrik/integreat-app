@@ -19,6 +19,7 @@ import type {
 } from '../../../modules/app/constants/NavigationTypes'
 import type { WohnenOfferRouteType } from 'api-client/src/routes'
 import { WOHNEN_OFFER_ROUTE } from 'api-client/src/routes'
+import { fromError } from '../../../modules/error/ErrorCodes'
 
 const WOHNEN_API_URL = 'https://api.wohnen.integreat-app.de/v0'
 
@@ -127,6 +128,10 @@ class WohnenOfferContainer extends React.Component<WohnenPropsType, WohnenStateT
     }
   }
 
+  tryAgain = () => {
+    this.loadWohnen()
+  }
+
   render () {
     const { language, offerHash, navigateToOffer, navigateToFeedback, t, theme, title } = this.props
     const { offers, error, timeoutExpired } = this.state
@@ -134,7 +139,7 @@ class WohnenOfferContainer extends React.Component<WohnenPropsType, WohnenStateT
     if (error) {
       return <ScrollView refreshControl={<RefreshControl onRefresh={this.loadWohnen} refreshing={false} />}
                          contentContainerStyle={{ flexGrow: 1 }}>
-        <FailureContainer errorMessage={error.message} tryAgain={this.loadWohnen} />
+        <FailureContainer code={fromError(error)} tryAgain={this.tryAgain} />
       </ScrollView>
     }
 
@@ -148,12 +153,13 @@ class WohnenOfferContainer extends React.Component<WohnenPropsType, WohnenStateT
                        contentContainerStyle={{ flexGrow: 1 }}>
       <WohnenOffer title={title} offerHash={offerHash} navigateToOffer={navigateToOffer} offers={offers}
                           t={t} theme={theme} language={language} />
-      <SiteHelpfulBox navigateToFeedback={navigateToFeedback} theme={theme} t={t} />
+      <SiteHelpfulBox navigateToFeedback={navigateToFeedback} theme={theme} />
     </ScrollView>
   }
 }
 
 export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(
+  // $FlowFixMe
   withTranslation('wohnen')(
     withTheme(WohnenOfferContainer)
   ))

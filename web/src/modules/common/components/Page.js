@@ -1,16 +1,17 @@
 // @flow
 
 import * as React from 'react'
-import styled from 'styled-components'
+import styled, { type StyledComponent } from 'styled-components'
 import RemoteContent from './RemoteContent'
 import Caption from './Caption'
 import type Moment from 'moment'
 import LastUpdateInfo from './LastUpdateInfo'
 import DateFormatter from 'api-client/src/i18n/DateFormatter'
+import type { ThemeType } from 'build-configs/ThemeType'
 
 export const THUMBNAIL_WIDTH = 300
 
-const Thumbnail = styled.img`
+const Thumbnail: StyledComponent<{||}, ThemeType, *> = styled.img`
   display: flex;
   width: ${THUMBNAIL_WIDTH}px;
   height: ${THUMBNAIL_WIDTH}px;

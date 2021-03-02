@@ -40,7 +40,7 @@ describe('Categories', () => {
       <Categories cityModel={cityModel} language={languages[0].code} stateView={stateView}
                   navigateTo={() => {}} navigateToFeedback={() => {}}
                   resourceCacheUrl='http://localhost:8080' navigateToLink={() => {}}
-                  resourceCache={{ notAvailable: {} }} theme={lightTheme} t={key => key} />
+                  resourceCache={{ notAvailable: {} }} theme={lightTheme} />
     )
     const pageInstance = result.root.findByType(Page)
     expect(pageInstance.props).toEqual(expect.objectContaining({
