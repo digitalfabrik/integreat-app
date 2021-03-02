@@ -1,19 +1,18 @@
 // @flow
 
 import * as React from 'react'
-import styled from 'styled-components'
-import type { ThemeType } from '../../theme/constants/theme'
+import styled, { type StyledComponent } from 'styled-components'
+import type { ThemeType } from 'build-configs/ThemeType'
 import dimensions from '../../theme/constants/dimensions'
 
 type PropsType = {|
-  children: ?string,
-  theme: ThemeType
+  children: ?string
 |}
 
 const LONG_TITLE_LENGTH = 25
 export const HEADER_TITLE_HEIGHT = 50
 
-const HeaderTitleDiv = styled.div`
+const HeaderTitleDiv: StyledComponent<{| long: boolean |}, ThemeType, *> = styled.div`
   display: flex;
   align-items: center;
   font-size: ${props => props.long ? '1.3rem' : '1.8rem'};
@@ -44,8 +43,8 @@ const HeaderTitleDiv = styled.div`
  */
 class HeaderTitle extends React.PureComponent<PropsType> {
   render () {
-    const { theme, children } = this.props
-    return <HeaderTitleDiv theme={theme} long={(children?.length || 0) >= LONG_TITLE_LENGTH}>{children}</HeaderTitleDiv>
+    const { children } = this.props
+    return <HeaderTitleDiv long={(children?.length || 0) >= LONG_TITLE_LENGTH}>{children}</HeaderTitleDiv>
   }
 }
 
