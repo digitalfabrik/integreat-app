@@ -2,7 +2,6 @@
 
 import React from 'react'
 import { shallow } from 'enzyme'
-
 import { FeedbackBoxContainer } from '../FeedbackBoxContainer'
 import { CATEGORIES_ROUTE } from '../../../app/route-configs/CategoriesRouteConfig'
 import {
@@ -23,7 +22,6 @@ import { SPRUNGBRETT_ROUTE } from '../../../app/route-configs/SprungbrettRouteCo
 import { SEARCH_ROUTE } from '../../../app/route-configs/SearchRouteConfig'
 import { DISCLAIMER_ROUTE } from '../../../app/route-configs/DisclaimerRouteConfig'
 import createLocation from '../../../../createLocation'
-import theme from '../../../theme/constants/theme'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 
 jest.mock('react-i18next')
@@ -47,7 +45,6 @@ describe('FeedbackBoxContainer', () => {
         isPositiveRatingSelected
         offers={null}
         t={t}
-        theme={theme}
         onSubmit={() => {}}
         closeFeedbackModal={() => {}}
         sendingStatus='SUCCESS' />
@@ -68,7 +65,6 @@ describe('FeedbackBoxContainer', () => {
           onSubmit={() => {}}
           closeFeedbackModal={() => {}}
           offers={null}
-          theme={theme}
           sendingStatus='SUCCESS'
           t={t} />
       ).instance()
@@ -98,7 +94,6 @@ describe('FeedbackBoxContainer', () => {
           onSubmit={() => {}}
           closeFeedbackModal={() => {}}
           offers={null}
-          theme={theme}
           sendingStatus='SUCCESS'
           t={t} />
       ).instance()
@@ -128,7 +123,6 @@ describe('FeedbackBoxContainer', () => {
           onSubmit={() => {}}
           closeFeedbackModal={() => {}}
           offers={null}
-          theme={theme}
           sendingStatus='SUCCESS'
           t={t} />
       ).instance()
@@ -165,7 +159,6 @@ describe('FeedbackBoxContainer', () => {
           onSubmit={() => {}}
           closeFeedbackModal={() => {}}
           offers={null}
-          theme={theme}
           sendingStatus='SUCCESS'
           t={t} />
       ).instance()
@@ -196,7 +189,6 @@ describe('FeedbackBoxContainer', () => {
         onSubmit={() => {}}
         closeFeedbackModal={() => {}}
         offers={null}
-        theme={theme}
         sendingStatus='SUCCESS'
         t={t} />
     )
@@ -264,7 +256,6 @@ describe('FeedbackBoxContainer', () => {
         onSubmit={() => {}}
         closeFeedbackModal={() => {}}
         offers={offers}
-        theme={theme}
         sendingStatus='SUCCESS'
         t={t} />
     )
@@ -330,8 +321,7 @@ describe('FeedbackBoxContainer', () => {
             onSubmit={() => {}}
             closeFeedbackModal={() => {}}
             offers={null}
-            theme={theme}
-            sendingStatus='SUCCESS'
+                sendingStatus='SUCCESS'
             t={t} />
       )
 
@@ -355,7 +345,6 @@ describe('FeedbackBoxContainer', () => {
         closeFeedbackModal={() => {}}
         offers={null}
         postFeedbackDataOverride={mockPostFeedbackData}
-        theme={theme}
         sendingStatus='SUCCESS'
         t={t} />
     )
@@ -375,7 +364,6 @@ describe('FeedbackBoxContainer', () => {
         onSubmit={mockOnSubmit}
         closeFeedbackModal={() => {}}
         offers={null}
-        theme={theme}
         sendingStatus='ERROR'
         t={t} />
     )
@@ -383,7 +371,7 @@ describe('FeedbackBoxContainer', () => {
     const instance = component.instance()
     instance.postFeedbackData = jest.fn().mockRejectedValue(new Error('Endpoint request failed'))
 
-    await instance.handleSubmit()
+    await instance.submitFeedback()
     expect(mockOnSubmit).toHaveBeenCalledWith('ERROR')
   })
 
@@ -400,7 +388,6 @@ describe('FeedbackBoxContainer', () => {
         onSubmit={() => {}}
         closeFeedbackModal={() => {}}
         offers={null}
-        theme={theme}
         sendingStatus='SUCCESS'
         t={t} />
     ).instance()
@@ -425,7 +412,6 @@ describe('FeedbackBoxContainer', () => {
         onSubmit={() => {}}
         closeFeedbackModal={() => {}}
         offers={null}
-        theme={theme}
         sendingStatus='SUCCESS'
         t={t} />
     ).instance()

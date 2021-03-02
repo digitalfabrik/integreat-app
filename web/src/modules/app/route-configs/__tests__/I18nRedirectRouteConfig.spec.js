@@ -47,7 +47,7 @@ describe('I18nRedirectRouteConfig', () => {
     })
     expect(i18nRedirectRouteConfig.getPageTitle({ t, payloads, location, cityName: null })).toBeNull()
     expect(i18nRedirectRouteConfig.getLanguageChangePath({ payloads, location, language: 'de' })).toBeNull()
-    expect(i18nRedirectRouteConfig.getMetaDescription({ t })).toBeNull()
+    expect(i18nRedirectRouteConfig.getMetaDescription(t)).toBeNull()
     expect(i18nRedirectRouteConfig.getFeedbackTargetInformation({ payloads, location })).toBeNull()
   })
 })

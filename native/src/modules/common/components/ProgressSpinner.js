@@ -32,8 +32,9 @@ const logoSize = svgSize * LOGO_SIZE_FRACTION
 const logoXY = (svgSize - logoSize) / 2
 
 const STROKE_WIDTH_FRACTION = 0.09
+const DIAMETER_FRACTION = 1.2
 const strokeWidth = svgSize * STROKE_WIDTH_FRACTION
-const radius = (svgSize - strokeWidth) / 2
+const radius = (svgSize - strokeWidth * DIAMETER_FRACTION) / 2
 const circumference = radius * 2 * Math.PI
 
 export type PropsType = {|

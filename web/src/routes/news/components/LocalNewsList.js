@@ -2,20 +2,21 @@
 
 import * as React from 'react'
 import { isEmpty } from 'lodash'
-import styled from 'styled-components'
+import styled, { type StyledComponent } from 'styled-components'
 import { LocalNewsModel } from 'api-client'
+import type { ThemeType } from 'build-configs/ThemeType'
 
-const NoItemsMessage = styled.div`
+const NoItemsMessage: StyledComponent<{||}, ThemeType, *> = styled.div`
   padding-top: 25px;
   text-align: center;
 `
 
-const StyledList = styled.div`
+const StyledList: StyledComponent<{||}, ThemeType, *> = styled.div`
   position: relative;
   padding-top: 1px;
   background: linear-gradient(to left, rgba(168, 168, 168, 0.2), #bebebe 51%, rgba(168, 168, 168, 0.2));
 `
-const Wrapper = styled.div`
+const Wrapper: StyledComponent<{||}, ThemeType, *> = styled.div`
   background-color: ${({ theme }) => (theme.colors.backgroundColor)};
 `
 

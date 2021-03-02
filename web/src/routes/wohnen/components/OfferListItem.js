@@ -3,15 +3,16 @@
 import * as React from 'react'
 import { WohnenFormData, WohnenOfferModel } from 'api-client'
 import ListItem from '../../../modules/common/components/ListItem'
-import styled from 'styled-components'
+import styled, { type StyledComponent } from 'styled-components'
 import WohnenRouteConfig from '../../../modules/app/route-configs/WohnenRouteConfig'
+import type { ThemeType } from 'build-configs/ThemeType'
 
-const Description = styled.div`
+const Description: StyledComponent<{||}, ThemeType, *> = styled.div`
   display: flex;
   flex-direction: column;
 `
 
-const Price = styled.span`
+const Price: StyledComponent<{||}, ThemeType, *> = styled.span`
   align-self: flex-end;
 `
 
