@@ -80,7 +80,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   const stateCityCode = state.cityContent?.city
   const categoriesAvailable = state.cityContent?.searchRoute !== null
 
-  const routeCityModel = route ? cities.find(cityElem => cityElem.code === city) : undefined
+  const routeCityModel = route ? cities.find(cityElem => cityElem.code === route.city) : undefined
 
   if (!route || route.status !== 'ready' || state.cities.status !== 'ready' || !state.cityContent ||
     !languages || languages.status !== 'ready') {
@@ -108,19 +108,17 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     })
   }
 
-  const city = route.city
-  const language = route.language
-
   const peeking = isPeekingRoute(state, { routeCity: route.city })
   const path = route.path || undefined
+  const language = route.language
   let shareUrl = url(path) // getShareUrl({ city, language, path, routeName: ownProps.scene.route.name })
 
   if (ownProps.scene.route.name === NEWS_ROUTE && route?.type && stateCityCode) {
-    shareUrl = cityContentUrl({ cityCode: stateCityCode, languageCode: route.language, route: NEWS_ROUTE, path: route.type })
+    shareUrl = cityContentUrl({ cityCode: stateCityCode, languageCode: language, route: NEWS_ROUTE, path: route.type })
   }
 
   if (ownProps.scene.route.name === EVENTS_ROUTE && !path && stateCityCode) {
-    shareUrl = cityContentUrl({ cityCode: stateCityCode, languageCode: route.language, route: EVENTS_ROUTE, path: null })
+    shareUrl = cityContentUrl({ cityCode: stateCityCode, languageCode: language, route: EVENTS_ROUTE, path: null })
   }
 
   return { peeking, routeCityModel, language, goToLanguageChange, categoriesAvailable, shareUrl }
