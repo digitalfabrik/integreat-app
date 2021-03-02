@@ -1,9 +1,10 @@
 // @flow
 
 import React from 'react'
-import styled from 'styled-components'
+import styled, { type StyledComponent } from 'styled-components'
+import type { ThemeType } from 'build-configs/ThemeType'
 
-const Identifier = styled.span`
+const Identifier: StyledComponent<{||}, ThemeType, *> = styled.span`
   font-weight: 700;
 `
 

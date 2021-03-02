@@ -3,16 +3,15 @@
 import React from 'react'
 import Highlighter from 'react-highlight-words'
 import normalizeSearchString from '../../../modules/common/utils/normalizeSearchString'
-
 import { CityModel } from 'api-client'
-import styled, { withTheme } from 'styled-components'
+import styled, { withTheme, type StyledComponent } from 'styled-components'
 import Link from 'redux-first-router-link'
 import CategoriesRouteConfig from '../../../modules/app/route-configs/CategoriesRouteConfig'
-import type { ThemeType } from '../../../modules/theme/constants/theme'
+import type { ThemeType } from 'build-configs/ThemeType'
 
 const MAX_NUMBER_OF_ALIASES = 3
 
-const CityListItem = styled(Link)`
+const CityListItem: StyledComponent<{||}, ThemeType, *> = styled(Link)`
   display: flex;
   flex-direction: column;
   padding: 7px;
@@ -27,7 +26,7 @@ const CityListItem = styled(Link)`
   }
 `
 
-const AliasItem = styled(Highlighter)`
+const AliasItem: StyledComponent<{||}, ThemeType, *> = styled(Highlighter)`
   display: inline-block;
 `
 

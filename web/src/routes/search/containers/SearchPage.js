@@ -2,12 +2,10 @@
 
 import * as React from 'react'
 import { connect } from 'react-redux'
-
 import SearchInput from '../../../modules/common/components/SearchInput'
-
 import { CategoriesMapModel, CategoryModel } from 'api-client'
 import CategoryList from '../../categories/components/CategoryList'
-import { withTranslation, TFunction } from 'react-i18next'
+import { withTranslation, type TFunction } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
 import SearchFeedback from '../components/SearchFeedback'
 import type { LocationState } from 'redux-first-router'
@@ -16,10 +14,14 @@ import { Parser } from 'htmlparser2'
 
 type CategoryEntryType = {| model: CategoryModel, contentWithoutHtml?: string, subCategories: Array<CategoryModel> |}
 
+type OwnPropsType = {|
+  categories: CategoriesMapModel
+|}
+
 type PropsType = {|
-  categories: CategoriesMapModel,
+  ...OwnPropsType,
   location: LocationState,
-  t: typeof TFunction
+  t: TFunction
 |}
 
 type LocalStateType = {|
@@ -103,7 +105,7 @@ const mapStateToProps = (state: StateType) => ({
   location: state.location
 })
 
-export default connect<*, *, *, *, *, *>(mapStateToProps)(
-  withTranslation('search')(
+export default connect<$Diff<PropsType, {| t: TFunction |}>, OwnPropsType, _, _, _, _>(mapStateToProps, () => ({}))(
+  withTranslation<PropsType>('search')(
     SearchPage
   ))
