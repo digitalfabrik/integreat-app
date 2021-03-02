@@ -286,7 +286,7 @@ platform :ios do
         force: true,
         skip_screenshots: skip_screenshots,
         skip_metadata: false,
-        overwrite_screenshots: true, # TODO Remove again after next delivery
+        overwrite_screenshots: true,
         skip_app_version_update: false,
         metadata_path: "./ios/fastlane/#{build_config_name}/metadata",
         screenshots_path: "./ios/fastlane/#{build_config_name}/screenshots",
