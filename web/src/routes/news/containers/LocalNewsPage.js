@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { CityModel, LocalNewsModel, NotFoundError } from 'api-client'
 import { withTranslation, type TFunction } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
-import NewsElement from '../components/NewsElement'
+import NewsListItem from '../components/NewsListItem'
 import LocalNewsList from '../components/LocalNewsList'
 import NewsTabs from '../components/NewsTabs'
 import { LOCAL_NEWS } from '../constants'
@@ -29,14 +29,14 @@ type PropsType = {|
 
 export const LocalNewsPage = ({ localNews, city, cities, path, language, t }: PropsType) => {
   const formatter = useContext(DateFormatterContext)
-  const renderLocalNewsElement = (city: string, language: string) => (localNewsItem: LocalNewsModel) => {
+  const renderLocalNewsListItem = (city: string, language: string) => (localNewsItem: LocalNewsModel) => {
     const {
       id,
       title,
       message,
       timestamp
     } = localNewsItem
-    return <NewsElement
+    return <NewsListItem
       title={title}
       content={message}
       timestamp={timestamp}
@@ -68,7 +68,7 @@ export const LocalNewsPage = ({ localNews, city, cities, path, language, t }: Pr
       <LocalNewsList
         items={localNews}
         noItemsMessage={t('currentlyNoNews')}
-        renderItem={renderLocalNewsElement(city, language)}
+        renderItem={renderLocalNewsListItem(city, language)}
         city={city}
       />
     </NewsTabs>

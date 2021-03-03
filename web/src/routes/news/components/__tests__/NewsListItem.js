@@ -4,12 +4,12 @@ import React from 'react'
 import { LocalNewsModel } from 'api-client'
 import moment from 'moment'
 import { shallow } from 'enzyme'
-import NewsElement, { NUM_OF_WORDS_ALLOWED } from '../NewsElement'
+import NewsListItem, { NUM_OF_WORDS_ALLOWED } from '../NewsListItem'
 import { LOCAL_NEWS } from '../../constants'
 import textTruncator from '../../../../modules/common/utils/textTruncator'
 import DateFormatter from 'api-client/src/i18n/DateFormatter'
 
-describe('NewsElement', () => {
+describe('NewsListItem', () => {
   const language = 'en'
   const link = '/testumgebung/en/news/local'
   const t = (key: ?string): string => key || ''
@@ -27,7 +27,7 @@ describe('NewsElement', () => {
 
   it('should render the right data', () => {
     const wrapper = shallow(
-      <NewsElement
+      <NewsListItem
         type={LOCAL_NEWS}
         title={title}
         content={message}
