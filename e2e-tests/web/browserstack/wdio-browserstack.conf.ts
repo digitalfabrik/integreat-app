@@ -22,7 +22,6 @@ const browserstackCaps = (config: BrowserStackCapabilities): Capabilities => {
       projectName: 'integreat-app-web'
     },
     browserName: config.browserName,
-    acceptInsecureCerts: true
   }
 }
 

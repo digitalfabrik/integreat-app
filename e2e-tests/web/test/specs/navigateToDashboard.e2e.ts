@@ -2,7 +2,6 @@ import LandingPage from '../pageobjects/landing.page'
 
 describe('navigate to dashboard', () => {
   it('filter and navigate to City', async () => {
-    // given
     const language = 'en'
     const filter = 'Augsburg'
     const dashboardPath = `/${filter.toLowerCase()}/en`
