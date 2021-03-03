@@ -1,4 +1,4 @@
-exports.config = {
+export const config = {
   runner: 'local',
   specs: [
     './web/test/specs/**/*.ts'
@@ -23,10 +23,11 @@ exports.config = {
   reporters: ['junit'],
 
   jasmineNodeOpts: {
-    defaultTimeoutInterval: 120000
+    defaultTimeoutInterval: 120000,
+    requires: ['tsconfig-paths/register']
   },
 
-  onPrepare: async function () {
+  onPrepare: async function (): Promise<void> {
     const startupDelay = 20000
     await new Promise(resolve => setTimeout(resolve, startupDelay))
   }

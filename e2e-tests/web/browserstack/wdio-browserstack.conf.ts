@@ -1,22 +1,23 @@
-const childProcess = require('child_process')
-const defaultConfig = require('../wdio.conf')
-const merge = require('deepmerge')
+import { execSync } from 'child_process'
+import { config as defaultConfig } from '../wdio.conf'
+import merge from 'ts-deepmerge'
+import { BrowserStackCapabilities, Capabilities } from '@wdio/types/build/Capabilities'
 
 const getGitBranch = () => {
-  return childProcess.execSync('git rev-parse --abbrev-ref HEAD').toString().trim()
+  return execSync('git rev-parse --abbrev-ref HEAD').toString().trim()
 }
 
 const getGitHeadReference = () => {
-  return childProcess.execSync('git rev-parse --short HEAD').toString().trim()
+  return execSync('git rev-parse --short HEAD').toString().trim()
 }
 
-const browserstackCaps = config => {
+const browserstackCaps = (config: BrowserStackCapabilities): Capabilities => {
   const prefix = 'IG DEV'
   return {
     'bstack:options': {
       ...config,
       buildName: `${prefix}: ${getGitBranch()}`,
-      sessionName: `${config.browserName.toLowerCase()}: ${getGitHeadReference()}`,
+      sessionName: `${config.browserName?.toLowerCase()}: ${getGitHeadReference()}`,
       local: true,
       debug: true,
       projectName: 'integreat-app-web'
@@ -26,7 +27,7 @@ const browserstackCaps = config => {
   }
 }
 
-exports.config = merge(defaultConfig.config, {
+export const config = merge(defaultConfig, {
   maxInstances: 1,
 
   user: process.env.E2E_BROWSERSTACK_USER,
@@ -66,7 +67,7 @@ exports.config = merge(defaultConfig.config, {
   host: 'hub.browserstack.com'
 }, {
   clone: false,
-  customMerge: key => {
-    if (key === 'capabilities') { return (c1, c2) => c2 }
+  customMerge: (key: string) => {
+    if (key === 'capabilities') { return (_c1, c2: Capabilities) => c2 }
   }
 })
