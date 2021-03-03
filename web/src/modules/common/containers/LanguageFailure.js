@@ -1,39 +1,37 @@
 // @flow
 
 import React from 'react'
-import { withTranslation, TFunction } from 'react-i18next'
+import { withTranslation, type TFunction } from 'react-i18next'
 import LanguageSelector from '../../../modules/common/containers/LanguageSelector'
 import { CityModel } from 'api-client'
 import Caption from '../../../modules/common/components/Caption'
 import type { LocationState } from 'redux-first-router'
-import styled, { withTheme } from 'styled-components'
+import styled, { type StyledComponent } from 'styled-components'
 import type { LanguageChangePathsType } from '../../app/containers/Switcher'
-import type { ThemeType } from '../../theme/constants/theme'
+import type { ThemeType } from 'build-configs/ThemeType'
 
-const ChooseLanguage = styled.p`
+const ChooseLanguage: StyledComponent<{||}, ThemeType, *> = styled.p`
   margin: 25px 0;
   text-align: center;
 `
 
 type PropsType = {|
   cities: Array<CityModel>,
-  theme: ThemeType,
   location: LocationState,
   languageChangePaths: LanguageChangePathsType,
-  t: typeof TFunction
+  t: TFunction
 |}
 
 export class LanguageFailure extends React.PureComponent<PropsType> {
   render () {
-    const { t, location, cities, languageChangePaths, theme } = this.props
+    const { t, location, cities, languageChangePaths } = this.props
     const title = cities && CityModel.findCityName(cities, location.payload.city)
     return <>
       {title && <Caption title={title} />}
       <ChooseLanguage>{`${t('notFound.language')} ${t('chooseALanguage')}`}</ChooseLanguage>
-      <LanguageSelector isHeaderActionItem={false} location={location} languageChangePaths={languageChangePaths}
-                        theme={theme} />
+      <LanguageSelector isHeaderActionItem={false} location={location} languageChangePaths={languageChangePaths} />
     </>
   }
 }
 
-export default withTheme(withTranslation('error')(LanguageFailure))
+export default withTranslation<PropsType>('error')(LanguageFailure)

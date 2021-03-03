@@ -1,10 +1,11 @@
 // @flow
 
 import React from 'react'
-import styled from 'styled-components'
+import styled, { type StyledComponent } from 'styled-components'
 import dimensions from '../../theme/constants/dimensions'
+import type { ThemeType } from 'build-configs/ThemeType'
 
-const H1 = styled.h1`
+const H1: StyledComponent<{||}, ThemeType, *> = styled.h1`
   margin: 25px 0;
   font-size: 2rem;
   text-align: center;

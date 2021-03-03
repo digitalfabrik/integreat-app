@@ -4,7 +4,7 @@
 <PROJECT_ROOT>/lib-dist/.*
 .*/node_modules/.*/__tests__/.*
 .*/build-configs/.*/assets/manifest\.json
-; TODO Fix flow error
+; TODO HEADROOM-9 Fix flow error
 .*/node_modules/@integreat-app/react-sticky-headroom/index\.js\.flow
 
 [untyped]
@@ -29,8 +29,8 @@
 module.system.node.resolve_dirname=node_modules
 esproposal.optional_chaining=enable
 
-; TODO Remove and fix flow errors to upgrade to v0.143.0
-; https://github.com/facebook/flow/releases/tag/v0.143.0
+; In order to upgrade to v0.143.0 the following has to be removed and flow errors have to be fixed.
+; See https://github.com/facebook/flow/releases/tag/v0.143.0 for more information.
 types_first=false
 
 module.file_ext=.js
