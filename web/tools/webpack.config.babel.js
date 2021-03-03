@@ -66,7 +66,7 @@ const createConfig = (env: { config_name?: string, dev_server?: boolean, version
   const { config_name: buildConfigName, commit_sha: passedCommitSha, version_name: passedVersionName, dev_server: devServer } = env
 
   if (!buildConfigName) {
-    throw new Error('Please specificy build config name')
+    throw new Error('Please specify a build config name')
   }
 
   const buildConfig = loadBuildConfig(buildConfigName, WEB)
