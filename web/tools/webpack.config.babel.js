@@ -82,7 +82,7 @@ const createConfig = (env: { config_name?: string, dev_server?: boolean, version
   console.log('Used config: ', buildConfigName)
   console.log('Configured as running in dev server: ', !devServer)
   console.log('Version name: ', versionName)
-  console.log('Version nameCommit SHA: ', commitSha)
+  console.log('Commit SHA ', commitSha)
 
   const configAssets = path.resolve(__dirname, `../node_modules/build-configs/${buildConfigName}/assets`)
 
