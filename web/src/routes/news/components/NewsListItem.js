@@ -12,6 +12,7 @@ import { LOCAL_NEWS } from '../constants'
 import type { NewsType } from '../constants'
 import DateFormatter from 'api-client/src/i18n/DateFormatter'
 import type { ThemeType } from 'build-configs/ThemeType'
+import { Parser } from 'htmlparser2'
 
 export const NUM_OF_WORDS_ALLOWED = 30
 
@@ -37,7 +38,7 @@ const Body: StyledComponent<{||}, ThemeType, *> = styled.p`
   line-height: 1.38;
 `
 
-const StyledNewsElement: StyledComponent<{||}, ThemeType, *> = styled.div`
+const StyledNewsListItem: StyledComponent<{||}, ThemeType, *> = styled.div`
   padding-bottom: 2px;
   background: linear-gradient(to left, rgba(168, 168, 168, 0.2), #bebebe 51%, rgba(168, 168, 168, 0.2));
 `
@@ -58,32 +59,27 @@ type PropsType = {|
   t: TFunction
 |}
 
-class NewsElement extends React.PureComponent<PropsType> {
-  renderContent (): React.Node {
-    const { title, content, timestamp, formatter, t, type, link } = this.props
-    return (
-      <Description>
-        <Title>{title}</Title>
-        <Body>{textTruncator(content, NUM_OF_WORDS_ALLOWED)}</Body>
-        <StyledContainer>
-          <LastUpdateInfo lastUpdate={timestamp} formatter={formatter} withText={false} />
-          <ReadMoreLink to={link} type={type}>{t('readMore')} ></ReadMoreLink>
-        </StyledContainer>
-      </Description>
-    )
-  }
+const NewsListItem = ({ title, content, timestamp, formatter, t, type, link }: PropsType) => {
+  // Decode html entities
+  let decodedContent = ''
+  const parser = new Parser({ ontext (data: string) { decodedContent += data } }, { decodeEntities: true })
+  parser.write(content)
+  parser.end()
 
-  render () {
-    const { link } = this.props
-
-    return (
-      <StyledNewsElement>
-        <Link to={link}>
-          {this.renderContent()}
-        </Link>
-      </StyledNewsElement>
-    )
-  }
+  return (
+    <StyledNewsListItem>
+      <Link to={link}>
+        <Description>
+          <Title>{title}</Title>
+          <Body>{textTruncator(decodedContent, NUM_OF_WORDS_ALLOWED)}</Body>
+          <StyledContainer>
+            <LastUpdateInfo lastUpdate={timestamp} formatter={formatter} withText={false} />
+            <ReadMoreLink to={link} type={type}>{t('readMore')} ></ReadMoreLink>
+          </StyledContainer>
+        </Description>
+      </Link>
+    </StyledNewsListItem>
+  )
 }
 
-export default NewsElement
+export default NewsListItem
