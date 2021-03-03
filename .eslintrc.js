@@ -89,12 +89,6 @@ module.exports = {
     files: ['*.js'],
     excludedFiles: ['*.spec.js', '**/__mocks__/*.js'],
     rules: {
-      'react/jsx-no-bind': ['error', {
-        ignoreRefs: false,
-        allowArrowFunctions: false,
-        allowFunctions: false,
-        allowBind: false
-      }],
       'no-magic-numbers': ['error', {
         ignore: [-1, 0, 1, 2],
         ignoreArrayIndexes: true
