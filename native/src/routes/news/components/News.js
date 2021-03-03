@@ -36,11 +36,12 @@ export type PropsType = {|
   isFetchingMore: boolean,
   fetchMoreNews: () => void,
   navigateTo: RouteInformationType => void,
-  navigateToLink: (url: string, language: string, shareUrl: string) => void
+  navigateToLink: (url: string, language: string, shareUrl: string) => void,
+  routeKey: string
 |}
 
 const News = (props: PropsType) => {
-  const { news, newsId, cityCode, language, fetchMoreNews, isFetchingMore, selectedNewsType, theme, t } = props
+  const { news, newsId, cityCode, language, fetchMoreNews, isFetchingMore, selectedNewsType, theme, t, routeKey } = props
   const { navigateTo, navigateToLink } = props
 
   const navigateToNews = useCallback((cityCode: string, language: string, newsId: string) => () => {
@@ -104,6 +105,12 @@ const News = (props: PropsType) => {
           isFetchingMore={isFetchingMore}
           fetchMoreItems={fetchMoreNews}
           renderItem={rendersNewsListItem(cityCode, language)}
+          navigateTo={navigateTo}
+          selectedNewsType={selectedNewsType}
+          newsId={newsId}
+          routeKey={routeKey}
+          cityCode={cityCode}
+          language={language}
         />
       </View>
   )
