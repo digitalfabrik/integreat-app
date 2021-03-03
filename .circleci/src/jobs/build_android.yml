@@ -32,12 +32,18 @@ steps:
       command: ./gradlew clean && bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:<< parameters.build_config_name >>
       working_directory: native/android
   - run:
+      name: Prepare Sourcemaps
+      command: |
+        mkdir -p sourcemaps/<< parameters.build_config_name >>
+        cp native/android/app/build/generated/sourcemaps/react/release/index.android.bundle.map sourcemaps/<< parameters.build_config_name >>/
+        cp native/android/app/build/generated/assets/react/release/index.android.bundle sourcemaps/<< parameters.build_config_name >>/
+  - persist_to_workspace:
+      root: .
+      paths:
+        - sourcemaps/<< parameters.build_config_name >>/*
+  - run:
       name: Rename apk
       command: mv app/build/outputs/apk/release/app-release.apk << parameters.build_config_name >>.apk
-      working_directory: native/android
-  - run:
-      name: Rename sourcemap
-      command: mv app/build/generated/sourcemaps/react/release/index.android.bundle.map << parameters.build_config_name >>.android.bundle.map
       working_directory: native/android
   - store_artifacts:
       path: native/android/<< parameters.build_config_name >>.apk
@@ -45,5 +51,4 @@ steps:
       root: native/android
       paths:
         - << parameters.build_config_name >>.apk
-        - << parameters.build_config_name >>.android.bundle.map
   - notify
