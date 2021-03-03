@@ -76,8 +76,7 @@ export const FeedbackBox = ({
       onCommentChanged={onCommentChanged}
       required={!isPositiveRatingSelected} />
     <Description>{t('contactMailAddress')} ({t('optionalInfo')})</Description>
-    <TextInput
-      onChange={onContactMailChanged} value={contactMail} />
+    <TextInput onChange={onContactMailChanged} value={contactMail} />
     {sendingStatus === 'ERROR' && <Description>{t('failedSendingFeedback')}</Description>}
     <TextButton
       disabled={!isPositiveRatingSelected && !comment}
