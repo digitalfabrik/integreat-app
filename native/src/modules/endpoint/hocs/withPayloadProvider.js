@@ -127,7 +127,12 @@ const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R: {}, 
           </LayoutedScrollView>
         }
       } else { // props.status === 'success'
-        return <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refreshIfPossible} refreshing={false} enabled={!noScrollView} />}>
+        if (noScrollView) {
+          return <LayoutContainer>
+            <Component {...props.innerProps} dispatch={props.dispatch} />
+          </LayoutContainer>
+        }
+        return <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refreshIfPossible} refreshing={false} />}>
           <Component {...props.innerProps} dispatch={props.dispatch} />
         </LayoutedScrollView>
       }

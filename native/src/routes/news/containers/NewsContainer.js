@@ -253,6 +253,7 @@ const NewsContainer = (props: ContainerPropsType) => {
         <NewsHeader selectedNewsType={selectedNewsType} cityModel={cityModel} navigateToNews={fetchNews} />
         <News newsId={newsId}
               news={news}
+              routeKey={route.key}
               selectedNewsType={selectedNewsType}
               isFetchingMore={isFetchingMore}
               fetchMoreNews={fetchMoreNews({ news, hasMoreNews, page })}
@@ -274,6 +275,6 @@ const NewsContainer = (props: ContainerPropsType) => {
 
 export default withTranslation('error')(
   connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(
-    withPayloadProvider<ContainerPropsType, RefreshPropsType, NewsRouteType>(refresh, onRouteClose)(
+    withPayloadProvider<ContainerPropsType, RefreshPropsType, NewsRouteType>(refresh, onRouteClose, true)(
       NewsContainer
     )))
