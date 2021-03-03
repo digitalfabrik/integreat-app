@@ -1,12 +1,11 @@
 import LandingPage from '../pageobjects/landing.page'
 
 describe('navigate to dashboard', () => {
-  it('Filter and Navigate to City', async () => {
+  it('filter and navigate to City', async () => {
     // given
     const language = 'en'
     const filter = 'Augsburg'
     const dashboardPath = `/${filter.toLowerCase()}/en`
-    await browser.setTimeout({ implicit: 80000 })
     LandingPage.language = language
     await LandingPage.open()
 

@@ -24,11 +24,14 @@ export const config = {
 
   jasmineNodeOpts: {
     defaultTimeoutInterval: 120000,
-    requires: ['tsconfig-paths/register']
   },
 
   onPrepare: async function (): Promise<void> {
     const startupDelay = 20000
     await new Promise(resolve => setTimeout(resolve, startupDelay))
+  },
+
+  before: async function (): Promise<void> {
+    await browser.setTimeout({ implicit: 80000 })
   }
 }

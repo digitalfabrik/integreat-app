@@ -1,6 +1,5 @@
 import { execSync } from 'child_process'
 import { config as defaultConfig } from '../wdio.conf'
-import merge from 'ts-deepmerge'
 import { BrowserStackCapabilities, Capabilities } from '@wdio/types/build/Capabilities'
 
 const getGitBranch = () => {
@@ -27,7 +26,7 @@ const browserstackCaps = (config: BrowserStackCapabilities): Capabilities => {
   }
 }
 
-export const config = merge(defaultConfig, {
+export const config = Object.assign(defaultConfig, {
   maxInstances: 1,
 
   user: process.env.E2E_BROWSERSTACK_USER,
@@ -65,9 +64,4 @@ export const config = merge(defaultConfig, {
 
   services: [['browserstack', { browserstackLocal: true }]],
   host: 'hub.browserstack.com'
-}, {
-  clone: false,
-  customMerge: (key: string) => {
-    if (key === 'capabilities') { return (_c1, c2: Capabilities) => c2 }
-  }
 })
