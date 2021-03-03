@@ -103,6 +103,39 @@ platform :android do
         json_key_data: ENV["GOOGLE_SERVICE_ACCOUNT_JSON"]
     )
   end
+
+  # The following parameters have to be passed:
+  # build_config_name: The name of the build config
+  desc "Promote the most recent version in the beta track to the production track in the Play Store."
+  lane :playstore_promote do |options|
+    ensure_env_vars(
+      env_vars: ["GOOGLE_SERVICE_ACCOUNT_JSON"]
+    )
+
+    build_config_name = options[:build_config_name]
+
+    if [build_config_name].include?(nil)
+      raise "'nil' passed as parameter! Aborting..."
+    end
+
+    build_config = read_build_config(build_config_name, 'android')
+
+    puts("promoting #{build_config_name}")
+
+    # https://docs.fastlane.tools/actions/supply/
+    upload_to_play_store(
+      package_name: build_config['applicationId'],
+      track: "alpha", # TODO
+      track_promote_to: "beta", # TODO
+      skip_upload_changelogs: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true,
+      skip_upload_metadata: true,
+      skip_upload_apk: true,
+      release_status: "completed",
+      json_key_data: ENV["GOOGLE_SERVICE_ACCOUNT_JSON"]
+    )
+  end
 end
 
 platform :ios do
@@ -233,6 +266,43 @@ platform :ios do
         apple_id: apple_id,
         ipa: "#{ENV['HOME']}/#{ipa_path}",
         distribute_external: false
+    )
+  end
+
+  # The following parameters have to be passed:
+  # build_config_name: The name of the build config
+  desc "Promote the app from testflight to production in App Store Connect."
+  lane :appstoreconnect_promote do |options|
+    apple_auth()
+
+    build_config_name = options[:build_config_name]
+
+    if [build_config_name].include?(nil)
+      raise "'nil' passed as parameter! Aborting..."
+    end
+
+    build_config = read_build_config(build_config_name, 'ios')
+    bundle_identifier = build_config['bundleIdentifier']
+    skip_screenshots = build_config_name != "integreat"
+
+    puts("promoting #{build_config_name}")
+    puts("skip_screenshots: #{skip_screenshots}")
+
+    # https://docs.fastlane.tools/actions/deliver/#submit-build
+    deliver(
+      app_identifier: bundle_identifier,
+      submit_for_review: true,
+      automatic_release: true,
+      force: true,
+      skip_metadata: false,
+      skip_screenshots: skip_screenshots,
+      overwrite_screenshots: true,
+      skip_binary_upload: true,
+      metadata_path: "./ios/fastlane/#{build_config_name}/metadata",
+      screenshots_path: "./ios/fastlane/#{build_config_name}/screenshots",
+      precheck_include_in_app_purchases: false, # We do not have inapp purchases
+      submission_information: { add_id_info_uses_idfa: false }  # https://firebase.google.com/docs/analytics/configure-data-collection?platform=ios
+                                                                # https://support.google.com/firebase/answer/6318039?hl=en
     )
   end
 end
