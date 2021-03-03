@@ -2926,11 +2926,6 @@ to-regex-range@^5.0.1:
   dependencies:
     is-number "^7.0.0"
 
-ts-deepmerge@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/ts-deepmerge/-/ts-deepmerge-1.0.6.tgz#228b213d4eed7a7c337bb4f561982dde2af9447c"
-  integrity sha512-ryWj3fZ9zlXvfHQqpvh+XqxbZWWOKIB+sXSQ6uj9k+mKggLm/D8QPlUbxW1hieMcMKEWX9ZkldIi9iuu7C1zgg==
-
 ts-node@^9.1.1:
   version "9.1.1"
   resolved "https://registry.yarnpkg.com/ts-node/-/ts-node-9.1.1.tgz#51a9a450a3e959401bda5f004a72d54b936d376d"
