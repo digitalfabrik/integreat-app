@@ -1,10 +1,11 @@
 // @flow
 
 import * as React from 'react'
-import styled from 'styled-components'
+import styled, { type StyledComponent } from 'styled-components'
 import helpers from '../../theme/constants/helpers'
+import type { ThemeType } from 'build-configs/ThemeType'
 
-const ListItem = styled.li`
+const ListItem: StyledComponent<{||}, ThemeType, *> = styled.li`
   display: inline;
 
   & * {
@@ -14,7 +15,7 @@ const ListItem = styled.li`
   }
 `
 
-const Separator = styled.span`
+const Separator: StyledComponent<{||}, ThemeType, *> = styled.span`
   &::before {
     color: ${props => props.theme.colors.textDecorationColor};
     font-size: 16px;

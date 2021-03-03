@@ -54,7 +54,7 @@ describe('TunewsPage', () => {
     const tree = mount(
       <ThemeProvider theme={theme}>
         <Provider store={store}>
-          <ConnectedTunewsPage cities={cities} />
+          <ConnectedTunewsPage />
         </Provider>
       </ThemeProvider>
     )

@@ -2,18 +2,17 @@
 
 import * as React from 'react'
 import Link from 'redux-first-router-link'
-import styled from 'styled-components'
-import type { ThemeType } from '../../theme/constants/theme'
+import styled, { type StyledComponent } from 'styled-components'
+import type { ThemeType } from 'build-configs/ThemeType'
 import dimensions from '../../theme/constants/dimensions'
 
 type PropsType = {|
-  theme: ThemeType,
   link: string,
   src: string,
   alt: string
 |}
 
-const LogoContainer = styled.div`
+const LogoContainer: StyledComponent<{||}, ThemeType, *> = styled.div`
   box-sizing: border-box;
   height: ${dimensions.headerHeightLarge}px;
   padding: 0 10px;
@@ -49,8 +48,8 @@ const LogoContainer = styled.div`
  */
 export class HeaderLogo extends React.PureComponent<PropsType> {
   render () {
-    const { theme, link, src, alt } = this.props
-    return <LogoContainer theme={theme}>
+    const { link, src, alt } = this.props
+    return <LogoContainer>
       <Link to={link}>
         <img src={src} alt={alt} />
       </Link>

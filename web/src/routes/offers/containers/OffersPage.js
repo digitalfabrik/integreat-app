@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import TileModel from '../../../modules/common/models/TileModel'
 import Tiles from '../../../modules/common/components/Tiles'
 import { CityModel, NotFoundError, OfferModel, SPRUNGBRETT_OFFER, WOHNEN_OFFER } from 'api-client'
-import { withTranslation, TFunction } from 'react-i18next'
+import { withTranslation, type TFunction } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
 import SprungbrettRouteConfig from '../../../modules/app/route-configs/SprungbrettRouteConfig'
 import WohnenRouteConfig from '../../../modules/app/route-configs/WohnenRouteConfig'
@@ -13,13 +13,17 @@ import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import Failure from '../../../modules/common/components/Failure'
 import CategoriesRouteConfig from '../../../modules/app/route-configs/CategoriesRouteConfig'
 
+type OwnPropsType = {|
+  offers: Array<OfferModel>,
+  cities: Array<CityModel>
+|}
+
 type PropsType = {|
+  ...OwnPropsType,
   city: string,
   language: string,
-  offers: Array<OfferModel>,
   offerId: ?string,
-  t: typeof TFunction,
-  cities: Array<CityModel>
+  t: TFunction
 |}
 
 /**
@@ -78,7 +82,7 @@ const mapStateToProps = (state: StateType) => ({
   offerId: state.location.payload.offerId
 })
 
-export default connect<*, *, *, *, *, *>(mapStateToProps)(
-  withTranslation('offers')(
+export default connect<$Diff<PropsType, {| t: TFunction |}>, OwnPropsType, _, _, _, _>(mapStateToProps, () => ({}))(
+  withTranslation<PropsType>('offers')(
     OffersPage
   ))

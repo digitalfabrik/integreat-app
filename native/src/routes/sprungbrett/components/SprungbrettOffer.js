@@ -35,7 +35,7 @@ const SprungbrettOffer = ({ jobs, title, navigateToFeedback, theme, t, language 
               renderItem={renderListItem}
               items={jobs}
               theme={theme} />
-      <SiteHelpfulBox navigateToFeedback={navigateToFeedback} theme={theme} t={t} />
+      <SiteHelpfulBox navigateToFeedback={navigateToFeedback} theme={theme} />
     </>
 }
 

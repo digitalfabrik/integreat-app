@@ -7,7 +7,6 @@ import type {
   NavigationPropType,
   RoutesType
 } from '../app/constants/NavigationTypes'
-import { url } from './url'
 import type { CategoriesRouteType, DashboardRouteType } from 'api-client/src/routes'
 
 const navigateToCategory = <T: RoutesType>({
@@ -31,11 +30,7 @@ const navigateToCategory = <T: RoutesType>({
 |}) => {
   navigation.navigate({
     name: routeName,
-    params: {
-      shareUrl: url(cityContentPath),
-      cityCode,
-      languageCode
-    },
+    params: { cityCode, languageCode },
     key
   })
 

@@ -1,22 +1,22 @@
 // @flow
 
 import * as React from 'react'
-
-import styled from 'styled-components'
+import styled, { type StyledComponent } from 'styled-components'
 import CleanLink from './CleanLink'
 import CleanAnchor from './CleanAnchor'
+import type { ThemeType } from 'build-configs/ThemeType'
 
-const Link = styled(CleanLink)`
+const Link: StyledComponent<{||}, ThemeType, *> = styled(CleanLink)`
   display: flex;
   border-bottom: 2px solid ${props => props.theme.colors.themeColor};
 `
 
-const Anchor = styled(CleanAnchor)`
+const Anchor: StyledComponent<{||}, ThemeType, *> = styled(CleanAnchor)`
   display: flex;
   border-bottom: 2px solid ${props => props.theme.colors.themeColor};
 `
 
-const Thumbnail = styled.img`
+const Thumbnail: StyledComponent<{||}, ThemeType, *> = styled.img`
   width: 100px;
   height: 100px;
   flex-shrink: 0;
@@ -24,7 +24,7 @@ const Thumbnail = styled.img`
   object-fit: contain;
 `
 
-export const Description = styled.div`
+export const Description: StyledComponent<{||}, ThemeType, *> = styled.div`
   display: flex;
   height: 100%;
   min-width: 1px; /* needed to enable line breaks for too long words, exact value doesn't matter */
@@ -38,7 +38,7 @@ export const Description = styled.div`
   }
 `
 
-const Title = styled.div`
+const Title: StyledComponent<{||}, ThemeType, *> = styled.div`
   font-weight: 700;
 `
 

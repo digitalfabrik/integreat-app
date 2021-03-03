@@ -2,9 +2,9 @@
 
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import ReactTooltip from 'react-tooltip'
 import StyledToolbarItem from './StyledToolbarItem'
 import StyledSmallViewTip from './StyledSmallViewTip'
+import Tooltip from '../../common/components/Tooltip'
 
 type PropsType = {|
   href: string,
@@ -13,21 +13,15 @@ type PropsType = {|
   viewportSmall: boolean
 |}
 
-class ToolbarItem extends React.PureComponent<PropsType> {
-  componentDidMount () {
-    /* https://www.npmjs.com/package/react-tooltip#1-using-tooltip-within-the-modal-eg-react-modal- */
-    ReactTooltip.rebuild()
-  }
-
-  render () {
-    const { href, text, icon, viewportSmall } = this.props
-    return (
+const ToolbarItem = ({ href, text, icon, viewportSmall }: PropsType) => {
+  return (
+    <Tooltip text={viewportSmall ? null : text} flow='up' mediumViewportFlow='right' smallViewportFlow='down'>
       <StyledToolbarItem href={href} ariaLabel={text}>
-        <FontAwesomeIcon icon={icon} data-tip={text} data-event='mouseover' data-event-off='click mouseout' />
+        <FontAwesomeIcon icon={icon} />
         {viewportSmall && <StyledSmallViewTip>{text}</StyledSmallViewTip>}
       </StyledToolbarItem>
-    )
-  }
+    </Tooltip>
+  )
 }
 
 export default ToolbarItem
