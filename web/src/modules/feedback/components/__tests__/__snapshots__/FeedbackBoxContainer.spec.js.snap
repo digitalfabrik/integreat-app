@@ -30,6 +30,7 @@ exports[`FeedbackBoxContainer should match snapshot 1`] = `
 <Translate(FeedbackBox)
   closeFeedbackModal={[Function]}
   comment=""
+  contactMail=""
   feedbackOptions={
     Array [
       FeedbackVariant {
@@ -50,6 +51,7 @@ exports[`FeedbackBoxContainer should match snapshot 1`] = `
   }
   isPositiveRatingSelected={true}
   onCommentChanged={[Function]}
+  onContactMailChanged={[Function]}
   onFeedbackOptionChanged={[Function]}
   onSubmit={[Function]}
   selectedFeedbackOption={

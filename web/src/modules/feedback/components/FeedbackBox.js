@@ -24,6 +24,10 @@ export const StyledFeedbackBox: StyledComponent<{||}, ThemeType, *> = styled.div
   font-size: ${props => props.theme.fonts.contentFontSize};
 `
 
+const TextInput: StyledComponent<{||}, ThemeType, *> = styled.input.attrs({ type: 'text' })`
+  resize: none;
+`
+
 export const Description: StyledComponent<{||}, ThemeType, *> = styled.div`
   padding: 10px 0 5px;
 `
@@ -33,8 +37,10 @@ type PropsType = {|
   feedbackOptions: Array<FeedbackVariant>,
   selectedFeedbackOption: FeedbackVariant,
   comment: string,
+  contactMail: string,
   onCommentChanged: SyntheticInputEvent<HTMLTextAreaElement> => void,
   onFeedbackOptionChanged: FeedbackVariant => void,
+  onContactMailChanged: SyntheticInputEvent<HTMLInputElement> => void,
   onSubmit: () => void,
   t: TFunction,
   closeFeedbackModal: () => void,
@@ -44,41 +50,39 @@ type PropsType = {|
 /**
  * Renders all necessary inputs for a Feedback and posts the data to the feedback endpoint
  */
-export class FeedbackBox extends React.PureComponent<PropsType> {
-  render () {
-    const {
-      selectedFeedbackOption,
-      feedbackOptions,
-      t,
-      isPositiveRatingSelected,
-      onFeedbackOptionChanged,
-      onCommentChanged,
-      onSubmit,
-      comment,
-      closeFeedbackModal,
-      sendingStatus
-    } = this.props
-
-    return (
-      <StyledFeedbackBox>
-        <ModalHeader t={t} closeFeedbackModal={closeFeedbackModal} title={t('feedback')} />
-        <Description>{t('feedbackType')}</Description>
-        <Dropdown items={feedbackOptions}
-                  selectedItem={selectedFeedbackOption}
-                  onOptionChanged={onFeedbackOptionChanged} />
-        <FeedbackComment
-          comment={comment}
-          commentMessage={isPositiveRatingSelected ? t('positiveComment') : t('negativeComment')}
-          onCommentChanged={onCommentChanged}
-          required={!isPositiveRatingSelected} />
-        {sendingStatus === 'ERROR' && <Description>{t('failedSendingFeedback')}</Description>}
-        <TextButton
-          disabled={!isPositiveRatingSelected && !comment}
-          onClick={onSubmit}
-          text={t('send')} />
-      </StyledFeedbackBox>
-    )
-  }
-}
+export const FeedbackBox = ({
+  selectedFeedbackOption,
+  feedbackOptions,
+  t,
+  isPositiveRatingSelected,
+  onFeedbackOptionChanged,
+  onCommentChanged,
+  onContactMailChanged,
+  onSubmit,
+  contactMail,
+  comment,
+  closeFeedbackModal,
+  sendingStatus
+}: PropsType) => (
+  <StyledFeedbackBox>
+    <ModalHeader t={t} closeFeedbackModal={closeFeedbackModal} title={t('feedback')} />
+    <Description>{t('feedbackType')}</Description>
+    <Dropdown items={feedbackOptions}
+              selectedItem={selectedFeedbackOption}
+              onOptionChanged={onFeedbackOptionChanged} />
+    <FeedbackComment
+      comment={comment}
+      commentMessage={isPositiveRatingSelected ? t('positiveComment') : t('negativeComment')}
+      onCommentChanged={onCommentChanged}
+      required={!isPositiveRatingSelected} />
+    <Description>{t('contactMailAddress')} ({t('optionalInfo')})</Description>
+    <TextInput onChange={onContactMailChanged} value={contactMail} />
+    {sendingStatus === 'ERROR' && <Description>{t('failedSendingFeedback')}</Description>}
+    <TextButton
+      disabled={!isPositiveRatingSelected && !comment}
+      onClick={onSubmit}
+      text={t('send')} />
+  </StyledFeedbackBox>
+)
 
 export default withTranslation<PropsType>('feedback')(FeedbackBox)

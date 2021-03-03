@@ -51,6 +51,9 @@ module.exports = {
     'react/no-typos': 'error',
     'react/prefer-es6-class': ['error', 'always'],
 
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'error',
+
     'flowtype/delimiter-dangle': ['error', 'never'],
     'flowtype/newline-after-flow-annotation': ['error', 'always'],
     'flowtype/no-primitive-constructor-types': 'error',
@@ -86,12 +89,6 @@ module.exports = {
     files: ['*.js'],
     excludedFiles: ['*.spec.js', '**/__mocks__/*.js'],
     rules: {
-      'react/jsx-no-bind': ['error', {
-        ignoreRefs: false,
-        allowArrowFunctions: false,
-        allowFunctions: false,
-        allowBind: false
-      }],
       'no-magic-numbers': ['error', {
         ignore: [-1, 0, 1, 2],
         ignoreArrayIndexes: true

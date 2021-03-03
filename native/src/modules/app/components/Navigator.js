@@ -125,7 +125,7 @@ const Navigator = (props: PropsType) => {
       setWaitingForSettings(false)
     }
     initialize().catch(error => setErrorMessage(error.message))
-  }, [])
+  }, [fetchCities, setInitialRoute, setErrorMessage])
 
   // The following is used to have correct mapping from categories route mapping in redux state to the actual routes
   useEffect(() => {
@@ -146,7 +146,7 @@ const Navigator = (props: PropsType) => {
     }
     previousRouteKey.current = routeKey
     previousRouteName.current = routeName
-  }, [routeKey])
+  }, [routeKey, cityCode, fetchCategory, initialRoute, languageCode, routeName])
 
   if (errorMessage) {
     return <Text>{errorMessage}</Text>
