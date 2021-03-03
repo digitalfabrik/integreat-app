@@ -29,6 +29,7 @@ const HeaderContainer: StyledComponent<{||}, ThemeType, *> = styled.header`
   background-color: ${props => props.theme.colors.backgroundAccentColor};
   user-select: none;
   flex-direction: column;
+  overflow: visible;
 
   @media ${dimensions.minMaxWidth} {
     padding-right: calc((200% - 100vw - ${dimensions.maxWidth}px) / 2);
@@ -40,7 +41,7 @@ const Row: StyledComponent<{| hasTitle?: boolean |}, ThemeType, *> = styled.div`
   display: flex;
   flex: 1;
   max-width: 100%;
-  overflow-x: auto;
+  overflow: auto visible; /* overflow-y must be set to visible for iOS */
   align-items: stretch;
   min-height: ${dimensions.headerHeightLarge}px;
   flex-direction: row;
