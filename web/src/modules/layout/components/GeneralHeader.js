@@ -1,6 +1,6 @@
 // @flow
 
-import React, { useCallback } from 'react'
+import React from 'react'
 import landingIcon from '../assets/location-icon.svg'
 import Header from './Header'
 import HeaderActionItemLink from './HeaderActionItemLink'
@@ -23,7 +23,7 @@ const GeneralHeader = ({ viewportSmall, t }: PropsType) => {
                                text={t('changeLocation')} />]
     : []
 
-  const onStickyTopChanged = useCallback(() => {}, [])
+  const onStickyTopChanged = () => {}
 
   return <Header viewportSmall={viewportSmall}
                  onStickyTopChanged={onStickyTopChanged}

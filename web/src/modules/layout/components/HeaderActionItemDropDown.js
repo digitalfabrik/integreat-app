@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import { useCallback, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import styled, { type StyledComponent } from 'styled-components'
 import type { ThemeType } from 'build-configs/ThemeType'
 import useOnClickOutside from '../hooks/useOnClickOutside'
@@ -79,9 +79,9 @@ const HeaderActionItemDropDown = (props: PropsType) => {
   const { iconSrc, text, children } = props
   const [dropDownActive, setDropDownActive] = useState(false)
 
-  const toggleDropDown = useCallback(() => {
+  const toggleDropDown = () => {
     setDropDownActive(!dropDownActive)
-  }, [setDropDownActive, dropDownActive])
+  }
 
   const closeDropDown = () => {
     setDropDownActive(false)
