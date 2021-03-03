@@ -9,7 +9,9 @@ exports[`Footer should insert items 1`] = `
     AnotherMockNode
   </div>
   <span>
-    vX.X
+    2020.1.1
+    +
+    f3ef76e3
   </span>
 </Footer__FooterContainer>
 `;
@@ -23,7 +25,9 @@ exports[`Footer should show Version on dev builds 1`] = `
     AnotherMockNode
   </div>
   <span>
-    vX.X
+    2020.1.1
+    +
+    f3ef76e3
   </span>
 </Footer__FooterContainer>
 `;

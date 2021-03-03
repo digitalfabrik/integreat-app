@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`RouteContentSwitcher should render and match snapshot 1`] = `
-<Translate(Connect(CategoriesPage))
+<Connect(Translate(CategoriesPage))
   categories={
     CategoriesMapModel {
       "_categories": Map {

@@ -5,40 +5,6 @@ require_relative "read_build_config"
 require "yaml"
 require "base64"
 
-# The following parameters have to be passed:
-# version_code: The version code of the app
-# version_name: The version name of the app
-# package_name: The name of the app in Sentry
-# sourcemap_path: The path to the sourcemap file to upload
-desc "Upload source map to Sentry"
-private_lane :generic_sentry_upload do |options|
-  ensure_env_vars(
-      env_vars: ["SENTRY_AUTH_TOKEN"]
-  )
-
-  version_code = options[:version_code]
-  version_name = options[:version_name]
-  package_name = options[:package_name]
-  sourcemap_path = options[:sourcemap_path]
-
-  if [version_name, version_code, package_name, sourcemap_path].include?(nil)
-    raise "'nil' passed as parameter! Aborting..."
-  end
-
-  sentry_release_version = "#{package_name}@#{version_name}+#{version_code}"
-  sentry_create_release(
-      version: sentry_release_version,
-      finalize: true
-  )
-
-  sentry_upload_sourcemap(
-      version: sentry_release_version,
-      dist: version_code.to_s,
-      sourcemap: sourcemap_path,
-      rewrite: true
-  )
-end
-
 platform :android do
   # The following parameters have to be passed:
   # apk_path: The path of the apk to upload (relative to home dir)
@@ -89,32 +55,6 @@ platform :android do
     yarn(
         command: "test:e2e",
         package_path: "package.json"
-    )
-  end
-
-  # The following parameters have to be passed:
-  # version_code: The version code of the app
-  # version_name: The version name of the app
-  # build_config_name: The name of the build config
-  # sourcemap_path: The path to the sourcemap to upload (relative to home dir)
-  desc "Upload the JavaScript source map to Sentry"
-  lane :sentry_upload do |options|
-    version_code = options[:version_code]
-    version_name = options[:version_name]
-    build_config_name = options[:build_config_name]
-    sourcemap_path = options[:sourcemap_path]
-
-    if [version_name, version_code, build_config_name, sourcemap_path].include?(nil)
-      raise "'nil' passed as parameter! Aborting..."
-    end
-
-    build_config = read_build_config(build_config_name, 'android')
-
-    generic_sentry_upload(
-        package_name: build_config['applicationId'],
-        sourcemap_path: "#{ENV['HOME']}/#{sourcemap_path}",
-        version_name: version_name,
-        version_code: version_code
     )
   end
 
@@ -231,32 +171,6 @@ platform :ios do
   end
 
   # The following parameters have to be passed:
-  # version_code: The version code of the app
-  # version_name: The version name of the app
-  # build_config_name: The name of the build config
-  # sourcemap_path: The path to the sourcemap to upload (relative to home dir)
-  desc "Upload source map to Sentry"
-  lane :sentry_upload do |options|
-    version_code = options[:version_code]
-    version_name = options[:version_name]
-    build_config_name = options[:build_config_name]
-    sourcemap_path = options[:sourcemap_path]
-
-    if [version_name, version_code, build_config_name, sourcemap_path].include?(nil)
-      raise "'nil' passed as parameter! Aborting..."
-    end
-
-    build_config = read_build_config(build_config_name, 'ios')
-
-    generic_sentry_upload(
-        package_name: build_config['bundleIdentifier'],
-        sourcemap_path: "#{ENV['HOME']}/#{sourcemap_path}",
-        version_code: version_code,
-        version_name: version_name
-    )
-  end
-
-  # The following parameters have to be passed:
   # version_name: The version name of the app
   # build_config_name: The name of the build config
   # ipa_path: The path of the ipa to upload (relative to home dir)
@@ -286,6 +200,7 @@ platform :ios do
         force: true,
         skip_screenshots: skip_screenshots,
         skip_metadata: false,
+        overwrite_screenshots: true,
         skip_app_version_update: false,
         metadata_path: "./ios/fastlane/#{build_config_name}/metadata",
         screenshots_path: "./ios/fastlane/#{build_config_name}/screenshots",
