@@ -1,7 +1,7 @@
 // @flow
 
 import type { Node } from 'react'
-import React, { useCallback } from 'react'
+import React from 'react'
 import { Share } from 'react-native'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
@@ -58,7 +58,7 @@ const BoxShadow: StyledComponent<{||}, ThemeType, *> = styled.View`
   height: ${dimensions.headerHeight}px;
 `
 
-type PropsType = {|
+export type PropsType = {|
   ...StackHeaderProps,
   t: TFunction,
   theme: ThemeType,
@@ -67,31 +67,42 @@ type PropsType = {|
   goToLanguageChange?: () => void,
   routeCityModel?: CityModel,
   language: string,
-  shareUrl: string,
+  shareUrl: ?string,
   dispatch: Dispatch<StoreActionType>
 |}
 
 const Header = (props: PropsType) => {
-  const { navigation, dispatch, shareUrl, language, t, routeCityModel, theme, goToLanguageChange, peeking, categoriesAvailable } = props
+  const {
+    navigation,
+    dispatch,
+    shareUrl,
+    language,
+    t,
+    routeCityModel,
+    theme,
+    goToLanguageChange,
+    peeking,
+    categoriesAvailable
+  } = props
 
-  const canGoBackInStack = useCallback((): boolean => {
+  const canGoBackInStack = (): boolean => {
     return !!props.previous
-  }, [props.previous])
+  }
 
-  const goBackInStack = useCallback(() => {
+  const goBackInStack = () => {
     navigation.goBack()
-  }, [navigation])
+  }
 
-  const goToLanding = useCallback(() => {
+  const goToLanding = () => {
     // $FlowFixMe Navigation type of the header does not match that of screens.
     navigateToLanding({ dispatch, navigation })
-  }, [dispatch, navigation])
+  }
 
-  const goToSettings = useCallback(() => {
+  const goToSettings = () => {
     navigation.navigate(SETTINGS_ROUTE)
-  }, [navigation])
+  }
 
-  const onShare = useCallback(async () => {
+  const onShare = async () => {
     if (!shareUrl) { // The share option should only be shown if there is a shareUrl
       return
     }
@@ -109,30 +120,30 @@ const Header = (props: PropsType) => {
     } catch (e) {
       alert(e.message)
     }
-  }, [t, shareUrl])
+  }
 
-  const goToSearch = useCallback(() => {
+  const goToSearch = () => {
     navigation.navigate(SEARCH_ROUTE)
-  }, [navigation])
+  }
 
-  const goToDisclaimer = useCallback(() => {
+  const goToDisclaimer = () => {
     if (!routeCityModel) {
       throw new Error('Impossible to go to disclaimer route if no city model is defined')
     }
     const cityCode = routeCityModel.code
     const shareUrl = cityContentUrl({ cityCode, languageCode: language, route: DISCLAIMER_ROUTE })
     navigation.navigate(DISCLAIMER_ROUTE, { cityCode, languageCode: language, shareUrl })
-  }, [navigation, language, routeCityModel])
+  }
 
-  const cityDisplayName = useCallback(() => {
+  const cityDisplayName = () => {
     if (!routeCityModel) {
       return ''
     }
     const description = routeCityModel.prefix ? ` (${routeCityModel.prefix})` : ''
     return `${routeCityModel.sortingName}${description}`
-  }, [routeCityModel])
+  }
 
-  const renderItem = useCallback((
+  const renderItem = (
     title: string, iconName?: string, show: 'never' | 'always',
     onPress: ?() => void | Promise<void>, accessibilityLabel: string
   ): Node => {
@@ -140,7 +151,7 @@ const Header = (props: PropsType) => {
 
     return <Item title={title} accessibilityLabel={accessibilityLabel} iconName={iconName} show={show}
                  onPress={onPress} buttonStyle={buttonStyle} />
-  }, [theme])
+  }
 
   const showShare = !!(shareUrl)
   const showChangeLocation = !buildConfig().featureFlags.fixedCity

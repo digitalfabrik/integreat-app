@@ -30,7 +30,7 @@ const BoxShadow: StyledComponent<{||}, ThemeType, *> = styled.View`
 }
 `
 
-type PropsType = {|
+export type PropsType = {|
   ...StackHeaderProps,
   theme: ThemeType,
   t: TFunction

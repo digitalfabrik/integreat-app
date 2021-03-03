@@ -7,7 +7,8 @@ module.exports = {
     }
   },
   globals: {
-    __VERSION__: false,
+    __VERSION_NAME__: false,
+    __COMMIT_SHA__: false,
     __BUILD_CONFIG__: 'readonly',
     __BUILD_CONFIG_NAME__: 'readonly'
   }

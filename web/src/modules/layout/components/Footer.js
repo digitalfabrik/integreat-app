@@ -2,15 +2,16 @@
 
 import type { Node } from 'react'
 import * as React from 'react'
-import styled from 'styled-components'
+import styled, { type StyledComponent } from 'styled-components'
 import buildConfig from '../../app/constants/buildConfig'
+import type { ThemeType } from 'build-configs/ThemeType'
 
 type PropsType = {|
   children: Array<React.Node>,
   onClick?: () => void
 |}
 
-const FooterContainer = styled.footer`
+const FooterContainer: StyledComponent<{||}, ThemeType, *> = styled.footer`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -39,7 +40,7 @@ const FooterContainer = styled.footer`
 class Footer extends React.PureComponent<PropsType> {
   static getVersion (): Node {
     if (buildConfig().featureFlags.developerFriendly) {
-      return <span>{__VERSION__}</span>
+      return <span>{__VERSION_NAME__}+{__COMMIT_SHA__}</span>
     }
     return null
   }

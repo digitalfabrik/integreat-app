@@ -2,7 +2,7 @@
 
 import type { Dispatch } from 'redux'
 import { connect } from 'react-redux'
-import Dashboard from '../components/Dashboard'
+import Dashboard, { type PropsType as DashboardPropsType } from '../components/Dashboard'
 import type { CategoryRouteStateType, LanguageResourceCacheStateType, StateType } from '../../../modules/app/StateType'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
@@ -22,6 +22,7 @@ import navigateToLink from '../../../modules/navigation/navigateToLink'
 import type { DashboardRouteType } from 'api-client/src/routes'
 import createNavigate from '../../../modules/navigation/createNavigate'
 import createNavigateToFeedbackModal from '../../../modules/navigation/createNavigateToFeedbackModal'
+import type { ThemeType } from 'build-configs/ThemeType'
 
 type NavigationPropsType = {|
   route: RoutePropType<DashboardRouteType>,
@@ -175,12 +176,12 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsType => ({ dispatch })
 
-const ThemedTranslatedDashboard = withTranslation('dashboard')(
-  withTheme(Dashboard)
+const ThemedTranslatedDashboard = withTranslation<$Diff<DashboardPropsType, {| theme: ThemeType |}>>('dashboard')(
+  withTheme<DashboardPropsType>(Dashboard)
 )
 
 const DashboardContainer = (props: ContainerPropsType) => {
-  const { dispatch, navigation, ...rest } = props
+  const { dispatch, navigation, route, t, ...rest } = props
 
   const navigateToLinkProp = useCallback((url: string, language: string, shareUrl: string) => {
     const navigateTo = createNavigate(dispatch, navigation)
@@ -194,7 +195,7 @@ const DashboardContainer = (props: ContainerPropsType) => {
     navigateTo={createNavigate(dispatch, navigation)} />
 }
 
-export default withTranslation('error')(
+export default withTranslation<OwnPropsType>('error')(
   connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
     withPayloadProvider<ContainerPropsType, RefreshPropsType, DashboardRouteType>(refresh)(
       DashboardContainer

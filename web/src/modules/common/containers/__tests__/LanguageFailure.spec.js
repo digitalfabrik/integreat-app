@@ -4,7 +4,6 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import { LanguageFailure } from '../LanguageFailure'
 import createLocation from '../../../../createLocation'
-import { lightTheme } from '../../../theme/constants/theme'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 
 jest.mock('react-i18next')
@@ -23,7 +22,6 @@ describe('LanguageFailure', () => {
   it('should match snapshot', () => {
     const wrapper = shallow(
       <LanguageFailure cities={cities}
-                       theme={lightTheme}
                        location={location}
                        languageChangePaths={languageChangePaths}
                        t={key => key || 'null'} />

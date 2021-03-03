@@ -15,14 +15,13 @@ import type { ThemeType } from '../../theme/constants'
 import { URL_PREFIX } from '../../platform/constants/webview'
 import CategoriesRouteStateView from '../../app/CategoriesRouteStateView'
 import type { PageResourceCacheStateType, LanguageResourceCacheStateType } from '../../app/StateType'
-import { type TFunction } from 'react-i18next'
 import SpaceBetween from '../../common/components/SpaceBetween'
 import SiteHelpfulBox from '../../common/components/SiteHelpfulBox'
 import type { FeedbackInformationType } from '../../../routes/feedback/containers/FeedbackModalContainer'
 import { CATEGORIES_ROUTE } from 'api-client/src/routes'
 import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
 
-type PropsType = {|
+export type PropsType = {|
   cityModel: CityModel,
   language: string,
 
@@ -33,8 +32,7 @@ type PropsType = {|
 
   resourceCache: LanguageResourceCacheStateType,
   resourceCacheUrl: string,
-  theme: ThemeType,
-  t: TFunction
+  theme: ThemeType
 |}
 
 /**

@@ -25,7 +25,7 @@ import { getRouteConfig } from '../route-configs'
 import Helmet from '../../common/containers/Helmet'
 import type { Dispatch } from 'redux'
 import type { LocationState } from 'redux-first-router'
-import { withTranslation, TFunction } from 'react-i18next'
+import { withTranslation, type TFunction } from 'react-i18next'
 import type { RouteConfig } from '../route-configs/RouteConfig'
 import toggleDarkModeAction from '../../theme/actions/toggleDarkMode'
 import LanguageFailure from '../../common/containers/LanguageFailure'
@@ -55,7 +55,7 @@ type PropsType = {|
   darkMode: boolean,
   location: LocationState,
   toggleDarkMode: () => void,
-  t: typeof TFunction
+  t: TFunction
 |}
 
 /**
@@ -107,7 +107,8 @@ export class Switcher extends React.Component<PropsType> {
       categoriesPayload,
       citiesPayload,
       toggleDarkMode,
-      eventsPayload
+      eventsPayload,
+      offersPayload
     } = this.props
 
     const { language, city } = location.payload
@@ -125,13 +126,10 @@ export class Switcher extends React.Component<PropsType> {
     })
 
     const cities = this.getAllPayloads().citiesPayload.data
-    if (!cities) {
-      return null
-    }
 
     const fixedCity = buildConfig().featureFlags.fixedCity
     const invalidFixedCity = city && fixedCity && city !== fixedCity
-    const invalidCity = city && (!cities.find(_city => _city.code === city) || invalidFixedCity)
+    const invalidCity = cities && city && (!cities.find(_city => _city.code === city) || invalidFixedCity)
 
     if (invalidCity || invalidLanguage || !routeConfig.isLocationLayoutRoute) {
       const showHeader = invalidLanguage || routeConfig.requiresHeader
@@ -142,10 +140,10 @@ export class Switcher extends React.Component<PropsType> {
                 darkMode={darkMode}>
           {invalidCity
             ? <FailureSwitcher error={new Error('notFound.category')} />
-            : invalidLanguage
-              ? <LanguageFailure cities={citiesPayload.data}
-                               location={location}
-                               languageChangePaths={languageChangePaths} />
+            : invalidLanguage && cities
+              ? <LanguageFailure cities={cities}
+                                 location={location}
+                                 languageChangePaths={languageChangePaths || []} />
               : <RouteContentSwitcher location={location} payloads={payloads} isLoading={isLoading} />}
         </Layout>
       )
@@ -156,6 +154,7 @@ export class Switcher extends React.Component<PropsType> {
                         categories={categoriesPayload.data}
                         cities={citiesPayload.data}
                         events={eventsPayload.data}
+                        offers={offersPayload.data}
                         darkMode={darkMode}
                         viewportSmall={viewportSmall}
                         toggleDarkMode={toggleDarkMode}
@@ -198,10 +197,10 @@ const mapStateToProps = (state: StateType) => ({
 })
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>) => ({
-  toggleDarkMode: () => dispatch(toggleDarkModeAction())
+  toggleDarkMode: () => { dispatch(toggleDarkModeAction()) }
 })
 
-export default connect<*, *, *, *, *, *>(mapStateToProps, mapDispatchToProps)(
-  withTranslation('app')(
+export default connect<$Diff<PropsType, {| t: TFunction |}>, {||}, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
+  withTranslation<PropsType>('app')(
     Switcher
   ))

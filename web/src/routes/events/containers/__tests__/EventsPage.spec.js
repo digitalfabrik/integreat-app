@@ -171,8 +171,7 @@ describe('EventsPage', () => {
       events,
       cities,
       t: expect.any(Function),
-      i18n: expect.anything(),
-      dispatch: expect.any(Function)
+      i18n: expect.anything()
     })
   })
 })

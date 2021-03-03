@@ -1,15 +1,15 @@
 // @flow
 
 import * as React from 'react'
-import type { ThemeType } from '../../modules/theme/constants'
-import type TFunction from 'react-i18next'
+import type { ThemeType } from 'build-configs/ThemeType'
+import { type TFunction } from 'react-i18next'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
 import openPrivacyPolicy from '../settings/openPrivacyPolicy'
 import { View } from 'react-native'
 import buildConfig from '../../modules/app/constants/buildConfig'
 
-const Padding: StyledComponent<{}, ThemeType, *> = styled.View`
+const Padding: StyledComponent<{||}, ThemeType, *> = styled.View`
   flex: 1;
   padding: 10px;
   flex-direction: column;
@@ -21,12 +21,12 @@ const Item: StyledComponent<{||}, ThemeType, *> = styled.View`
   flex-direction: column;
 `
 
-const MainText: StyledComponent<{}, ThemeType, *> = styled.Text`
+const MainText: StyledComponent<{||}, ThemeType, *> = styled.Text`
   font-size: 20px;
   color: ${props => props.theme.colors.textColor};
 `
 
-const Description: StyledComponent<{}, ThemeType, *> = styled.Text`
+const Description: StyledComponent<{||}, ThemeType, *> = styled.Text`
   font-size: 14px;
   color: ${props => props.theme.colors.textSecondaryColor};
 `
