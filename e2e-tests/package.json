@@ -3,9 +3,8 @@
   "name": "e2e",
   "private": true,
   "scripts": {
-    "start:web": "(cd ../ && yarn workspace web start)",
-    "test:web": "yarn start:web & yarn wdio run web/wdio.conf.ts",
-    "test:web:browserstack": "yarn start:web & yarn wdio run web/browserstack/wdio-browserstack.conf.ts",
+    "test:web": "yarn workspace web start & yarn wdio run web/wdio.conf.ts",
+    "test:web:browserstack": "yarn workspace web start & yarn wdio run web/browserstack/wdio-browserstack.conf.ts",
     "lint": "yarn eslint ./"
   },
   "devDependencies": {
