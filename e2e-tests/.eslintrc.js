@@ -3,7 +3,7 @@ module.exports = {
     'wdio'
   ],
   extends: [
-    'eslint:recommended',
+    '../.eslintrc.js',
     'plugin:wdio/recommended'
   ],
   env: {
@@ -14,19 +14,7 @@ module.exports = {
   globals: {
     browser: true
   },
-  ignorePatterns: [
-    '**/node_modules/'
-  ],
-  rules: {
-    'arrow-parens': ['error', 'as-needed'],
-    curly: ['error', 'all'],
-    'jsx-quotes': ['error', 'prefer-single'],
-    'max-len': ['warn', { code: 120 }],
-    'no-loop-func': 'error',
-    'prefer-const': 'error',
-    'prefer-object-spread': 'error',
-    'prefer-template': 'error'
-  },
+
   overrides: [{
     files: ['*.ts'],
     parser: '@typescript-eslint/parser',
@@ -35,7 +23,6 @@ module.exports = {
       '@typescript-eslint'
     ],
     extends: [
-      'eslint:recommended',
       'plugin:@typescript-eslint/recommended'
     ],
     rules: {

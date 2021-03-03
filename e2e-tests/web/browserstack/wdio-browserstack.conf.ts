@@ -21,7 +21,7 @@ const browserstackCaps = (config: BrowserStackCapabilities): Capabilities => {
       debug: true,
       projectName: 'integreat-app-web'
     },
-    browserName: config.browserName,
+    browserName: config.browserName
   }
 }
 
