@@ -58,7 +58,7 @@ const SprungbrettOfferContainer = ({ route, navigation, theme, t }: SprungbrettP
 
   useEffect(() => {
     loadJobs().catch(e => setError(e))
-  }, [])
+  }, [loadJobs])
 
   if (error) {
     return (

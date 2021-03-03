@@ -50,7 +50,8 @@ type PropsType = {|
 type StateType = {|
   feedbackOptions: Array<FeedbackVariant>,
   selectedFeedbackOption: FeedbackVariant,
-  comment: string
+  comment: string,
+  contactMail: string
 |}
 
 /**
@@ -60,7 +61,7 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
   constructor (props: PropsType) {
     super(props)
     const feedbackOptions = this.getFeedbackOptions()
-    this.state = { feedbackOptions, selectedFeedbackOption: feedbackOptions[0], comment: '' }
+    this.state = { feedbackOptions, selectedFeedbackOption: feedbackOptions[0], comment: '', contactMail: '' }
   }
 
   postFeedbackData = async (feedbackData: FeedbackParamsType) => {
@@ -206,7 +207,6 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
   getFeedbackData = (selectedFeedbackOption: FeedbackVariant, comment: string): FeedbackParamsType => {
     const { location, query, isPositiveRatingSelected, path, alias } = this.props
     const { city, language } = location.payload
-
     const isOfferOptionSelected = selectedFeedbackOption.feedbackType === OFFER_FEEDBACK_TYPE
     const feedbackAlias = alias || (isOfferOptionSelected && selectedFeedbackOption.alias) || ''
 
@@ -226,6 +226,9 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
   handleCommentChanged = (event: SyntheticInputEvent<HTMLTextAreaElement>) =>
     this.setState({ comment: event.target.value })
 
+  handleContactMailChanged = (event: SyntheticInputEvent<HTMLInputElement>) =>
+    this.setState({ contactMail: event.target.value })
+
   handleFeedbackOptionChanged = (selectedDropdown: FeedbackVariant) => {
     this.setState(prevState => ({
       selectedFeedbackOption: prevState.feedbackOptions.find(option => option.label === selectedDropdown.label)
@@ -234,9 +237,10 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
 
   submitFeedback = async () => {
     const { onSubmit } = this.props
-    const { selectedFeedbackOption, comment } = this.state
+    const { selectedFeedbackOption, comment, contactMail } = this.state
     try {
-      await this.postFeedbackData(this.getFeedbackData(selectedFeedbackOption, comment))
+      await this.postFeedbackData(
+        this.getFeedbackData(selectedFeedbackOption, `${comment}    Kontaktadresse: ${contactMail || 'Keine Angabe'}`))
       onSubmit('SUCCESS')
     } catch (e) {
       console.error(e)
@@ -253,6 +257,7 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
 
     return <FeedbackBox onFeedbackOptionChanged={this.handleFeedbackOptionChanged}
                         onCommentChanged={this.handleCommentChanged}
+                        onContactMailChanged={this.handleContactMailChanged}
                         onSubmit={this.handleSubmit}
                         sendingStatus={sendingStatus}
                         closeFeedbackModal={closeFeedbackModal}
