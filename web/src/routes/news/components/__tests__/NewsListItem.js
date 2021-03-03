@@ -1,7 +1,6 @@
 // @flow
 
 import React, { type Node } from 'react'
-import { LocalNewsModel } from 'api-client'
 import moment from 'moment'
 import NewsListItem, { NUM_OF_WORDS_ALLOWED } from '../NewsListItem'
 import { LOCAL_NEWS } from '../../constants'
@@ -23,12 +22,11 @@ describe('NewsListItem', () => {
   const link = '/testumgebung/en/news/local'
   const t = (key: ?string): string => key || ''
 
-  const date = moment('2020-03-20T17:50:00.000Z')
-  const newsItem = new LocalNewsModel({
-    id: 217,
-    title: 'Tick bite - What to do?',
-    timestamp: date,
-    message:
+  const lastUpdate = moment('2020-03-20T17:50:00.000Z')
+  const title = 'Tick bite - What to do?'
+
+  it('should show all the relevant information', () => {
+    const message =
       'In summer there are often ticks in forest and meadows with high grass. These are very small animals. ' +
       'They feed on the blood of people or animals they sting, like mosquitoes. ' +
       'But they stay in the skin longer and can transmit dangerous diseases. ' +
@@ -36,27 +34,43 @@ describe('NewsListItem', () => {
       'They like to sit in the knees, armpits or in the groin area. ' +
       'If you discover a tick in your skin, you should carefully pull it out with tweezers without crushing it. ' +
       'If the sting inflames, you must see a doctor.'
-  })
 
-  const { title, message, timestamp } = newsItem
-
-  it('should show all the relevant information', () => {
     const { getByText } = render(
       <ThemeProvider theme={theme}>
         <NewsListItem
           type={LOCAL_NEWS}
           title={title}
           content={message}
-          timestamp={timestamp}
+          timestamp={lastUpdate}
           formatter={new DateFormatter(language)}
           t={t}
           link={link} />
       </ThemeProvider>
     )
 
-    expect(getByText(newsItem.title)).toBeTruthy()
-    expect(getByText(textTruncator(newsItem.message, NUM_OF_WORDS_ALLOWED))).toBeTruthy()
-    expect(getByText(timestamp.toISOString())).toBeTruthy()
+    expect(getByText(title)).toBeTruthy()
+    expect(getByText(textTruncator(message, NUM_OF_WORDS_ALLOWED))).toBeTruthy()
+    expect(getByText(lastUpdate.toISOString())).toBeTruthy()
     expect(() => getByText('lastUpdate')).toThrow()
+  })
+
+  it('should correctly decode html entities', () => {
+    const message = 'Some &quot;test text with lots of &quot;html entities&quot; which won&#39;t be displayed.'
+    const decodedMessage = 'Some "test text with lots of "html entities" which won\'t be displayed.'
+
+    const { getByText } = render(
+      <ThemeProvider theme={theme}>
+        <NewsListItem
+          type={LOCAL_NEWS}
+          title={title}
+          content={message}
+          timestamp={lastUpdate}
+          formatter={new DateFormatter(language)}
+          t={t}
+          link={link} />
+      </ThemeProvider>
+    )
+
+    expect(getByText(textTruncator(decodedMessage, NUM_OF_WORDS_ALLOWED))).toBeTruthy()
   })
 })
