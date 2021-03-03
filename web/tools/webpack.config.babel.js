@@ -17,7 +17,7 @@ const MomentLocalesPlugin = require('moment-locales-webpack-plugin')
 const babelConfig = require('../babel.config.js')
 const fs = require('fs')
 const translations = require('translations')
-const { WEB } = require('build-configs')
+const { WEB, ANDROID, COMMON, IOS } = require('build-configs')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 const currentYear = new Date().getFullYear()
@@ -33,6 +33,33 @@ const readJson = path => JSON.parse(fs.readFileSync(path, 'utf8'))
 const readVersionName = () => {
   const versionFile = readJson(path.resolve(__dirname, '../../version.json'))
   return versionFile.versionName
+}
+
+const generateManifest = (content: string, buildConfigName: string): string => {
+  const manifest = JSON.parse(content.toString())
+
+  const androidBuildConfig = loadBuildConfig(buildConfigName, ANDROID)
+  const iOSBuildConfig = loadBuildConfig(buildConfigName, IOS)
+  const commonBuildConfig = loadBuildConfig(buildConfigName, COMMON)
+  const webBuildConfig = loadBuildConfig(buildConfigName, WEB)
+
+  manifest.version = readVersionName()
+  manifest.homepage_url = commonBuildConfig.aboutUrls.default
+  manifest.theme_color = commonBuildConfig.lightTheme.colors.themeColor
+  manifest.name = commonBuildConfig.appName
+  manifest.description = webBuildConfig.appDescription
+  manifest.related_applications = [
+    {
+      platform: 'play',
+      id: androidBuildConfig.applicationId,
+      url: `https://play.google.com/store/apps/details?id=${androidBuildConfig.applicationId}`
+    }, {
+      platform: 'itunes',
+      url: `https://apps.apple.com/de/app/${iOSBuildConfig.itunesAppName}/id${iOSBuildConfig.appleId}`
+    }
+  ]
+  manifest.short_name = manifest.name
+  return JSON.stringify(manifest, null, 2)
 }
 
 const createConfig = (env: { config_name?: string, dev_server?: boolean, version_name?: string, commit_sha?: string } = {}) => {
@@ -65,6 +92,7 @@ const createConfig = (env: { config_name?: string, dev_server?: boolean, version
   const distDirectory = path.resolve(__dirname, `../dist/${buildConfigName}`)
   const srcDirectory = path.resolve(__dirname, '../src')
   const bundleReportDirectory = path.resolve(__dirname, '../reports/bundle')
+  const manifestPreset = path.resolve(__dirname, 'manifest.json')
 
   // Add new polyfills here instead of importing them in the JavaScript code.
   // This way it is ensured that polyfills are loaded before any other code which might require them.
@@ -136,16 +164,17 @@ const createConfig = (env: { config_name?: string, dev_server?: boolean, version
           config: buildConfig
         }
       }),
-      new CopyPlugin([
-        {
-          from: wwwDirectory,
-          to: distDirectory
-        },
-        {
-          from: configAssets,
-          to: distDirectory
-        }
-      ]),
+      new CopyPlugin({
+        patterns: [
+          { from: wwwDirectory, to: distDirectory },
+          { from: configAssets, to: distDirectory },
+          {
+            from: manifestPreset,
+            to: distDirectory,
+            transform (content: string, path: any): string { return generateManifest(content, buildConfigName) }
+          }
+        ]
+      }),
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': NODE_ENV,
         __VERSION_NAME__: JSON.stringify(versionName),

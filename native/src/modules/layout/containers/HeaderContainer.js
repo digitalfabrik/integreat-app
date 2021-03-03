@@ -4,14 +4,15 @@ import { connect } from 'react-redux'
 import { type StackHeaderProps } from '@react-navigation/stack'
 import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
-import Header from '../components/Header'
+import Header, { type PropsType as HeaderPropsType } from '../components/Header'
 import withTheme from '../../theme/hocs/withTheme'
 import type { StateType } from '../../app/StateType'
 import { type Dispatch } from 'redux'
 import type { StoreActionType } from '../../app/StoreActionType'
 import { CityModel } from 'api-client'
 import isPeekingRoute from '../../endpoint/selectors/isPeekingRoute'
-import { CHANGE_LANGUAGE_MODAL_ROUTE } from 'api-client/src/routes'
+import { cityContentUrl, url } from '../../navigation/url'
+import { CHANGE_LANGUAGE_MODAL_ROUTE, EVENTS_ROUTE, NEWS_ROUTE, POIS_ROUTE } from 'api-client/src/routes'
 
 type OwnPropsType = {|
   ...StackHeaderProps,
@@ -23,21 +24,35 @@ type StatePropsType = {|
   goToLanguageChange?: () => void,
   peeking: boolean,
   categoriesAvailable: boolean,
-  routeCityModel?: CityModel
+  routeCityModel?: CityModel,
+  shareUrl: ?string
 |}
 
 type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
 
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
+const getShareUrl = (params: {| city: string, language: string, path: ?string, routeName: string |}): ?string => {
+  const { city, language, path, routeName } = params
+  if (path) {
+    return url(path)
+  } else if ([EVENTS_ROUTE, NEWS_ROUTE, POIS_ROUTE].includes(routeName)) {
+    const params = { cityCode: city, languageCode: language, path: null }
+    return cityContentUrl({ route: routeName, ...params })
+  }
+  return null
+}
+
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const routeKey = ownProps.scene.route.key
 
   const route = state.cityContent
     ? state.cityContent.categoriesRouteMapping[routeKey] ||
-      state.cityContent.eventsRouteMapping[routeKey] ||
-      state.cityContent.newsRouteMapping[routeKey]
+    state.cityContent.eventsRouteMapping[routeKey] ||
+    state.cityContent.newsRouteMapping[routeKey] ||
+    state.cityContent.poisRouteMapping[routeKey]
     : null
+
   const languages = state.cityContent?.languages
 
   // prevent re-rendering when city is there.
@@ -51,7 +66,13 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     !languages || languages.status !== 'ready') {
     // Route does not exist yet. In this case it is not really defined whether we are peek or not because
     // we do not yet know the city of the route.
-    return { language: state.contentLanguage, routeCityModel, peeking: false, categoriesAvailable: false }
+    return {
+      language: state.contentLanguage,
+      routeCityModel,
+      peeking: false,
+      categoriesAvailable: false,
+      shareUrl: null
+    }
   }
 
   const goToLanguageChange = () => {
@@ -67,12 +88,16 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     })
   }
   const peeking = isPeekingRoute(state, { routeCity: route.city })
+  const shareUrlFromScene: ?string = typeof ownProps.scene.route.params?.shareUrl === 'string' ? ownProps.scene.route.params?.shareUrl : null
+  const { city, language } = route
+  const path = route.path || null
+  const shareUrl = shareUrlFromScene || getShareUrl({ city, language, path, routeName: ownProps.scene.route.name })
 
-  return { peeking, routeCityModel, language: route.language, goToLanguageChange, categoriesAvailable }
+  return { peeking, routeCityModel, language: route.language, goToLanguageChange, categoriesAvailable, shareUrl }
 }
 
-export default withTranslation('layout')(
+export default withTranslation<OwnPropsType>('layout')(
   connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(
-    withTheme(Header)
+    withTheme<HeaderPropsType>(Header)
   )
 )

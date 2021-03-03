@@ -85,6 +85,6 @@ class NewsHeader extends React.PureComponent<PropsType> {
   }
 }
 
-export default withTranslation('news')(
-  withTheme(NewsHeader)
+export default withTranslation<$Diff<PropsType, {| theme: ThemeType |}>>('news')(
+  withTheme<PropsType>(NewsHeader)
 )

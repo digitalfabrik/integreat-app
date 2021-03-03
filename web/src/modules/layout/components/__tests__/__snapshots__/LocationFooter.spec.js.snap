@@ -4,11 +4,11 @@ exports[`LocationFooter should match snapshot 1`] = `
 <Footer
   onClick={[Function]}
 >
-  <CleanLink___default
+  <CleanLink
     to="/augsburg/de/disclaimer"
   >
     imprintAndContact
-  </CleanLink___default>
+  </CleanLink>
   <CleanAnchor
     href="https://integreat-app.de/about/"
   >

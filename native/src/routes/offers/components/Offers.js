@@ -44,7 +44,7 @@ const Offers = ({ offers, navigateToFeedback, navigateToOffer, theme, t, languag
         <Tiles title={t('offers')} tiles={toTileModels(offers)} onTilePress={navigateToOffer} theme={theme}
                language={language} />
       </View>
-      <SiteHelpfulBox navigateToFeedback={navigateToFeedback} theme={theme} t={t} />
+      <SiteHelpfulBox navigateToFeedback={navigateToFeedback} theme={theme} />
     </SpaceBetween>
   )
 }

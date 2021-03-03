@@ -2,14 +2,14 @@
 
 import React, { useCallback } from 'react'
 import { View } from 'react-native'
-import { TFunction, withTranslation } from 'react-i18next'
+import { type TFunction, withTranslation } from 'react-i18next'
 import { LocalNewsModel, NotFoundError, TunewsModel } from 'api-client'
 import NewsList from './NewsList'
 import Failure from '../../../modules/error/components/Failure'
 import type { ThemeType } from 'build-configs/ThemeType'
 import type { NewsModelsType } from '../../../modules/app/StateType'
 import withTheme from '../../../modules/theme/hocs/withTheme'
-import ErrorCodes from '../../../modules/error/ErrorCodes'
+import { fromError } from '../../../modules/error/ErrorCodes'
 import NewsListItem from './NewsListItem'
 import styled from 'styled-components/native'
 import type { StyledComponent } from 'styled-components'
@@ -85,14 +85,7 @@ const News = (props: PropsType) => {
       )
     } else {
       const error = new NotFoundError({ type: selectedNewsType, id: newsId, city: cityCode, language })
-      return (
-          <Failure
-            errorMessage={error.message}
-            code={ErrorCodes.PageNotFound}
-            t={t}
-            theme={theme}
-          />
-      )
+      return <Failure code={fromError(error)} t={t} theme={theme} />
     }
   }
 
@@ -109,7 +102,7 @@ const News = (props: PropsType) => {
   )
 }
 
-const TranslatedWithThemeNewsList = withTranslation('news')(
-  withTheme(News)
+const TranslatedWithThemeNewsList = withTranslation<$Diff<PropsType, {| theme: ThemeType |}>>('news')(
+  withTheme<PropsType>(News)
 )
 export default TranslatedWithThemeNewsList

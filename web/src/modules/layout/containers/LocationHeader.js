@@ -1,9 +1,7 @@
 // @flow
 
-import type { Element } from 'react'
 import * as React from 'react'
-import { withTranslation, TFunction } from 'react-i18next'
-
+import { withTranslation, type TFunction } from 'react-i18next'
 import LanguageSelector from '../../common/containers/LanguageSelector'
 import searchIcon from '../assets/magnifier.svg'
 import landingIcon from '../assets/location-icon.svg'
@@ -40,7 +38,7 @@ type PropsType = {|
   events: ?Array<EventModel>,
   location: LocationState,
   viewportSmall: boolean,
-  t: typeof TFunction,
+  t: TFunction,
   onStickyTopChanged: number => void,
   languageChangePaths: ?LanguageChangePathsType
 |}
@@ -63,7 +61,7 @@ export class LocationHeader extends React.Component<PropsType> {
     ]
   }
 
-  getNavigationItems (): Array<Element<typeof HeaderNavigationItem>> {
+  getNavigationItems (): Array<React.Node> {
     const { t, cityModel, location, events } = this.props
     const { eventsEnabled, poisEnabled, offersEnabled, tunewsEnabled, pushNotificationsEnabled } = cityModel
 
@@ -80,7 +78,7 @@ export class LocationHeader extends React.Component<PropsType> {
       return []
     }
 
-    const items: Array<Element<typeof HeaderNavigationItem>> = [
+    const items: Array<React$Node> = [
       <HeaderNavigationItem
         key='categories'
         href={new CategoriesRouteConfig().getRoutePath({ city, language })}
@@ -162,4 +160,4 @@ export class LocationHeader extends React.Component<PropsType> {
   }
 }
 
-export default withTranslation('layout')(LocationHeader)
+export default withTranslation<PropsType>('layout')(LocationHeader)

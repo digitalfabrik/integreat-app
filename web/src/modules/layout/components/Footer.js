@@ -2,15 +2,16 @@
 
 import type { Node } from 'react'
 import * as React from 'react'
-import styled from 'styled-components'
+import styled, { type StyledComponent } from 'styled-components'
 import buildConfig from '../../app/constants/buildConfig'
+import type { ThemeType } from 'build-configs/ThemeType'
 
 type PropsType = {|
   children: Array<React.Node>,
   onClick?: () => void
 |}
 
-const FooterContainer = styled.footer`
+const FooterContainer: StyledComponent<{||}, ThemeType, *> = styled.footer`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
