@@ -8,8 +8,7 @@ export const config = {
 
   capabilities: [{
     maxInstances: 5,
-    browserName: 'chrome',
-    acceptInsecureCerts: true
+    browserName: 'chrome'
   }],
   logLevel: 'info',
   coloredLogs: true,
@@ -23,7 +22,7 @@ export const config = {
   reporters: ['junit'],
 
   jasmineNodeOpts: {
-    defaultTimeoutInterval: 120000,
+    defaultTimeoutInterval: 120000
   },
 
   onPrepare: async function (): Promise<void> {
