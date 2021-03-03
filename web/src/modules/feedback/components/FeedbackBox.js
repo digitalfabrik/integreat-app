@@ -24,7 +24,7 @@ export const StyledFeedbackBox: StyledComponent<{||}, ThemeType, *> = styled.div
   font-size: ${props => props.theme.fonts.contentFontSize};
 `
 
-const TextInput = styled.input.attrs({ type: 'text' })`
+const TextInput: StyledComponent<{||}, ThemeType, *> = styled.input.attrs({ type: 'text' })`
   resize: none;
 `
 
