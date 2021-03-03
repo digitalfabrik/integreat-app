@@ -40,10 +40,14 @@ exports[`FeedbackBox should match snapshot 1`] = `
     required={true}
   />
   <FeedbackBox__Description>
-    contactMailAdress
+    contactMailAddress
+     (
+    optionalInfo
+    )
   </FeedbackBox__Description>
   <FeedbackBox__TextInput
     onChange={[Function]}
+    value=""
   />
   <TextButton
     disabled={true}
