@@ -1,7 +1,8 @@
 // @flow
 
 import * as React from 'react'
-import styled, { keyframes } from 'styled-components'
+import styled, { keyframes, type StyledComponent } from 'styled-components'
+import type { ThemeType } from 'build-configs/ThemeType'
 
 /** From https://github.com/ConnorAtherton/loaders.css/blob/master/loaders.css */
 const lineScaleParty = keyframes`
@@ -18,7 +19,7 @@ const lineScaleParty = keyframes`
   }
 `
 
-const Spinner = styled.div`
+const Spinner: StyledComponent<{||}, ThemeType, *> = styled.div`
   margin-top: 50px;
   text-align: center;
   animation-name: ${lineScaleParty};

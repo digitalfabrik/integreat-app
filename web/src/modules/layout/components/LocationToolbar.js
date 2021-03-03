@@ -22,10 +22,6 @@ class LocationToolbar extends React.PureComponent<PropsType> {
         {children}
         <FeedbackToolbarItem isPositiveRatingLink openFeedbackModal={openFeedbackModal} viewportSmall={viewportSmall} />
         <FeedbackToolbarItem isPositiveRatingLink={false} openFeedbackModal={openFeedbackModal} viewportSmall={viewportSmall} />
-        {/* todo: Add these functionalities:
-                <ToolbarItem name='bookmark-o' text='Merken'href={this.getPdfFetchPath()} />
-                <ToolbarItem name='share' text='Teilen' href={this.getPdfFetchPath()} />
-                <ToolbarItem name='audio-description' text='Sprachausgabe' href={this.getPdfFetchPath()} /> */}
       </Toolbar>
     )
   }

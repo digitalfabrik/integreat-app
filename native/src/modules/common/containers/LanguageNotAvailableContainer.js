@@ -1,11 +1,13 @@
 // @flow
 
-import LanguageNotAvailablePage from '../components/LanguageNotAvailablePage'
+import LanguageNotAvailablePage, {
+  type PropsType as LanguageNotAvailablePagePropsType
+} from '../components/LanguageNotAvailablePage'
 import withTheme from '../../theme/hocs/withTheme'
-import { withTranslation } from 'react-i18next'
+import { withTranslation, type TFunction } from 'react-i18next'
 
-export default withTheme(
-  withTranslation('common')(
+export default withTheme<$Diff<LanguageNotAvailablePagePropsType, {| t: TFunction |}>>(
+  withTranslation<LanguageNotAvailablePagePropsType>('common')(
     LanguageNotAvailablePage
   )
 )

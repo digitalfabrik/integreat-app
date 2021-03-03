@@ -5,7 +5,6 @@ import { shallow } from 'enzyme'
 import { FeedbackBox } from '../FeedbackBox'
 import FeedbackVariant from '../../FeedbackVariant'
 import { CATEGORIES_FEEDBACK_TYPE, CONTENT_FEEDBACK_CATEGORY } from 'api-client'
-import theme from '../../../theme/constants/theme'
 
 describe('FeedbackBox', () => {
   const t = (key: ?string): string => key || ''
@@ -34,8 +33,7 @@ describe('FeedbackBox', () => {
         onSubmit={onSubmit}
         sendingStatus='SUCCESS'
         t={t}
-        closeFeedbackModal={() => {}}
-        theme={theme} />
+        closeFeedbackModal={() => {}} />
     )
     expect(component).toMatchSnapshot()
   })
