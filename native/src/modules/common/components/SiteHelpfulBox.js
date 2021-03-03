@@ -15,30 +15,30 @@ const FeedbackBoxContainer = styled.View`
   margin-top: auto;
 `
 
-const FeedbackBox: StyledComponent<{}, ThemeType, *> = styled.View`
+const FeedbackBox: StyledComponent<{||}, ThemeType, *> = styled.View`
   margin-top: 25px;
   padding: 15px 5px;
   background-color: ${props => props.theme.colors.backgroundAccentColor};
 `
 
-const FeedbackButtons: StyledComponent<{}, {}, *> = styled.View`
+const FeedbackButtons: StyledComponent<{||}, {||}, *> = styled.View`
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
   margin-top: 10px;
 `
 
-const HelpfulText: StyledComponent<{}, ThemeType, *> = styled.Text`
+const HelpfulText: StyledComponent<{||}, ThemeType, *> = styled.Text`
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.decorativeFontBold};
   align-self: center;
 `
 
-const FeedbackTouchableOpacity: StyledComponent<{}, {}, *> = styled(TouchableOpacity)`
+const FeedbackTouchableOpacity: StyledComponent<{||}, {||}, *> = styled(TouchableOpacity)`
   align-items: center;
 `
 
-const FeedbackText: StyledComponent<{}, ThemeType, *> = styled(Text)`
+const FeedbackText: StyledComponent<{||}, ThemeType, *> = styled(Text)`
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.decorativeFontRegular};
   font-size: 12px;
@@ -47,7 +47,7 @@ const FeedbackText: StyledComponent<{}, ThemeType, *> = styled(Text)`
 
 const ICON_SIZE = 50
 
-const Circle: StyledComponent<{}, ThemeType, *> = styled(View)`
+const Circle: StyledComponent<{||}, ThemeType, *> = styled(View)`
   margin-top: 9px;
   margin-bottom: 5px;
   border-radius: ${ICON_SIZE}px;
@@ -65,13 +65,13 @@ const Thumbnail = styled(Image)`
   width: ${MAXIMAL_ICON_SIZE * ICON_SCALE_FACTOR}px;
 `
 
-type PropType = {|
+type PropsType = {|
   navigateToFeedback: (positive: boolean) => void,
   theme: ThemeType,
   t: TFunction
 |}
 
-class SiteHelpfulBox extends React.Component<PropType> {
+class SiteHelpfulBox extends React.Component<PropsType> {
   navigateToFeedback = (positive: boolean) => () => this.props.navigateToFeedback(positive)
 
   render () {
@@ -94,4 +94,4 @@ class SiteHelpfulBox extends React.Component<PropType> {
   }
 }
 
-export default withTranslation('feedback')(SiteHelpfulBox)
+export default withTranslation<PropsType>('feedback')(SiteHelpfulBox)

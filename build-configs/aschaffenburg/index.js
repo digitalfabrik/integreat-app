@@ -13,7 +13,7 @@ import mainImprint from './mainImprint'
 const APPLE_APP_ID = '1551810291'
 
 const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
-  appName: 'Aschaffenburg App', // TODO maybe we have to change this to 'AB App'
+  appName: 'Aschaffenburg App',
   appIcon: 'app_icon_aschaffenburg',
   lightTheme,
   darkTheme,
@@ -31,11 +31,10 @@ const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
     developerFriendly: false,
     fixedCity: 'abapp'
   },
-  aboutUrls: { // TODO
-    default: 'https://integreat-app.de/about/',
-    en: 'https://integreat-app.de/en/about/'
+  aboutUrls: {
+    default: 'https://www.aschaffenburg.de/aschaffenburgapp'
   },
-  privacyUrls: { // TODO
+  privacyUrls: {
     default: 'https://integreat-app.de/datenschutz/',
     en: 'https://integreat-app.de/en/privacy/'
   }
@@ -53,12 +52,14 @@ export const iosAschaffenburgBuildConfig: iOSBuildConfigType = {
   bundleIdentifier: 'app.aschaffenburg',
   provisioningProfileSpecifier: 'match Development app.aschaffenburg',
   appleId: APPLE_APP_ID,
+  itunesAppName: 'aschaffenburg-app',
   googleServices: null,
   launchScreen: 'LaunchScreenDefault'
 }
 
 export const webAschaffenburgBuildConfig: WebBuildConfigType = {
   ...commonAschaffenburgBuildConfig,
+  appDescription: 'Ihr digitaler Begleiter für die Stadt Aschaffenburg',
   mainImprint,
   itunesAppId: APPLE_APP_ID,
   icons: {

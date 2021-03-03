@@ -1,8 +1,8 @@
 // @flow
 
-import Settings from '../components/Settings'
+import Settings, { type PropsType as SettingsPropsType } from '../components/Settings'
 import withTheme from '../../../modules/theme/hocs/withTheme'
-import { withTranslation } from 'react-i18next'
+import { withTranslation, type TFunction } from 'react-i18next'
 import { connect } from 'react-redux'
 import type { StateType } from '../../../modules/app/StateType'
 import { type Dispatch } from 'redux'
@@ -34,5 +34,5 @@ const mapStateToProps = (state: StateType): StatePropsType => {
 }
 
 export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(
-  withTheme(withTranslation('settings')(Settings))
+  withTheme<$Diff<SettingsPropsType, {| t: TFunction |}>>(withTranslation<SettingsPropsType>('settings')(Settings))
 )

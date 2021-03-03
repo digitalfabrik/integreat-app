@@ -56,7 +56,7 @@ export type PropsType<S: { dispatch: Dispatch<StoreActionType> }, R: {}, T: Rout
   dispatch: Dispatch<StoreActionType>,
   navigation: NavigationPropType<T>,
   route: RoutePropType<T>,
-  t?: TFunction
+  t: TFunction
 |} | {| // Necessary because of weird flow error saying t is missing even though t is already optional in the first type
   ...StatusPropsType<S, R>,
   dispatch: Dispatch<StoreActionType>,
@@ -107,7 +107,7 @@ const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R: {}, 
         return <LayoutContainer />
       } else if (props.status === 'error') {
         return <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refreshIfPossible} refreshing={false} />}>
-          <FailureContainer tryAgain={refreshIfPossible} message={props.message} code={props.code} />
+          <FailureContainer tryAgain={refreshIfPossible} code={props.code} />
         </LayoutedScrollView>
       } else if (props.status === 'languageNotAvailable') {
         return <LanguageNotAvailableContainer languages={props.availableLanguages}

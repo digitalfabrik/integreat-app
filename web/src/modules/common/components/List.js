@@ -2,13 +2,14 @@
 
 import * as React from 'react'
 import { isEmpty } from 'lodash'
-import styled from 'styled-components'
+import styled, { type StyledComponent } from 'styled-components'
+import type { ThemeType } from 'build-configs/ThemeType'
 
-const StyledList = styled.div`
+const StyledList: StyledComponent<{||}, ThemeType, *> = styled.div`
   border-top: 2px solid ${props => props.theme.colors.themeColor};
 `
 
-const NoItemsMessage = styled.div`
+const NoItemsMessage: StyledComponent<{||}, ThemeType, *> = styled.div`
   padding-top: 25px;
   text-align: center;
 `

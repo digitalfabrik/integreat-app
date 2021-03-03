@@ -10,16 +10,20 @@ import Caption from '../../../modules/common/components/Caption'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import OfferListItem from '../components/OfferListItem'
 import List from '../../../modules/common/components/List'
-import { withTranslation, TFunction } from 'react-i18next'
+import { withTranslation, type TFunction } from 'react-i18next'
 import { hash as hashFunction } from '../../../modules/app/route-configs/WohnenRouteConfig'
 
-type PropsType = {|
+type OwnPropsType = {|
   wohnenOffers: Array<WohnenOfferModel>,
+  offers: Array<OfferModel>
+|}
+
+type PropsType = {|
+  ...OwnPropsType,
   city: string,
   language: string,
   wohnenOfferHash?: string,
-  offers: Array<OfferModel>,
-  t: typeof TFunction
+  t: TFunction
 |}
 
 export class WohnenOfferPage extends React.Component<PropsType> {
@@ -62,13 +66,13 @@ export class WohnenOfferPage extends React.Component<PropsType> {
   }
 }
 
-const mapStateTypeToProps = (state: StateType) => ({
+const mapStateToProps = (state: StateType) => ({
   city: state.location.payload.city,
   language: state.location.payload.language,
   wohnenOfferHash: state.location.payload.offerHash
 })
 
-export default connect<*, *, *, *, *, *>(mapStateTypeToProps)(
-  withTranslation('wohnen')(
+export default connect<$Diff<PropsType, {| t: TFunction |}>, OwnPropsType, _, _, _, _>(mapStateToProps, () => ({}))(
+  withTranslation<PropsType>('wohnen')(
     WohnenOfferPage
   ))
