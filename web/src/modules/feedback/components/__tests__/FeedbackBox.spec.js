@@ -24,6 +24,7 @@ describe('FeedbackBox', () => {
     const component = shallow(
       <FeedbackBox
         isPositiveRatingSelected={false}
+        contactMail=''
         comment=''
         feedbackOptions={feedbackOptions}
         selectedFeedbackOption={feedbackOptions[0]}
