@@ -11,13 +11,10 @@ import { type Dispatch } from 'redux'
 import type { StoreActionType } from '../../app/StoreActionType'
 import {
   CityModel,
-  DISCLAIMER_ROUTE,
-  OFFERS_ROUTE,
   CHANGE_LANGUAGE_MODAL_ROUTE,
-  EVENTS_ROUTE,
-  NEWS_ROUTE,
-  SPRUNGBRETT_OFFER_ROUTE,
-  POIS_ROUTE
+  OFFERS_ROUTE,
+  DISCLAIMER_ROUTE,
+  SPRUNGBRETT_OFFER_ROUTE
 } from 'api-client'
 import isPeekingRoute from '../../endpoint/selectors/isPeekingRoute'
 import { cityContentUrl, url } from '../../navigation/url'
@@ -28,7 +25,7 @@ type OwnPropsType = {|
 |}
 
 type StatePropsType = {|
-  language: mixed,
+  language: string,
   goToLanguageChange?: () => void,
   peeking: boolean,
   categoriesAvailable: boolean,
@@ -42,7 +39,6 @@ type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const routeKey = ownProps.scene.route.key
-  const shareUrlFromScene: ?string = typeof ownProps.scene.route.params?.shareUrl === 'string' ? ownProps.scene.route.params?.shareUrl : null
 
   const route = state.cityContent
     ? state.cityContent.categoriesRouteMapping[routeKey] ||
@@ -51,28 +47,16 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     state.cityContent.poisRouteMapping[routeKey]
     : null
 
-  if (([OFFERS_ROUTE, DISCLAIMER_ROUTE, SPRUNGBRETT_OFFER_ROUTE]).includes(ownProps.scene.route.name) || shareUrlFromScene) {
-    const propsRoute = ownProps.scene.route
-    let shareUrl
-
-    if (state.cityContent?.city && !shareUrlFromScene) {
-      shareUrl = cityContentUrl(
-        {
-          cityCode: state.cityContent?.city,
-          languageCode: state.contentLanguage,
-          route: propsRoute.name,
-          path: null
-        })
-    }
-
-    return {
-      language: propsRoute.params?.languageCode,
-      routeCityModel: undefined,
-      peeking: false,
-      categoriesAvailable: false,
-      shareUrl: shareUrlFromScene || shareUrl
-    }
-  }
+  const simpleRoutes = [OFFERS_ROUTE, DISCLAIMER_ROUTE, SPRUNGBRETT_OFFER_ROUTE]
+  const routeName = ownProps.scene.route.name
+  const simpleRouteShareUrl = state.cityContent?.city && simpleRoutes.includes(routeName)
+    ? cityContentUrl({
+        cityCode: state.cityContent?.city,
+        languageCode: state.contentLanguage,
+        route: routeName,
+        path: null
+      })
+    : null
 
   const languages = state.cityContent?.languages
 
@@ -84,7 +68,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   const routeCityModel = route ? cities.find(city => city.code === route.city) : undefined
 
   if (!route || route.status !== 'ready' || state.cities.status !== 'ready' || !state.cityContent ||
-    !languages || languages.status !== 'ready') {
+    !languages || languages.status !== 'ready' || !stateCityCode) {
     // Route does not exist yet. In this case it is not really defined whether we are peek or not because
     // we do not yet know the city of the route.
     return {
@@ -92,7 +76,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       routeCityModel,
       peeking: false,
       categoriesAvailable: false,
-      shareUrl: null
+      shareUrl: simpleRouteShareUrl
     }
   }
 
@@ -110,17 +94,16 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
 
   const peeking = isPeekingRoute(state, { routeCity: route.city })
-  const path = route.path || undefined
   const language = route.language
-  let shareUrl = url(path)
-
-  if (ownProps.scene.route.name === NEWS_ROUTE && route?.type && stateCityCode) {
-    shareUrl = cityContentUrl({ cityCode: stateCityCode, languageCode: language, route: NEWS_ROUTE, path: route.type })
-  }
-
-  if ((ownProps.scene.route.name === EVENTS_ROUTE || ownProps.scene.route.name === POIS_ROUTE) && !path && stateCityCode) {
-    shareUrl = cityContentUrl({ cityCode: stateCityCode, languageCode: language, route: ownProps.scene.route.name, path: null })
-  }
+  const path = route.path || undefined
+  const shareUrl = path
+    ? url(path)
+    : cityContentUrl({
+      cityCode: stateCityCode,
+      languageCode: route.language,
+      route: routeName,
+      path: route.type || null
+    })
 
   return { peeking, routeCityModel, language, goToLanguageChange, categoriesAvailable, shareUrl }
 }
