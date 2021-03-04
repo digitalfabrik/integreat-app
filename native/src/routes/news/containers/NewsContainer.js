@@ -273,7 +273,7 @@ const NewsContainer = (props: ContainerPropsType) => {
   }
 }
 
-export default withTranslation('error')(
+export default withTranslation<OwnPropsType>('error')(
   connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(
     withPayloadProvider<ContainerPropsType, RefreshPropsType, NewsRouteType>(refresh, onRouteClose, true)(
       NewsContainer

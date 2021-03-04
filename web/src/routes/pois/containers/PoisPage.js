@@ -1,12 +1,12 @@
 // @flow
 
 import * as React from 'react'
-import { useCallback, useContext } from 'react'
+import { useContext } from 'react'
 import { connect } from 'react-redux'
 import Page from '../../../modules/common/components/Page'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import { NotFoundError, PoiModel } from 'api-client'
-import { withTranslation, TFunction } from 'react-i18next'
+import { withTranslation, type TFunction } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
 import PageDetail from '../../../modules/common/components/PageDetail'
 import PoiListItem from '../components/PoiListItem'
@@ -15,12 +15,16 @@ import List from '../../../modules/common/components/List'
 import { push } from 'redux-first-router'
 import DateFormatterContext from '../../../modules/i18n/context/DateFormatterContext'
 
+type OwnPropsType = {|
+  pois: Array<PoiModel>
+|}
+
 type PropsType = {|
-  pois: Array<PoiModel>,
+  ...OwnPropsType,
   city: string,
   poiId: ?string,
   language: string,
-  t: typeof TFunction
+  t: TFunction
 |}
 
 /**
@@ -34,7 +38,7 @@ export const PoisPage = ({
   t
 }: PropsType) => {
   const formatter = useContext(DateFormatterContext)
-  const renderPoiListItem = useCallback((poi: PoiModel) => <PoiListItem key={poi.path} poi={poi} />, [])
+  const renderPoiListItem = (poi: PoiModel) => <PoiListItem key={poi.path} poi={poi} />
 
   if (poiId) {
     const poi = pois.find(_poi => _poi.path === `/${city}/${language}/locations/${poiId}`)
@@ -75,7 +79,7 @@ const mapStateTypeToProps = (state: StateType) => ({
   poiId: state.location.payload.poiId
 })
 
-export default connect<*, *, *, *, *, *>(mapStateTypeToProps)(
-  withTranslation('pois')(
+export default connect<$Diff<PropsType, {| t: TFunction |}>, OwnPropsType, _, _, _, _>(mapStateTypeToProps, () => ({}))(
+  withTranslation<PropsType>('pois')(
     PoisPage
   ))

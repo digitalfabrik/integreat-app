@@ -26,15 +26,6 @@ exports[`Layout should render all components 1`] = `
         </Layout__Main>
       </Layout__Body>
     </div>
-    <ReactTooltip
-      clickable={false}
-      delayShow={0}
-      effect="solid"
-      insecure={true}
-      resizeHide={true}
-      type="dark"
-      wrapper="div"
-    />
     <div
       aria-hidden={false}
     >

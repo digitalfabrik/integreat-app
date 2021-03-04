@@ -1,13 +1,11 @@
 // @flow
 
-import { useEffect } from 'react'
-import type { ReceivedAction } from 'redux-first-router'
-import { pathToAction, redirect } from 'redux-first-router'
+import { useEffect, useCallback } from 'react'
+import { pathToAction, redirect, type Action } from 'redux-first-router'
 import { connect } from 'react-redux'
 import type { Dispatch } from 'redux'
 import type { StateType } from '../../../modules/app/StateType'
-import { withTranslation } from 'react-i18next'
-import i18n from 'i18next'
+import { useTranslation } from 'react-i18next'
 import { routesMap } from '../../../modules/app/route-configs/index'
 import LandingRouteConfig from '../../../modules/app/route-configs/LandingRouteConfig'
 import CategoriesRouteConfig from '../../../modules/app/route-configs/CategoriesRouteConfig'
@@ -16,20 +14,24 @@ import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import buildConfig from '../../../modules/app/constants/buildConfig'
 import { NOT_FOUND_ROUTE } from '../../../modules/app/route-configs/NotFoundRouteConfig'
 
+type OwnPropsType = {|
+  cities: Array<CityModel>
+|}
+
 type PropsType = {|
-  redirect: ReceivedAction => void,
-  cities: Array<CityModel>,
-  param?: string,
-  i18n: typeof i18n
+  ...OwnPropsType,
+  redirect: Action => void,
+  param?: string
 |}
 
 /**
  * Adds the language code at the end of the current path
  */
 const I18nRedirectPage = (props: PropsType) => {
-  const { redirect, param, cities, i18n } = props
+  const { redirect, param, cities } = props
+  const { i18n } = useTranslation()
 
-  const getRedirectPath = (): string => {
+  const getRedirectPath = useCallback((): string => {
     const fixedCity = buildConfig().featureFlags.fixedCity
     if (fixedCity) {
       // Redirect to the dashboard of the selected city
@@ -52,24 +54,21 @@ const I18nRedirectPage = (props: PropsType) => {
     }
 
     return NOT_FOUND_ROUTE
-  }
+  }, [cities, i18n.language, param])
 
   useEffect(() => {
     redirect(pathToAction(getRedirectPath(), routesMap))
-  }, [])
+  }, [redirect, getRedirectPath])
 
   return null
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>) => ({
-  redirect: action => dispatch(redirect(action))
+  redirect: (action: Action) => { dispatch(redirect(action)) }
 })
 
 const mapStateToProps = (state: StateType) => ({
   param: state.location.payload.param
 })
 
-export default withTranslation()(
-  connect(mapStateToProps, mapDispatchToProps)(
-    I18nRedirectPage
-  ))
+export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(I18nRedirectPage)

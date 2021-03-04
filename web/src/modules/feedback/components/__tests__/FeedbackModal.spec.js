@@ -2,12 +2,11 @@
 
 import React from 'react'
 import { shallow } from 'enzyme'
-
 import { FeedbackModal } from '../FeedbackModal'
 import { CityModel } from 'api-client'
 import { CATEGORIES_ROUTE } from '../../../app/route-configs/CategoriesRouteConfig'
 import createLocation from '../../../../createLocation'
-import theme from '../../../theme/constants/theme'
+import OffersModelBuilder from 'api-client/src/testing/OffersModelBuilder'
 
 jest.mock('react-i18next')
 
@@ -30,6 +29,7 @@ describe('FeedbackModal', () => {
         prefix: null
       })
     ]
+    const offers = new OffersModelBuilder(2).build()
 
     const location = createLocation({
       type: CATEGORIES_ROUTE, payload: { city: 'augsburg', language: 'de' }, query: { feedback: 'up' }
@@ -44,7 +44,7 @@ describe('FeedbackModal', () => {
                      alias='alias'
                      closeFeedbackModal={() => {}}
                      feedbackRating='up'
-                     theme={theme} />
+                     offers={offers} />
     )).toMatchSnapshot()
   })
 })

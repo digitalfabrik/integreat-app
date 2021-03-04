@@ -33,28 +33,30 @@ const createSettingsSections = ({ setSetting, t, languageCode, cityCode }: Creat
     {
       title: null,
       data: [
-        {
-          title: t('pushNewsTitle'),
-          description: t('pushNewsDescription'),
-          hasSwitch: true,
-          getSettingValue: (settings: SettingsType) => settings.allowPushNotifications,
-          onPress: () => {
-            setSetting(
-              settings => ({ allowPushNotifications: !settings.allowPushNotifications }),
-              async newSettings => {
-                if (!cityCode) {
-                  // No city selected so nothing to do here
-                  return
-                }
-                if (newSettings.allowPushNotifications) {
-                  await NotificationsManager.subscribeNews(cityCode, languageCode, buildConfig().featureFlags)
-                } else {
-                  await NotificationsManager.unsubscribeNews(cityCode, languageCode, buildConfig().featureFlags)
-                }
+        ...(!buildConfig().featureFlags.pushNotifications
+          ? []
+          : [{
+              title: t('pushNewsTitle'),
+              description: t('pushNewsDescription'),
+              hasSwitch: true,
+              getSettingValue: (settings: SettingsType) => settings.allowPushNotifications,
+              onPress: () => {
+                setSetting(
+                  settings => ({ allowPushNotifications: !settings.allowPushNotifications }),
+                  async newSettings => {
+                    if (!cityCode) {
+                      // No city selected so nothing to do here
+                      return
+                    }
+                    if (newSettings.allowPushNotifications) {
+                      await NotificationsManager.subscribeNews(cityCode, languageCode, buildConfig().featureFlags)
+                    } else {
+                      await NotificationsManager.unsubscribeNews(cityCode, languageCode, buildConfig().featureFlags)
+                    }
+                  }
+                )
               }
-            )
-          }
-        },
+            }]),
         ...(buildConfig().featureFlags.fixedCity
           ? []
           : [{

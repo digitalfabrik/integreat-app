@@ -150,8 +150,7 @@ class Dashboard extends React.Component<PropsType> {
       cityModel,
       navigateTo,
       navigateToLink,
-      navigateToFeedback,
-      t
+      navigateToFeedback
     } = this.props
 
     const navigationTiles = this.getNavigationTileModels()
@@ -171,7 +170,6 @@ class Dashboard extends React.Component<PropsType> {
           navigateTo={navigateTo}
           navigateToFeedback={navigateToFeedback}
           navigateToLink={navigateToLink}
-          t={t}
         />
       </SpaceBetween>
     )
