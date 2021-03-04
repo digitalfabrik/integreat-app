@@ -1,16 +1,17 @@
 // @flow
 
 import * as React from 'react'
-import styled from 'styled-components'
+import styled, { type StyledComponent } from 'styled-components'
 import RemoteContent from './RemoteContent'
 import Caption from './Caption'
 import type Moment from 'moment'
 import LastUpdateInfo from './LastUpdateInfo'
 import DateFormatter from 'api-client/src/i18n/DateFormatter'
+import type { ThemeType } from 'build-configs/ThemeType'
 
 export const THUMBNAIL_WIDTH = 300
 
-const Thumbnail = styled.img`
+const Thumbnail: StyledComponent<{||}, ThemeType, *> = styled.img`
   display: flex;
   width: ${THUMBNAIL_WIDTH}px;
   height: ${THUMBNAIL_WIDTH}px;
@@ -25,6 +26,7 @@ type PropsType = {|
   thumbnailSrcSet?: ?string,
   content: string,
   lastUpdate?: Moment,
+  showLastUpdateText?: boolean,
   formatter: DateFormatter,
   onInternalLinkClick: string => void,
   children?: React.Node
@@ -33,23 +35,27 @@ type PropsType = {|
 /**
  * Display a single page with all necessary information
  */
-class Page extends React.PureComponent<PropsType> {
-  render () {
-    const {
-      title, defaultThumbnailSrc, thumbnailSrcSet, content, lastUpdate, formatter, children,
-      onInternalLinkClick
-    } = this.props
-    return (
-      <>
-        {defaultThumbnailSrc && <Thumbnail alt='' src={defaultThumbnailSrc} srcSet={thumbnailSrcSet} />}
-        <Caption title={title} />
-        {children}
-        <RemoteContent dangerouslySetInnerHTML={{ __html: content }}
-                       onInternalLinkClick={onInternalLinkClick} />
-        {lastUpdate && <LastUpdateInfo lastUpdate={lastUpdate} formatter={formatter} withText />}
-      </>
-    )
-  }
+const Page = ({
+  title,
+  defaultThumbnailSrc,
+  thumbnailSrcSet,
+  content,
+  lastUpdate,
+  showLastUpdateText = true,
+  formatter,
+  children,
+  onInternalLinkClick
+}: PropsType) => {
+  return (
+    <>
+      {defaultThumbnailSrc && <Thumbnail alt='' src={defaultThumbnailSrc} srcSet={thumbnailSrcSet} />}
+      <Caption title={title} />
+      {children}
+      <RemoteContent dangerouslySetInnerHTML={{ __html: content }}
+                     onInternalLinkClick={onInternalLinkClick} />
+      {lastUpdate && <LastUpdateInfo lastUpdate={lastUpdate} formatter={formatter} withText={showLastUpdateText} />}
+    </>
+  )
 }
 
 export default Page

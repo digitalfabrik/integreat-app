@@ -28,12 +28,17 @@ steps:
       name: "[FL] << parameters.build_config_name >> build"
       command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:<< parameters.build_config_name >>
       working_directory: native/ios
+  - run:
+      name: Prepare Sourcemaps
+      command: |
+        mkdir -p sourcemaps/<< parameters.build_config_name >>
+        cp native/ios/output/<< parameters.build_config_name >>.ios.bundle* sourcemaps/<< parameters.build_config_name >>/
+  - persist_to_workspace:
+      root: .
+      paths:
+        - sourcemaps/<< parameters.build_config_name >>/*
   - store_artifacts:
       path: native/ios/output/gym/<< parameters.build_config_name >>.ipa
-  - persist_to_workspace:
-      root: native/ios/output
-      paths:
-        - << parameters.build_config_name >>.ios.bundle.map
   - persist_to_workspace:
       root: native/ios/output/gym
       paths:

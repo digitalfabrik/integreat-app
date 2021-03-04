@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import { TFunction } from 'react-i18next'
+import { type TFunction } from 'react-i18next'
 import { Dimensions } from 'react-native'
 import Svg, { Circle, Image } from 'react-native-svg'
 import { type StyledComponent } from 'styled-components'
@@ -32,11 +32,12 @@ const logoSize = svgSize * LOGO_SIZE_FRACTION
 const logoXY = (svgSize - logoSize) / 2
 
 const STROKE_WIDTH_FRACTION = 0.09
+const DIAMETER_FRACTION = 1.2
 const strokeWidth = svgSize * STROKE_WIDTH_FRACTION
-const radius = (svgSize - strokeWidth) / 2
+const radius = (svgSize - strokeWidth * DIAMETER_FRACTION) / 2
 const circumference = radius * 2 * Math.PI
 
-type PropsType = {|
+export type PropsType = {|
   progress: number,
   theme: ThemeType,
   t: TFunction

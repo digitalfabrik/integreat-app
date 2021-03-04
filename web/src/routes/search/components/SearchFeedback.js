@@ -1,21 +1,22 @@
 // @flow
 
 import * as React from 'react'
-import styled from 'styled-components'
-import { withTranslation, TFunction } from 'react-i18next'
+import styled, { type StyledComponent } from 'styled-components'
+import { withTranslation, type TFunction } from 'react-i18next'
 import { createFeedbackEndpoint, SEARCH_FEEDBACK_TYPE } from 'api-client'
 import type { LocationState } from 'redux-first-router'
 import NothingFoundFeedbackBox from './NothingFoundFeedbackBox'
 import { cmsApiBaseUrl } from '../../../modules/app/constants/urls'
 import TextButton from '../../../modules/common/components/TextButton'
+import type { ThemeType } from 'build-configs/ThemeType'
 
-const FeedbackContainer = styled.div`
+const FeedbackContainer: StyledComponent<{||}, ThemeType, *> = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
 `
 
-const NothingFound = styled.div`
+const NothingFound: StyledComponent<{||}, ThemeType, *> = styled.div`
   margin-top: 30px;
 `
 
@@ -23,7 +24,7 @@ type PropsType = {|
   location: LocationState,
   query: string,
   resultsFound: boolean,
-  t: typeof TFunction
+  t: TFunction
 |}
 
 type StateType = {|
@@ -62,4 +63,4 @@ export class SearchFeedback extends React.Component<PropsType, StateType> {
   }
 }
 
-export default withTranslation('feedback')(SearchFeedback)
+export default withTranslation<PropsType>('feedback')(SearchFeedback)

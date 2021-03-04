@@ -248,8 +248,10 @@ describe('Switcher', () => {
   })
 
   it('should map state to props', () => {
-    const preVersion = global.__VERSION__
-    global.__VERSION__ = 'vX.X'
+    const preVersion = global.__VERSION_NAME__
+    const preSha = global.__COMMIT_SHA__
+    global.__VERSION_NAME__ = '2020.1.1'
+    global.__COMMIT_SHA__ = 'f3ef76e3'
     const location = createLocation({
       type: CATEGORIES_ROUTE,
       payload: { city: 'augsburg', language: 'de' },
@@ -298,6 +300,7 @@ describe('Switcher', () => {
       viewportSmall: true,
       wohnenOffersPayload
     })
-    global.__VERSION__ = preVersion
+    global.__VERSION_NAME__ = preVersion
+    global.__COMMIT_SHA__ = preSha
   })
 })

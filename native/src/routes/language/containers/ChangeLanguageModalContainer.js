@@ -14,6 +14,7 @@ import type {
   RoutePropType
 } from '../../../modules/app/constants/NavigationTypes'
 import type { ChangeLanguageModalRouteType, NewsType } from 'api-client/src/routes'
+import type { ThemeType } from 'build-configs/ThemeType'
 
 type OwnPropsType = {|
   route: RoutePropType<ChangeLanguageModalRouteType>,
@@ -84,8 +85,8 @@ const mapDispatchToProps = (dispatch: DispatchType, ownProps: OwnPropsType): Dis
   }
 }
 
-export default withTranslation('error')(
+export default withTranslation<OwnPropsType>('error')(
   connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
-    withTheme(ChangeLanguageModal)
+    withTheme<{| ...PropsType, theme: ThemeType |}>(ChangeLanguageModal)
   )
 )

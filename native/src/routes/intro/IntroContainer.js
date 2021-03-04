@@ -2,7 +2,7 @@
 
 import { withTranslation, type TFunction } from 'react-i18next'
 import * as React from 'react'
-import type { ThemeType } from '../../modules/theme/constants'
+import type { ThemeType } from 'build-configs/ThemeType'
 import withTheme from '../../modules/theme/hocs/withTheme'
 import { FlatList, Dimensions } from 'react-native'
 import styled from 'styled-components/native'
@@ -52,10 +52,14 @@ const ImageContent = styled.Image`
   resize-mode: contain;
 `
 
-type PropsType = {|
-  t: TFunction,
+type OwnPropsType = {|
   route: RoutePropType<IntroRouteType>,
-  navigation: NavigationPropType<IntroRouteType>,
+  navigation: NavigationPropType<IntroRouteType>
+|}
+
+type PropsType = {|
+  ...OwnPropsType,
+  t: TFunction,
   theme: ThemeType,
   language: string,
   dispatch: () => void
@@ -192,7 +196,7 @@ class Intro extends React.Component<PropsType, StateType> {
       }
 
       if (allowPushNotifications) {
-        await requestPushNotificationPermission(buildConfig().featureFlags)
+        await requestPushNotificationPermission()
       }
     } catch (e) {
       console.warn(e)
@@ -210,11 +214,11 @@ class Intro extends React.Component<PropsType, StateType> {
     this._flatList.current.scrollToIndex({ index })
   }
 
-  renderSlide = ({ item }: { item: SlideContentType }) => {
+  renderSlide = ({ item }: { item: SlideContentType, ... }) => {
     return <SlideContent item={item} theme={this.props.theme} width={this.state.width} />
   }
 
-  onViewableItemsChanged = ({ viewableItems }: { viewableItems: Array<ViewToken> }) => {
+  onViewableItemsChanged = ({ viewableItems }: { viewableItems: Array<ViewToken>, ... }) => {
     if (viewableItems.length === 1) {
       if (viewableItems[0].index !== null) {
         this.setState({ currentSlide: viewableItems[0].index })
@@ -238,10 +242,10 @@ class Intro extends React.Component<PropsType, StateType> {
 }
 
 const mapStateToProps = (state: ReduxStateType): {| language: string |} => ({ language: state.contentLanguage })
-type ConnectType = {| language: string, dispatch: () => void |}
+type ConnectType = {| ...OwnPropsType, language: string, dispatch: () => void |}
 
-export default connect<ConnectType, {||}, _, _, _, _>(mapStateToProps)(
-  withTranslation(['intro', 'settings'])(
-    withTheme(Intro)
+export default connect<ConnectType, OwnPropsType, _, _, _, _>(mapStateToProps)(
+  withTranslation<$Diff<PropsType, {| theme: ThemeType |}>>(['intro', 'settings'])(
+    withTheme<PropsType>(Intro)
   )
 )

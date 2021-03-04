@@ -1,9 +1,8 @@
 // @flow
 
 import React from 'react'
-import { withTranslation, TFunction } from 'react-i18next'
+import { withTranslation, type TFunction } from 'react-i18next'
 import { faFilePdf } from '../../../modules/app/constants/icons'
-
 import { CategoriesMapModel, CategoryModel } from 'api-client'
 import ToolbarItem from '../../../modules/layout/components/ToolbarItem'
 import type { LocationState } from 'redux-first-router'
@@ -15,7 +14,7 @@ type PropsType = {|
   categories: ?CategoriesMapModel,
   location: LocationState,
   openFeedbackModal: FeedbackRatingType => void,
-  t: typeof TFunction,
+  t: TFunction,
   viewportSmall: boolean
 |}
 
@@ -44,4 +43,4 @@ export class CategoriesToolbar extends React.PureComponent<PropsType> {
   }
 }
 
-export default withTranslation('categories')(CategoriesToolbar)
+export default withTranslation<PropsType>('categories')(CategoriesToolbar)
