@@ -1,0 +1,32 @@
+# Promotes the app from Testflight to the Apple App Store.
+parameters:
+  build_config_name:
+    type: enum
+    enum: [integreat, malte, aschaffenburg]
+    default: integreat
+macos:
+  xcode: 11.7.0
+environment:
+  FASTLANE_SKIP_UPDATE_CHECK: true
+shell: /bin/bash --login -o pipefail
+steps:
+  - skip_job:
+      build_config_name: << parameters.build_config_name >>
+  - checkout
+  - prepare_workspace
+  - restore_environment_variables
+  - restore_yarn_tools_cache
+  - restore_yarn_cache # Needed for babel-node run in read_build_config.rb. May be refactored and optimized later.
+  - restore_ruby_cache:
+      directory: native
+  - run:
+      name: Parse german ios release notes
+      command: tools/parse-release-notes parse --ios --destination native/ios/fastlane/<< parameters.build_config_name >>/metadata/de-DE/release_notes.txt --language de --production
+  - run:
+      name: Parse english ios release notes
+      command: tools/parse-release-notes parse --ios --destination native/ios/fastlane/<< parameters.build_config_name >>/metadata/en-US/release_notes.txt --language en --production
+  - run:
+      name: "[FL] App Store Connect Promotion"
+      command: bundle exec fastlane ios appstoreconnect_promote build_config_name:<< parameters.build_config_name >>
+      working_directory: native
+  - notify
