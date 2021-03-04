@@ -44,6 +44,7 @@ describe('NewsDetail', () => {
     expect(getByText('mailto:app@integreat-app.de')).toBeTruthy()
     expect(getByText(' with lots of links ')).toBeTruthy()
     expect(getByText('https://integreat.app')).toBeTruthy()
+    expect(getByText('January 20, 2020')).toBeTruthy()
 
     fireEvent.press(getByText('mailto:app@integreat-app.de'))
     expect(navigateToLink).toHaveBeenCalledWith('mailto:app@integreat-app.de', language, 'mailto:app@integreat-app.de')
