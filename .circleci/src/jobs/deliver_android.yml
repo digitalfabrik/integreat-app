@@ -16,7 +16,6 @@ environment:
 steps:
   - skip_job:
       build_config_name: << parameters.build_config_name >>
-  - run: 'curl -sL https://sentry.io/get-cli/ | bash'
   - checkout
   - prepare_workspace
   - restore_environment_variables
@@ -40,7 +39,9 @@ steps:
       command: bundle exec fastlane android playstore_upload build_config_name:<< parameters.build_config_name >> apk_path:attached_workspace/<< parameters.build_config_name >>.apk production_delivery:"<< parameters.production_delivery >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
       working_directory: native
   - run:
-      name: "[FL] Upload to Sentry"
-      command: bundle exec fastlane android sentry_upload build_config_name:<< parameters.build_config_name >> sourcemap_path:attached_workspace/<< parameters.build_config_name >>.android.bundle.map version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
-      working_directory: native
+      name: "Sentry Upload"
+      # A react-native app reports its version as: application_id@version+build_number
+      command: |
+        eval $(yarn workspace --silent build-configs --silent manage to-bash << parameters.build_config_name >> android)
+        tools/sentry-release "$BUILD_CONFIG_APPLICATION_ID" "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/<< parameters.build_config_name >> "${NEW_VERSION_CODE}"
   - notify

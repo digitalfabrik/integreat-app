@@ -253,6 +253,7 @@ const NewsContainer = (props: ContainerPropsType) => {
         <NewsHeader selectedNewsType={selectedNewsType} cityModel={cityModel} navigateToNews={fetchNews} />
         <News newsId={newsId}
               news={news}
+              routeKey={route.key}
               selectedNewsType={selectedNewsType}
               isFetchingMore={isFetchingMore}
               fetchMoreNews={fetchMoreNews({ news, hasMoreNews, page })}
