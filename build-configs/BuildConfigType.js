@@ -65,7 +65,7 @@ export type WebBuildConfigType = {|
     backgroundColor: string,
     imageUrl: string
   |},
-  campaign?: {| // Shows a different app logo from start date (inclusive) till end date (inclusive).
+  campaign?: {| // Shows a different app logo from start to end date.
     campaignAppLogo: string,
     startDate: string,
     endDate: string
