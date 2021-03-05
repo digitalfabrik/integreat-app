@@ -6,11 +6,10 @@ import styled, { type StyledComponent } from 'styled-components'
 import type { ThemeType } from 'build-configs/ThemeType'
 import dimensions from '../../theme/constants/dimensions'
 import moment from 'moment'
-import type { WebBuildConfigType } from 'build-configs/BuildConfigType'
+import buildConfig from '../../app/constants/buildConfig'
 
 type PropsType = {|
-  link: string,
-  buildConfig: WebBuildConfigType
+  link: string
 |}
 
 const LogoContainer: StyledComponent<{||}, ThemeType, *> = styled.div`
@@ -47,8 +46,8 @@ const LogoContainer: StyledComponent<{||}, ThemeType, *> = styled.div`
 /**
  * A logo component designed for the Header.
  */
-export const HeaderLogo = ({ buildConfig, link }: PropsType) => {
-  const { campaign, appName, icons } = buildConfig
+export const HeaderLogo = ({ link }: PropsType) => {
+  const { campaign, appName, icons } = buildConfig()
   const currentDate = moment()
   const showCampaignLogo = campaign && currentDate.isAfter(campaign.startDate) && currentDate.isBefore(campaign.endDate)
   const src = campaign && showCampaignLogo ? campaign.campaignAppLogo : icons.appLogo
