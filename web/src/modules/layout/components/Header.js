@@ -41,7 +41,6 @@ const Row: StyledComponent<{| hasTitle?: boolean |}, ThemeType, *> = styled.div`
   display: flex;
   flex: 1;
   max-width: 100%;
-  overflow: auto visible; /* overflow-y must be set to visible for iOS */
   align-items: stretch;
   min-height: ${dimensions.headerHeightLarge}px;
   flex-direction: row;
