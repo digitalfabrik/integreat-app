@@ -90,7 +90,7 @@ export const Content: StyledComponent<{| language: string |}, ThemeType, *> = st
   color: ${props => props.theme.colors.textColor};
 `
 
-export const TimeStampContent: StyledComponent<{|language: string |}, ThemeType, *> = styled.Text`
+const TimeStampContent: StyledComponent<{|language: string |}, ThemeType, *> = styled.Text`
   font-family: ${props => props.theme.fonts.decorativeFontRegular};
   font-size: 14px;
   padding: 10px 0px
@@ -114,7 +114,7 @@ const NewsListItem = ({ newsItem, language, navigateToNews, theme, t, isTunews }
   const localNewsContent = newsItem instanceof LocalNewsModel ? newsItem.message : ''
   const tuNewsContent = newsItem instanceof TunewsModel ? newsItem.content : ''
   const content = localNewsContent || tuNewsContent
-  const created = newsItem instanceof LocalNewsModel ? newsItem.timestamp : null
+  const timestamp = newsItem instanceof LocalNewsModel ? newsItem.timestamp : null
 
   // Decode html entities
   let decodedContent = ''
@@ -136,11 +136,11 @@ const NewsListItem = ({ newsItem, language, navigateToNews, theme, t, isTunews }
                   {decodedContent}
                 </Content>
               </ListItemView>
-              {created && <ListItemView language={language} theme={theme}>
+              {timestamp && <ListItemView language={language} theme={theme}>
                 <TimeStampContent language={language} theme={theme}>
                   <TimeStamp formatter={formatter}
-                             lastUpdate={created}
-                             useText={false}
+                             lastUpdate={timestamp}
+                             showText={false}
                              language={language} theme={theme} />
                 </TimeStampContent>
               </ListItemView>}
