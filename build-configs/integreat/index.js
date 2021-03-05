@@ -100,6 +100,11 @@ export const webIntegreatBuildConfig: WebBuildConfigType = {
   splashScreen: {
     backgroundColor: lightTheme.colors.themeColor,
     imageUrl: '/app-icon-cornered.jpg'
+  },
+  campaign: {
+    campaignAppLogo: '/campaign-app-logo.png',
+    startDate: '2021-03-04T00:00:00.000Z',
+    endDate: '2021-03-15T00:00:00.000Z'
   }
 }
 
