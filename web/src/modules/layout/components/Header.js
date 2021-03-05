@@ -6,7 +6,6 @@ import styled, { type StyledComponent } from 'styled-components'
 import withPlatform from '../../platform/hocs/withPlatform'
 import Platform from '../../platform/Platform'
 import type { ThemeType } from 'build-configs/ThemeType'
-import buildConfig from '../../app/constants/buildConfig'
 import HeaderTitle, { HEADER_TITLE_HEIGHT } from './HeaderTitle'
 import HeaderLogo from './HeaderLogo'
 import dimensions from '../../theme/constants/dimensions'
@@ -124,7 +123,7 @@ export const Header = ({
                 positionStickyDisabled={platform.positionStickyDisabled}>
         <HeaderContainer>
           <Row hasTitle={!!cityName}>
-            <HeaderLogo link={logoHref} buildConfig={buildConfig()} />
+            <HeaderLogo link={logoHref} />
             {!viewportSmall && cityName && <HeaderSeparator />}
             {(!viewportSmall || cityName) && <HeaderTitle>{cityName}</HeaderTitle>}
             <ActionBar>{actionItems}</ActionBar>
