@@ -13,12 +13,16 @@ import Html from 'react-native-render-html'
 import TuNewsFooter from './TuNewsFooter'
 import TimeStamp from '../../../modules/common/components/TimeStamp'
 import DateFormatterContext from '../../../modules/i18n/context/DateFormatterContext'
-import { TimeStampContent } from './NewsListItem'
 
 const Container: StyledComponent<{||}, {||}, *> = styled.View`
   align-items: center;
   margin-horizontal: 3%;
   flex: 1;
+`
+
+const TimeStampContent: StyledComponent<{|language: string |}, ThemeType, *> = styled.Text`
+  padding: 17px 0px
+  text-align: ${props => contentAlignment(props.language)};
 `
 
 const HeaderImageWrapper: StyledComponent<{||}, ThemeType, *> = styled.View`
@@ -94,7 +98,8 @@ const NewsDetail = ({ theme, newsItem, language, navigateToLink }: PropsType) =>
           <TimeStampContent language={language} theme={theme}>
             <TimeStamp formatter={formatter}
                        lastUpdate={newsItem.timestamp}
-                       useText={false}
+                       showText={false}
+                       format={'LLL'}
                        language={language} theme={theme} />
           </TimeStampContent>}
         </Container>
