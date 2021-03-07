@@ -29,7 +29,7 @@ describe('HeaderLogo', () => {
     clock = lolex.install({ now: 1615374110000, toFake: [] }) // Wed Mar 10 2021 11:01:50 GMT+0000
     config.campaign = undefined
     config.icons.appLogo = '/my-regular-logo'
-    const { getByAltText } = render(<HeaderLogo link='https://som.el.ink/tomy/home/page' />)
+    const { getByAltText } = render(<HeaderLogo link='https://example.com' />)
 
     expect(getByAltText('IntegreatTestCms').src).toContain(config.icons.appLogo)
   })
@@ -38,7 +38,7 @@ describe('HeaderLogo', () => {
     clock = lolex.install({ now: 1615374110000, toFake: [] }) // Wed Mar 10 2021 11:01:50
     config.campaign = womensDayCampaign
     config.icons.appLogo = '/my-regular-logo'
-    const { getByAltText } = render(<HeaderLogo link='https://som.el.ink/tomy/home/page' />)
+    const { getByAltText } = render(<HeaderLogo link='https://example.com' />)
 
     expect(getByAltText('IntegreatTestCms').src).toContain(womensDayCampaign.campaignAppLogo)
   })
@@ -47,7 +47,7 @@ describe('HeaderLogo', () => {
     clock = lolex.install({ now: 1614942686000, toFake: [] }) // Fri Mar 05 2021 11:11:26
     config.campaign = womensDayCampaign
     config.icons.appLogo = '/my-regular-logo'
-    const { getByAltText } = render(<HeaderLogo link='https://som.el.ink/tomy/home/page' />)
+    const { getByAltText } = render(<HeaderLogo link='https://example.com' />)
 
     expect(getByAltText('IntegreatTestCms').src).toContain(config.icons.appLogo)
   })
@@ -56,7 +56,7 @@ describe('HeaderLogo', () => {
     clock = lolex.install({ now: 1615806686000, toFake: [] }) // Mon Mar 15 2021 11:11:26
     config.campaign = womensDayCampaign
     config.icons.appLogo = '/my-regular-logo'
-    const { getByAltText } = render(<HeaderLogo link='https://som.el.ink/tomy/home/page' />)
+    const { getByAltText } = render(<HeaderLogo link='https://example.com' />)
 
     expect(getByAltText('IntegreatTestCms').src).toContain(config.icons.appLogo)
   })
