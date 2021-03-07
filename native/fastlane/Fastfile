@@ -119,14 +119,32 @@ platform :android do
     end
 
     build_config = read_build_config(build_config_name, 'android')
+    application_id = build_config['applicationId']
 
-    puts("promoting #{build_config_name}")
+    production_version_codes = google_play_track_version_codes(
+      track: "production",
+      package_name: application_id,
+      json_key_data: ENV["GOOGLE_SERVICE_ACCOUNT_JSON"]
+    )
+    beta_version_codes = google_play_track_version_codes(
+      track: "beta",
+      package_name: application_id,
+      json_key_data: ENV["GOOGLE_SERVICE_ACCOUNT_JSON"]
+    )
+
+    if beta_version_codes.length == 0 || beta_version_codes[0] <= production_version_codes[0]
+      puts("Nothing to do, latest version already available in production track...")
+      next
+    end
+
+    puts("promoting #{build_config_name} v#{beta_version_codes[0]} to production track")
 
     # https://docs.fastlane.tools/actions/supply/
     upload_to_play_store(
-      package_name: build_config['applicationId'],
-      track: "alpha", # TODO
-      track_promote_to: "beta", # TODO
+      version_code: beta_version_codes[0],
+      package_name: application_id,
+      track: "beta",
+      track_promote_to: "production",
       skip_upload_changelogs: true,
       skip_upload_images: true,
       skip_upload_screenshots: true,
@@ -285,7 +303,15 @@ platform :ios do
     bundle_identifier = build_config['bundleIdentifier']
     skip_screenshots = build_config_name != "integreat"
 
-    puts("promoting #{build_config_name}")
+    testflight_build_number = latest_testflight_build_number(app_identifier: bundle_identifier)
+    app_store_build_number = app_store_build_number(app_identifier: bundle_identifier)
+
+    if testflight_build_number <= app_store_build_number
+      puts("Nothing to do, latest version already available in app store connect...")
+      next
+    end
+
+    puts("promoting #{build_config_name} v#{testflight_build_number} to app store connect")
     puts("skip_screenshots: #{skip_screenshots}")
 
     # https://docs.fastlane.tools/actions/deliver/#submit-build
