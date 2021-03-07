@@ -64,6 +64,11 @@ export type WebBuildConfigType = {|
   splashScreen?: {| // Splash screen showed before the web app has been loaded.
     backgroundColor: string,
     imageUrl: string
+  |},
+  campaign?: {| // Shows a different app logo from start to end date.
+    campaignAppLogo: string,
+    startDate: string,
+    endDate: string
   |}
 |}
 

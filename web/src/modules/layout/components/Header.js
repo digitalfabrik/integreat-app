@@ -6,7 +6,6 @@ import styled, { type StyledComponent } from 'styled-components'
 import withPlatform from '../../platform/hocs/withPlatform'
 import Platform from '../../platform/Platform'
 import type { ThemeType } from 'build-configs/ThemeType'
-import buildConfig from '../../app/constants/buildConfig'
 import HeaderTitle, { HEADER_TITLE_HEIGHT } from './HeaderTitle'
 import HeaderLogo from './HeaderLogo'
 import dimensions from '../../theme/constants/dimensions'
@@ -41,7 +40,6 @@ const Row: StyledComponent<{| hasTitle?: boolean |}, ThemeType, *> = styled.div`
   display: flex;
   flex: 1;
   max-width: 100%;
-  overflow: auto visible; /* overflow-y must be set to visible for iOS */
   align-items: stretch;
   min-height: ${dimensions.headerHeightLarge}px;
   flex-direction: row;
@@ -100,32 +98,32 @@ const NavigationBar: StyledComponent<{||}, ThemeType, *> = styled.div`
  * of the Header.
  * Uses Headroom to save space when scrolling.
  */
-export class Header extends React.PureComponent<PropsType> {
-  static defaultProps = {
-    navigationItems: [],
-    actionItems: []
-  }
+export const Header = ({
+  viewportSmall,
+  onStickyTopChanged,
+  actionItems = [],
+  logoHref,
+  navigationItems = [],
+  platform,
+  cityName
+}: PropsType) => {
+  const { headerHeightSmall, headerHeightLarge } = dimensions
+  const hasNavigationBar = navigationItems.length > 0
+  const height = viewportSmall
+    ? (1 + (hasNavigationBar ? 1 : 0)) * headerHeightSmall + (cityName ? HEADER_TITLE_HEIGHT : 0)
+    : (1 + (hasNavigationBar ? 1 : 0)) * headerHeightLarge
+  const scrollHeight = viewportSmall
+    ? headerHeightSmall + (cityName ? HEADER_TITLE_HEIGHT : 0)
+    : headerHeightLarge
 
-  render () {
-    const { viewportSmall, onStickyTopChanged, actionItems, logoHref, navigationItems, platform, cityName } = this.props
-    const { headerHeightSmall, headerHeightLarge } = dimensions
-    const hasNavigationBar = navigationItems.length > 0
-    const height = viewportSmall
-      ? (1 + (hasNavigationBar ? 1 : 0)) * headerHeightSmall + (cityName ? HEADER_TITLE_HEIGHT : 0)
-      : (1 + (hasNavigationBar ? 1 : 0)) * headerHeightLarge
-    const scrollHeight = viewportSmall
-      ? headerHeightSmall + (cityName ? HEADER_TITLE_HEIGHT : 0)
-      : headerHeightLarge
-    return (
+  return (
       <Headroom onStickyTopChanged={onStickyTopChanged}
                 scrollHeight={scrollHeight}
                 height={height}
                 positionStickyDisabled={platform.positionStickyDisabled}>
         <HeaderContainer>
           <Row hasTitle={!!cityName}>
-            <HeaderLogo link={logoHref}
-                        src={buildConfig().icons.appLogo}
-                        alt={buildConfig().appName} />
+            <HeaderLogo link={logoHref} />
             {!viewportSmall && cityName && <HeaderSeparator />}
             {(!viewportSmall || cityName) && <HeaderTitle>{cityName}</HeaderTitle>}
             <ActionBar>{actionItems}</ActionBar>
@@ -133,8 +131,7 @@ export class Header extends React.PureComponent<PropsType> {
           {hasNavigationBar && <Row><NavigationBar>{navigationItems}</NavigationBar></Row>}
         </HeaderContainer>
       </Headroom>
-    )
-  }
+  )
 }
 
 export default withPlatform(Header)
