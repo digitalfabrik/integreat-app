@@ -304,6 +304,7 @@ platform :ios do
     skip_screenshots = build_config_name != "integreat"
 
     testflight_build_number = latest_testflight_build_number(app_identifier: bundle_identifier)
+    testflight_version = lane_context[SharedValues::LATEST_TESTFLIGHT_VERSION]
     app_store_build_number = app_store_build_number(app_identifier: bundle_identifier)
 
     if testflight_build_number <= app_store_build_number
@@ -311,8 +312,10 @@ platform :ios do
       next
     end
 
-    puts("promoting #{build_config_name} v#{testflight_build_number} to app store connect")
+    puts("promoting #{build_config_name} v#{testflight_version} - #{testflight_build_number} to app store connect")
     puts("skip_screenshots: #{skip_screenshots}")
+
+    prepare_release_notes(version_name: testflight_version, build_config_name: build_config_name)
 
     # https://docs.fastlane.tools/actions/deliver/#submit-build
     deliver(
@@ -331,4 +334,21 @@ platform :ios do
                                                                 # https://support.google.com/firebase/answer/6318039?hl=en
     )
   end
+
+  # The following parameters have to be passed:
+  # build_config_name: The name of the build config
+  # version_name: The version name of the release notes to prepare
+  desc "Prepare release notes"
+  lane :prepare_release_notes do |options|
+    build_config_name = options[:build_config_name]
+    version_name = options[:version_name]
+
+    if [build_config_name, version_name].include?(nil)
+      raise "'nil' passed as parameter! Aborting..."
+    end
+
+    `../../tools/parse-release-notes parse --ios --destination ../ios/fastlane/#{build_config_name}/metadata/de-DE/release_notes.txt --language de --source ../../release-notes/#{version_name} --production`
+    `../../tools/parse-release-notes parse --ios --destination ../ios/fastlane/#{build_config_name}/metadata/en-US/release_notes.txt --language en --source ../../release-notes/#{version_name} --production`
+  end
+
 end

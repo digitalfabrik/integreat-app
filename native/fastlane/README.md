@@ -65,6 +65,11 @@ Deliver the app to TestFlight for testers
 fastlane ios appstoreconnect_promote
 ```
 Promote the app from testflight to production in App Store Connect.
+### ios prepare_release_notes
+```
+fastlane ios prepare_release_notes
+```
+Prepare release notes
 
 ----
 
