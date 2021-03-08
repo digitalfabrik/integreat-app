@@ -23,7 +23,7 @@ export function * switchContentLanguage (
 ): Saga<void> {
   const { newLanguage, city, t } = action.params
   try {
-    // todo Use netinfo to decide whether offline and language not yet downloaded
+    // TODO IGAPP-129 Use netinfo to decide whether offline and language not yet downloaded
     // netInfo.isInternetReachable only available since v4.1.0, but with v4.0.0 netinfo was migrated to androidx
     // https://issues.integreat-app.de/browse/NATIVE-354
 

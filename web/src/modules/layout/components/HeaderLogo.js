@@ -5,11 +5,11 @@ import Link from 'redux-first-router-link'
 import styled, { type StyledComponent } from 'styled-components'
 import type { ThemeType } from 'build-configs/ThemeType'
 import dimensions from '../../theme/constants/dimensions'
+import moment from 'moment'
+import buildConfig from '../../app/constants/buildConfig'
 
 type PropsType = {|
-  link: string,
-  src: string,
-  alt: string
+  link: string
 |}
 
 const LogoContainer: StyledComponent<{||}, ThemeType, *> = styled.div`
@@ -46,15 +46,19 @@ const LogoContainer: StyledComponent<{||}, ThemeType, *> = styled.div`
 /**
  * A logo component designed for the Header.
  */
-export class HeaderLogo extends React.PureComponent<PropsType> {
-  render () {
-    const { link, src, alt } = this.props
-    return <LogoContainer>
+export const HeaderLogo = ({ link }: PropsType) => {
+  const { campaign, appName, icons } = buildConfig()
+  const currentDate = moment()
+  const showCampaignLogo = campaign && currentDate.isAfter(campaign.startDate) && currentDate.isBefore(campaign.endDate)
+  const src = campaign && showCampaignLogo ? campaign.campaignAppLogo : icons.appLogo
+
+  return (
+    <LogoContainer>
       <Link to={link}>
-        <img src={src} alt={alt} />
+        <img src={src} alt={appName} />
       </Link>
     </LogoContainer>
-  }
+  )
 }
 
 export default HeaderLogo

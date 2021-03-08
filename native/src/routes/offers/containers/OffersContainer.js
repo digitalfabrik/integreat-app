@@ -47,7 +47,7 @@ const OffersContainer = ({ theme, t, navigation, route }: OffersPropsType) => {
 
   useEffect(() => {
     loadOffers().catch(e => setError(e))
-  }, [])
+  }, [loadOffers])
 
   const navigateToOffer = useCallback((tile: TileModel) => {
     const { title, path, isExternalUrl, postData } = tile

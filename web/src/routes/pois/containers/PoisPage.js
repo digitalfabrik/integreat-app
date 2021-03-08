@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import { useCallback, useContext } from 'react'
+import { useContext } from 'react'
 import { connect } from 'react-redux'
 import Page from '../../../modules/common/components/Page'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
@@ -38,7 +38,7 @@ export const PoisPage = ({
   t
 }: PropsType) => {
   const formatter = useContext(DateFormatterContext)
-  const renderPoiListItem = useCallback((poi: PoiModel) => <PoiListItem key={poi.path} poi={poi} />, [])
+  const renderPoiListItem = (poi: PoiModel) => <PoiListItem key={poi.path} poi={poi} />
 
   if (poiId) {
     const poi = pois.find(_poi => _poi.path === `/${city}/${language}/locations/${poiId}`)

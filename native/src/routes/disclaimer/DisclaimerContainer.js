@@ -74,7 +74,7 @@ const DisclaimerContainer = ({ theme, resourceCacheUrl, navigation, route, dispa
 
   useEffect(() => {
     loadDisclaimer().catch(e => setError(e))
-  }, [])
+  }, [loadDisclaimer])
 
   if (error) {
     return <LayoutedScrollView refreshControl={<RefreshControl onRefresh={loadDisclaimer} refreshing={loading} />}>
