@@ -3,7 +3,7 @@
 import type { CommonBuildConfigType } from 'build-configs/BuildConfigType'
 import loadBuildConfig, { COMMON } from 'build-configs'
 import integreatAppIcon from 'build-configs/integreat/assets/app-icon-round.png'
-import integreatLoadingImage from 'build-configs/integreat/assets/app-logo-inverted.svg'
+import integreatLoadingImage from 'build-configs/integreat/assets/app-icon-inverted.svg'
 import integreatLocationMarker from 'build-configs/integreat/assets/location-marker.svg'
 import integreatIntroLanguageIcon from 'build-configs/integreat/assets/intro-slides/Language.svg'
 import integreatIntroEventsIcon from 'build-configs/integreat/assets/intro-slides/Events.svg'
@@ -17,7 +17,7 @@ import malteIntroEventsIcon from 'build-configs/malte/assets/intro-slides/Events
 import malteIntroOffersIcon from 'build-configs/malte/assets/intro-slides/Offers.svg'
 import malteIntroSearchIcon from 'build-configs/malte/assets/intro-slides/Search.svg'
 import aschaffenburgAppIcon from 'build-configs/aschaffenburg/assets/app-icon-round.png'
-import aschaffenburgLoadingImage from 'build-configs/aschaffenburg/assets/app-logo-inverted.svg'
+import aschaffenburgLoadingImage from 'build-configs/aschaffenburg/assets/app-icon-inverted.svg'
 
 import { INTEGREAT_ASSETS, MALTE_ASSETS, ASCHAFFENBURG_ASSETS } from 'build-configs/AssetsType'
 
