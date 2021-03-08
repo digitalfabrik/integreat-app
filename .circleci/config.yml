@@ -850,12 +850,6 @@ jobs:
             - restore_ruby_cache:
                 directory: native
             - run:
-                command: tools/parse-release-notes parse --ios --destination native/ios/fastlane/<< parameters.build_config_name >>/metadata/de-DE/release_notes.txt --language de --production
-                name: Parse german ios release notes
-            - run:
-                command: tools/parse-release-notes parse --ios --destination native/ios/fastlane/<< parameters.build_config_name >>/metadata/en-US/release_notes.txt --language en --production
-                name: Parse english ios release notes
-            - run:
                 command: bundle exec fastlane ios appstoreconnect_promote build_config_name:<< parameters.build_config_name >>
                 name: '[FL] App Store Connect Promotion'
                 working_directory: native
