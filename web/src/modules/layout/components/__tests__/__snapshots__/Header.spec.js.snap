@@ -20,9 +20,7 @@ exports[`Header should match snapshot with largeViewport 1`] = `
       hasTitle={false}
     >
       <HeaderLogo
-        alt="IntegreatTestCms"
         link="/random_route"
-        src="/app-logo.png"
       />
       <HeaderTitle />
       <Header__ActionBar>
@@ -70,9 +68,7 @@ exports[`Header should match snapshot with smallViewport 1`] = `
       hasTitle={false}
     >
       <HeaderLogo
-        alt="IntegreatTestCms"
         link="/random_route"
-        src="/app-logo.png"
       />
       <Header__ActionBar>
         <HeaderActionItemLink

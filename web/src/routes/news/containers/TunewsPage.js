@@ -6,7 +6,7 @@ import { type TFunction, withTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
 import type { StateType } from '../../../modules/app/StateType'
 import TunewsList from '../components/TunewsList'
-import NewsElement from '../components/NewsElement'
+import NewsListItem from '../components/NewsListItem'
 import NewsTabs from '../components/NewsTabs'
 import { CityModel, NotFoundError, TunewsModel } from 'api-client'
 import { TU_NEWS } from '../constants'
@@ -40,14 +40,14 @@ export const TunewsPage = ({
 }: PropsType) => {
   const formatter = useContext(DateFormatterContext)
 
-  const renderTunewsElement = (city: string, language: string) => ({
+  const renderTuNewsListItem = (city: string, language: string) => ({
     id,
     title,
     content,
     date
   }: TunewsModel, city: string) => {
     return (
-      <NewsElement
+      <NewsListItem
         title={title}
         content={content}
         timestamp={date}
@@ -79,7 +79,7 @@ export const TunewsPage = ({
               language={language}>
       <TunewsList
         items={tunews}
-        renderItem={renderTunewsElement(city, language)}
+        renderItem={renderTuNewsListItem(city, language)}
         city={city}
         fetchMoreTunews={fetchTunews}
         hasMore={hasMore}
