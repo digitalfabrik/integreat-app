@@ -18,6 +18,7 @@ type PropsType = {|
   lastUpdate: Moment,
   t: TFunction,
   withText: boolean,
+  format?: string,
   className?: string,
   formatter: DateFormatter
 |}
@@ -27,10 +28,11 @@ export const LastUpdateInfo = ({
   t,
   withText,
   className,
-  formatter
+  formatter,
+  format = 'LL'
 }: PropsType) => {
   // only show day, month and year
-  const timestamp = formatter.format(lastUpdate, { format: 'LL' })
+  const timestamp = formatter.format(lastUpdate, { format })
   return <TimeStamp className={className}>{withText && t('lastUpdate')} {timestamp}</TimeStamp>
 }
 
