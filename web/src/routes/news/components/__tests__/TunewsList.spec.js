@@ -5,7 +5,7 @@ import { TunewsModel } from 'api-client'
 import moment from 'moment'
 import { shallow } from 'enzyme'
 import TunewsList from '../TunewsList'
-import NewsElement from '../NewsElement'
+import NewsListItem from '../NewsListItem'
 import { TU_NEWS } from '../../constants'
 import DateFormatter from 'api-client/src/i18n/DateFormatter'
 
@@ -15,7 +15,7 @@ describe('TunewsList', () => {
   const t = (key: ?string): string => key || ''
   const city = 'testcity'
 
-  const renderItem = (language: string) => ({ id, title, content, date }: TunewsModel, city: string) => <NewsElement
+  const renderItem = (language: string) => ({ id, title, content, date }: TunewsModel, city: string) => <NewsListItem
     title={title}
     content={content}
     timestamp={date}
@@ -53,7 +53,7 @@ describe('TunewsList', () => {
     })
   ]
 
-  it('should have two NewsElement', () => {
+  it('should have two NewsListItem', () => {
     const tunewsList = shallow(
       <TunewsList
         language={language}
@@ -67,7 +67,7 @@ describe('TunewsList', () => {
       />
     ).dive()
 
-    const newsElementList = tunewsList.find(NewsElement)
+    const newsElementList = tunewsList.find(NewsListItem)
 
     expect(newsElementList).toHaveLength(2)
     expect(newsElementList.find({ title: 'Tick bite - What to do?' })).toHaveLength(1)
