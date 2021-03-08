@@ -6,7 +6,7 @@ import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import type { StateType } from '../../app/StateType'
 import Header from '../components/Header'
-import { cityContentUrl, url } from '../../navigation/url'
+import { cityContentUrl } from '../../navigation/url'
 import {
   DISCLAIMER_ROUTE,
   EVENTS_ROUTE,
@@ -149,7 +149,7 @@ describe('HeaderContainer', () => {
       }
     }
     const result = render(ownProps)
-    const expectedShareUrl = cityContentUrl({ cityCode: city.code, languageCode: language.code, route: null, path: 'abc' })
+    const expectedShareUrl = cityContentUrl({ cityCode: city.code, languageCode: language.code, path: 'abc' })
     assertProps(result, { shareUrl: expectedShareUrl })
   })
 
