@@ -1,0 +1,5 @@
+issue_key: IGAPP-487
+show_in_stores: false
+platforms:
+  - web
+en: Html entities and special characters are now displayed correclty for local news.
