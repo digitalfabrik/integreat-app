@@ -566,7 +566,7 @@ jobs:
             - run:
                 command: |
                     eval $(yarn workspace --silent build-configs --silent manage to-bash << parameters.build_config_name >> android)
-                    tools/sentry-release "$BUILD_CONFIG_APPLICATION_ID" "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/<< parameters.build_config_name >> "${NEW_VERSION_CODE}"
+                    tools/sentry-release "$BUILD_CONFIG_APPLICATION_ID" "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/<< parameters.build_config_name >> --version-code "${NEW_VERSION_CODE}"
                 name: Sentry Upload
             - notify
     deliver_ios:
@@ -623,7 +623,7 @@ jobs:
             - run:
                 command: |
                     eval $(yarn workspace --silent build-configs --silent manage to-bash << parameters.build_config_name >> ios)
-                    tools/sentry-release "$BUILD_CONFIG_BUNDLE_IDENTIFIER" "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/<< parameters.build_config_name >> "${NEW_VERSION_CODE}"
+                    tools/sentry-release "$BUILD_CONFIG_BUNDLE_IDENTIFIER" "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/<< parameters.build_config_name >> --version-code "${NEW_VERSION_CODE}"
                 name: Sentry Upload
             - notify
     deliver_web:
