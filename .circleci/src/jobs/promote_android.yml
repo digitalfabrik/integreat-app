@@ -17,7 +17,7 @@ steps:
   - restore_yarn_cache # Needed for babel-node run in read_build_config.rb. May be refactored and optimized later.
   - restore_ruby_cache:
       directory: native
-  - run: # TODO don't fail if no beta version
+  - run:
       name: "[FL] Play Store Promotion"
       command: bundle exec fastlane android playstore_promote build_config_name:<< parameters.build_config_name >>
       working_directory: native
