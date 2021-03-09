@@ -11,7 +11,7 @@
         <action android:name="android.intent.action.VIEW"/>
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
-        <data android:scheme="@string/BUILD_CONFIG_NAME"/>
+        <data android:scheme="integreat" android:host="@string/BUILD_CONFIG_HOST_NAME" />
       </intent-filter>
       <intent-filter>
         <action android:name="android.intent.action.VIEW"/>
