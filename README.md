@@ -57,6 +57,7 @@ We suggest **[IntelliJ IDEA Ultimate](https://www.jetbrains.com/idea/)** as IDE.
 If you are using a different IDE like Visual Studio Code ([./docs/vscode.md](./docs/vscode.md)) the steps might differ.
 
 * Import this project (VCS > Get from Version Control).
+* Install Prettier Plugin  
 * Open either the [web](web) or [native](native) project separately in IntelliJ (File > Open).
 * Follow the steps mentioned in the projects README.
 

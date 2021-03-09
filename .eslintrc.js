@@ -1,16 +1,12 @@
 module.exports = {
   parser: 'babel-eslint',
-  plugins: [
-    'react',
-    'react-hooks',
-    'flowtype',
-    'jest'
-  ],
+  plugins: ['react', 'react-hooks', 'flowtype', 'jest'],
   extends: [
     'standard',
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
-    'plugin:flowtype/recommended'
+    'plugin:flowtype/recommended',
+    'prettier'
   ],
   env: {
     es6: true,
@@ -35,8 +31,6 @@ module.exports = {
   rules: {
     'arrow-parens': ['error', 'as-needed'],
     curly: ['error', 'all'],
-    'jsx-quotes': ['error', 'prefer-single'],
-    'max-len': ['warn', { code: 120 }],
     'no-loop-func': 'error',
     'prefer-const': 'error',
     'prefer-object-spread': 'error',
@@ -61,12 +55,15 @@ module.exports = {
     'flowtype/object-type-delimiter': ['error', 'comma'],
     'flowtype/require-exact-type': ['warn', 'always'],
     'flowtype/require-parameter-type': ['error', { excludeArrowFunctions: true }],
-    'flowtype/require-return-type': ['error', 'always', {
-      excludeArrowFunctions: true,
-      annotateUndefined: 'never',
-      excludeMatching: ['^render$']
-    }],
-    'flowtype/semi': ['error', 'never'],
+    'flowtype/require-return-type': [
+      'error',
+      'always',
+      {
+        excludeArrowFunctions: true,
+        annotateUndefined: 'never',
+        excludeMatching: ['^render$']
+      }
+    ],
     'flowtype/type-id-match': ['error', '^(iOS)?([A-Z][a-z0-9]+)+Type$'],
     'flowtype/valid-syntax': 'warn',
 
@@ -80,19 +77,25 @@ module.exports = {
     'jest/valid-describe': 'error',
     'jest/valid-expect': 'error'
   },
-  overrides: [{
-    files: ['**/src/**/*.js'],
-    rules: {
-      'flowtype/require-valid-file-annotation': ['error', 'always', { annotationStyle: 'line' }]
+  overrides: [
+    {
+      files: ['**/src/**/*.js'],
+      rules: {
+        'flowtype/require-valid-file-annotation': ['error', 'always', { annotationStyle: 'line' }]
+      }
+    },
+    {
+      files: ['*.js'],
+      excludedFiles: ['*.spec.js', '**/__mocks__/*.js'],
+      rules: {
+        'no-magic-numbers': [
+          'error',
+          {
+            ignore: [-1, 0, 1, 2],
+            ignoreArrayIndexes: true
+          }
+        ]
+      }
     }
-  }, {
-    files: ['*.js'],
-    excludedFiles: ['*.spec.js', '**/__mocks__/*.js'],
-    rules: {
-      'no-magic-numbers': ['error', {
-        ignore: [-1, 0, 1, 2],
-        ignoreArrayIndexes: true
-      }]
-    }
-  }]
+  ]
 }
