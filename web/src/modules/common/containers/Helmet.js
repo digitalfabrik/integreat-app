@@ -28,7 +28,7 @@ class Helmet extends React.PureComponent<PropsType> {
 
   render () {
     const { pageTitle, cityModel, metaDescription } = this.props
-    const previewImageUrl = new URL(buildConfig().shareBaseUrl)
+    const previewImageUrl = new URL(`https://${buildConfig().hostName}`)
     previewImageUrl.pathname = buildConfig().icons.socialMediaPreview
 
     return <ReactHelmet>
