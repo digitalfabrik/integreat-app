@@ -20,7 +20,7 @@
     "@babel/runtime": "7.13.7",
     "js-md5": "^0.7.3",
     "entities": "^2.0.0",
-    "moment": "2.25.3",
+    "moment": "2.29.1",
     "moment-timezone": "^0.5",
     "normalize-path": "^3.0.0",
     "sanitize-html-react": "^1.13",
