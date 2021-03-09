@@ -17,7 +17,7 @@ const MomentLocalesPlugin = require('moment-locales-webpack-plugin')
 const babelConfig = require('../babel.config.js')
 const fs = require('fs')
 const translations = require('translations')
-const { WEB, ANDROID, COMMON, IOS } = require('build-configs')
+const { WEB, ANDROID, IOS } = require('build-configs')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 const currentYear = new Date().getFullYear()
@@ -40,13 +40,12 @@ const generateManifest = (content: string, buildConfigName: string): string => {
 
   const androidBuildConfig = loadBuildConfig(buildConfigName, ANDROID)
   const iOSBuildConfig = loadBuildConfig(buildConfigName, IOS)
-  const commonBuildConfig = loadBuildConfig(buildConfigName, COMMON)
   const webBuildConfig = loadBuildConfig(buildConfigName, WEB)
 
   manifest.version = readVersionName()
-  manifest.homepage_url = commonBuildConfig.aboutUrls.default
-  manifest.theme_color = commonBuildConfig.lightTheme.colors.themeColor
-  manifest.name = commonBuildConfig.appName
+  manifest.homepage_url = webBuildConfig.aboutUrls.default
+  manifest.theme_color = webBuildConfig.lightTheme.colors.themeColor
+  manifest.name = webBuildConfig.appName
   manifest.description = webBuildConfig.appDescription
   manifest.related_applications = [
     {
@@ -62,8 +61,15 @@ const generateManifest = (content: string, buildConfigName: string): string => {
   return JSON.stringify(manifest, null, 2)
 }
 
-const createConfig = (env: { config_name?: string, dev_server?: boolean, version_name?: string, commit_sha?: string } = {}) => {
-  const { config_name: buildConfigName, commit_sha: passedCommitSha, version_name: passedVersionName, dev_server: devServer } = env
+const createConfig = (
+  env: { config_name?: string, dev_server?: boolean, version_name?: string, commit_sha?: string, ... } = {}
+) => {
+  const {
+    config_name: buildConfigName,
+    commit_sha: passedCommitSha,
+    version_name: passedVersionName,
+    dev_server: devServer
+  } = env
 
   if (!buildConfigName) {
     throw new Error('Please specify a build config name')
@@ -171,7 +177,7 @@ const createConfig = (env: { config_name?: string, dev_server?: boolean, version
           {
             from: manifestPreset,
             to: distDirectory,
-            transform (content: string, path: any): string { return generateManifest(content, buildConfigName) }
+            transform (content: string, _: string): string { return generateManifest(content, buildConfigName) }
           }
         ]
       }),
