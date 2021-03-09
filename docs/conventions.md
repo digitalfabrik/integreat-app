@@ -8,6 +8,7 @@ We follow the [airbnb style](https://github.com/airbnb/javascript/tree/master/re
 
 We mainly follow the [standard style](https://standardjs.com/rules) for JavaScript, although there may be smaller deviations.
 Run the linter (`yarn lint`) to show problems. Our eslint config can be found [here](https://github.com/Integreat/eslint-config-integreat).
+We use prettier to format code. Run (`yarn workspace web (or native) prettier --check .`) to show formatting problems.
 
 ## Git commit messages and Pull request names
 
@@ -28,8 +29,9 @@ The following [schema](https://calver.org/) ![versioning](https://img.shields.io
 `PATCH` is a counter for the number of releases in the corresponding month starting with 0.
 
 Examples:
-* First versions of 2020: `2020.1.0`, `2020.1.1`, `2020.1.2`.
-* First version of February 2020: `2020.2.0`. 
+
+- First versions of 2020: `2020.1.0`, `2020.1.1`, `2020.1.2`.
+- First version of February 2020: `2020.2.0`.
 
 ### Version code
 
@@ -39,8 +41,8 @@ The first version code was `100000`.
 
 ## Folder structure
 
-
 ### Native
+
 ```
 ├── __mocks__
 ├── modules
@@ -62,7 +64,9 @@ The first version code was `100000`.
 │       ├── hocs
 │       └── reducers
 ```
+
 A component always follows the following structure (Uppercase files always contain a single class):
+
 ```
 ├── __tests__
 │   └── Caption.js
