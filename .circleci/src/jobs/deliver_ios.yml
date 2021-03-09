@@ -51,5 +51,5 @@ steps:
      # A react-native app reports its version as: bundle_identifier@bundle_version+bundle_code
      command: |
        eval $(yarn workspace --silent build-configs --silent manage to-bash << parameters.build_config_name >> ios)
-       tools/sentry-release "$BUILD_CONFIG_BUNDLE_IDENTIFIER" "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/<< parameters.build_config_name >> "${NEW_VERSION_CODE}"
+       tools/sentry-release "$BUILD_CONFIG_BUNDLE_IDENTIFIER" "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/<< parameters.build_config_name >> --version-code "${NEW_VERSION_CODE}"
   - notify
