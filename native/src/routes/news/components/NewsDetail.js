@@ -1,8 +1,9 @@
 // @flow
 
 import * as React from 'react'
-import { ScrollView, View, useWindowDimensions } from 'react-native'
-import { LocalNewsModel, TunewsModel, replaceLinks } from 'api-client'
+import { useCallback, useContext } from 'react'
+import { ScrollView, useWindowDimensions, View } from 'react-native'
+import { LocalNewsModel, replaceLinks, TunewsModel } from 'api-client'
 import type { ThemeType } from 'build-configs/ThemeType'
 import { contentAlignment } from '../../../modules/i18n/contentDirection'
 import headerImage from '../assets/tu-news-header-details-icon.svg'
@@ -10,12 +11,18 @@ import styled from 'styled-components/native'
 import type { StyledComponent } from 'styled-components'
 import Html from 'react-native-render-html'
 import TuNewsFooter from './TuNewsFooter'
-import { useCallback } from 'react'
+import TimeStamp from '../../../modules/common/components/TimeStamp'
+import DateFormatterContext from '../../../modules/i18n/context/DateFormatterContext'
 
 const Container: StyledComponent<{||}, {||}, *> = styled.View`
   align-items: center;
   margin-horizontal: 3%;
   flex: 1;
+`
+
+const TimeStampContent: StyledComponent<{|language: string |}, ThemeType, *> = styled.Text`
+  padding: 17px 0px
+  text-align: ${props => contentAlignment(props.language)};
 `
 
 const HeaderImageWrapper: StyledComponent<{||}, ThemeType, *> = styled.View`
@@ -49,6 +56,7 @@ type PropsType = {|
 |}
 
 const NewsDetail = ({ theme, newsItem, language, navigateToLink }: PropsType) => {
+  const formatter = useContext(DateFormatterContext)
   const width = useWindowDimensions().width
   const localNewsContent = newsItem instanceof LocalNewsModel ? newsItem.message : ''
   const tuNewsContent = newsItem instanceof TunewsModel ? newsItem.content : ''
@@ -86,6 +94,14 @@ const NewsDetail = ({ theme, newsItem, language, navigateToLink }: PropsType) =>
                   color: theme.colors.textColor
                 }}
                 defaultTextProps={{ selectable: true, allowFontStyling: true }} />
+          {newsItem instanceof LocalNewsModel &&
+          <TimeStampContent language={language} theme={theme}>
+            <TimeStamp formatter={formatter}
+                       lastUpdate={newsItem.timestamp}
+                       showText={false}
+                       format={'LLL'}
+                       language={language} theme={theme} />
+          </TimeStampContent>}
         </Container>
         {newsItem instanceof TunewsModel && <TuNewsFooter language={language}
                                                           eNewsNo={newsItem.eNewsNo}

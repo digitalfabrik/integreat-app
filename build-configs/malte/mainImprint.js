@@ -6,8 +6,8 @@ Erna-Scheffler-Straße 2
 Telefon 0221 9822-1800
 Telefax 0221 9822-1899
 
-<a href="mailto:malteserwerke@malteser.org">malteserwerke@malteser.org</a>
-<a href="http://www.malteser.de/">www.malteserwerke.de</a>
+<a href='mailto:malteserwerke@malteser.org'>malteserwerke@malteser.org</a>
+<a href='http://www.malteser.de/'>www.malteserwerke.de</a>
 
 Registergericht: Köln
 Registernummer: HRB 31629
