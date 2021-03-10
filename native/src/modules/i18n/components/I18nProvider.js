@@ -59,7 +59,9 @@ export default ({ children }: PropsType) => {
         debug: buildConfig().featureFlags.developerFriendly
       })
 
-      await setContentLanguage(i18nextInstance.language).catch(e => {
+      // A language mentioned in the supportedLanguages array of the config.js in the translations package
+      const matchedLanguage = i18nextInstance.languages[0]
+      await setContentLanguage(matchedLanguage).catch(e => {
         console.error(e)
       })
 
