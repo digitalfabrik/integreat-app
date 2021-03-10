@@ -46,7 +46,8 @@ class Config {
     am: { rtl: false },
     bg: { rtl: false },
     el: { rtl: false },
-    it: { rtl: false }
+    it: { rtl: false },
+    'zh-CN': { rtl: false }
   }
 
   // Fallbacks for unnormalized language codes from our backend
