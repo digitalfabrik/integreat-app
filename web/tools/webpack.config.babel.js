@@ -17,7 +17,7 @@ const MomentLocalesPlugin = require('moment-locales-webpack-plugin')
 const babelConfig = require('../babel.config.js')
 const fs = require('fs')
 const translations = require('translations')
-const { WEB } = require('build-configs')
+const { WEB, ANDROID, COMMON, IOS } = require('build-configs')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 const currentYear = new Date().getFullYear()
@@ -35,11 +35,38 @@ const readVersionName = () => {
   return versionFile.versionName
 }
 
+const generateManifest = (content: string, buildConfigName: string): string => {
+  const manifest = JSON.parse(content.toString())
+
+  const androidBuildConfig = loadBuildConfig(buildConfigName, ANDROID)
+  const iOSBuildConfig = loadBuildConfig(buildConfigName, IOS)
+  const commonBuildConfig = loadBuildConfig(buildConfigName, COMMON)
+  const webBuildConfig = loadBuildConfig(buildConfigName, WEB)
+
+  manifest.version = readVersionName()
+  manifest.homepage_url = commonBuildConfig.aboutUrls.default
+  manifest.theme_color = commonBuildConfig.lightTheme.colors.themeColor
+  manifest.name = commonBuildConfig.appName
+  manifest.description = webBuildConfig.appDescription
+  manifest.related_applications = [
+    {
+      platform: 'play',
+      id: androidBuildConfig.applicationId,
+      url: `https://play.google.com/store/apps/details?id=${androidBuildConfig.applicationId}`
+    }, {
+      platform: 'itunes',
+      url: `https://apps.apple.com/de/app/${iOSBuildConfig.itunesAppName}/id${iOSBuildConfig.appleId}`
+    }
+  ]
+  manifest.short_name = manifest.name
+  return JSON.stringify(manifest, null, 2)
+}
+
 const createConfig = (env: { config_name?: string, dev_server?: boolean, version_name?: string, commit_sha?: string } = {}) => {
-  const { config_name: buildConfigName, commit_sha: commitSha, version_name: versionName, dev_server: devServer } = env
+  const { config_name: buildConfigName, commit_sha: passedCommitSha, version_name: passedVersionName, dev_server: devServer } = env
 
   if (!buildConfigName) {
-    throw new Error('Please specificy build config name')
+    throw new Error('Please specify a build config name')
   }
 
   const buildConfig = loadBuildConfig(buildConfigName, WEB)
@@ -49,14 +76,13 @@ const createConfig = (env: { config_name?: string, dev_server?: boolean, version
   process.env.NODE_ENV = NODE_ENV
 
   // If version_name is not supplied read it from version file
-  let version = versionName || readVersionName()
-  if (commitSha) {
-    version = `${version}+${commitSha.substring(0, SHORT_COMMIT_SHA_LENGTH)}`
-  }
+  const versionName = passedVersionName ?? readVersionName()
+  const shortCommitSha = passedCommitSha?.substring(0, SHORT_COMMIT_SHA_LENGTH) ?? 'Commit SHA unknown'
 
   console.log('Used config: ', buildConfigName)
   console.log('Configured as running in dev server: ', !devServer)
-  console.log('Version: ', version)
+  console.log('Version name: ', versionName)
+  console.log('Commit SHA ', shortCommitSha)
 
   const configAssets = path.resolve(__dirname, `../node_modules/build-configs/${buildConfigName}/assets`)
 
@@ -66,6 +92,7 @@ const createConfig = (env: { config_name?: string, dev_server?: boolean, version
   const distDirectory = path.resolve(__dirname, `../dist/${buildConfigName}`)
   const srcDirectory = path.resolve(__dirname, '../src')
   const bundleReportDirectory = path.resolve(__dirname, '../reports/bundle')
+  const manifestPreset = path.resolve(__dirname, 'manifest.json')
 
   // Add new polyfills here instead of importing them in the JavaScript code.
   // This way it is ensured that polyfills are loaded before any other code which might require them.
@@ -137,19 +164,21 @@ const createConfig = (env: { config_name?: string, dev_server?: boolean, version
           config: buildConfig
         }
       }),
-      new CopyPlugin([
-        {
-          from: wwwDirectory,
-          to: distDirectory
-        },
-        {
-          from: configAssets,
-          to: distDirectory
-        }
-      ]),
+      new CopyPlugin({
+        patterns: [
+          { from: wwwDirectory, to: distDirectory },
+          { from: configAssets, to: distDirectory },
+          {
+            from: manifestPreset,
+            to: distDirectory,
+            transform (content: string, path: any): string { return generateManifest(content, buildConfigName) }
+          }
+        ]
+      }),
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': NODE_ENV,
-        __VERSION__: JSON.stringify(version),
+        __VERSION_NAME__: JSON.stringify(versionName),
+        __COMMIT_SHA__: JSON.stringify(shortCommitSha),
         __BUILD_CONFIG_NAME__: JSON.stringify(buildConfigName),
         __BUILD_CONFIG__: JSON.stringify(buildConfig)
       }),

@@ -20,76 +20,9 @@ exports[`Header should match snapshot with largeViewport 1`] = `
       hasTitle={false}
     >
       <HeaderLogo
-        alt="IntegreatTestCms"
         link="/random_route"
-        src="/app-logo.png"
-        theme={
-          Object {
-            "colors": Object {
-              "backgroundAccentColor": "#fafafa",
-              "backgroundColor": "#ffffff",
-              "textColor": "#000000",
-              "textDecorationColor": "#c7c7c7",
-              "textDisabledColor": "#d0d0d0",
-              "textSecondaryColor": "#585858",
-              "themeColor": "#fbda16",
-              "tunewsThemeColor": "#007aa8",
-              "tunewsThemeColorLight": "rgba(0, 122, 168, 0.4)",
-            },
-            "fonts": Object {
-              "arabicWebviewFontFamilies": "'OpenSans', 'Lateef', sans-serif",
-              "contentFontBold": "OpenSans-Bold",
-              "contentFontFamily": "'Open Sans', 'Lateef', sans-serif",
-              "contentFontRegular": "OpenSans-Regular",
-              "contentFontSize": "0.95rem",
-              "contentLineHeight": 1.4,
-              "decorativeFontBold": "Raleway-Bold",
-              "decorativeFontFamily": "'Raleway', 'Lateef', sans-serif",
-              "decorativeFontRegular": "Raleway-Regular",
-              "decorativeFontSize": "0.95rem",
-              "decorativeLineHeight": 1.3,
-              "fontSizeAdjust": 0.55,
-              "standardParagraphMargin": "0.75rem",
-              "subTitleFontSize": "1.8rem",
-              "webviewFontFamilies": "'OpenSans', sans-serif",
-            },
-          }
-        }
       />
-      <HeaderTitle
-        theme={
-          Object {
-            "colors": Object {
-              "backgroundAccentColor": "#fafafa",
-              "backgroundColor": "#ffffff",
-              "textColor": "#000000",
-              "textDecorationColor": "#c7c7c7",
-              "textDisabledColor": "#d0d0d0",
-              "textSecondaryColor": "#585858",
-              "themeColor": "#fbda16",
-              "tunewsThemeColor": "#007aa8",
-              "tunewsThemeColorLight": "rgba(0, 122, 168, 0.4)",
-            },
-            "fonts": Object {
-              "arabicWebviewFontFamilies": "'OpenSans', 'Lateef', sans-serif",
-              "contentFontBold": "OpenSans-Bold",
-              "contentFontFamily": "'Open Sans', 'Lateef', sans-serif",
-              "contentFontRegular": "OpenSans-Regular",
-              "contentFontSize": "0.95rem",
-              "contentLineHeight": 1.4,
-              "decorativeFontBold": "Raleway-Bold",
-              "decorativeFontFamily": "'Raleway', 'Lateef', sans-serif",
-              "decorativeFontRegular": "Raleway-Regular",
-              "decorativeFontSize": "0.95rem",
-              "decorativeLineHeight": 1.3,
-              "fontSizeAdjust": 0.55,
-              "standardParagraphMargin": "0.75rem",
-              "subTitleFontSize": "1.8rem",
-              "webviewFontFamilies": "'OpenSans', sans-serif",
-            },
-          }
-        }
-      />
+      <HeaderTitle />
       <Header__ActionBar>
         <HeaderActionItemLink
           href="/random_route"
@@ -135,41 +68,7 @@ exports[`Header should match snapshot with smallViewport 1`] = `
       hasTitle={false}
     >
       <HeaderLogo
-        alt="IntegreatTestCms"
         link="/random_route"
-        src="/app-logo.png"
-        theme={
-          Object {
-            "colors": Object {
-              "backgroundAccentColor": "#fafafa",
-              "backgroundColor": "#ffffff",
-              "textColor": "#000000",
-              "textDecorationColor": "#c7c7c7",
-              "textDisabledColor": "#d0d0d0",
-              "textSecondaryColor": "#585858",
-              "themeColor": "#fbda16",
-              "tunewsThemeColor": "#007aa8",
-              "tunewsThemeColorLight": "rgba(0, 122, 168, 0.4)",
-            },
-            "fonts": Object {
-              "arabicWebviewFontFamilies": "'OpenSans', 'Lateef', sans-serif",
-              "contentFontBold": "OpenSans-Bold",
-              "contentFontFamily": "'Open Sans', 'Lateef', sans-serif",
-              "contentFontRegular": "OpenSans-Regular",
-              "contentFontSize": "0.95rem",
-              "contentLineHeight": 1.4,
-              "decorativeFontBold": "Raleway-Bold",
-              "decorativeFontFamily": "'Raleway', 'Lateef', sans-serif",
-              "decorativeFontRegular": "Raleway-Regular",
-              "decorativeFontSize": "0.95rem",
-              "decorativeLineHeight": 1.3,
-              "fontSizeAdjust": 0.55,
-              "standardParagraphMargin": "0.75rem",
-              "subTitleFontSize": "1.8rem",
-              "webviewFontFamilies": "'OpenSans', sans-serif",
-            },
-          }
-        }
       />
       <Header__ActionBar>
         <HeaderActionItemLink

@@ -63,6 +63,7 @@ export const iosIntegreatBuildConfig: iOSBuildConfigType = {
   bundleIdentifier: 'de.integreat-app',
   provisioningProfileSpecifier: 'match Development de.integreat-app',
   appleId: APPLE_APP_ID,
+  itunesAppName: 'integreat',
   googleServices: {
     clientId: '164298278764-pemn49q7v283m0tqml3q8q0ltr5h8pni.apps.googleusercontent.com',
     reversedClientId: 'com.googleusercontent.apps.164298278764-pemn49q7v283m0tqml3q8q0ltr5h8pni',
@@ -85,6 +86,7 @@ export const iosIntegreatBuildConfig: iOSBuildConfigType = {
 
 export const webIntegreatBuildConfig: WebBuildConfigType = {
   ...commonIntegreatBuildConfig,
+  appDescription: 'Integreat – die lokale und mehrsprachige Integrations-Plattform für Zugewanderte',
   mainImprint,
   itunesAppId: APPLE_APP_ID,
   manifestUrl: '/manifest.json',
@@ -98,6 +100,11 @@ export const webIntegreatBuildConfig: WebBuildConfigType = {
   splashScreen: {
     backgroundColor: lightTheme.colors.themeColor,
     imageUrl: '/app-icon-cornered.jpg'
+  },
+  campaign: {
+    campaignAppLogo: '/campaign-app-logo.png',
+    startDate: '2021-03-08T00:00:00.000Z',
+    endDate: '2021-03-15T00:00:00.000Z'
   }
 }
 

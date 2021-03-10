@@ -7,7 +7,7 @@ import Page from '../../../modules/common/components/Page'
 import Tiles from '../../../modules/common/components/Tiles'
 import CategoryList from './CategoryList'
 import TileModel from '../../../modules/common/models/TileModel'
-import { TFunction } from 'i18next'
+import { type TFunction } from 'react-i18next'
 import { push } from 'redux-first-router'
 
 const getTileModels = (categories: Array<CategoryModel>): Array<TileModel> => {

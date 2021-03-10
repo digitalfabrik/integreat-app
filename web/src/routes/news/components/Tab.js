@@ -1,16 +1,17 @@
 // @flow
 
 import React from 'react'
-import styled from 'styled-components'
+import styled, { type StyledComponent } from 'styled-components'
 import Link from 'redux-first-router-link'
-import { TFunction } from 'i18next'
+import { type TFunction } from 'react-i18next'
 import tunewsLogoActive from '../assets/TunewsActiveLogo.png'
 import tunewsLogoInactive from '../assets/TunewsInactiveLogo.png'
 import { TU_NEWS } from '../constants'
+import type { ThemeType } from 'build-configs/ThemeType'
 
 const NewsLink = ({ active, ...props }: { active: boolean }) => <Link {...props} />
 
-const StyledTab = styled(NewsLink)`
+const StyledTab: StyledComponent<{||}, ThemeType, *> = styled(NewsLink)`
   display: flex;
   width: 160px;
   height: 50px;
@@ -31,7 +32,7 @@ const StyledTab = styled(NewsLink)`
   text-decoration: none;
 `
 
-const TuStyledTab = styled(StyledTab)`
+const TuStyledTab: StyledComponent<{||}, ThemeType, *> = styled(StyledTab)`
   background-image: ${({ active, theme }) =>
     active ? `url(${tunewsLogoActive})` : `url(${tunewsLogoInactive})`};
   background-color: ${({ active, theme }) =>

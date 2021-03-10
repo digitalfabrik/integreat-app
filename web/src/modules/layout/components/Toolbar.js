@@ -3,8 +3,7 @@
 import type { Node } from 'react'
 import React from 'react'
 import styled from 'styled-components'
-import { withTranslation } from 'react-i18next'
-import type { TFunction } from 'react-i18next'
+import { withTranslation, type TFunction } from 'react-i18next'
 import dimensions from '../../theme/constants/dimensions'
 
 const ToolbarContainer = styled.div`
@@ -56,4 +55,4 @@ class Toolbar extends React.PureComponent<PropsType> {
   }
 }
 
-export default withTranslation('feedback')(Toolbar)
+export default withTranslation<PropsType>('feedback')(Toolbar)

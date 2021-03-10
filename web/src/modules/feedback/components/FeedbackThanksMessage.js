@@ -3,8 +3,7 @@
 import React from 'react'
 import { Description, StyledFeedbackBox } from './FeedbackBox'
 import ModalHeader from './ModalHeader'
-import type { TFunction } from 'react-i18next'
-import { withTranslation } from 'react-i18next'
+import { withTranslation, type TFunction } from 'react-i18next'
 import buildConfig from '../../app/constants/buildConfig'
 
 type PropsType = {|
@@ -24,4 +23,4 @@ export class FeedbackThanksMessage extends React.PureComponent<PropsType> {
   }
 }
 
-export default withTranslation('feedback')(FeedbackThanksMessage)
+export default withTranslation<PropsType>('feedback')(FeedbackThanksMessage)

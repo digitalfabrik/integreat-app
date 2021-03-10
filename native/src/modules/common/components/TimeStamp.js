@@ -29,21 +29,23 @@ type PropsType = {|
   formatter: DateFormatter,
   t: TFunction,
   language: string,
-  theme: ThemeType
+  theme: ThemeType,
+  showText?: boolean,
+  format?: string
 |}
 
 export class TimeStamp extends React.PureComponent<PropsType> {
   render () {
-    const { lastUpdate, formatter, t, language, theme } = this.props
+    const { lastUpdate, formatter, t, language, theme, showText = true, format = 'LL' } = this.props
     // only show day, month and year
     const dateText = formatter.format(lastUpdate, {
-      format: 'LL'
+      format
     })
     return <DirectionContainer language={language} theme={theme}>
-      <TimeStampText theme={theme}>{t('lastUpdate')} </TimeStampText>
+      {showText && <TimeStampText theme={theme}>{t('lastUpdate')} </TimeStampText>}
       <TimeStampText theme={theme}>{dateText}</TimeStampText>
     </DirectionContainer>
   }
 }
 
-export default withTranslation('common')(TimeStamp)
+export default withTranslation<PropsType>('common')(TimeStamp)

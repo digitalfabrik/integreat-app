@@ -37,7 +37,6 @@ import {
   POIS_ROUTE, SEARCH_ROUTE, SETTINGS_ROUTE
 } from 'api-client/src/routes'
 import type { IntroRouteType, DashboardRouteType, LandingRouteType } from 'api-client/src/routes'
-import { cityContentUrl } from '../../navigation/url'
 import type { RoutesParamsType } from '../constants/NavigationTypes'
 
 const transparentHeader = (headerProps: StackHeaderProps) =>
@@ -126,7 +125,7 @@ const Navigator = (props: PropsType) => {
       setWaitingForSettings(false)
     }
     initialize().catch(error => setErrorMessage(error.message))
-  }, [])
+  }, [fetchCities, setInitialRoute, setErrorMessage])
 
   // The following is used to have correct mapping from categories route mapping in redux state to the actual routes
   useEffect(() => {
@@ -147,7 +146,7 @@ const Navigator = (props: PropsType) => {
     }
     previousRouteKey.current = routeKey
     previousRouteName.current = routeName
-  }, [routeKey])
+  }, [routeKey, cityCode, fetchCategory, initialRoute, languageCode, routeName])
 
   if (errorMessage) {
     return <Text>{errorMessage}</Text>
@@ -158,8 +157,7 @@ const Navigator = (props: PropsType) => {
   const dashboardParams = initialRoute.name === DASHBOARD_ROUTE
     ? {
         cityCode: initialRoute.cityCode,
-        languageCode: initialRoute.languageCode,
-        shareUrl: cityContentUrl({ cityCode: initialRoute.cityCode, languageCode: initialRoute.languageCode })
+        languageCode: initialRoute.languageCode
       }
     : {}
 

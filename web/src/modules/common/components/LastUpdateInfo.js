@@ -1,13 +1,13 @@
 // @flow
 
 import React from 'react'
-import type { TFunction } from 'react-i18next'
-import { withTranslation } from 'react-i18next'
+import { withTranslation, type TFunction } from 'react-i18next'
 import type Moment from 'moment'
-import styled from 'styled-components'
+import styled, { type StyledComponent } from 'styled-components'
 import DateFormatter from 'api-client/src/i18n/DateFormatter'
+import type { ThemeType } from 'build-configs/ThemeType'
 
-const TimeStamp = styled.p`
+const TimeStamp: StyledComponent<{||}, ThemeType, *> = styled.p`
   padding-top: 15px;
   color: ${props => props.theme.colors.textSecondaryColor};
   font-family: ${props => props.theme.fonts.contentFontFamily};
@@ -34,4 +34,4 @@ export const LastUpdateInfo = ({
   return <TimeStamp className={className}>{withText && t('lastUpdate')} {timestamp}</TimeStamp>
 }
 
-export default withTranslation('common')(LastUpdateInfo)
+export default withTranslation<PropsType>('common')(LastUpdateInfo)

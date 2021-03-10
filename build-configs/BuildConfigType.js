@@ -50,8 +50,9 @@ export type CommonBuildConfigType = {|
 // Available only on web
 export type WebBuildConfigType = {|
   ...CommonBuildConfigType,
+  appDescription: string, // Used for generating manifest.json
   mainImprint: string, // Main imprint of the app.
-  manifestUrl?: string, // Url to the manifest.json.
+  manifestUrl?: string, // Url to the manifest.json generated with webpack.
   itunesAppId?: string, // Id of the corresponding iOS app in the Apple App Store.
   icons: {|
     appLogo: string,
@@ -63,6 +64,11 @@ export type WebBuildConfigType = {|
   splashScreen?: {| // Splash screen showed before the web app has been loaded.
     backgroundColor: string,
     imageUrl: string
+  |},
+  campaign?: {| // Shows a different app logo from start to end date.
+    campaignAppLogo: string,
+    startDate: string,
+    endDate: string
   |}
 |}
 
@@ -115,5 +121,6 @@ export type iOSBuildConfigType = {|
   bundleIdentifier: string, // iOS application identifier.
   provisioningProfileSpecifier: string, // Provisioning profile to sign the app.
   appleId: string, // Id of the app in the Apple App Store
+  itunesAppName: string, // unique generated App Name of apple, used for generating mainfest
   googleServices: ?iOSGoogleServicesConfigType
 |}

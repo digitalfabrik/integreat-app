@@ -8,9 +8,9 @@ import type { StoreActionType, SwitchContentLanguageActionType } from '../../../
 import type { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
 import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvider'
 import withTheme from '../../../modules/theme/hocs/withTheme'
-import { CityModel, PoiModel } from 'api-client'
+import { PoiModel } from 'api-client'
 import * as React from 'react'
-import Pois from '../components/Pois'
+import Pois, { type PropsType as PoisPropsType } from '../components/Pois'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
 import type {
   NavigationPropType,
@@ -21,6 +21,7 @@ import createNavigateToFeedbackModal from '../../../modules/navigation/createNav
 import type { PoisRouteType } from 'api-client/src/routes'
 import createNavigate from '../../../modules/navigation/createNavigate'
 import { POIS_ROUTE } from 'api-client/src/routes'
+import type { ThemeType } from 'build-configs/ThemeType'
 
 type NavigationPropsType = {|
   route: RoutePropType<PoisRouteType>,
@@ -35,8 +36,7 @@ type OwnPropsType = {|
 type ContainerPropsType = {|
   ...OwnPropsType,
   path: ?string,
-  pois: $ReadOnlyArray<PoiModel>,
-  cities: $ReadOnlyArray<CityModel>,
+  pois: Array<PoiModel>,
   cityCode: string,
   language: string,
   resourceCache: LanguageResourceCacheStateType,
@@ -106,9 +106,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     route: ownProps.route
   }
 
-  if (state.cities.status === 'error') {
-    return { status: 'error', message: state.cities.message, code: state.cities.code, refreshProps }
-  } else if (resourceCache.status === 'error') {
+  if (resourceCache.status === 'error') {
     return { status: 'error', message: resourceCache.message, code: resourceCache.code, refreshProps }
   } else if (route.status === 'error') {
     return { status: 'error', message: route.message, code: route.code, refreshProps }
@@ -116,7 +114,8 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     return { status: 'error', message: languages.message, code: languages.code, refreshProps }
   }
 
-  if (state.resourceCacheUrl === null || state.cities.status === 'loading' || switchingLanguage ||
+  const resourceCacheUrl = state.resourceCacheUrl
+  if (resourceCacheUrl === null || switchingLanguage ||
     route.status === 'loading' || languages.status === 'loading') {
     return { status: 'loading', progress: 0 }
   }
@@ -126,19 +125,16 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     throw new Error('language not available route status not handled!')
   }
 
-  const cities = state.cities.models
-
   return {
     status: 'success',
     refreshProps,
     innerProps: {
       path: route.path,
-      pois: route.models,
-      cities: cities,
+      pois: Array.from(route.models),
       cityCode: route.city,
       language: route.language,
       resourceCache: resourceCache.value,
-      resourceCacheUrl: state.resourceCacheUrl,
+      resourceCacheUrl,
       navigation,
       route: ownProps.route,
       t: ownProps.t
@@ -148,8 +144,8 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsType => ({ dispatch })
 
-const ThemedTranslatedPois = withTranslation('pois')(
-  withTheme(Pois)
+const ThemedTranslatedPois = withTranslation<$Diff<PoisPropsType, {| theme: ThemeType |}>>('pois')(
+  withTheme<PoisPropsType>(Pois)
 )
 
 class PoisContainer extends React.Component<ContainerPropsType> {
@@ -160,10 +156,10 @@ class PoisContainer extends React.Component<ContainerPropsType> {
   }
 
   render () {
-    const { dispatch, ...rest } = this.props
+    const { dispatch, navigation, route, t, ...rest } = this.props
     return <ThemedTranslatedPois {...rest}
-                                 navigateTo={createNavigate(dispatch, rest.navigation)}
-                                 navigateToFeedback={createNavigateToFeedbackModal(rest.navigation)}
+                                 navigateTo={createNavigate(dispatch, navigation)}
+                                 navigateToFeedback={createNavigateToFeedbackModal(navigation)}
                                  navigateToLink={this.navigateToLinkProp}
     />
   }
@@ -180,7 +176,7 @@ const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionT
   }, route.key, true)
 }
 
-export default withTranslation('error')(
+export default withTranslation<OwnPropsType>('error')(
   connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
     withPayloadProvider<ContainerPropsType, RefreshPropsType, PoisRouteType>(refresh, onRouteClose)(
       PoisContainer

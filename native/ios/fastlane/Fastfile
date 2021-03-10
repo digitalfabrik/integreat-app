@@ -30,7 +30,7 @@ lane :certificates do |options|
     raise "'nil' passed as parameter! Aborting..."
   end
 
-  build_config = read_build_config(build_config_name, 'ios', '../')
+  build_config = read_build_config(build_config_name, 'ios')
 
   # https://docs.fastlane.tools/actions/match/
   match(type: "appstore", app_identifier: build_config['bundleIdentifier'], readonly: true)
@@ -59,7 +59,7 @@ lane :build do |options|
   # DO NOT REMOVE THIS! It is necessary for the javascript build config logic.
   ENV["BUILD_CONFIG_NAME"] = build_config_name
 
-  build_config = read_build_config(build_config_name, 'ios', '../')
+  build_config = read_build_config(build_config_name, 'ios')
 
   # https://docs.fastlane.tools/actions/match/
   match(type: "development", app_identifier: build_config['bundleIdentifier'], readonly: true)
