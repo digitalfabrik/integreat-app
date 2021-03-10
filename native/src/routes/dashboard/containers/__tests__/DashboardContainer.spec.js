@@ -89,10 +89,7 @@ describe('DashboardContainer', () => {
         city: city.code,
         switchingLanguage: switchingLanguage !== undefined ? switchingLanguage : false,
         languages: languages || { status: 'ready', models: [language] },
-        categoriesRouteMapping: routeState ? { 'route-id-0': routeState } : {},
-        eventsRouteMapping: {},
-        poisRouteMapping: {},
-        newsRouteMapping: {},
+        routeMapping: routeState ? { 'route-id-0': routeState } : {},
         resourceCache: resourceCacheState || { status: 'ready', progress: 0, value: resourceCache },
         searchRoute: null
       },
@@ -112,6 +109,7 @@ describe('DashboardContainer', () => {
     {})
 
   const successfulRouteState: CategoryRouteStateType = {
+    routeType: 'category',
     status: 'ready',
     path: rootCategory.path,
     depth: 2,
@@ -148,6 +146,7 @@ describe('DashboardContainer', () => {
 
   it('should display error if the route has the status error', () => {
     const state: StateType = prepareState({
+      routeType: 'category',
       status: 'error',
       path: rootCategory.path,
       depth: 2,
@@ -193,6 +192,7 @@ describe('DashboardContainer', () => {
 
   it('should display loading indicator if the route is loading long enough', () => {
     const state: StateType = prepareState({
+      routeType: 'category',
       status: 'loading',
       path: rootCategory.path,
       depth: 2,
@@ -219,6 +219,7 @@ describe('DashboardContainer', () => {
 
   it('should display LanguageNotAvailable if the route has the corresponding status', () => {
     const state = prepareState({
+      routeType: 'category',
       status: 'languageNotAvailable',
       depth: 2,
       city: city.code,

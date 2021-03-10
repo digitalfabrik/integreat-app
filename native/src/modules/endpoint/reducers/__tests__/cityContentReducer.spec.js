@@ -118,10 +118,7 @@ describe('cityContentReducer', () => {
   beforeEach(() => {
     prevState = {
       city: 'augsburg',
-      categoriesRouteMapping: {},
-      eventsRouteMapping: {},
-      poisRouteMapping: {},
-      newsRouteMapping: {},
+      routeMapping: {},
       languages: { status: 'ready', models: languageModels },
       resourceCache: { status: 'ready', progress: 0, value: {} },
       searchRoute: null,
@@ -132,12 +129,9 @@ describe('cityContentReducer', () => {
   it('should set switchingLanguage to true on SWITCH_CONTENT_LANGUAGE', () => {
     const prevState: CityContentStateType = {
       city: 'augsburg',
-      categoriesRouteMapping: {},
-      eventsRouteMapping: {},
-      poisRouteMapping: {},
+      routeMapping: {},
       languages: { status: 'ready', models: [] },
       resourceCache: { status: 'ready', progress: 0, value: {} },
-      newsRouteMapping: {},
       searchRoute: null,
       switchingLanguage: false
     }
@@ -147,10 +141,7 @@ describe('cityContentReducer', () => {
   it('should set switchingLanguage to false on SWITCH_CONTENT_LANGUAGE_FAILED', () => {
     const prevState: CityContentStateType = {
       city: 'augsburg',
-      categoriesRouteMapping: {},
-      eventsRouteMapping: {},
-      poisRouteMapping: {},
-      newsRouteMapping: {},
+      routeMapping: {},
       languages: { status: 'ready', models: [] },
       resourceCache: { status: 'ready', progress: 0, value: {} },
       searchRoute: null,
@@ -162,10 +153,7 @@ describe('cityContentReducer', () => {
   it('should set languages on PUSH_LANGUAGES', () => {
     const prevState: CityContentStateType = {
       city: 'augsburg',
-      categoriesRouteMapping: {},
-      eventsRouteMapping: {},
-      poisRouteMapping: {},
-      newsRouteMapping: {},
+      routeMapping: {},
       languages: { status: 'ready', models: [] },
       resourceCache: { status: 'ready', progress: 0, value: {} },
       searchRoute: null,
@@ -178,10 +166,7 @@ describe('cityContentReducer', () => {
   it('should set error on FETCH_LANGUAGES_FAILED', () => {
     const prevState: CityContentStateType = {
       city: 'augsburg',
-      categoriesRouteMapping: {},
-      eventsRouteMapping: {},
-      poisRouteMapping: {},
-      newsRouteMapping: {},
+      routeMapping: {},
       languages: { status: 'ready', models: [] },
       resourceCache: { status: 'ready', progress: 0, value: {} },
       searchRoute: null,
@@ -204,18 +189,16 @@ describe('cityContentReducer', () => {
     }
 
     expect(cityContentReducer(null, action)).toEqual({
-      categoriesRouteMapping: {},
       city: 'augsburg',
-      eventsRouteMapping: {
+      routeMapping: {
         'route-id-0': {
+          routeType: 'event',
           language: 'de',
           city: 'augsburg',
           path: null,
           status: 'loading'
         }
       },
-      poisRouteMapping: {},
-      newsRouteMapping: {},
       languages: { status: 'loading' },
       resourceCache: { status: 'ready', progress: 0, value: {} },
       searchRoute: null,
@@ -226,10 +209,9 @@ describe('cityContentReducer', () => {
   it('should clear the event route on CLEAR_EVENT', () => {
     const prevState: CityContentStateType = {
       city: 'augsburg',
-      categoriesRouteMapping: {},
-      newsRouteMapping: {},
-      eventsRouteMapping: {
+      routeMapping: {
         'route-id-0': {
+          routeType: 'event',
           status: 'error',
           language: 'de',
           city: 'augsburg',
@@ -238,7 +220,6 @@ describe('cityContentReducer', () => {
           code: ErrorCodes.UnknownError
         }
       },
-      poisRouteMapping: {},
       languages: { status: 'ready', models: languageModels },
       resourceCache: { status: 'ready', progress: 0, value: {} },
       searchRoute: null,
@@ -248,23 +229,21 @@ describe('cityContentReducer', () => {
     expect(cityContentReducer(prevState, {
       type: 'CLEAR_EVENT',
       params: { key: 'route-id-0' }
-    })?.eventsRouteMapping).toEqual({})
+    })?.routeMapping).toEqual({})
   })
 
   it('should set the route status to languageNotAvailable on FETCH_EVENT_FAILED with available languages', () => {
     const prevState: CityContentStateType = {
       city: 'augsburg',
-      categoriesRouteMapping: {},
-      newsRouteMapping: {},
-      eventsRouteMapping: {
+      routeMapping: {
         'route-id-0': {
+          routeType: 'event',
           status: 'loading',
           language: 'de',
           city: 'augsburg',
           path: null
         }
       },
-      poisRouteMapping: {},
       languages: { status: 'ready', models: languageModels },
       resourceCache: { status: 'ready', progress: 0, value: {} },
       searchRoute: null,
@@ -282,7 +261,8 @@ describe('cityContentReducer', () => {
         city: 'augsburg',
         language: 'de'
       }
-    })?.eventsRouteMapping['route-id-0']).toEqual({
+    })?.routeMapping['route-id-0']).toEqual({
+      routeType: 'event',
       status: 'languageNotAvailable',
       code: ErrorCodes.PageNotFound,
       language: 'de',
@@ -294,17 +274,15 @@ describe('cityContentReducer', () => {
   it('should pass the error to the corresponding route on FETCH_EVENT_FAILED', () => {
     const prevState: CityContentStateType = {
       city: 'augsburg',
-      categoriesRouteMapping: {},
-      newsRouteMapping: {},
-      eventsRouteMapping: {
+      routeMapping: {
         'route-id-0': {
+          routeType: 'event',
           status: 'loading',
           language: 'de',
           city: 'augsburg',
           path: null
         }
       },
-      poisRouteMapping: {},
       languages: { status: 'ready', models: languageModels },
       resourceCache: { status: 'ready', progress: 0, value: {} },
       searchRoute: null,
@@ -322,7 +300,8 @@ describe('cityContentReducer', () => {
         language: 'de',
         allAvailableLanguages: null
       }
-    })?.eventsRouteMapping['route-id-0']).toEqual({
+    })?.routeMapping['route-id-0']).toEqual({
+      routeType: 'event',
       status: 'error',
       language: 'de',
       city: 'augsburg',
@@ -346,15 +325,17 @@ describe('cityContentReducer', () => {
     }
 
     expect(cityContentReducer(null, action)).toEqual({
-      categoriesRouteMapping: {
+      routeMapping: {
         'route-id-0': {
-          city: 'augsburg', depth: 2, language: 'de', path: '/augsburg/de', status: 'loading'
+          routeType: 'category',
+          city: 'augsburg',
+          depth: 2,
+          language: 'de',
+          path: '/augsburg/de',
+          status: 'loading'
         }
       },
       city: 'augsburg',
-      eventsRouteMapping: {},
-      poisRouteMapping: {},
-      newsRouteMapping: {},
       languages: { status: 'loading' },
       resourceCache: { status: 'ready', progress: 0, value: {} },
       searchRoute: null,
@@ -365,8 +346,9 @@ describe('cityContentReducer', () => {
   it('should clear the category route on CLEAR_CATEGORY', () => {
     const prevState: CityContentStateType = {
       city: 'augsburg',
-      categoriesRouteMapping: {
+      routeMapping: {
         'route-id-0': {
+          routeType: 'category',
           status: 'error',
           language: 'de',
           depth: 2,
@@ -376,9 +358,6 @@ describe('cityContentReducer', () => {
           code: ErrorCodes.UnknownError
         }
       },
-      eventsRouteMapping: {},
-      poisRouteMapping: {},
-      newsRouteMapping: {},
       languages: { status: 'ready', models: languageModels },
       resourceCache: { status: 'ready', progress: 0, value: {} },
       searchRoute: null,
@@ -388,15 +367,16 @@ describe('cityContentReducer', () => {
     expect(cityContentReducer(prevState, {
       type: 'CLEAR_CATEGORY',
       params: { key: 'route-id-0' }
-    })?.categoriesRouteMapping).toEqual({})
+    })?.routeMapping).toEqual({})
   })
 
   it('should set route status to languageNotAvailable on FETCH_CATEGORY_FAILED if allAvailableLanguages is not null',
     () => {
       const prevState: CityContentStateType = {
         city: 'augsburg',
-        categoriesRouteMapping: {
+        routeMapping: {
           'route-id-0': {
+            routeType: 'category',
             status: 'loading',
             language: 'de',
             path: '/augsburg/de',
@@ -404,9 +384,6 @@ describe('cityContentReducer', () => {
             city: 'augsburg'
           }
         },
-        eventsRouteMapping: {},
-        poisRouteMapping: {},
-        newsRouteMapping: {},
         languages: { status: 'ready', models: languageModels },
         resourceCache: { status: 'ready', progress: 0, value: {} },
         searchRoute: null,
@@ -424,7 +401,8 @@ describe('cityContentReducer', () => {
           path: '/augsburg/de',
           depth: 2
         }
-      })?.categoriesRouteMapping['route-id-0']).toEqual({
+      })?.routeMapping['route-id-0']).toEqual({
+        routeType: 'category',
         status: 'languageNotAvailable',
         language: 'de',
         allAvailableLanguages: new Map([['en', '/augsburg/en']]),
@@ -436,8 +414,9 @@ describe('cityContentReducer', () => {
   it('should pass the error to the corresponding route on FETCH_CATEGORY_FAILED', () => {
     const prevState: CityContentStateType = {
       city: 'augsburg',
-      categoriesRouteMapping: {
+      routeMapping: {
         'route-id-0': {
+          routeType: 'category',
           status: 'loading',
           language: 'de',
           path: '/augsburg/de',
@@ -445,9 +424,6 @@ describe('cityContentReducer', () => {
           city: 'augsburg'
         }
       },
-      eventsRouteMapping: {},
-      poisRouteMapping: {},
-      newsRouteMapping: {},
       languages: { status: 'ready', models: languageModels },
       resourceCache: { status: 'ready', progress: 0, value: {} },
       searchRoute: null,
@@ -466,7 +442,8 @@ describe('cityContentReducer', () => {
         language: 'de',
         depth: 2
       }
-    })?.categoriesRouteMapping['route-id-0']).toEqual({
+    })?.routeMapping['route-id-0']).toEqual({
+      routeType: 'category',
       status: 'error',
       language: 'de',
       path: '/augsburg/de',
@@ -480,10 +457,7 @@ describe('cityContentReducer', () => {
   it('should clear the cityContentState on CLEAR_CITY', () => {
     const prevState = {
       city: 'augsburg',
-      categoriesRouteMapping: {},
-      eventsRouteMapping: {},
-      poisRouteMapping: {},
-      newsRouteMapping: {},
+      routeMapping: {},
       languages: { status: 'ready', models: languageModels },
       resourceCache: { status: 'ready', progress: 0, value: {} },
       searchRoute: null,

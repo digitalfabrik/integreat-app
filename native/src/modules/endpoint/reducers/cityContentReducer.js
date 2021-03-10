@@ -17,14 +17,16 @@ export default (
   if (action.type === 'FETCH_CATEGORY') {
     const { language, path, depth, key, city } = action.params
     const initializedState = state || createCityContent(city)
-    const oldContent = state && state.categoriesRouteMapping[key] ? state.categoriesRouteMapping[key] : {}
+    const reuseOldContent = state && state.routeMapping[key] && state.routeMapping[key].routeType === 'category'
+    const oldContent = reuseOldContent ? state?.routeMapping[key] : {}
 
     return {
       ...initializedState,
-      categoriesRouteMapping: {
-        ...initializedState.categoriesRouteMapping,
+      routeMapping: {
+        ...initializedState.routeMapping,
         [key]: {
           ...oldContent,
+          routeType: 'category',
           status: 'loading',
           language,
           depth,
@@ -36,14 +38,16 @@ export default (
   } else if (action.type === 'FETCH_EVENT') {
     const { language, path, key, city } = action.params
     const initializedState = state || createCityContent(city)
-    const oldContent = state && state.eventsRouteMapping[key] ? state.eventsRouteMapping[key] : {}
+    const reuseOldContent = state && state.routeMapping[key] && state.routeMapping[key].routeType === 'event'
+    const oldContent = reuseOldContent ? state?.routeMapping[key] : {}
 
     return {
       ...initializedState,
-      eventsRouteMapping: {
-        ...initializedState.eventsRouteMapping,
+      routeMapping: {
+        ...initializedState.routeMapping,
         [key]: {
           ...oldContent,
+          routeType: 'event',
           status: 'loading',
           language,
           city,
@@ -56,9 +60,9 @@ export default (
     const initializedState = state || createCityContent(city)
     return {
       ...initializedState,
-      newsRouteMapping: {
-        ...initializedState.newsRouteMapping,
-        [key]: { status: 'loading', language, city, newsId, type }
+      routeMapping: {
+        ...initializedState.routeMapping,
+        [key]: { routeType: 'news', status: 'loading', language, city, newsId, type }
       }
     }
   } else if (action.type === 'FETCH_MORE_NEWS') {
@@ -66,9 +70,18 @@ export default (
     const initializedState = state || createCityContent(city)
     return {
       ...initializedState,
-      newsRouteMapping: {
-        ...initializedState.newsRouteMapping,
-        [key]: { status: 'loadingMore', language, city, newsId, type, page, models: previouslyFetchedNews }
+      routeMapping: {
+        ...initializedState.routeMapping,
+        [key]: {
+          routeType: 'news',
+          status: 'loadingMore',
+          models: previouslyFetchedNews,
+          language,
+          city,
+          newsId,
+          type,
+          page
+        }
       }
     }
   } else if (action.type === 'FETCH_POI') {
@@ -76,9 +89,9 @@ export default (
     const initializedState = state || createCityContent(city)
     return {
       ...initializedState,
-      poisRouteMapping: {
-        ...initializedState.poisRouteMapping,
-        [key]: { status: 'loading', language, city, path }
+      routeMapping: {
+        ...initializedState.routeMapping,
+        [key]: { routeType: 'poi', status: 'loading', language, city, path }
       }
     }
   } else {
@@ -121,58 +134,46 @@ export default (
         const { message, key, allAvailableLanguages, newsId, type, ...rest } = action.params
         return {
           ...state,
-          newsRouteMapping: {
-            ...state.newsRouteMapping,
+          routeMapping: {
+            ...state.routeMapping,
             [key]: allAvailableLanguages
-              ? { status: 'languageNotAvailable', type, allAvailableLanguages, ...rest }
-              : { status: 'error', message, newsId, type, ...rest }
+              ? { routeType: 'news', status: 'languageNotAvailable', type, allAvailableLanguages, ...rest }
+              : { routeType: 'news', status: 'error', message, newsId, type, ...rest }
           }
         }
       }
+      case 'CLEAR_CATEGORY':
+      case 'CLEAR_EVENT':
       case 'CLEAR_NEWS': {
         const { key } = action.params
         return {
           ...state,
-          newsRouteMapping: omit(state.newsRouteMapping, [key])
+          routeMapping: omit(state.routeMapping, [key])
         }
       }
       case 'MORPH_CONTENT_LANGUAGE':
         return morphContentLanguage(state, action)
-      case 'CLEAR_EVENT': {
-        const { key } = action.params
-        return {
-          ...state,
-          eventsRouteMapping: omit(state.eventsRouteMapping, [key])
-        }
-      }
       case 'FETCH_EVENT_FAILED': {
         const { message, key, allAvailableLanguages, path, ...rest } = action.params
         return {
           ...state,
-          eventsRouteMapping: {
-            ...state.eventsRouteMapping,
+          routeMapping: {
+            ...state.routeMapping,
             [key]: allAvailableLanguages
-              ? { status: 'languageNotAvailable', allAvailableLanguages, ...rest }
-              : { status: 'error', message, path, ...rest }
+              ? { routeType: 'event', status: 'languageNotAvailable', allAvailableLanguages, ...rest }
+              : { routeType: 'event', status: 'error', message, path, ...rest }
           }
-        }
-      }
-      case 'CLEAR_CATEGORY': {
-        const { key } = action.params
-        return {
-          ...state,
-          categoriesRouteMapping: omit(state.categoriesRouteMapping, [key])
         }
       }
       case 'FETCH_CATEGORY_FAILED': {
         const { message, code, key, allAvailableLanguages, path, ...rest } = action.params
         return {
           ...state,
-          categoriesRouteMapping: {
-            ...state.categoriesRouteMapping,
+          routeMapping: {
+            ...state.routeMapping,
             [key]: allAvailableLanguages
-              ? { status: 'languageNotAvailable', allAvailableLanguages, ...rest }
-              : { status: 'error', message, code, path, ...rest }
+              ? { routeType: 'category', status: 'languageNotAvailable', allAvailableLanguages, ...rest }
+              : { routeType: 'category', status: 'error', message, code, path, ...rest }
           }
         }
       }

@@ -1,6 +1,6 @@
 // @flow
 
-import type { NewsModelsType, NewsRouteStateType, StateType } from '../../../modules/app/StateType'
+import type { NewsModelsType, StateType } from '../../../modules/app/StateType'
 import type { FetchMoreNewsActionType, StoreActionType } from '../../../modules/app/StoreActionType'
 import { connect } from 'react-redux'
 import { type TFunction, withTranslation } from 'react-i18next'
@@ -97,10 +97,11 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     return { status: 'routeNotInitialized' }
   }
 
-  const { newsRouteMapping, switchingLanguage, languages } = state.cityContent
+  const { routeMapping, switchingLanguage, languages } = state.cityContent
 
-  const route: ?NewsRouteStateType = newsRouteMapping[key]
-  if (!route) {
+  const route = routeMapping[key]
+
+  if (!route || route.routeType !== 'news') {
     return { status: 'routeNotInitialized' }
   }
 

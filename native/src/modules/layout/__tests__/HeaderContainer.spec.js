@@ -32,7 +32,7 @@ describe('HeaderContainer', () => {
   const [city] = new CityModelBuilder(1).build()
   const languages = new LanguageModelBuilder(1).build()
   const language = languages[0]
-
+  const key = 'routeKey1'
   const prepareState = (): StateType => {
     return {
       darkMode: false,
@@ -43,9 +43,9 @@ describe('HeaderContainer', () => {
           status: 'ready',
           models: [language]
         },
-        eventsRouteMapping: {},
-        categoriesRouteMapping: {
-          routeKey1: {
+        routeMapping: {
+          [key]: {
+            routeType: 'category',
             status: 'ready',
             path: 'abc',
             depth: 1,
@@ -56,8 +56,6 @@ describe('HeaderContainer', () => {
             children: {}
           }
         },
-        poisRouteMapping: {},
-        newsRouteMapping: {},
         searchRoute: null,
         resourceCache: {
           status: 'ready',

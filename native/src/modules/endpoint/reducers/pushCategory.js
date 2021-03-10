@@ -1,6 +1,6 @@
 // @flow
 
-import type { CategoryRouteStateType, CityContentStateType, PathType } from '../../app/StateType'
+import type { CategoryRouteStateType, CityContentStateType, PathType, RouteStateType } from '../../app/StateType'
 import type { PushCategoryActionType } from '../../app/StoreActionType'
 import { CategoriesMapModel, CategoryModel, LanguageModel } from 'api-client'
 import forEachTreeNode from '../../common/forEachTreeNode'
@@ -51,6 +51,7 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
 
   if (!root) {
     const route: CategoryRouteStateType = {
+      routeType: 'category',
       path: path,
       depth: depth,
       language,
@@ -62,8 +63,8 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
 
     return {
       ...state,
-      categoriesRouteMapping: {
-        ...state.categoriesRouteMapping,
+      routeMapping: {
+        ...state.routeMapping,
         [key]: route
       },
       resourceCache: {
@@ -77,25 +78,32 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
 
   // Check whether another page in the same city is loading, e.g. because it is being refreshed.
   // This is important for displaying the loading spinner.
-  const otherPageLoading = values<CategoryRouteStateType>(state.categoriesRouteMapping)
-    .filter(route => city === route.city && path !== route.path && language === route.language)
+  const otherPageLoading = values<RouteStateType>(state.routeMapping)
+    .filter(route => route.routeType === 'category' &&
+      city === route.city &&
+      path !== route.path &&
+      language === route.language)
     .some(route => route.status === 'loading')
 
-  const newCategoriesRouteMapping = { ...state.categoriesRouteMapping }
+  const newRouteMapping = { ...state.routeMapping }
 
   if (refresh) {
     // Update all open routes in the same city with the new content in case the content has been refreshed
-    entries<CategoryRouteStateType>(state.categoriesRouteMapping)
-      .filter(([_, route]) => city === route.city && path !== route.path && language === route.language)
+    entries<RouteStateType>(state.routeMapping)
+      .filter(([_, route]) => route.routeType === 'category' &&
+        city === route.city &&
+        path !== route.path &&
+        language === route.language)
       .forEach(([key, route]) => {
-        if (route.status === 'languageNotAvailable') {
+        if (route.routeType !== 'category' || route.status === 'languageNotAvailable') {
           return
         }
 
         const root: ?CategoryModel = categoriesMap.findCategoryByPath(route.path)
 
         if (!root) {
-          newCategoriesRouteMapping[key] = {
+          newRouteMapping[key] = {
+            routeType: 'category',
             status: 'error',
             message: `Could not find a category with path '${path}'.`,
             code: ErrorCodes.PageNotFound,
@@ -107,13 +115,17 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
         } else {
           const { resultModels, resultChildren } = extractResultModelsAndChildren(root, categoriesMap, depth)
 
-          const previousMapping = state.categoriesRouteMapping[key]
+          const previousMapping = state.routeMapping[key]
 
+          if (previousMapping.routeType !== 'category') {
+            throw Error('Previous mapping was not a category')
+          }
           if (!previousMapping.path) {
             throw Error('Path in previous mapping is null')
           }
 
-          newCategoriesRouteMapping[key] = {
+          newRouteMapping[key] = {
+            routeType: 'category',
             status: 'ready',
             models: resultModels,
             children: resultChildren,
@@ -130,6 +142,7 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
   const { resultModels, resultChildren } = extractResultModelsAndChildren(root, categoriesMap, depth)
 
   const newRouteData = {
+    routeType: 'category',
     path: root.path,
     models: resultModels,
     children: resultChildren,
@@ -145,8 +158,8 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
 
   return {
     ...state,
-    categoriesRouteMapping: {
-      ...newCategoriesRouteMapping,
+    routeMapping: {
+      ...newRouteMapping,
       [key]: newRoute
     },
     resourceCache: {

@@ -26,6 +26,7 @@ export type CategoryRouteConfigType = {|
 |}
 
 export type CategoryRouteStateType = {|
+  +routeType: 'category',
   +status: 'ready',
   ...CategoryRouteConfigType,
   +allAvailableLanguages: $ReadOnlyMap<string, string>, // including the current content language
@@ -34,18 +35,21 @@ export type CategoryRouteStateType = {|
                                                               in the state. This would be an optimization! */
   +children: $ReadOnly<{ [path: PathType]: $ReadOnlyArray<PathType> }>
 |} | {|
+  +routeType: 'category',
   +status: 'languageNotAvailable',
   +depth: number,
   +city: string,
   +language: string,
   +allAvailableLanguages: $ReadOnlyMap<string, string>
 |} | {|
+  +routeType: 'category',
   +status: 'loading',
   ...CategoryRouteConfigType,
   +allAvailableLanguages?: $ReadOnlyMap<string, string>,
   +models?: $ReadOnly<{ [path: PathType]: CategoryModel }>,
   +children?: $ReadOnly<{ [path: PathType]: $ReadOnlyArray<PathType> }>
 |} | {|
+  +routeType: 'category',
   +status: 'error',
   ...CategoryRouteConfigType,
   +message: string,
@@ -59,18 +63,22 @@ export type PoiRouteConfigType = {|
 |}
 
 export type PoiRouteStateType = {|
+  +routeType: 'poi',
   +status: 'ready',
   ...PoiRouteConfigType,
   +models: $ReadOnlyArray<PoiModel>,
   +allAvailableLanguages: $ReadOnlyMap<string, ?string> // including the current content language
 |} | {|
+  +routeType: 'poi',
   +status: 'languageNotAvailable',
   ...PoiRouteConfigType,
   +allAvailableLanguages: $ReadOnlyMap<string, ?string>
 |} | {|
+  +routeType: 'poi',
   +status: 'loading',
   ...PoiRouteConfigType
 |} | {|
+  +routeType: 'poi',
   +status: 'error',
   ...PoiRouteConfigType,
   +code: ErrorCodeType,
@@ -84,20 +92,24 @@ export type EventRouteConfigType = {|
 |}
 
 export type EventRouteStateType = {|
+  +routeType: 'event',
   +status: 'ready',
   ...EventRouteConfigType,
   +models: $ReadOnlyArray<EventModel>,
   +allAvailableLanguages: $ReadOnlyMap<string, ?string> // including the current content language
 |} | {|
+  +routeType: 'event',
   +status: 'languageNotAvailable',
   ...EventRouteConfigType,
   +allAvailableLanguages: $ReadOnlyMap<string, ?string>
 |} | {|
+  +routeType: 'event',
   +status: 'loading',
   ...EventRouteConfigType,
   +models?: $ReadOnlyArray<EventModel>,
   +allAvailableLanguages?: $ReadOnlyMap<string, ?string>
 |} | {|
+  +routeType: 'event',
   +status: 'error',
   ...EventRouteConfigType,
   +code: ErrorCodeType,
@@ -113,6 +125,7 @@ export type NewsRouteConfigType = {|
 
 export type NewsModelsType = $ReadOnlyArray<LocalNewsModel | TunewsModel>
 export type NewsRouteStateType = {|
+  +routeType: 'news',
   +status: 'ready',
   +models: NewsModelsType,
   +hasMoreNews: boolean,
@@ -120,17 +133,21 @@ export type NewsRouteStateType = {|
   ...NewsRouteConfigType,
   +allAvailableLanguages: $ReadOnlyMap<string, ?string>
   |} | {|
+  +routeType: 'news',
   +status: 'languageNotAvailable',
   ...NewsRouteConfigType,
   +allAvailableLanguages: $ReadOnlyMap<string, ?string>
   |} | {|
+  +routeType: 'news',
   +status: 'loading',
   ...NewsRouteConfigType
   |} | {|
-    +status: 'loadingMore',
+  +routeType: 'news',
+  +status: 'loadingMore',
     +models: NewsModelsType,
     ...NewsRouteConfigType
   |} | {|
+  +routeType: 'news',
   +status: 'error',
   ...NewsRouteConfigType,
   +code: ErrorCodeType,
@@ -163,22 +180,6 @@ export type ResourceCacheStateType = {|
 
 export type CityResourceCacheStateType = $ReadOnly<{
   [language: string]: LanguageResourceCacheStateType
-}>
-
-export type CategoriesRouteMappingType = $ReadOnly<{
-  [key: string]: CategoryRouteStateType
-}>
-
-export type PoisRouteMappingType = $ReadOnly<{
-  [key: string]: PoiRouteStateType
-}>
-
-export type NewsRouteMappingType = $ReadOnly<{
-  [key: string]: NewsRouteStateType
-}>
-
-export type EventsRouteMappingType = $ReadOnly<{
-  [key: string]: EventRouteStateType
 }>
 
 export type CitiesStateType = {|
@@ -215,16 +216,22 @@ export type SearchRouteType = {|
   +categoriesMap: CategoriesMapModel
 |}
 
+export type RouteStateType = CategoryRouteStateType
+  | NewsRouteStateType
+  | EventRouteStateType
+  | PoiRouteStateType
+
+export type RouteMappingType = $ReadOnly<{
+  [key: string]: RouteStateType
+}>
+
 export type CityContentStateType = {|
   +city: string,
   +switchingLanguage: boolean,
   +languages: LanguagesStateType,
-  +categoriesRouteMapping: CategoriesRouteMappingType,
-  +eventsRouteMapping: EventsRouteMappingType,
-  +poisRouteMapping: PoisRouteMappingType,
+  +routeMapping: RouteMappingType,
   +resourceCache: ResourceCacheStateType,
-  +searchRoute: SearchRouteType | null,
-  +newsRouteMapping: NewsRouteMappingType
+  +searchRoute: SearchRouteType | null
 |}
 
 export const defaultCityContentState = null

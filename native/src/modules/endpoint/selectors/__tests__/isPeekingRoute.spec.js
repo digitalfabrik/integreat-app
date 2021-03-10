@@ -11,10 +11,7 @@ describe('isPeekingRoute', () => {
         city: 'augsburg',
         switchingLanguage: false,
         languages: { status: 'ready', models: [] },
-        categoriesRouteMapping: {},
-        eventsRouteMapping: {},
-        poisRouteMapping: {},
-        newsRouteMapping: {},
+        routeMapping: {},
         resourceCache: { status: 'ready', progress: 1, value: {} },
         searchRoute: null
       },
@@ -33,10 +30,7 @@ describe('isPeekingRoute', () => {
         city: 'augsburg',
         switchingLanguage: false,
         languages: { status: 'ready', models: [] },
-        categoriesRouteMapping: {},
-        eventsRouteMapping: {},
-        poisRouteMapping: {},
-        newsRouteMapping: {},
+        routeMapping: {},
         resourceCache: { status: 'ready', progress: 1, value: {} },
         searchRoute: null
       },
