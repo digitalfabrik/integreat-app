@@ -48,8 +48,10 @@ export default ({ children }: PropsType) => {
       setI18nextInstance(i18nextInstance)
 
       // Apply ui language as language
-      i18nextInstance.on('languageChanged', uiLanguage => {
-        setLanguage(uiLanguage)
+      i18nextInstance.on('languageChanged', () => {
+        // A language mentioned in the supportedLanguages array of the config.js in the translations package
+        const matchedLanguage = i18nextInstance.languages[0]
+        setLanguage(matchedLanguage)
       })
     }
 

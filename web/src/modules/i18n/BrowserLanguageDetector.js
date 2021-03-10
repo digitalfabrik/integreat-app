@@ -51,14 +51,7 @@ export default {
       }
     }
 
-    const iso639Codes = bcp47Tags.map(bcp47Tag => {
-      if (bcp47Tag.includes('-')) {
-        return bcp47Tag.split('-')[0]
-      }
-      return bcp47Tag
-    })
-
-    return iso639Codes.length > 0 ? iso639Codes : undefined // Returning array: new i18next v19.5.0
+    return bcp47Tags.length > 0 ? bcp47Tags : undefined // Returning array: new i18next v19.5.0
   },
   cacheUserLanguage: language => {
     if (localStorageAvailable()) {
