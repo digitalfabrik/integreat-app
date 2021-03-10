@@ -3,12 +3,21 @@
 import React from 'react'
 import { EventModel, LocationModel, DateModel } from 'api-client'
 import moment from 'moment'
-import { shallow } from 'enzyme'
-import EventListItem from '../EventListItem'
+import { Provider } from 'react-redux'
+import configureMockStore from 'redux-mock-store'
+import { render } from '@testing-library/react'
+import EventListItem, { NUM_WORDS_ALLOWED } from '../EventListItem'
 import DateFormatter from 'api-client/src/i18n/DateFormatter'
+import textTruncator from '../../../../modules/common/utils/textTruncator'
+import { ThemeProvider } from 'styled-components'
+import theme from '../../../../modules/theme/constants/theme'
+import createLocation from '../../../../createLocation'
+import { EVENTS_ROUTE } from '../../../../modules/app/route-configs/EventsRouteConfig'
+import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 
 describe('EventListItem', () => {
   const language = 'de'
+  const cities = new CityModelBuilder(2).build()
 
   const event = new EventModel({
     path: '/augsburg/en/events/first_event',
@@ -39,11 +48,26 @@ describe('EventListItem', () => {
     featuredImage: null
   })
 
-  // TODO IGAPP-399: Reactivate test
-  // eslint-disable-next-line jest/no-disabled-tests
-  it.skip('should render and match snapshot', () => {
-    expect(shallow(
-      <EventListItem event={event} formatter={new DateFormatter(language)} />
-    )).toMatchSnapshot()
+  it('should ', () => {
+    const location = createLocation({
+      payload: { city: 'augsburg', language: language },
+      pathname: '/augsburg/de/events/erstes_event',
+      type: EVENTS_ROUTE
+    })
+    const formatter = new DateFormatter(language)
+    const mockStore = configureMockStore()
+    const store = mockStore({
+      location: location,
+      cities: { data: cities, isFetching: false },
+      theme: theme
+    })
+    const { getByText } = render(
+      <ThemeProvider theme={theme} >
+        <EventListItem event={event} formatter={formatter} />
+      </ThemeProvider>)
+    expect(getByText(event.title)).toBeTruthy()
+    expect(getByText(event.date.toFormattedString(formatter))).toBeTruthy()
+    expect(getByText(event.location.location)).toBeTruthy()
+    expect(getByText(textTruncator(event.excerpt, NUM_WORDS_ALLOWED))).toBeTruthy()
   })
 })

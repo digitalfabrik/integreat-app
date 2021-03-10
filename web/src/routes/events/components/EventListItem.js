@@ -7,23 +7,20 @@ import EventPlaceholder1 from '../assets/EventPlaceholder1.jpg'
 import EventPlaceholder2 from '../assets/EventPlaceholder2.jpg'
 import EventPlaceholder3 from '../assets/EventPlaceholder3.jpg'
 import DateFormatter from 'api-client/src/i18n/DateFormatter'
+import textTruncator from '../../../modules/common/utils/textTruncator'
 
-const EXCERPT_LENGTH = 70
+export const NUM_WORDS_ALLOWED = 10
 
 type PropsType = {|
   event: EventModel,
   formatter: DateFormatter
 |}
 
-const formatExcerpt = (excerpt: string): string => {
-  return `${excerpt.slice(0, EXCERPT_LENGTH)}...`
-}
-
 /**
  * We have three placeholder thumbnails to display when cities don't provide a thumbnail
  * @returns {*} The Placeholder Thumbnail
  */
-const getEventPlaceholder = (path: string): string => {
+export const getEventPlaceholder = (path: string): string => {
   const pseudoId = path.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0)
   const placeholders = [EventPlaceholder1, EventPlaceholder2, EventPlaceholder3]
   return placeholders[pseudoId % placeholders.length]
@@ -41,7 +38,7 @@ const EventListItem = ({
         <div>{event.date.toFormattedString(formatter)}</div>
         {event.location.location && <div>{event.location.location}</div>}
       </div>
-      <div>{formatExcerpt(event.excerpt)}</div>
+      <div>{textTruncator(event.excerpt, NUM_WORDS_ALLOWED)}</div>
     </ListItem>
   )
 }
